@@ -1,6 +1,6 @@
 # llm-skills
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 面向 LLM Agent 的可复用 **Skill**、**Rule**、**Command** 工程化资产库。
 将能力与行为显式化、可组合化，而不是隐藏在零散的 Prompt 中。
@@ -27,8 +27,8 @@ llm-skills/
 ├── skills/        # Skill
 ├── rules/         # Rule
 ├── commands/      # Command
-├── templates/
-├── CONTRIBUTING.md
+├── templates/     # SKILL、RULE 等起草用模板（规划中）
+├── CONTRIBUTING.md  # 贡献指南（规划中）
 ├── LICENSE
 └── README.md
 ```
