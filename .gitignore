@@ -7,3 +7,6 @@
 
 !.cursor/commands/
 !.cursor/commands/**
+
+!.cursor/skills/
+!.cursor/skills/**
