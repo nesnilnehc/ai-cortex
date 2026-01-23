@@ -1,0 +1,9 @@
+# Ignore all Cursor files by default
+.cursor/*
+
+# Allow shared Cursor assets
+!.cursor/rules/
+!.cursor/rules/**
+
+!.cursor/commands/
+!.cursor/commands/**
