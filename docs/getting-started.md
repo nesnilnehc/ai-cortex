@@ -10,8 +10,7 @@
 
 > **说明**：涉及「在项目内创建/修改/删除 AGENTS.md」的操作，仅在**用户已授权 Agent 写入当前项目文件**时执行；否则仅进行会话内加载，不修改磁盘。
 
-**本仓库绝对地址**：<https://github.com/nesnilnehc/ai-cortex>  
-**Raw 根 URL**：<https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/>
+**本仓库绝对地址**：<https://github.com/nesnilnehc/ai-cortex>
 
 ### 安装 / 配置（默认模式）
 

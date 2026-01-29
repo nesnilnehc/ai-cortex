@@ -16,7 +16,7 @@
 
 **架构概览**：Agent 读取本仓库 **AGENTS.md** 与索引 → 按任务发现并加载技能与规则 → 用自然语言或 /command 即可使用。流程图见下；完整架构见 [逻辑架构](docs/architecture.md)。
 
-**本仓库绝对地址**：<https://github.com/nesnilnehc/ai-cortex>；Raw 根 URL：<https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/>
+**本仓库绝对地址**：<https://github.com/nesnilnehc/ai-cortex>
 
 ```mermaid
 flowchart TB
