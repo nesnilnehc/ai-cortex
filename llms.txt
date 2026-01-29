@@ -1,11 +1,11 @@
-# AI Cortex: 可插拔、可审计的 AI 技能与规则库
+# AI Cortex: 规范化的、Spec 驱动的 AI 技能与规则库；支持动静态集成方式。
 
 > [!TIP]
 > 本文件是为 LLM Agent 和 Copilot 准备的机器可读索引。
 
 ## 核心文档
 - [愿景 (VISION)](docs/vision.md): 关于显式 AI 工程的设计哲学。
-- [架构 (ARCHITECTURE)](docs/architecture.md): 资产库、规范与协议、交付与桥接（C4 分层）。
+- [架构 (ARCHITECTURE)](docs/architecture.md): 资产库、规范与协议、入口与交付（C4 分层）。
 
 ## 技术规范 (必须遵循)
 - [技能规范 (SKILL SPEC)](spec/skill.md): 创建或审计 Skill 的强制性标准。
@@ -13,11 +13,9 @@
 - [命令规范 (COMMAND SPEC)](spec/command.md): 快捷指令与意图映射规范。
 - [技能测试 (TEST SPEC)](spec/test.md): skills/tests 文件格式与运行策略。
 - [分发 (DISTRIBUTION)](spec/distribution.md): 分发渠道与交付物、入口文件。
-- [安装和配置 (INSTALLATION)](spec/installation.md): 一行命令、安装结果、config 约定。
+- [配置与使用 (INSTALLATION)](spec/installation.md): 由 Agent 读取入口、发现资产；无安装脚本。
 - [使用 (USAGE)](spec/usage.md): 发现、注入、自检与模式开关。
-- [Bridges (BRIDGES)](spec/bridges.md): 适配层契约、当前 Bridges、如何新增。
 - [智能体导引 (AGENTS.md)](AGENTS.md): Agent 操作指令手册。
-- [桥接方案 (BRIDGE)](bridges/README.md): 如何将本库接入特定 IDE/Agent。
 
 ## 全局规则 (Rules)
 - [rules/INDEX.md](rules/INDEX.md): 包含所有跨技能生效的全局行为准则。

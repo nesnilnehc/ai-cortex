@@ -1,12 +1,12 @@
 # 使用规范 (Usage)
 
-本规范定义**运行时契约**（发现、注入、自检、模式开关），供实现方（Agent/IDE）遵循。快速开始与使用说明见 [docs/getting-started.md](../docs/getting-started.md)；安装与配置见 [spec/installation.md](installation.md)。
+本规范定义**运行时契约**（发现、注入、自检、模式开关），供实现方（Agent）遵循。快速开始与使用说明见 [docs/getting-started.md](../docs/getting-started.md)；配置与使用见 [spec/installation.md](installation.md)。
 
 ---
 
 ## 1. 发现
 
-- 读取 `skills/INDEX.md` 获取能力列表；若有 `.cortex/config.json`，则以其中 `install_root` 为根解析 `skills/INDEX.md`、`rules/INDEX.md`（安装约定见 [spec/installation.md](installation.md)）。
+- 读取 `skills/INDEX.md` 获取能力列表；以当前仓库或给定的资产根（如本库根、Raw 根 URL、消费方子模块路径）解析 `skills/INDEX.md`、`rules/INDEX.md`（配置与使用见 [spec/installation.md](installation.md)）。
 - 按 `description`、`tags` 与当前任务语义匹配，选中 SKILL/RULE；若 SKILL 有 `related_skills`，按需递归或并行加载。
 
 ---
@@ -31,11 +31,11 @@
 
 | 值 | 行为 |
 | :--- | :--- |
-| `static` | 优先读本地 `skills/INDEX.md`、`rules/INDEX.md`。 |
-| `dynamic` | 不依赖本地；用 bootstrap-skills 按需从远程拉取。 |
+| `static` | 静态模式：优先读本地 `skills/INDEX.md`、`rules/INDEX.md`。 |
+| `dynamic` | 默认/动态：不依赖本地；用 bootstrap-skills 按需从远程拉取。 |
 | `auto` | 若本地存在 `skills/INDEX.md` 则按 static，否则按 dynamic。 |
 
-静态与动态差异在**安装阶段**，运行时心智模型一致（发现 → 注入 → 自检），不会造成 IDE/Agent 理解混乱。
+**动静态集成**：静态与动态差异在资产来源与安装方式，运行时心智模型一致（发现 → 注入 → 自检），不会造成 Agent 理解混乱。
 
 ---
 

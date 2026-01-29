@@ -2,15 +2,13 @@
     "project": "AI Cortex",
     "version": "1.2.0",
     "description": "Standard inventory for AI skills, rules, and commands.",
-    "description_zh": "可插拔、可审计的 AI 技能与规则库；一行安装、规范交付，支持静态与动态集成。",
+    "description_zh": "规范化的、Spec 驱动的 AI 技能与规则库；由 Agent 通过入口文件发现与使用，支持动静态集成方式。",
     "author": "AI Cortex Community",
     "license": "MIT",
     "spec_version": "1.0.0",
     "distribution": {
-        "default_install_root": ".cortex",
         "spec": "spec/distribution.md",
-        "installation_spec": "spec/installation.md",
-        "install_script": "scripts/install.sh"
+        "installation_spec": "spec/installation.md"
     },
     "registry": {
         "index": "skills/INDEX.md",
