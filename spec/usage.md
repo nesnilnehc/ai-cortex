@@ -27,12 +27,12 @@
 
 ## 4. 模式开关
 
-在 `AGENTS.md` 中设置 `CORTEX_MODE`，决定资产来源：
+在 `AGENTS.md` 中设置 `CORTEX_MODE`，决定资产来源。**默认（未设置时）为 `auto`**。
 
 | 值 | 行为 |
 | :--- | :--- |
-| `static` | 静态模式：优先读本地 `skills/INDEX.md`、`rules/INDEX.md`。 |
-| `dynamic` | 默认/动态：不依赖本地；用 bootstrap-skills 按需从远程拉取。 |
+| `static` | 静态模式：优先读本地 `skills/INDEX.md`、`rules/INDEX.md`，缺失时再使用远程。 |
+| `dynamic` | 动态模式：不依赖本地；用 bootstrap-skills 按需从远程拉取。 |
 | `auto` | 若本地存在 `skills/INDEX.md` 则按 static，否则按 dynamic。 |
 
 **动静态集成**：静态与动态差异在资产来源与安装方式，运行时心智模型一致（发现 → 注入 → 自检），不会造成 Agent 理解混乱。

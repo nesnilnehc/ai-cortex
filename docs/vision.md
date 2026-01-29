@@ -18,7 +18,7 @@
 
 ### 2. 动静态集成方式
 
-支持**默认模式**（从绝对地址按需拉取，含 bootstrap-skills 动态自举）与**静态模式**（本地索引，`CORTEX_MODE=static`）；Agent 可按需选择，无需预装所有指令。
+支持 `static` / `dynamic` / `auto` 三种模式，默认（未设置）为 `auto`；`dynamic` 从远程按需拉取（含 bootstrap-skills），`static` 优先本地索引。Agent 可按需选择，无需预装所有指令。
 
 ### 3. TDD 驱动的 AI 能力 (TDD-Driven Capabilities)
 

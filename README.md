@@ -12,7 +12,7 @@
 **规范化的、可被 Agent 发现与按需加载的** AI 技能与规则库；由 **Agent** 通过入口文件发现与使用。
 
 - **Spec 驱动（规范化）**：资产受 Spec 约束（技能/规则/命令规范），技能含自检与测试，版本化、可追溯；贡献者与 Agent 可按 spec/test.md 对技能做自检。
-- **动静态集成**：支持默认模式（从绝对地址按需拉取）与静态模式（本地索引，`CORTEX_MODE=static`）；通过统一入口（AGENTS.md）与索引及运行时契约（发现→注入→自检），降低提示词碎片化，适合多项目复用。
+- **动静态集成**：支持三种模式 `static` / `dynamic` / `auto`，默认（未设置）为 `auto`；详见 [AGENTS.md](AGENTS.md) 模式开关。通过统一入口（AGENTS.md）与索引及运行时契约（发现→注入→自检），降低提示词碎片化，适合多项目复用。
 
 **架构概览**：Agent 读取本仓库 **AGENTS.md** 与索引 → 按任务发现并加载技能与规则 → 用自然语言或 /command 即可使用。流程图见下；完整架构见 [逻辑架构](docs/architecture.md)。
 
@@ -91,7 +91,7 @@ flowchart TB
 
 ### 关于项目
 
-- **[愿景](docs/vision.md)** | **[逻辑架构](docs/architecture.md)** | **[更新日志](CHANGELOG.md)**
+- **[愿景](docs/vision.md)** | **[逻辑架构](docs/architecture.md)**
 
 **说明**：发布或 fork 时请确保 `assets/`、`docs/`、`skills/` 等已一并提交，否则 README 内链接与横幅图可能失效。
 

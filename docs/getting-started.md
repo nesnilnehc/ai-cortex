@@ -77,7 +77,7 @@
 
 ## 模式与契约（动静态集成）
 
-**动静态集成方式**：资产来源由 AGENTS.md 中 **CORTEX_MODE** 控制——默认/动态（从远程按需拉取）、静态（`static`，优先读本地）、或 `auto`（有本地则 static 否则 dynamic）。详见 [spec/usage.md](../spec/usage.md)。
+**动静态集成方式**：资产来源由 AGENTS.md 中 **CORTEX_MODE** 控制——默认（未设置时）为 `auto`；`dynamic` 为从远程按需拉取；`static` 为优先读本地；`auto` 为有本地则 static、否则 dynamic。详见 [spec/usage.md](../spec/usage.md)。
 
 ---
 

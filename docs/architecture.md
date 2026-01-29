@@ -9,7 +9,7 @@
 AI Cortex 是一个**工业级 AI 技能与规范资产库**，特色为 **规范化（Spec 驱动）** 与 **动静态集成方式**，目标为：
 
 - **Spec 驱动**：将散乱的提示词 (Prompt) 转为受 Spec 约束、可审计（资产）、工具无关的逻辑模块（Skills、Rules、Commands）；通过 spec 定义编写与运行时契约，使能力具备可预测性与可重复性。
-- **动静态集成**：通过入口文件（AGENTS.md、llms.txt、manifest.json）供 Agent 发现与使用资产；支持默认模式（从远程按需拉取）与静态模式（本地索引）；不提供安装/卸载脚本。
+- **动静态集成**：通过入口文件（AGENTS.md、llms.txt、manifest.json）供 Agent 发现与使用资产；支持三种模式（static / dynamic / auto），默认（未设置）为 auto；不提供安装/卸载脚本。
 
 ---
 
