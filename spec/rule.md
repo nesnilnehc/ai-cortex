@@ -28,4 +28,4 @@
 - `## 修正指南 (Remediation)`：当规则被触发时，Agent 应如何修正其行为。
 
 ## 4. 集成要求
-- 规则应通过 `spec/usage.md` 中定义的“嵌套加载 (Nesting)”模式，在执行任何 Skill 之前自动注入上下文。
+- 规则应按 [spec/usage.md](usage.md) 中的**嵌套加载 (Nesting)**约定，在执行任何 Skill 之前自动注入上下文。

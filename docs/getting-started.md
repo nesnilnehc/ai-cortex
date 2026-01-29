@@ -12,22 +12,12 @@
 
 **本仓库绝对地址**：<https://github.com/nesnilnehc/ai-cortex>
 
-### 安装 / 配置（默认模式）
+### 安装 / 配置
 
-让 Agent 从 AI Cortex 的绝对地址读取 AGENTS.md 并发现索引（适合任意工作区或按需从远程拉取）。复制以下提示词发给 Agent（已使用上述绝对地址）：
+让 Agent 从 AI Cortex 的绝对地址读取 AGENTS.md 并发现索引（从 Raw URL 按需加载）。复制以下提示词发给 Agent（已使用上述绝对地址）：
 
 ```text
 读取 https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/AGENTS.md，按指引发现并加载 skills/INDEX.md、rules/INDEX.md、commands/INDEX.md，后续按需使用 AI Cortex。无 AGENTS.md 则创建并写入其内容，有则追加 AI Cortex 引用。
-```
-
-### 安装 / 配置（静态模式）
-
-若在**消费方项目内**使用静态模式，应在该项目根目录的 **AGENTS.md** 中设置 `CORTEX_MODE=static`（可从上述 Raw 根 URL 获取本库 AGENTS.md 后写入或由 Agent 在创建/更新 AGENTS.md 时写入）。适用于当前项目内已有 AGENTS.md 与 `skills/INDEX.md` 等索引、希望优先读本地资产时；可独立使用。
-
-复制以下提示词发给 Agent：
-
-```text
-读取 https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/AGENTS.md，按指引发现并加载 skills/INDEX.md、rules/INDEX.md、commands/INDEX.md，后续按需使用 AI Cortex；CORTEX_MODE=static。无 AGENTS.md 则创建并写入其内容，有则追加引用并确保 CORTEX_MODE=static。
 ```
 
 ### 卸载（让 Agent 停止使用并移除已加载内容）
@@ -53,7 +43,7 @@
 
 | 入口 | 用途 |
 | :--- | :--- |
-| **AGENTS.md** | Agent 操作手册：如何发现技能/规则、自检、模式开关。 |
+| **AGENTS.md** | Agent 操作手册：如何发现技能/规则与自检。 |
 | **skills/INDEX.md** | 技能索引；按任务语义匹配并加载 SKILL。 |
 | **rules/INDEX.md** | 规则索引。 |
 | **commands/INDEX.md** | 命令索引（如 Slash 命令映射）。 |
@@ -71,12 +61,6 @@
 
 - 若希望消费方项目内“固定引用”本仓库，可将 **AGENTS.md** 复制到消费方项目根目录，并让 Agent 读取该文件；AGENTS.md 中的入口路径需指向本仓库（如 Raw 根 URL + 路径）或消费方项目内已复制的副本。
 - 或通过 Git submodule 将本仓库挂到消费方项目下，Agent 直接读子模块内的 AGENTS.md 与索引。
-
----
-
-## 模式与契约（动静态集成）
-
-**动静态集成方式**：资产来源由 AGENTS.md 中 **CORTEX_MODE** 控制——默认（未设置时）为 `auto`；`dynamic` 为从远程按需拉取；`static` 为优先读本地；`auto` 为有本地则 static、否则 dynamic。详见 [spec/usage.md](../spec/usage.md)。
 
 ---
 

@@ -1,6 +1,6 @@
 # 使用规范 (Usage)
 
-本规范定义**运行时契约**（发现、注入、自检、模式开关），供实现方（Agent）遵循。快速开始与使用说明见 [docs/getting-started.md](../docs/getting-started.md)；配置与使用见 [spec/installation.md](installation.md)。
+本规范定义**运行时契约**（发现、注入、自检），供实现方（Agent）遵循。快速开始与使用说明见 [docs/getting-started.md](../docs/getting-started.md)；配置与使用见 [spec/installation.md](installation.md)。
 
 ---
 
@@ -15,6 +15,7 @@
 
 - 将选中的 SKILL 或 RULE 的 **完整 Markdown** 作为系统指令或即时约束载入上下文。
 - 每个 SKILL/RULE 作为原子单位注入，避免碎片化复制。
+- **嵌套加载 (Nesting)**：规则须在执行任何 Skill 之前先注入（将 rules/ 下相关准则载入为恒久约束），再加载技能。
 
 ---
 
@@ -25,21 +26,7 @@
 
 ---
 
-## 4. 模式开关
-
-在 `AGENTS.md` 中设置 `CORTEX_MODE`，决定资产来源。**默认（未设置时）为 `auto`**。
-
-| 值 | 行为 |
-| :--- | :--- |
-| `static` | 静态模式：优先读本地 `skills/INDEX.md`、`rules/INDEX.md`，缺失时再使用远程。 |
-| `dynamic` | 动态模式：不依赖本地；用 bootstrap-skills 按需从远程拉取。 |
-| `auto` | 若本地存在 `skills/INDEX.md` 则按 static，否则按 dynamic。 |
-
-**动静态集成**：静态与动态差异在资产来源与安装方式，运行时心智模型一致（发现 → 注入 → 自检），不会造成 Agent 理解混乱。
-
----
-
-## 5. 组合与集成（可选）
+## 4. 组合与集成（可选）
 
 - **组合**：可链式调用多技能（如先脱敏再生成 README）；执行技能时保持全局 Rule 加载。
 - **集成方式**：云端引用（运行时拉 URL）、Git 子模块、或按 manifest 同步到本地；详见安装与分发约定。

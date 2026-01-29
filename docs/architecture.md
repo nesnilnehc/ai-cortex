@@ -6,10 +6,10 @@
 
 ## 项目目标
 
-AI Cortex 是一个**工业级 AI 技能与规范资产库**，特色为 **规范化（Spec 驱动）** 与 **动静态集成方式**，目标为：
+AI Cortex 是一个**工业级 AI 技能与规范资产库**，特色为 **规范化（Spec 驱动）** 与 **入口文件驱动**，目标为：
 
 - **Spec 驱动**：将散乱的提示词 (Prompt) 转为受 Spec 约束、可审计（资产）、工具无关的逻辑模块（Skills、Rules、Commands）；通过 spec 定义编写与运行时契约，使能力具备可预测性与可重复性。
-- **动静态集成**：通过入口文件（AGENTS.md、llms.txt、manifest.json）供 Agent 发现与使用资产；支持三种模式（static / dynamic / auto），默认（未设置）为 auto；不提供安装/卸载脚本。
+- **入口文件驱动**：通过入口文件（AGENTS.md、llms.txt、manifest.json）供 Agent 发现与使用资产；从本仓库或 Raw URL 按需加载，不提供安装/卸载脚本。
 
 ---
 
@@ -62,7 +62,7 @@ flowchart TB
     subgraph spec [规范与协议]
       Dist[分发]
       Config[配置与使用]
-      Usage[使用 · 模式开关]
+      Usage[使用]
       AssetSpec[资产编写规范]
     end
     subgraph delivery [入口与交付]
@@ -101,7 +101,7 @@ flowchart TB
 | :--- | :--- |
 | **分发** | 渠道与交付物、入口文件（AGENTS.md、llms.txt、manifest.json）。 |
 | **配置与使用** | 由 Agent 读取入口、发现资产；无安装脚本。 |
-| **使用** | 运行时契约：发现、注入、自检、模式开关（CORTEX_MODE）。 |
+| **使用** | 运行时契约：发现、注入、自检。 |
 | **资产编写规范** | 技能、规则、命令的 Schema 与质量要求。 |
 
 ### 入口与交付
@@ -116,5 +116,4 @@ flowchart TB
 
 - **规范约束资产**：Spec 定义资产的写法与运行时行为；资产按 Spec 编写与发布。
 - **入口供消费**：入口文件（AGENTS.md、llms.txt、manifest.json）指向规范与资产索引；Agent 读取入口并按 usage 契约发现、注入、自检。
-- **动静态集成**：使用规范中的模式开关（CORTEX_MODE：static / dynamic / auto）决定资产来源；dynamic 时通过 bootstrap-skills 按需从远程拉取，与“无安装脚本”一致。
 - **用户通过入口使用资产**：用户让 Agent 读取本库 AGENTS.md 与索引，按 usage 契约发现、注入、自检。

@@ -1,4 +1,4 @@
-# AI Cortex: 规范化的、Spec 驱动的 AI 技能与规则库；支持动静态集成方式。
+# AI Cortex: 规范化的、Spec 驱动的 AI 技能与规则库；入口文件驱动，按需发现与加载。
 
 > [!TIP]
 > 本文件是为 LLM Agent 和 Copilot 准备的机器可读索引。
@@ -14,7 +14,7 @@
 - [技能测试 (TEST SPEC)](spec/test.md): skills/tests 文件格式与运行策略。
 - [分发 (DISTRIBUTION)](spec/distribution.md): 分发渠道与交付物、入口文件。
 - [配置与使用 (INSTALLATION)](spec/installation.md): 由 Agent 读取入口、发现资产；无安装脚本。
-- [使用 (USAGE)](spec/usage.md): 发现、注入、自检与模式开关。
+- [使用 (USAGE)](spec/usage.md): 发现、注入、自检。
 - [智能体导引 (AGENTS.md)](AGENTS.md): Agent 操作指令手册。
 
 ## 全局规则 (Rules)

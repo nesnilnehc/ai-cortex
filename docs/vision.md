@@ -10,15 +10,15 @@
 
 ## 我们的核心理念
 
-本项目的特色是 **规范化（Spec 驱动）** 与 **动静态集成方式**。AI Cortex 不再仅仅是一个提示词的“仓库”，它已进化为一套**面向 AI 运行时的逻辑框架 (AI Logic Framework)**。
+本项目的特色是 **规范化（Spec 驱动）** 与 **入口文件驱动**。AI Cortex 不再仅仅是一个提示词的“仓库”，它已进化为一套**面向 AI 运行时的逻辑框架 (AI Logic Framework)**。
 
 ### 1. 规范化（Spec 驱动）
 
 我们通过 `spec/` 定义技能、规则、命令的编写与运行时契约，使资产可被发现、注入和验证；技能配有测试与自检，具备**可预测性**和**可重复性**。
 
-### 2. 动静态集成方式
+### 2. 入口文件驱动
 
-支持 `static` / `dynamic` / `auto` 三种模式，默认（未设置）为 `auto`；`dynamic` 从远程按需拉取（含 bootstrap-skills），`static` 优先本地索引。Agent 可按需选择，无需预装所有指令。
+通过入口文件（AGENTS.md、llms.txt、manifest.json）供 Agent 发现与使用资产；从本仓库或 Raw URL 按需加载，无需预装所有指令。
 
 ### 3. TDD 驱动的 AI 能力 (TDD-Driven Capabilities)
 

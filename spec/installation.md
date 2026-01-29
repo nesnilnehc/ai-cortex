@@ -1,6 +1,6 @@
 # 配置与使用规范 (Configuration & Usage)
 
-本规范定义如何**由 Agent** 使用本项目（动静态集成方式）：通过入口文件发现资产，无需安装脚本。
+本规范定义如何**由 Agent** 使用本项目：通过入口文件发现资产，无需安装脚本。
 
 ---
 
@@ -12,7 +12,7 @@
 
 | 入口 | 用途 |
 | :--- | :--- |
-| **AGENTS.md** | Agent 操作手册：如何发现技能/规则、自检、模式开关。 |
+| **AGENTS.md** | Agent 操作手册：如何发现技能/规则与自检。 |
 | **skills/INDEX.md** | 技能索引；按 description、tags 与任务语义匹配。 |
 | **rules/INDEX.md** | 规则索引。 |
 | **commands/INDEX.md** | 命令索引（如 Slash 命令映射）。 |
@@ -34,7 +34,7 @@
 
 ## 2. 运行时契约
 
-发现、注入、自检、模式开关等运行时行为见 [spec/usage.md](usage.md)。
+发现、注入、自检等运行时行为见 [spec/usage.md](usage.md)。
 
 ---
 

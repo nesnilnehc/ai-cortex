@@ -2,17 +2,17 @@
 
 ![AI Cortex Banner](./assets/banner.png)
 
-[![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-blue.svg)](manifest.json)
+[![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-blue.svg)](manifest.json)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![AI-Readiness: High](https://img.shields.io/badge/AI--Readiness-High-success.svg)](llms.txt)
 [![Stability: Stable](https://img.shields.io/badge/Stability-Stable-orange.svg)](docs/vision.md)
 
-本项目的特色是 **规范化（Spec 驱动）** 与 **动静态集成方式**。
+本项目的特色是 **规范化（Spec 驱动）** 与 **入口文件驱动**。
 
 **规范化的、可被 Agent 发现与按需加载的** AI 技能与规则库；由 **Agent** 通过入口文件发现与使用。
 
 - **Spec 驱动（规范化）**：资产受 Spec 约束（技能/规则/命令规范），技能含自检与测试，版本化、可追溯；贡献者与 Agent 可按 spec/test.md 对技能做自检。
-- **动静态集成**：支持三种模式 `static` / `dynamic` / `auto`，默认（未设置）为 `auto`；详见 [AGENTS.md](AGENTS.md) 模式开关。通过统一入口（AGENTS.md）与索引及运行时契约（发现→注入→自检），降低提示词碎片化，适合多项目复用。
+- **入口文件驱动**：通过统一入口（AGENTS.md）与索引及运行时契约（发现→注入→自检），从本仓库或 Raw URL 按需发现与加载，降低提示词碎片化，适合多项目复用。
 
 **架构概览**：Agent 通过入口（**AGENTS.md**、llms.txt、manifest.json）与索引发现本仓库资产 → 按任务发现并加载技能与规则 → 用自然语言或 /command 即可使用。流程图见下；完整 C4 架构见 [逻辑架构](docs/architecture.md)。
 
@@ -53,18 +53,11 @@ flowchart TB
 
 > **说明**：以下提示词中涉及「创建/修改/删除项目内 AGENTS.md」的操作，仅在**用户已授权 Agent 写入当前项目文件**时执行；默认仅将会话内加载技能与规则，不修改磁盘文件。
 
-- **安装/配置（默认模式）**  
-  让 Agent 从 AI Cortex 的绝对地址读取 AGENTS.md 并发现索引（适合任意工作区或按需从远程拉取）。
+- **安装/配置**  
+  让 Agent 从 AI Cortex 的绝对地址读取 AGENTS.md 并发现索引（从 Raw URL 按需加载）。
 
   ```text
   读取 https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/AGENTS.md，按指引发现并加载 skills/INDEX.md、rules/INDEX.md、commands/INDEX.md，后续按需使用 AI Cortex。无 AGENTS.md 则创建并写入其内容，有则追加 AI Cortex 引用。
-  ```
-
-- **安装/配置（静态模式）**  
-  安装时需将 AGENTS.md 中 `CORTEX_MODE` 设为 `static`；其余同默认模式（从绝对地址读取并发现索引）。
-
-  ```text
-  读取 https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/AGENTS.md，按指引发现并加载 skills/INDEX.md、rules/INDEX.md、commands/INDEX.md，后续按需使用 AI Cortex；CORTEX_MODE=static。无 AGENTS.md 则创建并写入其内容，有则追加引用并确保 CORTEX_MODE=static。
   ```
 
 - **卸载**（让 Agent 停止使用并移除已加载内容）  
