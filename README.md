@@ -14,7 +14,7 @@
 - **Spec 驱动（规范化）**：资产受 Spec 约束（技能/规则/命令规范），技能含自检与测试，版本化、可追溯；贡献者与 Agent 可按 spec/test.md 对技能做自检。
 - **动静态集成**：支持三种模式 `static` / `dynamic` / `auto`，默认（未设置）为 `auto`；详见 [AGENTS.md](AGENTS.md) 模式开关。通过统一入口（AGENTS.md）与索引及运行时契约（发现→注入→自检），降低提示词碎片化，适合多项目复用。
 
-**架构概览**：Agent 读取本仓库 **AGENTS.md** 与索引 → 按任务发现并加载技能与规则 → 用自然语言或 /command 即可使用。流程图见下；完整架构见 [逻辑架构](docs/architecture.md)。
+**架构概览**：Agent 通过入口（**AGENTS.md**、llms.txt、manifest.json）与索引发现本仓库资产 → 按任务发现并加载技能与规则 → 用自然语言或 /command 即可使用。流程图见下；完整 C4 架构见 [逻辑架构](docs/architecture.md)。
 
 **本仓库绝对地址**：<https://github.com/nesnilnehc/ai-cortex>
 

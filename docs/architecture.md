@@ -57,19 +57,20 @@ flowchart TB
       Skills[Skills]
       Rules[Rules]
       Commands[Commands]
+      Tests[Tests / 自检]
     end
     subgraph spec [规范与协议]
       Dist[分发]
       Config[配置与使用]
-      Usage[使用]
+      Usage[使用 · 模式开关]
       AssetSpec[资产编写规范]
     end
     subgraph delivery [入口与交付]
-      Entry[入口文件]
+      Entry[AGENTS.md · llms.txt · manifest.json]
     end
   end
   spec -->|约束| assets
-  assets -->|被| delivery
+  assets -->|被索引/引用| delivery
   delivery -->|读取| spec
 ```
 
@@ -92,6 +93,7 @@ flowchart TB
 | **Skills** | 主动任务逻辑（如脱敏、生成 README）；含 SKILL.md 与 tests/。 |
 | **Rules** | 全局行为约束（如中文技术写作规范）；被动注入。 |
 | **Commands** | 意图到技能的映射（如 `/readme` → generate-standard-readme）；供支持 Slash 命令的环境使用。 |
+| **Tests / 自检** | 技能测试用例与断言（tests/）、质量检查（Self-Check）；符合 spec/test.md，支撑 TDD 与可重复性。 |
 
 ### 规范与协议
 
@@ -113,5 +115,6 @@ flowchart TB
 ## 关系小结
 
 - **规范约束资产**：Spec 定义资产的写法与运行时行为；资产按 Spec 编写与发布。
-- **入口供消费**：入口文件指向规范与资产索引；Agent 读取入口并按 usage 契约发现、注入、自检。
+- **入口供消费**：入口文件（AGENTS.md、llms.txt、manifest.json）指向规范与资产索引；Agent 读取入口并按 usage 契约发现、注入、自检。
+- **动静态集成**：使用规范中的模式开关（CORTEX_MODE：static / dynamic / auto）决定资产来源；dynamic 时通过 bootstrap-skills 按需从远程拉取，与“无安装脚本”一致。
 - **用户通过入口使用资产**：用户让 Agent 读取本库 AGENTS.md 与索引，按 usage 契约发现、注入、自检。
