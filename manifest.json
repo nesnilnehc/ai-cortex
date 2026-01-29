@@ -1,0 +1,63 @@
+{
+    "project": "AI Cortex",
+    "version": "1.2.0",
+    "description": "Standard inventory for AI skills, rules, and commands.",
+    "description_zh": "可插拔、可审计的 AI 技能与规则库；一行安装、规范交付，支持静态与动态集成。",
+    "author": "AI Cortex Community",
+    "license": "MIT",
+    "spec_version": "1.0.0",
+    "distribution": {
+        "default_install_root": ".cortex",
+        "spec": "spec/distribution.md",
+        "installation_spec": "spec/installation.md",
+        "install_script": "scripts/install.sh"
+    },
+    "registry": {
+        "index": "skills/INDEX.md",
+        "rules_index": "rules/INDEX.md",
+        "commands_index": "commands/INDEX.md",
+        "protocols": [
+            "spec/skill.md",
+            "spec/rule.md",
+            "spec/command.md",
+            "spec/usage.md"
+        ],
+        "skills_root": "skills/",
+        "rules_root": "rules/",
+        "commands_root": "commands/",
+        "tests_root": "skills/"
+    },
+    "capabilities": [
+        {
+            "name": "bootstrap-skills",
+            "path": "skills/bootstrap-skills/SKILL.md",
+            "test_path": "skills/bootstrap-skills/tests/"
+        },
+        {
+            "name": "decontextualize-text",
+            "path": "skills/decontextualize-text/SKILL.md",
+            "test_path": "skills/decontextualize-text/tests/"
+        },
+        {
+            "name": "generate-standard-readme",
+            "path": "skills/generate-standard-readme/SKILL.md",
+            "test_path": "skills/generate-standard-readme/tests/"
+        },
+        {
+            "name": "refine-skill-design",
+            "path": "skills/refine-skill-design/SKILL.md"
+        }
+    ],
+    "rules": [
+        {
+            "name": "chinese-technical-standard",
+            "path": "rules/chinese-technical-standard.md"
+        }
+    ],
+    "commands": [
+        {
+            "name": "readme",
+            "path": "commands/readme.md"
+        }
+    ]
+}

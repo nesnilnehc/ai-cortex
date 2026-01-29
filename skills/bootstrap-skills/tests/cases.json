@@ -1,0 +1,8 @@
+[
+    {
+        "id": "bootstrap-case-001",
+        "description": "Trigger Discovery",
+        "input": "Base URL: https://github.com/example/ai-cortex/. 我现在需要把一段带有公司秘密的代码发到外网，我该怎么做？",
+        "expected_behavior": "Agent should detect the need for 'decontextualize-text', propose fetching its SKILL.md, and explain how it will use the remote spec."
+    }
+]

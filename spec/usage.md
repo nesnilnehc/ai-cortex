@@ -1,0 +1,47 @@
+# 使用规范 (Usage)
+
+本规范定义**运行时契约**（发现、注入、自检、模式开关），供实现方（Agent/IDE）遵循。快速开始与使用说明见 [docs/getting-started.md](../docs/getting-started.md)；安装与配置见 [spec/installation.md](installation.md)。
+
+---
+
+## 1. 发现
+
+- 读取 `skills/INDEX.md` 获取能力列表；若有 `.cortex/config.json`，则以其中 `install_root` 为根解析 `skills/INDEX.md`、`rules/INDEX.md`（安装约定见 [spec/installation.md](installation.md)）。
+- 按 `description`、`tags` 与当前任务语义匹配，选中 SKILL/RULE；若 SKILL 有 `related_skills`，按需递归或并行加载。
+
+---
+
+## 2. 注入
+
+- 将选中的 SKILL 或 RULE 的 **完整 Markdown** 作为系统指令或即时约束载入上下文。
+- 每个 SKILL/RULE 作为原子单位注入，避免碎片化复制。
+
+---
+
+## 3. 自检
+
+- 产出内容后，按该技能的 **「质量检查 (Self-Check)」** 章节自审，仅在所有项通过后提交。
+- 若技能定义了交互策略（如遇事询问），先暂停并向用户确认。
+
+---
+
+## 4. 模式开关
+
+在 `AGENTS.md` 中设置 `CORTEX_MODE`，决定资产来源：
+
+| 值 | 行为 |
+| :--- | :--- |
+| `static` | 优先读本地 `skills/INDEX.md`、`rules/INDEX.md`。 |
+| `dynamic` | 不依赖本地；用 bootstrap-skills 按需从远程拉取。 |
+| `auto` | 若本地存在 `skills/INDEX.md` 则按 static，否则按 dynamic。 |
+
+静态与动态差异在**安装阶段**，运行时心智模型一致（发现 → 注入 → 自检），不会造成 IDE/Agent 理解混乱。
+
+---
+
+## 5. 组合与集成（可选）
+
+- **组合**：可链式调用多技能（如先脱敏再生成 README）；执行技能时保持全局 Rule 加载。
+- **集成方式**：云端引用（运行时拉 URL）、Git 子模块、或按 manifest 同步到本地；详见安装与分发约定。
+
+资产与文档描述语言遵循 [AGENTS.md](../AGENTS.md) 沟通准则及 [spec/rule.md](rule.md) 语言与描述。

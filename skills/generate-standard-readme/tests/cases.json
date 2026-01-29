@@ -1,0 +1,8 @@
+[
+    {
+        "id": "case-readme-001",
+        "description": "Minimal Microservice Project",
+        "input": "项目名：auth-service。主要功能：负责用户登录、JWT 签发、权限校验。运行环境：Go 1.21，Redis。启动：go run main.go。配置在 env。",
+        "expected_behavior": "Suggest a structured README with Badges, Usage Examples, and Security sections."
+    }
+]
