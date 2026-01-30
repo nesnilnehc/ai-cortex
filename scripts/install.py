@@ -79,32 +79,52 @@ def _ssl_context() -> ssl.SSLContext:
     return ctx
 
 
+def _download_via_curl(zip_path: Path) -> bool:
+    """Download REPO_ARCHIVE_URL to zip_path using system curl (uses system certs on macOS). Return True on success."""
+    r = subprocess.run(
+        ["curl", "-sL", "-o", str(zip_path), REPO_ARCHIVE_URL],
+        capture_output=True,
+        timeout=120,
+    )
+    return r.returncode == 0 and zip_path.exists() and zip_path.stat().st_size > 0
+
+
 def _download_and_extract_repo() -> Path:
     """Download repo zip from GitHub and extract to a temp dir; return repo root path."""
+    import shutil
+
     tmp = Path(tempfile.mkdtemp(prefix="ai-cortex-"))
+    zip_path = tmp / "main.zip"
     try:
-        zip_path = tmp / "main.zip"
-        with urlopen(REPO_ARCHIVE_URL, context=_ssl_context()) as resp:
-            zip_path.write_bytes(resp.read())
+        try:
+            with urlopen(REPO_ARCHIVE_URL, context=_ssl_context()) as resp:
+                zip_path.write_bytes(resp.read())
+        except OSError as e:
+            if "CERTIFICATE_VERIFY_FAILED" in str(e) or "certificate" in str(e).lower():
+                if _download_via_curl(zip_path):
+                    pass  # fallback succeeded
+                else:
+                    if tmp.exists():
+                        shutil.rmtree(tmp, ignore_errors=True)
+                    raise RuntimeError(
+                        "HTTPS certificate verification failed. On macOS with Python from python.org, "
+                        "run the 'Install Certificates.command' from your Python folder, or install certifi: "
+                        "pip install certifi"
+                    ) from e
+            else:
+                if tmp.exists():
+                    shutil.rmtree(tmp, ignore_errors=True)
+                raise
+
         with zipfile.ZipFile(zip_path, "r") as zf:
             zf.extractall(tmp)
         repo_root = tmp / ARCHIVE_TOP_DIR
         if not repo_root.exists():
+            if tmp.exists():
+                shutil.rmtree(tmp, ignore_errors=True)
             raise RuntimeError(f"Archive missing top dir {ARCHIVE_TOP_DIR}")
         return repo_root
-    except OSError as e:
-        import shutil
-        if tmp.exists():
-            shutil.rmtree(tmp, ignore_errors=True)
-        if "CERTIFICATE_VERIFY_FAILED" in str(e) or "certificate" in str(e).lower():
-            raise RuntimeError(
-                "HTTPS certificate verification failed. On macOS with Python from python.org, "
-                "run the 'Install Certificates.command' from your Python folder, or install certifi: "
-                "pip install certifi"
-            ) from e
-        raise
     except Exception:
-        import shutil
         if tmp.exists():
             shutil.rmtree(tmp, ignore_errors=True)
         raise
