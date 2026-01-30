@@ -17,7 +17,11 @@
 
 ## 2. 文件结构与命名
 - **存放位置**：必须位于 `rules/` 根目录下或按分类划分子目录。
-- **命名规范**：使用 `kebab-case` 命名（例如 `security-policy.md`）。
+- **命名规范**：使用 `kebab-case` 命名；文件名即规则标识符，须与 YAML 元数据中的 `name` 字段一致。
+- **命名约定**（与 [rules/INDEX.md](../rules/INDEX.md) §1 分类对应）：
+  - **模式**：`{分类}-{主题}.md`，其中「分类」取 INDEX 中的一类：`writing`、`workflow`、`documentation`、`standards`、`tools`、`security`、`interaction`；「主题」为该类下的具体领域或对象，kebab-case。
+  - **示例**：`writing-chinese-technical.md`（写作类）、`workflow-import.md`（流程类）、`standards-shell.md`（标准类）、`tools-list-dir-dotfiles.md`（工具类）。
+  - **长度**：宜 2–3 段（一至两处连字符）；超过 3 段时评估是否可缩写或是否适合放入子目录。
 - **文件格式**：标准的 Markdown 文件，建议包含 YAML 元数据。
 
 ## 3. 核心章节要求

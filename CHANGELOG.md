@@ -21,6 +21,12 @@
 - **旧提示词中含 `CORTEX_MODE=static`、`CORTEX_MODE=dynamic` 或 `CORTEX_MODE=auto`**：请删除该部分，改为使用唯一的安装/配置提示词：「读取 Raw 的 AGENTS.md，按指引发现并加载 skills/INDEX.md、rules/INDEX.md、commands/INDEX.md」。
 - **若消费方需要离线或锁版本**：改用分发方式（如 Git submodule、Release 快照、按 manifest 同步到本地），而非模式开关；详见 [spec/installation.md](spec/installation.md)、[spec/distribution.md](spec/distribution.md)。
 
+### 规则 (Rules)
+
+- **重命名**：`chinese-technical-standard` → `writing-chinese-technical`（路径 `rules/chinese-technical-standard.md` 已删除，新路径 `rules/writing-chinese-technical.md`）。AGENTS.md 与 manifest.json 已更新引用；若外部有硬编码旧规则名或路径，请改为 `writing-chinese-technical` / `rules/writing-chinese-technical.md`。
+- **新增**：`workflow-import`、`workflow-documentation`、`standards-coding`、`standards-shell`、`tools-list-dir-dotfiles`、`documentation-markdown-format`。详见 [rules/INDEX.md](rules/INDEX.md)。
+- **规范**：`spec/rule.md` §2 补充规则命名约定（与 INDEX 分类对应）及文件名长度建议。
+
 ---
 
 ## [1.2.0] - 未发布

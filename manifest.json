@@ -49,8 +49,32 @@
     ],
     "rules": [
         {
-            "name": "chinese-technical-standard",
-            "path": "rules/chinese-technical-standard.md"
+            "name": "writing-chinese-technical",
+            "path": "rules/writing-chinese-technical.md"
+        },
+        {
+            "name": "workflow-import",
+            "path": "rules/workflow-import.md"
+        },
+        {
+            "name": "workflow-documentation",
+            "path": "rules/workflow-documentation.md"
+        },
+        {
+            "name": "standards-coding",
+            "path": "rules/standards-coding.md"
+        },
+        {
+            "name": "standards-shell",
+            "path": "rules/standards-shell.md"
+        },
+        {
+            "name": "tools-list-dir-dotfiles",
+            "path": "rules/tools-list-dir-dotfiles.md"
+        },
+        {
+            "name": "documentation-markdown-format",
+            "path": "rules/documentation-markdown-format.md"
         }
     ],
     "commands": [
