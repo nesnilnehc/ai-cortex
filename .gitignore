@@ -10,3 +10,17 @@
 
 !.cursor/skills/
 !.cursor/skills/**
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp / cache / logs
+*.log
+*.tmp
+*.temp
+__pycache__/
+*.pyc
+node_modules/
+.env
+.env.*
