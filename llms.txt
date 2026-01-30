@@ -1,10 +1,10 @@
-# AI Cortex: 规范化的、Spec 驱动的 AI 技能与规则库；入口文件驱动，按需发现与加载。
+# AI Cortex: Spec 驱动的 Skills/Rules/Commands 资产库；可测试、可复用。
 
 > [!TIP]
 > 本文件是为 LLM Agent 和 Copilot 准备的机器可读索引。
 
 ## 核心文档
-- [愿景 (VISION)](docs/vision.md): 关于显式 AI 工程的设计哲学。
+- [愿景 (VISION)](docs/vision.md): Spec 驱动的 Skills/Rules/Commands 资产库；可复用能力与规范、测试保障质量。
 - [架构 (ARCHITECTURE)](docs/architecture.md): 资产库、规范与协议、入口与交付（C4 分层）。
 
 ## 技术规范 (必须遵循)
@@ -12,10 +12,7 @@
 - [规则规范 (RULE SPEC)](spec/rule.md): 定义全局约束与行为准则。
 - [命令规范 (COMMAND SPEC)](spec/command.md): 快捷指令与意图映射规范。
 - [技能测试 (TEST SPEC)](spec/test.md): skills/tests 文件格式与运行策略。
-- [分发 (DISTRIBUTION)](spec/distribution.md): 分发渠道与交付物、入口文件。
-- [配置与使用 (INSTALLATION)](spec/installation.md): 由 Agent 读取入口、发现资产；无安装脚本。
-- [使用 (USAGE)](spec/usage.md): 发现、注入、自检。
-- [智能体导引 (AGENTS.md)](AGENTS.md): Agent 操作指令手册。
+- [智能体导引 (AGENTS.md)](AGENTS.md): Agent 入口与契约；发现、注入、自检见 AGENTS.md §4。
 
 ## 全局规则 (Rules)
 - [rules/INDEX.md](rules/INDEX.md): 包含所有跨技能生效的全局行为准则。
@@ -34,4 +31,4 @@
 - [refine-skill-design](skills/refine-skill-design/SKILL.md): 优化其他技能的元技能。
 
 ---
-入口文件（AGENTS.md、llms.txt、manifest）用途见 [spec/distribution.md](spec/distribution.md)。请遵循 [spec/usage.md](spec/usage.md) 进行发现、注入与自检。
+入口与使用：以 [AGENTS.md](AGENTS.md) 为入口，按 §4 进行发现、注入与自检。

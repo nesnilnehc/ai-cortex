@@ -1,15 +1,11 @@
 {
     "project": "AI Cortex",
     "version": "2.0.0",
-    "description": "Standard inventory for AI skills, rules, and commands.",
-    "description_zh": "规范化的、Spec 驱动的 AI 技能与规则库；由 Agent 通过入口文件发现与使用，按需从本仓库或 Raw URL 加载。",
+    "description": "Spec-driven inventory of AI skills, rules, and commands (with tests and self-checks).",
+    "description_zh": "Spec 驱动的 Skills/Rules/Commands 资产库（含自检与测试），用于沉淀可复用能力。",
     "author": "AI Cortex Community",
     "license": "MIT",
     "spec_version": "1.0.0",
-    "distribution": {
-        "spec": "spec/distribution.md",
-        "installation_spec": "spec/installation.md"
-    },
     "registry": {
         "index": "skills/INDEX.md",
         "rules_index": "rules/INDEX.md",
@@ -17,8 +13,7 @@
         "protocols": [
             "spec/skill.md",
             "spec/rule.md",
-            "spec/command.md",
-            "spec/usage.md"
+            "spec/command.md"
         ],
         "skills_root": "skills/",
         "rules_root": "rules/",
@@ -43,7 +38,13 @@
         },
         {
             "name": "refine-skill-design",
-            "path": "skills/refine-skill-design/SKILL.md"
+            "path": "skills/refine-skill-design/SKILL.md",
+            "test_path": "skills/refine-skill-design/tests/"
+        },
+        {
+            "name": "write-agents-entry",
+            "path": "skills/write-agents-entry/SKILL.md",
+            "test_path": "skills/write-agents-entry/tests/"
         }
     ],
     "rules": [

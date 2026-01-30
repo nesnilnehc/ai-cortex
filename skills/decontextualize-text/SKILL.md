@@ -6,7 +6,7 @@ related_skills: [generate-standard-readme]
 version: 1.2.0
 ---
 
-# Skill：去上下文化 (Decontextualize Text)
+# Skill: 去上下文化 (Decontextualize Text)
 
 ## 目的 (Purpose)
 

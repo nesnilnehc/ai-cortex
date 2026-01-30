@@ -1,0 +1,15 @@
+[
+  {
+    "id": "refine-case-001",
+    "description": "Draft skill with vague purpose and missing sections",
+    "input": "请按本仓库 refine-skill-design 技能优化以下 SKILL 草稿：\n\n---\nname: spell-check\ndescription: 这是一个检查拼写的技能。\ntags: [writing]\nversion: 0.1.0\n---\n\n# Skill: 拼写检查\n\n## 目的\n帮助用户处理文本。\n\n## 输入与输出\n输入：一段多语言文本。输出：纠正后的文本。",
+    "expected_behavior": "Output refined SKILL with: (1) concrete purpose (e.g. context-sensitive spelling/terminology, no vague '处理'); (2) full sections: Purpose, Use Cases, Behavior, I/O, Restrictions, Self-Check, Examples; (3) at least 2 examples including one edge case; (4) Diff Summary and SemVer version suggestion. Core intent (spelling/terminology correction) preserved."
+  },
+  {
+    "id": "refine-case-002",
+    "description": "Edge case: ambiguous intent draft",
+    "input": "请按本仓库 refine-skill-design 技能优化以下草稿：\n\n目的写为「帮助用户处理文件」，无 Use Cases、无 Restrictions、无示例。",
+    "expected_behavior": "Anchor intent (disambiguate '处理' into 解析/转换/合并等); add Use Cases and Restrictions (e.g. no overwrite source, no binary); add at least one edge example (e.g. empty file, large file, permission denied). Output includes Diff Summary and version suggestion; structure compliant with spec/skill.md."
+  }
+]
+

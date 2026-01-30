@@ -37,7 +37,8 @@
 | [decontextualize-text](./decontextualize-text/SKILL.md) | `1.2.0` | 消除环境依赖，实现跨边界知识流动。 | [Verified](./decontextualize-text/tests/) |
 | [generate-standard-readme](./generate-standard-readme/SKILL.md) | `1.2.0` | 为工程资产建立标准化的“第一面孔”。 | [Verified](./generate-standard-readme/tests/) |
 | [bootstrap-skills](./bootstrap-skills/SKILL.md) | `1.2.0` | 使智能体能够动态发现并热加载远程技能。 | [Verified](./bootstrap-skills/tests/) |
-| [refine-skill-design](./refine-skill-design/SKILL.md) | `1.2.0` | 审计并重构 SKILL，确保其符合工业级标准。 | Meta |
+| [refine-skill-design](./refine-skill-design/SKILL.md) | `1.2.0` | 审计并重构 SKILL，确保其符合工业级标准。 | [Verified](./refine-skill-design/tests/) |
+| [write-agents-entry](./write-agents-entry/SKILL.md) | `1.0.0` | 按本技能内嵌「产出契约」为项目撰写或修订 AGENTS.md，建立 Agent 入口与行为契约。 | [Verified](./write-agents-entry/tests/) |
 
 ---
 

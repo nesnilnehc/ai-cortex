@@ -1,12 +1,12 @@
 ---
 name: refine-skill-design
 description: 用于审计、重构和升维其他 SKILL 的元能力。通过多维度评估，确保 SKILL 达到工业级标准。
-tags: [writing, engineering-standards, meta-skill, optimization]
+tags: [writing, eng-standards, meta-skill, optimization]
 related_skills: [decontextualize-text, generate-standard-readme]
-version: 1.0.0
+version: 1.2.0
 ---
 
-# Skill：技能优化专家 (Refine Skill Design)
+# Skill: 技能优化专家 (Refine Skill Design)
 
 ## 目的 (Purpose)
 
@@ -88,3 +88,7 @@ version: 1.0.0
 > 2. 建立术语表（如果文本较长）。
 > 3. 区分“错别字”与“特定风格表达”。
 > ## 禁止：严禁修改专有名词或特定缩写，除非能确定其错误。
+
+### 示例 2：边界情况——含歧义意图的草稿
+- **输入**：某 Skill 草稿的「目的」写为“帮助用户处理文件”，无 Use Cases、无 Restrictions。
+- **预期优化**：意图锚定（“处理”拆解为解析/转换/合并等具体动词）；补全适用场景与禁止行为（如禁止覆盖源文件、禁止修改二进制）；增加至少一个边界示例（如空文件、超大文件、权限不足时的行为）。

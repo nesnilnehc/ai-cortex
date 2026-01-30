@@ -2,11 +2,11 @@
 name: bootstrap-skills
 description: 使智能体能够动态发现、获取并集成远程 AI Cortex 技能。实现能力的即时自举与异步扩展。
 tags: [automation, infrastructure, generalization]
-version: 1.0.0
+version: 1.2.0
 related_skills: [refine-skill-design]
 ---
 
-# Skill：技能自举 (Bootstrap Skills)
+# Skill: 技能自举 (Bootstrap Skills)
 
 ## 目的 (Purpose)
 赋予智能体“自主扩展能力”的逻辑。使智能体能够根据任务需求，从指定的远程 AI Cortex 仓库（通过 `llms.txt` 或 `INDEX.md`）检索并热加载所需的技能规范，从而在不修改初始 System Prompt 的情况下实现能力进化。
@@ -50,3 +50,7 @@ related_skills: [refine-skill-design]
     2. 发现 `generate-standard-readme` 技能。
     3. 读取 `https://.../skills/generate-standard-readme/SKILL.md`。
     4. 提示：“我已获得‘生成标准 README’的专业技能规范，现在开始为您起草。”
+
+### 示例 2：边界情况——索引不可用或任务无匹配
+- **场景**：用户给出 Base URL，但远程 `llms.txt` 返回 404，或 INDEX 中无与当前任务语义匹配的技能。
+- **预期行为**：不拉取全量仓库；先报错或告知“未找到可匹配的远程技能”，并建议用户核对 URL 或任务描述，或改用手头已有能力。禁止在未确认需求时拉取整站。

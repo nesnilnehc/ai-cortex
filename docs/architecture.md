@@ -6,10 +6,9 @@
 
 ## 项目目标
 
-AI Cortex 是一个**工业级 AI 技能与规范资产库**，特色为 **规范化（Spec 驱动）** 与 **入口文件驱动**，目标为：
+AI Cortex 是**Spec 驱动的 Skills/Rules/Commands 资产库**：可复用能力 + 规范与测试保障质量。目标为：
 
-- **Spec 驱动**：将散乱的提示词 (Prompt) 转为受 Spec 约束、可审计（资产）、工具无关的逻辑模块（Skills、Rules、Commands）；通过 spec 定义编写与运行时契约，使能力具备可预测性与可重复性。
-- **入口文件驱动**：通过入口文件（AGENTS.md、llms.txt、manifest.json）供 Agent 发现与使用资产；从本仓库或 Raw URL 按需加载，不提供安装/卸载脚本。
+- **Spec 驱动**：编写与运行时契约 → 可发现、可注入、可验证；可预测、可重复。
 
 ---
 
@@ -32,8 +31,8 @@ flowchart LR
   Dev -->|贡献资产与规范| Cortex
   EndUser -->|读取入口与使用| Cortex
   Integrator -->|解析 manifest / 入口| Cortex
-  Cortex -->|入口文件与索引| ConsumerRepo
-  Cortex -->|llms.txt / 按需拉取| RawURL
+  Cortex -->|仓库与索引| ConsumerRepo
+  Cortex -->|仓库读取| RawURL
 ```
 
 | 角色/系统 | 说明 |
@@ -77,7 +76,7 @@ flowchart TB
 | 容器 | 职责 | 主要产物 |
 | :--- | :--- | :--- |
 | **资产库** | 可调用的 AI 逻辑模块；技能、规则、命令及索引与测试。 | `skills/`、`rules/`、`commands/`，及各自 INDEX。 |
-| **规范与协议** | 定义编写契约（如何写技能/规则/命令）与运行时契约（如何分发、配置与使用、使用）。 | `spec/distribution.md`、`spec/installation.md`、`spec/usage.md`、`spec/skill.md`、`spec/rule.md`、`spec/command.md`。 |
+| **规范与协议** | 定义编写契约（如何写技能/规则/命令/入口）与运行时约定（发现/注入/自检）。 | `spec/skill.md`、`spec/rule.md`、`spec/command.md`；入口与使用约定见根目录 `AGENTS.md`；入口撰写见 `skills/write-agents-entry/SKILL.md`（内嵌产出契约）。 |
 | **入口与交付** | 供 Agent 发现与使用资产；无安装/同步脚本。 | `AGENTS.md`、`llms.txt`、`manifest.json`。 |
 
 ---
@@ -100,6 +99,7 @@ flowchart TB
 | 组件 | 说明 |
 | :--- | :--- |
 | **分发** | 渠道与交付物、入口文件（AGENTS.md、llms.txt、manifest.json）。 |
+| **Agent 入口撰写** | AGENTS.md 的目的、结构与内容要求；见 skills/write-agents-entry/SKILL.md 内嵌「产出契约」，供他项目参考。 |
 | **配置与使用** | 由 Agent 读取入口、发现资产；无安装脚本。 |
 | **使用** | 运行时契约：发现、注入、自检。 |
 | **资产编写规范** | 技能、规则、命令的 Schema 与质量要求。 |
@@ -115,5 +115,4 @@ flowchart TB
 ## 关系小结
 
 - **规范约束资产**：Spec 定义资产的写法与运行时行为；资产按 Spec 编写与发布。
-- **入口供消费**：入口文件（AGENTS.md、llms.txt、manifest.json）指向规范与资产索引；Agent 读取入口并按 usage 契约发现、注入、自检。
-- **用户通过入口使用资产**：用户让 Agent 读取本库 AGENTS.md 与索引，按 usage 契约发现、注入、自检。
+- **入口供消费**：入口文件（AGENTS.md、llms.txt、manifest.json）指向规范与资产索引；用户让 Agent 读取入口与索引，按 usage 契约发现、注入、自检。

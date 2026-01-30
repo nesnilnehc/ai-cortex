@@ -1,36 +1,57 @@
-# Agent 入口：AI Cortex 操作手册
+# Agent 入口 (Agent Entry)
 
-本文件是 **AI Agent** 与 AI Cortex 资产交互的**操作入口**。Agent 读取本文件后，应**立即**按下列策略发现并注册技能、规则与命令，使目标项目在 Agent 中自动识别出这些能力；之后按任务匹配并加载具体 SKILL/RULE。适用于：本仓库内使用、从 Raw URL 拉取、或在消费方项目中引用（无安装脚本，由 Agent 按入口发现）。
+本文件是 **AI Agent** 与 AI Cortex 交互的**唯一入口与契约**。目的：在 Agent 接触本项目时，明确**项目身份**、**权威来源**与**行为约定**，使 Agent 在本仓库内或引用本仓库时行为一致、可预期。
 
 ---
 
-## 1. 资产根与入口
+## 1. 项目身份
 
-- **资产根**：当前仓库根、本文件所在仓库根、或用户给定的 Raw 根 URL（如 `https://raw.githubusercontent.com/.../main/`）。所有索引与 SKILL/RULE 路径均**相对于该根**解析。
-- **入口索引**：[skills/INDEX.md](skills/INDEX.md)、[rules/INDEX.md](rules/INDEX.md)、[commands/INDEX.md](commands/INDEX.md)。
+**AI Cortex** 是一个 **Spec 驱动的 Skills/Rules/Commands 资产库**：可复用能力由 `spec/` 定义与约束，由测试与自检保障质量。详见 [docs/vision.md](docs/vision.md)、[docs/architecture.md](docs/architecture.md)。
 
-## 2. 发现与加载
+| 资产类型 | 目录 | 定义规范 |
+| :--- | :--- | :--- |
+| 技能 (Skill) | `skills/` | [spec/skill.md](spec/skill.md) |
+| 规则 (Rule) | `rules/` | [spec/rule.md](spec/rule.md) |
+| 命令 (Command) | `commands/` | [spec/command.md](spec/command.md) |
+| 技能测试 | `skills/*/tests/` | [spec/test.md](spec/test.md) |
 
-- **入口加载时（读取本文件后）**：Agent 应**立即**读取上述三个索引（`skills/INDEX.md`、`rules/INDEX.md`、`commands/INDEX.md`），将其中列出的技能、规则、命令**识别并注册为可用能力**，使目标项目在 Agent 中自动具备这些能力；后续用户任务到来时，直接基于已识别的列表进行匹配与加载，而非等到用户询问或执行任务时才去读索引。
-- **发现**：在已注册能力的基础上，按 `description`、`tags` 与当前任务语义匹配，选中 SKILL/RULE；若 SKILL 声明 `related_skills`，按需递归或并行加载。当资产根为远程 Raw URL 时，可选用 **bootstrap-skills** 等能力按需拉取索引与技能。详见 [spec/usage.md](spec/usage.md)。
-- **注入**：将选中的 SKILL 或 RULE 的**完整 Markdown** 作为系统指令或即时约束载入上下文；以原子单位注入，避免碎片化复制。
-- **自检**：产出内容后，按该技能的「质量检查 (Self-Check)」章节自审，仅在所有项通过后提交；若技能定义交互策略（如遇事询问），先暂停并向用户确认。
+能力目录与元数据：`skills/INDEX.md`、`rules/INDEX.md`、`commands/INDEX.md`；可执行能力列表（含测试路径）：仓库根目录 `manifest.json`。
 
-## 3. 规范与约束
+---
 
-- **新技能合规**：产出的与**新技能**相关的内容须通过 [spec/skill.md](spec/skill.md) 中的检查。
-- **规则前置**：在执行任何 Skill（尤其通过 /command 触发时），优先读取 `rules/` 下相关准则，并将强制性要求动态注入为恒久约束。即使当前环境无物理 `.cursorrules` 等配置文件，也须主动维护系统合法性。
+## 2. 权威来源
 
-## 4. 沟通与语言
+- **定义**：各类资产的**结构、元数据、质量要求**以 `spec/` 下对应规范为准；Agent 理解或产出技能/规则/命令时须遵循这些规范。
+- **目录**：能力列表以各 `INDEX.md` 及 `manifest.json` 为准；发现与加载时以当前仓库根或给定的资产根（含 Raw 根 URL）解析路径。
+- **使用契约**：发现、注入、自检的运行时约定见本文件 §4。
 
-- 本项目主要资产以**简体中文**描述；文档以专业、技术向中文为主。
-- 行业通用英文术语保留英文，可括号内加中文说明。
-- 若技能定义「交互策略 (Interaction Policy)」，遇歧义时先暂停并向用户确认。
-- 与 [spec/rule.md](spec/rule.md)、[spec/skill.md](spec/skill.md)、[spec/command.md](spec/command.md) 中的语言规则一致。
+---
 
-## 5. 应答策略（能力列表类询问）
+## 3. 行为约定
 
-- 当用户询问本仓库提供**哪些技能、规则或命令**（如「你有什么技能」「能做什么」）时，Agent 应**先读取对应索引**（`skills/INDEX.md`、`rules/INDEX.md`、`commands/INDEX.md`），**枚举或简要列出**名称与用途（或核心价值），再可提供索引链接供用户深入查看；不得仅回复索引 URL 而不列出具体项。
+Agent 在本项目内或引用本项目时，应当：
+
+1. **以 spec 为据**：理解定义、编写或修改资产时，遵循 [spec/skill.md](spec/skill.md)、[spec/rule.md](spec/rule.md)、[spec/command.md](spec/command.md)；运行或验证测试时遵循 [spec/test.md](spec/test.md)。
+2. **规则优先**：在执行任何 Skill 之前，须先加载 `rules/` 下相关规则为恒久约束（本文件 §4 嵌套加载）。
+3. **自检后提交**：产出内容后，须按该技能的「质量检查 (Self-Check)」自审，通过后再提交；若技能定义交互策略（如遇事询问），须先暂停并向用户确认。
+4. **能力列表类询问**：当用户问「有什么技能/规则/命令」时，须先读取对应 INDEX，**枚举名称与用途**，再可提供链接；不得仅回复 URL。
+
+---
+
+## 4. 发现与加载（概要）
+
+- **资产根**：当前仓库根、本文件所在仓库根、或用户给定的 Raw 根 URL。
+- **发现**：读取 `skills/INDEX.md`、`rules/INDEX.md`、`commands/INDEX.md`，按 `description`、`tags` 与任务语义匹配；SKILL 的 `related_skills` 按需递归或并行加载。
+- **注入**：将选中的 SKILL/RULE 的**完整 Markdown** 作为系统指令或即时约束载入；以原子单位注入。规则须在技能之前注入。
+
+细节见上文 §2–§3。
+
+---
+
+## 5. 语言与沟通
+
+- 本项目主要资产以**简体中文**描述；与 [spec/rule.md](spec/rule.md) §0 及 skill/command 规范中的语言约定一致。
+- 行业通用英文术语可保留英文，可括号内加中文说明。
 
 ---
 
@@ -38,6 +59,9 @@
 
 | 项 | 说明 |
 | :--- | :--- |
-| **规范来源** | [AI Cortex](https://github.com/nesnilnehc/ai-cortex) |
-| **本手册权威版（Raw）** | <https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/AGENTS.md>（消费方项目内可据此拉取或对比最新内容） |
-| **入口索引** | [skills/INDEX.md](skills/INDEX.md)、[rules/INDEX.md](rules/INDEX.md)、[commands/INDEX.md](commands/INDEX.md) |
+| 规范来源 | [AI Cortex](https://github.com/nesnilnehc/ai-cortex) |
+| 本手册 Raw | <https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/AGENTS.md> |
+| 定义与测试 | [spec/skill.md](spec/skill.md) · [spec/rule.md](spec/rule.md) · [spec/command.md](spec/command.md) · [spec/test.md](spec/test.md) |
+| 使用约定 | 本文件 §4 |
+| 入口撰写规范 | [skills/write-agents-entry/SKILL.md](skills/write-agents-entry/SKILL.md)（本技能内嵌「产出契约」章节，供他项目参考） |
+| 入口索引 | [skills/INDEX.md](skills/INDEX.md) · [rules/INDEX.md](rules/INDEX.md) · [commands/INDEX.md](commands/INDEX.md) |

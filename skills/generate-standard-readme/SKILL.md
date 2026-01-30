@@ -1,12 +1,12 @@
 ---
 name: generate-standard-readme
 description: 创建专业、规范的项目 README 文件。包含完整的结构、安装说明、使用示例、贡献指南等，适用于开源及企业内部项目。
-tags: [documentation, engineering-standards, devops, writing]
+tags: [documentation, eng-standards, devops, writing]
 related_skills: [decontextualize-text]
 version: 1.2.0
 ---
 
-# Skill：生成标准 README (Generate Standard README)
+# Skill: 生成标准 README (Generate Standard README)
 
 ## 目的 (Purpose)
 
@@ -134,6 +134,11 @@ version: 1.2.0
 > from myproject import Compressor
 > Compressor('images/').run()
 > ```
+
+**边界示例：信息极少的遗留项目**
+
+- **输入**：项目名：legacy-auth。描述：无。功能：无列表。环境与安装方式未知。
+- **预期行为**：仍产出结构完整的 README；在缺失处使用占位符（如「功能见源码」「安装方式待补充」）并明确标注「待补全」，不虚构功能或命令；保留徽章、章节顺序与 License 声明，便于后续补齐。
 
 ---
 
