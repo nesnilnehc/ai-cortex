@@ -63,6 +63,8 @@ curl -sL https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/scripts/ins
 curl -sL https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/scripts/uninstall.py | python3 - --target cursor
 ```
 
+若 CDN 缓存未更新或需固定版本，可将 URL 中的 `main` 改为某次提交的 SHA（如 `https://raw.githubusercontent.com/nesnilnehc/ai-cortex/<sha>/scripts/install.py`）。
+
 用户级安装/卸载时在命令末尾加 `--scope user`。项目级卸载可加 `--project-dir /path/to/project`。
 
 > Cursor User Rules 在设置页管理；脚本会生成 `~/.cursor/ai-cortex/user-rules.md` 供复制粘贴。

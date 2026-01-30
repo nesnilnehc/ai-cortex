@@ -42,4 +42,4 @@ curl -sL https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/scripts/ins
 curl -sL https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/scripts/uninstall.py | python3 - --target cursor
 ```
 
-完整说明见 [README § Cursor / TRAE 安装与卸载](../README.md#cursor--trae-安装与卸载)。
+若 CDN 缓存未更新或需固定版本，可将 URL 中的 `main` 改为某次提交的 SHA。完整说明见 [README § Cursor / TRAE 安装与卸载](../README.md#cursor--trae-安装与卸载)。
