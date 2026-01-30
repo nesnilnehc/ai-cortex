@@ -1,7 +1,11 @@
 ---
-name: standards-shell
-scope: 所有 *.sh 脚本
+description: "AI Cortex rule: Shell 脚本编码标准 (Shell Coding)"
+globs:
+  - "**/*.sh"
+alwaysApply: false
 recommended_scope: user
+managed_by: ai-cortex
+source: "rules/standards-shell.md"
 ---
 
 # Rule: Shell 脚本编码标准 (Shell Coding)

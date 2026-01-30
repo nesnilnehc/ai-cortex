@@ -1,7 +1,9 @@
 ---
-name: standards-coding
-scope: 全库代码
+description: "AI Cortex rule: 通用编码原则 (Coding Principles)"
+alwaysApply: false
 recommended_scope: user
+managed_by: ai-cortex
+source: "rules/standards-coding.md"
 ---
 
 # Rule: 通用编码原则 (Coding Principles)

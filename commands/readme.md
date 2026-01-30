@@ -1,3 +1,8 @@
+---
+name: readme
+recommended_scope: user
+---
+
 # Command: /readme
 
 ## 触发意图

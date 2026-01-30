@@ -1,7 +1,9 @@
 ---
-name: tools-list-dir-dotfiles
-scope: Agent 使用目录列举工具时
+description: "AI Cortex rule: list_dir 点文件限制 (List Dir Dotfiles Limitation)"
+alwaysApply: false
 recommended_scope: both
+managed_by: ai-cortex
+source: "rules/tools-list-dir-dotfiles.md"
 ---
 
 # Rule: list_dir 点文件限制 (List Dir Dotfiles Limitation)

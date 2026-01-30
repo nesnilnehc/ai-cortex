@@ -1,7 +1,9 @@
 ---
-name: writing-chinese-technical
-scope: 全局文档产出
+description: "AI Cortex rule: 中文技术写作规范 (Chinese Technical Writing)"
+alwaysApply: false
 recommended_scope: user
+managed_by: ai-cortex
+source: "rules/writing-chinese-technical.md"
 ---
 
 # Rule: 中文技术写作规范 (Chinese Technical Writing)

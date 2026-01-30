@@ -23,6 +23,7 @@ description: [一句话简介]
 tags: [至少包含一个来自 INDEX 的标签]
 version: [x.x.x]
 related_skills: [可选关联列表]
+recommended_scope: [可选] user | project | both  # 供安装/同步脚本使用，未写时按 both
 ---
 ```
 

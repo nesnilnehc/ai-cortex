@@ -1,7 +1,11 @@
 ---
-name: documentation-markdown-format
-scope: 所有 .md 文件
+description: "AI Cortex rule: Markdown 格式规范 (Markdown Format)"
+globs:
+  - "**/*.md"
+alwaysApply: false
 recommended_scope: user
+managed_by: ai-cortex
+source: "rules/documentation-markdown-format.md"
 ---
 
 # Rule: Markdown 格式规范 (Markdown Format)

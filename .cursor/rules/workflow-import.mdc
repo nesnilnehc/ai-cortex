@@ -1,7 +1,9 @@
 ---
-name: workflow-import
-scope: 代码重构、含模块引用的代码变更
+description: "AI Cortex rule: 代码重构引用管理 (Import Management)"
+alwaysApply: false
 recommended_scope: both
+managed_by: ai-cortex
+source: "rules/workflow-import.md"
 ---
 
 # Rule: 代码重构引用管理 (Import Management)

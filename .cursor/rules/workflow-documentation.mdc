@@ -1,7 +1,11 @@
 ---
-name: workflow-documentation
-scope: 所有新建或维护 .md 文档
+description: "AI Cortex rule: 文档管理策略 (Documentation Management)"
+globs:
+  - "**/*.md"
+alwaysApply: false
 recommended_scope: both
+managed_by: ai-cortex
+source: "rules/workflow-documentation.md"
 ---
 
 # Rule: 文档管理策略 (Documentation Management)

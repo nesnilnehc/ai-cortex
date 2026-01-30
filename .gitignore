@@ -11,6 +11,15 @@
 !.cursor/skills/
 !.cursor/skills/**
 
+# TRAE (same pattern as .cursor)
+.trae/*
+!.trae/rules/
+!.trae/rules/**
+!.trae/commands/
+!.trae/commands/**
+!.trae/skills/
+!.trae/skills/**
+
 # OS
 .DS_Store
 Thumbs.db

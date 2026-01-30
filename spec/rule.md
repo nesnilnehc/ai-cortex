@@ -23,6 +23,7 @@
   - **示例**：`writing-chinese-technical.md`（写作类）、`workflow-import.md`（流程类）、`standards-shell.md`（标准类）、`tools-list-dir-dotfiles.md`（工具类）。
   - **长度**：宜 2–3 段（一至两处连字符）；超过 3 段时评估是否可缩写或是否适合放入子目录。
 - **文件格式**：标准的 Markdown 文件，建议包含 YAML 元数据。
+- **可选元数据 `recommended_scope`**：供安装脚本与同步脚本使用，取值 `user` | `project` | `both`，表示推荐安装到用户全局、项目级或两者；未写时按 `both` 处理。见 [README](../README.md) 安装与卸载章节中的 `--preset` 说明。
 
 ## 3. 核心章节要求
 - `# Rule: [规则中文名称] ([英文名称])`
