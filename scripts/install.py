@@ -16,6 +16,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
+import ssl
 import subprocess
 import sys
 import tempfile
@@ -67,12 +68,23 @@ def _looks_like_repo(path: Path) -> bool:
     return (path / "scripts" / "install.py").exists()
 
 
+def _ssl_context() -> ssl.SSLContext:
+    """Build SSL context with default certs; on macOS, optionally use certifi if available."""
+    ctx = ssl.create_default_context()
+    try:
+        import certifi
+        ctx.load_verify_locations(certifi.where())
+    except ImportError:
+        pass
+    return ctx
+
+
 def _download_and_extract_repo() -> Path:
     """Download repo zip from GitHub and extract to a temp dir; return repo root path."""
     tmp = Path(tempfile.mkdtemp(prefix="ai-cortex-"))
     try:
         zip_path = tmp / "main.zip"
-        with urlopen(REPO_ARCHIVE_URL) as resp:
+        with urlopen(REPO_ARCHIVE_URL, context=_ssl_context()) as resp:
             zip_path.write_bytes(resp.read())
         with zipfile.ZipFile(zip_path, "r") as zf:
             zf.extractall(tmp)
@@ -80,6 +92,17 @@ def _download_and_extract_repo() -> Path:
         if not repo_root.exists():
             raise RuntimeError(f"Archive missing top dir {ARCHIVE_TOP_DIR}")
         return repo_root
+    except OSError as e:
+        import shutil
+        if tmp.exists():
+            shutil.rmtree(tmp, ignore_errors=True)
+        if "CERTIFICATE_VERIFY_FAILED" in str(e) or "certificate" in str(e).lower():
+            raise RuntimeError(
+                "HTTPS certificate verification failed. On macOS with Python from python.org, "
+                "run the 'Install Certificates.command' from your Python folder, or install certifi: "
+                "pip install certifi"
+            ) from e
+        raise
     except Exception:
         import shutil
         if tmp.exists():
