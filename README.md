@@ -2,14 +2,14 @@
 
 ![AI Cortex Banner](./assets/banner.png)
 
-[![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-blue.svg)](manifest.json)
+[![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-blue.svg)](.)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![AI-Readiness: High](https://img.shields.io/badge/AI--Readiness-High-success.svg)](llms.txt)
 [![Stability: Stable](https://img.shields.io/badge/Stability-Stable-orange.svg)](docs/positioning.md)
 
 **面向 Agent 的可治理能力资产库**：用 Spec 与测试把 Skills / Rules / Commands 变成可复用、可审计、可组合的工程资产。详见 [定位](docs/positioning.md)。
 
-### 快速开始
+## 快速开始
 
 复制下方提示词发给 Agent；fork/自托管请替换 URL。
 

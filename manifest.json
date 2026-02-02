@@ -22,11 +22,6 @@
     },
     "capabilities": [
         {
-            "name": "bootstrap-skills",
-            "path": "skills/bootstrap-skills/SKILL.md",
-            "test_path": "skills/bootstrap-skills/tests/"
-        },
-        {
             "name": "decontextualize-text",
             "path": "skills/decontextualize-text/SKILL.md",
             "test_path": "skills/decontextualize-text/tests/"
@@ -35,6 +30,11 @@
             "name": "generate-standard-readme",
             "path": "skills/generate-standard-readme/SKILL.md",
             "test_path": "skills/generate-standard-readme/tests/"
+        },
+        {
+            "name": "bootstrap-skills",
+            "path": "skills/bootstrap-skills/SKILL.md",
+            "test_path": "skills/bootstrap-skills/tests/"
         },
         {
             "name": "refine-skill-design",
