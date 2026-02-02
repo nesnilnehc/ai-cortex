@@ -14,7 +14,7 @@
   {
     "id": "case-agents-003",
     "description": "Spec-driven asset library: full structure",
-    "input": "项目名：AI Cortex。一句话定位：Spec 驱动的 Skills/Rules/Commands 资产库。资产：skills/（定义规范 spec/skill.md）、rules/（spec/rule.md）、commands/（spec/command.md）、技能测试 skills/*/tests/（spec/test.md）。能力目录：skills/INDEX.md、rules/INDEX.md、commands/INDEX.md；manifest.json 在仓库根。主要语言简体中文；支持 Raw URL 引用。",
+    "input": "项目名：AI Cortex。一句话定位：面向 Agent 的可治理能力资产库。资产：skills/（定义规范 spec/skill.md）、rules/（spec/rule.md）、commands/（spec/command.md）、技能测试 skills/*/tests/（spec/test.md）。能力目录：skills/INDEX.md、rules/INDEX.md、commands/INDEX.md；manifest.json 在仓库根。主要语言简体中文；支持 Raw URL 引用。",
     "expected_behavior": "产出的 AGENTS.md 包含开篇、项目身份（含资产类型/目录/定义规范表）、权威来源（定义在 spec/、目录在 INDEX 与 manifest、使用契约在 AGENTS.md §4 或本文件 §4）、行为约定（以 spec 为据、规则优先、自检后提交、能力列表类询问先读索引等）、发现与加载（概要）、语言与沟通、引用表（规范来源、本手册 Raw、定义与测试 spec、使用与安装、入口索引）。行为约定使用应当/须/不得；不重复 spec 全文。"
   }
 ]

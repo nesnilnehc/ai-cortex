@@ -1,6 +1,6 @@
 # 全局规则索引 (Rules Index)
 
-本文档定义了 AI Cortex 中所有跨技能生效的全局行为准则（Passive Constraints）。
+本文档定义了 AI Cortex（面向 Agent 的可治理能力资产库）中所有跨技能生效的全局行为准则（Passive Constraints）。
 
 ---
 

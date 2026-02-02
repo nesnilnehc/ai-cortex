@@ -39,7 +39,7 @@ recommended_scope: user
 
 ### 输入 (Input)
 
-- **项目一句话定位**：本项目是什么（如「Spec 驱动的 Skills/Rules/Commands 资产库」）。
+- **项目一句话定位**：本项目是什么（如「面向 Agent 的可治理能力资产库」）。
 - **一级资产与目录**：资产类型（如 Skill / Rule / Command）、所在目录、定义规范路径（如 spec/skill.md、spec/rule.md、spec/command.md）；若无某类资产可注明「无」或省略。
 - **可选**：是否提供 AGENTS.md 的 Raw URL、现有 AGENTS.md 或 README 片段（用于修订或补全）、主要描述语言（如简体中文）。
 
@@ -88,13 +88,13 @@ recommended_scope: user
 
 ## 产出契约：AGENTS.md 撰写规范
 
-以下为本技能产出 AGENTS.md 时所依据的规范，内嵌于本 SKILL.md。供采纳 Spec 驱动的 Skills/Rules/Commands 资产库形态的项目参考；本项目 [AGENTS.md](../../AGENTS.md) 遵循本规范。
+以下为本技能产出 AGENTS.md 时所依据的规范，内嵌于本 SKILL.md。供采纳“面向 Agent 的可治理能力资产库（Spec + tests）”形态的项目参考；本项目 [AGENTS.md](../../AGENTS.md) 遵循本规范。
 
 ### 1. 目的与定位
 
 - **AGENTS.md** 是 AI Agent 与项目交互的**唯一入口与契约**，通常置于仓库根目录。
 - **目的**：在 Agent 接触本项目时，明确**项目身份**、**权威来源**与**行为约定**，使 Agent 在本仓库内或引用本仓库时行为一致、可预期。
-- **受众**：具备文件读取能力的智能体（如 Cursor Agent、CLI Agent）；亦可被通过 Raw URL 引用的消费方仓库使用。
+- **受众**：具备文件读取能力的智能体（如 IDE Agent、CLI Agent）；亦可被通过 Raw URL 引用的消费方仓库使用。
 
 ### 2. 首要目标
 

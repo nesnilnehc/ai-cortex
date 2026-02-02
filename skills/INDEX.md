@@ -1,6 +1,6 @@
 # AI 技能资产索引 (Skills Index)
 
-本文档是 **AI Cortex**（仓库 [ai-cortex](https://github.com/nesnilnehc/ai-cortex)）的核心技能索引，定义了 SKILL 的标准化元数据、分类系统及版本规范。
+本文档是 **AI Cortex**（面向 Agent 的可治理能力资产库，仓库 [ai-cortex](https://github.com/nesnilnehc/ai-cortex)）的核心技能索引，定义了 SKILL 的标准化元数据、分类系统及版本规范。
 
 ---
 

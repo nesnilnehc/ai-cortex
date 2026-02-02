@@ -1,24 +1,6 @@
-# Ignore all Cursor files by default
-.cursor/*
-
-# Allow shared Cursor assets
-!.cursor/rules/
-!.cursor/rules/**
-
-!.cursor/commands/
-!.cursor/commands/**
-
-!.cursor/skills/
-!.cursor/skills/**
-
-# TRAE (same pattern as .cursor)
-.trae/*
-!.trae/rules/
-!.trae/rules/**
-!.trae/commands/
-!.trae/commands/**
-!.trae/skills/
-!.trae/skills/**
+# IDE-specific assets (no longer maintained)
+.cursor/
+.trae/
 
 # OS
 .DS_Store

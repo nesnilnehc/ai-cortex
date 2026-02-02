@@ -6,7 +6,7 @@
 
 ## 1. 项目身份
 
-**AI Cortex** 是一个 **Spec 驱动的 Skills/Rules/Commands 资产库**：可复用能力由 `spec/` 定义与约束，由测试与自检保障质量。详见 [docs/vision.md](docs/vision.md)、[docs/architecture.md](docs/architecture.md)。
+**AI Cortex** 是面向 Agent 的可治理能力资产库：用 Spec 与测试把 Skills / Rules / Commands 变成可复用、可审计、可组合的工程资产。详见 [docs/positioning.md](docs/positioning.md)。
 
 | 资产类型 | 目录 | 定义规范 |
 | :--- | :--- | :--- |

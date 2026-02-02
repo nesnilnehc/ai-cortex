@@ -1,8 +1,8 @@
 {
     "project": "AI Cortex",
     "version": "2.0.0",
-    "description": "Spec-driven inventory of AI skills, rules, and commands (with tests and self-checks).",
-    "description_zh": "Spec 驱动的 Skills/Rules/Commands 资产库（含自检与测试），用于沉淀可复用能力。",
+    "description": "Agent-first, governance-ready inventory of AI skills, rules, and commands (spec + tests).",
+    "description_zh": "面向 Agent 的可治理能力资产库：用 Spec 与测试沉淀可复用、可审计、可组合的 Skills/Rules/Commands。",
     "author": "AI Cortex Community",
     "license": "MIT",
     "spec_version": "1.0.0",

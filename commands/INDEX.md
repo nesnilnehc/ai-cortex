@@ -21,6 +21,3 @@
 | [`/readme`](./readme.md) | `generate-standard-readme` | 快速启动标准化 README 生成流程。 | `1.2.0` |
 
 ---
-
-## 3. 集成说明
-指令层旨在降低用户的认知负担。在支持 Slash Commands 的环境（如 Cursor, Windsurf）中，应将此索引映射为 IDE 的快捷菜单。

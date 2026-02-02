@@ -1,11 +1,10 @@
-# AI Cortex: Spec 驱动的 Skills/Rules/Commands 资产库；可测试、可复用。
+# AI Cortex: 面向 Agent 的可治理能力资产库；可验证、可复用、可组合。
 
 > [!TIP]
 > 本文件是为 LLM Agent 和 Copilot 准备的机器可读索引。
 
 ## 核心文档
-- [愿景 (VISION)](docs/vision.md): Spec 驱动的 Skills/Rules/Commands 资产库；可复用能力与规范、测试保障质量。
-- [架构 (ARCHITECTURE)](docs/architecture.md): 资产库、规范与协议、入口与交付（C4 分层）。
+- [定位 (POSITIONING)](docs/positioning.md): 本仓库唯一说明文档（定位、边界、权威链）。
 
 ## 技术规范 (必须遵循)
 - [技能规范 (SKILL SPEC)](spec/skill.md): 创建或审计 Skill 的强制性标准。
@@ -21,7 +20,7 @@
 - [commands/INDEX.md](commands/INDEX.md): 定义了如何通过简短指令触发复杂技能链。
 
 ## 机器可读清单
-- [Manifest](manifest.json): 自动化集成用 Registry 清单。
+- [Manifest](manifest.json): 机器可读的 Registry 清单。
 - [技能索引 (SKILLS INDEX)](skills/INDEX.md): 所有可用技能的中心注册表。
 
 ### 核心技能

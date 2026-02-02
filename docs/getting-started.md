@@ -1,6 +1,6 @@
 # 快速开始与使用
 
-两种使用方式：**提示词**（任意 Agent，零安装）或 **Cursor / TRAE 安装**（脚本写入本地）。选哪种见 [README 快速开始](../README.md#快速开始)。
+使用方式：**提示词**（任意 Agent，零安装、IDE 无关）。定位与边界见 [positioning.md](positioning.md)。
 
 约定见 [AGENTS.md](../AGENTS.md) §2–§4。
 
@@ -10,7 +10,7 @@
 
 复制下方提示词发给 Agent。fork/自托管请替换 URL。
 
-**安装 / 配置**
+**接入**
 
 ```text
 读取 https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/AGENTS.md，按指引发现并加载 skills/INDEX.md、rules/INDEX.md、commands/INDEX.md，后续按需使用 AI Cortex。无 AGENTS.md 则可在项目内创建并引用本库；有则追加引用。
@@ -26,20 +26,11 @@
 
 ---
 
-## Cursor / TRAE 方式
+## 此前通过 Cursor / TRAE 安装的用户
 
-无需克隆：下载安装脚本并执行，脚本会自动拉取仓库。**不传参数即交互式**，按提示选择 target/scope/preset。
+若此前通过安装脚本将规则/命令/技能写入 `.cursor/` 或 `.trae/`，可手动删除以下目录以卸载：
 
-安装：
+- 项目级：`./.cursor/`、`./.trae/`
+- 用户级：`~/.cursor/`、`~/.trae/` 下由 AI Cortex 写入的 `rules/`、`commands/`、`skills/` 等子目录
 
-```bash
-curl -sL https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/scripts/install.py | python3 -
-```
-
-卸载（须与安装时 `--scope` 一致；用户级加 `--scope user`）：
-
-```bash
-curl -sL https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/scripts/uninstall.py | python3 - --target cursor
-```
-
-若 CDN 缓存未更新或需固定版本，可将 URL 中的 `main` 改为某次提交的 SHA。完整说明见 [README § Cursor / TRAE 安装与卸载](../README.md#cursor--trae-安装与卸载)。
+本项目已不再提供安装/同步脚本，后续请使用提示词方式接入。详见 [定位](positioning.md)。
