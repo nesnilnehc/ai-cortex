@@ -1,5 +1,6 @@
 ---
 name: workflow-import
+version: 1.0.0
 scope: 代码重构、含模块引用的代码变更
 recommended_scope: both
 ---

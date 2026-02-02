@@ -1,0 +1,14 @@
+[
+    {
+        "id": "case-clean-001",
+        "description": "Project with tmp and misplaced doc",
+        "input": "项目根存在 tmp/、build/、根目录 QUICKSTART.md，无 docs/ 目录。",
+        "expected_behavior": "删除 tmp/、build/；将 QUICKSTART.md 移至 docs/；创建 docs/；更新 .gitignore。仅输出 diff，无分析文字。"
+    },
+    {
+        "id": "case-clean-002",
+        "description": "Edge case: already clean, no changes",
+        "input": "项目已整洁，无冗余目录与错放文件，.gitignore 已完善。",
+        "expected_behavior": "仅返回一句：No changes required."
+    }
+]

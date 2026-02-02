@@ -1,5 +1,6 @@
 ---
 name: standards-shell
+version: 1.0.0
 scope: 所有 *.sh 脚本
 recommended_scope: user
 ---
@@ -7,6 +8,7 @@ recommended_scope: user
 # Rule: Shell 脚本编码标准 (Shell Coding)
 
 ## 适用范围 (Scope)
+
 所有 Bash/Shell 脚本（`*.sh`）。在编辑或生成此类文件时自动适用。
 
 ## 强制约束 (Constraints)

@@ -1,5 +1,6 @@
 ---
 name: documentation-markdown-format
+version: 1.0.0
 scope: 所有 .md 文件
 recommended_scope: user
 ---

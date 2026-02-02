@@ -39,6 +39,10 @@
 | [bootstrap-skills](./bootstrap-skills/SKILL.md) | `1.2.0` | 使智能体能够动态发现并热加载远程技能。 | [Verified](./bootstrap-skills/tests/) |
 | [refine-skill-design](./refine-skill-design/SKILL.md) | `1.2.0` | 审计并重构 SKILL，确保其符合工业级标准。 | [Verified](./refine-skill-design/tests/) |
 | [write-agents-entry](./write-agents-entry/SKILL.md) | `1.0.0` | 按本技能内嵌「产出契约」为项目撰写或修订 AGENTS.md，建立 Agent 入口与行为契约。 | [Verified](./write-agents-entry/tests/) |
+| [clean-project](./clean-project/SKILL.md) | `1.0.0` | 自动分析项目并执行结构化清理（删除/归位/合并/重命名/整理 docs 与 .gitignore），静默执行不输出报告。 | [Verified](./clean-project/tests/) |
+| [generate-commit-message](./generate-commit-message/SKILL.md) | `1.0.0` | 根据 git diff 生成符合 Conventional Commits 的专业 Git 提交信息。 | [Verified](./generate-commit-message/tests/) |
+| [review-code](./review-code/SKILL.md) | `1.0.0` | 针对 git diff 的变更影响与回归风险评审，关注正确性、兼容性与副作用。 | [Verified](./review-code/tests/) |
+| [review-codebase](./review-codebase/SKILL.md) | `1.0.0` | 针对指定范围的架构、设计与技术债评审，关注边界、模式与整体质量。 | [Verified](./review-codebase/tests/) |
 
 ---
 

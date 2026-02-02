@@ -1,5 +1,6 @@
 ---
 name: workflow-documentation
+version: 1.0.0
 scope: 所有新建或维护 .md 文档
 recommended_scope: both
 ---
@@ -7,6 +8,7 @@ recommended_scope: both
 # Rule: 文档管理策略 (Documentation Management)
 
 ## 适用范围 (Scope)
+
 所有创建、命名或维护 Markdown 文档（`.md`）的行为。适用于项目内文档库、设计文档、临时笔记等。
 
 ## 强制约束 (Constraints)

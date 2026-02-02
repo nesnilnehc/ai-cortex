@@ -1,5 +1,6 @@
 ---
 name: writing-chinese-technical
+version: 1.3.0
 scope: 全局文档产出
 recommended_scope: user
 ---

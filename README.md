@@ -17,10 +17,6 @@
 读取 https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/AGENTS.md，按指引发现并加载 skills/INDEX.md、rules/INDEX.md、commands/INDEX.md，后续按需使用 AI Cortex。无 AGENTS.md 则可在项目内创建并引用本库；有则追加引用。
 ```
 
-详见 [快速开始与使用](docs/getting-started.md)。
-
-> 若此前通过安装脚本写入 `.cursor/` 或 `.trae/`，可手动删除相关文件；本项目已不再提供安装/同步脚本，详见 [定位](docs/positioning.md)。
-
 ```mermaid
 flowchart TB
   subgraph 资产与入口

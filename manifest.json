@@ -45,6 +45,26 @@
             "name": "write-agents-entry",
             "path": "skills/write-agents-entry/SKILL.md",
             "test_path": "skills/write-agents-entry/tests/"
+        },
+        {
+            "name": "clean-project",
+            "path": "skills/clean-project/SKILL.md",
+            "test_path": "skills/clean-project/tests/"
+        },
+        {
+            "name": "generate-commit-message",
+            "path": "skills/generate-commit-message/SKILL.md",
+            "test_path": "skills/generate-commit-message/tests/"
+        },
+        {
+            "name": "review-code",
+            "path": "skills/review-code/SKILL.md",
+            "test_path": "skills/review-code/tests/"
+        },
+        {
+            "name": "review-codebase",
+            "path": "skills/review-codebase/SKILL.md",
+            "test_path": "skills/review-codebase/tests/"
         }
     ],
     "rules": [
@@ -81,6 +101,22 @@
         {
             "name": "readme",
             "path": "commands/readme.md"
+        },
+        {
+            "name": "clean-project",
+            "path": "commands/clean-project.md"
+        },
+        {
+            "name": "generate-commit-message",
+            "path": "commands/generate-commit-message.md"
+        },
+        {
+            "name": "review-code",
+            "path": "commands/review-code.md"
+        },
+        {
+            "name": "review-codebase",
+            "path": "commands/review-codebase.md"
         }
     ]
 }

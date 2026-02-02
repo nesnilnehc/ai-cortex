@@ -1,0 +1,14 @@
+[
+    {
+        "id": "case-codebase-001",
+        "description": "Single directory review",
+        "input": "路径：src/auth/。评审该目录下所有相关代码。",
+        "expected_behavior": "按文件列出实现、缺陷与边界、安全与性能等维度，引用具体行号并给出改进建议；不依赖 git 变更。"
+    },
+    {
+        "id": "case-codebase-002",
+        "description": "Edge case: whole repo",
+        "input": "路径：仓库根（整个项目）。",
+        "expected_behavior": "可按模块分层输出或先输出高层结论与风险清单，与用户约定优先深度评审子集；避免一次性泛泛长文。"
+    }
+]

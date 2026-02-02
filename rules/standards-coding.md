@@ -1,5 +1,6 @@
 ---
 name: standards-coding
+version: 1.0.0
 scope: 全库代码
 recommended_scope: user
 ---
