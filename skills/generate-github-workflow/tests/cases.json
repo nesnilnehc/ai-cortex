@@ -1,0 +1,14 @@
+[
+    {
+        "id": "case-workflow-001",
+        "description": "Node 项目 CI：PR 时跑测试与 Lint",
+        "input": "场景：CI。技术栈：Node 20，pnpm。测试命令：pnpm test。Lint：pnpm lint。触发：pull_request 针对 main。文件名：ci.yml。",
+        "expected_behavior": "产出 ci.yml，含 name/on/jobs；on 为 pull_request branches [main]；job 使用 ubuntu-latest，步骤 checkout、setup Node 与 pnpm、install、lint、test；Action 固定版本；无硬编码密钥。"
+    },
+    {
+        "id": "case-workflow-002",
+        "description": "Edge case: 信息极少的项目需占位 workflow",
+        "input": "项目名：legacy-api。描述：无。语言与命令未知。需要「至少有一个 CI 占位 workflow」。",
+        "expected_behavior": "产出结构完整的 YAML；on 仍收窄（如 pull_request branches [main]）；步骤与运行器使用占位符并标注「待替换」；不虚构具体测试/构建命令；符合本技能附录 A（Workflow 产出规范）强制性结构。"
+    }
+]

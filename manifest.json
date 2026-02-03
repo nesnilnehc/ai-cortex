@@ -65,6 +65,11 @@
             "name": "review-codebase",
             "path": "skills/review-codebase/SKILL.md",
             "test_path": "skills/review-codebase/tests/"
+        },
+        {
+            "name": "generate-github-workflow",
+            "path": "skills/generate-github-workflow/SKILL.md",
+            "test_path": "skills/generate-github-workflow/tests/"
         }
     ],
     "rules": [

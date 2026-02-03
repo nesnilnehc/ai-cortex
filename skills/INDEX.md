@@ -43,6 +43,7 @@
 | [generate-commit-message](./generate-commit-message/SKILL.md) | `1.0.0` | 根据 git diff 生成符合 Conventional Commits 的专业 Git 提交信息。 | [Verified](./generate-commit-message/tests/) |
 | [review-code](./review-code/SKILL.md) | `1.0.0` | 针对 git diff 的变更影响与回归风险评审，关注正确性、兼容性与副作用。 | [Verified](./review-code/tests/) |
 | [review-codebase](./review-codebase/SKILL.md) | `1.0.0` | 针对指定范围的架构、设计与技术债评审，关注边界、模式与整体质量。 | [Verified](./review-codebase/tests/) |
+| [generate-github-workflow](./generate-github-workflow/SKILL.md) | `1.0.0` | 为项目创建符合本技能内嵌产出规范的 GitHub Actions 工作流，支持 CI、PR 检查、发布等场景；含 Go + Docker + GoReleaser 附录。 | [Verified](./generate-github-workflow/tests/) |
 
 ---
 
