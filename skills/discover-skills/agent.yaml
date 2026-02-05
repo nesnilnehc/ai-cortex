@@ -1,0 +1,28 @@
+name: discover-skills
+status: validated
+
+primary_use: Identify missing skills and recommend installations from AI Cortex or public catalogs; suggest install commands without auto-installing.
+
+inputs:
+  - current task description
+  - optional list of installed skills
+  - optional allowed sources (local vs public)
+
+outputs:
+  - recommended skills with rationale
+  - install commands for each
+
+scores:
+  agent_native: 5
+  cognitive: 3
+  composability: 5
+  stance: 4
+
+asqm_quality: 17
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:refine-skill-design
+
+market_position: differentiated
+
+tags: [automation, infrastructure, generalization]
