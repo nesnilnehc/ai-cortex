@@ -1,0 +1,27 @@
+name: generate-standard-readme
+status: validated
+
+primary_use: Create governance-focused README with fixed structure and output contract for asset governance, audit, or standardized first-impression docs.
+
+inputs:
+  - project metadata (name, description)
+  - features, requirements, install/run commands
+
+outputs:
+  - README Markdown (title, badges, description, features, installation, quick start, usage, contributing, license, authors)
+
+scores:
+  agent_native: 5
+  cognitive: 3
+  composability: 4
+  stance: 5
+
+asqm_quality: 17
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:decontextualize-text
+  - nesnilnehc/ai-cortex:write-agents-entry
+
+market_position: commodity
+
+tags: [documentation, eng-standards, devops, writing]

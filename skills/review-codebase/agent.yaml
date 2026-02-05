@@ -1,0 +1,32 @@
+name: review-codebase
+status: validated
+
+primary_use: Architecture and design review for specified files/dirs/repo; covers tech debt, patterns, quality; complements review-code (diff-focused).
+
+inputs:
+  - paths (file(s), dir(s), or repo root)
+  - optional focus (e.g. security only)
+
+outputs:
+  - per-file or per-module conclusions and suggestions (with file:line)
+
+scores:
+  agent_native: 5
+  cognitive: 4
+  composability: 4
+  stance: 5
+
+asqm_quality: 18
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:review-code
+  - wshobson/agents:code-review-excellence
+  - secondsky/claude-skills:code-review
+  - trailofbits/skills:differential-review
+  - cxuu/golang-skills:go-code-review
+  - obra/superpowers:requesting-code-review
+  - skillcreatorai/Ai-Agent-Skills:code-review
+
+market_position: commodity
+
+tags: [eng-standards]

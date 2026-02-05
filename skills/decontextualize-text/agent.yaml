@@ -1,0 +1,25 @@
+name: decontextualize-text
+status: validated
+
+primary_use: Convert text with private context or internal dependencies into generic, unbiased expressions for methodology abstraction, cross-team sharing, anonymization, or public release.
+
+inputs:
+  - text with org/company/project names, internal conventions, environment-specific details
+
+outputs:
+  - generic version (logic preserved, reusable without extra context)
+
+scores:
+  agent_native: 5
+  cognitive: 4
+  composability: 4
+  stance: 4
+
+asqm_quality: 17
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:generate-standard-readme
+
+market_position: differentiated
+
+tags: [writing, security, privacy, generalization]

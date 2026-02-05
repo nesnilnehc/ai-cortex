@@ -1,0 +1,28 @@
+name: generate-github-workflow
+status: validated
+
+primary_use: Produce GitHub Actions workflow YAML per Appendix A output contract; security-first, minimal permissions, version pinning; for CI, release, PR checks.
+
+inputs:
+  - scenario (CI, PR check, release, scheduled, matrix)
+  - stack (language, version, package manager, test/build commands)
+  - triggers (branches, paths, tags)
+  - target path (default .github/workflows/)
+
+outputs:
+  - workflow YAML file content
+  - notes (placeholders, secrets, config items)
+
+scores:
+  agent_native: 5
+  cognitive: 4
+  composability: 4
+  stance: 5
+
+asqm_quality: 18
+
+overlaps_with: []
+
+market_position: differentiated
+
+tags: [devops, eng-standards]

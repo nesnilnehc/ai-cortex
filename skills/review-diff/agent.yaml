@@ -1,0 +1,28 @@
+name: review-diff
+status: validated
+
+primary_use: Review only git diff for impact, regression, correctness, compatibility, and side effects. Scope-only atomic skill; output is a findings list for aggregation.
+
+inputs:
+  - git diff (staged + unstaged)
+
+outputs:
+  - findings list (Location, Category=scope, Severity, Title, Description, Suggestion)
+
+scores:
+  agent_native: 5
+  cognitive: 4
+  composability: 5
+  stance: 5
+
+asqm_quality: 19
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:review-codebase
+  - nesnilnehc/ai-cortex:review-code
+  - wshobson/agents:code-review-excellence
+  - trailofbits/skills:differential-review
+
+market_position: commodity
+
+tags: [eng-standards]

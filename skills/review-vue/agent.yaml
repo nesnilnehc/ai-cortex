@@ -1,0 +1,27 @@
+name: review-vue
+status: validated
+
+primary_use: Review Vue 3 for Composition API, reactivity, components, state (Pinia), routing, performance. Framework-only atomic skill; output is a findings list.
+
+inputs:
+  - code scope (files or directories or diff containing Vue 3 code)
+
+outputs:
+  - findings list (Location, Category=framework-vue, Severity, Title, Description, Suggestion)
+
+scores:
+  agent_native: 5
+  cognitive: 4
+  composability: 5
+  stance: 5
+
+asqm_quality: 19
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:review-codebase
+  - nesnilnehc/ai-cortex:review-code
+  - nesnilnehc/ai-cortex:review-diff
+
+market_position: commodity
+
+tags: [eng-standards]

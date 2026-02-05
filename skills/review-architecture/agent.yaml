@@ -1,0 +1,27 @@
+name: review-architecture
+status: validated
+
+primary_use: Review code for architecture: boundaries, dependency direction, cycles, interfaces, coupling. Cognitive-only atomic skill; output is a findings list.
+
+inputs:
+  - code scope (files or directories or diff provided by caller)
+
+outputs:
+  - findings list (Location, Category=cognitive-architecture, Severity, Title, Description, Suggestion)
+
+scores:
+  agent_native: 5
+  cognitive: 4
+  composability: 5
+  stance: 5
+
+asqm_quality: 19
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:review-codebase
+  - nesnilnehc/ai-cortex:review-code
+  - nesnilnehc/ai-cortex:review-diff
+
+market_position: commodity
+
+tags: [eng-standards]
