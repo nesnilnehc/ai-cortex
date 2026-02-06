@@ -1,104 +1,134 @@
 ---
 name: review-codebase
-description: 以高级全栈架构师与生产代码评审视角，对指定文件、目录或仓库范围内的代码现状进行评审，关注架构、设计、技术债、模式与整体质量，不依赖 git diff。
+description: Architecture and design review for specified files/dirs/repo. Covers tech debt, patterns, quality. Diff-only review use review-code. Complements review-code (diff-focused).
 tags: [eng-standards]
 version: 1.0.0
-related_skills: [review-code]
+license: MIT
+related_skills: [review-code, review-diff]
 recommended_scope: project
+metadata:
+  author: ai-cortex
 ---
 
-# Skill: 评审代码库 (Review Codebase)
+# Skill: Review Codebase
 
-## 目的 (Purpose)
+## Purpose
 
-以**高级全栈软件架构师与生产代码评审者**的视角，对**指定范围内的代码现状**（单文件、目录或整个仓库）进行评审，关注**架构、设计、技术债、模式与整体质量**，不依赖 git diff；与 [review-code](../review-code/SKILL.md) 互补 — review-code 关注**本次变更**（影响、回归、兼容性、副作用），本技能关注**指定范围的代码现状**。
-
----
-
-## 适用场景 (Use Cases)
-
-- **新模块/新服务**：对指定目录或文件做整体架构与实现评审。
-- **遗留代码审计**：对某路径或仓库做全面质量与风险评审。
-- **结对/抽查**：对同事指定的文件或目录做评审，无需基于本次变更。
-- **教学与规范**：按同一套评审维度讲解或检查任意代码片段。
-
-**何时使用**：当用户希望评审**指定路径、目录或仓库**的代码，而非「仅当前 diff」时；若仅需评审本地变更，应使用 [review-code](../review-code/SKILL.md) 或 `/review-code`。
+From a **senior full-stack and production code-review** perspective, review **the current state of a given scope** (single file, directory, or whole repo): architecture, design, tech debt, patterns, and overall quality. Does not depend on git diff. Complements [review-code](../review-code/SKILL.md): review-code focuses on **the current change** (impact, regression, compatibility, side effects); this skill focuses on **the current state of the given scope**.
 
 ---
 
-## 行为要求 (Behavior)
+## Use Cases
 
-### 评审范围
+- **New module/service**: Architecture and implementation review for a given dir or file.
+- **Legacy audit**: Quality and risk review for a path or repo.
+- **Pair / sampling**: Review files or dirs specified by a colleague, without requiring a current diff.
+- **Teaching and standards**: Explain or check arbitrary code against the same review dimensions.
 
-- **输入决定范围**：由用户或调用方指定 — 单文件路径、目录路径、或「当前仓库根」等；可接受多个路径。
-- **不限于 diff**：分析指定范围内的**当前文件内容**，不依赖 git 变更集；若用户同时提供 diff，可结合上下文但不以 diff 为唯一输入。
+**When to use**: When the user wants to review **given path(s), directory(ies), or repo**, not “only the current diff.” For reviewing only local changes, use [review-code](../review-code/SKILL.md) or `/review-code`.
 
-### 对每个纳入文件须覆盖（以「现状/设计」为核心）
-
-1. **架构与边界**：模块/服务边界是否清晰、职责是否单一、依赖方向是否合理。
-2. **设计模式与一致性**：是否恰当使用模式、与同仓库/同模块其他代码风格与模式是否一致。
-3. **技术债与可维护性**：重复、复杂度、可测试性、文档与注释是否与现状匹配。
-4. **跨模块依赖与耦合**：依赖是否过多、循环依赖、接口是否稳定清晰。
-5. **安全与性能（现状）**：输入校验、敏感数据、权限、资源使用与并发等当前实现中的风险。
-6. **具体建议**：对上述问题给出可落地的重构或改进建议（含 file:行）。
-
-本技能看的是**当前文件的完整实现与在整体中的位置**，而非「本次 diff」。
-
-### 语气与引用
-
-- **专业、工程化**：按「将上线 SaaS 生产环境」的严格程度评审。
-- **严格且精确**：指出问题时常引用具体位置（文件:行）。
-
-### 范围与优先级
-
-- 若指定范围过大（如整仓），可先按模块/目录分层输出，或与用户约定优先评审的子集，避免泛泛而谈。
+**Scope**: This skill focuses on **current state** (architecture, design, tech debt) of the given scope and does not depend on diff. It complements `review-code` (diff-based). skills.sh options like `code-review-excellence` are more general; this skill emphasizes boundaries, patterns, and overall quality.
 
 ---
 
-## 输入与输出 (Input & Output)
+## Behavior
 
-### 输入 (Input)
+### Scope
 
-- **路径**：一个或多个文件或目录路径（相对于工作区根或用户给定根）；未指定时默认可为当前仓库根或用户声明的「当前关注路径」。
-- **可选**：语言/框架约束、评审重点（如仅安全、仅性能）等，由用户或调用方提供。
+- **Input defines scope**: Single file, directory, or “repo root” etc., as specified by the user; multiple paths allowed.
+- **Not diff-bound**: Analyze **current file content** in the given scope; does not require a git change set. If the user also provides a diff, it can inform context but is not the sole input.
 
-### 输出 (Output)
+### For each file in scope (state/design-centric)
 
-- **按文件或模块**：对纳入范围内的文件给出上述维度的评审结论与建议。
-- **格式**：使用标题（文件名或模块）、列表与引用（file:行），便于读者对照源码。
+1. **Architecture and boundaries**: Are module/service boundaries clear, responsibilities single, dependency direction sensible?
+2. **Design patterns and consistency**: Are patterns used appropriately? Style and patterns consistent with the rest of the repo/module?
+3. **Tech debt and maintainability**: Duplication, complexity, testability, docs and comments vs. current state.
+4. **Cross-module dependencies and coupling**: Too many dependencies, cycles, stable and clear interfaces?
+5. **Security and performance (current)**: Input validation, sensitive data, permissions, resource use and concurrency risks in the current implementation.
+6. **Concrete suggestions**: Actionable refactor or improvement (with file:line).
 
----
+This skill looks at **full implementation and place in the whole**, not “this diff.”
 
-## 禁止行为 (Restrictions)
+### Tone and references
 
-- **禁止**在未明确指定范围时擅自假定「只评 diff」；本技能默认面向**指定范围内的完整代码**。
-- **禁止**只给结论不给具体位置或可落地建议。
-- **禁止**使用非专业或模糊表述（如「可能有问题」却不指明类型与修复方向）。
+- **Professional and engineering-focused**: Review as if this will run in production.
+- **Precise**: Reference specific locations (file:line).
 
----
+### Scope and priority
 
-## 质量检查 (Self-Check)
-
-- [ ] 评审范围是否与用户指定的路径/目录一致？
-- [ ] 是否围绕「现状/架构/设计」做评审，覆盖边界、模式、技术债、依赖与耦合、安全与性能现状等？
-- [ ] 指出问题时是否带有 file:行 等可定位引用？
-- [ ] 是否对重要问题给出了可落地的重构或改进建议？
+- If the scope is large (e.g. whole repo), output by layer (module/dir) or agree with the user on a priority subset to avoid shallow, generic conclusions.
 
 ---
 
-## 示例 (Examples)
+## Input & Output
 
-### 示例一：单目录评审
+### Input
 
-- **输入**：路径 `src/auth/`，评审该目录下所有相关代码。
-- **预期行为**：按文件列出架构与边界、设计模式与一致性、技术债与可维护性、跨模块依赖与耦合、安全与性能现状等，引用具体行号，并给出改进建议；不依赖本次 git 变更。
+- **Paths**: One or more file or directory paths (relative to workspace root or user-given root); default can be repo root or user-stated “current focus.”
+- **Optional**: Language/framework constraints, focus (e.g. security only, performance only).
 
-### 示例二：单文件评审
+### Output
 
-- **输入**：路径 `pkg/validator/validator.go`。
-- **预期行为**：对该文件做完整评审，包含在整体中的位置与边界、入口与依赖关系、模式与一致性、技术债与可测试性、安全与性能现状等，并引用行号。
+- **Per file or module**: Conclusions and suggestions for the dimensions above.
+- **Format**: Headings (file or module), lists, and references (file:line) so the reader can follow the source.
 
-### 边界示例：整仓评审
+---
 
-- **输入**：路径为仓库根，或「整个项目」。
-- **预期行为**：可按模块/目录分层输出，或先输出高层结论与风险清单（架构、依赖、技术债等），再与用户约定优先深度评审的子集；避免一次性输出过长且泛泛的结论。
+## Restrictions
+
+- **Do not** assume “review only diff” when scope is not clearly “diff”; this skill defaults to **full code in the given scope**.
+- **Do not** give conclusions without specific locations or actionable suggestions.
+- **Do not** use vague language (e.g. “might be wrong” without type and fix direction).
+
+---
+
+## Self-Check
+
+- [ ] Does the review scope match the user’s path(s)/dir(s)?
+- [ ] Are boundaries, patterns, tech debt, dependencies and coupling, and current security/performance covered?
+- [ ] Are issues referenced with file:line?
+- [ ] Are concrete refactor or improvement suggestions given for important issues?
+
+---
+
+## Examples
+
+### Example 1: Single directory
+
+- **Input**: Path `src/auth/`; review all relevant code under it.
+- **Expected**: Per file, list architecture and boundaries, design patterns and consistency, tech debt and maintainability, cross-module dependencies and coupling, current security and performance; reference line numbers and give improvement suggestions; do not depend on current git change.
+
+### Example 2: Single file
+
+- **Input**: Path `pkg/validator/validator.go`.
+- **Expected**: Full review of the file: its role and boundaries, entry points and dependencies, patterns and consistency, tech debt and testability, current security and performance; reference line numbers.
+
+### Edge case: Whole repo
+
+- **Input**: Path is repo root or “whole project.”
+- **Expected**: Output by layer (module/dir) or give a high-level summary and risk list (architecture, dependencies, tech debt), then agree with the user on a subset for deeper review; avoid one long, shallow pass.
+
+---
+
+## Appendix: Output contract
+
+When this skill produces a review, it follows this contract so that findings can be aggregated with other atomic skills (e.g. by [review-code](../review-code/SKILL.md)):
+
+| Element | Requirement |
+| :--- | :--- |
+| Scope | User-specified path(s); full code in scope; not diff-bound. |
+| **Findings format** | Each finding MUST include **Location** (`path/to/file.ext` or file:line), **Category** (`scope` for this skill), **Severity** (`critical` \| `major` \| `minor` \| `suggestion`), **Title**, **Description**, and optionally **Suggestion**. |
+| Per file/module | Headings, lists, references (file:line). |
+| Dimensions | Architecture and boundaries; design patterns and consistency; tech debt and maintainability; cross-module dependencies and coupling; security and performance; concrete suggestions. |
+| Large scope | Output by layer or agree on priority subset; avoid shallow pass. |
+
+Example finding compatible with aggregation:
+
+```markdown
+- **Location**: `pkg/auth/service.go:31`
+- **Category**: scope
+- **Severity**: major
+- **Title**: Module boundary unclear; auth logic mixed with HTTP handling
+- **Description**: Controller contains validation and token logic; hard to test and reuse.
+- **Suggestion**: Extract auth logic into a dedicated service; keep controller thin.
+```

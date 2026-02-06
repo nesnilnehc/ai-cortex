@@ -1,102 +1,148 @@
 ---
 name: review-code
-description: 以高级全栈架构师与生产代码评审视角，仅针对当前工作区 git diff 进行评审，关注变更的影响、回归风险、正确性、兼容性与副作用，并给出可落地的修复建议。
+description: Orchestrator that runs scope then language then framework then library then cognitive review skills in order and aggregates all findings into one report. Does not perform analysis itself.
 tags: [eng-standards]
-version: 1.0.0
+related_skills: [review-diff, review-codebase, review-dotnet, review-java, review-sql, review-vue, review-security, review-architecture]
+version: 2.0.0
+license: MIT
 recommended_scope: project
+metadata:
+  author: ai-cortex
 ---
 
-# Skill: 评审代码 (Review Code)
+# Skill: Review Code (Orchestrator)
 
-## 目的 (Purpose)
+## Purpose
 
-以**高级全栈软件架构师与生产代码评审者**的视角，**仅针对「本次变更」**（git diff，含已暂存与未暂存）进行评审，关注**变更的影响、回归风险、改动的正确性、与现有契约的一致性**，并给出可落地的修复或改进建议。若需评审**指定范围的代码现状（架构、设计、技术债）**，应使用 [review-codebase](../review-codebase/SKILL.md) 或 `/review-codebase`。
-
----
-
-## 适用场景 (Use Cases)
-
-- **提交前**：开发者在 commit 或 push 前希望得到一次「生产级」的严格评审。
-- **PR 前**：在发起 Pull Request 前自行对照评审要点查漏补缺。
-- **质量门禁**：作为人工或自动化评审的参考标准（语气与维度按本技能执行）。
-
-**何时使用**：当用户触发「评审代码」或 `/review-code` 且需要**仅分析本地修改（diff）**、不分析整个仓库时。
+**This skill does not perform code analysis itself.** It is a **meta skill** that orchestrates other atomic review skills in a fixed order, then **aggregates** their findings into a single report. Use it when the user asks for a full "review code" or "code review" and you want to apply scope → language → framework → library → cognitive skills and produce one combined output. For a single-dimension review (e.g. only diff or only security), invoke the corresponding atomic skill directly ([review-diff](../review-diff/SKILL.md), [review-security](../review-security/SKILL.md), etc.).
 
 ---
 
-## 行为要求 (Behavior)
+## Use Cases
 
-### 评审范围
+- **Full code review**: User asks to "review code" or "review my changes" and expects impact, language/framework conventions, security, and architecture in one pass.
+- **Pre-PR or pre-commit**: Run the full pipeline (diff + stack + cognitive) and get one report.
+- **Consistent pipeline**: Same execution order every time so Cursor or an agent can simulate skill chaining by following this skill's instructions.
 
-- **仅分析**：在工作区中被修改的文件（staged 与 unstaged），即 git diff 所覆盖的内容。
-- **不分析**：整个仓库、未在 diff 中出现的文件。
-
-### 对每个变更文件须覆盖（以「变更」为核心）
-
-1. **变更意图与影响**：改了什么、为何这样改（若能从 diff 推断）；对调用方、数据、配置、部署的影响。
-2. **回归与正确性**：本次改动是否引入新 bug、遗漏边界或同类问题；若是修复，修复逻辑是否完整。
-3. **破坏性变更与兼容性**：是否破坏 API/数据/配置契约；向后兼容或需版本化/废弃策略。
-4. **副作用与数据/幂等**：变更是否带来非预期副作用、数据损坏、重复或幂等性问题。
-5. **可观测性与排障**：本次变更是否补充/修正日志、指标或错误信息，便于生产排障。
-6. **具体建议**：对上述问题给出可落地的修复或改进建议（含 file:行 或 @@ 块）。
-
-与本次变更直接相关的可读性/可维护性（如命名或结构影响本次理解或后续修改成本）可顺带提及；以「现状」为主的架构与设计评审应使用 [review-codebase](../review-codebase/SKILL.md)。
-
-### 语气与引用
-
-- **专业、工程化**：按「将上线 SaaS 生产环境」的严格程度评审。
-- **严格且精确**：指出问题时常引用具体位置（文件:行 或 diff 的 @@ 块）。
-
-### 特殊情形
-
-- **Bug 修复或纠正性补丁**：除上述维度外，须验证修复逻辑是否正确，并指出是否仍有遗漏或部分问题未解决。
+**When to use**: When the user wants a **combined** review across scope, stack (language/framework/library), and cognitive dimensions. When the user wants only one dimension (e.g. "review my diff" or "security review"), use the atomic skill instead.
 
 ---
 
-## 输入与输出 (Input & Output)
+## Behavior
 
-### 输入 (Input)
+### Orchestration only
 
-- **git diff**：当前分支相对于 HEAD 的变更（staged + unstaged），由执行方在调用本技能时提供。
+- **Do not** analyze code yourself. **Do** invoke (or simulate invoking) the following skills **in order**, then aggregate their findings.
+- Execution order is fixed so that Cursor or an agent can follow it step by step.
 
-### 输出 (Output)
+### Execution order
 
-- **按文件**：对每个变更文件给出上述维度的评审结论与建议。
-- **格式**：可使用标题（文件名）、列表与引用（file:line 或 @@），便于读者对照 diff。
+When performing this skill, **sequentially apply** the following steps. For each step, load and run the corresponding skill's instructions, collect its findings (in the standard format: Location, Category, Severity, Title, Description, Suggestion), then proceed to the next step.
+
+1. **Scope**  
+   Choose **one** based on user intent:
+   - **review-diff**: Use when the user wants only the **current change** (git diff, staged + unstaged) reviewed. Load [review-diff](../review-diff/SKILL.md) and run it on the diff.
+   - **review-codebase**: Use when the user wants the **current state** of given path(s), directory(ies), or repo reviewed. Load [review-codebase](../review-codebase/SKILL.md) and run it on the specified scope.
+   Run the chosen scope skill; collect all findings.
+
+2. **Language**  
+   Choose **one or none** based on the project's primary language in scope:
+   - **review-dotnet**: .NET (C#/F#). Load [review-dotnet](../review-dotnet/SKILL.md).
+   - **review-java**: Java. Load [review-java](../review-java/SKILL.md).
+   - **review-sql**: SQL or query-heavy code. Load [review-sql](../review-sql/SKILL.md).
+   If none match, skip this step. Run the chosen language skill on the same scope; collect all findings.
+
+3. **Framework (optional)**  
+   If the project uses a known framework in scope, choose the matching skill:
+   - **review-vue**: Vue 3. Load [review-vue](../review-vue/SKILL.md).
+   - *(Reserved for future: review-aspnetcore, review-react, etc.)*
+   If none match, skip. Run the chosen framework skill; collect all findings.
+
+4. **Library (optional)**  
+   If the project heavily uses a key library with a dedicated review skill, run it (e.g. *review-entityframework* when available). Otherwise skip. Collect all findings.
+
+5. **Cognitive**  
+   Run **in order**:
+   - [review-security](../review-security/SKILL.md): security findings.
+   - [review-architecture](../review-architecture/SKILL.md): architecture findings.
+   *(Reserved for future: review-reliability, review-maintainability.)*  
+   Collect all findings.
+
+6. **Aggregation**  
+   Merge all collected findings into **one report**. Group by **Category** (Scope, Language, Framework, Library, Cognitive) or by **file/location**, as best fits the report length. Use the same finding format (Location, Category, Severity, Title, Description, Suggestion). Add a short summary (e.g. counts by severity or category) at the top if useful.
+
+### Summary for Cursor/Agent
+
+- **When performing this skill, sequentially apply:**
+  1. review-diff **or** review-codebase (scope)
+  2. review-dotnet **or** review-java **or** review-sql (language, optional)
+  3. review-vue or other framework skill (optional)
+  4. Library skill (optional, when available)
+  5. review-security, then review-architecture (cognitive)
+- **Aggregate all findings into a single report** using the standard findings format. Do not analyze code in this skill; only orchestrate and aggregate.
 
 ---
 
-## 禁止行为 (Restrictions)
+## Input & Output
 
-- **禁止**对未在 diff 中出现的文件或整个仓库做泛泛而谈的评审。
-- **禁止**只给结论不给具体位置或可落地建议。
-- **禁止**使用非专业或模糊表述（如「可能有问题」却不指明类型与修复方向）。
+### Input
 
----
+- **User intent**: What to review (e.g. "my changes" → scope = diff; "this directory" → scope = codebase) and optionally project type (e.g. .NET, Java, Vue) to select language/framework.
+- **Code scope**: Diff or paths, as provided by the user when invoking the skill.
 
-## 质量检查 (Self-Check)
+### Output
 
-- [ ] 是否仅针对 diff 中的变更进行评审？
-- [ ] 是否围绕「变更」做评审，覆盖变更意图与影响、回归与正确性、兼容性、副作用、可观测性等？
-- [ ] 指出问题时是否带有 file:line 或 @@ 等可定位引用？
-- [ ] 是否对重要问题给出了可落地的修复或改进建议？
-- [ ] 若为 bug 修复，是否验证了修复逻辑并指出遗漏？
+- **Single aggregated report** containing all findings from the steps above, in the standard format (Location, Category, Severity, Title, Description, Suggestion), grouped by category or location, with optional summary.
 
 ---
 
-## 示例 (Examples)
+## Restrictions
 
-### 示例一：API 变更
+- **Do not** perform any code analysis inside this skill. Only orchestrate other skills and aggregate.
+- **Do not** change the execution order; keep scope → language → framework → library → cognitive.
+- **Do not** invent findings; only include findings produced by the atomic skills you run.
 
-- **输入**：diff 显示在某 API 中新增查询参数、修改响应结构。
-- **预期行为**：说明变更意图与对调用方/部署的影响；指出向后兼容性（旧客户端是否仍可用）及破坏性变更风险；建议版本化或废弃策略；检查本次变更是否引入敏感信息泄露或缺少校验；引用具体行或 @@ 块。
+---
 
-### 示例二：Bug 修复
+## Self-Check
 
-- **输入**：diff 显示修复某空指针与一处错误码。
-- **预期行为**：确认修复逻辑正确；检查是否还有同类空指针或错误码遗漏（回归风险）；评估本次变更是否补充/修正日志与错误信息便于排障；引用具体改动行。
+- [ ] Was the execution order followed (scope → language → framework → library → cognitive)?
+- [ ] Were findings only collected from the atomic skills, not invented?
+- [ ] Is the output a single report with all findings in the standard format?
+- [ ] Did this skill refrain from analyzing code directly?
 
-### 边界示例：仅格式/注释变更
+---
 
-- **输入**：diff 仅包含缩进、空格或注释修改。
-- **预期行为**：可简要说明「仅格式/注释，无行为变更」；若发现注释与代码不一致或误导，仍须指出并建议修正。
+## Examples
+
+### Example 1: Diff review for .NET project
+
+- **Input**: User says "review my code" and provides a git diff; project is C#.
+- **Expected**: Run review-diff → review-dotnet → review-security → review-architecture (skip framework/library if not Vue or other); aggregate all findings into one report with categories Scope, Language-dotnet, Cognitive-security, Cognitive-architecture.
+
+### Example 2: Codebase review for Vue frontend
+
+- **Input**: User says "review src/frontend" and project uses Vue 3.
+- **Expected**: Run review-codebase on src/frontend → review-vue → review-security → review-architecture; aggregate into one report.
+
+### Edge case: No language match
+
+- **Input**: Project is Rust or another language with no atomic skill yet.
+- **Expected**: Run scope (review-diff or review-codebase) → skip language and framework → run review-security and review-architecture; aggregate. Report should note that language/framework review was skipped (no matching skill).
+
+---
+
+## Appendix: Output contract
+
+The aggregated report MUST use the same finding format as the atomic skills:
+
+| Element | Requirement |
+| :--- | :--- |
+| **Location** | `path/to/file.ext` (optional line or range). |
+| **Category** | `scope`, `language-*`, `framework-*`, `library-*`, `cognitive-*` |
+| **Severity** | `critical`, `major`, `minor`, `suggestion`. |
+| **Title** | Short one-line summary. |
+| **Description** | 1–3 sentences. |
+| **Suggestion** | Concrete fix or improvement (optional). |
+
+Group findings by Category or by Location. Optionally include a summary table (e.g. count by severity or by category) at the top of the report.

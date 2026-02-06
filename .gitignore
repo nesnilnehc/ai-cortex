@@ -1,10 +1,21 @@
-# IDE-specific assets (no longer maintained)
+# OS (GitHub Global: macOS, Windows)
+.DS_Store
+__MACOSX/
+._*
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+
+# IDE / editor
 .cursor/
 .trae/
 
-# OS
-.DS_Store
-Thumbs.db
+# Dependencies
+node_modules/
+
+# Environment / secrets
+.env
+.env.*
 
 # Temp / cache / logs
 *.log
@@ -12,6 +23,4 @@ Thumbs.db
 *.temp
 __pycache__/
 *.pyc
-node_modules/
-.env
-.env.*
+

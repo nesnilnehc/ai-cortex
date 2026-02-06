@@ -1,68 +1,70 @@
-# AI Cortex /ˈkɔːrteks/
-
-![AI Cortex Banner](./assets/banner.png)
+# AI Cortex
 
 [![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-blue.svg)](.)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![AI-Readiness: High](https://img.shields.io/badge/AI--Readiness-High-success.svg)](llms.txt)
-[![Stability: Stable](https://img.shields.io/badge/Stability-Stable-orange.svg)](docs/positioning.md)
+[![Stability: Stable](https://img.shields.io/badge/Stability-Stable-orange.svg)](#positioning)
 
-**面向 Agent 的可治理能力资产库**：用 Spec 与测试把 Skills / Rules / Commands 变成可复用、可审计、可组合的工程资产。详见 [定位](docs/positioning.md)。
+AI Cortex is an agent-first, governance-ready inventory of Skills. Specs turn Skills into reusable, composable engineering assets.
 
-## 快速开始
+---
 
-复制下方提示词发给 Agent；fork/自托管请替换 URL。
+## ✨ Features
 
-```text
-读取 https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/AGENTS.md，按指引发现并加载 skills/INDEX.md、rules/INDEX.md、commands/INDEX.md，后续按需使用 AI Cortex。无 AGENTS.md 则可在项目内创建并引用本库；有则追加引用。
+- **Standardized skill assets**: `spec/skill.md` defines structure, metadata, and quality requirements.
+- **Discoverable catalog**: `skills/INDEX.md` and `manifest.json` provide stable indexes and metadata.
+- **Agent entry contract**: `AGENTS.md` defines identity, authoritative sources, and behavior.
+- **Ecosystem compatibility**: Works with [skills.sh](https://skills.sh) and [SkillsMP](https://skillsmp.com).
+
+---
+
+## 📦 Installation
+
+Use the [skills.sh](https://skills.sh) CLI to install into Claude Code, Cursor, Codex, and similar:
+
+```bash
+npx skills add nesnilnehc/ai-cortex
 ```
 
-```mermaid
-flowchart TB
-  subgraph 资产与入口
-    P[技能 · 规则 · 命令<br>入口与规范]
-  end
-  subgraph 消费方
-    D[Agent]
-  end
-  subgraph 使用
-    E[自然语言或 /command]
-  end
-  P -->|读取入口与索引| D
-  D --> E
+Install only specific skills:
+
+```bash
+npx skills add nesnilnehc/ai-cortex --skill review-code --skill generate-standard-readme
 ```
 
 ---
 
-## 项目导航
+## Positioning
 
-### 核心能力库
+This repository is the capability-asset library: it hosts Skills and provides Specs and the entry contract.
 
-- **[技能库](skills/INDEX.md)**：脱敏、README 生成等任务能力。
-- **[规则库](rules/INDEX.md)**：中文规范、安全策略等行为约束。
-- **[快捷命令](commands/INDEX.md)**：快捷触发能力组合。
+### Core principles
 
-### 入口与契约
+- **Contract-first**: Structure, metadata, and quality are defined under `spec/`.
+- **Verifiable**: Self-Check is the minimum delivery guarantee.
+- **Composable**: `related_skills` supports reuse from atomic capabilities to workflows.
+- **Discoverable**: `INDEX.md` and `manifest.json` provide stable indexes and metadata.
 
-- **入口文件**：[AGENTS.md](AGENTS.md)（项目身份、权威来源、行为约定、发现与加载契约）。
-- **机器索引**：[llms.txt](llms.txt)（面向 Agent 的机器可读导航）。
+### Boundaries (out of scope)
 
-### 规范与标准
+- Does not provide IDE/Agent/CI integration or usage guides, or install/sync scripts.
+- Does not tie to any single IDE or runtime; no vendor-specific adapters.
+- Does not implement model invocation, tool execution, or runtime orchestration infrastructure.
 
-- **资产编写**：[技能](spec/skill.md) | [规则](spec/rule.md) | [命令](spec/command.md)
-- **技能测试**：[测试规范](spec/test.md) — 按文档「执行清单」完成技能自检。
-- **入口撰写**：[AGENTS.md 撰写规范](skills/write-agents-entry/SKILL.md)（供他项目参考）
+### Catalog scope
 
-### 贡献
-
-按 [技能](spec/skill.md)、[规则](spec/rule.md)、[命令](spec/command.md) 规范提交 PR；能力入口见 [skills/INDEX.md](skills/INDEX.md)、[rules/INDEX.md](rules/INDEX.md)。
-
-### 关于项目
-
-- **[定位](docs/positioning.md)**
-
-发布或 fork 时请确保 `assets/`、`docs/`、`skills/` 等已一并提交。
+- **Canonical catalog**: Skills under `skills/` are the published capability list; `skills/INDEX.md` and `manifest.json` are the authoritative indexes.
+- **Local or IDE-specific skills**: `.agents/` may hold skills used only in this repo or by a specific IDE; they are not part of the canonical catalog and are not listed in INDEX or manifest.
+- **Subset lists**: `.claude-plugin/` and `llms.txt` list a subset of skills for Claude Plugin and LLM index respectively; update them when adding or promoting high-priority skills.
 
 ---
 
-[开源协议](LICENSE)
+## 🤝 Contributing
+
+Submit PRs that follow the [skill spec](spec/skill.md). Capability index: [skills/INDEX.md](skills/INDEX.md). When adding or moving a skill, update both `skills/INDEX.md` and `manifest.json`, then run `node scripts/verify-registry.mjs` to confirm they stay in sync.
+
+---
+
+## 📄 License
+
+[MIT](LICENSE)
