@@ -1,0 +1,17 @@
+{
+  "metadata": { "pluginRoot": "./skills" },
+  "plugins": [{
+    "name": "ai-cortex",
+    "source": "ai-cortex",
+    "skills": [
+      "./skills/discover-skills",
+      "./skills/decontextualize-text",
+      "./skills/generate-standard-readme",
+      "./skills/generate-github-workflow",
+      "./skills/refine-skill-design",
+      "./skills/review-code",
+      "./skills/review-codebase",
+      "./skills/write-agents-entry"
+    ]
+  }]
+}
