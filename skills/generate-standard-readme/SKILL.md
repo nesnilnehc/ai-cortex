@@ -1,127 +1,134 @@
 ---
 name: generate-standard-readme
-description: 创建专业、规范的项目 README 文件。包含完整的结构、安装说明、使用示例、贡献指南等，适用于开源及企业内部项目。
+description: Governance-focused README with fixed structure and output contract. Use for asset governance, audit, or standardized first-impression docs. For process-driven creation (templates by project type) use crafting-effective-readmes.
 tags: [documentation, eng-standards, devops, writing]
 related_skills: [decontextualize-text]
 version: 1.2.0
+license: MIT
 recommended_scope: user
+metadata:
+  author: ai-cortex
 ---
 
-# Skill: 生成标准 README (Generate Standard README)
+# Skill: Generate Standard README
 
-## 目的 (Purpose)
+## Purpose
 
-为**各类软件项目**（包括开源仓库、内部中间件、微服务、工具链等）创建**专业、规范、高可读性**的首页文档。通过标准化的信息组织架构，降低成员协作成本，提升工程规范性，并确保核心资产的“可发现性”。
-
----
-
-## 适用场景 (Use Cases)
-
-- **新项目基建**：为新启动的工程快速同步一套标准的说明文档。
-- **资产治理 (Asset Governance)**：统一企业内部微服务或库的 README 风格，提升内部搜索引擎的索引质量，方便跨团队发现和调用。
-- **审计与合规 (Audit)**：为遗留系统 (Legacy Systems) 补齐文档，确保存量资产在内部审计或架构评审时符合工程标准。
-- **移交与发布 (Handovers)**：在项目跨部门移交、人员变动或对外发布时，确保接收方能无障碍地理解项目全貌。
-
-**何时使用**：当项目需要一份“第一面孔”来向他人解释其存在价值、使用方法及协作方式时。
+Create **professional, consistent, highly readable** front-page documentation for **any software project** (open source, internal services, microservices, tooling). A standardized information layout reduces collaboration cost, improves engineering norms, and keeps core assets discoverable.
 
 ---
 
-## 行为要求 (Behavior)
+## Use Cases
 
-### 核心原则
+- **New project**: Quickly add a standard README for a new repo.
+- **Asset governance**: Unify README style across internal services or libraries for better indexing and cross-team discovery.
+- **Audit and compliance**: Bring legacy systems up to documentation standards for internal audit or architecture review.
+- **Handover and release**: When transferring a project, changing ownership, or releasing publicly, ensure the audience can understand purpose, usage, and how to contribute.
 
-- **清晰性**：第一眼就能理解项目是什么、解决什么问题。
-- **完整性**：包含用户和贡献者需要的所有必要信息。
-- **可操作性**：提供“粘贴即用”的安装和快速开始命令。
-- **专业性**：使用标准的 Markdown 语法和业界公认的章节顺序。
-
-### 语气与风格 (Tone & Voice)
-
-- 使用**客观、中性**的语言；避免夸张词汇（如“The best,” “Revolutionary”），除非有数据支持。
-- **直接、简洁**：短句为主，少用堆砌形容词和“文绉绉”表述；专业性通过清晰、可操作、可扫读来体现，而非公文式用语。
-- code 示例简洁，注释清晰。
-
-### 视觉元素 (Visual Elements)
-
-- **徽章 (Badges)**：顶部应包含 License、Version、Build Status 等必要徽章。
-- **分隔符**：使用 `---` 或标题层级清晰划分章节。
-- **Emoji**：适度使用 Emoji（如 📦, 🚀, 📖）增加可读性。
+**When to use**: When the project needs a “first face” that explains what it is, how to use it, and how to collaborate.
 
 ---
 
-## 输入与输出 (Input & Output)
+**Scope**: This skill emphasizes a **fixed output structure** and **governance** (unified style, audit, discoverability); the output contract is embedded in the skill. For template-by-project-type or guided Q&A creation, use skills.sh’s `crafting-effective-readmes` (e.g. softaworks/agent-toolkit).
 
-### 输入 (Input)
+---
 
-- **项目元数据**：项目名称、一句话描述。
-- **功能列表**：核心特性描述。
-- **环境要求**：Node.js 版本、Python 版本等。
-- **安装/运行方式**：具体的 Shell 命令。
+## Behavior
 
-### 输出 (Output)
+### Principles
 
-- **标准 README 源码**：遵循以下层级的 Markdown 文本：
-  1. 项目标题与徽章
-  2. 核心项目描述
-  3. ✨ 功能特性
-  4. 📦 安装
-  5. 🚀 快速开始
-  6. 📖 使用文档/配置
-  7. 🤝 贡献指南
+- **Clarity**: Readers immediately understand what the project is and what problem it solves.
+- **Completeness**: Include everything users and contributors need.
+- **Actionable**: Provide copy-paste install and quick-start commands.
+- **Professional**: Use standard Markdown and a conventional section order.
+
+### Tone and style
+
+- Use **neutral, objective** language; avoid hype (“The best,” “Revolutionary”) unless backed by data.
+- **Direct and concise**: Short sentences; avoid filler adjectives and bureaucratic phrasing; professionalism through clarity and scannability, not formality.
+- Keep code examples short and comments clear.
+
+### Visual elements
+
+- **Badges**: Include License, Version, Build Status, etc. at the top.
+- **Structure**: Use `---` or clear heading levels to separate sections.
+- **Emoji**: Use sparingly (e.g. 📦, 🚀, 📖) to improve scannability.
+
+---
+
+## Input & Output
+
+### Input
+
+- **Project metadata**: Name, one-line description.
+- **Features**: Core capabilities.
+- **Requirements**: e.g. Node.js/Python version.
+- **Install/run**: Concrete shell commands.
+
+### Output
+
+- **README source**: Markdown with this structure:
+  1. Title and badges
+  2. Core description
+  3. ✨ Features
+  4. 📦 Installation
+  5. 🚀 Quick start
+  6. 📖 Usage / configuration
+  7. 🤝 Contributing
   8. 📄 License
-  9. 👤 作者与致谢
+  9. 👤 Authors and acknowledgments
 
 ---
 
-## 禁止行为 (Restrictions)
+## Restrictions
 
-- **禁失效链接**：严禁提供无法访问的 404 链接。
-- **禁重复引用**：同一信息（如 License 类型）不要在不同章节重复多次。
-- **禁硬编码路径**：在安装和快速开始示例中，使用通用的占位符或变量。
-- **禁缺失协议**：必须明确声明开源协议，严禁遗漏 License 章节。
-
----
-
-## 质量检查 (Self-Check)
-
-- [ ] **三秒原则**：普通用户能否在 3 秒内读懂项目是做什么的？
-- [ ] **闭环测试**：按照安装步骤，能否无障碍地跑通“快速开始”？
-- [ ] **语气**：表述是否直接、简洁，无文绉绉或公文感，读起来像专业文档而非汇报材料？
-- [ ] **徽章一致性**：徽章链接是否指向了正确的分支或文件？
-- [ ] **移动端兼容**：表格和长代码块在窄屏下是否可读？
+- **No broken links**: Do not add links that 404.
+- **No redundant repetition**: Do not repeat the same fact (e.g. license) in multiple sections.
+- **No hardcoded paths**: Use placeholders or variables in install and quick-start examples.
+- **License required**: Always include a License section; do not omit it.
 
 ---
 
-## 示例 (Examples)
+## Self-Check
 
-### Before vs. After 对比
+- [ ] **Three-second test**: Can a reader understand what the project does in a few seconds?
+- [ ] **Closed loop**: Can someone run “Quick start” after following “Installation”?
+- [ ] **Tone**: Is the text direct and concise, without bureaucratic or report-like phrasing?
+- [ ] **Badges**: Do badge links point to the correct branch or file?
+- [ ] **Narrow screens**: Are tables and long code blocks readable on small screens?
 
-**Before (简陋版本)**：
+---
+
+## Examples
+
+### Before vs after
+
+**Before (minimal)**:
 
 > # MyProject
 >
-> 这是一个处理图片的程序。
-> 安装：pip install .
-> 运行：python run.py
+> This program processes images.
+> Install: pip install .
+> Run: python run.py
 
-**After (标准版本)**：
+**After (standard)**:
 
 > # MyProject
 >
 > [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 >
-> 这是一个基于 AI 的高性能图片批处理工具，旨在通过并发加速图像压缩任务。
+> A high-performance image batch-processing tool that speeds up compression with concurrency.
 >
 > ---
 >
-> ## ✨ 功能特性
+> ## ✨ Features
 >
-> - **并发压缩**：支持多线程处理，比原生工具快 3 倍。
-> - **格式支持**：支持 WebP, PNG, JPEG 的互相转换。
+> - **Concurrent compression**: Multi-threaded; faster than baseline.
+> - **Formats**: WebP, PNG, JPEG conversion.
 >
 > ---
 >
-> ## 📦 安装
+> ## 📦 Installation
 >
 > ```bash
 > pip install my-project
@@ -129,22 +136,42 @@ recommended_scope: user
 >
 > ---
 >
-> ## 🚀 快速开始
+> ## 🚀 Quick start
 >
 > ```python
 > from myproject import Compressor
 > Compressor('images/').run()
 > ```
 
-**边界示例：信息极少的遗留项目**
+**Edge case: Legacy project with little info**
 
-- **输入**：项目名：legacy-auth。描述：无。功能：无列表。环境与安装方式未知。
-- **预期行为**：仍产出结构完整的 README；在缺失处使用占位符（如「功能见源码」「安装方式待补充」）并明确标注「待补全」，不虚构功能或命令；保留徽章、章节顺序与 License 声明，便于后续补齐。
+- **Input**: Name: legacy-auth. No description. No feature list. Environment and install unknown.
+- **Expected**: Still produce a structurally complete README; use placeholders (e.g. “See source for features”, “Install steps TBD”) and mark “to be completed”; do not invent features or commands; keep badges, section order, and License so the user can fill in later.
 
 ---
 
-## 参考资源
+## Appendix: Output contract
 
-- [GitHub README Documentation](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes)
-- [Awesome README Collection](https://github.com/matiassingers/awesome-readme)
-- [Shields.io (Badge Generator)](https://shields.io/)
+When this skill produces a README, it follows this contract:
+
+| Section order | Required |
+| :--- | :--- |
+| 1 | Title and badges |
+| 2 | Core description |
+| 3 | ✨ Features |
+| 4 | 📦 Installation |
+| 5 | 🚀 Quick start |
+| 6 | 📖 Usage / configuration |
+| 7 | 🤝 Contributing |
+| 8 | 📄 License |
+| 9 | 👤 Authors and acknowledgments |
+
+Restrictions: no broken links; no redundant repetition; no hardcoded paths; License section required.
+
+---
+
+## References
+
+- [GitHub README docs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes)
+- [Awesome README](https://github.com/matiassingers/awesome-readme)
+- [Shields.io (badges)](https://shields.io/)

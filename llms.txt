@@ -1,33 +1,25 @@
-# AI Cortex: 面向 Agent 的可治理能力资产库；可验证、可复用、可组合。
+# AI Cortex: Agent-first, governance-ready inventory of Skills; reusable and composable. Install: npx skills add nesnilnehc/ai-cortex
 
 > [!TIP]
-> 本文件是为 LLM Agent 和 Copilot 准备的机器可读索引。
+> This file is a machine-readable index for LLM Agents and Copilots.
 
-## 核心文档
-- [定位 (POSITIONING)](docs/positioning.md): 本仓库唯一说明文档（定位、边界、权威链）。
+## Core docs
+- [Positioning (README)](README.md#positioning): Single source for repo positioning, boundaries, and authority chain.
 
-## 技术规范 (必须遵循)
-- [技能规范 (SKILL SPEC)](spec/skill.md): 创建或审计 Skill 的强制性标准。
-- [规则规范 (RULE SPEC)](spec/rule.md): 定义全局约束与行为准则。
-- [命令规范 (COMMAND SPEC)](spec/command.md): 快捷指令与意图映射规范。
-- [技能测试 (TEST SPEC)](spec/test.md): skills/tests 文件格式与运行策略。
-- [智能体导引 (AGENTS.md)](AGENTS.md): Agent 入口与契约；发现、注入、自检见 AGENTS.md §4。
+## Specs (mandatory)
+- [Skill spec (SKILL)](spec/skill.md): Mandatory standard for creating or auditing Skills.
+- [Agent entry (AGENTS.md)](AGENTS.md): Entry and contract; discovery, injection, and self-check in AGENTS.md §4.
 
-## 全局规则 (Rules)
-- [rules/INDEX.md](rules/INDEX.md): 包含所有跨技能生效的全局行为准则。
+## Machine-readable registry
+- [Manifest](manifest.json): Machine-readable registry.
+- [Skills index](skills/INDEX.md): Central registry of all available skills.
 
-## 快捷指令 (Commands)
-- [commands/INDEX.md](commands/INDEX.md): 定义了如何通过简短指令触发复杂技能链。
-
-## 机器可读清单
-- [Manifest](manifest.json): 机器可读的 Registry 清单。
-- [技能索引 (SKILLS INDEX)](skills/INDEX.md): 所有可用技能的中心注册表。
-
-### 核心技能
-- [bootstrap-skills](skills/bootstrap-skills/SKILL.md): 赋予智能体“自主扩展能力”的元技能（热加载）。
-- [decontextualize-text](skills/decontextualize-text/SKILL.md): 信息泛化与隐私保护。
-- [generate-standard-readme](skills/generate-standard-readme/SKILL.md): 创建专业、规范的项目 README。
-- [refine-skill-design](skills/refine-skill-design/SKILL.md): 优化其他技能的元技能。
+### Core skills
+Subset of skills/; update when adding or promoting core skills. Full list: [skills/INDEX.md](skills/INDEX.md).
+- [discover-skills](skills/discover-skills/SKILL.md): Discover and recommend relevant skills; suggest install commands.
+- [decontextualize-text](skills/decontextualize-text/SKILL.md): Generalization and privacy-preserving text handling.
+- [generate-standard-readme](skills/generate-standard-readme/SKILL.md): Create professional, standards-aligned project READMEs.
+- [refine-skill-design](skills/refine-skill-design/SKILL.md): Meta-skill to improve other skills.
 
 ---
-入口与使用：以 [AGENTS.md](AGENTS.md) 为入口，按 §4 进行发现、注入与自检。
+Entry and usage: Use [AGENTS.md](AGENTS.md) as the entry point; follow §4 for discovery, injection, and self-check.

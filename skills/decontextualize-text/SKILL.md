@@ -1,106 +1,130 @@
 ---
 name: decontextualize-text
-description: 将带私有背景或内部依赖的文本转为通用、无偏见的表达。在抽象方法论、跨团队知识共享、脱敏处理及准备公开文档时使用。
+description: Convert text with private context or internal dependencies into generic, unbiased expressions. Use for project decontextualization (handoff, open-source prep), methodology abstraction, cross-team sharing, anonymization. Includes path strings and file/folder names as they appear in text.
 tags: [writing, security, privacy, generalization]
 related_skills: [generate-standard-readme]
-version: 1.2.0
+version: 1.3.0
+license: MIT
 recommended_scope: user
+metadata:
+  author: ai-cortex
 ---
 
-# Skill: 去上下文化 (Decontextualize Text)
+# Skill: Decontextualize Text
 
-## 目的 (Purpose)
+## Purpose
 
-将**带有私有背景、隐含上下文或特定环境依赖**的内容，转换为**通用、可复用的表达**。通过移除或替换特定标识符，使内容在不同环境（跨团队、跨公司、公共领域）中均能被正确理解，同时保护组织隐私。
-
----
-
-## 适用场景 (Use Cases)
-
-- **知识泛化**：将特定项目的经验总结抽象为通用的方法论或最佳实践。
-- **跨团队协作**：移除仅内部团队可理解的黑话、代号，使协作方能无障碍阅读文档。
-- **内容脱敏**：在分享案例或技术博客时，过滤掉敏感的项目名称、人员信息和内部地址。
-- **发布准备**：作为将内部内容同步到外部公共环境（如开源、移交）的最后清理步骤。
-- **文档同步**：在分叉 (Fork) 或合并 (Merge) 跨组织代码库后，清理过时的环境依赖描述。
-
-**何时使用**：当需要打破“由于环境差异带来的理解阻碍”或“信息安全边界”时。
+Turn content that **depends on private context, implicit assumptions, or environment-specific details** into **generic, reusable wording**. Primary scenario: **project decontextualization** — preparing a project for handoff, open-source, or cross-org use. By removing or replacing specific identifiers (including path strings and file/folder names as they appear in text), the content can be understood correctly in different contexts while protecting organizational privacy.
 
 ---
 
-## 行为要求 (Behavior)
+## Use Cases
 
-### 核心原则
+- **Project decontextualization**: Prepare a project for handoff or open-source — decontextualize docs, README, comments; replace path strings and file/folder names (as they appear in text) with generic equivalents (e.g. `acme-internal/config.yaml` → `project-root/config.yaml`).
+- **Generalization**: Turn project-specific lessons into generic methodology or best practices.
+- **Cross-team collaboration**: Remove jargon or codenames that only one team understands so others can read the doc without extra context.
+- **De-identification**: Before sharing case studies or blog posts, strip sensitive project names, people, and internal addresses.
+- **Release preparation**: Final cleanup before publishing internal content externally (e.g. open source, handoff).
+- **Doc sync**: After forking or merging cross-org repos, clean up outdated environment-specific descriptions.
 
-- 保留「**做什么**」与「**为什么**」。
-- 去除「**是谁**」「**在哪**」「**基于什么内部条件**」。
-- 将专有名词替换为通用描述（如“内部系统”“某业务流程”）。
-- 将隐含前提改为显式前提，或直接移除。
-
-### 交互策略 (Interaction Policy)
-
-- **疑似核对**：当识别到可能具有敏感属性但无法确定其通用性的词汇（如不确定的缩写或内部服务器代号）时，**必须先列出清单**请用户确认，而非直接重载。
-- **多选重写**：针对核心逻辑，可提供 2-3 种不同抽象程度的重写方案供用户选择。
-
-### 处理流程
-
-1. **识别敏感词**：扫描文本中的公司名、项目代号、内部服务器地址、人员姓名。
-2. **提取核心逻辑**：分析操作步骤的本质（例如“JIRA 审批”本质是“任务状态变更评审”）。
-3. **通用化重写**：使用中性词汇重写识别出的部分。
-4. **结构对齐**：确保改动后的段落结构与原文保持一致，不丢失能力边界。
+**When to use**: When you need to remove “understanding barriers due to environment differences” or “information security boundaries.”
 
 ---
 
-## 输入与输出 (Input & Output)
+## Behavior
 
-### 输入 (Input)
+### Principles
 
-- 包含以下一种或多种特征的文本：
-  - 特定组织、公司、项目、系统名称。
-  - 内部约定、隐含背景、默认前提。
-  - 仅在特定环境下成立的流程或假设。
+- Keep **what is done** and **why**.
+- Remove **who**, **where**, and **which internal conditions**.
+- Replace proper nouns with generic descriptions (e.g. “internal system”, “a given workflow”).
+- Make implicit assumptions explicit or drop them.
 
-### 输出 (Output)
+### Interaction policy
 
-- **通用版本**：去除或替换私有上下文后的文本。
-- **结构化保留**：输出必须严格保留原有的逻辑层级、Markdown 格式及功能性指令。
-- **可复用性**：输出应达到“即插即用”的标准，无需第三方额外获取背景知识。
+- **Uncertain terms**: When you spot possibly sensitive or internal terms (e.g. unclear abbreviations, internal server names), **list them** and ask the user to confirm before rewriting.
+- **Alternatives**: For core logic, offer 2–3 rewrite options at different abstraction levels for the user to choose.
 
----
+### Steps
 
-## 禁止行为 (Restrictions)
-
-- **禁虚构**：不得虚构原文中不存在的背景或能力。
-- **禁推断**：不得补充未明确给出的事实或结论。
-- **禁注入**：不得引入新的业务语义。
-- **禁残留**：不得保留任何可反向识别具体组织或个人的信息（如唯一性高的代数、内部流程编号、非公开术语等）。
+1. **Identify sensitive terms**: Scan for company names, project codenames, internal URLs, people’s names, **path strings**, and **file/folder names** that carry internal context (e.g. `acme-internal/`, `team-alpha-output/`).
+2. **Extract core logic**: Identify the essence of the steps (e.g. “JIRA approval” → “task state change review”).
+3. **Rewrite generically**: Use neutral wording for the identified parts.
+4. **Preserve structure**: Keep paragraph structure and capability boundaries; do not drop information.
 
 ---
 
-## 质量检查 (Self-Check)
+## Input & Output
 
-- [ ] **独立性**：不知道原始上下文，也能完全理解内容。
-- [ ] **匿名性**：难以通过搜索推断其来源于哪家公司或项目。
-- [ ] **一致性**：核心逻辑和功能与原文完全一致。
-- [ ] **合规性**：符合数据脱敏规范或公共发布的隐私安全标准。
+### Input
+
+- Text that has one or more of:
+  - Organization, company, project, or system names.
+  - **Path strings and file/folder names** that carry internal context (e.g. `acme-internal/config.yaml`, `team-alpha/output/`).
+  - Internal conventions, implicit context, or default assumptions.
+  - Processes or assumptions that only hold in a specific environment.
+
+### Output
+
+- **Generic version**: Text with private context removed or replaced.
+- **Structure preserved**: Logic hierarchy, Markdown, and functional instructions must be preserved.
+- **Reusable**: Output should be usable without extra context.
 
 ---
 
-## 示例 (Examples)
+## Restrictions
 
-**示例 1：内部流程 → 通用表述**
+- **No invention**: Do not invent context or capabilities not in the original.
+- **No inference**: Do not add facts or conclusions not stated.
+- **No new semantics**: Do not introduce new business meaning.
+- **No residue**: Do not leave anything that can re-identify an organization or person (e.g. unique IDs, internal process numbers, non-public terms).
 
-| 原文 | 去上下文化后 |
-|------|--------------|
-| 在 Acme 的 JIRA 工作流中，当需求进入「技术评审」时，先跑一遍 X 团队的 Checklist，再通知 PM 李四。 | 当需求进入「技术评审」阶段时，执行既定 Checklist，并通知相关产品负责人。 |
+---
 
-**示例 2：系统与调用方式 → 中性描述**
+## Self-Check
 
-| 原文 | 去上下文化后 |
-|------|--------------|
-| 用我们公司的 LLM Gateway (api.acme.internal) 调用 gpt-4，超时 30s。 | 通过 LLM API 调用模型，建议设置合理超时（如 30s）。 |
+- [ ] **Standalone**: Content is fully understandable without the original context.
+- [ ] **Anonymous**: Hard to infer which company or project it came from.
+- [ ] **Consistent**: Core logic and function match the original.
+- [ ] **Compliant**: Meets de-identification or public-release privacy standards.
 
-**示例 3：多维度指令 → 抽象逻辑**
+---
 
-| 原文 | 去上下文化后 |
-|------|--------------|
-| 按照 Kiro 团队的规范，Python 代码必须通过 `pylint` 检查且分数高于 9.0 才能提交到 `master` 分支。 | 按照代码质量规范，代码应通过静态扫描（如 `pylint`）并达到预设质量阈值后，方可合并至主分支。 |
+## Examples
+
+**Example 1: Internal process → generic**
+
+| Original | Decontextualized |
+|----------|------------------|
+| In Acme’s JIRA workflow, when a requirement enters “Tech Review”, run X team’s Checklist, then notify PM Li Si. | When a requirement enters the “Tech Review” stage, run the defined Checklist and notify the relevant product owner. |
+
+**Example 2: System and API → neutral**
+
+| Original | Decontextualized |
+|----------|------------------|
+| Call gpt-4 via our company LLM Gateway (api.acme.internal), timeout 30s. | Call the model via an LLM API; set a reasonable timeout (e.g. 30s). |
+
+**Example 3: Team-specific rule → abstract**
+
+| Original | Decontextualized |
+|----------|------------------|
+| Per Kiro team policy, Python must pass `pylint` with score ≥ 9.0 before merging to `master`. | Per code quality policy, code should pass static checks (e.g. `pylint`) and meet the required threshold before merging to the main branch. |
+
+**Example 4: Path and file/folder names in docs**
+
+| Original | Decontextualized |
+|----------|------------------|
+| Config is in `acme-internal/settings.yaml`. Output goes to `team-alpha/output/`. | Config is in `project-root/settings.yaml` (or `config/settings.yaml`). Output goes to `output/`. |
+
+---
+
+## Appendix: Output contract
+
+When this skill produces decontextualized text, it follows this contract:
+
+| Element | Requirement |
+| :--- | :--- |
+| Preserve | What is done and why; logic hierarchy; Markdown structure; functional instructions. |
+| Remove | Who, where, internal conditions; proper nouns → generic descriptions; path strings and file/folder names → generic equivalents. |
+| Interaction | When uncertain terms appear: list them and ask user to confirm before rewriting. |
+| Restrictions | No invention, inference, new semantics, or residue that could re-identify org/person. |

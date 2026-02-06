@@ -1,52 +1,64 @@
-# AI 技能资产索引 (Skills Index)
+# Skills Index
 
-本文档是 **AI Cortex**（面向 Agent 的可治理能力资产库，仓库 [ai-cortex](https://github.com/nesnilnehc/ai-cortex)）的核心技能索引，定义了 SKILL 的标准化元数据、分类系统及版本规范。
+**Canonical capability list**: definitive skill registry (name, tags, version, purpose) and tagging/versioning policy. For ASQM quality, lifecycle status, overlap detection and ecosystem position (from curate-skills), see [ASQM_AUDIT.md](./ASQM_AUDIT.md) or each skill’s `agent.yaml`.
+
+This document is the central skills index for **AI Cortex** (the agent-first, governance-ready capability inventory; repo [ai-cortex](https://github.com/nesnilnehc/ai-cortex)). It defines standardized SKILL metadata, the tagging system, and versioning policy. Install with `npx skills add nesnilnehc/ai-cortex`; compatible with [skills.sh](https://skills.sh) and [SkillsMP](https://skillsmp.com).
 
 ---
 
-## 1. 分类标签系统 (Tagging System)
+## 1. Tagging system
 
-库中的所有 SKILL 均按以下维度进行标注，以便于 Agent 进行任务匹配和调度。
+All SKILLs in this repo are tagged along the dimensions below to support task matching and scheduling by Agents.
 
-| 标签 | 描述 | 应用领域 |
+| Tag | Description | Typical use |
 | :--- | :--- | :--- |
-| `writing` | 内容创作与风格修饰 | 文档、博客、邮件内容生产 |
-| `security` | 合规性与敏感信息处理 | 脱敏、匿名化、漏洞提示 |
-| `privacy` | 隐私保护与数据匿名化 | 个人信息/组织秘密保护 |
-| `documentation` | 标准化文档产出 | README, API Docs, Wiki |
-| `generalization` | 知识抽象与泛化 | 方法论提取、黑话消除 |
-| `eng-standards` | 工程规范与最佳实践 | 代码评审、架构文档、基建配置 |
-| `devops` | 交付与运维自动化 | CI/CD 文档、部署指南 |
+| `writing` | Content creation and style | Docs, blogs, emails |
+| `security` | Compliance and sensitive data | De-identification, anonymization, vulnerability notes |
+| `privacy` | Privacy and data anonymization | Personal or organizational secrets |
+| `documentation` | Standardized documentation | README, API docs, Wiki |
+| `generalization` | Abstraction and generalization | Method extraction, jargon removal |
+| `eng-standards` | Engineering standards and practices | Code review, architecture docs, infra config |
+| `devops` | Delivery and operations automation | CI/CD docs, deployment |
+| `meta-skill` | Design and refactor of skills/specs | SKILL audit, normalization, quality |
+| `automation` | Automation and dynamic loading | Skill discovery, hot-load, batch ops |
+| `infrastructure` | Infra and runtime capabilities | Discovery, loading, runtime support |
+| `optimization` | Optimization and refactoring | Design and structure improvements |
 
 ---
 
-## 2. 版本规范 (Versioning)
+## 2. Versioning
 
-本项目遵循 **[语义化版本 (SemVer)](https://semver.org/)** 规范。
+This project follows **[Semantic Versioning (SemVer)](https://semver.org/)**.
 
-- **MAJOR (主版本)**：SKILL 结构发生重大变更，或核心逻辑不兼容。
-- **MINOR (次版本)**：增加了新的处理步骤、交互策略或显著增强了示例。
-- **PATCH (修订号)**：修复错别字、微调元数据描述、补全参考资源。
+- **MAJOR**: Breaking or major structural change to the SKILL.
+- **MINOR**: New steps, interaction policy, or materially improved examples.
+- **PATCH**: Typos, metadata tweaks, or reference updates.
 
 ---
 
-## 3. Skill 列表 (Registry)
+## 3. Skill registry
 
-| Skill 名称 | 版本 | 核心价值 | 验证状态 |
+| Skill name | Tags | Version | Purpose |
 | :--- | :--- | :--- | :--- |
-| [decontextualize-text](./decontextualize-text/SKILL.md) | `1.2.0` | 消除环境依赖，实现跨边界知识流动。 | [Verified](./decontextualize-text/tests/) |
-| [generate-standard-readme](./generate-standard-readme/SKILL.md) | `1.2.0` | 为工程资产建立标准化的“第一面孔”。 | [Verified](./generate-standard-readme/tests/) |
-| [bootstrap-skills](./bootstrap-skills/SKILL.md) | `1.2.0` | 使智能体能够动态发现并热加载远程技能。 | [Verified](./bootstrap-skills/tests/) |
-| [refine-skill-design](./refine-skill-design/SKILL.md) | `1.2.0` | 审计并重构 SKILL，确保其符合工业级标准。 | [Verified](./refine-skill-design/tests/) |
-| [write-agents-entry](./write-agents-entry/SKILL.md) | `1.0.0` | 按本技能内嵌「产出契约」为项目撰写或修订 AGENTS.md，建立 Agent 入口与行为契约。 | [Verified](./write-agents-entry/tests/) |
-| [clean-project](./clean-project/SKILL.md) | `1.0.0` | 自动分析项目并执行结构化清理（删除/归位/合并/重命名/整理 docs 与 .gitignore），静默执行不输出报告。 | [Verified](./clean-project/tests/) |
-| [generate-commit-message](./generate-commit-message/SKILL.md) | `1.0.0` | 根据 git diff 生成符合 Conventional Commits 的专业 Git 提交信息。 | [Verified](./generate-commit-message/tests/) |
-| [review-code](./review-code/SKILL.md) | `1.0.0` | 针对 git diff 的变更影响与回归风险评审，关注正确性、兼容性与副作用。 | [Verified](./review-code/tests/) |
-| [review-codebase](./review-codebase/SKILL.md) | `1.0.0` | 针对指定范围的架构、设计与技术债评审，关注边界、模式与整体质量。 | [Verified](./review-codebase/tests/) |
-| [generate-github-workflow](./generate-github-workflow/SKILL.md) | `1.0.0` | 为项目创建符合本技能内嵌产出规范的 GitHub Actions 工作流，支持 CI、PR 检查、发布等场景；含 Go + Docker + GoReleaser 附录。 | [Verified](./generate-github-workflow/tests/) |
+| [decontextualize-text](./decontextualize-text/SKILL.md) | writing, security, privacy, generalization | `1.3.0` | Remove context dependency and enable cross-boundary knowledge flow. |
+| [generate-standard-readme](./generate-standard-readme/SKILL.md) | documentation, eng-standards, devops, writing | `1.2.0` | Give project assets a standardized “first face”. |
+| [discover-skills](./discover-skills/SKILL.md) | automation, infrastructure, generalization | `1.3.0` | Discover and recommend relevant skills; suggest install commands to fill capability gaps. |
+| [refine-skill-design](./refine-skill-design/SKILL.md) | writing, eng-standards, meta-skill, optimization | `1.2.0` | Audit and refactor SKILLs to meet production-grade standards. |
+| [write-agents-entry](./write-agents-entry/SKILL.md) | documentation, eng-standards | `1.0.0` | Write or revise AGENTS.md per the skill’s embedded output contract; establish Agent entry and behavior. |
+| [review-code](./review-code/SKILL.md) | eng-standards | `2.0.0` | Orchestrator: run scope → language → framework → library → cognitive review skills in order and aggregate findings into one report. |
+| [review-codebase](./review-codebase/SKILL.md) | eng-standards | `1.0.0` | Review architecture, design, and tech debt for a given scope; focus on boundaries, patterns, and overall quality. |
+| [review-diff](./review-diff/SKILL.md) | eng-standards | `1.0.0` | Review only git diff for impact, regression, correctness, compatibility, and side effects; scope-only atomic skill. |
+| [review-dotnet](./review-dotnet/SKILL.md) | eng-standards | `1.0.0` | Review .NET (C#/F#) for language and runtime conventions; language-only atomic skill. |
+| [review-java](./review-java/SKILL.md) | eng-standards | `1.0.0` | Review Java for language and runtime conventions; language-only atomic skill. |
+| [review-sql](./review-sql/SKILL.md) | eng-standards | `1.0.0` | Review SQL and query code for injection, performance, transactions, and portability; language-only atomic skill. |
+| [review-vue](./review-vue/SKILL.md) | eng-standards | `1.0.0` | Review Vue 3 for Composition API, reactivity, components, state, and performance; framework-only atomic skill. |
+| [review-security](./review-security/SKILL.md) | eng-standards, security | `1.0.0` | Review code for security: injection, sensitive data, auth, dependencies, secrets, crypto; cognitive-only atomic skill. |
+| [review-architecture](./review-architecture/SKILL.md) | eng-standards | `1.0.0` | Review code for architecture: boundaries, dependency direction, cycles, interfaces, coupling; cognitive-only atomic skill. |
+| [generate-github-workflow](./generate-github-workflow/SKILL.md) | devops, eng-standards | `1.0.0` | Create GitHub Actions workflows per the skill’s output spec (CI, PR checks, release); includes Go + Docker + GoReleaser appendix. |
+| [curate-skills](./curate-skills/SKILL.md) | meta-skill, eng-standards, documentation | `1.0.0` | Evaluate, score, tag, and normalize all Skills; write agent.yaml and README per skill, detect overlaps, produce SUMMARY or chat summary. |
 
 ---
 
-## 4. 框架扩展建议
+## 4. Scheduling and extension
 
-Agent 在调度 Skill 时，应优先解析 `INDEX.md` 以确定能力的拓扑结构，并通过 `related_skills` 实现链式任务处理。
+When scheduling a Skill, the Agent should resolve `INDEX.md` first to understand the capability graph and use `related_skills` for chained or multi-step tasks.
