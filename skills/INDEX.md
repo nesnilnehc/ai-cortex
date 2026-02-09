@@ -47,7 +47,7 @@ This project follows **[Semantic Versioning (SemVer)](https://semver.org/)**.
 | [write-agents-entry](./write-agents-entry/SKILL.md) | documentation, eng-standards | `1.0.0` | Write or revise AGENTS.md per the skill’s embedded output contract; establish Agent entry and behavior. |
 | [review-code](./review-code/SKILL.md) | eng-standards | `2.1.0` | Orchestrator: run scope → language → framework → library → cognitive review skills in order and aggregate findings into one report. |
 | [review-codebase](./review-codebase/SKILL.md) | eng-standards | `1.1.0` | Review architecture, design, and tech debt for a given scope; focus on boundaries, patterns, and overall quality. |
-| [review-diff](./review-diff/SKILL.md) | eng-standards | `1.1.0` | Review only git diff for impact, regression, correctness, compatibility, and side effects; scope-only atomic skill. |
+| [review-diff](./review-diff/SKILL.md) | eng-standards | `1.2.0` | Review only git diff (staged + unstaged, optional untracked) for impact, regression, correctness, compatibility, and side effects; scope-only atomic skill. |
 | [review-dotnet](./review-dotnet/SKILL.md) | eng-standards | `1.0.0` | Review .NET (C#/F#) for language and runtime conventions; language-only atomic skill. |
 | [review-java](./review-java/SKILL.md) | eng-standards | `1.0.0` | Review Java for language and runtime conventions; language-only atomic skill. |
 | [review-sql](./review-sql/SKILL.md) | eng-standards | `1.0.0` | Review SQL and query code for injection, performance, transactions, and portability; language-only atomic skill. |
