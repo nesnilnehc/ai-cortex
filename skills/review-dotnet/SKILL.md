@@ -1,6 +1,6 @@
 ---
 name: review-dotnet
-description: Review .NET (C#/F#) code for language and runtime conventions: async/await, nullable, API versioning, IDisposable, LINQ, and testability. Language-only atomic skill; output is a findings list.
+description: "Review .NET (C#/F#) code for language and runtime conventions: async/await, nullable, API versioning, IDisposable, LINQ, and testability. Language-only atomic skill; output is a findings list."
 tags: [eng-standards]
 related_skills: [review-diff, review-codebase, review-code]
 version: 1.0.0
