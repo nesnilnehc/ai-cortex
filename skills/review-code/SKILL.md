@@ -3,7 +3,7 @@ name: review-code
 description: Orchestrator that runs scope then language then framework then library then cognitive review skills in order and aggregates all findings into one report. Does not perform analysis itself.
 tags: [eng-standards]
 related_skills: [review-diff, review-codebase, review-dotnet, review-java, review-sql, review-vue, review-security, review-architecture]
-version: 2.3.0
+version: 2.3.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -38,7 +38,7 @@ metadata:
 ### Interaction policy
 
 - **Prefer defaults and choices**: Use the defaults in the table below; present options for the user to **confirm or select** (e.g. [diff] [codebase], [Repo root] [Current dir]), and avoid asking for free-text input when a default exists.
-- If the scope is not explicit (diff vs codebase), **ask the user to choose** (e.g. *Review current change (diff)* [default] *or codebase?*) before running any review skill.
+- **Scope (diff vs codebase)**: If the user has **not** explicitly indicated (a) diff/current change (e.g. "my changes", "the diff", "what I changed") or (b) codebase/path (e.g. "this directory", "src/foo", "the repo"), **ask the user to choose**. In particular, if they said only "review", "review code", or "code review" with no scope cue, **do not assume** — offer: *Review current change (diff)* [default] *or codebase (given path(s))?* and wait for their choice before running any review skill.
 - If language/framework is not explicit and cannot be inferred from the files in scope, **offer choices** ([.NET] [Java] [SQL] [Vue] [Skip]); if still unclear, skip and **note the skip** in the final summary.
 - Always state which steps were executed and which were skipped (with reason).
 
@@ -58,7 +58,7 @@ metadata:
 
 | Item | If unclear | Action |
 | :--- | :--- | :--- |
-| **Scope** | User did not say "my changes"/"diff" vs "codebase" | Offer: *Review current change (diff)* [default] *or codebase (given path(s))?* — user chooses. |
+| **Scope** | User did not say "my changes"/"diff" vs "codebase"/path (e.g. "review" or "review code" alone = unclear) | **Must ask.** Offer: *Review current change (diff)* [default] *or codebase (given path(s))?* — user chooses; do not assume. |
 | **Scope = diff** | — | Confirm: *Include untracked files?* Default **Yes**. Ensure diff + untracked content available for review-diff. |
 | **Scope = codebase** | Path(s) not stated | Offer: *Review repo root?* [default] *Or pick path(s): [repo root] [current file’s dir] [list top-level dirs]* — user selects, no typing. |
 | **Scope = codebase, large** | Whole repo or very large dir | Default: output **by layer** (module/dir). Option: *Narrow to a priority subset?* — user can choose from listed dirs/modules. |
