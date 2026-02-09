@@ -3,7 +3,7 @@ name: review-diff
 description: Review only git diff for impact, regression, correctness, compatibility, and side effects. Scope-only atomic skill; output is a findings list for aggregation.
 tags: [eng-standards]
 related_skills: [review-codebase, review-code]
-version: 1.0.0
+version: 1.1.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -68,7 +68,7 @@ For each changed file, evaluate and emit findings for:
 
 - Emit zero or more **findings** in the format defined in **Appendix: Output contract**.
 - Each finding MUST include Location, Category, Severity, Title, Description, and optionally Suggestion.
-- Category for this skill is always **scope** (or scope-diff).
+- Category for this skill is always **scope**.
 
 ---
 
