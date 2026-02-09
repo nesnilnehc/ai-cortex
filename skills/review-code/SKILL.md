@@ -3,7 +3,7 @@ name: review-code
 description: Orchestrator that runs scope then language then framework then library then cognitive review skills in order and aggregates all findings into one report. Does not perform analysis itself.
 tags: [eng-standards]
 related_skills: [review-diff, review-codebase, review-dotnet, review-java, review-sql, review-vue, review-security, review-architecture]
-version: 2.1.0
+version: 2.3.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -37,9 +37,34 @@ metadata:
 
 ### Interaction policy
 
-- If the scope is not explicit (diff vs codebase), **ask the user** to choose before running any review skill.
-- If language/framework is not explicit and cannot be inferred from the files in scope, **ask once**; if still unclear, skip that step and **note the skip** in the final summary.
+- **Prefer defaults and choices**: Use the defaults in the table below; present options for the user to **confirm or select** (e.g. [diff] [codebase], [Repo root] [Current dir]), and avoid asking for free-text input when a default exists.
+- If the scope is not explicit (diff vs codebase), **ask the user to choose** (e.g. *Review current change (diff)* [default] *or codebase?*) before running any review skill.
+- If language/framework is not explicit and cannot be inferred from the files in scope, **offer choices** ([.NET] [Java] [SQL] [Vue] [Skip]); if still unclear, skip and **note the skip** in the final summary.
 - Always state which steps were executed and which were skipped (with reason).
+
+### Defaults (prefer confirm or choose; avoid asking for free-text input)
+
+| Item | Default | When to deviate |
+| :--- | :--- | :--- |
+| **Scope** | **diff** (current change) | User chooses "codebase" to review given path(s) instead. |
+| **Scope = diff — untracked** | **Include** untracked files in change set | User can choose "diff only, no untracked." |
+| **Scope = codebase — path(s)** | **Repo root** | User chooses one or more paths (offer: repo root / current file’s dir / list top-level dirs to pick). |
+| **Scope = codebase — large** | **By layer** (output by module/dir; no single shallow pass) | User can choose a **priority subset** (e.g. one layer or named modules). |
+| **Language / framework** | **Infer from files in scope** | If unclear, offer choices: [.NET] [Java] [SQL] [Vue] [Skip]; do not ask user to type. |
+
+### Pre-flight: confirm before running
+
+**Resolve the following with the user once, before executing any review step.** Prefer **confirm default** or **select from options**; avoid asking for free-text input when a default exists.
+
+| Item | If unclear | Action |
+| :--- | :--- | :--- |
+| **Scope** | User did not say "my changes"/"diff" vs "codebase" | Offer: *Review current change (diff)* [default] *or codebase (given path(s))?* — user chooses. |
+| **Scope = diff** | — | Confirm: *Include untracked files?* Default **Yes**. Ensure diff + untracked content available for review-diff. |
+| **Scope = codebase** | Path(s) not stated | Offer: *Review repo root?* [default] *Or pick path(s): [repo root] [current file’s dir] [list top-level dirs]* — user selects, no typing. |
+| **Scope = codebase, large** | Whole repo or very large dir | Default: output **by layer** (module/dir). Option: *Narrow to a priority subset?* — user can choose from listed dirs/modules. |
+| **Language / framework** | Cannot infer from files | Offer: *[.NET] [Java] [SQL] [Vue] [Skip]* — user picks one; if Skip or none match, skip and note in summary. |
+
+After pre-flight, run the pipeline without further scope questions; report which steps ran and which were skipped.
 
 ### Execution order
 
@@ -113,6 +138,7 @@ When performing this skill, **sequentially apply** the following steps. For each
 
 ## Self-Check
 
+- [ ] Were pre-flight items (scope, paths if codebase, large-scope priority, untracked if diff) confirmed with the user before running?
 - [ ] Was the execution order followed (scope → language → framework → library → cognitive)?
 - [ ] Were findings only collected from the atomic skills, not invented?
 - [ ] Is the output a single report with all findings in the standard format?
