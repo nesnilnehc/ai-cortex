@@ -3,7 +3,7 @@ name: review-code
 description: Orchestrator that runs scope then language then framework then library then cognitive review skills in order and aggregates all findings into one report. Does not perform analysis itself.
 tags: [eng-standards]
 related_skills: [review-diff, review-codebase, review-dotnet, review-java, review-sql, review-vue, review-security, review-architecture]
-version: 2.0.0
+version: 2.1.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -34,6 +34,12 @@ metadata:
 
 - **Do not** analyze code yourself. **Do** invoke (or simulate invoking) the following skills **in order**, then aggregate their findings.
 - Execution order is fixed so that Cursor or an agent can follow it step by step.
+
+### Interaction policy
+
+- If the scope is not explicit (diff vs codebase), **ask the user** to choose before running any review skill.
+- If language/framework is not explicit and cannot be inferred from the files in scope, **ask once**; if still unclear, skip that step and **note the skip** in the final summary.
+- Always state which steps were executed and which were skipped (with reason).
 
 ### Execution order
 
@@ -69,7 +75,8 @@ When performing this skill, **sequentially apply** the following steps. For each
    Collect all findings.
 
 6. **Aggregation**  
-   Merge all collected findings into **one report**. Group by **Category** (Scope, Language, Framework, Library, Cognitive) or by **file/location**, as best fits the report length. Use the same finding format (Location, Category, Severity, Title, Description, Suggestion). Add a short summary (e.g. counts by severity or category) at the top if useful.
+   Merge all collected findings into **one report**. Group by **Category** (`scope`, `language-*`, `framework-*`, `library-*`, `cognitive-*`) or by **file/location**, as best fits the report length. Use the same finding format (Location, Category, Severity, Title, Description, Suggestion). Add a short summary (e.g. counts by severity or category) at the top if useful.  
+   **De-dup rule**: If multiple findings share the same **Location + Title** and represent the same issue across steps, keep the highest severity and note the other step(s) in the Description (e.g. "Also flagged by language and security").
 
 ### Summary for Cursor/Agent
 
@@ -118,7 +125,7 @@ When performing this skill, **sequentially apply** the following steps. For each
 ### Example 1: Diff review for .NET project
 
 - **Input**: User says "review my code" and provides a git diff; project is C#.
-- **Expected**: Run review-diff → review-dotnet → review-security → review-architecture (skip framework/library if not Vue or other); aggregate all findings into one report with categories Scope, Language-dotnet, Cognitive-security, Cognitive-architecture.
+- **Expected**: Run review-diff → review-dotnet → review-security → review-architecture (skip framework/library if not Vue or other); aggregate all findings into one report with categories `scope`, `language-dotnet`, `cognitive-security`, `cognitive-architecture`.
 
 ### Example 2: Codebase review for Vue frontend
 

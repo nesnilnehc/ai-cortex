@@ -1,8 +1,8 @@
 ---
 name: review-codebase
-description: Architecture and design review for specified files/dirs/repo. Covers tech debt, patterns, quality. Diff-only review use review-code. Complements review-code (diff-focused).
+description: Architecture and design review for specified files/dirs/repo. Covers tech debt, patterns, quality. Diff-only review use review-diff. Complements review-code (orchestrated).
 tags: [eng-standards]
-version: 1.0.0
+version: 1.1.0
 license: MIT
 related_skills: [review-code, review-diff]
 recommended_scope: project
@@ -25,9 +25,9 @@ From a **senior full-stack and production code-review** perspective, review **th
 - **Pair / sampling**: Review files or dirs specified by a colleague, without requiring a current diff.
 - **Teaching and standards**: Explain or check arbitrary code against the same review dimensions.
 
-**When to use**: When the user wants to review **given path(s), directory(ies), or repo**, not “only the current diff.” For reviewing only local changes, use [review-code](../review-code/SKILL.md) or `/review-code`.
+**When to use**: When the user wants to review **given path(s), directory(ies), or repo**, not “only the current diff.” For reviewing only local changes, use [review-diff](../review-diff/SKILL.md). For a full orchestrated review, use [review-code](../review-code/SKILL.md).
 
-**Scope**: This skill focuses on **current state** (architecture, design, tech debt) of the given scope and does not depend on diff. It complements `review-code` (diff-based). skills.sh options like `code-review-excellence` are more general; this skill emphasizes boundaries, patterns, and overall quality.
+**Scope**: This skill focuses on **current state** (architecture, design, tech debt) of the given scope and does not depend on diff. It complements `review-code` (orchestrated). skills.sh options like `code-review-excellence` are more general; this skill emphasizes boundaries, patterns, and overall quality.
 
 ---
 
