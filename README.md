@@ -26,6 +26,12 @@ Use the [skills.sh](https://skills.sh) CLI to install into Claude Code, Cursor, 
 npx skills add nesnilnehc/ai-cortex
 ```
 
+Add `--force` to overwrite existing installation when reinstalling or updating:
+
+```bash
+npx skills add nesnilnehc/ai-cortex --force
+```
+
 Install only specific skills:
 
 ```bash

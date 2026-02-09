@@ -1,6 +1,6 @@
 ---
 name: review-java
-description: Review Java code for language and runtime conventions: concurrency, exceptions, try-with-resources, API versioning, collections and Streams, NIO, and testability. Language-only atomic skill; output is a findings list.
+description: "Review Java code for language and runtime conventions: concurrency, exceptions, try-with-resources, API versioning, collections and Streams, NIO, and testability. Language-only atomic skill; output is a findings list."
 tags: [eng-standards]
 related_skills: [review-diff, review-codebase, review-code]
 version: 1.0.0

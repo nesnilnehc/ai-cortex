@@ -1,6 +1,6 @@
 ---
 name: generate-github-workflow
-description: GitHub Actions YAML with embedded output contract: security-first, minimal permissions, version pinning. For CI, release, PR checks. Differs from generic templates by spec compliance and auditability.
+description: "GitHub Actions YAML with embedded output contract: security-first, minimal permissions, version pinning. For CI, release, PR checks. Differs from generic templates by spec compliance and auditability."
 tags: [devops, eng-standards]
 version: 1.0.0
 license: MIT

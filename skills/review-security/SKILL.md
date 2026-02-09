@@ -1,6 +1,6 @@
 ---
 name: review-security
-description: Review code for security: injection, sensitive data, authentication and authorization, dependencies and CVEs, configuration and secrets, and crypto. Cognitive-only atomic skill; output is a findings list.
+description: "Review code for security: injection, sensitive data, authentication and authorization, dependencies and CVEs, configuration and secrets, and crypto. Cognitive-only atomic skill; output is a findings list."
 tags: [eng-standards, security]
 related_skills: [review-diff, review-codebase, review-sql, review-code]
 version: 1.0.0
