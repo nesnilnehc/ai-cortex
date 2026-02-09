@@ -2,7 +2,7 @@
 name: review-codebase
 description: Architecture and design review for specified files/dirs/repo. Covers tech debt, patterns, quality. Diff-only review use review-diff. Complements review-code (orchestrated).
 tags: [eng-standards]
-version: 1.1.0
+version: 1.3.0
 license: MIT
 related_skills: [review-code, review-diff]
 recommended_scope: project
@@ -64,8 +64,17 @@ This skill looks at **full implementation and place in the whole**, not “this 
 
 ### Input
 
-- **Paths**: One or more file or directory paths (relative to workspace root or user-given root); default can be repo root or user-stated “current focus.”
+- **Paths**: One or more file or directory paths (relative to workspace root or user-given root).
 - **Optional**: Language/framework constraints, focus (e.g. security only, performance only).
+
+**Defaults (confirm or choose; avoid free-text):**
+
+| Item | Default | When to deviate |
+| :--- | :--- | :--- |
+| **Path(s)** | **Repo root** | Offer: [Repo root] [Current file's directory] [List top-level dirs to pick]; user selects. |
+| **Large scope** | **By layer** (output by module/dir) | User can choose a **priority subset** (e.g. pick from top-level dirs). |
+
+**Confirm before running**: (1) *Review repo root?* [default] or user selects path(s) from options. (2) If scope is large, use default "by layer" or user chooses a priority subset from offered list.
 
 ### Output
 

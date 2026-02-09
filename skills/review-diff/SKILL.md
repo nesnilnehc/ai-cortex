@@ -3,7 +3,7 @@ name: review-diff
 description: Review only git diff for impact, regression, correctness, compatibility, and side effects. Scope-only atomic skill; output is a findings list for aggregation.
 tags: [eng-standards]
 related_skills: [review-codebase, review-code]
-version: 1.2.0
+version: 1.3.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -32,8 +32,8 @@ Review **only the current change** (git diff, staged and unstaged) along a singl
 
 ### Scope
 
-- **Analyze**: Only files in the change set — diff (staged + unstaged) and, when provided, **untracked files** that are part of the same change. Do not analyze unchanged or out-of-scope files.
-- **Untracked files**: If the invoker includes untracked file paths and content (e.g. new files to be committed), treat each as a full-file addition and apply the same review checklist; reference file path and line ranges as for added lines.
+- **Analyze**: Only files in the change set — diff (staged + unstaged) and **untracked files** that are part of the same change (included by default). Do not analyze unchanged or out-of-scope files.
+- **Untracked files**: Included by default. When the invoker passes paths and full content of untracked files (e.g. new files to be committed), treat each as a full-file addition and apply the same review checklist; reference file path and line ranges as for added lines.
 - **Do not**: Review whole repo, or cover architecture/security/language-specific rules; defer to review-codebase, review-security, review-dotnet, etc.
 
 ### Review checklist (diff dimension only)
@@ -64,7 +64,7 @@ For each changed file, evaluate and emit findings for:
 ### Input
 
 - **git diff**: Changes on the current branch vs HEAD (staged + unstaged), provided when invoking this skill.
-- **Optional — untracked files**: Paths and full content of untracked files that belong to the same change set (e.g. new files the user intends to add). When provided, include them in the review scope.
+- **Untracked files** (in scope by default): Paths and full content of untracked files that belong to the same change set. The invoker should include them so they are reviewed as full-file additions.
 
 ### Output
 
@@ -85,7 +85,7 @@ For each changed file, evaluate and emit findings for:
 
 ## Self-Check
 
-- [ ] Was only the diff (and any provided untracked files) reviewed?
+- [ ] Was only the diff (and untracked files in the change set, when included) reviewed?
 - [ ] Were intent, impact, regression, correctness, compatibility, side effects, and observability covered?
 - [ ] Is each finding emitted with Location, Category=scope, Severity, Title, Description, and optional Suggestion?
 - [ ] Are issues referenced with file:line or @@?
@@ -110,9 +110,9 @@ For each changed file, evaluate and emit findings for:
 - **Input**: Diff only has indentation, spaces, or comment changes.
 - **Expected**: Either no findings or a single minor/suggestion finding: "format/comments only, no behavior change"; if comments contradict code, emit a finding with Title and Suggestion.
 
-### Edge case: New (untracked) file included
+### Edge case: New (untracked) file in change set
 
-- **Input**: Diff plus one untracked file (path + full content) provided as part of the change set.
+- **Input**: Diff plus one untracked file (path + full content) as part of the change set (included by default).
 - **Expected**: Review the new file as a full-file addition; apply the same checklist (intent, impact, regression, compatibility, side effects, observability); emit findings with Location = path and line references. Category = scope for all.
 
 ---
