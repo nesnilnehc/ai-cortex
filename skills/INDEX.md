@@ -46,8 +46,8 @@ This project follows **[Semantic Versioning (SemVer)](https://semver.org/)**.
 | [refine-skill-design](./refine-skill-design/SKILL.md) | writing, eng-standards, meta-skill, optimization | `1.2.0` | Audit and refactor SKILLs to meet production-grade standards. |
 | [write-agents-entry](./write-agents-entry/SKILL.md) | documentation, eng-standards | `1.0.0` | Write or revise AGENTS.md per the skill’s embedded output contract; establish Agent entry and behavior. |
 | [review-code](./review-code/SKILL.md) | eng-standards | `2.3.1` | Orchestrator: run scope → language → framework → library → cognitive review skills in order and aggregate findings into one report. |
-| [review-codebase](./review-codebase/SKILL.md) | eng-standards | `1.1.0` | Review architecture, design, and tech debt for a given scope; focus on boundaries, patterns, and overall quality. |
-| [review-diff](./review-diff/SKILL.md) | eng-standards | `1.2.0` | Review only git diff (staged + unstaged, optional untracked) for impact, regression, correctness, compatibility, and side effects; scope-only atomic skill. |
+| [review-codebase](./review-codebase/SKILL.md) | eng-standards | `1.3.0` | Review architecture, design, and tech debt for a given scope; focus on boundaries, patterns, and overall quality. |
+| [review-diff](./review-diff/SKILL.md) | eng-standards | `1.3.0` | Review only git diff (staged + unstaged, optional untracked) for impact, regression, correctness, compatibility, and side effects; scope-only atomic skill. |
 | [review-dotnet](./review-dotnet/SKILL.md) | eng-standards | `1.0.0` | Review .NET (C#/F#) for language and runtime conventions; language-only atomic skill. |
 | [review-java](./review-java/SKILL.md) | eng-standards | `1.0.0` | Review Java for language and runtime conventions; language-only atomic skill. |
 | [review-sql](./review-sql/SKILL.md) | eng-standards | `1.0.0` | Review SQL and query code for injection, performance, transactions, and portability; language-only atomic skill. |
@@ -56,6 +56,7 @@ This project follows **[Semantic Versioning (SemVer)](https://semver.org/)**.
 | [review-architecture](./review-architecture/SKILL.md) | eng-standards | `1.0.0` | Review code for architecture: boundaries, dependency direction, cycles, interfaces, coupling; cognitive-only atomic skill. |
 | [generate-github-workflow](./generate-github-workflow/SKILL.md) | devops, eng-standards | `1.0.0` | Create GitHub Actions workflows per the skill’s output spec (CI, PR checks, release); includes Go + Docker + GoReleaser appendix. |
 | [curate-skills](./curate-skills/SKILL.md) | meta-skill, eng-standards, documentation | `1.0.0` | Evaluate, score, tag, and normalize all Skills; write agent.yaml and README per skill, detect overlaps, produce SUMMARY or chat summary. |
+| [install-rules](./install-rules/SKILL.md) | automation, infrastructure, eng-standards | `1.0.0` | Install rules from this project or a specified Git repo into Cursor (Trae support to be added). |
 
 ---
 

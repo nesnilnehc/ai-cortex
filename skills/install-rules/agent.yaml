@@ -1,0 +1,29 @@
+name: install-rules
+status: validated
+
+primary_use: Install rules from this project or a specified Git repo into Cursor (Trae support to be added). List rules, confirm, then write .mdc to .cursor/rules/.
+
+inputs:
+  - source (this project rules/ or owner/repo + optional branch and subpath)
+  - target (Cursor only in this version)
+  - optional rule subset or "all"
+  - optional destination (project vs user-level)
+
+outputs:
+  - list of installable rules before write
+  - after install: installed rule names, target path, conversion notes, failures (per Appendix: Output contract)
+
+scores:
+  agent_native: 5
+  cognitive: 4
+  composability: 5
+  stance: 5
+
+asqm_quality: 19
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:discover-skills
+
+market_position: differentiated
+
+tags: [automation, infrastructure, eng-standards]

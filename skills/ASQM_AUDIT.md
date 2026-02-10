@@ -1,6 +1,6 @@
 # ASQM Audit — AI Cortex Skills
 
-**Audit date**: 2025-02-05  
+**Audit date**: 2025-02-10  
 **Scope**: All skills under `skills/`  
 **Scoring**: ASQM strict (evidence-based; agent_native = 5 only with explicit output contract in SKILL.md).
 
@@ -10,11 +10,11 @@
 
 | Status | Count | Skills |
 | :--- | :--- | :--- |
-| **validated** | 16 | review-code, review-diff, review-codebase, review-dotnet, review-java, review-sql, review-vue, review-security, review-architecture, curate-skills, discover-skills, decontextualize-text, generate-standard-readme, write-agents-entry, refine-skill-design, generate-github-workflow |
+| **validated** | 17 | review-code, review-diff, review-codebase, review-dotnet, review-java, review-sql, review-vue, review-security, review-architecture, curate-skills, discover-skills, decontextualize-text, generate-standard-readme, write-agents-entry, refine-skill-design, generate-github-workflow, install-rules |
 | **experimental** | 0 | — |
 | **archive_candidate** | 0 | — |
 
-All 16 skills meet **validated**: Quality ≥ 17 (or ≥ 10 for experimental), Gate A (agent_native ≥ 4), and Gate B (stance ≥ 3).
+All 17 skills meet **validated**: Quality ≥ 17 (or ≥ 10 for experimental), Gate A (agent_native ≥ 4), and Gate B (stance ≥ 3).
 
 ---
 
@@ -62,6 +62,7 @@ All 16 skills meet **validated**: Quality ≥ 17 (or ≥ 10 for experimental), G
 | discover-skills | 5 | 3 | 5 | 4 | 17 | validated |
 | decontextualize-text | 5 | 4 | 4 | 4 | 17 | validated |
 | generate-standard-readme | 5 | 3 | 4 | 5 | 17 | validated |
+| install-rules | 5 | 4 | 5 | 5 | 19 | validated |
 
 ---
 
@@ -76,6 +77,7 @@ All 16 skills meet **validated**: Quality ≥ 17 (or ≥ 10 for experimental), G
 - **write-agents-entry**: overlaps with generate-standard-readme, refine-skill-design; **market_position**: differentiated.
 - **decontextualize-text**: overlaps with generate-standard-readme; **market_position**: differentiated.
 - **generate-github-workflow**: overlaps_with empty; **market_position**: differentiated.
+- **install-rules**: overlaps with discover-skills (discover + install flow); **market_position**: differentiated.
 
 All overlaps use **Git-repo form** `owner/repo:skill-name` (e.g. `nesnilnehc/ai-cortex:review-diff`).
 
@@ -87,15 +89,17 @@ All overlaps use **Git-repo form** `owner/repo:skill-name` (e.g. `nesnilnehc/ai-
 2. **Seven skills** (review-diff, review-dotnet, review-java, review-sql, review-vue, review-security, review-architecture) had no agent.yaml or README; **agent.yaml** and **README** were created for each, with ASQM scores, overlaps_with, and market_position.
 3. **refine-skill-design**: No explicit output contract in SKILL.md (no "Appendix: Output contract"); agent_native kept at 4 per strict scoring. All other skills with "Appendix: Output contract" (or equivalent) in SKILL.md received agent_native 5.
 4. **INDEX.md** and **manifest.json** were not modified by this skill (per Restrictions); no capability changes were required.
+5. **install-rules**: New skill had no agent.yaml or README; **agent.yaml** and **README** were created with ASQM scores (19, validated), overlaps_with (discover-skills), market_position (differentiated). SKILL.md contains Appendix: Output contract → agent_native 5.
 
 ---
 
 ## 7. Recommendations
 
-1. **No structural changes recommended.** All 16 skills are validated; lifecycle and scoring are consistent with ASQM strict rules.
+1. **No structural changes recommended.** All 17 skills are validated; lifecycle and scoring are consistent with ASQM strict rules.
 2. **Optional**: Consider adding an **Appendix: Output contract** (or equivalent machine-parseable spec) to **refine-skill-design** SKILL.md if you want to raise agent_native to 5 in a future audit; current score 4 is correct given the spec.
-3. **Ongoing**: After adding or changing any skill, run **curate-skills** again (e.g. "curate" or "curate all skills") to refresh agent.yaml, README, and this ASQM_AUDIT.md.
-4. **Commit**: Commit the new/updated `agent.yaml`, `README.md` per skill and this `ASQM_AUDIT.md` so the repo has a single source of truth for quality and ecosystem position.
+3. **Sync INDEX and SKILL versions**: `scripts/verify-registry.mjs` currently reports version mismatches for review-codebase (INDEX 1.1.0 vs SKILL 1.3.0) and review-diff (INDEX 1.2.0 vs SKILL 1.3.0). Align INDEX.md version column with each skill’s SKILL.md front matter, or bump SKILL versions to match INDEX, then re-run the verifier.
+4. **Ongoing**: After adding or changing any skill, run **curate-skills** again (e.g. "curate" or "curate all skills") to refresh agent.yaml, README, and this ASQM_AUDIT.md.
+5. **Commit**: Commit the new/updated `agent.yaml`, `README.md` per skill and this `ASQM_AUDIT.md` so the repo has a single source of truth for quality and ecosystem position.
 
 ---
 
