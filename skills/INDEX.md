@@ -56,7 +56,7 @@ This project follows **[Semantic Versioning (SemVer)](https://semver.org/)**.
 | [review-architecture](./review-architecture/SKILL.md) | eng-standards | `1.0.0` | Review code for architecture: boundaries, dependency direction, cycles, interfaces, coupling; cognitive-only atomic skill. |
 | [generate-github-workflow](./generate-github-workflow/SKILL.md) | devops, eng-standards | `1.0.0` | Create GitHub Actions workflows per the skill’s output spec (CI, PR checks, release); includes Go + Docker + GoReleaser appendix. |
 | [curate-skills](./curate-skills/SKILL.md) | meta-skill, eng-standards, documentation | `1.0.0` | Evaluate, score, tag, and normalize all Skills; write agent.yaml and README per skill, detect overlaps, produce SUMMARY or chat summary. |
-| [install-rules](./install-rules/SKILL.md) | automation, infrastructure, eng-standards | `1.0.0` | Install rules from this project or a specified Git repo into Cursor (Trae support to be added). |
+| [install-rules](./install-rules/SKILL.md) | automation, infrastructure, eng-standards | `1.2.0` | Install rules from this project or a specified Git repo into Cursor or Trae IDE. |
 
 ---
 

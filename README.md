@@ -13,6 +13,7 @@ AI Cortex is an agent-first, governance-ready inventory of Skills. Specs turn Sk
 
 - **Standardized skill assets**: `spec/skill.md` defines structure, metadata, and quality requirements.
 - **Discoverable catalog**: `skills/INDEX.md` and `manifest.json` provide stable indexes and metadata.
+- **Rules for AI behavior**: `rules/` provides coding standards, writing norms, and workflow policies; install via the install-rules skill or manually.
 - **Agent entry contract**: `AGENTS.md` defines identity, authoritative sources, and behavior.
 - **Ecosystem compatibility**: Works with [skills.sh](https://skills.sh) and [SkillsMP](https://skillsmp.com).
 
@@ -37,6 +38,21 @@ Install only specific skills:
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill review-code --skill generate-standard-readme
 ```
+
+### Rules
+
+Rules are passive constraints for AI behavior (coding standards, writing norms, workflow policies). Install them into Cursor or Trae so the Agent respects them in your workspace.
+
+**Option A — via the install-rules skill** (recommended): After installing this project, ask your Agent to install rules. Use the prompt that matches your scenario:
+
+| Scenario | Prompt |
+| :--- | :--- |
+| You are inside this repo (ai-cortex) | “Install this project’s rules into Cursor” |
+| You are in another project and want ai-cortex rules | “Install rules from nesnilnehc/ai-cortex to my Cursor rules” |
+
+The [install-rules](skills/install-rules/SKILL.md) skill lists available rules, asks for confirmation, and writes to Cursor (`.cursor/rules/` `.mdc` files) or Trae (`.trae/project_rules.md` concatenated Markdown). You can install all rules or a subset.
+
+**Option B — manual copy**: Copy from `rules/` to `.cursor/rules/` (convert to `.mdc` with frontmatter per Cursor format) or to `.trae/project_rules.md` (concatenate as Markdown sections). See [rules/INDEX.md](rules/INDEX.md) for the rule registry.
 
 ---
 
