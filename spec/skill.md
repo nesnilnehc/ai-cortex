@@ -57,6 +57,7 @@ metadata:
 - After adding a skill, update `skills/INDEX.md` with the new entry.
 - After adding or moving a skill, update `manifest.json` `capabilities` with the new path.
 - **Checklist**: When adding or moving a skill, verify both `skills/INDEX.md` and `manifest.json` are updated together; run `scripts/verify-registry.mjs` (if present) to confirm they stay in sync.
+- **Publish for npx skills**: `npx skills add owner/repo --skill <name>` clones the default branch from the remote. Push the commit that adds the skill (and updated INDEX + manifest) so the skill is discoverable and installable.
 - Versions must follow [SemVer](https://semver.org/).
 
 ## 6. agentskills Compatibility
