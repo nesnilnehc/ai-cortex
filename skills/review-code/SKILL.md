@@ -2,8 +2,8 @@
 name: review-code
 description: Orchestrator that runs scope then language then framework then library then cognitive review skills in order and aggregates all findings into one report. Does not perform analysis itself.
 tags: [eng-standards]
-related_skills: [review-diff, review-codebase, review-dotnet, review-java, review-sql, review-vue, review-security, review-architecture]
-version: 2.3.1
+related_skills: [review-diff, review-codebase, review-dotnet, review-java, review-powershell, review-sql, review-vue, review-security, review-architecture]
+version: 2.4.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -39,7 +39,7 @@ metadata:
 
 - **Prefer defaults and choices**: Use the defaults in the table below; present options for the user to **confirm or select** (e.g. [diff] [codebase], [Repo root] [Current dir]), and avoid asking for free-text input when a default exists.
 - **Scope (diff vs codebase)**: If the user has **not** explicitly indicated (a) diff/current change (e.g. "my changes", "the diff", "what I changed") or (b) codebase/path (e.g. "this directory", "src/foo", "the repo"), **ask the user to choose**. In particular, if they said only "review", "review code", or "code review" with no scope cue, **do not assume** — offer: *Review current change (diff)* [default] *or codebase (given path(s))?* and wait for their choice before running any review skill.
-- If language/framework is not explicit and cannot be inferred from the files in scope, **offer choices** ([.NET] [Java] [SQL] [Vue] [Skip]); if still unclear, skip and **note the skip** in the final summary.
+- If language/framework is not explicit and cannot be inferred from the files in scope, **offer choices** ([.NET] [Java] [PowerShell] [SQL] [Vue] [Skip]); if still unclear, skip and **note the skip** in the final summary.
 - Always state which steps were executed and which were skipped (with reason).
 
 ### Defaults (prefer confirm or choose; avoid asking for free-text input)
@@ -50,7 +50,7 @@ metadata:
 | **Scope = diff — untracked** | **Include** untracked files in change set | User can choose "diff only, no untracked." |
 | **Scope = codebase — path(s)** | **Repo root** | User chooses one or more paths (offer: repo root / current file’s dir / list top-level dirs to pick). |
 | **Scope = codebase — large** | **By layer** (output by module/dir; no single shallow pass) | User can choose a **priority subset** (e.g. one layer or named modules). |
-| **Language / framework** | **Infer from files in scope** | If unclear, offer choices: [.NET] [Java] [SQL] [Vue] [Skip]; do not ask user to type. |
+| **Language / framework** | **Infer from files in scope** | If unclear, offer choices: [.NET] [Java] [PowerShell] [SQL] [Vue] [Skip]; do not ask user to type. |
 
 ### Pre-flight: confirm before running
 
@@ -62,7 +62,7 @@ metadata:
 | **Scope = diff** | — | Confirm: *Include untracked files?* Default **Yes**. Ensure diff + untracked content available for review-diff. |
 | **Scope = codebase** | Path(s) not stated | Offer: *Review repo root?* [default] *Or pick path(s): [repo root] [current file’s dir] [list top-level dirs]* — user selects, no typing. |
 | **Scope = codebase, large** | Whole repo or very large dir | Default: output **by layer** (module/dir). Option: *Narrow to a priority subset?* — user can choose from listed dirs/modules. |
-| **Language / framework** | Cannot infer from files | Offer: *[.NET] [Java] [SQL] [Vue] [Skip]* — user picks one; if Skip or none match, skip and note in summary. |
+| **Language / framework** | Cannot infer from files | Offer: *[.NET] [Java] [PowerShell] [SQL] [Vue] [Skip]* — user picks one; if Skip or none match, skip and note in summary. |
 
 After pre-flight, run the pipeline without further scope questions; report which steps ran and which were skipped.
 
@@ -80,6 +80,7 @@ When performing this skill, **sequentially apply** the following steps. For each
    Choose **one or none** based on the project's primary language in scope:
    - **review-dotnet**: .NET (C#/F#). Load [review-dotnet](../review-dotnet/SKILL.md).
    - **review-java**: Java. Load [review-java](../review-java/SKILL.md).
+   - **review-powershell**: PowerShell (`.ps1`, `.psm1`, `.psd1`). Load [review-powershell](../review-powershell/SKILL.md).
    - **review-sql**: SQL or query-heavy code. Load [review-sql](../review-sql/SKILL.md).
    If none match, skip this step. Run the chosen language skill on the same scope; collect all findings.
 
@@ -107,7 +108,7 @@ When performing this skill, **sequentially apply** the following steps. For each
 
 - **When performing this skill, sequentially apply:**
   1. review-diff **or** review-codebase (scope)
-  2. review-dotnet **or** review-java **or** review-sql (language, optional)
+  2. review-dotnet **or** review-java **or** review-powershell **or** review-sql (language, optional)
   3. review-vue or other framework skill (optional)
   4. Library skill (optional, when available)
   5. review-security, then review-architecture (cognitive)
@@ -162,6 +163,11 @@ When performing this skill, **sequentially apply** the following steps. For each
 
 - **Input**: Project is Rust or another language with no atomic skill yet.
 - **Expected**: Run scope (review-diff or review-codebase) → skip language and framework → run review-security and review-architecture; aggregate. Report should note that language/framework review was skipped (no matching skill).
+
+### Example 3: Diff review for PowerShell scripts
+
+- **Input**: User asks to review changed `.ps1` files in the current diff.
+- **Expected**: Run review-diff → review-powershell → review-security → review-architecture; aggregate findings and categorize PowerShell issues as `language-powershell`.
 
 ---
 
