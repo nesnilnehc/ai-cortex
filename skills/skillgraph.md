@@ -11,7 +11,7 @@ Atomic review skills are grouped by dimension:
 | Type | Description | Skills |
 | :--- | :--- | :--- |
 | **Scope** | What to review: current change (diff) or current state (paths/repo). | [review-diff](./review-diff/SKILL.md), [review-codebase](./review-codebase/SKILL.md) |
-| **Language** | Language and runtime conventions. | [review-dotnet](./review-dotnet/SKILL.md), [review-java](./review-java/SKILL.md), [review-sql](./review-sql/SKILL.md) |
+| **Language** | Language and runtime conventions. | [review-dotnet](./review-dotnet/SKILL.md), [review-java](./review-java/SKILL.md), [review-powershell](./review-powershell/SKILL.md), [review-sql](./review-sql/SKILL.md) |
 | **Framework** | Application framework conventions. | [review-vue](./review-vue/SKILL.md); *(reserved: review-aspnetcore, review-react, etc.)* |
 | **Library** | Key library usage and pitfalls. | *(reserved: review-entityframework, etc.)* |
 | **Cognitive** | Cross-cutting concerns: security, architecture, etc. | [review-security](./review-security/SKILL.md), [review-architecture](./review-architecture/SKILL.md) |
@@ -24,7 +24,7 @@ Atomic review skills are grouped by dimension:
 When running a **full** code review (via [review-code](./review-code/SKILL.md)), the execution order is:
 
 1. **Scope** → choose one: `review-diff` (current change) or `review-codebase` (given paths/repo).
-2. **Language** → choose one or none: `review-dotnet`, `review-java`, `review-sql` (by project).
+2. **Language** → choose one or none: `review-dotnet`, `review-java`, `review-powershell`, `review-sql` (by project).
 3. **Framework** → optional: `review-vue` or future framework skills.
 4. **Library** → optional: future library skills (e.g. review-entityframework).
 5. **Cognitive** → run in order: `review-security`, then `review-architecture` (and future: reliability, maintainability).
@@ -47,6 +47,7 @@ flowchart LR
   subgraph lang [Language]
     review_dotnet[review-dotnet]
     review_java[review-java]
+    review_powershell[review-powershell]
     review_sql[review-sql]
   end
   subgraph fw [Framework]
@@ -60,6 +61,7 @@ flowchart LR
   review_code --> review_codebase
   review_code --> review_dotnet
   review_code --> review_java
+  review_code --> review_powershell
   review_code --> review_sql
   review_code --> review_vue
   review_code --> review_security
@@ -68,6 +70,7 @@ flowchart LR
   review_codebase --> aggregate
   review_dotnet --> aggregate
   review_java --> aggregate
+  review_powershell --> aggregate
   review_sql --> aggregate
   review_vue --> aggregate
   review_security --> aggregate
@@ -97,6 +100,7 @@ Every atomic skill emits findings in this format so [review-code](./review-code/
 | [review-codebase](./review-codebase/SKILL.md) | scope | paths/dirs/repo | Findings (Category=scope) |
 | [review-dotnet](./review-dotnet/SKILL.md) | language | code scope | Findings (Category=language-dotnet) |
 | [review-java](./review-java/SKILL.md) | language | code scope | Findings (Category=language-java) |
+| [review-powershell](./review-powershell/SKILL.md) | language | code scope | Findings (Category=language-powershell) |
 | [review-sql](./review-sql/SKILL.md) | language | SQL/code scope | Findings (Category=language-sql) |
 | [review-vue](./review-vue/SKILL.md) | framework | code scope | Findings (Category=framework-vue) |
 | [review-security](./review-security/SKILL.md) | cognitive | code scope | Findings (Category=cognitive-security) |
