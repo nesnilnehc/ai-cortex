@@ -35,7 +35,7 @@ Orchestrates atomic review skills in a fixed order (scope → language → frame
 
 | Field | Value |
 | :--- | :--- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-diff, review-codebase; external code-review skills |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-diff, nesnilnehc/ai-cortex:review-codebase, wshobson/agents:code-review-excellence, secondsky/claude-skills:code-review, trailofbits/skills:differential-review, cxuu/golang-skills:go-code-review, obra/superpowers:requesting-code-review, skillcreatorai/Ai-Agent-Skills:code-review |
 | market_position | differentiated |
 
 ## Full definition

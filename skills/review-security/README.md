@@ -34,7 +34,7 @@ Reviews code for security only: injection (SQL, command, template), sensitive da
 
 | Field | Value |
 | :--- | :--- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, review-code, review-sql, review-diff |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-sql, nesnilnehc/ai-cortex:review-diff |
 | market_position | commodity |
 
 ## Full definition
