@@ -1,0 +1,28 @@
+name: run-automated-tests
+status: experimental
+
+primary_use: Analyze how a repo expects automated tests to run (docs/CI/build manifests) and execute the safest appropriate test command(s) with explicit confirmation for installs/services.
+
+inputs:
+  - target repository path (default .)
+  - mode (fast | ci | full)
+  - constraints (allow dependency install, allow network, allow Docker)
+
+outputs:
+  - test plan summary (evidence, chosen commands, assumptions, executed vs skipped)
+  - execution results (first failing command + exit code + error excerpt when failing)
+
+scores:
+  agent_native: 4
+  cognitive: 4
+  composability: 4
+  stance: 4
+
+asqm_quality: 16
+
+overlaps_with: []
+
+market_position: commodity
+
+tags: [automation, devops, eng-standards]
+

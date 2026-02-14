@@ -60,6 +60,8 @@ This project follows **[Semantic Versioning (SemVer)](https://semver.org/)**.
 | [generate-github-workflow](./generate-github-workflow/SKILL.md) | devops, eng-standards | `1.0.0` | Create GitHub Actions workflows per the skill’s output spec (CI, PR checks, release); includes Go + Docker + GoReleaser appendix. |
 | [curate-skills](./curate-skills/SKILL.md) | meta-skill, eng-standards, documentation | `1.0.0` | Evaluate, score, tag, and normalize all Skills; write agent.yaml and README per skill, detect overlaps, produce SUMMARY or chat summary. |
 | [install-rules](./install-rules/SKILL.md) | automation, infrastructure, eng-standards | `1.2.0` | Install rules from this project or a specified Git repo into Cursor or Trae IDE. |
+| [run-automated-tests](./run-automated-tests/SKILL.md) | automation, devops, eng-standards | `0.1.0` | Analyze a target repository's automated testing approach and run the most appropriate test command(s) safely. |
+| [run-repair-loop](./run-repair-loop/SKILL.md) | automation, devops, eng-standards, optimization | `0.1.0` | Iteratively review, run tests, and apply targeted fixes until issues are resolved (or a stop condition is reached). |
 
 ---
 

@@ -1,0 +1,31 @@
+name: run-repair-loop
+status: experimental
+
+primary_use: Iteratively review changes, run automated tests, apply targeted fixes, and repeat until tests pass and no blocking review findings remain (or stop conditions are hit).
+
+inputs:
+  - target repository path (default .)
+  - scope (diff | codebase)
+  - test mode (fast | ci | full)
+  - constraints (allow installs, allow network, allow Docker/services)
+  - max_iterations (default 5)
+
+outputs:
+  - repair loop report (iterations, commands run, failures, patches applied, final convergence state)
+
+scores:
+  # Strict ASQM: 5 requires an explicit machine-parseable output contract in SKILL.md.
+  agent_native: 4
+  cognitive: 4
+  composability: 4
+  stance: 4
+
+asqm_quality: 16
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:review-code
+  - nesnilnehc/ai-cortex:run-automated-tests
+
+market_position: experimental
+
+tags: [automation, devops, eng-standards, optimization]
