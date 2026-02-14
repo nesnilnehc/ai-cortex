@@ -34,7 +34,7 @@ Reviews Vue 3 code for framework conventions only: Composition API and script se
 
 | Field | Value |
 | :--- | :--- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, review-code, review-diff |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-diff |
 | market_position | commodity |
 
 ## Full definition

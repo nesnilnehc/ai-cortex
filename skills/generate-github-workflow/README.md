@@ -38,7 +38,7 @@ Produces GitHub Actions workflow YAML that satisfies the skill's Appendix A outp
 
 | Field | Value |
 | :--- | :--- |
-| overlaps_with (owner/repo:skill-name) | [] |
+| overlaps_with (owner/repo:skill-name) | — |
 | market_position | differentiated |
 
 ## Full definition

@@ -34,7 +34,7 @@ Reviews SQL and query code for language and query conventions only: injection an
 
 | Field | Value |
 | :--- | :--- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, review-code, review-security, review-diff |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-security, nesnilnehc/ai-cortex:review-diff |
 | market_position | commodity |
 
 ## Full definition
