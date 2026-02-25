@@ -1,0 +1,29 @@
+name: bootstrap-project-documentation
+status: validated
+
+primary_use: Bootstrap or adapt project documentation using project-documentation-template. Initialize docs for empty projects, or analyze and recommend adjustments for non-empty projects.
+
+inputs:
+  - project metadata (name, description, tech stack)
+  - scale (small | medium | large, optional)
+  - mode override (initialize | adjust, optional)
+
+outputs:
+  - Initialize: docs/ directory, VERSION file, summary of created files
+  - Adjust: recommendation list (markdown), then applied changes and summary after user confirmation
+
+scores:
+  agent_native: 5
+  cognitive: 4
+  composability: 4
+  stance: 5
+
+asqm_quality: 18
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:generate-standard-readme
+  - nesnilnehc/ai-cortex:write-agents-entry
+
+market_position: differentiated
+
+tags: [documentation, eng-standards, writing]

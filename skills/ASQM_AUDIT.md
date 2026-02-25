@@ -1,6 +1,6 @@
 # ASQM Audit — AI Cortex Skills
 
-**Audit date**: 2026-02-14
+**Audit date**: 2026-02-25
 **Scope**: All skills under `skills/`  
 **Scoring**: ASQM strict (evidence-based; agent_native = 5 only with explicit output contract in SKILL.md).
 
@@ -10,7 +10,7 @@
 
 | Status | Count | Skills |
 | :--- | :--- | :--- |
-| **validated** | 20 | review-code, review-diff, review-codebase, review-dotnet, review-java, review-go, review-powershell, review-sql, review-vue, review-security, review-architecture, review-performance, curate-skills, discover-skills, decontextualize-text, generate-standard-readme, write-agents-entry, refine-skill-design, generate-github-workflow, install-rules |
+| **validated** | 21 | review-code, review-diff, review-codebase, review-dotnet, review-java, review-go, review-powershell, review-sql, review-vue, review-security, review-architecture, review-performance, curate-skills, discover-skills, decontextualize-text, generate-standard-readme, write-agents-entry, refine-skill-design, generate-github-workflow, install-rules, bootstrap-project-documentation |
 | **experimental** | 2 | run-automated-tests, run-repair-loop |
 | **archive_candidate** | 0 | — |
 
@@ -68,6 +68,7 @@ All skills meet their lifecycle thresholds: **validated** ↔ Quality ≥ 17 + G
 | install-rules | 5 | 4 | 5 | 5 | 19 | validated |
 | run-automated-tests | 4 | 4 | 4 | 4 | 16 | experimental |
 | run-repair-loop | 4 | 4 | 4 | 4 | 16 | experimental |
+| bootstrap-project-documentation | 5 | 4 | 4 | 5 | 18 | validated |
 
 ---
 
@@ -84,6 +85,7 @@ All skills meet their lifecycle thresholds: **validated** ↔ Quality ≥ 17 + G
 - **generate-github-workflow**: overlaps_with empty; **market_position**: differentiated.
 - **install-rules**: overlaps with discover-skills (discover + install flow); **market_position**: differentiated.
 - **run-repair-loop**: overlaps with review-code and run-automated-tests; **market_position**: experimental.
+- **bootstrap-project-documentation**: overlaps with generate-standard-readme, write-agents-entry; **market_position**: differentiated.
 
 All overlaps use **Git-repo form** `owner/repo:skill-name` (e.g. `nesnilnehc/ai-cortex:review-diff`).
 
@@ -95,6 +97,7 @@ All overlaps use **Git-repo form** `owner/repo:skill-name` (e.g. `nesnilnehc/ai-
 2. **run-automated-tests**: New skill added; `agent.yaml` and `README.md` were created. It is **experimental** (Quality 16) primarily because SKILL.md currently describes outputs in prose (no explicit machine-parseable output contract) → agent_native 4 under strict scoring.
 3. **run-repair-loop**: New skill added; it is **experimental** (Quality 16) under strict scoring because SKILL.md does not yet define a machine-parseable output contract → agent_native 4.
 4. **Existing skills**: agent.yaml and README were already aligned with the standardized structure; no score or lifecycle changes were required in this run.
+5. **bootstrap-project-documentation**: New skill added; `agent.yaml` and `README.md` were created. SKILL.md contains an explicit Appendix: Output Contract with tables for Initialize/Adjust modes and template source → agent_native 5. Quality 18, Gate A and B satisfied → **validated**.
 
 ---
 
@@ -104,7 +107,7 @@ All overlaps use **Git-repo form** `owner/repo:skill-name` (e.g. `nesnilnehc/ai-
 2. **Optional**: Add an explicit, machine-parseable **Output contract appendix** to `run-repair-loop` SKILL.md (e.g. a fixed "Repair Loop Report" schema). This would raise agent_native under strict scoring and may move it to **validated** if the overall quality reaches ≥ 17.
 3. **Optional**: Consider adding an **Appendix: Output contract** (or equivalent machine-parseable spec) to **refine-skill-design** SKILL.md if you want to raise agent_native to 5 in a future audit; current score 4 is consistent with strict scoring.
 4. **Ongoing**: After adding or changing any skill, run **curate-skills** again to refresh per-skill governance artifacts (`agent.yaml`, `README.md`) and this audit.
-5. **Commit**: Commit the newly added governance artifacts for `review-performance`, `run-automated-tests`, and `run-repair-loop` plus this updated `ASQM_AUDIT.md`.
+5. **Commit**: Commit the newly instrumented governance artifacts for `bootstrap-project-documentation` plus this updated `ASQM_AUDIT.md`.
 
 ---
 
