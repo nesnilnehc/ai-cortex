@@ -62,6 +62,7 @@ This project follows **[Semantic Versioning (SemVer)](https://semver.org/)**.
 | [install-rules](./install-rules/SKILL.md) | automation, infrastructure, eng-standards | `1.2.0` | Install rules from this project or a specified Git repo into Cursor or Trae IDE. |
 | [run-automated-tests](./run-automated-tests/SKILL.md) | automation, devops, eng-standards | `0.1.0` | Analyze a target repository's automated testing approach and run the most appropriate test command(s) safely. |
 | [run-repair-loop](./run-repair-loop/SKILL.md) | automation, devops, eng-standards, optimization | `0.1.0` | Iteratively review, run tests, and apply targeted fixes until issues are resolved (or a stop condition is reached). |
+| [bootstrap-project-documentation](./bootstrap-project-documentation/SKILL.md) | documentation, eng-standards, writing | `1.0.0` | Bootstrap or adapt project docs from project-documentation-template; Initialize (empty) or Adjust (non-empty) modes. |
 
 ---
 
