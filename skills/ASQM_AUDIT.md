@@ -97,7 +97,7 @@ All overlaps use **Git-repo form** `owner/repo:skill-name` (e.g. `nesnilnehc/ai-
 2. **run-automated-tests**: New skill added; `agent.yaml` and `README.md` were created. It is **experimental** (Quality 16) primarily because SKILL.md currently describes outputs in prose (no explicit machine-parseable output contract) → agent_native 4 under strict scoring.
 3. **run-repair-loop**: New skill added; it is **experimental** (Quality 16) under strict scoring because SKILL.md does not yet define a machine-parseable output contract → agent_native 4.
 4. **Existing skills**: agent.yaml and README were already aligned with the standardized structure; no score or lifecycle changes were required in this run.
-5. **bootstrap-project-documentation**: New skill added; `agent.yaml` and `README.md` were created. SKILL.md contains an explicit Appendix: Output Contract with tables for Initialize/Adjust modes and template source → agent_native 5. Quality 18, Gate A and B satisfied → **validated**.
+5. **bootstrap-project-documentation**: New skill added; `agent.yaml` and `README.md` were created. SKILL.md contains an explicit Appendix: Output Contract with tables for Initialize/Adjust modes and template source → agent_native 5. Quality 18, Gate A and B satisfied → **validated**. v1.1.1: Adjust mode uses template as target; no empty dirs unless requested; repeatable; strict kebab-case naming; TEMPLATE_BASE_URL canonical; VERSION creation optional on user request; fetch-failure handling.
 
 ---
 
