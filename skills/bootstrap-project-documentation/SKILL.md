@@ -1,9 +1,9 @@
 ---
 name: bootstrap-project-documentation
-description: Bootstrap or adapt project documentation using project-documentation-template. Initialize docs for empty projects, or analyze and recommend adjustments for non-empty projects. Use for lifecycle docs, ADR, version sync.
+description: Bootstrap or adapt project docs using project-documentation-template. Initialize (empty) or Adjust (non-empty, template as target); repeatable; no empty dirs unless requested; strict kebab-case naming. Use for lifecycle docs, ADR, version sync.
 tags: [documentation, eng-standards, writing]
 related_skills: [generate-standard-readme, write-agents-entry]
-version: 1.0.0
+version: 1.1.1
 license: MIT
 recommended_scope: both
 metadata:
@@ -15,15 +15,16 @@ compatibility: Requires access to https://raw.githubusercontent.com or a local c
 
 ## Purpose
 
-Bootstrap or adapt project documentation using the [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) structure. This skill supports two modes: **Initialize** (empty project—copy templates and fill placeholders) and **Adjust** (non-empty project—scan, compare to template, produce a recommendation list). Both modes follow conventions from the template’s `llms.txt` and `AGENTS.md`.
+Bootstrap or adapt project documentation using the [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) structure. Two modes: **Initialize** (empty project—copy templates and fill placeholders) and **Adjust** (non-empty—use template as target, propose renames/moves/merges, apply in-place after confirmation). Supports repeatable runs; avoids empty dirs and template files unless requested; enforces strict kebab-case naming. Both modes follow conventions from the template’s `llms.txt` and `AGENTS.md`.
 
 ---
 
 ## Use Cases
 
 - **Empty project**: Initialize a full docs skeleton by copying template subsets and filling placeholders for small/medium/large projects.
-- **Non-empty project**: Analyze existing docs, compare to the template, produce a recommendation list (missing docs, alignable templates, unfilled placeholders, broken links), then apply changes after user confirmation.
+- **Non-empty project**: Use the template as target reference; analyze existing docs, propose renames/moves/merges to align structure and naming; apply in-place changes after user confirmation. Do not create empty dirs or template files unless requested. Can be run repeatedly.
 - **Shared workflows**: Generate Architecture Decision Records (ADR), update version information across docs, validate placeholders and links.
+- **Iterative runs**: Run the skill repeatedly to progressively organize and refine docs; each run builds on the current state without requiring a full reinit.
 
 **When to use**: When a project needs structured lifecycle documentation aligned with the enterprise template, or when existing docs should be aligned with that structure.
 
@@ -53,24 +54,23 @@ First determine the execution mode. User override takes precedence; otherwise:
    - **Small**: Project Overview, Development Guide, User Guide
    - **Medium**: + Architecture, Design, Requirements & Planning
    - **Large**: + Process Management, Operations Guide, Compliance, Community & Contributing
-3. Fetch templates from `https://raw.githubusercontent.com/nesnilnehc/project-documentation-template/main/` (or use a local clone).
-4. Copy selected docs to the project `docs/` with preserved directory structure.
+3. Fetch templates from `TEMPLATE_BASE_URL` (see Appendix) or use a local clone.
+4. Copy **only** selected docs to the project `docs/`. Do not create empty directories or placeholder files unless the user explicitly requests them.
 5. Fill placeholders with project metadata (name, dates, tech stack) and prompt for missing critical data.
-6. Create a `VERSION` file (e.g. `1.0.0`).
+6. Create a `VERSION` file (e.g. `1.0.0`) unless the user explicitly requests no new files.
 7. Validate: no unreplaced placeholders, links valid, tables aligned.
 
 ### Adjust Mode Steps
 
-1. Scan existing docs under `docs/` (structure, placeholders, links, versions).
-2. Compare to the template structure and conventions.
-3. Produce a **recommendation list** with:
-   - Missing documents (by scale)
-   - Documents alignable to template
-   - Unfilled placeholders
-   - Broken or outdated links
-   - Version inconsistencies
-4. Present the list to the user and ask for confirmation before applying changes.
-5. After confirmation, apply only the approved changes.
+1. Use [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) as the **target reference** for structure, conventions, and file/directory names.
+2. Scan existing docs under `docs/` (structure, placeholders, links, versions).
+3. Compare to the template and identify gaps:
+   - Structure and path mismatches (nonstandard dir/file names)
+   - Documents alignable to template (rename, move, or merge)
+   - Unfilled placeholders, broken links, version inconsistencies
+4. Produce a **recommendation list** and present it to the user; ask for confirmation before applying.
+5. After confirmation, apply changes **in-place** to existing files. Do not create empty directories or add template files unless the user explicitly requests them.
+6. The skill is **idempotent**: it can be run repeatedly to iteratively organize and refine docs.
 
 ### Conventions (from llms.txt)
 
@@ -79,6 +79,13 @@ First determine the execution mode. User override takes precedence; otherwise:
 - **Version**: Use SemVer; update version history at document bottom on changes
 - **References**: Internal `[Name](relative/path)`; external ` number `
 - **Dates**: `YYYY-MM-DD`
+
+### File and directory naming (strict)
+
+- **Directories**: `kebab-case` only (e.g. `project-overview`, `development-guide`, `process-management`)
+- **Files**: `kebab-case` with `.md` extension (e.g. `goals-and-vision.md`, `versioning-standards.md`)
+- **ADR files**: `YYYYMMDD-slug-title.md` (e.g. `20250225-process-management-strategy.md`)
+- No spaces, underscores, or PascalCase; lowercase letters, digits, hyphens only.
 
 ---
 
@@ -104,6 +111,8 @@ First determine the execution mode. User override takes precedence; otherwise:
 - Use consistent dates (`YYYY-MM-DD`) and SemVer for versions.
 - In Adjust mode, do not apply changes without user confirmation.
 - Do not remove structural elements (sections, tables) from templates without user approval.
+- Do not create empty directories or add template files unless the user explicitly requests them.
+- Use strict file and directory naming (kebab-case, ADR format `YYYYMMDD-title.md`) when creating or renaming paths.
 
 ---
 
@@ -115,6 +124,8 @@ First determine the execution mode. User override takes precedence; otherwise:
 - [ ] **Version**: Is the version consistent across `VERSION` and affected documents?
 - [ ] **Tables**: Is Markdown table alignment preserved?
 - [ ] **Confirm**: In Adjust mode, were changes applied only after user confirmation?
+- [ ] **No extra dirs/files**: Were empty dirs and template files avoided unless user requested them?
+- [ ] **Naming**: Are all new/renamed paths in kebab-case with correct ADR format where applicable?
 
 ---
 
@@ -130,21 +141,21 @@ First determine the execution mode. User override takes precedence; otherwise:
 
 ### Example 2: Adjust (Non-Empty Project)
 
-**Context**: Repo has `docs/` with `goals-and-vision.md`, `README.md` in root. Some placeholders still unfilled.
+**Context**: Repo has `docs/` with `project_overview/goals.md` (nonstandard paths). Some placeholders unfilled.
 
-**Steps**: Agent selects Adjust. Scans `docs/`, compares to template. Produces recommendation list:
+**Steps**: Agent selects Adjust. Uses [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) as target. Produces recommendation list:
 
-- Missing: Development Guide, User Guide (for small scale)
+- Rename `project_overview/` → `project-overview/`, `goals.md` → `goals-and-vision.md` (kebab-case, match template)
 - Unfilled placeholders in `goals-and-vision.md`: `[project description]`, `[target date]`
-- Version: No `VERSION` file
+- Broken link: `../architecture/tech-stack.md` (path does not exist)
 
-Agent presents the list and asks: "Apply these changes? (Y/n)". User confirms. Agent adds missing docs, fills placeholders, creates `VERSION`.
+Agent presents the list and asks: "Apply these changes? (Y/n)". User confirms. Agent renames dirs/files, fixes placeholders and links in-place. No new empty dirs or template files created.
 
 ### Example 3: Common Workflow—Generate ADR
 
 **Context**: Any project; user needs an Architecture Decision Record.
 
-**Steps**: Agent fetches `docs/process-management/decisions/ADR-TEMPLATE.md` from template. Determines next ADR number (e.g. ADR-001). Fills context, options, rationale, consequences with user input. Saves as `docs/process-management/decisions/YYYYMMDD-decision-title.md` and updates the decision index if present.
+**Steps**: Agent fetches `docs/process-management/decisions/ADR-TEMPLATE.md` from template. Determines next ADR number (e.g. ADR-001). Fills context, options, rationale, consequences with user input. Saves as `docs/process-management/decisions/YYYYMMDD-decision-title.md` (kebab-case slug) and updates the decision index if present.
 
 ---
 
@@ -154,8 +165,8 @@ Agent presents the list and asks: "Apply these changes? (Y/n)". User confirms. A
 
 | Deliverable | Required |
 | :--- | :--- |
-| `docs/` directory with selected template subset | Yes |
-| `VERSION` file | Yes |
+| `docs/` with selected template files only (no empty dirs) | Yes |
+| `VERSION` file | Yes (unless user explicitly requests no new files) |
 | All placeholders replaced (or marked for later) | Yes |
 | Version history table at document bottom | Per template |
 
@@ -163,13 +174,15 @@ Agent presents the list and asks: "Apply these changes? (Y/n)". User confirms. A
 
 | Section | Content |
 | :--- | :--- |
-| Missing documents | List by template path and scale |
-| Alignable documents | List existing docs that can match template |
+| Target reference | [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) |
+| Path/naming issues | Current path → recommended path (kebab-case, template alignment) |
+| Alignable documents | Existing docs that can be renamed/moved/merged to match template |
 | Unfilled placeholders | File path + placeholder text |
 | Broken/outdated links | File path + link |
 | Version issues | Conflicts or missing version refs |
 
 ### Template Source
 
-- Base URL: `https://raw.githubusercontent.com/nesnilnehc/project-documentation-template/main/`
+- **TEMPLATE_BASE_URL** (canonical): `https://raw.githubusercontent.com/nesnilnehc/project-documentation-template/main/`
 - Key files: `llms.txt`, `AGENTS.md`, `README.md`, `docs/`
+- If fetch fails (network unavailable): prompt the user to provide a local clone path or retry later; do not proceed with stale or missing templates.

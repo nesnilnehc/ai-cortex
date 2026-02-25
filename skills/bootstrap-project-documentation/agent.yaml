@@ -1,7 +1,7 @@
 name: bootstrap-project-documentation
 status: validated
 
-primary_use: Bootstrap or adapt project documentation using project-documentation-template. Initialize docs for empty projects, or analyze and recommend adjustments for non-empty projects.
+primary_use: Bootstrap or adapt project docs using project-documentation-template. Initialize (empty) or Adjust (non-empty); use template as target reference in Adjust; repeatable; no empty dirs unless requested; strict kebab-case naming.
 
 inputs:
   - project metadata (name, description, tech stack)

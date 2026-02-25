@@ -4,7 +4,7 @@
 
 ## What it does
 
-Bootstrap or adapt project documentation using the [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) structure. Two modes: **Initialize** (empty project—copy templates and fill placeholders) and **Adjust** (non-empty project—scan, compare, produce recommendation list, apply after user confirmation).
+Bootstrap or adapt project documentation using the [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) structure. Two modes: **Initialize** (empty project—copy templates and fill placeholders) and **Adjust** (non-empty—use template as target, rename/move/merge in-place, apply after confirmation). Repeatable runs; no empty dirs unless requested; strict kebab-case naming.
 
 ## When to use
 
