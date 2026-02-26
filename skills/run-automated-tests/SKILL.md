@@ -140,4 +140,48 @@ Agent:
 4. If integration tests fail, summarize:
    - service health / port conflicts
    - missing env vars
-   - how CI config differs from local
+    - how CI config differs from local
+
+---
+
+## Appendix: Output contract
+
+Each skill execution MUST produce a **Test Plan Summary** in this exact JSON format:
+
+```json
+{
+  "test_plan_summary": {
+    "mode": "fast | ci | full",
+    "evidence": ["path/to/source1", "path/to/source2"],
+    "commands": [
+      {"command": "npm test", "purpose": "run unit tests", "order": 1}
+    ],
+    "prerequisites": ["npm ci", "Docker running"],
+    "executed": ["npm ci", "npm test"],
+    "skipped": ["integration tests - require Docker"],
+    "result": {
+      "status": "passed | failed | blocked",
+      "exit_code": 0,
+      "first_failure": {
+        "command": "npm test",
+        "exit_code": 1,
+        "error_excerpt": "FAIL src/utils.test.js"
+      }
+    }
+  }
+}
+```
+
+| Element | Type | Description |
+| :--- | :--- | :--- |
+| `mode` | string | Selected mode: `fast`, `ci`, or `full` |
+| `evidence` | array | Source files that informed the test plan |
+| `commands` | array | Selected test commands with purpose and order |
+| `prerequisites` | array | Required setup steps |
+| `executed` | array | Commands actually run |
+| `skipped` | array | Commands skipped and reason |
+| `result.status` | string | `passed`, `failed`, or `blocked` |
+| `result.exit_code` | number | Exit code of test command |
+| `result.first_failure` | object | First failure details (if any) |
+
+This schema enables Agent consumption without prose parsing.

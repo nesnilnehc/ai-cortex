@@ -1,5 +1,5 @@
 name: run-automated-tests
-status: experimental
+status: validated
 
 primary_use: Analyze how a repo expects automated tests to run (docs/CI/build manifests) and execute the safest appropriate test command(s) with explicit confirmation for installs/services.
 
@@ -13,12 +13,12 @@ outputs:
   - execution results (first failing command + exit code + error excerpt when failing)
 
 scores:
-  agent_native: 4
+  agent_native: 5
   cognitive: 4
   composability: 4
   stance: 4
 
-asqm_quality: 16
+asqm_quality: 17
 
 overlaps_with: []
 
