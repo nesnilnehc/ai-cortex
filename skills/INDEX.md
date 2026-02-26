@@ -51,6 +51,7 @@ This project follows **[Semantic Versioning (SemVer)](https://semver.org/)**.
 | [review-dotnet](./review-dotnet/SKILL.md) | eng-standards | `1.0.0` | Review .NET (C#/F#) for language and runtime conventions; language-only atomic skill. |
 | [review-java](./review-java/SKILL.md) | eng-standards | `1.0.0` | Review Java for language and runtime conventions; language-only atomic skill. |
 | [review-go](./review-go/SKILL.md) | eng-standards | `1.0.0` | Review Go for language and runtime conventions; language-only atomic skill. |
+| [review-php](./review-php/SKILL.md) | eng-standards | `1.0.0` | Review PHP for language and runtime conventions; language-only atomic skill. |
 | [review-powershell](./review-powershell/SKILL.md) | eng-standards | `1.0.0` | Review PowerShell for language and runtime conventions; language-only atomic skill. |
 | [review-sql](./review-sql/SKILL.md) | eng-standards | `1.0.0` | Review SQL and query code for injection, performance, transactions, and portability; language-only atomic skill. |
 | [review-vue](./review-vue/SKILL.md) | eng-standards | `1.0.0` | Review Vue 3 for Composition API, reactivity, components, state, and performance; framework-only atomic skill. |
