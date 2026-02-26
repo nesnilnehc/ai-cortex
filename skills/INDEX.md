@@ -53,6 +53,7 @@ This project follows **[Semantic Versioning (SemVer)](https://semver.org/)**.
 | [review-go](./review-go/SKILL.md) | eng-standards | `1.0.0` | Review Go for language and runtime conventions; language-only atomic skill. |
 | [review-php](./review-php/SKILL.md) | eng-standards | `1.0.0` | Review PHP for language and runtime conventions; language-only atomic skill. |
 | [review-powershell](./review-powershell/SKILL.md) | eng-standards | `1.0.0` | Review PowerShell for language and runtime conventions; language-only atomic skill. |
+| [review-python](./review-python/SKILL.md) | eng-standards | `1.0.0` | Review Python for language and runtime conventions; language-only atomic skill. |
 | [review-sql](./review-sql/SKILL.md) | eng-standards | `1.0.0` | Review SQL and query code for injection, performance, transactions, and portability; language-only atomic skill. |
 | [review-vue](./review-vue/SKILL.md) | eng-standards | `1.0.0` | Review Vue 3 for Composition API, reactivity, components, state, and performance; framework-only atomic skill. |
 | [review-security](./review-security/SKILL.md) | eng-standards, security | `1.0.0` | Review code for security: injection, sensitive data, auth, dependencies, secrets, crypto; cognitive-only atomic skill. |

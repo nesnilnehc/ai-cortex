@@ -172,5 +172,68 @@ Agent:
 3. Ask the user to choose:
    - run only `fast` unit tests locally, or
    - allow Docker and provide a non-chat secret workflow, or
-   - run only the failing CI job steps that don't require secrets.
+    - run only the failing CI job steps that don't require secrets.
+
+---
+
+## Appendix: Output contract
+
+Each skill execution MUST produce a **Repair Loop Report** in this exact JSON format:
+
+```json
+{
+  "repair_loop_report": {
+    "definition_of_done": {
+      "tests": "test command passes",
+      "review": "no critical/major findings"
+    },
+    "scope": "diff | codebase",
+    "mode": "fast | ci | full",
+    "max_iterations": 5,
+    "iterations": [
+      {
+        "iteration": 1,
+        "review": {
+          "skill_used": "review-diff",
+          "findings_count": {"critical": 0, "major": 1, "minor": 2},
+          "blocking": ["unused import in utils.js"]
+        },
+        "tests": {
+          "command": "npm test",
+          "status": "failed",
+          "exit_code": 1,
+          "first_failure": "FAIL src/utils.test.js"
+        },
+        "fix": {
+          "files_changed": ["src/utils.js"],
+          "intent": "remove unused import"
+        },
+        "re_run": {
+          "command": "npm test",
+          "status": "passed"
+        }
+      }
+    ],
+    "final_state": {
+      "tests_passing": true,
+      "commands_passed": ["npm test"],
+      "blocking_issues_remaining": [],
+      "minor_suggestions": ["consider adding type hints"]
+    },
+    "stop_condition": "converged | max_iterations | environment_blocker | no_progress"
+  }
+}
+```
+
+| Element | Type | Description |
+| :--- | :--- | :--- |
+| `definition_of_done` | object | What constitutes success |
+| `scope` | string | `diff` or `codebase` |
+| `mode` | string | Test mode: `fast`, `ci`, or `full` |
+| `max_iterations` | number | Loop limit |
+| `iterations` | array | Each iteration's review, test, fix, re-run |
+| `final_state` | object | End state: tests passing, remaining issues |
+| `stop_condition` | string | Why loop ended: `converged`, `max_iterations`, `environment_blocker`, `no_progress` |
+
+This schema enables Agent consumption without prose parsing.
 
