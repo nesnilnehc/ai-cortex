@@ -1,6 +1,6 @@
 # ASQM Audit — AI Cortex Skills
 
-**Audit date**: 2026-02-26
+**Audit date**: 2026-02-27
 **Scope**: All skills under `skills/`  
 **Scoring**: ASQM strict (evidence-based; agent_native = 5 only with explicit output contract in SKILL.md).
 
@@ -10,7 +10,7 @@
 
 | Status | Count | Skills |
 | :--- | :--- | :--- |
-| **validated** | 23 | review-code, review-diff, review-codebase, review-dotnet, review-java, review-go, review-php, review-powershell, review-python, review-sql, review-vue, review-security, review-architecture, review-performance, curate-skills, discover-skills, decontextualize-text, generate-standard-readme, write-agents-entry, refine-skill-design, generate-github-workflow, install-rules, bootstrap-project-documentation |
+| **validated** | 26 | review-code, review-diff, review-codebase, review-dotnet, review-java, review-go, review-php, review-powershell, review-python, review-sql, review-vue, review-security, review-architecture, review-performance, review-testing, curate-skills, discover-skills, decontextualize-text, generate-standard-readme, write-agents-entry, refine-skill-design, generate-github-workflow, install-rules, bootstrap-project-documentation, run-automated-tests, run-repair-loop |
 | **experimental** | 0 | — |
 | **archive_candidate** | 0 | — |
 
@@ -48,9 +48,8 @@ All skills meet their lifecycle thresholds: **validated** ↔ Quality ≥ 17 + G
 | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
 | review-code | 5 | 5 | 5 | 5 | 20 | validated |
 | curate-skills | 5 | 4 | 5 | 5 | 19 | validated |
-| refine-skill-design | 4 | 5 | 5 | 5 | 19 | validated |
+| refine-skill-design | 5 | 5 | 5 | 5 | 20 | validated |
 | review-diff | 5 | 4 | 5 | 5 | 19 | validated |
-| review-codebase | 5 | 4 | 4 | 5 | 18 | validated |
 | review-dotnet | 5 | 4 | 5 | 5 | 19 | validated |
 | review-java | 5 | 4 | 5 | 5 | 19 | validated |
 | review-go | 5 | 4 | 5 | 5 | 19 | validated |
@@ -62,22 +61,24 @@ All skills meet their lifecycle thresholds: **validated** ↔ Quality ≥ 17 + G
 | review-security | 5 | 4 | 5 | 5 | 19 | validated |
 | review-architecture | 5 | 4 | 5 | 5 | 19 | validated |
 | review-performance | 5 | 4 | 5 | 5 | 19 | validated |
+| review-testing | 5 | 4 | 5 | 5 | 19 | validated |
+| install-rules | 5 | 4 | 5 | 5 | 19 | validated |
+| review-codebase | 5 | 4 | 4 | 5 | 18 | validated |
 | write-agents-entry | 5 | 4 | 4 | 5 | 18 | validated |
 | generate-github-workflow | 5 | 4 | 4 | 5 | 18 | validated |
+| bootstrap-project-documentation | 5 | 4 | 4 | 5 | 18 | validated |
 | discover-skills | 5 | 3 | 5 | 4 | 17 | validated |
 | decontextualize-text | 5 | 4 | 4 | 4 | 17 | validated |
 | generate-standard-readme | 5 | 3 | 4 | 5 | 17 | validated |
-| install-rules | 5 | 4 | 5 | 5 | 19 | validated |
 | run-automated-tests | 5 | 4 | 4 | 4 | 17 | validated |
 | run-repair-loop | 5 | 4 | 4 | 4 | 17 | validated |
-| bootstrap-project-documentation | 5 | 4 | 4 | 5 | 18 | validated |
 
 ---
 
 ## 5. Overlaps and ecosystem
 
 - **review-code** (orchestrator): overlaps with review-diff, review-codebase, and external code-review skills; **market_position**: differentiated.
-- **Atomic review skills** (review-diff, review-codebase, review-dotnet, review-java, review-go, review-php, review-powershell, review-python, review-sql, review-vue, review-security, review-architecture, review-performance): overlap with each other and review-code; **market_position**: commodity.
+- **Atomic review skills** (review-diff, review-codebase, review-dotnet, review-java, review-go, review-php, review-powershell, review-python, review-sql, review-vue, review-security, review-architecture, review-performance, review-testing): overlap with each other and review-code; **market_position**: commodity.
 - **curate-skills**: overlaps with refine-skill-design, generate-standard-readme; **market_position**: differentiated.
 - **refine-skill-design**: overlaps with curate-skills, discover-skills; **market_position**: differentiated.
 - **discover-skills**: overlaps with refine-skill-design; **market_position**: differentiated.
@@ -96,23 +97,18 @@ All overlaps use **Git-repo form** `owner/repo:skill-name` (e.g. `nesnilnehc/ai-
 
 ## 6. Findings
 
-1. **review-performance**: `agent.yaml` and `README.md` were added so the skill is fully instrumented for ASQM governance. SKILL.md contains an explicit output contract (Appendix) → agent_native 5.
-2. **run-automated-tests**: New skill added; `agent.yaml` and `README.md` were created. It is **experimental** (Quality 16) primarily because SKILL.md currently describes outputs in prose (no explicit machine-parseable output contract) → agent_native 4 under strict scoring.
-3. **run-repair-loop**: New skill added; it is **experimental** (Quality 16) under strict scoring because SKILL.md does not yet define a machine-parseable output contract → agent_native 4.
-4. **Existing skills**: agent.yaml and README were already aligned with the standardized structure; no score or lifecycle changes were required in this run.
-5. **bootstrap-project-documentation**: New skill added; `agent.yaml` and `README.md` were created. SKILL.md contains an explicit Appendix: Output Contract with tables for Initialize/Adjust modes and template source → agent_native 5. Quality 18, Gate A and B satisfied → **validated**. v1.1.1: Adjust mode uses template as target; no empty dirs unless requested; repeatable; strict kebab-case naming; TEMPLATE_BASE_URL canonical; VERSION creation optional on user request; fetch-failure handling.
-6. **review-php**: New skill added; `agent.yaml` and `README.md` were created. SKILL.md contains an explicit Appendix: Output contract with standard findings format → agent_native 5. Quality 19, Gate A and B satisfied → **validated**. Same structure as review-go/review-java; market_position commodity.
-7. **review-python**: New skill added; `agent.yaml` created. SKILL.md contains an explicit Appendix: Output contract with standard findings format → agent_native 5. Quality 19, Gate A and B satisfied → **validated**. Covers Python-specific language and runtime conventions (type hints, exceptions, async, context managers, dependencies, testability); market_position commodity.
-8. **run-automated-tests**: Added explicit Appendix: Output contract (Test Plan Summary JSON schema). SKILL.md now has machine-parseable output contract → agent_native 5. Quality 17 (5+4+4+4), Gate A and B satisfied → **validated**.
-9. **run-repair-loop**: Added explicit Appendix: Output contract (Repair Loop Report JSON schema). SKILL.md now has machine-parseable output contract → agent_native 5. Quality 17 (5+4+4+4), Gate A and B satisfied → **validated**. market_position updated to commodity.
+1. **review-testing** (new): Created `agent.yaml` and `README.md`. SKILL.md contains an explicit Appendix: Output contract with standard findings format (Location, Category=cognitive-testing, Severity, Title, Description, Suggestion) → agent_native 5. Quality 19 (5+4+5+5), Gate A and B satisfied → **validated**. Same structural pattern as review-security and review-architecture; 6-item review checklist (existence, coverage, quality, types, edge cases, maintainability); 3 examples including well-tested edge case. market_position: commodity.
+2. **review-code** (updated): Version bumped from 2.5.0 to 2.6.0 — review-testing added to cognitive execution order (security → performance → architecture → testing). related_skills updated. No score change; remains Quality 20, validated.
+3. **skillgraph.md** (updated): Added review-testing to cognitive section. Also corrected prior omissions: review-performance, review-go, review-php, review-python were missing from the composition graph and quick reference table.
+4. **Existing skills**: No score or lifecycle changes. All 25 previously instrumented skills retain their scores and validated status.
 
 ---
 
 ## 7. Recommendations
 
-1. **Optional**: Consider adding an **Appendix: Output contract** (or equivalent machine-parseable spec) to **refine-skill-design** SKILL.md if you want to raise agent_native to 5 in a future audit; current score 4 is consistent with strict scoring.
-2. **Done**: Added output contracts to `run-automated-tests` and `run-repair-loop`; both now validated (Quality 17).
-3. **Commit**: Commit the updated governance artifacts for `run-automated-tests`, `run-repair-loop`, `review-python`, and this `ASQM_AUDIT.md`.
+1. **Done**: **refine-skill-design** SKILL.md already contains an explicit Appendix: Output contract (structured table: Optimized SKILL, Diff summary with Section/Change/Reason, Version suggestion). agent_native corrected from 4 → 5; asqm_quality 19 → 20.
+2. **Commit**: Commit the new review-testing skill (SKILL.md, agent.yaml, README.md) and updated governance artifacts (review-code SKILL.md, INDEX.md, manifest.json, skillgraph.md, ASQM_AUDIT.md).
+3. **No other changes recommended**: All skills are validated; no archive candidates; overlaps are expected and by design (atomic skills naturally overlap with their orchestrator).
 
 ---
 
