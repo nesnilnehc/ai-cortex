@@ -45,7 +45,7 @@ This project follows **[Semantic Versioning (SemVer)](https://semver.org/)**.
 | [discover-skills](./discover-skills/SKILL.md) | automation, infrastructure, generalization | `1.3.0` | Discover and recommend relevant skills; suggest install commands to fill capability gaps. |
 | [refine-skill-design](./refine-skill-design/SKILL.md) | writing, eng-standards, meta-skill, optimization | `1.2.0` | Audit and refactor SKILLs to meet production-grade standards. |
 | [write-agents-entry](./write-agents-entry/SKILL.md) | documentation, eng-standards | `1.0.0` | Write or revise AGENTS.md per the skill’s embedded output contract; establish Agent entry and behavior. |
-| [review-code](./review-code/SKILL.md) | eng-standards | `2.5.0` | Orchestrator: run scope → language → framework → library → cognitive review skills in order, aggregate findings, and derive risk signals centrally. |
+| [review-code](./review-code/SKILL.md) | eng-standards | `2.6.0` | Orchestrator: run scope → language → framework → library → cognitive review skills in order, aggregate findings, and derive risk signals centrally. |
 | [review-codebase](./review-codebase/SKILL.md) | eng-standards | `1.3.0` | Review architecture, design, and tech debt for a given scope; focus on boundaries, patterns, and overall quality. |
 | [review-diff](./review-diff/SKILL.md) | eng-standards | `1.3.0` | Review only git diff (staged + unstaged, optional untracked) for impact, regression, correctness, compatibility, and side effects; scope-only atomic skill. |
 | [review-dotnet](./review-dotnet/SKILL.md) | eng-standards | `1.0.0` | Review .NET (C#/F#) for language and runtime conventions; language-only atomic skill. |
@@ -59,6 +59,7 @@ This project follows **[Semantic Versioning (SemVer)](https://semver.org/)**.
 | [review-security](./review-security/SKILL.md) | eng-standards, security | `1.0.0` | Review code for security: injection, sensitive data, auth, dependencies, secrets, crypto; cognitive-only atomic skill. |
 | [review-performance](./review-performance/SKILL.md) | eng-standards, optimization | `1.0.0` | Review code for performance: complexity, query efficiency, I/O, memory, contention, caching, and regression risk; cognitive-only atomic skill. |
 | [review-architecture](./review-architecture/SKILL.md) | eng-standards | `1.0.0` | Review code for architecture: boundaries, dependency direction, cycles, interfaces, coupling; cognitive-only atomic skill. |
+| [review-testing](./review-testing/SKILL.md) | eng-standards | `1.0.0` | Review code for testing: test existence, coverage adequacy, test quality, edge-case coverage, and maintainability; cognitive-only atomic skill. |
 | [generate-github-workflow](./generate-github-workflow/SKILL.md) | devops, eng-standards | `1.0.0` | Create GitHub Actions workflows per the skill’s output spec (CI, PR checks, release); includes Go + Docker + GoReleaser appendix. |
 | [curate-skills](./curate-skills/SKILL.md) | meta-skill, eng-standards, documentation | `1.0.0` | Evaluate, score, tag, and normalize all Skills; write agent.yaml and README per skill, detect overlaps, produce SUMMARY or chat summary. |
 | [install-rules](./install-rules/SKILL.md) | automation, infrastructure, eng-standards | `1.2.0` | Install rules from this project or a specified Git repo into Cursor or Trae IDE. |
