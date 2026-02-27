@@ -2,8 +2,8 @@
 name: review-code
 description: Orchestrator that runs scope then language then framework then library then cognitive review skills in order and aggregates all findings into one report. Does not perform analysis itself.
 tags: [eng-standards]
-related_skills: [review-diff, review-codebase, review-dotnet, review-java, review-go, review-php, review-powershell, review-sql, review-vue, review-security, review-performance, review-architecture]
-version: 2.5.0
+related_skills: [review-diff, review-codebase, review-dotnet, review-java, review-go, review-php, review-powershell, review-sql, review-vue, review-security, review-performance, review-architecture, review-testing]
+version: 2.6.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -100,6 +100,7 @@ When performing this skill, **sequentially apply** the following steps. For each
    - [review-security](../review-security/SKILL.md): security findings.
    - [review-performance](../review-performance/SKILL.md): performance findings.
    - [review-architecture](../review-architecture/SKILL.md): architecture findings.
+   - [review-testing](../review-testing/SKILL.md): testing findings (existence, coverage, quality, edge cases).
    *(Reserved for future: review-reliability, review-maintainability.)*  
    Collect all findings.
 
@@ -120,7 +121,7 @@ When performing this skill, **sequentially apply** the following steps. For each
   2. review-dotnet **or** review-java **or** review-go **or** review-php **or** review-powershell **or** review-sql (language, optional)
   3. review-vue or other framework skill (optional)
   4. Library skill (optional, when available)
-  5. review-security, then review-performance, then review-architecture (cognitive)
+  5. review-security, then review-performance, then review-architecture, then review-testing (cognitive)
   6. aggregate and deduplicate findings into one report
   7. derive final `risk_signals` (and optional `risk_confidence`) from the final findings + change context
 - **Aggregate all findings into a single report** using the standard findings format, then emit risk signals at final stage. Do not analyze code in this skill; only orchestrate and aggregate.
@@ -166,22 +167,22 @@ When performing this skill, **sequentially apply** the following steps. For each
 ### Example 1: Diff review for .NET project
 
 - **Input**: User says "review my code" and provides a git diff; project is C#.
-- **Expected**: Run review-diff → review-dotnet → review-security → review-performance → review-architecture (skip framework/library if not Vue or other); aggregate all findings into one report with categories `scope`, `language-dotnet`, `cognitive-security`, `cognitive-performance`, `cognitive-architecture`.
+- **Expected**: Run review-diff → review-dotnet → review-security → review-performance → review-architecture → review-testing (skip framework/library if not Vue or other); aggregate all findings into one report with categories `scope`, `language-dotnet`, `cognitive-security`, `cognitive-performance`, `cognitive-architecture`, `cognitive-testing`.
 
 ### Example 2: Codebase review for Vue frontend
 
 - **Input**: User says "review src/frontend" and project uses Vue 3.
-- **Expected**: Run review-codebase on src/frontend → review-vue → review-security → review-performance → review-architecture; aggregate into one report.
+- **Expected**: Run review-codebase on src/frontend → review-vue → review-security → review-performance → review-architecture → review-testing; aggregate into one report.
 
 ### Edge case: No language match
 
 - **Input**: Project is Rust or another language with no atomic skill yet.
-- **Expected**: Run scope (review-diff or review-codebase) → skip language and framework → run review-security, review-performance, and review-architecture; aggregate. Report should note that language/framework review was skipped (no matching skill).
+- **Expected**: Run scope (review-diff or review-codebase) → skip language and framework → run review-security, review-performance, review-architecture, and review-testing; aggregate. Report should note that language/framework review was skipped (no matching skill).
 
 ### Example 3: Diff review for PowerShell scripts
 
 - **Input**: User asks to review changed `.ps1` files in the current diff.
-- **Expected**: Run review-diff → review-powershell → review-security → review-performance → review-architecture; aggregate findings and categorize PowerShell issues as `language-powershell`.
+- **Expected**: Run review-diff → review-powershell → review-security → review-performance → review-architecture → review-testing; aggregate findings and categorize PowerShell issues as `language-powershell`.
 
 ---
 
@@ -192,7 +193,7 @@ The aggregated report MUST use the same finding format as the atomic skills:
 | Element | Requirement |
 | :--- | :--- |
 | **Location** | `path/to/file.ext` (optional line or range). |
-| **Category** | `scope`, `language-*`, `framework-*`, `library-*`, `cognitive-*` |
+| **Category** | `scope`, `language-*`, `framework-*`, `library-*`, `cognitive-*` (including `cognitive-testing`) |
 | **Severity** | `critical`, `major`, `minor`, `suggestion`. |
 | **Title** | Short one-line summary. |
 | **Description** | 1–3 sentences. |

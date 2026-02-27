@@ -1,0 +1,27 @@
+name: review-testing
+status: validated
+
+primary_use: Review code for testing concerns only (existence, coverage adequacy, quality/structure, types/layering, edge cases, maintainability). Cognitive-only atomic skill; output is a findings list for aggregation.
+
+inputs:
+  - code scope (files or directories or diff provided by caller)
+
+outputs:
+  - findings list (Location, Category=cognitive-testing, Severity, Title, Description, Suggestion)
+
+scores:
+  agent_native: 5
+  cognitive: 4
+  composability: 5
+  stance: 5
+
+asqm_quality: 19
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:review-codebase
+  - nesnilnehc/ai-cortex:review-code
+  - nesnilnehc/ai-cortex:review-diff
+
+market_position: commodity
+
+tags: [eng-standards]
