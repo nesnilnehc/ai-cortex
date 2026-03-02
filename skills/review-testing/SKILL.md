@@ -18,6 +18,43 @@ Review code for **testing** concerns only. Do not define scope (diff vs codebase
 
 ---
 
+## Core Objective
+
+**Primary Goal**: Produce a testing-focused findings list covering test existence, coverage adequacy, test quality/structure, test types/layering, edge-case coverage, and test maintainability for the given code scope.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **Testing-only scope**: Only testing dimensions are reviewed; no scope selection, language/framework conventions, security, performance, or architecture analysis performed
+2. ✅ **All six testing dimensions covered**: Test existence, coverage adequacy, quality/structure, types/layering, edge cases/error paths, and maintainability are assessed where relevant
+3. ✅ **Findings format compliant**: Each finding includes Location, Category (`cognitive-testing`), Severity, Title, Description, and optional Suggestion
+4. ✅ **High-risk gaps flagged**: Untested or poorly tested high-risk code paths (auth, payment, data mutation) are marked `critical` or `major`
+5. ✅ **Analysis from code only**: Test adequacy is assessed from code structure and available artifacts, without running tests or generating coverage reports
+
+**Acceptance Test**: Does the output contain a testing findings list covering all relevant dimensions with risk-appropriate severity ratings and actionable suggestions for improving test coverage and quality?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- Test existence checks (missing test files for key modules, services, public functions)
+- Coverage adequacy analysis (high-risk path coverage: auth, payment, data mutation)
+- Test quality and structure (arrange-act-assert, meaningful assertions, behavior-not-implementation)
+- Test types and layering (unit, integration, e2e balance; mock/stub isolation)
+- Edge case and error path coverage (boundary conditions, invalid inputs, failure modes)
+- Test maintainability (DRY without sacrificing readability, fixture organization, brittle test detection)
+
+**This skill does NOT handle**:
+- Scope selection (deciding which files/paths to analyze) — scope is provided by the caller
+- Running tests or generating coverage reports — use `run-automated-tests` for test execution
+- Language/framework-specific test conventions — use `review-dotnet`, `review-java`, `review-go`, etc.
+- Security, performance, or architecture review — use respective atomic skills
+- Full orchestrated review — use `review-code`
+
+**Handoff point**: When all testing findings are emitted, hand off to `review-code` for aggregation in an orchestrated review. For actually running tests, redirect to `run-automated-tests`.
+
+---
+
 ## Use Cases
 
 - **Orchestrated review**: Used as a cognitive step when [review-code](../review-code/SKILL.md) runs scope → language → framework → library → cognitive.
@@ -70,14 +107,41 @@ Review code for **testing** concerns only. Do not define scope (diff vs codebase
 - **Do not** require running tests or generating coverage reports. Analyze test adequacy from the code and available artifacts (e.g. existing coverage files). For actually running tests, use [run-automated-tests](../run-automated-tests/SKILL.md).
 - **Do not** penalize absence of tests for trivial code (simple getters, constants, generated code) unless it masks a real risk.
 
+### Skill Boundaries
+
+**Do NOT do these** (other skills handle them):
+- Do NOT select or define the code scope — scope is determined by the caller or `review-code`
+- Do NOT run or execute tests — use `run-automated-tests` for test execution
+- Do NOT perform language/framework-specific test convention analysis — use respective language skills
+- Do NOT perform security, performance, or architecture analysis — use respective atomic skills
+
+**When to stop and hand off**:
+- When all testing findings are emitted, hand off to `review-code` for aggregation in an orchestrated review
+- When the user needs tests to actually run, redirect to `run-automated-tests`
+- When the user needs a full review (scope + language + cognitive), redirect to `review-code`
+
 ---
 
 ## Self-Check
+
+### Core Success Criteria
+
+- [ ] **Testing-only scope**: Only testing dimensions are reviewed; no scope selection, language/framework conventions, security, performance, or architecture analysis performed
+- [ ] **All six testing dimensions covered**: Test existence, coverage adequacy, quality/structure, types/layering, edge cases/error paths, and maintainability are assessed where relevant
+- [ ] **Findings format compliant**: Each finding includes Location, Category (`cognitive-testing`), Severity, Title, Description, and optional Suggestion
+- [ ] **High-risk gaps flagged**: Untested or poorly tested high-risk code paths (auth, payment, data mutation) are marked `critical` or `major`
+- [ ] **Analysis from code only**: Test adequacy is assessed from code structure and available artifacts, without running tests or generating coverage reports
+
+### Process Quality Checks
 
 - [ ] Was only the testing dimension reviewed (no scope/language/security/architecture)?
 - [ ] Are test existence, coverage adequacy, quality/structure, types/layering, edge cases, and maintainability covered where relevant?
 - [ ] Is each finding emitted with Location, Category=cognitive-testing, Severity, Title, Description, and optional Suggestion?
 - [ ] Are critical gaps (untested high-risk code) clearly flagged and actionable?
+
+### Acceptance Test
+
+Does the output contain a testing findings list covering all relevant dimensions with risk-appropriate severity ratings and actionable suggestions for improving test coverage and quality?
 
 ---
 
