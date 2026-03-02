@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/nesnilnehc/ai-cortex/schemas/skill-metadata.json",
+  "title": "AI Cortex Skill Metadata",
+  "description": "JSON Schema for the YAML front-matter block in SKILL.md files, aligned with spec/skill.md v2.0.0.",
+  "type": "object",
+  "required": ["name", "description", "tags", "version", "license"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9]([a-z0-9-]*[a-z0-9])?$",
+      "description": "Kebab-case skill name; 1-64 chars; lowercase letters, digits, hyphens; no start/end hyphen; no consecutive hyphens."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "description": "One-line English summary for discoverability."
+    },
+    "tags": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": [
+          "writing",
+          "security",
+          "privacy",
+          "documentation",
+          "generalization",
+          "eng-standards",
+          "devops",
+          "meta-skill",
+          "automation",
+          "infrastructure",
+          "optimization",
+          "git",
+          "workflow"
+        ]
+      },
+      "description": "At least one tag from the INDEX tagging system."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(-[\\w.]+)?(\\+[\\w.]+)?$",
+      "description": "Semantic versioning (SemVer)."
+    },
+    "license": {
+      "type": "string",
+      "const": "MIT",
+      "description": "Must be MIT."
+    },
+    "related_skills": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Optional list of related skill names."
+    },
+    "recommended_scope": {
+      "type": "string",
+      "enum": ["user", "project", "both"],
+      "default": "both",
+      "description": "Installation scope recommendation."
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["author"],
+      "properties": {
+        "author": {
+          "type": "string",
+          "const": "ai-cortex"
+        },
+        "evolution": {
+          "type": "object",
+          "properties": {
+            "sources": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["name", "repo", "version", "license", "type", "borrowed"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "repo": { "type": "string" },
+                  "version": { "type": "string" },
+                  "license": { "type": "string" },
+                  "type": { "type": "string", "enum": ["fork", "integration", "reference"] },
+                  "borrowed": { "type": "string" }
+                }
+              }
+            },
+            "enhancements": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "compatibility": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "Optional agentskills.io environment requirements."
+    },
+    "allowed-tools": {
+      "type": "string",
+      "description": "Optional experimental space-separated tool whitelist."
+    }
+  },
+  "not": {
+    "properties": {
+      "name": { "pattern": "--" }
+    }
+  }
+}
