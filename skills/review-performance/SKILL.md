@@ -18,6 +18,46 @@ Review code for **performance** concerns only. Do not define scope (diff vs code
 
 ---
 
+## Core Objective
+
+**Primary Goal**: Produce a performance-focused findings list covering complexity hotspots, query efficiency, I/O cost, memory behavior, concurrency contention, caching, and regression risk for the given code scope.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **Performance-only scope**: Only performance dimensions are reviewed; no scope selection, security, architecture, or language/framework style review performed
+2. ✅ **All eight categories assessed**: Complexity, database/query efficiency, I/O/network cost, memory/allocations, concurrency/contention, caching/reuse, load-facing behavior, and observability are evaluated where relevant
+3. ✅ **Findings format compliant**: Each finding includes Location, Category (`cognitive-performance`), Severity, Title, Description, and optional Suggestion
+4. ✅ **Severity accurately assigned**: Production-impacting issues marked `critical`; scalability risks marked `major`; localized optimizations marked `minor`/`suggestion`
+5. ✅ **Actionable output**: Each finding has a specific location reference and a concrete fix or improvement suggestion, without claiming benchmark numbers unless measured evidence is provided
+
+**Acceptance Test**: Does the output contain a performance findings list covering all relevant dimensions with evidence-based severity ratings and actionable, location-referenced suggestions?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- Algorithmic complexity hotspots (O(n²)+, nested loops, repeated scans)
+- Database/query efficiency (N+1, missing pagination, broad selects)
+- I/O and network cost (chatty calls, missing batching, blocking on critical paths)
+- Memory and allocation behavior (churn, large object retention, unbounded growth)
+- Concurrency and contention (lock contention, goroutine starvation, queue backpressure)
+- Caching strategy (missing caches on hot paths, invalidation risks, stampede risk)
+- Load-facing behavior (missing limits/guards, expensive defaults)
+- Observability for performance (missing metrics/tracing around hot paths)
+
+**This skill does NOT handle**:
+- Scope selection (deciding which files/paths to analyze) — scope is provided by the caller
+- Security review — use `review-security`
+- Architecture review — use `review-architecture`
+- Language/framework-specific conventions — use `review-dotnet`, `review-java`, `review-go`, etc.
+- Comprehensive SQL performance analysis — use `review-sql`
+- Full orchestrated review — use `review-code`
+
+**Handoff point**: When all performance findings are emitted, hand off to `review-code` orchestrator for aggregation, or deliver directly to the user for performance-focused review sessions.
+
+---
+
 ## Use Cases
 
 - **Orchestrated review**: Used as a cognitive step when [review-code](../review-code/SKILL.md) runs scope -> language -> framework -> library -> cognitive.
@@ -78,14 +118,41 @@ Review code for **performance** concerns only. Do not define scope (diff vs code
 - **Do not** give conclusions without specific locations or actionable suggestions.
 - **Do not** claim benchmark numbers unless measured evidence is provided in the input.
 
+### Skill Boundaries
+
+**Do NOT do these** (other skills handle them):
+- Do NOT select or define the code scope — scope is determined by the caller or `review-code`
+- Do NOT perform security, architecture, or language/framework review — use respective atomic skills
+- Do NOT perform comprehensive SQL performance analysis — use `review-sql`
+- Do NOT run or execute code to measure performance — use `run-automated-tests` for test execution
+
+**When to stop and hand off**:
+- When all performance findings are emitted, hand off to `review-code` for aggregation in an orchestrated review
+- When the user needs a full review (scope + language + cognitive), redirect to `review-code`
+- When SQL performance issues dominate, suggest also running `review-sql` for deeper SQL coverage
+
 ---
 
 ## Self-Check
+
+### Core Success Criteria
+
+- [ ] **Performance-only scope**: Only performance dimensions are reviewed; no scope selection, security, architecture, or language/framework style review performed
+- [ ] **All eight categories assessed**: Complexity, database/query efficiency, I/O/network cost, memory/allocations, concurrency/contention, caching/reuse, load-facing behavior, and observability are evaluated where relevant
+- [ ] **Findings format compliant**: Each finding includes Location, Category (`cognitive-performance`), Severity, Title, Description, and optional Suggestion
+- [ ] **Severity accurately assigned**: Production-impacting issues marked `critical`; scalability risks marked `major`; localized optimizations marked `minor`/`suggestion`
+- [ ] **Actionable output**: Each finding has a specific location reference and a concrete fix or improvement suggestion, without claiming benchmark numbers unless measured evidence is provided
+
+### Process Quality Checks
 
 - [ ] Was only the performance dimension reviewed (no scope/security/architecture/style)?
 - [ ] Are complexity, query efficiency, I/O, memory, concurrency, caching, and load behavior covered where relevant?
 - [ ] Is each finding emitted with Location, Category=cognitive-performance, Severity, Title, Description, and optional Suggestion?
 - [ ] Are high-impact regression risks clearly distinguished from minor optimizations?
+
+### Acceptance Test
+
+Does the output contain a performance findings list covering all relevant dimensions with evidence-based severity ratings and actionable, location-referenced suggestions?
 
 ---
 
