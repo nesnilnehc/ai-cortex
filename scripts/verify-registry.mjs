@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 /**
- * Verify skills/INDEX.md and manifest.json stay in sync.
+ * Verify skills/INDEX.md, manifest.json, and marketplace.json stay in sync.
  * - Every capability in manifest.json has a path that exists.
  * - Every directory under skills/ that contains SKILL.md is listed in manifest capabilities.
+ * - Every skill in marketplace.json exists in skills/ and is registered in INDEX.md.
  * Run from repo root: node scripts/verify-registry.mjs
  */
 import { readFileSync, readdirSync, existsSync } from 'fs';
@@ -175,6 +176,26 @@ for (const name of skillDirNames) {
   }
 }
 
+// marketplace.json sync check (if file exists)
+const marketplacePath = join(root, '.claude-plugin', 'marketplace.json');
+if (existsSync(marketplacePath)) {
+  const marketplace = JSON.parse(readFileSync(marketplacePath, 'utf8'));
+  const plugins = marketplace.plugins || [];
+  for (const plugin of plugins) {
+    for (const skillPath of plugin.skills || []) {
+      const skillName = skillPath.replace(/^\.\/skills\//, '');
+      if (!skillDirNames.has(skillName)) {
+        console.error(`marketplace.json lists "${skillName}" but skills/${skillName}/SKILL.md is missing`);
+        failed = true;
+      }
+      if (!indexNames.has(skillName)) {
+        console.error(`marketplace.json lists "${skillName}" but it is missing from skills/INDEX.md`);
+        failed = true;
+      }
+    }
+  }
+}
+
 if (failed) process.exit(1);
-console.log('Registry OK: manifest, skills/INDEX.md, and skills/*/SKILL.md are consistent.');
+console.log('Registry OK: manifest, skills/INDEX.md, marketplace.json, and skills/*/SKILL.md are consistent.');
 process.exit(0);

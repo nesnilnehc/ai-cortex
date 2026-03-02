@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Verify every SKILL.md under skills/ conforms to spec/skill.md v2.0.0.
+ * Verify every SKILL.md under skills/ conforms to spec/skill.md v2.2.0.
  *
  * Checks:
  *   1. YAML metadata completeness and format
@@ -11,6 +11,8 @@
  *   6. Name format (1-64 chars, kebab-case, no consecutive hyphens)
  *   7. Self-Check section present
  *   8. At least 2 examples
+ *   9. agent.yaml and README.md existence (warning)
+ *  10. related_skills references point to existing skills (warning)
  *
  * Run from repo root: node scripts/verify-skill-structure.mjs
  */
@@ -75,6 +77,11 @@ function parseFrontmatter(content) {
       const tagMatch = line.match(/tags:\s*\[(.*)\]\s*$/);
       if (tagMatch) {
         meta.tags = tagMatch[1].split(',').map((t) => t.trim()).filter(Boolean);
+      }
+    } else if (line.startsWith('related_skills:')) {
+      const rsMatch = line.match(/related_skills:\s*\[(.*)\]\s*$/);
+      if (rsMatch) {
+        meta.related_skills = rsMatch[1].split(',').map((t) => t.trim()).filter(Boolean);
       }
     }
   }
@@ -205,6 +212,22 @@ function checkSkill(dirName) {
 
   if (!hasSkillBoundaries(content)) {
     warn(dirName, 'No Skill Boundaries section found (overlap risk)');
+  }
+
+  if (!existsSync(join(skillsDir, dirName, 'agent.yaml'))) {
+    warn(dirName, 'Missing agent.yaml (governance artifact)');
+  }
+
+  if (!existsSync(join(skillsDir, dirName, 'README.md'))) {
+    warn(dirName, 'Missing README.md (governance artifact)');
+  }
+
+  if (meta.related_skills && meta.related_skills.length > 0) {
+    for (const ref of meta.related_skills) {
+      if (!existsSync(join(skillsDir, ref, 'SKILL.md'))) {
+        warn(dirName, `related_skills reference "${ref}" does not exist under skills/`);
+      }
+    }
   }
 }
 
