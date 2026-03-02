@@ -129,6 +129,10 @@ All overlaps use **Git-repo form** `owner/repo:skill-name` (e.g. `nesnilnehc/ai-
 11. **run-automated-tests** and **run-repair-loop**: Graduated from experimental (v0.1.0) to stable (v1.0.0) per INDEX.md §2 convention (validated at 0.x.x → upgrade when contract stabilizes). Scores unchanged (both 17).
 12. **Existing 26 skills**: No score or lifecycle changes. All retain their validated status.
 
+### 6.4 Format normalization (2026-03-02)
+
+13. **analyze-requirements** and **brainstorm-design**: Migrated `agent.yaml` from legacy format (`version`/`description`/`lifecycle`/`asqm_score`/`related_skills`/`recommended_scope`) to the standard output-contract schema (`status`/`primary_use`/`inputs`/`outputs`/`scores`/`asqm_quality`/`overlaps_with`/`market_position`/`tags`). No score changes; format-only migration. All 33 skills now use the unified agent.yaml schema.
+
 ---
 
 ## 7. Recommendations

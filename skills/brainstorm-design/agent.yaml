@@ -1,16 +1,28 @@
 name: brainstorm-design
-version: 1.0.0
-description: Transform rough ideas into validated designs through structured dialogue - explore context, clarify requirements, propose alternatives, and get approval before implementation.
-tags:
-  - writing
-  - eng-standards
-  - documentation
-license: MIT
-author: ai-cortex
-lifecycle: stable
-asqm_score: 18
-related_skills:
-  - refine-skill-design
-  - generate-standard-readme
-  - bootstrap-project-documentation
-recommended_scope: both
+status: validated
+
+primary_use: Transform rough ideas into validated design documents through structured 5-phase dialogue (explore, clarify, alternatives, present, document) with HARD-GATE before implementation.
+
+inputs:
+  - rough idea or feature request
+  - optional project context, constraints, existing patterns
+
+outputs:
+  - validated design document (Markdown with context, requirements, alternatives, selected design, action items)
+  - trade-off analysis (2-3 approaches with pros/cons)
+
+scores:
+  agent_native: 4
+  cognitive: 5
+  composability: 4
+  stance: 5
+
+asqm_quality: 18
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:analyze-requirements
+  - nesnilnehc/ai-cortex:refine-skill-design
+
+market_position: differentiated
+
+tags: [writing, eng-standards, documentation]
