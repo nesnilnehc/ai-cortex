@@ -1,8 +1,8 @@
 ---
 name: generate-standard-readme
-description: Governance-focused README with fixed structure and output contract. Use for asset governance, audit, or standardized first-impression docs. For process-driven creation (templates by project type) use crafting-effective-readmes.
+description: Generate professional, governance-ready README with fixed structure. Core goal - produce standardized front-page documentation that explains purpose, usage, and contribution guidelines. Use for asset governance, audit, or unified documentation standards.
 tags: [documentation, eng-standards, devops, writing]
-related_skills: [decontextualize-text]
+related_skills: [decontextualize-text, bootstrap-project-documentation, write-agents-entry]
 version: 1.2.0
 license: MIT
 recommended_scope: user
@@ -15,6 +15,40 @@ metadata:
 ## Purpose
 
 Create **professional, consistent, highly readable** front-page documentation for **any software project** (open source, internal services, microservices, tooling). A standardized information layout reduces collaboration cost, improves engineering norms, and keeps core assets discoverable.
+
+---
+
+## Core Objective
+
+**Primary Goal**: Produce a standardized README document with fixed structure that enables readers to understand project purpose, install, and contribute within 3 minutes.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **README file created**: Written to project root as `README.md` with complete standard structure
+2. ✅ **All 9 required sections present**: Title/badges, Description, Features, Installation, Quick start, Usage, Contributing, License, Authors
+3. ✅ **Installation commands executable**: Copy-paste commands work without modification (no hardcoded paths or broken links)
+4. ✅ **Three-second clarity test passed**: Reader understands project purpose within 3 seconds of viewing
+5. ✅ **License section included**: License type specified and linked to LICENSE file
+
+**Acceptance Test**: Can a new developer understand what the project does, install it, and run a basic example within 3 minutes using only the README?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- README generation with fixed 9-section structure
+- Professional tone and governance-ready formatting
+- Standardized documentation for asset discovery and audit
+- Badge generation and section ordering
+
+**This skill does NOT handle**:
+- Project-type-specific templates (use `crafting-effective-readmes` from softaworks/agent-toolkit)
+- Comprehensive project documentation (use `bootstrap-project-documentation`)
+- Agent entry files or AGENTS.md (use `write-agents-entry`)
+- Privacy/security redaction (use `decontextualize-text` if needed)
+
+**Handoff point**: When README is complete with all 9 sections and passes acceptance test, hand off to user for review or commit to version control.
 
 ---
 
@@ -82,22 +116,60 @@ Create **professional, consistent, highly readable** front-page documentation fo
 
 ## Restrictions
 
+### Hard Boundaries
+
 - **No broken links**: Do not add links that 404.
 - **No redundant repetition**: Do not repeat the same fact (e.g. license) in multiple sections.
 - **No hardcoded paths**: Use placeholders or variables in install and quick-start examples.
 - **License required**: Always include a License section; do not omit it.
+- **Fixed structure only**: Always use the 9-section structure; do not deviate or reorder sections.
+- **No invention**: Do not invent features, commands, or details not provided by user; use placeholders for missing information.
+
+### Skill Boundaries (Avoid Overlap)
+
+**Do NOT do these (other skills handle them)**:
+
+- **Project-type templates**: Creating README templates by project type (React, Python, etc.) → Use `crafting-effective-readmes` (softaworks/agent-toolkit)
+- **Comprehensive documentation**: Creating full documentation suite (architecture docs, API docs, guides) → Use `bootstrap-project-documentation`
+- **Agent entry files**: Creating AGENTS.md or agent contract files → Use `write-agents-entry`
+- **Privacy redaction**: Removing PII or sensitive information from documentation → Use `decontextualize-text`
+- **Content refinement**: Improving existing README prose or structure → Use general writing/editing skills
+
+**When to stop and hand off**:
+
+- User asks "can you create all project documentation?" → Hand off to `bootstrap-project-documentation`
+- User asks "can you create an AGENTS.md file?" → Hand off to `write-agents-entry`
+- User asks "can you customize this for a React project?" → Suggest `crafting-effective-readmes` for project-type templates
+- README complete with all 9 sections → Hand off to user for review/commit
 
 ---
 
 ## Self-Check
 
-- [ ] **Three-second test**: Can a reader understand what the project does in a few seconds?
-- [ ] **Closed loop**: Can someone run “Quick start” after following “Installation”?
+### Core Success Criteria (ALL must be met)
+
+- [ ] **README file created**: Written to project root as `README.md` with complete standard structure
+- [ ] **All 9 required sections present**: Title/badges, Description, Features, Installation, Quick start, Usage, Contributing, License, Authors
+- [ ] **Installation commands executable**: Copy-paste commands work without modification (no hardcoded paths or broken links)
+- [ ] **Three-second clarity test passed**: Reader understands project purpose within 3 seconds of viewing
+- [ ] **License section included**: License type specified and linked to LICENSE file
+
+### Process Quality Checks
+
 - [ ] **Tone**: Is the text direct and concise, without bureaucratic or report-like phrasing?
 - [ ] **Badges**: Do badge links point to the correct branch or file?
 - [ ] **Narrow screens**: Are tables and long code blocks readable on small screens?
+- [ ] **No invention**: Did I avoid inventing features or commands not provided by user?
+- [ ] **Placeholders used**: For missing information, did I use clear placeholders (e.g., "TBD") rather than guessing?
 
----
+### Acceptance Test
+
+**Can a new developer understand what the project does, install it, and run a basic example within 3 minutes using only the README?**
+
+If NO: README is incomplete or unclear. Review sections for missing information or confusing instructions.
+
+If YES: README is complete. Proceed to handoff.
+
 
 ## Examples
 
