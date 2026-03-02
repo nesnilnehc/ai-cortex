@@ -18,6 +18,44 @@ Review code in the **.NET** ecosystem (C#, F#) for **language and runtime conven
 
 ---
 
+## Core Objective
+
+**Primary Goal**: Produce a .NET language/runtime findings list covering async/await, nullable types, API stability, resource management, LINQ usage, and testability for the given code scope.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **.NET-only scope**: Only .NET (C#/F#) language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
+2. ✅ **All six .NET dimensions covered**: async/await, nullable reference types, API/versioning, resources/IDisposable, collections/LINQ, and testability are assessed where relevant
+3. ✅ **Findings format compliant**: Each finding includes Location, Category (`language-dotnet`), Severity, Title, Description, and optional Suggestion
+4. ✅ **File:line references**: All findings reference specific file locations with line numbers
+5. ✅ **Non-.NET code excluded**: Non-.NET files are not analyzed for .NET-specific rules unless explicitly in scope
+
+**Acceptance Test**: Does the output contain a .NET-focused findings list with file:line references covering all relevant language/runtime dimensions without performing security, architecture, or scope analysis?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- async/await correctness and ConfigureAwait usage (library vs application code)
+- Nullable reference types and NRE avoidance
+- Public API stability and versioning strategy
+- IDisposable, IAsyncDisposable, and using statement patterns
+- Collections and LINQ efficiency (multiple enumeration, allocation, span/memory)
+- Testability (DI, sealed/overridable, static usage)
+
+**This skill does NOT handle**:
+- Scope selection — scope is provided by the caller
+- Security analysis (injection, auth, crypto) — use `review-security`
+- Architecture analysis — use `review-architecture`
+- Performance deep-dive — use `review-performance`
+- Full orchestrated review — use `review-code`
+- Codebase-state review — use `review-codebase`
+
+**Handoff point**: When all .NET findings are emitted, hand off to `review-code` for aggregation. For security or architecture concerns found in the .NET code, note them and suggest running the appropriate cognitive skill.
+
+---
+
 ## Use Cases
 
 - **Orchestrated review**: Used as the language step when [review-code](../review-code/SKILL.md) runs scope → language → framework → library → cognitive for .NET projects.
@@ -69,14 +107,41 @@ Review code in the **.NET** ecosystem (C#, F#) for **language and runtime conven
 - **Do not** give conclusions without specific locations or actionable suggestions.
 - **Do not** review non-.NET code for .NET-specific rules unless the user explicitly includes it (e.g. embedded scripts).
 
+### Skill Boundaries
+
+**Do NOT do these** (other skills handle them):
+- Do NOT select or define the code scope — scope is determined by the caller or `review-code`
+- Do NOT perform security analysis — use `review-security`
+- Do NOT perform architecture analysis — use `review-architecture`
+- Do NOT review non-.NET code for .NET conventions
+
+**When to stop and hand off**:
+- When all .NET findings are emitted, hand off to `review-code` for aggregation
+- When the user needs a full review (scope + language + cognitive), redirect to `review-code`
+- When security issues are found in .NET code, note them and suggest `review-security`
+
 ---
 
 ## Self-Check
+
+### Core Success Criteria
+
+- [ ] **.NET-only scope**: Only .NET (C#/F#) language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
+- [ ] **All six .NET dimensions covered**: async/await, nullable reference types, API/versioning, resources/IDisposable, collections/LINQ, and testability are assessed where relevant
+- [ ] **Findings format compliant**: Each finding includes Location, Category (`language-dotnet`), Severity, Title, Description, and optional Suggestion
+- [ ] **File:line references**: All findings reference specific file locations with line numbers
+- [ ] **Non-.NET code excluded**: Non-.NET files are not analyzed for .NET-specific rules unless explicitly in scope
+
+### Process Quality Checks
 
 - [ ] Was only the .NET language/runtime dimension reviewed (no scope/security/architecture)?
 - [ ] Are async, nullable, IDisposable, LINQ, and testability covered where relevant?
 - [ ] Is each finding emitted with Location, Category=language-dotnet, Severity, Title, Description, and optional Suggestion?
 - [ ] Are issues referenced with file:line?
+
+### Acceptance Test
+
+Does the output contain a .NET-focused findings list with file:line references covering all relevant language/runtime dimensions without performing security, architecture, or scope analysis?
 
 ---
 

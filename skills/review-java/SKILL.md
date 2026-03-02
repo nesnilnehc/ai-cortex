@@ -18,6 +18,43 @@ Review code in **Java** for **language and runtime conventions** only. Do not de
 
 ---
 
+## Core Objective
+
+**Primary Goal**: Produce a Java language/runtime findings list covering concurrency, exceptions, resource management, API compatibility, collections/Streams, NIO, and testability for the given code scope.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **Java-only scope**: Only Java language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
+2. ✅ **All six Java dimensions covered**: Concurrency/thread safety, exceptions/resources, API/version compatibility, collections/Streams, NIO/closing, and testability are assessed where relevant
+3. ✅ **Findings format compliant**: Each finding includes Location, Category (`language-java`), Severity, Title, Description, and optional Suggestion
+4. ✅ **File:line references**: All findings reference specific file locations with line numbers
+5. ✅ **Non-Java code excluded**: Non-Java files are not analyzed for Java-specific rules unless explicitly in scope
+
+**Acceptance Test**: Does the output contain a Java-focused findings list with file:line references covering all relevant language/runtime dimensions without performing security, architecture, or scope analysis?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- Concurrency and thread safety (synchronized, volatile, concurrent collections, executor lifecycle)
+- Exception handling (try-with-resources, Throwable hierarchy, rethrow patterns)
+- API stability and version compatibility (deprecated APIs, JPMS boundaries)
+- Collections and Stream API (allocation, boxing, side effects, immutability)
+- NIO and resource closing (streams, channels, selectors)
+- Testability (DI, singleton usage, final/overridable design)
+
+**This skill does NOT handle**:
+- Scope selection — scope is provided by the caller
+- Security analysis — use `review-security`
+- Architecture analysis — use `review-architecture`
+- SQL-specific analysis — use `review-sql`
+- Full orchestrated review — use `review-code`
+
+**Handoff point**: When all Java findings are emitted, hand off to `review-code` for aggregation. For SQL or security issues found in Java code, note them and suggest the appropriate cognitive skill.
+
+---
+
 ## Use Cases
 
 - **Orchestrated review**: Used as the language step when [review-code](../review-code/SKILL.md) runs scope → language → framework → library → cognitive for Java projects.
@@ -69,14 +106,41 @@ Review code in **Java** for **language and runtime conventions** only. Do not de
 - **Do not** give conclusions without specific locations or actionable suggestions.
 - **Do not** review non-Java code for Java-specific rules unless explicitly in scope.
 
+### Skill Boundaries
+
+**Do NOT do these** (other skills handle them):
+- Do NOT select or define the code scope — scope is determined by the caller or `review-code`
+- Do NOT perform security analysis — use `review-security`
+- Do NOT perform architecture analysis — use `review-architecture`
+- Do NOT perform comprehensive SQL analysis — use `review-sql`
+
+**When to stop and hand off**:
+- When all Java findings are emitted, hand off to `review-code` for aggregation
+- When the user needs a full review (scope + language + cognitive), redirect to `review-code`
+- When SQL or security issues are found, note them and suggest appropriate cognitive skills
+
 ---
 
 ## Self-Check
+
+### Core Success Criteria
+
+- [ ] **Java-only scope**: Only Java language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
+- [ ] **All six Java dimensions covered**: Concurrency/thread safety, exceptions/resources, API/version compatibility, collections/Streams, NIO/closing, and testability are assessed where relevant
+- [ ] **Findings format compliant**: Each finding includes Location, Category (`language-java`), Severity, Title, Description, and optional Suggestion
+- [ ] **File:line references**: All findings reference specific file locations with line numbers
+- [ ] **Non-Java code excluded**: Non-Java files are not analyzed for Java-specific rules unless explicitly in scope
+
+### Process Quality Checks
 
 - [ ] Was only the Java language/runtime dimension reviewed (no scope/security/architecture)?
 - [ ] Are concurrency, exceptions, resources, collections/Streams, NIO, and testability covered where relevant?
 - [ ] Is each finding emitted with Location, Category=language-java, Severity, Title, Description, and optional Suggestion?
 - [ ] Are issues referenced with file:line?
+
+### Acceptance Test
+
+Does the output contain a Java-focused findings list with file:line references covering all relevant language/runtime dimensions without performing security, architecture, or scope analysis?
 
 ---
 

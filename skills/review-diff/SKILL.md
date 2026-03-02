@@ -18,6 +18,42 @@ Review **only the current change** (git diff, staged and unstaged) along a singl
 
 ---
 
+## Core Objective
+
+**Primary Goal**: Produce a diff-scoped findings list covering intent/impact, regression, compatibility, side effects, and observability for the current change set (staged + unstaged + untracked files).
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **Diff-only scope**: Only the current change set (diff + included untracked files) is reviewed; no whole-repo analysis, architecture, security, or language-specific checks performed
+2. ✅ **All five diff dimensions covered**: Intent/impact, regression/correctness, breaking changes/compatibility, side effects/idempotency, and observability are assessed for each changed file
+3. ✅ **Findings format compliant**: Each finding includes Location, Category (`scope`), Severity, Title, Description, and optional Suggestion
+4. ✅ **Location-precise references**: All findings reference specific file:line or @@ block locations
+5. ✅ **Bug fix validation**: For bug-fix diffs, the fix correctness is verified and any remaining or partial issues are noted
+
+**Acceptance Test**: Does the output contain a findings list covering all five diff dimensions for the change set, with specific file:line or @@ block references and no findings outside the diff scope?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- Reviewing staged + unstaged changes in the current git diff
+- Reviewing untracked files included in the change set (treated as full-file additions)
+- Intent and impact analysis (what changed and why, effect on callers/data/config/deployment)
+- Regression and correctness checks (bugs, edge cases, fix completeness)
+- Breaking change and compatibility analysis (API/data/config contracts)
+- Side effects and idempotency issues
+- Observability gaps (missing logs, metrics, error messages)
+
+**This skill does NOT handle**:
+- Whole-repo or codebase analysis — use `review-codebase`
+- Architecture, security, or language/framework-specific analysis — use respective atomic skills
+- Full orchestrated review — use `review-code`
+
+**Handoff point**: When diff findings are complete, hand off to `review-code` for aggregation with language, framework, and cognitive skills. For codebase-state review, redirect to `review-codebase`.
+
+---
+
 ## Use Cases
 
 - **Pre-commit**: Quick diff-only check before commit.
@@ -81,15 +117,42 @@ For each changed file, evaluate and emit findings for:
 - **Do not** use vague language (e.g. "might be wrong" without type and fix direction).
 - **Do not** perform security, architecture, or language/framework-specific checks; stay within the diff scope dimension.
 
+### Skill Boundaries
+
+**Do NOT do these** (other skills handle them):
+- Do NOT review the full codebase or files outside the diff change set — use `review-codebase`
+- Do NOT perform security analysis — use `review-security`
+- Do NOT perform architecture analysis — use `review-architecture`
+- Do NOT perform language/framework-specific convention checks — use the respective language skill
+
+**When to stop and hand off**:
+- When diff findings are complete, hand off to `review-code` for aggregation in an orchestrated review
+- When the user wants a full codebase review (not just diff), redirect to `review-codebase`
+- When the user wants a complete orchestrated review, redirect to `review-code`
+
 ---
 
 ## Self-Check
+
+### Core Success Criteria
+
+- [ ] **Diff-only scope**: Only the current change set (diff + included untracked files) is reviewed; no whole-repo analysis, architecture, security, or language-specific checks performed
+- [ ] **All five diff dimensions covered**: Intent/impact, regression/correctness, breaking changes/compatibility, side effects/idempotency, and observability are assessed for each changed file
+- [ ] **Findings format compliant**: Each finding includes Location, Category (`scope`), Severity, Title, Description, and optional Suggestion
+- [ ] **Location-precise references**: All findings reference specific file:line or @@ block locations
+- [ ] **Bug fix validation**: For bug-fix diffs, the fix correctness is verified and any remaining or partial issues are noted
+
+### Process Quality Checks
 
 - [ ] Was only the diff (and untracked files in the change set, when included) reviewed?
 - [ ] Were intent, impact, regression, correctness, compatibility, side effects, and observability covered?
 - [ ] Is each finding emitted with Location, Category=scope, Severity, Title, Description, and optional Suggestion?
 - [ ] Are issues referenced with file:line or @@?
 - [ ] For bug fixes, was fix logic verified and any remaining issues noted?
+
+### Acceptance Test
+
+Does the output contain a findings list covering all five diff dimensions for the change set, with specific file:line or @@ block references and no findings outside the diff scope?
 
 ---
 
