@@ -1,0 +1,16 @@
+name: analyze-requirements
+version: 1.0.0
+description: Transform vague intent into validated, testable requirements through diagnostic state progression and structured dialogue - problem discovery, need clarification, constraint inventory, and scope definition before any design.
+tags:
+  - writing
+  - eng-standards
+  - documentation
+license: MIT
+author: ai-cortex
+lifecycle: stable
+asqm_score: 20
+related_skills:
+  - brainstorm-design
+  - refine-skill-design
+  - discover-skills
+recommended_scope: both
