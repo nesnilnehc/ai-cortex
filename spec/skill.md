@@ -28,10 +28,58 @@ related_skills: [optional list]
 recommended_scope: [optional] user | project | both  # default both
 metadata:
   author: ai-cortex
+  # Optional evolution tracking (for forked/derived skills):
+  evolution:
+    sources:  # Array of source skills this skill is derived from
+      - name: [original-skill-name]
+        repo: [source repository URL or identifier]
+        version: [version borrowed from]
+        license: [source license]
+        type: fork | integration | reference  # fork=main base, integration=incorporated, reference=inspired by
+        borrowed: [brief description of what was borrowed]
 # Optional agentskills.io fields:
 # compatibility: [optional] environment requirements, ≤500 chars, e.g. "Requires git, docker"
 # allowed-tools: [optional, experimental] space-separated tool whitelist
 ---
+```
+
+### Evolution Metadata (Optional)
+
+When a skill is derived from, forked from, or integrates content from other skills, use `metadata.evolution.sources` to track provenance:
+
+- **sources**: Array of source skills with attribution
+  - **name**: Original skill name
+  - **repo**: Source repository URL or identifier (e.g., "nesnilnehc/ai-cortex", "https://github.com/org/repo")
+  - **version**: Version borrowed from
+  - **license**: Source license (for compliance)
+  - **type**: Relationship type
+    - `fork`: This skill is primarily based on the source (main lineage)
+    - `integration`: Incorporated specific components or methodology from source
+    - `reference`: Inspired by or referenced the source's approach
+  - **borrowed**: Brief description of what was borrowed (e.g., "Core workflow and staging approach", "Review methodology")
+
+Example with multiple sources:
+
+```yaml
+metadata:
+  author: ai-cortex
+  evolution:
+    sources:
+      - name: "commit-work"
+        repo: "https://github.com/anthropics/skills"
+        version: "1.0.0"
+        license: "MIT"
+        type: "fork"
+        borrowed: "Core workflow, Conventional Commits format"
+      - name: "review-diff"
+        repo: "nesnilnehc/ai-cortex"
+        version: "1.3.0"
+        license: "MIT"
+        type: "integration"
+        borrowed: "Pre-commit review methodology"
+    enhancements:
+      - "Added registry synchronization"
+      - "Enhanced Self-Check"
 ```
 
 ## 3. Required Heading Structure
