@@ -1,16 +1,27 @@
 name: analyze-requirements
-version: 1.0.0
-description: Transform vague intent into validated, testable requirements through diagnostic state progression and structured dialogue - problem discovery, need clarification, constraint inventory, and scope definition before any design.
-tags:
-  - writing
-  - eng-standards
-  - documentation
-license: MIT
-author: ai-cortex
-lifecycle: stable
-asqm_score: 20
-related_skills:
-  - brainstorm-design
-  - refine-skill-design
-  - discover-skills
-recommended_scope: both
+status: validated
+
+primary_use: Transform vague intent into validated, testable requirements through diagnostic state progression (RA0-RA5) and structured dialogue — problem discovery, need clarification, constraint inventory, scope definition — before any design.
+
+inputs:
+  - vague idea, feature request, problem statement, or user requirement
+  - optional existing documentation or context
+
+outputs:
+  - validated requirements document (docs/requirements/<topic>.md)
+  - integration map (handoff data for brainstorm-design, refine-skill-design, discover-skills)
+
+scores:
+  agent_native: 5
+  cognitive: 5
+  composability: 5
+  stance: 5
+
+asqm_quality: 20
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:brainstorm-design
+
+market_position: differentiated
+
+tags: [writing, eng-standards, documentation]
