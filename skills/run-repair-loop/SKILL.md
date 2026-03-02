@@ -9,6 +9,12 @@ recommended_scope: both
 metadata:
   author: ai-cortex
 compatibility: Requires a shell and the repo's toolchains to run tests (language-dependent). May require git for diff-based review.
+input_schema:
+  type: code-scope
+  description: Repository path and scope (diff or codebase) to converge to clean state
+output_schema:
+  type: diagnostic-report
+  description: Repair loop report with iterations, commands, patches, and final state
 ---
 
 # Skill: Run Repair Loop (Review + Test + Fix)
@@ -179,24 +185,30 @@ When stopping, provide the shortest path options:
 
 ## Restrictions
 
+### Hard Boundaries
+
 - Do not install dependencies, use network, start Docker/services, or run destructive commands without explicit confirmation.
 - Do not ask the user to paste secrets into chat. Prefer local env files or documented dev flows.
 - Do not "fix" by disabling tests, weakening assertions, or deleting coverage unless the user explicitly approves and the tradeoff is documented.
 - Avoid large refactors as a default; prioritize minimal patches that unblock correctness.
 - Keep changes scoped to the target repository; do not modify unrelated sibling repos.
 
-### Skill Boundaries
+### Skill Boundaries (Avoid Overlap)
 
-**Do NOT do these** (other skills handle them):
-- Do NOT install dependencies, use network, or start Docker/services without explicit user confirmation
-- Do NOT apply schema migrations, auth changes, or broad refactors without explicit user approval
-- Do NOT disable tests, weaken assertions, or delete coverage without explicit user approval
-- Do NOT modify files outside the target repository
+**Do NOT do these (other skills handle them)**:
+
+- **Test execution only** (no review or fix loop): Use `run-automated-tests`
+- **Test quality assessment** (coverage, structure, edge-case adequacy): Use `review-testing`
+- **Comprehensive code review** (without test-fix iteration): Use `review-code`
+- **Diff-only review** (without test execution or fix iteration): Use `review-diff`
+- **Writing new tests from scratch** (not fixing existing failures): Use development skills
 
 **When to stop and hand off**:
-- When the loop converges (tests pass, no blocking findings), present the Repair Loop Report and stop
-- When a stop condition is hit, present options and wait for user direction
-- When a risky change is required (schema migration, broad refactor), pause and ask before applying
+
+- Loop converges (tests pass, no blocking findings) → Present Repair Loop Report and stop
+- Stop condition hit (no progress, environment blocker, flaky tests, iteration limit) → Present options and wait for user direction
+- User asks for a one-time code review without fixing → Hand off to `review-code` or `review-diff`
+- User asks to only run tests without fixing → Hand off to `run-automated-tests`
 
 ---
 
@@ -212,11 +224,10 @@ When stopping, provide the shortest path options:
 
 ### Process Quality Checks
 
-- [ ] Pre-flight choices resolved (scope, test mode, permissions, max iterations).
-- [ ] Each iteration produced at least one of: a new test result, a new review signal, or a concrete code change.
-- [ ] Tests were rerun after fixes (at least the failing command or a targeted subset).
-- [ ] Loop terminated due to convergence or an explicit stop condition (no infinite retries).
-- [ ] Final report includes: commands run, failures (if any), patches applied, and remaining risks.
+- [ ] **Minimal patch surface**: Each fix touched only the files necessary to resolve the identified issue — no unrelated formatting or churn.
+- [ ] **Flaky-test awareness**: Non-deterministic failures were detected (e.g., pass-on-retry without code change) and flagged rather than "fixed" blindly.
+- [ ] **Risky-change pause applied**: Schema migrations, auth changes, or broad refactors triggered an explicit user confirmation before proceeding.
+- [ ] **Progress tracked per iteration**: Each iteration log shows a clear delta (new signal or new fix) — no hollow iterations.
 
 ### Acceptance Test
 
