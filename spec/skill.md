@@ -1,10 +1,11 @@
 # Skill Specification
 
 Status: MANDATORY  
-Version: 2.1.0  
+Version: 2.2.0  
 Scope: All files under `skills/`.
 
 **Changelog**:
+- v2.2.0 (2026-03-02): Allowed `## Scope Boundaries` as an optional standalone section in heading structure (§3)
 - v2.1.0 (2026-03-02): Added optional I/O contracts (input_schema/output_schema) for skill chaining and orchestration
 - v2.0.0 (2026-03-02): Added mandatory Core Objective section, enhanced Self-Check and Restrictions requirements, added quality assurance process
 - v1.0.0: Initial specification
@@ -93,6 +94,7 @@ metadata:
 - `# Skill: [English title]`
 - `## Purpose`
 - `## Core Objective` (NEW - MANDATORY)
+- `## Scope Boundaries` (OPTIONAL — may also appear as subsection of Core Objective; see §3.1)
 - `## Use Cases`
 - `## Behavior`
 - `## Input & Output`
@@ -110,10 +112,12 @@ Every skill MUST define its core objective to prevent scope creep, skill overlap
 2. **Success Criteria**: Measurable, verifiable conditions (3-6 items) that ALL must be met for skill completion.
 3. **Acceptance Test**: A simple question or test to verify the skill achieved its goal.
 
-**Optional subsections**:
+**Optional subsections** (may also appear as a standalone `## Scope Boundaries` section after Core Objective):
 
 1. **Scope Boundaries**: What this skill handles vs. what it does NOT handle.
 2. **Handoff Point**: When and how to transition to other skills or workflows.
+
+Both placements are valid: as subsections of `## Core Objective` (inline) or as a separate `## Scope Boundaries` section (standalone). Choose the form that best fits the skill's complexity.
 
 **Example**:
 
