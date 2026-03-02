@@ -8,6 +8,12 @@ related_skills: [refine-skill-design, generate-standard-readme, bootstrap-projec
 recommended_scope: user
 metadata:
   author: ai-cortex
+input_schema:
+  type: code-scope
+  description: Repository or project path to write AGENTS.md for
+output_schema:
+  type: document-artifact
+  description: AGENTS.md written to the project root per the embedded output contract
 ---
 
 # Skill: Write Agents Entry

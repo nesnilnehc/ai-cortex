@@ -60,6 +60,12 @@ metadata:
       - "Added comprehensive self-check mechanism"
       - "Defined clear core objective and success criteria"
       - "Established explicit skill boundaries to avoid overlap"
+input_schema:
+  type: free-form
+  description: Rough idea, feature request, or problem statement from user
+output_schema:
+  type: document-artifact
+  description: Validated design document written to docs/designs/YYYY-MM-DD-<topic>.md
 ---
 
 # Skill: Brainstorm Design

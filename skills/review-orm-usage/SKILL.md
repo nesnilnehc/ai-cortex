@@ -8,6 +8,12 @@ related_skills: [review-diff, review-codebase, review-code, review-sql, review-p
 recommended_scope: project
 metadata:
   author: ai-cortex
+input_schema:
+  type: code-scope
+  description: Source files or directories to review
+output_schema:
+  type: findings-list
+  description: Zero or more findings with location, category, severity, and suggestion
 ---
 
 # Skill: Review ORM Usage
@@ -103,6 +109,8 @@ Review **ORM usage patterns** at the **library level** only. Do not define scope
 ---
 
 ## Restrictions
+
+### Hard Boundaries
 
 - **Do not** perform scope selection, security, or architecture review. Stay within ORM library usage patterns.
 - **Do not** give conclusions without specific locations or actionable suggestions.

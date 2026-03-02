@@ -1,6 +1,6 @@
 ---
 name: run-automated-tests
-description: Discover and execute repository test commands safely. Core goal - produce test execution results with evidence-based command selection and safety guardrails before any destructive operations.
+description: Discover and execute repository test commands safely with evidence-based command selection and safety guardrails.
 tags: [automation, devops, eng-standards]
 version: 0.1.0
 license: MIT
@@ -9,6 +9,12 @@ recommended_scope: both
 metadata:
   author: ai-cortex
 compatibility: Requires git (optional), a shell, and the repo's language toolchain(s) (e.g., node, python, go, dotnet, java).
+input_schema:
+  type: code-scope
+  description: Repository path containing test configuration and source code
+output_schema:
+  type: diagnostic-report
+  description: Test plan summary with commands run, results, and failure diagnostics
 ---
 
 # Skill: Run Automated Tests

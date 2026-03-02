@@ -112,6 +112,8 @@ Produce **GitHub Actions workflow files** that satisfy this skill's **Appendix A
 
 ## Restrictions
 
+### Hard Boundaries
+
 - **Do not violate Appendix A**: Output must have `name`, `on`, `jobs`, and each job must have `runs-on` and `steps`; do not use unpinned third-party actions or hardcoded secrets.
 - **Do not over-trigger**: Do not use bare `on: push` with no branch/path filter unless the user explicitly requests it.
 - **Do not invent commands**: Use placeholders for unknown test/build/release commands and mark "replace with actual command"; do not invent scripts or paths.

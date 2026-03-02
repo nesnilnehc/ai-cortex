@@ -8,6 +8,12 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+input_schema:
+  type: code-scope
+  description: Source files or directories to review
+output_schema:
+  type: findings-list
+  description: Zero or more findings with location, category, severity, and suggestion
 ---
 
 # Skill: Review Security
@@ -102,6 +108,8 @@ Review code for **security** concerns only. Do not define scope (diff vs codebas
 ---
 
 ## Restrictions
+
+### Hard Boundaries
 
 - **Do not** perform scope selection, language, framework, or architecture review. Stay within security dimensions.
 - **Do not** give conclusions without specific locations or actionable suggestions.

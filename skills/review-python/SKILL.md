@@ -8,6 +8,12 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+input_schema:
+  type: code-scope
+  description: Source files or directories to review
+output_schema:
+  type: findings-list
+  description: Zero or more findings with location, category, severity, and suggestion
 ---
 
 # Skill: Review Python
@@ -105,6 +111,8 @@ Review code in **Python** for **language and runtime conventions** only. Do not 
 ---
 
 ## Restrictions
+
+### Hard Boundaries
 
 - **Do not** perform security, architecture, or scope selection. Stay within Python language and runtime conventions.
 - **Do not** give conclusions without specific locations or actionable suggestions.

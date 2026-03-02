@@ -8,6 +8,12 @@ license: MIT
 recommended_scope: user
 metadata:
   author: ai-cortex
+input_schema:
+  type: code-scope
+  description: Repository or project path to generate README for
+output_schema:
+  type: document-artifact
+  description: Standardized README.md written to the project root
 ---
 
 # Skill: Generate Standard README

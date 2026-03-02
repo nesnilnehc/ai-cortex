@@ -8,6 +8,12 @@ related_skills: [review-code, review-diff]
 recommended_scope: project
 metadata:
   author: ai-cortex
+input_schema:
+  type: code-scope
+  description: Files, directories, or repository path to review for architecture and design
+output_schema:
+  type: diagnostic-report
+  description: Structured review report with findings on boundaries, patterns, and tech debt
 ---
 
 # Skill: Review Codebase
@@ -118,6 +124,8 @@ This skill looks at **full implementation and place in the whole**, not "this di
 ---
 
 ## Restrictions
+
+### Hard Boundaries
 
 - **Do not** assume "review only diff" when scope is not clearly "diff"; this skill defaults to **full code in the given scope**.
 - **Do not** give conclusions without specific locations or actionable suggestions.
