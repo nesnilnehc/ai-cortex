@@ -1,6 +1,6 @@
 ---
 name: refine-skill-design
-description: Audit and refactor existing SKILLs to meet spec compliance and LLM best practices. Core goal - produce optimized SKILL with clear logic, robust constraints, and comprehensive examples. Use when improving drafts or fixing quality issues.
+description: Audit and refactor existing SKILLs to meet spec compliance and LLM best practices. Use when improving drafts, fixing quality, or aligning to spec.
 tags: [writing, eng-standards, meta-skill, optimization]
 related_skills: [decontextualize-text, generate-standard-readme]
 version: 1.2.0
