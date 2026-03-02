@@ -14,7 +14,44 @@ metadata:
 
 ## Purpose
 
-Produce **GitHub Actions workflow files** that satisfy this skill’s **Appendix A: Workflow output contract** for a wide range of software projects. Standardized structure, triggers, and security reduce CI/CD setup cost and improve maintainability and auditability while avoiding common security and permission issues. This skill only produces workflow YAML; it does not chain to documentation or rule skills. If the user later needs README or AGENTS.md updates, invoke those skills separately.
+Produce **GitHub Actions workflow files** that satisfy this skill's **Appendix A: Workflow output contract** for a wide range of software projects. Standardized structure, triggers, and security reduce CI/CD setup cost and improve maintainability and auditability while avoiding common security and permission issues. This skill only produces workflow YAML; it does not chain to documentation or rule skills. If the user later needs README or AGENTS.md updates, invoke those skills separately.
+
+---
+
+## Core Objective
+
+**Primary Goal**: Generate a complete, spec-compliant, and immediately runnable GitHub Actions workflow YAML file for the user's scenario, stack, and security posture — requiring only placeholder substitution to deploy.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **Appendix A compliant**: Output satisfies all mandatory structure and security requirements in Appendix A (name, on, jobs, runs-on, steps, pinned actions, no hardcoded secrets)
+2. ✅ **Narrow triggers**: `on` block is scoped to specific branches/paths/tags — no bare `on: push` without filters
+3. ✅ **Minimal permissions**: `permissions` set at workflow or job level to the minimum required for the scenario type (CI: `contents: read`; release: `contents: write`, `packages: write`)
+4. ✅ **Stack-aligned**: Runner, language version, package manager, and commands match the user's specified stack
+5. ✅ **User confirmed before write**: Required notes and placeholders are listed and user confirmation obtained before writing to `.github/workflows/`
+
+**Acceptance Test**: After the user replaces placeholders, can the workflow run in the target repo without further modification beyond secret names and environment-specific values?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- Generating complete GitHub Actions workflow YAML for CI, PR check, release, and scheduled scenarios
+- Security hardening (pinned actions, minimal permissions, no hardcoded secrets)
+- Stack alignment (Node/Python/Go/Rust runners, package managers, build commands)
+- Multi-workflow generation (CI + Release split into separate files)
+- Conflict detection with existing workflows
+- Go + Docker + GHCR + GoReleaser patterns (see Appendix B)
+
+**This skill does NOT handle**:
+- Chaining to documentation skills (README, AGENTS.md updates) — invoke those separately after workflow generation
+- Writing to `.github/workflows/` without user confirmation
+- Overwriting existing workflows without warning
+- Implementing build/release logic already defined in `.goreleaser.yaml` or Dockerfile
+- Generating non-GitHub CI/CD (GitLab CI, Jenkins, etc.)
+
+**Handoff point**: After generating and confirming workflow YAML, write files to `.github/workflows/` with user approval. For documentation updates triggered by new workflows, use documentation skills separately.
 
 ---
 
@@ -23,11 +60,11 @@ Produce **GitHub Actions workflow files** that satisfy this skill’s **Appendix
 - **New project setup**: Add CI (build, test, lint) or PR-check workflows to a new repo.
 - **Unified standards**: Align workflow style and naming across many repos for ops and audit.
 - **Fill gaps**: Add missing CI/release/scheduled workflows to legacy projects, with minimal permissions and pinned versions.
-- **Scenario-based**: Generate YAML for a given scenario (e.g. “run tests only on PR”, “build and publish on tag”).
+- **Scenario-based**: Generate YAML for a given scenario (e.g. "run tests only on PR", "build and publish on tag").
 
-**When to use**: When the user or project needs to “create or add GitHub workflows for the current or specified project.”
+**When to use**: When the user or project needs to "create or add GitHub workflows for the current or specified project."
 
-**Scope**: This skill’s output follows the **embedded Appendix A** (narrow triggers, minimal permissions, pinned versions, auditable). Generic templates (e.g. skills.sh `github-actions-templates`) are more general; this skill emphasizes security and maintainability.
+**Scope**: This skill's output follows the **embedded Appendix A** (narrow triggers, minimal permissions, pinned versions, auditable). Generic templates (e.g. skills.sh `github-actions-templates`) are more general; this skill emphasizes security and maintainability.
 
 ---
 
@@ -47,7 +84,7 @@ Produce **GitHub Actions workflow files** that satisfy this skill’s **Appendix
 
 ### Input-driven
 
-- Use the user’s **scenario** (e.g. “CI: run tests on PR”, “Release: build and upload on tag”) and **stack** (language, package manager, test/build commands) to generate the workflow; use sensible placeholders when information is missing and mark them for replacement; do not invent commands or paths.
+- Use the user's **scenario** (e.g. "CI: run tests on PR", "Release: build and upload on tag") and **stack** (language, package manager, test/build commands) to generate the workflow; use sensible placeholders when information is missing and mark them for replacement; do not invent commands or paths.
 
 ### Interaction
 
@@ -77,20 +114,47 @@ Produce **GitHub Actions workflow files** that satisfy this skill’s **Appendix
 
 - **Do not violate Appendix A**: Output must have `name`, `on`, `jobs`, and each job must have `runs-on` and `steps`; do not use unpinned third-party actions or hardcoded secrets.
 - **Do not over-trigger**: Do not use bare `on: push` with no branch/path filter unless the user explicitly requests it.
-- **Do not invent commands**: Use placeholders for unknown test/build/release commands and mark “replace with actual command”; do not invent scripts or paths.
+- **Do not invent commands**: Use placeholders for unknown test/build/release commands and mark "replace with actual command"; do not invent scripts or paths.
 - **Do not ignore existing workflows**: If the project already has `.github/workflows/`, align naming and style and avoid duplication or conflict.
 - **Do not duplicate build logic**: If the project uses GoReleaser, Dockerfile, etc. for build and image shape, the workflow only triggers, logs in, and passes args (e.g. `GITHUB_TOKEN`, `BUILDX_BUILDER`); do not reimplement that logic.
+
+### Skill Boundaries
+
+**Do NOT do these** (other skills handle them):
+- Do NOT chain to documentation or README skills — invoke those separately
+- Do NOT write to `.github/workflows/` without user confirmation
+- Do NOT overwrite existing workflows silently
+- Do NOT reimplement build/release logic already defined in `.goreleaser.yaml` or Dockerfiles
+- Do NOT generate CI/CD for non-GitHub platforms (GitLab CI, Jenkins, etc.)
+
+**When to stop and hand off**:
+- After writing workflow files with confirmation, hand off to documentation skills if README/AGENTS.md updates are needed
+- When user needs registry or secrets configuration, provide guidance but do not automate external service setup
 
 ---
 
 ## Self-Check
 
+### Core Success Criteria
+
+- [ ] **Appendix A compliant**: Output satisfies all mandatory structure and security requirements in Appendix A (name, on, jobs, runs-on, steps, pinned actions, no hardcoded secrets)
+- [ ] **Narrow triggers**: `on` block is scoped to specific branches/paths/tags — no bare `on: push` without filters
+- [ ] **Minimal permissions**: `permissions` set at workflow or job level to the minimum required for the scenario type
+- [ ] **Stack-aligned**: Runner, language version, package manager, and commands match the user's specified stack
+- [ ] **User confirmed before write**: Required notes and placeholders are listed and user confirmation obtained before writing to `.github/workflows/`
+
+### Process Quality Checks
+
 - [ ] **Appendix A**: Does output satisfy mandatory structure and security in Appendix A?
 - [ ] **Triggers**: Is `on` narrowed to specific branches/paths/tags?
 - [ ] **Permissions and security**: Are minimal `permissions` set? Third-party actions pinned? No hardcoded secrets?
 - [ ] **Runnable**: After the user replaces placeholders, can the workflow run in the target repo?
-- [ ] **Stack alignment**: Runner, language version, package manager, and commands match the user’s stack?
+- [ ] **Stack alignment**: Runner, language version, package manager, and commands match the user's stack?
 - [ ] **Step order and deps**: For multi-step jobs (e.g. QEMU → Buildx → login → GoReleaser), is order correct and are ids/env vars passed? See **Appendix B** for Go + Docker + GoReleaser.
+
+### Acceptance Test
+
+After the user replaces placeholders, can the workflow run in the target repo without further modification beyond secret names and environment-specific values?
 
 ---
 
@@ -100,7 +164,7 @@ Produce **GitHub Actions workflow files** that satisfy this skill’s **Appendix
 
 **Input**: Scenario: CI. Stack: Node 20, pnpm, test `pnpm test`, lint `pnpm lint`. Trigger: `pull_request` to `main`. File: `ci.yml`.
 
-**Expected**: Single `ci.yml` with `name` e.g. “CI”; `on: pull_request: branches: [main]`; job on `ubuntu-latest` with checkout, setup Node/pnpm, install, lint, test; use official `actions/checkout` and `pnpm/action-setup` (or equivalent) pinned; no hardcoded secrets; `permissions` read-only if set.
+**Expected**: Single `ci.yml` with `name` e.g. "CI"; `on: pull_request: branches: [main]`; job on `ubuntu-latest` with checkout, setup Node/pnpm, install, lint, test; use official `actions/checkout` and `pnpm/action-setup` (or equivalent) pinned; no hardcoded secrets; `permissions` read-only if set.
 
 ### Example 2: Go PR check with path filter
 
@@ -116,9 +180,9 @@ Produce **GitHub Actions workflow files** that satisfy this skill’s **Appendix
 
 ### Example 4 (edge): Minimal info
 
-**Input**: Project: legacy-api. No description. Language and commands unknown. User wants “at least one CI placeholder workflow”.
+**Input**: Project: legacy-api. No description. Language and commands unknown. User wants "at least one CI placeholder workflow".
 
-**Expected**: Produce one structurally complete, Appendix A–compliant YAML; use placeholders for runner and steps (e.g. “Specify runner and install/test commands”) and mark “to be replaced”; keep `on` narrow (e.g. `pull_request: branches: [main]`); do not invent test or build commands; keep `name`, `on`, `jobs`, `runs-on`, `steps`, and recommended fields (e.g. `permissions`) so the user can fill in later.
+**Expected**: Produce one structurally complete, Appendix A–compliant YAML; use placeholders for runner and steps (e.g. "Specify runner and install/test commands") and mark "to be replaced"; keep `on` narrow (e.g. `pull_request: branches: [main]`); do not invent test or build commands; keep `name`, `on`, `jobs`, `runs-on`, `steps`, and recommended fields (e.g. `permissions`) so the user can fill in later.
 
 ---
 
@@ -126,11 +190,11 @@ Produce **GitHub Actions workflow files** that satisfy this skill’s **Appendix
 
 The following are **mandatory** for workflow files produced by this skill; use this appendix for self-check.
 
-**Scope**: YAML workflow files produced by this skill for a project’s `.github/workflows/`.
+**Scope**: YAML workflow files produced by this skill for a project's `.github/workflows/`.
 
 ### A.1 File and path
 
-- **Location**: Must live under the target project’s `.github/workflows/`.
+- **Location**: Must live under the target project's `.github/workflows/`.
 - **Naming**: `kebab-case`, extension `.yml` or `.yaml`; name should reflect purpose (e.g. `ci.yml`, `pr-check.yml`, `release.yml`).
 - **One file, one workflow**: One file defines one workflow; split into multiple files for complex cases; avoid many unrelated jobs in one file.
 
@@ -140,7 +204,7 @@ Each workflow YAML must contain (order recommended):
 
 | Field | Required | Description |
 | :--- | :--- | :--- |
-| `name` | Yes | Display name in GitHub UI; short and readable (e.g. “CI”, “PR check”, “Release”). |
+| `name` | Yes | Display name in GitHub UI; short and readable (e.g. "CI", "PR check", "Release"). |
 | `on` | Yes | Triggers: `push`, `pull_request`, `workflow_dispatch`, etc.; must narrow branch/path/tag; avoid broad `on: push` with no filter. |
 | `jobs` | Yes | At least one job; each job must have `runs-on` and `steps`. |
 | `jobs.<id>.runs-on` | Yes | Runner (e.g. `ubuntu-latest`). |
@@ -162,7 +226,7 @@ Optional but recommended: `permissions`, `concurrency`, `env`.
 
 ### A.5 Maintainability
 
-- **CI vs CD (recommended)**: CI only builds, tests, and scans; **no release**. CD (image push, GitHub Release) runs only on version tags (e.g. `v*`). Use separate files (e.g. `ci.yml`, `release.yml`); do not mix “run on every push” and “release only on tag” in one workflow.
+- **CI vs CD (recommended)**: CI only builds, tests, and scans; **no release**. CD (image push, GitHub Release) runs only on version tags (e.g. `v*`). Use separate files (e.g. `ci.yml`, `release.yml`); do not mix "run on every push" and "release only on tag" in one workflow.
 - **Reuse**: Extract common logic into Composite Actions or reusable workflows.
 - **Comments**: Briefly comment non-obvious triggers, matrix strategy, or env usage; keep comments short.
 - **Project alignment**: Runner, language version, package manager, and commands must match the target project; if the project has existing workflows, align style and naming.
@@ -189,7 +253,7 @@ Conventions and practices for **Go + Docker + GHCR + GoReleaser** workflows; fol
 - **CI and CD separate**: Two workflows.
   - **CI** (e.g. `ci.yml`): `push`/`pull_request` to main branch. Build, test, security scan only; **no release**.
   - **CD** (e.g. `release.yml`): Only on `push` of version tags (e.g. `v*`). Publish image and GitHub Release.
-- Do not mix “run on every push” and “release only on tag” in one workflow.
+- Do not mix "run on every push" and "release only on tag" in one workflow.
 
 ### B.2 Permissions
 

@@ -11,9 +11,9 @@ Atomic review skills are grouped by dimension:
 | Type | Description | Skills |
 | :--- | :--- | :--- |
 | **Scope** | What to review: current change (diff) or current state (paths/repo). | [review-diff](./review-diff/SKILL.md), [review-codebase](./review-codebase/SKILL.md) |
-| **Language** | Language and runtime conventions. | [review-dotnet](./review-dotnet/SKILL.md), [review-java](./review-java/SKILL.md), [review-go](./review-go/SKILL.md), [review-php](./review-php/SKILL.md), [review-powershell](./review-powershell/SKILL.md), [review-python](./review-python/SKILL.md), [review-sql](./review-sql/SKILL.md) |
-| **Framework** | Application framework conventions. | [review-vue](./review-vue/SKILL.md); *(reserved: review-aspnetcore, review-react, etc.)* |
-| **Library** | Key library usage and pitfalls. | *(reserved: review-entityframework, etc.)* |
+| **Language** | Language and runtime conventions. | [review-dotnet](./review-dotnet/SKILL.md), [review-java](./review-java/SKILL.md), [review-go](./review-go/SKILL.md), [review-php](./review-php/SKILL.md), [review-powershell](./review-powershell/SKILL.md), [review-python](./review-python/SKILL.md), [review-sql](./review-sql/SKILL.md), [review-typescript](./review-typescript/SKILL.md) |
+| **Framework** | Application framework conventions. | [review-vue](./review-vue/SKILL.md), [review-react](./review-react/SKILL.md); *(reserved: review-aspnetcore, review-nextjs, etc.)* |
+| **Library** | Key library usage and pitfalls. | [review-orm-usage](./review-orm-usage/SKILL.md); *(reserved: review-http-client-usage, etc.)* |
 | **Cognitive** | Cross-cutting concerns: security, performance, architecture, testing. | [review-security](./review-security/SKILL.md), [review-performance](./review-performance/SKILL.md), [review-architecture](./review-architecture/SKILL.md), [review-testing](./review-testing/SKILL.md) |
 | **Meta** | Orchestration only; no analysis. | [review-code](./review-code/SKILL.md) |
 
@@ -24,9 +24,9 @@ Atomic review skills are grouped by dimension:
 When running a **full** code review (via [review-code](./review-code/SKILL.md)), the execution order is:
 
 1. **Scope** → choose one: `review-diff` (current change) or `review-codebase` (given paths/repo).
-2. **Language** → choose one or none: `review-dotnet`, `review-java`, `review-go`, `review-php`, `review-powershell`, `review-python`, `review-sql` (by project).
-3. **Framework** → optional: `review-vue` or future framework skills.
-4. **Library** → optional: future library skills (e.g. review-entityframework).
+2. **Language** → choose one or none: `review-dotnet`, `review-java`, `review-go`, `review-php`, `review-powershell`, `review-python`, `review-sql`, `review-typescript` (by project).
+3. **Framework** → optional: `review-vue`, `review-react`, or future framework skills.
+4. **Library** → optional: `review-orm-usage` or future library skills.
 5. **Cognitive** → run in order: `review-security`, then `review-performance`, then `review-architecture`, then `review-testing` (and future: reliability, maintainability).
 
 All findings from the steps above are **aggregated** into a single report (same finding format: Location, Category, Severity, Title, Description, Suggestion).
@@ -52,9 +52,14 @@ flowchart LR
     review_powershell[review-powershell]
     review_python[review-python]
     review_sql[review-sql]
+    review_typescript[review-typescript]
   end
   subgraph fw [Framework]
     review_vue[review-vue]
+    review_react[review-react]
+  end
+  subgraph lib [Library]
+    review_orm[review-orm-usage]
   end
   subgraph cognitive [Cognitive]
     review_security[review-security]
@@ -71,7 +76,10 @@ flowchart LR
   review_code --> review_powershell
   review_code --> review_python
   review_code --> review_sql
+  review_code --> review_typescript
   review_code --> review_vue
+  review_code --> review_react
+  review_code --> review_orm
   review_code --> review_security
   review_code --> review_perf
   review_code --> review_arch
@@ -85,7 +93,10 @@ flowchart LR
   review_powershell --> aggregate
   review_python --> aggregate
   review_sql --> aggregate
+  review_typescript --> aggregate
   review_vue --> aggregate
+  review_react --> aggregate
+  review_orm --> aggregate
   review_security --> aggregate
   review_perf --> aggregate
   review_arch --> aggregate
@@ -120,7 +131,10 @@ Every atomic skill emits findings in this format so [review-code](./review-code/
 | [review-powershell](./review-powershell/SKILL.md) | language | code scope | Findings (Category=language-powershell) |
 | [review-python](./review-python/SKILL.md) | language | code scope | Findings (Category=language-python) |
 | [review-sql](./review-sql/SKILL.md) | language | SQL/code scope | Findings (Category=language-sql) |
+| [review-typescript](./review-typescript/SKILL.md) | language | code scope | Findings (Category=language-typescript) |
 | [review-vue](./review-vue/SKILL.md) | framework | code scope | Findings (Category=framework-vue) |
+| [review-react](./review-react/SKILL.md) | framework | code scope | Findings (Category=framework-react) |
+| [review-orm-usage](./review-orm-usage/SKILL.md) | library | code scope | Findings (Category=library-orm) |
 | [review-security](./review-security/SKILL.md) | cognitive | code scope | Findings (Category=cognitive-security) |
 | [review-performance](./review-performance/SKILL.md) | cognitive | code scope | Findings (Category=cognitive-performance) |
 | [review-architecture](./review-architecture/SKILL.md) | cognitive | code scope | Findings (Category=cognitive-architecture) |

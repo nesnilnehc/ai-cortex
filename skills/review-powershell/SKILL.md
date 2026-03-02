@@ -18,6 +18,43 @@ Review code in **PowerShell** for **language and runtime conventions** only. Do 
 
 ---
 
+## Core Objective
+
+**Primary Goal**: Produce a PowerShell language/runtime findings list covering function design, parameter contracts, error handling, pipeline behavior, state/scope, compatibility, and testability for the given code scope.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **PowerShell-only scope**: Only PowerShell language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
+2. ✅ **All seven PowerShell dimensions covered**: Advanced functions/cmdlet conventions, parameter design/validation, error handling semantics, object pipeline behavior, state/scope/strictness, compatibility/portability, and testability are assessed where relevant
+3. ✅ **Findings format compliant**: Each finding includes Location, Category (`language-powershell`), Severity, Title, Description, and optional Suggestion
+4. ✅ **File:line references**: All findings reference specific file locations with line numbers
+5. ✅ **Non-PowerShell code excluded**: Non-PowerShell files are not analyzed for PowerShell-specific rules unless explicitly in scope
+
+**Acceptance Test**: Does the output contain a PowerShell-focused findings list with file:line references covering all relevant language/runtime dimensions without performing security, architecture, or scope analysis?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- `[CmdletBinding()]`, `Verb-Noun` naming, approved verbs, `begin/process/end` blocks
+- Parameter types, `Mandatory`, `ValueFromPipeline`, parameter sets, validation attributes
+- Terminating vs non-terminating errors, `-ErrorAction Stop`, silent failure prevention
+- Object pipeline behavior (prefer objects over formatted text, `Write-Host` vs `Write-Verbose`)
+- State, scope, strictness (global/stateful side effects, preference variable changes)
+- Windows PowerShell 5.1 vs PowerShell 7+ compatibility and portability
+- Performance and testability (Pester-friendly function design, DI seams)
+
+**This skill does NOT handle**:
+- Scope selection — scope is provided by the caller
+- Security analysis — use `review-security`
+- Architecture analysis — use `review-architecture`
+- Full orchestrated review — use `review-code`
+
+**Handoff point**: When all PowerShell findings are emitted, hand off to `review-code` for aggregation. For security concerns (e.g. command injection, credential exposure), note them and suggest `review-security`.
+
+---
+
 ## Use Cases
 
 - **Orchestrated review**: Used as the language step when [review-code](../review-code/SKILL.md) runs scope -> language -> framework -> library -> cognitive for PowerShell projects.
@@ -70,14 +107,40 @@ Review code in **PowerShell** for **language and runtime conventions** only. Do 
 - **Do not** give conclusions without specific locations or actionable suggestions.
 - **Do not** review non-PowerShell code for PowerShell-specific rules unless explicitly in scope.
 
+### Skill Boundaries
+
+**Do NOT do these** (other skills handle them):
+- Do NOT select or define the code scope — scope is determined by the caller or `review-code`
+- Do NOT perform security analysis (credential handling, injection risks) — use `review-security`
+- Do NOT perform architecture analysis — use `review-architecture`
+
+**When to stop and hand off**:
+- When all PowerShell findings are emitted, hand off to `review-code` for aggregation
+- When the user needs a full review (scope + language + cognitive), redirect to `review-code`
+- When security concerns (credential exposure, command injection) are found, note them and suggest `review-security`
+
 ---
 
 ## Self-Check
+
+### Core Success Criteria
+
+- [ ] **PowerShell-only scope**: Only PowerShell language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
+- [ ] **All seven PowerShell dimensions covered**: Advanced functions/cmdlet conventions, parameter design/validation, error handling semantics, object pipeline behavior, state/scope/strictness, compatibility/portability, and testability are assessed where relevant
+- [ ] **Findings format compliant**: Each finding includes Location, Category (`language-powershell`), Severity, Title, Description, and optional Suggestion
+- [ ] **File:line references**: All findings reference specific file locations with line numbers
+- [ ] **Non-PowerShell code excluded**: Non-PowerShell files are not analyzed for PowerShell-specific rules unless explicitly in scope
+
+### Process Quality Checks
 
 - [ ] Was only the PowerShell language/runtime dimension reviewed (no scope/security/architecture)?
 - [ ] Are function/parameter conventions, error handling, pipeline behavior, compatibility, and testability covered where relevant?
 - [ ] Is each finding emitted with Location, Category=language-powershell, Severity, Title, Description, and optional Suggestion?
 - [ ] Are issues referenced with file:line?
+
+### Acceptance Test
+
+Does the output contain a PowerShell-focused findings list with file:line references covering all relevant language/runtime dimensions without performing security, architecture, or scope analysis?
 
 ---
 

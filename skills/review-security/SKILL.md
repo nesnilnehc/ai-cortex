@@ -1,6 +1,6 @@
 ---
 name: review-security
-description: "Review code for security: injection, sensitive data, authentication and authorization, dependencies and CVEs, configuration and secrets, and crypto. Cognitive-only atomic skill; output is a findings list."
+description: "Review code for security: injection, sensitive data, auth, dependencies, config, and crypto. Atomic skill; output is a findings list."
 tags: [eng-standards, security]
 related_skills: [review-diff, review-codebase, review-sql, review-code]
 version: 1.0.0
@@ -15,6 +15,44 @@ metadata:
 ## Purpose
 
 Review code for **security** concerns only. Do not define scope (diff vs codebase) or perform language/framework/architecture analysis; those are separate atomic skills. Emit a **findings list** in the standard format for aggregation. Focus on injection (SQL, command, template), sensitive data and logging, authentication and authorization, dependencies and CVEs, configuration and secrets, and cryptography and hashing.
+
+---
+
+## Core Objective
+
+**Primary Goal**: Produce a security-focused findings list covering injection, sensitive data, authentication/authorization, dependencies, configuration, and cryptography for the given code scope.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **Security-only scope**: Only security dimensions are reviewed; no scope selection, language/framework conventions, or architecture analysis performed
+2. ✅ **All six categories covered**: Injection, sensitive data/logging, authentication/authorization, dependencies/CVEs, configuration/secrets, and cryptography are assessed where relevant
+3. ✅ **Findings format compliant**: Each finding includes Location, Category (`cognitive-security`), Severity, Title, Description, and optional Suggestion
+4. ✅ **Critical issues flagged**: Clear vulnerabilities (e.g. hardcoded secrets, SQL injection) are marked as `critical` severity
+5. ✅ **Actionable output**: Each finding has a specific location reference and a concrete fix or improvement suggestion
+
+**Acceptance Test**: Does the output contain a findings list in the standard format covering all relevant security dimensions, with critical vulnerabilities clearly marked and actionable suggestions provided?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- Injection vulnerabilities (SQL, command, template, path traversal)
+- Sensitive data exposure in logs, responses, or client-side storage
+- Authentication and authorization weaknesses (auth bypass, IDOR, CSRF, session handling)
+- Dependency vulnerabilities and CVE assessments
+- Configuration and secrets management issues
+- Cryptographic weaknesses and key management problems
+
+**This skill does NOT handle**:
+- Scope selection (deciding which files/paths to analyze) — scope is provided by the caller
+- Language/framework convention analysis — use `review-dotnet`, `review-java`, `review-go`, etc.
+- Architecture analysis — use `review-architecture`
+- Performance analysis — use `review-performance`
+- SQL-specific deep review (use `review-sql` for comprehensive SQL analysis)
+- Full orchestrated review — use `review-code`
+
+**Handoff point**: When all security findings are emitted, hand off to `review-code` orchestrator for aggregation with other cognitive findings, or deliver directly to the user for security-focused review sessions.
 
 ---
 
@@ -69,14 +107,41 @@ Review code for **security** concerns only. Do not define scope (diff vs codebas
 - **Do not** give conclusions without specific locations or actionable suggestions.
 - **Do not** assume deployment or network topology unless stated; focus on code and configuration in scope.
 
+### Skill Boundaries
+
+**Do NOT do these** (other skills handle them):
+- Do NOT select or define the code scope (diff vs codebase) — scope is determined by the caller or `review-code`
+- Do NOT perform language/framework convention analysis — use `review-dotnet`, `review-java`, `review-go`, etc.
+- Do NOT perform architecture or performance review — use `review-architecture` or `review-performance`
+- Do NOT perform comprehensive SQL analysis — use `review-sql`
+
+**When to stop and hand off**:
+- When all security findings are emitted, hand off to `review-code` for aggregation in an orchestrated review
+- When the user needs a full review (scope + language + cognitive), redirect to `review-code`
+- When SQL-specific security issues dominate, suggest also running `review-sql` for deeper SQL coverage
+
 ---
 
 ## Self-Check
+
+### Core Success Criteria
+
+- [ ] **Security-only scope**: Only security dimensions are reviewed; no scope selection, language/framework conventions, or architecture analysis performed
+- [ ] **All six categories covered**: Injection, sensitive data/logging, authentication/authorization, dependencies/CVEs, configuration/secrets, and cryptography are assessed where relevant
+- [ ] **Findings format compliant**: Each finding includes Location, Category (`cognitive-security`), Severity, Title, Description, and optional Suggestion
+- [ ] **Critical issues flagged**: Clear vulnerabilities (e.g. hardcoded secrets, SQL injection) are marked as `critical` severity
+- [ ] **Actionable output**: Each finding has a specific location reference and a concrete fix or improvement suggestion
+
+### Process Quality Checks
 
 - [ ] Was only the security dimension reviewed (no scope/language/architecture)?
 - [ ] Are injection, sensitive data, authz, dependencies, config/secrets, and crypto covered where relevant?
 - [ ] Is each finding emitted with Location, Category=cognitive-security, Severity, Title, Description, and optional Suggestion?
 - [ ] Are critical issues clearly marked and actionable?
+
+### Acceptance Test
+
+Does the output contain a findings list in the standard format covering all relevant security dimensions, with critical vulnerabilities clearly marked and actionable suggestions provided?
 
 ---
 

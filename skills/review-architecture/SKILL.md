@@ -18,6 +18,44 @@ Review code for **architecture** concerns only. Do not define scope (diff vs cod
 
 ---
 
+## Core Objective
+
+**Primary Goal**: Produce an architecture-focused findings list covering module/layer boundaries, dependency direction, single responsibility, cyclic dependencies, interface stability, and coupling for the given code scope.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **Architecture-only scope**: Only architecture dimensions are reviewed; no scope selection, language/framework conventions, security, or performance analysis performed
+2. ✅ **All six architecture dimensions covered**: Module/layer boundaries, dependency direction, single responsibility, cyclic dependencies, interface stability, and coupling are assessed where relevant
+3. ✅ **Findings format compliant**: Each finding includes Location, Category (`cognitive-architecture`), Severity, Title, Description, and optional Suggestion
+4. ✅ **Location-precise references**: All findings reference specific modules, packages, or files (not vague descriptions)
+5. ✅ **Actionable output**: Each finding provides a concrete refactoring suggestion or improvement direction
+
+**Acceptance Test**: Does the output contain an architecture findings list covering all relevant structural dimensions with specific module/file references and actionable refactoring suggestions?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- Module and layer boundary clarity (API, domain, data layer separation)
+- Dependency direction analysis (inward toward domain, stable abstractions)
+- Single responsibility assessment per module/class
+- Cyclic dependency detection and break points
+- Interface stability and leaking implementation details
+- Coupling analysis and extension point design
+
+**This skill does NOT handle**:
+- Scope selection (deciding which files/paths to analyze) — scope is provided by the caller
+- Language/framework convention analysis — use `review-dotnet`, `review-java`, `review-go`, etc.
+- Security review — use `review-security`
+- Performance review — use `review-performance`
+- Current-state codebase review combining all dimensions — use `review-codebase`
+- Full orchestrated review — use `review-code`
+
+**Handoff point**: When all architecture findings are emitted, hand off to `review-code` orchestrator for aggregation, or deliver directly to the user for architecture-focused sessions. For deep codebase audits, suggest also running `review-codebase`.
+
+---
+
 ## Use Cases
 
 - **Orchestrated review**: Used as a cognitive step when [review-code](../review-code/SKILL.md) runs scope → language → framework → library → cognitive.
@@ -69,14 +107,41 @@ Review code for **architecture** concerns only. Do not define scope (diff vs cod
 - **Do not** give conclusions without specific locations or actionable suggestions.
 - **Do not** assume a specific architecture style (e.g. clean/hexagonal) unless the project states it; evaluate against general boundaries and dependency principles.
 
+### Skill Boundaries
+
+**Do NOT do these** (other skills handle them):
+- Do NOT select or define the code scope — scope is determined by the caller or `review-code`
+- Do NOT perform language/framework convention analysis — use `review-dotnet`, `review-java`, `review-go`, etc.
+- Do NOT perform security or performance review — use `review-security` or `review-performance`
+- Do NOT assume a specific architecture pattern (clean, hexagonal, etc.) unless explicitly stated
+
+**When to stop and hand off**:
+- When all architecture findings are emitted, hand off to `review-code` for aggregation in an orchestrated review
+- When the user needs a full review (scope + language + cognitive), redirect to `review-code`
+- When comprehensive codebase state review is needed beyond architecture, redirect to `review-codebase`
+
 ---
 
 ## Self-Check
+
+### Core Success Criteria
+
+- [ ] **Architecture-only scope**: Only architecture dimensions are reviewed; no scope selection, language/framework conventions, security, or performance analysis performed
+- [ ] **All six architecture dimensions covered**: Module/layer boundaries, dependency direction, single responsibility, cyclic dependencies, interface stability, and coupling are assessed where relevant
+- [ ] **Findings format compliant**: Each finding includes Location, Category (`cognitive-architecture`), Severity, Title, Description, and optional Suggestion
+- [ ] **Location-precise references**: All findings reference specific modules, packages, or files (not vague descriptions)
+- [ ] **Actionable output**: Each finding provides a concrete refactoring suggestion or improvement direction
+
+### Process Quality Checks
 
 - [ ] Was only the architecture dimension reviewed (no scope/language/security)?
 - [ ] Are boundaries, dependency direction, responsibility, cycles, interfaces, and coupling covered where relevant?
 - [ ] Is each finding emitted with Location, Category=cognitive-architecture, Severity, Title, Description, and optional Suggestion?
 - [ ] Are module/package/file references precise enough to act on?
+
+### Acceptance Test
+
+Does the output contain an architecture findings list covering all relevant structural dimensions with specific module/file references and actionable refactoring suggestions?
 
 ---
 

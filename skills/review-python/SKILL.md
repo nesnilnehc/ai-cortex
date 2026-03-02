@@ -18,6 +18,45 @@ Review code in **Python** for **language and runtime conventions** only. Do not 
 
 ---
 
+## Core Objective
+
+**Primary Goal**: Produce a Python language/runtime findings list covering type hints, exception handling, async/await patterns, context managers, dependency management, naming conventions, and testability for the given code scope.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **Python-only scope**: Only Python language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
+2. ✅ **All eight Python dimensions covered**: Type hints, exception handling, async/await, context managers, dependency management, mutable defaults, naming conventions (PEP8), and testability are assessed where relevant
+3. ✅ **Findings format compliant**: Each finding includes Location, Category (`language-python`), Severity, Title, Description, and optional Suggestion
+4. ✅ **File:line references**: All findings reference specific file locations with line numbers
+5. ✅ **Non-Python code excluded**: Non-Python files are not analyzed for Python-specific rules unless explicitly in scope
+
+**Acceptance Test**: Does the output contain a Python-focused findings list with file:line references covering all relevant language/runtime dimensions without performing security, architecture, or scope analysis?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- Type hints (`typing` module, `Optional`, `Union`, generics)
+- Exception handling (specific exceptions, `raise ... from`, no bare `except:`, `try/finally`)
+- async/await patterns (async functions, blocking calls in async context, `asyncio.gather`)
+- Context managers (`with` statement, `__enter__`/`__exit__`, `@contextmanager`)
+- Dependency management (pinned deps, `import *` avoidance, virtual environments)
+- Mutable default arguments (avoiding `def foo(a=[]):`)
+- PEP8 naming conventions (snake_case, PascalCase, SCREAMING_SNAKE_CASE)
+- Testability (global state avoidance, DI, mock-friendly design)
+
+**This skill does NOT handle**:
+- Scope selection — scope is provided by the caller
+- Security analysis — use `review-security`
+- Architecture analysis — use `review-architecture`
+- SQL-specific analysis — use `review-sql`
+- Full orchestrated review — use `review-code`
+
+**Handoff point**: When all Python findings are emitted, hand off to `review-code` for aggregation. For security issues (injection, auth), note them and suggest `review-security`.
+
+---
+
 ## Use Cases
 
 - **Orchestrated review**: Used as the language step when [review-code](../review-code/SKILL.md) runs scope -> language -> framework -> library -> cognitive for Python projects.
@@ -71,14 +110,41 @@ Review code in **Python** for **language and runtime conventions** only. Do not 
 - **Do not** give conclusions without specific locations or actionable suggestions.
 - **Do not** review non-Python code for Python-specific rules unless the user explicitly includes it (e.g. embedded code snippets).
 
+### Skill Boundaries
+
+**Do NOT do these** (other skills handle them):
+- Do NOT select or define the code scope — scope is determined by the caller or `review-code`
+- Do NOT perform security analysis — use `review-security`
+- Do NOT perform architecture analysis — use `review-architecture`
+- Do NOT perform comprehensive SQL analysis — use `review-sql`
+
+**When to stop and hand off**:
+- When all Python findings are emitted, hand off to `review-code` for aggregation
+- When the user needs a full review (scope + language + cognitive), redirect to `review-code`
+- When security issues are found (e.g. SQL injection, command injection), note them and suggest `review-security`
+
 ---
 
 ## Self-Check
+
+### Core Success Criteria
+
+- [ ] **Python-only scope**: Only Python language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
+- [ ] **All eight Python dimensions covered**: Type hints, exception handling, async/await, context managers, dependency management, mutable defaults, naming conventions (PEP8), and testability are assessed where relevant
+- [ ] **Findings format compliant**: Each finding includes Location, Category (`language-python`), Severity, Title, Description, and optional Suggestion
+- [ ] **File:line references**: All findings reference specific file locations with line numbers
+- [ ] **Non-Python code excluded**: Non-Python files are not analyzed for Python-specific rules unless explicitly in scope
+
+### Process Quality Checks
 
 - [ ] Was only the Python language/runtime dimension reviewed (no scope/security/architecture)?
 - [ ] Are type hints, exception handling, async patterns, context managers, and testability covered where relevant?
 - [ ] Is each finding emitted with Location, Category=language-python, Severity, Title, Description, and optional Suggestion?
 - [ ] Are issues referenced with file:line?
+
+### Acceptance Test
+
+Does the output contain a Python-focused findings list with file:line references covering all relevant language/runtime dimensions without performing security, architecture, or scope analysis?
 
 ---
 

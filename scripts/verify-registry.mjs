@@ -70,9 +70,11 @@ const readIndexEntries = () => {
   const entries = [];
   for (const line of text.split('\n')) {
     if (!line.startsWith('| [')) continue;
-    const match = line.match(/^\|\s+\[([^\]]+)\]\(([^)]+)\)\s+\|\s+([^|]+)\s+\|\s+`([^`]+)`\s+\|/);
-    if (!match) continue;
-    const [, name, path, tagsRaw, version] = match;
+    const match = line.match(/^\|\s+\[([^\]]+)\]\(([^)]+)\)\s+\|\s+([^|]+)\s+\|\s+`([^`]+)`\s+\|\s+\w+\s+\|/);
+    const matchLegacy = line.match(/^\|\s+\[([^\]]+)\]\(([^)]+)\)\s+\|\s+([^|]+)\s+\|\s+`([^`]+)`\s+\|/);
+    const m = match || matchLegacy;
+    if (!m) continue;
+    const [, name, path, tagsRaw, version] = m;
     entries.push({
       name: name.trim(),
       path: path.trim(),
