@@ -8,6 +8,12 @@ related_skills: [discover-skills]
 recommended_scope: both
 metadata:
   author: ai-cortex
+input_schema:
+  type: free-form
+  description: Source repo or local rules directory and target IDE (Cursor or Trae)
+output_schema:
+  type: side-effect
+  description: Rule files written to IDE-specific destinations (.cursor/rules/ or .trae/project_rules.md)
 ---
 
 # Skill: Install Rules

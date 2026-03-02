@@ -26,7 +26,7 @@ jobs:
       - name: Verify registry sync
         run: node scripts/verify-registry.mjs
 
-      - name: Verify skill structure (spec v2.0.0)
+      - name: Verify skill structure (spec v2.2.0)
         run: node scripts/verify-skill-structure.mjs
 
       - name: Summary
@@ -35,7 +35,7 @@ jobs:
           echo "## Skill Audit Results" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "- Registry sync: verified" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Skill structure (spec v2.0.0): verified" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Skill structure (spec v2.2.0): verified" >> "$GITHUB_STEP_SUMMARY"
           echo "- Skills count: $(ls -d skills/*/SKILL.md 2>/dev/null | wc -l | tr -d ' ')" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "> ASQM scoring requires manual \`curate-skills\` invocation." >> "$GITHUB_STEP_SUMMARY"

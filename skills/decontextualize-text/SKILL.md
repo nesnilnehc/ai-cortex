@@ -8,6 +8,12 @@ license: MIT
 recommended_scope: user
 metadata:
   author: ai-cortex
+input_schema:
+  type: free-form
+  description: Text containing private context, internal dependencies, or organizational identifiers
+output_schema:
+  type: document-artifact
+  description: Decontextualized text that preserves logic while removing organizational identifiers
 ---
 
 # Skill: Decontextualize Text

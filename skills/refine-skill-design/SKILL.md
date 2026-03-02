@@ -8,6 +8,12 @@ license: MIT
 recommended_scope: user
 metadata:
   author: ai-cortex
+input_schema:
+  type: document-artifact
+  description: Existing SKILL.md file to audit and refactor
+output_schema:
+  type: document-artifact
+  description: Optimized SKILL.md with diff summary (Section/Change/Reason) and version suggestion
 ---
 
 # Skill: Refine Skill Design
