@@ -1,6 +1,6 @@
 ---
 name: commit-work
-description: Create high-quality git commits with AI Cortex governance - review changes, split logically, write clear messages (Conventional Commits), sync with INDEX/manifest
+description: Create high-quality git commits with clear messages and logical scope. Core goal - produce reviewable commits following Conventional Commits format with pre-commit quality checks.
 tags: [git, workflow, eng-standards, automation]
 version: 2.0.0
 license: MIT
@@ -34,6 +34,43 @@ metadata:
 ## Purpose
 
 Make commits that are easy to review and safe to ship by ensuring only intended changes are included, commits are logically scoped, and commit messages clearly describe what changed and why. This skill integrates AI Cortex governance standards for projects using the Skills specification.
+
+---
+
+## Core Objective
+
+**Primary Goal**: Produce one or more git commits with clear messages, logical scope, and verified quality that are ready to push.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **Changes reviewed**: Ran `git diff` before staging and `git diff --cached` before each commit
+2. ✅ **Logical scope**: Each commit contains related changes only; unrelated changes split into separate commits
+3. ✅ **Conventional Commits format**: All commit messages follow `type(scope): summary` format with clear body
+4. ✅ **Quality verified**: Ran appropriate tests, lint, or build commands and all checks passed
+5. ✅ **No sensitive data**: No secrets, tokens, debug code, or unintended changes included
+6. ✅ **Registry synchronized** (AI Cortex projects): If skills/ changed, both INDEX.md and manifest.json updated
+
+**Acceptance Test**: Can a reviewer understand what changed and why from the commit message alone, without reading the diff?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- Reviewing uncommitted changes
+- Splitting mixed changes into logical commits
+- Staging changes with patch mode when needed
+- Writing Conventional Commits messages
+- Running pre-commit quality checks
+- Syncing AI Cortex registries (INDEX.md, manifest.json)
+
+**This skill does NOT handle**:
+- Code review of existing commits (use `review-diff` skill)
+- Rewriting git history or rebasing (use git rebase commands)
+- Resolving merge conflicts (use git merge/rebase workflows)
+- Creating pull requests or pushing to remote (separate workflow)
+
+**Handoff point**: When all changes are committed and verified, hand off to push/PR workflow or next development task.
 
 ## Use Cases
 
@@ -140,6 +177,8 @@ Provide:
 
 ## Restrictions
 
+### Hard Boundaries
+
 - Do not commit without reviewing staged changes (`git diff --cached`)
 - Do not mix unrelated changes in a single commit
 - Do not write vague commit messages ("fix stuff", "updates", "WIP")
@@ -147,39 +186,50 @@ Provide:
 - Do not commit secrets, tokens, or sensitive data
 - For AI Cortex projects: do not commit skill changes without updating both INDEX.md and manifest.json
 
+### Skill Boundaries (Avoid Overlap)
+
+**Do NOT do these (other skills handle them)**:
+
+- **Code review of existing commits**: Reviewing diffs that are already committed → Use `review-diff` skill
+- **Git history rewriting**: Rebasing, squashing, amending old commits → Use git rebase/amend commands directly
+- **Merge conflict resolution**: Resolving conflicts during merge/rebase → Use git merge/rebase workflows
+- **Pull request creation**: Creating PRs, requesting reviews, managing PR workflow → Use platform-specific PR tools
+- **Code implementation**: Writing the code changes being committed → Use development/implementation skills
+
+**When to stop and hand off**:
+
+- User asks "can you review this commit?" → Use `review-diff` skill for existing commits
+- User asks "can you push this?" → Commits complete, hand off to push/PR workflow
+- User asks "can you rebase these commits?" → Commits complete, hand off to git rebase workflow
+- All changes committed and verified → Skill complete, ready for push or next task
+
 ## Self-Check
 
-Before completing, verify:
+### Core Success Criteria (ALL must be met)
 
-1. **Staging review**:
-   - [ ] Ran `git status` and `git diff` before staging
-   - [ ] Ran `review-diff` skill (AI Cortex projects)
-   - [ ] Reviewed `git diff --cached` before each commit
+- [ ] **Changes reviewed**: Ran `git diff` before staging and `git diff --cached` before each commit
+- [ ] **Logical scope**: Each commit contains related changes only; unrelated changes split into separate commits
+- [ ] **Conventional Commits format**: All commit messages follow `type(scope): summary` format with clear body
+- [ ] **Quality verified**: Ran appropriate tests, lint, or build commands and all checks passed
+- [ ] **No sensitive data**: No secrets, tokens, debug code, or unintended changes included
+- [ ] **Registry synchronized** (AI Cortex projects): If skills/ changed, both INDEX.md and manifest.json updated
 
-2. **Commit quality**:
-   - [ ] Each commit has a single, clear purpose
-   - [ ] No unrelated changes mixed together
-   - [ ] No secrets, tokens, or debug code included
+### Process Quality Checks
 
-3. **Message quality**:
-   - [ ] Follows Conventional Commits format: `type(scope): summary`
-   - [ ] Summary is imperative and specific
-   - [ ] Body explains what and why (not implementation details)
-   - [ ] Breaking changes are marked with `!` or `BREAKING CHANGE:` footer
+- [ ] **Pre-commit review**: Ran `review-diff` skill for AI Cortex projects to check for unintended changes, security issues, or breaking changes
+- [ ] **Patch staging used**: Used `git add -p` when changes were mixed in single files
+- [ ] **Commit boundaries clear**: Can describe each commit's purpose in 1-2 sentences
+- [ ] **Message quality**: Summary is imperative and specific; body explains what and why (not implementation details)
+- [ ] **Breaking changes marked**: Used `!` or `BREAKING CHANGE:` footer if applicable
+- [ ] **Commands documented**: Listed commands used for staging, review, and verification
 
-4. **Verification**:
-   - [ ] Ran appropriate tests, lint, or build commands
-   - [ ] All checks passed before moving to next commit
+### Acceptance Test
 
-5. **Registry sync (AI Cortex projects)**:
-   - [ ] If skills/ changed: INDEX.md updated
-   - [ ] If skills/ changed: manifest.json updated
-   - [ ] Ran verify-registry.mjs if available
+**Can a reviewer understand what changed and why from the commit message alone, without reading the diff?**
 
-6. **Deliverables**:
-   - [ ] Provided final commit message(s)
-   - [ ] Provided summary of what/why for each commit
-   - [ ] Listed commands used for staging and review
+If NO: Commit message is unclear. Revise message to explain what and why.
+
+If YES: Commit is ready to push.
 
 ## Examples
 

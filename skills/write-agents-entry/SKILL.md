@@ -1,10 +1,10 @@
 ---
 name: write-agents-entry
-description: Write or revise AGENTS.md per embedded output contract. Use when creating Agent entry for new projects, auditing existing AGENTS.md, or adopting the AI Cortex entry format.
+description: Write or revise AGENTS.md per embedded output contract to establish project identity, authoritative sources, and behavioral expectations. Use when creating Agent entry for new projects, auditing existing AGENTS.md, or adopting the AI Cortex entry format.
 tags: [documentation, eng-standards]
 version: 1.0.0
 license: MIT
-related_skills: [refine-skill-design]
+related_skills: [refine-skill-design, generate-standard-readme, bootstrap-project-documentation]
 recommended_scope: user
 metadata:
   author: ai-cortex
@@ -14,27 +14,64 @@ metadata:
 
 ## Purpose
 
-Write or revise **AGENTS.md** at the repo root per the “Output contract” section below, so that when an Agent touches the project it has a clear **project identity**, **authoritative sources**, and **behavioral expectations**, and behaves consistently and predictably. The output contract is embedded in this SKILL.md so one load gives the full spec and steps.
+Write or revise **AGENTS.md** at the repo root per the "Output contract" section below, so that when an Agent touches the project it has a clear **project identity**, **authoritative sources**, and **behavioral expectations**, and behaves consistently and predictably. The output contract is embedded in this SKILL.md so one load gives the full spec and steps.
+
+---
+
+## Core Objective
+
+**Primary Goal**: Produce a compliant AGENTS.md file that establishes project identity, authoritative sources, and behavioral expectations for AI agents.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **AGENTS.md exists**: File written to repo root and committed to version control
+2. ✅ **Three core elements present**: Project identity, authoritative sources, and behavioral expectations sections exist
+3. ✅ **Seven sections complete**: Opening, project identity, authoritative sources, behavior, discovery/loading summary, language/communication, and reference table
+4. ✅ **Executable behavior**: Behavioral expectations use "must", "shall", or "must not" with actionable items
+5. ✅ **Reference table complete**: Includes spec source, entry Raw URL (if applicable), definition specs, usage/install, and entry indexes
+6. ✅ **Contract compliance**: Output follows embedded output contract structure and content requirements
+
+**Acceptance Test**: Can an AI agent read this AGENTS.md and understand what the project is, where authoritative sources are, and how to behave when working with the project?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+
+- Writing new AGENTS.md from scratch
+- Revising existing AGENTS.md for compliance
+- Auditing AGENTS.md against output contract
+- Producing AGENTS.md per embedded contract specification
+
+**This skill does NOT handle**:
+
+- Writing README files (use `generate-standard-readme`)
+- Bootstrapping full project documentation (use `bootstrap-project-documentation`)
+- Refining skill designs (use `refine-skill-design`)
+- Writing other documentation types (out of scope)
+
+**Handoff point**: When AGENTS.md is written, committed, and passes self-check, hand off to project documentation workflow or next documentation task.
 
 ---
 
 ## Use Cases
 
-- **New project**: Add an Agent entry for a repo that has no AGENTS.md; produce a first draft following the output contract’s recommended structure and sections.
+- **New project**: Add an Agent entry for a repo that has no AGENTS.md; produce a first draft following the output contract's recommended structure and sections.
 - **Revise existing entry**: Audit and complete an existing AGENTS.md (add missing sections such as authoritative sources, behavior, reference table) or fix wording that does not match the contract.
-- **Adopt the format elsewhere**: Other projects can use this skill’s output contract to produce an AGENTS.md with identity, authority, and behavior, then replace asset types and paths for their project.
+- **Adopt the format elsewhere**: Other projects can use this skill's output contract to produce an AGENTS.md with identity, authority, and behavior, then replace asset types and paths for their project.
 - **Compliance check**: Audit an existing AGENTS.md against the contract (§3 sections, §4 content, §6 reference table) and output revision suggestions.
 
 ---
 
 ## Behavior
 
-1. **Read the contract first**: Before executing, read this file’s “Output contract” section and use it as the only source of truth; do not invent sections or drop recommended elements.
-2. **Gather input**: From the user or context get: one-line project positioning, top-level asset types and dirs (e.g. skills/ and spec paths), whether a Raw URL is provided, primary description language. If information is missing, ask per the skill’s interaction policy.
+1. **Read the contract first**: Before executing, read this file's "Output contract" section and use it as the only source of truth; do not invent sections or drop recommended elements.
+2. **Gather input**: From the user or context get: one-line project positioning, top-level asset types and dirs (e.g. skills/ and spec paths), whether a Raw URL is provided, primary description language. If information is missing, ask per the skill's interaction policy.
 3. **Produce by section**: Output or revise AGENTS.md in the contract §3 order: opening → Project identity → Authoritative sources → Behavioral expectations → Discovery and loading (summary) → Language and communication → Reference table. Section titles may be adjusted but keep the order: identity → authority → behavior → operations summary → language → reference.
-4. **Executable behavior**: Use “must,” “shall,” “must not” (or equivalent) so each expectation is actionable; each item can reference a spec or doc. Do not paste full spec/docs into AGENTS.md; only index and summarize.
-5. **Complete reference table**: Include at least: spec source, this entry’s Raw URL (if applicable), definition specs, usage and install, entry indexes; use relative paths or resolvable URLs.
-6. **Self-check before submit**: After producing or revising, run this skill’s Self-Check; only submit when all pass. If the user asked only for a compliance audit, output a revision list instead of editing the file.
+4. **Executable behavior**: Use "must," "shall," "must not" (or equivalent) so each expectation is actionable; each item can reference a spec or doc. Do not paste full spec/docs into AGENTS.md; only index and summarize.
+5. **Complete reference table**: Include at least: spec source, this entry's Raw URL (if applicable), definition specs, usage and install, entry indexes; use relative paths or resolvable URLs.
+6. **Self-check before submit**: After producing or revising, run this skill's Self-Check; only submit when all pass. If the user asked only for a compliance audit, output a revision list instead of editing the file.
 
 ---
 
@@ -42,8 +79,8 @@ Write or revise **AGENTS.md** at the repo root per the “Output contract” sec
 
 ### Input
 
-- **One-line positioning**: What the project is (e.g. “agent-first, governance-ready capability inventory”).
-- **Top-level assets and dirs**: Asset types (e.g. Skill), directories, spec paths (e.g. spec/skill.md); if a type is absent, say “none” or omit.
+- **One-line positioning**: What the project is (e.g. "agent-first, governance-ready capability inventory").
+- **Top-level assets and dirs**: Asset types (e.g. Skill), directories, spec paths (e.g. spec/skill.md); if a type is absent, say "none" or omit.
 - **Optional**: AGENTS.md Raw URL, existing AGENTS.md or README excerpt (for revision), primary description language (e.g. English).
 
 ### Output
@@ -55,21 +92,58 @@ Write or revise **AGENTS.md** at the repo root per the “Output contract” sec
 
 ## Restrictions
 
-- **Do not leave the contract**: Do not add sections as “required” that the contract does not require, or remove any of the seven recommended section types without justification.
+### Hard Boundaries
+
+- **Do not leave the contract**: Do not add sections as "required" that the contract does not require, or remove any of the seven recommended section types without justification.
 - **Do not paste full specs**: Do not paste full content of spec/skill.md or other specs into AGENTS.md; only summarize and link.
-- **No vague behavior**: Do not use “where possible,” “as appropriate,” etc.; use “must,” “shall,” “must not” (or equivalent).
-- **Do not omit reference table**: The table must include spec source, definition/usage/install spec, entry indexes; if the project has no index, say “N/A” or omit that row.
+- **No vague behavior**: Do not use "where possible," "as appropriate," etc.; use "must," "shall," "must not" (or equivalent).
+- **Do not omit reference table**: The table must include spec source, definition/usage/install spec, entry indexes; if the project has no index, say "N/A" or omit that row.
+
+### Skill Boundaries (Avoid Overlap)
+
+**Do NOT do these (other skills handle them)**:
+
+- **Writing README files**: Creating or updating README.md → Use `generate-standard-readme`
+- **Bootstrapping full project documentation**: Setting up complete documentation structure → Use `bootstrap-project-documentation`
+- **Refining skill designs**: Auditing or refactoring SKILL.md files → Use `refine-skill-design`
+- **Writing other documentation types**: API docs, user guides, tutorials → Out of scope
+
+**When to stop and hand off**:
+
+- User says "AGENTS.md looks good" or "approved" → Skill complete, hand off to next documentation task
+- User asks "can you write the README too?" → Hand off to `generate-standard-readme`
+- User asks "can you set up all project docs?" → Hand off to `bootstrap-project-documentation`
+- User asks "can you review this skill?" → Hand off to `refine-skill-design`
 
 ---
 
 ## Self-Check
 
-- [ ] **Contract**: Was the output contract read and §3 section order followed?
-- [ ] **Three elements**: Are project identity, authoritative sources, and behavioral expectations clearly present?
-- [ ] **Sections**: Opening, project identity, authoritative sources, behavior, discovery and loading (summary), language and communication, reference table?
-- [ ] **Executable**: Does behavior use “must”/“shall”/“must not” (or equivalent) with each item mappable to a spec or doc?
-- [ ] **Reference table**: At least spec source, this entry Raw URL (if applicable), definition spec, usage and install, entry indexes?
-- [ ] **No duplication**: Does AGENTS.md avoid repeating full spec/docs text and only index and summarize?
+### Core Success Criteria (ALL must be met)
+
+- [ ] **AGENTS.md exists**: File written to repo root and committed to version control
+- [ ] **Three core elements present**: Project identity, authoritative sources, and behavioral expectations sections exist
+- [ ] **Seven sections complete**: Opening, project identity, authoritative sources, behavior, discovery/loading summary, language/communication, and reference table
+- [ ] **Executable behavior**: Behavioral expectations use "must", "shall", or "must not" with actionable items
+- [ ] **Reference table complete**: Includes spec source, entry Raw URL (if applicable), definition specs, usage/install, and entry indexes
+- [ ] **Contract compliance**: Output follows embedded output contract structure and content requirements
+
+### Process Quality Checks
+
+- [ ] **Contract read**: Did I read the output contract section before executing?
+- [ ] **Input gathered**: Did I gather all required input (positioning, asset types, dirs) or ask when missing?
+- [ ] **Section order**: Did I produce AGENTS.md in the contract §3 order (identity → authority → behavior → operations → language → reference)?
+- [ ] **No spec duplication**: Did I avoid pasting full spec/docs content and only index and summarize?
+- [ ] **Executable language**: Did I use "must"/"shall"/"must not" for behavioral expectations?
+- [ ] **Reference table**: Did I include all required elements (spec source, Raw URL if applicable, definition specs, usage/install, indexes)?
+
+### Acceptance Test
+
+**Can an AI agent read this AGENTS.md and understand what the project is, where authoritative sources are, and how to behave when working with the project?**
+
+If NO: AGENTS.md is incomplete. Return to gather input or revise sections.
+
+If YES: AGENTS.md is complete. Proceed to commit and handoff.
 
 ---
 
@@ -79,19 +153,19 @@ Write or revise **AGENTS.md** at the repo root per the “Output contract” sec
 
 **Input**: Project: my-cli. One-line: A CLI for local batch file renaming. Assets: no skills, only README and source. Want an Agent entry; primary language English.
 
-**Expected**: Produce AGENTS.md with: opening (this file is the Agent entry and contract), project identity (one line + asset table; can be simplified to “docs/source” etc.), authoritative sources (definitions and catalog from README or docs/), behavioral expectations (several “must” items), discovery and loading (summary if INDEX or equivalent exists, else how the Agent should understand the project), language and communication (English), reference table (spec source, this entry Raw if applicable, docs and entry links). Do not invent spec/ paths that do not exist.
+**Expected**: Produce AGENTS.md with: opening (this file is the Agent entry and contract), project identity (one line + asset table; can be simplified to "docs/source" etc.), authoritative sources (definitions and catalog from README or docs/), behavioral expectations (several "must" items), discovery and loading (summary if INDEX or equivalent exists, else how the Agent should understand the project), language and communication (English), reference table (spec source, this entry Raw if applicable, docs and entry links). Do not invent spec/ paths that do not exist.
 
 ### Example 2: Edge case — incomplete AGENTS.md
 
-**Input**: Existing AGENTS.md has only “This project is XX” and “Read INDEX,” no authoritative sources, no behavior, no reference table. Project has docs/, README, no skills. Complete per the output contract.
+**Input**: Existing AGENTS.md has only "This project is XX" and "Read INDEX," no authoritative sources, no behavior, no reference table. Project has docs/, README, no skills. Complete per the output contract.
 
-**Expected**: Keep existing “project identity”; add authoritative sources (where definitions and catalog live), behavioral expectations (at least 2–3 executable items, e.g. “Follow README and docs,” “When listing capabilities, read index then enumerate”), discovery and loading (summary), language and communication, reference table. Do not remove correct user wording; if the project has no INDEX, reference table can say “N/A” or list README/docs. Output revised full text or diff and state which sections were added.
+**Expected**: Keep existing "project identity"; add authoritative sources (where definitions and catalog live), behavioral expectations (at least 2–3 executable items, e.g. "Follow README and docs," "When listing capabilities, read index then enumerate"), discovery and loading (summary), language and communication, reference table. Do not remove correct user wording; if the project has no INDEX, reference table can say "N/A" or list README/docs. Output revised full text or diff and state which sections were added.
 
 ---
 
 ## Output contract: AGENTS.md authoring standard
 
-The following is the standard used by this skill when producing AGENTS.md; it is embedded in this SKILL.md. Projects adopting the “agent-first, governance-ready capability inventory (Spec)” shape can use it; this repo’s [AGENTS.md](../../AGENTS.md) follows it.
+The following is the standard used by this skill when producing AGENTS.md; it is embedded in this SKILL.md. Projects adopting the "agent-first, governance-ready capability inventory (Spec)" shape can use it; this repo's [AGENTS.md](../../AGENTS.md) follows it.
 
 ### 1. Purpose and role
 
@@ -101,12 +175,12 @@ The following is the standard used by this skill when producing AGENTS.md; it is
 
 ### 2. Primary goals
 
-AGENTS.md’s main goal is not “teach the Agent how to use skills” but to establish **entry and behavior**. That means three things:
+AGENTS.md's main goal is not "teach the Agent how to use skills" but to establish **entry and behavior**. That means three things:
 
 | Goal | Description |
 | :--- | :--- |
 | **Project identity** | One sentence on what the project is; list top-level asset types (e.g. Skills), their directories, and definition specs. |
-| **Authoritative sources** | Where “definitions” and “catalog/list” live; the Agent treats these as truth, not verbal or scattered docs. |
+| **Authoritative sources** | Where "definitions" and "catalog/list" live; the Agent treats these as truth, not verbal or scattered docs. |
 | **Behavioral expectations** | What the Agent **must or must not** do in or when referencing the project (e.g. follow spec, self-check before submit, read index then enumerate when listing capabilities). |
 
 ### 3. Recommended structure and sections
@@ -127,15 +201,15 @@ Section titles and levels can follow project style, but keep the order: identity
 
 ### 4. Content requirements
 
-- **Executable expectations**: Use “must,” “shall,” “must not” (or equivalent) so the Agent can parse and follow.
+- **Executable expectations**: Use "must," "shall," "must not" (or equivalent) so the Agent can parse and follow.
 - **Do not duplicate spec and docs**: AGENTS.md indexes and summarizes; point to `spec/` or `docs/` for full definitions and install.
 - **Stable references**: Use relative paths or resolvable URLs to specs and indexes in the repo; if the project can be referenced via Raw URL, provide the canonical Raw URL for AGENTS.md in the reference table.
 
 ### 5. Format and style
 
-- **Headings**: Short and parseable; optional English subtitle (e.g. “Agent Entry”).
+- **Headings**: Short and parseable; optional English subtitle (e.g. "Agent Entry").
 - **Length**: Aim for about one page (e.g. 60–80 lines) so the Agent can load and parse in one go.
-- **Language**: Match the project’s main asset language; if the project uses English, see [spec/skill.md](../../spec/skill.md) language requirements.
+- **Language**: Match the project's main asset language; if the project uses English, see [spec/skill.md](../../spec/skill.md) language requirements.
 - **Tables**: Use Markdown tables for project identity, authoritative sources, and reference for structured parsing.
 
 ### 6. Reference table
@@ -145,8 +219,8 @@ Section titles and levels can follow project style, but keep the order: identity
 ### 7. Relation to other specs
 
 - **Usage**: Runtime behavior for discovery, injection, and self-check is in AGENTS.md §4; AGENTS.md is the single entry and contract.
-- **Language**: AGENTS.md’s description and communication expectations should align with [spec/skill.md](../../spec/skill.md) language requirements (if the project uses that spec).
+- **Language**: AGENTS.md's description and communication expectations should align with [spec/skill.md](../../spec/skill.md) language requirements (if the project uses that spec).
 
 ### 8. Adapting for other projects
 
-Other projects adopting this contract can: keep the three elements (identity, authority, behavior) and the recommended section order; replace “project identity” with their one-line positioning and asset table; replace paths and spec names in “authoritative sources,” “behavior,” and “discovery and loading” with their `spec/` or equivalent; if the project has no Skills or INDEX, omit or replace with that project’s top-level assets and dirs, and adjust the reference table accordingly.
+Other projects adopting this contract can: keep the three elements (identity, authority, behavior) and the recommended section order; replace "project identity" with their one-line positioning and asset table; replace paths and spec names in "authoritative sources," "behavior," and "discovery and loading" with their `spec/` or equivalent; if the project has no Skills or INDEX, omit or replace with that project's top-level assets and dirs, and adjust the reference table accordingly.

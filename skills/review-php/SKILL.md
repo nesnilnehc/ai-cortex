@@ -18,6 +18,46 @@ Review code in **PHP** for **language and runtime conventions** only. Do not def
 
 ---
 
+## Core Objective
+
+**Primary Goal**: Produce a PHP language/runtime findings list covering strict types, error handling, resource management, PSR standards, namespaces, null safety, generators, version compatibility, and testability for the given code scope.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **PHP-only scope**: Only PHP language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
+2. ✅ **All nine PHP dimensions covered**: Strict types, error handling, resource management, PSR standards, namespaces/autoloading, null safety, generators/iterables, PHP version compatibility, and testability are assessed where relevant
+3. ✅ **Findings format compliant**: Each finding includes Location, Category (`language-php`), Severity, Title, Description, and optional Suggestion
+4. ✅ **File:line references**: All findings reference specific file locations with line numbers
+5. ✅ **Non-PHP code excluded**: Non-PHP files are not analyzed for PHP-specific rules unless explicitly in scope
+
+**Acceptance Test**: Does the output contain a PHP-focused findings list with file:line references covering all relevant language/runtime dimensions without performing security, architecture, or scope analysis?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- `declare(strict_types=1)`, typed properties, parameters, return types
+- Exception handling (Throwable hierarchy, try-catch-finally, no empty catch)
+- Resource management (fopen/fclose, database connections, try-finally patterns)
+- PSR-4 autoloading and PSR-12 coding style
+- Namespace and autoloading correctness
+- Null coalescing (`??`), null-safe operator (`?->`), error suppression avoidance
+- Generator and iterable correctness
+- PHP version compatibility with composer.json constraints
+- Testability (DI, static/singleton avoidance, constructor injection)
+
+**This skill does NOT handle**:
+- Scope selection — scope is provided by the caller
+- Security analysis (injection, auth, CSRF) — use `review-security`
+- Architecture analysis — use `review-architecture`
+- SQL-specific analysis — use `review-sql`
+- Full orchestrated review — use `review-code`
+
+**Handoff point**: When all PHP findings are emitted, hand off to `review-code` for aggregation. For SQL injection or security vulnerabilities found in PHP code, note them and suggest `review-security`.
+
+---
+
 ## Use Cases
 
 - **Orchestrated review**: Used as the language step when [review-code](../review-code/SKILL.md) runs scope → language → framework → library → cognitive for PHP projects.
@@ -72,14 +112,41 @@ Review code in **PHP** for **language and runtime conventions** only. Do not def
 - **Do not** give conclusions without specific locations or actionable suggestions.
 - **Do not** review non-PHP code for PHP-specific rules unless explicitly in scope.
 
+### Skill Boundaries
+
+**Do NOT do these** (other skills handle them):
+- Do NOT select or define the code scope — scope is determined by the caller or `review-code`
+- Do NOT perform security analysis (SQL injection, XSS, CSRF) — use `review-security`
+- Do NOT perform architecture analysis — use `review-architecture`
+- Do NOT perform comprehensive SQL analysis — use `review-sql`
+
+**When to stop and hand off**:
+- When all PHP findings are emitted, hand off to `review-code` for aggregation
+- When the user needs a full review (scope + language + cognitive), redirect to `review-code`
+- When SQL injection or security issues are found, note them and suggest `review-security`
+
 ---
 
 ## Self-Check
+
+### Core Success Criteria
+
+- [ ] **PHP-only scope**: Only PHP language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
+- [ ] **All nine PHP dimensions covered**: Strict types, error handling, resource management, PSR standards, namespaces/autoloading, null safety, generators/iterables, PHP version compatibility, and testability are assessed where relevant
+- [ ] **Findings format compliant**: Each finding includes Location, Category (`language-php`), Severity, Title, Description, and optional Suggestion
+- [ ] **File:line references**: All findings reference specific file locations with line numbers
+- [ ] **Non-PHP code excluded**: Non-PHP files are not analyzed for PHP-specific rules unless explicitly in scope
+
+### Process Quality Checks
 
 - [ ] Was only the PHP language/runtime dimension reviewed (no scope/security/architecture)?
 - [ ] Are strict types, error handling, resources, PSR, namespaces, null safety, generators, version compatibility, and testability covered where relevant?
 - [ ] Is each finding emitted with Location, Category=language-php, Severity, Title, Description, and optional Suggestion?
 - [ ] Are issues referenced with file:line?
+
+### Acceptance Test
+
+Does the output contain a PHP-focused findings list with file:line references covering all relevant language/runtime dimensions without performing security, architecture, or scope analysis?
 
 ---
 

@@ -18,6 +18,43 @@ Review **SQL** and query-related code for **language and query conventions** onl
 
 ---
 
+## Core Objective
+
+**Primary Goal**: Produce a SQL-focused findings list covering injection/parameterization, indexing, transactions, NULL/constraints, dialect portability, paging patterns, and sensitive column access for the given code scope.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **SQL-only scope**: Only SQL and query conventions are reviewed; no scope selection, full security, or architecture analysis performed
+2. ✅ **All seven SQL dimensions covered**: Injection/parameterization, indexing/execution plan, transactions/isolation, NULL/unique constraints, dialect/portability, large table/paging patterns, and sensitive columns/permissions are assessed where relevant
+3. ✅ **Findings format compliant**: Each finding includes Location, Category (`language-sql`), Severity, Title, Description, and optional Suggestion
+4. ✅ **Critical injection issues flagged**: SQL injection patterns (string concatenation, interpolation with user input) are marked as `critical` severity
+5. ✅ **Location-precise references**: All findings reference specific file:line or query identifier locations
+
+**Acceptance Test**: Does the output contain a SQL findings list covering all relevant query dimensions, with injection risks marked `critical` and specific location references for every finding?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- SQL injection via string concatenation or interpolation — parameterized queries and prepared statements
+- Indexing gaps for WHERE/JOIN/ORDER BY columns
+- Transaction boundaries, isolation levels, deadlock risk, long-running transactions
+- NULL handling in comparisons/aggregates, unique constraints, NOT NULL correctness
+- Database dialect portability (LIMIT/OFFSET/FETCH, date functions, vendor-specific syntax)
+- Large table full scans, paging strategies (keyset vs OFFSET)
+- Sensitive column exposure in SELECT, least-privilege role usage
+
+**This skill does NOT handle**:
+- Scope selection — scope is provided by the caller
+- Broader security analysis (beyond SQL injection) — use `review-security`
+- Architecture analysis — use `review-architecture`
+- Full orchestrated review — use `review-code`
+
+**Handoff point**: When all SQL findings are emitted, hand off to `review-code` for aggregation. For broader security concerns (auth, crypto, config), redirect to `review-security`.
+
+---
+
 ## Use Cases
 
 - **Orchestrated review**: Used as the language step when [review-code](../review-code/SKILL.md) runs for projects that include SQL (.sql files, embedded SQL, or ORM-generated SQL).
@@ -70,14 +107,41 @@ Review **SQL** and query-related code for **language and query conventions** onl
 - **Do not** give conclusions without specific locations or actionable suggestions.
 - **Do not** assume a specific database vendor unless stated; note dialect when relevant.
 
+### Skill Boundaries
+
+**Do NOT do these** (other skills handle them):
+- Do NOT select or define the code scope — scope is determined by the caller or `review-code`
+- Do NOT perform broad security analysis beyond SQL injection — use `review-security`
+- Do NOT perform architecture analysis — use `review-architecture`
+- Do NOT review non-SQL code for SQL conventions (SQL injection in application code should be flagged by `review-security`)
+
+**When to stop and hand off**:
+- When all SQL findings are emitted, hand off to `review-code` for aggregation
+- When the user needs broader security analysis (auth, crypto, config), redirect to `review-security`
+- When the user needs a full review (scope + language + cognitive), redirect to `review-code`
+
 ---
 
 ## Self-Check
+
+### Core Success Criteria
+
+- [ ] **SQL-only scope**: Only SQL and query conventions are reviewed; no scope selection, full security, or architecture analysis performed
+- [ ] **All seven SQL dimensions covered**: Injection/parameterization, indexing/execution plan, transactions/isolation, NULL/unique constraints, dialect/portability, large table/paging patterns, and sensitive columns/permissions are assessed where relevant
+- [ ] **Findings format compliant**: Each finding includes Location, Category (`language-sql`), Severity, Title, Description, and optional Suggestion
+- [ ] **Critical injection issues flagged**: SQL injection patterns (string concatenation, interpolation with user input) are marked as `critical` severity
+- [ ] **Location-precise references**: All findings reference specific file:line or query identifier locations
+
+### Process Quality Checks
 
 - [ ] Was only the SQL/query dimension reviewed (no scope/architecture beyond query design)?
 - [ ] Are parameterization, indexing, transactions, NULL/constraints, and portability covered where relevant?
 - [ ] Is each finding emitted with Location, Category=language-sql, Severity, Title, Description, and optional Suggestion?
 - [ ] Are issues referenced with file:line or query identifier?
+
+### Acceptance Test
+
+Does the output contain a SQL findings list covering all relevant query dimensions, with injection risks marked `critical` and specific location references for every finding?
 
 ---
 

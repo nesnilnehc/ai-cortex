@@ -1,5 +1,9 @@
 {
-  "metadata": { "pluginRoot": "./skills" },
+  "metadata": {
+    "pluginRoot": "./skills",
+    "selectionCriteria": "ASQM quality >= 18, standalone usage value, non-atomic review skills preferred. Atomic review skills (language/framework/library/cognitive) are excluded as they are designed for orchestrated use via review-code.",
+    "lastUpdated": "2026-03-02"
+  },
   "plugins": [{
     "name": "ai-cortex",
     "source": "ai-cortex",
@@ -11,7 +15,13 @@
       "./skills/refine-skill-design",
       "./skills/review-code",
       "./skills/review-codebase",
-      "./skills/write-agents-entry"
+      "./skills/write-agents-entry",
+      "./skills/onboard-repo",
+      "./skills/commit-work",
+      "./skills/brainstorm-design",
+      "./skills/install-rules",
+      "./skills/bootstrap-project-documentation",
+      "./skills/curate-skills"
     ]
   }]
 }

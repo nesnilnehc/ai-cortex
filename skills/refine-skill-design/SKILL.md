@@ -1,6 +1,6 @@
 ---
 name: refine-skill-design
-description: Audit and refactor existing SKILLs. Use when improving drafts, fixing quality, or aligning to spec. For creating new skills from scratch use skill-creator (anthropics/skills).
+description: Audit and refactor existing SKILLs to meet spec compliance and LLM best practices. Use when improving drafts, fixing quality, or aligning to spec.
 tags: [writing, eng-standards, meta-skill, optimization]
 related_skills: [decontextualize-text, generate-standard-readme]
 version: 1.2.0
@@ -15,6 +15,44 @@ metadata:
 ## Purpose
 
 As a "Skill for Skills," this skill **audits and refactors** AI capability definitions in draft form. It applies a senior prompt-engineering perspective to improve logic robustness, scenario coverage, and instruction adherence so each capability meets LLM best practices.
+
+---
+
+## Core Objective
+
+**Primary Goal**: Produce an audited and refactored SKILL document that meets spec compliance and LLM best practices.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **Structure compliant**: SKILL follows standard template (YAML, Purpose, Use Cases, Behavior, Input & Output, Restrictions, Self-Check, Examples)
+2. ✅ **Logic clarity**: Input → Behavior → Output chain is clear and unambiguous
+3. ✅ **Constraints defined**: Restrictions section covers common failure modes in the domain
+4. ✅ **Examples comprehensive**: At least 2 examples provided, including one edge case or challenging scenario
+5. ✅ **Changes documented**: Diff summary lists all changes with sections, descriptions, and reasons
+6. ✅ **Version suggested**: SemVer recommendation provided with rationale
+
+**Acceptance Test**: Can an AI agent apply this refined SKILL consistently across different contexts without ambiguity?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- Auditing existing SKILL drafts for quality and compliance
+- Refactoring SKILL structure and content to meet spec
+- Improving logic clarity and instruction precision
+- Adding missing sections or strengthening weak areas
+- Providing diff summary and version recommendations
+
+**This skill does NOT handle**:
+- Creating new skills from scratch (use `skill-creator` from anthropics/skills)
+- Running package scripts or init workflows (use skills.sh tooling)
+- Planning skill assets or references (use skills.sh documentation)
+- Evaluating skill quality metrics (use `curate-skills`)
+- Discovering or cataloging skills (use `discover-skills`)
+- Generating project documentation (use `bootstrap-project-documentation`)
+
+**Handoff point**: When SKILL is refined and diff summary provided, hand off to user for review and version control commit.
 
 ---
 
@@ -67,13 +105,51 @@ As a "Skill for Skills," this skill **audits and refactors** AI capability defin
 - **Minimize prose**: Prefer lists and tables over long README-style text.
 - **Multiple examples**: Do not keep only one "happy path" example; include at least one challenging or edge-case example.
 
+### Skill Boundaries (Avoid Overlap)
+
+**Do NOT do these (other skills handle them)**:
+
+- **Creating new skills from scratch**: Generating initial SKILL structure and content → Use `skill-creator` (anthropics/skills)
+- **Quality metrics evaluation**: Calculating ASQM scores, detecting overlaps → Use `curate-skills`
+- **Skill discovery**: Finding skills in repositories, cataloging capabilities → Use `discover-skills`
+- **Project documentation**: Generating README, AGENTS.md, or project-level docs → Use `bootstrap-project-documentation` or `generate-standard-readme`
+- **Text decontextualization**: Removing PII or sensitive information → Use `decontextualize-text`
+
+**When to stop and hand off**:
+
+- User says "looks good", "approved", "commit this" → Refinement complete, hand off to user for version control
+- User asks "how do I create a new skill?" → Hand off to `skill-creator` documentation
+- User asks "what's the quality score?" → Hand off to `curate-skills`
+- User asks "what skills are available?" → Hand off to `discover-skills`
+
 ---
 
 ## Self-Check
 
+### Core Success Criteria (ALL must be met)
+
+- [ ] **Structure compliant**: SKILL follows standard template (YAML, Purpose, Use Cases, Behavior, Input & Output, Restrictions, Self-Check, Examples)
+- [ ] **Logic clarity**: Input → Behavior → Output chain is clear and unambiguous
+- [ ] **Constraints defined**: Restrictions section covers common failure modes in the domain
+- [ ] **Examples comprehensive**: At least 2 examples provided, including one edge case or challenging scenario
+- [ ] **Changes documented**: Diff summary lists all changes with sections, descriptions, and reasons
+- [ ] **Version suggested**: SemVer recommendation provided with rationale
+
+### Process Quality Checks
+
 - [ ] **Self-apply**: Could this skill successfully refine itself?
 - [ ] **Clarity**: Could an Agent without domain background reproduce results from Behavior?
 - [ ] **Compliance**: Are all required sections and metadata fields present?
+- [ ] **Intent preserved**: Does the refined SKILL maintain the original skill's core purpose?
+- [ ] **Precision**: Are verbs specific and unambiguous (not vague terms like "handle")?
+
+### Acceptance Test
+
+**Can an AI agent apply this refined SKILL consistently across different contexts without ambiguity?**
+
+If NO: SKILL needs further refinement. Review Behavior section for clarity and add more specific instructions.
+
+If YES: Refinement is complete. Provide diff summary and version recommendation to user.
 
 ---
 

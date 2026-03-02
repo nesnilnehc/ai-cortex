@@ -1,10 +1,10 @@
 ---
 name: run-automated-tests
-description: Analyze a target repository's automated testing approach and run the most appropriate test command(s) safely.
+description: Discover and execute repository test commands safely. Core goal - produce test execution results with evidence-based command selection and safety guardrails before any destructive operations.
 tags: [automation, devops, eng-standards]
 version: 0.1.0
 license: MIT
-related_skills: [review-codebase, generate-github-workflow]
+related_skills: [review-codebase, generate-github-workflow, review-testing, run-repair-loop]
 recommended_scope: both
 metadata:
   author: ai-cortex
@@ -16,6 +16,40 @@ compatibility: Requires git (optional), a shell, and the repo's language toolcha
 ## Purpose
 
 Determine how a target repository expects automated tests to be executed (commands, frameworks, prerequisites, and scope), then run the best matching test suite(s) with a safety-first interaction policy.
+
+---
+
+## Core Objective
+
+**Primary Goal**: Produce test execution results with evidence-based command selection and safety guardrails.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **Test plan discovered**: Evidence sources identified (docs, CI configs, or build manifests)
+2. ✅ **Commands selected**: Appropriate test commands chosen based on mode (fast/ci/full) and constraints
+3. ✅ **User confirmation obtained**: Approval received before installing dependencies, using network, or starting services
+4. ✅ **Tests executed**: Commands run with captured output and exit codes
+5. ✅ **Results summarized**: Test Plan Summary produced with evidence, commands, execution status, and failures (if any)
+
+**Acceptance Test**: Can a developer reproduce the test execution by following the Test Plan Summary without additional context?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- Discovering test commands from repository evidence (docs, CI, build manifests)
+- Selecting appropriate test commands based on mode and constraints
+- Executing tests with safety guardrails and user confirmation
+- Summarizing test results with evidence and failure diagnostics
+
+**This skill does NOT handle**:
+- Test quality assessment or coverage analysis (use `review-testing`)
+- Fixing failing tests or debugging test failures (use `run-repair-loop`)
+- Writing new tests or test infrastructure (use development skills)
+- Reviewing test code for best practices (use `review-testing`)
+
+**Handoff point**: When tests complete (pass or fail), hand off to `run-repair-loop` for fixing failures or `review-testing` for quality assessment.
 
 ## Use Cases
 
@@ -82,25 +116,56 @@ Determine how a target repository expects automated tests to be executed (comman
 
 ## Restrictions
 
+### Hard Boundaries
+
 - Do not invent test commands when evidence exists (prefer docs/CI).
 - Do not install dependencies, run Docker, or start external services without confirmation.
 - Do not modify repository files unless the user explicitly requests it (exception: generating a report file if the user asked for artifacts).
 - Do not exfiltrate secrets; do not request sensitive credentials in chat.
 
+### Skill Boundaries (Avoid Overlap)
+
+**Do NOT do these (other skills handle them)**:
+
+- **Test quality assessment**: Evaluating test coverage, test design, or testing best practices → Use `review-testing`
+- **Fixing test failures**: Debugging failing tests, repairing broken test code, or investigating root causes → Use `run-repair-loop`
+- **Writing tests**: Creating new test cases, test infrastructure, or test frameworks → Use development/implementation skills
+- **Code review**: Reviewing test code for quality, maintainability, or best practices → Use `review-testing`
+- **Repository analysis**: Comprehensive codebase structure analysis or architecture review → Use `review-codebase`
+
+**When to stop and hand off**:
+
+- Tests fail and user asks "why?" or "how to fix?" → Hand off to `run-repair-loop` for debugging and repair
+- User asks "are these tests good?" or "what's our coverage?" → Hand off to `review-testing` for quality assessment
+- User asks "can you write tests for X?" → Hand off to development workflow for test implementation
+- Tests pass and user asks "what should we test next?" → Hand off to `review-testing` for test strategy recommendations
+
 ## Self-Check
 
-Before you finish:
+### Core Success Criteria (ALL must be met)
 
-1. Confirm you identified at least one authoritative test instruction source:
-   - A doc file (README/CONTRIBUTING/TESTING), or
-   - A CI workflow step, or
-   - A build manifest script target (e.g., `package.json` scripts).
-2. Confirm you asked for confirmation before any action that:
-   - Installs dependencies, uses network, starts Docker/services, or changes state outside the repo.
-3. Confirm the final output includes:
-   - Evidence paths, selected commands, execution results, and any missing prerequisites.
-4. If tests failed, confirm you provided:
-   - The first failing command, exit code, and the likely root cause category (toolchain/env/service/test failure).
+- [ ] **Test plan discovered**: Evidence sources identified (docs, CI configs, or build manifests)
+- [ ] **Commands selected**: Appropriate test commands chosen based on mode (fast/ci/full) and constraints
+- [ ] **User confirmation obtained**: Approval received before installing dependencies, using network, or starting services
+- [ ] **Tests executed**: Commands run with captured output and exit codes
+- [ ] **Results summarized**: Test Plan Summary produced with evidence, commands, execution status, and failures (if any)
+
+### Process Quality Checks
+
+- [ ] **Evidence-based selection**: Did I identify at least one authoritative test instruction source (doc file, CI workflow, or build manifest)?
+- [ ] **Safety guardrails applied**: Did I ask for confirmation before any action that installs dependencies, uses network, starts Docker/services, or changes state?
+- [ ] **Commands printed**: Did I print the exact commands before running them?
+- [ ] **Failures diagnosed**: If tests failed, did I provide the first failing command, exit code, and likely root cause category?
+- [ ] **No destructive operations**: Did I avoid running destructive commands (`rm -rf`, `git clean`, `docker system prune`, database drops) without explicit approval?
+- [ ] **No secret exfiltration**: Did I avoid requesting sensitive credentials in chat and prefer `.env` files or documented local dev flows?
+
+### Acceptance Test
+
+**Can a developer reproduce the test execution by following the Test Plan Summary without additional context?**
+
+If NO: Test Plan Summary is incomplete. Add missing evidence, commands, or prerequisites.
+
+If YES: Skill execution is complete. Proceed to handoff if needed.
 
 ## Examples
 
