@@ -1,0 +1,47 @@
+name: commit-work
+status: validated
+
+primary_use: Create high-quality git commits with governance - review, split logically, write clear Conventional Commits messages, sync registries
+
+inputs:
+  - git repository with uncommitted changes
+  - user intent (what to commit)
+  - commit style preferences (optional)
+  - project-specific rules (optional)
+
+outputs:
+  - commit message(s) with type, scope, description
+  - summary per commit (what/why)
+  - commands used for staging and review
+  - verification commands run
+  - registry sync confirmation (AI Cortex projects)
+
+scores:
+  agent_native: 4
+  cognitive: 5
+  composability: 5
+  stance: 5
+
+asqm_quality: 19
+
+overlaps_with:
+  - anthropics/skills:commit-work
+  - softaworks/agent-toolkit:commit-work
+
+market_position: differentiated
+
+# Scoring rationale:
+# agent_native: 4 - Has clear Output Contract section with structured deliverables,
+#   but not in explicit Appendix format with machine-parseable schema (would be 5)
+# cognitive: 5 - Excellent reasoning offload: 10-step workflow, decision trees for
+#   splitting commits, interaction policy for user confirmation, comprehensive Self-Check
+# composability: 5 - Integrates review-diff, references commit-message-template,
+#   works in pipelines, clear related_skills, registry sync for AI Cortex ecosystem
+# stance: 5 - Perfect spec/skill.md alignment: all required sections, evolution metadata,
+#   Self-Check, Examples with edge cases, Restrictions, clear Interaction Policy
+
+# Lifecycle: validated (Quality 19/20 ≥ 17, agent_native 4 ≥ 4, stance 5 ≥ 3)
+
+# Market position: differentiated - Enhanced with AI Cortex governance (review-diff
+#   integration, registry sync), clear evolution from Anthropic's version, unique
+#   value in AI Cortex ecosystem despite overlaps with original commit-work skills
