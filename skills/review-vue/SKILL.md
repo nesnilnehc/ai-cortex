@@ -18,6 +18,44 @@ Review **Vue 3** code for **framework conventions** only. Do not define scope (d
 
 ---
 
+## Core Objective
+
+**Primary Goal**: Produce a Vue 3 framework findings list covering Composition API usage, reactivity correctness, component boundaries, state management, routing, performance, and accessibility for the given code scope.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **Vue 3 framework-only scope**: Only Vue 3 framework conventions are reviewed; no scope selection, security, or architecture analysis performed
+2. ✅ **All seven Vue dimensions covered**: Composition API/script setup, reactivity (ref/reactive/computed/watch), component boundaries/props/emits, state (Pinia), routing/guards, rendering performance, and accessibility are assessed where relevant
+3. ✅ **Findings format compliant**: Each finding includes Location, Category (`framework-vue`), Severity, Title, Description, and optional Suggestion
+4. ✅ **Component/file references**: All findings reference specific file:line or component name
+5. ✅ **Non-Vue code excluded**: Non-Vue files are not analyzed for Vue-specific rules unless explicitly in scope
+
+**Acceptance Test**: Does the output contain a Vue 3-focused findings list with component/file references covering all relevant framework dimensions without performing security, architecture, or scope analysis?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- Composition API and `<script setup>` correctness (defineProps, defineEmits, defineExpose, lifecycle hooks)
+- Reactivity correctness (ref vs reactive, computed vs watch, prop mutation, deep reactivity)
+- Component boundary design (props/emits contracts, prop drilling, provide/inject)
+- State management (Pinia/Vuex: actions vs direct mutation, server state duplication avoidance)
+- Routing (Vue Router, navigation guards, lazy loading, route param/query handling)
+- Performance (v-memo, v-for key stability, unnecessary re-renders)
+- Accessibility (semantic HTML, ARIA, form labels, focus management)
+
+**This skill does NOT handle**:
+- Scope selection — scope is provided by the caller
+- Security analysis (XSS, injection risks) — use `review-security`
+- Architecture analysis — use `review-architecture`
+- Language/runtime (JavaScript/TypeScript) conventions — use general JS/TS analysis or note as separate concern
+- Full orchestrated review — use `review-code`
+
+**Handoff point**: When all Vue findings are emitted, hand off to `review-code` for aggregation. For XSS risks (v-html misuse, unsanitized content), note them and suggest `review-security`.
+
+---
+
 ## Use Cases
 
 - **Orchestrated review**: Used as the framework step when [review-code](../review-code/SKILL.md) runs scope → language → framework → library → cognitive for Vue projects.
@@ -70,14 +108,40 @@ Review **Vue 3** code for **framework conventions** only. Do not define scope (d
 - **Do not** give conclusions without specific locations or actionable suggestions.
 - **Do not** review non-Vue code for Vue-specific rules unless explicitly in scope.
 
+### Skill Boundaries
+
+**Do NOT do these** (other skills handle them):
+- Do NOT select or define the code scope — scope is determined by the caller or `review-code`
+- Do NOT perform security analysis (XSS, injection) — use `review-security`
+- Do NOT perform architecture analysis — use `review-architecture`
+
+**When to stop and hand off**:
+- When all Vue findings are emitted, hand off to `review-code` for aggregation
+- When XSS risks are found (e.g. unsafe `v-html` usage), note them and suggest `review-security`
+- When the user needs a full review (scope + language + cognitive), redirect to `review-code`
+
 ---
 
 ## Self-Check
+
+### Core Success Criteria
+
+- [ ] **Vue 3 framework-only scope**: Only Vue 3 framework conventions are reviewed; no scope selection, security, or architecture analysis performed
+- [ ] **All seven Vue dimensions covered**: Composition API/script setup, reactivity (ref/reactive/computed/watch), component boundaries/props/emits, state (Pinia), routing/guards, rendering performance, and accessibility are assessed where relevant
+- [ ] **Findings format compliant**: Each finding includes Location, Category (`framework-vue`), Severity, Title, Description, and optional Suggestion
+- [ ] **Component/file references**: All findings reference specific file:line or component name
+- [ ] **Non-Vue code excluded**: Non-Vue files are not analyzed for Vue-specific rules unless explicitly in scope
+
+### Process Quality Checks
 
 - [ ] Was only the Vue framework dimension reviewed (no scope/security/architecture)?
 - [ ] Are Composition API, reactivity, components, state, routing, and performance covered where relevant?
 - [ ] Is each finding emitted with Location, Category=framework-vue, Severity, Title, Description, and optional Suggestion?
 - [ ] Are issues referenced with file:line or component?
+
+### Acceptance Test
+
+Does the output contain a Vue 3-focused findings list with component/file references covering all relevant framework dimensions without performing security, architecture, or scope analysis?
 
 ---
 
