@@ -1,0 +1,16 @@
+name: brainstorm-design
+version: 1.0.0
+description: Transform rough ideas into validated designs through structured dialogue - explore context, clarify requirements, propose alternatives, and get approval before implementation.
+tags:
+  - writing
+  - eng-standards
+  - documentation
+license: MIT
+author: ai-cortex
+lifecycle: stable
+asqm_score: 0.85
+related_skills:
+  - refine-skill-design
+  - generate-standard-readme
+  - bootstrap-project-documentation
+recommended_scope: both
