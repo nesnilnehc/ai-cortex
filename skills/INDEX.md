@@ -86,6 +86,7 @@ Convention: a skill at `0.x.x` with ASQM status "validated" should be upgraded t
 | [review-react](./review-react/SKILL.md) | eng-standards | `1.0.0` | stable | Review React code for component design, hooks correctness, state management, rendering performance, and accessibility; framework-only atomic skill. |
 | [onboard-repo](./onboard-repo/SKILL.md) | eng-standards, documentation, automation | `1.0.0` | stable | Orchestrator: run review-codebase → review-architecture → generate-standard-readme → write-agents-entry → discover-skills in order, aggregate outputs into one onboarding report. |
 | [review-orm-usage](./review-orm-usage/SKILL.md) | eng-standards, optimization | `1.0.0` | stable | Review ORM usage patterns for N+1 queries, connection management, migration safety, transaction handling, and query efficiency; library-level atomic skill. |
+| [analyze-requirements](./analyze-requirements/SKILL.md) | writing, eng-standards, documentation | `1.0.0` | stable | Transform vague intent into validated, testable requirements through diagnostic state progression and structured dialogue; problem-first, no design before validation. |
 
 ---
 
