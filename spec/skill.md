@@ -1,7 +1,12 @@
 # Skill Specification
 
 Status: MANDATORY  
+Version: 2.0.0  
 Scope: All files under `skills/`.
+
+**Changelog**:
+- v2.0.0 (2026-03-02): Added mandatory Core Objective section, enhanced Self-Check and Restrictions requirements, added quality assurance process
+- v1.0.0: Initial specification
 
 ---
 
@@ -86,6 +91,7 @@ metadata:
 
 - `# Skill: [English title]`
 - `## Purpose`
+- `## Core Objective` (NEW - MANDATORY)
 - `## Use Cases`
 - `## Behavior`
 - `## Input & Output`
@@ -93,12 +99,141 @@ metadata:
 - `## Self-Check`
 - `## Examples`
 
+### 3.1 Core Objective Section (MANDATORY)
+
+Every skill MUST define its core objective to prevent scope creep, skill overlap, and "brain split" (AI confusion about which skill to use).
+
+**Required subsections**:
+
+1. **Primary Goal**: One sentence stating what the skill produces or achieves.
+2. **Success Criteria**: Measurable, verifiable conditions (3-6 items) that ALL must be met for skill completion.
+3. **Acceptance Test**: A simple question or test to verify the skill achieved its goal.
+
+**Optional subsections**:
+
+1. **Scope Boundaries**: What this skill handles vs. what it does NOT handle.
+2. **Handoff Point**: When and how to transition to other skills or workflows.
+
+**Example**:
+
+```markdown
+## Core Objective
+
+**Primary Goal**: Produce a validated design document that serves as the single source of truth for implementation.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **Design document exists**: Written to `docs/designs/YYYY-MM-DD-<topic>.md` and committed to version control
+2. ✅ **User explicitly approved**: User said "approved", "looks good", "proceed", or equivalent confirmation
+3. ✅ **Alternatives documented**: At least 2-3 approaches considered with trade-offs analysis
+4. ✅ **YAGNI applied**: Design focuses on minimum viable solution, unnecessary features removed
+5. ✅ **DRY applied**: Design references existing patterns/components rather than reinventing
+6. ✅ **No code written**: Zero implementation code exists (design only)
+
+**Acceptance Test**: Can a developer with zero project context implement this design without asking clarifying questions?
+
+**Scope Boundaries**:
+- This skill handles: Rough idea → Validated design document
+- This skill does NOT handle: Implementation planning (use `writing-plans`), Code writing (use implementation skills)
+
+**Handoff Point**: When design is approved and documented, hand off to implementation planning or development workflow.
+```
+
+**Why this matters**:
+
+- **Prevents brain split**: AI knows exactly when to use this skill vs. others
+- **Verifiable completion**: Clear success criteria, not vague "done"
+- **Avoids scope creep**: Explicit boundaries prevent skills from doing too much
+- **Clear handoffs**: Knows when to stop and transition to next skill
+
 ## 4. Content Quality
 
 - **Language**: YAML `description` must be **English** for skills.sh, SkillsMP, etc. Skill body, titles, and examples must be **English**. `name`, `tags`, and other identifiers remain English/kebab-case.
 - **Tone**: Use imperative, technical language. Avoid filler or casual phrasing.
 - **Examples**: Include at least 2 examples, one of which must be an edge case or complex scenario.
 - **Interaction**: For non-trivial logic, define when to ask the user to confirm.
+- **Core Objective**: MUST include Core Objective section with Primary Goal, Success Criteria (3-6 items), and Acceptance Test.
+- **Self-Check Alignment**: Self-Check section MUST align with Success Criteria from Core Objective.
+- **Scope Boundaries**: SHOULD define what the skill handles vs. what it does NOT handle to prevent overlap with other skills.
+
+### 4.1 Self-Check Requirements
+
+The Self-Check section MUST include:
+
+1. **Core Success Criteria**: Direct mapping from Core Objective's Success Criteria (copy them here for verification)
+2. **Process Quality Checks**: Additional checks for process quality (optional but recommended)
+3. **Acceptance Test**: Repeat the Acceptance Test from Core Objective for easy reference
+
+**Example**:
+
+```markdown
+## Self-Check
+
+### Core Success Criteria (ALL must be met)
+
+- [ ] **Design document exists**: Written to `docs/designs/YYYY-MM-DD-<topic>.md` and committed
+- [ ] **User explicitly approved**: User said "approved", "looks good", "proceed", or equivalent
+- [ ] **Alternatives documented**: At least 2-3 approaches with trade-offs in design document
+- [ ] **YAGNI applied**: Design focuses on minimum viable solution, unnecessary features removed
+- [ ] **DRY applied**: Design references existing patterns/components rather than reinventing
+- [ ] **No code written**: Zero implementation code exists (design only)
+
+### Process Quality Checks
+
+- [ ] **Context explored**: Did I examine project state, constraints, and existing patterns?
+- [ ] **Questions focused**: Did I ask one question at a time?
+- [ ] **Alternatives presented**: Did I propose 2-3 distinct approaches with trade-offs?
+
+### Acceptance Test
+
+**Can a developer with zero project context implement this design without asking clarifying questions?**
+
+If NO: Design is incomplete. Return to clarification phase.
+If YES: Design is complete. Proceed to handoff.
+```
+
+### 4.2 Restrictions Requirements
+
+The Restrictions section SHOULD include:
+
+1. **Hard Boundaries**: Absolute constraints the skill must never violate
+2. **Skill Boundaries**: Explicit list of what other skills handle (to avoid overlap)
+3. **When to Stop**: Clear conditions for when to stop and hand off to other skills
+
+**Example**:
+
+```markdown
+## Restrictions
+
+### Hard Boundaries
+
+- **No premature implementation**: Do NOT write code until design is approved.
+- **One question at a time**: Do not overwhelm user with multiple questions.
+- **YAGNI ruthlessly**: Remove unnecessary features from all designs.
+
+### Skill Boundaries (Avoid Overlap)
+
+**Do NOT do these (other skills handle them)**:
+
+- **Implementation planning**: Creating detailed task lists → Use `writing-plans`
+- **Code writing**: Writing actual code → Use implementation skills
+- **Code review**: Reviewing existing code → Use `review-code`
+- **Debugging**: Investigating bugs → Use `systematic-debugging`
+
+**When to stop and hand off**:
+
+- User says "approved" → Design complete, hand off to implementation
+- User asks "how do we implement?" → Hand off to `writing-plans`
+- User asks "can you write code?" → Hand off to development workflow
+```
+
+**Why this matters**:
+
+- **Prevents skill overlap**: Clear boundaries prevent multiple skills from doing the same thing
+- **Reduces brain split**: AI knows which skill to use for which task
+- **Enables composition**: Skills can reference each other for handoffs
+
+---
 
 ## 5. Metadata Sync
 
@@ -120,6 +255,56 @@ metadata:
 - New skills must satisfy this spec; use `skills/refine-skill-design` for design review.
 - Version registration: update `skills/INDEX.md` with linear version bumps.
 - Installation: see [README.md](../README.md).
+
+### 7.1 Quality Assurance Process
+
+**For new skills**:
+
+1. **Create draft**: Write initial SKILL.md following this spec
+2. **Self-check**: Run through Self-Check section, verify all Core Success Criteria met
+3. **Refine**: Use `skills/refine-skill-design` to audit and improve the skill
+4. **Curate**: Run `skills/curate-skills` to evaluate ASQM score and detect overlaps
+5. **Register**: Update `skills/INDEX.md` and `manifest.json`
+6. **Verify**: Run `scripts/verify-registry.mjs` to confirm sync
+
+**For existing skills (migration to new spec)**:
+
+1. **Add Core Objective section**: Define Primary Goal, Success Criteria (3-6 items), Acceptance Test
+2. **Update Self-Check**: Align with Success Criteria from Core Objective
+3. **Add Skill Boundaries**: Define what this skill does NOT handle (to avoid overlap)
+4. **Refine**: Use `skills/refine-skill-design` to audit improvements
+5. **Curate**: Run `skills/curate-skills` to re-evaluate ASQM score
+6. **Verify**: Run `scripts/verify-registry.mjs` to confirm sync
+
+**Quality gates**:
+
+- ❌ **REJECT** if Core Objective section missing
+- ❌ **REJECT** if Success Criteria has < 3 or > 6 items
+- ❌ **REJECT** if Self-Check does not align with Success Criteria
+- ⚠️ **WARN** if Skill Boundaries section missing (overlap risk)
+- ⚠️ **WARN** if ASQM score < 0.7 (quality concern)
+
+### 7.2 Automated Quality Checks
+
+**Registry verification** (MANDATORY):
+
+```bash
+node scripts/verify-registry.mjs
+```
+
+**Skill curation** (RECOMMENDED):
+
+```bash
+# Use curate-skills to evaluate all skills
+# Produces ASQM_AUDIT.md with quality scores and overlap detection
+```
+
+**Skill refinement** (RECOMMENDED for new skills):
+
+```bash
+# Use refine-skill-design to audit and improve skill quality
+# Checks: structure, verbs, interaction policy, metadata alignment
+```
 
 ## 8. Repo-level docs (skills directory)
 

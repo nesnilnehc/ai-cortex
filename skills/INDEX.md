@@ -67,6 +67,7 @@ This project follows **[Semantic Versioning (SemVer)](https://semver.org/)**.
 | [run-repair-loop](./run-repair-loop/SKILL.md) | automation, devops, eng-standards, optimization | `0.1.0` | Iteratively review, run tests, and apply targeted fixes until issues are resolved (or a stop condition is reached). |
 | [bootstrap-project-documentation](./bootstrap-project-documentation/SKILL.md) | documentation, eng-standards, writing | `1.1.1` | Bootstrap or adapt project docs from project-documentation-template; Initialize or Adjust modes; repeatable; strict kebab-case naming. |
 | [commit-work](./commit-work/SKILL.md) | git, workflow, eng-standards, automation | `2.0.0` | Create high-quality git commits with AI Cortex governance - review changes, split logically, write clear messages (Conventional Commits), sync with INDEX/manifest. |
+| [brainstorm-design](./brainstorm-design/SKILL.md) | writing, eng-standards, documentation | `1.0.0` | Transform rough ideas into validated design documents through structured dialogue. Core goal: produce approved design doc with alternatives analysis before any implementation. |
 
 ---
 
