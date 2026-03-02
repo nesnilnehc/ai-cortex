@@ -1,6 +1,6 @@
 ---
 name: curate-skills
-description: Evaluate, score (ASQM strict), tag, and normalize all Skills; writes agent.yaml and README per skill, detects overlaps, produces ASQM_AUDIT.md or chat summary. Use when auditing skills, after adding/changing skills, or when generating repo-level skill summaries.
+description: Govern skill inventory through ASQM scoring, lifecycle management, and overlap detection. Core goal - produce validated quality scores and normalized documentation for all skills in repository.
 tags: [meta-skill, eng-standards, documentation]
 version: 1.0.0
 license: MIT
@@ -15,6 +15,43 @@ metadata:
 ## Purpose
 
 Govern the skill inventory by evaluating, scoring, tagging, and normalizing every Skill in the repository (including this one). Produce a single source of truth: machine-readable scores and status per skill, normalized human-facing README, overlap detection, and a repo-level summary. Agent-first; README for humans, agent.yaml for Agents.
+
+---
+
+## Core Objective
+
+**Primary Goal**: Produce validated ASQM scores, lifecycle status, and normalized documentation for all skills in the repository.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **All skills scored**: Every skill directory has ASQM scores (agent_native, cognitive, composability, stance) computed strictly and written to agent.yaml
+2. ✅ **Lifecycle status assigned**: Each skill has validated/experimental/archive_candidate status based on Quality ≥ 17 + dual gates (agent_native ≥ 4, stance ≥ 3)
+3. ✅ **Overlaps detected**: overlaps_with field populated in agent.yaml for each skill using Git-repo form (owner/repo:skill-name)
+4. ✅ **Documentation normalized**: Each skill has updated agent.yaml and README.md following standard structure
+5. ✅ **Audit artifact produced**: ASQM_AUDIT.md written at repo level with lifecycle, scores, overlaps, ecosystem, findings, and final recommendations section
+
+**Acceptance Test**: Can an AI agent consume the agent.yaml files to understand skill quality, status, and relationships without reading SKILL.md or README?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- ASQM scoring (strict, evidence-based) for all skills
+- Lifecycle status assignment (validated/experimental/archive_candidate)
+- Overlap detection and market positioning
+- agent.yaml and README.md normalization per skill
+- Repo-level audit artifact (ASQM_AUDIT.md) generation
+
+**This skill does NOT handle**:
+- Skill design refinement (use `refine-skill-design`)
+- Skill specification changes (use `refine-skill-design`)
+- Registry synchronization (INDEX.md, manifest.json updates are separate per spec)
+- Individual skill README generation from scratch (use `generate-standard-readme`)
+
+**Handoff point**: When ASQM_AUDIT.md is written with final recommendations, hand off to user for review or to `refine-skill-design` for addressing identified issues.
+
+---
 
 ## Use Cases
 
@@ -82,17 +119,50 @@ Govern the skill inventory by evaluating, scoring, tagging, and normalizing ever
 - Respect existing tags from skills/INDEX.md when normalizing; add or suggest tags only when clearly aligned with the tagging system.
 - **Strict scoring**: Apply ASQM dimensions strictly; do not inflate scores. agent_native = 5 only when the skill has an explicit output contract (Appendix or equivalent) in SKILL.md.
 
+### Skill Boundaries (Avoid Overlap)
+
+**Do NOT do these (other skills handle them)**:
+
+- **Skill design refinement**: Auditing and refactoring individual SKILL.md structure, content, or quality → Use `refine-skill-design`
+- **Skill specification changes**: Modifying skill behavior, restrictions, or core design → Use `refine-skill-design`
+- **Registry synchronization**: Updating skills/INDEX.md or manifest.json to reflect skill changes → Separate process per spec/skill.md
+- **Individual README generation**: Creating README.md from scratch for a new skill → Use `generate-standard-readme` (curate-skills normalizes existing READMEs)
+- **Skill implementation**: Writing or modifying skill code/logic → Out of scope
+
+**When to stop and hand off**:
+
+- User asks "how do I improve this skill's design?" → Hand off to `refine-skill-design`
+- User asks "can you fix the issues in SKILL.md?" → Hand off to `refine-skill-design`
+- ASQM_AUDIT.md shows skills needing design improvements → Recommend `refine-skill-design` in final recommendations section
+- User asks "can you update INDEX.md?" → Explain registry sync is separate per spec, provide manual steps
+
 ## Self-Check
+
+### Core Success Criteria (ALL must be met)
+
+- [ ] **All skills scored**: Every skill directory has ASQM scores (agent_native, cognitive, composability, stance) computed strictly and written to agent.yaml
+- [ ] **Lifecycle status assigned**: Each skill has validated/experimental/archive_candidate status based on Quality ≥ 17 + dual gates (agent_native ≥ 4, stance ≥ 3)
+- [ ] **Overlaps detected**: overlaps_with field populated in agent.yaml for each skill using Git-repo form (owner/repo:skill-name)
+- [ ] **Documentation normalized**: Each skill has updated agent.yaml and README.md following standard structure
+- [ ] **Audit artifact produced**: ASQM_AUDIT.md written at repo level with lifecycle, scores, overlaps, ecosystem, findings, and final recommendations section
+
+### Process Quality Checks
 
 - [ ] All skill directories under the given root were scanned?
 - [ ] agent.yaml was read before README when present?
 - [ ] Scores (0–5) assigned strictly (evidence-based; agent_native 5 only with explicit output contract)?
 - [ ] asqm_quality (0–20) computed and written consistently?
-- [ ] Lifecycle status set from Quality + Gate A + Gate B (validated / experimental / archive_candidate)?
 - [ ] Per-skill agent.yaml and README written or updated as specified?
 - [ ] overlaps_with (owner/repo:skill-name) and market_position assigned and written per skill?
-- [ ] ASQM_AUDIT.md or chat summary produced, with a final recommendations section (actionable or “no changes”)?
 - [ ] User confirmed before bulk overwrite if required by interaction policy?
+
+### Acceptance Test
+
+**Can an AI agent consume the agent.yaml files to understand skill quality, status, and relationships without reading SKILL.md or README?**
+
+If NO: Scoring or documentation is incomplete. Return to scoring or normalization steps.
+
+If YES: Curation is complete. Proceed to handoff or user review.
 
 ## Examples
 
