@@ -185,16 +185,37 @@ When performing this skill, **sequentially apply** the following steps. For each
 - **Do not** invent findings; only include findings produced by the atomic skills you run.
 - **Do not** require each atomic skill to emit risk signals. Risk labels are orchestrator-owned and generated only at final aggregation.
 
+### Skill Boundaries
+
+**Do NOT do these (other skills handle them):**
+
+- Direct code analysis or linting — use the atomic review skills (`review-diff`, `review-codebase`, `review-security`, etc.)
+- Single-dimension reviews — invoke `review-diff`, `review-security`, `review-performance`, or other atomic skills directly
+- Implementing fixes or refactoring code — use development/refactoring skills
+- Writing or modifying tests — use testing skills or `run-automated-tests`
+
+**When to stop and hand off:**
+
+- When aggregated report is complete → hand off to user for review or to development workflow
+- When user asks for only a specific dimension (e.g. "security review") → hand off to the corresponding atomic skill
+- When findings need to be acted upon → hand off to implementation or `run-repair-loop` skill
+
 ---
 
 ## Self-Check
 
-- [ ] Were pre-flight items (scope, paths if codebase, large-scope priority, untracked if diff) confirmed with the user before running?
-- [ ] Was the execution order followed (scope → language → framework → library → cognitive)?
-- [ ] Were findings only collected from the atomic skills, not invented?
-- [ ] Is the output a single report with all findings in the standard format?
-- [ ] Were risk signals (if any) derived from final deduplicated findings, with no per-skill duplication?
-- [ ] Did this skill refrain from analyzing code directly?
+### Core Success Criteria
+
+- [ ] Scope confirmed: User's review scope (diff or codebase paths) is confirmed before execution
+- [ ] Execution order followed: Skills run in fixed sequence (scope → language → framework → library → cognitive)
+- [ ] All applicable skills executed: Scope skill + language skill (if applicable) + framework skill (if applicable) + all cognitive skills are run
+- [ ] Findings aggregated: All findings from atomic skills are collected and merged into a single report using standard format
+- [ ] Findings deduplicated: Duplicate findings (same Location + Title) are merged, keeping highest severity
+- [ ] Risk signals derived: Risk signals are generated from final deduplicated findings and change context (not from individual skills)
+
+### Acceptance Test
+
+- [ ] Does the final report contain findings from all executed atomic skills, with no duplicates, and risk signals derived only at the aggregation stage?
 
 ---
 

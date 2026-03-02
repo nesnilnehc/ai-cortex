@@ -1,6 +1,6 @@
 ---
 name: brainstorm-design
-description: Transform rough ideas into validated design documents through structured dialogue. Core goal - produce approved design doc with alternatives analysis before any implementation. Use when user has vague idea needing refinement into concrete design.
+description: Transform rough ideas into validated design documents through structured dialogue before any implementation. Use when user has a vague idea needing concrete design.
 tags: [writing, eng-standards, documentation]
 version: 1.0.0
 license: MIT
