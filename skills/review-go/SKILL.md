@@ -18,6 +18,44 @@ Review code in **Go** for **language and runtime conventions** only. Do not defi
 
 ---
 
+## Core Objective
+
+**Primary Goal**: Produce a Go language/runtime findings list covering concurrency, context usage, error handling, resource management, API stability, type semantics, and testability for the given code scope.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **Go-only scope**: Only Go language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
+2. ✅ **All seven Go dimensions covered**: Concurrency/goroutine lifecycle, context usage, error handling, resource management, API stability, type/zero-value semantics, and testability are assessed where relevant
+3. ✅ **Findings format compliant**: Each finding includes Location, Category (`language-go`), Severity, Title, Description, and optional Suggestion
+4. ✅ **File:line references**: All findings reference specific file locations with line numbers
+5. ✅ **Non-Go code excluded**: Non-Go files are not analyzed for Go-specific rules unless explicitly in scope
+
+**Acceptance Test**: Does the output contain a Go-focused findings list with file:line references covering all relevant language/runtime dimensions without performing security, architecture, or scope analysis?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- Goroutine lifecycle and leak prevention (channel closing, cancellation, WaitGroup)
+- Context propagation through request paths
+- Error handling (wrapping with `%w`, `errors.Is/As`, avoiding panic for expected errors)
+- Resource management (defer Close(), resp.Body.Close(), context cancel())
+- API stability and Go modules (exported types, backward compatibility, go.mod)
+- Type and zero-value semantics (nil interface vs typed nil, pointer/value receiver, slice/map initialization)
+- Testability (small interfaces, injection over globals, deterministic test seams)
+
+**This skill does NOT handle**:
+- Scope selection — scope is provided by the caller
+- Security analysis — use `review-security`
+- Architecture analysis — use `review-architecture`
+- SQL-specific analysis — use `review-sql`
+- Full orchestrated review — use `review-code`
+
+**Handoff point**: When all Go findings are emitted, hand off to `review-code` for aggregation. For SQL or security issues, note them and suggest the appropriate cognitive skill.
+
+---
+
 ## Use Cases
 
 - **Orchestrated review**: Used as the language step when [review-code](../review-code/SKILL.md) runs scope -> language -> framework -> library -> cognitive for Go projects.
@@ -70,14 +108,41 @@ Review code in **Go** for **language and runtime conventions** only. Do not defi
 - **Do not** give conclusions without specific locations or actionable suggestions.
 - **Do not** review non-Go code for Go-specific rules unless the user explicitly includes it (e.g. embedded code snippets).
 
+### Skill Boundaries
+
+**Do NOT do these** (other skills handle them):
+- Do NOT select or define the code scope — scope is determined by the caller or `review-code`
+- Do NOT perform security analysis — use `review-security`
+- Do NOT perform architecture analysis — use `review-architecture`
+- Do NOT perform comprehensive SQL analysis — use `review-sql`
+
+**When to stop and hand off**:
+- When all Go findings are emitted, hand off to `review-code` for aggregation
+- When the user needs a full review (scope + language + cognitive), redirect to `review-code`
+- When SQL or security issues are found, note them and suggest appropriate cognitive skills
+
 ---
 
 ## Self-Check
+
+### Core Success Criteria
+
+- [ ] **Go-only scope**: Only Go language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
+- [ ] **All seven Go dimensions covered**: Concurrency/goroutine lifecycle, context usage, error handling, resource management, API stability, type/zero-value semantics, and testability are assessed where relevant
+- [ ] **Findings format compliant**: Each finding includes Location, Category (`language-go`), Severity, Title, Description, and optional Suggestion
+- [ ] **File:line references**: All findings reference specific file locations with line numbers
+- [ ] **Non-Go code excluded**: Non-Go files are not analyzed for Go-specific rules unless explicitly in scope
+
+### Process Quality Checks
 
 - [ ] Was only the Go language/runtime dimension reviewed (no scope/security/architecture)?
 - [ ] Are concurrency, context usage, error handling, resource management, API stability, type semantics, and testability covered where relevant?
 - [ ] Is each finding emitted with Location, Category=language-go, Severity, Title, Description, and optional Suggestion?
 - [ ] Are issues referenced with file:line?
+
+### Acceptance Test
+
+Does the output contain a Go-focused findings list with file:line references covering all relevant language/runtime dimensions without performing security, architecture, or scope analysis?
 
 ---
 
