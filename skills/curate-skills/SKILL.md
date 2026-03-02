@@ -8,6 +8,12 @@ related_skills: [refine-skill-design, generate-standard-readme]
 recommended_scope: project
 metadata:
   author: ai-cortex
+input_schema:
+  type: free-form
+  description: Skills directory to audit (defaults to skills/ in current repo)
+output_schema:
+  type: diagnostic-report
+  description: ASQM_AUDIT.md with scores, lifecycle status, overlap analysis, and per-skill agent.yaml updates
 ---
 
 # Skill: Curate Skills

@@ -28,5 +28,5 @@ jobs:
       - name: Verify registry sync
         run: node scripts/verify-registry.mjs
 
-      - name: Verify skill structure (spec v2.0.0)
+      - name: Verify skill structure (spec v2.2.0)
         run: node scripts/verify-skill-structure.mjs

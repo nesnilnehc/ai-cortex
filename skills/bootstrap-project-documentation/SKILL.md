@@ -8,6 +8,12 @@ license: MIT
 recommended_scope: both
 metadata:
   author: ai-cortex
+input_schema:
+  type: free-form
+  description: Project directory to bootstrap or adapt documentation for
+output_schema:
+  type: document-artifact
+  description: Structured lifecycle documentation tree aligned with enterprise template
 compatibility: Requires access to https://raw.githubusercontent.com or a local clone of nesnilnehc/project-documentation-template.
 ---
 

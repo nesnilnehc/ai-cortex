@@ -27,6 +27,12 @@ metadata:
       - "Added spec/skill.md compliance verification"
       - "Auto-sync with skills/INDEX.md and manifest.json"
       - "Enhanced Self-Check with AI Cortex standards"
+input_schema:
+  type: free-form
+  description: Staged and unstaged changes in the working tree to commit
+output_schema:
+  type: side-effect
+  description: One or more git commits with Conventional Commits messages
 ---
 
 # Skill: Commit Work

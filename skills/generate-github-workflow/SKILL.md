@@ -8,6 +8,12 @@ related_skills: []
 recommended_scope: project
 metadata:
   author: ai-cortex
+input_schema:
+  type: free-form
+  description: Workflow requirements (CI, release, PR checks) and project context
+output_schema:
+  type: document-artifact
+  description: GitHub Actions YAML workflow file(s) written to .github/workflows/
 ---
 
 # Skill: Generate GitHub Workflow

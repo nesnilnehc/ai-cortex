@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/nesnilnehc/ai-cortex/schemas/skill-metadata.json",
   "title": "AI Cortex Skill Metadata",
-  "description": "JSON Schema for the YAML front-matter block in SKILL.md files, aligned with spec/skill.md v2.0.0.",
+  "description": "JSON Schema for the YAML front-matter block in SKILL.md files, aligned with spec/skill.md v2.2.0.",
   "type": "object",
   "required": ["name", "description", "tags", "version", "license"],
   "properties": {
@@ -96,6 +96,22 @@
           }
         }
       }
+    },
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "description": "Optional input contract for skill chaining (added in spec v2.1.0)."
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "description": "Optional output contract for skill chaining (added in spec v2.1.0)."
     },
     "compatibility": {
       "type": "string",
