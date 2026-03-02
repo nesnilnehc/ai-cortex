@@ -22,12 +22,53 @@ Converge a codebase or change set to "clean" by running a **multi-iteration loop
 3. **Fix** (apply the smallest correct patch),
 4. Repeat until **no blocking issues remain** or a **stop condition** is hit.
 
+---
+
+## Core Objective
+
+**Primary Goal**: Converge the repository to a "clean" state — all tests passing and no `critical`/`major` review findings — using a bounded, evidence-driven review-test-fix loop.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **Definition of done resolved**: Pre-flight choices (scope, test mode, max iterations, allowed actions) are confirmed before the loop starts
+2. ✅ **Evidence-first each iteration**: Each iteration produces at least one of: a new test result, a new review signal, or a concrete code change
+3. ✅ **Tests rerun after fixes**: The failing test command (or a targeted subset) is always rerun after applying a fix within the same iteration
+4. ✅ **Bounded loop**: The loop terminates due to convergence or an explicit stop condition — no infinite retries
+5. ✅ **Structured final report**: Output includes a Repair Loop Report (Appendix: Output contract) with commands run, failures, patches, and remaining risks
+
+**Acceptance Test**: Does the final report show either (a) tests passing with no blocking review findings, or (b) an explicit stop condition with clear remaining issues and options for the user?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- Multi-iteration review → test → fix loops
+- Diff-scoped and codebase-scoped review using `review-diff` and `review-code`
+- Test execution via `run-automated-tests` (fast/ci/full modes)
+- Minimal targeted patches with preserved API contracts
+- Stop condition detection (no progress, environment blockers, flaky tests, iteration limit)
+- Structured repair loop report output
+
+**This skill does NOT handle**:
+- Installing dependencies without explicit user confirmation
+- Using network or starting Docker/services without user confirmation
+- Large refactors without explicit user approval
+- Modifying unrelated sibling repositories
+- Disabling tests, weakening assertions, or deleting coverage without explicit user approval
+
+**Handoff point**: When the loop converges or hits a stop condition, present the Repair Loop Report to the user. For risky changes (schema migration, auth changes, broad refactor), pause and ask for explicit approval before applying.
+
+---
+
 ## Use Cases
 
 - "Keep fixing until tests pass."
 - "Do a review-test-fix loop and make the repo green."
 - "Stabilize this PR/change set with iterative testing and targeted fixes."
 - "Run CI-like tests, fix failures, repeat until stable."
+
+---
 
 ## Behavior
 
@@ -107,6 +148,8 @@ When stopping, provide the shortest path options:
 - narrow scope (fix only first failing test)
 - increase iteration limit
 
+---
+
 ## Input & Output
 
 ### Input
@@ -132,6 +175,8 @@ When stopping, provide the shortest path options:
     - tests passing (which commands)
     - remaining review items (if any) and whether they are blocking
 
+---
+
 ## Restrictions
 
 - Do not install dependencies, use network, start Docker/services, or run destructive commands without explicit confirmation.
@@ -140,13 +185,44 @@ When stopping, provide the shortest path options:
 - Avoid large refactors as a default; prioritize minimal patches that unblock correctness.
 - Keep changes scoped to the target repository; do not modify unrelated sibling repos.
 
+### Skill Boundaries
+
+**Do NOT do these** (other skills handle them):
+- Do NOT install dependencies, use network, or start Docker/services without explicit user confirmation
+- Do NOT apply schema migrations, auth changes, or broad refactors without explicit user approval
+- Do NOT disable tests, weaken assertions, or delete coverage without explicit user approval
+- Do NOT modify files outside the target repository
+
+**When to stop and hand off**:
+- When the loop converges (tests pass, no blocking findings), present the Repair Loop Report and stop
+- When a stop condition is hit, present options and wait for user direction
+- When a risky change is required (schema migration, broad refactor), pause and ask before applying
+
+---
+
 ## Self-Check
+
+### Core Success Criteria
+
+- [ ] **Definition of done resolved**: Pre-flight choices (scope, test mode, max iterations, allowed actions) are confirmed before the loop starts
+- [ ] **Evidence-first each iteration**: Each iteration produces at least one of: a new test result, a new review signal, or a concrete code change
+- [ ] **Tests rerun after fixes**: The failing test command (or a targeted subset) is always rerun after applying a fix within the same iteration
+- [ ] **Bounded loop**: The loop terminates due to convergence or an explicit stop condition — no infinite retries
+- [ ] **Structured final report**: Output includes a Repair Loop Report (Appendix: Output contract) with commands run, failures, patches, and remaining risks
+
+### Process Quality Checks
 
 - [ ] Pre-flight choices resolved (scope, test mode, permissions, max iterations).
 - [ ] Each iteration produced at least one of: a new test result, a new review signal, or a concrete code change.
 - [ ] Tests were rerun after fixes (at least the failing command or a targeted subset).
 - [ ] Loop terminated due to convergence or an explicit stop condition (no infinite retries).
 - [ ] Final report includes: commands run, failures (if any), patches applied, and remaining risks.
+
+### Acceptance Test
+
+Does the final report show either (a) tests passing with no blocking review findings, or (b) an explicit stop condition with clear remaining issues and options for the user?
+
+---
 
 ## Examples
 
@@ -236,4 +312,3 @@ Each skill execution MUST produce a **Repair Loop Report** in this exact JSON fo
 | `stop_condition` | string | Why loop ended: `converged`, `max_iterations`, `environment_blocker`, `no_progress` |
 
 This schema enables Agent consumption without prose parsing.
-
