@@ -1,6 +1,6 @@
 ---
 name: bootstrap-project-documentation
-description: Bootstrap or adapt project docs using project-documentation-template. Initialize (empty) or Adjust (non-empty, template as target); repeatable; no empty dirs unless requested; strict kebab-case naming. Use for lifecycle docs, ADR, version sync.
+description: Bootstrap or adapt project docs using project-documentation-template. Core goal - produce structured lifecycle documentation aligned with enterprise template. Initialize (empty) or Adjust (non-empty); repeatable; strict kebab-case naming.
 tags: [documentation, eng-standards, writing]
 related_skills: [generate-standard-readme, write-agents-entry]
 version: 1.1.1
@@ -15,7 +15,42 @@ compatibility: Requires access to https://raw.githubusercontent.com or a local c
 
 ## Purpose
 
-Bootstrap or adapt project documentation using the [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) structure. Two modes: **Initialize** (empty project—copy templates and fill placeholders) and **Adjust** (non-empty—use template as target, propose renames/moves/merges, apply in-place after confirmation). Supports repeatable runs; avoids empty dirs and template files unless requested; enforces strict kebab-case naming. Both modes follow conventions from the template’s `llms.txt` and `AGENTS.md`.
+Bootstrap or adapt project documentation using the [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) structure. Two modes: **Initialize** (empty project—copy templates and fill placeholders) and **Adjust** (non-empty—use template as target, propose renames/moves/merges, apply in-place after confirmation). Supports repeatable runs; avoids empty dirs and template files unless requested; enforces strict kebab-case naming. Both modes follow conventions from the template's `llms.txt` and `AGENTS.md`.
+
+---
+
+## Core Objective
+
+**Primary Goal**: Produce structured lifecycle documentation aligned with the enterprise template through mode-appropriate bootstrapping or adaptation.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **Mode selected correctly**: Initialize for empty projects, Adjust for non-empty projects (or user override applied)
+2. ✅ **Template structure applied**: Documentation follows project-documentation-template conventions for selected scale
+3. ✅ **Placeholders filled**: All `[...]` placeholders replaced with project-specific content (or explicitly marked for later)
+4. ✅ **Naming conventions enforced**: All paths use strict kebab-case; ADR files follow `YYYYMMDD-slug-title.md` format
+5. ✅ **User confirmation obtained**: In Adjust mode, changes applied only after user approval of recommendation list
+
+**Acceptance Test**: Can a developer navigate the documentation structure and find lifecycle documents without consulting the template repository?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- Documentation structure bootstrapping (Initialize mode)
+- Documentation structure adaptation (Adjust mode)
+- Placeholder filling and validation
+- Path naming standardization (kebab-case)
+- ADR generation and indexing
+
+**This skill does NOT handle**:
+- README generation (use `generate-standard-readme`)
+- AGENTS.md entry creation (use `write-agents-entry`)
+- Skill-specific documentation (use `refine-skill-design`)
+- Content writing beyond template placeholders (user provides domain content)
+
+**Handoff point**: When documentation structure is established and placeholders filled, hand off to content authoring or project-specific documentation workflows.
 
 ---
 
@@ -106,6 +141,8 @@ First determine the execution mode. User override takes precedence; otherwise:
 
 ## Restrictions
 
+### Hard Boundaries
+
 - Replace all placeholders before finalizing documents; do not leave `[description]` etc. in final output unless explicitly deferred.
 - Do not add or keep broken internal links; verify relative paths.
 - Use consistent dates (`YYYY-MM-DD`) and SemVer for versions.
@@ -114,18 +151,48 @@ First determine the execution mode. User override takes precedence; otherwise:
 - Do not create empty directories or add template files unless the user explicitly requests them.
 - Use strict file and directory naming (kebab-case, ADR format `YYYYMMDD-title.md`) when creating or renaming paths.
 
+### Skill Boundaries (Avoid Overlap)
+
+**Do NOT do these (other skills handle them)**:
+
+- **README generation**: Creating or updating README.md files → Use `generate-standard-readme`
+- **AGENTS.md entry creation**: Writing or updating AGENTS.md files → Use `write-agents-entry`
+- **Skill documentation**: Creating or refining SKILL.md files → Use `refine-skill-design`
+- **Content authoring**: Writing domain-specific content beyond template placeholders → User provides content
+
+**When to stop and hand off**:
+
+- User says "structure is ready" or "placeholders filled" → Documentation structure complete, hand off to content authoring
+- User asks "how do I write the content?" → Structure complete, hand off to domain experts or content workflows
+- User asks "can you generate the README?" → Hand off to `generate-standard-readme`
+- User asks "can you create AGENTS.md?" → Hand off to `write-agents-entry`
+
 ---
 
 ## Self-Check
 
-- [ ] **Mode**: Was the correct mode (Initialize vs Adjust) chosen and applied?
-- [ ] **Placeholders**: Are all `[...]` placeholders replaced or explicitly marked for later fill?
-- [ ] **Links**: Do internal links resolve and do external links point to valid resources?
-- [ ] **Version**: Is the version consistent across `VERSION` and affected documents?
-- [ ] **Tables**: Is Markdown table alignment preserved?
-- [ ] **Confirm**: In Adjust mode, were changes applied only after user confirmation?
+### Core Success Criteria (ALL must be met)
+
+- [ ] **Mode selected correctly**: Initialize for empty projects, Adjust for non-empty projects (or user override applied)
+- [ ] **Template structure applied**: Documentation follows project-documentation-template conventions for selected scale
+- [ ] **Placeholders filled**: All `[...]` placeholders replaced with project-specific content (or explicitly marked for later)
+- [ ] **Naming conventions enforced**: All paths use strict kebab-case; ADR files follow `YYYYMMDD-slug-title.md` format
+- [ ] **User confirmation obtained**: In Adjust mode, changes applied only after user approval of recommendation list
+
+### Process Quality Checks
+
+- [ ] **Links validated**: Do internal links resolve and do external links point to valid resources?
+- [ ] **Version consistency**: Is the version consistent across `VERSION` and affected documents?
+- [ ] **Tables aligned**: Is Markdown table alignment preserved?
 - [ ] **No extra dirs/files**: Were empty dirs and template files avoided unless user requested them?
-- [ ] **Naming**: Are all new/renamed paths in kebab-case with correct ADR format where applicable?
+
+### Acceptance Test
+
+**Can a developer navigate the documentation structure and find lifecycle documents without consulting the template repository?**
+
+If NO: Documentation structure is incomplete or unclear. Return to mode-specific steps.
+
+If YES: Documentation structure is complete. Proceed to handoff.
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: decontextualize-text
-description: Convert text with private context or internal dependencies into generic, unbiased expressions. Use for project decontextualization (handoff, open-source prep), methodology abstraction, cross-team sharing, anonymization. Includes path strings and file/folder names as they appear in text.
+description: Convert text with private context or internal dependencies into generic, unbiased expressions that are standalone and reusable. Core goal - produce decontextualized text that preserves logic while removing organizational identifiers. Use for project handoff, open-source prep, methodology abstraction, cross-team sharing.
 tags: [writing, security, privacy, generalization]
 related_skills: [generate-standard-readme]
 version: 1.3.0
@@ -15,6 +15,22 @@ metadata:
 ## Purpose
 
 Turn content that **depends on private context, implicit assumptions, or environment-specific details** into **generic, reusable wording**. Primary scenario: **project decontextualization** — preparing a project for handoff, open-source, or cross-org use. By removing or replacing specific identifiers (including path strings and file/folder names as they appear in text), the content can be understood correctly in different contexts while protecting organizational privacy.
+
+---
+
+## Core Objective
+
+**Primary Goal**: Produce decontextualized text that preserves core logic and structure while removing all organizational identifiers and private context.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **All sensitive terms replaced**: Company names, project codenames, internal URLs, people's names, path strings, and file/folder names with internal context are identified and replaced with generic equivalents
+2. ✅ **Core logic preserved**: The essence of what is done and why remains intact; no functional information is lost
+3. ✅ **Content is standalone**: Text is fully understandable without the original context; implicit assumptions are made explicit or removed
+4. ✅ **Structure preserved**: Markdown formatting, paragraph structure, logic hierarchy, and functional instructions remain unchanged
+5. ✅ **No re-identification residue**: Output contains nothing that could re-identify an organization or person (no unique IDs, internal process numbers, non-public terms)
+
+**Acceptance Test**: Can someone from a different organization understand and use this content without asking clarifying questions about the original context?
 
 ---
 
@@ -74,19 +90,56 @@ Turn content that **depends on private context, implicit assumptions, or environ
 
 ## Restrictions
 
+### Hard Boundaries
+
 - **No invention**: Do not invent context or capabilities not in the original.
 - **No inference**: Do not add facts or conclusions not stated.
 - **No new semantics**: Do not introduce new business meaning.
 - **No residue**: Do not leave anything that can re-identify an organization or person (e.g. unique IDs, internal process numbers, non-public terms).
 
+### Skill Boundaries (Avoid Overlap)
+
+**Do NOT do these (other skills handle them)**:
+
+- **Documentation generation**: Creating new README files or project documentation from scratch → Use `generate-standard-readme` or `bootstrap-project-documentation`
+- **Content writing**: Writing original content or documentation → Use writing/documentation skills
+- **Code refactoring**: Changing code structure or variable names → Use code refactoring skills
+- **Translation**: Converting text between human languages → Use translation skills
+- **Summarization**: Condensing content while keeping context → Use summarization skills (this skill removes context, not condenses it)
+
+**When to stop and hand off**:
+
+- User asks "can you generate a README for this?" → Hand off to `generate-standard-readme`
+- User asks "can you write documentation?" → Hand off to documentation writing skills
+- User provides code to decontextualize → Focus on comments and strings only; suggest code refactoring skills for identifiers in code structure
+- Content is already generic → No decontextualization needed; confirm with user and complete
+
 ---
 
 ## Self-Check
 
-- [ ] **Standalone**: Content is fully understandable without the original context.
-- [ ] **Anonymous**: Hard to infer which company or project it came from.
-- [ ] **Consistent**: Core logic and function match the original.
-- [ ] **Compliant**: Meets de-identification or public-release privacy standards.
+### Core Success Criteria (ALL must be met)
+
+- [ ] **All sensitive terms replaced**: Company names, project codenames, internal URLs, people's names, path strings, and file/folder names with internal context are identified and replaced with generic equivalents
+- [ ] **Core logic preserved**: The essence of what is done and why remains intact; no functional information is lost
+- [ ] **Content is standalone**: Text is fully understandable without the original context; implicit assumptions are made explicit or removed
+- [ ] **Structure preserved**: Markdown formatting, paragraph structure, logic hierarchy, and functional instructions remain unchanged
+- [ ] **No re-identification residue**: Output contains nothing that could re-identify an organization or person (no unique IDs, internal process numbers, non-public terms)
+
+### Process Quality Checks
+
+- [ ] **Uncertain terms confirmed**: When spotting possibly sensitive or internal terms (unclear abbreviations, internal server names), did I list them and ask the user to confirm before rewriting?
+- [ ] **Alternatives offered**: For core logic rewrites, did I offer 2-3 rewrite options at different abstraction levels for the user to choose?
+- [ ] **No invention**: Did I avoid inventing context or capabilities not in the original?
+- [ ] **No inference**: Did I avoid adding facts or conclusions not stated in the original?
+
+### Acceptance Test
+
+**Can someone from a different organization understand and use this content without asking clarifying questions about the original context?**
+
+If NO: Decontextualization is incomplete. Review for remaining context dependencies or unclear generic terms.
+
+If YES: Decontextualization is complete.
 
 ---
 
