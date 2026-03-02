@@ -8,6 +8,12 @@ related_skills: [refine-skill-design]
 recommended_scope: user
 metadata:
   author: ai-cortex
+input_schema:
+  type: free-form
+  description: Task description, capability gap, or user query about available skills
+output_schema:
+  type: free-form
+  description: Skill recommendations with install commands and capability gap analysis
 ---
 
 # Skill: Discover Skills

@@ -113,6 +113,8 @@ Govern the skill inventory by evaluating, scoring, tagging, and normalizing ever
 
 ## Restrictions
 
+### Hard Boundaries
+
 - Do not change spec/skill.md or manifest.json from within this skill; metadata sync (INDEX, manifest) is a separate step per spec.
 - Do not overwrite SKILL.md with this skill; curate-skills updates agent.yaml and README per skill. SKILL.md remains the canonical definition per spec.
 - **INDEX.md** is the canonical capability list (registry, tags, version, purpose); do not overwrite it. **ASQM_AUDIT.md** is the repo-level curation artifact: quality, lifecycle, overlaps, ecosystem, findings, and **final recommendations** (actionable next steps or “no changes”); write or update it on full curation runs and commit it.

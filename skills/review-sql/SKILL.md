@@ -8,6 +8,12 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+input_schema:
+  type: code-scope
+  description: Source files or directories to review
+output_schema:
+  type: findings-list
+  description: Zero or more findings with location, category, severity, and suggestion
 ---
 
 # Skill: Review SQL
@@ -102,6 +108,8 @@ Review **SQL** and query-related code for **language and query conventions** onl
 ---
 
 ## Restrictions
+
+### Hard Boundaries
 
 - **Do not** perform scope selection or full security/architecture review. Stay within SQL and query conventions.
 - **Do not** give conclusions without specific locations or actionable suggestions.

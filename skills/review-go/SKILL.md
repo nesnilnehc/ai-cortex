@@ -8,6 +8,12 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+input_schema:
+  type: code-scope
+  description: Source files or directories to review
+output_schema:
+  type: findings-list
+  description: Zero or more findings with location, category, severity, and suggestion
 ---
 
 # Skill: Review Go
@@ -104,6 +110,8 @@ Review code in **Go** for **language and runtime conventions** only. Do not defi
 
 ## Restrictions
 
+### Hard Boundaries
+
 - **Do not** perform security, architecture, or scope selection. Stay within Go language and runtime conventions.
 - **Do not** give conclusions without specific locations or actionable suggestions.
 - **Do not** review non-Go code for Go-specific rules unless the user explicitly includes it (e.g. embedded code snippets).
@@ -157,6 +165,11 @@ Does the output contain a Go-focused findings list with file:line references cov
 
 - **Input**: Function returns `fmt.Errorf("failed: %v", err)` and the caller compares errors with `==`.
 - **Expected**: Emit a finding to wrap with `%w` and use `errors.Is/As`; reference the error construction and comparison. Category = language-go.
+
+### Example 3: Nil interface pitfall
+
+- **Input**: Function returns `(*MyStruct)(nil)` as an `error` interface; caller checks `if err != nil`.
+- **Expected**: Emit a finding that a typed nil assigned to an interface is not nil; suggest returning an explicit `nil` instead. Category = language-go.
 
 ### Edge case: Mixed Go and SQL
 

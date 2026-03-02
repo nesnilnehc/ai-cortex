@@ -8,6 +8,12 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+input_schema:
+  type: code-scope
+  description: Source files or directories to review
+output_schema:
+  type: findings-list
+  description: Zero or more findings with location, category, severity, and suggestion
 ---
 
 # Skill: Review Java
@@ -101,6 +107,8 @@ Review code in **Java** for **language and runtime conventions** only. Do not de
 ---
 
 ## Restrictions
+
+### Hard Boundaries
 
 - **Do not** perform security, architecture, or scope selection. Stay within Java language and runtime conventions.
 - **Do not** give conclusions without specific locations or actionable suggestions.

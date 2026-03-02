@@ -8,6 +8,12 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+input_schema:
+  type: code-scope
+  description: Git diff (staged + unstaged, optional untracked) to review
+output_schema:
+  type: findings-list
+  description: Scope-only findings for impact, regression, correctness, compatibility, and side effects
 ---
 
 # Skill: Review Diff
@@ -111,6 +117,8 @@ For each changed file, evaluate and emit findings for:
 ---
 
 ## Restrictions
+
+### Hard Boundaries
 
 - **Do not** review files outside the diff or the whole repo.
 - **Do not** give conclusions without specific locations or actionable suggestions.

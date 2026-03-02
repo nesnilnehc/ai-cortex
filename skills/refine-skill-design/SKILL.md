@@ -101,6 +101,8 @@ As a "Skill for Skills," this skill **audits and refactors** AI capability defin
 
 ## Restrictions
 
+### Hard Boundaries
+
 - **Do not change intent**: Optimization must preserve the skill's core purpose.
 - **Minimize prose**: Prefer lists and tables over long README-style text.
 - **Multiple examples**: Do not keep only one "happy path" example; include at least one challenging or edge-case example.

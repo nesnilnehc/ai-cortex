@@ -8,6 +8,12 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+input_schema:
+  type: code-scope
+  description: Diff or codebase path(s) to review, plus optional language/framework hint
+output_schema:
+  type: findings-list
+  description: Aggregated, deduplicated findings with risk signals from all executed atomic skills
 ---
 
 # Skill: Review Code (Orchestrator)
@@ -179,6 +185,8 @@ When performing this skill, **sequentially apply** the following steps. For each
 ---
 
 ## Restrictions
+
+### Hard Boundaries
 
 - **Do not** perform any code analysis inside this skill. Only orchestrate other skills and aggregate.
 - **Do not** change the execution order; keep scope → language → framework → library → cognitive.
