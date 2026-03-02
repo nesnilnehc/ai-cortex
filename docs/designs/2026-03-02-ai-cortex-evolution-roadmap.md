@@ -289,9 +289,9 @@ D10 Community Infrastructure Phase 1
 
 ## Acceptance Criteria
 
-- [ ] Phase 1 deliverables: spec verification scripts and CI workflows operational
-- [ ] Phase 2 deliverables: review-typescript and review-react published and audited
-- [ ] Phase 3 deliverables: I/O contract protocol defined; onboard-repo orchestrator functional
-- [ ] Phase 4 deliverables: Plugin sync automated; CONTRIBUTING.md and Issue templates live
-- [ ] All new skills pass ASQM validation (quality ≥ 17)
-- [ ] No regression in existing skill quality or registry sync
+- [x] Phase 1 deliverables: spec verification scripts and CI workflows operational
+- [x] Phase 2 deliverables: review-typescript and review-react published and audited
+- [x] Phase 3 deliverables: I/O contract protocol defined; onboard-repo orchestrator functional
+- [x] Phase 4 deliverables: Plugin sync automated; CONTRIBUTING.md and Issue templates live
+- [x] All new skills pass ASQM validation (quality ≥ 17)
+- [x] No regression in existing skill quality or registry sync

@@ -8,7 +8,7 @@ tags:
 license: MIT
 author: ai-cortex
 lifecycle: stable
-asqm_score: 0.85
+asqm_score: 18
 related_skills:
   - refine-skill-design
   - generate-standard-readme
