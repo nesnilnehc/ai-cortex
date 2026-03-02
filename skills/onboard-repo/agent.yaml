@@ -1,0 +1,28 @@
+name: onboard-repo
+status: validated
+
+primary_use: Orchestrator that runs review-codebase → review-architecture → generate-standard-readme → write-agents-entry → discover-skills in order and aggregates all outputs into one onboarding report. Does not perform analysis itself.
+
+inputs:
+  - repository root path or directory to onboard
+  - user preferences (improve existing docs, skip optional steps)
+
+outputs:
+  - single aggregated onboarding report (diagnostic-report format: Repository Summary, Architecture Findings, Tech Debt, Documentation Status, Skill Recommendations, Action Items)
+  - generated or improved README.md and AGENTS.md files
+
+scores:
+  agent_native: 5
+  cognitive: 5
+  composability: 5
+  stance: 5
+
+asqm_quality: 20
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:review-codebase
+  - nesnilnehc/ai-cortex:review-code
+
+market_position: differentiated
+
+tags: [eng-standards, documentation, automation]

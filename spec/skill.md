@@ -1,10 +1,11 @@
 # Skill Specification
 
 Status: MANDATORY  
-Version: 2.0.0  
+Version: 2.1.0  
 Scope: All files under `skills/`.
 
 **Changelog**:
+- v2.1.0 (2026-03-02): Added optional I/O contracts (input_schema/output_schema) for skill chaining and orchestration
 - v2.0.0 (2026-03-02): Added mandatory Core Objective section, enhanced Self-Check and Restrictions requirements, added quality assurance process
 - v1.0.0: Initial specification
 
@@ -306,7 +307,46 @@ node scripts/verify-registry.mjs
 # Checks: structure, verbs, interaction policy, metadata alignment
 ```
 
-## 8. Repo-level docs (skills directory)
+## 8. I/O Contracts (Optional)
+
+Skills MAY declare structured input and output contracts to support orchestration, chaining, and automated schema matching.
+
+### 8.1 YAML Fields
+
+Add these optional fields to the YAML front-matter:
+
+```yaml
+input_schema:
+  type: [artifact type]   # findings-list | document-artifact | diagnostic-report | code-scope | free-form
+  description: [what this skill consumes]
+output_schema:
+  type: [artifact type]
+  description: [what this skill produces]
+```
+
+### 8.2 Standard Artifact Types
+
+| Artifact type | Structure | Used by |
+| :--- | :--- | :--- |
+| `findings-list` | Array of {Location, Category, Severity, Title, Description, Suggestion} | All review skills |
+| `document-artifact` | Markdown file written to a specified path | generate-standard-readme, write-agents-entry, brainstorm-design |
+| `diagnostic-report` | Structured summary with sections (Goal, Findings, Recommendations) | review-codebase, onboard-repo |
+| `code-scope` | Files, directories, or git diff provided by the caller | review-diff, review-codebase |
+| `free-form` | Unstructured text or user input | brainstorm-design, discover-skills |
+
+### 8.3 Orchestrator Usage
+
+Orchestrators (Meta skills) use `input_schema` and `output_schema` to:
+
+1. **Auto-match**: Connect upstream skill output to downstream skill input by artifact type.
+2. **Validate**: Ensure chained skills have compatible schemas before execution.
+3. **Aggregate**: Merge multiple findings-lists into a single report.
+
+This is backward-compatible: skills without I/O contracts continue to work as before. Orchestrators fall back to manual context passing when contracts are absent.
+
+---
+
+## 9. Repo-level docs (skills directory)
 
 - **`skills/skillgraph.md`**: Optional; describes how review and other skills compose. For human and Agent reading; INDEX and manifest do not depend on it. Update when adding or changing orchestration (e.g. review-code) or composition.
 - **`skills/ASQM_AUDIT.md`**: Produced by the `curate-skills` skill; lifecycle and ASQM scores. Update by running curate-skills after adding or changing skills. It does not replace INDEX or manifest.

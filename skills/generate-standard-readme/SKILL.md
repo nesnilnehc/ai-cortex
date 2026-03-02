@@ -215,7 +215,7 @@ If YES: README is complete. Proceed to handoff.
 > Compressor('images/').run()
 > ```
 
-**Edge case: Legacy project with little info**
+### Edge case: Legacy project with little info
 
 - **Input**: Name: legacy-auth. No description. No feature list. Environment and install unknown.
 - **Expected**: Still produce a structurally complete README; use placeholders (e.g. “See source for features”, “Install steps TBD”) and mark “to be completed”; do not invent features or commands; keep badges, section order, and License so the user can fill in later.
