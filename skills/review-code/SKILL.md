@@ -1,6 +1,6 @@
 ---
 name: review-code
-description: Orchestrator that runs scope then language then framework then library then cognitive review skills in order and aggregates all findings into one report. Does not perform analysis itself.
+description: Orchestrate comprehensive code reviews by running scope, language, framework, library, and cognitive review skills in sequence, then aggregate findings into a unified report.
 tags: [eng-standards]
 related_skills: [review-diff, review-codebase, review-dotnet, review-java, review-go, review-php, review-powershell, review-sql, review-vue, review-security, review-performance, review-architecture, review-testing]
 version: 2.6.0
@@ -15,6 +15,42 @@ metadata:
 ## Purpose
 
 **This skill does not perform code analysis itself.** It is a **meta skill** that orchestrates other atomic review skills in a fixed order, then **aggregates** their findings into a single report. Use it when the user asks for a full "review code" or "code review" and you want to apply scope → language → framework → library → cognitive skills and produce one combined output. For a single-dimension review (e.g. only diff or only security), invoke the corresponding atomic skill directly ([review-diff](../review-diff/SKILL.md), [review-security](../review-security/SKILL.md), etc.).
+
+---
+
+## Core Objective
+
+**Primary Goal**: Produce a comprehensive, deduplicated code review report by orchestrating atomic review skills in a fixed sequence and aggregating their findings.
+
+**Success Criteria** (ALL must be met):
+
+1. ✅ **Scope confirmed**: User's review scope (diff or codebase paths) is confirmed before execution
+2. ✅ **Execution order followed**: Skills run in fixed sequence (scope → language → framework → library → cognitive)
+3. ✅ **All applicable skills executed**: Scope skill + language skill (if applicable) + framework skill (if applicable) + all cognitive skills (security, performance, architecture, testing) are run
+4. ✅ **Findings aggregated**: All findings from atomic skills are collected and merged into a single report using standard format (Location, Category, Severity, Title, Description, Suggestion)
+5. ✅ **Findings deduplicated**: Duplicate findings (same Location + Title) are merged, keeping highest severity
+6. ✅ **Risk signals derived**: Risk signals are generated from final deduplicated findings and change context (not from individual skills)
+
+**Acceptance Test**: Does the final report contain findings from all executed atomic skills, with no duplicates, and risk signals derived only at the aggregation stage?
+
+---
+
+## Scope Boundaries
+
+**This skill handles**:
+- Orchestrating atomic review skills in fixed order
+- Confirming review scope with user (diff vs codebase, paths, language/framework)
+- Collecting findings from each atomic skill
+- Aggregating and deduplicating findings into single report
+- Deriving risk signals from final findings
+
+**This skill does NOT handle**:
+- Direct code analysis (use atomic review skills: `review-diff`, `review-codebase`, `review-security`, etc.)
+- Single-dimension reviews (use atomic skills directly: `review-diff` for diff only, `review-security` for security only, etc.)
+- Implementation of fixes (use development/refactoring skills)
+- Test writing (use testing skills)
+
+**Handoff point**: When aggregated report is complete, hand off to user for review or to development workflow for implementing fixes.
 
 ---
 
