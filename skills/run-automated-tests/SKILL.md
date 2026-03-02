@@ -2,7 +2,7 @@
 name: run-automated-tests
 description: Discover and execute repository test commands safely with evidence-based command selection and safety guardrails.
 tags: [automation, devops, eng-standards]
-version: 0.1.0
+version: 1.0.0
 license: MIT
 related_skills: [review-codebase, generate-github-workflow, review-testing, run-repair-loop]
 recommended_scope: both

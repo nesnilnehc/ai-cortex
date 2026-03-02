@@ -2,7 +2,7 @@
 name: run-repair-loop
 description: Iteratively review changes, run automated tests, and apply targeted fixes until issues are resolved (or a stop condition is reached).
 tags: [automation, devops, eng-standards, optimization]
-version: 0.1.0
+version: 1.0.0
 license: MIT
 related_skills: [review-code, review-diff, run-automated-tests, review-security, review-performance]
 recommended_scope: both
