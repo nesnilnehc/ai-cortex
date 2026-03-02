@@ -1,0 +1,96 @@
+# Changelog
+
+All notable changes to this project are documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Added
+
+- `analyze-requirements` skill (v1.0.0) — transform vague intent into validated requirements
+- I/O schema contracts for 7 previously missing skills
+- Verification script enhancements: agent.yaml/README.md existence, related_skills validity, marketplace.json sync
+- CHANGELOG.md
+
+### Changed
+
+- Graduated `run-automated-tests` and `run-repair-loop` from experimental (v0.1.0) to stable (v1.0.0)
+- Upgraded `schemas/skill-metadata.json` to spec v2.2.0 (added `input_schema`/`output_schema` fields)
+- Updated CI workflow version references from spec v2.0.0 to v2.2.0
+
+### Removed
+
+- Stale `.agents/skills/commit-work/` fork (canonical version lives in `skills/commit-work/`)
+
+### Fixed
+
+- ASQM audit coverage gap (7 unscored skills)
+- Roadmap acceptance criteria checkboxes now reflect actual completion status
+
+## [2.0.0] - 2026-03-02
+
+### Added
+
+- Spec v2.0.0 → v2.2.0: Core Objective structure, I/O contract protocol, Scope Boundaries flexibility
+- `brainstorm-design` skill — structured dialogue for design validation
+- `commit-work` skill (v2.0.0) — Conventional Commits with pre-commit quality checks
+- `review-typescript` skill — TypeScript/JavaScript language review
+- `review-react` skill — React framework review
+- `onboard-repo` orchestrator skill — end-to-end repository onboarding
+- `review-orm-usage` skill — ORM usage pattern review
+- `review-testing` cognitive skill — test existence, coverage, quality
+- Spec verification infrastructure (`verify-skill-structure.mjs`, `schemas/skill-metadata.json`)
+- CI workflows (`pr-check.yml`, `audit.yml`)
+- `CONTRIBUTING.md` and GitHub Issue templates (bug, feature, new-skill)
+- Evolution roadmap (`docs/designs/2026-03-02-ai-cortex-evolution-roadmap.md`)
+- INDEX.md Stability column (experimental / stable / mature)
+
+### Changed
+
+- All 33 skills migrated to spec v2 structure (Core Objective, Success Criteria, Acceptance Test)
+- `review-code` orchestrator updated to v2.6.0 (added review-testing to cognitive chain)
+- Plugin selection criteria formalized (ASQM >= 18, standalone value)
+
+## [1.0.0] - 2026-02-14
+
+### Added
+
+- 26 canonical skills across review, documentation, automation, and meta-skill categories
+- `review-code` orchestrator (v2.5.0) with scope → language → framework → library → cognitive chain
+- 15 review skills: diff, codebase, dotnet, java, go, php, powershell, python, sql, vue, security, architecture, performance
+- `curate-skills` — ASQM scoring and lifecycle management
+- `discover-skills` — skill discovery and recommendation
+- `decontextualize-text` — privacy-preserving text generalization
+- `generate-standard-readme` — standardized README generation
+- `generate-github-workflow` — GitHub Actions workflow generation
+- `refine-skill-design` — skill audit and optimization
+- `write-agents-entry` — AGENTS.md authoring
+- `install-rules` — rule installation for Cursor and Trae
+- `bootstrap-project-documentation` — project documentation scaffolding
+- `run-automated-tests` and `run-repair-loop` (experimental)
+- ASQM audit framework with 4-dimension scoring
+- `manifest.json` machine-readable registry
+- `skills/INDEX.md` canonical catalog with tagging system
+- `skillgraph.md` code review composition graph
+- Claude Plugin integration (`.claude-plugin/marketplace.json`)
+- 7 rules for coding standards, writing norms, and workflow policies
+
+### Changed
+
+- Rebranded from llm-skills to AI Cortex
+- Adopted entry-file-driven contract (`AGENTS.md`)
+- Consolidated to skills-only catalog (removed commands and obsolete specs)
+
+## [0.1.0] - 2026-01-23
+
+### Added
+
+- Initial repository with decontextualization skill
+- README, LICENSE (MIT), basic project structure
+
+[Unreleased]: https://github.com/nesnilnehc/ai-cortex/compare/HEAD...main
+[2.0.0]: https://github.com/nesnilnehc/ai-cortex/compare/v1.0.0...v2.0.0
+[1.0.0]: https://github.com/nesnilnehc/ai-cortex/compare/v0.1.0...v1.0.0
+[0.1.0]: https://github.com/nesnilnehc/ai-cortex/releases/tag/v0.1.0

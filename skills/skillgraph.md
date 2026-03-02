@@ -1,6 +1,6 @@
-# Code Review Skills: Composition Graph
+# Skill Composition Graph
 
-This document describes how the **code review** skills compose. It is for human and Agent reading only; Skills.sh and the manifest do not depend on it. For the canonical skill list, see [INDEX.md](./INDEX.md) and [manifest.json](../manifest.json).
+This document describes how skills compose into orchestration chains, governance workflows, and development pipelines. It is for human and Agent reading only; Skills.sh and the manifest do not depend on it. For the canonical skill list, see [INDEX.md](./INDEX.md) and [manifest.json](../manifest.json).
 
 ---
 
@@ -140,3 +140,86 @@ Every atomic skill emits findings in this format so [review-code](./review-code/
 | [review-architecture](./review-architecture/SKILL.md) | cognitive | code scope | Findings (Category=cognitive-architecture) |
 | [review-testing](./review-testing/SKILL.md) | cognitive | code scope | Findings (Category=cognitive-testing) |
 | [review-code](./review-code/SKILL.md) | meta | user intent + scope | Single aggregated report |
+
+---
+
+## 6. Non-review composition chains
+
+Beyond code review, skills compose into three additional pipelines:
+
+### 6.1 Development lifecycle chain
+
+Requirements → Design → Implementation → Review → Commit
+
+```mermaid
+flowchart LR
+  analyze[analyze-requirements]
+  brainstorm[brainstorm-design]
+  review_code_node[review-code]
+  commit[commit-work]
+  run_tests[run-automated-tests]
+  repair[run-repair-loop]
+
+  analyze -->|validated requirements| brainstorm
+  brainstorm -->|approved design| review_code_node
+  review_code_node -->|findings| repair
+  repair --> run_tests
+  repair --> review_code_node
+  run_tests -->|tests pass| commit
+```
+
+### 6.2 Repository onboarding chain
+
+The [onboard-repo](./onboard-repo/SKILL.md) orchestrator runs skills in sequence:
+
+```mermaid
+flowchart LR
+  onboard[onboard-repo]
+  rcb[review-codebase]
+  rarch[review-architecture]
+  readme[generate-standard-readme]
+  agents[write-agents-entry]
+  discover[discover-skills]
+
+  onboard --> rcb
+  rcb --> rarch
+  rarch --> readme
+  readme --> agents
+  agents --> discover
+```
+
+### 6.3 Governance and curation chain
+
+```mermaid
+flowchart LR
+  curate[curate-skills]
+  refine[refine-skill-design]
+  readme_gen[generate-standard-readme]
+  bootstrap[bootstrap-project-documentation]
+  install[install-rules]
+
+  curate -->|ASQM findings| refine
+  refine -->|optimized SKILL.md| readme_gen
+  bootstrap --> readme_gen
+  install -.->|rules for quality| curate
+```
+
+### 6.4 Quick reference (non-review)
+
+| Skill | Chain | Input | Output |
+| :--- | :--- | :--- | :--- |
+| [analyze-requirements](./analyze-requirements/SKILL.md) | lifecycle | vague intent | validated requirements doc |
+| [brainstorm-design](./brainstorm-design/SKILL.md) | lifecycle | validated requirements | approved design doc |
+| [commit-work](./commit-work/SKILL.md) | lifecycle | staged changes | git commits |
+| [run-automated-tests](./run-automated-tests/SKILL.md) | lifecycle | repo path | test execution results |
+| [run-repair-loop](./run-repair-loop/SKILL.md) | lifecycle | repo + scope | converged clean state |
+| [onboard-repo](./onboard-repo/SKILL.md) | onboarding | repo path | onboarding report |
+| [curate-skills](./curate-skills/SKILL.md) | governance | skills directory | ASQM audit report |
+| [refine-skill-design](./refine-skill-design/SKILL.md) | governance | SKILL.md | optimized SKILL.md |
+| [generate-standard-readme](./generate-standard-readme/SKILL.md) | governance | project context | standardized README |
+| [write-agents-entry](./write-agents-entry/SKILL.md) | onboarding | project context | AGENTS.md |
+| [discover-skills](./discover-skills/SKILL.md) | onboarding | capability gaps | skill recommendations |
+| [decontextualize-text](./decontextualize-text/SKILL.md) | standalone | private text | generic text |
+| [generate-github-workflow](./generate-github-workflow/SKILL.md) | standalone | workflow requirements | GitHub Actions YAML |
+| [bootstrap-project-documentation](./bootstrap-project-documentation/SKILL.md) | governance | project directory | documentation tree |
+| [install-rules](./install-rules/SKILL.md) | governance | source rules | IDE rule files |
