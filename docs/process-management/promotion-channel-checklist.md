@@ -10,10 +10,10 @@
 
 | 动作 | 频率 | 验收标准 | 本季度执行 |
 | :--- | :--- | :--- | :---: |
-| 确保 `npx skills add nesnilnehc/ai-cortex` 可安装 | 随版本发布 | 在干净环境执行成功 | ☐ |
-| README 含 install 指引 | 随文档更新 | 含 npx 命令、`--force`、按 skill 安装 | ☐ |
+| 确保 `npx skills add nesnilnehc/ai-cortex` 可安装 | 随版本发布 | `npx skills add nesnilnehc/ai-cortex -y` 返回 0 | ☑ |
+| README 含 install 指引 | 随文档更新 | 含 npx 命令、`--force`、按 skill 安装 | ☑ |
 
-**验证命令：** `npx skills add nesnilnehc/ai-cortex`（需网络）
+**验证命令：** `npx skills add nesnilnehc/ai-cortex -y`（需网络，-y 免交互便于脚本验证）
 
 ---
 
@@ -64,4 +64,4 @@
 | 2026-03-06 | 2 Raw 链接 | ✓ 全部 200 | `verify-links.mjs` 通过 |
 | 2026-03-06 | 3 marketplace | ✓ Registry OK | `verify-registry.mjs` 通过 |
 | 2026-03-06 | 4 文档 | ✓ 就绪 | README 2.1.0、AGENTS 含 Raw、版本同步 |
-| 2026-03-06 | 1 skills.sh | 待验证 | 需在干净环境执行 `npx skills add`（需网络） |
+| 2026-03-06 | 1 skills.sh | ✓ 通过 | `npx skills add nesnilnehc/ai-cortex -y` 返回 0 |
