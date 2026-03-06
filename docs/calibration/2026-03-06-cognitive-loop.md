@@ -2,40 +2,40 @@
 
 **Date:** 2026-03-06
 **Trigger:** task-complete
-**Scenario:** Post-task governance — milestones document added
+**Scenario:** Post-task governance — project-overview added
 
 ## Routed Sequence
 
 | # | Skill | Why | Status |
 | :--- | :--- | :--- | :--- |
-| 1 | execution-alignment | Post-task traceback after milestones doc creation | executed |
-| 2 | documentation-readiness | Confidence < high; refresh layer scores after milestones fill | executed |
+| 1 | execution-alignment | Post-task traceback after project-overview creation | executed |
+| 2 | documentation-readiness | Refresh layer scores after goal fill | executed |
 | 3 | run-repair-loop | No active defects | skipped |
 
 ## Aggregated Findings
 
 ### From execution-alignment
 
-- **Completed task:** Added docs/process-management/milestones.md
+- **Completed task:** Added docs/project-overview/goals-and-vision.md
 - **Alignment:** aligned (goals, roadmap, milestones)
 - **Drift:** none
-- **Evidence readiness:** medium (milestones filled)
-- **Output:** [2026-03-06-milestones-task-calibration.md](./2026-03-06-milestones-task-calibration.md)
+- **Evidence readiness:** medium; confidence high
+- **Output:** [2026-03-06-project-overview-task-calibration.md](./2026-03-06-project-overview-task-calibration.md)
 
 ### From documentation-readiness
 
-- **Overall readiness:** medium (unchanged)
-- **Milestones layer:** missing → strong
-- **Remaining gaps:** project-overview, requirements, architecture (all low impact)
-- **Output:** [2026-03-06-doc-readiness-refresh.md](./2026-03-06-doc-readiness-refresh.md)
+- **Overall readiness:** medium
+- **Goal layer:** weak → strong
+- **Remaining gaps:** requirements, architecture, backlog (all low impact)
+- **Output:** [2026-03-06-doc-readiness-final.md](./2026-03-06-doc-readiness-final.md)
 
 ## Blockers and Confidence
 
 - **Blocker:** none
-- **Confidence:** medium — critical milestones gap closed; remaining gaps optional
+- **Confidence:** high — goal layer closed; three strong layers (goal, milestones, roadmap)
 
 ## Next-Cycle Actions
 
-1. Proceed with Unreleased scope (v2.1.0 candidate) or run commit-work
-2. Add project-overview/ when convenient (low priority)
-3. Run execution-alignment again after next significant task
+1. Commit project-overview or run commit-work
+2. Add requirements/architecture docs when scope expands (optional)
+3. Run project-cognitive-loop again after next significant task
