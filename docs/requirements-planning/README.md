@@ -7,6 +7,8 @@ Requirements for AI Cortex are derived from project goals and roadmap decisions.
 - **[Goals and Vision](../project-overview/goals-and-vision.md)** — project identity, success criteria, scope
 - **[Evolution Roadmap](../designs/2026-03-02-ai-cortex-evolution-roadmap.md)** — phased requirements (Layer A–E), acceptance criteria
 - **[Milestones](../process-management/milestones.md)** — release scope and status
+- **[推广与迭代](promotion-and-iteration.md)** — promotion and iteration requirements (2026-03-06)
+- **[推广与迭代任务拆解](../process-management/promotion-iteration-tasks.md)** — task breakdown, acceptance criteria, quality gates
 
 ## When to expand
 
