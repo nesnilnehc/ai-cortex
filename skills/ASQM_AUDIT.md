@@ -1,7 +1,7 @@
 # ASQM Audit — AI Cortex Skills
 
 **Audit date**: 2026-03-06
-**Scope**: All 37 skills under `skills/`
+**Scope**: All 39 skills under `skills/`
 **Scoring**: ASQM strict (evidence-based; agent_native = 5 only with explicit output contract in SKILL.md).
 
 ---
@@ -10,7 +10,7 @@
 
 | Status | Count | Skills |
 | :--- | :--- | :--- |
-| **validated** | 37 | review-code, review-diff, review-codebase, review-dotnet, review-java, review-go, review-php, review-powershell, review-python, review-sql, review-vue, review-typescript, review-react, review-security, review-architecture, review-performance, review-testing, review-orm-usage, curate-skills, discover-skills, decontextualize-text, generate-standard-readme, write-agents-entry, refine-skill-design, generate-github-workflow, install-rules, bootstrap-project-documentation, capture-work-items, run-automated-tests, run-repair-loop, commit-work, brainstorm-design, onboard-repo, analyze-requirements, execution-alignment, documentation-readiness, project-cognitive-loop |
+| **validated** | 39 | review-code, review-diff, review-codebase, review-dotnet, review-java, review-go, review-php, review-powershell, review-python, review-sql, review-vue, review-typescript, review-react, review-security, review-architecture, review-performance, review-testing, review-orm-usage, curate-skills, discover-skills, discover-document-norms, validate-document-artifacts, decontextualize-text, generate-standard-readme, write-agents-entry, refine-skill-design, generate-github-workflow, install-rules, bootstrap-project-documentation, capture-work-items, run-automated-tests, run-repair-loop, commit-work, brainstorm-design, onboard-repo, analyze-requirements, execution-alignment, documentation-readiness, project-cognitive-loop |
 | **experimental** | 0 | — |
 | **archive_candidate** | 0 | — |
 
@@ -83,6 +83,8 @@ All skills meet their lifecycle thresholds: **validated** ↔ Quality ≥ 17 + G
 | execution-alignment | 5 | 5 | 5 | 5 | 20 | validated |
 | documentation-readiness | 5 | 4 | 5 | 5 | 19 | validated |
 | project-cognitive-loop | 5 | 5 | 5 | 5 | 20 | validated |
+| discover-document-norms | 4 | 4 | 4 | 5 | 17 | validated |
+| validate-document-artifacts | 4 | 4 | 4 | 5 | 17 | validated |
 
 ---
 
@@ -109,6 +111,8 @@ All skills meet their lifecycle thresholds: **validated** ↔ Quality ≥ 17 + G
 - **run-repair-loop**: overlaps with review-code and run-automated-tests; **market_position**: commodity.
 - **run-automated-tests**: overlaps with run-repair-loop; **market_position**: commodity.
 - **bootstrap-project-documentation**: overlaps with generate-standard-readme, write-agents-entry; **market_position**: differentiated.
+- **discover-document-norms**: overlaps with bootstrap-project-documentation, documentation-readiness; **market_position**: differentiated.
+- **validate-document-artifacts**: overlaps with documentation-readiness, curate-skills; **market_position**: differentiated.
 
 All overlaps use **Git-repo form** `owner/repo:skill-name` (e.g. `nesnilnehc/ai-cortex:review-diff`).
 
@@ -166,14 +170,22 @@ All overlaps use **Git-repo form** `owner/repo:skill-name` (e.g. `nesnilnehc/ai-
 
 1. **curate-skills ASQM refresh**: Full scan confirms 37 skills; all agent.yaml present; verify-registry.mjs and verify-skill-structure.mjs pass. No score or status changes; INDEX, manifest, marketplace.json consistent. Refresh executed as part of milestone-closed governance cycle.
 
+### 6.10 Curation run (2026-03-06, discover-document-norms, validate-document-artifacts)
+
+1. **discover-document-norms** (v1.0.0, new): Output schema describes docs/ARTIFACT_NORMS.md and .ai-cortex/artifact-norms.yaml; no explicit Appendix: Output contract table → agent_native 4. 4-phase workflow (Scan, Choose, Confirm, Write), dialogue-based, Self-Check → cognitive 4. 2 related_skills, I/O schema → composability 4. Hard Boundaries + Skill Boundaries + schema compliance → stance 5. Quality 17 (4+4+4+5), Gate A and Gate B satisfied → **validated**. overlaps_with: bootstrap-project-documentation, documentation-readiness. market_position: differentiated.
+
+2. **validate-document-artifacts** (v1.0.0, new): Output schema describes findings-list; structured findings format table in Behavior (Location, Category, Severity, Title, Description, Suggestion); no full Appendix: Output contract → agent_native 4. 3-phase workflow (Resolve, Scan/Infer, Validate/Emit), inference and validation logic → cognitive 4. 2 related_skills, findings-list for aggregation → composability 4. Hard Boundaries + Skill Boundaries → stance 5. Quality 17 (4+4+4+5), Gate A and Gate B satisfied → **validated**. overlaps_with: documentation-readiness, curate-skills. market_position: differentiated.
+
+3. **agent.yaml and README**: Created for both skills per governance artifact requirements. Full scan confirms 39 skills; all agent.yaml and README present.
+
 ---
 
 ## 7. Recommendations
 
-1. **Improvement opportunity**: Add structured "Appendix: Output contract" tables to **commit-work** and **brainstorm-design** to raise agent_native from 4 → 5 (potential quality 18 → 19).
-2. **No urgent changes**: All 37 skills are validated; no archive candidates; no experimental skills remain.
+1. **Improvement opportunity**: Add structured "Appendix: Output contract" tables to **commit-work**, **brainstorm-design**, **discover-document-norms**, and **validate-document-artifacts** to raise agent_native from 4 → 5 (potential quality 17 → 18).
+2. **No urgent changes**: All 39 skills are validated; no archive candidates; no experimental skills remain.
 3. **Overlaps by design**: Atomic review skills overlap with their orchestrator (review-code); analyze-requirements and brainstorm-design form an intentional upstream/downstream pair.
-4. **Curation run (2026-03-06)**: capture-work-items added; agent.yaml and README created. All 37 skills have agent.yaml and normalized README; ASQM_AUDIT.md is current. No further changes recommended.
+4. **Curation run (2026-03-06)**: discover-document-norms and validate-document-artifacts added; agent.yaml and README created. All 39 skills have agent.yaml and normalized README; ASQM_AUDIT.md is current. No further changes recommended.
 
 ---
 

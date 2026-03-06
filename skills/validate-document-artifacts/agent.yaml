@@ -1,0 +1,29 @@
+name: validate-document-artifacts
+status: validated
+
+primary_use: Validate docs against project artifact norms; output findings list for path, naming, and front-matter compliance.
+
+inputs:
+  - project path
+  - optional docs root (default docs/)
+  - optional scope (all or specific artifact_type)
+
+outputs:
+  - findings list (Location, Category, Severity, Title, Description, Suggestion)
+  - summary (files scanned, violations by severity)
+
+scores:
+  agent_native: 4
+  cognitive: 4
+  composability: 4
+  stance: 5
+
+asqm_quality: 17
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:documentation-readiness
+  - nesnilnehc/ai-cortex:curate-skills
+
+market_position: differentiated
+
+tags: [documentation, eng-standards, workflow]

@@ -326,6 +326,7 @@ input_schema:
 output_schema:
   type: [artifact type]
   description: [what this skill produces]
+  # For document-artifact: optionally add artifact_type, path_pattern, lifecycle per spec/artifact-contract.md
 ```
 
 ### 8.2 Standard Artifact Types
@@ -333,14 +334,18 @@ output_schema:
 | Artifact type | Structure | Used by |
 | :--- | :--- | :--- |
 | `findings-list` | Array of {Location, Category, Severity, Title, Description, Suggestion} | All review skills |
-| `document-artifact` | Markdown file written to a specified path | generate-standard-readme, write-agents-entry, brainstorm-design |
+| `document-artifact` | Markdown file written to a specified path | generate-standard-readme, write-agents-entry, brainstorm-design. For paths and naming, see [spec/artifact-contract.md](artifact-contract.md). |
 | `diagnostic-report` | Structured summary with sections (Goal, Findings, Recommendations) | review-codebase, onboard-repo |
 | `code-scope` | Files, directories, or git diff provided by the caller | review-diff, review-codebase |
 | `free-form` | Unstructured text or user input | brainstorm-design, discover-skills |
 
-### 8.3 Orchestrator Usage
+### 8.3 Document Artifact Path Contract
 
-Orchestrators (Meta skills) use `input_schema` and `output_schema` to:
+Skills that produce `document-artifact` outputs (e.g. capture-work-items, brainstorm-design, documentation-readiness, bootstrap-project-documentation) SHOULD align their output paths and naming with [spec/artifact-contract.md](artifact-contract.md). Declare `artifact_type`, `path_pattern`, and `lifecycle` in output_schema when applicable.
+
+### 8.4 Orchestrator Usage
+
+Orchestrators (meta skills) use `input_schema` and `output_schema` to:
 
 1. **Auto-match**: Connect upstream skill output to downstream skill input by artifact type.
 2. **Validate**: Ensure chained skills have compatible schemas before execution.

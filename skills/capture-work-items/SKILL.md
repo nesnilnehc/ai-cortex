@@ -13,7 +13,10 @@ input_schema:
   description: Raw description of requirement, bug, or issue from user
 output_schema:
   type: document-artifact
-  description: Structured work item(s) written to docs/backlog/ or equivalent per path detection
+  description: Structured work item(s) written per path detection
+  artifact_type: backlog-item
+  path_pattern: docs/process-management/project-board/backlog/YYYY-MM-DD-{slug}.md (canonical) or docs/backlog/YYYY-MM-DD-{slug}.md (fallback)
+  lifecycle: living
 ---
 
 # Skill: Capture Work Items
@@ -71,17 +74,24 @@ Capture requirements, bugs, or issues from free-form input into structured, pers
 
 ## Behavior
 
+### Resolve Project Norms
+
+Before persisting, resolve artifact norms per [spec/artifact-norms-schema.md](../../spec/artifact-norms-schema.md):
+
+1. Check for `.ai-cortex/artifact-norms.yaml` or `docs/ARTIFACT_NORMS.md`
+2. If found, parse path_pattern for `backlog-item` and use project rules
+3. If not found, use defaults from [spec/artifact-contract.md](../../spec/artifact-contract.md)
+
 ### Path Detection
 
-Before persisting, detect project doc structure and choose output path:
+Choose output path using resolved norms (or contract default):
 
-| Project structure | Output path |
+| Condition | Output path |
 | :--- | :--- |
-| `docs/process-management/` exists | `docs/process-management/backlog/YYYY-MM-DD-<slug>.md` |
-| `docs/requirements-planning/` exists (and no process-management) | `docs/requirements-planning/backlog/YYYY-MM-DD-<slug>.md` |
-| Neither exists | `docs/backlog/YYYY-MM-DD-<slug>.md` |
+| `docs/process-management/` exists | `docs/process-management/project-board/backlog/YYYY-MM-DD-<slug>.md` |
+| Otherwise | `docs/backlog/YYYY-MM-DD-<slug>.md` |
 
-Create `backlog/` subdirectory if it does not exist. Use `YYYY-MM-DD` for today; `<slug>` is kebab-case from title.
+Create subdirectories if they do not exist. Use `YYYY-MM-DD` for today; `<slug>` is kebab-case from title.
 
 ### Phase 0: Triage — Identify Type
 
@@ -109,7 +119,7 @@ For any missing required field, ask user **one question at a time**. Do not infe
 
 ### Phase 3: Persist — Write Artifact
 
-1. Run Path Detection (see above)
+1. Run Resolve Project Norms, then Path Detection (see above)
 2. Confirm target path with user if different from default
 3. Write Markdown with YAML front-matter using the appropriate template (see Output Templates)
 4. Set `status: captured` in front-matter
@@ -135,6 +145,9 @@ Structured work item Markdown file with YAML front-matter. Templates follow.
 
 ```markdown
 ---
+artifact_type: backlog-item
+created_by: capture-work-items
+lifecycle: living
 type: requirement
 date: YYYY-MM-DD
 status: captured
@@ -159,6 +172,9 @@ trace_id: optional
 
 ```markdown
 ---
+artifact_type: backlog-item
+created_by: capture-work-items
+lifecycle: living
 type: bug
 date: YYYY-MM-DD
 status: captured
@@ -186,6 +202,9 @@ severity: [critical|major|minor]
 
 ```markdown
 ---
+artifact_type: backlog-item
+created_by: capture-work-items
+lifecycle: living
 type: issue
 subtype: [task|improvement|question]
 date: YYYY-MM-DD
@@ -283,7 +302,7 @@ Agent: "What severity would you assign: critical, major, or minor?"
 
 User: "major."
 
-**Persist**: Path detected — `docs/process-management/` exists. Write to `docs/process-management/backlog/2026-03-06-login-500-special-chars.md`.
+**Persist**: Path detected — `docs/process-management/` exists. Write to `docs/process-management/project-board/backlog/2026-03-06-login-500-special-chars.md`.
 
 **Confirm**: "Written. Do you want to adjust anything or hand off to triage?"
 
@@ -307,7 +326,7 @@ Agent: "What would 'done' look like — at least one concrete acceptance criteri
 
 User: "Error responses should include a code (e.g. ERR_001) and a short human-readable message explaining what went wrong."
 
-**Persist**: Write to `docs/requirements-planning/backlog/2026-03-06-better-error-messages.md` (requirements-planning exists, process-management does not in this example).
+**Persist**: Path detected — `docs/process-management/` does not exist. Write to `docs/backlog/2026-03-06-better-error-messages.md`.
 
 **Handoff suggestion**: "This could benefit from deeper validation with analyze-requirements. Proceed with capture only, or hand off for full analysis?"
 
