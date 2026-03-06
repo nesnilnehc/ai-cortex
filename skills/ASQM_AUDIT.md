@@ -1,7 +1,7 @@
 # ASQM Audit — AI Cortex Skills
 
 **Audit date**: 2026-03-06
-**Scope**: All 36 skills under `skills/`
+**Scope**: All 37 skills under `skills/`
 **Scoring**: ASQM strict (evidence-based; agent_native = 5 only with explicit output contract in SKILL.md).
 
 ---
@@ -10,7 +10,7 @@
 
 | Status | Count | Skills |
 | :--- | :--- | :--- |
-| **validated** | 36 | review-code, review-diff, review-codebase, review-dotnet, review-java, review-go, review-php, review-powershell, review-python, review-sql, review-vue, review-typescript, review-react, review-security, review-architecture, review-performance, review-testing, review-orm-usage, curate-skills, discover-skills, decontextualize-text, generate-standard-readme, write-agents-entry, refine-skill-design, generate-github-workflow, install-rules, bootstrap-project-documentation, run-automated-tests, run-repair-loop, commit-work, brainstorm-design, onboard-repo, analyze-requirements, execution-alignment, documentation-readiness, project-cognitive-loop |
+| **validated** | 37 | review-code, review-diff, review-codebase, review-dotnet, review-java, review-go, review-php, review-powershell, review-python, review-sql, review-vue, review-typescript, review-react, review-security, review-architecture, review-performance, review-testing, review-orm-usage, curate-skills, discover-skills, decontextualize-text, generate-standard-readme, write-agents-entry, refine-skill-design, generate-github-workflow, install-rules, bootstrap-project-documentation, capture-work-items, run-automated-tests, run-repair-loop, commit-work, brainstorm-design, onboard-repo, analyze-requirements, execution-alignment, documentation-readiness, project-cognitive-loop |
 | **experimental** | 0 | — |
 | **archive_candidate** | 0 | — |
 
@@ -72,6 +72,7 @@ All skills meet their lifecycle thresholds: **validated** ↔ Quality ≥ 17 + G
 | write-agents-entry | 5 | 4 | 4 | 5 | 18 | validated |
 | generate-github-workflow | 5 | 4 | 4 | 5 | 18 | validated |
 | bootstrap-project-documentation | 5 | 4 | 4 | 5 | 18 | validated |
+| capture-work-items | 4 | 4 | 4 | 5 | 17 | validated |
 | commit-work | 4 | 5 | 5 | 5 | 19 | validated |
 | brainstorm-design | 4 | 5 | 4 | 5 | 18 | validated |
 | discover-skills | 5 | 3 | 5 | 4 | 17 | validated |
@@ -90,8 +91,9 @@ All skills meet their lifecycle thresholds: **validated** ↔ Quality ≥ 17 + G
 - **review-code** (orchestrator): overlaps with review-diff, review-codebase, and external code-review skills; **market_position**: differentiated.
 - **Atomic review skills** (review-diff, review-codebase, review-dotnet, review-java, review-go, review-php, review-powershell, review-python, review-sql, review-vue, review-typescript, review-react, review-orm-usage, review-security, review-architecture, review-performance, review-testing): overlap with each other and review-code; **market_position**: commodity.
 - **onboard-repo** (orchestrator): overlaps with review-codebase, review-architecture, generate-standard-readme, write-agents-entry, discover-skills; **market_position**: differentiated.
-- **analyze-requirements**: overlaps with brainstorm-design (upstream/downstream handoff); **market_position**: differentiated.
-- **brainstorm-design**: overlaps with analyze-requirements, refine-skill-design; **market_position**: differentiated.
+- **analyze-requirements**: overlaps with brainstorm-design, capture-work-items (upstream/downstream handoff); **market_position**: differentiated.
+- **capture-work-items**: overlaps with analyze-requirements (validation handoff), brainstorm-design (design handoff); **market_position**: differentiated.
+- **brainstorm-design**: overlaps with analyze-requirements, refine-skill-design, capture-work-items (design handoff); **market_position**: differentiated.
 - **execution-alignment**: overlaps with documentation-readiness and project-cognitive-loop (routing/handoff by design); **market_position**: differentiated.
 - **documentation-readiness**: overlaps with bootstrap-project-documentation (structure vs readiness boundary); **market_position**: differentiated.
 - **project-cognitive-loop** (orchestrator): overlaps with onboard-repo and review-code orchestrators at control-plane level; **market_position**: differentiated.
@@ -156,14 +158,18 @@ All overlaps use **Git-repo form** `owner/repo:skill-name` (e.g. `nesnilnehc/ai-
 
 1. **project-cognitive-loop**: Single-artifact rule added — orchestrator produces only one output file; routed skills (documentation-readiness, execution-alignment) do not persist separate files. Recommended Next Tasks section required: prioritized, actionable, with owner, scope, rationale. agent.yaml and README updated; scenario-map output description updated. Scores unchanged (20).
 
+### 6.8 Curation run (2026-03-06, capture-work-items)
+
+1. **capture-work-items** (v1.0.0, new): Structured output templates in Input & Output section but no explicit Appendix: Output contract → agent_native 4. 4-phase behavior (Triage, Extract, Prompt, Persist), Path Detection table, required-fields-by-type, 6 Self-Check items → cognitive 4. 2 related_skills, I/O schema, handoff points → composability 4. Restrictions (4 hard boundaries) + Skill Boundaries + Self-Check → stance 5. Quality 17 (4+4+4+5), Gate A and Gate B satisfied → **validated**. overlaps_with: analyze-requirements, brainstorm-design. market_position: differentiated. Created agent.yaml and README.
+
 ---
 
 ## 7. Recommendations
 
 1. **Improvement opportunity**: Add structured "Appendix: Output contract" tables to **commit-work** and **brainstorm-design** to raise agent_native from 4 → 5 (potential quality 18 → 19).
-2. **No urgent changes**: All 36 skills are validated; no archive candidates; no experimental skills remain.
+2. **No urgent changes**: All 37 skills are validated; no archive candidates; no experimental skills remain.
 3. **Overlaps by design**: Atomic review skills overlap with their orchestrator (review-code); analyze-requirements and brainstorm-design form an intentional upstream/downstream pair.
-4. **Curation run (2026-03-06)**: No further changes recommended. All 36 skills have agent.yaml and normalized README; ASQM_AUDIT.md is current.
+4. **Curation run (2026-03-06)**: capture-work-items added; agent.yaml and README created. All 37 skills have agent.yaml and normalized README; ASQM_AUDIT.md is current. No further changes recommended.
 
 ---
 

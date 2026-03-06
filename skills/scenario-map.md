@@ -86,6 +86,15 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Output**: ASQM audit and improvement actions
 - **Stop condition**: Registry and quality signals are up to date
 
+## 9) Quick Capture (Work Items)
+
+- **When to use**: User wants to record a requirement, bug, or issue without deep validation
+- **Primary skill**: [capture-work-items](./capture-work-items/SKILL.md)
+- **Optional skills**:
+  - [analyze-requirements](./analyze-requirements/SKILL.md) (when item is vague and needs validation)
+- **Output**: Structured work item(s) in docs/backlog/ or project convention
+- **Stop condition**: Item persisted and user confirmed
+
 ---
 
 ## Routing Rules
