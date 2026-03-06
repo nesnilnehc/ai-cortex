@@ -162,6 +162,10 @@ All overlaps use **Git-repo form** `owner/repo:skill-name` (e.g. `nesnilnehc/ai-
 
 1. **capture-work-items** (v1.0.0, new): Structured output templates in Input & Output section but no explicit Appendix: Output contract → agent_native 4. 4-phase behavior (Triage, Extract, Prompt, Persist), Path Detection table, required-fields-by-type, 6 Self-Check items → cognitive 4. 2 related_skills, I/O schema, handoff points → composability 4. Restrictions (4 hard boundaries) + Skill Boundaries + Self-Check → stance 5. Quality 17 (4+4+4+5), Gate A and Gate B satisfied → **validated**. overlaps_with: analyze-requirements, brainstorm-design. market_position: differentiated. Created agent.yaml and README.
 
+### 6.9 Curation refresh (2026-03-06, v2.1.0 release prep)
+
+1. **curate-skills ASQM refresh**: Full scan confirms 37 skills; all agent.yaml present; verify-registry.mjs and verify-skill-structure.mjs pass. No score or status changes; INDEX, manifest, marketplace.json consistent. Refresh executed as part of milestone-closed governance cycle.
+
 ---
 
 ## 7. Recommendations

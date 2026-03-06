@@ -1,6 +1,6 @@
 # AI Cortex
 
-[![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-blue.svg)](.)
+[![Version: 2.1.0](https://img.shields.io/badge/Version-2.1.0-blue.svg)](.)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![AI-Readiness: High](https://img.shields.io/badge/AI--Readiness-High-success.svg)](llms.txt)
 [![Stability: Stable](https://img.shields.io/badge/Stability-Stable-orange.svg)](#positioning)

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+(No changes)
+
+## [2.1.0] - 2026-03-06
+
 ### Added
 
 - `execution-alignment` skill — post-task traceback, drift detection, and top-down calibration
@@ -101,7 +105,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial repository with decontextualization skill
 - README, LICENSE (MIT), basic project structure
 
-[Unreleased]: https://github.com/nesnilnehc/ai-cortex/compare/HEAD...main
+[Unreleased]: https://github.com/nesnilnehc/ai-cortex/compare/v2.1.0...main
+[2.1.0]: https://github.com/nesnilnehc/ai-cortex/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/nesnilnehc/ai-cortex/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/nesnilnehc/ai-cortex/compare/v0.1.0...v1.0.0
 [0.1.0]: https://github.com/nesnilnehc/ai-cortex/releases/tag/v0.1.0
