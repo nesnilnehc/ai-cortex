@@ -1,0 +1,28 @@
+name: capture-work-items
+status: validated
+
+primary_use: Capture requirements, bugs, or issues from free-form input into structured, persistent backlog artifacts with path detection and status lifecycle.
+
+inputs:
+  - raw description of requirement, bug, or issue from user
+  - optional project context (docs/ structure for path detection)
+
+outputs:
+  - structured work item Markdown (docs/process-management/backlog/, docs/requirements-planning/backlog/, or docs/backlog/ per path detection)
+  - YAML front-matter with type, date, status (captured), source, severity (bugs)
+
+scores:
+  agent_native: 4
+  cognitive: 4
+  composability: 4
+  stance: 5
+
+asqm_quality: 17
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:analyze-requirements
+  - nesnilnehc/ai-cortex:brainstorm-design
+
+market_position: differentiated
+
+tags: [writing, eng-standards, documentation, workflow]
