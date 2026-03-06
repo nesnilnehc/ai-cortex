@@ -14,12 +14,27 @@ const FILES = [
   'skills/INDEX.md',
 ];
 
+const FETCH_TIMEOUT_MS = 10_000;
+
+/**
+ * @param {string} url
+ * @returns {Promise<{ url: string; status: number | null; ok: boolean; error?: string }>}
+ */
 async function check(url) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
   try {
-    const res = await fetch(url, { method: 'HEAD' });
+    const res = await fetch(url, {
+      method: 'HEAD',
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
     return { url, status: res.status, ok: res.ok };
   } catch (e) {
-    return { url, status: null, ok: false, error: e.message };
+    clearTimeout(timeout);
+    const error =
+      e.name === 'AbortError' ? 'timeout' : e.message ?? String(e);
+    return { url, status: null, ok: false, error };
   }
 }
 
