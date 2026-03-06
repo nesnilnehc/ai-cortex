@@ -9,8 +9,8 @@ inputs:
   - optional urgency or release window
 
 outputs:
-  - Project Cognitive Loop Report (docs/calibration/YYYY-MM-DD-cognitive-loop.md)
-  - routed sequence, aggregated findings, blockers, next-cycle actions
+  - Project Cognitive Loop Report (docs/calibration/YYYY-MM-DD-cognitive-loop.md) — single artifact only; no separate outputs from routed skills
+  - routed sequence, aggregated findings, blockers, Recommended Next Tasks (prioritized, actionable, owner+scope+rationale)
 
 scores:
   agent_native: 5

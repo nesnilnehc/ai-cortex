@@ -43,7 +43,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Optional skills**:
   - [execution-alignment](./execution-alignment/SKILL.md)
   - [documentation-readiness](./documentation-readiness/SKILL.md)
-- **Output**: Cycle report with executed/skipped steps and next-cycle actions
+- **Output**: Cycle report with executed/skipped steps and Recommended Next Tasks
 - **Stop condition**: All required scenario checks are completed or explicitly deferred
 
 ## 5) Code Quality Review

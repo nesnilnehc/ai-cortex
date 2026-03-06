@@ -106,9 +106,12 @@ User override always takes precedence.
 For each selected skill:
 
 1. Record why it is selected
-2. Capture key outputs
-3. Record skipped skills and reason
-4. Capture blockers and dependencies
+2. Run the skill's logic in-process (do not persist atomic skill outputs)
+3. Capture key findings for aggregation
+4. Record skipped skills and reason
+5. Capture blockers and dependencies
+
+**Single artifact rule**: This orchestrator produces exactly one output file. Do NOT write separate reports for `documentation-readiness`, `execution-alignment`, or other routed skills. All findings are aggregated into the cycle report.
 
 ### Phase 3: Aggregate Governance Report
 
@@ -116,13 +119,13 @@ Report must include:
 
 - Trigger and scenario
 - Sequence executed vs skipped
-- Key findings by skill
+- Key findings by skill (inline summary; no cross-references to separate files)
 - Blockers and confidence level
-- Next-cycle prioritized actions
+- **Recommended Next Tasks** — explicit, prioritized, actionable tasks (owner, scope, and rationale)
 
 ### Phase 4: Persist
 
-Write to:
+Write exactly one file to:
 
 - Default: `docs/calibration/YYYY-MM-DD-cognitive-loop.md`
 - Or user-defined path
@@ -161,11 +164,13 @@ Write to:
 - Blocker:
 - Confidence: high | medium | low
 
-## Next-Cycle Actions
-1.
-2.
-3.
+## Recommended Next Tasks
+1. [Task] — rationale; owner; scope
+2. [Task] — rationale; owner; scope
+3. [Task] — rationale; owner; scope
 ```
+
+Next tasks must be explicit and actionable: what to do, why, who owns it, and in what order.
 
 ---
 
@@ -174,9 +179,11 @@ Write to:
 ### Hard Boundaries
 
 - Do NOT perform atomic analysis directly in this skill
+- Do NOT persist outputs of routed atomic skills; aggregate only; single artifact output
 - Do NOT hide skipped steps; always disclose skip reason
 - Do NOT route more than necessary for the trigger (avoid orchestration inflation)
 - Do NOT present recommendations without tying them to collected outputs
+- Do produce explicit Recommended Next Tasks (prioritized, actionable, with owner and rationale)
 
 ### Skill Boundaries (Avoid Overlap)
 
