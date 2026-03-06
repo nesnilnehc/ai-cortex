@@ -95,6 +95,7 @@ Convention: a skill at `0.x.x` with ASQM status "validated" should be upgraded t
 | [documentation-readiness](./documentation-readiness/SKILL.md) | documentation, eng-standards, workflow | `1.0.0` | stable | Assess documentation evidence readiness across project layers, prioritize gaps, and produce a minimum-fill plan for reliable AI-assisted governance. |
 | [project-cognitive-loop](./project-cognitive-loop/SKILL.md) | workflow, automation, eng-standards | `1.0.0` | stable | Orchestrate governance cycles by routing among requirements, design, execution alignment, and documentation readiness checks. |
 | [validate-document-artifacts](./validate-document-artifacts/SKILL.md) | documentation, eng-standards, workflow | `1.0.0` | stable | Validate docs against project artifact norms; output findings list for path, naming, and front-matter compliance. |
+| [prune-content](./prune-content/SKILL.md) | optimization, documentation, workflow, eng-standards | `1.1.0` | experimental | Identifies and archives obsolete project content based on user judgment or onboarding analysis. |
 
 ---
 

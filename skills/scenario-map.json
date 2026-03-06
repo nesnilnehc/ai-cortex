@@ -87,6 +87,15 @@
       "optional_note": "when item is vague and needs validation",
       "output": "Structured work item(s) in docs/backlog/ or project convention",
       "stop_condition": "Item persisted and user confirmed"
+    },
+    {
+      "id": "repository_maintenance",
+      "title": "Repository Maintenance",
+      "when_to_use": "Cleanup, optimization, or archiving of old content",
+      "primary": "prune-content",
+      "optional": ["validate-document-artifacts"],
+      "output": "Cleaned repository structure and archived obsolete content",
+      "stop_condition": "User confirms cleanup actions"
     }
   ]
 }
