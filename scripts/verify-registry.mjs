@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 /**
- * Verify skills/INDEX.md, manifest.json, and marketplace.json stay in sync.
+ * Verify skills/INDEX.md, manifest.json, scenario-map.md, and marketplace.json stay in sync.
  * - Every capability in manifest.json has a path that exists.
  * - Every directory under skills/ that contains SKILL.md is listed in manifest capabilities.
+ * - Every skill referenced in skills/scenario-map.md exists in manifest and INDEX.
  * - Every skill in marketplace.json exists in skills/ and is registered in INDEX.md.
  * Run from repo root: node scripts/verify-registry.mjs
  */
@@ -176,6 +177,32 @@ for (const name of skillDirNames) {
   }
 }
 
+// scenario-map.md sync check
+const scenarioMapPath = join(skillsDir, 'scenario-map.md');
+if (existsSync(scenarioMapPath)) {
+  const scenarioMapText = readFileSync(scenarioMapPath, 'utf8');
+  const scenarioMapSkillRefs = new Set();
+  for (const m of scenarioMapText.matchAll(/\]\(\.\/([^/)]+)\/SKILL\.md\)/g)) {
+    scenarioMapSkillRefs.add(m[1]);
+  }
+  for (const name of scenarioMapSkillRefs) {
+    if (!manifestNames.has(name) || !indexNames.has(name)) {
+      console.error(
+        `skills/scenario-map.md references "${name}" but it is missing from manifest.json or skills/INDEX.md`
+      );
+      failed = true;
+    }
+  }
+  const notInScenarioMap = [...manifestNames].filter((n) => !scenarioMapSkillRefs.has(n));
+  if (notInScenarioMap.length > 0) {
+    console.warn(
+      `Info: ${notInScenarioMap.length} skill(s) not in scenario-map.md: ${notInScenarioMap.slice(0, 10).join(', ')}${notInScenarioMap.length > 10 ? '...' : ''}`
+    );
+  }
+} else {
+  console.warn('skills/scenario-map.md not found; skipping scenario-map validation');
+}
+
 // marketplace.json sync check (if file exists)
 const marketplacePath = join(root, '.claude-plugin', 'marketplace.json');
 if (existsSync(marketplacePath)) {
@@ -197,5 +224,7 @@ if (existsSync(marketplacePath)) {
 }
 
 if (failed) process.exit(1);
-console.log('Registry OK: manifest, skills/INDEX.md, marketplace.json, and skills/*/SKILL.md are consistent.');
+console.log(
+  'Registry OK: manifest, skills/INDEX.md, skills/scenario-map.md, marketplace.json, and skills/*/SKILL.md are consistent.'
+);
 process.exit(0);
