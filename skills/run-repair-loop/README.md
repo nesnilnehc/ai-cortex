@@ -1,6 +1,6 @@
 # Run Repair Loop
 
-**Status**: experimental
+**Status**: validated
 
 ## What it does
 
@@ -27,18 +27,18 @@ Runs an iterative loop to converge code to "clean": review -> test -> fix -> rep
 
 | Dimension | Score |
 | :--- | :--- |
-| agent_native | 4 |
+| agent_native | 5 |
 | cognitive | 4 |
 | composability | 4 |
 | stance | 4 |
-| **asqm_quality** | 16 |
+| **asqm_quality** | 17 |
 
 ## Ecosystem
 
 | Field | Value |
 | :--- | :--- |
 | overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:run-automated-tests |
-| market_position | experimental |
+| market_position | commodity |
 
 ## Full definition
 
