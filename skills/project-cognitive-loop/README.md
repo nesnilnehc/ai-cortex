@@ -21,8 +21,8 @@ Runs repeatable governance loops by orchestrating atomic skills: `analyze-requir
 
 ## Outputs
 
-- Project Cognitive Loop Report written to `docs/calibration/YYYY-MM-DD-cognitive-loop.md`
-- Routed sequence, aggregated findings, blockers, next-cycle actions
+- Project Cognitive Loop Report written to `docs/calibration/YYYY-MM-DD-cognitive-loop.md` (single artifact; routed skills do not produce separate files)
+- Routed sequence, aggregated findings, blockers, Recommended Next Tasks (prioritized, actionable, with owner, scope, rationale)
 
 ## Installation
 
