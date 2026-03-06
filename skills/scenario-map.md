@@ -97,6 +97,15 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Output**: Structured work item(s) in docs/backlog/ or project convention
 - **Stop condition**: Item persisted and user confirmed
 
+## 10) Repository Maintenance
+
+- **When to use**: Cleanup, optimization, or archiving of old content
+- **Primary skill**: [prune-content](./prune-content/SKILL.md)
+- **Optional skills**:
+  - [validate-document-artifacts](./validate-document-artifacts/SKILL.md)
+- **Output**: Cleaned repository structure and archived obsolete content
+- **Stop condition**: User confirms cleanup actions
+
 ---
 
 ## Routing Rules
