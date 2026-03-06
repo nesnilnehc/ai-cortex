@@ -39,7 +39,7 @@ input_schema:
   description: Vague idea, feature request, problem statement, or user requirement to analyze
 output_schema:
   type: document-artifact
-  description: Validated requirements document written to docs/requirements/<topic>.md
+  description: Validated requirements document written to docs/requirements-planning/<topic>.md (docs/requirements/<topic>.md accepted for backward compatibility)
 ---
 
 # Skill: Analyze Requirements
@@ -70,6 +70,7 @@ Diagnose requirements-level problems and transform vague intent into validated, 
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Vague intent → Validated requirements document
 - Problem discovery and articulation
 - Need clarification and acceptance criteria writing
@@ -78,6 +79,7 @@ Diagnose requirements-level problems and transform vague intent into validated, 
 - Requirements quality assessment (clarity, specificity, completeness)
 
 **This skill does NOT handle**:
+
 - Design and architecture decisions (use `brainstorm-design`)
 - Implementation planning or task lists (use implementation planning skills)
 - Code writing (use development skills)
@@ -102,7 +104,7 @@ Diagnose requirements-level problems and transform vague intent into validated, 
 
 ### HARD-GATE: No Design Before Validation
 
-```
+```text
 DO NOT propose architecture, choose technologies, create designs,
 or write code until requirements are validated.
 
@@ -255,7 +257,8 @@ Progress through states sequentially. Do NOT skip states — if the problem is n
 ### Phase 3: Persist — Write the Document
 
 1. **Determine output location**:
-   - Default: `docs/requirements/<topic>.md`
+   - Default: `docs/requirements-planning/<topic>.md`
+   - Compatibility: existing projects using `docs/requirements/<topic>.md` may keep that path temporarily
    - Ask user if a different location is preferred
 2. **Write the document** following the output template
 3. **Commit to version control**
@@ -452,6 +455,7 @@ Agent: "How would you know the output is correct?"
 User: "Each .md file produces one .html file. Links between pages work. It looks readable on mobile."
 
 **Acceptance criteria captured**:
+
 - R-01: Each `.md` file → one `.html` file (1:1 mapping)
 - R-02: Internal links resolve correctly
 - R-03: Output is readable on mobile (viewport meta, readable font size)
@@ -471,11 +475,12 @@ Agent: "If you could only ship 3 features, what are they?"
 User: "Markdown to HTML, basic CSS, and a dev server with live reload."
 
 **Scope defined**:
+
 - V1 Must: Markdown→HTML, default CSS, dev server
 - Deferred: Themes, plugins, custom templates (trigger: after V1 is usable for 2 weeks)
 - Walking skeleton: CLI that converts one `.md` file to `.html`
 
-**RA5 — Validated**: Agent presents summary, user says "looks good." Document written to `docs/requirements/static-site-generator.md`.
+**RA5 — Validated**: Agent presents summary, user says "looks good." Document written to `docs/requirements-planning/static-site-generator.md`.
 
 ### Example 2: Edge Case — Solution-Disguised Requirements
 
@@ -498,6 +503,7 @@ User: "Oh... I need to track inventory for my small business. I currently use sp
 Agent: "Let's rewrite the requirements without technology. 'React, PostgreSQL, GraphQL, Redis' are all solutions. What needs do they represent?"
 
 Rewritten:
+
 - ~~React app~~ → "Need a user interface accessible from multiple devices"
 - ~~PostgreSQL~~ → "Data must survive server restarts and not be lost"
 - ~~GraphQL API~~ → "Need to query inventory flexibly (by name, category, location)"
@@ -534,6 +540,7 @@ User: "Basic task list, due dates with reminders, and... that's really it for no
 Agent: "So calendar integration, team collaboration, file attachments, and AI suggestions are all additions beyond the core problem. Should we defer them?"
 
 **Scope redefined**:
+
 - V1 Must: Task CRUD, due dates, reminders
 - Deferred: Calendar integration (trigger: after using reminders for 1 month), collaboration (trigger: when freelance becomes team), attachments (trigger: user request), AI suggestions (trigger: 100+ tasks)
 - Walking skeleton: CLI or simple UI that creates tasks with due dates and sends reminder notifications

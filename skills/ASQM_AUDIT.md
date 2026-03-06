@@ -1,7 +1,7 @@
 # ASQM Audit — AI Cortex Skills
 
-**Audit date**: 2026-03-02
-**Scope**: All 33 skills under `skills/`
+**Audit date**: 2026-03-06
+**Scope**: All 36 skills under `skills/`
 **Scoring**: ASQM strict (evidence-based; agent_native = 5 only with explicit output contract in SKILL.md).
 
 ---
@@ -10,7 +10,7 @@
 
 | Status | Count | Skills |
 | :--- | :--- | :--- |
-| **validated** | 33 | review-code, review-diff, review-codebase, review-dotnet, review-java, review-go, review-php, review-powershell, review-python, review-sql, review-vue, review-typescript, review-react, review-security, review-architecture, review-performance, review-testing, review-orm-usage, curate-skills, discover-skills, decontextualize-text, generate-standard-readme, write-agents-entry, refine-skill-design, generate-github-workflow, install-rules, bootstrap-project-documentation, run-automated-tests, run-repair-loop, commit-work, brainstorm-design, onboard-repo, analyze-requirements |
+| **validated** | 36 | review-code, review-diff, review-codebase, review-dotnet, review-java, review-go, review-php, review-powershell, review-python, review-sql, review-vue, review-typescript, review-react, review-security, review-architecture, review-performance, review-testing, review-orm-usage, curate-skills, discover-skills, decontextualize-text, generate-standard-readme, write-agents-entry, refine-skill-design, generate-github-workflow, install-rules, bootstrap-project-documentation, run-automated-tests, run-repair-loop, commit-work, brainstorm-design, onboard-repo, analyze-requirements, execution-alignment, documentation-readiness, project-cognitive-loop |
 | **experimental** | 0 | — |
 | **archive_candidate** | 0 | — |
 
@@ -79,6 +79,9 @@ All skills meet their lifecycle thresholds: **validated** ↔ Quality ≥ 17 + G
 | generate-standard-readme | 5 | 3 | 4 | 5 | 17 | validated |
 | run-automated-tests | 5 | 4 | 4 | 4 | 17 | validated |
 | run-repair-loop | 5 | 4 | 4 | 4 | 17 | validated |
+| execution-alignment | 5 | 5 | 5 | 5 | 20 | validated |
+| documentation-readiness | 5 | 4 | 5 | 5 | 19 | validated |
+| project-cognitive-loop | 5 | 5 | 5 | 5 | 20 | validated |
 
 ---
 
@@ -89,6 +92,9 @@ All skills meet their lifecycle thresholds: **validated** ↔ Quality ≥ 17 + G
 - **onboard-repo** (orchestrator): overlaps with review-codebase, review-architecture, generate-standard-readme, write-agents-entry, discover-skills; **market_position**: differentiated.
 - **analyze-requirements**: overlaps with brainstorm-design (upstream/downstream handoff); **market_position**: differentiated.
 - **brainstorm-design**: overlaps with analyze-requirements, refine-skill-design; **market_position**: differentiated.
+- **execution-alignment**: overlaps with documentation-readiness and project-cognitive-loop (routing/handoff by design); **market_position**: differentiated.
+- **documentation-readiness**: overlaps with bootstrap-project-documentation (structure vs readiness boundary); **market_position**: differentiated.
+- **project-cognitive-loop** (orchestrator): overlaps with onboard-repo and review-code orchestrators at control-plane level; **market_position**: differentiated.
 - **commit-work**: overlaps with review-diff (pre-commit review); **market_position**: differentiated.
 - **curate-skills**: overlaps with refine-skill-design, generate-standard-readme; **market_position**: differentiated.
 - **refine-skill-design**: overlaps with curate-skills, discover-skills; **market_position**: differentiated.
@@ -116,30 +122,40 @@ All overlaps use **Git-repo form** `owner/repo:skill-name` (e.g. `nesnilnehc/ai-
 
 ### 6.2 New findings (2026-03-02)
 
-4. **commit-work** (v2.0.0, new audit): Output Contract section is prose-only (no structured Appendix table) → agent_native 4. Deep 10-step workflow with interaction policy, 12 Self-Check items, 3 examples → cognitive 5. Integrates review-diff, references commit-message-template, registry sync for AI Cortex ecosystem → composability 5. Hard Boundaries + Skill Boundaries + Scope Boundaries → stance 5. Quality 19 (4+5+5+5), Gate A (4 ≥ 4) and Gate B (5 ≥ 3) satisfied → **validated**. market_position: differentiated.
-5. **brainstorm-design** (v1.0.0, new audit): Markdown document template provided but no structured Appendix table → agent_native 4. 5-phase workflow with HARD-GATE, 13 Self-Check items, 4 examples → cognitive 5. 3 related_skills, I/O schema present → composability 4. Hard Boundaries (7 items) + Skill Boundaries → stance 5. Quality 18 (4+5+4+5) → **validated**. market_position: differentiated.
-6. **review-typescript** (v1.0.0, new audit): Explicit Appendix: Output contract with findings format table → agent_native 5. 7-point review checklist, 9 Self-Check items → cognitive 4. Standard findings format for aggregation, 3 related_skills → composability 5. Hard Boundaries + Skill Boundaries → stance 5. Quality 19 (5+4+5+5) → **validated**. market_position: commodity.
-7. **review-react** (v1.0.0, new audit): Explicit Appendix: Output contract → agent_native 5. Same review-skill pattern as review-typescript → cognitive 4, composability 5, stance 5. Quality 19 → **validated**. market_position: commodity.
-8. **onboard-repo** (v1.0.0, new audit): Richest output contract of all skills (6-section diagnostic-report table + finding format + report template) → agent_native 5. 6-step fixed execution order, pre-flight confirmation, defaults table, condensed Agent instruction block, 10 Self-Check items → cognitive 5. Orchestrates 5 atomic skills with defined data flow → composability 5. Hard Boundaries (4 items, including "no analysis of its own") → stance 5. Quality 20 (5+5+5+5) → **validated**. market_position: differentiated.
-9. **review-orm-usage** (v1.0.0, new audit): Explicit Appendix: Output contract with findings format → agent_native 5. 6-point review checklist → cognitive 4. 5 related_skills (widest among review skills) → composability 5. Hard Boundaries with "do not duplicate review-sql" → stance 5. Quality 19 (5+4+5+5) → **validated**. market_position: commodity.
-10. **analyze-requirements** (v1.0.0, new audit): Structured output template + Appendix: Integration Map with 3 tables → agent_native 5. Deepest cognitive offload: triage scoring matrix, 6 diagnostic states (RA0-RA5) with entry/exit criteria, 5 anti-patterns, health check questions, 12 Self-Check items → cognitive 5. Explicit handoff contract + 3 related_skills + I/O schema → composability 5. Hard Boundaries (6 items) + 3-tier Self-Check → stance 5. Quality 20 (5+5+5+5) → **validated**. market_position: differentiated.
+1. **commit-work** (v2.0.0, new audit): Output Contract section is prose-only (no structured Appendix table) → agent_native 4. Deep 10-step workflow with interaction policy, 12 Self-Check items, 3 examples → cognitive 5. Integrates review-diff, references commit-message-template, registry sync for AI Cortex ecosystem → composability 5. Hard Boundaries + Skill Boundaries + Scope Boundaries → stance 5. Quality 19 (4+5+5+5), Gate A (4 ≥ 4) and Gate B (5 ≥ 3) satisfied → **validated**. market_position: differentiated.
+2. **brainstorm-design** (v1.0.0, new audit): Markdown document template provided but no structured Appendix table → agent_native 4. 5-phase workflow with HARD-GATE, 13 Self-Check items, 4 examples → cognitive 5. 3 related_skills, I/O schema present → composability 4. Hard Boundaries (7 items) + Skill Boundaries → stance 5. Quality 18 (4+5+4+5) → **validated**. market_position: differentiated.
+3. **review-typescript** (v1.0.0, new audit): Explicit Appendix: Output contract with findings format table → agent_native 5. 7-point review checklist, 9 Self-Check items → cognitive 4. Standard findings format for aggregation, 3 related_skills → composability 5. Hard Boundaries + Skill Boundaries → stance 5. Quality 19 (5+4+5+5) → **validated**. market_position: commodity.
+4. **review-react** (v1.0.0, new audit): Explicit Appendix: Output contract → agent_native 5. Same review-skill pattern as review-typescript → cognitive 4, composability 5, stance 5. Quality 19 → **validated**. market_position: commodity.
+5. **onboard-repo** (v1.0.0, new audit): Richest output contract of all skills (6-section diagnostic-report table + finding format + report template) → agent_native 5. 6-step fixed execution order, pre-flight confirmation, defaults table, condensed Agent instruction block, 10 Self-Check items → cognitive 5. Orchestrates 5 atomic skills with defined data flow → composability 5. Hard Boundaries (4 items, including "no analysis of its own") → stance 5. Quality 20 (5+5+5+5) → **validated**. market_position: differentiated.
+6. **review-orm-usage** (v1.0.0, new audit): Explicit Appendix: Output contract with findings format → agent_native 5. 6-point review checklist → cognitive 4. 5 related_skills (widest among review skills) → composability 5. Hard Boundaries with "do not duplicate review-sql" → stance 5. Quality 19 (5+4+5+5) → **validated**. market_position: commodity.
+7. **analyze-requirements** (v1.0.0, new audit): Structured output template + Appendix: Integration Map with 3 tables → agent_native 5. Deepest cognitive offload: triage scoring matrix, 6 diagnostic states (RA0-RA5) with entry/exit criteria, 5 anti-patterns, health check questions, 12 Self-Check items → cognitive 5. Explicit handoff contract + 3 related_skills + I/O schema → composability 5. Hard Boundaries (6 items) + 3-tier Self-Check → stance 5. Quality 20 (5+5+5+5) → **validated**. market_position: differentiated.
 
 ### 6.3 Additional changes
 
-11. **run-automated-tests** and **run-repair-loop**: Graduated from experimental (v0.1.0) to stable (v1.0.0) per INDEX.md §2 convention (validated at 0.x.x → upgrade when contract stabilizes). Scores unchanged (both 17).
-12. **Existing 26 skills**: No score or lifecycle changes. All retain their validated status.
+1. **run-automated-tests** and **run-repair-loop**: Graduated from experimental (v0.1.0) to stable (v1.0.0) per INDEX.md §2 convention (validated at 0.x.x → upgrade when contract stabilizes). Scores unchanged (both 17).
+2. **Existing 26 skills**: No score or lifecycle changes. All retain their validated status.
 
 ### 6.4 Format normalization (2026-03-02)
 
-13. **analyze-requirements** and **brainstorm-design**: Migrated `agent.yaml` from legacy format (`version`/`description`/`lifecycle`/`asqm_score`/`related_skills`/`recommended_scope`) to the standard output-contract schema (`status`/`primary_use`/`inputs`/`outputs`/`scores`/`asqm_quality`/`overlaps_with`/`market_position`/`tags`). No score changes; format-only migration. All 33 skills now use the unified agent.yaml schema.
+1. **analyze-requirements** and **brainstorm-design**: Migrated `agent.yaml` from legacy format (`version`/`description`/`lifecycle`/`asqm_score`/`related_skills`/`recommended_scope`) to the standard output-contract schema (`status`/`primary_use`/`inputs`/`outputs`/`scores`/`asqm_quality`/`overlaps_with`/`market_position`/`tags`). No score changes; format-only migration.
+2. **execution-alignment** (v1.0.0): Introduced traceback + typed drift + calibration contract, deterministic mode selection, and mapping-confirmation gate. Quality 20.
+3. **documentation-readiness** (v1.0.0): Introduced layer readiness scoring, gap prioritization, and minimal-fill plan output. Quality 19.
+4. **project-cognitive-loop** (v1.0.0): Introduced governance-cycle orchestration contract and routed sequence reporting. Quality 20.
+5. **Current baseline**: All 36 skills now use the unified agent.yaml/schema style expected by ASQM reporting.
+
+### 6.5 Curation run (2026-03-06)
+
+1. **execution-alignment**, **documentation-readiness**, **project-cognitive-loop**: Created `agent.yaml` (scores, overlaps_with, market_position) and normalized `README.md` to standard sections (what it does, when to use, inputs, outputs, related skills). All three were previously scored in §4 but lacked agent.yaml and README.
+2. **run-repair-loop**: Normalized README — updated status from experimental to validated, ASQM scores from 16 to 17 (agent_native 4 → 5, market_position experimental → commodity) to match agent.yaml and §4.
 
 ---
 
 ## 7. Recommendations
 
 1. **Improvement opportunity**: Add structured "Appendix: Output contract" tables to **commit-work** and **brainstorm-design** to raise agent_native from 4 → 5 (potential quality 18 → 19).
-2. **No urgent changes**: All 33 skills are validated; no archive candidates; no experimental skills remain.
+2. **No urgent changes**: All 36 skills are validated; no archive candidates; no experimental skills remain.
 3. **Overlaps by design**: Atomic review skills overlap with their orchestrator (review-code); analyze-requirements and brainstorm-design form an intentional upstream/downstream pair.
+4. **Curation run (2026-03-06)**: No further changes recommended. All 36 skills have agent.yaml and normalized README; ASQM_AUDIT.md is current.
 
 ---
 
