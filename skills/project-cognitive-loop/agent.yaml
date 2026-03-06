@@ -1,0 +1,31 @@
+name: project-cognitive-loop
+status: validated
+
+primary_use: Orchestrate project governance cycles by routing among requirements analysis, design, execution alignment, and documentation readiness checks.
+
+inputs:
+  - trigger event and context
+  - optional target scope and mode overrides
+  - optional urgency or release window
+
+outputs:
+  - Project Cognitive Loop Report (docs/calibration/YYYY-MM-DD-cognitive-loop.md)
+  - routed sequence, aggregated findings, blockers, next-cycle actions
+
+scores:
+  agent_native: 5
+  cognitive: 5
+  composability: 5
+  stance: 5
+
+asqm_quality: 20
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:execution-alignment
+  - nesnilnehc/ai-cortex:documentation-readiness
+  - nesnilnehc/ai-cortex:onboard-repo
+  - nesnilnehc/ai-cortex:review-code
+
+market_position: differentiated
+
+tags: [workflow, automation, eng-standards]

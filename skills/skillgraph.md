@@ -1,6 +1,6 @@
 # Skill Composition Graph
 
-This document describes how skills compose into orchestration chains, governance workflows, and development pipelines. It is for human and Agent reading only; Skills.sh and the manifest do not depend on it. For the canonical skill list, see [INDEX.md](./INDEX.md) and [manifest.json](../manifest.json).
+This document describes how skills compose into orchestration chains, governance workflows, and development pipelines. It is for human and Agent reading only; Skills.sh and the manifest do not depend on it. For the canonical skill list, see [INDEX.md](./INDEX.md) and [manifest.json](../manifest.json). For scenario-first routing, see [scenario-map.md](./scenario-map.md).
 
 ---
 
@@ -110,7 +110,7 @@ flowchart LR
 Every atomic skill emits findings in this format so [review-code](./review-code/SKILL.md) can merge them:
 
 - **Location**: `path/to/file.ext` (optional line or range)
-- **Category**: scope | language-* | framework-* | library-* | cognitive-*
+- **Category**: scope | language-\* | framework-\* | library-\* | cognitive-\*
 - **Severity**: critical | major | minor | suggestion
 - **Title**: Short one-line summary
 - **Description**: 1–3 sentences
@@ -204,7 +204,27 @@ flowchart LR
   install -.->|rules for quality| curate
 ```
 
-### 6.4 Quick reference (non-review)
+### 6.4 Project governance loop chain
+
+```mermaid
+flowchart LR
+  loop[project-cognitive-loop]
+  req[analyze-requirements]
+  design[brainstorm-design]
+  align[execution-alignment]
+  docreadiness[documentation-readiness]
+  repair[run-repair-loop]
+
+  loop --> req
+  loop --> design
+  loop --> align
+  loop --> docreadiness
+  align -->|active defects| repair
+  docreadiness -->|doc gaps| req
+  docreadiness -->|architecture gap| design
+```
+
+### 6.5 Quick reference (non-review)
 
 | Skill | Chain | Input | Output |
 | :--- | :--- | :--- | :--- |
@@ -213,6 +233,9 @@ flowchart LR
 | [commit-work](./commit-work/SKILL.md) | lifecycle | staged changes | git commits |
 | [run-automated-tests](./run-automated-tests/SKILL.md) | lifecycle | repo path | test execution results |
 | [run-repair-loop](./run-repair-loop/SKILL.md) | lifecycle | repo + scope | converged clean state |
+| [execution-alignment](./execution-alignment/SKILL.md) | lifecycle | completed task context | execution alignment report |
+| [documentation-readiness](./documentation-readiness/SKILL.md) | lifecycle | docs scope + mapping | documentation readiness report + minimal fill plan |
+| [project-cognitive-loop](./project-cognitive-loop/SKILL.md) | lifecycle | trigger + project context | cycle governance report |
 | [onboard-repo](./onboard-repo/SKILL.md) | onboarding | repo path | onboarding report |
 | [curate-skills](./curate-skills/SKILL.md) | governance | skills directory | ASQM audit report |
 | [refine-skill-design](./refine-skill-design/SKILL.md) | governance | SKILL.md | optimized SKILL.md |
