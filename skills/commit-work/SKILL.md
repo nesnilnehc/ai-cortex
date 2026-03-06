@@ -151,7 +151,7 @@ Make commits that are easy to review and safe to ship by ensuring only intended 
    - If commit affects `skills/` directory:
      - Verify `skills/INDEX.md` is updated with new/changed skills
      - Verify `manifest.json` capabilities array is updated
-     - Verify `skills/scenario-map.md` is updated if skills were added, removed, or materially changed (per spec Metadata Sync)
+     - Verify `skills/scenario-map.json` is updated if skills were added, removed, or materially changed (per spec Metadata Sync)
      - Run `scripts/verify-registry.mjs` if present
    - If adding or moving skills, INDEX, manifest, and (as needed) scenario-map must be updated together
 
@@ -180,7 +180,7 @@ Provide:
 - A short summary per commit explaining what changed and why
 - The commands used to stage and review (minimum: `git diff --cached`)
 - Any test or verification commands run
-- For AI Cortex projects: confirmation that INDEX.md, manifest.json, and (as needed) scenario-map.md are synchronized
+- For AI Cortex projects: confirmation that INDEX.md, manifest.json, and (as needed) scenario-map.json are synchronized
 
 ## Restrictions
 
@@ -191,7 +191,7 @@ Provide:
 - Do not write vague commit messages ("fix stuff", "updates", "WIP")
 - Do not skip verification steps if tests or linters are available
 - Do not commit secrets, tokens, or sensitive data
-- For AI Cortex projects: do not commit skill changes without updating INDEX.md, manifest.json, and (as needed) scenario-map.md
+- For AI Cortex projects: do not commit skill changes without updating INDEX.md, manifest.json, and (as needed) scenario-map.json
 
 ### Skill Boundaries (Avoid Overlap)
 
@@ -219,7 +219,7 @@ Provide:
 - [ ] **Conventional Commits format**: All commit messages follow `type(scope): summary` format with clear body
 - [ ] **Quality verified**: Ran appropriate tests, lint, or build commands and all checks passed
 - [ ] **No sensitive data**: No secrets, tokens, debug code, or unintended changes included
-- [ ] **Registry synchronized** (AI Cortex projects): If skills/ changed, INDEX.md, manifest.json, and (as needed) scenario-map.md updated
+- [ ] **Registry synchronized** (AI Cortex projects): If skills/ changed, INDEX.md, manifest.json, and (as needed) scenario-map.json updated
 
 ### Process Quality Checks
 

@@ -7,7 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-(No changes)
+### Added
+
+- `scripts/generate-skillgraph.mjs` — auto-generate `skills/skillgraph.md` from manifest and SKILL frontmatter; includes global overview
+- `scripts/generate-scenario-map.mjs` — auto-generate `skills/scenario-map.md` from `skills/scenario-map.json`
+- `scripts/generate-skills-docs.mjs` — wrapper to run both generators
+- `skills/scenario-map.json` — source of truth for scenario-to-skill mapping (edit this, not scenario-map.md)
+
+### Changed
+
+- `skills/skillgraph.md` — now auto-generated; adds global overview section (Code Review, Lifecycle, Onboarding, Governance, Standalone)
+- `skills/scenario-map.md` — now auto-generated from scenario-map.json
+- `scripts/verify-registry.mjs` — runs generate-skills-docs before validation; validates scenario-map.json skill refs
+- `spec/skill.md` §9 — documents generation; scenario-map source is now scenario-map.json
 
 ## [2.1.0] - 2026-03-06
 

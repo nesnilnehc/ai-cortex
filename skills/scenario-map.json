@@ -1,0 +1,92 @@
+{
+  "routing_rules": [
+    "Prefer one primary skill per scenario.",
+    "Add optional skills only when the primary output indicates a gap.",
+    "Escalate to project-cognitive-loop when multiple scenarios are active in one cycle.",
+    "Use artifact handoff (requirements/design/alignment/doc-readiness reports) rather than implicit context passing."
+  ],
+  "scenarios": [
+    {
+      "id": "project_start",
+      "title": "Project Start",
+      "when_to_use": "New project, new initiative, or major direction reset",
+      "primary": "analyze-requirements",
+      "optional": ["brainstorm-design", "bootstrap-project-documentation"],
+      "output": "Validated requirements and initial design/doc structure",
+      "stop_condition": "Requirements approved and design path selected"
+    },
+    {
+      "id": "post_task_governance",
+      "title": "Post-Task Governance",
+      "when_to_use": "A task is done and you need to validate direction",
+      "primary": "execution-alignment",
+      "optional": ["documentation-readiness", "project-cognitive-loop"],
+      "output": "Execution Alignment Report with drift and calibration actions",
+      "stop_condition": "Next 1-3 tasks reprioritized with confidence level"
+    },
+    {
+      "id": "documentation_gap_triage",
+      "title": "Documentation Gap Triage",
+      "when_to_use": "Alignment confidence is low due to weak/missing docs",
+      "primary": "documentation-readiness",
+      "optional": ["bootstrap-project-documentation", "analyze-requirements"],
+      "output": "Documentation Readiness Report and Minimal Fill Plan",
+      "stop_condition": "Critical layers reach at least weak and high-priority gaps have owners"
+    },
+    {
+      "id": "iteration_orchestration",
+      "title": "Iteration Orchestration",
+      "when_to_use": "Milestone closure, release gate, or periodic governance cycle",
+      "primary": "project-cognitive-loop",
+      "optional": ["execution-alignment", "documentation-readiness"],
+      "output": "Cycle report with executed/skipped steps and Recommended Next Tasks",
+      "stop_condition": "All required scenario checks are completed or explicitly deferred"
+    },
+    {
+      "id": "code_quality_review",
+      "title": "Code Quality Review",
+      "when_to_use": "Review quality/security/performance/testing before merge or release",
+      "primary": "review-code",
+      "optional": ["review-diff", "review-codebase"],
+      "output": "Aggregated findings report",
+      "stop_condition": "Critical/major issues have mitigation plan"
+    },
+    {
+      "id": "delivery_convergence",
+      "title": "Delivery Convergence",
+      "when_to_use": "Need to run tests, fix failures, and stabilize before commit",
+      "primary": "run-repair-loop",
+      "optional": ["run-automated-tests", "commit-work"],
+      "output": "Converged state + clean commit plan",
+      "stop_condition": "Tests pass and commit scope is clear"
+    },
+    {
+      "id": "repository_onboarding",
+      "title": "Repository Onboarding",
+      "when_to_use": "New team member, inherited repository, or handoff",
+      "primary": "onboard-repo",
+      "optional": ["generate-standard-readme", "write-agents-entry"],
+      "output": "Onboarding report + core docs",
+      "stop_condition": "New contributor can navigate and start work without ad-hoc guidance"
+    },
+    {
+      "id": "skill_system_governance",
+      "title": "Skill System Governance",
+      "when_to_use": "Audit/refactor skill inventory and maintain quality",
+      "primary": "curate-skills",
+      "optional": ["refine-skill-design", "discover-skills"],
+      "output": "ASQM audit and improvement actions",
+      "stop_condition": "Registry and quality signals are up to date"
+    },
+    {
+      "id": "quick_capture",
+      "title": "Quick Capture (Work Items)",
+      "when_to_use": "User wants to record a requirement, bug, or issue without deep validation",
+      "primary": "capture-work-items",
+      "optional": ["analyze-requirements"],
+      "optional_note": "when item is vague and needs validation",
+      "output": "Structured work item(s) in docs/backlog/ or project convention",
+      "stop_condition": "Item persisted and user confirmed"
+    }
+  ]
+}

@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 /**
- * Verify skills/INDEX.md, manifest.json, scenario-map.md, and marketplace.json stay in sync.
+ * Verify skills/INDEX.md, manifest.json, scenario-map.md, skillgraph.md, and marketplace.json stay in sync.
+ * Regenerates skillgraph.md and scenario-map.md from sources first, then validates.
  * - Every capability in manifest.json has a path that exists.
  * - Every directory under skills/ that contains SKILL.md is listed in manifest capabilities.
- * - Every skill referenced in skills/scenario-map.md exists in manifest and INDEX.
+ * - Every skill referenced in skills/scenario-map.md (and scenario-map.json) exists in manifest and INDEX.
  * - Every skill in marketplace.json exists in skills/ and is registered in INDEX.md.
  * Run from repo root: node scripts/verify-registry.mjs
  */
+import { spawnSync } from 'child_process';
 import { readFileSync, readdirSync, existsSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
@@ -29,6 +31,16 @@ if (!existsSync(skillsDir)) {
 if (!existsSync(indexPath)) {
   console.error('skills/INDEX.md not found');
   process.exit(1);
+}
+
+// Regenerate skillgraph.md and scenario-map.md from sources
+const genScript = join(root, 'scripts', 'generate-skills-docs.mjs');
+if (existsSync(genScript)) {
+  const r = spawnSync('node', [genScript], { cwd: root, stdio: 'pipe', encoding: 'utf8' });
+  if (r.status !== 0) {
+    console.error('generate-skills-docs failed:', r.stderr || r.error);
+    process.exit(r.status || 1);
+  }
 }
 
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
@@ -203,6 +215,25 @@ if (existsSync(scenarioMapPath)) {
   console.warn('skills/scenario-map.md not found; skipping scenario-map validation');
 }
 
+// scenario-map.json sync check (source of truth for scenario-map.md)
+const scenarioMapJsonPath = join(skillsDir, 'scenario-map.json');
+if (existsSync(scenarioMapJsonPath)) {
+  const scenarioConfig = JSON.parse(readFileSync(scenarioMapJsonPath, 'utf8'));
+  const jsonSkillRefs = new Set();
+  for (const s of scenarioConfig.scenarios || []) {
+    if (s.primary) jsonSkillRefs.add(s.primary);
+    for (const o of s.optional || []) jsonSkillRefs.add(o);
+  }
+  for (const name of jsonSkillRefs) {
+    if (!manifestNames.has(name) || !indexNames.has(name)) {
+      console.error(
+        `skills/scenario-map.json references "${name}" but it is missing from manifest.json or skills/INDEX.md`
+      );
+      failed = true;
+    }
+  }
+}
+
 // marketplace.json sync check (if file exists)
 const marketplacePath = join(root, '.claude-plugin', 'marketplace.json');
 if (existsSync(marketplacePath)) {
@@ -225,6 +256,6 @@ if (existsSync(marketplacePath)) {
 
 if (failed) process.exit(1);
 console.log(
-  'Registry OK: manifest, skills/INDEX.md, skills/scenario-map.md, marketplace.json, and skills/*/SKILL.md are consistent.'
+  'Registry OK: manifest, skills/INDEX.md, skills/scenario-map.md, skillgraph.md, scenario-map.json, marketplace.json, and skills/*/SKILL.md are consistent.'
 );
 process.exit(0);
