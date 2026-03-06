@@ -8,7 +8,7 @@ inputs:
   - optional project context (docs/ structure for path detection)
 
 outputs:
-  - structured work item Markdown (docs/process-management/backlog/, docs/requirements-planning/backlog/, or docs/backlog/ per path detection)
+  - structured work item Markdown (docs/process-management/project-board/backlog/ or docs/backlog/ per path detection, spec/artifact-contract.md)
   - YAML front-matter with type, date, status (captured), source, severity (bugs)
 
 scores:

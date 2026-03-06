@@ -21,7 +21,7 @@ This skill provides quick structured recording without the deep validation that 
 ## Outputs
 
 - Structured work item Markdown with YAML front-matter
-- Path: `docs/process-management/backlog/`, `docs/requirements-planning/backlog/`, or `docs/backlog/` (per path detection)
+- Path: `docs/process-management/project-board/backlog/` (canonical) or `docs/backlog/` (fallback) per spec/artifact-contract.md
 - Types: requirement, bug, issue
 - Status: initial `captured` (downstream updates: triaged, in-progress, done, blocked, cancelled)
 

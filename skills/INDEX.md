@@ -58,6 +58,7 @@ Convention: a skill at `0.x.x` with ASQM status "validated" should be upgraded t
 | :--- | :--- | :--- | :--- | :--- |
 | [decontextualize-text](./decontextualize-text/SKILL.md) | writing, security, privacy, generalization | `1.3.0` | stable | Remove context dependency and enable cross-boundary knowledge flow. |
 | [generate-standard-readme](./generate-standard-readme/SKILL.md) | documentation, eng-standards, devops, writing | `1.2.0` | stable | Give project assets a standardized "first face". |
+| [discover-document-norms](./discover-document-norms/SKILL.md) | documentation, eng-standards, workflow | `1.0.0` | stable | Help users establish project-specific artifact norms; produce docs/ARTIFACT_NORMS.md and optional .ai-cortex/artifact-norms.yaml. |
 | [discover-skills](./discover-skills/SKILL.md) | automation, infrastructure, generalization | `1.3.0` | stable | Discover and recommend relevant skills; suggest install commands to fill capability gaps. |
 | [refine-skill-design](./refine-skill-design/SKILL.md) | writing, eng-standards, meta-skill, optimization | `1.3.0` | stable | Audit and refactor SKILLs to meet production-grade standards. |
 | [write-agents-entry](./write-agents-entry/SKILL.md) | documentation, eng-standards | `1.0.0` | stable | Write or revise AGENTS.md per the skill's embedded output contract; establish Agent entry and behavior. |
@@ -93,6 +94,7 @@ Convention: a skill at `0.x.x` with ASQM status "validated" should be upgraded t
 | [execution-alignment](./execution-alignment/SKILL.md) | workflow, eng-standards, documentation | `1.0.0` | stable | Perform post-task traceback, typed drift detection, and top-down recalibration to keep execution aligned with goals, requirements, architecture, milestones, and roadmap. |
 | [documentation-readiness](./documentation-readiness/SKILL.md) | documentation, eng-standards, workflow | `1.0.0` | stable | Assess documentation evidence readiness across project layers, prioritize gaps, and produce a minimum-fill plan for reliable AI-assisted governance. |
 | [project-cognitive-loop](./project-cognitive-loop/SKILL.md) | workflow, automation, eng-standards | `1.0.0` | stable | Orchestrate governance cycles by routing among requirements, design, execution alignment, and documentation readiness checks. |
+| [validate-document-artifacts](./validate-document-artifacts/SKILL.md) | documentation, eng-standards, workflow | `1.0.0` | stable | Validate docs against project artifact norms; output findings list for path, naming, and front-matter compliance. |
 
 ---
 

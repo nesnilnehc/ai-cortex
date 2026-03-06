@@ -13,7 +13,10 @@ input_schema:
   description: Project docs scope, optional layer mapping, and optional target readiness level
 output_schema:
   type: document-artifact
-  description: Documentation Readiness Report and Minimal Fill Plan written to docs/calibration/YYYY-MM-DD-doc-readiness.md
+  description: Documentation Readiness Report and Minimal Fill Plan
+  artifact_type: doc-readiness
+  path_pattern: docs/calibration/YYYY-MM-DD-doc-readiness.md
+  lifecycle: snapshot
 ---
 
 # Skill: Documentation Readiness
@@ -75,12 +78,13 @@ Evaluate whether project documentation is sufficient for reliable AI-assisted pl
 ### Phase 0: Resolve Scope and Mapping
 
 1. Resolve docs root and optional custom path mapping
-2. Detect expected layer paths (template defaults first):
+2. **Resolve project norms**: Check for `.ai-cortex/artifact-norms.yaml` or `docs/ARTIFACT_NORMS.md` per [spec/artifact-norms-schema.md](../../spec/artifact-norms-schema.md). If found, use project paths for layer mapping and output; otherwise use defaults.
+3. Detect expected layer paths per resolved norms or [spec/artifact-contract.md](../../spec/artifact-contract.md):
    - Goals: `docs/project-overview/`
    - Requirements: `docs/requirements-planning/`
    - Architecture: `docs/architecture/`
-   - Milestones/Roadmap/Backlog: `docs/process-management/`
-3. Accept backward-compatible aliases when present (for example, `docs/requirements/`)
+   - Milestones/Roadmap/Backlog: `docs/process-management/` (backlog: `docs/process-management/project-board/backlog/` or `docs/backlog/`)
+4. Accept backward-compatible aliases when present (for example, `docs/requirements/`)
 
 ### Phase 1: Inventory and Evidence Collection
 
@@ -127,10 +131,7 @@ Produce the smallest set of actions needed to raise readiness to target level:
 
 ### Phase 5: Persist Report
 
-Write to:
-
-- Default: `docs/calibration/YYYY-MM-DD-doc-readiness.md`
-- Or user-defined path
+Write to path per resolved project norms (Phase 0) or default `docs/calibration/YYYY-MM-DD-doc-readiness.md` from [spec/artifact-contract.md](../../spec/artifact-contract.md). Include front-matter: `artifact_type: doc-readiness`, `created_by: documentation-readiness`, `lifecycle: snapshot`, `created_at: YYYY-MM-DD`. Create output directory if it does not exist.
 
 ---
 
@@ -145,6 +146,13 @@ Write to:
 ### Output
 
 ```markdown
+---
+artifact_type: doc-readiness
+created_by: documentation-readiness
+lifecycle: snapshot
+created_at: YYYY-MM-DD
+---
+
 # Documentation Readiness Report
 
 **Date:** YYYY-MM-DD

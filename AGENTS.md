@@ -19,6 +19,7 @@ Catalog and metadata: `skills/INDEX.md`. Executable capability list: `manifest.j
 ## 2. Authoritative Sources
 
 - **Definitions**: `spec/skill.md` defines structure, metadata, and quality requirements for skills.
+- **Document artifacts**: `spec/artifact-contract.md` is the default; `spec/artifact-norms-schema.md` defines project-level override. Project norms (docs/ARTIFACT_NORMS.md or .ai-cortex/artifact-norms.yaml) take precedence.
 - **Catalogs**: `skills/INDEX.md` and `manifest.json` are the canonical capability lists.
 - **Entry contract**: This file defines discovery, injection, and self-check behavior (§4).
 
@@ -28,7 +29,7 @@ Catalog and metadata: `skills/INDEX.md`. Executable capability list: `manifest.j
 
 When working in or referencing this project, Agents must:
 
-1. **Follow the spec**: When understanding, writing, or changing skills, adhere to [spec/skill.md](spec/skill.md).
+1. **Follow the spec**: When understanding, writing, or changing skills, adhere to [spec/skill.md](spec/skill.md). When creating or moving document artifacts under `docs/`, follow [spec/artifact-contract.md](spec/artifact-contract.md).
 2. **Self-check before commit**: After producing content, run the Skill’s Self-Check; only then submit. If the Skill defines an interaction policy (e.g. ask user), pause and confirm before proceeding.
 3. **List capabilities when asked**: When the user asks “what skills are there”, read `skills/INDEX.md`, **enumerate names and purposes**, then optionally link; do not reply with only URLs.
 4. **Use assets when improving this repo**: For tasks that improve this project (e.g. writing or revising AGENTS.md, designing or refactoring Skills, generating README), consult `skills/INDEX.md`, match by task semantics, and inject the appropriate Skill; do not ignore available assets.
@@ -58,8 +59,8 @@ When working in or referencing this project, Agents must:
 | Spec source | [AI Cortex](https://github.com/nesnilnehc/ai-cortex) |
 | skills.sh install | `npx skills add nesnilnehc/ai-cortex` |
 | This entry (Raw) | <https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/AGENTS.md> |
-| Specs | [spec/skill.md](spec/skill.md) |
+| Specs | [spec/skill.md](spec/skill.md), [spec/artifact-contract.md](spec/artifact-contract.md), [spec/artifact-norms-schema.md](spec/artifact-norms-schema.md) |
 | Usage | This file §4 |
 | Entry authoring | [skills/write-agents-entry/SKILL.md](skills/write-agents-entry/SKILL.md) (includes embedded output contract for other projects) |
 | Indexes | [skills/INDEX.md](skills/INDEX.md) |
-| Self-reference tasks→assets | **Skill**: Write/revise AGENTS.md → [write-agents-entry](skills/write-agents-entry/SKILL.md); design/refactor Skill → [refine-skill-design](skills/refine-skill-design/SKILL.md); generate README → [generate-standard-readme](skills/generate-standard-readme/SKILL.md). Full list: [skills/INDEX.md](skills/INDEX.md). |
+| Self-reference tasks→assets | **Skill**: Write/revise AGENTS.md → [write-agents-entry](skills/write-agents-entry/SKILL.md); design/refactor Skill → [refine-skill-design](skills/refine-skill-design/SKILL.md); generate README → [generate-standard-readme](skills/generate-standard-readme/SKILL.md); discover document norms → [discover-document-norms](skills/discover-document-norms/SKILL.md); validate docs → [validate-document-artifacts](skills/validate-document-artifacts/SKILL.md). Full list: [skills/INDEX.md](skills/INDEX.md). |

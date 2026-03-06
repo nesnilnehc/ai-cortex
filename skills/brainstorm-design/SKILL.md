@@ -65,7 +65,10 @@ input_schema:
   description: Rough idea, feature request, or problem statement from user
 output_schema:
   type: document-artifact
-  description: Validated design document written to docs/designs/YYYY-MM-DD-<topic>.md
+  description: Validated design document written per [spec/artifact-contract.md](../../spec/artifact-contract.md)
+  artifact_type: design
+  path_pattern: docs/design-decisions/YYYY-MM-DD-{topic}.md
+  lifecycle: snapshot
 ---
 
 # Skill: Brainstorm Design
@@ -82,7 +85,7 @@ Transform rough ideas into validated, production-grade designs through systemati
 
 **Success Criteria** (ALL must be met):
 
-1. ✅ **Design document exists**: Written to `docs/designs/YYYY-MM-DD-<topic>.md` and committed to version control
+1. ✅ **Design document exists**: Written to `docs/design-decisions/YYYY-MM-DD-<topic>.md` and committed to version control
 2. ✅ **User explicitly approved**: User said "approved", "looks good", "proceed", or equivalent confirmation
 3. ✅ **Alternatives documented**: At least 2-3 approaches considered with trade-offs analysis
 4. ✅ **YAGNI applied**: Design focuses on minimum viable solution, unnecessary features removed
@@ -200,12 +203,19 @@ Every project goes through this process. A todo list, single-function utility, c
 
 ### Phase 5: Document and Transition
 
-1. **Write design document**: Save to appropriate location:
-   - Default: `docs/designs/YYYY-MM-DD-<topic>.md`
-   - Or project-specific path if specified
+1. **Resolve project norms**: Check for `.ai-cortex/artifact-norms.yaml` or `docs/ARTIFACT_NORMS.md` per [spec/artifact-norms-schema.md](../../spec/artifact-norms-schema.md). If found, use project path for `design`; otherwise use default `docs/design-decisions/YYYY-MM-DD-<topic>.md` from [spec/artifact-contract.md](../../spec/artifact-contract.md).
 
-2. **Document structure**:
+2. **Write design document**: Save to resolved path. Create directory if it does not exist.
+
+3. **Document structure** (include YAML front-matter, see below):
    ```markdown
+   ---
+   artifact_type: design
+   created_by: brainstorm-design
+   lifecycle: snapshot
+   created_at: YYYY-MM-DD
+   ---
+   
    # [Feature Name] Design
    
    **Date:** YYYY-MM-DD
@@ -239,9 +249,9 @@ Every project goes through this process. A todo list, single-function utility, c
    - [ ] [Specific, measurable criterion 3]
    ```
 
-3. **Commit to version control**: Preserve validated design as project artifact.
+4. **Commit to version control**: Preserve validated design as project artifact.
 
-4. **Verify completion**: Check all success criteria met:
+5. **Verify completion**: Check all success criteria met:
    - ✅ Design document exists and committed
    - ✅ User explicitly approved
    - ✅ Alternatives documented with trade-offs
@@ -249,9 +259,9 @@ Every project goes through this process. A todo list, single-function utility, c
    - ✅ DRY applied (references existing patterns)
    - ✅ No code written
 
-5. **Announce completion and handoff**:
+6. **Announce completion and handoff**:
    ```
-   "Design complete and approved. Saved to docs/designs/YYYY-MM-DD-<topic>.md.
+   "Design complete and approved. Saved to docs/design-decisions/YYYY-MM-DD-<topic>.md.
    
    Next steps:
    - For detailed implementation plan: Use writing-plans or similar skill
@@ -315,7 +325,7 @@ Every project goes through this process. A todo list, single-function utility, c
 
 ### Core Success Criteria (ALL must be met)
 
-- [ ] **Design document exists**: Written to `docs/designs/YYYY-MM-DD-<topic>.md` and committed
+- [ ] **Design document exists**: Written to `docs/design-decisions/YYYY-MM-DD-<topic>.md` and committed
 - [ ] **User explicitly approved**: User said "approved", "looks good", "proceed", or equivalent
 - [ ] **Alternatives documented**: At least 2-3 approaches with trade-offs in design document
 - [ ] **YAGNI applied**: Design focuses on minimum viable solution, unnecessary features removed
@@ -379,7 +389,7 @@ If YES: Design is complete. Proceed to handoff.
 7. Error handling: Rate limiting (5 attempts/15min), input validation, secure password requirements (min 8 chars)
 8. Testing: Unit tests for auth logic, integration tests for endpoints
 
-**Agent documents**: Writes to `docs/designs/2026-03-02-user-authentication.md` with trade-offs section and commits.
+**Agent documents**: Writes to `docs/design-decisions/2026-03-02-user-authentication.md` with trade-offs section and commits.
 
 ### Example 2: Complex Feature - Real-time Collaboration
 
@@ -418,7 +428,7 @@ If YES: Design is complete. Proceed to handoff.
 9. Error handling: Reconnection logic (exponential backoff), offline queue (max 1000 ops), sync conflict UI (rare, show merge dialog)
 10. Testing: Multi-client simulation (2, 5, 10 users), network partition scenarios, data consistency checks, load testing (100 concurrent docs)
 
-**Agent documents**: Writes to `docs/designs/2026-03-02-realtime-collaboration.md` with architecture diagrams, trade-offs analysis, and commits.
+**Agent documents**: Writes to `docs/design-decisions/2026-03-02-realtime-collaboration.md` with architecture diagrams, trade-offs analysis, and commits.
 
 ### Example 3: Edge Case - "Too Simple" Project
 
@@ -446,7 +456,7 @@ If YES: Design is complete. Proceed to handoff.
 
 "Utility function using libphonenumber-js: accepts string input, validates format, returns formatted string or error. Handles US and international numbers. DRY: integrates with existing Zod validation patterns. YAGNI: no custom formatting rules, no phone number database, just format and validate. Includes unit tests for valid/invalid inputs and edge cases (empty string, partial numbers, invalid country codes, null/undefined)."
 
-**Agent documents**: Writes brief design to `docs/designs/2026-03-02-phone-formatter.md` with trade-offs (libphonenumber-js vs regex) and commits.
+**Agent documents**: Writes brief design to `docs/design-decisions/2026-03-02-phone-formatter.md` with trade-offs (libphonenumber-js vs regex) and commits.
 
 ### Example 4: Edge Case - Blocked by Missing Information
 

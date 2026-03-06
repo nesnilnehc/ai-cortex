@@ -14,6 +14,9 @@ input_schema:
 output_schema:
   type: document-artifact
   description: Structured lifecycle documentation tree aligned with enterprise template
+  artifact_type: adr
+  path_pattern: docs/process-management/decisions/YYYYMMDD-{slug}.md
+  lifecycle: living
 compatibility: Requires access to https://raw.githubusercontent.com or a local clone of nesnilnehc/project-documentation-template.
 ---
 
@@ -21,7 +24,7 @@ compatibility: Requires access to https://raw.githubusercontent.com or a local c
 
 ## Purpose
 
-Bootstrap or adapt project documentation using the [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) structure. Two modes: **Initialize** (empty project—copy templates and fill placeholders) and **Adjust** (non-empty—use template as target, propose renames/moves/merges, apply in-place after confirmation). Supports repeatable runs; avoids empty dirs and template files unless requested; enforces strict kebab-case naming. Both modes follow conventions from the template's `llms.txt` and `AGENTS.md`.
+Bootstrap or adapt project documentation using the [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) structure. Two modes: **Initialize** (empty project—copy templates and fill placeholders) and **Adjust** (non-empty—use template as target, propose renames/moves/merges, apply in-place after confirmation). Supports repeatable runs; avoids empty dirs and template files unless requested; enforces strict kebab-case naming. Output paths for skill-generated artifacts (ADR, backlog, design-decisions, calibration) follow [spec/artifact-contract.md](../../spec/artifact-contract.md); project-documentation-template provides content and reference. When creating process-management structure, create `docs/process-management/project-board/backlog/` and `docs/process-management/decisions/` per contract.
 
 ---
 
@@ -96,7 +99,7 @@ First determine the execution mode. User override takes precedence; otherwise:
    - **Medium**: + Architecture, Design, Requirements & Planning
    - **Large**: + Process Management, Operations Guide, Compliance, Community & Contributing
 3. Fetch templates from `TEMPLATE_BASE_URL` (see Appendix) or use a local clone.
-4. Copy **only** selected docs to the project `docs/`. Do not create empty directories or placeholder files unless the user explicitly requests them.
+4. Copy **only** selected docs to the project `docs/`. Create contract-aligned directories per [spec/artifact-contract.md](../../spec/artifact-contract.md) when scale permits: `docs/design-decisions/` (medium+), `docs/calibration/`, `docs/process-management/project-board/backlog/`, `docs/process-management/decisions/` (large). Optionally create `docs/ARTIFACT_NORMS.md` from contract (per [spec/artifact-norms-schema.md](../../spec/artifact-norms-schema.md)) for the user to customize. Do not create other empty dirs unless the user explicitly requests them.
 5. Fill placeholders with project metadata (name, dates, tech stack) and prompt for missing critical data.
 6. Create a `VERSION` file (e.g. `1.0.0`) unless the user explicitly requests no new files.
 7. Validate: no unreplaced placeholders, links valid, tables aligned.
@@ -125,7 +128,7 @@ First determine the execution mode. User override takes precedence; otherwise:
 
 - **Directories**: `kebab-case` only (e.g. `project-overview`, `development-guide`, `process-management`)
 - **Files**: `kebab-case` with `.md` extension (e.g. `goals-and-vision.md`, `versioning-standards.md`)
-- **ADR files**: `YYYYMMDD-slug-title.md` (e.g. `20250225-process-management-strategy.md`)
+- **ADR files**: `docs/process-management/decisions/YYYYMMDD-slug.md` per [spec/artifact-contract.md](../../spec/artifact-contract.md)
 - No spaces, underscores, or PascalCase; lowercase letters, digits, hyphens only.
 
 ---
