@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `execution-alignment` skill — post-task traceback, drift detection, and top-down calibration
+- `documentation-readiness` skill — documentation evidence assessment and minimal-fill plan
+- `project-cognitive-loop` skill — orchestrate governance cycles (requirements, design, alignment, docs)
+- `skills/scenario-map.md` — scenario-to-skill mapping for task-based discovery
+- `agent.yaml` and README for execution-alignment, documentation-readiness, project-cognitive-loop
 - `analyze-requirements` skill (v1.0.0) — transform vague intent into validated requirements
 - I/O schema contracts for 7 previously missing skills
 - Verification script enhancements: agent.yaml/README.md existence, related_skills validity, marketplace.json sync
@@ -16,6 +21,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `skillgraph.md` — added project governance loop (analyze-requirements → brainstorm-design → execution-alignment → documentation-readiness → project-cognitive-loop)
+- `analyze-requirements` default output path to `docs/requirements-planning/` (keeps `docs/requirements/` compatible)
+- Curate Skills audit: ASQM_AUDIT §6.5, §7; run-repair-loop README status and scores normalized
 - Graduated `run-automated-tests` and `run-repair-loop` from experimental (v0.1.0) to stable (v1.0.0)
 - Upgraded `schemas/skill-metadata.json` to spec v2.2.0 (added `input_schema`/`output_schema` fields)
 - Updated CI workflow version references from spec v2.0.0 to v2.2.0
@@ -28,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - ASQM audit coverage gap (7 unscored skills)
 - Roadmap acceptance criteria checkboxes now reflect actual completion status
+- 7 markdownlint issues in `skills/analyze-requirements/SKILL.md` (MD032, MD040)
 
 ## [2.0.0] - 2026-03-02
 
