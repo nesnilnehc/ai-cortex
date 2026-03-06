@@ -49,12 +49,11 @@ Keep project execution aligned with higher-level planning by running a post-task
 **Success Criteria** (ALL must be met):
 
 1. ✅ **Traceback completed**: The completed task is traced through applicable project layers for the selected mode
-2. ✅ **Drift classified**: All detected misalignments are classified using the drift model (goal, requirement, architecture, roadmap, priority)
-3. ✅ **Impact and root cause captured**: Every drift item includes impact scope and root cause
-4. ✅ **Calibration produced**: A top-down recalibration recommendation list is provided, including next tasks
-5. ✅ **Report persisted**: Execution Alignment Report is written to the agreed path
-6. ✅ **Evidence readiness assessed**: Missing or weak documentation is explicitly scored and reflected in confidence
-7. ✅ **Unsafe writes avoided**: If mapping is uncertain or updates are destructive, user confirmation is requested before proposing file-level changes
+2. ✅ **Drift classified**: All detected misalignments use the drift model (goal, requirement, architecture, roadmap, priority), with impact scope and root cause per item
+3. ✅ **Calibration produced**: A top-down recalibration recommendation list is provided, including next tasks
+4. ✅ **Report persisted**: Execution Alignment Report is written to the agreed path
+5. ✅ **Evidence readiness assessed**: Missing or weak documentation is explicitly scored and reflected in confidence
+6. ✅ **Unsafe writes avoided**: If mapping is uncertain or updates are destructive, user confirmation is requested before proposing file-level changes
 
 **Acceptance Test**: Can a teammate read the report and immediately understand whether execution is still aligned, what drift exists, what to do next, and why?
 
