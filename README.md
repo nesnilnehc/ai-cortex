@@ -83,7 +83,7 @@ This repository is the capability-asset library: it hosts Skills and provides Sp
 
 ## 🤝 Contributing
 
-Submit PRs that follow the [skill spec](spec/skill.md). Capability index: [skills/INDEX.md](skills/INDEX.md). When adding or moving a skill, update both `skills/INDEX.md` and `manifest.json`, then run `node scripts/verify-registry.mjs` to confirm they stay in sync.
+Submit PRs that follow the [skill spec](spec/skill.md). Capability index: [skills/INDEX.md](skills/INDEX.md). When adding or moving a skill, update `skills/INDEX.md`, `manifest.json`, and (as needed) `skills/scenario-map.json`, then run `node scripts/verify-registry.mjs` to regenerate docs and confirm sync.
 
 ---
 

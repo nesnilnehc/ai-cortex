@@ -66,7 +66,7 @@ As a "Skill for Skills," this skill **audits and refactors** AI capability defin
 
 - **New skill onboarding**: Expert review after an Agent has generated a new Skill draft.
 - **Quality fixes**: When a Skill behaves inconsistently on newer models, align logic and strengthen examples.
-- **Consistency audit**: Check that a new Skill matches the tagging system and naming in `INDEX.md`; consider adding to `skills/scenario-map.md` if the skill should be discoverable by scenario (per spec Metadata Sync).
+- **Consistency audit**: Check that a new Skill matches the tagging system and naming in `INDEX.md`; consider adding to `skills/scenario-map.json` if the skill should be discoverable by scenario (per spec Metadata Sync).
 - **Upgrade**: Turn a simple "formatting tool" into a full Agent capability with interaction policy and error handling.
 
 **Scope**: This skill is for **auditing and refactoring existing SKILLs**, not creating from scratch. For learning how to create new skills, plan scripts/references/assets, or run init/package scripts, use skills.sh's `skill-creator` (e.g. anthropics/skills).
@@ -87,7 +87,7 @@ As a "Skill for Skills," this skill **audits and refactors** AI capability defin
 1. **Structure**: Apply the standard template (YAML, Purpose, Use cases, Behavior, I/O, Restrictions, Self-Check, Examples).
 2. **Verbs**: Use precise, unambiguous verbs (e.g. "handle" → "parse," "transform," "trim").
 3. **Interaction**: For complex logic, add "confirm before proceed" or "choose among options."
-4. **Metadata**: Align tags with `INDEX.md` and suggest a sensible SemVer version; remind that new skills may need to be added to `scenario-map.md` for scenario-based discovery.
+4. **Metadata**: Align tags with `INDEX.md` and suggest a sensible SemVer version; remind that new skills may need to be added to `scenario-map.json` for scenario-based discovery.
 
 ---
 
