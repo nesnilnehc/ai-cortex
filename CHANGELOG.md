@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `execution-alignment` skill — post-task traceback, drift detection, and top-down calibration
+- `docs/requirements-planning/` and `docs/architecture/` — minimal scaffolding; point to goals, roadmap, milestones
 - `documentation-readiness` skill — documentation evidence assessment and minimal-fill plan
 - `project-cognitive-loop` skill — orchestrate governance cycles (requirements, design, alignment, docs)
 - `skills/scenario-map.md` — scenario-to-skill mapping for task-based discovery
@@ -22,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - `skillgraph.md` — added project governance loop (analyze-requirements → brainstorm-design → execution-alignment → documentation-readiness → project-cognitive-loop)
+- `project-cognitive-loop` — single-artifact output rule; Recommended Next Tasks (owner, scope, rationale); no separate outputs from routed skills
 - `analyze-requirements` default output path to `docs/requirements-planning/` (keeps `docs/requirements/` compatible)
 - Curate Skills audit: ASQM_AUDIT §6.5, §7; run-repair-loop README status and scores normalized
 - Graduated `run-automated-tests` and `run-repair-loop` from experimental (v0.1.0) to stable (v1.0.0)

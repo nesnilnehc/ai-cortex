@@ -152,6 +152,10 @@ All overlaps use **Git-repo form** `owner/repo:skill-name` (e.g. `nesnilnehc/ai-
 
 1. **refine-skill-design** (v1.2.0 → v1.3.0): Added Output Persistence policy — fixed temp `SKILL.refined.md` or new-per-run path; never overwrites original or prior outputs. Hard Boundary added. Scores unchanged (20); agent.yaml outputs updated.
 
+### 6.7 project-cognitive-loop refinement (2026-03-06)
+
+1. **project-cognitive-loop**: Single-artifact rule added — orchestrator produces only one output file; routed skills (documentation-readiness, execution-alignment) do not persist separate files. Recommended Next Tasks section required: prioritized, actionable, with owner, scope, rationale. agent.yaml and README updated; scenario-map output description updated. Scores unchanged (20).
+
 ---
 
 ## 7. Recommendations
