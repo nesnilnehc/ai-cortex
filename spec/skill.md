@@ -1,10 +1,11 @@
 # Skill Specification
 
 Status: MANDATORY  
-Version: 2.2.0  
+Version: 2.3.0  
 Scope: All files under `skills/`.
 
 **Changelog**:
+- v2.3.0 (2026-03-06): Added scenario-map to Metadata Sync; expanded verb-noun naming guidance; verify-registry checks scenario-map references
 - v2.2.0 (2026-03-02): Allowed `## Scope Boundaries` as an optional standalone section in heading structure (§3)
 - v2.1.0 (2026-03-02): Added optional I/O contracts (input_schema/output_schema) for skill chaining and orchestration
 - v2.0.0 (2026-03-02): Added mandatory Core Objective section, enhanced Self-Check and Restrictions requirements, added quality assurance process
@@ -17,6 +18,8 @@ Scope: All files under `skills/`.
 - **Directory**: Must use `kebab-case` and match the YAML `name` field.
 - **File name**: Must be `SKILL.md`.
 - **Naming**: Use `verb-noun` (e.g. `decontextualize-text`). Avoid vague or generic terms.
+  - **Preferred**: `verb-noun` (e.g. `generate-readme`, `discover-skills`, `capture-work-items`), or `verb-target` for review/action families (e.g. `review-code`, `review-python`).
+  - **Avoid**: Pure noun-noun compounds (e.g. `documentation-readiness` → prefer `assess-documentation-readiness`); abstract compound names without a clear verb.
 - **name** (aligned with [agentskills.io](https://agentskills.io/specification)): 1–64 chars; lowercase letters, digits, hyphens only; must not start or end with `-`; no consecutive hyphens `--`; must match parent directory name.
 - **Single-file and self-contained (best practice)**: A skill is typically **one SKILL.md**; the Agent loads that file for the full definition. Do not rely on other MD files in the skill directory for execution. If the skill has a fixed output format or contract (e.g. "AGENTS.md must follow a given structure"), **embed that contract in SKILL.md** (e.g. "## Appendix: Output contract") rather than a separate file, so one injection is enough.
 
@@ -244,7 +247,8 @@ The Restrictions section SHOULD include:
 
 - After adding a skill, update `skills/INDEX.md` with the new entry.
 - After adding or moving a skill, update `manifest.json` `capabilities` with the new path.
-- **Checklist**: When adding or moving a skill, verify both `skills/INDEX.md` and `manifest.json` are updated together; run `scripts/verify-registry.mjs` (if present) to confirm they stay in sync.
+- After adding, removing, or significantly changing skills, update `skills/scenario-map.md` if the skill should appear in scenario-based discovery (see §9).
+- **Checklist**: When adding or moving a skill, verify `skills/INDEX.md`, `manifest.json`, and (as needed) `skills/scenario-map.md` are updated together; run `scripts/verify-registry.mjs` (if present) to confirm they stay in sync.
 - **Publish for npx skills**: `npx skills add owner/repo --skill <name>` clones the default branch from the remote. Push the commit that adds the skill (and updated INDEX + manifest) so the skill is discoverable and installable.
 - Versions must follow [SemVer](https://semver.org/).
 
@@ -269,7 +273,7 @@ The Restrictions section SHOULD include:
 2. **Self-check**: Run through Self-Check section, verify all Core Success Criteria met
 3. **Refine**: Use `skills/refine-skill-design` to audit and improve the skill
 4. **Curate**: Run `skills/curate-skills` to evaluate ASQM score and detect overlaps
-5. **Register**: Update `skills/INDEX.md` and `manifest.json`
+5. **Register**: Update `skills/INDEX.md` and `manifest.json`; update `skills/scenario-map.md` if the skill should be discoverable by scenario
 6. **Verify**: Run `scripts/verify-registry.mjs` to confirm sync
 
 **For existing skills (migration to new spec)**:
@@ -358,4 +362,5 @@ This is backward-compatible: skills without I/O contracts continue to work as be
 ## 9. Repo-level docs (skills directory)
 
 - **`skills/skillgraph.md`**: Optional; describes how review and other skills compose. For human and Agent reading; INDEX and manifest do not depend on it. Update when adding or changing orchestration (e.g. review-code) or composition.
+- **`skills/scenario-map.md`**: Scenario-to-skill mapping for task-based discovery. Update when adding, removing, or materially changing skills so the map reflects the global skill situation. Every skill referenced in scenario-map must exist in INDEX and manifest; `verify-registry.mjs` checks this.
 - **`skills/ASQM_AUDIT.md`**: Produced by the `curate-skills` skill; lifecycle and ASQM scores. Update by running curate-skills after adding or changing skills. It does not replace INDEX or manifest.
