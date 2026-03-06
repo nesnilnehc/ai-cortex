@@ -148,6 +148,10 @@ All overlaps use **Git-repo form** `owner/repo:skill-name` (e.g. `nesnilnehc/ai-
 1. **execution-alignment**, **documentation-readiness**, **project-cognitive-loop**: Created `agent.yaml` (scores, overlaps_with, market_position) and normalized `README.md` to standard sections (what it does, when to use, inputs, outputs, related skills). All three were previously scored in §4 but lacked agent.yaml and README.
 2. **run-repair-loop**: Normalized README — updated status from experimental to validated, ASQM scores from 16 to 17 (agent_native 4 → 5, market_position experimental → commodity) to match agent.yaml and §4.
 
+### 6.6 Curation run (2026-03-06, refine-skill-design)
+
+1. **refine-skill-design** (v1.2.0 → v1.3.0): Added Output Persistence policy — fixed temp `SKILL.refined.md` or new-per-run path; never overwrites original or prior outputs. Hard Boundary added. Scores unchanged (20); agent.yaml outputs updated.
+
 ---
 
 ## 7. Recommendations

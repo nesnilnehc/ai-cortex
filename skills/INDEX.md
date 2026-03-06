@@ -59,7 +59,7 @@ Convention: a skill at `0.x.x` with ASQM status "validated" should be upgraded t
 | [decontextualize-text](./decontextualize-text/SKILL.md) | writing, security, privacy, generalization | `1.3.0` | stable | Remove context dependency and enable cross-boundary knowledge flow. |
 | [generate-standard-readme](./generate-standard-readme/SKILL.md) | documentation, eng-standards, devops, writing | `1.2.0` | stable | Give project assets a standardized "first face". |
 | [discover-skills](./discover-skills/SKILL.md) | automation, infrastructure, generalization | `1.3.0` | stable | Discover and recommend relevant skills; suggest install commands to fill capability gaps. |
-| [refine-skill-design](./refine-skill-design/SKILL.md) | writing, eng-standards, meta-skill, optimization | `1.2.0` | stable | Audit and refactor SKILLs to meet production-grade standards. |
+| [refine-skill-design](./refine-skill-design/SKILL.md) | writing, eng-standards, meta-skill, optimization | `1.3.0` | stable | Audit and refactor SKILLs to meet production-grade standards. |
 | [write-agents-entry](./write-agents-entry/SKILL.md) | documentation, eng-standards | `1.0.0` | stable | Write or revise AGENTS.md per the skill's embedded output contract; establish Agent entry and behavior. |
 | [review-code](./review-code/SKILL.md) | eng-standards | `2.6.0` | mature | Orchestrator: run scope → language → framework → library → cognitive review skills in order, aggregate findings, and derive risk signals centrally. |
 | [review-codebase](./review-codebase/SKILL.md) | eng-standards | `1.3.0` | stable | Review architecture, design, and tech debt for a given scope; focus on boundaries, patterns, and overall quality. |

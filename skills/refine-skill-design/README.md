@@ -19,7 +19,7 @@ Audits and refactors existing SKILLs. Applies meta-audit model: intent, logic, c
 
 ## Outputs
 
-- Optimized SKILL Markdown
+- Optimized SKILL (written to fixed temp `SKILL.refined.md` or new-per-run `SKILL.refined.YYYYMMDD.md`; never overwrites original)
 - Diff summary (what changed and why)
 - Version suggestion (SemVer)
 

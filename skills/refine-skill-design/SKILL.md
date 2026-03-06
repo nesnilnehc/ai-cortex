@@ -3,7 +3,7 @@ name: refine-skill-design
 description: Audit and refactor existing SKILLs to meet spec compliance and LLM best practices. Use when improving drafts, fixing quality, or aligning to spec.
 tags: [writing, eng-standards, meta-skill, optimization]
 related_skills: [decontextualize-text, generate-standard-readme]
-version: 1.2.0
+version: 1.3.0
 license: MIT
 recommended_scope: user
 metadata:
@@ -13,7 +13,7 @@ input_schema:
   description: Existing SKILL.md file to audit and refactor
 output_schema:
   type: document-artifact
-  description: Optimized SKILL.md with diff summary (Section/Change/Reason) and version suggestion
+  description: Optimized SKILL written to fixed temp (SKILL.refined.md) or new-per-run path; diff summary (Section/Change/Reason) and version suggestion
 ---
 
 # Skill: Refine Skill Design
@@ -103,12 +103,24 @@ As a "Skill for Skills," this skill **audits and refactors** AI capability defin
 - **Diff summary**: What was changed and why.
 - **Version suggestion**: SemVer recommendation.
 
+### Output Persistence (Document Handling)
+
+**Rule**: Do not modify the original SKILL or any prior refinement output. Choose one strategy per run:
+
+| Strategy | Path pattern | Behavior |
+| :--- | :--- | :--- |
+| **Fixed temp** (default) | `skills/<skill-name>/SKILL.refined.md` | Overwrite this single temp file each run; never touch original `SKILL.md` or prior outputs |
+| **New per run** | `skills/<skill-name>/SKILL.refined.YYYYMMDD.md` | Create a new file each run; never overwrite previous refinements |
+
+User override: If user specifies a path or strategy, honor it. Otherwise use **fixed temp**.
+
 ---
 
 ## Restrictions
 
 ### Hard Boundaries
 
+- **Do not modify original or prior outputs**: Write only to the configured output path (fixed temp or new-per-run); never overwrite the source `SKILL.md` or previous refinement files.
 - **Do not change intent**: Optimization must preserve the skill's core purpose.
 - **Minimize prose**: Prefer lists and tables over long README-style text.
 - **Multiple examples**: Do not keep only one "happy path" example; include at least one challenging or edge-case example.
@@ -198,6 +210,7 @@ When this skill produces a refinement, the output MUST satisfy this contract so 
 
 | Element | Requirement |
 | :--- | :--- |
+| **Output path** | Fixed temp `skills/<skill-name>/SKILL.refined.md` (default, overwrite each run) OR new-per-run `skills/<skill-name>/SKILL.refined.YYYYMMDD.md`. Never modify original `SKILL.md` or prior refinement files. |
 | **Optimized SKILL** | Full Markdown content (or path to file). MUST satisfy [spec/skill.md](../../spec/skill.md): YAML front matter, Purpose, Use cases, Behavior, I/O, Restrictions, Self-Check, and at least one Example. |
 | **Diff summary** | List of changes. Each entry MUST include **Section** (e.g. `Purpose`, `Behavior`, `metadata`), **Change** (short description of what was changed), and **Reason** (why the change was made). |
 | **Version suggestion** | SemVer string `major.minor.patch`. Optionally **Rationale** (e.g. `minor: added Restrictions`). |
