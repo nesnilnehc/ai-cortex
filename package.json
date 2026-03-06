@@ -1,0 +1,21 @@
+{
+  "name": "ai-cortex",
+  "version": "2.1.0",
+  "description": "Agent-first, governance-ready inventory of AI skills",
+  "type": "module",
+  "scripts": {
+    "verify": "node scripts/verify-registry.mjs",
+    "verify:skill-structure": "node scripts/verify-skill-structure.mjs",
+    "verify:artifact-contract": "node scripts/verify-artifact-contract.mjs",
+    "verify:links": "node scripts/verify-links.mjs",
+    "test": "node --test \"scripts/test/*.test.mjs\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nesnilnehc/ai-cortex"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}

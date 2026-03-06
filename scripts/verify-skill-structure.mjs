@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Verify every SKILL.md under skills/ conforms to spec/skill.md v2.2.0.
+ * Verify every SKILL.md under skills/ conforms to spec/skill.md.
  *
  * Checks:
  *   1. YAML metadata completeness and format
@@ -19,6 +19,7 @@
 import { readFileSync, readdirSync, existsSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
+import { parseSkillFrontmatter } from './lib/parse-skill-frontmatter.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
@@ -60,32 +61,7 @@ function warn(skill, msg) {
 }
 
 function parseFrontmatter(content) {
-  const match = content.match(/^---\n([\s\S]*?)\n---/);
-  if (!match) return null;
-  const raw = match[1];
-  const meta = {};
-  for (const line of raw.split('\n')) {
-    if (line.startsWith('name:')) {
-      meta.name = line.replace(/^name:\s*/, '').trim();
-    } else if (line.startsWith('description:')) {
-      meta.description = line.replace(/^description:\s*/, '').trim();
-    } else if (line.startsWith('version:')) {
-      meta.version = line.replace(/^version:\s*/, '').trim();
-    } else if (line.startsWith('license:')) {
-      meta.license = line.replace(/^license:\s*/, '').trim();
-    } else if (line.startsWith('tags:')) {
-      const tagMatch = line.match(/tags:\s*\[(.*)\]\s*$/);
-      if (tagMatch) {
-        meta.tags = tagMatch[1].split(',').map((t) => t.trim()).filter(Boolean);
-      }
-    } else if (line.startsWith('related_skills:')) {
-      const rsMatch = line.match(/related_skills:\s*\[(.*)\]\s*$/);
-      if (rsMatch) {
-        meta.related_skills = rsMatch[1].split(',').map((t) => t.trim()).filter(Boolean);
-      }
-    }
-  }
-  return meta;
+  return parseSkillFrontmatter(content);
 }
 
 function extractHeadings(content) {

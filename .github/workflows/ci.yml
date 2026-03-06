@@ -1,0 +1,48 @@
+# CI: verify registry, skill structure, and run tests.
+# Triggers on push/PR to main when skills, scripts, or config change.
+name: CI
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'skills/**'
+      - 'scripts/**'
+      - 'manifest.json'
+      - 'package.json'
+      - 'spec/**'
+      - '.github/workflows/ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'skills/**'
+      - 'scripts/**'
+      - 'manifest.json'
+      - 'package.json'
+      - 'spec/**'
+      - '.github/workflows/ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Verify registry
+        run: node scripts/verify-registry.mjs
+
+      - name: Verify skill structure
+        run: node scripts/verify-skill-structure.mjs
+
+      - name: Run tests
+        run: npm test

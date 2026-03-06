@@ -12,6 +12,7 @@ import { spawnSync } from 'child_process';
 import { readFileSync, readdirSync, existsSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
+import { parseSkillFrontmatter, normalizeList } from './lib/parse-skill-frontmatter.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
@@ -49,34 +50,9 @@ const manifestNames = new Set(capabilities.map((c) => c.name));
 
 let failed = false;
 
-const normalizeList = (list) =>
-  list
-    .map((v) => v.trim())
-    .filter(Boolean)
-    .sort((a, b) => a.localeCompare(b));
-
 const readSkillFrontmatter = (skillPath) => {
   const content = readFileSync(skillPath, 'utf8');
-  const match = content.match(/^---\n([\s\S]*?)\n---/);
-  if (!match) return null;
-  const meta = {};
-  for (const line of match[1].split('\n')) {
-    if (line.startsWith('name:')) {
-      meta.name = line.split(':').slice(1).join(':').trim();
-      continue;
-    }
-    if (line.startsWith('version:')) {
-      meta.version = line.split(':').slice(1).join(':').trim();
-      continue;
-    }
-    if (line.startsWith('tags:')) {
-      const tagMatch = line.match(/tags:\s*\[(.*)\]\s*$/);
-      if (tagMatch) {
-        meta.tags = normalizeList(tagMatch[1].split(','));
-      }
-    }
-  }
-  return meta;
+  return parseSkillFrontmatter(content);
 };
 
 const readIndexEntries = () => {

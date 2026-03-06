@@ -83,7 +83,13 @@ This repository is the capability-asset library: it hosts Skills and provides Sp
 
 ## 🤝 Contributing
 
-Submit PRs that follow the [skill spec](spec/skill.md). Capability index: [skills/INDEX.md](skills/INDEX.md). When adding or moving a skill, update `skills/INDEX.md`, `manifest.json`, and (as needed) `skills/scenario-map.json`, then run `node scripts/verify-registry.mjs` to regenerate docs and confirm sync.
+Submit PRs that follow the [skill spec](spec/skill.md). Capability index: [skills/INDEX.md](skills/INDEX.md). When adding or moving a skill, update `skills/INDEX.md`, `manifest.json`, and (as needed) `skills/scenario-map.json`, then run `npm run verify` (or `node scripts/verify-registry.mjs`) to regenerate docs and confirm sync. See [spec/registry-sync-contract.md](spec/registry-sync-contract.md) for sync rules.
+
+### Development
+
+- **Verify registry**: `npm run verify` — checks manifest, INDEX, scenario-map, and marketplace consistency.
+- **Verify skill structure**: `npm run verify:skill-structure` — validates SKILL.md conformance to spec.
+- **Run tests**: `npm test` — runs unit and integration tests.
 
 ---
 
