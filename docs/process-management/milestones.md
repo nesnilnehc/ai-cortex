@@ -8,12 +8,13 @@ Project milestones aligned with [Evolution Roadmap](../designs/2026-03-02-ai-cor
 | :--- | :--- | :--- | :--- |
 | v1.0.0 | 2026-02-14 | closed | 26 skills, spec v2 migration, ASQM audit |
 | v2.0.0 | 2026-03-02 | closed | Orchestrators, review expansion (TS/React/ORM), CI infra, spec v2.2 |
+| v2.1.0 | 2026-03-06 | closed | Governance skills, scenario-map, requirements/architecture docs, ASQM refresh |
 
 ## Current
 
 | Milestone | Target | Status | Scope |
 | :--- | :--- | :--- | :--- |
-| Unreleased (v2.1.0 candidate) | — | in progress | Governance skills (execution-alignment, documentation-readiness, project-cognitive-loop), scenario-map, curate run; **推广与迭代**：需求与设计落稿（[requirements](../requirements-planning/promotion-and-iteration.md)、[design](../designs/2026-03-06-promotion-and-iteration.md)、[tasks](promotion-iteration-tasks.md)） |
+| v2.1.x (post-release) | — | in progress | **推广**：渠道清单执行 ✓（[checklist](promotion-channel-checklist.md)）、README/AGENTS 可分享素材检视 ✓ |
 
 ## Next (from roadmap)
 

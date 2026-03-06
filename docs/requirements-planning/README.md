@@ -2,6 +2,14 @@
 
 Requirements for AI Cortex are derived from project goals and roadmap decisions.
 
+## Requirements index
+
+| Document | Scope | Status |
+| :--- | :--- | :--- |
+| [Goals and Vision](../project-overview/goals-and-vision.md) | Project identity, success criteria | Current |
+| [推广与迭代](promotion-and-iteration.md) | Promotion channels, iteration plan, success metrics | Validated |
+| [推广与迭代任务拆解](../process-management/promotion-iteration-tasks.md) | Task breakdown, quality gates | Current |
+
 ## Canonical sources
 
 - **[Goals and Vision](../project-overview/goals-and-vision.md)** — project identity, success criteria, scope
