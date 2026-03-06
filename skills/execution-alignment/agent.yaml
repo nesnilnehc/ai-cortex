@@ -1,0 +1,32 @@
+name: execution-alignment
+status: validated
+
+primary_use: Perform post-task traceback, typed drift detection, and top-down recalibration to keep execution aligned with goals, requirements, architecture, milestones, and roadmap.
+
+inputs:
+  - completed task description and outcome
+  - optional mode override (lightweight | full)
+  - optional document root and path mapping
+  - optional context (release, milestone, epic markers)
+
+outputs:
+  - Execution Alignment Report (docs/calibration/YYYY-MM-DD-task-slug-calibration.md)
+  - machine-readable drifts and evidence readiness block
+
+scores:
+  agent_native: 5
+  cognitive: 5
+  composability: 5
+  stance: 5
+
+asqm_quality: 20
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:documentation-readiness
+  - nesnilnehc/ai-cortex:project-cognitive-loop
+  - nesnilnehc/ai-cortex:analyze-requirements
+  - nesnilnehc/ai-cortex:brainstorm-design
+
+market_position: differentiated
+
+tags: [workflow, eng-standards, documentation]

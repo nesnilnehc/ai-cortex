@@ -4,6 +4,8 @@
 
 This document is the central skills index for **AI Cortex** (the agent-first, governance-ready capability inventory; repo [ai-cortex](https://github.com/nesnilnehc/ai-cortex)). It defines standardized SKILL metadata, the tagging system, and versioning policy. Install with `npx skills add nesnilnehc/ai-cortex`; compatible with [skills.sh](https://skills.sh) and [SkillsMP](https://skillsmp.com).
 
+**Scenario-first navigation**: See [scenario-map.md](./scenario-map.md) to pick skills by use case.
+
 ---
 
 ## 1. Tagging system
@@ -87,6 +89,9 @@ Convention: a skill at `0.x.x` with ASQM status "validated" should be upgraded t
 | [onboard-repo](./onboard-repo/SKILL.md) | eng-standards, documentation, automation | `1.0.0` | stable | Orchestrator: run review-codebase → review-architecture → generate-standard-readme → write-agents-entry → discover-skills in order, aggregate outputs into one onboarding report. |
 | [review-orm-usage](./review-orm-usage/SKILL.md) | eng-standards, optimization | `1.0.0` | stable | Review ORM usage patterns for N+1 queries, connection management, migration safety, transaction handling, and query efficiency; library-level atomic skill. |
 | [analyze-requirements](./analyze-requirements/SKILL.md) | writing, eng-standards, documentation | `1.0.0` | stable | Transform vague intent into validated, testable requirements through diagnostic state progression and structured dialogue; problem-first, no design before validation. |
+| [execution-alignment](./execution-alignment/SKILL.md) | workflow, eng-standards, documentation | `1.0.0` | stable | Perform post-task traceback, typed drift detection, and top-down recalibration to keep execution aligned with goals, requirements, architecture, milestones, and roadmap. |
+| [documentation-readiness](./documentation-readiness/SKILL.md) | documentation, eng-standards, workflow | `1.0.0` | stable | Assess documentation evidence readiness across project layers, prioritize gaps, and produce a minimum-fill plan for reliable AI-assisted governance. |
+| [project-cognitive-loop](./project-cognitive-loop/SKILL.md) | workflow, automation, eng-standards | `1.0.0` | stable | Orchestrate governance cycles by routing among requirements, design, execution alignment, and documentation readiness checks. |
 
 ---
 

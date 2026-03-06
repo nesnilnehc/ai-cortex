@@ -1,0 +1,96 @@
+# Scenario-Skill Map
+
+Use this map to select skills by work scenario instead of memorizing skill names.
+
+For canonical skill registration, see [INDEX.md](./INDEX.md).
+
+---
+
+## 1) Project Start
+
+- **When to use**: New project, new initiative, or major direction reset
+- **Primary skill**: [analyze-requirements](./analyze-requirements/SKILL.md)
+- **Optional skills**:
+  - [brainstorm-design](./brainstorm-design/SKILL.md)
+  - [bootstrap-project-documentation](./bootstrap-project-documentation/SKILL.md)
+- **Output**: Validated requirements and initial design/doc structure
+- **Stop condition**: Requirements approved and design path selected
+
+## 2) Post-Task Governance
+
+- **When to use**: A task is done and you need to validate direction
+- **Primary skill**: [execution-alignment](./execution-alignment/SKILL.md)
+- **Optional skills**:
+  - [documentation-readiness](./documentation-readiness/SKILL.md)
+  - [project-cognitive-loop](./project-cognitive-loop/SKILL.md)
+- **Output**: Execution Alignment Report with drift and calibration actions
+- **Stop condition**: Next 1-3 tasks reprioritized with confidence level
+
+## 3) Documentation Gap Triage
+
+- **When to use**: Alignment confidence is low due to weak/missing docs
+- **Primary skill**: [documentation-readiness](./documentation-readiness/SKILL.md)
+- **Optional skills**:
+  - [bootstrap-project-documentation](./bootstrap-project-documentation/SKILL.md)
+  - [analyze-requirements](./analyze-requirements/SKILL.md)
+- **Output**: Documentation Readiness Report and Minimal Fill Plan
+- **Stop condition**: Critical layers reach at least `weak` and high-priority gaps have owners
+
+## 4) Iteration Orchestration
+
+- **When to use**: Milestone closure, release gate, or periodic governance cycle
+- **Primary skill**: [project-cognitive-loop](./project-cognitive-loop/SKILL.md)
+- **Optional skills**:
+  - [execution-alignment](./execution-alignment/SKILL.md)
+  - [documentation-readiness](./documentation-readiness/SKILL.md)
+- **Output**: Cycle report with executed/skipped steps and next-cycle actions
+- **Stop condition**: All required scenario checks are completed or explicitly deferred
+
+## 5) Code Quality Review
+
+- **When to use**: Review quality/security/performance/testing before merge or release
+- **Primary skill**: [review-code](./review-code/SKILL.md)
+- **Optional skills**:
+  - [review-diff](./review-diff/SKILL.md)
+  - [review-codebase](./review-codebase/SKILL.md)
+- **Output**: Aggregated findings report
+- **Stop condition**: Critical/major issues have mitigation plan
+
+## 6) Delivery Convergence
+
+- **When to use**: Need to run tests, fix failures, and stabilize before commit
+- **Primary skill**: [run-repair-loop](./run-repair-loop/SKILL.md)
+- **Optional skills**:
+  - [run-automated-tests](./run-automated-tests/SKILL.md)
+  - [commit-work](./commit-work/SKILL.md)
+- **Output**: Converged state + clean commit plan
+- **Stop condition**: Tests pass and commit scope is clear
+
+## 7) Repository Onboarding
+
+- **When to use**: New team member, inherited repository, or handoff
+- **Primary skill**: [onboard-repo](./onboard-repo/SKILL.md)
+- **Optional skills**:
+  - [generate-standard-readme](./generate-standard-readme/SKILL.md)
+  - [write-agents-entry](./write-agents-entry/SKILL.md)
+- **Output**: Onboarding report + core docs
+- **Stop condition**: New contributor can navigate and start work without ad-hoc guidance
+
+## 8) Skill System Governance
+
+- **When to use**: Audit/refactor skill inventory and maintain quality
+- **Primary skill**: [curate-skills](./curate-skills/SKILL.md)
+- **Optional skills**:
+  - [refine-skill-design](./refine-skill-design/SKILL.md)
+  - [discover-skills](./discover-skills/SKILL.md)
+- **Output**: ASQM audit and improvement actions
+- **Stop condition**: Registry and quality signals are up to date
+
+---
+
+## Routing Rules
+
+1. Prefer one primary skill per scenario.
+2. Add optional skills only when the primary output indicates a gap.
+3. Escalate to [project-cognitive-loop](./project-cognitive-loop/SKILL.md) when multiple scenarios are active in one cycle.
+4. Use artifact handoff (requirements/design/alignment/doc-readiness reports) rather than implicit context passing.

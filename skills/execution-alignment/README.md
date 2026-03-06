@@ -1,0 +1,42 @@
+# execution-alignment
+
+Perform post-task traceback, drift detection, and top-down recalibration to keep execution aligned with goals, requirements, architecture, milestones, and roadmap.
+
+## What it does
+
+After a task is completed, runs a traceback from work to strategy, detects drift using a five-type model (goal, requirement, architecture, roadmap, priority), and produces prioritized recalibration recommendations. Supports Lightweight and Full modes with deterministic selection.
+
+## When to use
+
+- Post-task checkpoint — validate alignment after any completed ticket
+- Milestone closure review — run full alignment before marking a milestone complete
+- Release readiness — detect planning drift before a release cut
+- Scope-shift diagnosis — investigate whether recent work still supports current goals
+
+## Inputs
+
+- Completed task description and outcome
+- Optional mode override (`lightweight` | `full`)
+- Optional document root and path mapping
+- Optional context (release, milestone, epic markers)
+
+## Outputs
+
+- Execution Alignment Report written to `docs/calibration/YYYY-MM-DD-task-slug-calibration.md`
+- Machine-readable drifts and evidence readiness block
+
+## Installation
+
+```bash
+npx skills add nesnilnehc/ai-cortex --skill execution-alignment
+```
+
+## Related skills
+
+- `documentation-readiness` — assess docs evidence before or after alignment
+- `project-cognitive-loop` — orchestrate governance cycles including execution-alignment
+- `analyze-requirements` — hand off when requirements need revalidation
+
+## Full definition
+
+See [SKILL.md](./SKILL.md) for behavior, restrictions, and examples.
