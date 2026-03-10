@@ -2,9 +2,9 @@
 name: align-planning
 description: Perform post-task traceback, drift detection, and top-down recalibration to keep planning (goals, requirements, milestones, roadmap) aligned with task execution.
 tags: [workflow, eng-standards, documentation]
-version: 1.1.0
+version: 1.2.0
 license: MIT
-related_skills: [analyze-requirements, brainstorm-design, bootstrap-project-documentation, assess-documentation-readiness, run-repair-loop, align-architecture]
+related_skills: [analyze-requirements, brainstorm-design, bootstrap-project-documentation, assess-documentation-readiness, discover-document-norms, run-repair-loop, align-architecture]
 recommended_scope: both
 metadata:
   author: ai-cortex
@@ -28,6 +28,7 @@ metadata:
       - "Added mapping-confirmation gate when traceability links are missing"
       - "v1.1.0: Slimmed to planning layer only; Architecture moved to align-architecture"
       - "Renamed to align-planning for semantic clarity (planning vs implementation)"
+      - "v1.2.0: Document structure discovery phase; orchestration guidance with align-architecture"
 triggers: [alignment, planning alignment, align planning, post task]
 input_schema:
   type: free-form
@@ -98,6 +99,19 @@ Keep project execution aligned with higher-level planning by running a post-task
 
 ---
 
+## Orchestration Guidance
+
+| Scenario | Recommended Sequence |
+| --- | --- |
+| Routine task completed | `align-planning` (Lightweight) |
+| Milestone or release gate | `align-planning` (Full) → then `align-architecture` |
+| Planning drift suspected | `align-planning` |
+| Design vs code compliance needed | `align-architecture` (run after `align-planning` when planning is also in question) |
+
+Run `align-planning` first when planning layer alignment is uncertain; run `align-architecture` after planning alignment for architecture vs code verification.
+
+---
+
 ## Behavior
 
 ### Agent Prompt Contract
@@ -127,6 +141,7 @@ and produce a structured Planning Alignment Report.
 2. Resolve document paths:
    - Default mapping assumes project-documentation-template layout
    - Apply user path mapping overrides when provided
+   - **Optional discovery**: If user provides no path mapping and default layout does not match, run document structure discovery (e.g. scan `docs/`, `docs/requirements/`, `docs/roadmap*`, `*.md` at repo root) or suggest `discover-document-norms` to establish paths; report assumed mapping and ask for confirmation if ambiguous
 3. Confirm minimum context:
    - Completed task summary
    - At least one traceability anchor (requirement ID, roadmap item, milestone reference, or equivalent)
