@@ -1,4 +1,4 @@
-# validate-document-artifacts
+# validate-doc-artifacts
 
 Validate documents under `docs/` against project artifact norms.
 
@@ -25,14 +25,14 @@ Resolves project norms from `docs/ARTIFACT_NORMS.md` or `.ai-cortex/artifact-nor
 
 ## Related skills
 
-- `assess-documentation-readiness`: Assess doc readiness; validate-document-artifacts checks norm compliance
-- `discover-document-norms`: Establish norms; validate-document-artifacts checks against them
-- `curate-skills`: Skill governance; validate-document-artifacts is doc governance
+- `assess-doc-readiness`: Assess doc readiness; validate-doc-artifacts checks norm compliance
+- `discover-document-norms`: Establish norms; validate-doc-artifacts checks against them
+- `curate-skills`: Skill governance; validate-doc-artifacts is doc governance
 
 ## Installation
 
 ```bash
-npx skills add nesnilnehc/ai-cortex --skill validate-document-artifacts
+npx skills add nesnilnehc/ai-cortex --skill validate-doc-artifacts
 ```
 
 ## License

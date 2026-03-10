@@ -4,7 +4,7 @@ description: Write or revise AGENTS.md per embedded output contract to establish
 tags: [documentation, eng-standards]
 version: 1.0.0
 license: MIT
-related_skills: [refine-skill-design, generate-standard-readme, bootstrap-project-documentation]
+related_skills: [refine-skill-design, generate-standard-readme, bootstrap-docs]
 recommended_scope: user
 metadata:
   author: ai-cortex
@@ -54,7 +54,7 @@ Write or revise **AGENTS.md** at the repo root per the "Output contract" section
 **This skill does NOT handle**:
 
 - Writing README files (use `generate-standard-readme`)
-- Bootstrapping full project documentation (use `bootstrap-project-documentation`)
+- Bootstrapping full project documentation (use `bootstrap-docs`)
 - Refining skill designs (use `refine-skill-design`)
 - Writing other documentation types (out of scope)
 
@@ -111,7 +111,7 @@ Write or revise **AGENTS.md** at the repo root per the "Output contract" section
 **Do NOT do these (other skills handle them)**:
 
 - **Writing README files**: Creating or updating README.md → Use `generate-standard-readme`
-- **Bootstrapping full project documentation**: Setting up complete documentation structure → Use `bootstrap-project-documentation`
+- **Bootstrapping full project documentation**: Setting up complete documentation structure → Use `bootstrap-docs`
 - **Refining skill designs**: Auditing or refactoring SKILL.md files → Use `refine-skill-design`
 - **Writing other documentation types**: API docs, user guides, tutorials → Out of scope
 
@@ -119,7 +119,7 @@ Write or revise **AGENTS.md** at the repo root per the "Output contract" section
 
 - User says "AGENTS.md looks good" or "approved" → Skill complete, hand off to next documentation task
 - User asks "can you write the README too?" → Hand off to `generate-standard-readme`
-- User asks "can you set up all project docs?" → Hand off to `bootstrap-project-documentation`
+- User asks "can you set up all project docs?" → Hand off to `bootstrap-docs`
 - User asks "can you review this skill?" → Hand off to `refine-skill-design`
 
 ---

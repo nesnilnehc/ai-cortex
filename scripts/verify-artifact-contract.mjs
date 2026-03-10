@@ -21,7 +21,7 @@ const CONTRACT_SKILLS = {
     artifact_type: 'backlog-item',
     path_must_contain: ['project-board/backlog', 'docs/backlog'],
   },
-  'bootstrap-project-documentation': {
+  'bootstrap-docs': {
     artifact_type: 'adr',
     path_must_contain: ['process-management/decisions'],
   },
@@ -29,7 +29,7 @@ const CONTRACT_SKILLS = {
     artifact_type: 'design',
     path_must_contain: ['design-decisions'],
   },
-  'assess-documentation-readiness': {
+  'assess-doc-readiness': {
     artifact_type: 'doc-readiness',
     path_must_contain: ['calibration'],
   },

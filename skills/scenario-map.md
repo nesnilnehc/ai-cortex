@@ -14,7 +14,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Primary skill**: [analyze-requirements](./analyze-requirements/SKILL.md)
 - **Optional skills**:
   - [brainstorm-design](./brainstorm-design/SKILL.md)
-  - [bootstrap-project-documentation](./bootstrap-project-documentation/SKILL.md)
+  - [bootstrap-docs](./bootstrap-docs/SKILL.md)
 - **Short triggers**: project start, start project, requirements, analyze requirements
 - **Output**: Validated requirements and initial design/doc structure
 - **Stop condition**: Requirements approved and design path selected
@@ -24,9 +24,9 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **When to use**: A task is done and you need to validate direction
 - **Primary skill**: [align-planning](./align-planning/SKILL.md)
 - **Optional skills**:
-  - [assess-documentation-readiness](./assess-documentation-readiness/SKILL.md)
+  - [assess-doc-readiness](./assess-doc-readiness/SKILL.md)
   - [align-architecture](./align-architecture/SKILL.md)
-  - [orchestrate-governance-loop](./orchestrate-governance-loop/SKILL.md)
+  - [run-checkpoint](./run-checkpoint/SKILL.md)
 - **Short triggers**: post task, alignment, planning alignment, align planning
 - **Output**: Planning Alignment Report with drift and calibration actions
 - **Stop condition**: Next 1-3 tasks reprioritized with confidence level
@@ -45,9 +45,9 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 ## 4) Documentation Gap Triage
 
 - **When to use**: Alignment confidence is low due to weak/missing docs
-- **Primary skill**: [assess-documentation-readiness](./assess-documentation-readiness/SKILL.md)
+- **Primary skill**: [assess-doc-readiness](./assess-doc-readiness/SKILL.md)
 - **Optional skills**:
-  - [bootstrap-project-documentation](./bootstrap-project-documentation/SKILL.md)
+  - [bootstrap-docs](./bootstrap-docs/SKILL.md)
   - [analyze-requirements](./analyze-requirements/SKILL.md)
 - **Short triggers**: doc gap, documentation readiness, doc triage
 - **Output**: Documentation Readiness Report and Minimal Fill Plan
@@ -56,10 +56,10 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 ## 5) Iteration Orchestration
 
 - **When to use**: Milestone closure, release gate, or periodic governance cycle
-- **Primary skill**: [orchestrate-governance-loop](./orchestrate-governance-loop/SKILL.md)
+- **Primary skill**: [run-checkpoint](./run-checkpoint/SKILL.md)
 - **Optional skills**:
   - [align-planning](./align-planning/SKILL.md)
-  - [assess-documentation-readiness](./assess-documentation-readiness/SKILL.md)
+  - [assess-doc-readiness](./assess-doc-readiness/SKILL.md)
 - **Short triggers**: iteration, governance, project cognitive loop
 - **Output**: Cycle report with executed/skipped steps and Recommended Next Tasks
 - **Stop condition**: All required scenario checks are completed or explicitly deferred
@@ -123,7 +123,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **When to use**: Cleanup, optimization, or archiving of old content
 - **Primary skill**: [prune-content](./prune-content/SKILL.md)
 - **Optional skills**:
-  - [validate-document-artifacts](./validate-document-artifacts/SKILL.md)
+  - [validate-doc-artifacts](./validate-doc-artifacts/SKILL.md)
 - **Short triggers**: prune, cleanup, repository maintenance
 - **Output**: Cleaned repository structure and archived obsolete content
 - **Stop condition**: User confirms cleanup actions
@@ -134,5 +134,5 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 
 1. Prefer one primary skill per scenario.
 2. Add optional skills only when the primary output indicates a gap.
-3. Escalate to orchestrate-governance-loop when multiple scenarios are active in one cycle.
+3. Escalate to run-checkpoint when multiple scenarios are active in one cycle.
 4. Use artifact handoff (requirements/design/alignment/doc-readiness reports) rather than implicit context passing.

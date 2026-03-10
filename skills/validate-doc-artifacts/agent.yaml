@@ -1,4 +1,4 @@
-name: validate-document-artifacts
+name: validate-doc-artifacts
 status: validated
 
 primary_use: Validate docs against project artifact norms; output findings list for path, naming, and front-matter compliance.
@@ -21,7 +21,7 @@ scores:
 asqm_quality: 18
 
 overlaps_with:
-  - nesnilnehc/ai-cortex:assess-documentation-readiness
+  - nesnilnehc/ai-cortex:assess-doc-readiness
   - nesnilnehc/ai-cortex:curate-skills
 
 market_position: differentiated

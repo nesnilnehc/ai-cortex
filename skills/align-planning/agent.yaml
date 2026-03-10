@@ -22,8 +22,8 @@ scores:
 asqm_quality: 20
 
 overlaps_with:
-  - nesnilnehc/ai-cortex:assess-documentation-readiness
-  - nesnilnehc/ai-cortex:orchestrate-governance-loop
+  - nesnilnehc/ai-cortex:assess-doc-readiness
+  - nesnilnehc/ai-cortex:run-checkpoint
   - nesnilnehc/ai-cortex:align-architecture
   - nesnilnehc/ai-cortex:analyze-requirements
   - nesnilnehc/ai-cortex:brainstorm-design

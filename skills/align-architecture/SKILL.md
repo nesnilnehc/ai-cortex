@@ -4,7 +4,7 @@ description: Verify architecture and design documents against code implementatio
 tags: [workflow, eng-standards, documentation]
 version: 1.1.0
 license: MIT
-related_skills: [align-planning, review-architecture, brainstorm-design, assess-documentation-readiness, bootstrap-project-documentation]
+related_skills: [align-planning, review-architecture, brainstorm-design, assess-doc-readiness, bootstrap-docs]
 recommended_scope: project
 metadata:
   author: ai-cortex
@@ -121,7 +121,7 @@ the codebase and produce an Architecture Compliance Report when divergence exist
 2. Resolve code scope:
    - **Full**: entire repo (default)
    - **Incremental**: user-specified paths, packages, or modules (for large codebases; verify only affected design decisions)
-3. If no design docs exist, output blocked report with required minimum inputs; suggest `brainstorm-design` or `bootstrap-project-documentation`
+3. If no design docs exist, output blocked report with required minimum inputs; suggest `brainstorm-design` or `bootstrap-docs`
 
 ### Phase 0.5: Evidence Readiness Assessment
 
@@ -260,7 +260,7 @@ Report must include a machine-readable compliance block (YAML or JSON).
 
 **When to stop and hand off**:
 
-- No design docs exist → suggest `brainstorm-design` or `bootstrap-project-documentation`
+- No design docs exist → suggest `brainstorm-design` or `bootstrap-docs`
 - Design is conflicting or outdated → hand off to `brainstorm-design`
 - Structural code review needed without design comparison → hand off to `review-architecture`
 
@@ -308,7 +308,7 @@ If YES: report is complete; proceed to handoff or remediation.
 **Output**:
 
 - Status: blocked
-- Message: No architecture or design documents found. Run `brainstorm-design` to create design docs, or `bootstrap-project-documentation` to establish structure.
+- Message: No architecture or design documents found. Run `brainstorm-design` to create design docs, or `bootstrap-docs` to establish structure.
 - Confidence: N/A
 
 ### Example 3: Partial Verification (Weak Readiness)

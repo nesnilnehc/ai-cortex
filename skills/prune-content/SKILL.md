@@ -52,7 +52,7 @@ Help the user maintain a clean codebase by identifying and archiving "expired" o
 - **Code refactoring**: Does not fix broken imports after archiving (use `run-repair-loop` or `refactor-code`).
 - **Git history rewriting**: Does not use `git filter-branch` or permanently purge history.
 
-**Handoff Point**: Once files are archived, if the build breaks or docs need updating, hand off to `run-repair-loop` or `validate-document-artifacts`.
+**Handoff Point**: Once files are archived, if the build breaks or docs need updating, hand off to `run-repair-loop` or `validate-doc-artifacts`.
 
 ---
 

@@ -29,9 +29,9 @@ Scope: Skills that write Markdown artifacts under project `docs/` or repo root.
 | :--- | :--- | :--- | :--- | :--- |
 | backlog-item | `docs/process-management/project-board/backlog/` | `YYYY-MM-DD-{slug}.md` | living | capture-work-items |
 | backlog-item (fallback) | `docs/backlog/` | `YYYY-MM-DD-{slug}.md` | living | capture-work-items |
-| adr | `docs/process-management/decisions/` | `YYYYMMDD-{slug}.md` | living | bootstrap-project-documentation |
+| adr | `docs/process-management/decisions/` | `YYYYMMDD-{slug}.md` | living | bootstrap-docs |
 | design | `docs/design-decisions/` | `YYYY-MM-DD-{topic}.md` | snapshot | brainstorm-design |
-| doc-readiness | `docs/calibration/` | `YYYY-MM-DD-doc-readiness.md` | snapshot | assess-documentation-readiness |
+| doc-readiness | `docs/calibration/` | `YYYY-MM-DD-doc-readiness.md` | snapshot | assess-doc-readiness |
 
 ### Path Rationale
 
@@ -117,7 +117,7 @@ artifact_types:
       - "docs/process-management/decisions/YYYYMMDD-{slug}.md"
     naming: "YYYYMMDD-{slug}.md"
     lifecycle: living
-    owner_skill: bootstrap-project-documentation
+    owner_skill: bootstrap-docs
   design:
     path_patterns:
       - "docs/design-decisions/YYYY-MM-DD-{topic}.md"
@@ -129,5 +129,5 @@ artifact_types:
       - "docs/calibration/YYYY-MM-DD-doc-readiness.md"
     naming: "YYYY-MM-DD-doc-readiness.md"
     lifecycle: snapshot
-    owner_skill: assess-documentation-readiness
+    owner_skill: assess-doc-readiness
 ```

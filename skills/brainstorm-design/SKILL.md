@@ -4,7 +4,7 @@ description: Transform rough ideas into validated design documents through struc
 tags: [writing, eng-standards, documentation]
 version: 1.0.0
 license: MIT
-related_skills: [refine-skill-design, generate-standard-readme, bootstrap-project-documentation]
+related_skills: [refine-skill-design, generate-standard-readme, bootstrap-docs]
 recommended_scope: both
 metadata:
   author: ai-cortex

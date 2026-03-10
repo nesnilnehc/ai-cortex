@@ -1,11 +1,12 @@
 # Skill Specification
 
 Status: MANDATORY  
-Version: 2.3.0  
+Version: 2.5.0  
 Scope: All files under `skills/`.
 
 **Changelog**:
 
+- v2.5.0 (2026-03-10): Added naming priority rule (§1): semantic correctness and normativity first, colloquial and memorable second
 - v2.4.0 (2026-03-10): Added Interaction Policy (§4.3), optional triggers/aliases, input_schema.defaults; Invocation UX and language strategy
 - v2.3.0 (2026-03-06): Added scenario-map to Metadata Sync; expanded verb-noun naming guidance; verify-registry checks scenario-map references
 - v2.2.0 (2026-03-02): Allowed `## Scope Boundaries` as an optional standalone section in heading structure (§3)
@@ -21,7 +22,11 @@ Scope: All files under `skills/`.
 - **File name**: Must be `SKILL.md`.
 - **Naming**: Use `verb-noun` (e.g. `decontextualize-text`). Avoid vague or generic terms.
   - **Preferred**: `verb-noun` (e.g. `generate-readme`, `discover-skills`, `capture-work-items`), or `verb-target` for review/action families (e.g. `review-code`, `review-python`).
-  - **Avoid**: Pure noun-noun compounds (e.g. `documentation-readiness` → prefer `assess-documentation-readiness`); abstract compound names without a clear verb.
+  - **Avoid**: Pure noun-noun compounds (e.g. `documentation-readiness` → prefer `assess-doc-readiness`); abstract compound names without a clear verb.
+- **Naming priority** (apply in order):
+  1. **Semantic correctness and normativity first**: The verb must accurately describe what the skill does; the name must comply with verb-noun and spec. No semantic drift for colloquialism.
+  2. **Colloquial and memorable second**: Prefer natural, easy-to-remember names within the above constraints.
+- **Terminology consistency**: For the same semantic concept across skills, use the same term (e.g. `doc` for documentation-related skills: `assess-doc-readiness`, `bootstrap-docs`, `validate-doc-artifacts`).
 - **name** (aligned with [agentskills.io](https://agentskills.io/specification)): 1–64 chars; lowercase letters, digits, hyphens only; must not start or end with `-`; no consecutive hyphens `--`; must match parent directory name.
 - **Single-file and self-contained (best practice)**: A skill is typically **one SKILL.md**; the Agent loads that file for the full definition. Do not rely on other MD files in the skill directory for execution. If the skill has a fixed output format or contract (e.g. "AGENTS.md must follow a given structure"), **embed that contract in SKILL.md** (e.g. "## Appendix: Output contract") rather than a separate file, so one injection is enough.
 
@@ -373,7 +378,7 @@ output_schema:
 
 ### 8.3 Document Artifact Path Contract
 
-Skills that produce `document-artifact` outputs (e.g. capture-work-items, brainstorm-design, assess-documentation-readiness, bootstrap-project-documentation) SHOULD align their output paths and naming with [spec/artifact-contract.md](artifact-contract.md). Declare `artifact_type`, `path_pattern`, and `lifecycle` in output_schema when applicable.
+Skills that produce `document-artifact` outputs (e.g. capture-work-items, brainstorm-design, assess-doc-readiness, bootstrap-docs) SHOULD align their output paths and naming with [spec/artifact-contract.md](artifact-contract.md). Declare `artifact_type`, `path_pattern`, and `lifecycle` in output_schema when applicable.
 
 ### 8.4 Orchestrator Usage
 

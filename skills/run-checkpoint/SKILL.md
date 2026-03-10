@@ -1,14 +1,17 @@
 ---
-name: orchestrate-governance-loop
-description: Orchestrate project governance cycles by routing between requirements analysis, design, execution alignment, and documentation readiness checks.
+name: run-checkpoint
+description: Analyze project state and produce next-action plan by running alignment, doc readiness, and output-driven follow-ups. Single-cycle report with executed steps and Recommended Next Tasks.
 tags: [workflow, automation, eng-standards]
-version: 1.0.0
+version: 1.2.0
 license: MIT
-related_skills: [analyze-requirements, brainstorm-design, align-planning, align-architecture, assess-documentation-readiness, run-repair-loop]
+related_skills: [analyze-requirements, brainstorm-design, align-planning, align-architecture, assess-doc-readiness, run-repair-loop, discover-document-norms, bootstrap-docs]
 recommended_scope: project
 metadata:
   author: ai-cortex
-triggers: [governance, project cognitive loop, iteration]
+  evolution:
+    enhancements:
+      - "v1.2.0: Phase 0.5 Planning Readiness Gate; discover-document-norms, bootstrap-docs in preparation flow"
+triggers: [checkpoint, run checkpoint, governance, iteration]
 aliases: [pcl]
 input_schema:
   type: free-form
@@ -20,7 +23,7 @@ output_schema:
   description: Cycle report with executed steps, skipped steps, rationale, and next-cycle recommendations
 ---
 
-# Skill: Orchestrate Governance Loop (Orchestrator)
+# Skill: Run Checkpoint (Orchestrator)
 
 ## Purpose
 
@@ -49,6 +52,7 @@ Run a repeatable governance loop for projects by orchestrating specialized skill
 
 **This skill handles**:
 
+- Planning Readiness Gate: diagnostic and preparation orchestration (discover-document-norms, bootstrap-docs, assess-doc-readiness)
 - Scenario detection and orchestration
 - Cross-skill sequencing and handoff control
 - Aggregating outputs into a single governance view
@@ -60,7 +64,7 @@ Run a repeatable governance loop for projects by orchestrating specialized skill
 - Design content itself (`brainstorm-design`)
 - Alignment analysis itself (`align-planning`)
 - Architecture compliance analysis itself (`align-architecture`)
-- Documentation gap analysis itself (`assess-documentation-readiness`)
+- Documentation gap analysis itself (`assess-doc-readiness`)
 - Direct code repair execution (`run-repair-loop`)
 
 **Handoff point**: After cycle report publication, hand off execution to the owning atomic skill or engineering team.
@@ -92,12 +96,37 @@ Classify trigger into one of the following for **reporting and statistics**; tri
 - `scope-change`
 - `periodic-review`
 
+### Phase 0.5: Planning Readiness Gate
+
+Before Phase 1, determine whether the project has sufficient planning docs for align-planning to run meaningfully. If not, run preparation skills or short-circuit with a Minimal Fill Plan.
+
+**Diagnostic**:
+
+1. Check norms: `docs/ARTIFACT_NORMS.md` or `.ai-cortex/artifact-norms.yaml` exists; if not and `docs/` has non-standard paths, run `discover-document-norms`.
+2. Check structure: `docs/` exists with planning-related dirs (project-overview, requirements-planning, process-management). If missing, run `bootstrap-docs`.
+3. Run `assess-doc-readiness` (in-process) to get readiness and Minimal Fill Plan.
+
+**Branching**:
+
+| State | Action |
+| --- | --- |
+| norms_missing | Run `discover-document-norms`; re-run Phase 0.5 |
+| structure_missing | Run `bootstrap-docs`; re-run Phase 0.5 |
+| readiness=missing | Short-circuit: output cycle report with Minimal Fill Plan and Recommended Next Tasks; do NOT run Phase 1 |
+| readiness=weak/strong | Proceed to Phase 1 |
+
+**Short-circuit output**: When readiness=missing, persist a cycle report containing the Minimal Fill Plan from assess-doc-readiness and explicit Recommended Next Tasks (owner, scope, rationale). Do not run align-planning.
+
+**Preparation skill outputs**: Outputs from `discover-document-norms` and `bootstrap-docs` are project state (norms, docs structure) and MUST be persisted. Phase 1 skill outputs remain aggregated only.
+
 ### Phase 1: Unified Sequence + Output-Driven Branching
 
-**Fixed sequence** (always run):
+**Execute only when Phase 0.5 does not short-circuit.**
+
+**Fixed sequence** (run when readiness is weak or strong):
 
 1. `align-planning` (full) — planning layer traceback and drift
-2. `assess-documentation-readiness` — documentation evidence assessment
+2. `assess-doc-readiness` — doc evidence assessment
 
 **Output-driven follow-ups** (run only when outputs indicate need):
 
@@ -124,7 +153,7 @@ For each selected skill:
 4. Record skipped skills and reason
 5. Capture blockers and dependencies
 
-**Single artifact rule**: This orchestrator produces exactly one output file. Do NOT write separate reports for `assess-documentation-readiness`, `align-planning`, or other routed skills. All findings are aggregated into the cycle report.
+**Single artifact rule**: This orchestrator produces exactly one output file. Do NOT write separate reports for `assess-doc-readiness`, `align-planning`, or other routed skills. All findings are aggregated into the cycle report.
 
 ### Phase 3: Aggregate Governance Report
 
@@ -169,7 +198,7 @@ Write exactly one file to:
 
 ## Aggregated Findings
 - From align-planning:
-- From assess-documentation-readiness:
+- From assess-doc-readiness:
 - From align-architecture: (if executed)
 - From analyze-requirements: (if executed)
 - From brainstorm-design: (if executed)
@@ -207,8 +236,10 @@ Next tasks must be explicit and actionable: what to do, why, who owns it, and in
 - Design alternatives and approval -> `brainstorm-design`
 - Drift typing and recalibration -> `align-planning`
 - Architecture vs code compliance -> `align-architecture`
-- Documentation gap scoring -> `assess-documentation-readiness`
+- Documentation gap scoring -> `assess-doc-readiness`
 - Automated fix loops -> `run-repair-loop`
+- Norms establishment -> `discover-document-norms`
+- Docs structure establishment -> `bootstrap-docs`
 
 **When to stop and hand off**:
 
@@ -222,7 +253,8 @@ Next tasks must be explicit and actionable: what to do, why, who owns it, and in
 ### Core Success Criteria (ALL must be met)
 
 - [ ] Trigger recorded as metadata
-- [ ] Unified sequence executed; output-driven follow-ups chosen with rationale
+- [ ] Phase 0.5 executed; short-circuit or proceed to Phase 1 with correct rationale
+- [ ] Unified sequence executed when not short-circuited; output-driven follow-ups chosen with rationale
 - [ ] Executed/skipped steps clearly listed
 - [ ] Aggregated findings captured
 - [ ] Cycle report persisted
@@ -250,20 +282,34 @@ If YES: loop cycle output is complete.
 ### Example 1: Task Complete with Weak Confidence
 
 - Trigger: `task-complete` (metadata)
-- Sequence: `align-planning` (full) -> `assess-documentation-readiness`
-- Output-driven: `assess-documentation-readiness` executed because alignment confidence was medium
+- Sequence: `align-planning` (full) -> `assess-doc-readiness`
+- Output-driven: `assess-doc-readiness` executed because alignment confidence was medium
 - Outcome: alignment partially valid; docs fill plan created
 
 ### Example 2: Milestone Closure with Architecture Compliance
 
 - Trigger: `milestone-closed` (metadata)
-- Sequence: `align-planning` (full) -> `assess-documentation-readiness`
+- Sequence: `align-planning` (full) -> `assess-doc-readiness`
 - Output-driven: `align-architecture` added because milestone context; `run-repair-loop` added because alignment reported active defects
 - Outcome: planning aligned; architecture compliance gaps found; defects assigned for repair
 
 ### Example 3: Release Candidate Gate
 
 - Trigger: `release-candidate` (metadata)
-- Sequence: `align-planning` (full) -> `assess-documentation-readiness`
+- Sequence: `align-planning` (full) -> `assess-doc-readiness`
 - Output-driven: `align-architecture` added for release gate
 - Outcome: release blocked by missing roadmap-to-backlog traceability; next actions assigned
+
+### Example 4: Short-Circuit (Readiness Missing)
+
+- Trigger: `task-complete` (metadata)
+- Phase 0.5: assess-doc-readiness returns low readiness; gaps are content-only (structure exists, goals/requirements/roadmap empty)
+- Short-circuit: Cycle report contains Minimal Fill Plan and Recommended Next Tasks; align-planning and Phase 1 skipped
+- Outcome: User receives explicit next actions to fill docs before rerunning checkpoint
+
+### Example 5: Phase 0.5 Bootstrap Then Proceed
+
+- Trigger: `task-complete` (metadata)
+- Phase 0.5: structure_missing detected; run bootstrap-docs (Initialize); re-run Phase 0.5
+- Phase 0.5 (retry): assess-doc-readiness returns weak; proceed to Phase 1
+- Phase 1: align-planning -> assess-doc-readiness; output-driven follow-ups as needed

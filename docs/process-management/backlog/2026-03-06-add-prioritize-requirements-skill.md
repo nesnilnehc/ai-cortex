@@ -15,9 +15,9 @@ trace_id:
 ## Acceptance Criteria
 
 - [ ] 新增 SKILL 符合 `spec/skill.md` 结构，包含 Core Objective、Scope Boundaries、Self-Check
-- [ ] 技能提供明确的 prioritization 框架或方法（如 MoSCoW、RICE、价值/成本矩阵、或与 orchestrate-governance-loop 兼容的排序流程）
+- [ ] 技能提供明确的 prioritization 框架或方法（如 MoSCoW、RICE、价值/成本矩阵、或与 run-checkpoint 兼容的排序流程）
 - [ ] 技能已注册到 `skills/INDEX.md` 与 `manifest.json`，通过 `verify-registry.mjs` 校验
-- [ ] 可与 `capture-work-items`、`analyze-requirements`、`orchestrate-governance-loop` 等形成清晰 handoff
+- [ ] 可与 `capture-work-items`、`analyze-requirements`、`run-checkpoint` 等形成清晰 handoff
 
 ## Notes
 

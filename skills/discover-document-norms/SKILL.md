@@ -4,7 +4,7 @@ description: Help users establish project-specific artifact norms (paths, naming
 tags: [documentation, eng-standards, workflow]
 version: 1.0.0
 license: MIT
-related_skills: [bootstrap-project-documentation, assess-documentation-readiness]
+related_skills: [bootstrap-docs, assess-doc-readiness]
 recommended_scope: project
 metadata:
   author: ai-cortex
@@ -21,7 +21,7 @@ output_schema:
 
 ## Purpose
 
-Help users define their project-specific artifact norms (paths, naming, lifecycle) for document governance. Projects may have their own documentation structure; this skill discovers and formalizes it so other skills (capture-work-items, brainstorm-design, assess-documentation-readiness) can follow project norms.
+Help users define their project-specific artifact norms (paths, naming, lifecycle) for document governance. Projects may have their own documentation structure; this skill discovers and formalizes it so other skills (capture-work-items, brainstorm-design, assess-doc-readiness) can follow project norms.
 
 ---
 
@@ -52,11 +52,11 @@ Help users define their project-specific artifact norms (paths, naming, lifecycl
 
 **This skill does NOT handle**:
 
-- Bootstrapping full project docs (use `bootstrap-project-documentation`)
-- Assessing doc readiness (use `assess-documentation-readiness`)
-- Validating existing docs against norms (use `validate-document-artifacts`)
+- Bootstrapping full project docs (use `bootstrap-docs`)
+- Assessing doc readiness (use `assess-doc-readiness`)
+- Validating existing docs against norms (use `validate-doc-artifacts`)
 
-**Handoff point**: When norms are written and confirmed, hand off to other document-producing skills or `validate-document-artifacts` for compliance checks.
+**Handoff point**: When norms are written and confirmed, hand off to other document-producing skills or `validate-doc-artifacts` for compliance checks.
 
 ---
 
@@ -132,9 +132,9 @@ For each artifact type (backlog-item, design, adr, doc-readiness):
 
 **Do NOT do these (other skills handle them)**:
 
-- Full docs bootstrap → `bootstrap-project-documentation`
-- Readiness assessment → `assess-documentation-readiness`
-- Compliance validation → `validate-document-artifacts`
+- Full docs bootstrap → `bootstrap-docs`
+- Readiness assessment → `assess-doc-readiness`
+- Compliance validation → `validate-doc-artifacts`
 
 ---
 

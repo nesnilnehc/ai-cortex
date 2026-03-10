@@ -15,7 +15,7 @@ The skill ecosystem has five major domains:
 | **Code Review** | Aggregate scope, language, framework, library, and cognitive findings | [review-code](./review-code/SKILL.md) |
 | **Development Lifecycle** | Requirements → design → implementation → review → commit | [analyze-requirements](./analyze-requirements/SKILL.md), [run-repair-loop](./run-repair-loop/SKILL.md), [commit-work](./commit-work/SKILL.md) |
 | **Repository Onboarding** | New team member or inherited repo | [onboard-repo](./onboard-repo/SKILL.md) |
-| **Governance & Curation** | Skill inventory, docs, project governance | [curate-skills](./curate-skills/SKILL.md), [orchestrate-governance-loop](./orchestrate-governance-loop/SKILL.md) |
+| **Governance & Curation** | Skill inventory, docs, project governance | [curate-skills](./curate-skills/SKILL.md), [run-checkpoint](./run-checkpoint/SKILL.md) |
 | **Standalone** | Single-skill tasks | [decontextualize-text](./decontextualize-text/SKILL.md), [generate-github-workflow](./generate-github-workflow/SKILL.md), [capture-work-items](./capture-work-items/SKILL.md), etc. |
 
 ```mermaid
@@ -33,7 +33,7 @@ flowchart TB
   end
   subgraph governance [Governance]
     curate[curate-skills]
-    loop[orchestrate-governance-loop]
+    loop[run-checkpoint]
   end
   subgraph standalone [Standalone]
     dectx[decontextualize-text]
@@ -230,7 +230,7 @@ flowchart LR
   curate[curate-skills]
   refine[refine-skill-design]
   readme_gen[generate-standard-readme]
-  bootstrap[bootstrap-project-documentation]
+  bootstrap[bootstrap-docs]
   install[install-rules]
 
   curate -->|ASQM findings| refine
@@ -241,14 +241,14 @@ flowchart LR
 
 ### 7.4 Project governance loop chain
 
-Unified sequence: align-planning → assess-documentation-readiness; output-driven follow-ups (align-architecture, repair, brainstorm, analyze).
+Unified sequence: align-planning → assess-doc-readiness; output-driven follow-ups (align-architecture, repair, brainstorm, analyze).
 
 ```mermaid
 flowchart LR
-  loop[orchestrate-governance-loop]
+  loop[run-checkpoint]
   align[align-planning]
   alignarch[align-architecture]
-  docreadiness[assess-documentation-readiness]
+  docreadiness[assess-doc-readiness]
   req[analyze-requirements]
   design[brainstorm-design]
   repair[run-repair-loop]
@@ -272,18 +272,18 @@ flowchart LR
 | [run-repair-loop](./run-repair-loop/SKILL.md) | lifecycle | repo + scope | converged clean state |
 | [align-planning](./align-planning/SKILL.md) | lifecycle | completed task context | planning alignment report |
 | [align-architecture](./align-architecture/SKILL.md) | lifecycle | ADR/design scope + code scope | architecture compliance report |
-| [assess-documentation-readiness](./assess-documentation-readiness/SKILL.md) | lifecycle | docs scope + mapping | documentation readiness report + minimal fill plan |
-| [orchestrate-governance-loop](./orchestrate-governance-loop/SKILL.md) | lifecycle | trigger + project context | cycle governance report |
+| [assess-doc-readiness](./assess-doc-readiness/SKILL.md) | lifecycle | docs scope + mapping | doc readiness report + minimal fill plan |
+| [run-checkpoint](./run-checkpoint/SKILL.md) | lifecycle | trigger + project context | cycle report |
 | [onboard-repo](./onboard-repo/SKILL.md) | onboarding | repo path | onboarding report |
 | [generate-standard-readme](./generate-standard-readme/SKILL.md) | onboarding, governance | project context | standardized README |
 | [write-agents-entry](./write-agents-entry/SKILL.md) | onboarding | project context | AGENTS.md |
 | [discover-skills](./discover-skills/SKILL.md) | onboarding | capability gaps | skill recommendations |
 | [curate-skills](./curate-skills/SKILL.md) | governance | skills directory | ASQM audit report |
 | [refine-skill-design](./refine-skill-design/SKILL.md) | governance | SKILL.md | optimized SKILL.md |
-| [bootstrap-project-documentation](./bootstrap-project-documentation/SKILL.md) | governance | project directory | documentation tree |
+| [bootstrap-docs](./bootstrap-docs/SKILL.md) | governance | project directory | docs tree |
 | [install-rules](./install-rules/SKILL.md) | governance | source rules | IDE rule files |
 | [decontextualize-text](./decontextualize-text/SKILL.md) | standalone | private text | generic text |
 | [generate-github-workflow](./generate-github-workflow/SKILL.md) | standalone | workflow requirements | GitHub Actions YAML |
 | [capture-work-items](./capture-work-items/SKILL.md) | standalone | free-form input | structured work item(s) |
-| [validate-document-artifacts](./validate-document-artifacts/SKILL.md) | standalone | docs scope | findings list |
+| [validate-doc-artifacts](./validate-doc-artifacts/SKILL.md) | standalone | docs scope | findings list |
 | [discover-document-norms](./discover-document-norms/SKILL.md) | standalone | project path | docs/ARTIFACT_NORMS.md |

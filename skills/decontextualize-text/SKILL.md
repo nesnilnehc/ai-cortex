@@ -108,7 +108,7 @@ Turn content that **depends on private context, implicit assumptions, or environ
 
 **Do NOT do these (other skills handle them)**:
 
-- **Documentation generation**: Creating new README files or project documentation from scratch → Use `generate-standard-readme` or `bootstrap-project-documentation`
+- **Documentation generation**: Creating new README files or project documentation from scratch → Use `generate-standard-readme` or `bootstrap-docs`
 - **Content writing**: Writing original content or documentation → Use writing/documentation skills
 - **Code refactoring**: Changing code structure or variable names → Use code refactoring skills
 - **Translation**: Converting text between human languages → Use translation skills

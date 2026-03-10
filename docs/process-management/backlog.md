@@ -1,6 +1,6 @@
 # Backlog Index
 
-**Purpose:** Canonical index for work items, skill requests, and planned tasks. Enables assess-documentation-readiness Backlog layer traceability.
+**Purpose:** Canonical index for work items, skill requests, and planned tasks. Enables assess-doc-readiness Backlog layer traceability.
 
 **Related:** [milestones](milestones.md) | [promotion-iteration-tasks](promotion-iteration-tasks.md) | [skills/INDEX.md](../../skills/INDEX.md) | [manifest.json](../../manifest.json)
 

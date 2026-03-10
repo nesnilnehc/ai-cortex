@@ -34,8 +34,8 @@ npx skills add nesnilnehc/ai-cortex --skill align-planning
 ## Related skills
 
 - `align-architecture` — verify ADR/design vs code compliance
-- `assess-documentation-readiness` — assess docs evidence before or after alignment
-- `orchestrate-governance-loop` — orchestrate governance cycles including align-planning
+- `assess-doc-readiness` — assess doc evidence before or after alignment
+- `run-checkpoint` — checkpoint cycle including align-planning
 - `analyze-requirements` — hand off when requirements need revalidation
 
 ## Full definition

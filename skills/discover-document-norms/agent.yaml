@@ -20,8 +20,8 @@ scores:
 asqm_quality: 18
 
 overlaps_with:
-  - nesnilnehc/ai-cortex:bootstrap-project-documentation
-  - nesnilnehc/ai-cortex:assess-documentation-readiness
+  - nesnilnehc/ai-cortex:bootstrap-docs
+  - nesnilnehc/ai-cortex:assess-doc-readiness
 
 market_position: differentiated
 

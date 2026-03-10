@@ -1,7 +1,7 @@
-name: orchestrate-governance-loop
+name: run-checkpoint
 status: validated
 
-primary_use: Orchestrate project governance cycles by routing among requirements analysis, design, execution alignment, and documentation readiness checks.
+primary_use: Analyze project state and produce next-action plan; Phase 0.5 Planning Readiness Gate (discover-document-norms, bootstrap-docs, assess-doc-readiness) when docs missing; then alignment and output-driven follow-ups; single cycle report.
 
 inputs:
   - trigger event and context
@@ -23,7 +23,9 @@ asqm_quality: 20
 overlaps_with:
   - nesnilnehc/ai-cortex:align-planning
   - nesnilnehc/ai-cortex:align-architecture
-  - nesnilnehc/ai-cortex:assess-documentation-readiness
+  - nesnilnehc/ai-cortex:assess-doc-readiness
+  - nesnilnehc/ai-cortex:discover-document-norms
+  - nesnilnehc/ai-cortex:bootstrap-docs
   - nesnilnehc/ai-cortex:onboard-repo
   - nesnilnehc/ai-cortex:review-code
 

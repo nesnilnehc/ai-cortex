@@ -1,5 +1,5 @@
 ---
-name: bootstrap-project-documentation
+name: bootstrap-docs
 description: Bootstrap or adapt project docs using project-documentation-template. Core goal - produce structured lifecycle documentation aligned with enterprise template. Initialize (empty) or Adjust (non-empty); repeatable; strict kebab-case naming.
 tags: [documentation, eng-standards, writing]
 related_skills: [generate-standard-readme, write-agents-entry]
