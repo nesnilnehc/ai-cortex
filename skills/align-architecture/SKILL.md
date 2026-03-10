@@ -2,9 +2,9 @@
 name: align-architecture
 description: Verify architecture and design documents against code implementation; produce an Architecture Compliance Report when implementation diverges from ADR or design decisions.
 tags: [workflow, eng-standards, documentation]
-version: 1.0.0
+version: 1.1.0
 license: MIT
-related_skills: [align-planning, review-architecture, brainstorm-design, assess-documentation-readiness]
+related_skills: [align-planning, review-architecture, brainstorm-design, assess-documentation-readiness, bootstrap-project-documentation]
 recommended_scope: project
 metadata:
   author: ai-cortex
@@ -18,10 +18,11 @@ metadata:
         borrowed: "Drift model, traceback pattern, report template structure"
     enhancements:
       - "Split from align-execution (renamed align-planning) per planning vs implementation boundary; focuses on design vs code compliance"
-triggers: [align architecture, architecture compliance, design vs code]
+      - "v1.1.0: Partial verification when only some modules have design docs; evidence readiness; orchestration guidance; remediation clarity for outdated design"
+triggers: [align architecture, architecture compliance, design vs code, post implementation, post merge]
 input_schema:
   type: free-form
-  description: ADR or design doc scope, optional code scope, optional project docs root
+  description: ADR or design doc scope, optional code scope (full repo, paths, or modules for incremental verification), optional project docs root
 output_schema:
   type: document-artifact
   description: Architecture Compliance Report written to docs/calibration/YYYY-MM-DD-architecture-compliance.md
@@ -48,7 +49,7 @@ Verify that code implementation aligns with architecture and design decisions do
 2. ✅ **Implementation compared**: Code is analyzed against documented decisions
 3. ✅ **Gaps classified**: Each compliance gap is typed (e.g. boundary violation, missing component, divergent pattern) with impact and root cause
 4. ✅ **Report persisted**: Architecture Compliance Report is written to the agreed path
-5. ✅ **Evidence referenced**: Each gap cites specific design sources and code locations
+5. ✅ **Evidence referenced**: Each gap cites specific design sources and code locations; when partial verification is used, covered/uncovered scope and confidence are explicit
 6. ✅ **Handoff suggested**: When design is outdated or conflicting, suggest `brainstorm-design`; when structure review needed, suggest `review-architecture`
 
 **Acceptance Test**: Can a teammate read the report and immediately understand which architecture decisions are violated, where in code, and what to do next?
@@ -84,6 +85,19 @@ Verify that code implementation aligns with architecture and design decisions do
 
 ---
 
+## Orchestration Guidance
+
+| Scenario | Recommended Sequence |
+| --- | --- |
+| Routine task completed | `align-planning` (Lightweight) |
+| Milestone or release gate | `align-planning` (Full) → then `align-architecture` |
+| Post-implementation check | `align-architecture` |
+| Planning and architecture both in question | `align-planning` first; if report suggests design-code drift → `align-architecture` |
+
+Run `align-planning` before `align-architecture` when planning layer alignment is uncertain; otherwise run `align-architecture` standalone for design vs code verification.
+
+---
+
 ## Behavior
 
 ### Agent Prompt Contract
@@ -104,8 +118,24 @@ the codebase and produce an Architecture Compliance Report when divergence exist
 ### Phase 0: Resolve Design Sources and Code Scope
 
 1. Resolve design source paths (project norms or default: `docs/architecture/`, `docs/design-decisions/`, `docs/process-management/decisions/`)
-2. Resolve code scope (full repo or user-specified paths)
+2. Resolve code scope:
+   - **Full**: entire repo (default)
+   - **Incremental**: user-specified paths, packages, or modules (for large codebases; verify only affected design decisions)
 3. If no design docs exist, output blocked report with required minimum inputs; suggest `brainstorm-design` or `bootstrap-project-documentation`
+
+### Phase 0.5: Evidence Readiness Assessment
+
+Assess design coverage before comparison:
+
+- **strong**: Design docs exist for all relevant components/modules in scope
+- **weak**: Partial design docs; some components have ADRs, others do not — perform partial verification with reduced confidence
+- **missing**: No design docs; report blocked, suggest design workflow
+
+Rules:
+
+1. When readiness is `weak`, verify only decisions that have design sources; mark uncovered code as `unknown` and list in report.
+2. Do NOT claim high confidence when readiness is `weak`.
+3. Explicitly report: covered scope, uncovered scope, and confidence level.
 
 ### Phase 1: Extract Design Decisions
 
@@ -122,13 +152,17 @@ the codebase and produce an Architecture Compliance Report when divergence exist
    - **Boundary violation**: Code crosses documented module/layer boundaries
    - **Missing component**: Documented component or interface not implemented
    - **Divergent pattern**: Implementation uses a different pattern than documented
-   - **Outdated design**: Design doc may be stale; implementation reflects current intent
+   - **Outdated design**: Design doc may be stale; implementation may reflect current intent — assign `recommended_action`:
+     - `update_design`: Implementation is authoritative; design should be updated to match (suggest `brainstorm-design`)
+     - `update_code`: Design remains authoritative; code should be refactored to match
+     - `both`: Ambiguous; requires stakeholder decision; suggest `brainstorm-design` to reconcile
 
 ### Phase 3: Produce Report
 
-1. Aggregate findings with impact scope and root cause per gap
-2. Suggest remediation: update code, update design, or both
-3. Recommend handoff to `brainstorm-design` when design conflict; to `review-architecture` when structure-only review needed
+1. Aggregate findings with impact scope, root cause, and `recommended_action` per gap
+2. For each gap, state clearly: update code, update design, or both (see gap type above)
+3. Recommend handoff to `brainstorm-design` when design must change; to `review-architecture` when structure-only review needed
+4. Include evidence readiness and confidence when partial verification was used
 
 ### Phase 4: Persist Report
 
@@ -160,6 +194,8 @@ Report must include a machine-readable compliance block (YAML or JSON).
 **Design Sources:**
 **Code Scope:**
 **Status:** compliant | partial | violated
+**Evidence Readiness:** strong | weak | missing (when partial verification used)
+**Confidence:** high | medium | low
 
 ## Summary
 - Total decisions checked:
@@ -175,7 +211,13 @@ Report must include a machine-readable compliance block (YAML or JSON).
 - **Code Location:**
 - **Impact Scope:**
 - **Root Cause:**
+- **Recommended Action:** update_code | update_design | both
 - **Remediation:**
+
+## Covered / Uncovered Scope (when partial verification)
+- Covered:
+- Uncovered:
+- Reason:
 
 ## Recommended Next Actions
 1.
@@ -183,12 +225,16 @@ Report must include a machine-readable compliance block (YAML or JSON).
 
 ## Machine-Readable Compliance
 
+    evidence:
+      readiness: "strong"  # strong | weak | missing
+      confidence: "high"   # high | medium | low
     gaps:
       - type: "boundary violation"
         designSource: "docs/architecture/adr-001.md"
         codeLocation: "pkg/infra/db.go"
         impactScope: "Domain layer imports infrastructure"
         rootCause: "Repository interface not used; direct DB import"
+        recommendedAction: "update_code"  # update_code | update_design | both
         remediation: "Implement repository pattern per ADR-001"
 ```
 
@@ -199,6 +245,7 @@ Report must include a machine-readable compliance block (YAML or JSON).
 ### Hard Boundaries
 
 - Do NOT invent design decisions when docs are missing; report blocked and suggest design workflow
+- Do NOT claim high confidence when evidence readiness is `weak` (partial verification)
 - Do NOT claim compliance when design sources are incomplete or ambiguous
 - Do NOT silently modify design docs without explicit user approval
 - Do NOT perform structural code review without design reference (that is `review-architecture`)
@@ -224,10 +271,10 @@ Report must include a machine-readable compliance block (YAML or JSON).
 ### Core Success Criteria (ALL must be met)
 
 - [ ] Design sources identified and parsed
-- [ ] Code compared against documented decisions
-- [ ] Each gap typed with impact scope and root cause
+- [ ] Code compared against documented decisions (or partial verification when readiness is weak)
+- [ ] Each gap typed with impact scope, root cause, and `recommended_action` when type is outdated design
 - [ ] Report persisted to agreed path
-- [ ] Evidence references present for each gap
+- [ ] Evidence references present for each gap (including covered/uncovered scope and confidence when partial verification used)
 - [ ] Handoff recommendations provided when applicable
 
 ### Acceptance Test
@@ -263,3 +310,25 @@ If YES: report is complete; proceed to handoff or remediation.
 - Status: blocked
 - Message: No architecture or design documents found. Run `brainstorm-design` to create design docs, or `bootstrap-project-documentation` to establish structure.
 - Confidence: N/A
+
+### Example 3: Partial Verification (Weak Readiness)
+
+**Context**: Only `pkg/auth` has an ADR; `pkg/orders` and `pkg/inventory` have no design docs.
+
+**Output**:
+
+- Evidence Readiness: weak
+- Confidence: medium
+- Covered scope: `pkg/auth` (verified against ADR-002)
+- Uncovered scope: `pkg/orders`, `pkg/inventory` (no design sources; marked unknown)
+- Report continues with findings for `pkg/auth`; recommends creating design docs for uncovered packages if compliance is required
+
+### Example 4: Outdated Design with Recommended Action
+
+**Context**: ADR-003 specifies sync API; implementation uses async event-driven flow and stakeholders prefer it.
+
+**Output**:
+
+- Type: outdated design
+- Recommended Action: update_design
+- Remediation: Update ADR-003 to document async event-driven approach; implementation is authoritative. Hand off to `brainstorm-design` to revise design doc.
