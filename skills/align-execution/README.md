@@ -1,10 +1,10 @@
 # align-execution
 
-Perform post-task traceback, drift detection, and top-down recalibration to keep execution aligned with goals, requirements, architecture, milestones, and roadmap.
+Perform post-task traceback, drift detection, and top-down recalibration to keep execution aligned with goals, requirements, milestones, and roadmap (planning layer only).
 
 ## What it does
 
-After a task is completed, runs a traceback from work to strategy, detects drift using a five-type model (goal, requirement, architecture, roadmap, priority), and produces prioritized recalibration recommendations. Supports Lightweight and Full modes with deterministic selection.
+After a task is completed, runs a traceback from work to strategy, detects drift using a four-type planning model (goal, requirement, roadmap, priority), and produces prioritized recalibration recommendations. Supports Lightweight and Full modes with deterministic selection. Architecture vs code compliance is handled by `align-architecture`.
 
 ## When to use
 
@@ -33,6 +33,7 @@ npx skills add nesnilnehc/ai-cortex --skill align-execution
 
 ## Related skills
 
+- `align-architecture` — verify ADR/design vs code compliance
 - `assess-documentation-readiness` — assess docs evidence before or after alignment
 - `orchestrate-governance-loop` — orchestrate governance cycles including align-execution
 - `analyze-requirements` — hand off when requirements need revalidation

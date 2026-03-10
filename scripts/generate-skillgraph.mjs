@@ -39,7 +39,8 @@ const REVIEW_TYPE_LABELS = {
 const NON_REVIEW_CHAIN = {
   lifecycle: [
     'analyze-requirements', 'brainstorm-design', 'commit-work', 'run-automated-tests',
-    'run-repair-loop', 'align-execution', 'assess-documentation-readiness', 'orchestrate-governance-loop',
+    'run-repair-loop', 'align-execution', 'align-architecture', 'assess-documentation-readiness',
+    'orchestrate-governance-loop',
   ],
   onboarding: ['onboard-repo', 'generate-standard-readme', 'write-agents-entry', 'discover-skills'],
   governance: [
@@ -56,13 +57,13 @@ const NON_REVIEW_CHAIN = {
 const ORCHESTRATOR_CHAINS = {
   'onboard-repo': ['review-codebase', 'review-architecture', 'generate-standard-readme', 'write-agents-entry', 'discover-skills'],
   'curate-skills': ['refine-skill-design', 'generate-standard-readme'],
-  'orchestrate-governance-loop': ['analyze-requirements', 'brainstorm-design', 'align-execution', 'assess-documentation-readiness', 'run-repair-loop'],
+  'orchestrate-governance-loop': ['align-execution', 'assess-documentation-readiness', 'align-architecture', 'analyze-requirements', 'brainstorm-design', 'run-repair-loop'],
 };
 
 // Fixed composition chains (conceptual, not from single orchestrator)
 const LIFECYCLE_CHAIN = ['analyze-requirements', 'brainstorm-design', 'review-code', 'run-repair-loop', 'run-automated-tests', 'commit-work'];
 const GOVERNANCE_CHAIN = ['curate-skills', 'refine-skill-design', 'generate-standard-readme', 'bootstrap-project-documentation', 'install-rules'];
-const PROJECT_LOOP_CHAIN = ['orchestrate-governance-loop', 'analyze-requirements', 'brainstorm-design', 'align-execution', 'assess-documentation-readiness', 'run-repair-loop'];
+const PROJECT_LOOP_CHAIN = ['orchestrate-governance-loop', 'align-execution', 'assess-documentation-readiness', 'align-architecture', 'analyze-requirements', 'brainstorm-design', 'run-repair-loop'];
 
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
 const allSkills = (manifest.capabilities || []).map((c) => c.name);
@@ -126,6 +127,7 @@ function buildNonReviewQuickRef() {
     'run-automated-tests': ['repo path', 'test execution results'],
     'run-repair-loop': ['repo + scope', 'converged clean state'],
     'align-execution': ['completed task context', 'execution alignment report'],
+    'align-architecture': ['ADR/design scope + code scope', 'architecture compliance report'],
     'assess-documentation-readiness': ['docs scope + mapping', 'documentation readiness report + minimal fill plan'],
     'orchestrate-governance-loop': ['trigger + project context', 'cycle governance report'],
     'onboard-repo': ['repo path', 'onboarding report'],
@@ -340,20 +342,22 @@ flowchart LR
 
 ### 7.4 Project governance loop chain
 
+Unified sequence: align-execution → assess-documentation-readiness; output-driven follow-ups (align-architecture, repair, brainstorm, analyze).
+
 \`\`\`mermaid
 flowchart LR
   loop[orchestrate-governance-loop]
+  align[align-execution]
+  alignarch[align-architecture]
+  docreadiness[assess-documentation-readiness]
   req[analyze-requirements]
   design[brainstorm-design]
-  align[align-execution]
-  docreadiness[assess-documentation-readiness]
   repair[run-repair-loop]
 
-  loop --> req
-  loop --> design
   loop --> align
   loop --> docreadiness
   align -->|active defects| repair
+  align -->|architecture compliance needed| alignarch
   docreadiness -->|doc gaps| req
   docreadiness -->|architecture gap| design
 \`\`\`

@@ -4,7 +4,7 @@ description: Assess documentation evidence readiness across project layers, repo
 tags: [documentation, eng-standards, workflow]
 version: 1.0.0
 license: MIT
-related_skills: [bootstrap-project-documentation, analyze-requirements, brainstorm-design, align-execution]
+related_skills: [bootstrap-project-documentation, analyze-requirements, brainstorm-design, align-execution, align-architecture]
 recommended_scope: both
 metadata:
   author: ai-cortex

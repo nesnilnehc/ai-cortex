@@ -4,7 +4,7 @@ description: Orchestrate project governance cycles by routing between requiremen
 tags: [workflow, automation, eng-standards]
 version: 1.0.0
 license: MIT
-related_skills: [analyze-requirements, brainstorm-design, align-execution, assess-documentation-readiness, run-repair-loop]
+related_skills: [analyze-requirements, brainstorm-design, align-execution, align-architecture, assess-documentation-readiness, run-repair-loop]
 recommended_scope: project
 metadata:
   author: ai-cortex
@@ -34,8 +34,8 @@ Run a repeatable governance loop for projects by orchestrating specialized skill
 
 **Success Criteria** (ALL must be met):
 
-1. ✅ **Trigger classified**: The initiating event is mapped to a governance scenario
-2. ✅ **Right skills routed**: Atomic skills are selected and sequenced according to scenario
+1. ✅ **Trigger classified (metadata only)**: The initiating event is recorded for reporting; it does not drive routing
+2. ✅ **Unified sequence executed**: Fixed sequence runs; output-driven conditionals determine follow-up skills
 3. ✅ **Decisions explained**: Every executed or skipped step has rationale
 4. ✅ **Cross-skill handoffs explicit**: Outputs and next owners are documented
 5. ✅ **Cycle report delivered**: One aggregated report is produced and persisted
@@ -59,6 +59,7 @@ Run a repeatable governance loop for projects by orchestrating specialized skill
 - Requirements analysis content itself (`analyze-requirements`)
 - Design content itself (`brainstorm-design`)
 - Alignment analysis itself (`align-execution`)
+- Architecture compliance analysis itself (`align-architecture`)
 - Documentation gap analysis itself (`assess-documentation-readiness`)
 - Direct code repair execution (`run-repair-loop`)
 
@@ -81,9 +82,9 @@ Run a repeatable governance loop for projects by orchestrating specialized skill
 
 This is a meta skill. It must route work to atomic skills and aggregate outputs. It must not replace them.
 
-### Phase 0: Trigger Classification
+### Phase 0: Trigger Classification (Metadata Only)
 
-Classify trigger into one of:
+Classify trigger into one of the following for **reporting and statistics**; trigger does **not** drive skill routing:
 
 - `task-complete`
 - `milestone-closed`
@@ -91,31 +92,27 @@ Classify trigger into one of:
 - `scope-change`
 - `periodic-review`
 
-### Phase 1: Scenario Routing
+### Phase 1: Unified Sequence + Output-Driven Branching
 
-Use default routing matrix:
+**Fixed sequence** (always run):
 
-| Trigger | Sequence | Condition notes |
-| :--- | :--- | :--- |
-| task-complete | `align-execution` -> `assess-documentation-readiness` | Route `assess-documentation-readiness` only when `align-execution` reports confidence \< high |
-| milestone-closed | `align-execution` (full) -> `assess-documentation-readiness` -> `run-repair-loop` | `align-execution (full)`: Full Alignment Mode (context has release/milestone/epic). `run-repair-loop`: only when `align-execution` or `assess-documentation-readiness` findings indicate active defects (e.g. "Report indicates active implementation defects requiring repair") |
-| release-candidate | `brainstorm-design` (if conflict) -> `align-execution` (full) -> `assess-documentation-readiness` | `brainstorm-design` only when architecture conflict suspected. `align-execution (full)`: Full mode for release gates |
-| scope-change | `analyze-requirements` -> `brainstorm-design` -> `align-execution` | — |
-| periodic-review | `assess-documentation-readiness` -> `align-execution` | — |
+1. `align-execution` (full) — planning layer traceback and drift
+2. `assess-documentation-readiness` — documentation evidence assessment
 
-**Condition definitions**:
+**Output-driven follow-ups** (run only when outputs indicate need):
 
-- **`align-execution (full)`**: Full Alignment Mode. Trigger when context contains `release`, `milestone-closed`, or `epic-done`; or for `milestone-closed` / `release-candidate` triggers.
-- **confidence**: From `align-execution` report field `Confidence: high | medium | low`. Use `medium` or `low` to route `assess-documentation-readiness`.
-- **defects active**: From `align-execution` or `assess-documentation-readiness` findings; e.g. "Report indicates active implementation defects requiring repair" or explicit defect/blocker items.
+- `run-repair-loop` — when alignment or doc-readiness findings indicate active defects
+- `brainstorm-design` — when alignment reports architecture design conflict
+- `analyze-requirements` — when alignment reports severe requirement drift
+- `align-architecture` — when architecture vs code compliance check is needed (e.g. milestone/release context or alignment suggests)
 
 User override always takes precedence.
 
 ### Interaction Policy
 
-- **Defaults**: Infer trigger from context (e.g. git status, recent commits, milestone tags); default `task-complete` if ambiguous
-- **Choice options**: If trigger unclear, offer `[task-complete][milestone-closed][release-candidate][scope-change][periodic-review]`
-- **Confirm**: Scope override or custom routing sequence before executing routed skills
+- **Defaults**: Infer trigger from context for metadata; always run unified sequence
+- **Choice options**: Scope override or custom sequence before executing
+- **Confirm**: Scope override or custom sequence before executing
 
 ### Phase 2: Execute and Collect
 
@@ -171,10 +168,11 @@ Write exactly one file to:
    Status: executed | skipped
 
 ## Aggregated Findings
-- From analyze-requirements:
-- From brainstorm-design:
 - From align-execution:
 - From assess-documentation-readiness:
+- From align-architecture: (if executed)
+- From analyze-requirements: (if executed)
+- From brainstorm-design: (if executed)
 
 ## Blockers and Confidence
 - Blocker:
@@ -197,7 +195,7 @@ Next tasks must be explicit and actionable: what to do, why, who owns it, and in
 - Do NOT perform atomic analysis directly in this skill
 - Do NOT persist outputs of routed atomic skills; aggregate only; single artifact output
 - Do NOT hide skipped steps; always disclose skip reason
-- Do NOT route more than necessary for the trigger (avoid orchestration inflation)
+- Do NOT route by trigger; use output-driven branching only
 - Do NOT present recommendations without tying them to collected outputs
 - Do produce explicit Recommended Next Tasks (prioritized, actionable, with owner and rationale)
 
@@ -208,6 +206,7 @@ Next tasks must be explicit and actionable: what to do, why, who owns it, and in
 - Requirement diagnosis -> `analyze-requirements`
 - Design alternatives and approval -> `brainstorm-design`
 - Drift typing and recalibration -> `align-execution`
+- Architecture vs code compliance -> `align-architecture`
 - Documentation gap scoring -> `assess-documentation-readiness`
 - Automated fix loops -> `run-repair-loop`
 
@@ -222,8 +221,8 @@ Next tasks must be explicit and actionable: what to do, why, who owns it, and in
 
 ### Core Success Criteria (ALL must be met)
 
-- [ ] Trigger mapped to scenario
-- [ ] Skill sequence chosen with rationale
+- [ ] Trigger recorded as metadata
+- [ ] Unified sequence executed; output-driven follow-ups chosen with rationale
 - [ ] Executed/skipped steps clearly listed
 - [ ] Aggregated findings captured
 - [ ] Cycle report persisted
@@ -231,7 +230,7 @@ Next tasks must be explicit and actionable: what to do, why, who owns it, and in
 
 ### Process Quality Checks
 
-- [ ] Routing remains minimal for trigger type
+- [ ] Output-driven branching used for follow-ups
 - [ ] User overrides honored
 - [ ] Handovers contain explicit owners and next actions
 - [ ] Report supports immediate next iteration
@@ -250,18 +249,21 @@ If YES: loop cycle output is complete.
 
 ### Example 1: Task Complete with Weak Confidence
 
-- Trigger: `task-complete`
-- Route: `align-execution` -> `assess-documentation-readiness`
-- Outcome: alignment partially valid; missing architecture evidence; docs fill plan created
+- Trigger: `task-complete` (metadata)
+- Sequence: `align-execution` (full) -> `assess-documentation-readiness`
+- Output-driven: `assess-documentation-readiness` executed because alignment confidence was medium
+- Outcome: alignment partially valid; docs fill plan created
 
-### Example 2: Scope Change Mid-Iteration
+### Example 2: Milestone Closure with Architecture Compliance
 
-- Trigger: `scope-change`
-- Route: `analyze-requirements` -> `brainstorm-design` -> `align-execution`
-- Outcome: requirements updated, design adjusted, priorities recalibrated
+- Trigger: `milestone-closed` (metadata)
+- Sequence: `align-execution` (full) -> `assess-documentation-readiness`
+- Output-driven: `align-architecture` added because milestone context; `run-repair-loop` added because alignment reported active defects
+- Outcome: planning aligned; architecture compliance gaps found; defects assigned for repair
 
 ### Example 3: Release Candidate Gate
 
-- Trigger: `release-candidate`
-- Route: `align-execution` (full) -> `assess-documentation-readiness`
+- Trigger: `release-candidate` (metadata)
+- Sequence: `align-execution` (full) -> `assess-documentation-readiness`
+- Output-driven: `align-architecture` added for release gate
 - Outcome: release blocked by missing roadmap-to-backlog traceability; next actions assigned

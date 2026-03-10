@@ -25,12 +25,24 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Primary skill**: [align-execution](./align-execution/SKILL.md)
 - **Optional skills**:
   - [assess-documentation-readiness](./assess-documentation-readiness/SKILL.md)
+  - [align-architecture](./align-architecture/SKILL.md)
   - [orchestrate-governance-loop](./orchestrate-governance-loop/SKILL.md)
 - **Short triggers**: post task, alignment, execution alignment
 - **Output**: Execution Alignment Report with drift and calibration actions
 - **Stop condition**: Next 1-3 tasks reprioritized with confidence level
 
-## 3) Documentation Gap Triage
+## 3) Architecture Compliance
+
+- **When to use**: Verify that implementation matches ADR or design docs
+- **Primary skill**: [align-architecture](./align-architecture/SKILL.md)
+- **Optional skills**:
+  - [align-execution](./align-execution/SKILL.md)
+  - [brainstorm-design](./brainstorm-design/SKILL.md)
+- **Short triggers**: align architecture, architecture compliance, design vs code
+- **Output**: Architecture Compliance Report with gaps and remediation
+- **Stop condition**: Compliance gaps identified and handoff suggested
+
+## 4) Documentation Gap Triage
 
 - **When to use**: Alignment confidence is low due to weak/missing docs
 - **Primary skill**: [assess-documentation-readiness](./assess-documentation-readiness/SKILL.md)
@@ -41,7 +53,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Output**: Documentation Readiness Report and Minimal Fill Plan
 - **Stop condition**: Critical layers reach at least weak and high-priority gaps have owners
 
-## 4) Iteration Orchestration
+## 5) Iteration Orchestration
 
 - **When to use**: Milestone closure, release gate, or periodic governance cycle
 - **Primary skill**: [orchestrate-governance-loop](./orchestrate-governance-loop/SKILL.md)
@@ -52,7 +64,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Output**: Cycle report with executed/skipped steps and Recommended Next Tasks
 - **Stop condition**: All required scenario checks are completed or explicitly deferred
 
-## 5) Code Quality Review
+## 6) Code Quality Review
 
 - **When to use**: Review quality/security/performance/testing before merge or release
 - **Primary skill**: [review-code](./review-code/SKILL.md)
@@ -63,7 +75,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Output**: Aggregated findings report
 - **Stop condition**: Critical/major issues have mitigation plan
 
-## 6) Delivery Convergence
+## 7) Delivery Convergence
 
 - **When to use**: Need to run tests, fix failures, and stabilize before commit
 - **Primary skill**: [run-repair-loop](./run-repair-loop/SKILL.md)
@@ -74,7 +86,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Output**: Converged state + clean commit plan
 - **Stop condition**: Tests pass and commit scope is clear
 
-## 7) Repository Onboarding
+## 8) Repository Onboarding
 
 - **When to use**: New team member, inherited repository, or handoff
 - **Primary skill**: [onboard-repo](./onboard-repo/SKILL.md)
@@ -85,7 +97,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Output**: Onboarding report + core docs
 - **Stop condition**: New contributor can navigate and start work without ad-hoc guidance
 
-## 8) Skill System Governance
+## 9) Skill System Governance
 
 - **When to use**: Audit/refactor skill inventory and maintain quality
 - **Primary skill**: [curate-skills](./curate-skills/SKILL.md)
@@ -96,7 +108,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Output**: ASQM audit and improvement actions
 - **Stop condition**: Registry and quality signals are up to date
 
-## 9) Quick Capture (Work Items)
+## 10) Quick Capture (Work Items)
 
 - **When to use**: User wants to record a requirement, bug, or issue without deep validation
 - **Primary skill**: [capture-work-items](./capture-work-items/SKILL.md)
@@ -106,7 +118,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Output**: Structured work item(s) in docs/backlog/ or project convention
 - **Stop condition**: Item persisted and user confirmed
 
-## 10) Repository Maintenance
+## 11) Repository Maintenance
 
 - **When to use**: Cleanup, optimization, or archiving of old content
 - **Primary skill**: [prune-content](./prune-content/SKILL.md)

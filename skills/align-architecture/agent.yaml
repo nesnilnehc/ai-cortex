@@ -1,0 +1,31 @@
+name: align-architecture
+status: validated
+
+primary_use: Verify architecture and design documents against code; produce Architecture Compliance Report when implementation diverges from ADR or design decisions.
+
+inputs:
+  - optional ADR or design doc paths
+  - optional code scope
+  - optional project docs root
+
+outputs:
+  - Architecture Compliance Report (docs/calibration/YYYY-MM-DD-architecture-compliance.md)
+  - machine-readable compliance gaps block
+
+scores:
+  agent_native: 5
+  cognitive: 5
+  composability: 5
+  stance: 5
+
+asqm_quality: 20
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:align-execution
+  - nesnilnehc/ai-cortex:review-architecture
+  - nesnilnehc/ai-cortex:brainstorm-design
+  - nesnilnehc/ai-cortex:assess-documentation-readiness
+
+market_position: differentiated
+
+tags: [workflow, eng-standards, documentation]
