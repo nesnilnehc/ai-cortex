@@ -19,11 +19,11 @@
     {
       "id": "post_task_governance",
       "title": "Post-Task Governance",
-      "short_triggers": ["post task", "alignment", "execution alignment"],
+      "short_triggers": ["post task", "alignment", "planning alignment", "align planning"],
       "when_to_use": "A task is done and you need to validate direction",
-      "primary": "align-execution",
+      "primary": "align-planning",
       "optional": ["assess-documentation-readiness", "align-architecture", "orchestrate-governance-loop"],
-      "output": "Execution Alignment Report with drift and calibration actions",
+      "output": "Planning Alignment Report with drift and calibration actions",
       "stop_condition": "Next 1-3 tasks reprioritized with confidence level"
     },
     {
@@ -32,7 +32,7 @@
       "short_triggers": ["align architecture", "architecture compliance", "design vs code"],
       "when_to_use": "Verify that implementation matches ADR or design docs",
       "primary": "align-architecture",
-      "optional": ["align-execution", "brainstorm-design"],
+      "optional": ["align-planning", "brainstorm-design"],
       "output": "Architecture Compliance Report with gaps and remediation",
       "stop_condition": "Compliance gaps identified and handoff suggested"
     },
@@ -52,7 +52,7 @@
       "short_triggers": ["iteration", "governance", "project cognitive loop"],
       "when_to_use": "Milestone closure, release gate, or periodic governance cycle",
       "primary": "orchestrate-governance-loop",
-      "optional": ["align-execution", "assess-documentation-readiness"],
+      "optional": ["align-planning", "assess-documentation-readiness"],
       "output": "Cycle report with executed/skipped steps and Recommended Next Tasks",
       "stop_condition": "All required scenario checks are completed or explicitly deferred"
     },

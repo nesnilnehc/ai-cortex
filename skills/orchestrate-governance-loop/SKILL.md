@@ -4,7 +4,7 @@ description: Orchestrate project governance cycles by routing between requiremen
 tags: [workflow, automation, eng-standards]
 version: 1.0.0
 license: MIT
-related_skills: [analyze-requirements, brainstorm-design, align-execution, align-architecture, assess-documentation-readiness, run-repair-loop]
+related_skills: [analyze-requirements, brainstorm-design, align-planning, align-architecture, assess-documentation-readiness, run-repair-loop]
 recommended_scope: project
 metadata:
   author: ai-cortex
@@ -58,7 +58,7 @@ Run a repeatable governance loop for projects by orchestrating specialized skill
 
 - Requirements analysis content itself (`analyze-requirements`)
 - Design content itself (`brainstorm-design`)
-- Alignment analysis itself (`align-execution`)
+- Alignment analysis itself (`align-planning`)
 - Architecture compliance analysis itself (`align-architecture`)
 - Documentation gap analysis itself (`assess-documentation-readiness`)
 - Direct code repair execution (`run-repair-loop`)
@@ -96,7 +96,7 @@ Classify trigger into one of the following for **reporting and statistics**; tri
 
 **Fixed sequence** (always run):
 
-1. `align-execution` (full) — planning layer traceback and drift
+1. `align-planning` (full) — planning layer traceback and drift
 2. `assess-documentation-readiness` — documentation evidence assessment
 
 **Output-driven follow-ups** (run only when outputs indicate need):
@@ -124,7 +124,7 @@ For each selected skill:
 4. Record skipped skills and reason
 5. Capture blockers and dependencies
 
-**Single artifact rule**: This orchestrator produces exactly one output file. Do NOT write separate reports for `assess-documentation-readiness`, `align-execution`, or other routed skills. All findings are aggregated into the cycle report.
+**Single artifact rule**: This orchestrator produces exactly one output file. Do NOT write separate reports for `assess-documentation-readiness`, `align-planning`, or other routed skills. All findings are aggregated into the cycle report.
 
 ### Phase 3: Aggregate Governance Report
 
@@ -168,7 +168,7 @@ Write exactly one file to:
    Status: executed | skipped
 
 ## Aggregated Findings
-- From align-execution:
+- From align-planning:
 - From assess-documentation-readiness:
 - From align-architecture: (if executed)
 - From analyze-requirements: (if executed)
@@ -205,7 +205,7 @@ Next tasks must be explicit and actionable: what to do, why, who owns it, and in
 
 - Requirement diagnosis -> `analyze-requirements`
 - Design alternatives and approval -> `brainstorm-design`
-- Drift typing and recalibration -> `align-execution`
+- Drift typing and recalibration -> `align-planning`
 - Architecture vs code compliance -> `align-architecture`
 - Documentation gap scoring -> `assess-documentation-readiness`
 - Automated fix loops -> `run-repair-loop`
@@ -250,20 +250,20 @@ If YES: loop cycle output is complete.
 ### Example 1: Task Complete with Weak Confidence
 
 - Trigger: `task-complete` (metadata)
-- Sequence: `align-execution` (full) -> `assess-documentation-readiness`
+- Sequence: `align-planning` (full) -> `assess-documentation-readiness`
 - Output-driven: `assess-documentation-readiness` executed because alignment confidence was medium
 - Outcome: alignment partially valid; docs fill plan created
 
 ### Example 2: Milestone Closure with Architecture Compliance
 
 - Trigger: `milestone-closed` (metadata)
-- Sequence: `align-execution` (full) -> `assess-documentation-readiness`
+- Sequence: `align-planning` (full) -> `assess-documentation-readiness`
 - Output-driven: `align-architecture` added because milestone context; `run-repair-loop` added because alignment reported active defects
 - Outcome: planning aligned; architecture compliance gaps found; defects assigned for repair
 
 ### Example 3: Release Candidate Gate
 
 - Trigger: `release-candidate` (metadata)
-- Sequence: `align-execution` (full) -> `assess-documentation-readiness`
+- Sequence: `align-planning` (full) -> `assess-documentation-readiness`
 - Output-driven: `align-architecture` added for release gate
 - Outcome: release blocked by missing roadmap-to-backlog traceability; next actions assigned

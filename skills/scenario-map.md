@@ -22,13 +22,13 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 ## 2) Post-Task Governance
 
 - **When to use**: A task is done and you need to validate direction
-- **Primary skill**: [align-execution](./align-execution/SKILL.md)
+- **Primary skill**: [align-planning](./align-planning/SKILL.md)
 - **Optional skills**:
   - [assess-documentation-readiness](./assess-documentation-readiness/SKILL.md)
   - [align-architecture](./align-architecture/SKILL.md)
   - [orchestrate-governance-loop](./orchestrate-governance-loop/SKILL.md)
-- **Short triggers**: post task, alignment, execution alignment
-- **Output**: Execution Alignment Report with drift and calibration actions
+- **Short triggers**: post task, alignment, planning alignment, align planning
+- **Output**: Planning Alignment Report with drift and calibration actions
 - **Stop condition**: Next 1-3 tasks reprioritized with confidence level
 
 ## 3) Architecture Compliance
@@ -36,7 +36,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **When to use**: Verify that implementation matches ADR or design docs
 - **Primary skill**: [align-architecture](./align-architecture/SKILL.md)
 - **Optional skills**:
-  - [align-execution](./align-execution/SKILL.md)
+  - [align-planning](./align-planning/SKILL.md)
   - [brainstorm-design](./brainstorm-design/SKILL.md)
 - **Short triggers**: align architecture, architecture compliance, design vs code
 - **Output**: Architecture Compliance Report with gaps and remediation
@@ -58,7 +58,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **When to use**: Milestone closure, release gate, or periodic governance cycle
 - **Primary skill**: [orchestrate-governance-loop](./orchestrate-governance-loop/SKILL.md)
 - **Optional skills**:
-  - [align-execution](./align-execution/SKILL.md)
+  - [align-planning](./align-planning/SKILL.md)
   - [assess-documentation-readiness](./assess-documentation-readiness/SKILL.md)
 - **Short triggers**: iteration, governance, project cognitive loop
 - **Output**: Cycle report with executed/skipped steps and Recommended Next Tasks

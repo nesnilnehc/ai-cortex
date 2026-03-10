@@ -1,7 +1,7 @@
-name: align-execution
+name: align-planning
 status: validated
 
-primary_use: Perform post-task traceback, typed drift detection, and top-down recalibration to keep execution aligned with goals, requirements, milestones, and roadmap (planning layer only).
+primary_use: Perform post-task traceback, typed drift detection, and top-down recalibration to keep planning (goals, requirements, milestones, roadmap) aligned with task execution.
 
 inputs:
   - completed task description and outcome
@@ -10,7 +10,7 @@ inputs:
   - optional context (release, milestone, epic markers)
 
 outputs:
-  - Execution Alignment Report (docs/calibration/YYYY-MM-DD-task-slug-calibration.md)
+  - Planning Alignment Report (docs/calibration/YYYY-MM-DD-task-slug-calibration.md)
   - machine-readable drifts and evidence readiness block
 
 scores:

@@ -241,12 +241,12 @@ flowchart LR
 
 ### 7.4 Project governance loop chain
 
-Unified sequence: align-execution → assess-documentation-readiness; output-driven follow-ups (align-architecture, repair, brainstorm, analyze).
+Unified sequence: align-planning → assess-documentation-readiness; output-driven follow-ups (align-architecture, repair, brainstorm, analyze).
 
 ```mermaid
 flowchart LR
   loop[orchestrate-governance-loop]
-  align[align-execution]
+  align[align-planning]
   alignarch[align-architecture]
   docreadiness[assess-documentation-readiness]
   req[analyze-requirements]
@@ -270,7 +270,7 @@ flowchart LR
 | [commit-work](./commit-work/SKILL.md) | lifecycle | staged changes | git commits |
 | [run-automated-tests](./run-automated-tests/SKILL.md) | lifecycle | repo path | test execution results |
 | [run-repair-loop](./run-repair-loop/SKILL.md) | lifecycle | repo + scope | converged clean state |
-| [align-execution](./align-execution/SKILL.md) | lifecycle | completed task context | execution alignment report |
+| [align-planning](./align-planning/SKILL.md) | lifecycle | completed task context | planning alignment report |
 | [align-architecture](./align-architecture/SKILL.md) | lifecycle | ADR/design scope + code scope | architecture compliance report |
 | [assess-documentation-readiness](./assess-documentation-readiness/SKILL.md) | lifecycle | docs scope + mapping | documentation readiness report + minimal fill plan |
 | [orchestrate-governance-loop](./orchestrate-governance-loop/SKILL.md) | lifecycle | trigger + project context | cycle governance report |
