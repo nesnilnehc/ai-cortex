@@ -8,6 +8,7 @@ related_skills: [review-diff, review-codebase, review-code, review-sql, review-p
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [review orm, orm review]
 input_schema:
   type: code-scope
   description: Source files or directories to review
@@ -43,6 +44,7 @@ Review **ORM usage patterns** at the **library level** only. Do not define scope
 ## Scope Boundaries
 
 **This skill handles**:
+
 - N+1 query detection (eager vs lazy loading, include/join patterns, batch loading, data loader patterns)
 - Connection management (pool configuration, connection leaks, timeout handling, connection reuse)
 - Migration safety (backwards-compatible migrations, zero-downtime deployment, data vs schema migration, rollback strategy)
@@ -51,6 +53,7 @@ Review **ORM usage patterns** at the **library level** only. Do not define scope
 - Model design (proper relations, cascade behavior, soft delete patterns, audit columns, index declarations)
 
 **This skill does NOT handle**:
+
 - Scope selection — scope is provided by the caller
 - Security analysis (SQL injection, sensitive data exposure) — use `review-security`
 - Architecture analysis (module boundaries, coupling) — use `review-architecture`
@@ -120,6 +123,7 @@ Review **ORM usage patterns** at the **library level** only. Do not define scope
 ### Skill Boundaries
 
 **Do NOT do these** (other skills handle them):
+
 - Do NOT select or define the code scope — scope is determined by the caller or `review-code`
 - Do NOT perform security analysis (SQL injection, data exposure) — use `review-security`
 - Do NOT perform architecture analysis (module boundaries, coupling) — use `review-architecture`
@@ -127,6 +131,7 @@ Review **ORM usage patterns** at the **library level** only. Do not define scope
 - Do NOT perform general algorithmic performance analysis — use `review-performance`
 
 **When to stop and hand off**:
+
 - When all ORM findings are emitted, hand off to `review-code` for aggregation
 - When SQL injection risks are found (e.g. unsanitized interpolation in raw queries), note them and suggest `review-security`
 - When raw SQL quality issues are found (syntax, portability), note them and suggest `review-sql`

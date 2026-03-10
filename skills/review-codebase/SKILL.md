@@ -8,6 +8,7 @@ related_skills: [review-code, review-diff]
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [review codebase, codebase review]
 input_schema:
   type: code-scope
   description: Files, directories, or repository path to review for architecture and design
@@ -43,11 +44,13 @@ From a **senior full-stack and production code-review** perspective, review **th
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Reviewing the current state of given path(s), directory(ies), or full repo
 - Architecture, design patterns, tech debt, cross-module dependencies, and overall quality
 - Current-state security and performance concerns within the reviewed scope
 
 **This skill does NOT handle**:
+
 - Diff-only or change-set reviews (use `review-diff` for those)
 - Full orchestrated reviews combining scope + language + cognitive skills (use `review-code` for that)
 - Language/framework-specific convention analysis (use `review-dotnet`, `review-java`, `review-go`, etc.)
@@ -134,11 +137,13 @@ This skill looks at **full implementation and place in the whole**, not "this di
 ### Skill Boundaries
 
 **Do NOT do these** (other skills handle them):
+
 - Do NOT review only the git diff or current change set — use `review-diff` for diff-only scope
 - Do NOT orchestrate multiple review skills across scope + language + cognitive dimensions — use `review-code` for full orchestrated review
 - Do NOT perform language-specific convention analysis (.NET, Java, Go, etc.) — use the respective language review skill
 
 **When to stop and hand off**:
+
 - When findings are complete, hand off to `review-code` if part of an orchestrated review pipeline
 - When the user needs only diff analysis, redirect to `review-diff`
 - When the user needs security or performance deep-dive only, redirect to `review-security` or `review-performance`

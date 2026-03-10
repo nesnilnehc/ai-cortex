@@ -8,6 +8,7 @@ license: MIT
 recommended_scope: user
 metadata:
   author: ai-cortex
+triggers: [decontextualize, remove context]
 input_schema:
   type: free-form
   description: Text containing private context, internal dependencies, or organizational identifiers

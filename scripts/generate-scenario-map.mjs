@@ -29,10 +29,13 @@ function renderScenario(s, i) {
     return `  - ${link(o)}${note}`;
   }).join('\n');
   const optSection = optList ? `\n- **Optional skills**:\n${optList}` : '';
+  const triggersSection = (s.short_triggers && s.short_triggers.length)
+    ? `\n- **Short triggers**: ${s.short_triggers.join(', ')}`
+    : '';
   return `## ${i}) ${s.title}
 
 - **When to use**: ${s.when_to_use}
-- **Primary skill**: ${link(s.primary)}${optSection}
+- **Primary skill**: ${link(s.primary)}${optSection}${triggersSection}
 - **Output**: ${s.output}
 - **Stop condition**: ${s.stop_condition}`;
 }

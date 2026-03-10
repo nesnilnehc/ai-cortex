@@ -8,6 +8,7 @@ related_skills: [discover-skills]
 recommended_scope: both
 metadata:
   author: ai-cortex
+triggers: [install rules]
 input_schema:
   type: free-form
   description: Source repo or local rules directory and target IDE (Cursor or Trae)
@@ -44,6 +45,7 @@ Install **rules** (passive constraints for AI behavior) from a rules source into
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Resolving rules source (this repo or Git repo)
 - Listing available rules from source
 - Analyzing destination state (existing files/conflicts)
@@ -52,6 +54,7 @@ Install **rules** (passive constraints for AI behavior) from a rules source into
 - Reporting installation results
 
 **This skill does NOT handle**:
+
 - Discovering which skills are available (use `discover-skills`)
 - Creating or authoring new rules (out of scope)
 - Modifying rule content (preserves source content exactly)

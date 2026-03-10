@@ -8,6 +8,7 @@ related_skills: [analyze-requirements, brainstorm-design]
 recommended_scope: both
 metadata:
   author: ai-cortex
+triggers: [capture, quick capture, record bug]
 input_schema:
   type: free-form
   description: Raw description of requirement, bug, or issue from user

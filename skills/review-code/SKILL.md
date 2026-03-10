@@ -8,9 +8,13 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [review, code review, pr review, review code]
 input_schema:
   type: code-scope
   description: Diff or codebase path(s) to review, plus optional language/framework hint
+  defaults:
+    scope: diff
+    untracked: include
 output_schema:
   type: findings-list
   description: Aggregated, deduplicated findings with risk signals from all executed atomic skills
@@ -44,6 +48,7 @@ output_schema:
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Orchestrating atomic review skills in fixed order
 - Confirming review scope with user (diff vs codebase, paths, language/framework)
 - Collecting findings from each atomic skill
@@ -51,6 +56,7 @@ output_schema:
 - Deriving risk signals from final findings
 
 **This skill does NOT handle**:
+
 - Direct code analysis (use atomic review skills: `review-diff`, `review-codebase`, `review-security`, etc.)
 - Single-dimension reviews (use atomic skills directly: `review-diff` for diff only, `review-security` for security only, etc.)
 - Implementation of fixes (use development/refactoring skills)
@@ -286,5 +292,6 @@ When emitting risk signals, apply this centralized mapping from final findings/c
 | `performance_regression` | Findings from `language-*`, `framework-*`, `language-sql`, or `cognitive-performance` indicate measurable latency/throughput/memory regression risk. |
 
 Notes:
+
 - Use evidence-first mapping; do not infer a signal without at least one supporting finding or explicit changed artifact.
 - Emit each signal once; keep list stable and deduplicated.

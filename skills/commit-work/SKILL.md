@@ -27,6 +27,7 @@ metadata:
       - "Added spec/skill.md compliance verification"
       - "Auto-sync with skills/INDEX.md and manifest.json"
       - "Enhanced Self-Check with AI Cortex standards"
+triggers: [commit, commit work]
 input_schema:
   type: free-form
   description: Staged and unstaged changes in the working tree to commit
@@ -63,6 +64,7 @@ Make commits that are easy to review and safe to ship by ensuring only intended 
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Reviewing uncommitted changes
 - Splitting mixed changes into logical commits
 - Staging changes with patch mode when needed
@@ -71,6 +73,7 @@ Make commits that are easy to review and safe to ship by ensuring only intended 
 - Syncing AI Cortex registries (INDEX.md, manifest.json)
 
 **This skill does NOT handle**:
+
 - Code review of existing commits (use `review-diff` skill)
 - Rewriting git history or rebasing (use git rebase commands)
 - Resolving merge conflicts (use git merge/rebase workflows)

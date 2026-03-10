@@ -28,10 +28,10 @@ Help the user maintain a clean codebase by identifying and archiving "expired" o
 
 ## Behavior
 
-1.  **Identification (Interactive)**: Consults context or asks user to identify targets (e.g., "I see a `prototypes` folder. Archive?").
-2.  **Proposal**: Presents a clear plan of what will be moved where.
-3.  **Execution**: Uses `git mv` (preferred) or `mv` to move content to `_archive/<original_path>`, preserving directory structure.
-4.  **Cleanup**: Removes empty parent directories.
+1. **Identification (Interactive)**: Consults context or asks user to identify targets (e.g., "I see a `prototypes` folder. Archive?").
+2. **Proposal**: Presents a clear plan of what will be moved where.
+3. **Execution**: Uses `git mv` (preferred) or `mv` to move content to `_archive/<original_path>`, preserving directory structure.
+4. **Cleanup**: Removes empty parent directories.
 
 ## Restrictions
 

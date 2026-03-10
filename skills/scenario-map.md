@@ -15,6 +15,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Optional skills**:
   - [brainstorm-design](./brainstorm-design/SKILL.md)
   - [bootstrap-project-documentation](./bootstrap-project-documentation/SKILL.md)
+- **Short triggers**: project start, start project, requirements, analyze requirements
 - **Output**: Validated requirements and initial design/doc structure
 - **Stop condition**: Requirements approved and design path selected
 
@@ -25,6 +26,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Optional skills**:
   - [documentation-readiness](./documentation-readiness/SKILL.md)
   - [project-cognitive-loop](./project-cognitive-loop/SKILL.md)
+- **Short triggers**: post task, alignment, execution alignment
 - **Output**: Execution Alignment Report with drift and calibration actions
 - **Stop condition**: Next 1-3 tasks reprioritized with confidence level
 
@@ -35,6 +37,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Optional skills**:
   - [bootstrap-project-documentation](./bootstrap-project-documentation/SKILL.md)
   - [analyze-requirements](./analyze-requirements/SKILL.md)
+- **Short triggers**: doc gap, documentation readiness, doc triage
 - **Output**: Documentation Readiness Report and Minimal Fill Plan
 - **Stop condition**: Critical layers reach at least weak and high-priority gaps have owners
 
@@ -45,6 +48,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Optional skills**:
   - [execution-alignment](./execution-alignment/SKILL.md)
   - [documentation-readiness](./documentation-readiness/SKILL.md)
+- **Short triggers**: iteration, governance, project cognitive loop
 - **Output**: Cycle report with executed/skipped steps and Recommended Next Tasks
 - **Stop condition**: All required scenario checks are completed or explicitly deferred
 
@@ -55,6 +59,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Optional skills**:
   - [review-diff](./review-diff/SKILL.md)
   - [review-codebase](./review-codebase/SKILL.md)
+- **Short triggers**: review, code review, pr review, review code
 - **Output**: Aggregated findings report
 - **Stop condition**: Critical/major issues have mitigation plan
 
@@ -65,6 +70,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Optional skills**:
   - [run-automated-tests](./run-automated-tests/SKILL.md)
   - [commit-work](./commit-work/SKILL.md)
+- **Short triggers**: repair, fix tests, delivery, stabilize
 - **Output**: Converged state + clean commit plan
 - **Stop condition**: Tests pass and commit scope is clear
 
@@ -75,6 +81,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Optional skills**:
   - [generate-standard-readme](./generate-standard-readme/SKILL.md)
   - [write-agents-entry](./write-agents-entry/SKILL.md)
+- **Short triggers**: onboard, onboard repo
 - **Output**: Onboarding report + core docs
 - **Stop condition**: New contributor can navigate and start work without ad-hoc guidance
 
@@ -85,6 +92,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Optional skills**:
   - [refine-skill-design](./refine-skill-design/SKILL.md)
   - [discover-skills](./discover-skills/SKILL.md)
+- **Short triggers**: curate, curate skills, skill audit
 - **Output**: ASQM audit and improvement actions
 - **Stop condition**: Registry and quality signals are up to date
 
@@ -94,6 +102,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Primary skill**: [capture-work-items](./capture-work-items/SKILL.md)
 - **Optional skills**:
   - [analyze-requirements](./analyze-requirements/SKILL.md) (when item is vague and needs validation)
+- **Short triggers**: capture, quick capture, record bug
 - **Output**: Structured work item(s) in docs/backlog/ or project convention
 - **Stop condition**: Item persisted and user confirmed
 
@@ -103,6 +112,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Primary skill**: [prune-content](./prune-content/SKILL.md)
 - **Optional skills**:
   - [validate-document-artifacts](./validate-document-artifacts/SKILL.md)
+- **Short triggers**: prune, cleanup, repository maintenance
 - **Output**: Cleaned repository structure and archived obsolete content
 - **Stop condition**: User confirms cleanup actions
 

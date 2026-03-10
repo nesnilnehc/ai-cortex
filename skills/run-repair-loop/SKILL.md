@@ -8,6 +8,7 @@ related_skills: [review-code, review-diff, run-automated-tests, review-security,
 recommended_scope: both
 metadata:
   author: ai-cortex
+triggers: [repair, fix tests, delivery, stabilize]
 compatibility: Requires a shell and the repo's toolchains to run tests (language-dependent). May require git for diff-based review.
 input_schema:
   type: code-scope
@@ -49,6 +50,7 @@ Converge a codebase or change set to "clean" by running a **multi-iteration loop
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Multi-iteration review → test → fix loops
 - Diff-scoped and codebase-scoped review using `review-diff` and `review-code`
 - Test execution via `run-automated-tests` (fast/ci/full modes)
@@ -57,6 +59,7 @@ Converge a codebase or change set to "clean" by running a **multi-iteration loop
 - Structured repair loop report output
 
 **This skill does NOT handle**:
+
 - Installing dependencies without explicit user confirmation
 - Using network or starting Docker/services without user confirmation
 - Large refactors without explicit user approval

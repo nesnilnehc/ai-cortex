@@ -8,6 +8,7 @@ related_skills: []
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [github workflow, generate workflow]
 input_schema:
   type: free-form
   description: Workflow requirements (CI, release, PR checks) and project context
@@ -43,6 +44,7 @@ Produce **GitHub Actions workflow files** that satisfy this skill's **Appendix A
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Generating complete GitHub Actions workflow YAML for CI, PR check, release, and scheduled scenarios
 - Security hardening (pinned actions, minimal permissions, no hardcoded secrets)
 - Stack alignment (Node/Python/Go/Rust runners, package managers, build commands)
@@ -51,6 +53,7 @@ Produce **GitHub Actions workflow files** that satisfy this skill's **Appendix A
 - Go + Docker + GHCR + GoReleaser patterns (see Appendix B)
 
 **This skill does NOT handle**:
+
 - Chaining to documentation skills (README, AGENTS.md updates) — invoke those separately after workflow generation
 - Writing to `.github/workflows/` without user confirmation
 - Overwriting existing workflows without warning
@@ -129,6 +132,7 @@ Produce **GitHub Actions workflow files** that satisfy this skill's **Appendix A
 ### Skill Boundaries
 
 **Do NOT do these** (other skills handle them):
+
 - Do NOT chain to documentation or README skills — invoke those separately
 - Do NOT write to `.github/workflows/` without user confirmation
 - Do NOT overwrite existing workflows silently
@@ -136,6 +140,7 @@ Produce **GitHub Actions workflow files** that satisfy this skill's **Appendix A
 - Do NOT generate CI/CD for non-GitHub platforms (GitLab CI, Jenkins, etc.)
 
 **When to stop and hand off**:
+
 - After writing workflow files with confirmation, hand off to documentation skills if README/AGENTS.md updates are needed
 - When user needs registry or secrets configuration, provide guidance but do not automate external service setup
 

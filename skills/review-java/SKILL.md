@@ -8,6 +8,7 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [review java]
 input_schema:
   type: code-scope
   description: Source files or directories to review
@@ -43,6 +44,7 @@ Review code in **Java** for **language and runtime conventions** only. Do not de
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Concurrency and thread safety (synchronized, volatile, concurrent collections, executor lifecycle)
 - Exception handling (try-with-resources, Throwable hierarchy, rethrow patterns)
 - API stability and version compatibility (deprecated APIs, JPMS boundaries)
@@ -51,6 +53,7 @@ Review code in **Java** for **language and runtime conventions** only. Do not de
 - Testability (DI, singleton usage, final/overridable design)
 
 **This skill does NOT handle**:
+
 - Scope selection — scope is provided by the caller
 - Security analysis — use `review-security`
 - Architecture analysis — use `review-architecture`
@@ -117,12 +120,14 @@ Review code in **Java** for **language and runtime conventions** only. Do not de
 ### Skill Boundaries
 
 **Do NOT do these** (other skills handle them):
+
 - Do NOT select or define the code scope — scope is determined by the caller or `review-code`
 - Do NOT perform security analysis — use `review-security`
 - Do NOT perform architecture analysis — use `review-architecture`
 - Do NOT perform comprehensive SQL analysis — use `review-sql`
 
 **When to stop and hand off**:
+
 - When all Java findings are emitted, hand off to `review-code` for aggregation
 - When the user needs a full review (scope + language + cognitive), redirect to `review-code`
 - When SQL or security issues are found, note them and suggest appropriate cognitive skills

@@ -8,6 +8,7 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [review powershell]
 input_schema:
   type: code-scope
   description: Source files or directories to review
@@ -43,6 +44,7 @@ Review code in **PowerShell** for **language and runtime conventions** only. Do 
 ## Scope Boundaries
 
 **This skill handles**:
+
 - `[CmdletBinding()]`, `Verb-Noun` naming, approved verbs, `begin/process/end` blocks
 - Parameter types, `Mandatory`, `ValueFromPipeline`, parameter sets, validation attributes
 - Terminating vs non-terminating errors, `-ErrorAction Stop`, silent failure prevention
@@ -52,6 +54,7 @@ Review code in **PowerShell** for **language and runtime conventions** only. Do 
 - Performance and testability (Pester-friendly function design, DI seams)
 
 **This skill does NOT handle**:
+
 - Scope selection — scope is provided by the caller
 - Security analysis — use `review-security`
 - Architecture analysis — use `review-architecture`
@@ -118,11 +121,13 @@ Review code in **PowerShell** for **language and runtime conventions** only. Do 
 ### Skill Boundaries
 
 **Do NOT do these** (other skills handle them):
+
 - Do NOT select or define the code scope — scope is determined by the caller or `review-code`
 - Do NOT perform security analysis (credential handling, injection risks) — use `review-security`
 - Do NOT perform architecture analysis — use `review-architecture`
 
 **When to stop and hand off**:
+
 - When all PowerShell findings are emitted, hand off to `review-code` for aggregation
 - When the user needs a full review (scope + language + cognitive), redirect to `review-code`
 - When security concerns (credential exposure, command injection) are found, note them and suggest `review-security`

@@ -8,6 +8,7 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [review typescript, review ts]
 input_schema:
   type: code-scope
   description: Source files or directories to review
@@ -43,6 +44,7 @@ Review **TypeScript and JavaScript** code for **language and runtime conventions
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Type safety and type system usage (strict mode, proper typing, `any` avoidance, discriminated unions, type guards, generics)
 - Async patterns (async/await, Promise handling, error propagation, race conditions, unhandled rejections)
 - Error handling (try/catch patterns, custom error types, error boundaries, exhaustive error handling)
@@ -52,6 +54,7 @@ Review **TypeScript and JavaScript** code for **language and runtime conventions
 - Performance and memory (closure leaks, event listener cleanup, WeakRef/WeakMap usage, bundle size impact)
 
 **This skill does NOT handle**:
+
 - Scope selection — scope is provided by the caller
 - Security analysis (injection, secrets, XSS) — use `review-security`
 - Architecture analysis — use `review-architecture`
@@ -119,12 +122,14 @@ Review **TypeScript and JavaScript** code for **language and runtime conventions
 ### Skill Boundaries
 
 **Do NOT do these** (other skills handle them):
+
 - Do NOT select or define the code scope — scope is determined by the caller or `review-code`
 - Do NOT perform security analysis (injection, secrets) — use `review-security`
 - Do NOT perform architecture analysis — use `review-architecture`
 - Do NOT review framework-specific conventions (Vue, React, Angular) — use the respective framework skill
 
 **When to stop and hand off**:
+
 - When all TypeScript/JavaScript findings are emitted, hand off to `review-code` for aggregation
 - When injection risks or secrets are found, note them and suggest `review-security`
 - When the user needs a full review (scope + language + cognitive), redirect to `review-code`

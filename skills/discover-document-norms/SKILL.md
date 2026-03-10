@@ -8,6 +8,7 @@ related_skills: [bootstrap-project-documentation, documentation-readiness]
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [discover norms, document norms]
 input_schema:
   type: free-form
   description: Project path, optional starting point (AI Cortex default, project-documentation-template, blank)

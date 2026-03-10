@@ -8,6 +8,7 @@ related_skills: [review-codebase, review-architecture, generate-standard-readme,
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [onboard, onboard repo]
 input_schema:
   type: code-scope
   description: Repository root path or directory to onboard
@@ -43,12 +44,14 @@ output_schema:
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Orchestrating atomic onboarding skills in fixed order
 - Confirming onboarding scope with user (repo root or specific directory)
 - Collecting findings and artifacts from each atomic skill
 - Aggregating into a single onboarding report with recommendations
 
 **This skill does NOT handle**:
+
 - Direct code analysis (delegated to [review-codebase](../review-codebase/SKILL.md) and [review-architecture](../review-architecture/SKILL.md))
 - Direct documentation authoring (delegated to [generate-standard-readme](../generate-standard-readme/SKILL.md) and [write-agents-entry](../write-agents-entry/SKILL.md))
 - Code review for correctness or style (use [review-code](../review-code/SKILL.md))

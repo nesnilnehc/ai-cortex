@@ -8,6 +8,7 @@ related_skills: [refine-skill-design, generate-standard-readme]
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [curate, curate skills, skill audit]
 input_schema:
   type: free-form
   description: Skills directory to audit (defaults to skills/ in current repo)
@@ -43,6 +44,7 @@ Govern the skill inventory by evaluating, scoring, tagging, and normalizing ever
 ## Scope Boundaries
 
 **This skill handles**:
+
 - ASQM scoring (strict, evidence-based) for all skills
 - Lifecycle status assignment (validated/experimental/archive_candidate)
 - Overlap detection and market positioning
@@ -50,6 +52,7 @@ Govern the skill inventory by evaluating, scoring, tagging, and normalizing ever
 - Repo-level audit artifact (ASQM_AUDIT.md) generation
 
 **This skill does NOT handle**:
+
 - Skill design refinement (use `refine-skill-design`)
 - Skill specification changes (use `refine-skill-design`)
 - Registry synchronization (INDEX.md, manifest.json updates are separate per spec)

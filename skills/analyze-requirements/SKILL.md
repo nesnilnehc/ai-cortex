@@ -34,6 +34,7 @@ metadata:
       - "Defined clear handoff boundary with brainstorm-design"
       - "Added output persistence with file naming conventions"
       - "Comprehensive self-check aligned with core objective"
+triggers: [project start, requirements, analyze requirements]
 input_schema:
   type: free-form
   description: Vague idea, feature request, problem statement, or user requirement to analyze

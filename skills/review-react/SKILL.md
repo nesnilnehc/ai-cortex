@@ -8,6 +8,7 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [review react]
 input_schema:
   type: code-scope
   description: Source files or directories to review
@@ -43,6 +44,7 @@ Review **React** code for **framework conventions** only. Do not define scope (d
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Functional component design (single responsibility, composition patterns, prop types/defaults, children patterns)
 - Hooks correctness (dependency arrays, stale closures, custom hooks extraction, rules of hooks, cleanup in useEffect)
 - State management (local vs global state, context usage, reducer patterns, external stores like Zustand/Redux, server state with TanStack Query/SWR)
@@ -52,6 +54,7 @@ Review **React** code for **framework conventions** only. Do not define scope (d
 - Accessibility (ARIA attributes, semantic HTML, keyboard navigation, focus management, screen reader support)
 
 **This skill does NOT handle**:
+
 - Scope selection — scope is provided by the caller
 - Security analysis (XSS, injection risks) — use `review-security`
 - Architecture analysis — use `review-architecture`
@@ -119,11 +122,13 @@ Review **React** code for **framework conventions** only. Do not define scope (d
 ### Skill Boundaries
 
 **Do NOT do these** (other skills handle them):
+
 - Do NOT select or define the code scope — scope is determined by the caller or `review-code`
 - Do NOT perform security analysis (XSS, injection) — use `review-security`
 - Do NOT perform architecture analysis — use `review-architecture`
 
 **When to stop and hand off**:
+
 - When all React findings are emitted, hand off to `review-code` for aggregation
 - When XSS risks are found (e.g. unsafe `dangerouslySetInnerHTML` usage), note them and suggest `review-security`
 - When the user needs a full review (scope + language + cognitive), redirect to `review-code`

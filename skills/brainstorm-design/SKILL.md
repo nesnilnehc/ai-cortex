@@ -60,6 +60,7 @@ metadata:
       - "Added comprehensive self-check mechanism"
       - "Defined clear core objective and success criteria"
       - "Established explicit skill boundaries to avoid overlap"
+triggers: [brainstorm design, design, brainstorm]
 input_schema:
   type: free-form
   description: Rough idea, feature request, or problem statement from user
@@ -99,12 +100,14 @@ Transform rough ideas into validated, production-grade designs through systemati
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Rough idea → Validated design document
 - Requirement clarification through dialogue
 - Alternative exploration and trade-off analysis
 - Design approval and documentation
 
 **This skill does NOT handle**:
+
 - Implementation planning (use `writing-plans` or similar)
 - Code writing (use implementation skills)
 - Testing strategy details (mention in design, detail in implementation plan)
@@ -158,6 +161,7 @@ Every project goes through this process. A todo list, single-function utility, c
 4. **Validate understanding**: Summarize key points periodically to confirm alignment.
 
 **Question patterns:**
+
 - Purpose: "What problem does this solve?" "Who is the user?"
 - Constraints: "What are the technical limitations?" "What must we preserve?"
 - Success criteria: "How will we know this works?" "What defines done?"
@@ -173,6 +177,7 @@ Every project goes through this process. A todo list, single-function utility, c
 5. **Invite feedback**: User may prefer different approach or suggest hybrid solution.
 
 **Trade-off framework:**
+
 - Pros: What makes this approach strong?
 - Cons: What are the downsides or risks?
 - Best for: When is this the right choice?
@@ -208,6 +213,7 @@ Every project goes through this process. A todo list, single-function utility, c
 2. **Write design document**: Save to resolved path. Create directory if it does not exist.
 
 3. **Document structure** (include YAML front-matter, see below):
+
    ```markdown
    ---
    artifact_type: design
@@ -260,6 +266,7 @@ Every project goes through this process. A todo list, single-function utility, c
    - ✅ No code written
 
 6. **Announce completion and handoff**:
+
    ```
    "Design complete and approved. Saved to docs/design-decisions/YYYY-MM-DD-<topic>.md.
    
@@ -475,13 +482,14 @@ If YES: Design is complete. Proceed to handoff.
 
 **User**: "Stripe"
 
-2. "What payment methods? (A) Credit cards only, (B) Credit cards + ACH, (C) All Stripe methods"
+1. "What payment methods? (A) Credit cards only, (B) Credit cards + ACH, (C) All Stripe methods"
 
 **User**: "Not sure, what do you recommend?"
 
 **Agent stops and asks for clarification**:
 
 "I need to understand your requirements better before proposing approaches. Key questions:
+
 - Who are your customers? (B2B or B2C)
 - What's your average transaction size?
 - Do you need recurring payments (subscriptions)?
@@ -490,4 +498,3 @@ If YES: Design is complete. Proceed to handoff.
 Without this information, I can't recommend the right payment methods or architecture. Should we discuss these requirements first?"
 
 **Agent does NOT guess or proceed with assumptions.**
-

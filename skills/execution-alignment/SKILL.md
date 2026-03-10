@@ -26,6 +26,7 @@ metadata:
       - "Added deterministic mode selection (Lightweight vs Full)"
       - "Added five-type drift model with impact and root cause format"
       - "Added mapping-confirmation gate when traceability links are missing"
+triggers: [alignment, execution alignment, post task]
 input_schema:
   type: free-form
   description: Completed task context, optional project docs root, optional mode and path mapping
