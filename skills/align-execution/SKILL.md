@@ -1,10 +1,10 @@
 ---
-name: execution-alignment
+name: align-execution
 description: Perform post-task traceback, drift detection, and top-down recalibration to keep execution aligned with goals, requirements, architecture, milestones, and roadmap.
 tags: [workflow, eng-standards, documentation]
 version: 1.0.0
 license: MIT
-related_skills: [analyze-requirements, brainstorm-design, bootstrap-project-documentation, documentation-readiness, run-repair-loop]
+related_skills: [analyze-requirements, brainstorm-design, bootstrap-project-documentation, assess-documentation-readiness, run-repair-loop]
 recommended_scope: both
 metadata:
   author: ai-cortex
@@ -30,6 +30,8 @@ triggers: [alignment, execution alignment, post task]
 input_schema:
   type: free-form
   description: Completed task context, optional project docs root, optional mode and path mapping
+  defaults:
+    mode: lightweight
 output_schema:
   type: document-artifact
   description: Execution Alignment Report written to docs/calibration/YYYY-MM-DD-task-slug-calibration.md
@@ -105,6 +107,12 @@ You are responsible for project execution alignment.
 When a task is completed, perform traceback analysis to ensure alignment
 with project layers and produce a structured Execution Alignment Report.
 ```
+
+### Interaction Policy
+
+- **Defaults**: Mode from context (`lightweight` unless release/milestone/epic); docs root from workspace
+- **Choice options**: Mode override `[lightweight][full]` when user prefers
+- **Confirm**: Before file-level change proposals; before proceeding when mapping is uncertain (NeedsMappingConfirmation)
 
 ### Phase 0: Mode and Context Resolution
 

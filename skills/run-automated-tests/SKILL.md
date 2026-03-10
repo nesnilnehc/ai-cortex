@@ -13,6 +13,8 @@ compatibility: Requires git (optional), a shell, and the repo's language toolcha
 input_schema:
   type: code-scope
   description: Repository path containing test configuration and source code
+  defaults:
+    scope: repo
 output_schema:
   type: diagnostic-report
   description: Test plan summary with commands run, results, and failure diagnostics

@@ -1,4 +1,4 @@
-name: project-cognitive-loop
+name: orchestrate-governance-loop
 status: validated
 
 primary_use: Orchestrate project governance cycles by routing among requirements analysis, design, execution alignment, and documentation readiness checks.
@@ -9,7 +9,7 @@ inputs:
   - optional urgency or release window
 
 outputs:
-  - Project Cognitive Loop Report (docs/calibration/YYYY-MM-DD-cognitive-loop.md) — single artifact only; no separate outputs from routed skills
+  - Governance Loop Report (docs/calibration/YYYY-MM-DD-cognitive-loop.md) — single artifact only; no separate outputs from routed skills
   - routed sequence, aggregated findings, blockers, Recommended Next Tasks (prioritized, actionable, owner+scope+rationale)
 
 scores:
@@ -21,8 +21,8 @@ scores:
 asqm_quality: 20
 
 overlaps_with:
-  - nesnilnehc/ai-cortex:execution-alignment
-  - nesnilnehc/ai-cortex:documentation-readiness
+  - nesnilnehc/ai-cortex:align-execution
+  - nesnilnehc/ai-cortex:assess-documentation-readiness
   - nesnilnehc/ai-cortex:onboard-repo
   - nesnilnehc/ai-cortex:review-code
 

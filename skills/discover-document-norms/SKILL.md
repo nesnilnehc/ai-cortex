@@ -4,7 +4,7 @@ description: Help users establish project-specific artifact norms (paths, naming
 tags: [documentation, eng-standards, workflow]
 version: 1.0.0
 license: MIT
-related_skills: [bootstrap-project-documentation, documentation-readiness]
+related_skills: [bootstrap-project-documentation, assess-documentation-readiness]
 recommended_scope: project
 metadata:
   author: ai-cortex
@@ -21,7 +21,7 @@ output_schema:
 
 ## Purpose
 
-Help users define their project-specific artifact norms (paths, naming, lifecycle) for document governance. Projects may have their own documentation structure; this skill discovers and formalizes it so other skills (capture-work-items, brainstorm-design, documentation-readiness) can follow project norms.
+Help users define their project-specific artifact norms (paths, naming, lifecycle) for document governance. Projects may have their own documentation structure; this skill discovers and formalizes it so other skills (capture-work-items, brainstorm-design, assess-documentation-readiness) can follow project norms.
 
 ---
 
@@ -53,7 +53,7 @@ Help users define their project-specific artifact norms (paths, naming, lifecycl
 **This skill does NOT handle**:
 
 - Bootstrapping full project docs (use `bootstrap-project-documentation`)
-- Assessing doc readiness (use `documentation-readiness`)
+- Assessing doc readiness (use `assess-documentation-readiness`)
 - Validating existing docs against norms (use `validate-document-artifacts`)
 
 **Handoff point**: When norms are written and confirmed, hand off to other document-producing skills or `validate-document-artifacts` for compliance checks.
@@ -69,6 +69,12 @@ Help users define their project-specific artifact norms (paths, naming, lifecycl
 ---
 
 ## Behavior
+
+### Interaction Policy
+
+- **Defaults**: Project path = workspace root; start from AI Cortex defaults if no norms
+- **Choice options**: Starting point `[ai-cortex][template][blank]`; path mapping per artifact type
+- **Confirm**: Before writing ARTIFACT_NORMS.md; all path mappings
 
 ### Phase 1: Scan
 
@@ -127,7 +133,7 @@ For each artifact type (backlog-item, design, adr, doc-readiness):
 **Do NOT do these (other skills handle them)**:
 
 - Full docs bootstrap → `bootstrap-project-documentation`
-- Readiness assessment → `documentation-readiness`
+- Readiness assessment → `assess-documentation-readiness`
 - Compliance validation → `validate-document-artifacts`
 
 ---
@@ -163,3 +169,15 @@ If YES: Handoff complete.
 **Context**: Project has `docs/work-items/`, `docs/decisions/`, no formal norms.
 
 **Steps**: Scan structure. Propose mapping: backlog-item → `docs/work-items/`, adr → `docs/decisions/`. User confirms. Write norms file with custom paths.
+
+---
+
+## Appendix: Output contract
+
+This skill produces **document-artifact** outputs for project norms. Output MUST conform to:
+
+| Element | Requirement |
+| :--- | :--- |
+| **Primary output** | `docs/ARTIFACT_NORMS.md` — human-readable artifact norms table (artifact_type, path_pattern, naming, lifecycle) |
+| **Optional output** | `.ai-cortex/artifact-norms.yaml` — machine-readable schema per [spec/artifact-norms-schema.md](../../spec/artifact-norms-schema.md) |
+| **Path mapping** | Each artifact_type mapped to a path_pattern; user must confirm before write |

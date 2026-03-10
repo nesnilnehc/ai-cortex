@@ -29,7 +29,7 @@ const CONTRACT_SKILLS = {
     artifact_type: 'design',
     path_must_contain: ['design-decisions'],
   },
-  'documentation-readiness': {
+  'assess-documentation-readiness': {
     artifact_type: 'doc-readiness',
     path_must_contain: ['calibration'],
   },

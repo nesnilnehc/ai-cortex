@@ -13,6 +13,8 @@ compatibility: Requires a shell and the repo's toolchains to run tests (language
 input_schema:
   type: code-scope
   description: Repository path and scope (diff or codebase) to converge to clean state
+  defaults:
+    scope: diff
 output_schema:
   type: diagnostic-report
   description: Repair loop report with iterations, commands, patches, and final state

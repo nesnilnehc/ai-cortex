@@ -9,9 +9,12 @@ recommended_scope: project
 metadata:
   author: ai-cortex
 triggers: [onboard, onboard repo]
+aliases: [onboard]
 input_schema:
   type: code-scope
   description: Repository root path or directory to onboard
+  defaults:
+    scope: repo
 output_schema:
   type: diagnostic-report
   description: Aggregated onboarding report with findings, generated docs, and recommendations

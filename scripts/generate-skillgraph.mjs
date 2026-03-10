@@ -39,7 +39,7 @@ const REVIEW_TYPE_LABELS = {
 const NON_REVIEW_CHAIN = {
   lifecycle: [
     'analyze-requirements', 'brainstorm-design', 'commit-work', 'run-automated-tests',
-    'run-repair-loop', 'execution-alignment', 'documentation-readiness', 'project-cognitive-loop',
+    'run-repair-loop', 'align-execution', 'assess-documentation-readiness', 'orchestrate-governance-loop',
   ],
   onboarding: ['onboard-repo', 'generate-standard-readme', 'write-agents-entry', 'discover-skills'],
   governance: [
@@ -56,13 +56,13 @@ const NON_REVIEW_CHAIN = {
 const ORCHESTRATOR_CHAINS = {
   'onboard-repo': ['review-codebase', 'review-architecture', 'generate-standard-readme', 'write-agents-entry', 'discover-skills'],
   'curate-skills': ['refine-skill-design', 'generate-standard-readme'],
-  'project-cognitive-loop': ['analyze-requirements', 'brainstorm-design', 'execution-alignment', 'documentation-readiness', 'run-repair-loop'],
+  'orchestrate-governance-loop': ['analyze-requirements', 'brainstorm-design', 'align-execution', 'assess-documentation-readiness', 'run-repair-loop'],
 };
 
 // Fixed composition chains (conceptual, not from single orchestrator)
 const LIFECYCLE_CHAIN = ['analyze-requirements', 'brainstorm-design', 'review-code', 'run-repair-loop', 'run-automated-tests', 'commit-work'];
 const GOVERNANCE_CHAIN = ['curate-skills', 'refine-skill-design', 'generate-standard-readme', 'bootstrap-project-documentation', 'install-rules'];
-const PROJECT_LOOP_CHAIN = ['project-cognitive-loop', 'analyze-requirements', 'brainstorm-design', 'execution-alignment', 'documentation-readiness', 'run-repair-loop'];
+const PROJECT_LOOP_CHAIN = ['orchestrate-governance-loop', 'analyze-requirements', 'brainstorm-design', 'align-execution', 'assess-documentation-readiness', 'run-repair-loop'];
 
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
 const allSkills = (manifest.capabilities || []).map((c) => c.name);
@@ -125,9 +125,9 @@ function buildNonReviewQuickRef() {
     'commit-work': ['staged changes', 'git commits'],
     'run-automated-tests': ['repo path', 'test execution results'],
     'run-repair-loop': ['repo + scope', 'converged clean state'],
-    'execution-alignment': ['completed task context', 'execution alignment report'],
-    'documentation-readiness': ['docs scope + mapping', 'documentation readiness report + minimal fill plan'],
-    'project-cognitive-loop': ['trigger + project context', 'cycle governance report'],
+    'align-execution': ['completed task context', 'execution alignment report'],
+    'assess-documentation-readiness': ['docs scope + mapping', 'documentation readiness report + minimal fill plan'],
+    'orchestrate-governance-loop': ['trigger + project context', 'cycle governance report'],
     'onboard-repo': ['repo path', 'onboarding report'],
     'curate-skills': ['skills directory', 'ASQM audit report'],
     'refine-skill-design': ['SKILL.md', 'optimized SKILL.md'],
@@ -168,7 +168,7 @@ The skill ecosystem has five major domains:
 | **Code Review** | Aggregate scope, language, framework, library, and cognitive findings | [review-code](./review-code/SKILL.md) |
 | **Development Lifecycle** | Requirements → design → implementation → review → commit | [analyze-requirements](./analyze-requirements/SKILL.md), [run-repair-loop](./run-repair-loop/SKILL.md), [commit-work](./commit-work/SKILL.md) |
 | **Repository Onboarding** | New team member or inherited repo | [onboard-repo](./onboard-repo/SKILL.md) |
-| **Governance & Curation** | Skill inventory, docs, project governance | [curate-skills](./curate-skills/SKILL.md), [project-cognitive-loop](./project-cognitive-loop/SKILL.md) |
+| **Governance & Curation** | Skill inventory, docs, project governance | [curate-skills](./curate-skills/SKILL.md), [orchestrate-governance-loop](./orchestrate-governance-loop/SKILL.md) |
 | **Standalone** | Single-skill tasks | [decontextualize-text](./decontextualize-text/SKILL.md), [generate-github-workflow](./generate-github-workflow/SKILL.md), [capture-work-items](./capture-work-items/SKILL.md), etc. |
 
 \`\`\`mermaid
@@ -186,7 +186,7 @@ flowchart TB
   end
   subgraph governance [Governance]
     curate[curate-skills]
-    loop[project-cognitive-loop]
+    loop[orchestrate-governance-loop]
   end
   subgraph standalone [Standalone]
     dectx[decontextualize-text]
@@ -342,11 +342,11 @@ flowchart LR
 
 \`\`\`mermaid
 flowchart LR
-  loop[project-cognitive-loop]
+  loop[orchestrate-governance-loop]
   req[analyze-requirements]
   design[brainstorm-design]
-  align[execution-alignment]
-  docreadiness[documentation-readiness]
+  align[align-execution]
+  docreadiness[assess-documentation-readiness]
   repair[run-repair-loop]
 
   loop --> req

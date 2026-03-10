@@ -34,7 +34,7 @@ metadata:
       - "Defined clear handoff boundary with brainstorm-design"
       - "Added output persistence with file naming conventions"
       - "Comprehensive self-check aligned with core objective"
-triggers: [project start, requirements, analyze requirements]
+triggers: [project start, start project, requirements, analyze requirements]
 input_schema:
   type: free-form
   description: Vague idea, feature request, problem statement, or user requirement to analyze
@@ -102,6 +102,12 @@ Diagnose requirements-level problems and transform vague intent into validated, 
 ---
 
 ## Behavior
+
+### Interaction Policy
+
+- **Defaults**: Infer current state from input; start from earliest unresolved state
+- **Choice options**: One question at a time; offer `[A][B][C]` when possible
+- **Confirm**: Before exiting to design handoff; before writing requirements doc
 
 ### HARD-GATE: No Design Before Validation
 

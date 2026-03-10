@@ -31,7 +31,7 @@ Scope: Skills that write Markdown artifacts under project `docs/` or repo root.
 | backlog-item (fallback) | `docs/backlog/` | `YYYY-MM-DD-{slug}.md` | living | capture-work-items |
 | adr | `docs/process-management/decisions/` | `YYYYMMDD-{slug}.md` | living | bootstrap-project-documentation |
 | design | `docs/design-decisions/` | `YYYY-MM-DD-{topic}.md` | snapshot | brainstorm-design |
-| doc-readiness | `docs/calibration/` | `YYYY-MM-DD-doc-readiness.md` | snapshot | documentation-readiness |
+| doc-readiness | `docs/calibration/` | `YYYY-MM-DD-doc-readiness.md` | snapshot | assess-documentation-readiness |
 
 ### Path Rationale
 
@@ -129,5 +129,5 @@ artifact_types:
       - "docs/calibration/YYYY-MM-DD-doc-readiness.md"
     naming: "YYYY-MM-DD-doc-readiness.md"
     lifecycle: snapshot
-    owner_skill: documentation-readiness
+    owner_skill: assess-documentation-readiness
 ```
