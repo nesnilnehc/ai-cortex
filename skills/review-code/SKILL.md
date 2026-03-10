@@ -9,6 +9,7 @@ recommended_scope: project
 metadata:
   author: ai-cortex
 triggers: [review, code review, pr review, review code]
+aliases: [rc]
 input_schema:
   type: code-scope
   description: Diff or codebase path(s) to review, plus optional language/framework hint

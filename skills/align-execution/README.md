@@ -1,4 +1,4 @@
-# execution-alignment
+# align-execution
 
 Perform post-task traceback, drift detection, and top-down recalibration to keep execution aligned with goals, requirements, architecture, milestones, and roadmap.
 
@@ -28,13 +28,13 @@ After a task is completed, runs a traceback from work to strategy, detects drift
 ## Installation
 
 ```bash
-npx skills add nesnilnehc/ai-cortex --skill execution-alignment
+npx skills add nesnilnehc/ai-cortex --skill align-execution
 ```
 
 ## Related skills
 
-- `documentation-readiness` — assess docs evidence before or after alignment
-- `project-cognitive-loop` — orchestrate governance cycles including execution-alignment
+- `assess-documentation-readiness` — assess docs evidence before or after alignment
+- `orchestrate-governance-loop` — orchestrate governance cycles including align-execution
 - `analyze-requirements` — hand off when requirements need revalidation
 
 ## Full definition

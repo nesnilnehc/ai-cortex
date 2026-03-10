@@ -4,7 +4,7 @@ Help users establish project-specific artifact norms (paths, naming, lifecycle) 
 
 ## What it does
 
-This skill scans project `docs/` structure, confirms paths via dialogue, and produces `docs/ARTIFACT_NORMS.md` and optionally `.ai-cortex/artifact-norms.yaml`. Other document-producing skills (capture-work-items, brainstorm-design, documentation-readiness) read these norms to align output paths.
+This skill scans project `docs/` structure, confirms paths via dialogue, and produces `docs/ARTIFACT_NORMS.md` and optionally `.ai-cortex/artifact-norms.yaml`. Other document-producing skills (capture-work-items, brainstorm-design, assess-documentation-readiness) read these norms to align output paths.
 
 ## When to use
 
@@ -25,7 +25,7 @@ This skill scans project `docs/` structure, confirms paths via dialogue, and pro
 ## Related skills
 
 - `bootstrap-project-documentation`: Full docs bootstrap; discover-document-norms focuses on norms only
-- `documentation-readiness`: Assess doc readiness; discover-document-norms defines norms
+- `assess-documentation-readiness`: Assess doc readiness; discover-document-norms defines norms
 - `validate-document-artifacts`: Validate docs against norms after norms are established
 
 ## Installation

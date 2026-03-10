@@ -154,16 +154,16 @@
       "path": "skills/analyze-requirements/SKILL.md"
     },
     {
-      "name": "execution-alignment",
-      "path": "skills/execution-alignment/SKILL.md"
+      "name": "align-execution",
+      "path": "skills/align-execution/SKILL.md"
     },
     {
-      "name": "documentation-readiness",
-      "path": "skills/documentation-readiness/SKILL.md"
+      "name": "assess-documentation-readiness",
+      "path": "skills/assess-documentation-readiness/SKILL.md"
     },
     {
-      "name": "project-cognitive-loop",
-      "path": "skills/project-cognitive-loop/SKILL.md"
+      "name": "orchestrate-governance-loop",
+      "path": "skills/orchestrate-governance-loop/SKILL.md"
     },
     {
       "name": "validate-document-artifacts",

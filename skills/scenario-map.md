@@ -22,10 +22,10 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 ## 2) Post-Task Governance
 
 - **When to use**: A task is done and you need to validate direction
-- **Primary skill**: [execution-alignment](./execution-alignment/SKILL.md)
+- **Primary skill**: [align-execution](./align-execution/SKILL.md)
 - **Optional skills**:
-  - [documentation-readiness](./documentation-readiness/SKILL.md)
-  - [project-cognitive-loop](./project-cognitive-loop/SKILL.md)
+  - [assess-documentation-readiness](./assess-documentation-readiness/SKILL.md)
+  - [orchestrate-governance-loop](./orchestrate-governance-loop/SKILL.md)
 - **Short triggers**: post task, alignment, execution alignment
 - **Output**: Execution Alignment Report with drift and calibration actions
 - **Stop condition**: Next 1-3 tasks reprioritized with confidence level
@@ -33,7 +33,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 ## 3) Documentation Gap Triage
 
 - **When to use**: Alignment confidence is low due to weak/missing docs
-- **Primary skill**: [documentation-readiness](./documentation-readiness/SKILL.md)
+- **Primary skill**: [assess-documentation-readiness](./assess-documentation-readiness/SKILL.md)
 - **Optional skills**:
   - [bootstrap-project-documentation](./bootstrap-project-documentation/SKILL.md)
   - [analyze-requirements](./analyze-requirements/SKILL.md)
@@ -44,10 +44,10 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 ## 4) Iteration Orchestration
 
 - **When to use**: Milestone closure, release gate, or periodic governance cycle
-- **Primary skill**: [project-cognitive-loop](./project-cognitive-loop/SKILL.md)
+- **Primary skill**: [orchestrate-governance-loop](./orchestrate-governance-loop/SKILL.md)
 - **Optional skills**:
-  - [execution-alignment](./execution-alignment/SKILL.md)
-  - [documentation-readiness](./documentation-readiness/SKILL.md)
+  - [align-execution](./align-execution/SKILL.md)
+  - [assess-documentation-readiness](./assess-documentation-readiness/SKILL.md)
 - **Short triggers**: iteration, governance, project cognitive loop
 - **Output**: Cycle report with executed/skipped steps and Recommended Next Tasks
 - **Stop condition**: All required scenario checks are completed or explicitly deferred
@@ -122,5 +122,5 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 
 1. Prefer one primary skill per scenario.
 2. Add optional skills only when the primary output indicates a gap.
-3. Escalate to project-cognitive-loop when multiple scenarios are active in one cycle.
+3. Escalate to orchestrate-governance-loop when multiple scenarios are active in one cycle.
 4. Use artifact handoff (requirements/design/alignment/doc-readiness reports) rather than implicit context passing.

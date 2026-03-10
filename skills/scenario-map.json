@@ -2,7 +2,7 @@
   "routing_rules": [
     "Prefer one primary skill per scenario.",
     "Add optional skills only when the primary output indicates a gap.",
-    "Escalate to project-cognitive-loop when multiple scenarios are active in one cycle.",
+    "Escalate to orchestrate-governance-loop when multiple scenarios are active in one cycle.",
     "Use artifact handoff (requirements/design/alignment/doc-readiness reports) rather than implicit context passing."
   ],
   "scenarios": [
@@ -21,8 +21,8 @@
       "title": "Post-Task Governance",
       "short_triggers": ["post task", "alignment", "execution alignment"],
       "when_to_use": "A task is done and you need to validate direction",
-      "primary": "execution-alignment",
-      "optional": ["documentation-readiness", "project-cognitive-loop"],
+      "primary": "align-execution",
+      "optional": ["assess-documentation-readiness", "orchestrate-governance-loop"],
       "output": "Execution Alignment Report with drift and calibration actions",
       "stop_condition": "Next 1-3 tasks reprioritized with confidence level"
     },
@@ -31,7 +31,7 @@
       "title": "Documentation Gap Triage",
       "short_triggers": ["doc gap", "documentation readiness", "doc triage"],
       "when_to_use": "Alignment confidence is low due to weak/missing docs",
-      "primary": "documentation-readiness",
+      "primary": "assess-documentation-readiness",
       "optional": ["bootstrap-project-documentation", "analyze-requirements"],
       "output": "Documentation Readiness Report and Minimal Fill Plan",
       "stop_condition": "Critical layers reach at least weak and high-priority gaps have owners"
@@ -41,8 +41,8 @@
       "title": "Iteration Orchestration",
       "short_triggers": ["iteration", "governance", "project cognitive loop"],
       "when_to_use": "Milestone closure, release gate, or periodic governance cycle",
-      "primary": "project-cognitive-loop",
-      "optional": ["execution-alignment", "documentation-readiness"],
+      "primary": "orchestrate-governance-loop",
+      "optional": ["align-execution", "assess-documentation-readiness"],
       "output": "Cycle report with executed/skipped steps and Recommended Next Tasks",
       "stop_condition": "All required scenario checks are completed or explicitly deferred"
     },

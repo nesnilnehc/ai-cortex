@@ -9,6 +9,7 @@ recommended_scope: project
 metadata:
   author: ai-cortex
 triggers: [curate, curate skills, skill audit]
+aliases: [curate]
 input_schema:
   type: free-form
   description: Skills directory to audit (defaults to skills/ in current repo)

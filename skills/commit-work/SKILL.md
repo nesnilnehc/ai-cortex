@@ -28,6 +28,7 @@ metadata:
       - "Auto-sync with skills/INDEX.md and manifest.json"
       - "Enhanced Self-Check with AI Cortex standards"
 triggers: [commit, commit work]
+aliases: [cw]
 input_schema:
   type: free-form
   description: Staged and unstaged changes in the working tree to commit
@@ -360,3 +361,22 @@ Updated INDEX.md and manifest.json to register the new skill."
 - Summary: Added log analysis capability with registry synchronization
 - Commands: `git diff --cached`, `node scripts/verify-registry.mjs`, `npm test`
 - Registry sync: ✓ Both INDEX.md and manifest.json updated
+
+---
+
+## Appendix: Output contract
+
+This skill produces side-effect outputs (git commits) plus a report. The output report MUST include:
+
+| Element | Requirement |
+| :--- | :--- |
+| **Commit message(s)** | Conventional Commits format: `type(scope): subject` + body + optional footer |
+| **Summary per commit** | One sentence: what changed and why |
+| **Commands used** | Minimum: `git diff --cached`; include staging and verification commands |
+| **Registry sync** | For AI Cortex projects: confirmation that INDEX.md, manifest.json, scenario-map.json (if applicable) are synchronized |
+
+Example report:
+
+- Commit: `feat(utils): add formatDate helper function`
+- Summary: Added date formatting utility to centralize date handling logic
+- Commands: `git diff`, `git diff --cached`, `npm test`

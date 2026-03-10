@@ -1,7 +1,7 @@
 # ASQM Audit — AI Cortex Skills
 
-**Audit date**: 2026-03-06
-**Scope**: All 39 skills under `skills/`
+**Audit date**: 2026-03-10
+**Scope**: All 40 skills under `skills/`
 **Scoring**: ASQM strict (evidence-based; agent_native = 5 only with explicit output contract in SKILL.md).
 
 ---
@@ -10,8 +10,8 @@
 
 | Status | Count | Skills |
 | :--- | :--- | :--- |
-| **validated** | 39 | review-code, review-diff, review-codebase, review-dotnet, review-java, review-go, review-php, review-powershell, review-python, review-sql, review-vue, review-typescript, review-react, review-security, review-architecture, review-performance, review-testing, review-orm-usage, curate-skills, discover-skills, discover-document-norms, validate-document-artifacts, decontextualize-text, generate-standard-readme, write-agents-entry, refine-skill-design, generate-github-workflow, install-rules, bootstrap-project-documentation, capture-work-items, run-automated-tests, run-repair-loop, commit-work, brainstorm-design, onboard-repo, analyze-requirements, execution-alignment, documentation-readiness, project-cognitive-loop |
-| **experimental** | 0 | — |
+| **validated** | 39 | review-code, review-diff, review-codebase, review-dotnet, review-java, review-go, review-php, review-powershell, review-python, review-sql, review-vue, review-typescript, review-react, review-security, review-architecture, review-performance, review-testing, review-orm-usage, curate-skills, discover-skills, discover-document-norms, validate-document-artifacts, decontextualize-text, generate-standard-readme, write-agents-entry, refine-skill-design, generate-github-workflow, install-rules, bootstrap-project-documentation, capture-work-items, run-automated-tests, run-repair-loop, commit-work, brainstorm-design, onboard-repo, analyze-requirements, align-execution, assess-documentation-readiness, orchestrate-governance-loop |
+| **experimental** | 1 | prune-content |
 | **archive_candidate** | 0 | — |
 
 All skills meet their lifecycle thresholds: **validated** ↔ Quality ≥ 17 + Gate A (agent_native ≥ 4) + Gate B (stance ≥ 3); **experimental** ↔ Quality ≥ 10.
@@ -72,19 +72,20 @@ All skills meet their lifecycle thresholds: **validated** ↔ Quality ≥ 17 + G
 | write-agents-entry | 5 | 4 | 4 | 5 | 18 | validated |
 | generate-github-workflow | 5 | 4 | 4 | 5 | 18 | validated |
 | bootstrap-project-documentation | 5 | 4 | 4 | 5 | 18 | validated |
-| capture-work-items | 4 | 4 | 4 | 5 | 17 | validated |
-| commit-work | 4 | 5 | 5 | 5 | 19 | validated |
-| brainstorm-design | 4 | 5 | 4 | 5 | 18 | validated |
+| capture-work-items | 5 | 4 | 4 | 5 | 18 | validated |
+| commit-work | 5 | 5 | 5 | 5 | 20 | validated |
+| brainstorm-design | 5 | 5 | 4 | 5 | 19 | validated |
 | discover-skills | 5 | 3 | 5 | 4 | 17 | validated |
 | decontextualize-text | 5 | 4 | 4 | 4 | 17 | validated |
 | generate-standard-readme | 5 | 3 | 4 | 5 | 17 | validated |
 | run-automated-tests | 5 | 4 | 4 | 4 | 17 | validated |
 | run-repair-loop | 5 | 4 | 4 | 4 | 17 | validated |
-| execution-alignment | 5 | 5 | 5 | 5 | 20 | validated |
-| documentation-readiness | 5 | 4 | 5 | 5 | 19 | validated |
-| project-cognitive-loop | 5 | 5 | 5 | 5 | 20 | validated |
-| discover-document-norms | 4 | 4 | 4 | 5 | 17 | validated |
-| validate-document-artifacts | 4 | 4 | 4 | 5 | 17 | validated |
+| align-execution | 5 | 5 | 5 | 5 | 20 | validated |
+| assess-documentation-readiness | 5 | 4 | 5 | 5 | 19 | validated |
+| orchestrate-governance-loop | 5 | 5 | 5 | 5 | 20 | validated |
+| discover-document-norms | 5 | 4 | 4 | 5 | 18 | validated |
+| validate-document-artifacts | 5 | 4 | 4 | 5 | 18 | validated |
+| prune-content | 3 | 4 | 4 | 5 | 16 | experimental |
 
 ---
 
@@ -96,9 +97,9 @@ All skills meet their lifecycle thresholds: **validated** ↔ Quality ≥ 17 + G
 - **analyze-requirements**: overlaps with brainstorm-design, capture-work-items (upstream/downstream handoff); **market_position**: differentiated.
 - **capture-work-items**: overlaps with analyze-requirements (validation handoff), brainstorm-design (design handoff); **market_position**: differentiated.
 - **brainstorm-design**: overlaps with analyze-requirements, refine-skill-design, capture-work-items (design handoff); **market_position**: differentiated.
-- **execution-alignment**: overlaps with documentation-readiness and project-cognitive-loop (routing/handoff by design); **market_position**: differentiated.
-- **documentation-readiness**: overlaps with bootstrap-project-documentation (structure vs readiness boundary); **market_position**: differentiated.
-- **project-cognitive-loop** (orchestrator): overlaps with onboard-repo and review-code orchestrators at control-plane level; **market_position**: differentiated.
+- **align-execution**: overlaps with assess-documentation-readiness and orchestrate-governance-loop (routing/handoff by design); **market_position**: differentiated.
+- **assess-documentation-readiness**: overlaps with bootstrap-project-documentation (structure vs readiness boundary); **market_position**: differentiated.
+- **orchestrate-governance-loop** (orchestrator): overlaps with onboard-repo and review-code orchestrators at control-plane level; **market_position**: differentiated.
 - **commit-work**: overlaps with review-diff (pre-commit review); **market_position**: differentiated.
 - **curate-skills**: overlaps with refine-skill-design, generate-standard-readme; **market_position**: differentiated.
 - **refine-skill-design**: overlaps with curate-skills, discover-skills; **market_position**: differentiated.
@@ -111,8 +112,9 @@ All skills meet their lifecycle thresholds: **validated** ↔ Quality ≥ 17 + G
 - **run-repair-loop**: overlaps with review-code and run-automated-tests; **market_position**: commodity.
 - **run-automated-tests**: overlaps with run-repair-loop; **market_position**: commodity.
 - **bootstrap-project-documentation**: overlaps with generate-standard-readme, write-agents-entry; **market_position**: differentiated.
-- **discover-document-norms**: overlaps with bootstrap-project-documentation, documentation-readiness; **market_position**: differentiated.
-- **validate-document-artifacts**: overlaps with documentation-readiness, curate-skills; **market_position**: differentiated.
+- **discover-document-norms**: overlaps with bootstrap-project-documentation, assess-documentation-readiness; **market_position**: differentiated.
+- **validate-document-artifacts**: overlaps with assess-documentation-readiness, curate-skills; **market_position**: differentiated.
+- **prune-content**: overlaps with onboard-repo, validate-document-artifacts (content cleanup handoff); **market_position**: differentiated.
 
 All overlaps use **Git-repo form** `owner/repo:skill-name` (e.g. `nesnilnehc/ai-cortex:review-diff`).
 
@@ -178,14 +180,25 @@ All overlaps use **Git-repo form** `owner/repo:skill-name` (e.g. `nesnilnehc/ai-
 
 3. **agent.yaml and README**: Created for both skills per governance artifact requirements. Full scan confirms 39 skills; all agent.yaml and README present.
 
+### 6.11 Curation run (2026-03-10)
+
+1. **Appendix: Output contract added** to 5 skills; agent_native 4 → 5 per strict rule:
+   - **commit-work**: Explicit Appendix with table (commit message, summary, commands, registry sync) → 19 → 20
+   - **brainstorm-design**: Explicit Appendix (path, artifact_type, sections, approval) → 18 → 19
+   - **capture-work-items**: Explicit Appendix (path, artifact_type, required sections) → 17 → 18
+   - **discover-document-norms**: Explicit Appendix (primary/optional outputs, path mapping) → 17 → 18
+   - **validate-document-artifacts**: Explicit Appendix (findings format table) → 17 → 18
+2. **Skill renaming** (2026-03-10): documentation-readiness → assess-documentation-readiness, execution-alignment → align-execution, project-cognitive-loop → orchestrate-governance-loop; ASQM scores unchanged for renamed skills.
+3. **Scope**: 40 skills; all validated; no archive candidates.
+
 ---
 
 ## 7. Recommendations
 
-1. **Improvement opportunity**: Add structured "Appendix: Output contract" tables to **commit-work**, **brainstorm-design**, **discover-document-norms**, and **validate-document-artifacts** to raise agent_native from 4 → 5 (potential quality 17 → 18).
-2. **No urgent changes**: All 39 skills are validated; no archive candidates; no experimental skills remain.
+1. **Completed**: Appendix: Output contract added to commit-work, brainstorm-design, capture-work-items, discover-document-norms, validate-document-artifacts; agent_native raised to 5.
+2. **No urgent changes**: 39 validated, 1 experimental (prune-content); no archive candidates.
 3. **Overlaps by design**: Atomic review skills overlap with their orchestrator (review-code); analyze-requirements and brainstorm-design form an intentional upstream/downstream pair.
-4. **Curation run (2026-03-06)**: discover-document-norms and validate-document-artifacts added; agent.yaml and README created. All 39 skills have agent.yaml and normalized README; ASQM_AUDIT.md is current. No further changes recommended.
+4. **Curation run (2026-03-10)**: 5 skills upgraded (Appendix added, agent_native 5). 39 validated, 1 experimental (prune-content); ASQM_AUDIT.md current. No further changes recommended.
 
 ---
 

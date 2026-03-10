@@ -129,6 +129,12 @@ Transform rough ideas into validated, production-grade designs through systemati
 
 ## Behavior
 
+### Interaction Policy
+
+- **Defaults**: Design path from project norms or `docs/design-decisions/`; present section by section
+- **Choice options**: One question at a time; offer `[A][B][C]` for preferences
+- **Confirm**: User must say "approved" or equivalent before handoff; no code until design approved
+
 ### HARD-GATE: No Implementation Before Approval
 
 ```
@@ -498,3 +504,17 @@ If YES: Design is complete. Proceed to handoff.
 Without this information, I can't recommend the right payment methods or architecture. Should we discuss these requirements first?"
 
 **Agent does NOT guess or proceed with assumptions.**
+
+---
+
+## Appendix: Output contract
+
+This skill produces a **document-artifact** (design). Each output document MUST conform to:
+
+| Element | Requirement |
+| :--- | :--- |
+| **Path** | `docs/design-decisions/YYYY-MM-DD-<topic>.md` per [spec/artifact-contract.md](../../spec/artifact-contract.md) |
+| **artifact_type** | `design` |
+| **created_by** | `brainstorm-design` |
+| **Required sections** | Context/Problem, Alternatives (2–3 with trade-offs), Recommended approach, Components/architecture, Data flow, YAGNI/DRY notes |
+| **User approval** | Design is complete only when user said "approved", "looks good", "proceed", or equivalent |

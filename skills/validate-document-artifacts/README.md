@@ -25,7 +25,7 @@ Resolves project norms from `docs/ARTIFACT_NORMS.md` or `.ai-cortex/artifact-nor
 
 ## Related skills
 
-- `documentation-readiness`: Assess doc readiness; validate-document-artifacts checks norm compliance
+- `assess-documentation-readiness`: Assess doc readiness; validate-document-artifacts checks norm compliance
 - `discover-document-norms`: Establish norms; validate-document-artifacts checks against them
 - `curate-skills`: Skill governance; validate-document-artifacts is doc governance
 

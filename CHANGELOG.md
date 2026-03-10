@@ -7,8 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
+### Changed
 
+- **Skill naming (spec verb-noun compliance)**: `documentation-readiness` → `assess-documentation-readiness`, `execution-alignment` → `align-execution`, `project-cognitive-loop` → `orchestrate-governance-loop`; all references updated across manifest, scenario-map, scripts, docs
 - `scripts/generate-skillgraph.mjs` — auto-generate `skills/skillgraph.md` from manifest and SKILL frontmatter; includes global overview
 - `scripts/generate-scenario-map.mjs` — auto-generate `skills/scenario-map.md` from `skills/scenario-map.json`
 - `scripts/generate-skills-docs.mjs` — wrapper to run both generators

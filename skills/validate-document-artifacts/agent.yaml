@@ -13,15 +13,15 @@ outputs:
   - summary (files scanned, violations by severity)
 
 scores:
-  agent_native: 4
+  agent_native: 5
   cognitive: 4
   composability: 4
   stance: 5
 
-asqm_quality: 17
+asqm_quality: 18
 
 overlaps_with:
-  - nesnilnehc/ai-cortex:documentation-readiness
+  - nesnilnehc/ai-cortex:assess-documentation-readiness
   - nesnilnehc/ai-cortex:curate-skills
 
 market_position: differentiated

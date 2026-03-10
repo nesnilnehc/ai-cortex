@@ -1,14 +1,14 @@
 ---
-name: documentation-readiness
+name: assess-documentation-readiness
 description: Assess documentation evidence readiness across project layers, report gaps, and produce a minimum-fill plan to improve alignment reliability.
 tags: [documentation, eng-standards, workflow]
 version: 1.0.0
 license: MIT
-related_skills: [bootstrap-project-documentation, analyze-requirements, brainstorm-design, execution-alignment]
+related_skills: [bootstrap-project-documentation, analyze-requirements, brainstorm-design, align-execution]
 recommended_scope: both
 metadata:
   author: ai-cortex
-triggers: [doc readiness, documentation readiness, doc gap]
+triggers: [doc readiness, documentation readiness, doc gap, doc triage]
 input_schema:
   type: free-form
   description: Project docs scope, optional layer mapping, and optional target readiness level
@@ -59,7 +59,7 @@ Evaluate whether project documentation is sufficient for reliable AI-assisted pl
 - Full requirements authoring from vague intent (use `analyze-requirements`)
 - Full design synthesis (use `brainstorm-design`)
 - Structural docs bootstrap from scratch templates (use `bootstrap-project-documentation`)
-- Post-task drift calibration (use `execution-alignment`)
+- Post-task drift calibration (use `align-execution`)
 
 **Handoff point**: After report delivery, hand off creation/update actions to the relevant documentation or planning skill.
 
@@ -67,7 +67,7 @@ Evaluate whether project documentation is sufficient for reliable AI-assisted pl
 
 ## Use Cases
 
-- **Alignment confidence is low**: `execution-alignment` reports weak evidence quality
+- **Alignment confidence is low**: `align-execution` reports weak evidence quality
 - **New repo with partial docs**: Team needs to know the minimum docs to add first
 - **Pre-release governance**: Verify documentation sufficiency before milestone closure
 - **Documentation debt triage**: Prioritize docs work without boiling the ocean
@@ -75,6 +75,12 @@ Evaluate whether project documentation is sufficient for reliable AI-assisted pl
 ---
 
 ## Behavior
+
+### Interaction Policy
+
+- **Defaults**: Docs root = repository docs/; use project norms if present
+- **Choice options**: Target readiness `[medium][high]`; path mapping when non-default
+- **Confirm**: Output path when different from project norms; before write
 
 ### Phase 0: Resolve Scope and Mapping
 
@@ -132,7 +138,7 @@ Produce the smallest set of actions needed to raise readiness to target level:
 
 ### Phase 5: Persist Report
 
-Write to path per resolved project norms (Phase 0) or default `docs/calibration/YYYY-MM-DD-doc-readiness.md` from [spec/artifact-contract.md](../../spec/artifact-contract.md). Include front-matter: `artifact_type: doc-readiness`, `created_by: documentation-readiness`, `lifecycle: snapshot`, `created_at: YYYY-MM-DD`. Create output directory if it does not exist.
+Write to path per resolved project norms (Phase 0) or default `docs/calibration/YYYY-MM-DD-doc-readiness.md` from [spec/artifact-contract.md](../../spec/artifact-contract.md). Include front-matter: `artifact_type: doc-readiness`, `created_by: assess-documentation-readiness`, `lifecycle: snapshot`, `created_at: YYYY-MM-DD`. Create output directory if it does not exist.
 
 ---
 
@@ -149,7 +155,7 @@ Write to path per resolved project norms (Phase 0) or default `docs/calibration/
 ```markdown
 ---
 artifact_type: doc-readiness
-created_by: documentation-readiness
+created_by: assess-documentation-readiness
 lifecycle: snapshot
 created_at: YYYY-MM-DD
 ---
@@ -214,7 +220,7 @@ created_at: YYYY-MM-DD
 - Template bootstrap and structural initialization -> `bootstrap-project-documentation`
 - Requirement content development -> `analyze-requirements`
 - Architecture/design decision workflow -> `brainstorm-design`
-- Post-task drift and recalibration -> `execution-alignment`
+- Post-task drift and recalibration -> `align-execution`
 
 **When to stop and hand off**:
 
@@ -263,7 +269,7 @@ If YES: report is complete.
 
 - Findings: architecture docs exist but stale and contradicted by recent ADRs
 - Readiness: `medium`
-- Plan: refresh architecture decision docs, then rerun `execution-alignment`
+- Plan: refresh architecture decision docs, then rerun `align-execution`
 
 ### Example 3: Empty Docs Skeleton
 

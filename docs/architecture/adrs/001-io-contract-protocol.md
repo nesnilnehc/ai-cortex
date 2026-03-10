@@ -20,7 +20,7 @@ Orchestrators use these schemas to:
 
 ## Consequences
 
-- **Positive**: Orchestrators (project-cognitive-loop, review-code, onboard-repo) can route by type; new skills declare I/O for discoverability
+- **Positive**: Orchestrators (orchestrate-governance-loop, review-code, onboard-repo) can route by type; new skills declare I/O for discoverability
 - **Negative**: Additional metadata to maintain; schema granularity may need refinement over time
 - **Neutral**: Optional — skills without I/O schema remain valid; backward compatible
 

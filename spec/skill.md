@@ -373,7 +373,7 @@ output_schema:
 
 ### 8.3 Document Artifact Path Contract
 
-Skills that produce `document-artifact` outputs (e.g. capture-work-items, brainstorm-design, documentation-readiness, bootstrap-project-documentation) SHOULD align their output paths and naming with [spec/artifact-contract.md](artifact-contract.md). Declare `artifact_type`, `path_pattern`, and `lifecycle` in output_schema when applicable.
+Skills that produce `document-artifact` outputs (e.g. capture-work-items, brainstorm-design, assess-documentation-readiness, bootstrap-project-documentation) SHOULD align their output paths and naming with [spec/artifact-contract.md](artifact-contract.md). Declare `artifact_type`, `path_pattern`, and `lifecycle` in output_schema when applicable.
 
 ### 8.4 Orchestrator Usage
 
