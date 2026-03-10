@@ -11,7 +11,7 @@ This skill provides quick structured recording without the deep validation that 
 - User says "record this bug" or "add this requirement" — structure and persist without full analysis
 - Extract work items from meeting notes or email and save as structured artifacts
 - Capture items for later triage and prioritization in milestones or task breakdown
-- Fill the Backlog gap identified in assess-documentation-readiness
+- Fill the Backlog gap identified in assess-doc-readiness
 
 ## Inputs
 

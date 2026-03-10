@@ -62,7 +62,7 @@ npx skills add nesnilnehc/ai-cortex --skill brainstorm-design
 
 - `refine-skill-design`: Audit and improve skill definitions
 - `generate-standard-readme`: Create standardized project documentation
-- `bootstrap-project-documentation`: Initialize project documentation structure
+- `bootstrap-docs`: Initialize project documentation structure
 
 ## License
 

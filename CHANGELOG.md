@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **run-checkpoint v1.2.0** — Phase 0.5 Planning Readiness Gate; discover-document-norms, bootstrap-docs in preparation flow; short-circuit with Minimal Fill Plan when readiness missing
+- **Skill naming (excellent standard per 20260310-skill-naming-audit)**:
+  - `orchestrate-governance-loop` → `run-checkpoint`
+  - `assess-documentation-readiness` → `assess-doc-readiness`
+  - `bootstrap-project-documentation` → `bootstrap-docs`
+  - `validate-document-artifacts` → `validate-doc-artifacts`
+  - Consistent `doc` terminology across doc-related skills
+- `spec/skill.md` v2.5.0 — naming priority rule: semantic correctness and normativity first, colloquial and memorable second
+
 ### Added
 
 - `align-architecture` skill (v1.0.0) — verify ADR/design vs code implementation; produce Architecture Compliance Report
@@ -16,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `align-execution` (v1.0.0 → v1.1.0) — slimmed to planning layer only; removed Architecture layer and Architecture Drift; handoff to `align-architecture` for design vs code compliance
 - `align-execution` → `align-planning` — renamed for semantic clarity (planning vs implementation boundary)
-- `orchestrate-governance-loop` — removed trigger-based routing; unified sequence (align-planning → assess-documentation-readiness) + output-driven follow-ups (align-architecture, run-repair-loop, brainstorm-design, analyze-requirements); trigger as metadata only
+- `run-checkpoint` (formerly orchestrate-governance-loop) — removed trigger-based routing; unified sequence (align-planning → assess-doc-readiness) + output-driven follow-ups (align-architecture, run-repair-loop, brainstorm-design, analyze-requirements); trigger as metadata only
 - `scripts/generate-skillgraph.mjs` — added align-architecture to lifecycle chain and project governance loop; updated governance loop diagram for unified sequence
 - `skills/ASQM_AUDIT.md` — curate-skills: added align-architecture (Quality 20, validated); updated align-planning overlaps
 

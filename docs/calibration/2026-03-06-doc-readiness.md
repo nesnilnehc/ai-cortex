@@ -47,7 +47,7 @@ All remaining gaps are low impact. Current readiness sufficient for governance s
 
 1. **Path:** docs/project-overview/ (optional)
    - **Why now:** Formalizes goal layer
-   - **Handoff skill:** bootstrap-project-documentation
+   - **Handoff skill:** bootstrap-docs
    - **Done condition:** README-level content in structured location
 
 2. **Path:** docs/requirements-planning/ (optional)

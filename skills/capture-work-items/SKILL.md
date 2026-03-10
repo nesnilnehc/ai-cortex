@@ -69,7 +69,7 @@ Capture requirements, bugs, or issues from free-form input into structured, pers
 - **Quick backlog entry**: User says "record this bug" or "add this requirement" — structure and persist without full analysis.
 - **Meeting/email capture**: Extract work items from meeting notes or email and save as structured artifacts.
 - **Triage input**: Capture items for later triage and prioritization in milestones or task breakdown.
-- **Backlog evidence**: Fill the Backlog gap identified in assess-documentation-readiness (e.g. "Backlog: weak — no explicit backlog doc").
+- **Backlog evidence**: Fill the Backlog gap identified in assess-doc-readiness (e.g. "Backlog: weak — no explicit backlog doc").
 
 ---
 
@@ -226,7 +226,7 @@ status: captured
 
 ### Status Lifecycle
 
-The skill sets only `status: captured`. Downstream processes (milestones, promotion-iteration-tasks, orchestrate-governance-loop) may update to: `triaged`, `in-progress`, `done`, `blocked`, `cancelled`.
+The skill sets only `status: captured`. Downstream processes (milestones, promotion-iteration-tasks, run-checkpoint) may update to: `triaged`, `in-progress`, `done`, `blocked`, `cancelled`.
 
 ---
 

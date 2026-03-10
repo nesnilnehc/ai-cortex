@@ -1,10 +1,10 @@
 ---
-name: assess-documentation-readiness
-description: Assess documentation evidence readiness across project layers, report gaps, and produce a minimum-fill plan to improve alignment reliability.
+name: assess-doc-readiness
+description: Assess doc evidence readiness across project layers, report gaps, and produce a minimum-fill plan to improve alignment reliability.
 tags: [documentation, eng-standards, workflow]
 version: 1.0.0
 license: MIT
-related_skills: [bootstrap-project-documentation, analyze-requirements, brainstorm-design, align-planning, align-architecture]
+related_skills: [bootstrap-docs, analyze-requirements, brainstorm-design, align-planning, align-architecture]
 recommended_scope: both
 metadata:
   author: ai-cortex
@@ -58,7 +58,7 @@ Evaluate whether project documentation is sufficient for reliable AI-assisted pl
 
 - Full requirements authoring from vague intent (use `analyze-requirements`)
 - Full design synthesis (use `brainstorm-design`)
-- Structural docs bootstrap from scratch templates (use `bootstrap-project-documentation`)
+- Structural docs bootstrap from scratch templates (use `bootstrap-docs`)
 - Post-task drift calibration (use `align-planning`)
 
 **Handoff point**: After report delivery, hand off creation/update actions to the relevant documentation or planning skill.
@@ -133,12 +133,12 @@ Produce the smallest set of actions needed to raise readiness to target level:
 
 1. Layer to fix first and expected outcome
 2. Exact document path(s) to create/update
-3. Suggested handoff skill (`bootstrap-project-documentation`, `analyze-requirements`, `brainstorm-design`)
+3. Suggested handoff skill (`bootstrap-docs`, `analyze-requirements`, `brainstorm-design`)
 4. Stop condition for this cycle
 
 ### Phase 5: Persist Report
 
-Write to path per resolved project norms (Phase 0) or default `docs/calibration/YYYY-MM-DD-doc-readiness.md` from [spec/artifact-contract.md](../../spec/artifact-contract.md). Include front-matter: `artifact_type: doc-readiness`, `created_by: assess-documentation-readiness`, `lifecycle: snapshot`, `created_at: YYYY-MM-DD`. Create output directory if it does not exist.
+Write to path per resolved project norms (Phase 0) or default `docs/calibration/YYYY-MM-DD-doc-readiness.md` from [spec/artifact-contract.md](../../spec/artifact-contract.md). Include front-matter: `artifact_type: doc-readiness`, `created_by: assess-doc-readiness`, `lifecycle: snapshot`, `created_at: YYYY-MM-DD`. Create output directory if it does not exist.
 
 ---
 
@@ -155,7 +155,7 @@ Write to path per resolved project norms (Phase 0) or default `docs/calibration/
 ```markdown
 ---
 artifact_type: doc-readiness
-created_by: assess-documentation-readiness
+created_by: assess-doc-readiness
 lifecycle: snapshot
 created_at: YYYY-MM-DD
 ---
@@ -217,7 +217,7 @@ created_at: YYYY-MM-DD
 
 **Do NOT do these (other skills handle them)**:
 
-- Template bootstrap and structural initialization -> `bootstrap-project-documentation`
+- Template bootstrap and structural initialization -> `bootstrap-docs`
 - Requirement content development -> `analyze-requirements`
 - Architecture/design decision workflow -> `brainstorm-design`
 - Post-task drift and recalibration -> `align-planning`
@@ -226,7 +226,7 @@ created_at: YYYY-MM-DD
 
 - If the primary gap is requirements quality -> hand off to `analyze-requirements`
 - If the primary gap is architecture clarity -> hand off to `brainstorm-design`
-- If docs skeleton is missing broadly -> hand off to `bootstrap-project-documentation`
+- If docs skeleton is missing broadly -> hand off to `bootstrap-docs`
 
 ---
 
@@ -275,4 +275,4 @@ If YES: report is complete.
 
 - Findings: no structured docs tree, only README exists
 - Readiness: `low`
-- Plan: hand off to `bootstrap-project-documentation` for baseline structure, then rerun this skill
+- Plan: hand off to `bootstrap-docs` for baseline structure, then rerun this skill

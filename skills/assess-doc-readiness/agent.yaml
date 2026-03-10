@@ -1,4 +1,4 @@
-name: assess-documentation-readiness
+name: assess-doc-readiness
 status: validated
 
 primary_use: Assess documentation evidence readiness across project layers, prioritize gaps, and produce a minimum-fill plan for reliable AI-assisted governance.
@@ -21,9 +21,9 @@ scores:
 asqm_quality: 19
 
 overlaps_with:
-  - nesnilnehc/ai-cortex:bootstrap-project-documentation
+  - nesnilnehc/ai-cortex:bootstrap-docs
   - nesnilnehc/ai-cortex:align-planning
-  - nesnilnehc/ai-cortex:orchestrate-governance-loop
+  - nesnilnehc/ai-cortex:run-checkpoint
 
 market_position: differentiated
 

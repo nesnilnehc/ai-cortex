@@ -59,7 +59,7 @@ As a "Skill for Skills," this skill **audits and refactors** AI capability defin
 - Planning skill assets or references (use skills.sh documentation)
 - Evaluating skill quality metrics (use `curate-skills`)
 - Discovering or cataloging skills (use `discover-skills`)
-- Generating project documentation (use `bootstrap-project-documentation`)
+- Generating project documentation (use `bootstrap-docs`)
 
 **Handoff point**: When SKILL is refined and diff summary provided, hand off to user for review and version control commit.
 
@@ -137,7 +137,7 @@ User override: If user specifies a path or strategy, honor it. Otherwise use **f
 - **Creating new skills from scratch**: Generating initial SKILL structure and content → Use `skill-creator` (anthropics/skills)
 - **Quality metrics evaluation**: Calculating ASQM scores, detecting overlaps → Use `curate-skills`
 - **Skill discovery**: Finding skills in repositories, cataloging capabilities → Use `discover-skills`
-- **Project documentation**: Generating README, AGENTS.md, or project-level docs → Use `bootstrap-project-documentation` or `generate-standard-readme`
+- **Project documentation**: Generating README, AGENTS.md, or project-level docs → Use `bootstrap-docs` or `generate-standard-readme`
 - **Text decontextualization**: Removing PII or sensitive information → Use `decontextualize-text`
 
 **When to stop and hand off**:

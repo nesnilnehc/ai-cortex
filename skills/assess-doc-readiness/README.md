@@ -1,4 +1,4 @@
-# assess-documentation-readiness
+# assess-doc-readiness
 
 Assess documentation evidence readiness across project layers, report gaps, and produce a minimum-fill plan to improve alignment reliability.
 
@@ -27,14 +27,14 @@ Evaluates whether project docs (goals, requirements, architecture, milestones, r
 ## Installation
 
 ```bash
-npx skills add nesnilnehc/ai-cortex --skill assess-documentation-readiness
+npx skills add nesnilnehc/ai-cortex --skill assess-doc-readiness
 ```
 
 ## Related skills
 
-- `bootstrap-project-documentation` — structural docs bootstrap from scratch
+- `bootstrap-docs` — structural docs bootstrap from scratch
 - `align-planning` — post-task drift and evidence assessment
-- `orchestrate-governance-loop` — orchestrate governance including assess-documentation-readiness
+- `run-checkpoint` — orchestrate governance including assess-doc-readiness
 
 ## Full definition
 

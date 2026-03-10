@@ -72,7 +72,7 @@ When working in or referencing this project, Agents must:
 | Usage | This file §4 |
 | Entry authoring | [skills/write-agents-entry/SKILL.md](skills/write-agents-entry/SKILL.md) (includes embedded output contract for other projects) |
 | Indexes | [skills/INDEX.md](skills/INDEX.md) |
-| Self-reference tasks→assets | **Skill**: Write/revise AGENTS.md → [write-agents-entry](skills/write-agents-entry/SKILL.md); design/refactor Skill → [refine-skill-design](skills/refine-skill-design/SKILL.md); generate README → [generate-standard-readme](skills/generate-standard-readme/SKILL.md); discover document norms → [discover-document-norms](skills/discover-document-norms/SKILL.md); validate docs → [validate-document-artifacts](skills/validate-document-artifacts/SKILL.md). Full list: [skills/INDEX.md](skills/INDEX.md). |
+| Self-reference tasks→assets | **Skill**: Write/revise AGENTS.md → [write-agents-entry](skills/write-agents-entry/SKILL.md); design/refactor Skill → [refine-skill-design](skills/refine-skill-design/SKILL.md); generate README → [generate-standard-readme](skills/generate-standard-readme/SKILL.md); discover document norms → [discover-document-norms](skills/discover-document-norms/SKILL.md); validate docs → [validate-doc-artifacts](skills/validate-doc-artifacts/SKILL.md). Full list: [skills/INDEX.md](skills/INDEX.md). |
 
 ### Invocation Examples
 

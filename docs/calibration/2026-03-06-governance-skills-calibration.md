@@ -48,7 +48,7 @@ None. Work aligns with project goals and roadmap direction.
 
 1. Execute documentation-readiness to produce Minimal Fill Plan for docs
 2. Execute project-cognitive-loop to aggregate governance findings
-3. Optionally run bootstrap-project-documentation if full template layout is desired
+3. Optionally run bootstrap-docs if full template layout is desired
 
 ## Machine-Readable Drift
 

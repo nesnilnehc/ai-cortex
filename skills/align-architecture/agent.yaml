@@ -24,7 +24,7 @@ overlaps_with:
   - nesnilnehc/ai-cortex:align-planning
   - nesnilnehc/ai-cortex:review-architecture
   - nesnilnehc/ai-cortex:brainstorm-design
-  - nesnilnehc/ai-cortex:assess-documentation-readiness
+  - nesnilnehc/ai-cortex:assess-doc-readiness
 
 market_position: differentiated
 

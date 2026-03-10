@@ -1,10 +1,10 @@
 ---
-name: validate-document-artifacts
+name: validate-doc-artifacts
 description: Validate docs under project against artifact norms. Check paths, naming, front-matter for compliance. Output findings list for remediation.
 tags: [documentation, eng-standards, workflow]
 version: 1.0.0
 license: MIT
-related_skills: [assess-documentation-readiness, curate-skills]
+related_skills: [assess-doc-readiness, curate-skills]
 recommended_scope: project
 metadata:
   author: ai-cortex
@@ -54,7 +54,7 @@ Check that documents under `docs/` conform to the project's artifact norms (or d
 **This skill does NOT handle**:
 
 - Auto-fixing violations (user or other tools apply suggestions)
-- Readiness assessment (use `assess-documentation-readiness`)
+- Readiness assessment (use `assess-doc-readiness`)
 - Establishing norms (use `discover-document-norms`)
 
 **Handoff point**: When findings are delivered, hand off to user for remediation or to `discover-document-norms` if norms need to be created or updated.
@@ -131,7 +131,7 @@ Each finding MUST follow:
 **Do NOT do these**:
 
 - Create or update norms → `discover-document-norms`
-- Assess doc readiness → `assess-documentation-readiness`
+- Assess doc readiness → `assess-doc-readiness`
 - Auto-fix → User applies suggestions
 
 ---

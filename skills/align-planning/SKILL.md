@@ -4,7 +4,7 @@ description: Perform post-task traceback, drift detection, and top-down recalibr
 tags: [workflow, eng-standards, documentation]
 version: 1.2.0
 license: MIT
-related_skills: [analyze-requirements, brainstorm-design, bootstrap-project-documentation, assess-documentation-readiness, discover-document-norms, run-repair-loop, align-architecture]
+related_skills: [analyze-requirements, brainstorm-design, bootstrap-docs, assess-doc-readiness, discover-document-norms, run-repair-loop, align-architecture]
 recommended_scope: both
 metadata:
   author: ai-cortex
