@@ -22,9 +22,19 @@
       "short_triggers": ["post task", "alignment", "execution alignment"],
       "when_to_use": "A task is done and you need to validate direction",
       "primary": "align-execution",
-      "optional": ["assess-documentation-readiness", "orchestrate-governance-loop"],
+      "optional": ["assess-documentation-readiness", "align-architecture", "orchestrate-governance-loop"],
       "output": "Execution Alignment Report with drift and calibration actions",
       "stop_condition": "Next 1-3 tasks reprioritized with confidence level"
+    },
+    {
+      "id": "architecture_compliance",
+      "title": "Architecture Compliance",
+      "short_triggers": ["align architecture", "architecture compliance", "design vs code"],
+      "when_to_use": "Verify that implementation matches ADR or design docs",
+      "primary": "align-architecture",
+      "optional": ["align-execution", "brainstorm-design"],
+      "output": "Architecture Compliance Report with gaps and remediation",
+      "stop_condition": "Compliance gaps identified and handoff suggested"
     },
     {
       "id": "documentation_gap_triage",

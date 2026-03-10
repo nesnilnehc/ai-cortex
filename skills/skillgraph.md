@@ -241,20 +241,22 @@ flowchart LR
 
 ### 7.4 Project governance loop chain
 
+Unified sequence: align-execution → assess-documentation-readiness; output-driven follow-ups (align-architecture, repair, brainstorm, analyze).
+
 ```mermaid
 flowchart LR
   loop[orchestrate-governance-loop]
+  align[align-execution]
+  alignarch[align-architecture]
+  docreadiness[assess-documentation-readiness]
   req[analyze-requirements]
   design[brainstorm-design]
-  align[align-execution]
-  docreadiness[assess-documentation-readiness]
   repair[run-repair-loop]
 
-  loop --> req
-  loop --> design
   loop --> align
   loop --> docreadiness
   align -->|active defects| repair
+  align -->|architecture compliance needed| alignarch
   docreadiness -->|doc gaps| req
   docreadiness -->|architecture gap| design
 ```
@@ -269,6 +271,7 @@ flowchart LR
 | [run-automated-tests](./run-automated-tests/SKILL.md) | lifecycle | repo path | test execution results |
 | [run-repair-loop](./run-repair-loop/SKILL.md) | lifecycle | repo + scope | converged clean state |
 | [align-execution](./align-execution/SKILL.md) | lifecycle | completed task context | execution alignment report |
+| [align-architecture](./align-architecture/SKILL.md) | lifecycle | ADR/design scope + code scope | architecture compliance report |
 | [assess-documentation-readiness](./assess-documentation-readiness/SKILL.md) | lifecycle | docs scope + mapping | documentation readiness report + minimal fill plan |
 | [orchestrate-governance-loop](./orchestrate-governance-loop/SKILL.md) | lifecycle | trigger + project context | cycle governance report |
 | [onboard-repo](./onboard-repo/SKILL.md) | onboarding | repo path | onboarding report |

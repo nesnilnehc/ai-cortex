@@ -158,6 +158,10 @@
       "path": "skills/align-execution/SKILL.md"
     },
     {
+      "name": "align-architecture",
+      "path": "skills/align-architecture/SKILL.md"
+    },
+    {
       "name": "assess-documentation-readiness",
       "path": "skills/assess-documentation-readiness/SKILL.md"
     },

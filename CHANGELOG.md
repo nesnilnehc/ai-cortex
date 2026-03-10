@@ -7,7 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `align-architecture` skill (v1.0.0) — verify ADR/design vs code implementation; produce Architecture Compliance Report
+- Architecture Compliance scenario in scenario-map.json (short triggers: align architecture, architecture compliance, design vs code)
+
 ### Changed
+
+- `align-execution` (v1.0.0 → v1.1.0) — slimmed to planning layer only; removed Architecture layer and Architecture Drift; handoff to `align-architecture` for design vs code compliance
+- `orchestrate-governance-loop` — removed trigger-based routing; unified sequence (align-execution → assess-documentation-readiness) + output-driven follow-ups (align-architecture, run-repair-loop, brainstorm-design, analyze-requirements); trigger as metadata only
+- `scripts/generate-skillgraph.mjs` — added align-architecture to lifecycle chain and project governance loop; updated governance loop diagram for unified sequence
+- `skills/ASQM_AUDIT.md` — curate-skills: added align-architecture (Quality 20, validated); updated align-execution overlaps
+
+### Changed (previous)
 
 - **Skill naming (spec verb-noun compliance)**: `documentation-readiness` → `assess-documentation-readiness`, `execution-alignment` → `align-execution`, `project-cognitive-loop` → `orchestrate-governance-loop`; all references updated across manifest, scenario-map, scripts, docs
 - `scripts/generate-skillgraph.mjs` — auto-generate `skills/skillgraph.md` from manifest and SKILL frontmatter; includes global overview

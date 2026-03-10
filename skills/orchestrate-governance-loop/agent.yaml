@@ -22,6 +22,7 @@ asqm_quality: 20
 
 overlaps_with:
   - nesnilnehc/ai-cortex:align-execution
+  - nesnilnehc/ai-cortex:align-architecture
   - nesnilnehc/ai-cortex:assess-documentation-readiness
   - nesnilnehc/ai-cortex:onboard-repo
   - nesnilnehc/ai-cortex:review-code

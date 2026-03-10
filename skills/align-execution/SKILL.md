@@ -1,10 +1,10 @@
 ---
 name: align-execution
-description: Perform post-task traceback, drift detection, and top-down recalibration to keep execution aligned with goals, requirements, architecture, milestones, and roadmap.
+description: Perform post-task traceback, drift detection, and top-down recalibration to keep execution aligned with goals, requirements, milestones, and roadmap (planning layer only).
 tags: [workflow, eng-standards, documentation]
-version: 1.0.0
+version: 1.1.0
 license: MIT
-related_skills: [analyze-requirements, brainstorm-design, bootstrap-project-documentation, assess-documentation-readiness, run-repair-loop]
+related_skills: [analyze-requirements, brainstorm-design, bootstrap-project-documentation, assess-documentation-readiness, run-repair-loop, align-architecture]
 recommended_scope: both
 metadata:
   author: ai-cortex
@@ -24,8 +24,9 @@ metadata:
         borrowed: "Phase-based process, alternatives framing, output artifact discipline"
     enhancements:
       - "Added deterministic mode selection (Lightweight vs Full)"
-      - "Added five-type drift model with impact and root cause format"
+      - "Added four-type planning drift model (goal, requirement, roadmap, priority)"
       - "Added mapping-confirmation gate when traceability links are missing"
+      - "v1.1.0: Slimmed to planning layer only; Architecture moved to align-architecture"
 triggers: [alignment, execution alignment, post task]
 input_schema:
   type: free-form
@@ -52,7 +53,7 @@ Keep project execution aligned with higher-level planning by running a post-task
 **Success Criteria** (ALL must be met):
 
 1. ✅ **Traceback completed**: The completed task is traced through applicable project layers for the selected mode
-2. ✅ **Drift classified**: All detected misalignments use the drift model (goal, requirement, architecture, roadmap, priority), with impact scope and root cause per item
+2. ✅ **Drift classified**: All detected misalignments use the planning drift model (goal, requirement, roadmap, priority), with impact scope and root cause per item
 3. ✅ **Calibration produced**: A top-down recalibration recommendation list is provided, including next tasks
 4. ✅ **Report persisted**: Execution Alignment Report is written to the agreed path
 5. ✅ **Evidence readiness assessed**: Missing or weak documentation is explicitly scored and reflected in confidence
@@ -77,11 +78,12 @@ Keep project execution aligned with higher-level planning by running a post-task
 
 - Rewriting requirements from scratch (use `analyze-requirements`)
 - Redesigning architecture (use `brainstorm-design`)
+- Architecture vs code compliance (use `align-architecture`)
 - Creating a new roadmap or milestone system from scratch
 - Implementing code changes
 - Team retrospective facilitation ("what went well / poorly")
 
-**Handoff point**: After the report is produced and reviewed, hand off to the relevant skill by issue type (requirements, architecture, planning, or repair loop).
+**Handoff point**: After the report is produced and reviewed, hand off to the relevant skill by issue type (requirements, architecture design, planning, architecture compliance, or repair loop).
 
 ---
 
@@ -147,7 +149,9 @@ Rules:
 ### Mode Definitions
 
 - **Lightweight Mode**: Task Backlog → Roadmap → Requirements
-- **Full Alignment Mode**: Task Backlog → Roadmap → Milestones → Architecture → Requirements → Project Goals
+- **Full Alignment Mode**: Task Backlog → Roadmap → Milestones → Requirements → Project Goals
+
+This skill covers the **planning layer** only. Architecture vs code compliance is handled by `align-architecture`.
 
 ### Phase 1: Traceback (Bottom-Up)
 
@@ -167,13 +171,14 @@ Rules:
 
 ### Phase 2: Drift Detection
 
-Classify each drift item as:
+Classify each drift item as (planning layer only):
 
 - **Goal Drift**: Work no longer supports current project objective
 - **Requirement Drift**: Requirement changed, deprecated, or already superseded
-- **Architecture Drift**: Implementation direction diverges from current architecture decisions
 - **Roadmap Drift**: Sequencing or roadmap assumptions changed
 - **Priority Drift**: Priority is stale relative to current business direction
+
+For implementation-vs-design drift, hand off to `align-architecture`.
 
 For each item, output:
 
@@ -184,7 +189,7 @@ For each item, output:
 
 ### Phase 3: Calibration (Top-Down)
 
-1. Re-derive priority from top layers downward (Goals → Requirements → Architecture → Milestones → Roadmap → Backlog)
+1. Re-derive priority from top layers downward (Goals → Requirements → Milestones → Roadmap → Backlog)
 2. Produce recalibration actions:
    - Priority adjustments
    - Sequence changes
@@ -231,7 +236,7 @@ Report must also include an evidence readiness block and explicit confidence lev
 - Outcome:
 
 ## Traceback Path
-Task Backlog -> Roadmap -> Milestones -> Architecture -> Requirements -> Project Goals
+Task Backlog -> Roadmap -> Milestones -> Requirements -> Project Goals
 
 ## Evidence Readiness
 - Readiness: strong | weak | missing
@@ -241,7 +246,6 @@ Task Backlog -> Roadmap -> Milestones -> Architecture -> Requirements -> Project
 ## Alignment Status
 - Goal Alignment:
 - Requirement Alignment:
-- Architecture Alignment:
 - Milestone Alignment:
 - Roadmap Alignment:
 
@@ -269,17 +273,17 @@ Task Backlog -> Roadmap -> Milestones -> Architecture -> Requirements -> Project
 ## Machine-Readable Drift
 
     drifts:
-      - driftType: "Architecture Drift"
-        severity: "high"
-        owner: "platform-team"
-        dueWindow: "this-sprint"
-        impactScope: "API gateway auth path"
-        rootCause: "Service mesh ADR replaced gateway-centric pattern"
+      - driftType: "Requirement Drift"
+        severity: "medium"
+        owner: "product-team"
+        dueWindow: "next-sprint"
+        impactScope: "Search filter acceptance criteria"
+        rootCause: "Requirement updated to include keyboard navigation; task covered only click interactions"
     evidence:
       readiness: "weak"
       confidence: "medium"
       missingLayers:
-        - "architecture/adrs/latest-decision.md"
+        - "docs/requirements-planning/search-improvements.md"
       secondarySources:
         - "PR#142"
         - "commit:abc1234"
@@ -294,8 +298,8 @@ Task Backlog -> Roadmap -> Milestones -> Architecture -> Requirements -> Project
 
 - Do NOT invent traceability links when evidence is missing
 - Do NOT claim high confidence when readiness is `weak` or `missing`
-- Do NOT silently modify planning truth sources (goals, requirements, architecture, roadmap) without explicit user approval
-- Do NOT collapse drift categories into a generic "misalignment" bucket; keep typed drift outputs
+- Do NOT silently modify planning truth sources (goals, requirements, milestones, roadmap) without explicit user approval
+- Do NOT collapse drift categories into a generic "misalignment" bucket; keep typed drift outputs (goal, requirement, roadmap, priority)
 - Do NOT skip layer checks in Full mode unless the layer is truly unavailable (mark as `unknown` and explain)
 - Do NOT present recommendations without rationale tied to traceback evidence
 
@@ -311,7 +315,8 @@ Task Backlog -> Roadmap -> Milestones -> Architecture -> Requirements -> Project
 **When to stop and hand off**:
 
 - Requirements are invalid or contradictory → hand off to `analyze-requirements`
-- Architecture conflict is primary blocker → hand off to `brainstorm-design`
+- Architecture design conflict is primary blocker → hand off to `brainstorm-design`
+- Architecture vs code compliance check needed → hand off to `align-architecture`
 - Report indicates active implementation defects requiring repair → suggest `run-repair-loop`
 
 ---
@@ -321,7 +326,7 @@ Task Backlog -> Roadmap -> Milestones -> Architecture -> Requirements -> Project
 ### Core Success Criteria (ALL must be met)
 
 - [ ] Traceback completed for selected mode
-- [ ] Drift items typed using the five-category model
+- [ ] Drift items typed using the four-category planning model
 - [ ] Each drift has impact scope and root cause
 - [ ] Top-down calibration actions provided
 - [ ] Report persisted to agreed path
@@ -380,20 +385,18 @@ If YES: report is complete; proceed to handoff or execution planning.
 **Traceback**:
 
 - Roadmap and milestone mapping valid
-- Architecture layer conflicts with latest service mesh ADR
 - Goal and requirements still valid
-- Evidence readiness is `weak`; architecture context depends on a merged PR note pending ADR update
+- Evidence readiness is `strong`; canonical docs exist for all planning layers
 
 **Drift**:
 
-- `Architecture Drift` (high): Gateway auth path no longer matches platform direction
 - `Priority Drift` (high): Migration work was not promoted in backlog
 
 **Calibration**:
 
 1. Insert migration epic into current sprint planning
 2. Defer non-critical gateway enhancements
-3. Trigger architecture-focused follow-up using `brainstorm-design`
+3. Recommend running `align-architecture` for architecture vs code compliance check
 
 ### Example 3: Edge Case (Blocked Mapping)
 

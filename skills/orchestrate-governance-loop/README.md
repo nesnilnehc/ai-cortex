@@ -4,7 +4,7 @@ Orchestrate project governance cycles by routing between requirements analysis, 
 
 ## What it does
 
-Runs repeatable governance loops by orchestrating atomic skills: `analyze-requirements`, `brainstorm-design`, `align-execution`, `assess-documentation-readiness`, and optionally `run-repair-loop`. Classifies triggers (task-complete, milestone-closed, release-candidate, scope-change, periodic-review) and selects the right skill sequence. Aggregates outputs into a single cycle report.
+Runs repeatable governance loops with a unified sequence: `align-execution` (full) -> `assess-documentation-readiness`, then output-driven follow-ups (`align-architecture`, `run-repair-loop`, `brainstorm-design`, `analyze-requirements`) when findings indicate need. Trigger is metadata only (does not drive routing). Aggregates outputs into a single cycle report.
 
 ## When to use
 
@@ -32,7 +32,8 @@ npx skills add nesnilnehc/ai-cortex --skill orchestrate-governance-loop
 
 ## Related skills
 
-- `align-execution` — post-task traceback and drift detection
+- `align-execution` — post-task traceback and planning drift detection
+- `align-architecture` — architecture vs code compliance verification
 - `assess-documentation-readiness` — docs evidence assessment
 - `onboard-repo` — repo onboarding orchestration (different control-plane use case)
 
