@@ -8,6 +8,7 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [review architecture, architecture review]
 input_schema:
   type: code-scope
   description: Source files or directories to review
@@ -43,6 +44,7 @@ Review code for **architecture** concerns only. Do not define scope (diff vs cod
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Module and layer boundary clarity (API, domain, data layer separation)
 - Dependency direction analysis (inward toward domain, stable abstractions)
 - Single responsibility assessment per module/class
@@ -51,6 +53,7 @@ Review code for **architecture** concerns only. Do not define scope (diff vs cod
 - Coupling analysis and extension point design
 
 **This skill does NOT handle**:
+
 - Scope selection (deciding which files/paths to analyze) — scope is provided by the caller
 - Language/framework convention analysis — use `review-dotnet`, `review-java`, `review-go`, etc.
 - Security review — use `review-security`
@@ -118,12 +121,14 @@ Review code for **architecture** concerns only. Do not define scope (diff vs cod
 ### Skill Boundaries
 
 **Do NOT do these** (other skills handle them):
+
 - Do NOT select or define the code scope — scope is determined by the caller or `review-code`
 - Do NOT perform language/framework convention analysis — use `review-dotnet`, `review-java`, `review-go`, etc.
 - Do NOT perform security or performance review — use `review-security` or `review-performance`
 - Do NOT assume a specific architecture pattern (clean, hexagonal, etc.) unless explicitly stated
 
 **When to stop and hand off**:
+
 - When all architecture findings are emitted, hand off to `review-code` for aggregation in an orchestrated review
 - When the user needs a full review (scope + language + cognitive), redirect to `review-code`
 - When comprehensive codebase state review is needed beyond architecture, redirect to `review-codebase`

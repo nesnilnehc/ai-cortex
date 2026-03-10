@@ -8,6 +8,7 @@ license: MIT
 recommended_scope: user
 metadata:
   author: ai-cortex
+triggers: [refine skill, skill design]
 input_schema:
   type: document-artifact
   description: Existing SKILL.md file to audit and refactor
@@ -44,6 +45,7 @@ As a "Skill for Skills," this skill **audits and refactors** AI capability defin
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Auditing existing SKILL drafts for quality and compliance
 - Refactoring SKILL structure and content to meet spec
 - Improving logic clarity and instruction precision
@@ -51,6 +53,7 @@ As a "Skill for Skills," this skill **audits and refactors** AI capability defin
 - Providing diff summary and version recommendations
 
 **This skill does NOT handle**:
+
 - Creating new skills from scratch (use `skill-creator` from anthropics/skills)
 - Running package scripts or init workflows (use skills.sh tooling)
 - Planning skill assets or references (use skills.sh documentation)
@@ -81,13 +84,15 @@ As a "Skill for Skills," this skill **audits and refactors** AI capability defin
 2. **Logic**: Does Input → Behavior → Output form a clear chain?
 3. **Constraints**: Do Restrictions cover the most common failure modes in the domain?
 4. **Examples**: Do Examples progress from simple to complex and include at least one edge case?
+5. **Interaction Policy** (spec §4.3): Does Behavior state defaults, choice options, and which items require user confirmation? Prefer Defaults first, Prefer choices, Context inference.
+6. **Triggers** (optional): For high-discoverability skills, consider adding `triggers` (3–5 English phrases) in frontmatter for quick invocation matching.
 
 ### Optimization flow
 
 1. **Structure**: Apply the standard template (YAML, Purpose, Use cases, Behavior, I/O, Restrictions, Self-Check, Examples).
 2. **Verbs**: Use precise, unambiguous verbs (e.g. "handle" → "parse," "transform," "trim").
-3. **Interaction**: For complex logic, add "confirm before proceed" or "choose among options."
-4. **Metadata**: Align tags with `INDEX.md` and suggest a sensible SemVer version; remind that new skills may need to be added to `scenario-map.json` for scenario-based discovery.
+3. **Interaction**: For complex logic, add "confirm before proceed" or "choose among options." Align with spec Interaction Policy (defaults first, prefer choices).
+4. **Metadata**: Align tags with `INDEX.md`; suggest `triggers` for high-discoverability skills; suggest sensible SemVer; remind that new skills may need `scenario-map.json` for scenario-based discovery.
 
 ---
 
@@ -162,6 +167,8 @@ User override: If user specifies a path or strategy, honor it. Otherwise use **f
 - [ ] **Compliance**: Are all required sections and metadata fields present?
 - [ ] **Intent preserved**: Does the refined SKILL maintain the original skill's core purpose?
 - [ ] **Precision**: Are verbs specific and unambiguous (not vague terms like "handle")?
+- [ ] **Interaction Policy** (spec §4.3): Does Behavior have Defaults or choice-based interaction where applicable?
+- [ ] **Triggers** (optional): For high-discoverability skills, are `triggers` suggested?
 
 ### Acceptance Test
 
@@ -189,13 +196,18 @@ If YES: Refinement is complete. Provide diff summary and version recommendation 
 > tags: [writing, quality-control]
 > version: 1.1.0
 > ---
+>
 > # Skill: Spelling and terminology
-> ## Purpose: Identify and fix low-level spelling errors and terminology inconsistency without changing the author's intent or tone.
-> ## Behavior:
+>
+> ## Purpose: Identify and fix low-level spelling errors and terminology inconsistency without changing the author's intent or tone
+>
+> ## Behavior
+>
 > 1. Detect language.
 > 2. Build a term list if the text is long.
 > 3. Distinguish "typos" from "intentional style."
-> ## Restrictions: Do not change proper nouns or specific abbreviations unless clearly wrong.
+>
+> ## Restrictions: Do not change proper nouns or specific abbreviations unless clearly wrong
 
 ### Example 2: Edge case — ambiguous draft
 

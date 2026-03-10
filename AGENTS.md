@@ -43,6 +43,15 @@ When working in or referencing this project, Agents must:
 - **Injection**: Load the **full Markdown** of selected SKILLs as system or context; inject as atomic units.
 - **Self-reference**: When working on **this repo**, discover and load assets under `skills/`; use `manifest.json` `capabilities` for paths.
 
+### 4.1 Invocation and Matching
+
+- **Match priority** (when multiple sources apply): scenario `short_triggers` → SKILL `triggers` → `description`/`tags` semantic match.
+- **Scenario-first**: Prefer `skills/scenario-map.json` (and generated `scenario-map.md`) for `when_to_use` and `short_triggers` to map user intent to skills.
+- **Triggers**: If a SKILL has `triggers` in its frontmatter, use them for exact phrase matching.
+- **Semantic fallback**: Match by `description` and `tags`; supports natural language (including Chinese). Chinese and other non-English inputs are best-effort; recommend English invocation for stable matching.
+- **Defaults**: If `input_schema.defaults` exists and the user gives no explicit input, use those defaults.
+- **Language**: Recommend English for invocation; Chinese and other languages are supported via semantic understanding.
+
 ---
 
 ## 5. Language and Communication
@@ -64,3 +73,12 @@ When working in or referencing this project, Agents must:
 | Entry authoring | [skills/write-agents-entry/SKILL.md](skills/write-agents-entry/SKILL.md) (includes embedded output contract for other projects) |
 | Indexes | [skills/INDEX.md](skills/INDEX.md) |
 | Self-reference tasks→assets | **Skill**: Write/revise AGENTS.md → [write-agents-entry](skills/write-agents-entry/SKILL.md); design/refactor Skill → [refine-skill-design](skills/refine-skill-design/SKILL.md); generate README → [generate-standard-readme](skills/generate-standard-readme/SKILL.md); discover document norms → [discover-document-norms](skills/discover-document-norms/SKILL.md); validate docs → [validate-document-artifacts](skills/validate-document-artifacts/SKILL.md). Full list: [skills/INDEX.md](skills/INDEX.md). |
+
+### Invocation Examples
+
+| Scenario | English | Chinese (semantic) |
+| :--- | :--- | :--- |
+| Code review | review, code review | 代码审查、帮我 review |
+| Commit | commit, commit work | 提交、commit |
+| Quick capture | capture bug: ... | 记一个 bug：... |
+| Onboard | onboard, onboard repo | onboard 这个仓库 |

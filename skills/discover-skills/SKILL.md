@@ -8,6 +8,7 @@ related_skills: [refine-skill-design]
 recommended_scope: user
 metadata:
   author: ai-cortex
+triggers: [discover skills, find skills]
 input_schema:
   type: free-form
   description: Task description, capability gap, or user query about available skills
@@ -43,12 +44,14 @@ Help the Agent identify missing skills for a task and recommend concrete install
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Discovering skills from local indexes or external catalogs
 - Matching task requirements to skill capabilities
 - Recommending top 1-3 skill matches with rationale
 - Providing exact installation commands
 
 **This skill does NOT handle**:
+
 - Installing skills automatically (use `install-rules` or manual installation)
 - Curating or auditing existing skills (use `curate-skills`)
 - Refining or designing skills (use `refine-skill-design`)

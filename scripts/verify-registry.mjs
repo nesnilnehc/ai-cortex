@@ -199,6 +199,11 @@ if (existsSync(scenarioMapJsonPath)) {
   for (const s of scenarioConfig.scenarios || []) {
     if (s.primary) jsonSkillRefs.add(s.primary);
     for (const o of s.optional || []) jsonSkillRefs.add(o);
+    if (s.short_triggers !== undefined) {
+      if (!Array.isArray(s.short_triggers) || s.short_triggers.some((t) => typeof t !== 'string')) {
+        console.warn(`skills/scenario-map.json scenario "${s.id}": short_triggers must be array of strings`);
+      }
+    }
   }
   for (const name of jsonSkillRefs) {
     if (!manifestNames.has(name) || !indexNames.has(name)) {
@@ -226,6 +231,19 @@ if (existsSync(marketplacePath)) {
         console.error(`marketplace.json lists "${skillName}" but it is missing from skills/INDEX.md`);
         failed = true;
       }
+    }
+  }
+}
+
+// Optional: warn if triggers contain non-ASCII (spec prefers English)
+for (const cap of capabilities) {
+  const fullPath = join(root, cap.path);
+  if (!existsSync(fullPath)) continue;
+  const meta = readSkillFrontmatter(fullPath);
+  if (meta?.triggers?.length) {
+    const nonAscii = meta.triggers.filter((t) => !/^[a-zA-Z0-9\s\-]+$/.test(t));
+    if (nonAscii.length) {
+      console.warn(`Skill "${cap.name}": triggers should be English (ASCII): ${nonAscii.join(', ')}`);
     }
   }
 }

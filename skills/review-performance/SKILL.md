@@ -8,6 +8,7 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [review performance, performance review]
 input_schema:
   type: code-scope
   description: Source files or directories to review
@@ -43,6 +44,7 @@ Review code for **performance** concerns only. Do not define scope (diff vs code
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Algorithmic complexity hotspots (O(n²)+, nested loops, repeated scans)
 - Database/query efficiency (N+1, missing pagination, broad selects)
 - I/O and network cost (chatty calls, missing batching, blocking on critical paths)
@@ -53,6 +55,7 @@ Review code for **performance** concerns only. Do not define scope (diff vs code
 - Observability for performance (missing metrics/tracing around hot paths)
 
 **This skill does NOT handle**:
+
 - Scope selection (deciding which files/paths to analyze) — scope is provided by the caller
 - Security review — use `review-security`
 - Architecture review — use `review-architecture`
@@ -129,12 +132,14 @@ Review code for **performance** concerns only. Do not define scope (diff vs code
 ### Skill Boundaries
 
 **Do NOT do these** (other skills handle them):
+
 - Do NOT select or define the code scope — scope is determined by the caller or `review-code`
 - Do NOT perform security, architecture, or language/framework review — use respective atomic skills
 - Do NOT perform comprehensive SQL performance analysis — use `review-sql`
 - Do NOT run or execute code to measure performance — use `run-automated-tests` for test execution
 
 **When to stop and hand off**:
+
 - When all performance findings are emitted, hand off to `review-code` for aggregation in an orchestrated review
 - When the user needs a full review (scope + language + cognitive), redirect to `review-code`
 - When SQL performance issues dominate, suggest also running `review-sql` for deeper SQL coverage

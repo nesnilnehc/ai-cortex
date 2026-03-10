@@ -226,6 +226,7 @@ E12 Testable Spec  →  A1 CI/CD Automation  →  A2 Quality Gates
 Build checking capability first, then put it in CI, then automate quality assessment.
 
 **Deliverables:**
+
 - `scripts/verify-skill-structure.mjs`
 - `schemas/skill-metadata.json`
 - `.github/workflows/pr-check.yml`
@@ -241,6 +242,7 @@ B3  review-typescript  →  B4 review-react
 Establish lifecycle conventions, then build the frontend review chain (TS language + React framework).
 
 **Deliverables:**
+
 - Updated INDEX.md with Stability column
 - `skills/review-typescript/`
 - `skills/review-react/`
@@ -255,6 +257,7 @@ B5 Domain-level library review (review-orm-usage, etc.)
 Define the protocol first, then build orchestrators on top of it.
 
 **Deliverables:**
+
 - Spec amendment: optional `input_schema` / `output_schema` fields
 - `skills/onboard-repo/`
 - `skills/review-orm-usage/`
@@ -267,6 +270,7 @@ D10 Community Infrastructure Phase 1
 ```
 
 **Deliverables:**
+
 - Plugin selection criteria document
 - CI check for `marketplace.json` sync
 - `CONTRIBUTING.md`

@@ -8,6 +8,7 @@ license: MIT
 recommended_scope: both
 metadata:
   author: ai-cortex
+triggers: [bootstrap docs, bootstrap documentation]
 input_schema:
   type: free-form
   description: Project directory to bootstrap or adapt documentation for
@@ -47,6 +48,7 @@ Bootstrap or adapt project documentation using the [project-documentation-templa
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Documentation structure bootstrapping (Initialize mode)
 - Documentation structure adaptation (Adjust mode)
 - Placeholder filling and validation
@@ -54,6 +56,7 @@ Bootstrap or adapt project documentation using the [project-documentation-templa
 - ADR generation and indexing
 
 **This skill does NOT handle**:
+
 - README generation (use `generate-standard-readme`)
 - AGENTS.md entry creation (use `write-agents-entry`)
 - Skill-specific documentation (use `refine-skill-design`)

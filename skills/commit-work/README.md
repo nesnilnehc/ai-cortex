@@ -22,6 +22,7 @@ This is an enhanced version of the `commit-work` skill, evolved specifically for
 This skill integrates content from multiple sources:
 
 #### Primary Source (Fork)
+
 - **Skill**: `commit-work`
 - **Repository**: Anthropic skills collection (assumed)
 - **Version**: 1.0.0
@@ -29,6 +30,7 @@ This skill integrates content from multiple sources:
 - **Borrowed**: Core workflow structure, Conventional Commits format, patch staging approach
 
 #### Integrated Components
+
 - **Skill**: `review-diff`
 - **Repository**: nesnilnehc/ai-cortex
 - **Version**: 1.3.0

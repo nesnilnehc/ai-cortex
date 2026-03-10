@@ -8,6 +8,7 @@ license: MIT
 recommended_scope: user
 metadata:
   author: ai-cortex
+triggers: [generate readme, readme]
 input_schema:
   type: code-scope
   description: Repository or project path to generate README for
@@ -43,12 +44,14 @@ Create **professional, consistent, highly readable** front-page documentation fo
 ## Scope Boundaries
 
 **This skill handles**:
+
 - README generation with fixed 9-section structure
 - Professional tone and governance-ready formatting
 - Standardized documentation for asset discovery and audit
 - Badge generation and section ordering
 
 **This skill does NOT handle**:
+
 - Project-type-specific templates (use `crafting-effective-readmes` from softaworks/agent-toolkit)
 - Comprehensive project documentation (use `bootstrap-project-documentation`)
 - Agent entry files or AGENTS.md (use `write-agents-entry`)
@@ -175,7 +178,6 @@ Create **professional, consistent, highly readable** front-page documentation fo
 If NO: README is incomplete or unclear. Review sections for missing information or confusing instructions.
 
 If YES: README is complete. Proceed to handoff.
-
 
 ## Examples
 

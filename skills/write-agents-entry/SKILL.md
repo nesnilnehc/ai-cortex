@@ -8,6 +8,7 @@ related_skills: [refine-skill-design, generate-standard-readme, bootstrap-projec
 recommended_scope: user
 metadata:
   author: ai-cortex
+triggers: [write agents, agents entry]
 input_schema:
   type: code-scope
   description: Repository or project path to write AGENTS.md for

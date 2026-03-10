@@ -8,6 +8,7 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [review sql]
 input_schema:
   type: code-scope
   description: Source files or directories to review
@@ -43,6 +44,7 @@ Review **SQL** and query-related code for **language and query conventions** onl
 ## Scope Boundaries
 
 **This skill handles**:
+
 - SQL injection via string concatenation or interpolation — parameterized queries and prepared statements
 - Indexing gaps for WHERE/JOIN/ORDER BY columns
 - Transaction boundaries, isolation levels, deadlock risk, long-running transactions
@@ -52,6 +54,7 @@ Review **SQL** and query-related code for **language and query conventions** onl
 - Sensitive column exposure in SELECT, least-privilege role usage
 
 **This skill does NOT handle**:
+
 - Scope selection — scope is provided by the caller
 - Broader security analysis (beyond SQL injection) — use `review-security`
 - Architecture analysis — use `review-architecture`
@@ -118,12 +121,14 @@ Review **SQL** and query-related code for **language and query conventions** onl
 ### Skill Boundaries
 
 **Do NOT do these** (other skills handle them):
+
 - Do NOT select or define the code scope — scope is determined by the caller or `review-code`
 - Do NOT perform broad security analysis beyond SQL injection — use `review-security`
 - Do NOT perform architecture analysis — use `review-architecture`
 - Do NOT review non-SQL code for SQL conventions (SQL injection in application code should be flagged by `review-security`)
 
 **When to stop and hand off**:
+
 - When all SQL findings are emitted, hand off to `review-code` for aggregation
 - When the user needs broader security analysis (auth, crypto, config), redirect to `review-security`
 - When the user needs a full review (scope + language + cognitive), redirect to `review-code`

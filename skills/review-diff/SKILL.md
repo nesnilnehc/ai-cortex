@@ -8,6 +8,7 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [review diff, diff review]
 input_schema:
   type: code-scope
   description: Git diff (staged + unstaged, optional untracked) to review
@@ -43,6 +44,7 @@ Review **only the current change** (git diff, staged and unstaged) along a singl
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Reviewing staged + unstaged changes in the current git diff
 - Reviewing untracked files included in the change set (treated as full-file additions)
 - Intent and impact analysis (what changed and why, effect on callers/data/config/deployment)
@@ -52,6 +54,7 @@ Review **only the current change** (git diff, staged and unstaged) along a singl
 - Observability gaps (missing logs, metrics, error messages)
 
 **This skill does NOT handle**:
+
 - Whole-repo or codebase analysis — use `review-codebase`
 - Architecture, security, or language/framework-specific analysis — use respective atomic skills
 - Full orchestrated review — use `review-code`
@@ -128,12 +131,14 @@ For each changed file, evaluate and emit findings for:
 ### Skill Boundaries
 
 **Do NOT do these** (other skills handle them):
+
 - Do NOT review the full codebase or files outside the diff change set — use `review-codebase`
 - Do NOT perform security analysis — use `review-security`
 - Do NOT perform architecture analysis — use `review-architecture`
 - Do NOT perform language/framework-specific convention checks — use the respective language skill
 
 **When to stop and hand off**:
+
 - When diff findings are complete, hand off to `review-code` for aggregation in an orchestrated review
 - When the user wants a full codebase review (not just diff), redirect to `review-codebase`
 - When the user wants a complete orchestrated review, redirect to `review-code`

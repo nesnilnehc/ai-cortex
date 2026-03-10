@@ -9,6 +9,7 @@
     {
       "id": "project_start",
       "title": "Project Start",
+      "short_triggers": ["project start", "start project", "requirements", "analyze requirements"],
       "when_to_use": "New project, new initiative, or major direction reset",
       "primary": "analyze-requirements",
       "optional": ["brainstorm-design", "bootstrap-project-documentation"],
@@ -18,6 +19,7 @@
     {
       "id": "post_task_governance",
       "title": "Post-Task Governance",
+      "short_triggers": ["post task", "alignment", "execution alignment"],
       "when_to_use": "A task is done and you need to validate direction",
       "primary": "execution-alignment",
       "optional": ["documentation-readiness", "project-cognitive-loop"],
@@ -27,6 +29,7 @@
     {
       "id": "documentation_gap_triage",
       "title": "Documentation Gap Triage",
+      "short_triggers": ["doc gap", "documentation readiness", "doc triage"],
       "when_to_use": "Alignment confidence is low due to weak/missing docs",
       "primary": "documentation-readiness",
       "optional": ["bootstrap-project-documentation", "analyze-requirements"],
@@ -36,6 +39,7 @@
     {
       "id": "iteration_orchestration",
       "title": "Iteration Orchestration",
+      "short_triggers": ["iteration", "governance", "project cognitive loop"],
       "when_to_use": "Milestone closure, release gate, or periodic governance cycle",
       "primary": "project-cognitive-loop",
       "optional": ["execution-alignment", "documentation-readiness"],
@@ -45,6 +49,7 @@
     {
       "id": "code_quality_review",
       "title": "Code Quality Review",
+      "short_triggers": ["review", "code review", "pr review", "review code"],
       "when_to_use": "Review quality/security/performance/testing before merge or release",
       "primary": "review-code",
       "optional": ["review-diff", "review-codebase"],
@@ -54,6 +59,7 @@
     {
       "id": "delivery_convergence",
       "title": "Delivery Convergence",
+      "short_triggers": ["repair", "fix tests", "delivery", "stabilize"],
       "when_to_use": "Need to run tests, fix failures, and stabilize before commit",
       "primary": "run-repair-loop",
       "optional": ["run-automated-tests", "commit-work"],
@@ -63,6 +69,7 @@
     {
       "id": "repository_onboarding",
       "title": "Repository Onboarding",
+      "short_triggers": ["onboard", "onboard repo"],
       "when_to_use": "New team member, inherited repository, or handoff",
       "primary": "onboard-repo",
       "optional": ["generate-standard-readme", "write-agents-entry"],
@@ -72,6 +79,7 @@
     {
       "id": "skill_system_governance",
       "title": "Skill System Governance",
+      "short_triggers": ["curate", "curate skills", "skill audit"],
       "when_to_use": "Audit/refactor skill inventory and maintain quality",
       "primary": "curate-skills",
       "optional": ["refine-skill-design", "discover-skills"],
@@ -81,6 +89,7 @@
     {
       "id": "quick_capture",
       "title": "Quick Capture (Work Items)",
+      "short_triggers": ["capture", "quick capture", "record bug"],
       "when_to_use": "User wants to record a requirement, bug, or issue without deep validation",
       "primary": "capture-work-items",
       "optional": ["analyze-requirements"],
@@ -91,6 +100,7 @@
     {
       "id": "repository_maintenance",
       "title": "Repository Maintenance",
+      "short_triggers": ["prune", "cleanup", "repository maintenance"],
       "when_to_use": "Cleanup, optimization, or archiving of old content",
       "primary": "prune-content",
       "optional": ["validate-document-artifacts"],

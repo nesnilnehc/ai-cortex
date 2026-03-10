@@ -8,6 +8,7 @@ related_skills: [bootstrap-project-documentation, analyze-requirements, brainsto
 recommended_scope: both
 metadata:
   author: ai-cortex
+triggers: [doc readiness, documentation readiness, doc gap]
 input_schema:
   type: free-form
   description: Project docs scope, optional layer mapping, and optional target readiness level

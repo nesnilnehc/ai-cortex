@@ -8,6 +8,7 @@ related_skills: [analyze-requirements, brainstorm-design, execution-alignment, d
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [governance, project cognitive loop, iteration]
 input_schema:
   type: free-form
   description: Project stage context, trigger event, and optional governance scope

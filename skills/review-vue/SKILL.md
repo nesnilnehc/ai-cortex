@@ -8,6 +8,7 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [review vue]
 input_schema:
   type: code-scope
   description: Source files or directories to review
@@ -43,6 +44,7 @@ Review **Vue 3** code for **framework conventions** only. Do not define scope (d
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Composition API and `<script setup>` correctness (defineProps, defineEmits, defineExpose, lifecycle hooks)
 - Reactivity correctness (ref vs reactive, computed vs watch, prop mutation, deep reactivity)
 - Component boundary design (props/emits contracts, prop drilling, provide/inject)
@@ -52,6 +54,7 @@ Review **Vue 3** code for **framework conventions** only. Do not define scope (d
 - Accessibility (semantic HTML, ARIA, form labels, focus management)
 
 **This skill does NOT handle**:
+
 - Scope selection — scope is provided by the caller
 - Security analysis (XSS, injection risks) — use `review-security`
 - Architecture analysis — use `review-architecture`
@@ -119,11 +122,13 @@ Review **Vue 3** code for **framework conventions** only. Do not define scope (d
 ### Skill Boundaries
 
 **Do NOT do these** (other skills handle them):
+
 - Do NOT select or define the code scope — scope is determined by the caller or `review-code`
 - Do NOT perform security analysis (XSS, injection) — use `review-security`
 - Do NOT perform architecture analysis — use `review-architecture`
 
 **When to stop and hand off**:
+
 - When all Vue findings are emitted, hand off to `review-code` for aggregation
 - When XSS risks are found (e.g. unsafe `v-html` usage), note them and suggest `review-security`
 - When the user needs a full review (scope + language + cognitive), redirect to `review-code`

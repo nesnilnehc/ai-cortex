@@ -43,4 +43,3 @@ Analyzes a target repository's automated testing approach (docs, CI workflows, a
 ## Full definition
 
 See [SKILL.md](./SKILL.md) for complete behavior, restrictions, and examples.
-

@@ -29,10 +29,10 @@
 
 | 文件 | Raw URL | 状态 |
 | :--- | :--- | :--- |
-| README.md | https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/README.md | 200 ✓ |
-| AGENTS.md | https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/AGENTS.md | 200 ✓ |
-| manifest.json | https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/manifest.json | 200 ✓ |
-| skills/INDEX.md | https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/skills/INDEX.md | 200 ✓ |
+| README.md | <https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/README.md> | 200 ✓ |
+| AGENTS.md | <https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/AGENTS.md> | 200 ✓ |
+| manifest.json | <https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/manifest.json> | 200 ✓ |
+| skills/INDEX.md | <https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/skills/INDEX.md> | 200 ✓ |
 
 ---
 

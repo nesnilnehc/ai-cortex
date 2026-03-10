@@ -8,6 +8,7 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [review security, security review]
 input_schema:
   type: code-scope
   description: Source files or directories to review
@@ -43,6 +44,7 @@ Review code for **security** concerns only. Do not define scope (diff vs codebas
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Injection vulnerabilities (SQL, command, template, path traversal)
 - Sensitive data exposure in logs, responses, or client-side storage
 - Authentication and authorization weaknesses (auth bypass, IDOR, CSRF, session handling)
@@ -51,6 +53,7 @@ Review code for **security** concerns only. Do not define scope (diff vs codebas
 - Cryptographic weaknesses and key management problems
 
 **This skill does NOT handle**:
+
 - Scope selection (deciding which files/paths to analyze) — scope is provided by the caller
 - Language/framework convention analysis — use `review-dotnet`, `review-java`, `review-go`, etc.
 - Architecture analysis — use `review-architecture`
@@ -118,12 +121,14 @@ Review code for **security** concerns only. Do not define scope (diff vs codebas
 ### Skill Boundaries
 
 **Do NOT do these** (other skills handle them):
+
 - Do NOT select or define the code scope (diff vs codebase) — scope is determined by the caller or `review-code`
 - Do NOT perform language/framework convention analysis — use `review-dotnet`, `review-java`, `review-go`, etc.
 - Do NOT perform architecture or performance review — use `review-architecture` or `review-performance`
 - Do NOT perform comprehensive SQL analysis — use `review-sql`
 
 **When to stop and hand off**:
+
 - When all security findings are emitted, hand off to `review-code` for aggregation in an orchestrated review
 - When the user needs a full review (scope + language + cognitive), redirect to `review-code`
 - When SQL-specific security issues dominate, suggest also running `review-sql` for deeper SQL coverage

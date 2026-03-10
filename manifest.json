@@ -4,7 +4,7 @@
   "description": "Agent-first, governance-ready inventory of AI skills (spec).",
   "author": "nesnilnehc",
   "license": "MIT",
-  "spec_version": "2.3.0",
+  "spec_version": "2.4.0",
   "registry": {
     "index": "skills/INDEX.md",
     "protocols": [

@@ -8,6 +8,7 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [review python]
 input_schema:
   type: code-scope
   description: Source files or directories to review
@@ -43,6 +44,7 @@ Review code in **Python** for **language and runtime conventions** only. Do not 
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Type hints (`typing` module, `Optional`, `Union`, generics)
 - Exception handling (specific exceptions, `raise ... from`, no bare `except:`, `try/finally`)
 - async/await patterns (async functions, blocking calls in async context, `asyncio.gather`)
@@ -53,6 +55,7 @@ Review code in **Python** for **language and runtime conventions** only. Do not 
 - Testability (global state avoidance, DI, mock-friendly design)
 
 **This skill does NOT handle**:
+
 - Scope selection — scope is provided by the caller
 - Security analysis — use `review-security`
 - Architecture analysis — use `review-architecture`
@@ -121,12 +124,14 @@ Review code in **Python** for **language and runtime conventions** only. Do not 
 ### Skill Boundaries
 
 **Do NOT do these** (other skills handle them):
+
 - Do NOT select or define the code scope — scope is determined by the caller or `review-code`
 - Do NOT perform security analysis — use `review-security`
 - Do NOT perform architecture analysis — use `review-architecture`
 - Do NOT perform comprehensive SQL analysis — use `review-sql`
 
 **When to stop and hand off**:
+
 - When all Python findings are emitted, hand off to `review-code` for aggregation
 - When the user needs a full review (scope + language + cognitive), redirect to `review-code`
 - When security issues are found (e.g. SQL injection, command injection), note them and suggest `review-security`

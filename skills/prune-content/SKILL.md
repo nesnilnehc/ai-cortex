@@ -6,6 +6,7 @@ version: 1.1.0
 license: MIT
 metadata:
   author: ai-cortex
+triggers: [prune, cleanup, repository maintenance]
 input_schema:
   type: free-form
   description: User request to clean up content, or context from onboard-repo/review-codebase
@@ -40,11 +41,13 @@ Help the user maintain a clean codebase by identifying and archiving "expired" o
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Interactively identifying obsolete content (directories, files).
 - Moving content to `_archive/` with structure preservation.
 - Listing candidates based on user-provided rules (e.g., "all markdown files in /temp").
 
 **This skill does NOT handle**:
+
 - **Automatic decision making**: Does not decide what is "old" without user or context input.
 - **Code refactoring**: Does not fix broken imports after archiving (use `run-repair-loop` or `refactor-code`).
 - **Git history rewriting**: Does not use `git filter-branch` or permanently purge history.
@@ -73,14 +76,16 @@ Action: Verify existence of `legacy`. List contents summary.
 
 **Scenario B: Vague request ("Clean up old stuff")**
 Action:
-1.  **Consult Context**: Check `docs/`, `experiments/`, or `tmp/`.
-2.  **Ask User**: "I see a `prototypes` folder and some root markdown files from 2023. Should I check those?"
-3.  **Collaborate**: "Based on `onboard-repo` findings, `src/v1` seems unused. Archive?"
+
+1. **Consult Context**: Check `docs/`, `experiments/`, or `tmp/`.
+2. **Ask User**: "I see a `prototypes` folder and some root markdown files from 2023. Should I check those?"
+3. **Collaborate**: "Based on `onboard-repo` findings, `src/v1` seems unused. Archive?"
 
 ### 2. Proposal & Confirmation
 
 Present a clear plan:
 > "I propose to move the following to `_archive/src/v1`:
+>
 > - `src/v1/ (24 files)`
 >
 > This will preserve their path structure inside `_archive`. Proceed?"
@@ -98,7 +103,8 @@ git mv <source> _archive/<source>
 ```
 
 **Note**: Mirror the directory structure inside `_archive`.
-*   `docs/v1/guide.md` -> `_archive/docs/v1/guide.md`
+
+- `docs/v1/guide.md` -> `_archive/docs/v1/guide.md`
 
 ### 4. Cleanup
 
@@ -149,17 +155,21 @@ Check if the original parent directory is empty and remove it if so.
 ## Examples
 
 ### Example 1: Archiving a directory
+
 **User**: "Archive the `experiments` folder."
 **Agent**: "I found `experiments/` with 5 files. I will move it to `_archive/experiments/`. Proceed?"
 **User**: "Yes."
 **Agent**:
+
 ```bash
 mkdir -p _archive
 git mv experiments _archive/experiments
 ```
+
 **Agent**: "Done. `experiments/` is now in `_archive/experiments/`."
 
 ### Example 2: Contextual cleanup
+
 **User**: "The onboarding report mentioned `docs/drafts` is confusing. Hide it."
 **Agent**: "Understood. I'll archive `docs/drafts` to remove it from the active documentation set. Moving to `_archive/docs/drafts`."
 **User**: "Go ahead."

@@ -8,6 +8,7 @@ related_skills: [review-codebase, generate-github-workflow, review-testing, run-
 recommended_scope: both
 metadata:
   author: ai-cortex
+triggers: [run tests, automated tests]
 compatibility: Requires git (optional), a shell, and the repo's language toolchain(s) (e.g., node, python, go, dotnet, java).
 input_schema:
   type: code-scope
@@ -44,12 +45,14 @@ Determine how a target repository expects automated tests to be executed (comman
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Discovering test commands from repository evidence (docs, CI, build manifests)
 - Selecting appropriate test commands based on mode and constraints
 - Executing tests with safety guardrails and user confirmation
 - Summarizing test results with evidence and failure diagnostics
 
 **This skill does NOT handle**:
+
 - Test quality assessment or coverage analysis (use `review-testing`)
 - Fixing failing tests or debugging test failures (use `run-repair-loop`)
 - Writing new tests or test infrastructure (use development skills)

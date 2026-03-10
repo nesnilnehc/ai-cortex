@@ -8,6 +8,7 @@ related_skills: [documentation-readiness, curate-skills]
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [validate docs, validate documents]
 input_schema:
   type: free-form
   description: Project path, optional docs root, optional scope (all vs specific artifact types)

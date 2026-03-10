@@ -8,6 +8,7 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [review dotnet, review csharp]
 input_schema:
   type: code-scope
   description: Source files or directories to review
@@ -43,6 +44,7 @@ Review code in the **.NET** ecosystem (C#, F#) for **language and runtime conven
 ## Scope Boundaries
 
 **This skill handles**:
+
 - async/await correctness and ConfigureAwait usage (library vs application code)
 - Nullable reference types and NRE avoidance
 - Public API stability and versioning strategy
@@ -51,6 +53,7 @@ Review code in the **.NET** ecosystem (C#, F#) for **language and runtime conven
 - Testability (DI, sealed/overridable, static usage)
 
 **This skill does NOT handle**:
+
 - Scope selection — scope is provided by the caller
 - Security analysis (injection, auth, crypto) — use `review-security`
 - Architecture analysis — use `review-architecture`
@@ -118,12 +121,14 @@ Review code in the **.NET** ecosystem (C#, F#) for **language and runtime conven
 ### Skill Boundaries
 
 **Do NOT do these** (other skills handle them):
+
 - Do NOT select or define the code scope — scope is determined by the caller or `review-code`
 - Do NOT perform security analysis — use `review-security`
 - Do NOT perform architecture analysis — use `review-architecture`
 - Do NOT review non-.NET code for .NET conventions
 
 **When to stop and hand off**:
+
 - When all .NET findings are emitted, hand off to `review-code` for aggregation
 - When the user needs a full review (scope + language + cognitive), redirect to `review-code`
 - When security issues are found in .NET code, note them and suggest `review-security`

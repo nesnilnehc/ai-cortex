@@ -40,4 +40,3 @@ Reviews a given code scope for performance concerns only (complexity, query effi
 ## Full definition
 
 See [SKILL.md](./SKILL.md) for complete behavior, restrictions, and examples.
-

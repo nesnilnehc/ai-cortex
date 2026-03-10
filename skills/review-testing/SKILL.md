@@ -8,6 +8,7 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+triggers: [review testing, testing review]
 input_schema:
   type: code-scope
   description: Source files or directories to review
@@ -43,6 +44,7 @@ Review code for **testing** concerns only. Do not define scope (diff vs codebase
 ## Scope Boundaries
 
 **This skill handles**:
+
 - Test existence checks (missing test files for key modules, services, public functions)
 - Coverage adequacy analysis (high-risk path coverage: auth, payment, data mutation)
 - Test quality and structure (arrange-act-assert, meaningful assertions, behavior-not-implementation)
@@ -51,6 +53,7 @@ Review code for **testing** concerns only. Do not define scope (diff vs codebase
 - Test maintainability (DRY without sacrificing readability, fixture organization, brittle test detection)
 
 **This skill does NOT handle**:
+
 - Scope selection (deciding which files/paths to analyze) — scope is provided by the caller
 - Running tests or generating coverage reports — use `run-automated-tests` for test execution
 - Language/framework-specific test conventions — use `review-dotnet`, `review-java`, `review-go`, etc.
@@ -118,12 +121,14 @@ Review code for **testing** concerns only. Do not define scope (diff vs codebase
 ### Skill Boundaries
 
 **Do NOT do these** (other skills handle them):
+
 - Do NOT select or define the code scope — scope is determined by the caller or `review-code`
 - Do NOT run or execute tests — use `run-automated-tests` for test execution
 - Do NOT perform language/framework-specific test convention analysis — use respective language skills
 - Do NOT perform security, performance, or architecture analysis — use respective atomic skills
 
 **When to stop and hand off**:
+
 - When all testing findings are emitted, hand off to `review-code` for aggregation in an orchestrated review
 - When the user needs tests to actually run, redirect to `run-automated-tests`
 - When the user needs a full review (scope + language + cognitive), redirect to `review-code`

@@ -5,6 +5,8 @@ Version: 2.3.0
 Scope: All files under `skills/`.
 
 **Changelog**:
+
+- v2.4.0 (2026-03-10): Added Interaction Policy (§4.3), optional triggers/aliases, input_schema.defaults; Invocation UX and language strategy
 - v2.3.0 (2026-03-06): Added scenario-map to Metadata Sync; expanded verb-noun naming guidance; verify-registry checks scenario-map references
 - v2.2.0 (2026-03-02): Allowed `## Scope Boundaries` as an optional standalone section in heading structure (§3)
 - v2.1.0 (2026-03-02): Added optional I/O contracts (input_schema/output_schema) for skill chaining and orchestration
@@ -50,6 +52,8 @@ metadata:
 # Optional agentskills.io fields:
 # compatibility: [optional] environment requirements, ≤500 chars, e.g. "Requires git, docker"
 # allowed-tools: [optional, experimental] space-separated tool whitelist
+# triggers: [optional] array of English phrases, e.g. ["review", "code review"]
+# aliases: [optional] array of short aliases, e.g. ["rc"]
 ---
 ```
 
@@ -59,7 +63,7 @@ When a skill is derived from, forked from, or integrates content from other skil
 
 - **sources**: Array of source skills with attribution
   - **name**: Original skill name
-  - **repo**: Source repository URL or identifier (e.g., "nesnilnehc/ai-cortex", "https://github.com/org/repo")
+  - **repo**: Source repository URL or identifier (e.g., "nesnilnehc/ai-cortex", "<https://github.com/org/repo>")
   - **version**: Version borrowed from
   - **license**: Source license (for compliance)
   - **type**: Relationship type
@@ -91,6 +95,11 @@ metadata:
       - "Added registry synchronization"
       - "Enhanced Self-Check"
 ```
+
+### Optional Invocation Fields
+
+- **triggers** (optional): Array of English phrases for quick invocation matching (e.g. `["review", "code review", "pr review"]`). Prefer 3–5 phrases per skill. Use for Agent or discovery-layer exact match; does not replace description/tags semantic matching.
+- **aliases** (optional): Array of short aliases (e.g. `["rc"]`). May be deferred until IDE/CLI tooling has explicit need.
 
 ## 3. Required Heading Structure
 
@@ -241,6 +250,23 @@ The Restrictions section SHOULD include:
 - **Reduces brain split**: AI knows which skill to use for which task
 - **Enables composition**: Skills can reference each other for handoffs
 
+### 4.3 Interaction Policy
+
+Skills SHOULD minimize user input by applying these principles. **New skills** (registered after this spec version) MUST satisfy; **existing skills** SHOULD align in future versions.
+
+- **Defaults first**: When a reasonable default exists, use it without asking. Do not require user input for inferable parameters.
+- **Prefer choices**: Offer `[A][B][C]` options instead of free-text when possible. Avoid "please describe" unless exploration is needed.
+- **Context inference**: Infer from git (status, diff, branch), currently open file, and working directory. The Agent performs inference; ask for confirmation only when inference fails or is ambiguous.
+- **Progressive disclosure**: Run with defaults first, then offer follow-up options if the user wants more control.
+
+Each skill's `## Behavior` MUST state: defaults, choice options, and which items require explicit user confirmation.
+
+### 4.4 Invocation and Language
+
+- **Triggers**: Use English only (canonical). Triggers aid exact matching; semantic matching via description/tags supports natural language in any locale.
+- **Recommendation**: Prefer English invocation for stable matching. Chinese and other languages are supported via semantic understanding (best-effort).
+- **No multi-language triggers**: Do not maintain parallel trigger lists per language; rely on description/tags for non-English intent.
+
 ---
 
 ## 5. Metadata Sync
@@ -327,6 +353,8 @@ Add these optional fields to the YAML front-matter:
 input_schema:
   type: [artifact type]   # findings-list | document-artifact | diagnostic-report | code-scope | free-form
   description: [what this skill consumes]
+  defaults:               # optional; for "zero-arg launch" and orchestration
+    [param]: [value]      # e.g. scope: diff, untracked: include
 output_schema:
   type: [artifact type]
   description: [what this skill produces]
