@@ -4,7 +4,7 @@ description: Verify architecture and design documents against code implementatio
 tags: [workflow, eng-standards, documentation]
 version: 1.0.0
 license: MIT
-related_skills: [align-execution, review-architecture, brainstorm-design, assess-documentation-readiness]
+related_skills: [align-planning, review-architecture, brainstorm-design, assess-documentation-readiness]
 recommended_scope: project
 metadata:
   author: ai-cortex
@@ -17,7 +17,7 @@ metadata:
         type: "reference"
         borrowed: "Drift model, traceback pattern, report template structure"
     enhancements:
-      - "Split from align-execution per planning vs implementation boundary; focuses on design vs code compliance"
+      - "Split from align-execution (renamed align-planning) per planning vs implementation boundary; focuses on design vs code compliance"
 triggers: [align architecture, architecture compliance, design vs code]
 input_schema:
   type: free-form
@@ -69,7 +69,7 @@ Verify that code implementation aligns with architecture and design decisions do
 - Code structure review without design reference (use `review-architecture`)
 - Requirements analysis (use `analyze-requirements`)
 - Design creation or design alternatives (use `brainstorm-design`)
-- Planning layer alignment (use `align-execution`)
+- Planning layer alignment (use `align-planning`)
 
 **Handoff point**: After the report, hand off to `brainstorm-design` if design must change, or to `review-architecture` for structural code review without design comparison.
 
@@ -209,7 +209,7 @@ Report must include a machine-readable compliance block (YAML or JSON).
 
 - Code-only structure review → `review-architecture`
 - Design creation or alternatives → `brainstorm-design`
-- Planning layer traceback → `align-execution`
+- Planning layer traceback → `align-planning`
 
 **When to stop and hand off**:
 

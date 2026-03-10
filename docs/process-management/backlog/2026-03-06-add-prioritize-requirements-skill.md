@@ -21,5 +21,5 @@ trace_id:
 
 ## Notes
 
-- 可与 `capture-work-items`（产出 captured 条目）、`align-execution`（目标对齐）衔接
+- 可与 `capture-work-items`（产出 captured 条目）、`align-planning`（目标对齐）衔接
 - 技能命名建议：`prioritize-requirements` 或 `prioritize-work-items`

@@ -8,7 +8,7 @@ Evaluates whether project docs (goals, requirements, architecture, milestones, r
 
 ## When to use
 
-- Alignment confidence is low — `align-execution` reports weak evidence
+- Alignment confidence is low — `align-planning` reports weak evidence
 - New repo with partial docs — team needs to know the minimum docs to add first
 - Pre-release governance — verify documentation sufficiency before milestone closure
 - Documentation debt triage — prioritize docs work without boiling the ocean
@@ -33,7 +33,7 @@ npx skills add nesnilnehc/ai-cortex --skill assess-documentation-readiness
 ## Related skills
 
 - `bootstrap-project-documentation` — structural docs bootstrap from scratch
-- `align-execution` — post-task drift and evidence assessment
+- `align-planning` — post-task drift and evidence assessment
 - `orchestrate-governance-loop` — orchestrate governance including assess-documentation-readiness
 
 ## Full definition

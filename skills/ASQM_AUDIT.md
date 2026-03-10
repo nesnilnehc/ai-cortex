@@ -10,7 +10,7 @@
 
 | Status | Count | Skills |
 | :--- | :--- | :--- |
-| **validated** | 40 | review-code, review-diff, review-codebase, review-dotnet, review-java, review-go, review-php, review-powershell, review-python, review-sql, review-vue, review-typescript, review-react, review-security, review-architecture, review-performance, review-testing, review-orm-usage, curate-skills, discover-skills, discover-document-norms, validate-document-artifacts, decontextualize-text, generate-standard-readme, write-agents-entry, refine-skill-design, generate-github-workflow, install-rules, bootstrap-project-documentation, capture-work-items, run-automated-tests, run-repair-loop, commit-work, brainstorm-design, onboard-repo, analyze-requirements, align-execution, align-architecture, assess-documentation-readiness, orchestrate-governance-loop |
+| **validated** | 40 | review-code, review-diff, review-codebase, review-dotnet, review-java, review-go, review-php, review-powershell, review-python, review-sql, review-vue, review-typescript, review-react, review-security, review-architecture, review-performance, review-testing, review-orm-usage, curate-skills, discover-skills, discover-document-norms, validate-document-artifacts, decontextualize-text, generate-standard-readme, write-agents-entry, refine-skill-design, generate-github-workflow, install-rules, bootstrap-project-documentation, capture-work-items, run-automated-tests, run-repair-loop, commit-work, brainstorm-design, onboard-repo, analyze-requirements, align-planning, align-architecture, assess-documentation-readiness, orchestrate-governance-loop |
 | **experimental** | 1 | prune-content |
 | **archive_candidate** | 0 | — |
 
@@ -80,7 +80,7 @@ All skills meet their lifecycle thresholds: **validated** ↔ Quality ≥ 17 + G
 | generate-standard-readme | 5 | 3 | 4 | 5 | 17 | validated |
 | run-automated-tests | 5 | 4 | 4 | 4 | 17 | validated |
 | run-repair-loop | 5 | 4 | 4 | 4 | 17 | validated |
-| align-execution | 5 | 5 | 5 | 5 | 20 | validated |
+| align-planning | 5 | 5 | 5 | 5 | 20 | validated |
 | align-architecture | 5 | 5 | 5 | 5 | 20 | validated |
 | assess-documentation-readiness | 5 | 4 | 5 | 5 | 19 | validated |
 | orchestrate-governance-loop | 5 | 5 | 5 | 5 | 20 | validated |
@@ -98,8 +98,8 @@ All skills meet their lifecycle thresholds: **validated** ↔ Quality ≥ 17 + G
 - **analyze-requirements**: overlaps with brainstorm-design, capture-work-items (upstream/downstream handoff); **market_position**: differentiated.
 - **capture-work-items**: overlaps with analyze-requirements (validation handoff), brainstorm-design (design handoff); **market_position**: differentiated.
 - **brainstorm-design**: overlaps with analyze-requirements, refine-skill-design, capture-work-items (design handoff); **market_position**: differentiated.
-- **align-execution**: overlaps with assess-documentation-readiness, orchestrate-governance-loop, align-architecture (routing/handoff by design); **market_position**: differentiated.
-- **align-architecture**: overlaps with align-execution, review-architecture, brainstorm-design (design vs code compliance; distinct from planning alignment and code-only review); **market_position**: differentiated.
+- **align-planning**: overlaps with assess-documentation-readiness, orchestrate-governance-loop, align-architecture (routing/handoff by design); **market_position**: differentiated.
+- **align-architecture**: overlaps with align-planning, review-architecture, brainstorm-design (design vs code compliance; distinct from planning alignment and code-only review); **market_position**: differentiated.
 - **assess-documentation-readiness**: overlaps with bootstrap-project-documentation (structure vs readiness boundary); **market_position**: differentiated.
 - **orchestrate-governance-loop** (orchestrator): overlaps with onboard-repo and review-code orchestrators at control-plane level; **market_position**: differentiated.
 - **commit-work**: overlaps with review-diff (pre-commit review); **market_position**: differentiated.
@@ -182,10 +182,10 @@ All overlaps use **Git-repo form** `owner/repo:skill-name` (e.g. `nesnilnehc/ai-
 
 3. **agent.yaml and README**: Created for both skills per governance artifact requirements. Full scan confirms 39 skills; all agent.yaml and README present.
 
-### 6.12 Curation run (2026-03-10, align-execution split)
+### 6.12 Curation run (2026-03-10, align-planning split)
 
-1. **align-architecture** (v1.0.0, new): output_schema with artifact_type, path_pattern, machine-readable compliance block in report template → agent_native 5. 4-phase workflow (Resolve, Extract, Compare, Report), gap classification, handoff logic → cognitive 5. 4 related_skills, clear boundary vs review-architecture (design vs code) and align-execution (planning) → composability 5. Hard Boundaries + Skill Boundaries + Self-Check → stance 5. Quality 20 (5+5+5+5) → **validated**. overlaps_with: align-execution, review-architecture, brainstorm-design, assess-documentation-readiness. market_position: differentiated.
-2. **align-execution** (v1.1.0): Slimmed to planning layer; overlaps updated to include align-architecture. Scores unchanged (20).
+1. **align-architecture** (v1.0.0, new): output_schema with artifact_type, path_pattern, machine-readable compliance block in report template → agent_native 5. 4-phase workflow (Resolve, Extract, Compare, Report), gap classification, handoff logic → cognitive 5. 4 related_skills, clear boundary vs review-architecture (design vs code) and align-planning (planning) → composability 5. Hard Boundaries + Skill Boundaries + Self-Check → stance 5. Quality 20 (5+5+5+5) → **validated**. overlaps_with: align-planning, review-architecture, brainstorm-design, assess-documentation-readiness. market_position: differentiated.
+2. **align-planning** (v1.1.0): Slimmed to planning layer; overlaps updated to include align-architecture. Scores unchanged (20).
 
 ### 6.11 Curation run (2026-03-10)
 
@@ -195,14 +195,14 @@ All overlaps use **Git-repo form** `owner/repo:skill-name` (e.g. `nesnilnehc/ai-
    - **capture-work-items**: Explicit Appendix (path, artifact_type, required sections) → 17 → 18
    - **discover-document-norms**: Explicit Appendix (primary/optional outputs, path mapping) → 17 → 18
    - **validate-document-artifacts**: Explicit Appendix (findings format table) → 17 → 18
-2. **Skill renaming** (2026-03-10): documentation-readiness → assess-documentation-readiness, execution-alignment → align-execution, project-cognitive-loop → orchestrate-governance-loop; ASQM scores unchanged for renamed skills.
+2. **Skill renaming** (2026-03-10): documentation-readiness → assess-documentation-readiness, execution-alignment → align-planning, project-cognitive-loop → orchestrate-governance-loop; ASQM scores unchanged for renamed skills.
 3. **Scope**: 40 skills; all validated; no archive candidates.
 
 ---
 
 ## 7. Recommendations
 
-1. **Completed**: align-architecture added to audit (v1.0.0, Quality 20, validated); align-execution overlaps updated.
+1. **Completed**: align-architecture added to audit (v1.0.0, Quality 20, validated); align-planning overlaps updated.
 2. **No urgent changes**: 40 validated, 1 experimental (prune-content); no archive candidates.
 3. **Overlaps by design**: Atomic review skills overlap with their orchestrator (review-code); analyze-requirements and brainstorm-design form an intentional upstream/downstream pair.
 4. **Curation run (2026-03-10)**: align-architecture added (Quality 20); 40 validated, 1 experimental (prune-content). No further changes recommended.

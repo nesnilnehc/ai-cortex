@@ -1,6 +1,6 @@
-# align-execution
+# align-planning
 
-Perform post-task traceback, drift detection, and top-down recalibration to keep execution aligned with goals, requirements, milestones, and roadmap (planning layer only).
+Perform post-task traceback, drift detection, and top-down recalibration to keep planning (goals, requirements, milestones, roadmap) aligned with task execution.
 
 ## What it does
 
@@ -8,7 +8,7 @@ After a task is completed, runs a traceback from work to strategy, detects drift
 
 ## When to use
 
-- Post-task checkpoint — validate alignment after any completed ticket
+- Post-task checkpoint — validate planning alignment after any completed ticket
 - Milestone closure review — run full alignment before marking a milestone complete
 - Release readiness — detect planning drift before a release cut
 - Scope-shift diagnosis — investigate whether recent work still supports current goals
@@ -22,20 +22,20 @@ After a task is completed, runs a traceback from work to strategy, detects drift
 
 ## Outputs
 
-- Execution Alignment Report written to `docs/calibration/YYYY-MM-DD-task-slug-calibration.md`
+- Planning Alignment Report written to `docs/calibration/YYYY-MM-DD-task-slug-calibration.md`
 - Machine-readable drifts and evidence readiness block
 
 ## Installation
 
 ```bash
-npx skills add nesnilnehc/ai-cortex --skill align-execution
+npx skills add nesnilnehc/ai-cortex --skill align-planning
 ```
 
 ## Related skills
 
 - `align-architecture` — verify ADR/design vs code compliance
 - `assess-documentation-readiness` — assess docs evidence before or after alignment
-- `orchestrate-governance-loop` — orchestrate governance cycles including align-execution
+- `orchestrate-governance-loop` — orchestrate governance cycles including align-planning
 - `analyze-requirements` — hand off when requirements need revalidation
 
 ## Full definition

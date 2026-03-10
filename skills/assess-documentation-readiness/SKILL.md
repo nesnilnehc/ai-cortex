@@ -4,7 +4,7 @@ description: Assess documentation evidence readiness across project layers, repo
 tags: [documentation, eng-standards, workflow]
 version: 1.0.0
 license: MIT
-related_skills: [bootstrap-project-documentation, analyze-requirements, brainstorm-design, align-execution, align-architecture]
+related_skills: [bootstrap-project-documentation, analyze-requirements, brainstorm-design, align-planning, align-architecture]
 recommended_scope: both
 metadata:
   author: ai-cortex
@@ -59,7 +59,7 @@ Evaluate whether project documentation is sufficient for reliable AI-assisted pl
 - Full requirements authoring from vague intent (use `analyze-requirements`)
 - Full design synthesis (use `brainstorm-design`)
 - Structural docs bootstrap from scratch templates (use `bootstrap-project-documentation`)
-- Post-task drift calibration (use `align-execution`)
+- Post-task drift calibration (use `align-planning`)
 
 **Handoff point**: After report delivery, hand off creation/update actions to the relevant documentation or planning skill.
 
@@ -67,7 +67,7 @@ Evaluate whether project documentation is sufficient for reliable AI-assisted pl
 
 ## Use Cases
 
-- **Alignment confidence is low**: `align-execution` reports weak evidence quality
+- **Alignment confidence is low**: `align-planning` reports weak evidence quality
 - **New repo with partial docs**: Team needs to know the minimum docs to add first
 - **Pre-release governance**: Verify documentation sufficiency before milestone closure
 - **Documentation debt triage**: Prioritize docs work without boiling the ocean
@@ -220,7 +220,7 @@ created_at: YYYY-MM-DD
 - Template bootstrap and structural initialization -> `bootstrap-project-documentation`
 - Requirement content development -> `analyze-requirements`
 - Architecture/design decision workflow -> `brainstorm-design`
-- Post-task drift and recalibration -> `align-execution`
+- Post-task drift and recalibration -> `align-planning`
 
 **When to stop and hand off**:
 
@@ -269,7 +269,7 @@ If YES: report is complete.
 
 - Findings: architecture docs exist but stale and contradicted by recent ADRs
 - Readiness: `medium`
-- Plan: refresh architecture decision docs, then rerun `align-execution`
+- Plan: refresh architecture decision docs, then rerun `align-planning`
 
 ### Example 3: Empty Docs Skeleton
 

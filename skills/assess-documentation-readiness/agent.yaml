@@ -22,7 +22,7 @@ asqm_quality: 19
 
 overlaps_with:
   - nesnilnehc/ai-cortex:bootstrap-project-documentation
-  - nesnilnehc/ai-cortex:align-execution
+  - nesnilnehc/ai-cortex:align-planning
   - nesnilnehc/ai-cortex:orchestrate-governance-loop
 
 market_position: differentiated

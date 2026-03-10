@@ -21,7 +21,7 @@ scores:
 asqm_quality: 20
 
 overlaps_with:
-  - nesnilnehc/ai-cortex:align-execution
+  - nesnilnehc/ai-cortex:align-planning
   - nesnilnehc/ai-cortex:review-architecture
   - nesnilnehc/ai-cortex:brainstorm-design
   - nesnilnehc/ai-cortex:assess-documentation-readiness

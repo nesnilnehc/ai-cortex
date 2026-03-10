@@ -1,6 +1,6 @@
 ---
-name: align-execution
-description: Perform post-task traceback, drift detection, and top-down recalibration to keep execution aligned with goals, requirements, milestones, and roadmap (planning layer only).
+name: align-planning
+description: Perform post-task traceback, drift detection, and top-down recalibration to keep planning (goals, requirements, milestones, roadmap) aligned with task execution.
 tags: [workflow, eng-standards, documentation]
 version: 1.1.0
 license: MIT
@@ -27,7 +27,8 @@ metadata:
       - "Added four-type planning drift model (goal, requirement, roadmap, priority)"
       - "Added mapping-confirmation gate when traceability links are missing"
       - "v1.1.0: Slimmed to planning layer only; Architecture moved to align-architecture"
-triggers: [alignment, execution alignment, post task]
+      - "Renamed to align-planning for semantic clarity (planning vs implementation)"
+triggers: [alignment, planning alignment, align planning, post task]
 input_schema:
   type: free-form
   description: Completed task context, optional project docs root, optional mode and path mapping
@@ -35,10 +36,10 @@ input_schema:
     mode: lightweight
 output_schema:
   type: document-artifact
-  description: Execution Alignment Report written to docs/calibration/YYYY-MM-DD-task-slug-calibration.md
+  description: Planning Alignment Report written to docs/calibration/YYYY-MM-DD-task-slug-calibration.md
 ---
 
-# Skill: Execution Alignment
+# Skill: Align Planning
 
 ## Purpose
 
@@ -48,18 +49,18 @@ Keep project execution aligned with higher-level planning by running a post-task
 
 ## Core Objective
 
-**Primary Goal**: Produce an actionable Execution Alignment Report after task completion, with clear drift classification and prioritized recalibration actions.
+**Primary Goal**: Produce an actionable Planning Alignment Report after task completion, with clear drift classification and prioritized recalibration actions.
 
 **Success Criteria** (ALL must be met):
 
 1. ✅ **Traceback completed**: The completed task is traced through applicable project layers for the selected mode
 2. ✅ **Drift classified**: All detected misalignments use the planning drift model (goal, requirement, roadmap, priority), with impact scope and root cause per item
 3. ✅ **Calibration produced**: A top-down recalibration recommendation list is provided, including next tasks
-4. ✅ **Report persisted**: Execution Alignment Report is written to the agreed path
+4. ✅ **Report persisted**: Planning Alignment Report is written to the agreed path
 5. ✅ **Evidence readiness assessed**: Missing or weak documentation is explicitly scored and reflected in confidence
 6. ✅ **Unsafe writes avoided**: If mapping is uncertain or updates are destructive, user confirmation is requested before proposing file-level changes
 
-**Acceptance Test**: Can a teammate read the report and immediately understand whether execution is still aligned, what drift exists, what to do next, and why?
+**Acceptance Test**: Can a teammate read the report and immediately understand whether planning is still aligned with execution, what drift exists, what to do next, and why?
 
 ---
 
@@ -104,10 +105,11 @@ Keep project execution aligned with higher-level planning by running a post-task
 At execution start, follow this instruction contract:
 
 ```text
-You are responsible for project execution alignment.
+You are responsible for planning alignment.
 
-When a task is completed, perform traceback analysis to ensure alignment
-with project layers and produce a structured Execution Alignment Report.
+When a task is completed, perform traceback analysis to ensure planning
+(goals, requirements, milestones, roadmap) is aligned with execution,
+and produce a structured Planning Alignment Report.
 ```
 
 ### Interaction Policy
@@ -221,10 +223,10 @@ Report must also include an evidence readiness block and explicit confidence lev
 
 ### Output
 
-#### Execution Alignment Report Template
+#### Planning Alignment Report Template
 
 ```markdown
-# Execution Alignment Report: <task title>
+# Planning Alignment Report: <task title>
 
 **Date:** YYYY-MM-DD
 **Mode:** Lightweight | Full

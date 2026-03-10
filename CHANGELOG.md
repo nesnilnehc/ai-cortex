@@ -15,9 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - `align-execution` (v1.0.0 → v1.1.0) — slimmed to planning layer only; removed Architecture layer and Architecture Drift; handoff to `align-architecture` for design vs code compliance
-- `orchestrate-governance-loop` — removed trigger-based routing; unified sequence (align-execution → assess-documentation-readiness) + output-driven follow-ups (align-architecture, run-repair-loop, brainstorm-design, analyze-requirements); trigger as metadata only
+- `align-execution` → `align-planning` — renamed for semantic clarity (planning vs implementation boundary)
+- `orchestrate-governance-loop` — removed trigger-based routing; unified sequence (align-planning → assess-documentation-readiness) + output-driven follow-ups (align-architecture, run-repair-loop, brainstorm-design, analyze-requirements); trigger as metadata only
 - `scripts/generate-skillgraph.mjs` — added align-architecture to lifecycle chain and project governance loop; updated governance loop diagram for unified sequence
-- `skills/ASQM_AUDIT.md` — curate-skills: added align-architecture (Quality 20, validated); updated align-execution overlaps
+- `skills/ASQM_AUDIT.md` — curate-skills: added align-architecture (Quality 20, validated); updated align-planning overlaps
 
 ### Changed (previous)
 
