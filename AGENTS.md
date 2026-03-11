@@ -21,6 +21,7 @@ Catalog and metadata: `skills/INDEX.md`. Executable capability list: `manifest.j
 - **Definitions**: `spec/skill.md` defines structure, metadata, and quality requirements for skills.
 - **Document artifacts**: `spec/artifact-contract.md` is the default; `spec/artifact-norms-schema.md` defines project-level override. Project norms (docs/ARTIFACT_NORMS.md or .ai-cortex/artifact-norms.yaml) take precedence.
 - **Catalogs**: `skills/INDEX.md` and `manifest.json` are the canonical capability lists.
+- **Rules registry**: `rules/INDEX.md` is the canonical global-rule registry; rule files under `rules/` are passive constraints applied across skills.
 - **Entry contract**: This file defines discovery, injection, and self-check behavior (§4).
 
 ---
@@ -47,6 +48,8 @@ When working in or referencing this project, Agents must:
 
 - **Match priority** (when multiple sources apply): scenario `short_triggers` → SKILL `triggers` → `description`/`tags` semantic match.
 - **Scenario-first**: Prefer `skills/scenario-map.json` (and generated `scenario-map.md`) for `when_to_use` and `short_triggers` to map user intent to skills.
+- **Primary-first routing**: Route each request to one primary skill first; invoke optional skills only when the primary output reveals a concrete gap.
+- **Escalation rule**: When multiple scenarios are active in one cycle, escalate orchestration to `run-checkpoint`.
 - **Triggers**: If a SKILL has `triggers` in its frontmatter, use them for exact phrase matching.
 - **Semantic fallback**: Match by `description` and `tags`; supports natural language (including Chinese). Chinese and other non-English inputs are best-effort; recommend English invocation for stable matching.
 - **Defaults**: If `input_schema.defaults` exists and the user gives no explicit input, use those defaults.
