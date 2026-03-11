@@ -7,9 +7,81 @@
 
 AI Cortex is an agent-first, governance-ready inventory of Skills. Specs turn Skills into reusable, composable engineering assets.
 
+### How it works
+
+```mermaid
+flowchart LR
+    %% Style Definitions
+    classDef user fill:#eff6ff,stroke:#3b82f6,stroke-width:2px;
+    classDef router fill:#fef3c7,stroke:#f59e0b,stroke-width:2px;
+    classDef skill fill:#ecfdf5,stroke:#10b981,stroke-width:2px;
+    classDef artifact fill:#f8fafc,stroke:#64748b,stroke-width:2px;
+
+    %% Nodes
+    User(("User Intent<br/>'Review my code'")):::user
+    Router{"Scenario Map<br/>(Router)"}:::router
+    Orchestrator["Orchestrator Skill<br/>(review-code)"]:::skill
+    Atomic1["Atomic Skill<br/>(review-security)"]:::skill
+    Atomic2["Atomic Skill<br/>(review-performance)"]:::skill
+    Report["Artifact<br/>(Aggregated Report)"]:::artifact
+
+    %% Connections
+    User --> Router
+    Router -- Matches Scenario --> Orchestrator
+    Orchestrator -- Routes --> Atomic1
+    Orchestrator -- Routes --> Atomic2
+    Atomic1 & Atomic2 --> Report
+```
+
+Audience: first-time evaluators and developers. Read left to right: user intent enters routing, governance constrains execution, and skills produce auditable outputs.
+
 ---
 
 ## ✨ Features
+
+```mermaid
+graph TB
+    %% Style Definitions
+    classDef domain fill:#f8fafc,stroke:#94a3b8,stroke-width:2px,color:#1e293b;
+    classDef skill fill:#ffffff,stroke:#cbd5e1,stroke-width:1px,color:#334155;
+
+    %% Domains
+    subgraph Lifecycle [Development Lifecycle]
+        direction TB
+        req[analyze-requirements]:::skill
+        design[brainstorm-design]:::skill
+        impl[run-repair-loop]:::skill
+        commit[commit-work]:::skill
+        
+        req --> design --> impl --> commit
+    end
+
+    subgraph Review [Code Review]
+        direction TB
+        rc[review-code]:::skill
+        cognitive[review-security/perf/arch]:::skill
+        lang[review-python/go/java/...]:::skill
+        
+        rc --> lang
+        rc --> cognitive
+    end
+
+    subgraph Governance [Governance]
+        direction TB
+        check[run-checkpoint]:::skill
+        align[align-planning]:::skill
+        docs[assess-doc-readiness]:::skill
+        
+        check --> align
+        check --> docs
+    end
+
+    %% Layout hints
+    Lifecycle ~~~ Review
+    Review ~~~ Governance
+    
+    class Lifecycle,Review,Governance domain;
+```
 
 - **Standardized skill assets**: `spec/skill.md` defines structure, metadata, and quality requirements.
 - **Discoverable catalog**: `skills/INDEX.md` and `manifest.json` provide stable indexes and metadata.
