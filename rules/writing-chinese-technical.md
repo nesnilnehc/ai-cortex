@@ -9,7 +9,7 @@ recommended_scope: user
 
 ## 适用范围 (Scope)
 
-本项目内所有中文化文档、代码注释及 Agent 的输出内容。本项目主要资产（技能、规则、命令及 spec、docs、INDEX）的描述与正文须以简体中文书写（与 [spec/rule.md](../spec/rule.md) §0 语言与描述一致）。
+本项目内所有中文化文档、代码注释及 Agent 的输出内容。本项目主要资产（技能、规则、命令及 spec、docs、INDEX）的描述与正文须以简体中文书写（与 [spec/skill.md](../spec/skill.md) 的语言规范、[rules/INDEX.md](./INDEX.md) 的规则注册约定一致）。
 
 ## 强制约束 (Constraints)
 
