@@ -13,24 +13,29 @@ AI Cortex is an agent-first, governance-ready inventory of Skills. Specs turn Sk
 flowchart LR
     %% Style Definitions
     classDef user fill:#eff6ff,stroke:#3b82f6,stroke-width:2px;
-    classDef router fill:#fef3c7,stroke:#f59e0b,stroke-width:2px;
-    classDef skill fill:#ecfdf5,stroke:#10b981,stroke-width:2px;
-    classDef artifact fill:#f8fafc,stroke:#64748b,stroke-width:2px;
+    classDef system fill:#fef3c7,stroke:#f59e0b,stroke-width:2px;
+    classDef core fill:#ecfdf5,stroke:#10b981,stroke-width:2px;
+    classDef out fill:#f8fafc,stroke:#64748b,stroke-width:2px;
 
     %% Nodes
-    User(("User Intent<br/>'Review my code'")):::user
-    Router{"Scenario Map<br/>(Router)"}:::router
-    Orchestrator["Orchestrator Skill<br/>(review-code)"]:::skill
-    Atomic1["Atomic Skill<br/>(review-security)"]:::skill
-    Atomic2["Atomic Skill<br/>(review-performance)"]:::skill
-    Report["Artifact<br/>(Aggregated Report)"]:::artifact
+    Intent(("User Intent<br/>(Natural Language)")):::user
+    
+    subgraph Cortex [AI Cortex System]
+        direction TB
+        Router{"Router<br/>(Scenario Map)"}:::system
+        
+        subgraph Execution [Execution Engine]
+            direction LR
+            Spec[Spec & Rules]:::core -.-> Skill[Selected Skill]:::core
+        end
+    end
 
-    %% Connections
-    User --> Router
-    Router -- Matches Scenario --> Orchestrator
-    Orchestrator -- Routes --> Atomic1
-    Orchestrator -- Routes --> Atomic2
-    Atomic1 & Atomic2 --> Report
+    Artifact["Standardized Artifact<br/>(Docs / Code / Report)"]:::out
+
+    %% Flow
+    Intent --> Router
+    Router -- Matches Scenario --> Skill
+    Skill --> Artifact
 ```
 
 Audience: first-time evaluators and developers. Read left to right: user intent enters routing, governance constrains execution, and skills produce auditable outputs.
