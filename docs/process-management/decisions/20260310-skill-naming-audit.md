@@ -8,7 +8,7 @@ lifecycle: living
 # Skill 命名审计（按 spec §1 命名优先级）
 
 **日期**: 2026-03-10  
-**规范依据**: [spec/skill.md](../../spec/skill.md) §1 命名优先级 — 语义正确与规范性优先，口语与好记其次
+**规范依据**: [spec/skill.md](../../../spec/skill.md) §1 命名优先级 — 语义正确与规范性优先，口语与好记其次
 
 ---
 

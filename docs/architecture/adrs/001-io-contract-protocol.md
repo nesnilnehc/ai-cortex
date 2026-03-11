@@ -27,4 +27,4 @@ Orchestrators use these schemas to:
 ## References
 
 - spec/skill.md § I/O contracts
-- [Evolution Roadmap](../designs/2026-03-02-ai-cortex-evolution-roadmap.md) C8 Skill Chain & Workflow Protocol
+- [Evolution Roadmap](../../designs/2026-03-02-ai-cortex-evolution-roadmap.md) C8 Skill Chain & Workflow Protocol

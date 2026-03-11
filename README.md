@@ -9,6 +9,8 @@ AI Cortex is an agent-first, governance-ready inventory of Skills. Specs turn Sk
 
 ### How it works
 
+Source: `docs/images/workflow-sequence.mmd`
+
 ```mermaid
 flowchart LR
     %% Style Definitions
@@ -43,6 +45,8 @@ Audience: first-time evaluators and developers. Read left to right: user intent 
 ---
 
 ## ✨ Features
+
+Source: `docs/images/ecosystem-topology.mmd`
 
 ```mermaid
 graph TB
