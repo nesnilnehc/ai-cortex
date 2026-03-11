@@ -55,6 +55,7 @@ Atomic review skills are grouped by dimension:
 | **Library** | Key library usage and pitfalls. | [review-orm-usage](./review-orm-usage/SKILL.md) |
 | **Cognitive** | Cross-cutting concerns: security, performance, architecture, testing. | [review-security](./review-security/SKILL.md), [review-performance](./review-performance/SKILL.md), [review-architecture](./review-architecture/SKILL.md), [review-testing](./review-testing/SKILL.md) |
 | **Meta** | Orchestration only; no analysis. | [review-code](./review-code/SKILL.md) |
+
 ---
 
 ## 3. Execution order
@@ -148,7 +149,7 @@ flowchart LR
 Every atomic skill emits findings in this format so [review-code](./review-code/SKILL.md) can merge them:
 
 - **Location**: `path/to/file.ext` (optional line or range)
-- **Category**: scope | language-* | framework-* | library-* | cognitive-*
+- **Category**: `scope | language-* | framework-* | library-* | cognitive-*`
 - **Severity**: critical | major | minor | suggestion
 - **Title**: Short one-line summary
 - **Description**: 1–3 sentences
@@ -178,6 +179,7 @@ Every atomic skill emits findings in this format so [review-code](./review-code/
 | [review-architecture](./review-architecture/SKILL.md) | cognitive | code scope | Findings (Category=cognitive-architecture) |
 | [review-testing](./review-testing/SKILL.md) | cognitive | code scope | Findings (Category=cognitive-testing) |
 | [review-code](./review-code/SKILL.md) | meta | user intent + scope | Single aggregated report |
+
 ---
 
 ## 7. Non-review composition chains
