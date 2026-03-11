@@ -8,6 +8,8 @@
     "verify:skill-structure": "node scripts/verify-skill-structure.mjs",
     "verify:artifact-contract": "node scripts/verify-artifact-contract.mjs",
     "verify:links": "node scripts/verify-links.mjs",
+    "verify:markdown-links": "node scripts/verify-markdown-links.mjs",
+    "verify:diagram-sync": "node scripts/verify-diagram-sync.mjs",
     "test": "node --test scripts/test/*.test.mjs"
   },
   "repository": {

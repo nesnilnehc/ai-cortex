@@ -72,3 +72,5 @@ A professional infrastructure project README should ideally contain:
 
 *   Diagrams are code. They must be updated in the same PR as the feature changes they depict.
 *   Obsolete diagrams must be removed or archived.
+*   `docs/images/*.mmd` is the source of truth for README Mermaid blocks. Keep README and source files synchronized.
+*   Run `npm run verify:diagram-sync` before commit to prevent drift.

@@ -2,7 +2,7 @@
 
 This document archives the original design concept diagram for AI Cortex.
 
-**Source Diagram**: `docs/designs/share-diagram-journey.mmd` (and `.svg`)
+**Source Diagram**: 原始图文件未在仓库保留，仅保留设计意图归档。
 
 ## Original Design Intent
 
@@ -14,8 +14,6 @@ The diagram below illustrates the comprehensive journey of a user intent through
 4.  **Skill Application**: Orchestrators (like `review-code`) and atomic skills (`review-python`) execute the work.
 5.  **Output**: The result is a standardized, auditable artifact (Docs, Delivery, Narrative).
 
-## Diagram
+## Diagram Status
 
-![AI Cortex - Spec, Rules, 11 Scenarios](../designs/share-diagram-journey.svg)
-
-*(Note: This diagram was replaced in the README by simplified Mermaid diagrams for better clarity and maintenance.)*
+The original visual asset was replaced in the README by simplified Mermaid diagrams for better clarity and maintenance. This archive preserves the original intent and flow semantics.

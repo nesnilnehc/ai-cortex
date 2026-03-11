@@ -124,7 +124,7 @@ First determine the execution mode. User override takes precedence; otherwise:
 - **Placeholders**: `[description]`, `[option1/option2]`, `YYYY-MM-DD`, `[number]`
 - **Tables**: Preserve column alignment; `*` marks required fields
 - **Version**: Use SemVer; update version history at document bottom on changes
-- **References**: Internal `[Name](relative/path)`; external ` number `
+- **References**: Internal `[README](../../README.md)`; external `[Example](https://example.com)`
 - **Dates**: `YYYY-MM-DD`
 
 ### File and directory naming (strict)
