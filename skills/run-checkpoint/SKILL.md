@@ -2,7 +2,7 @@
 name: run-checkpoint
 description: Analyze project state and produce next-action plan by running alignment, doc readiness, and output-driven follow-ups. Single-cycle report with executed steps and Recommended Next Tasks.
 tags: [workflow, automation, eng-standards]
-version: 1.2.0
+version: 1.3.0
 license: MIT
 related_skills: [analyze-requirements, brainstorm-design, align-planning, align-architecture, assess-doc-readiness, run-repair-loop, discover-document-norms, bootstrap-docs]
 recommended_scope: project
@@ -19,8 +19,11 @@ input_schema:
   defaults:
     trigger: task-complete
 output_schema:
-  type: diagnostic-report
+  type: document-artifact
   description: Cycle report with executed steps, skipped steps, rationale, and next-cycle recommendations
+  artifact_type: cognitive-loop
+  path_pattern: docs/calibration/cognitive-loop.md
+  lifecycle: living
 ---
 
 # Skill: Run Checkpoint (Orchestrator)
@@ -169,7 +172,8 @@ Report must include:
 
 Write exactly one file to:
 
-- Default: `docs/calibration/YYYY-MM-DD-cognitive-loop.md`
+- Path resolved from project norms (`docs/ARTIFACT_NORMS.md` or `.ai-cortex/artifact-norms.yaml`)
+- Default: `docs/calibration/cognitive-loop.md` (overwrite unless snapshot explicitly requested)
 - Or user-defined path
 
 ---

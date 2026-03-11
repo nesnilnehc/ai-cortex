@@ -20,7 +20,7 @@ Compares documented architecture and design decisions (ADRs, design docs) agains
 
 ## Outputs
 
-- Architecture Compliance Report written to `docs/calibration/YYYY-MM-DD-architecture-compliance.md`
+- Architecture Compliance Report written to `docs/calibration/architecture-compliance.md` (overwritten unless a snapshot is requested)
 - Machine-readable compliance gaps block
 
 ## Installation

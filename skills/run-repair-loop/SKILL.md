@@ -2,7 +2,7 @@
 name: run-repair-loop
 description: Iteratively review changes, run automated tests, and apply targeted fixes until issues are resolved (or a stop condition is reached).
 tags: [automation, devops, eng-standards, optimization]
-version: 1.0.0
+version: 1.1.0
 license: MIT
 related_skills: [review-code, review-diff, run-automated-tests, review-security, review-performance]
 recommended_scope: both
@@ -17,7 +17,7 @@ input_schema:
     scope: diff
 output_schema:
   type: diagnostic-report
-  description: Repair loop report with iterations, commands, patches, and final state
+  description: Repair loop report with iterations, commands, patches, and final state (persist only if explicitly requested)
 ---
 
 # Skill: Run Repair Loop (Review + Test + Fix)
@@ -158,6 +158,10 @@ When stopping, provide the shortest path options:
 - allow installs/network/Docker
 - narrow scope (fix only first failing test)
 - increase iteration limit
+
+### Report persistence
+
+Do NOT write a standalone report file by default. If the user explicitly asks to persist, write to the path resolved from project norms, or default to `docs/calibration/repair-loop.md` and overwrite the canonical file unless a snapshot is explicitly requested.
 
 ---
 

@@ -19,14 +19,9 @@
 
 ### 1. 推广策略 (Promotion Strategy)
 
-| 渠道 | 动作 | 频率 | 负责人 |
-| :--- | :--- | :--- | :--- |
-| skills.sh | 确保 `npx skills add nesnilnehc/ai-cortex` 可安装；README 含 install 指引 | 随版本发布 | Maintainer |
-| SkillsMP / Claude Plugin | 按 D9 选择标准维护 marketplace；新技能符合标准即纳入 | 随技能发布 | Maintainer |
-| README / AGENTS.md | 提供 Raw 链接、定位说明、使用场景；便于复用到其他项目 | 随文档更新 | Maintainer |
-| 社区曝光 | 在相关讨论、博客、Issue 中引用 skills 与 spec | 按需 | Maintainer |
+推广渠道的**唯一权威清单**为 `docs/process-management/promotion-channel-checklist.md`，本文档仅描述策略原则与迭代节奏。
 
-**V1 交付**：推广渠道清单写入 `docs/designs/2026-03-06-promotion-and-iteration.md`（本文档），每季度检视一次。
+**V1 交付**：推广渠道清单维护在 `docs/process-management/promotion-channel-checklist.md`，每季度检视一次。
 
 ### 2. 迭代计划拆分 (Iteration Breakdown)
 

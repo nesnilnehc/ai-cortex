@@ -23,7 +23,7 @@ Analyze project state and produce next-action plan by running alignment, doc rea
 
 ## Outputs
 
-- Cycle report written to `docs/calibration/YYYY-MM-DD-cognitive-loop.md` (single artifact; routed skills do not produce separate files)
+- Cycle report written to `docs/calibration/cognitive-loop.md` (single artifact; overwritten unless a snapshot is requested)
 - Routed sequence, aggregated findings, blockers, Recommended Next Tasks (prioritized, actionable, with owner, scope, rationale)
 
 ## Installation
