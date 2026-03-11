@@ -217,6 +217,7 @@ const skillTypesRows = Object.entries(REVIEW_TYPE)
 const skillTypesMetaRow = `| **Meta** | ${REVIEW_TYPE_LABELS.meta} | ${link('review-code')} |`;
 
 const executionOrder = `
+
 ---
 
 ## 3. Execution order
@@ -246,7 +247,7 @@ ${buildMermaidReviewDiagram()}
 Every atomic skill emits findings in this format so ${link('review-code')} can merge them:
 
 - **Location**: \`path/to/file.ext\` (optional line or range)
-- **Category**: scope | language-* | framework-* | library-* | cognitive-*
+- **Category**: \`scope | language-* | framework-* | library-* | cognitive-*\`
 - **Severity**: critical | major | minor | suggestion
 - **Title**: Short one-line summary
 - **Description**: 1–3 sentences
@@ -279,6 +280,7 @@ const reviewQuickRefRows = [
 ].join('\n');
 
 const nonReviewSection = `
+
 ---
 
 ## 7. Non-review composition chains
