@@ -63,7 +63,7 @@ const ORCHESTRATOR_CHAINS = {
 // Fixed composition chains (conceptual, not from single orchestrator)
 const LIFECYCLE_CHAIN = ['analyze-requirements', 'brainstorm-design', 'review-code', 'run-repair-loop', 'run-automated-tests', 'commit-work'];
 const GOVERNANCE_CHAIN = ['curate-skills', 'refine-skill-design', 'generate-standard-readme', 'bootstrap-docs', 'install-rules'];
-const PROJECT_LOOP_CHAIN = ['run-checkpoint', 'align-planning', 'assess-doc-readiness', 'align-architecture', 'analyze-requirements', 'brainstorm-design', 'run-repair-loop'];
+const PROJECT_LOOP_CHAIN = ['run-checkpoint', 'discover-document-norms', 'bootstrap-docs', 'align-planning', 'assess-doc-readiness', 'align-architecture', 'analyze-requirements', 'brainstorm-design', 'run-repair-loop'];
 
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
 const allSkills = (manifest.capabilities || []).map((c) => c.name);
@@ -342,11 +342,13 @@ flowchart LR
 
 ### 7.4 Project governance loop chain
 
-Unified sequence: align-planning → assess-doc-readiness; output-driven follow-ups (align-architecture, repair, brainstorm, analyze).
+Phase 0.5: discover-document-norms, bootstrap-docs. Unified sequence: align-planning → assess-doc-readiness. Output-driven follow-ups: align-architecture, repair, brainstorm, analyze.
 
 \`\`\`mermaid
 flowchart LR
   loop[run-checkpoint]
+  discover[discover-document-norms]
+  bootstrap[bootstrap-docs]
   align[align-planning]
   alignarch[align-architecture]
   docreadiness[assess-doc-readiness]
@@ -354,8 +356,10 @@ flowchart LR
   design[brainstorm-design]
   repair[run-repair-loop]
 
-  loop --> align
-  loop --> docreadiness
+  loop -->|Phase 0.5| discover
+  loop -->|Phase 0.5| bootstrap
+  loop -->|Phase 1| align
+  loop -->|Phase 1| docreadiness
   align -->|active defects| repair
   align -->|architecture compliance needed| alignarch
   docreadiness -->|doc gaps| req

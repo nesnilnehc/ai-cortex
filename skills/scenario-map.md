@@ -55,11 +55,13 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 
 ## 5) Iteration Orchestration
 
-- **When to use**: Milestone closure, release gate, or periodic governance cycle
+- **When to use**: Milestone closure, release gate, or periodic governance cycle (includes Phase 0.5 preparation)
 - **Primary skill**: [run-checkpoint](./run-checkpoint/SKILL.md)
 - **Optional skills**:
   - [align-planning](./align-planning/SKILL.md)
   - [assess-doc-readiness](./assess-doc-readiness/SKILL.md)
+  - [discover-document-norms](./discover-document-norms/SKILL.md)
+  - [bootstrap-docs](./bootstrap-docs/SKILL.md)
 - **Short triggers**: iteration, governance, project cognitive loop
 - **Output**: Cycle report with executed/skipped steps and Recommended Next Tasks
 - **Stop condition**: All required scenario checks are completed or explicitly deferred
