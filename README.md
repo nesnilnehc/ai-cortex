@@ -74,6 +74,14 @@ Install only specific skills:
 npx skills add nesnilnehc/ai-cortex --skill review-code --skill generate-standard-readme
 ```
 
+Shell fallback (for environments that do not use Node.js tooling):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/scripts/install-fallback.sh | bash -s -- --dest ./.ai-cortex
+```
+
+This fallback installs catalog artifacts and skill files to a local directory for manual integration.
+
 ### Rules
 
 Rules are passive constraints for AI behavior (coding standards, writing norms, workflow policies). Install them into Cursor or Trae so the Agent respects them in your workspace.
@@ -104,7 +112,7 @@ This repository is the capability-asset library: it hosts Skills and provides Sp
 
 ### Boundaries (out of scope)
 
-- Does not provide IDE/Agent/CI integration or usage guides, or install/sync scripts.
+- Does not provide turnkey IDE or CI integration services.
 - Does not tie to any single IDE or runtime; no vendor-specific adapters.
 - Does not implement model invocation, tool execution, or runtime orchestration infrastructure.
 
@@ -112,13 +120,14 @@ This repository is the capability-asset library: it hosts Skills and provides Sp
 
 - **Canonical catalog**: Skills under `skills/` are the published capability list; `skills/INDEX.md` and `manifest.json` are the authoritative indexes.
 - **Local or IDE-specific skills**: `.agents/` may hold skills used only in this repo or by a specific IDE; they are not part of the canonical catalog and are not listed in INDEX or manifest.
-- **Subset lists**: `.claude-plugin/` and `llms.txt` list a subset of skills for Claude Plugin and LLM index respectively; update them when adding or promoting high-priority skills.
+- **Subset lists**: `.claude-plugin/` and `llms.txt` are intentionally non-exhaustive. They expose only curated subsets for specific channels and do not represent the full skill catalog.
+- **Subset criteria**: See `.claude-plugin/README.md` for Claude Plugin inclusion and exclusion rules. For complete inventory, always use `skills/INDEX.md` and `manifest.json`.
 
 ---
 
 ## 🤝 Contributing
 
-Submit PRs that follow the [skill spec](spec/skill.md). Capability index: [skills/INDEX.md](skills/INDEX.md). When adding or moving a skill, update `skills/INDEX.md`, `manifest.json`, and (as needed) `skills/scenario-map.json`, then run `npm run verify` (or `node scripts/verify-registry.mjs`) to regenerate docs and confirm sync. See [spec/registry-sync-contract.md](spec/registry-sync-contract.md) for sync rules.
+Submit PRs that follow the [skill spec](spec/skill.md). Capability index: [skills/INDEX.md](skills/INDEX.md). When adding or moving a skill, update `manifest.json` and (as needed) `skills/scenario-map.json`, then run `npm run verify` (or `node scripts/verify-registry.mjs`) to regenerate INDEX/docs and confirm sync. See [spec/registry-sync-contract.md](spec/registry-sync-contract.md) for sync rules.
 
 ### Development
 

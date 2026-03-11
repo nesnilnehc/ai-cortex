@@ -12,7 +12,7 @@ Scope: manifest.json, skills/INDEX.md, skills/*/SKILL.md, scenario-map, marketpl
 
 ## 1. Purpose
 
-This contract specifies how the skill registry artifacts must stay consistent. `scripts/verify-registry.mjs` enforces these rules. When adding, moving, or removing a skill, all artifacts must be updated together.
+This contract specifies how the skill registry artifacts must stay consistent. `scripts/verify-registry.mjs` enforces these rules. `skills/INDEX.md` is generated from manifest and SKILL frontmatter.
 
 ---
 
@@ -21,7 +21,7 @@ This contract specifies how the skill registry artifacts must stay consistent. `
 | Artifact | Path | Role |
 | :--- | :--- | :--- |
 | manifest.json | repo root | Executable capability list; `capabilities[].name` and `capabilities[].path` |
-| skills/INDEX.md | skills/ | Human-readable catalog; table rows with name, path, tags, version |
+| skills/INDEX.md | skills/ | Generated human-readable catalog; table rows with name, tags, version, stability, purpose |
 | skills/{name}/SKILL.md | skills/ | Per-skill definition; YAML frontmatter with name, version, tags |
 | skills/scenario-map.json | skills/ | Source of truth for scenario-map.md; primary/optional skill refs |
 | skills/scenario-map.md | skills/ | Generated from scenario-map.json; scenario-to-skill mapping |
@@ -39,9 +39,9 @@ This contract specifies how the skill registry artifacts must stay consistent. `
 
 ### 3.2 skills/INDEX.md ↔ manifest.json
 
-- Every skill in manifest.json must appear in skills/INDEX.md.
-- Every skill in skills/INDEX.md must appear in manifest.json.
-- No duplicate skill names in skills/INDEX.md.
+- Generated INDEX must contain every skill in manifest.json.
+- Generated INDEX must not contain skills missing from manifest.json.
+- No duplicate skill names in generated skills/INDEX.md.
 
 ### 3.3 skills/INDEX.md ↔ skills/{name}/SKILL.md
 
@@ -49,6 +49,7 @@ This contract specifies how the skill registry artifacts must stay consistent. `
   - `name` equal to the skill name (matches directory name).
   - `version` equal to the version in INDEX.
   - `tags` equal (order-independent) to the tags in INDEX.
+  - `description` used as the Purpose source in INDEX.
 
 ### 3.4 scenario-map.md / scenario-map.json
 
@@ -69,7 +70,7 @@ Run from repo root:
 node scripts/verify-registry.mjs
 ```
 
-Before running, `generate-skills-docs.mjs` regenerates skillgraph.md and scenario-map.md from sources. The script exits 1 if any sync rule is violated.
+Before running, `generate-skills-docs.mjs` regenerates INDEX.md, skillgraph.md, and scenario-map.md from sources. The script exits 1 if any sync rule is violated.
 
 ---
 
@@ -79,6 +80,6 @@ When adding a new skill:
 
 1. Create `skills/{name}/SKILL.md` with valid frontmatter.
 2. Add the capability to `manifest.json` capabilities array.
-3. Add the row to `skills/INDEX.md`.
+3. Regenerate `skills/INDEX.md`.
 4. Optionally add to scenario-map.json and marketplace.json.
 5. Run `node scripts/verify-registry.mjs` to confirm sync.

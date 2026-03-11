@@ -1,4 +1,4 @@
-# AI Cortex: Agent-first, governance-ready inventory of Skills; reusable and composable. Install: npx skills add nesnilnehc/ai-cortex
+# AI Cortex: Agent-first, governance-ready inventory of Skills; reusable and composable. Install: npx skills add nesnilnehc/ai-cortex; shell fallback: scripts/install-fallback.sh
 
 > [!TIP]
 > This file is a machine-readable index for LLM Agents and Copilots.
@@ -15,7 +15,12 @@
 - [Skills index](skills/INDEX.md): Central registry of all available skills.
 
 ### Core skills
-Subset of skills/; update when adding or promoting core skills. Full list: [skills/INDEX.md](skills/INDEX.md).
+This section is intentionally non-exhaustive. It lists only high-priority discovery/bootstrap skills.
+Excluded from this list by design:
+- Atomic review skills (for example, `review-*`) because they are usually selected by orchestrator skills.
+- Narrow workflow helpers used in specific delivery stages only.
+- Low-frequency maintenance skills that add token overhead for general LLM onboarding.
+Canonical complete catalog: [skills/INDEX.md](skills/INDEX.md).
 - [discover-skills](skills/discover-skills/SKILL.md): Discover and recommend relevant skills; suggest install commands.
 - [decontextualize-text](skills/decontextualize-text/SKILL.md): Generalization and privacy-preserving text handling.
 - [generate-standard-readme](skills/generate-standard-readme/SKILL.md): Create professional, standards-aligned project READMEs.
