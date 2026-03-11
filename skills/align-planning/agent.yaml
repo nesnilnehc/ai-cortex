@@ -10,7 +10,7 @@ inputs:
   - optional context (release, milestone, epic markers)
 
 outputs:
-  - Planning Alignment Report (docs/calibration/YYYY-MM-DD-task-slug-calibration.md)
+  - Planning Alignment Report (docs/calibration/planning-alignment.md; overwritten unless snapshot requested)
   - machine-readable drifts and evidence readiness block
 
 scores:

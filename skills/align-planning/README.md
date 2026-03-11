@@ -22,7 +22,7 @@ After a task is completed, runs a traceback from work to strategy, detects drift
 
 ## Outputs
 
-- Planning Alignment Report written to `docs/calibration/YYYY-MM-DD-task-slug-calibration.md`
+- Planning Alignment Report written to `docs/calibration/planning-alignment.md` (overwritten unless a snapshot is requested)
 - Machine-readable drifts and evidence readiness block
 
 ## Installation

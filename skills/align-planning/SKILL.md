@@ -2,7 +2,7 @@
 name: align-planning
 description: Perform post-task traceback, drift detection, and top-down recalibration to keep planning (goals, requirements, milestones, roadmap) aligned with task execution.
 tags: [workflow, eng-standards, documentation]
-version: 1.2.0
+version: 1.3.0
 license: MIT
 related_skills: [analyze-requirements, brainstorm-design, bootstrap-docs, assess-doc-readiness, discover-document-norms, run-repair-loop, align-architecture]
 recommended_scope: both
@@ -37,7 +37,10 @@ input_schema:
     mode: lightweight
 output_schema:
   type: document-artifact
-  description: Planning Alignment Report written to docs/calibration/YYYY-MM-DD-task-slug-calibration.md
+  description: Planning Alignment Report written to docs/calibration/planning-alignment.md (default)
+  artifact_type: planning-alignment
+  path_pattern: docs/calibration/planning-alignment.md
+  lifecycle: living
 ---
 
 # Skill: Align Planning
@@ -219,7 +222,8 @@ For each item, output:
 
 Write report to:
 
-- Default: `docs/calibration/YYYY-MM-DD-task-slug-calibration.md`
+- Path resolved from project norms (`docs/ARTIFACT_NORMS.md` or `.ai-cortex/artifact-norms.yaml`)
+- Default: `docs/calibration/planning-alignment.md` (overwrite unless snapshot explicitly requested)
 - Or user-specified path
 
 Report must include a machine-readable drift block (YAML or JSON) in addition to human-readable sections.

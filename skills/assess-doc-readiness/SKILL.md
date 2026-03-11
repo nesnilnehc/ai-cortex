@@ -2,7 +2,7 @@
 name: assess-doc-readiness
 description: Assess doc evidence readiness across project layers, report gaps, and produce a minimum-fill plan to improve alignment reliability.
 tags: [documentation, eng-standards, workflow]
-version: 1.0.0
+version: 1.1.0
 license: MIT
 related_skills: [bootstrap-docs, analyze-requirements, brainstorm-design, align-planning, align-architecture]
 recommended_scope: both
@@ -16,8 +16,8 @@ output_schema:
   type: document-artifact
   description: Documentation Readiness Report and Minimal Fill Plan
   artifact_type: doc-readiness
-  path_pattern: docs/calibration/YYYY-MM-DD-doc-readiness.md
-  lifecycle: snapshot
+  path_pattern: docs/calibration/doc-readiness.md
+  lifecycle: living
 ---
 
 # Skill: Documentation Readiness
@@ -138,7 +138,7 @@ Produce the smallest set of actions needed to raise readiness to target level:
 
 ### Phase 5: Persist Report
 
-Write to path per resolved project norms (Phase 0) or default `docs/calibration/YYYY-MM-DD-doc-readiness.md` from [spec/artifact-contract.md](../../spec/artifact-contract.md). Include front-matter: `artifact_type: doc-readiness`, `created_by: assess-doc-readiness`, `lifecycle: snapshot`, `created_at: YYYY-MM-DD`. Create output directory if it does not exist.
+Write to path per resolved project norms (Phase 0) or default `docs/calibration/doc-readiness.md` from [spec/artifact-contract.md](../../spec/artifact-contract.md). Overwrite the canonical file unless the user explicitly requests a dated snapshot. Include front-matter: `artifact_type: doc-readiness`, `created_by: assess-doc-readiness`, `lifecycle: living`, `created_at: YYYY-MM-DD`. Create output directory if it does not exist.
 
 ---
 
@@ -156,7 +156,7 @@ Write to path per resolved project norms (Phase 0) or default `docs/calibration/
 ---
 artifact_type: doc-readiness
 created_by: assess-doc-readiness
-lifecycle: snapshot
+lifecycle: living
 created_at: YYYY-MM-DD
 ---
 

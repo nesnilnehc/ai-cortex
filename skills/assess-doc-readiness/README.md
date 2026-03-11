@@ -21,7 +21,7 @@ Evaluates whether project docs (goals, requirements, architecture, milestones, r
 
 ## Outputs
 
-- Documentation Readiness Report written to `docs/calibration/YYYY-MM-DD-doc-readiness.md`
+- Documentation Readiness Report written to `docs/calibration/doc-readiness.md` (overwritten unless a snapshot is requested)
 - Minimal fill plan with layer readiness and gap priority list
 
 ## Installation

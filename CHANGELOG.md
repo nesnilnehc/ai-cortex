@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Calibration outputs now overwrite canonical files per `docs/ARTIFACT_NORMS.md` (doc-readiness, planning alignment, architecture compliance, cognitive loop); snapshots only when explicitly requested.
+- Updated output paths and versions for `assess-doc-readiness`, `align-planning`, `align-architecture`, `run-checkpoint`, and `run-repair-loop` to reduce redundant report artifacts.
 - **run-checkpoint v1.2.0** — Phase 0.5 Planning Readiness Gate; discover-document-norms, bootstrap-docs in preparation flow; short-circuit with Minimal Fill Plan when readiness missing
 - **Skill naming (excellent standard per 20260310-skill-naming-audit)**:
   - `orchestrate-governance-loop` → `run-checkpoint`
@@ -20,7 +22,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `docs/ARTIFACT_NORMS.md` — project artifact norms defining canonical, non-snapshot calibration outputs.
 - `align-architecture` skill (v1.0.0) — verify ADR/design vs code implementation; produce Architecture Compliance Report
+
+### Removed
+
+- One-off calibration reports and a completed backlog item that are superseded by canonical living artifacts.
 - Architecture Compliance scenario in scenario-map.json (short triggers: align architecture, architecture compliance, design vs code)
 
 ### Changed

@@ -2,7 +2,7 @@
 name: align-architecture
 description: Verify architecture and design documents against code implementation; produce an Architecture Compliance Report when implementation diverges from ADR or design decisions.
 tags: [workflow, eng-standards, documentation]
-version: 1.1.0
+version: 1.2.0
 license: MIT
 related_skills: [align-planning, review-architecture, brainstorm-design, assess-doc-readiness, bootstrap-docs]
 recommended_scope: project
@@ -25,10 +25,10 @@ input_schema:
   description: ADR or design doc scope, optional code scope (full repo, paths, or modules for incremental verification), optional project docs root
 output_schema:
   type: document-artifact
-  description: Architecture Compliance Report written to docs/calibration/YYYY-MM-DD-architecture-compliance.md
+  description: Architecture Compliance Report written to docs/calibration/architecture-compliance.md (default)
   artifact_type: architecture-compliance
-  path_pattern: docs/calibration/YYYY-MM-DD-architecture-compliance.md
-  lifecycle: snapshot
+  path_pattern: docs/calibration/architecture-compliance.md
+  lifecycle: living
 ---
 
 # Skill: Align Architecture
@@ -168,7 +168,8 @@ Rules:
 
 Write report to:
 
-- Default: `docs/calibration/YYYY-MM-DD-architecture-compliance.md`
+- Path resolved from project norms (`docs/ARTIFACT_NORMS.md` or `.ai-cortex/artifact-norms.yaml`)
+- Default: `docs/calibration/architecture-compliance.md` (overwrite unless snapshot explicitly requested)
 - Or user-specified path
 
 Report must include a machine-readable compliance block (YAML or JSON).

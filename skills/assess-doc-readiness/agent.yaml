@@ -9,7 +9,7 @@ inputs:
   - optional target readiness level (medium | high)
 
 outputs:
-  - Documentation Readiness Report (docs/calibration/YYYY-MM-DD-doc-readiness.md)
+  - Documentation Readiness Report (docs/calibration/doc-readiness.md; overwritten unless snapshot requested)
   - minimal fill plan with layer readiness and gap priority list
 
 scores:

@@ -9,7 +9,7 @@ inputs:
   - optional project docs root
 
 outputs:
-  - Architecture Compliance Report (docs/calibration/YYYY-MM-DD-architecture-compliance.md)
+  - Architecture Compliance Report (docs/calibration/architecture-compliance.md; overwritten unless snapshot requested)
   - machine-readable compliance gaps block
 
 scores:

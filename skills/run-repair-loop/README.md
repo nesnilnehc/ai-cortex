@@ -21,7 +21,7 @@ Runs an iterative loop to converge code to "clean": review -> test -> fix -> rep
 
 ## Outputs
 
-- Repair Loop Report with iteration-by-iteration test results and patches applied.
+- Repair Loop Report with iteration-by-iteration test results and patches applied. Persist only if explicitly requested.
 
 ## Scores (ASQM)
 

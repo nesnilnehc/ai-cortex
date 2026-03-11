@@ -9,7 +9,7 @@ inputs:
   - optional urgency or release window
 
 outputs:
-  - Governance Loop Report (docs/calibration/YYYY-MM-DD-cognitive-loop.md) — single artifact only; no separate outputs from routed skills
+  - Governance Loop Report (docs/calibration/cognitive-loop.md; overwritten unless snapshot requested) — single artifact only; no separate outputs from routed skills
   - routed sequence, aggregated findings, blockers, Recommended Next Tasks (prioritized, actionable, owner+scope+rationale)
 
 scores:
