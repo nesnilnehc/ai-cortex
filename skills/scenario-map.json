@@ -50,9 +50,9 @@
       "id": "iteration_orchestration",
       "title": "Iteration Orchestration",
       "short_triggers": ["iteration", "governance", "project cognitive loop"],
-      "when_to_use": "Milestone closure, release gate, or periodic governance cycle",
+      "when_to_use": "Milestone closure, release gate, or periodic governance cycle (includes Phase 0.5 preparation)",
       "primary": "run-checkpoint",
-      "optional": ["align-planning", "assess-doc-readiness"],
+      "optional": ["align-planning", "assess-doc-readiness", "discover-document-norms", "bootstrap-docs"],
       "output": "Cycle report with executed/skipped steps and Recommended Next Tasks",
       "stop_condition": "All required scenario checks are completed or explicitly deferred"
     },
