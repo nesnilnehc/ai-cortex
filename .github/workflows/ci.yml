@@ -8,6 +8,10 @@ on:
       - 'skills/**'
       - 'scripts/**'
       - 'manifest.json'
+      - 'llms.txt'
+      - 'AGENTS.md'
+      - 'README.md'
+      - '.claude-plugin/**'
       - 'package.json'
       - 'spec/**'
       - '.github/workflows/ci.yml'
@@ -17,6 +21,10 @@ on:
       - 'skills/**'
       - 'scripts/**'
       - 'manifest.json'
+      - 'llms.txt'
+      - 'AGENTS.md'
+      - 'README.md'
+      - '.claude-plugin/**'
       - 'package.json'
       - 'spec/**'
       - '.github/workflows/ci.yml'
@@ -38,7 +46,7 @@ jobs:
           node-version: '20'
 
       - name: Verify registry
-        run: node scripts/verify-registry.mjs
+        run: npm run verify
 
       - name: Verify skill structure
         run: node scripts/verify-skill-structure.mjs

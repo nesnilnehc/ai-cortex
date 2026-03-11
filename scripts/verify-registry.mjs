@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Verify skills/INDEX.md, manifest.json, scenario-map.md, skillgraph.md, and marketplace.json stay in sync.
- * Regenerates skillgraph.md and scenario-map.md from sources first, then validates.
+ * Regenerates INDEX.md, skillgraph.md, and scenario-map.md from sources first, then validates.
  * - Every capability in manifest.json has a path that exists.
  * - Every directory under skills/ that contains SKILL.md is listed in manifest capabilities.
  * - Every skill referenced in skills/scenario-map.md (and scenario-map.json) exists in manifest and INDEX.
@@ -34,7 +34,7 @@ if (!existsSync(indexPath)) {
   process.exit(1);
 }
 
-// Regenerate skillgraph.md and scenario-map.md from sources
+// Regenerate INDEX.md, skillgraph.md, and scenario-map.md from sources
 const genScript = join(root, 'scripts', 'generate-skills-docs.mjs');
 if (existsSync(genScript)) {
   const r = spawnSync('node', [genScript], { cwd: root, stdio: 'pipe', encoding: 'utf8' });

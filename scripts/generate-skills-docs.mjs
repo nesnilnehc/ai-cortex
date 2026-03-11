@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Generate skills/skillgraph.md and skills/scenario-map.md.
+ * Generate skills/INDEX.md, skills/skillgraph.md, and skills/scenario-map.md.
  * Run from repo root: node scripts/generate-skills-docs.mjs
  * Call this before verify-registry when scenario-map.json or skill composition changes.
  */
@@ -12,6 +12,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
 
 const scripts = [
+  join(root, 'scripts', 'generate-skills-index.mjs'),
   join(root, 'scripts', 'generate-skillgraph.mjs'),
   join(root, 'scripts', 'generate-scenario-map.mjs'),
 ];
