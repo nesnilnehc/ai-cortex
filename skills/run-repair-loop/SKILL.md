@@ -268,7 +268,7 @@ Agent:
 3. Ask the user to choose:
    - run only `fast` unit tests locally, or
    - allow Docker and provide a non-chat secret workflow, or
-    - run only the failing CI job steps that don't require secrets.
+   - run only the failing CI job steps that don't require secrets.
 
 ---
 

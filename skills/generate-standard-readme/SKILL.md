@@ -185,7 +185,7 @@ If YES: README is complete. Proceed to handoff.
 
 **Before (minimal)**:
 
-> # MyProject
+> **MyProject**
 >
 > This program processes images.
 > Install: pip install .
@@ -193,7 +193,7 @@ If YES: README is complete. Proceed to handoff.
 
 **After (standard)**:
 
-> # MyProject
+> **MyProject**
 >
 > [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 >
@@ -201,14 +201,14 @@ If YES: README is complete. Proceed to handoff.
 >
 > ---
 >
-> ## ✨ Features
+> **✨ Features**
 >
 > - **Concurrent compression**: Multi-threaded; faster than baseline.
 > - **Formats**: WebP, PNG, JPEG conversion.
 >
 > ---
 >
-> ## 📦 Installation
+> **📦 Installation**
 >
 > ```bash
 > pip install my-project
@@ -216,7 +216,7 @@ If YES: README is complete. Proceed to handoff.
 >
 > ---
 >
-> ## 🚀 Quick start
+> **🚀 Quick start**
 >
 > ```python
 > from myproject import Compressor
@@ -234,17 +234,17 @@ If YES: README is complete. Proceed to handoff.
 
 When this skill produces a README, it follows this contract:
 
-| Section order | Required |
-| :--- | :--- |
-| 1 | Title and badges |
-| 2 | Core description |
-| 3 | ✨ Features |
-| 4 | 📦 Installation |
-| 5 | 🚀 Quick start |
-| 6 | 📖 Usage / configuration |
-| 7 | 🤝 Contributing |
-| 8 | 📄 License |
-| 9 | 👤 Authors and acknowledgments |
+| Section order | Required                    |
+| :------------ | :-------------------------- |
+| 1             | Title and badges            |
+| 2             | Core description            |
+| 3             | Features                    |
+| 4             | Installation                |
+| 5             | Quick start                 |
+| 6             | Usage / configuration       |
+| 7             | Contributing                |
+| 8             | License                     |
+| 9             | Authors and acknowledgments |
 
 Restrictions: no broken links; no redundant repetition; no hardcoded paths; License section required.
 

@@ -8,11 +8,11 @@ This document archives the original design concept diagram for AI Cortex.
 
 The diagram below illustrates the comprehensive journey of a user intent through the AI Cortex governance system:
 
-1.  **Intent**: User provides input (e.g., "Start project").
-2.  **Router**: The system matches the intent to a scenario using `skills/scenario-map.json`.
-3.  **Governance Layer**: The execution is constrained by `spec/skill.md` and `AGENTS.md`.
-4.  **Skill Application**: Orchestrators (like `review-code`) and atomic skills (`review-python`) execute the work.
-5.  **Output**: The result is a standardized, auditable artifact (Docs, Delivery, Narrative).
+1. **Intent**: User provides input (e.g., "Start project").
+2. **Router**: The system matches the intent to a scenario using `skills/scenario-map.json`.
+3. **Governance Layer**: The execution is constrained by `spec/skill.md` and `AGENTS.md`.
+4. **Skill Application**: Orchestrators (like `review-code`) and atomic skills (`review-python`) execute the work.
+5. **Output**: The result is a standardized, auditable artifact (Docs, Delivery, Narrative).
 
 ## Diagram Status
 

@@ -23,20 +23,20 @@ Converts text with private context or internal dependencies into generic, unbias
 
 ## Scores (ASQM)
 
-| Dimension      | Score |
-| :---           | :---  |
-| agent_native   | 5     |
-| cognitive      | 4     |
-| composability  | 4     |
-| stance         | 4     |
-| **asqm_quality** | 17   |
+| Dimension        | Score |
+| :--------------- | :---- |
+| agent_native     | 5     |
+| cognitive        | 4     |
+| composability    | 4     |
+| stance           | 4     |
+| **asqm_quality** | 17    |
 
 ## Ecosystem
 
-| Field | Value |
-| :--- | :--- |
+| Field                                 | Value                                         |
+| :------------------------------------ | :-------------------------------------------- |
 | overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:generate-standard-readme |
-| market_position | differentiated |
+| market_position                       | differentiated                                |
 
 ## Full definition
 

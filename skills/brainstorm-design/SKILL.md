@@ -137,7 +137,7 @@ Transform rough ideas into validated, production-grade designs through systemati
 
 ### HARD-GATE: No Implementation Before Approval
 
-```
+```text
 DO NOT invoke implementation skills, write code, scaffold projects,
 or take implementation actions until design is presented and approved.
 
@@ -273,7 +273,7 @@ Every project goes through this process. A todo list, single-function utility, c
 
 6. **Announce completion and handoff**:
 
-   ```
+   ```text
    "Design complete and approved. Saved to docs/design-decisions/YYYY-MM-DD-<topic>.md.
    
    Next steps:

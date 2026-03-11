@@ -25,13 +25,13 @@ At the time of this analysis:
 
 The roadmap is organized into 5 layers with 4 implementation phases:
 
-```
+```text
 Layer A: Engineering Infrastructure (CI/CD, quality gates)
 Layer B: Skill Coverage (languages, frameworks, libraries)
 Layer C: Orchestration & Composition (orchestrators, skill chains)
 Layer D: Ecosystem & Distribution (Plugin sync, community)
 Layer E: Specification Evolution (lifecycle, testable spec)
-```
+```text
 
 Phases are ordered by dependency: infrastructure first, then capabilities, then composition, then ecosystem.
 
@@ -219,9 +219,9 @@ Ordered by dependency and value:
 
 ### Phase 1: Foundation (Infrastructure)
 
-```
+```text
 E12 Testable Spec  →  A1 CI/CD Automation  →  A2 Quality Gates
-```
+```text
 
 Build checking capability first, then put it in CI, then automate quality assessment.
 
@@ -234,10 +234,10 @@ Build checking capability first, then put it in CI, then automate quality assess
 
 ### Phase 2: Capability Expansion
 
-```
+```text
 E11 Lifecycle Strategy (define conventions before adding new skills)
 B3  review-typescript  →  B4 review-react
-```
+```text
 
 Establish lifecycle conventions, then build the frontend review chain (TS language + React framework).
 
@@ -249,10 +249,10 @@ Establish lifecycle conventions, then build the frontend review chain (TS langua
 
 ### Phase 3: Composition Upgrade
 
-```
+```text
 C8 I/O Contract Protocol  →  C7 onboard-repo Orchestrator
 B5 Domain-level library review (review-orm-usage, etc.)
-```
+```text
 
 Define the protocol first, then build orchestrators on top of it.
 
@@ -264,7 +264,7 @@ Define the protocol first, then build orchestrators on top of it.
 
 ### Phase 4: Ecosystem Maturity
 
-```
+```text
 D9  Plugin Sync Strategy
 D10 Community Infrastructure Phase 1
 ```

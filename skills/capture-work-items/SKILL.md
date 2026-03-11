@@ -271,7 +271,7 @@ The skill sets only `status: captured`. Downstream processes (milestones, promot
 - [ ] **One question at a time**: Did not overwhelm user with multiple missing-field questions
 - [ ] **No solution language in requirements**: Problem/Need describes problem, not implementation
 - [ ] **Path creation**: Created `backlog/` subdirectory if needed
-- [ ] **Filename convention**: Used YYYY-MM-DD-<slug>.md
+- [ ] **Filename convention**: Used YYYY-MM-DD-{slug}.md
 
 ### Acceptance Test
 

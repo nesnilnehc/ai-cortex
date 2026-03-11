@@ -195,19 +195,20 @@ If YES: Refinement is complete. Provide diff summary and version recommendation 
 > description: Context-aware spelling and terminology correction for multilingual documents.
 > tags: [writing, quality-control]
 > version: 1.1.0
+>
 > ---
 >
-> # Skill: Spelling and terminology
+> **Skill: Spelling and terminology**
 >
-> ## Purpose: Identify and fix low-level spelling errors and terminology inconsistency without changing the author's intent or tone
+> **Purpose**: Identify and fix low-level spelling errors and terminology inconsistency without changing the author's intent or tone
 >
-> ## Behavior
+> **Behavior**
 >
 > 1. Detect language.
 > 2. Build a term list if the text is long.
 > 3. Distinguish "typos" from "intentional style."
 >
-> ## Restrictions: Do not change proper nouns or specific abbreviations unless clearly wrong
+> **Restrictions**: Do not change proper nouns or specific abbreviations unless clearly wrong
 
 ### Example 2: Edge case — ambiguous draft
 

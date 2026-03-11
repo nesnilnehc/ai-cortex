@@ -152,28 +152,28 @@ If YES: Decontextualization is complete.
 
 ## Examples
 
-**Example 1: Internal process → generic**
+### Example 1: Internal Process → Generic
 
-| Original | Decontextualized |
-|----------|------------------|
+| Original                                                                                                        | Decontextualized                                                                                                    |
+| --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | In Acme’s JIRA workflow, when a requirement enters “Tech Review”, run X team’s Checklist, then notify PM Li Si. | When a requirement enters the “Tech Review” stage, run the defined Checklist and notify the relevant product owner. |
 
-**Example 2: System and API → neutral**
+### Example 2: System and API → Neutral
 
-| Original | Decontextualized |
-|----------|------------------|
+| Original                                                                 | Decontextualized                                                    |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------- |
 | Call gpt-4 via our company LLM Gateway (api.acme.internal), timeout 30s. | Call the model via an LLM API; set a reasonable timeout (e.g. 30s). |
 
-**Example 3: Team-specific rule → abstract**
+### Example 3: Team-Specific Rule → Abstract
 
-| Original | Decontextualized |
-|----------|------------------|
+| Original                                                                                     | Decontextualized                                                                                                                           |
+| -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | Per Kiro team policy, Python must pass `pylint` with score ≥ 9.0 before merging to `master`. | Per code quality policy, code should pass static checks (e.g. `pylint`) and meet the required threshold before merging to the main branch. |
 
-**Example 4: Path and file/folder names in docs**
+### Example 4: Path and File/Folder Names in Docs
 
-| Original | Decontextualized |
-|----------|------------------|
+| Original                                                                         | Decontextualized                                                                                 |
+| -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | Config is in `acme-internal/settings.yaml`. Output goes to `team-alpha/output/`. | Config is in `project-root/settings.yaml` (or `config/settings.yaml`). Output goes to `output/`. |
 
 ---
@@ -182,9 +182,9 @@ If YES: Decontextualization is complete.
 
 When this skill produces decontextualized text, it follows this contract:
 
-| Element | Requirement |
-| :--- | :--- |
-| Preserve | What is done and why; logic hierarchy; Markdown structure; functional instructions. |
-| Remove | Who, where, internal conditions; proper nouns → generic descriptions; path strings and file/folder names → generic equivalents. |
-| Interaction | When uncertain terms appear: list them and ask user to confirm before rewriting. |
-| Restrictions | No invention, inference, new semantics, or residue that could re-identify org/person. |
+| Element      | Requirement                                                                                                                     |
+| :----------- | :------------------------------------------------------------------------------------------------------------------------------ |
+| Preserve     | What is done and why; logic hierarchy; Markdown structure; functional instructions.                                             |
+| Remove       | Who, where, internal conditions; proper nouns → generic descriptions; path strings and file/folder names → generic equivalents. |
+| Interaction  | When uncertain terms appear: list them and ask user to confirm before rewriting.                                                |
+| Restrictions | No invention, inference, new semantics, or residue that could re-identify org/person.                                           |

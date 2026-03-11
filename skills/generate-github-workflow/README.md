@@ -26,20 +26,20 @@ Produces GitHub Actions workflow YAML that satisfies the skill's Appendix A outp
 
 ## Scores (ASQM)
 
-| Dimension      | Score |
-| :---           | :---  |
-| agent_native   | 5     |
-| cognitive      | 4     |
-| composability  | 4     |
-| stance         | 5     |
-| **asqm_quality** | 18   |
+| Dimension        | Score |
+| :--------------- | :---- |
+| agent_native     | 5     |
+| cognitive        | 4     |
+| composability    | 4     |
+| stance           | 5     |
+| **asqm_quality** | 18    |
 
 ## Ecosystem
 
-| Field | Value |
-| :--- | :--- |
-| overlaps_with (owner/repo:skill-name) | — |
-| market_position | differentiated |
+| Field                                 | Value          |
+| :------------------------------------ | :------------- |
+| overlaps_with (owner/repo:skill-name) | —              |
+| market_position                       | differentiated |
 
 ## Full definition
 

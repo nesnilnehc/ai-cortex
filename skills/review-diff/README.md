@@ -22,20 +22,20 @@ Reviews only the current change (git diff, staged and unstaged). Covers intent a
 
 ## Scores (ASQM)
 
-| Dimension      | Score |
-| :---           | :---  |
-| agent_native   | 5     |
-| cognitive      | 4     |
-| composability  | 5     |
-| stance         | 5     |
-| **asqm_quality** | 19   |
+| Dimension        | Score |
+| :--------------- | :---- |
+| agent_native     | 5     |
+| cognitive        | 4     |
+| composability    | 5     |
+| stance           | 5     |
+| **asqm_quality** | 19    |
 
 ## Ecosystem
 
-| Field | Value |
-| :--- | :--- |
+| Field                                 | Value                                                                                                                                                  |
+| :------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, wshobson/agents:code-review-excellence, trailofbits/skills:differential-review |
-| market_position | commodity |
+| market_position                       | commodity                                                                                                                                              |
 
 ## Full definition
 

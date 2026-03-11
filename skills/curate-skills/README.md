@@ -25,22 +25,22 @@ Evaluates, scores (ASQM **strict**), tags, and normalizes all Skills. Writes `ag
 
 ## Scores (ASQM)
 
-| Dimension      | Score |
-| :---           | :---  |
-| agent_native   | 5     |
-| cognitive      | 4     |
-| composability  | 5     |
-| stance         | 5     |
-| **asqm_quality** | 19   |
+| Dimension        | Score |
+| :--------------- | :---- |
+| agent_native     | 5     |
+| cognitive        | 4     |
+| composability    | 5     |
+| stance           | 5     |
+| **asqm_quality** | 19    |
 
 Lifecycle: Quality ≥ 17 AND Gate A and Gate B → validated; Quality ≥ 10 → experimental.
 
 ## Ecosystem
 
-| Field | Value |
-| :--- | :--- |
+| Field                                 | Value                                                                                   |
+| :------------------------------------ | :-------------------------------------------------------------------------------------- |
 | overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:refine-skill-design, nesnilnehc/ai-cortex:generate-standard-readme |
-| market_position | differentiated |
+| market_position                       | differentiated                                                                          |
 
 ## Full definition
 
