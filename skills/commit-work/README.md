@@ -48,7 +48,7 @@ This skill integrates content from multiple sources:
 
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill commit-work
-```
+```text
 
 ### For other projects
 
@@ -83,7 +83,7 @@ The skill will guide you through a comprehensive workflow from inspection to ver
 
 ### Conventional Commits Format
 
-```
+```text
 type(scope): short summary
 
 body explaining what and why

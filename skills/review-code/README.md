@@ -23,20 +23,20 @@ Orchestrates atomic review skills in a fixed order (scope → language → frame
 
 ## Scores (ASQM)
 
-| Dimension      | Score |
-| :---           | :---  |
-| agent_native   | 5     |
-| cognitive      | 5     |
-| composability  | 5     |
-| stance         | 5     |
-| **asqm_quality** | 20   |
+| Dimension        | Score |
+| :--------------- | :---- |
+| agent_native     | 5     |
+| cognitive        | 5     |
+| composability    | 5     |
+| stance           | 5     |
+| **asqm_quality** | 20    |
 
 ## Ecosystem
 
-| Field | Value |
-| :--- | :--- |
+| Field                                 | Value                                                                                                                                                                                                                                                                                                               |
+| :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-diff, nesnilnehc/ai-cortex:review-codebase, wshobson/agents:code-review-excellence, secondsky/claude-skills:code-review, trailofbits/skills:differential-review, cxuu/golang-skills:go-code-review, obra/superpowers:requesting-code-review, skillcreatorai/Ai-Agent-Skills:code-review |
-| market_position | differentiated |
+| market_position                       | differentiated                                                                                                                                                                                                                                                                                                      |
 
 ## Full definition
 

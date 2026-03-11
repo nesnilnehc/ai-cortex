@@ -25,20 +25,20 @@ Bootstrap or adapt project documentation using the [project-documentation-templa
 
 ## Scores (ASQM)
 
-| Dimension      | Score |
-| :---           | :---  |
-| agent_native   | 5     |
-| cognitive      | 4     |
-| composability  | 4     |
-| stance         | 5     |
-| **asqm_quality** | 18  |
+| Dimension        | Score |
+| :--------------- | :---- |
+| agent_native     | 5     |
+| cognitive        | 4     |
+| composability    | 4     |
+| stance           | 5     |
+| **asqm_quality** | 18    |
 
 ## Ecosystem
 
-| Field | Value |
-| :--- | :--- |
+| Field                                 | Value                                                                                  |
+| :------------------------------------ | :------------------------------------------------------------------------------------- |
 | overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:generate-standard-readme, nesnilnehc/ai-cortex:write-agents-entry |
-| market_position | differentiated |
+| market_position                       | differentiated                                                                         |
 
 ## Full definition
 

@@ -24,20 +24,20 @@ Identifies missing skills for a task and recommends concrete installation steps 
 
 ## Scores (ASQM)
 
-| Dimension      | Score |
-| :---           | :---  |
-| agent_native   | 5     |
-| cognitive      | 3     |
-| composability  | 5     |
-| stance         | 4     |
-| **asqm_quality** | 17   |
+| Dimension        | Score |
+| :--------------- | :---- |
+| agent_native     | 5     |
+| cognitive        | 3     |
+| composability    | 5     |
+| stance           | 4     |
+| **asqm_quality** | 17    |
 
 ## Ecosystem
 
-| Field | Value |
-| :--- | :--- |
+| Field                                 | Value                                    |
+| :------------------------------------ | :--------------------------------------- |
 | overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:refine-skill-design |
-| market_position | differentiated |
+| market_position                       | differentiated                           |
 
 ## Full definition
 

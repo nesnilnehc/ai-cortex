@@ -23,20 +23,20 @@ Reviews ORM usage patterns at the library level across ORM libraries (Prisma, En
 
 ## Scores (ASQM)
 
-| Dimension      | Score |
-| :---           | :---  |
-| agent_native   | 5     |
-| cognitive      | 4     |
-| composability  | 5     |
-| stance         | 5     |
-| **asqm_quality** | 19   |
+| Dimension        | Score |
+| :--------------- | :---- |
+| agent_native     | 5     |
+| cognitive        | 4     |
+| composability    | 5     |
+| stance           | 5     |
+| **asqm_quality** | 19    |
 
 ## Ecosystem
 
-| Field | Value |
-| :--- | :--- |
+| Field                                 | Value                                                                    |
+| :------------------------------------ | :----------------------------------------------------------------------- |
 | overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-sql, nesnilnehc/ai-cortex:review-performance |
-| market_position | differentiated |
+| market_position                       | differentiated                                                           |
 
 ## Full definition
 

@@ -110,13 +110,13 @@ Determine how a target repository expects automated tests to be executed (comman
 
 ## Input & Output
 
-**Input**
+### Input
 
 - Target repository path (default `.`).
 - Mode: `fast` (default), `ci`, or `full`.
 - Constraints: allow dependency install (yes/no), allow network (yes/no), allow Docker (yes/no).
 
-**Output**
+### Output
 
 - A short "Test Plan Summary" containing:
   - Evidence: which files/paths informed the plan
@@ -180,7 +180,7 @@ If YES: Skill execution is complete. Proceed to handoff if needed.
 
 ## Examples
 
-**Example 1: JavaScript repo with package.json**
+### Example 1: JavaScript Repo with package.json
 
 User: "Run tests for this repo."
 
@@ -195,7 +195,7 @@ Agent:
    - `npm test`
 5. Summarize results and point to failing test output if any.
 
-**Example 2 (Edge case): Monorepo with integration tests requiring Docker**
+### Example 2 (Edge Case): Monorepo with Integration Tests Requiring Docker
 
 User: "Mirror CI locally."
 
@@ -216,7 +216,7 @@ Agent:
 4. If integration tests fail, summarize:
    - service health / port conflicts
    - missing env vars
-    - how CI config differs from local
+   - how CI config differs from local
 
 ---
 

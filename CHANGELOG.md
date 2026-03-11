@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
+### Changed (Governance)
 
 - Calibration outputs now overwrite canonical files per `docs/ARTIFACT_NORMS.md` (doc-readiness, planning alignment, architecture compliance, cognitive loop); snapshots only when explicitly requested.
 - Updated output paths and versions for `assess-doc-readiness`, `align-planning`, `align-architecture`, `run-checkpoint`, and `run-repair-loop` to reduce redundant report artifacts.
@@ -30,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - One-off calibration reports and a completed backlog item that are superseded by canonical living artifacts.
 - Architecture Compliance scenario in scenario-map.json (short triggers: align architecture, architecture compliance, design vs code)
 
-### Changed
+### Changed (Alignment)
 
 - `align-execution` (v1.0.0 → v1.1.0) — slimmed to planning layer only; removed Architecture layer and Architecture Drift; handoff to `align-architecture` for design vs code compliance
 - `align-execution` → `align-planning` — renamed for semantic clarity (planning vs implementation boundary)
@@ -46,7 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `scripts/generate-skills-docs.mjs` — wrapper to run both generators
 - `skills/scenario-map.json` — source of truth for scenario-to-skill mapping (edit this, not scenario-map.md)
 
-### Changed
+### Changed (Automation)
 
 - `skills/skillgraph.md` — now auto-generated; adds global overview section (Code Review, Lifecycle, Onboarding, Governance, Standalone)
 - `skills/scenario-map.md` — now auto-generated from scenario-map.json

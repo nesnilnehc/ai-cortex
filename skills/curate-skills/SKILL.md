@@ -80,12 +80,12 @@ Govern the skill inventory by evaluating, scoring, tagging, and normalizing ever
 6. **Write**: Per skill, write or update `agent.yaml` (scores, status, overlaps_with, market_position) and normalize `README.md` to standard sections (what it does, when to use, inputs/outputs, etc.).
 7. **Summary**: Either write `ASQM_AUDIT.md` at repo level or print a structured summary in chat. **ASQM_AUDIT.md must include a final recommendations section** (e.g. “Recommendation”): actionable next steps (e.g. score adjustments, SKILL changes) or an explicit “no changes recommended” conclusion, so every audit ends with clear guidance. Required sections: lifecycle by status, scoring formula, dimension checklist, overlaps, ecosystem, findings, **recommendations** (final), and a short summary table.
 
-**Conceptual split**
+### Conceptual Split
 
 - **Scores (ASQM)** measure intrinsic quality: how well the skill is designed for Agents, reasoning offloaded, composability, and stance.
 - **Overlaps and market_position** describe ecosystem position: how the skill relates to others in the inventory.
 
-**Scoring model: ASQM (linear quality + dual-gate)**
+### Scoring Model: ASQM (Linear Quality + Dual-Gate)
 
 - **Quality** (linear): `asqm_quality = agent_native + cognitive + composability + stance`; each dimension 0–5, total 0–20.
 - **Gate A** (agent readiness): agent_native ≥ 4.
@@ -93,13 +93,13 @@ Govern the skill inventory by evaluating, scoring, tagging, and normalizing ever
 - **Lifecycle**: validated ↔ Quality ≥ **17** AND Gate A AND Gate B; experimental ↔ Quality ≥ 10; archive_candidate ↔ otherwise. (Bar set so validated = clearly production-ready: 17/20 + both gates.)
 - **Dimensions**: agent_native — Agent consumption (contracts, machine-readable metadata). cognitive — Reasoning offloaded from user to Agent. composability — Ease of combining with other skills or pipelines. stance — Design stance (spec alignment, principles).
 
-**Strict scoring (required)**
+### Strict Scoring (Required)
 
 - **Evidence-based**: Each score must be justified by the skill’s SKILL.md (e.g. presence of Appendix: Output contract, related_skills, Restrictions, Self-Check).
 - **No inflation**: agent_native = 5 only when the skill has an **explicit, machine-parseable output contract** (e.g. Appendix: Output contract or equivalent table/spec in SKILL.md). If output is described only in prose, agent_native ≤ 4.
 - **Consistency**: Apply the same criteria across all skills; do not relax for a single skill without justification.
 
-**Ecosystem position (per skill)**
+### Ecosystem Position (Per Skill)
 
 - **overlaps_with**: List of overlapping skills in **Git-repo form** `owner/repo:skill-name`. Use the same format for this repo and for other repos (no separate internal/external). Examples: `nesnilnehc/ai-cortex:refine-skill-design`, `softaworks/agent-toolkit:commit-work`. Empty `[]` if none.
 - **market_position**:
@@ -111,11 +111,11 @@ Govern the skill inventory by evaluating, scoring, tagging, and normalizing ever
 
 ## Input & Output
 
-**Input**
+### Input
 
 - `skills_directory`: Root path containing skill subdirectories (e.g. `skills/`).
 
-**Output**
+### Output
 
 - Per skill: updated `agent.yaml` (scores, status, overlaps_with, market_position); normalized `README.md`.
 - Repo-level: `ASQM_AUDIT.md` or structured summary in chat.

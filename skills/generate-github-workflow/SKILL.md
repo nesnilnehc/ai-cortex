@@ -215,13 +215,13 @@ The following are **mandatory** for workflow files produced by this skill; use t
 
 Each workflow YAML must contain (order recommended):
 
-| Field | Required | Description |
-| :--- | :--- | :--- |
-| `name` | Yes | Display name in GitHub UI; short and readable (e.g. "CI", "PR check", "Release"). |
-| `on` | Yes | Triggers: `push`, `pull_request`, `workflow_dispatch`, etc.; must narrow branch/path/tag; avoid broad `on: push` with no filter. |
-| `jobs` | Yes | At least one job; each job must have `runs-on` and `steps`. |
-| `jobs.<id>.runs-on` | Yes | Runner (e.g. `ubuntu-latest`). |
-| `jobs.<id>.steps` | Yes | List of steps; each step has `name` (human-readable) and `uses` or `run`. |
+| Field               | Required | Description                                                                                                                      |
+| :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------- |
+| `name`              | Yes      | Display name in GitHub UI; short and readable (e.g. "CI", "PR check", "Release").                                                |
+| `on`                | Yes      | Triggers: `push`, `pull_request`, `workflow_dispatch`, etc.; must narrow branch/path/tag; avoid broad `on: push` with no filter. |
+| `jobs`              | Yes      | At least one job; each job must have `runs-on` and `steps`.                                                                      |
+| `jobs.<id>.runs-on` | Yes      | Runner (e.g. `ubuntu-latest`).                                                                                                   |
+| `jobs.<id>.steps`   | Yes      | List of steps; each step has `name` (human-readable) and `uses` or `run`.                                                        |
 
 Optional but recommended: `permissions`, `concurrency`, `env`.
 
@@ -274,11 +274,11 @@ Conventions and practices for **Go + Docker + GHCR + GoReleaser** workflows; fol
 
 ### B.3 Steps and order
 
-**Go**
+#### Go
 
 - Use `actions/setup-go@v5` with `go-version-file: go.mod`. Enable `cache: true`. For release, checkout with `fetch-depth: 0` (needed for GoReleaser); CI can use the same for consistency.
 
-**CI (example order)**
+#### CI (Example Order)
 
 1. Checkout (`fetch-depth: 0`)
 2. Set up Go (go.mod + cache)
@@ -290,7 +290,7 @@ Conventions and practices for **Go + Docker + GHCR + GoReleaser** workflows; fol
 
 Multi-arch in Release only; CI scans single arch for speed.
 
-**Release (example order)**
+#### Release (Example Order)
 
 1. Checkout (`fetch-depth: 0`)
 2. Set up Go (go.mod + cache)
@@ -316,14 +316,14 @@ QEMU before Buildx; Buildx `platforms` must match QEMU. GoReleaser needs the Bui
 
 ### B.6 Lessons learned
 
-| Issue | Approach |
-|-------|----------|
-| Single workflow too large | Split into **CI + Release**: CI for build/test/scan, Release only on tag via GoReleaser; clearer permissions and logic. |
-| GHCR auth too complex | Use minimal login (`docker/login-action` + token); avoid heavy auth-verify that can false-fail. |
-| Multi-arch manifest validation fails | Pull and validate **per platform** instead of generic manifest pull. |
-| Date/version format inconsistent | Use one format (e.g. ISO8601) in workflow and Dockerfile; add `dist/` to `.gitignore` if using GoReleaser output. |
-| GoReleaser multi-arch build fails | GoReleaser needs Buildx builder: set **id: buildx** on Buildx step and pass **BUILDX_BUILDER: ${{ steps.buildx.outputs.name }}**. |
-| Version drift | Use reasonable version constraints and check release notes when upgrading; validate on a branch first. |
+| Issue                                | Approach                                                                                                                          |
+| :----------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
+| Single workflow too large            | Split into **CI + Release**: CI for build/test/scan, Release only on tag via GoReleaser; clearer permissions and logic.           |
+| GHCR auth too complex                | Use minimal login (`docker/login-action` + token); avoid heavy auth-verify that can false-fail.                                   |
+| Multi-arch manifest validation fails | Pull and validate **per platform** instead of generic manifest pull.                                                              |
+| Date/version format inconsistent     | Use one format (e.g. ISO8601) in workflow and Dockerfile; add `dist/` to `.gitignore` if using GoReleaser output.                 |
+| GoReleaser multi-arch build fails    | GoReleaser needs Buildx builder: set **id: buildx** on Buildx step and pass **BUILDX_BUILDER: ${{ steps.buildx.outputs.name }}**. |
+| Version drift                        | Use reasonable version constraints and check release notes when upgrading; validate on a branch first.                            |
 
 **Inspect workflow history**: `git log --oneline -- .github/workflows/`
 

@@ -7,7 +7,7 @@
 
 AI Cortex is an agent-first, governance-ready inventory of Skills. Specs turn Skills into reusable, composable engineering assets.
 
-### How it works
+## How it works
 
 Source: `docs/images/workflow-sequence.mmd`
 

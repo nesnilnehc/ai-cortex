@@ -24,20 +24,20 @@ Creates professional, consistent front-page documentation for any software proje
 
 ## Scores (ASQM)
 
-| Dimension      | Score |
-| :---           | :---  |
-| agent_native   | 5     |
-| cognitive      | 3     |
-| composability  | 4     |
-| stance         | 5     |
-| **asqm_quality** | 17   |
+| Dimension        | Score |
+| :--------------- | :---- |
+| agent_native     | 5     |
+| cognitive        | 3     |
+| composability    | 4     |
+| stance           | 5     |
+| **asqm_quality** | 17    |
 
 ## Ecosystem
 
-| Field | Value |
-| :--- | :--- |
+| Field                                 | Value                                                                              |
+| :------------------------------------ | :--------------------------------------------------------------------------------- |
 | overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:decontextualize-text, nesnilnehc/ai-cortex:write-agents-entry |
-| market_position | commodity |
+| market_position                       | commodity                                                                          |
 
 ## Full definition
 

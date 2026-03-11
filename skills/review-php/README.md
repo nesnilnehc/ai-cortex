@@ -22,20 +22,20 @@ Reviews PHP code for language and runtime conventions only: strict types and dec
 
 ## Scores (ASQM)
 
-| Dimension      | Score |
-| :---           | :---  |
-| agent_native   | 5     |
-| cognitive      | 4     |
-| composability  | 5     |
-| stance         | 5     |
-| **asqm_quality** | 19   |
+| Dimension        | Score |
+| :--------------- | :---- |
+| agent_native     | 5     |
+| cognitive        | 4     |
+| composability    | 5     |
+| stance           | 5     |
+| **asqm_quality** | 19    |
 
 ## Ecosystem
 
-| Field | Value |
-| :--- | :--- |
+| Field                                 | Value                                                                                                    |
+| :------------------------------------ | :------------------------------------------------------------------------------------------------------- |
 | overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-diff |
-| market_position | commodity |
+| market_position                       | commodity                                                                                                |
 
 ## Full definition
 
