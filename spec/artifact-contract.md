@@ -30,8 +30,8 @@ Scope: Skills that write Markdown artifacts under project `docs/` or repo root.
 | backlog-item | `docs/process-management/project-board/backlog/` | `YYYY-MM-DD-{slug}.md` | living | capture-work-items |
 | backlog-item (fallback) | `docs/backlog/` | `YYYY-MM-DD-{slug}.md` | living | capture-work-items |
 | adr | `docs/process-management/decisions/` | `YYYYMMDD-{slug}.md` | living | bootstrap-docs |
-| design | `docs/design-decisions/` | `YYYY-MM-DD-{topic}.md` | snapshot | brainstorm-design |
-| doc-readiness | `docs/calibration/` | `YYYY-MM-DD-doc-readiness.md` | snapshot | assess-doc-readiness |
+| design | `docs/design-decisions/` | `YYYY-MM-DD-{topic}.md` | snapshot | design-solution |
+| doc-assessment | `docs/calibration/` | `YYYY-MM-DD-doc-assessment.md` | snapshot | assess-docs |
 
 ### Path Rationale
 
@@ -123,11 +123,11 @@ artifact_types:
       - "docs/design-decisions/YYYY-MM-DD-{topic}.md"
     naming: "YYYY-MM-DD-{topic}.md"
     lifecycle: snapshot
-    owner_skill: brainstorm-design
+    owner_skill: design-solution
   doc-readiness:
     path_patterns:
       - "docs/calibration/YYYY-MM-DD-doc-readiness.md"
     naming: "YYYY-MM-DD-doc-readiness.md"
     lifecycle: snapshot
-    owner_skill: assess-doc-readiness
+    owner_skill: assess-docs
 ```

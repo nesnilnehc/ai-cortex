@@ -2,17 +2,17 @@
   "routing_rules": [
     "Prefer one primary skill per scenario.",
     "Add optional skills only when the primary output indicates a gap.",
-    "Escalate to run-checkpoint when multiple scenarios are active in one cycle.",
+    "Escalate to plan-next when multiple scenarios are active in one cycle.",
     "Use artifact handoff (requirements/design/alignment/doc-readiness reports) rather than implicit context passing."
   ],
-  "scenarios": [
+    "scenarios": [
     {
       "id": "project_start",
       "title": "Project Start",
       "short_triggers": ["project start", "start project", "requirements", "analyze requirements"],
       "when_to_use": "New project, new initiative, or major direction reset",
       "primary": "analyze-requirements",
-      "optional": ["brainstorm-design", "bootstrap-docs"],
+      "optional": ["design-solution", "bootstrap-docs"],
       "output": "Validated requirements and initial design/doc structure",
       "stop_condition": "Requirements approved and design path selected"
     },
@@ -22,7 +22,7 @@
       "short_triggers": ["post task", "alignment", "planning alignment", "align planning"],
       "when_to_use": "A task is done and you need to validate direction",
       "primary": "align-planning",
-      "optional": ["assess-doc-readiness", "align-architecture", "run-checkpoint"],
+      "optional": ["assess-docs", "align-architecture", "align-backlog", "plan-next"],
       "output": "Planning Alignment Report with drift and calibration actions",
       "stop_condition": "Next 1-3 tasks reprioritized with confidence level"
     },
@@ -32,7 +32,7 @@
       "short_triggers": ["align architecture", "architecture compliance", "design vs code"],
       "when_to_use": "Verify that implementation matches ADR or design docs",
       "primary": "align-architecture",
-      "optional": ["align-planning", "brainstorm-design"],
+      "optional": ["align-planning", "design-solution"],
       "output": "Architecture Compliance Report with gaps and remediation",
       "stop_condition": "Compliance gaps identified and handoff suggested"
     },
@@ -41,7 +41,7 @@
       "title": "Documentation Gap Triage",
       "short_triggers": ["doc gap", "documentation readiness", "doc triage"],
       "when_to_use": "Alignment confidence is low due to weak/missing docs",
-      "primary": "assess-doc-readiness",
+      "primary": "assess-docs",
       "optional": ["bootstrap-docs", "analyze-requirements"],
       "output": "Documentation Readiness Report and Minimal Fill Plan",
       "stop_condition": "Critical layers reach at least weak and high-priority gaps have owners"
@@ -51,8 +51,8 @@
       "title": "Iteration Orchestration",
       "short_triggers": ["iteration", "governance", "project cognitive loop"],
       "when_to_use": "Milestone closure, release gate, or periodic governance cycle (includes Phase 0.5 preparation)",
-      "primary": "run-checkpoint",
-      "optional": ["align-planning", "assess-doc-readiness", "discover-document-norms", "bootstrap-docs"],
+      "primary": "plan-next",
+      "optional": ["align-planning", "assess-docs", "discover-docs-norms", "bootstrap-docs"],
       "output": "Cycle report with executed/skipped steps and Recommended Next Tasks",
       "stop_condition": "All required scenario checks are completed or explicitly deferred"
     },
@@ -71,20 +71,10 @@
       "title": "Delivery Convergence",
       "short_triggers": ["repair", "fix tests", "delivery", "stabilize"],
       "when_to_use": "Need to run tests, fix failures, and stabilize before commit",
-      "primary": "run-repair-loop",
-      "optional": ["run-automated-tests", "commit-work"],
+      "primary": "automate-repair",
+      "optional": ["automate-tests", "commit-work"],
       "output": "Converged state + clean commit plan",
       "stop_condition": "Tests pass and commit scope is clear"
-    },
-    {
-      "id": "repository_onboarding",
-      "title": "Repository Onboarding",
-      "short_triggers": ["onboard", "onboard repo"],
-      "when_to_use": "New team member, inherited repository, or handoff",
-      "primary": "onboard-repo",
-      "optional": ["generate-standard-readme", "write-agents-entry"],
-      "output": "Onboarding report + core docs",
-      "stop_condition": "New contributor can navigate and start work without ad-hoc guidance"
     },
     {
       "id": "skill_system_governance",
@@ -108,14 +98,14 @@
       "stop_condition": "Item persisted and user confirmed"
     },
     {
-      "id": "repository_maintenance",
-      "title": "Repository Maintenance",
-      "short_triggers": ["prune", "cleanup", "repository maintenance"],
-      "when_to_use": "Cleanup, optimization, or archiving of old content",
-      "primary": "prune-content",
-      "optional": ["validate-doc-artifacts"],
-      "output": "Cleaned repository structure and archived obsolete content",
-      "stop_condition": "User confirms cleanup actions"
+      "id": "strategy_foundation",
+      "title": "Strategy Foundation",
+      "short_triggers": ["north star", "define mission", "define vision", "strategic goals", "strategic pillars", "define milestones", "strategy", "roadmap", "align backlog", "backlog alignment"],
+      "when_to_use": "Define or refresh strategic foundation: mission, vision, North Star Metric, strategic pillars, strategic goals, milestones, roadmap; or document strategy context",
+      "primary": "define-mission",
+      "optional": ["define-vision", "define-north-star", "define-strategic-pillars", "design-strategic-goals", "define-milestones", "define-roadmap", "align-backlog"],
+      "output": "Strategic layer docs (mission, vision, north-star, strategic-pillars, strategic-goals, milestones, roadmap) in docs/project-overview/ and docs/process-management/",
+      "stop_condition": "Requested strategic artifact(s) persisted and user confirmed"
     }
   ]
 }

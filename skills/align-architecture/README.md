@@ -33,7 +33,7 @@ npx skills add nesnilnehc/ai-cortex --skill align-architecture
 
 - `align-planning` — planning layer alignment (goals, requirements, roadmap, milestones)
 - `review-architecture` — code-only structure review (boundaries, dependencies)
-- `brainstorm-design` — design creation or design alternatives
+- `design-solution` — design creation or design alternatives
 
 ## Full definition
 

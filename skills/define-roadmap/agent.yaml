@@ -1,0 +1,27 @@
+name: define-roadmap
+status: validated
+
+primary_use: Translate strategic goals and milestones into a time-bound roadmap of initiatives or themes; produce a roadmap document with traceability and persist to docs/process-management/roadmap.md (or project norms).
+
+inputs:
+  - strategic goals and milestones (documents or paths); project context
+  - optional initiatives document; time horizon; existing roadmap
+
+outputs:
+  - roadmap document (docs/process-management/roadmap.md or project norms): initiatives/themes with mapping to milestones and goals
+
+scores:
+  agent_native: 5
+  cognitive: 5
+  composability: 5
+  stance: 5
+
+asqm_quality: 20
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:define-milestones
+  - nesnilnehc/ai-cortex:define-strategic-pillars
+
+market_position: differentiated
+
+tags: [documentation, workflow, eng-standards]

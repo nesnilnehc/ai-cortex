@@ -37,7 +37,7 @@ Bootstrap or adapt project documentation using the [project-documentation-templa
 
 | Field                                 | Value                                                                                  |
 | :------------------------------------ | :------------------------------------------------------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:generate-standard-readme, nesnilnehc/ai-cortex:write-agents-entry |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:generate-standard-readme, nesnilnehc/ai-cortex:generate-agent-entry |
 | market_position                       | differentiated                                                                         |
 
 ## Full definition

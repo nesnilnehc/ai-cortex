@@ -10,7 +10,7 @@ This skill synthesizes diagnostic state models and structured quality assessment
 
 - **Diagnostic state progression**: Systematic RA0-RA5 states from no problem statement to validated requirements (from jwynia/agent-skills requirements-analysis)
 - **Structured quality assessment**: Score clarity, specificity, and completeness to decide entry point (from staruhub/ClaudeSkills request-analyzer)
-- **HARD-GATE pattern**: Explicit prevention of design or implementation before requirements are validated (from brainstorm-design)
+- **HARD-GATE pattern**: Explicit prevention of design or implementation before requirements are validated (from design-solution)
 - **Request triage**: Quick assessment to determine deep vs. quick analysis path
 - **Problem-first methodology**: Requirements describe problems and needs, not solutions
 - **Constraint vs. assumption separation**: Distinguish real constraints from untested assumptions
@@ -22,7 +22,7 @@ This skill integrates methodologies from these sources:
 
 1. **requirements-analysis** (jwynia/agent-skills): Diagnostic state model (RA0-RA5), problem-first methodology, anti-patterns, constraint inventory, health check questions
 2. **request-analyzer** (staruhub/ClaudeSkills): Structured quality assessment (clarity/specificity/completeness), decision matrix, skill coordination pattern
-3. **brainstorm-design** (nesnilnehc/ai-cortex): Phase-based workflow, HARD-GATE pattern, incremental dialogue approach
+3. **design-solution** (nesnilnehc/ai-cortex): Phase-based workflow, HARD-GATE pattern, incremental dialogue approach
 
 ## When to Use
 
@@ -56,7 +56,7 @@ npx skills add nesnilnehc/ai-cortex --skill analyze-requirements
 
 ## Related Skills
 
-- `brainstorm-design`: Transform validated requirements into approved designs (next step after this skill)
+- `design-solution`: Transform validated requirements into approved designs (next step after this skill)
 - `refine-skill-design`: Audit and improve skill definitions
 - `discover-skills`: Discover and recommend relevant skills
 

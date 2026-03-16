@@ -3,7 +3,7 @@
 **Date:** 2026-03-06
 **Status:** Approved
 **Approved by:** User
-**Method:** brainstorm-design skill (structured design breakdown)
+**Method:** design-solution skill (structured design breakdown)
 
 ## Goal
 

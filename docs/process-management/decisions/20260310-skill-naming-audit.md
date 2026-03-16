@@ -41,19 +41,17 @@ lifecycle: living
 | analyze-requirements | ✓ | ✓ | ✓ | ✓ | |
 | assess-documentation-readiness | ✓ | ✓ | 中 | ✗ | 4 段，略长 |
 | bootstrap-project-documentation | ✓ | ✓ | 中 | ✗ | 3 段，略长 |
-| brainstorm-design | ✓ | ✓ | ✓ | ✓ | |
+| design-solution | ✓ | ✓ | ✓ | ✓ | |
 | capture-work-items | ✓ | ✓ | ✓ | ✓ | |
 | commit-work | ✓ | ✓ | ✓ | ✓ | |
 | curate-skills | ✓ | ✓ | ✓ | ✓ | |
 | decontextualize-text | ✓ | ✓ | 中 | ✓* | 专业术语可例外 |
-| discover-document-norms | ✓ | ✓ | ✓ | ✓ | |
+| discover-docs-norms | ✓ | ✓ | ✓ | ✓ | |
 | discover-skills | ✓ | ✓ | ✓ | ✓ | |
 | generate-github-workflow | ✓ | ✓ | ✓ | ✓ | |
 | generate-standard-readme | ✓ | ✓ | ✓ | ✓ | |
 | install-rules | ✓ | ✓ | ✓ | ✓ | |
-| onboard-repo | ✓ | ✓ | ✓ | ✓ | |
 | orchestrate-governance-loop | 中 | ✓ | 差 | ✗ | 语义与口语均不足 |
-| prune-content | ✓ | ✓ | ✓ | ✓ | |
 | refine-skill-design | ✓ | ✓ | ✓ | ✓ | |
 | review-architecture | ✓ | ✓ | ✓ | ✓ | |
 | review-code | ✓ | ✓ | ✓ | ✓ | |
@@ -76,7 +74,7 @@ lifecycle: living
 | run-automated-tests | ✓ | ✓ | ✓ | ✓ | run = literal 执行 |
 | run-repair-loop | ✓ | ✓ | ✓ | ✓ | run = literal 执行 |
 | validate-document-artifacts | ✓ | ✓ | 中 | ✗ | 3 段，略长 |
-| write-agents-entry | ✓ | ✓ | ✓ | ✓ | |
+| generate-agent-entry | ✓ | ✓ | ✓ | ✓ | |
 
 ---
 

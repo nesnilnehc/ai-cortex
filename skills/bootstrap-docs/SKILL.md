@@ -2,7 +2,7 @@
 name: bootstrap-docs
 description: Bootstrap or adapt project docs using project-documentation-template. Core goal - produce structured lifecycle documentation aligned with enterprise template. Initialize (empty) or Adjust (non-empty); repeatable; strict kebab-case naming.
 tags: [documentation, eng-standards, writing]
-related_skills: [generate-standard-readme, write-agents-entry]
+related_skills: [generate-standard-readme, generate-agent-entry]
 version: 1.1.1
 license: MIT
 recommended_scope: both
@@ -58,7 +58,7 @@ Bootstrap or adapt project documentation using the [project-documentation-templa
 **This skill does NOT handle**:
 
 - README generation (use `generate-standard-readme`)
-- AGENTS.md entry creation (use `write-agents-entry`)
+- AGENTS.md entry creation (use `generate-agent-entry`)
 - Skill-specific documentation (use `refine-skill-design`)
 - Content writing beyond template placeholders (user provides domain content)
 
@@ -168,7 +168,7 @@ First determine the execution mode. User override takes precedence; otherwise:
 **Do NOT do these (other skills handle them)**:
 
 - **README generation**: Creating or updating README.md files → Use `generate-standard-readme`
-- **AGENTS.md entry creation**: Writing or updating AGENTS.md files → Use `write-agents-entry`
+- **AGENTS.md entry creation**: Writing or updating AGENTS.md files → Use `generate-agent-entry`
 - **Skill documentation**: Creating or refining SKILL.md files → Use `refine-skill-design`
 - **Content authoring**: Writing domain-specific content beyond template placeholders → User provides content
 
@@ -177,7 +177,7 @@ First determine the execution mode. User override takes precedence; otherwise:
 - User says "structure is ready" or "placeholders filled" → Documentation structure complete, hand off to content authoring
 - User asks "how do I write the content?" → Structure complete, hand off to domain experts or content workflows
 - User asks "can you generate the README?" → Hand off to `generate-standard-readme`
-- User asks "can you create AGENTS.md?" → Hand off to `write-agents-entry`
+- User asks "can you create AGENTS.md?" → Hand off to `generate-agent-entry`
 
 ---
 

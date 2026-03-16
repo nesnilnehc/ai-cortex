@@ -24,7 +24,7 @@
 **End Time**: 2026-03-02  
 **Duration**: ~15 minutes
 
-**Migration Approach**: Delegated each skill migration to spec-task-execution subagent with reference implementation (brainstorm-design)
+**Migration Approach**: Delegated each skill migration to spec-task-execution subagent with reference implementation (design-solution)
 
 **Quality Gates**:
 
@@ -46,10 +46,10 @@
 ### Phase 2: Documentation skills (6 skills)
 
 - generate-standard-readme ✅
-- write-agents-entry ✅
+- generate-agent-entry ✅
 - bootstrap-project-documentation ✅
 - decontextualize-text ✅
-- brainstorm-design (already migrated) ✅
+- design-solution (already migrated) ✅
 - commit-work ✅
 
 **Status**: ✅ Complete
@@ -58,7 +58,7 @@
 **End Time**: 2026-03-02  
 **Duration**: ~20 minutes
 
-**Migration Approach**: Delegated each skill migration to spec-task-execution subagent with reference implementation (brainstorm-design)
+**Migration Approach**: Delegated each skill migration to spec-task-execution subagent with reference implementation (design-solution)
 
 **Quality Gates**:
 
@@ -72,7 +72,7 @@
 **Notes**:
 
 - All 6 skills successfully migrated with Core Objective, Scope Boundaries, and Skill Boundaries
-- brainstorm-design validated as unchanged (already compliant reference implementation)
+- design-solution validated as unchanged (already compliant reference implementation)
 - Self-Check sections aligned with Core Objective Success Criteria
 - YAML descriptions updated to include core goals (all under 200 chars)
 - Backward compatibility verified for all skills
@@ -123,7 +123,7 @@
 
 ## Reference Implementation Validation
 
-**Skill**: `brainstorm-design`  
+**Skill**: `design-solution`  
 **Validation Date**: 2026-03-02
 
 ### Validation Results
@@ -166,7 +166,7 @@
 
 ✅ **ALL CHECKS PASSED**
 
-The brainstorm-design skill is a valid reference implementation for Spec v2.0.0 migration.
+The design-solution skill is a valid reference implementation for Spec v2.0.0 migration.
 
 ---
 

@@ -4,7 +4,7 @@ description: Perform post-task traceback, drift detection, and top-down recalibr
 tags: [workflow, eng-standards, documentation]
 version: 1.3.0
 license: MIT
-related_skills: [analyze-requirements, brainstorm-design, bootstrap-docs, assess-doc-readiness, discover-document-norms, run-repair-loop, align-architecture]
+related_skills: [analyze-requirements, design-solution, bootstrap-docs, assess-docs, discover-docs-norms, run-repair-loop, align-architecture]
 recommended_scope: both
 metadata:
   author: ai-cortex
@@ -16,7 +16,7 @@ metadata:
         license: "MIT"
         type: "reference"
         borrowed: "State-based validation style, handoff boundaries, structured self-check"
-      - name: "brainstorm-design"
+      - name: "design-solution"
         repo: "nesnilnehc/ai-cortex"
         version: "1.0.0"
         license: "MIT"
@@ -82,7 +82,7 @@ Keep project execution aligned with higher-level planning by running a post-task
 **This skill does NOT handle**:
 
 - Rewriting requirements from scratch (use `analyze-requirements`)
-- Redesigning architecture (use `brainstorm-design`)
+- Redesigning architecture (use `design-solution`)
 - Architecture vs code compliance (use `align-architecture`)
 - Creating a new roadmap or milestone system from scratch
 - Implementing code changes
@@ -144,7 +144,7 @@ and produce a structured Planning Alignment Report.
 2. Resolve document paths:
    - Default mapping assumes project-documentation-template layout
    - Apply user path mapping overrides when provided
-   - **Optional discovery**: If user provides no path mapping and default layout does not match, run document structure discovery (e.g. scan `docs/`, `docs/requirements/`, `docs/roadmap*`, `*.md` at repo root) or suggest `discover-document-norms` to establish paths; report assumed mapping and ask for confirmation if ambiguous
+   - **Optional discovery**: If user provides no path mapping and default layout does not match, run document structure discovery (e.g. scan `docs/`, `docs/requirements/`, `docs/roadmap*`, `*.md` at repo root) or suggest `discover-docs-norms` to establish paths; report assumed mapping and ask for confirmation if ambiguous
 3. Confirm minimum context:
    - Completed task summary
    - At least one traceability anchor (requirement ID, roadmap item, milestone reference, or equivalent)
@@ -329,14 +329,14 @@ Task Backlog -> Roadmap -> Milestones -> Requirements -> Project Goals
 **Do NOT do these (other skills handle them)**:
 
 - Requirements redefinition workflow → `analyze-requirements`
-- Architecture option design workflow → `brainstorm-design`
-- Repo-level onboarding workflow → `onboard-repo`
+- Architecture option design workflow → `design-solution`
+- Repo-level onboarding → `review-codebase`, `generate-standard-readme`, `generate-agent-entry` (run in sequence as needed)
 - Automated test-and-fix loop execution → `run-repair-loop`
 
 **When to stop and hand off**:
 
 - Requirements are invalid or contradictory → hand off to `analyze-requirements`
-- Architecture design conflict is primary blocker → hand off to `brainstorm-design`
+- Architecture design conflict is primary blocker → hand off to `design-solution`
 - Architecture vs code compliance check needed → hand off to `align-architecture`
 - Report indicates active implementation defects requiring repair → suggest `run-repair-loop`
 

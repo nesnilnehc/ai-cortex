@@ -4,7 +4,7 @@ description: Verify architecture and design documents against code implementatio
 tags: [workflow, eng-standards, documentation]
 version: 1.2.0
 license: MIT
-related_skills: [align-planning, review-architecture, brainstorm-design, assess-doc-readiness, bootstrap-docs]
+related_skills: [align-planning, review-architecture, design-solution, assess-doc-readiness, bootstrap-docs]
 recommended_scope: project
 metadata:
   author: ai-cortex
@@ -50,7 +50,7 @@ Verify that code implementation aligns with architecture and design decisions do
 3. ✅ **Gaps classified**: Each compliance gap is typed (e.g. boundary violation, missing component, divergent pattern) with impact and root cause
 4. ✅ **Report persisted**: Architecture Compliance Report is written to the agreed path
 5. ✅ **Evidence referenced**: Each gap cites specific design sources and code locations; when partial verification is used, covered/uncovered scope and confidence are explicit
-6. ✅ **Handoff suggested**: When design is outdated or conflicting, suggest `brainstorm-design`; when structure review needed, suggest `review-architecture`
+6. ✅ **Handoff suggested**: When design is outdated or conflicting, suggest `design-solution`; when structure review needed, suggest `review-architecture`
 
 **Acceptance Test**: Can a teammate read the report and immediately understand which architecture decisions are violated, where in code, and what to do next?
 
@@ -69,10 +69,10 @@ Verify that code implementation aligns with architecture and design decisions do
 
 - Code structure review without design reference (use `review-architecture`)
 - Requirements analysis (use `analyze-requirements`)
-- Design creation or design alternatives (use `brainstorm-design`)
+- Design creation or design alternatives (use `design-solution`)
 - Planning layer alignment (use `align-planning`)
 
-**Handoff point**: After the report, hand off to `brainstorm-design` if design must change, or to `review-architecture` for structural code review without design comparison.
+**Handoff point**: After the report, hand off to `design-solution` if design must change, or to `review-architecture` for structural code review without design comparison.
 
 ---
 
@@ -121,7 +121,7 @@ the codebase and produce an Architecture Compliance Report when divergence exist
 2. Resolve code scope:
    - **Full**: entire repo (default)
    - **Incremental**: user-specified paths, packages, or modules (for large codebases; verify only affected design decisions)
-3. If no design docs exist, output blocked report with required minimum inputs; suggest `brainstorm-design` or `bootstrap-docs`
+3. If no design docs exist, output blocked report with required minimum inputs; suggest `design-solution` or `bootstrap-docs`
 
 ### Phase 0.5: Evidence Readiness Assessment
 
@@ -153,15 +153,15 @@ Rules:
    - **Missing component**: Documented component or interface not implemented
    - **Divergent pattern**: Implementation uses a different pattern than documented
    - **Outdated design**: Design doc may be stale; implementation may reflect current intent — assign `recommended_action`:
-     - `update_design`: Implementation is authoritative; design should be updated to match (suggest `brainstorm-design`)
+     - `update_design`: Implementation is authoritative; design should be updated to match (suggest `design-solution`)
      - `update_code`: Design remains authoritative; code should be refactored to match
-     - `both`: Ambiguous; requires stakeholder decision; suggest `brainstorm-design` to reconcile
+     - `both`: Ambiguous; requires stakeholder decision; suggest `design-solution` to reconcile
 
 ### Phase 3: Produce Report
 
 1. Aggregate findings with impact scope, root cause, and `recommended_action` per gap
 2. For each gap, state clearly: update code, update design, or both (see gap type above)
-3. Recommend handoff to `brainstorm-design` when design must change; to `review-architecture` when structure-only review needed
+3. Recommend handoff to `design-solution` when design must change; to `review-architecture` when structure-only review needed
 4. Include evidence readiness and confidence when partial verification was used
 
 ### Phase 4: Persist Report
@@ -253,16 +253,16 @@ Report must include a machine-readable compliance block (YAML or JSON).
 
 ### Skill Boundaries (Avoid Overlap)
 
-**Do NOT do these**:
+**Do NOT do these (other skills handle them)**:
 
 - Code-only structure review → `review-architecture`
-- Design creation or alternatives → `brainstorm-design`
+- Design creation or alternatives → `design-solution`
 - Planning layer traceback → `align-planning`
 
 **When to stop and hand off**:
 
-- No design docs exist → suggest `brainstorm-design` or `bootstrap-docs`
-- Design is conflicting or outdated → hand off to `brainstorm-design`
+- No design docs exist → suggest `design-solution` or `bootstrap-docs`
+- Design is conflicting or outdated → hand off to `design-solution`
 - Structural code review needed without design comparison → hand off to `review-architecture`
 
 ---
@@ -309,7 +309,7 @@ If YES: report is complete; proceed to handoff or remediation.
 **Output**:
 
 - Status: blocked
-- Message: No architecture or design documents found. Run `brainstorm-design` to create design docs, or `bootstrap-docs` to establish structure.
+- Message: No architecture or design documents found. Run `design-solution` to create design docs, or `bootstrap-docs` to establish structure.
 - Confidence: N/A
 
 ### Example 3: Partial Verification (Weak Readiness)
@@ -332,4 +332,4 @@ If YES: report is complete; proceed to handoff or remediation.
 
 - Type: outdated design
 - Recommended Action: update_design
-- Remediation: Update ADR-003 to document async event-driven approach; implementation is authoritative. Hand off to `brainstorm-design` to revise design doc.
+- Remediation: Update ADR-003 to document async event-driven approach; implementation is authoritative. Hand off to `design-solution` to revise design doc.

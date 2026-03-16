@@ -23,8 +23,8 @@ asqm_quality: 20
 overlaps_with:
   - nesnilnehc/ai-cortex:align-planning
   - nesnilnehc/ai-cortex:review-architecture
-  - nesnilnehc/ai-cortex:brainstorm-design
-  - nesnilnehc/ai-cortex:assess-doc-readiness
+  - nesnilnehc/ai-cortex:design-solution
+  - nesnilnehc/ai-cortex:assess-docs
 
 market_position: differentiated
 

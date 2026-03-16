@@ -1,0 +1,27 @@
+name: define-strategic-pillars
+status: validated
+
+primary_use: Derive 3–5 strategic pillars from vision and North Star; produce a pillars document to structure goals and roadmap; persist to docs/project-overview/strategic-pillars.md (or project norms).
+
+inputs:
+  - vision; North Star (or paths); project context
+  - optional mission; existing goals or pillars
+
+outputs:
+  - strategic pillars document (docs/project-overview/strategic-pillars.md): 3–5 pillars with alignment to vision/NSM
+
+scores:
+  agent_native: 5
+  cognitive: 5
+  composability: 5
+  stance: 5
+
+asqm_quality: 20
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:design-strategic-goals
+  - nesnilnehc/ai-cortex:define-roadmap
+
+market_position: differentiated
+
+tags: [documentation, workflow, eng-standards]

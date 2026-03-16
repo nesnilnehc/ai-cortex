@@ -24,8 +24,8 @@ lifecycle: living
 
 ### 1.2 范围
 
-- **在范围内**：修改 run-checkpoint 的 SKILL.md、agent.yaml、README；更新 skillgraph、INDEX、manifest、scenario-map 等引用；ensure discover-document-norms、bootstrap-docs 为 related_skills 并参与 Phase 0.5 编排
-- **不在范围内**：修改 align-planning、assess-doc-readiness、discover-document-norms、bootstrap-docs 的技能逻辑
+- **在范围内**：修改 run-checkpoint 的 SKILL.md、agent.yaml、README；更新 skillgraph、INDEX、manifest、scenario-map 等引用；ensure discover-docs-norms、bootstrap-docs 为 related_skills 并参与 Phase 0.5 编排
+- **不在范围内**：修改 align-planning、assess-doc-readiness、discover-docs-norms、bootstrap-docs 的技能逻辑
 
 ---
 
@@ -41,7 +41,7 @@ lifecycle: living
   Phase 0 (Trigger)
   → Phase 0.5 (Planning Readiness Gate)  [新增]
       ├─ 诊断 (assess 或轻量检测)
-      ├─ norms_missing → discover-document-norms
+      ├─ norms_missing → discover-docs-norms
       ├─ structure_missing → bootstrap-docs
       ├─ readiness=missing → 短路，输出 Minimal Fill Plan
       └─ readiness∈[weak,strong] → 继续 Phase 1
@@ -53,7 +53,7 @@ lifecycle: living
 
 | 状态 | 检测条件 | 动作 |
 | --- | --- | --- |
-| norms_missing | 无 `docs/ARTIFACT_NORMS.md` 且无 `.ai-cortex/artifact-norms.yaml`，且 `docs/` 存在但路径不符合 contract 默认 | 调用 `discover-document-norms` |
+| norms_missing | 无 `docs/ARTIFACT_NORMS.md` 且无 `.ai-cortex/artifact-norms.yaml`，且 `docs/` 存在但路径不符合 contract 默认 | 调用 `discover-docs-norms` |
 | structure_missing | 无 `docs/` 或缺少 planning 相关目录（project-overview、requirements-planning、process-management 等） | 调用 `bootstrap-docs` |
 | readiness=missing | assess 返回 low 且主要为内容缺失（结构已有但 goals/requirements/roadmap 空） | 短路，将 Minimal Fill Plan 纳入 cycle report |
 | readiness=weak/strong | assess 返回 medium 或 high | 继续 Phase 1 |
@@ -74,11 +74,11 @@ lifecycle: living
 
 | 任务 | 内容 |
 | --- | --- |
-| 1.1 | 确认 frontmatter 的 `related_skills` 包含 `discover-document-norms`、`bootstrap-docs`（已包含） |
+| 1.1 | 确认 frontmatter 的 `related_skills` 包含 `discover-docs-norms`、`bootstrap-docs`（已包含） |
 | 1.2 | 在 `## Behavior` 中插入 **Phase 0.5: Planning Readiness Gate**，描述：诊断逻辑、状态分支、调用条件、短路条件 |
 | 1.3 | 在 Phase 1 描述前增加「仅在 Phase 0.5 通过后执行」的说明 |
 | 1.4 | 在 `## Scope Boundaries` 的「This skill handles」中增加：Planning Readiness 诊断与准备编排 |
-| 1.5 | 在 `## Restrictions` 的 Skill Boundaries 中注明：norms 建立 → discover-document-norms；结构建立 → bootstrap-docs |
+| 1.5 | 在 `## Restrictions` 的 Skill Boundaries 中注明：norms 建立 → discover-docs-norms；结构建立 → bootstrap-docs |
 | 1.6 | 新增 Example 4：readiness=missing 短路；Example 5： Phase 0.5 执行 bootstrap 后继续 Phase 1 |
 | 1.7 | 更新 Self-Check：Phase 0.5 执行正确性、短路时 Recommended Next Tasks 包含 Minimal Fill Plan |
 | 1.8 | 更新 version 为 `1.2.0`（minor：新增 Phase 0.5 子流程） |
@@ -93,7 +93,7 @@ lifecycle: living
 
 | 任务 | 内容 |
 | --- | --- |
-| 2.1 | 在 `overlaps_with` 中增加 `nesnilnehc/ai-cortex:discover-document-norms`、`nesnilnehc/ai-cortex:bootstrap-docs` |
+| 2.1 | 在 `overlaps_with` 中增加 `nesnilnehc/ai-cortex:discover-docs-norms`、`nesnilnehc/ai-cortex:bootstrap-docs` |
 | 2.2 | 在 `primary_use` 或 `outputs` 中补充 Phase 0.5 的职责与短路输出说明（如有字段） |
 
 **文件**: `skills/run-checkpoint/README.md`
@@ -101,7 +101,7 @@ lifecycle: living
 | 任务 | 内容 |
 | --- | --- |
 | 2.3 | 在 When to use / 流程描述中补充 Phase 0.5 简要说明 |
-| 2.4 | 在 Related skills 中列出 discover-document-norms、bootstrap-docs |
+| 2.4 | 在 Related skills 中列出 discover-docs-norms、bootstrap-docs |
 
 **验收**：agent.yaml 与 README 与 SKILL.md 一致。
 
@@ -113,7 +113,7 @@ lifecycle: living
 
 | 任务 | 内容 |
 | --- | --- |
-| 3.1 | 在 `ORCHESTRATOR_CHAINS['run-checkpoint']` 中，将 `discover-document-norms`、`bootstrap-docs` 加入（作为 Phase 0.5 可能调用的 skill） |
+| 3.1 | 在 `ORCHESTRATOR_CHAINS['run-checkpoint']` 中，将 `discover-docs-norms`、`bootstrap-docs` 加入（作为 Phase 0.5 可能调用的 skill） |
 | 3.2 | 确认 `PROJECT_LOOP_CHAIN` 或相关流程图中体现 Phase 0.5 分支（如有） |
 
 **文件**: `skills/skillgraph.md`
@@ -139,7 +139,7 @@ lifecycle: living
 | 任务 | 内容 |
 | --- | --- |
 | 4.1 | 在「项目无文档体系，想用 align-planning / checkpoint」相关 scenario 中，将 run-checkpoint 标为推荐入口，并注明会执行 Phase 0.5 准备 |
-| 4.2 | 在 optional skills 中保留 discover-document-norms、bootstrap-docs（若尚未列入） |
+| 4.2 | 在 optional skills 中保留 discover-docs-norms、bootstrap-docs（若尚未列入） |
 
 **验收**：用户通过 scenario 可正确理解 run-checkpoint 作为入口时会执行准备步骤。
 
@@ -151,7 +151,7 @@ lifecycle: living
 
 | 任务 | 内容 |
 | --- | --- |
-| 5.1 | 新增条目：run-checkpoint v1.2.0 — Phase 0.5 Planning Readiness Gate；discover-document-norms、bootstrap-docs 纳入编排 |
+| 5.1 | 新增条目：run-checkpoint v1.2.0 — Phase 0.5 Planning Readiness Gate；discover-docs-norms、bootstrap-docs 纳入编排 |
 
 **文件**: `skills/run-checkpoint/SKILL.md`（metadata）
 
@@ -168,7 +168,7 @@ lifecycle: living
 | 任务 | 内容 |
 | --- | --- |
 | 6.1 | 运行 run-checkpoint Self-Check（人工或按 SKILL 自检清单逐项检查） |
-| 6.2 | 验证与 align-planning、assess-doc-readiness、discover-document-norms、bootstrap-docs 的 handoff 与边界描述一致 |
+| 6.2 | 验证与 align-planning、assess-doc-readiness、discover-docs-norms、bootstrap-docs 的 handoff 与边界描述一致 |
 | 6.3 | 若存在 `scripts/verify-*.mjs` 等校验脚本，确保通过 |
 
 **验收**：自检通过，无技能边界冲突。
@@ -179,7 +179,7 @@ lifecycle: living
 
 | 依赖 | 说明 |
 | --- | --- |
-| discover-document-norms | 已存在，可被编排调用 |
+| discover-docs-norms | 已存在，可被编排调用 |
 | bootstrap-docs | 已存在，可被编排调用 |
 | assess-doc-readiness | 已存在，可作 Phase 0.5 诊断或与轻量检测配合 |
 | spec/artifact-contract.md | 路径与 layer 定义不变 |
@@ -214,7 +214,7 @@ lifecycle: living
 function phase05_planning_readiness_gate():
   # Step 1: 轻量诊断
   if not has_norms() and has_non_standard_docs():
-    run discover-document-norms
+    run discover-docs-norms
     # discover 可能需要用户确认；完成后重新诊断
     return phase05_planning_readiness_gate()  # 或进入下一轮 cycle
 

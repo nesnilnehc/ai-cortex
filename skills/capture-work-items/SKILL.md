@@ -4,7 +4,7 @@ description: Capture requirements, bugs, or issues from free-form input into str
 tags: [writing, eng-standards, documentation, workflow]
 version: 1.0.0
 license: MIT
-related_skills: [analyze-requirements, brainstorm-design]
+related_skills: [analyze-requirements, design-solution]
 recommended_scope: both
 metadata:
   author: ai-cortex
@@ -57,7 +57,7 @@ Capture requirements, bugs, or issues from free-form input into structured, pers
 **This skill does NOT handle**:
 
 - Deep requirements clarification or validation → Use `analyze-requirements`
-- Design or architecture → Use `brainstorm-design`
+- Design or architecture → Use `design-solution`
 - Direct API calls to Zentao/GitHub to create issues (extension point; not required for v1)
 
 **Handoff point**: When artifact is persisted and user confirmed, hand off to `analyze-requirements` if item needs deeper validation, or to process-management/milestones for planning.
@@ -69,7 +69,7 @@ Capture requirements, bugs, or issues from free-form input into structured, pers
 - **Quick backlog entry**: User says "record this bug" or "add this requirement" — structure and persist without full analysis.
 - **Meeting/email capture**: Extract work items from meeting notes or email and save as structured artifacts.
 - **Triage input**: Capture items for later triage and prioritization in milestones or task breakdown.
-- **Backlog evidence**: Fill the Backlog gap identified in assess-doc-readiness (e.g. "Backlog: weak — no explicit backlog doc").
+- **Backlog evidence**: Fill the Backlog gap identified in assess-docs (e.g. "Backlog: weak — no explicit backlog doc").
 
 ---
 
@@ -244,13 +244,13 @@ The skill sets only `status: captured`. Downstream processes (milestones, promot
 **Do NOT do these** (other skills handle them):
 
 - **Deep requirements validation**: Diagnostic states, problem articulation, scope bounding → Use `analyze-requirements`
-- **Design and architecture**: Solutions, alternatives, trade-offs → Use `brainstorm-design`
+- **Design and architecture**: Solutions, alternatives, trade-offs → Use `design-solution`
 - **Task breakdown**: Epic/task decomposition, acceptance criteria refinement → Use process-management or implementation planning
 
 **When to stop and hand off**:
 
 - User says "this needs more analysis" → Hand off to `analyze-requirements`
-- User says "design this" → Hand off to `brainstorm-design`
+- User says "design this" → Hand off to `design-solution`
 - Artifact persisted and confirmed → Hand off complete
 
 ---

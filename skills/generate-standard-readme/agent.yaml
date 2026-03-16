@@ -20,7 +20,7 @@ asqm_quality: 17
 
 overlaps_with:
   - nesnilnehc/ai-cortex:decontextualize-text
-  - nesnilnehc/ai-cortex:write-agents-entry
+  - nesnilnehc/ai-cortex:generate-agent-entry
 
 market_position: commodity
 

@@ -29,5 +29,5 @@ AI Cortex architecture is defined by the [Evolution Roadmap](../designs/2026-03-
 Add ADRs (e.g. `docs/architecture/adrs/002-*.md`) when:
 
 - Major design decisions need explicit rationale
-- `brainstorm-design` produces approved architecture choices that warrant persistence
+- `design-solution` produces approved architecture choices that warrant persistence
 - Cross-skill or cross-phase dependencies need documentation

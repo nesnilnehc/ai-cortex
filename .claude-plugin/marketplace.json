@@ -15,10 +15,9 @@
       "./skills/refine-skill-design",
       "./skills/review-code",
       "./skills/review-codebase",
-      "./skills/write-agents-entry",
-      "./skills/onboard-repo",
+      "./skills/generate-agent-entry",
       "./skills/commit-work",
-      "./skills/brainstorm-design",
+      "./skills/design-solution",
       "./skills/install-rules",
       "./skills/bootstrap-docs",
       "./skills/curate-skills"

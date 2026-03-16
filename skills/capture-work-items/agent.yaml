@@ -21,7 +21,7 @@ asqm_quality: 18
 
 overlaps_with:
   - nesnilnehc/ai-cortex:analyze-requirements
-  - nesnilnehc/ai-cortex:brainstorm-design
+  - nesnilnehc/ai-cortex:design-solution
 
 market_position: differentiated
 

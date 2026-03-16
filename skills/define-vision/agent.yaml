@@ -1,0 +1,28 @@
+name: define-vision
+status: validated
+
+primary_use: Define the long-term future the project aims to create; produce a vision statement (1–3 sentences) aligned with mission and persist to docs/project-overview/vision.md (or project norms).
+
+inputs:
+  - mission (statement or path); project/product context
+  - optional existing vision draft, time horizon, audience
+
+outputs:
+  - vision statement document (docs/project-overview/vision.md or project norms)
+
+scores:
+  agent_native: 5
+  cognitive: 5
+  composability: 5
+  stance: 5
+
+asqm_quality: 20
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:define-mission
+  - nesnilnehc/ai-cortex:define-north-star
+  - nesnilnehc/ai-cortex:bootstrap-docs
+
+market_position: differentiated
+
+tags: [documentation, workflow, eng-standards]

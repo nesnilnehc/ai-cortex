@@ -8,13 +8,12 @@ This document describes how skills compose into orchestration chains, governance
 
 ## 1. Global overview
 
-The skill ecosystem has five major domains:
+The skill ecosystem has four major domains:
 
 | Domain | Purpose | Entry skills |
 | :--- | :--- | :--- |
 | **Code Review** | Aggregate scope, language, framework, library, and cognitive findings | [review-code](./review-code/SKILL.md) |
 | **Development Lifecycle** | Requirements → design → implementation → review → commit | [analyze-requirements](./analyze-requirements/SKILL.md), [run-repair-loop](./run-repair-loop/SKILL.md), [commit-work](./commit-work/SKILL.md) |
-| **Repository Onboarding** | New team member or inherited repo | [onboard-repo](./onboard-repo/SKILL.md) |
 | **Governance & Curation** | Skill inventory, docs, project governance | [curate-skills](./curate-skills/SKILL.md), [run-checkpoint](./run-checkpoint/SKILL.md) |
 | **Standalone** | Single-skill tasks | [decontextualize-text](./decontextualize-text/SKILL.md), [generate-github-workflow](./generate-github-workflow/SKILL.md), [capture-work-items](./capture-work-items/SKILL.md), etc. |
 
@@ -27,9 +26,6 @@ flowchart TB
     req[analyze-requirements]
     repair[run-repair-loop]
     commit[commit-work]
-  end
-  subgraph onboarding [Repository Onboarding]
-    onboard[onboard-repo]
   end
   subgraph governance [Governance]
     curate[curate-skills]
@@ -191,7 +187,7 @@ Requirements → Design → Implementation → Review → Commit
 ```mermaid
 flowchart LR
   analyze[analyze-requirements]
-  brainstorm[brainstorm-design]
+  brainstorm[design-solution]
   review_code_node[review-code]
   commit[commit-work]
   run_tests[run-automated-tests]
@@ -205,27 +201,7 @@ flowchart LR
   run_tests -->|tests pass| commit
 ```
 
-### 7.2 Repository onboarding chain
-
-The [onboard-repo](./onboard-repo/SKILL.md) orchestrator runs skills in sequence:
-
-```mermaid
-flowchart LR
-  onboard[onboard-repo]
-  rcb[review-codebase]
-  rarch[review-architecture]
-  readme[generate-standard-readme]
-  agents[write-agents-entry]
-  discover[discover-skills]
-
-  onboard --> rcb
-  rcb --> rarch
-  rarch --> readme
-  readme --> agents
-  agents --> discover
-```
-
-### 7.3 Governance and curation chain
+### 7.2 Governance and curation chain
 
 ```mermaid
 flowchart LR
@@ -241,9 +217,9 @@ flowchart LR
   install -.->|rules for quality| curate
 ```
 
-### 7.4 Project governance loop chain
+### 7.3 Project governance loop chain
 
-Phase 0.5: discover-document-norms, bootstrap-docs. Unified sequence: align-planning → assess-doc-readiness. Output-driven follow-ups: align-architecture, repair, brainstorm, analyze.
+Phase 0.5: discover-document-norms, bootstrap-docs. Unified sequence: align-planning → assess-docs. Output-driven follow-ups: align-architecture, repair, brainstorm, analyze.
 
 ```mermaid
 flowchart LR
@@ -252,9 +228,9 @@ flowchart LR
   bootstrap[bootstrap-docs]
   align[align-planning]
   alignarch[align-architecture]
-  docreadiness[assess-doc-readiness]
+  docreadiness[assess-docs]
   req[analyze-requirements]
-  design[brainstorm-design]
+  design[design-solution]
   repair[run-repair-loop]
 
   loop -->|Phase 0.5| discover
@@ -267,22 +243,22 @@ flowchart LR
   docreadiness -->|architecture gap| design
 ```
 
-### 7.5 Quick reference (non-review)
+### 7.4 Quick reference (non-review)
 
 | Skill | Chain | Input | Output |
 | :--- | :--- | :--- | :--- |
 | [analyze-requirements](./analyze-requirements/SKILL.md) | lifecycle | vague intent | validated requirements doc |
-| [brainstorm-design](./brainstorm-design/SKILL.md) | lifecycle | validated requirements | approved design doc |
+| [design-solution](./design-solution/SKILL.md) | lifecycle | requirements doc | design doc (no implementation) |
+| [breakdown-tasks](./breakdown-tasks/SKILL.md) | lifecycle | design doc | tasks.md / task list |
 | [commit-work](./commit-work/SKILL.md) | lifecycle | staged changes | git commits |
 | [run-automated-tests](./run-automated-tests/SKILL.md) | lifecycle | repo path | test execution results |
 | [run-repair-loop](./run-repair-loop/SKILL.md) | lifecycle | repo + scope | converged clean state |
 | [align-planning](./align-planning/SKILL.md) | lifecycle | completed task context | planning alignment report |
 | [align-architecture](./align-architecture/SKILL.md) | lifecycle | ADR/design scope + code scope | architecture compliance report |
-| [assess-doc-readiness](./assess-doc-readiness/SKILL.md) | lifecycle | docs scope + mapping | doc readiness report + minimal fill plan |
+| [assess-docs](./assess-docs/SKILL.md) | lifecycle | docs scope + mapping | doc assessment report (compliance findings + readiness + minimal fill plan) |
 | [run-checkpoint](./run-checkpoint/SKILL.md) | lifecycle | trigger + project context | cycle report |
-| [onboard-repo](./onboard-repo/SKILL.md) | onboarding | repo path | onboarding report |
 | [generate-standard-readme](./generate-standard-readme/SKILL.md) | onboarding, governance | project context | standardized README |
-| [write-agents-entry](./write-agents-entry/SKILL.md) | onboarding | project context | AGENTS.md |
+| [generate-agent-entry](./generate-agent-entry/SKILL.md) | onboarding | project context | AGENTS.md |
 | [discover-skills](./discover-skills/SKILL.md) | onboarding | capability gaps | skill recommendations |
 | [curate-skills](./curate-skills/SKILL.md) | governance | skills directory | ASQM audit report |
 | [refine-skill-design](./refine-skill-design/SKILL.md) | governance | SKILL.md | optimized SKILL.md |
@@ -291,5 +267,4 @@ flowchart LR
 | [decontextualize-text](./decontextualize-text/SKILL.md) | standalone | private text | generic text |
 | [generate-github-workflow](./generate-github-workflow/SKILL.md) | standalone | workflow requirements | GitHub Actions YAML |
 | [capture-work-items](./capture-work-items/SKILL.md) | standalone | free-form input | structured work item(s) |
-| [validate-doc-artifacts](./validate-doc-artifacts/SKILL.md) | standalone | docs scope | findings list |
 | [discover-document-norms](./discover-document-norms/SKILL.md) | standalone | project path | docs/ARTIFACT_NORMS.md |
