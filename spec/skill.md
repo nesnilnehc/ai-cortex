@@ -1,11 +1,13 @@
 # Skill Specification
 
 Status: MANDATORY  
-Version: 2.5.0  
+Version: 2.7.0  
 Scope: All files under `skills/`.
 
 **Changelog**:
 
+- v2.7.0 (2026-03-16): Added explicit Divergent (exploratory) + Convergent (decision / artifact) phase model for skills; updated naming, I/O contracts, Behavior, Restrictions, and Self-Check to support two-phase workflows and handoffs
+- v2.6.0 (2026-03-16): Made "don't" (Skill Boundaries) mandatory in §4.2 Restrictions; Handoff (When to Stop) optional but recommended; added REJECT gate for missing Skill Boundaries, WARN for missing When to Stop
 - v2.5.0 (2026-03-10): Added naming priority rule (§1): semantic correctness and normativity first, colloquial and memorable second
 - v2.4.0 (2026-03-10): Added Interaction Policy (§4.3), optional triggers/aliases, input_schema.defaults; Invocation UX and language strategy
 - v2.3.0 (2026-03-06): Added scenario-map to Metadata Sync; expanded verb-noun naming guidance; verify-registry checks scenario-map references
@@ -22,11 +24,15 @@ Scope: All files under `skills/`.
 - **File name**: Must be `SKILL.md`.
 - **Naming**: Use `verb-noun` (e.g. `decontextualize-text`). Avoid vague or generic terms.
   - **Preferred**: `verb-noun` (e.g. `generate-readme`, `discover-skills`, `capture-work-items`), or `verb-target` for review/action families (e.g. `review-code`, `review-python`).
-  - **Avoid**: Pure noun-noun compounds (e.g. `documentation-readiness` → prefer `assess-doc-readiness`); abstract compound names without a clear verb.
+- **Avoid**: Pure noun-noun compounds (e.g. `documentation-readiness` → prefer `assess-docs`); abstract compound names without a clear verb.
 - **Naming priority** (apply in order):
   1. **Semantic correctness and normativity first**: The verb must accurately describe what the skill does; the name must comply with verb-noun and spec. No semantic drift for colloquialism.
   2. **Colloquial and memorable second**: Prefer natural, easy-to-remember names within the above constraints.
-- **Terminology consistency**: For the same semantic concept across skills, use the same term (e.g. `doc` for documentation-related skills: `assess-doc-readiness`, `bootstrap-docs`, `validate-doc-artifacts`).
+- **Terminology consistency**: For the same semantic concept across skills, use the same term (e.g. `doc` for documentation-related skills: `assess-docs`, `bootstrap-docs`).
+- **Divergent / Convergent naming** (full phase definitions and examples: §8.5):
+  - **Divergent skills** (option generation, exploration) SHOULD prefer verbs like `brainstorm-`, `ideate-`, `explore-`, `generate-options-`.
+  - **Convergent skills** (definition, selection, planning, artifact creation) SHOULD prefer verbs like `define-`, `design-`, `plan-`, `prioritize-`.
+  - **Two-phase skills** MAY embed both phases; clearly label phases in Behavior / Execution (e.g. "Divergent phase: brainstorm-X; Convergent phase: define-X") even if implemented in a single SKILL.
 - **name** (aligned with [agentskills.io](https://agentskills.io/specification)): 1–64 chars; lowercase letters, digits, hyphens only; must not start or end with `-`; no consecutive hyphens `--`; must match parent directory name.
 - **Single-file and self-contained (best practice)**: A skill is typically **one SKILL.md**; the Agent loads that file for the full definition. Do not rely on other MD files in the skill directory for execution. If the skill has a fixed output format or contract (e.g. "AGENTS.md must follow a given structure"), **embed that contract in SKILL.md** (e.g. "## Appendix: Output contract") rather than a separate file, so one injection is enough.
 
@@ -177,14 +183,24 @@ Both placements are valid: as subsections of `## Core Objective` (inline) or as 
 - **Core Objective**: MUST include Core Objective section with Primary Goal, Success Criteria (3-6 items), and Acceptance Test.
 - **Self-Check Alignment**: Self-Check section MUST align with Success Criteria from Core Objective.
 - **Scope Boundaries**: SHOULD define what the skill handles vs. what it does NOT handle to prevent overlap with other skills.
+- **Don't (mandatory)**: Every skill MUST define what it does NOT do (explicit list of responsibilities owned by other skills). This MUST appear in the `## Restrictions` section as **Skill Boundaries** (see §4.2); it may also appear in `## Scope Boundaries`.
+- **Handoff (optional)**: Skills SHOULD define when to stop and hand off to other skills or workflows (e.g. in **When to Stop** under Restrictions, or as **Handoff Point** under Core Objective). Recommended for composable or chainable skills.
+- **Divergent + Convergent clarity** (for exploratory / decision skills): If a skill performs both **Divergent** (option generation / exploration) and **Convergent** (selection / artifact creation) work, the SKILL MUST:
+  - Explicitly describe both phases in `## Behavior` (or an `Execution` / `Execution Process` subsection), including phase names or labels.
+  - Declare phase-specific inputs/outputs in `## Input & Output` and, where applicable, in `input_schema` / `output_schema`.
+  - Define clear scope boundaries so that the Divergent phase does **not** commit to final decisions or persistent artifacts, and the Convergent phase does **not** reopen open-ended exploration.
+  - Document handoff rules: Divergent → Convergent; Convergent → downstream skills (e.g. `define-milestones`, `align-backlog`).
 
 ### 4.1 Self-Check Requirements
 
 The Self-Check section MUST include:
 
-1. **Core Success Criteria**: Direct mapping from Core Objective's Success Criteria (copy them here for verification)
-2. **Process Quality Checks**: Additional checks for process quality (optional but recommended)
-3. **Acceptance Test**: Repeat the Acceptance Test from Core Objective for easy reference
+1. **Core Success Criteria**: Direct mapping from Core Objective's Success Criteria (copy them here for verification).
+2. **Process Quality Checks**: Additional checks for process quality (optional but recommended).
+3. **Acceptance Test**: Repeat the Acceptance Test from Core Objective for easy reference.
+4. **Phase-specific checks (for Divergent + Convergent skills)**:
+   - **Divergent phase**: Checklist MUST verify that multiple options or candidate artifacts were generated, that they stay within scope, and that no final decision or persistent artifact was created.
+   - **Convergent phase**: Checklist MUST verify that a decision was made based on the Divergent output, a standardized artifact was produced (e.g. mission, vision, roadmap, milestones), and that persist / handoff requirements were satisfied.
 
 **Example**:
 
@@ -216,11 +232,20 @@ If YES: Design is complete. Proceed to handoff.
 
 ### 4.2 Restrictions Requirements
 
-The Restrictions section SHOULD include:
+The Restrictions section MUST include the following. **Skill Boundaries** (don't) is mandatory to avoid overlap; **When to Stop** (handoff) is optional but recommended for composable skills.
 
-1. **Hard Boundaries**: Absolute constraints the skill must never violate
-2. **Skill Boundaries**: Explicit list of what other skills handle (to avoid overlap)
-3. **When to Stop**: Clear conditions for when to stop and hand off to other skills
+1. **Hard Boundaries**: Absolute constraints the skill must never violate.
+2. **Skill Boundaries** (mandatory): Explicit list of what this skill does NOT do and which other skills or workflows handle those responsibilities. Use wording such as "Do NOT do these (other skills handle them): … → Use `skill-name`". This is the canonical don't (out-of-scope) list for the skill.
+3. **When to Stop** (optional): Clear conditions for when to stop and hand off to other skills or workflows (e.g. "User says 'approved' → hand off to X", "User asks for Y → hand off to Z"). Recommended when the skill is used in chains or orchestration.
+4. **Divergent vs. Convergent scope** (when applicable):
+   - **Divergent phase**:
+     - Only responsible for generating options, ideas, or exploratory outputs.
+     - MUST NOT make final decisions, lock in a single option, or write persistent artifacts (e.g. mission, vision, roadmap documents).
+     - MUST document the **handoff condition** to the Convergent phase (same SKILL or another SKILL).
+   - **Convergent phase**:
+     - Only responsible for selecting, evaluating, and aggregating from existing candidates.
+     - MUST NOT introduce entirely new options beyond the previously generated scope (except minor refinements or synthesis).
+     - MUST produce a standardized artifact or structured output that is explicitly usable by downstream skills, and document the **handoff condition** to those skills.
 
 **Example**:
 
@@ -265,6 +290,15 @@ Skills SHOULD minimize user input by applying these principles. **New skills** (
 - **Progressive disclosure**: Run with defaults first, then offer follow-up options if the user wants more control.
 
 Each skill's `## Behavior` MUST state: defaults, choice options, and which items require explicit user confirmation.
+
+**Execution process and phases**:
+
+- For skills that have clearly separated phases (e.g. Divergent → Convergent), `## Behavior` SHOULD describe the **execution process** in terms of:
+  - **Phase names** (e.g. "Divergent phase: brainstorm-options", "Convergent phase: define-mission").
+  - **Per-phase inputs** (what the Agent expects at the start of the phase).
+  - **Per-phase outputs** (what is produced, and whether it is transient or persistent).
+  - **Per-phase interaction** (when to ask the user to choose options, approve a selection, or trigger the next phase).
+- When both phases are implemented inside the same SKILL, clearly document how the Convergent phase is triggered (e.g. "second invocation with `mode: convergent`", "user explicitly chooses 'go to definition phase'").
 
 ### 4.4 Invocation and Language
 
@@ -321,7 +355,8 @@ Each skill's `## Behavior` MUST state: defaults, choice options, and which items
 - ❌ **REJECT** if Core Objective section missing
 - ❌ **REJECT** if Success Criteria has < 3 or > 6 items
 - ❌ **REJECT** if Self-Check does not align with Success Criteria
-- ⚠️ **WARN** if Skill Boundaries section missing (overlap risk)
+- ❌ **REJECT** if Restrictions section missing **Skill Boundaries** (don't — what this skill does NOT do and which skills handle it)
+- ⚠️ **WARN** if Restrictions section missing **When to Stop** (handoff conditions; recommended for composable skills)
 - ⚠️ **WARN** if ASQM score < 0.7 (quality concern)
 
 ### 7.2 Automated Quality Checks
@@ -364,6 +399,7 @@ output_schema:
   type: [artifact type]
   description: [what this skill produces]
   # For document-artifact: optionally add artifact_type, path_pattern, lifecycle per spec/artifact-contract.md
+  # For two-phase skills, clarify whether this is the Divergent (transient) or Convergent (persistent) output, or both
 ```
 
 ### 8.2 Standard Artifact Types
@@ -371,14 +407,14 @@ output_schema:
 | Artifact type | Structure | Used by |
 | :--- | :--- | :--- |
 | `findings-list` | Array of {Location, Category, Severity, Title, Description, Suggestion} | All review skills |
-| `document-artifact` | Markdown file written to a specified path | generate-standard-readme, write-agents-entry, brainstorm-design. For paths and naming, see [spec/artifact-contract.md](artifact-contract.md). |
-| `diagnostic-report` | Structured summary with sections (Goal, Findings, Recommendations) | review-codebase, onboard-repo |
+| `document-artifact` | Markdown file written to a specified path | generate-standard-readme, generate-agent-entry, define-mission, define-vision, define-roadmap, define-milestones, design-solution. For paths and naming, see [spec/artifact-contract.md](artifact-contract.md). |
+| `diagnostic-report` | Structured summary with sections (Goal, Findings, Recommendations) | review-codebase, run-checkpoint |
 | `code-scope` | Files, directories, or git diff provided by the caller | review-diff, review-codebase |
-| `free-form` | Unstructured text or user input | brainstorm-design, discover-skills |
+| `free-form` | Unstructured text or user input | design-solution, discover-skills, brainstorm-mission, brainstorm-roadmap |
 
 ### 8.3 Document Artifact Path Contract
 
-Skills that produce `document-artifact` outputs (e.g. capture-work-items, brainstorm-design, assess-doc-readiness, bootstrap-docs) SHOULD align their output paths and naming with [spec/artifact-contract.md](artifact-contract.md). Declare `artifact_type`, `path_pattern`, and `lifecycle` in output_schema when applicable.
+Skills that produce `document-artifact` outputs (e.g. capture-work-items, design-solution, assess-docs, bootstrap-docs) SHOULD align their output paths and naming with [spec/artifact-contract.md](artifact-contract.md). Declare `artifact_type`, `path_pattern`, and `lifecycle` in output_schema when applicable.
 
 ### 8.4 Orchestrator Usage
 
@@ -389,6 +425,130 @@ Orchestrators (meta skills) use `input_schema` and `output_schema` to:
 3. **Aggregate**: Merge multiple findings-lists into a single report.
 
 This is backward-compatible: skills without I/O contracts continue to work as before. Orchestrators fall back to manual context passing when contracts are absent.
+
+### 8.5 Divergent + Convergent Phase Patterns (Optional but Recommended)
+
+To explicitly support **Divergent (exploratory)** and **Convergent (decision / artifact)** phases, skills MAY use the following patterns.
+
+#### 8.5.1 Phase Definitions
+
+- **Divergent phase**:
+  - Purpose: Generate multiple options, ideas, scenarios, or rough candidates.
+  - Inputs: Usually `free-form` context (e.g. "current product strategy", "vision draft") and constraints.
+  - Outputs: Non-persistent, exploratory results such as lists of options, bullet-point candidates, sketches of missions/visions/roadmaps.
+  - Scope: MUST NOT write final mission/vision/roadmap/milestones documents or commit to a single option.
+  - Interaction: Encourage user / Agent to react, annotate, and narrow down preferences.
+- **Convergent phase**:
+  - Purpose: Select, evaluate, and aggregate from existing options into a standardized artifact.
+  - Inputs: The Divergent output (options / candidates), plus user preferences or selection criteria.
+  - Outputs: Persistent `document-artifact` or structured objects, such as `mission`, `vision`, `strategic-goals`, `roadmap`, `milestones`.
+  - Scope: MUST NOT reopen broad exploration or introduce unrelated new options; focuses on refinement and decision.
+  - Interaction: Ask for explicit confirmation before finalizing and persisting.
+
+#### 8.5.2 Naming Patterns
+
+- **Divergent skills** (examples):
+  - `brainstorm-mission`
+  - `ideate-vision`
+  - `generate-options-roadmap`
+  - `brainstorm-strategic-pillars`
+- **Convergent skills** (examples):
+  - `define-mission`
+  - `define-vision`
+  - `define-roadmap`
+  - `design-strategic-goals`
+  - `define-milestones`
+- **Two-phase skills**:
+  - May keep a single name (e.g. `design-solution`) but MUST document:
+    - Phase labels (e.g. "Divergent mode" vs "Convergent mode").
+    - How to trigger each phase (input flag, explicit user request, second invocation).
+    - Which outputs are transient (Divergent) vs. persistent (Convergent).
+
+#### 8.5.3 Input / Output Examples
+
+**Example: Divergent-only skill (`brainstorm-mission`)**:
+
+```yaml
+name: brainstorm-mission
+description: Generate multiple candidate mission statements for a product or organization.
+tags: [strategy, mission, divergent]
+version: 1.0.0
+license: MIT
+input_schema:
+  type: free-form
+  description: Context about the organization, users, and constraints for the mission.
+output_schema:
+  type: free-form
+  description: List of 5–10 candidate mission statements with short rationales (Divergent, non-final).
+```
+
+- **Behavior / Execution** SHOULD state:
+  - "This skill only performs a Divergent phase (option generation). It does not decide or persist a final mission."
+  - "Handoff: When the user is ready to converge, hand off to `define-mission`."
+
+**Example: Convergent-only skill (`define-mission`)**:
+
+```yaml
+name: define-mission
+description: Converge from mission options to a single, approved mission statement and write it as a document artifact.
+tags: [strategy, mission, convergent]
+version: 1.0.0
+license: MIT
+input_schema:
+  type: free-form
+  description: Candidate mission statements from a Divergent skill (e.g. brainstorm-mission) plus selection criteria.
+output_schema:
+  type: document-artifact
+  description: Final mission statement, persisted as a Markdown artifact.
+  artifact_type: mission
+  path_pattern: docs/project-overview/mission.md
+  lifecycle: source-of-truth
+```
+
+- **Behavior / Execution** SHOULD state:
+  - "This skill only performs a Convergent phase (selection and definition). It does not explore new, unrelated mission options."
+  - "Handoff in: Expects options from `brainstorm-mission` or equivalent Divergent work."
+  - "Handoff out: After writing `mission.md`, downstream skills like `define-vision` or `define-roadmap` may consume it."
+
+**Example: Two-phase skill (Divergent + Convergent inside one SKILL)**:
+
+```yaml
+name: design-strategic-goals
+description: Explore candidate strategic goals and converge on a prioritized, documented set of strategic pillars.
+tags: [strategy, goals, divergent, convergent]
+version: 1.0.0
+license: MIT
+input_schema:
+  type: free-form
+  description: Context about mission, vision, and constraints.
+output_schema:
+  type: document-artifact
+  description: Final set of strategic goals / pillars, ready for downstream roadmap planning.
+  artifact_type: strategic-goals
+  path_pattern: docs/project-overview/strategic-goals.md
+  lifecycle: source-of-truth
+```
+
+- **Behavior / Execution** MUST clarify:
+  - **Divergent phase**: "Generate 10–20 candidate goals with rationale; mark this output as transient and present for review."
+  - **Convergent phase**: "After user selects or refines, synthesize into 3–7 strategic pillars and write them to `strategic-goals.md`."
+  - **Trigger**: e.g. `mode: divergent` vs `mode: convergent`, or "first invocation is Divergent, second (after approval) is Convergent."
+  - **Handoff**: "Downstream skills like `define-roadmap` and `define-milestones` can consume `strategic-goals.md`."
+
+#### 8.5.4 Handoff Rules
+
+- **Divergent → Convergent**:
+  - When Divergent exploration is complete (enough options, clarified preferences), the skill SHOULD:
+    - Summarize options and trade-offs.
+    - Ask the user whether to proceed to convergence.
+    - Either:
+      - Trigger its own Convergent phase (if two-phase skill), or
+      - Explicitly recommend a Convergent skill (e.g. "Use `define-roadmap` with these options.").
+- **Convergent → Downstream**:
+  - When Convergent decision and artifact creation are complete, the skill SHOULD:
+    - Confirm the persistent artifact path and type (e.g. mission, vision, roadmap, milestones).
+    - Mention typical downstream skills (e.g. `define-milestones`, `align-backlog`, `capture-work-items`) that can consume the artifact.
+    - Clarify that further exploration (new divergent options) is out of scope and should be handled by the Divergent skill again if needed.
 
 ---
 

@@ -4,7 +4,7 @@ description: Transform vague intent into validated, testable requirements throug
 tags: [writing, eng-standards, documentation]
 version: 1.0.0
 license: MIT
-related_skills: [brainstorm-design, refine-skill-design, discover-skills]
+related_skills: [design-solution, refine-skill-design, discover-skills]
 recommended_scope: both
 metadata:
   author: ai-cortex
@@ -22,7 +22,7 @@ metadata:
         license: "MIT"
         type: "integration"
         borrowed: "Structured quality assessment (clarity/specificity/completeness), decision matrix, skill coordination pattern"
-      - name: "brainstorm-design"
+      - name: "design-solution"
         repo: "nesnilnehc/ai-cortex"
         version: "1.0.0"
         license: "MIT"
@@ -31,7 +31,7 @@ metadata:
     enhancements:
       - "Unified diagnostic states with structured quality assessment"
       - "Added request triage for quick vs. deep analysis"
-      - "Defined clear handoff boundary with brainstorm-design"
+      - "Defined clear handoff boundary with design-solution"
       - "Added output persistence with file naming conventions"
       - "Comprehensive self-check aligned with core objective"
 triggers: [project start, start project, requirements, analyze requirements]
@@ -81,13 +81,13 @@ Diagnose requirements-level problems and transform vague intent into validated, 
 
 **This skill does NOT handle**:
 
-- Design and architecture decisions (use `brainstorm-design`)
+- Design and architecture decisions (use `design-solution`)
 - Implementation planning or task lists (use implementation planning skills)
 - Code writing (use development skills)
 - Code review (use `review-code`)
 - Technology selection (mention constraints, but technology choice belongs to design phase)
 
-**Handoff point**: When requirements are validated (all success criteria met), hand off to `brainstorm-design` for design exploration, or to implementation planning if design is trivial.
+**Handoff point**: When requirements are validated (all success criteria met), hand off to `design-solution` for design exploration, or to implementation planning if design is trivial.
 
 ---
 
@@ -253,7 +253,7 @@ Progress through states sequentially. Do NOT skip states — if the problem is n
 - Scope is bounded with explicit V1 definition
 - Could explain to someone unfamiliar and have them understand the need
 
-**Next step**: Hand off to `brainstorm-design` with the Validated Requirements Document.
+**Next step**: Hand off to `design-solution` with the Validated Requirements Document.
 
 ### Phase 2: Validate — Confirm with User
 
@@ -365,7 +365,7 @@ Progress through states sequentially. Do NOT skip states — if the problem is n
 
 **Do NOT do these (other skills handle them)**:
 
-- **Design and architecture**: Proposing solutions, choosing technologies, creating design documents → Use `brainstorm-design`
+- **Design and architecture**: Proposing solutions, choosing technologies, creating design documents → Use `design-solution`
 - **Implementation planning**: Creating task lists, file paths, code structure → Use implementation planning skills
 - **Code writing**: Writing any implementation code → Use development skills
 - **Code review**: Reviewing existing code → Use `review-code`
@@ -373,8 +373,8 @@ Progress through states sequentially. Do NOT skip states — if the problem is n
 
 **When to stop and hand off**:
 
-- User says "approved", "looks good", "proceed" → Requirements validated, hand off to `brainstorm-design`
-- User asks "how should we design this?" → Hand off to `brainstorm-design`
+- User says "approved", "looks good", "proceed" → Requirements validated, hand off to `design-solution`
+- User asks "how should we design this?" → Hand off to `design-solution`
 - User asks "can you write the code?" → Requirements complete, hand off to development workflow (suggest design step if skipped)
 - User says requirements are "good enough" → Confirm all success criteria met, then hand off
 
@@ -417,7 +417,7 @@ Before declaring requirements validated, ask yourself:
 
 If NO: Requirements are incomplete. Return to the earliest unresolved state.
 
-If YES: Requirements are validated. Persist and hand off to `brainstorm-design`.
+If YES: Requirements are validated. Persist and hand off to `design-solution`.
 
 ---
 
@@ -522,7 +522,7 @@ User: "Under 2 seconds for the inventory list page."
 
 **Exit RA1**: Requirements rewritten as needs. Technology choices deferred to design phase.
 
-**RA2–RA5**: Continue through states. Final document captures needs without technology assumptions, allowing `brainstorm-design` to explore the right solution (which might be a simple spreadsheet alternative, not a full-stack app).
+**RA2–RA5**: Continue through states. Final document captures needs without technology assumptions, allowing `design-solution` to explore the right solution (which might be a simple spreadsheet alternative, not a full-stack app).
 
 ### Example 3: Edge Case — Mid-Project Scope Creep
 
@@ -603,7 +603,7 @@ Agent: "So calendar integration, team collaboration, file attachments, and AI su
 
 | Target skill | When | What it receives |
 | :--- | :--- | :--- |
-| `brainstorm-design` | Requirements validated | Validated Requirements Document as design input |
+| `design-solution` | Requirements validated | Validated Requirements Document as design input |
 | Implementation planning | Design is trivial | Validated requirements with scope and constraints |
 
 ### Handoff contract

@@ -73,9 +73,10 @@ When working in or referencing this project, Agents must:
 | This entry (Raw) | <https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/AGENTS.md> |
 | Specs | [spec/skill.md](spec/skill.md), [spec/artifact-contract.md](spec/artifact-contract.md), [spec/artifact-norms-schema.md](spec/artifact-norms-schema.md) |
 | Usage | This file §4 |
-| Entry authoring | [skills/write-agents-entry/SKILL.md](skills/write-agents-entry/SKILL.md) (includes embedded output contract for other projects) |
+| Entry authoring | [skills/generate-agent-entry/SKILL.md](skills/generate-agent-entry/SKILL.md) (includes embedded output contract for other projects) |
 | Indexes | [skills/INDEX.md](skills/INDEX.md) |
-| Self-reference tasks→assets | **Skill**: Write/revise AGENTS.md → [write-agents-entry](skills/write-agents-entry/SKILL.md); design/refactor Skill → [refine-skill-design](skills/refine-skill-design/SKILL.md); generate README → [generate-standard-readme](skills/generate-standard-readme/SKILL.md); discover document norms → [discover-document-norms](skills/discover-document-norms/SKILL.md); validate docs → [validate-doc-artifacts](skills/validate-doc-artifacts/SKILL.md). Full list: [skills/INDEX.md](skills/INDEX.md). |
+| Self-reference tasks→assets | **Skill**: Write/revise AGENTS.md → [generate-agent-entry](skills/generate-agent-entry/SKILL.md); design/refactor Skill → [refine-skill-design](skills/refine-skill-design/SKILL.md); generate README → [generate-standard-readme](skills/generate-standard-readme/SKILL.md); discover document norms → [discover-docs-norms](skills/discover-docs-norms/SKILL.md); validate docs / doc readiness → [assess-docs](skills/assess-docs/SKILL.md). Full list: [skills/INDEX.md](skills/INDEX.md). |
+| Execution chain (requirements→design→tasks) | [analyze-requirements](skills/analyze-requirements/SKILL.md) → [design-solution](skills/design-solution/SKILL.md) → [breakdown-tasks](skills/breakdown-tasks/SKILL.md); outputs: requirements.md, design.md, tasks.md. See [docs/process-management/decisions/20260316-execution-chain-requirements-design-tasks.md](docs/process-management/decisions/20260316-execution-chain-requirements-design-tasks.md). |
 
 ### Invocation Examples
 
@@ -84,4 +85,3 @@ When working in or referencing this project, Agents must:
 | Code review | review, code review | 代码审查、帮我 review |
 | Commit | commit, commit work | 提交、commit |
 | Quick capture | capture bug: ... | 记一个 bug：... |
-| Onboard | onboard, onboard repo | onboard 这个仓库 |

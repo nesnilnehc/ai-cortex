@@ -13,7 +13,7 @@
 | 1 | documentation-readiness | periodic-review 路由优先：评估各层文档覆盖与缺口 | executed |
 | 2 | execution-alignment | 评估当前项目状态与目标/需求/架构/里程碑/路线图的对齐 | executed |
 
-**Skipped skills:** `analyze-requirements`, `brainstorm-design`, `run-repair-loop`  
+**Skipped skills:** `analyze-requirements`, `design-solution`, `run-repair-loop`  
 **Skip rationale:** periodic-review 路由表仅包含 documentation-readiness 与 execution-alignment；无 scope-change、无任务完成、无缺陷需修复。
 
 ---

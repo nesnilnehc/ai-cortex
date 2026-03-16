@@ -1,0 +1,28 @@
+name: define-milestones
+status: validated
+
+primary_use: Break strategic goals into concrete phase checkpoints (milestones); produce a milestones document with traceability to goals and persist to docs/process-management/milestones.md (or project norms).
+
+inputs:
+  - strategic goals (document or path); project context
+  - optional vision/NSM; existing roadmap or phases; time constraints
+
+outputs:
+  - milestones document (docs/process-management/milestones.md or project norms): list of milestones with goal mapping
+
+scores:
+  agent_native: 5
+  cognitive: 5
+  composability: 5
+  stance: 5
+
+asqm_quality: 20
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:design-strategic-goals
+  - nesnilnehc/ai-cortex:align-planning
+  - nesnilnehc/ai-cortex:run-checkpoint
+
+market_position: differentiated
+
+tags: [documentation, workflow, eng-standards]

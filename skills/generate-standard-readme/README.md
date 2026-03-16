@@ -36,7 +36,7 @@ Creates professional, consistent front-page documentation for any software proje
 
 | Field                                 | Value                                                                              |
 | :------------------------------------ | :--------------------------------------------------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:decontextualize-text, nesnilnehc/ai-cortex:write-agents-entry |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:decontextualize-text, nesnilnehc/ai-cortex:generate-agent-entry |
 | market_position                       | commodity                                                                          |
 
 ## Full definition

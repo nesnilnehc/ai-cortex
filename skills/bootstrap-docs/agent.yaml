@@ -22,7 +22,7 @@ asqm_quality: 18
 
 overlaps_with:
   - nesnilnehc/ai-cortex:generate-standard-readme
-  - nesnilnehc/ai-cortex:write-agents-entry
+  - nesnilnehc/ai-cortex:generate-agent-entry
 
 market_position: differentiated
 

@@ -22,11 +22,11 @@ scores:
 asqm_quality: 20
 
 overlaps_with:
-  - nesnilnehc/ai-cortex:assess-doc-readiness
+  - nesnilnehc/ai-cortex:assess-docs
   - nesnilnehc/ai-cortex:run-checkpoint
   - nesnilnehc/ai-cortex:align-architecture
   - nesnilnehc/ai-cortex:analyze-requirements
-  - nesnilnehc/ai-cortex:brainstorm-design
+  - nesnilnehc/ai-cortex:design-solution
 
 market_position: differentiated
 

@@ -9,7 +9,7 @@ inputs:
 
 outputs:
   - validated requirements document (docs/requirements/<topic>.md)
-  - integration map (handoff data for brainstorm-design, refine-skill-design, discover-skills)
+  - integration map (handoff data for design-solution, refine-skill-design, discover-skills)
 
 scores:
   agent_native: 5
@@ -20,7 +20,7 @@ scores:
 asqm_quality: 20
 
 overlaps_with:
-  - nesnilnehc/ai-cortex:brainstorm-design
+  - nesnilnehc/ai-cortex:design-solution
 
 market_position: differentiated
 

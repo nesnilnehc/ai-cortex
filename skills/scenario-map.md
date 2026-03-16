@@ -13,7 +13,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **When to use**: New project, new initiative, or major direction reset
 - **Primary skill**: [analyze-requirements](./analyze-requirements/SKILL.md)
 - **Optional skills**:
-  - [brainstorm-design](./brainstorm-design/SKILL.md)
+  - [design-solution](./design-solution/SKILL.md)
   - [bootstrap-docs](./bootstrap-docs/SKILL.md)
 - **Short triggers**: project start, start project, requirements, analyze requirements
 - **Output**: Validated requirements and initial design/doc structure
@@ -24,9 +24,10 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **When to use**: A task is done and you need to validate direction
 - **Primary skill**: [align-planning](./align-planning/SKILL.md)
 - **Optional skills**:
-  - [assess-doc-readiness](./assess-doc-readiness/SKILL.md)
+  - [assess-docs](./assess-docs/SKILL.md)
   - [align-architecture](./align-architecture/SKILL.md)
-  - [run-checkpoint](./run-checkpoint/SKILL.md)
+  - [align-backlog](./align-backlog/SKILL.md)
+  - [plan-next](./plan-next/SKILL.md)
 - **Short triggers**: post task, alignment, planning alignment, align planning
 - **Output**: Planning Alignment Report with drift and calibration actions
 - **Stop condition**: Next 1-3 tasks reprioritized with confidence level
@@ -37,7 +38,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Primary skill**: [align-architecture](./align-architecture/SKILL.md)
 - **Optional skills**:
   - [align-planning](./align-planning/SKILL.md)
-  - [brainstorm-design](./brainstorm-design/SKILL.md)
+  - [design-solution](./design-solution/SKILL.md)
 - **Short triggers**: align architecture, architecture compliance, design vs code
 - **Output**: Architecture Compliance Report with gaps and remediation
 - **Stop condition**: Compliance gaps identified and handoff suggested
@@ -45,7 +46,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 ## 4) Documentation Gap Triage
 
 - **When to use**: Alignment confidence is low due to weak/missing docs
-- **Primary skill**: [assess-doc-readiness](./assess-doc-readiness/SKILL.md)
+- **Primary skill**: [assess-docs](./assess-docs/SKILL.md)
 - **Optional skills**:
   - [bootstrap-docs](./bootstrap-docs/SKILL.md)
   - [analyze-requirements](./analyze-requirements/SKILL.md)
@@ -56,11 +57,11 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 ## 5) Iteration Orchestration
 
 - **When to use**: Milestone closure, release gate, or periodic governance cycle (includes Phase 0.5 preparation)
-- **Primary skill**: [run-checkpoint](./run-checkpoint/SKILL.md)
+- **Primary skill**: [plan-next](./plan-next/SKILL.md)
 - **Optional skills**:
   - [align-planning](./align-planning/SKILL.md)
-  - [assess-doc-readiness](./assess-doc-readiness/SKILL.md)
-  - [discover-document-norms](./discover-document-norms/SKILL.md)
+  - [assess-docs](./assess-docs/SKILL.md)
+  - [discover-docs-norms](./discover-docs-norms/SKILL.md)
   - [bootstrap-docs](./bootstrap-docs/SKILL.md)
 - **Short triggers**: iteration, governance, project cognitive loop
 - **Output**: Cycle report with executed/skipped steps and Recommended Next Tasks
@@ -80,26 +81,15 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 ## 7) Delivery Convergence
 
 - **When to use**: Need to run tests, fix failures, and stabilize before commit
-- **Primary skill**: [run-repair-loop](./run-repair-loop/SKILL.md)
+- **Primary skill**: [automate-repair](./automate-repair/SKILL.md)
 - **Optional skills**:
-  - [run-automated-tests](./run-automated-tests/SKILL.md)
+  - [automate-tests](./automate-tests/SKILL.md)
   - [commit-work](./commit-work/SKILL.md)
 - **Short triggers**: repair, fix tests, delivery, stabilize
 - **Output**: Converged state + clean commit plan
 - **Stop condition**: Tests pass and commit scope is clear
 
-## 8) Repository Onboarding
-
-- **When to use**: New team member, inherited repository, or handoff
-- **Primary skill**: [onboard-repo](./onboard-repo/SKILL.md)
-- **Optional skills**:
-  - [generate-standard-readme](./generate-standard-readme/SKILL.md)
-  - [write-agents-entry](./write-agents-entry/SKILL.md)
-- **Short triggers**: onboard, onboard repo
-- **Output**: Onboarding report + core docs
-- **Stop condition**: New contributor can navigate and start work without ad-hoc guidance
-
-## 9) Skill System Governance
+## 8) Skill System Governance
 
 - **When to use**: Audit/refactor skill inventory and maintain quality
 - **Primary skill**: [curate-skills](./curate-skills/SKILL.md)
@@ -110,7 +100,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Output**: ASQM audit and improvement actions
 - **Stop condition**: Registry and quality signals are up to date
 
-## 10) Quick Capture (Work Items)
+## 9) Quick Capture (Work Items)
 
 - **When to use**: User wants to record a requirement, bug, or issue without deep validation
 - **Primary skill**: [capture-work-items](./capture-work-items/SKILL.md)
@@ -120,15 +110,21 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Output**: Structured work item(s) in docs/backlog/ or project convention
 - **Stop condition**: Item persisted and user confirmed
 
-## 11) Repository Maintenance
+## 10) Strategy Foundation
 
-- **When to use**: Cleanup, optimization, or archiving of old content
-- **Primary skill**: [prune-content](./prune-content/SKILL.md)
+- **When to use**: Define or refresh strategic foundation: mission, vision, North Star Metric, strategic pillars, strategic goals, milestones, roadmap; or document strategy context
+- **Primary skill**: [define-mission](./define-mission/SKILL.md)
 - **Optional skills**:
-  - [validate-doc-artifacts](./validate-doc-artifacts/SKILL.md)
-- **Short triggers**: prune, cleanup, repository maintenance
-- **Output**: Cleaned repository structure and archived obsolete content
-- **Stop condition**: User confirms cleanup actions
+  - [define-vision](./define-vision/SKILL.md)
+  - [define-north-star](./define-north-star/SKILL.md)
+  - [define-strategic-pillars](./define-strategic-pillars/SKILL.md)
+  - [design-strategic-goals](./design-strategic-goals/SKILL.md)
+  - [define-milestones](./define-milestones/SKILL.md)
+  - [define-roadmap](./define-roadmap/SKILL.md)
+  - [align-backlog](./align-backlog/SKILL.md)
+- **Short triggers**: north star, define mission, define vision, strategic goals, strategic pillars, define milestones, strategy, roadmap, align backlog, backlog alignment
+- **Output**: Strategic layer docs (mission, vision, north-star, strategic-pillars, strategic-goals, milestones, roadmap) in docs/project-overview/ and docs/process-management/
+- **Stop condition**: Requested strategic artifact(s) persisted and user confirmed
 
 ---
 
@@ -136,5 +132,5 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 
 1. Prefer one primary skill per scenario.
 2. Add optional skills only when the primary output indicates a gap.
-3. Escalate to run-checkpoint when multiple scenarios are active in one cycle.
+3. Escalate to plan-next when multiple scenarios are active in one cycle.
 4. Use artifact handoff (requirements/design/alignment/doc-readiness reports) rather than implicit context passing.

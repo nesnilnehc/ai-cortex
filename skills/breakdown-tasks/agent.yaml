@@ -1,0 +1,31 @@
+name: breakdown-tasks
+status: validated
+
+primary_use: Break a design document into an executable task list with dependencies, acceptance criteria, and assignee or AI execution hints. Input design (e.g. from design-solution); output tasks.md or docs/process-management/tasks/*.md.
+
+inputs:
+  - design document (path or content)
+  - optional scope or priority from user
+
+outputs:
+  - tasks document (ordered tasks, dependencies, acceptance criteria, owner/hint)
+  - traceability to design sections
+
+scores:
+  agent_native: 5
+  cognitive: 4
+  composability: 5
+  stance: 4
+
+asqm_quality: 18
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:design-solution
+  - nesnilnehc/ai-cortex:align-planning
+
+market_position: differentiated
+
+tags: [writing, eng-standards, documentation, workflow]
+
+dependencies:
+  - nesnilnehc/ai-cortex:design-solution

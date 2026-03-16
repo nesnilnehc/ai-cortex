@@ -14,8 +14,8 @@ The implementation uses TypeScript for tooling and automation, with Node.js scri
   - Initialize log with metadata section (branch name, start date)
   - _Requirements: 8.1, 13.1_
 
-- [x] 2. Validate reference implementation (brainstorm-design)
-  - [x] 2.1 Read `skills/brainstorm-design/SKILL.md` and verify Core Objective section exists
+- [x] 2. Validate reference implementation (design-solution)
+  - [x] 2.1 Read `skills/design-solution/SKILL.md` and verify Core Objective section exists
     - Check for Primary Goal subsection (1 sentence)
     - Check for Success Criteria subsection (count items, verify 3-6 range)
     - Check for Acceptance Test subsection (verification question)
@@ -143,13 +143,13 @@ The implementation uses TypeScript for tooling and automation, with Node.js scri
   - [x] 7.1 Migrate generate-standard-readme
     - Parse existing SKILL.md and YAML metadata
     - Generate Core Objective (Primary Goal, 3-6 Success Criteria, Acceptance Test)
-    - Generate Skill Boundaries (references bootstrap-project-documentation, write-agents-entry)
+    - Generate Skill Boundaries (references bootstrap-project-documentation, generate-agent-entry)
     - Update Self-Check alignment
     - Update YAML description
     - Verify backward compatibility
     - _Requirements: 1.1, 1.2, 1.3, 2.1, 3.1, 4.1, 7.1_
   
-  - [x] 7.2 Migrate write-agents-entry
+  - [x] 7.2 Migrate generate-agent-entry
     - Parse existing SKILL.md and YAML metadata
     - Generate Core Objective (Primary Goal, 3-6 Success Criteria, Acceptance Test)
     - Generate Skill Boundaries (references generate-standard-readme, bootstrap-project-documentation)
@@ -161,7 +161,7 @@ The implementation uses TypeScript for tooling and automation, with Node.js scri
   - [x] 7.3 Migrate bootstrap-project-documentation
     - Parse existing SKILL.md and YAML metadata
     - Generate Core Objective (Primary Goal, 3-6 Success Criteria, Acceptance Test)
-    - Generate Skill Boundaries (references refine-skill-design, generate-standard-readme, write-agents-entry)
+    - Generate Skill Boundaries (references refine-skill-design, generate-standard-readme, generate-agent-entry)
     - Update Self-Check alignment
     - Update YAML description
     - Verify backward compatibility
@@ -176,7 +176,7 @@ The implementation uses TypeScript for tooling and automation, with Node.js scri
     - Verify backward compatibility
     - _Requirements: 1.1, 1.2, 1.3, 2.1, 3.1, 4.1, 7.1_
   
-  - [x] 7.5 Validate brainstorm-design (already migrated)
+  - [x] 7.5 Validate design-solution (already migrated)
     - Verify Core Objective section unchanged
     - Verify Self-Check alignment maintained
     - Verify Skill Boundaries preserved

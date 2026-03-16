@@ -10,13 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed (Governance)
 
 - Calibration outputs now overwrite canonical files per `docs/ARTIFACT_NORMS.md` (doc-readiness, planning alignment, architecture compliance, cognitive loop); snapshots only when explicitly requested.
-- Updated output paths and versions for `assess-doc-readiness`, `align-planning`, `align-architecture`, `run-checkpoint`, and `run-repair-loop` to reduce redundant report artifacts.
-- **run-checkpoint v1.2.0** — Phase 0.5 Planning Readiness Gate; discover-document-norms, bootstrap-docs in preparation flow; short-circuit with Minimal Fill Plan when readiness missing
+- Updated output paths and versions for `assess-docs`, `align-planning`, `align-architecture`, `run-checkpoint`, and `run-repair-loop` to reduce redundant report artifacts.
+- **run-checkpoint v1.2.0** — Phase 0.5 Planning Readiness Gate; discover-docs-norms, bootstrap-docs in preparation flow; short-circuit with Minimal Fill Plan when readiness missing
 - **Skill naming (excellent standard per 20260310-skill-naming-audit)**:
   - `orchestrate-governance-loop` → `run-checkpoint`
-  - `assess-documentation-readiness` → `assess-doc-readiness`
+  - `assess-documentation-readiness` → `assess-docs`
   - `bootstrap-project-documentation` → `bootstrap-docs`
-  - `validate-document-artifacts` → `validate-doc-artifacts`
+  - `validate-document-artifacts` → `validate-doc-artifacts` (later merged into `assess-docs` in 2026-03)
   - Consistent `doc` terminology across doc-related skills
 - `spec/skill.md` v2.5.0 — naming priority rule: semantic correctness and normativity first, colloquial and memorable second
 
@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- **validate-doc-artifacts** — merged into **assess-docs** (v3.0.0); one report now covers artifact-norms compliance (paths, naming, front-matter) and layer readiness + minimal fill plan.
 - One-off calibration reports and a completed backlog item that are superseded by canonical living artifacts.
 - Architecture Compliance scenario in scenario-map.json (short triggers: align architecture, architecture compliance, design vs code)
 
@@ -34,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `align-execution` (v1.0.0 → v1.1.0) — slimmed to planning layer only; removed Architecture layer and Architecture Drift; handoff to `align-architecture` for design vs code compliance
 - `align-execution` → `align-planning` — renamed for semantic clarity (planning vs implementation boundary)
-- `run-checkpoint` (formerly orchestrate-governance-loop) — removed trigger-based routing; unified sequence (align-planning → assess-doc-readiness) + output-driven follow-ups (align-architecture, run-repair-loop, brainstorm-design, analyze-requirements); trigger as metadata only
+- `run-checkpoint` (formerly orchestrate-governance-loop) — removed trigger-based routing; unified sequence (align-planning → assess-doc-readiness) + output-driven follow-ups (align-architecture, run-repair-loop, design-solution, analyze-requirements); trigger as metadata only
 - `scripts/generate-skillgraph.mjs` — added align-architecture to lifecycle chain and project governance loop; updated governance loop diagram for unified sequence
 - `skills/ASQM_AUDIT.md` — curate-skills: added align-architecture (Quality 20, validated); updated align-planning overlaps
 
@@ -70,7 +71,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- `skillgraph.md` — added project governance loop (analyze-requirements → brainstorm-design → execution-alignment → documentation-readiness → project-cognitive-loop)
+- `skillgraph.md` — added project governance loop (analyze-requirements → design-solution → execution-alignment → documentation-readiness → project-cognitive-loop)
 - `project-cognitive-loop` — single-artifact output rule; Recommended Next Tasks (owner, scope, rationale); no separate outputs from routed skills
 - `analyze-requirements` default output path to `docs/requirements-planning/` (keeps `docs/requirements/` compatible)
 - Curate Skills audit: ASQM_AUDIT §6.5, §7; run-repair-loop README status and scores normalized
@@ -93,7 +94,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Spec v2.0.0 → v2.2.0: Core Objective structure, I/O contract protocol, Scope Boundaries flexibility
-- `brainstorm-design` skill — structured dialogue for design validation
+- `design-solution` skill — structured dialogue for design validation
 - `commit-work` skill (v2.0.0) — Conventional Commits with pre-commit quality checks
 - `review-typescript` skill — TypeScript/JavaScript language review
 - `review-react` skill — React framework review
@@ -125,7 +126,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `generate-standard-readme` — standardized README generation
 - `generate-github-workflow` — GitHub Actions workflow generation
 - `refine-skill-design` — skill audit and optimization
-- `write-agents-entry` — AGENTS.md authoring
+- `generate-agent-entry` — AGENTS.md authoring
 - `install-rules` — rule installation for Cursor and Trae
 - `bootstrap-project-documentation` — project documentation scaffolding
 - `run-automated-tests` and `run-repair-loop` (experimental)

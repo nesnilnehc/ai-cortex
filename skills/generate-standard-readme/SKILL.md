@@ -2,7 +2,7 @@
 name: generate-standard-readme
 description: Generate professional, governance-ready README with fixed structure. Core goal - produce standardized front-page documentation that explains purpose, usage, and contribution guidelines. Use for asset governance, audit, or unified documentation standards.
 tags: [documentation, eng-standards, devops, writing]
-related_skills: [decontextualize-text, bootstrap-docs, write-agents-entry]
+related_skills: [decontextualize-text, bootstrap-docs, generate-agent-entry]
 version: 1.2.0
 license: MIT
 recommended_scope: user
@@ -54,7 +54,7 @@ Create **professional, consistent, highly readable** front-page documentation fo
 
 - Project-type-specific templates (use `crafting-effective-readmes` from softaworks/agent-toolkit)
 - Comprehensive project documentation (use `bootstrap-docs`)
-- Agent entry files or AGENTS.md (use `write-agents-entry`)
+- Agent entry files or AGENTS.md (use `generate-agent-entry`)
 - Privacy/security redaction (use `decontextualize-text` if needed)
 
 **Handoff point**: When README is complete with all 9 sections and passes acceptance test, hand off to user for review or commit to version control.
@@ -140,14 +140,14 @@ Create **professional, consistent, highly readable** front-page documentation fo
 
 - **Project-type templates**: Creating README templates by project type (React, Python, etc.) → Use `crafting-effective-readmes` (softaworks/agent-toolkit)
 - **Comprehensive documentation**: Creating full documentation suite (architecture docs, API docs, guides) → Use `bootstrap-docs`
-- **Agent entry files**: Creating AGENTS.md or agent contract files → Use `write-agents-entry`
+- **Agent entry files**: Creating AGENTS.md or agent contract files → Use `generate-agent-entry`
 - **Privacy redaction**: Removing PII or sensitive information from documentation → Use `decontextualize-text`
 - **Content refinement**: Improving existing README prose or structure → Use general writing/editing skills
 
 **When to stop and hand off**:
 
 - User asks "can you create all project documentation?" → Hand off to `bootstrap-docs`
-- User asks "can you create an AGENTS.md file?" → Hand off to `write-agents-entry`
+- User asks "can you create an AGENTS.md file?" → Hand off to `generate-agent-entry`
 - User asks "can you customize this for a React project?" → Suggest `crafting-effective-readmes` for project-type templates
 - README complete with all 9 sections → Hand off to user for review/commit
 

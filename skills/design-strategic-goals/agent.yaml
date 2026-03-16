@@ -1,0 +1,30 @@
+name: design-strategic-goals
+status: validated
+
+primary_use: Define 3–5 long-term strategic goals that move the project toward the vision and North Star; produce outcome-focused goals document and persist to docs/project-overview/strategic-goals.md (or project norms).
+
+inputs:
+  - vision; North Star (or paths); project context
+  - optional mission; time horizon; existing goals or priorities
+
+outputs:
+  - strategic goals document (docs/project-overview/strategic-goals.md or project norms): 3–5 goals, optional alignment notes
+
+scores:
+  agent_native: 5
+  cognitive: 5
+  composability: 5
+  stance: 5
+
+asqm_quality: 20
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:define-mission
+  - nesnilnehc/ai-cortex:define-vision
+  - nesnilnehc/ai-cortex:define-north-star
+  - nesnilnehc/ai-cortex:define-milestones
+  - nesnilnehc/ai-cortex:align-planning
+
+market_position: differentiated
+
+tags: [documentation, workflow, eng-standards]

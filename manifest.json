@@ -22,8 +22,8 @@
       "path": "skills/generate-standard-readme/SKILL.md"
     },
     {
-      "name": "discover-document-norms",
-      "path": "skills/discover-document-norms/SKILL.md"
+      "name": "discover-docs-norms",
+      "path": "skills/discover-docs-norms/SKILL.md"
     },
     {
       "name": "discover-skills",
@@ -34,8 +34,8 @@
       "path": "skills/refine-skill-design/SKILL.md"
     },
     {
-      "name": "write-agents-entry",
-      "path": "skills/write-agents-entry/SKILL.md"
+      "name": "generate-agent-entry",
+      "path": "skills/generate-agent-entry/SKILL.md"
     },
     {
       "name": "review-code",
@@ -110,14 +110,6 @@
       "path": "skills/review-performance/SKILL.md"
     },
     {
-      "name": "run-automated-tests",
-      "path": "skills/run-automated-tests/SKILL.md"
-    },
-    {
-      "name": "run-repair-loop",
-      "path": "skills/run-repair-loop/SKILL.md"
-    },
-    {
       "name": "bootstrap-docs",
       "path": "skills/bootstrap-docs/SKILL.md"
     },
@@ -130,8 +122,12 @@
       "path": "skills/commit-work/SKILL.md"
     },
     {
-      "name": "brainstorm-design",
-      "path": "skills/brainstorm-design/SKILL.md"
+      "name": "design-solution",
+      "path": "skills/design-solution/SKILL.md"
+    },
+    {
+      "name": "breakdown-tasks",
+      "path": "skills/breakdown-tasks/SKILL.md"
     },
     {
       "name": "review-typescript",
@@ -140,10 +136,6 @@
     {
       "name": "review-react",
       "path": "skills/review-react/SKILL.md"
-    },
-    {
-      "name": "onboard-repo",
-      "path": "skills/onboard-repo/SKILL.md"
     },
     {
       "name": "review-orm-usage",
@@ -162,20 +154,52 @@
       "path": "skills/align-architecture/SKILL.md"
     },
     {
-      "name": "assess-doc-readiness",
-      "path": "skills/assess-doc-readiness/SKILL.md"
+      "name": "align-backlog",
+      "path": "skills/align-backlog/SKILL.md"
     },
     {
-      "name": "run-checkpoint",
-      "path": "skills/run-checkpoint/SKILL.md"
+      "name": "assess-docs",
+      "path": "skills/assess-docs/SKILL.md"
     },
     {
-      "name": "validate-doc-artifacts",
-      "path": "skills/validate-doc-artifacts/SKILL.md"
+      "name": "automate-tests",
+      "path": "skills/automate-tests/SKILL.md"
     },
     {
-      "name": "prune-content",
-      "path": "skills/prune-content/SKILL.md"
+      "name": "automate-repair",
+      "path": "skills/automate-repair/SKILL.md"
+    },
+    {
+      "name": "plan-next",
+      "path": "skills/plan-next/SKILL.md"
+    },
+    {
+      "name": "define-mission",
+      "path": "skills/define-mission/SKILL.md"
+    },
+    {
+      "name": "define-vision",
+      "path": "skills/define-vision/SKILL.md"
+    },
+    {
+      "name": "define-north-star",
+      "path": "skills/define-north-star/SKILL.md"
+    },
+    {
+      "name": "design-strategic-goals",
+      "path": "skills/design-strategic-goals/SKILL.md"
+    },
+    {
+      "name": "define-milestones",
+      "path": "skills/define-milestones/SKILL.md"
+    },
+    {
+      "name": "define-roadmap",
+      "path": "skills/define-roadmap/SKILL.md"
+    },
+    {
+      "name": "define-strategic-pillars",
+      "path": "skills/define-strategic-pillars/SKILL.md"
     }
   ]
 }

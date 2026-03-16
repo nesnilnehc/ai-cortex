@@ -3,7 +3,7 @@
 **Date:** 2026-03-02
 **Status:** Approved
 **Approved by:** User
-**Method:** brainstorm-design skill (structured dialogue)
+**Method:** design-solution skill (structured dialogue)
 
 ## Goal
 
@@ -18,7 +18,7 @@ At the time of this analysis:
 - Spec v2.0.0 migration just completed: all skills now have Core Objective sections
 - No CI/CD; `verify-registry.mjs` is the only automated check (run manually)
 - Code review ecosystem is mature: 15/28 skills are review-related with a clear composition graph
-- ASQM audit last run 2026-02-27; 2 new skills (`brainstorm-design`, `commit-work`) not yet audited
+- ASQM audit last run 2026-02-27; 2 new skills (`design-solution`, `commit-work`) not yet audited
 - Multi-channel distribution: skills.sh, SkillsMP, Claude Plugin (8/28 skills exposed)
 
 ## Architecture
@@ -121,13 +121,13 @@ Priority matrix:
 
 ### C7. Multi-Orchestrator Pattern
 
-**Recommended approach:** `onboard-repo` orchestrator
+**Recommended approach:** Run atomic skills in sequence (no dedicated orchestrator)
 
-Flow: review-codebase (understand) → review-architecture (identify issues) → generate-standard-readme (document) → write-agents-entry (establish Agent contract)
+Flow: review-codebase (understand) → review-architecture (identify issues) → generate-standard-readme (document) → generate-agent-entry (establish Agent contract). The former `onboard-repo` orchestrator was removed; use the atomic skills above as needed.
 
 | Alternative | Pros | Cons | Best for |
 | :--- | :--- | :--- | :--- |
-| **A: onboard-repo (recommended)** | High-frequency scenario; demonstrates skill composition | Needs cross-skill data passing format | Demonstration value |
+| **A: Atomic sequence (current)** | No extra skill to maintain; user picks steps | No single "onboard repo" trigger | Simplicity |
 | B: quality-gate | Directly supports CI/CD | Overlaps with run-repair-loop | CI-focused |
 | C: Protocol first, orchestrators later | One-time investment benefits all | May over-engineer | Spec-purist approach |
 
@@ -250,16 +250,15 @@ Establish lifecycle conventions, then build the frontend review chain (TS langua
 ### Phase 3: Composition Upgrade
 
 ```text
-C8 I/O Contract Protocol  →  C7 onboard-repo Orchestrator
+C8 I/O Contract Protocol  →  C7 repo onboarding flow (atomic skills in sequence)
 B5 Domain-level library review (review-orm-usage, etc.)
-```text
+```
 
-Define the protocol first, then build orchestrators on top of it.
+Define the protocol first. Repo onboarding is achieved by running review-codebase → review-architecture → generate-standard-readme → generate-agent-entry in sequence (onboard-repo orchestrator was removed).
 
 **Deliverables:**
 
 - Spec amendment: optional `input_schema` / `output_schema` fields
-- `skills/onboard-repo/`
 - `skills/review-orm-usage/`
 
 ### Phase 4: Ecosystem Maturity
@@ -284,7 +283,7 @@ D10 Community Infrastructure Phase 1
 | Language expansion | TS/JS priority | Breadth vs. depth; chose highest-impact language |
 | Framework expansion | React first | Market share vs. chain completeness |
 | Library review | Domain-based | Generality vs. library-specific depth |
-| Orchestrators | onboard-repo | Demo value vs. CI integration (quality-gate) |
+| Orchestrators | run-checkpoint, review-code | Demo value vs. CI integration (quality-gate) |
 | Skill chains | I/O contracts | Simplicity vs. event-driven flexibility |
 | Plugin sync | Selection criteria | Curation quality vs. full exposure |
 | Community | Gradual | Investment vs. actual contributor demand |
@@ -295,7 +294,7 @@ D10 Community Infrastructure Phase 1
 
 - [x] Phase 1 deliverables: spec verification scripts and CI workflows operational
 - [x] Phase 2 deliverables: review-typescript and review-react published and audited
-- [x] Phase 3 deliverables: I/O contract protocol defined; onboard-repo orchestrator functional
+- [x] Phase 3 deliverables: I/O contract protocol defined; repo onboarding via atomic skills
 - [x] Phase 4 deliverables: Plugin sync automated; CONTRIBUTING.md and Issue templates live
 - [x] All new skills pass ASQM validation (quality ≥ 17)
 - [x] No regression in existing skill quality or registry sync

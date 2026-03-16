@@ -1,0 +1,29 @@
+name: define-north-star
+status: validated
+
+primary_use: Define the single most important metric (North Star Metric) representing core value delivered to users; produce NSM with rationale, optional supporting metrics, and anti-examples; persist to docs/project-overview/north-star.md (or project norms).
+
+inputs:
+  - project/product description; target users; core value proposition (or mission/vision)
+  - optional current metrics, constraints, comparable examples
+
+outputs:
+  - North Star document (docs/project-overview/north-star.md or project norms): NSM, rationale, optional 3–5 supporting metrics, anti–North-Star examples
+
+scores:
+  agent_native: 5
+  cognitive: 5
+  composability: 5
+  stance: 5
+
+asqm_quality: 20
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:define-mission
+  - nesnilnehc/ai-cortex:define-vision
+  - nesnilnehc/ai-cortex:design-strategic-goals
+  - nesnilnehc/ai-cortex:align-planning
+
+market_position: differentiated
+
+tags: [documentation, workflow, eng-standards]

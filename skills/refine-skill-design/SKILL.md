@@ -3,7 +3,7 @@ name: refine-skill-design
 description: Audit and refactor existing SKILLs to meet spec compliance and LLM best practices. Use when improving drafts, fixing quality, or aligning to spec.
 tags: [writing, eng-standards, meta-skill, optimization]
 related_skills: [decontextualize-text, generate-standard-readme]
-version: 1.3.0
+version: 1.4.0
 license: MIT
 recommended_scope: user
 metadata:
@@ -93,6 +93,7 @@ As a "Skill for Skills," this skill **audits and refactors** AI capability defin
 2. **Verbs**: Use precise, unambiguous verbs (e.g. "handle" → "parse," "transform," "trim").
 3. **Interaction**: For complex logic, add "confirm before proceed" or "choose among options." Align with spec Interaction Policy (defaults first, prefer choices).
 4. **Metadata**: Align tags with `INDEX.md`; suggest `triggers` for high-discoverability skills; suggest sensible SemVer; remind that new skills may need `scenario-map.json` for scenario-based discovery.
+5. **Apply changes**: Unless the user explicitly asks for a dry‑run / temp refinement file, write the refined content **directly回写到源 `SKILL.md`**，并在输出中同时附上 diff 摘要与版本号建议，方便审阅和审计。
 
 ---
 
@@ -110,14 +111,15 @@ As a "Skill for Skills," this skill **audits and refactors** AI capability defin
 
 ### Output Persistence (Document Handling)
 
-**Rule**: Do not modify the original SKILL or any prior refinement output. Choose one strategy per run:
+**Rule**: 默认直接改进并覆盖原始 `SKILL.md`，同时提供可审计的 diff 摘要与版本号建议；只有在用户明确要求“只生成 refinement 草稿、不改源文件”时，才写入临时或新建 refinement 文件。每次运行须在以下策略中二选一：
 
 | Strategy | Path pattern | Behavior |
 | :--- | :--- | :--- |
-| **Fixed temp** (default) | `skills/<skill-name>/SKILL.refined.md` | Overwrite this single temp file each run; never touch original `SKILL.md` or prior outputs |
-| **New per run** | `skills/<skill-name>/SKILL.refined.YYYYMMDD.md` | Create a new file each run; never overwrite previous refinements |
+| **Direct overwrite** (default) | `skills/<skill-name>/SKILL.md` | 直接覆盖源文件，保证 front matter `version` 已更新，且在输出中包含变更摘要，便于审计 |
+| **Fixed temp** (opt‑out) | `skills/<skill-name>/SKILL.refined.md` | 在用户要求“不要改原文件，只给 refinement”时使用；每次运行覆盖同一临时文件 |
+| **New per run** (opt‑out) | `skills/<skill-name>/SKILL.refined.YYYYMMDD.md` | 在用户要求“为这次 refinement 保留单独文件”时使用；每次运行创建新的 refinement 文件 |
 
-User override: If user specifies a path or strategy, honor it. Otherwise use **fixed temp**.
+User override: If user specifies a path or strategy, honor it. Otherwise use **Direct overwrite**。
 
 ---
 
@@ -125,7 +127,8 @@ User override: If user specifies a path or strategy, honor it. Otherwise use **f
 
 ### Hard Boundaries
 
-- **Do not modify original or prior outputs**: Write only to the configured output path (fixed temp or new-per-run); never overwrite the source `SKILL.md` or previous refinement files.
+- **默认覆盖但必须可审计**：默认策略是直接覆盖源 `SKILL.md`，但必须同步更新 front matter `version`，并在输出中提供完整变更摘要，确保可审计。
+- **尊重显式“草稿模式”请求**：若用户明确要求“不要改原文件”“只生成 refinement 草稿”等，则不得覆盖源 `SKILL.md`，仅写入临时或新建 refinement 文件。
 - **Do not change intent**: Optimization must preserve the skill's core purpose.
 - **Minimize prose**: Prefer lists and tables over long README-style text.
 - **Multiple examples**: Do not keep only one "happy path" example; include at least one challenging or edge-case example.
