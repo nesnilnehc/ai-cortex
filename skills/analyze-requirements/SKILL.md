@@ -61,12 +61,11 @@ Diagnose requirements-level problems and transform vague intent into validated, 
 **Success Criteria** (ALL must be met):
 
 1. ✅ **Problem articulated**: A clear problem statement exists that does not reference any solution or technology
-2. ✅ **Needs are testable**: Every requirement has acceptance criteria or a concrete "done looks like..." description
-3. ✅ **Requirement IDs assigned**: Every requirement has a unique ID in the format `R-NN` (e.g. R-01, R-02); IDs are sequential with no gaps or duplicates
-4. ✅ **Constraints inventoried**: Real constraints (budget, time, skills, dependencies) are separated from assumptions
-5. ✅ **Scope bounded**: V1 boundary is explicit with deferred items listed and triggers for reconsidering documented
-6. ✅ **User confirmed**: User explicitly approved the validated requirements (said "approved", "looks good", "proceed", or equivalent)
-7. ✅ **Document persisted**: Requirements document written to `docs/requirements-planning/<topic>.md` per `docs/ARTIFACT_NORMS.md` and committed
+2. ✅ **Needs are testable with IDs**: Every requirement has acceptance criteria and a unique `R-NN` ID (e.g. R-01, R-02); IDs sequential, no gaps or duplicates
+3. ✅ **Constraints inventoried**: Real constraints (budget, time, skills, dependencies) are separated from assumptions
+4. ✅ **Scope bounded**: V1 boundary is explicit with deferred items listed and triggers for reconsidering documented
+5. ✅ **User confirmed**: User explicitly approved the validated requirements (said "approved", "looks good", "proceed", or equivalent)
+6. ✅ **Document persisted**: Requirements document written to `docs/requirements-planning/<topic>.md` per `docs/ARTIFACT_NORMS.md` and committed
 
 **Acceptance Test**: Can someone unfamiliar with the project read the requirements document and understand the problem, who has it, what "done" looks like, and what is out of scope — without asking clarifying questions?
 
@@ -389,8 +388,7 @@ Progress through states sequentially. Do NOT skip states — if the problem is n
 ### Core Success Criteria (ALL must be met)
 
 - [ ] **Problem articulated**: Clear problem statement exists without solution or technology references
-- [ ] **Needs are testable**: Every requirement has acceptance criteria or "done looks like..." description
-- [ ] **Requirement IDs assigned**: Every requirement has a unique `R-NN` ID (R-01, R-02...); sequential, no gaps or duplicates
+- [ ] **Needs are testable with IDs**: Every requirement has acceptance criteria and a unique `R-NN` ID; IDs sequential, no gaps or duplicates
 - [ ] **Constraints inventoried**: Real constraints separated from assumptions
 - [ ] **Scope bounded**: V1 boundary explicit with deferred items and triggers documented
 - [ ] **User confirmed**: User explicitly approved the validated requirements
