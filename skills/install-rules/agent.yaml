@@ -1,0 +1,42 @@
+name: install-rules
+status: experimental
+
+primary_use: Install rules from a source repository into Cursor (.cursor/rules/) or Trae IDE (.trae/project_rules.md) with explicit user confirmation and conflict detection before any write.
+
+inputs:
+  - source (this project rules/ or Git repo owner/repo, optional branch/ref and subpath)
+  - target IDE (Cursor | Trae)
+  - scope (all rules or subset by name)
+  - destination (project-level or user-level; default project-level)
+
+outputs:
+  - rule files written to IDE-specific destination (.cursor/rules/*.mdc or .trae managed block)
+  - post-install summary (executed actions, target paths, conversion notes or failures)
+
+scores:
+  agent_native: 3
+  cognitive: 3
+  composability: 3
+  stance: 4
+
+asqm_quality: 13
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:discover-skills
+
+market_position: experimental
+
+tags: [automation, infrastructure, eng-standards]
+
+# Scoring rationale:
+# agent_native: 3 - output_schema is side-effect type; output described in prose only,
+#   no Appendix: Output contract table; no machine-parseable output for downstream consumption
+# cognitive: 3 - procedural install flow; conflict detection and confirmation gates add value
+#   but limited reasoning offload; mostly file-copy with path mapping
+# composability: 3 - side-effect output (IDE files) not consumable by other skills;
+#   only one related_skill (discover-skills); limited pipeline integration
+# stance: 4 - all required sections present, HARD-GATE on no-write-without-confirmation,
+#   Skill Boundaries defined; missing evolution metadata; no output contract appendix
+
+# Lifecycle: experimental (Quality 13 ≥ 10; Gate A: agent_native 3 < 4 → cannot reach validated)
+# Promotion path: add Appendix: Output contract table, improve agent_native to 4+ for validated gate

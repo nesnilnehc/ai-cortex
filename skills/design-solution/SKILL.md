@@ -46,14 +46,12 @@ Turn validated requirements into a single, implementation-free design document. 
 
 **Success Criteria** (ALL must be met):
 
-1. ✅ **Design document exists**: Written to `docs/designs/YYYY-MM-DD-<topic>.md` (or project-convention path per `docs/ARTIFACT_NORMS.md`) and committed
-2. ✅ **User explicitly approved**: User said "approved", "looks good", "proceed", or equivalent
-3. ✅ **Requirements traceability**: Design explicitly references or summarizes the requirements it satisfies
-4. ✅ **Alternatives documented**: At least 2–3 approaches considered with trade-offs (pros/cons/best-for)
-5. ✅ **Error handling strategy**: Key failure paths and how the design handles them are documented
-6. ✅ **Testing strategy**: How the design will be verified against requirements is documented (test approach, not test code)
-7. ✅ **No implementation**: Zero code, scaffolding, or implementation tasks; design only
-8. ✅ **Downstream-ready**: A reader can break the design into tasks with dependencies and acceptance criteria
+1. ✅ **Design document approved and persisted**: Written to `docs/designs/YYYY-MM-DD-<topic>.md` (or project-convention path per `docs/ARTIFACT_NORMS.md`), committed, and user explicitly approved
+2. ✅ **Requirements traceability**: Design explicitly references or summarizes the requirements it satisfies
+3. ✅ **Alternatives documented**: At least 2–3 approaches considered with trade-offs (pros/cons/best-for)
+4. ✅ **Error handling and testing strategy**: Key failure paths and verification approach (test approach, not test code) are documented
+5. ✅ **No implementation**: Zero code, scaffolding, or implementation tasks; design only
+6. ✅ **Downstream-ready**: A reader can break the design into tasks with dependencies and acceptance criteria without asking clarifying questions
 
 **Acceptance Test**: Can someone use this design document alone to produce a complete, ordered task list (e.g. via `breakdown-tasks`) without asking clarifying questions?
 
@@ -156,12 +154,10 @@ Output is design documentation only. Implementation is downstream (e.g. breakdow
 
 ## Self-Check
 
-- [ ] Design document exists at `docs/designs/YYYY-MM-DD-<topic>.md` (or project path per `docs/ARTIFACT_NORMS.md`) and is committed
-- [ ] User explicitly approved the design
+- [ ] Design document approved and persisted: written to `docs/designs/YYYY-MM-DD-<topic>.md` (or project path per `docs/ARTIFACT_NORMS.md`), committed, user explicitly approved
 - [ ] Requirements are referenced or summarized; traceability is clear
 - [ ] At least 2–3 alternatives with trade-offs are documented
-- [ ] Error handling strategy documented: key failure paths and handling approach present
-- [ ] Testing strategy documented: how design is verified against requirements described (approach, not test code)
+- [ ] Error handling and testing strategy: key failure paths and verification approach documented
 - [ ] No code or implementation steps in the output
 - [ ] A reader could produce a task list from this design without further clarification
 

@@ -1,15 +1,15 @@
 name: design-solution
 status: validated
 
-primary_use: Transform rough ideas into validated design documents through structured 5-phase dialogue (explore, clarify, alternatives, present, document) with HARD-GATE before implementation.
+primary_use: Produce a validated design document from requirements (architecture, components, data flow, error handling, testing strategy, trade-offs) with HARD-GATE before implementation; serves as single source of truth for breakdown-tasks.
 
 inputs:
-  - rough idea or feature request
-  - optional project context, constraints, existing patterns
+  - validated requirements document (path or content)
+  - optional project context, constraints, existing patterns or ADRs
 
 outputs:
-  - validated design document (Markdown with context, requirements, alternatives, selected design, action items)
-  - trade-off analysis (2-3 approaches with pros/cons)
+  - validated design document (docs/designs/YYYY-MM-DD-<topic>.md; snapshot)
+  - trade-off analysis (2-3 approaches with pros/cons/best-for)
 
 scores:
   agent_native: 5
