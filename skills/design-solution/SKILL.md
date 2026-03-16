@@ -28,7 +28,7 @@ output_schema:
   type: document-artifact
   description: Design document per [spec/artifact-contract.md](../../spec/artifact-contract.md)
   artifact_type: design
-  path_pattern: docs/design-decisions/YYYY-MM-DD-{topic}.md
+  path_pattern: docs/designs/YYYY-MM-DD-{topic}.md
   lifecycle: snapshot
 ---
 
@@ -46,12 +46,14 @@ Turn validated requirements into a single, implementation-free design document. 
 
 **Success Criteria** (ALL must be met):
 
-1. ✅ **Design document exists**: Written to `docs/design-decisions/YYYY-MM-DD-<topic>.md` (or project-convention path) and committed
+1. ✅ **Design document exists**: Written to `docs/designs/YYYY-MM-DD-<topic>.md` (or project-convention path per `docs/ARTIFACT_NORMS.md`) and committed
 2. ✅ **User explicitly approved**: User said "approved", "looks good", "proceed", or equivalent
 3. ✅ **Requirements traceability**: Design explicitly references or summarizes the requirements it satisfies
 4. ✅ **Alternatives documented**: At least 2–3 approaches considered with trade-offs (pros/cons/best-for)
-5. ✅ **No implementation**: Zero code, scaffolding, or implementation tasks; design only
-6. ✅ **Downstream-ready**: A reader can break the design into tasks with dependencies and acceptance criteria
+5. ✅ **Error handling strategy**: Key failure paths and how the design handles them are documented
+6. ✅ **Testing strategy**: How the design will be verified against requirements is documented (test approach, not test code)
+7. ✅ **No implementation**: Zero code, scaffolding, or implementation tasks; design only
+8. ✅ **Downstream-ready**: A reader can break the design into tasks with dependencies and acceptance criteria
 
 **Acceptance Test**: Can someone use this design document alone to produce a complete, ordered task list (e.g. via `breakdown-tasks`) without asking clarifying questions?
 
@@ -113,9 +115,9 @@ Output is design documentation only. Implementation is downstream (e.g. breakdow
 
 ### Phase 3: Produce Design Document
 
-1. **Structure**: Goal, architecture, components, data flow, error handling, testing strategy, trade-offs considered, acceptance criteria (traceable to requirements).
+1. **Structure**: Goal, architecture, components, data flow, error handling strategy (key failure paths), testing strategy (verification approach, not test code), trade-offs considered, acceptance criteria (traceable to requirements).
 2. **Scale to complexity**: Short for simple scope; more detail when needed so that task breakdown is unambiguous.
-3. **Resolve path**: Prefer project norms (e.g. docs/ARTIFACT_NORMS.md); else `docs/design-decisions/YYYY-MM-DD-<topic>.md` per [spec/artifact-contract.md](../../spec/artifact-contract.md).
+3. **Resolve path**: Check `docs/ARTIFACT_NORMS.md` first (project override); default fallback is `docs/designs/YYYY-MM-DD-<topic>.md` per [spec/artifact-contract.md](../../spec/artifact-contract.md).
 4. **Write and persist**: Save design with front-matter (`artifact_type: design`, `created_by: design-solution`, `lifecycle: snapshot`, `created_at`).
 
 ### Phase 4: Approve and Hand Off
@@ -130,7 +132,7 @@ Output is design documentation only. Implementation is downstream (e.g. breakdow
 | Role | Content |
 | :--- | :--- |
 | **Input** | Requirements document (path or content); optional project context, existing design or ADRs |
-| **Output** | Design document at `docs/design-decisions/YYYY-MM-DD-<topic>.md` (or project path); single source of truth for implementation and task breakdown |
+| **Output** | Design document at `docs/designs/YYYY-MM-DD-<topic>.md` (or project path per `docs/ARTIFACT_NORMS.md`); single source of truth for implementation and task breakdown |
 
 ---
 
@@ -154,10 +156,12 @@ Output is design documentation only. Implementation is downstream (e.g. breakdow
 
 ## Self-Check
 
-- [ ] Design document exists and is committed
+- [ ] Design document exists at `docs/designs/YYYY-MM-DD-<topic>.md` (or project path per `docs/ARTIFACT_NORMS.md`) and is committed
 - [ ] User explicitly approved the design
 - [ ] Requirements are referenced or summarized; traceability is clear
 - [ ] At least 2–3 alternatives with trade-offs are documented
+- [ ] Error handling strategy documented: key failure paths and handling approach present
+- [ ] Testing strategy documented: how design is verified against requirements described (approach, not test code)
 - [ ] No code or implementation steps in the output
 - [ ] A reader could produce a task list from this design without further clarification
 
@@ -169,7 +173,7 @@ Output is design documentation only. Implementation is downstream (e.g. breakdow
 
 **Invocation**: "We have requirements in docs/requirements-planning/core-v1.md. Produce a design doc for it."
 
-**Agent**: Uses design-solution; reads requirements; proposes 2–3 architectural options with trade-offs; writes design to docs/design-decisions/YYYY-MM-DD-core-v1.md; gets user approval; suggests running breakdown-tasks on that design to get tasks.md.
+**Agent**: Uses design-solution; reads requirements; proposes 2–3 architectural options with trade-offs; writes design to docs/designs/YYYY-MM-DD-core-v1.md; gets user approval; suggests running breakdown-tasks on that design to get tasks.md.
 
 ### Example 2: Edge case — very small scope
 

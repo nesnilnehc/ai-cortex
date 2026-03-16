@@ -8,6 +8,7 @@ These norms define the single authoritative location for generated artifacts. Un
 
 | artifact_type | path_pattern | naming | lifecycle |
 | :--- | :--- | :--- | :--- |
+| requirements | docs/requirements-planning/{topic}.md | {topic}.md | snapshot |
 | backlog-item | docs/process-management/backlog/YYYY-MM-DD-{slug}.md | YYYY-MM-DD-{slug}.md | living |
 | adr | docs/process-management/decisions/YYYYMMDD-{slug}.md | YYYYMMDD-{slug}.md | living |
 | design | docs/designs/YYYY-MM-DD-{topic}.md | YYYY-MM-DD-{topic}.md | snapshot |

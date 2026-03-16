@@ -1,11 +1,12 @@
 # Artifact Contract
 
-Status: DEFAULT (default, optional reference)  
-Version: 1.1.0  
+Status: DEFAULT (default, optional reference)
+Version: 1.2.0
 Scope: Skills that write Markdown artifacts under project `docs/` or repo root.
 
 **Changelog**:
 
+- v1.2.0 (2026-03-16): Added `requirements` artifact type; owner skill `analyze-requirements`.
 - v1.1.0 (2026-03-06): Project norms first; this contract as default fallback; AI Cortex and project-documentation-template as trusted suggestions.
 - v1.0.0 (2026-03-06): Initial contract; AI Cortex principles first; project-documentation-template as supplementary reference.
 
@@ -27,6 +28,7 @@ Scope: Skills that write Markdown artifacts under project `docs/` or repo root.
 
 | artifact_type | path_pattern | naming | lifecycle | owner_skill |
 | :--- | :--- | :--- | :--- | :--- |
+| requirements | `docs/requirements-planning/` | `{topic}.md` | snapshot | analyze-requirements |
 | backlog-item | `docs/process-management/project-board/backlog/` | `YYYY-MM-DD-{slug}.md` | living | capture-work-items |
 | backlog-item (fallback) | `docs/backlog/` | `YYYY-MM-DD-{slug}.md` | living | capture-work-items |
 | adr | `docs/process-management/decisions/` | `YYYYMMDD-{slug}.md` | living | bootstrap-docs |
@@ -35,6 +37,7 @@ Scope: Skills that write Markdown artifacts under project `docs/` or repo root.
 
 ### Path Rationale
 
+- **requirements**: `docs/requirements-planning/` groups all validated requirements; flat naming `{topic}.md` supports direct referencing from design docs. `review-requirements` uses these files as input for quality assessment.
 - **backlog-item**: `project-board/backlog/` aligns with agile board semantics; single-item-per-file supports triage and traceability. Fallback `docs/backlog/` for lightweight projects without process-management.
 - **adr**: `process-management/decisions/` groups architecture decisions with process docs; `YYYYMMDD` follows ADR community convention.
 - **design**: `docs/design-decisions/` at top level to avoid confusion with template's `design/` (brand/UI); distinct from ADR (implementation design vs architecture decision).
@@ -105,6 +108,12 @@ To add a new artifact type:
 
 ```yaml
 artifact_types:
+  requirements:
+    path_patterns:
+      - "docs/requirements-planning/{topic}.md"
+    naming: "{topic}.md"
+    lifecycle: snapshot
+    owner_skill: analyze-requirements
   backlog-item:
     path_patterns:
       - "docs/process-management/project-board/backlog/YYYY-MM-DD-{slug}.md"

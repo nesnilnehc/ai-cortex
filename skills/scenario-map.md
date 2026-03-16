@@ -13,13 +13,24 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **When to use**: New project, new initiative, or major direction reset
 - **Primary skill**: [analyze-requirements](./analyze-requirements/SKILL.md)
 - **Optional skills**:
+  - [review-requirements](./review-requirements/SKILL.md)
   - [design-solution](./design-solution/SKILL.md)
   - [bootstrap-docs](./bootstrap-docs/SKILL.md)
 - **Short triggers**: project start, start project, requirements, analyze requirements
 - **Output**: Validated requirements and initial design/doc structure
 - **Stop condition**: Requirements approved and design path selected
 
-## 2) Post-Task Governance
+## 2) Requirements Review
+
+- **When to use**: An existing requirements document needs quality assessment before design begins
+- **Primary skill**: [review-requirements](./review-requirements/SKILL.md)
+- **Optional skills**:
+  - [analyze-requirements](./analyze-requirements/SKILL.md) (when gaps are found and requirements need to be reworked)
+- **Short triggers**: review requirements, requirements review, requirements quality
+- **Output**: Requirements-quality findings list covering all six quality dimensions
+- **Stop condition**: Zero findings remain or all critical/major findings have a fix plan
+
+## 3) Post-Task Governance
 
 - **When to use**: A task is done and you need to validate direction
 - **Primary skill**: [align-planning](./align-planning/SKILL.md)
@@ -32,7 +43,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Output**: Planning Alignment Report with drift and calibration actions
 - **Stop condition**: Next 1-3 tasks reprioritized with confidence level
 
-## 3) Architecture Compliance
+## 4) Architecture Compliance
 
 - **When to use**: Verify that implementation matches ADR or design docs
 - **Primary skill**: [align-architecture](./align-architecture/SKILL.md)
@@ -43,7 +54,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Output**: Architecture Compliance Report with gaps and remediation
 - **Stop condition**: Compliance gaps identified and handoff suggested
 
-## 4) Documentation Gap Triage
+## 5) Documentation Gap Triage
 
 - **When to use**: Alignment confidence is low due to weak/missing docs
 - **Primary skill**: [assess-docs](./assess-docs/SKILL.md)
@@ -54,7 +65,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Output**: Documentation Readiness Report and Minimal Fill Plan
 - **Stop condition**: Critical layers reach at least weak and high-priority gaps have owners
 
-## 5) Iteration Orchestration
+## 6) Iteration Orchestration
 
 - **When to use**: Milestone closure, release gate, or periodic governance cycle (includes Phase 0.5 preparation)
 - **Primary skill**: [plan-next](./plan-next/SKILL.md)
@@ -67,7 +78,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Output**: Cycle report with executed/skipped steps and Recommended Next Tasks
 - **Stop condition**: All required scenario checks are completed or explicitly deferred
 
-## 6) Code Quality Review
+## 7) Code Quality Review
 
 - **When to use**: Review quality/security/performance/testing before merge or release
 - **Primary skill**: [review-code](./review-code/SKILL.md)
@@ -78,7 +89,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Output**: Aggregated findings report
 - **Stop condition**: Critical/major issues have mitigation plan
 
-## 7) Delivery Convergence
+## 8) Delivery Convergence
 
 - **When to use**: Need to run tests, fix failures, and stabilize before commit
 - **Primary skill**: [automate-repair](./automate-repair/SKILL.md)
@@ -89,7 +100,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Output**: Converged state + clean commit plan
 - **Stop condition**: Tests pass and commit scope is clear
 
-## 8) Skill System Governance
+## 9) Skill System Governance
 
 - **When to use**: Audit/refactor skill inventory and maintain quality
 - **Primary skill**: [curate-skills](./curate-skills/SKILL.md)
@@ -100,7 +111,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Output**: ASQM audit and improvement actions
 - **Stop condition**: Registry and quality signals are up to date
 
-## 9) Quick Capture (Work Items)
+## 10) Quick Capture (Work Items)
 
 - **When to use**: User wants to record a requirement, bug, or issue without deep validation
 - **Primary skill**: [capture-work-items](./capture-work-items/SKILL.md)
@@ -110,7 +121,7 @@ For canonical skill registration, see [INDEX.md](./INDEX.md).
 - **Output**: Structured work item(s) in docs/backlog/ or project convention
 - **Stop condition**: Item persisted and user confirmed
 
-## 10) Strategy Foundation
+## 11) Strategy Foundation
 
 - **When to use**: Define or refresh strategic foundation: mission, vision, North Star Metric, strategic pillars, strategic goals, milestones, roadmap; or document strategy context
 - **Primary skill**: [define-mission](./define-mission/SKILL.md)

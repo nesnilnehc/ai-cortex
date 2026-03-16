@@ -12,9 +12,20 @@
       "short_triggers": ["project start", "start project", "requirements", "analyze requirements"],
       "when_to_use": "New project, new initiative, or major direction reset",
       "primary": "analyze-requirements",
-      "optional": ["design-solution", "bootstrap-docs"],
+      "optional": ["review-requirements", "design-solution", "bootstrap-docs"],
       "output": "Validated requirements and initial design/doc structure",
       "stop_condition": "Requirements approved and design path selected"
+    },
+    {
+      "id": "requirements_review",
+      "title": "Requirements Review",
+      "short_triggers": ["review requirements", "requirements review", "requirements quality"],
+      "when_to_use": "An existing requirements document needs quality assessment before design begins",
+      "primary": "review-requirements",
+      "optional": ["analyze-requirements"],
+      "optional_note": "when gaps are found and requirements need to be reworked",
+      "output": "Requirements-quality findings list covering all six quality dimensions",
+      "stop_condition": "Zero findings remain or all critical/major findings have a fix plan"
     },
     {
       "id": "post_task_governance",
