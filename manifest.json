@@ -146,6 +146,10 @@
       "path": "skills/analyze-requirements/SKILL.md"
     },
     {
+      "name": "review-requirements",
+      "path": "skills/review-requirements/SKILL.md"
+    },
+    {
       "name": "align-planning",
       "path": "skills/align-planning/SKILL.md"
     },
