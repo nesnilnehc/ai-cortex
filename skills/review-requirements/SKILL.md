@@ -2,13 +2,13 @@
 name: review-requirements
 description: "Review an existing requirements document for quality: problem clarity, testable needs, constraint inventory, scope boundedness, requirement IDs, and open questions. Evaluative atomic skill; output is a findings list."
 tags: [eng-standards]
-related_skills: [analyze-requirements, design-solution]
-version: 1.0.0
+related_skills: [analyze-requirements]
+version: 1.0.1
 license: MIT
 recommended_scope: both
 metadata:
   author: ai-cortex
-triggers: [review requirements, requirements review, requirements quality]
+triggers: [review requirements, requirements review, requirements quality, check requirements, validate requirements doc, requirements check]
 input_schema:
   type: document-artifact
   description: Existing requirements document (path or content) to evaluate
