@@ -25,12 +25,12 @@ const CONTRACT_SKILLS = {
     artifact_type: 'adr',
     path_must_contain: ['process-management/decisions'],
   },
-  'brainstorm-design': {
+  'design-solution': {
     artifact_type: 'design',
     path_must_contain: ['design-decisions'],
   },
-  'assess-doc-readiness': {
-    artifact_type: 'doc-readiness',
+  'assess-docs': {
+    artifact_type: 'doc-assessment',
     path_must_contain: ['calibration'],
   },
 };

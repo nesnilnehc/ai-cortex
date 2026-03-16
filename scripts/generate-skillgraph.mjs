@@ -38,32 +38,31 @@ const REVIEW_TYPE_LABELS = {
 // Non-review chains: skill -> chain label
 const NON_REVIEW_CHAIN = {
   lifecycle: [
-    'analyze-requirements', 'brainstorm-design', 'commit-work', 'run-automated-tests',
-    'run-repair-loop', 'align-planning', 'align-architecture', 'assess-doc-readiness',
+    'analyze-requirements', 'design-solution', 'breakdown-tasks', 'commit-work', 'run-automated-tests',
+    'run-repair-loop', 'align-planning', 'align-architecture', 'assess-docs',
     'run-checkpoint',
   ],
-  onboarding: ['onboard-repo', 'generate-standard-readme', 'write-agents-entry', 'discover-skills'],
+  onboarding: ['generate-standard-readme', 'generate-agent-entry', 'discover-skills'],
   governance: [
     'curate-skills', 'refine-skill-design', 'generate-standard-readme', 'bootstrap-docs',
     'install-rules',
   ],
   standalone: [
     'decontextualize-text', 'generate-github-workflow', 'capture-work-items',
-    'validate-doc-artifacts', 'discover-document-norms',
+    'discover-document-norms',
   ],
 };
 
 // Orchestrator chains (orchestrator -> ordered skills for diagram)
 const ORCHESTRATOR_CHAINS = {
-  'onboard-repo': ['review-codebase', 'review-architecture', 'generate-standard-readme', 'write-agents-entry', 'discover-skills'],
   'curate-skills': ['refine-skill-design', 'generate-standard-readme'],
-  'run-checkpoint': ['discover-document-norms', 'bootstrap-docs', 'align-planning', 'assess-doc-readiness', 'align-architecture', 'analyze-requirements', 'brainstorm-design', 'run-repair-loop'],
+  'run-checkpoint': ['discover-document-norms', 'bootstrap-docs', 'align-planning', 'assess-docs', 'align-architecture', 'analyze-requirements', 'design-solution', 'run-repair-loop'],
 };
 
 // Fixed composition chains (conceptual, not from single orchestrator)
-const LIFECYCLE_CHAIN = ['analyze-requirements', 'brainstorm-design', 'review-code', 'run-repair-loop', 'run-automated-tests', 'commit-work'];
+const LIFECYCLE_CHAIN = ['analyze-requirements', 'design-solution', 'review-code', 'run-repair-loop', 'run-automated-tests', 'commit-work'];
 const GOVERNANCE_CHAIN = ['curate-skills', 'refine-skill-design', 'generate-standard-readme', 'bootstrap-docs', 'install-rules'];
-const PROJECT_LOOP_CHAIN = ['run-checkpoint', 'discover-document-norms', 'bootstrap-docs', 'align-planning', 'assess-doc-readiness', 'align-architecture', 'analyze-requirements', 'brainstorm-design', 'run-repair-loop'];
+const PROJECT_LOOP_CHAIN = ['run-checkpoint', 'discover-document-norms', 'bootstrap-docs', 'align-planning', 'assess-docs', 'align-architecture', 'analyze-requirements', 'design-solution', 'run-repair-loop'];
 
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
 const allSkills = (manifest.capabilities || []).map((c) => c.name);
@@ -122,26 +121,25 @@ function buildNonReviewQuickRef() {
   const chainLabels = { lifecycle: 'lifecycle', onboarding: 'onboarding', governance: 'governance', standalone: 'standalone' };
   const ioBrief = {
     'analyze-requirements': ['vague intent', 'validated requirements doc'],
-    'brainstorm-design': ['validated requirements', 'approved design doc'],
+    'design-solution': ['requirements doc', 'design doc (no implementation)'],
+    'breakdown-tasks': ['design doc', 'tasks.md / task list'],
     'commit-work': ['staged changes', 'git commits'],
     'run-automated-tests': ['repo path', 'test execution results'],
     'run-repair-loop': ['repo + scope', 'converged clean state'],
     'align-planning': ['completed task context', 'planning alignment report'],
     'align-architecture': ['ADR/design scope + code scope', 'architecture compliance report'],
-    'assess-doc-readiness': ['docs scope + mapping', 'doc readiness report + minimal fill plan'],
+    'assess-docs': ['docs scope + mapping', 'doc assessment report (compliance findings + readiness + minimal fill plan)'],
     'run-checkpoint': ['trigger + project context', 'cycle report'],
-    'onboard-repo': ['repo path', 'onboarding report'],
     'curate-skills': ['skills directory', 'ASQM audit report'],
     'refine-skill-design': ['SKILL.md', 'optimized SKILL.md'],
     'generate-standard-readme': ['project context', 'standardized README'],
-    'write-agents-entry': ['project context', 'AGENTS.md'],
+    'generate-agent-entry': ['project context', 'AGENTS.md'],
     'discover-skills': ['capability gaps', 'skill recommendations'],
     'decontextualize-text': ['private text', 'generic text'],
     'generate-github-workflow': ['workflow requirements', 'GitHub Actions YAML'],
     'bootstrap-docs': ['project directory', 'docs tree'],
     'install-rules': ['source rules', 'IDE rule files'],
     'capture-work-items': ['free-form input', 'structured work item(s)'],
-    'validate-doc-artifacts': ['docs scope', 'findings list'],
     'discover-document-norms': ['project path', 'docs/ARTIFACT_NORMS.md'],
   };
   const allNonReview = [...new Set(Object.values(NON_REVIEW_CHAIN).flat())];
@@ -163,13 +161,12 @@ This document describes how skills compose into orchestration chains, governance
 
 ## 1. Global overview
 
-The skill ecosystem has five major domains:
+The skill ecosystem has four major domains:
 
 | Domain | Purpose | Entry skills |
 | :--- | :--- | :--- |
 | **Code Review** | Aggregate scope, language, framework, library, and cognitive findings | [review-code](./review-code/SKILL.md) |
 | **Development Lifecycle** | Requirements → design → implementation → review → commit | [analyze-requirements](./analyze-requirements/SKILL.md), [run-repair-loop](./run-repair-loop/SKILL.md), [commit-work](./commit-work/SKILL.md) |
-| **Repository Onboarding** | New team member or inherited repo | [onboard-repo](./onboard-repo/SKILL.md) |
 | **Governance & Curation** | Skill inventory, docs, project governance | [curate-skills](./curate-skills/SKILL.md), [run-checkpoint](./run-checkpoint/SKILL.md) |
 | **Standalone** | Single-skill tasks | [decontextualize-text](./decontextualize-text/SKILL.md), [generate-github-workflow](./generate-github-workflow/SKILL.md), [capture-work-items](./capture-work-items/SKILL.md), etc. |
 
@@ -182,9 +179,6 @@ flowchart TB
     req[analyze-requirements]
     repair[run-repair-loop]
     commit[commit-work]
-  end
-  subgraph onboarding [Repository Onboarding]
-    onboard[onboard-repo]
   end
   subgraph governance [Governance]
     curate[curate-skills]
@@ -292,7 +286,7 @@ Requirements → Design → Implementation → Review → Commit
 \`\`\`mermaid
 flowchart LR
   analyze[analyze-requirements]
-  brainstorm[brainstorm-design]
+  brainstorm[design-solution]
   review_code_node[review-code]
   commit[commit-work]
   run_tests[run-automated-tests]
@@ -306,27 +300,7 @@ flowchart LR
   run_tests -->|tests pass| commit
 \`\`\`
 
-### 7.2 Repository onboarding chain
-
-The ${link('onboard-repo')} orchestrator runs skills in sequence:
-
-\`\`\`mermaid
-flowchart LR
-  onboard[onboard-repo]
-  rcb[review-codebase]
-  rarch[review-architecture]
-  readme[generate-standard-readme]
-  agents[write-agents-entry]
-  discover[discover-skills]
-
-  onboard --> rcb
-  rcb --> rarch
-  rarch --> readme
-  readme --> agents
-  agents --> discover
-\`\`\`
-
-### 7.3 Governance and curation chain
+### 7.2 Governance and curation chain
 
 \`\`\`mermaid
 flowchart LR
@@ -342,9 +316,9 @@ flowchart LR
   install -.->|rules for quality| curate
 \`\`\`
 
-### 7.4 Project governance loop chain
+### 7.3 Project governance loop chain
 
-Phase 0.5: discover-document-norms, bootstrap-docs. Unified sequence: align-planning → assess-doc-readiness. Output-driven follow-ups: align-architecture, repair, brainstorm, analyze.
+Phase 0.5: discover-document-norms, bootstrap-docs. Unified sequence: align-planning → assess-docs. Output-driven follow-ups: align-architecture, repair, brainstorm, analyze.
 
 \`\`\`mermaid
 flowchart LR
@@ -353,9 +327,9 @@ flowchart LR
   bootstrap[bootstrap-docs]
   align[align-planning]
   alignarch[align-architecture]
-  docreadiness[assess-doc-readiness]
+  docreadiness[assess-docs]
   req[analyze-requirements]
-  design[brainstorm-design]
+  design[design-solution]
   repair[run-repair-loop]
 
   loop -->|Phase 0.5| discover
@@ -368,7 +342,7 @@ flowchart LR
   docreadiness -->|architecture gap| design
 \`\`\`
 
-### 7.5 Quick reference (non-review)
+### 7.4 Quick reference (non-review)
 
 | Skill | Chain | Input | Output |
 | :--- | :--- | :--- | :--- |

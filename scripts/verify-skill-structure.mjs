@@ -107,8 +107,27 @@ function hasSelfCheckCriteria(content) {
   return selfCheckMatch[1].includes('- [ ]');
 }
 
-function hasSkillBoundaries(content) {
-  return /Skill Boundaries/i.test(content) || /This skill does NOT handle/i.test(content);
+function extractSection(content, heading) {
+  const marker = `## ${heading}`;
+  const start = content.indexOf(marker);
+  if (start === -1) return '';
+  const after = content.slice(start + marker.length);
+  const nextHeadingMatch = after.match(/\n## [A-Z]/);
+  const endOffset = nextHeadingMatch ? nextHeadingMatch.index : after.length;
+  return after.slice(0, endOffset);
+}
+
+function extractSkillBoundariesBlock(restrictionsBlock) {
+  if (!restrictionsBlock) return '';
+  const markerMatch = restrictionsBlock.match(/### Skill Boundaries[^\n]*/);
+  if (!markerMatch) return '';
+  const start = markerMatch.index;
+  const after = restrictionsBlock.slice(start);
+  const nextSubHeading = after.match(/\n### [A-Z]/);
+  const nextH2 = after.match(/\n## [A-Z]/);
+  const candidates = [nextSubHeading, nextH2].filter(Boolean).map((m) => m.index);
+  const endOffset = candidates.length > 0 ? Math.min(...candidates) : after.length;
+  return after.slice(0, endOffset);
 }
 
 function checkSkill(dirName) {
@@ -186,8 +205,19 @@ function checkSkill(dirName) {
     warn(dirName, `Only ${exampleCount} example(s) found; spec recommends at least 2`);
   }
 
-  if (!hasSkillBoundaries(content)) {
-    warn(dirName, 'No Skill Boundaries section found (overlap risk)');
+  // Restrictions / Skill Boundaries (spec §4.2 — mandatory "don't" list)
+  const restrictionsBlock = extractSection(content, 'Restrictions');
+  const skillBoundariesBlock = extractSkillBoundariesBlock(restrictionsBlock);
+
+  if (!restrictionsBlock) {
+    error(dirName, 'Restrictions section missing or malformed');
+  } else if (!skillBoundariesBlock) {
+    error(dirName, 'Restrictions section missing Skill Boundaries subsection');
+  } else if (!/Do NOT do these/i.test(skillBoundariesBlock)) {
+    warn(
+      dirName,
+      'Skill Boundaries subsection does not contain an explicit "Do NOT do these (other skills handle them)" list'
+    );
   }
 
   if (!existsSync(join(skillsDir, dirName, 'agent.yaml'))) {
