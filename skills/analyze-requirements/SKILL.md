@@ -1,10 +1,10 @@
 ---
 name: analyze-requirements
-description: Transform vague intent into validated, testable requirements through diagnostic state progression and structured dialogue. Use when user has an idea, feature request, or problem statement that needs requirements clarification before design or implementation.
+description: Transform vague intent or incomplete requirements into validated, testable requirements through diagnostic state progression and structured dialogue. Use when user has an idea, feature request, problem statement, or existing requirements document that needs clarification or validation before design or implementation.
 tags: [writing, eng-standards, documentation]
-version: 1.0.0
+version: 1.1.0
 license: MIT
-related_skills: [design-solution, refine-skill-design, discover-skills]
+related_skills: [review-requirements, design-solution, refine-skill-design, discover-skills]
 recommended_scope: both
 metadata:
   author: ai-cortex
@@ -34,10 +34,10 @@ metadata:
       - "Defined clear handoff boundary with design-solution"
       - "Added output persistence with file naming conventions"
       - "Comprehensive self-check aligned with core objective"
-triggers: [project start, start project, requirements, analyze requirements]
+triggers: [project start, start project, requirements, analyze requirements, clarify requirements, validate requirements, existing requirements]
 input_schema:
-  type: free-form
-  description: Vague idea, feature request, problem statement, or user requirement to analyze
+  type: free-form | document-artifact
+  description: Vague idea, feature request, problem statement, or existing requirements document (complete or incomplete) to analyze or validate
 output_schema:
   type: document-artifact
   description: Validated requirements document written to docs/requirements-planning/<topic>.md
