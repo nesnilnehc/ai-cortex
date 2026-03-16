@@ -40,7 +40,10 @@ input_schema:
   description: Vague idea, feature request, problem statement, or user requirement to analyze
 output_schema:
   type: document-artifact
-  description: Validated requirements document written to docs/requirements-planning/<topic>.md (docs/requirements/<topic>.md accepted for backward compatibility)
+  description: Validated requirements document written to docs/requirements-planning/<topic>.md
+  artifact_type: requirements
+  path_pattern: docs/requirements-planning/{topic}.md
+  lifecycle: snapshot
 ---
 
 # Skill: Analyze Requirements
@@ -59,10 +62,11 @@ Diagnose requirements-level problems and transform vague intent into validated, 
 
 1. ✅ **Problem articulated**: A clear problem statement exists that does not reference any solution or technology
 2. ✅ **Needs are testable**: Every requirement has acceptance criteria or a concrete "done looks like..." description
-3. ✅ **Constraints inventoried**: Real constraints (budget, time, skills, dependencies) are separated from assumptions
-4. ✅ **Scope bounded**: V1 boundary is explicit with deferred items listed and triggers for reconsidering documented
-5. ✅ **User confirmed**: User explicitly approved the validated requirements (said "approved", "looks good", "proceed", or equivalent)
-6. ✅ **Document persisted**: Requirements document written to agreed location and committed
+3. ✅ **Requirement IDs assigned**: Every requirement has a unique ID in the format `R-NN` (e.g. R-01, R-02); IDs are sequential with no gaps or duplicates
+4. ✅ **Constraints inventoried**: Real constraints (budget, time, skills, dependencies) are separated from assumptions
+5. ✅ **Scope bounded**: V1 boundary is explicit with deferred items listed and triggers for reconsidering documented
+6. ✅ **User confirmed**: User explicitly approved the validated requirements (said "approved", "looks good", "proceed", or equivalent)
+7. ✅ **Document persisted**: Requirements document written to `docs/requirements-planning/<topic>.md` per `docs/ARTIFACT_NORMS.md` and committed
 
 **Acceptance Test**: Can someone unfamiliar with the project read the requirements document and understand the problem, who has it, what "done" looks like, and what is out of scope — without asking clarifying questions?
 
@@ -386,10 +390,11 @@ Progress through states sequentially. Do NOT skip states — if the problem is n
 
 - [ ] **Problem articulated**: Clear problem statement exists without solution or technology references
 - [ ] **Needs are testable**: Every requirement has acceptance criteria or "done looks like..." description
+- [ ] **Requirement IDs assigned**: Every requirement has a unique `R-NN` ID (R-01, R-02...); sequential, no gaps or duplicates
 - [ ] **Constraints inventoried**: Real constraints separated from assumptions
 - [ ] **Scope bounded**: V1 boundary explicit with deferred items and triggers documented
 - [ ] **User confirmed**: User explicitly approved the validated requirements
-- [ ] **Document persisted**: Requirements document written to agreed location and committed
+- [ ] **Document persisted**: Requirements document written to `docs/requirements-planning/<topic>.md` and committed
 
 ### Process Quality Checks
 
@@ -399,6 +404,7 @@ Progress through states sequentially. Do NOT skip states — if the problem is n
 - [ ] **Developer decided**: Guided and questioned, but developer made final priority and scope calls
 - [ ] **Adjectives resolved**: No vague adjective-only requirements remain ("fast", "intuitive", "easy")
 - [ ] **Assumptions separated**: Unvalidated assumptions are flagged separately from real constraints
+- [ ] **IDs reviewed**: All requirement IDs follow `R-NN` format, are unique, and are used in cross-references within the document
 
 ### Health Check Questions
 
