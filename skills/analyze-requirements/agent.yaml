@@ -8,8 +8,8 @@ inputs:
   - optional existing documentation or context
 
 outputs:
-  - validated requirements document (docs/requirements/<topic>.md)
-  - integration map (handoff data for design-solution, refine-skill-design, discover-skills)
+  - validated requirements document (docs/requirements-planning/<topic>.md)
+  - integration map (handoff data for design-solution, review-requirements, discover-skills)
 
 scores:
   agent_native: 5
