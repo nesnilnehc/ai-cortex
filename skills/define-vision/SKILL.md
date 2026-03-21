@@ -1,10 +1,9 @@
 ---
 name: define-vision
 description: Define the long-term future the project aims to create. Answers what future we are building; produces a vision statement aligned with mission, persisted to docs.
-tags: [documentation, workflow, eng-standards]
+tags: [documentation, workflow]
 version: 1.0.0
 license: MIT
-related_skills: [define-mission, define-north-star, design-strategic-goals, bootstrap-docs]
 recommended_scope: both
 metadata:
   author: ai-cortex

@@ -1,10 +1,9 @@
 ---
 name: breakdown-tasks
 description: Break a design document into an executable task list with dependencies, acceptance criteria, and assignee or AI execution hints. Use when design is approved and you need an implementation plan.
-tags: [writing, eng-standards, documentation, workflow]
+tags: [writing, documentation, workflow]
 version: 1.1.0
 license: MIT
-related_skills: [design-solution, analyze-requirements, align-planning]
 recommended_scope: both
 metadata:
   author: ai-cortex

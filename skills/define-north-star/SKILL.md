@@ -1,10 +1,9 @@
 ---
 name: define-north-star
 description: Define the single most important metric representing the core value delivered to users. Produces North Star Metric with rationale, optional supporting metrics, and anti-pattern examples; persisted to docs.
-tags: [documentation, workflow, eng-standards]
+tags: [documentation, workflow]
 version: 1.0.0
 license: MIT
-related_skills: [define-mission, define-vision, design-strategic-goals, align-planning]
 recommended_scope: both
 metadata:
   author: ai-cortex

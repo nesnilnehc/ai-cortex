@@ -1,8 +1,7 @@
 ---
 name: review-typescript
 description: Review TypeScript/JavaScript code for type safety, async patterns, error handling, and module design. Atomic skill; output is a findings list.
-tags: [eng-standards]
-related_skills: [review-diff, review-codebase, review-code]
+tags: [code-review]
 version: 1.0.0
 license: MIT
 recommended_scope: project

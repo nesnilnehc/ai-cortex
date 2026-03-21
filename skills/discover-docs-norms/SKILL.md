@@ -1,10 +1,9 @@
 ---
 name: discover-docs-norms
 description: Help users establish project-specific artifact norms (paths, naming, lifecycle) through dialogue and scanning. Core goal - produce docs/ARTIFACT_NORMS.md and optional .ai-cortex/artifact-norms.yaml.
-tags: [documentation, eng-standards, workflow]
+tags: [documentation, workflow]
 version: 1.0.0
 license: MIT
-related_skills: [bootstrap-docs, assess-docs]
 recommended_scope: project
 metadata:
   author: ai-cortex

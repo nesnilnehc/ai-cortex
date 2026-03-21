@@ -10,7 +10,7 @@ lifecycle: living
 **日期**: 2026-03-10  
 **状态**: 已实施  
 **类型**: 实施计划  
-**相关**: [skills/run-checkpoint](../../../skills/run-checkpoint/SKILL.md)
+**相关**: [plan-next](../../../skills/plan-next/SKILL.md)（agent 名 run-checkpoint）
 
 > 注：原 `orchestrate-governance-loop` 已重命名为 `run-checkpoint`（2026-03-10 命名审计）。
 

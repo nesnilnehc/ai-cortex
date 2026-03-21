@@ -1,10 +1,9 @@
 ---
 name: capture-work-items
 description: Capture requirements, bugs, or issues from free-form input into structured, persistent artifacts. Use when user wants to record a work item quickly without deep validation.
-tags: [writing, eng-standards, documentation, workflow]
+tags: [writing, documentation, workflow]
 version: 1.0.0
 license: MIT
-related_skills: [analyze-requirements, design-solution]
 recommended_scope: both
 metadata:
   author: ai-cortex

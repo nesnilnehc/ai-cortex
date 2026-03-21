@@ -1,10 +1,9 @@
 ---
 name: automate-repair
 description: Iteratively review changes, run automated tests, and apply targeted fixes until issues are resolved (or a stop condition is reached).
-tags: [automation, devops, eng-standards, optimization]
+tags: [automation, devops, optimization]
 version: 1.1.0
 license: MIT
-related_skills: [review-code, review-diff, run-automated-tests, review-security, review-performance]
 recommended_scope: both
 metadata:
   author: ai-cortex

@@ -1,8 +1,7 @@
 ---
 name: review-diff
 description: Review only git diff for impact, regression, correctness, compatibility, and side effects. Scope-only atomic skill; output is a findings list for aggregation.
-tags: [eng-standards]
-related_skills: [review-codebase, review-code]
+tags: [code-review]
 version: 1.3.0
 license: MIT
 recommended_scope: project

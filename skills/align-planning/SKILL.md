@@ -1,10 +1,9 @@
 ---
 name: align-planning
 description: Perform post-task traceback, drift detection, and top-down recalibration to keep planning (goals, requirements, milestones, roadmap) aligned with task execution.
-tags: [workflow, eng-standards, documentation]
+tags: [workflow, documentation]
 version: 1.3.0
 license: MIT
-related_skills: [analyze-requirements, design-solution, bootstrap-docs, assess-docs, discover-docs-norms, run-repair-loop, align-architecture]
 recommended_scope: both
 metadata:
   author: ai-cortex

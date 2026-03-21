@@ -26,7 +26,7 @@ overlaps_with:
 
 market_position: experimental
 
-tags: [automation, infrastructure, eng-standards]
+tags: [automation, infrastructure]
 
 # Scoring rationale:
 # agent_native: 3 - output_schema is side-effect type; output described in prose only,

@@ -1,10 +1,9 @@
 ---
 name: generate-agent-entry
 description: Write or revise AGENTS.md per embedded output contract to establish project identity, authoritative sources, and behavioral expectations. Use when creating Agent entry for new projects, auditing existing AGENTS.md, or adopting the AI Cortex entry format.
-tags: [documentation, eng-standards]
+tags: [documentation]
 version: 1.0.0
 license: MIT
-related_skills: [refine-skill-design, generate-standard-readme, bootstrap-docs]
 recommended_scope: user
 metadata:
   author: ai-cortex

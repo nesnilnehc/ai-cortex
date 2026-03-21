@@ -1,8 +1,7 @@
 ---
 name: review-sql
 description: Review SQL and query code for injection risk, parameterization, indexing and performance, transactions, NULL and constraints, and dialect portability. Language-only atomic skill; output is a findings list.
-tags: [eng-standards]
-related_skills: [review-diff, review-codebase, review-security, review-code]
+tags: [code-review]
 version: 1.0.0
 license: MIT
 recommended_scope: project

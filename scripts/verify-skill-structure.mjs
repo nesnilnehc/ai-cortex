@@ -12,7 +12,7 @@
  *   7. Self-Check section present
  *   8. At least 2 examples
  *   9. agent.yaml and README.md existence (warning)
- *  10. related_skills references point to existing skills (warning)
+ *  10. (removed) related_skills — skill relations documented in Handoff/Scope Boundaries prose
  *
  * Run from repo root: node scripts/verify-skill-structure.mjs
  */
@@ -228,13 +228,6 @@ function checkSkill(dirName) {
     warn(dirName, 'Missing README.md (governance artifact)');
   }
 
-  if (meta.related_skills && meta.related_skills.length > 0) {
-    for (const ref of meta.related_skills) {
-      if (!existsSync(join(skillsDir, ref, 'SKILL.md'))) {
-        warn(dirName, `related_skills reference "${ref}" does not exist under skills/`);
-      }
-    }
-  }
 }
 
 if (!existsSync(skillsDir)) {

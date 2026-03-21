@@ -40,7 +40,7 @@ When working in or referencing this project, Agents must:
 ## 4. Discovery and Loading (Summary)
 
 - **Asset root**: Current repo root, this file’s repo root, or a user-provided Raw root URL.
-- **Discovery**: Read `skills/INDEX.md` and `manifest.json`; match by `description`, `tags`, and task semantics. Load SKILL `related_skills` as needed.
+- **Discovery**: Read `skills/INDEX.md` and `manifest.json`; match by `description`, `tags`, and task semantics. For chaining, follow Handoff Point and Scope Boundaries in each skill's prose; use `skills/scenario-map.json` for scenario→skill mapping.
 - **Injection**: Load the **full Markdown** of selected SKILLs as system or context; inject as atomic units.
 - **Self-reference**: When working on **this repo**, discover and load assets under `skills/`; use `manifest.json` `capabilities` for paths.
 

@@ -69,7 +69,17 @@ const allSkills = (manifest.capabilities || []).map((c) => c.name);
 const reviewAtoms = Object.values(REVIEW_TYPE).flat().filter((s) => s !== 'review-code');
 const reviewMeta = 'review-code';
 
-const link = (name) => `[${name}](./${name}/SKILL.md)`;
+// Conceptual/display names -> actual folder names (for valid links)
+const SKILL_PATH = {
+  'run-checkpoint': 'plan-next',
+  'run-repair-loop': 'automate-repair',
+  'run-automated-tests': 'automate-tests',
+  'discover-document-norms': 'discover-docs-norms',
+};
+const link = (name) => {
+  const path = SKILL_PATH[name] || name;
+  return `[${name}](./${path}/SKILL.md)`;
+};
 const mermaidId = (name) => name.replace(/-/g, '_');
 
 function getReviewType(skill) {
@@ -166,8 +176,8 @@ The skill ecosystem has four major domains:
 | Domain | Purpose | Entry skills |
 | :--- | :--- | :--- |
 | **Code Review** | Aggregate scope, language, framework, library, and cognitive findings | [review-code](./review-code/SKILL.md) |
-| **Development Lifecycle** | Requirements → design → implementation → review → commit | [analyze-requirements](./analyze-requirements/SKILL.md), [run-repair-loop](./run-repair-loop/SKILL.md), [commit-work](./commit-work/SKILL.md) |
-| **Governance & Curation** | Skill inventory, docs, project governance | [curate-skills](./curate-skills/SKILL.md), [run-checkpoint](./run-checkpoint/SKILL.md) |
+| **Development Lifecycle** | Requirements → design → implementation → review → commit | [analyze-requirements](./analyze-requirements/SKILL.md), ${link('run-repair-loop')}, [commit-work](./commit-work/SKILL.md) |
+| **Governance & Curation** | Skill inventory, docs, project governance | [curate-skills](./curate-skills/SKILL.md), ${link('run-checkpoint')} |
 | **Standalone** | Single-skill tasks | [decontextualize-text](./decontextualize-text/SKILL.md), [generate-github-workflow](./generate-github-workflow/SKILL.md), [capture-work-items](./capture-work-items/SKILL.md), etc. |
 
 \`\`\`mermaid

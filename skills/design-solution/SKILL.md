@@ -1,10 +1,9 @@
 ---
 name: design-solution
 description: Produce a validated design document from requirements (architecture, components, data flow, trade-offs) with no implementation. Use when requirements are clear and you need a single source of truth for downstream task breakdown.
-tags: [writing, eng-standards, documentation]
+tags: [writing, documentation]
 version: 1.1.0
 license: MIT
-related_skills: [analyze-requirements, breakdown-tasks]
 recommended_scope: both
 metadata:
   author: ai-cortex
@@ -28,7 +27,7 @@ output_schema:
   type: document-artifact
   description: Design document per [spec/artifact-contract.md](../../spec/artifact-contract.md)
   artifact_type: design
-  path_pattern: docs/designs/YYYY-MM-DD-{topic}.md
+  path_pattern: docs/design-decisions/YYYY-MM-DD-{topic}.md
   lifecycle: snapshot
 ---
 
@@ -46,7 +45,7 @@ Turn validated requirements into a single, implementation-free design document. 
 
 **Success Criteria** (ALL must be met):
 
-1. ✅ **Design document approved and persisted**: Written to `docs/designs/YYYY-MM-DD-<topic>.md` (or project-convention path per `docs/ARTIFACT_NORMS.md`), committed, and user explicitly approved
+1. ✅ **Design document approved and persisted**: Written to `docs/design-decisions/YYYY-MM-DD-<topic>.md` (or project-convention path per `docs/ARTIFACT_NORMS.md`), committed, and user explicitly approved
 2. ✅ **Requirements traceability**: Design explicitly references or summarizes the requirements it satisfies
 3. ✅ **Alternatives documented**: At least 2–3 approaches considered with trade-offs (pros/cons/best-for)
 4. ✅ **Error handling and testing strategy**: Key failure paths and verification approach (test approach, not test code) are documented
@@ -115,7 +114,7 @@ Output is design documentation only. Implementation is downstream (e.g. breakdow
 
 1. **Structure**: Goal, architecture, components, data flow, error handling strategy (key failure paths), testing strategy (verification approach, not test code), trade-offs considered, acceptance criteria (traceable to requirements).
 2. **Scale to complexity**: Short for simple scope; more detail when needed so that task breakdown is unambiguous.
-3. **Resolve path**: Check `docs/ARTIFACT_NORMS.md` first (project override); default fallback is `docs/designs/YYYY-MM-DD-<topic>.md` per [spec/artifact-contract.md](../../spec/artifact-contract.md).
+3. **Resolve path**: Check `docs/ARTIFACT_NORMS.md` first (project override); default fallback is `docs/design-decisions/YYYY-MM-DD-<topic>.md` per [spec/artifact-contract.md](../../spec/artifact-contract.md).
 4. **Write and persist**: Save design with front-matter (`artifact_type: design`, `created_by: design-solution`, `lifecycle: snapshot`, `created_at`).
 
 ### Phase 4: Approve and Hand Off
@@ -130,7 +129,7 @@ Output is design documentation only. Implementation is downstream (e.g. breakdow
 | Role | Content |
 | :--- | :--- |
 | **Input** | Requirements document (path or content); optional project context, existing design or ADRs |
-| **Output** | Design document at `docs/designs/YYYY-MM-DD-<topic>.md` (or project path per `docs/ARTIFACT_NORMS.md`); single source of truth for implementation and task breakdown |
+| **Output** | Design document at `docs/design-decisions/YYYY-MM-DD-<topic>.md` (or project path per `docs/ARTIFACT_NORMS.md`); single source of truth for implementation and task breakdown |
 
 ---
 
@@ -154,7 +153,7 @@ Output is design documentation only. Implementation is downstream (e.g. breakdow
 
 ## Self-Check
 
-- [ ] Design document approved and persisted: written to `docs/designs/YYYY-MM-DD-<topic>.md` (or project path per `docs/ARTIFACT_NORMS.md`), committed, user explicitly approved
+- [ ] Design document approved and persisted: written to `docs/design-decisions/YYYY-MM-DD-<topic>.md` (or project path per `docs/ARTIFACT_NORMS.md`), committed, user explicitly approved
 - [ ] Requirements are referenced or summarized; traceability is clear
 - [ ] At least 2–3 alternatives with trade-offs are documented
 - [ ] Error handling and testing strategy: key failure paths and verification approach documented
@@ -169,7 +168,7 @@ Output is design documentation only. Implementation is downstream (e.g. breakdow
 
 **Invocation**: "We have requirements in docs/requirements-planning/core-v1.md. Produce a design doc for it."
 
-**Agent**: Uses design-solution; reads requirements; proposes 2–3 architectural options with trade-offs; writes design to docs/designs/YYYY-MM-DD-core-v1.md; gets user approval; suggests running breakdown-tasks on that design to get tasks.md.
+**Agent**: Uses design-solution; reads requirements; proposes 2–3 architectural options with trade-offs; writes design to docs/design-decisions/YYYY-MM-DD-core-v1.md; gets user approval; suggests running breakdown-tasks on that design to get tasks.md.
 
 ### Example 2: Edge case — very small scope
 

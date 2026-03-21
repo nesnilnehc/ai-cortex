@@ -87,6 +87,6 @@
 - **结构**：章节顺序与层级合理，发散/收敛通过 §1 指向 §8.5 形成闭环。
 - **冲突**：无逻辑冲突；已修正 §4 列表缩进。
 - **建议后续**：
-  1. 与 [spec/artifact-contract.md](../../spec/artifact-contract.md) 对齐：扩展 artifact_type 或约定 mission/vision/roadmap 等路径与 lifecycle 取值。
+  1. 与 [spec/artifact-contract.md](../../../spec/artifact-contract.md) 对齐：扩展 artifact_type 或约定 mission/vision/roadmap 等路径与 lifecycle 取值。
   2. 澄清 YAML 中 `tags` 与 INDEX 的关系（见 2.4）。
   3. （可选）在 §7.1 迁移清单中为两阶段技能增加一句提醒。

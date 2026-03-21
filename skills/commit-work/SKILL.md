@@ -1,10 +1,9 @@
 ---
 name: commit-work
 description: Create high-quality git commits with clear messages and logical scope. Core goal - produce reviewable commits following Conventional Commits format with pre-commit quality checks.
-tags: [git, workflow, eng-standards, automation]
+tags: [git, workflow, automation]
 version: 2.0.0
 license: MIT
-related_skills: [review-diff]
 recommended_scope: both
 metadata:
   author: ai-cortex

@@ -1,10 +1,9 @@
 ---
 name: define-milestones
 description: Break strategic goals into concrete phase checkpoints (milestones) that represent major progress stages. Produces a milestones document with traceability to goals; persisted to docs.
-tags: [documentation, workflow, eng-standards]
+tags: [documentation, workflow]
 version: 1.0.0
 license: MIT
-related_skills: [design-strategic-goals, define-vision, define-north-star, align-planning, run-checkpoint]
 recommended_scope: both
 metadata:
   author: ai-cortex

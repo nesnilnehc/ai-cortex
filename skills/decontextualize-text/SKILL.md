@@ -2,7 +2,6 @@
 name: decontextualize-text
 description: Convert text with private context or internal dependencies into generic, unbiased expressions that are standalone and reusable. Core goal - produce decontextualized text that preserves logic while removing organizational identifiers. Use for project handoff, open-source prep, methodology abstraction, cross-team sharing.
 tags: [writing, security, privacy, generalization]
-related_skills: [generate-standard-readme]
 version: 1.3.0
 license: MIT
 recommended_scope: user

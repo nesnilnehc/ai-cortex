@@ -1,10 +1,9 @@
 ---
 name: install-rules
 description: Install rules from source repo into Cursor or Trae IDE with explicit confirmation and conflict detection. Core goal - install rules to editor destinations with user approval before any write.
-tags: [automation, infrastructure, eng-standards]
+tags: [automation, infrastructure]
 version: 1.2.0
 license: MIT
-related_skills: [discover-skills]
 recommended_scope: both
 metadata:
   author: ai-cortex

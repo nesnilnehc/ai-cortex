@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const root = join(__dirname, '..');
 
-const IGNORE_DIRS = new Set(['.git', 'node_modules']);
+const IGNORE_DIRS = new Set(['.git', 'node_modules', '.claude']);
 const LINK_REGEX = /!?\[[^\]]*]\(([^)]+)\)/g;
 
 function walk(dir, out = []) {

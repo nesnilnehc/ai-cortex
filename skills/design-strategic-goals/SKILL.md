@@ -1,10 +1,9 @@
 ---
 name: design-strategic-goals
 description: Define 3–5 long-term strategic goals that move the project toward the vision and North Star. Produces a goals document aligned with mission, vision, and NSM; persisted to docs.
-tags: [documentation, workflow, eng-standards]
+tags: [documentation, workflow]
 version: 1.0.0
 license: MIT
-related_skills: [define-mission, define-vision, define-north-star, define-strategic-pillars, define-milestones, align-planning]
 recommended_scope: both
 metadata:
   author: ai-cortex

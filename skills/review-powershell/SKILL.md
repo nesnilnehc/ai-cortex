@@ -1,8 +1,7 @@
 ---
 name: review-powershell
 description: "Review PowerShell code for language and runtime conventions: advanced functions, parameter design, error handling, object pipeline behavior, compatibility, and testability. Language-only atomic skill; output is a findings list."
-tags: [eng-standards]
-related_skills: [review-diff, review-codebase, review-code]
+tags: [code-review]
 version: 1.0.0
 license: MIT
 recommended_scope: project

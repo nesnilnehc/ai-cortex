@@ -1,10 +1,9 @@
 ---
 name: plan-next
 description: Analyze project state and produce next-action plan by running alignment, doc readiness, and output-driven follow-ups. Single-cycle report with executed steps and Recommended Next Tasks.
-tags: [workflow, automation, eng-standards]
+tags: [workflow, automation]
 version: 1.3.0
 license: MIT
-related_skills: [analyze-requirements, design-solution, align-planning, align-architecture, assess-docs, run-repair-loop, discover-docs-norms, bootstrap-docs]
 recommended_scope: project
 metadata:
   author: ai-cortex

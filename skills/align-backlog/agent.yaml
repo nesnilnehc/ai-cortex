@@ -27,7 +27,7 @@ overlaps_with:
 
 market_position: differentiated
 
-tags: [workflow, eng-standards, documentation]
+tags: [workflow, documentation]
 
 # Scoring rationale:
 # agent_native: 4 - Output template embedded in SKILL.md with machine-readable block defined;

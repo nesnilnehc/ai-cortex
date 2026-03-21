@@ -1,8 +1,7 @@
 ---
 name: review-go
 description: "Review Go code for language and runtime conventions: concurrency, context usage, error handling, resource management, API stability, type semantics, and testability. Language-only atomic skill; output is a findings list."
-tags: [eng-standards]
-related_skills: [review-diff, review-codebase, review-code]
+tags: [code-review]
 version: 1.0.0
 license: MIT
 recommended_scope: project

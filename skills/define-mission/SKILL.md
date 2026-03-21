@@ -1,10 +1,9 @@
 ---
 name: define-mission
 description: Define the fundamental purpose of a project or organization. Answers why the project exists; produces a single mission statement persisted to docs.
-tags: [documentation, workflow, eng-standards]
+tags: [documentation, workflow]
 version: 1.1.0
 license: MIT
-related_skills: [define-vision, define-north-star, design-strategic-goals, bootstrap-docs]
 recommended_scope: both
 metadata:
   author: ai-cortex

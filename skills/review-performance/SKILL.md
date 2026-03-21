@@ -1,8 +1,7 @@
 ---
 name: review-performance
 description: "Review code for performance: complexity, database/query efficiency, I/O and network cost, memory and allocation behavior, concurrency contention, caching, and latency/throughput regressions. Cognitive-only atomic skill; output is a findings list."
-tags: [eng-standards, optimization]
-related_skills: [review-diff, review-codebase, review-dotnet, review-java, review-go, review-powershell, review-sql, review-vue, review-code]
+tags: [code-review, optimization]
 version: 1.0.0
 license: MIT
 recommended_scope: project

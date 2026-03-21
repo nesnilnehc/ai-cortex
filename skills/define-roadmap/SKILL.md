@@ -1,10 +1,9 @@
 ---
 name: define-roadmap
 description: Translate strategic goals and milestones into a time-bound roadmap of initiatives or themes. Produces a roadmap document that bridges strategy and delivery planning; persisted to docs.
-tags: [documentation, workflow, eng-standards]
+tags: [documentation, workflow]
 version: 1.0.0
 license: MIT
-related_skills: [design-strategic-goals, define-milestones, define-strategic-pillars]
 recommended_scope: both
 metadata:
   author: ai-cortex

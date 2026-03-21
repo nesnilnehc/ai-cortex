@@ -1,8 +1,7 @@
 ---
 name: generate-standard-readme
 description: Generate professional, governance-ready README with fixed structure. Core goal - produce standardized front-page documentation that explains purpose, usage, and contribution guidelines. Use for asset governance, audit, or unified documentation standards.
-tags: [documentation, eng-standards, devops, writing]
-related_skills: [decontextualize-text, bootstrap-docs, generate-agent-entry]
+tags: [documentation, devops, writing]
 version: 1.2.0
 license: MIT
 recommended_scope: user
