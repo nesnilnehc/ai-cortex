@@ -1,10 +1,9 @@
 ---
 name: review-orm-usage
 description: Review ORM usage patterns for N+1 queries, connection management, migration safety, transaction handling, and query efficiency. Library-level atomic skill; output is a findings list.
-tags: [eng-standards, optimization]
+tags: [code-review, optimization]
 version: 1.0.0
 license: MIT
-related_skills: [review-diff, review-codebase, review-code, review-sql, review-performance]
 recommended_scope: project
 metadata:
   author: ai-cortex

@@ -1,8 +1,7 @@
 ---
 name: review-code
 description: Orchestrate comprehensive code reviews by running scope, language, framework, library, and cognitive review skills in sequence, then aggregate findings into a unified report.
-tags: [eng-standards]
-related_skills: [review-diff, review-codebase, review-dotnet, review-java, review-go, review-php, review-powershell, review-sql, review-vue, review-security, review-performance, review-architecture, review-testing]
+tags: [code-review]
 version: 2.6.0
 license: MIT
 recommended_scope: project

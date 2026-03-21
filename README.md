@@ -107,7 +107,7 @@ This repository is the capability-asset library: it hosts Skills and provides Sp
 
 - **Contract-first**: Structure, metadata, and quality are defined under `spec/`.
 - **Verifiable**: Self-Check is the minimum delivery guarantee.
-- **Composable**: `related_skills` supports reuse from atomic capabilities to workflows.
+- **Composable**: Handoff Point and Scope Boundaries in each skill document flow and dependencies for reuse from atomic capabilities to workflows.
 - **Discoverable**: `INDEX.md` and `manifest.json` provide stable indexes and metadata.
 
 ### Boundaries (out of scope)

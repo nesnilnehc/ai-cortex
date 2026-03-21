@@ -1,8 +1,7 @@
 ---
 name: refine-skill-design
 description: Audit and refactor existing SKILLs to meet spec compliance and LLM best practices. Use when improving drafts, fixing quality, or aligning to spec.
-tags: [writing, eng-standards, meta-skill, optimization]
-related_skills: [decontextualize-text, generate-standard-readme]
+tags: [writing, meta-skill, optimization]
 version: 1.4.0
 license: MIT
 recommended_scope: user

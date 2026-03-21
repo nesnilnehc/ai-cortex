@@ -46,17 +46,15 @@ tags: [a, b, c]
     assert.deepStrictEqual(meta?.tags, ['a', 'b', 'c']);
   });
 
-  it('extracts description, license, related_skills', () => {
+  it('extracts description, license', () => {
     const content = `---
 name: bar
 description: A skill
 license: MIT
-related_skills: [skill-a, skill-b]
 ---`;
     const meta = parseSkillFrontmatter(content);
     assert.strictEqual(meta?.description, 'A skill');
     assert.strictEqual(meta?.license, 'MIT');
-    assert.deepStrictEqual(meta?.related_skills, ['skill-a', 'skill-b']);
   });
 
   it('handles value with colon in name', () => {
@@ -76,4 +74,5 @@ tags: [ z , a ,  b ]
     const meta = parseSkillFrontmatter(content);
     assert.deepStrictEqual(meta?.tags, ['a', 'b', 'z']);
   });
+
 });

@@ -1,10 +1,9 @@
 ---
 name: align-architecture
 description: Verify architecture and design documents against code implementation; produce an Architecture Compliance Report when implementation diverges from ADR or design decisions.
-tags: [workflow, eng-standards, documentation]
+tags: [workflow, documentation]
 version: 1.2.0
 license: MIT
-related_skills: [align-planning, review-architecture, design-solution, assess-doc-readiness, bootstrap-docs]
 recommended_scope: project
 metadata:
   author: ai-cortex

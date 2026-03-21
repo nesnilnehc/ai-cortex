@@ -13,8 +13,8 @@ The skill ecosystem has four major domains:
 | Domain | Purpose | Entry skills |
 | :--- | :--- | :--- |
 | **Code Review** | Aggregate scope, language, framework, library, and cognitive findings | [review-code](./review-code/SKILL.md) |
-| **Development Lifecycle** | Requirements → design → implementation → review → commit | [analyze-requirements](./analyze-requirements/SKILL.md), [run-repair-loop](./run-repair-loop/SKILL.md), [commit-work](./commit-work/SKILL.md) |
-| **Governance & Curation** | Skill inventory, docs, project governance | [curate-skills](./curate-skills/SKILL.md), [run-checkpoint](./run-checkpoint/SKILL.md) |
+| **Development Lifecycle** | Requirements → design → implementation → review → commit | [analyze-requirements](./analyze-requirements/SKILL.md), [run-repair-loop](./automate-repair/SKILL.md), [commit-work](./commit-work/SKILL.md) |
+| **Governance & Curation** | Skill inventory, docs, project governance | [curate-skills](./curate-skills/SKILL.md), [run-checkpoint](./plan-next/SKILL.md) |
 | **Standalone** | Single-skill tasks | [decontextualize-text](./decontextualize-text/SKILL.md), [generate-github-workflow](./generate-github-workflow/SKILL.md), [capture-work-items](./capture-work-items/SKILL.md), etc. |
 
 ```mermaid
@@ -251,12 +251,12 @@ flowchart LR
 | [design-solution](./design-solution/SKILL.md) | lifecycle | requirements doc | design doc (no implementation) |
 | [breakdown-tasks](./breakdown-tasks/SKILL.md) | lifecycle | design doc | tasks.md / task list |
 | [commit-work](./commit-work/SKILL.md) | lifecycle | staged changes | git commits |
-| [run-automated-tests](./run-automated-tests/SKILL.md) | lifecycle | repo path | test execution results |
-| [run-repair-loop](./run-repair-loop/SKILL.md) | lifecycle | repo + scope | converged clean state |
+| [run-automated-tests](./automate-tests/SKILL.md) | lifecycle | repo path | test execution results |
+| [run-repair-loop](./automate-repair/SKILL.md) | lifecycle | repo + scope | converged clean state |
 | [align-planning](./align-planning/SKILL.md) | lifecycle | completed task context | planning alignment report |
 | [align-architecture](./align-architecture/SKILL.md) | lifecycle | ADR/design scope + code scope | architecture compliance report |
 | [assess-docs](./assess-docs/SKILL.md) | lifecycle | docs scope + mapping | doc assessment report (compliance findings + readiness + minimal fill plan) |
-| [run-checkpoint](./run-checkpoint/SKILL.md) | lifecycle | trigger + project context | cycle report |
+| [run-checkpoint](./plan-next/SKILL.md) | lifecycle | trigger + project context | cycle report |
 | [generate-standard-readme](./generate-standard-readme/SKILL.md) | onboarding, governance | project context | standardized README |
 | [generate-agent-entry](./generate-agent-entry/SKILL.md) | onboarding | project context | AGENTS.md |
 | [discover-skills](./discover-skills/SKILL.md) | onboarding | capability gaps | skill recommendations |
@@ -267,4 +267,4 @@ flowchart LR
 | [decontextualize-text](./decontextualize-text/SKILL.md) | standalone | private text | generic text |
 | [generate-github-workflow](./generate-github-workflow/SKILL.md) | standalone | workflow requirements | GitHub Actions YAML |
 | [capture-work-items](./capture-work-items/SKILL.md) | standalone | free-form input | structured work item(s) |
-| [discover-document-norms](./discover-document-norms/SKILL.md) | standalone | project path | docs/ARTIFACT_NORMS.md |
+| [discover-document-norms](./discover-docs-norms/SKILL.md) | standalone | project path | docs/ARTIFACT_NORMS.md |

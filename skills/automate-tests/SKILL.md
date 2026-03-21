@@ -1,10 +1,9 @@
 ---
 name: automate-tests
 description: Discover and execute repository test commands safely with evidence-based command selection and safety guardrails.
-tags: [automation, devops, eng-standards]
+tags: [automation, devops]
 version: 1.0.0
 license: MIT
-related_skills: [review-codebase, generate-github-workflow, review-testing, run-repair-loop]
 recommended_scope: both
 metadata:
   author: ai-cortex
@@ -61,7 +60,7 @@ Determine how a target repository expects automated tests to be executed (comman
 - Writing new tests or test infrastructure (use development skills)
 - Reviewing test code for best practices (use `review-testing`)
 
-**Handoff point**: When tests complete (pass or fail), hand off to `run-repair-loop` for fixing failures or `review-testing` for quality assessment.
+**Handoff point**: When tests complete (pass or fail), hand off to `automate-repair` for fixing failures or `review-testing` for quality assessment.
 
 ## Use Cases
 

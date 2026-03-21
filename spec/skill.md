@@ -1,11 +1,12 @@
 # Skill Specification
 
 Status: MANDATORY  
-Version: 2.7.0  
+Version: 2.7.2  
 Scope: All files under `skills/`.
 
 **Changelog**:
 
+- v2.7.2 (2026-03-21): Removed `related_skills` metadata; skill relations documented in Handoff Point and Scope Boundaries prose
 - v2.7.0 (2026-03-16): Added explicit Divergent (exploratory) + Convergent (decision / artifact) phase model for skills; updated naming, I/O contracts, Behavior, Restrictions, and Self-Check to support two-phase workflows and handoffs
 - v2.6.0 (2026-03-16): Made "don't" (Skill Boundaries) mandatory in §4.2 Restrictions; Handoff (When to Stop) optional but recommended; added REJECT gate for missing Skill Boundaries, WARN for missing When to Stop
 - v2.5.0 (2026-03-10): Added naming priority rule (§1): semantic correctness and normativity first, colloquial and memorable second
@@ -47,7 +48,6 @@ description: [one-line summary in English; for discoverability and semantic sear
 tags: [at least one tag from INDEX]
 version: [x.x.x]
 license: MIT
-related_skills: [optional list]
 recommended_scope: [optional] user | project | both  # default both
 metadata:
   author: ai-cortex
@@ -106,6 +106,16 @@ metadata:
       - "Added registry synchronization"
       - "Enhanced Self-Check"
 ```
+
+### 2.2 Skill Relations (Handoff and Scope Boundaries)
+
+Skill dependencies and suggested next steps are documented in prose, not in metadata:
+
+- **Handoff Point** (under Core Objective or Scope Boundaries): When and how to transition to other skills. MUST name concrete skills (e.g. `breakdown-tasks`, `review-code`).
+- **Scope Boundaries**: What this skill does NOT handle, with explicit skill names for responsibilities owned by others (e.g. "use `analyze-requirements` for requirements elicitation").
+- **Scenario map**: `skills/scenario-map.json` is the canonical source for scenario→skill mapping (primary, optional).
+
+There is no `related_skills` metadata. Authors document flow and dependencies in the skill body so Agents and tools have a single source of truth.
 
 ### Optional Invocation Fields
 
@@ -184,7 +194,7 @@ Both placements are valid: as subsections of `## Core Objective` (inline) or as 
 - **Self-Check Alignment**: Self-Check section MUST align with Success Criteria from Core Objective.
 - **Scope Boundaries**: SHOULD define what the skill handles vs. what it does NOT handle to prevent overlap with other skills.
 - **Don't (mandatory)**: Every skill MUST define what it does NOT do (explicit list of responsibilities owned by other skills). This MUST appear in the `## Restrictions` section as **Skill Boundaries** (see §4.2); it may also appear in `## Scope Boundaries`.
-- **Handoff (optional)**: Skills SHOULD define when to stop and hand off to other skills or workflows (e.g. in **When to Stop** under Restrictions, or as **Handoff Point** under Core Objective). Recommended for composable or chainable skills.
+- **Handoff (required for chainable skills)**: Skills that consume output of other skills or produce output for others MUST define **Handoff Point** with concrete skill names (e.g. "hand off to `breakdown-tasks`"). Chainable skills SHOULD also document input expectations (e.g. "expects requirements document from `analyze-requirements`") in Scope Boundaries.
 - **Divergent + Convergent clarity** (for exploratory / decision skills): If a skill performs both **Divergent** (option generation / exploration) and **Convergent** (selection / artifact creation) work, the SKILL MUST:
   - Explicitly describe both phases in `## Behavior` (or an `Execution` / `Execution Process` subsection), including phase names or labels.
   - Declare phase-specific inputs/outputs in `## Input & Output` and, where applicable, in `input_schema` / `output_schema`.

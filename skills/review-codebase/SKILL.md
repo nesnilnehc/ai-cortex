@@ -1,10 +1,9 @@
 ---
 name: review-codebase
 description: Architecture and design review for specified files/dirs/repo. Covers tech debt, patterns, quality. Diff-only review use review-diff. Complements review-code (orchestrated).
-tags: [eng-standards]
+tags: [code-review]
 version: 1.3.0
 license: MIT
-related_skills: [review-code, review-diff]
 recommended_scope: project
 metadata:
   author: ai-cortex

@@ -1,8 +1,7 @@
 ---
 name: review-testing
 description: "Review code for testing: test existence, coverage adequacy, test quality and structure, edge-case and error-path coverage, and test maintainability. Cognitive-only atomic skill; output is a findings list."
-tags: [eng-standards]
-related_skills: [review-diff, review-codebase, review-code, run-automated-tests]
+tags: [code-review]
 version: 1.0.0
 license: MIT
 recommended_scope: project
@@ -55,12 +54,12 @@ Review code for **testing** concerns only. Do not define scope (diff vs codebase
 **This skill does NOT handle**:
 
 - Scope selection (deciding which files/paths to analyze) — scope is provided by the caller
-- Running tests or generating coverage reports — use `run-automated-tests` for test execution
+- Running tests or generating coverage reports — use `automate-tests` for test execution
 - Language/framework-specific test conventions — use `review-dotnet`, `review-java`, `review-go`, etc.
 - Security, performance, or architecture review — use respective atomic skills
 - Full orchestrated review — use `review-code`
 
-**Handoff point**: When all testing findings are emitted, hand off to `review-code` for aggregation in an orchestrated review. For actually running tests, redirect to `run-automated-tests`.
+**Handoff point**: When all testing findings are emitted, hand off to `review-code` for aggregation in an orchestrated review. For actually running tests, redirect to `automate-tests`.
 
 ---
 
@@ -115,7 +114,7 @@ Review code for **testing** concerns only. Do not define scope (diff vs codebase
 
 - **Do not** perform scope selection, language, framework, security, performance, or architecture review. Stay within testing dimensions.
 - **Do not** give conclusions without specific locations or actionable suggestions.
-- **Do not** require running tests or generating coverage reports. Analyze test adequacy from the code and available artifacts (e.g. existing coverage files). For actually running tests, use [run-automated-tests](../run-automated-tests/SKILL.md).
+- **Do not** require running tests or generating coverage reports. Analyze test adequacy from the code and available artifacts (e.g. existing coverage files). For actually running tests, use [automate-tests](../automate-tests/SKILL.md).
 - **Do not** penalize absence of tests for trivial code (simple getters, constants, generated code) unless it masks a real risk.
 
 ### Skill Boundaries
@@ -123,14 +122,14 @@ Review code for **testing** concerns only. Do not define scope (diff vs codebase
 **Do NOT do these** (other skills handle them):
 
 - Do NOT select or define the code scope — scope is determined by the caller or `review-code`
-- Do NOT run or execute tests — use `run-automated-tests` for test execution
+- Do NOT run or execute tests — use `automate-tests` for test execution
 - Do NOT perform language/framework-specific test convention analysis — use respective language skills
 - Do NOT perform security, performance, or architecture analysis — use respective atomic skills
 
 **When to stop and hand off**:
 
 - When all testing findings are emitted, hand off to `review-code` for aggregation in an orchestrated review
-- When the user needs tests to actually run, redirect to `run-automated-tests`
+- When the user needs tests to actually run, redirect to `automate-tests`
 - When the user needs a full review (scope + language + cognitive), redirect to `review-code`
 
 ---

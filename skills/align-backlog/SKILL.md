@@ -1,10 +1,9 @@
 ---
 name: align-backlog
 description: Align the product or work backlog with the current strategy, goals, and roadmap. Analyze backlog items, identify misaligned or orphan work, and propose concrete changes (adds, cuts, reprioritization) so backlog clearly supports strategic outcomes.
-tags: [workflow, eng-standards, documentation]
+tags: [workflow, documentation]
 version: 1.0.0
 license: MIT
-related_skills: [align-planning, align-architecture, design-strategic-goals, define-roadmap, capture-work-items, run-strategy-checkpoint]
 recommended_scope: both
 aliases: [align-backlog-to-strategy]
 metadata:

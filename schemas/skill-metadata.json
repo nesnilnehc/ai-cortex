@@ -30,7 +30,7 @@
           "privacy",
           "documentation",
           "generalization",
-          "eng-standards",
+          "code-review",
           "devops",
           "meta-skill",
           "automation",
@@ -51,11 +51,6 @@
       "type": "string",
       "const": "MIT",
       "description": "Must be MIT."
-    },
-    "related_skills": {
-      "type": "array",
-      "items": { "type": "string" },
-      "description": "Optional list of related skill names."
     },
     "recommended_scope": {
       "type": "string",

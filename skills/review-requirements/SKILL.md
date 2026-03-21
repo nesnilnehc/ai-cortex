@@ -1,8 +1,7 @@
 ---
 name: review-requirements
 description: "Review an existing requirements document for quality: problem clarity, testable needs, constraint inventory, scope boundedness, requirement IDs, and open questions. Evaluative atomic skill; output is a findings list."
-tags: [eng-standards]
-related_skills: [analyze-requirements]
+tags: [code-review]
 version: 1.0.1
 license: MIT
 recommended_scope: both

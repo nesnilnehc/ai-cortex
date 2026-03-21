@@ -1,10 +1,9 @@
 ---
 name: assess-docs
 description: Assess documentation health in one pass — validate artifact norms compliance (paths, naming, front-matter) and evidence readiness by layer; report gaps and produce a minimum-fill plan.
-tags: [documentation, eng-standards, workflow]
+tags: [documentation, workflow]
 version: 3.0.0
 license: MIT
-related_skills: [bootstrap-docs, analyze-requirements, design-solution, align-planning, align-architecture, discover-docs-norms]
 recommended_scope: both
 metadata:
   author: ai-cortex

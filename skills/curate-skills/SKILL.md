@@ -1,10 +1,9 @@
 ---
 name: curate-skills
 description: Govern skill inventory through ASQM scoring, lifecycle management, and overlap detection. Core goal - produce validated quality scores and normalized documentation for all skills in repository.
-tags: [meta-skill, eng-standards, documentation]
+tags: [meta-skill, documentation]
 version: 1.0.0
 license: MIT
-related_skills: [refine-skill-design, generate-standard-readme]
 recommended_scope: project
 metadata:
   author: ai-cortex
@@ -95,7 +94,7 @@ Govern the skill inventory by evaluating, scoring, tagging, and normalizing ever
 
 ### Strict Scoring (Required)
 
-- **Evidence-based**: Each score must be justified by the skill’s SKILL.md (e.g. presence of Appendix: Output contract, related_skills, Restrictions, Self-Check).
+- **Evidence-based**: Each score must be justified by the skill’s SKILL.md (e.g. presence of Appendix: Output contract, Handoff Point, Scope Boundaries, Restrictions, Self-Check).
 - **No inflation**: agent_native = 5 only when the skill has an **explicit, machine-parseable output contract** (e.g. Appendix: Output contract or equivalent table/spec in SKILL.md). If output is described only in prose, agent_native ≤ 4.
 - **Consistency**: Apply the same criteria across all skills; do not relax for a single skill without justification.
 

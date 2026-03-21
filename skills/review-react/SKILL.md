@@ -1,8 +1,7 @@
 ---
 name: review-react
 description: Review React code for component design, hooks correctness, state management, rendering performance, and accessibility. Framework-only atomic skill; output is a findings list.
-tags: [eng-standards]
-related_skills: [review-diff, review-codebase, review-code, review-typescript]
+tags: [code-review]
 version: 1.0.0
 license: MIT
 recommended_scope: project

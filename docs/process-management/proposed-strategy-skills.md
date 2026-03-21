@@ -44,5 +44,5 @@ Proposal for additional AI Cortex Skills that complete the strategic planning ch
 ## Implementation Notes
 
 - **Naming**: Verb-noun; no overlap with existing strategy skills.
-- **Artifact paths**: `docs/process-management/` for roadmap; `docs/project-overview/` for strategic-pillars, strategy-summary. Follow [spec/artifact-contract.md](../spec/artifact-contract.md) and project norms.
+- **Artifact paths**: `docs/process-management/` for roadmap; `docs/project-overview/` for strategic-pillars, strategy-summary. Follow [spec/artifact-contract.md](../../spec/artifact-contract.md) and project norms.
 - **related_skills**: Each skill lists upstream/downstream strategy skills and, where relevant, `align-planning`, `run-checkpoint`.

@@ -1,10 +1,9 @@
 ---
 name: analyze-requirements
 description: Transform vague intent or incomplete requirements into validated, testable requirements through diagnostic state progression and structured dialogue. Use when user has an idea, feature request, problem statement, or existing requirements document that needs clarification or validation before design or implementation.
-tags: [writing, eng-standards, documentation]
+tags: [writing, documentation]
 version: 1.1.0
 license: MIT
-related_skills: [review-requirements, design-solution, refine-skill-design, discover-skills]
 recommended_scope: both
 metadata:
   author: ai-cortex

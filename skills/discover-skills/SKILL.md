@@ -4,7 +4,6 @@ description: Identify missing skills and recommend installations from AI Cortex 
 tags: [automation, infrastructure, generalization]
 version: 1.3.0
 license: MIT
-related_skills: [refine-skill-design]
 recommended_scope: user
 metadata:
   author: ai-cortex

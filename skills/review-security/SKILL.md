@@ -1,8 +1,7 @@
 ---
 name: review-security
 description: "Review code for security: injection, sensitive data, auth, dependencies, config, and crypto. Atomic skill; output is a findings list."
-tags: [eng-standards, security]
-related_skills: [review-diff, review-codebase, review-sql, review-code]
+tags: [code-review, security]
 version: 1.0.0
 license: MIT
 recommended_scope: project

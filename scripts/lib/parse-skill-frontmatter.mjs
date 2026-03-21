@@ -23,15 +23,17 @@ export function normalizeList(list, sort = true) {
 /**
  * Parse SKILL.md frontmatter and extract metadata.
  * @param {string} content - Full file content or raw YAML block
- * @returns {{ name?: string; description?: string; version?: string; license?: string; tags?: string[]; related_skills?: string[]; triggers?: string[]; aliases?: string[] } | null}
+ * @returns {{ name?: string; description?: string; version?: string; license?: string; tags?: string[]; triggers?: string[]; aliases?: string[] } | null}
  */
 export function parseSkillFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---/);
   if (!match) return null;
   const raw = match[1];
+  const lines = raw.split('\n');
 
   const meta = {};
-  for (const line of raw.split('\n')) {
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
     if (line.startsWith('name:')) {
       meta.name = line.split(':').slice(1).join(':').trim();
       continue;
@@ -52,13 +54,6 @@ export function parseSkillFrontmatter(content) {
       const tagMatch = line.match(/tags:\s*\[(.*)\]\s*$/);
       if (tagMatch) {
         meta.tags = normalizeList(tagMatch[1].split(','));
-      }
-      continue;
-    }
-    if (line.startsWith('related_skills:')) {
-      const rsMatch = line.match(/related_skills:\s*\[(.*)\]\s*$/);
-      if (rsMatch) {
-        meta.related_skills = normalizeList(rsMatch[1].split(','), false);
       }
       continue;
     }

@@ -1,8 +1,7 @@
 ---
 name: review-architecture
 description: "Review code for architecture: module and layer boundaries, dependency direction, single responsibility, cyclic dependencies, interface stability, and coupling. Cognitive-only atomic skill; output is a findings list."
-tags: [eng-standards]
-related_skills: [review-diff, review-codebase, review-code]
+tags: [code-review]
 version: 1.0.0
 license: MIT
 recommended_scope: project

@@ -7,6 +7,7 @@ ehthumbs.db
 [Dd]esktop.ini
 
 # IDE / editor
+.claude/
 .cursor/
 .trae/
 

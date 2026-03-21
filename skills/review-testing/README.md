@@ -30,7 +30,7 @@ Analyzes the given code scope for testing health across six dimensions:
 ## Related skills
 
 - [review-code](../review-code/SKILL.md) — Orchestrator that includes this skill in the cognitive stage.
-- [run-automated-tests](../run-automated-tests/SKILL.md) — Actually executes tests; this skill reviews test code quality.
+- [automate-tests](../automate-tests/SKILL.md) — Actually executes tests; this skill reviews test code quality.
 - [review-codebase](../review-codebase/SKILL.md) — Scope skill that mentions testability as one dimension.
 
 ## Install
