@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFileSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -37,32 +37,30 @@ function extractSingleMermaid(fileContent, filePath) {
   return blocks[0];
 }
 
+/** Diagram sources that exist under docs/images/ */
+const DIAGRAM_SOURCES = [
+  { name: 'workflow-sequence', path: workflowPath, relPath: 'docs/images/workflow-sequence.mmd' },
+  ...(existsSync(ecosystemPath)
+    ? [{ name: 'ecosystem-topology', path: ecosystemPath, relPath: 'docs/images/ecosystem-topology.mmd' }]
+    : []),
+];
+
 function main() {
   const readme = readFileSync(readmePath, 'utf8');
   const readmeBlocks = extractMermaidBlocks(readme);
+  const requiredCount = DIAGRAM_SOURCES.length;
 
-  if (readmeBlocks.length < 2) {
-    console.error(`README.md must contain at least 2 Mermaid blocks, found ${readmeBlocks.length}.`);
+  if (readmeBlocks.length < requiredCount) {
+    console.error(`README.md must contain at least ${requiredCount} Mermaid block(s), found ${readmeBlocks.length}.`);
     process.exit(1);
   }
 
-  const workflow = extractSingleMermaid(readFileSync(workflowPath, 'utf8'), 'docs/images/workflow-sequence.mmd');
-  const ecosystem = extractSingleMermaid(readFileSync(ecosystemPath, 'utf8'), 'docs/images/ecosystem-topology.mmd');
-
-  const checks = [
-    {
-      name: 'workflow-sequence',
-      readmeBlock: readmeBlocks[0],
-      sourceBlock: workflow,
-      sourcePath: 'docs/images/workflow-sequence.mmd',
-    },
-    {
-      name: 'ecosystem-topology',
-      readmeBlock: readmeBlocks[1],
-      sourceBlock: ecosystem,
-      sourcePath: 'docs/images/ecosystem-topology.mmd',
-    },
-  ];
+  const checks = DIAGRAM_SOURCES.map((src, i) => ({
+    name: src.name,
+    readmeBlock: readmeBlocks[i],
+    sourceBlock: extractSingleMermaid(readFileSync(src.path, 'utf8'), src.relPath),
+    sourcePath: src.relPath,
+  }));
 
   let failed = 0;
   for (const check of checks) {
