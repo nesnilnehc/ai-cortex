@@ -34,7 +34,7 @@
 | :--- | :--- |
 | manifest.json | 全部 |
 | SKILL 元数据 | name, path, tags, triggers, description |
-| 文件/目录名 | skills/*/, *.md 等 |
+| 文件/目录名 | `skills/*/`、`*.md` 等 |
 | intent-routing.json | id, primary, optional, short_triggers |
 | INDEX §3 表头 | Name, Tags, Version, Stability |
 | .claude-plugin/marketplace.json | 全部 |

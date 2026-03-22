@@ -1,10 +1,11 @@
 ---
+artifact_type: backlog-item
+created_by: capture-work-items
 type: requirement
 date: 2026-03-21
 status: captured
 source: user
 trace_id:
-created_by: capture-work-items
 ---
 
 # 核心价值澄清：编排、路由、统一输出与业务场景锚定

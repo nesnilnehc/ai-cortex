@@ -4,7 +4,7 @@
 版本：2.7.5  
 范围：`skills/` 下所有文件。
 
-**变更日志**（早期版本见 [spec-skill-changelog-archive.md](../docs/references/spec-skill-changelog-archive.md)）：
+**变更日志**：
 
 - v2.7.5 (2026-03-22)：§4 新增文档制品原则 — YAGNI、DRY、简洁适用于产出 document-artifact 的技能
 - v2.7.4 (2026-03-22)：内容与结构精简 — 变更日志归档；§1 命名收敛；§3.1 重要性缩句；§4 去重、§4.4 合并；§5 与 §9 合并；§7.1 流程合并
