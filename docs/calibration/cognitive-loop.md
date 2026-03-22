@@ -1,70 +1,85 @@
-# Project Cognitive Loop Report
+# 项目认知循环报告
 
-**Date:** 2026-03-06
-**Trigger:** periodic-review
-**Scenario:** 常规治理检查 — 无特定任务/里程碑上下文，执行文档就绪与执行对齐评估
+**日期**：2026-03-22
+**触发**：periodic-review（定期检视）
+**场景**：执行 plan-next 技能 — 以存量治理文档为输入源，产出下一行动建议
 
 ---
 
-## Routed Sequence
+## 输入源清单
+
+| 输入源 | 路径 | 状态 | 质量 |
+| :--- | :--- | :--- | :--- |
+| mission | docs/project-overview/mission.md | 存在 | present |
+| vision | docs/project-overview/vision.md | 存在 | present |
+| north-star | docs/project-overview/north-star.md | 存在 | present |
+| strategic-goals | docs/project-overview/strategic-goals.md | 存在 | present |
+| milestones | docs/process-management/milestones.md | 存在 | present |
+| roadmap | docs/designs/2026-03-02-ai-cortex-evolution-roadmap.md | 存在 | present |
+| backlog | docs/process-management/backlog.md、backlog/*.md | 存在 | present |
+
+**结论**：所有核心输入源就绪，进入阶段 0.5 与 1。
+
+---
+
+## 路由序列
 
 | # | Skill | Why | Status |
 | :--- | :--- | :--- | :--- |
-| 1 | documentation-readiness | periodic-review 路由优先：评估各层文档覆盖与缺口 | executed |
-| 2 | execution-alignment | 评估当前项目状态与目标/需求/架构/里程碑/路线图的对齐 | executed |
+| 0 | Input source inventory | plan-next 阶段 0：盘点 mission/vision/backlogs 等 | executed |
+| 0.5 | 规划准备门 | ARTIFACT_NORMS.md 存在；docs/ 结构完整；就绪度 sufficient | executed（无短路） |
+| 1 | align-planning（模拟） | 任务完成/定期检视；规划层回溯与漂移评估 | executed |
+| 2 | assess-docs（模拟） | 文档证据与各层就绪度评估 | executed |
 
-**Skipped skills:** `analyze-requirements`, `design-solution`, `run-repair-loop`  
-**Skip rationale:** periodic-review 路由表仅包含 documentation-readiness 与 execution-alignment；无 scope-change、无任务完成、无缺陷需修复。
-
----
-
-## Aggregated Findings
-
-### From documentation-readiness
-
-- **Overall readiness:** high
-- **Layer status:**
-  - Goal: strong — `docs/project-overview/goals-and-vision.md` 存在且当前
-  - Requirements: strong — `docs/requirements-planning/promotion-and-iteration.md`、`README.md`、索引表
-  - Architecture: strong — `docs/architecture/README.md`、`adrs/001-io-contract-protocol.md`、Evolution Roadmap
-  - Milestones: strong — `docs/process-management/milestones.md`，v2.1.0 已关闭
-  - Roadmap: strong — `docs/designs/2026-03-02-ai-cortex-evolution-roadmap.md`
-  - Backlog: strong — `docs/process-management/backlog.md` 索引已就绪，引用 backlog/*.md、INDEX、manifest
-
-### From execution-alignment
-
-- **Mode:** Lightweight（periodic-review 无特定 completed task，按当前整体状态评估）
-- **Context:** v2.1.x 进行中；推广渠道清单（channels 2/3/4 ✓；channel 1 skills.sh 安装待验证）
-- **Evidence readiness:** strong — 目标、需求、架构、里程碑、路线图均有 canonical 文档
-- **Alignment status:**
-  - Goal: aligned
-  - Requirements: aligned
-  - Architecture: aligned
-  - Milestone: aligned — v2.1.0 已关闭，v2.1.x 进行中
-  - Roadmap: aligned
-- **Drift detected:** none
-- **Confidence:** high
+**跳过技能**：run-repair-loop、design-solution、analyze-requirements、align-architecture
+**跳过理由**：无缺陷需修复、无设计冲突、无严重需求漂移、无里程碑/发布门需架构合规检查。
 
 ---
 
-## Blockers and Confidence
+## 汇总发现
 
-- **Blocker:** none
-- **Confidence:** high
+### 来自 align-planning（模拟）
+
+- **模式**：Lightweight（periodic-review，无特定已完成任务）
+- **上下文**：plan-next 技能刚完成 2.0.0 重设计（输入源驱动、缺失优先）；git 中有大量未提交变更
+- **对齐状态**：Goal、Requirements、Architecture、Milestone、Roadmap、Backlog 均有 canonical 文档
+- **检测到的漂移**：无
+- **置信度**：high
+
+### 来自 assess-docs（模拟）
+
+- **规范**：docs/ARTIFACT_NORMS.md 存在，path_pattern 与 artifact_type 已定义
+- **层级就绪度**（较 2026-03-06 有提升）：
+  - Goal: strong — goals-and-vision.md、mission.md、vision.md、north-star.md、strategic-goals.md
+  - Requirements: strong — requirements-planning/README.md、promotion-and-iteration.md
+  - Architecture: strong — architecture/README.md、adrs/001-io-contract-protocol.md
+  - Milestones: strong — milestones.md，M1–M4 已关闭
+  - Roadmap: strong — 2026-03-02-ai-cortex-evolution-roadmap.md
+  - Backlog: strong — backlog.md 索引、backlog/*.md
+- **总体就绪度**：strong
 
 ---
 
-## Verification Results
+## 战略 / 里程碑状态
 
-| 项目 | 检查方式 | 结果 |
+| Milestone / Goal | Status | Evidence |
 | :--- | :--- | :--- |
-| v2.1.0 tag | `git tag -l v2.1.0` 返回 v2.1.0 | done |
-| Channel 1（skills.sh） | `npx skills add nesnilnehc/ai-cortex -y` 返回 0 | done |
-| Channel 2/3/4 | 推广渠道清单本季度执行记录 | done |
-| Backlog 索引 | `docs/process-management/backlog.md` 存在 | done |
+| M1: Discoverability baseline | on track | intent-routing.json、INDEX.md、manifest.json 持续维护 |
+| M2: Reusability baseline | on track | Spec、单文件技能、npx skills add |
+| M3: Governance baseline | on track | spec/skill.md、curate-skills、Restrictions |
+| M4: Ecosystem presence | on track | skills.sh、SkillsMP、Cursor/Trae |
+
+---
+
+## 阻塞与置信度
+
+- **阻塞**：无
+- **置信度**：high
 
 ---
 
 ## Recommended Next Tasks
 
-无剩余推荐任务。所有验证项已完成。
+1. **[提交 plan-next 变更]** — 理由：plan-next 技能已按 spec 规范化并重设计为输入源驱动；含 SKILL.md、README.md 更新。负责人：维护者。范围：skills/plan-next/、docs/calibration/cognitive-loop.md
+2. **[运行 curate-skills]** — 理由：plan-next 2.0.0 为重大变更，建议运行 ASQM 审计以验证质量与重叠。负责人：维护者。范围：skills/plan-next
+3. **[更新 intent-routing 描述]** — 理由：iteration_orchestration 意图的 output 描述已与 plan-next 2.0.0 对齐，可选更新「输入源盘点」相关说明。负责人：维护者。范围：skills/intent-routing.json
