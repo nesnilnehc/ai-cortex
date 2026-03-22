@@ -1,6 +1,7 @@
 ---
 name: design-strategic-goals
 description: Define 3–5 long-term strategic goals that move the project toward the vision and North Star. Produces a goals document aligned with mission, vision, and NSM; persisted to docs.
+description_zh: 定义 3–5 个推动项目走向 vision 与 North Star 的长期战略目标；产出 goals 文档。
 tags: [documentation, workflow]
 version: 1.0.0
 license: MIT
@@ -19,157 +20,157 @@ output_schema:
   lifecycle: living
 ---
 
-# Skill: Design Strategic Goals
+#技能 (Skill)：设计战略目标
 
-## Purpose
+## 目的 (Purpose)
 
-Define **3–5 long-term strategic goals** that move the project toward the vision and North Star. Produce a goals document with outcome-focused goals (not task lists or roadmap). Does not define mission, vision, North Star, or milestones.
-
----
-
-## Core Objective
-
-**Primary Goal**: Produce a user-confirmed strategic goals document containing exactly 3–5 outcome-focused goals aligned with vision and North Star, persisted to the project-agreed path.
-
-**Success Criteria** (ALL must be met):
-
-1. ✅ **3–5 goals documented**: Exactly 3–5 strategic goals, each with a clear title and short description.
-2. ✅ **Outcome-focused**: Each goal describes an outcome or result, not a task list or feature list.
-3. ✅ **Aligned with vision**: Each goal supports the vision; alignment is stated or evident.
-4. ✅ **North Star connection**: At least one goal clearly supports or moves the North Star metric; optional: brief "how this supports vision/NSM" per goal.
-5. ✅ **User confirmed**: User explicitly approved (e.g. "approved", "looks good", "proceed", or equivalent).
-6. ✅ **Document persisted**: Written to agreed path (default `docs/project-overview/strategic-goals.md` or per project norms).
-
-**Acceptance Test**: Can a reader see how each of the 3–5 goals advances the vision and North Star, without needing dates or phases (those belong in milestones)?
-
-**Handoff Point**: When goals are approved and persisted, hand off to `define-milestones` to break goals into phase checkpoints, or stop.
+定义 **3-5 个长期战略目标**，推动项目朝着愿景和北极星方向发展。制作一个以结果为中心的目标文档（不是任务列表或路线图）。不定义使命、愿景、北极星或里程碑。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-**This skill handles**:
+**首要目标**：生成用户确认的战略目标文档，其中包含 3-5 个与愿景和北极星一致的以结果为中心的目标，并坚持项目商定的路径。
 
-- Eliciting and documenting 3–5 long-term strategic goals.
-- Ensuring alignment with vision and North Star (read from `define-vision` / `define-north-star` outputs or existing docs).
-- Persisting to project-agreed path (default `docs/project-overview/strategic-goals.md`).
-- Optional: per-goal note on how it supports vision or North Star.
+**成功标准**（必须满足所有要求）：
 
-**This skill does NOT handle**:
+1. ✅ **记录 3-5 个目标**：正好 3-5 个战略目标，每个目标都有清晰的标题和简短描述。
+2. ✅ **以结果为中心**：每个目标都描述结果或结果，而不是任务列表或功能列表。
+3. ✅ **与愿景保持一致**：每个目标都支持愿景；对齐是明确的或明显的。
+4. ✅ **北极星联系**：至少一个目标明确支持或移动北极星指标；可选：每个目标简要说明“这如何支持愿景/NSM”。
+5. ✅ **用户确认**：用户明确批准（例如“已批准”、“看起来不错”、“继续”或同等内容）。
+6. ✅ **文档持久化**：写入商定的路径（默认 `docs/project-overview/strategic-goals.md` 或每个项目规范）。
 
-- Defining mission, vision, or North Star (use `define-mission`, `define-vision`, `define-north-star`).
-- Breaking goals into phases or dates (use `define-milestones`).
-- Writing requirements, roadmap, or backlog (use `analyze-requirements`, project planning, `capture-work-items`).
+**验收测试**：读者能否看到 3-5 个目标中的每一个如何推进愿景和北极星，而不需要日期或阶段（那些属于里程碑）？
 
----
-
-## Use Cases
-
-- **After vision and North Star**: Set 3–5 strategic outcomes that advance the vision and move the NSM.
-- **Annual or quarterly strategy**: Define or refresh strategic priorities.
-- **When backlog lacks goal alignment**: Create explicit goals so roadmap and backlog can trace to them.
-- **Fourth layer in strategy chain**: Run after mission, vision, and north star when building the full hierarchy.
+**交接点**：当目标被批准并坚持时，交接至“定义里程碑”以将目标分解为阶段检查点，或停止。
 
 ---
 
-## Behavior
+## 范围边界 (Scope Boundaries)
 
-### Interaction Policy
+**本技能负责**：
 
-- **Defaults**: Output path from project norms if present; otherwise `docs/project-overview/strategic-goals.md`. Read vision and North Star from `docs/project-overview/` when available.
-- **Choice options**: If user has more than 5 candidate goals, offer to prioritize or cluster into 3–5; ask user to confirm the final set.
-- **Confirm**: Before overwriting an existing strategic-goals file; before final persist.
+- 引出并记录 3-5 个长期战略目标。
+- 确保与愿景和北极星保持一致（从“define-vision”/“define-north-star”输出或现有文档中读取）。
+- 坚持项目商定的路径（默认“docs/project-overview/strategic-goals.md”）。
+- 可选：每个目标的说明，说明它如何支持愿景或北极星。
 
-### Execution Process
+**本技能不负责**：
 
-1. **Load vision and North Star**: Read from `docs/project-overview/vision.md` and `docs/project-overview/north-star.md` or user-provided summary.
-2. **Elicit**: What 3–5 outcomes would materially advance the vision and move the North Star?
-3. **Draft goals**: Outcome-focused (e.g. "Reduce time-to-deploy for 80% of teams to under 5 min"); not task lists or feature lists.
-4. **Check alignment**: Each goal supports the vision; at least one clearly supports the North Star.
-5. **Persist**: Write to project-agreed path; create `docs/project-overview/` if missing. Optional: add "How this supports vision/NSM" per goal.
-
----
-
-## Input & Output
-
-**Input**:
-
-- **Required**: Vision; North Star (or paths to vision/north-star docs); project context.
-- **Optional**: Mission; time horizon; existing goals or priorities.
-
-**Output**:
-
-- **Artifact**: Strategic goals document.
-- **Location**: `docs/project-overview/strategic-goals.md` (or per project norms).
-- **Content**: 3–5 strategic goals (title + short description); optional: link to vision/NSM; "How this supports vision/NSM" per goal.
-- **Lifecycle**: Living (reviewed at strategy cycles).
+- 定义使命、愿景或北极星（使用“定义使命”、“定义愿景”、“定义北极星”）。
+- 将目标分解为阶段或日期（使用“定义里程碑”）。
+- 撰写需求、路线图或待办（使用“分析需求”、“项目计划”、“捕获工作项目”）。
 
 ---
 
-## Restrictions
+## 使用场景（用例）
 
-### Hard Boundaries
-
-- Do NOT define mission, vision, North Star, or milestones in this skill.
-- Do NOT include dates or phases in the goals document (those belong in `define-milestones`).
-- Do NOT produce fewer than 3 or more than 5 strategic goals in the document.
-
-### Skill Boundaries (Avoid Overlap)
-
-**Do NOT do these (other skills handle them)**:
-
-- **Mission**: Why we exist → Use `define-mission`.
-- **Vision**: What future we build → Use `define-vision`.
-- **North Star**: Single metric → Use `define-north-star`.
-- **Milestones**: Phase checkpoints → Use `define-milestones`.
-- **Requirements or backlog**: Use `analyze-requirements`, `capture-work-items`, project planning.
-
-**When to stop and hand off**:
-
-- User says "approved" or equivalent → Goals complete; offer handoff to `define-milestones`.
-- User asks for phases or milestones → Hand off to `define-milestones`.
+- **在愿景和北极星之后**：设定 3-5 个战略成果，以推进愿景并推动 NSM。
+- **年度或季度战略**：定义或更新战略优先事项。
+- **当待办缺乏目标一致性时**：创建明确的目标，以便路线图和待办可以追踪它们。
+- **战略链中的第四层**：在构建完整的层次结构时遵循使命、愿景和北极星。
 
 ---
 
-## Self-Check
+## 行为（行为）
 
-### Core Success Criteria (ALL must be met)
+### 交互（互动）政策
 
-- [ ] **3–5 goals documented**: Exactly 3–5 strategic goals with title and description.
-- [ ] **Outcome-focused**: Each goal is an outcome or result, not a task list.
-- [ ] **Aligned with vision**: Each goal supports the vision.
-- [ ] **North Star connection**: At least one goal clearly supports or moves the North Star.
-- [ ] **User confirmed**: User said "approved", "looks good", "proceed", or equivalent.
-- [ ] **Document persisted**: Written to agreed path (default `docs/project-overview/strategic-goals.md` or project norms).
+- **默认**：项目规范的输出路径（如果存在）；否则为“docs/project-overview/strategic-goals.md”。如果有的话，请从“docs/project-overview/”中阅读愿景和北极星。
+- **选择选项**：如果用户有超过 5 个候选目标，请提供优先级或聚类为 3-5 个；要求用户确认最终设置。
+- **确认**：覆盖现有战略目标文件之前；在最终坚持之前。
 
-### Process Quality Checks
+### 执行过程
 
-- [ ] **Vision/NSM used**: Did I read or request vision and North Star before drafting goals?
-- [ ] **No dates/phases**: Did I avoid putting milestones or timelines in the goals document?
-
-### Acceptance Test
-
-**Can a reader see how each goal advances the vision and North Star without needing dates or phases?**
-
-If NO: Goals may be too tactical or missing alignment. Refine to outcomes and state alignment.
-If YES: Strategic goals are complete. Proceed to handoff or stop.
+1. **加载愿景和北极星**：阅读 `docs/project-overview/vision.md` 和 `docs/project-overview/north-star.md` 或用户提供的摘要。
+2. **引出**：哪 3-5 个结果会实质性地推进愿景并移动北极星？
+3. **目标草案**：注重结果（例如“将 80% 团队的部署时间减少到 5 分钟以下”）；不是任务列表或功能列表。
+4. **检查一致性**：每个目标都支持愿景；至少有一个明确支持北极星。
+5. **持久化**：写入到项目约定的路径；如果缺少，请创建“docs/project-overview/”。可选：为每个目标添加“这如何支持愿景/NSM”。
 
 ---
 
-## Examples
+## 输入与输出 (Input & Output)
 
-### Example 1: Full hierarchy in place
+**输入**：
 
-**Context**: Vision and North Star exist. User wants 3–5 strategic goals.
+- **必需**：愿景；北极星（或通往愿景/北极星文档的路径）；项目背景。
+- **可选**：任务；时间范围；现有的目标或优先事项。
 
-**Process**: Read vision and north-star docs. Elicit outcomes (e.g. "80% of teams deploy in under 5 min", "Zero manual steps for standard deploys", "Full audit trail for every deployment"). Draft 3–5 goals; state how each supports vision/NSM. User confirms. Write to `docs/project-overview/strategic-goals.md`.
+**输出**：
 
-**Outcome**: Goals persisted; handoff to `define-milestones` offered.
+- **工件**：战略目标文档。
+- **位置**：`docs/project-overview/strategic-goals.md`（或每个项目规范）。
+- **内容**：3-5个战略目标（标题+简短描述）；可选：链接到愿景/NSM；每个目标“这如何支持愿景/NSM”。
+- **生命周期**：生活（在战略周期进行审查）。
 
-### Example 2: User proposes six goals
+---
 
-**Context**: User lists six candidate goals; plan allows only 3–5.
+## 限制（限制）
 
-**Process**: Cluster or prioritize into 3–5 (e.g. merge two related goals, or drop lowest priority). Present the 3–5 set with rationale; ask user to confirm or adjust. Ensure each is outcome-focused and aligned with vision/NSM. Persist once confirmed.
+### 硬边界（Hard Boundaries）
 
-**Outcome**: Document contains exactly 3–5 goals; user has explicitly approved the set.
+- 不要在此技能中定义使命、愿景、北极星或里程碑。
+- 不要在目标文档中包含日期或阶段（这些属于“定义里程碑”）。
+- 文档中的战略目标不得少于 3 个或多于 5 个。
+
+### 技能边界 (Skill Boundaries)（避免重叠）
+
+**不要做这些（其他技能可以处理它们）**：
+
+- **使命**：我们为何存在→使用`define-mission`。
+- **愿景**：我们构建什么样的未来→使用“定义愿景”。
+- **北极星**：单一指标 → 使用 `define-north-star`。
+- **里程碑**：阶段检查点→使用`define-里程碑`。
+- **需求或待办**：使用“分析需求”、“捕获工作项目”、项目规划。
+
+**何时停止并交接**：
+
+- 用户说“已批准”或同等内容 → 目标完成；提供转交“定义里程碑”。
+- 用户请求阶段或里程碑 → 移交给“定义里程碑”。
+
+---
+
+## 自检（Self-Check）
+
+### 核心成功标准（必须满足所有标准）
+
+- [ ] **记录了 3–5 个目标**：正好有 3–5 个战略目标，并带有标题和说明。
+- [ ] **注重结果**：每个目标都是结果或结果，而不是任务列表。
+- [ ] **与愿景保持一致**：每个目标都支持愿景。
+- [ ] **北极星连接**：至少一个目标明确支持或移动北极星。
+- [ ] **用户确认**：用户说“已批准”、“看起来不错”、“继续”或类似内容。
+- [ ] **文档持久化**：写入商定的路径（默认 `docs/project-overview/strategic-goals.md` 或项目规范）。
+
+### 流程质量检查
+
+- [ ] **使用愿景/NSM**：在起草目标之前我是否阅读或请求了愿景和北极星？
+- [ ] **没有日期/阶段**：我是否避免将里程碑或时间表放入目标文档中？
+
+### 验收测试
+
+**读者能否在不需要日期或阶段的情况下了解每个目标如何推进愿景和北极星？**
+
+如果否：目标可能过于战术性或缺乏一致性。细化结果和状态一致性。
+如果是：战略目标已完成。继续转交或停止。
+
+---
+
+## 示例（示例）
+
+### 示例 1：完整的层次结构到位
+
+**背景**：愿景和北极星存在。用户想要 3-5 个战略目标。
+
+**流程**：阅读愿景和北极星文档。得出结果（例如“80% 的团队在 5 分钟内完成部署”、“标准部署零手动步骤”、“每次部署的完整审核跟踪”）。起草 3-5 个目标；说明每个人如何支持愿景/NSM。用户确认。写入“docs/project-overview/strategic-goals.md”。
+
+**结果**：目标持续存在； 提供转交“定义里程碑”。
+
+### 示例 2：用户提出六个目标
+
+**上下文**：用户列出了六个候选目标；计划只允许 3-5 个。
+
+**流程**：聚类或按优先级划分为 3-5 个（例如，合并两个相关目标，或放弃最低优先级）。展示第 3-5 组并附上理由；请用户确认或调整。确保每一项都以结果为中心并与愿景/NSM 保持一致。一旦确认就坚持。
+
+**结果**：文档恰好包含 3-5 个目标；用户已明确批准该集。

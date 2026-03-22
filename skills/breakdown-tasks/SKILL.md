@@ -1,6 +1,7 @@
 ---
 name: breakdown-tasks
 description: Break a design document into an executable task list with dependencies, acceptance criteria, and assignee or AI execution hints. Use when design is approved and you need an implementation plan.
+description_zh: 将设计文档拆解为可执行任务列表：依赖、验收标准、负责人或 AI 执行提示。
 tags: [writing, documentation, workflow]
 version: 1.1.0
 license: MIT
@@ -18,98 +19,99 @@ output_schema:
   lifecycle: living
 ---
 
-# Skill: Breakdown Tasks
+# 技能（Skill）：分解任务
 
-## Purpose
+## 目的 (Purpose)
 
-Turn a validated design document into an ordered, trackable task list. Each task has dependencies, acceptance criteria, and an assignee (or AI execution hint) so that implementation can proceed without ambiguity.
-
----
-
-## Core Objective
-
-**Primary Goal**: Produce a tasks document (e.g. tasks.md) from a design document so that every implementable unit is one task with clear dependencies, acceptance criteria, and ownership.
-
-**Success Criteria** (ALL must be met):
-
-1. ✅ **Tasks document exists**: Written to agreed path (e.g. `docs/process-management/tasks/YYYY-MM-DD-<topic>.md` or project `tasks.md`) and committed
-2. ✅ **Design traceability**: Each task maps to at least one part of the design (section or acceptance criterion)
-3. ✅ **Dependencies explicit**: Task order or dependency list is clear (no circular dependencies)
-4. ✅ **Acceptance criteria per task**: Each task has concrete "done" criteria
-5. ✅ **Assignee or execution hint**: Each task has owner (person/role) or AI execution hint (e.g. which skill or step to run)
-6. ✅ **User confirmed**: User explicitly approved or adjusted the task list
-
-**Acceptance Test**: Can an executor (human or Agent) pick the next task, implement it, and verify completion using only this document and the design?
+将已验证设计文档变成有序的、可跟踪的任务列表。每个任务都有依赖性、验收标准和受让人（或人工智能执行提示），以便可以毫无歧义地进行实施。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-**This skill handles**:
+**任务目标**：根据设计文档生成任务文档（例如tasks.md），以便每个可实施的单元都是一个具有明确依赖性、验收标准和所有权的任务。
 
-- Design document → Ordered task list (tasks.md or equivalent)
-- Dependencies between tasks; acceptance criteria per task; assignee or AI execution hints
-- Persisting the task list as a living artifact for implementation tracking
+**成功标准**（必须满足所有要求）：
 
-**This skill does NOT handle**:
+1. ✅ **任务文档存在**：写入商定的路径（例如 `docs/process-management/tasks/YYYY-MM-DD-<topic>.md` 或项目 `tasks.md`）并提交
+2. ✅ **设计可追溯性**：每项任务至少映射到设计的一部分（部分或验收标准）
+3. ✅ **依赖关系明确**：任务顺序或依赖关系列表清晰（无循环依赖关系）
+4. ✅ **每个任务的接受标准**：每个任务都有具体的“完成”标准
+5. ✅ **受让人或执行提示**：每个任务都有所有者（人/角色）或AI执行提示（例如要运行哪个技能或步骤）
+6. ✅ **用户确认**：用户明确批准或调整任务列表
 
-- Creating or validating the design (use `design-solution` or `brainstorm-design`)
-- Validating requirements (use `analyze-requirements`)
-- Executing tasks (implementation skills, run-repair-loop, etc.)
-- Scheduling or capacity planning (use project/milestone tools)
-
-**Handoff point**: When the task list is approved and persisted, hand off to implementation (e.g. run tasks in order, or feed into backlog/board).
+**验收**测试：执行者（人或代理）可以仅使用此文档和设计来选择下一个任务，实施它并验证完成情况吗？
 
 ---
 
-## Use Cases
+## 范围边界（范围边界）
 
-- **Post-design planning**: Design is approved; you need a clear implementation plan before coding.
-- **Traceability**: You want every design decision to map to one or more concrete tasks.
-- **AI-assisted execution**: You want each task to include hints (e.g. "use skill X" or "edit file Y") so an Agent can execute the plan.
+**本技能负责**：
 
----
+- 设计文档 → 有序任务列表（tasks.md 或同等文件）
+- 任务之间的依赖关系；每项任务的验收标准；受让人或AI执行提示
+- 将任务列表作为活的产品进行持久化，以进行实施跟踪
 
-## Behavior
+**本技能不负责**：
 
-### Interaction Policy
+- 创建或验证设计（使用“设计解决方案”或“头脑风暴设计”）
+- 验证需求（使用“分析需求”）
+- 执行任务（实施技巧、运行修复循环等）
+- 日程安排或容量规划（使用项目/里程碑工具）
 
-- **Defaults**: Require a design document (path or content); use project norms for output path if present
-- **Choice options**: When design is ambiguous, ask one clarifying question at a time
-- **Confirm**: User must approve or adjust the task list before handoff
-
-### Phase 1: Ingest Design
-
-1. **Load design**: Read the design document (e.g. design.md or docs/design-decisions/*.md).
-2. **Extract structure**: Identify sections that imply work (architecture, components, data flow, error handling, testing, etc.).
-3. **Confirm scope**: If user specified a subset (e.g. "only backend"), restrict tasks to that subset.
-
-### Phase 2: Derive Tasks
-
-1. **One task per implementable unit**: Each task should be completable in a single focus session; avoid vague "implement X" where X is large.
-2. **Order by dependency**: List tasks so that dependencies come first; document dependency explicitly (e.g. "Depends on: T1, T2").
-3. **Acceptance criteria**: For each task, state what "done" looks like (testable or verifiable).
-4. **Assignee or hint**: For each task, set assignee (person/role) or an AI execution hint (e.g. "Run design-solution for module Y", "Edit src/foo.ts per design §3").
-
-### Phase 3: Persist and Hand Off
-
-1. **Resolve path**: Prefer project norms (e.g. docs/ARTIFACT_NORMS.md); else `docs/process-management/tasks/YYYY-MM-DD-<topic>.md` or project-convention `tasks.md`.
-2. **Write tasks document**: Use a consistent format (see below); include front-matter if project uses it (`created_by: breakdown-tasks`, `lifecycle: living`, design source path).
-3. **User approval**: Present summary and ask for approval or edits.
-4. **Handoff**: Suggest starting implementation from the first unblocked task.
+**转交点**：当任务列表被批准并保留后，移交给执行（例如按顺序运行任务，或输入待办/板）。
 
 ---
 
-## Input & Output
+## 使用场景（用例）
 
-| Role | Content |
+- **设计后规划**：设计获得批准；在编码之前你需要一个清晰的实施计划。
+- **可追溯性**：您希望每个设计决策都映射到一个或多个具体任务。
+- **人工智能辅助执行**：您希望每个任务都包含提示（例如“使用技能 X”或“编辑文件 Y”），以便代理可以执行计划。
+
+---
+
+## 行为（行为）
+
+### 交互（互动）政策
+
+- **默认**：需要设计文档（路径或内容）；使用项目规范作为输出路径（如果存在）
+- **选择选项**：当设计不明确时，一次提出一个澄清问题
+- **确认**：用户必须批准或调整任务列表才能转交
+
+### 第 1 阶段：摄取设计
+
+1. **加载设计**：阅读设计文档（例如设计.md或docs/design-decisions/*.md）。
+2. **提取结构**：识别暗示工作的部分（架构、组件、数据流、错误处理、测试等）。
+3. **确认范围**：如果用户指定了一个子集（例如“仅后端”），则将任务限制为该子集。
+
+### 第 2 阶段：派生任务
+
+1. **每个可实施单元一项任务**：每项任务都应在一次焦点会议中完成；当 X 很大时，避免模糊的“实施 X”。
+2. **按依赖关系排序**：列出任务，使依赖关系排在第一位； 明确的文档依赖性（例如“取决于：T1，T2”）。
+3. **验收标准**：对于每项任务，说明“完成”是什么样的（可测试或可验证）。
+4. **受让人或提示**：对于每个任务，设置受让人（人员/角色）或 AI 执行提示（例如“为模块 Y 运行设计解决方案”、“根据设计§3 编辑 src/foo.ts”）。
+
+### 第三阶段：坚持并移交
+
+1. **解析路径**：优先选择项目规范（例如docs/ARTIFACT_NORMS.md）；否则 `docs/process-management/tasks/YYYY-MM-DD-<topic>.md` 或项目约定 `tasks.md`。
+2. **编写任务文档**：使用一致的格式（见下文）；如果项目使用它，则包含 front-matter（`created_by:分解任务`、`lifecycle:living`、设计源路径）。
+3. **用户批准**：呈现摘要并请求批准或编辑。
+4. **Handoff**：建议从第一个未阻塞的任务开始执行。
+
+---
+
+## 输入与输出 (Input & Output)
+
+|角色 |内容 |
 | :--- | :--- |
-| **Input** | Design document (path or content); optional scope/priority from user |
-| **Output** | Tasks document at `docs/process-management/tasks/YYYY-MM-DD-<topic>.md` or project `tasks.md`; each task has id, title, dependencies, acceptance criteria, assignee/hint |
+| **输入** |设计文档（路径或内容）；用户的可选范围/优先级 |
+| **输出** |任务文档位于 `docs/process-management/tasks/YYYY-MM-DD-<topic>.md` 或项目 `tasks.md`；每个任务都有 ID、标题、依赖项、接受标准、受让人/提示 |
 
 ---
 
-## Recommended Task List Format
+## 推荐的任务列表格式
+
 
 ```markdown
 # Implementation tasks: [Topic]
@@ -123,53 +125,54 @@ Turn a validated design document into an ordered, trackable task list. Each task
 | T2 | ...  | T1         | ...                  | ...         |
 ```
 
-Optional: Add a short "Summary" and "Design traceability" (task → design section) at the top.
+
+可选：在顶部添加简短的“摘要”和“设计可追溯性”（任务 → 设计部分）。
 
 ---
 
-## Restrictions
+## 限制（限制）
 
-### Hard Boundaries
+### 硬边界（Hard Boundaries）
 
-- **Design first**: Do not run when design is missing or unapproved; hand off to `design-solution` or `brainstorm-design`.
-- **No implementation**: Do not write code or run implementation skills; only produce the task list.
-- **No circular dependencies**: Task order must be acyclic.
+- **设计优先**：设计缺失或未经批准时请勿运行；交给“设计解决方案”或“头脑风暴设计”。
+- **无实施**：不编写代码或运行实施技巧；只产生任务列表。
+- **无循环依赖**：任务顺序必须是非循环的。
 
-### Skill Boundaries (Avoid Overlap)
+### 技能边界 (Skill Boundaries)（避免重叠）
 
-**Do NOT do these (other skills handle them)**:
+**不要做这些（其他技能可以处理它们）**：
 
-- Requirements analysis or validation → `analyze-requirements`
-- Design exploration or approval → `design-solution`
-- Execution of tasks or repair loops → implementation skills or `run-repair-loop`
-
----
-
-## Self-Check
-
-- [ ] Tasks document exists and is committed
-- [ ] Every task has dependencies (or "—"), acceptance criteria, and owner/hint
-- [ ] Design sections are traceable to at least one task
-- [ ] No circular dependencies
-- [ ] User approved or explicitly accepted the task list
+- 需求分析或验证→“分析需求”
+- 设计探索或批准→`设计解决方案`
+- 执行任务或修复循环→实施技能或“运行修复循环”
 
 ---
 
-## Examples
+## 自检（Self-Check）
 
-### Example 1: Standard design-to-tasks flow
+- [ ] 任务文档存在并已提交
+- [ ] 每个任务都有依赖性（或“—”）、接受标准和所有者/提示
+- [ ] 设计部分可追溯到至少一项任务
+- [ ] 无循环依赖
+- [ ] 用户批准或明确接受的任务列表
 
-**Invocation**: "We have design in docs/design-decisions/2026-03-16-core-v1.md. Break it down into tasks."
+---
 
-**Agent**: Uses breakdown-tasks; reads design; derives ordered tasks with deps and acceptance criteria; writes docs/process-management/tasks/2026-03-16-core-v1.md; gets user approval; suggests starting with first task.
+## 示例（示例）
 
-### Example 2: Edge case — oversized design
+### 示例 1：标准设计到任务流程
 
-**Invocation**: "Our design doc for the platform is huge (multiple subsystems). We only want tasks for 'auth + user onboarding' right now."
+**调用**：“我们在 docs/design-decisions/2026-03-16-core-v1.md 中有设计。将其分解为任务。”
 
-**Agent**:
+**代理**：使用分解任务；读设计；导出具有部门和验收标准的有序任务；写入 docs/process-management/tasks/2026-03-16-core-v1.md；获得用户认可；建议从第一个任务开始。
 
-- Asks the user to confirm the intended scope subset (e.g. sections 3 and 4 of the design).
-- Limits task derivation to that subset and clearly notes the scoped source sections in the tasks document.
-- Ensures dependencies outside scope are either stubbed as external prerequisites or captured as explicit blockers.
-- Produces a tasks file whose first column links each task back to the specific design sections used, so future runs can extend coverage without duplication.
+### 示例 2：边缘情况 — 超大设计
+
+**调用**：“我们的平台设计文档非常庞大（多个子系统）。我们现在只需要‘身份验证+用户入门’的任务。”
+
+**代理**：
+
+- 要求用户确认预期的范围子集（例如设计的第 3 节和第 4 节）。
+- 将任务派生限制为该子集，并清楚地注明任务文档中的范围源部分。
+- 确保范围之外的依赖项要么作为外部先决条件存根，要么作为显式阻止程序捕获。
+- 生成一个任务文件，其第一列将每个任务链接回所使用的特定设计部分，因此将来的运行可以扩展覆盖范围而无需重复。

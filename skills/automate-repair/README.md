@@ -1,45 +1,45 @@
-# Run Repair Loop
+# 运行修复循环
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Runs an iterative loop to converge code to "clean": review -> test -> fix -> repeat until tests pass and no blocking review findings remain (or a stop condition is reached).
+运行迭代循环以将代码收敛到“干净”：审查 -> 测试 -> 修复 -> 重复，直到测试通过并且不存在阻塞审查结果（或达到停止条件）。
 
-## When to use
+## 何时使用
 
-- You want an agent to keep fixing until tests are green.
-- You want repeated review + test cycles to prevent regressions while repairing.
+-您希望代理继续修复，直到测试通过。
+-您需要重复审查+测试周期以防止恢复时恢复。
 
-## Inputs
+## 输入
 
-- Target path (default `.`)
-- Scope: `diff` (default) or `codebase`
-- Test mode: `fast` (default), `ci`, `full`
-- Constraints: allow installs/network/Docker/services
-- `max_iterations` (default `5`)
+- 目标路径（默认`.`）
+- 范围：“diff”（默认）或“codebase”
+- 测试模式：`fast`（默认）、`ci`、`full`
+- 约束：允许安装/网络/Docker/服务
+- `max_iterations`（默认为`5`）
 
-## Outputs
+## 输出
 
-- Repair Loop Report with iteration-by-iteration test results and patches applied. Persist only if explicitly requested.
+- 修复循环报告，其中包含逐次迭代的测试结果和应用程序。仅在明确要求时才保留。
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension | Score |
+| 维度 | 分数 |
 | :--- | :--- |
-| agent_native | 5 |
-| cognitive | 4 |
-| composability | 4 |
-| stance | 4 |
-| **asqm_quality** | 17 |
+|agent_native | 5 |
+|cognitive| 4 |
+|composability | 4 |
+|stance| 4 |
+| **asqm_quality** | 17 | 17 17 号
 
-## Ecosystem
+## 生态
 
-| Field | Value |
+|领域|价值|
 | :--- | :--- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:run-automated-tests |
-| market_position | commodity |
+|overlaps_with（所有者/仓库：技能名称）| nesnilnehc/ai-cortex：审查代码，nesnilnehc/ai-cortex：运行自动化测试 |
+|市场地位 |商品 |
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for full behavior, restrictions, and examples.
+请参阅 [SKILL.md](./SKILL.md) 了解完整的行为、限制和示例。

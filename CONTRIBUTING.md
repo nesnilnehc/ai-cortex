@@ -1,65 +1,65 @@
-# Contributing to AI Cortex
+# 贡献指南
 
-Thank you for your interest in contributing to AI Cortex. This document explains how to contribute skills, rules, and improvements.
+感谢你对 AI Cortex 的贡献兴趣。本文档说明如何贡献技能、规则与改进。
 
-## Quick Start
+## 快速开始
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feat/your-skill-name`
-3. Make your changes following the guidelines below
-4. Run verification: `npm run verify && node scripts/verify-skill-structure.mjs`
-5. Submit a Pull Request
+1. Fork 本仓库
+2. 创建功能分支：`git checkout -b feat/your-skill-name`
+3. 按下列指南修改
+4. 运行验证：`npm run verify && node scripts/verify-skill-structure.mjs`
+5. 提交 Pull Request
 
-## Adding a New Skill
+## 新增技能
 
-All skills must conform to the [Skill Specification](spec/skill.md). The quality assurance process is:
+所有技能须符合 [技能规范](spec/skill.md)。质量保障流程：
 
-1. **Create draft**: Write `skills/<skill-name>/SKILL.md` following the spec
-2. **Add supporting files**: Create `README.md` and `agent.yaml` in the skill directory
-3. **Register**: Add the skill to `manifest.json` (`skills/INDEX.md` is generated)
-4. **Verify**: Run `node scripts/verify-registry.mjs && node scripts/verify-skill-structure.mjs`
-5. **Submit PR**: The CI will automatically verify registry sync and skill structure
+1. **起草**：按规范编写 `skills/<skill-name>/SKILL.md`
+2. **补充文件**：在技能目录创建 `README.md` 与 `agent.yaml`
+3. **注册**：将技能加入 `manifest.json`（`skills/INDEX.md` 由脚本生成）
+4. **验证**：运行 `node scripts/verify-registry.mjs && node scripts/verify-skill-structure.mjs`
+5. **提交 PR**：CI 将自动校验注册表同步与技能结构
 
-### Skill Checklist
+### 技能清单
 
-- [ ] Directory name is `kebab-case` and matches the YAML `name` field
-- [ ] YAML metadata includes all required fields (name, description, tags, version, license)
-- [ ] All required headings present (Purpose, Core Objective, Use Cases, Behavior, Input & Output, Restrictions, Self-Check, Examples)
-- [ ] Core Objective has Primary Goal, Success Criteria (3-6 items), and Acceptance Test
-- [ ] Self-Check aligns with Success Criteria
-- [ ] Skill Boundaries section defines what the skill does NOT handle
-- [ ] At least 2 examples (one edge case)
-- [ ] `skills/INDEX.md` regenerated from manifest and frontmatter
-- [ ] `manifest.json` updated with the new capability
-- [ ] `verify-registry.mjs` and `verify-skill-structure.mjs` pass
+- [ ] 目录名为 kebab-case，与 YAML `name` 一致
+- [ ] YAML 元数据含必填字段（name, description, tags, version, license）
+- [ ] 含所有必填标题（Purpose, Core Objective, Use Cases, Behavior, Input & Output, Restrictions, Self-Check, Examples）
+- [ ] Core Objective 含 Primary Goal、Success Criteria（3–6 项）、Acceptance Test
+- [ ] Self-Check 与 Success Criteria 对齐
+- [ ] Skill Boundaries 定义技能不处理的内容
+- [ ] 至少 2 个示例（含一个边界情况）
+- [ ] 从 manifest 与 frontmatter 重新生成 `skills/INDEX.md`
+- [ ] 更新 `manifest.json` 以包含新能力
+- [ ] `verify-registry.mjs` 与 `verify-skill-structure.mjs` 通过
 
-### Naming Convention
+### 命名约定
 
-Use `verb-noun` format (e.g. `review-typescript`, `generate-standard-readme`). For review skills, follow the existing pattern:
+使用 `verb-noun` 格式（如 `review-typescript`、`generate-standard-readme`）。审查类技能遵循现有模式：
 
-- Language: `review-<language>` (e.g. `review-python`)
-- Framework: `review-<framework>` (e.g. `review-react`)
-- Library: `review-<domain>-usage` (e.g. `review-orm-usage`)
-- Cognitive: `review-<concern>` (e.g. `review-security`)
+- 语言：`review-<language>`（如 `review-python`）
+- 框架：`review-<framework>`（如 `review-react`）
+- 库：`review-<domain>-usage`（如 `review-orm-usage`）
+- 认知：`review-<concern>`（如 `review-security`）
 
-## Adding a New Rule
+## 新增规则
 
-Rules go in the `rules/` directory and must be registered in `rules/INDEX.md`. Follow the existing rule format. Install rules into Cursor using the `install-rules` skill.
+规则位于 `rules/` 目录，须在 `rules/INDEX.md` 注册。遵循既有规则格式。使用 `install-rules` 技能将规则安装到 Cursor。
 
-## Versioning
+## 版本管理
 
-This project follows [Semantic Versioning](https://semver.org/). When modifying a skill:
+本项目遵循 [Semantic Versioning](https://semver.org/)。修改技能时：
 
-- **PATCH** (e.g. 1.0.0 → 1.0.1): Typos, metadata tweaks, reference updates
-- **MINOR** (e.g. 1.0.0 → 1.1.0): New steps, improved examples, interaction policy changes
-- **MAJOR** (e.g. 1.0.0 → 2.0.0): Breaking structural changes
+- **PATCH**（如 1.0.0 → 1.0.1）：勘误、元数据调整、引用更新
+- **MINOR**（如 1.0.0 → 1.1.0）：新步骤、示例改进、交互策略变更
+- **MAJOR**（如 1.0.0 → 2.0.0）：破坏性结构变更
 
-Update the version in SKILL.md YAML front-matter, then regenerate `skills/INDEX.md`.
+在 SKILL.md 的 YAML frontmatter 中更新版本，然后重新生成 `skills/INDEX.md`。
 
-## Code of Conduct
+## 行为准则
 
-Be professional, constructive, and respectful. Focus on the technical merits of contributions.
+保持专业、建设性与尊重。聚焦贡献的技术价值。
 
-## Questions?
+## 问题？
 
-Open an issue with the "question" label or check the [skill catalog](skills/INDEX.md) for existing capabilities.
+使用「question」标签提交 Issue，或查看 [技能目录](skills/INDEX.md) 了解既有能力。

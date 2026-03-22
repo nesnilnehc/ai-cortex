@@ -1,41 +1,43 @@
-# define-milestones
+# 定义-里程碑
 
-Break strategic goals into concrete phase checkpoints (milestones) that represent major progress stages.
+将战略目标分解为代表主要进展阶段的具体阶段检查点（里程碑）。
 
-## What it does
+## 用途
 
-Produces a milestones document derived from strategic goals: each milestone has name, scope, success criterion, optional timeframe, and explicit mapping to at least one strategic goal. Does not define goals, requirements, or backlog. Output is persisted to `docs/process-management/milestones.md` (or project norms).
+生成源自战略目标的里程碑文档：每个里程碑都有名称、范围、成功标准、可选时间范围以及到至少一个战略目标的明确映射。不定义目标、需求或待办。输出保存到“docs/process-management/里程碑.md”（或项目规范）。
 
-## When to use
+## 何时使用
 
-- After strategic goals — define phases or checkpoints that indicate progress toward each goal.
-- Release or planning cycle — establish "what done looks like" for the next 1–2 phases.
-- Fifth layer in strategy chain — run after mission, vision, north star, and strategic goals.
-- Governance — provide milestones for `run-checkpoint` or `align-planning`.
+- 在战略目标之后 - 定义阶段或检查点以表明每个目标的进展情况。
+- 发布或规划周期 - 为接下来的 1-2 个阶段确定“完成的内容”。
+- 战略链的第五层——遵循使命、愿景、北极星和战略目标。
+- 治理——为“运行检查点”或“对齐规划”提供里程碑。
 
-## Inputs
+## 输入
 
-- Strategic goals (document or path); project context.
-- Optional: vision/NSM; existing roadmap or phases; time constraints.
+- 战略目标（文档或路径）；项目背景。
+- 可选：视力/NSM；现有路线图或期数；时间限制。
 
-## Outputs
+## 输出
 
-- Milestones document at `docs/process-management/milestones.md` (or project norms): list of milestones with goal mapping.
+- 位于“docs/process-management/里程碑.md”的里程碑文档（或项目规范）：带有目标映射的里程碑列表。
 
-## Installation
+## 安装
+
 
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill define-milestones
 ```
 
-## Related skills
 
-- `design-strategic-goals` — upstream: milestones break down these goals.
-- `define-vision` / `define-north-star` — context for alignment.
-- `align-planning` — can use milestones for traceback.
-- `run-checkpoint` — governance cycle can reference milestones.
-- `capture-work-items` — backlog items can reference milestones.
+## 相关技能
 
-## Full definition
+- `设计战略目标` — 上游：里程碑分解了这些目标。
+- `define-vision` / `define-north-star` — 用于对齐的上下文。
+- `align-planning` — 可以使用里程碑进行回溯。
+- `run-checkpoint` — 治理周期可以引用里程碑。
+- `capture-work-items` — 待办项目可以引用里程碑。
 
-See [SKILL.md](./SKILL.md) for behavior, restrictions, and examples.
+## 完整定义
+
+请参阅 [SKILL.md](./SKILL.md) 了解行为、限制和示例。

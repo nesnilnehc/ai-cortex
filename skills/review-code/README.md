@@ -1,43 +1,43 @@
-# Review Code (Orchestrator)
+# 审查代码（编排器）
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Orchestrates atomic review skills in a fixed order (scope → language → framework → library → cognitive) and aggregates their findings into one report. Does not perform code analysis itself; invokes or simulates review-diff, review-codebase, review-dotnet, review-java, review-sql, review-vue, review-security, review-architecture.
+按固定顺序协调原子审查技能（范围→语言→框架→库→cognitive）并将其发现汇总到一份报告中。本身不执行代码分析；调用或模拟 review-diff、review-codebase、review-dotnet、review-java、review-sql、review-vue、review-security、review-architecture。
 
-## When to use
+## 何时使用
 
-- Full code review: user asks to "review code" or "review my changes" and expects one combined report.
-- Pre-PR or pre-commit: run the full pipeline and get one report.
-- For a single-dimension review (e.g. only diff or only security), use the corresponding atomic skill instead.
+- 完整的代码审查：用户要求“审查代码”或“审查我的更改”并期望一份合并报告。
+- 预 PR 或预提交：运行完整的管道并获取一份报告。
+- 对于单维度审查（例如仅差异或仅安全性），请改用相应的原子技能。
 
-## Inputs
+## 输入
 
-- User intent (full review vs specific dimension).
-- Code scope (git diff or paths) when known.
+- 用户意图（全面审查与特定维度）。
+- 已知的代码范围（git diff 或路径）。
 
-## Outputs
+## 输出
 
-- Single aggregated report with findings in standard format (Location, Category, Severity, Title, Description, Suggestion).
+- 包含标准格式调查结果的单一汇总报告（位置、类别、严重性、标题、描述、建议）。
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension        | Score |
-| :--------------- | :---- |
-| agent_native     | 5     |
-| cognitive        | 5     |
-| composability    | 5     |
-| stance           | 5     |
-| **asqm_quality** | 20    |
+| 维度 | 分数 |
+| ：-------------- | :---- |
+|agent_native | 5 |
+|cognitive| 5 |
+|composability | 5 |
+|stance| 5 |
+| **asqm_quality** | 20 |
 
-## Ecosystem
+## 生态
 
-| Field                                 | Value                                                                                                                                                                                                                                                                                                               |
-| :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-diff, nesnilnehc/ai-cortex:review-codebase, wshobson/agents:code-review-excellence, secondsky/claude-skills:code-review, trailofbits/skills:differential-review, cxuu/golang-skills:go-code-review, obra/superpowers:requesting-code-review, skillcreatorai/Ai-Agent-Skills:code-review |
-| market_position                       | differentiated                                                                                                                                                                                                                                                                                                      |
+|领域 |价值|
+| :------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:审查-diff, nesnilnehc/ai-cortex:审查-代码库, wshobson/agents:代码审查-excellence, secondarysky/claude-skills:代码审查, Trailofbits/skills:差异审查, cxuu/golang-skills:go-code-review, obra/superpowers:请求代码审查，skillcreatorai/Ai-Agent-Skills:代码审查 |
+|市场地位 |差异化|
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for execution order, behavior, and output contract.
+请参阅 [SKILL.md](./SKILL.md) 了解执行顺序、行为和输出契约。

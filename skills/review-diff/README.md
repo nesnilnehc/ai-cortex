@@ -1,42 +1,42 @@
-# Review Diff
+# 回顾差异
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Reviews only the current change (git diff, staged and unstaged). Covers intent and impact, regression and correctness, breaking changes and compatibility, side effects and idempotency, observability. Emits a findings list in the standard format for aggregation by review-code.
+仅审查当前更改（git diff、已暂存和未暂存）。涵盖意图和影响、回归和正确性、重大变更和兼容性、副作用和幂等性、可观察性。以标准格式发出结果列表，以便通过审核代码进行聚合。
 
-## When to use
+## 何时使用
 
-- Pre-commit: diff-only check before commit.
-- Orchestrated review: used as the scope step when review-code runs the full pipeline.
-- Focused change review: when the user wants only "what changed" analyzed.
+- 预提交：提交前仅进行差异检查。
+- 精心安排的审查：当审查代码运行整个管道时，用作范围步骤。
+- 集中变更审查：当用户只想分析“变更内容”时。
 
-## Inputs
+## 输入
 
-- Git diff (staged + unstaged).
+- Git diff（暂存+未暂存）。
 
-## Outputs
+## 输出
 
-- Findings list: Location, Category=scope, Severity, Title, Description, optional Suggestion.
+- 结果列表：位置、类别=范围、严重性、标题、描述、可选建议。
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension        | Score |
-| :--------------- | :---- |
-| agent_native     | 5     |
-| cognitive        | 4     |
-| composability    | 5     |
-| stance           | 5     |
-| **asqm_quality** | 19    |
+| 维度 | 分数 |
+| ：-------------- | :---- |
+|agent_native | 5 |
+|cognitive| 4 |
+|composability | 5 |
+|stance| 5 |
+| **asqm_quality** | 19 | 19
 
-## Ecosystem
+## 生态
 
-| Field                                 | Value                                                                                                                                                  |
-| :------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, wshobson/agents:code-review-excellence, trailofbits/skills:differential-review |
-| market_position                       | commodity                                                                                                                                              |
+|领域|价值|
+| :------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex: 审查代码库、 nesnilnehc/ai-cortex: 审查代码、 wshobson/agents: 代码审查卓越、 Trailofbits/skills: 差异审查 |
+|市场地位 |商品 |
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for checklist, restrictions, and output contract.
+请参阅 [SKILL.md](./SKILL.md) 了解清单、限制和输出合同。

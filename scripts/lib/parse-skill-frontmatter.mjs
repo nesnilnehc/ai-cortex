@@ -23,7 +23,7 @@ export function normalizeList(list, sort = true) {
 /**
  * Parse SKILL.md frontmatter and extract metadata.
  * @param {string} content - Full file content or raw YAML block
- * @returns {{ name?: string; description?: string; version?: string; license?: string; tags?: string[]; triggers?: string[]; aliases?: string[] } | null}
+ * @returns {{ name?: string; description?: string; description_zh?: string; version?: string; license?: string; tags?: string[]; triggers?: string[]; aliases?: string[] } | null}
  */
 export function parseSkillFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---/);
@@ -40,6 +40,10 @@ export function parseSkillFrontmatter(content) {
     }
     if (line.startsWith('description:')) {
       meta.description = line.split(':').slice(1).join(':').trim();
+      continue;
+    }
+    if (line.startsWith('description_zh:')) {
+      meta.description_zh = line.split(':').slice(1).join(':').trim();
       continue;
     }
     if (line.startsWith('version:')) {

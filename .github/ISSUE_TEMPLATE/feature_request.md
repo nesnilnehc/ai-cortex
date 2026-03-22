@@ -6,22 +6,22 @@ labels: enhancement
 assignees: ''
 ---
 
-## Related Asset
+## 相关资产
 
-Which skill, rule, or component does this relate to?
+与哪个技能、规则或组件相关？
 
-## Problem
+## 问题
 
-What problem does this solve? What's missing or could be better?
+解决什么问题？缺失或可改进之处？
 
-## Proposed Solution
+## 拟议方案
 
-Describe the improvement you'd like to see.
+描述期望的改进。
 
-## Alternatives Considered
+## 备选方案
 
-Have you considered other approaches?
+是否考虑过其他方案？
 
-## Additional Context
+## 补充信息
 
-Any other relevant information (examples, references, use cases).
+其他相关信息（示例、引用、用例）。

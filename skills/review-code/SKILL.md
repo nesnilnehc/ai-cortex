@@ -1,6 +1,7 @@
 ---
 name: review-code
 description: Orchestrate comprehensive code reviews by running scope, language, framework, library, and cognitive review skills in sequence, then aggregate findings into a unified report.
+description_zh: 编排完整代码审查流水线：依次执行 scope、语言、框架、库与认知类审查技能，并聚合为统一报告。
 tags: [code-review]
 version: 2.6.0
 license: MIT
@@ -20,278 +21,278 @@ output_schema:
   description: Aggregated, deduplicated findings with risk signals from all executed atomic skills
 ---
 
-# Skill: Review Code (Orchestrator)
+# 技能（Skill）：审查代码（Orchestrator）
 
-## Purpose
+## 目的 (Purpose)
 
-**This skill does not perform code analysis itself.** It is a **meta skill** that orchestrates other atomic review skills in a fixed order, then **aggregates** their findings into a single report. Use it when the user asks for a full "review code" or "code review" and you want to apply scope → language → framework → library → cognitive skills and produce one combined output. For a single-dimension review (e.g. only diff or only security), invoke the corresponding atomic skill directly ([review-diff](../review-diff/SKILL.md), [review-security](../review-security/SKILL.md), etc.).
-
----
-
-## Core Objective
-
-**Primary Goal**: Produce a comprehensive, deduplicated code review report by orchestrating atomic review skills in a fixed sequence and aggregating their findings.
-
-**Success Criteria** (ALL must be met):
-
-1. ✅ **Scope confirmed**: User's review scope (diff or codebase paths) is confirmed before execution
-2. ✅ **Execution order followed**: Skills run in fixed sequence (scope → language → framework → library → cognitive)
-3. ✅ **All applicable skills executed**: Scope skill + language skill (if applicable) + framework skill (if applicable) + all cognitive skills (security, performance, architecture, testing) are run
-4. ✅ **Findings aggregated**: All findings from atomic skills are collected and merged into a single report using standard format (Location, Category, Severity, Title, Description, Suggestion)
-5. ✅ **Findings deduplicated**: Duplicate findings (same Location + Title) are merged, keeping highest severity
-6. ✅ **Risk signals derived**: Risk signals are generated from final deduplicated findings and change context (not from individual skills)
-
-**Acceptance Test**: Does the final report contain findings from all executed atomic skills, with no duplicates, and risk signals derived only at the aggregation stage?
+**此技能本身并不执行代码分析。**这是一项**元技能**，以固定的顺序编排其他原子审查技能，然后将其发现汇总到单个报告中。当用户要求完整的“审查代码”或“代码审查”并且您想要应用范围→语言→框架→库→cognitive技能并产生一个组合输出时，请使用它。对于单维度审核（例如仅 diff 或仅 security），直接调用相应的原子技能（[review-diff](../review-diff/SKILL.md)、[review-security](../review-security/SKILL.md) 等）。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-**This skill handles**:
+**首要目标**：通过按固定顺序安排原子审查技能并汇总其发现，生成全面的、重复数据删除的代码审查报告。
 
-- Orchestrating atomic review skills in fixed order
-- Confirming review scope with user (diff vs codebase, paths, language/framework)
-- Collecting findings from each atomic skill
-- Aggregating and deduplicating findings into single report
-- Deriving risk signals from final findings
+**成功标准**（必须满足所有要求）：
 
-**This skill does NOT handle**:
+1. ✅ **范围确认**：在执行之前确认用户的审查范围（差异或代码库路径）
+2. ✅ **遵循执行顺序**：技能按固定顺序运行（范围→语言→框架→库→cognitive）
+3. ✅ **执行所有适用的技能**：运行范围技能+语言技能（如果适用）+框架技能（如果适用）+所有cognitive技能（安全、性能、架构、测试）
+4. ✅ **结果汇总**：使用标准格式（位置、类别、严重性、标题、描述、建议）收集原子技能的所有结果并将其合并到单个报告中
+5. ✅ **结果重复数据删除**：重复的结果（相同位置+标题）被合并，保持最高严重性
+6. ✅ **衍生的风险信号**：风险信号是根据最终的重复数据删除结果和变化背景生成的（而不是根据个人技能）
 
-- Direct code analysis (use atomic review skills: `review-diff`, `review-codebase`, `review-security`, etc.)
-- Single-dimension reviews (use atomic skills directly: `review-diff` for diff only, `review-security` for security only, etc.)
-- Implementation of fixes (use development/refactoring skills)
-- Test writing (use testing skills)
-
-**Handoff point**: When aggregated report is complete, hand off to user for review or to development workflow for implementing fixes.
+**验收**测试：最终报告是否包含所有执行的原子技能的结果，没有重复，以及仅在聚合阶段得出的风险信号？
 
 ---
 
-## Use Cases
+## 范围边界（范围边界）
 
-- **Full code review**: User asks to "review code" or "review my changes" and expects impact, language/framework conventions, security, performance, and architecture in one pass.
-- **Pre-PR or pre-commit**: Run the full pipeline (diff + stack + cognitive) and get one report.
-- **Consistent pipeline**: Same execution order every time so Cursor or an agent can simulate skill chaining by following this skill's instructions.
+**本技能负责**：
 
-**When to use**: When the user wants a **combined** review across scope, stack (language/framework/library), and cognitive dimensions. When the user wants only one dimension (e.g. "review my diff" or "security review"), use the atomic skill instead.
+- 按固定顺序编排原子审查技能
+- 与用户确认审查范围（差异与代码库、路径、语言/框架）
+- 收集每个原子技能的发现
+- 将调查结果汇总并删除重复数据到单个报告中
+- 从最终结果中得出风险信号
+
+**本技能不负责**：
+
+- 直接代码分析（使用原子审查技能：`review-diff`、`review-codebase`、`review-security`等）
+- 单维审查（直接使用原子技能：`review-diff`仅用于 diff，`review-security`仅用于安全性等）
+- 实施修复（使用开发/重构技能）
+- 测试写作（使用测试技巧）
+
+**转交点**：汇总报告完成后，移交给用户进行审查或移交给开发工作流程以实施修复。
 
 ---
 
-## Behavior
+## 使用场景（用例）
 
-### Orchestration only
+- **完整代码审查**：用户要求“审查代码”或“审查我的更改”，并期望一次性获得影响、语言/框架约定、安全性、性能和架构。
+- **预 PR 或预提交**：运行完整的管道（差异 + 堆栈 + cognitive）并获取一份报告。
+- **一致的管道**：每次执行顺序相同，因此光标或代理可以通过遵循该技能的说明来模拟技能链。
 
-- **Do not** analyze code yourself. **Do** invoke (or simulate invoking) the following skills **in order**, then aggregate their findings.
-- Execution order is fixed so that Cursor or an agent can follow it step by step.
+**何时使用**：当用户想要跨范围、堆栈（语言/框架/库）和cognitive维度进行**组合**审查时。当用户只需要一维（例如“查看我的差异”或“安全审查”）时，请使用原子技能。
 
-### Interaction policy
+---
 
-- **Prefer defaults and choices**: Use the defaults in the table below; present options for the user to **confirm or select** (e.g. [diff] [codebase], [Repo root] [Current dir]), and avoid asking for free-text input when a default exists.
-- **Scope (diff vs codebase)**: If the user has **not** explicitly indicated (a) diff/current change (e.g. "my changes", "the diff", "what I changed") or (b) codebase/path (e.g. "this directory", "src/foo", "the repo"), **ask the user to choose**. In particular, if they said only "review", "review code", or "code review" with no scope cue, **do not assume** — offer: *Review current change (diff)* [default] *or codebase (given path(s))?* and wait for their choice before running any review skill.
-- If language/framework is not explicit and cannot be inferred from the files in scope, **offer choices** ([.NET] [Java] [Go] [PHP] [PowerShell] [SQL] [Vue] [Skip]); if still unclear, skip and **note the skip** in the final summary.
-- Always state which steps were executed and which were skipped (with reason).
+## 行为（行为）
 
-### Defaults (prefer confirm or choose; avoid asking for free-text input)
+### 仅编排
 
-| Item | Default | When to deviate |
+- **不要**自己分析代码。 **按顺序**调用（或模拟调用）以下技能，然后汇总他们的发现。
+- 执行顺序是固定的，以便Cursor或代理可以逐步遵循它。
+
+### 交互（Interaction）政策
+
+- **首选默认值和选择**：使用下表中的默认值；为用户提供用于**确认或选择**的选项（例如 [diff] [codebase]、[Repo root] [Current dir]），并避免在存在默认值时要求自由文本输入。
+- **范围（差异与代码库）**：如果用户**没有**明确指示（a）差异/当前更改（例如“我的更改”、“差异”、“我更改的内容”）或（b）代码库/路径（例如“此目录”、“src/foo”、“repo”），**请用户选择**。特别是，如果他们只说“审查”、“审查代码”或“代码审查”，没有范围提示，**不要假设** - 提供：*审查当前更改（差异）* [默认] *或代码库（给定路径）？*并在运行任何审查技能之前等待他们的选择。
+- 如果语言/框架不明确并且无法从范围内的文件推断，**提供选择**（[.NET] [Java] [Go] [PHP] [PowerShell] [SQL] [Vue] [Skip]）；如果仍然不清楚，请跳过并**在最终摘要中注明跳过**。
+- 始终说明执行了哪些步骤以及跳过了哪些步骤（有原因）。
+
+### 默认值（首选确认或选择；避免要求自由文本输入）
+
+|项目 |默认 |何时偏离|
 | :--- | :--- | :--- |
-| **Scope** | **diff** (current change) | User chooses "codebase" to review given path(s) instead. |
-| **Scope = diff — untracked** | **Include** untracked files in change set | User can choose "diff only, no untracked." |
-| **Scope = codebase — path(s)** | **Repo root** | User chooses one or more paths (offer: repo root / current file’s dir / list top-level dirs to pick). |
-| **Scope = codebase — large** | **By layer** (output by module/dir; no single shallow pass) | User can choose a **priority subset** (e.g. one layer or named modules). |
-| **Language / framework** | **Infer from files in scope** | If unclear, offer choices: [.NET] [Java] [Go] [PHP] [PowerShell] [SQL] [Vue] [Skip]; do not ask user to type. |
+| **范围** | **差异**（当前更改）|用户选择“代码库”来查看给定的路径。 |
+| **范围 = diff — 未跟踪** | **在变更集中包含**未跟踪的文件 |用户可以选择“仅比较，无未跟踪”。 |
+| **范围 = 代码库 — 路径** | **回购根目录** |用户选择一个或多个路径（提供：存储库根目录/当前文件的目录/列出要选择的顶级目录）。 |
+| **范围 = 代码库 — 大** | **按层**（按模块/目录输出；没有单个浅层传递）|用户可以选择**优先子集**（例如一层或命名模块）。 |
+| **语言/框架** | **从范围内的文件推断** |如果不清楚，请提供选择：[.NET] [Java] [Go] [PHP] [PowerShell] [SQL] [Vue] [Skip]；不要求用户输入。 |
 
-### Pre-flight: confirm before running
+### 飞行前：运行前确认
 
-**Resolve the following with the user once, before executing any review step.** Prefer **confirm default** or **select from options**; avoid asking for free-text input when a default exists.
+**在执行任何审核步骤之前，与用户一起解决以下问题。**首选**确认默认**或**从选项中选择**；当存在默认值时，避免要求自由文本输入。
 
-| Item | If unclear | Action |
+|项目 |如果不清楚|行动|
 | :--- | :--- | :--- |
-| **Scope** | User did not say "my changes"/"diff" vs "codebase"/path (e.g. "review" or "review code" alone = unclear) | **Must ask.** Offer: *Review current change (diff)* [default] *or codebase (given path(s))?* — user chooses; do not assume. |
-| **Scope = diff** | — | Confirm: *Include untracked files?* Default **Yes**. Ensure diff + untracked content available for review-diff. |
-| **Scope = codebase** | Path(s) not stated | Offer: *Review repo root?* [default] *Or pick path(s): [repo root] [current file’s dir] [list top-level dirs]* — user selects, no typing. |
-| **Scope = codebase, large** | Whole repo or very large dir | Default: output **by layer** (module/dir). Option: *Narrow to a priority subset?* — user can choose from listed dirs/modules. |
-| **Language / framework** | Cannot infer from files | Offer: *[.NET] [Java] [Go] [PHP] [PowerShell] [SQL] [Vue] [Skip]* — user picks one; if Skip or none match, skip and note in summary. |
+| **范围** |用户没有说“我的更改”/“差异”与“代码库”/路径（例如单独“审查”或“审查代码”=不清楚）| **必须询问。** 提供：*查看当前更改（差异）* [默认] *或代码库（给定路径）？* - 用户选择；不要假设。 |
+| **范围 = 差异** | — |确认：*包括未跟踪的文件？*默认**是**。确保 diff + 未跟踪的内容可用于审查 diff。 |
+| **范围 = 代码库** |未说明路径 |提供：*查看存储库根目录？* [默认] *或选择路径：[存储库根目录] [当前文件的目录] [列出顶级目录]* — 用户选择，无需键入。 |
+| **范围 = 代码库，大** |整个仓库或非常大的目录 |默认值：**按层**输出（模块/目录）。选项：*缩小到优先级子集？* - 用户可以从列出的目录/模块中进行选择。 |
+| **语言/框架** |无法从文件推断 |提供：*[.NET] [Java] [Go] [PHP] [PowerShell] [SQL] [Vue] [Skip]* — 用户选择一项；如果跳过或没有匹配，则跳过并在摘要中注明。 |
 
-After pre-flight, run the pipeline without further scope questions; report which steps ran and which were skipped.
+预试后，运行管道，无需进一步询问范围；报告哪些步骤已运行，哪些步骤被跳过。
 
-### Execution order
+### 执行顺序
 
-When performing this skill, **sequentially apply** the following steps. For each step, load and run the corresponding skill's instructions, collect its findings (in the standard format: Location, Category, Severity, Title, Description, Suggestion), then proceed to the next step.
+执行此技能时，**顺序应用**以下步骤。对于每个步骤，加载并运行相应技能的指令，收集其结果（采用标准格式：位置、类别、严重性、标题、描述、建议），然后继续下一步。
 
-1. **Scope**  
-   Choose **one** based on user intent:
-   - **review-diff**: Use when the user wants only the **current change** (git diff, staged + unstaged) reviewed. Load [review-diff](../review-diff/SKILL.md) and run it on the diff.
-   - **review-codebase**: Use when the user wants the **current state** of given path(s), directory(ies), or repo reviewed. Load [review-codebase](../review-codebase/SKILL.md) and run it on the specified scope.
-   Run the chosen scope skill; collect all findings.
+1. **范围**  
+   根据用户意图选择**一个**：
+   - **review-diff**：当用户只想查看**当前更改**（git diff、暂存 + 未暂存）时使用。加载 [review-diff](../review-diff/SKILL.md) 并在差异上运行它。
+   - **review-codebase**：当用户想要查看给定路径、目录或存储库的**当前状态**时使用。加载 [review-codebase](../review-codebase/SKILL.md) 并在指定范围上运行它。
+   运行所选范围的技能；收集所有调查结果。
 
-2. **Language**  
-   Choose **one or none** based on the project's primary language in scope:
-   - **review-dotnet**: .NET (C#/F#). Load [review-dotnet](../review-dotnet/SKILL.md).
-   - **review-java**: Java. Load [review-java](../review-java/SKILL.md).
-   - **review-go**: Go. Load [review-go](../review-go/SKILL.md).
-   - **review-php**: PHP. Load [review-php](../review-php/SKILL.md).
-   - **review-powershell**: PowerShell (`.ps1`, `.psm1`, `.psd1`). Load [review-powershell](../review-powershell/SKILL.md).
-   - **review-sql**: SQL or query-heavy code. Load [review-sql](../review-sql/SKILL.md).
-   If none match, skip this step. Run the chosen language skill on the same scope; collect all findings.
+2. **语言**  
+   根据项目范围内的主要语言选择**一个或无**：
+   - **评论-dotnet**：.NET (C#/F#)。加载 [review-dotnet](../review-dotnet/SKILL.md)。
+   - **评论-java**：Java。加载 [review-java](../review-java/SKILL.md)。
+   - **回顾-去**：去。加载 [review-go](../review-go/SKILL.md)。
+   - **评论-php**：PHP。加载 [review-php](../review-php/SKILL.md)。
+   - **审查-powershell**：PowerShell（`.ps1`、`.psm1`、`.psd1`）。加载 [review-powershell](../review-powershell/SKILL.md)。
+   - **review-sql**：SQL 或查询密集型代码。加载 [review-sql](../review-sql/SKILL.md)。
+   如果没有匹配，则跳过此步骤。在相同范围内运行所选语言技能；收集所有调查结果。
 
-3. **Framework (optional)**  
-   If the project uses a known framework in scope, choose the matching skill:
-   - **review-vue**: Vue 3. Load [review-vue](../review-vue/SKILL.md).
-   - *(Reserved for future: review-aspnetcore, review-react, etc.)*
-   If none match, skip. Run the chosen framework skill; collect all findings.
+3. **框架（可选）**  
+   如果项目使用范围内已知的框架，请选择匹配的技能：
+   - **review-vue**：Vue 3.加载[review-vue](../review-vue/SKILL.md)。
+   - *（为将来保留：review-aspnetcore、review-react 等）*
+   如果没有匹配，则跳过。运行所选的框架技能；收集所有调查结果。
 
-4. **Library (optional)**  
-   If the project heavily uses a key library with a dedicated review skill, run it (e.g. *review-entityframework* when available). Otherwise skip. Collect all findings.
+4. **库（可选）**  
+   如果项目大量使用具有专门审阅技能的关键库，请运行它（例如*review-entityframework*（如果可用））。否则跳过。收集所有发现。
 
-5. **Cognitive**  
-   Run **in order**:
-   - [review-security](../review-security/SKILL.md): security findings.
-   - [review-performance](../review-performance/SKILL.md): performance findings.
-   - [review-architecture](../review-architecture/SKILL.md): architecture findings.
-   - [review-testing](../review-testing/SKILL.md): testing findings (existence, coverage, quality, edge cases).
-   *(Reserved for future: review-reliability, review-maintainability.)*  
-   Collect all findings.
+5. **cognitive**  
+   **按顺序**运行：
+   - [review-security](../review-security/SKILL.md)：安全调查结果。
+   - [review-performance](../review-performance/SKILL.md)：性能调查结果。
+   - [review-architecture](../review-architecture/SKILL.md)：架构发现。
+   - [review-testing](../review-testing/SKILL.md)：测试结果（存在性、覆盖率、质量、边缘情况）。
+   *（为将来保留：审查-可靠性，审查-可维护性。）*  
+   收集所有发现。
 
-6. **Aggregation**  
-   Merge all collected findings into **one report**. Group by **Category** (`scope`, `language-*`, `framework-*`, `library-*`, `cognitive-*`) or by **file/location**, as best fits the report length. Use the same finding format (Location, Category, Severity, Title, Description, Suggestion). Add a short summary (e.g. counts by severity or category) at the top if useful.  
-   **De-dup rule**: If multiple findings share the same **Location + Title** and represent the same issue across steps, keep the highest severity and note the other step(s) in the Description (e.g. "Also flagged by language and security").
+6. **聚合**  
+   将所有收集到的结果合并到**一份报告**中。按**类别**（“范围”、“语言-*”、“框架-*”、“库-*”、“cognitive-*”）或按**文件/位置**分组，最适合报告长度。使用相同的调查结果格式（位置、类别、严重性、标题、描述、建议）。如果有用，请在顶部添加简短的摘要（例如按严重性或类别进行计数）。  
+   **重复数据删除规则**：如果多个结果共享相同的**位置 + 标题**并且跨步骤代表同一问题，请保留最高严重性并在描述中注明其他步骤（例如“还按语言和安全性进行标记”）。
 
-7. **Risk signal aggregation (final stage only)**  
-   Derive risk signals from the **deduplicated final findings** and from explicit change context (e.g. files or paths), not from any single atomic skill in isolation. Keep this mapping centralized in the orchestrator to avoid inconsistent or duplicated risk labels across skills.
-   - Emit a compact `risk_signals` list with unique signal names.
-   - Optionally include `risk_confidence` per signal (0.0-1.0).
-   - If no clear signals exist, emit an empty list (`[]`), not guessed risks.
+7. **风险信号聚合（仅限最后阶段）**  
+   从**去重复的最终结果**和显式变更上下文（例如文件或路径）中得出风险信号，而不是从任何孤立的原子技能中得出风险信号。将此映射集中在协调器中，以避免跨技能的风险标签不一致或重复。
+   - 发出具有唯一信号名称的紧凑“risk_signals”列表。
+   - 可以选择包含每个信号的“risk_confidence”(0.0-1.0)。
+   - 如果没有明确的信号存在，则发出一个空列表（`[]`），而不是猜测的风险。
 
-### Summary for Cursor/Agent
+### 游标/代理摘要
 
-- **When performing this skill, sequentially apply:**
-  1. review-diff **or** review-codebase (scope)
-  2. review-dotnet **or** review-java **or** review-go **or** review-php **or** review-powershell **or** review-sql (language, optional)
-  3. review-vue or other framework skill (optional)
-  4. Library skill (optional, when available)
-  5. review-security, then review-performance, then review-architecture, then review-testing (cognitive)
-  6. aggregate and deduplicate findings into one report
-  7. derive final `risk_signals` (and optional `risk_confidence`) from the final findings + change context
-- **Aggregate all findings into a single report** using the standard findings format, then emit risk signals at final stage. Do not analyze code in this skill; only orchestrate and aggregate.
-
----
-
-## Input & Output
-
-### Input
-
-- **User intent**: What to review (e.g. "my changes" → scope = diff; "this directory" → scope = codebase) and optionally project type (e.g. .NET, Java, Vue) to select language/framework.
-- **Code scope**: Diff or paths, as provided by the user when invoking the skill.
-
-### Output
-
-- **Single aggregated report** containing all findings from the steps above, in the standard format (Location, Category, Severity, Title, Description, Suggestion), grouped by category or location, with optional summary.
-- **Optional risk summary** derived at aggregation stage: `risk_signals` (and optional confidence), based on final deduplicated findings and change context.
+- **执行此技能时，依次应用：**
+  1. review-diff **或** review-codebase（范围）
+  2. review-dotnet **或** review-java **或** review-go **或** review-php **或** review-powershell **或** review-sql（语言，可选）
+  3. 复习-vue或其他框架技能（可选）
+  4. 图书馆技能（可选，如果有的话）
+  5. 审查安全性，然后审查性能，然后审查架构，然后审查测试（cognitive）
+  6. 将调查结果汇总并删除重复内容到一份报告中
+  7. 从最终结果 + 变更背景中得出最终的“risk_signals”（和可选的“risk_confidence”）
+- **使用标准调查结果格式将所有调查结果汇总到一份报告中**，然后在最后阶段发出风险信号。请勿在此技能中分析代码；仅协调和聚合。
 
 ---
 
-## Restrictions
+## 输入与输出 (Input & Output)
 
-### Hard Boundaries
+### 输入（输入）
 
-- **Do not** perform any code analysis inside this skill. Only orchestrate other skills and aggregate.
-- **Do not** change the execution order; keep scope → language → framework → library → cognitive.
-- **Do not** invent findings; only include findings produced by the atomic skills you run.
-- **Do not** require each atomic skill to emit risk signals. Risk labels are orchestrator-owned and generated only at final aggregation.
+- **用户意图**：要查看的内容（例如“我的更改”→ 范围 = diff；“此目录”→ 范围 = 代码库）以及可选的项目类型（例如 .NET、Java、Vue）以选择语言/框架。
+- **代码范围**：差异或路径，由用户在调用技能时提供。
 
-### Skill Boundaries
+### 输出（输出）
 
-**Do NOT do these (other skills handle them):**
-
-- Direct code analysis or linting — use the atomic review skills (`review-diff`, `review-codebase`, `review-security`, etc.)
-- Single-dimension reviews — invoke `review-diff`, `review-security`, `review-performance`, or other atomic skills directly
-- Implementing fixes or refactoring code — use development/refactoring skills
-- Writing or modifying tests — use testing skills or `run-automated-tests`
-
-**When to stop and hand off:**
-
-- When aggregated report is complete → hand off to user for review or to development workflow
-- When user asks for only a specific dimension (e.g. "security review") → hand off to the corresponding atomic skill
-- When findings need to be acted upon → hand off to implementation or `run-repair-loop` skill
+- **单一聚合报告**包含上述步骤的所有结果，采用标准格式（位置、类别、严重性、标题、描述、建议），按类别或位置分组，并带有可选摘要。
+- **可选风险摘要**在聚合阶段得出：“风险信号”（和可选置信度），基于最终的重复数据删除结果和变更上下文。
 
 ---
 
-## Self-Check
+## 限制（限制）
 
-### Core Success Criteria
+### 硬边界（Hard Boundaries）
 
-- [ ] Scope confirmed: User's review scope (diff or codebase paths) is confirmed before execution
-- [ ] Execution order followed: Skills run in fixed sequence (scope → language → framework → library → cognitive)
-- [ ] All applicable skills executed: Scope skill + language skill (if applicable) + framework skill (if applicable) + all cognitive skills are run
-- [ ] Findings aggregated: All findings from atomic skills are collected and merged into a single report using standard format
-- [ ] Findings deduplicated: Duplicate findings (same Location + Title) are merged, keeping highest severity
-- [ ] Risk signals derived: Risk signals are generated from final deduplicated findings and change context (not from individual skills)
+- **不要**在此技能内执行任何代码分析。只协调其他技能并聚合。
+- **不要**改变执行顺序；保持范围→语言→框架→库→cognitive。
+- **不要**发明发现；仅包括您运行的原子技能产生的结果。
+- **不**要求每个原子技能发出风险信号。风险标签由协调者拥有，并且仅在最终聚合时生成。
 
-### Acceptance Test
+### 技能边界 (Skill Boundaries)
 
-- [ ] Does the final report contain findings from all executed atomic skills, with no duplicates, and risk signals derived only at the aggregation stage?
+**不要做这些（其他技能可以处理它们）：**
 
----
+- 直接代码分析或 linting — 使用原子审查技能（“review-diff”、“review-codebase”、“review-security”等）
+- 单维度审查——直接调用“review-diff”、“review-security”、“review-performance”或其他原子技能
+- 实施修复或重构代码——使用开发/重构技能
+- 编写或修改测试——使用测试技能或“运行自动化测试”
 
-## Examples
+**何时停止并交接：**
 
-### Example 1: Diff review for .NET project
-
-- **Input**: User says "review my code" and provides a git diff; project is C#.
-- **Expected**: Run review-diff → review-dotnet → review-security → review-performance → review-architecture → review-testing (skip framework/library if not Vue or other); aggregate all findings into one report with categories `scope`, `language-dotnet`, `cognitive-security`, `cognitive-performance`, `cognitive-architecture`, `cognitive-testing`.
-
-### Example 2: Codebase review for Vue frontend
-
-- **Input**: User says "review src/frontend" and project uses Vue 3.
-- **Expected**: Run review-codebase on src/frontend → review-vue → review-security → review-performance → review-architecture → review-testing; aggregate into one report.
-
-### Edge case: No language match
-
-- **Input**: Project is Rust or another language with no atomic skill yet.
-- **Expected**: Run scope (review-diff or review-codebase) → skip language and framework → run review-security, review-performance, review-architecture, and review-testing; aggregate. Report should note that language/framework review was skipped (no matching skill).
-
-### Example 3: Diff review for PowerShell scripts
-
-- **Input**: User asks to review changed `.ps1` files in the current diff.
-- **Expected**: Run review-diff → review-powershell → review-security → review-performance → review-architecture → review-testing; aggregate findings and categorize PowerShell issues as `language-powershell`.
+- 汇总报告完成后 → 移交给用户进行审查或开发 工作流程
+- 当用户仅要求特定维度（例如“安全审查”）时 → 移交给相应的原子技能
+- 当需要对发现的结果采取行动时 → 移交给实施或“运行修复循环”技能
 
 ---
 
-## Appendix: Output contract
+## 自检（Self-Check）
 
-The aggregated report MUST use the same finding format as the atomic skills:
+### 核心成功标准
 
-| Element | Requirement |
+- [ ] 范围确认：在执行之前确认用户的审查范围（差异或代码库路径）
+- [ ] 执行顺序：技能按固定顺序运行（范围→语言→框架→库→cognitive）
+- [ ] 执行所有适用的技能：范围技能 + 语言技能（如果适用）+ 框架技能（如果适用）+ 所有cognitive技能均已运行
+- [ ] 结果汇总：收集原子技能的所有结果，并使用标准格式将其合并到一份报告中
+- [ ] 重复发现结果：合并重复发现结果（相同位置 + 标题），保持最高严重性
+- [ ] 衍生风险信号：风险信号是根据最终的重复数据删除结果和变更背景生成的（而不是根据个人技能）
+
+### 验收测试
+
+- [ ] 最终报告是否包含所有执行的原子技能的结果，没有重复，以及仅在聚合阶段得出的风险信号？
+
+---
+
+## 示例（示例）
+
+### 示例 1：.NET 项目的差异审查
+
+- **输入**：用户说“查看我的代码”并提供 git diff；项目是C#。
+- **预期**：运行 review-diff → review-dotnet → review-security → review-performance → review-architecture → review-testing （如果不是 Vue 或其他，则跳过框架/库）；将所有调查结果汇总到一份报告中，类别为“范围”、“语言点网”、“cognitive安全”、“cognitive表现”、“cognitive架构”、“cognitive测试”。
+
+### 示例 2：Vue 前端的代码库审查
+
+- **输入**：用户说“查看 src/frontend”并且项目使用 Vue 3。
+- **预期**：在 src/frontend 上运行 review-codebase → review-vue → review-security → review-performance → review-architecture → review-testing；汇总成一份报告。
+
+### 边缘情况：没有语言匹配
+
+- **输入**：项目是 Rust 或其他尚无原子技能的语言。
+- **预期**：运行范围（review-diff或review-codebase）→跳过语言和框架→运行review-security、review-performance、review-architecture和review-testing；总计的。报告应指出跳过了语言/框架审查（没有匹配的技能）。
+
+### 示例 3：PowerShell 脚本的差异审查
+
+- **输入**：用户要求查看当前差异中更改的“.ps1”文件。
+- **预期**：运行 review-diff → review-powershell → review-security → review-performance → review-architecture → review-testing；汇总调查结果并将 PowerShell 问题分类为“语言 powershell”。
+
+---
+
+## 附录：输出合约
+
+聚合报告必须使用与原子技能相同的发现格式：
+
+|元素|要求|
 | :--- | :--- |
-| **Location** | `path/to/file.ext` (optional line or range). |
-| **Category** | `scope`, `language-*`, `framework-*`, `library-*`, `cognitive-*` (including `cognitive-testing`) |
-| **Severity** | `critical`, `major`, `minor`, `suggestion`. |
-| **Title** | Short one-line summary. |
-| **Description** | 1–3 sentences. |
-| **Suggestion** | Concrete fix or improvement (optional). |
-| **Risk Signals** | Optional `risk_signals: string[]`; values MUST come from the mapping in `Appendix: Risk signal mapping (aggregator-owned)`. Use `[]` when no clear signal exists. |
-| **Risk Confidence** | Optional `risk_confidence: { [signal: string]: number }`; keys MUST be a subset of `risk_signals`, values MUST be in `[0.0, 1.0]`. |
+| **位置** | `path/to/file.ext`（可选行或范围）。 |
+| **类别** | `范围`、`语言-*`、`框架-*`、`库-*`、`cognitive-*`（包括`cognitive测试`）|
+| **严重性** | “批评”、“主要”、“次要”、“建议”。 |
+| **标题** |简短的一行摘要。 |
+| **描述** | 1-3 句话。 |
+| **建议** |具体修复或改进（可选）。 |
+| **风险信号** |可选 `risk_signals: string[]`;值必须来自“附录：风险信号映射（聚合器拥有）”中的映射。当没有明确信号存在时使用“[]”。 |
+| **风险信心** |可选 `risk_confidence: { [signal: string]: number }`;键必须是“risk_signals”的子集，值必须在“[0.0, 1.0]”中。 |
 
-Group findings by Category or by Location. Optionally include a summary table (e.g. count by severity or by category) at the top of the report.
+按类别或位置对结果进行分组。可以选择在报告顶部包含一个汇总表（例如按严重性或按类别进行计数）。
 
-## Appendix: Risk signal mapping (aggregator-owned)
+## 附录：风险信号映射（聚合商拥有）
 
-When emitting risk signals, apply this centralized mapping from final findings/change context:
+发出风险信号时，应用来自最终结果/变更背景的集中映射：
 
-| Signal | Trigger heuristic (examples) |
+|信号|触发启发式（示例）|
 | :--- | :--- |
-| `auth_change` | Findings mention authentication flow, token/session handling, login logic, SSO/OAuth, or auth middleware changes. |
-| `permission_change` | Findings mention authorization checks, ACL/RBAC policy changes, IDOR risk, or role/permission matrix updates. |
-| `data_loss` | Findings indicate destructive data operations, irreversible mutation, unsafe deletes/truncates, migration rollback gaps, or idempotency breakage with loss risk. |
-| `backward_incompatible` | Findings indicate API/contract/schema behavior breaks without versioning/deprecation handling. |
-| `config_change` | Findings reference behavior-critical config/default changes (timeouts, feature flags, env settings, runtime knobs). |
-| `external_api_change` | Findings indicate changed upstream/downstream API contract, request/response shape, webhook/event format, or client SDK expectations. |
-| `sql_migration` | Findings involve DDL/index/constraint migration scripts or schema-evolution risk in SQL change sets. |
-| `ci_script_change` | Findings touch CI/CD workflow, build/release scripts, deployment automation, or test-gating scripts. |
-| `crypto_security` | Findings mention encryption/hashing/signature/key-management issues or crypto algorithm changes. |
-| `performance_regression` | Findings from `language-*`, `framework-*`, `language-sql`, or `cognitive-performance` indicate measurable latency/throughput/memory regression risk. |
+| `auth_change` |调查结果提到身份验证流程、令牌/会话处理、登录逻辑、SSO/OAuth 或身份验证中间件更改。 |
+| `permission_change` |调查结果提到授权检查、ACL/RBAC 策略更改、IDOR 风险或角色/权限矩阵更新。 |
+| `数据丢失` |调查结果表明破坏性数据操作、不可逆突变、不安全删除/截断、迁移回滚间隙或具有丢失风险的幂等性破坏。 |
+| `向后不兼容` |调查结果表明，如果没有版本控制/弃用处理，API/合约/架构行为就会中断。 |
+| `配置更改` |调查结果参考了行为关键配置/默认更改（超时、功能标志、环境设置、运行时旋钮）。 |
+| `external_api_change` |调查结果表明上游/下游 API 合约、请求/响应形状、Webhook/事件格式或客户端 SDK 期望发生了变化。 |
+| `sql_migration` |调查结果涉及 DDL/索引/约束迁移脚本或 SQL 更改集中的架构演化风险。 |
+| `ci_script_change` |调查结果涉及 CI/CD 工作流、构建/发布脚本、部署自动化或测试门控脚本。 |
+| `加密安全` |调查结果提到加密/散列/签名/密钥管理问题或加密算法更改。 |
+| `性能回归` | “语言-*”、“框架-*”、“语言-sql”或“cognitive性能”的结果表明可测量的延迟/吞吐量/内存回归风险。 |
 
-Notes:
+笔记：
 
-- Use evidence-first mapping; do not infer a signal without at least one supporting finding or explicit changed artifact.
-- Emit each signal once; keep list stable and deduplicated.
+- 使用证据优先的映射；在没有至少一项支持发现或明确改变的产品的情况下，不要推断信号。
+- 每个信号发射一次；保持列表稳定并消除重复。

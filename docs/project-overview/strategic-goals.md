@@ -1,39 +1,39 @@
-# Strategic Goals
+# 战略目标
 
-Strategic goals for AI Cortex. Aligned with [mission](mission.md), [vision](vision.md), and [North Star](north-star.md). No dates or phases; see [define-milestones](../process-management/milestones.md) for phase checkpoints.
-
----
-
-## Goal 1: Discoverability
-
-**Outcome:** Teams can discover the right capability by task or intent — scenario-first routing, INDEX, and manifest are the stable entry points.
-
-- **Supports vision:** Capabilities as easy to discover as shared code.
-- **Supports North Star:** Discovery is a prerequisite for adoption; better discoverability drives monthly skill adoptions.
+AI Cortex 的战略目标。与 [mission](mission.md)、[vision](vision.md)、[North Star](north-star.md) 对齐。不含日期或阶段；阶段检查点见 [define-milestones](../process-management/milestones.md)。
 
 ---
 
-## Goal 2: Reusability
+## 目标 1：可发现性 (Discoverability)
 
-**Outcome:** Skills are reusable and composable across projects so proven capabilities are adopted, not recreated.
+**成果**：团队能按任务或意图发现正确能力——场景优先路由、INDEX、manifest 为稳定入口。
 
-- **Supports vision:** Capabilities as easy to reuse as shared code; no fragmentation.
-- **Supports North Star:** Reuse reduces reinvention and increases adoption from the catalog.
-
----
-
-## Goal 3: Governance
-
-**Outcome:** Teams can review, govern, and evolve agent behavior through a shared spec, quality bar, and lifecycle.
-
-- **Supports vision:** Capabilities as easy to govern as shared code; agent-driven work is reliable and auditable.
-- **Supports North Star:** Governance and quality build trust and sustained adoption.
+- **支撑愿景**：能力如共享代码般易于发现。
+- **支撑 North Star**：发现是采纳的前提；更好的可发现性驱动月度技能采纳量。
 
 ---
 
-## Goal 4: Ecosystem adoption
+## 目标 2：可复用性 (Reusability)
 
-**Outcome:** The capability layer is available in the channels and tools teams already use (e.g. skills.sh, SkillsMP, IDEs), so adoption is low-friction.
+**成果**：技能可跨项目复用与组合，使成熟能力被采纳而非重写。
 
-- **Supports vision:** Shared infrastructure across teams and ecosystems.
-- **Supports North Star:** Directly moves monthly skill adoptions by reducing friction to install or add skills.
+- **支撑愿景**：能力如共享代码般易于复用；无碎片化。
+- **支撑 North Star**：复用减少重复发明，提高从目录的采纳。
+
+---
+
+## 目标 3：治理 (Governance)
+
+**成果**：团队能通过共享 Spec、质量门槛与生命周期审查、治理并演进 Agent 行为。
+
+- **支撑愿景**：能力如共享代码般易于治理；Agent 驱动工作可靠且可审计。
+- **支撑 North Star**：治理与质量建立信任与持续采纳。
+
+---
+
+## 目标 4：生态采纳 (Ecosystem adoption)
+
+**成果**：能力层在团队已使用的渠道与工具中可用（如 skills.sh、SkillsMP、IDE），使采纳摩擦低。
+
+- **支撑愿景**：团队与生态共享基础设施。
+- **支撑 North Star**：直接推动月度技能采纳量，通过降低安装或加入技能的摩擦。

@@ -1,42 +1,42 @@
-# Review Go
+# 回顾Go
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Reviews Go code for language and runtime conventions only: concurrency and goroutine lifecycle, context usage, error handling, resource management, API stability, type and zero-value semantics, testability. Emits a findings list in the standard format. Does not perform scope selection or security/architecture review.
+仅审查 Go 代码的语言和运行时约定：并发性和 goroutine 生命周期、上下文使用、错误处理、资源管理、API 稳定性、类型和零值语义、可测试性。以标准格式发出结果列表。不执行范围选择或安全/架构审查。
 
-## When to use
+## 何时使用
 
-- Orchestrated review: used as the language step when review-code runs for Go projects.
-- Go-only review: when the user wants only language/runtime conventions checked.
-- Pre-PR Go checklist: ensure concurrency, context, and error handling patterns are correct.
+- 精心安排的审查：在 Go 项目运行审查代码时用作语言步骤。
+- 仅 Go 审查：当用户只想检查语言/运行时约定时。
+- PR Go 前检查清单：确保并发、上下文和错误处理模式正确。
 
-## Inputs
+## 输入
 
-- Code scope (files, directories, or diff) containing Go code, provided by the user or scope skill.
+- 包含 Go 代码的代码范围（文件、目录或 diff），由用户或范围技能提供。
 
-## Outputs
+## 输出
 
-- Findings list: Location, Category=language-go, Severity, Title, Description, optional Suggestion.
+- 结果列表：位置、类别=语言、严重性、标题、描述、可选建议。
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension        | Score |
-| :--------------- | :---- |
-| agent_native     | 5     |
-| cognitive        | 4     |
-| composability    | 5     |
-| stance           | 5     |
-| **asqm_quality** | 19    |
+| 维度 | 分数 |
+| ：-------------- | :---- |
+|agent_native | 5 |
+|cognitive| 4 |
+|composability | 5 |
+|stance| 5 |
+| **asqm_quality** | 19 | 19
 
-## Ecosystem
+## 生态
 
-| Field                                 | Value                                                                                                    |
-| :------------------------------------ | :------------------------------------------------------------------------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-diff |
-| market_position                       | commodity                                                                                                |
+|领域 |价值|
+| :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------ |
+|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:审查代码库，nesnilnehc/ai-cortex:审查代码，nesnilnehc/ai-cortex:审查差异 |
+|市场地位 |商品 |
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for checklist and output contract.
+请参阅 [SKILL.md](./SKILL.md) 查看清单和输出合同。

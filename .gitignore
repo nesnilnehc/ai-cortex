@@ -13,6 +13,7 @@ ehthumbs.db
 
 # Dependencies
 node_modules/
+.venv-translate/
 
 # Environment / secrets
 .env

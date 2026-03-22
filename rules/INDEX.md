@@ -2,12 +2,12 @@
 
 本文档定义了 AI Cortex（面向 Agent 的可治理能力资产库）中所有跨技能生效的全局行为准则（Passive Constraints）。
 
-## English Summary
+## 英文摘要 (English Summary)
 
-- This file is the canonical registry of global passive constraints under `rules/`.
-- These rules apply across skills and are loaded as long-lived runtime constraints.
-- Governance relationship: `AGENTS.md` defines behavior contract and authority boundaries, while this registry enumerates concrete rule assets.
-- Precedence model: when rules conflict with skill-local preferences, follow global rules unless a higher-priority project contract explicitly overrides them.
+- 本文件为 `rules/` 下全局被动约束的规范注册表。
+- 这些规则跨技能生效，作为长期运行时约束加载。
+- 治理关系：`AGENTS.md` 定义行为契约与权威边界，本注册表枚举具体规则资产。
+- 优先级模型：规则与技能局部偏好冲突时，遵循全局规则；除非更高优先级的项目契约显式覆盖。
 
 ---
 

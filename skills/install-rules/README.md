@@ -1,50 +1,50 @@
-# Install Rules
+# 安装规则
 
-**Status**: experimental
+**状态**：实验性的
 
-## What it does
+## 用途
 
-Installs rules from a source repository into Cursor (`.cursor/rules/`) or Trae IDE (`.trae/project_rules.md`) with explicit user confirmation and conflict detection. Resolves the source (this project's `rules/` or a specified Git repo), lists installable rules, analyzes the destination state, builds a conservative install plan (`create/skip/conflict/update`), and only writes after the user approves the plan.
+将规则从源存储库安装到 Cursor (`.cursor/rules/`) 或 Trae IDE (`.trae/project_rules.md`) 中，并进行显式用户确认和冲突检测。解析源（该项目的“rules/”或指定的 Git 存储库），列出可安装的规则，分析目标状态，构建保守的安装计划（“create/skip/conflict/update”），并且仅在用户批准该计划后才写入。
 
-## When to use
+## 何时使用
 
-- After cloning ai-cortex or another rule-providing repo: install its rules so the Agent respects them.
-- Bootstrapping a new project with a standard rule set from a shared repository.
-- Selectively adding or updating individual rules without overwriting existing configurations.
+- 克隆 ai-cortex 或另一个提供规则的存储库后：安装其规则，以便代理尊重它们。
+- 使用共享存储库中的标准规则集引导新项目。
+- 有选择地添加或更新单个规则，而不覆盖现有配置。
 
-## Inputs
+## 输入
 
-- Source: this project's `rules/` directory (default) or a Git repo (`owner/repo`, optional branch/ref and subpath).
-- Target IDE: Cursor or Trae (or both).
-- Scope: all rules or a subset by name.
-- Destination: project-level (default) or user-level.
+- 来源：该项目的 `rules/` 目录（默认）或 Git 存储库（`owner/repo`，可选的分支/ref 和子路径）。
+- 目标 IDE：Cursor 或 Trae（或两者）。
+- 范围：所有规则或按名称的子集。
+- 目标：项目级（默认）或用户级。
 
-## Outputs
+## 输出
 
-- Rule files written to IDE-specific destination (`.cursor/rules/*.mdc` or `.trae/` managed block).
-- Post-install summary: executed actions, target paths, and any conversion notes or failures.
+- 写入 IDE 特定目标的规则文件（`.cursor/rules/*.mdc` 或 `.trae/` 托管块）。
+- 安装后摘要：执行的操作、目标路径以及任何转换说明或失败。
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension        | Score |
-| :--------------- | :---- |
-| agent_native     | 3     |
-| cognitive        | 3     |
-| composability    | 3     |
-| stance           | 4     |
-| **asqm_quality** | 13    |
+| 维度 | 分数 |
+| ：-------------- | :---- |
+|agent_native | 3 |
+|cognitive| 3 |
+|composability | 3 |
+|stance| 4 |
+| **asqm_quality** | 13 |
 
-## Ecosystem
+## 生态
 
-| Field                                 | Value                                    |
-| :------------------------------------ | :--------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:discover-skills    |
-| market_position                       | experimental                             |
+|领域|价值|
+| :------------------------------------ | :---------------------------------------- |
+|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:发现技能 |
+|市场地位 |实验|
 
-## Promotion path
+## 晋升途径
 
-To reach **validated** (quality ≥ 17, agent_native ≥ 4): add a formal `Appendix: Output contract` table to SKILL.md documenting the post-install summary format machine-readably.
+要达到**已验证**（质量 ≥ 17，agent_native ≥ 4）：将正式的“附录：输出合同”表添加到 SKILL.md，以机器可读的方式记录安装后摘要格式。
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for checklist, restrictions, and output contract.
+请参阅 [SKILL.md](./SKILL.md) 了解清单、限制和输出合同。

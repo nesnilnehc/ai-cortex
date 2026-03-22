@@ -1,65 +1,65 @@
-# README Diagram Design Standards
+# README 图表设计标准
 
-**Version:** 1.0.0  
-**Purpose:** Establish a standard for visual communication in project READMEs to ensure clarity, maintainability, and accessibility.
-
----
-
-## 1. Core Principles
-
-1. **Semantic-First**: Diagrams must convey meaning (logic, flow, structure), not just decoration.
-1. **Native Rendering**: Prefer code-based diagrams (Mermaid) over binary images (PNG/SVG) for version control and searchability.
-1. **Minimalism**: Each diagram should answer exactly one question ("What is this?", "How does it work?", "What's inside?").
-1. **Accessibility**: All diagrams must have accompanying text descriptions or be self-explanatory through labels.
+**版本**：1.0.0
+**目的**：为项目 README 中的可视化沟通建立标准，确保清晰、可维护与可访问。
 
 ---
 
-## 2. Diagram Types & Usage
+## 1. 核心原则
 
-| Type | Purpose | Question Answered | Recommended Format |
+1. **语义优先 (Semantic-First)**：图表必须传达含义（逻辑、流程、结构），而非仅作装饰。
+1. **原生渲染 (Native Rendering)**：优先使用基于代码的图表（Mermaid）而非二进制图片（PNG/SVG），以利于版本控制与可搜索性。
+1. **极简 (Minimalism)**：每张图表只回答一个问题（「这是什么？」、「如何工作？」、「内部结构？」）。
+1. **可访问性 (Accessibility)**：所有图表须有伴随文字说明，或通过标签自解释。
+
+---
+
+## 2. 图表类型与用途
+
+| 类型 | 目的 | 回答的问题 | 推荐格式 |
 | :--- | :--- | :--- | :--- |
-| **Concept Diagram** | High-level architecture, entities, and relationships. | "What is this system?" | Mermaid Flowchart (LR/TB) |
-| **Workflow Diagram** | Dynamic process, user interaction, data flow. | "How do I use it?" | Mermaid Sequence or Flowchart |
-| **Ecosystem/Topology** | Component catalog, grouping, and scale. | "What capabilities exist?" | Mermaid Graph (TB) or Mindmap |
+| **概念图 (Concept Diagram)** | 高层架构、实体与关系 | 「这是什么系统？」 | Mermaid Flowchart (LR/TB) |
+| **工作流图 (Workflow Diagram)** | 动态流程、用户交互、数据流 | 「如何使用？」 | Mermaid Sequence 或 Flowchart |
+| **生态/拓扑图 (Ecosystem/Topology)** | 组件目录、分组与规模 | 「有哪些能力？」 | Mermaid Graph (TB) 或 Mindmap |
 
 ---
 
-## 3. Technical Standards
+## 3. 技术标准
 
-### 3.1 Format Priority
+### 3.1 格式优先级
 
-1. **Mermaid (`.mmd` embedded)**: Primary choice. GitHub renders natively. *Pros*: Editable, diffable, theme-adaptive (light/dark mode). *Cons*: Limited styling control.
-1. **SVG (Vector)**: Secondary choice for complex branding or non-standard layouts. *Requirement*: Must include source file (e.g., `.drawio`, `.excalidraw`) in `docs/designs/`.
-1. **PNG/JPG (Raster)**: Avoid for diagrams; use only for screenshots or photos.
+1. **Mermaid（`.mmd` 内嵌）**：首选。GitHub 原生渲染。*优点*：可编辑、可 diff、主题自适应（浅色/深色）。*缺点*：样式控制有限。
+1. **SVG（矢量）**：次选，用于复杂品牌或非常规布局。*要求*：须在 `docs/designs/` 中包含源文件（如 `.drawio`、`.excalidraw`）。
+1. **PNG/JPG（位图）**：避免用于图表；仅用于截图或照片。
 
-### 3.2 Mermaid Style Guide
+### 3.2 Mermaid 风格指南
 
-- **Orientation**:
-  - Use `LR` (Left-to-Right) for flows and timelines.
-  - Use `TB` (Top-to-Bottom) for hierarchies and ecosystem maps.
-- **Nodes**: Use clear, concise labels. Avoid long text blocks.
-- **Classes**: Use semantic class names (`classDef user`, `classDef system`) rather than hardcoded colors where possible, to support future theming.
+- **方向**：
+  - 流程与时间线使用 `LR`（左到右）。
+  - 层级与生态图使用 `TB`（上到下）。
+- **节点**：标签简洁清晰，避免长文本块。
+- **类**：优先使用语义类名（`classDef user`、`classDef system`）而非硬编码颜色，以支持未来主题化。
 
-### 3.3 Complexity Limits
+### 3.3 复杂度限制
 
-- **Max Nodes**: ~15 per diagram. If more, split into sub-diagrams or use a high-level abstraction.
-- **Max Depth**: 3 levels of nesting (subgraphs).
-
----
-
-## 4. Standard Diagram Set for README
-
-A professional infrastructure project README should ideally contain:
-
-1. **The "Concept" (Banner/Intro)**: A simple input-process-output model. *Goal*: User understands the value proposition in < 5 seconds.
-1. **The "Flow" (Usage)**: A typical user interaction path. *Goal*: User understands the mechanism of action.
-1. **The "Ecosystem" (Features/Catalog)**: A map of available capabilities. *Goal*: User sees the breadth of the tool.
+- **最大节点数**：约 15 个/图。超出时拆分子图或使用高层抽象。
+- **最大深度**：3 层嵌套（subgraphs）。
 
 ---
 
-## 5. Maintenance
+## 4. README 标准图表集
 
-- Diagrams are code. They must be updated in the same PR as the feature changes they depict.
-- Obsolete diagrams must be removed or archived.
-- `docs/images/*.mmd` is the source of truth for README Mermaid blocks. Keep README and source files synchronized.
-- Run `npm run verify:diagram-sync` before commit to prevent drift.
+专业基础设施项目的 README 宜包含：
+
+1. **「概念」图（横幅/简介）**：简单的输入-处理-输出模型。*目标*：用户在 5 秒内理解价值主张。
+1. **「流程」图（用法）**：典型用户交互路径。*目标*：用户理解运行机制。
+1. **「生态」图（功能/目录）**：可用能力一览。*目标*：用户看到工具广度。
+
+---
+
+## 5. 维护
+
+- 图表即代码。须在与所描述功能变更相同的 PR 中更新。
+- 过时图表须删除或归档。
+- `docs/images/*.mmd` 为 README 中 Mermaid 块的权威来源。保持 README 与源文件同步。
+- 提交前运行 `npm run verify:diagram-sync` 防止漂移。

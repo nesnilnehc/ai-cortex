@@ -1,87 +1,90 @@
-# Commit Work
+# 提交工作
 
-Create high-quality git commits with AI Cortex governance - review changes, split logically, write clear messages (Conventional Commits), sync with INDEX/manifest.
+使用 AI Cortex 治理创建高质量的 git 提交 - 审查更改、逻辑拆分、编写清晰的消息（常规提交）、与 INDEX/manifest 同步。
 
-## Overview
+## 概述
 
-This skill helps you make commits that are easy to review and safe to ship. It guides you through inspecting changes, splitting mixed work into logical commits, writing clear Conventional Commits messages, and running appropriate verification steps.
+这项技能可以帮助您做出易于审查且安全交付的提交。它指导您检查更改、将混合工作拆分为逻辑提交、编写清晰的常规提交消息以及运行适当的验证步骤。
 
-## AI Cortex Enhanced Version
+## AI Cortex 增强版
 
-This is an enhanced version of the `commit-work` skill, evolved specifically for AI Cortex projects with additional governance and quality features:
+这是“commit-work”技能的增强版本，专为 AI Cortex 项目而开发，具有额外的治理和质量功能：
 
-### Enhancements
+### 增强功能
 
-- **Pre-commit review integration**: Automatically invokes `review-diff` skill to catch issues before staging
-- **Registry synchronization**: Ensures `skills/INDEX.md` and `manifest.json` stay in sync when skills are added or modified
-- **Spec compliance**: Follows AI Cortex `spec/skill.md` standards for structure and quality
-- **Enhanced Self-Check**: Comprehensive verification checklist aligned with AI Cortex governance
+- **预提交审查集成**：自动调用“review-diff”技能以在登台前捕获问题
+- **注册表同步**：确保添加或修改技能时“skills/INDEX.md”和“manifest.json”保持同步
+- **规范合规性**：遵循 AI Cortex `spec/skill.md` 结构和质量标准
+- **增强的自检**：与 AI Cortex 治理相一致的全面验证清单
 
-### Evolution Metadata
+### 进化元数据
 
-This skill integrates content from multiple sources:
+该技能集成了多个来源的内容：
 
-#### Primary Source (Fork)
+#### 主要来源（分叉）
 
-- **Skill**: `commit-work`
-- **Repository**: Anthropic skills collection (assumed)
-- **Version**: 1.0.0
-- **License**: MIT
-- **Borrowed**: Core workflow structure, Conventional Commits format, patch staging approach
+- **技能**：`提交工作`
+- **存储库**：人类技能集合（假设）
+- **版本**：1.0.0
+- **许可证**：麻省理工学院
+- **借用**：核心工作流结构、常规提交格式、补丁暂存方法
 
-#### Integrated Components
+#### 集成组件
 
-- **Skill**: `review-diff`
-- **Repository**: nesnilnehc/ai-cortex
-- **Version**: 1.3.0
-- **License**: MIT
-- **Borrowed**: Pre-commit review methodology
+- **技能**：`审查差异`
+- **存储库**：nesnilnehc/ai-cortex
+- **版本**：1.3.0
+- **许可证**：麻省理工学院
+- **借用**：预提交审核方法
 
-### Current Version
+### 当前版本
 
-- **Version**: 2.0.0
-- **License**: MIT
+- **版本**：2.0.0
+- **许可证**：麻省理工学院
 
-## Installation
+## 安装
 
-### For AI Cortex users
+### 对于 AI Cortex 用户
+
 
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill commit-work
-```text
+```
+文本
 
-### For other projects
+### 对于其他项目
 
-This skill works in any git repository but provides additional features when used in AI Cortex projects (automatic registry sync checks).
+该技能适用于任何 git 存储库，但在 AI Cortex 项目中使用时提供附加功能（自动注册表同步检查）。
 
-## Usage
+## 用法
 
-Activate this skill when you need to:
+当您需要时激活此技能：
 
-- Commit your work with clear, reviewable commits
-- Split mixed changes into logical, atomic commits
-- Write Conventional Commits messages
-- Ensure commits meet quality standards before pushing
-- Maintain registry synchronization in AI Cortex projects
+- 以清晰、可审查的方式提交您的工作
+- 将混合更改拆分为逻辑、原子提交
+- 编写常规提交消息
+- 在推送之前确保提交符合质量标准
+- 维护 AI Cortex 项目中的注册表同步
 
-The skill will guide you through a comprehensive workflow from inspection to verification.
+该技能将指导您完成从检查到验证的全面工作流程。
 
-## Key Features
+## 主要特点
 
-### Workflow Steps
+### 工作流程步骤
 
-1. Inspect working tree before staging
-2. **Run pre-commit review** (AI Cortex enhancement)
-3. Decide commit boundaries and split if needed
-4. Stage only related changes
-5. Review staged changes carefully
-6. Describe changes clearly
-7. Write Conventional Commits messages
-8. Run verification (tests/lint)
-9. **Sync registries if needed** (AI Cortex projects)
-10. Repeat until working tree is clean
+1. 登台前检查工作树
+2. **运行提交前审查**（AI Cortex 增强）
+3. 决定提交边界并根据需要进行拆分
+4. 仅暂存相关更改
+5. 仔细审查分阶段的变更
+6. 清楚地描述变化
+7. 编写常规提交消息
+8. 运行验证（测试/lint）
+9. **如果需要同步注册表**（AI Cortex 项目）
+10.重复直到工作树干净
 
-### Conventional Commits Format
+### 常规提交格式
+
 
 ```text
 type(scope): short summary
@@ -91,37 +94,38 @@ body explaining what and why
 footer (BREAKING CHANGE if needed)
 ```
 
-Supported types: `feat`, `fix`, `refactor`, `docs`, `test`, `chore`, `perf`, `style`
 
-## Examples
+支持的类型：`feat`、`fix`、`refactor`、`docs`、`test`、`chore`、`perf`、`style`
 
-See [SKILL.md](SKILL.md#examples) for detailed examples including:
+## 示例（示例）
 
-- Simple feature addition
-- Mixed changes requiring split
-- AI Cortex skill addition with registry sync
+请参阅 [SKILL.md](SKILL.md#examples) 了解详细示例，包括：
 
-## Related Skills
+- 简单的功能添加
+- 需要拆分的混合更改
+- AI Cortex 技能添加与注册表同步
 
-- [review-diff](../review-diff/SKILL.md): Pre-commit code review (integrated in step 2)
+## 相关技能
 
-## Contributing
+- [review-diff](../review-diff/SKILL.md): 预提交代码审查（集成在步骤 2 中）
 
-This skill is part of the AI Cortex project. To suggest improvements:
+## 贡献
 
-1. Open an issue at [nesnilnehc/ai-cortex](https://github.com/nesnilnehc/ai-cortex)
-2. Follow the contribution guidelines
-3. Ensure changes maintain backward compatibility or clearly document breaking changes
+这项技能是 AI Cortex 项目的一部分。提出改进建议：
 
-## License
+1. 在 [nesnilnehc/ai-cortex](https://github.com/nesnilnehc/ai-cortex) 提出问题
+2. 遵循贡献指南
+3. 确保变更保持向后兼容性或明确记录重大变更
 
-MIT License - same as the original `commit-work` skill and the AI Cortex project.
+## 许可证
 
-## Version History
+MIT 许可证 - 与原始的“commit-work”技能和 AI Cortex 项目相同。
 
-- **2.0.0** (current): AI Cortex enhanced version with review integration and registry sync
-- **1.0.0**: Original version (forked baseline)
+## 版本历史
 
-## Feedback
+- **2.0.0**（当前）：AI Cortex 增强版，具有审核集成和注册表同步功能
+- **1.0.0**：原始版本（分叉基线）
 
-If you find issues or have suggestions for improvements, please open an issue in the [AI Cortex repository](https://github.com/nesnilnehc/ai-cortex/issues).
+## 反馈
+
+如果您发现问题或有改进建议，请在 [AI Cortex 存储库](https://github.com/nesnilnehc/ai-cortex/issues) 中提出问题。

@@ -6,34 +6,34 @@ labels: bug
 assignees: ''
 ---
 
-## Affected Asset
+## 受影响资产
 
-- [ ] Skill (name: ___)
-- [ ] Rule (name: ___)
-- [ ] Spec
-- [ ] Script (verify-registry / verify-skill-structure)
-- [ ] Other: ___
+- [ ] 技能 (Skill)（名称：___）
+- [ ] 规则 (Rule)（名称：___）
+- [ ] 规范 (Spec)
+- [ ] 脚本（verify-registry / verify-skill-structure）
+- [ ] 其他：___
 
-## Description
+## 描述
 
-A clear description of the bug.
+Bug 的清晰描述。
 
-## Steps to Reproduce
+## 复现步骤
 
 1. ...
 2. ...
 3. ...
 
-## Expected Behavior
+## 预期行为
 
-What should happen.
+应发生的正确行为。
 
-## Actual Behavior
+## 实际行为
 
-What actually happens.
+实际发生的情况。
 
-## Environment
+## 环境
 
-- IDE: (Cursor / Claude Code / Codex / other)
-- Installation method: (`npx skills add` / manual)
-- AI Cortex version: (check `manifest.json`)
+- IDE：（Cursor / Claude Code / Codex / 其他）
+- 安装方式：（`npx skills add` / 手动）
+- AI Cortex 版本：（查看 `manifest.json`）

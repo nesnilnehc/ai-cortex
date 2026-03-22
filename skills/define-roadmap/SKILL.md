@@ -1,6 +1,7 @@
 ---
 name: define-roadmap
 description: Translate strategic goals and milestones into a time-bound roadmap of initiatives or themes. Produces a roadmap document that bridges strategy and delivery planning; persisted to docs.
+description_zh: 将战略目标与里程碑转化为有时间约束的路线图（主题或计划）；连接战略与交付规划。
 tags: [documentation, workflow]
 version: 1.0.0
 license: MIT
@@ -19,152 +20,152 @@ output_schema:
   lifecycle: living
 ---
 
-# Skill: Define Roadmap
+# 技能 (Skill)：定义路线图
 
-## Purpose
+## 目的 (Purpose)
 
-Translate **strategic goals** and **milestones** into a **time-bound roadmap** of initiatives or themes (with optional timeframes). Produce a single roadmap document that bridges strategy and delivery planning. Does not define mission, vision, North Star, goals, or milestones; does not create backlog items.
-
----
-
-## Core Objective
-
-**Primary Goal**: Produce a user-confirmed roadmap document that maps goals and milestones to initiatives or themes with optional timeframes, persisted to the project-agreed path.
-
-**Success Criteria** (ALL must be met):
-
-1. ✅ **Roadmap documented**: Initiatives or themes listed, each with name and short scope; optional quarters or phases.
-2. ✅ **Traceability**: Each roadmap item maps to at least one milestone or strategic goal; mapping is explicit in the document.
-3. ✅ **Time-bound (optional)**: If time horizon is provided, roadmap reflects it; otherwise outcome-ordered is acceptable.
-4. ✅ **User confirmed**: User explicitly approved (e.g. "approved", "looks good", "proceed", or equivalent).
-5. ✅ **Document persisted**: Written to agreed path (default `docs/process-management/roadmap.md` or per project norms).
-6. ✅ **Scope respected**: No backlog items, requirements, or task lists in the roadmap document.
-
-**Acceptance Test**: Can a reader see how each roadmap item advances milestones and goals, and in what order or timeframe (if specified)?
-
-**Handoff Point**: When roadmap is approved and persisted, hand off to backlog planning; this skill does not create backlog items.
+将**战略目标**和**里程碑**转化为**有时限的路线图**的举措或主题（具有可选的时间范围）。制作连接战略和交付规划的单一路线图文档。没有定义使命、愿景、北极星、目标或里程碑；不创建待办项目。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-**This skill handles**:
+**首要目标**：生成用户确认的路线图文档，将目标和里程碑映射到具有可选时间范围的举措或主题，并坚持项目商定的路径。
 
-- Deriving roadmap structure from strategic goals and milestones (read from existing docs or user input).
-- Defining initiatives or themes with optional timeframes (e.g. by quarter or phase).
-- Documenting traceability: roadmap item → milestone(s) and goal(s).
-- Persisting to project-agreed path (default `docs/process-management/roadmap.md`).
+**成功标准**（必须满足所有要求）：
 
-**This skill does NOT handle**:
+1. ✅ **路线图记录**：列出计划或主题，每个计划或主题都有名称和简短范围；可选季度或阶段。
+2. ✅ **可追溯性**：每个路线图项目都映射到至少一个里程碑或战略目标；映射在文档中是明确的。
+3. ✅ **有时限（可选）**：如果提供了时间范围，路线图会反映它；否则按结果排序是可以接受的。
+4. ✅ **用户确认**：用户明确批准（例如“已批准”、“看起来不错”、“继续”或同等内容）。
+5. ✅ **文档持久化**：写入商定的路径（默认`docs/process-management/路线图.md`或按照项目规范）。
+6. ✅ **尊重范围**：路线图文档中没有待办事项、需求或任务清单。
 
-- Defining mission, vision, North Star, goals, or milestones (use `define-mission`, `define-vision`, `define-north-star`, `design-strategic-goals`, `define-milestones`).
-- Creating backlog items (use `capture-work-items`, project planning).
+**验收测试**：读者能否看到每个路线图项目如何推进里程碑和目标，以及以什么顺序或时间范围（如果指定）？
 
----
-
-## Use Cases
-
-- **After milestones**: Build a visible plan that connects strategy to release or sprint planning.
-- **Planning cycle**: Establish initiative/theme sequence or time-bound view for the next 1–2 periods.
-- **Before backlog**: Provide roadmap so backlog items can be grouped under initiatives or themes.
-- **Strategy-to-execution bridge**: Run after goals and milestones when building the full hierarchy.
+**交接点**：路线图获批并保留后，交接至待办规划；该技能不会创建待办物品。
 
 ---
 
-## Behavior
+## 范围边界 (Scope Boundaries)
 
-### Interaction Policy
+**本技能负责**：
 
-- **Defaults**: Output path from project norms if present; otherwise `docs/process-management/roadmap.md`. Read goals and milestones from `docs/project-overview/strategic-goals.md` and `docs/process-management/milestones.md` when available.
-- **Choice options**: If user wants both outcome-ordered and time-bound views, offer structure (e.g. phases with optional quarters) and ask for confirmation.
-- **Confirm**: Before overwriting an existing roadmap file; before final persist.
+- 从战略目标和里程碑中得出路线图结构（从现有文档或用户输入中读取）。
+- 定义具有可选时间范围的举措或主题（例如按季度或阶段）。
+- 记录可追溯性：路线图项目 → 里程碑和目标。
+- 坚持项目商定的路径（默认`docs/process-management/路线图.md`）。
 
-### Execution Process
+**本技能不负责**：
 
-1. **Load strategy**: Read strategic goals and milestones from docs or user-provided summary; optionally read strategic pillars.
-2. **Derive structure**: For each milestone (or goal), what initiatives or themes represent the next level of planning?
-3. **Per roadmap item**: Name, short scope, optional timeframe; explicit mapping to milestone(s) and goal(s).
-4. **Persist**: Write to project-agreed path; create `docs/process-management/` if missing.
-
----
-
-## Input & Output
-
-**Input**:
-
-- **Required**: Strategic goals and milestones (documents or paths); project context.
-- **Optional**: Initiatives document; time horizon (e.g. next 4 quarters); existing roadmap.
-
-**Output**:
-
-- **Artifact**: Roadmap document.
-- **Location**: `docs/process-management/roadmap.md` (or per project norms).
-- **Content**: Initiatives/themes with scope, optional timeframes; mapping to milestones and goals.
-- **Lifecycle**: Living (updated as execution progresses or strategy changes).
+- 定义使命、愿景、北极星、目标或里程碑（使用“定义使命”、“定义愿景”、“定义北极星”、“设计战略目标”、“定义里程碑”）。
+- 创建待办项目（使用“capture-work-items”，项目规划）。
 
 ---
 
-## Restrictions
+## 使用场景（用例）
 
-### Hard Boundaries
-
-- Do NOT define mission, vision, North Star, goals, or milestones in this skill.
-- Do NOT create backlog items, requirements, or task lists; roadmap is initiatives/themes only.
-- Do NOT overwrite an existing roadmap file without explicit user confirmation.
-
-### Skill Boundaries (Avoid Overlap)
-
-**Do NOT do these (other skills handle them)**:
-
-- **Mission / vision / North Star / goals / milestones**: Use `define-mission`, `define-vision`, `define-north-star`, `design-strategic-goals`, `define-milestones`.
-- **Strategic pillars**: Use `define-strategic-pillars`; this skill may consume pillars as input.
-- **Backlog items**: Use `capture-work-items`, project planning.
-
-**When to stop and hand off**:
-
-- User says "approved" or equivalent → Roadmap complete; offer handoff to backlog planning.
-- User asks for backlog or requirements → Hand off to `capture-work-items` or `analyze-requirements`.
+- **里程碑之后**：构建一个可见的计划，将策略与发布或冲刺计划联系起来。
+- **规划周期**：为接下来的 1-2 个周期建立计划/主题序列或有时限的视图。
+- **在待办之前**：提供路线图，以便待办项目可以根据倡议或主题进行分组。
+- **策略到执行的桥梁**：构建完整层次结构时遵循目标和里程碑。
 
 ---
 
-## Self-Check
+## 行为（行为）
 
-### Core Success Criteria (ALL must be met)
+### 交互（互动）政策
 
-- [ ] **Roadmap documented**: Initiatives/themes with name, scope, optional timeframe.
-- [ ] **Traceability**: Each item maps to at least one milestone or goal; mapping in document.
-- [ ] **User confirmed**: User said "approved", "looks good", "proceed", or equivalent.
-- [ ] **Document persisted**: Written to agreed path (default `docs/process-management/roadmap.md` or project norms).
-- [ ] **Scope respected**: No backlog items, requirements, or task lists in the document.
+- **默认**：项目规范的输出路径（如果存在）；否则为“docs/process-management/路线图.md”。从“docs/project-overview/strategic-goals.md”和“docs/process-management/里程碑.md”（如果有）中阅读目标和里程碑。
+- **选择选项**：如果用户想要按结果排序和有时限的视图，请提供结构（例如带有可选季度的阶段）并要求确认。
+- **确认**：覆盖现有路线图文件之前；在最终坚持之前。
 
-### Process Quality Checks
+### 执行过程
 
-- [ ] **Strategy used**: Did I read or request goals and milestones before drafting roadmap?
-- [ ] **No backlog**: Did I avoid writing individual backlog items?
-
-### Acceptance Test
-
-**Can a reader see how each roadmap item advances milestones and goals, and in what order or timeframe?**
-
-If NO: Add traceability and optional timeframes.
-If YES: Roadmap is complete. Proceed to handoff or stop.
+1. **加载策略**：从文档或用户提供的摘要中读取战略目标和里程碑；可选择阅读战略支柱。
+2. **推导结构**：对于每个里程碑（或目标），哪些举措或主题代表下一级别的规划？
+3. **每路线图项目**：名称、简短范围、可选时间范围；明确映射到里程碑和目标。
+4. **持久化**：写入到项目约定的路径；如果缺少，请创建“docs/process-management/”。
 
 ---
 
-## Examples
+## 输入与输出 (Input & Output)
 
-### Example 1: Goals and milestones exist, build roadmap
+**输入**：
 
-**Context**: Strategic goals and milestones documents exist. User wants a roadmap for the next 4 quarters.
+- **必填**：战略目标和里程碑（文档或路径）；项目背景。
+- **可选**：倡议文档；时间范围（例如接下来的 4 个季度）；现有路线图。
 
-**Process**: Read strategic-goals and milestones. Propose initiatives or themes per milestone; add optional quarters. Map each item to milestone(s) and goal(s). User confirms. Write to `docs/process-management/roadmap.md`.
+**输出**：
 
-**Outcome**: Roadmap persisted; handoff to backlog planning.
+- **工件**：路线图文档。
+- **位置**：`docs/process-management/路线图.md`（或按照项目规范）。
+- **内容**：具有范围、可选时间框架的举措/主题；映射到里程碑和目标。
+- **生命周期**：生存（随着执行进度或策略变化而更新）。
 
-### Example 2: Initiatives document exists
+---
 
-**Context**: User has strategic pillars or themes and now wants a time-bound roadmap.
+## 限制（限制）
 
-**Process**: Read pillars (or goals) and milestones. Arrange themes into phases or quarters; add traceability to milestones and goals. User confirms. Write to `docs/process-management/roadmap.md`.
+### 硬边界（Hard Boundaries）
 
-**Outcome**: Roadmap persisted with themes as building blocks.
+- 不要在此技能中定义使命、愿景、北极星、目标或里程碑。
+- 不要创建待办项目、需求或任务列表； 路线图仅是倡议/主题。
+- 未经用户明确确认，请勿覆盖现有路线图文件。
+
+### 技能边界 (Skill Boundaries)（避免重叠）
+
+**不要做这些（其他技能可以处理它们）**：
+
+- **使命/愿景/北极星/目标/里程碑**：使用“定义任务”、“定义愿景”、“定义北极星”、“设计战略目标”、“定义里程碑”。
+- **战略支柱**：使用`define-strategic-pillars`；该技能可能会消耗支柱作为输入。
+- **待办事项**：使用“捕获工作项”，项目规划。
+
+**何时停止并交接**：
+
+- 用户说“已批准”或同等内容 → 路线图完成；提供转交待办规划。
+- 用户请求待办或需求 → 移交给“捕获工作项”或“分析需求”。
+
+---
+
+## 自检（Self-Check）
+
+### 核心成功标准（必须满足所有标准）
+
+- [ ] **路线图记录**：带有名称、范围、可选时间表的举措/主题。
+- [ ] **可追溯性**：每一项至少映射到一个里程碑或目标；文档中的映射。
+- [ ] **用户确认**：用户说“已批准”、“看起来不错”、“继续”或类似内容。
+- [ ] **文档持久化**：写入约定路径（默认`docs/process-management/路线图.md`或项目规范）。
+- [ ] **遵守的范围**：文档中没有待办事项、需求或任务列表。
+
+### 流程质量检查
+
+- [ ] **使用的策略**：在起草路线图之前我是否阅读或要求了目标和里程碑？
+- [ ] **没有待办**：我是否避免编写单独的待办项目？
+
+### 验收测试
+
+**读者能否看到每个路线图项目如何推进里程碑和目标，以及以什么顺序或时间范围？**
+
+如果否：添加可追溯性和可选时间范围。
+如果是：路线图已完成。继续转交或停止。
+
+---
+
+## 示例（示例）
+
+### 示例1：目标和里程碑存在，构建路线图
+
+**背景**：存在战略目标和里程碑文档。用户想要未来 4 个季度的路线图。
+
+**流程**：阅读战略目标和里程碑。提出每个里程碑的举措或主题；添加可选宿舍。将每个项目映射到里程碑和目标。用户确认。写入“docs/process-management/路线图.md”。
+
+**结果**：路线图持续存在； 转交待办规划。
+
+### 示例 2：倡议文档存在
+
+**上下文**：用户有战略支柱或主题，现在想要一个有时限的路线图。
+
+**流程**：阅读支柱（或目标）和里程碑。将主题分为阶段或季度；增加里程碑和目标的可追溯性。用户确认。写入“docs/process-management/路线图.md”。
+
+**结果**：路线图坚持以主题为构建基块。

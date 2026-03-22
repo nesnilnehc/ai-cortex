@@ -7,7 +7,7 @@ inputs:
   - SKILL Markdown document or rough draft
 
 outputs:
-  - optimized SKILL (fixed temp SKILL.refined.md or new-per-run path; never overwrites original)
+  - optimized SKILL (default: overwrite source SKILL.md; opt-out: SKILL.refined.md or SKILL.refined.YYYYMMDD.md)
   - diff summary (what changed and why)
   - version suggestion (SemVer)
 

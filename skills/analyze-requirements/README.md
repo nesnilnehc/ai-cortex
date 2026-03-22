@@ -1,65 +1,67 @@
-# analyze-requirements
+# 分析-需求
 
-Transform vague intent into validated, testable requirements through structured dialogue.
+通过结构化对话，将模糊的意图转化为已验证、可测试的需求。
 
-## Overview
+## 概述
 
-This skill synthesizes diagnostic state models and structured quality assessment techniques to guide developers from "I want to build X" to a clear problem statement, prioritized needs, explicit constraints, and bounded scope — all before any design or implementation begins. It enforces a strict problem-first methodology: no design before validation.
+这项技能综合了诊断状态模型和结构化质量评估技术，指导开发人员从“我想构建 X”到明确的问题陈述、优先需求、明确的约束和有限的范围——所有这些都在任何设计或实现开始之前进行。它强制执行严格的问题优先方法：验证之前不进行设计。
 
-## Key Features
+## 主要特点
 
-- **Diagnostic state progression**: Systematic RA0-RA5 states from no problem statement to validated requirements (from jwynia/agent-skills requirements-analysis)
-- **Structured quality assessment**: Score clarity, specificity, and completeness to decide entry point (from staruhub/ClaudeSkills request-analyzer)
-- **HARD-GATE pattern**: Explicit prevention of design or implementation before requirements are validated (from design-solution)
-- **Request triage**: Quick assessment to determine deep vs. quick analysis path
-- **Problem-first methodology**: Requirements describe problems and needs, not solutions
-- **Constraint vs. assumption separation**: Distinguish real constraints from untested assumptions
-- **Output persistence**: Validated requirements written to `docs/requirements/<topic>.md`
+- **诊断状态进展**：从无问题陈述到已验证需求的系统 RA0-RA5 状态（来自 jwynia/agent-skills 需求分析）
+- **结构化质量评估**：决定切入点的分数清晰度、特异性和完整性（来自 staruhub/ClaudeSkills 请求分析器）
+- **硬门模式**：在需求已验证之前明确阻止设计或实施（来自设计解决方案）
+- **请求分类**：快速评估以确定深度与快速分析路径
+- **问题优先方法**：需求描述问题和需求，而不是解决方案
+- **约束与假设分离**：区分真实约束和未经测试的假设
+- **输出持久性**：已验证的需求写入`docs/需求/<topic>.md`
 
-## Synthesized From
+## 合成自
 
-This skill integrates methodologies from these sources:
+该技能集成了以下来源的方法：
 
-1. **requirements-analysis** (jwynia/agent-skills): Diagnostic state model (RA0-RA5), problem-first methodology, anti-patterns, constraint inventory, health check questions
-2. **request-analyzer** (staruhub/ClaudeSkills): Structured quality assessment (clarity/specificity/completeness), decision matrix, skill coordination pattern
-3. **design-solution** (nesnilnehc/ai-cortex): Phase-based workflow, HARD-GATE pattern, incremental dialogue approach
+1. **需求分析**（jwynia/agent-skills）：诊断状态模型（RA0-RA5）、问题优先方法、反模式、约束库存、健康检查问题
+2. **请求分析器** (staruhub/ClaudeSkills)：结构化质量评估（清晰度/特异性/完整性）、决策矩阵、技能协调模式
+3. **设计解决方案** (nesnilnehc/ai-cortex)：基于阶段的工作流程、硬门模式、增量对话方法
 
-## When to Use
+## 何时使用
 
-- New project kickoff — extract the real problem and validated needs before any design
-- Feature request triage — clarify problem, scope, and acceptance criteria
-- Scope creep prevention — apply prioritization and explicit V1 boundary
-- Requirement validation — diagnose which state they are in and progress them
-- Constraint discovery — surface hidden constraints and assumptions before they derail work
+- 新项目启动——在任何设计之前提取真正的问题并验证需求
+- 功能请求分类——澄清问题、范围和验收标准
+- 范围蔓延预防——应用优先级和明确的 V1 边界
+- 需求验证——诊断他们所处的状态并推进他们
+- 约束发现——在隐藏的约束和假设破坏工作之前将其暴露出来
 
-## Process
+## 流程
 
-1. **Triage**: Assess input quality (clarity, specificity, completeness) and determine entry state
-2. **Diagnose**: Identify current state (RA0-RA5), ask targeted questions one at a time
-3. **Progress**: Move through states sequentially — never skip ahead
-4. **Validate**: Confirm all success criteria met with user approval
-5. **Persist**: Write validated requirements document and commit
+1. **分类**：评估输入质量（清晰度、特异性、完整性）并确定条目状态
+2. **诊断**：识别当前状态（RA0-RA5），一次提出一个有针对性的问题
+3. **进度**：按顺序移动状态 - 切勿向前跳过
+4. **验证**：确认满足用户批准的所有成功标准
+5. **坚持**：编写已验证需求文档并提交
 
-## Core Principles
+## 核心原则
 
-- **HARD-GATE**: No design before requirements validation (applies to ALL projects)
-- **Problem-first**: Requirements describe problems and needs, never solutions
-- **One question at a time**: Build understanding incrementally through dialogue
-- **Constraint clarity**: Separate real constraints from assumptions and preferences
-- **Scope discipline**: Explicit V1 boundary with deferred items documented
+- **HARD-GATE**：需求验证前无需设计（适用于所有项目）
+- **问题优先**：需求描述问题和需求，而不是解决方案
+- **一次一个问题**：通过对话逐步建立理解
+- **约束清晰度**：将实际约束与假设和偏好分开
+- **范围规则**：明确的 V1 边界与已记录的延期项目
 
-## Installation
+## 安装
+
 
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill analyze-requirements
 ```
 
-## Related Skills
 
-- `design-solution`: Transform validated requirements into approved designs (next step after this skill)
-- `refine-skill-design`: Audit and improve skill definitions
-- `discover-skills`: Discover and recommend relevant skills
+## 相关技能
 
-## License
+- `设计-解决方案`：将已验证的需求转化为批准的设计（此技能后的下一步）
+- `refine-skill-design`：审核和改进技能定义
+- `discover-skills`：发现并推荐相关技能
 
-MIT
+## 许可证
+
+麻省理工学院

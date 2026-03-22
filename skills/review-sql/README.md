@@ -1,42 +1,42 @@
-# Review SQL
+# 回顾 SQL
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Reviews SQL and query code for language and query conventions only: injection and parameterization, indexing and execution plan, transactions and isolation, NULL and constraints, dialect portability, large-table and paging, sensitive columns and permissions. Emits a findings list in the standard format. Does not perform scope selection or full security/architecture review.
+仅审查 SQL 和查询代码的语言和查询约定：注入和参数化、索引和执行计划、事务和隔离、NULL 和约束、方言可移植性、大表和分页、敏感列和权限。以标准格式发出结果列表。不执行范围选择或全面的安全/架构审查。
 
-## When to use
+## 何时使用
 
-- Orchestrated review: used as the language step when review-code runs for projects that include SQL.
-- SQL-only review: when the user wants only query correctness, performance, and safety checked.
-- Migration or portability: check dialect-specific constructs.
+- 精心安排的审核：当针对包含 SQL 的项目运行审核代码时，用作语言步骤。
+- 仅 SQL 审查：当用户只想检查查询的正确性、性能和安全性时。
+- 迁移或可移植性：检查方言特定的结构。
 
-## Inputs
+## 输入
 
-- Code scope (files, snippets, or diff) containing SQL (.sql files, embedded SQL, or ORM-generated SQL), provided by the user or scope skill.
+- 包含 SQL（.sql 文件、嵌入式 SQL 或 ORM 生成的 SQL）的代码范围（文件、片段或 diff），由用户或范围技能提供。
 
-## Outputs
+## 输出
 
-- Findings list: Location, Category=language-sql, Severity, Title, Description, optional Suggestion.
+- 结果列表：位置、类别=语言-sql、严重性、标题、描述、可选建议。
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension        | Score |
-| :--------------- | :---- |
-| agent_native     | 5     |
-| cognitive        | 4     |
-| composability    | 5     |
-| stance           | 5     |
-| **asqm_quality** | 19    |
+| 维度 | 分数 |
+| ：-------------- | :---- |
+|agent_native | 5 |
+|cognitive| 4 |
+|composability | 5 |
+|stance| 5 |
+| **asqm_quality** | 19 | 19
 
-## Ecosystem
+## 生态
 
-| Field                                 | Value                                                                                                                                          |
-| :------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-security, nesnilnehc/ai-cortex:review-diff |
-| market_position                       | commodity                                                                                                                                      |
+|领域|价值|
+| :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex: 审查代码库、 nesnilnehc/ai-cortex: 审查代码、 nesnilnehc/ai-cortex: 审查安全、 nesnilnehc/ai-cortex: 审查差异 |
+|市场地位 |商品 |
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for checklist and output contract.
+请参阅 [SKILL.md](./SKILL.md) 查看清单和输出合同。

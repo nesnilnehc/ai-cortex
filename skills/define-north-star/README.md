@@ -1,41 +1,43 @@
-# define-north-star
+# 定义北极星
 
-Define the single most important metric representing the core value delivered to users (North Star Metric).
+定义代表向用户提供的核心价值的最重要的单一指标（北极星指标）。
 
-## What it does
+## 用途
 
-Derives and documents one North Star Metric (NSM) using the chain: User → Core Value → Primary Action → Observable Behavior → Measurable Metric. Ensures the metric reflects user value, behavior, and ongoing engagement (not vanity). Output includes NSM, rationale, optional 3–5 supporting metrics, and anti–North-Star examples. Persisted to `docs/project-overview/north-star.md` (or project norms).
+使用以下链导出并记录一个北极星指标 (NSM)：用户 → 核心价值 → 主要操作 → 可观察行为 → 可衡量指标。确保指标反映用户价值、行为和持续参与度（而不是虚荣心）。输出包括 NSM、基本原理、可选的 3-5 个支持指标以及反北极星示例。坚持“docs/project-overview/north-star.md”（或项目规范）。
 
-## When to use
+## 何时使用
 
-- After vision — establish the one metric that captures "value delivered".
-- Product prioritization — single metric to guide what to optimize for.
-- Replacing vanity metrics — when focus is on revenue/total users/downloads and you want a user-value anchor.
-- Third layer in strategy chain — run after mission and vision.
+- 愿景之后——建立一个衡量“交付价值”的指标。
+- 产品优先级——指导优化内容的单一指标。
+- 取代虚荣指标——当重点是收入/总用户数/下载量并且您想要一个用户价值锚时。
+- 战略链的第三层——追求使命和愿景。
 
-## Inputs
+## 输入
 
-- Project/product description; target users; core value proposition (or mission/vision).
-- Optional: current metrics, constraints, comparable product examples.
+- 项目/产品描述；目标用户；核心价值主张（或使命/愿景）。
+- 可选：当前指标、限制、可比产品示例。
 
-## Outputs
+## 输出
 
-- North Star document at `docs/project-overview/north-star.md` (or project norms): NSM + rationale, optional supporting metrics, anti-examples.
+- North Star 文档位于“docs/project-overview/north-star.md”（或项目规范）：NSM + 基本原理、可选支持指标、反示例。
 
-## Installation
+## 安装
+
 
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill define-north-star
 ```
 
-## Related skills
 
-- `define-mission` — why we exist.
-- `define-vision` — what future we build.
-- `design-strategic-goals` — next: 3–5 outcomes that move the NSM.
-- `define-milestones` — phase checkpoints from goals.
-- `align-planning` — can use north-star doc as top anchor for alignment.
+## 相关技能
 
-## Full definition
+- “定义使命”——我们为何存在。
+- “定义愿景”——我们构建什么样的未来。
+- `设计战略目标` — 下一页：推动 NSM 的 3-5 个结果。
+- `define-里程碑` — 目标的阶段检查点。
+- `align-planning` — 可以使用北极星文档作为顶部锚点进行对齐。
 
-See [SKILL.md](./SKILL.md) for behavior, restrictions, derivation framework, and examples.
+## 完整定义
+
+请参阅 [SKILL.md](./SKILL.md) 了解行为、限制、推导框架和示例。

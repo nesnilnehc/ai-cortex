@@ -1,42 +1,42 @@
-# Review React
+# 回顾反应
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Reviews React code for framework conventions only: component design (functional, composition, props), hooks correctness (dependency arrays, rules of hooks, cleanup), state management (local, context, external stores, server state), rendering performance (memo, keys, virtualization), side effects and data fetching, routing and code splitting, and accessibility. Emits a findings list in the standard format. Does not perform scope selection or security/architecture review.
+仅审查框架约定的 React 代码：组件设计（功能、组合、道具）、钩子正确性（依赖数组、钩子规则、清理）、状态管理（本地、上下文、外部存储、服务器状态）、渲染性能（备忘录、键、虚拟化）、副作用和数据获取、路由和代码分割以及可访问性。以标准格式发出结果列表。不执行范围选择或安全/架构审查。
 
-## When to use
+## 何时使用
 
-- Orchestrated review: used as the framework step when review-code runs for React projects.
-- React-only review: when the user wants only React/frontend framework conventions checked.
-- Pre-PR React checklist: ensure hooks usage, component design, and state management patterns are correct.
+- 精心策划的审查：用作 React 项目运行审查代码时的框架步骤。
+- 仅 React 审查：当用户只想检查 React/前端框架约定时。
+- PR 前的 React 检查表：确保钩子使用、组件设计和状态管理模式正确。
 
-## Inputs
+## 输入
 
-- Code scope (files, directories, or diff) containing React code (.tsx, .jsx, .ts, .js with React APIs), provided by the user or scope skill.
+- 包含 React 代码（.tsx、.jsx、.ts、带有 React API 的 .js）的代码范围（文件、目录或 diff），由用户或范围技能提供。
 
-## Outputs
+## 输出
 
-- Findings list: Location, Category=framework-react, Severity, Title, Description, optional Suggestion.
+- 结果列表：位置、类别=framework-react、严重性、标题、描述、可选建议。
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension        | Score |
-| :--------------- | :---- |
-| agent_native     | 5     |
-| cognitive        | 4     |
-| composability    | 5     |
-| stance           | 5     |
-| **asqm_quality** | 19    |
+| 维度 | 分数 |
+| ：-------------- | :---- |
+|agent_native | 5 |
+|cognitive| 4 |
+|composability | 5 |
+|stance| 5 |
+| **asqm_quality** | 19 | 19
 
-## Ecosystem
+## 生态
 
-| Field                                 | Value                                                                                                    |
-| :------------------------------------ | :------------------------------------------------------------------------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-diff |
-| market_position                       | commodity                                                                                                |
+|领域 |价值|
+| :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------ |
+|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:审查代码库，nesnilnehc/ai-cortex:审查代码，nesnilnehc/ai-cortex:审查差异 |
+|市场地位 |商品 |
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for checklist and output contract.
+请参阅 [SKILL.md](./SKILL.md) 查看清单和输出合同。

@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
- * Verify skills/INDEX.md, manifest.json, scenario-map.md, skillgraph.md, and marketplace.json stay in sync.
- * Regenerates INDEX.md, skillgraph.md, and scenario-map.md from sources first, then validates.
+ * Verify skills/INDEX.md, manifest.json, intent-routing.md, skillgraph.md, and marketplace.json stay in sync.
+ * Regenerates INDEX.md, skillgraph.md, and intent-routing.md from sources first, then validates.
  * - Every capability in manifest.json has a path that exists.
  * - Every directory under skills/ that contains SKILL.md is listed in manifest capabilities.
- * - Every skill referenced in skills/scenario-map.md (and scenario-map.json) exists in manifest and INDEX.
+ * - Every skill referenced in skills/intent-routing.md (and intent-routing.json) exists in manifest and INDEX.
  * - Every skill in marketplace.json exists in skills/ and is registered in INDEX.md.
  * Run from repo root: node scripts/verify-registry.mjs
  */
@@ -34,7 +34,7 @@ if (!existsSync(indexPath)) {
   process.exit(1);
 }
 
-// Regenerate INDEX.md, skillgraph.md, and scenario-map.md from sources
+// Regenerate INDEX.md, skillgraph.md, and intent-routing.md from sources
 const genScript = join(root, 'scripts', 'generate-skills-docs.mjs');
 if (existsSync(genScript)) {
   const r = spawnSync('node', [genScript], { cwd: root, stdio: 'pipe', encoding: 'utf8' });
@@ -165,50 +165,50 @@ for (const name of skillDirNames) {
   }
 }
 
-// scenario-map.md sync check
-const scenarioMapPath = join(skillsDir, 'scenario-map.md');
-if (existsSync(scenarioMapPath)) {
-  const scenarioMapText = readFileSync(scenarioMapPath, 'utf8');
-  const scenarioMapSkillRefs = new Set();
-  for (const m of scenarioMapText.matchAll(/\]\(\.\/([^/)]+)\/SKILL\.md\)/g)) {
-    scenarioMapSkillRefs.add(m[1]);
+// intent-routing.md sync check
+const intentRoutingPath = join(skillsDir, 'intent-routing.md');
+if (existsSync(intentRoutingPath)) {
+  const intentRoutingText = readFileSync(intentRoutingPath, 'utf8');
+  const intentRoutingSkillRefs = new Set();
+  for (const m of intentRoutingText.matchAll(/\]\(\.\/([^/)]+)\/SKILL\.md\)/g)) {
+    intentRoutingSkillRefs.add(m[1]);
   }
-  for (const name of scenarioMapSkillRefs) {
+  for (const name of intentRoutingSkillRefs) {
     if (!manifestNames.has(name) || !indexNames.has(name)) {
       console.error(
-        `skills/scenario-map.md references "${name}" but it is missing from manifest.json or skills/INDEX.md`
+        `skills/intent-routing.md references "${name}" but it is missing from manifest.json or skills/INDEX.md`
       );
       failed = true;
     }
   }
-  const notInScenarioMap = [...manifestNames].filter((n) => !scenarioMapSkillRefs.has(n));
-  if (notInScenarioMap.length > 0) {
+  const notInIntentRouting = [...manifestNames].filter((n) => !intentRoutingSkillRefs.has(n));
+  if (notInIntentRouting.length > 0) {
     console.warn(
-      `Info: ${notInScenarioMap.length} skill(s) not in scenario-map.md: ${notInScenarioMap.slice(0, 10).join(', ')}${notInScenarioMap.length > 10 ? '...' : ''}`
+      `Info: ${notInIntentRouting.length} skill(s) not in intent-routing.md: ${notInIntentRouting.slice(0, 10).join(', ')}${notInIntentRouting.length > 10 ? '...' : ''}`
     );
   }
 } else {
-  console.warn('skills/scenario-map.md not found; skipping scenario-map validation');
+  console.warn('skills/intent-routing.md not found; skipping intent-routing validation');
 }
 
-// scenario-map.json sync check (source of truth for scenario-map.md)
-const scenarioMapJsonPath = join(skillsDir, 'scenario-map.json');
-if (existsSync(scenarioMapJsonPath)) {
-  const scenarioConfig = JSON.parse(readFileSync(scenarioMapJsonPath, 'utf8'));
+// intent-routing.json sync check (source of truth for intent-routing.md)
+const intentRoutingJsonPath = join(skillsDir, 'intent-routing.json');
+if (existsSync(intentRoutingJsonPath)) {
+  const intentConfig = JSON.parse(readFileSync(intentRoutingJsonPath, 'utf8'));
   const jsonSkillRefs = new Set();
-  for (const s of scenarioConfig.scenarios || []) {
+  for (const s of intentConfig.intents || []) {
     if (s.primary) jsonSkillRefs.add(s.primary);
     for (const o of s.optional || []) jsonSkillRefs.add(o);
     if (s.short_triggers !== undefined) {
       if (!Array.isArray(s.short_triggers) || s.short_triggers.some((t) => typeof t !== 'string')) {
-        console.warn(`skills/scenario-map.json scenario "${s.id}": short_triggers must be array of strings`);
+        console.warn(`skills/intent-routing.json intent "${s.id}": short_triggers must be array of strings`);
       }
     }
   }
   for (const name of jsonSkillRefs) {
     if (!manifestNames.has(name) || !indexNames.has(name)) {
       console.error(
-        `skills/scenario-map.json references "${name}" but it is missing from manifest.json or skills/INDEX.md`
+        `skills/intent-routing.json references "${name}" but it is missing from manifest.json or skills/INDEX.md`
       );
       failed = true;
     }
@@ -250,6 +250,6 @@ for (const cap of capabilities) {
 
 if (failed) process.exit(1);
 console.log(
-  'Registry OK: manifest, skills/INDEX.md, skills/scenario-map.md, skillgraph.md, scenario-map.json, marketplace.json, and skills/*/SKILL.md are consistent.'
+  'Registry OK: manifest, skills/INDEX.md, skills/intent-routing.md, skillgraph.md, intent-routing.json, marketplace.json, and skills/*/SKILL.md are consistent.'
 );
 process.exit(0);

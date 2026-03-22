@@ -1,39 +1,40 @@
-# review-testing
+# 审查测试
 
-Review code for **testing** concerns: test existence, coverage adequacy, test quality and structure, test types and layering, edge-case and error-path coverage, and test maintainability.
+检查**测试**关注的代码：测试存在、覆盖充分性、测试质量和结构、测试类型和分层、边缘情况和错误路径覆盖以及测试可维护性。
 
-## What it does
+## 用途
 
-Analyzes the given code scope for testing health across six dimensions:
+分析给定的代码范围以跨六个维度测试运行状况：
 
-1. **Test existence** — Do key modules have corresponding tests?
-2. **Coverage adequacy** — Are high-risk paths tested?
-3. **Test quality and structure** — Are tests well-structured with meaningful assertions?
-4. **Test types and layering** — Appropriate mix of unit, integration, and e2e?
-5. **Edge cases and error paths** — Boundary conditions, invalid inputs, failure modes?
-6. **Test maintainability** — DRY, organized fixtures, not brittle?
+1. **测试是否存在**——关键模块是否有相应的测试？
+2. **覆盖充分性** — 是否测试了高风险路径？
+3. **测试质量和结构** — 测试的结构是否良好且具有有意义的断言？
+4. **测试类型和分层** — 单元、集成和 e2e 的适当组合？
+5. **边缘情况和错误路径** — 边界条件、无效输入、故障模式？
+6. **测试可维护性** — 干燥、有组织的固定装置、不易碎？
 
-## When to use
+## 何时使用
 
-- As part of an orchestrated review via [review-code](../review-code/SKILL.md) (cognitive step).
-- Standalone when you want only testing dimensions checked (e.g. before release, after refactor).
-- Gap analysis to identify untested modules or low-quality tests.
+- 作为通过 [review-code](../review-code/SKILL.md) 精心策划的审核的一部分（cognitive步骤）。
+- 当您只想检查测试维度时（例如，发布前、重构后），请独立使用。
+- 差距分析以识别未经测试的模块或低质量的测试。
 
-## Inputs
+## 输入
 
-- **Code scope**: Files, directories, or diff provided by the caller or scope skill.
+- **代码范围**：调用者或范围技能提供的文件、目录或差异。
 
-## Outputs
+## 输出
 
-- Findings list in standard format: Location, Category (`cognitive-testing`), Severity, Title, Description, Suggestion.
+- 标准格式的调查结果列表：位置、类别（“cognitive测试”）、严重性、标题、描述、建议。
 
-## Related skills
+## 相关技能
 
-- [review-code](../review-code/SKILL.md) — Orchestrator that includes this skill in the cognitive stage.
-- [automate-tests](../automate-tests/SKILL.md) — Actually executes tests; this skill reviews test code quality.
-- [review-codebase](../review-codebase/SKILL.md) — Scope skill that mentions testability as one dimension.
+- [review-code](../review-code/SKILL.md) — 在cognitive阶段包含此技能的 Orchestrator。
+- [automate-tests](../automate-tests/SKILL.md) — 实际执行测试；该技能审查测试代码质量。
+- [review-codebase](../review-codebase/SKILL.md) — 将可测试性作为一个维度的范围技能。
 
-## Install
+## 安装
+
 
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill review-testing

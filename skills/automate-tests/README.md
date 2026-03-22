@@ -1,45 +1,45 @@
-# Run Automated Tests
+# 运行自动化测试
 
-**Status**: experimental
+**状态**：实验性的
 
-## What it does
+## 用途
 
-Analyzes a target repository's automated testing approach (docs, CI workflows, and build manifests) and runs the most appropriate test command(s) with a safety-first interaction policy.
+分析目标存储库的自动化测试方法（文档、CI工作流程和构建清单），并使用安全第一的策略运行最合适的测试命令。
 
-## When to use
+## 何时使用
 
-- You need the correct test command(s) without guessing.
-- You want a safe default run (unit tests first) before attempting integration/e2e.
-- You want to mirror CI test execution locally.
+- 您需要正确的测试命令而无需猜测。
+- 在尝试集成/e2e时，您需要安全的默认运行（首先进行单元测试）。
+- 您想要在本地进行 CI 测试执行。
 
-## Inputs
+## 输入
 
-- Target repository path (default `.`)
-- Mode: `fast` (default), `ci`, `full`
-- Constraints: allow dependency install, allow network, allow Docker
+- 目标存储库路径（“默认”）
+- 模式：`fast`（默认）、`ci`、`full`
+- 约束：允许依赖安装、允许网络、允许 Docker
 
-## Outputs
+## 输出
 
-- Test Plan Summary (evidence, chosen commands, assumptions, executed vs skipped)
-- Execution results (success/failure, first failing command and exit code when failing)
+- 测试计划摘要（证据、选择的命令、假设、执行与跳过）
+- 执行结果（成功/失败，第一个失败的命令以及失败时的退出代码）
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension | Score |
+| 维度 | 分数 |
 | :--- | :--- |
-| agent_native | 4 |
-| cognitive | 4 |
-| composability | 4 |
-| stance | 4 |
-| **asqm_quality** | 16 |
+|agent_native | 4 |
+|cognitive| 4 |
+|composability | 4 |
+|stance| 4 |
+| **asqm_quality** | 16 | 16 16
 
-## Ecosystem
+## 生态
 
-| Field | Value |
+|领域|价值|
 | :--- | :--- |
-| overlaps_with (owner/repo:skill-name) | — |
-| market_position | commodity |
+|overlaps_with（所有者/仓库：技能名称）| — |
+|市场地位 |商品 |
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for complete behavior, restrictions, and examples.
+请参阅 [SKILL.md](./SKILL.md) 了解完整的行为、限制和示例。

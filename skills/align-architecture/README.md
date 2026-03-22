@@ -1,40 +1,42 @@
-# align-architecture
+# 对齐架构
 
-Verify architecture and design documents against code implementation; produce an Architecture Compliance Report when implementation diverges from ADR or design decisions.
+根据代码实现验证架构和设计文档；当实施偏离 ADR 或设计决策时，生成架构合规性报告。
 
-## What it does
+## 用途
 
-Compares documented architecture and design decisions (ADRs, design docs) against the codebase, detects compliance gaps (boundary violations, missing components, divergent patterns), and produces a prioritized report with impact and remediation suggestions.
+将文档化的架构和设计决策（ADR、设计文档）与代码库进行比较，检测合规性差距（边界违规、缺少组件、不同模式），并生成包含影响和补救建议的优先报告。
 
-## When to use
+## 何时使用
 
-- Post-implementation check — validate that implementation matches ADR or design doc
-- Milestone or release gate — ensure architecture decisions are reflected in code
-- Drift investigation — diagnose when implementation has drifted from documented design
+- 实施后检查——验证实施是否与 ADR 或设计文档相匹配
+- 里程碑或发布门 - 确保架构决策反映在代码中
+- 漂移调查——当实施偏离文档设计时进行诊断
 
-## Inputs
+## 输入
 
-- Optional ADR or design doc paths
-- Optional code scope (paths or modules)
-- Optional project docs root
+- 可选的 ADR 或设计文档路径
+- 可选的代码范围（路径或模块）
+- 可选的项目文档根目录
 
-## Outputs
+## 输出
 
-- Architecture Compliance Report written to `docs/calibration/architecture-compliance.md` (overwritten unless a snapshot is requested)
-- Machine-readable compliance gaps block
+- 架构合规性报告写入“docs/calibration/architecture-compliance.md”（除非请求快照，否则将被覆盖）
+- 机器可读的合规性差距块
 
-## Installation
+## 安装
+
 
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill align-architecture
 ```
 
-## Related skills
 
-- `align-planning` — planning layer alignment (goals, requirements, roadmap, milestones)
-- `review-architecture` — code-only structure review (boundaries, dependencies)
-- `design-solution` — design creation or design alternatives
+## 相关技能
 
-## Full definition
+- `align-planning` — 规划层对齐（目标、需求、路线图、里程碑）
+- `review-architecture` — 仅代码结构审查（边界、依赖关系）
+- `设计解决方案` — 设计创作或设计替代方案
 
-See [SKILL.md](./SKILL.md) for behavior, restrictions, and examples.
+## 完整定义
+
+请参阅 [SKILL.md](./SKILL.md) 了解行为、限制和示例。

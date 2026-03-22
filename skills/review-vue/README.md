@@ -1,42 +1,42 @@
-# Review Vue
+# 回顾 Vue
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Reviews Vue 3 code for framework conventions only: Composition API and script setup, reactivity (ref/reactive, computed/watch), component boundaries and props/emits, state (Pinia/store), routing and guards, performance, accessibility. Emits a findings list in the standard format. Does not perform scope selection or security/architecture review.
+仅审查框架约定的 Vue 3 代码：组合 API 和脚本设置、反应性（引用/反应、计算/监视）、组件边界和 props/emits、状态（Pinia/store）、路由和防护、性能、可访问性。以标准格式发出结果列表。不执行范围选择或安全/架构审查。
 
-## When to use
+## 何时使用
 
-- Orchestrated review: used as the framework step when review-code runs for Vue projects.
-- Vue-only review: when the user wants only Vue/frontend framework conventions checked.
-- Pre-PR Vue checklist: ensure Composition API usage, reactivity, and component contracts are correct.
+- 精心策划的审查：在 Vue 项目运行审查代码时用作框架步骤。
+- 仅 Vue 审查：当用户只想检查 Vue/前端框架约定时。
+- PR Vue 前检查清单：确保 Composition API 使用、反应性和组件契约正确。
 
-## Inputs
+## 输入
 
-- Code scope (files, directories, or diff) containing Vue 3 code (.vue, .ts with Vue APIs), provided by the user or scope skill.
+- 包含 Vue 3 代码（.vue、带有 Vue API 的 .ts）的代码范围（文件、目录或 diff），由用户或范围技能提供。
 
-## Outputs
+## 输出
 
-- Findings list: Location, Category=framework-vue, Severity, Title, Description, optional Suggestion.
+- 调查结果列表：位置、类别=framework-vue、严重性、标题、描述、可选建议。
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension        | Score |
-| :--------------- | :---- |
-| agent_native     | 5     |
-| cognitive        | 4     |
-| composability    | 5     |
-| stance           | 5     |
-| **asqm_quality** | 19    |
+| 维度 | 分数 |
+| ：-------------- | :---- |
+|agent_native | 5 |
+|cognitive| 4 |
+|composability | 5 |
+|stance| 5 |
+| **asqm_quality** | 19 | 19
 
-## Ecosystem
+## 生态
 
-| Field                                 | Value                                                                                                    |
-| :------------------------------------ | :------------------------------------------------------------------------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-diff |
-| market_position                       | commodity                                                                                                |
+|领域|价值|
+| :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------ |
+|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:审查代码库，nesnilnehc/ai-cortex:审查代码，nesnilnehc/ai-cortex:审查差异 |
+|市场地位 |商品 |
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for checklist and output contract.
+请参阅 [SKILL.md](./SKILL.md) 查看清单和输出合同。

@@ -1,6 +1,7 @@
 ---
 name: define-strategic-pillars
 description: Derive 3–5 strategic pillars (high-level themes) from vision and North Star that structure and guide strategic goals and roadmap. Produces a strategic pillars document; persisted to docs.
+description_zh: 从 vision 与 North Star 推导 3–5 个战略支柱（高层次主题），指导战略目标与路线图。
 tags: [documentation, workflow]
 version: 1.0.0
 license: MIT
@@ -19,154 +20,154 @@ output_schema:
   lifecycle: living
 ---
 
-# Skill: Define Strategic Pillars
+# 技能（Skill）：定义战略支柱
 
-## Purpose
+## 目的（目的）
 
-Derive **3–5 strategic pillars** (high-level themes) from **vision** and **North Star** that structure and guide strategic goals and roadmap. Produce a pillars document so goals and roadmap can be grouped under pillars. Does not define mission, vision, North Star, goals, milestones, or roadmap.
-
----
-
-## Core Objective
-
-**Primary Goal**: Produce a user-confirmed strategic pillars document containing exactly 3–5 pillars (themes) aligned with vision and North Star, persisted to the project-agreed path.
-
-**Success Criteria** (ALL must be met):
-
-1. ✅ **3–5 pillars documented**: Exactly 3–5 strategic pillars, each with a clear name and short description (what this pillar represents).
-2. ✅ **Theme-level**: Each pillar is a high-level theme or strategic direction, not a goal or initiative.
-3. ✅ **Aligned with vision**: Each pillar supports the vision; alignment is stated or evident.
-4. ✅ **North Star connection**: At least one pillar clearly supports or frames the North Star; optional: brief "how this supports vision/NSM" per pillar.
-5. ✅ **User confirmed**: User explicitly approved (e.g. "approved", "looks good", "proceed", or equivalent).
-6. ✅ **Document persisted**: Written to agreed path (default `docs/project-overview/strategic-pillars.md` or per project norms).
-
-**Acceptance Test**: Can a reader see how each pillar frames the strategy and how goals or roadmap themes can be grouped under them?
-
-**Handoff Point**: When pillars are approved and persisted, hand off to `design-strategic-goals` (goals can map to pillars) or `define-roadmap` (roadmap themes can align to pillars); this skill does not define goals or roadmap.
+从**愿景**和**北极星**中得出**3-5个战略支柱**（高层主题），构建和指导战略目标和路线图。制作支柱文档，以便可以将目标和路线图分组到支柱下。不定义使命、愿景、北极星、目标、里程碑或路线图。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-**This skill handles**:
+**首要目标**：生成用户确认的战略支柱文档，其中包含与愿景和北极星一致的 3-5 个支柱（主题），并坚持项目商定的路径。
 
-- Eliciting and documenting 3–5 strategic pillars (high-level themes).
-- Ensuring alignment with vision and North Star (read from `define-vision` / `define-north-star` outputs or existing docs).
-- Persisting to project-agreed path (default `docs/project-overview/strategic-pillars.md`).
-- Optional: per-pillar note on how it supports vision or North Star.
+**成功标准**（必须满足所有要求）：
 
-**This skill does NOT handle**:
+1. ✅ **记录了 3-5 个支柱**：正好 3-5 个战略支柱，每个支柱都有清晰的名称和简短描述（该支柱代表什么）。
+2. ✅ **主题级**：每个支柱都是一个高级主题或战略方向，而不是目标或举措。
+3. ✅ **与愿景保持一致**：每根支柱都支撑着愿景；对齐是明确的或明显的。
+4. ✅ **北极星连接**：至少一根柱子明显支撑或框住北极星；可选：每个支柱简要介绍“这如何支持愿景/NSM”。
+5. ✅ **用户确认**：用户明确批准（例如“已批准”、“看起来不错”、“继续”或同等内容）。
+6. ✅ **文档持久化**：写入商定的路径（默认 `docs/project-overview/strategic-pillars.md` 或每个项目规范）。
 
-- Defining mission, vision, or North Star (use `define-mission`, `define-vision`, `define-north-star`).
-- Defining strategic goals or milestones (use `design-strategic-goals`, `define-milestones`).
-- Defining roadmap (use `define-roadmap`).
+**验收**测试：读者能否看到每个支柱如何构建战略以及如何将目标或路线图主题分组到它们之下？
 
----
-
-## Use Cases
-
-- **After vision and North Star**: Establish 3–5 pillars that structure how goals and roadmap are organized.
-- **Strategy structure**: Provide a stable set of themes so goals and initiatives can be grouped (e.g. "Product Excellence", "Customer Success", "Operational Efficiency").
-- **Before or with goals**: Run before or in parallel with `design-strategic-goals` so goals can map to pillars.
-- **Fourth layer in strategy chain**: Run after mission, vision, and north star when building the full hierarchy (Mission → Vision → North Star → Pillars → Goals → Milestones → Roadmap).
+**交接点**：当支柱被批准并保留后，交接至“设计-战略-目标”（目标可以映射到支柱）或“定义-路线图”（路线图主题可以与支柱对齐）；该技能不定义目标或路线图。
 
 ---
 
-## Behavior
+## 范围边界（范围边界）
 
-### Interaction Policy
+**本技能负责**：
 
-- **Defaults**: Output path from project norms if present; otherwise `docs/project-overview/strategic-pillars.md`. Read vision and North Star from `docs/project-overview/` when available.
-- **Choice options**: If user has more than 5 candidate pillars, offer to prioritize or merge into 3–5; ask user to confirm the final set.
-- **Confirm**: Before overwriting an existing strategic-pillars file; before final persist.
+- 引出并记录 3-5 个战略支柱（高级主题）。
+- 确保与愿景和北极星保持一致（从“define-vision”/“define-north-star”输出或现有文档中读取）。
+- 坚持项目商定的路径（默认“docs/project-overview/strategic-pillars.md”）。
+- 可选：每个支柱注释关于它如何支持愿景或北极星。
 
-### Execution Process
+**本技能不负责**：
 
-1. **Load vision and North Star**: Read from `docs/project-overview/vision.md` and `docs/project-overview/north-star.md` or user-provided summary.
-2. **Elicit**: What 3–5 high-level themes or pillars would structure the strategy and guide goals/roadmap?
-3. **Draft pillars**: Theme-level (e.g. "Customer First", "Operational Excellence"); not goals or initiatives.
-4. **Check alignment**: Each pillar supports the vision; at least one clearly supports or frames the North Star.
-5. **Persist**: Write to project-agreed path; create `docs/project-overview/` if missing. Optional: add "How this supports vision/NSM" per pillar.
-
----
-
-## Input & Output
-
-**Input**:
-
-- **Required**: Vision; North Star (or paths); project context.
-- **Optional**: Mission; existing goals or pillars; constraints (e.g. org structure).
-
-**Output**:
-
-- **Artifact**: Strategic pillars document.
-- **Location**: `docs/project-overview/strategic-pillars.md` (or per project norms).
-- **Content**: List of 3–5 pillars (name, short description); optional mapping to vision/NSM.
-- **Lifecycle**: Living (updated when vision or strategy direction changes).
+- 定义使命、愿景或北极星（使用“定义使命”、“定义愿景”、“定义北极星”）。
+- 定义战略目标或里程碑（使用“设计战略目标”、“定义里程碑”）。
+- 定义路线图（使用`define-路线图`）。
 
 ---
 
-## Restrictions
+## 使用场景（用例）
 
-### Hard Boundaries
-
-- Do NOT define mission, vision, North Star, goals, milestones, or roadmap in this skill.
-- Do NOT overwrite an existing strategic-pillars file without explicit user confirmation.
-
-### Skill Boundaries (Avoid Overlap)
-
-**Do NOT do these (other skills handle them)**:
-
-- **Mission / vision / North Star**: Use `define-mission`, `define-vision`, `define-north-star`.
-- **Strategic goals**: Use `design-strategic-goals`; goals can map to pillars.
-- **Milestones / roadmap**: Use `define-milestones`, `define-roadmap`.
-
-**When to stop and hand off**:
-
-- User says "approved" or equivalent → Pillars complete; offer handoff to `design-strategic-goals` or `define-roadmap`.
-- User asks for goals or roadmap → Hand off to `design-strategic-goals` or `define-roadmap`.
+- **继愿景和北极星之后**：建立 3-5 个支柱来构建目标和路线图的组织方式。
+- **战略结构**：提供一组稳定的主题，以便对目标和举措进行分组（例如“产品卓越”、“客户成功”、“运营效率”）。
+- **在目标之前或与目标一起**：在“设计战略目标”之前或同时运行，以便目标可以映射到支柱。
+- **战略链中的第四层**：在构建完整层次结构时遵循使命、愿景和北极星（使命→愿景→北极星→支柱→目标→里程碑→路线图）。
 
 ---
 
-## Self-Check
+## 行为（行为）
 
-### Core Success Criteria (ALL must be met)
+### 交互（互动）政策
 
-- [ ] **3–5 pillars documented**: Each with name and short description.
-- [ ] **Theme-level**: Pillars are themes/directions, not goals or initiatives.
-- [ ] **Aligned with vision**: Each pillar supports the vision; alignment stated or evident.
-- [ ] **North Star connection**: At least one pillar supports or frames the North Star.
-- [ ] **User confirmed**: User said "approved", "looks good", "proceed", or equivalent.
-- [ ] **Document persisted**: Written to agreed path.
+- **默认**：项目规范的输出路径（如果存在）；否则为“docs/project-overview/strategic-pillars.md”。如果有的话，请从“docs/project-overview/”中阅读愿景和北极星。
+- **选择选项**：如果用户有超过 5 个候选支柱，请提供优先级或合并为 3-5 个；要求用户确认最终设置。
+- **确认**：覆盖现有战略支柱文件之前；在最终坚持之前。
 
-### Process Quality Checks
+### 执行过程
 
-- [ ] **Vision/NSM used**: Did I read or request vision and North Star before drafting pillars?
-- [ ] **No goals in pillars**: Did I avoid writing outcome goals (those belong in design-strategic-goals)?
-
-### Acceptance Test
-
-**Can a reader see how each pillar frames the strategy and how goals or roadmap themes can be grouped under them?**
-
-If NO: Clarify pillar descriptions and alignment.
-If YES: Pillars are complete. Proceed to handoff or stop.
+1. **加载愿景和北极星**：阅读 `docs/project-overview/vision.md` 和 `docs/project-overview/north-star.md` 或用户提供的摘要。
+2. **引出**：哪 3-5 个高层主题或支柱将构建战略并指导目标/路线图？
+3. **支柱草案**：主题级别（例如“客户至上”、“卓越运营”）；不是目标或举措。
+4. **检查对齐**：每个支柱支撑视觉；至少有一颗明确支撑或框住了北极星。
+5. **持久化**：写入到项目约定的路径；如果缺少，请创建“docs/project-overview/”。可选：为每个支柱添加“这如何支持愿景/NSM”。
 
 ---
 
-## Examples
+## 输入与输出 (Input & Output)
 
-### Example 1: Vision and North Star exist, define pillars
+**输入**：
 
-**Context**: Vision and North Star documents exist. User wants strategic pillars to structure goals and roadmap.
+- **必需**：愿景；北极星（或路径）；项目背景。
+- **可选**：任务；现有目标或支柱；约束（例如组织结构）。
 
-**Process**: Read vision and north-star. Propose 3–5 pillars (e.g. "Discoverability", "Reusability", "Governance", "Ecosystem"). Add short description per pillar and how it supports vision/NSM. User confirms. Write to `docs/project-overview/strategic-pillars.md`.
+**输出**：
 
-**Outcome**: Pillars persisted; handoff to `design-strategic-goals` or `define-roadmap`.
+- **工件**：战略支柱文档。
+- **位置**：`docs/project-overview/strategic-pillars.md`（或按照项目规范）。
+- **内容**：3-5 个支柱列表（名称、简短描述）；可选映射到视觉/NSM。
+- **生命周期**：生活（当愿景或战略方向发生变化时更新）。
 
-### Example 2: Goals already exist
+---
 
-**Context**: Strategic goals document exists; user wants to add a pillars layer for structure.
+## 限制（限制）
 
-**Process**: Read vision, North Star, and existing goals. Propose pillars that group or frame the existing goals (e.g. cluster goals under 3–5 themes). User confirms. Write to `docs/project-overview/strategic-pillars.md`. Suggest updating goals doc to reference pillars if desired.
+### 硬边界（Hard Boundaries）
 
-**Outcome**: Pillars persisted; goals can be explicitly mapped to pillars in a later pass.
+- 不要在此技能中定义使命、愿景、北极星、目标、里程碑或路线图。
+- 未经用户明确确认，请勿覆盖现有的战略支柱文件。
+
+### 边界技能（技能边界）（避免重叠）
+
+**不要做这些（其他技能可以处理它们）**：
+
+- **任务/愿景/北极星**：使用`define-mission`、`define-vision`、`define-north-star`。
+- **战略目标**：使用`设计-战略-目标`；目标可以映射到支柱。
+- **里程碑/路线图**：使用`define-里程碑`、`define-路线图`。
+
+**何时停止并交接**：
+
+- 用户说“已批准”或同等内容 → 支柱已完成；提供转交至“设计战略目标”或“定义路线图”。
+- 用户询问目标或路线图 → 切换至“设计-战略-目标”或“定义-路线图”。
+
+---
+
+## 自检（Self-Check）
+
+### 核心成功标准（必须满足所有标准）
+
+- [ ] **记录了 3–5 个支柱**：每个支柱都有名称和简短描述。
+- [ ] **主题级**：支柱是主题/方向，而不是目标或举措。
+- [ ] **与愿景保持一致**：每个支柱都支持愿景；明确或明显的对齐。
+- [ ] **北极星连接**：至少一根柱子支撑或框架北极星。
+- [ ] **用户确认**：用户说“已批准”、“看起来不错”、“继续”或类似内容。
+- [ ] **文档保留**：写入商定的路径。
+
+### 流程质量检查
+
+- [ ] **使用愿景/NSM**：在起草支柱之前我是否阅读或请求了愿景和北极星？
+- [ ] **支柱中没有目标**：我是否避免写结果目标（那些属于设计战略目标）？
+
+### 验收测试
+
+**读者能否了解每个支柱如何构建战略以及如何将目标或路线图主题分组到它们之下？**
+
+如果否：澄清支柱描述和对齐方式。
+如果是：支柱已完成。继续转交或停止。
+
+---
+
+## 示例（示例）
+
+### 示例 1：愿景和北极星存在，定义支柱
+
+**背景**：愿景和北极星文档存在。用户想要战略支柱来构建目标和路线图。
+
+**过程**：读取愿景和北极星。提出 3-5 个支柱（例如“可发现性”、“可重用性”、“治理”、“生态系统”）。添加每个支柱的简短描述以及它如何支持愿景/NSM。用户确认。写入“docs/project-overview/strategic-pillars.md”。
+
+**结果**：支柱依然存在； 转交至“设计战略目标”或“定义路线图”。
+
+### 示例 2：目标已经存在
+
+**背景**：战略目标文档存在；用户想要为结构添加支柱层。
+
+**流程**：阅读愿景、北极星和现有目标。提出对现有目标进行分组或框架的支柱（例如，将目标分为 3-5 个主题）。用户确认。写入“docs/project-overview/strategic-pillars.md”。如果需要，建议更新目标文档以参考支柱。
+
+**结果**：支柱依然存在；目标可以在稍后的过程中明确映射到支柱。

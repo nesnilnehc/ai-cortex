@@ -1,231 +1,232 @@
 ---
 name: refine-skill-design
 description: Audit and refactor existing SKILLs to meet spec compliance and LLM best practices. Use when improving drafts, fixing quality, or aligning to spec.
+description_zh: 审计并重构既有 SKILL，使其符合规范与 LLM 最佳实践；适用于改进草稿、修复质量或对齐规范。
 tags: [writing, meta-skill, optimization]
 version: 1.4.0
 license: MIT
 recommended_scope: user
 metadata:
   author: ai-cortex
-triggers: [refine skill, skill design]
+triggers: [refine skill, skill design, audit skill, skill refactor, skill compliance]
 input_schema:
   type: document-artifact
   description: Existing SKILL.md file to audit and refactor
 output_schema:
   type: document-artifact
-  description: Optimized SKILL written to fixed temp (SKILL.refined.md) or new-per-run path; diff summary (Section/Change/Reason) and version suggestion
+  description: Optimized SKILL written to source SKILL.md (default) or to temp/new path when user opts out; includes diff summary and version suggestion
 ---
 
-# Skill: Refine Skill Design
+# 技能：完善技能设计
 
-## Purpose
+## 目的 (Purpose)
 
-As a "Skill for Skills," this skill **audits and refactors** AI capability definitions in draft form. It applies a senior prompt-engineering perspective to improve logic robustness, scenario coverage, and instruction adherence so each capability meets LLM best practices.
-
----
-
-## Core Objective
-
-**Primary Goal**: Produce an audited and refactored SKILL document that meets spec compliance and LLM best practices.
-
-**Success Criteria** (ALL must be met):
-
-1. ✅ **Structure compliant**: SKILL follows standard template (YAML, Purpose, Use Cases, Behavior, Input & Output, Restrictions, Self-Check, Examples)
-2. ✅ **Logic clarity**: Input → Behavior → Output chain is clear and unambiguous
-3. ✅ **Constraints defined**: Restrictions section covers common failure modes in the domain
-4. ✅ **Examples comprehensive**: At least 2 examples provided, including one edge case or challenging scenario
-5. ✅ **Changes documented**: Diff summary lists all changes with sections, descriptions, and reasons
-6. ✅ **Version suggested**: SemVer recommendation provided with rationale
-
-**Acceptance Test**: Can an AI agent apply this refined SKILL consistently across different contexts without ambiguity?
+作为一项“技能中的技能”，该技能**审核和重构**草稿形式的人工智能能力定义。它应用高级即时工程视角来提高逻辑稳健性、场景覆盖率和指令依从性，以便每项功能都满足法学硕士最佳实践。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-**This skill handles**:
+**首要目标**：生成经过审核和重构的技能文档，以满足规范合规性和法学硕士最佳实践。
 
-- Auditing existing SKILL drafts for quality and compliance
-- Refactoring SKILL structure and content to meet spec
-- Improving logic clarity and instruction precision
-- Adding missing sections or strengthening weak areas
-- Providing diff summary and version recommendations
+**成功标准**（必须满足所有要求）：
 
-**This skill does NOT handle**:
+1. ✅ **结构兼容**：技能遵循标准模板（YAML、目的、用例、行为、输入和输出、限制、自检、示例）
+2. ✅ **逻辑清晰**：输入→行为→输出链清晰明确
+3. ✅ **定义的约束**：限制部分涵盖了域中常见的故障模式
+4. ✅ **示例全面**：至少提供 2 个示例，包括一种边缘情况或具有挑战性的场景
+5. ✅ **记录的更改**：差异摘要列出了所有更改以及部分、描述和原因
+6. ✅ **建议版本**：SemVer 建议并提供理由
 
-- Creating new skills from scratch (use `skill-creator` from anthropics/skills)
-- Running package scripts or init workflows (use skills.sh tooling)
-- Planning skill assets or references (use skills.sh documentation)
-- Evaluating skill quality metrics (use `curate-skills`)
+**验收测试**：人工智能代理能否在不同的环境中一致地应用这种精炼的技能，而不会产生歧义？
+
+---
+
+## 范围边界
+
+**本技能负责**：
+
+- 审核现有技能草稿的质量和合规性
+- 重构技能结构和内容以满足规范
+- 提高逻辑清晰度和指令精度
+- 添加缺失部分或加强薄弱区域
+- 提供差异摘要和版本建议
+
+**本技能不负责**：
+
+- 从头开始创建新技能（使用人类/技能中的“技能创建者”）
+- 运行包脚本或初始化工作流（使用 Skills.sh 工具）
+- 规划技能资产或参考（使用 Skills.sh 文档）
+- 评估技能质量指标（使用 `curate-skills`）
 - Discovering or cataloging skills (use `discover-skills`)
-- Generating project documentation (use `bootstrap-docs`)
+- 生成项目文档（使用 `bootstrap-docs`）
 
-**Handoff point**: When SKILL is refined and diff summary provided, hand off to user for review and version control commit.
-
----
-
-## Use Cases
-
-- **New skill onboarding**: Expert review after an Agent has generated a new Skill draft.
-- **Quality fixes**: When a Skill behaves inconsistently on newer models, align logic and strengthen examples.
-- **Consistency audit**: Check that a new Skill matches the tagging system and naming in `INDEX.md`; consider adding to `skills/scenario-map.json` if the skill should be discoverable by scenario (per spec Metadata Sync).
-- **Upgrade**: Turn a simple "formatting tool" into a full Agent capability with interaction policy and error handling.
-
-**Scope**: This skill is for **auditing and refactoring existing SKILLs**, not creating from scratch. For learning how to create new skills, plan scripts/references/assets, or run init/package scripts, use skills.sh's `skill-creator` (e.g. anthropics/skills).
+**转交点**：当 SKILL 被细化并提供差异摘要时，移交给用户进行审查和版本控制提交。
 
 ---
 
-## Behavior
+## 使用场景（用例）
 
-### Meta-audit model
+- **新技能入门**：代理生成新技能草案后进行专家审查。
+- **质量修复**：当技能在新模型上表现不一致时，请调整逻辑并加强示例。
+- **一致性审核**：检查新技能是否与“INDEX.md”中的标记系统和命名相匹配；如果技能应该可以通过场景发现（根据规范元数据同步），请考虑添加到“skills/intent-routing.json”。
+- **升级**：将简单的“格式化工具”转变为具有交互策略和错误处理的完整代理功能。
 
-1. **Intent**: Is Purpose specific enough? Avoid vague terms like "Helper," "Utilities."
-2. **Logic**: Does Input → Behavior → Output form a clear chain?
-3. **Constraints**: Do Restrictions cover the most common failure modes in the domain?
-4. **Examples**: Do Examples progress from simple to complex and include at least one edge case?
-5. **Interaction Policy** (spec §4.3): Does Behavior state defaults, choice options, and which items require user confirmation? Prefer Defaults first, Prefer choices, Context inference.
-6. **Triggers** (optional): For high-discoverability skills, consider adding `triggers` (3–5 English phrases) in frontmatter for quick invocation matching.
-
-### Optimization flow
-
-1. **Structure**: Apply the standard template (YAML, Purpose, Use cases, Behavior, I/O, Restrictions, Self-Check, Examples).
-2. **Verbs**: Use precise, unambiguous verbs (e.g. "handle" → "parse," "transform," "trim").
-3. **Interaction**: For complex logic, add "confirm before proceed" or "choose among options." Align with spec Interaction Policy (defaults first, prefer choices).
-4. **Metadata**: Align tags with `INDEX.md`; suggest `triggers` for high-discoverability skills; suggest sensible SemVer; remind that new skills may need `scenario-map.json` for scenario-based discovery.
-5. **Apply changes**: Unless the user explicitly asks for a dry‑run / temp refinement file, write the refined content **directly回写到源 `SKILL.md`**，并在输出中同时附上 diff 摘要与版本号建议，方便审阅和审计。
+**范围**：此技能用于**审核和重构现有技能**，而不是从头开始创建。要学习如何创建新技能、规划脚本/引用/资产或运行 init/package 脚本，请使用 Skills.sh 的“技能创建器”（例如 anthropics/skills）。
 
 ---
 
-## Input & Output
+## 行为（行为）
 
-### Input
+### 元审计模型
 
-- A SKILL Markdown document to optimize, or a rough draft.
+1. **意图**：目的是否足够具体？避免使用“助手”、“实用程序”等模糊术语。
+2. **逻辑**：输入→行为→输出是否形成清晰的链条？
+3. **约束**：限制是否涵盖域中最常见的故障模式？
+4. **示例**：示例是否从简单到复杂并至少包含一种边缘情况？
+5. **交互策略**（规范§4.3）：行为是否规定默认值、选择选项以及哪些项目需要用户确认？首先首选默认值，首选选择，上下文推理。
+6. **触发器**（可选）：对于高可发现性技能，可以考虑在前面添加“触发器”（3-5 个英语短语），以实现快速调用匹配。
 
-### Output
+### 优化流程
 
-- **Optimized SKILL**: Production-grade Markdown that satisfies the spec.
-- **Diff summary**: What was changed and why.
-- **Version suggestion**: SemVer recommendation.
+1. **结构**：应用标准模板（YAML、目的、用例、行为、I/O、限制、自检、示例）。
+2. **动词**：使用精确、明确的动词（例如“处理”→“解析”、“转换”、“修剪”）。
+3. **交互**：对于复杂的逻辑，添加“确认后再继续”或“选择选项”。与规范交互策略保持一致（默认优先，首选选择）。
+4. **元数据**：将标签与`INDEX.md`对齐；建议高可发现性技能的“触发因素”；建议合理的 SemVer；提醒一下，新技能可能需要 `intent-routing.json` 来进行基于意图的发现。
+5. **应用更改**：除非用户明确要求空运行/临时细化文件，否则将细化内容**直接回写到源 `SKILL.md`**，并在输出中同时附上diff摘要与版本号建议，方便审阅和审核。
 
-### Output Persistence (Document Handling)
+---
 
-**Rule**: 默认直接改进并覆盖原始 `SKILL.md`，同时提供可审计的 diff 摘要与版本号建议；只有在用户明确要求“只生成 refinement 草稿、不改源文件”时，才写入临时或新建 refinement 文件。每次运行须在以下策略中二选一：
+## 输入与输出 (Input & Output)
 
-| Strategy | Path pattern | Behavior |
+### 输入（输入）
+
+- 一个需要优化的 SKILL Markdown 文档，或者一个草稿。
+
+### 输出（输出）
+
+- **优化的技能**：满足规范的生产级 Markdown。
+- **差异摘要**：更改了什么以及原因。
+- **版本建议**：SemVer 推荐。
+
+### 输出（Output） 持久化（文档处理）
+
+**规则**：默认直接改进并覆盖原始`SKILL.md`，同时提供可审计的diff摘要与版本号建议；只有在用户明确要求“只生成精修草稿、不改源文件”时，才写入临时或新建精修文件。每次运行须在以下策略中二选一：
+
+|战略|路径模式|行为 |
 | :--- | :--- | :--- |
-| **Direct overwrite** (default) | `skills/<skill-name>/SKILL.md` | 直接覆盖源文件，保证 front matter `version` 已更新，且在输出中包含变更摘要，便于审计 |
-| **Fixed temp** (opt‑out) | `skills/<skill-name>/SKILL.refined.md` | 在用户要求“不要改原文件，只给 refinement”时使用；每次运行覆盖同一临时文件 |
-| **New per run** (opt‑out) | `skills/<skill-name>/SKILL.refined.YYYYMMDD.md` | 在用户要求“为这次 refinement 保留单独文件”时使用；每次运行创建新的 refinement 文件 |
+| **直接覆盖**（默认）| `技能/<技能名称>/SKILL.md` | 直接覆盖源文件，保证前置事项`版本`已更新，且在产出中包含变更摘要，属于审计 |
+| **固定温度**（选择退出）| `skills/<技能名称>/SKILL.refined.md` | 在用户要求“不要改原文件，只给细化”时使用；每次运行覆盖相同的临时文件 |
+| **每次运行新**（选择退出）| `skills/<技能名称>/SKILL.refined.YYYYMMDD.md` | 在用户要求“为这次细化保留单独的文件”时使用；每次运行创建新的细化文件 |
 
-User override: If user specifies a path or strategy, honor it. Otherwise use **Direct overwrite**。
-
----
-
-## Restrictions
-
-### Hard Boundaries
-
-- **默认覆盖但必须可审计**：默认策略是直接覆盖源 `SKILL.md`，但必须同步更新 front matter `version`，并在输出中提供完整变更摘要，确保可审计。
-- **尊重显式“草稿模式”请求**：若用户明确要求“不要改原文件”“只生成 refinement 草稿”等，则不得覆盖源 `SKILL.md`，仅写入临时或新建 refinement 文件。
-- **Do not change intent**: Optimization must preserve the skill's core purpose.
-- **Minimize prose**: Prefer lists and tables over long README-style text.
-- **Multiple examples**: Do not keep only one "happy path" example; include at least one challenging or edge-case example.
-
-### Skill Boundaries (Avoid Overlap)
-
-**Do NOT do these (other skills handle them)**:
-
-- **Creating new skills from scratch**: Generating initial SKILL structure and content → Use `skill-creator` (anthropics/skills)
-- **Quality metrics evaluation**: Calculating ASQM scores, detecting overlaps → Use `curate-skills`
-- **Skill discovery**: Finding skills in repositories, cataloging capabilities → Use `discover-skills`
-- **Project documentation**: Generating README, AGENTS.md, or project-level docs → Use `bootstrap-docs` or `generate-standard-readme`
-- **Text decontextualization**: Removing PII or sensitive information → Use `decontextualize-text`
-
-**When to stop and hand off**:
-
-- User says "looks good", "approved", "commit this" → Refinement complete, hand off to user for version control
-- User asks "how do I create a new skill?" → Hand off to `skill-creator` documentation
-- User asks "what's the quality score?" → Hand off to `curate-skills`
-- User asks "what skills are available?" → Hand off to `discover-skills`
+用户覆盖：如果用户指定路径或策略，请遵守它。否则使用**直接覆盖**。
 
 ---
 
-## Self-Check
+## 限制（限制）
 
-### Core Success Criteria (ALL must be met)
+### 硬边界（Hard Boundaries）
 
-- [ ] **Structure compliant**: SKILL follows standard template (YAML, Purpose, Use Cases, Behavior, Input & Output, Restrictions, Self-Check, Examples)
-- [ ] **Logic clarity**: Input → Behavior → Output chain is clear and unambiguous
-- [ ] **Constraints defined**: Restrictions section covers common failure modes in the domain
-- [ ] **Examples comprehensive**: At least 2 examples provided, including one edge case or challenging scenario
-- [ ] **Changes documented**: Diff summary lists all changes with sections, descriptions, and reasons
-- [ ] **Version suggested**: SemVer recommendation provided with rationale
+- **默认覆盖但必须可审计**：默认策略是直接覆盖源 `SKILL.md`，但必须同步更新 frontmatter 的 `version`，并在输出中提供完整的变更摘要，确保可审计。
+- **尊重显式“稿草模式”请求**：若用户明确要求“不要修改原文件”“只生成精炼草稿”等，则不得覆盖源`SKILL.md`，只能写入临时或新建精炼文件。
+- **不要改变意图**：优化必须保留技能的核心目的。
+- **尽量减少散文**：更喜欢列表和表格而不是长自述文件样式的文本。
+- **多个示例**：不要只保留一个“幸福之路”示例；包括至少一个具有挑战性或极端情况的示例。
 
-### Process Quality Checks
+### 技能边界 (Skill Boundaries)（避免重叠）
 
-- [ ] **Self-apply**: Could this skill successfully refine itself?
-- [ ] **Clarity**: Could an Agent without domain background reproduce results from Behavior?
-- [ ] **Compliance**: Are all required sections and metadata fields present?
-- [ ] **Intent preserved**: Does the refined SKILL maintain the original skill's core purpose?
-- [ ] **Precision**: Are verbs specific and unambiguous (not vague terms like "handle")?
-- [ ] **Interaction Policy** (spec §4.3): Does Behavior have Defaults or choice-based interaction where applicable?
-- [ ] **Triggers** (optional): For high-discoverability skills, are `triggers` suggested?
+**不要做这些（其他技能可以处理它们）**：
 
-### Acceptance Test
+- **从头开始创建新技能**：生成初始技能结构和内容→使用“技能创建者”（如 anthropics/skills）
+- **质量指标评估**：计算 ASQM 分数，检测重叠 → 使用 `curate-skills`
+- **技能发现**：在存储库中查找技能、编目功能 → 使用 `discover-skills`
+- **项目文档**：生成 README、AGENTS.md 或项目级文档 → 使用 `bootstrap-docs` 或 `generate-standard-readme`
+- **文本去上下文化**：删除 PII 或敏感信息 → 使用 `decontextualize-text`
 
-**Can an AI agent apply this refined SKILL consistently across different contexts without ambiguity?**
+**何时停止并交接**：
 
-If NO: SKILL needs further refinement. Review Behavior section for clarity and add more specific instructions.
-
-If YES: Refinement is complete. Provide diff summary and version recommendation to user.
+- 用户说“看起来不错”、“已批准”、“提交此”→ 细化完成，移交给用户进行版本控制
+- 用户问「如何创建新技能？」 → 移交给技能创建者文档
+- 用户询问「质量得分是多少？」 → 交给 `curate-skills`
+- 用户询问「有哪些技能可用？」 → 移交给 `discover-skills`
 
 ---
 
-## Examples
+## 自检（Self-Check）
 
-### Before
+### 核心成功标准（必须满足所有标准）
 
-> name: spell-check
-> This skill checks spelling.
-> Input: multilingual text.
-> Output: corrected text.
+- [ ] **结构兼容**：技能遵循标准模板（YAML、目的、用例、行为、输入和输出、限制、自检、示例）
+- [ ] **逻辑清晰**：输入→行为→输出链清晰明确
+- [ ] **定义的约束**：限制部分涵盖了域中的常见故障模式
+- [ ] **示例全面**：至少提供 2 个示例，包括一种边缘情况或具有挑战性的场景
+- [ ] **记录的更改**：差异摘要列出了所有更改以及部分、描述和原因
+- [ ] **建议版本**：提供 SemVer 建议并说明理由
 
-### After
+### 流程质量检查
 
-> name: polish-text-spelling
-> description: Context-aware spelling and terminology correction for multilingual documents.
-> tags: [writing, quality-control]
-> version: 1.1.0
+- [ ] **自举**：此技能能否成功作用于自身（精炼自身）？
+- [ ] **清晰度**：没有域背景的代理能否重现行为结果？
+- [ ] **合规性**：是否存在所有必填部分和元数据字段？
+- [ ] **意图保留**：精炼后的技能是否保持了原技能的核心目的？
+- [ ] **精确**：动词是否具体且明确（不是“处理”等模糊术语）？
+- [ ] **交互策略**（规范§4.3）：行为是否有默认或基于选择的交互（如果适用）？
+- [ ] **触发器**（可选）：对于高可发现性技能，是否建议使用“触发器”？
+
+### 验收测试
+
+**人工智能代理能否在不同的环境中一致地应用这种精炼的技能而不会产生歧义？**
+
+如果否：技能需要进一步完善。查看“行为”部分以确保清晰并添加更具体的说明。
+
+如果是：细化已完成。向用户提供差异摘要和版本推荐。
+
+---
+
+## 示例（示例）
+
+### 之前
+
+> 名称：拼写检查
+> 该技能检查拼写。
+> 输入：多语言文本。
+> 输出：更正后的文本。
+
+### 之后
+
+> 名称：波兰语-文本-拼写
+> 描述：多语言文档的上下文感知拼写和术语纠正。
+> 标签：[写作、质量控制]
+> 版本：1.1.0
 >
 > ---
 >
-> **Skill: Spelling and terminology**
+> **技能：拼写和术语**
 >
-> **Purpose**: Identify and fix low-level spelling errors and terminology inconsistency without changing the author's intent or tone
+> **目的**：识别并修复低级拼写错误和术语不一致，而不改变作者的意图或语气
 >
-> **Behavior**
+> **行为**
 >
-> 1. Detect language.
-> 2. Build a term list if the text is long.
-> 3. Distinguish "typos" from "intentional style."
+> 1. 检测语言。
+> 2. 如果文本较长，则构建术语列表。
+> 3. 区分“打字错误”和“故意风格”。
 >
-> **Restrictions**: Do not change proper nouns or specific abbreviations unless clearly wrong
+> **限制**：不要更改专有名词或特定缩写，除非明显错误
 
-### Example 2: Edge case — ambiguous draft
+### 示例 2：边缘情况 — 草案不明确
 
-- **Input**: A Skill draft whose Purpose is "help users handle files," with no Use Cases or Restrictions.
-- **Expected**: Pin down intent (replace "handle" with concrete verbs: parse, convert, merge, etc.); add Use Cases and Restrictions (e.g. do not overwrite source; do not modify binaries); add at least one edge example (e.g. empty file, very large file, permission denied).
+- **输入**：技能草稿，其目的是“帮助用户处理文件”，没有用例或限制。
+- **预期**：确定意图（用具体动词替换“处理”：解析、转换、合并等）；添加用例和限制（例如，不要覆盖源代码；不要修改二进制文件）；添加至少一个边缘示例（例如空文件、非常大的文件、权限被拒绝）。
 
 ---
 
-## Appendix: Output contract
+## 附录：输出合约
 
-When this skill produces a refinement, the output MUST satisfy this contract so that Agents and downstream tools can consume it consistently:
+当此技能产生改进时，输出必须满足此契约，以便代理和下游工具可以一致地使用它：
 
-| Element | Requirement |
+|元素|要求 |
 | :--- | :--- |
-| **Output path** | Fixed temp `skills/<skill-name>/SKILL.refined.md` (default, overwrite each run) OR new-per-run `skills/<skill-name>/SKILL.refined.YYYYMMDD.md`. Never modify original `SKILL.md` or prior refinement files. |
-| **Optimized SKILL** | Full Markdown content (or path to file). MUST satisfy [spec/skill.md](../../spec/skill.md): YAML front matter, Purpose, Use cases, Behavior, I/O, Restrictions, Self-Check, and at least one Example. |
-| **Diff summary** | List of changes. Each entry MUST include **Section** (e.g. `Purpose`, `Behavior`, `metadata`), **Change** (short description of what was changed), and **Reason** (why the change was made). |
-| **Version suggestion** | SemVer string `major.minor.patch`. Optionally **Rationale** (e.g. `minor: added Restrictions`). |
+| **输出路径** | 默认直接覆盖源 `skills/<skill-name>/SKILL.md`；用户选择退出时写入 `SKILL.refined.md`（每次覆盖）或 `SKILL.refined.YYYYMMDD.md`（每次新建）。 |
+| **优化技能** |完整的 Markdown 内容（或文件路径）。必须满足 [spec/skill.md](../../spec/skill.md)：YAML 前言、目的、用例、行为、I/O、限制、自检和至少一个示例。 |
+| **差异总结** |变更清单。每个条目必须包括**部分**（例如“目的”、“行为”、“元数据”）、**更改**（更改内容的简短描述）和**原因**（为何进行更改）。 |
+| **版本建议** | SemVer 字符串“major.minor.patch”。可选的**基本原理**（例如“次要：添加的限制”）。 |

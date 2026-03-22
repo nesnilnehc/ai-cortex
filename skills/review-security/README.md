@@ -1,42 +1,42 @@
-# Review Security
+# 审查安全性
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Reviews code for security only: injection (SQL, command, template), sensitive data and logging, authentication and authorization, dependencies and CVEs, configuration and secrets, cryptography and hashing. Emits a findings list in the standard format. Does not define scope or perform language/architecture analysis.
+仅审查代码的安全性：注入（SQL、命令、模板）、敏感数据和日志记录、身份验证和授权、依赖项和 CVE、配置和机密、加密和哈希。以标准格式发出结果列表。不定义范围或执行语言/架构分析。
 
-## When to use
+## 何时使用
 
-- Orchestrated review: used as a cognitive step when review-code runs the full pipeline.
-- Security-focused review: when the user wants only security dimensions checked.
-- Compliance or audit: repeatable security checklist output.
+- 精心安排的审查：当审查代码运行整个管道时用作cognitive步骤。
+- 以安全为中心的审查：当用户只想检查安全维度时。
+- 合规性或审计：可重复的安全检查表输出。
 
-## Inputs
+## 输入
 
-- Code scope (files, directories, or diff) provided by the user or scope skill.
+- 用户或范围技能提供的代码范围（文件、目录或差异）。
 
-## Outputs
+## 输出
 
-- Findings list: Location, Category=cognitive-security, Severity, Title, Description, optional Suggestion.
+- 结果列表：位置、类别=cognitive安全、严重性、标题、描述、可选建议。
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension        | Score |
-| :--------------- | :---- |
-| agent_native     | 5     |
-| cognitive        | 4     |
-| composability    | 5     |
-| stance           | 5     |
-| **asqm_quality** | 19    |
+| 维度 | 分数 |
+| ：-------------- | :---- |
+|agent_native | 5 |
+|cognitive| 4 |
+|composability | 5 |
+|stance| 5 |
+| **asqm_quality** | 19 | 19
 
-## Ecosystem
+## 生态
 
-| Field                                 | Value                                                                                                                                     |
-| :------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-sql, nesnilnehc/ai-cortex:review-diff |
-| market_position                       | commodity                                                                                                                                 |
+|领域|价值|
+| :------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------- |
+|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:审查代码库、nesnilnehc/ai-cortex:审查代码、nesnilnehc/ai-cortex:审查-sql、nesnilnehc/ai-cortex:审查-diff |
+|市场地位 |商品 |
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for checklist and output contract.
+请参阅 [SKILL.md](./SKILL.md) 查看清单和输出合同。

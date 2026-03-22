@@ -75,7 +75,7 @@
 
 ## 5. 后续动作（若采纳本决策）
 
-1. **移除 run-strategy-checkpoint**: 删除技能目录；从 INDEX、scenario-map、manifest、AGENTS.md、相关决策与 proposed-strategy-skills 中移除引用。
+1. **移除 run-strategy-checkpoint**: 删除技能目录；从 INDEX、intent-routing、manifest、AGENTS.md、相关决策与 proposed-strategy-skills 中移除引用。
 2. **align-* 产物**: 保持现有 planning-alignment、backlog-alignment、architecture-compliance 报告不变；不要求 align-* 产出额外的「策略检查点」专用文件。
 3. **run-checkpoint**: 在 SKILL 的 Phase 3（Aggregate Governance Report）中约定：当本周期执行了 align-planning（及可选的 align-backlog）时，报告须包含「Strategy / Milestone status」小节（按里程碑/目标的状态 + 建议）；从 related_skills 与说明中移除对 run-strategy-checkpoint 的引用。
 4. **align-backlog**: related_skills 与 Handoff 中移除 run-strategy-checkpoint；里程碑/发布门场景改为「可先 align-backlog，结果由 run-checkpoint 聚合」。

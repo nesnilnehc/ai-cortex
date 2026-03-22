@@ -9,7 +9,7 @@ recommended_scope: user
 
 ## 适用范围 (Scope)
 
-本规则适用于本项目内所有中文化文档、代码注释及 Agent 中文输出内容。凡使用中文编写的主要资产（技能、规则、命令及 spec、docs、INDEX）须使用简体中文，并遵循 [rules/INDEX.md](./INDEX.md) 的规则注册约定；资产默认语言仍以 [spec/skill.md](../spec/skill.md) 与 `AGENTS.md` 的定义为准。
+本规则适用于本项目内所有中文化文档、代码注释及 Agent 中文输出内容。哪些资产使用中文由 [docs/LANGUAGE_SCHEME.md](../docs/LANGUAGE_SCHEME.md) 定义；凡使用中文的文档须符合本规范，并遵循 [rules/INDEX.md](./INDEX.md) 的规则注册约定。
 
 ## 强制约束 (Constraints)
 

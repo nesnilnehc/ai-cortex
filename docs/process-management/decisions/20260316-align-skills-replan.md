@@ -38,7 +38,7 @@
 - **方案 B（拆成两技能）**:  
   - `align-planning`：仅做追溯 + 漂移检测 + 报告（只读）；  
   - `recommend-recalibration` 或由编排器调用：基于报告产出再校准动作与下一任务建议。  
-  若拆，需在 scenario-map 与 run-checkpoint 中明确谁调谁。
+  若拆，需在 intent-routing 与 run-checkpoint 中明确谁调谁。
 
 **建议**: 先采用方案 A，在 SKILL 内明确「Phase 1 追溯 / Phase 2 漂移 / Phase 3 再校准」的边界与 Handoff；若后续编排或复用需求增加再考虑方案 B。
 
@@ -94,11 +94,11 @@
    - 保持对 align-planning、align-architecture 的调用关系；不引用已删除的 align-backlog-to-strategy。  
    - 若在 Phase 1 或说明中曾引用「backlog-strategy 对齐」，改为「执行证据可由 run-strategy-checkpoint 消费」等表述。
 
-4. **scenario-map**  
+4. **intent-routing**  
    - post_task_governance、architecture_compliance、iteration_orchestration 的 primary/optional 已只保留 align-planning、align-architecture，无需再引用已删除技能。
 
 5. **可选**  
-   - 若后续需要「仅追溯、不推荐」的原子能力，再评估将 align-planning 拆成「追溯报告」与「再校准建议」两个技能，并更新本决策与 scenario-map。
+   - 若后续需要「仅追溯、不推荐」的原子能力，再评估将 align-planning 拆成「追溯报告」与「再校准建议」两个技能，并更新本决策与 intent-routing。
 
 ---
 

@@ -1,21 +1,21 @@
-# Claude Plugin Skill Subset Policy
+# Claude 插件技能子集策略
 
-This directory contains a curated subset for Claude Plugin distribution.
-It is intentionally non-exhaustive and does not represent the full catalog under `skills/`.
+本目录包含面向 Claude 插件分发的精选子集。
+设计上非穷尽，不代表 `skills/` 下的完整目录。
 
-## Selection Criteria
+## 入选标准
 
-- Prioritize high-frequency, low-dependency skills with broad utility.
-- Prefer skills that help discovery, onboarding, and governance-first authoring.
-- Keep subset size small to reduce plugin payload and improve selection quality.
+- 优先高频、低依赖、通用性强的技能。
+- 优先有助于发现、入门与治理优先撰写的技能。
+- 保持子集精简以减小插件体积、提升选择质量。
 
-## Exclusion Criteria
+## 排除标准
 
-- Exclude most atomic review skills such as `review-*` that are usually routed by orchestrator skills.
-- Exclude niche lifecycle helpers used only in specific internal workflows.
-- Exclude experimental or low-adoption skills until usage is stable.
+- 排除多数原子审查技能（如 `review-*`），通常由编排技能路由。
+- 排除仅在特定内部工作流使用的窄生命周期辅助。
+- 排除实验性或低采用率技能，直至使用稳定。
 
-## Source of Truth
+## 权威来源
 
-- Full canonical catalog: `skills/INDEX.md` and `manifest.json`.
-- This subset should be updated only when channel strategy changes or when a skill is promoted to plugin priority.
+- 完整规范目录：`skills/INDEX.md` 与 `manifest.json`。
+- 本子集仅在渠道策略变更或技能晋升为插件优先级时更新。

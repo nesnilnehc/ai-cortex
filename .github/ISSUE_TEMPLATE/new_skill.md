@@ -6,37 +6,37 @@ labels: new-skill
 assignees: ''
 ---
 
-## Skill Name
+## 技能名称
 
-Proposed name (verb-noun, kebab-case):
+拟议名称（verb-noun，kebab-case）：
 
-## Skill Type
+## 技能类型
 
-- [ ] Language review (review-\<language\>)
-- [ ] Framework review (review-\<framework\>)
-- [ ] Library review (review-\<domain\>-usage)
-- [ ] Cognitive review (review-\<concern\>)
-- [ ] Documentation / Writing
-- [ ] Automation / Infrastructure
-- [ ] Orchestrator (Meta)
-- [ ] Other: ___
+- [ ] 语言审查 (review-\<language\>)
+- [ ] 框架审查 (review-\<framework\>)
+- [ ] 库审查 (review-\<domain\>-usage)
+- [ ] 认知审查 (review-\<concern\>)
+- [ ] 文档 / 写作
+- [ ] 自动化 / 基础设施
+- [ ] 编排器（元技能）
+- [ ] 其他：___
 
-## Purpose
+## 目的
 
-One-line summary of what the skill does.
+技能作用的一行摘要。
 
-## Use Cases
+## 使用场景
 
-When would someone use this skill? (2-3 scenarios)
+何时使用此技能？（2–3 个场景）
 
-## Overlap Check
+## 重叠检查
 
-Have you checked [skills/INDEX.md](https://github.com/nesnilnehc/ai-cortex/blob/main/skills/INDEX.md) for existing skills that might overlap?
+是否已检查 [skills/INDEX.md](https://github.com/nesnilnehc/ai-cortex/blob/main/skills/INDEX.md) 中可能重叠的既有技能？
 
-- [ ] Yes, no overlap found
-- [ ] Yes, partial overlap with: ___
-- [ ] Not yet
+- [ ] 是，未发现重叠
+- [ ] 是，与以下部分重叠：___
+- [ ] 尚未检查
 
-## Additional Context
+## 补充信息
 
-References, prior art, or examples of the behavior you're proposing.
+引用、既有实践或拟议行为的示例。

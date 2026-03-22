@@ -1,8 +1,9 @@
 ---
 name: analyze-requirements
 description: Transform vague intent or incomplete requirements into validated, testable requirements through diagnostic state progression and structured dialogue. Use when user has an idea, feature request, problem statement, or existing requirements document that needs clarification or validation before design or implementation.
+description_zh: 通过诊断状态推进与结构化对话，将模糊意图或不完整需求转为可验证、可测试的需求。
 tags: [writing, documentation]
-version: 1.1.0
+version: 1.1.1
 license: MIT
 recommended_scope: both
 metadata:
@@ -45,73 +46,74 @@ output_schema:
   lifecycle: snapshot
 ---
 
-# Skill: Analyze Requirements
+# 技能（Skill）：分析需求
 
-## Purpose
+## 目的 (Purpose)
 
-Diagnose requirements-level problems and transform vague intent into validated, testable requirements. Guide developers from "I want to build X" to a clear problem statement, prioritized needs, explicit constraints, and bounded scope — all before any design or implementation begins.
-
----
-
-## Core Objective
-
-**Primary Goal**: Produce a validated requirements document where every requirement is testable, scoped, and grounded in a real problem.
-
-**Success Criteria** (ALL must be met):
-
-1. ✅ **Problem articulated**: A clear problem statement exists that does not reference any solution or technology
-2. ✅ **Needs are testable with IDs**: Every requirement has acceptance criteria and a unique `R-NN` ID (e.g. R-01, R-02); IDs sequential, no gaps or duplicates
-3. ✅ **Constraints inventoried**: Real constraints (budget, time, skills, dependencies) are separated from assumptions
-4. ✅ **Scope bounded**: V1 boundary is explicit with deferred items listed and triggers for reconsidering documented
-5. ✅ **User confirmed**: User explicitly approved the validated requirements (said "approved", "looks good", "proceed", or equivalent)
-6. ✅ **Document persisted**: Requirements document written to `docs/requirements-planning/<topic>.md` per `docs/ARTIFACT_NORMS.md` and committed
-
-**Acceptance Test**: Can someone unfamiliar with the project read the requirements document and understand the problem, who has it, what "done" looks like, and what is out of scope — without asking clarifying questions?
+诊断需求层面的问题，将模糊的意图转化为有效的、可测试的需求。引导开发人员从“我想构建 X”到明确的问题陈述、优先需求、明确的约束和有限的范围——所有这些都在任何设计或实施开始之前。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-**This skill handles**:
+**首要目标**：生成一份已验证的需求文档，其中每个需求都是可测试的、范围明确的并且以实际问题为基础。
 
-- Vague intent → Validated requirements document
-- Problem discovery and articulation
-- Need clarification and acceptance criteria writing
-- Constraint inventory and assumption mapping
-- Scope definition and prioritization (V1 vs. later)
-- Requirements quality assessment (clarity, specificity, completeness)
+**成功标准**（必须满足所有要求）：
 
-**This skill does NOT handle**:
+1. ✅ **明确的问题**：存在明确的问题陈述，但未引用任何解决方案或技术
+2. ✅ **需求可通过 ID 进行测试**：每个需求都有验收标准和唯一的“R-NN”ID（例如 R-01、R-02）； ID 连续，无间隙或重复
+3. ✅ **列出的约束**：实际约束（预算、时间、技能、依赖性）与假设分离
+4. ✅ **范围有限**：V1 边界是明确的，列出了延迟的项目并触发重新考虑记录
+5. ✅ **用户确认**：用户明确批准已验证需求（表示“已批准”、“看起来不错”、“继续”或同等内容）
+6. ✅ **文档持久化**：需求文档按照 `docs/ARTIFACT_NORMS.md` 写入 `docs/requirements-planning/<topic>.md` 并提交
 
-- Design and architecture decisions (use `design-solution`)
-- Implementation planning or task lists (use implementation planning skills)
-- Code writing (use development skills)
-- Code review (use `review-code`)
-- Technology selection (mention constraints, but technology choice belongs to design phase)
-
-**Handoff point**: When requirements are validated (all success criteria met), hand off to `design-solution` for design exploration, or to implementation planning if design is trivial.
+**验收**测试：不熟悉该项目的人是否可以阅读需求文档并理解问题，谁有它，“完成”是什么样的，以及什么超出了范围 - 而无需提出澄清问题？
 
 ---
 
-## Use Cases
+## 范围边界（范围边界）
 
-- **New project kickoff**: Developer says "I want to build X" — extract the real problem and validated needs before any design.
-- **Feature request triage**: Stakeholder submits vague feature request — clarify problem, scope, and acceptance criteria.
-- **Scope creep prevention**: Project keeps growing — apply prioritization and explicit V1 boundary.
-- **Requirement validation**: Existing requirements feel incomplete — diagnose which state they are in and progress them.
-- **Constraint discovery**: Mid-project surprise blockers — surface hidden constraints and assumptions before they derail work.
+**本技能负责**：
+
+- 意图模糊→已验证需求文档
+- 问题发现和阐明
+- 需要澄清和编写验收标准
+- 约束清单和假设映射
+- 范围定义和优先级（V1 与更高版本）
+- 需求质量评估（清晰度、特异性、完整性）
+
+**本技能不负责**：
+
+- 设计和架构决策（使用“设计解决方案”）
+- 实施计划或任务清单（使用实施计划技能）
+- 代码编写（使用开发技能）
+- 代码审查（使用“审查代码”）
+- 技术选型（提到约束条件，但技术选型属于设计阶段）
+
+**转交点**：当需求已验证（满足所有成功标准）时，移交给“设计解决方案”进行设计探索，如果设计很琐碎，则移交给实施计划。
 
 ---
 
-## Behavior
+## 使用场景（用例）
 
-### Interaction Policy
+- **新项目启动**：开发人员说“我想构建 X”——在任何设计之前提取真正的问题并验证需求。
+- **功能请求分类**：利益相关者提交模糊的功能请求 - 澄清问题、范围和验收标准。
+- **范围蔓延预防**：项目不断增长 - 应用优先级和明确的 V1 边界。
+- **需求验证**：现有需求感觉不完整 - 诊断它们处于哪种状态并进行改进。
+- **约束发现**：项目中期的意外阻碍——在隐藏的约束和假设破坏工作之前将其暴露出来。
 
-- **Defaults**: Infer current state from input; start from earliest unresolved state
-- **Choice options**: One question at a time; offer `[A][B][C]` when possible
-- **Confirm**: Before exiting to design handoff; before writing requirements doc
+---
 
-### HARD-GATE: No Design Before Validation
+## 行为（行为）
+
+### 交互（互动）政策
+
+- **默认**：从输入推断当前状态；从最早的未解决状态开始
+- **选择选项**：一次一个问题；尽可能提供“[A][B][C]”
+- **确认**：退出设计转交之前；在写需求文档之前
+
+### 硬门：验证前无设计
+
 
 ```text
 DO NOT propose architecture, choose technologies, create designs,
@@ -121,171 +123,173 @@ Requirements describe PROBLEMS and NEEDS, not SOLUTIONS.
 If a requirement mentions technology, it is a solution in disguise.
 ```
 
-### Phase 0: Triage
 
-**Announce at start:** "I'm using the analyze-requirements skill to validate requirements before any design or implementation."
+### 第 0 阶段：分类
 
-Perform a quick quality assessment of the input:
+**开始时宣布：**“我正在使用分析需求技能在任何设计或实施之前验证需求。”
 
-| Dimension | Score range | What to check |
+对输入执行快速质量评估：
+
+| 维度 | 股份范围 |检查什么 |
 | :--- | :--- | :--- |
-| **Clarity** | 0–100% | Is there a single unambiguous interpretation? Are terms defined? |
-| **Specificity** | 0–100% | Is context provided? Are success criteria mentioned? Is scope bounded? |
-| **Completeness** | 0–100% | Is all necessary information present? Are constraints mentioned? |
+| **清晰度** | 0–100% |有没有一个明确的解释？术语有定义吗？ |
+| **特异性** | 0–100% |是否提供了上下文？是否提到了成功标准？范围有限制吗？ |
+| **完整性** | 0–100% |是否提供了所有必要的信息？是否提到了限制条件？ |
 
-**Decision matrix**:
+**决策矩阵**：
 
-| Overall score | Action |
+|总分|行动|
 | :--- | :--- |
-| < 40% | Start from State RA0 (problem discovery) |
-| 40–70% | Identify the earliest problem state and start there |
-| > 70% | Validate quickly and focus on gaps |
+| < 40% |从状态 RA0 开始（问题发现） |
+| 40–70% |确定最早的问题状态并从那里开始 |
+| > 70% |快速验证并关注差距 |
 
-### Phase 1: Diagnose — Identify the Current State
+### 第 1 阶段：诊断 — 确定当前状态
 
-Progress through states sequentially. Do NOT skip states — if the problem is not clear, do not discuss needs.
+按顺序进展状态。不要跳过状态——如果问题不清楚，不要讨论需求。
 
-#### State RA0: No Problem Statement
+#### 状态 RA0：无问题声明
 
-**Symptoms**: Starting with a solution ("I want to build X"); feature list without problem grounding; "everyone needs this" reasoning; cannot articulate who has what problem.
+**症状**：从解决方案开始（“我想构建 X”）；功能列表无接地问题； “每个人都需要这个”推理；无法明确谁有什么问题。
 
-**Key questions** (ask one at a time):
+**关键问题**（一次问一个）：
 
-- "What specific frustration or pain point led to this idea?"
-- "What are people (or you) doing today instead?"
-- "What happens if this does not exist? Who suffers and how?"
-- "If you are the user, what triggered you thinking about this now?"
+- “什么具体的挫折或痛点导致了这个想法？”
+- “人们（或你）今天在做什么？”
+- “如果这不存在会发生什么？谁受苦以及如何受苦？”
+- “如果你是用户，是什么促使你现在想到这个？”
 
-**Interventions**:
+**干预**：
 
-- Problem Statement Brief: capture who has what problem and why it matters
-- "Five users" test: name 5 specific people who would benefit (even if one is yourself)
-- Jobs-to-be-Done: "When I [situation], I want to [motivation], so I can [outcome]"
-- Problem archaeology: trace the origin back to a specific frustration event
+- 问题陈述简介：了解谁遇到了什么问题以及问题为何重要
+- “五位用户”测试：说出 5 个会受益的具体人（即使其中一个是你自己）
+- 待完成的工作：“当我[情况]时，我想要[动机]，这样我就可以[结果]”
+- 问题考古学：追根溯源到特定的挫折事件
 
-**Exit criteria**: A problem statement exists that does not mention any solution or technology.
+**退出标准**：存在未提及任何解决方案或技术的问题陈述。
 
-#### State RA1: Solution-First Thinking
+#### 说明 RA1：解决方案优先的思维
 
-**Symptoms**: Technology choices before problem clarity ("needs a database", "should use React"); requirements describe implementation rather than needs; cannot explain requirements without referencing technology.
+**症状**：问题清晰之前的技术选择（“需要数据库”、“应该使用 React”）； 需求描述的是实施而不是需求；不参考技术就无法解释需求。
 
-**Key questions**:
+**关键问题**：
 
-- "What is the need behind this feature?"
-- "If that technology did not exist, what would you still need?"
-- "Are you solving YOUR problem or copying someone else's solution?"
-- "Is this technology required (constraint) or just familiar (preference)?"
+- “这个功能背后的需求是什么？”
+- “如果这项技术不存在，你还需要什么？”
+- “你是在解决你的问题还是复制别人的解决方案？”
+- “这项技术是必需的（限制）还是只是熟悉（偏好）？”
 
-**Interventions**:
+**干预**：
 
-- "Remove the solution" exercise: describe the need without ANY implementation words
-- Function extraction: rewrite each requirement as "The system must [verb]..." without technology terms
-- Constraint vs. preference distinction: separate hard constraints from defaults
+- “删除解决方案”练习：描述需求，无需任何实施词语
+- 功能提取：将每个需求重写为“系统必须[动词]...”，不带技术术语
+- 约束与偏好的区别：将硬约束与默认值分开
 
-**Exit criteria**: Every requirement describes a need, not an implementation. Technology references are either removed or explicitly documented as real constraints.
+**退出标准**：每个需求都描述了需求，而不是实现。技术参考要么被删除，要么被明确记录为真正的约束。
 
-#### State RA2: Vague Needs
+#### 状态 RA2：模糊需求
 
-**Symptoms**: Cannot describe what "done" looks like; adjective-based requirements ("fast", "easy", "intuitive"); requirements that cannot be tested; "users should be able to..." without specifics.
+**症状**：无法描述“完成”是什么样子；基于形容词的需求（“快速”、“简单”、“直观”）； 无法测试的需求； “用户应该能够……”没有具体说明。
 
-**Key questions**:
+**关键问题**：
 
-- "Can you give a specific example scenario?"
-- "What would a disappointing implementation look like vs. a great one?"
-- "What is the minimum that would satisfy this need?"
-- "How would you know if this requirement is met?"
+- “你能给出一个具体的示例场景吗？”
+- “与出色的实施相比，令人失望的实施会是什么样子？”
+- “满足这一需求的最低限度是多少？”
+- “你怎么知道这个要求是否得到满足？”
 
-**Interventions**:
+**干预**：
 
-- Acceptance scenario writing: "Given [context], when [action], then [outcome]"
-- Specificity ladder: who specifically? doing what specifically? when specifically?
-- "Done looks like..." exercise: describe the smallest thing that would satisfy
-- Testability check: if you cannot write a test for it, you do not understand it yet
+- 验收场景写作：“给定[背景]，当[行动]，然后[结果]”
+- 特异性阶梯：具体是谁？具体做什么？具体什么时候？
+- “完成看起来像......”练习：描述能够满足的最小的事情
+- 可测试性检查：如果你不能为其编写测试，那么你还没有理解它
 
-**Exit criteria**: Every requirement has acceptance criteria. No adjective-only requirements remain.
+**退出标准**：每个要求都有接受标准。不再有仅形容词的需求。
 
-#### State RA3: Hidden Constraints
+#### 状态 RA3：隐藏的约束
 
-**Symptoms**: Surprise dependencies appearing late; no explicit constraint inventory; assumptions treated as facts; discovering blockers mid-discussion.
+**症状**：意外依赖性出现较晚；没有明确的约束库存；假设被视为事实；在讨论中发现阻碍因素。
 
-**Key questions**:
+**关键问题**：
 
-- "What external dependencies exist?"
-- "What resources, skills, and time do you actually have?"
+- “存在哪些外部依赖关系？”
+- “你实际上拥有什么资源、技能和时间？”
 - "What would kill this project if it turned out to be true?"
-- "What are you assuming is true that you have not validated?"
+- “您认为您尚未验证的事实是什么？”
 
-**Interventions**:
+**干预**：
 
-- Constraint Inventory: list budget, time, skills, dependencies, integrations as **real constraints**
-- Assumption mapping: separate validated facts from unvalidated assumptions
-- Risk pre-mortem: "It is 6 months later and this failed. Why?"
-- Dependency discovery: what must exist before this can work?
+- 约束清单：列出预算、时间、技能、依赖性、集成作为**真实约束**
+- 假设映射：将已验证事实与未验证假设分开
+- 风险事前分析：“6 个月后，这次失败了。为什么？”
+- 依赖关系发现：在这之前必须存在什么？
 
-**Exit criteria**: A constraint inventory exists with explicit separation of real constraints vs. assumptions.
+**退出标准**：存在约束清单，明确区分实际约束与假设。
 
-#### State RA4: Scope Creep
+#### 状态 RA4：范围蔓延
 
-**Symptoms**: Every feature feels equally important; no V1 boundary; "while we are at it..." additions; requirements expanding faster than they are satisfied.
+**症状**：每个功能都感觉同样重要；无V1边界； “当我们这样做时……”补充； 需求的增长速度快于他们的满足程度。
 
-**Key questions**:
+**关键问题**：
 
-- "If you could only ship 3 things, what are they?"
-- "What could you cut and still solve the core problem?"
-- "What is the smallest useful version?"
-- "What triggers reconsidering deferred items?"
+- “如果你只能运送 3 件东西，它们是什么？”
+- “你可以削减哪些内容并仍然解决核心问题？”
+- “最小的有用版本是什么？”
+- “什么会触发重新考虑推迟的项目？”
 
-**Interventions**:
+**干预**：
 
-- Cut-first approach: start with everything out, add back only what is essential
-- Force-rank: strict ordering, no ties
-- Walking skeleton: identify the thinnest useful version
-- MoSCoW: Must / Should / Could / Won't
-- Deferred features list with explicit triggers for reconsidering
+- 剪切优先方法：从所有内容开始，仅添加必要的内容
+- 力量等级：严格排序，没有联系
+- 行走骨架：识别最薄有用的版本
+- 莫斯科：必须/应该/可以/不会
+- 推迟的功能列表，带有明确的触发器以供重新考虑
 
-**Exit criteria**: V1 boundary is explicit. Deferred items are listed with triggers. No ambiguity about what is in scope.
+**退出标准**：V1 边界明确。延迟项目与触发器一起列出。对于范围内的内容没有任何含糊之处。
 
-#### State RA5: Requirements Validated
+#### 说明 RA5：要求已验证
 
-**Indicators**:
+**指标**：
 
-- Problem statement exists without solution references
-- Every requirement is testable with acceptance criteria
-- Constraints are inventoried (real vs. assumed)
-- Scope is bounded with explicit V1 definition
-- Could explain to someone unfamiliar and have them understand the need
+- 存在问题陈述但没有解决方案参考
+- 每个要求都可以通过验收标准进行测试
+- 列出约束条件（真实与假设）
+- 范围受明确的 V1 定义限制
+- 可以向不熟悉的人解释并让他们理解需求
 
-**Next step**: Hand off to `design-solution` with the Validated Requirements Document.
+**下一步**：将已验证的需求文档移交给“设计解决方案”。
 
-### Phase 2: Validate — Confirm with User
+### 第 2 阶段：验证 — 与用户确认
 
-1. **Present the requirements summary** in structured format (see Output section)
-2. **Ask for explicit approval**: "Do these requirements accurately capture what you need?"
-3. **Iterate if needed**: Return to the relevant state if gaps are found
+1. **以结构化格式呈现需求摘要**（参见输出部分）
+2. **请求明确批准**：“这些需求是否准确地反映了您的需求？”
+3. **如果需要则迭代**：如果发现差距则返回相关状态
 
-### Phase 3: Persist — Write the Document
+### 第 3 阶段：坚持 — 编写文档
 
-1. **Determine output location**:
-   - Default: `docs/requirements-planning/<topic>.md`
-   - Compatibility: existing projects using `docs/requirements/<topic>.md` may keep that path temporarily
-   - Ask user if a different location is preferred
-2. **Write the document** following the output template
-3. **Commit to version control**
-4. **Announce completion and handoff**
+1. **确定输出位置**：
+   - 默认：`docs/requirements-planning/<topic>.md`
+   - 兼容性：使用 `docs/需求/<topic>.md` 的现有项目可能会暂时保留该路径
+   - 询问用户是否首选不同的位置
+2. **按照输出模板编写文档**
+3. **致力于版本控制**
+4. **宣布完成并转交**
 
 ---
 
-## Input & Output
+## 输入与输出（输入&输出）
 
-### Input
+### 输入（输入）
 
-- **User request**: Vague idea, feature request, problem statement, or existing requirements to validate.
-- **Project context**: Existing codebase, documentation, constraints (discovered during exploration).
-- **User responses**: Answers to diagnostic questions, feedback on assessments, approval of validated requirements.
+- **用户请求**：模糊的想法、功能请求、问题陈述或需要验证的现有需求。
+- **项目上下文**：现有代码库、文档、约束（在探索过程中发现）。
+- **用户响应**：对诊断问题的回答、评估反馈、已验证需求的批准。
 
-### Output
+### 输出（输出）
 
-#### Validated Requirements Document
+#### 已验证的需求文档
+
 
 ```markdown
 # [Topic] Requirements
@@ -340,280 +344,281 @@ Progress through states sequentially. Do NOT skip states — if the problem is n
 - [Any remaining unknowns with plan to resolve]
 ```
 
-#### Conversation vs. File
 
-| Goes to file | Stays in conversation |
+#### 对话与文件
+
+|转到文件|保持对话状态 |
 | :--- | :--- |
-| Problem statement | Five Whys exploration |
-| Need hierarchy with acceptance criteria | Prioritization discussion |
-| Constraint inventory | Assumption discovery dialogue |
-| Scope definition | Cut/keep negotiations |
-| Validated requirements | Clarifying questions |
+|问题陈述|五个为什么探索 |
+|需要具有验收标准的层次结构|优先讨论 |
+|限制库存|假设发现对话|
+|范围定义 |削减/保留谈判 |
+|验证需求 |澄清问题|
 
 ---
 
-## Restrictions
+## 限制（限制）
 
-### Hard Boundaries
+### 硬边界（Hard Boundaries）
 
-- **No design before validation**: Do NOT propose architecture, choose technologies, or create designs until requirements are validated.
-- **No skipping states**: If problem is unclear (RA0), do NOT discuss needs (RA2) or scope (RA4). Progress sequentially.
-- **One question at a time**: Do not overwhelm the user with multiple diagnostic questions in a single message.
-- **Developer decides**: Diagnose, question, and guide — the developer makes the final call on priorities and scope.
-- **No vague acceptance**: Do not accept adjective-based requirements ("fast", "intuitive") as complete. Push for testable criteria.
-- **No solution language**: Requirements must describe problems and needs, not implementations. Flag and rewrite solution-disguised requirements.
+- **验证前不进行设计**：在需求已验证之前，不要提出架构、选择技术或创建设计。
+- **无跳过状态**：如果问题不清楚 (RA0)，请勿讨论需求 (RA2) 或范围 (RA4)。依次进行。
+- **一次一个问题**：不要在一条消息中用多个诊断问题淹没用户。
+- **开发人员决定**：诊断、提问和指导 - 开发人员对优先级和范围做出最终决定。
+- **不接受含糊不清**：不接受基于形容词的需求（“快速”、“直观”）。推动可测试的标准。
+- **没有解决方案语言**：需求必须描述问题和需求，而不是实现。标记并重写解决方案——伪装的需求。
 
-### Skill Boundaries (Avoid Overlap)
+### 技能边界 (Skill Boundaries)（避免重叠）
 
-**Do NOT do these (other skills handle them)**:
+**不要做这些（其他技能可以处理它们）**：
 
-- **Design and architecture**: Proposing solutions, choosing technologies, creating design documents → Use `design-solution`
-- **Implementation planning**: Creating task lists, file paths, code structure → Use implementation planning skills
-- **Code writing**: Writing any implementation code → Use development skills
-- **Code review**: Reviewing existing code → Use `review-code`
-- **Skill refinement**: Improving skill documents → Use `refine-skill-design`
+- **设计和架构**：提出解决方案、选择技术、创建设计文档→使用“设计解决方案”
+- **实施规划**：创建任务列表、文件路径、代码结构 → 使用实施规划技能
+- **代码编写**：编写任何实现代码→使用开发技能
+- **代码审查**：审查现有代码→使用`review-code`
+- **技能精炼**：改进技能文档→使用`refine-skill-design`
 
-**When to stop and hand off**:
+**何时停止并交接**：
 
-- User says "approved", "looks good", "proceed" → Requirements validated, hand off to `design-solution`
-- User asks "how should we design this?" → Hand off to `design-solution`
-- User asks "can you write the code?" → Requirements complete, hand off to development workflow (suggest design step if skipped)
-- User says requirements are "good enough" → Confirm all success criteria met, then hand off
-
----
-
-## Self-Check
-
-### Core Success Criteria (ALL must be met)
-
-- [ ] **Problem articulated**: Clear problem statement exists without solution or technology references
-- [ ] **Needs are testable with IDs**: Every requirement has acceptance criteria and a unique `R-NN` ID; IDs sequential, no gaps or duplicates
-- [ ] **Constraints inventoried**: Real constraints separated from assumptions
-- [ ] **Scope bounded**: V1 boundary explicit with deferred items and triggers documented
-- [ ] **User confirmed**: User explicitly approved the validated requirements
-- [ ] **Document persisted**: Requirements document written to `docs/requirements-planning/<topic>.md` and committed
-
-### Process Quality Checks
-
-- [ ] **States not skipped**: Progressed through diagnostic states sequentially (did not jump from RA0 to RA4)
-- [ ] **One question at a time**: Did not overwhelm user with multiple questions per message
-- [ ] **No solution language**: Requirements describe needs, not implementations
-- [ ] **Developer decided**: Guided and questioned, but developer made final priority and scope calls
-- [ ] **Adjectives resolved**: No vague adjective-only requirements remain ("fast", "intuitive", "easy")
-- [ ] **Assumptions separated**: Unvalidated assumptions are flagged separately from real constraints
-- [ ] **IDs reviewed**: All requirement IDs follow `R-NN` format, are unique, and are used in cross-references within the document
-
-### Health Check Questions
-
-Before declaring requirements validated, ask yourself:
-
-1. If this project failed, what would be the most likely reason related to requirements?
-2. Is the developer building what they need or what they know how to build?
-3. What is explicitly NOT in scope?
-4. Is the scope achievable with the actual constraints?
-5. What assumptions have not been validated?
-6. Could someone unfamiliar explain the requirements back correctly?
-
-### Acceptance Test
-
-**Can someone unfamiliar with the project read the requirements document and understand the problem, who has it, what "done" looks like, and what is out of scope — without asking clarifying questions?**
-
-If NO: Requirements are incomplete. Return to the earliest unresolved state.
-
-If YES: Requirements are validated. Persist and hand off to `design-solution`.
+- 用户说“已批准”、“看起来不错”、“继续”→要求已验证，移交给“设计解决方案”
+- 用户问“我们应该如何设计这个？” → 移交给“设计解决方案”
+- 用户问“你能写代码吗？” → 需求完成，移交给开发工作流程（如果跳过，建议设计步骤）
+- 用户说需求“足够好” → 确认满足所有成功标准，然后移交
 
 ---
 
-## Examples
+## 自检（Self-Check）
 
-### Example 1: Greenfield Project — "I want to build a static site generator"
+### 核心成功标准（必须满足所有标准）
 
-**User**: "I want to build a static site generator."
+- [ ] **问题明确**：存在明确的问题陈述，但没有解决方案或技术参考
+- [ ] **需求可通过 ID 进行测试**：每个需求都有验收标准和唯一的“R-NN”ID； ID 连续，无间隙或重复
+- [ ] **列出的约束**：与假设分离的实际约束
+- [ ] **范围有界**：V1 边界明确，带有延迟项目和触发器记录
+- [ ] **用户确认**：用户明确批准已验证需求
+- [ ] **文档保留**：需求文档写入`docs/requirements-planning/<topic>.md`并提交
 
-**Agent announces**: "I'm using the analyze-requirements skill to validate requirements before any design or implementation."
+### 流程质量检查
 
-**Triage**: Clarity 30%, Specificity 10%, Completeness 10%. Start from RA0.
+- [ ] **未跳过的状态**：按顺序进行诊断状态（未从 RA0 跳转到 RA4）
+- [ ] **一次一个问题**：没有让用户因每条消息的多个问题而感到不知所措
+- [ ] **没有解决方案语言**：需求描述需求，而不是实现
+- [ ] **开发人员决定**：指导和质疑，但开发人员做出了最终优先级和范围调用
+- [ ] **形容词已解决**：没有模糊形容词，仅保留需求（“快速”、“直观”、“简单”）
+- [ ] **假设分离**：未验证的假设与实际约束分开标记
+- [ ] **已审核的 ID**：所有需求 ID 均遵循“R-NN”格式，是唯一的，并用于文档内的交叉引用
 
-**RA0 — Problem discovery**:
+### 健康检查问题
 
-Agent: "What specific frustration with existing static site generators led to this idea?"
+在声明需求已验证之前，问问自己：
 
-User: "I'm tired of the complexity. I just want to write markdown and get HTML."
+1. 如果该项目失败，最有可能与需求相关的原因是什么？
+2. 开发人员正在构建他们需要的东西或者他们知道如何构建的东西吗？
+3. 什么明确不在范围内？
+4. 在实际限制下，范围是否可以实现？
+5. 哪些假设尚未验证？
+6. 不熟悉的人能否正确解释需求？
 
-Agent: "What do you do today instead?"
+### 验收测试
 
-User: "I use Hugo but spend more time debugging configuration than writing content."
+**不熟悉该项目的人是否可以阅读需求文档并理解问题、谁有这个问题、“完成”是什么样子以及什么超出了范围——而不需要提出澄清问题？**
 
-**Problem statement captured**: "Solo content creator wastes time debugging SSG configuration instead of writing. Needs a zero-configuration path from Markdown to HTML."
+如果否：要求不完整。返回到最早未解决的状态。
 
-**RA1 — Solution-first check**:
-
-Agent: "You mentioned Hugo — is there anything about Hugo specifically that you need to preserve, or is 'Markdown → HTML' the core need regardless of tool?"
-
-User: "Just Markdown to HTML. I don't care how."
-
-**Exit RA1**: Need confirmed without technology lock-in.
-
-**RA2 — Specificity**:
-
-Agent: "What would 'done' look like for the simplest useful version?"
-
-User: "I point it at a folder of .md files and get a folder of .html files with basic styling."
-
-Agent: "How would you know the output is correct?"
-
-User: "Each .md file produces one .html file. Links between pages work. It looks readable on mobile."
-
-**Acceptance criteria captured**:
-
-- R-01: Each `.md` file → one `.html` file (1:1 mapping)
-- R-02: Internal links resolve correctly
-- R-03: Output is readable on mobile (viewport meta, readable font size)
-
-**RA3 — Constraints**:
-
-Agent: "What time and skills do you have for this?"
-
-User: "Evenings and weekends, maybe 10 hours/week. I know JavaScript well."
-
-**Constraint inventory**: Time: 10 hrs/week; Skills: JavaScript proficiency; Dependency: none identified.
-
-**RA4 — Scope**:
-
-Agent: "If you could only ship 3 features, what are they?"
-
-User: "Markdown to HTML, basic CSS, and a dev server with live reload."
-
-**Scope defined**:
-
-- V1 Must: Markdown→HTML, default CSS, dev server
-- Deferred: Themes, plugins, custom templates (trigger: after V1 is usable for 2 weeks)
-- Walking skeleton: CLI that converts one `.md` file to `.html`
-
-**RA5 — Validated**: Agent presents summary, user says "looks good." Document written to `docs/requirements-planning/static-site-generator.md`.
-
-### Example 2: Edge Case — Solution-Disguised Requirements
-
-**User**: "I need a React app with a PostgreSQL database, GraphQL API, and Redis caching."
-
-**Agent announces**: "I'm using the analyze-requirements skill to validate requirements before any design or implementation."
-
-**Triage**: Clarity 60% (clear technologies), Specificity 20% (no problem stated), Completeness 15%. Start from RA0.
-
-**RA0 — Problem discovery**:
-
-Agent: "These are all technology choices. What problem are you trying to solve? Who has the problem?"
-
-User: "Oh... I need to track inventory for my small business. I currently use spreadsheets and keep losing data."
-
-**Problem statement**: "Small business owner loses inventory data due to spreadsheet limitations. Needs reliable inventory tracking."
-
-**RA1 — Solution-first cleanup**:
-
-Agent: "Let's rewrite the requirements without technology. 'React, PostgreSQL, GraphQL, Redis' are all solutions. What needs do they represent?"
-
-Rewritten:
-
-- ~~React app~~ → "Need a user interface accessible from multiple devices"
-- ~~PostgreSQL~~ → "Data must survive server restarts and not be lost"
-- ~~GraphQL API~~ → "Need to query inventory flexibly (by name, category, location)"
-- ~~Redis caching~~ → "Frequently accessed data should load quickly"
-
-Agent: "Is 'load quickly' testable? How fast is acceptable?"
-
-User: "Under 2 seconds for the inventory list page."
-
-**Exit RA1**: Requirements rewritten as needs. Technology choices deferred to design phase.
-
-**RA2–RA5**: Continue through states. Final document captures needs without technology assumptions, allowing `design-solution` to explore the right solution (which might be a simple spreadsheet alternative, not a full-stack app).
-
-### Example 3: Edge Case — Mid-Project Scope Creep
-
-**User**: "We started building a todo app but now it needs calendar integration, team collaboration, file attachments, and AI-powered task suggestions. We're 3 weeks behind."
-
-**Agent announces**: "I'm using the analyze-requirements skill to validate requirements before expanding scope."
-
-**Triage**: Clarity 50%, Specificity 40%, Completeness 30%. Scope creep symptoms — start from RA4 (earlier states likely resolved if 3 weeks in, but verify).
-
-**Quick RA0 check**: "What was the original problem this todo app solves?"
-
-User: "I need to stop forgetting tasks and deadlines for my freelance projects."
-
-**Problem confirmed** — proceed to RA4.
-
-**RA4 — Scope creep intervention**:
-
-Agent: "If you could only ship 3 features from the full list, which 3 would solve the core problem of not forgetting tasks?"
-
-User: "Basic task list, due dates with reminders, and... that's really it for now."
-
-Agent: "So calendar integration, team collaboration, file attachments, and AI suggestions are all additions beyond the core problem. Should we defer them?"
-
-**Scope redefined**:
-
-- V1 Must: Task CRUD, due dates, reminders
-- Deferred: Calendar integration (trigger: after using reminders for 1 month), collaboration (trigger: when freelance becomes team), attachments (trigger: user request), AI suggestions (trigger: 100+ tasks)
-- Walking skeleton: CLI or simple UI that creates tasks with due dates and sends reminder notifications
-
-**RA5 — Validated**: Requirements refocused. 3-week delay becomes manageable. Document updated.
+如果是：要求已验证。坚持并移交给“设计解决方案”。
 
 ---
 
-## Anti-Patterns
+## 示例（示例）
 
-### The Solution Specification
+### 示例 1：Greenfield 项目 —“我想构建一个静态站点生成器”
 
-**Problem**: Requirements describe implementation, not needs. "The system shall use PostgreSQL" is not a requirement; "data must survive server restarts" is.
+**用户**：“我想构建一个静态站点生成器。”
 
-**Fix**: For each requirement, ask "could this be satisfied a different way?" If yes, you captured implementation, not need.
+**代理宣布**：“在任何设计或实施之前，我正在使用分析需求技能来验证需求。”
 
-### The Stakeholder Fiction
+**分类**：清晰度 30%，特异性 10%，完整性 10%。从 RA0 开始。
 
-**Problem**: Developer imagining requirements instead of discovering them. "Users will want..." without evidence.
+**RA0 — 问题发现**：
 
-**Fix**: If you are the user, be honest about YOUR needs. If building for others, talk to them or cite analogous evidence. Do not invent users.
+代理：“现有静态站点生成器的具体挫败感导致了这个想法？”
 
-### The Infinite Backlog
+用户：“我厌倦了复杂性。我只想编写 Markdown 并获取 HTML。”
 
-**Problem**: Requirements grow without prioritization. Everything is equally important.
+特工：“你今天做什么？”
 
-**Fix**: Force-rank. If you could only ship ONE thing, what is it? Then two? This reveals actual priorities.
+用户：“我使用 Hugo，但调试配置的时间比编写内容的时间多。”
 
-### The Premature Precision
+**捕获的问题陈述**：“单独的内容创建者浪费时间调试 SSG 配置而不是编写。需要从 Markdown 到 HTML 的零配置路径。”
 
-**Problem**: Specifying details that do not matter yet. Designing notification preferences before validating anyone wants notifications.
+**RA1 — 解决方案优先检查**：
 
-**Fix**: Stub uncertain areas with "TBD after [X] validated." Focus precision on V1 Must items.
+代理：“您提到了 Hugo - 有什么关于 Hugo 的具体内容是您需要保留的吗？或者无论使用什么工具，“Markdown → HTML”都是核心需求吗？”
 
-### The Constraint Blindness
+用户：“只是 Markdown 到 HTML。我不在乎如何。”
 
-**Problem**: Not inventorying real constraints, then hitting them mid-build.
+**退出 RA1**：需要在没有技术锁定的情况下确认。
 
-**Fix**: Explicit constraint inventory BEFORE finalizing requirements.
+**RA2 — 特异性**：
+
+特工：“最简单有用的版本‘完成’会是什么样子？”
+
+用户：“我将其指向 .md 文件的文件夹，然后获取具有基本样式的 .html 文件的文件夹。”
+
+特工：“你怎么知道输出是正确的？”
+
+用户：“每个 .md 文件都会生成一个 .html 文件。页面之间的链接有效。它在移动设备上看起来可读。”
+
+**捕获的验收标准**：
+
+- R-01：每个`.md`文件→一个`.html`文件（1:1映射）
+- R-02：内部链接正确解析
+- R-03：输出在移动设备上可读（视口元、可读字体大小）
+
+**RA3 — 限制**：
+
+特工：“你有什么时间和技能来做这件事？”
+
+用户：“晚上和周末，每周大概 10 个小时。我很了解 JavaScript。”
+
+**限制库存**： 时间：10 小时/周；技能：JavaScript熟练程度；依赖性：未确定。
+
+**RA4 — 范围**：
+
+代理：“如果你只能发布 3 个功能，那它们是什么？”
+
+用户：“Markdown 到 HTML、基本 CSS 和具有实时重新加载功能的开发服务器。”
+
+**范围定义**：
+
+- V1必须：Markdown→HTML，默认CSS，开发服务器
+- 延期：主题、插件、自定义模板（触发：V1可用2周后触发）
+- 行走骨架：将一个 `.md` 文件转换为 `.html` 的 CLI
+
+**RA5 — 已验证**：代理提供摘要，用户说“看起来不错”。写入“docs/requirements-planning/static-site-generator.md”的文档。
+
+### 示例 2：边缘案例 — 解决方案伪装的需求
+
+**用户**：“我需要一个带有 PostgreSQL 数据库、GraphQL API 和 Redis 缓存的 React 应用程序。”
+
+**代理宣布**：“在任何设计或实施之前，我正在使用分析需求技能来验证需求。”
+
+**分类**：清晰度 60%（明确的技术），特异性 20%（没有说明问题），完整性 15%。从 RA0 开始。
+
+**RA0 — 问题发现**：
+
+特工：“这些都是技术选择。你想解决什么问题？谁有问题？”
+
+用户：“哦......我需要跟踪我的小型企业的库存。我目前使用电子表格并不断丢失数据。”
+
+**问题陈述**：“小企业主由于电子表格的限制而丢失库存数据。需要可靠的库存跟踪。”
+
+**RA1 — 解决方案优先清理**：
+
+Agent：“让我们在没有技术的情况下重写需求。‘React、PostgreSQL、GraphQL、Redis’都是解决方案。它们代表什么需求？”
+
+重写：
+
+- ~~React 应用程序~~ →“需要可从多个设备访问的用户界面”
+- ~~PostgreSQL~~ →“数据必须在服务器重新启动后保留下来并且不会丢失”
+- ~~GraphQL API~~ → “需要灵活查询库存（按名称、类别、位置）”
+- ~~Redis 缓存~~ → “经常访问的数据应该快速加载”
+
+代理：“‘快速加载’可以测试吗？多快可以接受？”
+
+用户：“库存列表页面不到 2 秒。”
+
+**退出 RA1**：根据需要重写需求。技术选择推迟到设计阶段。
+
+**RA2–RA5**：继续穿过各州。最终文档在没有技术假设的情况下捕获需求，允许“设计解决方案”探索正确的解决方案（这可能是一个简单的电子表格替代方案，而不是全栈应用程序）。
+
+### 示例 3：边缘情况 — 项目中期范围蔓延
+
+**用户**：“我们开始构建一个待办事项应用程序，但现在它需要日历集成、团队协作、文件附件和人工智能驱动的任务建议。我们落后了 3 周。”
+
+**代理宣布**：“在扩大范围之前，我正在使用分析需求技能来验证需求。”
+
+**分类**：清晰度 50%，特异性 40%，完整性 30%。范围蔓延症状——从 RA4 开始（早期的状态可能会在 3 周后得到解决，但需要验证）。
+
+**快速 RA0 检查**：“这个待办事项应用程序解决的原始问题是什么？”
+
+用户：“我需要停止忘记我的自由项目的任务和截止日期。”
+
+**问题已确认** — 继续进行 RA4。
+
+**RA4 — 范围蔓延干预**：
+
+代理：“如果你只能从完整列表中提供 3 个功能，哪 3 个可以解决不忘记任务的核心问题？”
+
+用户：“基本任务列表、带提醒的截止日期，以及……现在就这些了。”
+
+代理：“所以日历集成、团队协作、文件附件和人工智能建议都是核心问题之外的附加内容。我们应该推迟它们吗？”
+
+**范围重新定义**：
+
+- V1 Must：任务CRUD、截止日期、提醒
+- 延期：日历集成（触发：使用提醒 1 个月后）、协作（触发：当自由职业者成为团队时）、附件（触发：用户请求）、AI 建议（触发：100 多个任务）
+- 行走骨架：CLI 或简单的 UI，可创建带有截止日期的任务并发送提醒通知
+
+**RA5 — 已验证**：要求重新聚焦。 3 周的延迟变得可以控制。文档已更新。
 
 ---
 
-## Appendix: Integration Map
+## 反模式
 
-### Upstream (feeds into this skill)
+### 解决方案规范
 
-| Source | When | What it provides |
+**问题**：需求描述的是实现，而不是需求。 “系统应使用 PostgreSQL”不是必需的； “数据必须在服务器重新启动后继续存在”。
+
+**修复**：对于每个要求，询问“是否可以通过不同的方式来满足？”如果是，您捕获的是实现，而不是需求。
+
+### 利益相关者的虚构
+
+**问题**：开发人员想象需求而不是发现需求。 “用户会想要……”没有证据。
+
+**修复**：如果您是用户，请诚实地表达您的需求。如果是为他人构建，请与他们交谈或引用类似的证据。不要发明用户。
+
+### 无限的积压
+
+**问题**：需求不断增长，但没有划分优先级。一切都同等重要。
+
+**修复**：强制等级。如果你只能运送一件东西，那是什么？然后是两个？这揭示了实际的优先事项。
+
+### 过早的精确度
+
+**问题**：指定尚不重要的细节。在验证任何人想要通知之前设计通知首选项。
+
+**修复**：用“[X]已验证后待定”对不确定区域进行存根。精准聚焦 V1 Must 项目。
+
+### 约束失明
+
+**问题**：没有清点真正的约束，然后在构建过程中解决它们。
+
+**修复**：在最终确定需求之前明确限制库存。
+
+---
+
+## 附录：整合地图
+
+### 上游（融入此技能）
+
+|来源 |当 |它提供什么 |
 | :--- | :--- | :--- |
-| User request | New project or feature idea | Raw intent to analyze |
-| Existing documentation | Mid-project validation | Partial requirements to diagnose |
+|用户请求|新项目或功能创意 |原始意图分析|
+|现有文档|项目中期验证 |部分需求诊断 |
 
-### Downstream (this skill feeds into)
+### 下游（该技能进入）
 
-| Target skill | When | What it receives |
+|目标技能|当 |它收到什么 |
 | :--- | :--- | :--- |
-| `design-solution` | Requirements validated | Validated Requirements Document as design input |
-| Implementation planning | Design is trivial | Validated requirements with scope and constraints |
+| `设计解决方案` |要求已验证 |验证需求文档作为设计输入 |
+|实施规划|设计很琐碎|经验证的需求范围和限制 |
 
-### Handoff contract
+### 移交合同
 
-| This skill outputs | Target skill expects |
+|该技能输出 |目标技能期望|
 | :--- | :--- |
-| Problem statement | Design context |
-| Need hierarchy with acceptance criteria | Functional requirements |
-| Constraint inventory | Architecture constraints |
-| Scope definition (V1 boundary) | Design scope |
+|问题陈述|设计背景|
+|需要具有验收标准的层次结构|功能性需求 |
+|限制库存|架构限制 |
+|范围定义（V1 边界）|设计范围|

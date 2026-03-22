@@ -1,46 +1,46 @@
-# Generate Agent Entry
+# 生成代理条目
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Writes or revises AGENTS.md at repo root per the embedded output contract. Establishes project identity, authoritative sources, and behavioral expectations. Executable expectations (must/shall/must not); reference table for spec and index links.
+根据嵌入式输出合约在存储库根写入或修改 AGENTS.md。建立项目身份、权威来源和行为期望。可执行的期望（必须/应当/不得）；规格和索引链接的参考表。
 
-## When to use
+## 何时使用
 
-- New project: add Agent entry for repo with no AGENTS.md
-- Revise existing: audit and complete missing sections
-- Adopt format: use output contract for other projects
-- Compliance check: audit against contract, output revision suggestions
+- 新项目：为没有 AGENTS.md 的存储库添加代理条目
+- 修改现有内容：审核并完成缺失的部分
+- 采用格式：将输出合同用于其他项目
+- 合规检查：对照合同审核，输出修改建议
 
-## Inputs
+## 输入
 
-- One-line positioning
-- Top-level assets and dirs
-- Optional: AGENTS.md Raw URL, existing entry, primary language
+- 一线定位
+- 顶级资产和目录
+- 可选：AGENTS.md 原始 URL、现有条目、主要语言
 
-## Outputs
+## 输出
 
-- Full AGENTS.md (or diff/revised text)
-- Or audit checklist and revision suggestions
+- 完整的 AGENTS.md（或差异/修订文本）
+- 或审核清单和修改建议
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension        | Score |
-| :--------------- | :---- |
-| agent_native     | 5     |
-| cognitive        | 4     |
-| composability    | 4     |
-| stance           | 5     |
-| **asqm_quality** | 18    |
+| 维度 | 分数 |
+| ：-------------- | :---- |
+|agent_native | 5 |
+|cognitive| 4 |
+|composability | 4 |
+|stance| 5 |
+| **asqm_quality** | 18 | 18
 
-## Ecosystem
+## 生态
 
-| Field                                 | Value                                                                                   |
-| :------------------------------------ | :-------------------------------------------------------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:generate-standard-readme, nesnilnehc/ai-cortex:refine-skill-design |
-| market_position                       | differentiated                                                                          |
+|领域|价值|
+| :------------------------------------ | :------------------------------------------------------------------------------------------ |
+|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:generate-standard-readme, nesnilnehc/ai-cortex:refine-skill-design |
+|市场地位 |差异化|
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for complete behavior, output contract, restrictions, and examples.
+请参阅 [SKILL.md](./SKILL.md) 了解完整的行为、输出契约、限制和示例。

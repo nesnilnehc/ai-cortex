@@ -1,44 +1,48 @@
-# assess-docs
+# 评估文档
 
-Assess documentation health in one pass: validate artifact norms compliance (paths, naming, front-matter) and evidence readiness by layer; report gaps and produce a minimum-fill plan.
+一次性评估文档的健康状况：逐层验证产品规范合规性（路径、命名、前置事项）和证据准备情况；报告差距并制定最低补足计划。
 
-## What it does
+## 用途
 
-1. **Compliance**: Scans `docs/` against project artifact norms (or spec default); reports path, naming, and front-matter violations with actionable suggestions.
-2. **Readiness**: Evaluates whether project docs (goals, requirements, architecture, milestones, roadmap, backlog) are sufficient for reliable AI-assisted planning. Scores each layer as strong, weak, or missing; prioritizes gaps by impact and effort; produces a minimal actionable fill plan.
+1. **合规性**：根据产品规范（或规范默认值）扫描“docs/”；报告路径、命名和前题漏洞行为并提供项目的安装建议。
+2. **准备情况**：评估项目文档（目标、需求、架构、里程碑、路线图、待办）是否足以进行可靠的人工智能辅助规划。将每一层的分数分成强、弱或缺口；按影响和努力对缺口进行优先排序；制定最小的可操作填充计划。
 
-## When to use
+## 何时使用
 
-- Pre-commit or audit — ensure docs comply and are sufficient before milestone
-- Alignment confidence is low — `align-planning` reports weak evidence
-- New repo with partial docs — compliance check and minimum docs to add first
-- After norms change — re-validate and re-assess
-- Documentation debt triage — one report for both compliance and readiness
+- 预提交或审核——确保文档在里程碑之前满足要求并且足够
+——视力信心较低——“视力规划”报告的证据薄弱
+- 包含部分文档的新存储库 - 合规性检查和首先添加的最少文档
+- 规范改变后——重新验证和重新评估
+-文件报表分类——一份合规性和准备情况报告
 
-## Inputs
+## 输入
 
-- Project docs scope (default: repository `docs/`)
-- Optional layer path mapping
-- Optional target readiness level (`medium` | `high`)
+- 项目文档范围（默认：存储库“docs/”）
+- 任选层路径映射
+- 可选的目标准备级别（“中”|“高”）
 
-## Outputs
+## 输出
 
-- Documentation Assessment Report written to `docs/calibration/doc-assessment.md` (overwritten unless a snapshot is requested)
-- Single report containing: Compliance Findings (with Location, Severity, Suggestion per violation), Layer Readiness, Gap Priority List, Minimal Fill Plan
+- 文档评估写入报告“docs/calibration/doc-assessment.md”（除非请求快照，否则将被覆盖）
+- 单一报告包含：合规性调查结果（包括位置、严重性、每次违规的建议）、层准备情况、间隙优先级列表、最小填充计划
 
-## Installation
+## 安装
+
+
 
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill assess-docs
 ```
 
-## Related skills
 
-- `discover-docs-norms` — establish or update artifact norms
-- `bootstrap-docs` — structural docs bootstrap from scratch
-- `align-planning` — post-task drift and evidence assessment
-- `run-checkpoint` — orchestrate governance including assess-docs
 
-## Full definition
+## 相关技能
 
-See [SKILL.md](./SKILL.md) for behavior, restrictions, and examples.
+- `discover-docs-norms` — 建立或更新产品规范
+- `bootstrap-docs` — 结构文档从头开始引导
+- `align-planning` — 任务后和证据评估
+- `run-checkpoint` — 协调治理，包括评估文档
+
+## 完整定义
+
+请参阅 [SKILL.md](./SKILL.md) 了解行为、限制和示例。

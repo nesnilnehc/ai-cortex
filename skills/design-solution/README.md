@@ -1,69 +1,71 @@
-# design-solution
+# 设计解决方案
 
-Transform rough ideas into validated, production-grade designs through structured dialogue.
+通过结构化对话将粗略的想法转化为已验证的生产级设计。
 
-## Overview
+## 概述
 
-This skill synthesizes best practices from 7 top-ranked skills on skills.sh (combined 650K+ installs) to help turn vague ideas into concrete, approved designs before implementation. It prevents premature coding by systematically exploring context, clarifying requirements, proposing alternatives, and validating designs incrementally.
+该技能综合了 Skills.sh 上 7 项排名靠前的技能（总计 65 万+ 安装）的最佳实践，有助于在实施之前将模糊的想法转化为具体的、经过批准的设计。它通过系统地探索背景、澄清需求、提出替代方案和逐步验证设计来防止过早编码。
 
-## Key Features
+## 主要特点
 
-- **Structured dialogue**: One question at a time, building understanding incrementally (from obra/superpowers brainstorming)
-- **Phase-based validation**: Systematic process with clear checkpoints (from obra/superpowers systematic-debugging)
-- **YAGNI & DRY principles**: Focus on minimum viable solution, reference existing patterns (from obra/superpowers writing-plans)
-- **Production-grade quality**: Apply domain-specific best practices during design (from anthropics/vercel-labs skills)
-- **Trade-off analysis**: Propose 2-3 approaches with clear pros/cons/best-for (from multiple sources)
-- **HARD-GATE pattern**: Explicit prevention of premature implementation (from obra/superpowers)
-- **Incremental documentation**: Scale design detail to project complexity (from multiple sources)
+- **结构化对话**：一次一个问题，逐步建立理解（来自奥布拉/超级大国的头脑风暴）
+- **基于阶段的验证**：具有明确检查点的系统过程（来自 obra/superpowers 系统调试）
+- **YAGNI 和 DRY 原则**：专注于最小可行解决方案，参考现有模式（来自 obra/superpowers 写作计划）
+- **生产级质量**：在设计过程中应用特定领域的最佳实践（来自 anthropics/vercel-labs 技能）
+- **权衡分析**：提出 2-3 种具有明确优点/缺点/最佳方案的方法（来自多个来源）
+- **硬门模式**：明确防止过早实施（来自奥布拉/超级大国）
+- **增量文档化**：将设计细节扩展到项目复杂性（来自多个来源）
 
-## Synthesized From
+## 合成自
 
-This skill integrates methodologies from these top-ranked skills:
+该技能集成了以下顶级技能的方法：
 
-1. **brainstorming** (obra/superpowers) - #40, 35.8K installs: Structured dialogue, HARD-GATE pattern
-2. **writing-plans** (obra/superpowers) - #53, 17.9K installs: YAGNI, DRY, bite-sized granularity
-3. **systematic-debugging** (obra/superpowers) - #49, 19.7K installs: Phase-based process, root cause methodology
-4. **frontend-design** (anthropics/skills) - #5, 112.3K installs: Production-grade quality focus
-5. **web-design-guidelines** (vercel-labs) - #3, 138.9K installs: Compliance checking pattern
-6. **vercel-react-best-practices** (vercel-labs) - #2, 180.5K installs: Best practices encapsulation
-7. **skill-creator** (anthropics/skills) - #34, 55.3K installs: Structured creation workflow
+1. **头脑风暴**（obra/superpowers）- #40，35.8K 安装：结构化对话，硬门模式
+2. **写作计划** (obra/superpowers) - #53，17.9K 安装：YAGNI，DRY，一口大小的粒度
+3. **系统调试** (obra/superpowers) - #49，19.7K 安装：基于阶段的过程，根本原因方法
+4. **前端设计**（人类学/技能）- #5，112.3K 安装：生产级质量焦点
+5. **web-设计-guidelines** (vercel-labs) - #3, 138.9K 安装：合规性检查模式
+6. **vercel-react-best-practices** (vercel-labs) - #2, 180.5K 安装：最佳实践封装
+7. **技能创造者**（人类学/技能）- #34，55.3K 安装：结构化创作工作流
 
-## When to Use
+## 何时使用
 
-- Planning new features or functionality
-- Making architecture decisions with trade-offs
-- Clarifying vague or incomplete requirements
-- Validating design approaches before development
-- Applying domain-specific best practices during design phase
+- 规划新特性或功能
+- 通过权衡做出架构决策
+- 澄清模糊或不完整的需求
+- 开发前验证设计方法
+- 在设计阶段应用特定领域的最佳实践
 
-## Process
+## 流程
 
-1. **Explore Context**: Review project state, constraints, existing patterns, applicable best practices
-2. **Clarify Through Dialogue**: Ask focused questions one at a time, prefer structured questions
-3. **Explore Alternatives**: Propose 2-3 approaches with trade-offs, lead with recommendation
-4. **Present Design**: Show design incrementally (scaled to complexity), validate each section
-5. **Document**: Write and commit validated design document with trade-offs analysis
+1. **探索背景**：审查项目状态、约束、现有模式、适用的最佳实践
+2. **通过对话澄清**：一次提出一个有针对性的问题，更喜欢结构化问题
+3. **探索替代方案**：提出 2-3 种权衡方法，以建议为主导
+4. **呈现设计**：逐步展示设计（按复杂程度缩放），验证每个部分
+5. **文档**：编写并提交已验证设计文档并进行权衡分析
 
-## Core Principles
+## 核心原则
 
-- **HARD-GATE**: No implementation before design approval (applies to ALL projects)
-- **YAGNI**: You Aren't Gonna Need It - ruthlessly remove unnecessary features
-- **DRY**: Don't Repeat Yourself - reference existing patterns
-- **One question at a time**: Build understanding incrementally
-- **Trade-off transparency**: Document alternatives considered and reasoning
+- **硬门**：设计批准之前不实施（适用于所有项目）
+- **YAGNI**：你不需要它 - 无情地删除不必要的功能
+- **DRY**：不要重复自己 - 参考现有模式
+- **一次一个问题**：逐步建立理解
+- **权衡透明度**：记录考虑的替代方案和推理
 
-## Installation
+## 安装
+
 
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill design-solution
 ```
 
-## Related Skills
 
-- `refine-skill-design`: Audit and improve skill definitions
-- `generate-standard-readme`: Create standardized project documentation
-- `bootstrap-docs`: Initialize project documentation structure
+## 相关技能
 
-## License
+- `refine-skill-design`：审核和改进技能定义
+- `generate-standard-readme`：创建标准化项目文档
+- `bootstrap-docs`：初始化项目文档结构
 
-MIT
+## 许可证
+
+麻省理工学院

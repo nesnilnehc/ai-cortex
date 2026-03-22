@@ -1,6 +1,7 @@
 ---
 name: review-testing
 description: "Review code for testing: test existence, coverage adequacy, test quality and structure, edge-case and error-path coverage, and test maintainability. Cognitive-only atomic skill; output is a findings list."
+description_zh: 审查测试：存在性、覆盖度、质量与结构、边界与错误路径覆盖、可维护性；认知原子技能。
 tags: [code-review]
 version: 1.0.0
 license: MIT
@@ -16,180 +17,181 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion
 ---
 
-# Skill: Review Testing
+# 技能（Skill）：复习测试
 
-## Purpose
+## 目的 (Purpose)
 
-Review code for **testing** concerns only. Do not define scope (diff vs codebase) or perform language/framework/security/architecture analysis; those are separate atomic skills. Emit a **findings list** in the standard format for aggregation. Focus on test existence and coverage, test quality and structure, test types and layering, edge-case and error-path coverage, and test maintainability.
-
----
-
-## Core Objective
-
-**Primary Goal**: Produce a testing-focused findings list covering test existence, coverage adequacy, test quality/structure, test types/layering, edge-case coverage, and test maintainability for the given code scope.
-
-**Success Criteria** (ALL must be met):
-
-1. ✅ **Testing-only scope**: Only testing dimensions are reviewed; no scope selection, language/framework conventions, security, performance, or architecture analysis performed
-2. ✅ **All six testing dimensions covered**: Test existence, coverage adequacy, quality/structure, types/layering, edge cases/error paths, and maintainability are assessed where relevant
-3. ✅ **Findings format compliant**: Each finding includes Location, Category (`cognitive-testing`), Severity, Title, Description, and optional Suggestion
-4. ✅ **High-risk gaps flagged**: Untested or poorly tested high-risk code paths (auth, payment, data mutation) are marked `critical` or `major`
-5. ✅ **Analysis from code only**: Test adequacy is assessed from code structure and available artifacts, without running tests or generating coverage reports
-
-**Acceptance Test**: Does the output contain a testing findings list covering all relevant dimensions with risk-appropriate severity ratings and actionable suggestions for improving test coverage and quality?
+仅审查 **测试** 问题的代码。不要定义范围（差异与代码库）或执行语言/框架/安全/架构分析；这些是单独的原子技能。以标准格式发出**结果列表**以进行聚合。重点关注测试的存在性和覆盖率、测试质量和结构、测试类型和分层、边缘情况和错误路径覆盖率以及测试可维护性。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-**This skill handles**:
+**首要目标**：生成一个以测试为中心的结果列表，涵盖给定代码范围的测试存在性、覆盖充分性、测试质量/结构、测试类型/分层、边缘情况覆盖率和测试可维护性。
 
-- Test existence checks (missing test files for key modules, services, public functions)
-- Coverage adequacy analysis (high-risk path coverage: auth, payment, data mutation)
-- Test quality and structure (arrange-act-assert, meaningful assertions, behavior-not-implementation)
-- Test types and layering (unit, integration, e2e balance; mock/stub isolation)
-- Edge case and error path coverage (boundary conditions, invalid inputs, failure modes)
-- Test maintainability (DRY without sacrificing readability, fixture organization, brittle test detection)
+**成功标准**（必须满足所有要求）：
 
-**This skill does NOT handle**:
+1. ✅ **仅测试范围**：仅审核测试维度；未执行范围选择、语言/框架约定、安全性、性能或架构分析
+2. ✅ **涵盖所有六个测试维度**：在相关的情况下评估测试存在性、覆盖范围充分性、质量/结构、类型/分层、边缘情况/错误路径和可维护性
+3. ✅ **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive测试”）、严重性、标题、描述和可选建议
+4. ✅ **标记高风险差距**：未经测试或测试不充分的高风险代码路径（身份验证、支付、数据突变）被标记为“关键”或“主要”
+5. ✅ **仅从代码进行分析**：从代码结构和可用产品评估测试充分性，无需运行测试或生成覆盖率报告
 
-- Scope selection (deciding which files/paths to analyze) — scope is provided by the caller
-- Running tests or generating coverage reports — use `automate-tests` for test execution
-- Language/framework-specific test conventions — use `review-dotnet`, `review-java`, `review-go`, etc.
-- Security, performance, or architecture review — use respective atomic skills
-- Full orchestrated review — use `review-code`
-
-**Handoff point**: When all testing findings are emitted, hand off to `review-code` for aggregation in an orchestrated review. For actually running tests, redirect to `automate-tests`.
+**验收**测试：输出是否包含涵盖所有相关维度的测试结果列表，以及适合风险的严重性评级和提高测试覆盖率和质量的可行建议？
 
 ---
 
-## Use Cases
+## 范围边界（范围边界）
 
-- **Orchestrated review**: Used as a cognitive step when [review-code](../review-code/SKILL.md) runs scope → language → framework → library → cognitive.
-- **Testing-focused review**: When the user wants only test health and coverage evaluated (e.g. before release, after major refactor, or during onboarding).
-- **Gap analysis**: Identify untested modules, missing test types (unit/integration/e2e), or low-quality tests that provide false confidence.
+**本技能负责**：
 
-**When to use**: When the task includes testing review. Scope and code scope are determined by the caller or user.
+- 测试存在性检查（缺少关键模块、服务、公共功能的测试文件）
+- 覆盖充分性分析（高风险路径覆盖：认证、支付、数据突变）
+- 测试质量和结构（安排-行动-断言、有意义的断言、行为而非实现）
+- 测试类型和分层（单元、集成、e2e 平衡；模拟/存根隔离）
+- 边缘情况和错误路径覆盖（边界条件、无效输入、故障模式）
+- 测试可维护性（DRY，不牺牲可读性、夹具组织、脆性测试检测）
 
----
+**本技能不负责**：
 
-## Behavior
+- 范围选择（决定要分析哪些文件/路径）——范围由调用者提供
+- 运行测试或生成覆盖率报告 - 使用“automate-tests”进行测试执行
+- 特定于语言/框架的测试约定 - 使用“review-dotnet”、“review-java”、“review-go”等。
+- 安全性、性能或架构审查——使用各自的原子技能
+- 全面精心策划的审核——使用“审核代码”
 
-### Scope of this skill
-
-- **Analyze**: Testing dimensions in the **given code scope** (files or diff provided by the caller). Do not decide scope; accept the code range as input.
-- **Do not**: Perform scope selection, language/framework conventions, security, performance, or architecture review. Focus only on testing.
-
-### Review checklist (testing dimension only)
-
-1. **Test existence**: Do key modules, services, and public functions have corresponding test files? Are there obvious gaps where critical logic has no tests at all?
-2. **Coverage adequacy**: Is test coverage sufficient for the risk level of the code? Are high-risk paths (authentication, payment, data mutation) tested? Note: if coverage reports or metrics are available, reference them; otherwise assess structurally.
-3. **Test quality and structure**: Are tests well-structured (arrange-act-assert or given-when-then)? Do test names clearly describe the scenario? Are assertions meaningful (not just "no exception thrown")? Do tests verify behavior rather than implementation details?
-4. **Test types and layering**: Is there an appropriate mix of unit, integration, and end-to-end tests? Are unit tests isolated (mocks/stubs for external dependencies)? Are integration tests testing real interactions where needed?
-5. **Edge cases and error paths**: Do tests cover boundary conditions, invalid inputs, empty/null cases, concurrency scenarios, and expected error responses? Are failure modes explicitly tested?
-6. **Test maintainability**: Are tests DRY without sacrificing readability? Are test fixtures and helpers well-organized? Are tests brittle (tightly coupled to implementation, excessive mocking, or reliant on execution order)? Is test data management clean (factories, builders, or fixtures rather than hardcoded magic values)?
-
-### Tone and references
-
-- **Professional and technical**: Reference specific locations (file:line or module). Emit findings with Location, Category, Severity, Title, Description, Suggestion. Use severity `major` or `critical` for untested high-risk code paths.
+**转交点**：发出所有测试结果后，将其移交给“审核代码”，以便在精心策划的审核中进行聚合。对于实际运行的测试，请重定向到“automate-tests”。
 
 ---
 
-## Input & Output
+## 使用场景（用例）
 
-### Input
+- **精心安排的审查**：当[review-code](../review-code/SKILL.md)运行范围→语言→框架→库→cognitive时用作cognitive步骤。
+- **以测试为中心的审查**：当用户只想评估测试运行状况和覆盖范围时（例如，在发布之前、主要重构之后或入职期间）。
+- **差距分析**：识别未经测试的模块、缺失的测试类型（单元/集成/e2e）或提供错误置信度的低质量测试。
 
-- **Code scope**: Files or directories (or diff) already selected by the user or scope skill. This skill does not decide scope; it reviews the provided code for testing only.
-
-### Output
-
-- Emit zero or more **findings** in the format defined in **Appendix: Output contract**.
-- Category for this skill is **cognitive-testing**.
+**何时使用**：当任务包括测试审核时。范围和代码范围由调用者或用户确定。
 
 ---
 
-## Restrictions
+## 行为（行为）
 
-### Hard Boundaries
+### 该技能的范围
 
-- **Do not** perform scope selection, language, framework, security, performance, or architecture review. Stay within testing dimensions.
-- **Do not** give conclusions without specific locations or actionable suggestions.
-- **Do not** require running tests or generating coverage reports. Analyze test adequacy from the code and available artifacts (e.g. existing coverage files). For actually running tests, use [automate-tests](../automate-tests/SKILL.md).
-- **Do not** penalize absence of tests for trivial code (simple getters, constants, generated code) unless it masks a real risk.
+- **分析**：测试**给定代码范围**中的维度（调用者提供的文件或差异）。不决定范围；接受代码范围作为输入。
+- **不要**：执行范围选择、语言/框架约定、安全性、性能或架构审查。仅专注于测试。
 
-### Skill Boundaries
+### 审查清单（仅测试维度）
 
-**Do NOT do these** (other skills handle them):
+1. **测试是否存在**：关键模块、服务、公共功能是否有对应的测试文件？是否存在明显的差距，关键逻辑根本没有经过测试？
+2. **覆盖率充分性**：测试覆盖率对于代码的风险级别是否足够？高风险路径（认证、支付、数据变异）是否经过测试？注意：如果有可用的覆盖率报告或指标，请参考它们；否则进行结构评估。
+3. **测试质量和结构**：测试结构是否良好（安排-执行-断言或给出-何时-然后）？测试名称是否清楚地描述了场景？断言有意义吗（不仅仅是“不抛出异常”）？测试是否验证行为而不是实现细节？
+4. **测试类型和分层**：是否有适当的单元、集成和端到端测试组合？单元测试是否隔离（外部依赖项的模拟/存根）？集成测试是否在需要时测试真实的交互？
+5. **边缘情况和错误路径**：测试是否涵盖边界条件、无效输入、空/空情况、并发场景和预期错误响应？是否明确测试了故障模式？
+6. **测试可维护性**：测试是否干燥而不牺牲可读性？测试装置和助手是否组织良好？测试是否脆弱（与实现紧密耦合、过度模拟或依赖执行顺序）？测试数据管理是否干净（工厂、构建器或固定装置而不是硬编码的魔法值）？
 
-- Do NOT select or define the code scope — scope is determined by the caller or `review-code`
-- Do NOT run or execute tests — use `automate-tests` for test execution
-- Do NOT perform language/framework-specific test convention analysis — use respective language skills
-- Do NOT perform security, performance, or architecture analysis — use respective atomic skills
+### 语气和参考
 
-**When to stop and hand off**:
-
-- When all testing findings are emitted, hand off to `review-code` for aggregation in an orchestrated review
-- When the user needs tests to actually run, redirect to `automate-tests`
-- When the user needs a full review (scope + language + cognitive), redirect to `review-code`
+- **专业和技术**：参考具体位置（文件：行或模块）。发出包含位置、类别、严重性、标题、描述、建议的结果。对于未经测试的高风险代码路径使用严重性“主要”或“关键”。
 
 ---
 
-## Self-Check
+## 输入与输出 (Input & Output)
 
-### Core Success Criteria
+### 输入（输入）
 
-- [ ] **Testing-only scope**: Only testing dimensions are reviewed; no scope selection, language/framework conventions, security, performance, or architecture analysis performed
-- [ ] **All six testing dimensions covered**: Test existence, coverage adequacy, quality/structure, types/layering, edge cases/error paths, and maintainability are assessed where relevant
-- [ ] **Findings format compliant**: Each finding includes Location, Category (`cognitive-testing`), Severity, Title, Description, and optional Suggestion
-- [ ] **High-risk gaps flagged**: Untested or poorly tested high-risk code paths (auth, payment, data mutation) are marked `critical` or `major`
-- [ ] **Analysis from code only**: Test adequacy is assessed from code structure and available artifacts, without running tests or generating coverage reports
+- **代码范围**：用户或范围技能已选择的文件或目录（或差异）。该技能不决定范围；它仅审查提供的代码以进行测试。
 
-### Process Quality Checks
+### 输出（输出）
 
-- [ ] Was only the testing dimension reviewed (no scope/language/security/architecture)?
-- [ ] Are test existence, coverage adequacy, quality/structure, types/layering, edge cases, and maintainability covered where relevant?
-- [ ] Is each finding emitted with Location, Category=cognitive-testing, Severity, Title, Description, and optional Suggestion?
-- [ ] Are critical gaps (untested high-risk code) clearly flagged and actionable?
-
-### Acceptance Test
-
-Does the output contain a testing findings list covering all relevant dimensions with risk-appropriate severity ratings and actionable suggestions for improving test coverage and quality?
+- 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
+- 此技能的类别是**cognitive测试**。
 
 ---
 
-## Examples
+## 限制（限制）
 
-### Example 1: Missing tests for critical module
+### 硬边界（Hard Boundaries）
 
-- **Input**: Payment processing module with no test files.
-- **Expected**: Emit a critical finding for missing tests on high-risk code; suggest creating unit tests for core payment logic and integration tests for gateway interactions. Category = cognitive-testing.
+- **不要**执行范围选择、语言、框架、安全、性能或架构审查。保持在测试范围内。
+- **不要**在没有具体地点或可行建议的情况下给出结论。
+- **不需要**需要运行测试或生成覆盖率报告。从代码和可用产品（例如现有的覆盖文件）中分析测试充分性。对于实际运行的测试，请使用 [automate-tests](../automate-tests/SKILL.md)。
+- **不要**惩罚缺乏对琐碎代码（简单的 getter、常量、生成代码）的测试，除非它掩盖了真正的风险。
 
-### Example 2: Tests exist but are shallow
+### 技能边界 (Skill Boundaries)
 
-- **Input**: Auth module has tests, but they only cover the happy path (valid login) and skip invalid credentials, expired tokens, rate limiting, and account lockout.
-- **Expected**: Emit a major finding for insufficient edge-case coverage; list specific scenarios to add. Category = cognitive-testing.
+**不要做这些**（其他技能可以处理它们）：
 
-### Edge case: Well-tested codebase
+- 不要选择或定义代码范围 - 范围由调用者或“审查代码”确定
+- 不要运行或执行测试 - 使用“automate-tests”进行测试执行
+- 不要执行特定于语言/框架的测试约定分析 - 使用相应的语言技能
+- 不要执行安全性、性能或架构分析——使用各自的原子技能
 
-- **Input**: Module has comprehensive unit, integration, and e2e tests with clear structure and good coverage.
-- **Expected**: Emit zero findings or a suggestion-level finding for minor improvements (e.g. test naming consistency). Do not invent issues.
+**何时停止并交接**：
+
+- 当所有测试结果发布后，将其移交给“审查代码”以在精心策划的审查中进行聚合
+- 当用户需要实际运行测试时，重定向到“automate-tests”
+- 当用户需要全面审查（范围+语言+cognitive）时，重定向到“审查代码”
 
 ---
 
-## Appendix: Output contract
+## 自检（Self-Check）
 
-Each finding MUST follow the standard findings format:
+### 核心成功标准
 
-| Element | Requirement |
+- [ ] **仅测试范围**：仅审查测试维度；未执行范围选择、语言/框架约定、安全性、性能或架构分析
+- [ ] **涵盖所有六个测试维度**：在相关的情况下评估测试存在性、覆盖范围充分性、质量/结构、类型/分层、边缘情况/错误路径和可维护性
+- [ ] **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive测试”）、严重性、标题、描述和可选建议
+- [ ] **标记高风险差距**：未经测试或测试不充分的高风险代码路径（身份验证、支付、数据突变）被标记为“关键”或“主要”
+- [ ] **仅从代码进行分析**：根据代码结构和可用产品评估测试充分性，无需运行测试或生成覆盖率报告
+
+### 流程质量检查
+
+- [ ] 是否仅审查了测试维度（没有范围/语言/安全/架构）？
+- [ ] 是否涵盖相关的测试存在性、覆盖范围充分性、质量/结构、类型/分层、边缘情况和可维护性？
+- [ ] 每个发现是否都包含位置、类别=cognitive测试、严重性、标题、描述和可选建议？
+- [ ] 关键差距（未经测试的高风险代码）是否已明确标记并可采取行动？
+
+### 验收测试
+
+输出是否包含涵盖所有相关维度的测试结果列表，以及适合风险的严重性评级和提高测试覆盖率和质量的可行建议？
+
+---
+
+## 示例（示例）
+
+### 示例 1：缺少关键模块的测试
+
+- **输入**：没有测试文件的支付处理模块。
+- **预期**：针对高风险代码缺失测试发出关键发现；建议为核心支付逻辑创建单元测试，并为网关交互创建集成测试。类别 = cognitive测试。
+
+### 示例 2：测试存在但很浅
+
+- **输入**：身份验证模块有测试，但它们仅涵盖快乐路径（有效登录）并跳过无效凭据、过期令牌、速率限制和帐户锁定。
+- **预期**：发布边缘情况覆盖不足的重大发现；列出要添加的具体场景。类别 = cognitive测试。
+
+### 边缘情况：经过充分测试的代码库
+
+- **输入**：模块具有全面的单元、集成和端到端测试，结构清晰，覆盖范围广。
+- **预期**：发出零结果或建议级别的结果以进行细微改进（例如测试命名一致性）。不要发明问题。
+
+---
+
+## 附录：输出合约
+
+每项调查结果必须遵循标准调查结果格式：
+
+|元素|要求 |
 | :--- | :--- |
-| **Location** | `path/to/file.ext` or module name (optional line or range). |
-| **Category** | `cognitive-testing`. |
-| **Severity** | `critical` \| `major` \| `minor` \| `suggestion`. |
-| **Title** | Short one-line summary. |
-| **Description** | 1–3 sentences. |
-| **Suggestion** | Concrete fix or improvement (optional). |
+| **位置** | `path/to/file.ext` 或模块名称（可选行或范围）。 |
+| **类别** | “cognitive测试”。 |
+| **严重性** | `关键` \| `主要` \| `次要` \| `建议`。 |
+| **标题** |简短的一行摘要。 |
+| **描述** | 1-3 句话。 |
+| **建议** |具体修复或改进（可选）。 |
 
-Example:
+示例：
+
 
 ```markdown
 - **Location**: `src/payment/processor.go`

@@ -1,85 +1,85 @@
-# Registry Sync Contract
+# 注册表同步契约
 
-Status: MANDATORY  
-Version: 1.0.0  
-Scope: manifest.json, skills/INDEX.md, skills/*/SKILL.md, scenario-map, marketplace.json.
+**状态**：MANDATORY  
+**版本**：1.0.0  
+**范围**：manifest.json、skills/INDEX.md、skills/*/SKILL.md、intent-routing、marketplace.json
 
-**Changelog**:
+**变更记录**：
 
-- v1.0.0 (2026-03-06): Initial contract; defines synchronization rules enforced by verify-registry.mjs.
-
----
-
-## 1. Purpose
-
-This contract specifies how the skill registry artifacts must stay consistent. `scripts/verify-registry.mjs` enforces these rules. `skills/INDEX.md` is generated from manifest and SKILL frontmatter.
+- v1.0.0 (2026-03-06)：初版；定义由 verify-registry.mjs 执行的同步规则。
 
 ---
 
-## 2. Canonical Sources
+## 1. 目的
 
-| Artifact | Path | Role |
+本契约规定技能注册表制品须保持的一致性。`scripts/verify-registry.mjs` 强制执行这些规则。`skills/INDEX.md` 由 manifest 与 SKILL frontmatter 生成。
+
+---
+
+## 2. 权威来源
+
+| 制品 | 路径 | 角色 |
 | :--- | :--- | :--- |
-| manifest.json | repo root | Executable capability list; `capabilities[].name` and `capabilities[].path` |
-| skills/INDEX.md | skills/ | Generated human-readable catalog; table rows with name, tags, version, stability, purpose |
-| skills/{name}/SKILL.md | skills/ | Per-skill definition; YAML frontmatter with name, version, tags |
-| skills/scenario-map.json | skills/ | Source of truth for scenario-map.md; primary/optional skill refs |
-| skills/scenario-map.md | skills/ | Generated from scenario-map.json; scenario-to-skill mapping |
-| .claude-plugin/marketplace.json | repo root | Claude plugin subset; `plugins[].skills[]` |
+| manifest.json | 仓库根 | 可执行能力列表；`capabilities[].name` 与 `capabilities[].path` |
+| skills/INDEX.md | skills/ | 生成的人工可读目录；含 name、tags、version、stability、purpose 的表行 |
+| skills/{name}/SKILL.md | skills/ | 单技能定义；含 name、version、tags 的 YAML frontmatter |
+| skills/intent-routing.json | skills/ | intent-routing.md 的源；primary/optional 技能引用 |
+| skills/intent-routing.md | skills/ | 由 intent-routing.json 生成；意图→技能映射 |
+| .claude-plugin/marketplace.json | 仓库根 | Claude 插件子集；`plugins[].skills[]` |
 
 ---
 
-## 3. Sync Rules
+## 3. 同步规则
 
 ### 3.1 manifest.json ↔ skills/
 
-- Every `manifest.capabilities[].name` must have a directory `skills/{name}/` containing `SKILL.md`.
-- Every `manifest.capabilities[].path` must equal `skills/{name}/SKILL.md`.
-- Every directory `skills/{name}/` that contains `SKILL.md` must appear in `manifest.capabilities`.
+- 每个 `manifest.capabilities[].name` 须有目录 `skills/{name}/` 且包含 `SKILL.md`。
+- 每个 `manifest.capabilities[].path` 须等于 `skills/{name}/SKILL.md`。
+- 每个包含 `SKILL.md` 的目录 `skills/{name}/` 须出现在 `manifest.capabilities` 中。
 
 ### 3.2 skills/INDEX.md ↔ manifest.json
 
-- Generated INDEX must contain every skill in manifest.json.
-- Generated INDEX must not contain skills missing from manifest.json.
-- No duplicate skill names in generated skills/INDEX.md.
+- 生成的 INDEX 须包含 manifest.json 中的每个技能。
+- 生成的 INDEX 不得包含 manifest.json 中不存在的技能。
+- 生成的 skills/INDEX.md 中不得有重复技能名。
 
 ### 3.3 skills/INDEX.md ↔ skills/{name}/SKILL.md
 
-- For each INDEX row, the corresponding SKILL.md frontmatter must have:
-  - `name` equal to the skill name (matches directory name).
-  - `version` equal to the version in INDEX.
-  - `tags` equal (order-independent) to the tags in INDEX.
-  - `description` used as the Purpose source in INDEX.
+- 对于每行 INDEX，对应 SKILL.md 的 frontmatter 须有：
+  - `name` 等于技能名（与目录名一致）。
+  - `version` 等于 INDEX 中的版本。
+  - `tags` 与 INDEX 中的 tags 相等（顺序无关）。
+  - Purpose 来源：`description_zh`（若存在）或 `description`；当项目有 `docs/LANGUAGE_SCHEME.md` 时，优先 `description_zh`。
 
-### 3.4 scenario-map.md / scenario-map.json
+### 3.4 intent-routing.md / intent-routing.json
 
-- Every skill referenced in scenario-map.md (links to `./{name}/SKILL.md`) must exist in manifest and INDEX.
-- Every skill referenced in scenario-map.json `scenarios[].primary` or `scenarios[].optional` must exist in manifest and INDEX.
+- intent-routing.md 中引用的每个技能（指向 `./{name}/SKILL.md`）须存在于 manifest 与 INDEX。
+- intent-routing.json 的 `intents[].primary` 或 `intents[].optional` 中引用的每个技能须存在于 manifest 与 INDEX。
 
 ### 3.5 marketplace.json
 
-- Every skill path in `plugins[].skills[]` must resolve to an existing skill in manifest and INDEX.
+- `plugins[].skills[]` 中的每个技能路径须解析为 manifest 与 INDEX 中存在的技能。
 
 ---
 
-## 4. Verification
+## 4. 验证
 
-Run from repo root:
+在仓库根运行：
 
 ```bash
 node scripts/verify-registry.mjs
 ```
 
-Before running, `generate-skills-docs.mjs` regenerates INDEX.md, skillgraph.md, and scenario-map.md from sources. The script exits 1 if any sync rule is violated.
+运行前，`generate-skills-docs.mjs` 会从源重新生成 INDEX.md、skillgraph.md 与 intent-routing.md。若有同步规则违反，脚本以 1 退出。
 
 ---
 
-## 5. Update Procedure
+## 5. 更新流程
 
-When adding a new skill:
+新增技能时：
 
-1. Create `skills/{name}/SKILL.md` with valid frontmatter.
-2. Add the capability to `manifest.json` capabilities array.
-3. Regenerate `skills/INDEX.md`.
-4. Optionally add to scenario-map.json and marketplace.json.
-5. Run `node scripts/verify-registry.mjs` to confirm sync.
+1. 创建带有效 frontmatter 的 `skills/{name}/SKILL.md`。
+2. 将能力加入 `manifest.json` 的 capabilities 数组。
+3. 重新生成 `skills/INDEX.md`。
+4. 可选：加入 intent-routing.json 与 marketplace.json。
+5. 运行 `node scripts/verify-registry.mjs` 确认同步。

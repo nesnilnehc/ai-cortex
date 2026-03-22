@@ -1,45 +1,45 @@
-# Review Requirements
+# 审核要求
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Reviews an existing requirements document for quality across six dimensions: problem statement clarity, testability of needs (acceptance criteria + R-NN IDs), constraint inventory completeness, scope boundedness (V1 boundary), requirement ID format and uniqueness, and open questions with resolution plans. Emits a findings list in the standard format so the author can fix gaps before handing off to `design-solution`.
+从六个维度审查现有的质量需求文档：问题陈述的清晰度、需求的可测试性（验收标准 + R-NN ID）、约束清单完整性、范围界限（V1 边界）、需求 ID 格式和唯一性以及带有解决计划的开放问题。以标准格式发出结果列表，以便作者可以在移交给“设计解决方案”之前修复差距。
 
-## When to use
+## 何时使用
 
-- Pre-design gate: verify a requirements document before `design-solution` is invoked.
-- Collaborative review: a team member authored requirements; a second party assesses quality independently.
-- Imported requirements: requirements came from an external tool (Confluence, Notion, Jira) and need quality assessment before use in this workflow.
-- Post-`analyze-requirements` validation: independent check that all success criteria were met.
+- 预设计门：在调用“设计解决方案”之前验证需求文档。
+- 协作评审：团队成员撰写需求；第二方独立评估质量。
+- 导入需求：需求来自外部工具（Confluence、Notion、Jira），在此工作流程中使用之前需要进行质量评估。
+-“分析-需求”后验证：独立检查是否满足所有成功标准。
 
-## Inputs
+## 输入
 
-- Requirements document (path, e.g. `docs/requirements-planning/<topic>.md`, or raw content).
-- Optional project context or downstream skill (e.g. "this feeds design-solution").
+- 需求文档（路径，例如 `docs/requirements-planning/<topic>.md`，或原始内容）。
+- 可选的项目背景或下游技能（例如“这提供了设计解决方案”）。
 
-## Outputs
+## 输出
 
-- Findings list: Location (section heading or R-NN ID), Category=`requirements-quality`, Severity, Title, Description, optional Suggestion.
-- Zero findings → confirmation that document is ready for `design-solution`.
+- 结果列表：位置（章节标题或 R-NN ID）、类别=`需求-质量`、严重性、标题、描述、可选建议。
+- 零发现→确认文档已准备好用于“设计解决方案”。
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension        | Score |
-| :--------------- | :---- |
-| agent_native     | 5     |
-| cognitive        | 4     |
-| composability    | 5     |
-| stance           | 5     |
-| **asqm_quality** | 19    |
+| 维度 | 分数 |
+| ：-------------- | :---- |
+|agent_native | 5 |
+|cognitive| 4 |
+|composability | 5 |
+|stance| 5 |
+| **asqm_quality** | 19 | 19
 
-## Ecosystem
+## 生态
 
-| Field                                 | Value                                        |
-| :------------------------------------ | :------------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:analyze-requirements   |
-| market_position                       | differentiated                               |
+|领域 |价值|
+| :------------------------------------ | ：-------------------------------------------------------- |
+|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:分析需求 |
+|市场地位 |差异化|
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for checklist, restrictions, and output contract.
+请参阅 [SKILL.md](./SKILL.md) 了解清单、限制和输出合同。

@@ -1,45 +1,45 @@
-# Refine Skill Design
+# 完善技能设计
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Audits and refactors existing SKILLs. Applies meta-audit model: intent, logic, constraints, examples. Aligns to spec, improves robustness and scenario coverage. For drafts and quality fixes; not for creating new skills from scratch.
+审核和重构现有技能。应用元审计模型：意图、逻辑、约束、示例。符合规范，提高稳健性和场景覆盖范围。对于草稿和质量修复；不是为了从头开始创造新技能。
 
-## When to use
+## 何时使用
 
-- New skill onboarding: expert review after draft generation
-- Quality fixes: align logic when behavior is inconsistent
-- Consistency audit: match tagging and naming in INDEX.md
-- Upgrade: turn simple formatting into full Agent capability
+- 新技能培训：草稿生成后的专家评审
+- 质量修复：行为不一致时调整逻辑
+- 一致性审核：匹配 INDEX.md 中的标记和命名
+- 升级：将简单的格式化变成完整的Agent功能
 
-## Inputs
+## 输入
 
-- SKILL Markdown document or rough draft
+- SKILL Markdown 文档或草稿
 
-## Outputs
+## 输出
 
-- Optimized SKILL (written to fixed temp `SKILL.refined.md` or new-per-run `SKILL.refined.YYYYMMDD.md`; never overwrites original)
-- Diff summary (what changed and why)
-- Version suggestion (SemVer)
+- 优化SKILL（写入固定临时“SKILL.refined.md”或每次运行新的“SKILL.refined.YYYYMMDD.md”；永远不会覆盖原始文件）
+- 差异摘要（发生了什么变化以及原因）
+- 版本建议（SemVer）
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension        | Score |
-| :--------------- | :---- |
-| agent_native     | 4     |
-| cognitive        | 5     |
-| composability    | 5     |
-| stance           | 5     |
-| **asqm_quality** | 19    |
+| 维度 | 分数 |
+| ：-------------- | :---- |
+|agent_native | 4 |
+|cognitive| 5 |
+|composability | 5 |
+|stance| 5 |
+| **asqm_quality** | 19 | 19
 
-## Ecosystem
+## 生态
 
-| Field                                 | Value                                                                    |
-| :------------------------------------ | :----------------------------------------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:curate-skills, nesnilnehc/ai-cortex:discover-skills |
-| market_position                       | differentiated                                                           |
+|领域|价值|
+| :------------------------------------ | ：------------------------------------------------------------------------------------ |
+|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:策划技能，nesnilnehc/ai-cortex:发现技能 |
+|市场地位 |差异化|
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for complete behavior, restrictions, and examples.
+请参阅 [SKILL.md](./SKILL.md) 了解完整的行为、限制和示例。
