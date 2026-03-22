@@ -31,8 +31,8 @@
 
 | 技能 | 问题 | 说明 |
 | :--- | :--- | :--- |
-| define-mission, define-vision, define-north-star | 技能名 | 文中 `设计战略目标`、`define-里程碑` 等应为 `design-strategic-goals`、`define-milestones`（kebab-case） |
-| design-strategic-goals, define-milestones, define-roadmap | 同上 | 技能间引用应使用英文标识符 |
+| define-mission, define-vision, define-north-star | 技能名 | 文中 `设计战略目标`、`define-里程碑` 等应为 `design-strategic-goals`、`define-roadmap`（kebab-case） |
+| design-strategic-goals, define-roadmap | 同上 | 技能间引用应使用英文标识符 |
 | define-strategic-pillars | 同上 | 转交说明中的技能名 |
 
 ### 低优先级（语气与可读性）

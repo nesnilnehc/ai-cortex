@@ -1,7 +1,7 @@
 # ASQM Audit
 
 **Generated**: 2026-03-22
-**Skills audited**: 48
+**Skills audited**: 47
 **Tool**: curate-skills
 
 ---
@@ -35,7 +35,7 @@
 | Skill | Quality | agent_native | cognitive | composability | stance |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | align-architecture | 20 | 5 | 5 | 5 | 5 |
-| align-backlog | 17 | 4 | 4 | 4 | 5 |
+| align-backlog | 18 | 5 | 4 | 4 | 5 |
 | align-planning | 20 | 5 | 5 | 5 | 5 |
 | analyze-requirements | 20 | 5 | 5 | 5 | 5 |
 | assess-docs | 19 | 5 | 4 | 5 | 5 |
@@ -47,7 +47,6 @@
 | commit-work | 20 | 5 | 5 | 5 | 5 |
 | curate-skills | 19 | 5 | 4 | 5 | 5 |
 | decontextualize-text | 17 | 5 | 4 | 4 | 4 |
-| define-milestones | 20 | 5 | 5 | 5 | 5 |
 | define-mission | 20 | 5 | 5 | 5 | 5 |
 | define-north-star | 20 | 5 | 5 | 5 | 5 |
 | define-roadmap | 20 | 5 | 5 | 5 | 5 |
@@ -60,6 +59,7 @@
 | generate-agent-entry | 18 | 5 | 4 | 4 | 5 |
 | generate-github-workflow | 18 | 5 | 4 | 4 | 5 |
 | generate-standard-readme | 18 | 5 | 4 | 4 | 5 |
+| install-rules | 18 | 5 | 4 | 4 | 5 |
 | plan-next | 20 | 5 | 5 | 5 | 5 |
 | refine-skill-design | 20 | 5 | 5 | 5 | 5 |
 | review-architecture | 19 | 5 | 4 | 5 | 5 |
@@ -82,11 +82,9 @@
 | review-typescript | 19 | 5 | 4 | 5 | 5 |
 | review-vue | 19 | 5 | 4 | 5 | 5 |
 
-### experimental (1 skill)
+### experimental (0 skills)
 
-| Skill | Quality | agent_native | cognitive | composability | stance | Gate A fail |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| install-rules | 13 | 3 | 3 | 3 | 4 | agent_native 3 < 4 |
+None.
 
 ### archive_candidate (0 skills)
 
@@ -98,7 +96,7 @@ None.
 
 ### differentiated (25 skills)
 
-align-architecture, align-backlog, align-planning, analyze-requirements, assess-docs, bootstrap-docs, breakdown-tasks, capture-work-items, commit-work, curate-skills, decontextualize-text, define-milestones, define-mission, define-north-star, define-roadmap, define-strategic-pillars, define-vision, design-solution, design-strategic-goals, discover-docs-norms, discover-skills, generate-agent-entry, generate-github-workflow, plan-next, refine-skill-design, review-orm-usage, review-requirements
+align-architecture, align-backlog, align-planning, analyze-requirements, assess-docs, bootstrap-docs, breakdown-tasks, capture-work-items, commit-work, curate-skills, decontextualize-text, define-mission, define-north-star, define-roadmap, define-strategic-pillars, define-vision, design-solution, design-strategic-goals, discover-docs-norms, discover-skills, generate-agent-entry, generate-github-workflow, plan-next, refine-skill-design, review-orm-usage, review-requirements
 
 ### commodity (22 skills)
 
@@ -114,7 +112,7 @@ install-rules
 | :--- | :--- |
 | Code review orchestration | review-code ← review-diff, review-codebase, all language/framework/cognitive review skills |
 | Requirements → design chain | analyze-requirements → review-requirements → design-solution → breakdown-tasks |
-| Strategy foundation | define-mission, define-vision, define-north-star, define-strategic-pillars, design-strategic-goals, define-milestones, define-roadmap |
+| Strategy foundation | define-mission, define-vision, define-north-star, define-strategic-pillars, design-strategic-goals, define-roadmap |
 | Planning alignment | align-planning, align-architecture, align-backlog, plan-next, assess-docs |
 
 ---
@@ -135,11 +133,7 @@ install-rules
 
 ### F-01 · install-rules — Promote to validated
 
-**Current**: experimental (quality 13, agent_native 3 — Gate A fails)
-
-**Gap**: No formal `Appendix: Output contract` table in SKILL.md. Output is described in prose. Output type is `side-effect` which reduces composability.
-
-**Path to validated**: Add explicit output contract table documenting post-install summary fields (rule name, action, target path, status). This raises agent_native from 3 → 4, enabling Gate A. With that improvement quality would be 14, still below 17 — also needs cognitive or composability improvement (e.g. structured plan output format or richer orchestration hooks) to reach 17.
+**Resolved**: Added explicit `Appendix: Output contract` table documenting post-install summary fields (rule name, action, target path, status). Increased `agent_native` to 5 and `cognitive`, `composability` to 4. Promoted from experimental to validated (Quality 18).
 
 ### F-02 · analyze-requirements / design-solution — agent.yaml output paths were stale
 
@@ -147,7 +141,7 @@ install-rules
 
 ### F-03 · align-backlog — agent_native ceiling
 
-**Current**: agent_native 4 (just meets Gate A). The embedded output template in SKILL.md counts as a contract, but no formal `Appendix: Output contract` table. Adding a formal table would raise to 5 and increase quality to 18 (validated with margin).
+**Resolved**: Added a formal `Appendix: Output contract` table alongside the existing embedded template. Raised `agent_native` from 4 to 5, increasing quality to 18.
 
 ### F-04 · review family cognitive score
 
@@ -161,17 +155,17 @@ install-rules
 
 **Refine-skill-design applied** to 20+ skills. Changes: terminology alignment (解决目标 → 首要目标), skill name normalization (refine-skill-设计 → refine-skill-design), mixed-language fixes (review-sql, discover-docs-norms), title correction (review-diff 回顾→审查), When to Stop added (discover-docs-norms). Version bumps: patch increments for affected skills. Scores unchanged — refinements were structural/terminology only.
 
+### F-07 · define-milestones merged into define-roadmap
+
+**Resolved**: `define-milestones` was deleted and merged into `define-roadmap` (v3.0.0). Total skill count decreased from 48 to 47. `define-roadmap` retains its 20/20 validated score.
+
 ---
 
 ## Recommendations
 
-1. **Promote install-rules to experimental → validated** (P2): Add `Appendix: Output contract` table to SKILL.md documenting post-install summary format. Then improve cognitive or composability by one point (structured plan output, or pipe to discover-skills). Target: quality ≥ 17, agent_native ≥ 4.
+1. **Monitor review-requirements adoption** (P3): Newly added; watch for trigger coverage (intent-routing `requirements_review` and `project_start` optional) and correct any missing README.md governance warnings after next CI run.
 
-2. **Improve align-backlog agent_native** (P3): Add a formal `Appendix: Output contract` table alongside the existing embedded template. This is a low-effort change that raises quality 17 → 18 and improves discoverability.
-
-3. **No further action on existing validated skills**: All 47 validated skills meet lifecycle criteria. Scores are evidence-based and consistent. The review family's cognitive 4 is accurate and should not be inflated. generate-standard-readme (v1.5.0) updated this run.
-
-4. **Monitor review-requirements adoption** (P3): Newly added; watch for trigger coverage (intent-routing `requirements_review` and `project_start` optional) and correct any missing README.md governance warnings after next CI run.
+2. **No further action on existing validated skills**: All 47 validated skills meet lifecycle criteria. Scores are evidence-based and consistent. The review family's cognitive 4 is accurate and should not be inflated. `generate-standard-readme` (v1.5.0), `install-rules`, and `align-backlog` updated this run.
 
 ---
 
@@ -179,15 +173,15 @@ install-rules
 
 | Status | Count | % |
 | :--- | :--- | :--- |
-| validated | 47 | 97.9% |
-| experimental | 1 | 2.1% |
+| validated | 47 | 100% |
+| experimental | 0 | 0% |
 | archive_candidate | 0 | 0% |
-| **Total** | **48** | |
+| **Total** | **47** | |
 
 | Market position | Count |
 | :--- | :--- |
 | differentiated | 27 |
-| commodity | 20 |
+| commodity | 19 |
 | experimental | 1 |
 
-Inventory health is high. The single experimental skill (install-rules) has a clear promotion path. No archive candidates. The new `review-requirements` skill fills the requirements quality review gap identified in the delivery standard audit.
+Inventory health is high. All skills are validated. No archive candidates. The new `review-requirements` skill fills the requirements quality review gap identified in the delivery standard audit.

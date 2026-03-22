@@ -176,3 +176,29 @@ output_schema:
 - 解析`owner/repo`和子路径。
 - 发现规则，为 Trae 托管块构建计划，确认，然后写入托管块。
 - 报告已安装的规则和目标文件路径。
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+当此技能运行完毕后，必须生成如下格式的安装后摘要报告（Side-effect report），以便代理或后续步骤能解析安装的规则以及是否有跳过/冲突：
+
+| 字段 | 类型 | 描述 |
+| :--- | :--- | :--- |
+| `rule_name` | String | 安装或处理的规则名称 |
+| `action` | String | 执行的操作 (`created` \| `skipped` \| `conflict` \| `updated`) |
+| `target_path` | String | 规则写入的目标路径 (如 `.cursor/rules/xxx.mdc` 或 `.trae/project_rules.md`) |
+| `status` | String | 最终状态 (`success` \| `failed` \| `pending_confirmation`) |
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+当此技能运行完毕后，必须生成如下格式的安装后摘要报告（Side-effect report），以便代理链能解析安装的规则以及是否有跳过/冲突：
+
+| 字段 | 类型 | 描述 |
+| :--- | :--- | :--- |
+| `rule_name` | String | 安装或处理的规则名称 |
+| `action` | String | 执行的操作 (`created` \| `skipped` \| `conflict` \| `updated`) |
+| `target_path` | String | 规则写入的目标路径 (如 `.cursor/rules/xxx.mdc`) |
+| `status` | String | 最终状态 (`success` \| `failed` \| `pending_confirmation`) |

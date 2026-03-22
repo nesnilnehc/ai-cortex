@@ -31,7 +31,7 @@ output_schema:
 - **愿景**：我们旨在创造的长期未来状态（使用 `define-vision`）。
 - **北极星**：表示交付价值的单个指标（使用 `define-north-star`）。
 - **战略目标**：实现愿景的 3-5 个结果（使用 `design-strategic-goals`）。
-- **里程碑**：执行的阶段检查点（使用 `define-milestones`）。
+- **里程碑**：执行的阶段检查点（使用 `define-roadmap`）。
 
 ---
 
@@ -70,7 +70,7 @@ output_schema:
 - 定义未来状态（使用 `define-vision`）。
 - 定义指标或北极星（使用 `define-north-star`）。
 - 定义战略目标（使用 `design-strategic-goals`）。
-- 定义里程碑（使用 `define-milestones`）。
+- 定义里程碑（使用 `define-roadmap`）。
 - 描述实施、功能或路线图（使用需求、设计或规划技巧）。
 - 在使命宣言中包含流行语、实施语言或内部术语。
 
@@ -154,7 +154,7 @@ output_schema:
 - **愿景**：长期的未来状态 → Use `define-vision`
 - **北极星指标**：单关键指标 → Use `define-north-star`
 - **战略目标**：3-5 个结果 → Use `design-strategic-goals`
-- **里程碑**：阶段检查点 → Use `define-milestones`
+- **里程碑**：阶段检查点 → Use `define-roadmap`
 - **需求或路线图** → Use `analyze-requirements`、项目规划或 `bootstrap-docs`
 
 **何时停止并交接**：

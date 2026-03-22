@@ -159,7 +159,7 @@ Measurable Metric (North Star)
 ### When to Stop（交接）
 
 - 用户说「已批准」或同等 → 北极星完成；交接至 `design-strategic-goals`。
-- 用户询问目标或里程碑 → 交接至 `design-strategic-goals` 或 `define-milestones`。
+- 用户询问目标或里程碑 → 交接至 `design-strategic-goals` 或 `define-roadmap`。
 
 ### 技能边界 (Skill Boundaries)（避免重叠）
 
@@ -168,7 +168,7 @@ Measurable Metric (North Star)
 - **使命**：为何存在 → 使用 `define-mission`
 - **愿景**：构建何种未来 → 使用 `define-vision`
 - **战略目标**：3–5 个成果 → 使用 `design-strategic-goals`
-- **里程碑**：阶段检查点 → 使用 `define-milestones`
+- **里程碑**：阶段检查点 → 使用 `define-roadmap`
 
 ---
 

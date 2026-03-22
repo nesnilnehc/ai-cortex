@@ -151,7 +151,6 @@
   - [define-north-star](./define-north-star/SKILL.md)
   - [define-strategic-pillars](./define-strategic-pillars/SKILL.md)
   - [design-strategic-goals](./design-strategic-goals/SKILL.md)
-  - [define-milestones](./define-milestones/SKILL.md)
   - [define-roadmap](./define-roadmap/SKILL.md)
   - [align-backlog](./align-backlog/SKILL.md)
 - **Short triggers**：north star, define mission, define vision, strategic goals, strategic pillars, define milestones, strategy, roadmap, align backlog, backlog alignment

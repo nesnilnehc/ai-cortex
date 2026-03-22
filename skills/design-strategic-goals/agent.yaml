@@ -22,7 +22,7 @@ overlaps_with:
   - nesnilnehc/ai-cortex:define-mission
   - nesnilnehc/ai-cortex:define-vision
   - nesnilnehc/ai-cortex:define-north-star
-  - nesnilnehc/ai-cortex:define-milestones
+  - nesnilnehc/ai-cortex:define-roadmap
   - nesnilnehc/ai-cortex:align-planning
 
 market_position: differentiated

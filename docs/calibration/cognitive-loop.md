@@ -14,8 +14,8 @@
 | vision | docs/project-overview/vision.md | 存在 | present |
 | north-star | docs/project-overview/north-star.md | 存在 | present |
 | strategic-goals | docs/project-overview/strategic-goals.md | 存在 | present |
-| milestones | docs/process-management/milestones.md | 存在 | present |
-| roadmap | docs/designs/2026-03-02-ai-cortex-evolution-roadmap.md | 存在 | present |
+| roadmap | docs/process-management/roadmap.md | 存在 | present |
+| evolution-roadmap | docs/designs/2026-03-02-ai-cortex-evolution-roadmap.md | 存在 | present |
 | backlog | docs/process-management/backlog.md、backlog/*.md | 存在 | present |
 
 **结论**：所有核心输入源就绪，进入阶段 0.5 与 1。
@@ -53,8 +53,7 @@
   - Goal: strong — README.md、mission.md、vision.md、north-star.md、strategic-goals.md
   - Requirements: strong — requirements-planning/README.md、promotion-and-iteration.md
   - Architecture: strong — architecture/README.md、adrs/001-io-contract-protocol.md
-  - Milestones: strong — milestones.md，M1–M4 已关闭
-  - Roadmap: strong — 2026-03-02-ai-cortex-evolution-roadmap.md
+  - Roadmap: strong — roadmap.md（Phase 1 M1–M4 已关闭）、evolution-roadmap.md
   - Backlog: strong — backlog.md 索引、backlog/*.md
 - **总体就绪度**：strong
 

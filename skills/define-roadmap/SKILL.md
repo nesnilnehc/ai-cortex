@@ -1,49 +1,50 @@
 ---
 name: define-roadmap
-description: Translate strategic goals and milestones into a time-bound roadmap of initiatives or themes. Produces a roadmap document that bridges strategy and delivery planning; persisted to docs.
-description_zh: 将战略目标与里程碑转化为有时间约束的路线图（主题或计划）；连接战略与交付规划。
-tags: [documentation, workflow]
-version: 1.0.0
+description: Derive a strategic roadmap from goals using milestone checkpoints, strategic bets, success metrics, and promotion criteria. Produces a decision-grade roadmap document.
+description_zh: 从战略目标推导路线图，包含里程碑、关键举措、成功指标与推进条件，产出可用于决策的路线图文档。
+tags: [documentation, strategy, workflow]
+version: 3.0.0
 license: MIT
 recommended_scope: both
 metadata:
   author: ai-cortex
-triggers: [define roadmap, roadmap, strategic roadmap]
+triggers: [define roadmap, roadmap, milestones, strategic roadmap, phase planning]
 input_schema:
   type: free-form
-  description: Strategic goals and milestones (documents or paths); optional initiatives; project context; time horizon
+  description: Strategic goals (document or path); project context; optional vision/NSM; time horizon or phase preference
 output_schema:
   type: document-artifact
-  description: Roadmap document with initiatives/themes and optional timeframes; written to docs/process-management/roadmap.md (or project norms)
+  description: Decision-grade roadmap document with milestones, strategic bets, success metrics, and promotion criteria
   artifact_type: roadmap
   path_pattern: docs/process-management/roadmap.md
+  path_alt: docs/process-management/milestones.md
   lifecycle: living
 ---
 
-# 技能 (Skill)：定义路线图
+# 技能 (Skill)：定义路线图 (Production v3.0.0)
 
 ## 目的 (Purpose)
 
-将**战略目标**和**里程碑**转化为**有时限的路线图**的举措或主题（具有可选的时间范围）。制作连接战略和交付规划的单一路线图文档。没有定义使命、愿景、北极星、目标或里程碑；不创建待办项目。
+从战略目标推导"可驱动决策的路线图"，而非任务列表。路线图不是里程碑集合，而是**路径表达**。
 
 ---
 
 ## 核心目标（Core Objective）
 
-**首要目标**：生成用户确认的路线图文档，将目标和里程碑映射到具有可选时间范围的举措或主题，并坚持项目商定的路径。
+**首要目标**：生成用户确认的可驱动决策的路线图文档，每个阶段明确包含里程碑、关键举措、成功指标与推进条件。
 
 **成功标准**（必须满足所有要求）：
 
-1. ✅ **路线图记录**：列出计划或主题，每个计划或主题都有名称和简短范围；可选季度或阶段。
-2. ✅ **可追溯性**：每个路线图项目都映射到至少一个里程碑或战略目标；映射在文档中是明确的。
-3. ✅ **有时限（可选）**：如果提供了时间范围，路线图会反映它；否则按结果排序是可以接受的。
-4. ✅ **用户确认**：用户明确批准（例如“已批准”、“看起来不错”、“继续”或同等内容）。
-5. ✅ **文档持久化**：写入商定的路径（默认`docs/process-management/路线图.md`或按照项目规范）。
-6. ✅ **尊重范围**：路线图文档中没有待办事项、需求或任务清单。
+1. ✅ **核心模型完整**：每个阶段必须包含里程碑（Milestone）、关键举措（Strategic Bets）、成功指标（Metrics）和推进条件（Promotion Criteria）。
+2. ✅ **有序结构与路径感**：采用 **Now / Next / Later** 划分阶段，体现演进路径。
+3. ✅ **结果与指标导向**：成功指标优先量化，里程碑为成果导向，绝非功能列表或 TODO 的混入。
+4. ✅ **避免虚假精确**：Later 阶段仅说明方向，**不写具体时间**。
+5. ✅ **目标追溯与约束**：建立目标映射，且明确约束「Backlog 必须映射到路线图，不属于路线图的需求默认不做」。
+6. ✅ **用户确认与持久化**：用户明确批准，并写入约定路径（默认 `docs/process-management/roadmap.md` 或依规范 `milestones.md`）。
 
-**验收测试**：读者能否看到每个路线图项目如何推进里程碑和目标，以及以什么顺序或时间范围（如果指定）？
+**验收测试**：读者能否一眼看到演进路径（包含推进条件）？能否通过成功指标验证阶段成果，而非单纯检查任务列表？
 
-**交接点**：路线图获批并保留后，交接至待办规划；该技能不会创建待办物品。
+**交接点**：路线图获批并持久化后，交接至待办规划、需求分析（`analyze-requirements`）或执行对齐（`align-planning` / `run-checkpoint`）。
 
 ---
 
@@ -51,121 +52,177 @@ output_schema:
 
 **本技能负责**：
 
-- 从战略目标和里程碑中得出路线图结构（从现有文档或用户输入中读取）。
-- 定义具有可选时间范围的举措或主题（例如按季度或阶段）。
-- 记录可追溯性：路线图项目 → 里程碑和目标。
-- 坚持项目商定的路径（默认`docs/process-management/路线图.md`）。
+- 从战略目标中推导并划分阶段（Now / Next / Later）。
+- 为每个阶段定义里程碑、关键举措（2–5个）、成功指标和推进条件。
+- 组织并生成结构化的路线图文档。
+- 坚持项目约定路径。
 
 **本技能不负责**：
 
-- 定义使命、愿景、北极星、目标或里程碑（使用“定义使命”、“定义愿景”、“定义北极星”、“设计战略目标”、“定义里程碑”）。
-- 创建待办项目（使用“capture-work-items”，项目规划）。
+- 定义使命、愿景、北极星或战略目标（使用 `define-mission`、`define-vision`、`define-north-star`、`design-strategic-goals`）。
+- 编写具体需求或拆分任务（使用 `analyze-requirements`、`breakdown-tasks`）。
+- 创建具体的 Backlog 项目（使用 `capture-work-items`）。
 
 ---
 
-## 使用场景（用例）
+## 使用场景 (Use Cases)
 
-- **里程碑之后**：构建一个可见的计划，将策略与发布或冲刺计划联系起来。
-- **规划周期**：为接下来的 1-2 个周期建立计划/主题序列或有时限的视图。
-- **在待办之前**：提供路线图，以便待办项目可以根据倡议或主题进行分组。
-- **策略到执行的桥梁**：构建完整层次结构时遵循目标和里程碑。
+- **战略目标确立后**：需要将高层的战略目标转化为具体阶段、关键举措与指标。
+- **阶段流转评估**：通过"推进条件"（Next → Now）决定团队是否可以进入下一阶段。
+- **规划与对齐会议**：为团队和利益相关者提供清晰的路径表达与决策依据，淘汰不符合当前路径的杂乱需求。
 
 ---
 
-## 行为（行为）
+## 行为 (Behavior)
 
 ### 交互（互动）政策
 
-- **默认**：项目规范的输出路径（如果存在）；否则为“docs/process-management/路线图.md”。从“docs/project-overview/strategic-goals.md”和“docs/process-management/里程碑.md”（如果有）中阅读目标和里程碑。
-- **选择选项**：如果用户想要按结果排序和有时限的视图，请提供结构（例如带有可选季度的阶段）并要求确认。
-- **确认**：覆盖现有路线图文件之前；在最终坚持之前。
+- **默认**：输出至 `docs/process-management/roadmap.md` 或遵循项目既有规范。自动读取 `docs/project-overview/strategic-goals.md` 作为输入依据。
+- **推断与确认**：基于现有的项目状态或上下文提炼关键举措与指标；涉及核心决策或覆盖既有文档前，向用户请求明确确认。
 
 ### 执行过程
 
-1. **加载策略**：从文档或用户提供的摘要中读取战略目标和里程碑；可选择阅读战略支柱。
-2. **推导结构**：对于每个里程碑（或目标），哪些举措或主题代表下一级别的规划？
-3. **每路线图项目**：名称、简短范围、可选时间范围；明确映射到里程碑和目标。
-4. **持久化**：写入到项目约定的路径；如果缺少，请创建“docs/process-management/”。
+1. **加载战略目标**：读取现有战略目标及项目背景。
+2. **划分阶段**：结构化为 Now / Next / Later 视角。
+3. **定义里程碑**：确保以成果为导向。
+4. **提炼关键举措**：每个阶段提炼 2–5 个关键举措（Strategic Bets）。
+5. **定义成功指标**：为阶段成果设定验证标准，优先量化。
+6. **定义推进条件**：明确进入下一阶段的前提（如 Next → Now 的切换条件）。
+7. **建立目标映射**：确保阶段目标和 Backlog 可以映射到战略。
+8. **生成路线图文档**：按照输出结构模板生成文档草案。
+9. **确认与持久化**：用户确认后持久化写入并标注最后更新日期。
+
+### 输出结构模板 (内嵌契约)
+
+```markdown
+# 路线图
+
+## 路线概览
+
+Now / Next / Later（含推进条件简述）
+
+---
+
+## Now
+
+### 里程碑
+- ...
+
+### 关键举措
+- ...
+
+### 成功指标
+- ...
+
+---
+
+## Next
+
+### 推进条件
+- ...
+
+### 里程碑
+- ...
+
+### 关键举措
+- ...
+
+---
+
+## Later
+
+仅方向，不写时间
+
+---
+
+## 里程碑详情（附录）
+
+| Milestone | Scope | Metrics | Goals |
+```
 
 ---
 
 ## 输入与输出 (Input & Output)
 
 **输入**：
-
-- **必填**：战略目标和里程碑（文档或路径）；项目背景。
-- **可选**：倡议文档；时间范围（例如接下来的 4 个季度）；现有路线图。
+- **必填**：战略目标（文档或路径）；项目背景。
+- **可选**：愿景/北极星指标；时间范围或阶段偏好。
 
 **输出**：
-
-- **工件**：路线图文档。
-- **位置**：`docs/process-management/路线图.md`（或按照项目规范）。
-- **内容**：具有范围、可选时间框架的举措/主题；映射到里程碑和目标。
-- **生命周期**：生存（随着执行进度或策略变化而更新）。
+- **工件**：决策级路线图文档。
+- **位置**：`docs/process-management/roadmap.md` 或 `milestones.md`（依项目规范）。
+- **内容**：含路线概览、Now/Next/Later 详情（里程碑、关键举措、指标、推进条件）。
+- **生命周期**：living（随阶段推进持续更新）。
 
 ---
 
-## 限制（限制）
+## 限制 (Restrictions)
 
-### 硬边界（Hard Boundaries）
+### 硬边界 (Hard Boundaries)
 
-- 不要在此技能中定义使命、愿景、北极星、目标或里程碑。
-- 不要创建待办项目、需求或任务列表； 路线图仅是倡议/主题。
-- 未经用户明确确认，请勿覆盖现有路线图文件。
+- **路线图映射约束**：明确「Backlog 必须映射到路线图，不属于路线图的需求默认不做」。
+- **结构强制**：每个阶段必须包含核心模型（里程碑、关键举措、成功指标、推进条件），缺一不可。
+- **无覆盖**：未经用户明确确认，不覆盖既有路线图文件。
+
+### 反模式（避免）
+
+- **功能列表**：将路线图降级为功能特性堆砌。
+- **TODO 混入**：掺杂具体执行级别的任务。
+- **无指标**：无法验证里程碑是否达成。
+- **无关键举措**：只有目标没有对应的战略动作。
+- **虚假精确**：在 Later 阶段写明具体日期/时间。
 
 ### 技能边界 (Skill Boundaries)（避免重叠）
 
-**不要做这些（其他技能可以处理它们）**：
-
-- **使命/愿景/北极星/目标/里程碑**：使用“定义任务”、“定义愿景”、“定义北极星”、“设计战略目标”、“定义里程碑”。
-- **战略支柱**：使用`define-strategic-pillars`；该技能可能会消耗支柱作为输入。
-- **待办事项**：使用“捕获工作项”，项目规划。
+**不要做这些（其他技能负责）**：
+- **定义战略目标**：使用 `design-strategic-goals`。
+- **拆分具体需求/任务**：使用 `analyze-requirements` 或 `breakdown-tasks`。
+- **编写待办**：使用 `capture-work-items`。
 
 **何时停止并交接**：
-
-- 用户说“已批准”或同等内容 → 路线图完成；提供转交待办规划。
-- 用户请求待办或需求 → 移交给“捕获工作项”或“分析需求”。
+- 用户回复「已批准/确认」等 → 路线图完成，持久化文档并交接给 `align-planning` 或待办规划。
 
 ---
 
-## 自检（Self-Check）
+## 自检 (Self-Check)
 
 ### 核心成功标准（必须满足所有标准）
 
-- [ ] **路线图记录**：带有名称、范围、可选时间表的举措/主题。
-- [ ] **可追溯性**：每一项至少映射到一个里程碑或目标；文档中的映射。
-- [ ] **用户确认**：用户说“已批准”、“看起来不错”、“继续”或类似内容。
-- [ ] **文档持久化**：写入约定路径（默认`docs/process-management/路线图.md`或项目规范）。
-- [ ] **遵守的范围**：文档中没有待办事项、需求或任务列表。
-
-### 流程质量检查
-
-- [ ] **使用的策略**：在起草路线图之前我是否阅读或要求了目标和里程碑？
-- [ ] **没有待办**：我是否避免编写单独的待办项目？
+- [ ] **核心模型完整**：文档包含里程碑、关键举措、成功指标、推进条件。
+- [ ] **有序结构与路径感**：路线图基于 Now / Next / Later 展现演进路径。
+- [ ] **结果与指标导向**：内容为成果导向，无功能或 TODO 列表。
+- [ ] **避免虚假精确**：Later 阶段未包含具体时间，仅指明方向。
+- [ ] **目标追溯与约束**：体现了路线图到战略目标的映射关系，约束了 Backlog。
+- [ ] **用户确认与持久化**：用户已批准，并写入约定路径。
 
 ### 验收测试
 
-**读者能否看到每个路线图项目如何推进里程碑和目标，以及以什么顺序或时间范围？**
+读者能否一眼看到演进路径（包含推进条件）？能否通过成功指标验证阶段成果，而非单纯检查任务列表？
 
-如果否：添加可追溯性和可选时间范围。
-如果是：路线图已完成。继续转交或停止。
+- 若否：需补充成功指标或推进条件，剔除功能性 TODO 列表。
+- 若是：路线图符合生产级要求，继续转交。
 
 ---
 
-## 示例（示例）
+## 示例 (Examples)
 
-### 示例1：目标和里程碑存在，构建路线图
+### 示例 1：根据战略目标生成生产级路线图
 
-**背景**：存在战略目标和里程碑文档。用户想要未来 4 个季度的路线图。
+**背景**：已有包含 3 项指标的战略目标，需制定演进路径。
+**流程**：
+1. 读取目标并按 Now / Next / Later 视角划分。
+2. 为 Now 定义明确的 3 项关键举措与量化成功指标。
+3. 定义 Next 阶段的"推进条件"（如"当核心架构验证达到 10k QPS 时，启动 Next 阶段"）。
+4. 在 Later 中列出长远探索主题（无日期）。
+5. 呈现文档草案并获批后写入 `docs/process-management/roadmap.md`。
+**结果**：路线图持久化，清晰驱动下一步的资源分配与决策。
 
-**流程**：阅读战略目标和里程碑。提出每个里程碑的举措或主题；添加可选宿舍。将每个项目映射到里程碑和目标。用户确认。写入“docs/process-management/路线图.md”。
+### 示例 2：纠正任务列表反模式
 
-**结果**：路线图持续存在； 转交待办规划。
-
-### 示例 2：倡议文档存在
-
-**上下文**：用户有战略支柱或主题，现在想要一个有时限的路线图。
-
-**流程**：阅读支柱（或目标）和里程碑。将主题分为阶段或季度；增加里程碑和目标的可追溯性。用户确认。写入“docs/process-management/路线图.md”。
-
-**结果**：路线图坚持以主题为构建基块。
+**背景**：用户要求「帮我把这些 Backlog 任务排期做成路线图」。
+**流程**：
+1. 向用户说明本技能的原则：路线图是路径表达与决策模型，而非任务清单。
+2. 将具体的 Backlog 抽象为对应的关键举措与阶段性里程碑。
+3. 补充各阶段的成功指标与推进条件，去除细碎的 TODO。
+4. 提供草案并与用户确认。
+**结果**：将需求列表成功转换为符合生产级的决策路线图。

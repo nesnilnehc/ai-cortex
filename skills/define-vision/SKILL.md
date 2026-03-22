@@ -31,7 +31,7 @@ output_schema:
 - **使命**：项目存在的根本目的（使用 `define-mission`）。
 - **北极星**：表示交付价值的单个指标（使用 `define-north-star`）。
 - **战略目标**：实现愿景的 3–5 个结果（使用 `design-strategic-goals`）。
-- **里程碑**：执行的阶段检查点（使用 `define-milestones`）。
+- **里程碑**：执行的阶段检查点（使用 `define-roadmap`）。
 
 ---
 
@@ -67,7 +67,7 @@ output_schema:
 
 - 定义根本目的（使用 `define-mission`）。
 - 定义北极星指标或战略目标（使用 `define-north-star`、`design-strategic-goals`）。
-- 定义里程碑（使用 `define-milestones`）。
+- 定义里程碑（使用 `define-roadmap`）。
 - 书写路线图、需求或待办（使用 `analyze-requirements`、`capture-work-items` 等）。
 
 ---
@@ -147,14 +147,14 @@ output_schema:
 - **使命**：根本目的 → Use `define-mission`
 - **北极星指标**：单关键指标 → Use `define-north-star`
 - **战略目标**：3–5 个结果 → Use `design-strategic-goals`
-- **里程碑**：阶段检查点 → Use `define-milestones`
+- **里程碑**：阶段检查点 → Use `define-roadmap`
 - **路线图、需求或待办** → Use `analyze-requirements`、`capture-work-items` 等
 
 **何时停止并交接**：
 
 - 用户说「已批准」或同等内容 → 愿景完成，hand off to `define-north-star` 或 `design-strategic-goals`
 - 用户请求「一个指标」或「北极星」 → Hand off to `define-north-star`
-- 用户询问目标或里程碑 → Hand off to `design-strategic-goals` 或 `define-milestones`
+- 用户询问目标或里程碑 → Hand off to `design-strategic-goals` 或 `define-roadmap`
 
 ---
 

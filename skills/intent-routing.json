@@ -136,7 +136,7 @@
       "short_triggers_zh": ["北极星", "定义使命", "定义愿景", "战略目标", "战略支柱", "定义里程碑", "战略", "路线图", "对齐待办", "待办对齐"],
       "when_to_use": "定义或刷新战略基础：使命、愿景、北极星指标、战略支柱、战略目标、里程碑、路线图；或记录战略上下文",
       "primary": "define-mission",
-      "optional": ["define-vision", "define-north-star", "define-strategic-pillars", "design-strategic-goals", "define-milestones", "define-roadmap", "align-backlog"],
+      "optional": ["define-vision", "define-north-star", "define-strategic-pillars", "design-strategic-goals", "define-roadmap", "align-backlog"],
       "output": "docs/project-overview/ 与 docs/process-management/ 中的战略层文档",
       "stop_condition": "请求的战略制品已持久化且用户确认"
     }

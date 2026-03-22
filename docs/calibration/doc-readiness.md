@@ -12,7 +12,7 @@
 | Goal | strong | docs/project-overview/README.md |
 | Requirements | weak | 隐式于 roadmap；无 docs/requirements-planning/ |
 | Architecture | weak | Roadmap Layer A–E；无 docs/architecture/ |
-| Milestones | strong | docs/process-management/milestones.md |
+| Roadmap | strong | docs/process-management/roadmap.md |
 | Roadmap | strong | docs/designs/2026-03-02-ai-cortex-evolution-roadmap.md |
 | Backlog | weak | Skills INDEX、manifest；无显式 backlog |
 
