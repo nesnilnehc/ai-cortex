@@ -99,7 +99,7 @@
 | [plan-next](./plan-next/SKILL.md) | automation, meta-skill, workflow | `2.0.0` | mature | 以存量 mission/vision/backlogs 等为输入源分析项目状态并产出下一行动建议；输入缺失时优先建议完善输入源。. |
 | [define-mission](./define-mission/SKILL.md) | documentation, workflow | `1.2.0` | stable | 定义项目或组织的根本目的；回答项目为何存在；产出 mission 陈述并持久化到 docs。. |
 | [define-vision](./define-vision/SKILL.md) | documentation, workflow | `1.2.0` | stable | 定义项目旨在创造的长远未来；回答我们在构建什么未来；产出 vision 陈述并持久化到 docs。. |
-| [define-north-star](./define-north-star/SKILL.md) | documentation, workflow | `1.0.0` | stable | 定义代表向用户交付核心价值的单一最重要指标；产出 North Star Metric 及理由、辅助指标与反例。. |
+| [define-north-star](./define-north-star/SKILL.md) | documentation, workflow | `1.1.0` | stable | 定义代表向用户交付核心价值的单一最重要指标；产出 North Star Metric 及理由、辅助指标与反例。. |
 | [design-strategic-goals](./design-strategic-goals/SKILL.md) | documentation, workflow | `1.0.0` | stable | 定义 3–5 个推动项目走向 vision 与 North Star 的长期战略目标；产出 goals 文档。. |
 | [define-milestones](./define-milestones/SKILL.md) | documentation, workflow | `1.0.0` | stable | 将战略目标拆解为代表主要进展阶段的里程碑；产出 milestones 文档并追溯至目标。. |
 | [define-roadmap](./define-roadmap/SKILL.md) | documentation, workflow | `1.0.0` | stable | 将战略目标与里程碑转化为有时间约束的路线图（主题或计划）；连接战略与交付规划。. |

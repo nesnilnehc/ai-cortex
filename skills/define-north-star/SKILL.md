@@ -3,18 +3,18 @@ name: define-north-star
 description: Define the single most important metric representing the core value delivered to users. Produces North Star Metric with rationale, optional supporting metrics, and anti-pattern examples; persisted to docs.
 description_zh: 定义代表向用户交付核心价值的单一最重要指标；产出 North Star Metric 及理由、辅助指标与反例。
 tags: [documentation, workflow]
-version: 1.0.0
+version: 1.1.0
 license: MIT
 recommended_scope: both
 metadata:
   author: ai-cortex
-triggers: [north star, define north star, North Star Metric, NSM]
+triggers: [north star, define north star, North Star Metric, NSM, define NSM]
 input_schema:
   type: free-form
   description: Project/product description; target users; core value proposition; optional mission/vision or paths
 output_schema:
   type: document-artifact
-  description: North Star document with NSM, rationale, optional supporting metrics, anti-examples; written to docs/project-overview/north-star.md (or project norms)
+  description: North Star document with NSM, rationale, optional supporting metrics, anti-examples; optional measurement constraints section when metric has known limits
   artifact_type: north-star
   path_pattern: docs/project-overview/north-star.md
   lifecycle: living
@@ -77,11 +77,13 @@ output_schema:
 
 ## 行为（行为）
 
-### 交互（互动）政策
+### 交互策略
 
-- **默认**：项目规范的输出路径（如果存在）；否则为“docs/project-overview/north-star.md”。如果有的话，请阅读“docs/project-overview/”中的使命/愿景。使用下面的推导框架提出 NSM。
-- **选择选项**：如果存在多个候选指标，请提供 1-3 个并说明理由，并要求用户选择或完善。
-- **确认**：覆盖现有北极星文件之前；在最终坚持之前。如果提出的指标是虚荣的，则警告并建议基于行为的替代方案。
+遵循 Defaults first、Prefer choices、Context inference：
+
+- **默认**：从 `docs/project-overview/` 或项目规范加载使命/愿景；输出路径取项目规范或 `docs/project-overview/north-star.md`。无额外输入时直接运行推导框架。
+- **选择选项**：存在多个候选指标时，提供 1–3 个并说明理由，让用户选择或细化。
+- **确认**：覆盖现有 north-star 文件前、持久化前必须获得用户批准。若候选为虚荣指标，警告并建议基于行为的替代。
 
 ### 北极星原则（在推导指标时应用）
 
@@ -94,7 +96,6 @@ output_schema:
 ### 推导框架（执行流程）
 
 使用此推理链推导出北极星：
-
 
 ```text
 User
@@ -114,9 +115,10 @@ Measurable Metric (North Star)
 4. **可观察的行为**：我们可以观察到哪些行为（例如发送的消息、预订的住宿天数、花费的时间）？
 5. **指标**：定义一个可衡量的指标来捕获该行为；保持简单。
 6. **验证**：对照五项原则进行检查；避免虚荣（收入、总用户数、注册量、下载量、原始页面浏览量作为北极星）。
-7. **支持指标**（可选）：添加 3-5 个支持或补充 NSM 的指标。
-8. **反例**：列出 2-3 个不应用作北极星的指标（例如收入、总用户数、注册量、下载量、页面浏览量）并附上简短的理由。
-9. **坚持**：写入约定路径；如果缺少，请创建“docs/project-overview/”。
+7. **度量与局限**（可选）：若指标依赖外部数据源或当前无法直接度量，在产出文档中新增「度量与局限」节，说明依赖与替代策略。
+8. **支持指标**（可选）：添加 3–5 个支持或补充 NSM 的指标。
+9. **反例**：列出 2–3 个不应用作北极星的指标并附简短理由。
+10. **持久化**：写入约定路径；若目录不存在则创建。
 
 ### 反模式（不建议作为北极星）
 
@@ -139,10 +141,10 @@ Measurable Metric (North Star)
 
 **输出**：
 
-- **神器**：北极星文档。
-- **位置**：`docs/project-overview/north-star.md`（或每个项目规范）。
-- **内容**：北极星指标（名称+定义）；为什么它代表用户价值； 3-5 个可选的支持指标；反北极星示例（不适合优化的内容）。
-- **生命周期**：生活（产品或策略发生变化时更新）。
+- **制品**：北极星文档。
+- **路径**：`docs/project-overview/north-star.md`（或项目规范）。
+- **结构**：指标定义、推导链、原则、可选支持指标、可选度量与局限、反北极星示例。保持简洁（YAGNI、DRY）。
+- **生命周期**：living（产品或策略变更时更新）。
 
 ---
 
@@ -154,19 +156,19 @@ Measurable Metric (North Star)
 - 不要提出虚荣指标（收入、总用户数、注册量、下载量、原始页面浏览量）作为北极星；仅将它们作为反例列出。
 - 未经用户明确确认，请勿覆盖现有的北极星文件。
 
+### When to Stop（交接）
+
+- 用户说「已批准」或同等 → 北极星完成；交接至 `design-strategic-goals`。
+- 用户询问目标或里程碑 → 交接至 `design-strategic-goals` 或 `define-milestones`。
+
 ### 技能边界 (Skill Boundaries)（避免重叠）
 
 **不要做这些（其他技能可以处理它们）**：
 
-- **使命**：我们为何存在→使用`define-mission`。
-- **愿景**：我们构建什么样的未来→使用“定义愿景”。
-- **战略目标**：3-5 个结果 → 使用“设计战略目标”。
-- **里程碑**：阶段检查点→使用`define-里程碑`。
-
-**何时停止并交接**：
-
-- 用户说“已批准”或同等内容 → 北极星完成；提供“设计战略目标”的转交。
-- 用户询问目标或里程碑 → 移交给“设计战略目标”或“定义里程碑”。
+- **使命**：为何存在 → 使用 `define-mission`
+- **愿景**：构建何种未来 → 使用 `define-vision`
+- **战略目标**：3–5 个成果 → 使用 `design-strategic-goals`
+- **里程碑**：阶段检查点 → 使用 `define-milestones`
 
 ---
 
@@ -183,8 +185,9 @@ Measurable Metric (North Star)
 
 ### 流程质量检查
 
-- [ ] **使用的推导**：我是否应用了用户 → 核心价值 → 行动 → 行为 → 指标？
-- [ ] **没有 NSM 的虚荣心**：我是否避免将收入、总用户数、注册量、下载量或原始页面浏览量作为北极星？
+- [ ] **使用的推导**：是否应用用户 → 核心价值 → 行动 → 行为 → 指标链？
+- [ ] **度量与局限**：若指标依赖外部数据或当前不可观测，是否新增「度量与局限」节？
+- [ ] **无虚荣 NSM**：是否避免将收入、总用户数、注册量、下载量或原始页面浏览量作为北极星？
 
 ### 验收测试
 
@@ -211,4 +214,12 @@ Measurable Metric (North Star)
 
 **流程**：应用原则——总用户数是虚荣心，而不是持续的参与或行为。使用推导：用户 → 核心价值（例如“用户完成 X 件事”）→ 主要操作 → 可观察行为 → 指标。提出一种基于行为的替代方案（例如“完成至少一项核心操作的每周活跃用户”）并列出“总注册用户”作为反北极星示例。要求用户确认基于行为的 NSM 或细化。
 
-**结果**：文档包括所选的 NSM 以及反例“注册用户总数 - 而非持续参与”；坚持下来了。
+**结果**：文档包括所选的 NSM 以及反例“注册用户总数 - 而非持续参与”；持久化完成。
+
+### 示例 3：指标有度量局限
+
+**背景**：NSM 为「月度技能采纳量」，但依赖外部生态（如 skills.sh）的 API 开放，当前无法直接获取。
+
+**流程**：推导出 NSM 后，验证原则均满足。新增「度量与局限」节，说明依赖 vercel-labs/skills#426 或类似能力落地；在此之前无法直接度量。可选补充组织内自建 registry（如 SkillReg、SkillHub）时的统计策略。用户确认后持久化。
+
+**结果**：文档含 NSM、推导、原则、度量与局限、反例；读者知晓指标定义正确但当前不可观测。
