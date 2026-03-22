@@ -13,6 +13,7 @@
 | requirements | docs/requirements-planning/{topic}.md | {topic}.md | snapshot |
 | backlog-item | docs/process-management/backlog/YYYY-MM-DD-{slug}.md | YYYY-MM-DD-{slug}.md | living |
 | adr | docs/process-management/decisions/YYYYMMDD-{slug}.md | YYYYMMDD-{slug}.md | living |
+| adr (architecture) | docs/architecture/adrs/NNN-{slug}.md | NNN-{slug}.md | living |
 | design | docs/designs/YYYY-MM-DD-{topic}.md | YYYY-MM-DD-{topic}.md | snapshot |
 | doc-readiness | docs/calibration/doc-readiness.md | doc-readiness.md | living |
 | planning-alignment | docs/calibration/planning-alignment.md | planning-alignment.md | living |
@@ -25,3 +26,7 @@
 | Condition | Output path |
 | :--- | :--- |
 | docs/process-management/ 存在 | docs/process-management/backlog/YYYY-MM-DD-{slug}.md |
+
+## 例外（backlog 目录）
+
+`backlog/` 目录仅存放 `YYYY-MM-DD-{slug}.md` 格式的 backlog-item。索引类文件置于 `docs/process-management/` 下。

@@ -283,7 +283,7 @@ D10 Community Infrastructure Phase 1
 | Library review | Domain-based | 通用性 vs 库特定深度 |
 | Orchestrators | run-checkpoint, review-code | Demo 价值 vs CI 集成（quality-gate） |
 | Skill chains | I/O contracts | 简洁 vs 事件驱动灵活性 |
-| Plugin sync | Selection criteria |  curation 质量 vs 全量暴露 |
+| Plugin sync | Selection criteria | curation 质量 vs 全量暴露 |
 | Community | Gradual | 投入 vs 实际贡献者需求 |
 | Lifecycle | Convention-based | 清晰 vs 额外维护 |
 | Spec testing | Script + Schema | 覆盖 vs 语义检查局限 |

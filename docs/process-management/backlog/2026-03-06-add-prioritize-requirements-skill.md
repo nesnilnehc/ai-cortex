@@ -1,4 +1,6 @@
 ---
+artifact_type: backlog-item
+created_by: capture-work-items
 type: requirement
 date: 2026-03-06
 status: captured
