@@ -1,11 +1,12 @@
 # 技能规范 (Skill Specification)
 
 状态：必选  
-版本：2.7.4  
+版本：2.7.5  
 范围：`skills/` 下所有文件。
 
 **变更日志**（早期版本见 [spec-skill-changelog-archive.md](../docs/references/spec-skill-changelog-archive.md)）：
 
+- v2.7.5 (2026-03-22)：§4 新增文档制品原则 — YAGNI、DRY、简洁适用于产出 document-artifact 的技能
 - v2.7.4 (2026-03-22)：内容与结构精简 — 变更日志归档；§1 命名收敛；§3.1 重要性缩句；§4 去重、§4.4 合并；§5 与 §9 合并；§7.1 流程合并
 - v2.7.3 (2026-03-22)：YAGNI/DRY 优化 — 精简演进元数据、§8.5 D/C 模式；合并重复定义；修正示例技能名与路径
 - v2.7.2 (2026-03-21)：移除 `related_skills` 元数据；技能关系改由 prose 中的 Handoff Point 与 Scope Boundaries 说明
@@ -129,6 +130,7 @@ metadata:
 - **示例**：至少 2 个，其中 1 个须为边界或复杂场景。
 - **交互**：对非平凡逻辑，定义何时向用户确认。
 - **Divergent + Convergent**（仅探索/决策类）：见 §8.5。
+- **文档制品原则**（适用于产出 document-artifact 的技能）：产出 mission、vision、design、readme 等文档时，应用 YAGNI（避免不必要段落或可选内容）、DRY（引用已有内容而非重复）、简洁（战略陈述 1–3 句，清晰可读）。
 
 ### 4.1 自检要求
 
