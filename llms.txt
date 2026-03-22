@@ -17,6 +17,10 @@
 - [Manifest](manifest.json)：机器可读注册表。
 - [技能索引](skills/INDEX.md)：所有可用技能的中心注册表。
 
+### 安装与重装
+
+- [skill-install-guide](docs/references/skill-install-guide.md)：安装、升级与完整重装；`./scripts/uninstall-reinstall-ai-cortex.sh` 一键重装
+
 ### 核心技能
 
 本节有意非穷尽，仅列出高优先级发现/引导技能。

@@ -27,6 +27,14 @@ npx skills add nesnilnehc/ai-cortex
 
 使用 `--force` 覆盖已有技能；`--skill <name>` 仅安装指定技能。无 Node 时见 `scripts/install-fallback.sh`。
 
+**升级与重装**：若技能曾改名或结构变更，建议先卸载再安装，以清除旧版本残留：
+
+```bash
+./scripts/uninstall-reinstall-ai-cortex.sh
+```
+
+该脚本会卸载本机已安装的 AI Cortex 技能（仅限本仓库来源），再以 `--force` 重新安装。详见 [安装与重装说明](docs/references/skill-install-guide.md)。
+
 **规则**：通过 Agent 说「将此项目规则安装到 Cursor」——或将 `rules/` 复制到 `.cursor/rules/`。见 [rules/INDEX.md](rules/INDEX.md)。
 
 ---
