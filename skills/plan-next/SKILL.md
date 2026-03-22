@@ -183,7 +183,7 @@ output_schema:
 
 ### 技能边界 (Skill Boundaries)
 
-**不做（其他技能负责）**：
+**不要做这些（其他技能负责）**：
 
 - 需求诊断 → `analyze-requirements`
 - 设计与批准 → `design-solution`
