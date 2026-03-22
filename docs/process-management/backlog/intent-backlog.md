@@ -1,6 +1,6 @@
 # 意图 backlog（待实现）
 
-**已实现**：见 [skills/intent-routing.json](../../skills/intent-routing.json) 与 [skills/intent-routing.md](../../skills/intent-routing.md)。
+**已实现**：见 [skills/intent-routing.json](../../../skills/intent-routing.json) 与 [skills/intent-routing.md](../../../skills/intent-routing.md)。
 
 **待实现**：下表按用户故事驱动，列出尚未覆盖的意图。
 
