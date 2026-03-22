@@ -3,7 +3,7 @@ name: define-mission
 description: Define the fundamental purpose of a project or organization. Answers why the project exists; produces a single mission statement persisted to docs.
 description_zh: 定义项目或组织的根本目的；回答项目为何存在；产出 mission 陈述并持久化到 docs。
 tags: [documentation, workflow]
-version: 1.1.0
+version: 1.2.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -46,6 +46,7 @@ output_schema:
 3. ✅ **文档持久化**：写入商定的路径（默认 `docs/project-overview/mission.md` 或每个项目规范）。
 4. ✅ **尊重范围**：声明不描述愿景、北极星指标、战略目标或里程碑。
 5. ✅ **稳定的措辞**：使命独立于功能或时间表；新读者可以在一分钟内推断出`我们为何存在`。
+6. ✅ **YAGNI/DRY/简洁**：遵循 spec §4 文档制品原则；使命陈述即核心，可选段落（为谁、核心问题）仅当确有需要时添加。
 
 **验收测试**：新团队成员能否在阅读使命后立即理解该项目存在的原因，而无需阅读其他文档？
 
@@ -61,7 +62,7 @@ output_schema:
 - 确定谁受益（为谁受益）。
 - 阐明根本问题或需要解决的问题。
 - 制作一份简明的使命宣言（最好 1-2 句话，最多 3 句话）。
-- 可选：在产品中的 1-2 行中捕获`为谁`和`解决的核心问题`。
+- 可选（YAGNI：仅当用户或项目确有需要时）：1–2 行 `为谁`、`解决的核心问题`。
 - 持久化到项目约定的路径（默认`docs/project-overview/mission.md`）。
 
 ### 该技能不能做什么
@@ -75,7 +76,7 @@ output_schema:
 
 ---
 
-## 任务质量指南
+## 使命质量指南
 
 强有力的使命宣言应该是：
 
@@ -131,7 +132,7 @@ output_schema:
 
 - **Artifact**：单一使命宣言（首选 1-2 句话，最多 3 句）。
 - **位置**：`docs/project-overview/mission.md`（或按照项目规范）。
-- **内容**：使命宣言；可选 1-2 行`为谁`、`解决核心问题`。
+- **内容**：使命宣言；可选（YAGNI）1–2 行 `为谁`、`解决核心问题`。
 - **生命周期**：living（常青，仅当目的改变时更新）。
 
 ---
@@ -144,6 +145,7 @@ output_schema:
 - 请勿在使命宣言中包含实施细节、功能或路线图。
 - 未经用户明确确认，请勿覆盖现有使命文件。
 - 不要写超过一件产品；该技能仅生成使命文档。
+- **YAGNI**：使命文档以陈述为核心；不添加不必要的可选段落。
 
 ### Skill Boundaries（避免重叠）
 
@@ -172,12 +174,14 @@ output_schema:
 - [ ] **文档持久化**：写入约定路径（默认 `docs/project-overview/mission.md` 或项目规范）。
 - [ ] **尊重范围**：声明中没有愿景、北极星、目标或里程碑。
 - [ ] **稳定的措辞**：使命独立于功能或时间表。
+- [ ] **YAGNI/DRY/简洁**：遵循 spec §4 文档制品原则。
 
 ### 流程质量检查
 
 - [ ] **使用的上下文**：我是否使用自述文件或现有文档来推断可用的用途？
 - [ ] **一个目的**：我是否避免了未来状态、指标或实现的混合？
-- [ ] **质量指南**：我是否应用了任务质量指南（简短、目的驱动、无流行语/行话）？
+- [ ] **质量指南**：我是否应用了使命质量指南（简短、目的驱动、无流行语/行话）？
+- [ ] **文档制品原则**：是否遵循 YAGNI、DRY、简洁（spec §4）？
 
 ### 验收测试
 
