@@ -3,13 +3,13 @@
 **日期**：2026-03-06
 **总体就绪度**：medium（中等）
 **目标就绪度**：medium
-**变更**：Goal 层已填充（docs/project-overview/goals-and-vision.md）
+**变更**：Goal 层已填充（docs/project-overview/README.md）
 
 ## 层级就绪度
 
 | 层级 | 状态 | 证据 |
 | :--- | :--- | :--- |
-| Goal | strong | docs/project-overview/goals-and-vision.md |
+| Goal | strong | docs/project-overview/README.md |
 | Requirements | weak | 隐式于 roadmap；无 docs/requirements-planning/ |
 | Architecture | weak | Roadmap Layer A–E；无 docs/architecture/ |
 | Milestones | strong | docs/process-management/milestones.md |

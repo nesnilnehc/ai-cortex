@@ -6,13 +6,13 @@ AI Cortex 的需求由项目目标与路线图决策推导而来。
 
 | 文档 | 范围 | 状态 |
 | :--- | :--- | :--- |
-| [Goals and Vision](../project-overview/goals-and-vision.md) | 项目身份、成功标准 | 当前 |
+| [项目概览](../project-overview/README.md) | 项目身份、成功标准 | 当前 |
 | [推广与迭代](promotion-and-iteration.md) | 推广渠道、迭代计划、成功指标 | 已验证 |
 | [推广与迭代任务拆解](../process-management/promotion-iteration-tasks.md) | 任务拆解、质量门 | 当前 |
 
 ## Canonical 来源
 
-- **[Goals and Vision](../project-overview/goals-and-vision.md)** — 项目身份、成功标准、范围
+- **[项目概览](../project-overview/README.md)** — 项目身份、成功标准、范围
 - **[Evolution Roadmap](../designs/2026-03-02-ai-cortex-evolution-roadmap.md)** — 阶段性需求（Layer A–E）、验收标准
 - **[Milestones](../process-management/milestones.md)** — 发布范围与状态
 - **[推广与迭代](promotion-and-iteration.md)** — 推广与迭代需求（2026-03-06）
