@@ -216,7 +216,7 @@ compatibility: Requires access to https://raw.githubusercontent.com or a local c
 
 **步骤**：Agent选择Initialize；规模=小。从模板复制项目概述、开发指南、用户指南。填写项目名称、日期、占位符描述。将“VERSION”创建为“1.0.0”。输出创建的文件的摘要。
 
-**输出片段**：`docs/project-overview/goals-and-vision.md`、`docs/development-guide/...`、`docs/user-guide/...`、`VERSION`。所有占位符都填充了项目特定的内容。
+**输出片段**：`docs/project-overview/README.md`、`docs/development-guide/...`、`docs/user-guide/...`、`VERSION`。所有占位符都填充了项目特定的内容。
 
 ### 示例 2：调整（非空项目）
 
@@ -224,8 +224,8 @@ compatibility: Requires access to https://raw.githubusercontent.com or a local c
 
 **步骤**：代理选择“调整”。使用 [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) 作为目标。产生推荐列表：
 
-- 重命名 `project_overview/` → `project-overview/`, `goals.md` → `goals-and-vision.md` (kebab-case, 匹配模板)
-- `goals-and-vision.md` 中未填充的占位符：`[项目描述]`、`[目标日期]`
+- 重命名 `project_overview/` → `project-overview/`，目录索引为 `README.md`（kebab-case 目录，README 为入口）
+- `docs/project-overview/README.md` 中未填充的占位符：`[项目描述]`、`[目标日期]`
 - 损坏的链接：`../architecture/tech-stack.md`（路径不存在）
 
 代理展示该列表并询问：“应用这些更改？（是/否）”。用户确认。代理重命名目录/文件，修复占位符和链接。没有创建新的空目录或模板文件。

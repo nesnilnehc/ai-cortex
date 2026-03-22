@@ -50,7 +50,7 @@
 
 - **规范**：docs/ARTIFACT_NORMS.md 存在，path_pattern 与 artifact_type 已定义
 - **层级就绪度**（较 2026-03-06 有提升）：
-  - Goal: strong — goals-and-vision.md、mission.md、vision.md、north-star.md、strategic-goals.md
+  - Goal: strong — README.md、mission.md、vision.md、north-star.md、strategic-goals.md
   - Requirements: strong — requirements-planning/README.md、promotion-and-iteration.md
   - Architecture: strong — architecture/README.md、adrs/001-io-contract-protocol.md
   - Milestones: strong — milestones.md，M1–M4 已关闭
