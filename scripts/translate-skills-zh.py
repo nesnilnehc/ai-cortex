@@ -75,8 +75,7 @@ DESCRIPTION_ZH = {
     "define-vision": "定义项目旨在创造的长远未来；回答我们在构建什么未来；产出 vision 陈述并持久化到 docs。",
     "define-north-star": "定义代表向用户交付核心价值的单一最重要指标；产出 North Star Metric 及理由、辅助指标与反例。",
     "design-strategic-goals": "定义 3–5 个推动项目走向 vision 与 North Star 的长期战略目标；产出 goals 文档。",
-    "define-milestones": "将战略目标拆解为代表主要进展阶段的里程碑；产出 milestones 文档并追溯至目标。",
-    "define-roadmap": "将战略目标与里程碑转化为有时间约束的路线图（主题或计划）；连接战略与交付规划。",
+    "define-roadmap": "从战略目标推导由里程碑节点组成的路线图；每节点为阶段检查点，含成功标准与目标可追溯性。",
     "define-strategic-pillars": "从 vision 与 North Star 推导 3–5 个战略支柱（高层次主题），指导战略目标与路线图。",
 }
 

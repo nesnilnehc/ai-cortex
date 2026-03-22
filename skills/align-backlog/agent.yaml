@@ -13,12 +13,12 @@ outputs:
   - machine-readable alignment summary and change proposals block (YAML)
 
 scores:
-  agent_native: 4
+  agent_native: 5
   cognitive: 4
   composability: 4
   stance: 5
 
-asqm_quality: 17
+asqm_quality: 18
 
 overlaps_with:
   - nesnilnehc/ai-cortex:align-planning
@@ -30,12 +30,11 @@ market_position: differentiated
 tags: [workflow, documentation]
 
 # Scoring rationale:
-# agent_native: 4 - Output template embedded in SKILL.md with machine-readable block defined;
-#   no separate formal Appendix: Output contract table (prose + template, not tabular spec)
+# agent_native: 5 - Formal Appendix: Output contract table added alongside template; machine-readable block defined
 # cognitive: 4 - 4-phase analysis (source resolution, mapping, classification, proposals);
 #   classification schema (aligned/partial/misaligned/orphan) offloads reasoning well
 # composability: 4 - Feeds into align-planning, capture-work-items; related_skills defined;
 #   document-artifact output consumable by downstream; minor: fewer orchestration hooks than align-planning
 # stance: 5 - All required sections, HARD-GATE on no-silent-edits, Skill Boundaries, Self-Check aligned
 
-# Lifecycle: validated (Quality 17/20 = 17 ≥ 17, agent_native 4 ≥ 4, stance 5 ≥ 3)
+# Lifecycle: validated (Quality 18/20 = 18 ≥ 17, agent_native 5 ≥ 4, stance 5 ≥ 3)

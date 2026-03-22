@@ -97,7 +97,7 @@ output_schema:
 | vision | docs/project-overview/vision.md |
 | north-star | docs/project-overview/north-star.md |
 | strategic-goals | docs/project-overview/strategic-goals.md |
-| milestones | docs/process-management/milestones.md |
+| roadmap | docs/process-management/roadmap.md |
 | roadmap | docs/designs/*.md 或 docs/process-management/*roadmap* |
 | backlog | docs/process-management/backlog.md、backlog/*.md |
 
@@ -111,7 +111,7 @@ output_schema:
 
 | 状态 | 行动 |
 | :--- | :--- |
-| 任一核心输入源缺失 | 短路或轻量模式：产出周期报告，**首要推荐行动 = 完善缺失输入源**（指明技能：define-mission、define-vision、define-north-star、define-strategic-pillars、define-milestones、define-roadmap、align-backlog、capture-work-items 等） |
+| 任一核心输入源缺失 | 短路或轻量模式：产出周期报告，**首要推荐行动 = 完善缺失输入源**（指明技能：define-mission、define-vision、define-north-star、define-strategic-pillars、define-roadmap、align-backlog、capture-work-items 等） |
 | 核心输入源就绪 | 进入阶段 0.5 与 1 |
 
 ### 阶段 0.5：规划准备门

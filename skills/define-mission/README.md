@@ -37,7 +37,7 @@ npx skills add nesnilnehc/ai-cortex --skill define-mission
 - `define-vision` — 下一层：我们构建什么样的未来。
 - `define-north-star` — 用户价值的单一指标。
 - `design-strategic-goals` — 3–5 个战略成果。
-- `define-milestones` — 目标的阶段检查点。
+- `define-roadmap` — 路线图（含里程碑节点）与阶段检查点。
 - `bootstrap-docs` — 文档结构；可以创建项目概述布局。
 
 ## 完整定义

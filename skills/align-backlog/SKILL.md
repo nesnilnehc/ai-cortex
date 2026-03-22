@@ -215,6 +215,21 @@ with concrete change proposals (adds, cuts, reprioritization).
       add: []
 ```
 
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+当此技能生成待办事项调整报告时，除了上述格式外，必须确保机器可读块 (Machine-Readable Block) 遵守以下结构：
+
+| 字段 | 类型 | 描述 |
+| :--- | :--- | :--- |
+| `alignment.summary` | Object | 包含 `aligned`, `partial`, `misaligned`, `orphan` 数量的摘要 |
+| `alignment.items` | Array | 评估过的待办事项列表，每项含 ID/名称及对应的调整状态 |
+| `proposals.cut` | Array | 建议移除/存档的项目列表 |
+| `proposals.merge` | Array | 建议合并的项目列表 |
+| `proposals.reprioritize` | Array | 建议重新排序的项目列表 |
+| `proposals.add` | Array | 建议新增的缺口工作列表 |
+
 
 ---
 

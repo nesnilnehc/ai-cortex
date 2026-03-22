@@ -11,7 +11,7 @@
 | 3 | [north-star](north-star.md) | 核心成功指标 | mission, vision |
 | 4 | [strategic-goals](strategic-goals.md) | 以成果为导向的目标 | vision, north-star |
 
-阶段与里程碑见 [process-management/milestones](../process-management/milestones.md)。
+阶段与里程碑见 [process-management/roadmap](../process-management/roadmap.md)。
 
 ## 可选制品
 

@@ -2,7 +2,7 @@
 
 **目的**：工作条目、技能请求与计划任务的权威索引。支持 assess-doc-readiness 的 Backlog 层追溯。
 
-**相关**：[milestones](milestones.md) | [promotion-iteration-tasks](promotion-iteration-tasks.md) | [skills/INDEX.md](../../skills/INDEX.md) | [manifest.json](../../manifest.json)
+**相关**：[roadmap](roadmap.md) | [promotion-iteration-tasks](promotion-iteration-tasks.md) | [skills/INDEX.md](../../skills/INDEX.md) | [manifest.json](../../manifest.json)
 
 ---
 

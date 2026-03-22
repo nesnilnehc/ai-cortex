@@ -6,6 +6,35 @@
 
 > 面向 Agent 与开发者：技能 catalog，覆盖软件交付与项目治理；按意图路由调用能力。详见 [使命](docs/project-overview/mission.md) 与 [愿景](docs/project-overview/vision.md)。
 
+```mermaid
+flowchart LR
+    %% Style Definitions
+    classDef user fill:#eff6ff,stroke:#3b82f6,stroke-width:2px;
+    classDef system fill:#fef3c7,stroke:#f59e0b,stroke-width:2px;
+    classDef core fill:#ecfdf5,stroke:#10b981,stroke-width:2px;
+    classDef out fill:#f8fafc,stroke:#64748b,stroke-width:2px;
+
+    %% Nodes
+    Intent(("User Intent<br/>(Natural Language)")):::user
+    
+    subgraph Cortex [AI Cortex System]
+        direction TB
+        Router{"Router<br/>(Intent Routing)"}:::system
+        
+        subgraph Execution [Execution Engine]
+            direction LR
+            Spec[Spec & Rules]:::core -.-> Skill[Selected Skill]:::core
+        end
+    end
+
+    Artifact["Standardized Artifact<br/>(Docs / Code / Report)"]:::out
+
+    %% Flow
+    Intent --> Router
+    Router -- Matches Intent --> Skill
+    Skill --> Artifact
+```
+
 ---
 
 ## ✨ 特点
