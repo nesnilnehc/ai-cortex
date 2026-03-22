@@ -3,7 +3,7 @@ name: define-vision
 description: Define the long-term future the project aims to create. Answers what future we are building; produces a vision statement aligned with mission, persisted to docs.
 description_zh: 定义项目旨在创造的长远未来；回答我们在构建什么未来；产出 vision 陈述并持久化到 docs。
 tags: [documentation, workflow]
-version: 1.1.0
+version: 1.2.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -46,6 +46,7 @@ output_schema:
 3. ✅ **用户确认**：用户明确批准（如「已批准」「看起来不错」「继续」或同等内容）。
 4. ✅ **文档持久化**：写入商定的路径（默认 `docs/project-overview/vision.md` 或项目规范）。
 5. ✅ **尊重范围**：声明未定义北极星指标、战略目标或里程碑。
+6. ✅ **YAGNI/DRY/简洁**：遵循 spec §4 文档制品原则；愿景陈述即核心，避免不必要的可选段落（如与使命对齐、时间范围的显式说明）。
 
 **验收测试**：读者能否理解该项目试图创造什么样的长期未来，并看到其与使命一致？
 
@@ -125,7 +126,7 @@ output_schema:
 
 - **Artifact**：愿景陈述（1–3 句话）。
 - **位置**：`docs/project-overview/vision.md`（或按项目规范）。
-- **内容**：愿景声明；可选「与使命一致」「时间范围」说明。
+- **内容**：愿景声明；可选（YAGNI：仅当确有需要时）「与使命一致」「时间范围」说明。
 - **生命周期**：living（战略方向改变时更新）。
 
 ---
@@ -137,6 +138,7 @@ output_schema:
 - 请勿在愿景声明中包含北极星指标、战略目标、OKR 或里程碑。
 - 未经用户明确确认，请勿覆盖现有愿景文件。
 - 请勿生产超过一份愿景文档；该技能仅生成愿景制品。
+- **YAGNI**：愿景文档以陈述为核心；不添加不必要的可选段落。
 
 ### Skill Boundaries（避免重叠）
 
@@ -165,12 +167,14 @@ output_schema:
 - [ ] **用户确认**：用户说「已批准」「看起来不错」「继续」或类似内容。
 - [ ] **文档持久化**：写入约定路径（默认 `docs/project-overview/vision.md` 或项目规范）。
 - [ ] **尊重范围**：声明中没有北极星、目标或里程碑。
+- [ ] **YAGNI/DRY/简洁**：遵循 spec §4 文档制品原则。
 
 ### 流程质量检查
 
 - [ ] **使用使命**：起草愿景前是否阅读或请求了使命？
 - [ ] **仅未来状态**：是否避免混合指标或 OKR？
 - [ ] **质量指南**：是否应用了愿景质量指南（简洁、与使命一致、可想象、无流行语）？
+- [ ] **文档制品原则**：是否遵循 YAGNI、DRY、简洁（spec §4）？
 
 ### 验收测试
 
