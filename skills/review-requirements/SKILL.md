@@ -1,6 +1,7 @@
 ---
 name: review-requirements
 description: "Review an existing requirements document for quality: problem clarity, testable needs, constraint inventory, scope boundedness, requirement IDs, and open questions. Evaluative atomic skill; output is a findings list."
+description_zh: 审查既有需求文档质量：问题清晰度、可测试需求、约束清单、范围边界、需求 ID 与遗留问题。
 tags: [code-review]
 version: 1.0.1
 license: MIT
@@ -17,189 +18,190 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion covering all six requirements quality dimensions
 ---
 
-# Skill: Review Requirements
+# 技能（Skill）：复习要求
 
-## Purpose
+## 目的 (Purpose)
 
-Evaluate an **existing requirements document** against a defined quality standard. Do not generate or rewrite requirements; those are `analyze-requirements` responsibilities. Emit a **findings list** so the author can improve the document before design begins or before review gates.
-
----
-
-## Core Objective
-
-**Primary Goal**: Produce a requirements-quality findings list that identifies gaps across all six quality dimensions, enabling the author to reach a reviewable standard before handing off to design.
-
-**Success Criteria** (ALL must be met):
-
-1. ✅ **All six dimensions reviewed**: Problem clarity, testability, constraint inventory, scope boundedness, requirement IDs, and open questions are assessed
-2. ✅ **Document-scoped findings only**: Only content in the provided document is reviewed; no external assumptions or generative additions
-3. ✅ **Findings format compliant**: Each finding includes Location, Category (`requirements-quality`), Severity, Title, Description, and optional Suggestion
-4. ✅ **Location-precise references**: All findings reference specific section or requirement ID in the document (not vague descriptions)
-5. ✅ **Actionable output**: Each finding provides a concrete improvement direction referencing the relevant section or ID
-
-**Acceptance Test**: Can the author read the findings list, know exactly which section or requirement to fix, and understand what "fixed" looks like — without asking clarifying questions?
+根据定义的质量标准评估**现有需求文档**。不生成或重写需求；这些是“分析需求”的职责。发出**发现列表**，以便作者可以在设计开始之前或审查之前改进文档。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-**This skill handles**:
+**首要目标**：生成需求质量调查结果列表，识别所有六个质量维度的差距，使作者能够在移交给设计之前达到可审查的标准。
 
-- Evaluating problem statement clarity (free of solution/technology references)
-- Verifying each requirement has a testable acceptance criterion
-- Checking constraint inventory completeness (real constraints vs. assumptions separated)
-- Assessing scope boundedness (V1 boundary, deferred items, open questions present)
-- Validating requirement ID format and uniqueness (R-01, R-02, ...)
-- Identifying missing or under-specified open questions
+**成功标准**（必须满足所有要求）：
 
-**This skill does NOT handle**:
+1. ✅ **审查所有六个维度**：评估问题清晰度、可测试性、约束清单、范围界限、需求 ID 和开放问题
+2. ✅ **仅限文档范围内的发现**：仅审查所提供文档中的内容；没有外部假设或生成性添加
+3. ✅ **符合调查结果格式**：每个调查结果包括位置、类别（`需求质量`）、严重性、标题、描述和可选建议
+4. ✅ **位置精确引用**：所有发现都引用文档中的特定部分或需求 ID（不是模糊的描述）
+5. ✅ **可操作的输出**：每个发现都提供了参考相关部分或 ID 的具体改进方向
 
-- Generating or rewriting requirements — use `analyze-requirements`
-- Producing a design from requirements — use `design-solution`
-- Reviewing code, architecture, or implementation — use the `review-*` code skills
-- Full requirements elicitation or diagnostic state progression (RA0–RA5) — use `analyze-requirements`
-
-**Handoff point**: When findings are emitted, hand off to the author to fix gaps using `analyze-requirements`, or confirm the document is finding-free and proceed to `design-solution`.
+**验收**测试：作者是否可以阅读调查结果列表，确切地知道要修复哪个部分或要求，并理解“已修复”是什么样子 - 而无需提出澄清问题？
 
 ---
 
-## Use Cases
+## 范围边界（范围边界）
 
-- **Pre-design gate**: Verify a requirements document before handing off to `design-solution`.
-- **Collaborative review**: A team member authored requirements; another party runs this skill to assess quality.
-- **Imported requirements**: Requirements were written outside this workflow (e.g. Confluence, Notion, Jira); need quality assessment before use.
-- **Post-`analyze-requirements` validation**: Run after `analyze-requirements` as an independent check that all success criteria were met.
+**本技能负责**：
+
+- 评估问题陈述的清晰度（不含解决方案/技术参考）
+- 验证每个需求都有可测试的验收标准
+- 检查约束清单完整性（实际约束与假设分离）
+- 评估范围界限（V1 边界、延期项目、存在未决问题）
+- 验证需求 ID 格式和唯一性（R-01、R-02、...）
+- 识别缺失或未指定的开放式问题
+
+**本技能不负责**：
+
+- 生成或重写需求 — 使用“analyze-需求”
+- 根据需求进行设计 — 使用“设计解决方案”
+- 审查代码、架构或实现——使用“review-*”代码技能
+- 全面需求诱导或诊断状态进展 (RA0–RA5) — 使用“分析需求”
+
+**转交点**：当结果发布后，交给作者使用“分析需求”来修复差距，或者确认文档是无发现的并继续“设计解决方案”。
 
 ---
 
-## Behavior
+## 使用场景（用例）
 
-### Interaction Policy
+- **预设计门**：在移交“设计解决方案”之前验证需求文档。
+- **协作评审**：团队成员撰写需求；另一方运行此技能来评估质量。
+- **进口需求**：需求是在该工作流程之外编写的（例如 Confluence、Notion、Jira）；使用前需要进行质量评估。
+- **“分析需求”后验证**：在“分析需求”之后运行，作为独立检查是否满足所有成功标准。
 
-- **Defaults**: Accept the document as provided; do not ask the author to supply missing content — emit a finding instead.
-- **No rewriting**: State what is missing or incorrect; never rewrite requirement text on the author's behalf.
-- **Confirm only if ambiguous input**: If the input is not a requirements document (e.g. a design doc), clarify before proceeding.
+---
 
-### Review checklist (six quality dimensions)
+## 行为（行为）
 
-For each dimension, scan the entire document and emit findings for all violations found:
+### 交互（互动）政策
 
-1. **Problem clarity**
-   - Does a problem statement exist that describes who has what problem and why it matters?
-   - Does the problem statement avoid solution or technology references?
-   - Is the problem statement distinct from the need/requirement list?
+- **默认**：接受所提供的文档；不要要求作者提供缺失的内容——而是发布一个发现。
+- **禁止重写**：说明遗漏或不正确的内容；切勿代​​表作者重写需求文本。
+- **仅在输入不明确时确认**：如果输入不是需求文档（例如设计文档），请先澄清后再继续。
 
-2. **Testability of needs**
-   - Does every requirement (Must Have, Should Have, Could Have) have explicit acceptance criteria?
-   - Are acceptance criteria concrete (Given/When/Then or measurable metric) rather than adjective-based ("fast", "easy", "intuitive")?
-   - Can each requirement be independently verified by a third party?
+### 审查清单（六个质量维度）
 
-3. **Constraint inventory**
-   - Is there an explicit constraint inventory section (or equivalent)?
-   - Are real constraints (budget, time, skills, dependencies) separated from unvalidated assumptions?
-   - Are all constraints and assumptions traceable to a source or validation plan?
+对于每个维度，扫描整个文档并发布发现的所有违规行为的结果：
 
-4. **Scope boundedness**
-   - Is the V1 boundary explicitly stated (in-scope vs. out-of-scope)?
-   - Are deferred items listed with triggers for reconsidering?
-   - Is a walking skeleton or minimum viable version described?
+1. **问题清晰**
+   - 是否存在问题陈述来描述谁遇到了什么问题以及为什么它很重要？
+   - 问题陈述是否回避了解决方案或技术参考？
+   - 问题陈述是否与需求/要求列表不同？
 
-5. **Requirement IDs**
-   - Does every requirement have a unique ID in the format `R-NN` (e.g. R-01, R-02)?
-   - Are IDs sequential with no gaps or duplicates?
-   - Do all cross-references in the document use IDs rather than free-text descriptions?
+2. **需求的可测试性**
+   - 每项要求（必须有、应该有、可以有）是否都有明确的验收标准？
+   - 验收标准是否具体（给定/何时/然后或可测量的指标）而不是基于形容词的（“快速”、“简单”、“直观”）？
+   - 每个要求都可以由第三方独立验证吗？
 
-6. **Open questions**
-   - Is there an open questions section (or equivalent)?
-   - Does each open question have a resolution plan or owner?
-   - Are there implicit unknowns in the requirement text that should be made explicit as open questions?
+3. **限制库存**
+   - 是否有明确的约束库存部分（或同等内容）？
+   - 真正的限制（预算、时间、技能、依赖性）是否与未验证的假设分开？
+   - 所有约束和假设都可以追溯到来源或验证计划吗？
 
-### Severity guidance
+4. **范围界限**
+   - 是否明确规定了 V1 边界（范围内与范围外）？
+   - 推迟的项目是否列出了重新考虑的触发器？
+   - 是否描述了行走骨架或最小可行版本？
 
-| Severity | When to use |
+5. **需求 ID**
+   - 每个需求是否都有一个格式为“R-NN”的唯一 ID（例如 R-01、R-02）？
+   - ID 是否连续且没有间隙或重复？
+   - 文档中的所有交叉引用是否都使用 ID 而不是自由文本描述？
+
+6. **开放式问题**
+   - 是否有开放问题部分（或同等内容）？
+   - 每个悬而未决的问题是否都有解决计划或负责人？
+   - 需求文本中是否存在应作为开放问题明确表示的隐含未知数？
+
+### 严重性指导
+
+|严重程度 |何时使用 |
 | :--- | :--- |
-| `critical` | Missing problem statement; no acceptance criteria on any Must Have requirement; no scope definition |
-| `major` | Acceptance criteria present but untestable (adjective-only); constraint inventory missing; no V1 boundary |
-| `minor` | Some requirements missing IDs; some acceptance criteria incomplete; assumptions not separated |
-| `suggestion` | Open questions could be more explicit; IDs non-sequential; minor wording improvements |
+| `关键` |缺少问题陈述；对于任何必须具备的要求没有接受标准；没有范围定义 |
+| `主要` |存在验收标准但无法测试（仅限形容词）；约束库存缺失；无 V1 边界 |
+| `轻微` |部分需求缺少ID；一些验收标准不完整；假设未分离|
+| `建议` |开放性问题可以更明确； ID 不连续；细微的措辞改进 |
 
 ---
 
-## Input & Output
+## 输入与输出 (Input & Output)
 
-### Input
+### 输入（输入）
 
-- **Requirements document**: Path to a file (e.g. `docs/requirements-planning/<topic>.md`) or raw content pasted inline.
-- **Optional context**: Project name, intended audience, or downstream skill (e.g. "this will feed design-solution").
+- **需求文档**：文件路径（例如`docs/requirements-planning/<topic>.md`）或内联粘贴的原始内容。
+- **可选上下文**：项目名称、目标受众或下游技能（例如“这将提供设计解决方案”）。
 
-### Output
+### 输出（输出）
 
-- Emit zero or more **findings** in the format defined in **Appendix: Output contract**.
-- Category for all findings from this skill is **requirements-quality**.
-- If no findings: emit a brief "Requirements document meets all six quality dimensions. Ready for `design-solution`." confirmation.
-
----
-
-## Restrictions
-
-### Hard Boundaries
-
-- **Do not rewrite**: Do not generate new requirement text, acceptance criteria, or problem statements. Emit a finding with a suggestion; leave authoring to the user or `analyze-requirements`.
-- **Do not add scope**: Do not invent missing requirements or extend the scope of the document.
-- **Document-only**: Only findings grounded in the provided document. Do not add findings based on external knowledge about what requirements "should" contain beyond the six dimensions.
-
-### Skill Boundaries
-
-**Do NOT do these** (other skills handle them):
-
-- Do NOT elicit, clarify, or rewrite requirements — use `analyze-requirements`
-- Do NOT produce a design from requirements — use `design-solution`
-- Do NOT review code, architecture, or implementation quality — use `review-code`, `review-architecture`, etc.
-- Do NOT run the full RA0–RA5 diagnostic state progression — use `analyze-requirements`
-
-**When to stop and hand off**:
-
-- When all findings are emitted, hand off to the author to fix gaps (optionally using `analyze-requirements`)
-- When the document has zero findings, confirm it is ready and suggest `design-solution` as the next step
-- When the input is not a requirements document, clarify and redirect to the appropriate skill
+- 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
+- 该技能的所有发现的类别是**需求质量**。
+- 如果没有发现：发出简短的“要求文档满足所有六个质量维度。准备‘设计解决方案’。”确认。
 
 ---
 
-## Self-Check
+## 限制（限制）
 
-### Core Success Criteria
+### 硬边界（Hard Boundaries）
 
-- [ ] **All six dimensions reviewed**: Problem clarity, testability, constraint inventory, scope boundedness, requirement IDs, and open questions are assessed
-- [ ] **Document-scoped findings only**: No external assumptions; only findings grounded in the provided document
-- [ ] **Findings format compliant**: Each finding includes Location, Category (`requirements-quality`), Severity, Title, Description, and optional Suggestion
-- [ ] **Location-precise references**: All findings reference a specific section heading or requirement ID
-- [ ] **Actionable output**: Each finding states what is wrong and what improvement looks like
+- **不要重写**：不要生成新的需求文本、验收标准或问题陈述。发出带有建议的发现；将创作留给用户或“分析需求”。
+- **不要添加范围**：不要发明缺失的需求或扩展文档的范围。
+- **仅文档**：仅基于所提供文档的调查结果。不要添加基于外部知识的调查结果，即需求“应该”包含六个维度之外的内容。
 
-### Process Quality Checks
+### 技能边界 (Skill Boundaries)
 
-- [ ] Was every requirement (Must Have, Should Have, Could Have) scanned for acceptance criteria?
-- [ ] Was the problem statement checked for solution/technology language?
-- [ ] Were real constraints and assumptions explicitly checked for separation?
-- [ ] Were all requirement IDs checked for uniqueness and format (R-NN)?
-- [ ] Were open questions checked for resolution plans?
+**不要做这些**（其他技能可以处理它们）：
 
-### Acceptance Test
+- 不要引出、澄清或重写需求——使用“分析需求”
+- 不要根据需求进行设计——使用“设计解决方案”
+- 不要审查代码、架构或实现质量——使用“审查代码”、“审查架构”等。
+- 不要运行完整的 RA0–RA5 诊断状态进程 — 使用“analyze-需求”
 
-**Can the author read the findings list, know exactly which section or requirement ID to fix, and understand what "fixed" looks like — without asking clarifying questions?**
+**何时停止并交接**：
 
-If NO: Findings are incomplete or imprecise. Add location references and concrete suggestions.
-
-If YES: Findings are ready. Hand off to author for improvement or confirm document is ready for `design-solution`.
+- 当所有发现都发布后，交给作者来修复差距（可以选择使用“分析需求”）
+- 当文档的发现为零时，确认其已准备好并建议“设计解决方案”作为下一步
+- 当输入的内容不是需求文档时，澄清并重定向到适当的技能
 
 ---
 
-## Examples
+## 自检（Self-Check）
 
-### Example 1: Missing acceptance criteria on Must Have requirements
+### 核心成功标准
 
-**Input**: Requirements document with 5 Must Have items; 3 of them have no acceptance criteria.
+- [ ] **审查所有六个维度**：评估问题清晰度、可测试性、约束清单、范围界限、需求 ID 和开放问题
+- [ ] **仅限文件范围内的发现**：无外部假设；仅基于所提供文档的调查结果
+- [ ] **符合调查结果格式**：每个调查结果包括位置、类别（`需求质量`）、严重性、标题、描述和可选建议
+- [ ] **位置精确引用**：所有发现都引用特定的章节标题或要求 ID
+- [ ] **可操作的输出**：每个发现都说明了问题所在以及改进之处
 
-**Expected findings**:
+### 流程质量检查
+
+- [ ] 是否对每项要求（必须有、应该有、可能有）进行了验收标准扫描？
+- [ ] 是否检查了问题陈述的解决方案/技术语言？
+- [ ] 是否明确检查了实际约束和假设是否分离？
+- [ ] 是否检查了所有需求 ID 的唯一性和格式 (R-NN)？
+- [ ] 是否检查了未决问题的解决计划？
+
+### 验收测试
+
+**作者是否可以阅读调查结果列表，确切地知道要修复哪个部分或需求 ID，并了解“已修复”是什么样子 - 而无需提出澄清问题？**
+
+如果否：调查结果不完整或不精确。添加位置参考和具体建议。
+
+如果是：调查结果已准备就绪。移交给作者进行改进或确认文档已准备好用于“设计解决方案”。
+
+---
+
+## 示例（示例）
+
+### 示例 1：缺少“必须有需求”的接受标准
+
+**输入**：要求文档，其中包含 5 个必须具备的项目；其中 3 个没有验收标准。
+
+**预期结果**：
+
 
 ```markdown
 - **Location**: `## Need Hierarchy / Must Have / R-02`
@@ -210,11 +212,13 @@ If YES: Findings are ready. Hand off to author for improvement or confirm docume
 - **Suggestion**: Add acceptance criteria in the form "Given [context], when [action], then [outcome]". Example: "Given a user has at least one dataset, when they click Export, then a CSV file is downloaded within 3 seconds."
 ```
 
-### Example 2: Problem statement references a solution
 
-**Input**: Problem statement reads "We need a React app with a PostgreSQL database because users can't track inventory."
+### 示例 2：问题陈述引用解决方案
 
-**Expected findings**:
+**输入**：问题陈述为“我们需要一个带有 PostgreSQL 数据库的 React 应用程序，因为用户无法跟踪库存。”
+
+**预期结果**：
+
 
 ```markdown
 - **Location**: `## Problem Statement`
@@ -225,11 +229,13 @@ If YES: Findings are ready. Hand off to author for improvement or confirm docume
 - **Suggestion**: Rewrite as: "Small business owners lose inventory data due to manual tracking limitations. They need a reliable way to track and query inventory across devices."
 ```
 
-### Example 3: No scope definition
 
-**Input**: Requirements document with 10 requirements but no in-scope / out-of-scope section and no V1 boundary.
+### 示例 3：无范围定义
 
-**Expected findings**:
+**输入**：需求文档有 10 个需求，但没有范围内/范围外部分，也没有 V1 边界。
+
+**预期结果**：
+
 
 ```markdown
 - **Location**: (document-level — no scope section present)
@@ -240,30 +246,32 @@ If YES: Findings are ready. Hand off to author for improvement or confirm docume
 - **Suggestion**: Add a "## Scope Definition" section with explicit In scope (V1), Out of scope, and Walking skeleton entries.
 ```
 
-### Edge case: Document is complete and has zero findings
 
-**Input**: Fully validated requirements document with problem statement, testable acceptance criteria for all requirements, constraint inventory, V1 scope, unique R-NN IDs, and open questions with resolution plans.
+### 边缘情况：文档完整且调查结果为零
 
-**Expected output**:
+**输入**：完全已满足需求文档，包括问题陈述、所有需求的可测试验收标准、约束库存、V1 范围、唯一验证 R-NN ID 以及带有解决计划的开放问题。
 
-> Requirements document meets all six quality dimensions. All Must Have requirements have testable acceptance criteria; problem statement is solution-free; constraints and assumptions are separated; V1 scope is explicit; all requirements carry R-NN IDs; open questions have resolution plans. Ready for `design-solution`.
+**预期输出**：
+
+> 要求文档满足所有六个质量维度。所有必须有的需求都有可测试的验收标准；问题陈述没有解决方案；约束和假设是分开的； V1范围明确；所有需求都带有R-NN ID；开放性问题有解决计划。准备“设计解决方案”。
 
 ---
 
-## Appendix: Output contract
+## 附录：输出合约
 
-Each finding MUST follow the standard findings format:
+每项调查结果必须遵循标准调查结果格式：
 
-| Element | Requirement |
+|元素|要求|
 | :--- | :--- |
-| **Location** | Section heading (e.g. `## Problem Statement`) or requirement ID (e.g. `R-03`) or `(document-level)` if no specific anchor exists. |
-| **Category** | `requirements-quality`. |
-| **Severity** | `critical` \| `major` \| `minor` \| `suggestion`. |
-| **Title** | Short one-line summary. |
-| **Description** | 1–3 sentences explaining the issue. |
-| **Suggestion** | Concrete improvement direction (optional but strongly recommended). |
+| **位置** |章节标题（例如“## 问题陈述”）或需求 ID（例如“R-03”）或“（文档级别）”（如果不存在特定锚点）。 |
+| **类别** | “需求-质量”。 |
+| **严重性** | `关键` \| `主要` \| `次要` \| `建议`。 |
+| **标题** |简短的一行摘要。 |
+| **描述** |用 1-3 句话解释问题。 |
+| **建议** |具体改进方向（可选但强烈推荐）。 |
 
-Example:
+示例：
+
 
 ```markdown
 - **Location**: `## Constraint Inventory`

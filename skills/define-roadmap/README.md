@@ -1,38 +1,42 @@
-# define-roadmap
+#define-路线图
 
-Translate strategic goals and milestones into a time-bound roadmap of initiatives or themes.
+将战略目标和里程碑转化为有时的步伐或主题路线图。
 
-## What it does
+## 用途
 
-Produces a roadmap document that maps goals and milestones to initiatives or themes with optional timeframes. Does not define goals, milestones, or backlog. Output is persisted to `docs/process-management/roadmap.md` (or project norms).
+生成路线图文档，将目标和里程碑映射到具有任意时间范围的行动或主题。不定义目标、里程碑或待办事项。输出保存为“docs/process-management/路线图.md”（或项目规范）。
 
-## When to use
+## 何时使用
 
-- After milestones — build a visible plan that connects strategy to release or sprint planning.
-- Planning cycle — establish initiative/theme sequence for the next 1–2 periods.
-- Before backlog — provide roadmap so backlog items can be grouped under initiatives.
-- Strategy-to-execution bridge — run after goals and milestones in the full hierarchy.
+- 里程碑之后 - 构建一个可见的计划，将策略与发布或冲刺计划联系起来。
+- 规划周期——为接下来的1-2个周期建立计划/主题序列。
+- 待办之前 — 提供路线图，待办项目可以根据倡议进行分组。
+- 战略到执行的桥梁——在整个层面构建中追随目标和里程碑。
 
-## Inputs
+## 输入
 
-- Strategic goals and milestones (documents or paths); project context.
-- Optional: initiatives document; time horizon; existing roadmap.
+- 战略目标和里程碑（文档或路径）；项目背景。
+- 任选：倡议文档；时间范围；现有路线图。
 
-## Outputs
+## 输出
 
-- Roadmap document at `docs/process-management/roadmap.md` (or project norms): initiatives/themes with traceability to milestones and goals.
+- 路线图文档位于“docs/process-management/路线图.md”（或项目规范）：可追溯至里程碑和目标的步伐/主题。
 
-## Installation
+## 安装
+
+
 
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill define-roadmap
 ```
 
-## Related skills
 
-- `design-strategic-goals`, `define-milestones` — upstream: roadmap derives from these.
-- `define-strategic-pillars` — optional input: pillars can guide roadmap themes.
 
-## Full definition
+## 相关技能
 
-See [SKILL.md](./SKILL.md) for behavior, restrictions, and examples.
+- `设计-战略-目标`、`定义-里程碑` — 上游：路线图源自这些。
+- `define-strategic-pillars` — 可选输入：节点可以引导路线图主题。
+
+## 完整定义
+
+请参阅 [SKILL.md](./SKILL.md) 了解行为、限制和示例。

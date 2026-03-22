@@ -1,42 +1,42 @@
-# Review Architecture
+# 回顾架构
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Reviews code for architecture only: module and layer boundaries, dependency direction, single responsibility, cyclic dependencies, interface stability, coupling and extension points. Emits a findings list in the standard format. Does not define scope or perform language/security analysis.
+仅审查架构代码：模块和层边界、依赖方向、单一责任、循环依赖、接口稳定性、耦合和扩展点。以标准格式发出结果列表。不定义范围或执行语言/安全分析。
 
-## When to use
+## 何时使用
 
-- Orchestrated review: used as a cognitive step when review-code runs the full pipeline.
-- Architecture-focused review: when the user wants only boundaries and structure checked.
-- Refactor or onboarding: understand and critique current structure.
+- 精心安排的审查：当审查代码运行整个管道时用作cognitive步骤。
+- 以架构为中心的审查：当用户只想检查边界和结构时。
+- 重构或入门：理解并批评当前结构。
 
-## Inputs
+## 输入
 
-- Code scope (files, directories, or diff) provided by the user or scope skill.
+- 用户或范围技能提供的代码范围（文件、目录或差异）。
 
-## Outputs
+## 输出
 
-- Findings list: Location, Category=cognitive-architecture, Severity, Title, Description, optional Suggestion.
+- 结果列表：位置、类别=cognitive架构、严重性、标题、描述、可选建议。
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension        | Score |
-| :--------------- | :---- |
-| agent_native     | 5     |
-| cognitive        | 4     |
-| composability    | 5     |
-| stance           | 5     |
-| **asqm_quality** | 19    |
+| 维度 | 分数 |
+| ：-------------- | :---- |
+|agent_native | 5 |
+|cognitive| 4 |
+|composability | 5 |
+|stance| 5 |
+| **asqm_quality** | 19 | 19
 
-## Ecosystem
+## 生态
 
-| Field                                 | Value                                                                                                    |
-| :------------------------------------ | :------------------------------------------------------------------------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-diff |
-| market_position                       | commodity                                                                                                |
+|领域|价值|
+| :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------ |
+|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:审查代码库，nesnilnehc/ai-cortex:审查代码，nesnilnehc/ai-cortex:审查差异 |
+|市场地位 |商品 |
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for checklist and output contract.
+请参阅 [SKILL.md](./SKILL.md) 查看清单和输出合同。

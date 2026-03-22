@@ -1,6 +1,7 @@
 ---
 name: define-mission
 description: Define the fundamental purpose of a project or organization. Answers why the project exists; produces a single mission statement persisted to docs.
+description_zh: 定义项目或组织的根本目的；回答项目为何存在；产出 mission 陈述并持久化到 docs。
 tags: [documentation, workflow]
 version: 1.1.0
 license: MIT
@@ -19,188 +20,188 @@ output_schema:
   lifecycle: living
 ---
 
-# Skill: Define Mission
+# 技能：定义使命
 
-## Purpose
+## 目的
 
-Define and document the **mission**: the enduring reason the project or organization exists. A mission statement answers "Why does this exist?" and remains stable across roadmap or feature changes. It is outcome-focused (what purpose we serve), not implementation (how we do it or what we build).
+定义并记录**使命**：项目或组织存在的持久原因。使命宣言回答“为什么会存在这个？”并且在路线图或特征变化时保持稳定。它注重结果（我们服务的目的），而不是实施（我们如何做或我们构建什么）。
 
-**Mission is distinct from**:
+**使命不同于**：
 
-- **Vision**: Long-term future state we aim to create (use `define-vision`).
-- **North Star**: Single metric representing value delivered (use `define-north-star`).
-- **Strategic Goals**: 3–5 outcomes that move toward the vision (use `design-strategic-goals`).
-- **Milestones**: Phase checkpoints for execution (use `define-milestones`).
-
----
-
-## Core Objective
-
-**Primary Goal**: Produce a single, user-confirmed mission statement and persist it to the project-agreed path.
-
-**Success Criteria** (ALL must be met):
-
-1. ✅ **Mission statement exists**: One to two sentences (three maximum) stating the fundamental purpose only — no future state, no metrics, no goals, no implementation or features.
-2. ✅ **User confirmed**: User explicitly approved (e.g. "approved", "looks good", "proceed", or equivalent).
-3. ✅ **Document persisted**: Written to agreed path (default `docs/project-overview/mission.md` or per project norms).
-4. ✅ **Scope respected**: Statement does not describe vision, North Star metric, strategic goals, or milestones.
-5. ✅ **Stable wording**: Mission is independent of features or timelines; a new reader can infer "why we exist" in under a minute.
-
-**Acceptance Test**: Can a new team member read the mission and immediately understand why this project exists, without reading other docs?
-
-**Handoff Point**: When mission is approved and persisted, hand off to `define-vision` to define the long-term future, or stop if only mission was requested.
+- **愿景**：我们旨在创造的长期未来状态（使用 `define-vision`）。
+- **北极星**：表示交付价值的单个指标（使用 `define-north-star`）。
+- **战略目标**：实现愿景的 3-5 个结果（使用 `design-strategic-goals`）。
+- **里程碑**：执行的阶段检查点（使用 `define-milestones`）。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-### What this skill MUST do
+**首要目标**：生成单一的、用户确认的使命声明，并持久化到项目商定的路径。
 
-- Identify the core purpose (why the project or organization exists).
-- Identify who benefits (for whom).
-- Articulate the fundamental problem or need addressed.
-- Produce a concise mission statement (1–2 sentences preferred, max 3).
-- Optional: capture "for whom" and "core problem addressed" in 1–2 lines in the artifact.
-- Persist to project-agreed path (default `docs/project-overview/mission.md`).
+**成功标准**（必须满足所有要求）：
 
-### What this skill must NOT do
+1. ✅ **存在使命声明**：一到两句话（最多三句话）仅说明基本目的 - 没有未来状态，没有指标，没有目标，没有实现或功能。
+2. ✅ **用户确认**：用户明确批准（例如`已批准`、`看起来不错`、`继续`或同等内容）。
+3. ✅ **文档持久化**：写入商定的路径（默认 `docs/project-overview/mission.md` 或每个项目规范）。
+4. ✅ **尊重范围**：声明不描述愿景、北极星指标、战略目标或里程碑。
+5. ✅ **稳定的措辞**：使命独立于功能或时间表；新读者可以在一分钟内推断出`我们为何存在`。
 
-- Define future state (use `define-vision`).
-- Define metrics or North Star (use `define-north-star`).
-- Define strategic goals (use `design-strategic-goals`).
-- Define milestones (use `define-milestones`).
-- Describe implementation, features, or roadmap (use requirements, design, or planning skills).
-- Include buzzwords, implementation language, or internal jargon in the mission statement.
+**验收测试**：新团队成员能否在阅读使命后立即理解该项目存在的原因，而无需阅读其他文档？
+
+**交接点**：当使命被批准并持久化后，交接至 `define-vision` 以定义长期未来；或若仅请求使命则停止。
 
 ---
 
-## Mission Quality Guidelines
+## 范围边界
 
-A strong mission statement should be:
+### 这个技能必须做什么
 
-- **Short**: 1–2 sentences preferred; maximum 3.
-- **Purpose-driven**: States why we exist and what need we address, not what we build.
-- **Outcome-focused**: Describes the outcome or value (e.g. "give teams a reliable way to deploy") rather than the product (e.g. "we build a deployment tool").
-- **Understandable by non-experts**: No internal jargon; a new team member or stakeholder can grasp it quickly.
-- **Stable over time**: Independent of current features, roadmap, or timelines; only changes when the fundamental purpose changes.
+- 确定核心目的（项目或组织存在的原因）。
+- 确定谁受益（为谁受益）。
+- 阐明根本问题或需要解决的问题。
+- 制作一份简明的使命宣言（最好 1-2 句话，最多 3 句话）。
+- 可选：在产品中的 1-2 行中捕获`为谁`和`解决的核心问题`。
+- 持久化到项目约定的路径（默认`docs/project-overview/mission.md`）。
 
-Avoid in the mission statement:
+### 该技能不能做什么
 
-- **Buzzwords**: Vague or fashionable terms that do not clarify purpose.
-- **Implementation language**: Technologies, deliverables, or "how" we do it.
-- **Internal jargon**: Terms that require project-specific context to understand.
-
----
-
-## Use Cases
-
-- **New project or initiative**: Establish "why we exist" before vision or strategy.
-- **Strategy refresh**: Re-anchor the project when direction is unclear.
-- **Alignment discussions**: Provide a single source of truth for purpose when teams lack a clear "why".
-- **Top of strategy chain**: Run first when building the full strategic hierarchy (mission → vision → north star → goals → milestones).
+- 定义未来状态（使用 `define-vision`）。
+- 定义指标或北极星（使用 `define-north-star`）。
+- 定义战略目标（使用 `design-strategic-goals`）。
+- 定义里程碑（使用 `define-milestones`）。
+- 描述实施、功能或路线图（使用需求、设计或规划技巧）。
+- 在使命宣言中包含流行语、实施语言或内部术语。
 
 ---
 
-## Behavior
+## 任务质量指南
 
-### Interaction Policy
+强有力的使命宣言应该是：
 
-- **Defaults**: Output path from project norms if present (`docs/ARTIFACT_NORMS.md` or `.ai-cortex/artifact-norms.yaml`); otherwise `docs/project-overview/mission.md`. Infer "why we exist" from README or existing docs when available.
-- **Choice options**: If multiple plausible purposes exist, offer 1–3 candidate statements and ask user to pick or refine.
-- **Confirm**: Before overwriting an existing mission file; before final persist.
+- **简短**：最好是 1-2 句话；最多 3 个。
+- **目的驱动**：说明我们为何存在以及我们解决什么需求，而不是我们建造什么。
+- **以结果为中心**：描述结果或价值（例如`为团队提供可靠的部署方式`）而不是产品（例如`我们构建了一个部署工具`）。
+- **非专家也能理解**：没有内部术语；新的团队成员或利益相关者可以快速掌握它。
+- **随着时间的推移保持稳定**：独立于当前功能、路线图或时间表；只有当根本目的改变时才会改变。
 
-### Execution Process
+使命宣言中避免：
 
-1. **Gather context**: Project/product name, domain, and current understanding of purpose (from docs, README, or user).
-2. **Elicit**: Who is this for? What fundamental problem or need does it address? Why is it worth doing?
-3. **Draft**: One mission statement (1–2 sentences preferred, max 3); purpose only — no future state, no metrics, no goals, no implementation or features.
-4. **Validate**: Apply Mission Quality Guidelines; ask user whether the statement captures "why this project exists".
-5. **Persist**: Write to project-agreed path; create `docs/project-overview/` if missing.
-
----
-
-## Input & Output
-
-**Input**:
-
-- **Required**: Project or product identifier; access to or summary of current "why we exist" (from docs, README, or user).
-- **Optional**: Existing mission draft, audience description, problem statement.
-
-**Output**:
-
-- **Artifact**: Single mission statement (1–2 sentences preferred, max 3).
-- **Location**: `docs/project-overview/mission.md` (or per project norms).
-- **Content**: Mission statement; optional 1–2 lines for "For whom", "Core problem addressed".
-- **Lifecycle**: Living (update only when purpose changes).
+- **流行语**：模糊或流行的术语，无法阐明目的。
+- **实施语言**：技术、可交付成果或我们`如何`做到这一点。
+- **内部术语**：需要特定于项目的上下文才能理解的术语。
 
 ---
 
-## Restrictions
+## 使用场景
 
-### Hard Boundaries
-
-- Do NOT include vision, North Star metric, strategic goals, or milestones in the mission statement.
-- Do NOT include implementation details, features, or roadmap in the mission statement.
-- Do NOT overwrite an existing mission file without explicit user confirmation.
-- Do NOT write more than one artifact; this skill produces only the mission document.
-
-### Skill Boundaries (Avoid Overlap)
-
-**Do NOT do these (other skills handle them)**:
-
-- **Vision**: Long-term future state → Use `define-vision`.
-- **North Star metric**: Single key metric → Use `define-north-star`.
-- **Strategic goals**: 3–5 outcomes → Use `design-strategic-goals`.
-- **Milestones**: Phase checkpoints → Use `define-milestones`.
-- **Requirements or roadmap**: Use `analyze-requirements`, project planning, or `bootstrap-docs`.
-
-**When to stop and hand off**:
-
-- User says "approved" or equivalent → Mission complete; offer handoff to `define-vision`.
-- User asks for vision or "what future" → Hand off to `define-vision`.
-- User asks for metrics or goals → Hand off to `define-north-star` or `design-strategic-goals`.
+- **新项目或倡议**：在愿景或战略之前确定`我们为何存在`。
+- **策略刷新**：方向不明确时重新定位项目。
+- **一致性讨论**：当团队缺乏明确的`原因`时，提供单一的事实来源。
+- **战略链顶部**：构建完整战略层次结构时首先运行（使命→愿景→北极星→目标→里程碑）。
 
 ---
 
-## Self-Check
+## 行为
 
-### Core Success Criteria (ALL must be met)
+### 交互策略
 
-- [ ] **Mission statement exists**: One to two sentences (max 3), purpose only (no vision, metrics, goals, implementation).
-- [ ] **User confirmed**: User said "approved", "looks good", "proceed", or equivalent.
-- [ ] **Document persisted**: Written to agreed path (default `docs/project-overview/mission.md` or project norms).
-- [ ] **Scope respected**: No vision, North Star, goals, or milestones in the statement.
-- [ ] **Stable wording**: Mission is independent of features or timelines.
+- **默认**：项目规范的输出路径（如果存在）（`docs/ARTIFACT_NORMS.md`或`.ai-cortex/artifact-norms.yaml`）；否则为`docs/project-overview/mission.md`。从自述文件或现有文档（如果有）中推断`我们为何存在`。
+- **选择选项**：如果存在多个看似合理的目的，则提供 1-3 个候选陈述并要求用户进行选择或完善。
+- **确认**：覆盖现有使命文件之前；在最终持久化之前。
 
-### Process Quality Checks
+### 执行过程
 
-- [ ] **Context used**: Did I use README or existing docs to infer purpose when available?
-- [ ] **One purpose**: Did I avoid mixing in future state, metrics, or implementation?
-- [ ] **Quality guidelines**: Did I apply Mission Quality Guidelines (short, purpose-driven, no buzzwords/jargon)?
-
-### Acceptance Test
-
-**Can a new team member read the mission and immediately understand why this project exists?**
-
-If NO: Mission is incomplete or mixed with vision/goals/features. Simplify to purpose only.
-If YES: Mission is complete. Proceed to handoff or stop.
+1. **收集上下文**：项目/产品名称、领域和当前对目的的理解（来自文档、自述文件或用户）。
+2. **引出**：这是给谁的？它解决了什么基本问题或需求？为什么值得做？
+3. **草案**：一份使命宣言（优选 1-2 句话，最多 3 句）；仅有目的——没有未来状态，没有指标，没有目标，没有实现或功能。
+4. **验证**：应用任务质量指南；询问用户该陈述是否涵盖`为什么这个项目存在`。
+5. **持久化**：写入到项目约定的路径；如果缺少，请创建`docs/project-overview/`。
 
 ---
 
-## Examples
+## 输入与输出
 
-### Example 1: Mission only — separate from vision
+**输入**：
 
-**Context**: User says "We need a mission for our deployment tool. We're also thinking about our vision later."
+- **必填**：项目或产品标识符；访问或总结当前的`我们为何存在`（来自文档、自述文件或用户）。
+- **可选**：现有任务草案、受众描述、问题陈述。
 
-**Process**: Elicit purpose: who (engineering teams), what problem (manual, error-prone deploys), why it matters (reliability, safety). Draft mission: "We exist to give engineering teams a single, reliable way to deploy services from code to production with minimal manual steps and maximum safety." Do not add future state (e.g. "one-click deploy by 2027"). User confirms. Persist to `docs/project-overview/mission.md`.
+**输出**：
 
-**Outcome**: Mission is purpose-only; vision can be defined later with `define-vision`.
+- **Artifact**：单一使命宣言（首选 1-2 句话，最多 3 句）。
+- **位置**：`docs/project-overview/mission.md`（或按照项目规范）。
+- **内容**：使命宣言；可选 1-2 行`为谁`、`解决核心问题`。
+- **生命周期**：living（常青，仅当目的改变时更新）。
 
-### Example 2: Purpose, not features
+---
 
-**Context**: Repo README says "We build a CLI that supports YAML configs, rollback, and audit logs."
+## 限制
 
-**Process**: Extract purpose: the CLI exists to serve a need (reliable, auditable deployments), not to "build a CLI." Draft: "We exist to give teams a reliable, auditable way to deploy with rollback and clear history." Avoid listing features (YAML, CLI) in the mission. Ask user to confirm or refine. If mission file already exists, ask before overwriting.
+### 硬边界（Hard Boundaries）
 
-**Outcome**: Mission is outcome-focused; features stay in product docs.
+- 请勿在使命宣言中包含愿景、北极星指标、战略目标或里程碑。
+- 请勿在使命宣言中包含实施细节、功能或路线图。
+- 未经用户明确确认，请勿覆盖现有使命文件。
+- 不要写超过一件产品；该技能仅生成使命文档。
+
+### Skill Boundaries（避免重叠）
+
+**不要做这些（其他技能负责）**：
+
+- **愿景**：长期的未来状态 → Use `define-vision`
+- **北极星指标**：单关键指标 → Use `define-north-star`
+- **战略目标**：3-5 个结果 → Use `design-strategic-goals`
+- **里程碑**：阶段检查点 → Use `define-milestones`
+- **需求或路线图** → Use `analyze-requirements`、项目规划或 `bootstrap-docs`
+
+**何时停止并交接**：
+
+- 用户说「已批准」或同等内容 → 使命完成，hand off to `define-vision`
+- 用户询问愿景或「未来是什么」 → Hand off to `define-vision`
+- 用户询问指标或目标 → Hand off to `define-north-star` 或 `design-strategic-goals`
+
+---
+
+## 自检
+
+### 核心成功标准（必须满足所有标准）
+
+- [ ] **存在使命宣言**：一到两句话（最多 3 个），仅用于目的（无愿景、指标、目标、实施）。
+- [ ] **用户确认**：用户说`已批准`、`看起来不错`、`继续`或类似内容。
+- [ ] **文档持久化**：写入约定路径（默认 `docs/project-overview/mission.md` 或项目规范）。
+- [ ] **尊重范围**：声明中没有愿景、北极星、目标或里程碑。
+- [ ] **稳定的措辞**：使命独立于功能或时间表。
+
+### 流程质量检查
+
+- [ ] **使用的上下文**：我是否使用自述文件或现有文档来推断可用的用途？
+- [ ] **一个目的**：我是否避免了未来状态、指标或实现的混合？
+- [ ] **质量指南**：我是否应用了任务质量指南（简短、目的驱动、无流行语/行话）？
+
+### 验收测试
+
+**新团队成员能否阅读使命并立即理解该项目存在的原因？**
+
+如果否：使命不完整或与愿景/目标/功能混合。仅出于目的而简化。
+如果是：使命完成。继续转交或停止。
+
+---
+
+## 示例
+
+### 示例 1：仅使命 — 与愿景分开
+
+**背景**：用户说`我们的部署工具需要一个使命。我们稍后也会考虑我们的愿景。`
+
+**流程**：引出目的：谁（工程团队）、什么问题（手动、容易出错的部署）、为什么重要（可靠性、安全性）。使命草案：`我们的存在是为了为工程团队提供一种单一、可靠的方式，以最少的手动步骤和最大的安全性来部署从代码到生产的服务。`不要添加未来状态（例如`到 2027 年一键部署`）。用户确认。持久化到 `docs/project-overview/mission.md`。
+
+**结果**：使命只有目的；稍后可使用 `define-vision` 定义愿景。
+
+### 示例 2：目的，而不是功能
+
+**上下文**：Repo README 说`我们构建了一个支持 YAML 配置、回滚和审核日志的 CLI。`
+
+**流程**：提取目的：CLI 的存在是为了满足需求（可靠、可审核的部署），而不是`构建 CLI`。草案：`我们的存在是为了为团队提供可靠、可审核的部署方式，并具有回滚和清晰的历史记录。`避免在使命中列出功能（YAML、CLI）。要求用户确认或完善。若使命文件已存在，覆盖前须询问。
+
+**结果**：使命以结果为中心；功能保留在产品文档中。

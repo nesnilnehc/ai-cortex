@@ -1,37 +1,37 @@
-# North Star
+# North Star（北极星）
 
-## North Star Metric
+## North Star 指标
 
-**Monthly skill adoptions (install or add-to-project from this catalog).**
+**月度技能采纳量**（从本目录安装或加入项目）。
 
-- **Definition:** Count of distinct install or add-to-project events (e.g. `npx skills add nesnilnehc/ai-cortex`, or adding a skill to a project) that reference this catalog, per calendar month.
-- **Why it represents user value:** Mission is to make capabilities discoverable, reusable, and governable so teams can scale reliable agent-driven work. Adoption is the signal that teams are discovering and using the catalog — the core value delivered. It is a behavior (adopt a skill), not vanity (stars or clones).
+- **定义**：引用本目录的 distinct install 或 add-to-project 事件数量（如 `npx skills add nesnilnehc/ai-cortex` 或将技能加入项目），按日历月统计。
+- **为何代表用户价值**：使命是让能力可发现、可复用、可治理，使团队能规模化可靠的 Agent 驱动工作。采纳量表明团队正在发现并使用目录——即交付的核心价值。它是行为（采纳技能），而非虚荣指标（stars 或 clones）。
 
-## Derivation (from mission/vision)
+## 推导（来自 mission/vision）
 
-- **User:** Teams and organizations using AI agents that need visibility, reuse, and governance over capabilities.
-- **Core value delivered:** Discoverable, reusable, governable capabilities so agent-driven work scales reliably.
-- **Primary user action:** Adopt or add a capability (install from catalog, add skill to project).
-- **Observable behavior:** Install or add-to-project events.
-- **Measurable metric:** Monthly skill adoptions.
+- **用户**：使用 AI Agent 并对能力具备可见性、复用性与治理需求的团队与组织。
+- **交付的核心价值**：可发现、可复用、可治理的能力，使 Agent 驱动工作可规模化且可靠。
+- **主要用户行为**：采纳或加入能力（从目录安装、将技能加入项目）。
+- **可观测行为**：install 或 add-to-project 事件。
+- **可度量指标**：月度技能采纳量。
 
-## Principles (how this metric was chosen)
+## 原则（如何选择该指标）
 
-1. **Reflects user value:** Teams get discoverable, governable skills; adoption signals they receive that value.
-2. **Represents user behavior:** Installing or adding a skill is an action, not a passive count.
-3. **Measures ongoing engagement:** Monthly adoptions capture repeated use across the ecosystem.
-4. **Product-driven:** Catalog quality, spec, and scenario-map improve discoverability and adoption.
-5. **Simple and clear:** One number per month, easy to reason about.
+1. **反映用户价值**：团队获得可发现、可治理的技能；采纳量表明他们获得了该价值。
+2. **代表用户行为**：安装或加入技能是行为，而非被动计数。
+3. **衡量持续参与**：月度采纳量体现生态中的重复使用。
+4. **产品驱动**：目录质量、Spec 与 intent-routing 提升可发现性与采纳。
+5. **简单清晰**：每月一个数字，易于理解。
 
-## Supporting metrics (optional)
+## 辅助指标（可选）
 
-- **Skills in catalog:** Total skills in INDEX.md / manifest (capacity of the inventory).
-- **Spec compliance:** Share of skills passing verify-registry and Skill Boundaries (quality bar).
-- **Scenario coverage:** Number of scenarios in scenario-map (discoverability).
-- **Channels:** Presence on skills.sh, SkillsMP, Claude Plugin (distribution).
+- **目录中的技能数**：INDEX.md / manifest 中的总技能数（库存容量）。
+- **Spec 合规率**：通过 verify-registry 与 Skill Boundaries 的技能占比（质量门槛）。
+- **意图覆盖**：intent-routing 中的场景数（可发现性）。
+- **渠道**：在 skills.sh、SkillsMP、Claude Plugin 上的存在（分发）。
 
-## Anti–North-Star (do not optimize for these as the North Star)
+## 反 North Star（不要将这些作为 North Star 优化）
 
-- **GitHub stars:** Vanity; does not reflect adoption or usage.
-- **Repository clones/forks:** One-time or passive; not ongoing value-delivering behavior.
-- **Total unique visitors:** Vanity; not tied to skill adoption or value.
+- **GitHub stars**：虚荣指标；不反映采纳或使用。
+- **仓库克隆/ Fork**：一次性或被动；非持续交付价值的行为。
+- **总独立访客**：虚荣指标；与技能采纳或价值无直接关联。

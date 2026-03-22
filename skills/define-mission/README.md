@@ -1,41 +1,45 @@
-# define-mission
+# 定义使命 (define-mission)
 
-Define the fundamental purpose of a project or organization. Answers "Why does this project exist?"
+定义项目或组织的基本目的。回答「项目为何存在？」。
 
-## What it does
+## 用途
 
-Elicits and documents a single mission statement (1–3 sentences) that states why the project exists. Does not define vision, North Star metric, goals, or milestones. Output is persisted to `docs/project-overview/mission.md` (or project norms).
+引出并记录一个单一的使命宣言（1-3句话），说明该项目存在的原因。不定义愿景、北极星指标、目标或里程碑。输出保存到“docs/project-overview/mission.md”（或项目规范）。
 
-## When to use
+## 何时使用
 
-- New project or initiative — establish "why we exist" before vision or strategy.
-- Strategy refresh — re-anchor when direction is unclear.
-- Top of strategy chain — run first when building mission → vision → north star → goals → milestones.
+- 新项目或倡议——在愿景或战略中确定“我们存在的原因”。
+- 更新策略——方向不明确时重新定位。
+- 战略链的顶部——构建任务→愿景→北极星→目标→里程碑时首次运行。
 
-## Inputs
+## 输入
 
-- Project or product identifier; current understanding of purpose (from docs, README, or user).
-- Optional: existing mission draft, audience, problem statement.
+- 项目或产品标识符；当前对目的的理解（来自文档、自述文件或用户）。
+- 任选：现有任务草案、受众、问题陈述。
 
-## Outputs
+## 输出
 
-- Mission statement document at `docs/project-overview/mission.md` (or per project norms).
-- Optional: "For whom", "Core problem addressed" (1–2 lines).
+- 使命宣言文档位于“docs/project-overview/mission.md”（或遵循项目规范）。
+- 任选：“为谁”、“解决核心问题”（1-2行）。
 
-## Installation
+## 安装
+
+
 
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill define-mission
 ```
 
-## Related skills
 
-- `define-vision` — next layer: what future we build.
-- `define-north-star` — single metric for user value.
-- `design-strategic-goals` — 3–5 strategic outcomes.
-- `define-milestones` — phase checkpoints from goals.
-- `bootstrap-docs` — doc structure; can create project-overview layout.
 
-## Full definition
+## 相关技能
 
-See [SKILL.md](./SKILL.md) for behavior, restrictions, and examples.
+- `define-vision` — 下一层：我们构建什么样的未来。
+- `define-north-star` — 用户价值的单一指标。
+- `design-strategic-goals` — 3–5 个战略成果。
+- `define-milestones` — 目标的阶段检查点。
+- `bootstrap-docs` — 文档结构；可以创建项目概述布局。
+
+## 完整定义
+
+请参阅 [SKILL.md](./SKILL.md) 了解行为、限制和示例。

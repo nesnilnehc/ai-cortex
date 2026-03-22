@@ -1,41 +1,45 @@
-# define-vision
+#定义愿景
 
-Define the long-term future the project aims to create. Answers "What future are we trying to build?"
+定义项目旨在创造的长期未来。回答“我们正在努力建设什么样的未来？”
 
-## What it does
+## 用途
 
-Produces a vision statement (1–3 sentences) describing the desired future state, aligned with the mission. Does not define North Star metric, goals, or milestones. Output is persisted to `docs/project-overview/vision.md` (or project norms).
+生成一个愿景声明（1-3句话），描述与使命一致的预期的未来状态。不定义北极星指标、目标或里程碑。输出保存到“docs/project-overview/vision.md”（或项目规范）。
 
-## When to use
+## 何时使用
 
-- After mission — establish "what future we build" once "why we exist" is clear.
-- Strategy or direction reset — realign on the long-term target.
-- Second layer in strategy chain — run after `define-mission` when building mission → vision → north star → goals → milestones.
+- 完成任务后——一旦“我们存在的理由”明确，就确定“我们构建什么样的未来”。
+- 战略或方向重置——重新调整长期目标。
+- 战略链中的第二层——构建任务→愿景→北极星→目标→里程碑时在“定义任务”之后运行。
 
-## Inputs
+## 输入
 
-- Mission (statement or path); project/product context.
-- Optional: existing vision draft, time horizon, audience.
+- 使命（声明或路径）；项目/产品背景。
+- 任选：现有愿景草案、时间范围、受众。
 
-## Outputs
+## 输出
 
-- Vision statement document at `docs/project-overview/vision.md` (or per project norms).
-- Optional: "Aligned with mission", "Time horizon".
+- 愿景声明文档位于“docs/project-overview/vision.md”（或遵循项目规范）。
+- 任选：“与使命保持一致”、“时间范围”。
 
-## Installation
+## 安装
+
+
 
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill define-vision
 ```
 
-## Related skills
 
-- `define-mission` — upstream: why we exist.
-- `define-north-star` — next: single metric for user value.
-- `design-strategic-goals` — 3–5 strategic outcomes.
-- `define-milestones` — phase checkpoints from goals.
-- `bootstrap-docs` — doc structure; can create project-overview layout.
 
-## Full definition
+## 相关技能
 
-See [SKILL.md](./SKILL.md) for behavior, restrictions, and examples.
+- `define-mission` — 上游：我们为何存在。
+- `define-north-star` — 下一个：用户价值的单一指标。
+- `设计战略目标` — 3-5个战略成果。
+- `define-里程碑` — 目标的阶段检查点。
+- `bootstrap-docs` — 文档结构；可以创建项目概述布局。
+
+## 完整定义
+
+请参阅 [SKILL.md](./SKILL.md) 了解行为、限制和示例。

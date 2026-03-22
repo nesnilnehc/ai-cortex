@@ -1,37 +1,39 @@
-# breakdown-tasks
+# 细分任务
 
-Turn a validated design document into an executable task list with dependencies, acceptance criteria, and assignee or AI execution hints.
+将已验证设计文档转换为包含依赖项、验收标准以及受让人或 AI 执行提示的可执行任务列表。
 
-## Overview
+## 概述
 
-This skill consumes the output of `design-solution` (or `brainstorm-design`) and produces a tasks document (e.g. tasks.md) so that implementation can proceed in order with clear "done" criteria and ownership. It is the third step in the execution chain: **analyze-requirements → design-solution → breakdown-tasks**.
+该技能使用“设计解决方案”（或“头脑风暴设计”）的输出并生成任务文档（例如tasks.md），以便可以按照明确的“完成”标准和所有权按顺序进行实施。这是执行链的第三步：**分析需求→设计解决方案→分解任务**。
 
-## Key features
+## 主要特点
 
-- **Design as input**: Reads design.md or docs/design-decisions/*.md
-- **Ordered tasks**: Each task has dependencies; list is acyclic
-- **Acceptance criteria**: Per-task "done" definition
-- **Owner or hint**: Assignee (person/role) or AI execution hint per task
-- **Traceability**: Tasks map back to design sections
+- **设计作为输入**：读取设计.md 或 docs/design-decisions/*.md
+- **有序任务**：每个任务都有依赖关系；列表是非循环的
+- **验收标准**：每个任务“完成”的定义
+- **所有者或提示**：受让人（人/角色）或每个任务的 AI 执行提示
+- **可追溯性**：任务映射回设计部分
 
-## When to use
+## 何时使用
 
-- After design is approved and you need an implementation plan
-- When you want every design decision to map to concrete tasks
-- When you want AI-executable hints (e.g. which skill or file to touch) per task
+- 设计获得批准后，您需要一个实施计划
+- 当您希望每个设计决策都映射到具体任务时
+- 当您需要每个任务的 AI 可执行提示（例如要触摸哪个技能或文件）时
 
-## Related skills
+## 相关技能
 
-- `design-solution`: Produces the design document this skill consumes
-- `analyze-requirements`: Produces requirements that feed design; not direct input to breakdown-tasks
-- `align-planning`: Re-aligns execution with goals/milestones; can consume task state
+- `设计-solution`：生成该技能消耗的设计文档
+- `分析需求`：产生满足设计的需求；不直接输入分解任务
+- `align-planning`：根据目标/里程碑重新调整执行；可以消耗任务状态
 
-## Installation
+## 安装
+
 
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill breakdown-tasks
 ```
 
-## License
 
-MIT
+## 许可证
+
+麻省理工学院

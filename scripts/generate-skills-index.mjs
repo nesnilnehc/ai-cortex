@@ -55,7 +55,7 @@ const rows = capabilities.map((cap) => {
   const tags = meta.tags.join(', ');
   const version = meta.version;
   const stability = getStability(version);
-  const purpose = normalizePurpose(meta.description);
+  const purpose = normalizePurpose(meta.description_zh || meta.description);
   return `| [${meta.name}](./${meta.name}/SKILL.md) | ${tags} | \`${version}\` | ${stability} | ${purpose} |`;
 });
 
@@ -71,7 +71,7 @@ const registrySection = [
   '',
 ].join('\n');
 
-const sectionPattern = /## 3\. Skill registry[\s\S]*?---\n+## 4\. Scheduling and extension/;
+const sectionPattern = /## 3\. Skill registry[\s\S]*?---\n+## 4\. (?:Scheduling and extension|调度与扩展)/;
 if (!sectionPattern.test(currentIndex)) {
   console.error('Failed to locate skills/INDEX.md section "## 3. Skill registry"');
   process.exit(1);
@@ -79,7 +79,7 @@ if (!sectionPattern.test(currentIndex)) {
 
 const updated = currentIndex.replace(
   sectionPattern,
-  `${registrySection}## 4. Scheduling and extension`
+  `${registrySection}## 4. 调度与扩展`
 );
 
 writeFileSync(indexPath, `${updated.trimEnd()}\n`, 'utf8');

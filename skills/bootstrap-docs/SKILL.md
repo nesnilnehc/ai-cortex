@@ -1,8 +1,9 @@
 ---
 name: bootstrap-docs
 description: Bootstrap or adapt project docs using project-documentation-template. Core goal - produce structured lifecycle documentation aligned with enterprise template. Initialize (empty) or Adjust (non-empty); repeatable; strict kebab-case naming.
+description_zh: 使用 project-documentation-template 初始化或适配项目文档；产出结构化生命周期文档；支持 Initialize / Adjust。
 tags: [documentation, writing]
-version: 1.1.1
+version: 1.1.2
 license: MIT
 recommended_scope: both
 metadata:
@@ -20,247 +21,247 @@ output_schema:
 compatibility: Requires access to https://raw.githubusercontent.com or a local clone of nesnilnehc/project-documentation-template.
 ---
 
-# Skill: Bootstrap Project Documentation
+# 技能(Skill)：Bootstrap项目文档
 
-## Purpose
+## 目的 (Purpose)
 
-Bootstrap or adapt project documentation using the [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) structure. Two modes: **Initialize** (empty project—copy templates and fill placeholders) and **Adjust** (non-empty—use template as target, propose renames/moves/merges, apply in-place after confirmation). Supports repeatable runs; avoids empty dirs and template files unless requested; enforces strict kebab-case naming. Output paths for skill-generated artifacts (ADR, backlog, design-decisions, calibration) follow [spec/artifact-contract.md](../../spec/artifact-contract.md); project-documentation-template provides content and reference. When creating process-management structure, create `docs/process-management/project-board/backlog/` and `docs/process-management/decisions/` per contract.
-
----
-
-## Core Objective
-
-**Primary Goal**: Produce structured lifecycle documentation aligned with the enterprise template through mode-appropriate bootstrapping or adaptation.
-
-**Success Criteria** (ALL must be met):
-
-1. ✅ **Mode selected correctly**: Initialize for empty projects, Adjust for non-empty projects (or user override applied)
-2. ✅ **Template structure applied**: Documentation follows project-documentation-template conventions for selected scale
-3. ✅ **Placeholders filled**: All `[...]` placeholders replaced with project-specific content (or explicitly marked for later)
-4. ✅ **Naming conventions enforced**: All paths use strict kebab-case; ADR files follow `YYYYMMDD-slug-title.md` format
-5. ✅ **User confirmation obtained**: In Adjust mode, changes applied only after user approval of recommendation list
-
-**Acceptance Test**: Can a developer navigate the documentation structure and find lifecycle documents without consulting the template repository?
+使用 [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) 结构引导或调整项目文档。两种模式：**初始化**（空项目——复制模板并填充占位符）和**调整**（非空——使用模板作为目标，建议重命名/移动/合并，确认后就地应用）。支持可重复运行；除非有要求，否则避免空目录和模板文件；强制执行严格的短横线命名。技能生成的产品（ADR、待办、设计决策、校准）的输出路径遵循 [spec/artifact-contract.md](../../spec/artifact-contract.md)； project-documentation-template 提供内容和参考。创建流程管理结构时，为每个合同创建 `docs/process-management/project-board/待办/` 和 `docs/process-management/decisions/`。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-**This skill handles**:
+**治理目标**：通过适合模式的引导或调整，生成与企业模板一致的结构化生命周期文档。
 
-- Documentation structure bootstrapping (Initialize mode)
-- Documentation structure adaptation (Adjust mode)
-- Placeholder filling and validation
-- Path naming standardization (kebab-case)
-- ADR generation and indexing
+**成功标准**（必须满足所有要求）：
 
-**This skill does NOT handle**:
+1. ✅ **正确选择模式**：针对空项目进行初始化，针对非空项目进行调整（或应用用户覆盖）
+2. ✅ **应用模板结构**：文档遵循所选规模的项目-文档-模板约定
+3. ✅ **占位符已填充**：所有 `[...]` 占位符替换为项目特定内容（或明确标记以供以后使用）
+4. ✅ **强制执行命名约定**：所有路径都使用严格的短横线大小写； ADR 文件遵循 `YYYYMMDD-slug-title.md` 格式
+5. ✅ **获得用户确认**：在调整模式下，仅在用户批准推荐列表后才应用更改
 
-- README generation (use `generate-standard-readme`)
-- AGENTS.md entry creation (use `generate-agent-entry`)
-- Skill-specific documentation (use `refine-skill-design`)
-- Content writing beyond template placeholders (user provides domain content)
-
-**Handoff point**: When documentation structure is established and placeholders filled, hand off to content authoring or project-specific documentation workflows.
+**仓库测试**：开发人员是否可以在不查阅模板存储库的情况下导航文档结构并查找生命周期文档？
 
 ---
 
-## Use Cases
+## 范围边界（范围边界）
 
-- **Empty project**: Initialize a full docs skeleton by copying template subsets and filling placeholders for small/medium/large projects.
-- **Non-empty project**: Use the template as target reference; analyze existing docs, propose renames/moves/merges to align structure and naming; apply in-place changes after user confirmation. Do not create empty dirs or template files unless requested. Can be run repeatedly.
-- **Shared workflows**: Generate Architecture Decision Records (ADR), update version information across docs, validate placeholders and links.
-- **Iterative runs**: Run the skill repeatedly to progressively organize and refine docs; each run builds on the current state without requiring a full reinit.
+**本技能负责**：
 
-**When to use**: When a project needs structured lifecycle documentation aligned with the enterprise template, or when existing docs should be aligned with that structure.
+- 文档结构引导（初始化模式）
+- 文档结构调整（调整模式）
+- 占位符填充和验证
+- 路径命名标准化（kebab-case）
+- ADR 生成和索引
 
----
+**本技能不负责**：
 
-## Behavior
+- 自述文件生成（使用“generate-standard-readme”）
+- AGENTS.md 条目创建（使用 `generate-agent-entry`）
+- 特定于技能的文档（使用“refine-skill-design”）
+- 超出模板占位符的内容编写（用户提供域内容）
 
-### Mode Selection
-
-First determine the execution mode. User override takes precedence; otherwise:
-
-| Mode | Trigger | Behavior |
-| :--- | :------ | :------- |
-| **Initialize** | No `docs/` or `docs/` empty | Copy subset, fill placeholders, create `VERSION`, output docs skeleton |
-| **Adjust** | `docs/` has ≥1 valid document | Scan, compare, output recommendation list; apply after user confirmation |
-
-**Detection rules**:
-
-- No `docs/` or `docs/` is empty → **Initialize**
-- `docs/` exists and has ≥1 valid `.md` file → **Adjust**
-- User explicitly specifies `--mode=initialize` or `--mode=adjust` → use that mode
-
-### Initialize Mode Steps
-
-1. Determine project scale: small, medium, or large (from user or context).
-2. Select the document subset from the template by scale:
-   - **Small**: Project Overview, Development Guide, User Guide
-   - **Medium**: + Architecture, Design, Requirements & Planning
-   - **Large**: + Process Management, Operations Guide, Compliance, Community & Contributing
-3. Fetch templates from `TEMPLATE_BASE_URL` (see Appendix) or use a local clone.
-4. Copy **only** selected docs to the project `docs/`. Create contract-aligned directories per [spec/artifact-contract.md](../../spec/artifact-contract.md) when scale permits: `docs/design-decisions/` (medium+), `docs/calibration/`, `docs/process-management/project-board/backlog/`, `docs/process-management/decisions/` (large). Optionally create `docs/ARTIFACT_NORMS.md` from contract (per [spec/artifact-norms-schema.md](../../spec/artifact-norms-schema.md)) for the user to customize. Do not create other empty dirs unless the user explicitly requests them.
-5. Fill placeholders with project metadata (name, dates, tech stack) and prompt for missing critical data.
-6. Create a `VERSION` file (e.g. `1.0.0`) unless the user explicitly requests no new files.
-7. Validate: no unreplaced placeholders, links valid, tables aligned.
-
-### Adjust Mode Steps
-
-1. Use [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) as the **target reference** for structure, conventions, and file/directory names.
-2. Scan existing docs under `docs/` (structure, placeholders, links, versions).
-3. Compare to the template and identify gaps:
-   - Structure and path mismatches (nonstandard dir/file names)
-   - Documents alignable to template (rename, move, or merge)
-   - Unfilled placeholders, broken links, version inconsistencies
-4. Produce a **recommendation list** and present it to the user; ask for confirmation before applying.
-5. After confirmation, apply changes **in-place** to existing files. Do not create empty directories or add template files unless the user explicitly requests them.
-6. The skill is **idempotent**: it can be run repeatedly to iteratively organize and refine docs.
-
-### Conventions (from llms.txt)
-
-- **Placeholders**: `[description]`, `[option1/option2]`, `YYYY-MM-DD`, `[number]`
-- **Tables**: Preserve column alignment; `*` marks required fields
-- **Version**: Use SemVer; update version history at document bottom on changes
-- **References**: Internal `[README](../../README.md)`; external `[Example](https://example.com)`
-- **Dates**: `YYYY-MM-DD`
-
-### File and directory naming (strict)
-
-- **Directories**: `kebab-case` only (e.g. `project-overview`, `development-guide`, `process-management`)
-- **Files**: `kebab-case` with `.md` extension (e.g. `goals-and-vision.md`, `versioning-standards.md`)
-- **ADR files**: `docs/process-management/decisions/YYYYMMDD-slug.md` per [spec/artifact-contract.md](../../spec/artifact-contract.md)
-- No spaces, underscores, or PascalCase; lowercase letters, digits, hyphens only.
+**转交点**：建立文档结构并填充占位符后，将其移交给内容创作或特定于项目的文档工作流。
 
 ---
 
-## Input & Output
+## 使用场景（用例）
 
-### Input
+- **空项目**：通过复制模板子集并填充小型/中型/大型项目的占位符来初始化完整的文档框架。
+- **非空项目**：使用模板作为目标参考；分析现有文档，提出重命名/移动/合并以调整结构和命名；用户确认后应用就地更改。除非有要求，否则不要创建空目录或模板文件。可以反复运行。
+- **共享工作流程**：生成架构决策记录 (ADR)、跨文档更新版本信息、验证占位符和链接。
+- **迭代运行**：重复运行技能以逐步组织和完善文档；每次运行都基于当前状态，无需完全重新初始化。
 
-- **Project metadata**: Name, description, tech stack
-- **Scale**: small | medium | large (optional; infer from context if absent)
-- **Mode override** (optional): `initialize` | `adjust`
-
-### Output
-
-- **Initialize**: Filled docs under `docs/`, `VERSION`, and a short summary of created files
-- **Adjust**: A recommendation list (markdown or structured), then—after confirmation—the applied changes and summary
+**何时使用**：当项目需要与企业模板一致的结构化生命周期文档时，或者当现有文档应与该结构一致时。
 
 ---
 
-## Restrictions
+## 行为（行为）
 
-### Hard Boundaries
+### 模式选择
 
-- Replace all placeholders before finalizing documents; do not leave `[description]` etc. in final output unless explicitly deferred.
-- Do not add or keep broken internal links; verify relative paths.
-- Use consistent dates (`YYYY-MM-DD`) and SemVer for versions.
-- In Adjust mode, do not apply changes without user confirmation.
-- Do not remove structural elements (sections, tables) from templates without user approval.
-- Do not create empty directories or add template files unless the user explicitly requests them.
-- Use strict file and directory naming (kebab-case, ADR format `YYYYMMDD-title.md`) when creating or renaming paths.
+首先确定执行模式。用户优先；否则：
 
-### Skill Boundaries (Avoid Overlap)
+|模式|触发|行为 |
+| :--- | :------ | :----- |
+| **初始化** |没有“docs/”或“docs/”为空 |复制子集，填充占位符，创建“VERSION”，输出文档骨架 |
+| **调整** | `docs/` 有 ≥1 个有效文档 |扫描、比较、输出推荐列表；用户确认后申请 |
 
-**Do NOT do these (other skills handle them)**:
+**检测规则**：
 
-- **README generation**: Creating or updating README.md files → Use `generate-standard-readme`
-- **AGENTS.md entry creation**: Writing or updating AGENTS.md files → Use `generate-agent-entry`
-- **Skill documentation**: Creating or refining SKILL.md files → Use `refine-skill-design`
-- **Content authoring**: Writing domain-specific content beyond template placeholders → User provides content
+- 没有 `docs/` 或 `docs/` 为空 → **初始化**
+- `docs/` 存在并且有 ≥1 个有效的 `.md` 文件 → **调整**
+- 用户明确指定 `--mode=initialize` 或 `--mode=adjust` → 使用该模式
 
-**When to stop and hand off**:
+### 初始化模式步骤
 
-- User says "structure is ready" or "placeholders filled" → Documentation structure complete, hand off to content authoring
-- User asks "how do I write the content?" → Structure complete, hand off to domain experts or content workflows
-- User asks "can you generate the README?" → Hand off to `generate-standard-readme`
-- User asks "can you create AGENTS.md?" → Hand off to `generate-agent-entry`
+1. 确定项目规模：小型、中型或大型（根据用户或上下文）。
+2. 按规模从模板中选择文档子集：
+   - **小**：项目概述、开发指南、用户指南
+   - **中**：+架构、设计、需求和规划
+   - **大型**：+流程管理、操作指南、合规性、社区和贡献
+3. 从“TEMPLATE_BASE_URL”获取模板（请参阅附录）或使用本地克隆。
+4. **仅**选定的文档复制到项目“docs/”。当规模允许时，根据 [spec/artifact-contract.md](../../spec/artifact-contract.md) 创建合同对齐目录：`docs/design-decisions/`（中+）、`docs/calibration/`、`docs/process-management/project-board/待办/`、`docs/process-management/decisions/`（大）。可以选择从合同创建“docs/ARTIFACT_NORMS.md”（根据 [spec/artifact-norms-schema.md](../../spec/artifact-norms-schema.md)）供用户自定义。除非用户明确请求，否则不要创建其他空目录。
+5. 使用项目元数据（名称、日期、技术堆栈）填充占位符，并提示缺少的关键数据。
+6. 创建一个“VERSION”文件（例如“1.0.0”），除非用户明确请求不创建新文件。
+7. 验证：没有未替换的占位符、链接有效、表格对齐。
 
----
+### 调整模式步骤
 
-## Self-Check
+1. 使用 [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) 作为结构、约定和文件/目录名称的**目标参考**。
+2. 扫描“docs/”下的现有文档（结构、占位符、链接、版本）。
+3. 与模板进行比较并找出差距：
+   - 结构和路径不匹配（非标准目录/文件名）
+   - 文档可与模板对齐（重命名、移动或合并）
+   - 未填充的占位符、损坏的链接、版本不一致
+4. 制作**推荐列表**并呈现给用户；申请前要求确认。
+5. 确认后，将更改**就地**应用到现有文件。除非用户明确请求，否则不要创建空目录或添加模板文件。
+6.该技能是**幂等的**：可以重复运行以迭代地组织和细化文档。
 
-### Core Success Criteria (ALL must be met)
+### 约定（来自 llms.txt）
 
-- [ ] **Mode selected correctly**: Initialize for empty projects, Adjust for non-empty projects (or user override applied)
-- [ ] **Template structure applied**: Documentation follows project-documentation-template conventions for selected scale
-- [ ] **Placeholders filled**: All `[...]` placeholders replaced with project-specific content (or explicitly marked for later)
-- [ ] **Naming conventions enforced**: All paths use strict kebab-case; ADR files follow `YYYYMMDD-slug-title.md` format
-- [ ] **User confirmation obtained**: In Adjust mode, changes applied only after user approval of recommendation list
+- **占位符**：`[描述]`、`[选项1/选项2]`、`YYYY-MM-DD`、`[数字]`
+- **表格**：保持列对齐； “*”标记必填字段
+- **版本**：使用 SemVer；更新文档底部的版本历史记录以了解更改
+- **参考文献**：内部`[README](../../README.md)`；外部`[示例](https://example.com)`
+- **日期**：`YYYY-MM-DD`
 
-### Process Quality Checks
+### 文件和目录命名（严格）
 
-- [ ] **Links validated**: Do internal links resolve and do external links point to valid resources?
-- [ ] **Version consistency**: Is the version consistent across `VERSION` and affected documents?
-- [ ] **Tables aligned**: Is Markdown table alignment preserved?
-- [ ] **No extra dirs/files**: Were empty dirs and template files avoided unless user requested them?
-
-### Acceptance Test
-
-**Can a developer navigate the documentation structure and find lifecycle documents without consulting the template repository?**
-
-If NO: Documentation structure is incomplete or unclear. Return to mode-specific steps.
-
-If YES: Documentation structure is complete. Proceed to handoff.
-
----
-
-## Examples
-
-### Example 1: Initialize (Empty Project, Small Scale)
-
-**Context**: New repo `my-service`, no `docs/` directory.
-
-**Steps**: Agent selects Initialize; scale = small. Copies Project Overview, Development Guide, User Guide from template. Fills project name, dates, placeholder descriptions. Creates `VERSION` as `1.0.0`. Outputs a summary of created files.
-
-**Output snippet**: `docs/project-overview/goals-and-vision.md`, `docs/development-guide/...`, `docs/user-guide/...`, `VERSION`. All placeholders filled with project-specific content.
-
-### Example 2: Adjust (Non-Empty Project)
-
-**Context**: Repo has `docs/` with `project_overview/goals.md` (nonstandard paths). Some placeholders unfilled.
-
-**Steps**: Agent selects Adjust. Uses [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) as target. Produces recommendation list:
-
-- Rename `project_overview/` → `project-overview/`, `goals.md` → `goals-and-vision.md` (kebab-case, match template)
-- Unfilled placeholders in `goals-and-vision.md`: `[project description]`, `[target date]`
-- Broken link: `../architecture/tech-stack.md` (path does not exist)
-
-Agent presents the list and asks: "Apply these changes? (Y/n)". User confirms. Agent renames dirs/files, fixes placeholders and links in-place. No new empty dirs or template files created.
-
-### Example 3: Common Workflow—Generate ADR
-
-**Context**: Any project; user needs an Architecture Decision Record.
-
-**Steps**: Agent fetches `docs/process-management/decisions/ADR-TEMPLATE.md` from template. Determines next ADR number (e.g. ADR-001). Fills context, options, rationale, consequences with user input. Saves as `docs/process-management/decisions/YYYYMMDD-decision-title.md` (kebab-case slug) and updates the decision index if present.
+- **目录**：仅限“kebab-case”（例如“项目概述”、“开发指南”、“流程管理”）
+- **文件**：带有“.md”扩展名的“kebab-case”（例如“goals-and-vision.md”、“versioning-standards.md”）
+- **ADR 文件**：每个 [spec/artifact-contract.md](../../spec/artifact-contract.md) `docs/process-management/decisions/YYYYMMDD-slug.md`
+- 没有空格、下划线或 PascalCase；仅限小写字母、数字、连字符。
 
 ---
 
-## Appendix: Output Contract
+## 输入与输出 (Input & Output)
 
-### Initialize Mode
+### 输入（输入）
 
-| Deliverable | Required |
+- **项目元数据**：名称、描述、技术堆栈
+- **规模**：小|中等|大（可选；如果不存在，则从上下文推断）
+- **模式覆盖**（可选）：`初始化` | `调整`
+
+### 输出（输出）
+
+- **初始化**：在`docs/`、`VERSION`下填充文档，以及创建文件的简短摘要
+- **调整**：建议列表（降价或结构化），然后 - 确认后 - 应用的更改和摘要
+
+---
+
+## 限制（限制）
+
+### 硬边界（Hard Boundaries）
+
+- 在最终确定文档之前替换所有占位符；除非明确推迟，否则不要在最终输出中留下“[description]”等。
+- 不要添加或保留损坏的内部链接；验证相对路径。
+- 对版本使用一致的日期 (`YYYY-MM-DD`) 和 SemVer。
+- 在调整模式下，未经用户确认请勿应用更改。
+- 未经用户批准，请勿从模板中删除结构元素（部分、表格）。
+- 除非用户明确请求，否则不要创建空目录或添加模板文件。
+- 创建或重命名路径时，使用严格的文件和目录命名（短横线命名，ADR 格式“YYYYMMDD-title.md”）。
+
+### 技能边界 (Skill Boundaries)（避免重叠）
+
+**不要做这些（其他技能可以处理它们）**：
+
+- **README 生成**：创建或更新 README.md 文件 → 使用 `generate-standard-readme`
+- **AGENTS.md 条目创建**：编写或更新 AGENTS.md 文件 → 使用 `generate-agent-entry`
+- **技能文档**：创建或优化 SKILL.md 文件 → 使用 `refine-skill-design`
+- **内容创作**：在模板占位符之外编写特定于域的内容 → 用户提供内容
+
+**何时停止并交接**：
+
+- 用户说“结构已准备好”或“占位符已填充”→ 文档结构完成，移交给内容创作
+- 用户询问“我该如何编写内容？” → 结构完成，移交给领域专家或内容工作流程
+- 用户问“你能生成自述文件吗？” → 移交给“生成标准自述文件”
+- 用户问“你能创建 AGENTS.md 吗？” → 移交给 `generate-agent-entry`
+
+---
+
+## 自检（Self-Check）
+
+### 核心成功标准（必须满足所有标准）
+
+- [ ] **正确选择模式**：针对空项目进行初始化，针对非空项目进行调整（或应用用户覆盖）
+- [ ] **应用模板结构**：文档遵循所选规模的项目-文档-模板约定
+- [ ] **占位符已填充**：所有“[...]”占位符替换为项目特定内容（或明确标记以供以后使用）
+- [ ] **强制命名约定**：所有路径都使用严格的短横线大小写； ADR 文件遵循 `YYYYMMDD-slug-title.md` 格式
+- [ ] **获得用户确认**：在调整模式下，仅在用户批准推荐列表后才应用更改
+
+### 流程质量检查
+
+- [ ] **链接已验证**：内部链接是否解析以及外部链接是否指向有效资源？
+- [ ] **版本一致性**：“VERSION”和受影响的文档之间的版本是否一致？
+- [ ] **表格对齐**：是否保留 Markdown 表格对齐方式？
+- [ ] **没有额外的目录/文件**：除非用户请求，否则是否避免了空目录和模板文件？
+
+### 验收测试
+
+**开发人员可以在不查阅模板存储库的情况下浏览文档结构并查找生命周期文档吗？**
+
+如果否：文档结构不完整或不清楚。返回特定于模式的步骤。
+
+如果是：文档结构完整。继续转交。
+
+---
+
+## 示例（示例）
+
+### 示例 1：初始化（空项目，小规模）
+
+**上下文**：新的存储库“my-service”，没有“docs/”目录。
+
+**步骤**：Agent选择Initialize；规模=小。从模板复制项目概述、开发指南、用户指南。填写项目名称、日期、占位符描述。将“VERSION”创建为“1.0.0”。输出创建的文件的摘要。
+
+**输出片段**：`docs/project-overview/goals-and-vision.md`、`docs/development-guide/...`、`docs/user-guide/...`、`VERSION`。所有占位符都填充了项目特定的内容。
+
+### 示例 2：调整（非空项目）
+
+**上下文**：回购协议有“docs/”和“project_overview/goals.md”（非标准路径）。一些占位符未填充。
+
+**步骤**：代理选择“调整”。使用 [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) 作为目标。产生推荐列表：
+
+- 重命名 `project_overview/` → `project-overview/`, `goals.md` → `goals-and-vision.md` (kebab-case, 匹配模板)
+- `goals-and-vision.md` 中未填充的占位符：`[项目描述]`、`[目标日期]`
+- 损坏的链接：`../architecture/tech-stack.md`（路径不存在）
+
+代理展示该列表并询问：“应用这些更改？（是/否）”。用户确认。代理重命名目录/文件，修复占位符和链接。没有创建新的空目录或模板文件。
+
+### 示例 3：通用工作流程 — 生成 ADR
+
+**上下文**：任何项目；用户需要一个架构决策记录。
+
+**步骤**：代理从模板中获取“docs/process-management/decisions/ADR-TEMPLATE.md”。确定下一个 ADR 编号（例如 ADR-001）。用用户输入填充上下文、选项、基本原理、结果。保存为“docs/process-management/decisions/YYYYMMDD-decision-title.md”（kebab-case slug）并更新决策索引（如果存在）。
+
+---
+
+## 附录：输出合同
+
+### 初始化模式
+
+|可交付成果 |必填|
 | :--- | :--- |
-| `docs/` with selected template files only (no empty dirs) | Yes |
-| `VERSION` file | Yes (unless user explicitly requests no new files) |
-| All placeholders replaced (or marked for later) | Yes |
-| Version history table at document bottom | Per template |
+|仅包含选定模板文件的“docs/”（无空目录）|是的 |
+| `版本` 文件 |是（除非用户明确请求不添加新文件）|
+|所有占位符均已替换（或标记为稍后使用）|是的 |
+|文档底部的版本历史表 |每个模板|
 
-### Adjust Mode Recommendation List Format
+###调整模式推荐列表格式
 
-| Section | Content |
+|部分|内容 |
 | :--- | :--- |
-| Target reference | [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) |
-| Path/naming issues | Current path → recommended path (kebab-case, template alignment) |
-| Alignable documents | Existing docs that can be renamed/moved/merged to match template |
-| Unfilled placeholders | File path + placeholder text |
-| Broken/outdated links | File path + link |
-| Version issues | Conflicts or missing version refs |
+|目标参考| [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) |
+|路径/命名问题 |当前路径→推荐路径（kebab-case、模板对齐）|
+|可对齐文档 |可以重命名/移动/合并现有文档以匹配模板 |
+|未填充的占位符 |文件路径+占位符文本|
+|损坏/过时的链接 |文件路径+链接|
+|版本问题 |冲突或缺少版本参考 |
 
-### Template Source
+### 模板源
 
-- **TEMPLATE_BASE_URL** (canonical): `https://raw.githubusercontent.com/nesnilnehc/project-documentation-template/main/`
-- Key files: `llms.txt`, `AGENTS.md`, `README.md`, `docs/`
-- If fetch fails (network unavailable): prompt the user to provide a local clone path or retry later; do not proceed with stale or missing templates.
+- **TEMPLATE_BASE_URL**（规范）：`https://raw.githubusercontent.com/nesnilnehc/project-documentation-template/main/`
+- 关键文件：`llms.txt`、`AGENTS.md`、`README.md`、`docs/`
+- 如果获取失败（网络不可用）：提示用户提供本地克隆路径或稍后重试；不要继续使用过时或丢失的模板。

@@ -1,46 +1,46 @@
-# Generate GitHub Workflow
+# 生成 GitHub 工作流程
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Produces GitHub Actions workflow YAML that satisfies the skill's Appendix A output contract. Security-first, minimal permissions, version pinning. For CI, release, PR checks. Supports Node, Python, Go, Rust; includes Go + Docker + GoReleaser appendix.
+生成满足技能附录 A 输出合同的 GitHub Actions 工作流 YAML。安全第一、最小权限、版本固定。用于 CI、发布、PR 检查。支持 Node、Python、Go、Rust；包括 Go + Docker + GoReleaser 附录。
 
-## When to use
+## 何时使用
 
-- New project setup: add CI or PR-check workflows
-- Unified standards: align workflow style across repos
-- Fill gaps: add missing CI/release workflows to legacy projects
+- 新项目设置：添加 CI 或 PR 检查工作流程
+- 统一标准：跨存储库调整工作流程风格
+- 填补空白：将缺失的 CI/发布工作流程添加到遗留项目中
 
-## Inputs
+## 输入
 
-- Scenario (CI, PR check, release, scheduled, matrix)
-- Stack (language, version, package manager, test/build commands)
-- Triggers (branches, paths, tags)
-- Target path (default `.github/workflows/`)
+- 场景（CI、PR 检查、发布、计划、矩阵）
+- 堆栈（语言、版本、包管理器、测试/构建命令）
+- 触发器（分支、路径、标签）
+- 目标路径（默认`.github/工作流s/`）
 
-## Outputs
+## 输出
 
-- Workflow YAML file content
-- Notes: placeholders, Secret names, config items
+- 工作流程 YAML 文件内容
+- 注释：占位符、秘密名称、配置项
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension        | Score |
-| :--------------- | :---- |
-| agent_native     | 5     |
-| cognitive        | 4     |
-| composability    | 4     |
-| stance           | 5     |
-| **asqm_quality** | 18    |
+| 维度 | 分数 |
+| ：-------------- | :---- |
+|agent_native | 5 |
+|cognitive| 4 |
+|composability | 4 |
+|stance| 5 |
+| **asqm_quality** | 18 | 18
 
-## Ecosystem
+## 生态
 
-| Field                                 | Value          |
+|领域|价值|
 | :------------------------------------ | :------------- |
-| overlaps_with (owner/repo:skill-name) | —              |
-| market_position                       | differentiated |
+|overlaps_with（所有者/存储库：技能名称）| — |
+|市场地位 |差异化|
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for complete behavior, restrictions, Appendix A/B, and examples.
+请参阅 [SKILL.md](./SKILL.md) 了解完整的行为、限制、附录 A/B 和示例。

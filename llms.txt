@@ -1,30 +1,35 @@
-# AI Cortex: Agent-first, governance-ready inventory of Skills; reusable and composable. Install: npx skills add nesnilnehc/ai-cortex; shell fallback: scripts/install-fallback.sh
+# AI Cortex：面向 Agent、具备治理能力的能力资产库；可复用、可组合。安装：npx skills add nesnilnehc/ai-cortex；无 Node 时：scripts/install-fallback.sh
 
 > [!TIP]
-> This file is a machine-readable index for LLM Agents and Copilots.
+> 本文件为 LLM Agent 与 Copilot 的机器可读索引。
 
-## Core docs
-- [Positioning (README)](README.md#positioning): Single source for repo positioning, boundaries, and authority chain.
+## 核心文档
 
-## Specs (mandatory)
-- [Skill spec (SKILL)](spec/skill.md): Mandatory standard for creating or auditing Skills.
-- [Agent entry (AGENTS.md)](AGENTS.md): Entry and contract; discovery, injection, and self-check in AGENTS.md §4.
+- [定位 (README)](README.md#positioning)：仓库定位、边界与权威链的单一来源。
 
-## Machine-readable registry
-- [Manifest](manifest.json): Machine-readable registry.
-- [Skills index](skills/INDEX.md): Central registry of all available skills.
+## 规范（必读）
 
-### Core skills
-This section is intentionally non-exhaustive. It lists only high-priority discovery/bootstrap skills.
-Excluded from this list by design:
-- Atomic review skills (for example, `review-*`) because they are usually selected by orchestrator skills.
-- Narrow workflow helpers used in specific delivery stages only.
-- Low-frequency maintenance skills that add token overhead for general LLM onboarding.
-Canonical complete catalog: [skills/INDEX.md](skills/INDEX.md).
-- [discover-skills](skills/discover-skills/SKILL.md): Discover and recommend relevant skills; suggest install commands.
-- [decontextualize-text](skills/decontextualize-text/SKILL.md): Generalization and privacy-preserving text handling.
-- [generate-standard-readme](skills/generate-standard-readme/SKILL.md): Create professional, standards-aligned project READMEs.
-- [refine-skill-design](skills/refine-skill-design/SKILL.md): Meta-skill to improve other skills.
+- [技能规范 (SKILL)](spec/skill.md)：创建或审计技能的必读标准。
+- [Agent 入口 (AGENTS.md)](AGENTS.md)：入口与契约；AGENTS.md §4 定义发现、注入与自检。
+
+## 机器可读注册表
+
+- [Manifest](manifest.json)：机器可读注册表。
+- [技能索引](skills/INDEX.md)：所有可用技能的中心注册表。
+
+### 核心技能
+
+本节有意非穷尽，仅列出高优先级发现/引导技能。
+设计上排除：
+- 原子审查技能（如 `review-*`），通常由编排技能路由。
+- 仅在特定交付阶段使用的窄工作流辅助。
+- 低频维护技能，增加通用 LLM 入门的 token 开销。
+完整规范目录：[skills/INDEX.md](skills/INDEX.md)。
+
+- [discover-skills](skills/discover-skills/SKILL.md)：发现并推荐相关技能；建议安装命令。
+- [decontextualize-text](skills/decontextualize-text/SKILL.md)：通用化与隐私保护文本处理。
+- [generate-standard-readme](skills/generate-standard-readme/SKILL.md)：创建专业、符合标准的项目 README。
+- [refine-skill-design](skills/refine-skill-design/SKILL.md)：改进其他技能的元技能。
 
 ---
-Entry and usage: Use [AGENTS.md](AGENTS.md) as the entry point; follow §4 for discovery, injection, and self-check.
+入口与用法：以 [AGENTS.md](AGENTS.md) 为入口；按 §4 进行发现、注入与自检。

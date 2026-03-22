@@ -1,41 +1,43 @@
-# capture-work-items
+# 捕获工作项
 
-Capture requirements, bugs, or issues from free-form input into structured, persistent backlog artifacts.
+从自由格式的输入中捕获需求、错误或问题，并将其转化为结构化的、持久的待办产品。
 
-## What it does
+## 用途
 
-This skill provides quick structured recording without the deep validation that `analyze-requirements` performs. It transforms user-provided descriptions into work items (requirement, bug, or issue) with all required fields and persists them to the project-convention path. Output aligns with project documentation structure (e.g. project-documentation-template) and includes status tracking for governance.
+该技能提供快速结构化记录，无需“分析需求”执行的深度验证。它将用户提供的描述转换为具有所有必需字段的工作项（需求、错误或问题），并将它们保留到项目约定路径。输出与项目文档结构（例如项目-文档-模板）保持一致，并包括治理的状态跟踪。
 
-## When to use
+## 何时使用
 
-- User says "record this bug" or "add this requirement" — structure and persist without full analysis
-- Extract work items from meeting notes or email and save as structured artifacts
-- Capture items for later triage and prioritization in milestones or task breakdown
-- Fill the Backlog gap identified in assess-docs
+- 用户说“记录此错误”或“添加此要求” - 无需全面分析即可构建并保留
+- 从会议记录或电子邮件中提取工作项目并保存为结构化产品
+- 捕获项目以便以后在里程碑或任务分解中进行分类和优先级排序
+- 填补评估文档中确定的待办事项缺口
 
-## Inputs
+## 输入
 
-- Raw description of requirement, bug, or issue from user
-- Optional: project context (existing `docs/` structure for path detection)
+- 用户的需求、错误或问题的原始描述
+- 可选：项目上下文（用于路径检测的现有“docs/”结构）
 
-## Outputs
+## 输出
 
-- Structured work item Markdown with YAML front-matter
-- Path: `docs/process-management/project-board/backlog/` (canonical) or `docs/backlog/` (fallback) per spec/artifact-contract.md
-- Types: requirement, bug, issue
-- Status: initial `captured` (downstream updates: triaged, in-progress, done, blocked, cancelled)
+- 带有 YAML front-matter 的结构化工作项 Markdown
+- 路径：每个spec/artifact-contract.md的“docs/process-management/project-board/待办/”（规范）或“docs/待办/”（后备）
+- 类型：需求、错误、问题
+- 状态：初始“已捕获”（下游更新：分类、进行中、完成、阻止、取消）
 
-## Related skills
+## 相关技能
 
-- `analyze-requirements`: Deep validation when item is vague and needs clarification
-- `design-solution`: Design exploration when captured item leads to architecture decisions
+- `分析需求`：当项目模糊且需要澄清时进行深度验证
+- `设计解决方案`：当捕获的项目导致架构决策时进行设计探索
 
-## Installation
+## 安装
+
 
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill capture-work-items
 ```
 
-## License
 
-MIT
+## 许可证
+
+麻省理工学院

@@ -1,8 +1,9 @@
 ---
 name: review-diff
 description: Review only git diff for impact, regression, correctness, compatibility, and side effects. Scope-only atomic skill; output is a findings list for aggregation.
+description_zh: 仅针对 git diff 审查影响、回归、正确性、兼容性与副作用；scope 原子技能，输出 findings 列表。
 tags: [code-review]
-version: 1.3.0
+version: 1.3.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -16,196 +17,197 @@ output_schema:
   description: Scope-only findings for impact, regression, correctness, compatibility, and side effects
 ---
 
-# Skill: Review Diff
+# 技能（Skill）：审查差异
 
-## Purpose
+## 目的 (Purpose)
 
-Review **only the current change** (git diff, staged and unstaged) along a single dimension: **scope = diff**. Cover intent and impact, regression and correctness, breaking changes and compatibility, side effects and idempotency, and observability. Emit a **findings list** in the standard format so a meta skill (e.g. [review-code](../review-code/SKILL.md)) can aggregate with language, framework, and cognitive skills. Do not perform architecture, security, or language-specific analysis; those are separate atomic skills.
-
----
-
-## Core Objective
-
-**Primary Goal**: Produce a diff-scoped findings list covering intent/impact, regression, compatibility, side effects, and observability for the current change set (staged + unstaged + untracked files).
-
-**Success Criteria** (ALL must be met):
-
-1. ✅ **Diff-only scope**: Only the current change set (diff + included untracked files) is reviewed; no whole-repo analysis, architecture, security, or language-specific checks performed
-2. ✅ **All five diff dimensions covered**: Intent/impact, regression/correctness, breaking changes/compatibility, side effects/idempotency, and observability are assessed for each changed file
-3. ✅ **Findings format compliant**: Each finding includes Location, Category (`scope`), Severity, Title, Description, and optional Suggestion
-4. ✅ **Location-precise references**: All findings reference specific file:line or @@ block locations
-5. ✅ **Bug fix validation**: For bug-fix diffs, the fix correctness is verified and any remaining or partial issues are noted
-
-**Acceptance Test**: Does the output contain a findings list covering all five diff dimensions for the change set, with specific file:line or @@ block references and no findings outside the diff scope?
+沿单个维度查看 **仅当前更改**（git diff、已暂存和未暂存）：**scope = diff**。涵盖意图和影响、回归和正确性、重大变更和兼容性、副作用和幂等性以及可观察性。以标准格式发出 **发现列表**，以便元技能（例如 [review-code](../review-code/SKILL.md)）可以与语言、框架和cognitive技能聚合。不执行架构、安全或特定于语言的分析；这些是单独的原子技能。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-**This skill handles**:
+**首要目标**：生成一个范围不同的结果列表，涵盖当前变更集（暂存+未暂存+未跟踪文件）的意图/影响、回归、兼容性、副作用和可观察性。
 
-- Reviewing staged + unstaged changes in the current git diff
-- Reviewing untracked files included in the change set (treated as full-file additions)
-- Intent and impact analysis (what changed and why, effect on callers/data/config/deployment)
-- Regression and correctness checks (bugs, edge cases, fix completeness)
-- Breaking change and compatibility analysis (API/data/config contracts)
-- Side effects and idempotency issues
-- Observability gaps (missing logs, metrics, error messages)
+**成功标准**（必须满足所有要求）：
 
-**This skill does NOT handle**:
+1. ✅ **仅 Diff 范围**：仅审核当前更改集（diff + 包含的未跟踪文件）；不执行整个存储库分析、架构、安全性或特定于语言的检查
+2. ✅ **涵盖所有五个差异维度**：针对每个更改的文件评估意图/影响、回归/正确性、重大更改/兼容性、副作用/幂等性和可观察性
+3. ✅ **符合调查结果格式**：每个调查结果包括位置、类别（“范围”）、严重性、标题、描述和可选建议
+4. ✅ **位置精确引用**：所有发现都引用特定文件：行或 @@ 块位置
+5. ✅ **错误修复验证**：对于错误修复差异，验证修复的正确性并记录任何剩余或部分问题
 
-- Whole-repo or codebase analysis — use `review-codebase`
-- Architecture, security, or language/framework-specific analysis — use respective atomic skills
-- Full orchestrated review — use `review-code`
-
-**Handoff point**: When diff findings are complete, hand off to `review-code` for aggregation with language, framework, and cognitive skills. For codebase-state review, redirect to `review-codebase`.
+**验收**测试：输出是否包含涵盖更改集的所有五个差异维度的结果列表，具有特定的文件：行或@@块引用，并且没有差异范围之外的结果？
 
 ---
 
-## Use Cases
+## 范围边界（范围边界）
 
-- **Pre-commit**: Quick diff-only check before commit.
-- **Orchestrated review**: Used as the scope step when [review-code](../review-code/SKILL.md) runs scope → language → framework → library → cognitive.
-- **Focused change review**: When the user explicitly wants only "what changed" analyzed.
+**本技能负责**：
 
-**When to use**: When the input is a git diff and the task is to review the change set itself, not the full codebase or language/framework/cognitive dimensions.
+- 审查当前 git diff 中的暂存+未暂存更改
+- 审查更改集中包含的未跟踪文件（视为完整文件添加）
+- 意图和影响分析（发生了什么变化以及原因，对调用者/数据/配置/部署的影响）
+- 回归和正确性检查（错误、边缘情况、修复完整性）
+- 重大变更和兼容性分析（API/数据/配置合同）
+- 副作用和幂等性问题
+- 可观察性差距（缺少日志、指标、错误消息）
 
----
+**本技能不负责**：
 
-## Behavior
+- 整个存储库或代码库分析 - 使用“review-codebase”
+- 架构、安全性或特定于语言/框架的分析——使用各自的原子技能
+- 全面精心策划的审核——使用“审核代码”
 
-### Scope
-
-- **Analyze**: Only files in the change set — diff (staged + unstaged) and **untracked files** that are part of the same change (included by default). Do not analyze unchanged or out-of-scope files.
-- **Untracked files**: Included by default. When the invoker passes paths and full content of untracked files (e.g. new files to be committed), treat each as a full-file addition and apply the same review checklist; reference file path and line ranges as for added lines.
-- **Do not**: Review whole repo, or cover architecture/security/language-specific rules; defer to review-codebase, review-security, review-dotnet, etc.
-
-### Review checklist (diff dimension only)
-
-For each changed file, evaluate and emit findings for:
-
-1. **Intent and impact**: What changed and why (if inferable); impact on callers, data, config, deployment.
-2. **Regression and correctness**: Does this change introduce bugs or miss edge cases? If it is a fix, is the fix complete?
-3. **Breaking changes and compatibility**: Does it break API/data/config contracts? Backward compatibility or versioning/deprecation?
-4. **Side effects and idempotency**: Unintended side effects, data corruption, duplication, or idempotency issues?
-5. **Observability and debugging**: Does the change add or fix logs, metrics, or error messages for production debugging?
-6. **Concrete suggestions**: Actionable fix or improvement with file:line or @@ block references.
-
-### Tone and references
-
-- **Professional and engineering-focused**: Review as if this will run in production.
-- **Precise**: Reference specific locations (file:line or @@ block in the diff).
-
-### Special cases
-
-- **Bug fix**: Verify the fix is correct and note any remaining or partial issues.
-- **Format/comments only**: State briefly "format/comments only, no behavior change"; if comments contradict or mislead, still emit a finding with suggestion.
+**转交点**：当 diff 结果完成后，将其交给“审查代码”以进行语言、框架和cognitive技能的聚合。对于代码库状态审查，请重定向到“审查代码库”。
 
 ---
 
-## Input & Output
+## 使用场景（用例）
 
-### Input
+- **预提交**：提交前快速仅进行差异检查。
+- **精心安排的审查**：用作 [review-code](../review-code/SKILL.md) 运行范围 → 语言 → 框架 → 库 → cognitive时的范围步骤。
+- **重点更改审查**：当用户明确希望仅分析“更改内容”时。
 
-- **git diff**: Changes on the current branch vs HEAD (staged + unstaged), provided when invoking this skill.
-- **Untracked files** (in scope by default): Paths and full content of untracked files that belong to the same change set. The invoker should include them so they are reviewed as full-file additions.
-
-### Output
-
-- Emit zero or more **findings** in the format defined in **Appendix: Output contract**.
-- Each finding MUST include Location, Category, Severity, Title, Description, and optionally Suggestion.
-- Category for this skill is always **scope**.
+**何时使用**：当输入是 git diff 并且任务是检查更改集本身，而不是完整的代码库或语言/框架/cognitive维度时。
 
 ---
 
-## Restrictions
+## 行为（行为）
 
-### Hard Boundaries
+### 范围
 
-- **Do not** review files outside the diff or the whole repo.
-- **Do not** give conclusions without specific locations or actionable suggestions.
-- **Do not** use vague language (e.g. "might be wrong" without type and fix direction).
-- **Do not** perform security, architecture, or language/framework-specific checks; stay within the diff scope dimension.
+- **分析**：仅分析更改集中的文件 - diff（已暂存 + 未暂存）和属于同一更改（默认情况下包含）的 **未跟踪文件**。不要分析未更改或超出范围的文件。
+- **未跟踪的文件**：默认包含。当调用者传递未跟踪文件的路径和完整内容（例如要提交的新文件）时，将每个文件视为完整文件添加并应用相同的审查清单；添加行的参考文件路径和行范围。
+- **不要**：审查整个存储库，或涵盖架构/安全/特定于语言的规则；遵循 review-codebase、review-security、review-dotnet 等。
 
-### Skill Boundaries
+### 审查清单（仅限差异维度）
 
-**Do NOT do these** (other skills handle them):
+对于每个更改的文件，评估并发出以下结果：
 
-- Do NOT review the full codebase or files outside the diff change set — use `review-codebase`
-- Do NOT perform security analysis — use `review-security`
-- Do NOT perform architecture analysis — use `review-architecture`
-- Do NOT perform language/framework-specific convention checks — use the respective language skill
+1. **意图和影响**：发生了什么变化以及原因（如果可以推断）；对调用者、数据、配置、部署的影响。
+2. **回归和正确性**：此更改是否会引入错误或错过边缘情况？如果修复了，修复完成了吗？
+3. **重大更改和兼容性**：它是否会破坏 API/数据/配置合同？向后兼容性或版本控制/弃用？
+4. **副作用和幂等性**：意外的副作用、数据损坏、重复或幂等性问题？
+5. **可观察性和调试**：更改是否添加或修复了用于生产调试的日志、指标或错误消息？
+6. **具体建议**：通过 file:line 或 @@ 块引用进行可操作的修复或改进。
 
-**When to stop and hand off**:
+### 语气和参考
 
-- When diff findings are complete, hand off to `review-code` for aggregation in an orchestrated review
-- When the user wants a full codebase review (not just diff), redirect to `review-codebase`
-- When the user wants a complete orchestrated review, redirect to `review-code`
+- **以专业和工程为中心**：审查是否会在生产中运行。
+- **精确**：引用特定位置（文件：差异中的行或 @@ 块）。
 
----
+### 特殊情况
 
-## Self-Check
-
-### Core Success Criteria
-
-- [ ] **Diff-only scope**: Only the current change set (diff + included untracked files) is reviewed; no whole-repo analysis, architecture, security, or language-specific checks performed
-- [ ] **All five diff dimensions covered**: Intent/impact, regression/correctness, breaking changes/compatibility, side effects/idempotency, and observability are assessed for each changed file
-- [ ] **Findings format compliant**: Each finding includes Location, Category (`scope`), Severity, Title, Description, and optional Suggestion
-- [ ] **Location-precise references**: All findings reference specific file:line or @@ block locations
-- [ ] **Bug fix validation**: For bug-fix diffs, the fix correctness is verified and any remaining or partial issues are noted
-
-### Process Quality Checks
-
-- [ ] Was only the diff (and untracked files in the change set, when included) reviewed?
-- [ ] Were intent, impact, regression, correctness, compatibility, side effects, and observability covered?
-- [ ] Is each finding emitted with Location, Category=scope, Severity, Title, Description, and optional Suggestion?
-- [ ] Are issues referenced with file:line or @@?
-- [ ] For bug fixes, was fix logic verified and any remaining issues noted?
-
-### Acceptance Test
-
-Does the output contain a findings list covering all five diff dimensions for the change set, with specific file:line or @@ block references and no findings outside the diff scope?
+- **错误修复**：验证修复是否正确并记下任何剩余或部分问题。
+- **仅格式/注释**：简要说明“仅格式/注释，不改变行为”；如果评论相矛盾或误导，仍然会发布带有建议的发现。
 
 ---
 
-## Examples
+## 输入与输出 (Input & Output)
 
-### Example 1: API change
+### 输入（输入）
 
-- **Input**: Diff adds a query param and changes response shape.
-- **Expected**: Emit findings for intent/impact on callers, backward compatibility risk, breaking-change risk with suggestion (e.g. versioning or deprecation); reference specific lines or @@ blocks. Do not emit security or architecture findings in this skill.
+- **git diff**：当前分支与 HEAD 的更改（暂存 + 未暂存），在调用此技能时提供。
+- **未跟踪文件**（默认情况下在范围内）：属于同一更改集的未跟踪文件的路径和完整内容。调用者应包含它们，以便将它们作为完整文件添加进行审查。
 
-### Example 2: Bug fix
+### 输出（输出）
 
-- **Input**: Diff fixes a null pointer and one error code.
-- **Expected**: Emit finding(s) confirming the fix and any regression (e.g. similar null-pointer or error-code issues); note observability (logs/errors); reference changed lines. Category = scope for all.
-
-### Edge case: Format/comments only
-
-- **Input**: Diff only has indentation, spaces, or comment changes.
-- **Expected**: Either no findings or a single minor/suggestion finding: "format/comments only, no behavior change"; if comments contradict code, emit a finding with Title and Suggestion.
-
-### Edge case: New (untracked) file in change set
-
-- **Input**: Diff plus one untracked file (path + full content) as part of the change set (included by default).
-- **Expected**: Review the new file as a full-file addition; apply the same checklist (intent, impact, regression, compatibility, side effects, observability); emit findings with Location = path and line references. Category = scope for all.
+- 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
+- 每个发现必须包括位置、类别、严重性、标题、描述和可选的建议。
+- 此技能的类别始终是**范围**。
 
 ---
 
-## Appendix: Output contract
+## 限制（限制）
 
-When this skill produces a review, it emits a **findings list** compatible with aggregation by [review-code](../review-code/SKILL.md). Each finding MUST follow:
+### 硬边界（Hard Boundaries）
 
-| Element | Requirement |
+- **不要**查看 diff 或整个存储库之外的文件。
+- **不要**在没有具体地点或可行建议的情况下给出结论。
+- **不要**使用含糊的语言（例如，“可能是错误的”，没有类型和修正方向）。
+- **不要**执行安全、架构或特定于语言/框架的检查；保持在 diff 范围维度内。
+
+### 技能边界 (Skill Boundaries)
+
+**不要做这些**（其他技能可以处理它们）：
+
+- 不要查看完整的代码库或差异更改集之外的文件 - 使用“review-codebase”
+- 不要执行安全分析——使用“review-security”
+- 不要执行架构分析——使用“review-architecture”
+- 不要执行特定于语言/框架的约定检查 - 使用相应的语言技能
+
+**何时停止并交接**：
+
+- 当差异结果完成后，将其移交给“审查代码”以在精心策划的审查中进行聚合
+- 当用户想要完整的代码库审查（而不仅仅是差异）时，重定向到“review-codebase”
+- 当用户想要完整的精心策划的审核时，重定向到“审核代码”
+
+---
+
+## 自检（Self-Check）
+
+### 核心成功标准
+
+- [ ] **仅限差异范围**：仅审查当前更改集（差异 + 包含的未跟踪文件）；不执行整个存储库分析、架构、安全性或特定于语言的检查
+- [ ] **涵盖所有五个差异维度**：针对每个更改的文件评估意图/影响、回归/正确性、重大更改/兼容性、副作用/幂等性和可观察性
+- [ ] **符合调查结果格式**：每个调查结果包括位置、类别（“范围”）、严重性、标题、描述和可选建议
+- [ ] **位置精确引用**：所有结果引用特定文件：行或 @@ 块位置
+- [ ] **错误修复验证**：对于错误修复差异，验证修复的正确性并记录任何剩余或部分问题
+
+### 流程质量检查
+
+- [ ] 是否仅审查了差异（以及更改集中未跟踪的文件，如果包含的话）？
+- [ ] 是否涵盖意图、影响、回归、正确性、兼容性、副作用和可观察性？
+- [ ] 发布的每个发现是否包含位置、类别=范围、严重性、标题、描述和可选建议？
+- [ ] 问题是否通过 file:line 或 @@ 引用？
+- [ ] 对于错误修复，是否验证了修复逻辑并注意到任何剩余问题？
+
+### 验收测试
+
+输出是否包含涵盖更改集的所有五个差异维度的结果列表，具有特定的 file:line 或 @@ 块引用，并且没有差异范围之外的结果？
+
+---
+
+## 示例（示例）
+
+### 示例 1：API 更改
+
+- **输入**：Diff 添加查询参数并更改响应形状。
+- **预期**：发出对调用者的意图/影响的调查结果、向后兼容性风险、带有建议的重大变更风险（例如版本控制或弃用）；引用特定行或@@块。不要在此技能中发布安全或架构发现结果。
+
+### 示例 2：错误修复
+
+- **输入**：Diff 修复了一个空指针和一个错误代码。
+- **预期**：发出确认修复和任何回归的发现（例如类似的空指针或错误代码问题）；注意可观察性（日志/错误）；参考更改的行。类别 = 所有人的范围。
+
+### 边缘情况：仅限格式/注释
+
+- **输入**：差异仅具有缩进、空格或注释更改。
+- **预期**：要么没有发现，要么有一个次要/建议发现：“仅格式/评论，没有行为改变”；如果注释与代码相矛盾，则发出带有标题和建议的发现。
+
+### 边缘情况：更改集中的新（未跟踪）文件
+
+- **输入**：Diff 加上一个未跟踪的文件（路径 + 完整内容）作为更改集的一部分（默认情况下包含）。
+- **预期**：将新文件作为完整文件添加进行审核；应用相同的清单（意图、影响、回归、兼容性、副作用、可观察性）；使用 Location = 路径和线路引用发出结果。类别 = 所有人的范围。
+
+---
+
+## 附录：输出合约
+
+当此技能生成评论时，它会发出与 [review-code](../review-code/SKILL.md) 聚合兼容的 **结果列表**。每项发现必须遵循：
+
+|元素|要求 |
 | :--- | :--- |
-| **Location** | `path/to/file.ext` (optional line or range, e.g. `src/api.go:42` or @@ block). |
-| **Category** | `scope` (this skill only produces scope findings). |
-| **Severity** | `critical` \| `major` \| `minor` \| `suggestion`. |
-| **Title** | Short one-line summary. |
-| **Description** | 1–3 sentences. |
-| **Suggestion** | Concrete fix or improvement (optional). |
+| **位置** | `path/to/file.ext` （可选行或范围，例如 `src/api.go:42` 或 @@ 块）。 |
+| **类别** | “范围”（该技能仅产生范围结果）。 |
+| **严重性** | `关键` \| `主要` \| `次要` \| `建议`。 |
+| **标题** |简短的一行摘要。 |
+| **描述** | 1-3 句话。 |
+| **建议** |具体修复或改进（可选）。 |
 
-Example finding:
+发现示例：
+
 
 ```markdown
 - **Location**: `pkg/handler.go:31`

@@ -1,44 +1,44 @@
-# Generate Standard README
+# 生成标准自述文件
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Creates professional, consistent front-page documentation for any software project. Fixed structure: title, badges, description, features, installation, quick start, usage, contributing, license, authors. Governance-focused for asset audit and discoverability.
+为任何软件项目创建专业、一致的首页文档。固定结构：标题、徽章、描述、功能、安装、快速启动、用法、贡献、许可证、作者。以治理为中心的资产审计和可发现性。
 
-## When to use
+## 何时使用
 
-- New project: quickly add standard README
-- Asset governance: unify README style across services
-- Audit and compliance: bring legacy systems up to documentation standards
-- Handover and release: ensure audience understands purpose and usage
+- 新项目：快速添加标准README
+- 资产治理：跨服务统一自述文件风格
+- 审计和合规性：使遗留系统达到文档化标准
+- 移交和发布：确保观众了解目的和用途
 
-## Inputs
+## 输入
 
-- Project metadata (name, description)
-- Features, requirements, install/run commands
+- 项目元数据（名称、描述）
+- 功能、需求、安装/运行命令
 
-## Outputs
+## 输出
 
-- README Markdown with fixed section order and structure
+- 具有固定部分顺序和结构的自述文件 Markdown
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension        | Score |
-| :--------------- | :---- |
-| agent_native     | 5     |
-| cognitive        | 3     |
-| composability    | 4     |
-| stance           | 5     |
-| **asqm_quality** | 17    |
+| 维度 | 分数 |
+| ：-------------- | :---- |
+|agent_native | 5 |
+|cognitive| 3 |
+|composability | 4 |
+|stance| 5 |
+| **asqm_quality** | 17 | 17
 
-## Ecosystem
+## 生态
 
-| Field                                 | Value                                                                              |
-| :------------------------------------ | :--------------------------------------------------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:decontextualize-text, nesnilnehc/ai-cortex:generate-agent-entry |
-| market_position                       | commodity                                                                          |
+|领域|价值|
+| :------------------------------------ | :------------------------------------------------------------------------------------------------ |
+|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:去语境化文本，nesnilnehc/ai-cortex:生成代理条目 |
+|市场地位 |商品 |
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for complete behavior, restrictions, and examples.
+请参阅 [SKILL.md](./SKILL.md) 了解完整的行为、限制和示例。

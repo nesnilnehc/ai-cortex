@@ -1,6 +1,6 @@
 # ASQM Audit
 
-**Generated**: 2026-03-16
+**Generated**: 2026-03-22
 **Skills audited**: 48
 **Tool**: curate-skills
 
@@ -59,7 +59,7 @@
 | discover-skills | 17 | 5 | 3 | 5 | 4 |
 | generate-agent-entry | 18 | 5 | 4 | 4 | 5 |
 | generate-github-workflow | 18 | 5 | 4 | 4 | 5 |
-| generate-standard-readme | 17 | 5 | 3 | 4 | 5 |
+| generate-standard-readme | 18 | 5 | 4 | 4 | 5 |
 | plan-next | 20 | 5 | 5 | 5 | 5 |
 | refine-skill-design | 20 | 5 | 5 | 5 | 5 |
 | review-architecture | 19 | 5 | 4 | 5 | 5 |
@@ -153,6 +153,14 @@ install-rules
 
 **Observation**: All language/framework atomic review skills score cognitive 4 (not 5). This is correct and intentional — they offload structured review checklists but do not perform multi-phase reasoning or decision trees of the same depth as orchestrators (review-code, align-planning). No change recommended.
 
+### F-05 · generate-standard-readme — refined (2026-03-21)
+
+**Resolved**: v1.5.0 added Interaction policy (defaults, when to ask), conversion elements (Demo, Why, FAQ), adoption vs governance criteria. cognitive 3 → 4; quality 17 → 18.
+
+### F-06 · Batch refine run (2026-03-22)
+
+**Refine-skill-design applied** to 20+ skills. Changes: terminology alignment (解决目标 → 首要目标), skill name normalization (refine-skill-设计 → refine-skill-design), mixed-language fixes (review-sql, discover-docs-norms), title correction (review-diff 回顾→审查), When to Stop added (discover-docs-norms). Version bumps: patch increments for affected skills. Scores unchanged — refinements were structural/terminology only.
+
 ---
 
 ## Recommendations
@@ -161,9 +169,9 @@ install-rules
 
 2. **Improve align-backlog agent_native** (P3): Add a formal `Appendix: Output contract` table alongside the existing embedded template. This is a low-effort change that raises quality 17 → 18 and improves discoverability.
 
-3. **No further action on existing validated skills**: All 47 validated skills meet lifecycle criteria. Scores are evidence-based and consistent. The review family's cognitive 4 is accurate and should not be inflated.
+3. **No further action on existing validated skills**: All 47 validated skills meet lifecycle criteria. Scores are evidence-based and consistent. The review family's cognitive 4 is accurate and should not be inflated. generate-standard-readme (v1.5.0) updated this run.
 
-4. **Monitor review-requirements adoption** (P3): Newly added; watch for trigger coverage (scenario-map `requirements_review` and `project_start` optional) and correct any missing README.md governance warnings after next CI run.
+4. **Monitor review-requirements adoption** (P3): Newly added; watch for trigger coverage (intent-routing `requirements_review` and `project_start` optional) and correct any missing README.md governance warnings after next CI run.
 
 ---
 

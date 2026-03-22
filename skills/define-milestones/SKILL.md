@@ -1,6 +1,7 @@
 ---
 name: define-milestones
 description: Break strategic goals into concrete phase checkpoints (milestones) that represent major progress stages. Produces a milestones document with traceability to goals; persisted to docs.
+description_zh: 将战略目标拆解为代表主要进展阶段的里程碑；产出 milestones 文档并追溯至目标。
 tags: [documentation, workflow]
 version: 1.0.0
 license: MIT
@@ -19,158 +20,158 @@ output_schema:
   lifecycle: living
 ---
 
-# Skill: Define Milestones
+# 技能（Skill）：定义里程碑
 
-## Purpose
+## 目的 (Purpose)
 
-Break **strategic goals** into **concrete phase checkpoints (milestones)** that represent major progress stages. Produce a milestones document with clear phases and traceability to strategic goals. Does not define mission, vision, North Star, or goals; does not write requirements or backlog.
-
----
-
-## Core Objective
-
-**Primary Goal**: Produce a user-confirmed milestones document that breaks strategic goals into phase checkpoints, with each milestone traceable to at least one goal, persisted to the project-agreed path.
-
-**Success Criteria** (ALL must be met):
-
-1. ✅ **Milestones documented**: List of milestones, each with name, short scope, and success criterion (outcome or deliverable).
-2. ✅ **Traceability**: Each milestone maps to at least one strategic goal; mapping is explicit in the document.
-3. ✅ **Concrete checkpoints**: Each milestone is a phase or checkpoint, not a task list or backlog.
-4. ✅ **User confirmed**: User explicitly approved (e.g. "approved", "looks good", "proceed", or equivalent).
-5. ✅ **Document persisted**: Written to agreed path (default `docs/process-management/milestones.md` or per project norms).
-6. ✅ **Scope respected**: No requirements, backlog items, or feature specs in the milestones document.
-
-**Acceptance Test**: Can a reader see which strategic goal each milestone advances and what "done" looks like for each phase, without needing full backlog detail?
-
-**Handoff Point**: When milestones are approved and persisted, hand off to backlog/roadmap planning or to `align-planning` / `run-checkpoint` for governance; this skill does not create backlog items.
+将**战略目标**分解为代表主要进展阶段的**具体阶段检查点（里程碑）**。生成具有清晰阶段和战略目标可追溯性的里程碑文档。没有定义使命、愿景、北极星或目标；不写需求或待办。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-**This skill handles**:
+**首要目标**：生成一份用户确认的里程碑文档，将战略目标分解为阶段检查点，每个里程碑可追溯到至少一个目标，并坚持项目商定的路径。
 
-- Deriving milestones from strategic goals (read from `design-strategic-goals` output or existing docs).
-- Defining phases/checkpoints (e.g. by outcome or optional timeframe).
-- Documenting scope and success criterion per milestone.
-- Persisting to project-agreed path (default `docs/process-management/milestones.md`).
-- Explicit mapping: each milestone → at least one strategic goal.
+**成功标准**（必须满足所有要求）：
 
-**This skill does NOT handle**:
+1. ✅ **记录的里程碑**：里程碑列表，每个里程碑都有名称、简短范围和成功标准（结果或可交付成果）。
+2. ✅ **可追溯性**：每个里程碑都映射到至少一个战略目标；映射在文档中是明确的。
+3. ✅ **具体检查点**：每个里程碑都是一个阶段或检查点，而不是任务列表或待办事项。
+4. ✅ **用户确认**：用户明确批准（例如“已批准”、“看起来不错”、“继续”或同等内容）。
+5. ✅ **文档持久化**：写入商定的路径（默认“docs/process-management/里程碑.md”或每个项目规范）。
+6. ✅ **遵守范围**：里程碑文档中没有需求、待办项目或功能规格。
 
-- Defining mission, vision, North Star, or strategic goals (use `define-mission`, `define-vision`, `define-north-star`, `design-strategic-goals`).
-- Writing requirements (use `analyze-requirements`).
-- Creating backlog items (use `capture-work-items`, project planning).
-- Building a full roadmap (project planning; this skill only produces the milestones layer).
+**验收测试**：读者是否可以看到每个里程碑推进的战略目标以及每个阶段的“完成”情况，而无需完整的待办细节？
 
----
-
-## Use Cases
-
-- **After strategic goals**: Define phases or major checkpoints that indicate progress toward each goal.
-- **Release or planning cycle**: Establish "what done looks like" for the next 1–2 phases.
-- **Governance gates**: Provide milestones so `run-checkpoint` or `align-planning` can assess completion and alignment.
-- **Fifth layer in strategy chain**: Run after mission, vision, north star, and strategic goals when building the full hierarchy.
+**交接点**：当里程碑被批准并保留后，交接给待办/路线图规划或“align-planning”/“run-checkpoint”进行治理；该技能不会创建待办物品。
 
 ---
 
-## Behavior
+## 范围边界（范围边界）
 
-### Interaction Policy
+**本技能负责**：
 
-- **Defaults**: Output path from project norms if present; otherwise `docs/process-management/milestones.md`. Read strategic goals from `docs/project-overview/strategic-goals.md` or user when available.
-- **Choice options**: If user wants both outcome-based and time-based milestones, offer structure (e.g. "Phase 1: outcome X by date Y") and ask for confirmation.
-- **Confirm**: Before overwriting an existing milestones file; before final persist.
+- 从战略目标中得出里程碑（从“设计-战略-目标”输出或现有文档中读取）。
+- 定义阶段/检查点（例如通过结果或可选时间范围）。
+- 记录每个里程碑的范围和成功标准。
+- 坚持项目商定的路径（默认“docs/process-management/里程碑.md”）。
+- 明确的映射：每个里程碑 → 至少一个战略目标。
 
-### Execution Process
+**本技能不负责**：
 
-1. **Load strategic goals**: Read from `docs/project-overview/strategic-goals.md` or user-provided summary.
-2. **Per goal (or subset)**: What are 1–3 major checkpoints or phases that indicate clear progress?
-3. **Per milestone**: Name, short scope, success criterion (outcome or deliverable), optional timeframe.
-4. **Traceability**: Ensure each milestone maps to at least one strategic goal; record mapping in the document.
-5. **Persist**: Write to project-agreed path; create `docs/process-management/` if missing.
-
----
-
-## Input & Output
-
-**Input**:
-
-- **Required**: Strategic goals (document or path); project context.
-- **Optional**: Vision/NSM; existing roadmap or phases; time constraints.
-
-**Output**:
-
-- **Artifact**: Milestones document.
-- **Location**: `docs/process-management/milestones.md` (or per project norms).
-- **Content**: List of milestones (name, scope, success criterion, optional timeframe); mapping to strategic goals.
-- **Lifecycle**: Living (updated as phases complete or goals change).
+- 定义使命、愿景、北极星或战略目标（使用“定义使命”、“定义愿景”、“定义北极星”、“设计战略目标”）。
+- 书写需求（使用“分析需求”）。
+- 创建待办项目（使用“capture-work-items”，项目规划）。
+- 构建完整的路线图（项目规划；此技能仅生成里程碑层）。
 
 ---
 
-## Restrictions
+## 使用场景（用例）
 
-### Hard Boundaries
-
-- Do NOT define mission, vision, North Star, or strategic goals in this skill.
-- Do NOT create backlog items, requirements, or feature specs; milestones are checkpoints only.
-- Do NOT overwrite an existing milestones file without explicit user confirmation.
-
-### Skill Boundaries (Avoid Overlap)
-
-**Do NOT do these (other skills handle them)**:
-
-- **Mission / vision / North Star / goals**: Use `define-mission`, `define-vision`, `define-north-star`, `design-strategic-goals`.
-- **Requirements**: Use `analyze-requirements`.
-- **Backlog items**: Use `capture-work-items`, project planning.
-- **Roadmap detail**: Project planning; this skill produces the milestones layer only.
-
-**When to stop and hand off**:
-
-- User says "approved" or equivalent → Milestones complete; offer handoff to backlog/roadmap or governance skills.
-- User asks for requirements or backlog → Hand off to `analyze-requirements` or `capture-work-items`.
+- **战略目标之后**：定义阶段或主要检查点，以表明每个目标的进展情况。
+- **发布或规划周期**：为接下来的 1-2 个阶段确定“完成的内容”。
+- **治理门**：提供里程碑，以便“运行检查点”或“对齐规划”可以评估完成情况和对齐情况。
+- **战略链第五层**：在构建完整的层次结构时遵循使命、愿景、北极星和战略目标。
 
 ---
 
-## Self-Check
+## 行为（行为）
 
-### Core Success Criteria (ALL must be met)
+### 交互（互动）政策
 
-- [ ] **Milestones documented**: List of milestones with name, scope, success criterion (optional timeframe).
-- [ ] **Traceability**: Each milestone maps to at least one strategic goal; mapping in document.
-- [ ] **Concrete checkpoints**: Milestones are phases/checkpoints, not task lists.
-- [ ] **User confirmed**: User said "approved", "looks good", "proceed", or equivalent.
-- [ ] **Document persisted**: Written to agreed path (default `docs/process-management/milestones.md` or project norms).
-- [ ] **Scope respected**: No requirements, backlog, or feature specs in the document.
+- **默认**：项目规范的输出路径（如果存在）；否则为“docs/process-management/里程碑.md”。从“docs/project-overview/strategic-goals.md”或用户（如果有）中阅读战略目标。
+- **选择选项**：如果用户想要基于结果和基于时间的里程碑，请提供结构（例如“阶段 1：结果 X 到日期 Y”）并要求确认。
+- **确认**：覆盖现有里程碑文件之前；在最终坚持之前。
 
-### Process Quality Checks
+### 执行过程
 
-- [ ] **Goals used**: Did I read or request strategic goals before drafting milestones?
-- [ ] **No backlog**: Did I avoid writing individual backlog items or requirements?
-
-### Acceptance Test
-
-**Can a reader see which goal each milestone advances and what "done" looks like for each phase?**
-
-If NO: Milestones may be too vague or missing goal mapping. Add traceability and success criteria.
-If YES: Milestones are complete. Proceed to handoff or stop.
+1. **加载战略目标**：阅读“docs/project-overview/strategic-goals.md”或用户提供的摘要。
+2. **每个目标（或子集）**：表明明显进展的 1-3 个主要检查点或阶段是什么？
+3. **每个里程碑**：名称、简短范围、成功标准（结果或可交付成果）、可选时间范围。
+4. **可追溯性**：确保每个里程碑映射到至少一个战略目标；文档中的记录映射。
+5. **持久化**：写入到项目约定的路径；如果缺少，请创建“docs/process-management/”。
 
 ---
 
-## Examples
+## 输入与输出 (Input & Output)
 
-### Example 1: Goals exist, define phases
+**输入**：
 
-**Context**: Strategic goals document exists with 4 goals. User wants milestones for the next 12 months.
+- **必填**：战略目标（文档或路径）；项目背景。
+- **可选**：视力/NSM；现有路线图或期数；时间限制。
 
-**Process**: Read strategic-goals. For each goal, propose 1–2 milestones (e.g. "M1: 50% of teams can deploy in under 10 min", "M2: Rollback available for all services"). Add mapping: M1 → Goal A, M2 → Goal A, etc. Optional: add rough timeframe. User confirms. Write to `docs/process-management/milestones.md`.
+**输出**：
 
-**Outcome**: Milestones persisted; handoff to backlog/roadmap or `run-checkpoint` for governance.
+- **工件**：里程碑文档。
+- **位置**：`docs/process-management/里程碑.md`（或按照项目规范）。
+- **内容**：里程碑列表（名称、范围、成功标准、可选时间范围）；映射到战略目标。
+- **生命周期**：生活（随着阶段完成或目标变化而更新）。
 
-### Example 2: No strategic goals yet
+---
 
-**Context**: User asks to "define milestones" but no strategic-goals document exists.
+## 限制（限制）
 
-**Process**: Recommend running `design-strategic-goals` first so milestones can trace to goals. If user prefers to proceed anyway, ask for at least a short list of goals or outcomes to map to; draft milestones and document the assumed goals. Confirm with user; persist. Suggest adding strategic goals later for full traceability.
+### 硬边界（Hard Boundaries）
 
-**Outcome**: Milestones persisted with explicit or assumed goal mapping; user can run `design-strategic-goals` later to complete the chain.
+- 不要在此技能中定义使命、愿景、北极星或战略目标。
+- 不要创建待办项目、需求或功能规格； 里程碑只是检查点。
+- 未经用户明确确认，请勿覆盖现有里程碑文件。
+
+### 技能边界 (Skill Boundaries)（避免重叠）
+
+**不要做这些（其他技能可以处理它们）**：
+
+- **使命/愿景/北极星/目标**：使用“定义使命”、“定义愿景”、“定义北极星”、“设计战略目标”。
+- **要求**：使用“分析需求”。
+- **待办事项**：使用“捕获工作项”，项目规划。
+- **路线图详细信息**：项目规划；该技能仅产生里程碑层。
+
+**何时停止并交接**：
+
+- 用户说“已批准”或同等内容 → 里程碑完成；提供转交待办/路线图或治理技能。
+- 用户询问需求或待办 → 移交给“分析需求”或“捕获工作项目”。
+
+---
+
+## 自检（Self-Check）
+
+### 核心成功标准（必须满足所有标准）
+
+- [ ] **记录的里程碑**：包含名称、范围、成功标准（可选时间范围）的里程碑列表。
+- [ ] **可追溯性**：每个里程碑都映射到至少一个战略目标；文档中的映射。
+- [ ] **具体检查点**：里程碑是阶段/检查点，而不是任务列表。
+- [ ] **用户确认**：用户说“已批准”、“看起来不错”、“继续”或类似内容。
+- [ ] **文档持久化**：写入商定的路径（默认`docs/process-management/里程碑.md`或项目规范）。
+- [ ] **遵守范围**：文档中没有需求、待办事项或功能规格。
+
+### 流程质量检查
+
+- [ ] **使用的目标**：在起草里程碑之前我是否阅读或请求了战略目标？
+- [ ] **无待办**：我是否避免写单个待办项目或需求？
+
+### 验收测试
+
+**读者能否看到每个里程碑推进的目标以及每个阶段的“完成”情况？**
+
+如果否：里程碑可能过于模糊或缺少目标映射。添加可追溯性和成功标准。
+如果是：里程碑已完成。继续转交或停止。
+
+---
+
+## 示例（示例）
+
+### 示例 1：目标存在，定义阶段
+
+**背景**：战略目标文档有 4 个目标。用户想要未来 12 个月的里程碑。
+
+**流程**：阅读战略目标。对于每个目标，提出 1-2 个里程碑（例如“M1：50% 的团队可以在 10 分钟内完成部署”、“M2：可用于所有服务的回滚”）。添加映射：M1 → 目标 A、M2 → 目标 A 等。可选：添加粗略时间范围。用户确认。写入“docs/process-management/里程碑.md”。
+
+**结果**：里程碑持续存在； 转交至待办/路线图或“run-checkpoint”进行治理。
+
+### 示例 2：尚无战略目标
+
+**上下文**：用户要求“定义里程碑”，但不存在战略目标文档。
+
+**流程**：建议首先运行“设计-战略-目标”，以便里程碑可以跟踪目标。如果用户无论如何都愿意继续，请至少询问要映射到的目标或结果的简短列表；起草里程碑并记录假定的目标。与用户确认；坚持。建议稍后添加战略目标以实现完全可追溯性。
+
+**结果**：通过明确或假定的目标映射持续实现里程碑；用户可以稍后运行“设计-策略-目标”来完成链条。

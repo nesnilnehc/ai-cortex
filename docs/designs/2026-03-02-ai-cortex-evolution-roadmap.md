@@ -1,29 +1,29 @@
-# AI Cortex Evolution Roadmap
+# AI Cortex 演进路线图
 
-**Date:** 2026-03-02
-**Status:** Approved
-**Approved by:** User
-**Method:** design-solution skill (structured dialogue)
+**日期**：2026-03-02
+**状态**：已批准
+**批准人**：用户
+**方法**：design-solution 技能（结构化对话）
 
-## Goal
+## 目标
 
-Define the evolution and optimization directions for AI Cortex beyond v2.0.0, covering engineering infrastructure, skill coverage, orchestration, ecosystem, and specification maturity.
+定义 AI Cortex 在 v2.0.0 之后的演进与优化方向，覆盖工程基础设施、技能覆盖、编排、生态与规范成熟度。
 
-## Context
+## 背景
 
-At the time of this analysis:
+截至本分析时：
 
-- Version 2.0.0, solo-maintained (57 commits), ~33 days of active development
-- 28 canonical skills, 7 rules, 1 spec (skill.md v2.0.0)
-- Spec v2.0.0 migration just completed: all skills now have Core Objective sections
-- No CI/CD; `verify-registry.mjs` is the only automated check (run manually)
-- Code review ecosystem is mature: 15/28 skills are review-related with a clear composition graph
-- ASQM audit last run 2026-02-27; 2 new skills (`design-solution`, `commit-work`) not yet audited
-- Multi-channel distribution: skills.sh, SkillsMP, Claude Plugin (8/28 skills exposed)
+- 版本 2.0.0，单人维护（57 次提交），约 33 天活跃开发
+- 28 个 canonical 技能，7 条规则，1 个 spec（skill.md v2.0.0）
+- Spec v2.0.0 迁移刚完成：所有技能已具备 Core Objective 节
+- 无 CI/CD；`verify-registry.mjs` 为唯一自动化检查（手动执行）
+- 代码审查生态成熟：15/28 个技能与 review 相关，具备清晰组合图
+- ASQM 审计上次运行 2026-02-27；2 个新技能（`design-solution`、`commit-work`）尚未审计
+- 多渠道分发：skills.sh、SkillsMP、Claude Plugin（8/28 个技能已暴露）
 
-## Architecture
+## 架构
 
-The roadmap is organized into 5 layers with 4 implementation phases:
+路线图按 5 层、4 个实施阶段组织：
 
 ```text
 Layer A: Engineering Infrastructure (CI/CD, quality gates)
@@ -31,19 +31,19 @@ Layer B: Skill Coverage (languages, frameworks, libraries)
 Layer C: Orchestration & Composition (orchestrators, skill chains)
 Layer D: Ecosystem & Distribution (Plugin sync, community)
 Layer E: Specification Evolution (lifecycle, testable spec)
-```text
+```
 
-Phases are ordered by dependency: infrastructure first, then capabilities, then composition, then ecosystem.
+阶段按依赖顺序排列：基础设施优先，随后能力、编排、生态。
 
-## Components
+## 组件
 
-### A1. CI/CD Automation
+### A1. CI/CD 自动化
 
-**Recommended approach:** Minimal GitHub Actions + Dogfooding
+**推荐方案**：最小化 GitHub Actions + 自用 (Dogfooding)
 
-- PR trigger: run `verify-registry.mjs` to validate registry sync
-- Main branch merge: trigger ASQM audit check
-- Use the project's own `generate-github-workflow` skill to generate the initial workflow
+- PR 触发：运行 `verify-registry.mjs` 校验 registry 同步
+- main 分支合并：触发 ASQM 审计检查
+- 使用项目自身的 `generate-github-workflow` 技能生成初始 workflow
 
 | Alternative | Pros | Cons | Best for |
 | :--- | :--- | :--- | :--- |
@@ -51,33 +51,33 @@ Phases are ordered by dependency: infrastructure first, then capabilities, then 
 | B: Extended CI + Spec compliance | Also solves E12 (spec testing) | Higher dev effort; script-spec sync burden | Governance-focused stage |
 | C: CI + Release automation | Full release pipeline | Over-engineering for solo project | Community-ready stage |
 
-### A2. Quality Gate Automation
+### A2. 质量门自动化
 
-**Recommended approach:** CI-integrated incremental audit
+**推荐方案**：CI 集成的增量审计
 
-- Structural checks on new/modified skills: YAML metadata completeness, Core Objective presence
-- Registry sync: INDEX + manifest consistency
-- ASQM dimension hints (non-blocking): estimated scores for human confirmation
+- 对新增/修改技能的结构检查：YAML 元数据完整性、Core Objective 存在性
+- Registry 同步：INDEX 与 manifest 一致性
+- ASQM 维度提示（非阻塞）：供人工确认的预估分数
 
 | Alternative | Pros | Cons | Best for |
 | :--- | :--- | :--- | :--- |
 | **A: CI integration + incremental audit (recommended)** | Low friction; informational | ASQM scoring needs LLM; scripts can only check structure | Near-term |
 | B: ASQM scoring scripted | Repeatable, objective | Cannot replace human judgment on semantic dimensions | Mid-term enhancement |
 
-### B3. Language Review Expansion
+### B3. 语言审查扩展
 
-**Recommended approach:** TypeScript/JavaScript first, Rust second
+**推荐方案**：TypeScript/JavaScript 优先，Rust 其次
 
-Priority matrix by Agent programming scenario frequency:
+按 Agent 编程场景频率的优先级矩阵：
 
 | Language | Priority | Rationale |
 | :--- | :--- | :--- |
-| **TypeScript/JavaScript** | P0 | Most common Agent dev language; covers frontend + Node.js + Deno |
-| **Rust** | P1 | Systems + WASM; high review complexity (ownership, lifetimes) |
-| Ruby | P2 | Rails ecosystem still active but niche |
-| Kotlin | P2 | Android + server-side; overlaps with Java review |
-| Swift | P3 | Apple ecosystem only |
-| C/C++ | P3 | Extremely complex review rules; ROI needs evaluation |
+| **TypeScript/JavaScript** | P0 | Agent 开发最常用语言；覆盖前端 + Node.js + Deno |
+| **Rust** | P1 | 系统 + WASM；审查复杂度高（所有权、生命周期） |
+| Ruby | P2 | Rails 生态仍活跃但小众 |
+| Kotlin | P2 | Android + 服务端；与 Java review 重叠 |
+| Swift | P3 | 仅 Apple 生态 |
+| C/C++ | P3 | 审查规则极复杂；ROI 需评估 |
 
 | Alternative | Pros | Cons | Best for |
 | :--- | :--- | :--- | :--- |
@@ -85,33 +85,31 @@ Priority matrix by Agent programming scenario frequency:
 | B: Demand-driven | Avoids unused skills | Reactive; may miss market window | Resource-constrained |
 | C: Full rollout | Wide coverage | Maintenance burden; quality may vary | Community with contributors |
 
-### B4. Framework Review Expansion
+### B4. 框架审查扩展
 
-**Recommended approach:** React first, then ASP.NET Core
-
-Priority matrix:
+**推荐方案**：React 优先，随后 ASP.NET Core
 
 | Framework | Priority | Rationale |
 | :--- | :--- | :--- |
-| **React** | P0 | Highest market share frontend framework |
-| **Next.js** | P1 | React meta-framework; SSR/RSC review scenarios are unique |
-| **ASP.NET Core** | P1 | Completes .NET review chain with review-dotnet |
-| Spring Boot | P2 | Complements review-java |
-| Django/FastAPI | P2 | Complements review-python |
-| Angular | P3 | Declining market share |
+| **React** | P0 | 前端框架市占率最高 |
+| **Next.js** | P1 | React 元框架；SSR/RSC 审查场景独特 |
+| **ASP.NET Core** | P1 | 与 review-dotnet 形成完整 .NET 审查链 |
+| Spring Boot | P2 | 与 review-java 互补 |
+| Django/FastAPI | P2 | 与 review-python 互补 |
+| Angular | P3 | 市占率下降 |
 
 | Alternative | Pros | Cons | Best for |
 | :--- | :--- | :--- | :--- |
 | **A: React first + chain completion (recommended)** | Fills largest gap; synergy with TS/JS | Need to prioritize among many options | Maximum value |
 | B: One framework per language skill | Complete orchestration chains | Some combinations may be low-frequency | Completeness-oriented |
 
-### B5. Library-Level Review Skills
+### B5. 库级审查技能
 
-**Recommended approach:** Domain-based rather than library-specific
+**推荐方案**：按领域而非按具体库
 
-- `review-orm-usage`: N+1 queries, connection leaks, migration safety (covers Prisma, EF, SQLAlchemy, etc.)
-- `review-http-client-usage`: timeout, retry, circuit breaker patterns
-- `review-auth-library-usage`: token handling, session security
+- `review-orm-usage`：N+1 查询、连接泄漏、迁移安全性（覆盖 Prisma、EF、SQLAlchemy 等）
+- `review-http-client-usage`：超时、重试、熔断模式
+- `review-auth-library-usage`：token 处理、会话安全
 
 | Alternative | Pros | Cons | Best for |
 | :--- | :--- | :--- | :--- |
@@ -119,11 +117,11 @@ Priority matrix:
 | A: Specific libraries (Prisma, EF) | Deep, actionable advice | Fast library iteration; high maintenance | High-traffic libraries |
 | C: Skip for now | Zero maintenance | Misses deep review value | If cognitive skills suffice |
 
-### C7. Multi-Orchestrator Pattern
+### C7. 多编排器模式
 
-**Recommended approach:** Run atomic skills in sequence (no dedicated orchestrator)
+**推荐方案**：按序运行原子技能（无专用编排器）
 
-Flow: review-codebase (understand) → review-architecture (identify issues) → generate-standard-readme (document) → generate-agent-entry (establish Agent contract). The former `onboard-repo` orchestrator was removed; use the atomic skills above as needed.
+流程：review-codebase（理解）→ review-architecture（识别问题）→ generate-standard-readme（文档化）→ generate-agent-entry（建立 Agent 契约）。原 `onboard-repo` 编排器已移除；按需使用上述原子技能。
 
 | Alternative | Pros | Cons | Best for |
 | :--- | :--- | :--- | :--- |
@@ -131,13 +129,13 @@ Flow: review-codebase (understand) → review-architecture (identify issues) →
 | B: quality-gate | Directly supports CI/CD | Overlaps with run-repair-loop | CI-focused |
 | C: Protocol first, orchestrators later | One-time investment benefits all | May over-engineer | Spec-purist approach |
 
-### C8. Skill Chain & Workflow Protocol
+### C8. 技能链与工作流协议
 
-**Recommended approach:** Lightweight I/O contracts
+**推荐方案**：轻量 I/O 契约
 
-- Add optional fields to spec: `input_schema` and `output_schema`
-- Define standard intermediate artifact formats (Findings List, Document Artifact, Diagnostic Report)
-- Orchestrators auto-match upstream/downstream by schema
+- 在 spec 中增加可选字段：`input_schema` 与 `output_schema`
+- 定义标准中间 artifact 格式（Findings List、Document Artifact、Diagnostic Report）
+- 编排器按 schema 自动匹配上下游
 
 | Alternative | Pros | Cons | Best for |
 | :--- | :--- | :--- | :--- |
@@ -145,12 +143,12 @@ Flow: review-codebase (understand) → review-architecture (identify issues) →
 | B: Event-driven model | Loose coupling; flexible | Too complex for pure-Markdown project | Platform with runtime |
 | C: Explicit pipeline YAML | Declarative; easy to understand | New spec maintenance burden | Pipeline-centric workflows |
 
-### D9. Claude Plugin Sync Strategy
+### D9. Claude Plugin 同步策略
 
-**Recommended approach:** Define selection criteria + CI validation
+**推荐方案**：定义入选标准 + CI 校验
 
-- Plugin inclusion criteria: ASQM ≥ 18, non-atomic review skill, standalone usage value
-- CI check: validate `marketplace.json` consistency with INDEX (like verify-registry)
+- Plugin 入选标准：ASQM ≥ 18，非原子 review 技能，具备独立使用价值
+- CI 检查：校验 `marketplace.json` 与 INDEX 一致性（同 verify-registry）
 
 | Alternative | Pros | Cons | Best for |
 | :--- | :--- | :--- | :--- |
@@ -158,13 +156,13 @@ Flow: review-codebase (understand) → review-architecture (identify issues) →
 | B: Expose all 28 skills | Maximum coverage | Atomic review skills add noise | Simplicity |
 | C: Tiered exposure (Core + Extended) | Good UX | Claude Plugin may not support tiers | If platform supports it |
 
-### D10. Community Infrastructure
+### D10. 社区基础设施
 
-**Recommended approach:** Gradual community-readiness
+**推荐方案**：渐进式社区就绪
 
-- Phase 1 (now): CONTRIBUTING.md (references spec/skill.md), Issue templates (Bug / Feature / New Skill Request)
-- Phase 2 (when contributors appear): PR template with Self-Check checklist, CHANGELOG.md
-- Phase 3 (active community): CODEOWNERS, Discussion templates
+- Phase 1（当前）：CONTRIBUTING.md（引用 spec/skill.md）、Issue 模板（Bug / Feature / New Skill Request）
+- Phase 2（出现贡献者时）：含 Self-Check 清单的 PR 模板、CHANGELOG.md
+- Phase 3（活跃社区）：CODEOWNERS、Discussion 模板
 
 | Alternative | Pros | Cons | Best for |
 | :--- | :--- | :--- | :--- |
@@ -172,14 +170,14 @@ Flow: review-codebase (understand) → review-architecture (identify issues) →
 | B: Full setup at once | Complete | Empty files if no community | Projects expecting contributors |
 | C: Stay as-is | Zero maintenance | Barrier for external contributors | Purely solo project |
 
-### E11. Skill Version Lifecycle Strategy
+### E11. 技能版本生命周期策略
 
-**Recommended approach:** Decouple version number from lifecycle + convention
+**推荐方案**：版本号与生命周期解耦 + 约定
 
-- Version number (SemVer): reflects content maturity; `0.x.x` = unstable API, `1.0.0+` = stable contract
-- ASQM status: reflects quality score (validated / experimental / archive_candidate)
-- Add "Stability" column to INDEX.md: experimental / stable / mature
-- Convention: validated skills at `0.x.x` should be upgraded to `1.0.0` when contract stabilizes
+- 版本号（SemVer）：反映内容成熟度；`0.x.x` = 不稳定 API，`1.0.0+` = 稳定契约
+- ASQM 状态：反映质量分数（validated / experimental / archive_candidate）
+- 在 INDEX.md 增加「Stability」列：experimental / stable / mature
+- 约定：validated 技能在契约稳定时应从 `0.x.x` 升级至 `1.0.0`
 
 | Alternative | Pros | Cons | Best for |
 | :--- | :--- | :--- | :--- |
@@ -187,25 +185,25 @@ Flow: review-codebase (understand) → review-architecture (identify issues) →
 | B: Version = status | Simple; one glance | May force premature 1.0.0 | Strict versioning |
 | C: lifecycle YAML field | Machine-readable | Overlaps with ASQM status | Automation-heavy |
 
-### E12. Testable Specification (Executable Verification)
+### E12. 可测试规范（可执行验证）
 
-**Recommended approach:** Progressive spec verification scripts + JSON Schema
+**推荐方案**：渐进式 spec 验证脚本 + JSON Schema
 
-**Script `verify-skill-structure.mjs`** checks:
+**脚本 `verify-skill-structure.mjs`** 检查：
 
-- YAML metadata completeness (name, description, tags, version, license)
-- Required headings (Purpose, Core Objective, Use Cases, Behavior, I/O, Restrictions, Self-Check, Examples)
-- Core Objective sub-sections (Primary Goal, Success Criteria, Acceptance Test)
-- Success Criteria count: 3-6 items
-- Name matches directory name
-- Name format: 1-64 chars, kebab-case, no consecutive hyphens
+- YAML 元数据完整性（name、description、tags、version、license）
+- 必选标题（Purpose、Core Objective、Use Cases、Behavior、I/O、Restrictions、Self-Check、Examples）
+- Core Objective 子节（Primary Goal、Success Criteria、Acceptance Test）
+- Success Criteria 数量：3–6 项
+- 名称与目录名一致
+- 名称格式：1–64 字符，kebab-case，无连续连字符
 
-**JSON Schema for YAML metadata** validates:
+**YAML 元数据的 JSON Schema** 校验：
 
-- Field types and constraints
-- Tag values against INDEX tag system
-- Version format (SemVer)
-- Name format regex
+- 字段类型与约束
+- 标签值相对 INDEX 标签体系
+- 版本格式（SemVer）
+- 名称格式正则
 
 | Alternative | Pros | Cons | Best for |
 | :--- | :--- | :--- | :--- |
@@ -213,88 +211,88 @@ Flow: review-codebase (understand) → review-architecture (identify issues) →
 | A: Custom script only | Full control | Reinvents schema validation | Quick start |
 | C: LLM-assisted audit | Handles semantic checks | Non-deterministic; costly; not CI-friendly | Manual audits |
 
-## Implementation Phases
+## 实施阶段
 
-Ordered by dependency and value:
+按依赖与价值排序：
 
-### Phase 1: Foundation (Infrastructure)
+### Phase 1：基础（基础设施）
 
 ```text
 E12 Testable Spec  →  A1 CI/CD Automation  →  A2 Quality Gates
-```text
+```
 
-Build checking capability first, then put it in CI, then automate quality assessment.
+先建立检查能力，再纳入 CI，最后自动化质量评估。
 
-**Deliverables:**
+**交付物**：
 
 - `scripts/verify-skill-structure.mjs`
 - `schemas/skill-metadata.json`
 - `.github/workflows/pr-check.yml`
 - `.github/workflows/audit.yml`
 
-### Phase 2: Capability Expansion
+### Phase 2：能力扩展
 
 ```text
 E11 Lifecycle Strategy (define conventions before adding new skills)
 B3  review-typescript  →  B4 review-react
-```text
+```
 
-Establish lifecycle conventions, then build the frontend review chain (TS language + React framework).
+先建立生命周期约定，再构建前端审查链（TS 语言 + React 框架）。
 
-**Deliverables:**
+**交付物**：
 
-- Updated INDEX.md with Stability column
+- 含 Stability 列的更新后 INDEX.md
 - `skills/review-typescript/`
 - `skills/review-react/`
 
-### Phase 3: Composition Upgrade
+### Phase 3：组合升级
 
 ```text
 C8 I/O Contract Protocol  →  C7 repo onboarding flow (atomic skills in sequence)
 B5 Domain-level library review (review-orm-usage, etc.)
 ```
 
-Define the protocol first. Repo onboarding is achieved by running review-codebase → review-architecture → generate-standard-readme → generate-agent-entry in sequence (onboard-repo orchestrator was removed).
+先定义协议。Repo onboarding 通过按序运行 review-codebase → review-architecture → generate-standard-readme → generate-agent-entry 实现（onboard-repo 编排器已移除）。
 
-**Deliverables:**
+**交付物**：
 
-- Spec amendment: optional `input_schema` / `output_schema` fields
+- Spec 修订：可选 `input_schema` / `output_schema` 字段
 - `skills/review-orm-usage/`
 
-### Phase 4: Ecosystem Maturity
+### Phase 4：生态成熟
 
 ```text
 D9  Plugin Sync Strategy
 D10 Community Infrastructure Phase 1
 ```
 
-**Deliverables:**
+**交付物**：
 
-- Plugin selection criteria document
-- CI check for `marketplace.json` sync
+- Plugin 入选标准文档
+- `marketplace.json` 同步的 CI 检查
 - `CONTRIBUTING.md`
-- `.github/ISSUE_TEMPLATE/` (bug, feature, new-skill)
+- `.github/ISSUE_TEMPLATE/`（bug、feature、new-skill）
 
-## Trade-offs Considered
+## 已考虑的权衡
 
 | Direction | Chosen approach | Key trade-off |
 | :--- | :--- | :--- |
-| CI/CD | Minimal + dogfood | Value vs. overhead for pure-Markdown project |
-| Language expansion | TS/JS priority | Breadth vs. depth; chose highest-impact language |
-| Framework expansion | React first | Market share vs. chain completeness |
-| Library review | Domain-based | Generality vs. library-specific depth |
-| Orchestrators | run-checkpoint, review-code | Demo value vs. CI integration (quality-gate) |
-| Skill chains | I/O contracts | Simplicity vs. event-driven flexibility |
-| Plugin sync | Selection criteria | Curation quality vs. full exposure |
-| Community | Gradual | Investment vs. actual contributor demand |
-| Lifecycle | Convention-based | Clarity vs. additional maintenance |
-| Spec testing | Script + Schema | Coverage vs. semantic check limitations |
+| CI/CD | Minimal + dogfood | 对纯 Markdown 项目的价值 vs 开销 |
+| Language expansion | TS/JS priority | 广度 vs 深度；选择影响最大的语言 |
+| Framework expansion | React first | 市占率 vs 链完整性 |
+| Library review | Domain-based | 通用性 vs 库特定深度 |
+| Orchestrators | run-checkpoint, review-code | Demo 价值 vs CI 集成（quality-gate） |
+| Skill chains | I/O contracts | 简洁 vs 事件驱动灵活性 |
+| Plugin sync | Selection criteria |  curation 质量 vs 全量暴露 |
+| Community | Gradual | 投入 vs 实际贡献者需求 |
+| Lifecycle | Convention-based | 清晰 vs 额外维护 |
+| Spec testing | Script + Schema | 覆盖 vs 语义检查局限 |
 
-## Acceptance Criteria
+## 验收标准
 
-- [x] Phase 1 deliverables: spec verification scripts and CI workflows operational
-- [x] Phase 2 deliverables: review-typescript and review-react published and audited
-- [x] Phase 3 deliverables: I/O contract protocol defined; repo onboarding via atomic skills
-- [x] Phase 4 deliverables: Plugin sync automated; CONTRIBUTING.md and Issue templates live
-- [x] All new skills pass ASQM validation (quality ≥ 17)
-- [x] No regression in existing skill quality or registry sync
+- [x] Phase 1 交付物：spec 验证脚本与 CI workflow 可运行
+- [x] Phase 2 交付物：review-typescript 与 review-react 已发布并审计
+- [x] Phase 3 交付物：I/O 契约协议已定义；通过原子技能实现 repo onboarding
+- [x] Phase 4 交付物：Plugin 同步已自动化；CONTRIBUTING.md 与 Issue 模板已就绪
+- [x] 所有新技能通过 ASQM 校验（质量 ≥ 17）
+- [x] 现有技能质量或 registry 同步无回归

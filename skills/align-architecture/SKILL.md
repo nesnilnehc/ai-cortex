@@ -1,6 +1,7 @@
 ---
 name: align-architecture
 description: Verify architecture and design documents against code implementation; produce an Architecture Compliance Report when implementation diverges from ADR or design decisions.
+description_zh: 对照代码实现验证架构与设计文档；当实现偏离 ADR 或设计时，产出架构合规报告。
 tags: [workflow, documentation]
 version: 1.2.0
 license: MIT
@@ -30,76 +31,77 @@ output_schema:
   lifecycle: living
 ---
 
-# Skill: Align Architecture
+# 技能（Skill）：对齐架构
 
-## Purpose
+## 目的 (Purpose)
 
-Verify that code implementation aligns with architecture and design decisions documented in ADRs, design documents, or architecture specs. Produce an Architecture Compliance Report when the implementation diverges from documented decisions.
-
----
-
-## Core Objective
-
-**Primary Goal**: Produce an actionable Architecture Compliance Report that compares documented architecture/design decisions with the current implementation and lists compliance gaps with impact and remediation suggestions.
-
-**Success Criteria** (ALL must be met):
-
-1. ✅ **Design sources identified**: ADRs, design docs, or architecture specs are located and parsed
-2. ✅ **Implementation compared**: Code is analyzed against documented decisions
-3. ✅ **Gaps classified**: Each compliance gap is typed (e.g. boundary violation, missing component, divergent pattern) with impact and root cause
-4. ✅ **Report persisted**: Architecture Compliance Report is written to the agreed path
-5. ✅ **Evidence referenced**: Each gap cites specific design sources and code locations; when partial verification is used, covered/uncovered scope and confidence are explicit
-6. ✅ **Handoff suggested**: When design is outdated or conflicting, suggest `design-solution`; when structure review needed, suggest `review-architecture`
-
-**Acceptance Test**: Can a teammate read the report and immediately understand which architecture decisions are violated, where in code, and what to do next?
+验证代码实现是否与 ADR、设计文档或架构规范中记录的架构和设计决策保持一致。当实施偏离记录的决策时，生成架构合规性报告。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-**This skill handles**:
+**治理目标**：生成一份可操作的架构合规性报告，将文档化的架构/设计决策与当前实施进行比较，并列出合规性差距以及影响和补救建议。
 
-- Design document vs code comparison
-- Compliance gap detection and classification
-- Impact scope and root cause for each gap
-- Remediation and handoff recommendations
+**成功标准**（必须满足所有要求）：
 
-**This skill does NOT handle**:
+1. ✅ **确定设计来源**：找到并解析 ADR、设计文档或架构规范
+2. ✅ **实现比较**：根据记录的决策分析代码
+3. ✅ **差距分类**：每个合规差距都经过分类（例如边界违规、缺少组件、不同模式）以及影响和根本原因
+4. ✅ **Report persisted**：架构合规性报告写入约定路径
+5. ✅ **参考证据**：每个差距都引用了特定的设计来源和代码位置；当使用部分验证时，覆盖/未覆盖的范围和置信度是明确的
+6. ✅ **建议切换**：当设计过时或有冲突时，建议`设计-解决方案`；当需要结构审查时，建议“审查架构”
 
-- Code structure review without design reference (use `review-architecture`)
-- Requirements analysis (use `analyze-requirements`)
-- Design creation or design alternatives (use `design-solution`)
-- Planning layer alignment (use `align-planning`)
-
-**Handoff point**: After the report, hand off to `design-solution` if design must change, or to `review-architecture` for structural code review without design comparison.
+**验收**测试：队友能否阅读报告并立即了解哪些架构决策被违反、代码中的何处以及下一步该做什么？
 
 ---
 
-## Use Cases
+## 范围边界（范围边界）
 
-- **Post-implementation check**: Validate that implementation matches ADR or design doc
-- **Milestone or release gate**: Ensure architecture decisions are reflected in code
-- **Drift investigation**: Diagnose when implementation has drifted from documented design
-- **Onboarding audit**: Help new contributors understand design vs actual state
+**本技能负责**：
+
+- 设计文档与代码比较
+- 合规差距检测和分类
+- 每个差距的影响范围和根本原因
+- 整治和转交建议
+
+**本技能不负责**：
+
+- 没有设计参考的代码结构审查（使用“review-architecture”）
+- 需求分析（使用“analyze-需求”）
+- 设计创作或设计替代方案（使用“设计解决方案”）
+- 规划图层对齐（使用“align-planning”）
+
+**转交点**：报告后，如果设计必须改变，则移交给“设计-解决方案”，或者如果没有设计比较，则移交给“审查-架构”以进行结构代码审查。
 
 ---
 
-## Orchestration Guidance
+## 使用场景（用例）
 
-| Scenario | Recommended Sequence |
+- **实施后检查**：验证实施是否与 ADR 或设计文档匹配
+- **里程碑或发布门**：确保架构决策反映在代码中
+- **漂移调查**：当实施偏离文档设计时进行诊断
+- **入职审核**：帮助新贡献者了解设计与实际状态
+
+---
+
+## 编排指导
+
+|场景|推荐顺序|
 | --- | --- |
-| Routine task completed | `align-planning` (Lightweight) |
-| Milestone or release gate | `align-planning` (Full) → then `align-architecture` |
-| Post-implementation check | `align-architecture` |
-| Planning and architecture both in question | `align-planning` first; if report suggests design-code drift → `align-architecture` |
+|日常任务完成 | `align-planning`（轻量级）|
+|里程碑或释放门| `align-planning`（完整）→ 然后`align-architecture` |
+|实施后检查| `对齐架构` |
+|规划和建筑都存在问题|首先进行“对齐规划”；如果报告表明设计代码漂移 → `align-architecture` |
 
-Run `align-planning` before `align-architecture` when planning layer alignment is uncertain; otherwise run `align-architecture` standalone for design vs code verification.
+当规划层对齐不确定时，在“align-architecture”之前运行“align-planning”；否则，独立运行“align-architecture”进行设计与代码验证。
 
 ---
 
-## Behavior
+## 行为（行为）
 
-### Agent Prompt Contract
+### 代理即时合同
+
 
 ```text
 You are responsible for architecture compliance verification.
@@ -108,84 +110,86 @@ Compare documented architecture and design decisions (ADRs, design docs) against
 the codebase and produce an Architecture Compliance Report when divergence exists.
 ```
 
-### Interaction Policy
 
-- **Defaults**: ADR/design paths from project norms or `docs/architecture/`, `docs/design-decisions/`, `docs/process-management/decisions/`; code scope from workspace
-- **Choice options**: Explicit design doc paths when non-default; explicit code paths when partial scope
-- **Confirm**: Before proposing edits to design docs; before large code scope
+### 交互（互动）政策
 
-### Phase 0: Resolve Design Sources and Code Scope
+- **默认**：来自项目规范或“docs/architecture/”、“docs/design-decisions/”、“docs/process-management/decisions/”的 ADR/设计路径；工作区中的代码范围
+- **选择选项**：非默认时显式设计文档路径；部分作用域时的显式代码路径
+- **确认**：在对设计文档提出编辑建议之前；在大代码范围之前
 
-1. Resolve design source paths (project norms or default: `docs/architecture/`, `docs/design-decisions/`, `docs/process-management/decisions/`)
-2. Resolve code scope:
-   - **Full**: entire repo (default)
-   - **Incremental**: user-specified paths, packages, or modules (for large codebases; verify only affected design decisions)
-3. If no design docs exist, output blocked report with required minimum inputs; suggest `design-solution` or `bootstrap-docs`
+### 第 0 阶段：解决设计源和代码范围
 
-### Phase 0.5: Evidence Readiness Assessment
+1、解决设计源码路径（项目规范或默认：`docs/architecture/`、`docs/design-decisions/`、`docs/process-management/decisions/`）
+2.解析代码范围：
+   - **完整**：整个存储库（默认）
+   - **增量**：用户指定的路径、包或模块（对于大型代码库；仅验证受影响的设计决策）
+3. 如果没有设计文档，则输出所需最少输入的阻塞报告；建议“设计解决方案”或“引导文档”
 
-Assess design coverage before comparison:
+### 阶段 0.5：证据准备情况评估
 
-- **strong**: Design docs exist for all relevant components/modules in scope
-- **weak**: Partial design docs; some components have ADRs, others do not — perform partial verification with reduced confidence
-- **missing**: No design docs; report blocked, suggest design workflow
+在比较之前评估设计覆盖范围：
 
-Rules:
+- **强**：范围内所有相关组件/模块都存在设计文档
+- **弱**：部分设计文档；一些组件有 ADR，另一些则没有——以较低的置信度执行部分验证
+- **缺失**：没有设计文档；报告被阻止，建议设计工作流程
 
-1. When readiness is `weak`, verify only decisions that have design sources; mark uncovered code as `unknown` and list in report.
-2. Do NOT claim high confidence when readiness is `weak`.
-3. Explicitly report: covered scope, uncovered scope, and confidence level.
+规则：
 
-### Phase 1: Extract Design Decisions
+1. 当准备度“弱”时，仅验证有设计来源的决策；将未发现的代码标记为“未知”并在报告中列出。
+2. 当准备“弱”时，不要声称有很高的信心。
+3. 明确报告：覆盖范围、未覆盖范围和置信度。
 
-1. Parse ADRs, design docs, and architecture specs
-2. Extract key decisions: boundaries, components, patterns, constraints
-3. Build a decision index for comparison
+### 第 1 阶段：提取设计决策
 
-### Phase 2: Compare Implementation
+1. 解析 ADR、设计文档和架构规范
+2. 提取关键决策：边界、组件、模式、约束
+3. 建立决策指标进行比较
 
-1. Analyze code against each documented decision
-2. For each decision, assess: `compliant` | `partial` | `violated` | `unknown`
-3. Capture evidence: file paths, modules, or snippets
-4. Classify gaps:
-   - **Boundary violation**: Code crosses documented module/layer boundaries
-   - **Missing component**: Documented component or interface not implemented
-   - **Divergent pattern**: Implementation uses a different pattern than documented
-   - **Outdated design**: Design doc may be stale; implementation may reflect current intent — assign `recommended_action`:
-     - `update_design`: Implementation is authoritative; design should be updated to match (suggest `design-solution`)
-     - `update_code`: Design remains authoritative; code should be refactored to match
-     - `both`: Ambiguous; requires stakeholder decision; suggest `design-solution` to reconcile
+### 第 2 阶段：比较实施
 
-### Phase 3: Produce Report
+1. 根据每个记录的决策分析代码
+2. 对于每个决定，评估：“合规” | `部分` | ‘违反’ | `未知`
+3. 捕获证据：文件路径、模块或片段
+4. 差距分类：
+   - **边界违规**：代码跨越了文档化的模块/层边界
+   - **缺少组件**：记录的组件或接口未实现
+   - **发散模式**：实现使用与文档中不同的模式
+   - **过时的设计**：设计文档可能已过时；实现可能反映当前意图 - 分配“recommended_action”：
+     - `update_设计`：执行权威； 应更新设计以匹配（建议“设计-解决方案”）
+     - `update_code`：设计保持权威；代码应该重构以匹配
+     - “两者”：不明确；需要利益相关者做出决定；建议“设计解决方案”来协调
 
-1. Aggregate findings with impact scope, root cause, and `recommended_action` per gap
-2. For each gap, state clearly: update code, update design, or both (see gap type above)
-3. Recommend handoff to `design-solution` when design must change; to `review-architecture` when structure-only review needed
-4. Include evidence readiness and confidence when partial verification was used
+### 第三阶段：生成报告
 
-### Phase 4: Persist Report
+1. 汇总调查结果，包括影响范围、根本原因和每个差距的“推荐行动”
+2. 对于每个差距，明确说明：更新代码、更新设计或两者兼而有之（请参阅上面的差距类型）
+3. 当设计必须改变时，推荐转交到`设计-解决方案`；当需要仅结构审查时，进行“审查架构”
+4. 使用部分验证时包括证据准备和置信度
 
-Write report to:
+### 第 4 阶段：坚持报告
 
-- Path resolved from project norms (`docs/ARTIFACT_NORMS.md` or `.ai-cortex/artifact-norms.yaml`)
-- Default: `docs/calibration/architecture-compliance.md` (overwrite unless snapshot explicitly requested)
-- Or user-specified path
+将报告写至：
 
-Report must include a machine-readable compliance block (YAML or JSON).
+- 从项目规范解析的路径（`docs/ARTIFACT_NORMS.md` 或 `.ai-cortex/artifact-norms.yaml`）
+- 默认：`docs/calibration/architecture-compliance.md`（除非明确请求快照，否则覆盖）
+- 或者用户指定的路径
+
+报告必须包含机器可读的合规性块（YAML 或 JSON）。
 
 ---
 
-## Input & Output
+## 输入与输出 (Input & Output)
 
-### Input
+### 输入（输入）
 
-- Optional ADR/design doc paths
-- Optional code scope (paths or modules)
-- Optional project docs root
+- 可选的 ADR/设计文档路径
+- 可选的代码范围（路径或模块）
+- 可选的项目文档根目录
 
-### Output
+### 输出（输出）
 
-#### Architecture Compliance Report Template
+#### 架构合规性报告模板
+
 
 ```markdown
 # Architecture Compliance Report
@@ -238,97 +242,98 @@ Report must include a machine-readable compliance block (YAML or JSON).
         remediation: "Implement repository pattern per ADR-001"
 ```
 
----
-
-## Restrictions
-
-### Hard Boundaries
-
-- Do NOT invent design decisions when docs are missing; report blocked and suggest design workflow
-- Do NOT claim high confidence when evidence readiness is `weak` (partial verification)
-- Do NOT claim compliance when design sources are incomplete or ambiguous
-- Do NOT silently modify design docs without explicit user approval
-- Do NOT perform structural code review without design reference (that is `review-architecture`)
-
-### Skill Boundaries (Avoid Overlap)
-
-**Do NOT do these (other skills handle them)**:
-
-- Code-only structure review → `review-architecture`
-- Design creation or alternatives → `design-solution`
-- Planning layer traceback → `align-planning`
-
-**When to stop and hand off**:
-
-- No design docs exist → suggest `design-solution` or `bootstrap-docs`
-- Design is conflicting or outdated → hand off to `design-solution`
-- Structural code review needed without design comparison → hand off to `review-architecture`
 
 ---
 
-## Self-Check
+## 限制（限制）
 
-### Core Success Criteria (ALL must be met)
+### 硬边界（Hard Boundaries）
 
-- [ ] Design sources identified and parsed
-- [ ] Code compared against documented decisions (or partial verification when readiness is weak)
-- [ ] Each gap typed with impact scope, root cause, and `recommended_action` when type is outdated design
-- [ ] Report persisted to agreed path
-- [ ] Evidence references present for each gap (including covered/uncovered scope and confidence when partial verification used)
-- [ ] Handoff recommendations provided when applicable
+- 当文档丢失时，不要发明设计决策；报告被阻止并建议设计工作流程
+- 当证据准备度“弱”时，请勿声称高度可信（部分验证）
+- 当设计来源不完整或不明确时，请勿声称合规
+- 未经用户明确批准，请勿悄悄修改设计文档
+- 不要在没有设计参考的情况下执行结构性代码审查（即“审查架构”）
 
-### Acceptance Test
+### 技能边界 (Skill Boundaries)（避免重叠）
 
-**Can a teammate act on the top 1–3 compliance gaps without additional clarification?**
+**不要做这些（其他技能可以处理它们）**：
 
-If NO: refine evidence and remediation clarity.
+- 仅代码结构审查 → `审查架构`
+- 设计创作或替代方案 → `设计解决方案`
+- 规划层回溯→`align-planning`
 
-If YES: report is complete; proceed to handoff or remediation.
+**何时停止并交接**：
+
+- 不存在设计文档→建议“设计解决方案”或“引导文档”
+- 设计存在冲突或过时 → 交给“设计解决方案”
+- 无需设计比较即可进行结构性代码审查 → 交给“审查架构”
 
 ---
 
-## Examples
+## 自检（Self-Check）
 
-### Example 1: Boundary Violation
+### 核心成功标准（必须满足所有标准）
 
-**Context**: ADR-001 states domain must not import infrastructure. Code shows domain package importing DB driver.
+- [ ] 设计源的识别和解析
+- [ ] 代码与记录决策进行比较（或在准备情况较弱时进行部分验证）
+- [ ] 每个差距都包含影响范围、根本原因以及类型过时时的“推荐操作” 设计
+- [ ] 报告坚持约定的路径
+- [ ] 为每个差距提供证据参考（包括使用部分验证时覆盖/未覆盖的范围和置信度）
+- [ ] 适用时提供移交建议
 
-**Output**:
+### 验收测试
 
-- Type: boundary violation
-- Design Source: `docs/process-management/decisions/20240101-adr-001-layered-architecture.md`
-- Code Location: `pkg/domain/order.go` (imports `pkg/infra/db`)
-- Impact: Domain is coupled to infrastructure; violates clean architecture
-- Remediation: Define repository interface in domain; implement in infrastructure; inject via constructor
+**团队成员是否可以在没有额外说明的情况下针对前 1-3 个合规差距采取行动？**
 
-### Example 2: No Design Docs
+如果否：完善证据并明确补救措施。
 
-**Context**: Project has no ADRs or design docs.
+如果是：报告完成；进行转交或补救。
 
-**Output**:
+---
 
-- Status: blocked
-- Message: No architecture or design documents found. Run `design-solution` to create design docs, or `bootstrap-docs` to establish structure.
-- Confidence: N/A
+## 示例（示例）
 
-### Example 3: Partial Verification (Weak Readiness)
+### 示例 1：边界违规
 
-**Context**: Only `pkg/auth` has an ADR; `pkg/orders` and `pkg/inventory` have no design docs.
+**上下文**：ADR-001 规定域不得导入基础设施。代码显示域包导入数据库驱动程序。
 
-**Output**:
+**输出**：
 
-- Evidence Readiness: weak
-- Confidence: medium
-- Covered scope: `pkg/auth` (verified against ADR-002)
-- Uncovered scope: `pkg/orders`, `pkg/inventory` (no design sources; marked unknown)
-- Report continues with findings for `pkg/auth`; recommends creating design docs for uncovered packages if compliance is required
+- 类型：边界违规
+- 设计来源：`docs/process-management/decisions/20240101-adr-001-layered-architecture.md`
+- 代码位置：`pkg/domain/order.go`（导入`pkg/infra/db`）
+- 影响：领域与基础设施耦合；违反了干净的架构
+- 修复：在域中定义存储库接口；在基础设施中实施；通过构造函数注入
 
-### Example 4: Outdated Design with Recommended Action
+### 示例 2：无设计文档
 
-**Context**: ADR-003 specifies sync API; implementation uses async event-driven flow and stakeholders prefer it.
+**背景**：项目没有 ADR 或设计文档。
 
-**Output**:
+**输出**：
 
-- Type: outdated design
-- Recommended Action: update_design
-- Remediation: Update ADR-003 to document async event-driven approach; implementation is authoritative. Hand off to `design-solution` to revise design doc.
+- 状态：被阻止
+- 消息：未找到架构或设计文档。运行“设计解决方案”来创建设计文档，或运行“bootstrap-docs”来建立结构。
+- 置信度：不适用
+
+### 示例 3：部分验证（弱就绪）
+
+**上下文**：只有 `pkg/auth` 有 ADR； `pkg/orders` 和 `pkg/inventory` 没有设计文档。
+
+**输出**：
+
+- 证据准备情况：弱
+- 置信度：中等
+- 涵盖范围：`pkg/auth`（根据 ADR-002 进行验证）
+- 未发现的范围：`pkg/orders`、`pkg/inventory`（无设计来源；标记为未知）
+- 报告继续包含“pkg/auth”的调查结果；如果需要合规性，建议为未覆盖的包创建设计文档
+
+### 示例 4：过时的设计和建议的操作
+
+**上下文**：ADR-003 指定同步 API；实现使用异步事件驱动流程，利益相关者更喜欢它。
+
+**输出**：
+
+- 类型：过时的设计
+- 建议操作：update_设计
+- 修复：将 ADR-003 更新为文档异步事件驱动方法；执行力具有权威性。移交给“设计解决方案”来修改设计文档。

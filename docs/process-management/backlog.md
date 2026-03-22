@@ -1,14 +1,14 @@
-# Backlog Index
+# Backlog 索引
 
-**Purpose:** Canonical index for work items, skill requests, and planned tasks. Enables assess-doc-readiness Backlog layer traceability.
+**目的**：工作条目、技能请求与计划任务的权威索引。支持 assess-doc-readiness 的 Backlog 层追溯。
 
-**Related:** [milestones](milestones.md) | [promotion-iteration-tasks](promotion-iteration-tasks.md) | [skills/INDEX.md](../../skills/INDEX.md) | [manifest.json](../../manifest.json)
+**相关**：[milestones](milestones.md) | [promotion-iteration-tasks](promotion-iteration-tasks.md) | [skills/INDEX.md](../../skills/INDEX.md) | [manifest.json](../../manifest.json)
 
 ---
 
-## Captured Backlog Items
+## 已捕获的 Backlog 条目
 
-Individual work items captured via `capture-work-items` or equivalent. One file per item under `backlog/`.
+通过 `capture-work-items` 或等效方式捕获的单项工作。每项对应 `backlog/` 下的一个文件。
 
 | Date | Item | Status | Path |
 | :--- | :--- | :--- | :--- |
@@ -16,23 +16,23 @@ Individual work items captured via `capture-work-items` or equivalent. One file 
 
 ---
 
-## Planned Work (from Design)
+## 计划工作（来自设计）
 
-Task breakdown derived from [promotion-and-iteration design](../designs/2026-03-06-promotion-and-iteration.md). See [promotion-iteration-tasks](promotion-iteration-tasks.md) for Epic/Task detail and traceability to requirements.
+任务拆解源自 [推广与迭代设计](../designs/2026-03-06-promotion-and-iteration.md)。详见 [promotion-iteration-tasks](promotion-iteration-tasks.md) 的 Epic/任务明细及与需求的追溯关系。
 
 | Epic | Scope | Priority |
 | :--- | :--- | :--- |
 | T1 分发渠道验证 | scripts/verify-* | Phase A |
-| T2 发布流程自动化 | pre-release-check, CHANGELOG 辅助 | Phase A/B |
-| T3 指标采集与报告 | metrics, 季度模板 | Phase B |
+| T2 发布流程自动化 | pre-release-check、CHANGELOG 辅助 | Phase A/B |
+| T3 指标采集与报告 | metrics、季度模板 | Phase B |
 | T4 CI 集成 | .github/workflows | Phase C |
 | T5 季度检视流程 | quarterly-review-sop | Phase D |
 
 ---
 
-## Skill Catalog References
+## 技能目录引用
 
-- **skills/INDEX.md** — canonical skill list, tags, versions, stability
-- **manifest.json** — machine-readable capability list for discovery
+- **skills/INDEX.md** — canonical 技能列表、tags、版本、稳定性
+- **manifest.json** — 机器可读的能力列表，用于发现
 
-New skill requests (e.g. from captured items) are validated against `spec/skill.md` and registered via INDEX + manifest before closure.
+新增技能请求（如来自已捕获条目）需按 `spec/skill.md` 校验，并在关闭前通过 INDEX 与 manifest 注册。

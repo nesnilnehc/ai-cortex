@@ -1,44 +1,44 @@
-# Review Codebase
+# 查看代码库
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Reviews the current state of specified files, directories, or repo. Covers architecture, design, tech debt, patterns, dependencies, security and performance. Does not depend on git diff. Complements review-code (diff-focused).
+查看指定文件、目录或存储库的当前状态。涵盖架构、设计、技术债务、模式、依赖性、安全性和性能。不依赖于 git diff。补充审查代码（以差异为中心）。
 
-## When to use
+## 何时使用
 
-- New module/service: architecture and implementation review
-- Legacy audit: quality and risk review for path or repo
-- Pair/sampling: review specified paths without current diff
-- Teaching: check arbitrary code against review dimensions
+- 新模块/服务：架构和实施审查
+- 遗留审计：路径或回购的质量和风险审查
+- 配对/采样：在没有当前差异的情况下检查指定路径
+- 教学：根据审查维度检查任意代码
 
-## Inputs
+## 输入
 
-- Paths (file(s), dir(s), or repo root)
-- Optional: focus (e.g. security only)
+- 路径（文件、目录或存储库根目录）
+- 可选：焦点（例如仅安全）
 
-## Outputs
+## 输出
 
-- Per-file or per-module conclusions and suggestions with file:line references
+- 每个文件或每个模块的结论和建议以及文件：行引用
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension        | Score |
-| :--------------- | :---- |
-| agent_native     | 5     |
-| cognitive        | 4     |
-| composability    | 4     |
-| stance           | 5     |
-| **asqm_quality** | 18    |
+| 维度 | 分数 |
+| ：-------------- | :---- |
+|agent_native | 5 |
+|cognitive| 4 |
+|composability | 4 |
+|stance| 5 |
+| **asqm_quality** | 18 | 18
 
-## Ecosystem
+## 生态
 
-| Field                                 | Value                                                                                                                                                                                                                                                                         |
-| :------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-code, wshobson/agents:code-review-excellence, secondsky/claude-skills:code-review, trailofbits/skills:differential-review, cxuu/golang-skills:go-code-review, obra/superpowers:requesting-code-review, skillcreatorai/Ai-Agent-Skills:code-review |
-| market_position                       | commodity                                                                                                                                                                                                                                                                     |
+|领域|价值|
+| :------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:审查代码、wshobson/agents:代码审查卓越、secondsky/claude-skills:代码审查、trailofbits/skills:差异审查、cxuu/golang-skills:go-code-review、obra/superpowers:请求代码审查、 Skillcreatorai/Ai-Agent-Skills：代码审查 |
+|市场地位 |商品 |
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for complete behavior, restrictions, and examples.
+请参阅 [SKILL.md](./SKILL.md) 了解完整的行为、限制和示例。

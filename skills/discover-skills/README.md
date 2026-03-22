@@ -1,44 +1,44 @@
-# Discover Skills
+# 发现技能
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Identifies missing skills for a task and recommends concrete installation steps from AI Cortex or public catalogs. Discovers candidates and suggests what to install; does not install or inject skills automatically.
+识别任务中缺少的技能，并从 AI Cortex 或公共目录中推荐具体的安装步骤。发现候选者并建议安装什么；不会自动安装或注入技能。
 
-## When to use
+## 何时使用
 
-- Initial bootstrap: Agent starts with this skill, then recommends what to install
-- On-demand extension: when a task requires a skill not available
-- Capability discovery: help users find relevant skills from local or public catalogs
+- 初始引导：代理从该技能开始，然后建议安装什么
+- 按需扩展：当任务需要的技能不可用时
+- 能力发现：帮助用户从本地或公共目录中找到相关技能
 
-## Inputs
+## 输入
 
-- Current task description
-- Optional: list of already installed skills, allowed sources (local vs public)
+- 当前任务描述
+- 可选：已安装的技能列表、允许的来源（本地与公共）
 
-## Outputs
+## 输出
 
-- Recommended skills with rationale
+- 推荐技能并附有理由
 - Install commands for each (e.g. `npx skills add owner/repo --skill name`)
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension        | Score |
-| :--------------- | :---- |
-| agent_native     | 5     |
-| cognitive        | 3     |
-| composability    | 5     |
-| stance           | 4     |
-| **asqm_quality** | 17    |
+| 维度 | 分数 |
+| ：-------------- | :---- |
+|agent_native | 5 |
+|cognitive| 3 |
+|composability | 5 |
+|stance| 4 |
+| **asqm_quality** | 17 | 17
 
-## Ecosystem
+## 生态
 
-| Field                                 | Value                                    |
-| :------------------------------------ | :--------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:refine-skill-design |
-| market_position                       | differentiated                           |
+|领域|价值|
+| :------------------------------------ | :---------------------------------------- |
+|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:refine-skill-design |
+|市场地位 |差异化|
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for complete behavior, restrictions, and examples.
+请参阅 [SKILL.md](./SKILL.md) 了解完整的行为、限制和示例。

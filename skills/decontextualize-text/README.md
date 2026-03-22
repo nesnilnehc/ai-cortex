@@ -1,43 +1,43 @@
-# Decontextualize Text
+# 去语境化文本 (Decontextualize Text)
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Converts text with private context or internal dependencies into generic, unbiased expressions. Keeps what is done and why; removes who, where, and internal conditions. Replaces proper nouns with generic descriptions for methodology abstraction, cross-team sharing, anonymization, or public release.
+将具有私有上下文或内部依赖关系的文本转换为通用、无偏见的表达式。保留所做的事情和原因；删除人物、地点和内部条件。将专有名词替换为方法抽象、跨团队共享、匿名或公开发布的通用描述。
 
-## When to use
+## 何时使用
 
-- Generalization: turn project-specific lessons into generic methodology
-- Cross-team collaboration: remove jargon or codenames
-- De-identification: strip sensitive names before sharing
-- Release preparation: final cleanup before publishing
+- 泛化：将特定项目的经验教训转化为通用方法
+- 跨团队协作：删除行话或代号
+- 去识别化：在共享之前删除敏感名称
+- 发布准备：发布前的最后清理
 
-## Inputs
+## 输入
 
-- Text containing org/company/project names, internal conventions, or environment-specific details
+- 包含组织/公司/项目名称、内部约定或环境特定详细信息的文本
 
-## Outputs
+## 输出
 
-- Generic version with logic and structure preserved; usable without extra context
+- 保留逻辑和结构的通用版本；无需额外上下文即可使用
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension        | Score |
-| :--------------- | :---- |
-| agent_native     | 5     |
-| cognitive        | 4     |
-| composability    | 4     |
-| stance           | 4     |
-| **asqm_quality** | 17    |
+| 维度 | 分数 |
+| ：-------------- | :---- |
+|agent_native | 5 |
+|cognitive| 4 |
+|composability | 4 |
+|stance| 4 |
+| **asqm_quality** | 17 | 17
 
-## Ecosystem
+## 生态
 
-| Field                                 | Value                                         |
-| :------------------------------------ | :-------------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:generate-standard-readme |
-| market_position                       | differentiated                                |
+|领域 |价值|
+| :------------------------------------ | :-------------------------------------------------------- |
+|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:生成标准自述文件 |
+|市场地位 |差异化|
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for complete behavior, restrictions, and examples.
+请参阅 [SKILL.md](./SKILL.md) 了解完整的行为、限制和示例。

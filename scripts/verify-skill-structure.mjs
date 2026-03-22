@@ -38,6 +38,18 @@ const REQUIRED_HEADINGS = [
   'Examples',
 ];
 
+/** Spec §3: English and Chinese equivalents; used to match bilingual headings like ## 目的 (Purpose). */
+const REQUIRED_HEADING_ALIASES = {
+  'Purpose': ['目的'],
+  'Core Objective': ['核心目标'],
+  'Use Cases': ['使用场景', '用例'],
+  'Behavior': ['行为'],
+  'Input & Output': ['输入与输出', '输入&输出'],
+  'Restrictions': ['限制'],
+  'Self-Check': ['自检'],
+  'Examples': ['示例'],
+};
+
 const CORE_OBJECTIVE_SUBSECTIONS = [
   'Primary Goal',
   'Success Criteria',
@@ -74,57 +86,54 @@ function extractHeadings(content) {
   return headings;
 }
 
-function countSuccessCriteria(content) {
-  const coreObjMatch = content.match(
-    /## Core Objective\b([\s\S]*?)(?=\n## [A-Z]|\n---\s*$|$)/
-  );
-  if (!coreObjMatch) return -1;
-  const section = coreObjMatch[1];
+/** Matches ## Heading or ## 中文（English） style; returns the section body. */
+function findSection(content, englishName, chineseAliases = []) {
+  const patterns = [
+    new RegExp(`## ${englishName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b([\\s\\S]*?)(?=\\n## |\\n---\\s*$|$)`, 'i'),
+    ...chineseAliases.map((a) => new RegExp(`## ${a.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[^\\n]*([\\s\\S]*?)(?=\\n## |\\n---\\s*$|$)`, 'i')),
+  ];
+  for (const re of patterns) {
+    const m = content.match(re);
+    if (m) return m[1];
+  }
+  return null;
+}
 
-  const criteriaLines = section
-    .split('\n')
-    .filter((l) => /^\d+\.\s+/.test(l.trim()));
+function countSuccessCriteria(content) {
+  const section = findSection(content, 'Core Objective', ['核心目标']);
+  if (!section) return -1;
+  const criteriaLines = section.split('\n').filter((l) => /^\d+\.\s+/.test(l.trim()));
   return criteriaLines.length;
 }
 
 function countExamples(content) {
-  const examplesMatch = content.match(
-    /## Examples\b([\s\S]*?)(?=\n## [A-Z]|\n---\s*$|$)/
-  );
-  if (!examplesMatch) return 0;
-  const section = examplesMatch[1];
-
+  const section = findSection(content, 'Examples', ['示例']);
+  if (!section) return 0;
   const h3Examples = (section.match(/^###\s+/gm) || []).length;
-  const boldExamples = (section.match(/^\*\*(Example|Edge case|Before)/gm) || []).length;
+  const boldExamples = (section.match(/^\*\*(Example|Edge case|Before|示例|边界)/gm) || []).length;
   return h3Examples > 0 ? h3Examples : boldExamples;
 }
 
 function hasSelfCheckCriteria(content) {
-  const selfCheckMatch = content.match(
-    /## Self-Check\b([\s\S]*?)(?=\n## [A-Z]|\n---\s*$|$)/
-  );
-  if (!selfCheckMatch) return false;
-  return selfCheckMatch[1].includes('- [ ]');
+  const section = findSection(content, 'Self-Check', ['自检']);
+  if (!section) return false;
+  return section.includes('- [ ]');
 }
 
 function extractSection(content, heading) {
-  const marker = `## ${heading}`;
-  const start = content.indexOf(marker);
-  if (start === -1) return '';
-  const after = content.slice(start + marker.length);
-  const nextHeadingMatch = after.match(/\n## [A-Z]/);
-  const endOffset = nextHeadingMatch ? nextHeadingMatch.index : after.length;
-  return after.slice(0, endOffset);
+  const aliases = REQUIRED_HEADING_ALIASES[heading] || [];
+  const section = findSection(content, heading, aliases);
+  return section !== null ? section : '';
 }
 
 function extractSkillBoundariesBlock(restrictionsBlock) {
   if (!restrictionsBlock) return '';
-  const markerMatch = restrictionsBlock.match(/### Skill Boundaries[^\n]*/);
+  const markerMatch = restrictionsBlock.match(/### [^\n]*(Skill Boundaries|技能边界)[^\n]*/);
   if (!markerMatch) return '';
   const start = markerMatch.index;
   const after = restrictionsBlock.slice(start);
-  const nextSubHeading = after.match(/\n### [A-Z]/);
-  const nextH2 = after.match(/\n## [A-Z]/);
+  const nextSubHeading = after.match(/\n### [\u4e00-\u9fa5A-Z]/);
+  const nextH2 = after.match(/\n## /);
   const candidates = [nextSubHeading, nextH2].filter(Boolean).map((m) => m.index);
   const endOffset = candidates.length > 0 ? Math.min(...candidates) : after.length;
   return after.slice(0, endOffset);
@@ -173,19 +182,44 @@ function checkSkill(dirName) {
   }
 
   const headings = extractHeadings(content);
-  const h2Texts = headings
-    .filter((h) => h.level === 2)
-    .map((h) => h.text.replace(/\s*\(.*\)$/, ''));
+  const h2Texts = headings.filter((h) => h.level === 2).map((h) => h.text);
+
+  function headingMatchesRequired(h2Text, req) {
+    const stripParens = (t) => t.replace(/\s*[（(][^）)]*[）)]\s*$/, '').trim();
+    const raw = stripParens(h2Text);
+    if (h2Text === req || h2Text.startsWith(req + ' ')) return true;
+    if (h2Text.includes(`(${req})`) || h2Text.includes(`（${req}）`)) return true;
+    const aliases = REQUIRED_HEADING_ALIASES[req] || [];
+    if (aliases.some((a) => raw === a || h2Text.includes(`(${a})`) || h2Text.includes(`（${a}）`))) return true;
+    return false;
+  }
 
   for (const req of REQUIRED_HEADINGS) {
-    if (!h2Texts.some((h) => h === req || h.startsWith(req))) {
+    if (!h2Texts.some((h) => headingMatchesRequired(h, req))) {
       error(dirName, `Missing required heading: ## ${req}`);
     }
   }
 
-  if (h2Texts.some((h) => h === 'Core Objective' || h.startsWith('Core Objective'))) {
+  const CORE_OBJECTIVE_ALIASES = {
+    'Primary Goal': ['首要目标', '治理目标', '任务目标', '解决目标', '废水目标'],
+    'Success Criteria': ['成功标准'],
+    'Acceptance Test': ['验收测试', '验收', '仓库测试'],
+  };
+
+  function hasSubsection(pattern, aliases) {
+    return [pattern, ...(aliases || [])].some(
+      (p) =>
+        content.includes(`**${p}**`) ||
+        content.includes(`**${p}：`) ||
+        content.includes(`**${p}:`)
+    );
+  }
+
+  if (h2Texts.some((h) => headingMatchesRequired(h, 'Core Objective'))) {
     for (const sub of CORE_OBJECTIVE_SUBSECTIONS) {
-      if (!content.includes(`**${sub}**`)) {
+      const aliases = CORE_OBJECTIVE_ALIASES[sub] || [];
+      const found = hasSubsection(sub, aliases);
+      if (!found) {
         error(dirName, `Core Objective missing required subsection: ${sub}`);
       }
     }
@@ -213,7 +247,7 @@ function checkSkill(dirName) {
     error(dirName, 'Restrictions section missing or malformed');
   } else if (!skillBoundariesBlock) {
     error(dirName, 'Restrictions section missing Skill Boundaries subsection');
-  } else if (!/Do NOT do these/i.test(skillBoundariesBlock)) {
+  } else if (!/Do NOT do these|不要做这些/i.test(skillBoundariesBlock)) {
     warn(
       dirName,
       'Skill Boundaries subsection does not contain an explicit "Do NOT do these (other skills handle them)" list'

@@ -9,10 +9,10 @@
 
 将「推广」与「迭代」需求拆分为可执行的设计方案，与 Evolution Roadmap 和 milestones 对齐，形成可持续的发布与推广节奏。
 
-## Architecture
+## 架构
 
 - **推广层**：基于现有渠道（skills.sh、SkillsMP、Claude Plugin）制定渠道级动作清单，辅以 README/AGENTS.md 等可分享素材。
-- **迭代层**：以 roadmap Phase 1–4 和 milestones 为骨架，将「推广与迭代」作为横切关注点注入各阶段。
+- **迭代层**：以 roadmap（路线图）Phase 1–4 和 milestones（里程碑）为骨架，将「推广与迭代」作为横切关注点注入各阶段。
 - **度量层**：定义可量化指标及采集方式，用于评估推广与迭代效果。
 
 ## Components

@@ -1,30 +1,30 @@
-# Artifact Norms Schema
+# 制品规范 Schema
 
-Status: Informational  
-Version: 1.0.0  
-Scope: Project-level artifact path and naming configuration.
-
----
-
-## 1. Purpose
-
-Projects may define their own artifact norms to override the default [spec/artifact-contract.md](artifact-contract.md). Skills that produce document artifacts read project norms first; if none exist, they fall back to the contract.
+**状态**：Informational  
+**版本**：1.0.0  
+**范围**：项目级制品路径与命名配置
 
 ---
 
-## 2. Resolve Order
+## 1. 目的
 
-Skills check in order:
-
-1. `.ai-cortex/artifact-norms.yaml` (machine-readable, preferred for automation)
-2. `docs/ARTIFACT_NORMS.md` (human-readable)
-3. If neither exists: use [spec/artifact-contract.md](artifact-contract.md) as default
+项目可定义自己的制品规范以覆盖默认 [spec/artifact-contract.md](artifact-contract.md)。产出文档制品的技能优先读取项目规范；若不存在则回退到契约。
 
 ---
 
-## 3. docs/ARTIFACT_NORMS.md Format
+## 2. 解析顺序
 
-Minimum structure (Markdown):
+技能按下列顺序检查：
+
+1. `.ai-cortex/artifact-norms.yaml`（机器可读，自动化优先）
+2. `docs/ARTIFACT_NORMS.md`（人工可读）
+3. 若都不存在：使用 [spec/artifact-contract.md](artifact-contract.md) 作为默认
+
+---
+
+## 3. docs/ARTIFACT_NORMS.md 格式
+
+最小结构（Markdown）：
 
 ```markdown
 # Artifact Norms
@@ -50,9 +50,9 @@ Minimum structure (Markdown):
 
 ---
 
-## 4. .ai-cortex/artifact-norms.yaml Format
+## 4. .ai-cortex/artifact-norms.yaml 格式
 
-YAML structure compatible with [artifact-contract Appendix A](artifact-contract.md#appendix-a-machine-readable-schema-for-verify-artifact-contract):
+YAML 结构与 [artifact-contract 附录 A](artifact-contract.md#appendix-a-machine-readable-schema-for-verify-artifact-contract) 兼容：
 
 ```yaml
 artifact_types:
@@ -81,11 +81,11 @@ artifact_types:
 
 ---
 
-## 5. Skill Behavior
+## 5. 技能行为
 
-When a skill needs to write a document artifact:
+当技能需要写入文档制品时：
 
-1. **Resolve project norms**: Check for `.ai-cortex/artifact-norms.yaml` or `docs/ARTIFACT_NORMS.md`.
-2. **Parse**: Extract path_pattern and naming for the relevant artifact_type.
-3. **Apply**: Use project norms if found; otherwise use [spec/artifact-contract.md](artifact-contract.md) defaults.
-4. **Write**: Persist to the resolved path with the correct naming.
+1. **解析项目规范**：检查 `.ai-cortex/artifact-norms.yaml` 或 `docs/ARTIFACT_NORMS.md`。
+2. **解析**：提取相关 artifact_type 的 path_pattern 与 naming。
+3. **应用**：若找到项目规范则使用；否则使用 [spec/artifact-contract.md](artifact-contract.md) 默认。
+4. **写入**：按解析路径与正确命名持久化。

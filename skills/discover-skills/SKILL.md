@@ -1,8 +1,9 @@
 ---
 name: discover-skills
 description: Identify missing skills and recommend installations from AI Cortex or public skill catalogs. Core goal - provide top 1-3 skill matches with install commands for Agent capability gaps. Use when discovering capabilities or suggesting skills to fill gaps.
+description_zh: 识别能力缺口并从 AI Cortex 或公共技能目录推荐安装；提供前 1–3 条匹配及安装命令。
 tags: [automation, infrastructure, generalization]
-version: 1.3.0
+version: 1.3.1
 license: MIT
 recommended_scope: user
 metadata:
@@ -16,148 +17,148 @@ output_schema:
   description: Skill recommendations with install commands and capability gap analysis
 ---
 
-# Skill: Discover Skills
+# 技能（Skill）：发现技能
 
-## Purpose
+## 目的 (Purpose)
 
-Help the Agent identify missing skills for a task and recommend concrete installation steps. This skill discovers candidates and suggests what to install, but does not install or inject skills automatically.
-
----
-
-## Core Objective
-
-**Primary Goal**: Provide the Agent with top 1-3 skill recommendations and exact installation commands to fill capability gaps.
-
-**Success Criteria** (ALL must be met):
-
-1. ✅ **Discovery performed**: Searched local `skills/INDEX.md` and `manifest.json`, or external catalogs if requested
-2. ✅ **Best matches identified**: Selected 1-3 skills that match task requirements by name, description, and tags
-3. ✅ **Recommendations explained**: Provided rationale for why each skill matches the current task
-4. ✅ **Install commands provided**: Included exact installation command for each recommended skill
-5. ✅ **No auto-install**: Did not execute installation commands without explicit user confirmation
-
-**Acceptance Test**: Can the Agent or user install the recommended skills using the provided commands without additional research?
+帮助代理识别任务中缺少的技能并推荐具体的安装步骤。此技能会发现候选人并建议安装什么，但不会自动安装或注入技能。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-**This skill handles**:
+**首要目标**：为代理提供前 1-3 项技能建议和准确的安装命令，以填补能力差距。
 
-- Discovering skills from local indexes or external catalogs
-- Matching task requirements to skill capabilities
-- Recommending top 1-3 skill matches with rationale
-- Providing exact installation commands
+**成功标准**（必须满足所有要求）：
 
-**This skill does NOT handle**:
+1. ✅ **执行发现**：搜索本地 `skills/INDEX.md` 和 `manifest.json`，或根据要求搜索外部目录
+2. ✅ **确定的最佳匹配**：根据名称、描述和标签选择与任务需求匹配的 1-3 个技能
+3. ✅ **建议解释**：提供了为什么每项技能与当前任务相匹配的理由
+4. ✅ **提供的安装命令**：包含每个推荐技能的确切安装命令
+5. ✅ **无自动安装**：未经用户明确确认，不执行安装命令
 
-- Installing skills automatically (use `install-rules` or manual installation)
-- Curating or auditing existing skills (use `curate-skills`)
-- Refining or designing skills (use `refine-skill-design`)
-- Injecting skill content into Agent context (handled by Agent runtime)
-
-**Handoff point**: When recommendations are provided with install commands, hand off to user for installation decision or to `install-rules` for automated installation (with user confirmation).
+**验收**测试：代理或用户是否可以使用提供的命令安装推荐的技能，而无需进行额外的研究？
 
 ---
 
-## Use Cases
+## 范围边界（范围边界）
 
-- **Initial bootstrap**: The Agent starts with only this skill, then recommends which skills to install for the current task.
-- **On-demand extension**: When a task requires a Skill that is not available, suggest the best matches and how to install them.
-- **Capability discovery**: Help users find relevant skills from local indexes or public catalogs.
+**本技能负责**：
 
-## Behavior
+- 从本地索引或外部目录中发现技能
+- 将任务需求与技能能力相匹配
+- 推荐排名前1-3的技能搭配并附有理由
+- 提供准确的安装命令
 
-1. **Discovery**: Prefer local `skills/INDEX.md` and `manifest.json` for the capability map. If the user asks for external options and network access is available, search a public catalog (e.g. SkillsMP).
-2. **Matching**: Match the user task to `name`, `description`, and `tags`; select the best 1–3 skills.
-3. **Recommendation**: Explain why each skill matches and whether it is local or external.
-4. **Installation guidance**: Provide the exact install command for each recommended skill (e.g. `npx skills add owner/repo --skill name`).
-5. **Confirmation**: If the user asks the Agent to install, request explicit confirmation before running any command.
+**本技能不负责**：
 
-## Input & Output
+- 自动安装技巧（使用`install-rules`或手动安装）
+- 策划或审核现有技能（使用“策划技能”）
+- 精炼或设计技能（使用“精炼-技能-设计”）
+- 将技能内容注入到代理上下文中（由代理运行时处理）
 
-- **Input**:
-  - Description of the current task.
-  - Optional: list of already installed skills.
-  - Optional: allowed sources (local only vs public catalogs).
-- **Output**:
-  - Recommended skills with rationale.
-  - Install commands for each recommendation.
-
-## Restrictions
-
-### Hard Boundaries
-
-- **No auto-install**: Do not execute install commands without explicit user confirmation.
-- **No auto-injection**: Do not fetch or inject remote SKILL.md content automatically.
-- **No bulk discovery**: Avoid listing large catalogs; return only the top 1–3 matches.
-
-### Skill Boundaries (Avoid Overlap)
-
-**Do NOT do these (other skills handle them)**:
-
-- **Installing skills**: Executing installation commands or modifying skill directories → Use `install-rules` or manual installation with user confirmation
-- **Curating skills**: Auditing skill quality, detecting overlaps, or scoring skills → Use `curate-skills`
-- **Refining skills**: Designing, restructuring, or improving existing skill content → Use `refine-skill-design`
-- **Injecting content**: Loading skill content into Agent context or runtime → Handled by Agent runtime system
-
-**When to stop and hand off**:
-
-- User says "install it" or "add that skill" → Provide install command, request confirmation, hand off to `install-rules` or manual installation
-- User asks "how do I improve this skill?" → Hand off to `refine-skill-design`
-- User asks "are my skills good quality?" → Hand off to `curate-skills`
-- Recommendations provided with install commands → Discovery complete, await user decision
-
-## Self-Check
-
-### Core Success Criteria (ALL must be met)
-
-- [ ] **Discovery performed**: Searched local `skills/INDEX.md` and `manifest.json`, or external catalogs if requested
-- [ ] **Best matches identified**: Selected 1-3 skills that match task requirements by name, description, and tags
-- [ ] **Recommendations explained**: Provided rationale for why each skill matches the current task
-- [ ] **Install commands provided**: Included exact installation command for each recommended skill
-- [ ] **No auto-install**: Did not execute installation commands without explicit user confirmation
-
-### Process Quality Checks
-
-- [ ] **Relevance**: Are the recommendations strongly related to the current task?
-- [ ] **Actionable**: Are install commands concrete and correct?
-- [ ] **Consent**: Did the Agent avoid running installs without explicit confirmation?
-- [ ] **Source priority**: Did I prefer local indexes before searching external catalogs?
-- [ ] **Conciseness**: Did I limit recommendations to top 1-3 matches, avoiding bulk catalog listings?
-
-### Acceptance Test
-
-**Can the Agent or user install the recommended skills using the provided commands without additional research?**
-
-If NO: Recommendations are incomplete. Verify install commands are correct and include all necessary parameters.
-
-If YES: Discovery is complete. Await user decision on installation.
-
-## Examples
-
-### Example 1: Recommend a local skill
-
-- **Scenario**: User asks for a standardized README.
-- **Steps**:
-  1. Agent checks `skills/INDEX.md`.
-  2. Finds `generate-standard-readme`.
-  3. Recommends it and provides: `npx skills add nesnilnehc/ai-cortex --skill generate-standard-readme`.
-
-### Example 2: Edge case - no local match
-
-- **Scenario**: The task is niche and no local skill matches.
-- **Expected**: Offer 1–3 external suggestions (if allowed) with install commands, or say "no match found" and ask for clarification. Do not install automatically.
+**转交点**：当安装命令提供建议时，将其交给用户进行安装决定或交给“install-rules”进行自动安装（需要用户确认）。
 
 ---
 
-## Appendix: Output contract
+## 使用场景（用例）
 
-When this skill produces recommendations, it follows this contract:
+- **初始引导**：代理仅使用此技能启动，然后建议为当前任务安装哪些技能。
+- **按需扩展**：当任务需要不可用的技能时，建议最佳匹配以及如何安装它们。
+- **能力发现**：帮助用户从本地索引或公共目录中找到相关技能。
 
-| Element | Requirement |
+## 行为（行为）
+
+1. **发现**：优先使用本地 `skills/INDEX.md` 和 `manifest.json` 作为功能图。如果用户请求外部选项并且网络访问可用，请搜索公共目录（例如 SkillsMP）。
+2. **匹配**：将用户任务与“name”、“description”、“tags”进行匹配；选择最好的 1-3 个技能。
+3. **推荐**：解释为什么每个技能相匹配以及它是本地的还是外部的。
+4. **安装指南**：为每个推荐技能提供准确的安装命令（例如“npx Skills add Owner/repo --skill name”）。
+5. **确认**：如果用户要求安装代理，请在运行任何命令之前请求明确确认。
+
+## 输入与输出 (Input & Output)
+
+- **输入**：
+  - 当前任务的描述。
+  - 可选：已安装的技能列表。
+  - 可选：允许的来源（仅限本地与公共目录）。
+- **输出**：
+  - 有理由的推荐技能。
+  - 为每个建议安装命令。
+
+## 限制（限制）
+
+### 硬边界（Hard Boundaries）
+
+- **无自动安装**：未经用户明确确认，请勿执行安装命令。
+- **无自动注入**：不自动获取或注入远程 SKILL.md 内容。
+- **无批量发现**：避免列出大型目录；仅返回前 1-3 个匹配项。
+
+### 技能边界 (Skill Boundaries)（避免重叠）
+
+**不要做这些（其他技能可以处理它们）**：
+
+- **安装技能**：执行安装命令或修改技能目录→使用`install-rules`或用户确认后手动安装
+- **策划技能**：审核技能质量、检测重叠或评分技能 → 使用“策划技能”
+- **精炼技能**：设计、重组或改进现有技能内容→使用“精炼技能设计”
+- **注入内容**：将技能内容加载到Agent上下文或运行时→由Agent运行时系统处理
+
+**何时停止并交接**：
+
+- 用户说“安装它”或“添加该技能”→提供安装命令，请求确认，移交给“安装规则”或手动安装
+- 用户问“我如何提高这项技能？” → 交给“精炼技能设计”
+- 用户问“我的技能质量好吗？” → 交给“策划技能”
+- 随安装命令提供建议 → 发现完成，等待用户决定
+
+## 自检（Self-Check）
+
+### 核心成功标准（必须满足所有标准）
+
+- [ ] **执行发现**：搜索本地“skills/INDEX.md”和“manifest.json”，或根据要求搜索外部目录
+- [ ] **已确定的最佳匹配**：按名称、描述和标签选择与任务需求匹配的 1-3 个技能
+- [ ] **建议解释**：提供了为什么每项技能与当前任务相匹配的理由
+- [ ] **提供的安装命令**：包含每个推荐技能的确切安装命令
+- [ ] **无自动安装**：未经用户明确确认，不执行安装命令
+
+### 流程质量检查
+
+- [ ] **相关性**：建议与当前任务密切相关吗？
+- [ ] **可操作**：安装命令具体且正确吗？
+- [ ] **同意**：代理是否在没有明确确认的情况下避免运行安装？
+- [ ] **来源优先级**：在搜索外部目录之前我是否更喜欢本地索引？
+- [ ] **简洁性**：我是否将推荐限制为前 1-3 个匹配项，避免批量目录列表？
+
+### 验收测试
+
+**代理或用户是否可以使用提供的命令安装推荐的技能而无需额外研究？**
+
+如果否：建议不完整。验证安装命令是否正确并包含所有必要的参数。
+
+如果是：发现已完成。等待用户决定安装。
+
+## 示例（示例）
+
+### 示例1：推荐本地技能
+
+- **场景**：用户要求提供标准化自述文件。
+- **步骤**：
+  1. 代理检查 `skills/INDEX.md`。
+  2. 找到“generate-standard-readme”。
+  3. 推荐并提供：`npx skills add nesnilnehc/ai-cortex --skill generate-standard-readme`。
+
+### 示例 2：边缘情况 - 没有本地匹配
+
+- **场景**：该任务是利基任务，没有本地技能匹配。
+- **预期**：通过安装命令提供 1-3 个外部建议（如果允许），或者说“未找到匹配项”并要求澄清。不要自动安装。
+
+---
+
+## 附录：输出合约
+
+当该技能产生推荐时，它遵循以下合同：
+
+|元素|要求|
 | :--- | :--- |
-| Count | Top 1–3 matches only; no bulk catalog listing. |
-| Per skill | Name, rationale (why it matches), install command (e.g. `npx skills add owner/repo --skill name`). |
-| Source | Prefer local `skills/INDEX.md` and `manifest.json`; external only when user asks and network available. |
-| Interaction | Do not run install commands without explicit user confirmation. |
+|计数 |仅限前 1-3 场比赛；没有批量目录列表。 |
+|每技能 |名称、基本原理（为什么匹配）、安装命令（例如“npx Skills add Owner/repo --skill name”）。 |
+|来源 |优先选择本地 `skills/INDEX.md` 和 `manifest.json`；仅当用户请求并且网络可用时才外部。 |
+|互动|未经用户明确确认，请勿运行安装命令。 |

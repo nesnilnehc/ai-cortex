@@ -11,7 +11,7 @@ flowchart LR
     
     subgraph Cortex [AI Cortex System]
         direction TB
-        Router{"Router<br/>(Scenario Map)"}:::system
+        Router{"Router<br/>(Intent Routing)"}:::system
         
         subgraph Execution [Execution Engine]
             direction LR
@@ -23,6 +23,6 @@ flowchart LR
 
     %% Flow
     Intent --> Router
-    Router -- Matches Scenario --> Skill
+    Router -- Matches Intent --> Skill
     Skill --> Artifact
 ```

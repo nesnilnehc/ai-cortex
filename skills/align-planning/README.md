@@ -1,43 +1,45 @@
-# align-planning
+# 对齐规划
 
-Perform post-task traceback, drift detection, and top-down recalibration to keep planning (goals, requirements, milestones, roadmap) aligned with task execution.
+执行任务后追溯、偏差检测和自上而下的重新校准，以保持规划（目标、需求、里程碑、路线图）与任务执行保持一致。
 
-## What it does
+## 用途
 
-After a task is completed, runs a traceback from work to strategy, detects drift using a four-type planning model (goal, requirement, roadmap, priority), and produces prioritized recalibration recommendations. Supports Lightweight and Full modes with deterministic selection. Architecture vs code compliance is handled by `align-architecture`.
+任务完成后，运行从工作到策略的追溯，使用四种类型的规划模型（目标、要求、路线图、优先级）检测偏差，并生成优先级重新校准建议。支持具有确定性选择的轻量级和完整模式。架构与代码合规性由“align-architecture”处理。
 
-## When to use
+## 何时使用
 
-- Post-task checkpoint — validate planning alignment after any completed ticket
-- Milestone closure review — run full alignment before marking a milestone complete
-- Release readiness — detect planning drift before a release cut
-- Scope-shift diagnosis — investigate whether recent work still supports current goals
+- 任务后检查点 - 在任何完成的工单后验证计划一致性
+- 里程碑关闭审查——在标记里程碑完成之前运行全面对齐
+- 发布准备就绪——在发布削减之前检测计划偏差
+- 范围转移诊断——调查最近的工作是否仍然支持当前目标
 
-## Inputs
+## 输入
 
-- Completed task description and outcome
-- Optional mode override (`lightweight` | `full`)
-- Optional document root and path mapping
-- Optional context (release, milestone, epic markers)
+- 完成的任务描述和结果
+- 可选模式覆盖（“轻量级”|“完整”）
+- 可选的文档根和路径映射
+- 可选上下文（发布、里程碑、史诗标记）
 
-## Outputs
+## 输出
 
-- Planning Alignment Report written to `docs/calibration/planning-alignment.md` (overwritten unless a snapshot is requested)
-- Machine-readable drifts and evidence readiness block
+- 规划调整报告写入“docs/calibration/planning-alignment.md”（除非请求快照，否则将被覆盖）
+- 机器可读的偏差和证据准备块
 
-## Installation
+## 安装
+
 
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill align-planning
 ```
 
-## Related skills
 
-- `align-architecture` — verify ADR/design vs code compliance
-- `assess-docs` — assess doc evidence before or after alignment
-- `run-checkpoint` — checkpoint cycle including align-planning
-- `analyze-requirements` — hand off when requirements need revalidation
+## 相关技能
 
-## Full definition
+- `align-architecture` — 验证 ADR/设计与代码合规性
+- `asses-docs` — 在对齐之前或之后评估文档证据
+- `run-checkpoint` — 检查点周期，包括对齐规划
+- `分析需求` — 当需求需要重新验证时进行切换
 
-See [SKILL.md](./SKILL.md) for behavior, restrictions, and examples.
+## 完整定义
+
+请参阅 [SKILL.md](./SKILL.md) 了解行为、限制和示例。

@@ -1,45 +1,35 @@
-# Skill Specification
+# 技能规范 (Skill Specification)
 
-Status: MANDATORY  
-Version: 2.7.2  
-Scope: All files under `skills/`.
+状态：必选  
+版本：2.7.4  
+范围：`skills/` 下所有文件。
 
-**Changelog**:
+**变更日志**（早期版本见 [spec-skill-changelog-archive.md](../docs/references/spec-skill-changelog-archive.md)）：
 
-- v2.7.2 (2026-03-21): Removed `related_skills` metadata; skill relations documented in Handoff Point and Scope Boundaries prose
-- v2.7.0 (2026-03-16): Added explicit Divergent (exploratory) + Convergent (decision / artifact) phase model for skills; updated naming, I/O contracts, Behavior, Restrictions, and Self-Check to support two-phase workflows and handoffs
-- v2.6.0 (2026-03-16): Made "don't" (Skill Boundaries) mandatory in §4.2 Restrictions; Handoff (When to Stop) optional but recommended; added REJECT gate for missing Skill Boundaries, WARN for missing When to Stop
-- v2.5.0 (2026-03-10): Added naming priority rule (§1): semantic correctness and normativity first, colloquial and memorable second
-- v2.4.0 (2026-03-10): Added Interaction Policy (§4.3), optional triggers/aliases, input_schema.defaults; Invocation UX and language strategy
-- v2.3.0 (2026-03-06): Added scenario-map to Metadata Sync; expanded verb-noun naming guidance; verify-registry checks scenario-map references
-- v2.2.0 (2026-03-02): Allowed `## Scope Boundaries` as an optional standalone section in heading structure (§3)
-- v2.1.0 (2026-03-02): Added optional I/O contracts (input_schema/output_schema) for skill chaining and orchestration
-- v2.0.0 (2026-03-02): Added mandatory Core Objective section, enhanced Self-Check and Restrictions requirements, added quality assurance process
-- v1.0.0: Initial specification
+- v2.7.4 (2026-03-22)：内容与结构精简 — 变更日志归档；§1 命名收敛；§3.1 重要性缩句；§4 去重、§4.4 合并；§5 与 §9 合并；§7.1 流程合并
+- v2.7.3 (2026-03-22)：YAGNI/DRY 优化 — 精简演进元数据、§8.5 D/C 模式；合并重复定义；修正示例技能名与路径
+- v2.7.2 (2026-03-21)：移除 `related_skills` 元数据；技能关系改由 prose 中的 Handoff Point 与 Scope Boundaries 说明
+- v2.7.0 (2026-03-16)：新增 Divergent（探索）与 Convergent（决策/制品）两阶段模型
+- v2.6.0 (2026-03-16)：§4.2 Skill Boundaries 必选；When to Stop 可选推荐
 
 ---
 
-## 1. File Structure and Naming
+## 1. 文件结构与命名
 
-- **Directory**: Must use `kebab-case` and match the YAML `name` field.
-- **File name**: Must be `SKILL.md`.
-- **Naming**: Use `verb-noun` (e.g. `decontextualize-text`). Avoid vague or generic terms.
-  - **Preferred**: `verb-noun` (e.g. `generate-readme`, `discover-skills`, `capture-work-items`), or `verb-target` for review/action families (e.g. `review-code`, `review-python`).
-- **Avoid**: Pure noun-noun compounds (e.g. `documentation-readiness` → prefer `assess-docs`); abstract compound names without a clear verb.
-- **Naming priority** (apply in order):
-  1. **Semantic correctness and normativity first**: The verb must accurately describe what the skill does; the name must comply with verb-noun and spec. No semantic drift for colloquialism.
-  2. **Colloquial and memorable second**: Prefer natural, easy-to-remember names within the above constraints.
-- **Terminology consistency**: For the same semantic concept across skills, use the same term (e.g. `doc` for documentation-related skills: `assess-docs`, `bootstrap-docs`).
-- **Divergent / Convergent naming** (full phase definitions and examples: §8.5):
-  - **Divergent skills** (option generation, exploration) SHOULD prefer verbs like `brainstorm-`, `ideate-`, `explore-`, `generate-options-`.
-  - **Convergent skills** (definition, selection, planning, artifact creation) SHOULD prefer verbs like `define-`, `design-`, `plan-`, `prioritize-`.
-  - **Two-phase skills** MAY embed both phases; clearly label phases in Behavior / Execution (e.g. "Divergent phase: brainstorm-X; Convergent phase: define-X") even if implemented in a single SKILL.
-- **name** (aligned with [agentskills.io](https://agentskills.io/specification)): 1–64 chars; lowercase letters, digits, hyphens only; must not start or end with `-`; no consecutive hyphens `--`; must match parent directory name.
-- **Single-file and self-contained (best practice)**: A skill is typically **one SKILL.md**; the Agent loads that file for the full definition. Do not rely on other MD files in the skill directory for execution. If the skill has a fixed output format or contract (e.g. "AGENTS.md must follow a given structure"), **embed that contract in SKILL.md** (e.g. "## Appendix: Output contract") rather than a separate file, so one injection is enough.
+- **目录**：必须使用 `kebab-case` 并与 YAML `name` 字段一致。
+- **文件名**：必须为 `SKILL.md`。
+- **命名**：使用 `verb-noun`（如 `decontextualize-text`）。避免模糊或泛化术语。
+  - **首选**：`verb-noun`（如 `generate-readme`、`discover-skills`、`capture-work-items`），或 review/action 族使用 `verb-target`（如 `review-code`、`review-python`）。
+- **避免**：纯名词复合（如 `documentation-readiness` → 改用 `assess-docs`）；无明确动词的抽象复合名。
+- **命名优先级**：语义正确与规范性优先，不得为口语化牺牲语义；在上述约束下优先自然、易记的名称。
+- **术语一致性**：跨技能同一语义概念使用同一术语（如文档相关用 `doc`：`assess-docs`、`bootstrap-docs`）。
+- **探索/决策类技能命名**：见 §8.5。
+- **name**（与 [agentskills.io](https://agentskills.io/specification) 对齐）：1–64 字符；仅小写字母、数字、连字符；不得以 `-` 开头或结尾；不得出现连续连字符 `--`；须与父目录名一致。
+- **单文件自包含**（最佳实践）：技能通常为**一个 SKILL.md**；Agent 加载该文件获取完整定义。执行时不依赖技能目录下其他 MD 文件。若技能有固定输出格式或契约（如「AGENTS.md 须遵循给定结构」），**将契约内嵌于 SKILL.md**（如 `## Appendix: Output contract`）而非单独文件，以便一次注入即可。
 
-## 2. Required YAML Metadata
+## 2. 必选 YAML 元数据
 
-Every `SKILL.md` must start with:
+每个 `SKILL.md` 必须以以下内容开头：
 
 ```yaml
 ---
@@ -51,108 +41,61 @@ license: MIT
 recommended_scope: [optional] user | project | both  # default both
 metadata:
   author: ai-cortex
-  # Optional evolution tracking (for forked/derived skills):
-  evolution:
-    sources:  # Array of source skills this skill is derived from
-      - name: [original-skill-name]
-        repo: [source repository URL or identifier]
-        version: [version borrowed from]
-        license: [source license]
-        type: fork | integration | reference  # fork=main base, integration=incorporated, reference=inspired by
-        borrowed: [brief description of what was borrowed]
-# Optional agentskills.io fields:
-# compatibility: [optional] environment requirements, ≤500 chars, e.g. "Requires git, docker"
-# allowed-tools: [optional, experimental] space-separated tool whitelist
-# triggers: [optional] array of English phrases, e.g. ["review", "code review"]
-# aliases: [optional] array of short aliases, e.g. ["rc"]
+  # evolution.sources: optional, for forked/derived skills; see agentskills.io
+# Optional: triggers, description_zh (见下方「可选调用字段」)
 ---
 ```
 
-### Evolution Metadata (Optional)
+### 2.1 演进元数据（可选）
 
-When a skill is derived from, forked from, or integrates content from other skills, use `metadata.evolution.sources` to track provenance:
+当技能派生自、分叉自或整合其他技能时，使用 `metadata.evolution.sources` 记录：name、repo、version、license、type（fork | integration | reference）、borrowed。详见 [agentskills.io](https://agentskills.io/specification)。
 
-- **sources**: Array of source skills with attribution
-  - **name**: Original skill name
-  - **repo**: Source repository URL or identifier (e.g., "nesnilnehc/ai-cortex", "<https://github.com/org/repo>")
-  - **version**: Version borrowed from
-  - **license**: Source license (for compliance)
-  - **type**: Relationship type
-    - `fork`: This skill is primarily based on the source (main lineage)
-    - `integration`: Incorporated specific components or methodology from source
-    - `reference`: Inspired by or referenced the source's approach
-  - **borrowed**: Brief description of what was borrowed (e.g., "Core workflow and staging approach", "Review methodology")
+### 2.2 技能关系（Handoff 与 Scope Boundaries）
 
-Example with multiple sources:
+技能依赖与建议的后续步骤在 prose 中说明，而非元数据：
 
-```yaml
-metadata:
-  author: ai-cortex
-  evolution:
-    sources:
-      - name: "commit-work"
-        repo: "https://github.com/anthropics/skills"
-        version: "1.0.0"
-        license: "MIT"
-        type: "fork"
-        borrowed: "Core workflow, Conventional Commits format"
-      - name: "review-diff"
-        repo: "nesnilnehc/ai-cortex"
-        version: "1.3.0"
-        license: "MIT"
-        type: "integration"
-        borrowed: "Pre-commit review methodology"
-    enhancements:
-      - "Added registry synchronization"
-      - "Enhanced Self-Check"
-```
+- **Handoff Point**（位于 Core Objective 或 Scope Boundaries 下）：何时及如何切换到其他技能。必须指名具体技能（如 `breakdown-tasks`、`review-code`）。
+- **Scope Boundaries**：本技能不负责的内容，并列出由其他技能负责的职责及技能名（如「需求 elicitation 使用 `analyze-requirements`」）。
+- **Intent routing**：`skills/intent-routing.json` 为意图→技能映射的规范来源（primary、optional）。
 
-### 2.2 Skill Relations (Handoff and Scope Boundaries)
+不存在 `related_skills` 元数据。作者在技能正文中记录流程与依赖，供 Agent 与工具作为单一事实来源。
 
-Skill dependencies and suggested next steps are documented in prose, not in metadata:
+### 可选调用字段
 
-- **Handoff Point** (under Core Objective or Scope Boundaries): When and how to transition to other skills. MUST name concrete skills (e.g. `breakdown-tasks`, `review-code`).
-- **Scope Boundaries**: What this skill does NOT handle, with explicit skill names for responsibilities owned by others (e.g. "use `analyze-requirements` for requirements elicitation").
-- **Scenario map**: `skills/scenario-map.json` is the canonical source for scenario→skill mapping (primary, optional).
+- **triggers**（可选）：英文短语数组（如 `["review", "code review"]`），3–5 个，供精确匹配。不替代 description/tags 的语义匹配。
+- **description_zh**（可选）：中文一句话摘要，当项目存在 `docs/LANGUAGE_SCHEME.md` 时供 INDEX 的 Purpose 列使用。
 
-There is no `related_skills` metadata. Authors document flow and dependencies in the skill body so Agents and tools have a single source of truth.
+## 3. 必选标题结构
 
-### Optional Invocation Fields
+- `# Skill: [英文标题]` 或 `# 技能： [中文标题]`（项目级语言 override 下可用中文）
+- `## Purpose` / `## 目的`
+- `## Core Objective` / `## 核心目标`（必选）
+- `## Scope Boundaries` / `## 范围边界`（可选 — 也可作为 Core Objective 的子节；见 §3.1）
+- `## Use Cases` / `## 使用场景`
+- `## Behavior` / `## 行为`
+- `## Input & Output` / `## 输入与输出`
+- `## Restrictions` / `## 限制`
+- `## Self-Check` / `## 自检`
+- `## Examples` / `## 示例`
 
-- **triggers** (optional): Array of English phrases for quick invocation matching (e.g. `["review", "code review", "pr review"]`). Prefer 3–5 phrases per skill. Use for Agent or discovery-layer exact match; does not replace description/tags semantic matching.
-- **aliases** (optional): Array of short aliases (e.g. `["rc"]`). May be deferred until IDE/CLI tooling has explicit need.
+### 3.1 核心目标节（必选）
 
-## 3. Required Heading Structure
+每个技能必须定义其核心目标，以防范范围蔓延、技能重叠及「brain split」（AI 困惑于选用哪项技能）。
 
-- `# Skill: [English title]`
-- `## Purpose`
-- `## Core Objective` (NEW - MANDATORY)
-- `## Scope Boundaries` (OPTIONAL — may also appear as subsection of Core Objective; see §3.1)
-- `## Use Cases`
-- `## Behavior`
-- `## Input & Output`
-- `## Restrictions`
-- `## Self-Check`
-- `## Examples`
+**必选子节**：
 
-### 3.1 Core Objective Section (MANDATORY)
+1. **Primary Goal / 首要目标**：一句话说明技能产出或达成的结果。
+2. **Success Criteria / 成功标准**：可测量、可验证的条件（3–6 条），完成技能时须全部满足。
+3. **Acceptance Test / 验收测试**：用于验证技能达成目标的简单问题或测试。
 
-Every skill MUST define its core objective to prevent scope creep, skill overlap, and "brain split" (AI confusion about which skill to use).
+**可选子节**（也可作为 Core Objective 后的独立 `## Scope Boundaries` 节）：
 
-**Required subsections**:
+1. **Scope Boundaries / 范围边界**：本技能负责 vs 不负责的内容。
+2. **Handoff Point / 交接点**：何时及如何切换至其他技能或工作流。
 
-1. **Primary Goal**: One sentence stating what the skill produces or achieves.
-2. **Success Criteria**: Measurable, verifiable conditions (3-6 items) that ALL must be met for skill completion.
-3. **Acceptance Test**: A simple question or test to verify the skill achieved its goal.
+两种放置均有效：作为 `## Core Objective` 的子节（内联）或独立 `## Scope Boundaries` 节。按技能复杂度选择合适形式。
 
-**Optional subsections** (may also appear as a standalone `## Scope Boundaries` section after Core Objective):
-
-1. **Scope Boundaries**: What this skill handles vs. what it does NOT handle.
-2. **Handoff Point**: When and how to transition to other skills or workflows.
-
-Both placements are valid: as subsections of `## Core Objective` (inline) or as a separate `## Scope Boundaries` section (standalone). Choose the form that best fits the skill's complexity.
-
-**Example**:
+**示例**：
 
 ```markdown
 ## Core Objective
@@ -161,7 +104,7 @@ Both placements are valid: as subsections of `## Core Objective` (inline) or as 
 
 **Success Criteria** (ALL must be met):
 
-1. ✅ **Design document exists**: Written to `docs/designs/YYYY-MM-DD-<topic>.md` and committed to version control
+1. ✅ **Design document exists**: Written to `docs/design-decisions/YYYY-MM-DD-<topic>.md` and committed
 2. ✅ **User explicitly approved**: User said "approved", "looks good", "proceed", or equivalent confirmation
 3. ✅ **Alternatives documented**: At least 2-3 approaches considered with trade-offs analysis
 4. ✅ **YAGNI applied**: Design focuses on minimum viable solution, unnecessary features removed
@@ -172,92 +115,57 @@ Both placements are valid: as subsections of `## Core Objective` (inline) or as 
 
 **Scope Boundaries**:
 - This skill handles: Rough idea → Validated design document
-- This skill does NOT handle: Implementation planning (use `writing-plans`), Code writing (use implementation skills)
+- This skill does NOT handle: Implementation planning (use `breakdown-tasks`), Code writing (use implementation skills)
 
 **Handoff Point**: When design is approved and documented, hand off to implementation planning or development workflow.
 ```
 
-**Why this matters**:
+**重要性**：防止 brain split、范围蔓延，提供可验证的完成标准与清晰交接。
 
-- **Prevents brain split**: AI knows exactly when to use this skill vs. others
-- **Verifiable completion**: Clear success criteria, not vague "done"
-- **Avoids scope creep**: Explicit boundaries prevent skills from doing too much
-- **Clear handoffs**: Knows when to stop and transition to next skill
+## 4. 内容质量
 
-## 4. Content Quality
+- **语言与调用**：YAML `description`、`triggers` 须为英文（生态约束）；`name`、`tags` 保持英文/kebab-case。项目存在 `docs/LANGUAGE_SCHEME.md` 时，正文/标题/示例可用中文；`description_zh` 供 INDEX（见 §2）。triggers 供精确匹配；语义匹配（description/tags）支持任意语言；intent-routing 的 `short_triggers_zh` 在项目有 LANGUAGE_SCHEME 时优先匹配中文调用。
+- **语气**：祈使、技术化表述。避免填充语或口语化。
+- **示例**：至少 2 个，其中 1 个须为边界或复杂场景。
+- **交互**：对非平凡逻辑，定义何时向用户确认。
+- **Divergent + Convergent**（仅探索/决策类）：见 §8.5。
 
-- **Language**: YAML `description` must be **English** for skills.sh, SkillsMP, etc. Skill body, titles, and examples must be **English**. `name`, `tags`, and other identifiers remain English/kebab-case.
-- **Tone**: Use imperative, technical language. Avoid filler or casual phrasing.
-- **Examples**: Include at least 2 examples, one of which must be an edge case or complex scenario.
-- **Interaction**: For non-trivial logic, define when to ask the user to confirm.
-- **Core Objective**: MUST include Core Objective section with Primary Goal, Success Criteria (3-6 items), and Acceptance Test.
-- **Self-Check Alignment**: Self-Check section MUST align with Success Criteria from Core Objective.
-- **Scope Boundaries**: SHOULD define what the skill handles vs. what it does NOT handle to prevent overlap with other skills.
-- **Don't (mandatory)**: Every skill MUST define what it does NOT do (explicit list of responsibilities owned by other skills). This MUST appear in the `## Restrictions` section as **Skill Boundaries** (see §4.2); it may also appear in `## Scope Boundaries`.
-- **Handoff (required for chainable skills)**: Skills that consume output of other skills or produce output for others MUST define **Handoff Point** with concrete skill names (e.g. "hand off to `breakdown-tasks`"). Chainable skills SHOULD also document input expectations (e.g. "expects requirements document from `analyze-requirements`") in Scope Boundaries.
-- **Divergent + Convergent clarity** (for exploratory / decision skills): If a skill performs both **Divergent** (option generation / exploration) and **Convergent** (selection / artifact creation) work, the SKILL MUST:
-  - Explicitly describe both phases in `## Behavior` (or an `Execution` / `Execution Process` subsection), including phase names or labels.
-  - Declare phase-specific inputs/outputs in `## Input & Output` and, where applicable, in `input_schema` / `output_schema`.
-  - Define clear scope boundaries so that the Divergent phase does **not** commit to final decisions or persistent artifacts, and the Convergent phase does **not** reopen open-ended exploration.
-  - Document handoff rules: Divergent → Convergent; Convergent → downstream skills (e.g. `define-milestones`, `align-backlog`).
+### 4.1 自检要求
 
-### 4.1 Self-Check Requirements
+Self-Check 节必须包含：
 
-The Self-Check section MUST include:
+1. **Core Success Criteria**：直接复制 Core Objective 的 Success Criteria 为 checklist（- [ ] 格式）。
+2. **Process Quality Checks**（可选但推荐）：过程质量检查。
+3. **Acceptance Test**：复制 Core Objective 的 Acceptance Test 便于引用。
+4. **阶段级检查**（Divergent/Convergent 技能）：见 §8.5。
 
-1. **Core Success Criteria**: Direct mapping from Core Objective's Success Criteria (copy them here for verification).
-2. **Process Quality Checks**: Additional checks for process quality (optional but recommended).
-3. **Acceptance Test**: Repeat the Acceptance Test from Core Objective for easy reference.
-4. **Phase-specific checks (for Divergent + Convergent skills)**:
-   - **Divergent phase**: Checklist MUST verify that multiple options or candidate artifacts were generated, that they stay within scope, and that no final decision or persistent artifact was created.
-   - **Convergent phase**: Checklist MUST verify that a decision was made based on the Divergent output, a standardized artifact was produced (e.g. mission, vision, roadmap, milestones), and that persist / handoff requirements were satisfied.
-
-**Example**:
+**示例**（以 design-solution 为例；Success Criteria 与 Core Objective 一致）：
 
 ```markdown
 ## Self-Check
 
 ### Core Success Criteria (ALL must be met)
 
-- [ ] **Design document exists**: Written to `docs/designs/YYYY-MM-DD-<topic>.md` and committed
-- [ ] **User explicitly approved**: User said "approved", "looks good", "proceed", or equivalent
-- [ ] **Alternatives documented**: At least 2-3 approaches with trade-offs in design document
-- [ ] **YAGNI applied**: Design focuses on minimum viable solution, unnecessary features removed
-- [ ] **DRY applied**: Design references existing patterns/components rather than reinventing
-- [ ] **No code written**: Zero implementation code exists (design only)
-
-### Process Quality Checks
-
-- [ ] **Context explored**: Did I examine project state, constraints, and existing patterns?
-- [ ] **Questions focused**: Did I ask one question at a time?
-- [ ] **Alternatives presented**: Did I propose 2-3 distinct approaches with trade-offs?
+- [ ] Design document exists: Written to `docs/design-decisions/YYYY-MM-DD-<topic>.md` and committed
+- [ ] User explicitly approved
+- [ ] Alternatives documented (2-3 with trade-offs)
+- [ ] YAGNI applied; DRY applied; No code written
 
 ### Acceptance Test
 
-**Can a developer with zero project context implement this design without asking clarifying questions?**
-
-If NO: Design is incomplete. Return to clarification phase.
-If YES: Design is complete. Proceed to handoff.
+Can a developer with zero context implement without clarifying questions? If NO → return to clarification. If YES → handoff.
 ```
 
-### 4.2 Restrictions Requirements
+### 4.2 限制要求
 
-The Restrictions section MUST include the following. **Skill Boundaries** (don't) is mandatory to avoid overlap; **When to Stop** (handoff) is optional but recommended for composable skills.
+Restrictions 节必须包含以下内容。**Skill Boundaries**（don't）为必选以避免重叠；**When to Stop**（handoff）为可选但推荐用于可组合技能。
 
-1. **Hard Boundaries**: Absolute constraints the skill must never violate.
-2. **Skill Boundaries** (mandatory): Explicit list of what this skill does NOT do and which other skills or workflows handle those responsibilities. Use wording such as "Do NOT do these (other skills handle them): … → Use `skill-name`". This is the canonical don't (out-of-scope) list for the skill.
-3. **When to Stop** (optional): Clear conditions for when to stop and hand off to other skills or workflows (e.g. "User says 'approved' → hand off to X", "User asks for Y → hand off to Z"). Recommended when the skill is used in chains or orchestration.
-4. **Divergent vs. Convergent scope** (when applicable):
-   - **Divergent phase**:
-     - Only responsible for generating options, ideas, or exploratory outputs.
-     - MUST NOT make final decisions, lock in a single option, or write persistent artifacts (e.g. mission, vision, roadmap documents).
-     - MUST document the **handoff condition** to the Convergent phase (same SKILL or another SKILL).
-   - **Convergent phase**:
-     - Only responsible for selecting, evaluating, and aggregating from existing candidates.
-     - MUST NOT introduce entirely new options beyond the previously generated scope (except minor refinements or synthesis).
-     - MUST produce a standardized artifact or structured output that is explicitly usable by downstream skills, and document the **handoff condition** to those skills.
+1. **Hard Boundaries**：技能绝不可违反的绝对约束。
+2. **Skill Boundaries（必选）**：本技能不做之事及由哪些技能负责（如「… → Use `skill-name`」）。即 don't / out-of-scope 清单。
+3. **When to Stop（可选，链式推荐）**：何时停止并交接（如「User says 'approved' → hand off to X」）。
+4. **Divergent vs. Convergent 范围**（适用时）：见 §8.5。
 
-**Example**:
+**示例**：
 
 ```markdown
 ## Restrictions
@@ -272,132 +180,94 @@ The Restrictions section MUST include the following. **Skill Boundaries** (don't
 
 **Do NOT do these (other skills handle them)**:
 
-- **Implementation planning**: Creating detailed task lists → Use `writing-plans`
+- **Implementation planning**: Creating detailed task lists → Use `breakdown-tasks`
 - **Code writing**: Writing actual code → Use implementation skills
 - **Code review**: Reviewing existing code → Use `review-code`
-- **Debugging**: Investigating bugs → Use `systematic-debugging`
+- **Debugging**: Investigating bugs → Use `automate-repair`
 
 **When to stop and hand off**:
 
 - User says "approved" → Design complete, hand off to implementation
-- User asks "how do we implement?" → Hand off to `writing-plans`
+- User asks "how do we implement?" → Hand off to `breakdown-tasks`
 - User asks "can you write code?" → Hand off to development workflow
 ```
 
-**Why this matters**:
+### 4.3 交互策略
 
-- **Prevents skill overlap**: Clear boundaries prevent multiple skills from doing the same thing
-- **Reduces brain split**: AI knows which skill to use for which task
-- **Enables composition**: Skills can reference each other for handoffs
+技能应通过以下原则最小化用户输入。**新技能**（本规范版本后注册）必须满足；**既有技能**应在后续版本中尽量对齐。
 
-### 4.3 Interaction Policy
+- **Defaults first**：存在合理默认值时，直接使用，不问用户。可推断参数不要求用户输入。
+- **Prefer choices**：尽可能提供 `[A][B][C]` 选项而非自由文本。除非需探索，避免「please describe」。
+- **Context inference**：从 git（status、diff、branch）、当前打开文件与工作目录推断。Agent 执行推断；仅当推断失败或含糊时再请用户确认。
+- **Progressive disclosure**：先用默认值运行，用户需要更多控制时再提供后续选项。
 
-Skills SHOULD minimize user input by applying these principles. **New skills** (registered after this spec version) MUST satisfy; **existing skills** SHOULD align in future versions.
+每项技能的 `## Behavior` 必须说明：默认值、选项，以及哪些项需用户显式确认。
 
-- **Defaults first**: When a reasonable default exists, use it without asking. Do not require user input for inferable parameters.
-- **Prefer choices**: Offer `[A][B][C]` options instead of free-text when possible. Avoid "please describe" unless exploration is needed.
-- **Context inference**: Infer from git (status, diff, branch), currently open file, and working directory. The Agent performs inference; ask for confirmation only when inference fails or is ambiguous.
-- **Progressive disclosure**: Run with defaults first, then offer follow-up options if the user wants more control.
-
-Each skill's `## Behavior` MUST state: defaults, choice options, and which items require explicit user confirmation.
-
-**Execution process and phases**:
-
-- For skills that have clearly separated phases (e.g. Divergent → Convergent), `## Behavior` SHOULD describe the **execution process** in terms of:
-  - **Phase names** (e.g. "Divergent phase: brainstorm-options", "Convergent phase: define-mission").
-  - **Per-phase inputs** (what the Agent expects at the start of the phase).
-  - **Per-phase outputs** (what is produced, and whether it is transient or persistent).
-  - **Per-phase interaction** (when to ask the user to choose options, approve a selection, or trigger the next phase).
-- When both phases are implemented inside the same SKILL, clearly document how the Convergent phase is triggered (e.g. "second invocation with `mode: convergent`", "user explicitly chooses 'go to definition phase'").
-
-### 4.4 Invocation and Language
-
-- **Triggers**: Use English only (canonical). Triggers aid exact matching; semantic matching via description/tags supports natural language in any locale.
-- **Recommendation**: Prefer English invocation for stable matching. Chinese and other languages are supported via semantic understanding (best-effort).
-- **No multi-language triggers**: Do not maintain parallel trigger lists per language; rely on description/tags for non-English intent.
+阶段分离技能（Divergent/Convergent）的执行过程描述见 §8.5。
 
 ---
 
-## 5. Metadata Sync
+## 5. 元数据同步与仓库文档
 
-- After adding a skill, update `manifest.json` and SKILL frontmatter, then regenerate `skills/INDEX.md`.
-- After adding or moving a skill, update `manifest.json` `capabilities` with the new path.
-- After adding, removing, or significantly changing skills, update `skills/scenario-map.json` if the skill should appear in scenario-based discovery (see §9).
-- **Checklist**: When adding or moving a skill, verify `manifest.json` and (as needed) `skills/scenario-map.json` are updated; run `scripts/verify-registry.mjs` (if present) to regenerate INDEX/docs and confirm sync.
-- **Publish for npx skills**: `npx skills add owner/repo --skill <name>` clones the default branch from the remote. Push the commit that adds the skill and updated manifest (INDEX is generated) so the skill is discoverable and installable.
-- Versions must follow [SemVer](https://semver.org/).
+**同步流程**：
 
-## 6. agentskills Compatibility
+- 新增技能后，更新 `manifest.json` 与 SKILL frontmatter。
+- 新增或移动技能后，在 `manifest.json` 的 `capabilities` 中更新路径。
+- 新增、移除或重大变更技能后，若技能应出现在基于意图的发现中，更新 `skills/intent-routing.json`。
+- **检查清单**：确认已更新 `manifest.json` 及（如需要）`skills/intent-routing.json`；运行 `node scripts/verify-registry.mjs` 重生成 INDEX/skillgraph/intent-routing 并校验（见 §7.2）。
+- **发布**：`npx skills add owner/repo --skill <name>` 从远端克隆；推送含新增技能及 manifest 的提交，使技能可发现、可安装。
+- 版本须遵循 [SemVer](https://semver.org/)。
 
-- This spec aligns with [agentskills.io](https://agentskills.io) and skills.sh. `license` and `metadata.author` are used for catalog and trust; `metadata.author` is `ai-cortex`.
-- This spec may be stricter than agentskills.io as long as it does not conflict with the upstream requirements.
-- **Optional directories** (agentskills.io): `scripts/`, `references/`, `assets/`. Use relative paths, keep depth shallow.
-- **Progressive disclosure**: Keep main `SKILL.md` ≤500 lines; move detail to `references/` and load on demand.
+**仓库级文档**（`skills/` 目录，勿手动编辑）：
 
-## 7. Extension and Contribution
+- **`skills/INDEX.md`**：由 `generate-skills-index.mjs` 自动生成；人工可读目录。
+- **`skills/skillgraph.md`**：由 `generate-skillgraph.mjs` 自动生成；技能组合说明。
+- **`skills/intent-routing.json`**：意图→技能映射的规范来源；编辑此文件变更映射。
+- **`skills/intent-routing.md`**：由 `generate-intent-routing.mjs` 从 JSON 自动生成。
+- **`skills/ASQM_AUDIT.md`**：由 `curate-skills` 产出；含 ASQM 分与生命周期。
 
-- New skills must satisfy this spec; use `skills/refine-skill-design` for design review.
-- Version registration: update SKILL frontmatter and regenerate `skills/INDEX.md` with linear version bumps.
-- Installation: see [README.md](../README.md).
+## 6. agentskills 兼容性
 
-### 7.1 Quality Assurance Process
+- 本规范与 [agentskills.io](https://agentskills.io) 及 skills.sh 对齐。`license` 与 `metadata.author` 用于目录与信任；`metadata.author` 为 `ai-cortex`。
+- 只要不与上游要求冲突，本规范可比 agentskills.io 更严格。
+- **可选目录**（agentskills.io）：`scripts/`、`references/`、`assets/`。使用相对路径，保持层级浅。
+- **Progressive disclosure**：主 `SKILL.md` 保持在 ≤500 行；将细节移至 `references/` 并按需加载。
 
-**For new skills**:
+## 7. 扩展与贡献
 
-1. **Create draft**: Write initial SKILL.md following this spec
-2. **Self-check**: Run through Self-Check section, verify all Core Success Criteria met
-3. **Refine**: Use `skills/refine-skill-design` to audit and improve the skill
-4. **Curate**: Run `skills/curate-skills` to evaluate ASQM score and detect overlaps
-5. **Register**: Update `manifest.json`; update `skills/scenario-map.json` if the skill should be discoverable by scenario
-6. **Verify**: Run `scripts/verify-registry.mjs` to confirm sync
+- 新技能须满足本规范；设计审查使用 `skills/refine-skill-design`。
+- 版本注册：更新 SKILL frontmatter 并以线性版本号重新生成 `skills/INDEX.md`。
+- 安装说明见 [README.md](../README.md)。
 
-**For existing skills (migration to new spec)**:
+### 7.1 质量保证流程
 
-1. **Add Core Objective section**: Define Primary Goal, Success Criteria (3-6 items), Acceptance Test
-2. **Update Self-Check**: Align with Success Criteria from Core Objective
-3. **Add Skill Boundaries**: Define what this skill does NOT handle (to avoid overlap)
-4. **Refine**: Use `skills/refine-skill-design` to audit improvements
-5. **Curate**: Run `skills/curate-skills` to re-evaluate ASQM score
-6. **Verify**: Run `scripts/verify-registry.mjs` to confirm sync
+**新技能**：创建草稿 → 自检（Self-Check）→ Refine → Curate → 注册（manifest、intent-routing）→ 验证（verify-registry）。
 
-**Quality gates**:
+**既有技能（迁移）**：新增 Core Objective、更新 Self-Check、新增 Skill Boundaries → Refine → Curate → 验证。
 
-- ❌ **REJECT** if Core Objective section missing
-- ❌ **REJECT** if Success Criteria has < 3 or > 6 items
-- ❌ **REJECT** if Self-Check does not align with Success Criteria
-- ❌ **REJECT** if Restrictions section missing **Skill Boundaries** (don't — what this skill does NOT do and which skills handle it)
-- ⚠️ **WARN** if Restrictions section missing **When to Stop** (handoff conditions; recommended for composable skills)
-- ⚠️ **WARN** if ASQM score < 0.7 (quality concern)
+共同步骤：Refine（`refine-skill-design`）、Curate（`curate-skills`）、验证（`verify-registry.mjs`）。
 
-### 7.2 Automated Quality Checks
+**质量门**：
 
-**Registry verification** (MANDATORY):
+- ❌ **REJECT**：缺少 Core Objective 节
+- ❌ **REJECT**：Success Criteria 少于 3 条或多于 6 条
+- ❌ **REJECT**：Self-Check 与 Success Criteria 不一致
+- ❌ **REJECT**：Restrictions 节缺少 **Skill Boundaries**（don't — 本技能不做之事及由哪些技能负责）
+- ⚠️ **WARN**：Restrictions 节缺少 **When to Stop**（handoff 条件；推荐用于可组合技能）
+- ⚠️ **WARN**：ASQM 分 < 0.7（质量关注）
 
-```bash
-node scripts/verify-registry.mjs
-```
+### 7.2 自动化质量检查
 
-**Skill curation** (RECOMMENDED):
+- **必选**：`node scripts/verify-registry.mjs`（重生成 INDEX、skillgraph、intent-routing 并校验）
+- **推荐**：`curate-skills` 产出 ASQM 分与重叠检测；`refine-skill-design` 审计新技能
 
-```bash
-# Use curate-skills to evaluate all skills
-# Produces ASQM_AUDIT.md with quality scores and overlap detection
-```
+## 8. I/O 契约（可选）
 
-**Skill refinement** (RECOMMENDED for new skills):
+技能可声明结构化输入与输出契约，以支持编排、链式调用与自动化 schema 匹配。
 
-```bash
-# Use refine-skill-design to audit and improve skill quality
-# Checks: structure, verbs, interaction policy, metadata alignment
-```
+### 8.1 YAML 字段
 
-## 8. I/O Contracts (Optional)
-
-Skills MAY declare structured input and output contracts to support orchestration, chaining, and automated schema matching.
-
-### 8.1 YAML Fields
-
-Add these optional fields to the YAML front-matter:
+在 YAML front-matter 中添加以下可选字段：
 
 ```yaml
 input_schema:
@@ -412,162 +282,37 @@ output_schema:
   # For two-phase skills, clarify whether this is the Divergent (transient) or Convergent (persistent) output, or both
 ```
 
-### 8.2 Standard Artifact Types
+### 8.2 标准制品类型
 
-| Artifact type | Structure | Used by |
+| Artifact type | 结构 | 使用技能 |
 | :--- | :--- | :--- |
-| `findings-list` | Array of {Location, Category, Severity, Title, Description, Suggestion} | All review skills |
-| `document-artifact` | Markdown file written to a specified path | generate-standard-readme, generate-agent-entry, define-mission, define-vision, define-roadmap, define-milestones, design-solution. For paths and naming, see [spec/artifact-contract.md](artifact-contract.md). |
-| `diagnostic-report` | Structured summary with sections (Goal, Findings, Recommendations) | review-codebase, run-checkpoint |
-| `code-scope` | Files, directories, or git diff provided by the caller | review-diff, review-codebase |
-| `free-form` | Unstructured text or user input | design-solution, discover-skills, brainstorm-mission, brainstorm-roadmap |
+| `findings-list` | {Location, Category, Severity, Title, Description, Suggestion} 数组 | 所有 review 技能 |
+| `document-artifact` | 写入指定路径的 Markdown 文件 | generate-standard-readme、generate-agent-entry、define-mission、define-vision、define-roadmap、define-milestones、design-solution。路径与命名见 [spec/artifact-contract.md](artifact-contract.md)。 |
+| `diagnostic-report` | 含 (Goal, Findings, Recommendations) 等节的结构化摘要 | review-codebase、run-checkpoint |
+| `code-scope` | 调用方提供的文件、目录或 git diff | review-diff、review-codebase |
+| `free-form` | 非结构化文本或用户输入 | design-solution、discover-skills 及探索类技能 |
 
-### 8.3 Document Artifact Path Contract
+### 8.3 文档制品路径契约
 
-Skills that produce `document-artifact` outputs (e.g. capture-work-items, design-solution, assess-docs, bootstrap-docs) SHOULD align their output paths and naming with [spec/artifact-contract.md](artifact-contract.md). Declare `artifact_type`, `path_pattern`, and `lifecycle` in output_schema when applicable.
+产出 `document-artifact` 的技能（如 capture-work-items、design-solution、assess-docs、bootstrap-docs）应将输出路径与命名与 [spec/artifact-contract.md](artifact-contract.md) 对齐。适用时在 output_schema 中声明 `artifact_type`、`path_pattern`、`lifecycle`。
 
-### 8.4 Orchestrator Usage
+### 8.4 编排器用法
 
-Orchestrators (meta skills) use `input_schema` and `output_schema` to:
+编排器（元技能）使用 `input_schema` 与 `output_schema` 实现：
 
-1. **Auto-match**: Connect upstream skill output to downstream skill input by artifact type.
-2. **Validate**: Ensure chained skills have compatible schemas before execution.
-3. **Aggregate**: Merge multiple findings-lists into a single report.
+1. **自动匹配**：按制品类型连接上游技能输出与下游技能输入。
+2. **验证**：执行前确保链式技能 schema 兼容。
+3. **聚合**：将多个 findings-list 合并为单一报告。
 
-This is backward-compatible: skills without I/O contracts continue to work as before. Orchestrators fall back to manual context passing when contracts are absent.
+向后兼容：无 I/O 契约的技能照常工作。契约缺失时编排器回退至手动传递上下文。
 
-### 8.5 Divergent + Convergent Phase Patterns (Optional but Recommended)
+### 8.5 Divergent + Convergent 阶段模式（可选，探索/决策类技能）
 
-To explicitly support **Divergent (exploratory)** and **Convergent (decision / artifact)** phases, skills MAY use the following patterns.
+| 阶段 | 目的 | 输出 | 范围约束 |
+| :--- | :--- | :--- | :--- |
+| **Divergent** | 生成多选项、想法、候选 | 非持久、探索性（transient） | 不得做最终决策或书写持久制品 |
+| **Convergent** | 从候选中选择、评估、聚合 | 持久 `document-artifact` | 不得引入全新选项，聚焦 refinement |
 
-#### 8.5.1 Phase Definitions
+**命名**：Divergent 优先 `brainstorm-`、`ideate-`、`explore-`；Convergent 优先 `define-`、`design-`、`plan-`。两阶段技能可保留单一名称，须在 Behavior 中标注阶段与触发方式。
 
-- **Divergent phase**:
-  - Purpose: Generate multiple options, ideas, scenarios, or rough candidates.
-  - Inputs: Usually `free-form` context (e.g. "current product strategy", "vision draft") and constraints.
-  - Outputs: Non-persistent, exploratory results such as lists of options, bullet-point candidates, sketches of missions/visions/roadmaps.
-  - Scope: MUST NOT write final mission/vision/roadmap/milestones documents or commit to a single option.
-  - Interaction: Encourage user / Agent to react, annotate, and narrow down preferences.
-- **Convergent phase**:
-  - Purpose: Select, evaluate, and aggregate from existing options into a standardized artifact.
-  - Inputs: The Divergent output (options / candidates), plus user preferences or selection criteria.
-  - Outputs: Persistent `document-artifact` or structured objects, such as `mission`, `vision`, `strategic-goals`, `roadmap`, `milestones`.
-  - Scope: MUST NOT reopen broad exploration or introduce unrelated new options; focuses on refinement and decision.
-  - Interaction: Ask for explicit confirmation before finalizing and persisting.
-
-#### 8.5.2 Naming Patterns
-
-- **Divergent skills** (examples):
-  - `brainstorm-mission`
-  - `ideate-vision`
-  - `generate-options-roadmap`
-  - `brainstorm-strategic-pillars`
-- **Convergent skills** (examples):
-  - `define-mission`
-  - `define-vision`
-  - `define-roadmap`
-  - `design-strategic-goals`
-  - `define-milestones`
-- **Two-phase skills**:
-  - May keep a single name (e.g. `design-solution`) but MUST document:
-    - Phase labels (e.g. "Divergent mode" vs "Convergent mode").
-    - How to trigger each phase (input flag, explicit user request, second invocation).
-    - Which outputs are transient (Divergent) vs. persistent (Convergent).
-
-#### 8.5.3 Input / Output Examples
-
-**Example: Divergent-only skill (`brainstorm-mission`)**:
-
-```yaml
-name: brainstorm-mission
-description: Generate multiple candidate mission statements for a product or organization.
-tags: [strategy, mission, divergent]
-version: 1.0.0
-license: MIT
-input_schema:
-  type: free-form
-  description: Context about the organization, users, and constraints for the mission.
-output_schema:
-  type: free-form
-  description: List of 5–10 candidate mission statements with short rationales (Divergent, non-final).
-```
-
-- **Behavior / Execution** SHOULD state:
-  - "This skill only performs a Divergent phase (option generation). It does not decide or persist a final mission."
-  - "Handoff: When the user is ready to converge, hand off to `define-mission`."
-
-**Example: Convergent-only skill (`define-mission`)**:
-
-```yaml
-name: define-mission
-description: Converge from mission options to a single, approved mission statement and write it as a document artifact.
-tags: [strategy, mission, convergent]
-version: 1.0.0
-license: MIT
-input_schema:
-  type: free-form
-  description: Candidate mission statements from a Divergent skill (e.g. brainstorm-mission) plus selection criteria.
-output_schema:
-  type: document-artifact
-  description: Final mission statement, persisted as a Markdown artifact.
-  artifact_type: mission
-  path_pattern: docs/project-overview/mission.md
-  lifecycle: source-of-truth
-```
-
-- **Behavior / Execution** SHOULD state:
-  - "This skill only performs a Convergent phase (selection and definition). It does not explore new, unrelated mission options."
-  - "Handoff in: Expects options from `brainstorm-mission` or equivalent Divergent work."
-  - "Handoff out: After writing `mission.md`, downstream skills like `define-vision` or `define-roadmap` may consume it."
-
-**Example: Two-phase skill (Divergent + Convergent inside one SKILL)**:
-
-```yaml
-name: design-strategic-goals
-description: Explore candidate strategic goals and converge on a prioritized, documented set of strategic pillars.
-tags: [strategy, goals, divergent, convergent]
-version: 1.0.0
-license: MIT
-input_schema:
-  type: free-form
-  description: Context about mission, vision, and constraints.
-output_schema:
-  type: document-artifact
-  description: Final set of strategic goals / pillars, ready for downstream roadmap planning.
-  artifact_type: strategic-goals
-  path_pattern: docs/project-overview/strategic-goals.md
-  lifecycle: source-of-truth
-```
-
-- **Behavior / Execution** MUST clarify:
-  - **Divergent phase**: "Generate 10–20 candidate goals with rationale; mark this output as transient and present for review."
-  - **Convergent phase**: "After user selects or refines, synthesize into 3–7 strategic pillars and write them to `strategic-goals.md`."
-  - **Trigger**: e.g. `mode: divergent` vs `mode: convergent`, or "first invocation is Divergent, second (after approval) is Convergent."
-  - **Handoff**: "Downstream skills like `define-roadmap` and `define-milestones` can consume `strategic-goals.md`."
-
-#### 8.5.4 Handoff Rules
-
-- **Divergent → Convergent**:
-  - When Divergent exploration is complete (enough options, clarified preferences), the skill SHOULD:
-    - Summarize options and trade-offs.
-    - Ask the user whether to proceed to convergence.
-    - Either:
-      - Trigger its own Convergent phase (if two-phase skill), or
-      - Explicitly recommend a Convergent skill (e.g. "Use `define-roadmap` with these options.").
-- **Convergent → Downstream**:
-  - When Convergent decision and artifact creation are complete, the skill SHOULD:
-    - Confirm the persistent artifact path and type (e.g. mission, vision, roadmap, milestones).
-    - Mention typical downstream skills (e.g. `define-milestones`, `align-backlog`, `capture-work-items`) that can consume the artifact.
-    - Clarify that further exploration (new divergent options) is out of scope and should be handled by the Divergent skill again if needed.
-
----
-
-## 9. Repo-level docs (skills directory)
-
-- **`skills/INDEX.md`**: Auto-generated by `scripts/generate-skills-index.mjs` from manifest and SKILL frontmatter. Human-readable catalog for name, tags, version, stability, and purpose. Do not edit manually.
-- **`skills/skillgraph.md`**: Auto-generated by `scripts/generate-skillgraph.mjs` from manifest and SKILL frontmatter. Describes how review and other skills compose. For human and Agent reading; INDEX and manifest do not depend on it. Do not edit manually.
-- **`skills/scenario-map.json`**: Source of truth for scenario-to-skill mapping. Edit this when adding, removing, or changing scenario mappings. Every skill in primary/optional must exist in INDEX and manifest.
-- **`skills/scenario-map.md`**: Auto-generated by `scripts/generate-scenario-map.mjs` from `scenario-map.json`. Task-based discovery; do not edit manually.
-- **`skills/ASQM_AUDIT.md`**: Produced by the `curate-skills` skill; lifecycle and ASQM scores. Update by running curate-skills after adding or changing skills. It does not replace INDEX or manifest.
-
-**Regeneration**: `scripts/verify-registry.mjs` runs `scripts/generate-skills-docs.mjs` first (regenerates INDEX.md, skillgraph.md, and scenario-map.md), then validates. Run `node scripts/verify-registry.mjs` after registry or scenario-map changes.
+**交接**：D 完成时汇总选项、询用户是否收敛 → 触发 C 或推荐 Convergent 技能；C 完成时确认制品路径、提及下游技能、说明再探索超出范围。

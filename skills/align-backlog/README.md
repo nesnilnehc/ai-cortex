@@ -1,46 +1,46 @@
-# Align Backlog
+# 对齐积压工作
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Aligns the product or work backlog with current strategy, goals, and roadmap. Inventories backlog items, maps each to a strategic anchor (goal, milestone, or roadmap theme), classifies alignment status (aligned / partial / misaligned / orphan), and produces a Backlog Alignment Report with concrete change proposals: cuts, merges, reprioritization, and suggested additions.
+将产品或工作待办与当前战略、目标和路线图保持一致。盘点待办项目，将每个项目映射到战略锚点（目标、里程碑或路线图主题），对对齐状态进行分类（对齐/部分/未对齐/孤立），并生成一份待办事项对齐报告，其中包含具体的变更建议：削减、合并、重新确定优先级和建议的添加。
 
-## When to use
+## 何时使用
 
-- After a strategy or roadmap refresh — re-map backlog to updated goals.
-- Sprint or release prep — trim and prioritize using strategy as source of truth.
-- Backlog health check — identify orphan or misaligned items before they accumulate.
-- Orphan cleanup — propose removal or repurposing of work no longer tied to strategy.
+- 策略或路线图刷新后 — 将待办处重新映射到更新的目标。
+- 冲刺或发布准备——使用策略作为事实来源来调整和确定优先级。
+- 待办事项健康检查——在孤立或错位的项目累积之前识别它们。
+- 孤儿清理——建议删除或重新利用不再与战略相关的工作。
 
-## Inputs
+## 输入
 
-- Optional backlog path or project convention.
-- Optional strategy docs root (goals, roadmap, milestones in `docs/project-overview/`, `docs/process-management/`).
-- Optional scope: full backlog or subset (by epic, label, or time window).
+- 可选的待办路径或项目约定。
+- 可选策略文档根（“docs/project-overview/”、“docs/process-management/”中的目标、路线图、里程碑）。
+- 可选范围：完整的待办事项或子集（按史诗、标签或时间窗口）。
 
-## Outputs
+## 输出
 
-- Backlog Alignment Report (`docs/calibration/backlog-alignment.md`; living artifact).
-- Machine-readable alignment summary and change proposals block (YAML) embedded in the report.
+- 待办事项对齐报告（`docs/calibration/待办-alignment.md`；生活制品）。
+- 报告中嵌入机器可读的对齐摘要和变更建议块 (YAML)。
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension        | Score |
-| :--------------- | :---- |
-| agent_native     | 4     |
-| cognitive        | 4     |
-| composability    | 4     |
-| stance           | 5     |
-| **asqm_quality** | 17    |
+| 维度 | 分数 |
+| ：-------------- | :---- |
+|agent_native | 4 |
+|cognitive| 4 |
+|composability | 4 |
+|stance| 5 |
+| **asqm_quality** | 17 | 17
 
-## Ecosystem
+## 生态
 
-| Field                                 | Value                                                                                                          |
-| :------------------------------------ | :------------------------------------------------------------------------------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:align-planning, nesnilnehc/ai-cortex:plan-next, nesnilnehc/ai-cortex:capture-work-items |
-| market_position                       | differentiated                                                                                                 |
+|领域|价值|
+| :------------------------------------ | :------------------------------------------------------------------------------------------------------------ |
+|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:对齐规划、nesnilnehc/ai-cortex:计划下一个、nesnilnehc/ai-cortex:捕获工作项 |
+|市场地位 |差异化|
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for checklist, restrictions, and output contract.
+请参阅 [SKILL.md](./SKILL.md) 了解清单、限制和输出合同。

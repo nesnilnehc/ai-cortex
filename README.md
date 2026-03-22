@@ -1,142 +1,72 @@
 # AI Cortex
 
-[![Version: 2.1.0](https://img.shields.io/badge/Version-2.1.0-blue.svg)](.)
+[![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-blue.svg)](.)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![AI-Readiness: High](https://img.shields.io/badge/AI--Readiness-High-success.svg)](llms.txt)
-[![Stability: Stable](https://img.shields.io/badge/Stability-Stable-orange.svg)](#positioning)
 
-AI Cortex is an agent-first, governance-ready inventory of Skills. Specs turn Skills into reusable, composable engineering assets.
-
-## How it works
-
-Source: `docs/images/workflow-sequence.mmd`
-
-```mermaid
-flowchart LR
-    %% Style Definitions
-    classDef user fill:#eff6ff,stroke:#3b82f6,stroke-width:2px;
-    classDef system fill:#fef3c7,stroke:#f59e0b,stroke-width:2px;
-    classDef core fill:#ecfdf5,stroke:#10b981,stroke-width:2px;
-    classDef out fill:#f8fafc,stroke:#64748b,stroke-width:2px;
-
-    %% Nodes
-    Intent(("User Intent<br/>(Natural Language)")):::user
-    
-    subgraph Cortex [AI Cortex System]
-        direction TB
-        Router{"Router<br/>(Scenario Map)"}:::system
-        
-        subgraph Execution [Execution Engine]
-            direction LR
-            Spec[Spec & Rules]:::core -.-> Skill[Selected Skill]:::core
-        end
-    end
-
-    Artifact["Standardized Artifact<br/>(Docs / Code / Report)"]:::out
-
-    %% Flow
-    Intent --> Router
-    Router -- Matches Scenario --> Skill
-    Skill --> Artifact
-```
-
-Audience: first-time evaluators and developers. Read left to right: user intent enters routing, governance constrains execution, and skills produce auditable outputs.
+> 面向 Agent 与开发者：将技能锚定在软件交付与项目治理领域的意图-路由表，使「意图→路由→技能」成为调用入口。
 
 ---
 
-## ✨ Features
+## 核心说明
 
-- **Standardized skill assets**: `spec/skill.md` defines structure, metadata, and quality requirements.
-- **Discoverable catalog**: `skills/INDEX.md` and `manifest.json` provide stable indexes and metadata.
-- **Rules for AI behavior**: `rules/` provides coding standards, writing norms, and workflow policies; install via the install-rules skill or manually.
-- **Agent entry contract**: `AGENTS.md` defines identity, authoritative sources, and behavior.
-- **Ecosystem compatibility**: Works with [skills.sh](https://skills.sh) and [SkillsMP](https://skillsmp.com).
+AI Cortex 面向使用 AI Agent、希望按意图（项目启动、代码审查、需求评审、交付收敛、规划对齐等）发现与调用能力的团队。技能目录多按类别组织，而用户按情境思考（「我要合并代码了」「任务做完了要确认方向」）。缺乏意图→路由→技能的映射，导致难以在合适时机找到合适技能。本仓库提供该映射：覆盖软件交付（从想法到上线）与项目治理（规划、对齐、合规）两条主线。
+
+**长期愿景**：团队在项目启动、需求评审、代码审查等意图中，能像查手册一样找到并执行对应技能——按「我在做什么」调用能力，而非按技能列表浏览。
 
 ---
 
-## 📦 Installation
+## ✨ 特点
 
-Use the [skills.sh](https://skills.sh) CLI to install into Claude Code, Cursor, Codex, and similar:
+- **意图锚定**：`skills/intent-routing.json` 定义意图→技能映射；完整列表见 [intent-routing.md](skills/intent-routing.md)
+- **目录与规范**：`skills/INDEX.md`、`manifest.json`；`spec/skill.md` 定义技能结构与质量
+- **规则与入口**：`rules/` 提供编码与写作规范；`AGENTS.md` 定义身份与行为
+- **生态**：[skills.sh](https://skills.sh)、[SkillsMP](https://skillsmp.com)
+
+---
+
+## 📦 安装
 
 ```bash
 npx skills add nesnilnehc/ai-cortex
 ```
 
-Add `--force` to overwrite existing installation when reinstalling or updating:
-
-```bash
-npx skills add nesnilnehc/ai-cortex --force
-```
-
-Install only specific skills:
-
-```bash
-npx skills add nesnilnehc/ai-cortex --skill review-code --skill generate-standard-readme
-```
-
-Shell fallback (for environments that do not use Node.js tooling):
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/scripts/install-fallback.sh | bash -s -- --dest ./.ai-cortex
-```
-
-This fallback installs catalog artifacts and skill files to a local directory for manual integration.
-
-### Rules
-
-Rules are passive constraints for AI behavior (coding standards, writing norms, workflow policies). Install them into Cursor or Trae so the Agent respects them in your workspace.
-
-**Option A — via the install-rules skill** (recommended): After installing this project, ask your Agent to install rules. Use the prompt that matches your scenario:
-
-| Scenario | Prompt |
-| :--- | :--- |
-| You are inside this repo (ai-cortex) | “Install this project’s rules into Cursor” |
-| You are in another project and want ai-cortex rules | “Install rules from nesnilnehc/ai-cortex to my Cursor rules” |
-
-The [install-rules](skills/install-rules/SKILL.md) skill lists available rules, asks for confirmation, and writes to Cursor (`.cursor/rules/` `.mdc` files) or Trae (`.trae/project_rules.md` concatenated Markdown). You can install all rules or a subset.
-
-**Option B — manual copy**: Copy from `rules/` to `.cursor/rules/` (convert to `.mdc` with frontmatter per Cursor format) or to `.trae/project_rules.md` (concatenate as Markdown sections). See [rules/INDEX.md](rules/INDEX.md) for the rule registry.
+使用 `--force` 覆盖已有技能；`--skill <name>` 仅安装指定技能。无 Node 时见 `scripts/install-fallback.sh`。
 
 ---
 
-## Positioning
+## 🚀 快速入门
 
-This repository is the capability-asset library: it hosts Skills and provides Specs and the entry contract.
+1. 安装后，向 Agent 说意图（如「代码审查」「generate readme」「项目启动」）或询问「有哪些技能」。
+2. Agent 按 `skills/intent-routing.json` 与 `AGENTS.md` 路由到主技能及可选技能。
+3. 链式调用时，技能按 SKILL.md 中的 Handoff Point 相互移交。
 
-### Core principles
-
-- **Contract-first**: Structure, metadata, and quality are defined under `spec/`.
-- **Verifiable**: Self-Check is the minimum delivery guarantee.
-- **Composable**: Handoff Point and Scope Boundaries in each skill document flow and dependencies for reuse from atomic capabilities to workflows.
-- **Discoverable**: `INDEX.md` and `manifest.json` provide stable indexes and metadata.
-
-### Boundaries (out of scope)
-
-- Does not provide turnkey IDE or CI integration services.
-- Does not tie to any single IDE or runtime; no vendor-specific adapters.
-- Does not implement model invocation, tool execution, or runtime orchestration infrastructure.
-
-### Catalog scope
-
-- **Canonical catalog**: Skills under `skills/` are the published capability list; `skills/INDEX.md` and `manifest.json` are the authoritative indexes.
-- **Local or IDE-specific skills**: `.agents/` may hold skills used only in this repo or by a specific IDE; they are not part of the canonical catalog and are not listed in INDEX or manifest.
-- **Subset lists**: `.claude-plugin/` and `llms.txt` are intentionally non-exhaustive. They expose only curated subsets for specific channels and do not represent the full skill catalog.
-- **Subset criteria**: See `.claude-plugin/README.md` for Claude Plugin inclusion and exclusion rules. For complete inventory, always use `skills/INDEX.md` and `manifest.json`.
+**规则**：通过 Agent 说「将此项目规则安装到 Cursor」——或将 `rules/` 复制到 `.cursor/rules/`。见 [rules/INDEX.md](rules/INDEX.md)。
 
 ---
 
-## 🤝 Contributing
+## 📖 使用 / 配置
 
-Submit PRs that follow the [skill spec](spec/skill.md). Capability index: [skills/INDEX.md](skills/INDEX.md). When adding or moving a skill, update `manifest.json` and (as needed) `skills/scenario-map.json`, then run `npm run verify` (or `node scripts/verify-registry.mjs`) to regenerate INDEX/docs and confirm sync. See [spec/registry-sync-contract.md](spec/registry-sync-contract.md) for sync rules.
+**发现**：优先按 [intent-routing.md](skills/intent-routing.md) 的意图/关键词匹配；或阅读 `skills/INDEX.md`、`manifest.json`。
 
-### Development
+**调用**：将 SKILL.md 作为上下文加载；执行技能；按 Handoff Point 链式调用。
 
-- **Verify registry**: `npm run verify` — checks manifest, INDEX, scenario-map, and marketplace consistency.
-- **Verify skill structure**: `npm run verify:skill-structure` — validates SKILL.md conformance to spec.
-- **Run tests**: `npm test` — runs unit and integration tests.
+**治理**：使用 `AGENTS.md` 作为权威来源；提交前运行 `npm run verify`。
 
 ---
 
-## 📄 License
+## 🤝 贡献
+
+PR 须遵循 [spec/skill.md](spec/skill.md)。更新 `manifest.json` 与 `skills/intent-routing.json` 后运行 `npm run verify`。见 [spec/registry-sync-contract.md](spec/registry-sync-contract.md) 与 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
+---
+
+## 📄 许可证
 
 [MIT](LICENSE)
+
+---
+
+## 👤 作者与致谢
+
+见 [CONTRIBUTING.md](CONTRIBUTING.md) 及仓库贡献者。

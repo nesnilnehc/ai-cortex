@@ -1,6 +1,7 @@
 ---
 name: automate-repair
 description: Iteratively review changes, run automated tests, and apply targeted fixes until issues are resolved (or a stop condition is reached).
+description_zh: 迭代审查变更、运行自动化测试并实施定向修复，直至问题解决或满足停止条件。
 tags: [automation, devops, optimization]
 version: 1.1.0
 license: MIT
@@ -20,261 +21,262 @@ output_schema:
   description: Repair loop report with iterations, commands, patches, and final state (persist only if explicitly requested)
 ---
 
-# Skill: Run Repair Loop (Review + Test + Fix)
+# 技能 (Skill)：运行修复循环（回顾+测试+修复）
 
-## Purpose
+## 目的 (Purpose)
 
-Converge a codebase or change set to "clean" by running a **multi-iteration loop**:
+通过运行 **多次迭代循环** 将代码库收敛或更改设置为“干净”：
 
-1. **Review** (find problems early and prevent regressions),
-2. **Test** (get executable signal),
-3. **Fix** (apply the smallest correct patch),
-4. Repeat until **no blocking issues remain** or a **stop condition** is hit.
-
----
-
-## Core Objective
-
-**Primary Goal**: Converge the repository to a "clean" state — all tests passing and no `critical`/`major` review findings — using a bounded, evidence-driven review-test-fix loop.
-
-**Success Criteria** (ALL must be met):
-
-1. ✅ **Definition of done resolved**: Pre-flight choices (scope, test mode, max iterations, allowed actions) are confirmed before the loop starts
-2. ✅ **Evidence-first each iteration**: Each iteration produces at least one of: a new test result, a new review signal, or a concrete code change
-3. ✅ **Tests rerun after fixes**: The failing test command (or a targeted subset) is always rerun after applying a fix within the same iteration
-4. ✅ **Bounded loop**: The loop terminates due to convergence or an explicit stop condition — no infinite retries
-5. ✅ **Structured final report**: Output includes a Repair Loop Report (Appendix: Output contract) with commands run, failures, patches, and remaining risks
-
-**Acceptance Test**: Does the final report show either (a) tests passing with no blocking review findings, or (b) an explicit stop condition with clear remaining issues and options for the user?
+1. **回顾**（及早发现问题并防止倒退），
+2. **测试**（获取可执行信号），
+3. **修复**（应用最小的正确补丁），
+4. 重复直到**不再存在阻塞问题**或达到**停止条件**。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-**This skill handles**:
+**首要目标**：使用有界的、证据驱动的审查-测试-修复循环，将存储库收敛到“干净”状态——所有测试都通过并且没有“关键”/“主要”审查结果。
 
-- Multi-iteration review → test → fix loops
-- Diff-scoped and codebase-scoped review using `review-diff` and `review-code`
-- Test execution via `run-automated-tests` (fast/ci/full modes)
-- Minimal targeted patches with preserved API contracts
-- Stop condition detection (no progress, environment blockers, flaky tests, iteration limit)
-- Structured repair loop report output
+**成功标准**（必须满足所有要求）：
 
-**This skill does NOT handle**:
+1. ✅ **完成解析的定义**：在循环开始之前确认飞行前选择（范围、测试模式、最大迭代、允许的操作）
+2. ✅ **每次迭代证据优先**：每次迭代至少产生以下之一：新的测试结果、新的审查信号或具体的代码更改
+3. ✅ **修复后重新运行测试**：失败的测试命令（或目标子集）始终在同一迭代中应用修复后重新运行
+4. ✅ **有界循环**：循环由于收敛或显式停止条件而终止 - 没有无限重试
+5. ✅ **结构化最终报告**：输出包括修复循环报告（附录：输出合同），其中包含命令运行、故障、补丁和剩余风险
 
-- Installing dependencies without explicit user confirmation
-- Using network or starting Docker/services without user confirmation
-- Large refactors without explicit user approval
-- Modifying unrelated sibling repositories
-- Disabling tests, weakening assertions, or deleting coverage without explicit user approval
-
-**Handoff point**: When the loop converges or hits a stop condition, present the Repair Loop Report to the user. For risky changes (schema migration, auth changes, broad refactor), pause and ask for explicit approval before applying.
+**验收**测试：最终报告是否显示（a）测试通过且没有阻止审查结果，或（b）明确的停止条件，并为用户提供明确的剩余问题和选项？
 
 ---
 
-## Use Cases
+## 范围边界 (Scope Boundaries)
 
-- "Keep fixing until tests pass."
-- "Do a review-test-fix loop and make the repo green."
-- "Stabilize this PR/change set with iterative testing and targeted fixes."
-- "Run CI-like tests, fix failures, repeat until stable."
+**本技能负责**：
 
----
+- 多次迭代审查→测试→修复循环
+- 使用“review-diff”和“review-code”进行差异范围和代码库范围的审查
+- 通过“run-automated-tests”执行测试（快速/ci/完整模式）
+- 保留 API 合约的最少目标补丁
+- 停止条件检测（无进展、环境阻碍、片状测试、迭代限制）
+- 结构化修复循环报告输出
 
-## Behavior
+**本技能不负责**：
 
-### 1. Pre-flight (must resolve once)
+- 在没有明确用户确认的情况下安装依赖项
+- 无需用户确认即可使用网络或启动 Docker/服务
+- 未经用户明确批准的大型重构
+- 修改不相关的同级存储库
+- 在未经用户明确批准的情况下禁用测试、削弱断言或删除覆盖范围
 
-Confirm or default the following:
-
-- **Target**: repo path (default `.`) and scope:
-  - `diff` (default): focus on current changes, prioritize `review-diff`.
-  - `codebase`: review a specified path set, prioritize `review-codebase`/language skills via `review-code`.
-- **Definition of done**:
-  - Tests: chosen test plan passes (fast/ci/full).
-  - Review: no `critical`/`major` review findings remain.
-  - If only `minor`/`suggestion` findings remain, list them and ask whether to address them.
-- **Loop bounds**:
-  - `max_iterations` default: `5`.
-  - `time_budget` default: "best effort"; if user provides a time limit, honor it strictly.
-- **Allowed actions** (ask if unclear; default to safer choice):
-  - Modify repo files: **Yes** (this skill is for fixing), but keep changes minimal.
-  - Install dependencies: **No** without confirmation.
-  - Network access: **No** without confirmation.
-  - Docker/services (DB/Redis/etc.): **No** without confirmation.
-  - Large refactors: **No** without confirmation.
-
-### 2. Iteration loop
-
-For `i = 1..max_iterations`:
-
-1. **Collect current signals (evidence-first)**
-   - If scope = `diff`: run/perform a `review-diff` pass over the current diff/untracked additions.
-   - If scope = `codebase` or user wants deeper review: run `review-code` (or the relevant atomic review skill(s)).
-   - If a previous iteration had test failures, prioritize resolving those failures first.
-
-2. **Run tests**
-   - Use `run-automated-tests` to discover and run the best matching test command(s) in the selected mode:
-     - `fast` (default): unit tests only, minimal setup.
-     - `ci`: mirror CI steps as closely as possible.
-     - `full`: include integration/e2e (only with explicit confirmation for dependencies/services).
-   - Capture:
-     - the first failing command + exit code
-     - the most relevant error excerpt (do not dump massive logs unless asked)
-
-3. **Synthesize a fix plan (smallest correct patch)**
-   - Choose **one** primary issue to fix first:
-     - First failing test/command usually wins (highest signal).
-     - If review found a `critical` security/correctness issue, fix that before or alongside tests.
-   - Prefer fixes that:
-     - change the smallest surface area
-     - preserve API/contracts unless explicitly approved
-     - add or adjust tests when fixing a bug (when feasible)
-
-4. **Apply fix**
-   - Implement the patch.
-   - Avoid unrelated formatting or churn.
-   - If the fix requires a risky change (schema migration, auth changes, broad refactor), pause and ask.
-
-5. **Re-run the minimal validation**
-   - Re-run the most relevant failing test subset if the framework supports it; otherwise re-run the same test command.
-   - If fixed, proceed to the next remaining failure/finding within the same iteration only if it is trivial; otherwise go to the next loop iteration.
-
-6. **Stop early when converged**
-   - If tests pass and there are no `critical`/`major` review findings, stop.
-
-### 3. Stop conditions (must not loop forever)
-
-Stop and ask the user for direction if any occur:
-
-- **No progress**: the same failure repeats for 2 iterations with no new information.
-- **Environment blocker**: missing toolchain, missing secrets, or unavailable dependency (DB/Docker) and user has not approved required setup.
-- **Flaky tests**: non-deterministic failures suspected (e.g., passes on retry without changes).
-- **Iteration limit reached**: `max_iterations` exhausted with remaining failures.
-
-When stopping, provide the shortest path options:
-
-- run a different test mode (`fast` -> `ci` -> `full`)
-- allow installs/network/Docker
-- narrow scope (fix only first failing test)
-- increase iteration limit
-
-### Report persistence
-
-Do NOT write a standalone report file by default. If the user explicitly asks to persist, write to the path resolved from project norms, or default to `docs/calibration/repair-loop.md` and overwrite the canonical file unless a snapshot is explicitly requested.
+**转交点**：当环路收敛或达到停止条件时，向用户呈现修复环路报告。对于有风险的更改（架构迁移、身份验证更改、广泛重构），请在申请之前暂停并请求明确批准。
 
 ---
 
-## Input & Output
+## 使用场景（用例）
 
-### Input
-
-- Target path (default `.`)
-- Scope: `diff` (default) or `codebase` (+ paths)
-- Test mode: `fast` (default), `ci`, `full`
-- Constraints: allow installs/network/Docker/services (yes/no)
-- `max_iterations` (default `5`)
-- Optional: time budget
-
-### Output
-
-- **Repair Loop Report**:
-  - Definition of done used
-  - Evidence sources (which files/CI configs informed test plan)
-  - For each iteration:
-    - test command(s) run and result
-    - first failure excerpt (if any)
-    - changes made (files touched + intent)
-    - remaining failures/findings
-  - Final state:
-    - tests passing (which commands)
-    - remaining review items (if any) and whether they are blocking
+- “继续修复直到测试通过。”
+- “进行审查-测试-修复循环并使存储库变得绿色。”
+- “通过迭代测试和有针对性的修复来稳定此 PR/变更集。”
+- “运行类似 CI 的测试，修复故障，重复直到稳定。”
 
 ---
 
-## Restrictions
+## 行为（行为）
 
-### Hard Boundaries
+### 1. 飞行前（必须解决一次）
 
-- Do not install dependencies, use network, start Docker/services, or run destructive commands without explicit confirmation.
-- Do not ask the user to paste secrets into chat. Prefer local env files or documented dev flows.
-- Do not "fix" by disabling tests, weakening assertions, or deleting coverage unless the user explicitly approves and the tradeoff is documented.
-- Avoid large refactors as a default; prioritize minimal patches that unblock correctness.
-- Keep changes scoped to the target repository; do not modify unrelated sibling repos.
+确认或默认以下内容：
 
-### Skill Boundaries (Avoid Overlap)
+- **目标**：存储库路径（默认“.”）和范围：
+  - `diff`（默认）：关注当前更改，优先考虑`review-diff`。
+  - `codebase`：审查指定的路径集，通过`review-code`优先考虑`review-codebase`/语言技能。
+- **完成的定义**：
+  - 测试：所选测试计划通过（快速/ci/完整）。
+  - 审查：没有保留“关键”/“主要”审查结果。
+  - 如果仅剩下“次要”/“建议”发现，请将其列出并询问是否解决它们。
+- **循环边界**：
+  - `max_iterations` 默认值：`5`。
+  - `time_budget` 默认值：“尽力而为”；如果用户提供了时间限制，请严格遵守。
+- **允许的操作**（不清楚时询问；默认为更安全的选择）：
+  - 修改存储库文件：**是**（此技能用于修复），但保持最小程度的更改。
+  - 安装依赖项：**否**，无需确认。
+  - 网络访问：**否**，无需确认。
+  - Docker/服务（DB/Redis/等）：**否**，无需确认。
+  - 大型重构：**否**，未经确认。
 
-**Do NOT do these (other skills handle them)**:
+### 2.迭代循环
 
-- **Test execution only** (no review or fix loop): Use `run-automated-tests`
-- **Test quality assessment** (coverage, structure, edge-case adequacy): Use `review-testing`
-- **Comprehensive code review** (without test-fix iteration): Use `review-code`
-- **Diff-only review** (without test execution or fix iteration): Use `review-diff`
-- **Writing new tests from scratch** (not fixing existing failures): Use development skills
+对于“i = 1..max_iterations”：
 
-**When to stop and hand off**:
+1. **收集当前信号（证据优先）**
+   - 如果范围 = `diff`：对当前 diff/未跟踪的添加运行/执行 `review-diff` 传递。
+   - 如果范围=“代码库”或用户想要更深入的审查：运行“审查代码”（或相关的原子审查技能）。
+   - 如果之前的迭代出现测试失败，请优先考虑首先解决这些失败。
 
-- Loop converges (tests pass, no blocking findings) → Present Repair Loop Report and stop
-- Stop condition hit (no progress, environment blocker, flaky tests, iteration limit) → Present options and wait for user direction
-- User asks for a one-time code review without fixing → Hand off to `review-code` or `review-diff`
-- User asks to only run tests without fixing → Hand off to `run-automated-tests`
+2. **运行测试**
+   - 使用“run-automated-tests”在所选模式下发现并运行最匹配的测试命令：
+     - `fast`（默认）：仅进行单元测试，最少的设置。
+     - `ci`：尽可能接近地镜像 CI 步骤。
+     - `full`：包括集成/e2e（仅对依赖项/服务进行明确确认）。
+   - 捕获：
+     - 第一个失败的命令+退出代码
+     - 最相关的错误摘录（除非要求，否则不要转储大量日志）
+
+3. **综合修复计划（最小正确补丁）**
+   - 选择首先要解决的**一个**主要问题：
+     - 第一个失败的测试/命令通常获胜（最高信号）。
+     - 如果审查发现“关键”安全/正确性问题，请在测试之前或同时修复该问题。
+   - 更喜欢修复：
+     - 改变最小表面积
+     - 保留 API/合同，除非明确批准
+     - 修复错误时添加或调整测试（如果可行）
+
+4. **应用修复**
+   - 实施补丁。
+   - 避免不相关的格式或流失。
+   - 如果修复需要进行有风险的更改（架构迁移、身份验证更改、广泛重构），请暂停并询问。
+
+5. **重新运行最小验证**
+   - 如果框架支持，重新运行最相关的失败测试子集；否则重新运行相同的测试命令。
+   - If fixed, proceed to the next remaining failure/finding within the same iteration only if it is trivial;否则进入下一个循环迭代。
+
+6. **汇合时尽早停车**
+   - 如果测试通过并且没有“关键”/“主要”审查结果，则停止。
+
+### 3.停止条件（不得永远循环）
+
+如果发生任何情况，请停止并向用户询问方向：
+
+- **没有进展**：同样的失败重复了 2 次迭代，没有新信息。
+- **环境拦截器**：缺少工具链、缺少机密或不可用的依赖项（DB/Docker）并且用户尚未批准所需的设置。
+- **片状测试**：怀疑不确定性故障（例如，在没有更改的情况下重试）。
+- **达到迭代限制**：`max_iterations` 已耗尽，剩余失败。
+
+停止时，提供最短路径选项：
+
+- 运行不同的测试模式（`fast` -> `ci` -> `full`）
+- 允许安装/网络/Docker
+- 范围狭窄（仅修复第一个失败的测试）
+- 增加迭代限制
+
+### 报告持久性
+
+默认情况下不要编写独立的报告文件。如果用户明确要求保留，请写入从项目规范解析的路径，或默认为“docs/calibration/repair-loop.md”并覆盖规范文件，除非明确请求快照。
 
 ---
 
-## Self-Check
+## 输入与输出 (Input & Output)
 
-### Core Success Criteria
+### 输入（输入）
 
-- [ ] **Definition of done resolved**: Pre-flight choices (scope, test mode, max iterations, allowed actions) are confirmed before the loop starts
-- [ ] **Evidence-first each iteration**: Each iteration produces at least one of: a new test result, a new review signal, or a concrete code change
-- [ ] **Tests rerun after fixes**: The failing test command (or a targeted subset) is always rerun after applying a fix within the same iteration
-- [ ] **Bounded loop**: The loop terminates due to convergence or an explicit stop condition — no infinite retries
-- [ ] **Structured final report**: Output includes a Repair Loop Report (Appendix: Output contract) with commands run, failures, patches, and remaining risks
+- 目标路径（默认`.`）
+- 范围：“diff”（默认）或“codebase”（+ 路径）
+- 测试模式：`fast`（默认）、`ci`、`full`
+- 约束：允许安装/网络/Docker/服务（是/否）
+- `max_iterations`（默认为`5`）
+- 可选：时间预算
 
-### Process Quality Checks
+### 输出（输出）
 
-- [ ] **Minimal patch surface**: Each fix touched only the files necessary to resolve the identified issue — no unrelated formatting or churn.
-- [ ] **Flaky-test awareness**: Non-deterministic failures were detected (e.g., pass-on-retry without code change) and flagged rather than "fixed" blindly.
-- [ ] **Risky-change pause applied**: Schema migrations, auth changes, or broad refactors triggered an explicit user confirmation before proceeding.
-- [ ] **Progress tracked per iteration**: Each iteration log shows a clear delta (new signal or new fix) — no hollow iterations.
-
-### Acceptance Test
-
-Does the final report show either (a) tests passing with no blocking review findings, or (b) an explicit stop condition with clear remaining issues and options for the user?
-
----
-
-## Examples
-
-### Example 1: Fix failing unit tests in a Node repo
-
-User: "Make tests pass. Keep fixing until green."
-
-Agent:
-
-1. Pre-flight: scope=`diff`, test mode=`fast`, max_iterations=5; confirm installs allowed (`npm ci`) and network allowed.
-2. Iteration 1: run `npm test`, fix first failing test, rerun `npm test`.
-3. Iteration 2: run `review-diff` to catch edge cases introduced by the fix; rerun `npm test`.
-4. Stop when `npm test` passes and there are no major review findings.
-
-### Example 2 (Edge case): Integration tests require Docker and secrets
-
-User: "Mirror CI and fix failures."
-
-Agent:
-
-1. Pre-flight: propose test mode=`ci`, but detect CI uses `docker compose` and env secrets.
-2. Stop condition triggered: environment blocker (Docker + secrets not approved/available).
-3. Ask the user to choose:
-   - run only `fast` unit tests locally, or
-   - allow Docker and provide a non-chat secret workflow, or
-   - run only the failing CI job steps that don't require secrets.
+- **修复循环报告**：
+  - 完成使用的定义
+  - 证据来源（哪些文件/CI 配置告知测试计划）
+  - 对于每次迭代：
+    - 测试命令运行和结果
+    - 第一次失败摘录（如果有）
+    - 所做的更改（触及的文件+意图）
+    - 剩余的失败/发现
+  - 最终状态：
+    - 测试通过（哪个命令）
+    - 剩余的审查项目（如果有）以及它们是否被阻止
 
 ---
 
-## Appendix: Output contract
+## 限制（限制）
 
-Each skill execution MUST produce a **Repair Loop Report** in this exact JSON format:
+### 硬边界（Hard Boundaries）
+
+- 未经明确确认，请勿安装依赖项、使用网络、启动 Docker/服务或运行破坏性命令。
+- 不要要求用户将秘密粘贴到聊天中。更喜欢本地环境文件或文档化的开发流程。
+- 不要通过禁用测试、削弱断言或删除覆盖范围来“修复”，除非用户明确批准并且权衡已记录在案。
+- 避免默认进行大型重构；优先考虑能够解锁正确性的最小补丁。
+- 将更改范围保持在目标存储库范围内；不要修改不相关的同级存储库。
+
+### 技能边界 (Skill Boundaries)（避免重叠）
+
+**不要做这些（其他技能可以处理它们）**：
+
+- **仅测试执行**（无审查或修复循环）：使用“run-automated-tests”
+- **测试质量评估**（覆盖范围、结构、边缘情况充分性）：使用“审查测试”
+- **全面的代码审查**（无测试修复迭代）：使用“review-code”
+- **仅差异审查**（没有测试执行或修复迭代）：使用 `review-diff`
+- **从头开始编写新测试**（不修复现有故障）：使用开发技能
+
+**何时停止并交接**：
+
+- 环路收敛（测试通过，没有阻塞发现）→ 当前修复环路报告并停止
+- 遇到停止条件（无进展、环境阻碍、片状测试、迭代限制）→ 显示选项并等待用户指示
+- 用户请求一次性代码审查而不修复 → 移交给“review-code”或“review-diff”
+- 用户要求仅运行测试而不修复 → 移交给“run-automated-tests”
+
+---
+
+## 自检（Self-Check）
+
+### 核心成功标准
+
+- [ ] **完成解析的定义**：在循环开始之前确认飞行前选择（范围、测试模式、最大迭代次数、允许的操作）
+- [ ] **每次迭代证据优先**：每次迭代至少产生以下之一：新的测试结果、新的审查信号或具体的代码更改
+- [ ] **修复后重新运行测试**：在同一迭代中应用修复后，失败的测试命令（或目标子集）始终重新运行
+- [ ] **有界循环**：循环由于收敛或显式停止条件而终止 - 没有无限重试
+- [ ] **结构化最终报告**：输出包括修复循环报告（附录：输出合同），其中包含命令运行、故障、补丁和剩余风险
+
+### 流程质量检查
+
+- [ ] **最小补丁表面**：每个修复仅涉及解决已识别问题所需的文件 - 没有不相关的格式或改动。
+- [ ] **不稳定的测试意识**：检测到非确定性故障（例如，在不更改代码的情况下传递重试）并进行标记，而不是盲目地“修复”。
+- [ ] **应用了风险更改暂停**：架构迁移、身份验证更改或广泛的重构在继续之前触发了明确的用户确认。
+- [ ] **每次迭代跟踪的进度**：每个迭代日志都显示一个清晰的增量（新信号或新修复） - 没有空洞的迭代。
+
+### 验收测试
+
+最终报告是否显示（a）测试通过且没有阻止审查结果，或（b）明确的停止条件，并为用户提供明确的剩余问题和选项？
+
+---
+
+## 示例（示例）
+
+### 示例 1：修复 Node 存储库中失败的单元测试
+
+用户：“让测试通过。继续修复直到绿色。”
+
+代理：
+
+1. 飞行前：scope=`diff`，测试模式=`fast`，max_iterations=5；确认允许安装（`npm ci`）并且允许网络。
+2. 迭代 1：运行 `npm test`，修复第一个失败的测试，重新运行 `npm test`。
+3. 迭代 2：运行 `review-diff` 以捕获修复引入的边缘情况；重新运行`npm test`。
+4. 当“npm test”通过并且没有重大审查结果时停止。
+
+### 示例 2（边缘情况）：集成测试需要 Docker 和密钥
+
+用户：“镜像 CI 并修复故障。”
+
+代理：
+
+1. 预检：建议测试模式=`ci`，但检测 CI 使用 `docker compose` 和 env 密钥。
+2. 触发停止条件：环境拦截器（Docker + 机密未批准/不可用）。
+3. 要求用户选择：
+   - 仅在本地运行“快速”单元测试，或者
+   - 允许 Docker 并提供非聊天秘密工作流，或者
+   - 仅运行不需要机密的失败 CI 作业步骤。
+
+---
+
+## 附录：输出合约
+
+每个技能执行必须以这种精确的 JSON 格式生成 **修复循环报告**：
+
 
 ```json
 {
@@ -321,14 +323,14 @@ Each skill execution MUST produce a **Repair Loop Report** in this exact JSON fo
 }
 ```
 
-| Element | Type | Description |
+|元素|类型 |描述 |
 | :--- | :--- | :--- |
-| `definition_of_done` | object | What constitutes success |
-| `scope` | string | `diff` or `codebase` |
-| `mode` | string | Test mode: `fast`, `ci`, or `full` |
-| `max_iterations` | number | Loop limit |
-| `iterations` | array | Each iteration's review, test, fix, re-run |
-| `final_state` | object | End state: tests passing, remaining issues |
-| `stop_condition` | string | Why loop ended: `converged`, `max_iterations`, `environment_blocker`, `no_progress` |
+| `完成的定义` |对象|什么是成功|
+| `范围` |字符串| `diff` 或 `代码库` |
+| `模式` |字符串|测试模式：`fast`、`ci` 或 `full` |
+| `最大迭代次数` |数量 |循环限制|
+| `迭代` |数组|每次迭代的审查、测试、修复、重新运行 |
+| `最终状态` |对象|最终状态：测试通过，仍有问题 |
+| `停止条件` |字符串|为什么循环结束：`converged`、`max_iterations`、`environment_blocker`、`no_progress` |
 
-This schema enables Agent consumption without prose parsing.
+此架构允许代理使用而无需进行散文解析。

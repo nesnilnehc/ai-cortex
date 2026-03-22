@@ -1,8 +1,9 @@
 ---
 name: review-architecture
 description: "Review code for architecture: module and layer boundaries, dependency direction, single responsibility, cyclic dependencies, interface stability, and coupling. Cognitive-only atomic skill; output is a findings list."
+description_zh: 审查代码架构：模块与层次边界、依赖方向、单一职责、循环依赖、接口稳定性与耦合。
 tags: [code-review]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -16,180 +17,181 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion
 ---
 
-# Skill: Review Architecture
+# 技能（Skill）：回顾架构
 
-## Purpose
+## 目的 (Purpose)
 
-Review code for **architecture** concerns only. Do not define scope (diff vs codebase) or perform language/framework/security analysis; those are separate atomic skills. Emit a **findings list** in the standard format for aggregation. Focus on module and layer boundaries, dependency direction, single responsibility, cyclic dependencies, interface stability, and coupling and extension points.
-
----
-
-## Core Objective
-
-**Primary Goal**: Produce an architecture-focused findings list covering module/layer boundaries, dependency direction, single responsibility, cyclic dependencies, interface stability, and coupling for the given code scope.
-
-**Success Criteria** (ALL must be met):
-
-1. ✅ **Architecture-only scope**: Only architecture dimensions are reviewed; no scope selection, language/framework conventions, security, or performance analysis performed
-2. ✅ **All six architecture dimensions covered**: Module/layer boundaries, dependency direction, single responsibility, cyclic dependencies, interface stability, and coupling are assessed where relevant
-3. ✅ **Findings format compliant**: Each finding includes Location, Category (`cognitive-architecture`), Severity, Title, Description, and optional Suggestion
-4. ✅ **Location-precise references**: All findings reference specific modules, packages, or files (not vague descriptions)
-5. ✅ **Actionable output**: Each finding provides a concrete refactoring suggestion or improvement direction
-
-**Acceptance Test**: Does the output contain an architecture findings list covering all relevant structural dimensions with specific module/file references and actionable refactoring suggestions?
+仅审查 **架构** 问题的代码。不要定义范围（差异与代码库）或执行语言/框架/安全分析；这些是单独的原子技能。以标准格式发出**结果列表**以进行聚合。重点关注模块和层边界、依赖方向、单一职责、循环依赖、接口稳定性以及耦合和扩展点。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-**This skill handles**:
+**首要目标**：生成一个以架构为中心的发现列表，涵盖模块/层边界、依赖方向、单一责任、循环依赖、接口稳定性和给定代码范围的耦合。
 
-- Module and layer boundary clarity (API, domain, data layer separation)
-- Dependency direction analysis (inward toward domain, stable abstractions)
-- Single responsibility assessment per module/class
-- Cyclic dependency detection and break points
-- Interface stability and leaking implementation details
-- Coupling analysis and extension point design
+**成功标准**（必须满足所有要求）：
 
-**This skill does NOT handle**:
+1. ✅ **仅架构范围**：仅审核架构维度；未执行范围选择、语言/框架约定、安全性或性能分析
+2. ✅ **涵盖所有六个架构维度**：在相关的情况下评估模块/层边界、依赖方向、单一责任、循环依赖、接口稳定性和耦合
+3. ✅ **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive架构”）、严重性、标题、描述和可选建议
+4. ✅ **位置精确引用**：所有发现都引用特定的模块、包或文件（不是模糊的描述）
+5. ✅ **可操作的输出**：每个发现都提供了具体的重构建议或改进方向
 
-- Scope selection (deciding which files/paths to analyze) — scope is provided by the caller
-- Language/framework convention analysis — use `review-dotnet`, `review-java`, `review-go`, etc.
-- Security review — use `review-security`
-- Performance review — use `review-performance`
-- Current-state codebase review combining all dimensions — use `review-codebase`
-- Full orchestrated review — use `review-code`
-
-**Handoff point**: When all architecture findings are emitted, hand off to `review-code` orchestrator for aggregation, or deliver directly to the user for architecture-focused sessions. For deep codebase audits, suggest also running `review-codebase`.
+**验收**测试：输出是否包含架构发现列表，涵盖所有相关的结构维度以及特定的模块/文件引用和可操作的重构建议？
 
 ---
 
-## Use Cases
+## 范围边界（范围边界）
 
-- **Orchestrated review**: Used as a cognitive step when [review-code](../review-code/SKILL.md) runs scope → language → framework → library → cognitive.
-- **Architecture-focused review**: When the user wants only boundaries, dependencies, and structure checked.
-- **Refactor or onboarding**: Understand and critique current structure for planning or documentation.
+**本技能负责**：
 
-**When to use**: When the task includes architecture or design review. Scope and code scope are determined by the caller or user.
+- 模块和层边界清晰（API、领域、数据层分离）
+- 依赖方向分析（向内领域，稳定抽象）
+- 每个模块/班级的单一责任评估
+- 循环依赖检测和断点
+- 接口稳定性和泄漏实现细节
+- 耦合分析及扩展点设计
 
----
+**本技能不负责**：
 
-## Behavior
+- 范围选择（决定要分析哪些文件/路径）——范围由调用者提供
+- 语言/框架约定分析——使用“review-dotnet”、“review-java”、“review-go”等。
+- 安全审查——使用“review-security”
+- 绩效评估——使用“review-performance”
+- 结合所有维度的当前状态代码库审查 - 使用“review-codebase”
+- 全面精心策划的审核——使用“审核代码”
 
-### Scope of this skill
-
-- **Analyze**: Architecture dimensions in the **given code scope** (files or diff provided by the caller). Do not decide scope; accept the code range as input. For large scope, consider layers or modules and summarize.
-- **Do not**: Perform scope selection, language/framework conventions, or security review. Focus only on architecture and structure.
-
-### Review checklist (architecture dimension only)
-
-1. **Module and layer boundaries**: Are module/service boundaries clear? Are layers (e.g. API, domain, data) respected? Do high-level modules avoid depending on low-level details?
-2. **Dependency direction**: Do dependencies point in the intended direction (e.g. inward toward domain, or toward stable abstractions)? No reverse or circular dependency direction at module level.
-3. **Single responsibility**: Does each module/class have one clear responsibility? Are boundaries cohesive?
-4. **Cyclic dependencies**: Are there cycles between modules, packages, or components? Suggest break points (e.g. extract interface, move shared code).
-5. **Interface stability**: Are public APIs and interfaces stable and minimal? Are implementation details leaking across boundaries?
-6. **Coupling and extension points**: Is coupling to concrete types or frameworks minimized where extension is expected? Are extension points (e.g. plugins, strategies) clear?
-
-### Tone and references
-
-- **Professional and technical**: Reference specific locations (file, module, or package). Emit findings with Location, Category, Severity, Title, Description, Suggestion.
+**转交点**：当所有架构发现发布后，移交给“审查代码”编排器进行聚合，或直接交付给用户以进行以架构为中心的会话。对于深度代码库审核，建议还运行“review-codebase”。
 
 ---
 
-## Input & Output
+## 使用场景（用例）
 
-### Input
+- **精心安排的审查**：当[review-code](../review-code/SKILL.md)运行范围→语言→框架→库→cognitive时用作cognitive步骤。
+- **以架构为中心的审查**：当用户只想检查边界、依赖关系和结构时。
+- **重构或入门**：理解并批评当前的规划或文档结构。
 
-- **Code scope**: Files or directories (or diff) already selected by the user or scope skill. This skill does not decide scope; it reviews the provided code for architecture only.
-
-### Output
-
-- Emit zero or more **findings** in the format defined in **Appendix: Output contract**.
-- Category for this skill is **cognitive-architecture**.
+**何时使用**：当任务包括架构或设计审查时。范围和代码范围由调用者或用户确定。
 
 ---
 
-## Restrictions
+## 行为（行为）
 
-### Hard Boundaries
+### 该技能的范围
 
-- **Do not** perform scope selection, language, framework, or security review. Stay within architecture dimensions.
-- **Do not** give conclusions without specific locations or actionable suggestions.
-- **Do not** assume a specific architecture style (e.g. clean/hexagonal) unless the project states it; evaluate against general boundaries and dependency principles.
+- **分析**：**给定代码范围**中的架构维度（调用者提供的文件或差异）。不决定范围；接受代码范围作为输入。对于大范围，考虑层或模块并进行总结。
+- **不要**：执行范围选择、语言/框架约定或安全审查。仅关注架构和结构。
 
-### Skill Boundaries
+### 审查清单（仅限架构维度）
 
-**Do NOT do these** (other skills handle them):
+1. **模块和层边界**：模块/服务边界是否清晰？是否尊重各层（例如 API、域、数据）？高层模块是否避免依赖底层细节？
+2. **依赖关系方向**：依赖关系是否指向预期的方向（例如向内指向域，或指向稳定的抽象）？模块级别没有反向或循环依赖方向。
+3. **单一职责**：每个模块/类是否都有一个明确的职责？边界是否具有凝聚力？
+4. **循环依赖**：模块、包或组件之间是否存在循环？建议断点（例如提取接口、移动共享代码）。
+5. **接口稳定性**：公共API和接口是否稳定且最小？实施细节是否会跨界泄露？
+6. **Coupling and extension points**: Is coupling to concrete types or frameworks minimized where extension is expected?扩展点（例如插件、策略）是否清晰？
 
-- Do NOT select or define the code scope — scope is determined by the caller or `review-code`
-- Do NOT perform language/framework convention analysis — use `review-dotnet`, `review-java`, `review-go`, etc.
-- Do NOT perform security or performance review — use `review-security` or `review-performance`
-- Do NOT assume a specific architecture pattern (clean, hexagonal, etc.) unless explicitly stated
+### 语气和参考
 
-**When to stop and hand off**:
+- **专业和技术**：参考特定位置（文件、模块或包）。发出包含位置、类别、严重性、标题、描述、建议的结果。
+
+---
+
+## 输入与输出 (Input & Output)
+
+### 输入（输入）
+
+- **代码范围**：用户或范围技能已选择的文件或目录（或差异）。该技能不决定范围；它仅审查所提供的架构代码。
+
+### 输出（输出）
+
+- 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
+- 此技能的类别是**cognitive架构**。
+
+---
+
+## 限制（限制）
+
+### 硬边界（Hard Boundaries）
+
+- **不要**执行范围选择、语言、框架或安全审查。保持在架构维度内。
+- **不要**在没有具体地点或可行建议的情况下给出结论。
+- **不要**采用特定的架构风格（例如干净/六边形），除非项目声明它；根据一般边界和依赖原则进行评估。
+
+### 技能边界 (Skill Boundaries)
+
+**不要做这些**（其他技能可以处理它们）：
+
+- 不要选择或定义代码范围 - 范围由调用者或“审查代码”确定
+- 不要执行语言/框架约定分析 - 使用 `review-dotnet`、`review-java`、`review-go` 等。
+- 不要执行安全或性能审查——使用“review-security”或“review-performance”
+- 除非明确说明，否则不要假设特定的架构模式（干净、六边形等）
+
+**何时停止并交接**：
 
 - When all architecture findings are emitted, hand off to `review-code` for aggregation in an orchestrated review
-- When the user needs a full review (scope + language + cognitive), redirect to `review-code`
-- When comprehensive codebase state review is needed beyond architecture, redirect to `review-codebase`
+- 当用户需要全面审查（范围+语言+cognitive）时，重定向到“审查代码”
+- 当需要架构之外的全面代码库状态审查时，重定向到“审查代码库”
 
 ---
 
-## Self-Check
+## 自检（Self-Check）
 
-### Core Success Criteria
+### 核心成功标准
 
-- [ ] **Architecture-only scope**: Only architecture dimensions are reviewed; no scope selection, language/framework conventions, security, or performance analysis performed
-- [ ] **All six architecture dimensions covered**: Module/layer boundaries, dependency direction, single responsibility, cyclic dependencies, interface stability, and coupling are assessed where relevant
-- [ ] **Findings format compliant**: Each finding includes Location, Category (`cognitive-architecture`), Severity, Title, Description, and optional Suggestion
-- [ ] **Location-precise references**: All findings reference specific modules, packages, or files (not vague descriptions)
-- [ ] **Actionable output**: Each finding provides a concrete refactoring suggestion or improvement direction
+- [ ] **仅限架构范围**：仅审查架构维度；未执行范围选择、语言/框架约定、安全性或性能分析
+- [ ] **涵盖所有六个架构维度**：在相关的情况下评估模块/层边界、依赖方向、单一责任、循环依赖、接口稳定性和耦合
+- [ ] **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive架构”）、严重性、标题、描述和可选建议
+- [ ] **位置精确引用**：所有发现都引用特定的模块、包或文件（不是模糊的描述）
+- [ ] **可操作的输出**：每个发现都提供了具体的重构建议或改进方向
 
-### Process Quality Checks
+### 流程质量检查
 
-- [ ] Was only the architecture dimension reviewed (no scope/language/security)?
-- [ ] Are boundaries, dependency direction, responsibility, cycles, interfaces, and coupling covered where relevant?
-- [ ] Is each finding emitted with Location, Category=cognitive-architecture, Severity, Title, Description, and optional Suggestion?
-- [ ] Are module/package/file references precise enough to act on?
+- [ ] 是否仅审查了架构维度（没有范围/语言/安全性）？
+- [ ] 是否涵盖了相关的边界、依赖方向、责任、周期、接口和耦合？
+- [ ] 每个发现是否都包含位置、类别=cognitive架构、严重性、标题、描述和可选建议？
+- [ ] 模块/包/文件引用是否足够精确以进行操作？
 
-### Acceptance Test
+### 验收测试
 
-Does the output contain an architecture findings list covering all relevant structural dimensions with specific module/file references and actionable refactoring suggestions?
-
----
-
-## Examples
-
-### Example 1: Reverse dependency
-
-- **Input**: Domain layer imports from infrastructure (e.g. DB driver) directly.
-- **Expected**: Emit a finding for dependency direction; suggest interface in domain and implementation in infrastructure. Category = cognitive-architecture.
-
-### Example 2: Cycle between packages
-
-- **Input**: Package A imports B, B imports C, C imports A.
-- **Expected**: Emit finding(s) identifying the cycle and suggest break point (e.g. extract shared interface or type to a neutral package). Category = cognitive-architecture.
-
-### Edge case: Small or single-file scope
-
-- **Input**: Single file or very small module.
-- **Expected**: Review internal structure (responsibility, coupling to external types); if scope is too small for module-level concerns, state that and emit only findings that apply (e.g. single responsibility, interface clarity).
+输出是否包含一个架构发现列表，涵盖所有相关的结构维度以及特定的模块/文件引用和可操作的重构建议？
 
 ---
 
-## Appendix: Output contract
+## 示例（示例）
 
-Each finding MUST follow the standard findings format:
+### 示例 1：反向依赖
 
-| Element | Requirement |
+- **输入**：域层直接从基础设施（例如数据库驱动程序）导入。
+- **预期**：发出依赖方向的发现；建议领域中的接口和基础设施中的实现。类别=cognitive架构。
+
+### 示例 2：在包之间循环
+
+- **输入**：包A导入B，B导入C，C导入A。
+- **预期**：发出识别循环的结果并建议断点（例如，将共享接口或类型提取到中性包）。类别=cognitive架构。
+
+### 边缘情况：小或单文件范围
+
+- **输入**：单个文件或非常小的模块。
+- **预期**：审查内部结构（职责、与外部类型的耦合）；如果范围对于模块级问题来说太小，请说明并仅发出适用的结果（例如单一责任、接口清晰度）。
+
+---
+
+## 附录：输出合约
+
+每项调查结果必须遵循标准调查结果格式：
+
+|元素|要求 |
 | :--- | :--- |
-| **Location** | `path/to/file.ext` or module/package name (optional line or range). |
-| **Category** | `cognitive-architecture`. |
-| **Severity** | `critical` \| `major` \| `minor` \| `suggestion`. |
-| **Title** | Short one-line summary. |
-| **Description** | 1–3 sentences. |
-| **Suggestion** | Concrete fix or improvement (optional). |
+| **位置** | `path/to/file.ext` 或模块/包名称（可选行或范围）。 |
+| **类别** | “cognitive架构”。 |
+| **严重性** | `关键` \| `主要` \| `次要` \| `建议`。 |
+| **标题** |简短的一行摘要。 |
+| **描述** | 1-3 句话。 |
+| **建议** |具体修复或改进（可选）。 |
 
-Example:
+示例：
+
 
 ```markdown
 - **Location**: `pkg/domain/order.go`

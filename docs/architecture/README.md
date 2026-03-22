@@ -1,33 +1,33 @@
-# Architecture
+# 架构
 
-AI Cortex architecture is defined by the [Evolution Roadmap](../designs/2026-03-02-ai-cortex-evolution-roadmap.md) Layer A–E model.
+AI Cortex 架构由 [Evolution Roadmap](../designs/2026-03-02-ai-cortex-evolution-roadmap.md) 的 Layer A–E 模型定义。
 
-## Layers
+## 层级
 
-| Layer | Scope |
+| 层级 | 范围 |
 | :--- | :--- |
-| **A** | Engineering Infrastructure — CI/CD, quality gates |
-| **B** | Skill Coverage — languages, frameworks, libraries |
-| **C** | Orchestration & Composition — orchestrators, skill chains |
-| **D** | Ecosystem & Distribution — Plugin sync, community |
-| **E** | Specification Evolution — lifecycle, testable spec |
+| **A** | Engineering Infrastructure（工程基础设施）— CI/CD、质量门 |
+| **B** | Skill Coverage（技能覆盖）— 语言、框架、库 |
+| **C** | Orchestration & Composition（编排与组合）— 编排器、技能链 |
+| **D** | Ecosystem & Distribution（生态与分发）— Plugin 同步、社区 |
+| **E** | Specification Evolution（规范演进）— 生命周期、可测试 Spec |
 
-## Canonical sources
+## Canonical 来源
 
-- **[Evolution Roadmap](../designs/2026-03-02-ai-cortex-evolution-roadmap.md)** — Layer definitions, components, implementation phases
-- **[skillgraph.md](../../skills/skillgraph.md)** — skill composition and dependencies
-- **[spec/skill.md](../../spec/skill.md)** — skill structure and metadata spec
+- **[Evolution Roadmap](../designs/2026-03-02-ai-cortex-evolution-roadmap.md)** — 层级定义、组件、实施阶段
+- **[skillgraph.md](../../skills/skillgraph.md)** — 技能组合与依赖
+- **[spec/skill.md](../../spec/skill.md)** — 技能结构与元数据 Spec
 
-## ADRs
+## ADR
 
-| ADR | Title | Status |
+| ADR | 标题 | 状态 |
 | :--- | :--- | :--- |
-| [001](adrs/001-io-contract-protocol.md) | I/O Contract Protocol for Skill Chaining | Accepted |
+| [001](adrs/001-io-contract-protocol.md) | I/O Contract Protocol for Skill Chaining（技能链 I/O 契约协议） | Accepted |
 
-## When to expand
+## 何时扩展
 
-Add ADRs (e.g. `docs/architecture/adrs/002-*.md`) when:
+在以下情形添加 ADR（如 `docs/architecture/adrs/002-*.md`）：
 
-- Major design decisions need explicit rationale
-- `design-solution` produces approved architecture choices that warrant persistence
-- Cross-skill or cross-phase dependencies need documentation
+- 重大设计决策需显式 rationale
+- `design-solution` 产出经批准的、值得持久化的架构选择
+- 跨技能或跨阶段依赖需文档化

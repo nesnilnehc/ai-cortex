@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
- * Generate skills/INDEX.md, skills/skillgraph.md, and skills/scenario-map.md.
+ * Generate skills/INDEX.md, skills/skillgraph.md, and skills/intent-routing.md.
  * Run from repo root: node scripts/generate-skills-docs.mjs
- * Call this before verify-registry when scenario-map.json or skill composition changes.
+ * Call this before verify-registry when intent-routing.json or skill composition changes.
  */
 import { spawnSync } from 'child_process';
 import { dirname, join } from 'path';
@@ -14,7 +14,7 @@ const root = join(__dirname, '..');
 const scripts = [
   join(root, 'scripts', 'generate-skills-index.mjs'),
   join(root, 'scripts', 'generate-skillgraph.mjs'),
-  join(root, 'scripts', 'generate-scenario-map.mjs'),
+  join(root, 'scripts', 'generate-intent-routing.mjs'),
 ];
 
 for (const script of scripts) {

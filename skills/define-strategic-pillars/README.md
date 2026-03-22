@@ -1,38 +1,42 @@
-# define-strategic-pillars
+# 定义战略驱动因素
 
-Derive 3–5 strategic pillars (high-level themes) from vision and North Star to structure goals and roadmap.
+从愿景和北极星到结构目标和路线图，衍生出3-5个战略支柱（高层主题）。
 
-## What it does
+## 用途
 
-Produces a strategic pillars document with 3–5 themes aligned with vision and North Star. Goals and roadmap can be grouped under pillars. Does not define mission, vision, North Star, goals, milestones, or roadmap. Output is persisted to `docs/project-overview/strategic-pillars.md` (or project norms).
+制作一个战略支撑者文档，其中包含3-5个与愿景和北极星一致的主题。目标和路线图可以按支撑者分组。不定义使命、愿景、北极星、目标、里程碑或路线图。输出保存到“docs/project-overview/strategic-pillars.md”（或项目规范）。
 
-## When to use
+## 何时使用
 
-- After vision and North Star — establish pillars that structure how goals and roadmap are organized.
-- Strategy structure — provide stable themes so goals and initiatives can be grouped.
-- Fourth layer in strategy chain — Mission → Vision → North Star → Pillars → Goals → Milestones → Roadmap.
+- 在愿景和北极星之后——建立倡议者来构建目标和路线图的组织方式。
+- 战略结构——提供稳定的主题，便于实现目标和行动进行分组。
+- 战略链第四层——使命→愿景→北极星→旅行者→目标→里程碑→路线图。
 
-## Inputs
+## 输入
 
-- Vision; North Star (or paths); project context.
-- Optional: mission; existing goals or pillars.
+- 愿景；北极星（或路径）；项目背景。
+- 可选：任务；现有的目标或节点。
 
-## Outputs
+## 输出
 
-- Strategic pillars document at `docs/project-overview/strategic-pillars.md`: 3–5 pillars with name, description, alignment to vision/NSM.
+- 战略支持者文档位于“docs/project-overview/strategic-pillars.md”：3-5个支持者，包括名称、描述、与愿景/NSM的一致性。
 
-## Installation
+## 安装
+
+
 
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill define-strategic-pillars
 ```
 
-## Related skills
 
-- `define-vision`, `define-north-star` — upstream: pillars derive from these.
-- `design-strategic-goals` — downstream: goals can map to pillars.
-- `define-roadmap` — downstream: roadmap themes can align to pillars.
 
-## Full definition
+## 相关技能
 
-See [SKILL.md](./SKILL.md) for behavior, restrictions, and examples.
+- `define-vision`、`define-north-star` — 上游：导出这些。
+- `设计战略目标` — 下游：目标可以映射到节点。
+- `define-路线图` — 下游：路线图主题可以与姐妹连接。
+
+## 完整定义
+
+请参阅 [SKILL.md](./SKILL.md) 了解行为、限制和示例。

@@ -1,6 +1,7 @@
 ---
 name: review-dotnet
 description: "Review .NET (C#/F#) code for language and runtime conventions: async/await, nullable, API versioning, IDisposable, LINQ, and testability. Language-only atomic skill; output is a findings list."
+description_zh: 按 .NET (C#/F#) 语言与运行时规范审查代码：async/await、nullable、API 版本、IDisposable、LINQ、可测性。
 tags: [code-review]
 version: 1.0.0
 license: MIT
@@ -16,180 +17,181 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion
 ---
 
-# Skill: Review .NET
+# 技能（Skill）：回顾.NET
 
-## Purpose
+## 目的 (Purpose)
 
-Review code in the **.NET** ecosystem (C#, F#) for **language and runtime conventions** only. Do not define scope (diff vs codebase) or perform security/architecture analysis; those are handled by scope and cognitive skills. Emit a **findings list** in the standard format for aggregation. Focus on async/await and ConfigureAwait, nullable reference types and NRE avoidance, API and versioning, resources and IDisposable, collections and LINQ, and testability.
-
----
-
-## Core Objective
-
-**Primary Goal**: Produce a .NET language/runtime findings list covering async/await, nullable types, API stability, resource management, LINQ usage, and testability for the given code scope.
-
-**Success Criteria** (ALL must be met):
-
-1. ✅ **.NET-only scope**: Only .NET (C#/F#) language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
-2. ✅ **All six .NET dimensions covered**: async/await, nullable reference types, API/versioning, resources/IDisposable, collections/LINQ, and testability are assessed where relevant
-3. ✅ **Findings format compliant**: Each finding includes Location, Category (`language-dotnet`), Severity, Title, Description, and optional Suggestion
-4. ✅ **File:line references**: All findings reference specific file locations with line numbers
-5. ✅ **Non-.NET code excluded**: Non-.NET files are not analyzed for .NET-specific rules unless explicitly in scope
-
-**Acceptance Test**: Does the output contain a .NET-focused findings list with file:line references covering all relevant language/runtime dimensions without performing security, architecture, or scope analysis?
+仅查看 **.NET** 生态系统（C#、F#）中的代码的**语言和运行时约定**。不要定义范围（差异与代码库）或执行安全/架构分析；这些是通过范围和cognitive技能来处理的。以标准格式发出**结果列表**以进行聚合。重点关注 async/await 和 ConfigureAwait、可空引用类型和 NRE 避免、API 和版本控制、资源和 IDisposable、集合和 LINQ 以及可测试性。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-**This skill handles**:
+**首要目标**：生成 .NET 语言/运行时结果列表，涵盖异步/等待、可空类型、API 稳定性、资源管理、LINQ 使用以及给定代码范围的可测试性。
 
-- async/await correctness and ConfigureAwait usage (library vs application code)
-- Nullable reference types and NRE avoidance
-- Public API stability and versioning strategy
-- IDisposable, IAsyncDisposable, and using statement patterns
-- Collections and LINQ efficiency (multiple enumeration, allocation, span/memory)
-- Testability (DI, sealed/overridable, static usage)
+**成功标准**（必须满足所有要求）：
 
-**This skill does NOT handle**:
+1. ✅ **仅限 .NET 范围**：仅审查 .NET (C#/F#) 语言和运行时约定；未执行范围选择、安全性或架构分析
+2. ✅ **涵盖所有六个 .NET 维度**：异步/等待、可空引用类型、API/版本控制、资源/IDisposable、集合/LINQ 和可测试性（如果相关）
+3. ✅ **结果格式兼容**：每个结果包括位置、类别（`language-dotnet`）、严重性、标题、描述和可选建议
+4. ✅ **文件：行引用**：所有发现都引用带有行号的特定文件位置
+5. ✅ **排除非 .NET 代码**：除非明确在范围内，否则不会分析非 .NET 文件的 .NET 特定规则
 
-- Scope selection — scope is provided by the caller
-- Security analysis (injection, auth, crypto) — use `review-security`
-- Architecture analysis — use `review-architecture`
-- Performance deep-dive — use `review-performance`
-- Full orchestrated review — use `review-code`
-- Codebase-state review — use `review-codebase`
-
-**Handoff point**: When all .NET findings are emitted, hand off to `review-code` for aggregation. For security or architecture concerns found in the .NET code, note them and suggest running the appropriate cognitive skill.
+**验收**测试：输出是否包含以 .NET 为中心的结果列表，其中文件：行引用涵盖所有相关语言/运行时维度，而无需执行安全性、体系结构或范围分析？
 
 ---
 
-## Use Cases
+## 范围边界（范围边界）
 
-- **Orchestrated review**: Used as the language step when [review-code](../review-code/SKILL.md) runs scope → language → framework → library → cognitive for .NET projects.
-- **.NET-only review**: When the user wants only language/runtime conventions checked (e.g. after adding a new C# file).
-- **Pre-PR .NET checklist**: Ensure async, nullable, and resource patterns are correct.
+**本技能负责**：
 
-**When to use**: When the code under review is .NET (C#/F#) and the task includes language/runtime quality. Scope (diff vs paths) is determined by the caller or user.
+- async/await 正确性和ConfigureAwait 用法（库与应用程序代码）
+- 可空引用类型和 NRE 避免
+- 公共API稳定性和版本控制策略
+- IDisposable、IAsyncDisposable 和 using 语句模式
+- 集合和 LINQ 效率（多重枚举、分配、跨度/内存）
+- 可测试性（DI、密封/可重写、静态使用）
 
----
+**本技能不负责**：
 
-## Behavior
+- 范围选择——范围由调用者提供
+- 安全分析（注入、身份验证、加密）——使用“review-security”
+- 架构分析——使用“review-architecture”
+- 性能深入研究——使用“review-performance”
+- 全面精心策划的审核——使用“审核代码”
+- 代码库状态审查 — 使用 `review-codebase`
 
-### Scope of this skill
-
-- **Analyze**: .NET language and runtime conventions in the **given code scope** (files or diff provided by the caller). Do not decide scope; accept the code range as input.
-- **Do not**: Perform scope selection (diff vs codebase), security review, or architecture review; do not review non-.NET files unless asked to ignore language.
-
-### Review checklist (.NET dimension only)
-
-1. **async/await and ConfigureAwait**: Correct use of async; ConfigureAwait(false) where appropriate (library code); cancellation token propagation; avoid async void except event handlers.
-2. **Nullable reference types and NRE**: Nullable annotations; null checks and null-forgiving where justified; avoid unnecessary null-forgiving.
-3. **API and versioning**: Public API surface stability; breaking changes; versioning or deprecation strategy for libraries.
-4. **Resources and IDisposable**: Proper use of IDisposable, using statements, and IAsyncDisposable; no leaking handles or streams.
-5. **Collections and LINQ**: Appropriate use of LINQ; allocation and enumeration; avoid multiple enumeration; span/memory where relevant.
-6. **Testability**: Dependency injection and testability; static usage; sealed/overridable where it affects testing.
-
-### Tone and references
-
-- **Professional and technical**: Reference specific locations (file:line). Emit findings with Location, Category, Severity, Title, Description, Suggestion.
+**转交点**：当所有 .NET 发现结果发布后，将其移交给“review-code”进行聚合。对于 .NET 代码中发现的安全或体系结构问题，请记下它们并建议运行适当的cognitive技能。
 
 ---
 
-## Input & Output
+## 使用场景（用例）
 
-### Input
+- **精心安排的审查**：当 [review-code](../review-code/SKILL.md) 运行 .NET 项目的范围 → 语言 → 框架 → 库 → cognitive时，用作语言步骤。
+- **仅.NET 审查**：当用户只想检查语言/运行时约定时（例如，添加新的 C# 文件后）。
+- **PR .NET 预检查清单**：确保异步、可空和资源模式正确。
 
-- **Code scope**: Files or directories (or diff) already selected by the user or by the scope skill. This skill does not decide scope; it reviews the provided .NET code for language conventions only.
-
-### Output
-
-- Emit zero or more **findings** in the format defined in **Appendix: Output contract**.
-- Category for this skill is **language-dotnet**.
+**何时使用**：当正在审查的代码是.NET (C#/F#) 并且任务包括语言/运行时质量时。范围（差异与路径）由调用者或用户确定。
 
 ---
 
-## Restrictions
+## 行为（行为）
 
-### Hard Boundaries
+### 该技能的范围
 
-- **Do not** perform security, architecture, or scope selection. Stay within .NET language and runtime conventions.
-- **Do not** give conclusions without specific locations or actionable suggestions.
-- **Do not** review non-.NET code for .NET-specific rules unless the user explicitly includes it (e.g. embedded scripts).
+- **分析**：**给定代码范围**（调用者提供的文件或 diff）中的 .NET 语言和运行时约定。不决定范围；接受代码范围作为输入。
+- **不要**：执行范围选择（差异与代码库）、安全审查或架构审查；除非要求忽略语言，否则不要查看非 .NET 文件。
 
-### Skill Boundaries
+### 审核清单（仅限 .NET 维度）
 
-**Do NOT do these** (other skills handle them):
+1. **async/await和ConfigureAwait**：async的正确使用；在适当的情况下配置Await(false)（库代码）；取消令牌传播；避免 async void 除了事件处理程序。
+2. **可空引用类型和NRE**：可空注释；在合理的情况下进行空值检查和空值宽容；避免不必要的 null-forgiving。
+3. **API和版本控制**：公共API表面稳定性；重大变更；库的版本控制或弃用策略。
+4. **资源和IDisposable**：正确使用IDisposable、using语句、IAsyncDisposable；没有泄漏的手柄或流。
+5. **集合和LINQ**：适当使用LINQ；分配和枚举；避免多重枚举；相关的跨度/内存。
+6. **可测试性**：依赖注入和可测试性；静态使用；在影响测试的地方密封/可重写。
 
-- Do NOT select or define the code scope — scope is determined by the caller or `review-code`
-- Do NOT perform security analysis — use `review-security`
-- Do NOT perform architecture analysis — use `review-architecture`
-- Do NOT review non-.NET code for .NET conventions
+### 语气和参考
 
-**When to stop and hand off**:
-
-- When all .NET findings are emitted, hand off to `review-code` for aggregation
-- When the user needs a full review (scope + language + cognitive), redirect to `review-code`
-- When security issues are found in .NET code, note them and suggest `review-security`
+- **专业和技术**：参考具体位置（文件：行）。发出包含位置、类别、严重性、标题、描述、建议的结果。
 
 ---
 
-## Self-Check
+## 输入与输出 (Input & Output)
 
-### Core Success Criteria
+### 输入（输入）
 
-- [ ] **.NET-only scope**: Only .NET (C#/F#) language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
-- [ ] **All six .NET dimensions covered**: async/await, nullable reference types, API/versioning, resources/IDisposable, collections/LINQ, and testability are assessed where relevant
-- [ ] **Findings format compliant**: Each finding includes Location, Category (`language-dotnet`), Severity, Title, Description, and optional Suggestion
-- [ ] **File:line references**: All findings reference specific file locations with line numbers
-- [ ] **Non-.NET code excluded**: Non-.NET files are not analyzed for .NET-specific rules unless explicitly in scope
+- **代码范围**：用户或范围技能已选择的文件或目录（或差异）。该技能不决定范围；它仅检查所提供的 .NET 代码的语言约定。
 
-### Process Quality Checks
+### 输出（输出）
 
-- [ ] Was only the .NET language/runtime dimension reviewed (no scope/security/architecture)?
-- [ ] Are async, nullable, IDisposable, LINQ, and testability covered where relevant?
-- [ ] Is each finding emitted with Location, Category=language-dotnet, Severity, Title, Description, and optional Suggestion?
-- [ ] Are issues referenced with file:line?
-
-### Acceptance Test
-
-Does the output contain a .NET-focused findings list with file:line references covering all relevant language/runtime dimensions without performing security, architecture, or scope analysis?
+- 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
+- 此技能的类别是 **语言-dotnet**。
 
 ---
 
-## Examples
+## 限制（限制）
 
-### Example 1: Async method
+### 硬边界（Hard Boundaries）
 
-- **Input**: C# method that is async and calls other async methods without passing CancellationToken.
-- **Expected**: Emit a finding (e.g. minor/suggestion) for CancellationToken propagation; reference the method and parameter list. Category = language-dotnet.
+- **不要**执行安全、架构或范围选择。遵守 .NET 语言和运行时约定。
+- **不要**在没有具体地点或可行建议的情况下给出结论。
+- **不要**检查非 .NET 代码的 .NET 特定规则，除非用户明确包含它（例如嵌入脚本）。
 
-### Example 2: Nullable and disposal
+### 技能边界 (Skill Boundaries)
 
-- **Input**: C# class that holds an IDisposable and does not implement IDisposable or use using.
-- **Expected**: Emit finding(s) for resource disposal and possibly nullable if the field can be null. Category = language-dotnet.
+**不要做这些**（其他技能可以处理它们）：
 
-### Edge case: Mixed C# and SQL
+- 不要选择或定义代码范围 - 范围由调用者或“审查代码”确定
+- 不要执行安全分析——使用“review-security”
+- 不要执行架构分析——使用“review-architecture”
+- 不要审查 .NET 约定的非 .NET 代码
 
-- **Input**: File with C# and embedded SQL strings.
-- **Expected**: Review only the C# parts for .NET conventions (e.g. async, nullable, disposal). Do not emit SQL-injection findings; that is for review-security or review-sql.
+**何时停止并交接**：
+
+- 当所有 .NET 发现结果发布后，将其交给“review-code”进行聚合
+- 当用户需要全面审查（范围+语言+cognitive）时，重定向到“审查代码”
+- 当.NET代码中发现安全问题时，记下它们并建议“审查安全性”
 
 ---
 
-## Appendix: Output contract
+## 自检（Self-Check）
 
-Each finding MUST follow the standard findings format:
+### 核心成功标准
 
-| Element | Requirement |
+- [ ] **仅限 .NET 范围**：仅审查 .NET (C#/F#) 语言和运行时约定；未执行范围选择、安全性或架构分析
+- [ ] **涵盖所有六个 .NET 维度**：异步/等待、可空引用类型、API/版本控制、资源/IDisposable、集合/LINQ 和可测试性（如果相关）
+- [ ] **符合调查结果格式**：每个调查结果包括位置、类别（`language-dotnet`）、严重性、标题、描述和可选建议
+- [ ] **文件：行引用**：所有结果都引用带有行号的特定文件位置
+- [ ] **排除非 .NET 代码**：除非明确在范围内，否则不会分析非 .NET 文件的 .NET 特定规则
+
+### 流程质量检查
+
+- [ ] 是否仅审查了 .NET 语言/运行时维度（无范围/安全/架构）？
+- [ ] 是否涵盖了相关的异步、可空、IDisposable、LINQ 和可测试性？
+- [ ] 每个发现是否都包含位置、类别=语言-dotnet、严重性、标题、描述和可选建议？
+- [ ] file:line 是否引用了问题？
+
+### 验收测试
+
+输出是否包含以 .NET 为中心的结果列表，其中包含文件：行引用，涵盖所有相关语言/运行时维度，而无需执行安全性、体系结构或范围分析？
+
+---
+
+## 示例（示例）
+
+### 示例 1：异步方法
+
+- **输入**：异步的 C# 方法，无需传递 CancellationToken 即可调用其他异步方法。
+- **预期**：发出 CancellationToken 传播的发现（例如次要/建议）；参考方法和参数列表。类别 = 语言-dotnet.
+
+### 示例 2：可空和处置
+
+- **Input**：持有 IDisposable 且不实现 IDisposable 或使用 using 的 C# 类。
+- **预期**：发出资源处置的结果，如果字段可以为空，则可能可以为空。类别 = 语言-dotnet.
+
+### 边缘情况：混合 C# 和 SQL
+
+- **输入**：包含 C# 和嵌入式 SQL 字符串的文件。
+- **预期**：仅查看 .NET 约定的 C# 部分（例如异步、可空、处置）。不要发出 SQL 注入结果；这是用于 review-security 或 review-sql。
+
+---
+
+## 附录：输出合约
+
+每项调查结果必须遵循标准调查结果格式：
+
+|元素|要求|
 | :--- | :--- |
-| **Location** | `path/to/file.ext` (optional line or range). |
-| **Category** | `language-dotnet`. |
-| **Severity** | `critical` \| `major` \| `minor` \| `suggestion`. |
-| **Title** | Short one-line summary. |
-| **Description** | 1–3 sentences. |
-| **Suggestion** | Concrete fix or improvement (optional). |
+| **位置** | `path/to/file.ext`（可选行或范围）。 |
+| **类别** | `语言-dotnet`。 |
+| **严重性** | `关键` \| `主要` \| `次要` \| `建议`。 |
+| **标题** |简短的一行摘要。 |
+| **描述** | 1-3 句话。 |
+| **建议** |具体修复或改进（可选）。 |
 
-Example:
+示例：
+
 
 ```markdown
 - **Location**: `src/Services/DataLoader.cs:22`

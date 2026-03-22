@@ -1,10 +1,12 @@
-# Artifact Norms
+# 制品规范
 
-**Source:** AI Cortex project override
+**来源**：AI Cortex 项目覆盖
 
-These norms define the single authoritative location for generated artifacts. Unless the user explicitly requests a snapshot, skills should overwrite the canonical file at the paths below.
+语言：见 [docs/LANGUAGE_SCHEME.md](LANGUAGE_SCHEME.md) 了解项目语言规则。
 
-## Artifact Types
+本规范定义生成制品的单一权威路径。除非用户明确要求快照，技能应覆盖下列路径下的规范文件。
+
+## 制品类型
 
 | artifact_type | path_pattern | naming | lifecycle |
 | :--- | :--- | :--- | :--- |
@@ -18,8 +20,8 @@ These norms define the single authoritative location for generated artifacts. Un
 | cognitive-loop | docs/calibration/cognitive-loop.md | cognitive-loop.md | living |
 | repair-loop | docs/calibration/repair-loop.md | repair-loop.md | living |
 
-## Path Detection (backlog-item)
+## 路径检测（backlog-item）
 
 | Condition | Output path |
 | :--- | :--- |
-| docs/process-management/ exists | docs/process-management/backlog/YYYY-MM-DD-{slug}.md |
+| docs/process-management/ 存在 | docs/process-management/backlog/YYYY-MM-DD-{slug}.md |

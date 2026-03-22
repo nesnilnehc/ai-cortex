@@ -1,6 +1,7 @@
 ---
 name: review-security
 description: "Review code for security: injection, sensitive data, auth, dependencies, config, and crypto. Atomic skill; output is a findings list."
+description_zh: 审查代码安全性：注入、敏感数据、认证、依赖、配置与加密；原子技能，输出 findings 列表。
 tags: [code-review, security]
 version: 1.0.0
 license: MIT
@@ -16,180 +17,181 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion
 ---
 
-# Skill: Review Security
+# 技能（Skill）：审查安全性
 
-## Purpose
+## 目的 (Purpose)
 
-Review code for **security** concerns only. Do not define scope (diff vs codebase) or perform language/framework/architecture analysis; those are separate atomic skills. Emit a **findings list** in the standard format for aggregation. Focus on injection (SQL, command, template), sensitive data and logging, authentication and authorization, dependencies and CVEs, configuration and secrets, and cryptography and hashing.
-
----
-
-## Core Objective
-
-**Primary Goal**: Produce a security-focused findings list covering injection, sensitive data, authentication/authorization, dependencies, configuration, and cryptography for the given code scope.
-
-**Success Criteria** (ALL must be met):
-
-1. ✅ **Security-only scope**: Only security dimensions are reviewed; no scope selection, language/framework conventions, or architecture analysis performed
-2. ✅ **All six categories covered**: Injection, sensitive data/logging, authentication/authorization, dependencies/CVEs, configuration/secrets, and cryptography are assessed where relevant
-3. ✅ **Findings format compliant**: Each finding includes Location, Category (`cognitive-security`), Severity, Title, Description, and optional Suggestion
-4. ✅ **Critical issues flagged**: Clear vulnerabilities (e.g. hardcoded secrets, SQL injection) are marked as `critical` severity
-5. ✅ **Actionable output**: Each finding has a specific location reference and a concrete fix or improvement suggestion
-
-**Acceptance Test**: Does the output contain a findings list in the standard format covering all relevant security dimensions, with critical vulnerabilities clearly marked and actionable suggestions provided?
+仅检查 **安全** 问题的代码。不要定义范围（差异与代码库）或执行语言/框架/架构分析；这些是单独的原子技能。以标准格式发出**结果列表**以进行聚合。重点关注注入（SQL、命令、模板）、敏感数据和日志记录、身份验证和授权、依赖项和 CVE、配置和机密以及加密和哈希。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-**This skill handles**:
+**首要目标**：生成一个以安全为中心的结果列表，涵盖给定代码范围的注入、敏感数据、身份验证/授权、依赖项、配置和加密。
 
-- Injection vulnerabilities (SQL, command, template, path traversal)
-- Sensitive data exposure in logs, responses, or client-side storage
-- Authentication and authorization weaknesses (auth bypass, IDOR, CSRF, session handling)
-- Dependency vulnerabilities and CVE assessments
-- Configuration and secrets management issues
-- Cryptographic weaknesses and key management problems
+**成功标准**（必须满足所有要求）：
 
-**This skill does NOT handle**:
+1. ✅ **仅安全范围**：仅审查安全维度；未执行范围选择、语言/框架约定或架构分析
+2. ✅ **涵盖所有六个类别**：在相关的情况下评估注入、敏感数据/日志记录、身份验证/授权、依赖项/CVE、配置/秘密和加密技术
+3. ✅ **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive安全”）、严重性、标题、描述和可选建议
+4. ✅ **标记严重问题**：明确的漏洞（例如硬编码秘密、SQL 注入）被标记为“严重”严重性
+5. ✅ **可操作的输出**：每个发现都有特定的位置参考和具体的修复或改进建议
 
-- Scope selection (deciding which files/paths to analyze) — scope is provided by the caller
-- Language/framework convention analysis — use `review-dotnet`, `review-java`, `review-go`, etc.
-- Architecture analysis — use `review-architecture`
-- Performance analysis — use `review-performance`
-- SQL-specific deep review (use `review-sql` for comprehensive SQL analysis)
-- Full orchestrated review — use `review-code`
-
-**Handoff point**: When all security findings are emitted, hand off to `review-code` orchestrator for aggregation with other cognitive findings, or deliver directly to the user for security-focused review sessions.
+**验收**测试：输出是否包含标准格式的调查结果列表，涵盖所有相关的安全维度，并明确标记关键漏洞并提供可操作的建议？
 
 ---
 
-## Use Cases
+## 范围边界（范围边界）
 
-- **Orchestrated review**: Used as a cognitive step when [review-code](../review-code/SKILL.md) runs scope → language → framework → library → cognitive.
-- **Security-focused review**: When the user wants only security dimensions checked (e.g. before release or audit).
-- **Compliance or audit**: As a repeatable security checklist output for documentation.
+**本技能负责**：
 
-**When to use**: When the task includes security review. Scope and code scope are determined by the caller or user.
+- 注入漏洞（SQL、命令、模板、路径遍历）
+- 日志、响应或客户端存储中的敏感数据暴露
+- 身份验证和授权弱点（身份验证绕过、IDOR、CSRF、会话处理）
+- 依赖漏洞和CVE评估
+- 配置和秘密管理问题
+- 密码学弱点和密钥管理问题
 
----
+**本技能不负责**：
 
-## Behavior
+- 范围选择（决定要分析哪些文件/路径）——范围由调用者提供
+- 语言/框架约定分析——使用“review-dotnet”、“review-java”、“review-go”等。
+- 架构分析——使用“review-architecture”
+- 绩效分析——使用“review-performance”
+- SQL特定的深度审查（使用“review-sql”进行全面的SQL分析）
+- 全面精心策划的审核——使用“审核代码”
 
-### Scope of this skill
-
-- **Analyze**: Security dimensions in the **given code scope** (files or diff provided by the caller). Do not decide scope; accept the code range as input.
-- **Do not**: Perform scope selection, language/framework conventions, or architecture review. Focus only on security.
-
-### Review checklist (security dimension only)
-
-1. **Injection**: SQL injection (parameterization, raw queries); command injection (shell, exec); template injection (user-controlled templates); path traversal; LDAP/XML injection where relevant.
-2. **Sensitive data and logging**: Secrets, tokens, or PII in logs or error messages; sensitive data in URLs or client-side storage; exposure in responses or caches.
-3. **Authentication and authorization**: Missing or weak authentication; broken access control (IDOR, privilege escalation); session handling and CSRF; permission checks on every sensitive operation.
-4. **Dependencies and CVEs**: Known vulnerable dependencies (versions, advisories); unpinned or overly broad version ranges; supply-chain and integrity.
-5. **Configuration and secrets**: Hardcoded secrets; secrets in config files or environment; secure default configuration; feature flags and debug mode in production.
-6. **Cryptography and hashing**: Weak or deprecated algorithms (e.g. MD5, SHA1 for security); inappropriate use of encryption; key management and storage; password hashing (e.g. bcrypt, Argon2).
-
-### Tone and references
-
-- **Professional and technical**: Reference specific locations (file:line). Emit findings with Location, Category, Severity, Title, Description, Suggestion. Use severity critical for clear vulnerabilities.
+**转交点**：发出所有安全发现后，将其移交给“审查代码”编排器以与其他cognitive发现进行聚合，或直接交付给用户进行以安全为重点的审查会话。
 
 ---
 
-## Input & Output
+## 使用场景（用例）
 
-### Input
+- **精心安排的审查**：当[review-code](../review-code/SKILL.md)运行范围→语言→框架→库→cognitive时用作cognitive步骤。
+- **以安全为中心的审查**：当用户只想检查安全维度时（例如在发布或审核之前）。
+- **合规性或审核**：作为文档化的可重复安全检查表输出。
 
-- **Code scope**: Files or directories (or diff) already selected by the user or scope skill. This skill does not decide scope; it reviews the provided code for security only.
-
-### Output
-
-- Emit zero or more **findings** in the format defined in **Appendix: Output contract**.
-- Category for this skill is **cognitive-security**.
+**何时使用**：当任务包含安全审核时。范围和代码范围由调用者或用户确定。
 
 ---
 
-## Restrictions
+## 行为（行为）
 
-### Hard Boundaries
+### 该技能的范围
 
-- **Do not** perform scope selection, language, framework, or architecture review. Stay within security dimensions.
-- **Do not** give conclusions without specific locations or actionable suggestions.
-- **Do not** assume deployment or network topology unless stated; focus on code and configuration in scope.
+- **分析**：**给定代码范围**中的安全维度（调用者提供的文件或差异）。不决定范围；接受代码范围作为输入。
+- **不要**：执行范围选择、语言/框架约定或架构审查。只关注安全。
 
-### Skill Boundaries
+### 审查清单（仅限安全维度）
 
-**Do NOT do these** (other skills handle them):
+1. **注入**：SQL注入（参数化、原始查询）；命令注入（shell、exec）；模板注入（用户控制的模板）；路径遍历；相关的 LDAP/XML 注入。
+2. **敏感数据和日志记录**：日志或错误消息中的秘密、令牌或 PII； URL 或客户端存储中的敏感数据；响应或缓存中的暴露。
+3. **身份验证和授权**：身份验证缺失或较弱；访问控制损坏（IDOR，权限升级）；会话处理和 CSRF；对每个敏感操作进行权限检查。
+4. **依赖项和 CVE**：已知的易受攻击的依赖项（版本、建议）；未固定或版本范围过于宽泛；供应链和完整性。
+5. **配置和秘密**：硬编码的秘密；配置文件或环境中的秘密；安全的默认配置；生产中的功能标志和调试模式。
+6. **加密和散列**：较弱或已弃用的算法（例如用于安全的 MD5、SHA1）；加密使用不当；密钥管理和存储；密码散列（例如 bcrypt、Argon2）。
 
-- Do NOT select or define the code scope (diff vs codebase) — scope is determined by the caller or `review-code`
-- Do NOT perform language/framework convention analysis — use `review-dotnet`, `review-java`, `review-go`, etc.
-- Do NOT perform architecture or performance review — use `review-architecture` or `review-performance`
-- Do NOT perform comprehensive SQL analysis — use `review-sql`
+### 语气和参考
 
-**When to stop and hand off**:
-
-- When all security findings are emitted, hand off to `review-code` for aggregation in an orchestrated review
-- When the user needs a full review (scope + language + cognitive), redirect to `review-code`
-- When SQL-specific security issues dominate, suggest also running `review-sql` for deeper SQL coverage
+- **专业和技术**：参考具体位置（文件：行）。发出包含位置、类别、严重性、标题、描述、建议的结果。对于明显的漏洞使用严重程度。
 
 ---
 
-## Self-Check
+## 输入与输出 (Input & Output)
 
-### Core Success Criteria
+### 输入（输入）
 
-- [ ] **Security-only scope**: Only security dimensions are reviewed; no scope selection, language/framework conventions, or architecture analysis performed
-- [ ] **All six categories covered**: Injection, sensitive data/logging, authentication/authorization, dependencies/CVEs, configuration/secrets, and cryptography are assessed where relevant
-- [ ] **Findings format compliant**: Each finding includes Location, Category (`cognitive-security`), Severity, Title, Description, and optional Suggestion
-- [ ] **Critical issues flagged**: Clear vulnerabilities (e.g. hardcoded secrets, SQL injection) are marked as `critical` severity
-- [ ] **Actionable output**: Each finding has a specific location reference and a concrete fix or improvement suggestion
+- **代码范围**：用户或范围技能已选择的文件或目录（或差异）。该技能不决定范围；它仅出于安全目的审查所提供的代码。
 
-### Process Quality Checks
+### 输出（输出）
 
-- [ ] Was only the security dimension reviewed (no scope/language/architecture)?
-- [ ] Are injection, sensitive data, authz, dependencies, config/secrets, and crypto covered where relevant?
-- [ ] Is each finding emitted with Location, Category=cognitive-security, Severity, Title, Description, and optional Suggestion?
-- [ ] Are critical issues clearly marked and actionable?
-
-### Acceptance Test
-
-Does the output contain a findings list in the standard format covering all relevant security dimensions, with critical vulnerabilities clearly marked and actionable suggestions provided?
+- 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
+- 此技能的类别是**cognitive安全**。
 
 ---
 
-## Examples
+## 限制（限制）
 
-### Example 1: Hardcoded secret
+### 硬边界（Hard Boundaries）
 
-- **Input**: API key or password in source code.
-- **Expected**: Emit a critical finding; suggest environment variable or secret manager; reference the line. Category = cognitive-security.
+- **不要**执行范围选择、语言、框架或架构审查。保持在安全范围内。
+- **不要**在没有具体地点或可行建议的情况下给出结论。
+- **不要**假设部署或网络拓扑，除非另有说明；重点关注范围内的代码和配置。
 
-### Example 2: SQL built from user input
+### 技能边界 (Skill Boundaries)
 
-- **Input**: Query string built with concatenation of user-controlled input.
-- **Expected**: Emit a critical finding for SQL injection; suggest parameterized queries. Category = cognitive-security.
+**不要做这些**（其他技能可以处理它们）：
 
-### Edge case: False positive
+- 不要选择或定义代码范围（差异与代码库）——范围由调用者或“审查代码”确定
+- 不要执行语言/框架约定分析 - 使用 `review-dotnet`、`review-java`、`review-go` 等。
+- 不要执行架构或性能审查——使用“review-architecture”或“review-performance”
+- 不要执行全面的 SQL 分析 — 使用 `review-sql`
 
-- **Input**: Placeholder like "changeme" or "TODO" in config, not used in production.
-- **Expected**: Emit a minor/suggestion finding to remove or replace before production; do not mark as critical if context indicates non-production. If unclear, ask user or emit as suggestion.
+**何时停止并交接**：
+
+- 当所有安全结果发布后，将其移交给“审查代码”以在精心策划的审查中进行聚合
+- 当用户需要全面审查（范围+语言+cognitive）时，重定向到“审查代码”
+- 当特定于 SQL 的安全问题占主导地位时，建议还运行“review-sql”以获得更深入的 SQL 覆盖
 
 ---
 
-## Appendix: Output contract
+## 自检（Self-Check）
 
-Each finding MUST follow the standard findings format:
+### 核心成功标准
 
-| Element | Requirement |
+- [ ] **仅安全范围**：仅审查安全维度；未执行范围选择、语言/框架约定或架构分析
+- [ ] **涵盖所有六个类别**：在相关的情况下评估注入、敏感数据/日志记录、身份验证/授权、依赖项/CVE、配置/秘密和加密技术
+- [ ] **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive安全”）、严重性、标题、描述和可选建议
+- [ ] **已标记关键问题**：明显的漏洞（例如硬编码机密、SQL 注入）被标记为“严重”严重性
+- [ ] **可行的输出**：每个发现都有特定的位置参考和具体的修复或改进建议
+
+### 流程质量检查
+
+- [ ] 是否仅审查了安全维度（没有范围/语言/架构）？
+- [ ] 是否涵盖相关的注入、敏感数据、授权、依赖项、配置/秘密和加密？
+- [ ] 每个发现是否都包含位置、类别=cognitive安全、严重性、标题、描述和可选建议？
+- [ ] 关键问题是否明确标记且可采取行动？
+
+### 验收测试
+
+输出是否包含标准格式的调查结果列表，涵盖所有相关的安全维度，并明确标记关键漏洞并提供可操作的建议？
+
+---
+
+## 示例（示例）
+
+### 示例 1：硬编码秘密
+
+- **输入**：源代码中的 API 密钥或密码。
+- **预期**：发出关键发现；建议环境变量或秘密管理器；参考该线。类别=cognitive安全。
+
+### 示例 2：根据用户输入构建 SQL
+
+- **输入**：通过用户控制的输入串联构建的查询字符串。
+- **预期**：发出 SQL 注入的关键发现；建议参数化查询。类别=cognitive安全。
+
+### 边缘情况：误报
+
+- **输入**：配置中的占位符，如“changeme”或“TODO”，不在生产中使用。
+- **预期**：发出在生产前删除或更换的次要/建议发现；如果上下文表明非生产，则不要标记为关键。如果不清楚，请询问用户或作为建议发出。
+
+---
+
+## 附录：输出合约
+
+每项调查结果必须遵循标准调查结果格式：
+
+|元素|要求 |
 | :--- | :--- |
-| **Location** | `path/to/file.ext` (optional line or range). |
-| **Category** | `cognitive-security`. |
-| **Severity** | `critical` \| `major` \| `minor` \| `suggestion`. |
-| **Title** | Short one-line summary. |
-| **Description** | 1–3 sentences. |
-| **Suggestion** | Concrete fix or improvement (optional). |
+| **位置** | `path/to/file.ext`（可选行或范围）。 |
+| **类别** | “cognitive安全”。 |
+| **严重性** | `关键` \| `主要` \| `次要` \| `建议`。 |
+| **标题** |简短的一行摘要。 |
+| **描述** | 1-3 句话。 |
+| **建议** |具体修复或改进（可选）。 |
 
-Example:
+示例：
+
 
 ```markdown
 - **Location**: `config/app.yml:7`

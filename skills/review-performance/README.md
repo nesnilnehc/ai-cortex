@@ -1,42 +1,42 @@
-# Review Performance
+# 审查绩效
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Reviews a given code scope for performance concerns only (complexity, query efficiency, I/O and network cost, memory behavior, contention, caching, and regression risk). Emits a findings list in a standard format for aggregation.
+仅审查给定代码范围的性能问题（复杂性、查询效率、I/O 和网络成本、内存行为、争用、缓存和回归风险）。以标准格式发出结果列表以进行聚合。
 
-## When to use
+## 何时使用
 
-- You want only performance risks reviewed for a change set or codebase.
-- You are running an orchestrated multi-skill review and need the performance dimension.
-- You want regression risk surfaced before merge or release.
+- 您只想审查变更集或代码库的性能风险。
+- 您正在进行精心策划的多技能审核，并且需要绩效维度。
+- 您希望在合并或发布之前出现回归风险。
 
-## Inputs
+## 输入
 
-- Code scope (files/directories/diff) selected by the caller
+- 调用者选择的代码范围（文件/目录/差异）
 
-## Outputs
+## 输出
 
-- Findings list (Location, Category=`cognitive-performance`, Severity, Title, Description, Suggestion)
+- 调查结果列表（位置、类别=`cognitive表现`、严重性、标题、描述、建议）
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension | Score |
+| 维度 | 分数 |
 | :--- | :--- |
-| agent_native | 5 |
-| cognitive | 4 |
-| composability | 5 |
-| stance | 5 |
-| **asqm_quality** | 19 |
+|agent_native | 5 |
+|cognitive| 4 |
+|composability | 5 |
+|stance| 5 |
+| **asqm_quality** | 19 | 19
 
-## Ecosystem
+## 生态
 
-| Field | Value |
+|领域|价值|
 | :--- | :--- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-diff |
-| market_position | commodity |
+|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:审查代码库，nesnilnehc/ai-cortex:审查代码，nesnilnehc/ai-cortex:审查差异 |
+|市场地位 |商品 |
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for complete behavior, restrictions, and examples.
+请参阅 [SKILL.md](./SKILL.md) 了解完整的行为、限制和示例。

@@ -24,7 +24,7 @@ lifecycle: living
 
 ### 1.2 范围
 
-- **在范围内**：修改 run-checkpoint 的 SKILL.md、agent.yaml、README；更新 skillgraph、INDEX、manifest、scenario-map 等引用；ensure discover-docs-norms、bootstrap-docs 为 related_skills 并参与 Phase 0.5 编排
+- **在范围内**：修改 run-checkpoint 的 SKILL.md、agent.yaml、README；更新 skillgraph、INDEX、manifest、intent-routing 等引用；ensure discover-docs-norms、bootstrap-docs 为 related_skills 并参与 Phase 0.5 编排
 - **不在范围内**：修改 align-planning、assess-doc-readiness、discover-docs-norms、bootstrap-docs 的技能逻辑
 
 ---
@@ -132,16 +132,16 @@ lifecycle: living
 
 ---
 
-### 阶段 4：scenario-map
+### 阶段 4：intent-routing
 
-**文件**: `skills/scenario-map.json`、`skills/scenario-map.md`
+**文件**: `skills/intent-routing.json`、`skills/intent-routing.md`
 
 | 任务 | 内容 |
 | --- | --- |
-| 4.1 | 在「项目无文档体系，想用 align-planning / checkpoint」相关 scenario 中，将 run-checkpoint 标为推荐入口，并注明会执行 Phase 0.5 准备 |
+| 4.1 | 在「项目无文档体系，想用 align-planning / checkpoint」相关 intent 中，将 run-checkpoint 标为推荐入口，并注明会执行 Phase 0.5 准备 |
 | 4.2 | 在 optional skills 中保留 discover-docs-norms、bootstrap-docs（若尚未列入） |
 
-**验收**：用户通过 scenario 可正确理解 run-checkpoint 作为入口时会执行准备步骤。
+**验收**：用户通过 intent 可正确理解 run-checkpoint 作为入口时会执行准备步骤。
 
 ---
 
@@ -203,7 +203,7 @@ lifecycle: living
 | --- | --- |
 | M1: 设计冻结 | Phase 0.5 逻辑、状态定义、输出规则在 SKILL 中确定 |
 | M2: SKILL 修改完成 | 阶段 1–2 完成，SKILL/agent/README 一致 |
-| M3: 生态同步完成 | 阶段 3–5 完成，skillgraph/INDEX/scenario-map/CHANGELOG 更新 |
+| M3: 生态同步完成 | 阶段 3–5 完成，skillgraph/INDEX/intent-routing/CHANGELOG 更新 |
 | M4: 发布就绪 | 阶段 6 完成，自检通过，version 更新为 1.2.0 |
 
 ---

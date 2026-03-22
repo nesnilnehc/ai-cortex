@@ -1,48 +1,27 @@
 # Mission
 
-AI Cortex exists to make agent capabilities discoverable, reusable, and governable — so teams can scale reliable agent-driven work.
-
-As organizations adopt AI agents, their capabilities quickly become scattered across prompts, tools, scripts, and repositories. What agents can actually do becomes difficult to see, reuse, or control.
-
-AI Cortex brings structure to this growing capability chaos by turning agent skills into shared, governed assets that teams can discover, reuse, and evolve.
+AI Cortex 提供**软件交付与项目治理**过程中使用的 Agent 技能，支撑从想法到上线的交付链与规划、对齐、合规等治理链。
 
 ⸻
 
-For whom
+## 为谁服务
 
-Teams and organizations using AI agents that need visibility, reuse, and governance over the capabilities their agents rely on.
-
-⸻
-
-Core problem addressed
-
-As agent usage grows:
- • Capabilities are scattered across prompts, tools, and codebases
- • Teams cannot easily discover existing skills
- • Proven capabilities are recreated instead of reused
- • There is no consistent way to review, govern, or evolve agent behavior
-
-This fragmentation prevents organizations from scaling reliable and controlled agent-driven work.
+使用 AI Agent 并需要在软件交付与项目治理中获得能力的团队。
 
 ⸻
 
-What success looks like
+## 解决的核心问题
 
-In an AI Cortex-enabled ecosystem:
- • Agent capabilities are easy to discover
- • Proven skills are reused instead of rewritten
- • Teams can review and govern agent behavior
- • Capabilities evolve through shared standards and lifecycle management
-
-Agent capabilities become manageable infrastructure rather than scattered prompt logic.
+交付与治理场景下的技能分散、难以复用；缺乏统一规范与可编排的协作方式。
 
 ⸻
 
-Non-goals
+## 成功形态
 
-AI Cortex does not aim to:
- • Replace agent frameworks
- • Provide another prompt library
- • Lock users into a specific agent runtime
+团队能获得覆盖软件交付与项目治理主线的技能资产；规范与编排支撑技能协作。
 
-Instead, AI Cortex focuses on the capability layer — how agent skills are defined, shared, discovered, and governed.
+⸻
+
+## 非目标
+
+AI Cortex 不旨在：取代 Agent 框架；治理本仓库外的存量技能；提供另一种通用提示库。聚焦于本 catalog 的技能供给与协作。

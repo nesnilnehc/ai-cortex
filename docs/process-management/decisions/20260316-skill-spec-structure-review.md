@@ -77,7 +77,7 @@
 
 ## 4. 交叉引用与脚本名
 
-- **§5、§9**：`scripts/verify-registry.mjs` 调用 `scripts/generate-skills-docs.mjs`，后者再调用 `generate-skills-index.mjs` 等；§9 描述“verify-registry 先 regen INDEX、skillgraph、scenario-map”与实现一致。
+- **§5、§9**：`scripts/verify-registry.mjs` 调用 `scripts/generate-skills-docs.mjs`，后者再调用 `generate-skills-index.mjs` 等；§9 描述“verify-registry 先 regen INDEX、skillgraph、intent-routing”与实现一致。
 - **§3、§3.1、§4.2**：对 Scope Boundaries、Handoff、§4.2 的引用（如“see §3.1”“see §4.2”）正确。
 
 ---

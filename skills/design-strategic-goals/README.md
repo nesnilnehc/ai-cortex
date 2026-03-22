@@ -1,40 +1,42 @@
-# design-strategic-goals
+# 设计战略目标
 
-Define 3–5 long-term strategic goals that move the project toward the vision and North Star.
+定义 3-5 个长期战略目标，推动项目朝着愿景和北极星方向发展。
 
-## What it does
+## 用途
 
-Produces a strategic goals document with exactly 3–5 outcome-focused goals aligned with vision and North Star. Does not define mission, vision, North Star, or milestones. Output is persisted to `docs/project-overview/strategic-goals.md` (or project norms).
+制作一个战略目标文档，其中包含 3-5 个与愿景和北极星一致的以结果为中心的目标。不定义使命、愿景、北极星或里程碑。输出保存到“docs/project-overview/strategic-goals.md”（或项目规范）。
 
-## When to use
+## 何时使用
 
-- After vision and North Star — set 3–5 outcomes that advance the vision and move the NSM.
-- Annual or quarterly strategy — define or refresh strategic priorities.
-- Fourth layer in strategy chain — run after mission, vision, and north star.
+- 在愿景和北极星之后 — 设定 3-5 个结果来推进愿景并推动 NSM。
+- 年度或季度战略——定义或更新战略优先事项。
+- 战略链的第四层——遵循使命、愿景和北极星。
 
-## Inputs
+## 输入
 
-- Vision; North Star (or paths); project context.
-- Optional: mission; time horizon; existing goals or priorities.
+- 愿景；北极星（或路径）；项目背景。
+- 可选：任务；时间范围；现有的目标或优先事项。
 
-## Outputs
+## 输出
 
-- Strategic goals document at `docs/project-overview/strategic-goals.md` (or project norms): 3–5 goals with optional "how this supports vision/NSM".
+- 战略目标文档位于“docs/project-overview/strategic-goals.md”（或项目规范）：3-5 个目标，可选“如何支持愿景/NSM”。
 
-## Installation
+## 安装
+
 
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill design-strategic-goals
 ```
 
-## Related skills
 
-- `define-mission` — why we exist.
-- `define-vision` — what future we build.
-- `define-north-star` — single metric; goals should move it.
-- `define-milestones` — next: phase checkpoints from these goals.
-- `align-planning` — can use goals as alignment anchor.
+## 相关技能
 
-## Full definition
+- “定义使命”——我们为何存在。
+- “定义愿景”——我们构建什么样的未来。
+- `define-north-star` — 单一指标；目标应该推动它。
+- `define-里程碑` — 接下来：这些目标的阶段检查点。
+- `align-planning` — 可以使用目标作为对齐锚点。
 
-See [SKILL.md](./SKILL.md) for behavior, restrictions, and examples.
+## 完整定义
+
+请参阅 [SKILL.md](./SKILL.md) 了解行为、限制和示例。

@@ -1,45 +1,45 @@
-# Bootstrap Project Documentation
+# Bootstrap 项目文档
 
-**Status**: validated
+**状态**：已验证
 
-## What it does
+## 用途
 
-Bootstrap or adapt project documentation using the [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) structure. Two modes: **Initialize** (empty project—copy templates and fill placeholders) and **Adjust** (non-empty—use template as target, rename/move/merge in-place, apply after confirmation). Repeatable runs; no empty dirs unless requested; strict kebab-case naming.
+使用 [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) 结构引导或调整项目文档。两种模式：**初始化**（空项目——复制模板并填充占位符）和**调整**（非空——使用模板作为目标，就地重命名/移动/合并，确认后应用）。可重复运行；除非有要求，否则没有空目录；严格的烤肉串命名。
 
-## When to use
+## 何时使用
 
-- Empty project: initialize full docs skeleton for small/medium/large projects
-- Non-empty project: analyze existing docs, recommend alignment with template, apply changes after confirmation
-- Shared workflows: generate ADR, update version across docs, validate placeholders and links
+- 空项目：初始化小型/中型/大型项目的完整文档框架
+- 非空项目：分析现有文档，建议与模板对齐，确认后应用更改
+- 共享工作流程：生成 ADR、跨文档更新版本、验证占位符和链接
 
-## Inputs
+## 输入
 
-- Project metadata (name, description, tech stack)
-- Scale (small | medium | large, optional; inferred from context if absent)
-- Mode override (initialize | adjust, optional)
+- 项目元数据（名称、描述、技术堆栈）
+- 规模（小|中|大，可选；如果不存在则从上下文推断）
+- 模式覆盖（初始化|调整，可选）
 
-## Outputs
+## 输出
 
-- **Initialize**: Filled docs under `docs/`, `VERSION` file, summary of created files
-- **Adjust**: Recommendation list (markdown), then applied changes and summary after user confirmation
+- **初始化**：在`docs/`下填充文档，`VERSION`文件，创建文件的摘要
+- **调整**：推荐列表（降价），然后在用户确认后应用更改和摘要
 
-## Scores (ASQM)
+## 评分 (ASQM)
 
-| Dimension        | Score |
-| :--------------- | :---- |
-| agent_native     | 5     |
-| cognitive        | 4     |
-| composability    | 4     |
-| stance           | 5     |
-| **asqm_quality** | 18    |
+| 维度 | 分数 |
+| ：-------------- | :---- |
+|agent_native | 5 |
+|cognitive| 4 |
+|composability | 4 |
+|stance| 5 |
+| **asqm_quality** | 18 | 18
 
-## Ecosystem
+## 生态
 
-| Field                                 | Value                                                                                  |
-| :------------------------------------ | :------------------------------------------------------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:generate-standard-readme, nesnilnehc/ai-cortex:generate-agent-entry |
-| market_position                       | differentiated                                                                         |
+|领域|价值|
+| :------------------------------------ | :---------------------------------------------------------------------------------------- |
+|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:生成标准自述文件，nesnilnehc/ai-cortex:生成代理条目 |
+|市场地位 |差异化|
 
-## Full definition
+## 完整定义
 
-See [SKILL.md](./SKILL.md) for complete behavior, restrictions, and examples.
+请参阅 [SKILL.md](./SKILL.md) 了解完整的行为、限制和示例。
