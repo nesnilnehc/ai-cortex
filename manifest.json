@@ -214,6 +214,10 @@
       "path": "skills/sync-release-docs/SKILL.md"
     },
     {
+      "name": "tidy-repo",
+      "path": "skills/tidy-repo/SKILL.md"
+    },
+    {
       "name": "warn-destructive-commands",
       "path": "skills/warn-destructive-commands/SKILL.md"
     }

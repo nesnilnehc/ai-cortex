@@ -1,0 +1,31 @@
+name: tidy-repo
+status: validated
+
+primary_use: Audit repository structure in one pass — detect misplaced files, naming inconsistencies, empty directories, and stale artifacts; produce a prioritized tidy report; optionally apply safe, reversible changes.
+
+inputs:
+  - repository root (default: current working directory)
+  - optional scope filter (subdirectory or glob)
+  - optional mode: report-only (default) | apply-safe
+
+outputs:
+  - Tidy Report (docs/calibration/repo-tidy.md; overwritten unless snapshot requested)
+  - findings (misplaced files, naming violations, empty dirs, stale/dead artifacts, duplicates)
+  - prioritized cleanup plan with concrete actions and effort estimates
+
+scores:
+  agent_native: 5
+  cognitive: 4
+  composability: 4
+  stance: 5
+
+asqm_quality: 18
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:assess-docs
+  - nesnilnehc/ai-cortex:review-codebase
+  - nesnilnehc/ai-cortex:align-planning
+
+market_position: differentiated
+
+tags: [repository, workflow, cleanup, structure]

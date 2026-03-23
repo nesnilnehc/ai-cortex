@@ -104,6 +104,7 @@
 | [conduct-retro](./conduct-retro/SKILL.md) | documentation, workflow | `1.0.0` | stable | 周/迭代工程回顾：分析提交历史、工作模式与代码质量指标；按人分解贡献，含表扬与成长建议。适用于「周回顾」「发了什么」「工程复盘」。. |
 | [investigate-root-cause](./investigate-root-cause/SKILL.md) | optimization, workflow | `1.0.0` | stable | 系统性根因调试：investigate → analyze → hypothesize → implement。铁律：无根因不修复。适用于报错、异常行为、故障排查。. |
 | [sync-release-docs](./sync-release-docs/SKILL.md) | documentation, workflow | `1.0.0` | stable | 发版后同步项目文档：交叉引用 diff，更新 README/ARCHITECTURE/CONTRIBUTING/CLAUDE.md，润色 CHANGELOG，清理 TODOS。发版后或 PR 合并后建议使用。. |
+| [tidy-repo](./tidy-repo/SKILL.md) | cleanup, repository, structure, workflow | `1.0.0` | stable | 一次性审计仓库目录结构——检测错放文件、命名不一致、空目录和过期制品；输出优先级整理报告；可选地应用安全、可逆的清理操作。. |
 | [warn-destructive-commands](./warn-destructive-commands/SKILL.md) | security, workflow | `1.0.0` | stable | 在破坏性命令执行前发出警告。检查 Bash 命令中的 rm -rf、DROP TABLE、force-push、git reset --hard、kubectl delete 等模式。用户可覆盖每次警告。适用于接触生产、调试线上或共享环境。. |
 
 ---
