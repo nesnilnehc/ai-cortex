@@ -86,6 +86,8 @@ output_schema:
 
 ### 1. 飞行前（必须解决一次）
 
+若存在 `CLAUDE.md` 或 `.ai-cortex/config.yaml`，优先读取其中的 `test_command` 等；否则按发现逻辑获取。参见 [docs/guides/project-config.md](../../docs/guides/project-config.md)。
+
 确认或默认以下内容：
 
 - **目标**：存储库路径（默认“.”）和范围：

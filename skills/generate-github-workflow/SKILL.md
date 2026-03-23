@@ -93,6 +93,7 @@ output_schema:
 
 ### IN（输入）驱动
 
+- 若存在 `CLAUDE.md` 或 `.ai-cortex/config.yaml`，优先读取其中的 `test_command`、`base_branch` 等；否则从用户输入或项目推断。参见 [docs/guides/project-config.md](../../docs/guides/project-config.md)。
 - 使用用户的**场景**（例如“CI：在 PR 上运行测试”、“发布：在标签上构建和上传”）和 **堆栈**（语言、包管理器、测试/构建命令）来生成工作流；当信息丢失时使用合理的占位符并将其标记为替换；不要发明命令或路径。
 
 ### 交互（互动）

@@ -13,6 +13,7 @@
 | Date | Item | Status | Path |
 | :--- | :--- | :--- | :--- |
 | 2026-03-06 | 增加需求排序技能 (Add Prioritize Requirements Skill) | captured | [backlog/2026-03-06-add-prioritize-requirements-skill.md](backlog/2026-03-06-add-prioritize-requirements-skill.md) |
+| 2026-03-23 | AGENTS.md 重构计划 | completed | [backlog/2026-03-23-agents-md-refactor-plan.md](backlog/2026-03-23-agents-md-refactor-plan.md) |
 
 ---
 

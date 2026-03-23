@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![AI-Readiness: High](https://img.shields.io/badge/AI--Readiness-High-success.svg)](llms.txt)
 
-> 面向 Agent 与开发者：技能 catalog，覆盖软件交付与项目治理；按意图路由调用能力。详见 [使命](docs/project-overview/mission.md) 与 [愿景](docs/project-overview/vision.md)。
+> 面向 Agent 与开发者：技能 catalog，覆盖软件交付与项目治理；按 description、tags、triggers 语义匹配调用能力。详见 [使命](docs/project-overview/mission.md) 与 [愿景](docs/project-overview/vision.md)。
 
 ```mermaid
 flowchart LR
@@ -19,7 +19,7 @@ flowchart LR
     
     subgraph Cortex [AI Cortex System]
         direction TB
-        Router{"Router<br/>(Intent Routing)"}:::system
+        Router{"Skill Match<br/>(description, tags, triggers)"}:::system
         
         subgraph Execution [Execution Engine]
             direction LR
@@ -39,7 +39,6 @@ flowchart LR
 
 ## ✨ 特点
 
-- **意图锚定**：`skills/intent-routing.json` 定义意图→技能映射；完整列表见 [intent-routing.md](skills/intent-routing.md)
 - **目录与规范**：`skills/INDEX.md`、`manifest.json`；`spec/skill.md` 定义技能结构与质量
 - **规则与入口**：`rules/` 提供编码与写作规范；`AGENTS.md` 定义身份与行为
 - **生态**：[skills.sh](https://skills.sh)、[SkillsMP](https://skillsmp.com)
@@ -71,14 +70,14 @@ npx skills add nesnilnehc/ai-cortex
 ## 🚀 快速入门
 
 1. 安装后，向 Agent 说意图（如「代码审查」「generate readme」「需求评审」）或询问「有哪些技能」。
-2. Agent 按 `skills/intent-routing.json` 与 `AGENTS.md` 路由到主技能及可选技能。
+2. Agent 按 `description`、`tags`、`triggers` 语义匹配技能；细则见 [docs/guides/discovery-and-loading.md](docs/guides/discovery-and-loading.md)。
 3. 链式调用时，技能按 SKILL.md 中的 Handoff Point 相互移交。
 
 ---
 
 ## 🤝 贡献
 
-PR 须遵循 [spec/skill.md](spec/skill.md)。更新 `manifest.json` 与 `skills/intent-routing.json` 后运行 `npm run verify`。见 [spec/registry-sync-contract.md](spec/registry-sync-contract.md) 与 [CONTRIBUTING.md](CONTRIBUTING.md)。
+PR 须遵循 [spec/skill.md](spec/skill.md)。更新 `manifest.json` 后运行 `npm run verify`。见 [spec/registry-sync-contract.md](spec/registry-sync-contract.md) 与 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ---
 
@@ -88,6 +87,7 @@ PR 须遵循 [spec/skill.md](spec/skill.md)。更新 `manifest.json` 与 `skills
 
 ---
 
-## 👤 作者与致谢
+## 🙏 致谢与署名
 
-致谢所有 [贡献者](https://github.com/nesnilnehc/ai-cortex/graphs/contributors)。
+- **贡献者**：致谢所有 [contributors](https://github.com/nesnilnehc/ai-cortex/graphs/contributors)
+- **参考来源**：技能 fork/integration 自 gstack、anthropics/skills 等，完整列表见 [ATTRIBUTIONS.md](docs/references/ATTRIBUTIONS.md)

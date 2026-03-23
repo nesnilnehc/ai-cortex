@@ -1,4 +1,4 @@
-name: run-checkpoint
+name: plan-next
 status: validated
 
 primary_use: Analyze project state and produce next-action plan; Phase 0.5 Planning Readiness Gate (discover-docs-norms, bootstrap-docs, assess-docs) when docs missing; then alignment and output-driven follow-ups; single cycle report.

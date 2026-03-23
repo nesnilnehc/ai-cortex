@@ -7,6 +7,10 @@
 
 ## [Unreleased]
 
+### Removed（2026-03-23）
+
+- **intent-routing 完全废弃**：删除 `skills/intent-routing.json`、`skills/intent-routing.md` 与 `scripts/generate-intent-routing.mjs`。路由改由技能自描述（description、tags、triggers）完成，与 Agent Skills 规范及 gstack 等主流实践对齐。routing_rules 中通用规则已迁移至 `docs/guides/discovery-and-loading.md`；主动建议表保留于 `docs/guides/proactive-suggestions.md`。
+
 ### Changed（意图路由迁移 2026-03-21）
 
 - **scenario-map → intent-routing**：`scenario-map.json`/`scenario-map.md` 更名为 `intent-routing.json`/`intent-routing.md`；每条意图增加 `intent` 字段（意图句）；`scenarios` 改 `intents`；脚本、规范、AGENTS.md、docs 引用已更新。

@@ -13,6 +13,7 @@
  *   8. At least 2 examples
  *   9. agent.yaml and README.md existence (warning)
  *  10. (removed) related_skills — skill relations documented in Handoff/Scope Boundaries prose
+ *  11. evolution.sources: if present, each source has required fields and MIT-compatible license
  *
  * Run from repo root: node scripts/verify-skill-structure.mjs
  */
@@ -58,6 +59,9 @@ const CORE_OBJECTIVE_SUBSECTIONS = [
 
 const NAME_REGEX = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/;
 const SEMVER_REGEX = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-[\w.]+)?(\+[\w.]+)?$/;
+
+const ALLOWED_SOURCE_LICENSES = ['MIT', 'Apache-2.0', 'BSD-3-Clause', 'BSD-2-Clause'];
+const REQUIRED_SOURCE_FIELDS = ['name', 'repo', 'version', 'license', 'type', 'borrowed'];
 
 let errors = 0;
 let warnings = 0;
@@ -124,6 +128,48 @@ function extractSection(content, heading) {
   const aliases = REQUIRED_HEADING_ALIASES[heading] || [];
   const section = findSection(content, heading, aliases);
   return section !== null ? section : '';
+}
+
+/** Extract evolution.sources from YAML frontmatter for validation. */
+function extractEvolutionSources(content) {
+  const match = content.match(/^---\n([\s\S]*?)\n---/);
+  if (!match) return [];
+  const yaml = match[1];
+  const sources = [];
+  let inSources = false;
+  let current = null;
+  for (const line of yaml.split('\n')) {
+    if (line.match(/^\s*sources:\s*$/)) {
+      inSources = true;
+      continue;
+    }
+    if (!inSources) continue;
+    const listItem = line.match(/^\s+-\s+name:\s*["']?([^"'\n]+)["']?\s*$/);
+    if (listItem) {
+      if (current) sources.push(current);
+      current = { name: listItem[1].trim() };
+      continue;
+    }
+    if (current) {
+      const repo = line.match(/^\s+repo:\s*["']?([^"'\n]+)["']?\s*$/);
+      const version = line.match(/^\s+version:\s*["']?([^"'\n]+)["']?\s*$/);
+      const license = line.match(/^\s+license:\s*["']?([^"'\n]+)["']?\s*$/);
+      const type = line.match(/^\s+type:\s*["']?([^"'\n]+)["']?\s*$/);
+      const borrowed = line.match(/^\s+borrowed:\s*["']?([^"'\n]+)["']?\s*$/);
+      if (repo) current.repo = repo[1].trim();
+      if (version) current.version = version[1].trim();
+      if (license) current.license = license[1].trim();
+      if (type) current.type = type[1].trim();
+      if (borrowed) current.borrowed = borrowed[1].trim();
+    }
+    if (inSources && line.match(/^\s{4}\w+:\s*$/) && !line.trim().startsWith('sources:')) {
+      inSources = false;
+      if (current) sources.push(current);
+      current = null;
+    }
+  }
+  if (current) sources.push(current);
+  return sources;
 }
 
 function extractSkillBoundariesBlock(restrictionsBlock) {
@@ -262,6 +308,24 @@ function checkSkill(dirName) {
     warn(dirName, 'Missing README.md (governance artifact)');
   }
 
+  // evolution.sources validation (LICENSE_POLICY, spec §2.1)
+  const sources = extractEvolutionSources(content);
+  for (const s of sources) {
+    for (const f of REQUIRED_SOURCE_FIELDS) {
+      if (!s[f] || (typeof s[f] === 'string' && !s[f].trim())) {
+        error(dirName, `evolution.sources[${s.name || '?'}]: missing required field "${f}"`);
+      }
+    }
+    if (s.license && !ALLOWED_SOURCE_LICENSES.includes(s.license)) {
+      error(
+        dirName,
+        `evolution.sources[${s.name}]: license "${s.license}" not in allowed list (${ALLOWED_SOURCE_LICENSES.join(', ')})`
+      );
+    }
+    if (s.repo && !s.repo.startsWith('http') && s.repo.includes('/')) {
+      warn(dirName, `evolution.sources[${s.name}]: repo should use full URL (https://github.com/owner/repo)`);
+    }
+  }
 }
 
 if (!existsSync(skillsDir)) {

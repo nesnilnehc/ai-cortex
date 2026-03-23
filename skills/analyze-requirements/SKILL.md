@@ -23,7 +23,7 @@ metadata:
         type: "integration"
         borrowed: "Structured quality assessment (clarity/specificity/completeness), decision matrix, skill coordination pattern"
       - name: "design-solution"
-        repo: "nesnilnehc/ai-cortex"
+        repo: "https://github.com/nesnilnehc/ai-cortex"
         version: "1.0.0"
         license: "MIT"
         type: "reference"

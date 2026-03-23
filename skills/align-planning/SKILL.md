@@ -11,13 +11,13 @@ metadata:
   evolution:
     sources:
       - name: "analyze-requirements"
-        repo: "nesnilnehc/ai-cortex"
+        repo: "https://github.com/nesnilnehc/ai-cortex"
         version: "1.0.0"
         license: "MIT"
         type: "reference"
         borrowed: "State-based validation style, handoff boundaries, structured self-check"
       - name: "design-solution"
-        repo: "nesnilnehc/ai-cortex"
+        repo: "https://github.com/nesnilnehc/ai-cortex"
         version: "1.0.0"
         license: "MIT"
         type: "reference"

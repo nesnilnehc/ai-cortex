@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 /**
- * Verify skills/INDEX.md, manifest.json, intent-routing.md, skillgraph.md, and marketplace.json stay in sync.
- * Regenerates INDEX.md, skillgraph.md, and intent-routing.md from sources first, then validates.
+ * Verify skills/INDEX.md, manifest.json, skillgraph.md, and marketplace.json stay in sync.
+ * Regenerates INDEX.md and skillgraph.md from sources first, then validates.
  * - Every capability in manifest.json has a path that exists.
  * - Every directory under skills/ that contains SKILL.md is listed in manifest capabilities.
- * - Every skill referenced in skills/intent-routing.md (and intent-routing.json) exists in manifest and INDEX.
  * - Every skill in marketplace.json exists in skills/ and is registered in INDEX.md.
  * Run from repo root: node scripts/verify-registry.mjs
  */
@@ -34,7 +33,7 @@ if (!existsSync(indexPath)) {
   process.exit(1);
 }
 
-// Regenerate INDEX.md, skillgraph.md, and intent-routing.md from sources
+// Regenerate INDEX.md and skillgraph.md from sources
 const genScript = join(root, 'scripts', 'generate-skills-docs.mjs');
 if (existsSync(genScript)) {
   const r = spawnSync('node', [genScript], { cwd: root, stdio: 'pipe', encoding: 'utf8' });
@@ -165,56 +164,6 @@ for (const name of skillDirNames) {
   }
 }
 
-// intent-routing.md sync check
-const intentRoutingPath = join(skillsDir, 'intent-routing.md');
-if (existsSync(intentRoutingPath)) {
-  const intentRoutingText = readFileSync(intentRoutingPath, 'utf8');
-  const intentRoutingSkillRefs = new Set();
-  for (const m of intentRoutingText.matchAll(/\]\(\.\/([^/)]+)\/SKILL\.md\)/g)) {
-    intentRoutingSkillRefs.add(m[1]);
-  }
-  for (const name of intentRoutingSkillRefs) {
-    if (!manifestNames.has(name) || !indexNames.has(name)) {
-      console.error(
-        `skills/intent-routing.md references "${name}" but it is missing from manifest.json or skills/INDEX.md`
-      );
-      failed = true;
-    }
-  }
-  const notInIntentRouting = [...manifestNames].filter((n) => !intentRoutingSkillRefs.has(n));
-  if (notInIntentRouting.length > 0) {
-    console.warn(
-      `Info: ${notInIntentRouting.length} skill(s) not in intent-routing.md: ${notInIntentRouting.slice(0, 10).join(', ')}${notInIntentRouting.length > 10 ? '...' : ''}`
-    );
-  }
-} else {
-  console.warn('skills/intent-routing.md not found; skipping intent-routing validation');
-}
-
-// intent-routing.json sync check (source of truth for intent-routing.md)
-const intentRoutingJsonPath = join(skillsDir, 'intent-routing.json');
-if (existsSync(intentRoutingJsonPath)) {
-  const intentConfig = JSON.parse(readFileSync(intentRoutingJsonPath, 'utf8'));
-  const jsonSkillRefs = new Set();
-  for (const s of intentConfig.intents || []) {
-    if (s.primary) jsonSkillRefs.add(s.primary);
-    for (const o of s.optional || []) jsonSkillRefs.add(o);
-    if (s.short_triggers !== undefined) {
-      if (!Array.isArray(s.short_triggers) || s.short_triggers.some((t) => typeof t !== 'string')) {
-        console.warn(`skills/intent-routing.json intent "${s.id}": short_triggers must be array of strings`);
-      }
-    }
-  }
-  for (const name of jsonSkillRefs) {
-    if (!manifestNames.has(name) || !indexNames.has(name)) {
-      console.error(
-        `skills/intent-routing.json references "${name}" but it is missing from manifest.json or skills/INDEX.md`
-      );
-      failed = true;
-    }
-  }
-}
-
 // marketplace.json sync check (if file exists)
 const marketplacePath = join(root, '.claude-plugin', 'marketplace.json');
 if (existsSync(marketplacePath)) {
@@ -250,6 +199,6 @@ for (const cap of capabilities) {
 
 if (failed) process.exit(1);
 console.log(
-  'Registry OK: manifest, skills/INDEX.md, skills/intent-routing.md, skillgraph.md, intent-routing.json, marketplace.json, and skills/*/SKILL.md are consistent.'
+  'Registry OK: manifest, skills/INDEX.md, skillgraph.md, marketplace.json, and skills/*/SKILL.md are consistent.'
 );
 process.exit(0);

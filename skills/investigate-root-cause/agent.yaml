@@ -1,0 +1,30 @@
+name: investigate-root-cause
+status: validated
+
+primary_use: Systematic root-cause debugging. Four phases: investigate, analyze, hypothesize, implement. Iron Law: no fixes without root cause. Use when asked to "debug this", "fix this bug", or "root cause analysis".
+
+inputs:
+  - error messages, stack traces, reproduction steps
+  - optional affected file paths
+
+outputs:
+  - root cause hypothesis and verification process
+  - minimal fix and regression test
+  - structured Debug Report (symptom, root cause, fix, evidence, status)
+
+scores:
+  agent_native: 4
+  cognitive: 5
+  composability: 4
+  stance: 5
+
+asqm_quality: 18
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:automate-repair
+  - nesnilnehc/ai-cortex:review-diff
+  - nesnilnehc/ai-cortex:review-code
+
+market_position: differentiated
+
+tags: [workflow, optimization]
