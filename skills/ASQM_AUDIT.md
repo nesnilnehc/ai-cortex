@@ -1,7 +1,7 @@
 # ASQM 审计 — AI Cortex 技能
 
 **审计日期**：2026-03-23
-**范围**：`skills/` 下全部 51 个技能
+**范围**：`skills/` 下全部 52 个技能
 **打分**：ASQM strict（基于证据；agent_native = 5 仅当 SKILL.md 含有显式 output contract 时）
 
 ---
@@ -10,7 +10,7 @@
 
 | Status | 数量 | 技能 |
 | :--- | :--- | :--- |
-| **validated** | 50 | 除 warn-destructive-commands 外全部 |
+| **validated** | 51 | 除 warn-destructive-commands 外全部（含 tidy-repo） |
 | **experimental** | 1 | warn-destructive-commands |
 | **archive_candidate** | 0 | — |
 
@@ -96,6 +96,7 @@
 | review-typescript | 5 | 4 | 5 | 5 | 19 | validated |
 | review-vue | 5 | 4 | 5 | 5 | 19 | validated |
 | sync-release-docs | 4 | 4 | 4 | 5 | 17 | validated |
+| tidy-repo | 5 | 4 | 4 | 5 | 18 | validated |
 | warn-destructive-commands | 4 | 4 | 3 | 5 | 16 | experimental |
 
 ---
@@ -112,6 +113,7 @@
 - **automate-repair**：overlaps with review-code, automate-tests；**market_position**: commodity。
 - **automate-tests**：overlaps with automate-repair；**market_position**: commodity。
 - **plan-next**（orchestrator）：overlaps with align-planning, align-architecture, assess-docs, discover-docs-norms, bootstrap-docs, review-code；**market_position**: differentiated。
+- **tidy-repo**：overlaps with assess-docs, review-codebase, align-planning；**market_position**: differentiated。
 - 其余技能 overlaps 见各 `agent.yaml`。
 
 所有重叠使用 **Git-repo 形式** `owner/repo:skill-name`（如 `nesnilnehc/ai-cortex:review-diff`）。
@@ -120,9 +122,10 @@
 
 ## 6. 发现
 
-### 6.13 Curation 运行 (2026-03-23)
+### 6.14 Curation 运行 (2026-03-23) — tidy-repo 纳入
 
-1. **4 个新技能**：conduct-retro、investigate-root-cause、sync-release-docs、warn-destructive-commands。均已创建 `agent.yaml` 与 `README.md`。
+1. **tidy-repo**（Quality 18）：output_schema 含 artifact_type、path_pattern、lifecycle；Input & Output 含完整 Markdown 模板与 Machine-Readable Summary → agent_native 5。7-phase 行为、Self-Check、Handoff 点 → cognitive 4、composability 4。Scope Boundaries、Constraints、spec 对齐 → stance 5。overlaps_with: assess-docs, review-codebase, align-planning。**validated**。
+2. 此前 6.13 运行：conduct-retro、investigate-root-cause、sync-release-docs、warn-destructive-commands 均已创建 agent.yaml 与 README。
 2. **conduct-retro**（Quality 17）：output_schema 含 artifact_type、path_pattern，但无显式 Appendix → agent_native 4。5-step 行为、Self-Check → cognitive 4。overlaps_with: align-planning, assess-docs。**validated**。
 3. **investigate-root-cause**（Quality 18）：output 为 prose + Debug Report 格式，无 Appendix → agent_native 4。5-phase、Iron Law、模式表、3-strike 规则 → cognitive 5。overlaps_with: automate-repair, review-diff, review-code。**validated**。
 4. **sync-release-docs**（Quality 17）：output 为 side-effect + doc health summary prose → agent_native 4。9-step 流程、Self-Check → cognitive 4。overlaps_with: discover-docs-norms, assess-docs, bootstrap-docs。**validated**。
@@ -137,7 +140,8 @@
 1. **warn-destructive-commands**（experimental）：可考虑增加 Appendix: Output contract、提升 composability（如与 freeze 类技能 handoff），以达 validated。
 2. **无紧急变更**：50 validated；1 experimental；无 archive 候选。
 3. **重叠为设计使然**：原子 review 技能与 review-code 重叠；conduct-retro 与 align-planning、assess-docs 互补；sync-release-docs 与文档链技能形成发版后 handoff。
-4. **后续**：新增或大改技能后，运行 `curate-skills` 刷新 agent.yaml 与 ASQM_AUDIT.md。
+4. **tidy-repo**：已纳入审计；尚未进入 INDEX.md 与 manifest.json，按规范需单独注册流程。
+5. **后续**：新增或大改技能后，运行 `curate-skills` 刷新 agent.yaml 与 ASQM_AUDIT.md。
 
 ---
 
