@@ -146,12 +146,11 @@ output_schema:
 
 ## 自检（Self-Check）
 
-### 核心成功标准（必须满足所有标准）
-
-- [ ] **已扫描项目结构**：检查现有 `docs/` 目录
-- [ ] **用户偏好确认**：通过对话确认的路径
-- [ ] **ARTIFACT_NORMS.md 已写入**：文件存在于 `docs/ARTIFACT_NORMS.md`
-- [ ] **用户确认**：用户在写入前已批准
+- [ ] 已扫描项目结构并识别现有 `docs/` 约定
+- [ ] 通过对话确认用户对路径的偏好
+- [ ] `docs/ARTIFACT_NORMS.md` 已写入
+- [ ] （可选）已创建 `.ai-cortex/artifact-norms.yaml`（若用户请求）
+- [ ] 用户在写入前已批准规范
 
 ### 验收测试
 
