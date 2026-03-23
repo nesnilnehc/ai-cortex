@@ -81,6 +81,7 @@ output_schema:
    - 询问是否允许Docker、是否允许网络访问、是否允许安装依赖。
 
 2. **发现测试计划（基于证据）**
+   - 若存在 `CLAUDE.md` 或 `.ai-cortex/config.yaml`，优先读取其中的 `test_command`；否则按以下来源发现。参见 [docs/guides/project-config.md](../../docs/guides/project-config.md)。
    - 按顺序阅读这些来源；如果发现清晰、明确的测试命令，请尽早停止：
      - `README.md`、`CONTRIBUTING.md`、`TESTING.md`、`docs/testing*`、`Makefile`
      - CI 配置：`.github/工作流s/*.yml`、`.gitlab-ci.yml`、`azure-pipelines.yml`、`Jenkinsfile`

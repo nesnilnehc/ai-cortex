@@ -57,7 +57,6 @@ metadata:
 
 - **Handoff Point**（位于 Core Objective 或 Scope Boundaries 下）：何时及如何切换到其他技能。必须指名具体技能（如 `breakdown-tasks`、`review-code`）。
 - **Scope Boundaries**：本技能不负责的内容，并列出由其他技能负责的职责及技能名（如「需求 elicitation 使用 `analyze-requirements`」）。
-- **Intent routing**：`skills/intent-routing.json` 为意图→技能映射的规范来源（primary、optional）。
 
 不存在 `related_skills` 元数据。作者在技能正文中记录流程与依赖，供 Agent 与工具作为单一事实来源。
 
@@ -65,6 +64,13 @@ metadata:
 
 - **triggers**（可选）：英文短语数组（如 `["review", "code review"]`），3–5 个，供精确匹配。不替代 description/tags 的语义匹配。
 - **description_zh**（可选）：中文一句话摘要，当项目存在 `docs/LANGUAGE_SCHEME.md` 时供 INDEX 的 Purpose 列使用。
+- **allowed_tools**（可选）：字符串数组，列出该技能允许使用的工具名（如 `Read`、`Write`、`Grep`、`Bash`）。供支持工具白名单的主机（如 Claude）使用，减少越权调用。若不指定，则不施加工具限制。主机不支持时忽略该字段。与 agentskills.io、gstack 的 `allowed-tools` 对齐。
+
+**示例**：
+
+```yaml
+allowed_tools: [Read, Grep, Write]
+```
 
 ## 3. 必选标题结构
 
@@ -125,7 +131,7 @@ metadata:
 
 ## 4. 内容质量
 
-- **语言与调用**：YAML `description`、`triggers` 须为英文（生态约束）；`name`、`tags` 保持英文/kebab-case。项目存在 `docs/LANGUAGE_SCHEME.md` 时，正文/标题/示例可用中文；`description_zh` 供 INDEX（见 §2）。triggers 供精确匹配；语义匹配（description/tags）支持任意语言；intent-routing 的 `short_triggers_zh` 在项目有 LANGUAGE_SCHEME 时优先匹配中文调用。
+- **语言与调用**：YAML `description`、`triggers` 须为英文（生态约束）；`name`、`tags` 保持英文/kebab-case。项目存在 `docs/LANGUAGE_SCHEME.md` 时，正文/标题/示例可用中文；`description_zh` 供 INDEX（见 §2）。triggers 供精确匹配；语义匹配（description/tags）支持任意语言。
 - **语气**：祈使、技术化表述。避免填充语或口语化。
 - **示例**：至少 2 个，其中 1 个须为边界或复杂场景。
 - **交互**：对非平凡逻辑，定义何时向用户确认。
@@ -215,8 +221,7 @@ Restrictions 节必须包含以下内容。**Skill Boundaries**（don't）为必
 
 - 新增技能后，更新 `manifest.json` 与 SKILL frontmatter。
 - 新增或移动技能后，在 `manifest.json` 的 `capabilities` 中更新路径。
-- 新增、移除或重大变更技能后，若技能应出现在基于意图的发现中，更新 `skills/intent-routing.json`。
-- **检查清单**：确认已更新 `manifest.json` 及（如需要）`skills/intent-routing.json`；运行 `node scripts/verify-registry.mjs` 重生成 INDEX/skillgraph/intent-routing 并校验（见 §7.2）。
+- **检查清单**：确认已更新 `manifest.json`；运行 `node scripts/verify-registry.mjs` 重生成 INDEX、skillgraph 并校验（见 §7.2）。
 - **发布**：`npx skills add owner/repo --skill <name>` 从远端克隆；推送含新增技能及 manifest 的提交，使技能可发现、可安装。
 - 版本须遵循 [SemVer](https://semver.org/)。
 
@@ -224,8 +229,6 @@ Restrictions 节必须包含以下内容。**Skill Boundaries**（don't）为必
 
 - **`skills/INDEX.md`**：由 `generate-skills-index.mjs` 自动生成；人工可读目录。
 - **`skills/skillgraph.md`**：由 `generate-skillgraph.mjs` 自动生成；技能组合说明。
-- **`skills/intent-routing.json`**：意图→技能映射的规范来源；编辑此文件变更映射。
-- **`skills/intent-routing.md`**：由 `generate-intent-routing.mjs` 从 JSON 自动生成。
 - **`skills/ASQM_AUDIT.md`**：由 `curate-skills` 产出；含 ASQM 分与生命周期。
 
 ## 6. agentskills 兼容性
@@ -243,7 +246,7 @@ Restrictions 节必须包含以下内容。**Skill Boundaries**（don't）为必
 
 ### 7.1 质量保证流程
 
-**新技能**：创建草稿 → 自检（Self-Check）→ Refine → Curate → 注册（manifest、intent-routing）→ 验证（verify-registry）。
+**新技能**：创建草稿 → 自检（Self-Check）→ Refine → Curate → 注册（manifest）→ 验证（verify-registry）。
 
 **既有技能（迁移）**：新增 Core Objective、更新 Self-Check、新增 Skill Boundaries → Refine → Curate → 验证。
 
@@ -260,7 +263,7 @@ Restrictions 节必须包含以下内容。**Skill Boundaries**（don't）为必
 
 ### 7.2 自动化质量检查
 
-- **必选**：`node scripts/verify-registry.mjs`（重生成 INDEX、skillgraph、intent-routing 并校验）
+- **必选**：`node scripts/verify-registry.mjs`（重生成 INDEX、skillgraph 并校验）
 - **推荐**：`curate-skills` 产出 ASQM 分与重叠检测；`refine-skill-design` 审计新技能
 
 ## 8. I/O 契约（可选）

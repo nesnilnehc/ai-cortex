@@ -1,0 +1,27 @@
+name: conduct-retro
+status: validated
+
+primary_use: Weekly or sprint engineering retrospective. Analyzes commit history, work patterns, and code quality metrics with per-person breakdown, praise, and growth areas.
+
+inputs:
+  - optional time window (7d, 14d, 30d; default 7d)
+
+outputs:
+  - docs/calibration/YYYY-MM-DD-retro.md
+  - retro report with metrics, per-author breakdown, praise, growth areas
+
+scores:
+  agent_native: 4
+  cognitive: 4
+  composability: 4
+  stance: 5
+
+asqm_quality: 17
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:align-planning
+  - nesnilnehc/ai-cortex:assess-docs
+
+market_position: differentiated
+
+tags: [workflow, documentation]

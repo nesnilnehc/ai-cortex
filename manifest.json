@@ -200,6 +200,22 @@
     {
       "name": "define-strategic-pillars",
       "path": "skills/define-strategic-pillars/SKILL.md"
+    },
+    {
+      "name": "conduct-retro",
+      "path": "skills/conduct-retro/SKILL.md"
+    },
+    {
+      "name": "investigate-root-cause",
+      "path": "skills/investigate-root-cause/SKILL.md"
+    },
+    {
+      "name": "sync-release-docs",
+      "path": "skills/sync-release-docs/SKILL.md"
+    },
+    {
+      "name": "warn-destructive-commands",
+      "path": "skills/warn-destructive-commands/SKILL.md"
     }
   ]
 }

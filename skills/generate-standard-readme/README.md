@@ -30,13 +30,13 @@
 |cognitive| 3 |
 |composability | 4 |
 |stance| 5 |
-| **asqm_quality** | 17 | 17
+| **asqm_quality** | 17 |
 
 ## 生态
 
 |领域|价值|
 | :------------------------------------ | :------------------------------------------------------------------------------------------------ |
-|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:去语境化文本，nesnilnehc/ai-cortex:生成代理条目 |
+| overlaps_with | nesnilnehc/ai-cortex:decontextualize-text, nesnilnehc/ai-cortex:generate-agent-entry |
 |市场地位 |商品 |
 
 ## 完整定义

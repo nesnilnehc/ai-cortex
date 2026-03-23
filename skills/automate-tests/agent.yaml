@@ -1,4 +1,4 @@
-name: run-automated-tests
+name: automate-tests
 status: validated
 
 primary_use: Analyze how a repo expects automated tests to run (docs/CI/build manifests) and execute the safest appropriate test command(s) with explicit confirmation for installs/services.

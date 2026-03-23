@@ -17,7 +17,7 @@ metadata:
         type: "fork"
         borrowed: "Core workflow, Conventional Commits format, patch staging approach"
       - name: "review-diff"
-        repo: "nesnilnehc/ai-cortex"
+        repo: "https://github.com/nesnilnehc/ai-cortex"
         version: "1.3.0"
         license: "MIT"
         type: "integration"
@@ -94,6 +94,8 @@ output_schema:
 
 ### 工作流程（清单）
 
+若存在 `CLAUDE.md` 或 `.ai-cortex/config.yaml`，优先读取其中的 `test_command` 用于质量验证；否则从项目构建配置推断。参见 [docs/guides/project-config.md](../../docs/guides/project-config.md)。
+
 1) **在登台前检查工作树**
    - 运行`git status`
    - 运行“git diff”（未暂存的更改）
@@ -157,7 +159,7 @@ output_schema:
    - 如果提交影响 `skills/` 目录：
      - 验证“skills/INDEX.md”是否已更新为新的/更改的技能
      - 验证“manifest.json”功能数组是否已更新
-     - 如果添加、删除或重大更改了技能，则验证“skills/intent-routing.json”是否已更新（根据规范元数据同步）
+     - 如果添加、删除或重大更改了技能，则验证 manifest.json 与 INDEX 已同步
      - 运行“scripts/verify-registry.mjs”（如果存在）
    - 如果添加或移动技能，INDEX、清单和（根据需要）场景地图必须一起更新
 
@@ -186,7 +188,7 @@ output_schema:
 - 每次提交的简短摘要，解释发生了什么变化以及原因
 - 用于暂存和审查的命令（至少：`git diff --cached`）
 - 运行任何测试或验证命令
-- 对于 AI Cortex 项目：确认 INDEX.md、manifest.json 和（根据需要）intent-routing.json 已同步
+- 对于 AI Cortex 项目：确认 INDEX.md、manifest.json 已同步
 
 ## 限制（限制）
 
@@ -197,7 +199,7 @@ output_schema:
 - 不要编写模糊的提交消息（“修复内容”、“更新”、“WIP”）
 - 如果测试或 linter 可用，请勿跳过验证步骤
 - 不要提交秘密、令牌或敏感数据
-- 对于 AI Cortex 项目：在未更新 INDEX.md、manifest.json 和（根据需要）intent-routing.json 的情况下，请勿提交技能更改
+- 对于 AI Cortex 项目：在未更新 INDEX.md、manifest.json 的情况下，请勿提交技能更改
 
 ### 技能边界 (Skill Boundaries)（避免重叠）
 
@@ -225,7 +227,7 @@ output_schema:
 - [ ] **常规提交格式**：所有提交消息均遵循“类型（范围）：摘要”格式，正文清晰
 - [ ] **质量验证**：运行适当的测试、lint 或构建命令并且所有检查均已通过
 - [ ] **无敏感数据**：不包含秘密、令牌、调试代码或意外更改
-- [ ] **注册表同步**（AI Cortex 项目）：如果技能/更改，则更新 INDEX.md、manifest.json 和（根据需要）intent-routing.json
+- [ ] **注册表同步**（AI Cortex 项目）：如果技能变更，则更新 INDEX.md、manifest.json
 
 ### 流程质量检查
 
@@ -381,7 +383,7 @@ Updated INDEX.md and manifest.json to register the new skill."
 | **提交消息** |常规提交格式：`类型（范围）：主题` + 正文 + 可选页脚 |
 | **每次提交摘要** |一句话：改变了什么以及为什么改变|
 | **使用的命令** |最小值：`git diff --cached`；包括暂存和验证命令 |
-| **注册表同步** |对于 AI Cortex 项目：确认 INDEX.md、manifest.json、intent-routing.json（如果适用）已同步 |
+| **注册表同步** | 对于 AI Cortex 项目：确认 INDEX.md、manifest.json 已同步 |
 
 报告示例：
 

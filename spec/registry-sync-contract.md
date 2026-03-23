@@ -2,7 +2,7 @@
 
 **状态**：MANDATORY  
 **版本**：1.0.0  
-**范围**：manifest.json、skills/INDEX.md、skills/*/SKILL.md、intent-routing、marketplace.json
+**范围**：manifest.json、skills/INDEX.md、skills/*/SKILL.md、marketplace.json
 
 **变更记录**：
 
@@ -23,8 +23,6 @@
 | manifest.json | 仓库根 | 可执行能力列表；`capabilities[].name` 与 `capabilities[].path` |
 | skills/INDEX.md | skills/ | 生成的人工可读目录；含 name、tags、version、stability、purpose 的表行 |
 | skills/{name}/SKILL.md | skills/ | 单技能定义；含 name、version、tags 的 YAML frontmatter |
-| skills/intent-routing.json | skills/ | intent-routing.md 的源；primary/optional 技能引用 |
-| skills/intent-routing.md | skills/ | 由 intent-routing.json 生成；意图→技能映射 |
 | .claude-plugin/marketplace.json | 仓库根 | Claude 插件子集；`plugins[].skills[]` |
 
 ---
@@ -51,12 +49,7 @@
   - `tags` 与 INDEX 中的 tags 相等（顺序无关）。
   - Purpose 来源：`description_zh`（若存在）或 `description`；当项目有 `docs/LANGUAGE_SCHEME.md` 时，优先 `description_zh`。
 
-### 3.4 intent-routing.md / intent-routing.json
-
-- intent-routing.md 中引用的每个技能（指向 `./{name}/SKILL.md`）须存在于 manifest 与 INDEX。
-- intent-routing.json 的 `intents[].primary` 或 `intents[].optional` 中引用的每个技能须存在于 manifest 与 INDEX。
-
-### 3.5 marketplace.json
+### 3.4 marketplace.json
 
 - `plugins[].skills[]` 中的每个技能路径须解析为 manifest 与 INDEX 中存在的技能。
 
@@ -70,7 +63,7 @@
 node scripts/verify-registry.mjs
 ```
 
-运行前，`generate-skills-docs.mjs` 会从源重新生成 INDEX.md、skillgraph.md 与 intent-routing.md。若有同步规则违反，脚本以 1 退出。
+运行前，`generate-skills-docs.mjs` 会从源重新生成 INDEX.md 与 skillgraph.md。若有同步规则违反，脚本以 1 退出。
 
 ---
 
@@ -81,5 +74,5 @@ node scripts/verify-registry.mjs
 1. 创建带有效 frontmatter 的 `skills/{name}/SKILL.md`。
 2. 将能力加入 `manifest.json` 的 capabilities 数组。
 3. 重新生成 `skills/INDEX.md`。
-4. 可选：加入 intent-routing.json 与 marketplace.json。
+4. 可选：加入 marketplace.json。
 5. 运行 `node scripts/verify-registry.mjs` 确认同步。

@@ -4,8 +4,6 @@
 
 本文档是 **AI Cortex**（面向 Agent、具备治理能力的能力资产库；仓库 [ai-cortex](https://github.com/nesnilnehc/ai-cortex)）的中心技能索引。定义标准化 SKILL 元数据、标签体系与版本策略。安装：`npx skills add nesnilnehc/ai-cortex`；兼容 [skills.sh](https://skills.sh) 与 [SkillsMP](https://skillsmp.com)。
 
-**意图优先导航**：见 [intent-routing.md](./intent-routing.md) 按意图选择技能。
-
 ---
 
 ## 1. 标签体系
@@ -103,9 +101,13 @@
 | [design-strategic-goals](./design-strategic-goals/SKILL.md) | documentation, workflow | `1.0.0` | stable | 定义 3–5 个推动项目走向 vision 与 North Star 的长期战略目标；产出 goals 文档。. |
 | [define-roadmap](./define-roadmap/SKILL.md) | documentation, strategy, workflow | `3.0.0` | mature | 从战略目标推导路线图，包含里程碑、关键举措、成功指标与推进条件，产出可用于决策的路线图文档。. |
 | [define-strategic-pillars](./define-strategic-pillars/SKILL.md) | documentation, workflow | `1.0.0` | stable | 从 vision 与 North Star 推导 3–5 个战略支柱（高层次主题），指导战略目标与路线图。. |
+| [conduct-retro](./conduct-retro/SKILL.md) | documentation, workflow | `1.0.0` | stable | 周/迭代工程回顾：分析提交历史、工作模式与代码质量指标；按人分解贡献，含表扬与成长建议。适用于「周回顾」「发了什么」「工程复盘」。. |
+| [investigate-root-cause](./investigate-root-cause/SKILL.md) | optimization, workflow | `1.0.0` | stable | 系统性根因调试：investigate → analyze → hypothesize → implement。铁律：无根因不修复。适用于报错、异常行为、故障排查。. |
+| [sync-release-docs](./sync-release-docs/SKILL.md) | documentation, workflow | `1.0.0` | stable | 发版后同步项目文档：交叉引用 diff，更新 README/ARCHITECTURE/CONTRIBUTING/CLAUDE.md，润色 CHANGELOG，清理 TODOS。发版后或 PR 合并后建议使用。. |
+| [warn-destructive-commands](./warn-destructive-commands/SKILL.md) | security, workflow | `1.0.0` | stable | 在破坏性命令执行前发出警告。检查 Bash 命令中的 rm -rf、DROP TABLE、force-push、git reset --hard、kubectl delete 等模式。用户可覆盖每次警告。适用于接触生产、调试线上或共享环境。. |
 
 ---
 
 ## 4. 调度与扩展
 
-调度技能时，Agent 应先解析 `INDEX.md` 以理解能力图。链式调用时遵循各技能 prose 中的 Handoff Point 与 Scope Boundaries；使用 [intent-routing.json](./intent-routing.json) 做意图→技能映射。
+调度技能时，Agent 应先解析 `INDEX.md` 以理解能力图。按 `description`、`tags`、`triggers` 语义匹配技能；链式调用时遵循各技能 prose 中的 Handoff Point 与 Scope Boundaries。细则见 [docs/guides/discovery-and-loading.md](../docs/guides/discovery-and-loading.md)。

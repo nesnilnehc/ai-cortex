@@ -31,7 +31,7 @@
 |cognitive| 4 |
 |composability | 5 |
 |stance| 5 |
-| **asqm_quality** | 19 | 19
+| **asqm_quality** | 19 |
 
 生命周期：质量 ≥ 17 AND Gate A 和 Gate B → 已验证；质量 ≥ 10 → 实验性的。
 
