@@ -1,7 +1,7 @@
 # ASQM 审计 — AI Cortex 技能
 
 **审计日期**：2026-03-24
-**范围**：`skills/` 下全部 54 个技能
+**范围**：`skills/` 下全部 53 个技能
 **打分**：ASQM strict（基于证据；agent_native = 5 仅当 SKILL.md 含有显式 output contract 时）
 
 ---
@@ -10,7 +10,7 @@
 
 | Status | 数量 | 示例技能 |
 | :--- | :---: | :--- |
-| **Validated** | 16 | align-architecture, align-backlog, align-planning, ... (13 more) |
+| **Validated** | 15 | align-architecture, align-backlog, align-planning, ... (12 more) |
 | **Experimental** | 38 | automate-repair, automate-tests, breakdown-tasks, ... (35 more) |
 | **Archive_Candidate** | 0 | — |
 
@@ -98,7 +98,6 @@
 | define-strategic-pillars | 5 | 3 | 4 | 5 | 17 | Validated |
 | design-solution | 5 | 3 | 4 | 5 | 17 | Validated |
 | design-strategic-goals | 5 | 3 | 4 | 5 | 17 | Validated |
-| detect-ssot-violations | 5 | 3 | 4 | 5 | 17 | Validated |
 
 ---
 
@@ -147,7 +146,6 @@ All validated skills meet strict ASQM criteria:
 - **define-strategic-pillars** (Q17): 5/3/4/5
 - **design-solution** (Q17): 5/3/4/5
 - **design-strategic-goals** (Q17): 5/3/4/5
-- **detect-ssot-violations** (Q17): 5/3/4/5
 - **plan-next** (Q18): 5/4/4/5
 - **tidy-repo** (Q18): 5/4/4/5
 
@@ -212,10 +210,9 @@ Experimental skills have quality ≥ 10 but do not meet validated threshold.
    - Add structured step sequences if missing (cognitive = 5)
    - Define handoff points and I/O contracts (composability = 4–5)
 
-2. **detect-ssot-violations & audit-docs**:
-   - Both now evaluated with v1.0.0 and v1.4.0 respectively
-   - detect-ssot-violations: Validated (Q17), added to INDEX and manifest
-   - audit-docs: Validated (Q19), orchestrator with full integration
+2. **audit-docs (v1.4.0)**:
+   - Validated (Q19), highest quality orchestrator with full integration
+   - SSOT detection integrated as internal logic (not separate skill)
 
 ### 6.2 中期改进（Next Iteration）
 
@@ -247,9 +244,9 @@ Experimental skills have quality ≥ 10 but do not meet validated threshold.
 
 ## 7. 结论
 
-**Skills evaluated**: 54
-**Validated**: 16 (29%)
-**Experimental**: 38 (70%)
+**Skills evaluated**: 53
+**Validated**: 15 (28%)
+**Experimental**: 38 (72%)
 **Archive_Candidate**: 0
 
 **No changes needed** for validated skills; they meet all ASQM criteria.
