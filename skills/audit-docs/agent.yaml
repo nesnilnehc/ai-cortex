@@ -4,7 +4,7 @@ cognitive: 4
 composability: 5
 inputs:
 - project path (default: CWD)
-- mode: full | quick | code-review (full mode includes five-step SSOT integrity audit with Intent-first methodology)
+- mode: full | quick | code-review (full mode calls assess-docs for comprehensive SSOT integrity audit)
 - code-diff base branch (optional)
 - apply-tidy flag (optional)
 lifecycle_state: Validated
@@ -22,15 +22,14 @@ overlaps_with:
 - nesnilnehc/ai-cortex:discover-docs-norms
 - nesnilnehc/ai-cortex:tidy-repo
 - nesnilnehc/ai-cortex:assess-docs
-primary_use: 'Audit complete documentation governance using intent-first SSOT methodology
-  (norms, structure including root directory organization, timestamp policy, and semantic
-  SSOT integrity) in one pass.
+primary_use: 'Orchestrate complete documentation governance audit (norms, structure,
+  health, SSOT integrity) in one pass.
 
-  Five-step process: intent modeling → conflict screening → layered similarity → SSOT
-  judgment → repair planning.
+  Coordinates discover-docs-norms, tidy-repo, and assess-docs (which implements intent-first
+  SSOT audit: intent modeling → conflict screening → layered similarity → judgment → repair
+  planning).
 
-  Produce unified audit report with health scores, intent registry, conflict matrix,
-  and actionable roadmap.
+  Produce unified governance report with health scores and actionable roadmap.
 
   '
 scores:
@@ -54,4 +53,4 @@ validation_gates:
     name: Design integrity
     requirement: stance >= 3
     status: pass
-version: 1.5.0
+version: 1.5.1

@@ -1,9 +1,9 @@
 ---
 name: assess-docs
-description: Assess documentation health in one pass — validate artifact norms compliance (paths, naming, front-matter) and evidence readiness by layer; report gaps and produce a minimum-fill plan.
-description_zh: 一次性评估文档健康：验证制品规范合规（路径、命名、front-matter）与各层证据就绪；产出缺口与最小补齐计划。
-tags: [documentation, workflow]
-version: 3.2.0
+description: Assess documentation health in one pass — validate artifact norms compliance (paths, naming, front-matter), evidence readiness by layer, and SSOT integrity using intent-first methodology; report gaps and produce a minimum-fill plan.
+description_zh: 一次性评估文档健康：验证制品规范合规（路径、命名、front-matter）、各层证据就绪、SSOT 完整性（五步意图优先方法）；产出缺口与最小补齐计划。
+tags: [documentation, workflow, ssot, governance]
+version: 3.3.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -202,7 +202,49 @@ output_schema:
 | src/api/auth.py | code-alignment | high | API changed but docs not updated | auth.py modified but docs/architecture/api.md not touched |
 ```
 
-### 第 8 阶段：Documentation Graph Analysis（新增）
+### 第 9 阶段：SSOT 完整性审计（五步意图优先流程）
+
+**前置条件**：执行在 `full` 模式（由 `audit-docs` 或用户直接触发）
+
+**核心原则**：意图优先、内容其次（区别于仅基于文本相似度的方法）
+
+**Step 1 - 意图建模（Intent Modeling）**：
+- 为每个文档提取意图标签：`path_layer`、`artifact_type`、`ownership_role`、`granularity`、`section_intents`
+- 输出 Intent Registry 摘要（按目录分类）
+
+**Step 2 - 意图冲突初筛（Intent Conflict Screening）**：
+- 仅在以下条件同时成立时成为候选对：
+  * 同域（同一文件夹或相邻层）
+  * 意图标签重叠（ownership_role 相同）
+  * 粒度相同或接近
+- 剔除虚假冲突（用途本质不同的配对）
+
+**Step 3 - 分层相似度分析（Layered Similarity）**：
+- **Doc-level 相似度**：整体文本词汇重叠率
+- **Section-level 相似度**：H2/H3 章节粒度的重叠分析（**强制执行，禁止仅凭 Doc-level 判定**）
+- **关键实体重叠**：里程碑、KPI、时间窗口、决策的一致性
+- 要求：Section-level 高重叠可单独触发风险
+
+**Step 4 - SSOT 判定规则**：
+- **P0**：用途重叠 + 关键事实冲突（数字/决策不一致）
+- **P1**：用途重叠 + 大段重复（>40% 内容重叠且无链接）
+- **P2**：用途不同但存在中度复写（应改为引用）
+- **Info**：用途不同，仅背景性相似（无需治理）
+
+**Step 5 - 输出规范化**：
+- **Intent Registry 摘要**（按目录，包含每个文档的意图模型）
+- **SSOT 冲突矩阵**（Doc A、Doc B、intent_overlap、section_overlap、priority、canonical_source、repair_action）
+- **Canonical Mapping**（保留源 → 被引用源映射）
+- **可执行修复清单**（每项含：动作、目标文件、预计影响、回归检查点、优先级）
+- **质量门禁**（验证：不遗漏目录重叠案例、P0/P1 都有 canonical source、修复后零重复）
+
+**输出**：
+- 主报告中新增 "SSOT Integrity" 部分（含摘要、冲突数、修复建议）
+- 详细报告 `docs/calibration/ssot-integrity-audit.md`（含完整五步分析、Intent Registry、冲突矩阵、证据）
+
+---
+
+### 第 8 阶段：Documentation Graph Analysis
 
 **前置条件**：`--check-links` 参数为 true（默认）
 
@@ -277,7 +319,8 @@ output_schema:
 
 - 文档根路径（默认存储库文档根）
 - 非模板项目的可选路径映射
-- 可选的目标准备情况（“中”或“高”）
+- 可选的目标准备情况（”中”或”高”）
+- 模式参数：`full` 模式启用第 9 阶段 SSOT 完整性审计
 
 ### 输出（输出）
 
@@ -316,6 +359,22 @@ Summary: N files scanned; M violations (by severity: critical, major, minor, sug
 - Milestones: strong | weak | missing
 - Roadmap: strong | weak | missing
 - Backlog: strong | weak | missing
+
+## SSOT Integrity（仅 full 模式）
+
+**Intent Registry Summary**（按目录分类）
+- 每个文档的意图模型：artifact_type、ownership_role、granularity、section_intents
+
+**SSOT Conflict Matrix**
+- 冲突配对数：N（P0: X, P1: Y, P2: Z, Info: W）
+- 每个冲突的：canonical source、修复动作、预计影响
+
+**Repair Roadmap**
+- P0 修复（必须）
+- P1 优化（推荐）
+- P2 改进（可选）
+
+**详细报告**：`docs/calibration/ssot-integrity-audit.md`（含五步分析、Intent Registry、冲突矩阵、证据）
 
 ## Gap Priority List
 

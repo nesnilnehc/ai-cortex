@@ -6,21 +6,24 @@ inputs:
 - project docs scope
 - optional layer path mapping
 - optional target readiness level (medium | high)
+- optional mode (full enables phase 9 SSOT integrity audit)
 lifecycle_state: Validated
 market_position: differentiated
 name: assess-docs
 outputs:
 - Documentation Assessment Report (docs/calibration/doc-assessment.md; overwritten
-  unless snapshot requested)
-- compliance findings (path, naming, front-matter violations) and minimal fill plan
-  with layer readiness and gap priority list
+  unless snapshot requested) with compliance findings, layer readiness, and gap priority
+  list
+- SSOT Integrity Audit Report (docs/calibration/ssot-integrity-audit.md; full mode only)
+  with intent registry, conflict matrix, and repair roadmap
 overlaps_with:
 - nesnilnehc/ai-cortex:bootstrap-docs
 - nesnilnehc/ai-cortex:align-planning
 - nesnilnehc/ai-cortex:plan-next
 primary_use: Assess documentation health in one pass — validate artifact norms compliance
-  including root directory categorization and timestamp policy (paths, naming, front-matter)
-  and evidence readiness by layer; report gaps and produce a minimum-fill plan.
+  including root directory categorization and timestamp policy (paths, naming, front-matter),
+  evidence readiness by layer, and SSOT integrity using intent-first five-step methodology
+  (full mode); report gaps and produce a minimum-fill plan.
 scores:
   agent_native: 5
   cognitive: 4
@@ -31,6 +34,8 @@ status: validated
 tags:
 - documentation
 - workflow
+- ssot
+- governance
 validation_gates:
   gate_a:
     name: Agent-ready
@@ -40,4 +45,4 @@ validation_gates:
     name: Design integrity
     requirement: stance >= 3
     status: pass
-version: 3.2.0
+version: 3.3.0
