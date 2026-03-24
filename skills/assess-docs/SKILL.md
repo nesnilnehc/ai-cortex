@@ -213,17 +213,47 @@ output_schema:
 - 输出 Intent Registry 摘要（按目录分类）
 
 **Step 2 - 意图冲突初筛（Intent Conflict Screening）**：
+
+**候选对自动生成**（基于意图标签，不硬编码目录对）：
+- 候选生成规则由以下维度自动推导：
+  * `path_layer`：文档所在的层级（path_layer 值由目录路径自动推断；例如 `docs/requirements-planning/` → path_layer="requirements"）
+  * `artifact_type`：制品类型
+  * `ownership_role`：所有权角色
+  * `granularity`：粒度（content, point-in-time, index等）
+  * `section_intents`：章节级意图标签集合
+- **覆盖范围**：包括同层配对（path_layer相同）、相邻层配对（path_layer相关，如planning↔execution）、以及同主题域配对（artifact_type或ownership_role相同，跨层级）
+- **生成策略**：O(n²) 遍历，对所有文档对 (i, j) 计算意图兼容性分数；分数≥阈值者进入候选集合
+- **示例**（仅作参考，实际目录对由上述规则自动生成，不硬编码）：
+  * 同层：`requirements-planning/X.md` ↔ `requirements-planning/Y.md`（同 path_layer，artifact_type 或 ownership_role 相同）
+  * 相邻层：`requirements-planning/X.md` ↔ `process-management/Y.md`（相邻 path_layer，ownership_role 相同）
+  * 跨层同主题：任意层的文档只要 ownership_role 相同，均进入候选检查
+
+**虚假冲突剔除**：
 - 仅在以下条件同时成立时成为候选对：
-  * 同域（同一文件夹或相邻层）
-  * 意图标签重叠（ownership_role 相同）
+  * 意图标签重叠（ownership_role 相同 或 artifact_type 相同 或 section_intents 有交集）
   * 粒度相同或接近
-- 剔除虚假冲突（用途本质不同的配对）
+- 剔除用途本质不同的配对（如纯架构决策与纯需求收集，无ownership_role或artifact_type交集）
 
 **Step 3 - 分层相似度分析（Layered Similarity）**：
-- **Doc-level 相似度**：整体文本词汇重叠率
-- **Section-level 相似度**：H2/H3 章节粒度的重叠分析（**强制执行，禁止仅凭 Doc-level 判定**）
-- **关键实体重叠**：里程碑、KPI、时间窗口、决策的一致性
-- 要求：Section-level 高重叠可单独触发风险
+
+**强制三层分析**（缺一不可，顺序执行）：
+- **第一优先：Section-level 相似度**（H2/H3 章节粒度的重叠分析）
+  * 提取两文档所有 H2/H3 章节标题与内容块
+  * 计算章节级词汇重叠率、结构相似性
+  * **判定规则**：若 section-level ≥ 25%，则**必须进入冲突判定**，无论 doc-level 如何
+  * 理由：章节重叠指示结构或意图重复，需治理即使全文相似度低
+
+- **第二优先：Doc-level 相似度**（整体文本词汇重叠率）
+  * 仅作为 section-level 判定的**辅助参考**
+  * 不足以单独否决冲突候选（即使 doc-level < 20%，若 section-level 高仍须治理）
+
+- **第三优先：关键实体重叠**（里程碑、KPI、时间窗口、决策的一致性）
+  * 补充语义级验证
+
+**执行约束**：
+- ⚠️ 禁止仅凭 Doc-level 判定"无冲突"
+- ✅ Section-level 高重叠可单独触发风险，无需 Doc-level 支持
+- ✅ 示例：doc_level=11.5% 但 section_level=26.0% → **必须进入P2判定**
 
 **Step 4 - SSOT 判定规则**：
 - **P0**：用途重叠 + 关键事实冲突（数字/决策不一致）
@@ -241,6 +271,30 @@ output_schema:
 **输出**：
 - 主报告中新增 "SSOT Integrity" 部分（含摘要、冲突数、修复建议）
 - 详细报告 `docs/calibration/ssot-integrity-audit.md`（含完整五步分析、Intent Registry、冲突矩阵、证据）
+
+**完成判定（Definition of Done - DoD）**（仅 full 模式适用）：
+
+full 模式的 SSOT 审计必须同时产出以下三项，否则判定为**未完成**（fail closed）：
+
+1. ✅ **Intent Registry Summary**
+   - 按 path_layer/artifact_type 分类
+   - 覆盖统计：总文档数、已建模数、未建模数
+   - 每文档含：artifact_type、ownership_role、granularity、section_intents 简要列表
+
+2. ✅ **SSOT Conflict Matrix**
+   - 表格格式：Doc A | Doc B | intent_overlap_reason | doc_level_sim | section_level_sim | priority | canonical_source | repair_action
+   - 覆盖统计：总候选对数、筛选后冲突数、按 P0/P1/P2/Info 分布
+   - 每冲突含：canonical source（保留哪个文档作为源）与具体修复动作（改为引用/合并/拆分/更新）
+
+3. ✅ **Candidate Coverage Evidence**
+   - 声明候选对生成范围：覆盖了哪些 path_layer 组合、哪些 artifact_type 配对、哪些 ownership_role 交集
+   - 说明筛选理由：哪些初始候选被剔除（虚假冲突）及原因
+   - 目的：可复核与审计，证明非硬编码目录对，而是意图标签驱动
+
+**DoD 失败情形**（任一不满足则判定审计未完成，生成异常报告）：
+- Intent Registry 不完整（文档覆盖 < 100% 或缺少元数据字段）
+- SSOT Conflict Matrix 缺少 canonical_source 或 repair_action
+- 无 Candidate Coverage Evidence（无法证明候选对生成逻辑）
 
 **实现方式**（不依赖外部脚本，自完备）：
 该技能可通过以下任一方式实现：
@@ -453,12 +507,22 @@ Summary: N files scanned; M violations (by severity: critical, major, minor, sug
 
 ### 核心成功标准（必须满足所有标准）
 
+**合规性检查**：
 - [ ] 已解决规范；文档扫描
 - [ ] 以标准格式发布合规调查结果（位置、类别、严重性、标题、描述、建议）
 - [ ] 评估所有规划层；每层的准备情况按基本原理进行评分
 - [ ] 按影响和努力优先排序的差距
 - [ ] 最小填充计划包括混凝土路径和转交
 - [ ] 输出持续遵循合规调查结果和准备情况部分商定的路径
+
+**SSOT 审计相关**（仅 full 模式）：
+- [ ] 已证明候选对生成非硬编码目录对，而是由 path_layer/artifact_type/ownership_role/granularity/section_intents 自动推导
+- [ ] 已执行 section-level 强制判定（section-level ≥ 25% 必须进入冲突判定，无论 doc-level）
+- [ ] 已输出完整的 Intent Registry Summary（覆盖统计 + 每文档元数据）
+- [ ] 已输出完整的 SSOT Conflict Matrix（含 canonical_source 与修复动作）
+- [ ] 已输出 Candidate Coverage Evidence（候选对生成范围说明 + 筛选理由）
+- [ ] P0/P1 项均有明确的 canonical source 与可执行修复动作
+- [ ] 验证不存在跨层漏检（通过 Candidate Coverage Evidence 可复核）
 
 ### 流程质量检查
 
@@ -498,4 +562,24 @@ Summary: N files scanned; M violations (by severity: critical, major, minor, sug
 ### 示例 4：路径不匹配（合规性）
 
 - 文件：`docs/designs/2026-03-06-auth.md`（项目规范：`docs/design-decisions/`）
-- 查找：位置`docs/designs/2026-03-06-auth.md`，类别`产品规范`，严重性`major`，标题“非标准路径中的设计文档”，描述“文件位于 docs/designs/ 但规范指定docs/design-decisions/”，建议“移至docs/design-decisions/2026-03-06-auth.md”
+- 查找：位置`docs/designs/2026-03-06-auth.md`，类别`产品规范`，严重性`major`，标题”非标准路径中的设计文档”，描述”文件位于 docs/designs/ 但规范指定docs/design-decisions/”，建议”移至docs/design-decisions/2026-03-06-auth.md”
+
+### 示例 5：SSOT 跨目录配对（Intent-Driven）
+
+**背景**：相同 artifact_type 或 ownership_role 的文档可能位于不同 path_layer，仍应进行意图冲突检查。
+
+- **初始候选**（自动生成，非硬编码）：
+  * `docs/requirements-planning/feature-spec.md`（artifact_type=requirements, ownership_role=planning）
+  * `docs/process-management/task-planning.md`（artifact_type=task, ownership_role=execution）
+  * → 由于 section_intents 重叠（都含”acceptance-criteria”），进入候选集合
+
+- **分层相似度**：
+  * doc-level = 11.5%（低）
+  * section-level = 26.0%（中等重叠，触发判定）
+  * → section-level 主判据触发，进入 SSOT 判定
+
+- **冲突判定**：P2（用途不同但存在中度复写）
+
+- **修复动作**：Convert to reference + link（将重复内容改为引用）
+
+**关键点**：目录对（requirements-planning ↔ process-management）仅作示例，实际候选对由意图标签生成，不硬编码任何目录组合。
