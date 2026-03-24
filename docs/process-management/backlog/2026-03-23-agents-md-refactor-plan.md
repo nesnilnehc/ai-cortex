@@ -1,3 +1,11 @@
+---
+artifact_type: backlog-item
+created_by: capture-work-items
+lifecycle: snapshot
+created_at: 2026-03-24
+status: active
+---
+
 # AGENTS.md 重构计划
 
 **状态**：已完成  

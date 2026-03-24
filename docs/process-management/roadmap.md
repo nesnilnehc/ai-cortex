@@ -1,3 +1,11 @@
+---
+artifact_type: roadmap
+created_by: define-roadmap
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # 路线图
 
 **最后更新**：2026-03-22

@@ -1,3 +1,11 @@
+---
+artifact_type: backlog-item
+created_by: capture-work-items
+lifecycle: snapshot
+created_at: 2026-03-24
+status: active
+---
+
 # 计划：完全废弃 intent-routing
 
 **日期**：2026-03-23  

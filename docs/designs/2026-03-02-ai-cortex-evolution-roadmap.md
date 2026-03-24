@@ -1,3 +1,11 @@
+---
+artifact_type: roadmap
+created_by: define-roadmap
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # AI Cortex 演进路线图
 
 **日期**：2026-03-02

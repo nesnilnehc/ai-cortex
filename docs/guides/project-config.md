@@ -1,3 +1,11 @@
+---
+artifact_type: guide
+created_by: ai-cortex
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # 项目配置指引
 
 依赖项目配置的技能（如 automate-tests、automate-repair、commit-work、generate-github-workflow）应遵循以下行为，以实现平台无关设计。

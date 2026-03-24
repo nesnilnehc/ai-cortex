@@ -1,3 +1,11 @@
+---
+artifact_type: reference
+created_by: ai-cortex
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # 参考来源与致谢
 
 <!-- markdownlint-disable MD058 MD060 -->

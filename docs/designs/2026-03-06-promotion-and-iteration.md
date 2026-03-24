@@ -1,3 +1,11 @@
+---
+artifact_type: design
+created_by: design-solution
+lifecycle: snapshot
+created_at: 2026-03-24
+status: active
+---
+
 # 推广与迭代 Design
 
 **Date:** 2026-03-06

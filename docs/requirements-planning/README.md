@@ -1,3 +1,11 @@
+---
+artifact_type: requirements
+created_by: ai-cortex
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # 需求规划
 
 AI Cortex 的需求由项目目标与路线图决策推导而来。

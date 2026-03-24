@@ -1,3 +1,11 @@
+---
+artifact_type: strategic-goals
+created_by: design-strategic-goals
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # 战略目标
 
 与 [mission](mission.md)、[vision](vision.md)、[North Star](north-star.md) 对齐。

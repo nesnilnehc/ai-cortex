@@ -1,3 +1,11 @@
+---
+artifact_type: guide
+created_by: ai-cortex
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # 技能安装与重装说明
 
 本文档说明如何安装、升级与重装 AI Cortex 技能，适用于通过 [skills.sh](https://skills.sh)（`npx skills add`）安装的用户。

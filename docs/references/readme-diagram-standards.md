@@ -1,3 +1,11 @@
+---
+artifact_type: reference
+created_by: ai-cortex
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # README 图表设计标准
 
 **版本**：1.0.0

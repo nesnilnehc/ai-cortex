@@ -1,3 +1,11 @@
+---
+artifact_type: governance
+created_by: ai-cortex
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # 语言方案 (Language Scheme)
 
 **状态**：项目级规范  

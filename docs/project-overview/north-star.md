@@ -1,3 +1,11 @@
+---
+artifact_type: north-star
+created_by: define-north-star
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # North Star（北极星）
 
 ## North Star 指标
