@@ -1,7 +1,8 @@
 name: discover-docs-norms
 status: validated
+version: 1.2.0
 
-primary_use: Help users establish project-specific artifact norms through scanning and dialogue; produce docs/ARTIFACT_NORMS.md with complete human-readable and machine-parseable specifications.
+primary_use: Help users establish project-specific artifact norms through scanning and dialogue; produce docs/ARTIFACT_NORMS.md with complete human-readable and machine-parseable specifications including root directory organization rules.
 
 inputs:
   - project path (default: CWD)

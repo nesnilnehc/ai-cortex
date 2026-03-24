@@ -3,7 +3,7 @@ name: discover-docs-norms
 description: Help users establish project-specific artifact norms (paths, naming, lifecycle) through scanning and confirmation. Core goal - produce docs/ARTIFACT_NORMS.md with all norms in human-readable + machine-parseable format.
 description_zh: 通过对话与扫描，帮助建立项目级文档制品规范（路径、命名、生命周期）；产出 docs/ARTIFACT_NORMS.md。
 tags: [documentation, workflow]
-version: 1.1.0
+version: 1.2.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -226,6 +226,22 @@ output_schema:
    - ✅ 四个必需字段必须存在
    - ✅ artifact_type 必须与路径对应
    - ✅ created_at 必须是有效的日期
+
+   ## 根目录结构
+
+   ### 根目录允许的文件
+   - 索引文件：`README.md`、`README_*`、`README.*`
+   - 目录索引：`INDEX.md`、`INDEX_*`
+   - 治理文件：`ARTIFACT_NORMS.md`、`LANGUAGE_SCHEME.md`、`CHANGELOG.md`、`CONTRIBUTING.md`
+   - 项目元数据文件：`LICENSE`、`AUTHORS` 等
+
+   ### 必要的组织结构
+   所有其他文件必须按其 artifact_type 和 path_pattern 分类到指定的子目录中。
+
+   **验证规则**：
+   - ✅ 文件所在目录必须与其 artifact_type 对应
+   - ✅ docs/ 根目录不应有内容制品（如文档、需求、架构等）
+   - ✅ 所有内容必须有明确的类别化目录
 
    ## 整体置信度: 95%
 

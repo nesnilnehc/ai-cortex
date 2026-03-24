@@ -3,7 +3,7 @@ name: tidy-repo
 description: Audit repository structure in one pass — detect misplaced files, naming inconsistencies, empty directories, and stale artifacts; produce a prioritized tidy report; optionally apply safe, reversible changes.
 description_zh: 一次性审计仓库目录结构——检测错放文件、命名不一致、空目录和过期制品；输出优先级整理报告；可选地应用安全、可逆的清理操作。
 tags: [repository, workflow, cleanup, structure]
-version: 1.0.0
+version: 1.1.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -132,6 +132,17 @@ output_schema:
 | `dead-artifact` | 明显废弃的文件（扩展名为 `.bak`、`.tmp`、`.orig`；名称含 `DEPRECATED`、`OLD`、`UNUSED`；超过 180 天未修改且无引用） |
 | `duplicate` | 文件名或路径高度相似，疑似重复（如 `util.py` 与 `utils.py` 在同目录） |
 | `structure` | 顶层出现非预期目录，或缺少约定的标准目录（如 `docs/`、`src/`） |
+| `root-categorization` | docs/ 根目录中的文件应该分类到子目录（不应有除索引、治理文件外的内容） |
+
+**Root-Categorization 检测细节**：
+1. 从 `docs/ARTIFACT_NORMS.md` 读取允许的根目录文件列表（索引文件、治理文件）
+2. 扫描 `docs/` 根目录的所有 `.md` 文件
+3. 对每个 `.md` 文件：
+   - 如果与允许列表匹配（README.md、INDEX.md、ARTIFACT_NORMS.md 等）→ 跳过
+   - 否则，推断其 artifact_type（从 front-matter、文件名、内容）
+   - 查询 ARTIFACT_NORMS.md 中该类型的 path_pattern
+   - 创建 finding：`root-categorization`，建议移至该目录，严重性：`suggestion`（信息级别）
+4. 示例：`docs/goals.md` → 推断类型为 goals → 查询规范 → 建议移至 `docs/goals/goals.md`
 
 ### 第 3 阶段：发现输出
 
@@ -140,7 +151,7 @@ output_schema:
 | 字段 | 内容 |
 | :--- | :--- |
 | 位置 | `path/to/file-or-dir` |
-| 类别 | `misplaced` \| `naming` \| `empty-dir` \| `dead-artifact` \| `duplicate` \| `structure` |
+| 类别 | `misplaced` \| `naming` \| `empty-dir` \| `dead-artifact` \| `duplicate` \| `structure` \| `root-categorization` |
 | 严重性 | `critical` \| `major` \| `minor` \| `suggestion` |
 | 标题 | 简短问题摘要 |
 | 描述 | 具体说明哪里不对 |

@@ -1,8 +1,9 @@
 name: audit-docs
 status: validated
+version: 1.2.0
 
 primary_use: |
-  Audit complete documentation governance (norms, structure, health) in one pass.
+  Audit complete documentation governance (norms, structure including root directory organization, health) in one pass.
   Produce unified audit report with health scores and actionable roadmap.
 
 inputs:
