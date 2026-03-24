@@ -1,9 +1,9 @@
 ---
 name: audit-docs
-description: Audit complete documentation governance (norms, structure, health) in one command with unified report and roadmap.
-description_zh: 一条命令完成文档治理审计（规范、结构、健康度），生成统一报告和路线图。
-tags: [documentation, governance, orchestration, workflow]
-version: 1.3.0
+description: Audit complete documentation governance (norms, structure, SSOT integrity, health) in one command with unified report and roadmap.
+description_zh: 一条命令完成文档治理审计（规范、结构、语义重复、健康度），生成统一报告和路线图。
+tags: [documentation, governance, orchestration, workflow, ssot]
+version: 1.4.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -49,6 +49,7 @@ output_schema:
 - 发现和验证文档规范（通过 `discover-docs-norms`）
 - 根据规范整理仓库结构（通过 `tidy-repo`）
 - 评估文档健康度（通过 `assess-docs`）
+- 检测跨文档语义重复与 SSOT 违规（通过 `detect-ssot-violations`，`full` 模式）
 - 将所有发现合成为统一治理报告
 - 计算集成健康评分（0-100）
 - 生成优先级行动计划
@@ -106,6 +107,12 @@ output_schema:
 - 运行 `assess-docs [--code-diff=<base>]`（基于模式）
 - 收集：合规性、准备度、图健康度、代码对齐（如适用）
 
+**第 4.5 步：SSOT 检测**（仅 `full` 模式，~2-5 分钟）
+- 扫描所有 .md 文档，检测跨文档语义重叠
+- 识别"复写" vs "引用"，按 artifact_type 进行边界校验
+- 生成冲突矩阵（文档对、重叠率、建议保留源）
+- 输出 SSOT 违规清单（P0/P1/P2 优先级）
+
 **第 5 步：生成统一报告** (~1 分钟)
 - 合成步骤 2-4 的发现
 - 计算 5 个健康评分（结构、准备度、对齐、图、集成）
@@ -118,7 +125,10 @@ output_schema:
 - 写入 `docs/calibration/audit-docs.md`
 - 输出：健康评分 + 前 10 项改进 + 下一步建议
 
-**总预计时间**：5-10 分钟（取决于项目大小和模式）
+**总预计时间**：
+- `quick` 模式：3-5 分钟（跳过 SSOT 检测）
+- `full` 模式：10-15 分钟（包括 SSOT 检测）
+- `code-review` 模式：5-10 分钟
 
 ---
 
