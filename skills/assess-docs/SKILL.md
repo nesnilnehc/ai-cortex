@@ -3,7 +3,7 @@ name: assess-docs
 description: Assess documentation health in one pass — validate artifact norms compliance (paths, naming, front-matter) and evidence readiness by layer; report gaps and produce a minimum-fill plan.
 description_zh: 一次性评估文档健康：验证制品规范合规（路径、命名、front-matter）与各层证据就绪；产出缺口与最小补齐计划。
 tags: [documentation, workflow]
-version: 3.0.0
+version: 3.1.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -99,14 +99,20 @@ output_schema:
 1.枚举`docs/`（或用户指定的根目录）下的Markdown
 2. 对于每个文件：读取“artifact_type”的前文；如果不存在，则从路径推断（例如`待办/`→待办-item，`设计-decisions/`→设计）。映射到预期的 path_pattern 并根据规范命名。
 3. 根据规范验证路径、文件名和前置事项（如适用的“artifact_type”、“created_by”等必填字段）。
-4. 针对每个违规行为发出一项调查结果：位置（路径）、类别（“产品规范”|“路径”|“命名”|“前事项”）、严重性（“严重”|“主要”|“次要”|“建议”）、标题、描述、建议。摘要：扫描的文件总数、按严重程度划分的违规计数。
+4. 针对每个违规行为发出一项调查结果：位置（路径）、类别（”产品规范”|”路径”|”命名”|”前事项”|”root-categorization”）、严重性（”严重”|”主要”|”次要”|”建议”）、标题、描述、建议。摘要：扫描的文件总数、按严重程度划分的违规计数。
+
+5. **Root-Categorization 合规性检查**（在步骤 3 中进行）：
+   - 如果文件路径为 `docs/*.md`（根目录）：
+   - 检查其是否在允许的根目录文件列表中（README.md、INDEX.md、ARTIFACT_NORMS.md 等）
+   - 如果否，标记为 root-categorization 违规，建议移至按 artifact_type 分类的子目录
+   - 严重性：`建议`（信息级别，不阻止合规性）
 
 **调查结果格式**（每个调查结果必须遵循）：
 
 |领域|内容 |
 | :--- | :--- |
 |地点 | `path/to/file.md` |
-|类别 | `产品规范` \| `路径` \| `命名` \| `前面的事情` |
+|类别 | `产品规范` \| `路径` \| `命名` \| `前面的事情` \| `root-categorization` |
 |严重性 | `关键` \| `主要` \| `次要` \| `建议` |
 |标题 |简短的违规摘要 |
 |描述 |怎么了|

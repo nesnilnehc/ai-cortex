@@ -3,7 +3,7 @@ name: audit-docs
 description: Audit complete documentation governance (norms, structure, health) in one command with unified report and roadmap.
 description_zh: 一条命令完成文档治理审计（规范、结构、健康度），生成统一报告和路线图。
 tags: [documentation, governance, orchestration, workflow]
-version: 1.1.2
+version: 1.2.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -109,6 +109,11 @@ output_schema:
 **第 5 步：生成统一报告** (~1 分钟)
 - 合成步骤 2-4 的发现
 - 计算 5 个健康评分（结构、准备度、对齐、图、集成）
+  - **结构健康度**：包括命名一致性、目录组织、**根目录分类**
+- 编写根目录组织部分：
+  - 总结：docs/ 根目录中的文件数，其中有多少应该分类
+  - 来自 tidy-repo 和 assess-docs 的 root-categorization 发现
+  - 优先级：低（信息级别）
 - 写入 `docs/calibration/audit-docs.md`
 - 输出：健康评分 + 前 10 项改进 + 下一步建议
 
