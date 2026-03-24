@@ -47,7 +47,6 @@
 | cognitive-loop | docs/calibration/cognitive-loop.md | cognitive-loop.md | living |
 | repair-loop | docs/calibration/repair-loop.md | repair-loop.md | living |
 | audit-docs | docs/calibration/audit-docs.md | audit-docs.md | living |
-| detect-ssot-violations-report | docs/calibration/ssot-violations.md | ssot-violations.md | living |
 
 ## 路径检测（backlog-item）
 

@@ -16,12 +16,10 @@ outputs:
 - docs/ARTIFACT_NORMS.md (if norms created in phase 2)
 - docs/calibration/repo-tidy.md (if structure audit applied)
 - docs/calibration/doc-assessment.md (if full assessment run)
-- docs/calibration/ssot-violations.md (if full mode, SSOT audit report)
 overlaps_with:
 - nesnilnehc/ai-cortex:discover-docs-norms
 - nesnilnehc/ai-cortex:tidy-repo
 - nesnilnehc/ai-cortex:assess-docs
-- nesnilnehc/ai-cortex:detect-ssot-violations (called in full mode)
 primary_use: 'Audit complete documentation governance (norms, structure including
   root directory organization, timestamp policy, and semantic SSOT integrity) in one
   pass.
