@@ -1,9 +1,9 @@
 ---
 name: discover-docs-norms
-description: Help users establish project-specific artifact norms (paths, naming, lifecycle) through dialogue and scanning. Core goal - produce docs/ARTIFACT_NORMS.md and optional .ai-cortex/artifact-norms.yaml.
+description: Help users establish project-specific artifact norms (paths, naming, lifecycle) through scanning and confirmation. Core goal - produce docs/ARTIFACT_NORMS.md with all norms in human-readable + machine-parseable format.
 description_zh: 通过对话与扫描，帮助建立项目级文档制品规范（路径、命名、生命周期）；产出 docs/ARTIFACT_NORMS.md。
 tags: [documentation, workflow]
-version: 1.0.1
+version: 1.1.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -14,7 +14,7 @@ input_schema:
   description: Project path, optional starting point (AI Cortex default, project-documentation-template, blank)
 output_schema:
   type: document-artifact
-  description: docs/ARTIFACT_NORMS.md and optionally .ai-cortex/artifact-norms.yaml
+  description: docs/ARTIFACT_NORMS.md (single source of truth for all artifact norms)
 ---
 
 # 技能（Skill）：发现文档规范
@@ -27,17 +27,22 @@ output_schema:
 
 ## 核心目标（Core Objective）
 
-**首要目标**：生成`docs/ARTIFACT_NORMS.md`（以及可选的`.ai-cortex/artifact-norms.yaml`），声明待办、设计、ADR 和校准产品的项目产品路径、命名和生命周期。
+**首要目标**：自动推导项目特定的文档规范，生成 `docs/ARTIFACT_NORMS.md` 作为单一规范来源。
 
 **成功标准**（必须满足所有要求）：
 
-1. ✅ **扫描项目结构**：检查现有的 `docs/` 结构和约定
-2. ✅ **确认用户偏好**：通过对话确认待办、设计、adr、文档准备的路径（或从起始模板接受）
-3. ✅ **写入 ARTIFACT_NORMS.md**：人类可读的规范文件位于 `docs/ARTIFACT_NORMS.md`
-4. ✅ **创建可选的 YAML**：如果用户请求，使用机器可读模式编写的 `.ai-cortex/artifact-norms.yaml`
+1. ✅ **自动扫描项目结构**：扫描 docs/ 目录，推断现有约定
+2. ✅ **推导规范**：基于扫描结果，自动推导路径、命名、front-matter 规范，生成置信度评分
+3. ✅ **简化用户确认**：仅要求用户确认推导结果（而非选择起点）
+4. ✅ **生成单一规范文件**：
+   - `docs/ARTIFACT_NORMS.md`（人类可读 + 机器可解析的完整规范）
+   - 包含：路径映射、命名约定、front-matter 标准、置信度评分
 5. ✅ **用户确认**：用户在最终写入之前明确批准了规范
 
-**验收**测试：其他技能（例如 capture-work-items）能否读取输出并正确解析该项目的路径？
+**验收测试**：
+- 其他技能（如 assess-docs、tidy-repo）能否读取输出并正确应用规范？
+- 置信度评分 > 90%？
+- 生成的 linting.yaml 和 templates 可用？
 
 ---
 
@@ -47,7 +52,7 @@ output_schema:
 
 - 扫描项目`docs/`结构
 - 确认产品路径和命名的对话
-- 根据 [spec/artifact-norms-schema.md](../../spec/artifact-norms-schema.md) 生成 `docs/ARTIFACT_NORMS.md` 和可选的 `.ai-cortex/artifact-norms.yaml`
+- 根据项目文档模板标准生成 `docs/ARTIFACT_NORMS.md`（参考 project-documentation-template）
 - 从 AI Cortex 默认、项目文档模板或空白开始
 
 **本技能不负责**：
@@ -72,9 +77,10 @@ output_schema:
 
 ### 交互（互动）政策
 
-- **默认**：项目路径 = 工作空间根目录；如果没有规范则从AI Cortex默认开始
-- **选择选项**：起点`[ai-cortex][template][blank]`；每个产品类型的路径映射
-- **确认**：在写入ARTIFACT_NORMS.md之前；所有路径映射
+- **输入**：项目路径（默认 CWD）
+- **处理**：自动扫描 docs/ → 自动推导规范 → 计算置信度
+- **交互**：仅展示推导结果，要求用户确认（y/e/n）
+- **确认**：用户选择后，在写入文件前再次确认路径
 
 ### 第 1 阶段：扫描
 
@@ -82,28 +88,165 @@ output_schema:
 2. 识别现有路径：待办、设计、adr、校准等。
 3. 记下示例文件中的任何约定（命名、前面的内容）
 
-### 第 2 阶段：选择起点
+### 第 2 阶段：自动推导规范（改进）
 
-询问用户或从上下文推断：
+而不是"选择起点"，系统现在**自动扫描 + 推导**：
 
-- **AI Cortex 默认**：使用 [spec/artifact-contract.md](../../spec/artifact-contract.md) 作为基线
-- **项目文档模板**：将模板结构映射到产品类型
-- **空白**：从最小表开始，用户填写路径
+1. **扫描项目 docs/ 结构**
+   - 枚举所有 .md 文件
+   - 读取各文件的 front-matter
+   - 记录文件路径、名称、大小、修改时间
 
-### 第 3 阶段：确认路径
+2. **推断 Artifact Type**（基于优先级）
+   - ① Front-matter 的 `artifact_type` 字段（置信度 100%）
+   - ② 路径关键词（如 `docs/architecture/` → architecture，置信度 90%）
+   - ③ 文件名关键词（如 `adr-`, `design-` → 对应类型，置信度 70%）
+   - ④ Front-matter title 关键词（置信度 60%）
+   - ⑤ 默认 "other"（置信度 10%）
 
-对于每种产品类型（待办项目、设计、adr、文档准备）：
+3. **推导命名约定**
+   - 扫描文件名，检测主导的大小写风格（kebab-case? snake_case? camelCase?）
+   - 检测日期格式（YYYY-MM-DD? YYYY-MM? YYYYMMDD?）
+   - 检测常见前缀/后缀
 
-- 从起点或现有结构提出路径模式和命名
-- 要求用户确认或定制
-- 待办项目的文档路径检测规则（如果适用）
+4. **推导路径约定**
+   - 为每个 artifact_type，统计现有文件的路径
+   - 取最常见的路径作为该类型的规范路径
+   - 例：如果 5 个 goals 文件都在 `docs/` 中，则规范为 `docs/`
 
-### 第 4 阶段：写入并确认
+5. **推导 Front-matter 标准**
+   - 扫描所有文件的 front-matter
+   - 统计各字段出现频率
+   - 将出现在 >= 50% 文件中的字段列为"必需"
 
-1. 根据 [spec/artifact-norms-schema.md](../../spec/artifact-norms-schema.md) 生成 `docs/ARTIFACT_NORMS.md`
-2. （可选）生成 `.ai-cortex/artifact-norms.yaml`
-3. 现状总结；写入前请求用户确认
-4、确认后写入文件
+6. **生成置信度评分**
+   - 总体置信度 = 平均推断置信度
+   - 输出：推导出的规范 + 置信度指标
+
+### 第 3 阶段：用户确认（简化）
+
+系统展示推导结果，用户仅需确认，无需选择起点：
+
+**展示内容**：
+```
+推导出的规范（置信度 95%）：
+
+✓ 路径约定:
+  - goals         → docs/goals/
+  - requirements  → docs/requirements-planning/
+  - architecture  → docs/architecture/
+  - designs       → docs/design-decisions/
+  - adrs          → docs/process-management/decisions/
+  - milestones    → docs/process-management/milestones/
+  - roadmaps      → docs/
+  - todos         → docs/
+
+✓ 命名约定:
+  - 大小写: kebab-case
+  - 日期格式: YYYY-MM-DD (如 2026-03-06-auth.md)
+
+✓ Front-matter 必需字段:
+  - artifact_type, created_by, lifecycle, created_at
+
+这个规范对吗？
+(y) Yes, confirm  / (e) Edit specific paths  / (n) No, start over
+```
+
+**用户选项**：
+- `y`：确认，进入第 4 阶段
+- `e`：编辑特定项（如改变 requirements 的路径）
+- `n`：重新扫描（重新跑第 2 阶段，可能需要手工调整文件）
+
+### 第 4 阶段：生成输出文件
+
+1. 根据推导结果 + 用户确认，生成单一规范文件 `docs/ARTIFACT_NORMS.md`：
+
+   **`docs/ARTIFACT_NORMS.md`**（人类可读 + 机器可解析）
+   ```markdown
+   ---
+   artifact_type: governance
+   created_by: discover-docs-norms
+   created_at: 2026-03-24
+   status: draft
+   ---
+
+   # 项目文档规范
+
+   **推导日期**: 2026-03-24
+   **推导置信度**: 95%
+   **推导工具**: discover-docs-norms v1.1.0
+
+   ## 路径约定
+
+   | Artifact Type | Path Pattern | 说明 | 置信度 |
+   | --- | --- | --- | --- |
+   | goals | `docs/goals/` | 项目目标 | 100% |
+   | requirements | `docs/requirements-planning/` | 需求规划 | 90% |
+   | architecture | `docs/architecture/` | 架构文档 | 95% |
+   | design | `docs/design-decisions/` | 设计决策 | 85% |
+   | adr | `docs/process-management/decisions/` | 架构决策记录 | 80% |
+   | milestone | `docs/process-management/milestones/` | 里程碑计划 | 75% |
+   | roadmap | `docs/` | 产品路线图 | 70% |
+   | todo | `docs/` | 待办项目 | 65% |
+
+   ## 命名约定
+
+   - **大小写**: `kebab-case`（例：`2026-03-24-authentication-design.md`）
+   - **日期格式**: `YYYY-MM-DD`（例：`2026-03-24`）
+   - **模式**: `[YYYY-MM-DD-]artifact-name.md`
+
+   ## Front-Matter 标准
+
+   **必需字段**：
+   ```yaml
+   artifact_type: [goals|requirements|architecture|design|adr|milestone|roadmap|todo]
+   created_by: [author name or tool name]
+   created_at: YYYY-MM-DD
+   status: [draft|approved|active|archived]
+   ```
+
+   **推荐字段**：
+   - `lifecycle`: 文档生命周期阶段
+   - `tags`: 主题标签
+   - `related`: 相关文档链接
+
+   ## 验证规则
+
+   ### Naming
+   - ✅ 文件名必须符合 `kebab-case`
+   - ✅ 日期前缀必须是 `YYYY-MM-DD`
+   - ✅ 不允许 `snake_case` 或 `camelCase`
+
+   ### Paths
+   - ✅ goals 必须在 `docs/goals/`
+   - ✅ requirements 必须在 `docs/requirements-planning/`
+   - （按表格规定）
+
+   ### Front-Matter
+   - ✅ 四个必需字段必须存在
+   - ✅ artifact_type 必须与路径对应
+   - ✅ created_at 必须是有效的日期
+
+   ## 整体置信度: 95%
+
+   ### 低置信度项（需关注）
+   - 待办项（todos）：置信度 65%，建议与用户确认
+   - 里程碑（milestones）：置信度 75%，可能需要调整路径
+
+   ---
+
+   **推导依据**：
+   - 扫描了 docs/ 中的 42 个文件
+   - 分析了现有 front-matter 和路径模式
+   - 参考了 project-documentation-template 最佳实践
+   ```
+
+2. 输出写入前，向用户确认：
+   - 是否同意提议的路径映射？
+   - 是否同意命名和 front-matter 标准？
+   - 是否需要调整任何部分？
+
+3. 写入 `docs/ARTIFACT_NORMS.md` 到磁盘
 
 ---
 
@@ -112,12 +255,14 @@ output_schema:
 ### 输入（输入）
 
 - 项目路径（默认：当前工作空间根目录）
-- 可选：起点（ai-cortex | 模板 | 空白）
+- （无需用户选择起点——系统自动推导）
 
 ### 输出（输出）
 
-- `docs/ARTIFACT_NORMS.md`：人类可读的产品规范表
-- `.ai-cortex/artifact-norms.yaml`（可选）：机器可读模式
+**单一规范文件**：
+- `docs/ARTIFACT_NORMS.md`：完整规范文档（人类可读 + 机器可解析）
+  - 包含：路径约定、命名约定、front-matter 标准、验证规则、置信度评分
+  - 其他技能（assess-docs、tidy-repo）从此文件解析规范信息
 
 ---
 
@@ -146,18 +291,25 @@ output_schema:
 
 ## 自检（Self-Check）
 
-- [ ] 已扫描项目结构并识别现有 `docs/` 约定
-- [ ] 通过对话确认用户对路径的偏好
-- [ ] `docs/ARTIFACT_NORMS.md` 已写入
-- [ ] （可选）已创建 `.ai-cortex/artifact-norms.yaml`（若用户请求）
-- [ ] 用户在写入前已批准规范
+- [ ] 已扫描 docs/ 目录并推导规范
+- [ ] 已计算置信度评分（目标 > 90%）
+- [ ] 用户已确认推导结果
+- [ ] 已生成 `docs/ARTIFACT_NORMS.md` 规范文件
+- [ ] 规范文件已写入磁盘
 
 ### 验收测试
 
-**其他技能可以读取输出并正确解析该项目的路径吗？**
+**1. 其他技能（assess-docs、tidy-repo）能否从 `docs/ARTIFACT_NORMS.md` 解析规范？**
+- assess-docs 能否解析路径约定、命名规则、front-matter 标准？
+- tidy-repo 能否应用这些规范进行结构整理？
 
-如果否：规范不完整或不一致。返回第 3 阶段。
-如果是：切换完成。
+**2. 规范文档格式是否一致且可解析？**
+- 规范文档是否包含所有必要的验证规则？
+- 是否清楚地标注了置信度？
+
+**3. 置信度 > 90%？**
+
+若所有答案为"是"，技能完成。否则，调整推导规则。
 
 ---
 
@@ -179,10 +331,12 @@ output_schema:
 
 ## 附录：输出合约
 
-该技能为项目规范生成**文档产品**输出。输出必须符合：
+该技能为项目规范生成单一**规范文档**输出。输出必须符合项目文档模板标准：
 
 |元素|要求 |
 | :--- | :--- |
-| **主要输出** | `docs/ARTIFACT_NORMS.md` — 人类可读的产品规范表（产品类型、路径模式、命名、生命周期）|
-| **可选输出** | `.ai-cortex/artifact-norms.yaml` — 每个 [spec/artifact-norms-schema.md](../../spec/artifact-norms-schema.md) 的机器可读模式 |
-| **路径映射** |每个 artifact_type 映射到一个 path_pattern；用户在写入前必须确认|
+| **主要输出** | `docs/ARTIFACT_NORMS.md` — 项目级规范文档（governance 类型）|
+| **内容结构** | YAML front-matter + Markdown 规范表 + 验证规则 + 置信度评分|
+| **必需部分** | 路径约定、命名约定、front-matter 标准、验证规则、置信度|
+| **可解析性** | 其他技能必须能从 Markdown 表格解析路径映射和验证规则 |
+| **路径映射** | 每个 artifact_type 映射到一个 path_pattern；用户在写入前必须确认|
