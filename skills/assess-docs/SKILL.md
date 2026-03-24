@@ -34,7 +34,7 @@ output_schema:
 
 **成功标准**（必须满足所有要求）：
 
-1. ✅ **规范已解决**：来自 `docs/ARTIFACT_NORMS.md` 或 `.ai-cortex/artifact-norms.yaml` 的项目规范；回退到spec/artifact-contract.md
+1. ✅ **规范已解决**：来自 `docs/ARTIFACT_NORMS.md` 的项目规范；若不存在，回退到 project-documentation-template 默认值
 2. ✅ **合规性检查**：扫描 `docs/` 下所有相关的 Markdown；路径、命名、front-matter 已验证；作为调查结果发出的每项违规行为（位置、类别、严重性、标题、描述、建议）
 3. ✅ **层覆盖评估和准备度评分**：评估目标、需求、架构、里程碑、路线图和待办层，并对每个层进行“强”、“弱”或“缺失”评分；计算总体准备情况
 4. ✅ **差距优先**：按照对交付和对齐的影响对缺失层和薄弱层进行排序
@@ -81,14 +81,17 @@ output_schema:
 
 ### 交互（互动）政策
 
-- **默认**：文档根 = 存储库 `docs/`；使用项目规范（如果存在）
-- **选择选项**：目标准备度“[中][高]”；非默认时的路径映射
-- **确认**：与项目规范不同时的输出路径；写之前
+- **默认输入**：文档根 = 存储库 `docs/`；使用项目规范（如果存在）
+- **可选参数**：
+  - `--code-diff [branch | pr | auto]`：若提供，分析代码变更对文档的影响（新增）
+  - `--check-links [true | false]`：默认 true，检查文档链接有效性（新增）
+  - `--target-readiness [medium | high]`：目标就绪度
+- **确认**：输出路径（若与规范不同）；写之前
 
 ### 第 0 阶段：解决范围和映射
 
 1. 解析文档根目录和可选的自定义路径映射
-2. **解决项目规范**：根据 [spec/artifact-norms-schema.md](../../spec/artifact-norms-schema.md) 检查 `.ai-cortex/artifact-norms.yaml`，然后检查 `docs/ARTIFACT_NORMS.md`。如果找到，则用于路径模式、命名和图层映射；否则使用 [spec/artifact-contract.md](../../spec/artifact-contract.md) 默认值。
+2. **解决项目规范**：检查 `docs/ARTIFACT_NORMS.md`。如果找到，则用于路径模式、命名和层级映射；否则使用 project-documentation-template 默认值。
 3. 检测预期层路径：目标`docs/project-overview/`、需求`docs/requirements-planning/`、架构`docs/architecture/`、里程碑/路线图/待办事项`docs/process-management/`（和待办路径）。接受向后兼容的别名（例如“docs/需求/”）。
 
 ### 第 1 阶段：合规性验证
@@ -139,7 +142,117 @@ output_schema:
 
 ### 第 6 阶段：坚持报告
 
-根据已解决的项目规范或默认的“docs/calibration/doc-assessment.md”写入路径。除非用户明确请求过时的快照，否则覆盖规范文件。包括前面的内容：“产品类型：文档评估”、“创建者：评估文档”、“生命周期：生活”、“创建时间：YYYY-MM-DD”。如果输出目录不存在，则创建它。报告必须包括以下合规调查结果和准备情况部分。
+根据已解决的项目规范或默认的”docs/calibration/doc-assessment.md”写入路径。除非用户明确请求过时的快照，否则覆盖规范文件。包括前面的内容：”产品类型：文档评估”、”创建者：评估文档”、”生命周期：生活”、”创建时间：YYYY-MM-DD”。如果输出目录不存在，则创建它。报告必须包括以下合规调查结果和准备情况部分。
+
+### 第 7 阶段：Code-to-Docs Alignment（可选，若 --code-diff 提供）
+
+**前置条件**：用户指定了 `--code-diff` 参数
+
+**处理流程**：
+
+1. **获取代码 diff**
+
+   ```bash
+   git diff <base>...HEAD --name-status --diff-filter=MAD
+   ```
+
+   解析结果，分类为：已修改(M)、新增(A)、删除(D) 的文件
+
+2. **推断代码区域**
+   - `src/api/*` → area: “api”
+   - `src/utils/*` → area: “utils”
+   - `src/core/*` → area: “core”
+   - `src/auth/*` → area: “auth”
+   - 等等
+
+3. **查询 doc update map**，找出每个代码区域应该更新的文档路径
+
+4. **检查相关文档是否更新**
+   - 在本 branch 中修改的文档
+   - vs 推断应修改的文档
+   - 输出缺口
+
+5. **发出 alignment findings**
+
+   ```
+   格式同”第 1 阶段”的 violations：
+   位置、类别（code-alignment）、严重性、标题、描述、建议
+   ```
+
+**输出示例**：
+
+```
+| Location | Category | Severity | Title | Description |
+| --- | --- | --- | --- | --- |
+| src/api/auth.py | code-alignment | high | API changed but docs not updated | auth.py modified but docs/architecture/api.md not touched |
+```
+
+### 第 8 阶段：Documentation Graph Analysis（新增）
+
+**前置条件**：`--check-links` 参数为 true（默认）
+
+**处理流程**：
+
+1. **构建文档依赖图**
+   - 扫描所有 .md 文件中的链接
+   - 识别 Markdown links: `[title](../path/file.md)`
+   - 识别 Wiki links: `[[file]]`
+   - 识别 URL links（仅标记，不检查外部有效性）
+
+2. **检测图问题**
+   - **孤立文档**：无入度且无出度
+
+     ```python
+     orphaned = [node for node in graph.nodes
+                 if in_degree(node) == 0 and out_degree(node) == 0]
+     ```
+
+   - **损坏链接**：目标文件不存在
+
+     ```python
+     broken = [edge for edge in graph.edges
+               if not file_exists(edge.target)]
+     ```
+
+   - **循环引用**：存在环
+   - **嵌套过深**：引用链过长（4+ 跳）
+
+3. **计算 Health Score**
+
+   ```
+   health_score = 100 - (broken_count * 10 + orphan_count * 5 + cycle_count * 15)
+   最终范围：0-100
+   ```
+
+4. **发出 graph findings**
+
+   ```
+   - Broken links: 2
+     - docs/architecture/api.md → ../design/auth (expected ../design-decisions/)
+
+   - Orphaned docs: 3
+     - docs/archive/2024-decisions.md
+     - docs/calibration/temp-notes.md
+
+   - Cross-doc consistency issues: 1
+     - Version: README says v1.2 but CHANGELOG latest is v1.1
+   ```
+
+**输出示例**：
+
+```markdown
+## Documentation Graph Health
+
+- Total docs: 42
+- Broken links: 2
+- Orphaned docs: 3
+- Health score: 92%
+
+**Issues requiring attention:**
+1. Fix broken links (2 occurrences)
+2. Archive or link orphaned docs (3 files)
+3. Update version reference in README
+```
 
 ---
 

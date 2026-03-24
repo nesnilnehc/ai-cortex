@@ -1,0 +1,35 @@
+name: audit-docs
+status: validated
+
+primary_use: |
+  Audit complete documentation governance (norms, structure, health) in one pass.
+  Produce unified audit report with health scores and actionable roadmap.
+
+inputs:
+  - project path (default: CWD)
+  - mode: full | quick | code-review
+  - code-diff base branch (optional)
+  - apply-tidy flag (optional)
+
+outputs:
+  - docs/calibration/audit-docs.md (unified governance report with compliance, health scores, and prioritized action plan)
+  - docs/ARTIFACT_NORMS.md (if norms created in phase 2)
+  - docs/calibration/repo-tidy.md (if structure audit applied)
+  - docs/calibration/doc-assessment.md (if full assessment run)
+
+scores:
+  agent_native: 5
+  cognitive: 4
+  composability: 5
+  stance: 5
+
+asqm_quality: 19
+
+overlaps_with:
+  - nesnilnehc/ai-cortex:discover-docs-norms
+  - nesnilnehc/ai-cortex:tidy-repo
+  - nesnilnehc/ai-cortex:assess-docs
+
+market_position: differentiated
+
+tags: [documentation, governance, orchestration, workflow]
