@@ -242,6 +242,16 @@ output_schema:
 - 主报告中新增 "SSOT Integrity" 部分（含摘要、冲突数、修复建议）
 - 详细报告 `docs/calibration/ssot-integrity-audit.md`（含完整五步分析、Intent Registry、冲突矩阵、证据）
 
+**实现方式**（不依赖外部脚本，自完备）：
+该技能可通过以下任一方式实现：
+- **方式 A**（推荐）：Agent 完全自主实现
+  * 使用内置的文本分析能力
+  * 遍历文档并应用五步流程
+  * 生成结构化报告
+- **方式 B**（辅助）：参考 `scripts/ssot_integrity_checker.py`
+  * 提供 Python 参考实现，用于快速验证和自动化
+  * 但技能描述本身应完全独立于脚本
+
 ---
 
 ### 第 8 阶段：Documentation Graph Analysis
