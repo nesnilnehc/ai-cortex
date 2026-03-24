@@ -1,3 +1,11 @@
+---
+artifact_type: calibration-report
+created_by: align-planning
+lifecycle: living
+created_at: 2026-03-22
+status: active
+---
+
 # 项目认知循环报告
 
 **日期**：2026-03-22
