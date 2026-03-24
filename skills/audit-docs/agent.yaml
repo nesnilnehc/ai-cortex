@@ -1,22 +1,23 @@
 name: audit-docs
 status: validated
-version: 1.3.0
+version: 1.4.0
 
 primary_use: |
-  Audit complete documentation governance (norms, structure including root directory organization and timestamp policy, health) in one pass.
+  Audit complete documentation governance (norms, structure including root directory organization, timestamp policy, and semantic SSOT integrity) in one pass.
   Produce unified audit report with health scores and actionable roadmap.
 
 inputs:
   - project path (default: CWD)
-  - mode: full | quick | code-review
+  - mode: full | quick | code-review (full mode includes SSOT detection)
   - code-diff base branch (optional)
   - apply-tidy flag (optional)
 
 outputs:
-  - docs/calibration/audit-docs.md (unified governance report with compliance, health scores, and prioritized action plan)
+  - docs/calibration/audit-docs.md (unified governance report with compliance, health scores, SSOT violations, and prioritized action plan)
   - docs/ARTIFACT_NORMS.md (if norms created in phase 2)
   - docs/calibration/repo-tidy.md (if structure audit applied)
   - docs/calibration/doc-assessment.md (if full assessment run)
+  - docs/calibration/ssot-violations.md (if full mode, SSOT audit report)
 
 scores:
   agent_native: 5
@@ -30,6 +31,7 @@ overlaps_with:
   - nesnilnehc/ai-cortex:discover-docs-norms
   - nesnilnehc/ai-cortex:tidy-repo
   - nesnilnehc/ai-cortex:assess-docs
+  - nesnilnehc/ai-cortex:detect-ssot-violations (called in full mode)
 
 market_position: differentiated
 

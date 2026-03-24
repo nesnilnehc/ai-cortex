@@ -1,0 +1,64 @@
+name: detect-ssot-violations
+version: 1.0.0
+type: atomic  # 原子技能，可独立使用或被 audit-docs 调用
+primary_use: |
+  Detect semantic duplication and SSOT (Single Source of Truth) violations across project documentation.
+  Generates conflict matrix, canonical source definitions, and prioritized repair roadmap.
+  Used standalone or orchestrated by audit-docs.
+
+  主要用途：检测跨项目文档的语义重复与单一事实源违规。
+  生成冲突矩阵、权威源定义、优先级修复路线图。
+  可独立使用或由 audit-docs 编排调用。
+
+description: Detect semantic duplication and enforce SSOT principles across documentation
+description_zh: 检测语义重复，执行单一事实源（SSOT）原则
+
+agent_native: 5
+cognitive: 4
+composability: 4
+stance: 5
+quality: 18
+
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass
+
+lifecycle_state: Validated
+
+tags:
+  - documentation
+  - governance
+  - data-integrity
+  - ssot
+  - deduplication
+
+spec_compliance:
+  §1.22-26: SSOT detection naming (verb-noun format) ✓
+  §4.3: Interaction policy ✓
+
+artifact_norms:
+  type: detect-ssot-violations-report
+  path: docs/calibration/ssot-violations.md
+  lifecycle: living
+  timestamp_policy: forbidden
+
+dependencies:
+  - discover-docs-norms
+  - audit-docs
+
+output_contract:
+  artifact_type: detect-ssot-violations-report
+  format: markdown
+  sections:
+    - SSOT 规范定义
+    - 冲突矩阵
+    - 修复路线图 (P0/P1/P2)
+    - 执行顺序与依赖
+    - 统计与趋势
+  minimum_items: 10 修复任务
