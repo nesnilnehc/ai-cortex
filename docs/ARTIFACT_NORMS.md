@@ -1,3 +1,11 @@
+---
+artifact_type: governance
+created_by: ai-cortex
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # 制品规范
 
 **来源**：AI Cortex 项目覆盖

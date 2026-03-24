@@ -1,3 +1,11 @@
+---
+artifact_type: reference
+created_by: ai-cortex
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # 参考资料
 
 本目录存放项目设计与决策所依据的权威参考材料汇编。

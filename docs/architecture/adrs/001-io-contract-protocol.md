@@ -1,3 +1,11 @@
+---
+artifact_type: adr
+created_by: decision-record
+lifecycle: snapshot
+created_at: 2026-03-24
+status: active
+---
+
 # ADR 001：技能链 I/O 契约协议
 
 **状态**：Accepted

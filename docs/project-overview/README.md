@@ -1,3 +1,11 @@
+---
+artifact_type: index
+created_by: ai-cortex
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # 项目概览
 
 `docs/project-overview/` 下项目身份与成功标准的入口索引。各文档按推导顺序组织：使命 → 愿景 → North Star → 战略目标。

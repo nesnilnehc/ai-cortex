@@ -1,3 +1,11 @@
+---
+artifact_type: backlog
+created_by: capture-work-items
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # Backlog 索引
 
 **目的**：工作条目、技能请求与计划任务的权威索引。支持 assess-doc-readiness 的 Backlog 层追溯。

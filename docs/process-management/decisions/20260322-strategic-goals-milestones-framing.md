@@ -1,3 +1,11 @@
+---
+artifact_type: strategic-goals
+created_by: design-strategic-goals
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # 战略目标与里程碑的层次与语义
 
 **状态**：已批准  

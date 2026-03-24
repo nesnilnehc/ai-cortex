@@ -1,3 +1,11 @@
+---
+artifact_type: architecture
+created_by: ai-cortex
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # 架构
 
 AI Cortex 架构由 [Evolution Roadmap](../designs/2026-03-02-ai-cortex-evolution-roadmap.md) 的 Layer A–E 模型定义。

@@ -1,3 +1,11 @@
+---
+artifact_type: roadmap
+created_by: define-roadmap
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # 合并 define-milestones 至 define-roadmap
 
 **状态**：已批准  

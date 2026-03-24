@@ -1,3 +1,11 @@
+---
+artifact_type: adr
+created_by: decision-record
+lifecycle: snapshot
+created_at: 2026-03-24
+status: active
+---
+
 # 不保留 run-strategy-checkpoint 与 align-* 产物的取舍
 
 **状态**: 提案 (Proposed)  

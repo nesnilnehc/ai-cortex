@@ -1,3 +1,11 @@
+---
+artifact_type: requirements
+created_by: ai-cortex
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # 推广与迭代 Requirements
 
 **Date:** 2026-03-06

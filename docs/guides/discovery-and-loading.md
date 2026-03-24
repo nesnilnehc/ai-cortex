@@ -1,3 +1,11 @@
+---
+artifact_type: guide
+created_by: ai-cortex
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # 发现与加载细则
 
 本文档描述 Agent 在本仓库内发现与加载技能时的细则，供需要时查阅。AGENTS.md 仅保留摘要。

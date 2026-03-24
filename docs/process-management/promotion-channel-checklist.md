@@ -1,3 +1,11 @@
+---
+artifact_type: execution-plan
+created_by: ai-cortex
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # 推广渠道清单 (Promotion Channel Checklist)
 
 **来源:** [promotion-and-iteration design](../designs/2026-03-06-promotion-and-iteration.md)、[requirements](../requirements-planning/promotion-and-iteration.md) R-01  

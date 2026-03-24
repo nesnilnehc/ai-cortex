@@ -1,3 +1,11 @@
+---
+artifact_type: reference
+created_by: ai-cortex
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # 许可证策略
 
 本文件定义 AI Cortex 项目中技能及其参考来源的许可证要求。
