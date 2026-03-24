@@ -1,27 +1,38 @@
-name: discover-docs-norms
-status: validated
-version: 1.3.0
-
-primary_use: Help users establish project-specific artifact norms through scanning and dialogue; produce docs/ARTIFACT_NORMS.md with complete human-readable and machine-parseable specifications including root directory organization and timestamp policy rules.
-
+agent_native: 4
+asqm_quality: 15
+cognitive: 3
+composability: 3
 inputs:
-  - project path (default: CWD)
-
+- project path (default: CWD)
+lifecycle_state: Experimental
+market_position: differentiated
+name: discover-docs-norms
 outputs:
-  - docs/ARTIFACT_NORMS.md (complete artifact norms with paths, naming, front-matter, validation rules, and confidence scores)
-
+- docs/ARTIFACT_NORMS.md (complete artifact norms with paths, naming, front-matter,
+  validation rules, and confidence scores)
+overlaps_with:
+- nesnilnehc/ai-cortex:bootstrap-docs
+- nesnilnehc/ai-cortex:assess-docs
+primary_use: Help users establish project-specific artifact norms through scanning
+  and dialogue; produce docs/ARTIFACT_NORMS.md with complete human-readable and machine-parseable
+  specifications including root directory organization and timestamp policy rules.
 scores:
   agent_native: 5
   cognitive: 4
   composability: 5
   stance: 5
-
-asqm_quality: 19
-
-overlaps_with:
-  - nesnilnehc/ai-cortex:bootstrap-docs
-  - nesnilnehc/ai-cortex:assess-docs
-
-market_position: differentiated
-
-tags: [documentation, workflow]
+stance: 5
+status: validated
+tags:
+- documentation
+- workflow
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass
+version: 1.3.0

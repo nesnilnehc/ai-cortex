@@ -1,33 +1,43 @@
-name: review-code
-status: validated
-
-primary_use: Orchestrator that runs scope → language → framework → library → cognitive review skills in order and aggregates all findings into one report. Does not perform analysis itself.
-
+agent_native: 4
+asqm_quality: 15
+cognitive: 3
+composability: 3
 inputs:
-  - user intent (full review vs scope/language/framework/cognitive)
-  - code scope (diff or paths) when known
-
+- user intent (full review vs scope/language/framework/cognitive)
+- code scope (diff or paths) when known
+lifecycle_state: Experimental
+market_position: differentiated
+name: review-code
 outputs:
-  - single aggregated report (findings in standard format: Location, Category, Severity, Title, Description, Suggestion)
-
+- single aggregated report (findings in standard format: Location, Category, Severity,
+    Title, Description, Suggestion)
+overlaps_with:
+- nesnilnehc/ai-cortex:review-diff
+- nesnilnehc/ai-cortex:review-codebase
+- wshobson/agents:code-review-excellence
+- secondsky/claude-skills:code-review
+- trailofbits/skills:differential-review
+- cxuu/golang-skills:go-code-review
+- obra/superpowers:requesting-code-review
+- skillcreatorai/Ai-Agent-Skills:code-review
+primary_use: Orchestrator that runs scope → language → framework → library → cognitive
+  review skills in order and aggregates all findings into one report. Does not perform
+  analysis itself.
 scores:
   agent_native: 5
   cognitive: 5
   composability: 5
   stance: 5
-
-asqm_quality: 20
-
-overlaps_with:
-  - nesnilnehc/ai-cortex:review-diff
-  - nesnilnehc/ai-cortex:review-codebase
-  - wshobson/agents:code-review-excellence
-  - secondsky/claude-skills:code-review
-  - trailofbits/skills:differential-review
-  - cxuu/golang-skills:go-code-review
-  - obra/superpowers:requesting-code-review
-  - skillcreatorai/Ai-Agent-Skills:code-review
-
-market_position: differentiated
-
-tags: [code-review]
+stance: 5
+status: validated
+tags:
+- code-review
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

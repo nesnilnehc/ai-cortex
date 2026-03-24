@@ -1,30 +1,41 @@
-name: design-strategic-goals
-status: validated
-
-primary_use: Define 3–5 long-term strategic goals that move the project toward the vision and North Star; produce outcome-focused goals document and persist to docs/project-overview/strategic-goals.md (or project norms).
-
+agent_native: 5
+asqm_quality: 17
+cognitive: 3
+composability: 4
 inputs:
-  - vision; North Star (or paths); project context
-  - optional mission; time horizon; existing goals or priorities
-
+- vision; North Star (or paths); project context
+- optional mission; time horizon; existing goals or priorities
+lifecycle_state: Validated
+market_position: differentiated
+name: design-strategic-goals
 outputs:
-  - strategic goals document (docs/project-overview/strategic-goals.md or project norms): 3–5 goals, optional alignment notes
-
+- strategic goals document (docs/project-overview/strategic-goals.md or project norms): 3–5
+    goals, optional alignment notes
+overlaps_with:
+- nesnilnehc/ai-cortex:define-mission
+- nesnilnehc/ai-cortex:define-vision
+- nesnilnehc/ai-cortex:define-north-star
+- nesnilnehc/ai-cortex:define-roadmap
+- nesnilnehc/ai-cortex:align-planning
+primary_use: Define 3–5 long-term strategic goals that move the project toward the
+  vision and North Star; produce outcome-focused goals document and persist to docs/project-overview/strategic-goals.md
+  (or project norms).
 scores:
   agent_native: 5
   cognitive: 5
   composability: 5
   stance: 5
-
-asqm_quality: 20
-
-overlaps_with:
-  - nesnilnehc/ai-cortex:define-mission
-  - nesnilnehc/ai-cortex:define-vision
-  - nesnilnehc/ai-cortex:define-north-star
-  - nesnilnehc/ai-cortex:define-roadmap
-  - nesnilnehc/ai-cortex:align-planning
-
-market_position: differentiated
-
-tags: [documentation, workflow]
+stance: 5
+status: validated
+tags:
+- documentation
+- workflow
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

@@ -1,38 +1,36 @@
-name: review-requirements
-status: validated
-
-primary_use: Review an existing requirements document for quality across six dimensions (problem clarity, testable needs with R-NN IDs, constraint inventory, scope boundedness, open questions); evaluative atomic skill; output is a findings list.
-
+agent_native: 4
+asqm_quality: 15
+cognitive: 3
+composability: 3
 inputs:
-  - requirements document (path or content)
-  - optional project context or downstream skill (e.g. "feeds design-solution")
-
+- requirements document (path or content)
+- optional project context or downstream skill (e.g. "feeds design-solution")
+lifecycle_state: Experimental
+market_position: differentiated
+name: review-requirements
 outputs:
-  - findings list (Location, Category=requirements-quality, Severity, Title, Description, Suggestion)
-
+- findings list (Location, Category=requirements-quality, Severity, Title, Description,
+  Suggestion)
+overlaps_with:
+- nesnilnehc/ai-cortex:analyze-requirements
+primary_use: Review an existing requirements document for quality across six dimensions
+  (problem clarity, testable needs with R-NN IDs, constraint inventory, scope boundedness,
+  open questions); evaluative atomic skill; output is a findings list.
 scores:
   agent_native: 5
   cognitive: 4
   composability: 5
   stance: 5
-
-asqm_quality: 19
-
-overlaps_with:
-  - nesnilnehc/ai-cortex:analyze-requirements
-
-market_position: differentiated
-
-tags: [code-review]
-
-# Scoring rationale:
-# agent_native: 5 - Explicit Appendix: Output contract table with all required elements
-#   (Location, Category, Severity, Title, Description, Suggestion); machine-parseable
-# cognitive: 4 - 6-dimension review checklist with severity guidance table offloads structured
-#   evaluation well; scope is document review (less complex than multi-phase generation skills)
-# composability: 5 - Part of the review family; clear input/output schema; feeds into
-#   analyze-requirements for rework; distinct evaluative role in requirements → design chain
-# stance: 5 - All required sections, Self-Check aligned with exactly 5 Success Criteria,
-#   Restrictions with Skill Boundaries and handoffs, examples with edge cases including zero-findings
-
-# Lifecycle: validated (Quality 19/20 ≥ 17, agent_native 5 ≥ 4, stance 5 ≥ 3)
+stance: 5
+status: validated
+tags:
+- code-review
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

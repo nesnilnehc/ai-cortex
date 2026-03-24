@@ -1,29 +1,40 @@
-name: define-north-star
-status: validated
-
-primary_use: Define the single most important metric (North Star Metric) representing core value delivered to users; produce NSM with rationale, optional supporting metrics, and anti-examples; persist to docs/project-overview/north-star.md (or project norms).
-
+agent_native: 5
+asqm_quality: 18
+cognitive: 4
+composability: 4
 inputs:
-  - project/product description; target users; core value proposition (or mission/vision)
-  - optional current metrics, constraints, comparable examples
-
+- project/product description; target users; core value proposition (or mission/vision)
+- optional current metrics, constraints, comparable examples
+lifecycle_state: Validated
+market_position: differentiated
+name: define-north-star
 outputs:
-  - North Star document (docs/project-overview/north-star.md or project norms): NSM, rationale, optional 3–5 supporting metrics, anti–North-Star examples
-
+- North Star document (docs/project-overview/north-star.md or project norms): NSM,
+    rationale, optional 3–5 supporting metrics, anti–North-Star examples
+overlaps_with:
+- nesnilnehc/ai-cortex:define-mission
+- nesnilnehc/ai-cortex:define-vision
+- nesnilnehc/ai-cortex:design-strategic-goals
+- nesnilnehc/ai-cortex:align-planning
+primary_use: Define the single most important metric (North Star Metric) representing
+  core value delivered to users; produce NSM with rationale, optional supporting metrics,
+  and anti-examples; persist to docs/project-overview/north-star.md (or project norms).
 scores:
   agent_native: 5
   cognitive: 5
   composability: 5
   stance: 5
-
-asqm_quality: 20
-
-overlaps_with:
-  - nesnilnehc/ai-cortex:define-mission
-  - nesnilnehc/ai-cortex:define-vision
-  - nesnilnehc/ai-cortex:design-strategic-goals
-  - nesnilnehc/ai-cortex:align-planning
-
-market_position: differentiated
-
-tags: [documentation, workflow]
+stance: 5
+status: validated
+tags:
+- documentation
+- workflow
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

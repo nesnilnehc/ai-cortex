@@ -1,26 +1,36 @@
-name: review-orm-usage
-status: validated
-
-primary_use: Review ORM usage patterns for N+1 queries, connection management, migration safety, transaction handling, and query efficiency. Library-only atomic skill; output is a findings list.
-
+agent_native: 4
+asqm_quality: 15
+cognitive: 3
+composability: 3
 inputs:
-  - code scope (files or directories or diff containing ORM code)
-
+- code scope (files or directories or diff containing ORM code)
+lifecycle_state: Experimental
+market_position: differentiated
+name: review-orm-usage
 outputs:
-  - findings list (Location, Category=library-orm, Severity, Title, Description, Suggestion)
-
+- findings list (Location, Category=library-orm, Severity, Title, Description, Suggestion)
+overlaps_with:
+- nesnilnehc/ai-cortex:review-sql
+- nesnilnehc/ai-cortex:review-performance
+primary_use: Review ORM usage patterns for N+1 queries, connection management, migration
+  safety, transaction handling, and query efficiency. Library-only atomic skill; output
+  is a findings list.
 scores:
   agent_native: 5
   cognitive: 4
   composability: 5
   stance: 5
-
-asqm_quality: 19
-
-overlaps_with:
-  - nesnilnehc/ai-cortex:review-sql
-  - nesnilnehc/ai-cortex:review-performance
-
-market_position: differentiated
-
-tags: [code-review, optimization]
+stance: 5
+status: validated
+tags:
+- code-review
+- optimization
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

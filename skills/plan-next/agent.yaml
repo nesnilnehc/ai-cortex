@@ -1,33 +1,45 @@
-name: plan-next
-status: validated
-
-primary_use: Analyze project state and produce next-action plan; Phase 0.5 Planning Readiness Gate (discover-docs-norms, bootstrap-docs, assess-docs) when docs missing; then alignment and output-driven follow-ups; single cycle report.
-
+agent_native: 5
+asqm_quality: 18
+cognitive: 4
+composability: 4
 inputs:
-  - trigger event and context
-  - optional target scope and mode overrides
-  - optional urgency or release window
-
+- trigger event and context
+- optional target scope and mode overrides
+- optional urgency or release window
+lifecycle_state: Validated
+market_position: differentiated
+name: plan-next
 outputs:
-  - Governance Loop Report (docs/calibration/cognitive-loop.md; overwritten unless snapshot requested) — single artifact only; no separate outputs from routed skills
-  - routed sequence, aggregated findings, blockers, Recommended Next Tasks (prioritized, actionable, owner+scope+rationale)
-
+- Governance Loop Report (docs/calibration/cognitive-loop.md; overwritten unless snapshot
+  requested) — single artifact only; no separate outputs from routed skills
+- routed sequence, aggregated findings, blockers, Recommended Next Tasks (prioritized,
+  actionable, owner+scope+rationale)
+overlaps_with:
+- nesnilnehc/ai-cortex:align-planning
+- nesnilnehc/ai-cortex:align-architecture
+- nesnilnehc/ai-cortex:assess-docs
+- nesnilnehc/ai-cortex:discover-docs-norms
+- nesnilnehc/ai-cortex:bootstrap-docs
+- nesnilnehc/ai-cortex:review-code
+primary_use: Analyze project state and produce next-action plan; Phase 0.5 Planning
+  Readiness Gate (discover-docs-norms, bootstrap-docs, assess-docs) when docs missing;
+  then alignment and output-driven follow-ups; single cycle report.
 scores:
   agent_native: 5
   cognitive: 5
   composability: 5
   stance: 5
-
-asqm_quality: 20
-
-overlaps_with:
-  - nesnilnehc/ai-cortex:align-planning
-  - nesnilnehc/ai-cortex:align-architecture
-  - nesnilnehc/ai-cortex:assess-docs
-  - nesnilnehc/ai-cortex:discover-docs-norms
-  - nesnilnehc/ai-cortex:bootstrap-docs
-  - nesnilnehc/ai-cortex:review-code
-
-market_position: differentiated
-
-tags: [workflow, automation]
+stance: 5
+status: validated
+tags:
+- workflow
+- automation
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

@@ -1,28 +1,36 @@
-name: review-diff
-status: validated
-
-primary_use: Review only git diff for impact, regression, correctness, compatibility, and side effects. Scope-only atomic skill; output is a findings list for aggregation.
-
+agent_native: 4
+asqm_quality: 15
+cognitive: 3
+composability: 3
 inputs:
-  - git diff (staged + unstaged)
-
+- git diff (staged + unstaged)
+lifecycle_state: Experimental
+market_position: commodity
+name: review-diff
 outputs:
-  - findings list (Location, Category=scope, Severity, Title, Description, Suggestion)
-
+- findings list (Location, Category=scope, Severity, Title, Description, Suggestion)
+overlaps_with:
+- nesnilnehc/ai-cortex:review-codebase
+- nesnilnehc/ai-cortex:review-code
+- wshobson/agents:code-review-excellence
+- trailofbits/skills:differential-review
+primary_use: Review only git diff for impact, regression, correctness, compatibility,
+  and side effects. Scope-only atomic skill; output is a findings list for aggregation.
 scores:
   agent_native: 5
   cognitive: 4
   composability: 5
   stance: 5
-
-asqm_quality: 19
-
-overlaps_with:
-  - nesnilnehc/ai-cortex:review-codebase
-  - nesnilnehc/ai-cortex:review-code
-  - wshobson/agents:code-review-excellence
-  - trailofbits/skills:differential-review
-
-market_position: commodity
-
-tags: [code-review]
+stance: 5
+status: validated
+tags:
+- code-review
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

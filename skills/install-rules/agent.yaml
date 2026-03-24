@@ -1,42 +1,40 @@
-name: install-rules
-status: validated
-
-primary_use: Install rules from a source repository into Cursor (.cursor/rules/) or Trae IDE (.trae/project_rules.md) with explicit user confirmation and conflict detection before any write.
-
+agent_native: 4
+asqm_quality: 14
+cognitive: 3
+composability: 2
 inputs:
-  - source (this project rules/ or Git repo owner/repo, optional branch/ref and subpath)
-  - target IDE (Cursor | Trae)
-  - scope (all rules or subset by name)
-  - destination (project-level or user-level; default project-level)
-
+- source (this project rules/ or Git repo owner/repo, optional branch/ref and subpath)
+- target IDE (Cursor | Trae)
+- scope (all rules or subset by name)
+- destination (project-level or user-level; default project-level)
+lifecycle_state: Experimental
+market_position: experimental
+name: install-rules
 outputs:
-  - rule files written to IDE-specific destination (.cursor/rules/*.mdc or .trae managed block)
-  - post-install summary (executed actions, target paths, conversion notes or failures)
-
+- rule files written to IDE-specific destination (.cursor/rules/*.mdc or .trae managed
+  block)
+- post-install summary (executed actions, target paths, conversion notes or failures)
+overlaps_with:
+- nesnilnehc/ai-cortex:discover-skills
+primary_use: Install rules from a source repository into Cursor (.cursor/rules/) or
+  Trae IDE (.trae/project_rules.md) with explicit user confirmation and conflict detection
+  before any write.
 scores:
   agent_native: 5
   cognitive: 4
   composability: 4
   stance: 5
-
-asqm_quality: 18
-
-overlaps_with:
-  - nesnilnehc/ai-cortex:discover-skills
-
-market_position: experimental
-
-tags: [automation, infrastructure]
-
-# Scoring rationale:
-# agent_native: 3 - output_schema is side-effect type; output described in prose only,
-#   no Appendix: Output contract table; no machine-parseable output for downstream consumption
-# cognitive: 3 - procedural install flow; conflict detection and confirmation gates add value
-#   but limited reasoning offload; mostly file-copy with path mapping
-# composability: 3 - side-effect output (IDE files) not consumable by other skills;
-#   only one related_skill (discover-skills); limited pipeline integration
-# stance: 4 - all required sections present, HARD-GATE on no-write-without-confirmation,
-#   Skill Boundaries defined; missing evolution metadata; no output contract appendix
-
-# Lifecycle: experimental (Quality 13 ≥ 10; Gate A: agent_native 3 < 4 → cannot reach validated)
-# Promotion path: add Appendix: Output contract table, improve agent_native to 4+ for validated gate
+stance: 5
+status: validated
+tags:
+- automation
+- infrastructure
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

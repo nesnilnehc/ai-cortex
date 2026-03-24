@@ -1,28 +1,38 @@
-name: discover-skills
-status: validated
-
-primary_use: Identify missing skills and recommend installations from AI Cortex or public catalogs; suggest install commands without auto-installing.
-
+agent_native: 4
+asqm_quality: 15
+cognitive: 3
+composability: 3
 inputs:
-  - current task description
-  - optional list of installed skills
-  - optional allowed sources (local vs public)
-
+- current task description
+- optional list of installed skills
+- optional allowed sources (local vs public)
+lifecycle_state: Experimental
+market_position: differentiated
+name: discover-skills
 outputs:
-  - recommended skills with rationale
-  - install commands for each
-
+- recommended skills with rationale
+- install commands for each
+overlaps_with:
+- nesnilnehc/ai-cortex:refine-skill-design
+primary_use: Identify missing skills and recommend installations from AI Cortex or
+  public catalogs; suggest install commands without auto-installing.
 scores:
   agent_native: 5
   cognitive: 3
   composability: 5
   stance: 4
-
-asqm_quality: 17
-
-overlaps_with:
-  - nesnilnehc/ai-cortex:refine-skill-design
-
-market_position: differentiated
-
-tags: [automation, infrastructure, generalization]
+stance: 5
+status: validated
+tags:
+- automation
+- infrastructure
+- generalization
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

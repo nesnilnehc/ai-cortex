@@ -1,32 +1,46 @@
-name: tidy-repo
-status: validated
-version: 1.2.0
-
-primary_use: Audit repository structure in one pass — detect misplaced files, naming inconsistencies, empty directories, stale artifacts, root directory categorization issues, and timestamp policy violations; produce a prioritized tidy report; optionally apply safe, reversible changes.
-
+agent_native: 5
+asqm_quality: 18
+cognitive: 4
+composability: 4
 inputs:
-  - repository root (default: current working directory)
-  - optional scope filter (subdirectory or glob)
-  - optional mode: report-only (default) | apply-safe
-
+- repository root (default: current working directory)
+- optional scope filter (subdirectory or glob)
+- optional mode: report-only (default) | apply-safe
+lifecycle_state: Validated
+market_position: differentiated
+name: tidy-repo
 outputs:
-  - Tidy Report (docs/calibration/repo-tidy.md; overwritten unless snapshot requested)
-  - findings (misplaced files, naming violations, empty dirs, stale/dead artifacts, duplicates)
-  - prioritized cleanup plan with concrete actions and effort estimates
-
+- Tidy Report (docs/calibration/repo-tidy.md; overwritten unless snapshot requested)
+- findings (misplaced files, naming violations, empty dirs, stale/dead artifacts,
+  duplicates)
+- prioritized cleanup plan with concrete actions and effort estimates
+overlaps_with:
+- nesnilnehc/ai-cortex:assess-docs
+- nesnilnehc/ai-cortex:review-codebase
+- nesnilnehc/ai-cortex:align-planning
+primary_use: Audit repository structure in one pass — detect misplaced files, naming
+  inconsistencies, empty directories, stale artifacts, root directory categorization
+  issues, and timestamp policy violations; produce a prioritized tidy report; optionally
+  apply safe, reversible changes.
 scores:
   agent_native: 5
   cognitive: 4
   composability: 5
   stance: 5
-
-asqm_quality: 19
-
-overlaps_with:
-  - nesnilnehc/ai-cortex:assess-docs
-  - nesnilnehc/ai-cortex:review-codebase
-  - nesnilnehc/ai-cortex:align-planning
-
-market_position: differentiated
-
-tags: [repository, workflow, cleanup, structure]
+stance: 5
+status: validated
+tags:
+- repository
+- workflow
+- cleanup
+- structure
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass
+version: 1.2.0

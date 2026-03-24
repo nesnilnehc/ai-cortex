@@ -1,27 +1,38 @@
-name: define-strategic-pillars
-status: validated
-
-primary_use: Derive 3–5 strategic pillars from vision and North Star; produce a pillars document to structure goals and roadmap; persist to docs/project-overview/strategic-pillars.md (or project norms).
-
+agent_native: 5
+asqm_quality: 17
+cognitive: 3
+composability: 4
 inputs:
-  - vision; North Star (or paths); project context
-  - optional mission; existing goals or pillars
-
+- vision; North Star (or paths); project context
+- optional mission; existing goals or pillars
+lifecycle_state: Validated
+market_position: differentiated
+name: define-strategic-pillars
 outputs:
-  - strategic pillars document (docs/project-overview/strategic-pillars.md): 3–5 pillars with alignment to vision/NSM
-
+- strategic pillars document (docs/project-overview/strategic-pillars.md): 3–5 pillars
+    with alignment to vision/NSM
+overlaps_with:
+- nesnilnehc/ai-cortex:design-strategic-goals
+- nesnilnehc/ai-cortex:define-roadmap
+primary_use: Derive 3–5 strategic pillars from vision and North Star; produce a pillars
+  document to structure goals and roadmap; persist to docs/project-overview/strategic-pillars.md
+  (or project norms).
 scores:
   agent_native: 5
   cognitive: 5
   composability: 5
   stance: 5
-
-asqm_quality: 20
-
-overlaps_with:
-  - nesnilnehc/ai-cortex:design-strategic-goals
-  - nesnilnehc/ai-cortex:define-roadmap
-
-market_position: differentiated
-
-tags: [documentation, workflow]
+stance: 5
+status: validated
+tags:
+- documentation
+- workflow
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass
