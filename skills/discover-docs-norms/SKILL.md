@@ -3,7 +3,7 @@ name: discover-docs-norms
 description: Help users establish project-specific artifact norms (paths, naming, lifecycle) through scanning and confirmation. Core goal - produce docs/ARTIFACT_NORMS.md with all norms in human-readable + machine-parseable format.
 description_zh: 通过对话与扫描，帮助建立项目级文档制品规范（路径、命名、生命周期）；产出 docs/ARTIFACT_NORMS.md。
 tags: [documentation, workflow]
-version: 1.2.0
+version: 1.3.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -243,6 +243,32 @@ output_schema:
    - ✅ docs/ 根目录不应有内容制品（如文档、需求、架构等）
    - ✅ 所有内容必须有明确的类别化目录
 
+   ## 命名约定：时间戳策略
+
+   ### 按制品类型使用时间戳
+
+   | 制品类型 | 允许时间戳 | 格式 | 理由 |
+   |---|---|---|---|
+   | adr | ✅ **必需** | `YYYY-MM-DD-decision-title.md` | 决策记录是特定时刻的快照 |
+   | design-decision | ✅ **必需** | `YYYY-MM-DD-design-title.md` | 设计决策的时间点记录 |
+   | goals | ❌ 不允许 | `goal-title.md` | 生活文档，持续更新 |
+   | requirements | ❌ 不允许 | `requirement-title.md` | 生活文档，随时维护 |
+   | architecture | ❌ 不允许 | `architecture-title.md` | 随系统演进，非快照 |
+   | roadmap | ❌ 不允许 | `roadmap-title.md` | 计划变更时更新 |
+   | guides | ❌ 不允许 | `guide-title.md` | 参考文档，git 控制版本 |
+
+   ### 何时使用时间戳
+   - ✅ 决策记录（不会回溯修改）
+   - ✅ 特定时刻的快照
+   - ✅ 里程碑记录
+   - ✅ 历史存档
+
+   ### 何时不应使用时间戳
+   - ❌ 生活文档（需求、目标）
+   - ❌ 持续演进的文档
+   - ❌ 通过 git 历史版本控制的文档
+   - ❌ 有多个活跃版本的文档
+
    ## 整体置信度: 95%
 
    ### 低置信度项（需关注）
@@ -277,8 +303,8 @@ output_schema:
 
 **单一规范文件**：
 - `docs/ARTIFACT_NORMS.md`：完整规范文档（人类可读 + 机器可解析）
-  - 包含：路径约定、命名约定、front-matter 标准、验证规则、置信度评分
-  - 其他技能（assess-docs、tidy-repo）从此文件解析规范信息
+  - 包含：路径约定、命名约定、front-matter 标准、验证规则、**时间戳策略**、置信度评分
+  - 其他技能（assess-docs、tidy-repo）从此文件解析规范信息，包括时间戳政策
 
 ---
 

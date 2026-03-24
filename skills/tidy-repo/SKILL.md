@@ -3,7 +3,7 @@ name: tidy-repo
 description: Audit repository structure in one pass — detect misplaced files, naming inconsistencies, empty directories, and stale artifacts; produce a prioritized tidy report; optionally apply safe, reversible changes.
 description_zh: 一次性审计仓库目录结构——检测错放文件、命名不一致、空目录和过期制品；输出优先级整理报告；可选地应用安全、可逆的清理操作。
 tags: [repository, workflow, cleanup, structure]
-version: 1.1.0
+version: 1.2.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -133,6 +133,7 @@ output_schema:
 | `duplicate` | 文件名或路径高度相似，疑似重复（如 `util.py` 与 `utils.py` 在同目录） |
 | `structure` | 顶层出现非预期目录，或缺少约定的标准目录（如 `docs/`、`src/`） |
 | `root-categorization` | docs/ 根目录中的文件应该分类到子目录（不应有除索引、治理文件外的内容） |
+| `naming/timestamp-misuse` | 文件名中包含不必要或格式错误的时间戳（仅对不允许时间戳的类型） |
 
 **Root-Categorization 检测细节**：
 1. 从 `docs/ARTIFACT_NORMS.md` 读取允许的根目录文件列表（索引文件、治理文件）
@@ -144,6 +145,17 @@ output_schema:
    - 创建 finding：`root-categorization`，建议移至该目录，严重性：`suggestion`（信息级别）
 4. 示例：`docs/goals.md` → 推断类型为 goals → 查询规范 → 建议移至 `docs/goals/goals.md`
 
+**Timestamp-Misuse 检测细节**（新增）：
+1. 从 `docs/ARTIFACT_NORMS.md` 读取时间戳政策
+2. 对每个 `.md` 文件：
+   - 检查文件名是否有 `YYYY-MM-DD` 前缀
+   - 推断其 artifact_type
+   - 查询该类型是否允许时间戳
+   - 如果文件**有**时间戳但类型**不允许** → 创建 finding：`naming/timestamp-misuse`，建议移除前缀
+   - 如果文件**没有**时间戳但类型**需要**（adr、design-decision）→ 创建 finding：`naming/timestamp-missing`（可选）
+   - 如果有时间戳但格式错误（如 `2026/03/15`）→ 建议正确格式：`YYYY-MM-DD`
+3. 示例：`docs/requirements-planning/2026-03-15-api-requirements.md` → 推断类型为 requirements → 查询规范 → 建议重命名为 `api-requirements.md`
+
 ### 第 3 阶段：发现输出
 
 每个发现必须遵循标准格式：
@@ -151,7 +163,7 @@ output_schema:
 | 字段 | 内容 |
 | :--- | :--- |
 | 位置 | `path/to/file-or-dir` |
-| 类别 | `misplaced` \| `naming` \| `empty-dir` \| `dead-artifact` \| `duplicate` \| `structure` \| `root-categorization` |
+| 类别 | `misplaced` \| `naming` \| `empty-dir` \| `dead-artifact` \| `duplicate` \| `structure` \| `root-categorization` \| `naming/timestamp-misuse` |
 | 严重性 | `critical` \| `major` \| `minor` \| `suggestion` |
 | 标题 | 简短问题摘要 |
 | 描述 | 具体说明哪里不对 |

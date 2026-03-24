@@ -1,8 +1,8 @@
 name: assess-docs
 status: validated
-version: 3.1.0
+version: 3.2.0
 
-primary_use: Assess documentation health in one pass — validate artifact norms compliance including root directory categorization (paths, naming, front-matter) and evidence readiness by layer; report gaps and produce a minimum-fill plan.
+primary_use: Assess documentation health in one pass — validate artifact norms compliance including root directory categorization and timestamp policy (paths, naming, front-matter) and evidence readiness by layer; report gaps and produce a minimum-fill plan.
 
 inputs:
   - project docs scope
