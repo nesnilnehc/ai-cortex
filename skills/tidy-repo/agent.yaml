@@ -1,8 +1,8 @@
 name: tidy-repo
 status: validated
-version: 1.1.0
+version: 1.2.0
 
-primary_use: Audit repository structure in one pass — detect misplaced files, naming inconsistencies, empty directories, stale artifacts, and root directory categorization issues; produce a prioritized tidy report; optionally apply safe, reversible changes.
+primary_use: Audit repository structure in one pass — detect misplaced files, naming inconsistencies, empty directories, stale artifacts, root directory categorization issues, and timestamp policy violations; produce a prioritized tidy report; optionally apply safe, reversible changes.
 
 inputs:
   - repository root (default: current working directory)

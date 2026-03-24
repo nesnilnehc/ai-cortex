@@ -3,7 +3,7 @@ name: assess-docs
 description: Assess documentation health in one pass — validate artifact norms compliance (paths, naming, front-matter) and evidence readiness by layer; report gaps and produce a minimum-fill plan.
 description_zh: 一次性评估文档健康：验证制品规范合规（路径、命名、front-matter）与各层证据就绪；产出缺口与最小补齐计划。
 tags: [documentation, workflow]
-version: 3.1.0
+version: 3.2.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -107,12 +107,21 @@ output_schema:
    - 如果否，标记为 root-categorization 违规，建议移至按 artifact_type 分类的子目录
    - 严重性：`建议`（信息级别，不阻止合规性）
 
+6. **Timestamp 命名合规性检查**（在步骤 3 中进行）：
+   - 对每个制品文件：
+     - 检查文件名是否有 `YYYY-MM-DD` 前缀
+     - 从 ARTIFACT_NORMS.md 查询该 artifact_type 的时间戳策略
+     - 如果文件**有**时间戳但类型**不允许** → 标记为 `naming/timestamp-misuse`，建议移除前缀
+     - 如果文件**没有**时间戳但类型**需要** → 标记为 `naming/timestamp-missing`（可选）
+     - 如果有时间戳但格式错误 → 建议正确格式 `YYYY-MM-DD-title.md`
+   - 严重性：`次要`（命名违规，不阻止合规性）
+
 **调查结果格式**（每个调查结果必须遵循）：
 
 |领域|内容 |
 | :--- | :--- |
 |地点 | `path/to/file.md` |
-|类别 | `产品规范` \| `路径` \| `命名` \| `前面的事情` \| `root-categorization` |
+|类别 | `产品规范` \| `路径` \| `命名` \| `前面的事情` \| `root-categorization` \| `naming/timestamp-misuse` |
 |严重性 | `关键` \| `主要` \| `次要` \| `建议` |
 |标题 |简短的违规摘要 |
 |描述 |怎么了|
