@@ -1,3 +1,11 @@
+---
+artifact_type: audit-report
+created_by: curate-skills
+lifecycle: living
+created_at: 2026-03-24
+status: active
+---
+
 # ASQM 审计 — AI Cortex 技能
 
 **审计日期**：2026-03-24
