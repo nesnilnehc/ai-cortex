@@ -1,28 +1,38 @@
-name: design-solution
-status: validated
-
-primary_use: Produce a validated design document from requirements (architecture, components, data flow, error handling, testing strategy, trade-offs) with HARD-GATE before implementation; serves as single source of truth for breakdown-tasks.
-
+agent_native: 5
+asqm_quality: 17
+cognitive: 3
+composability: 4
 inputs:
-  - validated requirements document (path or content)
-  - optional project context, constraints, existing patterns or ADRs
-
+- validated requirements document (path or content)
+- optional project context, constraints, existing patterns or ADRs
+lifecycle_state: Validated
+market_position: differentiated
+name: design-solution
 outputs:
-  - validated design document (docs/design-decisions/YYYY-MM-DD-<topic>.md; snapshot)
-  - trade-off analysis (2-3 approaches with pros/cons/best-for)
-
+- validated design document (docs/design-decisions/YYYY-MM-DD-<topic>.md; snapshot)
+- trade-off analysis (2-3 approaches with pros/cons/best-for)
+overlaps_with:
+- nesnilnehc/ai-cortex:analyze-requirements
+- nesnilnehc/ai-cortex:refine-skill-design
+primary_use: Produce a validated design document from requirements (architecture,
+  components, data flow, error handling, testing strategy, trade-offs) with HARD-GATE
+  before implementation; serves as single source of truth for breakdown-tasks.
 scores:
   agent_native: 5
   cognitive: 5
   composability: 4
   stance: 5
-
-asqm_quality: 19
-
-overlaps_with:
-  - nesnilnehc/ai-cortex:analyze-requirements
-  - nesnilnehc/ai-cortex:refine-skill-design
-
-market_position: differentiated
-
-tags: [writing, documentation]
+stance: 5
+status: validated
+tags:
+- writing
+- documentation
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

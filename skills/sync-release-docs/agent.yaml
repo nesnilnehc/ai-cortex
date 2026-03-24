@@ -1,29 +1,40 @@
-name: sync-release-docs
-status: validated
-
-primary_use: Sync project documentation after release. Cross-references diff, updates README/ARCHITECTURE/CONTRIBUTING/CLAUDE.md, polishes CHANGELOG voice, cleans up TODOS. Use when asked to "update the docs", "sync documentation", or "post-ship docs".
-
+agent_native: 4
+asqm_quality: 14
+cognitive: 3
+composability: 2
 inputs:
-  - optional base branch name (otherwise detected from project config)
-  - feature branch with unmerged doc changes
-
+- optional base branch name (otherwise detected from project config)
+- feature branch with unmerged doc changes
+lifecycle_state: Experimental
+market_position: differentiated
+name: sync-release-docs
 outputs:
-  - updated documentation files (if any) and single commit
-  - structured doc health summary
-
+- updated documentation files (if any) and single commit
+- structured doc health summary
+overlaps_with:
+- nesnilnehc/ai-cortex:discover-docs-norms
+- nesnilnehc/ai-cortex:assess-docs
+- nesnilnehc/ai-cortex:bootstrap-docs
+primary_use: Sync project documentation after release. Cross-references diff, updates
+  README/ARCHITECTURE/CONTRIBUTING/CLAUDE.md, polishes CHANGELOG voice, cleans up
+  TODOS. Use when asked to "update the docs", "sync documentation", or "post-ship
+  docs".
 scores:
   agent_native: 4
   cognitive: 4
   composability: 4
   stance: 5
-
-asqm_quality: 17
-
-overlaps_with:
-  - nesnilnehc/ai-cortex:discover-docs-norms
-  - nesnilnehc/ai-cortex:assess-docs
-  - nesnilnehc/ai-cortex:bootstrap-docs
-
-market_position: differentiated
-
-tags: [documentation, workflow]
+stance: 5
+status: validated
+tags:
+- documentation
+- workflow
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

@@ -1,31 +1,43 @@
-name: assess-docs
-status: validated
-version: 3.2.0
-
-primary_use: Assess documentation health in one pass — validate artifact norms compliance including root directory categorization and timestamp policy (paths, naming, front-matter) and evidence readiness by layer; report gaps and produce a minimum-fill plan.
-
+agent_native: 5
+asqm_quality: 17
+cognitive: 3
+composability: 4
 inputs:
-  - project docs scope
-  - optional layer path mapping
-  - optional target readiness level (medium | high)
-
+- project docs scope
+- optional layer path mapping
+- optional target readiness level (medium | high)
+lifecycle_state: Validated
+market_position: differentiated
+name: assess-docs
 outputs:
-  - Documentation Assessment Report (docs/calibration/doc-assessment.md; overwritten unless snapshot requested)
-  - compliance findings (path, naming, front-matter violations) and minimal fill plan with layer readiness and gap priority list
-
+- Documentation Assessment Report (docs/calibration/doc-assessment.md; overwritten
+  unless snapshot requested)
+- compliance findings (path, naming, front-matter violations) and minimal fill plan
+  with layer readiness and gap priority list
+overlaps_with:
+- nesnilnehc/ai-cortex:bootstrap-docs
+- nesnilnehc/ai-cortex:align-planning
+- nesnilnehc/ai-cortex:plan-next
+primary_use: Assess documentation health in one pass — validate artifact norms compliance
+  including root directory categorization and timestamp policy (paths, naming, front-matter)
+  and evidence readiness by layer; report gaps and produce a minimum-fill plan.
 scores:
   agent_native: 5
   cognitive: 4
   composability: 5
   stance: 5
-
-asqm_quality: 19
-
-overlaps_with:
-  - nesnilnehc/ai-cortex:bootstrap-docs
-  - nesnilnehc/ai-cortex:align-planning
-  - nesnilnehc/ai-cortex:plan-next
-
-market_position: differentiated
-
-tags: [documentation, workflow]
+stance: 5
+status: validated
+tags:
+- documentation
+- workflow
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass
+version: 3.2.0

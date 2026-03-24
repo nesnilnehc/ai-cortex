@@ -1,26 +1,37 @@
-name: define-roadmap
-status: validated
-
-primary_use: Derive a roadmap of milestone nodes from strategic goals; each node is a phase checkpoint with success criteria and goal traceability; persist to docs/process-management/roadmap.md or milestones.md (project norms).
-
+agent_native: 5
+asqm_quality: 17
+cognitive: 3
+composability: 4
 inputs:
-  - strategic goals (document or path); project context
-  - optional vision/NSM; time horizon; phase preference
-
+- strategic goals (document or path); project context
+- optional vision/NSM; time horizon; phase preference
+lifecycle_state: Validated
+market_position: differentiated
+name: define-roadmap
 outputs:
-  - roadmap document (roadmap.md or milestones.md): ordered milestone nodes with scope, success criteria, goal mapping
-
+- roadmap document (roadmap.md or milestones.md): ordered milestone nodes with scope,
+    success criteria, goal mapping
+overlaps_with:
+- nesnilnehc/ai-cortex:define-strategic-pillars
+primary_use: Derive a roadmap of milestone nodes from strategic goals; each node is
+  a phase checkpoint with success criteria and goal traceability; persist to docs/process-management/roadmap.md
+  or milestones.md (project norms).
 scores:
   agent_native: 5
   cognitive: 5
   composability: 5
   stance: 5
-
-asqm_quality: 20
-
-overlaps_with:
-  - nesnilnehc/ai-cortex:define-strategic-pillars
-
-market_position: differentiated
-
-tags: [documentation, workflow]
+stance: 5
+status: validated
+tags:
+- documentation
+- workflow
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

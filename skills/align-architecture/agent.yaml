@@ -1,31 +1,41 @@
-name: align-architecture
-status: validated
-
-primary_use: Verify architecture and design documents against code; produce Architecture Compliance Report when implementation diverges from ADR or design decisions.
-
+agent_native: 5
+asqm_quality: 18
+cognitive: 3
+composability: 5
 inputs:
-  - optional ADR or design doc paths
-  - optional code scope
-  - optional project docs root
-
+- optional ADR or design doc paths
+- optional code scope
+- optional project docs root
+lifecycle_state: Validated
+market_position: differentiated
+name: align-architecture
 outputs:
-  - Architecture Compliance Report (docs/calibration/architecture-compliance.md; overwritten unless snapshot requested)
-  - machine-readable compliance gaps block
-
+- Architecture Compliance Report (docs/calibration/architecture-compliance.md; overwritten
+  unless snapshot requested)
+- machine-readable compliance gaps block
+overlaps_with:
+- nesnilnehc/ai-cortex:align-planning
+- nesnilnehc/ai-cortex:review-architecture
+- nesnilnehc/ai-cortex:design-solution
+- nesnilnehc/ai-cortex:assess-docs
+primary_use: Verify architecture and design documents against code; produce Architecture
+  Compliance Report when implementation diverges from ADR or design decisions.
 scores:
   agent_native: 5
   cognitive: 5
   composability: 5
   stance: 5
-
-asqm_quality: 20
-
-overlaps_with:
-  - nesnilnehc/ai-cortex:align-planning
-  - nesnilnehc/ai-cortex:review-architecture
-  - nesnilnehc/ai-cortex:design-solution
-  - nesnilnehc/ai-cortex:assess-docs
-
-market_position: differentiated
-
-tags: [workflow, documentation]
+stance: 5
+status: validated
+tags:
+- workflow
+- documentation
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

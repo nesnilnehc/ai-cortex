@@ -1,46 +1,39 @@
-name: commit-work
-status: validated
-
-primary_use: Create high-quality git commits with governance - review, split logically, write clear Conventional Commits messages, sync registries
-
+agent_native: 4
+asqm_quality: 15
+cognitive: 3
+composability: 3
 inputs:
-  - git repository with uncommitted changes
-  - user intent (what to commit)
-  - commit style preferences (optional)
-  - project-specific rules (optional)
-
+- git repository with uncommitted changes
+- user intent (what to commit)
+- commit style preferences (optional)
+- project-specific rules (optional)
+lifecycle_state: Experimental
+market_position: differentiated
+name: commit-work
 outputs:
-  - commit message(s) with type, scope, description
-  - summary per commit (what/why)
-  - commands used for staging and review
-  - verification commands run
-  - registry sync confirmation (AI Cortex projects)
-
+- commit message(s) with type, scope, description
+- summary per commit (what/why)
+- commands used for staging and review
+- verification commands run
+- registry sync confirmation (AI Cortex projects)
+overlaps_with:
+- anthropics/skills:commit-work
+- softaworks/agent-toolkit:commit-work
+primary_use: Create high-quality git commits with governance - review, split logically,
+  write clear Conventional Commits messages, sync registries
 scores:
   agent_native: 5
   cognitive: 5
   composability: 5
   stance: 5
-
-asqm_quality: 20
-
-overlaps_with:
-  - anthropics/skills:commit-work
-  - softaworks/agent-toolkit:commit-work
-
-market_position: differentiated
-
-# Scoring rationale:
-# agent_native: 5 - Explicit Appendix: Output contract with table (commit message, summary, commands, registry sync)
-# cognitive: 5 - Excellent reasoning offload: 10-step workflow, decision trees for
-#   splitting commits, interaction policy for user confirmation, comprehensive Self-Check
-# composability: 5 - Integrates review-diff, references commit-message-template,
-#   works in pipelines, clear related_skills, registry sync for AI Cortex ecosystem
-# stance: 5 - Perfect spec/skill.md alignment: all required sections, evolution metadata,
-#   Self-Check, Examples with edge cases, Restrictions, clear Interaction Policy
-
-# Lifecycle: validated (Quality 20/20 ≥ 17, agent_native 5 ≥ 4, stance 5 ≥ 3)
-
-# Market position: differentiated - Enhanced with AI Cortex governance (review-diff
-#   integration, registry sync), clear evolution from Anthropic's version, unique
-#   value in AI Cortex ecosystem despite overlaps with original commit-work skills
+stance: 5
+status: validated
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

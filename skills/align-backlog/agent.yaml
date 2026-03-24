@@ -1,40 +1,40 @@
-name: align-backlog
-status: validated
-
-primary_use: Align the product or work backlog with current strategy, goals, and roadmap; classify items (aligned/partial/misaligned/orphan); produce actionable change proposals (add/cut/merge/reprioritize) and persist a Backlog Alignment Report.
-
+agent_native: 5
+asqm_quality: 17
+cognitive: 3
+composability: 4
 inputs:
-  - optional backlog path or convention
-  - optional strategy docs root (goals, roadmap, milestones)
-  - optional scope (full vs subset by epic/label/time window)
-
+- optional backlog path or convention
+- optional strategy docs root (goals, roadmap, milestones)
+- optional scope (full vs subset by epic/label/time window)
+lifecycle_state: Validated
+market_position: differentiated
+name: align-backlog
 outputs:
-  - Backlog Alignment Report (docs/calibration/backlog-alignment.md; living)
-  - machine-readable alignment summary and change proposals block (YAML)
-
+- Backlog Alignment Report (docs/calibration/backlog-alignment.md; living)
+- machine-readable alignment summary and change proposals block (YAML)
+overlaps_with:
+- nesnilnehc/ai-cortex:align-planning
+- nesnilnehc/ai-cortex:plan-next
+- nesnilnehc/ai-cortex:capture-work-items
+primary_use: Align the product or work backlog with current strategy, goals, and roadmap;
+  classify items (aligned/partial/misaligned/orphan); produce actionable change proposals
+  (add/cut/merge/reprioritize) and persist a Backlog Alignment Report.
 scores:
   agent_native: 5
   cognitive: 4
   composability: 4
   stance: 5
-
-asqm_quality: 18
-
-overlaps_with:
-  - nesnilnehc/ai-cortex:align-planning
-  - nesnilnehc/ai-cortex:plan-next
-  - nesnilnehc/ai-cortex:capture-work-items
-
-market_position: differentiated
-
-tags: [workflow, documentation]
-
-# Scoring rationale:
-# agent_native: 5 - Formal Appendix: Output contract table added alongside template; machine-readable block defined
-# cognitive: 4 - 4-phase analysis (source resolution, mapping, classification, proposals);
-#   classification schema (aligned/partial/misaligned/orphan) offloads reasoning well
-# composability: 4 - Feeds into align-planning, capture-work-items; related_skills defined;
-#   document-artifact output consumable by downstream; minor: fewer orchestration hooks than align-planning
-# stance: 5 - All required sections, HARD-GATE on no-silent-edits, Skill Boundaries, Self-Check aligned
-
-# Lifecycle: validated (Quality 18/20 = 18 ≥ 17, agent_native 5 ≥ 4, stance 5 ≥ 3)
+stance: 5
+status: validated
+tags:
+- workflow
+- documentation
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

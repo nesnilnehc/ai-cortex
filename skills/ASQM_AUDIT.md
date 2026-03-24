@@ -1,148 +1,263 @@
 # ASQM 审计 — AI Cortex 技能
 
-**审计日期**：2026-03-23
-**范围**：`skills/` 下全部 52 个技能
+**审计日期**：2026-03-24
+**范围**：`skills/` 下全部 54 个技能
 **打分**：ASQM strict（基于证据；agent_native = 5 仅当 SKILL.md 含有显式 output contract 时）
 
 ---
 
 ## 1. 按状态的生命周期
 
-| Status | 数量 | 技能 |
-| :--- | :--- | :--- |
-| **validated** | 51 | 除 warn-destructive-commands 外全部（含 tidy-repo） |
-| **experimental** | 1 | warn-destructive-commands |
-| **archive_candidate** | 0 | — |
+| Status | 数量 | 示例技能 |
+| :--- | :---: | :--- |
+| **Validated** | 16 | align-architecture, align-backlog, align-planning, ... (13 more) |
+| **Experimental** | 38 | automate-repair, automate-tests, breakdown-tasks, ... (35 more) |
+| **Archive_Candidate** | 0 | — |
 
-**validated** ↔ Quality ≥ 17 且 Gate A（agent_native ≥ 4）且 Gate B（stance ≥ 3）；**experimental** ↔ Quality ≥ 10；**archive_candidate** ↔ 否则。
+**Lifecycle Rules:**
+- **Validated** ↔ Quality ≥ 17 且 Gate A（agent_native ≥ 4）且 Gate B（stance ≥ 3）
+- **Experimental** ↔ Quality ≥ 10
+- **Archive_Candidate** ↔ 其他情况
 
 ---
 
 ## 2. 打分公式与门限
 
-- **Quality（线性）**：`asqm_quality = agent_native + cognitive + composability + stance`（各 0–5，总分 0–20）。
-- **Gate A**（agent readiness）：agent_native ≥ 4。
-- **Gate B**（design integrity）：stance ≥ 3。
-- **validated**：Quality ≥ **17** 且 Gate A 且 Gate B。
-- **experimental**：Quality ≥ 10。
-- **archive_candidate**：其他情况。
+**Quality（线性）**：
+`asqm_quality = agent_native + cognitive + composability + stance`
+
+各维度评分范围：0–5 分，总分 0–20 分。
+
+| 维度 | 范围 | 说明 |
+| :--- | :---: | :--- |
+| **agent_native** | 0–5 | Agent 消费；机器可读契约（仅 5 = 显式 output contract） |
+| **cognitive** | 0–5 | 从用户转移至 Agent 的推理；步骤、检查清单、行为 |
+| **composability** | 0–5 | 与其他技能组合的便利性；交接点、清晰 I/O、聚合 |
+| **stance** | 0–5 | 设计完整性、spec 对齐；限制、自查、规范遵守 |
+
+**Gate Rules:**
+- **Gate A** (Agent-ready): agent_native ≥ 4
+- **Gate B** (Design integrity): stance ≥ 3
 
 ---
 
-## 3. 维度检查清单（严格）
+## 3. 汇总表（分数与生命周期）
 
-| 维度 | 含义 | 所用证据 |
-| :--- | :--- | :--- |
-| **agent_native** | Agent 消费；机器可读契约 | SKILL.md 中的 Appendix / Output contract；agent.yaml 结构 |
-| **cognitive** | 从用户转移至 Agent 的推理 | Steps、checklists、Self-Check、Behavior |
-| **composability** | 与其他技能组合的便利性 | Handoff、清晰 I/O、聚合格式 |
-| **stance** | 设计完整性、spec 对齐 | Restrictions、Self-Check、spec/skill.md 对齐 |
-
-**严格规则**：仅当 SKILL.md 包含**显式、机器可解析的 output contract**（如「Appendix: Output contract」或等效表/spec）时 agent_native = 5。仅 prose 的输出描述 → agent_native ≤ 4。
-
----
-
-## 4. 汇总表（分数与生命周期）
-
-| Skill | agent_native | cognitive | composability | stance | asqm_quality | status |
+| Skill | agent_native | cognitive | composability | stance | quality | status |
 | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
-| align-architecture | 5 | 5 | 5 | 5 | 20 | validated |
-| align-backlog | 5 | 4 | 4 | 5 | 18 | validated |
-| align-planning | 5 | 5 | 5 | 5 | 20 | validated |
-| analyze-requirements | 5 | 5 | 5 | 5 | 20 | validated |
-| assess-docs | 5 | 4 | 5 | 5 | 19 | validated |
-| automate-repair | 5 | 4 | 4 | 4 | 17 | validated |
-| automate-tests | 5 | 4 | 4 | 4 | 17 | validated |
-| bootstrap-docs | 5 | 4 | 4 | 5 | 18 | validated |
-| breakdown-tasks | 5 | 4 | 5 | 4 | 18 | validated |
-| capture-work-items | 5 | 4 | 4 | 5 | 18 | validated |
-| commit-work | 5 | 5 | 5 | 5 | 20 | validated |
-| conduct-retro | 4 | 4 | 4 | 5 | 17 | validated |
-| curate-skills | 5 | 4 | 5 | 5 | 19 | validated |
-| decontextualize-text | 5 | 4 | 4 | 4 | 17 | validated |
-| define-mission | 5 | 5 | 5 | 5 | 20 | validated |
-| define-north-star | 5 | 5 | 5 | 5 | 20 | validated |
-| define-roadmap | 5 | 5 | 5 | 5 | 20 | validated |
-| define-strategic-pillars | 5 | 5 | 5 | 5 | 20 | validated |
-| define-vision | 5 | 5 | 5 | 5 | 20 | validated |
-| design-solution | 5 | 5 | 4 | 5 | 19 | validated |
-| design-strategic-goals | 5 | 5 | 5 | 5 | 20 | validated |
-| discover-docs-norms | 5 | 4 | 4 | 5 | 18 | validated |
-| discover-skills | 5 | 3 | 5 | 4 | 17 | validated |
-| generate-agent-entry | 5 | 4 | 4 | 5 | 18 | validated |
-| generate-github-workflow | 5 | 4 | 4 | 5 | 18 | validated |
-| generate-standard-readme | 5 | 3 | 4 | 5 | 17 | validated |
-| install-rules | 5 | 4 | 4 | 5 | 18 | validated |
-| investigate-root-cause | 4 | 5 | 4 | 5 | 18 | validated |
-| plan-next | 5 | 5 | 5 | 5 | 20 | validated |
-| refine-skill-design | 5 | 5 | 5 | 5 | 20 | validated |
-| review-architecture | 5 | 4 | 5 | 5 | 19 | validated |
-| review-code | 5 | 5 | 5 | 5 | 20 | validated |
-| review-codebase | 5 | 4 | 4 | 5 | 18 | validated |
-| review-diff | 5 | 4 | 5 | 5 | 19 | validated |
-| review-dotnet | 5 | 4 | 5 | 5 | 19 | validated |
-| review-go | 5 | 4 | 5 | 5 | 19 | validated |
-| review-java | 5 | 4 | 5 | 5 | 19 | validated |
-| review-orm-usage | 5 | 4 | 5 | 5 | 19 | validated |
-| review-performance | 5 | 4 | 5 | 5 | 19 | validated |
-| review-php | 5 | 4 | 5 | 5 | 19 | validated |
-| review-powershell | 5 | 4 | 5 | 5 | 19 | validated |
-| review-python | 5 | 4 | 5 | 5 | 19 | validated |
-| review-react | 5 | 4 | 5 | 5 | 19 | validated |
-| review-requirements | 5 | 4 | 5 | 5 | 19 | validated |
-| review-security | 5 | 4 | 5 | 5 | 19 | validated |
-| review-sql | 5 | 4 | 5 | 5 | 19 | validated |
-| review-testing | 5 | 4 | 5 | 5 | 19 | validated |
-| review-typescript | 5 | 4 | 5 | 5 | 19 | validated |
-| review-vue | 5 | 4 | 5 | 5 | 19 | validated |
-| sync-release-docs | 4 | 4 | 4 | 5 | 17 | validated |
-| tidy-repo | 5 | 4 | 4 | 5 | 18 | validated |
-| warn-destructive-commands | 4 | 4 | 3 | 5 | 16 | experimental |
+| automate-tests | 4 | 4 | 3 | 5 | 16 | Experimental |
+| conduct-retro | 5 | 3 | 3 | 5 | 16 | Experimental |
+| curate-skills | 4 | 4 | 3 | 5 | 16 | Experimental |
+| define-mission | 5 | 3 | 4 | 4 | 16 | Experimental |
+| define-vision | 5 | 3 | 4 | 4 | 16 | Experimental |
+| refine-skill-design | 4 | 4 | 3 | 5 | 16 | Experimental |
+| automate-repair | 4 | 3 | 3 | 5 | 15 | Experimental |
+| breakdown-tasks | 4 | 3 | 3 | 5 | 15 | Experimental |
+| commit-work | 4 | 3 | 3 | 5 | 15 | Experimental |
+| discover-docs-norms | 4 | 3 | 3 | 5 | 15 | Experimental |
+| discover-skills | 4 | 3 | 3 | 5 | 15 | Experimental |
+| generate-agent-entry | 4 | 3 | 3 | 5 | 15 | Experimental |
+| generate-github-workflow | 4 | 3 | 3 | 5 | 15 | Experimental |
+| generate-standard-readme | 4 | 3 | 3 | 5 | 15 | Experimental |
+| investigate-root-cause | 4 | 3 | 3 | 5 | 15 | Experimental |
+| review-architecture | 4 | 3 | 3 | 5 | 15 | Experimental |
+| review-code | 4 | 3 | 3 | 5 | 15 | Experimental |
+| review-codebase | 4 | 3 | 3 | 5 | 15 | Experimental |
+| review-diff | 4 | 3 | 3 | 5 | 15 | Experimental |
+| review-dotnet | 4 | 3 | 3 | 5 | 15 | Experimental |
+| review-go | 4 | 3 | 3 | 5 | 15 | Experimental |
+| review-java | 4 | 3 | 3 | 5 | 15 | Experimental |
+| review-orm-usage | 4 | 3 | 3 | 5 | 15 | Experimental |
+| review-performance | 4 | 3 | 3 | 5 | 15 | Experimental |
+| review-php | 4 | 3 | 3 | 5 | 15 | Experimental |
+| review-powershell | 4 | 3 | 3 | 5 | 15 | Experimental |
+| review-python | 4 | 3 | 3 | 5 | 15 | Experimental |
+| review-react | 4 | 3 | 3 | 5 | 15 | Experimental |
+| review-requirements | 4 | 3 | 3 | 5 | 15 | Experimental |
+| review-security | 4 | 3 | 3 | 5 | 15 | Experimental |
+| review-sql | 4 | 3 | 3 | 5 | 15 | Experimental |
+| review-testing | 4 | 3 | 3 | 5 | 15 | Experimental |
+| review-typescript | 4 | 3 | 3 | 5 | 15 | Experimental |
+| review-vue | 4 | 3 | 3 | 5 | 15 | Experimental |
+| warn-destructive-commands | 4 | 4 | 2 | 5 | 15 | Experimental |
+| decontextualize-text | 4 | 3 | 3 | 4 | 14 | Experimental |
+| install-rules | 4 | 3 | 2 | 5 | 14 | Experimental |
+| sync-release-docs | 4 | 3 | 2 | 5 | 14 | Experimental |
+| audit-docs | 5 | 4 | 5 | 5 | 19 | Validated |
+| align-architecture | 5 | 3 | 5 | 5 | 18 | Validated |
+| align-planning | 5 | 3 | 5 | 5 | 18 | Validated |
+| define-north-star | 5 | 4 | 4 | 5 | 18 | Validated |
+| plan-next | 5 | 4 | 4 | 5 | 18 | Validated |
+| tidy-repo | 5 | 4 | 4 | 5 | 18 | Validated |
+| align-backlog | 5 | 3 | 4 | 5 | 17 | Validated |
+| analyze-requirements | 5 | 3 | 4 | 5 | 17 | Validated |
+| assess-docs | 5 | 3 | 4 | 5 | 17 | Validated |
+| bootstrap-docs | 5 | 3 | 4 | 5 | 17 | Validated |
+| capture-work-items | 5 | 3 | 4 | 5 | 17 | Validated |
+| define-roadmap | 5 | 3 | 4 | 5 | 17 | Validated |
+| define-strategic-pillars | 5 | 3 | 4 | 5 | 17 | Validated |
+| design-solution | 5 | 3 | 4 | 5 | 17 | Validated |
+| design-strategic-goals | 5 | 3 | 4 | 5 | 17 | Validated |
+| detect-ssot-violations | 5 | 3 | 4 | 5 | 17 | Validated |
 
 ---
 
-## 5. 重叠与生态
+## 4. 维度分析
 
-- **review-code** (orchestrator)：overlaps with review-diff, review-codebase, external code-review skills；**market_position**: differentiated。
-- **原子 review 技能**（review-diff、review-codebase、review-* 等）：overlap with each other and review-code；**market_position**: commodity。
-- **analyze-requirements**：overlaps with design-solution, capture-work-items；**market_position**: differentiated。
-- **conduct-retro**：overlaps with align-planning, assess-docs；**market_position**: differentiated。
-- **investigate-root-cause**：overlaps with automate-repair, review-diff, review-code；**market_position**: differentiated。
-- **sync-release-docs**：overlaps with discover-docs-norms, assess-docs, bootstrap-docs；**market_position**: differentiated。
-- **warn-destructive-commands**：overlaps_with empty；**market_position**: commodity。
-- **automate-repair**：overlaps with review-code, automate-tests；**market_position**: commodity。
-- **automate-tests**：overlaps with automate-repair；**market_position**: commodity。
-- **plan-next**（orchestrator）：overlaps with align-planning, align-architecture, assess-docs, discover-docs-norms, bootstrap-docs, review-code；**market_position**: differentiated。
-- **tidy-repo**：overlaps with assess-docs, review-codebase, align-planning；**market_position**: differentiated。
-- 其余技能 overlaps 见各 `agent.yaml`。
+### Agent Native Distribution
 
-所有重叠使用 **Git-repo 形式** `owner/repo:skill-name`（如 `nesnilnehc/ai-cortex:review-diff`）。
+- **Score 5**: 19 skills
+- **Score 4**: 35 skills
 
----
+### Cognitive Distribution
 
-## 6. 发现
+- **Score 4**: 8 skills
+- **Score 3**: 46 skills
 
-### 6.14 Curation 运行 (2026-03-23) — tidy-repo 纳入
+### Composability Distribution
 
-1. **tidy-repo**（Quality 18）：output_schema 含 artifact_type、path_pattern、lifecycle；Input & Output 含完整 Markdown 模板与 Machine-Readable Summary → agent_native 5。7-phase 行为、Self-Check、Handoff 点 → cognitive 4、composability 4。Scope Boundaries、Constraints、spec 对齐 → stance 5。overlaps_with: assess-docs, review-codebase, align-planning。**validated**。
-2. 此前 6.13 运行：conduct-retro、investigate-root-cause、sync-release-docs、warn-destructive-commands 均已创建 agent.yaml 与 README。
-2. **conduct-retro**（Quality 17）：output_schema 含 artifact_type、path_pattern，但无显式 Appendix → agent_native 4。5-step 行为、Self-Check → cognitive 4。overlaps_with: align-planning, assess-docs。**validated**。
-3. **investigate-root-cause**（Quality 18）：output 为 prose + Debug Report 格式，无 Appendix → agent_native 4。5-phase、Iron Law、模式表、3-strike 规则 → cognitive 5。overlaps_with: automate-repair, review-diff, review-code。**validated**。
-4. **sync-release-docs**（Quality 17）：output 为 side-effect + doc health summary prose → agent_native 4。9-step 流程、Self-Check → cognitive 4。overlaps_with: discover-docs-norms, assess-docs, bootstrap-docs。**validated**。
-5. **warn-destructive-commands**（Quality 16）：prose 输出、session-scoped、无 handoff → composability 3。Quality 16 < 17 → **experimental**。market_position: commodity。
-6. **agent.yaml 命名规范化**：automate-repair（原 run-repair-loop）、automate-tests（原 run-automated-tests）、plan-next（原 run-checkpoint）— `name` 与目录名对齐。
-7. **overlaps_with 规范化**：assess-docs、align-planning 中 run-checkpoint → plan-next；automate-repair 中 run-automated-tests → automate-tests。
+- **Score 5**: 3 skills
+- **Score 4**: 15 skills
+- **Score 3**: 33 skills
+- **Score 2**: 3 skills
 
 ---
 
-## 7. 建议
+## 5. 主要发现
 
-1. **warn-destructive-commands**（experimental）：可考虑增加 Appendix: Output contract、提升 composability（如与 freeze 类技能 handoff），以达 validated。
-2. **无紧急变更**：50 validated；1 experimental；无 archive 候选。
-3. **重叠为设计使然**：原子 review 技能与 review-code 重叠；conduct-retro 与 align-planning、assess-docs 互补；sync-release-docs 与文档链技能形成发版后 handoff。
-4. **tidy-repo**：已纳入审计；尚未进入 INDEX.md 与 manifest.json，按规范需单独注册流程。
-5. **后续**：新增或大改技能后，运行 `curate-skills` 刷新 agent.yaml 与 ASQM_AUDIT.md。
+### 5.1 Validated Skills (v2.0.0 Curation)
+
+**Count**: 16 skills
+
+All validated skills meet strict ASQM criteria:
+- Quality ≥ 17 (Gate A: agent_native ≥ 4, Gate B: stance ≥ 3)
+- Explicit output_schema in SKILL.md (YAML front matter with artifact_type and path_pattern)
+- Clear scope boundaries and design integrity
+
+- **align-architecture** (Q18): 5/3/5/5
+- **align-backlog** (Q17): 5/3/4/5
+- **align-planning** (Q18): 5/3/5/5
+- **analyze-requirements** (Q17): 5/3/4/5
+- **assess-docs** (Q17): 5/3/4/5
+- **audit-docs** (Q19): 5/4/5/5
+- **bootstrap-docs** (Q17): 5/3/4/5
+- **capture-work-items** (Q17): 5/3/4/5
+- **define-north-star** (Q18): 5/4/4/5
+- **define-roadmap** (Q17): 5/3/4/5
+- **define-strategic-pillars** (Q17): 5/3/4/5
+- **design-solution** (Q17): 5/3/4/5
+- **design-strategic-goals** (Q17): 5/3/4/5
+- **detect-ssot-violations** (Q17): 5/3/4/5
+- **plan-next** (Q18): 5/4/4/5
+- **tidy-repo** (Q18): 5/4/4/5
+
+### 5.2 Experimental Skills
+
+**Count**: 38 skills
+
+Experimental skills have quality ≥ 10 but do not meet validated threshold.
+**Paths to validation:**
+
+1. **Improve cognitive dimension** (currently 3): Add explicit step sequences, checklists, behavioral patterns
+2. **Improve composability** (currently 3): Add handoff points, clearer I/O contracts, integration patterns
+3. **Some lack output_schema**: Add explicit YAML front matter with artifact_type, path_pattern
+
+- **automate-tests** (Q16): composability 3
+- **conduct-retro** (Q16): cognitive 3 | composability 3
+- **curate-skills** (Q16): composability 3
+- **define-mission** (Q16): cognitive 3
+- **define-vision** (Q16): cognitive 3
+- **refine-skill-design** (Q16): composability 3
+- **automate-repair** (Q15): cognitive 3 | composability 3
+- **breakdown-tasks** (Q15): cognitive 3 | composability 3
+- **commit-work** (Q15): cognitive 3 | composability 3
+- **discover-docs-norms** (Q15): cognitive 3 | composability 3
+- **discover-skills** (Q15): cognitive 3 | composability 3
+- **generate-agent-entry** (Q15): cognitive 3 | composability 3
+- **generate-github-workflow** (Q15): cognitive 3 | composability 3
+- **generate-standard-readme** (Q15): cognitive 3 | composability 3
+- **investigate-root-cause** (Q15): cognitive 3 | composability 3
+- **review-architecture** (Q15): cognitive 3 | composability 3
+- **review-code** (Q15): cognitive 3 | composability 3
+- **review-codebase** (Q15): cognitive 3 | composability 3
+- **review-diff** (Q15): cognitive 3 | composability 3
+- **review-dotnet** (Q15): cognitive 3 | composability 3
+- **review-go** (Q15): cognitive 3 | composability 3
+- **review-java** (Q15): cognitive 3 | composability 3
+- **review-orm-usage** (Q15): cognitive 3 | composability 3
+- **review-performance** (Q15): cognitive 3 | composability 3
+- **review-php** (Q15): cognitive 3 | composability 3
+- **review-powershell** (Q15): cognitive 3 | composability 3
+- **review-python** (Q15): cognitive 3 | composability 3
+- **review-react** (Q15): cognitive 3 | composability 3
+- **review-requirements** (Q15): cognitive 3 | composability 3
+- **review-security** (Q15): cognitive 3 | composability 3
+- **review-sql** (Q15): cognitive 3 | composability 3
+- **review-testing** (Q15): cognitive 3 | composability 3
+- **review-typescript** (Q15): cognitive 3 | composability 3
+- **review-vue** (Q15): cognitive 3 | composability 3
+- **warn-destructive-commands** (Q15): composability 2
+- **decontextualize-text** (Q14): cognitive 3 | composability 3
+- **install-rules** (Q14): cognitive 3 | composability 2
+- **sync-release-docs** (Q14): cognitive 3 | composability 2
 
 ---
 
-*由 curate-skills 技能生成（ASQM strict 打分）。*
+## 6. 建议与后续行动
+
+### 6.1 立即行动（High Priority）
+
+1. **Update Experimental Skills to Validated (Q16 → Q17+)**:
+   - Review top 10 experimental skills (Q16, Q15) and enhance cognitive + composability
+   - Add structured step sequences if missing (cognitive = 5)
+   - Define handoff points and I/O contracts (composability = 4–5)
+
+2. **detect-ssot-violations & audit-docs**:
+   - Both now evaluated with v1.0.0 and v1.4.0 respectively
+   - detect-ssot-violations: Validated (Q17), added to INDEX and manifest
+   - audit-docs: Validated (Q19), orchestrator with full integration
+
+### 6.2 中期改进（Next Iteration）
+
+1. **Review all review-* skills**: Consolidate overlapping domain-specific review skills into atomic
+   - Consider creating review-code as orchestrator with atomic sub-skills
+
+2. **Add explicit market_position to all skills**: Differentiate between:
+   - **differentiated**: Orchestrators (audit-docs, plan-next, review-code)
+   - **commodity**: Atomic domain reviews (review-python, review-go, etc.)
+   - **experimental**: Low-quality or niche skills
+
+### 6.3 长期规划（Roadmap）
+
+1. **Skill ecosystem maturity**:
+   - Move all 38 experimental skills to validated by:
+     - Improving cognitive dimension (structured steps + checklists)
+     - Improving composability (handoff + aggregation)
+   - Target: 54 validated, 0 experimental
+
+2. **Overlap analysis & consolidation**:
+   - Review-code vs review-diff, review-codebase → consolidate into orchestrator pattern
+   - Define clear boundaries between orchestrator and atomic skills
+
+3. **CI/CD integration**:
+   - Add curate-skills to pre-merge workflow
+   - Auto-update agent.yaml and ASQM_AUDIT.md on each skill change
+
+---
+
+## 7. 结论
+
+**Skills evaluated**: 54
+**Validated**: 16 (29%)
+**Experimental**: 38 (70%)
+**Archive_Candidate**: 0
+
+**No changes needed** for validated skills; they meet all ASQM criteria.
+
+**Actionable next steps**:
+1. Use this report to prioritize experimental skill improvements
+2. Schedule review sessions for top experimental skills (Q16, Q15)
+3. Re-run curate-skills after each enhancement to track progress
+4. Integrate into CI/CD: validate all PRs with ASQM framework
+
+_由 curate-skills 技能生成（ASQM strict 打分，2026-03-24 19:17:42）。_
