@@ -46,15 +46,16 @@ output_schema:
 ## 范围边界 (Scope Boundaries)
 
 **本技能负责**：
+- **编排多个原子技能**的执行流程
 - 发现和验证文档规范（通过 `discover-docs-norms`）
 - 根据规范整理仓库结构（通过 `tidy-repo`）
-- 评估文档健康度（通过 `assess-docs`）
-- 检测跨文档语义重复与 SSOT 违规（通过 `detect-ssot-violations`，`full` 模式）
-- 将所有发现合成为统一治理报告
+- 评估文档和检测 SSOT 违规（通过 `assess-docs`，包括五步意图优先的审计）
+- 将所有发现**汇总**为统一治理报告
 - 计算集成健康评分（0-100）
 - 生成优先级行动计划
 
-**本技能不负责**：
+**本技能不负责**（由下游技能处理）：
+- SSOT 五步审计的**具体实现** → assess-docs Phase 9
 - 实际实现文档改进 → 分配给团队或使用下游技能
 - 提交仓库变更 → 使用 `commit-work`
 - 详细代码审查 → 使用 `review-code` 或 `review-codebase`
@@ -107,32 +108,12 @@ output_schema:
 - 运行 `assess-docs [--code-diff=<base>]`（基于模式）
 - 收集：合规性、准备度、图健康度、代码对齐（如适用）
 
-**第 4.5 步：SSOT 完整性审计**（仅 `full` 模式，~5-8 分钟）
+**第 4.5 步：收集 SSOT 完整性审计结果**（仅 `full` 模式，~2 分钟）
 
-采用五步**意图优先、内容其次**的审计流程（区别于仅基于文本相似度的方法）：
-
-1. **Step 1 - 意图建模（Intent Modeling）**：为每个文档提取意图标签（path_layer、artifact_type、ownership_role、granularity、section_intents）
-
-2. **Step 2 - 意图冲突初筛（Intent Conflict Screening）**：仅在"同域+意图重叠+粒度相近"时才成为候选，剔除虚假冲突
-
-3. **Step 3 - 分层相似度分析（Layered Similarity）**：
-   - Doc-level 相似度（整体）
-   - **Section-level 相似度（H2/H3 粒度，强制执行）** → 禁止仅凭 Doc-level 判定
-   - 关键实体重叠（里程碑、KPI、时间窗口）
-
-4. **Step 4 - SSOT 判定规则**：
-   - **P0**：用途重叠 + 关键事实冲突（数字/决策不一致）
-   - **P1**：用途重叠 + 大段重复（>40% 内容重叠，无链接）
-   - **P2**：用途不同但存在中度复写（应改为引用）
-   - **Info**：用途不同，仅背景性相似（无需治理）
-
-5. **Step 5 - 输出规范化**：
-   - Intent Registry 摘要（按目录）
-   - SSOT 冲突矩阵（A, B, intent_overlap, section_overlap, priority）
-   - Canonical Mapping（保留源 → 被引用源）
-   - 可执行修复清单（每项含：动作、目标文件、预计影响、回归检查点）
-
-生成 `docs/calibration/ssot-integrity-audit.md` 报告（包含所有五步的完整分析和证据）
+- 调用 `assess-docs --full` 获取 SSOT 审计结果
+- `assess-docs` 实现五步**意图优先、内容其次**的 SSOT 审计逻辑
+- 收集输出：Intent Registry、冲突矩阵、修复清单等
+- 参见 assess-docs 技能文档了解五步流程详情
 
 **第 5 步：生成统一报告** (~1 分钟)
 - 合成步骤 2-4 的发现
@@ -147,8 +128,8 @@ output_schema:
 - 输出：健康评分 + 前 10 项改进 + 下一步建议
 
 **总预计时间**：
-- `quick` 模式：3-5 分钟（跳过 SSOT 检测）
-- `full` 模式：12-18 分钟（包括五步 SSOT 完整性审计）
+- `quick` 模式：3-5 分钟（跳过 SSOT 审计）
+- `full` 模式：10-15 分钟（包括调用 assess-docs 进行 SSOT 审计）
 - `code-review` 模式：5-10 分钟
 
 ---
@@ -178,13 +159,13 @@ audit-docs [--project <path>]
 ### 输出 (Output)
 
 **总是生成**：
-- `docs/calibration/audit-docs.md`：统一治理报告（artifact_type: audit-docs, lifecycle: living）
+- `docs/calibration/audit-docs.md`：统一治理报告（汇总所有阶段发现）
 
 **按模式条件生成**：
 - `docs/ARTIFACT_NORMS.md`：项目文档规范（若在第 2 步创建）
 - `docs/calibration/repo-tidy.md`：仓库整理报告（来自 tidy-repo）
-- `docs/calibration/doc-assessment.md`：完整评估报告（来自 assess-docs）
-- `docs/calibration/ssot-integrity-audit.md`：SSOT 完整性审计报告（仅 `full` 模式，包含五步分析）
+- `docs/calibration/doc-assessment.md`：文档评估报告（来自 assess-docs，包括合规性、准备度、SSOT审计）
+- `docs/calibration/ssot-integrity-audit.md`：SSOT 完整性审计详细报告（仅 `full` 模式，来自 assess-docs 的 Phase 9）
 
 ---
 
