@@ -2,7 +2,11 @@
 
 **目的**：工作条目、技能请求与计划任务的权威索引。支持 assess-doc-readiness 的 Backlog 层追溯。
 
-**相关**：[roadmap](roadmap.md) | [promotion-iteration-tasks](promotion-iteration-tasks.md) | [skills/INDEX.md](../../skills/INDEX.md) | [manifest.json](../../manifest.json)
+**相关**：
+- [roadmap (strategic-plan)](roadmap.md) — 项目路线图和里程碑
+- [promotion-iteration-tasks (execution-plan)](promotion-iteration-tasks.md) — 发版与迭代任务详情
+- [skills/INDEX.md (reference)](../../skills/INDEX.md) — 技能目录
+- [manifest.json (reference)](../../manifest.json) — 机器可读的能力列表
 
 ---
 
@@ -19,7 +23,15 @@
 
 ## 计划工作（来自设计）
 
-任务拆解源自 [推广与迭代设计](../designs/2026-03-06-promotion-and-iteration.md)。详见 [promotion-iteration-tasks](promotion-iteration-tasks.md) 的 Epic/任务明细及与需求的追溯关系。
+下表汇总了来自 [推广与迭代设计 (design)](../designs/2026-03-06-promotion-and-iteration.md) 的计划 Epic。
+
+**详细的任务、验收标准、质量门禁请见** [promotion-iteration-tasks.md (execution-plan)](promotion-iteration-tasks.md)。
+
+本表的职责：
+- 提供 Epic 的快速导航
+- 显示与需求和设计文档的追溯关系
+
+完整的任务定义和执行细节：[promotion-iteration-tasks.md (execution-plan)](promotion-iteration-tasks.md)
 
 | Epic | Scope | Priority |
 | :--- | :--- | :--- |
