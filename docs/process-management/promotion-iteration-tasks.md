@@ -3,6 +3,13 @@
 **Date:** 2026-03-06
 **Source:** [requirements](../requirements-planning/promotion-and-iteration.md)、[design](../designs/2026-03-06-promotion-and-iteration.md)
 
+**文档关系**：
+- [backlog.md (index)](backlog.md)：Epic 快速导航
+- [设计文档 (design)](../designs/2026-03-06-promotion-and-iteration.md)：设计决策与背景
+- 本文档：Epic T1-T5 的**执行详情**，包含完整的任务定义、验收标准、质量门禁和依赖关系
+
+---
+
 ## 总览
 
 | Epic | 任务数 | 依赖 | 质量门禁 |

@@ -18,25 +18,21 @@
 
 ## 2. 设计决策
 
-### 2.1 战略目标：持续优化的结果愿景，非一次性交付
+### 2.1 战略目标：持续优化的结果愿景
 
-**定位**：战略目标描述项目长期追求的**结果状态**，是持续优化的方向，而非有终点的交付物。
+**定位**：详见 [strategic-goals.md](../../project-overview/strategic-goals.md)
 
-- **表述特征**：使用「可获得」「可复用」「摩擦低」等可持续改善的词汇
-- **与 North Star 关系**：目标支撑 North Star（月度技能使用量）；达成目标的不同程度持续推动 NS
-- **无「完成」概念**：目标不会被勾选为「Done」，只会不断接近或深化
+核心理解：战略目标是**持续演进的方向**，而非有截止期的交付物。
 
-**推论**：目标文档不标注状态；其存在即表示项目仍在追求这些结果。
+**设计意义**：允许项目在长期保持方向一致，同时通过里程碑实现分阶段的检查点。
 
-### 2.2 里程碑：分阶段的检查点，非目标本身
+### 2.2 里程碑：分阶段的检查点
 
-**定位**：里程碑是**阶段检查点**，代表在战略目标方向上达到某一具体水平的可验证成果。
+**定位**：详见 [roadmap.md](../roadmap.md)
 
-- **阶段性**：里程碑按阶段组织（如 Phase 1 基础、Phase 2 增长）；每阶段有明确的成功标准
-- **Done 语义**：某里程碑 Done = 该阶段的成功标准已满足，而非对应目标已「完成」
-- **可持续扩展**：Phase 1 全 Done 后，可定义 Phase 2 里程碑（如意图覆盖扩展、生态渠道扩展）；项目继续演进
+核心理解：里程碑是**有阶段的、可验证的检查点**，而非最终目标。
 
-**推论**：里程碑文档需标明阶段；Done 的里程碑作为稳定检查点，供 `align-planning` / `run-checkpoint` 引用，同时预留后续阶段的空间。
+**设计意义**：支撑短期的里程碑交付与长期的目标演进并行。
 
 ### 2.3 目标与里程碑的关系
 
@@ -52,16 +48,20 @@
 
 ---
 
-## 3. 对现有文档的修订
+## 3. 后续行动
 
-1. **strategic-goals.md**：增加「目标性质」说明——目标为持续优化方向，不含日期与阶段；阶段检查点见 milestones。
-2. **roadmap.md**：在定义中明确（1）路线图由里程碑节点组成、（2）里程碑为阶段检查点、（3）Done = 该阶段成功标准满足、（4）Phase 1 为当前阶段，后续阶段可另行定义、（5）战略衍生里程碑与发布里程碑的关系。
+本决策通过后，以下文档应按以下方式更新：
+
+1. **strategic-goals.md**（已完成）：清晰定义 4 个目标；本决策提供了语义框架
+2. **roadmap.md**（建议补充）：在各阶段的说明中，关联到支撑的战略目标
+   - 示例：在"Now 阶段"开头增加："支撑目标 1 和 2..."
+3. **本决策文档（架构化保留）**：作为层次与关系的权威说明，引用其他文档但不重复内容
 
 ---
 
 ## 4. 参考
 
-- [strategic-goals.md](../../project-overview/strategic-goals.md)
-- [roadmap.md](../roadmap.md)
-- [Evolution Roadmap](../../../docs/designs/2026-03-02-ai-cortex-evolution-roadmap.md)
-- [North Star](../../project-overview/north-star.md)
+- [strategic-goals.md (canonical)](../../project-overview/strategic-goals.md) — 战略目标权威定义
+- [roadmap.md (canonical)](../roadmap.md) — 里程碑与路线图权威定义
+- [Evolution Roadmap (design)](../designs/2026-03-02-ai-cortex-evolution-roadmap.md) — 架构与技术分层
+- [North Star](../../project-overview/north-star.md) — 核心指标定义
