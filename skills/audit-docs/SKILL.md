@@ -3,7 +3,7 @@ name: audit-docs
 description: Audit complete documentation governance (norms, structure, SSOT integrity, health) in one command with unified report and roadmap.
 description_zh: 一条命令完成文档治理审计（规范、结构、语义重复、健康度），生成统一报告和路线图。
 tags: [documentation, governance, orchestration, workflow, ssot]
-version: 1.4.0
+version: 1.5.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -107,11 +107,32 @@ output_schema:
 - 运行 `assess-docs [--code-diff=<base>]`（基于模式）
 - 收集：合规性、准备度、图健康度、代码对齐（如适用）
 
-**第 4.5 步：SSOT 检测**（仅 `full` 模式，~2-5 分钟）
-- 扫描所有 .md 文档，检测跨文档语义重叠
-- 识别"复写" vs "引用"，按 artifact_type 进行边界校验
-- 生成冲突矩阵（文档对、重叠率、建议保留源）
-- 输出 SSOT 违规清单（P0/P1/P2 优先级）
+**第 4.5 步：SSOT 完整性审计**（仅 `full` 模式，~5-8 分钟）
+
+采用五步**意图优先、内容其次**的审计流程（区别于仅基于文本相似度的方法）：
+
+1. **Step 1 - 意图建模（Intent Modeling）**：为每个文档提取意图标签（path_layer、artifact_type、ownership_role、granularity、section_intents）
+
+2. **Step 2 - 意图冲突初筛（Intent Conflict Screening）**：仅在"同域+意图重叠+粒度相近"时才成为候选，剔除虚假冲突
+
+3. **Step 3 - 分层相似度分析（Layered Similarity）**：
+   - Doc-level 相似度（整体）
+   - **Section-level 相似度（H2/H3 粒度，强制执行）** → 禁止仅凭 Doc-level 判定
+   - 关键实体重叠（里程碑、KPI、时间窗口）
+
+4. **Step 4 - SSOT 判定规则**：
+   - **P0**：用途重叠 + 关键事实冲突（数字/决策不一致）
+   - **P1**：用途重叠 + 大段重复（>40% 内容重叠，无链接）
+   - **P2**：用途不同但存在中度复写（应改为引用）
+   - **Info**：用途不同，仅背景性相似（无需治理）
+
+5. **Step 5 - 输出规范化**：
+   - Intent Registry 摘要（按目录）
+   - SSOT 冲突矩阵（A, B, intent_overlap, section_overlap, priority）
+   - Canonical Mapping（保留源 → 被引用源）
+   - 可执行修复清单（每项含：动作、目标文件、预计影响、回归检查点）
+
+生成 `docs/calibration/ssot-integrity-audit.md` 报告（包含所有五步的完整分析和证据）
 
 **第 5 步：生成统一报告** (~1 分钟)
 - 合成步骤 2-4 的发现
@@ -127,7 +148,7 @@ output_schema:
 
 **总预计时间**：
 - `quick` 模式：3-5 分钟（跳过 SSOT 检测）
-- `full` 模式：10-15 分钟（包括 SSOT 检测）
+- `full` 模式：12-18 分钟（包括五步 SSOT 完整性审计）
 - `code-review` 模式：5-10 分钟
 
 ---
@@ -163,6 +184,7 @@ audit-docs [--project <path>]
 - `docs/ARTIFACT_NORMS.md`：项目文档规范（若在第 2 步创建）
 - `docs/calibration/repo-tidy.md`：仓库整理报告（来自 tidy-repo）
 - `docs/calibration/doc-assessment.md`：完整评估报告（来自 assess-docs）
+- `docs/calibration/ssot-integrity-audit.md`：SSOT 完整性审计报告（仅 `full` 模式，包含五步分析）
 
 ---
 

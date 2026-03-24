@@ -4,7 +4,7 @@ cognitive: 4
 composability: 5
 inputs:
 - project path (default: CWD)
-- mode: full | quick | code-review (full mode includes SSOT detection)
+- mode: full | quick | code-review (full mode includes five-step SSOT integrity audit with Intent-first methodology)
 - code-diff base branch (optional)
 - apply-tidy flag (optional)
 lifecycle_state: Validated
@@ -13,6 +13,8 @@ name: audit-docs
 outputs:
 - docs/calibration/audit-docs.md (unified governance report with compliance, health
   scores, SSOT violations, and prioritized action plan)
+- docs/calibration/ssot-integrity-audit.md (five-step SSOT audit with intent registry,
+  conflict matrix, canonical mapping, and repair roadmap - full mode only)
 - docs/ARTIFACT_NORMS.md (if norms created in phase 2)
 - docs/calibration/repo-tidy.md (if structure audit applied)
 - docs/calibration/doc-assessment.md (if full assessment run)
@@ -20,11 +22,15 @@ overlaps_with:
 - nesnilnehc/ai-cortex:discover-docs-norms
 - nesnilnehc/ai-cortex:tidy-repo
 - nesnilnehc/ai-cortex:assess-docs
-primary_use: 'Audit complete documentation governance (norms, structure including
-  root directory organization, timestamp policy, and semantic SSOT integrity) in one
-  pass.
+primary_use: 'Audit complete documentation governance using intent-first SSOT methodology
+  (norms, structure including root directory organization, timestamp policy, and semantic
+  SSOT integrity) in one pass.
 
-  Produce unified audit report with health scores and actionable roadmap.
+  Five-step process: intent modeling → conflict screening → layered similarity → SSOT
+  judgment → repair planning.
+
+  Produce unified audit report with health scores, intent registry, conflict matrix,
+  and actionable roadmap.
 
   '
 scores:
@@ -48,4 +54,4 @@ validation_gates:
     name: Design integrity
     requirement: stance >= 3
     status: pass
-version: 1.4.0
+version: 1.5.0
