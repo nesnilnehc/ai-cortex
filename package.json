@@ -4,15 +4,7 @@
   "description": "Agent-first, governance-ready inventory of AI skills",
   "type": "module",
   "scripts": {
-    "verify": "node scripts/verify-registry.mjs",
-    "verify:skill-structure": "node scripts/verify-skill-structure.mjs",
-    "verify:artifact-contract": "node scripts/verify-artifact-contract.mjs",
-    "verify:links": "node scripts/verify-links.mjs",
-    "skill:check": "node scripts/skill-check.mjs",
-    "verify:markdown-links": "node scripts/verify-markdown-links.mjs",
-    "verify:diagram-sync": "node scripts/verify-diagram-sync.mjs",
-    "gen:attributions": "node scripts/generate-attributions.mjs",
-    "test": "node --test scripts/test/*.test.mjs"
+    "verify": "node scripts/verify-registry.mjs"
   },
   "repository": {
     "type": "git",

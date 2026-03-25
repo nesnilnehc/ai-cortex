@@ -24,7 +24,7 @@ AI Cortex 架构由 [Evolution Roadmap](../designs/2026-03-02-ai-cortex-evolutio
 
 - **[Evolution Roadmap](../designs/2026-03-02-ai-cortex-evolution-roadmap.md)** — 层级定义、组件、实施阶段
 - **[skillgraph.md](../../skills/skillgraph.md)** — 技能组合与依赖
-- **[spec/skill.md](../../spec/skill.md)** — 技能结构与元数据 Spec
+- **[specs/skill.md](../../specs/skill.md)** — 技能结构与元数据 Spec
 
 ## ADR
 

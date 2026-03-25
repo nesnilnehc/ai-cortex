@@ -24,7 +24,7 @@ metadata:
         borrowed: "Pre-commit review methodology"
     enhancements:
       - "Integrated review-diff for pre-commit quality checks"
-      - "Added spec/skill.md compliance verification"
+      - "Added specs/skill.md compliance verification"
       - "Auto-sync with skills/INDEX.md and manifest.json"
       - "Enhanced Self-Check with AI Cortex standards"
 triggers: [commit, commit work]

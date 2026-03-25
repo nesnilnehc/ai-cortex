@@ -1,10 +1,10 @@
 agent_native: 4
-asqm_quality: 15
-cognitive: 3
-composability: 3
+asqm_quality: 18
+cognitive: 4
+composability: 5
 inputs:
 - project path (default: CWD)
-lifecycle_state: Experimental
+lifecycle_state: Validated
 market_position: differentiated
 name: discover-docs-norms
 outputs:
@@ -17,7 +17,7 @@ primary_use: Help users establish project-specific artifact norms through scanni
   and dialogue; produce docs/ARTIFACT_NORMS.md with complete human-readable and machine-parseable
   specifications including root directory organization and timestamp policy rules.
 scores:
-  agent_native: 5
+  agent_native: 4
   cognitive: 4
   composability: 5
   stance: 5

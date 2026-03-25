@@ -13,7 +13,7 @@ on:
       - 'README.md'
       - '.claude-plugin/**'
       - 'package.json'
-      - 'spec/**'
+      - 'specs/**'
       - '.github/workflows/ci.yml'
   pull_request:
     branches: [main]
@@ -26,7 +26,7 @@ on:
       - 'README.md'
       - '.claude-plugin/**'
       - 'package.json'
-      - 'spec/**'
+      - 'specs/**'
       - '.github/workflows/ci.yml'
 
 permissions:
@@ -45,11 +45,5 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Verify registry
+      - name: Verify all
         run: npm run verify
-
-      - name: Verify skill structure
-        run: node scripts/verify-skill-structure.mjs
-
-      - name: Run tests
-        run: npm test

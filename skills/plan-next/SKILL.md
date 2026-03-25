@@ -13,7 +13,7 @@ input_schema:
   type: free-form
   description: Governance docs as input sources — mission, vision, north-star, strategic-goals, milestones, roadmap, backlog; optional trigger context
   defaults:
-    sources: project canonical paths per docs/ARTIFACT_NORMS.md or spec/artifact-contract.md
+    sources: project canonical paths per docs/ARTIFACT_NORMS.md or specs/artifact-contract.md
 output_schema:
   type: document-artifact
   description: Cycle report with input-source inventory, executed/skipped steps, and Recommended Next Tasks
@@ -89,7 +89,7 @@ output_schema:
 
 ### 输入源与默认路径
 
-**标准输入源**（按 docs/ARTIFACT_NORMS.md 或 spec/artifact-contract.md 解析）：
+**标准输入源**（按 docs/ARTIFACT_NORMS.md 或 specs/artifact-contract.md 解析）：
 
 | 输入源 | 典型路径 |
 | :--- | :--- |
@@ -156,7 +156,7 @@ output_schema:
 
 ### 输入
 
-- **存量治理文档**：mission、vision、north-star、strategic-goals、milestones、roadmap、backlog（按 docs/ARTIFACT_NORMS.md 或 spec/artifact-contract.md 解析）
+- **存量治理文档**：mission、vision、north-star、strategic-goals、milestones、roadmap、backlog（按 docs/ARTIFACT_NORMS.md 或 specs/artifact-contract.md 解析）
 - 可选：触发事件、目标范围、模式覆盖、紧急或发布窗口
 
 ### 输出

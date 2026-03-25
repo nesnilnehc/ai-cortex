@@ -53,11 +53,12 @@ status: active
 | README.md, AGENTS.md, CONTRIBUTING.md | 根目录 |
 | docs/* | 全部 |
 | rules/*, .cursor/rules/* | 全部 |
-| spec/* | 全部 |
+| specs/* | 全部 |
 | skills/INDEX.md | §1–2, §4+ 及 Purpose 列 |
 | skills/*/README.md | 各技能目录 |
 | skills/*/SKILL.md | 正文（非 YAML） |
-| CHANGELOG.md, ASQM_AUDIT.md | 根目录 + skills/ |
+| CHANGELOG.md | 根目录 |
+| skills/ASQM_AUDIT.md | skills/ |
 | llms.txt, docs/ARTIFACT_NORMS.md | 根目录 |
 | .claude-plugin/README.md | 全部 |
 | .github/ISSUE_TEMPLATE/*.md | 全部 |
@@ -77,7 +78,7 @@ status: active
 
 ## §5 与既有规范的关系
 
-- **spec/skill.md**：当项目存在本方案且声明「中文为主」时，项目级文档可中文；`description`、`triggers` 仍为英文；新增可选 `description_zh`
+- **specs/skill.md**：当项目存在本方案且声明「中文为主」时，项目级文档可中文；`description`、`triggers` 仍为英文；新增可选 `description_zh`
 - **writing-chinese-technical**：凡使用中文的文档，须符合该规则（中英间距、数字单位、标点等）
 
 ---
@@ -87,7 +88,7 @@ status: active
 | 阶段 | 资产 |
 | :--- | :--- |
 | P0 | README, AGENTS, CONTRIBUTING |
-| P1 | spec/*, docs/ARTIFACT_NORMS |
+| P1 | specs/*, docs/ARTIFACT_NORMS |
 | P2 | docs/* |
 | P3 | rules/*, .cursor/rules/* |
 | P4 | skills/INDEX.md 非生成部分 |

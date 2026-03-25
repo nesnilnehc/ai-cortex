@@ -3,9 +3,13 @@
 本文件记录本项目的所有重要变更。
 
 格式基于 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)，
-版本遵循 [Semantic Versioning](https://semver.org/spec/v2.0.0.html)。
+版本遵循 [Semantic Versioning](https://semver.org/specs/v2.0.0.html)。
 
 ## [Unreleased]
+
+### Removed（2026-03-25）
+
+- **删除自动生成脚本和单元测试**：移除 `scripts/generate-skills-index.mjs`、`scripts/generate-skillgraph.mjs`、`scripts/test/` 与 `skills/skillgraph.md`。`skills/INDEX.md` 改为手动维护；`npm run verify` 只进行验证而不自动生成。理由：INDEX.md 和 skillgraph.md 属于治理文档，手动维护使其保持精确性；单元测试冗余，因 `verify-registry.mjs` 本身已验证库函数正确性。
 
 ### Removed（2026-03-23）
 
@@ -27,7 +31,7 @@
   - `bootstrap-project-documentation` → `bootstrap-docs`
   - `validate-document-artifacts` → `validate-doc-artifacts`（2026-03 并入 `assess-docs`）
   - 文档相关技能统一 `doc` 术语
-- `spec/skill.md` v2.5.0 — 命名优先级规则：语义正确与规范性优先，口语化与易记次之
+- `specs/skill.md` v2.5.0 — 命名优先级规则：语义正确与规范性优先，口语化与易记次之
 
 ### Added（新增）
 
@@ -61,7 +65,7 @@
 - `skills/skillgraph.md` — 现为自动生成；新增全局概览节（Code Review、Lifecycle、Onboarding、Governance、Standalone）
 - `skills/scenario-map.md` — 现从 scenario-map.json 自动生成
 - `scripts/verify-registry.mjs` — 校验前运行 generate-skills-docs；校验 scenario-map.json 技能引用
-- `spec/skill.md` §9 — 文档生成说明；scenario-map 来源现为 scenario-map.json
+- `specs/skill.md` §9 — 文档生成说明；scenario-map 来源现为 scenario-map.json
 
 ## [2.1.0] - 2026-03-06
 

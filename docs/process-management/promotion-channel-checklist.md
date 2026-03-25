@@ -31,7 +31,7 @@ status: active
 
 | 动作 | 频率 | 验收标准 | 本季度执行 |
 | :--- | :--- | :--- | :---: |
-| 验证 README、AGENTS、manifest、INDEX 的 Raw URL 可访问 | 随版本发布 | HTTP 200 | ☑ |
+| 可选校验 README、AGENTS、manifest、INDEX 的 Raw URL 可访问 | 随版本发布 | HTTP 200 | ☑ |
 
 **验证命令：** `node scripts/verify-links.mjs`
 
@@ -62,7 +62,7 @@ status: active
 | 动作 | 频率 | 验收标准 | 本季度执行 |
 | :--- | :--- | :--- | :---: |
 | README 含 Raw 链接、定位、install 指引 | 随文档更新 | 可直接复用到其他项目 | ☑ |
-| AGENTS.md 含 Raw 链接、Entry 约定 | 随文档更新 | 可被 Agent 加载 | ☑ |
+| AGENTS.md 含入口约定、加载约束（默认本地优先、外链不作为依赖） | 随文档更新 | 可被 Agent 加载 | ☑ |
 | 版本与 CHANGELOG 一致 | 随版本发布 | README badge、manifest version 同步 | ☑ |
 
 ---
@@ -73,5 +73,5 @@ status: active
 | :--- | :--- | :--- | :--- |
 | 2026-03-06 | 2 Raw 链接 | ✓ 全部 200 | `verify-links.mjs` 通过 |
 | 2026-03-06 | 3 marketplace | ✓ Registry OK | `verify-registry.mjs` 通过 |
-| 2026-03-06 | 4 文档 | ✓ 就绪 | README 2.1.0、AGENTS 含 Raw、版本同步 |
+| 2026-03-06 | 4 文档 | ✓ 就绪 | README 2.1.0、AGENTS 本地入口、版本同步 |
 | 2026-03-06 | 1 skills.sh | ✓ 通过 | `npx skills add nesnilnehc/ai-cortex -y` 返回 0 |

@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 /**
- * Verify skills/INDEX.md, manifest.json, skillgraph.md, and marketplace.json stay in sync.
- * Regenerates INDEX.md and skillgraph.md from sources first, then validates.
+ * Verify registry consistency: manifest.json, skills/INDEX.md, marketplace.json, and skills/*.
+ * Validates (does not auto-generate):
  * - Every capability in manifest.json has a path that exists.
  * - Every directory under skills/ that contains SKILL.md is listed in manifest capabilities.
  * - Every skill in marketplace.json exists in skills/ and is registered in INDEX.md.
+ * - skills/INDEX.md is manually maintained and consistent with manifest and SKILL files.
+ * - spec/, rules/, protocols/ directories are present with required structure.
  * Run from repo root: node scripts/verify-registry.mjs
  */
-import { spawnSync } from 'child_process';
 import { readFileSync, readdirSync, existsSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
@@ -33,15 +34,7 @@ if (!existsSync(indexPath)) {
   process.exit(1);
 }
 
-// Regenerate INDEX.md and skillgraph.md from sources
-const genScript = join(root, 'scripts', 'generate-skills-docs.mjs');
-if (existsSync(genScript)) {
-  const r = spawnSync('node', [genScript], { cwd: root, stdio: 'pipe', encoding: 'utf8' });
-  if (r.status !== 0) {
-    console.error('generate-skills-docs failed:', r.stderr || r.error);
-    process.exit(r.status || 1);
-  }
-}
+// Note: INDEX.md and skillgraph.md are manually maintained
 
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
 const capabilities = manifest.capabilities || [];
@@ -199,6 +192,50 @@ for (const cap of capabilities) {
 
 if (failed) process.exit(1);
 console.log(
-  'Registry OK: manifest, skills/INDEX.md, skillgraph.md, marketplace.json, and skills/*/SKILL.md are consistent.'
+  'Registry OK: manifest, skills/INDEX.md, marketplace.json, and skills/*/SKILL.md are consistent.'
 );
+
+// Verify spec, rules, protocols directories
+console.log('');
+const specDir = join(root, 'spec');
+const rulesDir = join(root, 'rules');
+const protocolsDir = join(root, 'protocols');
+
+if (!existsSync(specDir)) {
+  console.error('spec/ directory not found');
+  process.exit(1);
+}
+const requiredSpecs = ['skill.md', 'protocol.md', 'terminology.md'];
+for (const spec of requiredSpecs) {
+  if (!existsSync(join(specDir, spec))) {
+    console.error(`spec/${spec} not found`);
+    failed = true;
+  }
+}
+
+if (existsSync(rulesDir)) {
+  const rulesIndex = join(rulesDir, 'INDEX.md');
+  if (!existsSync(rulesIndex)) {
+    console.error('rules/INDEX.md not found');
+    failed = true;
+  }
+} else {
+  console.warn('rules/ directory not found');
+}
+
+if (existsSync(protocolsDir)) {
+  const protocolsIndex = join(protocolsDir, 'INDEX.md');
+  if (!existsSync(protocolsIndex)) {
+    console.error('protocols/INDEX.md not found');
+    failed = true;
+  }
+} else {
+  console.warn('protocols/ directory not found');
+}
+
+if (failed) {
+  console.error('\nVerification FAILED');
+  process.exit(1);
+}
+console.log('Spec, rules, and protocols OK');
 process.exit(0);

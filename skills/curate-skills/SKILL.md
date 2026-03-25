@@ -15,7 +15,7 @@ input_schema:
   description: Skills directory to audit (defaults to skills/ in current repo)
 output_schema:
   type: diagnostic-report
-  description: ASQM_AUDIT.md with scores, lifecycle status, overlap analysis, and per-skill agent.yaml updates
+  description: skills/ASQM_AUDIT.md with scores, lifecycle status, overlap analysis, and per-skill agent.yaml updates
 ---
 
 # 技能（Skill）：策划技能
@@ -50,7 +50,7 @@ output_schema:
 - 生命周期状态分配（已验证/实验/archive_candidate）
 - 重叠检测和市场定位
 -每个技能的agent.yaml和README.md规范化
-- 回购级审计产品（ASQM_AUDIT.md）生成
+- 回购级审计产品（`skills/ASQM_AUDIT.md`）生成
 
 **本技能不负责**：
 
@@ -59,7 +59,7 @@ output_schema:
 - 注册表同步（INDEX.md、manifest.json 更新根据规范是单独的）
 - 从头开始生成个人技能自述文件（使用“generate-standard-readme”）
 
-**转交点**：当 ASQM_AUDIT.md 与最终建议一起编写时，交给用户进行审查或“完善技能设计”以解决已识别的问题。
+**转交点**：当 `skills/ASQM_AUDIT.md` 与最终建议一起编写时，交给用户进行审查或“完善技能设计”以解决已识别的问题。
 
 ---
 
@@ -67,7 +67,7 @@ output_schema:
 
 - **添加或更改技能后**：重新评分并更新状态和文档，以便库存保持一致。
 - **审核**：审查生命周期（已验证/实验/存档_候选）和重叠的所有技能。
-- **Repo 摘要**：生成或刷新 ASQM_AUDIT.md 或整个技能目录的结构化聊天摘要。
+- **Repo 摘要**：生成或刷新 `skills/ASQM_AUDIT.md` 或整个技能目录的结构化聊天摘要。
 - **自我评估**：对存储库进行管理，包括此元技能，因此治理本身就是一项技能。
 
 ## 行为（行为）
@@ -78,7 +78,7 @@ output_schema:
 4. **生命周期**：应用双门规则。 **Gate A**（代理准备就绪）：agent_native ≥ 4。 **Gate B**（设计完整性）：stance ≥ 3。 **已验证**：质量 ≥ **17** AND Gate A AND Gate B。 **实验**：质量 ≥ 10。 **archive_candidate**：否则。
 5. **重叠和位置**：对于每个技能，分配 `overlaps_with` （以 **Git-repo 形式** `owner/repo:skill-name` 表示的重叠技能列表，此存储库和其他存储库的格式相同；例如 `nesnilnehc/ai-cortex:generate-standard-readme`、`softaworks/agent-toolkit:commit-work`）和 `market_position`（`差异化` | `商品`） |“实验性”）。
 6. **编写**：根据技能编写或更新 `agent.yaml` （分数、状态、overlaps_with、market_position）并将 `README.md` 标准化为标准部分（它的作用、何时使用、输入/输出等）。
-7. **摘要**：在存储库级别编写“ASQM_AUDIT.md”或在聊天中打印结构化摘要。 **ASQM_AUDIT.md 必须包含最终建议部分**（例如“建议”）：可操作的后续步骤（例如分数调整、技能更改）或明确的“不建议更改”结论，因此每次审核都会以明确的指导结束。所需部分：按状态划分的生命周期、评分公式、维度清单、重叠、生态系统、调查结果、**建议**（最终）和简短的汇总表。
+7. **摘要**：在存储库级别编写 `skills/ASQM_AUDIT.md` 或在聊天中打印结构化摘要。 **`skills/ASQM_AUDIT.md` 必须包含最终建议部分**（例如“建议”）：可操作的后续步骤（例如分数调整、技能更改）或明确的“不建议更改”结论，因此每次审核都会以明确的指导结束。所需部分：按状态划分的生命周期、评分公式、维度清单、重叠、生态系统、调查结果、**建议**（最终）和简短的汇总表。
 
 ### 概念分裂
 
@@ -107,7 +107,7 @@ output_schema:
   - `商品`：通用能力，与许多技能重叠，标准模式。
   -“实验性”：生态系统中的早期、利基或定位不明确。
 
-**交互**：在覆盖许多技能文件或编写 ASQM_AUDIT.md 之前，请与用户确认，除非他们明确请求完整运行（例如“策划所有技能”或“运行策划技能”）。
+**交互**：在覆盖许多技能文件或编写 `skills/ASQM_AUDIT.md` 之前，请与用户确认，除非他们明确请求完整运行（例如“策划所有技能”或“运行策划技能”）。
 
 ## 输入与输出 (Input & Output)
 
@@ -118,16 +118,16 @@ output_schema:
 ### 输出（输出）
 
 - 每个技能：更新`agent.yaml`（分数、状态、重叠、市场位置）；标准化“README.md”。
-- 回购级别：`ASQM_AUDIT.md` 或聊天中的结构化摘要。
+- 回购级别：`skills/ASQM_AUDIT.md` 或聊天中的结构化摘要。
 - 重叠和市场位置报告：每个技能的重叠位置（所有者/存储库：技能名称）、市场位置。
 
 ## 限制（限制）
 
 ### 硬边界（Hard Boundaries）
 
-- 不要在该技能中更改spec/skill.md或manifest.json； 元数据同步（INDEX、清单）是每个规范的单独步骤。
+- 不要在该技能中更改specs/skill.md或manifest.json； 元数据同步（INDEX、清单）是每个规范的单独步骤。
 - 不要用该技能覆盖SKILL.md； curate-skills 更新每个技能的 agent.yaml 和 README。 SKILL.md 仍然是每个规范的规范定义。
-- **INDEX.md** 是规范的功能列表（注册表、标签、版本、用途）；不要覆盖它。 **ASQM_AUDIT.md** 是仓库级别的管理产品：质量、生命周期、重叠、生态系统、发现和 **最终建议**（可操作的后续步骤或“无更改”）；在完整的管理运行中编写或更新它并提交它。
+- **INDEX.md** 是规范的功能列表（注册表、标签、版本、用途）；不要覆盖它。 **`skills/ASQM_AUDIT.md`** 是仓库级别的管理产品：质量、生命周期、重叠、生态系统、发现和 **最终建议**（可操作的后续步骤或“无更改”）；在完整的管理运行中编写或更新它并提交它。
 - 规范化时尊重技能/INDEX.md 中的现有标签；仅当与标签系统明确一致时才添加或建议标签。
 - **严格评分**：严格应用ASQM维度；不要夸大分数。仅当技能在 SKILL.md 中有明确的输出契约（附录或同等内容）时，agent_native = 5。
 
@@ -137,7 +137,7 @@ output_schema:
 
 - **技能设计细化**：审核和重构单个 SKILL.md 结构、内容或质量 → 使用 `refine-skill-design`
 - **技能规格变更**：修改技能行为、限制或核心设计→使用`refine-skill-design`
-- **注册表同步**：更新技能/INDEX.md或manifest.json以反映技能更改→每个spec/skill.md单独的进程
+- **注册表同步**：更新技能/INDEX.md或manifest.json以反映技能更改→每个specs/skill.md单独的进程
 - **单独的 README 生成**：从头开始为新技能创建 README.md → 使用“generate-standard-readme”（curate-skills 规范现有的 README）
 - **技能实现**：编写或修改技能代码/逻辑→超出范围
 
@@ -156,7 +156,7 @@ output_schema:
 - [ ] **分配的生命周期状态**：每个技能都有已验证/实验/存档_候选状态，基于质量 ≥ 17 + 双门（agent_native ≥ 4，stance ≥ 3）
 - [ ] **检测到重叠**：使用 Git-repo 表单（所有者/存储库：技能名称）在每个技能的 agent.yaml 中填充重叠字段
 - [ ] **文档标准化**：每个技能都按照标准结构更新了agent.yaml和README.md
-- [ ] **生成的审计产品**：ASQM_AUDIT.md 在回购级别编写，包含生命周期、分数、重叠、生态系统、调查结果和最终建议部分
+- [ ] **生成的审计产品**：`skills/ASQM_AUDIT.md` 在回购级别编写，包含生命周期、分数、重叠、生态系统、调查结果和最终建议部分
 
 ### 流程质量检查
 
@@ -181,7 +181,7 @@ output_schema:
 ### 示例 1：全面管理运行
 
 - **输入**：`技能目录：技能/`；用户说“整理此存储库中的所有技能。”
-- **预期**：扫描`skills/`的所有子目录；阅读每个技能的agent.yaml或README/SKILL.md；分数;为每个技能分配overlaps_with (owner/repo:skill-name) 和market_position；写回agent.yaml和标准化README；报告重叠和市场位置；写入 ASQM_AUDIT.md 或打印结构化摘要。如果政策适用，请在撰写前确认一次。
+- **预期**：扫描`skills/`的所有子目录；阅读每个技能的agent.yaml或README/SKILL.md；分数;为每个技能分配overlaps_with (owner/repo:skill-name) 和market_position；写回agent.yaml和标准化README；报告重叠和市场位置；写入 `skills/ASQM_AUDIT.md` 或打印结构化摘要。如果政策适用，请在撰写前确认一次。
 
 ### 示例2：单项技能重新评分
 

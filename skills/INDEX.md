@@ -56,7 +56,7 @@
 | :--- | :--- | :--- | :--- | :--- |
 | [decontextualize-text](./decontextualize-text/SKILL.md) | generalization, privacy, security, writing | `1.3.1` | stable | 将含私有上下文或内部依赖的文本转为通用、无偏向的表述，保留逻辑、移除组织标识，便于交接、开源或跨团队共享。. |
 | [generate-standard-readme](./generate-standard-readme/SKILL.md) | devops, documentation, writing | `1.2.1` | stable | 生成固定结构的转换导向 README：10 秒理解、1 分钟运行、清晰的用途与场景；支持治理与采纳模式。. |
-| [discover-docs-norms](./discover-docs-norms/SKILL.md) | documentation, workflow | `1.0.1` | stable | 通过对话与扫描，帮助建立项目级文档制品规范（路径、命名、生命周期）；产出 docs/ARTIFACT_NORMS.md。. |
+| [discover-docs-norms](./discover-docs-norms/SKILL.md) | documentation, workflow | `1.3.0` | stable | 通过对话与扫描，帮助建立项目级文档制品规范（路径、命名、生命周期）；产出 docs/ARTIFACT_NORMS.md。. |
 | [discover-skills](./discover-skills/SKILL.md) | automation, generalization, infrastructure | `1.3.1` | stable | 识别能力缺口并从 AI Cortex 或公共技能目录推荐安装；提供前 1–3 条匹配及安装命令。. |
 | [refine-skill-design](./refine-skill-design/SKILL.md) | meta-skill, optimization, writing | `1.4.0` | stable | 审计并重构既有 SKILL，使其符合规范与 LLM 最佳实践；适用于改进草稿、修复质量或对齐规范。. |
 | [generate-agent-entry](./generate-agent-entry/SKILL.md) | documentation | `1.0.1` | stable | 按嵌入式输出契约编写或修订 AGENTS.md，确立项目身份、权威来源与行为预期；采用 AI Cortex 入口格式。. |
@@ -91,7 +91,8 @@
 | [align-planning](./align-planning/SKILL.md) | documentation, workflow | `1.3.0` | stable | 执行任务后追溯、漂移检测与自上而下校准，使规划（目标、需求、里程碑、路线图）与执行对齐。. |
 | [align-architecture](./align-architecture/SKILL.md) | documentation, workflow | `1.2.0` | stable | 对照代码实现验证架构与设计文档；当实现偏离 ADR 或设计时，产出架构合规报告。. |
 | [align-backlog](./align-backlog/SKILL.md) | documentation, workflow | `1.0.0` | stable | 将产品/工作待办与当前战略、目标、路线图对齐；分析待办项，识别脱节或孤儿工作，提出变更建议。. |
-| [assess-docs](./assess-docs/SKILL.md) | documentation, workflow | `3.0.0` | mature | 一次性评估文档健康：验证制品规范合规（路径、命名、front-matter）与各层证据就绪；产出缺口与最小补齐计划。. |
+| [assess-docs](./assess-docs/SKILL.md) | documentation, governance, ssot, workflow | `3.3.0` | mature | 一次性评估文档健康：验证制品规范合规（路径、命名、front-matter）与各层证据就绪；产出缺口与最小补齐计划。. |
+| [audit-docs](./audit-docs/SKILL.md) | documentation, governance, orchestration, workflow, ssot | `1.5.0` | stable | 一条命令完成文档治理审计（规范、结构、语义重复、健康度），生成统一报告和路线图。. |
 | [automate-tests](./automate-tests/SKILL.md) | automation, devops | `1.0.0` | stable | 安全发现并执行仓库测试命令；基于证据选择命令并设安全护栏。. |
 | [automate-repair](./automate-repair/SKILL.md) | automation, devops, optimization | `1.1.0` | stable | 迭代审查变更、运行自动化测试并实施定向修复，直至问题解决或满足停止条件。. |
 | [plan-next](./plan-next/SKILL.md) | automation, meta-skill, workflow | `2.0.0` | mature | 以存量 mission/vision/backlogs 等为输入源分析项目状态并产出下一行动建议；输入缺失时优先建议完善输入源。. |
@@ -104,7 +105,7 @@
 | [conduct-retro](./conduct-retro/SKILL.md) | documentation, workflow | `1.0.0` | stable | 周/迭代工程回顾：分析提交历史、工作模式与代码质量指标；按人分解贡献，含表扬与成长建议。适用于「周回顾」「发了什么」「工程复盘」。. |
 | [investigate-root-cause](./investigate-root-cause/SKILL.md) | optimization, workflow | `1.0.0` | stable | 系统性根因调试：investigate → analyze → hypothesize → implement。铁律：无根因不修复。适用于报错、异常行为、故障排查。. |
 | [sync-release-docs](./sync-release-docs/SKILL.md) | documentation, workflow | `1.0.0` | stable | 发版后同步项目文档：交叉引用 diff，更新 README/ARCHITECTURE/CONTRIBUTING/CLAUDE.md，润色 CHANGELOG，清理 TODOS。发版后或 PR 合并后建议使用。. |
-| [tidy-repo](./tidy-repo/SKILL.md) | cleanup, repository, structure, workflow | `1.0.0` | stable | 一次性审计仓库目录结构——检测错放文件、命名不一致、空目录和过期制品；输出优先级整理报告；可选地应用安全、可逆的清理操作。. |
+| [tidy-repo](./tidy-repo/SKILL.md) | repository, workflow, cleanup, structure | `1.2.0` | stable | 一次性审计仓库目录结构——检测错放文件、命名不一致、空目录和过期制品；输出优先级整理报告；可选地应用安全、可逆的清理操作。. |
 | [warn-destructive-commands](./warn-destructive-commands/SKILL.md) | security, workflow | `1.0.0` | stable | 在破坏性命令执行前发出警告。检查 Bash 命令中的 rm -rf、DROP TABLE、force-push、git reset --hard、kubectl delete 等模式。用户可覆盖每次警告。适用于接触生产、调试线上或共享环境。. |
 
 ---

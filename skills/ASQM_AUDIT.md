@@ -9,7 +9,7 @@ lifecycle: governance
 # ASQM Skill Curation Audit — 2026-03-24 (Final)
 
 **Audit Date**: 2026-03-24
-**Scope**: All 55 skill directories in `skills/`
+**Scope**: All 53 skill directories in `skills/`
 **Audit Method**: ASQM strict (evidence-based; agent_native=5 only with explicit output contract)
 **Focus**: Post-docs-governance improvements & ecosystem health check
 
@@ -21,20 +21,20 @@ lifecycle: governance
 
 | Status | Count | % | Requirements | Result |
 |:---|:---:|:---:|:---|:---|
-| **Validated** | 42 | 76% | Quality ≥17 + Gates A,B | ✅ **Excellent** |
-| **Experimental** | 1 | 2% | Quality ≥10 | ✅ **Approved** |
-| **Incomplete** | 2 | 4% | Missing files | 🔴 **Action Required** |
-| **Not Evaluated** | 10 | 18% | — | — |
+| **Validated** | 43 | 81% | Quality ≥17 + Gates A,B | ✅ **Excellent** |
+| **Experimental** | 0 | 0% | Quality ≥10 | — |
+| **Incomplete** | 0 | 0% | Missing files | — |
+| **Not Evaluated** | 10 | 19% | — | — |
 
 ### Quality Grade: A (90/100)
 
 **Justification**:
-- ✅ 76% validated (target: 70%)
-- ✅ 27% in excellent tier (target: 20%)
+- ✅ 81% validated (target: 70%)
+- ✅ 30% in excellent tier (target: 20%)
 - ✅ Zero quality regressions since last audit
 - ✅ Docs governance leadership established (4-skill pipeline validated)
-- ⚠️ Two empty placeholder skills need removal (-5 points)
-- ⚠️ One score discrepancy to verify (-5 points)
+- ✅ Placeholder directories removed
+- ✅ discover-docs-norms score discrepancy verified and corrected
 
 ---
 
@@ -52,10 +52,10 @@ asqm_quality = agent_native + cognitive + composability + stance
 
 | Tier | Range | Count | % | Representative Skills |
 |:---|:---:|:---:|:---:|:---|
-| **Excellent** | 17-20 | 15 | 27% | audit-docs (19), align-architecture (18), tidy-repo (18) |
-| **Good** | 13-16 | 38 | 69% | automate-tests (16), review-* (15-16), design-* (15-16) |
+| **Excellent** | 17-20 | 16 | 30% | audit-docs (19), align-architecture (18), tidy-repo (18), discover-docs-norms (18) |
+| **Good** | 13-16 | 37 | 70% | automate-tests (16), review-* (15-16), design-* (15-16) |
 | **Fair** | 10-12 | 0 | 0% | — |
-| **Needs Work** | < 10 | 2 | 4% | run-strategy-checkpoint (0), validate-doc-artifacts (0) |
+| **Needs Work** | < 10 | 0 | 0% | — |
 
 ### Top 5 Validated Skills by Quality
 
@@ -65,6 +65,7 @@ asqm_quality = agent_native + cognitive + composability + stance
 | 2 | **align-architecture** | 18 | 5 | 3 | 5 | 5 | ✅ Validated |
 | 2 | **align-planning** | 18 | 5 | 3 | 5 | 5 | ✅ Validated |
 | 2 | **tidy-repo** | 18 | 5 | 4 | 4 | 5 | ✅ Validated |
+| 2 | **discover-docs-norms** | 18 | 4 | 4 | 5 | 5 | ✅ Validated |
 | 5 | **assess-docs** | 17 | 5 | 3 | 4 | 5 | ✅ Validated |
 
 ---
@@ -82,8 +83,8 @@ asqm_quality = agent_native + cognitive + composability + stance
 
 ### Gate Rules for Lifecycle
 
-- **Gate A** (Agent-ready): agent_native ≥ 4 ✅ ALL 42 VALIDATED PASS
-- **Gate B** (Design integrity): stance ≥ 3 ✅ ALL 42 VALIDATED PASS
+- **Gate A** (Agent-ready): agent_native ≥ 4 ✅ ALL 43 VALIDATED PASS
+- **Gate B** (Design integrity): stance ≥ 3 ✅ ALL 43 VALIDATED PASS
 
 ### Dimension Distribution
 
@@ -126,35 +127,19 @@ All four skills meet validated threshold (≥17 for audit-docs, ≥18 for tidy-r
 
 ## Part V: Critical Findings
 
-### 🔴 CRITICAL: Incomplete Placeholder Skills
+### ✅ RESOLVED: Placeholder Skills Removed
 
 **Skills Affected**: `run-strategy-checkpoint`, `validate-doc-artifacts`
 
-- Both are empty directories (no SKILL.md, no agent.yaml, no README)
-- ASQM score: 0 (incomplete)
-- Impact: Clutter in INDEX.md, confuses users, blocks skill discovery
-
-**Recommendation**: **DELETE or ARCHIVE immediately**
-
-```bash
-# Option A: Remove from git
-git rm -r skills/run-strategy-checkpoint
-git rm -r skills/validate-doc-artifacts
-git commit -m "chore(skills): remove empty placeholder directories"
-
-# Option B: Archive for future use
-mkdir -p archive/
-mv skills/run-strategy-checkpoint archive/
-mv skills/validate-doc-artifacts archive/
-```
+- Verified: these directories are no longer present in `skills/`
+- Impact: placeholder clutter removed; skill discovery is unblocked
 
 ### ⚠️ MEDIUM: Score Verification Needed
 
 **Skill**: discover-docs-norms
-- agent.yaml shows `asqm_quality: 15`
-- Calculated quality: 4 + 4 + 5 + 5 = **18** (not 15)
-- Status: Calculation discrepancy from previous curation run
-- Action: Verify and correct in next update
+- agent.yaml shows `asqm_quality: 18`
+- Calculated quality: 4 + 4 + 5 + 5 = **18** (consistent)
+- Status: Verified and corrected
 
 ---
 
@@ -162,7 +147,7 @@ mv skills/validate-doc-artifacts archive/
 
 ### ✅ Strengths
 
-1. **High Quality Baseline**: 76% validated, 27% in excellent tier (17-20)
+1. **High Quality Baseline**: 81% validated, 30% in excellent tier (17-20)
 2. **Docs Governance Leadership**: Four-skill SSOT-enabled pipeline production-ready
 3. **No Regressions**: All validated skills maintain ≥17 ASQM quality
 4. **Clear Clustering**: Skills naturally group by domain (docs, code review, planning)
@@ -211,16 +196,16 @@ mv skills/validate-doc-artifacts archive/
 ## Part VIII: Quality Gates for Next Release
 
 - [x] No skills with ASQM < 10
-- [x] 76% validated (above 70% target)
+- [x] 81% validated (above 70% target)
 - [x] Zero quality regressions
-- [ ] Remove placeholder directories
-- [ ] Verify discover-docs-norms scores
+- [x] Remove placeholder directories
+- [x] Verify discover-docs-norms scores
 - [x] Docs governance pipeline tested and validated
 - [ ] Final commit and push
 
 ---
 
-## Summary Table: All Validated Skills (42 Total)
+## Summary Table: All Validated Skills (43 Total)
 
 | Skill | ASQM | agent_native | stance | Status |
 |:---|:---:|:---:|:---:|:---|
@@ -230,7 +215,7 @@ mv skills/validate-doc-artifacts archive/
 | tidy-repo | 18 | 5 | 5 | ✅ |
 | define-north-star | 18 | 5 | 5 | ✅ |
 | plan-next | 18 | 5 | 5 | ✅ |
-| (36 more validated skills at Q17-18) | 17–18 | 5 | 5 | ✅ |
+| (37 more validated skills at Q17-18) | 17–18 | 5 | 5 | ✅ |
 
 ---
 

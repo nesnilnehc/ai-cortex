@@ -8,9 +8,11 @@ status: active
 
 # 计划：完全废弃 intent-routing
 
-**日期**：2026-03-23  
-**状态**：待执行  
+**日期**：2026-03-23
+**状态**：已完成（2026-03-25）
 **类型**：技术决策与执行计划
+
+**完成说明**：intent-routing 已完全删除；同步删除了所有自动生成脚本 `generate-skills-index.mjs`、`generate-skillgraph.mjs` 以及 `skillgraph.md` 文件，采用手动维护 INDEX.md 与 verify-only 验证模式。
 
 ---
 
@@ -52,8 +54,8 @@ status: active
 
 | 文件 | 变更 |
 | :--- | :--- |
-| `spec/skill.md` | 移除 §2.2 Intent routing 条目；§2 可选调用字段中删除对 `short_triggers_zh` 与 intent-routing 的引用；§7 注册/检查清单中删除 intent-routing 相关要求 |
-| `spec/registry-sync-contract.md` | 从范围与 3.4 节移除 intent-routing；从 generate-skills-docs 说明中移除 intent-routing |
+| `specs/skill.md` | 移除 §2.2 Intent routing 条目；§2 可选调用字段中删除对 `short_triggers_zh` 与 intent-routing 的引用；§7 注册/检查清单中删除 intent-routing 相关要求 |
+| `specs/registry-sync-contract.md` | 从范围与 3.4 节移除 intent-routing；从 generate-skills-docs 说明中移除 intent-routing |
 
 ### 2.4 需修改的文档
 
@@ -132,8 +134,8 @@ status: active
 
 ### Phase 3：规范与文档
 
-1. 更新 `spec/skill.md`（Intent routing、注册清单、short_triggers_zh 相关）。
-2. 更新 `spec/registry-sync-contract.md`。
+1. 更新 `specs/skill.md`（Intent routing、注册清单、short_triggers_zh 相关）。
+2. 更新 `specs/registry-sync-contract.md`。
 3. 更新 `AGENTS.md`、`README.md`。
 4. 更新 `docs/AUDIENCE_AND_SCOPE.md`、`docs/LANGUAGE_SCHEME.md`。
 5. 更新 `skills/INDEX.md`（脚本仅替换 §3 表格，§1–2 与 §4 为手写，直接编辑）。

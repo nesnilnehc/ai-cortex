@@ -1,39 +1,116 @@
-# AI Cortex：面向 Agent、具备治理能力的能力资产库；可复用、可组合。安装：npx skills add nesnilnehc/ai-cortex；无 Node 时：scripts/install-fallback.sh
+# AI Cortex LLM Index
 
 > [!TIP]
-> 本文件为 LLM Agent 与 Copilot 的机器可读索引。
+> 本文件为 LLM Agent 与 Copilot 的机器可读入口索引。
 
-## 核心文档
+## 0. 外部资源与链接获取政策（External Link Policy）
 
-- [定位 (README)](README.md#positioning)：仓库定位、边界与权威链的单一来源。
+为保证确定性与安全性，Agent 端默认禁止外部抓取与原始内容加载，并始终优先使用本地相对路径资产。
 
-## 规范（必读）
+### 0.1 外部 HTTP/HTTPS 链接
 
-- [技能规范 (SKILL)](spec/skill.md)：创建或审计技能的必读标准。
-- [Agent 入口 (AGENTS.md)](AGENTS.md)：入口与契约；AGENTS.md §4 定义发现、注入与自检。
+- Agent `MUST NOT` 默认抓取任何外部 HTTP/HTTPS 链接。
+- Agent `MAY` 在且仅在当前执行上下文中显式声明 `allow_external_fetch=true` 时抓取外部 HTTP/HTTPS 链接。
+- Agent `MUST` 将外部 HTTP/HTTPS 链接仅用于导航或定位，不得将其作为加载或校验依赖。
 
-## 机器可读注册表
+### 0.2 原始内容（raw content）URL
 
-- [Manifest](manifest.json)：机器可读注册表。
-- [技能索引](skills/INDEX.md)：所有可用技能的中心注册表。
+- Agent `MUST NOT` 默认加载任何“原始内容”URL（raw content URLs）。
+- Agent `MAY` 在满足以下全部条件时加载 raw content URLs：
+  - URL 指向受信任来源（trusted source），并显式声明 `trusted_source=true`
+  - URL 使用固定版本（pinned version），即包含提交哈希（commit hash）
+  - agent 已确认可等价替代的本地相对路径资产不存在（或无法满足当前 `MUST LOAD`）
 
-### 安装与重装
+### 0.3 本地相对路径优先级
 
-- [skill-install-guide](docs/references/skill-install-guide.md)：安装、升级与完整重装；`./scripts/uninstall-reinstall-ai-cortex.sh` 一键重装
+- Agent `MUST` 始终优先使用本地相对路径资产作为加载/执行依赖。
+- Agent `MUST NOT` 将外部资源视为与本地资产等价的权威来源。
 
-### 核心技能
+## Project Intent
 
-本节有意非穷尽，仅列出高优先级发现/引导技能。
-设计上排除：
-- 原子审查技能（如 `review-*`），通常由编排技能路由。
-- 仅在特定交付阶段使用的窄工作流辅助。
-- 低频维护技能，增加通用 LLM 入门的 token 开销。
-完整规范目录：[skills/INDEX.md](skills/INDEX.md)。
+AI Cortex 为软件交付与项目治理提供治理资产库（Skill、Spec、Protocol、Rule），覆盖从想法到上线的交付链，以及规划、对齐、合规等治理链。目标是按场景调用能力、按规范协作、按约束执行，使协作可预期。
 
-- [discover-skills](skills/discover-skills/SKILL.md)：发现并推荐相关技能；建议安装命令。
-- [decontextualize-text](skills/decontextualize-text/SKILL.md)：通用化与隐私保护文本处理。
-- [generate-standard-readme](skills/generate-standard-readme/SKILL.md)：创建专业、符合标准的项目 README。
-- [refine-skill-design](skills/refine-skill-design/SKILL.md)：改进其他技能的元技能。
+Agent `MUST` 默认只使用本地文件资源（相对路径）作为可加载输入。外部链接仅可用于定位/导航，不可作为加载或校验依赖。
 
----
-入口与用法：以 [AGENTS.md](AGENTS.md) 为入口；按 §4 进行发现、注入与自检。
+## Authority Chain
+
+Agent `MUST` 使用以下严格优先级解析任何冲突（从高到低）：
+
+1. `AGENTS.md`
+2. `spec/*`
+3. `protocols/*`
+4. `rules/*`
+5. `docs/*`（含 `README.md` 的导航说明）
+
+示例（非优先级更改）：
+
+- 项目使命：`docs/project-overview/mission.md`
+- 项目愿景：`docs/project-overview/vision.md`
+- 术语定义：`spec/terminology.md`
+
+## Runtime Loading Order
+
+Agent `MUST` 按以下加载层级组织上下文，避免依赖外部网络或不稳定状态。
+
+### 2.1 MUST LOAD（blocking）
+
+1. `AGENTS.md`
+
+### 2.2 SHOULD LOAD（context）
+
+- `spec/terminology.md`
+- `spec/protocol.md`
+
+### 2.3 DISCOVERY（on demand）
+
+按需发现可用能力与候选集合；只有在触发“技能发现与选择”流程时才 `SHOULD` 读取：
+
+- `manifest.json`
+- `skills/INDEX.md`
+- `protocols/INDEX.md`
+- `rules/INDEX.md`
+
+### 2.4 Task-type Loading（conditional）
+
+当输出类型需要时，Agent `MUST` 按任务类型加载对应规范作为质量与契约基准：
+
+- 需要编写或修改技能：`spec/skill.md`
+- 需要新增或修改协议：`spec/protocol.md`
+- 需要在 `docs/` 下创建或移动文档：`spec/artifact-contract.md`
+
+## Priority Skills
+
+本节有意非穷尽，仅列出高优先级发现/引导技能。完整目录见 `skills/INDEX.md`。
+
+当需要技能发现与选择时，Agent `MUST` 将以下 priority skills 作为初始候选集合的一部分，并 `MUST` 继续使用 `AGENTS.md` 的确定性排序规则完成最终选择。
+
+```yaml
+PrioritySkills:
+  - name: discover-skills
+    skill_path: skills/discover-skills/SKILL.md
+    type: skill
+    priority: high
+    triggers: ["discover skills", "find skills"]
+  - name: decontextualize-text
+    skill_path: skills/decontextualize-text/SKILL.md
+    type: skill
+    priority: high
+    triggers: ["decontextualize", "remove context"]
+  - name: generate-standard-readme
+    skill_path: skills/generate-standard-readme/SKILL.md
+    type: skill
+    priority: high
+    triggers: ["generate readme", "readme"]
+  - name: refine-skill-design
+    skill_path: skills/refine-skill-design/SKILL.md
+    type: skill
+    priority: high
+    triggers: ["refine skill", "skill design", "audit skill", "skill refactor", "skill compliance"]
+```
+
+## Install And Reinstall
+
+- 安装：`npx skills add nesnilnehc/ai-cortex`
+- 无 Node：`scripts/install-fallback.sh`
+- 升级与完整重装：见 `docs/references/skill-install-guide.md`
+- 一键重装：`./scripts/uninstall-reinstall-ai-cortex.sh`

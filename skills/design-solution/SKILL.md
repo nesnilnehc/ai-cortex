@@ -26,7 +26,7 @@ input_schema:
   description: Validated requirements document (e.g. requirements.md or docs/requirements-planning/<topic>.md); optional project context
 output_schema:
   type: document-artifact
-  description: Design document per [spec/artifact-contract.md](../../spec/artifact-contract.md)
+  description: Design document per [specs/artifact-contract.md](../../specs/artifact-contract.md)
   artifact_type: design
   path_pattern: docs/design-decisions/YYYY-MM-DD-{topic}.md
   lifecycle: snapshot
@@ -117,7 +117,7 @@ Output is design documentation only. Implementation is downstream (e.g. breakdow
 
 1. **结构**：目标、架构、组件、数据流、错误处理策略（关键故障路径）、测试策略（验证方法，而不是测试代码）、考虑的权衡、验收标准（可追溯到需求）。
 2. **Scale to Complexity**：简单范围的缩写；需要时提供更多细节，以便任务分解明确。
-3. **解析路径**：先检查`docs/ARTIFACT_NORMS.md`（项目覆盖）；默认后备是每个 [spec/artifact-contract.md](../../spec/artifact-contract.md) 的 `docs/design-decisions/YYYY-MM-DD-<topic>.md`。
+3. **解析路径**：先检查`docs/ARTIFACT_NORMS.md`（项目覆盖）；默认后备是每个 [specs/artifact-contract.md](../../specs/artifact-contract.md) 的 `docs/design-decisions/YYYY-MM-DD-<topic>.md`。
 4. **编写并保存**：保存带有前置内容的设计（`artifact_type: 设计`、`created_by: 设计解决方案`、`lifecycle: snapshot`、`created_at`）。
 
 ### 第 4 阶段：批准和移交

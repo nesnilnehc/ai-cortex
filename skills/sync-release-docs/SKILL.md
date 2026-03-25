@@ -18,7 +18,7 @@ metadata:
         borrowed: "Post-ship doc audit workflow, per-file heuristics, CHANGELOG polish rules, cross-doc consistency check"
     enhancements:
       - "Platform-agnostic: base_branch from CLAUDE.md or .ai-cortex/config.yaml"
-      - "spec/artifact-contract.md path alignment"
+      - "specs/artifact-contract.md path alignment"
       - "Removed gstack preamble, telemetry, hooks"
 triggers: [sync docs, post-ship docs, update documentation, document release]
 input_schema:

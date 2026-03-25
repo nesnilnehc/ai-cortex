@@ -8,7 +8,7 @@ license: MIT
 recommended_scope: both
 metadata:
   author: ai-cortex
-triggers: [tidy repo, clean up repo, organize repository, repo structure, messy repo, clean repo, 整仓整理, 整理仓库, 目录整理]
+triggers: [tidy repo, clean up repo, organize repository, repo structure, messy repo, clean repo]
 input_schema:
   type: free-form
   description: Repository root (default CWD), optional scope filter, optional mode (report-only | apply-safe)

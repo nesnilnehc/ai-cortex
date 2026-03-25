@@ -25,7 +25,7 @@ compatibility: Requires access to https://raw.githubusercontent.com or a local c
 
 ## 目的 (Purpose)
 
-使用 [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) 结构引导或调整项目文档。两种模式：**初始化**（空项目——复制模板并填充占位符）和**调整**（非空——使用模板作为目标，建议重命名/移动/合并，确认后就地应用）。支持可重复运行；除非有要求，否则避免空目录和模板文件；强制执行严格的短横线命名。技能生成的产品（ADR、待办、设计决策、校准）的输出路径遵循 [spec/artifact-contract.md](../../spec/artifact-contract.md)； project-documentation-template 提供内容和参考。创建流程管理结构时，为每个合同创建 `docs/process-management/project-board/待办/` 和 `docs/process-management/decisions/`。
+使用 [project-documentation-template](https://github.com/nesnilnehc/project-documentation-template) 结构引导或调整项目文档。两种模式：**初始化**（空项目——复制模板并填充占位符）和**调整**（非空——使用模板作为目标，建议重命名/移动/合并，确认后就地应用）。支持可重复运行；除非有要求，否则避免空目录和模板文件；强制执行严格的短横线命名。技能生成的产品（ADR、待办、设计决策、校准）的输出路径遵循 [specs/artifact-contract.md](../../specs/artifact-contract.md)； project-documentation-template 提供内容和参考。创建流程管理结构时，为每个合同创建 `docs/process-management/project-board/待办/` 和 `docs/process-management/decisions/`。
 
 ---
 
@@ -102,7 +102,7 @@ compatibility: Requires access to https://raw.githubusercontent.com or a local c
    - **中**：+架构、设计、需求和规划
    - **大型**：+流程管理、操作指南、合规性、社区和贡献
 3. 从“TEMPLATE_BASE_URL”获取模板（请参阅附录）或使用本地克隆。
-4. **仅**选定的文档复制到项目“docs/”。当规模允许时，根据 [spec/artifact-contract.md](../../spec/artifact-contract.md) 创建合同对齐目录：`docs/design-decisions/`（中+）、`docs/calibration/`、`docs/process-management/project-board/待办/`、`docs/process-management/decisions/`（大）。可以选择从合同创建“docs/ARTIFACT_NORMS.md”（根据 [spec/artifact-norms-schema.md](../../spec/artifact-norms-schema.md)）供用户自定义。除非用户明确请求，否则不要创建其他空目录。
+4. **仅**选定的文档复制到项目“docs/”。当规模允许时，根据 [specs/artifact-contract.md](../../specs/artifact-contract.md) 创建合同对齐目录：`docs/design-decisions/`（中+）、`docs/calibration/`、`docs/process-management/project-board/待办/`、`docs/process-management/decisions/`（大）。可以选择从合同创建“docs/ARTIFACT_NORMS.md”（根据 [specs/artifact-norms-schema.md](../../specs/artifact-norms-schema.md)）供用户自定义。除非用户明确请求，否则不要创建其他空目录。
 5. 使用项目元数据（名称、日期、技术堆栈）填充占位符，并提示缺少的关键数据。
 6. 创建一个“VERSION”文件（例如“1.0.0”），除非用户明确请求不创建新文件。
 7. 验证：没有未替换的占位符、链接有效、表格对齐。
@@ -131,7 +131,7 @@ compatibility: Requires access to https://raw.githubusercontent.com or a local c
 
 - **目录**：仅限“kebab-case”（例如“项目概述”、“开发指南”、“流程管理”）
 - **文件**：带有“.md”扩展名的“kebab-case”（例如“goals-and-vision.md”、“versioning-standards.md”）
-- **ADR 文件**：每个 [spec/artifact-contract.md](../../spec/artifact-contract.md) `docs/process-management/decisions/YYYYMMDD-slug.md`
+- **ADR 文件**：每个 [specs/artifact-contract.md](../../specs/artifact-contract.md) `docs/process-management/decisions/YYYYMMDD-slug.md`
 - 没有空格、下划线或 PascalCase；仅限小写字母、数字、连字符。
 
 ---
