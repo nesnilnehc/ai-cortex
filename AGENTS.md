@@ -20,7 +20,7 @@
 
 - **技能规范**：[spec/skill.md](spec/skill.md) 定义技能结构与质量要求。
 - **技能目录**：[skills/INDEX.md](skills/INDEX.md)、[manifest.json](manifest.json) 为能力列表权威来源。
-- **协议规范**：[protocols/INDEX.md](protocols/INDEX.md) 注册领域协议（如 UNP/INP）。
+- **协议规范**：[spec/protocol.md](spec/protocol.md) 定义协议结构与质量要求；[protocols/INDEX.md](protocols/INDEX.md) 注册所有领域协议（UNP/INP、Requirement Modeling 等）。
 - **规则注册**：[rules/INDEX.md](rules/INDEX.md) 注册被动约束（写作、编码、工作流）。
 - **制品契约**：[spec/artifact-contract.md](spec/artifact-contract.md)。
 
@@ -30,10 +30,10 @@
 
 在本仓库内工作时，Agent 必须：
 
-1. **遵循规范**：编写或修改技能时遵守 [spec/skill.md](spec/skill.md)；在 `docs/` 下创建或移动文档时遵循 [spec/artifact-contract.md](spec/artifact-contract.md)。
-2. **提交前自检**：产出内容后运行技能的 Self-Check；通过后再提交。
-3. **询问时列举能力**：当用户问「有哪些技能」时，阅读 `skills/INDEX.md`，列举名称与用途，勿仅回复 URL。
-4. **改进本仓库时使用资产**：查阅 `skills/INDEX.md`，按任务语义匹配并注入对应技能；勿忽视可用资产。
+1. **遵循规范**：编写或修改技能时遵守 [spec/skill.md](spec/skill.md)；新增协议时遵守 [spec/protocol.md](spec/protocol.md)；在 `docs/` 下创建或移动文档时遵循 [spec/artifact-contract.md](spec/artifact-contract.md)。
+2. **提交前自检**：产出内容后运行技能或协议的 Self-Check；通过后再提交。
+3. **询问时列举能力与规范**：当用户问「有哪些技能」或「有哪些协议」时，阅读 `skills/INDEX.md` 或 `protocols/INDEX.md`，列举名称与用途，勿仅回复 URL。
+4. **改进本仓库时使用资产**：查阅 `skills/INDEX.md`、`protocols/INDEX.md` 和 `rules/INDEX.md`，按任务语义匹配并注入对应资产；勿忽视可用资产。
 
 ---
 
@@ -65,7 +65,7 @@
 | :--- | :--- |
 | Spec 来源 | [AI Cortex](https://github.com/nesnilnehc/ai-cortex) |
 | 本入口 (Raw) | <https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/AGENTS.md> |
-| 规范 | [spec/skill.md](spec/skill.md)、[spec/artifact-contract.md](spec/artifact-contract.md) |
+| 规范 | [spec/skill.md](spec/skill.md)、[spec/protocol.md](spec/protocol.md)、[spec/artifact-contract.md](spec/artifact-contract.md) |
 | 目录 | [skills/INDEX.md](skills/INDEX.md) \| [protocols/INDEX.md](protocols/INDEX.md) \| [rules/INDEX.md](rules/INDEX.md) |
 | 自引用 | 编写 AGENTS.md → [generate-agent-entry](skills/generate-agent-entry/SKILL.md)；设计/重构技能 → [refine-skill-design](skills/refine-skill-design/SKILL.md)；生成 README → [generate-standard-readme](skills/generate-standard-readme/SKILL.md)。完整列表见 [INDEX](skills/INDEX.md)。 |
 | 入口撰写 | [skills/generate-agent-entry/SKILL.md](skills/generate-agent-entry/SKILL.md) |
