@@ -53,6 +53,7 @@ flowchart LR
 ## 📦 安装与使用
 
 **技能**：
+
 ```bash
 npx skills add nesnilnehc/ai-cortex
 ```
@@ -60,6 +61,7 @@ npx skills add nesnilnehc/ai-cortex
 使用 `--force` 覆盖已有技能；`--skill <name>` 仅安装指定技能。无 Node 时见 `scripts/install-fallback.sh`。
 
 **升级与重装**：若技能曾改名或结构变更，建议先卸载再安装：
+
 ```bash
 ./scripts/uninstall-reinstall-ai-cortex.sh
 ```
