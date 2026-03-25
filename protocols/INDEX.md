@@ -12,12 +12,22 @@
 
 ## 📖 快速开始
 
-**我想...**
+### 👤 对于人类用户
 
-- **了解协议是什么**：阅读下方的 [核心概念](#1-协议分类)
-- **使用通知协议**：查看 [UNP](./unp.md) 和 [INP](./inp.md)
-- **在项目中集成**：按照 [完整使用指南](../../docs/guides/protocols-usage.md) 操作
-- **获取示例代码**：见 [协议使用指南 §4](../../docs/guides/protocols-usage.md#4-使用场景和示例)
+- **快速 5 分钟了解**：[快速参考卡](../../docs/guides/protocols-quickstart.md)
+- **深入 30 分钟学习**：[完整使用指南](../../docs/guides/protocols-usage.md)
+- **查看代码示例**：[使用指南 §4](../../docs/guides/protocols-usage.md#4-使用场景和示例)
+
+### 🤖 对于 AI Agent
+
+- **Agent 如何自动使用协议**：[Agent 驱动指南](../../docs/guides/protocols-agent-usage.md)
+  - 自动发现、加载、应用协议
+  - Skill 集成和协议声明
+  - 代码生成和自动验证
+
+**推荐阅读顺序**：
+- Agent Builders → 从 [Agent 驱动指南](../../docs/guides/protocols-agent-usage.md) 开始
+- 项目用户 → 从 [快速参考](../../docs/guides/protocols-quickstart.md) 或 [完整指南](../../docs/guides/protocols-usage.md) 开始
 
 ---
 
