@@ -56,4 +56,4 @@ status: active
 - **skills/INDEX.md** — canonical 技能列表、tags、版本、稳定性
 - **manifest.json** — 机器可读的能力列表，用于发现
 
-新增技能请求（如来自已捕获条目）需按 `spec/skill.md` 校验，并在关闭前通过 INDEX 与 manifest 注册。
+新增技能请求（如来自已捕获条目）需按 `specs/skill.md` 校验，并在关闭前通过 INDEX 与 manifest 注册。

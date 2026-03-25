@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![AI-Readiness: High](https://img.shields.io/badge/AI--Readiness-High-success.svg)](llms.txt)
 
-> 面向 Agent 与开发者：治理资产库，包含技能、规范、约束三层，覆盖软件交付与项目治理。按 description、tags、triggers 语义匹配调用能力，按规范协作，按约束执行。详见 [使命](docs/project-overview/mission.md) 与 [愿景](docs/project-overview/vision.md)。
+> 面向 Agent 与开发者：治理资产库，包含技能、规范、协议、规则四层，覆盖软件交付与项目治理。按 description、tags、triggers 语义匹配调用能力，按规范与协议协作，按规则执行。详见 [使命](docs/project-overview/mission.md) 与 [愿景](docs/project-overview/vision.md)。
 
 ```mermaid
 flowchart LR
@@ -23,7 +23,7 @@ flowchart LR
         
         subgraph Execution [Execution Engine]
             direction LR
-            Spec[Spec & Rules]:::core -.-> Skill[Selected Skill]:::core
+            Governance[规范 & 协议 & 规则]:::core -.-> Skill[Selected Skill]:::core
         end
     end
 
@@ -39,12 +39,13 @@ flowchart LR
 
 ## ✨ 特点
 
-- **三层治理资产**：
-  - 技能 (`skills/INDEX.md`、`manifest.json`)：主动能力
-  - 规范 (`protocols/INDEX.md`)：领域协议与接口契约（如 UNP/INP 通知协议）
-  - 规则 (`rules/INDEX.md`)：编码与写作约束
+- **四层治理资产**：
+  - 技能（Skill）(`skills/INDEX.md`、`manifest.json`)：主动能力
+  - 规范（Spec）(`specs/`、部分 `protocols/`)：数据结构与接口契约
+  - 协议（Protocol）(`protocols/`)：交互流程与步骤约束
+  - 规则（Rule）(`rules/INDEX.md`)：编码与写作约束
 - **Agent 优先**：无需本地文件；通过 manifest.json 远程发现和加载协议
-- **规范与质量**：`spec/skill.md` 定义技能结构；`spec/artifact-contract.md` 定义制品契约
+- **术语与规范**：[specs/terminology.md](specs/terminology.md) 定义核心术语；`specs/skill.md` 定义技能结构；`specs/protocol.md` 定义协议规范；`specs/artifact-contract.md` 定义制品契约
 - **生态**：[skills.sh](https://skills.sh)、[SkillsMP](https://skillsmp.com)
 
 ---
@@ -81,7 +82,7 @@ npx skills add nesnilnehc/ai-cortex
 
 ## 🤝 贡献
 
-PR 须遵循 [spec/skill.md](spec/skill.md)。更新 `manifest.json` 后运行 `npm run verify`。见 [spec/registry-sync-contract.md](spec/registry-sync-contract.md) 与 [CONTRIBUTING.md](CONTRIBUTING.md)。
+PR 须遵循 [specs/skill.md](specs/skill.md)。更新 `manifest.json` 后运行 `npm run verify`。见 [specs/registry-sync-contract.md](specs/registry-sync-contract.md) 与 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ---
 

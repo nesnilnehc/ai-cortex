@@ -227,6 +227,6 @@ output_schema:
 |元素|要求 |
 | :--- | :--- |
 | **输出路径** | 默认直接覆盖源 `skills/<skill-name>/SKILL.md`；用户选择退出时写入 `SKILL.refined.md`（每次覆盖）或 `SKILL.refined.YYYYMMDD.md`（每次新建）。 |
-| **优化技能** |完整的 Markdown 内容（或文件路径）。必须满足 [spec/skill.md](../../spec/skill.md)：YAML 前言、目的、用例、行为、I/O、限制、自检和至少一个示例。 |
+| **优化技能** |完整的 Markdown 内容（或文件路径）。必须满足 [specs/skill.md](../../specs/skill.md)：YAML 前言、目的、用例、行为、I/O、限制、自检和至少一个示例。 |
 | **差异总结** |变更清单。每个条目必须包括**部分**（例如“目的”、“行为”、“元数据”）、**更改**（更改内容的简短描述）和**原因**（为何进行更改）。 |
 | **版本建议** | SemVer 字符串“major.minor.patch”。可选的**基本原理**（例如“次要：添加的限制”）。 |

@@ -10,7 +10,7 @@ status: active
 
 **状态**：Accepted
 **日期**：2026-03-06
-**上下文**：spec/skill.md v2.1.0，roadmap Layer C（Orchestration & Composition）
+**上下文**：specs/skill.md v2.1.0，roadmap Layer C（Orchestration & Composition）
 
 ## 背景
 
@@ -18,7 +18,7 @@ status: active
 
 ## 决策
 
-在 spec/skill.md 的 YAML frontmatter 中采用可选 `input_schema` 与 `output_schema`。Artifact 类型包括：`findings-list`、`document-artifact`、`diagnostic-report`、`code-scope`、`free-form`。
+在 specs/skill.md 的 YAML frontmatter 中采用可选 `input_schema` 与 `output_schema`。Artifact 类型包括：`findings-list`、`document-artifact`、`diagnostic-report`、`code-scope`、`free-form`。
 
 编排器使用这些 schema 以：
 
@@ -34,5 +34,5 @@ status: active
 
 ## 参考
 
-- spec/skill.md § I/O contracts
+- specs/skill.md § I/O contracts
 - [Evolution Roadmap](../../designs/2026-03-02-ai-cortex-evolution-roadmap.md) C8 Skill Chain & Workflow Protocol

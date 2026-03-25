@@ -14,7 +14,7 @@
 
 ## 1. 设计原则
 
-**项目规范优先**：若项目定义了自己的制品规范（见 [spec/artifact-norms-schema.md](artifact-norms-schema.md)），技能须遵循项目规范。项目是其自身文档结构的权威。
+**项目规范优先**：若项目定义了自己的制品规范（见 [specs/artifact-norms-schema.md](artifact-norms-schema.md)），技能须遵循项目规范。项目是其自身文档结构的权威。
 
 **回退**：若不存在项目规范（无 `docs/ARTIFACT_NORMS.md` 或 `.ai-cortex/artifact-norms.yaml`），技能使用本契约作为路径、命名与生命周期的默认值。
 

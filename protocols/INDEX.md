@@ -1,12 +1,17 @@
-# 领域协议索引 (Protocols Index)
+# 协议索引 (Protocols Index)
 
-本文档定义了 AI Cortex 中所有对外发布的领域协议规范。这些协议定义了特定问题域（如通知系统）的标准接口契约。
+本文档是 **AI Cortex** 所有协议（Protocol）的权威注册表。
 
-## 英文摘要 (English Summary)
+**协议（Protocol）定义**：交互流程、各步骤约束、应用哪些 Rule（"怎么做"）。
 
-- 本文件为 `protocols/` 下领域协议规范的规范注册表。
-- 这些协议跨项目可用，在消费者系统中实现时需遵循。
-- 与 UNP/INP 协议栈的关系：UNP 定义语义层（WHAT），INP 定义投递层（HOW）。
+详见 [specs/terminology.md](../specs/terminology.md)。
+
+## 相关文档
+
+- `specs/INDEX.md` — Spec 规范索引（定义"是什么"）
+- `specs/terminology.md` — 四层治理资产的完整定义
+- `specs/protocol.md` — Protocol 规范本身的文档标准
+- `manifest.json` — Protocol 注册和 canonical URL
 
 ---
 
@@ -31,36 +36,33 @@
 
 ---
 
-## 1. 协议分类
-
-| 分类 | 描述 | 状态 |
-| :--- | :--- | :--- |
-| `notification` | 通知系统的协议栈（语义层 + 投递层） | 活跃 |
-| `requirements` | 需求建模与管理的通用协议 | 活跃 |
-
 ---
 
-## 2. 协议列表 (Registry)
+## 协议列表 (Registry)
 
-表中「版本」为协议内容的语义化版本。重大约束变更或结构性调整时递增主/次版本，勘误或措辞优化可仅递增修订号。
+表中「版本」为内容的语义化版本。详见 [specs/protocol.md](../specs/protocol.md) §2.2。
+
+| 协议名 | 分类 | 版本 | 状态 | 描述 |
+|:---|:---|:---|:---|:---|
+| [IM Notification Delivery Protocol](./im-notification-delivery.md) | notification | `1.0.0` | active | 定义通知的渲染和投递流程到 IM 渠道（Feishu、WeCom 等）。定义"怎么做"（HOW）。|
 
 ### Notification Stack
 
-| 协议名称 | 层级 | 版本 | 核心价值 | 适用场景 |
-| :--- | :--- | :--- | :--- | :--- |
-| [UNP](./unp.md) | 语义层 | `1.0.0` | 定义通知的结构、意图、优先级；channel-agnostic | 所有通知系统设计与审查 |
-| [INP](./inp.md) | 投递层 | `1.0.0` | 定义 UNP 通知如何渲染、路由、投递到 IM 渠道 | IM 渠道（Feishu、WeCom）的实现 |
+| 名称 | 类型 | 层级 | 版本 | 核心价值 | 适用场景 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| [UNP](./unp.md) | Spec | 语义层 | `1.0.0` | 定义通知的结构、意图、优先级（channel-agnostic） | 所有通知系统的设计与审查 |
+| [INP](./inp.md) | Protocol | 投递层 | `1.0.0` | 定义 UNP 通知如何渲染、路由、投递到 IM 渠道 | IM 渠道（Feishu、WeCom）的实现 |
 
 **关系**：
-- UNP 是上游（业务/应用层制造 UNP 对象）
-- INP 是下游（投递层消费 UNP，转换为渠道特定格式）
+- UNP（规范）：定义通知对象有哪些字段和结构 → **WHAT**
+- INP（协议）：定义通知如何从 UNP 对象流向 IM 渠道的步骤 → **HOW**
 - 两者通过共同的 `priority` 和 `intent` 字段耦合
 
 ### Requirements
 
-| 协议名称 | 适用范围 | 版本 | 核心价值 | 适用场景 |
-| :--- | :--- | :--- | :--- | :--- |
-| [Requirement Modeling Protocol](./requirement-modeling/PROTOCOL.md) | 需求建模 | `1.0.0` | 定义 7 个必填字段、5 维度自检清单、标准验收标准格式（Gherkin BDD）和风险评估方法 | 功能需求、非功能需求、缺陷修复、技术任务的标准化建模 |
+| 名称 | 类型 | 适用范围 | 版本 | 核心价值 | 适用场景 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| [Requirement Modeling Spec](./requirement-modeling/PROTOCOL.md) | Spec | 需求建模 | `1.0.0` | 定义 7 个必填字段、5 维度自检清单、标准验收标准格式（Gherkin BDD）和风险评估方法 | 功能需求、非功能需求、缺陷修复、技术任务的标准化建模 |
 
 **特点**：
 - 包含 7 个必填字段和可选字段的完整框架

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Shared frontmatter parser for SKILL.md files.
- * Used by verify-registry.mjs and verify-skill-structure.mjs to avoid duplication.
+ * Used by verify-registry.mjs to extract and validate skill metadata.
  *
  * Parses YAML frontmatter (--- ... ---) and extracts skill metadata fields.
  * Handles simple single-line values; for list fields, normalizes (trim, filter empty, sort).

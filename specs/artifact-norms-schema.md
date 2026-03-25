@@ -8,7 +8,7 @@
 
 ## 1. 目的
 
-项目可定义自己的制品规范以覆盖默认 [spec/artifact-contract.md](artifact-contract.md)。产出文档制品的技能优先读取项目规范；若不存在则回退到契约。
+项目可定义自己的制品规范以覆盖默认 [specs/artifact-contract.md](artifact-contract.md)。产出文档制品的技能优先读取项目规范；若不存在则回退到契约。
 
 ---
 
@@ -18,7 +18,7 @@
 
 1. `.ai-cortex/artifact-norms.yaml`（机器可读，自动化优先）
 2. `docs/ARTIFACT_NORMS.md`（人工可读）
-3. 若都不存在：使用 [spec/artifact-contract.md](artifact-contract.md) 作为默认
+3. 若都不存在：使用 [specs/artifact-contract.md](artifact-contract.md) 作为默认
 
 ---
 
@@ -87,5 +87,5 @@ artifact_types:
 
 1. **解析项目规范**：检查 `.ai-cortex/artifact-norms.yaml` 或 `docs/ARTIFACT_NORMS.md`。
 2. **解析**：提取相关 artifact_type 的 path_pattern 与 naming。
-3. **应用**：若找到项目规范则使用；否则使用 [spec/artifact-contract.md](artifact-contract.md) 默认。
+3. **应用**：若找到项目规范则使用；否则使用 [specs/artifact-contract.md](artifact-contract.md) 默认。
 4. **写入**：按解析路径与正确命名持久化。

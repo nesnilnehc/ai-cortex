@@ -73,7 +73,7 @@ status: active
 | :--- | :--- | :--- |
 | M1: Discoverability baseline | on track | intent-routing.json、INDEX.md、manifest.json 持续维护 |
 | M2: Reusability baseline | on track | Spec、单文件技能、npx skills add |
-| M3: Governance baseline | on track | spec/skill.md、curate-skills、Restrictions |
+| M3: Governance baseline | on track | specs/skill.md、curate-skills、Restrictions |
 | M4: Ecosystem presence | on track | skills.sh、SkillsMP、Cursor/Trae |
 
 ---

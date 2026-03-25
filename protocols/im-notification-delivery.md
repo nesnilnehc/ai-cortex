@@ -1,6 +1,6 @@
 ---
-id: INP_SPEC_V1
-name: IM Notification Protocol
+id: INP_PROTOCOL_V1
+name: IM Notification Delivery Protocol
 description: Rendering and delivery layer for IM channels (Feishu, WeCom, etc)
 version: 1.0.0
 status: active
@@ -9,14 +9,14 @@ created_at: 2026-03-25
 scope: >
   Applicable when implementing notification rendering and routing for instant messaging
   channels. Takes UNP notifications as input and produces channel-specific output.
-related: [./unp.md]
+related: [../specs/universal-notification.md]
 ---
 
-# IM Notification Protocol (INP)
+# IM Notification Delivery Protocol (INP)
 
 > **投递层**：定义 HOW（如何渲染和投递到 IM 渠道）
 >
-> 与 [UNP](./unp.md) 配套：UNP 定义 WHAT（通知的结构和意图）
+> 与 [UNP](../specs/universal-notification.md) 配套：UNP 定义 WHAT（通知的结构和意图）
 
 ---
 

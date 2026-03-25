@@ -31,5 +31,5 @@ status: active
 
 ## 3. 参考
 
-- [spec/skill.md](../../spec/skill.md) 第 2.1 节：演进元数据
+- [specs/skill.md](../../specs/skill.md) 第 2.1 节：演进元数据
 - [ATTRIBUTIONS.md](./ATTRIBUTIONS.md)：参考来源枚举表

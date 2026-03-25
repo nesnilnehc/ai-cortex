@@ -176,7 +176,7 @@ Layer E: Specification Evolution (lifecycle, testable spec)
 
 **推荐方案**：渐进式社区就绪
 
-- Phase 1（当前）：CONTRIBUTING.md（引用 spec/skill.md）、Issue 模板（Bug / Feature / New Skill Request）
+- Phase 1（当前）：CONTRIBUTING.md（引用 specs/skill.md）、Issue 模板（Bug / Feature / New Skill Request）
 - Phase 2（出现贡献者时）：含 Self-Check 清单的 PR 模板、CHANGELOG.md
 - Phase 3（活跃社区）：CODEOWNERS、Discussion 模板
 

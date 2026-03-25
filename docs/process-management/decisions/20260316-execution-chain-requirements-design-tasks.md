@@ -32,7 +32,7 @@ lifecycle: living
 
 ## 3. Artifact 与路径
 
-- **requirements**：以 [spec/artifact-contract.md](../../../spec/artifact-contract.md) 及项目 `docs/ARTIFACT_NORMS.md` 为准；默认可落盘为单文件 `requirements.md` 或 `docs/requirements-planning/<topic>.md`。
+- **requirements**：以 [specs/artifact-contract.md](../../../specs/artifact-contract.md) 及项目 `docs/ARTIFACT_NORMS.md` 为准；默认可落盘为单文件 `requirements.md` 或 `docs/requirements-planning/<topic>.md`。
 - **design**：遵循 artifact-contract 的 `design` 类型，路径 `docs/design-decisions/YYYY-MM-DD-<topic>.md`；单文件别名 `design.md` 可在项目约定下使用。
 - **tasks**：任务清单；默认路径 `docs/process-management/tasks/YYYY-MM-DD-<topic>.md` 或项目约定的 `tasks.md`。
 
@@ -55,5 +55,5 @@ lifecycle: living
 
 ## 6. 参考
 
-- [spec/skill.md](../../../spec/skill.md) — 技能结构与本约定一致
-- [spec/artifact-contract.md](../../../spec/artifact-contract.md) — 文档路径与命名
+- [specs/skill.md](../../../specs/skill.md) — 技能结构与本约定一致
+- [specs/artifact-contract.md](../../../specs/artifact-contract.md) — 文档路径与命名

@@ -313,7 +313,7 @@ output_schema:
 ### 硬边界（Hard Boundaries）
 
 - **未经确认不得覆盖**：未经用户明确批准，请勿写入或覆盖规范文件。
-- **架构合规性**：输出必须遵循 [spec/artifact-norms-schema.md](../../spec/artifact-norms-schema.md)。
+- **架构合规性**：输出必须遵循 [specs/artifact-norms-schema.md](../../specs/artifact-norms-schema.md)。
 
 ### 技能边界 (Skill Boundaries)（避免重叠）
 

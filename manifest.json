@@ -12,46 +12,20 @@
     "protocols_index": "protocols/INDEX.md",
     "protocols_catalog": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/INDEX.md",
     "internal_specs": [
-      "spec/skill.md"
+      "specs/skill.md"
     ],
     "rules_root": "rules/",
     "rules_index": "rules/INDEX.md"
   },
   "protocols": [
     {
-      "id": "UNP_SPEC_V1",
-      "name": "Universal Notification Protocol",
+      "id": "INP_PROTOCOL_V1",
+      "name": "IM Notification Delivery Protocol",
       "version": "1.0.0",
       "status": "active",
       "lifecycle": "living",
-      "domain": "notifications",
-      "canonical_url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/unp.md",
-      "repository": "https://github.com/nesnilnehc/ai-cortex",
-      "path": "protocols/unp.md",
-      "scope": "Applicable whenever designing or reviewing notification systems"
-    },
-    {
-      "id": "INP_SPEC_V1",
-      "name": "IM Notification Protocol",
-      "version": "1.0.0",
-      "status": "active",
-      "lifecycle": "living",
-      "domain": "notifications",
-      "canonical_url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/inp.md",
-      "repository": "https://github.com/nesnilnehc/ai-cortex",
-      "path": "protocols/inp.md",
-      "scope": "Applicable when implementing notification rendering and routing for instant messaging channels"
-    },
-    {
-      "id": "REQUIREMENT_MODELING_SPEC_V1",
-      "name": "Requirement Modeling Protocol",
-      "version": "1.0.0",
-      "status": "active",
-      "lifecycle": "living",
-      "canonical_url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/requirement-modeling/PROTOCOL.md",
-      "repository": "https://github.com/nesnilnehc/ai-cortex",
-      "path": "protocols/requirement-modeling/PROTOCOL.md",
-      "scope": "Applicable to all types of requirement modeling (functional, non-functional, bug fixes, technical tasks) to ensure consistent, traceable, and testable requirements across any project"
+      "path": "protocols/im-notification-delivery.md",
+      "canonical_url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/im-notification-delivery.md"
     }
   ],
   "capabilities": [
@@ -262,6 +236,39 @@
     {
       "name": "warn-destructive-commands",
       "path": "skills/warn-destructive-commands/SKILL.md"
+    },
+    {
+      "name": "audit-docs",
+      "path": "skills/audit-docs/SKILL.md"
+    }
+  ],
+  "specs": [
+    {
+      "id": "UNP_SPEC_V1",
+      "name": "Universal Notification Protocol",
+      "version": "1.0.0",
+      "status": "active",
+      "lifecycle": "living",
+      "path": "specs/universal-notification.md",
+      "canonical_url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/universal-notification.md"
+    },
+    {
+      "id": "REQUIREMENT_MODELING_SPEC_V1",
+      "name": "Requirement Modeling Spec",
+      "version": "1.0.0",
+      "status": "active",
+      "lifecycle": "living",
+      "path": "specs/requirement-modeling/SPEC.md",
+      "canonical_url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/requirement-modeling/SPEC.md"
+    },
+    {
+      "id": "TERMINOLOGY_SPEC_V1",
+      "name": "Terminology Definition",
+      "version": "1.0.0",
+      "status": "active",
+      "lifecycle": "stable",
+      "path": "specs/terminology.md",
+      "canonical_url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/terminology.md"
     }
   ]
 }

@@ -83,11 +83,11 @@ output_schema:
 
 ### 解决项目规范
 
-在坚持之前，根据 [spec/artifact-norms-schema.md](../../spec/artifact-norms-schema.md) 解析产品规范：
+在坚持之前，根据 [specs/artifact-norms-schema.md](../../specs/artifact-norms-schema.md) 解析产品规范：
 
 1. 检查“.ai-cortex/artifact-norms.yaml”或“docs/ARTIFACT_NORMS.md”
 2.如果找到，解析path_pattern为`待办-item`并使用项目规则
-3. 如果未找到，则使用 [spec/artifact-contract.md](../../spec/artifact-contract.md) 中的默认值
+3. 如果未找到，则使用 [specs/artifact-contract.md](../../specs/artifact-contract.md) 中的默认值
 
 ### 路径检测
 

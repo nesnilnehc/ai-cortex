@@ -10,17 +10,39 @@
 
 ---
 
+## 🔍 快速导航（新用户必看）
+
+| 我想... | 查看 | 说明 |
+|--------|------|------|
+| **了解这个协议的用途** | § Purpose（目的） | 解决什么问题、核心价值 |
+| **确认需求是否在范围内** | § Scope Boundaries（范围） | 包含/不包含什么 |
+| **看具体的应用示例** | § Examples（示例） | ≥2 个完整示例 |
+| **检查我的做法是否正确** | § Anti-Patterns（反模式） | ✅ 正确 vs ❌ 错误做法 |
+| **诊断协议不符的问题** | § AI Refactor Instruction | 如何自动纠正 |
+| **快速了解全貌** | § Core Principles & Hard Rules | 核心原则 + 强制规则 |
+| **了解数据/规范定义** | § Required Schema | 必需字段和类型 |
+| **理解 Spec/Protocol/Skill/Rule 的区别** | [specs/terminology.md](./terminology.md) | 四个核心术语的定义与边界 |
+
+> **Protocol vs Skill 的区别**：
+> Protocol 定义"怎么做"（交互流程、各步骤约束）；Skill 定义能力目标和执行流程；Spec 定义"是什么"（数据结构、字段）。
+> 详见 [specs/terminology.md](./terminology.md) 和 specs/skill.md §2.2 三层治理对比。
+
+---
+
 ## 1. 文件结构与命名
 
 ### 1.1 目录规范
 
 **单文件协议**（推荐）：
+
 ```
 protocols/{kebab-case-name}.md
 ```
-示例：`protocols/universal-notification-protocol.md`、`protocols/requirement-modeling-protocol.md`
+
+示例：`protocols/universal-notification.md`、`protocols/requirement-modeling.md`
 
 **协议簇（复杂协议，目录结构）**：
+
 ```
 protocols/{domain}/{protocol-name}/
 ├── PROTOCOL.md           # 核心协议定义（必需，自包含）
@@ -32,27 +54,27 @@ protocols/{domain}/{protocol-name}/
 ### 1.2 协议命名规范
 
 **`name` 字段（元数据中）**：
+
 - **推荐**：使用全名（如 `Universal Notification Protocol`）
 - **避免**：纯缩写（如 ~~`UNP`~~）
 - **原因**：全名便于发现、可读性强、避免缩写歧义
 
 **文件路径命名**：
+
 - 采用 `kebab-case`
 - 应与 `name` 字段语义对应
-- 例：`name: "Universal Notification Protocol"` → 文件路径 `protocols/universal-notification-protocol.md`
-
-**向后兼容**：
-- 现有缩写协议（UNP、INP）可逐步改为全名
-- 过渡期间可保留短别名文件（如 `protocols/unp.md` 作为指向新文件的参考）
+- 例：`name: "Universal Notification Protocol"` → 文件路径 `protocols/universal-notification.md`
 
 ### 1.3 自包含原则
 
 **单文件自包含**（对标 Skill 规范）：
+
 - 主协议文件（`PROTOCOL.md` 或 `{name}.md`）必须完全自包含
 - Agent 加载该文件即可获取完整的协议定义
 - 不依赖目录下其他 MD 文件即可理解协议
 
 **外部资源引用**：
+
 - `examples/` 子目录存放完整的应用示例
 - 在主文件中通过 Markdown 链接 (`[example](examples/xxx.md)`) 引用
 - 不创建 `references/` 子目录（项目特定的集成指南应在项目内部，不在协议中）
@@ -103,6 +125,7 @@ canonical_url: [optional]             # 可选：远程 URL（用于 manifest.js
 - **PATCH** 递增：勘误、措辞优化、明确说明（无逻辑变更）
 
 **breaking changes 处理**：
+
 - `lifecycle: living` — 允许 breaking changes，需明确通知消费者（更新日志、AGENTS.md 等）
 - `lifecycle: stable` — breaking changes 需创建新的 MAJOR 版本，旧版本标记为 `deprecated`
 
@@ -110,7 +133,7 @@ canonical_url: [optional]             # 可选：远程 URL（用于 manifest.js
 
 ## 3. 必选标题结构（8 个必选节）
 
-每个协议必须包含以下 8 个标题节（可选的附录除外）：
+每个协议必须包含以下 8 个标题节（可选的附录除外）。顺序经过优化，帮助读者快速理解边界和应用：
 
 ```markdown
 # [Protocol Name]
@@ -119,15 +142,15 @@ canonical_url: [optional]             # 可选：远程 URL（用于 manifest.js
 
 ## 1. Purpose / 目的
 
-## 2. Core Principles / 核心原则
+## 2. Scope Boundaries / 范围边界（提前至第 2 位，快速澄清边界）
 
-## 3. Required Schema / 必需规范
+## 3. Core Principles / 核心原则
 
-## 4. Hard Rules / 强制规则
+## 4. Required Schema / 必需规范
 
-## 5. Anti-Patterns / 反模式
+## 5. Hard Rules / 强制规则
 
-## 6. Scope Boundaries / 范围边界
+## 6. Anti-Patterns / 反模式
 
 ## 7. Examples / 示例
 
@@ -136,6 +159,11 @@ canonical_url: [optional]             # 可选：远程 URL（用于 manifest.js
 ## Appendix / 附录（可选）
 ```
 
+**设计理由**：
+- **第 1-2 位**（认识阶段）：Purpose + Scope Boundaries — 帮助用户快速判断"这个协议是否适用"
+- **第 3-5 位**（应用阶段）：Core Principles + Schema + Hard Rules — 定义"做什么、怎么定义、不能怎么做"
+- **第 6-8 位**（验证阶段）：Anti-Patterns + Examples + AI Refactor — 学习正确做法、看示例、遇错自纠正
+
 ### 3.1 各节的详细说明
 
 #### 标题前的 Semantic Role 块（必选）
@@ -143,16 +171,18 @@ canonical_url: [optional]             # 可选：远程 URL（用于 manifest.js
 使用 blockquote 说明协议在系统中的语义角色（WHAT 还是 HOW）。
 
 示例：
+
 ```
 > **Semantic Role**: UNP 定义通知的"是什么"（结构、意图、优先级），
 > 与 INP 的"怎么做"（渠道、投递）形成分层。
 ```
 
-#### 1. Purpose / 目的（必选）
+#### 1. Purpose / 目的（必选，第 1 位）
 
 一段话（2-3 句）说明协议的核心价值与解决的问题。
 
 **示例**：
+
 ```markdown
 ## Purpose / 目的
 
@@ -160,13 +190,34 @@ canonical_url: [optional]             # 可选：远程 URL（用于 manifest.js
 （背景、验收标准、风险评估等），提高需求质量和可追踪性。
 ```
 
-#### 2. Core Principles / 核心原则（必选，4-5 条）
+#### 2. Scope Boundaries / 范围边界（必选，第 2 位）
+
+明确协议**负责什么**和**不负责什么**。早期澄清范围，帮助用户快速判断是否适用。
+
+**示例**：
+
+```markdown
+## 2. Scope Boundaries / 范围边界
+
+**在范围内**：
+- 定义需求的必填字段和验证标准
+- 指导如何编写验收标准（Gherkin 格式）
+- 定义风险评估方法和自检清单
+
+**超出范围**：
+- 项目特定的工具集成（如禅道配置）
+- 组织级的工作流（如评审人员角色定义）
+- 工作量估算和容量规划（未来的 v2.0 功能）
+```
+
+#### 3. Core Principles / 核心原则（必选，4-5 条）
 
 列举协议的基础承诺。每条包括原则名和 1-2 句说明。
 
 范围：3-6 条（推荐 4-5 条）。太少无法覆盖，太多容易失焦。
 
 **示例**：
+
 ```markdown
 ## 2. Core Principles / 核心原则
 
@@ -177,11 +228,12 @@ canonical_url: [optional]             # 可选：远程 URL（用于 manifest.js
 - **Risk-Awareness**: 风险和假设必须提前识别，采用定量评估（概率×影响）。
 ```
 
-#### 3. Required Schema / 必需规范（必选）
+#### 4. Required Schema / 必需规范（必选，第 4 位）
 
 定义协议的核心数据结构或要素。通常采用表格形式。
 
 **示例**：
+
 ```markdown
 ## 3. Required Schema / 必需规范
 
@@ -196,13 +248,14 @@ canonical_url: [optional]             # 可选：远程 URL（用于 manifest.js
 | Requirement Source | Object | 必 | 需求来源、决策背景 |
 ```
 
-#### 4. Hard Rules / 强制规则（必选）
+#### 5. Hard Rules / 强制规则（必选，第 5 位）
 
 编号列表，描述协议的强制性约束。使用 **MUST**、**MUST NOT**、**FORBIDDEN** 等强制性词汇。
 
 每条规则需包括：(1) 规则标题，(2) 强制级别，(3) 说明，(4) 验证方式。
 
 **示例**：
+
 ```markdown
 ## 4. Hard Rules / 强制规则
 
@@ -219,11 +272,12 @@ canonical_url: [optional]             # 可选：远程 URL（用于 manifest.js
    验证：检查是否有 P（概率）和 I（影响）的量化值。
 ```
 
-#### 5. Anti-Patterns / 反模式（必选）
+#### 6. Anti-Patterns / 反模式（必选，第 6 位）
 
 对比正确与错误的做法。采用 ✅ 和 ❌ 标记。
 
 **示例**：
+
 ```markdown
 ## 5. Anti-Patterns / 反模式
 
@@ -243,34 +297,57 @@ canonical_url: [optional]             # 可选：远程 URL（用于 manifest.js
 **问题**："能处理"、"快速" 都是模糊词，无法验证。
 ```
 
-#### 6. Scope Boundaries / 范围边界（必选）
-
-明确协议**负责什么**和**不负责什么**。
-
-**示例**：
-```markdown
-## 6. Scope Boundaries / 范围边界
-
-**在范围内**：
-- 定义需求的必填字段和验证标准
-- 指导如何编写验收标准（Gherkin 格式）
-- 定义风险评估方法和自检清单
-
-**超出范围**：
-- 项目特定的工具集成（如禅道配置）
-- 组织级的工作流（如评审人员角色定义）
-- 工作量估算和容量规划（未来的 v2.0 功能）
-```
-
 #### 7. Examples / 示例（必选，≥2 个）
 
 展示协议的完整、可工作的示例。至少 2 个不同场景。
 
-示例可：
-- 内联于 PROTOCOL.md 中
-- 或链接到 `examples/` 子目录的独立文件
+#### 组织方式
 
-**示例**：
+根据协议的文件结构（见 §1.1），选择相应的示例组织模式：
+
+**模式 A：单文件协议（简洁，示例 ≤ 3 个）**
+
+示例直接内联于协议文件中。文件结构：
+```
+protocols/universal-notification.md
+```
+
+示例代码：
+```markdown
+## 7. Examples / 示例
+
+### 示例 1：功能需求
+
+**场景**：用户登录通知
+
+```yaml
+id: notif-001
+title: 登录成功通知
+...
+```
+
+### 示例 2：系统告警
+
+**场景**：磁盘空间不足告警
+
+...
+```
+
+---
+
+**模式 B：协议簇（复杂，示例 > 3 个）**
+
+示例存放于 `examples/` 子目录，在 PROTOCOL.md 中通过链接引用。文件结构：
+```
+protocols/universal-notification/
+├── PROTOCOL.md
+├── examples/
+│   ├── functional-requirement.md
+│   ├── bug-fix.md
+│   └── system-alert.md
+```
+
+示例代码（PROTOCOL.md 中）：
 ```markdown
 ## 7. Examples / 示例
 
@@ -281,13 +358,25 @@ canonical_url: [optional]             # 可选：远程 URL（用于 manifest.js
 ### 示例 2：缺陷修复
 
 [参考 examples/bug-fix.md](examples/bug-fix.md)
+
+### 示例 3：系统告警
+
+[参考 examples/system-alert.md](examples/system-alert.md)
 ```
 
-#### 8. AI Refactor Instruction / AI 重构指令（必选）
+---
+
+#### 选择建议
+
+- **模式 A**：单文件协议，示例数量少（≤ 3 个），尚在演进阶段
+- **模式 B**：协议已稳定，示例较多（> 3 个）或需要独立详细说明
+
+#### 8. AI Refactor Instruction / AI 重构指令（必选，第 8 位）
 
 给 AI Agent 的具体行动指令，支持自动应用和检查。
 
 **示例**：
+
 ```markdown
 ## 8. AI Refactor Instruction / AI 重构指令
 
@@ -359,27 +448,34 @@ canonical_url: [optional]             # 可选：远程 URL（用于 manifest.js
 
 ---
 
-## 5. 协议与 Skill/Rule 的边界
+## 5. Protocol、Spec、Skill、Rule 的四层治理
 
-### 5.1 三层治理资产对比
+> 为避免混淆，请参考 [specs/terminology.md](./terminology.md) 了解四个核心术语的完整定义与边界。
 
-| 资产 | 用途 | 定义内容 | 加载方式 | 生命周期 | 示例 |
+### 5.1 四层治理资产对比
+
+| 资产 | 中文 | 定义内容 | 加载方式 | 生命周期 | 示例 |
 |------|------|---------|---------|---------|------|
-| **Protocol** | 接口契约 | 数据结构、必需字段、强制规则 | 常驻或按需 | 版本化、breaking changes 管理 | UNP（通知结构）、Requirement Modeling（需求字段） |
-| **Skill** | 主动能力 | 目标、流程、输入输出 | 按需注入（任务触发时） | 版本化、依赖管理 | `review-code`、`capture-work-items` |
-| **Rule** | 被动约束 | 行为约束、工作流规范、质量标准 | 常驻加载（长期背景） | 版本化、优先级管理 | `writing-chinese-technical`、`standards-coding` |
+| **Spec** | 规范 | 数据结构、必需字段、接口契约（"是什么"） | 常驻或按需 | 版本化、breaking changes 管理 | [UNP](../specs/universal-notification.md)（通知结构）、[Requirement Modeling](../specs/requirement-modeling/SPEC.md)（需求字段） |
+| **Protocol** | 协议 | 交互流程、各步骤约束、应用哪些 Rule（"怎么做"） | 常驻或按需 | 版本化、breaking changes 管理 | [INP](../protocols/im-notification-delivery.md)（通知投递流程）、（需求评审流程 - 待定） |
+| **Skill** | 技能 | 能力目标、执行流程、输入输出 | 按需注入（任务触发时） | 版本化、依赖管理 | `review-code`、`capture-work-items` |
+| **Rule** | 规则 | 行为约束、工作流规范、质量标准（被 Protocol/Skill 引用） | 常驻加载（长期背景） | 版本化、优先级管理 | `writing-chinese-technical`、`standards-coding` |
 
 ### 5.2 使用场景示例
 
 **场景 1：设计通知系统**
-- 加载 Protocol：UNP（语义层）+ INP（投递层）→ 定义通知结构
-- 调用 Skill：无需调用（Protocol 本身是设计基准）
-- 遵守 Rule：`writing-chinese-technical` 等通用约束
+
+- 加载 Spec：UNP（通知结构的定义）→ 定义通知对象有哪些字段
+- 加载 Protocol：INP（通知投递流程）→ 定义通知如何从 UNP 对象流向 IM 渠道
+- 遵守 Rule：`writing-chinese-technical` 等约束
+- 调用 Skill：无需调用（Spec 和 Protocol 本身是设计基准）
 
 **场景 2：创建需求条目**
-- 加载 Protocol：Requirement Modeling Protocol → 确保需求包含 7 个字段
-- 调用 Skill：`capture-work-items` → 自动创建符合协议的条目
+
+- 加载 Spec：Requirement Modeling Spec → 定义需求有哪些必填字段
+- 调用 Skill：`capture-work-items` → 自动创建符合规范的需求条目
 - 遵守 Rule：`standards-coding`（如有代码字段）等约束
+- Protocol：若有需求评审流程，遵循评审协议的各个步骤
 
 ---
 
@@ -396,8 +492,8 @@ canonical_url: [optional]             # 可选：远程 URL（用于 manifest.js
       "version": "1.0.0",
       "status": "active",
       "lifecycle": "living",
-      "path": "protocols/universal-notification-protocol.md",
-      "canonical_url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/universal-notification-protocol.md"
+      "path": "protocols/universal-notification.md",
+      "canonical_url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/universal-notification.md"
     }
   ]
 }
@@ -430,4 +526,4 @@ canonical_url: [optional]             # 可选：远程 URL（用于 manifest.js
 - `AGENTS.md` — Protocol 的加载和使用机制
 - `protocols/INDEX.md` — 协议注册表和索引
 - `manifest.json` — 协议的 canonical URL 和元数据
-- `spec/skill.md` — Skill 规范（Protocol 的文件结构对标）
+- `specs/skill.md` — Skill 规范（Protocol 的文件结构对标）

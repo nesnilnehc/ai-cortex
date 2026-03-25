@@ -12,7 +12,7 @@
 
 ## 新增技能
 
-所有技能须符合 [技能规范](spec/skill.md)。质量保障流程：
+所有技能须符合 [技能规范](specs/skill.md)。质量保障流程：
 
 1. **起草**：按规范编写 `skills/<skill-name>/SKILL.md`
 2. **补充文件**：在技能目录创建 `README.md` 与 `agent.yaml`

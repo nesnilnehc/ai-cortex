@@ -14,7 +14,7 @@
 
 - **预提交审查集成**：自动调用“review-diff”技能以在登台前捕获问题
 - **注册表同步**：确保添加或修改技能时“skills/INDEX.md”和“manifest.json”保持同步
-- **规范合规性**：遵循 AI Cortex `spec/skill.md` 结构和质量标准
+- **规范合规性**：遵循 AI Cortex `specs/skill.md` 结构和质量标准
 - **增强的自检**：与 AI Cortex 治理相一致的全面验证清单
 
 ### 进化元数据

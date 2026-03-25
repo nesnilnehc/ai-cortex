@@ -10,7 +10,7 @@ market_position: differentiated
 name: capture-work-items
 outputs:
 - structured work item Markdown (docs/process-management/project-board/backlog/ or
-  docs/backlog/ per path detection, spec/artifact-contract.md)
+  docs/backlog/ per path detection, specs/artifact-contract.md)
 - YAML front-matter with type, date, status (captured), source, severity (bugs)
 overlaps_with:
 - nesnilnehc/ai-cortex:analyze-requirements

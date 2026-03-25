@@ -21,7 +21,7 @@
 ## 输出
 
 - 带有 YAML front-matter 的结构化工作项 Markdown
-- 路径：每个spec/artifact-contract.md的“docs/process-management/project-board/待办/”（规范）或“docs/待办/”（后备）
+- 路径：每个specs/artifact-contract.md的“docs/process-management/project-board/待办/”（规范）或“docs/待办/”（后备）
 - 类型：需求、错误、问题
 - 状态：初始“已捕获”（下游更新：分类、进行中、完成、阻止、取消）
 

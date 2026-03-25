@@ -9,14 +9,14 @@ created_at: 2026-03-25
 scope: >
   Applicable whenever designing or reviewing notification systems.
   All notifications MUST be expressed as UNP objects before delivery to any channel.
-related: [./inp.md]
+related: [../protocols/im-notification-delivery.md]
 ---
 
 # Universal Notification Protocol (UNP)
 
 > **语义层**：定义 WHAT（通知的结构和意图）
 >
-> 与 [INP](./inp.md) 配套：INP 定义 HOW（如何渲染和投递到 IM 渠道）
+> 与 [INP](../protocols/im-notification-delivery.md) 配套：INP 定义 HOW（如何渲染和投递到 IM 渠道）
 
 ---
 
