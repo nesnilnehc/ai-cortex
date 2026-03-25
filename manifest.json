@@ -41,6 +41,17 @@
       "repository": "https://github.com/nesnilnehc/ai-cortex",
       "path": "protocols/inp.md",
       "scope": "Applicable when implementing notification rendering and routing for instant messaging channels"
+    },
+    {
+      "id": "REQUIREMENT_MODELING_SPEC_V1",
+      "name": "Requirement Modeling Protocol",
+      "version": "1.0.0",
+      "status": "active",
+      "lifecycle": "living",
+      "canonical_url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/requirement-modeling/PROTOCOL.md",
+      "repository": "https://github.com/nesnilnehc/ai-cortex",
+      "path": "protocols/requirement-modeling/PROTOCOL.md",
+      "scope": "Applicable to all types of requirement modeling (functional, non-functional, bug fixes, technical tasks) to ensure consistent, traceable, and testable requirements across any project"
     }
   ],
   "capabilities": [
