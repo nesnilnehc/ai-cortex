@@ -6,11 +6,15 @@
   "license": "MIT",
   "spec_version": "2.4.0",
   "registry": {
-    "index": "skills/INDEX.md",
-    "protocols": [
+    "skills_root": "skills/",
+    "skills_index": "skills/INDEX.md",
+    "protocols_root": "protocols/",
+    "protocols_index": "protocols/INDEX.md",
+    "internal_specs": [
       "spec/skill.md"
     ],
-    "skills_root": "skills/"
+    "rules_root": "rules/",
+    "rules_index": "rules/INDEX.md"
   },
   "capabilities": [
     {

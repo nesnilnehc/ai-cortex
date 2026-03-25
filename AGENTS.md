@@ -6,21 +6,23 @@
 
 ## 1. 项目身份
 
-**AI Cortex** 将技能锚定在软件交付与项目治理领域；规范与编排支撑技能协作。见 [mission](docs/project-overview/mission.md)、[vision](docs/project-overview/vision.md)。
+**AI Cortex** 为软件交付与项目治理提供治理资产库；技能、规范、约束三层支撑协作。见 [mission](docs/project-overview/mission.md)、[vision](docs/project-overview/vision.md)。
 
-| 资产类型 | 目录 | 规范 |
-| :--- | :--- | :--- |
-| Skill（技能） | `skills/` | [spec/skill.md](spec/skill.md) |
-
-目录：`skills/INDEX.md`。能力列表：`manifest.json`。
+| 资产层 | 类型 | 目录 | 注册表 |
+| :--- | :--- | :--- | :--- |
+| 主动能力 | Skill（技能） | `skills/` | [skills/INDEX.md](skills/INDEX.md)、[manifest.json](manifest.json) |
+| 领域标准 | Protocol（协议） | `protocols/` | [protocols/INDEX.md](protocols/INDEX.md) |
+| 被动约束 | Rule（规则） | `rules/` | [rules/INDEX.md](rules/INDEX.md) |
 
 ---
 
 ## 2. 权威来源
 
-- **定义**：[spec/skill.md](spec/skill.md) 定义技能结构与质量要求。
-- **目录**：[skills/INDEX.md](skills/INDEX.md)、[manifest.json](manifest.json) 为能力列表权威来源。
-- **规则**：[rules/INDEX.md](rules/INDEX.md) 为规则注册表。
+- **技能规范**：[spec/skill.md](spec/skill.md) 定义技能结构与质量要求。
+- **技能目录**：[skills/INDEX.md](skills/INDEX.md)、[manifest.json](manifest.json) 为能力列表权威来源。
+- **协议规范**：[protocols/INDEX.md](protocols/INDEX.md) 注册领域协议（如 UNP/INP）。
+- **规则注册**：[rules/INDEX.md](rules/INDEX.md) 注册被动约束（写作、编码、工作流）。
+- **制品契约**：[spec/artifact-contract.md](spec/artifact-contract.md)。
 
 ---
 
@@ -35,12 +37,17 @@
 
 ---
 
-## 4. 发现与自引用
+## 4. 发现与加载
 
+### 技能发现与注入
 - **资产根**：本仓库根或显式提供的 Raw 根 URL。
 - **发现**：阅读 `skills/INDEX.md` 与 `manifest.json`；按 `description`、`tags`、`triggers` 与任务语义匹配。
 - **注入**：将所选 SKILL 的**完整 Markdown** 作为系统或上下文加载。
 - **自引用**：用 `manifest.json` 的 `capabilities` 获取技能路径。
+
+### 规则与协议加载
+- **规则**（Rules）：`rules/INDEX.md` 列举全局约束（写作、编码、工作流）。这些通常作为**长期背景上下文**常驻注入，在任何工作中生效。
+- **协议**（Protocols）：`protocols/INDEX.md` 列举领域协议（UNP/INP 等）。使用时作为**接口契约**和**实现基准**注入。
 
 细则见 [docs/guides/discovery-and-loading.md](docs/guides/discovery-and-loading.md)。主动建议见 [docs/guides/proactive-suggestions.md](docs/guides/proactive-suggestions.md)。
 
@@ -59,7 +66,7 @@
 | Spec 来源 | [AI Cortex](https://github.com/nesnilnehc/ai-cortex) |
 | 本入口 (Raw) | <https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/AGENTS.md> |
 | 规范 | [spec/skill.md](spec/skill.md)、[spec/artifact-contract.md](spec/artifact-contract.md) |
-| 目录 | [skills/INDEX.md](skills/INDEX.md) |
+| 目录 | [skills/INDEX.md](skills/INDEX.md) \| [protocols/INDEX.md](protocols/INDEX.md) \| [rules/INDEX.md](rules/INDEX.md) |
 | 自引用 | 编写 AGENTS.md → [generate-agent-entry](skills/generate-agent-entry/SKILL.md)；设计/重构技能 → [refine-skill-design](skills/refine-skill-design/SKILL.md)；生成 README → [generate-standard-readme](skills/generate-standard-readme/SKILL.md)。完整列表见 [INDEX](skills/INDEX.md)。 |
 | 入口撰写 | [skills/generate-agent-entry/SKILL.md](skills/generate-agent-entry/SKILL.md) |
 
