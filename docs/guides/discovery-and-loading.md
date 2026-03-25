@@ -6,9 +6,11 @@ created_at: 2026-03-24
 status: active
 ---
 
-# 发现与加载细则
+# 技能发现与加载细则
 
-本文档描述 Agent 在本仓库内发现与加载技能时的细则，供需要时查阅。AGENTS.md 仅保留摘要。
+本文档描述 Agent 在本仓库内发现与加载**技能**时的细则，供需要时查阅。AGENTS.md 仅保留摘要。
+
+> **注**：协议（Protocols）与规则（Rules）的发现加载见 [protocols-registry.md](protocols-registry.md) 与 AGENTS.md §4。
 
 ---
 

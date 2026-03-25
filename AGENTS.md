@@ -49,7 +49,7 @@
 - **规则**（Rules）：`rules/INDEX.md` 列举全局约束（写作、编码、工作流）。这些通常作为**长期背景上下文**常驻注入，在任何工作中生效。
 - **协议**（Protocols）：`protocols/INDEX.md` 列举领域协议（UNP/INP 等）。使用时作为**接口契约**和**实现基准**注入。
 
-细则见 [docs/guides/discovery-and-loading.md](docs/guides/discovery-and-loading.md)。主动建议见 [docs/guides/proactive-suggestions.md](docs/guides/proactive-suggestions.md)。协议使用见 [docs/guides/protocols-usage.md](docs/guides/protocols-usage.md)。
+细则见 [docs/guides/discovery-and-loading.md](docs/guides/discovery-and-loading.md)（技能发现）和 [docs/guides/protocols-registry.md](docs/guides/protocols-registry.md)（协议发现）。协议使用见 [docs/guides/protocols-usage.md](docs/guides/protocols-usage.md)。
 
 ---
 
