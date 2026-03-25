@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![AI-Readiness: High](https://img.shields.io/badge/AI--Readiness-High-success.svg)](llms.txt)
 
-> 面向 Agent 与开发者：技能 catalog，覆盖软件交付与项目治理；按 description、tags、triggers 语义匹配调用能力。详见 [使命](docs/project-overview/mission.md) 与 [愿景](docs/project-overview/vision.md)。
+> 面向 Agent 与开发者：治理资产库，包含技能、规范、约束三层，覆盖软件交付与项目治理。按 description、tags、triggers 语义匹配调用能力，按规范协作，按约束执行。详见 [使命](docs/project-overview/mission.md) 与 [愿景](docs/project-overview/vision.md)。
 
 ```mermaid
 flowchart LR
@@ -39,31 +39,35 @@ flowchart LR
 
 ## ✨ 特点
 
-- **目录与规范**：`skills/INDEX.md`、`manifest.json`；`spec/skill.md` 定义技能结构与质量
-- **规则与入口**：`rules/` 提供编码与写作规范；`AGENTS.md` 定义身份与行为
+- **三层治理资产**：
+  - 技能 (`skills/INDEX.md`、`manifest.json`)：主动能力
+  - 规范 (`protocols/INDEX.md`)：领域协议与接口契约（如 UNP/INP 通知协议）
+  - 规则 (`rules/INDEX.md`)：编码与写作约束
+- **Agent 优先**：无需本地文件；通过 manifest.json 远程发现和加载协议
+- **规范与质量**：`spec/skill.md` 定义技能结构；`spec/artifact-contract.md` 定义制品契约
 - **生态**：[skills.sh](https://skills.sh)、[SkillsMP](https://skillsmp.com)
 
 ---
 
-## 📦 安装
+## 📦 安装与使用
 
 **技能**：
-
 ```bash
 npx skills add nesnilnehc/ai-cortex
 ```
 
 使用 `--force` 覆盖已有技能；`--skill <name>` 仅安装指定技能。无 Node 时见 `scripts/install-fallback.sh`。
 
-**升级与重装**：若技能曾改名或结构变更，建议先卸载再安装，以清除旧版本残留：
-
+**升级与重装**：若技能曾改名或结构变更，建议先卸载再安装：
 ```bash
 ./scripts/uninstall-reinstall-ai-cortex.sh
 ```
 
-该脚本会卸载本机已安装的 AI Cortex 技能（仅限本仓库来源），再以 `--force` 重新安装。详见 [安装与重装说明](docs/references/skill-install-guide.md)。
+详见 [安装与重装说明](docs/references/skill-install-guide.md)。
 
 **规则**：通过 Agent 说「将此项目规则安装到 Cursor」——或将 `rules/` 复制到 `.cursor/rules/`。见 [rules/INDEX.md](rules/INDEX.md)。
+
+**协议**：无需安装；Agent 自动通过 manifest.json 发现和远程加载。见 [protocols/INDEX.md](protocols/INDEX.md) 及快速参考 [docs/guides/protocols-quickstart.md](docs/guides/protocols-quickstart.md)。
 
 ---
 
