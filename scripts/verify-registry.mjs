@@ -197,18 +197,20 @@ console.log(
 
 // Verify spec, rules, protocols directories
 console.log('');
-const specDir = join(root, 'spec');
+const specDirCandidates = ['spec', 'specs'];
+const specDir = specDirCandidates.map((d) => join(root, d)).find((p) => existsSync(p));
+const specDirLabel = specDirCandidates.find((d) => join(root, d) === specDir) || 'spec';
 const rulesDir = join(root, 'rules');
 const protocolsDir = join(root, 'protocols');
 
-if (!existsSync(specDir)) {
-  console.error('spec/ directory not found');
+if (!specDir) {
+  console.error('spec/ or specs/ directory not found');
   process.exit(1);
 }
 const requiredSpecs = ['skill.md', 'protocol.md', 'terminology.md'];
 for (const spec of requiredSpecs) {
   if (!existsSync(join(specDir, spec))) {
-    console.error(`spec/${spec} not found`);
+    console.error(`${specDirLabel}/${spec} not found`);
     failed = true;
   }
 }
