@@ -10,12 +10,39 @@
     "skills_index": "skills/INDEX.md",
     "protocols_root": "protocols/",
     "protocols_index": "protocols/INDEX.md",
+    "protocols_catalog": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/INDEX.md",
     "internal_specs": [
       "spec/skill.md"
     ],
     "rules_root": "rules/",
     "rules_index": "rules/INDEX.md"
   },
+  "protocols": [
+    {
+      "id": "UNP_SPEC_V1",
+      "name": "Universal Notification Protocol",
+      "version": "1.0.0",
+      "status": "active",
+      "lifecycle": "living",
+      "domain": "notifications",
+      "canonical_url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/unp.md",
+      "repository": "https://github.com/nesnilnehc/ai-cortex",
+      "path": "protocols/unp.md",
+      "scope": "Applicable whenever designing or reviewing notification systems"
+    },
+    {
+      "id": "INP_SPEC_V1",
+      "name": "IM Notification Protocol",
+      "version": "1.0.0",
+      "status": "active",
+      "lifecycle": "living",
+      "domain": "notifications",
+      "canonical_url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/inp.md",
+      "repository": "https://github.com/nesnilnehc/ai-cortex",
+      "path": "protocols/inp.md",
+      "scope": "Applicable when implementing notification rendering and routing for instant messaging channels"
+    }
+  ],
   "capabilities": [
     {
       "name": "decontextualize-text",
