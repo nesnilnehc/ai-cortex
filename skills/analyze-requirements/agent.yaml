@@ -1,37 +1,25 @@
-agent_native: 5
-asqm_quality: 17
-cognitive: 3
-composability: 4
-inputs:
-- vague idea, feature request, problem statement, or user requirement
-- optional existing documentation or context
-lifecycle_state: Validated
-market_position: differentiated
 name: analyze-requirements
+status: validated
+
+primary_use: Transform vague intent or incomplete requirements into validated, testable requirements through diagnostic state progression and structured dialogue.
+
+inputs:
+  - Vague idea, feature request, problem statement, or existing requirements document
+  - Project context (existing codebase, documentation, constraints)
+  - User responses (diagnostic answers, feedback, approval)
+
 outputs:
-- validated requirements document (docs/requirements-planning/<topic>.md)
-- integration map (handoff data for design-solution, review-requirements, discover-skills)
-overlaps_with:
-- nesnilnehc/ai-cortex:design-solution
-primary_use: Transform vague intent into validated, testable requirements through
-  diagnostic state progression (RA0-RA5) and structured dialogue — problem discovery,
-  need clarification, constraint inventory, scope definition — before any design.
+  - Validated requirements document written to docs/requirements-planning/<topic>.md
+  - Integration map (handoff data for design-solution)
+
 scores:
   agent_native: 5
   cognitive: 5
   composability: 5
   stance: 5
-stance: 5
-status: validated
-tags:
-- writing
-- documentation
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass
+
+asqm_quality: 20
+
+overlaps_with: []
+
+market_position: differentiated
