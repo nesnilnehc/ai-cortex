@@ -306,22 +306,22 @@ If a requirement mentions technology, it is a solution in disguise.
 
 ### Must Have (V1)
 
-| ID | Need | Acceptance Criteria |
-| :--- | :--- | :--- |
-| R-01 | [Testable need] | Given [X], when [Y], then [Z] |
-| R-02 | [Testable need] | [Measurable criterion] |
+| ID | Need | Acceptance Criteria | Status |
+| :--- | :--- | :--- | :--- |
+| R-01 | [Testable need] | Given [X], when [Y], then [Z] | Validated |
+| R-02 | [Testable need] | [Measurable criterion] | Validated |
 
 ### Should Have (V1 if time permits)
 
-| ID | Need | Acceptance Criteria |
-| :--- | :--- | :--- |
-| R-03 | [Testable need] | [Criterion] |
+| ID | Need | Acceptance Criteria | Status |
+| :--- | :--- | :--- | :--- |
+| R-03 | [Testable need] | [Criterion] | Validated |
 
 ### Could Have (Post-V1)
 
-| ID | Need | Trigger to reconsider |
-| :--- | :--- | :--- |
-| R-04 | [Deferred need] | [When to revisit] |
+| ID | Need | Trigger to reconsider | Status |
+| :--- | :--- | :--- | :--- |
+| R-04 | [Deferred need] | [When to revisit] | Deferred |
 
 ## Constraint Inventory
 
@@ -343,6 +343,11 @@ If a requirement mentions technology, it is a solution in disguise.
 
 - [Any remaining unknowns with plan to resolve]
 ```
+
+#### 状态生命周期 (Status Lifecycle)
+
+该技能生成的每个需求条目初始状态应设为 `Validated`（已验证）或 `Deferred`（已推迟）。
+下游执行、计划或开发流程（例如 `breakdown-tasks` 和执行 Agent）负责在实施期间更新文档中这些需求的状态（例如更新为 `In Progress`、`Implemented`、`Dropped` 等）。本技能不负责此后的状态更新。
 
 
 #### 对话与文件
@@ -393,6 +398,7 @@ If a requirement mentions technology, it is a solution in disguise.
 
 - [ ] **问题明确**：存在明确的问题陈述，但没有解决方案或技术参考
 - [ ] **需求可通过 ID 进行测试**：每个需求都有验收标准和唯一的“R-NN”ID； ID 连续，无间隙或重复
+- [ ] **明确的状态管理**：每个需求条目均有明确的初始状态（如 `Validated`），并在输出中包含状态列
 - [ ] **列出的约束**：与假设分离的实际约束
 - [ ] **范围有界**：V1 边界明确，带有延迟项目和触发器记录
 - [ ] **用户确认**：用户明确批准已验证需求

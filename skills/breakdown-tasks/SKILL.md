@@ -119,11 +119,16 @@ output_schema:
 **Source design:** [path or title]
 **Created:** YYYY-MM-DD
 
-| Id | Task | Depends on | Acceptance criteria | Owner / Hint |
-|----|------|------------|----------------------|--------------|
-| T1 | ...  | —          | ...                  | ...         |
-| T2 | ...  | T1         | ...                  | ...         |
+| Id | Task | Depends on | Acceptance criteria | Owner / Hint | Status |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| T1 | ...  | —          | ...                  | ...         | Todo   |
+| T2 | ...  | T1         | ...                  | ...         | Todo   |
 ```
+
+### 状态生命周期 (Status Lifecycle)
+
+本技能仅负责将所有派生任务的初始状态设置为 `Todo`。
+下游实施与执行技能（如具体的开发执行 agent）、任务看板同步工具或开发人员，负责在实施期间维护并更新该状态（例如流转为 `In Progress`、`Blocked`、`Done` 或 `Cancelled`）。本技能不负责在此后持续变更任务状态。
 
 
 可选：在顶部添加简短的“摘要”和“设计可追溯性”（任务 → 设计部分）。
@@ -155,6 +160,7 @@ output_schema:
 - [ ] 依赖关系明确：任务顺序或依赖列表清晰，无循环依赖
 - [ ] 每个任务都有接受标准（可测试或可验证）
 - [ ] 每个任务都有受让人或 AI 执行提示
+- [ ] 每一项任务都配置了初始状态（如 `Todo`）并包含在表格状态列中
 - [ ] 用户批准或明确接受的任务列表
 
 ---
