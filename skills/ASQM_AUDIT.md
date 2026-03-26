@@ -61,7 +61,8 @@ asqm_quality = agent_native + cognitive + composability + stance
 
 | Rank | Skill | ASQM | agent_native | cognitive | composability | stance | Status |
 |:---:|:---|:---:|:---:|:---:|:---:|:---:|:---|
-| 1 | **audit-docs** | 19 | 5 | 4 | 5 | 5 | ✅ Validated |
+| 1 | **analyze-requirements** | 20 | 5 | 5 | 5 | 5 | ✅ Validated |
+| 2 | **audit-docs** | 19 | 5 | 4 | 5 | 5 | ✅ Validated |
 | 2 | **align-architecture** | 18 | 5 | 3 | 5 | 5 | ✅ Validated |
 | 2 | **align-planning** | 18 | 5 | 3 | 5 | 5 | ✅ Validated |
 | 2 | **tidy-repo** | 18 | 5 | 4 | 4 | 5 | ✅ Validated |

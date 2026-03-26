@@ -1,41 +1,23 @@
-agent_native: 4
-asqm_quality: 15
-cognitive: 3
-composability: 3
-dependencies:
-- nesnilnehc/ai-cortex:design-solution
-inputs:
-- design document (path or content)
-- optional scope or priority from user
-lifecycle_state: Experimental
-market_position: differentiated
 name: breakdown-tasks
+status: validated
+
+primary_use: Break a design document into an executable task list with dependencies, acceptance criteria, and assignee or AI execution hints.
+
+inputs:
+  - Design document (e.g. design.md or docs/design-decisions/YYYY-MM-DD-<topic>.md)
+  - Optional scope or priority hints
+
 outputs:
-- tasks document (ordered tasks, dependencies, acceptance criteria, owner/hint)
-- traceability to design sections
-overlaps_with:
-- nesnilnehc/ai-cortex:design-solution
-- nesnilnehc/ai-cortex:align-planning
-primary_use: Break a design document into an executable task list with dependencies,
-  acceptance criteria, and assignee or AI execution hints. Input design (e.g. from
-  design-solution); output tasks.md or docs/process-management/tasks/*.md.
+  - Task list document with ordered tasks, dependencies, acceptance criteria, and assignee/execution hints
+
 scores:
   agent_native: 5
   cognitive: 4
   composability: 5
   stance: 4
-stance: 5
-status: validated
-tags:
-- writing
-- documentation
-- workflow
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass
+
+asqm_quality: 18
+
+overlaps_with: []
+
+market_position: differentiated
