@@ -41,8 +41,8 @@ lifecycle: living
    - INP（IM Notification Protocol）v1.0.0
 
 3. **查看协议详情**：
-   - [`protocols/unp.md`](../../protocols/unp.md) — 语义层规范
-   - [`protocols/inp.md`](../../protocols/inp.md) — 投递层规范
+   - [`specs/universal-notification.md`](../../specs/universal-notification.md) — 语义层规范（UNP）
+   - [`protocols/im-notification-delivery.md`](../../protocols/im-notification-delivery.md) — 投递层规范（INP）
 
 ### 2.2 在代码中查找
 
@@ -434,8 +434,8 @@ channel_matrix:
 | 资源 | 链接 | 说明 |
 |:---|:---|:---|
 | **协议注册表** | [protocols/INDEX.md](../../protocols/INDEX.md) | 所有可用协议及版本 |
-| **UNP 规范** | [protocols/unp.md](../../protocols/unp.md) | 通知语义层规范 |
-| **INP 规范** | [protocols/inp.md](../../protocols/inp.md) | 通知投递层规范 |
+| **UNP 规范** | [specs/universal-notification.md](../../specs/universal-notification.md) | 通知语义层规范 |
+| **INP 规范** | [protocols/im-notification-delivery.md](../../protocols/im-notification-delivery.md) | 通知投递层规范 |
 | **发现与加载** | [docs/guides/discovery-and-loading.md](./discovery-and-loading.md) | AI Agent 如何发现资产 |
 | **AI Cortex 入口** | [AGENTS.md](../../AGENTS.md) | 项目身份和权威来源 |
 

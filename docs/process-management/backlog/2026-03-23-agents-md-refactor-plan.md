@@ -58,7 +58,7 @@ status: active
 | 主动建议表（阶段→技能） | skills/intent-routing.md 或 docs/guides/proactive-suggestions.md | 表较长，单独维护 |
 | 调用示例 | 保留 3 行精简版，或迁至 INDEX / intent-routing | 视最终篇幅决定 |
 | 权威来源长列表 | 压缩为 3–4 条，详细列表放 AUDIENCE_AND_SCOPE 或新文档 | 避免重复 |
-| 参考表中「自引用任务→资产」长句 | 精简为「自引用见 [INDEX](skills/INDEX.md)」+ 2–3 个典型映射 | 完整映射在 INDEX |
+| 参考表中「自引用任务→资产」长句 | 精简为「自引用见 [INDEX](../../../skills/INDEX.md)」+ 2–3 个典型映射 | 完整映射在 INDEX |
 
 ---
 

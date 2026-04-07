@@ -15,14 +15,14 @@ status: active
 
 ## 目标
 
-支撑 [4 个战略目标](../../project-overview/strategic-goals.md) 在工程基础设施、技能覆盖、编排、生态与规范成熟度四个维度的实现路径。
+支撑 [4 个战略目标](../project-overview/strategic-goals.md) 在工程基础设施、技能覆盖、编排、生态与规范成熟度四个维度的实现路径。
 
-本文档关注**架构与分层**（Layer A-E），具体里程碑与阶段定义见 [roadmap.md](../roadmap.md)。
+本文档关注**架构与分层**（Layer A-E），具体里程碑与阶段定义见 [roadmap.md](../process-management/roadmap.md)。
 
 ## 文档关系
 
-- [strategic-goals.md](../../project-overview/strategic-goals.md)：4 个战略目标（权威定义）
-- [roadmap.md](../roadmap.md)：里程碑与阶段计划（权威定义）
+- [strategic-goals.md](../project-overview/strategic-goals.md)：4 个战略目标（权威定义）
+- [roadmap.md](../process-management/roadmap.md)：里程碑与阶段计划（权威定义）
 - 本文档：支撑路线图的架构与技术分层
 
 ## 背景

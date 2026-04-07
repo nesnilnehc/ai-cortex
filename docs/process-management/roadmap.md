@@ -22,7 +22,7 @@ status: active
 
 ## Now
 
-**支撑的战略目标**：[目标 1（交付链能力可获得）](../../project-overview/strategic-goals.md#目标-1交付链能力可获得) 和 [目标 2（治理链能力可获得）](../../project-overview/strategic-goals.md#目标-2治理链能力可获得)
+**支撑的战略目标**：[目标 1（交付链能力可获得）](../project-overview/strategic-goals.md#目标-1交付链能力可获得) 和 [目标 2（治理链能力可获得）](../project-overview/strategic-goals.md#目标-2治理链能力可获得)
 
 **成功标志**：Now 阶段的里程碑达成后，交付与治理的核心意图覆盖率达 80%。
 
@@ -45,7 +45,7 @@ status: active
 
 ## Next
 
-**支撑的战略目标**：[目标 3（能力可跨项目复用与编排）](../../project-overview/strategic-goals.md#目标-3能力可跨项目复用与编排)
+**支撑的战略目标**：[目标 3（能力可跨项目复用与编排）](../project-overview/strategic-goals.md#目标-3能力可跨项目复用与编排)
 
 ### 推进条件
 
