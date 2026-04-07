@@ -71,5 +71,5 @@ status: active
 
 - [strategic-goals.md (canonical)](../../project-overview/strategic-goals.md) — 战略目标权威定义
 - [roadmap.md (canonical)](../roadmap.md) — 里程碑与路线图权威定义
-- [Evolution Roadmap (design)](../designs/2026-03-02-ai-cortex-evolution-roadmap.md) — 架构与技术分层
+- [Evolution Roadmap (design)](../../designs/2026-03-02-ai-cortex-evolution-roadmap.md) — 架构与技术分层
 - [North Star](../../project-overview/north-star.md) — 核心指标定义
