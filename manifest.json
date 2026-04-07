@@ -240,6 +240,10 @@
     {
       "name": "audit-docs",
       "path": "skills/audit-docs/SKILL.md"
+    },
+    {
+      "name": "merge-worktree",
+      "path": "skills/merge-worktree/SKILL.md"
     }
   ],
   "specs": [
