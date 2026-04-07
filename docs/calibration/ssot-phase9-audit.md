@@ -1,7 +1,7 @@
 # SSOT 完整性审计 — Phase 9 详细报告
 
 **审计日期**：2026-03-24
-**覆盖文档**：41 个
+**覆盖文档**：47 个
 **检出冲突**：1 个（P0/P1/P2）
 
 ---
@@ -27,6 +27,7 @@
 | calibration/assess-docs-extension.md | design | calibration-record | point-in-time |
 | calibration/discover-docs-norms-refactor.md | design-decision | calibration-record | content |
 | calibration/ASQM_AUDIT.md | audit-report | calibration-record | content |
+| calibration/ssot-phase9-audit.md | unknown | calibration-record | content |
 | calibration/cognitive-loop.md | calibration-report | calibration-record | content |
 | calibration/audit-docs.md | audit-docs | calibration-record | content |
 | calibration/ssot-integrity-audit.md | audit-report | calibration-record | content |
@@ -44,8 +45,13 @@
 
 | 文档 | artifact_type | ownership_role | granularity |
 |:---|:---|:---|:---|
+| guides/proactive-suggestions.md | guide | reference | content |
+| guides/protocols-quickstart.md | guide | reference | content |
+| guides/protocols-usage.md | guide | reference | content |
+| guides/protocols-registry.md | guide | reference | content |
 | guides/discovery-and-loading.md | guide | reference | content |
 | guides/project-config.md | guide | reference | content |
+| guides/protocols-agent-usage.md | guide | reference | content |
 
 ### process-management
 
