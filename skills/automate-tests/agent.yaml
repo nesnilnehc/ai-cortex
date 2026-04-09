@@ -1,28 +1,24 @@
-agent_native: 4
-asqm_quality: 16
-cognitive: 4
-composability: 3
+name: automate-tests
+status: validated
+primary_use: Analyze how a repo expects automated tests to run (docs/CI/build manifests)
+  and execute the safest appropriate test command(s) with explicit confirmation for
+  installs/services.
+cognitive_mode: procedural
 inputs:
 - target repository path (default .)
 - mode (fast | ci | full)
 - constraints (allow dependency install, allow network, allow Docker)
-lifecycle_state: Experimental
-market_position: commodity
-name: automate-tests
 outputs:
 - test plan summary (evidence, chosen commands, assumptions, executed vs skipped)
 - execution results (first failing command + exit code + error excerpt when failing)
-overlaps_with: []
-primary_use: Analyze how a repo expects automated tests to run (docs/CI/build manifests)
-  and execute the safest appropriate test command(s) with explicit confirmation for
-  installs/services.
 scores:
-  agent_native: 5
+  agent_native: 4
   cognitive: 4
   composability: 4
-  stance: 4
-stance: 5
-status: validated
+  stance: 5
+asqm_quality: 17
+overlaps_with: []
+market_position: commodity
 tags:
 - automation
 - devops

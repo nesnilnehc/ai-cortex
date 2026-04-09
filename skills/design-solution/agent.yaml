@@ -1,29 +1,25 @@
-agent_native: 5
-asqm_quality: 17
-cognitive: 3
-composability: 4
-inputs:
-- validated requirements document (path or content)
-- optional project context, constraints, existing patterns or ADRs
-lifecycle_state: Validated
-market_position: differentiated
 name: design-solution
-outputs:
-- validated design document (docs/design-decisions/YYYY-MM-DD-<topic>.md; snapshot)
-- trade-off analysis (2-3 approaches with pros/cons/best-for)
-overlaps_with:
-- nesnilnehc/ai-cortex:analyze-requirements
-- nesnilnehc/ai-cortex:refine-skill-design
+status: validated
 primary_use: Produce a validated design document from requirements (architecture,
   components, data flow, error handling, testing strategy, trade-offs) with HARD-GATE
   before implementation; serves as single source of truth for breakdown-tasks.
+cognitive_mode: interpretive
+inputs:
+- validated requirements document (path or content)
+- optional project context, constraints, existing patterns or ADRs
+outputs:
+- validated design document (docs/design-decisions/YYYY-MM-DD-<topic>.md; snapshot)
+- trade-off analysis (2-3 approaches with pros/cons/best-for)
 scores:
   agent_native: 5
-  cognitive: 5
+  cognitive: 4
   composability: 4
   stance: 5
-stance: 5
-status: validated
+asqm_quality: 18
+overlaps_with:
+- nesnilnehc/ai-cortex:analyze-requirements
+- nesnilnehc/ai-cortex:refine-skill-design
+market_position: differentiated
 tags:
 - writing
 - documentation

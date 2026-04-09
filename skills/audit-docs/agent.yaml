@@ -1,49 +1,39 @@
-agent_native: 5
-asqm_quality: 19
-cognitive: 4
-composability: 5
+name: audit-docs
+status: validated
+primary_use: 'Orchestrate complete documentation governance audit (norms, structure,
+  health, SSOT integrity) in one pass. Coordinates discover-docs-norms, tidy-repo,
+  and assess-docs; produce unified governance report with health scores and actionable
+  roadmap.'
+cognitive_mode: interpretive
 inputs:
 - project path (default: CWD)
 - mode: full | quick | code-review (full mode calls assess-docs for comprehensive SSOT integrity audit)
 - code-diff base branch (optional)
 - apply-tidy flag (optional)
-lifecycle_state: Validated
-market_position: differentiated
-name: audit-docs
 outputs:
 - docs/calibration/audit-docs.md (unified governance report with compliance, health
   scores, SSOT violations, and prioritized action plan)
-- docs/calibration/ssot-integrity-audit.md (five-step SSOT audit with intent registry,
-  conflict matrix, canonical mapping, and repair roadmap - full mode only)
+- docs/calibration/ssot-integrity-audit.md (five-step SSOT audit - full mode only)
 - docs/ARTIFACT_NORMS.md (if norms created in phase 2)
 - docs/calibration/repo-tidy.md (if structure audit applied)
 - docs/calibration/doc-assessment.md (if full assessment run)
-overlaps_with:
-- nesnilnehc/ai-cortex:discover-docs-norms
-- nesnilnehc/ai-cortex:tidy-repo
-- nesnilnehc/ai-cortex:assess-docs
-primary_use: 'Orchestrate complete documentation governance audit (norms, structure,
-  health, SSOT integrity) in one pass.
-
-  Coordinates discover-docs-norms, tidy-repo, and assess-docs (which implements intent-first
-  SSOT audit: intent modeling → conflict screening → layered similarity → judgment → repair
-  planning).
-
-  Produce unified governance report with health scores and actionable roadmap.
-
-  '
 scores:
   agent_native: 5
   cognitive: 4
   composability: 5
   stance: 5
-stance: 5
-status: validated
+asqm_quality: 19
+overlaps_with:
+- nesnilnehc/ai-cortex:discover-docs-norms
+- nesnilnehc/ai-cortex:tidy-repo
+- nesnilnehc/ai-cortex:assess-docs
+market_position: differentiated
 tags:
 - documentation
 - governance
 - orchestration
 - workflow
+version: 1.5.1
 validation_gates:
   gate_a:
     name: Agent-ready
@@ -53,4 +43,3 @@ validation_gates:
     name: Design integrity
     requirement: stance >= 3
     status: pass
-version: 1.5.1

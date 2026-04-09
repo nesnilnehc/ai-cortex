@@ -1,29 +1,25 @@
-agent_native: 5
-asqm_quality: 17
-cognitive: 3
-composability: 4
+name: capture-work-items
+status: validated
+primary_use: Capture requirements, bugs, or issues from free-form input into structured,
+  persistent backlog artifacts with path detection and status lifecycle.
+cognitive_mode: procedural
 inputs:
 - raw description of requirement, bug, or issue from user
 - optional project context (docs/ structure for path detection)
-lifecycle_state: Validated
-market_position: differentiated
-name: capture-work-items
 outputs:
 - structured work item Markdown (docs/process-management/project-board/backlog/ or
   docs/backlog/ per path detection, specs/artifact-contract.md)
 - YAML front-matter with type, date, status (captured), source, severity (bugs)
-overlaps_with:
-- nesnilnehc/ai-cortex:analyze-requirements
-- nesnilnehc/ai-cortex:design-solution
-primary_use: Capture requirements, bugs, or issues from free-form input into structured,
-  persistent backlog artifacts with path detection and status lifecycle.
 scores:
   agent_native: 5
   cognitive: 4
   composability: 4
   stance: 5
-stance: 5
-status: validated
+asqm_quality: 18
+overlaps_with:
+- nesnilnehc/ai-cortex:analyze-requirements
+- nesnilnehc/ai-cortex:design-solution
+market_position: differentiated
 tags:
 - writing
 - documentation

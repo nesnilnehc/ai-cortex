@@ -13,7 +13,7 @@ input_schema:
   type: free-form
   description: Governance docs as input sources — mission, vision, north-star, strategic-goals, milestones, roadmap, backlog; optional trigger context
   defaults:
-    sources: project canonical paths per docs/ARTIFACT_NORMS.md or specs/artifact-contract.md
+    sources: discovered by exploring project repository — scanning files, reading front-matter and headings to identify governance artifacts
 output_schema:
   type: document-artifact
   description: Cycle report with input-source inventory, executed/skipped steps, and Recommended Next Tasks
@@ -87,25 +87,47 @@ output_schema:
 
 ## 行为（Behavior）
 
-### 输入源与默认路径
+### 治理文档发现步骤（Governance Discovery）
 
-**标准输入源**（按 docs/ARTIFACT_NORMS.md 或 specs/artifact-contract.md 解析）：
+**在阶段 0 之前强制执行**。通过主动探索项目仓库发现治理文档，不预设路径。
 
-| 输入源 | 典型路径 |
-| :--- | :--- |
-| mission | docs/project-overview/mission.md |
-| vision | docs/project-overview/vision.md |
-| north-star | docs/project-overview/north-star.md |
-| strategic-goals | docs/project-overview/strategic-goals.md |
-| roadmap | docs/process-management/roadmap.md |
-| roadmap | docs/designs/*.md 或 docs/process-management/*roadmap* |
-| backlog | docs/process-management/backlog.md、backlog/*.md |
+**发现算法**：
+
+1. **扫描范围**：递归扫描 `docs/` 目录下所有 Markdown 文件（若无 `docs/` 目录则扫描整个仓库根目录下的 `.md` 文件）
+2. **对每个文件，按以下优先级判断其治理类型**：
+   - P1（100%）：front-matter 字段 `artifact_type` 明确标注（如 `artifact_type: mission`）
+   - P2（90%）：front-matter 字段 `title` 含关键词（如 "Mission", "Vision", "Roadmap"）
+   - P3（80%）：文件第一个 H1/H2 标题含关键词
+   - P4（60%）：文件名含关键词（如 `mission.md`, `vision-2026.md`）
+   - P5（40%）：所在目录名含关键词（如 `project-overview/`, `planning/`）
+3. **关键词映射**：
+
+   | 治理类型 | 识别关键词（不区分大小写） |
+   | :--- | :--- |
+   | mission | mission, 使命 |
+   | vision | vision, 愿景 |
+   | north-star | north star, north-star, north_star, 北极星, okr |
+   | strategic-goals | strategic goals, strategic-goals, strategic pillars, objectives, goals, 战略目标, 战略支柱 |
+   | roadmap | roadmap, 路线图, milestone, milestones, release plan, sprint plan, 里程碑, 迭代计划 |
+   | backlog | backlog, todo, task, tasks, work items, work-items, 待办, 任务, 任务列表, 工作项, 需求列表 |
+
+4. **多文件处理**：若同一类型命中多个文件，选择置信度最高者；相同置信度时选路径最浅者；其余标注为候选
+5. **构建 `discovered_sources` 映射**：每个治理类型记录 `{path, confidence, discovery_method}`
+6. **无结果时**：类型标记为 `missing`（不回退到硬编码路径）
+
+发现完成后，将 `discovery_method` 和 `confidence` 写入输入源清单，供后续步骤使用。
+
+### 治理输入源类型
+
+`mission`、`vision`、`north-star`、`strategic-goals`、`roadmap`、`backlog`
 
 ### 阶段 0：输入源盘点
 
-1. 遍历标准输入源，检查文件是否存在
-2. 对存在的文件做简要质量判断（空、占位、有实质内容）
-3. 输出**输入源清单**：存在/缺失、质量（present|placeholder|empty|missing）
+**前置条件**：治理文档发现步骤已执行，`discovered_sources` 已就绪。
+
+1. 使用 `discovered_sources` 中已发现的文件路径，读取并评估各输入源
+2. 对每个已发现的文件做简要质量判断（空、占位、有实质内容）
+3. 输出**输入源清单**：路径、发现方式（front-matter/heading/filename/directory）、置信度、质量（present|placeholder|empty|missing）
 
 **分支**：
 
@@ -207,6 +229,8 @@ output_schema:
 ### 核心成功标准（须全部满足）
 
 - [ ] 输入源清单已产出（存在/缺失、质量）
+- [ ] 治理文档发现步骤已执行：扫描了项目仓库，`discovered_sources` 已构建（含路径、置信度、发现方式）
+- [ ] 未使用硬编码路径；所有路径均来自仓库探索结果
 - [ ] 输入源缺失时，完善输入源为首要推荐行动
 - [ ] 阶段 0.5 已执行；短路或以正确理由进入阶段 1
 - [ ] 不短路时执行统一顺序；产出驱动后续有理由
