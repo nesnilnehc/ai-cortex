@@ -1,30 +1,26 @@
-agent_native: 4
-asqm_quality: 16
-cognitive: 4
-composability: 3
-inputs:
-- skills_directory (root path containing skill subdirectories)
-lifecycle_state: Experimental
-market_position: differentiated
 name: curate-skills
-outputs:
-- per skill: agent.yaml (scores, status, overlaps_with, market_position), normalized
-    README.md
-- repo-level: ASQM_AUDIT.md or structured chat summary
-- overlap and market_position report
-overlaps_with:
-- nesnilnehc/ai-cortex:refine-skill-design
-- nesnilnehc/ai-cortex:generate-standard-readme
+status: validated
 primary_use: Evaluate, score (ASQM strict), tag, and normalize all Skills; write agent.yaml
   and README per skill; produce ASQM_AUDIT.md or chat summary. Strict scoring required;
-  agent_native 5 only with explicit output contract in SKILL.md.
+  agent_native=5 only with explicit output contract in SKILL.md; cognitive_mode determines
+  ceiling for cognitive dimension.
+cognitive_mode: interpretive
+inputs:
+- skills_directory (root path containing skill subdirectories)
+outputs:
+- per skill: agent.yaml (scores, status, cognitive_mode, overlaps_with, market_position), normalized README.md
+- repo-level: ASQM_AUDIT.md or structured chat summary
+- overlap and market_position report
 scores:
   agent_native: 5
   cognitive: 4
-  composability: 5
+  composability: 4
   stance: 5
-stance: 5
-status: validated
+asqm_quality: 18
+overlaps_with:
+- nesnilnehc/ai-cortex:refine-skill-design
+- nesnilnehc/ai-cortex:generate-standard-readme
+market_position: differentiated
 tags:
 - meta-skill
 - documentation

@@ -93,10 +93,31 @@ output_schema:
 - **生命周期**：已验证 ↔ 质量 ≥ **17** AND Gate A AND Gate B；实验↔质量≥10； archive_candidate ↔ 否则。 （酒吧设置已验证 = 显然已准备好生产：17/20 + 两个门。）
 - **维度**：agent_native — 代理消耗（合同、机器可读元数据）。cognitive——推理从用户转移到代理。composability——易于与其他技能或管道相结合。stance——设计stance（规范一致性、原则）。
 
+### Cognitive 模式（必须先识别，再评分）
+
+**在对 cognitive 维度评分之前，先判断技能的 cognitive_mode**：
+
+| 模式 | 定义 | 示例技能 |
+| :--- | :--- | :--- |
+| `procedural` | 核心价值是执行确定性步骤；输入→输出流程可完全规范化；LLM 是执行器 | commit-work, generate-github-workflow, generate-standard-readme |
+| `interpretive` | 核心价值是 LLM 的理解/判断能力；输入有歧义或不完整；强行确定性会降低质量 | plan-next, analyze-requirements, review-*, discover-docs-norms |
+
+**模式决定满分上限**：
+
+| cognitive_mode | cognitive = 5 的条件 | cognitive = 4 的含义 |
+| :--- | :--- | :--- |
+| `procedural` | 所有决策分支均为显式确定性规则；无需 LLM 推断 | 部分逻辑仍依赖 LLM 判断 |
+| `interpretive` | **4 即为满分**；LLM 判断本身是设计意图，不应被替换为规则 | — |
+
+> **原则**：interpretive 技能的 cognitive = 4 不是缺陷，是正确设计。强行将 interpretive 技能提到 5 分等价于用脚本替代 LLM，破坏技能价值。
+
+**agent.yaml 需记录 cognitive_mode**（见附录输出合约）。
+
 ### 严格评分（必填）
 
 - **基于证据**：每个分数必须由技能的 SKILL.md 证明合理（例如存在附录：输出合同、交接点、范围边界、限制、自检）。
 - **无通货膨胀**：仅当技能具有**显式的、机器可解析的输出合约**时，agent_native = 5（例如附录：输出合约或 SKILL.md 中的等效表/规范）。如果输出仅以散文形式描述，则 agent_native ≤ 4。
+- **cognitive 上限**：interpretive 技能的 cognitive 上限为 4；procedural 技能可达 5。
 - **一致性**：对所有技能应用相同的标准；不要无缘无故地为了某一项技能而放松。
 
 ### 生态位置（每项技能）
@@ -162,6 +183,8 @@ output_schema:
 
 - [ ] 扫描给定根目录下的所有技能目录？
 - [ ] agent.yaml 在 README 存​​在时被读取？
+- [ ] 每个技能的 cognitive_mode（procedural/interpretive）已识别并写入 agent.yaml？
+- [ ] interpretive 技能的 cognitive 分数上限为 4（未因"缺乏确定性"而扣分）？
 - [ ] 分数 (0–5) 严格分配（基于证据；agent_native 5 仅具有明确的输出合约）？
 - [ ] asqm_quality (0–20) 计算和写入是否一致？
 - [ ] 按指定编写或更新了每个技能的 agent.yaml 和 README？
@@ -206,6 +229,8 @@ status: validated | experimental | archive_candidate
 
 primary_use: [one-line purpose]
 
+cognitive_mode: procedural | interpretive  # procedural: deterministic steps, LLM as executor; interpretive: LLM judgment is the core value
+
 inputs:
   - [list of input names]
 
@@ -214,7 +239,7 @@ outputs:
 
 scores:
   agent_native: [0-5]
-  cognitive: [0-5]
+  cognitive: [0-5]   # interpretive skills: 4 is the effective ceiling and correct design
   composability: [0-5]
   stance: [0-5]
 
