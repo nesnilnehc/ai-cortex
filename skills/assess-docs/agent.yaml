@@ -1,38 +1,29 @@
 name: assess-docs
 status: validated
-primary_use: Assess documentation health in one pass — validate artifact norms compliance
-  including root directory categorization and timestamp policy (paths, naming, front-matter),
-  evidence readiness by layer, and SSOT integrity using intent-first five-step methodology
-  (full mode); report gaps and produce a minimum-fill plan.
+primary_use: Assess documentation core health only (norm compliance + readiness + minimum fill plan).
 cognitive_mode: interpretive
 inputs:
 - project docs scope
-- optional layer path mapping
-- optional target readiness level (medium | high)
-- optional mode (full enables phase 9 SSOT integrity audit)
+- optional layer mapping
+- optional target readiness level
 outputs:
-- Documentation Assessment Report (docs/calibration/doc-assessment.md; overwritten
-  unless snapshot requested) with compliance findings, layer readiness, and gap priority
-  list
-- SSOT Integrity Audit Report (docs/calibration/ssot-integrity-audit.md; full mode only)
-  with intent registry, conflict matrix, and repair roadmap
+- docs/calibration/doc-assessment.md
 scores:
   agent_native: 5
   cognitive: 4
-  composability: 4
+  composability: 5
   stance: 5
-asqm_quality: 18
+asqm_quality: 19
 overlaps_with:
-- nesnilnehc/ai-cortex:bootstrap-docs
-- nesnilnehc/ai-cortex:align-planning
-- nesnilnehc/ai-cortex:plan-next
+- nesnilnehc/ai-cortex:assess-docs-code-alignment
+- nesnilnehc/ai-cortex:assess-docs-links
+- nesnilnehc/ai-cortex:assess-docs-ssot
 market_position: differentiated
 tags:
 - documentation
 - workflow
-- ssot
 - governance
-version: 3.3.0
+version: 4.0.0
 validation_gates:
   gate_a:
     name: Agent-ready

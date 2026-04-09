@@ -42,6 +42,10 @@
       "path": "skills/discover-docs-norms/SKILL.md"
     },
     {
+      "name": "define-docs-norms",
+      "path": "skills/define-docs-norms/SKILL.md"
+    },
+    {
       "name": "discover-skills",
       "path": "skills/discover-skills/SKILL.md"
     },
@@ -180,6 +184,18 @@
     {
       "name": "assess-docs",
       "path": "skills/assess-docs/SKILL.md"
+    },
+    {
+      "name": "assess-docs-code-alignment",
+      "path": "skills/assess-docs-code-alignment/SKILL.md"
+    },
+    {
+      "name": "assess-docs-links",
+      "path": "skills/assess-docs-links/SKILL.md"
+    },
+    {
+      "name": "assess-docs-ssot",
+      "path": "skills/assess-docs-ssot/SKILL.md"
     },
     {
       "name": "automate-tests",

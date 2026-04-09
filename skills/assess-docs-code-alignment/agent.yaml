@@ -1,14 +1,12 @@
-name: discover-docs-norms
+name: assess-docs-code-alignment
 status: validated
-primary_use: Discover and propose project-specific docs norms from repository evidence;
-  output proposal only and never write ARTIFACT_NORMS directly.
+primary_use: Assess whether code changes are accompanied by required docs updates.
 cognitive_mode: interpretive
 inputs:
-- project path (default CWD)
-- optional docs root
-- optional confidence threshold
+- code diff range
+- optional mapping rules
 outputs:
-- docs/calibration/docs-norms-proposal.md (proposal report only)
+- docs/calibration/code-doc-alignment.md
 scores:
   agent_native: 5
   cognitive: 4
@@ -16,13 +14,13 @@ scores:
   stance: 5
 asqm_quality: 19
 overlaps_with:
-- nesnilnehc/ai-cortex:define-docs-norms
 - nesnilnehc/ai-cortex:assess-docs
 market_position: differentiated
 tags:
 - documentation
 - workflow
-version: 2.0.0
+- governance
+version: 1.0.0
 validation_gates:
   gate_a:
     name: Agent-ready

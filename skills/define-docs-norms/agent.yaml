@@ -1,28 +1,28 @@
-name: discover-docs-norms
+name: define-docs-norms
 status: validated
-primary_use: Discover and propose project-specific docs norms from repository evidence;
-  output proposal only and never write ARTIFACT_NORMS directly.
+primary_use: Create or update docs/ARTIFACT_NORMS.md from an approved norms proposal.
 cognitive_mode: interpretive
 inputs:
-- project path (default CWD)
-- optional docs root
-- optional confidence threshold
+- approved norms proposal
+- optional existing docs/ARTIFACT_NORMS.md
+- optional merge strategy
 outputs:
-- docs/calibration/docs-norms-proposal.md (proposal report only)
+- docs/ARTIFACT_NORMS.md
+- change summary
 scores:
   agent_native: 5
   cognitive: 4
-  composability: 5
+  composability: 4
   stance: 5
-asqm_quality: 19
+asqm_quality: 18
 overlaps_with:
-- nesnilnehc/ai-cortex:define-docs-norms
+- nesnilnehc/ai-cortex:discover-docs-norms
 - nesnilnehc/ai-cortex:assess-docs
 market_position: differentiated
 tags:
 - documentation
 - workflow
-version: 2.0.0
+version: 1.0.0
 validation_gates:
   gate_a:
     name: Agent-ready

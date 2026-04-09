@@ -1,585 +1,166 @@
 ---
 name: assess-docs
-description: Assess documentation health in one pass — validate artifact norms compliance (paths, naming, front-matter), evidence readiness by layer, and SSOT integrity using intent-first methodology; report gaps and produce a minimum-fill plan.
-description_zh: 一次性评估文档健康：验证制品规范合规（路径、命名、front-matter）、各层证据就绪、SSOT 完整性（五步意图优先方法）；产出缺口与最小补齐计划。
-tags: [documentation, workflow, ssot, governance]
-version: 3.3.0
+description: Assess documentation core health in one pass — artifact norms compliance, layer readiness scoring, and minimum fill plan.
+description_zh: 一次性评估文档核心健康：规范合规、分层就绪度评分与最小补齐计划。
+tags: [documentation, workflow, governance]
+version: 4.0.0
 license: MIT
 recommended_scope: both
 metadata:
   author: ai-cortex
-triggers: [doc readiness, documentation readiness, doc gap, doc triage, validate docs, validate documents]
+triggers: [doc readiness, documentation readiness, doc gap, validate docs]
 input_schema:
   type: free-form
-  description: Project docs scope, optional layer mapping, optional target readiness level, optional docs root
+  description: Project docs scope, optional layer mapping, optional target readiness level
 output_schema:
   type: document-artifact
-  description: Documentation Assessment Report (compliance findings + layer readiness + minimal fill plan)
+  description: Documentation Assessment Report (compliance findings + layer readiness + minimum fill plan)
   artifact_type: doc-assessment
   path_pattern: docs/calibration/doc-assessment.md
   lifecycle: living
 ---
 
-# 技能 (Skill)：文档评估
+# 技能：文档评估（Assess Docs）
 
 ## 目的 (Purpose)
 
-在单次运行中，检查项目文档是否**符合产品规范**（路径、命名、前置事项），并且**足以进行可靠的人工智能辅助规划和调整**。生成一份报告，其中包含合规性调查结果、层准备分数以及最小化的优先填充计划，以缩小关键差距。
+在单次运行中评估文档核心治理状态：是否符合规范、证据是否足够支撑规划、缺口应如何最小化补齐。
 
 ---
 
 ## 核心目标（Core Objective）
 
-**治理目标**：生成一份文档评估报告，其中 (1) 列出了规范违规行为以及可行的建议，(2) 逐层量化证据质量，并规定了达到目标准备就绪所需的最小文档操作集。
+**首要目标**：输出一份可执行的文档评估报告，明确合规问题、层级就绪度和最小补齐行动。
 
-**成功标准**（必须满足所有要求）：
+**成功标准**（必须全部满足）：
 
-1. ✅ **规范已解决**：来自 `docs/ARTIFACT_NORMS.md` 的项目规范；若不存在，回退到 project-documentation-template 默认值
-2. ✅ **合规性检查**：扫描 `docs/` 下所有相关的 Markdown；路径、命名、front-matter 已验证；作为调查结果发出的每项违规行为（位置、类别、严重性、标题、描述、建议）
-3. ✅ **层覆盖评估和准备度评分**：评估目标、需求、架构、里程碑、路线图和待办层，并对每个层进行“强”、“弱”或“缺失”评分；计算总体准备情况
-4. ✅ **差距优先**：按照对交付和对齐的影响对缺失层和薄弱层进行排序
-5. ✅ **制定最小填充计划**：可操作的步骤，包括首先创建/更新的内容以及原因； 转交技巧说明
-6. ✅ **报告持久化**：单个输出文档写入商定的路径，其中包含合规性结果和准备情况部分
+1. ✅ 已解析项目规范（`docs/ARTIFACT_NORMS.md` 或默认契约）
+2. ✅ 已完成路径/命名/front-matter 合规检查并给出 findings
+3. ✅ 已完成层级就绪度评分（strong/weak/missing）
+4. ✅ 已产出缺口优先级与最小补齐计划
+5. ✅ 已写入单一报告 `docs/calibration/doc-assessment.md`
 
-**验收**测试：队友是否可以仅使用此报告来修复规范违规行为并提高准备情况，而无需猜测首先要做什么？
+**验收测试**：团队是否能仅凭报告明确“先修什么、后补什么、由谁处理”？
 
 ---
 
-## 范围边界 (Scope Boundaries)
+## 范围边界（Scope Boundaries）
 
 **本技能负责**：
 
-- 解决项目产品规范并扫描 Markdown 的“docs/”
-- 合规性验证：路径、命名、前端事项是否符合规范；标准格式的调查结果列表
-- 文档清单和图层映射；准备情况评分和差距优先级
-- 最小填充计划和针对专业技能的转交建议
+- 规范合规检查（路径、命名、front-matter）
+- 文档层级证据盘点与就绪度评分
+- 缺口排序与最小补齐计划
 
 **本技能不负责**：
 
-- 建立或更新规范（使用“discover-docs-norms”）
-- 从模糊意图出发的完整需求创作（使用“分析需求”）
-- 完整的设计合成（使用“设计解决方案”）
-- 结构文档从头开始引导（使用“bootstrap-docs”）
-- 任务后漂移校准（使用“align-planning”）
-- 自动修复违规（用户或其他工具应用建议）
+- 规范创建/更新（使用 `define-docs-norms`）
+- 代码-文档对齐分析（使用 `assess-docs-code-alignment`）
+- 链接图健康分析（使用 `assess-docs-links`）
+- SSOT 意图冲突审计（使用 `assess-docs-ssot`）
+- 仓库结构改造（使用 `tidy-repo`）
 
-**转交点**：报告交付后，将规范创建交给“discover-docs-norms”，并将创建/更新操作交给相关文档或规划技能。
-
----
-
-## 使用场景（用例）
-
-- **预提交或审核**：确保文档符合规范并且在里程碑之前足够
-- **对齐置信度低**：“对齐规划”报告证据质量较弱
-- **带有部分文档的新存储库**：团队需要首先进行合规性检查和最少的文档添加
-- **规范更改后**：更新 ARTIFACT_NORMS.md 后重新验证和重新评估
-- **文件债务分类**：一份用于合规性和准备情况优先级的报告
+**交接点**：核心评估报告完成后，按问题类型交给对应拆分技能做专项评估。
 
 ---
 
-## 行为（行为）
+## 使用场景（Use Cases）
 
-### 交互（互动）政策
-
-- **默认输入**：文档根 = 存储库 `docs/`；使用项目规范（如果存在）
-- **可选参数**：
-  - `--code-diff [branch | pr | auto]`：若提供，分析代码变更对文档的影响（新增）
-  - `--check-links [true | false]`：默认 true，检查文档链接有效性（新增）
-  - `--target-readiness [medium | high]`：目标就绪度
-- **确认**：输出路径（若与规范不同）；写之前
-
-### 第 0 阶段：解决范围和映射
-
-1. 解析文档根目录和可选的自定义路径映射
-2. **解决项目规范**：检查 `docs/ARTIFACT_NORMS.md`。如果找到，则用于路径模式、命名和层级映射；否则使用 project-documentation-template 默认值。
-3. 检测预期层路径：目标`docs/project-overview/`、需求`docs/requirements-planning/`、架构`docs/architecture/`、里程碑/路线图/待办事项`docs/process-management/`（和待办路径）。接受向后兼容的别名（例如“docs/需求/”）。
-
-### 第 1 阶段：合规性验证
-
-1.枚举`docs/`（或用户指定的根目录）下的Markdown
-2. 对于每个文件：读取“artifact_type”的前文；如果不存在，则从路径推断（例如`待办/`→待办-item，`设计-decisions/`→设计）。映射到预期的 path_pattern 并根据规范命名。
-3. 根据规范验证路径、文件名和前置事项（如适用的“artifact_type”、“created_by”等必填字段）。
-4. 针对每个违规行为发出一项调查结果：位置（路径）、类别（”产品规范”|”路径”|”命名”|”前事项”|”root-categorization”）、严重性（”严重”|”主要”|”次要”|”建议”）、标题、描述、建议。摘要：扫描的文件总数、按严重程度划分的违规计数。
-
-5. **Root-Categorization 合规性检查**（在步骤 3 中进行）：
-   - 如果文件路径为 `docs/*.md`（根目录）：
-   - 检查其是否在允许的根目录文件列表中（README.md、INDEX.md、ARTIFACT_NORMS.md 等）
-   - 如果否，标记为 root-categorization 违规，建议移至按 artifact_type 分类的子目录
-   - 严重性：`建议`（信息级别，不阻止合规性）
-
-6. **Timestamp 命名合规性检查**（在步骤 3 中进行）：
-   - 对每个制品文件：
-     - 检查文件名是否有 `YYYY-MM-DD` 前缀
-     - 从 ARTIFACT_NORMS.md 查询该 artifact_type 的时间戳策略
-     - 如果文件**有**时间戳但类型**不允许** → 标记为 `naming/timestamp-misuse`，建议移除前缀
-     - 如果文件**没有**时间戳但类型**需要** → 标记为 `naming/timestamp-missing`（可选）
-     - 如果有时间戳但格式错误 → 建议正确格式 `YYYY-MM-DD-title.md`
-   - 严重性：`次要`（命名违规，不阻止合规性）
-
-**调查结果格式**（每个调查结果必须遵循）：
-
-|领域|内容 |
-| :--- | :--- |
-|地点 | `path/to/file.md` |
-|类别 | `产品规范` \| `路径` \| `命名` \| `前面的事情` \| `root-categorization` \| `naming/timestamp-misuse` |
-|严重性 | `关键` \| `主要` \| `次要` \| `建议` |
-|标题 |简短的违规摘要 |
-|描述 |怎么了|
-|建议 |如何修复（例如移动到 X，添加前面的 Y）|
-
-### 第 2 阶段：清单和证据收集
-
-1. 枚举每层相关文档
-2. 检查新鲜度信号（最后更新日期、过时的参考、明显的损坏链接）
-3. 标记证据来源：“规范”（项目规划文档）、“次要”（问题/PR/提交上下文）、“无”
-
-### 第 3 阶段：准备情况评分
-
-每层分配一个就绪级别：
-
-- **强**：规范文档存在并且看起来足够最新以提供决策支持
-- **弱**：文档存在但不完整、陈旧或依赖于次要证据
-- **缺少**：该层没有可用的文档
-
-总体准备情况：
-
-- `high`：没有缺失层且最多有一个薄弱层
-- `medium`：一个或多个薄弱层，无关键缺失层
-- “低”：至少缺少一个关键层（需求、架构或路线图/待办）
-
-### 第 4 阶段：差距优先排序
-
-对于每个差距，评价影响（高|中|低）、努力（小|中|大）、所有者、到期窗口（本次冲刺|下一个冲刺|待办）。首先以最小的努力降低最高的交付风险为优先顺序。
-
-### 第 5 阶段：最小填充计划
-
-制定最小的行动集，以将准备程度提高到目标水平：首先修复的层、要创建/更新的确切文档路径、建议的转交技能（“引导文档”、“分析需求”、“设计解决方案”）以及此周期的停止条件。
-
-### 第 6 阶段：坚持报告
-
-根据已解决的项目规范或默认的”docs/calibration/doc-assessment.md”写入路径。除非用户明确请求过时的快照，否则覆盖规范文件。包括前面的内容：”产品类型：文档评估”、”创建者：评估文档”、”生命周期：生活”、”创建时间：YYYY-MM-DD”。如果输出目录不存在，则创建它。报告必须包括以下合规调查结果和准备情况部分。
-
-### 第 7 阶段：Code-to-Docs Alignment（可选，若 --code-diff 提供）
-
-**前置条件**：用户指定了 `--code-diff` 参数
-
-**处理流程**：
-
-1. **获取代码 diff**
-
-   ```bash
-   git diff <base>...HEAD --name-status --diff-filter=MAD
-   ```
-
-   解析结果，分类为：已修改(M)、新增(A)、删除(D) 的文件
-
-2. **推断代码区域**
-   - `src/api/*` → area: “api”
-   - `src/utils/*` → area: “utils”
-   - `src/core/*` → area: “core”
-   - `src/auth/*` → area: “auth”
-   - 等等
-
-3. **查询 doc update map**，找出每个代码区域应该更新的文档路径
-
-4. **检查相关文档是否更新**
-   - 在本 branch 中修改的文档
-   - vs 推断应修改的文档
-   - 输出缺口
-
-5. **发出 alignment findings**
-
-   ```
-   格式同”第 1 阶段”的 violations：
-   位置、类别（code-alignment）、严重性、标题、描述、建议
-   ```
-
-**输出示例**：
-
-```
-| Location | Category | Severity | Title | Description |
-| --- | --- | --- | --- | --- |
-| src/api/auth.py | code-alignment | high | API changed but docs not updated | auth.py modified but docs/architecture/api.md not touched |
-```
-
-### 第 9 阶段：SSOT 完整性审计（五步意图优先流程）
-
-**前置条件**：执行在 `full` 模式（由 `audit-docs` 或用户直接触发）
-
-**核心原则**：意图优先、内容其次（区别于仅基于文本相似度的方法）
-
-**Step 1 - 意图建模（Intent Modeling）**：
-- 为每个文档提取意图标签：`path_layer`、`artifact_type`、`ownership_role`、`granularity`、`section_intents`
-- 输出 Intent Registry 摘要（按目录分类）
-
-**Step 2 - 意图冲突初筛（Intent Conflict Screening）**：
-
-**候选对自动生成**（基于意图标签，不硬编码目录对）：
-- 候选生成规则由以下维度自动推导：
-  * `path_layer`：文档所在的层级（path_layer 值由目录路径自动推断；例如 `docs/requirements-planning/` → path_layer="requirements"）
-  * `artifact_type`：制品类型
-  * `ownership_role`：所有权角色
-  * `granularity`：粒度（content, point-in-time, index等）
-  * `section_intents`：章节级意图标签集合
-- **覆盖范围**：包括同层配对（path_layer相同）、相邻层配对（path_layer相关，如planning↔execution）、以及同主题域配对（artifact_type或ownership_role相同，跨层级）
-- **生成策略**：O(n²) 遍历，对所有文档对 (i, j) 计算意图兼容性分数；分数≥阈值者进入候选集合
-- **示例**（仅作参考，实际目录对由上述规则自动生成，不硬编码）：
-  * 同层：`requirements-planning/X.md` ↔ `requirements-planning/Y.md`（同 path_layer，artifact_type 或 ownership_role 相同）
-  * 相邻层：`requirements-planning/X.md` ↔ `process-management/Y.md`（相邻 path_layer，ownership_role 相同）
-  * 跨层同主题：任意层的文档只要 ownership_role 相同，均进入候选检查
-
-**虚假冲突剔除**：
-- 仅在以下条件同时成立时成为候选对：
-  * 意图标签重叠（ownership_role 相同 或 artifact_type 相同 或 section_intents 有交集）
-  * 粒度相同或接近
-- 剔除用途本质不同的配对（如纯架构决策与纯需求收集，无ownership_role或artifact_type交集）
-
-**Step 3 - 分层相似度分析（Layered Similarity）**：
-
-**强制三层分析**（缺一不可，顺序执行）：
-- **第一优先：Section-level 相似度**（H2/H3 章节粒度的重叠分析）
-  * 提取两文档所有 H2/H3 章节标题与内容块
-  * 计算章节级词汇重叠率、结构相似性
-  * **判定规则**：若 section-level ≥ 25%，则**必须进入冲突判定**，无论 doc-level 如何
-  * 理由：章节重叠指示结构或意图重复，需治理即使全文相似度低
-
-- **第二优先：Doc-level 相似度**（整体文本词汇重叠率）
-  * 仅作为 section-level 判定的**辅助参考**
-  * 不足以单独否决冲突候选（即使 doc-level < 20%，若 section-level 高仍须治理）
-
-- **第三优先：关键实体重叠**（里程碑、KPI、时间窗口、决策的一致性）
-  * 补充语义级验证
-
-**执行约束**：
-- ⚠️ 禁止仅凭 Doc-level 判定"无冲突"
-- ✅ Section-level 高重叠可单独触发风险，无需 Doc-level 支持
-- ✅ 示例：doc_level=11.5% 但 section_level=26.0% → **必须进入P2判定**
-
-**Step 4 - SSOT 判定规则**：
-- **P0**：用途重叠 + 关键事实冲突（数字/决策不一致）
-- **P1**：用途重叠 + 大段重复（>40% 内容重叠且无链接）
-- **P2**：用途不同但存在中度复写（应改为引用）
-- **Info**：用途不同，仅背景性相似（无需治理）
-
-**Step 5 - 输出规范化**：
-- **Intent Registry 摘要**（按目录，包含每个文档的意图模型）
-- **SSOT 冲突矩阵**（Doc A、Doc B、intent_overlap、section_overlap、priority、canonical_source、repair_action）
-- **Canonical Mapping**（保留源 → 被引用源映射）
-- **可执行修复清单**（每项含：动作、目标文件、预计影响、回归检查点、优先级）
-- **质量门禁**（验证：不遗漏目录重叠案例、P0/P1 都有 canonical source、修复后零重复）
-
-**输出**：
-- 主报告中新增 "SSOT Integrity" 部分（含摘要、冲突数、修复建议）
-- 详细报告 `docs/calibration/ssot-integrity-audit.md`（含完整五步分析、Intent Registry、冲突矩阵、证据）
-
-**完成判定（Definition of Done - DoD）**（仅 full 模式适用）：
-
-full 模式的 SSOT 审计必须同时产出以下三项，否则判定为**未完成**（fail closed）：
-
-1. ✅ **Intent Registry Summary**
-   - 按 path_layer/artifact_type 分类
-   - 覆盖统计：总文档数、已建模数、未建模数
-   - 每文档含：artifact_type、ownership_role、granularity、section_intents 简要列表
-
-2. ✅ **SSOT Conflict Matrix**
-   - 表格格式：Doc A | Doc B | intent_overlap_reason | doc_level_sim | section_level_sim | priority | canonical_source | repair_action
-   - 覆盖统计：总候选对数、筛选后冲突数、按 P0/P1/P2/Info 分布
-   - 每冲突含：canonical source（保留哪个文档作为源）与具体修复动作（改为引用/合并/拆分/更新）
-
-3. ✅ **Candidate Coverage Evidence**
-   - 声明候选对生成范围：覆盖了哪些 path_layer 组合、哪些 artifact_type 配对、哪些 ownership_role 交集
-   - 说明筛选理由：哪些初始候选被剔除（虚假冲突）及原因
-   - 目的：可复核与审计，证明非硬编码目录对，而是意图标签驱动
-
-**DoD 失败情形**（任一不满足则判定审计未完成，生成异常报告）：
-- Intent Registry 不完整（文档覆盖 < 100% 或缺少元数据字段）
-- SSOT Conflict Matrix 缺少 canonical_source 或 repair_action
-- 无 Candidate Coverage Evidence（无法证明候选对生成逻辑）
-
-**实现方式**（不依赖外部脚本，自完备）：
-该技能可通过以下任一方式实现：
-- **方式 A**（推荐）：Agent 完全自主实现
-  * 使用内置的文本分析能力
-  * 遍历文档并应用五步流程
-  * 生成结构化报告
-- **方式 B**（辅助）：参考 `scripts/ssot_integrity_checker.py`
-  * 提供 Python 参考实现，用于快速验证和自动化
-  * 但技能描述本身应完全独立于脚本
+- 里程碑前文档就绪检查
+- 规划前快速判断证据完整性
+- 文档债务清单和优先级梳理
 
 ---
 
-### 第 8 阶段：Documentation Graph Analysis
+## 行为（Behavior）
 
-**前置条件**：`--check-links` 参数为 true（默认）
+### 阶段 0：规范与范围解析
 
-**处理流程**：
+1. 解析 docs 根路径
+2. 读取 `docs/ARTIFACT_NORMS.md`；不存在则回退 `specs/artifact-contract.md`
+3. 建立目标层映射（mission/vision/requirements/architecture/roadmap/backlog 等）
 
-1. **构建文档依赖图**
-   - 扫描所有 .md 文件中的链接
-   - 识别 Markdown links: `[title](../path/file.md)`
-   - 识别 Wiki links: `[[file]]`
-   - 识别 URL links（仅标记，不检查外部有效性）
+### 阶段 1：合规性验证
 
-2. **检测图问题**
-   - **孤立文档**：无入度且无出度
+1. 扫描 docs 内 Markdown
+2. 校验路径、命名、front-matter
+3. 形成 findings（location/category/severity/title/description/recommendation）
 
-     ```python
-     orphaned = [node for node in graph.nodes
-                 if in_degree(node) == 0 and out_degree(node) == 0]
-     ```
+### 阶段 2：层级证据盘点
 
-   - **损坏链接**：目标文件不存在
+1. 按层统计文档覆盖
+2. 判断证据新鲜度与可用性
+3. 标记每层状态（strong/weak/missing）
 
-     ```python
-     broken = [edge for edge in graph.edges
-               if not file_exists(edge.target)]
-     ```
+### 阶段 3：就绪度评分
 
-   - **循环引用**：存在环
-   - **嵌套过深**：引用链过长（4+ 跳）
+1. 计算层级评分与总体 readiness（high/medium/low）
+2. 标记关键阻断层
 
-3. **计算 Health Score**
+### 阶段 4：最小补齐计划
 
-   ```
-   health_score = 100 - (broken_count * 10 + orphan_count * 5 + cycle_count * 15)
-   最终范围：0-100
-   ```
+1. 按影响与工作量排序缺口
+2. 形成最小行动集（先后顺序、责任建议、目标路径）
 
-4. **发出 graph findings**
+### 阶段 5：报告落盘
 
-   ```
-   - Broken links: 2
-     - docs/architecture/api.md → ../design/auth (expected ../design-decisions/)
-
-   - Orphaned docs: 3
-     - docs/archive/2024-decisions.md
-     - docs/calibration/temp-notes.md
-
-   - Cross-doc consistency issues: 1
-     - Version: README says v1.2 but CHANGELOG latest is v1.1
-   ```
-
-**输出示例**：
-
-```markdown
-## Documentation Graph Health
-
-- Total docs: 42
-- Broken links: 2
-- Orphaned docs: 3
-- Health score: 92%
-
-**Issues requiring attention:**
-1. Fix broken links (2 occurrences)
-2. Archive or link orphaned docs (3 files)
-3. Update version reference in README
-```
+1. 写入 `docs/calibration/doc-assessment.md`
+2. 输出“核心问题 + 建议下一步技能路由”
 
 ---
 
-## 输入与输出（输入&输出）
+## 输入与输出 (Input & Output)
 
-### 输入（输入）
+### 输入
 
-- 文档根路径（默认存储库文档根）
-- 非模板项目的可选路径映射
-- 可选的目标准备情况（”中”或”高”）
-- 模式参数：`full` 模式启用第 9 阶段 SSOT 完整性审计
+- docs 范围（默认仓库 `docs/`）
+- 可选层映射
+- 可选目标就绪等级（`medium|high`）
 
-### 输出（输出）
+### 输出
 
-具有以下结构的单个文档产品：
-
-
-```markdown
----
-artifact_type: doc-assessment
-created_by: assess-docs
-lifecycle: living
-created_at: YYYY-MM-DD
----
-
-# Documentation Assessment Report
-
-**Date:** YYYY-MM-DD
-**Overall Readiness:** high | medium | low
-**Target Readiness:** medium | high
-
-## Compliance Findings
-
-Summary: N files scanned; M violations (by severity: critical, major, minor, suggestion).
-
-| Location | Category | Severity | Title | Description | Suggestion |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| path/to/file.md | artifact-norms | major | ... | ... | ... |
-
-(If no violations: "No norm violations found.")
-
-## Layer Readiness
-
-- Goal: strong | weak | missing
-- Requirements: strong | weak | missing
-- Architecture: strong | weak | missing
-- Milestones: strong | weak | missing
-- Roadmap: strong | weak | missing
-- Backlog: strong | weak | missing
-
-## SSOT Integrity（仅 full 模式）
-
-**Intent Registry Summary**（按目录分类）
-- 每个文档的意图模型：artifact_type、ownership_role、granularity、section_intents
-
-**SSOT Conflict Matrix**
-- 冲突配对数：N（P0: X, P1: Y, P2: Z, Info: W）
-- 每个冲突的：canonical source、修复动作、预计影响
-
-**Repair Roadmap**
-- P0 修复（必须）
-- P1 优化（推荐）
-- P2 改进（可选）
-
-**详细报告**：`docs/calibration/ssot-integrity-audit.md`（含五步分析、Intent Registry、冲突矩阵、证据）
-
-## Gap Priority List
-
-1. Gap: ...
-   Impact: high | medium | low
-   Effort: small | medium | large
-   Owner: ...
-   DueWindow: this-sprint | next-sprint | backlog
-
-## Minimal Fill Plan
-
-1. Path: ...
-   Why now: ...
-   Handoff skill: ...
-   Done condition: ...
-
-## Machine-Readable Summary
-
-    overallReadiness: "medium"
-    complianceSummary: { filesScanned: N, violations: M }
-    layers:
-      requirements: "missing"
-      architecture: "weak"
-    gaps:
-      - id: "gap-req-core"
-        impact: "high"
-        effort: "small"
-        owner: "product-owner"
-        dueWindow: "this-sprint"
-```
-
+- `docs/calibration/doc-assessment.md`
+- findings + readiness + minimum fill plan
 
 ---
 
-## 限制（限制）
+## 限制（Restrictions）
 
 ### 硬边界（Hard Boundaries）
 
-- 请勿伪造不存在的文档
-- 请勿重写本技能中的产品策略、需求或架构决策
-- 当最小计划就足够时，不要规定全面的文档修改
-- 当关键层丢失时，请勿将就绪状态标记为高
-- **合规阶段**：不要修改文件；仅报告调查结果。结果必须遵循上述标准格式。
+- 不执行仓库结构写操作
+- 不创建或更新 `docs/ARTIFACT_NORMS.md`
+- 不执行 code diff、links graph、SSOT 深度审计
 
-### 技能边界 (Skill Boundaries)（避免重叠）
+### 技能边界 (Skill Boundaries)
 
-**不要做这些（其他技能可以处理它们）**：
+**不要做这些（其他技能负责）**：
 
-- 创建或更新产品规范 → `discover-docs-norms`
-- 模板引导和结构初始化 → `bootstrap-docs`
-- 需求内容开发→`分析需求`
-- 建筑/设计决策工作流程 → `设计解决方案`
-- 任务后漂移和重新校准→“对齐规划”
-- 自动修复违规→用户应用建议
-
-**何时停止并交接**：
-
-- 如果规范缺失或需要更新 → 移交给“discover-docs-norms”
-- 如果主要差距是需求质量 → 移交给“分析需求”
-- 如果主要差距是架构清晰度→移交给“设计解决方案”
-- 如果文档框架广泛缺失 → 移交给“bootstrap-docs”
+- 规范落盘：`define-docs-norms`
+- 代码对齐：`assess-docs-code-alignment`
+- 链接图：`assess-docs-links`
+- SSOT 审计：`assess-docs-ssot`
 
 ---
 
 ## 自检（Self-Check）
 
-### 核心成功标准（必须满足所有标准）
-
-**合规性检查**：
-- [ ] 已解决规范；文档扫描
-- [ ] 以标准格式发布合规调查结果（位置、类别、严重性、标题、描述、建议）
-- [ ] 评估所有规划层；每层的准备情况按基本原理进行评分
-- [ ] 按影响和努力优先排序的差距
-- [ ] 最小填充计划包括混凝土路径和转交
-- [ ] 输出持续遵循合规调查结果和准备情况部分商定的路径
-
-**SSOT 审计相关**（仅 full 模式）：
-- [ ] 已证明候选对生成非硬编码目录对，而是由 path_layer/artifact_type/ownership_role/granularity/section_intents 自动推导
-- [ ] 已执行 section-level 强制判定（section-level ≥ 25% 必须进入冲突判定，无论 doc-level）
-- [ ] 已输出完整的 Intent Registry Summary（覆盖统计 + 每文档元数据）
-- [ ] 已输出完整的 SSOT Conflict Matrix（含 canonical_source 与修复动作）
-- [ ] 已输出 Candidate Coverage Evidence（候选对生成范围说明 + 筛选理由）
-- [ ] P0/P1 项均有明确的 canonical source 与可执行修复动作
-- [ ] 验证不存在跨层漏检（通过 Candidate Coverage Evidence 可复核）
-
-### 流程质量检查
-
-- [ ] 规范证据与次要证据明显分开
-- [ ] 未隐藏在总分中的关键缺失层
-- [ ] 建议最少且具有排序意识
-- [ ] 切换技能名称有效并且是最新的
-
-### 验收测试
-
-**团队能否利用报告中的前 3 项行动来纠正违规行为并提高准备情况？**
-
-如果否：减少歧义并加强优先顺序或调查结果。
-如果是：报告已完成。
+- [ ] 已解析规范来源（项目规范或默认契约）
+- [ ] 已输出完整合规 findings
+- [ ] 已完成层级 readiness 评分
+- [ ] 已产出最小补齐计划
+- [ ] 仅生成核心评估报告，无专项扩展报告
 
 ---
 
-## 示例（示例）
+## 示例（Examples）
 
-### 示例 1：合规性 + 准备度
+### 示例 1：标准核心评估
 
-- 合规性：非标准路径中的`docs/designs/2026-03-06-auth.md`→使用建议“移至docs/design-decisions/2026-03-06-auth.md”查找
-- 准备情况：缺少需求层 → 计划：首先使用“analyze-requirements”创建“docs/requirements-planning/core-v1.md”
+- 输入：现有 docs
+- 输出：`doc-assessment.md`（含合规+readiness+补齐计划）
 
-### 示例 2：缺少需求层
+### 示例 2：低就绪度项目
 
-- 调查结果：目标和路线图存在，需求文档缺失
-- 准备情况：“低”
-- 计划：首先使用“analyze-Customer”创建“docs/demand-planning/core-v1.md”
-
-### 示例 3：弱架构层
-
-- 调查结果：架构文档存在，但陈旧且与最近的 ADR 相矛盾
-- 准备情况：“中”
-- 计划：刷新架构决策文档，然后重新运行“align-planning”
-
-### 示例 4：路径不匹配（合规性）
-
-- 文件：`docs/designs/2026-03-06-auth.md`（项目规范：`docs/design-decisions/`）
-- 查找：位置`docs/designs/2026-03-06-auth.md`，类别`产品规范`，严重性`major`，标题”非标准路径中的设计文档”，描述”文件位于 docs/designs/ 但规范指定docs/design-decisions/”，建议”移至docs/design-decisions/2026-03-06-auth.md”
-
-### 示例 5：SSOT 跨目录配对（Intent-Driven）
-
-**背景**：相同 artifact_type 或 ownership_role 的文档可能位于不同 path_layer，仍应进行意图冲突检查。
-
-- **初始候选**（自动生成，非硬编码）：
-  * `docs/requirements-planning/feature-spec.md`（artifact_type=requirements, ownership_role=planning）
-  * `docs/process-management/task-planning.md`（artifact_type=task, ownership_role=execution）
-  * → 由于 section_intents 重叠（都含”acceptance-criteria”），进入候选集合
-
-- **分层相似度**：
-  * doc-level = 11.5%（低）
-  * section-level = 26.0%（中等重叠，触发判定）
-  * → section-level 主判据触发，进入 SSOT 判定
-
-- **冲突判定**：P2（用途不同但存在中度复写）
-
-- **修复动作**：Convert to reference + link（将重复内容改为引用）
-
-**关键点**：目录对（requirements-planning ↔ process-management）仅作示例，实际候选对由意图标签生成，不硬编码任何目录组合。
+- 输入：仅有部分 roadmap/backlog 文档
+- 输出：readiness=low，首要行动为补齐关键层文档
