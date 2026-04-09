@@ -1,28 +1,24 @@
-agent_native: 4
-asqm_quality: 15
-cognitive: 3
-composability: 3
-inputs:
-- requirements document (path or content)
-- optional project context or downstream skill (e.g. "feeds design-solution")
-lifecycle_state: Experimental
-market_position: differentiated
 name: review-requirements
-outputs:
-- findings list (Location, Category=requirements-quality, Severity, Title, Description,
-  Suggestion)
-overlaps_with:
-- nesnilnehc/ai-cortex:analyze-requirements
+status: validated
 primary_use: Review an existing requirements document for quality across six dimensions
   (problem clarity, testable needs with R-NN IDs, constraint inventory, scope boundedness,
   open questions); evaluative atomic skill; output is a findings list.
+cognitive_mode: interpretive
+inputs:
+- requirements document (path or content)
+- optional project context or downstream skill (e.g. "feeds design-solution")
+outputs:
+- findings list (Location, Category=requirements-quality, Severity, Title, Description,
+  Suggestion)
 scores:
-  agent_native: 5
+  agent_native: 4
   cognitive: 4
-  composability: 5
+  composability: 4
   stance: 5
-stance: 5
-status: validated
+asqm_quality: 17
+overlaps_with:
+- nesnilnehc/ai-cortex:analyze-requirements
+market_position: differentiated
 tags:
 - code-review
 validation_gates:

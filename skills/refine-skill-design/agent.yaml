@@ -1,10 +1,28 @@
-agent_native: 4
-asqm_quality: 16
-cognitive: 4
-composability: 3
-lifecycle_state: Experimental
 name: refine-skill-design
-stance: 5
+status: validated
+primary_use: Audit and refactor existing SKILLs to meet spec compliance and LLM best
+  practices. Use when improving drafts, fixing quality, or aligning to spec.
+cognitive_mode: interpretive
+inputs:
+- existing SKILL.md (path or content)
+- optional target quality score or specific issues to fix
+outputs:
+- optimized SKILL.md content
+- diff summary of changes made
+scores:
+  agent_native: 4
+  cognitive: 4
+  composability: 4
+  stance: 5
+asqm_quality: 17
+overlaps_with:
+- nesnilnehc/ai-cortex:curate-skills
+- nesnilnehc/ai-cortex:generate-standard-readme
+market_position: differentiated
+tags:
+- meta-skill
+- documentation
+- optimization
 validation_gates:
   gate_a:
     name: Agent-ready

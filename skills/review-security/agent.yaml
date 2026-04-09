@@ -1,10 +1,26 @@
-agent_native: 4
-asqm_quality: 15
-cognitive: 3
-composability: 3
-lifecycle_state: Experimental
 name: review-security
-stance: 5
+status: validated
+primary_use: Review code for security — injection, sensitive data, auth, dependencies,
+  config, and crypto. Atomic skill; output is a findings list.
+cognitive_mode: interpretive
+inputs:
+- code scope (files or directories or diff)
+outputs:
+- findings list (Location, Category=cognitive-security, Severity, Title, Description, Suggestion)
+scores:
+  agent_native: 4
+  cognitive: 4
+  composability: 5
+  stance: 5
+asqm_quality: 18
+overlaps_with:
+- nesnilnehc/ai-cortex:review-codebase
+- nesnilnehc/ai-cortex:review-code
+- nesnilnehc/ai-cortex:review-diff
+market_position: differentiated
+tags:
+- code-review
+- security
 validation_gates:
   gate_a:
     name: Agent-ready

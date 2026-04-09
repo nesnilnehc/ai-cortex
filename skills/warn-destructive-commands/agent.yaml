@@ -1,26 +1,22 @@
-agent_native: 4
-asqm_quality: 15
-cognitive: 4
-composability: 2
+name: warn-destructive-commands
+status: validated
+primary_use: Warn before destructive commands. Checks Bash commands for rm -rf, DROP
+  TABLE, force-push, git reset --hard, kubectl delete, and similar patterns. User
+  can override each warning.
+cognitive_mode: procedural
 inputs:
 - session context (skill activates advisory behavior for the session)
-lifecycle_state: Experimental
-market_position: commodity
-name: warn-destructive-commands
 outputs:
 - warning prompts when destructive patterns detected
 - user confirmation or cancel
-overlaps_with: []
-primary_use: Warn before destructive commands. Checks Bash commands for rm -rf, DROP
-  TABLE, force-push, git reset --hard, kubectl delete, and similar patterns. User
-  can override each warning. Use when touching prod or in shared environments.
 scores:
   agent_native: 4
-  cognitive: 4
-  composability: 3
+  cognitive: 5
+  composability: 4
   stance: 5
-stance: 5
-status: experimental
+asqm_quality: 18
+overlaps_with: []
+market_position: commodity
 tags:
 - workflow
 - security
