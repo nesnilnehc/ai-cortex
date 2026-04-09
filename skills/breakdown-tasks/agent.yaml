@@ -1,23 +1,26 @@
 name: breakdown-tasks
 status: validated
-
 primary_use: Break a design document into an executable task list with dependencies, acceptance criteria, and assignee or AI execution hints.
-
+cognitive_mode: interpretive
 inputs:
-  - Design document (e.g. design.md or docs/design-decisions/YYYY-MM-DD-<topic>.md)
-  - Optional scope or priority hints
-
+- Design document (e.g. design.md or docs/design-decisions/YYYY-MM-DD-<topic>.md)
+- Optional scope or priority hints
 outputs:
-  - Task list document with ordered tasks, dependencies, acceptance criteria, and assignee/execution hints
-
+- Task list document with ordered tasks, dependencies, acceptance criteria, and assignee/execution hints
 scores:
   agent_native: 5
   cognitive: 4
-  composability: 5
-  stance: 4
-
+  composability: 4
+  stance: 5
 asqm_quality: 18
-
 overlaps_with: []
-
 market_position: differentiated
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

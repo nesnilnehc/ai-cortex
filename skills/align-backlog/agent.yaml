@@ -1,31 +1,27 @@
-agent_native: 5
-asqm_quality: 17
-cognitive: 3
-composability: 4
+name: align-backlog
+status: validated
+primary_use: Align the product or work backlog with current strategy, goals, and roadmap;
+  classify items (aligned/partial/misaligned/orphan); produce actionable change proposals
+  (add/cut/merge/reprioritize) and persist a Backlog Alignment Report.
+cognitive_mode: interpretive
 inputs:
 - optional backlog path or convention
 - optional strategy docs root (goals, roadmap, milestones)
 - optional scope (full vs subset by epic/label/time window)
-lifecycle_state: Validated
-market_position: differentiated
-name: align-backlog
 outputs:
 - Backlog Alignment Report (docs/calibration/backlog-alignment.md; living)
 - machine-readable alignment summary and change proposals block (YAML)
+scores:
+  agent_native: 4
+  cognitive: 4
+  composability: 4
+  stance: 5
+asqm_quality: 17
 overlaps_with:
 - nesnilnehc/ai-cortex:align-planning
 - nesnilnehc/ai-cortex:plan-next
 - nesnilnehc/ai-cortex:capture-work-items
-primary_use: Align the product or work backlog with current strategy, goals, and roadmap;
-  classify items (aligned/partial/misaligned/orphan); produce actionable change proposals
-  (add/cut/merge/reprioritize) and persist a Backlog Alignment Report.
-scores:
-  agent_native: 5
-  cognitive: 4
-  composability: 4
-  stance: 5
-stance: 5
-status: validated
+market_position: differentiated
 tags:
 - workflow
 - documentation

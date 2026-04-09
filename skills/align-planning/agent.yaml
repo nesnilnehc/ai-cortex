@@ -1,34 +1,30 @@
-agent_native: 5
-asqm_quality: 18
-cognitive: 3
-composability: 5
+name: align-planning
+status: validated
+primary_use: Perform post-task traceback, typed drift detection, and top-down recalibration
+  to keep planning (goals, requirements, milestones, roadmap) aligned with task execution.
+cognitive_mode: interpretive
 inputs:
 - completed task description and outcome
 - optional mode override (lightweight | full)
 - optional document root and path mapping
 - optional context (release, milestone, epic markers)
-lifecycle_state: Validated
-market_position: differentiated
-name: align-planning
 outputs:
 - Planning Alignment Report (docs/calibration/planning-alignment.md; overwritten unless
   snapshot requested)
 - machine-readable drifts and evidence readiness block
+scores:
+  agent_native: 5
+  cognitive: 4
+  composability: 5
+  stance: 5
+asqm_quality: 19
 overlaps_with:
 - nesnilnehc/ai-cortex:assess-docs
 - nesnilnehc/ai-cortex:plan-next
 - nesnilnehc/ai-cortex:align-architecture
 - nesnilnehc/ai-cortex:analyze-requirements
 - nesnilnehc/ai-cortex:design-solution
-primary_use: Perform post-task traceback, typed drift detection, and top-down recalibration
-  to keep planning (goals, requirements, milestones, roadmap) aligned with task execution.
-scores:
-  agent_native: 5
-  cognitive: 5
-  composability: 5
-  stance: 5
-stance: 5
-status: validated
+market_position: differentiated
 tags:
 - workflow
 - documentation

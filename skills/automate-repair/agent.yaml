@@ -1,32 +1,28 @@
-agent_native: 4
-asqm_quality: 15
-cognitive: 3
-composability: 3
+name: automate-repair
+status: validated
+primary_use: Iteratively review changes, run automated tests, apply targeted fixes,
+  and repeat until tests pass and no blocking review findings remain (or stop conditions
+  are hit).
+cognitive_mode: procedural
 inputs:
 - target repository path (default .)
 - scope (diff | codebase)
 - test mode (fast | ci | full)
 - constraints (allow installs, allow network, allow Docker/services)
 - max_iterations (default 5)
-lifecycle_state: Experimental
-market_position: commodity
-name: automate-repair
 outputs:
 - repair loop report (iterations, commands run, failures, patches applied, final convergence
   state)
+scores:
+  agent_native: 4
+  cognitive: 4
+  composability: 4
+  stance: 5
+asqm_quality: 17
 overlaps_with:
 - nesnilnehc/ai-cortex:review-code
 - nesnilnehc/ai-cortex:automate-tests
-primary_use: Iteratively review changes, run automated tests, apply targeted fixes,
-  and repeat until tests pass and no blocking review findings remain (or stop conditions
-  are hit).
-scores:
-  agent_native: 5
-  cognitive: 4
-  composability: 4
-  stance: 4
-stance: 5
-status: validated
+market_position: commodity
 tags:
 - automation
 - devops
