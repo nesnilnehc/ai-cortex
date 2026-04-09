@@ -1,22 +1,13 @@
 name: audit-docs
 status: validated
-primary_use: 'Orchestrate complete documentation governance audit (norms, structure,
-  health, SSOT integrity) in one pass. Coordinates discover-docs-norms, tidy-repo,
-  and assess-docs; produce unified governance report with health scores and actionable
-  roadmap.'
+primary_use: Run read-only governance audit orchestration and produce unified report with prioritized routing.
 cognitive_mode: interpretive
 inputs:
-- project path (default: CWD)
-- mode: full | quick | code-review (full mode calls assess-docs for comprehensive SSOT integrity audit)
-- code-diff base branch (optional)
-- apply-tidy flag (optional)
+- project path
+- mode: quick | full | code-review
+- optional code-diff
 outputs:
-- docs/calibration/audit-docs.md (unified governance report with compliance, health
-  scores, SSOT violations, and prioritized action plan)
-- docs/calibration/ssot-integrity-audit.md (five-step SSOT audit - full mode only)
-- docs/ARTIFACT_NORMS.md (if norms created in phase 2)
-- docs/calibration/repo-tidy.md (if structure audit applied)
-- docs/calibration/doc-assessment.md (if full assessment run)
+- docs/calibration/audit-docs.md
 scores:
   agent_native: 5
   cognitive: 4
@@ -24,16 +15,18 @@ scores:
   stance: 5
 asqm_quality: 19
 overlaps_with:
-- nesnilnehc/ai-cortex:discover-docs-norms
-- nesnilnehc/ai-cortex:tidy-repo
 - nesnilnehc/ai-cortex:assess-docs
+- nesnilnehc/ai-cortex:assess-docs-links
+- nesnilnehc/ai-cortex:assess-docs-ssot
+- nesnilnehc/ai-cortex:assess-docs-code-alignment
 market_position: differentiated
 tags:
 - documentation
 - governance
 - orchestration
 - workflow
-version: 1.5.1
+- ssot
+version: 2.0.0
 validation_gates:
   gate_a:
     name: Agent-ready

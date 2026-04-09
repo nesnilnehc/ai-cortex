@@ -1,0 +1,34 @@
+name: define-docs-norms
+status: validated
+primary_use: Create or update docs/ARTIFACT_NORMS.md from an approved norms proposal.
+cognitive_mode: interpretive
+inputs:
+- approved norms proposal
+- optional existing docs/ARTIFACT_NORMS.md
+- optional merge strategy
+outputs:
+- docs/ARTIFACT_NORMS.md
+- change summary
+scores:
+  agent_native: 5
+  cognitive: 4
+  composability: 4
+  stance: 5
+asqm_quality: 18
+overlaps_with:
+- nesnilnehc/ai-cortex:discover-docs-norms
+- nesnilnehc/ai-cortex:assess-docs
+market_position: differentiated
+tags:
+- documentation
+- workflow
+version: 1.0.0
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

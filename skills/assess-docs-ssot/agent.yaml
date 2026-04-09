@@ -1,0 +1,34 @@
+name: assess-docs-ssot
+status: validated
+primary_use: Assess SSOT integrity and produce intent-driven conflict matrix with canonical mapping.
+cognitive_mode: interpretive
+inputs:
+- docs scope
+- optional conflict threshold
+- optional focus layers
+outputs:
+- docs/calibration/ssot-integrity-audit.md
+scores:
+  agent_native: 5
+  cognitive: 4
+  composability: 5
+  stance: 5
+asqm_quality: 19
+overlaps_with:
+- nesnilnehc/ai-cortex:assess-docs
+market_position: differentiated
+tags:
+- documentation
+- workflow
+- governance
+- ssot
+version: 1.0.0
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass
