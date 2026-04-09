@@ -1,25 +1,28 @@
 name: analyze-requirements
 status: validated
-
 primary_use: Transform vague intent or incomplete requirements into validated, testable requirements through diagnostic state progression and structured dialogue.
-
+cognitive_mode: interpretive
 inputs:
-  - Vague idea, feature request, problem statement, or existing requirements document
-  - Project context (existing codebase, documentation, constraints)
-  - User responses (diagnostic answers, feedback, approval)
-
+- Vague idea, feature request, problem statement, or existing requirements document
+- Project context (existing codebase, documentation, constraints)
+- User responses (diagnostic answers, feedback, approval)
 outputs:
-  - Validated requirements document written to docs/requirements-planning/<topic>.md
-  - Integration map (handoff data for design-solution)
-
+- Validated requirements document written to docs/requirements-planning/<topic>.md
+- Integration map (handoff data for design-solution)
 scores:
   agent_native: 5
-  cognitive: 5
+  cognitive: 4
   composability: 5
   stance: 5
-
-asqm_quality: 20
-
+asqm_quality: 19
 overlaps_with: []
-
 market_position: differentiated
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

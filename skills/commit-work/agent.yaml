@@ -1,33 +1,29 @@
-agent_native: 4
-asqm_quality: 15
-cognitive: 3
-composability: 3
+name: commit-work
+status: validated
+primary_use: Create high-quality git commits with governance - review, split logically,
+  write clear Conventional Commits messages, sync registries
+cognitive_mode: procedural
 inputs:
 - git repository with uncommitted changes
 - user intent (what to commit)
 - commit style preferences (optional)
 - project-specific rules (optional)
-lifecycle_state: Experimental
-market_position: differentiated
-name: commit-work
 outputs:
 - commit message(s) with type, scope, description
 - summary per commit (what/why)
 - commands used for staging and review
 - verification commands run
 - registry sync confirmation (AI Cortex projects)
-overlaps_with:
-- anthropics/skills:commit-work
-- softaworks/agent-toolkit:commit-work
-primary_use: Create high-quality git commits with governance - review, split logically,
-  write clear Conventional Commits messages, sync registries
 scores:
   agent_native: 5
   cognitive: 5
-  composability: 5
+  composability: 4
   stance: 5
-stance: 5
-status: validated
+asqm_quality: 19
+overlaps_with:
+- anthropics/skills:commit-work
+- softaworks/agent-toolkit:commit-work
+market_position: differentiated
 validation_gates:
   gate_a:
     name: Agent-ready

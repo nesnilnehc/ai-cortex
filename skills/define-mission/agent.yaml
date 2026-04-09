@@ -1,28 +1,24 @@
-agent_native: 5
-asqm_quality: 16
-cognitive: 3
-composability: 4
-inputs:
-- project or product identifier; current "why we exist" from docs, README, or user
-- optional existing mission draft, audience, problem statement
-lifecycle_state: Experimental
-market_position: differentiated
 name: define-mission
-outputs:
-- mission statement document (docs/project-overview/mission.md or project norms)
-overlaps_with:
-- nesnilnehc/ai-cortex:define-vision
-- nesnilnehc/ai-cortex:bootstrap-docs
+status: validated
 primary_use: Define the fundamental purpose of a project or organization; produce
   a single mission statement (1–3 sentences) answering "Why does this exist?" and
   persist to docs/project-overview/mission.md (or project norms).
+cognitive_mode: interpretive
+inputs:
+- project or product identifier; current "why we exist" from docs, README, or user
+- optional existing mission draft, audience, problem statement
+outputs:
+- mission statement document (docs/project-overview/mission.md or project norms)
 scores:
   agent_native: 5
-  cognitive: 5
-  composability: 5
+  cognitive: 4
+  composability: 4
   stance: 5
-stance: 4
-status: validated
+asqm_quality: 18
+overlaps_with:
+- nesnilnehc/ai-cortex:define-vision
+- nesnilnehc/ai-cortex:bootstrap-docs
+market_position: differentiated
 tags:
 - documentation
 - workflow

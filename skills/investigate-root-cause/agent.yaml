@@ -1,10 +1,26 @@
-agent_native: 4
-asqm_quality: 15
-cognitive: 3
-composability: 3
-lifecycle_state: Experimental
 name: investigate-root-cause
-stance: 5
+status: experimental
+primary_use: "Systematic debugging with root cause investigation. Four phases: investigate,\
+  \ analyze, hypothesize, implement. Iron Law: no fixes without root cause."
+cognitive_mode: interpretive
+inputs:
+- error messages, stack traces, or reproduction steps
+- optional codebase context or logs
+outputs:
+- debug report (symptom, root cause, fix, evidence)
+- implementation patch or fix recommendation
+scores:
+  agent_native: 4
+  cognitive: 4
+  composability: 4
+  stance: 4
+asqm_quality: 16
+overlaps_with:
+- nesnilnehc/ai-cortex:automate-repair
+market_position: differentiated
+tags:
+- workflow
+- optimization
 validation_gates:
   gate_a:
     name: Agent-ready

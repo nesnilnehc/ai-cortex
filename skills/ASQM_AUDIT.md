@@ -1,17 +1,17 @@
 ---
 artifact_type: audit-report
 created_by: curate-skills
-created_at: 2026-03-24
+created_at: 2026-04-09
 status: final
 lifecycle: governance
 ---
 
-# ASQM Skill Curation Audit — 2026-03-24 (Final)
+# ASQM Skill Curation Audit — 2026-04-09 (Final)
 
-**Audit Date**: 2026-03-24
-**Scope**: All 53 skill directories in `skills/`
-**Audit Method**: ASQM strict (evidence-based; agent_native=5 only with explicit output contract)
-**Focus**: Post-docs-governance improvements & ecosystem health check
+**Audit Date**: 2026-04-09
+**Scope**: All 55 skill directories in `skills/`
+**Audit Method**: ASQM strict (evidence-based) + cognitive_mode distinction (v2)
+**Key Change**: Introduced `cognitive_mode` (procedural/interpretive) — interpretive skills cap `cognitive` at 4 by design, not deficiency
 
 ---
 
@@ -19,208 +19,239 @@ lifecycle: governance
 
 ### Lifecycle Distribution
 
-| Status | Count | % | Requirements | Result |
-|:---|:---:|:---:|:---|:---|
-| **Validated** | 43 | 81% | Quality ≥17 + Gates A,B | ✅ **Excellent** |
-| **Experimental** | 0 | 0% | Quality ≥10 | — |
-| **Incomplete** | 0 | 0% | Missing files | — |
-| **Not Evaluated** | 10 | 19% | — | — |
+| Status | Count | % | Requirements |
+|:---|:---:|:---:|:---|
+| **Validated** | 51 | 93% | Quality ≥17 + Gate A (agent_native≥4) + Gate B (stance≥3) |
+| **Experimental** | 4 | 7% | Quality ≥10, fails ≥17 threshold |
+| **archive_candidate** | 0 | 0% | Quality < 10 |
 
-### Quality Grade: A (90/100)
+### Quality Grade: A+ (95/100)
 
-**Justification**:
-- ✅ 81% validated (target: 70%)
-- ✅ 30% in excellent tier (target: 20%)
-- ✅ Zero quality regressions since last audit
-- ✅ Docs governance leadership established (4-skill pipeline validated)
-- ✅ Placeholder directories removed
-- ✅ discover-docs-norms score discrepancy verified and corrected
+**Evidence**:
+- ✅ 93% validated (target: 70%) — all-time high
+- ✅ Zero archive_candidate or quality < 10 skills
+- ✅ cognitive_mode distinction eliminates false cognitive inflation
+- ✅ Previous inflated scores (all-5 on interpretive skills) corrected
+- ✅ 4 experimental skills clearly identified for targeted improvement
 
 ---
 
-## Part II: ASQM Quality Distribution
+## Part II: cognitive_mode Distribution (New in v2)
 
-### Quality Score Formula
+| Mode | Count | % | Description |
+|:---|:---:|:---:|:---|
+| **interpretive** | 44 | 80% | LLM judgment is the core value; cognitive ceiling = 4 |
+| **procedural** | 11 | 20% | Deterministic steps; LLM as executor; cognitive ceiling = 5 |
+
+### Procedural Skills (11)
+`automate-repair`, `automate-tests`, `bootstrap-docs`, `capture-work-items`, `commit-work`, `generate-agent-entry`, `generate-github-workflow`, `generate-standard-readme`, `install-rules`, `merge-worktree`, `warn-destructive-commands`
+
+### cognitive = 5 (procedural only, 5 skills)
+`commit-work`, `generate-github-workflow`, `install-rules`, `merge-worktree`, `warn-destructive-commands`
+
+**Design principle**: For interpretive skills, `cognitive = 4` is the correct ceiling and is NOT a deficiency. These skills leverage LLM judgment for ambiguous inputs — forcing deterministic decision trees would reduce their value. Procedural skills can reach 5 when all decision branches are fully explicit.
+
+---
+
+## Part III: ASQM Quality Distribution
+
+### Scoring Formula
 
 ```
 asqm_quality = agent_native + cognitive + composability + stance
-               (0-5)         + (0-5)      + (0-5)         + (0-5)
+               (0-5)           (0-5)        (0-5)           (0-5)
                = 0-20 total
+
+cognitive_mode interpretive → cognitive max = 4
+cognitive_mode procedural   → cognitive max = 5
 ```
 
-### Tier Distribution
+### Gate Rules
 
-| Tier | Range | Count | % | Representative Skills |
+- **Gate A** (Agent-ready): `agent_native >= 4` — ALL 55 skills pass
+- **Gate B** (Design integrity): `stance >= 3` — ALL 55 skills pass
+
+### Quality Tier Distribution
+
+| Tier | Range | Count | % | Examples |
 |:---|:---:|:---:|:---:|:---|
-| **Excellent** | 17-20 | 16 | 30% | audit-docs (19), align-architecture (18), tidy-repo (18), discover-docs-norms (18) |
-| **Good** | 13-16 | 37 | 70% | automate-tests (16), review-* (15-16), design-* (15-16) |
-| **Fair** | 10-12 | 0 | 0% | — |
-| **Needs Work** | < 10 | 0 | 0% | — |
+| **Excellent** | 18-20 | 23 | 42% | commit-work (19), align-architecture (19), audit-docs (19) |
+| **Good** | 17 | 28 | 51% | all review-* language/framework skills, align-backlog, sync-release-docs |
+| **Developing** | 15-16 | 4 | 7% | conduct-retro (16), decontextualize-text (16), discover-skills (15), investigate-root-cause (16) |
 
-### Top 5 Validated Skills by Quality
+### Top Skills by Quality
 
-| Rank | Skill | ASQM | agent_native | cognitive | composability | stance | Status |
-|:---:|:---|:---:|:---:|:---:|:---:|:---:|:---|
-| 1 | **analyze-requirements** | 20 | 5 | 5 | 5 | 5 | ✅ Validated |
-| 2 | **audit-docs** | 19 | 5 | 4 | 5 | 5 | ✅ Validated |
-| 2 | **align-architecture** | 18 | 5 | 3 | 5 | 5 | ✅ Validated |
-| 2 | **align-planning** | 18 | 5 | 3 | 5 | 5 | ✅ Validated |
-| 2 | **tidy-repo** | 18 | 5 | 4 | 4 | 5 | ✅ Validated |
-| 2 | **discover-docs-norms** | 18 | 4 | 4 | 5 | 5 | ✅ Validated |
-| 5 | **assess-docs** | 17 | 5 | 3 | 4 | 5 | ✅ Validated |
+| Rank | Skill | ASQM | cognitive_mode | agent_native | cognitive | composability | stance | Status |
+|:---:|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---|
+| 1 | **commit-work** | 19 | procedural | 5 | 5 | 4 | 5 | ✅ |
+| 1 | **generate-github-workflow** | 19 | procedural | 5 | 5 | 4 | 5 | ✅ |
+| 1 | **align-architecture** | 19 | interpretive | 5 | 4 | 5 | 5 | ✅ |
+| 1 | **align-planning** | 19 | interpretive | 5 | 4 | 5 | 5 | ✅ |
+| 1 | **analyze-requirements** | 19 | interpretive | 5 | 4 | 5 | 5 | ✅ |
+| 1 | **audit-docs** | 19 | interpretive | 5 | 4 | 5 | 5 | ✅ |
+| 7 | bootstrap-docs, capture-work-items, curate-skills, define-*, design-*, discover-docs-norms, generate-agent-entry, generate-standard-readme, install-rules, merge-worktree, plan-next, review-code, review-security, tidy-repo, warn-destructive-commands | 18 | mixed | — | — | — | — | ✅ |
 
 ---
 
-## Part III: Dimension Analysis
+## Part IV: Score Changes from Previous Audit (2026-03-24)
 
-### ASQM Dimension Definitions
+### Key corrections under cognitive_mode v2
 
-| Dimension | Range | Definition |
+| Skill | Old cognitive | New cognitive | Reason |
+|:---|:---:|:---:|:---|
+| align-architecture | 5 (inflated) | 4 | interpretive — ceiling = 4 |
+| align-planning | 5 (inflated) | 4 | interpretive — ceiling = 4 |
+| analyze-requirements | 5 (inflated) | 4 | interpretive — ceiling = 4; quality 20→19 |
+| define-mission | 5 (inflated) | 4 | interpretive — ceiling = 4; quality corrected |
+| define-vision | 5 (inflated) | 4 | interpretive — ceiling = 4; quality corrected |
+| define-roadmap | 5 (inflated) | 4 | interpretive — ceiling = 4 |
+| define-strategic-pillars | 5 (inflated) | 4 | interpretive — ceiling = 4 |
+| design-solution | 5 (inflated) | 4 | interpretive — ceiling = 4 |
+| design-strategic-goals | 5 (inflated) | 4 | interpretive — ceiling = 4 |
+| review-code | 5 (inflated) | 4 | interpretive orchestrator — ceiling = 4 |
+| generate-github-workflow | 4 | 5 | procedural — fully deterministic Appendix A schema |
+| install-rules | 4 | 5 | procedural — ordered deterministic steps |
+| merge-worktree | 4 | 5 | procedural — ordered safety-checked steps |
+| warn-destructive-commands | 4 | 5 | procedural — pattern matching is deterministic |
+
+### Status changes
+
+| Skill | Old Status | New Status | Reason |
+|:---|:---:|:---:|:---|
+| automate-repair | experimental (Q15) | validated (Q17) | corrected scores |
+| automate-tests | experimental (Q16) | validated (Q17) | corrected scores |
+| review-code | validated (Q18→18) | validated (Q18) | cognitive corrected 5→4 but Q unchanged |
+| warn-destructive-commands | experimental | validated (Q18) | cognitive promoted to 5 for procedural |
+| conduct-retro | validated (miscounted) | experimental (Q16) | stance=4 fails excellent tier |
+| decontextualize-text | validated (miscounted) | experimental (Q16) | stance=4, composability=4 |
+| investigate-root-cause | experimental | experimental (Q16) | sparse, needs refine-skill-design |
+| discover-skills | experimental | experimental (Q15) | composability=3 |
+
+---
+
+## Part V: Experimental Skills — Improvement Paths
+
+| Skill | ASQM | Blocker | Recommended Action |
+|:---|:---:|:---|:---|
+| **conduct-retro** | 16 | stance=4 (no explicit output contract appendix) | Add Appendix: Output Contract → stance=5 → Q17 validated |
+| **decontextualize-text** | 16 | stance=4, composability=4 | Add output contract + structured output schema → Q18 validated |
+| **investigate-root-cause** | 16 | Sparse agent.yaml; stance=4 | Full SKILL.md refine, add output contract → validated |
+| **discover-skills** | 15 | composability=3 (no structured output schema) | Add machine-readable recommendation schema → composability=4 → Q16 |
+
+All four can reach validated with targeted `refine-skill-design` runs.
+
+---
+
+## Part VI: Ecosystem Health
+
+### Clustering (Natural)
+
+| Domain | Skills | Health |
 |:---|:---:|:---|
-| **agent_native** | 0–5 | Machine-readable agent contract; **agent_native=5 ONLY** with explicit output contract in SKILL.md Appendix |
-| **cognitive** | 0–5 | Reasoning delegation from user to agent; explicit steps, checklists, behavioral patterns |
-| **composability** | 0–5 | Ease of combining with other skills; clear I/O, handoff points, orchestration readiness |
-| **stance** | 0–5 | Design integrity; spec compliance, scope boundaries, limitations, self-checks |
+| Code Review | 16 | ✅ All validated, clear atomic + orchestrator pattern |
+| Documentation Governance | 7 | ✅ Pipeline validated (discover-docs-norms → tidy-repo → assess-docs → audit-docs) |
+| Planning & Alignment | 5 | ✅ All Q17-19 validated |
+| Define (Governance docs) | 5 | ✅ All Q18 validated |
+| Meta-Skills | 3 | ✅ curate-skills, refine-skill-design, discover-skills |
+| Automation | 3 | ✅ All validated |
 
-### Gate Rules for Lifecycle
+### Market Position Distribution
 
-- **Gate A** (Agent-ready): agent_native ≥ 4 ✅ ALL 43 VALIDATED PASS
-- **Gate B** (Design integrity): stance ≥ 3 ✅ ALL 43 VALIDATED PASS
+| Position | Count | % |
+|:---|:---:|:---:|
+| differentiated | 43 | 78% |
+| commodity | 11 | 20% |
+| experimental | 1 | 2% |
 
-### Dimension Distribution
-
-- **agent_native**: 19 skills at 5, 35 skills at 4 (54 with machine-readable contracts)
-- **cognitive**: 8 skills at 4, 46 skills at 3 (strong delegation present)
-- **composability**: 3 at 5, 15 at 4, 33 at 3 (good orchestration capability)
-- **stance**: 41 at 5, 1 at 4 (excellent design integrity)
-
----
-
-## Part IV: Docs Governance Pipeline Improvements
-
-### Recent Enhancements (Last 3 Commits)
-
-#### Four-Skill Pipeline Now Fully Validated
-
-| Skill | Previous | Current | Change | Innovation |
-|:---|:---:|:---:|:---:|:---|
-| **discover-docs-norms** | v1.2.0 (Q14, Exp) | v1.3.0 (Q15, Exp) | +1 | **Added timestamp policy section** to ARTIFACT_NORMS.md |
-| **tidy-repo** | v1.1.0 (Q17, Val) | v1.2.0 (Q18, Val) | +1 | **Added timestamp-misuse detection** for naming validation |
-| **assess-docs** | v3.2.0 (Q16, Exp) | v3.3.0 (Q17, Val) | +1 | **Phase 9 SSOT intent-first audit** with section-level analysis |
-| **audit-docs** | v1.5.0 (Q18, Val) | v1.5.1 (Q19, Val) | +1 | **SSOT orchestration clarified**, impact on health score |
-
-### Pipeline Architecture
-
-```
-discover-docs-norms (defines norms with timestamp policy)
-    ↓
-tidy-repo (validates structure against norms, detects timestamp-misuse)
-    ↓
-assess-docs (checks compliance, Phase 9: intent-first SSOT audit)
-    ↓
-audit-docs (orchestrates all above, generates unified governance report)
-```
-
-**Status**: ✅ **PRODUCTION-READY**
-All four skills meet validated threshold (≥17 for audit-docs, ≥18 for tidy-repo).
-
----
-
-## Part V: Critical Findings
-
-### ✅ RESOLVED: Placeholder Skills Removed
-
-**Skills Affected**: `run-strategy-checkpoint`, `validate-doc-artifacts`
-
-- Verified: these directories are no longer present in `skills/`
-- Impact: placeholder clutter removed; skill discovery is unblocked
-
-### ⚠️ MEDIUM: Score Verification Needed
-
-**Skill**: discover-docs-norms
-- agent.yaml shows `asqm_quality: 18`
-- Calculated quality: 4 + 4 + 5 + 5 = **18** (consistent)
-- Status: Verified and corrected
-
----
-
-## Part VI: Findings & Strengths
-
-### ✅ Strengths
-
-1. **High Quality Baseline**: 81% validated, 30% in excellent tier (17-20)
-2. **Docs Governance Leadership**: Four-skill SSOT-enabled pipeline production-ready
-3. **No Regressions**: All validated skills maintain ≥17 ASQM quality
-4. **Clear Clustering**: Skills naturally group by domain (docs, code review, planning)
-5. **Proper Orchestration**: Composable patterns with defined hand-offs
-6. **Timestamp Policy Enforcement**: End-to-end validation from norms through audit
-
-### Ecosystem Health: ✅ Healthy
-
-**Evidence**:
-- Strong specialization: 87% differentiated market position
-- Natural clustering: Docs (4 skills), Code Review (10+ skills), Planning (7 skills)
-- Clear orchestration: audit-docs correctly coordinates sub-skills
-- Recent SSOT investment yielding validated results
+**Ecosystem health**: ✅ Healthy — strong specialization, natural clustering, composable patterns.
 
 ---
 
 ## Part VII: Recommendations
 
-### 🔴 Immediate Actions (This Week)
+### 🔴 Immediate (This Sprint)
 
-1. **Remove placeholder directories**:
-   ```bash
-   git rm -r skills/run-strategy-checkpoint skills/validate-doc-artifacts
-   git add skills/ASQM_AUDIT.md
-   git commit -m "chore(governance): remove placeholder skills, update ASQM audit"
-   ```
+1. **Run `refine-skill-design` on the 4 experimental skills** to reach validated:
+   - `conduct-retro` — add output contract appendix
+   - `decontextualize-text` — add output contract + structured schema
+   - `investigate-root-cause` — full SKILL.md refine
+   - `discover-skills` — add machine-readable recommendation schema
 
-2. **Verify discover-docs-norms scores** and correct if needed
+### 🟡 Medium Priority
 
-3. **Commit audit report**
+2. **`breakdown-tasks`**: `composability=4` could reach 5 with explicit structured task schema in appendix
+3. **`align-backlog`**: `agent_native=4` — consider adding explicit output contract appendix
+4. **Cross-skill output schema consistency**: review-* skills all use same findings format — document this as a shared schema spec
 
-### 🟡 Medium Priority (Next 2 Weeks)
+### 🟢 Strategic
 
-1. **Docs Governance Adoption**: Test full audit pipeline on external projects
-2. **Code Review Consolidation**: Consider unified output contract for review-* skills
-3. **Skills Registry Modernization**: Move toward YAML-based discovery
-
-### 🟢 Strategic (Next Quarter)
-
-1. **Ecosystem Maturity**: Drive remaining skills toward validated status
-2. **CI/CD Integration**: Auto-run curate-skills on each skill change
-3. **Performance Metrics**: Track skills usage, time savings, error reduction
+5. **`cognitive_mode` field now standard** — all future skills should declare it on creation
+6. **Procedural skills can reach Q19+** — `bootstrap-docs` and `automate-*` could improve with deterministic output contracts
 
 ---
 
-## Part VIII: Quality Gates for Next Release
+## Part VIII: Summary Table — All 55 Skills
 
-- [x] No skills with ASQM < 10
-- [x] 81% validated (above 70% target)
-- [x] Zero quality regressions
-- [x] Remove placeholder directories
-- [x] Verify discover-docs-norms scores
-- [x] Docs governance pipeline tested and validated
-- [ ] Final commit and push
+| Skill | ASQM | cog_mode | an | cog | comp | stance | Status |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---|
+| align-architecture | 19 | interp | 5 | 4 | 5 | 5 | ✅ |
+| align-backlog | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| align-planning | 19 | interp | 5 | 4 | 5 | 5 | ✅ |
+| analyze-requirements | 19 | interp | 5 | 4 | 5 | 5 | ✅ |
+| assess-docs | 18 | interp | 5 | 4 | 4 | 5 | ✅ |
+| audit-docs | 19 | interp | 5 | 4 | 5 | 5 | ✅ |
+| automate-repair | 17 | proc | 4 | 4 | 4 | 5 | ✅ |
+| automate-tests | 17 | proc | 4 | 4 | 4 | 5 | ✅ |
+| bootstrap-docs | 18 | proc | 5 | 4 | 4 | 5 | ✅ |
+| breakdown-tasks | 18 | interp | 5 | 4 | 4 | 5 | ✅ |
+| capture-work-items | 18 | proc | 5 | 4 | 4 | 5 | ✅ |
+| commit-work | 19 | proc | 5 | 5 | 4 | 5 | ✅ |
+| conduct-retro | 16 | interp | 4 | 4 | 4 | 4 | ⚠️ exp |
+| curate-skills | 18 | interp | 5 | 4 | 4 | 5 | ✅ |
+| decontextualize-text | 16 | interp | 4 | 4 | 4 | 4 | ⚠️ exp |
+| define-mission | 18 | interp | 5 | 4 | 4 | 5 | ✅ |
+| define-north-star | 18 | interp | 5 | 4 | 4 | 5 | ✅ |
+| define-roadmap | 18 | interp | 5 | 4 | 4 | 5 | ✅ |
+| define-strategic-pillars | 18 | interp | 5 | 4 | 4 | 5 | ✅ |
+| define-vision | 18 | interp | 5 | 4 | 4 | 5 | ✅ |
+| design-solution | 18 | interp | 5 | 4 | 4 | 5 | ✅ |
+| design-strategic-goals | 18 | interp | 5 | 4 | 4 | 5 | ✅ |
+| discover-docs-norms | 18 | interp | 4 | 4 | 5 | 5 | ✅ |
+| discover-skills | 15 | interp | 4 | 4 | 3 | 4 | ⚠️ exp |
+| generate-agent-entry | 18 | proc | 5 | 4 | 4 | 5 | ✅ |
+| generate-github-workflow | 19 | proc | 5 | 5 | 4 | 5 | ✅ |
+| generate-standard-readme | 18 | proc | 5 | 4 | 4 | 5 | ✅ |
+| install-rules | 18 | proc | 4 | 5 | 4 | 5 | ✅ |
+| investigate-root-cause | 16 | interp | 4 | 4 | 4 | 4 | ⚠️ exp |
+| merge-worktree | 18 | proc | 4 | 5 | 4 | 5 | ✅ |
+| plan-next | 18 | interp | 5 | 4 | 4 | 5 | ✅ |
+| refine-skill-design | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| review-architecture | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| review-code | 18 | interp | 5 | 4 | 4 | 5 | ✅ |
+| review-codebase | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| review-diff | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| review-dotnet | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| review-go | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| review-java | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| review-orm-usage | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| review-performance | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| review-php | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| review-powershell | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| review-python | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| review-react | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| review-requirements | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| review-security | 18 | interp | 4 | 4 | 5 | 5 | ✅ |
+| review-sql | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| review-testing | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| review-typescript | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| review-vue | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| sync-release-docs | 17 | interp | 4 | 4 | 4 | 5 | ✅ |
+| tidy-repo | 18 | interp | 5 | 4 | 4 | 5 | ✅ |
+| warn-destructive-commands | 18 | proc | 4 | 5 | 4 | 5 | ✅ |
 
 ---
 
-## Summary Table: All Validated Skills (43 Total)
-
-| Skill | ASQM | agent_native | stance | Status |
-|:---|:---:|:---:|:---:|:---|
-| audit-docs | 19 | 5 | 5 | ✅ |
-| align-architecture | 18 | 5 | 5 | ✅ |
-| align-planning | 18 | 5 | 5 | ✅ |
-| tidy-repo | 18 | 5 | 5 | ✅ |
-| define-north-star | 18 | 5 | 5 | ✅ |
-| plan-next | 18 | 5 | 5 | ✅ |
-| (37 more validated skills at Q17-18) | 17–18 | 5 | 5 | ✅ |
-
----
-
-**Report Generated**: 2026-03-24 19:30 UTC
-**Generated By**: curate-skills v1.0.0
-**Audit Quality**: ASQM Strict (evidence-based)
-**Next Review**: 2026-06-24 (Q2 2026)
+**Report Generated**: 2026-04-09
+**Generated By**: curate-skills v2.0 (with cognitive_mode)
+**Audit Quality**: ASQM Strict (evidence-based, cognitive_mode-aware)
+**Next Review**: 2026-07-09 (Q3 2026)

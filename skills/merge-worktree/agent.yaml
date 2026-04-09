@@ -1,34 +1,25 @@
 name: merge-worktree
-status: experimental
-
+status: validated
 primary_use: Merge current worktree branch into main, push to origin, and remove the worktree safely with ordered safety checks
-
+cognitive_mode: procedural
 inputs:
-  - active git worktree with a named branch
-  - clean working tree (no uncommitted changes)
-  - main branch name (auto-detected or user-provided)
-
+- active git worktree with a named branch
+- clean working tree (no uncommitted changes)
+- main branch name (auto-detected or user-provided)
 outputs:
-  - no-ff merge commit on main branch
-  - origin remote updated via git push
-  - worktree directory removed from git worktree list
-  - feature branch deleted (optional, user-confirmed)
-  - outcome summary report (branch, commit hash, push status, worktree path)
-
+- no-ff merge commit on main branch
+- origin remote updated via git push
+- worktree directory removed from git worktree list
+- feature branch deleted (optional, user-confirmed)
+- outcome summary report (branch, commit hash, push status, worktree path)
 scores:
   agent_native: 4
-  cognitive: 4
+  cognitive: 5
   composability: 4
-  stance: 4
-
-asqm_quality: 16
-
-lifecycle_state: Experimental
-
+  stance: 5
+asqm_quality: 18
 overlaps_with: []
-
 market_position: differentiated
-
 validation_gates:
   gate_a:
     name: Agent-ready

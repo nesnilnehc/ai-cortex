@@ -1,31 +1,27 @@
-agent_native: 4
-asqm_quality: 14
-cognitive: 3
-composability: 2
+name: install-rules
+status: validated
+primary_use: Install rules from a source repository into Cursor (.cursor/rules/) or
+  Trae IDE (.trae/project_rules.md) with explicit user confirmation and conflict detection
+  before any write.
+cognitive_mode: procedural
 inputs:
 - source (this project rules/ or Git repo owner/repo, optional branch/ref and subpath)
 - target IDE (Cursor | Trae)
 - scope (all rules or subset by name)
 - destination (project-level or user-level; default project-level)
-lifecycle_state: Experimental
-market_position: experimental
-name: install-rules
 outputs:
 - rule files written to IDE-specific destination (.cursor/rules/*.mdc or .trae managed
   block)
 - post-install summary (executed actions, target paths, conversion notes or failures)
-overlaps_with:
-- nesnilnehc/ai-cortex:discover-skills
-primary_use: Install rules from a source repository into Cursor (.cursor/rules/) or
-  Trae IDE (.trae/project_rules.md) with explicit user confirmation and conflict detection
-  before any write.
 scores:
-  agent_native: 5
-  cognitive: 4
+  agent_native: 4
+  cognitive: 5
   composability: 4
   stance: 5
-stance: 5
-status: validated
+asqm_quality: 18
+overlaps_with:
+- nesnilnehc/ai-cortex:discover-skills
+market_position: experimental
 tags:
 - automation
 - infrastructure

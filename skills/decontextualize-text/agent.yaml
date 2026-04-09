@@ -1,27 +1,23 @@
-agent_native: 4
-asqm_quality: 14
-cognitive: 3
-composability: 3
-inputs:
-- text with org/company/project names, internal conventions, environment-specific
-  details
-lifecycle_state: Experimental
-market_position: differentiated
 name: decontextualize-text
-outputs:
-- generic version (logic preserved, reusable without extra context)
-overlaps_with:
-- nesnilnehc/ai-cortex:generate-standard-readme
+status: experimental
 primary_use: Convert text with private context or internal dependencies into generic,
   unbiased expressions for methodology abstraction, cross-team sharing, anonymization,
   or public release.
+cognitive_mode: interpretive
+inputs:
+- text with org/company/project names, internal conventions, environment-specific
+  details
+outputs:
+- generic version (logic preserved, reusable without extra context)
 scores:
-  agent_native: 5
+  agent_native: 4
   cognitive: 4
   composability: 4
   stance: 4
-stance: 4
-status: validated
+asqm_quality: 16
+overlaps_with:
+- nesnilnehc/ai-cortex:generate-standard-readme
+market_position: differentiated
 tags:
 - writing
 - security
