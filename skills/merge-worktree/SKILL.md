@@ -3,7 +3,7 @@ name: merge-worktree
 description: Merge the current git worktree branch into the main branch, push to origin, and remove the worktree.
 description_zh: 将当前 git worktree 分支合并到主分支，推送到 origin，并删除该 worktree。
 tags: [git, workflow, automation]
-version: 0.1.0
+version: 0.2.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -137,8 +137,12 @@ git push origin <main-branch>
 
 **Step 6 — Remove worktree**
 
+**Critical**: Ensure the shell CWD is in `<main-repo-path>` before removing the worktree. If the shell is inside the worktree directory when it is deleted, all subsequent commands will fail with "no such file or directory".
+
 ```bash
+cd <main-repo-path>           # MUST run first — avoid CWD pointing to deleted directory
 git worktree remove <worktree-path>
+pwd                            # verify CWD is valid after removal
 ```
 
 Only execute after both merge and push succeed.
@@ -226,6 +230,11 @@ Summary report includes: branch names, merge commit hash, push confirmation, wor
 ✅ Use `git push origin <main-branch>` (standard push)
 ❌ Never use `--force` or `--force-with-lease` on main
 
+### CWD before worktree removal
+
+✅ Always `cd <main-repo-path>` before `git worktree remove` and verify with `pwd` after
+❌ Do not remove a worktree while the shell CWD is inside it — the CWD becomes invalid and all subsequent commands fail
+
 ### Deletion order
 
 ✅ Delete worktree only after merge AND push both succeed
@@ -272,8 +281,10 @@ git merge --no-ff feat/user-auth -m "Merge branch 'feat/user-auth' into main"
 # Step 5: Push
 git push origin main
 
-# Step 6: Remove worktree
+# Step 6: Remove worktree (ensure CWD is in main repo FIRST)
+cd /repos/myapp
 git worktree remove /repos/myapp-auth
+pwd   # verify: /repos/myapp
 
 # Step 7: Ask user about branch deletion
 # User answers: yes
@@ -352,6 +363,7 @@ If this skill produces incorrect behavior:
 - [ ] **Pull before merge**: `git pull origin <main>` ran before `git merge` to minimize push rejection
 - [ ] **No-ff merge**: Used `git merge --no-ff`, not fast-forward
 - [ ] **Push succeeded**: `git push origin <main>` completed without error
+- [ ] **CWD safe before removal**: `cd <main-repo-path>` ran before `git worktree remove`; `pwd` confirmed valid CWD after removal
 - [ ] **Worktree removed after push**: Deletion happened only after push confirmed
 - [ ] **Branch deletion confirmed**: User was asked; `-d` (not `-D`) used
 - [ ] **Outcome reported**: Summary includes merge commit, push status, worktree path, branch deletion status

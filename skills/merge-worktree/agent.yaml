@@ -1,6 +1,6 @@
 name: merge-worktree
 status: validated
-primary_use: Merge current worktree branch into main, push to origin, and remove the worktree safely with ordered safety checks
+primary_use: Merge current worktree branch into main, push to origin, and remove the worktree safely with CWD-safe cleanup
 cognitive_mode: procedural
 inputs:
 - active git worktree with a named branch
