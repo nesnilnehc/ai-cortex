@@ -111,7 +111,7 @@
 | [sync-release-docs](./sync-release-docs/SKILL.md) | documentation, workflow | `1.0.0` | stable | 发版后同步项目文档：交叉引用 diff，更新 README/ARCHITECTURE/CONTRIBUTING/CLAUDE.md，润色 CHANGELOG，清理 TODOS。发版后或 PR 合并后建议使用。. |
 | [tidy-repo](./tidy-repo/SKILL.md) | repository, workflow, cleanup, structure | `1.2.0` | stable | 一次性审计仓库目录结构——检测错放文件、命名不一致、空目录和过期制品；输出优先级整理报告；可选地应用安全、可逆的清理操作。. |
 | [warn-destructive-commands](./warn-destructive-commands/SKILL.md) | security, workflow | `1.0.0` | stable | 在破坏性命令执行前发出警告。检查 Bash 命令中的 rm -rf、DROP TABLE、force-push、git reset --hard、kubectl delete 等模式。用户可覆盖每次警告。适用于接触生产、调试线上或共享环境。. |
-| [merge-worktree](./merge-worktree/SKILL.md) | git, workflow, automation | `0.1.0` | experimental | 将当前 git worktree 分支合并到主分支，推送到 origin，并删除该 worktree；主分支不明时询问用户。. |
+| [merge-worktree](./merge-worktree/SKILL.md) | git, workflow, automation | `0.2.0` | validated | 将当前 git worktree 分支合并到主分支，推送到 origin，并以 CWD 安全方式删除该 worktree；主分支不明时询问用户。 |
 
 ---
 

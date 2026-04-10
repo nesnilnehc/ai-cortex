@@ -2,7 +2,7 @@
 
 Merge the current git worktree branch into the main branch, push to origin, and remove the worktree.
 
-**Status**: experimental · **Version**: 0.1.0 · **Quality**: 16/20
+**Status**: validated · **Version**: 0.2.0 · **Quality**: 18/20
 
 ---
 
@@ -62,6 +62,7 @@ Automates the end-of-worktree lifecycle in a single skill invocation:
 
 - **Never force-pushes** to any branch
 - **Never deletes the worktree** before both merge and push succeed
+- **Always `cd` to main repo** before removing worktree — prevents shell CWD from pointing to a deleted directory
 - **Never auto-stashes** — halts on dirty working tree instead
 - **Halts on merge conflict** with resolution instructions
 - **Halts on push rejection** with recovery instructions
@@ -83,7 +84,7 @@ Automates the end-of-worktree lifecycle in a single skill invocation:
 | Dimension | Score | Notes |
 |---|---|---|
 | agent_native | 4/5 | Structured YAML schema, triggers, Self-Check, Output Contract table; no formal Appendix |
-| cognitive | 4/5 | 8-step checklist with exact commands, 3 decision trees, 3 examples with edge cases |
+| cognitive | 5/5 | Procedural skill; all 8 steps are deterministic bash commands; 3 decision branches are explicit rules; zero LLM judgment |
 | composability | 4/5 | Explicit handoffs to commit-work; linear workflow chain |
-| stance | 4/5 | All 11 spec sections, strong safety invariants, ✅/❌ Anti-Patterns |
-| **total** | **16/20** | Experimental (Gate A ✓, Gate B ✓, quality < 17) |
+| stance | 5/5 | All 11 spec sections, strong safety invariants, ✅/❌ Anti-Patterns incl. CWD safety, 3 examples with edge cases |
+| **total** | **18/20** | Validated (Gate A: 4≥4 ✓, Gate B: 5≥3 ✓) |
