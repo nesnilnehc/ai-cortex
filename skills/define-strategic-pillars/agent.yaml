@@ -17,6 +17,8 @@ scores:
   stance: 5
 asqm_quality: 18
 overlaps_with:
+- nesnilnehc/ai-cortex:define-vision
+- nesnilnehc/ai-cortex:define-north-star
 - nesnilnehc/ai-cortex:design-strategic-goals
 - nesnilnehc/ai-cortex:define-roadmap
 market_position: differentiated

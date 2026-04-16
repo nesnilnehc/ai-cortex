@@ -153,3 +153,30 @@ asqm_quality = agent_native + cognitive + composability + stance
 
 **Audit conclusion**: skill inventory remains stable and improved after aggressive boundary refactor.
 **Next review window**: 2026-07.
+
+---
+
+## Part IX: Delta Update — 2026-04-16
+
+### Scope
+
+- `define-strategic-pillars`
+- `design-strategic-goals`
+
+### Re-scoring result
+
+- No ASQM score changes required.
+- Both skills remain `validated` with `asqm_quality = 18`.
+- Gate A (`agent_native >= 4`) and Gate B (`stance >= 3`) both pass.
+
+### Normalization changes
+
+- Standardized Chinese README wording and section consistency.
+- Corrected related-skill references to canonical skill IDs (`design-strategic-goals`, `define-roadmap`, `define-milestones`).
+- Refined overlap mapping in `agent.yaml` to reflect upstream/downstream adjacency.
+
+### Recommendations (Final)
+
+1. Keep current scores unchanged for both skills.
+2. When strategic chain skills change, run focused curation on adjacent nodes (`define-vision`, `define-north-star`, `define-roadmap`) to keep overlap graph fresh.
+3. No lifecycle downgrade or archive action recommended.
