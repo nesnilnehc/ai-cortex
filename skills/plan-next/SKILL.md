@@ -111,7 +111,7 @@ output_schema:
 
 | 主题 | G1 Absent | G2 Incomplete | G3 Inconsistent | G4 Disorganized |
 |---|---|---|---|---|
-| **Why** | `define-mission` / `define-vision` / `define-north-star` / `define-strategic-goals` / `define-strategic-pillars` | `assess-docs` → re-DEFINE | — | `tidy-repo` |
+| **Why** | `define-mission` / `define-vision` / `define-north-star` / `design-strategic-goals` / `define-strategic-pillars` | `assess-docs` → re-DEFINE | — | `tidy-repo` |
 | **What/When** | `define-roadmap` / `analyze-requirements` / `capture-work-items` | `assess-docs` | `align-planning` / `align-backlog` | `tidy-repo` |
 | **How** | `design-solution` | `assess-docs` | `align-architecture` | `tidy-repo` |
 | **Is** | — | `review-*` 家族 | `assess-docs-code-alignment` | `tidy-repo` |
@@ -164,7 +164,7 @@ output_schema:
 
 | 动作 | 实际执行技能 |
 |---|---|
-| **DEFINE** | `define-mission` / `define-vision` / `define-north-star` / `define-strategic-goals` / `define-strategic-pillars` / `define-roadmap` / `define-docs-norms` / `design-solution` / `analyze-requirements` / `capture-work-items` |
+| **DEFINE** | `define-mission` / `define-vision` / `define-north-star` / `design-strategic-goals` / `define-strategic-pillars` / `define-roadmap` / `define-docs-norms` / `design-solution` / `analyze-requirements` / `capture-work-items` |
 | **ASSESS** | `assess-docs` / `audit-docs` / `review-*` 家族 |
 | **ALIGN** | `align-planning` / `align-backlog` / `align-architecture` / `assess-docs-code-alignment` |
 | **ORGANIZE** | `tidy-repo` / `discover-docs-norms` / `curate-skills` |
@@ -221,7 +221,7 @@ output_schema:
 | # | 主题 | 缺口 | 推荐技能 | 依据 | 优先级 | 停止条件 |
 |---|---|---|---|---|---|---|
 | 1 | Why | G1 | `define-north-star` | NSM 缺失，无单一关键指标 | P1 | DONE: north-star.md 写入并通过 `assess-docs` |
-| 2 | Why | G1 | `define-strategic-goals` | strategic-goals 缺失 | P1 | DONE: strategic-goals.md 写入；ESCALATED: 与 NSM 冲突需重定义 |
+| 2 | Why | G1 | `design-strategic-goals` | strategic-goals 缺失 | P1 | DONE: strategic-goals.md 写入；ESCALATED: 与 NSM 冲突需重定义 |
 | 3 | What/When | G3 | `align-backlog` | backlog 多项与 strategy 不匹配 | P1 | DONE: 所有 backlog 项有 strategy 映射；DEFERRED: 用户延后 |
 
 ---

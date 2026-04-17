@@ -4,7 +4,7 @@
 
 ## 用途
 
-产出战略目标文档，包含 3–5 个与愿景和北极星一致、以结果为导向的目标。本技能不定义使命、愿景、北极星或里程碑。默认输出到 `docs/project-overview/strategic-goals.md`（或按项目规范路径）。
+产出战略目标文档，包含 3–5 个与愿景和北极星一致、以结果为导向的目标。**长期项目（计划期 > 6 个月）必须包含一个"工程 / 治理健康"类目标**，为治理 / 技术债 / 文档类工作提供战略代言（依据 ADR 20260417-unified-value-driven-prioritization-model）。本技能不定义使命、愿景、北极星或里程碑。默认输出到 `docs/project-overview/strategic-goals.md`（或按项目规范路径）。
 
 ## 何时使用
 

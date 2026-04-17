@@ -1,7 +1,8 @@
 name: design-strategic-goals
 status: validated
 primary_use: Define 3–5 long-term strategic goals that move the project toward the
-  vision and North Star; produce outcome-focused goals document and persist to docs/project-overview/strategic-goals.md
+  vision and North Star; long-term projects (>6 months) must include an engineering/governance
+  health goal (ADR 20260417); produce outcome-focused goals document and persist to docs/project-overview/strategic-goals.md
   (or project norms).
 cognitive_mode: interpretive
 inputs:

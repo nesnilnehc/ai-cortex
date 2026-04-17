@@ -83,7 +83,7 @@ cycle 容量：
 
 ### 3.5 强制"工程 / 治理健康"战略目标
 
-每个长期项目的 strategic-goals 必须包含一个"工程 / 治理健康可持续"类目标。`define-strategic-goals` 技能必须引导用户定义。
+每个长期项目的 strategic-goals 必须包含一个"工程 / 治理健康可持续"类目标。`design-strategic-goals` 技能必须引导用户定义。
 
 **默认模板**：
 
@@ -134,7 +134,7 @@ cycle 容量：
 
 | 技能 | 变更概要 |
 |---|---|
-| `define-strategic-goals` | 加"工程健康"默认目标模板与必需性引导 |
+| `design-strategic-goals` | 加"工程健康"默认目标模板与必需性引导 |
 | `capture-work-items` | backlog 条目必填 `strategic_goal_id` |
 | **新：`prioritize-backlog`** | 跑 RICE / WSJF / MoSCoW / ICE，呈现分歧，捕获 `priority_decision` |
 | `define-roadmap` | 每 cycle 按 strategic_goal 分配容量，强制百分比 |
