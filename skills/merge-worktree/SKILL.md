@@ -3,7 +3,7 @@ name: merge-worktree
 description: Merge the current git worktree branch into the main branch, push to origin, and remove the worktree.
 description_zh: 将当前 git worktree 分支合并到主分支，推送到 origin，并删除该 worktree。
 tags: [git, workflow, automation]
-version: 0.2.0
+version: 0.3.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -92,6 +92,16 @@ git rev-parse --show-toplevel         # worktree root path
 
 Record: `<feature-branch>`, `<worktree-path>`, `<main-repo-path>` (first entry in `git worktree list`).
 
+**Immediately `cd` into the main repo** so every subsequent step runs from a path that survives worktree removal:
+
+```bash
+cd <main-repo-path>
+pwd                                   # must equal <main-repo-path>
+```
+
+If `<main-repo-path>` and `<worktree-path>` are the same (skill invoked from the main repo, not a worktree) → **halt**:
+> "Current directory is the main repo, not a worktree. This skill merges a worktree's branch — run it from inside the worktree you want to finish."
+
 **Step 2 — Determine main branch**
 
 ```bash
@@ -137,12 +147,21 @@ git push origin <main-branch>
 
 **Step 6 — Remove worktree**
 
-**Critical**: Ensure the shell CWD is in `<main-repo-path>` before removing the worktree. If the shell is inside the worktree directory when it is deleted, all subsequent commands will fail with "no such file or directory".
+**Critical**: The shell CWD must be inside `<main-repo-path>` (not the worktree) before removing it. If the shell is inside the worktree directory when it is deleted, all subsequent commands fail with "no such file or directory".
+
+**Guard — verify CWD before removal**:
 
 ```bash
-cd <main-repo-path>           # MUST run first — avoid CWD pointing to deleted directory
+pwd
+```
+
+- If output does not equal `<main-repo-path>` → **halt**:
+  > "CWD is not the main repo. Run `cd <main-repo-path>` and re-run this step."
+- Otherwise proceed:
+
+```bash
 git worktree remove <worktree-path>
-pwd                            # verify CWD is valid after removal
+pwd                            # re-verify CWD is still valid after removal
 ```
 
 Only execute after both merge and push succeed.
@@ -264,6 +283,10 @@ git worktree list
 git rev-parse --abbrev-ref HEAD   # feat/user-auth
 git rev-parse --show-toplevel     # /repos/myapp-auth
 
+# Move into main repo immediately — rest of the flow runs from here
+cd /repos/myapp
+pwd   # /repos/myapp
+
 # Step 2: Determine main branch
 git remote show origin | grep 'HEAD branch'
 # HEAD branch: main
@@ -272,8 +295,7 @@ git remote show origin | grep 'HEAD branch'
 git status --porcelain
 # (empty — proceed)
 
-# Step 4: Merge
-cd /repos/myapp
+# Step 4: Merge (already in /repos/myapp from Step 1)
 git checkout main
 git pull origin main
 git merge --no-ff feat/user-auth -m "Merge branch 'feat/user-auth' into main"
@@ -281,10 +303,10 @@ git merge --no-ff feat/user-auth -m "Merge branch 'feat/user-auth' into main"
 # Step 5: Push
 git push origin main
 
-# Step 6: Remove worktree (ensure CWD is in main repo FIRST)
-cd /repos/myapp
+# Step 6: Remove worktree — guard CWD first
+pwd                                    # /repos/myapp (matches main-repo-path ✓)
 git worktree remove /repos/myapp-auth
-pwd   # verify: /repos/myapp
+pwd                                    # re-verify: /repos/myapp
 
 # Step 7: Ask user about branch deletion
 # User answers: yes
