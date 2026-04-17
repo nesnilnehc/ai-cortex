@@ -61,7 +61,7 @@ status: active
 | `plan-next` | 开始新工作前 / 感到摩擦 / 战略层变动 / 最长 N 天必跑一次（防腐） |
 | `align-planning` | 执行完成 / merge / release 后 |
 | `prioritize-backlog` | backlog 积压未评分项 ≥ 阈值，或 planning 前主动跑 |
-| `plan-roadmap-pull` | 容量释出（完成一批工作）/ 战略层变动 / cycle 结束 |
+| `promote-roadmap-items` | 容量释出（完成一批工作）/ 战略层变动 / cycle 结束 |
 
 **不再有"每周一跑 plan-next"这类日历绑定**。
 
@@ -158,7 +158,7 @@ status: active
 | 消费什么？ | 一批 `priority: unset` 的 backlog 条目 + strategic-goals |
 | 产出什么？ | 每条目四框架评分 + 分歧呈现 + 用户决策的 `priority_decision` |
 | 何时触发？ | backlog 未评分项 ≥ 阈值 / planning 前主动调用 / capture-work-items 批量捕获结束后的建议 |
-| 与现有技能关系？ | **上游 capture-work-items**（拿到未评分项）；**下游 plan-roadmap-pull**（评分后可进入晋升决策） |
+| 与现有技能关系？ | **上游 capture-work-items**（拿到未评分项）；**下游 promote-roadmap-items**（评分后可进入晋升决策） |
 
 **核心流程**：
 1. 读取所有 `priority: unset` 的 backlog 条目
@@ -169,7 +169,7 @@ status: active
 
 **不自动链式**：`capture-work-items` 不自动调用 `prioritize-backlog`（节律不同：capture 高频，prioritize 批量）。只建议，不执行。
 
-#### 3.7.2 `plan-roadmap-pull`
+#### 3.7.2 `promote-roadmap-items`
 
 | 问题 | 答案 |
 |---|---|
@@ -186,7 +186,7 @@ status: active
 4. 呈现给用户、捕获确认
 5. 更新 roadmap.md + 被晋升条目的 status 字段
 
-**注意命名**：用 "pull"（拉取）而非 "cycle"（周期）—— 明确它是**事件驱动**的晋升动作，不是固定周期仪式。
+**命名理由**：`promote-roadmap-items` 遵循仓库的 verb-noun kebab-case 规范。`promote`（晋升）直指核心动作 —— 把 backlog 条目晋升进 roadmap 的 Now 槽位；降级是次要动作。不用 `cycle`、`sprint` 等日历绑定词，保留事件驱动语义。
 
 ---
 
@@ -198,7 +198,7 @@ status: active
 - 前向 / 后向职责明晰，避免 plan-next 越位管理执行跟踪
 - plan-next v5 状态机让输出 **按当前需要聚焦**，降低认知负担
 - 矩阵的系统性覆盖通过 Secondary 层完整保留
-- 缺失的两个技能（prioritize-backlog、plan-roadmap-pull）定位清晰、无重叠
+- 缺失的两个技能（prioritize-backlog、promote-roadmap-items）定位清晰、无重叠
 
 ### 代价
 
@@ -226,7 +226,7 @@ status: active
 | 1 | `define-strategic-goals` | 加"工程健康"默认目标模板（支撑 ADR 1 决策 3.5） |
 | 2 | `capture-work-items` | `strategic_goal_id` 必填；结束时建议（不执行）`prioritize-backlog` |
 | 3 | **新：`prioritize-backlog`** | 多框架评分 + 分歧呈现 + 写回 `priority_decision` |
-| 4 | **新：`plan-roadmap-pull`** | 晋升 backlog → Now；按 strategic_goal 容量控制 |
+| 4 | **新：`promote-roadmap-items`** | 晋升 backlog → Now；按 strategic_goal 容量控制 |
 | 5 | `define-roadmap` | 每 cycle 按 strategic_goal 分配容量，强制百分比敲定 |
 | 6 | `plan-next` v4 → v5 | 加状态检测（Phase 0.6）+ 两层输出合成 |
 | 7 | `align-planning` README | 明示后向职责，与 plan-next 前向互补（已部分做） |
