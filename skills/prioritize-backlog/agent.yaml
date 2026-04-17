@@ -1,17 +1,19 @@
 name: prioritize-backlog
 status: validated
-primary_use: Score unprioritized backlog items in parallel with four frameworks (RICE,
-  WSJF, MoSCoW, ICE), surface framework disagreements, and capture user's final priority
-  decision with rationale per ADR 20260417.
+primary_use: Force a clean re-score of every backlog item — regardless of existing
+  priority — across multi-file or single-file backlogs (auto-detected as multi-file,
+  yaml-list, h2-yaml, or table), running RICE / WSJF / MoSCoW / ICE in parallel,
+  surfacing framework disagreements, and capturing the user's final priority decision
+  with the previous value preserved per ADR 20260417.
 cognitive_mode: interpretive
 inputs:
-- batch of backlog items with priority=unset
+- batch of backlog items in any priority state, organized either as one-file-per-item under docs/process-management/backlog/ or docs/backlog/, or as a single backlog.md (yaml-list / h2-yaml / table)
 - docs/project-overview/strategic-goals.md
 - optional project-specific thresholds and disagreement level
 outputs:
-- structured chat output with per-item framework scores and disagreement call-outs
-- updated backlog file frontmatter with priority and priority_decision fields
-- batch summary with auto-decided vs user-decided counts and priority distribution
+- structured chat output with detected backlog mode, per-item framework scores, and disagreement call-outs
+- updated backlog items (frontmatter, yaml block, or table cell depending on mode) carrying priority, priority_decision (including previous value), decided_by, decided_at
+- batch summary with auto-decided vs user-decided counts, re-score coverage, and priority distribution
 scores:
   agent_native: 5
   cognitive: 4
