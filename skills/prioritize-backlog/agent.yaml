@@ -1,0 +1,37 @@
+name: prioritize-backlog
+status: validated
+primary_use: Score unprioritized backlog items in parallel with four frameworks (RICE,
+  WSJF, MoSCoW, ICE), surface framework disagreements, and capture user's final priority
+  decision with rationale per ADR 20260417.
+cognitive_mode: interpretive
+inputs:
+- batch of backlog items with priority=unset
+- docs/project-overview/strategic-goals.md
+- optional project-specific thresholds and disagreement level
+outputs:
+- structured chat output with per-item framework scores and disagreement call-outs
+- updated backlog file frontmatter with priority and priority_decision fields
+- batch summary with auto-decided vs user-decided counts and priority distribution
+scores:
+  agent_native: 5
+  cognitive: 4
+  composability: 5
+  stance: 5
+asqm_quality: 19
+overlaps_with:
+- nesnilnehc/ai-cortex:capture-work-items
+- nesnilnehc/ai-cortex:promote-roadmap-items
+market_position: differentiated
+tags:
+- workflow
+- automation
+- meta-skill
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

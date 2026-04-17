@@ -112,6 +112,8 @@
 | [tidy-repo](./tidy-repo/SKILL.md) | repository, workflow, cleanup, structure | `1.2.0` | stable | 一次性审计仓库目录结构——检测错放文件、命名不一致、空目录和过期制品；输出优先级整理报告；可选地应用安全、可逆的清理操作。. |
 | [warn-destructive-commands](./warn-destructive-commands/SKILL.md) | security, workflow | `1.0.0` | stable | 在破坏性命令执行前发出警告。检查 Bash 命令中的 rm -rf、DROP TABLE、force-push、git reset --hard、kubectl delete 等模式。用户可覆盖每次警告。适用于接触生产、调试线上或共享环境。. |
 | [merge-worktree](./merge-worktree/SKILL.md) | git, workflow, automation | `0.3.0` | validated | 将当前 git worktree 分支合并到主分支，推送到 origin，并以 CWD 安全方式删除该 worktree；主分支不明时询问用户。 |
+| [prioritize-backlog](./prioritize-backlog/SKILL.md) | automation, meta-skill, workflow | `1.0.0` | validated | 用多框架（RICE + WSJF + MoSCoW + ICE）并行评分未定优先级的 backlog 条目；surface 框架分歧；捕获用户决策并写回 priority_decision。 |
+| [promote-roadmap-items](./promote-roadmap-items/SKILL.md) | automation, meta-skill, workflow | `1.0.0` | validated | 按 strategic_goal 容量分配把已评分 backlog 条目晋升进 roadmap 的 Now/Next/Later；事件驱动；更新 roadmap 和条目 status。 |
 
 ---
 

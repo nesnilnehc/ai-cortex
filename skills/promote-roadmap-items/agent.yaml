@@ -1,0 +1,37 @@
+name: promote-roadmap-items
+status: validated
+primary_use: Promote prioritized backlog items into the roadmap's Now/Next/Later tiers
+  based on strategic_goal capacity allocation (ADR 20260417). Event-driven, not calendar-driven.
+  Captures user approval per item and updates roadmap plus item status.
+cognitive_mode: interpretive
+inputs:
+- docs/process-management/roadmap.md with strategic_goal capacity allocation
+- priority-scored backlog items (skip priority=unset)
+- docs/project-overview/strategic-goals.md
+outputs:
+- structured chat output with capacity usage report and promotion/demotion candidates
+- updated roadmap.md Now/Next/Later tiers
+- updated backlog item frontmatter (status, priority, promoted_at/demoted_at, strategic_goal_id)
+scores:
+  agent_native: 5
+  cognitive: 4
+  composability: 5
+  stance: 5
+asqm_quality: 19
+overlaps_with:
+- nesnilnehc/ai-cortex:prioritize-backlog
+- nesnilnehc/ai-cortex:define-roadmap
+market_position: differentiated
+tags:
+- workflow
+- automation
+- meta-skill
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass
