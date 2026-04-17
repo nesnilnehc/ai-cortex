@@ -223,7 +223,7 @@ status: active
 
 | # | 技能 | 变更 |
 |---|---|---|
-| 1 | `define-strategic-goals` | 加"工程健康"默认目标模板（支撑 ADR 1 决策 3.5） |
+| 1 | `design-strategic-goals` | 加"工程健康"默认目标模板（支撑 ADR 1 决策 3.5） |
 | 2 | `capture-work-items` | `strategic_goal_id` 必填；结束时建议（不执行）`prioritize-backlog` |
 | 3 | **新：`prioritize-backlog`** | 多框架评分 + 分歧呈现 + 写回 `priority_decision` |
 | 4 | **新：`promote-roadmap-items`** | 晋升 backlog → Now；按 strategic_goal 容量控制 |
