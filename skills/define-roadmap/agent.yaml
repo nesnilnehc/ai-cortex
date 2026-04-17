@@ -1,8 +1,10 @@
 name: define-roadmap
 status: validated
 primary_use: Derive a roadmap of milestone nodes from strategic goals; each node is
-  a phase checkpoint with success criteria and goal traceability; persist to docs/process-management/roadmap.md
-  or milestones.md (project norms).
+  a phase checkpoint with success criteria and goal traceability; require user to commit
+  per-strategic_goal capacity allocation (percentages sum to 100, engineering-health goal
+  non-zero) per ADR 20260417; persist to docs/process-management/roadmap.md or milestones.md
+  (project norms).
 cognitive_mode: interpretive
 inputs:
 - strategic goals (document or path); project context
@@ -10,6 +12,8 @@ inputs:
 outputs:
 - roadmap document (roadmap.md or milestones.md): ordered milestone nodes with scope,
     success criteria, goal mapping
+- capacity allocation section: percentages per strategic_goal for promote-roadmap-items
+    to consume as guardrail
 scores:
   agent_native: 5
   cognitive: 4
