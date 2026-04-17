@@ -1,7 +1,8 @@
 name: capture-work-items
 status: validated
 primary_use: Capture requirements, bugs, or issues from free-form input into structured,
-  persistent backlog artifacts with path detection and status lifecycle.
+  persistent backlog artifacts with path detection, status lifecycle, required strategic_goal_id
+  (ADR 20260417), and priority=unset awaiting batch scoring by prioritize-backlog.
 cognitive_mode: procedural
 inputs:
 - raw description of requirement, bug, or issue from user
@@ -9,7 +10,10 @@ inputs:
 outputs:
 - structured work item Markdown (docs/process-management/project-board/backlog/ or
   docs/backlog/ per path detection, specs/artifact-contract.md)
-- YAML front-matter with type, date, status (captured), source, severity (bugs)
+- YAML front-matter with type, date, status (captured), priority (unset), strategic_goal_id,
+  source, severity (bugs)
+- end-of-capture suggestion (not auto-execute) to run prioritize-backlog when unscored
+  backlog items accumulate
 scores:
   agent_native: 5
   cognitive: 4
