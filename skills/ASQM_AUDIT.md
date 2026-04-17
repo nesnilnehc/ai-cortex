@@ -102,7 +102,7 @@ asqm_quality = agent_native + cognitive + composability + stance
 2. **Hard consistency defects fixed**: score-sum mismatch and interpretive cognitive ceiling violations were corrected.
 3. **Lifecycle remains healthy**: 54 validated / 4 experimental / 0 archive-candidate.
 4. **Registry integrity preserved**: manifest + INDEX + skill files remain consistent.
-5. **merge-worktree v0.2.0**: CWD safety fix — `cd <main-repo-path>` before `git worktree remove` to prevent shell CWD breakage. README/INDEX synced to validated/18 (was stale at experimental/16). Scores unchanged (AN=4, COG=5, COMP=4, ST=5).
+5. **merge-worktree v0.3.0**: CWD safety hardened with two-layer guard — Step 1 `cd <main-repo-path>` immediately after detection (whole flow runs from main repo), plus Step 6 explicit `pwd` check + halt before `git worktree remove`. Addresses recurring "shell CWD points to deleted directory" friction observed in usage insights (April 2026). Scores unchanged at 18/20 (AN=4, COG=5, COMP=4, ST=5); stance reinforced by redundant guards. Status: validated.
 
 ---
 
