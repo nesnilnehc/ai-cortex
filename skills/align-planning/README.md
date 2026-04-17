@@ -2,9 +2,15 @@
 
 执行任务后追溯、偏差检测和自上而下的重新校准，以保持规划（目标、需求、里程碑、路线图）与任务执行保持一致。
 
+**定位（ADR 20260417-work-lifecycle 决策 3.3）**：本技能是**后向（backward）**治理技能 —— 在工作完成后追溯对齐。与**前向（forward）**的 `plan-next`（诊断当前治理缺口）互补不竞争：
+- `plan-next`（前向）：cycle 开始 / 工作启动前 → 现在有哪些治理缺口？下一步做什么？
+- `align-planning`（后向）：cycle 结束 / merge / release 后 → 已经做了什么？跟 plan 对得上吗？漂移在哪？
+
+用户的 "pull-based / 反向推导" 工作流（有任务先做，完成后追溯补齐 backlog → requirement → task）由本技能承担，**不属于 plan-next 职责**。
+
 ## 用途
 
-任务完成后，运行从工作到策略的追溯，使用四种类型的规划模型（目标、要求、路线图、优先级）检测偏差，并生成优先级重新校准建议。支持具有确定性选择的轻量级和完整模式。架构与代码合规性由“align-architecture”处理。
+任务完成后，运行从工作到策略的追溯，使用四种类型的规划模型（目标、要求、路线图、优先级）检测偏差，并生成优先级重新校准建议。支持具有确定性选择的轻量级和完整模式。架构与代码合规性由 `align-architecture` 处理。
 
 ## 何时使用
 
@@ -35,10 +41,11 @@ npx skills add nesnilnehc/ai-cortex --skill align-planning
 
 ## 相关技能
 
-- `align-architecture` — 验证 ADR/设计与代码合规性
-- `asses-docs` — 在对齐之前或之后评估文档证据
-- `plan-next` — 治理周期路由，对齐规划是其触发场景之一
-- `分析需求` — 当需求需要重新验证时进行切换
+- `plan-next` — **前向互补**：cycle 开始做体检；align-planning 是 cycle 结束做追溯
+- `align-architecture` — 验证 ADR / 设计与代码合规性
+- `align-backlog` — 对齐 backlog 与战略
+- `assess-docs` — 在对齐之前或之后评估文档证据
+- `analyze-requirements` — 当需求需要重新验证时进行切换
 
 ## 完整定义
 
