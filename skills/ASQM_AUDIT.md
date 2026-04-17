@@ -191,3 +191,36 @@ asqm_quality = agent_native + cognitive + composability + stance
 1. Keep current scores unchanged for both skills.
 2. When strategic chain skills change, run focused curation on adjacent nodes (`define-vision`, `define-north-star`, `define-roadmap`) to keep overlap graph fresh.
 3. No lifecycle downgrade or archive action recommended.
+
+---
+
+## Part X: Delta Update — 2026-04-17 (prioritize-backlog v2.0.0)
+
+### Scope
+
+- `prioritize-backlog` (v1.0.0 → v2.0.0): breaking behavior change — forced blanket re-score (ignores existing `priority`/`priority_decision`); backlog-shape auto-detection extended to four modes (`multi-file`, `yaml-list`, `h2-yaml`, `table`); `priority_decision.previous` added to output contract.
+
+### Re-scoring result
+
+- **No ASQM score changes**: AN=5, COG=4 (interpretive ceiling), COMP=5, ST=5 → `asqm_quality = 19`. Gates A+B both pass. Status remains **validated**.
+- The mode-dispatch table and the `previous` field sharpen an already-explicit output contract (AN already at ceiling).
+- Stance is reinforced — new anti-patterns (no pre-overwrite comparison, no dual-write across modes, no silent drop of old values) encode stronger design discipline, but stance was already at 5.
+- Composability marginally improved (skill now plugs into single-file-backlog projects too) but already at 5.
+
+### Overlap & market position
+
+- `overlaps_with: []` unchanged; job remains uniquely "parallel multi-framework scoring with surfaced disagreement".
+- `market_position: differentiated` unchanged.
+
+### Normalization changes
+
+- `agent.yaml.primary_use` updated to reflect blanket re-score + multi/single-file coverage.
+- `SKILL.md` description + input/output schemas rewritten; examples refreshed (added h2-yaml single-file example; removed obsolete `single-item=true` escape-hatch example).
+- `README.md` aligned.
+- `skills/INDEX.md` version bumped `1.0.0 → 2.0.0` with matching description (INDEX is hand-maintained per `verify-registry.mjs`).
+
+### Recommendations (Final)
+
+1. Keep scores unchanged; no lifecycle change.
+2. When `promote-roadmap-items` is next touched, confirm it tolerates the new `priority_decision.previous` field (currently reads only `priority`, so backward-compatible).
+3. If usage surfaces a 5th single-file backlog shape in practice, revisit mode detection; do not pre-emptively add modes.
