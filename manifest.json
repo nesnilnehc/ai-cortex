@@ -260,6 +260,14 @@
     {
       "name": "merge-worktree",
       "path": "skills/merge-worktree/SKILL.md"
+    },
+    {
+      "name": "prioritize-backlog",
+      "path": "skills/prioritize-backlog/SKILL.md"
+    },
+    {
+      "name": "promote-roadmap-items",
+      "path": "skills/promote-roadmap-items/SKILL.md"
     }
   ],
   "specs": [
