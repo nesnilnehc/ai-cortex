@@ -64,7 +64,7 @@ output_schema:
 - 架构与代码合规性（使用“align-architecture”）
 - 定义或重写策略（使用`define-mission`、`设计-strategic-goals`、`define-routetu`等）
 - 从头开始创建新的待办项目（使用“capture-work-items”或“analyze-需求”）
-- 运行完整的策略检查点或治理周期（使用“run-checkpoint”）
+- 运行完整的治理周期路由（使用 `plan-next`）
 
 **转交点**：报告生成后，根据需要转交给适当的技能 - 例如用于执行回溯的“align-planning”，或用于应用更改的产品/待办工具。
 
@@ -85,7 +85,7 @@ output_schema:
 | ---| ---|
 |策略文档已更新 | `align-待办` 将待办重新映射到新目标/路线图 |
 |待办事项让人感觉超载或偏离策略 |首先`align-待办`；如果还需要执行回溯，那么`align-planning`
-|里程碑或释放门|为相关待办切片运行 `align-待办`；需要时通过“run-checkpoint”聚合治理状态 |
+|里程碑或释放门|为相关待办切片运行 `align-待办` |
 
 ---
 

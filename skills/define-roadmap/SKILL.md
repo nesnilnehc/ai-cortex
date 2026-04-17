@@ -44,7 +44,7 @@ output_schema:
 
 **验收测试**：读者能否一眼看到演进路径（包含推进条件）？能否通过成功指标验证阶段成果，而非单纯检查任务列表？
 
-**交接点**：路线图获批并持久化后，交接至待办规划、需求分析（`analyze-requirements`）或执行对齐（`align-planning` / `run-checkpoint`）。
+**交接点**：路线图获批并持久化后，交接至待办规划、需求分析（`analyze-requirements`）或执行对齐（`align-planning` / `plan-next`）。
 
 ---
 

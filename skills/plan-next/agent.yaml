@@ -7,16 +7,15 @@ inputs:
 - optional scope overrides
 - optional execute flag (default false)
 outputs:
-- docs/calibration/cognitive-loop.md
+- structured chat output: sources inventory, readiness verdict, prioritized next tasks
 - routing recommendations with priority/owner/rationale
 scores:
   agent_native: 5
   cognitive: 4
-  composability: 4
+  composability: 5
   stance: 5
-asqm_quality: 18
+asqm_quality: 19
 overlaps_with:
-- nesnilnehc/ai-cortex:align-planning
 - nesnilnehc/ai-cortex:assess-docs
 - nesnilnehc/ai-cortex:audit-docs
 market_position: differentiated
@@ -24,7 +23,7 @@ tags:
 - workflow
 - automation
 - meta-skill
-version: 3.0.0
+version: 4.0.0
 validation_gates:
   gate_a:
     name: Agent-ready
