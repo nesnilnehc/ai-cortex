@@ -80,7 +80,7 @@
 | [install-rules](./install-rules/SKILL.md) | automation, infrastructure | `1.2.1` | stable | 从源仓库将规则安装到 Cursor 或 Trae IDE；需显式确认与冲突检测；写盘前需用户批准。. |
 | [review-performance](./review-performance/SKILL.md) | code-review, optimization | `1.0.0` | stable | 审查性能：复杂度、数据库/查询效率、I/O 与网络成本、内存与分配、并发竞争、缓存与延迟/吞吐回归。. |
 | [bootstrap-docs](./bootstrap-docs/SKILL.md) | documentation, writing | `1.1.2` | stable | 使用 project-documentation-template 初始化或适配项目文档；产出结构化生命周期文档；支持 Initialize / Adjust。. |
-| [capture-work-items](./capture-work-items/SKILL.md) | documentation, workflow, writing | `1.0.1` | stable | 将自由形式输入快速捕获为结构化、可持久的需求、缺陷或问题制品；无需深度验证。. |
+| [capture-work-items](./capture-work-items/SKILL.md) | documentation, workflow, writing | `1.1.0` | stable | 将自由形式输入快速捕获为结构化、可持久的需求、缺陷或问题制品；必填 strategic_goal_id；priority 标 unset 等批量评分。. |
 | [commit-work](./commit-work/SKILL.md) | automation, git, workflow | `2.0.0` | mature | 创建高质量 git 提交：清晰消息与合理范围；遵循 Conventional Commits，含 pre-commit 质量检查。. |
 | [design-solution](./design-solution/SKILL.md) | documentation, writing | `1.1.1` | stable | 从需求产出验证过的设计文档（架构、组件、数据流、权衡）；不含实现；用于下游任务拆解。. |
 | [breakdown-tasks](./breakdown-tasks/SKILL.md) | documentation, workflow, writing | `1.1.0` | stable | 将设计文档拆解为可执行任务列表：依赖、验收标准、负责人或 AI 执行提示。. |
