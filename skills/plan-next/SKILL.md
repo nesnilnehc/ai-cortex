@@ -112,6 +112,8 @@ output_schema:
 | **S6 Post-execution, 可能漂移** | 近期 merge / release；上次 `align-planning` > N 天（默认 14） | Is × G3（触发 `align-planning`） |
 | **S7 Healthy / Idle** | 矩阵无缺口 + 无 in-flight + 漂移近期查过 | Quiet mode（明示无治理行动需要） |
 
+> **激活层的两种形态**：S1 / S2 / S3 / S6 的激活层是**矩阵单元格**（具体缺口 × 主题）；S4 / S5 / S7 的激活层是**工作流触发器**（Pull ceremony / 静默 / Quiet mode），即不对应某个 G1-G4 缺口但触发特定动作或姿态。两层输出的 Primary 层据此呈现 —— 矩阵形态列完整路由，工作流形态说明触发的工作流与下游技能。
+
 **信号来源**：
 - 资产存在 / 状态：阶段 0 扫描结果
 - in-flight：扫描 `backlog/*.md` 的 `status` 字段 + `git status` 未提交 + 近期 commit
