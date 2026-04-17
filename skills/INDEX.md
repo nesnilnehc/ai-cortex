@@ -104,7 +104,7 @@
 | [define-vision](./define-vision/SKILL.md) | documentation, workflow | `1.2.0` | stable | 定义项目旨在创造的长远未来；回答我们在构建什么未来；产出 vision 陈述并持久化到 docs。. |
 | [define-north-star](./define-north-star/SKILL.md) | documentation, workflow | `1.1.0` | stable | 定义代表向用户交付核心价值的单一最重要指标；产出 North Star Metric 及理由、辅助指标与反例。. |
 | [design-strategic-goals](./design-strategic-goals/SKILL.md) | documentation, workflow | `1.1.0` | stable | 定义 3–5 个推动项目走向 vision 与 North Star 的长期战略目标；长期项目须含工程 / 治理健康目标；产出 goals 文档。. |
-| [define-roadmap](./define-roadmap/SKILL.md) | documentation, strategy, workflow | `3.0.0` | mature | 从战略目标推导路线图，包含里程碑、关键举措、成功指标与推进条件，产出可用于决策的路线图文档。. |
+| [define-roadmap](./define-roadmap/SKILL.md) | documentation, strategy, workflow | `3.1.0` | mature | 从战略目标推导路线图，包含里程碑、关键举措、成功指标、推进条件与按 strategic_goal 的容量分配（ADR 20260417 护栏依据）。. |
 | [define-strategic-pillars](./define-strategic-pillars/SKILL.md) | documentation, workflow | `1.0.0` | stable | 从 vision 与 North Star 推导 3–5 个战略支柱（高层次主题），指导战略目标与路线图。. |
 | [conduct-retro](./conduct-retro/SKILL.md) | documentation, workflow | `1.0.0` | stable | 周/迭代工程回顾：分析提交历史、工作模式与代码质量指标；按人分解贡献，含表扬与成长建议。适用于「周回顾」「发了什么」「工程复盘」。. |
 | [investigate-root-cause](./investigate-root-cause/SKILL.md) | optimization, workflow | `1.0.0` | stable | 系统性根因调试：investigate → analyze → hypothesize → implement。铁律：无根因不修复。适用于报错、异常行为、故障排查。. |
