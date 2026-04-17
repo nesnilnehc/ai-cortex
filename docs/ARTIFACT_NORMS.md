@@ -52,7 +52,6 @@ status: active
 | doc-readiness | docs/calibration/doc-readiness.md | doc-readiness.md | living |
 | planning-alignment | docs/calibration/planning-alignment.md | planning-alignment.md | living |
 | architecture-compliance | docs/calibration/architecture-compliance.md | architecture-compliance.md | living |
-| cognitive-loop | docs/calibration/cognitive-loop.md | cognitive-loop.md | living |
 | repair-loop | docs/calibration/repair-loop.md | repair-loop.md | living |
 | audit-docs | docs/calibration/audit-docs.md | audit-docs.md | living |
 

@@ -619,7 +619,7 @@ output_schema:
 | :--- | :--- | :--- |
 | `findings-list` | {Location, Category, Severity, Title, Description, Suggestion} 数组 | 所有 review 技能 |
 | `document-artifact` | 写入指定路径的 Markdown 文件 | generate-standard-readme、generate-agent-entry、define-mission、define-vision、define-roadmap、design-solution。路径与命名见 [specs/artifact-contract.md](artifact-contract.md)。 |
-| `diagnostic-report` | 含 (Goal, Findings, Recommendations) 等节的结构化摘要 | review-codebase、run-checkpoint |
+| `diagnostic-report` | 含 (Goal, Findings, Recommendations) 等节的结构化摘要 | review-codebase |
 | `code-scope` | 调用方提供的文件、目录或 git diff | review-diff、review-codebase |
 | `free-form` | 非结构化文本或用户输入 | design-solution、discover-skills 及探索类技能 |
 

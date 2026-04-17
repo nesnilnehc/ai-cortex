@@ -103,6 +103,7 @@ asqm_quality = agent_native + cognitive + composability + stance
 3. **Lifecycle remains healthy**: 54 validated / 4 experimental / 0 archive-candidate.
 4. **Registry integrity preserved**: manifest + INDEX + skill files remain consistent.
 5. **merge-worktree v0.3.0**: CWD safety hardened with two-layer guard — Step 1 `cd <main-repo-path>` immediately after detection (whole flow runs from main repo), plus Step 6 explicit `pwd` check + halt before `git worktree remove`. Addresses recurring "shell CWD points to deleted directory" friction observed in usage insights (April 2026). Scores unchanged at 18/20 (AN=4, COG=5, COMP=4, ST=5); stance reinforced by redundant guards. Status: validated.
+6. **plan-next v4.0.0** (breaking): output contract changed from `document-artifact` to `chat`; cognitive-loop.md artifact deprecated (see ADR-20260417). Behavior fully restructured around MECE 5×4 routing matrix (5 themes Why/What-When/How/Is/Rules × 4 gap types G1-G4 Absent/Incomplete/Inconsistent/Disorganized). Added stop condition formalism (DONE/DEFERRED/ESCALATED), Anti-Patterns section (6 rules), matrix-aware Self-Check (7 items), real conversation examples. Score lift: composability 4 → 5 (Skill Boundaries table covers all action verbs × executors with explicit ESCALATED return path). Final 19/20 (AN=5, COG=4 interpretive ceiling, COMP=5, ST=5). overlaps_with reduced from 3 to 2 (align-planning removed — now an explicit handoff target, not overlap). Status: validated.
 
 ---
 

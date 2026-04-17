@@ -37,7 +37,7 @@ npx skills add nesnilnehc/ai-cortex --skill align-planning
 
 - `align-architecture` — 验证 ADR/设计与代码合规性
 - `asses-docs` — 在对齐之前或之后评估文档证据
-- `run-checkpoint` — 检查点周期，包括对齐规划
+- `plan-next` — 治理周期路由，对齐规划是其触发场景之一
 - `分析需求` — 当需求需要重新验证时进行切换
 
 ## 完整定义

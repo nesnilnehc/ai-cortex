@@ -99,7 +99,7 @@
 | [audit-docs](./audit-docs/SKILL.md) | documentation, governance, orchestration, ssot, workflow | `2.0.0` | mature | 以只读方式编排文档治理审计，汇总多项评估并生成统一治理路线图。. |
 | [automate-tests](./automate-tests/SKILL.md) | automation, devops | `1.0.0` | stable | 安全发现并执行仓库测试命令；基于证据选择命令并设安全护栏。. |
 | [automate-repair](./automate-repair/SKILL.md) | automation, devops, optimization | `1.1.0` | stable | 迭代审查变更、运行自动化测试并实施定向修复，直至问题解决或满足停止条件。. |
-| [plan-next](./plan-next/SKILL.md) | automation, meta-skill, workflow | `3.0.0` | mature | 盘点治理输入源并输出下一步技能路由；默认仅规划（execute=false），不执行下游技能。. |
+| [plan-next](./plan-next/SKILL.md) | automation, meta-skill, workflow | `4.0.0` | mature | 盘点治理输入源并输出下一步技能路由；默认仅规划（execute=false）；以对话直出三节路由建议，不写文件。. |
 | [define-mission](./define-mission/SKILL.md) | documentation, workflow | `1.2.0` | stable | 定义项目或组织的根本目的；回答项目为何存在；产出 mission 陈述并持久化到 docs。. |
 | [define-vision](./define-vision/SKILL.md) | documentation, workflow | `1.2.0` | stable | 定义项目旨在创造的长远未来；回答我们在构建什么未来；产出 vision 陈述并持久化到 docs。. |
 | [define-north-star](./define-north-star/SKILL.md) | documentation, workflow | `1.1.0` | stable | 定义代表向用户交付核心价值的单一最重要指标；产出 North Star Metric 及理由、辅助指标与反例。. |

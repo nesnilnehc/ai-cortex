@@ -5,7 +5,7 @@
 ## 默认行为
 
 - `execute=false`
-- 仅输出 `docs/calibration/cognitive-loop.md`
+- 仅在对话中输出三节路由建议：输入源清单、准备门结论、推荐路由任务
 
 ## 显式执行
 

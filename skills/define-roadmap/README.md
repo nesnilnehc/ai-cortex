@@ -10,7 +10,7 @@
 
 - **战略目标之后**：定义阶段或主要检查点，表示各目标的进展水平。
 - **规划周期**：为接下来 1–2 个阶段确定「完成的内容」。
-- **治理门**：提供里程碑路线图，供 `run-checkpoint` 或 `align-planning` 评估。
+- **治理门**：提供里程碑路线图，供 `plan-next` 或 `align-planning` 评估。
 - **待办之前**：提供路线图，待办项目可按倡议或主题分组。
 
 ## 输入
@@ -32,7 +32,7 @@ npx skills add nesnilnehc/ai-cortex --skill define-roadmap
 
 - `design-strategic-goals` — 上游：路线图节点（里程碑）源自战略目标。
 - `define-strategic-pillars` — 可选输入：支柱可引导路线图主题分组。
-- `align-planning`、`run-checkpoint` — 下游：治理时引用里程碑状态。
+- `align-planning`、`plan-next` — 下游：治理时引用里程碑状态。
 
 ## 完整定义
 
