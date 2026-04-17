@@ -3,7 +3,7 @@ name: plan-next
 description: Analyze governance state and produce next-action routing plan from existing docs; default is planning-only (no downstream execution).
 description_zh: 基于现有治理文档分析状态并输出下一步路由计划；默认仅规划，不执行下游技能。
 tags: [workflow, meta-skill, automation]
-version: 4.0.0
+version: 5.0.0
 license: MIT
 recommended_scope: project
 cognitive_mode: interpretive
@@ -17,7 +17,7 @@ input_schema:
     execute: false
 output_schema:
   type: chat
-  description: Structured chat output with 3 fixed sections — sources inventory, readiness verdict, prioritized next tasks
+  description: Structured chat output with project state label, 3 fixed sections (sources inventory, readiness verdict, prioritized next tasks), and two-tier routing (Primary state-focused + Secondary full-matrix compressed)
 ---
 
 # 技能：计划下一步（Plan Next）
@@ -36,6 +36,8 @@ output_schema:
 
 1. ✅ 输出符合 Behavior 各阶段要求的三节结构（输入源清单、准备门结论、推荐路由任务）
 2. ✅ 默认 `execute=false` 下未调用任何下游技能
+3. ✅ 标识当前**项目状态**（S1-S7）及其判定依据（ADR 2 决策 3.5）
+4. ✅ 推荐路由任务采用 **Primary（激活层） + Secondary（全矩阵压缩摘要）两层输出**（ADR 2 决策 3.6），矩阵 MECE 覆盖在 Secondary 完整保留
 
 **验收测试**：报告是否能被他人直接用于执行，而无需再追问"接下来该跑哪些技能"？
 
@@ -94,6 +96,30 @@ output_schema:
 
 **短路输出仍走对话三节结构**，第 3 节只列 P0 一条路由 + 明确说明"其他建议暂缓，等上层补齐后重跑 plan-next"。
 
+### 阶段 0.6：项目状态识别（7 态状态机）
+
+**定位**：状态机是矩阵的**解释器**（上下游关系），不是替代者。消费阶段 0 的资产状态扫描，产出状态标签用于阶段 1 的 Primary 层聚焦。
+
+基于阶段 0 结果 + git log + 文件 mtime 识别项目当前状态：
+
+| 状态 | 判定信号 | 激活层（Primary 聚焦） |
+|---|---|---|
+| **S1 Greenfield** | Why 层所有资产缺失或仅占位 | Why × G1 |
+| **S2 Strategy drafted** | Why ≥ 2 项 present；roadmap 缺 | What × G1 |
+| **S3 Plan drafted, 稀薄 backlog** | roadmap present；backlog 条目 < 阈值（默认 5） | What × G2 |
+| **S4 Backlog rich, idle** | roadmap + backlog 齐全；无 in-progress；近 N 天（默认 3）无 commit | Pull ceremony（`prioritize-backlog` → `promote-roadmap-items`） |
+| **S5 Execution in-flight** | 有 in-progress task / 未合并 PR / 近 N 天有 commit | 静默，仅 Rules×G1 打断 |
+| **S6 Post-execution, 可能漂移** | 近期 merge / release；上次 `align-planning` > N 天（默认 14） | Is × G3（触发 `align-planning`） |
+| **S7 Healthy / Idle** | 矩阵无缺口 + 无 in-flight + 漂移近期查过 | Quiet mode（明示无治理行动需要） |
+
+**信号来源**：
+- 资产存在 / 状态：阶段 0 扫描结果
+- in-flight：扫描 `backlog/*.md` 的 `status` 字段 + `git status` 未提交 + 近期 commit
+- 漂移新鲜度：`docs/calibration/planning-alignment.md` 的 `created_at`
+- 占位 vs 真实：frontmatter `status: placeholder` 或启发式字数判断
+
+**低 confidence fallback**：多个状态都有部分匹配且无法择一时，降级到全矩阵输出（Secondary 层全展开），明示"状态未定 fallback"并列出各候选状态的支撑信号。
+
 ### 阶段 1：路由建议生成
 
 按 **主题 × 缺口类型** 矩阵诊断。主题与缺口类型正交，路由由两者交叉决定。
@@ -140,13 +166,60 @@ output_schema:
 | **DEFERRED** | 使用者明确延后到下个周期 |
 | **ESCALATED** | 下游技能执行受阻（如战略冲突、依赖循环），回到 plan-next 重新评估 |
 
+### 阶段 1.5：两层输出合成（Primary + Secondary）
+
+**定位**：两层输出是**表现层**，在矩阵诊断（数据）和状态机（解释）之上，决定显示权重。
+
+**输出结构**：
+
+```
+项目状态：S<N>（<判定摘要>）
+判定依据：<关键信号>
+
+=== Primary：激活层路由 ===
+
+根据状态机激活层，详细列出相关路由（6 字段齐全）：
+| # | 主题 | 缺口 | 技能 | 依据 | 优先级 | 停止条件 |
+| 1 | ... | ... | ... | ... | P0/P1 | DONE/DEFERRED/ESCALATED |
+
+=== Secondary：全矩阵其他发现（压缩） ===
+
+其他矩阵格子检测到的缺口，1 行 / 项简要呈现：
+| 格子 | 一句话概述 | 建议 |
+| Rules × G4 | ARTIFACT_NORMS 老 schema | 做文档工作时顺手；不阻塞 |
+| How × G2 | ADR-015 缺"后果"节 | 单独补；非紧急 |
+```
+
+**两层分工**：
+
+| 层 | 内容 | 显示权重 |
+|---|---|---|
+| Primary | 当前状态激活层的缺口，完整 6 字段 | 高（详细、P0/P1 优先） |
+| Secondary | 矩阵其他格子的缺口，1 行摘要 | 低（紧凑、便于扫视） |
+
+**为什么保留 Secondary**：
+- 矩阵 MECE 完整性不丢失（用户能看到系统性视角）
+- 状态机误判时兜底（被"去优先化"的格子用户仍可见）
+- Secondary 建议字段提示"立即 / 推迟 / 不阻塞"，帮用户做跨层判断
+
+**用户 flag 覆盖**：
+- `--force-full-matrix` 强制全量输出（Primary 扩展到所有格子）
+- 低 confidence 自动触发此 flag
+
 ---
 
 ## 输入与输出 (Input & Output)
 
 **输入**：见 frontmatter `input_schema` —— 治理文档上下文 + `execute` 开关（默认 false）。
 
-**输出**：对话直出三节（输入源清单 / 准备门结论 / 推荐路由任务）。每节字段详见 Behavior 阶段 0、0.5、1。
+**输出**：对话直出，固定结构：
+
+1. **项目状态**（S1-S7）+ 判定依据（见 Behavior 阶段 0.6）
+2. **输入源清单**（Behavior 阶段 0）
+3. **准备门结论**（Behavior 阶段 0.5，含短路判定）
+4. **推荐路由任务**（Behavior 阶段 1 + 1.5）：
+   - Primary 层：状态激活的路由，6 字段齐全
+   - Secondary 层：矩阵其他发现，1 行摘要
 
 ---
 
@@ -177,6 +250,8 @@ output_schema:
 - ❌ **不要把多个 G 类型混在一条路由** —— 一条路由对应矩阵的一个单元格
 - ❌ **不要按缺口数量给优先级**（如"5 个 G1 比 1 个 G3 重要"）—— 优先级由治理层级决定，见阶段 1 优先级规则
 - ❌ **不要在 `execute=false` 时返回执行结果** —— 仅返回路由建议
+- ❌ **不要用状态机折叠 Secondary 层** —— 状态机是**显示权重**工具，不是**过滤器**；矩阵其他格子的缺口必须在 Secondary 层呈现
+- ❌ **不要在状态不明时强行归类** —— 低 confidence 时 fallback 到全矩阵输出，不伪装确定性
 
 ---
 
@@ -184,21 +259,31 @@ output_schema:
 
 - [ ] 阶段 0 覆盖全部 5 主题（Why / What/When / How / Is / Rules），每项资产有状态（present / placeholder / missing）
 - [ ] 阶段 0.5 短路条件已显式判定；未短路时给出"为何继续"
+- [ ] 阶段 0.6 项目状态（S1-S7）已识别，附判定依据；低 confidence 时 fallback 全矩阵
 - [ ] 每条路由含六字段：主题、缺口类型（G1-G4）、推荐技能、依据、优先级、停止条件
 - [ ] 每条停止条件是 DONE / DEFERRED / ESCALATED 三者之一
 - [ ] 矩阵 `—` 单元格未被强行推荐技能（应明示需人工判断）
 - [ ] 默认模式（`execute=false`）下未调用任何下游技能
+- [ ] 输出含 Primary + Secondary 两层；Secondary 保留了所有矩阵发现的缺口，未因状态机而折叠
 - [ ] 输出三节顺序与语义对应 frontmatter `output_schema.description`（sources inventory ↔ 输入源清单 / readiness verdict ↔ 准备门结论 / prioritized next tasks ↔ 推荐路由任务）
 
 ---
 
 ## 示例（Examples）
 
-### 示例 1：完整路由（happy path）
+### 示例 1：完整路由（S2 → S3 过渡，happy path）
 
 **场景**：项目有 mission / vision，无 NSM / strategic-goals，roadmap 存在但 backlog 大量项与 strategy 不匹配。
 
 **对话输出**：
+
+#### 项目状态：**S2 Strategy drafted**（部分完成，向 S3 过渡）
+
+**判定依据**：
+- Why 层 2 项 present（mission、vision），3 项 missing（north-star、strategic-goals、strategic-pillars）
+- roadmap present 但其上游 strategic-goals 缺失，roadmap 有效性受影响
+- 状态机倾向 S2；What 层已有 roadmap 所以也带 S3 特征
+- 最终采 S2（上游优先），激活层：**Why × G1**
 
 #### 1. 输入源清单
 
@@ -218,19 +303,32 @@ output_schema:
 
 #### 3. 推荐路由任务
 
+##### Primary：激活层路由（Why × G1）
+
 | # | 主题 | 缺口 | 推荐技能 | 依据 | 优先级 | 停止条件 |
 |---|---|---|---|---|---|---|
 | 1 | Why | G1 | `define-north-star` | NSM 缺失，无单一关键指标 | P1 | DONE: north-star.md 写入并通过 `assess-docs` |
-| 2 | Why | G1 | `design-strategic-goals` | strategic-goals 缺失 | P1 | DONE: strategic-goals.md 写入；ESCALATED: 与 NSM 冲突需重定义 |
-| 3 | What/When | G3 | `align-backlog` | backlog 多项与 strategy 不匹配 | P1 | DONE: 所有 backlog 项有 strategy 映射；DEFERRED: 用户延后 |
+| 2 | Why | G1 | `design-strategic-goals` | strategic-goals 缺失（并须含工程健康目标） | P1 | DONE: strategic-goals.md 写入；ESCALATED: 与 NSM 冲突需重定义 |
+
+##### Secondary：全矩阵其他发现（压缩）
+
+| 格子 | 一句话概述 | 建议 |
+|---|---|---|
+| What × G3 | backlog 多项与 strategy 不匹配 | 等 Why 层补齐再 `align-backlog`，避免基于未来要重定义的 strategy 做对齐 |
+
+> **Secondary 为什么不升 Primary**：Why × G1 是上游缺失；下游 align-backlog 在上游未稳前做会返工。状态机正确聚焦上游。
 
 ---
 
-### 示例 2：短路 —— 治理基础设施缺位（边缘场景）
+### 示例 2：短路 —— 治理基础设施缺位（S1 Greenfield，边缘场景）
 
 **场景**：新项目，`docs/ARTIFACT_NORMS.md` 不存在，`specs/` 为空，无 mission。
 
 **对话输出**：
+
+#### 项目状态：**S1 Greenfield**
+
+**判定依据**：Why 层全部 missing + Rules 层 missing → 匹配 Greenfield。进入 0.5 短路。
 
 #### 1. 输入源清单
 
@@ -247,8 +345,56 @@ output_schema:
 
 #### 3. 推荐路由任务
 
+##### Primary：短路路由
+
 | # | 主题 | 缺口 | 推荐技能 | 依据 | 优先级 | 停止条件 |
 |---|---|---|---|---|---|---|
 | 1 | Rules | G1 | `discover-docs-norms` → `define-docs-norms` | ARTIFACT_NORMS 缺失，规范基础未建立 | **P0** | DONE: ARTIFACT_NORMS.md 落盘并验收，之后重跑 plan-next |
 
-> **其他建议暂缓** —— 治理规则未建立时，下游资产创建无统一标准。补齐 Rules 后重新运行 plan-next 获取完整路由（包括 Why × G1 的战略锚点补齐）。
+##### Secondary：（短路时省略）
+
+> 短路场景下 Secondary 层省略 —— 治理规则未建立时，下游资产创建无统一标准，扫描其他格子价值有限。补齐 Rules 后重跑 plan-next 获得完整路由（含 Why × G1）。
+
+---
+
+### 示例 3：健康状态（S7 Quiet mode，边缘场景）
+
+**场景**：成熟项目，治理链齐全，近期已跑 align-planning 无漂移，无 in-flight 工作。
+
+**对话输出**：
+
+#### 项目状态：**S7 Healthy / Idle**
+
+**判定依据**：
+- 全部 5 主题资产 present，无 missing / placeholder
+- `docs/calibration/planning-alignment.md` 最近 created_at = 3 天前 < 14 天阈值
+- git log 近 3 天无 commit，无 in-progress task / 未合并 PR
+- 矩阵全扫描无 G1-G4 缺口
+
+#### 1. 输入源清单
+
+（所有资产 present，质量均 high，全量列表略）
+
+#### 2. 准备门结论
+
+**通过**。Rules 与 Why 齐全，状态机识别为 S7。
+
+#### 3. 推荐路由任务
+
+##### Primary：无治理行动需要
+
+> **Quiet mode**：治理状态健康，本轮无需任何治理技能。**建议按项目 roadmap 执行产品工作**。
+>
+> 下次建议检查：14 天后，或 align-planning 报告过期前（距今 11 天后到期）。
+
+##### Secondary：全矩阵扫描（无发现）
+
+| 格子 | 发现 |
+|---|---|
+| Why × G1-G4 | 无 |
+| What × G1-G4 | 无 |
+| How × G1-G4 | 无 |
+| Is × G1-G4 | 无（上次 `assess-docs-code-alignment` 3 天前，通过） |
+| Rules × G1-G4 | 无 |
+
+> **Quiet mode 意图**：避免 plan-next 在健康状态下产出嗓音；把注意力还给产品工作。

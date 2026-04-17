@@ -1,13 +1,14 @@
 name: plan-next
 status: validated
 cognitive_mode: interpretive
-primary_use: Inventory governance inputs and produce next-action routing report; default planning-only with execute=false.
+primary_use: Inventory governance inputs and produce next-action routing report. Adds v5 project state machine (S1-S7, matrix interpreter) and two-layer Primary/Secondary output per ADR 20260417. Default planning-only with execute=false.
 inputs:
 - trigger context
 - optional scope overrides
 - optional execute flag (default false)
 outputs:
-- structured chat output: sources inventory, readiness verdict, prioritized next tasks
+- structured chat output with project state label (S1-S7) and 3 sections (sources inventory, readiness verdict, prioritized next tasks)
+- two-tier routing: Primary (state-focused) + Secondary (full-matrix compressed)
 - routing recommendations with priority/owner/rationale
 scores:
   agent_native: 5
@@ -23,7 +24,7 @@ tags:
 - workflow
 - automation
 - meta-skill
-version: 4.0.0
+version: 5.0.0
 validation_gates:
   gate_a:
     name: Agent-ready
