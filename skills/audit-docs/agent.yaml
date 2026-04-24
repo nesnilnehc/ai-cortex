@@ -1,6 +1,8 @@
 name: audit-docs
 status: validated
-primary_use: Run read-only governance audit orchestration and produce unified report with prioritized routing.
+primary_use: Run read-only governance audit orchestration and produce unified report
+  with prioritized routing. v2.1 adds Stage 0 Norms Resolution per artifact-contract
+  §8 — project norms override path_pattern; fixed-path governance output.
 cognitive_mode: interpretive
 inputs:
 - project path

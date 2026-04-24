@@ -3,7 +3,7 @@ name: analyze-requirements
 description: Transform vague intent or incomplete requirements into validated, testable requirements through diagnostic state progression and structured dialogue. Use when user has an idea, feature request, problem statement, or existing requirements document that needs clarification or validation before design or implementation.
 description_zh: 通过诊断状态推进与结构化对话，将模糊意图或不完整需求转为可验证、可测试的需求。
 tags: [writing, documentation]
-version: 1.1.1
+version: 2.0.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -37,7 +37,7 @@ metadata:
 triggers: [project start, start project, requirements, analyze requirements, clarify requirements, validate requirements, existing requirements]
 input_schema:
   type: free-form | document-artifact
-  description: Vague idea, feature request, problem statement, or existing requirements document (complete or incomplete) to analyze or validate
+  description: Vague idea, feature request, problem statement, or existing requirements document to analyze/validate; optional upstream_ref (path to parent artifact for parent-pointer / colocation linking modes); optional artifact_norms_path override
 output_schema:
   type: document-artifact
   description: Validated requirements document written to docs/requirements-planning/<topic>.md
@@ -111,6 +111,19 @@ output_schema:
 - **默认**：从输入推断当前状态；从最早的未解决状态开始
 - **选择选项**：一次一个问题；尽可能提供“[A][B][C]”
 - **确认**：退出设计转交之前；在写需求文档之前
+
+### 第 0 阶段：Norms Resolution（v2.0 新增）
+
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 实现：
+
+1. 按 §8.2 发现顺序解析项目规范 → 确定 `path_pattern`（默认：`docs/requirements-planning/{topic}.md`）与 `linking_mode`
+2. 若 `linking_mode` ∈ {`colocation`, `parent-pointer`}：读 frontmatter 输入字段 `upstream_ref`；缺失则追问用户
+3. 按 §8.4 真值表决定最终输出路径与 frontmatter：
+   - `colocation` → `work/{parent_slug}/requirement.md`
+   - `parent-pointer` → 默认路径 + 强制 `parent: <upstream_ref>` frontmatter 字段
+   - `slug` / `manifest` / `none` → 默认路径不变
+   - `mixed` → 按 `ARTIFACT_NORMS.md` 的 `mixed.rules` 子映射查 `requirements` 类型
+4. 按 §8.3 占位符语法替换，记录 resolved_path 供第 3 阶段"坚持"使用
 
 ### 硬门：验证前无设计
 

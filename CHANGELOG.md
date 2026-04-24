@@ -7,6 +7,52 @@
 
 ## [Unreleased]
 
+### Added（v7.0.0 — 规范驱动制品架构闭环，2026-04-24）
+
+**重大版本升级**：`manifest.version` 2.0.0 → 3.0.0；`manifest.spec_version` 2.5.0 → 3.0.0。详见 [ADR 004](docs/architecture/adrs/004-norms-driven-artifact-architecture.md)。
+
+**新增规范（Runtime Norms Resolution）**：
+
+- `specs/artifact-contract.md` **v1.2 → v3.0** — 新增 **§8 Runtime Norms Resolution Protocol**：产出文档制品的技能**必须**实现 Stage 0 Norms Resolution 步骤；按 §8.2 发现顺序读项目规范；§8.3 占位符语法（`{slug}` / `{topic}` / `{parent_slug}` / `{YYYY-MM-DD}` 等）；§8.4 linking_mode 输出真值表；§8.5 部分覆盖合并；§8.6 错误处理；§8.7 校验钩子
+- `specs/artifact-norms-schema.md` **v1.1 → v1.2** — `path_pattern` 明确从硬规则降级为默认值；占位符语法统一声明
+
+**新增技能**：
+
+- `align-work-item-manifest` **v1.0.0 (experimental, advisory-only)** — 检测 manifest 链接模式下清单文件与物理制品的漂移（悬挂引用 / 未登记 / 命名不符三类）；v1.0.0 只读不改；输出供 `plan-next` 作 G3 漂移源消费
+
+**协同 MAJOR bump**（权威-选择-消费三角 + 5 链接锚点）：
+
+- `discover-docs-norms` **v2.0 → v3.0** — 新增 Stage 2b 链接模式识别；按 `specs/linking-modes.md §3` 判据识别 6 枚举（slug / colocation / parent-pointer / manifest / mixed / none）；输出 `linking_mode` + confidence + evidence 到提案
+- `define-docs-norms` **v1.0 → v2.0** — 新增 Stage 1b 链接模式选择 UI；推荐 + 5 备选呈现；`mixed` 模式追问主/辅；写 `linking_mode` 到 `ARTIFACT_NORMS.md`；支持 `linking_mode_override` non-interactive 调用
+- `plan-next` **v6.3 → v7.0** — Step 0 Norms Resolution 算法实际执行（v6.3 声明的契约激活）；Step 2.5 显式 `Step 2.5.1-2.5.3` 模式选择与前置闸门路由；Step 2.7 S5 任务路径使用 cache-resolved path_pattern
+- `analyze-requirements` **v1.1.1 → v2.0** — 加 Stage 0 + colocation/parent-pointer 分支 + `upstream_ref` 输入
+- `design-solution` **v1.1.1 → v2.0** — 同上（design artifact_type）
+- `breakdown-tasks` **v1.1 → v2.0** — 同上（tasks artifact_type）
+- `capture-work-items` **v1.1 → v2.0** — 重构 "路径检测" 为 Stage 0；同上（backlog-item artifact_type）
+- `bootstrap-docs` **v1.1.2 → v2.0** — 同上（adr artifact_type）
+
+**协同 MINOR bump**（15 个固定路径治理技能加 Stage 0 路径覆盖，无 linking 分支）：
+
+- `define-mission` v1.2 → v1.3；`define-vision` v1.2 → v1.3；`define-north-star` v1.1 → v1.2
+- `define-strategic-pillars` v1.0 → v1.1；`design-strategic-goals` v1.1 → v1.2
+- `define-roadmap` v3.1 → v3.2
+- `align-planning` v1.3 → v1.4；`align-architecture` v1.2 → v1.3；`align-backlog` v1.0 → v1.1
+- `assess-docs` v4.0 → v4.1；`assess-docs-ssot` v1.0 → v1.1；`assess-docs-code-alignment` v1.0 → v1.1；`assess-docs-links` v1.0 → v1.1
+- `audit-docs` v2.0 → v2.1
+- `tidy-repo` v1.2 → v1.3
+
+**协同 PATCH bump**：
+
+- `specs/terminology.md` v1.1 → v1.1.1（§7 Runtime Norms Resolution 入口）
+- `specs/linking-modes.md` v1.0.0 → v1.0.1（交叉引用微调）
+
+### Migration Notes（v6.3 → v7.0.0）
+
+1. **消费 artifact-contract.md 的外部代码**：§8 是新增规范段，消费方需实现 Stage 0 或声明遵循 v2.x 行为——若 `spec_version` pin 在 2.x，升级到 3.0 前请读新 §8
+2. **项目级 `ARTIFACT_NORMS.md`**：可选增加 `linking_mode` 字段（6 枚举之一）；未加不影响工作，但 plan-next v7 会触发前置闸门路由推荐运行 `discover-docs-norms` → `define-docs-norms`
+3. **链接锚点技能调用方**：新增 `upstream_ref` 可选输入（parent-pointer / colocation 模式下必需）；`artifact_norms_path` 亦可选
+4. **回滚锚点**：`v6.3-lts` git tag（commit 1ce60f3）为 pre-v7 完整状态；回滚建议 `git reset --hard v6.3-lts`（需确认回滚范围）
+
 ### Removed（2026-03-25）
 
 - **删除自动生成脚本和单元测试**：移除 `scripts/generate-skills-index.mjs`、`scripts/generate-skillgraph.mjs`、`scripts/test/` 与 `skills/skillgraph.md`。`skills/INDEX.md` 改为手动维护；`npm run verify` 只进行验证而不自动生成。理由：INDEX.md 和 skillgraph.md 属于治理文档，手动维护使其保持精确性；单元测试冗余，因 `verify-registry.mjs` 本身已验证库函数正确性。

@@ -17,6 +17,8 @@
 | [Universal Notification Protocol](./universal-notification.md) | notification | `1.0.0` | active | 定义通知的结构、必需字段、语义层（WHAT）。与 INP 协议栈配套。|
 | [Requirement Modeling Spec](./requirement-modeling/SPEC.md) | requirements | `1.0.0` | active | 定义需求的 7 个必填字段、5 维审查清单、BDD 验收标准格式。|
 | [Linking Modes Spec](./linking-modes.md) | linking | `1.0.0` | active | 定义 6 项固定链接模式枚举（slug / colocation / parent-pointer / manifest / mixed / none），7 维统一描述结构；discover-docs-norms 的识别、define-docs-norms 的选择 UI、plan-next 的消费都以此为 SSOT。|
+| [Artifact Contract](./artifact-contract.md) | artifact | `3.0.0` | active | 产出文档制品的契约；v3.0 新增 §8 Runtime Norms Resolution Protocol——统一规定技能在运行时如何读项目规范（`ARTIFACT_NORMS.md` / `.ai-cortex/artifact-norms.yaml`）、占位符语法、linking_mode 输出规则、错误处理。|
+| [Artifact Norms Schema](./artifact-norms-schema.md) | artifact | `1.2.0` | active | 项目级制品规范文件的字段集与语法；v1.2 明示 `path_pattern` 从硬规则降级为默认值；新增占位符语法统一声明。|
 
 ---
 

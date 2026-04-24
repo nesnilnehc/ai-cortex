@@ -1,6 +1,9 @@
 name: assess-docs
 status: validated
-primary_use: Assess documentation core health only (norm compliance + readiness + minimum fill plan).
+primary_use: Assess documentation core health only (norm compliance + readiness +
+  minimum fill plan). v4.1 refactors Stage 0 to conform to artifact-contract §8
+  Runtime Norms Resolution Protocol — project norms override path_pattern for the
+  doc-assessment output; fixed-path governance output.
 cognitive_mode: interpretive
 inputs:
 - project docs scope

@@ -1,13 +1,20 @@
 name: define-docs-norms
 status: validated
 primary_use: Create or update docs/ARTIFACT_NORMS.md from an approved norms proposal.
+  v2.0 adds Stage 1b "Linking Mode Selection" — presents the 6 fixed enums from
+  specs/linking-modes.md (slug / colocation / parent-pointer / manifest / mixed /
+  none) to the user with discover-docs-norms recommendation ranking, asks mixed
+  sub-questions (primary + secondary scope), writes structured linking_mode field
+  to docs/ARTIFACT_NORMS.md per specs/artifact-norms-schema.md §6. Non-interactive
+  callers may pass linking_mode_override to bypass UI.
 cognitive_mode: interpretive
 inputs:
-- approved norms proposal
+- approved norms proposal (may contain Linking Mode section with candidates)
 - optional existing docs/ARTIFACT_NORMS.md
 - optional merge strategy
+- optional linking_mode_override (bypass interactive selection)
 outputs:
-- docs/ARTIFACT_NORMS.md
+- docs/ARTIFACT_NORMS.md (with Linking Mode section per v2.0)
 - change summary
 scores:
   agent_native: 5
@@ -22,7 +29,7 @@ market_position: differentiated
 tags:
 - documentation
 - workflow
-version: 1.0.0
+version: 2.0.0
 validation_gates:
   gate_a:
     name: Agent-ready

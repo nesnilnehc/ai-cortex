@@ -1,6 +1,8 @@
 name: assess-docs-ssot
 status: validated
-primary_use: Assess SSOT integrity and produce intent-driven conflict matrix with canonical mapping.
+primary_use: Assess SSOT integrity and produce intent-driven conflict matrix with
+  canonical mapping. v1.1 adds Stage 0 Norms Resolution per artifact-contract §8 —
+  project norms override path_pattern; fixed-path governance output.
 cognitive_mode: interpretive
 inputs:
 - docs scope

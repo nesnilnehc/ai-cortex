@@ -3,7 +3,7 @@ name: audit-docs
 description: Audit documentation governance in read-only mode and produce a unified report with prioritized actions and explicit skill routing.
 description_zh: 以只读方式审计文档治理并输出统一报告，给出优先级行动与明确技能路由。
 tags: [documentation, governance, orchestration, workflow, ssot]
-version: 2.0.0
+version: 2.1.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -75,6 +75,10 @@ output_schema:
 ---
 
 ## 行为（Behavior）
+
+### 阶段 0：Norms Resolution（v2.1 新增）
+
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `audit-docs` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/calibration/audit-docs.md`）。本技能为**固定路径治理产出**（orchestrator 角色），不涉及 `linking_mode` 分支；所依赖的子技能（assess-*）各自执行其 Stage 0。
 
 ### 模式定义
 

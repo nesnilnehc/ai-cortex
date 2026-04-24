@@ -3,7 +3,7 @@ name: assess-docs
 description: Assess documentation core health in one pass — artifact norms compliance, layer readiness scoring, and minimum fill plan.
 description_zh: 一次性评估文档核心健康：规范合规、分层就绪度评分与最小补齐计划。
 tags: [documentation, workflow, governance]
-version: 4.0.0
+version: 4.1.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -74,11 +74,14 @@ output_schema:
 
 ## 行为（Behavior）
 
-### 阶段 0：规范与范围解析
+### 阶段 0：Norms Resolution + 范围解析（v4.1 更新）
+
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 实现本技能产出（`doc-assessment`）的 path_pattern 解析 + 同时解析被评估的项目规范作为评估基线：
 
 1. 解析 docs 根路径
-2. 读取 `docs/ARTIFACT_NORMS.md`；不存在则回退 `specs/artifact-contract.md`
-3. 建立目标层映射（mission/vision/requirements/architecture/roadmap/backlog 等）
+2. 按 §8.2 发现顺序读取项目规范（优先 `.ai-cortex/artifact-norms.yaml`，其次 `docs/ARTIFACT_NORMS.md`）；不存在则回退 `specs/artifact-contract.md` 默认
+3. 读取项目规范中 `doc-assessment` artifact_type 的 `path_pattern` 决定本次评估报告的输出路径（默认 `docs/calibration/doc-assessment.md`）；本技能为固定路径治理产出，不涉及 linking_mode 分支
+4. 建立目标层映射（mission/vision/requirements/architecture/roadmap/backlog 等）用于后续阶段的评估
 
 ### 阶段 1：合规性验证
 

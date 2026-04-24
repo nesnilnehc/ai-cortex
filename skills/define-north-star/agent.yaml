@@ -3,6 +3,8 @@ status: validated
 primary_use: Define the single most important metric (North Star Metric) representing
   core value delivered to users; produce NSM with rationale, optional supporting metrics,
   and anti-examples; persist to docs/project-overview/north-star.md (or project norms).
+  v1.2 adds Stage 0 Norms Resolution per artifact-contract §8 — project norms override
+  path_pattern; fixed-path governance output, no linking_mode branch.
 cognitive_mode: interpretive
 inputs:
 - project/product description; target users; core value proposition (or mission/vision)

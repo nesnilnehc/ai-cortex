@@ -3,7 +3,7 @@ name: define-strategic-pillars
 description: Derive 3–5 strategic pillars (high-level themes) from vision and North Star that structure and guide strategic goals and roadmap. Produces a strategic pillars document; persisted to docs.
 description_zh: 从 vision 与 North Star 推导 3–5 个战略支柱（高层次主题），指导战略目标与路线图。
 tags: [documentation, workflow]
-version: 1.0.0
+version: 1.1.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -81,6 +81,10 @@ output_schema:
 ---
 
 ## 行为（行为）
+
+### 第 0 阶段：Norms Resolution（v1.1 新增）
+
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `strategic-pillars` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/project-overview/strategic-pillars.md`）。本技能为**固定路径治理产出**，不涉及 `linking_mode` 分支。
 
 ### 交互（互动）政策
 

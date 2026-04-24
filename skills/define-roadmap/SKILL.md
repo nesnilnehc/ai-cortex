@@ -3,7 +3,7 @@ name: define-roadmap
 description: Derive a strategic roadmap from goals using milestone checkpoints, strategic bets, success metrics, and promotion criteria. Produces a decision-grade roadmap document.
 description_zh: 从战略目标推导路线图，包含里程碑、关键举措、成功指标与推进条件，产出可用于决策的路线图文档。
 tags: [documentation, strategy, workflow]
-version: 3.1.0
+version: 3.2.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -75,6 +75,10 @@ output_schema:
 ---
 
 ## 行为 (Behavior)
+
+### 第 0 阶段：Norms Resolution（v3.2 新增）
+
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `roadmap` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/process-management/roadmap.md` 或 `docs/process-management/milestones.md`）。本技能为**固定路径治理产出**，不涉及 `linking_mode` 分支（roadmap 本身是 Now/Next/Later 分层的容器，不作为被 link 的下游）。
 
 ### 交互（互动）政策
 

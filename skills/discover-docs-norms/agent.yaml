@@ -1,14 +1,18 @@
 name: discover-docs-norms
 status: validated
 primary_use: Discover and propose project-specific docs norms from repository evidence;
-  output proposal only and never write ARTIFACT_NORMS directly.
+  output proposal only and never write ARTIFACT_NORMS directly. v3.0 adds Stage 2b
+  "Linking Mode Identification" per specs/linking-modes.md §3 — detects which of the
+  6 fixed enums (slug / colocation / parent-pointer / manifest / mixed / none) the
+  project uses based on evidence signals, outputs linking_mode + confidence + evidence
+  to the proposal file for define-docs-norms to present as selection UI.
 cognitive_mode: interpretive
 inputs:
 - project path (default CWD)
 - optional docs root
 - optional confidence threshold
 outputs:
-- docs/calibration/docs-norms-proposal.md (proposal report only)
+- docs/calibration/docs-norms-proposal.md (proposal report with Linking Mode section per v3.0)
 scores:
   agent_native: 5
   cognitive: 4
@@ -22,7 +26,7 @@ market_position: differentiated
 tags:
 - documentation
 - workflow
-version: 2.0.0
+version: 3.0.0
 validation_gates:
   gate_a:
     name: Agent-ready

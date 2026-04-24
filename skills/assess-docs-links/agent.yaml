@@ -1,6 +1,8 @@
 name: assess-docs-links
 status: validated
-primary_use: Assess document graph health and report link-related risks.
+primary_use: Assess document graph health and report link-related risks. v1.1 adds
+  Stage 0 Norms Resolution per artifact-contract §8 — project norms override
+  path_pattern; fixed-path governance output.
 cognitive_mode: interpretive
 inputs:
 - docs root

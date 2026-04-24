@@ -3,7 +3,7 @@ name: breakdown-tasks
 description: Break a design document into an executable task list with dependencies, acceptance criteria, and assignee or AI execution hints. Use when design is approved and you need an implementation plan.
 description_zh: 将设计文档拆解为可执行任务列表：依赖、验收标准、负责人或 AI 执行提示。
 tags: [writing, documentation, workflow]
-version: 1.1.0
+version: 2.0.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -11,7 +11,7 @@ metadata:
 triggers: [breakdown tasks, task breakdown, implementation plan, tasks from design]
 input_schema:
   type: document-artifact + optional free-form
-  description: Design document (e.g. design.md or docs/design-decisions/YYYY-MM-DD-<topic>.md); optional scope or priority hints
+  description: Design document (path or content); optional scope or priority hints; optional upstream_ref (parent design path for colocation/parent-pointer modes); optional artifact_norms_path override
 output_schema:
   type: document-artifact
   description: Task list document with ordered tasks, dependencies, acceptance criteria, and assignee/execution hints
@@ -78,6 +78,19 @@ output_schema:
 - **默认**：需要设计文档（路径或内容）；使用项目规范作为输出路径（如果存在）
 - **选择选项**：当设计不明确时，一次提出一个澄清问题
 - **确认**：用户必须批准或调整任务列表才能转交
+
+### 第 0 阶段：Norms Resolution（v2.0 新增）
+
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 实现：
+
+1. 按 §8.2 发现顺序解析项目规范 → 确定 `path_pattern`（默认：`docs/process-management/tasks/YYYY-MM-DD-{topic}.md`）与 `linking_mode`
+2. 若 `linking_mode` ∈ {`colocation`, `parent-pointer`}：读 `upstream_ref`（应指向上游 design 文档）；缺失则追问用户
+3. 按 §8.4 真值表决定最终输出路径与 frontmatter：
+   - `colocation` → `work/{parent_slug}/tasks.md`
+   - `parent-pointer` → 默认路径 + 强制 `parent: <upstream_ref>` frontmatter
+   - `slug` / `manifest` / `none` → 默认路径不变
+   - `mixed` → 按 `mixed.rules` 查 `tasks` 类型
+4. 按 §8.3 占位符语法替换，记录 resolved_path 供后续写入使用
 
 ### 第 1 阶段：摄取设计
 

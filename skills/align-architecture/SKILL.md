@@ -3,7 +3,7 @@ name: align-architecture
 description: Verify architecture and design documents against code implementation; produce an Architecture Compliance Report when implementation diverges from ADR or design decisions.
 description_zh: 对照代码实现验证架构与设计文档；当实现偏离 ADR 或设计时，产出架构合规报告。
 tags: [workflow, documentation]
-version: 1.2.0
+version: 1.3.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -99,6 +99,10 @@ output_schema:
 ---
 
 ## 行为（行为）
+
+### 第 0 阶段：Norms Resolution（v1.3 新增）
+
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `architecture-compliance` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/calibration/architecture-compliance.md`）。本技能为**固定路径治理产出**，不涉及 `linking_mode` 分支。
 
 ### 代理即时合同
 

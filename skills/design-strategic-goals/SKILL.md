@@ -3,7 +3,7 @@ name: design-strategic-goals
 description: Define 3–5 long-term strategic goals that move the project toward the vision and North Star. Produces a goals document aligned with mission, vision, and NSM; persisted to docs.
 description_zh: 定义 3–5 个推动项目走向 vision 与 North Star 的长期战略目标；产出 goals 文档。
 tags: [documentation, workflow]
-version: 1.1.0
+version: 1.2.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -75,6 +75,10 @@ output_schema:
 ---
 
 ## 行为（行为）
+
+### 第 0 阶段：Norms Resolution（v1.2 新增）
+
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `strategic-goals` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/project-overview/strategic-goals.md`）。本技能为**固定路径治理产出**，不涉及 `linking_mode` 分支。
 
 ### 交互（互动）政策
 

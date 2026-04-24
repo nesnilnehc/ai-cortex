@@ -56,8 +56,8 @@
 | :--- | :--- | :--- | :--- | :--- |
 | [decontextualize-text](./decontextualize-text/SKILL.md) | generalization, privacy, security, writing | `1.3.1` | stable | 将含私有上下文或内部依赖的文本转为通用、无偏向的表述，保留逻辑、移除组织标识，便于交接、开源或跨团队共享。. |
 | [generate-standard-readme](./generate-standard-readme/SKILL.md) | devops, documentation, writing | `1.2.1` | stable | 生成固定结构的转换导向 README：10 秒理解、1 分钟运行、清晰的用途与场景；支持治理与采纳模式。. |
-| [discover-docs-norms](./discover-docs-norms/SKILL.md) | documentation, workflow | `2.0.0` | mature | 扫描并推导项目文档规范提案（路径、命名、生命周期）；仅输出提案，不直接写入规范文件。. |
-| [define-docs-norms](./define-docs-norms/SKILL.md) | documentation, workflow | `1.0.0` | stable | 基于已确认提案创建或更新 docs/ARTIFACT_NORMS.md，建立项目文档规范的单一权威来源。. |
+| [discover-docs-norms](./discover-docs-norms/SKILL.md) | documentation, workflow | `3.0.0` | mature | 扫描并推导项目文档规范提案（路径、命名、生命周期）；v3.0 新增 Stage 2b 链接模式识别（6 枚举：slug/colocation/parent-pointer/manifest/mixed/none）输出 linking_mode + confidence 到提案。. |
+| [define-docs-norms](./define-docs-norms/SKILL.md) | documentation, workflow | `2.0.0` | stable | 基于已确认提案创建或更新 docs/ARTIFACT_NORMS.md；v2.0 新增 Stage 1b 链接模式选择 UI（推荐 + 5 备选 + mixed 追问），写 linking_mode 字段到规范文件。. |
 | [discover-skills](./discover-skills/SKILL.md) | automation, generalization, infrastructure | `1.3.1` | stable | 识别能力缺口并从 AI Cortex 或公共技能目录推荐安装；提供前 1–3 条匹配及安装命令。. |
 | [refine-skill-design](./refine-skill-design/SKILL.md) | meta-skill, optimization, writing | `1.4.0` | stable | 审计并重构既有 SKILL，使其符合规范与 LLM 最佳实践；适用于改进草稿、修复质量或对齐规范。. |
 | [generate-agent-entry](./generate-agent-entry/SKILL.md) | documentation | `1.0.1` | stable | 按嵌入式输出契约编写或修订 AGENTS.md，确立项目身份、权威来源与行为预期；采用 AI Cortex 入口格式。. |
@@ -79,36 +79,37 @@
 | [curate-skills](./curate-skills/SKILL.md) | documentation, meta-skill | `1.0.1` | stable | 通过 ASQM 评分、生命周期管理与重叠检测治理技能清单；产出全库技能的质量评分与规范化文档。. |
 | [install-rules](./install-rules/SKILL.md) | automation, infrastructure | `1.2.1` | stable | 从源仓库将规则安装到 Cursor 或 Trae IDE；需显式确认与冲突检测；写盘前需用户批准。. |
 | [review-performance](./review-performance/SKILL.md) | code-review, optimization | `1.0.0` | stable | 审查性能：复杂度、数据库/查询效率、I/O 与网络成本、内存与分配、并发竞争、缓存与延迟/吞吐回归。. |
-| [bootstrap-docs](./bootstrap-docs/SKILL.md) | documentation, writing | `1.1.2` | stable | 使用 project-documentation-template 初始化或适配项目文档；产出结构化生命周期文档；支持 Initialize / Adjust。. |
-| [capture-work-items](./capture-work-items/SKILL.md) | documentation, workflow, writing | `1.1.0` | stable | 将自由形式输入快速捕获为结构化、可持久的需求、缺陷或问题制品；必填 strategic_goal_id；priority 标 unset 等批量评分。. |
+| [bootstrap-docs](./bootstrap-docs/SKILL.md) | documentation, writing | `2.0.0` | stable | 使用 project-documentation-template 初始化或适配项目文档；v2.0 加 Stage 0 Norms Resolution（per artifact-contract §8）+ colocation/parent-pointer 分支。. |
+| [capture-work-items](./capture-work-items/SKILL.md) | documentation, workflow, writing | `2.0.0` | stable | 将自由形式输入快速捕获为结构化持久的制品；v2.0 重构路径检测为 Stage 0 Norms Resolution + colocation/parent-pointer 分支 + upstream_ref 输入。. |
 | [commit-work](./commit-work/SKILL.md) | automation, git, workflow | `2.0.0` | mature | 创建高质量 git 提交：清晰消息与合理范围；遵循 Conventional Commits，含 pre-commit 质量检查。. |
-| [design-solution](./design-solution/SKILL.md) | documentation, writing | `1.1.1` | stable | 从需求产出验证过的设计文档（架构、组件、数据流、权衡）；不含实现；用于下游任务拆解。. |
-| [breakdown-tasks](./breakdown-tasks/SKILL.md) | documentation, workflow, writing | `1.1.0` | stable | 将设计文档拆解为可执行任务列表：依赖、验收标准、负责人或 AI 执行提示。. |
+| [design-solution](./design-solution/SKILL.md) | documentation, writing | `2.0.0` | stable | 从需求产出验证过的设计文档；v2.0 加 Stage 0 Norms Resolution + colocation（work/<parent_slug>/design.md）/parent-pointer（parent frontmatter）分支 + upstream_ref 输入。. |
+| [breakdown-tasks](./breakdown-tasks/SKILL.md) | documentation, workflow, writing | `2.0.0` | stable | 将设计文档拆解为可执行任务列表；v2.0 加 Stage 0 Norms Resolution + colocation/parent-pointer 分支 + upstream_ref 输入。. |
 | [review-typescript](./review-typescript/SKILL.md) | code-review | `1.0.0` | stable | 审查 TypeScript/JavaScript 代码：类型安全、异步模式、错误处理与模块设计；原子技能。. |
 | [review-react](./review-react/SKILL.md) | code-review | `1.0.0` | stable | 审查 React 代码：组件设计、hooks 正确性、状态管理、渲染性能与可访问性；框架级原子技能。. |
 | [review-orm-usage](./review-orm-usage/SKILL.md) | code-review, optimization | `1.0.0` | stable | 审查 ORM 使用：N+1 查询、连接管理、迁移安全、事务与查询效率；库级原子技能。. |
-| [analyze-requirements](./analyze-requirements/SKILL.md) | documentation, writing | `1.1.1` | stable | 通过诊断状态推进与结构化对话，将模糊意图或不完整需求转为可验证、可测试的需求。. |
+| [analyze-requirements](./analyze-requirements/SKILL.md) | documentation, writing | `2.0.0` | stable | 通过诊断状态推进与结构化对话，将模糊意图或不完整需求转为可验证、可测试的需求；v2.0 加 Stage 0 Norms Resolution + colocation/parent-pointer 分支 + upstream_ref 输入。. |
 | [review-requirements](./review-requirements/SKILL.md) | code-review | `1.0.1` | stable | 审查既有需求文档质量：问题清晰度、可测试需求、约束清单、范围边界、需求 ID 与遗留问题。. |
-| [align-planning](./align-planning/SKILL.md) | documentation, workflow | `1.3.0` | stable | 执行任务后追溯、漂移检测与自上而下校准，使规划（目标、需求、里程碑、路线图）与执行对齐。. |
-| [align-architecture](./align-architecture/SKILL.md) | documentation, workflow | `1.2.0` | stable | 对照代码实现验证架构与设计文档；当实现偏离 ADR 或设计时，产出架构合规报告。. |
-| [align-backlog](./align-backlog/SKILL.md) | documentation, workflow | `1.0.0` | stable | 将产品/工作待办与当前战略、目标、路线图对齐；分析待办项，识别脱节或孤儿工作，提出变更建议。. |
-| [assess-docs](./assess-docs/SKILL.md) | documentation, governance, workflow | `4.0.0` | mature | 一次性评估文档核心健康：规范合规、分层就绪度评分与最小补齐计划。. |
-| [assess-docs-code-alignment](./assess-docs-code-alignment/SKILL.md) | documentation, governance, workflow | `1.0.0` | stable | 评估代码变更与应更新文档之间的对齐缺口，输出补齐建议。. |
-| [assess-docs-links](./assess-docs-links/SKILL.md) | documentation, governance, workflow | `1.0.0` | stable | 评估文档链接图健康度（坏链、孤立、循环、深链）并输出修复建议。. |
-| [assess-docs-ssot](./assess-docs-ssot/SKILL.md) | documentation, governance, ssot, workflow | `1.0.0` | stable | 执行意图优先 SSOT 完整性审计，输出冲突矩阵与 canonical source 映射。. |
-| [audit-docs](./audit-docs/SKILL.md) | documentation, governance, orchestration, ssot, workflow | `2.0.0` | mature | 以只读方式编排文档治理审计，汇总多项评估并生成统一治理路线图。. |
+| [align-planning](./align-planning/SKILL.md) | documentation, workflow | `1.4.0` | stable | 执行任务后追溯、漂移检测与自上而下校准；v1.4 加 Stage 0 Norms Resolution 路径覆盖。. |
+| [align-architecture](./align-architecture/SKILL.md) | documentation, workflow | `1.3.0` | stable | 对照代码实现验证架构与设计文档；v1.3 加 Stage 0 Norms Resolution 路径覆盖。. |
+| [align-backlog](./align-backlog/SKILL.md) | documentation, workflow | `1.1.0` | stable | 将产品/工作待办与当前战略、目标、路线图对齐；v1.1 加 Stage 0 Norms Resolution 路径覆盖。. |
+| [align-work-item-manifest](./align-work-item-manifest/SKILL.md) | workflow, documentation, governance, alignment | `1.0.0` | experimental | 检测 manifest 链接模式下清单文件与物理制品的漂移（悬挂引用/未登记/命名不符）；v1.0 只读 advisory；输出供 plan-next 作 G3 漂移源消费（ADR 004）。. |
+| [assess-docs](./assess-docs/SKILL.md) | documentation, governance, workflow | `4.1.0` | mature | 一次性评估文档核心健康：规范合规、分层就绪度评分与最小补齐计划；v4.1 Stage 0 按 artifact-contract §8 重构。. |
+| [assess-docs-code-alignment](./assess-docs-code-alignment/SKILL.md) | documentation, governance, workflow | `1.1.0` | stable | 评估代码变更与应更新文档之间的对齐缺口；v1.1 加 Stage 0 Norms Resolution 路径覆盖。. |
+| [assess-docs-links](./assess-docs-links/SKILL.md) | documentation, governance, workflow | `1.1.0` | stable | 评估文档链接图健康度；v1.1 加 Stage 0 Norms Resolution 路径覆盖。. |
+| [assess-docs-ssot](./assess-docs-ssot/SKILL.md) | documentation, governance, ssot, workflow | `1.1.0` | stable | 执行意图优先 SSOT 完整性审计；v1.1 加 Stage 0 Norms Resolution 路径覆盖。. |
+| [audit-docs](./audit-docs/SKILL.md) | documentation, governance, orchestration, ssot, workflow | `2.1.0` | mature | 以只读方式编排文档治理审计；v2.1 加 Stage 0 Norms Resolution 路径覆盖。. |
 | [automate-tests](./automate-tests/SKILL.md) | automation, devops | `1.0.0` | stable | 安全发现并执行仓库测试命令；基于证据选择命令并设安全护栏。. |
 | [automate-repair](./automate-repair/SKILL.md) | automation, devops, optimization | `1.1.0` | stable | 迭代审查变更、运行自动化测试并实施定向修复，直至问题解决或满足停止条件。. |
-| [plan-next](./plan-next/SKILL.md) | automation, meta-skill, workflow | `6.3.0` | mature | 盘点治理输入源并输出下一步技能路由；默认仅规划（execute=false）。v6 "扫/诊/荐"三步法；v6.3 新增执行态覆盖（S5 任务×代码双信号交叉判健康/卡点/漂移）、Now tier 作用域（下游就绪度仅评估 Now tier，深度优先逐层推进）、breakdown-tasks 进 What/When G1、链接模式识别委托 discover-docs-norms（6 项固定枚举，define-docs-norms 提供选择 UI，plan-next 消费结果）、v7.x 规范驱动架构预留接口（ADR 003）。. |
-| [define-mission](./define-mission/SKILL.md) | documentation, workflow | `1.2.0` | stable | 定义项目或组织的根本目的；回答项目为何存在；产出 mission 陈述并持久化到 docs。. |
-| [define-vision](./define-vision/SKILL.md) | documentation, workflow | `1.2.0` | stable | 定义项目旨在创造的长远未来；回答我们在构建什么未来；产出 vision 陈述并持久化到 docs。. |
-| [define-north-star](./define-north-star/SKILL.md) | documentation, workflow | `1.1.0` | stable | 定义代表向用户交付核心价值的单一最重要指标；产出 North Star Metric 及理由、辅助指标与反例。. |
-| [design-strategic-goals](./design-strategic-goals/SKILL.md) | documentation, workflow | `1.1.0` | stable | 定义 3–5 个推动项目走向 vision 与 North Star 的长期战略目标；长期项目须含工程 / 治理健康目标；产出 goals 文档。. |
-| [define-roadmap](./define-roadmap/SKILL.md) | documentation, strategy, workflow | `3.1.0` | mature | 从战略目标推导路线图，包含里程碑、关键举措、成功指标、推进条件与按 strategic_goal 的容量分配（ADR 20260417 护栏依据）。. |
-| [define-strategic-pillars](./define-strategic-pillars/SKILL.md) | documentation, workflow | `1.0.0` | stable | 从 vision 与 North Star 推导 3–5 个战略支柱（高层次主题），指导战略目标与路线图。. |
+| [plan-next](./plan-next/SKILL.md) | automation, meta-skill, workflow | `7.0.0` | mature | 盘点治理输入源并输出下一步技能路由；默认仅规划（execute=false）。v7.0 激活 v6.3 契约——Step 0 Norms Resolution 可执行算法读项目规范到 cache；Step 2.5 显式模式选择 + 前置闸门；Step 2.7 S5 任务路径用 cache-resolved 支持 colocation（ADR 004）。保留 v6 三步法、执行态交叉判、Now tier 深度优先、6 枚举链接模式消费。. |
+| [define-mission](./define-mission/SKILL.md) | documentation, workflow | `1.3.0` | stable | 定义项目或组织的根本目的；v1.3 加 Stage 0 Norms Resolution 路径覆盖。. |
+| [define-vision](./define-vision/SKILL.md) | documentation, workflow | `1.3.0` | stable | 定义项目旨在创造的长远未来；v1.3 加 Stage 0 Norms Resolution 路径覆盖。. |
+| [define-north-star](./define-north-star/SKILL.md) | documentation, workflow | `1.2.0` | stable | 定义代表向用户交付核心价值的单一最重要指标；v1.2 加 Stage 0 Norms Resolution 路径覆盖。. |
+| [design-strategic-goals](./design-strategic-goals/SKILL.md) | documentation, workflow | `1.2.0` | stable | 定义 3–5 个推动项目走向 vision 与 North Star 的长期战略目标；v1.2 加 Stage 0 Norms Resolution 路径覆盖。. |
+| [define-roadmap](./define-roadmap/SKILL.md) | documentation, strategy, workflow | `3.2.0` | mature | 从战略目标推导路线图，包含里程碑、关键举措、成功指标、推进条件与容量分配；v3.2 加 Stage 0 Norms Resolution 路径覆盖。. |
+| [define-strategic-pillars](./define-strategic-pillars/SKILL.md) | documentation, workflow | `1.1.0` | stable | 从 vision 与 North Star 推导 3–5 个战略支柱；v1.1 加 Stage 0 Norms Resolution 路径覆盖。. |
 | [investigate-root-cause](./investigate-root-cause/SKILL.md) | optimization, workflow | `1.0.0` | stable | 系统性根因调试：investigate → analyze → hypothesize → implement。铁律：无根因不修复。适用于报错、异常行为、故障排查。. |
 | [sync-release-docs](./sync-release-docs/SKILL.md) | documentation, workflow | `1.0.0` | stable | 发版后同步项目文档：交叉引用 diff，更新 README/ARCHITECTURE/CONTRIBUTING/CLAUDE.md，润色 CHANGELOG，清理 TODOS。发版后或 PR 合并后建议使用。. |
-| [tidy-repo](./tidy-repo/SKILL.md) | repository, workflow, cleanup, structure | `1.2.0` | stable | 一次性审计仓库目录结构——检测错放文件、命名不一致、空目录和过期制品；输出优先级整理报告；可选地应用安全、可逆的清理操作。. |
+| [tidy-repo](./tidy-repo/SKILL.md) | repository, workflow, cleanup, structure | `1.3.0` | stable | 一次性审计仓库目录结构并输出优先级整理报告；v1.3 加 Stage 0 Norms Resolution——整理操作尊重项目声明的 artifact path_pattern。. |
 | [warn-destructive-commands](./warn-destructive-commands/SKILL.md) | security, workflow | `1.0.0` | stable | 在破坏性命令执行前发出警告。检查 Bash 命令中的 rm -rf、DROP TABLE、force-push、git reset --hard、kubectl delete 等模式。用户可覆盖每次警告。适用于接触生产、调试线上或共享环境。. |
 | [merge-worktree](./merge-worktree/SKILL.md) | git, workflow, automation | `0.3.0` | validated | 将当前 git worktree 分支合并到主分支，推送到 origin，并以 CWD 安全方式删除该 worktree；主分支不明时询问用户。 |
 | [prioritize-backlog](./prioritize-backlog/SKILL.md) | automation, meta-skill, workflow | `2.0.0` | validated | 对全部 backlog 条目强制重评（忽略原 priority），并行跑 RICE / WSJF / MoSCoW / ICE 四框架；自动适配多文件目录或单文件 backlog 形态；surface 分歧并按形态写回 priority_decision（含 previous 旧值快照）。 |

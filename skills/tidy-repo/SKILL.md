@@ -3,7 +3,7 @@ name: tidy-repo
 description: Audit repository structure in one pass — detect misplaced files, naming inconsistencies, empty directories, and stale artifacts; produce a prioritized tidy report; optionally apply safe, reversible changes.
 description_zh: 一次性审计仓库目录结构——检测错放文件、命名不一致、空目录和过期制品；输出优先级整理报告；可选地应用安全、可逆的清理操作。
 tags: [repository, workflow, cleanup, structure]
-version: 1.2.0
+version: 1.3.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -78,6 +78,10 @@ output_schema:
 ---
 
 ## 行为 (Behavior)
+
+### 第 0 阶段：Norms Resolution（v1.3 新增）
+
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `repo-tidy` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/calibration/repo-tidy.md`）。本技能为**固定路径治理产出**，不涉及 `linking_mode` 分支；但整理操作本身会尊重项目声明的 artifact path_pattern（移动文件到项目规定的位置而非 AI Cortex 默认）。
 
 ### 交互策略
 
