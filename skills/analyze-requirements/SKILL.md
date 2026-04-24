@@ -3,7 +3,7 @@ name: analyze-requirements
 description: Transform vague intent or incomplete requirements into validated, testable requirements through diagnostic state progression and structured dialogue. Use when user has an idea, feature request, problem statement, or existing requirements document that needs clarification or validation before design or implementation.
 description_zh: 通过诊断状态推进与结构化对话，将模糊意图或不完整需求转为可验证、可测试的需求。
 tags: [writing, documentation]
-version: 2.0.0
+version: 3.0.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -37,12 +37,12 @@ metadata:
 triggers: [project start, start project, requirements, analyze requirements, clarify requirements, validate requirements, existing requirements]
 input_schema:
   type: free-form | document-artifact
-  description: Vague idea, feature request, problem statement, or existing requirements document to analyze/validate; optional upstream_ref (path to parent artifact for parent-pointer / colocation linking modes); optional artifact_norms_path override
+  description: Vague idea, feature request, problem statement, or existing requirements document to analyze/validate; optional upstream_ref (path to parent artifact; when provided, skill emits parent: frontmatter); optional artifact_norms_path override
 output_schema:
   type: document-artifact
-  description: Validated requirements document written to docs/requirements-planning/<topic>.md
+  description: Validated requirements document written to docs/requirements/<slug>.md per artifact-contract v5.0 canonical unified path (docs/<type>/{slug}.md); project ARTIFACT_NORMS.md may override
   artifact_type: requirements
-  path_pattern: docs/requirements-planning/{topic}.md
+  path_pattern: docs/requirements/{slug}.md
   lifecycle: snapshot
 ---
 
@@ -112,16 +112,14 @@ output_schema:
 - **选择选项**：一次一个问题；尽可能提供“[A][B][C]”
 - **确认**：退出设计转交之前；在写需求文档之前
 
-### 第 0 阶段：Norms Resolution（v2.0 引入，v8.0 简化）
+### 第 0 阶段：Norms Resolution
 
 按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 实现：
 
-1. 按 §8.2 发现顺序解析项目规范 → 确定 `requirements` artifact_type 的 `path_pattern`（默认：`docs/requirements-planning/{topic}.md`；项目可覆盖为任意自定义路径，包括聚合式如 `work/{topic}/requirement.md`）
+1. 按 §8.2 发现顺序解析项目规范 → 确定 `requirements` artifact_type 的 `path_pattern`（默认：`docs/requirements/{slug}.md`；项目可覆盖为任意自定义路径，如聚合式 `work/{parent_slug}/requirement.md`）
 2. 按 §8.3 占位符语法替换；未解析占位符按 §8.6 追问用户
 3. 若调用方 frontmatter 输入含 `upstream_ref`：在产出制品的 frontmatter emit `parent: <upstream_ref>`
 4. 记录 resolved_path + frontmatter 增量供第 3 阶段"坚持"使用
-
-v8.0 起不再有 `linking_mode` 字段分支（见 ADR 005）——项目若想要聚合目录 / 父指针等约定，通过 `path_pattern` 覆盖 + 可选传 `upstream_ref` 表达即可。
 
 ### 硬门：验证前无设计
 

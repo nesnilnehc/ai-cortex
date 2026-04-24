@@ -93,7 +93,7 @@ output_schema:
 
 ### 第 0 阶段：Norms Resolution（v1.1 新增）
 
-按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `backlog-alignment` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/calibration/backlog-alignment.md`）。本技能为**固定路径治理产出**；v8.0 起 linking_mode 字段已废弃（ADR 005），Stage 0 仅用 path_pattern 覆盖机制。
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `backlog-alignment` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/calibration/backlog-alignment.md`）。本技能为**固定路径治理产出**，只用 path_pattern 覆盖机制。
 
 ### 代理即时合同
 

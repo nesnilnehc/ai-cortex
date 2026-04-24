@@ -4,9 +4,8 @@ primary_use: Bootstrap or adapt project docs using project-documentation-templat
   Initialize (empty) or Adjust (non-empty); use template as target reference in Adjust;
   repeatable; no empty dirs unless requested; strict kebab-case naming. v2.0 adds
   Stage 0 Norms Resolution per artifact-contract §8 for all produced artifacts
-  (especially ADRs) — resolves path_pattern and linking_mode from project
-  ARTIFACT_NORMS.md; supports colocation and parent-pointer linking modes via
-  optional upstream_ref input.
+  (especially ADRs) — resolves path_pattern from project ARTIFACT_NORMS.md;
+  optional upstream_ref input triggers parent: frontmatter emit.
 cognitive_mode: procedural
 inputs:
 - project metadata (name, description, tech stack)

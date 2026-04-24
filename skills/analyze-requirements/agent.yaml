@@ -1,6 +1,6 @@
 name: analyze-requirements
 status: validated
-primary_use: Transform vague intent or incomplete requirements into validated, testable requirements through diagnostic state progression and structured dialogue. v2.0 adds Stage 0 Norms Resolution per artifact-contract §8 — reads project ARTIFACT_NORMS.md to resolve path_pattern and linking_mode, branches colocation/parent-pointer output accordingly; accepts new upstream_ref input for linking modes.
+primary_use: Transform vague intent or incomplete requirements into validated, testable requirements through diagnostic state progression and structured dialogue. v3.0 adopts artifact-contract v5.0 unified canonical path docs/requirements/{slug}.md (no date prefix); Stage 0 Norms Resolution reads project ARTIFACT_NORMS.md to resolve path_pattern; optional upstream_ref input triggers parent: frontmatter emit.
 cognitive_mode: interpretive
 inputs:
 - Vague idea, feature request, problem statement, or existing requirements document
@@ -9,8 +9,8 @@ inputs:
 - Optional upstream_ref (parent artifact path for colocation/parent-pointer modes)
 - Optional artifact_norms_path override
 outputs:
-- Validated requirements document written to norms-resolved path (default docs/requirements-planning/<topic>.md)
-- parent frontmatter field when linking_mode is parent-pointer
+- Validated requirements document at norms-resolved path (default docs/requirements/<slug>.md)
+- parent frontmatter field when upstream_ref provided
 - Integration map (handoff data for design-solution)
 scores:
   agent_native: 5

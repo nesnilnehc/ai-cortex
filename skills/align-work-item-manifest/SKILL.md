@@ -151,7 +151,7 @@ v1.0.0 **advisory-only**：不自动写清单、不移动文件、不修改 fron
 ### 硬边界（Hard Boundaries）
 
 - **只读**：v1.0.0 不写任何清单文件、不创建 / 删除 / 移动任何制品
-- 项目 `linking_mode` 不含 `manifest` 时必须停止并诊断说明
+- 无物理 manifest 文件时必须停止并诊断说明
 - 不自行识别链接模式（依赖 `discover-docs-norms` 的产出）
 - 不越权触发下游技能（`tidy-repo` / `align-planning` 由用户或 `plan-next` 路由）
 
@@ -182,7 +182,7 @@ v1.0.0 **advisory-only**：不自动写清单、不移动文件、不修改 fron
 
 ### 示例 1：纯 manifest 项目健康检查
 
-**场景**：项目在 `ARTIFACT_NORMS.md` 声明 `linking_mode: manifest`；存在 3 份清单文件 `now/user-auth.md` / `now/billing.md` / `now/onboarding.md`。
+**场景**：项目使用中央清单风格；存在 3 份清单文件 `docs/process-management/now/user-auth.md` / `billing.md` / `onboarding.md`。
 
 **扫描发现**：
 - `now/user-auth.md` 列了 `docs/designs/user-auth.md`，但该文件已被重命名为 `docs/designs/2026-04-20-user-auth.md` → **命名不符**
