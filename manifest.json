@@ -4,7 +4,7 @@
   "description": "Agent-first, governance-ready inventory of AI skills (spec).",
   "author": "nesnilnehc",
   "license": "MIT",
-  "spec_version": "2.4.0",
+  "spec_version": "2.5.0",
   "registry": {
     "skills_root": "skills/",
     "skills_index": "skills/INDEX.md",
@@ -234,10 +234,6 @@
       "path": "skills/define-strategic-pillars/SKILL.md"
     },
     {
-      "name": "conduct-retro",
-      "path": "skills/conduct-retro/SKILL.md"
-    },
-    {
       "name": "investigate-root-cause",
       "path": "skills/investigate-root-cause/SKILL.md"
     },
@@ -292,11 +288,20 @@
     {
       "id": "TERMINOLOGY_SPEC_V1",
       "name": "Terminology Definition",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "status": "active",
       "lifecycle": "stable",
       "path": "specs/terminology.md",
       "canonical_url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/terminology.md"
+    },
+    {
+      "id": "LINKING_MODES_SPEC_V1",
+      "name": "Linking Modes Spec",
+      "version": "1.0.0",
+      "status": "active",
+      "lifecycle": "living",
+      "path": "specs/linking-modes.md",
+      "canonical_url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/linking-modes.md"
     }
   ]
 }

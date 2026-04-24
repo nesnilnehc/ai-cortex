@@ -1,15 +1,17 @@
 name: plan-next
 status: validated
 cognitive_mode: interpretive
-primary_use: Inventory governance inputs and produce next-action routing report. Adds v5 project state machine (S1-S7, matrix interpreter) and two-layer Primary/Secondary output per ADR 20260417. Default planning-only with execute=false.
+primary_use: Inventory governance inputs and produce next-action routing report. v6.3 adds execution-state coverage (S5 now cross-checks task status × code activity to surface stuck/tracking/completion/archival drifts), Now-tier-scoped downstream readiness evaluation (depth-first breakdown — only Now tier items get requirement/design/task gap routing; Next/Later unreported; roadmap without tiers routes to promote-roadmap-items first), adds breakdown-tasks to What/When G1 cell, and consumes the linking mode identified by discover-docs-norms (fixed 6-enum: slug / colocation / parent-pointer / manifest / mixed / none; discover-docs-norms is the authority for enumeration and identification, define-docs-norms provides user selection UI, plan-next reads the result from ARTIFACT_NORMS.md linking_mode field or proposal file; unidentified triggers a gate route). Adds thresholds.task_stuck_days, task_source, roadmap_tier_source, artifact_norms_path, norms_proposal_path frontmatter defaults. Default planning-only with execute=false.
 inputs:
 - trigger context
 - optional scope overrides
 - optional execute flag (default false)
+- optional threshold overrides (commit_idle_days, drift_staleness_days, backlog_min_items, confidence_low_below, task_stuck_days)
+- optional task_source, roadmap_tier_source, artifact_norms_path, norms_proposal_path overrides
 outputs:
-- structured chat output with project state label (S1-S7) and 3 sections (sources inventory, readiness verdict, prioritized next tasks)
-- two-tier routing: Primary (state-focused) + Secondary (full-matrix compressed)
-- routing recommendations with priority/owner/rationale
+- three-section user-facing report (Now do / Also watch / Diagnosis) with natural-language terms in first two sections
+- internal codes (S1-S7, G1-G4, P0-P3) appear only as traceability anchors in the Diagnosis section
+- routing recommendations with six fields each (theme, gap, skill, rationale, priority, stop condition)
 scores:
   agent_native: 5
   cognitive: 4
@@ -24,7 +26,7 @@ tags:
 - workflow
 - automation
 - meta-skill
-version: 5.0.0
+version: 6.3.0
 validation_gates:
   gate_a:
     name: Agent-ready

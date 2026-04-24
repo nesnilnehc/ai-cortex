@@ -1,8 +1,8 @@
 # 制品规范 Schema
 
 **状态**：Informational  
-**版本**：1.0.0  
-**范围**：项目级制品路径与命名配置
+**版本**：1.1.0  
+**范围**：项目级制品路径与命名配置 + 制品间链接模式
 
 ---
 
@@ -89,3 +89,42 @@ artifact_types:
 2. **解析**：提取相关 artifact_type 的 path_pattern 与 naming。
 3. **应用**：若找到项目规范则使用；否则使用 [specs/artifact-contract.md](artifact-contract.md) 默认。
 4. **写入**：按解析路径与正确命名持久化。
+
+---
+
+## 6. 链接模式字段（v1.1 新增）
+
+除 artifact_types 之外，项目规范可额外声明**链接模式**字段。定义见 [specs/linking-modes.md](linking-modes.md)（LINKING_MODES_SPEC_V1）。
+
+**字段**：`linking_mode`（枚举，取值见 linking-modes.md §2）
+
+- 值域：`slug | colocation | parent-pointer | manifest | mixed | none`
+- 语义：项目使用哪种机械约定在制品之间建立追溯关系
+- 写入者：`define-docs-norms`（基于 `discover-docs-norms` 识别结果 + 用户选择）
+- 消费者：`plan-next` 以及其他需要跨制品追溯的技能
+
+**在 `docs/ARTIFACT_NORMS.md` 中的示例**：
+
+```markdown
+## Linking Mode
+
+linking_mode: slug
+# 备选字段（mixed 模式下需要）：
+# linking_mode_primary: slug
+# linking_mode_secondary: manifest
+# linking_mode_secondary_scope: now-tier
+```
+
+**在 `.ai-cortex/artifact-norms.yaml` 中的示例**：
+
+```yaml
+linking_mode: slug
+# mixed 模式：
+# linking_mode:
+#   primary: slug
+#   secondary:
+#     mode: manifest
+#     scope: now-tier
+```
+
+**缺省值**：若项目未声明 `linking_mode`，消费者（如 plan-next）应视为 `none` 并按 [specs/linking-modes.md §5](linking-modes.md) 的消费规则触发前置闸门。
