@@ -79,20 +79,16 @@ compatibility: Requires access to https://raw.githubusercontent.com or a local c
 
 ## 行为（行为）
 
-### 第 0 阶段：Norms Resolution（v2.0 新增）
+### 第 0 阶段：Norms Resolution（v2.0 引入，v8.0 简化）
 
 按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 实现。适用于本技能产出的 **ADR** 与其他制品：
 
-1. 按 §8.2 发现顺序解析项目规范 → 确定各 artifact_type（特别是 `adr`）的 `path_pattern`（默认：`docs/process-management/decisions/YYYYMMDD-{slug}.md`）与 `linking_mode`
-2. 若 `linking_mode` ∈ {`colocation`, `parent-pointer`}：读 `upstream_ref`（ADR 通常指向关联的 design / requirement）；缺失则追问用户
-3. 按 §8.4 真值表决定最终输出路径与 frontmatter：
-   - `colocation` → `work/{parent_slug}/decision.md`
-   - `parent-pointer` → 默认路径 + 强制 `parent: <upstream_ref>` frontmatter
-   - `slug` / `manifest` / `none` → 默认路径不变
-   - `mixed` → 按 `mixed.rules` 查 `adr` 类型
-4. 按 §8.3 占位符语法替换
+1. 按 §8.2 发现顺序解析项目规范 → 确定各 artifact_type（特别是 `adr`）的 `path_pattern`（默认：`docs/process-management/decisions/YYYYMMDD-{slug}.md`；项目可覆盖为聚合式）
+2. 按 §8.3 占位符语法替换；未解析占位符按 §8.6 追问用户
+3. 若调用方 frontmatter 输入含 `upstream_ref`（ADR 通常指向关联的 design / requirement）：在产出制品的 frontmatter emit `parent: <upstream_ref>`
+4. 记录 resolved_path + frontmatter 增量供后续写入使用
 
-注：**初始化模式**下项目可能尚无 `ARTIFACT_NORMS.md`，Stage 0 fall-through 到技能默认，不阻断初始化工作。
+注：**初始化模式**下项目可能尚无 `ARTIFACT_NORMS.md`，Stage 0 fall-through 到技能默认，不阻断初始化工作。v8.0 起不再有 `linking_mode` 字段分支（见 ADR 005）。
 
 ### 模式选择
 

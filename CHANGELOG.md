@@ -7,6 +7,40 @@
 
 ## [Unreleased]
 
+### Changed（v8.0.0 — 回撤 linking_mode 枚举，2026-04-25）
+
+**MAJOR 回撤**：`manifest.version` 3.0.0 → 4.0.0；`manifest.spec_version` 3.0.0 → 4.0.0。详见 [ADR 005](docs/architecture/adrs/005-retract-linking-mode-enum.md)。
+
+**动机**：v7.0.0 发布次日发现 `linking_mode` 枚举字段属过度工程——与业界实践（Cursor / Cline / Aider / Copilot 等主流代理系统均无同类设计）相悖；6 种模式都能用 `path_pattern` 覆盖 + `upstream_ref` 输入 + manifest 物理文件检测三个正交机制解决，枚举是冗余抽象层；greenfield 用户获得负价值（被迫盲选 6 选项）。
+
+**回撤内容**：
+
+- `specs/artifact-norms-schema.md` **v1.2 → v2.0** — 废弃 §6 `linking_mode` 字段；提供迁移指南
+- `specs/linking-modes.md` **v1.0 → v2.0** — 降级为描述性 taxonomy 参考文档；§3–§5 标注"退休"；不再作为运行时配置对象
+- `specs/artifact-contract.md` **v3.0 → v4.0** — §8.4 Linking-mode 输出真值表简化为"按 resolved path_pattern + 可选 parent: frontmatter"；§8.1–§8.3 / §8.5–§8.7 全部保留（path_pattern 覆盖机制有价值）
+- `skills/discover-docs-norms` **v3.0 → v4.0** — 移除 Stage 2b 链接模式识别；回归路径/命名/frontmatter/生命周期审计职责
+- `skills/define-docs-norms` **v2.0 → v3.0** — 移除 Stage 1b 链接模式选择 UI；回归"固化已批准提案"抄写员职责
+- `skills/plan-next` **v7.0 → v8.0** — Step 2.5 改为按物理信号扫描（resolved path_pattern glob + 可选 parent: 反向索引 + 可选 manifest 文件检测）；移除 `linking_mode` 字段读取、移除"先识别模式"前置闸门；Step 0 `norms_proposal_path` frontmatter 输入字段废弃
+
+**保留**（v7.0 的有价值部分）：
+
+- `specs/artifact-contract.md §8` 的 path_pattern 运行时覆盖机制（§8.2 发现顺序 / §8.3 占位符语法 / §8.5 合并 / §8.6 错误 / §8.7 校验）
+- 所有产出技能的 Stage 0 Norms Resolution 步骤（v7.0 已加，v8.0 不变）
+- 链接锚点技能（analyze-requirements / design-solution / breakdown-tasks / capture-work-items / bootstrap-docs）的 `upstream_ref` 可选输入字段
+- `align-work-item-manifest` v1.0.0 新技能——重新定位为 manifest 风格项目的可选审计工具（不依赖 linking_mode 字段，靠物理文件检测）
+
+**项目迁移指南**（原依赖 v7.0 linking_mode 字段的项目）：
+
+| 原 linking_mode 值 | v8.0 迁移做法 |
+|---|---|
+| `slug` / `none` | 什么都不用改——AI Cortex 默认即 slug 约定 |
+| `colocation` | 删除 `linking_mode` 字段；在 `artifact_types` 下覆盖各类型 `path_pattern` 为 `work/{topic}/<type>.md` |
+| `parent-pointer` | 删除 `linking_mode` 字段；调用下游技能时传 `upstream_ref`；技能自动 emit `parent:` frontmatter |
+| `manifest` | 删除 `linking_mode` 字段；保留清单文件；`plan-next` / `align-work-item-manifest` 通过物理存在性检测消费 |
+| `mixed` | 删除 `linking_mode` 字段；每种正交机制独立声明 |
+
+**回滚锚点**：`v6.3-lts` tag（v7 前状态）；v7.0 状态在 git 历史中以 commit `8a49da6` 定位
+
 ### Added（v7.0.0 — 规范驱动制品架构闭环，2026-04-24）
 
 **重大版本升级**：`manifest.version` 2.0.0 → 3.0.0；`manifest.spec_version` 2.5.0 → 3.0.0。详见 [ADR 004](docs/architecture/adrs/004-norms-driven-artifact-architecture.md)。

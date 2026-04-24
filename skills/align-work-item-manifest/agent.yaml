@@ -3,9 +3,11 @@ status: experimental
 primary_use: Detect drift between project work-item manifest files and the physical
   artifacts they register (requirements / designs / tasks / PRs). v1.0.0 is advisory-only —
   reports three drift types (dangling references / unregistered files / name mismatch)
-  but does not auto-write manifests. Only applicable when project linking_mode contains
-  'manifest' per specs/linking-modes.md; halts with diagnostic otherwise. Output consumable
-  by plan-next as G3 drift source.
+  but does not auto-write manifests. Detects applicability by globbing for manifest
+  files (default docs/process-management/now/*.md, overridable by ARTIFACT_NORMS.md);
+  if no manifest files exist, halts with diagnostic. Does not depend on any
+  linking_mode field (retracted in v8.0.0 per ADR 005). Output consumable by plan-next
+  as G3 drift source.
 cognitive_mode: procedural
 inputs:
 - project path (default CWD)

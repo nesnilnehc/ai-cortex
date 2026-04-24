@@ -22,11 +22,11 @@ output_schema:
 
 # 技能：对齐工作项清单（Align Work-Item Manifest）
 
-> **用途**：当项目采用 `linking_mode: manifest`（或 `mixed` 含 manifest 成分）时，检测清单文件与物理制品的漂移。
+> **用途**：当项目使用**中央清单文件**（如 `docs/process-management/now/<slug>.md`）登记相关制品时，检测清单文件与物理制品的漂移。
 
 ## 目的 (Purpose)
 
-`manifest` 链接模式要求每个主题或 Now tier 条目维护一份中央清单（如 `docs/process-management/now/<slug>.md`）登记关联的 requirement / design / tasks / PR。清单容易漂移：文件新增未登记、文件删除未清除、清单列了但物理文件不存在。本技能**只读**检测这些漂移并输出对齐报告；维护由用户或下游工具完成。
+中央清单风格的项目为每个主题或 Now tier 条目维护一份清单文件（如 `docs/process-management/now/<slug>.md`）登记关联的 requirement / design / tasks / PR。清单容易漂移：文件新增未登记、文件删除未清除、清单列了但物理文件不存在。本技能**只读**检测这些漂移并输出对齐报告；维护由用户或下游工具完成。
 
 v1.0.0 **advisory-only**：不自动写清单、不移动文件、不修改 frontmatter。
 
@@ -38,11 +38,10 @@ v1.0.0 **advisory-only**：不自动写清单、不移动文件、不修改 fron
 
 **成功标准**（必须全部满足）：
 
-1. ✅ 已按 Stage 0 Norms Resolution 解析项目规范，确认 `linking_mode` 包含 `manifest`
-2. ✅ 已扫描所有清单文件
-3. ✅ 已对每份清单对比其声明的文件列表与物理文件的存在性
-4. ✅ 已输出三类漂移：**悬挂引用**（清单有，文件无）/ **未登记**（文件有，清单无）/ **命名不符**（文件路径与清单声明不一致）
-5. ✅ 未自动写任何清单或制品
+1. ✅ 已扫描项目中所有符合清单 glob（默认 `docs/process-management/now/*.md`，可由 ARTIFACT_NORMS.md 覆盖）的文件；若**无清单文件存在**，明示项目未采用中央清单风格，停止并返回诊断
+2. ✅ 已对每份清单对比其声明的文件列表与物理文件的存在性
+3. ✅ 已输出三类漂移：**悬挂引用**（清单有，文件无）/ **未登记**（文件有，清单无）/ **命名不符**（文件路径与清单声明不一致）
+4. ✅ 未自动写任何清单或制品
 
 **验收测试**：报告是否可被 `plan-next` 作为 G3 真相漂移直接消费？
 
@@ -69,10 +68,10 @@ v1.0.0 **advisory-only**：不自动写清单、不移动文件、不修改 fron
 
 ## 使用场景（Use Cases）
 
-- 项目采用 `linking_mode: manifest` 后定期健康检查
-- plan-next 报告 G3 漂移后的深入诊断
+- 中央清单风格的项目定期健康检查
+- plan-next 报告 G3 漂移且检测到清单文件时的深入诊断
 - 迭代收尾前清单盘点
-- 从 slug 模式迁移到 manifest 模式后的初次对齐
+- 从无清单迁移到中央清单风格后的初次对齐
 
 ---
 
@@ -82,10 +81,10 @@ v1.0.0 **advisory-only**：不自动写清单、不移动文件、不修改 fron
 
 按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：
 
-1. 读项目规范 → 确定 `linking_mode` 与本技能产出 `work-item-manifest-alignment` 的 `path_pattern`（默认 `docs/calibration/work-item-manifest-alignment.md`）
-2. **前置检查**：若 `linking_mode` 不含 `manifest`（即不是 `manifest` 也不是 `mixed` 含 manifest 作用域），**停止并输出一条诊断**说明本技能不适用于当前项目
-3. 从规范读取 manifest 位置模式（如 `docs/process-management/now/<slug>.md` 或项目自定义）
-4. 本技能为**固定路径治理产出**，不涉及 `linking_mode` 分支
+1. 读项目规范 → 确定本技能产出 `work-item-manifest-alignment` 的 `path_pattern`（默认 `docs/calibration/work-item-manifest-alignment.md`）
+2. 从规范读取 manifest glob 模式（默认 `docs/process-management/now/*.md`；可由 ARTIFACT_NORMS.md 覆盖）
+3. **前置检查**：若 manifest glob 未匹配到任何文件，**停止并输出诊断**说明项目未采用中央清单风格
+4. 本技能为固定路径治理产出，不涉及路径之外的模式分支
 
 ### 第 1 阶段：清单扫描
 
@@ -171,7 +170,7 @@ v1.0.0 **advisory-only**：不自动写清单、不移动文件、不修改 fron
 ## 自检（Self-Check）
 
 - [ ] 已按 Stage 0 Norms Resolution 读项目规范
-- [ ] 已确认 `linking_mode` 含 `manifest`；否则已停止并诊断
+- [ ] 已 glob manifest 文件；若无匹配，已停止并诊断（项目未用中央清单）
 - [ ] 已扫描全部清单文件并对比物理
 - [ ] 已分类三类漂移（悬挂 / 未登记 / 命名不符）
 - [ ] 报告嵌入机器可读漂移摘要供 plan-next 消费
@@ -192,15 +191,16 @@ v1.0.0 **advisory-only**：不自动写清单、不移动文件、不修改 fron
 
 **输出**：报告 2 条漂移；建议 `now/user-auth.md` 更新路径、`now/onboarding.md` 追加 `onboarding-v2.md` 条目。
 
-### 示例 2：非 manifest 模式（边缘场景）
+### 示例 2：项目未采用中央清单（边缘场景）
 
-**场景**：项目 `ARTIFACT_NORMS.md` 声明 `linking_mode: slug`。
+**场景**：项目仓库里无 `docs/process-management/now/*.md` 或等价清单文件。
 
 **输出**：Stage 0 前置检查不通过，停止并输出：
 
 ```
-本技能仅适用于 linking_mode 含 'manifest' 的项目。当前项目 linking_mode 为 'slug'，不需要 manifest 对齐。
-如需启用 manifest 模式，请先跑 define-docs-norms 修改 linking_mode。
+未检测到任何 manifest 文件（glob: docs/process-management/now/*.md）。
+本技能适用于采用中央清单文件登记制品的项目；当前项目未见此风格文件。
+如需启用，可手动建清单文件（例：docs/process-management/now/user-auth.md），再重跑本技能。
 ```
 
 不写报告文件；返回诊断信息。

@@ -56,8 +56,8 @@
 | :--- | :--- | :--- | :--- | :--- |
 | [decontextualize-text](./decontextualize-text/SKILL.md) | generalization, privacy, security, writing | `1.3.1` | stable | 将含私有上下文或内部依赖的文本转为通用、无偏向的表述，保留逻辑、移除组织标识，便于交接、开源或跨团队共享。. |
 | [generate-standard-readme](./generate-standard-readme/SKILL.md) | devops, documentation, writing | `1.2.1` | stable | 生成固定结构的转换导向 README：10 秒理解、1 分钟运行、清晰的用途与场景；支持治理与采纳模式。. |
-| [discover-docs-norms](./discover-docs-norms/SKILL.md) | documentation, workflow | `3.0.0` | mature | 扫描并推导项目文档规范提案（路径、命名、生命周期）；v3.0 新增 Stage 2b 链接模式识别（6 枚举：slug/colocation/parent-pointer/manifest/mixed/none）输出 linking_mode + confidence 到提案。. |
-| [define-docs-norms](./define-docs-norms/SKILL.md) | documentation, workflow | `2.0.0` | stable | 基于已确认提案创建或更新 docs/ARTIFACT_NORMS.md；v2.0 新增 Stage 1b 链接模式选择 UI（推荐 + 5 备选 + mixed 追问），写 linking_mode 字段到规范文件。. |
+| [discover-docs-norms](./discover-docs-norms/SKILL.md) | documentation, workflow | `4.0.0` | mature | 扫描并推导项目文档规范提案（路径、命名、生命周期）；v4.0 回撤 v3.0 的 Stage 2b 链接模式识别（ADR 005）——回归审计职责。. |
+| [define-docs-norms](./define-docs-norms/SKILL.md) | documentation, workflow | `3.0.0` | stable | 基于已确认提案创建或更新 docs/ARTIFACT_NORMS.md；v3.0 回撤 v2.0 的 Stage 1b 链接模式选择 UI（ADR 005）——回归抄写员职责。. |
 | [discover-skills](./discover-skills/SKILL.md) | automation, generalization, infrastructure | `1.3.1` | stable | 识别能力缺口并从 AI Cortex 或公共技能目录推荐安装；提供前 1–3 条匹配及安装命令。. |
 | [refine-skill-design](./refine-skill-design/SKILL.md) | meta-skill, optimization, writing | `1.4.0` | stable | 审计并重构既有 SKILL，使其符合规范与 LLM 最佳实践；适用于改进草稿、修复质量或对齐规范。. |
 | [generate-agent-entry](./generate-agent-entry/SKILL.md) | documentation | `1.0.1` | stable | 按嵌入式输出契约编写或修订 AGENTS.md，确立项目身份、权威来源与行为预期；采用 AI Cortex 入口格式。. |
@@ -100,7 +100,7 @@
 | [audit-docs](./audit-docs/SKILL.md) | documentation, governance, orchestration, ssot, workflow | `2.1.0` | mature | 以只读方式编排文档治理审计；v2.1 加 Stage 0 Norms Resolution 路径覆盖。. |
 | [automate-tests](./automate-tests/SKILL.md) | automation, devops | `1.0.0` | stable | 安全发现并执行仓库测试命令；基于证据选择命令并设安全护栏。. |
 | [automate-repair](./automate-repair/SKILL.md) | automation, devops, optimization | `1.1.0` | stable | 迭代审查变更、运行自动化测试并实施定向修复，直至问题解决或满足停止条件。. |
-| [plan-next](./plan-next/SKILL.md) | automation, meta-skill, workflow | `7.0.0` | mature | 盘点治理输入源并输出下一步技能路由；默认仅规划（execute=false）。v7.0 激活 v6.3 契约——Step 0 Norms Resolution 可执行算法读项目规范到 cache；Step 2.5 显式模式选择 + 前置闸门；Step 2.7 S5 任务路径用 cache-resolved 支持 colocation（ADR 004）。保留 v6 三步法、执行态交叉判、Now tier 深度优先、6 枚举链接模式消费。. |
+| [plan-next](./plan-next/SKILL.md) | automation, meta-skill, workflow | `8.0.0` | mature | 盘点治理输入源并输出下一步技能路由；默认仅规划（execute=false）。v8.0 回撤 v7.0 的 linking_mode 消费（ADR 005）——Step 2.5 改为按物理信号扫描（resolved path_pattern + 可选 parent: + 可选 manifest）。保留 Step 0 Norms Resolution 读 path_pattern 覆盖 / 执行态交叉判 / Now tier 深度优先。. |
 | [define-mission](./define-mission/SKILL.md) | documentation, workflow | `1.3.0` | stable | 定义项目或组织的根本目的；v1.3 加 Stage 0 Norms Resolution 路径覆盖。. |
 | [define-vision](./define-vision/SKILL.md) | documentation, workflow | `1.3.0` | stable | 定义项目旨在创造的长远未来；v1.3 加 Stage 0 Norms Resolution 路径覆盖。. |
 | [define-north-star](./define-north-star/SKILL.md) | documentation, workflow | `1.2.0` | stable | 定义代表向用户交付核心价值的单一最重要指标；v1.2 加 Stage 0 Norms Resolution 路径覆盖。. |

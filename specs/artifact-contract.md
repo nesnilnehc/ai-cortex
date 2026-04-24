@@ -1,12 +1,13 @@
 # 制品契约
 
 **状态**：DEFAULT（默认，可选参考）  
-**版本**：3.0.0  
+**版本**：4.0.0  
 **范围**：在项目 `docs/` 或仓库根下写入 Markdown 制品的技能
 
 **变更记录**：
 
-- **v3.0.0 (2026-04-24)**：新增 **§8 Runtime Norms Resolution Protocol**。技能在运行时按统一发现顺序读取项目规范，`path_pattern` 从硬规则降级为默认值；新增 `{slug}` / `{topic}` / `{parent_slug}` / `{YYYY}` / `{YYYY-MM-DD}` 占位符语法；按 `linking_mode` 枚举（见 [specs/linking-modes.md](linking-modes.md)）分支 colocation / parent-pointer / manifest 输出。MAJOR：消费此契约的技能必须实现 Stage 0 Norms Resolution 步骤。
+- **v4.0.0 (2026-04-25)**：回撤 v3.0 引入的 linking_mode 枚举分支。**§8 Runtime Norms Resolution Protocol 保留 §8.1–§8.3、§8.5–§8.7**（path_pattern 运行时覆盖、占位符语法、合并语义、错误处理、校验），**删除 §8.4 linking-mode 输出规则表**。AI Cortex 默认约定（slug：按类型分目录 + slug/topic 文件名）已由 §2 制品类型表硬编码，不作为可选配置。追溯字段 `upstream_ref` 保留为可选输入（所有链接锚点技能支持），技能在收到时在 frontmatter emit `parent:`。Manifest 风格的项目通过物理文件 glob 被 plan-next / align-work-item-manifest 检测——不需要 mode 字段声明。详见 [ADR 005](../docs/architecture/adrs/005-retract-linking-mode-enum.md)。MAJOR：消费 v3.0 §8.4 真值表的下游需改回依赖 §8.2 发现顺序 + §2 默认。
+- v3.0.0 (2026-04-24)：新增 §8 Runtime Norms Resolution Protocol。（§8.4 于 v4.0 回撤）
 - v1.2.0 (2026-03-16)：新增 `requirements` 制品类型；归属技能 `analyze-requirements`。
 - v1.1.0 (2026-03-06)：项目规范优先；本契约为默认回退；AI Cortex 与 project-documentation-template 为可信建议。
 - v1.0.0 (2026-03-06)：初版；AI Cortex 原则优先；project-documentation-template 为补充参考。
@@ -182,36 +183,34 @@ artifact_types:
 
 **未解析占位符处理**：若 `path_pattern` 里的占位符无数据可替换，技能**必须停止并追问用户**，不得静默使用默认或空值。
 
-### 8.4 Linking-mode 输出规则
+### 8.4 输出规则（v4.0 简化——无 linking_mode 枚举）
 
-按项目规范声明的 `linking_mode`（见 [specs/linking-modes.md](linking-modes.md) 6 项枚举）决定最终输出路径与 frontmatter。
+**AI Cortex 默认约定**：按 §2 制品类型表——每种 artifact_type 有自己的目录，文件名用 `{topic}` / `{slug}` 占位符。这是仓库级 canonical，不作为可选配置。
 
-| linking_mode | 输出路径 | Frontmatter 要求 | 其他 |
-|---|---|---|---|
-| `slug` | 按 §8.3 解析后的 `path_pattern` | 无额外 | 默认模式 |
-| `colocation` | `work/{parent_slug}/{artifact_type}.md`（覆盖 `path_pattern`）| 无额外 | 需 `upstream_ref` 输入提供 `parent_slug` |
-| `parent-pointer` | 按 §8.3 解析后的 `path_pattern` | **强制**：`parent: <upstream-relative-path>` | 需 `upstream_ref` 输入 |
-| `manifest` | 按 §8.3 解析后的 `path_pattern` | 无额外 | advisory：建议由 [`align-work-item-manifest`](../skills/align-work-item-manifest/SKILL.md) 检测漂移 |
-| `mixed` | 按 `ARTIFACT_NORMS.md` 里 `mixed.rules` 声明的子映射查对应 artifact_type | 按子映射而定 | 子映射必须穷尽项目的 artifact_type |
-| `none` | 按 §8.3 解析后的 `path_pattern` | 无额外 | 与 slug 等价 |
+**可选追溯（upstream_ref）**：所有链接锚点技能（analyze-requirements / design-solution / breakdown-tasks / capture-work-items / bootstrap-docs）**必须**接受 optional `upstream_ref` frontmatter 输入。若调用方提供，技能在产出制品的 frontmatter 中 emit `parent: <upstream-relative-path>`。这是**可选增强**，不需要项目声明任何"模式"——给了就 emit，没给就不 emit。
 
-**Stage 0 决策算法**：
+**Stage 0 决策算法（v4.0 简化）**：
 
 ```
 Stage 0: Norms Resolution
   1. 按 §8.2 顺序发现并解析项目规范 → resolved_norms（map）
   2. 从 resolved_norms 查当前 artifact_type 的 path_pattern
-     - 命中：使用项目规范
-     - 未命中：fall back 到技能 frontmatter path_pattern 默认
-  3. 从 resolved_norms 查 linking_mode
-     - 未声明：视为 'none'
-  4. 按 §8.4 表决定最终输出路径与 frontmatter 要求
-     - 若 colocation / parent-pointer 需要 {parent_slug}：
-        - 读调用方 frontmatter 输入字段 `upstream_ref`
-        - 若缺失：追问用户，不静默
-  5. 按 §8.3 占位符语法替换
-  6. 记录最终 resolved_path 与 frontmatter 增量，供后续 emit 阶段消费
+     - 命中：使用项目规范（可能是任意自定义路径，包括聚合式如 work/{parent_slug}/design.md）
+     - 未命中：fall back 到技能 frontmatter 默认（= AI Cortex §2 canonical）
+  3. 按 §8.3 占位符语法替换；未解析占位符按 §8.6 错误处理（追问用户）
+  4. 若调用方 frontmatter 输入含 upstream_ref：
+     - 在产出制品的 frontmatter emit parent: <upstream_ref>
+     - 若 path_pattern 含 {parent_slug} 占位符，用 upstream_ref 派生 slug 替换
+  5. 记录最终 resolved_path 与 frontmatter 增量，供后续 emit 阶段消费
 ```
+
+**关于"colocation / parent-pointer / manifest 模式"**：
+
+- 项目若想采用**聚合式目录**（所谓 colocation）——在 `ARTIFACT_NORMS.md` 把各 artifact_type 的 `path_pattern` 覆盖为 `work/{parent_slug}/<type>.md`。§8.2 的覆盖机制已支持，不需要额外 mode 字段。
+- 项目若想采用**显式父指针**（所谓 parent-pointer）——调用方传 `upstream_ref` 即可；技能自动 emit `parent:` frontmatter。不需要项目级"声明"模式。
+- 项目若想采用**下行清单**（所谓 manifest）——建 `docs/process-management/now/<slug>.md` 或等价文件。plan-next 和 align-work-item-manifest 通过 **glob 物理检测**消费清单，不依赖项目声明的 mode 字段。
+
+历史参考：v3.0 曾把这些模式实现为枚举分支，v4.0 移除此设计。6 模式描述见 [specs/linking-modes.md](linking-modes.md)（现为**描述性参考文档**，不再是运行时配置对象）。
 
 ### 8.5 合并语义
 

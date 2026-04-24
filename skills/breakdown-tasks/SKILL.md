@@ -79,18 +79,16 @@ output_schema:
 - **选择选项**：当设计不明确时，一次提出一个澄清问题
 - **确认**：用户必须批准或调整任务列表才能转交
 
-### 第 0 阶段：Norms Resolution（v2.0 新增）
+### 第 0 阶段：Norms Resolution（v2.0 引入，v8.0 简化）
 
 按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 实现：
 
-1. 按 §8.2 发现顺序解析项目规范 → 确定 `path_pattern`（默认：`docs/process-management/tasks/YYYY-MM-DD-{topic}.md`）与 `linking_mode`
-2. 若 `linking_mode` ∈ {`colocation`, `parent-pointer`}：读 `upstream_ref`（应指向上游 design 文档）；缺失则追问用户
-3. 按 §8.4 真值表决定最终输出路径与 frontmatter：
-   - `colocation` → `work/{parent_slug}/tasks.md`
-   - `parent-pointer` → 默认路径 + 强制 `parent: <upstream_ref>` frontmatter
-   - `slug` / `manifest` / `none` → 默认路径不变
-   - `mixed` → 按 `mixed.rules` 查 `tasks` 类型
-4. 按 §8.3 占位符语法替换，记录 resolved_path 供后续写入使用
+1. 按 §8.2 发现顺序解析项目规范 → 确定 `tasks` artifact_type 的 `path_pattern`（默认：`docs/process-management/tasks/YYYY-MM-DD-{topic}.md`；项目可覆盖为聚合式如 `work/{topic}/tasks.md`）
+2. 按 §8.3 占位符语法替换；未解析占位符按 §8.6 追问用户
+3. 若调用方 frontmatter 输入含 `upstream_ref`（应指向上游 design 文档）：在产出制品的 frontmatter emit `parent: <upstream_ref>`
+4. 记录 resolved_path + frontmatter 增量供后续写入使用
+
+v8.0 起不再有 `linking_mode` 字段分支（见 ADR 005）。
 
 ### 第 1 阶段：摄取设计
 
