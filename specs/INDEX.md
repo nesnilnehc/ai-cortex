@@ -16,6 +16,7 @@
 |:---|:---|:---|:---|:---|
 | [Universal Notification Protocol](./universal-notification.md) | notification | `1.0.0` | active | 定义通知的结构、必需字段、语义层（WHAT）。与 INP 协议栈配套。|
 | [Requirement Modeling Spec](./requirement-modeling/SPEC.md) | requirements | `1.0.0` | active | 定义需求的 7 个必填字段、5 维审查清单、BDD 验收标准格式。|
+| [Linking Modes Spec](./linking-modes.md) | linking | `1.0.0` | active | 定义 6 项固定链接模式枚举（slug / colocation / parent-pointer / manifest / mixed / none），7 维统一描述结构；discover-docs-norms 的识别、define-docs-norms 的选择 UI、plan-next 的消费都以此为 SSOT。|
 
 ---
 

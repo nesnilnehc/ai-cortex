@@ -26,7 +26,6 @@ status: active
 | [nesnilnehc/ai-cortex](https://github.com/nesnilnehc/ai-cortex) | design-solution | 1.0.0 | MIT | reference | Phase-based workflow, HARD-GATE pattern, incremental dialogue approach | analyze-requirements |
 | [nesnilnehc/ai-cortex](https://github.com/nesnilnehc/ai-cortex) | review-diff | 1.3.0 | MIT | integration | Pre-commit review methodology | commit-work |
 | [nesnilnehc/ai-cortex](https://github.com/nesnilnehc/ai-cortex) | design-solution | 1.0.0 | MIT | reference | Phase-based validation, HARD-GATE, trade-off framework, design doc structure | design-solution |
-| [nesnilnehc/gstack](https://github.com/nesnilnehc/gstack) | retro | 2.0.0 | MIT | fork | Git-based metrics, per-author breakdown, praise and growth framing, commit type ... | conduct-retro |
 | [nesnilnehc/gstack](https://github.com/nesnilnehc/gstack) | investigate | 1.0.0 | MIT | fork | Four-phase workflow, Iron Law, pattern analysis table, hypothesis testing rules,... | investigate-root-cause |
 | [nesnilnehc/gstack](https://github.com/nesnilnehc/gstack) | document-release | 1.0.0 | MIT | fork | Post-ship doc audit workflow, per-file heuristics, CHANGELOG polish rules, cross... | sync-release-docs |
 | [nesnilnehc/gstack](https://github.com/nesnilnehc/gstack) | careful | 0.1.0 | MIT | fork | Destructive pattern list, safe exceptions, warn-before-run behavior | warn-destructive-commands |

@@ -99,14 +99,13 @@
 | [audit-docs](./audit-docs/SKILL.md) | documentation, governance, orchestration, ssot, workflow | `2.0.0` | mature | 以只读方式编排文档治理审计，汇总多项评估并生成统一治理路线图。. |
 | [automate-tests](./automate-tests/SKILL.md) | automation, devops | `1.0.0` | stable | 安全发现并执行仓库测试命令；基于证据选择命令并设安全护栏。. |
 | [automate-repair](./automate-repair/SKILL.md) | automation, devops, optimization | `1.1.0` | stable | 迭代审查变更、运行自动化测试并实施定向修复，直至问题解决或满足停止条件。. |
-| [plan-next](./plan-next/SKILL.md) | automation, meta-skill, workflow | `5.0.0` | mature | 盘点治理输入源并输出下一步技能路由；默认仅规划（execute=false）；引入 7 态项目状态机 + Primary/Secondary 两层输出（ADR 20260417）；对话直出不写文件。. |
+| [plan-next](./plan-next/SKILL.md) | automation, meta-skill, workflow | `6.3.0` | mature | 盘点治理输入源并输出下一步技能路由；默认仅规划（execute=false）。v6 "扫/诊/荐"三步法；v6.3 新增执行态覆盖（S5 任务×代码双信号交叉判健康/卡点/漂移）、Now tier 作用域（下游就绪度仅评估 Now tier，深度优先逐层推进）、breakdown-tasks 进 What/When G1、链接模式识别委托 discover-docs-norms（6 项固定枚举，define-docs-norms 提供选择 UI，plan-next 消费结果）、v7.x 规范驱动架构预留接口（ADR 003）。. |
 | [define-mission](./define-mission/SKILL.md) | documentation, workflow | `1.2.0` | stable | 定义项目或组织的根本目的；回答项目为何存在；产出 mission 陈述并持久化到 docs。. |
 | [define-vision](./define-vision/SKILL.md) | documentation, workflow | `1.2.0` | stable | 定义项目旨在创造的长远未来；回答我们在构建什么未来；产出 vision 陈述并持久化到 docs。. |
 | [define-north-star](./define-north-star/SKILL.md) | documentation, workflow | `1.1.0` | stable | 定义代表向用户交付核心价值的单一最重要指标；产出 North Star Metric 及理由、辅助指标与反例。. |
 | [design-strategic-goals](./design-strategic-goals/SKILL.md) | documentation, workflow | `1.1.0` | stable | 定义 3–5 个推动项目走向 vision 与 North Star 的长期战略目标；长期项目须含工程 / 治理健康目标；产出 goals 文档。. |
 | [define-roadmap](./define-roadmap/SKILL.md) | documentation, strategy, workflow | `3.1.0` | mature | 从战略目标推导路线图，包含里程碑、关键举措、成功指标、推进条件与按 strategic_goal 的容量分配（ADR 20260417 护栏依据）。. |
 | [define-strategic-pillars](./define-strategic-pillars/SKILL.md) | documentation, workflow | `1.0.0` | stable | 从 vision 与 North Star 推导 3–5 个战略支柱（高层次主题），指导战略目标与路线图。. |
-| [conduct-retro](./conduct-retro/SKILL.md) | documentation, workflow | `1.0.0` | stable | 周/迭代工程回顾：分析提交历史、工作模式与代码质量指标；按人分解贡献，含表扬与成长建议。适用于「周回顾」「发了什么」「工程复盘」。. |
 | [investigate-root-cause](./investigate-root-cause/SKILL.md) | optimization, workflow | `1.0.0` | stable | 系统性根因调试：investigate → analyze → hypothesize → implement。铁律：无根因不修复。适用于报错、异常行为、故障排查。. |
 | [sync-release-docs](./sync-release-docs/SKILL.md) | documentation, workflow | `1.0.0` | stable | 发版后同步项目文档：交叉引用 diff，更新 README/ARCHITECTURE/CONTRIBUTING/CLAUDE.md，润色 CHANGELOG，清理 TODOS。发版后或 PR 合并后建议使用。. |
 | [tidy-repo](./tidy-repo/SKILL.md) | repository, workflow, cleanup, structure | `1.2.0` | stable | 一次性审计仓库目录结构——检测错放文件、命名不一致、空目录和过期制品；输出优先级整理报告；可选地应用安全、可逆的清理操作。. |

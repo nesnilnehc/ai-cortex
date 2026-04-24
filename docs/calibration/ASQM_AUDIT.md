@@ -54,7 +54,6 @@ status: active
 | Skill | agent_native | cognitive | composability | stance | quality | status |
 | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
 | automate-tests | 4 | 4 | 3 | 5 | 16 | Experimental |
-| conduct-retro | 5 | 3 | 3 | 5 | 16 | Experimental |
 | curate-skills | 4 | 4 | 3 | 5 | 16 | Experimental |
 | define-mission | 5 | 3 | 4 | 4 | 16 | Experimental |
 | define-vision | 5 | 3 | 4 | 4 | 16 | Experimental |
@@ -169,7 +168,6 @@ Experimental skills have quality ≥ 10 but do not meet validated threshold.
 3. **Some lack output_schema**: Add explicit YAML front matter with artifact_type, path_pattern
 
 - **automate-tests** (Q16): composability 3
-- **conduct-retro** (Q16): cognitive 3 | composability 3
 - **curate-skills** (Q16): composability 3
 - **define-mission** (Q16): cognitive 3
 - **define-vision** (Q16): cognitive 3

@@ -122,7 +122,6 @@ asqm_quality = agent_native + cognitive + composability + stance
 | Skill | ASQM | Primary blocker | Suggested next action |
 | :--- | :---: | :--- | :--- |
 | discover-skills | 15 | composability/stance depth | add stricter machine-readable recommendation schema |
-| conduct-retro | 16 | output contract depth | add explicit output contract appendix |
 | decontextualize-text | 16 | composability clarity | add stronger structured IO contract |
 | investigate-root-cause | 16 | stance/composability depth | expand deterministic checkpoints in output contract |
 
