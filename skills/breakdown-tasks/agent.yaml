@@ -1,12 +1,19 @@
 name: breakdown-tasks
 status: validated
-primary_use: Break a design document into an executable task list with dependencies, acceptance criteria, and assignee or AI execution hints.
+primary_use: Break a design document into an executable task list with dependencies,
+  acceptance criteria, and assignee or AI execution hints. v2.0 adds Stage 0 Norms
+  Resolution per artifact-contract §8 — resolves path_pattern and linking_mode from
+  project ARTIFACT_NORMS.md; supports colocation (emit to work/<parent_slug>/tasks.md)
+  and parent-pointer (inject parent: frontmatter) linking modes.
 cognitive_mode: interpretive
 inputs:
-- Design document (e.g. design.md or docs/design-decisions/YYYY-MM-DD-<topic>.md)
+- Design document (path or content)
 - Optional scope or priority hints
+- Optional upstream_ref (parent design path for colocation/parent-pointer modes)
+- Optional artifact_norms_path override
 outputs:
-- Task list document with ordered tasks, dependencies, acceptance criteria, and assignee/execution hints
+- Task list document at norms-resolved path (default docs/process-management/tasks/YYYY-MM-DD-<topic>.md)
+- parent frontmatter field when linking_mode is parent-pointer
 scores:
   agent_native: 5
   cognitive: 4

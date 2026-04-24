@@ -1,7 +1,9 @@
 name: align-architecture
 status: validated
 primary_use: Verify architecture and design documents against code; produce Architecture
-  Compliance Report when implementation diverges from ADR or design decisions.
+  Compliance Report when implementation diverges from ADR or design decisions. v1.3
+  adds Stage 0 Norms Resolution per artifact-contract §8 — project norms override
+  path_pattern; fixed-path governance output.
 cognitive_mode: interpretive
 inputs:
 - optional ADR or design doc paths

@@ -3,7 +3,7 @@ name: define-mission
 description: Define the fundamental purpose of a project or organization. Answers why the project exists; produces a single mission statement persisted to docs.
 description_zh: 定义项目或组织的根本目的；回答项目为何存在；产出 mission 陈述并持久化到 docs。
 tags: [documentation, workflow]
-version: 1.2.0
+version: 1.3.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -104,6 +104,10 @@ output_schema:
 ---
 
 ## 行为
+
+### 第 0 阶段：Norms Resolution（v1.3 新增）
+
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `mission` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/project-overview/mission.md`）。本技能为**固定路径治理产出**，不涉及 `linking_mode` 分支（§8.4 的 colocation / parent-pointer 仅适用于链接锚点类制品，mission 不在其中）。
 
 ### 交互策略
 

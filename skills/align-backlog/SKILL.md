@@ -3,7 +3,7 @@ name: align-backlog
 description: Align the product or work backlog with the current strategy, goals, and roadmap. Analyze backlog items, identify misaligned or orphan work, and propose concrete changes (adds, cuts, reprioritization) so backlog clearly supports strategic outcomes.
 description_zh: 将产品/工作待办与当前战略、目标、路线图对齐；分析待办项，识别脱节或孤儿工作，提出变更建议。
 tags: [workflow, documentation]
-version: 1.0.0
+version: 1.1.0
 license: MIT
 recommended_scope: both
 aliases: [align-backlog-to-strategy]
@@ -90,6 +90,10 @@ output_schema:
 ---
 
 ## 行为（行为）
+
+### 第 0 阶段：Norms Resolution（v1.1 新增）
+
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `backlog-alignment` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/calibration/backlog-alignment.md`）。本技能为**固定路径治理产出**，不涉及 `linking_mode` 分支。
 
 ### 代理即时合同
 

@@ -3,7 +3,7 @@ name: define-north-star
 description: Define the single most important metric representing the core value delivered to users. Produces North Star Metric with rationale, optional supporting metrics, and anti-pattern examples; persisted to docs.
 description_zh: 定义代表向用户交付核心价值的单一最重要指标；产出 North Star Metric 及理由、辅助指标与反例。
 tags: [documentation, workflow]
-version: 1.1.0
+version: 1.2.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -76,6 +76,10 @@ output_schema:
 ---
 
 ## 行为（行为）
+
+### 第 0 阶段：Norms Resolution（v1.2 新增）
+
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `north-star` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/project-overview/north-star.md`）。本技能为**固定路径治理产出**，不涉及 `linking_mode` 分支。
 
 ### 交互策略
 

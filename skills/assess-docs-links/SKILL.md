@@ -3,7 +3,7 @@ name: assess-docs-links
 description: Assess documentation link graph health including broken links, orphan docs, cycles, and deep chains.
 description_zh: 评估文档链接图健康度，包括坏链、孤立文档、循环引用和过深引用链。
 tags: [documentation, workflow, governance]
-version: 1.0.0
+version: 1.1.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -57,6 +57,12 @@ output_schema:
 ---
 
 ## 行为（Behavior）
+
+### 阶段 0：Norms Resolution（v1.1 新增）
+
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `doc-link-health` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/calibration/doc-link-health.md`）。本技能为**固定路径治理产出**，不涉及 `linking_mode` 分支。
+
+### 阶段 1：链接图构建与评估
 
 1. 扫描 Markdown/Wiki 链接
 2. 构建有向图

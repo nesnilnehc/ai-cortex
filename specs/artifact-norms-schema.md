@@ -1,8 +1,14 @@
 # 制品规范 Schema
 
 **状态**：Informational  
-**版本**：1.1.0  
-**范围**：项目级制品路径与命名配置 + 制品间链接模式
+**版本**：1.2.0  
+**范围**：项目级制品路径与命名配置 + 制品间链接模式 + 占位符语法
+
+**变更记录**：
+
+- **v1.2.0 (2026-04-24)**：明示 `path_pattern` 从硬规则降级为默认值（被 [specs/artifact-contract.md §8](artifact-contract.md#8-runtime-norms-resolution-protocol) 覆盖规则接管）；新增占位符语法统一声明；新增"默认 vs 覆盖"语义节。
+- v1.1.0 (2026-04-24)：新增 §6 链接模式字段规格。
+- v1.0.0：初版。
 
 ---
 
@@ -81,14 +87,29 @@ artifact_types:
 
 ---
 
-## 5. 技能行为
+## 5. 技能行为（v1.2 refactor）
 
-当技能需要写入文档制品时：
+自 v1.2 起，技能行为的详细协议迁移至 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](artifact-contract.md#8-runtime-norms-resolution-protocol)。技能在 Behavior 最前实现 **Stage 0: Norms Resolution** 步骤，按 §8.2 发现顺序读取本 schema 声明的项目规范、§8.3 占位符语法替换、§8.4 按 `linking_mode` 分支输出。
 
-1. **解析项目规范**：检查 `.ai-cortex/artifact-norms.yaml` 或 `docs/ARTIFACT_NORMS.md`。
-2. **解析**：提取相关 artifact_type 的 path_pattern 与 naming。
-3. **应用**：若找到项目规范则使用；否则使用 [specs/artifact-contract.md](artifact-contract.md) 默认。
-4. **写入**：按解析路径与正确命名持久化。
+**本 schema 的职责**：定义项目规范文件的**字段集与语法**。运行时协议由 artifact-contract §8 规定。
+
+**默认 vs 覆盖语义**：
+
+- 技能 SKILL.md frontmatter 声明的 `output_schema.path_pattern` 从**硬规则**降级为**默认值**
+- 项目在 `.ai-cortex/artifact-norms.yaml` 或 `docs/ARTIFACT_NORMS.md` 声明的同名字段**覆盖**技能默认
+- 项目规范只声明部分字段时，未声明字段继承默认（部分覆盖，非整替换，详见 artifact-contract §8.5）
+
+### 占位符语法
+
+`path_pattern` 与 `naming` 字段支持的占位符，字符串级替换，语义见 [artifact-contract §8.3](artifact-contract.md#83-占位符语法)：
+
+- `{slug}` — 制品主题 kebab-case
+- `{topic}` — 与 slug 等价（历史兼容）
+- `{parent_slug}` — 上游制品 slug（colocation / parent-pointer 模式必需）
+- `{YYYY}` / `{YYYY-MM-DD}` / `{YYYYMMDD}` — 日期变体
+- `{author}` — 创建者用户名
+
+未解析占位符技能须追问用户，不得静默（详见 artifact-contract §8.6）。
 
 ---
 

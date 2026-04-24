@@ -3,6 +3,9 @@ status: validated
 primary_use: Capture requirements, bugs, or issues from free-form input into structured,
   persistent backlog artifacts with path detection, status lifecycle, required strategic_goal_id
   (ADR 20260417), and priority=unset awaiting batch scoring by prioritize-backlog.
+  v2.0 refactors path detection into Stage 0 Norms Resolution per artifact-contract
+  §8 — resolves path_pattern and linking_mode from project ARTIFACT_NORMS.md; supports
+  colocation and parent-pointer linking modes via optional upstream_ref input.
 cognitive_mode: procedural
 inputs:
 - raw description of requirement, bug, or issue from user

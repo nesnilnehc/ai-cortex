@@ -3,7 +3,7 @@ name: discover-docs-norms
 description: Discover and propose project-specific artifact norms (paths, naming, lifecycle) from existing docs structure without writing norms files.
 description_zh: 扫描并推导项目文档规范提案（路径、命名、生命周期），仅输出提案，不写入规范文件。
 tags: [documentation, workflow]
-version: 2.0.0
+version: 3.0.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -85,6 +85,43 @@ output_schema:
 3. 推导 front-matter 最小字段集合
 4. 识别冲突分布（同类多路径、多命名风格）
 
+### 阶段 2b：链接模式识别（v3.0 新增）
+
+按 [specs/linking-modes.md](../../specs/linking-modes.md) §3 识别规则判定项目当前的链接模式。枚举与判据是权威的 6 项，不自由扩展。
+
+**识别信号检测**（按强→弱）：
+
+1. **manifest 信号**：扫描是否存在 `docs/process-management/now/<slug>.md`、`docs/initiatives/<slug>/INDEX.md` 或等价清单文件（内含对 requirement / design / tasks / PR 的链接列表）
+2. **colocation 信号**：扫描是否存在 `work/<slug>/`、`initiatives/<slug>/` 或等价聚合目录，子文件含 requirement / design / tasks 类型命名
+3. **parent-pointer 信号**：扫描下游制品 frontmatter，统计 `parent:` / `implements:` / `related_to:` / `roadmap_item:` 等链接字段的覆盖率；≥ 50% 覆盖视为强信号
+4. **slug 信号**：扫描下游目录的 `path_pattern`，检查文件名是否跨目录共享 `{topic}` / `{slug}`；多数目录一致视为强信号
+5. **无信号**：以上四类均无明显证据 → 视为 `none`
+
+**冲突判定**（linking-modes.md §3 判据）：
+
+- 多个强信号共存（如 colocation 目录 + parent-pointer frontmatter）→ 判定 `mixed`，报告各模式的覆盖范围
+- 只有 slug 信号（最弱 fallback） → 判定 `slug`
+- 完全无信号 → 判定 `none`
+
+**置信度评分**：每个候选枚举值打分（0-100），记录证据来源（例如"10/12 下游文件共享 slug → slug 置信度 83"）。
+
+**输出字段**：在提案文件末尾新增 `Linking Mode` 节，包含：
+
+```yaml
+linking_mode: <top_candidate>
+linking_mode_confidence: <0-100>
+linking_mode_candidates:
+  - mode: slug
+    confidence: 83
+    evidence: "10/12 下游文件跨目录共享 slug"
+  - mode: manifest
+    confidence: 15
+    evidence: "未发现清单文件"
+  ...
+```
+
+若判定为 `mixed`，额外列出各子模式的作用域（例："主模式 slug（requirement/design/tasks）；辅模式 manifest（仅 Now tier 汇总卡）"）。
+
 ### 阶段 3：置信度与风险评估
 
 1. 对每项规则打分（0-100）
@@ -94,7 +131,7 @@ output_schema:
 ### 阶段 4：输出提案（只读）
 
 1. 生成 `docs/calibration/docs-norms-proposal.md`
-2. 输出提案结构：规则表、冲突表、迁移建议、决策问题清单
+2. 输出提案结构：规则表、冲突表、迁移建议、**链接模式节（v3.0）**、决策问题清单
 3. 明确下一步：如需生效，执行 `define-docs-norms`
 
 ---
@@ -137,6 +174,7 @@ output_schema:
 - [ ] 已扫描目标 docs 范围并提取规则候选
 - [ ] 已输出路径/命名/front-matter 提案
 - [ ] 已标注低置信度与冲突项
+- [ ] **已按 [specs/linking-modes.md](../../specs/linking-modes.md) §3 识别链接模式并输出 `linking_mode` + confidence + evidence（v3.0）**
 - [ ] 已给出交接建议 `define-docs-norms`
 - [ ] 未写入 `docs/ARTIFACT_NORMS.md`
 

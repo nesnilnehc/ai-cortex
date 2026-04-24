@@ -3,7 +3,7 @@ name: capture-work-items
 description: Capture requirements, bugs, or issues from free-form input into structured, persistent artifacts. Use when user wants to record a work item quickly without deep validation.
 description_zh: 将自由形式输入快速捕获为结构化、可持久的需求、缺陷或问题制品；无需深度验证。
 tags: [writing, documentation, workflow]
-version: 1.1.0
+version: 2.0.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -11,7 +11,7 @@ metadata:
 triggers: [capture, quick capture, record bug]
 input_schema:
   type: free-form
-  description: Raw description of requirement, bug, or issue from user
+  description: Raw description of requirement, bug, or issue from user; optional upstream_ref (parent roadmap/requirement path for colocation/parent-pointer modes); optional artifact_norms_path override
 output_schema:
   type: document-artifact
   description: Structured work item(s) written per path detection
@@ -84,13 +84,18 @@ output_schema:
 - **选择选项**：一次一个缺失字段的问题；在适用时提供选择
 - **确认**：与默认路径不同时的目标路径；用户在写入前确认
 
-### 解决项目规范
+### 第 0 阶段：Norms Resolution（v2.0 更新）
 
-在坚持之前，根据 [specs/artifact-norms-schema.md](../../specs/artifact-norms-schema.md) 解析产品规范：
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 实现（取代 v1.x 的"解决项目规范"步骤）：
 
-1. 检查“.ai-cortex/artifact-norms.yaml”或“docs/ARTIFACT_NORMS.md”
-2.如果找到，解析path_pattern为`待办-item`并使用项目规则
-3. 如果未找到，则使用 [specs/artifact-contract.md](../../specs/artifact-contract.md) 中的默认值
+1. 按 §8.2 发现顺序解析项目规范 → 确定 `backlog-item` 的 `path_pattern`（默认：`docs/process-management/project-board/backlog/YYYY-MM-DD-{slug}.md` 或 fallback `docs/backlog/YYYY-MM-DD-{slug}.md`）与 `linking_mode`
+2. 若 `linking_mode` ∈ {`colocation`, `parent-pointer`}：读 `upstream_ref`（应指向上游 roadmap 条目或 requirement）；缺失则追问用户
+3. 按 §8.4 真值表决定最终输出路径与 frontmatter：
+   - `colocation` → `work/{parent_slug}/backlog-item.md` 或项目约定的聚合子路径
+   - `parent-pointer` → 默认路径 + 强制 `parent: <upstream_ref>` frontmatter
+   - `slug` / `manifest` / `none` → 默认路径不变（含 §3 的路径检测逻辑：`docs/process-management/` 存在否决定 canonical vs fallback）
+   - `mixed` → 按 `mixed.rules` 查 `backlog-item` 类型
+4. 按 §8.3 占位符语法替换，记录 resolved_path 供后续写入使用
 
 ### 路径检测
 

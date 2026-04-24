@@ -1,7 +1,16 @@
 name: plan-next
 status: validated
 cognitive_mode: interpretive
-primary_use: Inventory governance inputs and produce next-action routing report. v6.3 adds execution-state coverage (S5 now cross-checks task status × code activity to surface stuck/tracking/completion/archival drifts), Now-tier-scoped downstream readiness evaluation (depth-first breakdown — only Now tier items get requirement/design/task gap routing; Next/Later unreported; roadmap without tiers routes to promote-roadmap-items first), adds breakdown-tasks to What/When G1 cell, and consumes the linking mode identified by discover-docs-norms (fixed 6-enum: slug / colocation / parent-pointer / manifest / mixed / none; discover-docs-norms is the authority for enumeration and identification, define-docs-norms provides user selection UI, plan-next reads the result from ARTIFACT_NORMS.md linking_mode field or proposal file; unidentified triggers a gate route). Adds thresholds.task_stuck_days, task_source, roadmap_tier_source, artifact_norms_path, norms_proposal_path frontmatter defaults. Default planning-only with execute=false.
+primary_use: Inventory governance inputs and produce next-action routing report. v7.0
+  actualizes the v6.3 contract — Step 0 Norms Resolution algorithm now executably
+  reads artifact_norms_path / norms_proposal_path / ARTIFACT_NORMS.md / .ai-cortex/artifact-norms.yaml
+  per artifact-contract §8.2 discovery order into a runtime cache; Step 2.5 explicit
+  algorithm selects linking_mode from cache (authoritative / proposal-only / unidentified)
+  and emits gate routes accordingly; Step 2.7 S5 task path scan uses cache-resolved
+  path_pattern for colocation compatibility. v6.3 features retained (S5 cross-signal
+  execution health, Now-tier-scoped downstream evaluation with depth-first breakdown,
+  breakdown-tasks in What/When G1, 6-enum linking_mode consumption via discover-docs-norms).
+  Default planning-only with execute=false.
 inputs:
 - trigger context
 - optional scope overrides
@@ -26,7 +35,7 @@ tags:
 - workflow
 - automation
 - meta-skill
-version: 6.3.0
+version: 7.0.0
 validation_gates:
   gate_a:
     name: Agent-ready

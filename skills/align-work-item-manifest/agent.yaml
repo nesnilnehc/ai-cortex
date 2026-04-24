@@ -1,0 +1,41 @@
+name: align-work-item-manifest
+status: experimental
+primary_use: Detect drift between project work-item manifest files and the physical
+  artifacts they register (requirements / designs / tasks / PRs). v1.0.0 is advisory-only —
+  reports three drift types (dangling references / unregistered files / name mismatch)
+  but does not auto-write manifests. Only applicable when project linking_mode contains
+  'manifest' per specs/linking-modes.md; halts with diagnostic otherwise. Output consumable
+  by plan-next as G3 drift source.
+cognitive_mode: procedural
+inputs:
+- project path (default CWD)
+- optional manifest glob pattern (default from ARTIFACT_NORMS.md)
+- optional artifact_norms_path override
+outputs:
+- docs/calibration/work-item-manifest-alignment.md (alignment report with three drift categories)
+- machine-readable drift summary embedded as YAML fence for plan-next consumption
+scores:
+  agent_native: 4
+  cognitive: 3
+  composability: 4
+  stance: 5
+asqm_quality: 16
+overlaps_with:
+- nesnilnehc/ai-cortex:align-planning
+- nesnilnehc/ai-cortex:tidy-repo
+market_position: differentiated
+tags:
+- workflow
+- documentation
+- governance
+- alignment
+version: 1.0.0
+validation_gates:
+  gate_a:
+    name: Agent-ready
+    requirement: agent_native >= 4
+    status: pass
+  gate_b:
+    name: Design integrity
+    requirement: stance >= 3
+    status: pass

@@ -3,7 +3,7 @@ name: bootstrap-docs
 description: Bootstrap or adapt project docs using project-documentation-template. Core goal - produce structured lifecycle documentation aligned with enterprise template. Initialize (empty) or Adjust (non-empty); repeatable; strict kebab-case naming.
 description_zh: 使用 project-documentation-template 初始化或适配项目文档；产出结构化生命周期文档；支持 Initialize / Adjust。
 tags: [documentation, writing]
-version: 1.1.2
+version: 2.0.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -11,7 +11,7 @@ metadata:
 triggers: [bootstrap docs, bootstrap documentation]
 input_schema:
   type: free-form
-  description: Project directory to bootstrap or adapt documentation for
+  description: Project directory to bootstrap or adapt documentation for; optional upstream_ref (parent path for colocation/parent-pointer linking of produced ADRs); optional artifact_norms_path override
 output_schema:
   type: document-artifact
   description: Structured lifecycle documentation tree aligned with enterprise template
@@ -78,6 +78,21 @@ compatibility: Requires access to https://raw.githubusercontent.com or a local c
 ---
 
 ## 行为（行为）
+
+### 第 0 阶段：Norms Resolution（v2.0 新增）
+
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 实现。适用于本技能产出的 **ADR** 与其他制品：
+
+1. 按 §8.2 发现顺序解析项目规范 → 确定各 artifact_type（特别是 `adr`）的 `path_pattern`（默认：`docs/process-management/decisions/YYYYMMDD-{slug}.md`）与 `linking_mode`
+2. 若 `linking_mode` ∈ {`colocation`, `parent-pointer`}：读 `upstream_ref`（ADR 通常指向关联的 design / requirement）；缺失则追问用户
+3. 按 §8.4 真值表决定最终输出路径与 frontmatter：
+   - `colocation` → `work/{parent_slug}/decision.md`
+   - `parent-pointer` → 默认路径 + 强制 `parent: <upstream_ref>` frontmatter
+   - `slug` / `manifest` / `none` → 默认路径不变
+   - `mixed` → 按 `mixed.rules` 查 `adr` 类型
+4. 按 §8.3 占位符语法替换
+
+注：**初始化模式**下项目可能尚无 `ARTIFACT_NORMS.md`，Stage 0 fall-through 到技能默认，不阻断初始化工作。
 
 ### 模式选择
 

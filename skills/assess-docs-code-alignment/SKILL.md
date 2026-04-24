@@ -3,7 +3,7 @@ name: assess-docs-code-alignment
 description: Assess alignment gaps between code changes and required documentation updates.
 description_zh: 评估代码变更与应更新文档之间的对齐缺口。
 tags: [documentation, workflow, governance]
-version: 1.0.0
+version: 1.1.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -57,6 +57,12 @@ output_schema:
 ---
 
 ## 行为（Behavior）
+
+### 阶段 0：Norms Resolution（v1.1 新增）
+
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `code-doc-alignment` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/calibration/code-doc-alignment.md`）。本技能为**固定路径治理产出**，不涉及 `linking_mode` 分支。
+
+### 阶段 1：代码-文档对齐评估
 
 1. 获取 diff：`git diff <base>...HEAD --name-status --diff-filter=MAD`
 2. 归类代码变更区域

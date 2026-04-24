@@ -3,7 +3,7 @@ name: design-solution
 description: Produce a validated design document from requirements (architecture, components, data flow, trade-offs) with no implementation. Use when requirements are clear and you need a single source of truth for downstream task breakdown.
 description_zh: 从需求产出验证过的设计文档（架构、组件、数据流、权衡）；不含实现；用于下游任务拆解。
 tags: [writing, documentation]
-version: 1.1.1
+version: 2.0.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -23,10 +23,10 @@ metadata:
 triggers: [design solution, design from requirements, design doc]
 input_schema:
   type: document-artifact + optional free-form
-  description: Validated requirements document (e.g. requirements.md or docs/requirements-planning/<topic>.md); optional project context
+  description: Validated requirements document; optional project context; optional upstream_ref (path to parent requirement for colocation/parent-pointer linking); optional artifact_norms_path override
 output_schema:
   type: document-artifact
-  description: Design document per [specs/artifact-contract.md](../../specs/artifact-contract.md)
+  description: Design document per [specs/artifact-contract.md](../../specs/artifact-contract.md) §2; path_pattern is DEFAULT overridable at runtime by project ARTIFACT_NORMS.md per §8
   artifact_type: design
   path_pattern: docs/design-decisions/YYYY-MM-DD-{topic}.md
   lifecycle: snapshot
@@ -100,6 +100,19 @@ DO NOT write code, scaffold projects, or produce implementation steps.
 Output is design documentation only. Implementation is downstream (e.g. breakdown-tasks then execution).
 ```
 
+
+### 第 0 阶段：Norms Resolution（v2.0 新增）
+
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 实现：
+
+1. 按 §8.2 发现顺序解析项目规范 → 确定 `path_pattern`（默认：`docs/design-decisions/YYYY-MM-DD-{topic}.md`）与 `linking_mode`
+2. 若 `linking_mode` ∈ {`colocation`, `parent-pointer`}：读 `upstream_ref`（应指向上游 requirement 文档）；缺失则追问用户
+3. 按 §8.4 真值表决定最终输出路径与 frontmatter：
+   - `colocation` → `work/{parent_slug}/design.md`
+   - `parent-pointer` → 默认路径 + 强制 `parent: <upstream_ref>` frontmatter
+   - `slug` / `manifest` / `none` → 默认路径不变
+   - `mixed` → 按 `mixed.rules` 查 `design` 类型
+4. 按 §8.3 占位符语法替换，记录 resolved_path 供后续写入使用
 
 ### 第 1 阶段：摄取要求
 

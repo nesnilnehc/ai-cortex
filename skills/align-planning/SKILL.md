@@ -3,7 +3,7 @@ name: align-planning
 description: Perform post-task traceback, drift detection, and top-down recalibration to keep planning (goals, requirements, milestones, roadmap) aligned with task execution.
 description_zh: 执行任务后追溯、漂移检测与自上而下校准，使规划（目标、需求、里程碑、路线图）与执行对齐。
 tags: [workflow, documentation]
-version: 1.3.0
+version: 1.4.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -116,6 +116,10 @@ output_schema:
 ---
 
 ## 行为（行为）
+
+### 第 0 阶段：Norms Resolution（v1.4 新增）
+
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `planning-alignment` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/calibration/planning-alignment.md`）。本技能为**固定路径治理产出**，不涉及 `linking_mode` 分支。
 
 ### 代理即时合同
 
