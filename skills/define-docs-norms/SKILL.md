@@ -3,7 +3,7 @@ name: define-docs-norms
 description: Create or update docs/ARTIFACT_NORMS.md from an approved proposal and establish project docs norms as canonical rules.
 description_zh: 基于已确认提案创建或更新 docs/ARTIFACT_NORMS.md，建立项目文档规范的单一权威来源。
 tags: [documentation, workflow]
-version: 2.0.0
+version: 3.0.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -11,7 +11,7 @@ metadata:
 triggers: [define docs norms, create docs norms, apply norms]
 input_schema:
   type: free-form
-  description: Approved norms proposal, optional existing ARTIFACT_NORMS.md, optional merge strategy, optional linking_mode_override (bypass interactive selection; must be one of the 6 enums from specs/linking-modes.md)
+  description: Approved norms proposal, optional existing ARTIFACT_NORMS.md, optional merge strategy
 output_schema:
   type: document-artifact
   description: Canonical docs norms file
@@ -78,45 +78,6 @@ output_schema:
 2. 检查是否存在旧版 `docs/ARTIFACT_NORMS.md`
 3. 确认落盘策略：`create | merge | replace`
 
-### 阶段 1b：链接模式选择（v2.0 新增）
-
-**触发条件**：提案文件含 `Linking Mode` 节（由 `discover-docs-norms` v3.0+ 产出）或用户手动请求补该字段。
-
-**步骤**：
-
-1. 读提案 `linking_mode_candidates`，取 confidence 最高者作为**推荐**
-2. 向用户呈现 6 项选择（枚举权威定义见 [specs/linking-modes.md](../../specs/linking-modes.md)）：
-
-   | 选项 | 一句话说明（来自 linking-modes.md §2） | 置信度 |
-   |---|---|---|
-   | `slug` | 文件名跨目录共享 slug 占位符 | 引自提案 |
-   | `colocation` | `work/<slug>/` 聚合式目录 | 引自提案 |
-   | `parent-pointer` | frontmatter 显式 `parent:` 上游指针 | 引自提案 |
-   | `manifest` | 中央清单文件登记子制品 | 引自提案 |
-   | `mixed` | 多模式并存 | 引自提案 |
-   | `none` | 未采用任何机械约定 | 引自提案 |
-
-3. 推荐项标注"推荐（根据 discover 识别）"；其余按置信度排序展示
-4. **若用户选 `mixed`**，追问：
-   - 主模式（primary）：从 slug / colocation / parent-pointer / manifest 选一
-   - 每种辅助模式的作用域（例："manifest 用于 Now tier 汇总卡"）
-5. 把用户选定写入 `ARTIFACT_NORMS.md` 的 `Linking Mode` 节：
-
-   ```markdown
-   ## Linking Mode
-
-   linking_mode: <selected>
-   # mixed 模式下追加：
-   # linking_mode_primary: <primary>
-   # linking_mode_secondary:
-   #   - mode: <secondary>
-   #     scope: <description>
-   ```
-
-**Non-interactive 模式**：调用方可传 `linking_mode_override: <value>` 跳过交互；值必须是 6 枚举之一。
-
-**Schema 契约**：输出字段遵循 [specs/artifact-norms-schema.md §6](../../specs/artifact-norms-schema.md#6-链接模式字段v11-新增)。
-
 ### 阶段 2：规范组装
 
 1. 组装路径映射、命名策略、front-matter 标准
@@ -169,8 +130,6 @@ output_schema:
 - [ ] 已接收可落盘的规则输入
 - [ ] 已正确写入 `docs/ARTIFACT_NORMS.md`
 - [ ] 已输出规则变更摘要
-- [ ] **已处理 `Linking Mode` 节：若提案含识别结果，已呈现 6 枚举供选择并把用户选定写入规范文件（v2.0）**
-- [ ] **若 `mixed` 模式，已追问主模式 + 各辅模式作用域并写入结构化 YAML（v2.0）**
 - [ ] 未执行非规范文件写入
 
 ---

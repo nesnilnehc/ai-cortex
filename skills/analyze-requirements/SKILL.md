@@ -112,18 +112,16 @@ output_schema:
 - **选择选项**：一次一个问题；尽可能提供“[A][B][C]”
 - **确认**：退出设计转交之前；在写需求文档之前
 
-### 第 0 阶段：Norms Resolution（v2.0 新增）
+### 第 0 阶段：Norms Resolution（v2.0 引入，v8.0 简化）
 
 按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 实现：
 
-1. 按 §8.2 发现顺序解析项目规范 → 确定 `path_pattern`（默认：`docs/requirements-planning/{topic}.md`）与 `linking_mode`
-2. 若 `linking_mode` ∈ {`colocation`, `parent-pointer`}：读 frontmatter 输入字段 `upstream_ref`；缺失则追问用户
-3. 按 §8.4 真值表决定最终输出路径与 frontmatter：
-   - `colocation` → `work/{parent_slug}/requirement.md`
-   - `parent-pointer` → 默认路径 + 强制 `parent: <upstream_ref>` frontmatter 字段
-   - `slug` / `manifest` / `none` → 默认路径不变
-   - `mixed` → 按 `ARTIFACT_NORMS.md` 的 `mixed.rules` 子映射查 `requirements` 类型
-4. 按 §8.3 占位符语法替换，记录 resolved_path 供第 3 阶段"坚持"使用
+1. 按 §8.2 发现顺序解析项目规范 → 确定 `requirements` artifact_type 的 `path_pattern`（默认：`docs/requirements-planning/{topic}.md`；项目可覆盖为任意自定义路径，包括聚合式如 `work/{topic}/requirement.md`）
+2. 按 §8.3 占位符语法替换；未解析占位符按 §8.6 追问用户
+3. 若调用方 frontmatter 输入含 `upstream_ref`：在产出制品的 frontmatter emit `parent: <upstream_ref>`
+4. 记录 resolved_path + frontmatter 增量供第 3 阶段"坚持"使用
+
+v8.0 起不再有 `linking_mode` 字段分支（见 ADR 005）——项目若想要聚合目录 / 父指针等约定，通过 `path_pattern` 覆盖 + 可选传 `upstream_ref` 表达即可。
 
 ### 硬门：验证前无设计
 

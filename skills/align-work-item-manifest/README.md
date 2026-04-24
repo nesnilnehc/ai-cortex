@@ -4,19 +4,19 @@
 
 ## 用途
 
-当项目采用 `linking_mode: manifest`（或 `mixed` 含 manifest 成分）时，检测中央清单文件与其登记的物理制品之间的漂移。v1.0.0 **advisory-only**——只报告，不自动修复。
+当项目使用**中央清单文件**（如 `docs/process-management/now/<slug>.md`）登记制品时，检测清单文件与物理制品之间的漂移。v1.0.0 **advisory-only**——只报告，不自动修复。
 
 ## 何时使用
 
-- 项目在 `ARTIFACT_NORMS.md` 声明 `linking_mode: manifest` 后定期健康检查
-- `plan-next` 报告 G3 漂移且涉及 manifest 时的深入诊断
-- 从 slug 模式迁移到 manifest 模式后的初次对齐盘点
+- 中央清单风格项目定期健康检查
+- `plan-next` 报告 G3 漂移且检测到清单文件时的深入诊断
+- 从无清单迁移到中央清单风格后的初次对齐盘点
 - 迭代收尾 / 发布前清单完整性检查
 
 ## 前提
 
-- 项目已定义 `linking_mode` 为 `manifest` 或 `mixed` 含 manifest 作用域
-- 定义见 [specs/linking-modes.md](../../specs/linking-modes.md)
+- 项目存在至少一个清单文件（默认 glob `docs/process-management/now/*.md`，可由 ARTIFACT_NORMS.md 覆盖）
+- 本技能通过 glob 检测清单文件的**物理存在性**——不依赖任何 `linking_mode` 字段声明
 
 ## 输入
 

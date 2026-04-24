@@ -1,22 +1,22 @@
 name: plan-next
 status: validated
 cognitive_mode: interpretive
-primary_use: Inventory governance inputs and produce next-action routing report. v7.0
-  actualizes the v6.3 contract — Step 0 Norms Resolution algorithm now executably
-  reads artifact_norms_path / norms_proposal_path / ARTIFACT_NORMS.md / .ai-cortex/artifact-norms.yaml
-  per artifact-contract §8.2 discovery order into a runtime cache; Step 2.5 explicit
-  algorithm selects linking_mode from cache (authoritative / proposal-only / unidentified)
-  and emits gate routes accordingly; Step 2.7 S5 task path scan uses cache-resolved
-  path_pattern for colocation compatibility. v6.3 features retained (S5 cross-signal
-  execution health, Now-tier-scoped downstream evaluation with depth-first breakdown,
-  breakdown-tasks in What/When G1, 6-enum linking_mode consumption via discover-docs-norms).
-  Default planning-only with execute=false.
+primary_use: Inventory governance inputs and produce next-action routing report. v8.0
+  retracts v7.0's linking_mode enum consumption (see ADR 005) — Step 2.5 now scans
+  Now tier downstream artifacts by direct physical signals (resolved path_pattern
+  glob + optional parent: frontmatter reverse index + optional manifest file
+  detection) without any "mode" selection or gate route. Step 0 Norms Resolution
+  still loads ARTIFACT_NORMS.md / .ai-cortex/artifact-norms.yaml into cache for
+  path_pattern overrides (enabling colocation via path customization alone). Step
+  2.7 S5 task scan uses cache-resolved path. v6.3/v7.0 features retained (S5 cross-
+  signal execution health, Now-tier-scoped downstream evaluation with depth-first
+  breakdown, breakdown-tasks in What/When G1). Default planning-only with execute=false.
 inputs:
 - trigger context
 - optional scope overrides
 - optional execute flag (default false)
 - optional threshold overrides (commit_idle_days, drift_staleness_days, backlog_min_items, confidence_low_below, task_stuck_days)
-- optional task_source, roadmap_tier_source, artifact_norms_path, norms_proposal_path overrides
+- optional task_source, roadmap_tier_source, artifact_norms_path overrides
 outputs:
 - three-section user-facing report (Now do / Also watch / Diagnosis) with natural-language terms in first two sections
 - internal codes (S1-S7, G1-G4, P0-P3) appear only as traceability anchors in the Diagnosis section
@@ -35,7 +35,7 @@ tags:
 - workflow
 - automation
 - meta-skill
-version: 7.0.0
+version: 8.0.0
 validation_gates:
   gate_a:
     name: Agent-ready

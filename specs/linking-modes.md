@@ -4,11 +4,17 @@ spec_id: LINKING_MODES_SPEC_V1
 created_by: spec-authoring
 lifecycle: living
 created_at: 2026-04-24
-status: active
-version: 1.0.0
+status: informational
+version: 2.0.0
 ---
 
-# 链接模式规范（Linking Modes Spec）
+# 链接模式参考（Linking Modes — Descriptive Reference）
+
+> **注意（v2.0 / 2026-04-25）**：本文档自 v2.0 起降级为**描述性参考**，不再是运行时配置对象。
+>
+> v1.0（随 v7.0.0 发布）曾把 6 项模式定义为 `ARTIFACT_NORMS.md` 的 `linking_mode` 枚举字段，由 `discover-docs-norms` / `define-docs-norms` / `plan-next` 协同消费。v8.0.0 回撤此设计（见 [ADR 005](../docs/architecture/adrs/005-retract-linking-mode-enum.md)）——模式描述仍对**理解项目实践**有用，但不作为需要"选择"的运行时字段。
+>
+> **实际实现**：项目链接约定通过 [`specs/artifact-contract.md` §8](artifact-contract.md#8-runtime-norms-resolution-protocol) 的 `path_pattern` 覆盖机制 + `upstream_ref` 可选输入表达。本文档只描述模式 taxonomy，不约束任何技能行为。
 
 ## 1. 定义（Definition）
 
@@ -20,10 +26,15 @@ version: 1.0.0
 - **可追溯关系**：从任一制品出发，能找到与之对应的上游来源或下游产物。例：从 design 文档能找到它依据的 requirement；从 task 能找到它所属的 design。
 - **机械约定**：无需人工判断即可由工具自动解析的规则。"评审会口头约定"不是链接模式；"文件名共享 slug"是。
 
-**用途**：链接模式是 `discover-docs-norms` 识别、`define-docs-norms` 选择、`plan-next` 消费的共同对象。用于：
-- plan-next 对 Now tier 条目做精准下游就绪度评估
-- align-* 技能判定制品间漂移
-- 审计与回溯（从代码回到需求）
+**用途（v2.0 重新定位）**：本文档为**taxonomy 参考**，用于：
+- 团队沟通（"我们项目用 colocation 模式"的共识语言）
+- 设计讨论（权衡不同约定的优缺点）
+- 审计参考（回顾项目采用了什么约定）
+
+**不再用于**：
+- 运行时配置（v1.0 设计已废弃）
+- 技能的"选择对象"（不再是 discover-docs-norms / define-docs-norms 的消费对象）
+- 字段枚举值域（`linking_mode` 字段已从 `ARTIFACT_NORMS.md` schema 移除）
 
 **非用途**：
 - 不用于"该建立哪些文档"——那是 `artifact-contract.md` 的职责
@@ -132,38 +143,28 @@ version: 1.0.0
 
 **消费者行为提示**：`plan-next` 读到 `none` 时触发前置闸门路由——`discover-docs-norms` → `define-docs-norms` → 用户选定模式后再评估下游。
 
-## 3. 识别规则（Identification Rules）
+## 3. 识别规则（Identification Rules）— v2.0 退休
 
-**`discover-docs-norms` 的识别判据**（权威）：
+~~v1.0 由 `discover-docs-norms` 实现的识别判据已废弃~~。
 
-1. **强信号优先**：若仓库有 manifest 文件或 frontmatter 含 `parent:` 字段，直接判定对应模式；不因"文件名也有 slug"降级
-2. **冲突检出**：若强信号多于一个（如同时有 colocation 结构 + 大量 parent-pointer），判定 `mixed`，并在报告中说明各模式的覆盖范围
-3. **最弱 fallback**：只有 slug 占位符一致性信号、无其他强信号 → 判定 `slug`
-4. **完全无信号**：判定 `none`
+v2.0 起，"项目属于哪种模式"不再是工具需要机械识别的问题——如果项目通过 `path_pattern` 覆盖或 manifest 文件表达了约定，工具直接按实际约定工作即可。本节保留为描述性参考：若需要**人工判断**项目当前属于哪种模式，可参考 §2 的"识别信号"维度。
 
-判据的详细阈值（如"多数 path_pattern 共享占位符"的"多数"定义）由 `discover-docs-norms` SKILL.md 给出；本规范只做枚举与描述。
+## 4. 选择规则（Selection Rules）— v2.0 退休
 
-## 4. 选择规则（Selection Rules）
+~~v1.0 由 `define-docs-norms` 实现的 6 枚举选择 UI 已废弃~~。
 
-**`define-docs-norms` 的选择 UI 流程**：
+v2.0 起，项目**不需要"选择"链接模式**。采用默认（slug 约定）则零配置；采用非默认则通过 [`specs/artifact-contract.md` §8](artifact-contract.md) 的 `path_pattern` 覆盖或建 manifest 文件表达即可——这些是具体机制，不是模式枚举。
 
-1. 呈现 `discover-docs-norms` 的识别结果作为**推荐模式**（首选项）
-2. 同时列出另外 5 个枚举值作为**备选**，每项带上本规范第 2 节的"本质 / 适用场景"一句话摘要
-3. 用户选定后，`define-docs-norms` 把 `linking_mode: <selected>` 字段写入 `ARTIFACT_NORMS.md`
-4. 若用户选择 `mixed`，UI 追加询问"主模式"和"辅模式作用域"（例如"主 slug；manifest 用于 Now tier"）
+## 5. 消费规则（Consumption Rules）— v2.0 退休
 
-## 5. 消费规则（Consumption Rules）
+~~v1.0 由 `plan-next` 等消费者按 `linking_mode` 字段分支的逻辑已废弃~~。
 
-**plan-next（与任何消费者）读取顺序**：
+v2.0 起，消费者按实际数据工作：
+- 读 `path_pattern`（从 §8.2 发现顺序）决定扫描路径
+- 检测 `parent:` frontmatter 字段（物理信号）
+- 检测 manifest 文件存在性（物理信号）
 
-1. `ARTIFACT_NORMS.md` 的 `linking_mode` 字段（代表用户已批准）
-2. `docs/calibration/docs-norms-proposal.md` 的 `linking_mode` 字段（代表未批准的识别提案）
-3. 都无 → 视为 `none`，触发消费者自身定义的 fallback 行为
-
-消费者**不得**：
-- 自行扩展枚举
-- 自行实现识别（须调用 / 依赖 `discover-docs-norms` 的产出）
-- 把 `none` 当作可忽略项（须路由前置闸门）
+无需查"当前是哪种模式"，直接看数据即可。
 
 ## 6. 与其他规范的关系
 
@@ -173,5 +174,6 @@ version: 1.0.0
 
 ## 7. 版本与演进
 
-- **v1.0.0**（2026-04-24）：本规范首版，定义 6 枚举值。
-- **演进原则**：枚举扩展需 MAJOR bump；枚举描述的澄清 / 示例追加为 MINOR；错字修正为 PATCH。新增枚举须同时更新 `discover-docs-norms`（识别判据）与 `define-docs-norms`（选择 UI）。
+- **v2.0.0**（2026-04-25）：降级为描述性参考文档；§3–§5 标注退休；顶部加 v1.0 回撤说明。运行时链接配置改由 [specs/artifact-contract.md §8](artifact-contract.md) 的 `path_pattern` 覆盖 + `upstream_ref` 输入机制处理。见 [ADR 005](../docs/architecture/adrs/005-retract-linking-mode-enum.md)。
+- **v1.0.0**（2026-04-24）：初版——定义 6 枚举为运行时配置对象；由 discover/define/plan-next 协同消费。v2.0 回撤此设计。
+- **演进原则（v2.0 起）**：本文档是 taxonomy 参考，新增模式描述为 MINOR；描述澄清为 PATCH；重新升级为运行时配置对象需重写决策理由（明确 v2.0 的废弃缘由已解决）。

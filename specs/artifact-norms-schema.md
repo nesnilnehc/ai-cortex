@@ -1,13 +1,14 @@
 # 制品规范 Schema
 
 **状态**：Informational  
-**版本**：1.2.0  
-**范围**：项目级制品路径与命名配置 + 制品间链接模式 + 占位符语法
+**版本**：2.0.0  
+**范围**：项目级制品路径与命名配置 + 占位符语法
 
 **变更记录**：
 
-- **v1.2.0 (2026-04-24)**：明示 `path_pattern` 从硬规则降级为默认值（被 [specs/artifact-contract.md §8](artifact-contract.md#8-runtime-norms-resolution-protocol) 覆盖规则接管）；新增占位符语法统一声明；新增"默认 vs 覆盖"语义节。
-- v1.1.0 (2026-04-24)：新增 §6 链接模式字段规格。
+- **v2.0.0 (2026-04-25)**：**废弃 §6 链接模式字段**。v1.1 引入的 `linking_mode` 枚举字段（6 选项）随 v8.0.0 回撤（见 [ADR 005](../docs/architecture/adrs/005-retract-linking-mode-enum.md)）。项目链接约定通过 `path_pattern` 覆盖 + 物理 manifest 文件表达；不需要在 schema 里有"mode"字段。MAJOR：pin 在 v1.1/v1.2 的消费者需移除 `linking_mode` 读取。
+- v1.2.0 (2026-04-24)：`path_pattern` 从硬规则降级为默认值；新增占位符语法；v2.0 保留。
+- v1.1.0 (2026-04-24)：新增 §6 链接模式字段规格。**v2.0 已废弃此节**。
 - v1.0.0：初版。
 
 ---
@@ -113,39 +114,22 @@ artifact_types:
 
 ---
 
-## 6. 链接模式字段（v1.1 新增）
+## 6. 链接模式字段（v2.0 已废弃）
 
-除 artifact_types 之外，项目规范可额外声明**链接模式**字段。定义见 [specs/linking-modes.md](linking-modes.md)（LINKING_MODES_SPEC_V1）。
+~~本节曾定义 `linking_mode` 字段作为运行时配置对象~~。v2.0 废弃（见 [ADR 005](../docs/architecture/adrs/005-retract-linking-mode-enum.md)）。
 
-**字段**：`linking_mode`（枚举，取值见 linking-modes.md §2）
+**迁移建议**（原用此字段的项目）：
 
-- 值域：`slug | colocation | parent-pointer | manifest | mixed | none`
-- 语义：项目使用哪种机械约定在制品之间建立追溯关系
-- 写入者：`define-docs-norms`（基于 `discover-docs-norms` 识别结果 + 用户选择）
-- 消费者：`plan-next` 以及其他需要跨制品追溯的技能
+- 采用 slug 约定 → 什么都不用改，技能默认就是 slug
+- 采用聚合目录（colocation）→ 在 `ARTIFACT_NORMS.md` 覆盖各 artifact_type 的 `path_pattern`，例：
+  ```yaml
+  artifact_types:
+    requirements:
+      path_patterns: ["work/{topic}/requirement.md"]
+    design:
+      path_patterns: ["work/{topic}/design.md"]
+  ```
+- 采用父指针 → 调用技能时传 `upstream_ref`；技能自动 emit `parent:` frontmatter
+- 采用中央清单 → 建 `docs/process-management/now/<slug>.md` 或等价文件；`plan-next` / `align-work-item-manifest` 通过物理存在性检测消费，不需要字段声明
 
-**在 `docs/ARTIFACT_NORMS.md` 中的示例**：
-
-```markdown
-## Linking Mode
-
-linking_mode: slug
-# 备选字段（mixed 模式下需要）：
-# linking_mode_primary: slug
-# linking_mode_secondary: manifest
-# linking_mode_secondary_scope: now-tier
-```
-
-**在 `.ai-cortex/artifact-norms.yaml` 中的示例**：
-
-```yaml
-linking_mode: slug
-# mixed 模式：
-# linking_mode:
-#   primary: slug
-#   secondary:
-#     mode: manifest
-#     scope: now-tier
-```
-
-**缺省值**：若项目未声明 `linking_mode`，消费者（如 plan-next）应视为 `none` 并按 [specs/linking-modes.md §5](linking-modes.md) 的消费规则触发前置闸门。
+**描述性参考**：6 种链接模式的 taxonomy 描述仍保留在 [specs/linking-modes.md](linking-modes.md)（v2.0 已改为描述性文档），便于团队沟通和审计参考，但不再作为运行时配置对象。
