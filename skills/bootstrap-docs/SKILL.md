@@ -88,7 +88,7 @@ compatibility: Requires access to https://raw.githubusercontent.com or a local c
 3. 若调用方 frontmatter 输入含 `upstream_ref`（ADR 通常指向关联的 design / requirement）：在产出制品的 frontmatter emit `parent: <upstream_ref>`
 4. 记录 resolved_path + frontmatter 增量供后续写入使用
 
-注：**初始化模式**下项目可能尚无 `ARTIFACT_NORMS.md`，Stage 0 fall-through 到技能默认，不阻断初始化工作。v8.0 起不再有 `linking_mode` 字段分支（见 ADR 005）。
+注：**初始化模式**下项目可能尚无 `ARTIFACT_NORMS.md`，Stage 0 fall-through 到技能默认，不阻断初始化工作。
 
 ### 模式选择
 

@@ -22,7 +22,7 @@
 - stateless：每次调用从零重扫
 - 下游就绪度仅评估 roadmap **Now tier** 条目；Next/Later 不报缺口
 - 执行健康用**任务状态 × 代码活动**双信号交叉判（卡点 / 追踪漂移 / 完成漂移 / 归档漂移）
-- Now tier 下游扫描按物理信号工作：resolved path_pattern glob + 可选 parent: frontmatter + 可选 manifest 文件。v8.0 不再使用 linking_mode 字段（ADR 005）
+- Now tier 下游扫描按物理信号工作：resolved path_pattern glob + 可选 parent: frontmatter + 可选 manifest 文件
 
 ## 何时跳过本技能
 

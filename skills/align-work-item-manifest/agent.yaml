@@ -5,8 +5,7 @@ primary_use: Detect drift between project work-item manifest files and the physi
   reports three drift types (dangling references / unregistered files / name mismatch)
   but does not auto-write manifests. Detects applicability by globbing for manifest
   files (default docs/process-management/now/*.md, overridable by ARTIFACT_NORMS.md);
-  if no manifest files exist, halts with diagnostic. Does not depend on any
-  linking_mode field (retracted in v8.0.0 per ADR 005). Output consumable by plan-next
+  if no manifest files exist, halts with diagnostic. Output consumable by plan-next
   as G3 drift source.
 cognitive_mode: procedural
 inputs:

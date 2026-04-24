@@ -16,9 +16,8 @@
 |:---|:---|:---|:---|:---|
 | [Universal Notification Protocol](./universal-notification.md) | notification | `1.0.0` | active | 定义通知的结构、必需字段、语义层（WHAT）。与 INP 协议栈配套。|
 | [Requirement Modeling Spec](./requirement-modeling/SPEC.md) | requirements | `1.0.0` | active | 定义需求的 7 个必填字段、5 维审查清单、BDD 验收标准格式。|
-| [Linking Modes Reference](./linking-modes.md) | linking | `2.0.0` | informational | 6 项链接模式 taxonomy（slug / colocation / parent-pointer / manifest / mixed / none）描述性参考；v2.0 降级为文档（团队沟通 / 审计参考用），不再是运行时配置对象——v1.0 的 discover/define/plan-next 协同消费已随 ADR 005 回撤。|
-| [Artifact Contract](./artifact-contract.md) | artifact | `4.0.0` | active | 产出文档制品的契约；§8 Runtime Norms Resolution Protocol 规定技能运行时读项目规范 / 占位符语法 / 错误处理；v4.0 回撤 §8.4 linking-mode 输出真值表，保留 path_pattern 覆盖机制（ADR 005）。|
-| [Artifact Norms Schema](./artifact-norms-schema.md) | artifact | `2.0.0` | active | 项目级制品规范文件字段集与语法；v2.0 废弃 §6 `linking_mode` 字段（ADR 005）；保留 path_pattern 覆盖与占位符语法。|
+| [Artifact Contract](./artifact-contract.md) | artifact | `5.0.0` | active | 产出文档制品的契约；§2 定义 canonical 制品类型与路径（v5.0 统一 requirements/designs/tasks 为 `docs/<type>/{slug}.md`）；§8 Runtime Norms Resolution Protocol 规定技能运行时读项目规范 / 占位符语法 / 错误处理 / 部分覆盖合并（ADR 006）。|
+| [Artifact Norms Schema](./artifact-norms-schema.md) | artifact | `3.0.0` | active | 项目级制品规范文件字段集与语法；`path_pattern` 覆盖 + 占位符语法是项目定制 canonical 路径的唯一机制。|
 
 ---
 

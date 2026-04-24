@@ -93,7 +93,7 @@ output_schema:
 3. 若调用方 frontmatter 输入含 `upstream_ref`（应指向上游 roadmap 条目或 requirement）：在产出制品的 frontmatter emit `parent: <upstream_ref>`
 4. 记录 resolved_path + frontmatter 增量供后续写入使用
 
-注：默认情况保留 §3 路径检测逻辑（`docs/process-management/` 存在否决定 canonical vs fallback），但若项目在 `ARTIFACT_NORMS.md` 声明了显式 `path_pattern`，以项目声明为准。v8.0 起不再有 `linking_mode` 字段分支（见 ADR 005）。
+注：默认情况保留 §3 路径检测逻辑（`docs/process-management/` 存在否决定 canonical vs fallback），但若项目在 `ARTIFACT_NORMS.md` 声明了显式 `path_pattern`，以项目声明为准。
 
 ### 路径检测
 

@@ -1,16 +1,17 @@
 # 制品契约
 
 **状态**：DEFAULT（默认，可选参考）  
-**版本**：4.0.0  
+**版本**：5.0.0  
 **范围**：在项目 `docs/` 或仓库根下写入 Markdown 制品的技能
 
 **变更记录**：
 
-- **v4.0.0 (2026-04-25)**：回撤 v3.0 引入的 linking_mode 枚举分支。**§8 Runtime Norms Resolution Protocol 保留 §8.1–§8.3、§8.5–§8.7**（path_pattern 运行时覆盖、占位符语法、合并语义、错误处理、校验），**删除 §8.4 linking-mode 输出规则表**。AI Cortex 默认约定（slug：按类型分目录 + slug/topic 文件名）已由 §2 制品类型表硬编码，不作为可选配置。追溯字段 `upstream_ref` 保留为可选输入（所有链接锚点技能支持），技能在收到时在 frontmatter emit `parent:`。Manifest 风格的项目通过物理文件 glob 被 plan-next / align-work-item-manifest 检测——不需要 mode 字段声明。详见 [ADR 005](../docs/architecture/adrs/005-retract-linking-mode-enum.md)。MAJOR：消费 v3.0 §8.4 真值表的下游需改回依赖 §8.2 发现顺序 + §2 默认。
-- v3.0.0 (2026-04-24)：新增 §8 Runtime Norms Resolution Protocol。（§8.4 于 v4.0 回撤）
-- v1.2.0 (2026-03-16)：新增 `requirements` 制品类型；归属技能 `analyze-requirements`。
-- v1.1.0 (2026-03-06)：项目规范优先；本契约为默认回退；AI Cortex 与 project-documentation-template 为可信建议。
-- v1.0.0 (2026-03-06)：初版；AI Cortex 原则优先；project-documentation-template 为补充参考。
+- **v5.0.0 (2026-04-25)**：统一 `requirements` / `design` / `tasks` 三类制品的 canonical 路径为 `docs/<type>/{slug}.md`（无日期前缀）；artifact-contract §2 与 Appendix A 相应更新；相关技能（analyze-requirements / design-solution / breakdown-tasks）MAJOR bump。同时清理 linking_mode 相关所有引用（ADR 006）。MAJOR：使用旧路径 `docs/requirements-planning/` / `docs/design-decisions/` / `docs/process-management/tasks/` 的项目需迁移文件或在 `ARTIFACT_NORMS.md` 显式覆盖保留旧路径。
+- v4.0.0 (2026-04-25)：回撤 v3.0 的 §8.4 linking-mode 输出真值表；保留 §8.1–§8.3 / §8.5–§8.7 的 path_pattern 覆盖机制（ADR 005）。
+- v3.0.0 (2026-04-24)：新增 §8 Runtime Norms Resolution Protocol。
+- v1.2.0 (2026-03-16)：新增 `requirements` 制品类型。
+- v1.1.0 (2026-03-06)：项目规范优先；本契约为默认回退。
+- v1.0.0 (2026-03-06)：初版。
 
 ---
 
@@ -28,22 +29,22 @@
 
 ## 2. 制品类型
 
-| artifact_type | path_pattern | naming | lifecycle | owner_skill |
-| :--- | :--- | :--- | :--- | :--- |
-| requirements | `docs/requirements-planning/` | `{topic}.md` | snapshot | analyze-requirements |
-| backlog-item | `docs/process-management/project-board/backlog/` | `YYYY-MM-DD-{slug}.md` | living | capture-work-items |
-| backlog-item (fallback) | `docs/backlog/` | `YYYY-MM-DD-{slug}.md` | living | capture-work-items |
-| adr | `docs/process-management/decisions/` | `YYYYMMDD-{slug}.md` | living | bootstrap-docs |
-| design | `docs/design-decisions/` | `YYYY-MM-DD-{topic}.md` | snapshot | design-solution |
-| doc-assessment | `docs/calibration/` | `YYYY-MM-DD-doc-assessment.md` | snapshot | assess-docs |
+| artifact_type | path_pattern | lifecycle | owner_skill |
+| :--- | :--- | :--- | :--- |
+| requirements | `docs/requirements/{slug}.md` | snapshot | analyze-requirements |
+| design | `docs/designs/{slug}.md` | snapshot | design-solution |
+| tasks | `docs/tasks/{slug}.md` | living | breakdown-tasks |
+| backlog-item | `docs/process-management/project-board/backlog/YYYY-MM-DD-{slug}.md` | living | capture-work-items |
+| backlog-item (fallback) | `docs/backlog/YYYY-MM-DD-{slug}.md` | living | capture-work-items |
+| adr | `docs/process-management/decisions/YYYYMMDD-{slug}.md` | living | bootstrap-docs |
+| doc-assessment | `docs/calibration/doc-assessment.md` | snapshot | assess-docs |
 
 ### 路径理由
 
-- **requirements**：`docs/requirements-planning/` 归集所有已验证需求；扁平命名 `{topic}.md` 便于设计文档直接引用。`review-requirements` 以这些文件为输入做质量评估。
-- **backlog-item**：`project-board/backlog/` 与敏捷看板语义一致；单文件单条便于分流与追溯。无 process-management 的轻量项目使用回退 `docs/backlog/`。
+- **requirements / design / tasks**：统一为 `docs/<type>/{slug}.md` 的并列平级目录，文件名仅 `{slug}.md`（无日期前缀）。三类制品自然关联——同一 slug 跨目录即能 glob 打通全链（"user-auth" 的 requirement / design / tasks 共享 slug）。v5.0 起这是 canonical 约定；日期前缀由 git log 提供，文件名不重复编码。
+- **backlog-item**：`project-board/backlog/` 与敏捷看板语义一致；日期前缀保留因 backlog 条目按日期分流是常见实践。无 process-management 的轻量项目使用回退 `docs/backlog/`。
 - **adr**：`process-management/decisions/` 将架构决策与过程文档归类；`YYYYMMDD` 遵循 ADR 社区惯例。
-- **design**：顶级 `docs/design-decisions/` 避免与模板的 `design/`（品牌/UI）混淆；与 ADR 区分（实现设计 vs 架构决策）。
-- **doc-readiness**：`docs/calibration/` 用于治理/评估报告；与内容文档分离。
+- **doc-assessment**：`docs/calibration/` 用于治理/评估报告；与内容文档分离。
 
 ---
 
@@ -64,8 +65,10 @@
 
 对于无或仅有最小 `docs/` 结构的项目，下列路径足够：
 
-- `docs/backlog/` — 工作项
-- `docs/design-decisions/` — 设计文档
+- `docs/requirements/` — 需求文档
+- `docs/designs/` — 设计文档
+- `docs/tasks/` — 任务列表
+- `docs/backlog/` — 待办条目
 - `docs/calibration/` — 就绪/评估报告
 
 ADR 与完整 process-management 结构对更大项目为可选。
@@ -78,7 +81,7 @@ ADR 与完整 process-management 结构对更大项目为可选。
 
 | 字段 | 必填 | 说明 |
 | :--- | :---: | :--- |
-| `artifact_type` | 是 | 取其一：backlog-item, adr, design, doc-readiness |
+| `artifact_type` | 是 | 取其一：requirements, design, tasks, backlog-item, adr, doc-assessment |
 | `created_by` | 是 | 技能名（如 `capture-work-items`） |
 | `lifecycle` | 可选 | `snapshot` 或 `living` |
 | `created_at` | 可选 | `YYYY-MM-DD` |
@@ -90,7 +93,10 @@ ADR 与完整 process-management 结构对更大项目为可选。
 ## 6. 命名约定
 
 - **Slug**：kebab-case，仅小写字母与连字符；从标题派生。
-- **文件名中的日期**：`YYYY-MM-DD` 便于人工排序（ADR 除外：按社区惯例用 `YYYYMMDD`）。
+- **文件名**：
+  - **requirements / design / tasks**：`{slug}.md`（v5.0 起无日期前缀；git log 提供时序）
+  - **backlog-item**：`YYYY-MM-DD-{slug}.md`（日期前缀便于看板分流）
+  - **adr**：`YYYYMMDD-{slug}.md`（遵循 ADR 社区惯例）
 - **目录**：仅 kebab-case。
 
 ---
@@ -112,33 +118,33 @@ ADR 与完整 process-management 结构对更大项目为可选。
 artifact_types:
   requirements:
     path_patterns:
-      - "docs/requirements-planning/{topic}.md"
-    naming: "{topic}.md"
+      - "docs/requirements/{slug}.md"
     lifecycle: snapshot
     owner_skill: analyze-requirements
+  design:
+    path_patterns:
+      - "docs/designs/{slug}.md"
+    lifecycle: snapshot
+    owner_skill: design-solution
+  tasks:
+    path_patterns:
+      - "docs/tasks/{slug}.md"
+    lifecycle: living
+    owner_skill: breakdown-tasks
   backlog-item:
     path_patterns:
       - "docs/process-management/project-board/backlog/YYYY-MM-DD-{slug}.md"
       - "docs/backlog/YYYY-MM-DD-{slug}.md"
-    naming: "YYYY-MM-DD-{slug}.md"
     lifecycle: living
     owner_skill: capture-work-items
   adr:
     path_patterns:
       - "docs/process-management/decisions/YYYYMMDD-{slug}.md"
-    naming: "YYYYMMDD-{slug}.md"
     lifecycle: living
     owner_skill: bootstrap-docs
-  design:
+  doc-assessment:
     path_patterns:
-      - "docs/design-decisions/YYYY-MM-DD-{topic}.md"
-    naming: "YYYY-MM-DD-{topic}.md"
-    lifecycle: snapshot
-    owner_skill: design-solution
-  doc-readiness:
-    path_patterns:
-      - "docs/calibration/YYYY-MM-DD-doc-readiness.md"
-    naming: "YYYY-MM-DD-doc-readiness.md"
+      - "docs/calibration/doc-assessment.md"
     lifecycle: snapshot
     owner_skill: assess-docs
 ```
@@ -151,9 +157,9 @@ artifact_types:
 
 ### 8.1 目的
 
-统一产出技能在运行时解析输出路径、命名、链接模式的方式，使 `docs/ARTIFACT_NORMS.md` 与 `.ai-cortex/artifact-norms.yaml` 成为**真正的运行时权威**，而不只是人读参考。
+统一产出技能在运行时解析输出路径的方式，使 `docs/ARTIFACT_NORMS.md` 与 `.ai-cortex/artifact-norms.yaml` 成为**真正的运行时权威**，而不只是人读参考。
 
-技能 frontmatter 里的 `output_schema.path_pattern` 从**硬规则**降级为**默认值**，可被项目规范覆盖。
+技能 frontmatter 里的 `output_schema.path_pattern` 是**默认值**，可被项目规范覆盖。
 
 ### 8.2 发现顺序
 
@@ -161,7 +167,7 @@ artifact_types:
 
 1. **调用方 frontmatter 输入**：若调用方传入 `artifact_norms_path: <path>`，使用该路径指向的规范文件
 2. **`.ai-cortex/artifact-norms.yaml`**：机器可读项目规范，最高持久化优先级
-3. **`docs/ARTIFACT_NORMS.md`**：人读项目规范；技能需解析其"Artifact Types"表与"Linking Mode"节
+3. **`docs/ARTIFACT_NORMS.md`**：人读项目规范；技能需解析其"Artifact Types"表
 4. **技能自身 frontmatter `output_schema.path_pattern`**：技能默认
 5. **本契约 §2 表**：最终 fallback
 
@@ -173,9 +179,8 @@ artifact_types:
 
 | 占位符 | 含义 | 来源 |
 |---|---|---|
-| `{slug}` | 制品主题的 kebab-case slug | 调用方 `slug` 输入 / 从 `topic` 派生 / 上游 slug |
-| `{topic}` | 制品标题的 kebab-case slug（与 slug 等价，历史兼容） | 同 slug |
-| `{parent_slug}` | 上游制品的 slug（colocation / parent-pointer 模式必需） | `upstream_ref` frontmatter 输入 |
+| `{slug}` | 制品主题的 kebab-case slug | 调用方 `slug` 输入 |
+| `{parent_slug}` | 上游制品的 slug（仅在项目自定义聚合式 path_pattern 时使用） | `upstream_ref` frontmatter 输入派生 |
 | `{YYYY}` | 四位年份 | 当前日期 |
 | `{YYYY-MM-DD}` | ISO 日期 | 当前日期 |
 | `{YYYYMMDD}` | ADR 习惯日期 | 当前日期 |
@@ -183,20 +188,20 @@ artifact_types:
 
 **未解析占位符处理**：若 `path_pattern` 里的占位符无数据可替换，技能**必须停止并追问用户**，不得静默使用默认或空值。
 
-### 8.4 输出规则（v4.0 简化——无 linking_mode 枚举）
+### 8.4 输出规则
 
-**AI Cortex 默认约定**：按 §2 制品类型表——每种 artifact_type 有自己的目录，文件名用 `{topic}` / `{slug}` 占位符。这是仓库级 canonical，不作为可选配置。
+**AI Cortex 默认约定**：按 §2 制品类型表——requirements / design / tasks 统一为 `docs/<type>/{slug}.md`；backlog-item / adr / doc-assessment 保留历史路径。这是仓库级 canonical，项目可通过 §8.2 发现顺序覆盖。
 
-**可选追溯（upstream_ref）**：所有链接锚点技能（analyze-requirements / design-solution / breakdown-tasks / capture-work-items / bootstrap-docs）**必须**接受 optional `upstream_ref` frontmatter 输入。若调用方提供，技能在产出制品的 frontmatter 中 emit `parent: <upstream-relative-path>`。这是**可选增强**，不需要项目声明任何"模式"——给了就 emit，没给就不 emit。
+**可选追溯（upstream_ref）**：所有链接锚点技能（analyze-requirements / design-solution / breakdown-tasks / capture-work-items / bootstrap-docs）**必须**接受 optional `upstream_ref` frontmatter 输入。若调用方提供，技能在产出制品的 frontmatter 中 emit `parent: <upstream-relative-path>`。这是**可选增强**——给了就 emit，没给就不 emit。
 
-**Stage 0 决策算法（v4.0 简化）**：
+**Stage 0 决策算法**：
 
 ```
 Stage 0: Norms Resolution
   1. 按 §8.2 顺序发现并解析项目规范 → resolved_norms（map）
   2. 从 resolved_norms 查当前 artifact_type 的 path_pattern
      - 命中：使用项目规范（可能是任意自定义路径，包括聚合式如 work/{parent_slug}/design.md）
-     - 未命中：fall back 到技能 frontmatter 默认（= AI Cortex §2 canonical）
+     - 未命中：fall back 到技能 frontmatter 默认（= §2 canonical）
   3. 按 §8.3 占位符语法替换；未解析占位符按 §8.6 错误处理（追问用户）
   4. 若调用方 frontmatter 输入含 upstream_ref：
      - 在产出制品的 frontmatter emit parent: <upstream_ref>
@@ -204,13 +209,11 @@ Stage 0: Norms Resolution
   5. 记录最终 resolved_path 与 frontmatter 增量，供后续 emit 阶段消费
 ```
 
-**关于"colocation / parent-pointer / manifest 模式"**：
+**项目自定义典型场景**：
 
-- 项目若想采用**聚合式目录**（所谓 colocation）——在 `ARTIFACT_NORMS.md` 把各 artifact_type 的 `path_pattern` 覆盖为 `work/{parent_slug}/<type>.md`。§8.2 的覆盖机制已支持，不需要额外 mode 字段。
-- 项目若想采用**显式父指针**（所谓 parent-pointer）——调用方传 `upstream_ref` 即可；技能自动 emit `parent:` frontmatter。不需要项目级"声明"模式。
-- 项目若想采用**下行清单**（所谓 manifest）——建 `docs/process-management/now/<slug>.md` 或等价文件。plan-next 和 align-work-item-manifest 通过 **glob 物理检测**消费清单，不依赖项目声明的 mode 字段。
-
-历史参考：v3.0 曾把这些模式实现为枚举分支，v4.0 移除此设计。6 模式描述见 [specs/linking-modes.md](linking-modes.md)（现为**描述性参考文档**，不再是运行时配置对象）。
+- **聚合式目录**（所有相关制品同根）：在 `ARTIFACT_NORMS.md` 把各 artifact_type 的 `path_pattern` 覆盖为 `work/{parent_slug}/<type>.md`，调用方传 `upstream_ref`。
+- **显式父指针**：调用下游技能时传 `upstream_ref`；技能自动 emit `parent:` frontmatter。
+- **中央清单**：项目建清单文件（如 `docs/process-management/now/<slug>.md`）；plan-next 与 align-work-item-manifest 通过 glob 物理检测消费清单。
 
 ### 8.5 合并语义
 
@@ -227,9 +230,7 @@ Stage 0: Norms Resolution
 | 规范文件存在但 YAML 畸形 | 停止，诊断输出指到具体行；不静默使用默认 |
 | 规范文件缺失 | fall through 发现顺序，不报错 |
 | 占位符无法解析 | 停止，追问用户缺失的 token |
-| `linking_mode: colocation` 但无 `upstream_ref` | 追问用户或停止 |
-| `linking_mode: mixed` 但无 `mixed.rules` | 停止，诊断要求补 rules |
-| 未知 `linking_mode` 值（不在 6 枚举内） | 停止，指向 [specs/linking-modes.md](linking-modes.md) |
+| `path_pattern` 含 `{parent_slug}` 但调用方未传 `upstream_ref` | 追问用户或停止 |
 
 ### 8.7 校验钩子
 

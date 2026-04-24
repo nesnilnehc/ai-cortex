@@ -7,6 +7,65 @@
 
 ## [Unreleased]
 
+### Changed（v9.0.0 — 彻底删除 linking_mode + 统一三类路径，2026-04-25）
+
+**第二次 MAJOR**：`manifest.version` 4.0.0 → 5.0.0；`spec_version` 4.0.0 → 5.0.0。详见 [ADR 006](docs/architecture/adrs/006-delete-linking-mode-and-unify-artifact-paths.md)。
+
+**动机**：v8.0 的"软废弃"策略留下 35+ 处 linking_mode 残留引用和一个 `specs/linking-modes.md` 文件——让新加入者仍需理解这个已经不存在的概念；同时 analyze-requirements / design-solution / breakdown-tasks 三类产出路径不统一（父目录层级 / 命名后缀 / 日期前缀三类差异），抵消了"slug 贯通"的愿景。
+
+**删除**（除 ADR / CHANGELOG 历史外的所有 linking_mode 引用）：
+
+- `specs/linking-modes.md` 整个文件删除
+- `manifest.json` 的 `LINKING_MODES_SPEC_V1` 注册条目删除
+- `specs/INDEX.md` Linking Modes 行删除
+- `specs/terminology.md` §6 Linking Mode 入口删除
+- `specs/artifact-norms-schema.md` §6 "链接模式字段（已废弃）" 整节删除
+- `specs/artifact-contract.md` §8.4 中 v7 残留场景描述清理；§8.6 错误表中 3 行 linking_mode 错误场景删除并合并为通用 `{parent_slug}` 缺失场景
+- 所有技能 SKILL.md / agent.yaml / README.md 里"v8.0 linking_mode 已废弃 / 不涉及 linking_mode 分支" 注释删除
+
+**统一路径**（canonical 改为 `docs/<type>/{slug}.md`）：
+
+- `analyze-requirements` v2.0 → **v3.0**：`docs/requirements-planning/{topic}.md` → `docs/requirements/{slug}.md`
+- `design-solution` v2.0 → **v3.0**：`docs/design-decisions/YYYY-MM-DD-{topic}.md` → `docs/designs/{slug}.md`
+- `breakdown-tasks` v2.0 → **v3.0**：`docs/process-management/tasks/YYYY-MM-DD-{topic}.md` → `docs/tasks/{slug}.md`
+- `specs/artifact-contract.md` v4.0 → **v5.0**：§2 制品类型表与 §附录 A 机器可读 schema 同步更新
+- `specs/artifact-norms-schema.md` v2.0 → **v3.0**：示例更新；§6 删除
+
+**保留**：
+
+- ADR 003 / 004 / 005 / 006：linking_mode 演化历程的决策记录
+- CHANGELOG v7.0 / v8.0 / v9.0 条目：变更历史
+- Stage 0 Norms Resolution 机制：所有产出技能保留，仅 canonical 默认值变化
+- `upstream_ref` 可选输入 + `parent:` frontmatter emit：链接锚点技能保留
+- `align-work-item-manifest` v1.0.0：保留为 manifest 风格项目的可选审计工具；不依赖任何 mode 字段
+- backlog-item / adr / doc-assessment 三类路径：各自领域惯例保留，不纳入统一
+
+### Migration Notes（v8.0 → v9.0.0）
+
+项目仓库迁移二选一：
+
+1. **推荐**：`git mv` 旧文件到新路径（去日期前缀）：
+   ```
+   docs/requirements-planning/*.md        → docs/requirements/*.md
+   docs/design-decisions/YYYY-MM-DD-*.md  → docs/designs/*.md
+   docs/process-management/tasks/YYYY-MM-DD-*.md → docs/tasks/*.md
+   ```
+
+2. **保留旧路径**：在 `docs/ARTIFACT_NORMS.md` 显式声明覆盖：
+   ```yaml
+   artifact_types:
+     requirements:
+       path_patterns: ["docs/requirements-planning/{topic}.md"]
+     design:
+       path_patterns: ["docs/design-decisions/YYYY-MM-DD-{topic}.md"]
+     tasks:
+       path_patterns: ["docs/process-management/tasks/YYYY-MM-DD-{topic}.md"]
+   ```
+
+若曾在 `ARTIFACT_NORMS.md` 声明过 `linking_mode` 字段 → 直接删除该字段（路径覆盖 + `upstream_ref` 输入 + manifest 物理文件三机制替代）。
+
+**回滚锚点**：`v8.0-lts` tag（commit 11d9ea1）；`v7.0-lts` tag；`v6.3-lts` tag。
+
 ### Changed（v8.0.0 — 回撤 linking_mode 枚举，2026-04-25）
 
 **MAJOR 回撤**：`manifest.version` 3.0.0 → 4.0.0；`manifest.spec_version` 3.0.0 → 4.0.0。详见 [ADR 005](docs/architecture/adrs/005-retract-linking-mode-enum.md)。

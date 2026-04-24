@@ -80,7 +80,7 @@ output_schema:
 
 1. 解析 docs 根路径
 2. 按 §8.2 发现顺序读取项目规范（优先 `.ai-cortex/artifact-norms.yaml`，其次 `docs/ARTIFACT_NORMS.md`）；不存在则回退 `specs/artifact-contract.md` 默认
-3. 读取项目规范中 `doc-assessment` artifact_type 的 `path_pattern` 决定本次评估报告的输出路径（默认 `docs/calibration/doc-assessment.md`）；本技能为固定路径治理产出，不涉及 linking_mode 分支
+3. 读取项目规范中 `doc-assessment` artifact_type 的 `path_pattern` 决定本次评估报告的输出路径（默认 `docs/calibration/doc-assessment.md`）；本技能为固定路径治理产出
 4. 建立目标层映射（mission/vision/requirements/architecture/roadmap/backlog 等）用于后续阶段的评估
 
 ### 阶段 1：合规性验证

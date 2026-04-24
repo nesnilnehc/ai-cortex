@@ -82,12 +82,12 @@
 | [bootstrap-docs](./bootstrap-docs/SKILL.md) | documentation, writing | `2.0.0` | stable | 使用 project-documentation-template 初始化或适配项目文档；v2.0 加 Stage 0 Norms Resolution（per artifact-contract §8）+ colocation/parent-pointer 分支。. |
 | [capture-work-items](./capture-work-items/SKILL.md) | documentation, workflow, writing | `2.0.0` | stable | 将自由形式输入快速捕获为结构化持久的制品；v2.0 重构路径检测为 Stage 0 Norms Resolution + colocation/parent-pointer 分支 + upstream_ref 输入。. |
 | [commit-work](./commit-work/SKILL.md) | automation, git, workflow | `2.0.0` | mature | 创建高质量 git 提交：清晰消息与合理范围；遵循 Conventional Commits，含 pre-commit 质量检查。. |
-| [design-solution](./design-solution/SKILL.md) | documentation, writing | `2.0.0` | stable | 从需求产出验证过的设计文档；v2.0 加 Stage 0 Norms Resolution + colocation（work/<parent_slug>/design.md）/parent-pointer（parent frontmatter）分支 + upstream_ref 输入。. |
-| [breakdown-tasks](./breakdown-tasks/SKILL.md) | documentation, workflow, writing | `2.0.0` | stable | 将设计文档拆解为可执行任务列表；v2.0 加 Stage 0 Norms Resolution + colocation/parent-pointer 分支 + upstream_ref 输入。. |
+| [design-solution](./design-solution/SKILL.md) | documentation, writing | `3.0.0` | stable | 从需求产出验证过的设计文档；v3.0 采用 canonical 统一路径 `docs/designs/{slug}.md`；Stage 0 Norms Resolution 读项目规范解析 path_pattern；可选 upstream_ref 触发 parent: frontmatter emit。. |
+| [breakdown-tasks](./breakdown-tasks/SKILL.md) | documentation, workflow, writing | `3.0.0` | stable | 将设计文档拆解为可执行任务列表；v3.0 采用 canonical 统一路径 `docs/tasks/{slug}.md`；Stage 0 Norms Resolution 读项目规范解析 path_pattern；可选 upstream_ref 触发 parent: frontmatter emit。. |
 | [review-typescript](./review-typescript/SKILL.md) | code-review | `1.0.0` | stable | 审查 TypeScript/JavaScript 代码：类型安全、异步模式、错误处理与模块设计；原子技能。. |
 | [review-react](./review-react/SKILL.md) | code-review | `1.0.0` | stable | 审查 React 代码：组件设计、hooks 正确性、状态管理、渲染性能与可访问性；框架级原子技能。. |
 | [review-orm-usage](./review-orm-usage/SKILL.md) | code-review, optimization | `1.0.0` | stable | 审查 ORM 使用：N+1 查询、连接管理、迁移安全、事务与查询效率；库级原子技能。. |
-| [analyze-requirements](./analyze-requirements/SKILL.md) | documentation, writing | `2.0.0` | stable | 通过诊断状态推进与结构化对话，将模糊意图或不完整需求转为可验证、可测试的需求；v2.0 加 Stage 0 Norms Resolution + colocation/parent-pointer 分支 + upstream_ref 输入。. |
+| [analyze-requirements](./analyze-requirements/SKILL.md) | documentation, writing | `3.0.0` | stable | 通过诊断状态推进与结构化对话，将模糊意图或不完整需求转为可验证、可测试的需求；v3.0 采用 canonical 统一路径 `docs/requirements/{slug}.md`；Stage 0 Norms Resolution 读项目规范解析 path_pattern；可选 upstream_ref 触发 parent: frontmatter emit。. |
 | [review-requirements](./review-requirements/SKILL.md) | code-review | `1.0.1` | stable | 审查既有需求文档质量：问题清晰度、可测试需求、约束清单、范围边界、需求 ID 与遗留问题。. |
 | [align-planning](./align-planning/SKILL.md) | documentation, workflow | `1.4.0` | stable | 执行任务后追溯、漂移检测与自上而下校准；v1.4 加 Stage 0 Norms Resolution 路径覆盖。. |
 | [align-architecture](./align-architecture/SKILL.md) | documentation, workflow | `1.3.0` | stable | 对照代码实现验证架构与设计文档；v1.3 加 Stage 0 Norms Resolution 路径覆盖。. |
@@ -100,7 +100,7 @@
 | [audit-docs](./audit-docs/SKILL.md) | documentation, governance, orchestration, ssot, workflow | `2.1.0` | mature | 以只读方式编排文档治理审计；v2.1 加 Stage 0 Norms Resolution 路径覆盖。. |
 | [automate-tests](./automate-tests/SKILL.md) | automation, devops | `1.0.0` | stable | 安全发现并执行仓库测试命令；基于证据选择命令并设安全护栏。. |
 | [automate-repair](./automate-repair/SKILL.md) | automation, devops, optimization | `1.1.0` | stable | 迭代审查变更、运行自动化测试并实施定向修复，直至问题解决或满足停止条件。. |
-| [plan-next](./plan-next/SKILL.md) | automation, meta-skill, workflow | `8.0.0` | mature | 盘点治理输入源并输出下一步技能路由；默认仅规划（execute=false）。v8.0 回撤 v7.0 的 linking_mode 消费（ADR 005）——Step 2.5 改为按物理信号扫描（resolved path_pattern + 可选 parent: + 可选 manifest）。保留 Step 0 Norms Resolution 读 path_pattern 覆盖 / 执行态交叉判 / Now tier 深度优先。. |
+| [plan-next](./plan-next/SKILL.md) | automation, meta-skill, workflow | `8.0.0` | mature | 盘点治理输入源并输出下一步技能路由；默认仅规划（execute=false）。三步法 "扫/诊/荐" + Step 0 Norms Resolution 读 path_pattern 覆盖；Step 2.5 按物理信号扫 Now tier 下游（resolved path_pattern + 可选 parent: + 可选 manifest）；Step 2.7 S5 任务×代码双信号交叉判执行健康；Now tier 深度优先。. |
 | [define-mission](./define-mission/SKILL.md) | documentation, workflow | `1.3.0` | stable | 定义项目或组织的根本目的；v1.3 加 Stage 0 Norms Resolution 路径覆盖。. |
 | [define-vision](./define-vision/SKILL.md) | documentation, workflow | `1.3.0` | stable | 定义项目旨在创造的长远未来；v1.3 加 Stage 0 Norms Resolution 路径覆盖。. |
 | [define-north-star](./define-north-star/SKILL.md) | documentation, workflow | `1.2.0` | stable | 定义代表向用户交付核心价值的单一最重要指标；v1.2 加 Stage 0 Norms Resolution 路径覆盖。. |

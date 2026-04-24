@@ -3,7 +3,7 @@ name: breakdown-tasks
 description: Break a design document into an executable task list with dependencies, acceptance criteria, and assignee or AI execution hints. Use when design is approved and you need an implementation plan.
 description_zh: 将设计文档拆解为可执行任务列表：依赖、验收标准、负责人或 AI 执行提示。
 tags: [writing, documentation, workflow]
-version: 2.0.0
+version: 3.0.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -11,11 +11,12 @@ metadata:
 triggers: [breakdown tasks, task breakdown, implementation plan, tasks from design]
 input_schema:
   type: document-artifact + optional free-form
-  description: Design document (path or content); optional scope or priority hints; optional upstream_ref (parent design path for colocation/parent-pointer modes); optional artifact_norms_path override
+  description: Design document (path or content); optional scope or priority hints; optional upstream_ref (parent design path; when provided, skill emits parent: frontmatter); optional artifact_norms_path override
 output_schema:
   type: document-artifact
-  description: Task list document with ordered tasks, dependencies, acceptance criteria, and assignee/execution hints
-  path_pattern: docs/process-management/tasks/YYYY-MM-DD-{topic}.md (or project-convention tasks.md)
+  description: Task list document per artifact-contract v5.0 canonical unified path (docs/<type>/{slug}.md); path_pattern is DEFAULT overridable at runtime by project ARTIFACT_NORMS.md per §8
+  artifact_type: tasks
+  path_pattern: docs/tasks/{slug}.md
   lifecycle: living
 ---
 
@@ -79,16 +80,14 @@ output_schema:
 - **选择选项**：当设计不明确时，一次提出一个澄清问题
 - **确认**：用户必须批准或调整任务列表才能转交
 
-### 第 0 阶段：Norms Resolution（v2.0 引入，v8.0 简化）
+### 第 0 阶段：Norms Resolution
 
 按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 实现：
 
-1. 按 §8.2 发现顺序解析项目规范 → 确定 `tasks` artifact_type 的 `path_pattern`（默认：`docs/process-management/tasks/YYYY-MM-DD-{topic}.md`；项目可覆盖为聚合式如 `work/{topic}/tasks.md`）
+1. 按 §8.2 发现顺序解析项目规范 → 确定 `tasks` artifact_type 的 `path_pattern`（默认：`docs/tasks/{slug}.md`；项目可覆盖为聚合式如 `work/{parent_slug}/tasks.md`）
 2. 按 §8.3 占位符语法替换；未解析占位符按 §8.6 追问用户
 3. 若调用方 frontmatter 输入含 `upstream_ref`（应指向上游 design 文档）：在产出制品的 frontmatter emit `parent: <upstream_ref>`
 4. 记录 resolved_path + frontmatter 增量供后续写入使用
-
-v8.0 起不再有 `linking_mode` 字段分支（见 ADR 005）。
 
 ### 第 1 阶段：摄取设计
 

@@ -3,7 +3,7 @@ name: design-solution
 description: Produce a validated design document from requirements (architecture, components, data flow, trade-offs) with no implementation. Use when requirements are clear and you need a single source of truth for downstream task breakdown.
 description_zh: 从需求产出验证过的设计文档（架构、组件、数据流、权衡）；不含实现；用于下游任务拆解。
 tags: [writing, documentation]
-version: 2.0.0
+version: 3.0.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -23,12 +23,12 @@ metadata:
 triggers: [design solution, design from requirements, design doc]
 input_schema:
   type: document-artifact + optional free-form
-  description: Validated requirements document; optional project context; optional upstream_ref (path to parent requirement for colocation/parent-pointer linking); optional artifact_norms_path override
+  description: Validated requirements document; optional project context; optional upstream_ref (path to parent requirement; when provided, skill emits parent: frontmatter); optional artifact_norms_path override
 output_schema:
   type: document-artifact
-  description: Design document per [specs/artifact-contract.md](../../specs/artifact-contract.md) §2; path_pattern is DEFAULT overridable at runtime by project ARTIFACT_NORMS.md per §8
+  description: Design document per [specs/artifact-contract.md](../../specs/artifact-contract.md) v5.0 canonical unified path (docs/<type>/{slug}.md); path_pattern is DEFAULT overridable at runtime by project ARTIFACT_NORMS.md per §8
   artifact_type: design
-  path_pattern: docs/design-decisions/YYYY-MM-DD-{topic}.md
+  path_pattern: docs/designs/{slug}.md
   lifecycle: snapshot
 ---
 
@@ -101,16 +101,14 @@ Output is design documentation only. Implementation is downstream (e.g. breakdow
 ```
 
 
-### 第 0 阶段：Norms Resolution（v2.0 引入，v8.0 简化）
+### 第 0 阶段：Norms Resolution
 
 按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 实现：
 
-1. 按 §8.2 发现顺序解析项目规范 → 确定 `design` artifact_type 的 `path_pattern`（默认：`docs/design-decisions/YYYY-MM-DD-{topic}.md`；项目可覆盖为聚合式如 `work/{topic}/design.md`）
+1. 按 §8.2 发现顺序解析项目规范 → 确定 `design` artifact_type 的 `path_pattern`（默认：`docs/designs/{slug}.md`；项目可覆盖为聚合式如 `work/{parent_slug}/design.md`）
 2. 按 §8.3 占位符语法替换；未解析占位符按 §8.6 追问用户
 3. 若调用方 frontmatter 输入含 `upstream_ref`（应指向上游 requirement 文档）：在产出制品的 frontmatter emit `parent: <upstream_ref>`
 4. 记录 resolved_path + frontmatter 增量供后续写入使用
-
-v8.0 起不再有 `linking_mode` 字段分支（见 ADR 005）。
 
 ### 第 1 阶段：摄取要求
 

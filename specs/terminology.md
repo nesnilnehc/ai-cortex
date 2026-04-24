@@ -2,7 +2,7 @@
 id: TERMINOLOGY_SPEC_V1
 name: Terminology Definition
 description: Core concepts (Spec, Protocol, Skill, Rule) and definitions for AI Cortex
-version: 1.1.0
+version: 1.2.0
 status: active
 lifecycle: stable
 created_at: 2026-03-25
@@ -245,21 +245,11 @@ created_at: 2026-03-25
 
 ---
 
-## 6. 相关术语
-
-以下术语在项目其他规范里有完整定义，此处仅给一句话入口：
-
-| 英文 | 中文 | 一句话定义 | 完整定义 |
-|---|---|---|---|
-| **Linking Mode** | **链接模式** | 项目在治理制品（requirement / design / task / code）之间建立可追溯关系的机械约定 | [specs/linking-modes.md](./linking-modes.md) |
-
----
-
-## 7. 相关文档
+## 6. 相关文档
 
 - [specs/protocol.md](./protocol.md) — Protocol 的详细规范
 - [specs/skill.md](./skill.md) — Skill 的详细规范
-- [specs/linking-modes.md](./linking-modes.md) — 链接模式规范（6 项固定枚举）
+- [specs/artifact-contract.md](./artifact-contract.md) — 文档制品契约（含 §8 Runtime Norms Resolution Protocol）
 - [rules/INDEX.md](../rules/INDEX.md) — Rule 的注册表
 - [protocols/INDEX.md](../protocols/INDEX.md) — Protocol 的注册表
 
@@ -268,4 +258,5 @@ created_at: 2026-03-25
 **版本历史**：
 
 - v1.0.0 (2026-03-25)：初稿 — 定义四个核心术语、边界澄清、使用规范
-- v1.1.0 (2026-04-24)：新增 §6 相关术语节，收录 Linking Mode 入口指向 specs/linking-modes.md
+- v1.1.0 (2026-04-24)：新增 §6 相关术语节，收录 Linking Mode 入口（v1.2 已删除）
+- v1.2.0 (2026-04-25)：删除 §6 Linking Mode 入口（ADR 006 彻底删除 linking_mode 相关内容）

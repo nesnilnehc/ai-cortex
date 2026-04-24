@@ -16,7 +16,7 @@
 ## 前提
 
 - 项目存在至少一个清单文件（默认 glob `docs/process-management/now/*.md`，可由 ARTIFACT_NORMS.md 覆盖）
-- 本技能通过 glob 检测清单文件的**物理存在性**——不依赖任何 `linking_mode` 字段声明
+- 本技能通过 glob 检测清单文件的**物理存在性**——无配置字段依赖
 
 ## 输入
 
@@ -43,7 +43,7 @@
 
 ## 与兄弟技能的关系
 
-- 依赖 `discover-docs-norms` / `define-docs-norms` 的产出（`linking_mode` 字段）
+- 使用项目规范的 path_pattern 覆盖（若需要自定义清单位置）
 - 输出被 `plan-next` 消费为 G3 漂移
 - 实际文件归档 / 重命名交给 `tidy-repo`
 - 规划层漂移修正交给 `align-planning`

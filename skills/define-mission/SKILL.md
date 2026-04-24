@@ -107,7 +107,7 @@ output_schema:
 
 ### 第 0 阶段：Norms Resolution（v1.3 新增）
 
-按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `mission` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/project-overview/mission.md`）。本技能为**固定路径治理产出**，不涉及 `linking_mode` 分支（§8.4 的 colocation / parent-pointer 仅适用于链接锚点类制品，mission 不在其中）。
+按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `mission` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/project-overview/mission.md`）。本技能为**固定路径治理产出**，只用 path_pattern 覆盖机制。
 
 ### 交互策略
 

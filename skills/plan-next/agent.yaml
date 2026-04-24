@@ -1,16 +1,14 @@
 name: plan-next
 status: validated
 cognitive_mode: interpretive
-primary_use: Inventory governance inputs and produce next-action routing report. v8.0
-  retracts v7.0's linking_mode enum consumption (see ADR 005) — Step 2.5 now scans
-  Now tier downstream artifacts by direct physical signals (resolved path_pattern
-  glob + optional parent: frontmatter reverse index + optional manifest file
-  detection) without any "mode" selection or gate route. Step 0 Norms Resolution
-  still loads ARTIFACT_NORMS.md / .ai-cortex/artifact-norms.yaml into cache for
-  path_pattern overrides (enabling colocation via path customization alone). Step
-  2.7 S5 task scan uses cache-resolved path. v6.3/v7.0 features retained (S5 cross-
-  signal execution health, Now-tier-scoped downstream evaluation with depth-first
-  breakdown, breakdown-tasks in What/When G1). Default planning-only with execute=false.
+primary_use: Inventory governance inputs and produce next-action routing report. Step 2.5 scans Now tier
+  downstream artifacts by direct physical signals (resolved path_pattern glob +
+  optional parent: frontmatter reverse index + optional manifest file detection).
+  Step 0 Norms Resolution loads ARTIFACT_NORMS.md / .ai-cortex/artifact-norms.yaml
+  into cache for path_pattern overrides (enabling colocation via path customization).
+  Step 2.7 S5 task scan uses cache-resolved path. Retained features: S5 cross-signal
+  execution health, Now-tier-scoped downstream evaluation with depth-first breakdown,
+  breakdown-tasks in What/When G1. Default planning-only with execute=false.
 inputs:
 - trigger context
 - optional scope overrides

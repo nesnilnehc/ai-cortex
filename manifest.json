@@ -1,10 +1,10 @@
 {
   "project": "AI Cortex",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "Agent-first, governance-ready inventory of AI skills (spec).",
   "author": "nesnilnehc",
   "license": "MIT",
-  "spec_version": "4.0.0",
+  "spec_version": "5.0.0",
   "registry": {
     "skills_root": "skills/",
     "skills_index": "skills/INDEX.md",
@@ -292,20 +292,11 @@
     {
       "id": "TERMINOLOGY_SPEC_V1",
       "name": "Terminology Definition",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "status": "active",
       "lifecycle": "stable",
       "path": "specs/terminology.md",
       "canonical_url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/terminology.md"
-    },
-    {
-      "id": "LINKING_MODES_SPEC_V1",
-      "name": "Linking Modes Spec",
-      "version": "1.0.0",
-      "status": "active",
-      "lifecycle": "living",
-      "path": "specs/linking-modes.md",
-      "canonical_url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/linking-modes.md"
     }
   ]
 }
