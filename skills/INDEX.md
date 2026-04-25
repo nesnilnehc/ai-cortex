@@ -100,7 +100,7 @@
 | [audit-docs](./audit-docs/SKILL.md) | documentation, governance, orchestration, ssot, workflow | `2.1.0` | mature | 以只读方式编排文档治理审计；v2.1 加 Stage 0 Norms Resolution 路径覆盖。. |
 | [automate-tests](./automate-tests/SKILL.md) | automation, devops | `1.0.0` | stable | 安全发现并执行仓库测试命令；基于证据选择命令并设安全护栏。. |
 | [automate-repair](./automate-repair/SKILL.md) | automation, devops, optimization | `1.1.0` | stable | 迭代审查变更、运行自动化测试并实施定向修复，直至问题解决或满足停止条件。. |
-| [plan-next](./plan-next/SKILL.md) | automation, meta-skill, workflow | `9.1.0` | mature | 盘点治理输入源并输出下一步技能路由——read-only，永不执行下游；自动化由外层 orchestrator + loop 组合驱动。三步法 "扫/诊/荐" + Step 0 Norms Resolution 读 path_pattern 覆盖；Step 2.5 按物理信号扫 Now tier 下游；Step 2.7 S5 任务×代码双信号交叉判执行健康；Now tier 深度优先。. |
+| [plan-next](./plan-next/SKILL.md) | automation, meta-skill, workflow | `9.2.0` | mature | 盘点治理输入源并输出下一步技能路由——read-only，永不执行下游；自动化由外层 orchestrator + loop 组合驱动。三步法 "扫/诊/荐" + Step 0 Norms Resolution 读 path_pattern 覆盖；Step 2.5 按物理信号扫 Now tier 下游；Step 2.7 S5 任务×代码双信号交叉判执行健康；Now tier 深度优先。. |
 | [define-mission](./define-mission/SKILL.md) | documentation, workflow | `1.3.0` | stable | 定义项目或组织的根本目的；v1.3 加 Stage 0 Norms Resolution 路径覆盖。. |
 | [define-vision](./define-vision/SKILL.md) | documentation, workflow | `1.3.0` | stable | 定义项目旨在创造的长远未来；v1.3 加 Stage 0 Norms Resolution 路径覆盖。. |
 | [define-north-star](./define-north-star/SKILL.md) | documentation, workflow | `1.2.0` | stable | 定义代表向用户交付核心价值的单一最重要指标；v1.2 加 Stage 0 Norms Resolution 路径覆盖。. |
