@@ -1,7 +1,7 @@
 ---
 name: plan-next
-description: Analyze governance state and produce next-action routing plan from existing docs; default is planning-only (no downstream execution).
-description_zh: 基于现有治理文档分析状态并输出下一步路由计划；默认仅规划，不执行下游技能。
+description: Analyze governance state and produce next-action routing plan from existing docs; read-only — never executes downstream skills.
+description_zh: 基于现有治理文档分析状态并输出下一步路由计划；read-only——不执行下游技能。
 tags: [workflow, meta-skill, automation]
 version: 9.2.0
 license: MIT
@@ -39,9 +39,9 @@ output_schema:
 
 ## 目的与边界
 
-盘点治理输入源并生成下一步行动路由——**read-only**，永不执行下游技能。**入口路由器**：看全局、决定下一步跑哪个技能。
+盘点治理输入源并生成下一步行动路由。
 
-**适用时机**：迭代收尾 / 发布前治理路径确认 / 输入源缺失补齐 / 对下一步无头绪时。**不适用时可跳过**：单一维度问题（只查就绪度、只查漂移、已知某项缺失）直接跑专用技能。
+**适用时机**：迭代收尾 / 发布前治理路径确认 / 输入源缺失补齐 / 对下一步无头绪时。其他场景见头部 HOW。
 
 ### 边界
 
@@ -234,7 +234,7 @@ output_schema:
 
 主题 / 缺口类型 / 推荐技能 / 依据（指向具体资产）/ 优先级 / 停止条件。
 
-**主题写法**：前两节用自然语言描述资产（"路线图"、"战略目标"、"规范文件"），不用作者视角分类词（详见 Anti-Patterns 内部术语节）。
+**主题写法**：前两节用自然语言描述资产（详见 Anti-Patterns 内部术语节）。
 
 **停止条件**三选一：
 
@@ -339,83 +339,73 @@ output_schema:
 
 **场景**：项目有 mission / vision；无 NSM / strategic-goals；roadmap 存在但 backlog 多项与 strategy 不匹配。
 
-**输出**：
+**输出**（mock）：
 
----
+#### 下一步建议
 
-# 下一步建议
-
-## 现在该做
+##### 现在该做
 
 | # | 主题 | 缺口 | 推荐技能 | 依据 | 优先级 | 停止条件 |
 |---|---|---|---|---|---|---|
 | 1 | 北极星指标 | 资产缺失 | `define-north-star` | NSM 缺失，无单一关键指标 | 下次 | 完成条件：north-star.md 写入并通过 `assess-docs` |
 | 2 | 战略目标 | 资产缺失 | `design-strategic-goals` | strategic-goals 缺失 | 下次 | 完成条件：strategic-goals.md 写入；上抛：与 NSM 冲突需重定义 |
 
-## 其他可留意
+##### 其他可留意
 
 | 主题 | 概述 | 建议 |
 |---|---|---|
 | Backlog | 多项与战略不匹配 | 等战略层补齐再 `align-backlog` |
 
-## 诊断依据
+##### 诊断依据
 
 - **项目情况**：战略已起草但战略层上游缺失，整体偏早期
 - **判定规则**：Why 层 2 项 present / 3 项 missing 匹配"战略已起草"（S2）；What 层 backlog 漂移命中 S3 但按 tiebreak 取治理上游 S2。聚焦 = 战略层缺失。What 层漂移降级到"其他可留意"
-
----
 
 ### 示例 2：新项目起步（短路场景）
 
 **场景**：新项目，`docs/ARTIFACT_NORMS.md` 不存在，`specs/` 为空，无 mission。
 
-**输出**：
+**输出**（mock）：
 
----
+#### 下一步建议
 
-# 下一步建议
-
-## 现在该做
+##### 现在该做
 
 | # | 主题 | 缺口 | 推荐技能 | 依据 | 优先级 | 停止条件 |
 |---|---|---|---|---|---|---|
 | 1 | 规范文件 | 资产缺失 | `discover-docs-norms` → `define-docs-norms` | ARTIFACT_NORMS 缺失，规范基础未建立 | **现在** | 完成条件：ARTIFACT_NORMS.md 落盘后重跑 plan-next |
 
-## 其他可留意
+##### 其他可留意
 
 （短路场景省略——治理规则未建立时下游创建无统一标准。补齐规范后重跑 plan-next 获完整路由。）
 
-## 诊断依据
+##### 诊断依据
 
 - **项目情况**：规范层缺位，触发短路输出
 - **判定规则**：Rules 层缺位命中 2.0 前置闸门，跳过状态识别
-
----
 
 ### 示例 3：执行收尾、漂移可能（边缘场景）
 
 **场景**：项目刚发布，最近 2 周多次 merge；上次 `align-planning` 18 天前 > 14 天阈值。
 
-**输出**：
+**输出**（mock）：
 
----
+#### 下一步建议
 
-# 下一步建议
-
-## 现在该做
+##### 现在该做
 
 | # | 主题 | 缺口 | 推荐技能 | 依据 | 优先级 | 停止条件 |
 |---|---|---|---|---|---|---|
 | 1 | 文档与代码对齐 | 真相漂移 | `align-planning` | 上次 align-planning 18 天前 > 14 天；近期 3 次 merge 可能引入漂移 | 现在 | 完成条件：planning-alignment.md 更新；上抛：发现 roadmap 与实现冲突 |
 
-## 其他可留意
+##### 其他可留意
 
 | 主题 | 概述 | 建议 |
 |---|---|---|
 | ADR-015 | 缺"后果"节 | 做相关设计时顺手补，不阻塞 |
 | 旧文档命名 | 2 个文件命名不符规范 | 下次 `tidy-repo` 时一并处理 |
 
-## 诊断依据
+##### 诊断依据
 
 - **项目情况**：执行收尾阶段；漂移校准已过期
 - **判定规则**：近 14 天有 merge/release + 上次 align-planning > 14 天 → 匹配 S6；聚焦 = 漂移校准。其他发现归"其他可留意"
