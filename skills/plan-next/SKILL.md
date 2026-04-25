@@ -70,7 +70,7 @@ output_schema:
 
 ### 步骤 0：Norms Resolution
 
-按 [artifact-contract §8.2](../../specs/artifact-contract.md#82-发现顺序) 顺序读项目规范到 `cache`：依序检查 `artifact_norms_path`（输入）→ `.ai-cortex/artifact-norms.yaml` → `docs/ARTIFACT_NORMS.md`，YAML 畸形则 HALT 诊断；缺失则继续不报错。`cache` 用于步骤 2.5 / 2.7 的 `path_pattern` 解析。
+按 [artifact-contract §8.2](../../specs/artifact-contract.md#82-发现顺序) 顺序读项目规范到 `cache`：依序检查 `artifact_norms_path`（输入）→ `.ai-cortex/artifact-norms.yaml` → `docs/ARTIFACT_NORMS.md`，YAML 畸形则 HALT 诊断；缺失则继续不报错。`cache` 用于步骤 2.4 / 2.1.3 的 `path_pattern` 解析。
 
 ### 步骤 1：扫（Scan）— 资产盘点
 
@@ -84,7 +84,7 @@ output_schema:
 | 实施层 | **Is** | 仓库代码、git 历史 | 最近 N 天 commit、未合并 PR、最近 merge/release |
 | 元规则层 | **Rules** | `docs/ARTIFACT_NORMS.md`、`specs/`、`protocols/`、`rules/` | — |
 
-抽象层互斥；细化字段是同主题的辅助维度，**不是独立扫描**，供 §2.5 / §2.7 消费。
+抽象层互斥；细化字段是同主题的辅助维度，**不是独立扫描**，供 §2.4 / §2.1.3 消费。
 
 **怎么扫**——对每项资产记录 2 字段：
 
@@ -125,7 +125,7 @@ output_schema:
 | S2 | **战略已起草** | Why ≥ 2 项 present；roadmap 缺 | 路线图缺失 |
 | S3 | **路线已成、Backlog 稀薄** | roadmap present；backlog < `backlog_min_items` | Backlog 内容不全 |
 | S4 | **Backlog 丰富但停滞** | roadmap+backlog 齐；无 in-progress；近 `commit_idle_days` 天无 commit | Pull ceremony（`prioritize-backlog` → `promote-roadmap-items`）|
-| S5 | **执行中** | 有 in-progress task / 未合并 PR / 近期 commit | 任务 × 代码交叉判（见 §2.7）|
+| S5 | **执行中** | 有 in-progress task / 未合并 PR / 近期 commit | 任务 × 代码交叉判（见 §2.1.3）|
 | S6 | **执行收尾、可能漂移** | 近期 merge/release；上次 `align-planning` > `drift_staleness_days` 天 | 文档代码漂移（`align-planning`）|
 | S7 | **健康稳定** | 无缺口、无 in-flight、无漂移风险 | Quiet mode |
 
@@ -200,12 +200,12 @@ tiebreak 后仍有多个候选 → 进入 §2.1.2。
 **扫描方法**：
 
 ```
-2.5.1 从步骤 0 cache 读各 artifact_type 的 path_pattern
+2.4.1 从步骤 0 cache 读各 artifact_type 的 path_pattern
       （命中用项目值；未命中 fall back 到技能默认 = §2 canonical）
-2.5.2 按 Now tier 每条目的 slug 在各 path_pattern 目录 glob
+2.4.2 按 Now tier 每条目的 slug 在各 path_pattern 目录 glob
       → 匹配到 = 下游存在；未匹配 = G1 缺口
-2.5.3 (增强) 扫下游 frontmatter `parent:` 字段构反向索引补充信任度
-2.5.4 (增强) 检测 manifest 文件（如 `now/<slug>.md`）
+2.4.3 (增强) 扫下游 frontmatter `parent:` 字段构反向索引补充信任度
+2.4.4 (增强) 检测 manifest 文件（如 `now/<slug>.md`）
       → 存在则对比清单 vs 物理；差异作 G3 漂移
 ```
 
@@ -217,22 +217,6 @@ tiebreak 后仍有多个候选 → 进入 §2.1.2。
 - 不声明 → slug 默认生效
 
 诊断依据需注明扫描依赖的物理信号组合（例："slug + 检测到 2 个 manifest + 无 parent 字段"）。
-
-#### 2.7 S5 执行健康判定（任务 × 代码 2×2 交叉）
-
-**概念位置**：本节是 §2.1 中 S5 的子状态机（在 7 态内）。5 类输出中 3 类漂移（追踪/完成/归档）属 G3 真相漂移子类、2 类（健康/卡点）属工作流动作型。
-
-| 任务状态 | 代码活动 | 判定 | 归类 |
-|---|---|---|---|
-| in-progress | 近 `commit_idle_days` 天有 commit/PR 更新 | **健康执行** | S5 静默 |
-| in-progress | 超 `task_stuck_days` 天无 commit/PR | **执行卡点** | `investigate-root-cause` + 人工 |
-| todo | 有相关 commit/分支 | **追踪漂移** | `align-planning`（更新任务状态） |
-| done | 无 merge 证据 | **完成漂移** | `align-planning` / 人工验证 |
-| done | 已 merge 但未移出 in-progress 清单 | **归档漂移** | `tidy-repo` / `align-planning` |
-
-- **Tiebreak**：多个卡点按任务自身 `priority` 排序——但**不参与** plan-next 路由 P0-P3
-- **降级**：`task_source` 无可扫源时回退到仅看代码活动，诊断依据注明"任务源未配置"
-- **路径解析**：扫描走步骤 0 cache 解析的 `path_pattern`（让 colocation 项目能扫到 `work/<slug>/tasks.md`）
 
 #### 诊步骤产出物
 
