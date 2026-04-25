@@ -33,7 +33,7 @@ tags:
 - workflow
 - automation
 - meta-skill
-version: 8.0.0
+version: 8.1.0
 validation_gates:
   gate_a:
     name: Agent-ready
