@@ -1,18 +1,19 @@
 name: plan-next
 status: validated
 cognitive_mode: interpretive
-primary_use: Inventory governance inputs and produce next-action routing report. Step 2.5 scans Now tier
-  downstream artifacts by direct physical signals (resolved path_pattern glob +
-  optional parent: frontmatter reverse index + optional manifest file detection).
-  Step 0 Norms Resolution loads ARTIFACT_NORMS.md / .ai-cortex/artifact-norms.yaml
-  into cache for path_pattern overrides (enabling colocation via path customization).
-  Step 2.7 S5 task scan uses cache-resolved path. Retained features: S5 cross-signal
-  execution health, Now-tier-scoped downstream evaluation with depth-first breakdown,
-  breakdown-tasks in What/When G1. Default planning-only with execute=false.
+primary_use: Inventory governance inputs and produce next-action routing report.
+  Strictly read-only — never executes downstream skills. Auto-iteration is composed
+  externally via `loop` (scheduling) + an orchestrator skill (driving). Step 2.5
+  scans Now tier downstream artifacts by direct physical signals (resolved
+  path_pattern glob + optional parent: frontmatter reverse index + optional manifest
+  file detection). Step 0 Norms Resolution loads ARTIFACT_NORMS.md /
+  .ai-cortex/artifact-norms.yaml into cache for path_pattern overrides. Step 2.7 S5
+  task scan uses cache-resolved path. Features: S5 cross-signal execution health,
+  Now-tier-scoped downstream evaluation with depth-first breakdown, breakdown-tasks
+  in What/When G1.
 inputs:
 - trigger context
 - optional scope overrides
-- optional execute flag (default false)
 - optional threshold overrides (commit_idle_days, drift_staleness_days, backlog_min_items, confidence_low_below, task_stuck_days)
 - optional task_source, roadmap_tier_source, artifact_norms_path overrides
 outputs:
@@ -33,7 +34,7 @@ tags:
 - workflow
 - automation
 - meta-skill
-version: 8.1.0
+version: 9.0.0
 validation_gates:
   gate_a:
     name: Agent-ready
