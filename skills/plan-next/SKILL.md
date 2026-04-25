@@ -3,7 +3,7 @@ name: plan-next
 description: Analyze governance state and produce next-action routing plan from existing docs; read-only — never executes downstream skills.
 description_zh: 基于现有治理文档分析状态并输出下一步路由计划；只读——不执行下游技能。
 tags: [workflow, meta-skill, automation]
-version: 9.3.0
+version: 9.4.0
 license: MIT
 recommended_scope: project
 cognitive_mode: interpretive
@@ -175,7 +175,7 @@ output_schema:
 | 主题 | G1 资产缺失 | G2 内容不全 | G3 真相漂移 | G4 位置错位 |
 |---|---|---|---|---|
 | **Why** | `define-mission` / `define-vision` / `define-north-star` / `design-strategic-goals` / `define-strategic-pillars` | `assess-docs` → re-DEFINE | — | `tidy-repo` |
-| **What/When** | `define-roadmap` / `analyze-requirements` / `capture-work-items` / `breakdown-tasks`（当期层 + 设计已存在 + 任务未拆时） | `assess-docs` | `align-planning` / `align-backlog` | `tidy-repo` |
+| **What/When** | `define-roadmap` / `analyze-requirements` / `capture-work-items` / `breakdown-tasks`（当期层 + 设计已存在 + 任务未拆时） | `assess-docs` | 规划↔代码漂移 → `align-planning`；待办↔战略漂移 → `align-backlog`；req↔design 不对应 → `design-solution`；design↔task 不对应 → `breakdown-tasks` | `tidy-repo` |
 | **How** | `design-solution` | `assess-docs` | `align-architecture` | `tidy-repo` |
 | **Is** | — | `review-*` | `assess-docs-code-alignment` | `tidy-repo` |
 | **Rules** | `discover-docs-norms` → `define-docs-norms` | `audit-docs` | `align-planning` | `tidy-repo` / `curate-skills` |
@@ -204,6 +204,12 @@ output_schema:
 2.2.3 (增强) 扫下游 前置属性 `parent:` 字段构反向索引补充信任度
 2.2.4 (增强) 检测 清单文件（如 `now/<slug>.md`）
       → 存在则对比清单 vs 物理；差异作 G3 漂移
+2.2.5 (G3 链路) G1 全通后检查内容对应：
+      req → design：design 是否含 parent/upstream_ref 指向对应 requirement，
+        或内容明确响应 requirement 的关键需求点
+      design → task：tasks 是否含 parent 指向 design，
+        或覆盖 design 中的主要实现模块
+      任一段缺对应关系 → 该段 G3；深度优先：req→design G3 命中则不继续报 design→task G3
 ```
 
 **项目定制**：
@@ -243,7 +249,7 @@ output_schema:
 
 **当期层规则**（当聚焦含当期层时）：
 
-- 深度优先：每条当期层项只报最上游缺口（requirement 缺 → 先补，不同时提 design / task）
+- 深度优先：每条当期层项只报最上游缺口——G1 优先于 G3；G3 链路按 req→design 优先于 design→task（命中上游不同时报下游）
 
 #### 3.2 优先级（治理紧迫性）
 
@@ -337,7 +343,7 @@ output_schema:
 
 - [ ] 状态识别完成；优先择一 / 退化处理已完成
 - [ ] 聚焦范围已明示；S5 命中时已下钻 §2.1.3
-- [ ] 当期层物理信号扫描；下期/远期未误报
+- [ ] 当期层物理信号扫描（G1 + G3 链路）；下期/远期未误报
 
 **荐**：
 
