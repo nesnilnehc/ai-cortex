@@ -7,6 +7,20 @@
 
 ## [Unreleased]
 
+### Changed（plan-next v9.0.0 — 移除 execute 参数，read-only 边界硬化，2026-04-25）
+
+详见 [ADR 007](docs/architecture/adrs/007-remove-plan-next-execute-flag.md)。
+
+- `skills/plan-next` v8.1.0 → **v9.0.0** —— frontmatter 移除 `execute` 字段（v8.1 的 `execute=true` 是 vaporware：文档只一句"按推荐顺序串调下游"，无错误处理 / 重试 / 状态等执行引擎语义；与"导航不开车"的 read-only 定位冲突）
+- 文档级声明：plan-next 永不执行下游，**read-only 是硬边界**而非可配置默认
+- 自动化迭代改由三层正交原语组合：`plan-next`（诊断 read-only） + orchestrator（驱动，如 `auto-iterate`）+ `loop`（调度）
+- `auto-iterate` 登记为后续工作项，不在本次实现
+
+### Migration（plan-next v8 → v9）
+
+- 调用方传 `execute: true/false` 字段在 v9 被忽略（不报错，无副作用）——v8.1 默认行为 = v9 唯一行为
+- 想 autopilot 的项目等 `auto-iterate` 技能落地；当前可用 `/loop /plan-next 30m` 做持续监控（人工反应模式）
+
 ### Changed（v9.0.0 — 彻底删除 linking_mode + 统一三类路径，2026-04-25）
 
 **第二次 MAJOR**：`manifest.version` 4.0.0 → 5.0.0；`spec_version` 4.0.0 → 5.0.0。详见 [ADR 006](docs/architecture/adrs/006-delete-linking-mode-and-unify-artifact-paths.md)。
