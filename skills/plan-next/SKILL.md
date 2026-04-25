@@ -3,7 +3,7 @@ name: plan-next
 description: Analyze governance state and produce next-action routing plan from existing docs; default is planning-only (no downstream execution).
 description_zh: 基于现有治理文档分析状态并输出下一步路由计划；默认仅规划，不执行下游技能。
 tags: [workflow, meta-skill, automation]
-version: 9.1.0
+version: 9.2.0
 license: MIT
 recommended_scope: project
 cognitive_mode: interpretive
@@ -12,7 +12,7 @@ metadata:
 triggers: [plan next, next step, checkpoint, governance, iteration]
 input_schema:
   type: free-form
-  description: Governance docs sources, optional scope, optional threshold overrides. plan-next is read-only by design; auto-iteration is composed externally via loop + an orchestrator skill.
+  description: Governance docs sources, optional scope, optional threshold overrides.
   defaults:
     thresholds:
       commit_idle_days: 3
@@ -32,7 +32,7 @@ output_schema:
 
 > **角色**：治理入口路由器
 > **WHAT**：按三步法 **扫**（盘点治理资产）→ **诊**（识别项目所处的治理阶段 7 态 + 资产缺陷 4 类）→ **荐**（产出三节路由报告）
-> **HOW**：read-only 诊断；自动化场景由外层 orchestrator + `loop` 组合驱动；单一维度问题直接调专用技能（`assess-docs` / `align-planning` 等）
+> **HOW**：read-only 诊断；单一维度问题（只查就绪度 / 漂移 / 已知缺失）直接调专用技能（`assess-docs` / `align-planning` / `define-*` 等）
 > **区别**：不同于 `assess-docs`（深度文档评估）或 `align-planning`（漂移校准），本技能仅做路由分发，不做深度分析
 
 ---
@@ -218,10 +218,10 @@ output_schema:
 
 **4 条指导原则**（详细规则见各引用节）：
 
-1. **分层按聚焦**（§2.4 / §3.3）：聚焦内 → "现在该做"；外 → "其他可留意"；判定过程 → "诊断依据"
-2. **优先级按治理紧迫性**（§3.1）：越上游越优先；**不按缺口数量**排
-3. **一条路由对一个矩阵格**（§3.2）：不混缺口类型；六字段齐全；矩阵 `—` 不强行推荐
-4. **深度优先 + 术语隔离**：见 §2.6（深度优先）+ Anti-Patterns 内部术语节
+1. **分层按聚焦** —— §2.4 / §3.3
+2. **优先级按治理紧迫性** —— §3.1
+3. **一条路由对一个矩阵格** —— §3.2
+4. **深度优先 + 术语隔离** —— §2.6 / Anti-Patterns 内部术语节
 
 #### 3.1 优先级（治理紧迫性）
 
@@ -265,19 +265,17 @@ output_schema:
 
 ---
 
-## 限制（Restrictions）
+## Anti-Patterns
 
-### 硬边界
+**关于职责边界**：
 
-- **read-only**：永不调用下游技能
-- 不隐藏跳过原因（short-circuit 或矩阵 `—` 时必须明示）
-- 不混入下游执行细节（不写 ADR、不修代码、不整结构）
-
-### Anti-Patterns
+- ❌ 调用任何下游技能（read-only 硬边界）
+- ❌ 隐藏跳过原因（short-circuit / 矩阵 `—` 时必须明示）
+- ❌ 混入下游执行细节（不写 ADR、不修代码、不整结构）
 
 **关于路由本身**：
 
-- ❌ 矩阵 `—` 单元格强行推荐技能（应明示需人工判断）
+- ❌ 矩阵 `—` 单元格强行推荐技能（明示需人工判断）
 - ❌ 模糊措辞（"可能 / 或许 / 可以考虑"）
 - ❌ 省略停止条件
 - ❌ 一条路由混多个缺口类型
@@ -302,7 +300,6 @@ output_schema:
 - ❌ 前两节使用 S1-S7 / G1-G4 / P0-P3 / 主题分类词（Why / What/When / How / Is / Rules）；主题列用自然语言（"路线图"、"战略目标"、"规范文件"）
 - ❌ 诊断依据用 S 编号作主语（应用自然语言，S 编号至多括注追溯如"（S2）"）
 - ❌ 示例标题写"S2 → S3 过渡"（用自然语言场景描述）
-- ❌ 返回任何执行结果（read-only）
 
 ---
 
@@ -310,29 +307,28 @@ output_schema:
 
 **扫**：
 
-- [ ] 步骤 0 cache 已构建或明示"no norms found"
-- [ ] 3 抽象层 × 5 主题全覆盖，每项资产 2 字段齐
-- [ ] roadmap tier 已读；未分层时已识别为"需先 promote"
+- [ ] cache 已加载或明示"no norms found"
+- [ ] 资产 2 字段齐
+- [ ] roadmap tier 已读
 
 **诊**：
 
-- [ ] 状态识别完成；多状态匹配已应用 tiebreak；低 confidence 已 fallback
-- [ ] 聚焦范围已明示
-- [ ] S5 命中时已下钻 §2.7
-- [ ] Now tier 下游扫描按物理信号；Next/Later 未误报
+- [ ] 状态识别完成；tiebreak / fallback 已处理
+- [ ] 聚焦范围已明示；S5 命中时已下钻 §2.7
+- [ ] Now tier 物理信号扫描；Next/Later 未误报
 
 **荐**：
 
-- [ ] "现在该做"每条六字段齐
-- [ ] 聚焦内按 P0>P1>P2>P3 排序
-- [ ] 矩阵 `—` 未被强行推荐；停止条件三选一齐全
-- [ ] 深度优先约束已遵守
+- [ ] 六字段齐；停止条件齐
+- [ ] P0>P1>P2>P3 排序
+- [ ] 矩阵 `—` 未强推
+- [ ] 深度优先
 
 **输出**：
 
-- [ ] 内部术语未泄漏到前两节（仅诊断依据可括注）
-- [ ] read-only 边界已遵守（未调用下游）
-- [ ] "其他可留意"超 5 条已折叠；short-circuit 已省略
+- [ ] 内部术语未泄漏前两节
+- [ ] read-only 已遵守
+- [ ] "其他可留意"≤5 条；short-circuit 时已省略
 - [ ] 诊断依据注明扫描信号组合
 
 ---
