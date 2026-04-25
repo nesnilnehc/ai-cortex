@@ -45,7 +45,12 @@ output_schema:
 - plan-next 是**入口路由器**：它看全局、决定下一步跑哪个技能
 - **不适用时可跳过**：已确定只查文档就绪度 → 直跑 `assess-docs`；已确定有漂移 → 直跑 `align-planning`；已知某个维度缺失 → 直跑 `define-*` / `design-*`
 - 适用时机：迭代收尾 / 发布前治理路径确认 / 对下一步无头绪时
-- **执行态边界**：回答"当前缺口是什么 / 当前执行是否健康"，不回答"流水线进展如何 / 某个 task 走到哪一步了"；后者属 work-management 领域
+- **执行态边界**：
+  - **做**：每次从零扫，读 task 当前状态 × 代码活动交叉**诊断**治理健康（Step 2.7）；输出"现在该做"路由建议（含具体下游缺口与对应技能）
+  - **不做**：
+    - 不记 task 历史（不知"什么时候从 todo 变 in-progress"），不答"本周晋升几条"类时序问题
+    - 不维护项目 task 列表 / 不分配 / 不充当外部系统的 task 状态 API（项目管理工具的活）
+    - 不自动推进执行（默认 `execute=false`）——只导航不开车，路由建议交用户决定要不要跑、按什么顺序跑
 - **链接约定无需声明**：AI Cortex canonical 约定（按 [artifact-contract §2](../../specs/artifact-contract.md#2-制品类型)，requirements/designs/tasks 统一为 `docs/<type>/{slug}.md`）已硬编码在所有产出技能 `path_pattern` 里；项目若想用聚合目录 / 父指针 / 清单等非默认约定，通过 `ARTIFACT_NORMS.md` 的 `path_pattern` 覆盖 + 可选 `upstream_ref` 输入 + 物理 manifest 文件表达即可
 
 ---
