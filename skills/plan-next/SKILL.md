@@ -1,9 +1,9 @@
 ---
 name: plan-next
 description: Analyze governance state and produce next-action routing plan from existing docs; read-only — never executes downstream skills.
-description_zh: 基于现有治理文档分析状态并输出下一步路由计划；read-only——不执行下游技能。
+description_zh: 基于现有治理文档分析状态并输出下一步路由计划；只读——不执行下游技能。
 tags: [workflow, meta-skill, automation]
-version: 9.2.2
+version: 9.3.0
 license: MIT
 recommended_scope: project
 cognitive_mode: interpretive
@@ -32,7 +32,7 @@ output_schema:
 
 > **角色**：治理入口路由器
 > **WHAT**：按三步法 **扫**（盘点治理资产）→ **诊**（识别项目所处的治理阶段 7 态 + 资产缺陷 4 类）→ **荐**（产出三节路由报告）
-> **HOW**：read-only 诊断；单一维度问题（只查就绪度 / 漂移 / 已知缺失）直接调专用技能（`assess-docs` / `align-planning` / `define-*` 等）
+> **HOW**：只读诊断；单一维度问题（只查就绪度 / 漂移 / 已知缺失）直接调专用技能（`assess-docs` / `align-planning` / `define-*` 等）
 > **区别**：不同于 `assess-docs`（深度文档评估）或 `align-planning`（漂移校准），本技能仅做路由分发，不做深度分析
 
 ---
@@ -47,44 +47,44 @@ output_schema:
 
 | 维度 | 做 | 不做 |
 |---|---|---|
-| 路由 | 输出"现在该做"治理路由建议 | 不充当 task 状态 API；不维护 task 列表 / 不分配；不记 task 历史，不答"本周晋升几条"类时序问题 |
-| 执行 | read-only——产路由建议交用户或外层 orchestrator | 不自动推进下游；不充当 workflow engine——自动化由外层 orchestrator + `loop` 组合驱动 |
+| 路由 | 输出"现在该做"治理路由建议 | 不充当任务状态 API；不维护任务列表 / 不分配；不记任务历史，不答"本周晋升几条"类时序问题 |
+| 执行 | 只读——产路由建议交用户或外层编排器 | 不自动推进下游；不充当自动化引擎——自动化由外层编排器 + `loop` 组合驱动 |
 
-**Handoff**：路由产出后由用户按优先级执行下游；遇阻按"上抛条件"退回 plan-next 重评。
+**移交**：路由产出后由用户按优先级执行下游；遇阻按"上抛条件"退回 plan-next 重评。
 
 ---
 
 ## 核心目标
 
-**Primary Goal**：提供可执行的下一步计划与技能路由，不在规划阶段隐式实施改动。
+**主要目标**：提供可执行的下一步计划与技能路由，不在规划阶段隐式实施改动。
 
-**Acceptance Test**：报告的"现在该做"节是否可被他人直接用于执行，无需再追问"接下来该跑哪些技能"？
+**验收测试**：报告的"现在该做"节是否可被他人直接用于执行，无需再追问"接下来该跑哪些技能"？
 
-详细成功标准见 [Self-Check](#自检-self-check)。
+详细成功标准见 [自检](#自检)。
 
 ---
 
-## 行为（Behavior）
+## 行为
 
-**整体规则**：**stateless**——每次从零重扫，不依赖上次结果。三步法：**扫（Scan）→ 诊（Diagnose）→ 荐（Recommend）**。
+**整体规则**：**无状态**——每次从零重扫，不依赖上次结果。三步法：**扫 → 诊 → 荐**。
 
-### 步骤 0：Norms Resolution
+### 步骤 0：规范解析
 
-按 [artifact-contract §8.2](../../specs/artifact-contract.md#82-发现顺序) 顺序读项目规范到 `cache`：依序检查 `artifact_norms_path`（输入）→ `.ai-cortex/artifact-norms.yaml` → `docs/ARTIFACT_NORMS.md`，YAML 畸形则 HALT 诊断；缺失则继续不报错。`cache` 用于步骤 2.4 / 2.1.3 的 `path_pattern` 解析。
+按 [artifact-contract §8.2](../../specs/artifact-contract.md#82-发现顺序) 顺序读项目规范到 `cache`：依序检查 `artifact_norms_path`（输入）→ `.ai-cortex/artifact-norms.yaml` → `docs/ARTIFACT_NORMS.md`，YAML 畸形则 HALT 诊断；缺失则继续不报错。`cache` 用于步骤 2.2 / 2.1.3 的 `path_pattern` 解析。
 
-### 步骤 1：扫（Scan）— 资产盘点
+### 步骤 1：扫 — 资产盘点
 
 **扫什么**：3 抽象层 × 5 主题（联合 MECE）。
 
 | 抽象层 | 主题 | 扫描位置 | 细化字段 |
 |---|---|---|---|
 | 意图层 | **Why** | `docs/project-overview/{mission,vision,north-star,strategic-goals,strategic-pillars}.md` | — |
-| 意图层 | **What/When** | `docs/process-management/{roadmap,backlog/}.md`、`docs/requirements/`、`docs/tasks/` | roadmap → Now/Next/Later 分层；tasks/ → `status` + `priority` |
+| 意图层 | **What/When** | `docs/process-management/{roadmap,backlog/}.md`、`docs/requirements/`、`docs/tasks/` | 路线图 → 当期/下期/远期分层；tasks/ → `status` + `priority` |
 | 意图层 | **How** | `docs/architecture/adrs/`、`docs/designs/` | — |
 | 实施层 | **Is** | 仓库代码、git 历史 | 最近 N 天 commit、未合并 PR、最近 merge/release |
 | 元规则层 | **Rules** | `docs/ARTIFACT_NORMS.md`、`specs/`、`protocols/`、`rules/` | — |
 
-抽象层互斥；细化字段是同主题的辅助维度，**不是独立扫描**，供 §2.4 / §2.1.3 消费。
+抽象层互斥；细化字段是同主题的辅助维度，**不是独立扫描**，供 §2.2 / §2.1.3 消费。
 
 **怎么扫**——对每项资产记录 2 字段：
 
@@ -95,41 +95,39 @@ output_schema:
 
 按需查询字段（不预扫）：S6 状态判定时单独读 `align-planning` 报告的最近 commit 时间；其他特定判据按需 git log。
 
-### 步骤 2：诊（Diagnose）— 状态 + 缺口
+### 步骤 2：诊 — 状态 + 缺口
 
 **3 子步骤总览**（依次执行，每步可短路或下延）：
 
 | 子步 | 做什么 | 产出 |
 |---|---|---|
-| 2.0 前置闸门 | Rules 层是否就位？ | 否则 short-circuit，仅输出"先建规范"路由 |
-| 2.1 状态识别 | 项目处于哪个治理阶段（7 态 S1-S7）？ | 状态标签 + **聚焦范围**（S5 下钻 2.1.3） |
-| 2.2 缺口判定 | 聚焦范围内有哪些缺口（4 类 G1-G4）？ | 缺口列表 → 矩阵路由 |
-| 2.3 聚焦整合 | 状态 + 缺口 → 路由分层 | 聚焦内缺口 → "现在该做"；聚焦外 → "其他可留意" |
-| 2.4 Now tier 细化 | Now tier 物理扫描与边界 | 下游存在/缺失/漂移判定 |
+| 2.0 前置闸门 | Rules 层是否就位？ | 否则短路，仅输出"先建规范"路由 |
+| 2.1 状态识别 | 项目处于哪个治理阶段（7 态 S1-S7）？ | 状态标签 + **聚焦范围** |
+| 2.2 缺口判定 | 聚焦范围内有哪些缺口（4 类 G1-G4）？当期层时细化下游 | 缺口路由矩阵 |
 
-**协作关系**：状态机（2.1）决定**看哪儿**（聚焦），缺口矩阵（2.2）决定**那儿缺什么**（4 类），聚焦整合（2.3）合并 → "现在该做" 列表。
+**协作关系**：状态机（2.1）决定**看哪儿**（聚焦），缺口判定（2.2）判**那儿缺什么**（4 类），产出矩阵供荐步骤消费。
 
-**辅助分支**：2.1.1 tiebreak 规则；2.1.2 状态模糊时 fallback；2.1.3 S5 特化；2.4 Now tier 细化（仅当聚焦含 Now tier 时介入）。
+**辅助分支**：2.1.1 优先择一规则；2.1.2 低置信度退化处理；2.1.3 S5 执行健康判定；2.2 内置当期层分支。
 
 #### 2.0 前置闸门：Rules 层缺位检查
 
-若 `ARTIFACT_NORMS.md` 缺失或 `specs/` 为空，触发 **short-circuit**：跳过状态识别，"现在该做"只列一条 P0 路由（建立规范 + 重跑 plan-next），"其他可留意"省略。
+若 `ARTIFACT_NORMS.md` 缺失或 `specs/` 为空，触发 **短路**：跳过状态识别，"现在该做"只列一条 P0 路由（建立规范 + 重跑 plan-next），"其他可留意"省略。
 
 #### 2.1 状态识别（7 态状态机）
 
-**为什么 7 态**：项目治理生命周期的 7 个有意义阶段——S1-S3 治理建立期（上游：愿景 → 路线 → backlog 充实）+ S4-S6 执行动态（下游：停滞 → 执行 → 收尾漂移）+ S7 稳定。从实证项目演进路径上识别出的可区分阶段。
+**为什么 7 态**：项目治理生命周期的 7 个有意义阶段——S1-S3 治理建立期（上游：愿景 → 路线 → 待办充实）+ S4-S6 执行动态（下游：停滞 → 执行 → 收尾漂移）+ S7 稳定。从实证项目演进路径上识别出的可区分阶段。
 
 | 状态 | 用户呈现 | 判定信号 | 聚焦 |
 |---|---|---|---|
 | S1 | **起步期** | Why 层全缺失或仅占位 | Why 层资产缺失 |
 | S2 | **战略已起草** | Why ≥ 2 项 present；roadmap 缺 | 路线图缺失 |
-| S3 | **路线已成、Backlog 稀薄** | roadmap present；backlog < `backlog_min_items` | Backlog 内容不全 |
-| S4 | **Backlog 丰富但停滞** | roadmap+backlog 齐；无 in-progress；近 `commit_idle_days` 天无 commit | Pull ceremony（`prioritize-backlog` → `promote-roadmap-items`）|
-| S5 | **执行中** | 有 in-progress task / 未合并 PR / 近期 commit | 任务 × 代码交叉判（见 §2.1.3）|
+| S3 | **路线已成、待办稀薄** | roadmap present；backlog < `backlog_min_items` | 待办内容不全 |
+| S4 | **待办丰富但停滞** | roadmap+backlog 齐；无进行中任务；近 `commit_idle_days` 天无 commit | 拉动仪式（`prioritize-backlog` → `promote-roadmap-items`）|
+| S5 | **执行中** | 有进行中任务 / 未合并 PR / 近期 commit | 任务 × 代码交叉判（见 §2.1.3）|
 | S6 | **执行收尾、可能漂移** | 近期 merge/release；上次 `align-planning` > `drift_staleness_days` 天 | 文档代码漂移（`align-planning`）|
-| S7 | **健康稳定** | 无缺口、无 in-flight、无漂移风险 | Quiet mode |
+| S7 | **健康稳定** | 无缺口、无进行中工作、无漂移风险 | 静默模式 |
 
-##### 2.1.1 多状态 tiebreak
+##### 2.1.1 多状态优先择一
 
 当多个状态信号并存时，按以下顺序择一：
 
@@ -137,11 +135,11 @@ output_schema:
 - **治理维度内**：取上游（S1 > S2 > S3）——先补愿景再补计划
 - **执行维度内**：取下游（S6 > S5 > S4 > S7）——越后期越紧迫
 
-tiebreak 后仍有多个候选 → 进入 §2.1.2。
+优先择一后仍有多个候选 → 进入 §2.1.2。
 
-##### 2.1.2 [fallback] 低 confidence 处理
+##### 2.1.2 [退化] 低置信度处理
 
-（由 §2.1.1 tiebreak 后仍无法唯一确定时触发）退化为全矩阵输出，诊断依据明示"状态未定"并列各候选支撑信号。
+（由 §2.1.1 优先择一后仍无法唯一确定时触发）退化为全矩阵输出，诊断依据明示"状态未定"并列各候选支撑信号。
 
 ##### 2.1.3 [S5 分支] S5 执行健康判定（任务 × 代码 2×2 交叉）
 
@@ -149,15 +147,15 @@ tiebreak 后仍有多个候选 → 进入 §2.1.2。
 
 | 任务状态 | 代码活动 | 判定 | 归类 |
 |---|---|---|---|
-| in-progress | 近 `commit_idle_days` 天有 commit/PR 更新 | **健康执行** | S5 静默 |
-| in-progress | 超 `task_stuck_days` 天无 commit/PR | **执行卡点** | `investigate-root-cause` + 人工 |
-| todo | 有相关 commit/分支 | **追踪漂移** | `align-planning`（更新任务状态） |
-| done | 无 merge 证据 | **完成漂移** | `align-planning` / 人工验证 |
-| done | 已 merge 但未移出 in-progress 清单 | **归档漂移** | `tidy-repo` / `align-planning` |
+| 进行中 | 近 `commit_idle_days` 天有 commit/PR 更新 | **健康执行** | S5 静默 |
+| 进行中 | 超 `task_stuck_days` 天无 commit/PR | **执行卡点** | `investigate-root-cause` + 人工 |
+| 待处理 | 有相关 commit/分支 | **追踪漂移** | `align-planning`（更新任务状态） |
+| 已完成 | 无 merge 证据 | **完成漂移** | `align-planning` / 人工验证 |
+| 已完成 | 已 merge 但未移出进行中清单 | **归档漂移** | `tidy-repo` / `align-planning` |
 
-- **Tiebreak**：多个卡点按任务自身 `priority` 排序——但**不参与** plan-next 路由 P0-P3
+- **卡点排序**：多个卡点按任务自身 `priority` 排序——但**不参与** plan-next 路由 P0-P3
 - **降级**：`task_source` 无可扫源时回退到仅看代码活动，诊断依据注明"任务源未配置"
-- **路径解析**：扫描走步骤 0 cache 解析的 `path_pattern`（让 colocation 项目能扫到 `work/<slug>/tasks.md`）
+- **路径解析**：扫描走步骤 0 缓存解析的 `path_pattern`（让同位项目能扫到 `work/<slug>/tasks.md`）
 
 #### 2.2 缺口判定（4 类缺口矩阵）
 
@@ -177,46 +175,45 @@ tiebreak 后仍有多个候选 → 进入 §2.1.2。
 | 主题 | G1 资产缺失 | G2 内容不全 | G3 真相漂移 | G4 位置错位 |
 |---|---|---|---|---|
 | **Why** | `define-mission` / `define-vision` / `define-north-star` / `design-strategic-goals` / `define-strategic-pillars` | `assess-docs` → re-DEFINE | — | `tidy-repo` |
-| **What/When** | `define-roadmap` / `analyze-requirements` / `capture-work-items` / `breakdown-tasks`（Now tier + design 已 present + task 未拆时） | `assess-docs` | `align-planning` / `align-backlog` | `tidy-repo` |
+| **What/When** | `define-roadmap` / `analyze-requirements` / `capture-work-items` / `breakdown-tasks`（当期层 + 设计已存在 + 任务未拆时） | `assess-docs` | `align-planning` / `align-backlog` | `tidy-repo` |
 | **How** | `design-solution` | `assess-docs` | `align-architecture` | `tidy-repo` |
 | **Is** | — | `review-*` | `assess-docs-code-alignment` | `tidy-repo` |
 | **Rules** | `discover-docs-norms` → `define-docs-norms` | `audit-docs` | `align-planning` | `tidy-repo` / `curate-skills` |
 
 记号：`/` 任选其一；`→` 链式调用；`—` 无自动路由（需人工判断，**不强行推荐**）。
 
-#### 2.3 聚焦整合
+##### [当期层分支] 当聚焦包含当期层时
 
-§2.1 聚焦范围内的缺口 → 进"现在该做"；聚焦范围外的缺口（矩阵其他格）→ 进"其他可留意"（上限 5 条，超出折叠为 "+N more, use --full"）。
+**当期层定义**：路线图中"当前周期要执行"的工作项（对应当期/下期/远期分层中的当期层）。
+只有当期层项需要完整的下游支撑（requirement → design → task）；下期/远期可以更粗糙。
 
-#### 2.4 Now tier 扫描与边界
+**边界规则**：
 
-**边界**：
+- 仅对当期层条目评估下游（requirement / design / task）
+- 下期/远期无下游 → 正常状态，不报告
+- 路线图未分层 → 先路由 `promote-roadmap-items`，不评估下游
+- 深度优先：每个当期层条目一次只报最上游缺口
 
-- 仅对 Now tier 条目评估下游（requirement / design / task）
-- Next/Later 无下游 → 正常状态，**不报告**
-- Roadmap 未分层 → 先路由 `promote-roadmap-items`，**不评估下游**
-- **深度优先**：每个 Now tier 条目一次只报最上游缺口（requirement 缺 → 先补，不同时提 design / task）
-
-**扫描方法**：
+**物理扫描方法**：
 
 ```
-2.4.1 从步骤 0 cache 读各 artifact_type 的 path_pattern
+2.2.1 从步骤 0 cache 读各 artifact_type 的 path_pattern
       （命中用项目值；未命中 fall back 到技能默认 = §2 canonical）
-2.4.2 按 Now tier 每条目的 slug 在各 path_pattern 目录 glob
+2.2.2 按当期层每条目的 slug 在各 path_pattern 目录 glob
       → 匹配到 = 下游存在；未匹配 = G1 缺口
-2.4.3 (增强) 扫下游 frontmatter `parent:` 字段构反向索引补充信任度
-2.4.4 (增强) 检测 manifest 文件（如 `now/<slug>.md`）
+2.2.3 (增强) 扫下游 前置属性 `parent:` 字段构反向索引补充信任度
+2.2.4 (增强) 检测 清单文件（如 `now/<slug>.md`）
       → 存在则对比清单 vs 物理；差异作 G3 漂移
 ```
 
-三层检测**独立可组合**——直接看物理信号。**项目定制**：
+**项目定制**：
 
 - 聚合式目录 → 在 `ARTIFACT_NORMS.md` 覆盖 `path_pattern` 为 `work/{slug}/<type>.md`
 - 显式父指针 → 调用下游技能时传 `upstream_ref`
 - 中央清单 → 建清单文件
 - 不声明 → slug 默认生效
 
-诊断依据需注明扫描依赖的物理信号组合（例："slug + 检测到 2 个 manifest + 无 parent 字段"）。
+诊断依据需注明扫描依赖的物理信号组合（例："slug + 检测到 2 个清单 + 无 parent 字段"）。
 
 #### 诊步骤产出物
 
@@ -224,34 +221,42 @@ tiebreak 后仍有多个候选 → 进入 §2.1.2。
 
 - **状态**：{S 编号} 或候选列表（低信度时附标志）
 - **聚焦范围**：{资产维度列表}
-- **缺口表**：[ (主题, G 类型, 具体资产路径, 矩阵推荐技能) ]
-- **优先级分组**：P0 → P1 → P2 → P3 排序列表
+- **缺口路由矩阵**：[ (主题, G 类型, 具体资产路径, 矩阵推荐技能, 是否在聚焦内) ]
 
-步骤 3 不引入新诊断逻辑，只做字段填充与呈现。
+### 步骤 3：荐 — 路由生成与分层
 
-### 步骤 3：荐（Recommend）— 路由生成与分层
-
-**来源**：消费步骤 2 的产出（见"诊步骤产出物"）。步骤 3 不引入新逻辑，只做**字段填充与呈现**。
+**来源**：消费步骤 2 的产出（见"诊步骤产出物"）。
 
 **4 条指导原则**（详细规则见各引用节）：
 
-1. **分层按聚焦** —— §2.3 / §3.3
-2. **优先级按治理紧迫性** —— §3.1
-3. **一条路由对一个矩阵格** —— §3.2
-4. **深度优先 + 术语隔离** —— §2.4 / Anti-Patterns 内部术语节
+1. **分层按聚焦** —— §3.1 / §3.4
+2. **优先级按治理紧迫性** —— §3.2
+3. **一条路由对一个矩阵格** —— §3.3
+4. **深度优先 + 术语隔离** —— §3.1 当期层规则 / 反模式 · 内部术语节
 
-#### 3.1 优先级（治理紧迫性）
+#### 3.1 分层决策
+
+消费 §2.2 产出的缺口路由矩阵，结合 §2.1 的聚焦范围，将缺口分层：
+
+- **聚焦内缺口** → "现在该做"（最多 1-3 条，依聚焦粒度而定）
+- **聚焦外缺口** → "其他可留意"（上限 5 条，超出折叠为 "+N more, use --full"）
+
+**当期层规则**（当聚焦含当期层时）：
+
+- 深度优先：每条当期层项只报最上游缺口（requirement 缺 → 先补，不同时提 design / task）
+
+#### 3.2 优先级（治理紧迫性）
 
 - **现在（P0）**：阻断其他治理进展的根基问题（通常已被 2.0 闸门或 S1 聚焦吃掉）
 - **下次（P1）**：战略层就绪度问题 / 计划层缺失或漂移
 - **以后（P2）**：设计层 / 实现层任何缺口
 - **可忽略（P3）**：其余
 
-#### 3.2 每条路由六字段
+#### 3.3 每条路由六字段
 
 主题 / 缺口类型 / 推荐技能 / 依据（指向具体资产）/ 优先级 / 停止条件。
 
-**主题写法**：前两节用自然语言描述资产（详见 Anti-Patterns 内部术语节）。
+**主题写法**：前两节用自然语言描述资产（详见 反模式 · 内部术语节）。
 
 **停止条件**三选一：
 
@@ -261,7 +266,7 @@ tiebreak 后仍有多个候选 → 进入 §2.1.2。
 | **延后条件** | 用户明确延后到下个周期 |
 | **上抛条件** | 下游执行受阻（战略冲突、依赖循环），回 plan-next 重评 |
 
-#### 3.3 用户输出三节
+#### 3.4 用户输出三节
 
 ```
 # 下一步建议
@@ -275,19 +280,19 @@ tiebreak 后仍有多个候选 → 进入 §2.1.2。
 ## 诊断依据（末尾）
 - 项目情况：<一句自然语言摘要>
 - 资产清单：<表>
-- 判定规则：<状态识别 + tiebreak + 聚焦范围；可括注 S 编号作追溯>
+- 判定规则：<状态识别 + 优先择一 + 聚焦范围；可括注 S 编号作追溯>
 ```
 
-**用户 flag**：`--full` 强制全量展示；低 confidence 自动触发。
+**用户 flag**：`--full` 强制全量展示；低置信度自动触发。
 
 ---
 
-## Anti-Patterns
+## 反模式
 
 **关于职责边界**：
 
-- ❌ 调用任何下游技能（read-only 硬边界）
-- ❌ 隐藏跳过原因（short-circuit / 矩阵 `—` 时必须明示）
+- ❌ 调用任何下游技能（只读硬边界）
+- ❌ 隐藏跳过原因（短路 / 矩阵 `—` 时必须明示）
 - ❌ 混入下游执行细节（不写 ADR、不修代码、不整结构）
 
 **关于路由本身**：
@@ -301,13 +306,13 @@ tiebreak 后仍有多个候选 → 进入 §2.1.2。
 **关于状态机与执行健康**：
 
 - ❌ 用状态机折叠"其他可留意"（状态机是聚焦工具，不是过滤器；外部缺口必须呈现，无发现写"无"）
-- ❌ 状态不明强行归类（应 fallback 到 §2.1.2）
+- ❌ 状态不明强行归类（应退回 §2.1.2 退化处理）
 - ❌ 仅凭单信号判执行健康（必须 §2.1.3 的 2×2 交叉）
-- ❌ 用任务 priority 决定 plan-next 路由 P0-P3（仅供卡点间 tiebreak）
+- ❌ 用任务 priority 决定 plan-next 路由 P0-P3（仅供卡点间排序参考）
 
-**关于 Now tier 与扫描**：
+**关于当期层与扫描**：
 
-- ❌ 对 Next/Later tier 报下游缺口
+- ❌ 对下期/远期层报下游缺口
 - ❌ 同时报同一条目的多层缺口（违反深度优先）
 - ❌ 引入 mode 枚举或配置字段（直接看物理信号）
 - ❌ 承担下行清单维护职责（只读，差异作 G3；维护是 `align-work-item-manifest` 的事）
@@ -320,19 +325,19 @@ tiebreak 后仍有多个候选 → 进入 §2.1.2。
 
 ---
 
-## 自检（Self-Check）
+## 自检
 
 **扫**：
 
-- [ ] cache 已加载或明示"no norms found"
+- [ ] 缓存已加载或明示"no norms found"
 - [ ] 资产 2 字段齐
-- [ ] roadmap tier 已读
+- [ ] 路线图分层已读
 
 **诊**：
 
-- [ ] 状态识别完成；tiebreak / fallback 已处理
+- [ ] 状态识别完成；优先择一 / 退化处理已完成
 - [ ] 聚焦范围已明示；S5 命中时已下钻 §2.1.3
-- [ ] Now tier 物理信号扫描；Next/Later 未误报
+- [ ] 当期层物理信号扫描；下期/远期未误报
 
 **荐**：
 
@@ -344,19 +349,19 @@ tiebreak 后仍有多个候选 → 进入 §2.1.2。
 **输出**：
 
 - [ ] 内部术语未泄漏前两节
-- [ ] read-only 已遵守
-- [ ] "其他可留意"≤5 条；short-circuit 时已省略
+- [ ] 只读已遵守
+- [ ] "其他可留意"≤5 条；短路时已省略
 - [ ] 诊断依据注明扫描信号组合
 
 ---
 
-## 示例（Examples）
+## 示例
 
-### 示例 1：战略半成品（happy path）
+### 示例 1：战略半成品（正常路径）
 
 **场景**：项目有 mission / vision；无 NSM / strategic-goals；roadmap 存在但 backlog 多项与 strategy 不匹配。
 
-**输出**（mock）：
+**输出**（示例）：
 
 #### 下一步建议
 
@@ -371,18 +376,18 @@ tiebreak 后仍有多个候选 → 进入 §2.1.2。
 
 | 主题 | 概述 | 建议 |
 |---|---|---|
-| Backlog | 多项与战略不匹配 | 等战略层补齐再 `align-backlog` |
+| 待办列表 | 多项与战略不匹配 | 等战略层补齐再 `align-backlog` |
 
 ##### 诊断依据
 
 - **项目情况**：战略已起草但战略层上游缺失，整体偏早期
-- **判定规则**：Why 层 2 项 present / 3 项 missing 匹配"战略已起草"（S2）；What 层 backlog 漂移命中 S3 但按 tiebreak 取治理上游 S2。聚焦 = 战略层缺失。What 层漂移降级到"其他可留意"
+- **判定规则**：Why 层 2 项 present / 3 项 missing 匹配"战略已起草"（S2）；What 层 backlog 漂移命中 S3 但按优先择一取治理上游 S2。聚焦 = 战略层缺失。What 层漂移降级到"其他可留意"
 
 ### 示例 2：新项目起步（短路场景）
 
 **场景**：新项目，`docs/ARTIFACT_NORMS.md` 不存在，`specs/` 为空，无 mission。
 
-**输出**（mock）：
+**输出**（示例）：
 
 #### 下一步建议
 
@@ -405,7 +410,7 @@ tiebreak 后仍有多个候选 → 进入 §2.1.2。
 
 **场景**：项目刚发布，最近 2 周多次 merge；上次 `align-planning` 18 天前 > 14 天阈值。
 
-**输出**（mock）：
+**输出**（示例）：
 
 #### 下一步建议
 
