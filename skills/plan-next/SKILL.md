@@ -131,27 +131,62 @@ Step 0.1: Load Runtime Norms
 
 ### 步骤 1：扫（Scan）— 资产盘点
 
-按 **5 主题（MECE）** 扫描仓库治理资产：
+**扫什么**：3 抽象层 × 5 主题（联合 MECE）。
 
-| 主题 | 含义 | 扫描位置 |
+**抽象层 MECE**（互斥的 3 类对象，按抽象层级划分，互不重叠）：
+
+| 抽象层 | 含义 |
+|---|---|
+| **意图层** | 人写的治理文档（"应该如何"） |
+| **实施层** | 代码与 git 活动事实（"实际如何"） |
+| **元规则层** | 项目治理规范本身（"如何治理治理"） |
+
+**主题分类**（在意图层内进一步细分；联合抽象层做到 MECE）：
+
+| 抽象层 | 主题 | 扫描位置 | 细化字段（同一主题的辅助维度） |
+|---|---|---|---|
+| 意图层 | **Why** | `docs/project-overview/{mission,vision,north-star,strategic-goals,strategic-pillars}.md` | — |
+| 意图层 | **What/When** | `docs/process-management/{roadmap,backlog/}.md`、`docs/requirements/`、`docs/tasks/` | roadmap → 提取 Now/Next/Later 分层；tasks/ → 提取 `status` + `priority` 字段 |
+| 意图层 | **How** | `docs/architecture/adrs/`、`docs/designs/` | — |
+| 实施层 | **Is** | 仓库代码（`src/`、`lib/` 等）、git 历史 | 最近 N 天 commit、未合并 PR、最近 merge/release 时间 |
+| 元规则层 | **Rules** | `docs/ARTIFACT_NORMS.md`、`specs/`、`protocols/`、`rules/` | — |
+
+**怎么扫**——对每项资产记录 4 字段：
+
+| 字段 | 判据 |
+|---|---|
+| **路径** | 文件系统绝对/相对路径 |
+| **状态** | `present` / `placeholder` / `missing`：<br>• `present`：文件存在且内容非空非占位<br>• `placeholder`：文件存在但仅含模板占位符（如 `[TODO]`、`<待填>`、`TBD`）<br>• `missing`：文件不存在 |
+| **质量** | 若 frontmatter 有 `quality` 字段则取值；否则按字段完整度（必填字段非空率）估 |
+| **最后更新** | `git log -1 --format=%cI <path>` 得最近 commit 时间；git 不可访问时取 fs mtime |
+
+**细化字段消费**：表中"细化字段"列的数据用于步骤 2.5（Now tier 下游扫描）、步骤 2.6（Now tier 作用域）、步骤 2.7（S5 任务 × 代码交叉判）。它们**不是独立扫描**，而是主题扫描的字段化展开。
+
+### 步骤 2：诊（Diagnose）— 状态 + 缺口 + 执行健康
+
+**诊的 4 子步骤总览**（依次执行，每步可短路或下延）：
+
+| 子步 | 做什么 | 产出 |
 |---|---|---|
-| **Why** | 为什么 / 去向 | `docs/project-overview/{mission,vision,north-star,strategic-goals,strategic-pillars}.md` |
-| **What/When** | 做什么、何时做 | `docs/process-management/{roadmap,backlog/}.md`、`docs/requirements-planning/`、`tasks/` |
-| **How** | 怎么做（设计决策） | `docs/architecture/adrs/`、`docs/designs/` |
-| **Is** | 实际状态 | 仓库代码、构建出的 docs、近期 commit / PR 活动 |
-| **Rules** | 治理规矩 | `docs/ARTIFACT_NORMS.md`、`specs/`、`protocols/`、`rules/` |
+| **2.0 前置闸门** | Rules 层是否就位（`ARTIFACT_NORMS.md` / `specs/`）？ | 否则 short-circuit，仅输出"先建规范"路由 |
+| **2.1 状态识别** | 项目处于哪个治理阶段（7 态 S1-S7）？ | 状态标签 + **聚焦范围** |
+| **2.3 缺口判定** | 聚焦范围内的资产有哪些缺口（4 类 G1-G4）？ | 缺口列表 → 矩阵路由 |
+| **2.7 执行健康** | S5 命中时，task × 代码活动交叉判 | 健康 / 卡点 / 3 类漂移 |
 
-对每项资产记录：路径、状态（present / placeholder / missing）、质量、最后更新时间。
+**协作关系**：
+- **状态机决定看哪儿**（聚焦范围）；**缺口矩阵决定那儿缺什么**（4 类）
+- **2.4 决策规则** 合并状态机的聚焦 + 缺口矩阵的优先级 → 最终"现在该做"列表
+- **2.5 / 2.6** 是 Now tier 下游扫描的细化（仅当聚焦含 Now tier 时介入）
+- **2.2** 是状态识别的 fallback（势均力敌时退化）
 
-**补充扫描（为后续诊断提供上下文，不进入主题分类）**：
+**两套 MECE 的边界明示**（防混淆）：
 
-- **Roadmap tier 结构**：读 `roadmap_tier_source`（默认 `docs/process-management/roadmap.md`），提取 Now / Next / Later 分层及各 tier 的条目 slug 列表。未分层时记录"tier 未声明"。
-- **Task 源**：按 `task_source` 读当前任务列表（`status` + `priority` 字段）。`auto` 模式依序探测 `tasks/*.md` → `docs/process-management/backlog/*.md` → `TODO.md`，取首个非空源。
-- **代码活动**：最近 N 天 commit 数、未合并 PR 列表、最近 merge / release 时间。
+| MECE 体系 | 范围 | 元素 |
+|---|---|---|
+| **缺口型 MECE**（缺口矩阵） | 仅覆盖**缺口型**发现 | G1 资产缺失 / G2 内容不全 / G3 真相漂移 / G4 位置错位 |
+| **工作流动作型** | 不在缺口矩阵内 | S4 ceremony / S5 静默 / S5 卡点 / S6 漂移校准 / S7 idle |
 
-这些补充数据用于步骤 2.1 的 S5 交叉判健康、步骤 2.5 的链接模式读取、步骤 2.6 的 Now tier 作用域计算、步骤 2.7 的任务×代码交叉判。
-
-### 步骤 2：诊（Diagnose）— 状态识别 + 缺口判定
+读者注意：**4 类缺口的 MECE 仅限缺口型**——plan-next 输出还包含工作流动作型（来自状态机），这两套并列存在。
 
 #### 2.0 前置闸门：Rules 层缺位检查
 
