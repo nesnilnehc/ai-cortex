@@ -3,7 +3,7 @@ name: plan-next
 description: Analyze governance state and produce next-action routing plan from existing docs; read-only — never executes downstream skills.
 description_zh: 基于现有治理文档分析状态并输出下一步路由计划；read-only——不执行下游技能。
 tags: [workflow, meta-skill, automation]
-version: 9.2.0
+version: 9.2.1
 license: MIT
 recommended_scope: project
 cognitive_mode: interpretive
@@ -127,11 +127,20 @@ output_schema:
 | S6 | **执行收尾、可能漂移** | 近期 merge/release；上次 `align-planning` > `drift_staleness_days` 天 | 文档代码漂移（`align-planning`）|
 | S7 | **健康稳定** | 无缺口、无 in-flight、无漂移风险 | Quiet mode |
 
+**多状态 tiebreak**（当多个状态信号并存时）：
+- **跨维度**：治理完整度（S1-S3）优先于执行态（S4-S7）——上游未稳时下游建议无意义
+- **治理维度内**：取上游（S1 > S2 > S3）——先补愿景再补计划
+- **执行维度内**：取下游（S6 > S5 > S4 > S7）——越后期越紧迫
+
+tiebreak 后仍有多个候选 → 进入 §2.2。
+
 #### 2.2 低 confidence fallback
 
-多个候选状态势均力敌（2.4 tiebreak 仍无法择一）→ 退化为全矩阵输出，诊断依据明示"状态未定"并列各候选支撑信号。
+（由 §2.1 tiebreak 后仍无法唯一确定时触发）退化为全矩阵输出，诊断依据明示"状态未定"并列各候选支撑信号。
 
 #### 2.3 缺口判定（4 类缺口矩阵）
+
+在 §2.1 确定的聚焦范围内扫描缺口；聚焦外的维度也按矩阵扫描，结果降级到"其他可留意"。
 
 **为什么 4 类**：从 4 个互斥维度刻画制品缺陷——**存在性**（有/无）× **完整性**（全/缺）× **一致性**（对齐/漂移）× **位置性**（合规/错位）。任意制品缺陷归属唯一一类（MECE）。
 
@@ -154,18 +163,19 @@ output_schema:
 
 记号：`/` 任选其一；`→` 链式调用；`—` 无自动路由（需人工判断，**不强行推荐**）。
 
-#### 2.4 诊断决策规则
+#### 2.4 聚焦整合
 
-报告分层由三规则共同决定：
+§2.1 聚焦范围内的缺口 → 进"现在该做"；聚焦范围外的缺口（矩阵其他格）→ 进"其他可留意"（上限 5 条，超出折叠为 "+N more, use --full"）。
 
-1. **多状态 tiebreak**：
-   - **跨维度**：治理完整度（S1-S3）优先于执行态（S4-S7）——上游未稳时下游建议无意义
-   - **治理维度内**：取上游（S1 > S2 > S3）——先补愿景再补计划
-   - **执行维度内**：取下游（S6 > S5 > S4 > S7）——越后期越紧迫
-2. **聚焦决定"现在该做"**：状态机聚焦内 → "现在该做"；外 → "其他可留意"
-3. **优先级排序**：聚焦内按 现在 > 下次 > 以后 > 可忽略（内部 P0 > P1 > P2 > P3）
+#### 2.5 Now tier 扫描与边界
 
-#### 2.5 Now tier 下游扫描
+**边界**：
+- 仅对 Now tier 条目评估下游（requirement / design / task）
+- Next/Later 无下游 → 正常状态，**不报告**
+- Roadmap 未分层 → 先路由 `promote-roadmap-items`，**不评估下游**
+- **深度优先**：每个 Now tier 条目一次只报最上游缺口（requirement 缺 → 先补，不同时提 design / task）
+
+**扫描方法**：
 
 ```
 2.5.1 从步骤 0 cache 读各 artifact_type 的 path_pattern
@@ -186,16 +196,6 @@ output_schema:
 
 诊断依据需注明扫描依赖的物理信号组合（例："slug + 检测到 2 个 manifest + 无 parent 字段"）。
 
-#### 2.6 Now tier 作用域（深度优先）
-
-下游就绪度（requirement / design / task）评估**仅针对 Now tier 条目**：
-
-- Now tier 无对应下游 → G1 真缺口
-- Next/Later 无下游 → 正常状态，**不报告**
-- Roadmap 未分层 → 先路由 `promote-roadmap-items`，**不评估下游**
-
-**深度优先**：每个 Now tier 条目一次只报最上游缺口（requirement 缺 → 先补，不同时提 design / task）。
-
 #### 2.7 S5 执行健康判定（任务 × 代码 2×2 交叉）
 
 **概念位置**：本节是 §2.1 中 S5 的子状态机（在 7 态内）。5 类输出中 3 类漂移（追踪/完成/归档）属 G3 真相漂移子类、2 类（健康/卡点）属工作流动作型。
@@ -211,6 +211,17 @@ output_schema:
 - **Tiebreak**：多个卡点按任务自身 `priority` 排序——但**不参与** plan-next 路由 P0-P3
 - **降级**：`task_source` 无可扫源时回退到仅看代码活动，诊断依据注明"任务源未配置"
 - **路径解析**：扫描走步骤 0 cache 解析的 `path_pattern`（让 colocation 项目能扫到 `work/<slug>/tasks.md`）
+
+#### 诊步骤产出物
+
+步骤 3 消费以下产出（由上述子步骤共同产生）：
+
+- **状态**：{S 编号} 或候选列表（低信度时附标志）
+- **聚焦范围**：{资产维度列表}
+- **缺口表**：[ (主题, G 类型, 具体资产路径, 矩阵推荐技能) ]
+- **优先级分组**：P0 → P1 → P2 → P3 排序列表
+
+步骤 3 不引入新诊断逻辑，只做字段填充与呈现。
 
 ### 步骤 3：荐（Recommend）— 路由生成与分层
 
