@@ -9,8 +9,9 @@ primary_use: Inventory governance inputs and produce next-action routing report.
   file detection). Step 0 Norms Resolution loads ARTIFACT_NORMS.md /
   .ai-cortex/artifact-norms.yaml into cache for path_pattern overrides. Step 2.7 S5
   task scan uses cache-resolved path. Features: S5 cross-signal execution health,
-  Now-tier-scoped downstream evaluation with depth-first breakdown, breakdown-tasks
-  in What/When G1.
+  Now-tier-scoped downstream evaluation with depth-first breakdown (G1 then G3 chain),
+  breakdown-tasks in What/When G1; G3 chain routing: design-solution (req↔design) /
+  breakdown-tasks (design↔task).
 inputs:
 - trigger context
 - optional scope overrides
@@ -34,7 +35,7 @@ tags:
 - workflow
 - automation
 - meta-skill
-version: 9.3.0
+version: 9.4.0
 validation_gates:
   gate_a:
     name: Agent-ready
