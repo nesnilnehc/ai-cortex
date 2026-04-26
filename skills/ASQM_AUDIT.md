@@ -223,3 +223,48 @@ asqm_quality = agent_native + cognitive + composability + stance
 1. Keep scores unchanged; no lifecycle change.
 2. When `promote-roadmap-items` is next touched, confirm it tolerates the new `priority_decision.previous` field (currently reads only `priority`, so backward-compatible).
 3. If usage surfaces a 5th single-file backlog shape in practice, revisit mode detection; do not pre-emptively add modes.
+
+---
+
+## Part XI: Delta Update — 2026-04-26 (auto-iterate v1.0.0 new skill)
+
+### Scope
+
+- `auto-iterate` (v1.0.0): new skill — single-step governance executor, the "drive" layer in the three-tier automation model (ADR 007).
+
+### Scoring Result
+
+| Dimension | Score | Justification |
+| :--- | :---: | :--- |
+| agent_native | 4 | input_schema + output_schema in frontmatter; IterationStepReport with named fields and continuation_signal enumeration table; no formal JSON/YAML schema → does not meet AN=5 threshold |
+| cognitive | 4 | mostly deterministic fixed sequence; human-gate detection for "子技能主动要求用户输入" requires LLM judgment → procedural mode, capped at 4 |
+| composability | 5 | explicitly designed as the middle layer of the three-tier model; upstream: plan-next; downstream: /loop via continuation_signal; architecture is the composability |
+| stance | 4 | Hard Boundaries with MUST/MUST NOT + verification + consequences; ADR 007 single-step boundary respected; Scope Boundaries, Anti-Patterns (4 examples), AI Refactor (3 patterns) present; v1.0.0 new skill, 4 is honest |
+| **asqm_quality** | **17** | Gate A: agent_native=4 ✓, Gate B: stance=4 ✓ → **validated** |
+
+- `cognitive_mode`: `procedural` (fixed sequence; LLM as executor; non-trivial judgment delegated to plan-next internally)
+- `status`: **validated**
+
+### Overlap & Market Position
+
+- `overlaps_with`: `nesnilnehc/ai-cortex:plan-next` (workflow adjacent — users may ask "should I run plan-next or auto-iterate?"); `nesnilnehc/ai-cortex:automate-repair` (structural pattern similarity: bounded iteration loop, different domain)
+- `market_position`: **differentiated** — only governance execution layer in the inventory; no other skill serves as plan-next's paired executor
+
+### Normalization Changes
+
+- `agent.yaml` written correctly with all required fields at initial creation; no changes needed.
+- `README.md` written with standard sections at initial creation; no changes needed.
+
+### Lifecycle Impact
+
+- Validated count: 54 → **55** (auto-iterate joins as validated)
+- Experimental count: unchanged at 4
+- archive_candidate: unchanged at 0
+- Total skills in scope: 60 → **61**
+
+### Recommendations (Final)
+
+1. Keep current scores unchanged; status: validated.
+2. **AN improvement path**: add an `## Appendix: Output contract` with a formal YAML/JSON schema for IterationStepReport to qualify for AN=5 in a future minor version.
+3. **Cognitive improvement path**: formalize the human-gate list into a machine-readable config (e.g., `human_gate_skills:` in frontmatter) to eliminate the last interpretive element and potentially reach cognitive=5 as a procedural skill.
+4. When `plan-next` output format changes (new fields, renamed sections), run focused curation on `auto-iterate` to verify parsing compatibility.
