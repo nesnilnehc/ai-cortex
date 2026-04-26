@@ -3,7 +3,7 @@ name: plan-next
 description: Analyze governance state and produce next-action routing plan from existing docs; read-only — never executes downstream skills.
 description_zh: 基于现有治理文档分析状态并输出下一步路由计划；只读——不执行下游技能。
 tags: [workflow, meta-skill, automation]
-version: 9.4.0
+version: 10.0.0
 license: MIT
 recommended_scope: project
 cognitive_mode: interpretive
@@ -15,23 +15,19 @@ input_schema:
   description: Governance docs sources, optional scope, optional threshold overrides.
   defaults:
     thresholds:
-      commit_idle_days: 3
-      drift_staleness_days: 14
-      backlog_min_items: 5
-      confidence_low_below: 0.6
       task_stuck_days: 7
     task_source: auto
     roadmap_tier_source: docs/process-management/roadmap.md
     artifact_norms_path: docs/ARTIFACT_NORMS.md
 output_schema:
   type: chat
-  description: Three-section user-facing report — "Now do" (actionable routes), "Also watch" (other findings, capped at 5), "Diagnosis" (project status, asset inventory, decision rules). Internal codes (S1-S7, G1-G4, P0-P3) appear only in Diagnosis as traceability anchors.
+  description: Three-section user-facing report — "Now do" (actionable routes), "Also watch" (other findings, capped at 5), "Diagnosis" (project status, traversal path, decision rules). Internal codes (G1-G4, P0-P3) appear only in Diagnosis as traceability anchors.
 ---
 
 # 技能：计划下一步（Plan Next）
 
 > **角色**：治理入口路由器
-> **WHAT**：按三步法 **扫**（盘点治理资产）→ **诊**（识别项目所处的治理阶段 7 态 + 资产缺陷 4 类）→ **荐**（产出三节路由报告）
+> **WHAT**：按三步法 **扫**（盘点治理资产）→ **诊**（目标树遍历——逐目标深度优先找首个未完成节点，结合并行判定）→ **荐**（产出三节路由报告）
 > **HOW**：只读诊断；单一维度问题（只查就绪度 / 漂移 / 已知缺失）直接调专用技能（`assess-docs` / `align-planning` / `define-*` 等）
 > **区别**：不同于 `assess-docs`（深度文档评估）或 `align-planning`（漂移校准），本技能仅做路由分发，不做深度分析
 
@@ -50,18 +46,6 @@ output_schema:
 | 路由 | 输出"现在该做"治理路由建议 | 不充当任务状态 API；不维护任务列表 / 不分配；不记任务历史，不答"本周晋升几条"类时序问题 |
 | 执行 | 只读——产路由建议交用户或外层编排器 | 不自动推进下游；不充当自动化引擎——自动化由外层编排器 + `loop` 组合驱动 |
 
-**移交**：路由产出后由用户按优先级执行下游；遇阻按"上抛条件"退回 plan-next 重评。
-
----
-
-## 核心目标
-
-**主要目标**：提供可执行的下一步计划与技能路由，不在规划阶段隐式实施改动。
-
-**验收测试**：报告的"现在该做"节是否可被他人直接用于执行，无需再追问"接下来该跑哪些技能"？
-
-详细成功标准见 [自检](#自检)。
-
 ---
 
 ## 行为
@@ -70,7 +54,7 @@ output_schema:
 
 ### 步骤 0：规范解析
 
-按 [artifact-contract §8.2](../../specs/artifact-contract.md#82-发现顺序) 顺序读项目规范到 `cache`：依序检查 `artifact_norms_path`（输入）→ `.ai-cortex/artifact-norms.yaml` → `docs/ARTIFACT_NORMS.md`，YAML 畸形则 HALT 诊断；缺失则继续不报错。`cache` 用于步骤 2.2 / 2.1.3 的 `path_pattern` 解析。
+按 [artifact-contract §8.2](../../specs/artifact-contract.md#82-发现顺序) 顺序读项目规范到 `cache`：依序检查 `artifact_norms_path`（输入）→ `.ai-cortex/artifact-norms.yaml` → `docs/ARTIFACT_NORMS.md`，YAML 畸形则 HALT 诊断；缺失则继续不报错。`cache` 用于步骤 2.1 的 `path_pattern` 解析。
 
 ### 步骤 1：扫 — 资产盘点
 
@@ -79,12 +63,12 @@ output_schema:
 | 抽象层 | 主题 | 扫描位置 | 细化字段 |
 |---|---|---|---|
 | 意图层 | **Why** | `docs/project-overview/{mission,vision,north-star,strategic-goals,strategic-pillars}.md` | — |
-| 意图层 | **What/When** | `docs/process-management/{roadmap,backlog/}.md`、`docs/requirements/`、`docs/tasks/` | 路线图 → 当期/下期/远期分层；tasks/ → `status` + `priority` |
-| 意图层 | **How** | `docs/architecture/adrs/`、`docs/designs/` | — |
-| 实施层 | **Is** | 仓库代码、git 历史 | 最近 N 天 commit、未合并 PR、最近 merge/release |
+| 意图层 | **What/When** | `docs/process-management/{roadmap,backlog/}.md`、`docs/requirements/`、`docs/tasks/` | 路线图 → 节点状态；tasks/ → `status` |
+| 意图层 | **How** | `docs/architecture/adrs/`、`docs/designs/` | `status` |
+| 实施层 | **Is** | 仓库代码 | — |
 | 元规则层 | **Rules** | `docs/ARTIFACT_NORMS.md`、`specs/`、`protocols/`、`rules/` | — |
 
-抽象层互斥；细化字段是同主题的辅助维度，**不是独立扫描**，供 §2.2 / §2.1.3 消费。
+抽象层互斥；细化字段是同主题的辅助维度，**不是独立扫描**，供 §2.1 消费。
 
 **怎么扫**——对每项资产记录 2 字段：
 
@@ -93,170 +77,156 @@ output_schema:
 | **路径** | 文件系统路径 |
 | **状态** | `present`（存在且内容非空非占位）/ `placeholder`（仅含 `[TODO]`/`<待填>`/`TBD`）/ `missing`（不存在） |
 
-按需查询字段（不预扫）：S6 状态判定时单独读 `align-planning` 报告的最近 commit 时间；其他特定判据按需 git log。
+### 步骤 2：诊 — 目标树遍历
 
-### 步骤 2：诊 — 状态 + 缺口
+**核心问题**：目标链在哪里卡住了？下一步该专注还是并行？
 
-**3 子步骤总览**（依次执行，每步可短路或下延）：
+**模型**：治理制品构成一棵树；"下一步"= 优先级最高目标下，深度优先找首个未完成节点，结合并行判定给出执行建议。
+
+```
+战略目标
+└── 路线图节点（多个，有顺序）
+    └── 需求（多个，每路线图节点下）
+        └── 设计/ADR（多个，每需求下）
+            └── 任务（多个，每设计下）
+```
+
+**2 子步骤**（依次执行）：
 
 | 子步 | 做什么 | 产出 |
 |---|---|---|
-| 2.0 前置闸门 | Rules 层是否就位？ | 否则短路，仅输出"先建规范"路由 |
-| 2.1 状态识别 | 项目处于哪个治理阶段（7 态 S1-S7）？ | 状态标签 + **聚焦范围** |
-| 2.2 缺口判定 | 聚焦范围内有哪些缺口（4 类 G1-G4）？当期层时细化下游 | 缺口路由矩阵 |
+| 2.0 前置闸门 | Rules 层是否就位？ | 否则短路 |
+| 2.1 目标树遍历 | 逐目标深度优先遍历，定位首缺口 + 并行判定 | 每目标的当前位置 + 路由建议 |
 
-**协作关系**：状态机（2.1）决定**看哪儿**（聚焦），缺口判定（2.2）判**那儿缺什么**（4 类），产出矩阵供荐步骤消费。
-
-**辅助分支**：2.1.1 优先择一规则；2.1.2 低置信度退化处理；2.1.3 S5 执行健康判定；2.2 内置当期层分支。
+G1-G4 缺口类型用作诊断依据节的子标签。
 
 #### 2.0 前置闸门：Rules 层缺位检查
 
-若 `ARTIFACT_NORMS.md` 缺失或 `specs/` 为空，触发 **短路**：跳过状态识别，"现在该做"只列一条 P0 路由（建立规范 + 重跑 plan-next），"其他可留意"省略。
+若 `ARTIFACT_NORMS.md` 缺失或 `specs/` 为空，触发**短路**：跳过目标树遍历，"现在该做"只列一条 P0 路由（建立规范 + 重跑 plan-next），"其他可留意"省略。
 
-#### 2.1 状态识别（7 态状态机）
+#### 2.1 目标树遍历
 
-**为什么 7 态**：项目治理生命周期的 7 个有意义阶段——S1-S3 治理建立期（上游：愿景 → 路线 → 待办充实）+ S4-S6 执行动态（下游：停滞 → 执行 → 收尾漂移）+ S7 稳定。从实证项目演进路径上识别出的可区分阶段。
+##### 节点状态判定
 
-| 状态 | 用户呈现 | 判定信号 | 聚焦 |
+每个制品节点（路线图节点 / 需求 / 设计 / 任务）的状态按以下规则解析：
+
+1. **显式优先**：读取制品文件 frontmatter 中的 `status:` 字段
+   - 有效值：`pending`（默认）| `in-progress` | `done` | `blocked`
+2. **子节点推算**（无显式 `status:` 时）：
+   - 所有直接子节点 `done` → 当前节点视为 `done`
+   - 任一直接子节点 `in-progress` → 当前节点视为 `in-progress`
+   - 无子节点 → 视为 `pending`
+3. **优先级**：显式字段 > 子节点推算
+
+##### 并行决策规则
+
+在任意层级，扫描该层所有兄弟节点后，按以下规则判定：
+
+| 当前层兄弟节点状态 | 并行建议 |
+|---|---|
+| 仅 1 个 `in-progress`，其余 `pending` | **专注**：完成当前再启动下一个 |
+| 1+ 个 `blocked`，有 `pending` 且独立 | **并行**：blocked 继续等待，启动下一个独立节点 |
+| 多个 `in-progress`（均未 blocked） | **收敛**：识别最滞后的，优先推进至完成 |
+| 全部 `done` | 触发上层下一兄弟推进 |
+| 全部 `pending`，无 `in-progress` | **启动**：路由最高优先级 pending 节点 |
+
+节点间有显式 `depends_on:` 依赖 → 被依赖节点必须先完成，不可并行。
+
+##### 层级定义
+
+| 层级 | 名称 | 存在性判据 | 完成判据 |
 |---|---|---|---|
-| S1 | **起步期** | Why 层全缺失或仅占位 | Why 层资产缺失 |
-| S2 | **战略已起草** | Why ≥ 2 项 present；roadmap 缺 | 路线图缺失 |
-| S3 | **路线已成、待办稀薄** | roadmap present；backlog < `backlog_min_items` | 待办内容不全 |
-| S4 | **待办丰富但停滞** | roadmap+backlog 齐；无进行中任务；近 `commit_idle_days` 天无 commit | 拉动仪式（`prioritize-backlog` → `promote-roadmap-items`）|
-| S5 | **执行中** | 有进行中任务 / 未合并 PR / 近期 commit | 任务 × 代码交叉判（见 §2.1.3）|
-| S6 | **执行收尾、可能漂移** | 近期 merge/release；上次 `align-planning` > `drift_staleness_days` 天 | 文档代码漂移（`align-planning`）|
-| S7 | **健康稳定** | 无缺口、无进行中工作、无漂移风险 | 静默模式 |
+| L1 | 战略目标 | `strategic-goals.md` present 且非占位，含 ≥1 可识别目标项 | 所有目标项 `status = done` |
+| L2 | 路线图节点 | 路线图节点存在且可追溯到 L1 某目标 | 节点 `status = done`（显式或子推算） |
+| L3 | 需求 | 需求文件 present 且非占位 | `status = done`（显式或子推算） |
+| L4 | 设计 | 设计/ADR 文件 present 且非占位 | `status = done`（显式或子推算） |
+| L5 | 任务 | 任务记录 present | `status = done` |
 
-##### 2.1.1 多状态优先择一
+**无目标场景**：`strategic-goals.md` 缺失且 `mission.md` 也缺失 → 路由 `define-mission`（P0）；`mission.md` present 但无战略目标 → 路由 `design-strategic-goals`（P0）。
 
-当多个状态信号并存时，按以下顺序择一：
+**路线图未分层**：路线图存在但无 Now/Next/Later 分层 → 路由 `promote-roadmap-items`（P1），不继续评估下游。
 
-- **跨维度**：治理完整度（S1-S3）优先于执行态（S4-S7）——上游未稳时下游建议无意义
-- **治理维度内**：取上游（S1 > S2 > S3）——先补愿景再补计划
-- **执行维度内**：取下游（S6 > S5 > S4 > S7）——越后期越紧迫
-
-优先择一后仍有多个候选 → 进入 §2.1.2。
-
-##### 2.1.2 [退化] 低置信度处理
-
-（由 §2.1.1 优先择一后仍无法唯一确定时触发）退化为全矩阵输出，诊断依据明示"状态未定"并列各候选支撑信号。
-
-##### 2.1.3 [S5 分支] S5 执行健康判定（任务 × 代码 2×2 交叉）
-
-**概念位置**：本节是 §2.1 中 S5 的子状态机。当 2.1 识别状态为 S5 时，进一步按任务×代码 2×2 矩阵判定执行健康。5 类输出中 3 类漂移（追踪/完成/归档）属 G3 真相漂移子类、2 类（健康/卡点）属工作流动作型。
-
-| 任务状态 | 代码活动 | 判定 | 归类 |
-|---|---|---|---|
-| 进行中 | 近 `commit_idle_days` 天有 commit/PR 更新 | **健康执行** | S5 静默 |
-| 进行中 | 超 `task_stuck_days` 天无 commit/PR | **执行卡点** | `investigate-root-cause` + 人工 |
-| 待处理 | 有相关 commit/分支 | **追踪漂移** | `align-planning`（更新任务状态） |
-| 已完成 | 无 merge 证据 | **完成漂移** | `align-planning` / 人工验证 |
-| 已完成 | 已 merge 但未移出进行中清单 | **归档漂移** | `tidy-repo` / `align-planning` |
-
-- **卡点排序**：多个卡点按任务自身 `priority` 排序——但**不参与** plan-next 路由 P0-P3
-- **降级**：`task_source` 无可扫源时回退到仅看代码活动，诊断依据注明"任务源未配置"
-- **路径解析**：扫描走步骤 0 缓存解析的 `path_pattern`（让同位项目能扫到 `work/<slug>/tasks.md`）
-
-#### 2.2 缺口判定（4 类缺口矩阵）
-
-在 §2.1 确定的聚焦范围内扫描缺口；聚焦外的维度也按矩阵扫描，结果降级到"其他可留意"。
-
-**为什么 4 类**：从 4 个互斥维度刻画制品缺陷——**存在性**（有/无）× **完整性**（全/缺）× **一致性**（对齐/漂移）× **位置性**（合规/错位）。任意制品缺陷归属唯一一类（MECE）。
-
-| 内部码 | 用户呈现 | 判据 | 动作 |
-|---|---|---|---|
-| G1 | **资产缺失** | 应存在但缺失 | DEFINE（`define-*`） |
-| G2 | **内容不全** | 存在但未达就绪标准（占位、字段缺、链接断） | ASSESS（`assess-*`） |
-| G3 | **真相漂移** | 与另一真相源冲突 | ALIGN（`align-*`） |
-| G4 | **位置错位** | 内容合规但位置 / 命名 / 规范不符 | ORGANIZE（`tidy-repo` / `define-docs-norms`） |
-
-**缺口路由矩阵**：
-
-| 主题 | G1 资产缺失 | G2 内容不全 | G3 真相漂移 | G4 位置错位 |
-|---|---|---|---|---|
-| **Why** | `define-mission` / `define-vision` / `define-north-star` / `design-strategic-goals` / `define-strategic-pillars` | `assess-docs` → re-DEFINE | — | `tidy-repo` |
-| **What/When** | `define-roadmap` / `analyze-requirements` / `capture-work-items` / `breakdown-tasks`（当期层 + 设计已存在 + 任务未拆时） | `assess-docs` | 规划↔代码漂移 → `align-planning`；待办↔战略漂移 → `align-backlog`；req↔design 不对应 → `design-solution`；design↔task 不对应 → `breakdown-tasks` | `tidy-repo` |
-| **How** | `design-solution` | `assess-docs` | `align-architecture` | `tidy-repo` |
-| **Is** | — | `review-*` | `assess-docs-code-alignment` | `tidy-repo` |
-| **Rules** | `discover-docs-norms` → `define-docs-norms` | `audit-docs` | `align-planning` | `tidy-repo` / `curate-skills` |
-
-记号：`/` 任选其一；`→` 链式调用；`—` 无自动路由（需人工判断，**不强行推荐**）。
-
-##### [当期层分支] 当聚焦包含当期层时
-
-**当期层定义**：路线图中"当前周期要执行"的工作项（对应当期/下期/远期分层中的当期层）。
-只有当期层项需要完整的下游支撑（requirement → design → task）；下期/远期可以更粗糙。
-
-**边界规则**：
-
-- 仅对当期层条目评估下游（requirement / design / task）
-- 下期/远期无下游 → 正常状态，不报告
-- 路线图未分层 → 先路由 `promote-roadmap-items`，不评估下游
-- 深度优先：每个当期层条目一次只报最上游缺口
-
-**物理扫描方法**：
+##### 遍历算法
 
 ```
-2.2.1 从步骤 0 cache 读各 artifact_type 的 path_pattern
-      （命中用项目值；未命中 fall back 到技能默认 = §2 canonical）
-2.2.2 按当期层每条目的 slug 在各 path_pattern 目录 glob
-      → 匹配到 = 下游存在；未匹配 = G1 缺口
-2.2.3 (增强) 扫下游 前置属性 `parent:` 字段构反向索引补充信任度
-2.2.4 (增强) 检测 清单文件（如 `now/<slug>.md`）
+对 每个战略目标 G（按优先级顺序，跳过 status = done 的）：
+
+  [L1] 目标自身 status = done？→ 跳过，检查下一目标
+
+  [L2] 取 G 下所有路线图节点，应用并行决策规则：
+    无节点 → 路由: define-roadmap / align-backlog（P1）；停止此目标
+    全 done → G 达成；考虑新目标；停止
+    取"当前焦点节点"集合 F（依并行决策）
+
+  对 F 中每个节点 N（按优先级）：
+
+    [L3] 取 N 下所有需求，应用并行决策规则：
+      无需求 → 路由: analyze-requirements（P2）；停止此节点
+      全 done → N 完成；移向下一兄弟路线图节点
+
+    对当前焦点需求 R：
+
+      [L4] 取 R 下所有设计，应用并行决策规则：
+        无设计 → 路由: design-solution（P2）；停止此需求
+        全 done → R 完成；移向下一兄弟需求
+
+      对当前焦点设计 D：
+
+        [L5] 取 D 下所有任务，应用并行决策规则：
+          无任务 → 路由: breakdown-tasks（P2）；停止此设计
+          全 done → D 完成；移向下一兄弟设计
+          有 blocked 任务 + 有独立 pending 任务 → 并行：路由启动 pending
+          有 in-progress 任务（未 blocked）→ 专注：执行中，检测卡点
+```
+
+##### 物理扫描方法（L3-L5 存在性检测）
+
+```
+2.1.1 从步骤 0 cache 读各 artifact_type 的 path_pattern
+      （命中用项目值；未命中 fall back 到技能默认规范路径）
+2.1.2 按节点 slug 在各 path_pattern 目录 glob
+      → 匹配到 = 存在；未匹配 = G1 缺口
+2.1.3 (增强) 扫前置属性 `parent:` 字段构反向索引补充信任度
+2.1.4 (增强) 检测清单文件（如 `now/<slug>.md`）
       → 存在则对比清单 vs 物理；差异作 G3 漂移
-2.2.5 (G3 链路) G1 全通后检查内容对应：
-      req → design：design 是否含 parent/upstream_ref 指向对应 requirement，
-        或内容明确响应 requirement 的关键需求点
-      design → task：tasks 是否含 parent 指向 design，
-        或覆盖 design 中的主要实现模块
-      任一段缺对应关系 → 该段 G3；深度优先：req→design G3 命中则不继续报 design→task G3
+2.1.5 G1 通过后检查层间内容对应（G3 链路）：
+      L3→L4：设计含 parent/upstream_ref 指向需求，或内容明确响应需求关键约束
+      L4→L5：任务含 parent 指向设计，或覆盖设计中的主要实现模块
+      深度优先：L3→L4 G3 命中则不继续报 L4→L5 G3
 ```
-
-**项目定制**：
-
-- 聚合式目录 → 在 `ARTIFACT_NORMS.md` 覆盖 `path_pattern` 为 `work/{slug}/<type>.md`
-- 显式父指针 → 调用下游技能时传 `upstream_ref`
-- 中央清单 → 建清单文件
-- 不声明 → slug 默认生效
 
 诊断依据需注明扫描依赖的物理信号组合（例："slug + 检测到 2 个清单 + 无 parent 字段"）。
 
 #### 诊步骤产出物
 
-步骤 3 消费以下产出（由上述子步骤共同产生）：
+步骤 3 消费以下产出：
 
-- **状态**：{S 编号} 或候选列表（低信度时附标志）
-- **聚焦范围**：{资产维度列表}
-- **缺口路由矩阵**：[ (主题, G 类型, 具体资产路径, 矩阵推荐技能, 是否在聚焦内) ]
+- **每目标遍历结果**：{目标名称, 当前焦点节点, 所在层级, 并行建议, 缺口子标签（G1/G2/G3）, 推荐技能}
+- **blocked 节点列表**：[(层级, 节点名, blocked 原因（若有）)]
+- **次要发现**：聚焦目标之外的其他发现
 
 ### 步骤 3：荐 — 路由生成与分层
 
 **来源**：消费步骤 2 的产出（见"诊步骤产出物"）。
 
-**4 条指导原则**（详细规则见各引用节）：
-
-1. **分层按聚焦** —— §3.1 / §3.4
-2. **优先级按治理紧迫性** —— §3.2
-3. **一条路由对一个矩阵格** —— §3.3
-4. **深度优先 + 术语隔离** —— §3.1 当期层规则 / 反模式 · 内部术语节
-
 #### 3.1 分层决策
 
-消费 §2.2 产出的缺口路由矩阵，结合 §2.1 的聚焦范围，将缺口分层：
+消费 §2.1 产出的每目标遍历结果，将缺口分层：
 
-- **聚焦内缺口** → "现在该做"（最多 1-3 条，依聚焦粒度而定）
-- **聚焦外缺口** → "其他可留意"（上限 5 条，超出折叠为 "+N more, use --full"）
+- **主链路由（最高优先级目标的首缺口）** → "现在该做"（1-3 条）
+- **其余目标的首缺口 / blocked 节点** → "其他可留意"（上限 5 条，超出折叠为 "+N more, use --full"）
+- **聚焦外发现** → "其他可留意"
 
-**当期层规则**（当聚焦含当期层时）：
+**并行路由**：并行决策建议为"并行"或"收敛"时，在路由依据中明确说明并行理由或收敛目标；"专注"时只路由当前节点。
 
-- 深度优先：每条当期层项只报最上游缺口——G1 优先于 G3；G3 链路按 req→design 优先于 design→task（命中上游不同时报下游）
+**兄弟推进规则**：当一个节点完成时，自动推进至同层下一兄弟节点，不需要用户重跑；遍历在下一兄弟的首缺口处停止。
 
 #### 3.2 优先级（治理紧迫性）
 
-- **现在（P0）**：阻断其他治理进展的根基问题（通常已被 2.0 闸门或 S1 聚焦吃掉）
-- **下次（P1）**：战略层就绪度问题 / 计划层缺失或漂移
-- **以后（P2）**：设计层 / 实现层任何缺口
-- **可忽略（P3）**：其余
+- **现在（P0）**：阻断其他治理进展的根基问题（Rules 层缺失或 L1 无目标）
+- **下次（P1）**：L2 路线图缺失或未对齐目标
+- **以后（P2）**：L3-L5 任意层级缺口
+- **可忽略（P3）**：其余次要发现
 
 #### 3.3 每条路由六字段
 
@@ -268,7 +238,7 @@ output_schema:
 
 | 用户呈现 | 触发 |
 |---|---|
-| **完成条件** | 资产从 missing/incomplete/inconsistent 变 present/aligned |
+| **完成条件** | 节点从 missing/incomplete/blocked 变 present/done |
 | **延后条件** | 用户明确延后到下个周期 |
 | **上抛条件** | 下游执行受阻（战略冲突、依赖循环），回 plan-next 重评 |
 
@@ -286,10 +256,10 @@ output_schema:
 ## 诊断依据（末尾）
 - 项目情况：<一句自然语言摘要>
 - 资产清单：<表>
-- 判定规则：<状态识别 + 优先择一 + 聚焦范围；可括注 S 编号作追溯>
+- 判定规则：<目标树遍历路径；每目标首缺口层级；并行建议；G1/G2/G3 子标签（作追溯）>
 ```
 
-**用户 flag**：`--full` 强制全量展示；低置信度自动触发。
+**用户 flag**：`--full` 强制全量展示。
 
 ---
 
@@ -298,36 +268,36 @@ output_schema:
 **关于职责边界**：
 
 - ❌ 调用任何下游技能（只读硬边界）
-- ❌ 隐藏跳过原因（短路 / 矩阵 `—` 时必须明示）
+- ❌ 隐藏跳过原因（短路时必须明示）
 - ❌ 混入下游执行细节（不写 ADR、不修代码、不整结构）
 
 **关于路由本身**：
 
-- ❌ 矩阵 `—` 单元格强行推荐技能（明示需人工判断）
 - ❌ 模糊措辞（"可能 / 或许 / 可以考虑"）
 - ❌ 省略停止条件
 - ❌ 一条路由混多个缺口类型
 - ❌ 按缺口数量给优先级
+- ❌ 树遍历跳层报告（L2 缺失时直接报 L3 路由）——违反"首缺口优先"
+- ❌ 用 git 信号判"完成"——完成判定只看 `status` 字段
+- ❌ 忽略显式 `status:` 字段，只用子节点推算——显式优先
+- ❌ 有 blocked 节点时不考虑并行启动——blocked 是并行信号
+- ❌ 多个 in-progress 未 blocked 时推荐继续并行扩展——应建议收敛
+- ❌ 多目标合并路由但未在依据中注明各目标来源
+- ❌ 路线图未分层时跳过 `promote-roadmap-items` 直接评估下游
+- ❌ 忽略 `depends_on:` 字段强行建议并行——有依赖必须顺序
 
-**关于状态机与执行健康**：
+**关于树遍历与扫描**：
 
-- ❌ 用状态机折叠"其他可留意"（状态机是聚焦工具，不是过滤器；外部缺口必须呈现，无发现写"无"）
-- ❌ 状态不明强行归类（应退回 §2.1.2 退化处理）
-- ❌ 仅凭单信号判执行健康（必须 §2.1.3 的 2×2 交叉）
-- ❌ 用任务 priority 决定 plan-next 路由 P0-P3（仅供卡点间排序参考）
-
-**关于当期层与扫描**：
-
-- ❌ 对下期/远期层报下游缺口
-- ❌ 同时报同一条目的多层缺口（违反深度优先）
+- ❌ 对 done 节点重复报告缺口
+- ❌ 同时报同一节点的多层缺口（违反深度优先）
 - ❌ 引入 mode 枚举或配置字段（直接看物理信号）
-- ❌ 承担下行清单维护职责（只读，差异作 G3；维护是 `align-work-item-manifest` 的事）
+- ❌ 承担清单维护职责（只读，差异作 G3；维护是 `align-work-item-manifest` 的事）
 
 **关于内部术语泄漏**：
 
-- ❌ 前两节使用 S1-S7 / G1-G4 / P0-P3 / 主题分类词（Why / What/When / How / Is / Rules）；主题列用自然语言（"路线图"、"战略目标"、"规范文件"）
-- ❌ 诊断依据用 S 编号作主语（应用自然语言，S 编号至多括注追溯如"（S2）"）
-- ❌ 示例标题写"S2 → S3 过渡"（用自然语言场景描述）
+- ❌ 前两节使用 L1-L5 / G1-G4 / P0-P3 / 层级名称缩写；主题列用自然语言（"路线图"、"战略目标"、"规范文件"）
+- ❌ 诊断依据用层级编号作主语（应用自然语言，层级编号至多括注追溯）
+- ❌ 示例标题写"L2→L3 推进"（用自然语言场景描述）
 
 ---
 
@@ -336,28 +306,33 @@ output_schema:
 **扫**：
 
 - [ ] 缓存已加载或明示"no norms found"
-- [ ] 资产 2 字段齐
-- [ ] 路线图分层已读
+- [ ] 资产 2 字段齐（路径 + 状态）
+- [ ] 路线图是否分层已判定；未分层时已路由 `promote-roadmap-items`
 
 **诊**：
 
-- [ ] 状态识别完成；优先择一 / 退化处理已完成
-- [ ] 聚焦范围已明示；S5 命中时已下钻 §2.1.3
-- [ ] 当期层物理信号扫描（G1 + G3 链路）；下期/远期未误报
+- [ ] 战略目标已读取；无目标时已触发 L1 路由
+- [ ] 每个节点的 status 已按"显式优先 > 子节点推算"解析
+- [ ] 每个层级的兄弟节点已全量扫描并分类（done / in-progress / blocked / pending）
+- [ ] 并行决策规则已应用；建议（专注 / 并行 / 收敛 / 启动）已标注
+- [ ] L3-L5 物理扫描完成（glob + 可选 parent: + 可选 manifest）
+- [ ] L3→L4 / L4→L5 G3 链路检查已执行；深度优先（上层 G3 命中不继续报下层）
+- [ ] "完成"判定仅依赖 status 字段，未引入 git 信号
 
 **荐**：
 
 - [ ] 六字段齐；停止条件齐
 - [ ] P0>P1>P2>P3 排序
-- [ ] 矩阵 `—` 未强推
-- [ ] 深度优先
+- [ ] 深度优先（每目标只报树中首缺口）
+- [ ] 并行建议已体现在路由依据中
+- [ ] 多目标合并路由时依据中已列所有目标来源
 
 **输出**：
 
-- [ ] 内部术语未泄漏前两节
+- [ ] 内部术语（L1-L5、G1-G4、P0-P3）未泄漏前两节
 - [ ] 只读已遵守
 - [ ] "其他可留意"≤5 条；短路时已省略
-- [ ] 诊断依据注明扫描信号组合
+- [ ] 诊断依据注明每目标的遍历位置
 
 ---
 
@@ -365,7 +340,7 @@ output_schema:
 
 ### 示例 1：战略半成品（正常路径）
 
-**场景**：项目有 mission / vision；无 NSM / strategic-goals；roadmap 存在但 backlog 多项与 strategy 不匹配。
+**场景**：项目有 mission / vision；无 strategic-goals；roadmap 存在但无法追溯到战略目标。
 
 **输出**（示例）：
 
@@ -375,23 +350,22 @@ output_schema:
 
 | # | 主题 | 缺口 | 推荐技能 | 依据 | 优先级 | 停止条件 |
 |---|---|---|---|---|---|---|
-| 1 | 北极星指标 | 资产缺失 | `define-north-star` | NSM 缺失，无单一关键指标 | 下次 | 完成条件：north-star.md 写入并通过 `assess-docs` |
-| 2 | 战略目标 | 资产缺失 | `design-strategic-goals` | strategic-goals 缺失 | 下次 | 完成条件：strategic-goals.md 写入；上抛：与 NSM 冲突需重定义 |
+| 1 | 战略目标 | 资产缺失 | `design-strategic-goals` | strategic-goals.md 缺失，遍历在 L1 停止 | 下次 | 完成条件：strategic-goals.md 写入，含可识别目标项；上抛：与 mission 冲突需重定义 |
 
 ##### 其他可留意
 
 | 主题 | 概述 | 建议 |
 |---|---|---|
-| 待办列表 | 多项与战略不匹配 | 等战略层补齐再 `align-backlog` |
+| 路线图 | 节点无法追溯到战略目标 | 待战略目标补齐后 `align-backlog` |
 
 ##### 诊断依据
 
-- **项目情况**：战略已起草但战略层上游缺失，整体偏早期
-- **判定规则**：Why 层 2 项 present / 3 项 missing 匹配"战略已起草"（S2）；What 层 backlog 漂移命中 S3 但按优先择一取治理上游 S2。聚焦 = 战略层缺失。What 层漂移降级到"其他可留意"
+- **项目情况**：有使命愿景但无战略目标，路线图对齐待建立
+- **判定规则**：L1 战略目标层缺失（G1），遍历在 L1 停止；路线图对齐问题降级到"其他可留意"（L2 依赖 L1 就绪）
 
 ### 示例 2：新项目起步（短路场景）
 
-**场景**：新项目，`docs/ARTIFACT_NORMS.md` 不存在，`specs/` 为空，无 mission。
+**场景**：新项目，`docs/ARTIFACT_NORMS.md` 不存在，`specs/` 为空。
 
 **输出**（示例）：
 
@@ -410,11 +384,15 @@ output_schema:
 ##### 诊断依据
 
 - **项目情况**：规范层缺位，触发短路输出
-- **判定规则**：Rules 层缺位命中 2.0 前置闸门，跳过状态识别
+- **判定规则**：Rules 层缺位命中 2.0 前置闸门，跳过目标树遍历
 
-### 示例 3：执行收尾、漂移可能（边缘场景）
+### 示例 3：兄弟节点推进 + 并行决策
 
-**场景**：项目刚发布，最近 2 周多次 merge；上次 `align-planning` 18 天前 > 14 天阈值。
+**场景**：目标 A，路线图节点 N1（in-progress）。N1 下有需求 R1（in-progress，子推算）和需求 R2（pending）。R1 下有设计 D1a（done）和 D1b（in-progress）。D1b 下任务尚未拆解。
+
+**遍历路径**：N1 → R1（in-progress，子推算）→ 兄弟扫描：D1a done，D1b in-progress → 进入 D1b → 无任务（L5 缺口）→ 路由 `breakdown-tasks`。
+
+**并行判定**：D1b 为唯一 in-progress 设计，R2 pending。建议：**专注** D1b，完成后 R2 自动成为下一焦点。
 
 **输出**（示例）：
 
@@ -424,16 +402,65 @@ output_schema:
 
 | # | 主题 | 缺口 | 推荐技能 | 依据 | 优先级 | 停止条件 |
 |---|---|---|---|---|---|---|
-| 1 | 文档与代码对齐 | 真相漂移 | `align-planning` | 上次 align-planning 18 天前 > 14 天；近期 3 次 merge 可能引入漂移 | 现在 | 完成条件：planning-alignment.md 更新；上抛：发现 roadmap 与实现冲突 |
+| 1 | 设计 D1b 的任务 | 资产缺失 | `breakdown-tasks` | D1b 设计存在但任务未拆解；D1a 已完成为兄弟推进触发点 | 以后 | 完成条件：D1b 任务列表创建且有至少一条任务记录 |
 
 ##### 其他可留意
 
 | 主题 | 概述 | 建议 |
 |---|---|---|
-| ADR-015 | 缺"后果"节 | 做相关设计时顺手补，不阻塞 |
-| 旧文档命名 | 2 个文件命名不符规范 | 下次 `tidy-repo` 时一并处理 |
+| 需求 R2 | D1b 完成后的下一焦点 | 专注 D1b；D1b 完成后自动推进到 R2 |
 
 ##### 诊断依据
 
-- **项目情况**：执行收尾阶段；漂移校准已过期
-- **判定规则**：近 14 天有 merge/release + 上次 align-planning > 14 天 → 匹配 S6；聚焦 = 漂移校准。其他发现归"其他可留意"
+- **项目情况**：目标 A 处于执行阶段，N1→R1→D1b，L5 缺口
+- **判定规则**：D1a done 触发兄弟推进到 D1b；D1b in-progress 且无任务（G1）；并行建议"专注"（仅 1 个 in-progress，其余 pending）
+
+### 示例 4：路线图未分层
+
+**场景**：战略目标存在，路线图存在但节点无 Now/Next/Later 分层，仅为扁平列表。
+
+**输出**（示例）：
+
+#### 下一步建议
+
+##### 现在该做
+
+| # | 主题 | 缺口 | 推荐技能 | 依据 | 优先级 | 停止条件 |
+|---|---|---|---|---|---|---|
+| 1 | 路线图分层 | 内容不全 | `promote-roadmap-items` | 路线图存在但无当期/下期/远期分层，无法确定当前焦点节点 | 下次 | 完成条件：路线图含 Now/Next/Later 分层后重跑 plan-next |
+
+##### 其他可留意
+
+（无法评估下游，待路线图分层后重跑。）
+
+##### 诊断依据
+
+- **项目情况**：路线图存在但未分层，遍历在 L2 停止
+- **判定规则**：路线图未分层命中"路线图未分层"规则，路由 `promote-roadmap-items`，不继续评估下游
+
+### 示例 5：blocked 触发并行
+
+**场景**：目标 A，路线图节点 N1。N1 下需求 R1（blocked，等待外部依赖）和 R2（pending，与 R1 无 depends_on 依赖）。
+
+**并行判定**：R1 blocked，R2 pending 且独立 → **并行**：建议同时启动 R2。
+
+**输出**（示例）：
+
+#### 下一步建议
+
+##### 现在该做
+
+| # | 主题 | 缺口 | 推荐技能 | 依据 | 优先级 | 停止条件 |
+|---|---|---|---|---|---|---|
+| 1 | 需求 R2 的设计 | 资产缺失 | `design-solution` | R1 blocked（等待外部依赖），R2 与 R1 无依赖关系，并行启动可避免等待浪费 | 以后 | 完成条件：R2 设计文件创建；上抛：R2 设计与 R1 存在隐含耦合时回 plan-next 重评 |
+
+##### 其他可留意
+
+| 主题 | 概述 | 建议 |
+|---|---|---|
+| 需求 R1 | blocked，等待外部依赖 | 人工介入解除 blocked；解除后 plan-next 重跑 |
+
+##### 诊断依据
+
+- **项目情况**：目标 A，N1 下 R1 blocked，R2 pending
+- **判定规则**：并行决策规则"1+ blocked + 有独立 pending"→ 建议并行；R2 无 depends_on 依赖，可安全启动

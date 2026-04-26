@@ -1,17 +1,18 @@
 name: plan-next
 status: validated
 cognitive_mode: interpretive
-primary_use: Inventory governance inputs and produce next-action routing report.
-  Strictly read-only — never executes downstream skills. Auto-iteration is composed
-  externally via `loop` (scheduling) + an orchestrator skill (driving). Step 2.5
-  scans Now tier downstream artifacts by direct physical signals (resolved
-  path_pattern glob + optional parent: frontmatter reverse index + optional manifest
-  file detection). Step 0 Norms Resolution loads ARTIFACT_NORMS.md /
-  .ai-cortex/artifact-norms.yaml into cache for path_pattern overrides. Step 2.7 S5
-  task scan uses cache-resolved path. Features: S5 cross-signal execution health,
-  Now-tier-scoped downstream evaluation with depth-first breakdown (G1 then G3 chain),
-  breakdown-tasks in What/When G1; G3 chain routing: design-solution (req↔design) /
-  breakdown-tasks (design↔task).
+primary_use: >
+  Traverse the goal chain for each strategic goal (top-down) and identify the
+  first unready level — producing a next-action routing report. Strictly
+  read-only — never executes downstream skills. Chain levels: L1 strategic goal
+  → L2 roadmap alignment → L3 requirements → L4 design → L5 tasks → L6
+  completion (task status fields only; no git signals for done-check).
+  Physical scan of L3-L5 uses cache-resolved path_pattern glob + optional
+  parent: frontmatter reverse index + optional manifest file detection.
+  Depth-first: report only topmost gap per goal. Multiple parallel goals
+  handled by priority order. G1-G4 retained as diagnostic sub-labels.
+  Step 0 Norms Resolution loads ARTIFACT_NORMS.md /
+  .ai-cortex/artifact-norms.yaml into cache for path_pattern overrides.
 inputs:
 - trigger context
 - optional scope overrides
@@ -35,7 +36,7 @@ tags:
 - workflow
 - automation
 - meta-skill
-version: 9.4.0
+version: 10.0.0
 validation_gates:
   gate_a:
     name: Agent-ready
