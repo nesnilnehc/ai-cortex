@@ -3,7 +3,7 @@ name: auto-iterate
 description: Single-step governance executor — reads plan-next routing output, executes the highest-priority action, and emits a continuation signal for /loop-driven autopilot.
 description_zh: 单步治理执行器——读取 plan-next 路由输出，执行最高优先级动作，发出继续信号以支持 /loop 全自动推进。
 tags: [automation, workflow, meta-skill]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -135,7 +135,8 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。auto-itera
 
 ### 步骤 6：执行后验证
 
-轻量重跑 `/plan-next`，检查目标卡片是否已从"现在该做"消失：
+**强制重跑** `/plan-next`（不可跳过），检查目标卡片是否已从"现在该做"消失。
+`done` 信号的唯一合法来源是本步骤的验证结果——禁止以模型自行推断替代。
 
 | 结果 | 行动 |
 |---|---|
@@ -174,7 +175,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。auto-itera
 | 值 | 含义 | /loop 行为 |
 |---|---|---|
 | `advance` | 动作已完成，治理还有工作 | 继续触发下次 |
-| `done` | "现在该做"为空，治理已就绪 | 停止循环 |
+| `done` | 步骤 6 重跑 plan-next 后"现在该做"为空；**禁止基于模型自行推断输出此值** | 停止循环 |
 | `blocked` | 需要人工决策或外部依赖 | 停止循环，等用户介入 |
 | `stalled` | 同一路由卡片连续 2 次无进展 | 停止循环，报告卡死原因 |
 | `error` | 子技能执行失败且无恢复路径 | 停止循环，报告错误 |
@@ -196,6 +197,10 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。auto-itera
 **Rule 3**：每次调用 MUST 输出合法的 `continuation_signal`
 - 验证：IterationStepReport 含 `继续信号` 字段且值在五值枚举内
 - 后果：REJECT（/loop 依赖此信号决定是否继续）
+
+**Rule 4**：`done` 信号 MUST 来自步骤 6 plan-next 重跑结果，MUST NOT 来自模型自行推断
+- 验证：IterationStepReport 备注中不出现"治理层全部就绪"、"当前可执行的…均已创建"等自我评估语言；`done` 仅在步骤 6 确认"现在该做"为空后输出
+- 后果：REJECT（模型替代 plan-next 做了路由判断，破坏三层模型的职责边界）
 
 ### 技能边界（Skill Boundaries）
 
@@ -256,6 +261,18 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。auto-itera
 ```
 
 **问题分析**：缺少后验证导致虚假 advance；下次 plan-next 仍给出同一路由，触发 stalled。
+
+---
+
+### ❌ 错误：自行判断"治理完成"替代步骤 6 重跑 plan-next
+
+```
+1. 执行子技能成功
+2. 模型推断"当前可执行的治理文档均已创建，其余依赖开发者执行层"
+3. 直接输出 continuation_signal: done，未重跑 plan-next
+```
+
+**问题分析**：模型把"治理层 vs 开发者执行层"的判断权抢走了——这是 plan-next 的职责，不是 auto-iterate 的。blocked 节点（如 T48/T52 依赖 T47/T49）应由 plan-next 路由并触发 `blocked` 信号，而不是由模型自行宣布"治理完成"。`done` 只有一个合法来源：步骤 6 重跑 plan-next 后"现在该做"为空。
 
 ---
 
@@ -370,6 +387,17 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。auto-itera
 
 ---
 
+### 问题 4：自行判断完成状态跳过步骤 6
+
+- **识别标志**：备注中出现"治理层全部就绪"、"当前可执行的…均已创建"、"属于开发者执行层"等自我评估语言，且无步骤 6 plan-next 重跑记录
+- **纠正步骤**：
+  1. 重跑 `/plan-next`
+  2. 若"现在该做"为空 → `done` 正确，报告无需修改
+  3. 若"现在该做"仅含 blocked 条目 → 修正为 `continuation_signal: blocked`，备注说明阻塞原因
+  4. 若"现在该做"仍有可执行条目 → 修正为 `continuation_signal: advance`，继续下一步
+
+---
+
 ## 自检
 
 ### 必选节完整性
@@ -382,6 +410,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。auto-itera
 - [ ] 每次调用执行且仅执行 1 条动作
 - [ ] 卡死检测：session 内指纹重复 2 次触发 stalled
 - [ ] 执行后验证：重跑 plan-next 确认目标卡片消失
+- [ ] 步骤 6 是否真正执行了重跑 plan-next？（不接受"自行推断治理完成"替代；备注中不出现自我评估语言）
 - [ ] 人工闸门：战略创意类技能触发 blocked
 - [ ] 每次输出合法的 continuation_signal（advance / done / blocked / stalled / error）
 

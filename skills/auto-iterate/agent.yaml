@@ -22,7 +22,7 @@ tags:
 - automation
 - workflow
 - meta-skill
-version: 1.0.0
+version: 1.0.1
 validation_gates:
   gate_a:
     name: Agent-ready
