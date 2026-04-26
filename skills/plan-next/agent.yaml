@@ -20,8 +20,8 @@ inputs:
 - optional task_source, roadmap_tier_source, artifact_norms_path overrides
 outputs:
 - three-section user-facing report (Now do / Also watch / Diagnosis) with natural-language terms in first two sections
-- internal codes (S1-S7, G1-G4, P0-P3) appear only as traceability anchors in the Diagnosis section
-- routing recommendations with six fields each (theme, gap, skill, rationale, priority, stop condition)
+- internal codes (G1-G4, P0-P3) appear only as traceability anchors in the collapsible Diagnosis section
+- routing recommendations with five fields each (theme, skill with invocation hint, rationale, priority label, completion marker)
 scores:
   agent_native: 5
   cognitive: 4
@@ -36,7 +36,7 @@ tags:
 - workflow
 - automation
 - meta-skill
-version: 10.0.0
+version: 10.1.0
 validation_gates:
   gate_a:
     name: Agent-ready
