@@ -44,7 +44,7 @@ output_schema:
 2. ✅ **每次迭代证据优先**：每次迭代至少产生以下之一：新的测试结果、新的审查信号或具体的代码更改
 3. ✅ **修复后重新运行测试**：失败的测试命令（或目标子集）始终在同一迭代中应用修复后重新运行
 4. ✅ **有界循环**：循环由于收敛或显式停止条件而终止 - 没有无限重试
-5. ✅ **结构化最终报告**：输出包括修复循环报告（附录：输出合同），其中包含命令运行、故障、补丁和剩余风险
+5. ✅ **结构化最终报告**：输出包括修复循环报告（附录：输出合约），其中包含命令运行、故障、补丁和剩余风险
 
 **验收**测试：最终报告是否显示（a）测试通过且没有阻止审查结果，或（b）明确的停止条件，并为用户提供明确的剩余问题和选项？
 
@@ -232,7 +232,7 @@ output_schema:
 - [ ] **每次迭代证据优先**：每次迭代至少产生以下之一：新的测试结果、新的审查信号或具体的代码更改
 - [ ] **修复后重新运行测试**：在同一迭代中应用修复后，失败的测试命令（或目标子集）始终重新运行
 - [ ] **有界循环**：循环由于收敛或显式停止条件而终止 - 没有无限重试
-- [ ] **结构化最终报告**：输出包括修复循环报告（附录：输出合同），其中包含命令运行、故障、补丁和剩余风险
+- [ ] **结构化最终报告**：输出包括修复循环报告（附录：输出合约），其中包含命令运行、故障、补丁和剩余风险
 
 ### 流程质量检查
 
@@ -277,62 +277,34 @@ output_schema:
 
 ## 附录：输出合约
 
-每个技能执行必须以这种精确的 JSON 格式生成 **修复循环报告**：
+每次技能执行必须以下列 Markdown 格式输出**修复循环报告**。
 
+---
 
-```json
-{
-  "repair_loop_report": {
-    "definition_of_done": {
-      "tests": "test command passes",
-      "review": "no critical/major findings"
-    },
-    "scope": "diff | codebase",
-    "mode": "fast | ci | full",
-    "max_iterations": 5,
-    "iterations": [
-      {
-        "iteration": 1,
-        "review": {
-          "skill_used": "review-diff",
-          "findings_count": {"critical": 0, "major": 1, "minor": 2},
-          "blocking": ["unused import in utils.js"]
-        },
-        "tests": {
-          "command": "npm test",
-          "status": "failed",
-          "exit_code": 1,
-          "first_failure": "FAIL src/utils.test.js"
-        },
-        "fix": {
-          "files_changed": ["src/utils.js"],
-          "intent": "remove unused import"
-        },
-        "re_run": {
-          "command": "npm test",
-          "status": "passed"
-        }
-      }
-    ],
-    "final_state": {
-      "tests_passing": true,
-      "commands_passed": ["npm test"],
-      "blocking_issues_remaining": [],
-      "minor_suggestions": ["consider adding type hints"]
-    },
-    "stop_condition": "converged | max_iterations | environment_blocker | no_progress"
-  }
-}
-```
+### 修复循环报告
 
-|元素|类型 |描述 |
-| :--- | :--- | :--- |
-| `完成的定义` |对象|什么是成功|
-| `范围` |字符串| `diff` 或 `代码库` |
-| `模式` |字符串|测试模式：`fast`、`ci` 或 `full` |
-| `最大迭代次数` |数量 |循环限制|
-| `迭代` |数组|每次迭代的审查、测试、修复、重新运行 |
-| `最终状态` |对象|最终状态：测试通过，仍有问题 |
-| `停止条件` |字符串|为什么循环结束：`converged`、`max_iterations`、`environment_blocker`、`no_progress` |
+**完成标准**：测试通过 · 无关键/主要审查结果
+**范围**：diff · **测试模式**：fast · **最大迭代**：5
 
-此架构允许代理使用而无需进行散文解析。
+---
+
+#### 第 N 轮
+
+审查（`<使用的审查技能>`）：关键 `0` / 主要 `1` / 次要 `2`
+阻塞项：`<问题描述，无则省略本行>`
+
+测试：`<command>` → ✅ 通过 / ❌ 失败
+首次失败：`<摘录，通过时省略本行>`
+
+修复：`<file1>, <file2>` — `<意图一句话>`
+
+重新验证：`<command>` → ✅ 通过 / ❌ 失败
+
+---
+
+#### 最终结果
+
+- 测试：✅ 通过（`<command>`）/ ❌ 仍有失败
+- 剩余阻塞项：`<列表或"无">`
+- 次要建议：`<列表或"无">`
+- 结束原因：已收敛 / 达到迭代上限 / 环境阻碍 / 无进展
