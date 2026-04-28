@@ -4,8 +4,7 @@ primary_use: Derive a roadmap of milestone nodes from strategic goals; each node
   a phase checkpoint with success criteria and goal traceability; require user to commit
   per-strategic_goal capacity allocation (percentages sum to 100, engineering-health goal
   non-zero) per ADR 20260417; persist to docs/process-management/roadmap.md or milestones.md
-  (project norms). v3.2 adds Stage 0 Norms Resolution per artifact-contract §8 —
-  project norms override path_pattern; fixed-path governance output.
+  (project norms).
 cognitive_mode: interpretive
 inputs:
 - strategic goals (document or path); project context

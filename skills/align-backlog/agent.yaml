@@ -2,9 +2,7 @@ name: align-backlog
 status: validated
 primary_use: Align the product or work backlog with current strategy, goals, and roadmap;
   classify items (aligned/partial/misaligned/orphan); produce actionable change proposals
-  (add/cut/merge/reprioritize) and persist a Backlog Alignment Report. v1.1 adds
-  Stage 0 Norms Resolution per artifact-contract §8 — project norms override
-  path_pattern; fixed-path governance output.
+  (add/cut/merge/reprioritize) and persist a Backlog Alignment Report.
 cognitive_mode: interpretive
 inputs:
 - optional backlog path or convention

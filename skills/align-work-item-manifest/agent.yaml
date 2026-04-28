@@ -1,12 +1,9 @@
 name: align-work-item-manifest
 status: validated
 primary_use: Detect drift between project work-item manifest files and the physical
-  artifacts they register (requirements / designs / tasks / PRs). v1.0.0 is advisory-only —
-  reports three drift types (dangling references / unregistered files / name mismatch)
-  but does not auto-write manifests. Detects applicability by globbing for manifest
-  files (default docs/process-management/now/*.md, overridable by ARTIFACT_NORMS.md);
-  if no manifest files exist, halts with diagnostic. Output consumable by plan-next
-  as G3 drift source.
+  artifacts they register (requirements / designs / tasks / PRs); advisory-only —
+  reports dangling references, unregistered files, and name mismatches; output
+  consumable by plan-next as G3 drift source.
 cognitive_mode: procedural
 inputs:
 - project path (default CWD)

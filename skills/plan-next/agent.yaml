@@ -1,18 +1,9 @@
 name: plan-next
 status: validated
 cognitive_mode: interpretive
-primary_use: >
-  Traverse the goal chain for each strategic goal (top-down) and identify the
-  first unready level — producing a next-action routing report. Strictly
-  read-only — never executes downstream skills. Chain levels: L1 strategic goal
-  → L2 roadmap alignment → L3 requirements → L4 design → L5 tasks → L6
-  completion (task status fields only; no git signals for done-check).
-  Physical scan of L3-L5 uses cache-resolved path_pattern glob + optional
-  parent: frontmatter reverse index + optional manifest file detection.
-  Depth-first: report only topmost gap per goal. Multiple parallel goals
-  handled by priority order. G1-G4 retained as diagnostic sub-labels.
-  Step 0 Norms Resolution loads ARTIFACT_NORMS.md /
-  .ai-cortex/artifact-norms.yaml into cache for path_pattern overrides.
+primary_use: Analyze governance state and produce a next-action routing report by
+  traversing the goal chain top-down (L1 strategic goal → L5 tasks), depth-first
+  to the first unready level; strictly read-only — never executes downstream skills.
 inputs:
 - trigger context
 - optional scope overrides

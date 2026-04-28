@@ -2,8 +2,6 @@ name: align-planning
 status: validated
 primary_use: Perform post-task traceback, typed drift detection, and top-down recalibration
   to keep planning (goals, requirements, milestones, roadmap) aligned with task execution.
-  v1.4 adds Stage 0 Norms Resolution per artifact-contract §8 — project norms override
-  path_pattern for planning-alignment artifact; fixed-path governance output.
 cognitive_mode: interpretive
 inputs:
 - completed task description and outcome

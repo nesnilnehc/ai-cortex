@@ -2,8 +2,7 @@ name: define-vision
 status: validated
 primary_use: Define the long-term future the project aims to create; produce a vision
   statement (1–3 sentences) aligned with mission and persist to docs/project-overview/vision.md
-  (or project norms). v1.3 adds Stage 0 Norms Resolution per artifact-contract §8 —
-  project norms override path_pattern; fixed-path governance output.
+  (or project norms).
 cognitive_mode: interpretive
 inputs:
 - mission (statement or path); project/product context

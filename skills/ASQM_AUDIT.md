@@ -1,371 +1,232 @@
----
-artifact_type: audit-report
-created_by: curate-skills
-created_at: 2026-04-09
-status: final
-lifecycle: governance
----
+# ASQM Audit — AI Cortex Skills
 
-# ASQM Skill Curation Audit — 2026-04-09 (Final)
-
-**Audit Date**: 2026-04-09
-**Scope**: 58 skills (`skills/*/SKILL.md`)
-**Method**: ASQM strict + `cognitive_mode` guardrails + lifecycle dual-gate
+**Audit date**: 2026-04-28  
+**Auditor**: curate-skills v2  
+**Scope**: `skills/` — 62 skills  
 
 ---
 
-## Part I: Lifecycle Distribution
+## Scoring Formula
 
-| Status | Count | % | Rule |
-| :--- | :---: | :---: | :--- |
-| validated | 54 | 93% | `asqm_quality >= 17` and `agent_native >= 4` and `stance >= 3` |
-| experimental | 4 | 7% | `asqm_quality >= 10` but not validated |
-| archive_candidate | 0 | 0% | `asqm_quality < 10` |
+```
+asqm_quality = agent_native + cognitive + composability + stance  (0–20)
 
-**Result**: lifecycle mapping is consistent (0 status mismatches against formula).
-
----
-
-## Part II: Scoring Formula & Dimension Checklist
-
-### Formula
-
-```text
-asqm_quality = agent_native + cognitive + composability + stance
-# each dimension in [0,5], total in [0,20]
+Lifecycle:
+  validated        → quality ≥ 17 AND agent_native ≥ 4 AND stance ≥ 3
+  experimental     → quality ≥ 10
+  archive_candidate→ otherwise
 ```
 
-### Gates
+### Dimension Checklist
 
-- Gate A (agent-ready): `agent_native >= 4`
-- Gate B (design integrity): `stance >= 3`
-
-### Dimension checklist
-
-- `agent_native`: machine-consumable contract completeness
-- `cognitive`: reasoning offload quality
-- `composability`: handoff and pipeline friendliness
-- `stance`: boundary clarity and spec/rule alignment
-
-### cognitive_mode guardrail
-
-- `interpretive`: `cognitive <= 4` (4 is correct ceiling)
-- `procedural`: `cognitive <= 5`
-
-**Validation result**:
-
-- all 58 skills have `cognitive_mode`
-- all interpretive skills satisfy `cognitive <= 4`
-- all 58 skills satisfy `asqm_quality == score sum`
+| Dimension | 5 (max) | 4 | ≤3 |
+|-----------|---------|---|-----|
+| agent_native | Explicit machine-parsable output contract (Appendix / schema) in SKILL.md | Structured outputs described in prose | Vague or missing |
+| cognitive | procedural: all branches deterministic; interpretive: 4 is the ceiling (correct design) | Most branches explicit or LLM judgment is core value | Minimal reasoning offload |
+| composability | Clean handoff; consumed by ≥2 downstream skills | Feeds one downstream or partially composable | Standalone only |
+| stance | MUST/MUST NOT hard rules + verification criteria + explicit output contract | Good spec alignment, scope boundaries | Weak or absent |
 
 ---
 
-## Part III: Mode Distribution
+## Lifecycle by Status
 
-| cognitive_mode | Count | % |
-| :--- | :---: | :---: |
-| interpretive | 47 | 81% |
-| procedural | 11 | 19% |
+### Validated (59 skills)
 
----
+| Skill | Quality | agent_native | cognitive | composability | stance | Mode |
+|-------|---------|-------------|-----------|---------------|--------|------|
+| align-architecture | 19 | 5 | 4 | 5 | 5 | interpretive |
+| align-backlog | 17 | 4 | 4 | 4 | 5 | interpretive |
+| align-planning | 19 | 5 | 4 | 5 | 5 | interpretive |
+| align-work-item-manifest | 17 | 4 | 4 | 4 | 5 | procedural |
+| analyze-requirements | 19 | 5 | 4 | 5 | 5 | interpretive |
+| assess-docs | 19 | 5 | 4 | 5 | 5 | interpretive |
+| assess-docs-code-alignment | 19 | 5 | 4 | 5 | 5 | interpretive |
+| assess-docs-links | 19 | 5 | 4 | 5 | 5 | interpretive |
+| assess-docs-ssot | 19 | 5 | 4 | 5 | 5 | interpretive |
+| audit-docs | 19 | 5 | 4 | 5 | 5 | interpretive |
+| auto-iterate | 18 | 5 | 4 | 5 | 5 | procedural |
+| automate-repair | 17 | 4 | 4 | 4 | 5 | procedural |
+| automate-tests | 17 | 4 | 4 | 4 | 5 | procedural |
+| bootstrap-docs | 18 | 5 | 4 | 4 | 5 | procedural |
+| breakdown-tasks | 18 | 5 | 4 | 4 | 5 | interpretive |
+| capture-work-items | 19 | 5 | 4 | 5 | 5 | procedural |
+| commit-work | 18 | 5 | 4 | 4 | 5 | interpretive |
+| curate-skills | 18 | 5 | 4 | 4 | 5 | interpretive |
+| define-docs-norms | 18 | 5 | 4 | 4 | 5 | interpretive |
+| define-mission | 18 | 5 | 4 | 4 | 5 | interpretive |
+| define-north-star | 18 | 5 | 4 | 4 | 5 | interpretive |
+| define-roadmap | 19 | 5 | 4 | 5 | 5 | interpretive |
+| define-strategic-pillars | 18 | 5 | 4 | 4 | 5 | interpretive |
+| define-vision | 18 | 5 | 4 | 4 | 5 | interpretive |
+| design-solution | 18 | 5 | 4 | 4 | 5 | interpretive |
+| design-strategic-goals | 18 | 5 | 4 | 4 | 5 | interpretive |
+| discover-docs-norms | 19 | 5 | 4 | 5 | 5 | interpretive |
+| generate-agent-entry | 18 | 5 | 4 | 4 | 5 | procedural |
+| generate-github-workflow | 19 | 5 | 5 | 4 | 5 | procedural |
+| generate-standard-readme | 18 | 5 | 4 | 4 | 5 | procedural |
+| install-rules | 18 | 4 | 5 | 4 | 5 | procedural |
+| merge-worktree | 19 | 5 | 5 | 4 | 5 | procedural |
+| plan-next | 19 | 5 | 4 | 5 | 5 | interpretive |
+| prioritize-backlog | 19 | 5 | 4 | 5 | 5 | interpretive |
+| promote-roadmap-items | 19 | 5 | 4 | 5 | 5 | interpretive |
+| refine-skill-design | 17 | 4 | 4 | 4 | 5 | interpretive |
+| review-architecture | 17 | 4 | 4 | 4 | 5 | interpretive |
+| review-code | 18 | 5 | 4 | 4 | 5 | interpretive |
+| review-codebase | 17 | 4 | 4 | 4 | 5 | interpretive |
+| review-diff | 17 | 4 | 4 | 4 | 5 | interpretive |
+| review-dotnet | 17 | 4 | 4 | 4 | 5 | interpretive |
+| review-go | 17 | 4 | 4 | 4 | 5 | interpretive |
+| review-java | 17 | 4 | 4 | 4 | 5 | interpretive |
+| review-orm-usage | 17 | 4 | 4 | 4 | 5 | interpretive |
+| review-performance | 17 | 4 | 4 | 4 | 5 | interpretive |
+| review-php | 17 | 4 | 4 | 4 | 5 | interpretive |
+| review-powershell | 17 | 4 | 4 | 4 | 5 | interpretive |
+| review-python | 17 | 4 | 4 | 4 | 5 | interpretive |
+| review-react | 17 | 4 | 4 | 4 | 5 | interpretive |
+| review-requirements | 17 | 4 | 4 | 4 | 5 | interpretive |
+| review-security | 18 | 4 | 4 | 5 | 5 | interpretive |
+| review-sql | 17 | 4 | 4 | 4 | 5 | interpretive |
+| review-testing | 17 | 4 | 4 | 4 | 5 | interpretive |
+| review-typescript | 17 | 4 | 4 | 4 | 5 | interpretive |
+| review-vue | 17 | 4 | 4 | 4 | 5 | interpretive |
+| sync-release-docs | 17 | 4 | 4 | 4 | 5 | interpretive |
+| tidy-repo | 18 | 5 | 4 | 4 | 5 | interpretive |
+| warn-destructive-commands | 18 | 4 | 5 | 4 | 5 | procedural |
 
-## Part IV: Overlap & Ecosystem Findings
+### Experimental (3 skills)
 
-### A. Documentation governance cluster (post-refactor)
+| Skill | Quality | agent_native | cognitive | composability | stance | Mode | Gap to Validated |
+|-------|---------|-------------|-----------|---------------|--------|------|-----------------|
+| decontextualize-text | 16 | 4 | 4 | 4 | 4 | interpretive | quality gap=1; add hard rules → stance 4→5 |
+| discover-skills | 15 | 4 | 4 | 3 | 4 | interpretive | quality gap=2; composability=3 and stance=4 both below ceiling |
+| investigate-root-cause | 16 | 4 | 4 | 4 | 4 | interpretive | quality gap=1; add output contract → stance 4→5 |
 
-- `discover-docs-norms` (discover/propose only)
-- `define-docs-norms` (apply/write norms)
-- `assess-docs` (core assessment)
-- `assess-docs-code-alignment` (code-doc gap)
-- `assess-docs-links` (graph/link health)
-- `assess-docs-ssot` (SSOT audit)
-- `audit-docs` (read-only orchestration)
-- `plan-next` (planning-first routing)
+### Archive Candidate (0 skills)
 
-### B. Boundary quality
-
-- `discover` vs `define` split is now explicit and enforceable
-- `assess-docs` has been decomposed from monolith to composable specialist skills
-- `audit-docs` now aligns with audit semantics (read-only orchestration)
-- `plan-next` defaults to planning-only (`execute=false`)
-
-### C. Market position
-
-- The above governance cluster remains **differentiated** and internally composable
-- Overlap now reflects intentional workflow composition, not semantic ambiguity
-
----
-
-## Part V: Key Findings
-
-1. **Major semantic alignment improvement**: skill names now better match behavior boundaries.
-2. **Hard consistency defects fixed**: score-sum mismatch and interpretive cognitive ceiling violations were corrected.
-3. **Lifecycle remains healthy**: 54 validated / 4 experimental / 0 archive-candidate.
-4. **Registry integrity preserved**: manifest + INDEX + skill files remain consistent.
-5. **merge-worktree v0.3.0**: CWD safety hardened with two-layer guard — Step 1 `cd <main-repo-path>` immediately after detection (whole flow runs from main repo), plus Step 6 explicit `pwd` check + halt before `git worktree remove`. Addresses recurring "shell CWD points to deleted directory" friction observed in usage insights (April 2026). Scores unchanged at 18/20 (AN=4, COG=5, COMP=4, ST=5); stance reinforced by redundant guards. Status: validated.
-6. **plan-next v4.0.0** (breaking): output contract changed from `document-artifact` to `chat`; cognitive-loop.md artifact deprecated (see ADR-20260417). Behavior fully restructured around MECE 5×4 routing matrix (5 themes Why/What-When/How/Is/Rules × 4 gap types G1-G4 Absent/Incomplete/Inconsistent/Disorganized). Added stop condition formalism (DONE/DEFERRED/ESCALATED), Anti-Patterns section (6 rules), matrix-aware Self-Check (7 items), real conversation examples. Score lift: composability 4 → 5 (Skill Boundaries table covers all action verbs × executors with explicit ESCALATED return path). Final 19/20 (AN=5, COG=4 interpretive ceiling, COMP=5, ST=5). overlaps_with reduced from 3 to 2 (align-planning removed — now an explicit handoff target, not overlap). Status: validated.
-7. **Value-driven prioritization model implementation (2026-04-17)**: ADR 1 (unified value-driven prioritization) + ADR 2 (work lifecycle & skill responsibilities) landed, driving a coordinated 7-skill change batch:
-   - **design-strategic-goals v1.1.0**: mandatory engineering-health goal for long-term projects. Scores unchanged at 18/20 (AN=5, COG=4, COMP=4, ST=5).
-   - **capture-work-items v1.1.0**: `strategic_goal_id` required; Phase 5 suggests (not auto-invokes) `prioritize-backlog`. Score lift: COMP 4 → 5 (bidirectional handoff with design-strategic-goals upstream and prioritize-backlog downstream). 18 → 19/20.
-   - **prioritize-backlog v1.0.0** (new): multi-framework scoring (RICE + WSJF + MoSCoW + ICE) with explicit disagreement surfacing; user-decided final priority; writes `priority_decision` with framework breakdown. 19/20 (AN=5, COG=4, COMP=5, ST=5). `overlaps_with: []` — differentiated.
-   - **promote-roadmap-items v1.0.0** (new): event-driven roadmap planning ceremony support; capacity controlled per strategic_goal; updates roadmap.md and item status. Named per verb-noun rule (prior `plan-roadmap-pull` rejected as modifier-form violation). 19/20. `overlaps_with: []` — differentiated.
-   - **define-roadmap v3.1.0**: mandatory capacity allocation per strategic_goal (sum=100%, engineering-health non-zero). Score lift: COMP 4 → 5 (provides capacity contract for promote-roadmap-items). 18 → 19/20.
-   - **plan-next v5.0.0**: added Phase 0.6 state machine (S1-S7, interpreter over matrix — not replacement) and Phase 1.5 two-layer output (Primary state-focused + Secondary full-matrix compressed preserving MECE). Low-confidence fallback to full-matrix. Anti-Pattern added against using state machine as filter. Scores unchanged at 19/20. Positioning explicitly called out: state machine is matrix's interpreter, two-layer output is presentation layer above data+interpretation.
-   - **align-planning**: README updated to spell out backward-looking role complementary to plan-next's forward role. No behavior change; no rescoring.
-
-   Full workflow now: design-strategic-goals → define-roadmap → capture-work-items → prioritize-backlog → promote-roadmap-items → execute → align-planning. plan-next v5 monitors governance health at any point. All steps event-driven, no Sprint cadence assumption. overlaps_with cleanup for new skills: handoff chains are NOT overlaps; only genuine user-confusion-potential counts.
-
----
-
-## Part VI: Experimental Skills
-
-| Skill | ASQM | Primary blocker | Suggested next action |
-| :--- | :---: | :--- | :--- |
-| discover-skills | 15 | composability/stance depth | add stricter machine-readable recommendation schema |
-| decontextualize-text | 16 | composability clarity | add stronger structured IO contract |
-| investigate-root-cause | 16 | stance/composability depth | expand deterministic checkpoints in output contract |
-
----
-
-## Part VII: Summary Table (Refactor-Impacted Skills)
-
-| Skill | Mode | AN | COG | COMP | ST | ASQM | Status |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| discover-docs-norms | interpretive | 5 | 4 | 5 | 5 | 19 | validated |
-| define-docs-norms | interpretive | 5 | 4 | 4 | 5 | 18 | validated |
-| assess-docs | interpretive | 5 | 4 | 5 | 5 | 19 | validated |
-| assess-docs-code-alignment | interpretive | 5 | 4 | 5 | 5 | 19 | validated |
-| assess-docs-links | interpretive | 5 | 4 | 5 | 5 | 19 | validated |
-| assess-docs-ssot | interpretive | 5 | 4 | 5 | 5 | 19 | validated |
-| audit-docs | interpretive | 5 | 4 | 5 | 5 | 19 | validated |
-| plan-next | interpretive | 5 | 4 | 4 | 5 | 18 | validated |
+None.
 
 ---
 
-## Part VIII: Recommendations (Final)
+## Overlap Map
 
-### Immediate
+### High-Overlap Clusters
 
-1. Keep the new docs-governance split as the canonical architecture (discover/define + assess-specialists + read-only audit orchestrator).
-2. Continue enforcing `interpretive => cognitive<=4` and `asqm_quality==sum` in future curation runs.
+**docs-assess cluster** (audit-docs orchestrates):
+- `audit-docs` → `assess-docs`, `assess-docs-links`, `assess-docs-ssot`, `assess-docs-code-alignment`
+- Each atomic assess-* has differentiated focus; audit-docs is the read-only orchestrator
 
-### Next Sprint
+**governance loop** (plan-next ↔ auto-iterate):
+- `plan-next`: read-only diagnosis + routing
+- `auto-iterate`: single-step execution consuming plan-next output
+- `automate-repair`: code-fix loop (orthogonal, not substitutable)
 
-1. Run targeted `refine-skill-design` on the 4 experimental skills listed above.
-2. Add a lightweight reusable schema snippet for recommendation-style outputs to improve composability consistency.
+**review cluster** (review-code orchestrates):
+- `review-code` → `review-architecture`, `review-diff`, `review-codebase`, `review-security`, `review-testing`, `review-performance`
+- → language atomics: `review-go`, `review-typescript`, `review-python`, `review-java`, `review-dotnet`, `review-php`, `review-powershell`
+- → framework atomics: `review-react`, `review-vue`
+- → library atomics: `review-orm-usage`, `review-sql`
 
-### No-Change Decisions
+**strategy chain** (linear, sequential):
+- `define-mission` → `define-vision` → `design-strategic-goals` → `define-strategic-pillars` → `define-north-star` → `define-roadmap` → `promote-roadmap-items` → `prioritize-backlog` → `align-backlog`
 
-1. No rollback recommended for the recent governance-skill refactor.
-2. No lifecycle downgrade required for refactor-impacted skills.
+**artifacts chain** (waterfall):
+- `analyze-requirements` → `design-solution` → `breakdown-tasks` → (execution layer)
 
----
+**docs lifecycle**:
+- `discover-docs-norms` → `define-docs-norms` → `bootstrap-docs` / `assess-docs`
 
-**Audit conclusion**: skill inventory remains stable and improved after aggressive boundary refactor.
-**Next review window**: 2026-07.
+### Market Position Summary
 
----
-
-## Part IX: Delta Update — 2026-04-16
-
-### Scope
-
-- `define-strategic-pillars`
-- `design-strategic-goals`
-
-### Re-scoring result
-
-- No ASQM score changes required.
-- Both skills remain `validated` with `asqm_quality = 18`.
-- Gate A (`agent_native >= 4`) and Gate B (`stance >= 3`) both pass.
-
-### Normalization changes
-
-- Standardized Chinese README wording and section consistency.
-- Corrected related-skill references to canonical skill IDs (`design-strategic-goals`, `define-roadmap`, `define-milestones`).
-- Refined overlap mapping in `agent.yaml` to reflect upstream/downstream adjacency.
-
-### Recommendations (Final)
-
-1. Keep current scores unchanged for both skills.
-2. When strategic chain skills change, run focused curation on adjacent nodes (`define-vision`, `define-north-star`, `define-roadmap`) to keep overlap graph fresh.
-3. No lifecycle downgrade or archive action recommended.
+| Market Position | Count | Skills (notable) |
+|----------------|-------|-----------------|
+| differentiated | 49 | Most governance, strategy, and meta-skills |
+| commodity | 12 | automate-repair, automate-tests, generate-standard-readme, review-codebase, review-diff, review-performance, review-react, review-sql, review-testing, review-typescript, review-vue, warn-destructive-commands |
+| experimental | 1 | install-rules |
 
 ---
 
-## Part X: Delta Update — 2026-04-17 (prioritize-backlog v2.0.0)
+## Ecosystem Analysis
 
-### Scope
+### External Overlaps
 
-- `prioritize-backlog` (v1.0.0 → v2.0.0): breaking behavior change — forced blanket re-score (ignores existing `priority`/`priority_decision`); backlog-shape auto-detection extended to four modes (`multi-file`, `yaml-list`, `h2-yaml`, `table`); `priority_decision.previous` added to output contract.
+| Skill | External Repositories |
+|-------|-----------------------|
+| review-code | wshobson/agents, secondsky/claude-skills, trailofbits/skills, cxuu/golang-skills, obra/superpowers, skillcreatorai/Ai-Agent-Skills |
+| review-codebase | same as review-code |
+| review-diff | wshobson/agents, trailofbits/skills |
+| review-go | cxuu/golang-skills:go-code-review |
+| commit-work | anthropics/skills, softaworks/agent-toolkit |
 
-### Re-scoring result
+### Commodity Positioning Notes
 
-- **No ASQM score changes**: AN=5, COG=4 (interpretive ceiling), COMP=5, ST=5 → `asqm_quality = 19`. Gates A+B both pass. Status remains **validated**.
-- The mode-dispatch table and the `previous` field sharpen an already-explicit output contract (AN already at ceiling).
-- Stance is reinforced — new anti-patterns (no pre-overwrite comparison, no dual-write across modes, no silent drop of old values) encode stronger design discipline, but stance was already at 5.
-- Composability marginally improved (skill now plugs into single-file-backlog projects too) but already at 5.
-
-### Overlap & market position
-
-- `overlaps_with: []` unchanged; job remains uniquely "parallel multi-framework scoring with surfaced disagreement".
-- `market_position: differentiated` unchanged.
-
-### Normalization changes
-
-- `agent.yaml.primary_use` updated to reflect blanket re-score + multi/single-file coverage.
-- `SKILL.md` description + input/output schemas rewritten; examples refreshed (added h2-yaml single-file example; removed obsolete `single-item=true` escape-hatch example).
-- `README.md` aligned.
-- `skills/INDEX.md` version bumped `1.0.0 → 2.0.0` with matching description (INDEX is hand-maintained per `verify-registry.mjs`).
-
-### Recommendations (Final)
-
-1. Keep scores unchanged; no lifecycle change.
-2. When `promote-roadmap-items` is next touched, confirm it tolerates the new `priority_decision.previous` field (currently reads only `priority`, so backward-compatible).
-3. If usage surfaces a 5th single-file backlog shape in practice, revisit mode detection; do not pre-emptively add modes.
+Commodity-positioned skills are correctly labelled — they implement standard patterns with significant external competition. Their inventory value is composability within orchestration chains (especially review-code), not standalone differentiation.
 
 ---
 
-## Part XI: Delta Update — 2026-04-26 (auto-iterate v1.0.0 new skill)
+## Findings
 
-### Scope
+### F1 — Version history purged from `primary_use` (24 changes, this run)
 
-- `auto-iterate` (v1.0.0): new skill — single-step governance executor, the "drive" layer in the three-tier automation model (ADR 007).
+**Pattern**: `v\d+.\d+ adds/refactors/adopts/retracts/simplifies` embedded in `primary_use` fields. Violates global CLAUDE.md no-version-history-in-product-docs policy.
 
-### Scoring Result
+**Affected skills**: align-architecture, align-backlog, align-planning, align-work-item-manifest, analyze-requirements, assess-docs, assess-docs-code-alignment, assess-docs-links, assess-docs-ssot, audit-docs, bootstrap-docs, breakdown-tasks, capture-work-items, define-mission, define-north-star, define-roadmap, define-strategic-pillars, define-vision, design-solution, design-strategic-goals, discover-docs-norms (primary_use + output field), plan-next (verbose block literal simplified), tidy-repo.
 
-| Dimension | Score | Justification |
-| :--- | :---: | :--- |
-| agent_native | 4 | input_schema + output_schema in frontmatter; IterationStepReport with named fields and continuation_signal enumeration table; no formal JSON/YAML schema → does not meet AN=5 threshold |
-| cognitive | 4 | mostly deterministic fixed sequence; human-gate detection for "子技能主动要求用户输入" requires LLM judgment → procedural mode, capped at 4 |
-| composability | 5 | explicitly designed as the middle layer of the three-tier model; upstream: plan-next; downstream: /loop via continuation_signal; architecture is the composability |
-| stance | 4 | Hard Boundaries with MUST/MUST NOT + verification + consequences; ADR 007 single-step boundary respected; Scope Boundaries, Anti-Patterns (4 examples), AI Refactor (3 patterns) present; v1.0.0 new skill, 4 is honest |
-| **asqm_quality** | **17** | Gate A: agent_native=4 ✓, Gate B: stance=4 ✓ → **validated** |
+**Fix applied**: Stripped version narration; retained behavioral purpose.
 
-- `cognitive_mode`: `procedural` (fixed sequence; LLM as executor; non-trivial judgment delegated to plan-next internally)
-- `status`: **validated**
+### F2 — auto-iterate stance corrected: 4 → 5 (this run)
 
-### Overlap & Market Position
+**Evidence**: SKILL.md Appendix contains formal YAML schema + JSON schema output contract, 6 MUST/MUST NOT hard boundary rules each with explicit verification criteria and rejection consequences, plus an AI Reconstruction Instructions section. This matches the stance=5 standard held by other validated skills with equivalent spec rigor.
 
-- `overlaps_with`: `nesnilnehc/ai-cortex:plan-next` (workflow adjacent — users may ask "should I run plan-next or auto-iterate?"); `nesnilnehc/ai-cortex:automate-repair` (structural pattern similarity: bounded iteration loop, different domain)
-- `market_position`: **differentiated** — only governance execution layer in the inventory; no other skill serves as plan-next's paired executor
+**Impact**: asqm_quality 17 → 18. Status remains validated.
 
-### Normalization Changes
+### F3 — discover-skills composability=3 is the floor of the inventory
 
-- `agent.yaml` written correctly with all required fields at initial creation; no changes needed.
-- `README.md` written with standard sections at initial creation; no changes needed.
+**Observation**: No downstream skill explicitly consumes `discover-skills` output; composability=3 is evidence-based. The skill recommends installs but does not hand off to `install-rules` in a machine-readable contract.
 
-### Lifecycle Impact
+**Not fixed here** (requires SKILL.md redesign): Route to `refine-skill-design`.
 
-- Validated count: 54 → **55** (auto-iterate joins as validated)
-- Experimental count: unchanged at 4
-- archive_candidate: unchanged at 0
-- Total skills in scope: 60 → **61**
+### F4 — Experimental cluster: 3 skills below validated threshold
 
-### Recommendations (Final)
+- **decontextualize-text** (16/20): Add MUST/MUST NOT hard rules and output contract → stance 4→5.
+- **investigate-root-cause** (16/20): Add output contract Appendix → stance 4→5.
+- **discover-skills** (15/20): Both composability (3→4) and stance (4→5) gaps; needs handoff contract and hard rules.
 
-1. Keep current scores unchanged; status: validated.
-2. **AN improvement path**: add an `## Appendix: Output contract` with a formal YAML/JSON schema for IterationStepReport to qualify for AN=5 in a future minor version.
-3. **Cognitive improvement path**: formalize the human-gate list into a machine-readable config (e.g., `human_gate_skills:` in frontmatter) to eliminate the last interpretive element and potentially reach cognitive=5 as a procedural skill.
-4. When `plan-next` output format changes (new fields, renamed sections), run focused curation on `auto-iterate` to verify parsing compatibility.
+**Not fixed here** (requires SKILL.md redesign): Route to `refine-skill-design`.
 
 ---
 
-## Part XII: Delta Update — 2026-04-28
+## Summary Table
 
-### Scope
+| Status | Count | % |
+|--------|-------|---|
+| validated | 59 | 95% |
+| experimental | 3 | 5% |
+| archive_candidate | 0 | 0% |
 
-Three changes since Part XI:
-1. `merge-worktree` redesigned to v1.0.0
-2. `auto-iterate` report format updated (developer-facing UX, no behavior change)
-3. `commit-work` cognitive_mode/score correction
-
----
-
-### A. merge-worktree v0.3.0 → v1.0.0 (breaking redesign)
-
-**Change**: batch-from-main-repo redesign; added explicit output contract (per-worktree batch summary report with merge/push/cleanup/branch-del status columns) and two-layer pre-flight (clean-tree check before any merge begins).
-
-| Dimension | v0.3.0 | v1.0.0 | Δ | Justification |
-| :--- | :---: | :---: | :---: | :--- |
-| agent_native | 4 | **5** | +1 | Explicit output contract table with named columns now qualifies for AN=5 |
-| cognitive | 5 | 5 | 0 | Sequential git operations; all decision branches deterministic |
-| composability | 4 | 4 | 0 | Standalone; no upstream/downstream handoff required |
-| stance | 5 | 5 | 0 | Hard Boundaries, safe-only branch deletion, pre-flight guard unchanged |
-| **asqm_quality** | **18** | **19** | +1 | |
-
-- `cognitive_mode`: `procedural` (unchanged)
-- `status`: **validated** (unchanged)
-- `overlaps_with`: `[]` unchanged
-- `market_position`: **differentiated** unchanged
+| Metric | Value |
+|--------|-------|
+| Total skills | 62 |
+| Quality min | 15 (discover-skills) |
+| Quality max | 19 (16 skills at 19/20) |
+| Quality median | 18 |
+| Quality mean | ~17.9 |
 
 ---
 
-### B. auto-iterate — report format update (no score impact)
+## Recommendations
 
-**Change**: IterationStepReport output format redesigned from governance-vocabulary to developer-vocabulary. Fields `执行动作`, `治理上下文`, `执行结果`, `继续信号` (user-visible) replaced by `做了什么`, `为什么要修`, `改了什么`, `结果`, `下一步`; continuation signal demoted to internal italic-only field `_（内部）继续信号：..._` for /loop machine parsing only.
+### No action required
 
-**Score impact**: none. AN=4 (still no formal JSON/YAML schema for IterationStepReport). cognitive=4 (unchanged). All other dimensions unchanged. `asqm_quality = 17`. Status: **validated** (unchanged).
+1. **Inventory is production-ready.** 95% validated, all gate checks passing. No skills require archive or demotion.
+2. **Scoring is consistent.** Interpretive cognitive ceiling (4) applied uniformly; agent_native=5 restricted to skills with explicit output contracts.
 
-**Note**: The AN=5 improvement path from Part XI still applies — add `## Appendix: Output contract` with a formal YAML/JSON schema for the new field set.
+### Route to `refine-skill-design`
 
----
+3. **Promote `decontextualize-text`** (16→17): Add hard-boundary section with MUST/MUST NOT rules and an output contract appendix. One point needed.
+4. **Promote `investigate-root-cause`** (16→17): Same prescription. One point needed.
+5. **Promote `discover-skills`** (15→17): Requires both adding composability handoff to `install-rules` (composability 3→4) and adding hard rules + output contract (stance 4→5). Two points needed.
 
-### C. commit-work — cognitive_mode and cognitive score correction
+### No change
 
-**Finding**: `cognitive_mode: procedural` + `cognitive: 5` is inconsistent with the ASQM procedural ceiling rule ("all decision branches must be explicitly deterministic; no LLM inference needed"). The skill's core judgment steps — deciding commit boundaries by semantic grouping and writing commit message body that describes "why" — require LLM semantic understanding and cannot be fully reduced to deterministic rules.
-
-**Correction**:
-
-| Dimension | Before | After | Δ | Justification |
-| :--- | :---: | :---: | :---: | :--- |
-| cognitive_mode | procedural | **interpretive** | — | Core value is LLM's semantic understanding of diffs and intent |
-| cognitive | 5 | **4** | −1 | interpretive ceiling; workflow structure is procedural but key steps require LLM judgment |
-| asqm_quality | 19 | **18** | −1 | |
-
-- `status`: **validated** (unchanged — 18 ≥ 17, AN=5 ≥ 4, stance=5 ≥ 3)
-- No other dimensions change.
-
----
-
-### D. Stale summary table correction (plan-next)
-
-Part VII summary table incorrectly showed `plan-next` COMP=4, ASQM=18. Part V (April 9) already documented COMP 4→5, final 19/20. The table was not updated. Corrected record:
-
-| Skill | Mode | AN | COG | COMP | ST | ASQM | Status |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| plan-next | interpretive | 5 | 4 | **5** | 5 | **19** | validated |
-
----
-
-### E. align-work-item-manifest — status confirmation
-
-Added after Part I (not captured in Part VI experimental table). Current state: quality=16 (AN=4, COG=3, COMP=4, ST=5), gates A+B pass, but quality < 17 → **experimental**. Primary blocker: cognitive=3 (procedural skill; deterministic logic but detection algorithm lacks explicit decision-branch enumeration).
-
-| Skill | ASQM | Primary blocker | Suggested next action |
-| :--- | :---: | :--- | :--- |
-| align-work-item-manifest | 16 | cognitive=3 (detection logic not fully explicit) | enumerate drift-type detection branches in SKILL.md to reach cognitive=4 |
-
----
-
-### Lifecycle Impact
-
-| Status | Count (Part XI) | Count (Part XII) | Δ |
-| :--- | :---: | :---: | :---: |
-| validated | 55 | **57** | +2 |
-| experimental | 4 | **4** | 0 |
-| archive_candidate | 0 | 0 | 0 |
-| **Total** | **61** | **61** | 0 |
-
-> The +2 validated delta accounts for `merge-worktree` and `promote-roadmap-items`/`prioritize-backlog` added between Part I and Part XI but not fully counted in lifecycle tallies.
-
----
-
-### Recommendations (Final)
-
-1. **No status change** required for any skill from this delta.
-2. **commit-work**: cognitive_mode corrected to `interpretive`; cognitive 5→4; asqm_quality 19→18. Still validated.
-3. **merge-worktree**: AN 4→5; asqm_quality 18→19. Still validated.
-4. **align-work-item-manifest (experimental)**: run `refine-skill-design` to enumerate drift-detection branches and raise cognitive to 4; target asqm_quality=17 → validated.
-5. **auto-iterate AN path**: add formal output contract schema for the new IterationStepReport field set to qualify for AN=5.
-6. The 4 experimental skills unchanged from Part VI: `discover-skills`, `decontextualize-text`, `investigate-root-cause`, plus `align-work-item-manifest` (now formally listed).
+6. **Commodity skills**: `review-codebase` and `review-diff` overlap significantly and face external competition. Current positioning (commodity/validated) is accurate — consolidation not recommended without usage data.
+7. **install-rules market_position `experimental`**: Reflects early ecosystem traction. Reassess after adoption data is available; scores already validated (18/20).
