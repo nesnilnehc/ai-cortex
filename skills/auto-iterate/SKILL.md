@@ -160,14 +160,16 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。auto-itera
 ### 输出：IterationStepReport
 
 ```
-## auto-iterate 执行报告
+## 这次自动推进做了什么
 
-- **执行动作**：[路由卡片主题]
-- **治理上下文**：[战略目标「X」→ 路线图「Y」→ ... 当前：[层级]]
-- **调用技能**：`/skill-name [聚焦点]`（未执行时注明原因）
-- **执行结果**：成功 | 需要人工介入 | 被阻塞 | 被卡死 | 失败
-- **继续信号**：advance | done | blocked | stalled | error
-- **备注**：[若非 advance，说明原因及建议下一步]
+- **做了什么**：[用文件名/功能名说明；禁用"路由卡片""治理层级"等词]
+- **为什么要修**：[发现了什么具体问题；首次新建文件时省略]
+- **改了什么**（有文件变更时）：
+  - 修改前：...
+  - 修改后：...
+- **结果**：成功 ✅ | 需要你来决定 ⚠️ | 出错了 ❌
+- **下一步**：继续自动推进 | 全部完成，无需继续 | 需要你决定：[说明] | 卡住了：[说明]
+- _（内部）继续信号：advance | done | blocked | stalled | error_
 ```
 
 ### continuation_signal 语义
@@ -292,14 +294,16 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。auto-itera
 **IterationStepReport**：
 
 ```
-## auto-iterate 执行报告
+## 这次自动推进做了什么
 
-- **执行动作**：为设计 D1b 拆解可执行任务
-- **治理上下文**：战略目标「目标 A」→ 路线图「N1」→ 需求「R1」→ 设计「D1b」当前：任务层
-- **调用技能**：`/breakdown-tasks 基于设计 D1b 拆解任务清单，参考 D1a 拆解粒度`
-- **执行结果**：成功
-- **继续信号**：advance
-- **备注**：任务层缺口已填补；治理链还有 1 条待处理路由，/loop 可继续触发
+- **做了什么**：为 D1b 设计拆解了可执行任务清单
+- **为什么要修**：design/D1b.md 已完成但对应任务清单文件缺失，无法进入执行阶段
+- **改了什么**：
+  - 修改前：tasks/ 目录下无 D1b 相关任务文件
+  - 修改后：新增 tasks/D1b-tasks.md，含拆解后的可执行任务列表
+- **结果**：成功 ✅
+- **下一步**：继续自动推进（还有 1 条待处理项）
+- _（内部）继续信号：advance_
 ```
 
 ---
@@ -316,14 +320,13 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。auto-itera
 **IterationStepReport**：
 
 ```
-## auto-iterate 执行报告
+## 这次自动推进做了什么
 
-- **执行动作**：补充战略目标文档
-- **治理上下文**：战略目标「缺失」当前：战略目标层
-- **调用技能**：（未执行——人工闸门触发）
-- **执行结果**：需要人工介入
-- **继续信号**：blocked
-- **备注**：战略目标内容需要人工判断与确认。请手动运行 `/design-strategic-goals`，完成后重新运行 `/auto-iterate`。
+- **做了什么**：识别到战略目标文档缺失，需要补充
+- **为什么要修**：docs/strategic-goals.md 不存在，无法推进后续路线图规划
+- **结果**：需要你来决定 ⚠️
+- **下一步**：需要你决定：战略目标内容需要人工判断与确认，请手动运行 `/design-strategic-goals`，完成后重新运行 `/auto-iterate`
+- _（内部）继续信号：blocked_
 ```
 
 ---
@@ -339,14 +342,13 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。auto-itera
 **IterationStepReport**：
 
 ```
-## auto-iterate 执行报告
+## 这次自动推进做了什么
 
-- **执行动作**：分析路线图节点 N1 的需求
-- **治理上下文**：战略目标「目标 A」→ 路线图「N1」当前：需求层
-- **调用技能**：（未执行——卡死检测触发）
-- **执行结果**：被卡死
-- **继续信号**：stalled
-- **备注**：同一路由卡片连续 2 次出现，上次执行后目标未推进。可能原因：需求文件未写入、路径配置错误、或技能执行有误。建议：手动运行 `/analyze-requirements` 并检查输出文件是否存在，解决后重新运行 /auto-iterate。
+- **做了什么**：尝试分析路线图 N1 的需求，但检测到连续 2 次未推进
+- **为什么要修**：requirements/N1-requirements.md 在上次 `/analyze-requirements` 后未成功写入
+- **结果**：出错了 ❌
+- **下一步**：卡住了：同一任务连续 2 次无进展，可能原因：需求文件未写入、路径配置错误、或技能执行有误。建议手动运行 `/analyze-requirements` 并检查输出文件是否存在，解决后重新运行 /auto-iterate
+- _（内部）继续信号：stalled_
 ```
 
 ---
@@ -365,7 +367,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。auto-itera
 
 ### 问题 2：遗漏 continuation_signal
 
-- **识别标志**：IterationStepReport 缺少 `继续信号` 字段，或值不在五值枚举内
+- **识别标志**：IterationStepReport 缺少内部继续信号字段，或值不在五值枚举内
 - **纠正步骤**：
   1. 检查执行结果，按以下逻辑补填：
      - 子技能成功 + 仍有路由 → `advance`
@@ -373,7 +375,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。auto-itera
      - 人工闸门触发 → `blocked`
      - 指纹重复 → `stalled`
      - 子技能失败 → `error`
-  2. 补充 `备注` 字段说明原因
+  2. 在 `下一步` 字段说明原因
 
 ---
 
@@ -389,12 +391,137 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。auto-itera
 
 ### 问题 4：自行判断完成状态跳过步骤 6
 
-- **识别标志**：备注中出现"治理层全部就绪"、"当前可执行的…均已创建"、"属于开发者执行层"等自我评估语言，且无步骤 6 plan-next 重跑记录
+- **识别标志**：`下一步` 字段出现"治理层全部就绪"、"当前可执行的…均已创建"、"属于开发者执行层"等自我评估语言，且无步骤 6 plan-next 重跑记录
 - **纠正步骤**：
   1. 重跑 `/plan-next`
   2. 若"现在该做"为空 → `done` 正确，报告无需修改
-  3. 若"现在该做"仅含 blocked 条目 → 修正为 `continuation_signal: blocked`，备注说明阻塞原因
-  4. 若"现在该做"仍有可执行条目 → 修正为 `continuation_signal: advance`，继续下一步
+  3. 若"现在该做"仅含 blocked 条目 → 修正为内部继续信号 `blocked`，`下一步` 说明阻塞原因
+  4. 若"现在该做"仍有可执行条目 → 修正为内部继续信号 `advance`，继续下一步
+
+---
+
+## Appendix: Output contract
+
+### YAML schema（formal）
+
+```yaml
+type: object
+required:
+  - report_title
+  - action_taken
+  - result
+  - next_step
+  - continuation_signal
+properties:
+  report_title:
+    type: string
+    const: "这次自动推进做了什么"
+  action_taken:
+    type: string
+    minLength: 1
+    description: 用文件名或功能名描述本次唯一执行动作
+  why_fix:
+    type: string
+    minLength: 1
+    description: 可选；首次创建文件可省略
+  changes:
+    type: object
+    required: [before, after]
+    properties:
+      before:
+        type: string
+      after:
+        type: string
+  result:
+    type: string
+    enum: ["成功 ✅", "需要你来决定 ⚠️", "出错了 ❌"]
+  next_step:
+    type: string
+    minLength: 1
+  continuation_signal:
+    type: string
+    enum: [advance, done, blocked, stalled, error]
+  execution_trace:
+    type: object
+    required: [selected_skill, post_check_plan_next_rerun]
+    properties:
+      selected_skill:
+        type: string
+        pattern: "^/[a-z0-9-]+"
+      post_check_plan_next_rerun:
+        type: boolean
+        const: true
+additionalProperties: false
+```
+
+### JSON schema（formal）
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "IterationStepReport",
+  "type": "object",
+  "required": [
+    "report_title",
+    "action_taken",
+    "result",
+    "next_step",
+    "continuation_signal",
+    "execution_trace"
+  ],
+  "properties": {
+    "report_title": {
+      "type": "string",
+      "const": "这次自动推进做了什么"
+    },
+    "action_taken": {
+      "type": "string",
+      "minLength": 1
+    },
+    "why_fix": {
+      "type": "string",
+      "minLength": 1
+    },
+    "changes": {
+      "type": "object",
+      "required": ["before", "after"],
+      "properties": {
+        "before": { "type": "string" },
+        "after": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "result": {
+      "type": "string",
+      "enum": ["成功 ✅", "需要你来决定 ⚠️", "出错了 ❌"]
+    },
+    "next_step": {
+      "type": "string",
+      "minLength": 1
+    },
+    "continuation_signal": {
+      "type": "string",
+      "enum": ["advance", "done", "blocked", "stalled", "error"]
+    },
+    "execution_trace": {
+      "type": "object",
+      "required": ["selected_skill", "post_check_plan_next_rerun"],
+      "properties": {
+        "selected_skill": {
+          "type": "string",
+          "pattern": "^/[a-z0-9-]+"
+        },
+        "post_check_plan_next_rerun": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
+```
 
 ---
 

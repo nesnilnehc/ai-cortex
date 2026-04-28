@@ -268,3 +268,104 @@ asqm_quality = agent_native + cognitive + composability + stance
 2. **AN improvement path**: add an `## Appendix: Output contract` with a formal YAML/JSON schema for IterationStepReport to qualify for AN=5 in a future minor version.
 3. **Cognitive improvement path**: formalize the human-gate list into a machine-readable config (e.g., `human_gate_skills:` in frontmatter) to eliminate the last interpretive element and potentially reach cognitive=5 as a procedural skill.
 4. When `plan-next` output format changes (new fields, renamed sections), run focused curation on `auto-iterate` to verify parsing compatibility.
+
+---
+
+## Part XII: Delta Update — 2026-04-28
+
+### Scope
+
+Three changes since Part XI:
+1. `merge-worktree` redesigned to v1.0.0
+2. `auto-iterate` report format updated (developer-facing UX, no behavior change)
+3. `commit-work` cognitive_mode/score correction
+
+---
+
+### A. merge-worktree v0.3.0 → v1.0.0 (breaking redesign)
+
+**Change**: batch-from-main-repo redesign; added explicit output contract (per-worktree batch summary report with merge/push/cleanup/branch-del status columns) and two-layer pre-flight (clean-tree check before any merge begins).
+
+| Dimension | v0.3.0 | v1.0.0 | Δ | Justification |
+| :--- | :---: | :---: | :---: | :--- |
+| agent_native | 4 | **5** | +1 | Explicit output contract table with named columns now qualifies for AN=5 |
+| cognitive | 5 | 5 | 0 | Sequential git operations; all decision branches deterministic |
+| composability | 4 | 4 | 0 | Standalone; no upstream/downstream handoff required |
+| stance | 5 | 5 | 0 | Hard Boundaries, safe-only branch deletion, pre-flight guard unchanged |
+| **asqm_quality** | **18** | **19** | +1 | |
+
+- `cognitive_mode`: `procedural` (unchanged)
+- `status`: **validated** (unchanged)
+- `overlaps_with`: `[]` unchanged
+- `market_position`: **differentiated** unchanged
+
+---
+
+### B. auto-iterate — report format update (no score impact)
+
+**Change**: IterationStepReport output format redesigned from governance-vocabulary to developer-vocabulary. Fields `执行动作`, `治理上下文`, `执行结果`, `继续信号` (user-visible) replaced by `做了什么`, `为什么要修`, `改了什么`, `结果`, `下一步`; continuation signal demoted to internal italic-only field `_（内部）继续信号：..._` for /loop machine parsing only.
+
+**Score impact**: none. AN=4 (still no formal JSON/YAML schema for IterationStepReport). cognitive=4 (unchanged). All other dimensions unchanged. `asqm_quality = 17`. Status: **validated** (unchanged).
+
+**Note**: The AN=5 improvement path from Part XI still applies — add `## Appendix: Output contract` with a formal YAML/JSON schema for the new field set.
+
+---
+
+### C. commit-work — cognitive_mode and cognitive score correction
+
+**Finding**: `cognitive_mode: procedural` + `cognitive: 5` is inconsistent with the ASQM procedural ceiling rule ("all decision branches must be explicitly deterministic; no LLM inference needed"). The skill's core judgment steps — deciding commit boundaries by semantic grouping and writing commit message body that describes "why" — require LLM semantic understanding and cannot be fully reduced to deterministic rules.
+
+**Correction**:
+
+| Dimension | Before | After | Δ | Justification |
+| :--- | :---: | :---: | :---: | :--- |
+| cognitive_mode | procedural | **interpretive** | — | Core value is LLM's semantic understanding of diffs and intent |
+| cognitive | 5 | **4** | −1 | interpretive ceiling; workflow structure is procedural but key steps require LLM judgment |
+| asqm_quality | 19 | **18** | −1 | |
+
+- `status`: **validated** (unchanged — 18 ≥ 17, AN=5 ≥ 4, stance=5 ≥ 3)
+- No other dimensions change.
+
+---
+
+### D. Stale summary table correction (plan-next)
+
+Part VII summary table incorrectly showed `plan-next` COMP=4, ASQM=18. Part V (April 9) already documented COMP 4→5, final 19/20. The table was not updated. Corrected record:
+
+| Skill | Mode | AN | COG | COMP | ST | ASQM | Status |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| plan-next | interpretive | 5 | 4 | **5** | 5 | **19** | validated |
+
+---
+
+### E. align-work-item-manifest — status confirmation
+
+Added after Part I (not captured in Part VI experimental table). Current state: quality=16 (AN=4, COG=3, COMP=4, ST=5), gates A+B pass, but quality < 17 → **experimental**. Primary blocker: cognitive=3 (procedural skill; deterministic logic but detection algorithm lacks explicit decision-branch enumeration).
+
+| Skill | ASQM | Primary blocker | Suggested next action |
+| :--- | :---: | :--- | :--- |
+| align-work-item-manifest | 16 | cognitive=3 (detection logic not fully explicit) | enumerate drift-type detection branches in SKILL.md to reach cognitive=4 |
+
+---
+
+### Lifecycle Impact
+
+| Status | Count (Part XI) | Count (Part XII) | Δ |
+| :--- | :---: | :---: | :---: |
+| validated | 55 | **57** | +2 |
+| experimental | 4 | **4** | 0 |
+| archive_candidate | 0 | 0 | 0 |
+| **Total** | **61** | **61** | 0 |
+
+> The +2 validated delta accounts for `merge-worktree` and `promote-roadmap-items`/`prioritize-backlog` added between Part I and Part XI but not fully counted in lifecycle tallies.
+
+---
+
+### Recommendations (Final)
+
+1. **No status change** required for any skill from this delta.
+2. **commit-work**: cognitive_mode corrected to `interpretive`; cognitive 5→4; asqm_quality 19→18. Still validated.
+3. **merge-worktree**: AN 4→5; asqm_quality 18→19. Still validated.
+4. **align-work-item-manifest (experimental)**: run `refine-skill-design` to enumerate drift-detection branches and raise cognitive to 4; target asqm_quality=17 → validated.
+5. **auto-iterate AN path**: add formal output contract schema for the new IterationStepReport field set to qualify for AN=5.
+6. The 4 experimental skills unchanged from Part VI: `discover-skills`, `decontextualize-text`, `investigate-root-cause`, plus `align-work-item-manifest` (now formally listed).

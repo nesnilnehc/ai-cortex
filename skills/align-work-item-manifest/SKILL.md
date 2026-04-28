@@ -101,6 +101,19 @@ v1.0.0 **advisory-only**：不自动写清单、不移动文件、不修改 fron
    - **未登记**：物理有但无清单列出
    - **命名不符**：清单声明 `docs/foo/bar.md`，实际文件在 `docs/foo/bar-v2.md`（模糊匹配同 slug）
 
+### 第 2.5 阶段：漂移检测决策分支（Decision Branches）
+
+| 分支 ID | 触发条件 | 判定结果 | 报告动作 |
+|---|---|---|---|
+| D1-no-manifest | manifest glob 无任何匹配 | 项目未采用中央清单风格 | 停止流程，返回诊断信息，不写报告文件 |
+| D2-declared-missing | `declared_file_path` 不存在 | 悬挂引用 | 记入“悬挂引用”分组，建议删除清单条目或补建文件 |
+| D3-physical-unregistered | 物理文件存在但未被任何清单声明 | 未登记 | 记入“未登记”分组，建议追加到清单或归档文件 |
+| D4-slug-mismatch | 清单路径不存在，但存在同 slug 的候选文件 | 命名不符 | 记入“命名不符”分组，建议更新清单路径或重命名文件 |
+| D5-consistent | 清单声明与物理文件一一对应 | 无漂移 | 不记录问题，仅累计“已对齐项”计数 |
+| D6-parse-error | 清单内容无法解析出声明路径 | 数据质量异常（非三类漂移） | 记入诊断附录并标记需人工修复清单格式 |
+
+> 判定优先级：`D1 > D6 > D2/D4 > D3 > D5`。当同一声明同时命中多个条件时，按优先级取首个分支，避免重复计数。
+
 ### 第 3 阶段：报告产出
 
 写入 Stage 0 解析的路径（默认 `docs/calibration/work-item-manifest-alignment.md`）：
