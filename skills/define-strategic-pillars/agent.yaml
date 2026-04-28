@@ -2,8 +2,7 @@ name: define-strategic-pillars
 status: validated
 primary_use: Derive 3–5 strategic pillars from vision and North Star; produce a pillars
   document to structure goals and roadmap; persist to docs/project-overview/strategic-pillars.md
-  (or project norms). v1.1 adds Stage 0 Norms Resolution per artifact-contract §8 —
-  project norms override path_pattern; fixed-path governance output.
+  (or project norms).
 cognitive_mode: interpretive
 inputs:
 - vision; North Star (or paths); project context

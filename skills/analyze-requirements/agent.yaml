@@ -1,6 +1,7 @@
 name: analyze-requirements
 status: validated
-primary_use: Transform vague intent or incomplete requirements into validated, testable requirements through diagnostic state progression and structured dialogue. v3.0 adopts artifact-contract v5.0 unified canonical path docs/requirements/{slug}.md (no date prefix); Stage 0 Norms Resolution reads project ARTIFACT_NORMS.md to resolve path_pattern; optional upstream_ref input triggers parent: frontmatter emit.
+primary_use: Transform vague intent or incomplete requirements into validated, testable
+  requirements through diagnostic state progression and structured dialogue.
 cognitive_mode: interpretive
 inputs:
 - Vague idea, feature request, problem statement, or existing requirements document

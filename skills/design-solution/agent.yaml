@@ -1,11 +1,8 @@
 name: design-solution
 status: validated
-primary_use: Produce a validated design document from requirements (architecture,
-  components, data flow, error handling, testing strategy, trade-offs) with HARD-GATE
-  before implementation; serves as single source of truth for breakdown-tasks. v3.0
-  adopts artifact-contract v5.0 unified canonical path docs/designs/{slug}.md (no
-  date prefix); Stage 0 Norms Resolution reads project ARTIFACT_NORMS.md to resolve
-  path_pattern; optional upstream_ref input triggers parent: frontmatter emit.
+primary_use: Produce a validated design document from requirements (architecture, components,
+  data flow, error handling, testing strategy, trade-offs) with HARD-GATE before
+  implementation; serves as single source of truth for breakdown-tasks.
 cognitive_mode: interpretive
 inputs:
 - validated requirements document (path or content)

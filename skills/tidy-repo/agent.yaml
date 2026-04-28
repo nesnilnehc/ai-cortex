@@ -3,9 +3,7 @@ status: validated
 primary_use: Audit repository structure in one pass — detect misplaced files, naming
   inconsistencies, empty directories, stale artifacts, root directory categorization
   issues, and timestamp policy violations; produce a prioritized tidy report; optionally
-  apply safe, reversible changes. v1.3 adds Stage 0 Norms Resolution per artifact-contract
-  §8 — project norms override path_pattern; tidy operations respect project-declared
-  artifact paths when moving files.
+  apply safe, reversible changes.
 cognitive_mode: interpretive
 inputs:
 - repository root (default: current working directory)

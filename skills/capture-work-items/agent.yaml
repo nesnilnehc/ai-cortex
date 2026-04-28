@@ -1,11 +1,8 @@
 name: capture-work-items
 status: validated
 primary_use: Capture requirements, bugs, or issues from free-form input into structured,
-  persistent backlog artifacts with path detection, status lifecycle, required strategic_goal_id
-  (ADR 20260417), and priority=unset awaiting batch scoring by prioritize-backlog.
-  v2.0 refactors path detection into Stage 0 Norms Resolution per artifact-contract
-  §8 — resolves path_pattern from project ARTIFACT_NORMS.md; optional upstream_ref
-  input triggers parent: frontmatter emit.
+  persistent backlog artifacts with path detection, status lifecycle, required strategic_goal_id,
+  and priority=unset awaiting batch scoring by prioritize-backlog.
 cognitive_mode: procedural
 inputs:
 - raw description of requirement, bug, or issue from user

@@ -1,18 +1,15 @@
 name: discover-docs-norms
 status: validated
 primary_use: Discover and propose project-specific docs norms from repository evidence;
-  output proposal only and never write ARTIFACT_NORMS directly. v4.0 retracts v3.0's
-  Stage 2b Linking Mode Identification (see ADR 005) — linking mode is no longer a
-  runtime config field. Skill now focuses on path/naming/front-matter/lifecycle norms
-  discovery only; linking convention is inferred by downstream tools from path_pattern
-  declarations and physical file signals (manifest presence, parent: frontmatter).
+  output proposal only, never writes ARTIFACT_NORMS directly; focuses on path/naming/
+  front-matter/lifecycle norms; linking convention inferred by downstream tools.
 cognitive_mode: interpretive
 inputs:
 - project path (default CWD)
 - optional docs root
 - optional confidence threshold
 outputs:
-- docs/calibration/docs-norms-proposal.md (proposal report; linking mode section retracted in v4.0)
+- docs/calibration/docs-norms-proposal.md
 scores:
   agent_native: 5
   cognitive: 4

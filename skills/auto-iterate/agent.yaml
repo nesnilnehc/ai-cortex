@@ -12,8 +12,8 @@ scores:
   agent_native: 5
   cognitive: 4
   composability: 5
-  stance: 4
-asqm_quality: 17
+  stance: 5
+asqm_quality: 18
 overlaps_with:
 - nesnilnehc/ai-cortex:plan-next
 - nesnilnehc/ai-cortex:automate-repair

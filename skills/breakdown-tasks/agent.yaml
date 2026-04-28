@@ -1,10 +1,7 @@
 name: breakdown-tasks
 status: validated
 primary_use: Break a design document into an executable task list with dependencies,
-  acceptance criteria, and assignee or AI execution hints. v3.0 adopts artifact-contract
-  v5.0 unified canonical path docs/tasks/{slug}.md (no date prefix); Stage 0 Norms
-  Resolution reads project ARTIFACT_NORMS.md to resolve path_pattern; optional
-  upstream_ref input triggers parent: frontmatter emit.
+  acceptance criteria, and assignee or AI execution hints.
 cognitive_mode: interpretive
 inputs:
 - Design document (path or content)
