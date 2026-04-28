@@ -1,38 +1,40 @@
 # merge-worktree
 
-Merge the current git worktree branch into the main branch, push to origin, and remove the worktree.
+From the main repo, scan all active worktrees, select and batch-merge branches into main, push, and clean up together.
 
-**Status**: validated · **Version**: 0.2.0 · **Quality**: 18/20
+**Status**: validated · **Version**: 1.0.0 · **Quality**: 19/20
 
 ---
 
 ## What It Does
 
-Automates the end-of-worktree lifecycle in a single skill invocation:
+Automates the batch worktree lifecycle in a single skill invocation:
 
-1. Detects the current worktree path and feature branch
+1. Verifies the skill is invoked from the main repo root — halts if inside a linked worktree
 2. Determines the main branch (auto-detects from `git remote show origin`; asks the user if ambiguous)
-3. Verifies the working tree is clean — halts if dirty
-4. Pulls and merges the feature branch into main with `--no-ff`
-5. Pushes main to `origin`
-6. Removes the worktree directory (only after push succeeds)
-7. Optionally deletes the local feature branch (user-confirmed, safe `-d` only)
+3. Scans all active linked worktrees via `git worktree list`; halts if none found
+4. Presents the list and asks: merge `all` or select specific ones by index?
+5. Pre-flight checks all selected worktrees for clean working tree — reports all dirty ones upfront before any merge begins
+6. For each selected clean worktree sequentially: `git pull` → `git merge --no-ff` → `git push`; on failure asks whether to continue with remaining or abort
+7. Removes all successfully-merged worktrees together (unified cleanup)
+8. Asks which local feature branches to delete (safe `-d` only)
+9. Prints a per-worktree summary: merge / push / cleanup / branch-deletion status
 
 ---
 
 ## When to Use
 
-- You finished work in a git worktree and want to land it on main and clean up
-- After completing a `commit-work` cycle inside a worktree
-- Automating the merge→push→cleanup sequence without manual context switching
+- You have 2 or more feature worktrees ready to land onto main and want to handle them in one invocation
+- After completing `commit-work` cycles in multiple worktrees across a sprint
+- Batch end-of-iteration cleanup: merge, push, and remove all completed feature worktrees from the main repo
 
-**Prerequisites**: All changes must be committed before invoking this skill. Use `commit-work` first if the working tree is dirty.
+**Prerequisites**: Must be run from the main repo root. All changes in each worktree must be committed first — use `commit-work` per worktree before invoking this skill.
 
 ---
 
 ## Triggers
 
-`merge worktree` · `finish worktree` · `close worktree`
+`merge worktrees` · `merge all worktrees` · `finish worktrees` · `close worktrees` · `batch merge worktrees`
 
 ---
 
@@ -40,8 +42,10 @@ Automates the end-of-worktree lifecycle in a single skill invocation:
 
 | Input | Required | Description |
 |---|---|---|
-| Active git worktree | Yes | A worktree directory with a named branch |
-| Clean working tree | Yes | `git status --porcelain` must return empty |
+| Main repo context | Yes | CWD must be the main repo root; halts if inside a linked worktree |
+| Active linked worktrees | Yes | At least one non-main linked worktree must exist; halts if none found |
+| Worktree selection | User input | `all` or comma-separated index numbers from the presented list (e.g., `1,3`) |
+| Clean working tree | Per-worktree | Dirty worktrees are reported upfront and skipped; no auto-stash |
 | Main branch name | Auto/Ask | Detected from `git remote show origin`; user is asked if ambiguous |
 
 ---
@@ -50,19 +54,20 @@ Automates the end-of-worktree lifecycle in a single skill invocation:
 
 | Output | Description |
 |---|---|
-| Merge commit | `--no-ff` merge commit on main branch |
-| Remote push | `origin/<main-branch>` updated |
-| Worktree removal | Worktree directory removed from `git worktree list` |
-| Branch deletion | Optional — user confirms before `git branch -d` |
-| Summary report | Branch names, commit hash, push status, worktree path |
+| Merge commits | One `--no-ff` merge commit on main per succeeded worktree |
+| Remote push | `origin/<main-branch>` updated once per succeeded worktree |
+| Worktree removal | All succeeded worktrees removed from `git worktree list` |
+| Branch deletion | Optional — user selects which branches; `git branch -d` only |
+| Batch summary report | Per-worktree table: branch, merge status, push status, cleanup status, branch deletion |
 
 ---
 
 ## Safety Guarantees
 
+- **Halts immediately if not in main repo** — prevents running from inside a worktree whose path may be deleted mid-execution
+- **Pre-flight checks ALL selected worktrees before starting any merge** — user sees the full picture of dirty worktrees before any irreversible action
 - **Never force-pushes** to any branch
-- **Never deletes the worktree** before both merge and push succeed
-- **Always `cd` to main repo** before removing worktree — prevents shell CWD from pointing to a deleted directory
+- **Never removes a worktree** before its merge and push both succeed
 - **Never auto-stashes** — halts on dirty working tree instead
 - **Halts on merge conflict** with resolution instructions
 - **Halts on push rejection** with recovery instructions
@@ -74,7 +79,7 @@ Automates the end-of-worktree lifecycle in a single skill invocation:
 
 | Skill | Relationship |
 |---|---|
-| `commit-work` | Predecessor — use to commit pending changes before invoking this skill |
+| `commit-work` | Predecessor — use to commit pending changes in each worktree before invoking this skill |
 | `review-diff` | Optional pre-merge — use to review changes before committing |
 
 ---
@@ -83,8 +88,8 @@ Automates the end-of-worktree lifecycle in a single skill invocation:
 
 | Dimension | Score | Notes |
 |---|---|---|
-| agent_native | 4/5 | Structured YAML schema, triggers, Self-Check, Output Contract table; no formal Appendix |
-| cognitive | 5/5 | Procedural skill; all 8 steps are deterministic bash commands; 3 decision branches are explicit rules; zero LLM judgment |
+| agent_native | 5/5 | Structured selection I/O, invocation context guard, batch state machine with explicit succeeded/failed/skipped statuses |
+| cognitive | 5/5 | Procedural skill; all 8 steps are deterministic bash commands; all decision branches are explicit rules |
 | composability | 4/5 | Explicit handoffs to commit-work; linear workflow chain |
-| stance | 5/5 | All 11 spec sections, strong safety invariants, ✅/❌ Anti-Patterns incl. CWD safety, 3 examples with edge cases |
-| **total** | **18/20** | Validated (Gate A: 4≥4 ✓, Gate B: 5≥3 ✓) |
+| stance | 5/5 | All spec sections present, strong safety invariants expanded to 6 hard rules, ✅/❌ Anti-Patterns, 3 examples with edge cases |
+| **total** | **19/20** | Validated (Gate A: 5≥4 ✓, Gate B: 5≥3 ✓) |
