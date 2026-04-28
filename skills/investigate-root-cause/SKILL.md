@@ -238,3 +238,15 @@ Status:          DONE | DONE_WITH_CONCERNS | BLOCKED
 ### 示例 2：三次假设失败
 
 **Phase 3**：三次假设均被验证否决。输出 BLOCKED，建议人工审查或增加日志等待下次捕获。
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出 Debug Report：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 报告主体 | Markdown 或聊天结构化输出 | 章节：症状（可复现步骤）/ 假设链 / 证据 / 根因 / 修复建议 / 预防措施 | 默认聊天输出；如需落盘则 docs/calibration/debug-&lt;slug&gt;.md |
+| 假设链 | 表格 | hypothesis / supporting_evidence / refuting_evidence / verdict（accepted/rejected/inconclusive） | 「假设链」节 |
+| 修复建议 | 列表项 | fix_kind（patch / config_change / rollback / handoff）/ target_files / risk / verification_step | 「修复建议」节 |

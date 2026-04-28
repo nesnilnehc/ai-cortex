@@ -24,16 +24,6 @@
 - 完整的 AGENTS.md（或差异/修订文本）
 - 或审核清单和修改建议
 
-## 评分 (ASQM)
-
-| 维度 | 分数 |
-| ：-------------- | :---- |
-|agent_native | 5 |
-|cognitive| 4 |
-|composability | 4 |
-|stance| 5 |
-| **asqm_quality** | 18 | 18
-
 ## 生态
 
 |领域|价值|

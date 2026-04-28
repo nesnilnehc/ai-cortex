@@ -1,7 +1,6 @@
 name: merge-worktree
 status: validated
 primary_use: From the main repo, scan all active worktrees, let user select which to merge, run batch merge+push sequentially, then unified cleanup
-cognitive_mode: procedural
 inputs:
 - main git repository (CWD must be main repo, not a linked worktree)
 - one or more active linked worktrees with named branches
@@ -13,20 +12,10 @@ outputs:
 - worktrees removed for all succeeded merges (unified cleanup)
 - feature branches deleted for user-confirmed entries (safe -d only)
 - per-worktree batch summary report (merge/push/cleanup/branch-del status)
-scores:
-  agent_native: 5
-  cognitive: 5
-  composability: 4
-  stance: 5
-asqm_quality: 19
+has_output_contract: true
+acceptance_criteria:
+- 从主仓库 CWD 启动，扫描 git worktree list 后呈现非主条目供用户选择；预检每个选中 worktree 的 git status --porcelain 后再开始任何 merge
+- 产出批量摘要表，每行含 Worktree/Branch/Merge/Push/Cleanup/Branch 状态码（如 ✓/skipped(dirty)/✗(conflict)）
+- 失败/冲突 worktree 不进入 cleanup；禁用 --force 与 -D，全程仅 -d
 overlaps_with: []
 market_position: differentiated
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

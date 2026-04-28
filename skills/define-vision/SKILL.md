@@ -206,3 +206,15 @@ output_schema:
 **流程**：询问是否从 README 或上下文中假定目的，或建议先运行 `define-mission`。若用户同意继续，在愿景文档中注明假定目的；起草愿景并与用户确认。持久化；建议稍后补充使命以完善战略链。
 
 **结果**：愿景持久化，附可选「假定目的」注释；用户可稍后运行 `define-mission` 完成链。
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出 Vision Statement：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 文档主体 | Markdown | front-matter（artifact_type=vision / lifecycle=living）；章节：愿景陈述 / 时间视野 / 与 mission 的关系 / 反例 | docs/project-overview/vision.md |
+| 愿景陈述 | 单段 | 不超过 3 句；含未来时态、可想象画面、与 mission 一致 | 「愿景陈述」节 |
+| 时间视野 | 标量 | horizon_years（建议 3-10）/ rationale | 「时间视野」节 |

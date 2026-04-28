@@ -3,29 +3,17 @@ status: validated
 primary_use: Warn before destructive commands. Checks Bash commands for rm -rf, DROP
   TABLE, force-push, git reset --hard, kubectl delete, and similar patterns. User
   can override each warning.
-cognitive_mode: procedural
 inputs:
 - session context (skill activates advisory behavior for the session)
 outputs:
 - warning prompts when destructive patterns detected
 - user confirmation or cancel
-scores:
-  agent_native: 4
-  cognitive: 5
-  composability: 4
-  stance: 5
-asqm_quality: 18
+has_output_contract: true
+acceptance_criteria:
+- 检测到匹配的破坏性命令（rm -rf 非例外/DROP TABLE/force-push/git reset --hard/kubectl delete 等）时，产出含触发命令、命中模式、风险描述、A/B 选项的 AskUserQuestion 提示
+- 用户选 B 时不执行命令并输出 "Command cancelled."；安全例外（如 rm -rf node_modules）不触发警告
 overlaps_with: []
 market_position: commodity
 tags:
 - workflow
 - security
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

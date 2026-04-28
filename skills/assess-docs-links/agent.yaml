@@ -1,19 +1,16 @@
 name: assess-docs-links
 status: validated
 primary_use: Assess document graph health and report link-related risks.
-cognitive_mode: interpretive
 inputs:
 - docs root
 - optional path filters
 - optional depth threshold
 outputs:
 - docs/calibration/doc-link-health.md
-scores:
-  agent_native: 5
-  cognitive: 4
-  composability: 5
-  stance: 5
-asqm_quality: 19
+has_output_contract: true
+acceptance_criteria:
+- 给定 docs 根，产出 docs/calibration/doc-link-health.md 含断链/孤儿/循环/深链四类清单，每条断链含 source_path/target_ref/kind（404/anchor_missing/external_unreachable）
+- 产出 link_health YAML 块含 broken[]/orphans[]/cycles[]/deep_chains[]
 overlaps_with:
 - nesnilnehc/ai-cortex:assess-docs
 market_position: differentiated
@@ -22,12 +19,3 @@ tags:
 - workflow
 - governance
 version: 1.0.0
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

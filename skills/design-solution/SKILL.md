@@ -192,3 +192,15 @@ Output is design documentation only. Implementation is downstream (e.g. breakdow
 - 生成简洁的设计文档，该文档仍然涵盖架构、数据流和约束，但保持各部分简短且重点突出。
 - 明确说明为什么轻量级设计就足够了，并将文档标记为以后回归或重复运行的单一事实来源。
 - 获得用户批准，然后在共享或重复实施的情况下推荐“分解任务”。
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出 Validated Design Document：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 文档主体 | Markdown | front-matter（artifact_type=design / created_by=design-solution / lifecycle=snapshot / created_at；upstream_ref 提供时含 parent）；章节：目标 / 架构 / 组件 / 数据流 / 错误处理 / 测试策略 / 权衡 / 验收标准 | norms-resolved 路径（默认 docs/designs/&lt;slug&gt;.md） |
+| 替代方案 | 表格 | option_name / pros / cons / best_for；至少 2-3 个 | 「权衡」节 |
+| 验收标准 | 列表项 | 可追溯到需求条目 id；可观察、可测试 | 「验收标准」节 |

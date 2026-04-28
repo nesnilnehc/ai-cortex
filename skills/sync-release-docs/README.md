@@ -22,16 +22,6 @@
 - 更新的文档文件（若有）及单次 commit
 - 结构化的 doc health summary
 
-## 评分 (ASQM)
-
-| 维度 | 分数 |
-| :--- | :--- |
-| agent_native | 4 |
-| cognitive | 4 |
-| composability | 4 |
-| stance | 5 |
-| **asqm_quality** | 17 |
-
 ## 生态
 
 | 领域 | 值 |

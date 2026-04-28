@@ -2,17 +2,14 @@ name: review-security
 status: validated
 primary_use: Review code for security — injection, sensitive data, auth, dependencies,
   config, and crypto. Atomic skill; output is a findings list.
-cognitive_mode: interpretive
 inputs:
 - code scope (files or directories or diff)
 outputs:
 - findings list (Location, Category=cognitive-security, Severity, Title, Description, Suggestion)
-scores:
-  agent_native: 4
-  cognitive: 4
-  composability: 5
-  stance: 5
-asqm_quality: 18
+has_output_contract: true
+acceptance_criteria:
+- 给定代码范围，产出 findings 列表，每条含 Location/Category=cognitive-security/Severity/Title/Description/Suggestion
+- 聚焦 injection、敏感数据、认证与授权、依赖、配置与加密
 overlaps_with:
 - nesnilnehc/ai-cortex:review-codebase
 - nesnilnehc/ai-cortex:review-code
@@ -21,12 +18,3 @@ market_position: differentiated
 tags:
 - code-review
 - security
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

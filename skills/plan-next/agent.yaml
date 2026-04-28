@@ -1,6 +1,5 @@
 name: plan-next
 status: validated
-cognitive_mode: interpretive
 primary_use: Analyze governance state and produce a next-action routing report by
   traversing the goal chain top-down (L1 strategic goal → L5 tasks), depth-first
   to the first unready level; strictly read-only — never executes downstream skills.
@@ -13,12 +12,11 @@ outputs:
 - three-section user-facing report (Now do / Also watch / Diagnosis) with natural-language terms in first two sections
 - internal codes (G1-G4, P0-P3) appear only as traceability anchors in the collapsible Diagnosis section
 - routing recommendations with five fields each (theme, skill with invocation hint, rationale, priority label, completion marker)
-scores:
-  agent_native: 5
-  cognitive: 4
-  composability: 5
-  stance: 5
-asqm_quality: 19
+has_output_contract: true
+acceptance_criteria:
+- 给定项目 docs 根，产出三段式报告：「现在该做」「也要留意」「诊断依据」（可折叠）
+- 前两段每条路由含 5 字段：theme/recommended_skill（含 invocation hint）/rationale/priority_label（紧急/现在/缓/待执行）/completion_marker
+- 诊断依据节含治理上下文链（战略目标→路线图→需求/设计→任务）与判定逻辑；保持 read-only，绝不执行下游 skill
 overlaps_with:
 - nesnilnehc/ai-cortex:assess-docs
 - nesnilnehc/ai-cortex:audit-docs
@@ -28,12 +26,3 @@ tags:
 - automation
 - meta-skill
 version: 10.1.0
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

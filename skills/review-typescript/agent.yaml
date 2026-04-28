@@ -3,18 +3,15 @@ status: validated
 primary_use: Review TypeScript and JavaScript code for type safety, async patterns,
   error handling, module design, runtime correctness, API design, and performance.
   Language-only atomic skill; output is a findings list.
-cognitive_mode: interpretive
 inputs:
 - code scope (files or directories or diff containing TypeScript or JavaScript code)
 outputs:
 - findings list (Location, Category=language-typescript, Severity, Title, Description,
   Suggestion)
-scores:
-  agent_native: 4
-  cognitive: 4
-  composability: 4
-  stance: 5
-asqm_quality: 17
+has_output_contract: true
+acceptance_criteria:
+- 给定 TypeScript/JavaScript 代码范围，产出 findings 列表，每条含 Location/Category=language-typescript/Severity/Title/Description/Suggestion
+- 聚焦类型安全、async 模式、错误处理与模块设计
 overlaps_with:
 - nesnilnehc/ai-cortex:review-codebase
 - nesnilnehc/ai-cortex:review-code
@@ -22,12 +19,3 @@ overlaps_with:
 market_position: commodity
 tags:
 - code-review
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

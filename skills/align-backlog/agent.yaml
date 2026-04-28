@@ -3,7 +3,6 @@ status: validated
 primary_use: Align the product or work backlog with current strategy, goals, and roadmap;
   classify items (aligned/partial/misaligned/orphan); produce actionable change proposals
   (add/cut/merge/reprioritize) and persist a Backlog Alignment Report.
-cognitive_mode: interpretive
 inputs:
 - optional backlog path or convention
 - optional strategy docs root (goals, roadmap, milestones)
@@ -11,12 +10,11 @@ inputs:
 outputs:
 - Backlog Alignment Report (docs/calibration/backlog-alignment.md; living)
 - machine-readable alignment summary and change proposals block (YAML)
-scores:
-  agent_native: 4
-  cognitive: 4
-  composability: 4
-  stance: 5
-asqm_quality: 17
+has_output_contract: true
+acceptance_criteria:
+- 给定 backlog 路径与策略文档根，产出 Backlog Alignment Report，含 alignment.summary（aligned/partial/misaligned/orphan 计数）与 proposals（cut/merge/reprioritize/add）四类建议
+- 每条 backlog 条目映射到具体 strategic_anchor 或显式标记为 orphan，禁止留空
+- 机器可读块 YAML 含 alignment.items[] 与 proposals 四类数组，可被 prioritize-backlog/promote-roadmap-items 消费
 overlaps_with:
 - nesnilnehc/ai-cortex:align-planning
 - nesnilnehc/ai-cortex:plan-next
@@ -25,12 +23,3 @@ market_position: differentiated
 tags:
 - workflow
 - documentation
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

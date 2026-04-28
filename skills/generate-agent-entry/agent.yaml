@@ -2,7 +2,6 @@ name: generate-agent-entry
 status: validated
 primary_use: Write or revise AGENTS.md per embedded output contract; establish project
   identity, authoritative sources, behavioral expectations.
-cognitive_mode: procedural
 inputs:
 - one-line positioning
 - top-level assets and dirs
@@ -10,24 +9,13 @@ inputs:
 outputs:
 - full AGENTS.md or diff/revised text
 - or audit checklist and revision suggestions
-scores:
-  agent_native: 5
-  cognitive: 4
-  composability: 4
-  stance: 5
-asqm_quality: 18
+has_output_contract: true
+acceptance_criteria:
+- 产出 AGENTS.md（项目根）含项目身份/权威源链/行为期望/入口指令/路由表五个章节
+- 权威源链按自顶向下严格排列（如 AGENTS.md > specs/ > protocols/ > rules/ > docs/），路由表每条含 trigger/target_skill/scope/handoff_artifact
 overlaps_with:
 - nesnilnehc/ai-cortex:generate-standard-readme
 - nesnilnehc/ai-cortex:refine-skill-design
 market_position: differentiated
 tags:
 - documentation
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

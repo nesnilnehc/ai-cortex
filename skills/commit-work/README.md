@@ -46,7 +46,6 @@
 
 ### 对于 AI Cortex 用户
 
-
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill commit-work
 ```
@@ -85,7 +84,6 @@ npx skills add nesnilnehc/ai-cortex --skill commit-work
 
 ### 常规提交格式
 
-
 ```text
 type(scope): short summary
 
@@ -93,7 +91,6 @@ body explaining what and why
 
 footer (BREAKING CHANGE if needed)
 ```
-
 
 支持的类型：`feat`、`fix`、`refactor`、`docs`、`test`、`chore`、`perf`、`style`
 

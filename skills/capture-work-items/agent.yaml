@@ -3,7 +3,6 @@ status: validated
 primary_use: Capture requirements, bugs, or issues from free-form input into structured,
   persistent backlog artifacts with path detection, status lifecycle, required strategic_goal_id,
   and priority=unset awaiting batch scoring by prioritize-backlog.
-cognitive_mode: procedural
 inputs:
 - raw description of requirement, bug, or issue from user
 - optional project context (docs/ structure for path detection)
@@ -14,12 +13,11 @@ outputs:
   source, severity (bugs)
 - end-of-capture suggestion (not auto-execute) to run prioritize-backlog when unscored
   backlog items accumulate
-scores:
-  agent_native: 5
-  cognitive: 4
-  composability: 5
-  stance: 5
-asqm_quality: 19
+has_output_contract: true
+acceptance_criteria:
+- 给定原始描述，产出结构化 Markdown work item，front-matter 含 type/date/status=captured/priority=unset/strategic_goal_id/source（bug 类含 severity）
+- 路径按检测结果落盘到 docs/process-management/project-board/backlog/ 或 docs/backlog/，遵循 specs/artifact-contract.md
+- 末尾输出建议（不自动执行）：当未评分 backlog 累积时提示运行 prioritize-backlog
 overlaps_with:
 - nesnilnehc/ai-cortex:analyze-requirements
 - nesnilnehc/ai-cortex:design-solution
@@ -28,12 +26,3 @@ tags:
 - writing
 - documentation
 - workflow
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

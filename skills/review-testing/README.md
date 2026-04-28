@@ -35,7 +35,6 @@
 
 ## 安装
 
-
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill review-testing
 ```

@@ -2,19 +2,16 @@ name: generate-standard-readme
 status: validated
 primary_use: Create governance-focused README with fixed structure and output contract
   for asset governance, audit, or standardized first-impression docs.
-cognitive_mode: procedural
 inputs:
 - project metadata (name, description)
 - features, requirements, install/run commands
 outputs:
 - README Markdown (title, badges, description, features, installation, quick start,
   usage, contributing, license, authors)
-scores:
-  agent_native: 5
-  cognitive: 4
-  composability: 4
-  stance: 5
-asqm_quality: 18
+has_output_contract: true
+acceptance_criteria:
+- 产出 README Markdown 含固定结构：title/badges/description/features/installation/quick start/usage/contributing/license/authors
+- 所有占位章节必须基于输入元数据填充实质内容，禁止保留 lorem 或空段
 overlaps_with:
 - nesnilnehc/ai-cortex:decontextualize-text
 - nesnilnehc/ai-cortex:generate-agent-entry
@@ -23,12 +20,3 @@ tags:
 - documentation
 - devops
 - writing
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

@@ -167,3 +167,16 @@ output_schema:
 
 - 输入：仅有部分 roadmap/backlog 文档
 - 输出：readiness=low，首要行动为补齐关键层文档
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出文档健康评估报告：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 报告主体 | Markdown | front-matter（artifact_type=assessment / lifecycle=snapshot）；章节：规范合规 / 分层就绪度评分 / 最小补全计划 | docs/calibration/doc-assessment.md |
+| 规范合规 | 列表项 | rule_id / artifact_path / status（pass/fail/n-a）/ evidence | 「规范合规」节 |
+| 分层就绪度 | 表格 | layer / score（0-3）/ missing_artifacts / next_action | 「分层就绪度评分」节 |
+| 最小补全计划 | 列表项 | artifact_path / proposed_skill / priority / rationale | 「最小补全计划」节 |

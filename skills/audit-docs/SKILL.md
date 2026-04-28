@@ -154,3 +154,16 @@ output_schema:
 
 - 执行：`assess-docs` + `assess-docs-code-alignment`
 - 输出：聚焦 PR 的文档门禁建议
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能为 read-only 审计聚合器，产出统一报告：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 报告主体 | Markdown | front-matter；章节：执行摘要 / 子审计聚合（assess-docs / assess-docs-links / assess-docs-ssot / assess-docs-code-alignment）/ 优先动作 / 技能路由 | docs/calibration/audit-docs.md |
+| 优先动作 | 表格 | rank / issue / target_artifact / recommended_skill / rationale | 「优先动作」节 |
+| 技能路由 | 列表项 | skill_id / invocation_hint / scope / expected_output_artifact | 「技能路由」节 |
+| 机器可读块 | YAML fenced ```yaml audit_summary:``` | counts、top_actions[] 每项含 rank/skill/artifact | 报告末尾 |

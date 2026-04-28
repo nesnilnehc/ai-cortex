@@ -2,7 +2,6 @@ name: commit-work
 status: validated
 primary_use: Create high-quality git commits with governance - review, split logically,
   write clear Conventional Commits messages, sync registries
-cognitive_mode: interpretive
 inputs:
 - git repository with uncommitted changes
 - user intent (what to commit)
@@ -14,22 +13,11 @@ outputs:
 - commands used for staging and review
 - verification commands run
 - registry sync confirmation (AI Cortex projects)
-scores:
-  agent_native: 5
-  cognitive: 4
-  composability: 4
-  stance: 5
-asqm_quality: 18
+has_output_contract: true
+acceptance_criteria:
+- 给定带未提交变更的仓库，产出 1+ 条 Conventional Commits 格式 commit，每条含 type/scope/description 与 what/why summary
+- 输出执行过的暂存与审查命令清单；AI Cortex 项目须含 manifest.json 与 INDEX 注册表同步确认
 overlaps_with:
 - anthropics/skills:commit-work
 - softaworks/agent-toolkit:commit-work
 market_position: differentiated
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

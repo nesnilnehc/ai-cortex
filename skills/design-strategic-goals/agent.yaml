@@ -4,19 +4,16 @@ primary_use: Define 3–5 long-term strategic goals that move the project toward
   vision and North Star; long-term projects (>6 months) must include an engineering/governance
   health goal per ADR 20260417; produce outcome-focused goals document and persist to
   docs/project-overview/strategic-goals.md (or project norms).
-cognitive_mode: interpretive
 inputs:
 - vision; North Star (or paths); project context
 - optional mission; time horizon; existing goals or priorities
 outputs:
 - strategic goals document (docs/project-overview/strategic-goals.md or project norms): 3–5
     goals, optional alignment notes
-scores:
-  agent_native: 5
-  cognitive: 4
-  composability: 4
-  stance: 5
-asqm_quality: 18
+has_output_contract: true
+acceptance_criteria:
+- 产出 docs/project-overview/strategic-goals.md，含 3-5 条目标（id/name/outcome_statement/acceptance/status/aligns_with_pillar）
+- 每条目标的 acceptance 含 KPI name/threshold/data_source；data_source 缺失须在 status 标注
 overlaps_with:
 - nesnilnehc/ai-cortex:define-mission
 - nesnilnehc/ai-cortex:define-vision
@@ -28,12 +25,3 @@ market_position: differentiated
 tags:
 - documentation
 - workflow
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

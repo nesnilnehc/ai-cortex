@@ -3,18 +3,15 @@ status: validated
 primary_use: Review code for testing concerns only (existence, coverage adequacy,
   quality/structure, types/layering, edge cases, maintainability). Cognitive-only
   atomic skill; output is a findings list for aggregation.
-cognitive_mode: interpretive
 inputs:
 - code scope (files or directories or diff provided by caller)
 outputs:
 - findings list (Location, Category=cognitive-testing, Severity, Title, Description,
   Suggestion)
-scores:
-  agent_native: 4
-  cognitive: 4
-  composability: 4
-  stance: 5
-asqm_quality: 17
+has_output_contract: true
+acceptance_criteria:
+- 给定代码范围，产出 findings 列表，每条含 Location/Category=cognitive-testing/Severity/Title/Description/Suggestion
+- 聚焦测试存在性、覆盖充分性、测试质量与结构、边界与错误路径、可维护性
 overlaps_with:
 - nesnilnehc/ai-cortex:review-codebase
 - nesnilnehc/ai-cortex:review-code
@@ -22,12 +19,3 @@ overlaps_with:
 market_position: commodity
 tags:
 - code-review
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

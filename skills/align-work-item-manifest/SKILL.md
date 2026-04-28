@@ -217,3 +217,15 @@ v1.0.0 **advisory-only**：不自动写清单、不移动文件、不修改 fron
 ```
 
 不写报告文件；返回诊断信息。
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出 Work Item Manifest Alignment Report（仅建议，不写入 manifest）：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 报告主体 | Markdown | front-matter；章节：摘要 / 三类漂移分组（registered_missing / unregistered_present / metadata_mismatch）/ 建议人工动作 | docs/calibration/work-item-manifest-alignment.md |
+| 漂移条目 | 列表项 | id / category / manifest_entry / artifact_path / evidence / proposed_action（advisory，不自动执行） | 三类漂移分组下 |
+| 机器可读块 | YAML fenced ```yaml drift_summary:``` | counts{registered_missing,unregistered_present,metadata_mismatch}；items[] 每项含 id/category/artifact_path/proposed_action | 报告末尾，供 plan-next 消费 |

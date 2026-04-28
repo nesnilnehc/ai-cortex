@@ -1,32 +1,20 @@
 name: investigate-root-cause
-status: experimental
+status: validated
 primary_use: "Systematic debugging with root cause investigation. Four phases: investigate,\
   \ analyze, hypothesize, implement. Iron Law: no fixes without root cause."
-cognitive_mode: interpretive
 inputs:
 - error messages, stack traces, or reproduction steps
 - optional codebase context or logs
 outputs:
 - debug report (symptom, root cause, fix, evidence)
 - implementation patch or fix recommendation
-scores:
-  agent_native: 4
-  cognitive: 4
-  composability: 4
-  stance: 4
-asqm_quality: 16
+has_output_contract: true
+acceptance_criteria:
+- 给定症状描述与可复现步骤，产出 debug report 含症状/假设链（含 supporting/refuting evidence 与 verdict）/根因/修复建议/预防措施
+- 修复建议含 fix_kind（patch/config_change/rollback/handoff）/target_files/risk/verification_step
 overlaps_with:
 - nesnilnehc/ai-cortex:automate-repair
 market_position: differentiated
 tags:
 - workflow
 - optimization
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

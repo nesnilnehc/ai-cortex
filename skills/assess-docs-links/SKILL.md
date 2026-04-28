@@ -103,3 +103,16 @@ output_schema:
 ## 示例（Examples）
 
 - 文档 A 指向不存在文件 -> broken link
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出 Doc Link Health Report：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 报告主体 | Markdown | front-matter；章节：摘要 / 断链 / 孤儿文档 / 循环引用 / 深链路径 | docs/calibration/doc-link-health.md |
+| 断链条目 | 列表项 | source_path / target_ref / kind（404 / anchor_missing / external_unreachable） | 「断链」节 |
+| 孤儿条目 | 列表项 | doc_path / inbound_count=0 / suggested_link_target | 「孤儿文档」节 |
+| 机器可读块 | YAML fenced ```yaml link_health:``` | broken[]、orphans[]、cycles[]、deep_chains[] | 报告末尾 |

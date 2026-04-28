@@ -265,3 +265,16 @@ Now / Next / Later（含推进条件简述）
 5. 校验和 = 100 ✓；工程健康 10% 非 0 ✓。
 6. 写入"容量分配"章节，持久化。
 **结果**：roadmap 含有 promote-roadmap-items 可消费的容量分配，体系闭环。
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出 Roadmap Document：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 文档主体 | Markdown | front-matter（artifact_type=roadmap / lifecycle=living）；章节：里程碑节点 / 战略赌注 / 成功指标 / 容量分配 / 升迁标准 | roadmap.md 或 milestones.md（按项目 norms） |
+| 里程碑节点 | 列表项 | id（如 M1）/ scope / success_criteria / strategic_goal_ref / status（pending/in-progress/done/blocked） | 「里程碑节点」节 |
+| 容量分配 | 表格 | strategic_goal_id / percentage / rationale；总和=100% | 「容量分配」节，供 promote-roadmap-items 消费 |
+| 升迁标准 | 列表项 | from_tier / to_tier / required_evidence | 「升迁标准」节 |

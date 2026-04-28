@@ -57,7 +57,7 @@ output_schema:
 - 从头开始创建新技能（使用人类/技能中的“技能创建者”）
 - 运行包脚本或初始化工作流（使用 Skills.sh 工具）
 - 规划技能资产或参考（使用 Skills.sh 文档）
-- 评估技能质量指标（使用 `curate-skills`）
+- 检查 skill status 与输出合约存在性（使用 `curate-skills`）
 - Discovering or cataloging skills (use `discover-skills`)
 - 生成项目文档（使用 `bootstrap-docs`）
 
@@ -138,7 +138,7 @@ output_schema:
 **不要做这些（其他技能可以处理它们）**：
 
 - **从头开始创建新技能**：生成初始技能结构和内容→使用“技能创建者”（如 anthropics/skills）
-- **质量指标评估**：计算 ASQM 分数，检测重叠 → 使用 `curate-skills`
+- **status 检查与重叠检测**：基于 has_output_contract + acceptance_criteria 推导 status → 使用 `curate-skills`
 - **技能发现**：在存储库中查找技能、编目功能 → 使用 `discover-skills`
 - **项目文档**：生成 README、AGENTS.md 或项目级文档 → 使用 `bootstrap-docs` 或 `generate-standard-readme`
 - **文本去上下文化**：删除 PII 或敏感信息 → 使用 `decontextualize-text`
@@ -147,7 +147,7 @@ output_schema:
 
 - 用户说“看起来不错”、“已批准”、“提交此”→ 细化完成，移交给用户进行版本控制
 - 用户问「如何创建新技能？」 → 移交给技能创建者文档
-- 用户询问「质量得分是多少？」 → 交给 `curate-skills`
+- 用户询问「这个 skill 的 status 是什么？」 → 交给 `curate-skills`
 - 用户询问「有哪些技能可用？」 → 移交给 `discover-skills`
 
 ---

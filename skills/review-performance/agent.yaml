@@ -3,18 +3,15 @@ status: validated
 primary_use: Review code for performance risks only (complexity, query efficiency,
   I/O, memory, contention, caching, regression risk); output is a findings list for
   aggregation.
-cognitive_mode: interpretive
 inputs:
 - code scope (files or directories or diff provided by caller)
 outputs:
 - findings list (Location, Category=cognitive-performance, Severity, Title, Description,
   Suggestion)
-scores:
-  agent_native: 4
-  cognitive: 4
-  composability: 4
-  stance: 5
-asqm_quality: 17
+has_output_contract: true
+acceptance_criteria:
+- 给定代码范围，产出 findings 列表，每条含 Location/Category=cognitive-performance/Severity/Title/Description/Suggestion
+- 聚焦复杂度、查询效率、I/O 与网络成本、内存与分配、并发争用、缓存、延迟与吞吐回退
 overlaps_with:
 - nesnilnehc/ai-cortex:review-codebase
 - nesnilnehc/ai-cortex:review-code
@@ -23,12 +20,3 @@ market_position: commodity
 tags:
 - code-review
 - optimization
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

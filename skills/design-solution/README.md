@@ -54,11 +54,9 @@
 
 ## 安装
 
-
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill design-solution
 ```
-
 
 ## 相关技能
 

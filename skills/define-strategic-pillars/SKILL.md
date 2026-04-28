@@ -184,3 +184,15 @@ output_schema:
 **流程**：阅读愿景、北极星和现有目标。提出对现有目标进行分组或框架的支柱（例如，将目标分为 3-5 个主题）。用户确认。写入“docs/project-overview/strategic-pillars.md”。如果需要，建议更新目标文档以参考支柱。
 
 **结果**：支柱依然存在；目标可以在稍后的过程中明确映射到支柱。
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出 Strategic Pillars Document：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 文档主体 | Markdown | front-matter（artifact_type=strategic-pillars / lifecycle=living）；章节：支柱列表 / 与 vision/NSM 的对齐 / 反例 | docs/project-overview/strategic-pillars.md |
+| 支柱条目 | 列表项 | id（如 P1）/ name / description / aligns_with_vision / aligns_with_nsm；3-5 条 | 「支柱列表」节 |
+| 对齐矩阵 | 表格 | pillar_id × (vision/nsm) → strong/medium/weak | 「与 vision/NSM 的对齐」节 |

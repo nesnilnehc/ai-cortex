@@ -5,7 +5,6 @@ primary_use: Force a clean re-score of every backlog item — regardless of exis
   yaml-list, h2-yaml, or table), running RICE / WSJF / MoSCoW / ICE in parallel,
   surfacing framework disagreements, and capturing the user's final priority decision
   with the previous value preserved per ADR 20260417.
-cognitive_mode: interpretive
 inputs:
 - batch of backlog items in any priority state, organized either as one-file-per-item under docs/process-management/backlog/ or docs/backlog/, or as a single backlog.md (yaml-list / h2-yaml / table)
 - docs/project-overview/strategic-goals.md
@@ -14,24 +13,14 @@ outputs:
 - structured chat output with detected backlog mode, per-item framework scores, and disagreement call-outs
 - updated backlog items (frontmatter, yaml block, or table cell depending on mode) carrying priority, priority_decision (including previous value), decided_by, decided_at
 - batch summary with auto-decided vs user-decided counts, re-score coverage, and priority distribution
-scores:
-  agent_native: 5
-  cognitive: 4
-  composability: 5
-  stance: 5
-asqm_quality: 19
+has_output_contract: true
+acceptance_criteria:
+- 检测 backlog 模式（multi-file/yaml-list/h2-yaml/table）后并行运行 RICE/WSJF/MoSCoW/ICE 四框架，对每条 backlog 条目给出四组评分
+- 产出 disagreement call-outs 标注框架间分歧；写入 priority/priority_decision（含 previous value）/decided_by/decided_at 至条目
+- 产出 batch summary 含 auto-decided vs user-decided 计数、re-score coverage 与 priority 分布
 overlaps_with: []
 market_position: differentiated
 tags:
 - workflow
 - automation
 - meta-skill
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

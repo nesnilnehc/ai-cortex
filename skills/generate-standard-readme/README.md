@@ -22,16 +22,6 @@
 
 - 具有固定部分顺序和结构的自述文件 Markdown
 
-## 评分 (ASQM)
-
-| 维度 | 分数 |
-| ：-------------- | :---- |
-|agent_native | 5 |
-|cognitive| 3 |
-|composability | 4 |
-|stance| 5 |
-| **asqm_quality** | 17 |
-
 ## 生态
 
 |领域|价值|

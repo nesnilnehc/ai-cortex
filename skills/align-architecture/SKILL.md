@@ -341,3 +341,16 @@ the codebase and produce an Architecture Compliance Report when divergence exist
 - 类型：过时的设计
 - 建议操作：update_设计
 - 修复：将 ADR-003 更新为文档异步事件驱动方法；执行力具有权威性。移交给“设计解决方案”来修改设计文档。
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出 Architecture Compliance Report。除人类可读叙述外，机器可读片段须满足下表结构：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 报告主体 | Markdown | front-matter（artifact_type/created_by/created_at/lifecycle）；正文章节：摘要 / 设计来源 / 比对范围 / 差距列表 / 移交建议 | docs/calibration/architecture-compliance.md（默认；如需快照另起 -snapshot 副本） |
+| 差距条目 | 列表项 | type（boundary_violation / outdated_design / undocumented / partial_validation）/ design_source / code_location / impact / fix（或 recommended_action） | 报告正文「差距列表」节 |
+| 证据准备度 | 标量 | readiness（strong / moderate / weak）/ confidence / covered_scope / uncovered_scope | 报告正文「比对范围」节 |
+| 机器可读块 | YAML fenced ```yaml compliance_gaps:``` | gaps[] 每项含 id/type/design_source/code_location/severity/fix_kind | 报告正文末尾，供 plan-next/auto-iterate 消费 |

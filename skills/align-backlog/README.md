@@ -24,16 +24,6 @@
 - 待办事项对齐报告（`docs/calibration/待办-alignment.md`；生活制品）。
 - 报告中嵌入机器可读的对齐摘要和变更建议块 (YAML)。
 
-## 评分 (ASQM)
-
-| 维度 | 分数 |
-| ：-------------- | :---- |
-|agent_native | 4 |
-|cognitive| 4 |
-|composability | 4 |
-|stance| 5 |
-| **asqm_quality** | 17 | 17
-
 ## 生态
 
 |领域|价值|

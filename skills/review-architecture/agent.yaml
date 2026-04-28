@@ -3,17 +3,14 @@ status: validated
 primary_use: Review code for architecture — module and layer boundaries, dependency
   direction, single responsibility, cyclic dependencies, interface stability, and
   coupling. Cognitive-only atomic skill; output is a findings list.
-cognitive_mode: interpretive
 inputs:
 - code scope (files or directories or diff)
 outputs:
 - findings list (Location, Category=cognitive-architecture, Severity, Title, Description, Suggestion)
-scores:
-  agent_native: 4
-  cognitive: 4
-  composability: 4
-  stance: 5
-asqm_quality: 17
+has_output_contract: true
+acceptance_criteria:
+- 给定代码范围，产出 findings 列表，每条含 Location/Category=cognitive-architecture/Severity/Title/Description/Suggestion
+- findings 聚焦层级与模块边界、依赖方向、单一职责、循环依赖、接口稳定性与耦合；不输出代码补丁
 overlaps_with:
 - nesnilnehc/ai-cortex:review-codebase
 - nesnilnehc/ai-cortex:review-code
@@ -21,12 +18,3 @@ overlaps_with:
 market_position: differentiated
 tags:
 - code-review
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

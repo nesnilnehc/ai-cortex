@@ -25,11 +25,9 @@
 
 ## 安装
 
-
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill align-architecture
 ```
-
 
 ## 相关技能
 

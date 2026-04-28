@@ -4,7 +4,6 @@ primary_use: Detect drift between project work-item manifest files and the physi
   artifacts they register (requirements / designs / tasks / PRs); advisory-only —
   reports dangling references, unregistered files, and name mismatches; output
   consumable by plan-next as G3 drift source.
-cognitive_mode: procedural
 inputs:
 - project path (default CWD)
 - optional manifest glob pattern (default from ARTIFACT_NORMS.md)
@@ -12,12 +11,11 @@ inputs:
 outputs:
 - docs/calibration/work-item-manifest-alignment.md (alignment report with three drift categories)
 - machine-readable drift summary embedded as YAML fence for plan-next consumption
-scores:
-  agent_native: 4
-  cognitive: 4
-  composability: 4
-  stance: 5
-asqm_quality: 17
+has_output_contract: true
+acceptance_criteria:
+- 给定 manifest 文件与物理 artifact 树，产出 alignment 报告含 registered_missing/unregistered_present/metadata_mismatch 三类漂移分组
+- 所有条目仅作为 advisory 输出 proposed_action，不直接修改 manifest 或 artifact
+- 产出 drift_summary YAML 块含 counts 与 items[]，供 plan-next 消费
 overlaps_with:
 - nesnilnehc/ai-cortex:align-planning
 - nesnilnehc/ai-cortex:tidy-repo
@@ -28,12 +26,3 @@ tags:
 - governance
 - alignment
 version: 1.0.0
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

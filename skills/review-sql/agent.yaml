@@ -3,17 +3,14 @@ status: validated
 primary_use: Review SQL and query code for injection, parameterization, indexing/performance,
   transactions, NULL/constraints, portability. Language-only atomic skill; output
   is a findings list.
-cognitive_mode: interpretive
 inputs:
 - code scope (files, snippets, or diff containing SQL)
 outputs:
 - findings list (Location, Category=language-sql, Severity, Title, Description, Suggestion)
-scores:
-  agent_native: 4
-  cognitive: 4
-  composability: 4
-  stance: 5
-asqm_quality: 17
+has_output_contract: true
+acceptance_criteria:
+- 给定 SQL 与查询代码范围，产出 findings 列表，每条含 Location/Category=language-sql/Severity/Title/Description/Suggestion
+- 聚焦注入风险、参数化、索引与性能、事务、NULL 与约束、方言可移植性
 overlaps_with:
 - nesnilnehc/ai-cortex:review-codebase
 - nesnilnehc/ai-cortex:review-code
@@ -22,12 +19,3 @@ overlaps_with:
 market_position: commodity
 tags:
 - code-review
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

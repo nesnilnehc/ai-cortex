@@ -23,16 +23,6 @@
 - 差异摘要（发生了什么变化以及原因）
 - 版本建议（SemVer）
 
-## 评分 (ASQM)
-
-| 维度 | 分数 |
-| ：-------------- | :---- |
-|agent_native | 4 |
-|cognitive| 5 |
-|composability | 5 |
-|stance| 5 |
-| **asqm_quality** | 19 | 19
-
 ## 生态
 
 |领域|价值|

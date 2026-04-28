@@ -3,7 +3,6 @@ status: validated
 primary_use: Promote prioritized backlog items into the roadmap's Now/Next/Later tiers
   based on strategic_goal capacity allocation (ADR 20260417). Event-driven, not calendar-driven.
   Captures user approval per item and updates roadmap plus item status.
-cognitive_mode: interpretive
 inputs:
 - docs/process-management/roadmap.md with strategic_goal capacity allocation
 - priority-scored backlog items (skip priority=unset)
@@ -12,24 +11,13 @@ outputs:
 - structured chat output with capacity usage report and promotion/demotion candidates
 - updated roadmap.md Now/Next/Later tiers
 - updated backlog item frontmatter (status, priority, promoted_at/demoted_at, strategic_goal_id)
-scores:
-  agent_native: 5
-  cognitive: 4
-  composability: 5
-  stance: 5
-asqm_quality: 19
+has_output_contract: true
+acceptance_criteria:
+- 给定 roadmap.md（含 capacity allocation）与 priority-scored backlog（跳过 priority=unset），产出 capacity usage 报告与升迁/降级候选列表
+- 逐条获取用户批准后才更新 roadmap.md 的 Now/Next/Later 分级与 backlog 条目 frontmatter（status/priority/promoted_at/demoted_at/strategic_goal_id）
 overlaps_with: []
 market_position: differentiated
 tags:
 - workflow
 - automation
 - meta-skill
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

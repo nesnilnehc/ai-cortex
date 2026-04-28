@@ -3,7 +3,6 @@ status: validated
 primary_use: Analyze how a repo expects automated tests to run (docs/CI/build manifests)
   and execute the safest appropriate test command(s) with explicit confirmation for
   installs/services.
-cognitive_mode: procedural
 inputs:
 - target repository path (default .)
 - mode (fast | ci | full)
@@ -11,23 +10,12 @@ inputs:
 outputs:
 - test plan summary (evidence, chosen commands, assumptions, executed vs skipped)
 - execution results (first failing command + exit code + error excerpt when failing)
-scores:
-  agent_native: 4
-  cognitive: 4
-  composability: 4
-  stance: 5
-asqm_quality: 17
+has_output_contract: true
+acceptance_criteria:
+- 给定目标仓库与 mode（fast/ci/full），先输出 test plan summary（evidence/chosen commands/assumptions），再执行测试
+- 执行结果含 first failing command + exit code + error excerpt（失败时）；安装/启服务前必须显式确认
 overlaps_with: []
 market_position: commodity
 tags:
 - automation
 - devops
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass
