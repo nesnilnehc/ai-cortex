@@ -1,22 +1,17 @@
 name: curate-skills
 status: validated
-primary_use: Evaluate, score (ASQM strict), tag, and normalize all Skills; write agent.yaml
-  and README per skill; produce ASQM_AUDIT.md or chat summary. Strict scoring required;
-  agent_native=5 only with explicit output contract in SKILL.md; cognitive_mode determines
-  ceiling for cognitive dimension.
-cognitive_mode: interpretive
+primary_use: 检查每个 skill 的 has_output_contract 与 acceptance_criteria，分配 status（validated/experimental/archive_candidate），规范化 agent.yaml 与 README，产出仓库级 SKILL_INVENTORY.md。
 inputs:
-- skills_directory (root path containing skill subdirectories)
+- skills_directory（包含技能子目录的根路径，例如 skills/）
 outputs:
-- per skill: agent.yaml (scores, status, cognitive_mode, overlaps_with, market_position), normalized README.md
-- repo-level: ASQM_AUDIT.md or structured chat summary
-- overlap and market_position report
-scores:
-  agent_native: 5
-  cognitive: 4
-  composability: 4
-  stance: 5
-asqm_quality: 18
+- per skill：agent.yaml（status、has_output_contract、acceptance_criteria、overlaps_with、market_position）、规范化 README.md
+- repo-level：SKILL_INVENTORY.md 或结构化聊天摘要
+- 重叠与 market_position 报告
+has_output_contract: true
+acceptance_criteria:
+- 给定 skills/ 目录，扫描每个 skill 的 SKILL.md 检测是否含 "## Appendix: Output contract" 或 "## 附录：输出合约/合同/契约"，结果写入 agent.yaml 的 has_output_contract 字段
+- 每个 skill 的 agent.yaml 必须有 acceptance_criteria 字段（数组，可空）；status 按规则推导：has_output_contract=true 且 len(acceptance_criteria)>=1 → validated；否则 → experimental；archive_candidate 仅手动设置
+- 产出 SKILL_INVENTORY.md 含按 status 分组列表、has_output_contract 覆盖率、acceptance_criteria 缺失清单、最终建议节
 overlaps_with:
 - nesnilnehc/ai-cortex:refine-skill-design
 - nesnilnehc/ai-cortex:generate-standard-readme
@@ -24,12 +19,3 @@ market_position: differentiated
 tags:
 - meta-skill
 - documentation
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass
