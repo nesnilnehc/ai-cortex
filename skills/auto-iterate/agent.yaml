@@ -9,7 +9,7 @@ inputs:
 outputs:
 - IterationStepReport (action taken, skill invoked, outcome, continuation_signal)
 scores:
-  agent_native: 4
+  agent_native: 5
   cognitive: 4
   composability: 5
   stance: 4

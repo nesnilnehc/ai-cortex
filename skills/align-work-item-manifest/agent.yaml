@@ -1,5 +1,5 @@
 name: align-work-item-manifest
-status: experimental
+status: validated
 primary_use: Detect drift between project work-item manifest files and the physical
   artifacts they register (requirements / designs / tasks / PRs). v1.0.0 is advisory-only —
   reports three drift types (dangling references / unregistered files / name mismatch)
@@ -17,10 +17,10 @@ outputs:
 - machine-readable drift summary embedded as YAML fence for plan-next consumption
 scores:
   agent_native: 4
-  cognitive: 3
+  cognitive: 4
   composability: 4
   stance: 5
-asqm_quality: 16
+asqm_quality: 17
 overlaps_with:
 - nesnilnehc/ai-cortex:align-planning
 - nesnilnehc/ai-cortex:tidy-repo

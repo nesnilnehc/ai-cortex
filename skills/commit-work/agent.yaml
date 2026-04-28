@@ -2,7 +2,7 @@ name: commit-work
 status: validated
 primary_use: Create high-quality git commits with governance - review, split logically,
   write clear Conventional Commits messages, sync registries
-cognitive_mode: procedural
+cognitive_mode: interpretive
 inputs:
 - git repository with uncommitted changes
 - user intent (what to commit)
@@ -16,10 +16,10 @@ outputs:
 - registry sync confirmation (AI Cortex projects)
 scores:
   agent_native: 5
-  cognitive: 5
+  cognitive: 4
   composability: 4
   stance: 5
-asqm_quality: 19
+asqm_quality: 18
 overlaps_with:
 - anthropics/skills:commit-work
 - softaworks/agent-toolkit:commit-work
