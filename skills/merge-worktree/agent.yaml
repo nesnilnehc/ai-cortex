@@ -1,23 +1,24 @@
 name: merge-worktree
 status: validated
-primary_use: Merge current worktree branch into main, push to origin, and remove the worktree safely with CWD-safe cleanup
+primary_use: From the main repo, scan all active worktrees, let user select which to merge, run batch merge+push sequentially, then unified cleanup
 cognitive_mode: procedural
 inputs:
-- active git worktree with a named branch
-- clean working tree (no uncommitted changes)
-- main branch name (auto-detected or user-provided)
+- main git repository (CWD must be main repo, not a linked worktree)
+- one or more active linked worktrees with named branches
+- user selection of which worktrees to merge (all or index-based subset)
+- clean working tree per selected worktree (pre-flight verified for all before any merge)
 outputs:
-- no-ff merge commit on main branch
-- origin remote updated via git push
-- worktree directory removed from git worktree list
-- feature branch deleted (optional, user-confirmed)
-- outcome summary report (branch, commit hash, push status, worktree path)
+- no-ff merge commits on main branch (one per succeeded worktree)
+- origin remote updated via git push (one push per succeeded worktree)
+- worktrees removed for all succeeded merges (unified cleanup)
+- feature branches deleted for user-confirmed entries (safe -d only)
+- per-worktree batch summary report (merge/push/cleanup/branch-del status)
 scores:
-  agent_native: 4
+  agent_native: 5
   cognitive: 5
   composability: 4
   stance: 5
-asqm_quality: 18
+asqm_quality: 19
 overlaps_with: []
 market_position: differentiated
 validation_gates:

@@ -1,44 +1,44 @@
 ---
 name: merge-worktree
-description: Merge the current git worktree branch into the main branch, push to origin, and remove the worktree.
-description_zh: 将当前 git worktree 分支合并到主分支，推送到 origin，并删除该 worktree。
+description: From the main repo, scan all active worktrees, select and batch-merge branches into main, push, and clean up together.
+description_zh: 从主仓库扫描所有 worktree，批量将选中分支合并到主分支、推送并统一清理。
 tags: [git, workflow, automation]
-version: 0.3.0
+version: 1.0.0
 license: MIT
 recommended_scope: both
 metadata:
   author: ai-cortex
-triggers: [merge worktree, finish worktree, close worktree]
+triggers: [merge worktrees, merge all worktrees, finish worktrees, close worktrees, batch merge worktrees]
 input_schema:
   type: free-form
-  description: Current git worktree with a branch ready to merge
+  description: Main git repository with one or more active linked worktrees ready to merge
 output_schema:
   type: side-effect
-  description: Feature branch merged into main, pushed to origin, worktree removed
+  description: Selected feature branches merged into main, pushed to origin, worktrees removed; per-worktree summary report
 ---
 
 # Skill: merge-worktree
 
 ## Purpose
 
-Automates the end-of-worktree lifecycle: merge the current worktree's branch into the project main branch, push the result to origin, and clean up the worktree directory. Eliminates the error-prone multi-step manual process of switching contexts, merging, pushing, and removing worktrees.
+Automates the batch worktree lifecycle from the main repo: scan all active linked worktrees, let the user select which to merge, verify all selected are clean, merge and push each in sequence, then remove all successfully-merged worktrees together. Eliminates the need to cd into each worktree directory and invoke a merge operation separately.
 
 ---
 
 ## Core Objective
 
-**Primary goal**: Safely land the current worktree's branch onto the main branch, deliver it to origin, and remove the worktree — leaving the repository in a clean state.
+**Primary goal**: From the main repo, land all selected worktree branches onto main, deliver them to origin, and clean up — leaving the repository in a clean state.
 
 **Success Criteria** (all must be satisfied):
 
-1. ✅ **Clean working tree**: No uncommitted changes exist in the worktree before merging
-2. ✅ **Main branch identified**: Main branch is known (auto-detected or confirmed by user)
-3. ✅ **Merge completed**: Feature branch merged into main with `--no-ff` (history preserved)
-4. ✅ **Pushed to origin**: `git push origin <main-branch>` succeeds without force-push
-5. ✅ **Worktree removed**: `git worktree remove` completes; `git worktree list` no longer shows the path
-6. ✅ **No data loss**: Merge and push both succeed before worktree is deleted
+1. ✅ **Invocation context verified**: CWD is the main repo root, not inside a linked worktree
+2. ✅ **All linked worktrees discovered**: `git worktree list` parsed; non-main worktrees presented to user
+3. ✅ **Pre-flight completed before any merge**: All selected worktrees checked for clean working tree; all dirty ones reported upfront
+4. ✅ **Batch merge + push**: Each selected clean worktree merged with `--no-ff` and pushed; per-worktree status (`succeeded`/`failed`) recorded
+5. ✅ **Unified cleanup**: All `succeeded` worktrees removed together; no failed worktree is deleted
+6. ✅ **Summary reported**: Per-worktree table covers merge, push, cleanup, and branch-deletion status for every entry
 
-**Acceptance Test**: After skill completes, `git log --oneline <main>` shows the merge commit, `git worktree list` does not show the removed path, and the remote is up to date.
+**Acceptance Test**: After skill completes, `git log --oneline <main>` shows one merge commit per succeeded worktree; `git worktree list` shows only the main repo and any failed/skipped worktrees; remote is up to date.
 
 ---
 
@@ -46,35 +46,41 @@ Automates the end-of-worktree lifecycle: merge the current worktree's branch int
 
 **This skill handles**:
 
-- Detecting current worktree path and branch
-- Determining the main branch (auto-detect or ask user)
-- Verifying the working tree is clean
-- Merging the feature branch into main (`--no-ff`)
-- Pushing main to origin
-- Removing the worktree directory
-- Optionally deleting the feature branch after successful cleanup
+- Verifying invocation context (main repo, not a linked worktree)
+- Detecting the main branch (auto-detect or ask user)
+- Scanning and listing all active linked worktrees
+- User selection of which worktrees to merge (`all` or subset)
+- Pre-flight clean-tree check for all selected worktrees before any merge begins
+- Sequential merge (`--no-ff`) + push for each selected clean worktree
+- Per-failure user decision: continue with remaining or abort
+- Unified cleanup of all successfully-merged worktrees
+- Optional feature branch deletion (user-confirmed, `-d` only)
+- Per-worktree summary report
 
 **This skill does NOT handle**:
 
-- Committing uncommitted changes (use `commit-work` skill first)
+- Committing uncommitted changes (use `commit-work` skill first, per worktree)
 - Rebasing or squashing commits before merge
 - Resolving merge conflicts (halts and reports to user)
 - Creating or managing pull requests
 - Pushing feature branches or creating remote tracking branches
 - Force-pushing to any branch
+- Parallel merge execution (always sequential)
 
 **Handoff points**:
-- If the working tree is dirty → halt, instruct user to run `commit-work` first
-- If a merge conflict occurs → halt, provide conflict resolution instructions
-- If push is rejected → halt, instruct user to pull and re-run
+- If any selected worktree is dirty → report all dirty ones upfront; ask user to continue with clean ones or halt all
+- If a merge conflict occurs → halt that worktree; ask whether to continue with remaining
+- If push is rejected → halt that worktree; ask whether to continue with remaining
+- If invoked from inside a linked worktree → halt immediately
 
 ---
 
 ## Use Cases
 
-- Developer finishes work in a worktree and wants to integrate it into main and clean up
-- CI/automation finishing an isolated worktree task and landing the result
-- After completing a `commit-work` cycle in a worktree, delivering the work end-to-end
+- Developer has 2–4 feature worktrees ready to land onto main and wants to handle them in one invocation
+- End-of-sprint batch cleanup: merging all completed feature worktrees from the main repo
+- CI/automation that spawned multiple parallel worktrees for isolated tasks, now collecting results
+- After completing `commit-work` cycles in multiple worktrees, delivering all work end-to-end
 
 ---
 
@@ -82,25 +88,19 @@ Automates the end-of-worktree lifecycle: merge the current worktree's branch int
 
 ### Workflow (Checklist)
 
-**Step 1 — Detect current worktree**
+**Step 1 — Verify invocation context**
 
 ```bash
-git worktree list
-git rev-parse --abbrev-ref HEAD       # current branch name
-git rev-parse --show-toplevel         # worktree root path
+git rev-parse --show-toplevel          # current repo root
+git worktree list --porcelain          # first worktree entry = main repo path
 ```
 
-Record: `<feature-branch>`, `<worktree-path>`, `<main-repo-path>` (first entry in `git worktree list`).
+Parse `git worktree list --porcelain`. The first block is the main repo. Compare its `worktree` path against `git rev-parse --show-toplevel`.
 
-**Immediately `cd` into the main repo** so every subsequent step runs from a path that survives worktree removal:
+- If they do NOT match (currently inside a linked worktree) → **halt**:
+  > "This skill must be run from the main repo, not from inside a worktree. Current location: `<cwd>`. Main repo is at: `<main-repo-path>`. Run `cd <main-repo-path>` and re-invoke."
 
-```bash
-cd <main-repo-path>
-pwd                                   # must equal <main-repo-path>
-```
-
-If `<main-repo-path>` and `<worktree-path>` are the same (skill invoked from the main repo, not a worktree) → **halt**:
-> "Current directory is the main repo, not a worktree. This skill merges a worktree's branch — run it from inside the worktree you want to finish."
+- If they match → record `<main-repo-path>`. CWD remains here for every subsequent step.
 
 **Step 2 — Determine main branch**
 
@@ -108,83 +108,145 @@ If `<main-repo-path>` and `<worktree-path>` are the same (skill invoked from the
 git remote show origin | grep 'HEAD branch'
 ```
 
-- If result is unambiguous (e.g., `HEAD branch: main`) → use it.
-- If the command fails or returns multiple candidates → check for `main` then `master` in `git branch -r`.
-- If still ambiguous → **ask the user**:
+- Unambiguous result (e.g., `HEAD branch: main`) → use it.
+- Command fails or returns nothing → check `git branch -r` for `origin/main` then `origin/master`.
+- Still ambiguous → **ask the user**:
   > "Could not determine the main branch automatically. What is the name of the main branch (e.g., main, master, develop)?"
 
-**Step 3 — Verify working tree is clean**
+Record `<main-branch>`.
+
+**Step 3 — Scan and present active worktrees**
 
 ```bash
-git status --porcelain
+git worktree list
 ```
 
-- If output is non-empty → **halt**:
-  > "The working tree has uncommitted changes. Please commit or stash them first (consider using the `commit-work` skill), then re-run this skill."
+Parse output. Filter out the main repo entry (the one at `<main-repo-path>` on `<main-branch>`). Each remaining entry is a candidate.
 
-**Step 4 — Merge feature branch into main**
+- If no linked worktrees found → **halt**:
+  > "No active linked worktrees found. Nothing to merge."
 
-From the main repo path (not the worktree):
+Present the list with path and branch name:
+
+```
+Active worktrees available to merge:
+  [1]  /repos/myapp-auth      feat/user-auth
+  [2]  /repos/myapp-api       feat/api-v2
+  [3]  /repos/myapp-ui        feat/dashboard
+```
+
+Ask:
+> "Which worktrees should be merged? Enter numbers separated by commas, or type `all`:"
+
+Record `<selected-list>`.
+
+**Step 4 — Pre-flight: check all selected worktrees**
+
+For each worktree in `<selected-list>`:
 
 ```bash
-cd <main-repo-path>
+git -C <worktree-path> status --porcelain
+```
+
+Collect all results. Build `<clean-list>` and `<dirty-list>`.
+
+If `<dirty-list>` is non-empty, report all dirty entries in a single block before any merge begins:
+
+```
+Pre-flight check — dirty worktrees (will be skipped):
+  /repos/myapp-api   (feat/api-v2)    — 3 uncommitted file(s)
+  /repos/myapp-ui    (feat/dashboard) — 1 uncommitted file(s)
+```
+
+Ask:
+> "The above worktrees have uncommitted changes. Proceed with the remaining clean worktrees, or halt all? [continue / halt]"
+
+- `halt` → stop; no merges performed.
+- `continue` → proceed with `<clean-list>` only. If `<clean-list>` is empty → halt, nothing to do.
+
+No auto-stash is performed under any condition.
+
+**Step 5 — Batch merge + push (sequential)**
+
+For each worktree `W` in `<clean-list>`:
+
+```bash
+# Pull main to stay current across multi-worktree run
 git checkout <main-branch>
-git pull origin <main-branch>          # sync before merging
-git merge --no-ff <feature-branch> -m "Merge branch '<feature-branch>' into <main-branch>"
-```
+git pull origin <main-branch>
 
-- If merge conflict → **halt**, do not push, do not delete worktree:
-  > "Merge conflict detected. Resolve the conflicts in `<main-repo-path>`, complete the merge manually, then push and remove the worktree."
+# Merge with --no-ff
+git merge --no-ff <W.branch> -m "Merge branch '<W.branch>' into <main-branch>"
 
-**Step 5 — Push to origin**
-
-```bash
+# Push
 git push origin <main-branch>
 ```
 
-- If rejected (non-fast-forward) → **halt**, do not delete worktree:
-  > "Push rejected. The remote has new commits. Run `git pull --rebase origin <main-branch>` in `<main-repo-path>`, resolve any conflicts, then push and remove the worktree manually."
+On failure for worktree `W`:
 
-**Step 6 — Remove worktree**
+- If merge conflict:
+  > "Merge conflict merging `<W.branch>` into `<main-branch>`. Resolve conflicts in `<main-repo-path>`, complete the merge manually, then push and remove the worktree."
+- If push rejected (non-fast-forward):
+  > "Push rejected after merging `<W.branch>`. Run `git reset --hard HEAD~1` in `<main-repo-path>` to undo the merge, then pull, re-merge, and push manually."
 
-**Critical**: The shell CWD must be inside `<main-repo-path>` (not the worktree) before removing it. If the shell is inside the worktree directory when it is deleted, all subsequent commands fail with "no such file or directory".
+In both cases, mark `W` as `failed` and ask:
+> "Continue with the remaining worktrees, or abort all remaining? [continue / abort]"
 
-**Guard — verify CWD before removal**:
+- `abort` → stop; do not touch any remaining worktrees.
+- `continue` → mark `W` as `failed`, proceed to next.
+
+Record per-worktree outcome: `succeeded` or `failed`.
+
+**Step 6 — Unified cleanup**
+
+After all merges complete, verify CWD is still the main repo:
 
 ```bash
-pwd
+pwd   # must equal <main-repo-path>
 ```
 
-- If output does not equal `<main-repo-path>` → **halt**:
-  > "CWD is not the main repo. Run `cd <main-repo-path>` and re-run this step."
-- Otherwise proceed:
+For each worktree in `<succeeded-list>` only:
 
 ```bash
 git worktree remove <worktree-path>
-pwd                            # re-verify CWD is still valid after removal
 ```
 
-Only execute after both merge and push succeed.
+Execute sequentially. If an individual removal fails (e.g., path already gone), log the error and continue.
 
-**Step 7 — Offer to delete feature branch**
+Never remove a worktree whose status is `failed`.
 
-Ask the user:
-> "Worktree removed. Delete the local feature branch `<feature-branch>`? (yes/no)"
+**Step 7 — Offer to delete feature branches**
 
-If yes:
+For all worktrees in `<succeeded-list>`, present branches together:
+
+> "Worktrees removed. Delete these local feature branches? Enter numbers, `all`, or `none`:"
+> ```
+> [1]  feat/user-auth
+> [2]  feat/dashboard
+> ```
+
+For each confirmed:
+
 ```bash
-git branch -d <feature-branch>
+git branch -d <W.branch>
 ```
 
-Use `-d` (safe delete) only — never `-D`. If `-d` fails because the branch is not fully merged (unexpected), report the error and stop.
+Use `-d` only — never `-D`. If `-d` fails (unexpected after a successful `--no-ff` merge), report and stop for that branch.
 
-**Step 8 — Report outcome**
+**Step 8 — Summary report**
 
-Summarize:
-- Branch merged: `<feature-branch>` → `<main-branch>` ✓
-- Pushed to origin: `<main-branch>` ✓
-- Worktree removed: `<worktree-path>` ✓
-- Feature branch deleted: yes/no
+```
+merge-worktree summary
+──────────────────────────────────────────────────────────────────────────
+Worktree               Branch            Merge         Push   Cleanup  Branch
+/repos/myapp-auth      feat/user-auth    ✓             ✓      ✓        deleted
+/repos/myapp-api       feat/api-v2       ✗(conflict)   —      —        —
+/repos/myapp-ui        feat/dashboard    skipped(dirty) —     —        —
+──────────────────────────────────────────────────────────────────────────
+Main branch: main  |  Remote: origin
+```
+
+Status codes: `✓` succeeded · `✗(reason)` failed · `skipped(dirty)` pre-flight fail · `—` not applicable
 
 ---
 
@@ -192,9 +254,14 @@ Summarize:
 
 ### Input Requirements
 
-- An active git worktree with a named branch
-- A clean working tree (no uncommitted changes)
-- Network access to push to `origin`
+| Input | Required | Description |
+|---|---|---|
+| Main repo context | Yes | CWD must be the main repo root; halts if inside a linked worktree |
+| Active linked worktrees | Yes | At least one non-main linked worktree must exist |
+| Worktree selection | User input | `all` or comma-separated indices from the presented list |
+| Clean working tree | Per-worktree | Dirty worktrees are reported upfront and skipped; no auto-stash |
+| Main branch name | Auto/Ask | Detected from remote; user asked if ambiguous |
+| Network access | Yes | Required to push to `origin` |
 
 ### Output Contract
 
@@ -202,12 +269,11 @@ Produces (side-effects):
 
 | Element | Description |
 |---|---|
-| Merge commit | `--no-ff` merge commit on `<main-branch>` |
-| Remote push | `origin/<main-branch>` updated |
-| Worktree removal | Directory removed from `git worktree list` |
-| Branch deletion | (optional, user-confirmed) local branch deleted |
-
-Summary report includes: branch names, merge commit hash, push confirmation, worktree path removed.
+| Merge commits | One `--no-ff` merge commit on `<main-branch>` per succeeded worktree |
+| Remote push | `origin/<main-branch>` updated once per succeeded worktree |
+| Worktree removal | All succeeded worktrees removed from `git worktree list` |
+| Branch deletion | Optional, user-confirmed; `git branch -d` only |
+| Batch summary report | Per-worktree table: branch, merge, push, cleanup, branch-deletion status |
 
 ---
 
@@ -215,17 +281,18 @@ Summary report includes: branch names, merge commit hash, push confirmation, wor
 
 ### Hard Boundaries
 
-- **Never force-push** (`--force`, `--force-with-lease`) to any branch
-- **Never delete worktree** if merge or push failed
-- **Never auto-stash** uncommitted changes — halt and inform the user instead
-- **Never use `-D`** (force-delete) for branch deletion
-- **Never proceed** if `git status --porcelain` returns non-empty output
+- **MUST NOT force-push** (`--force`, `--force-with-lease`) to any branch
+- **MUST NOT remove any worktree** if its merge or push failed
+- **MUST NOT auto-stash** uncommitted changes — report upfront and skip the worktree
+- **MUST NOT use `git branch -D`** — only `-d` (safe delete)
+- **MUST NOT begin any merge** before pre-flight check completes for all selected worktrees
+- **MUST NOT proceed** if invoked from inside a linked worktree — halt immediately
 
 ### Skill Boundaries
 
 **Do not do these (other skills or tools handle them)**:
 
-- **Committing pending work**: Use `commit-work` skill before invoking this skill
+- **Committing pending work**: Use `commit-work` skill per worktree before invoking this skill
 - **Rebasing/squashing**: Use `git rebase` directly before invoking this skill
 - **Creating PRs**: Use platform-specific PR tools; this skill merges directly to main
 - **Code review**: Use `review-diff` before committing; this skill does not review code
@@ -234,134 +301,178 @@ Summary report includes: branch names, merge commit hash, push confirmation, wor
 
 ## Anti-Patterns
 
-### Working tree check
+### Invocation context
 
-✅ Always verify `git status --porcelain` is empty before merging
-❌ Do not skip the clean-tree check and merge with uncommitted changes
+✅ Always run from the main repo root
+❌ Do not run from inside a linked worktree — the CWD becomes invalid when the worktree is later removed, causing all subsequent commands to fail
+
+### Pre-flight order
+
+✅ Check all selected worktrees for dirty state before starting any merge
+❌ Do not check each worktree immediately before merging it — the user would discover dirty worktrees mid-batch after some merges are already committed
 
 ### Merge style
 
 ✅ Use `git merge --no-ff` to preserve branch history
-❌ Do not use `git merge --squash` or `git merge` (fast-forward only) — history would be lost
+❌ Do not use `git merge --squash` or fast-forward merge — history would be lost
 
 ### Push safety
 
 ✅ Use `git push origin <main-branch>` (standard push)
 ❌ Never use `--force` or `--force-with-lease` on main
 
-### CWD before worktree removal
-
-✅ Always `cd <main-repo-path>` before `git worktree remove` and verify with `pwd` after
-❌ Do not remove a worktree while the shell CWD is inside it — the CWD becomes invalid and all subsequent commands fail
-
 ### Deletion order
 
-✅ Delete worktree only after merge AND push both succeed
-❌ Do not delete worktree after merge but before push — the branch would be unreachable if push fails
+✅ Remove worktrees only after their merge AND push both succeeded
+❌ Do not remove a worktree after merge but before push — the branch would be unreachable if push fails
 
 ### Branch deletion
 
 ✅ Use `git branch -d` (safe) and confirm with user first
-❌ Never use `git branch -D` (force) — it deletes unmerged commits
+❌ Never use `git branch -D` (force) — it can delete unmerged commits
 
 ---
 
 ## Examples
 
-### Example 1: Standard flow (happy path)
+### Example 1: Batch happy path
 
-**Scenario**: Feature branch `feat/user-auth` in worktree `/repos/myapp-auth` is ready to merge into `main`.
+**Scenario**: Two feature worktrees are ready to merge into `main`.
 
 **Execution**:
 
 ```bash
-# Step 1: Detect
-git worktree list
-# /repos/myapp        abc1234 [main]
-# /repos/myapp-auth   def5678 [feat/user-auth]
+# Step 1: Guard — invoked from main repo
+git rev-parse --show-toplevel   # /repos/myapp
+git worktree list --porcelain   # first entry: /repos/myapp → match ✓
 
-git rev-parse --abbrev-ref HEAD   # feat/user-auth
-git rev-parse --show-toplevel     # /repos/myapp-auth
-
-# Move into main repo immediately — rest of the flow runs from here
-cd /repos/myapp
-pwd   # /repos/myapp
-
-# Step 2: Determine main branch
+# Step 2: Main branch
 git remote show origin | grep 'HEAD branch'
 # HEAD branch: main
 
-# Step 3: Verify clean
-git status --porcelain
-# (empty — proceed)
+# Step 3: Scan
+git worktree list
+# /repos/myapp        abc1234 [main]
+# /repos/myapp-auth   def5678 [feat/user-auth]
+# /repos/myapp-api    ghi9012 [feat/api-v2]
+# User selects: all
 
-# Step 4: Merge (already in /repos/myapp from Step 1)
+# Step 4: Pre-flight
+git -C /repos/myapp-auth status --porcelain   # (empty ✓)
+git -C /repos/myapp-api  status --porcelain   # (empty ✓)
+
+# Step 5: Merge + push — worktree 1
 git checkout main
 git pull origin main
 git merge --no-ff feat/user-auth -m "Merge branch 'feat/user-auth' into main"
-
-# Step 5: Push
 git push origin main
 
-# Step 6: Remove worktree — guard CWD first
-pwd                                    # /repos/myapp (matches main-repo-path ✓)
+# Step 5: Merge + push — worktree 2
+git pull origin main
+git merge --no-ff feat/api-v2 -m "Merge branch 'feat/api-v2' into main"
+git push origin main
+
+# Step 6: Unified cleanup
+pwd                                    # /repos/myapp ✓
 git worktree remove /repos/myapp-auth
-pwd                                    # re-verify: /repos/myapp
+git worktree remove /repos/myapp-api
 
-# Step 7: Ask user about branch deletion
-# User answers: yes
+# Step 7: Branch deletion — user selects all
 git branch -d feat/user-auth
+git branch -d feat/api-v2
 ```
 
-**Outcome report**:
-- Branch merged: `feat/user-auth` → `main` ✓ (commit `abc9999`)
-- Pushed to origin: `main` ✓
-- Worktree removed: `/repos/myapp-auth` ✓
-- Feature branch deleted: yes ✓
+**Summary**:
+
+```
+merge-worktree summary
+──────────────────────────────────────────────────────────────────────────
+Worktree             Branch          Merge  Push  Cleanup  Branch
+/repos/myapp-auth    feat/user-auth  ✓      ✓     ✓        deleted
+/repos/myapp-api     feat/api-v2     ✓      ✓     ✓        deleted
+──────────────────────────────────────────────────────────────────────────
+Main branch: main  |  Remote: origin
+```
 
 ---
 
-### Example 2: Dirty working tree (edge case — halt)
+### Example 2: Pre-flight dirty detection (edge case — skip and continue)
 
-**Scenario**: User invokes skill but has uncommitted changes in the worktree.
+**Scenario**: Three worktrees selected; two have uncommitted changes.
 
 **Execution**:
 
 ```bash
-git status --porcelain
-# M  src/auth.ts
-# ?? src/temp.log
+# Step 4: Pre-flight
+git -C /repos/myapp-auth  status --porcelain   # (empty ✓)
+git -C /repos/myapp-api   status --porcelain   # M  src/api.ts
+git -C /repos/myapp-ui    status --porcelain   # ?? src/temp.log
 ```
 
-**Skill halts**:
+**Skill reports**:
 
-> "The working tree has uncommitted changes (`src/auth.ts`, `src/temp.log`). Please commit or stash them first (consider using the `commit-work` skill), then re-run `merge-worktree`."
+```
+Pre-flight check — dirty worktrees (will be skipped):
+  /repos/myapp-api  (feat/api-v2)    — 1 uncommitted file(s)
+  /repos/myapp-ui   (feat/dashboard) — 1 uncommitted file(s)
+```
 
-No merge, push, or worktree removal occurs.
+> "Proceed with the remaining clean worktrees, or halt all? [continue / halt]"
+
+User answers `continue` → only `feat/user-auth` is merged and cleaned up. The other two are untouched.
+
+**Summary**:
+
+```
+merge-worktree summary
+──────────────────────────────────────────────────────────────────────────
+Worktree             Branch          Merge         Push  Cleanup  Branch
+/repos/myapp-auth    feat/user-auth  ✓             ✓     ✓        deleted
+/repos/myapp-api     feat/api-v2     skipped(dirty) —    —        —
+/repos/myapp-ui      feat/dashboard  skipped(dirty) —    —        —
+──────────────────────────────────────────────────────────────────────────
+```
 
 ---
 
-### Example 3: Ambiguous main branch (edge case — ask user)
+### Example 3: Mid-batch merge conflict (edge case — continue past failure)
 
-**Scenario**: `git remote show origin` fails (no network) and both `main` and `develop` exist.
+**Scenario**: Two clean worktrees; the second has a conflicting change with recent main.
 
 **Execution**:
 
 ```bash
-git remote show origin | grep 'HEAD branch'
-# (error: unable to connect to origin)
+# Step 5: Worktree 1 — succeeds
+git merge --no-ff feat/user-auth -m "Merge branch 'feat/user-auth' into main"
+git push origin main
+# ✓ succeeded
 
-git branch -r
-# origin/main
-# origin/develop
-# origin/feat/user-auth
+# Step 5: Worktree 2 — conflict
+git merge --no-ff feat/api-v2 -m "Merge branch 'feat/api-v2' into main"
+# CONFLICT (content): Merge conflict in src/api.ts
 ```
 
-**Skill asks**:
+> "Merge conflict merging `feat/api-v2` into `main`. Continue with remaining worktrees, or abort? [continue / abort]"
 
-> "Could not determine the main branch automatically. Both `main` and `develop` exist on origin. What is the name of the main branch?"
+User answers `continue` (no remaining worktrees) → proceed to cleanup.
 
-User responds: `main` → skill continues from Step 4 using `main`.
+```bash
+# Step 6: Cleanup — only feat/user-auth succeeded
+pwd                                    # /repos/myapp ✓
+git worktree remove /repos/myapp-auth  # ✓
+# /repos/myapp-api NOT removed (status = failed)
+```
+
+**Summary**:
+
+```
+merge-worktree summary
+──────────────────────────────────────────────────────────────────────────
+Worktree             Branch          Merge          Push  Cleanup  Branch
+/repos/myapp-auth    feat/user-auth  ✓              ✓     ✓        deleted
+/repos/myapp-api     feat/api-v2     ✗(conflict)    —     —        —
+──────────────────────────────────────────────────────────────────────────
+```
 
 ---
 
@@ -369,24 +480,27 @@ User responds: `main` → skill continues from Step 4 using `main`.
 
 If this skill produces incorrect behavior:
 
-1. Check Step 2 (main branch detection) — ensure `git remote show origin` output is parsed correctly; add `git branch -r` fallback
-2. Check Step 3 (dirty tree) — ensure `git status --porcelain` is used (not `git status`)
-3. Check Step 4 (merge) — ensure `git pull origin <main>` runs before merge to avoid non-fast-forward push failure
-4. Check Step 6 (worktree removal) — ensure it runs only after Step 5 (push) succeeds
-5. Check Step 7 (branch deletion) — ensure `-d` not `-D` is used, and user confirmed
+1. **Wrong invocation context**: if the skill proceeds without verifying CWD matches the main repo → rewind to Step 1, add the invocation guard check
+2. **Pre-flight skipped or deferred**: if `git merge` is attempted without first running `git -C <path> status --porcelain` for all selected worktrees → rewind to Step 4, complete all pre-flight checks before any merge
+3. **Failed worktree deleted**: if `git worktree remove` is called for a worktree with status `failed` → halt; only the `<succeeded-list>` is eligible for removal
+4. **Force-push attempted**: if `--force` or `--force-with-lease` appears in a push command → substitute standard push; if that fails, halt and report
+5. **Pull skipped before merge**: if `git merge --no-ff` runs without a preceding `git pull origin <main-branch>` → re-run from the pull step
 
 ---
 
 ## Self-Check
 
-- [ ] **Worktree detected**: `git worktree list` output parsed; feature branch and worktree path captured
-- [ ] **Main branch confirmed**: Auto-detected or explicitly provided by user; not assumed
-- [ ] **Clean tree verified**: `git status --porcelain` returned empty before any merge
-- [ ] **Pull before merge**: `git pull origin <main>` ran before `git merge` to minimize push rejection
-- [ ] **No-ff merge**: Used `git merge --no-ff`, not fast-forward
-- [ ] **Push succeeded**: `git push origin <main>` completed without error
-- [ ] **CWD safe before removal**: `cd <main-repo-path>` ran before `git worktree remove`; `pwd` confirmed valid CWD after removal
-- [ ] **Worktree removed after push**: Deletion happened only after push confirmed
-- [ ] **Branch deletion confirmed**: User was asked; `-d` (not `-D`) used
-- [ ] **Outcome reported**: Summary includes merge commit, push status, worktree path, branch deletion status
+- [ ] **Invocation context verified**: `git rev-parse --show-toplevel` matched main repo path before proceeding
+- [ ] **Main branch confirmed**: auto-detected or explicitly provided by user; not assumed
+- [ ] **All linked worktrees scanned**: `git worktree list` parsed; non-main entries presented to user
+- [ ] **User selection recorded**: `all` or index-based subset captured before any pre-flight check
+- [ ] **Pre-flight ran for all selected before any merge**: `git -C <path> status --porcelain` completed for every selected worktree first
+- [ ] **Dirty worktrees reported upfront**: all dirty entries listed together before the continue/halt prompt
+- [ ] **Pull before each merge**: `git pull origin <main-branch>` ran immediately before each `git merge --no-ff`
+- [ ] **No-ff merge used**: `git merge --no-ff` confirmed; no fast-forward or squash
+- [ ] **Push succeeded before worktree marked `succeeded`**: only after `git push` returns 0 is a worktree added to `<succeeded-list>`
+- [ ] **Unified cleanup ran only on `<succeeded-list>`**: `git worktree remove` never called for failed or skipped entries
+- [ ] **CWD confirmed before cleanup**: `pwd` matched `<main-repo-path>` before any `git worktree remove`
+- [ ] **Branch deletion used `-d`**: no `-D` flag in any branch deletion command; user confirmed each branch
+- [ ] **Summary report produced**: per-worktree table includes all entries with correct status codes
 - [ ] **No force-push used**: `--force` or `--force-with-lease` never appeared in any command
