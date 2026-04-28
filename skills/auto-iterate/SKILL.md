@@ -3,7 +3,7 @@ name: auto-iterate
 description: Single-step governance executor — reads plan-next routing output, executes the highest-priority action, and emits a continuation signal for /loop-driven autopilot.
 description_zh: 单步治理执行器——读取 plan-next 路由输出，执行最高优先级动作，发出继续信号以支持 /loop 全自动推进。
 tags: [automation, workflow, meta-skill]
-version: 1.0.1
+version: 2.0.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -109,9 +109,20 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。auto-itera
 
 ### 步骤 2：解析路由
 
-从"现在该做"取最高优先级 1 条（`紧急` → `重要` → `缓`）。
+从"现在该做"取最高优先级 1 条（`紧急` → `重要` → `缓` → `待执行`）。
 
-若"现在该做"为空 → `continuation_signal: done`，输出报告，停止。
+**三态判定**（不要把"等执行"误认为"已完成"）：
+
+| plan-next 输出 | continuation_signal | 含义 |
+|---|---|---|
+| 有路由卡片（紧急/重要/缓） | 进入步骤 3 继续 | 治理有缺口，可执行子技能 |
+| 仅含「待执行」卡片（任务已拆分等开发） | `blocked` | 治理就绪、等外部执行 |
+| 完全为空（所有目标 status=done 且 L1 KPI 已达成） | `done` | 治理 + 验收双重达成 |
+
+**关键约束**：
+- 「现在该做」为空 ≠ done。必须先确认 plan-next 是否在 L1 验收 KPI 检查 + L5 待执行分支后判定
+- 若 plan-next 输出未含 L1 验收 KPI 状态字段 → 视为 plan-next 调用不合规，输出 `error` + 提示升级 plan-next
+- 战略目标 `status = approved` 但验收未达成 → plan-next 必然返回路由（建立 KPI 或待执行卡片），不应空
 
 ### 步骤 3：卡死检测
 
@@ -126,6 +137,8 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。auto-itera
 
 - 推荐技能属于创意/战略类：`define-mission`、`design-strategic-goals`、`define-vision`、`define-north-star`、`define-strategic-pillars`
 - 路由卡片完成标志含"受阻时回 plan-next 重评"且当前已触发
+- **路由卡片标签为 `待执行`**：治理就绪、需外部开发执行，无治理技能可调用
+- **首条路由是建立 L1 验收 KPI 数据源**且推荐技能属设计/架构类：需人工确认监控方案，不自动执行
 
 ### 步骤 5：执行
 
@@ -145,6 +158,23 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。auto-itera
 | 卡片仍存在 | 更新卡死计数器；若计数达 2 → `continuation_signal: stalled` |
 
 ### 步骤 7：输出 IterationStepReport
+
+---
+
+## 与 /loop 交互模式（重要）
+
+`/loop` 有两种模式，对 `continuation_signal` 的消费方式完全不同：
+
+| /loop 模式 | 触发方式 | 信号消费 | 推荐用法 |
+|---|---|---|---|
+| **Dynamic** | 无 interval（自调度 ScheduleWakeup） | 读 `continuation_signal`：done/blocked/stalled/error 会停止循环 | ✅ **推荐**：`/loop /auto-iterate`（不带 interval） |
+| **Fixed-interval (cron)** | 有 interval（如 `5m`） | **不读** `continuation_signal`：cron 持续触发，信号被忽略 | ⚠️ 不推荐自动停止场景；用户须手动 CronDelete |
+
+**强制行为**：
+- 检测到 fixed-interval cron 模式（通过会话上下文中存在 CronCreate 记录的 prompt=`/auto-iterate`），首条 IterationStepReport 必须警示用户：「当前为 cron 模式，信号被忽略；如不希望持续触发请改用 dynamic /loop 或在收到 stalled/blocked/done 后 CronDelete」
+- `stalled` 信号在第 2 次连续出现时，IterationStepReport 须明示「**强烈建议立即 CronDelete <job-id>**」并提供 job ID
+
+**解决方案**：用户希望「治理就绪后自动停」时，应使用 `/loop /auto-iterate`（无 interval，dynamic 模式），不要用 `/loop 1m /auto-iterate`。
 
 ---
 
@@ -203,6 +233,14 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。auto-itera
 **Rule 4**：`done` 信号 MUST 来自步骤 6 plan-next 重跑结果，MUST NOT 来自模型自行推断
 - 验证：IterationStepReport 备注中不出现"治理层全部就绪"、"当前可执行的…均已创建"等自我评估语言；`done` 仅在步骤 6 确认"现在该做"为空后输出
 - 后果：REJECT（模型替代 plan-next 做了路由判断，破坏三层模型的职责边界）
+
+**Rule 5**：`done` MUST 满足「plan-next 输出含 L1 验收 KPI 已达成」声明 AND「现在该做为空」AND「无待执行卡片」三者同时满足
+- 验证：IterationStepReport 在输出 `done` 时引用了 plan-next 治理上下文中的 KPI 状态字段（如「引用可见率 85% ≥ 80%（达成）」）；只要 KPI 未达成或数据缺失或含「待执行」卡片，一律不得输出 `done`
+- 后果：REJECT（误把"战略目标 status=approved"当成验收达成，导致 /loop 在不该停时停）
+
+**Rule 6**：检测到「待执行」标签卡片 MUST 输出 `blocked`，MUST NOT 尝试执行或 done
+- 验证：IterationStepReport 中 selected_skill 为空或为 N/A，next_step 含「治理就绪、待外部执行」字样
+- 后果：REJECT
 
 ### 技能边界（Skill Boundaries）
 
@@ -275,6 +313,44 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。auto-itera
 ```
 
 **问题分析**：模型把"治理层 vs 开发者执行层"的判断权抢走了——这是 plan-next 的职责，不是 auto-iterate 的。blocked 节点（如 T48/T52 依赖 T47/T49）应由 plan-next 路由并触发 `blocked` 信号，而不是由模型自行宣布"治理完成"。`done` 只有一个合法来源：步骤 6 重跑 plan-next 后"现在该做"为空。
+
+---
+
+### ❌ 错误：把 `战略目标 status=approved` 当成验收已达成 → 输出 done
+
+```
+1. plan-next: G1 status=approved，验收 KPI「引用可见率」无监控数据
+2. auto-iterate 取空"现在该做"（plan-next 实际应返回路由，但此例假定 plan-next 也漏判）
+3. 输出 done，/loop 停止
+4. 实际上 G1 远未达成；下次唤醒检查时陷入 stalled 死循环
+```
+
+**问题分析**：违反 Rule 5——必须先确认 plan-next 输出含 L1 验收 KPI 状态字段且 KPI 已达成；否则即使「现在该做」为空也不应 done。`approved` 只代表决策批准，验收未达成时应继续推进，输出应是 blocked（等执行 + 等 KPI 数据）。
+
+---
+
+### ❌ 错误：从中间层（M5/任务）状态推断 done
+
+```
+1. plan-next 报：M5 任务全部 pending、设计 ADR 完备、需求文件完备
+2. 模型推断"治理层无缺口" → 输出 done
+3. 未回到战略目标 G1 验收检查
+```
+
+**问题分析**：从中间层扫描会丢失"为什么这条任务重要"的因果链。auto-iterate 的判定起点必须是「L1 验收 KPI 是否达成」，不是「中间层文档是否完备」。这与 plan-next 的目标树遍历方向一致——根节点是战略目标的验收标准。
+
+---
+
+### ❌ 错误：cron 模式下持续输出 done 而不警示用户
+
+```
+1. /loop 1m /auto-iterate 注册 cron
+2. 首次 plan-next 返回空 → 输出 done（错误）
+3. cron 不读信号，继续每分钟触发，陷入 done 空转
+4. 用户不知 cron 在空转
+```
+
+**问题分析**：违反「与 /loop 交互模式」节约束。cron 模式下信号被忽略，技能必须主动警示用户改用 dynamic /loop 或建议 CronDelete。
 
 ---
 
@@ -538,8 +614,12 @@ additionalProperties: false
 - [ ] 卡死检测：session 内指纹重复 2 次触发 stalled
 - [ ] 执行后验证：重跑 plan-next 确认目标卡片消失
 - [ ] 步骤 6 是否真正执行了重跑 plan-next？（不接受"自行推断治理完成"替代；备注中不出现自我评估语言）
-- [ ] 人工闸门：战略创意类技能触发 blocked
+- [ ] 人工闸门：战略创意类技能触发 blocked；「待执行」标签卡片触发 blocked
 - [ ] 每次输出合法的 continuation_signal（advance / done / blocked / stalled / error）
+- [ ] **plan-next 输出的"治理上下文"含 L1 验收 KPI 当前状态**？若否，视为 plan-next 不合规，输出 error 并提示升级
+- [ ] **`done` 信号同时满足三条件**：plan-next 输出"现在该做"为空 + KPI 已达成 + 无「待执行」卡片
+- [ ] **cron 模式（fixed-interval）下首次报告含 dynamic /loop 改用建议**
+- [ ] **`stalled` 第 2 次连续出现时含「立即 CronDelete <job-id>」提示**
 
 ### 质量门检查
 
