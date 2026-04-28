@@ -2,7 +2,6 @@ name: align-architecture
 status: validated
 primary_use: Verify architecture and design documents against code; produce Architecture
   Compliance Report when implementation diverges from ADR or design decisions.
-cognitive_mode: interpretive
 inputs:
 - optional ADR or design doc paths
 - optional code scope
@@ -11,12 +10,11 @@ outputs:
 - Architecture Compliance Report (docs/calibration/architecture-compliance.md; overwritten
   unless snapshot requested)
 - machine-readable compliance gaps block
-scores:
-  agent_native: 5
-  cognitive: 4
-  composability: 5
-  stance: 5
-asqm_quality: 19
+has_output_contract: true
+acceptance_criteria:
+- 给定 ADR/设计文档路径与代码范围，产出 Architecture Compliance Report 含差距列表，每条含 type（boundary_violation/outdated_design/undocumented/partial_validation）/design_source/code_location/impact/fix
+- 当无设计文档时，输出 status=blocked 报告并指向 design-solution 或 bootstrap-docs 移交建议，而非编造合规结论
+- 产出机器可读 compliance_gaps YAML 块，每条含 id/severity/fix_kind 供 plan-next/auto-iterate 消费
 overlaps_with:
 - nesnilnehc/ai-cortex:align-planning
 - nesnilnehc/ai-cortex:review-architecture
@@ -26,12 +24,3 @@ market_position: differentiated
 tags:
 - workflow
 - documentation
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

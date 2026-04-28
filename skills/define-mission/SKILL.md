@@ -213,3 +213,15 @@ output_schema:
 **流程**：提取目的：CLI 的存在是为了满足需求（可靠、可审核的部署），而不是`构建 CLI`。草案：`我们的存在是为了为团队提供可靠、可审核的部署方式，并具有回滚和清晰的历史记录。`避免在使命中列出功能（YAML、CLI）。要求用户确认或完善。若使命文件已存在，覆盖前须询问。
 
 **结果**：使命以结果为中心；功能保留在产品文档中。
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出 Mission Statement：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 文档主体 | Markdown | front-matter（artifact_type=mission / created_by=define-mission / lifecycle=living）；章节：使命陈述（单句）/ 服务对象 / 解决问题 / 成功定义 / 反例 | docs/project-overview/mission.md（或项目 norms 解析路径） |
+| 使命陈述 | 单段 | 不超过 2 句；包含主体（who）/ 动作（does what）/ 目的（so that） | 「使命陈述」节 |
+| 反例 | 列表项 | 至少 2 条，说明此项目「不做什么」以反向澄清边界 | 「反例」节 |

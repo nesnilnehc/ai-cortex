@@ -32,11 +32,9 @@
 
 ## 安装
 
-
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill capture-work-items
 ```
-
 
 ## 许可证
 

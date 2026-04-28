@@ -182,3 +182,15 @@ Safety mode active. I will warn before running any command matching destructive 
 
 **命令**：`git push -f origin main`  
 **行为**：命中 force-push，警告「History rewrite」；用户确认后执行。
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出会话级警告提示与用户确认结果：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 警告提示 | AskUserQuestion 文本 | 字段：触发命令原文 / 命中模式名 / 风险描述 / 选项 A=Proceed / B=Cancel | 标准会话输出，不落盘 |
+| 确认结果 | 标量 | decision ∈ {proceed, cancel}；cancel 时输出 "Command cancelled." | 标准会话输出 |
+| 命中决策表 | 内部对照表（仅在调试时输出） | pattern_id / matched_substring / safe_exception_applied（bool） | 仅故障排查时显式请求 |

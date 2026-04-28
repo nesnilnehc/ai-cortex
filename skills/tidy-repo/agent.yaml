@@ -4,7 +4,6 @@ primary_use: Audit repository structure in one pass — detect misplaced files, 
   inconsistencies, empty directories, stale artifacts, root directory categorization
   issues, and timestamp policy violations; produce a prioritized tidy report; optionally
   apply safe, reversible changes.
-cognitive_mode: interpretive
 inputs:
 - repository root (default: current working directory)
 - optional scope filter (subdirectory or glob)
@@ -14,12 +13,10 @@ outputs:
 - findings (misplaced files, naming violations, empty dirs, stale/dead artifacts,
   duplicates)
 - prioritized cleanup plan with concrete actions and effort estimates
-scores:
-  agent_native: 5
-  cognitive: 4
-  composability: 4
-  stance: 5
-asqm_quality: 18
+has_output_contract: true
+acceptance_criteria:
+- 给定仓库根，产出 docs/calibration/repo-tidy.md 含错放文件/命名违规/空目录/过期-死文件/重复五类发现，每条含 category/path/evidence/severity/suggested_action/effort_estimate
+- 产出优先清单表（rank/action/target_path/risk_level/safe_to_auto_apply）；可选地仅在用户批准下应用 safe_to_auto_apply=true 的变更
 overlaps_with:
 - nesnilnehc/ai-cortex:assess-docs
 - nesnilnehc/ai-cortex:review-codebase
@@ -31,12 +28,3 @@ tags:
 - cleanup
 - structure
 version: 1.2.0
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

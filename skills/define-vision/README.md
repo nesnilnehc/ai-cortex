@@ -24,13 +24,9 @@
 
 ## 安装
 
-
-
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill define-vision
 ```
-
-
 
 ## 相关技能
 

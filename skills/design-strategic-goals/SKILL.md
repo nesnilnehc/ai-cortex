@@ -221,3 +221,15 @@ output_schema:
 5. 持久化 5 个目标。
 
 **结果**：文档含 5 个战略目标，其中目标 5 是"工程与治理健康可持续"。容量护栏后续按 strategic_goal_id 分配（见 ADR 1 决策 3.4）时有合法位置。
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出 Strategic Goals Document：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 文档主体 | Markdown | front-matter（artifact_type=strategic-goals / lifecycle=living）；章节：目标列表 / 与 vision/NSM 的对齐 | docs/project-overview/strategic-goals.md |
+| 目标条目 | 列表项 | id（如 G1）/ name / outcome_statement / acceptance（KPI 名称 + 阈值 + 度量方法）/ status（draft/approved/in-progress/done）/ aligns_with_pillar；3-5 条 | 「目标列表」节 |
+| 验收 | 子字段 | 每个目标必含 KPI name / threshold / data_source；data_source 缺失须在 status 标注 | 「目标列表」每项下 |

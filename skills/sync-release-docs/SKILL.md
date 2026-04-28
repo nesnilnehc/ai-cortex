@@ -230,3 +230,15 @@ Documentation health:
 **场景**：文档已与 diff 一致。
 
 **输出**：`All documentation is up to date.`
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出更新后的文档与单次 commit：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 文档变更 | 文件 diff | 涉及 README / ARCHITECTURE / CONTRIBUTING / CLAUDE.md / CHANGELOG / TODOs；每项含 reason | 项目根及 docs/ 下相应文件 |
+| 提交 | git commit | 单次 commit；message 遵循 Conventional Commits；body 列出 synced 文件清单 | git history |
+| 健康摘要 | 结构化聊天输出 | 字段：files_updated[]、files_skipped[]（含理由）、todos_resolved[]、commit_hash | 标准输出 |

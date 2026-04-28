@@ -630,3 +630,16 @@ R1 被外部依赖阻塞，R2 与 R1 无依赖关系，并行启动 R2 可避免
 - **判定逻辑**：并行决策规则"1+ blocked + 有独立 pending"→ 建议并行；R2 无 depends_on 依赖，可安全启动；blocked 节点：R1（等待外部依赖，需人工介入解除）
 
 </details>
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出三段式路由报告（人类可读 + 可追溯锚点）：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 报告主体 | Markdown | 章节：现在该做（Now do）/ 也要留意（Also watch）/ 诊断依据（Diagnosis，可折叠） | 默认聊天输出 |
+| 路由条目 | 列表项 | 5 字段：theme / recommended_skill（含 invocation hint）/ rationale / priority_label（紧急/现在/缓/待执行）/ completion_marker | 「现在该做」「也要留意」两节 |
+| 诊断依据 | 折叠块 | 内部代码（G1-G4 / P0-P3）作为可追溯锚点；含项目情况、判定逻辑 | 「诊断依据」节 |
+| 治理上下文 | 单行链 | 战略目标 → 路线图 → 需求/设计 → 任务 的引用链；标注「当前」层级 | 每条路由条目内 |

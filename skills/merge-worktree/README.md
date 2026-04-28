@@ -82,14 +82,3 @@ Automates the batch worktree lifecycle in a single skill invocation:
 | `commit-work` | Predecessor — use to commit pending changes in each worktree before invoking this skill |
 | `review-diff` | Optional pre-merge — use to review changes before committing |
 
----
-
-## ASQM Scores
-
-| Dimension | Score | Notes |
-|---|---|---|
-| agent_native | 5/5 | Structured selection I/O, invocation context guard, batch state machine with explicit succeeded/failed/skipped statuses |
-| cognitive | 5/5 | Procedural skill; all 8 steps are deterministic bash commands; all decision branches are explicit rules |
-| composability | 4/5 | Explicit handoffs to commit-work; linear workflow chain |
-| stance | 5/5 | All spec sections present, strong safety invariants expanded to 6 hard rules, ✅/❌ Anti-Patterns, 3 examples with edge cases |
-| **total** | **19/20** | Validated (Gate A: 5≥4 ✓, Gate B: 5≥3 ✓) |

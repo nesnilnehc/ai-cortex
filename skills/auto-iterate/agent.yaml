@@ -2,18 +2,15 @@ name: auto-iterate
 status: validated
 primary_use: Single-step governance executor — reads plan-next routing output, executes
   highest-priority action, emits continuation_signal for /loop-driven autopilot.
-cognitive_mode: procedural
 inputs:
 - governance docs root path (default auto, same as plan-next)
 - optional pre-run plan-next output
 outputs:
 - IterationStepReport (action taken, skill invoked, outcome, continuation_signal)
-scores:
-  agent_native: 5
-  cognitive: 4
-  composability: 5
-  stance: 5
-asqm_quality: 18
+has_output_contract: true
+acceptance_criteria:
+- 给定 plan-next 路由输出，仅执行最高优先级的一条 action，产出 IterationStepReport 含 action_taken/skill_invoked/outcome/continuation_signal
+- continuation_signal ∈ {continue, halt, blocked}，halt/blocked 时必须给出明确终止理由，供 /loop 决定是否继续迭代
 overlaps_with:
 - nesnilnehc/ai-cortex:plan-next
 - nesnilnehc/ai-cortex:automate-repair
@@ -23,12 +20,3 @@ tags:
 - workflow
 - meta-skill
 version: 1.0.1
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

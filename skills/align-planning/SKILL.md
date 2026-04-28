@@ -442,3 +442,16 @@ Task Backlog -> Roadmap -> Milestones -> Requirements -> Project Goals
 - 如果用户确认：继续正常流程
 - 如果未确认：输出带有缺失字段清单的“阻止”报告
 - 在建立规范映射之前，置信度保持“低”
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出 Planning Alignment Report，机器可读片段须满足下表结构：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 报告主体 | Markdown | front-matter（artifact_type/created_by/lifecycle）；章节：摘要 / 任务回溯链 / 漂移项 / 重新校准建议 | docs/calibration/planning-alignment.md（默认；如需快照另起 -snapshot 副本） |
+| 漂移条目 | 列表项 | id / drift_type（goal_decoupled / requirement_orphan / roadmap_stale / task_unanchored）/ artifact_path / evidence / suggested_fix | 报告正文「漂移项」节 |
+| 证据准备度 | 标量 | readiness / confidence / scanned_artifacts / missing_artifacts | 报告正文「摘要」节 |
+| 机器可读块 | YAML fenced ```yaml drifts:``` | drifts[] 每项含 id/drift_type/severity/artifact_path/fix_kind；evidence_readiness 顶层字段 | 报告正文末尾，供 plan-next 消费 |

@@ -105,3 +105,16 @@ output_schema:
 ## 示例（Examples）
 
 - 两份 roadmap 文档里里程碑日期冲突 -> P0
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出 SSOT Integrity Audit：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 报告主体 | Markdown | front-matter；章节：意图分类 / 冲突矩阵 / 权威源映射 / 修复建议 | docs/calibration/ssot-integrity-audit.md |
+| 冲突矩阵 | 表格 | concept / canonical_source / divergent_sources / conflict_kind（duplicate / contradiction / drift） | 「冲突矩阵」节 |
+| 权威源映射 | 表格 | concept / canonical_path / superseded_paths / handoff_skill | 「权威源映射」节 |
+| 机器可读块 | YAML fenced ```yaml ssot_conflicts:``` | concepts[] 每项含 name/canonical/divergents/severity | 报告末尾 |

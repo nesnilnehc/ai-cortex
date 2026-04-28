@@ -1,20 +1,17 @@
 name: decontextualize-text
-status: experimental
+status: validated
 primary_use: Convert text with private context or internal dependencies into generic,
   unbiased expressions for methodology abstraction, cross-team sharing, anonymization,
   or public release.
-cognitive_mode: interpretive
 inputs:
 - text with org/company/project names, internal conventions, environment-specific
   details
 outputs:
 - generic version (logic preserved, reusable without extra context)
-scores:
-  agent_native: 4
-  cognitive: 4
-  composability: 4
-  stance: 4
-asqm_quality: 16
+has_output_contract: true
+acceptance_criteria:
+- 给定含组织/项目/内部约定的原文，产出 generic 版本：移除所有可识别专有名词，保留逻辑结构与方法论核心
+- 不引入新意图或编造细节；输出可独立复用，不依赖原上下文
 overlaps_with:
 - nesnilnehc/ai-cortex:generate-standard-readme
 market_position: differentiated
@@ -23,12 +20,3 @@ tags:
 - security
 - privacy
 - generalization
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

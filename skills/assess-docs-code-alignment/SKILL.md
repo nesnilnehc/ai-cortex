@@ -104,3 +104,15 @@ output_schema:
 ## 示例（Examples）
 
 - `src/api/auth.py` 修改但 `docs/architecture/api.md` 未更新 -> high
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出 Code-Doc Alignment Report：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 报告主体 | Markdown | front-matter；章节：摘要 / 对齐缺口 / 推荐文档更新 | docs/calibration/code-doc-alignment.md |
+| 缺口条目 | 列表项 | id / category（api_drift / config_drift / behavior_drift / removed_feature）/ code_location / doc_location / evidence / suggested_update | 「对齐缺口」节 |
+| 机器可读块 | YAML fenced ```yaml alignment_gaps:``` | gaps[] 每项含 id/category/severity/code_ref/doc_ref | 报告末尾 |

@@ -2,17 +2,14 @@ name: review-diff
 status: validated
 primary_use: Review only git diff for impact, regression, correctness, compatibility,
   and side effects. Scope-only atomic skill; output is a findings list for aggregation.
-cognitive_mode: interpretive
 inputs:
 - git diff (staged + unstaged)
 outputs:
 - findings list (Location, Category=scope, Severity, Title, Description, Suggestion)
-scores:
-  agent_native: 4
-  cognitive: 4
-  composability: 4
-  stance: 5
-asqm_quality: 17
+has_output_contract: true
+acceptance_criteria:
+- 给定 git diff 范围，产出 findings 列表，每条含 Location/Category=scope/Severity/Title/Description/Suggestion
+- 聚焦影响、回归、正确性、兼容性与副作用；输出可被 review-code 聚合
 overlaps_with:
 - nesnilnehc/ai-cortex:review-codebase
 - nesnilnehc/ai-cortex:review-code
@@ -21,12 +18,3 @@ overlaps_with:
 market_position: commodity
 tags:
 - code-review
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

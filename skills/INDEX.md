@@ -76,7 +76,7 @@
 | [review-architecture](./review-architecture/SKILL.md) | code-review | `1.0.1` | stable | 审查代码架构：模块与层次边界、依赖方向、单一职责、循环依赖、接口稳定性与耦合。. |
 | [review-testing](./review-testing/SKILL.md) | code-review | `1.0.0` | stable | 审查测试：存在性、覆盖度、质量与结构、边界与错误路径覆盖、可维护性；认知原子技能。. |
 | [generate-github-workflow](./generate-github-workflow/SKILL.md) | devops | `1.0.0` | stable | 生成嵌有输出契约的 GitHub Actions YAML：安全优先、最小权限、版本锁定；适用于 CI、发布与 PR 检查。. |
-| [curate-skills](./curate-skills/SKILL.md) | documentation, meta-skill | `1.0.1` | stable | 通过 ASQM 评分、生命周期管理与重叠检测治理技能清单；产出全库技能的质量评分与规范化文档。. |
+| [curate-skills](./curate-skills/SKILL.md) | documentation, meta-skill | `2.0.0` | stable | 通过输出合约与验收准则检查、生命周期分配、重叠检测治理技能清单；产出全库技能的可验证 status 与规范化文档。. |
 | [install-rules](./install-rules/SKILL.md) | automation, infrastructure | `1.2.1` | stable | 从源仓库将规则安装到 Cursor 或 Trae IDE；需显式确认与冲突检测；写盘前需用户批准。. |
 | [review-performance](./review-performance/SKILL.md) | code-review, optimization | `1.0.0` | stable | 审查性能：复杂度、数据库/查询效率、I/O 与网络成本、内存与分配、并发竞争、缓存与延迟/吞吐回归。. |
 | [bootstrap-docs](./bootstrap-docs/SKILL.md) | documentation, writing | `2.0.0` | stable | 使用 project-documentation-template 初始化或适配项目文档；v2.0 加 Stage 0 Norms Resolution（per artifact-contract §8）+ colocation/parent-pointer 分支。. |

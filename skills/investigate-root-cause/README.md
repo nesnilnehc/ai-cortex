@@ -24,16 +24,6 @@
 - 最小修复与回归测试
 - 结构化 Debug Report（symptom, root cause, fix, evidence, status）
 
-## 评分 (ASQM)
-
-| 维度 | 分数 |
-| :--- | :--- |
-| agent_native | 4 |
-| cognitive | 5 |
-| composability | 4 |
-| stance | 5 |
-| **asqm_quality** | 18 |
-
 ## 生态
 
 | 领域 | 值 |

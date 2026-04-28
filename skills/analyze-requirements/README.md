@@ -50,11 +50,9 @@
 
 ## 安装
 
-
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill analyze-requirements
 ```
-
 
 ## 相关技能
 

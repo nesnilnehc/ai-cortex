@@ -22,16 +22,6 @@
 - 推荐技能并附有理由
 - Install commands for each (e.g. `npx skills add owner/repo --skill name`)
 
-## 评分 (ASQM)
-
-| 维度 | 分数 |
-| ：-------------- | :---- |
-|agent_native | 5 |
-|cognitive| 3 |
-|composability | 5 |
-|stance| 4 |
-| **asqm_quality** | 17 | 17
-
 ## 生态
 
 |领域|价值|

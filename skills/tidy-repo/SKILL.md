@@ -375,3 +375,15 @@ created_at: YYYY-MM-DD
 已执行：move docs/OLD-arch.md → .archive/ ✓
 已跳过：src/legacy/（非空目录，需人工处理）
 ```
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出 Tidy Report：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 报告主体 | Markdown | front-matter；章节：摘要 / 错放文件 / 命名违规 / 空目录 / 过期/死文件 / 重复 / 优先清单 | docs/calibration/repo-tidy.md |
+| 发现条目 | 列表项 | category / path / evidence / severity / suggested_action（move/rename/delete/archive）/ effort_estimate | 各分类章节 |
+| 优先清单 | 表格 | rank / action / target_path / risk_level / safe_to_auto_apply（bool） | 「优先清单」节 |

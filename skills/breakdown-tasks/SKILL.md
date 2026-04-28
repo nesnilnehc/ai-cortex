@@ -193,3 +193,15 @@ output_schema:
 - 将任务派生限制为该子集，并清楚地注明任务文档中的范围源部分。
 - 确保范围之外的依赖项要么作为外部先决条件存根，要么作为显式阻止程序捕获。
 - 生成一个任务文件，其第一列将每个任务链接回所使用的特定设计部分，因此将来的运行可以扩展覆盖范围而无需重复。
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出 Task List Document：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 文档主体 | Markdown | front-matter（artifact_type=tasks / created_by=breakdown-tasks / lifecycle=snapshot；upstream_ref 提供时含 parent）；章节：上下文 / 任务列表 / 依赖图 | norms-resolved 路径（默认 docs/tasks/&lt;slug&gt;.md） |
+| 任务条目 | 列表项 | id（如 T01）/ title / description / depends_on[] / acceptance / status（默认 pending）/ effort_estimate（可选） | 「任务列表」节 |
+| 依赖图 | Mermaid 或表格 | edges 表达 depends_on 关系；环路必须为 0 | 「依赖图」节 |

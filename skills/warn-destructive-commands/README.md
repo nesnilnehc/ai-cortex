@@ -21,16 +21,6 @@
 - 会话内对破坏性命令的警告提示
 - 用户确认后的执行或取消
 
-## 评分 (ASQM)
-
-| 维度 | 分数 |
-| :--- | :--- |
-| agent_native | 4 |
-| cognitive | 4 |
-| composability | 3 |
-| stance | 5 |
-| **asqm_quality** | 16 |
-
 ## 生态
 
 | 领域 | 值 |

@@ -637,3 +637,15 @@ Agent：“让我们在没有技术的情况下重写需求。‘React、Postgre
 |需要具有验收标准的层次结构|功能性需求 |
 |限制库存|架构限制 |
 |范围定义（V1 边界）|设计范围|
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出 Validated Requirements Document：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 文档主体 | Markdown | front-matter（artifact_type=requirements / created_by=analyze-requirements / lifecycle=snapshot / created_at；upstream_ref 提供时含 parent 字段）；章节：问题陈述 / 需求层级 / 验收标准 / 约束清单 / 范围边界 / 集成地图 | norms-resolved 路径（默认 docs/requirements/&lt;slug&gt;.md） |
+| 需求条目 | 列表项或表格 | id / statement / acceptance_criteria（可观察、可测试）/ priority（must/should/could/won-t） | 「需求层级」节 |
+| 约束清单 | 列表项 | type（technical / business / regulatory）/ description / source | 「约束清单」节 |
+| 集成地图 | 表格 | upstream sources、downstream skills、handoff fields（供 design-solution 消费） | 「集成地图」节 |

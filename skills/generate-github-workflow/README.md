@@ -24,16 +24,6 @@
 - 工作流程 YAML 文件内容
 - 注释：占位符、秘密名称、配置项
 
-## 评分 (ASQM)
-
-| 维度 | 分数 |
-| ：-------------- | :---- |
-|agent_native | 5 |
-|cognitive| 4 |
-|composability | 4 |
-|stance| 5 |
-| **asqm_quality** | 18 | 18
-
 ## 生态
 
 |领域|价值|

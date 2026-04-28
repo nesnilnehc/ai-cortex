@@ -3,7 +3,6 @@ status: validated
 primary_use: Install rules from a source repository into Cursor (.cursor/rules/) or
   Trae IDE (.trae/project_rules.md) with explicit user confirmation and conflict detection
   before any write.
-cognitive_mode: procedural
 inputs:
 - source (this project rules/ or Git repo owner/repo, optional branch/ref and subpath)
 - target IDE (Cursor | Trae)
@@ -13,24 +12,13 @@ outputs:
 - rule files written to IDE-specific destination (.cursor/rules/*.mdc or .trae managed
   block)
 - post-install summary (executed actions, target paths, conversion notes or failures)
-scores:
-  agent_native: 4
-  cognitive: 5
-  composability: 4
-  stance: 5
-asqm_quality: 18
+has_output_contract: true
+acceptance_criteria:
+- 给定 source 与目标 IDE（Cursor/Trae），先列出将写入文件路径并请求用户确认，再写入
+- 产出 post-install summary 含 executed actions/target paths/conversion notes/failures，冲突时不静默覆盖
 overlaps_with:
 - nesnilnehc/ai-cortex:discover-skills
 market_position: experimental
 tags:
 - automation
 - infrastructure
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

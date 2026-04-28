@@ -155,3 +155,15 @@ output_schema:
 - 输入：同时存在 `docs/design/` 与 `docs/design-decisions/`
 - 输出：冲突裁决建议 + 迁移清单
 - 后续：由 `define-docs-norms` 固化 canonical 规则
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出 Docs Norms Proposal（不写规范本体）：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 提案主体 | Markdown | front-matter（artifact_type=proposal / lifecycle=snapshot）；章节：扫描结果 / 提议规则 / 与现状差异 / 风险 | docs/calibration/docs-norms-proposal.md |
+| 提议规则 | 表格 | rule_kind（path / naming / lifecycle）/ pattern / evidence_files / confidence | 「提议规则」节 |
+| 与现状差异 | 列表项 | 既有 docs 中违反此提议的实例路径；用于评估变更代价 | 「与现状差异」节 |

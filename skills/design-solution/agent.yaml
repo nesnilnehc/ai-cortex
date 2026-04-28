@@ -3,7 +3,6 @@ status: validated
 primary_use: Produce a validated design document from requirements (architecture, components,
   data flow, error handling, testing strategy, trade-offs) with HARD-GATE before
   implementation; serves as single source of truth for breakdown-tasks.
-cognitive_mode: interpretive
 inputs:
 - validated requirements document (path or content)
 - optional project context, constraints, existing patterns or ADRs
@@ -13,12 +12,11 @@ outputs:
 - validated design document at norms-resolved path (default docs/designs/<slug>.md; snapshot)
 - parent frontmatter field when upstream_ref provided
 - trade-off analysis (2-3 approaches with pros/cons/best-for)
-scores:
-  agent_native: 5
-  cognitive: 4
-  composability: 4
-  stance: 5
-asqm_quality: 18
+has_output_contract: true
+acceptance_criteria:
+- 给定已验证需求文档，产出设计文档至 norms-resolved 路径（默认 docs/designs/<slug>.md），front-matter 含 artifact_type=design/created_by=design-solution/lifecycle=snapshot
+- 文档含 2-3 个替代方案及 pros/cons/best_for 权衡；验收标准可追溯到需求条目 id
+- 设计批准前不产出代码或任务清单；批准后建议下游 breakdown-tasks
 overlaps_with:
 - nesnilnehc/ai-cortex:analyze-requirements
 - nesnilnehc/ai-cortex:refine-skill-design
@@ -26,12 +24,3 @@ market_position: differentiated
 tags:
 - writing
 - documentation
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

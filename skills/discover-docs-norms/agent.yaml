@@ -3,19 +3,16 @@ status: validated
 primary_use: Discover and propose project-specific docs norms from repository evidence;
   output proposal only, never writes ARTIFACT_NORMS directly; focuses on path/naming/
   front-matter/lifecycle norms; linking convention inferred by downstream tools.
-cognitive_mode: interpretive
 inputs:
 - project path (default CWD)
 - optional docs root
 - optional confidence threshold
 outputs:
 - docs/calibration/docs-norms-proposal.md
-scores:
-  agent_native: 5
-  cognitive: 4
-  composability: 5
-  stance: 5
-asqm_quality: 19
+has_output_contract: true
+acceptance_criteria:
+- 给定项目 docs 根，扫描既有结构后产出 docs/calibration/docs-norms-proposal.md 含提议规则表（rule_kind/pattern/evidence_files/confidence）
+- 不写入 ARTIFACT_NORMS.md 本体；含「与现状差异」清单评估变更代价
 overlaps_with:
 - nesnilnehc/ai-cortex:define-docs-norms
 - nesnilnehc/ai-cortex:assess-docs
@@ -24,12 +21,3 @@ tags:
 - documentation
 - workflow
 version: 4.0.0
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

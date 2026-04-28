@@ -2,7 +2,6 @@ name: bootstrap-docs
 status: validated
 primary_use: Bootstrap or adapt project docs using project-documentation-template;
   Initialize (empty) or Adjust (non-empty); repeatable; strict kebab-case naming.
-cognitive_mode: procedural
 inputs:
 - project metadata (name, description, tech stack)
 - scale (small | medium | large, optional)
@@ -11,12 +10,10 @@ outputs:
 - Initialize: docs/ directory, VERSION file, summary of created files
 - Adjust: recommendation list (markdown), then applied changes and summary after user
     confirmation
-scores:
-  agent_native: 5
-  cognitive: 4
-  composability: 4
-  stance: 5
-asqm_quality: 18
+has_output_contract: true
+acceptance_criteria:
+- Initialize 模式：产出 docs/ 目录结构、VERSION 文件与已创建文件清单，目录命名严格 kebab-case
+- Adjust 模式：先输出 recommendation list（markdown），获用户确认后才应用变更，最后产出 applied changes 与 summary
 overlaps_with:
 - nesnilnehc/ai-cortex:generate-standard-readme
 - nesnilnehc/ai-cortex:generate-agent-entry
@@ -24,12 +21,3 @@ market_position: differentiated
 tags:
 - documentation
 - writing
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

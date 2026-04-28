@@ -24,11 +24,9 @@
 
 ## 安装
 
-
 ```bash
 npx skills add nesnilnehc/ai-cortex --skill define-north-star
 ```
-
 
 ## 相关技能
 

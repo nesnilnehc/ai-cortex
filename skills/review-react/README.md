@@ -20,16 +20,6 @@
 
 - 结果列表：位置、类别=framework-react、严重性、标题、描述、可选建议。
 
-## 评分 (ASQM)
-
-| 维度 | 分数 |
-| ：-------------- | :---- |
-|agent_native | 5 |
-|cognitive| 4 |
-|composability | 5 |
-|stance| 5 |
-| **asqm_quality** | 19 | 19
-
 ## 生态
 
 |领域 |价值|

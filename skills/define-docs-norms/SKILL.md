@@ -147,3 +147,16 @@ output_schema:
 - 输入：旧规范 + 新提案
 - 行为：`merge`
 - 输出：更新后的规范文件 + 变更摘要
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能写入 ARTIFACT_NORMS：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 规范文档 | Markdown | front-matter（artifact_type=norms / lifecycle=living）；章节：路径规则 / 命名规则 / 生命周期规则 / 例外清单 / 验证脚本指引 | docs/ARTIFACT_NORMS.md |
+| 路径规则 | 表格 | artifact_type / canonical_path_pattern / fallback_pattern / examples | 「路径规则」节 |
+| 命名规则 | 表格 | artifact_type / case_style / slug_rule / forbidden_chars | 「命名规则」节 |
+| 变更摘要 | 列表项 | added / modified / removed 三组规则项；附 commit message 建议 | 章节末尾 |

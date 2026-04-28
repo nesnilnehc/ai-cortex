@@ -3,17 +3,14 @@ status: validated
 primary_use: Review PHP code for language and runtime conventions — strict types, error
   handling, resource management, PSR standards, namespaces, null safety, generators,
   and testability. Language-only atomic skill; output is a findings list.
-cognitive_mode: interpretive
 inputs:
 - code scope (files or directories or diff containing PHP code)
 outputs:
 - findings list (Location, Category=language-php, Severity, Title, Description, Suggestion)
-scores:
-  agent_native: 4
-  cognitive: 4
-  composability: 4
-  stance: 5
-asqm_quality: 17
+has_output_contract: true
+acceptance_criteria:
+- 给定 PHP 代码范围，产出 findings 列表，每条含 Location/Category=language-php/Severity/Title/Description/Suggestion
+- 聚焦 strict types、错误处理、资源管理、PSR、namespaces、null safety、generators 与 testability
 overlaps_with:
 - nesnilnehc/ai-cortex:review-codebase
 - nesnilnehc/ai-cortex:review-code
@@ -21,12 +18,3 @@ overlaps_with:
 market_position: differentiated
 tags:
 - code-review
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass

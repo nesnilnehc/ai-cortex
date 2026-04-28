@@ -504,3 +504,15 @@ If this skill produces incorrect behavior:
 - [ ] **Branch deletion used `-d`**: no `-D` flag in any branch deletion command; user confirmed each branch
 - [ ] **Summary report produced**: per-worktree table includes all entries with correct status codes
 - [ ] **No force-push used**: `--force` or `--force-with-lease` never appeared in any command
+
+---
+
+## 附录：输出合约 (Appendix: Output Contract)
+
+本技能产出批量合并摘要表：
+
+| 元素 | 格式 | 必填字段 | 路径模式 |
+| :--- | :--- | :--- | :--- |
+| 摘要表 | 文本表格（聊天输出） | 列：Worktree / Branch / Merge / Push / Cleanup / Branch（删除状态）；每行覆盖所有用户选中的 worktree | 标准输出，不落盘 |
+| 状态码 | 单元格枚举 | Merge ∈ {✓, skipped(dirty), ✗(conflict), —}；Push/Cleanup/Branch ∈ {✓, —, deleted, kept} | 摘要表每行 |
+| 失败诊断 | 列表项（仅当存在失败/冲突时） | worktree_path / failure_kind（dirty / conflict / push_rejected）/ next_step | 摘要表下方 |

@@ -2,19 +2,16 @@ name: refine-skill-design
 status: validated
 primary_use: Audit and refactor existing SKILLs to meet spec compliance and LLM best
   practices. Use when improving drafts, fixing quality, or aligning to spec.
-cognitive_mode: interpretive
 inputs:
 - existing SKILL.md (path or content)
-- optional target quality score or specific issues to fix
+- optional specific issues or sections to fix
 outputs:
 - optimized SKILL.md content
 - diff summary of changes made
-scores:
-  agent_native: 4
-  cognitive: 4
-  composability: 4
-  stance: 5
-asqm_quality: 17
+has_output_contract: true
+acceptance_criteria:
+- 给定既有 SKILL.md，输出优化版 SKILL.md 内容与 diff summary，覆盖 spec 合规与 LLM 最佳实践修正点
+- 不引入新功能或破坏既有契约；diff summary 列出每处修改的章节与原因
 overlaps_with:
 - nesnilnehc/ai-cortex:curate-skills
 - nesnilnehc/ai-cortex:generate-standard-readme
@@ -23,12 +20,3 @@ tags:
 - meta-skill
 - documentation
 - optimization
-validation_gates:
-  gate_a:
-    name: Agent-ready
-    requirement: agent_native >= 4
-    status: pass
-  gate_b:
-    name: Design integrity
-    requirement: stance >= 3
-    status: pass
