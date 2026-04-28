@@ -51,7 +51,7 @@ status: active
 | 动作 | 频率 | 验收标准 | 本季度执行 |
 | :--- | :--- | :--- | :---: |
 | marketplace.json 与 INDEX 一致 | 随技能发布 | verify-registry.mjs 通过 | ☑ |
-| 符合 D9 的技能纳入 marketplace | 随技能发布 | ASQM ≥ 18、非原子 review、独立使用价值 | ☑ |
+| 符合 D9 的技能纳入 marketplace | 随技能发布 | status=validated（has_output_contract + ≥1 acceptance_criteria）、非原子 review、独立使用价值 | ☑ |
 
 **验证命令：** `node scripts/verify-registry.mjs`
 

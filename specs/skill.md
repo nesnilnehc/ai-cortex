@@ -534,7 +534,7 @@ Restrictions 节必须包含以下内容。**Hard Boundaries** 和 **Skill Bound
 **仓库级文档**（`skills/` 目录）：
 
 - **`skills/INDEX.md`**：手动维护的人工可读目录；`npm run verify` 校验与 manifest 与 SKILL 文件的一致性。
-- **`skills/ASQM_AUDIT.md`**：由 `curate-skills` 产出；含 ASQM 分与生命周期。
+- **`skills/SKILL_INVENTORY.md`**：由 `scripts/generate-skill-inventory.mjs` 生成；含 status 分布、`has_output_contract` 覆盖率、`acceptance_criteria` 缺失清单（参见 [ADR 008](../docs/architecture/adrs/008-replace-asqm-with-acceptance-criteria.md)）。
 
 ## 6. agentskills 兼容性
 

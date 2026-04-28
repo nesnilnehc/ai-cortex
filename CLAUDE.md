@@ -37,7 +37,7 @@ There are no traditional unit tests. Validation is done through the verify scrip
 
 Each skill lives in `skills/<skill-name>/` with three files:
 - `SKILL.md` — Full spec with YAML frontmatter (name, description, tags, version, etc.)
-- `agent.yaml` — Metadata, ASQM scoring, status, overlap detection
+- `agent.yaml` — Metadata, status (validated/experimental/archive_candidate), has_output_contract, acceptance_criteria, overlap detection
 - `README.md` — Quick reference
 
 ### Key Registries

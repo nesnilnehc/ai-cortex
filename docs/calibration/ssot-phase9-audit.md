@@ -26,7 +26,6 @@
 |:---|:---|:---|:---|
 | calibration/assess-docs-extension.md | design | calibration-record | point-in-time |
 | calibration/discover-docs-norms-refactor.md | design-decision | calibration-record | content |
-| calibration/ASQM_AUDIT.md | audit-report | calibration-record | content |
 | calibration/ssot-phase9-audit.md | unknown | calibration-record | content |
 | calibration/cognitive-loop.md | calibration-report | calibration-record | content |
 | calibration/audit-docs.md | audit-docs | calibration-record | content |
