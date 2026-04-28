@@ -8,6 +8,8 @@ status: active
 
 # 推广与迭代 Design
 
+> **历史注记（2026-04-28）**：本文档中提及的 ASQM 评分体系已由 [ADR 008](../architecture/adrs/008-replace-asqm-with-acceptance-criteria.md) 完整退役，改用 `has_output_contract + acceptance_criteria` 决定 skill status。本文档为时间冻结快照，不重写。
+
 **Date:** 2026-03-06
 **Status:** Approved
 **Approved by:** User

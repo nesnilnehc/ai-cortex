@@ -156,12 +156,12 @@ status: active
 
 ### T4.2 发布/审计工作流
 
-**目标**：main 合并或 tag 时运行完整 pre-release-check；可按需触发 ASQM 审计。
+**目标**：main 合并或 tag 时运行完整 pre-release-check；可按需触发 skill inventory 审计。
 
 | 项目 | 内容 |
 | :--- | :--- |
 | **产出** | `.github/workflows/release-check.yml` 或扩展现有 audit workflow |
-| **验收标准** | ① 在 push tag 或 release 创建时触发 ② 运行 pre-release-check ③ 失败时阻止或标记 release ④ 可选：触发 curate-skills 或 ASQM 审计 |
+| **验收标准** | ① 在 push tag 或 release 创建时触发 ② 运行 pre-release-check ③ 失败时阻止或标记 release ④ 可选：触发 curate-skills 或 skill inventory 审计 |
 | **依赖** | T2.1 |
 | **质量门禁** | QG-4：与 pr-check 权限隔离；避免重复运行 |
 

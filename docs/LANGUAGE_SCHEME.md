@@ -58,7 +58,7 @@ status: active
 | skills/*/README.md | 各技能目录 |
 | skills/*/SKILL.md | 正文（非 YAML） |
 | CHANGELOG.md | 根目录 |
-| skills/ASQM_AUDIT.md | skills/ |
+| skills/SKILL_INVENTORY.md | skills/ |
 | llms.txt, docs/ARTIFACT_NORMS.md | 根目录 |
 | .claude-plugin/README.md | 全部 |
 | .github/ISSUE_TEMPLATE/*.md | 全部 |
@@ -93,5 +93,5 @@ status: active
 | P3 | rules/*, .cursor/rules/* |
 | P4 | skills/INDEX.md 非生成部分 |
 | P5 | skills/*/SKILL.md 正文 + description_zh, skills/*/README.md |
-| P6 | llms.txt, .claude-plugin/README.md, CHANGELOG, ASQM_AUDIT, .github/ISSUE_TEMPLATE |
+| P6 | llms.txt, .claude-plugin/README.md, CHANGELOG, SKILL_INVENTORY, .github/ISSUE_TEMPLATE |
 | P7 | skills/skillgraph.md（延后） |
