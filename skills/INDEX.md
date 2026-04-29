@@ -55,7 +55,7 @@
 | Skill name | Tags | Version | Stability | Purpose |
 | :--- | :--- | :--- | :--- | :--- |
 | [decontextualize-text](./decontextualize-text/SKILL.md) | generalization, privacy, security, writing | `1.3.1` | stable | 将含私有上下文或内部依赖的文本转为通用、无偏向的表述，保留逻辑、移除组织标识，便于交接、开源或跨团队共享。. |
-| [generate-standard-readme](./generate-standard-readme/SKILL.md) | devops, documentation, writing | `1.2.1` | stable | 生成固定结构的转换导向 README：10 秒理解、1 分钟运行、清晰的用途与场景；支持治理与采纳模式。. |
+| [generate-standard-readme](./generate-standard-readme/SKILL.md) | devops, documentation, writing | `2.1.0` | stable | 生成高信息密度 README。章节按价值门槛裁剪，非固定数量。读者 30 秒内知道项目是啥、去哪看、怎么用。 |
 | [discover-docs-norms](./discover-docs-norms/SKILL.md) | documentation, workflow | `4.0.0` | mature | 扫描并推导项目文档规范提案（路径、命名、生命周期）；v4.0 回撤 v3.0 的 Stage 2b 链接模式识别（ADR 005）——回归审计职责。. |
 | [define-docs-norms](./define-docs-norms/SKILL.md) | documentation, workflow | `3.0.0` | stable | 基于已确认提案创建或更新 docs/ARTIFACT_NORMS.md；v3.0 回撤 v2.0 的 Stage 1b 链接模式选择 UI（ADR 005）——回归抄写员职责。. |
 | [discover-skills](./discover-skills/SKILL.md) | automation, generalization, infrastructure | `1.3.1` | stable | 识别能力缺口并从 AI Cortex 或公共技能目录推荐安装；提供前 1–3 条匹配及安装命令。. |
