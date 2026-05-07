@@ -1,8 +1,8 @@
 # Skill Inventory — AI Cortex
 
-**Generated**: 2026-04-28
+**Generated**: 2026-05-07
 **Source**: `skills/*/agent.yaml` via `scripts/generate-skill-inventory.mjs`
-**Scope**: `skills/` — 61 skills
+**Scope**: `skills/` — 62 skills
 
 ---
 
@@ -24,19 +24,19 @@ No scoring system. ASQM (`scores`, `asqm_quality`, `validation_gates`, `cognitiv
 
 | Bucket | Count | % |
 |---|---|---|
-| validated | 61 | 100.0% |
+| validated | 62 | 100.0% |
 | experimental | 0 | 0.0% |
 | archive_candidate | 0 | 0.0% |
 
 ### Output contract coverage
 
-- has_output_contract: true → **61 / 61** (100.0%)
-- has_output_contract: false → **0 / 61**
+- has_output_contract: true → **62 / 62** (100.0%)
+- has_output_contract: false → **0 / 62**
 
 ### acceptance_criteria coverage
 
-- skills with ≥1 acceptance_criterion → **61 / 61**
-- skills with 0 acceptance_criteria  → **0 / 61**
+- skills with ≥1 acceptance_criterion → **62 / 62**
+- skills with 0 acceptance_criteria  → **0 / 62**
 
 ---
 
@@ -69,16 +69,17 @@ No scoring system. ASQM (`scores`, `asqm_quality`, `validation_gates`, `cognitiv
 | define-roadmap | validated | true | 3 | differentiated |
 | define-strategic-pillars | validated | true | 2 | differentiated |
 | define-vision | validated | true | 2 | differentiated |
+| deliver-feature | validated | true | 5 | differentiated |
 | design-solution | validated | true | 3 | differentiated |
 | design-strategic-goals | validated | true | 2 | differentiated |
 | discover-docs-norms | validated | true | 2 | differentiated |
 | discover-skills | validated | true | 2 | differentiated |
 | generate-agent-entry | validated | true | 2 | differentiated |
 | generate-github-workflow | validated | true | 2 | differentiated |
-| generate-standard-readme | validated | true | 2 | commodity |
+| generate-standard-readme | validated | true | 6 | commodity |
 | install-rules | validated | true | 2 | experimental |
+| integrate-worktrees | validated | true | 5 | differentiated |
 | investigate-root-cause | validated | true | 2 | differentiated |
-| merge-worktree | validated | true | 3 | differentiated |
 | plan-next | validated | true | 3 | differentiated |
 | prioritize-backlog | validated | true | 3 | differentiated |
 | promote-roadmap-items | validated | true | 2 | differentiated |

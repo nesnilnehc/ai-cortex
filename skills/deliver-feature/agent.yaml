@@ -1,0 +1,23 @@
+name: deliver-feature
+status: validated
+primary_use: From inside a linked worktree, deliver the current feature branch into main via --no-ff merge driven by git -C against the main repo, without leaving CWD; user-controlled cleanup
+inputs:
+- linked git worktree (CWD must be inside a worktree, not the main repo)
+- current branch is not the main branch
+- clean working tree (git status --porcelain empty; no auto-stash)
+- user choice for cleanup (keep / remove worktree / remove worktree and delete branch)
+outputs:
+- exactly one --no-ff merge commit on the main branch in the main repo (driven via git -C)
+- origin remote updated via a single git push
+- optional worktree removal (user-chosen)
+- optional feature branch deletion (user-chosen, safe -d only)
+- single-branch summary report with merge commit hash, push status, cleanup outcome, and follow-up cd hint
+has_output_contract: true
+acceptance_criteria:
+- 在 linked worktree 内、非 main 分支、tree 干净时调用 → 主仓库产生 1 个 --no-ff merge commit + push 成功；CWD 全程未离开 worktree
+- 在主仓库或在 worktree 但已 checkout main 调用 → halt 且退出码非 0，不发起任何 git 写操作；输出指明改用 integrate-worktrees
+- worktree 有未提交变更时 halt 退出码非 0，不 stash 不 merge；worktree 状态完全保留
+- merge 冲突或 push rejected 时 halt 并保留 worktree 不变；摘要标记 Push 列为 ✗(conflict) 或 ✗(rejected)，不进行 worktree remove 或 branch delete
+- 用户选项 1（keep）→ 不调 worktree remove 不调 branch delete；选项 2 → 仅 worktree remove；选项 3 → worktree remove + branch -d（绝不使用 -D）
+overlaps_with: []
+market_position: differentiated

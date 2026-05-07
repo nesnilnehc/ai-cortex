@@ -258,8 +258,12 @@
       "path": "skills/audit-docs/SKILL.md"
     },
     {
-      "name": "merge-worktree",
-      "path": "skills/merge-worktree/SKILL.md"
+      "name": "deliver-feature",
+      "path": "skills/deliver-feature/SKILL.md"
+    },
+    {
+      "name": "integrate-worktrees",
+      "path": "skills/integrate-worktrees/SKILL.md"
     },
     {
       "name": "prioritize-backlog",
