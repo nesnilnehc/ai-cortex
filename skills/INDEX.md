@@ -112,7 +112,8 @@
 | [sync-release-docs](./sync-release-docs/SKILL.md) | documentation, workflow | `1.0.0` | stable | 发版后同步项目文档：交叉引用 diff，更新 README/ARCHITECTURE/CONTRIBUTING/CLAUDE.md，润色 CHANGELOG，清理 TODOS。发版后或 PR 合并后建议使用。. |
 | [tidy-repo](./tidy-repo/SKILL.md) | repository, workflow, cleanup, structure | `1.3.0` | stable | 一次性审计仓库目录结构并输出优先级整理报告；v1.3 加 Stage 0 Norms Resolution——整理操作尊重项目声明的 artifact path_pattern。. |
 | [warn-destructive-commands](./warn-destructive-commands/SKILL.md) | security, workflow | `1.0.0` | stable | 在破坏性命令执行前发出警告。检查 Bash 命令中的 rm -rf、DROP TABLE、force-push、git reset --hard、kubectl delete 等模式。用户可覆盖每次警告。适用于接触生产、调试线上或共享环境。. |
-| [merge-worktree](./merge-worktree/SKILL.md) | git, workflow, automation | `1.0.0` | validated | 从主仓库扫描所有 worktree，批量将选中分支合并到主分支、推送并统一清理。 |
+| [deliver-feature](./deliver-feature/SKILL.md) | git, workflow, automation | `1.0.0` | validated | 在 linked worktree 内将当前 feature 分支交付到 main——以 --no-ff 合并、推送，并可选清理本 worktree，全程不离开当前目录。 |
+| [integrate-worktrees](./integrate-worktrees/SKILL.md) | git, workflow, automation | `1.0.0` | validated | 在主仓库 main 分支扫描所有 linked worktree，让用户多选后顺序 --no-ff 合并并推送，最后统一清理成功项。 |
 | [prioritize-backlog](./prioritize-backlog/SKILL.md) | automation, meta-skill, workflow | `2.0.0` | validated | 对全部 backlog 条目强制重评（忽略原 priority），并行跑 RICE / WSJF / MoSCoW / ICE 四框架；自动适配多文件目录或单文件 backlog 形态；surface 分歧并按形态写回 priority_decision（含 previous 旧值快照）。 |
 | [promote-roadmap-items](./promote-roadmap-items/SKILL.md) | automation, meta-skill, workflow | `1.0.0` | validated | 按 strategic_goal 容量分配把已评分 backlog 条目晋升进 roadmap 的 Now/Next/Later；事件驱动；更新 roadmap 和条目 status。 |
 

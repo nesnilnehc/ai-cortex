@@ -123,7 +123,7 @@ npm run verify
 
 # Stage 0 覆盖检查（v7.0 后所有产出技能应含 "Stage 0" 或 "Norms Resolution"）
 grep -rL "Stage 0\|Norms Resolution" skills/*/SKILL.md | \
-  grep -vE "(review-|automate-|simplify|pptx|drawio|frontend-design|decontextualize-text|commit-work|merge-worktree|curate-skills|refine-skill-design|install-rules|init|warn-destructive-commands|promote-roadmap-items|prioritize-backlog|breakdown-tasks|capture-work-items|analyze-requirements|design-solution|bootstrap-docs|generate-|discover-skills|find-skills|web-design-guidelines|investigate-root-cause|sync-release-docs|review|security-review|fewer-permission-prompts|schedule|loop|keybindings-help|update-config|claude-api|assess-docs)"
+  grep -vE "(review-|automate-|simplify|pptx|drawio|frontend-design|decontextualize-text|commit-work|deliver-feature|integrate-worktrees|curate-skills|refine-skill-design|install-rules|init|warn-destructive-commands|promote-roadmap-items|prioritize-backlog|breakdown-tasks|capture-work-items|analyze-requirements|design-solution|bootstrap-docs|generate-|discover-skills|find-skills|web-design-guidelines|investigate-root-cause|sync-release-docs|review|security-review|fewer-permission-prompts|schedule|loop|keybindings-help|update-config|claude-api|assess-docs)"
 # 预期：零未覆盖产出技能
 
 # spec_version
