@@ -12,6 +12,10 @@ acceptance_criteria:
 - 给定 skills/ 目录，扫描每个 skill 的 SKILL.md 检测是否含 "## Appendix: Output contract" 或 "## 附录：输出合约/合同/契约"，结果写入 agent.yaml 的 has_output_contract 字段
 - 每个 skill 的 agent.yaml 必须有 acceptance_criteria 字段（数组，可空）；status 按规则推导：has_output_contract=true 且 len(acceptance_criteria)>=1 → validated；否则 → experimental；archive_candidate 仅手动设置
 - 产出 SKILL_INVENTORY.md 含按 status 分组列表、has_output_contract 覆盖率、acceptance_criteria 缺失清单、最终建议节
+chains_to:
+- refine-skill-design
+triggers_after:
+- refine-skill-design
 overlaps_with:
 - nesnilnehc/ai-cortex:refine-skill-design
 - nesnilnehc/ai-cortex:generate-standard-readme
