@@ -177,6 +177,50 @@ if (existsSync(marketplacePath)) {
   }
 }
 
+// Check chains_to and triggers_after references in agent.yaml
+const parseAgentYamlList = (content, fieldName) => {
+  const lines = content.split('\n');
+  const results = [];
+  let inList = false;
+  for (const line of lines) {
+    if (line.startsWith(`${fieldName}:`)) {
+      const inlineMatch = line.match(/^\w[\w_]*:\s*\[([^\]]*)\]/);
+      if (inlineMatch) {
+        const items = inlineMatch[1].split(',').map((s) => s.trim()).filter(Boolean);
+        results.push(...items);
+        inList = false;
+      } else {
+        inList = true;
+      }
+      continue;
+    }
+    if (inList) {
+      const itemMatch = line.match(/^\s+-\s+(.+)/);
+      if (itemMatch) {
+        results.push(itemMatch[1].trim());
+      } else if (/^\S/.test(line)) {
+        inList = false;
+      }
+    }
+  }
+  return results;
+};
+
+for (const name of skillDirNames) {
+  const agentPath = join(skillsDir, name, 'agent.yaml');
+  if (!existsSync(agentPath)) continue;
+  const agentContent = readFileSync(agentPath, 'utf8');
+  for (const field of ['chains_to', 'triggers_after']) {
+    const refs = parseAgentYamlList(agentContent, field);
+    for (const ref of refs) {
+      if (!skillDirNames.has(ref)) {
+        console.error(`Skill "${name}" agent.yaml ${field} references unknown skill "${ref}"`);
+        failed = true;
+      }
+    }
+  }
+}
+
 // Optional: warn if triggers contain non-ASCII (spec prefers English)
 for (const cap of capabilities) {
   const fullPath = join(root, cap.path);
