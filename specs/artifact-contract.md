@@ -38,6 +38,7 @@
 | backlog-item (fallback) | `docs/backlog/YYYY-MM-DD-{slug}.md` | living | capture-work-items |
 | adr | `docs/process-management/decisions/YYYYMMDD-{slug}.md` | living | bootstrap-docs |
 | doc-assessment | `docs/calibration/doc-assessment.md` | snapshot | assess-docs |
+| milestone-summary | `docs/process-management/milestones/_archive/{slug}-summary.md` | snapshot | archive-milestone |
 
 ### 路径理由
 
@@ -45,6 +46,7 @@
 - **backlog-item**：`project-board/backlog/` 与敏捷看板语义一致；日期前缀保留因 backlog 条目按日期分流是常见实践。无 process-management 的轻量项目使用回退 `docs/backlog/`。
 - **adr**：`process-management/decisions/` 将架构决策与过程文档归类；`YYYYMMDD` 遵循 ADR 社区惯例。
 - **doc-assessment**：`docs/calibration/` 用于治理/评估报告；与内容文档分离。
+- **milestone-summary**：`milestones/_archive/` 与活跃里程碑目录并列，`_` 前缀约定为非活跃/模板路径，与 `_templates/` 风格一致；`{slug}-summary.md` 后缀明确文件角色，便于 glob 区分活跃任务与归档摘要。
 
 ---
 
@@ -81,7 +83,7 @@ ADR 与完整 process-management 结构对更大项目为可选。
 
 | 字段 | 必填 | 说明 |
 | :--- | :---: | :--- |
-| `artifact_type` | 是 | 取其一：requirements, design, tasks, backlog-item, adr, doc-assessment |
+| `artifact_type` | 是 | 取其一：requirements, design, tasks, backlog-item, adr, doc-assessment, milestone-summary |
 | `created_by` | 是 | 技能名（如 `capture-work-items`） |
 | `lifecycle` | 可选 | `snapshot` 或 `living` |
 | `created_at` | 可选 | `YYYY-MM-DD` |
