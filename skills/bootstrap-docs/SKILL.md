@@ -8,6 +8,8 @@ license: MIT
 recommended_scope: both
 metadata:
   author: ai-cortex
+  chains_to:
+    - assess-docs
 triggers: [bootstrap docs, bootstrap documentation]
 input_schema:
   type: free-form

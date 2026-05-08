@@ -102,6 +102,24 @@ metadata:
 - **triggers**（可选）：英文短语数组（如 `["review", "code review"]`），3–5 个，供精确匹配。不替代 description/tags 的语义匹配。
 - **description_zh**（可选）：中文一句话摘要，当项目存在 `docs/LANGUAGE_SCHEME.md` 时供 INDEX 的 Purpose 列使用。
 - **allowed_tools**（可选）：字符串数组，列出该技能允许使用的工具名（如 `Read`、`Write`、`Grep`、`Bash`）。供支持工具白名单的主机（如 Claude）使用，减少越权调用。若不指定，则不施加工具限制。主机不支持时忽略该字段。与 agentskills.io、gstack 的 `allowed-tools` 对齐。
+- **chains_to**（可选）：技能名称数组，声明完成本技能后建议链式调用的技能。`plan-next` 会将这些条目自动追加到「也要留意」节，标签 `链调`。为空时不展开。格式见下方示例。
+- **triggers_after**（可选）：技能名称数组，声明哪些技能完成后自然链调本技能（反向索引）。供诊断工具分析调用路径，不直接影响执行行为。
+
+**`chains_to` / `triggers_after` 示例**：
+
+```yaml
+metadata:
+  author: ai-cortex
+  chains_to:
+    - assess-docs        # 创建文档后建议验证
+  triggers_after:
+    - bootstrap-docs     # bootstrap-docs 完成后自然触发本技能
+```
+
+**约束**：
+- `chains_to` 列表中的技能名称必须存在于 `skills/` 目录；`refine-skill-design` 执行时会校验。
+- `plan-next` 消费 `chains_to` 时仅作推荐展示，不自动执行下游技能（只读路由器语义保持不变）。
+- `triggers_after` 为信息性字段，不触发任何自动调用；仅供 `plan-next` 的卫生巡检诊断孤儿触发路径。
 
 **示例**：
 

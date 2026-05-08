@@ -9,6 +9,8 @@ recommended_scope: project
 cognitive_mode: interpretive
 metadata:
   author: ai-cortex
+  chains_to:
+    - promote-roadmap-items
 triggers: [prioritize backlog, score backlog, backlog ranking, planning prep, re-score backlog]
 input_schema:
   type: free-form

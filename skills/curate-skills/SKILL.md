@@ -8,6 +8,10 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
+  chains_to:
+    - refine-skill-design
+  triggers_after:
+    - refine-skill-design
 triggers: [curate, curate skills, skill audit]
 aliases: [curate]
 input_schema:
