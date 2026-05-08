@@ -102,7 +102,7 @@
 | [automate-tests](./automate-tests/SKILL.md) | automation, devops | `1.0.0` | stable | 安全发现并执行仓库测试命令；基于证据选择命令并设安全护栏。. |
 | [automate-repair](./automate-repair/SKILL.md) | automation, devops, optimization | `1.1.0` | stable | 迭代审查变更、运行自动化测试并实施定向修复，直至问题解决或满足停止条件。. |
 | [auto-iterate](./auto-iterate/SKILL.md) | automation, meta-skill, workflow | `2.0.0` | stable | 单步治理执行器——读取 plan-next 路由输出，执行最高优先级动作，发出继续信号以支持 /loop 全自动推进。. |
-| [plan-next](./plan-next/SKILL.md) | automation, meta-skill, workflow | `13.0.0` | mature | 盘点治理输入源并输出下一步技能路由——只读，永不执行下游；含漂移巡检、卫生巡检与 chains_to 自动展开；深度优先遍历目标链（战略目标→路线图→需求→设计→任务→完成），完成判定只看任务 status 字段。. |
+| [plan-next](./plan-next/SKILL.md) | automation, meta-skill, workflow | `13.1.1` | mature | 盘点治理输入源并输出下一步技能路由——只读，永不执行下游；含漂移巡检、卫生巡检与 chains_to 自动展开；深度优先遍历目标链（战略目标→路线图→需求→设计→任务→完成），完成判定只看任务 status 字段。. |
 | [define-mission](./define-mission/SKILL.md) | documentation, workflow | `1.3.0` | stable | 定义项目或组织的根本目的；v1.3 加 Stage 0 Norms Resolution 路径覆盖。. |
 | [define-vision](./define-vision/SKILL.md) | documentation, workflow | `1.3.0` | stable | 定义项目旨在创造的长远未来；v1.3 加 Stage 0 Norms Resolution 路径覆盖。. |
 | [define-north-star](./define-north-star/SKILL.md) | documentation, workflow | `1.2.0` | stable | 定义代表向用户交付核心价值的单一最重要指标；v1.2 加 Stage 0 Norms Resolution 路径覆盖。. |

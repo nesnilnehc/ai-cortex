@@ -81,7 +81,7 @@ No scoring system. ASQM (`scores`, `asqm_quality`, `validation_gates`, `cognitiv
 | install-rules | validated | true | 2 | experimental |
 | integrate-worktrees | validated | true | 5 | differentiated |
 | investigate-root-cause | validated | true | 2 | differentiated |
-| plan-next | validated | true | 6 | differentiated |
+| plan-next | validated | true | 9 | differentiated |
 | prioritize-backlog | validated | true | 3 | differentiated |
 | promote-roadmap-items | validated | true | 2 | differentiated |
 | refine-skill-design | validated | true | 2 | differentiated |
