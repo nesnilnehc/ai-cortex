@@ -6,7 +6,7 @@ primary_use: Analyze governance state and produce a next-action routing report b
 inputs:
 - trigger context
 - optional scope overrides
-- optional threshold overrides (commit_idle_days, drift_staleness_days, backlog_min_items, confidence_low_below, task_stuck_days)
+- optional threshold overrides (commit_idle_days, drift_staleness_days, backlog_min_items, confidence_low_below, task_stuck_days, milestone_archive_age_days, milestone_archive_lookback)
 - optional task_source, roadmap_tier_source, artifact_norms_path overrides
 outputs:
 - three-section user-facing report (Now do / Also watch / Diagnosis) with natural-language terms in first two sections
@@ -20,6 +20,8 @@ acceptance_criteria:
 - （v13）步骤 2.2 漂移巡检：比较制品 updated_at 与阈值，超阈值条目进「也要留意」
 - （v13）步骤 2.3 卫生巡检：检出未归档完成里程碑 / ADR 状态违规 / 仓库结构问题，进「也要留意」
 - （v13）步骤 3.5 chains_to 展开：「现在该做」推荐技能的 chains_to 字段自动追加到「也要留意」，标签「链调」
+chains_to: []
+triggers_after: []
 overlaps_with:
 - nesnilnehc/ai-cortex:assess-docs
 - nesnilnehc/ai-cortex:audit-docs
