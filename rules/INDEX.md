@@ -35,6 +35,7 @@
 | [standards-shell](./standards-shell.md) | standards | `1.0.0` | Shell 脚本：严格模式、日志函数、trap、命名与变量引用规范。 | *.sh 脚本 |
 | [tools-list-dir-dotfiles](./tools-list-dir-dotfiles.md) | tools | `1.0.0` | list_dir 不显示点文件时的替代做法与验证要求。 | Agent 使用目录列举时 |
 | [documentation-markdown-format](./documentation-markdown-format.md) | content | `1.0.0` | 尾随空格、围栏代码块与列表前后空行等 Markdown 格式约束。 | Agent 编写或修改 Markdown 时 |
+| [workflow-document-lifecycle](./workflow-document-lifecycle.md) | workflow | `1.0.0` | 治理文档生命周期：superseded ADR 排除、_archive 路径隔离、路线图历史段只读、状态冲突停止上报、lifecycle 字段强制。 | 读取或产出 ADR、路线图、里程碑、归档文档时 |
 
 ---
 
