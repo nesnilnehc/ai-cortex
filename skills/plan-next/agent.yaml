@@ -17,6 +17,9 @@ acceptance_criteria:
 - 给定项目 docs 根，产出三段式报告：「现在该做」「也要留意」「诊断依据」（可折叠）
 - 前两段每条路由含 5 字段：theme/recommended_skill（含 invocation hint）/rationale/priority_label（紧急/现在/缓/待执行）/completion_marker
 - 诊断依据节含治理上下文链（战略目标→路线图→需求/设计→任务）与判定逻辑；保持 read-only，绝不执行下游 skill
+- （v13）步骤 2.2 漂移巡检：比较制品 updated_at 与阈值，超阈值条目进「也要留意」
+- （v13）步骤 2.3 卫生巡检：检出未归档完成里程碑 / ADR 状态违规 / 仓库结构问题，进「也要留意」
+- （v13）步骤 3.5 chains_to 展开：「现在该做」推荐技能的 chains_to 字段自动追加到「也要留意」，标签「链调」
 overlaps_with:
 - nesnilnehc/ai-cortex:assess-docs
 - nesnilnehc/ai-cortex:audit-docs
@@ -25,4 +28,4 @@ tags:
 - workflow
 - automation
 - meta-skill
-version: 10.1.0
+version: 13.0.0
