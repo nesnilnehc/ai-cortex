@@ -1,8 +1,8 @@
 # Skill Inventory — AI Cortex
 
-**Generated**: 2026-05-07
+**Generated**: 2026-05-08
 **Source**: `skills/*/agent.yaml` via `scripts/generate-skill-inventory.mjs`
-**Scope**: `skills/` — 62 skills
+**Scope**: `skills/` — 63 skills
 
 ---
 
@@ -24,19 +24,19 @@ No scoring system. ASQM (`scores`, `asqm_quality`, `validation_gates`, `cognitiv
 
 | Bucket | Count | % |
 |---|---|---|
-| validated | 62 | 100.0% |
+| validated | 63 | 100.0% |
 | experimental | 0 | 0.0% |
 | archive_candidate | 0 | 0.0% |
 
 ### Output contract coverage
 
-- has_output_contract: true → **62 / 62** (100.0%)
-- has_output_contract: false → **0 / 62**
+- has_output_contract: true → **63 / 63** (100.0%)
+- has_output_contract: false → **0 / 63**
 
 ### acceptance_criteria coverage
 
-- skills with ≥1 acceptance_criterion → **62 / 62**
-- skills with 0 acceptance_criteria  → **0 / 62**
+- skills with ≥1 acceptance_criterion → **63 / 63**
+- skills with 0 acceptance_criteria  → **0 / 63**
 
 ---
 
@@ -44,16 +44,17 @@ No scoring system. ASQM (`scores`, `asqm_quality`, `validation_gates`, `cognitiv
 
 | Skill | status | has_output_contract | acceptance_criteria | market_position |
 |---|---|---|---|---|
-| align-architecture | validated | true | 3 | differentiated |
+| align-architecture | validated | true | 4 | differentiated |
 | align-backlog | validated | true | 3 | differentiated |
 | align-planning | validated | true | 3 | differentiated |
 | align-work-item-manifest | validated | true | 3 | differentiated |
 | analyze-requirements | validated | true | 3 | differentiated |
+| archive-milestone | validated | true | 6 | differentiated |
 | assess-docs | validated | true | 2 | differentiated |
 | assess-docs-code-alignment | validated | true | 2 | differentiated |
 | assess-docs-links | validated | true | 2 | differentiated |
 | assess-docs-ssot | validated | true | 2 | differentiated |
-| audit-docs | validated | true | 3 | differentiated |
+| audit-docs | validated | true | 4 | differentiated |
 | auto-iterate | validated | true | 2 | differentiated |
 | automate-repair | validated | true | 2 | commodity |
 | automate-tests | validated | true | 2 | commodity |
@@ -80,7 +81,7 @@ No scoring system. ASQM (`scores`, `asqm_quality`, `validation_gates`, `cognitiv
 | install-rules | validated | true | 2 | experimental |
 | integrate-worktrees | validated | true | 5 | differentiated |
 | investigate-root-cause | validated | true | 2 | differentiated |
-| plan-next | validated | true | 3 | differentiated |
+| plan-next | validated | true | 6 | differentiated |
 | prioritize-backlog | validated | true | 3 | differentiated |
 | promote-roadmap-items | validated | true | 2 | differentiated |
 | refine-skill-design | validated | true | 2 | differentiated |
