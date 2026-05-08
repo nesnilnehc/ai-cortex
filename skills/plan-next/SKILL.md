@@ -3,12 +3,15 @@ name: plan-next
 description: Analyze governance state and produce next-action routing plan from existing docs; read-only — never executes downstream skills.
 description_zh: 基于现有治理文档分析状态并输出下一步路由计划；只读——不执行下游技能。
 tags: [workflow, meta-skill, automation]
-version: 12.0.0
+version: 13.0.0
 license: MIT
 recommended_scope: project
 cognitive_mode: interpretive
 metadata:
   author: ai-cortex
+  evolution:
+    enhancements:
+      - "v13.0.0: add step 2.2 drift scan, step 2.3 hygiene scan, step 3.5 chains_to auto-expansion — Refs: docs/designs/2026-05-08-orphan-skills-cleanup.md (W5)"
 triggers: [plan next, next step, checkpoint, governance, iteration]
 input_schema:
   type: free-form
@@ -91,12 +94,14 @@ output_schema:
             └── 任务（多个，每设计下）
 ```
 
-**2 子步骤**（依次执行）：
+**4 子步骤**（依次执行）：
 
 | 子步 | 做什么 | 产出 |
 |---|---|---|
 | 2.0 前置闸门 | Rules 层是否就位？ | 否则短路 |
 | 2.1 目标树遍历 | 逐目标深度优先遍历，定位首缺口 + 并行判定 | 每目标的当前位置 + 路由建议 |
+| 2.2 漂移巡检（v13 新增） | 制品 updated_at vs 对齐目标变更时间，超阈值路由专用技能 | 漂移条目列表 |
+| 2.3 卫生巡检（v13 新增） | 已完成里程碑归档、ADR 状态、仓库结构、技能层改动等 | 卫生问题条目列表 |
 
 G1-G4 缺口类型用作诊断依据节的子标签。
 
@@ -222,6 +227,57 @@ G1-G4 缺口类型用作诊断依据节的子标签。
 - **每目标遍历结果**：{目标名称, 当前焦点节点, 所在层级, 并行建议, 缺口子标签（G1/G2/G3）, 推荐技能}
 - **blocked 节点列表**：[(层级, 节点名, blocked 原因（若有）)]
 - **次要发现**：聚焦目标之外的其他发现
+- **漂移条目列表**（步骤 2.2 产出）：[(制品路径, 漂移类型, 推荐技能)]
+- **卫生问题列表**（步骤 2.3 产出）：[(问题描述, 推荐技能)]
+
+#### 步骤 2.2：漂移巡检（v13 新增）
+
+比较制品的 `updated_at` 与对应层级变更事件时间，超阈值则路由专用技能。
+
+**阈值（内部常量，不暴露给用户）**：
+
+| 参数 | 默认值 | 含义 |
+|---|---|---|
+| `drift_staleness_days` | 30 | 制品未更新超过此天数视为漂移 |
+| `backlog_rescore_days` | 90 | backlog 最后重评超过此天数视为老化 |
+| `audit_docs_staleness_days` | 30 | audit-docs 报告超过此天数视为过期 |
+
+**路由表**：
+
+| 漂移信号 | 推荐技能 |
+|---|---|
+| backlog `last_rescored_at` 超 `backlog_rescore_days` | `/prioritize-backlog` |
+| 路线图 vs backlog 状态漂移（路线图阶段 done 但 backlog 条目未收档） | `/align-backlog` |
+| 架构文档 vs 代码漂移（ADR updated_at 与最近代码提交差距超阈值） | `/align-architecture` |
+| 工作项清单 vs 执行漂移 | `/align-work-item-manifest` |
+| 文档 SSOT 漂移信号（assess-docs 报告 > `audit_docs_staleness_days`） | `/assess-docs-ssot` |
+| 文档与代码对齐漂移 | `/assess-docs-code-alignment` |
+| 文档链路腐烂信号 | `/assess-docs-links` |
+
+**约束**：漂移项强制进「也要留意」节，不占用「现在该做」前两位（除非主路由空闲且漂移优先级达 P1）。
+
+#### 步骤 2.3：卫生巡检（v13 新增）
+
+检查慢性积累的治理债务，输出卫生问题列表。
+
+**阈值（内部常量）**：
+
+| 参数 | 默认值 | 含义 |
+|---|---|---|
+| `milestone_archive_age_days` | 60 | 里程碑完成后超过此天数成熟可归档 |
+| `milestone_archive_lookback` | 2 | 当前进行中里程碑索引与 slug 差值 ≥ N 视为可归档 |
+
+**检查项**：
+
+| 检查 | 判定条件 | 推荐技能 |
+|---|---|---|
+| 已完成里程碑未归档 | `milestones/{slug}/tasks.md` 全 done，且满足成熟度任一条件 | `/archive-milestone {slug}` |
+| ADR 状态闭环违规 | V1/V2/V3/V4 类型（见 align-architecture v1.4 定义） | `/align-architecture` |
+| 仓库结构漂移 | `_templates/` 遗漏 / 文件命名违规 | `/tidy-repo` |
+| 技能层改动未 curate | git diff 检测到 `skills/` 下有未经 curate-skills 处理的 SKILL.md 变更 | `/curate-skills` |
+| 文档治理审计积压 | audit-docs 报告 > `audit_docs_staleness_days` 天未更新 | `/audit-docs` |
+
+**约束**：卫生项强制进「也要留意」节，不占用「现在该做」前两位。
 
 ### 步骤 3：荐 — 路由生成与分层
 
@@ -328,6 +384,19 @@ KPI 状态三种表达：
 
 ---
 
+## 也要留意
+
+<!-- 漂移巡检（步骤 2.2）+ 卫生巡检（步骤 2.3）+ chains_to 链调（步骤 3.5）条目汇聚于此，最多 5 条，按优先级截断 -->
+
+**[漂移/卫生/链调名称]** · `缓 / 可略` `链调`（若来自 chains_to）
+
+[一句话：发现了什么问题]
+
+- 依据：[文件路径或可观测信号]
+- 推荐技能：`/skill-name [聚焦点]`
+
+---
+
 <details>
 <summary>诊断依据（技术追溯）</summary>
 
@@ -336,9 +405,25 @@ KPI 状态三种表达：
 - **项目情况**：[一句话摘要]
 - **资产清单**：[仅列有状态变化的资产]
 - **判定逻辑**：[目标树遍历路径；每目标首缺口层级；并行建议；blocked 节点及原因；层级编号可括注作追溯]
+- **漂移巡检结果**：[漂移条目列表]
+- **卫生巡检结果**：[卫生问题列表]
 
 </details>
 ````
+
+#### 3.5 chains_to 自动展开（v13 新增）
+
+主路由生成后，对每条「现在该做」推荐技能 X，读取 X 的 `chains_to` 字段（来自 `skills/X/SKILL.md` frontmatter）。将 X.chains_to 中每项 Y 作为额外条目追加到「也要留意」末尾：
+
+- 标签：`链调`
+- 依据字段：写明"来自 `X` 的 chains_to"
+- 推荐技能：`/Y [X 完成后，Y 的推荐聚焦点]`
+
+**约束**：
+
+- chains_to 展开仅为输出层推荐，plan-next 不自动执行 Y
+- 「也要留意」总条目数（漂移 + 卫生 + 链调）截断到 5 条，优先级：漂移 P1 > 卫生 P1 > 链调 > 漂移 P2 > 卫生 P2
+- chains_to 指向不存在技能时，跳过该条目（不报错）
 
 ---
 
@@ -372,7 +457,7 @@ KPI 状态三种表达：
 
 **关于树遍历与扫描**：
 
-- ❌ 对 done 节点重复报告缺口
+- ❌ 在主路由「现在该做」中对 done 节点报告缺口（卫生巡检对 done 节点的检查是例外，输出到「也要留意」）
 - ❌ 同时报同一节点的多层缺口（违反深度优先）
 - ❌ 引入 mode 枚举或配置字段（直接看物理信号）
 - ❌ 承担清单维护职责（只读，差异作 G3；维护是 `align-work-item-manifest` 的事）
@@ -408,6 +493,8 @@ KPI 状态三种表达：
 - [ ] L3-L5 物理扫描完成（glob + 可选 parent: + 可选 manifest）
 - [ ] L3→L4 / L4→L5 G3 链路检查已执行；深度优先（上层 G3 命中不继续报下层）
 - [ ] "完成"判定仅依赖 status 字段，未引入 git 信号
+- [ ] 漂移巡检（步骤 2.2）已执行；超阈值制品已列入漂移条目列表
+- [ ] 卫生巡检（步骤 2.3）已执行；已完成未归档里程碑、ADR 状态问题、仓库结构问题均已扫描
 
 **荐**：
 
@@ -418,6 +505,8 @@ KPI 状态三种表达：
 - [ ] 深度优先（每目标只报树中首缺口）
 - [ ] 并行建议已体现在路由依据中
 - [ ] 多目标合并路由时依据中已列所有目标来源
+- [ ] chains_to 已展开：「现在该做」每条推荐技能的 chains_to 已读取并追加到「也要留意」末尾（`链调` 标签）
+- [ ] 漂移/卫生/链调条目均在「也要留意」节，未挤占「现在该做」前两位
 
 **输出**：
 
