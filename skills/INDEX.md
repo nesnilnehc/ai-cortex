@@ -90,18 +90,19 @@
 | [analyze-requirements](./analyze-requirements/SKILL.md) | documentation, writing | `3.0.0` | stable | 通过诊断状态推进与结构化对话，将模糊意图或不完整需求转为可验证、可测试的需求；v3.0 采用 canonical 统一路径 `docs/requirements/{slug}.md`；Stage 0 Norms Resolution 读项目规范解析 path_pattern；可选 upstream_ref 触发 parent: frontmatter emit。. |
 | [review-requirements](./review-requirements/SKILL.md) | code-review | `1.0.1` | stable | 审查既有需求文档质量：问题清晰度、可测试需求、约束清单、范围边界、需求 ID 与遗留问题。. |
 | [align-planning](./align-planning/SKILL.md) | documentation, workflow | `1.4.0` | stable | 执行任务后追溯、漂移检测与自上而下校准；v1.4 加 Stage 0 Norms Resolution 路径覆盖。. |
-| [align-architecture](./align-architecture/SKILL.md) | documentation, workflow | `1.3.0` | stable | 对照代码实现验证架构与设计文档；v1.3 加 Stage 0 Norms Resolution 路径覆盖。. |
+| [align-architecture](./align-architecture/SKILL.md) | documentation, workflow | `1.4.0` | stable | 对照代码实现验证架构与设计文档；加 ADR 状态完整性扫描（V1–V4 违规检测）。. |
 | [align-backlog](./align-backlog/SKILL.md) | documentation, workflow | `1.1.0` | stable | 将产品/工作待办与当前战略、目标、路线图对齐；v1.1 加 Stage 0 Norms Resolution 路径覆盖。. |
 | [align-work-item-manifest](./align-work-item-manifest/SKILL.md) | workflow, documentation, governance, alignment | `1.0.0` | experimental | 检测 manifest 链接模式下清单文件与物理制品的漂移（悬挂引用/未登记/命名不符）；v1.0 只读 advisory；输出供 plan-next 作 G3 漂移源消费（ADR 004）。. |
 | [assess-docs](./assess-docs/SKILL.md) | documentation, governance, workflow | `4.1.0` | mature | 一次性评估文档核心健康：规范合规、分层就绪度评分与最小补齐计划；v4.1 Stage 0 按 artifact-contract §8 重构。. |
 | [assess-docs-code-alignment](./assess-docs-code-alignment/SKILL.md) | documentation, governance, workflow | `1.1.0` | stable | 评估代码变更与应更新文档之间的对齐缺口；v1.1 加 Stage 0 Norms Resolution 路径覆盖。. |
 | [assess-docs-links](./assess-docs-links/SKILL.md) | documentation, governance, workflow | `1.1.0` | stable | 评估文档链接图健康度；v1.1 加 Stage 0 Norms Resolution 路径覆盖。. |
 | [assess-docs-ssot](./assess-docs-ssot/SKILL.md) | documentation, governance, ssot, workflow | `1.1.0` | stable | 执行意图优先 SSOT 完整性审计；v1.1 加 Stage 0 Norms Resolution 路径覆盖。. |
-| [audit-docs](./audit-docs/SKILL.md) | documentation, governance, orchestration, ssot, workflow | `2.1.0` | mature | 以只读方式编排文档治理审计；v2.1 加 Stage 0 Norms Resolution 路径覆盖。. |
+| [archive-milestone](./archive-milestone/SKILL.md) | governance, lifecycle, archive, milestone | `1.1.0` | stable | 将已完成里程碑归档为精简快照，减少历史文档对 AI 上下文的污染；默认 dry-run，apply=true 时执行。. |
+| [audit-docs](./audit-docs/SKILL.md) | documentation, governance, orchestration, ssot, workflow | `2.2.0` | mature | 以只读方式编排文档治理审计；加未归档完成里程碑检测，路由 archive-milestone。. |
 | [automate-tests](./automate-tests/SKILL.md) | automation, devops | `1.0.0` | stable | 安全发现并执行仓库测试命令；基于证据选择命令并设安全护栏。. |
 | [automate-repair](./automate-repair/SKILL.md) | automation, devops, optimization | `1.1.0` | stable | 迭代审查变更、运行自动化测试并实施定向修复，直至问题解决或满足停止条件。. |
 | [auto-iterate](./auto-iterate/SKILL.md) | automation, meta-skill, workflow | `2.0.0` | stable | 单步治理执行器——读取 plan-next 路由输出，执行最高优先级动作，发出继续信号以支持 /loop 全自动推进。. |
-| [plan-next](./plan-next/SKILL.md) | automation, meta-skill, workflow | `12.0.0` | mature | 盘点治理输入源并输出下一步技能路由——只读，永不执行下游；三步法扫/诊/荐：诊步骤逐目标遍历目标链（战略目标→路线图→需求→设计→任务→完成），找首个未就绪层级作为路由目标；深度优先，多目标按优先级顺序处理。完成判定只看任务 status 字段。. |
+| [plan-next](./plan-next/SKILL.md) | automation, meta-skill, workflow | `13.0.0` | mature | 盘点治理输入源并输出下一步技能路由——只读，永不执行下游；含漂移巡检、卫生巡检与 chains_to 自动展开；深度优先遍历目标链（战略目标→路线图→需求→设计→任务→完成），完成判定只看任务 status 字段。. |
 | [define-mission](./define-mission/SKILL.md) | documentation, workflow | `1.3.0` | stable | 定义项目或组织的根本目的；v1.3 加 Stage 0 Norms Resolution 路径覆盖。. |
 | [define-vision](./define-vision/SKILL.md) | documentation, workflow | `1.3.0` | stable | 定义项目旨在创造的长远未来；v1.3 加 Stage 0 Norms Resolution 路径覆盖。. |
 | [define-north-star](./define-north-star/SKILL.md) | documentation, workflow | `1.2.0` | stable | 定义代表向用户交付核心价值的单一最重要指标；v1.2 加 Stage 0 Norms Resolution 路径覆盖。. |

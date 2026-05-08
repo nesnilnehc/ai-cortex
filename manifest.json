@@ -254,6 +254,10 @@
       "path": "skills/warn-destructive-commands/SKILL.md"
     },
     {
+      "name": "archive-milestone",
+      "path": "skills/archive-milestone/SKILL.md"
+    },
+    {
       "name": "audit-docs",
       "path": "skills/audit-docs/SKILL.md"
     },
