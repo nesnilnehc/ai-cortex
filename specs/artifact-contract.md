@@ -4,17 +4,6 @@
 **版本**：5.0.0  
 **范围**：在项目 `docs/` 或仓库根下写入 Markdown 制品的技能
 
-**变更记录**：
-
-- **v5.0.0 (2026-04-25)**：统一 `requirements` / `design` / `tasks` 三类制品的 canonical 路径为 `docs/<type>/{slug}.md`（无日期前缀）；artifact-contract §2 与 Appendix A 相应更新；相关技能（analyze-requirements / design-solution / breakdown-tasks）MAJOR bump。同时清理 linking_mode 相关所有引用（ADR 006）。MAJOR：使用旧路径 `docs/requirements-planning/` / `docs/design-decisions/` / `docs/process-management/tasks/` 的项目需迁移文件或在 `ARTIFACT_NORMS.md` 显式覆盖保留旧路径。
-- v4.0.0 (2026-04-25)：回撤 v3.0 的 §8.4 linking-mode 输出真值表；保留 §8.1–§8.3 / §8.5–§8.7 的 path_pattern 覆盖机制（ADR 005）。
-- v3.0.0 (2026-04-24)：新增 §8 Runtime Norms Resolution Protocol。
-- v1.2.0 (2026-03-16)：新增 `requirements` 制品类型。
-- v1.1.0 (2026-03-06)：项目规范优先；本契约为默认回退。
-- v1.0.0 (2026-03-06)：初版。
-
----
-
 ## 1. 设计原则
 
 **项目规范优先**：若项目定义了自己的制品规范（见 [specs/artifact-norms-schema.md](artifact-norms-schema.md)），技能须遵循项目规范。项目是其自身文档结构的权威。
@@ -239,3 +228,14 @@ Stage 0: Norms Resolution
 注册表校验脚本（`scripts/verify-registry.mjs`）断言每个**产出文档制品的技能**的 SKILL.md 包含 `Stage 0` 或 `Norms Resolution` 标题字符串。非产出技能（review-* / automate-* / curate-* 等）不适用此检查。
 
 **产出技能判定**：`output_schema.type == document-artifact` 的技能。
+
+---
+
+## 变更历史
+
+- **v5.0.0 (2026-04-25)**：统一 `requirements` / `design` / `tasks` 三类制品的 canonical 路径为 `docs/<type>/{slug}.md`（无日期前缀）；§2 与 Appendix A 相应更新；相关技能 MAJOR bump。清理 linking_mode 相关所有引用（ADR 006）。MAJOR：使用旧路径的项目需迁移文件或在 `ARTIFACT_NORMS.md` 显式覆盖保留旧路径。
+- v4.0.0 (2026-04-25)：回撤 §8.4 linking-mode 输出真值表；保留 §8.1–§8.3 / §8.5–§8.7 的 path_pattern 覆盖机制（ADR 005）。
+- v3.0.0 (2026-04-24)：新增 §8 Runtime Norms Resolution Protocol。
+- v1.2.0 (2026-03-16)：新增 `requirements` 制品类型。
+- v1.1.0 (2026-03-06)：项目规范优先；本契约为默认回退。
+- v1.0.0 (2026-03-06)：初版。
