@@ -13,6 +13,7 @@ acceptance_criteria:
 - 给定项目 docs 根，产出 docs/calibration/audit-docs.md 聚合 assess-docs/assess-docs-links/assess-docs-ssot/assess-docs-code-alignment 子审计结果
 - 报告含「优先动作」表（rank/issue/target_artifact/recommended_skill/rationale），并显式标注每条对应的 skill 路由建议
 - 保持 read-only：不修改任何被审计文档，仅输出报告与路由
+- （v2.2）扫描 milestones/*/tasks.md（排除 _archive/），检出满足归档成熟度的未归档完成里程碑，记为治理违规并路由 /archive-milestone {slug}
 overlaps_with:
 - nesnilnehc/ai-cortex:assess-docs
 - nesnilnehc/ai-cortex:assess-docs-links
@@ -25,4 +26,4 @@ tags:
 - orchestration
 - workflow
 - ssot
-version: 2.0.0
+version: 2.2.0
