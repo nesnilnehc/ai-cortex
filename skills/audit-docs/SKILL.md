@@ -105,7 +105,6 @@ output_schema:
 2. 且满足 `archive-milestone` 成熟度条件之一：
    - 距完成日期 ≥ 60 天
    - 当前进行中里程碑索引 ≥ slug + 2
-   - tasks.md 行数 > 300
 
 **输出动作**：将违规里程碑记入 `audit-docs.md` 的治理违规列表，路由建议为 `/archive-milestone {slug}`。
 

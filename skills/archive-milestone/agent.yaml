@@ -9,12 +9,16 @@ outputs:
 - apply=true: docs/process-management/milestones/_archive/{slug}-summary.md
 has_output_contract: true
 acceptance_criteria:
-- 成熟度检查通过（满足任一：距完成≥60天 / 当前里程碑索引≥slug+2 / tasks.md>300行且全done）
+- 成熟度检查通过（满足任一：距完成≥60天 / 当前里程碑索引≥slug+2）且全部任务 status=done
 - 摘要含完成日期、关键交付物（≤5条）、遗留缺口（指向后续里程碑）、关键ADR引用
 - roadmap.md 对应阶段折叠为 ≤ 3 行引用
 - 全仓 grep 旧 tasks.md 路径无悬空引用
 - dry-run 时零文件修改，仅输出预览
 - git 工作区有未提交变更时拒绝执行 apply=true
+triggers_after:
+- plan-next
+overlaps_with: []
+market_position: differentiated
 tags:
 - governance
 - lifecycle

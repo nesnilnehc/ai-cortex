@@ -3,7 +3,7 @@ name: archive-milestone
 description: Archive a completed milestone by generating a snapshot summary, folding the roadmap stage, and removing the stale tasks directory.
 description_zh: 将已完成里程碑转为快照摘要，折叠路线图历史阶段，移除历史任务目录，减少 AI 上下文污染。
 tags: [governance, lifecycle, archive, milestone]
-version: 1.0.0
+version: 1.1.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -65,7 +65,8 @@ output_schema:
 |---|---|
 | 距完成日期 ≥ 60 天 | tasks.md frontmatter 中 `completed_at` 字段 |
 | 当前进行中里程碑索引 ≥ slug + 2 | roadmap.md 中 `in-progress` 里程碑的数字后缀 |
-| tasks.md 行数 > 300 且全部任务 done | `wc -l` + 内容扫描 |
+
+两个条件均需同时满足"全部任务 status=done 或 ✅"。
 
 未达成熟度时输出诊断：`里程碑 {slug} 尚不满足归档条件：{具体原因}`。
 
@@ -150,3 +151,38 @@ output_schema:
 - [ ] roadmap.md 阶段段落已折叠为 ≤ 3 行
 - [ ] 全仓 grep `milestones/{slug}/tasks.md` 无结果
 - [ ] `milestones/{slug}/` 目录不存在
+
+---
+
+## 附录：输出合约
+
+本技能在两种模式下产出不同制品：
+
+### Dry-run 模式（apply=false，默认）
+
+| 元素 | 要求 |
+|---|---|
+| **输出类型** | 聊天预览报告，零文件修改 |
+| **内容** | 摘要草稿预览 + roadmap.md 待折叠行范围 + 待删除目录 + 引用更新列表（K 处） |
+| **副作用** | 无（严格只读） |
+
+### Apply 模式（apply=true）
+
+| 元素 | 要求 |
+|---|---|
+| **制品路径** | `docs/process-management/milestones/_archive/{slug}-summary.md` |
+| **artifact_type** | `milestone-summary` |
+| **lifecycle** | `snapshot` |
+| **摘要必须含** | 完成日期 / 关键交付物（≤5 条）/ 遗留缺口（指向后续里程碑）/ 关键 ADR 引用 |
+| **roadmap.md** | 对应阶段折叠为 ≤ 3 行引用 |
+| **引用更新** | 全仓旧 `milestones/{slug}/tasks.md` 路径重定向至摘要路径 |
+| **原目录** | `milestones/{slug}/` 删除 |
+| **操作日志** | 聊天中输出每步操作确认 |
+
+### 前置条件（违反则拒绝执行）
+
+| 条件 | apply=false | apply=true |
+|---|---|---|
+| 成熟度条件满足（≥60 天或索引差≥2） | ✅ 必须 | ✅ 必须 |
+| 全部任务 status=done 或 ✅ | ✅ 必须 | ✅ 必须 |
+| git 工作区干净 | — | ✅ 必须 |

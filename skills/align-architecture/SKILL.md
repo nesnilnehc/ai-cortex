@@ -117,15 +117,16 @@ output_schema:
 | V1 | `status: superseded` 但缺 `superseded_by` 字段 |
 | V2 | `superseded_by` 字段指向不存在的 ADR 文件 |
 | V3 | `status: accepted` 但另一 ADR 的 `supersedes` 字段显式引用了它（双向不一致） |
-| V4 | 多个 `status: accepted` 的 ADR 在同一决策维度上结论冲突（启发式：标题主语相似 + 决策动词相反，由 LLM 判断，置信度 ≥ 0.7 才上报） |
+| V4 | 多个 `status: accepted` 的 ADR 在同一决策维度上结论冲突（启发式：标题主语相似 + 决策动词相反，由 LLM 判断）；上报时必须附 confidence 分值和匹配词对；置信度 < 0.7 标记为"疑似冲突，需人工确认"，不计入违规计数 |
 
 **报告位置**：将违规项追加至 `docs/calibration/architecture-compliance.md` 的「ADR 状态完整性」章节（不存在则新建）。
 
 **行为约束**：
 
 - V1/V2/V3 为结构性违规，置信度高，直接上报
-- V4 为语义性违规，仅在 LLM 置信度 ≥ 0.7 时上报；低于阈值则记录为"疑似冲突，需人工确认"
+- V4 为语义性违规，始终上报；报告中附 confidence 分值和匹配词对；置信度 < 0.7 时标记"疑似冲突，需人工确认"，不计入违规总数
 - 发现任何违规时，在报告「ADR 状态完整性」章节列出；不阻塞后续设计 vs 代码比较阶段
+- V3/V4 违规不以冲突 ADR 的结论作为设计判定依据（遵守 `workflow-document-lifecycle` Rule 1 语义）；扫描阶段本身继续执行
 
 ### 代理即时合同
 
