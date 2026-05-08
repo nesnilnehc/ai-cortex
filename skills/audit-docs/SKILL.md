@@ -3,7 +3,7 @@ name: audit-docs
 description: Audit documentation governance in read-only mode and produce a unified report with prioritized actions and explicit skill routing.
 description_zh: 以只读方式审计文档治理并输出统一报告，给出优先级行动与明确技能路由。
 tags: [documentation, governance, orchestration, workflow, ssot]
-version: 2.1.0
+version: 2.2.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -90,9 +90,26 @@ output_schema:
 
 1. 预检查：git 仓库可访问、docs 路径可读
 2. 规范检查：若缺失 `docs/ARTIFACT_NORMS.md`，仅记录风险并路由 `discover-docs-norms`/`define-docs-norms`
-3. 按模式执行只读评估技能并收集输出
-4. 汇总评分（结构、就绪、链接、SSOT、代码对齐）
-5. 生成 `docs/calibration/audit-docs.md`
+3. **里程碑归档检查**（v2.2 新增）：扫描 `docs/process-management/milestones/*/tasks.md`（排除 `_archive/`），检测满足归档成熟度的未归档里程碑（见下节）
+4. 按模式执行只读评估技能并收集输出
+5. 汇总评分（结构、就绪、链接、SSOT、代码对齐）
+6. 生成 `docs/calibration/audit-docs.md`
+
+### 未归档完成里程碑检测（v2.2 新增）
+
+**扫描目标**：`docs/process-management/milestones/*/tasks.md`（排除 `_archive/` 下的文件）
+
+**违规判定**（满足以下全部条件）：
+
+1. tasks.md 中全部任务 `status=done` 或 `✅`
+2. 且满足 `archive-milestone` 成熟度条件之一：
+   - 距完成日期 ≥ 60 天
+   - 当前进行中里程碑索引 ≥ slug + 2
+   - tasks.md 行数 > 300
+
+**输出动作**：将违规里程碑记入 `audit-docs.md` 的治理违规列表，路由建议为 `/archive-milestone {slug}`。
+
+**不执行**：不调用 `archive-milestone`；保持只读。
 
 ---
 
