@@ -3,7 +3,7 @@ name: align-architecture
 description: Verify architecture and design documents against code implementation; produce an Architecture Compliance Report when implementation diverges from ADR or design decisions.
 description_zh: 对照代码实现验证架构与设计文档；当实现偏离 ADR 或设计时，产出架构合规报告。
 tags: [workflow, documentation]
-version: 1.3.0
+version: 1.4.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -103,6 +103,29 @@ output_schema:
 ### 第 0 阶段：Norms Resolution（v1.3 新增）
 
 按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `architecture-compliance` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/calibration/architecture-compliance.md`）。本技能为**固定路径治理产出**，只用 path_pattern 覆盖机制。
+
+### 阶段 0.1：ADR 状态完整性检查（v1.4 新增）
+
+在比较设计与代码之前，先对 ADR 目录执行状态完整性扫描。
+
+**扫描范围**：`docs/process-management/decisions/*.md`（或项目实际 ADR 路径）
+
+**违规类型**：
+
+| 类型 | 判定条件 |
+|---|---|
+| V1 | `status: superseded` 但缺 `superseded_by` 字段 |
+| V2 | `superseded_by` 字段指向不存在的 ADR 文件 |
+| V3 | `status: accepted` 但另一 ADR 的 `supersedes` 字段显式引用了它（双向不一致） |
+| V4 | 多个 `status: accepted` 的 ADR 在同一决策维度上结论冲突（启发式：标题主语相似 + 决策动词相反，由 LLM 判断，置信度 ≥ 0.7 才上报） |
+
+**报告位置**：将违规项追加至 `docs/calibration/architecture-compliance.md` 的「ADR 状态完整性」章节（不存在则新建）。
+
+**行为约束**：
+
+- V1/V2/V3 为结构性违规，置信度高，直接上报
+- V4 为语义性违规，仅在 LLM 置信度 ≥ 0.7 时上报；低于阈值则记录为"疑似冲突，需人工确认"
+- 发现任何违规时，在报告「ADR 状态完整性」章节列出；不阻塞后续设计 vs 代码比较阶段
 
 ### 代理即时合同
 
