@@ -8,6 +8,9 @@ license: MIT
 recommended_scope: both
 metadata:
   author: ai-cortex
+  chains_to:
+    - review-codebase
+    - audit-docs
   evolution:
     sources:
       - name: "document-release"
