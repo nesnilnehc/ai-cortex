@@ -9,8 +9,6 @@ recommended_scope: project
 cognitive_mode: interpretive
 metadata:
   author: ai-cortex
-  chains_to:
-    - promote-roadmap-items
 triggers: [prioritize backlog, score backlog, backlog ranking, planning prep, re-score backlog]
 input_schema:
   type: free-form
@@ -281,8 +279,8 @@ ICE = Impact × Confidence × Ease
 |---|---|
 | 创建新 backlog 条目 | `capture-work-items` |
 | 把 backlog 条目晋升进 roadmap | `promote-roadmap-items` |
-| 拆分任务 | `breakdown-tasks` |
-| 需求详细分析 | `analyze-requirements` |
+| 任务拆分 | AgentFabric runtime（不在 AI Cortex 范围） |
+| 需求详细记录 | `capture-work-items` |
 
 ---
 
@@ -384,31 +382,3 @@ priority: unset
 报告头：`Backlog mode: h2-yaml`、`Re-scored items: 2 (含 1 条覆盖了原 priority；1 条原为 unset)`。
 
 ---
-
-## 附录：输出契约
-
-每个 backlog 条目（无论形态）被更新为：
-
-```yaml
-priority: P0 | P1 | P2 | P3
-priority_decision:
-  final: P<N>
-  previous: P<N> | unset       # 本次重评前的旧 priority；强制写入，便于覆盖审计
-  frameworks:
-    rice: P<N>
-    wsjf: P<N>
-    moscow: Must | Should | Could | Won't
-    ice: P<N>
-  rationale: <optional, required if framework disagreement ≥ 2 levels>
-  decided_by: auto | user
-  decided_at: <ISO date>
-```
-
-写入位置依形态而异：
-
-| 形态 | 写入位置 |
-|---|---|
-| `multi-file` | 各 `*.md` 的 frontmatter |
-| `yaml-list` | 单文件中 `items[i]` 节点 |
-| `h2-yaml` | 单文件中该条目对应的 ```yaml``` 代码块 |
-| `table` | 表格 `Priority` 单元格 + 表格下方 `## Priority Decisions` 小节按条目锚点列出 |

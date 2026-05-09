@@ -8,34 +8,23 @@ status: active
 
 # 架构
 
-AI Cortex 架构由 [Evolution Roadmap](../designs/2026-03-02-ai-cortex-evolution-roadmap.md) 的 Layer A–E 模型定义。
-
-## 层级
-
-| 层级 | 范围 |
-| :--- | :--- |
-| **A** | Engineering Infrastructure（工程基础设施）— CI/CD、质量门 |
-| **B** | Skill Coverage（技能覆盖）— 语言、框架、库 |
-| **C** | Orchestration & Composition（编排与组合）— 编排器、技能链 |
-| **D** | Ecosystem & Distribution（生态与分发）— Plugin 同步、社区 |
-| **E** | Specification Evolution（规范演进）— 生命周期、可测试 Spec |
+AI Cortex 是一个面向 Agent 的资产库，按四层治理组织：Spec / Protocol / Skill / Rule。
 
 ## Canonical 来源
 
-- **[Evolution Roadmap](../designs/2026-03-02-ai-cortex-evolution-roadmap.md)** — 层级定义、组件、实施阶段
-- **[skills/INDEX.md](../../skills/INDEX.md)** — 技能目录、用途与依赖关系入口
-- **[specs/skill.md](../../specs/skill.md)** — 技能结构与元数据 Spec
+- [terminology.md](terminology.md) — 4 类资产的业界定义、独立点与交叉判别
+- [asset-naming.md](asset-naming.md) — 4 类资产命名规范
+- [skills/INDEX.md](../../skills/INDEX.md) — 技能目录
+- [agentskills.io](https://agentskills.io) — Skill 标准格式（外部权威）
 
 ## ADR
 
-| ADR | 标题 | 状态 |
-| :--- | :--- | :--- |
-| [001](adrs/001-io-contract-protocol.md) | I/O Contract Protocol for Skill Chaining（技能链 I/O 契约协议） | Accepted |
+历史架构决策见 [adrs/](adrs/) 目录。
 
-## 何时扩展
+## 何时新增 ADR
 
-在以下情形添加 ADR（如 `docs/architecture/adrs/002-*.md`）：
+在以下情形新增 ADR（`adrs/NNN-{slug}.md`）：
 
 - 重大设计决策需显式 rationale
-- `design-solution` 产出经批准的、值得持久化的架构选择
+- 经批准的、值得持久化的架构选择（设计文档字段契约见 [specs/design-modeling.md](../../specs/design-modeling.md)）
 - 跨技能或跨阶段依赖需文档化

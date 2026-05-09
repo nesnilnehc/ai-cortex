@@ -38,7 +38,7 @@ output_schema:
 2. ✅ 规范文件结构符合项目 schema 与约定
 3. ✅ 变更说明清晰（新增、修改、删除规则）
 4. ✅ 写入目标仅限 `docs/ARTIFACT_NORMS.md`
-5. ✅ 输出后可被 `assess-docs` 等技能直接消费
+5. ✅ 输出后可被 runtime / linter / CI 工具直接消费（按 `rules/doc-health-criteria.md`）
 
 **验收测试**：规范文件是否可直接作为路径/命名/front-matter 校验依据，并被其他技能稳定解析？
 
@@ -54,11 +54,11 @@ output_schema:
 
 **本技能不负责**：
 
-- 规范发现与推导（使用 `discover-docs-norms`）
-- 仓库整理与文件迁移（使用 `tidy-repo`）
-- 合规审计与就绪评分（使用 `assess-docs`）
+- 规范发现与推导（由人工或 AgentFabric runtime 承接）
+- 仓库整理与文件迁移（按 `rules/repo-structure-hygiene.md`，由 AgentFabric runtime 或人工执行）
+- 合规审计与就绪评分（由 runtime / linter / CI 工具承接）
 
-**交接点**：规范写入后，交给 `assess-docs` 做合规评估，交给 `tidy-repo` 做结构整改。
+**交接点**：规范写入后，结构整改与合规检测由 runtime / linter / CI 工具按 `rules/repo-structure-hygiene.md` 与 `rules/doc-health-criteria.md` 执行。
 
 ---
 
@@ -88,7 +88,7 @@ output_schema:
 
 1. 写入 `docs/ARTIFACT_NORMS.md`
 2. 输出本次变更摘要（新增/修改/删除）
-3. 输出后续建议：`assess-docs` 与 `tidy-repo`
+3. 输出后续建议：runtime 按 `rules/repo-structure-hygiene.md` 整理 + `rules/doc-health-criteria.md` 合规检测
 
 ---
 
@@ -119,9 +119,9 @@ output_schema:
 
 **不要做这些（其他技能负责）**：
 
-- 发现与推导：`discover-docs-norms`
-- 合规评分：`assess-docs`
-- 文件整理：`tidy-repo`
+- 发现与推导：人工或 AgentFabric runtime
+- 合规评分：runtime / linter / CI 工具（按 `rules/doc-health-criteria.md`）
+- 文件整理：runtime 按 `rules/repo-structure-hygiene.md` 执行
 
 ---
 
@@ -147,16 +147,3 @@ output_schema:
 - 输入：旧规范 + 新提案
 - 行为：`merge`
 - 输出：更新后的规范文件 + 变更摘要
-
----
-
-## 附录：输出合约 (Appendix: Output Contract)
-
-本技能写入 ARTIFACT_NORMS：
-
-| 元素 | 格式 | 必填字段 | 路径模式 |
-| :--- | :--- | :--- | :--- |
-| 规范文档 | Markdown | front-matter（artifact_type=norms / lifecycle=living）；章节：路径规则 / 命名规则 / 生命周期规则 / 例外清单 / 验证脚本指引 | docs/ARTIFACT_NORMS.md |
-| 路径规则 | 表格 | artifact_type / canonical_path_pattern / fallback_pattern / examples | 「路径规则」节 |
-| 命名规则 | 表格 | artifact_type / case_style / slug_rule / forbidden_chars | 「命名规则」节 |
-| 变更摘要 | 列表项 | added / modified / removed 三组规则项；附 commit message 建议 | 章节末尾 |

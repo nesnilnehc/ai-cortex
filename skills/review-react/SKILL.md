@@ -2,7 +2,7 @@
 name: review-react
 description: Review React code for component design, hooks correctness, state management, rendering performance, and accessibility. Framework-only atomic skill; output is a findings list.
 description_zh: 审查 React 代码：组件设计、hooks 正确性、状态管理、渲染性能与可访问性；框架级原子技能。
-tags: [code-review]
+tags: [code-review, framework]
 version: 1.0.0
 license: MIT
 recommended_scope: project
@@ -17,7 +17,7 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion
 ---
 
-# 技能（Skill）：复习React
+# 技能（Skill）：审查 React
 
 ## 目的 (Purpose)
 
@@ -59,15 +59,15 @@ output_schema:
 - 安全分析（XSS、注入风险）——使用“review-security”
 - 架构分析——使用“review-architecture”
 - 语言/运行时（JavaScript/TypeScript）约定 - 使用“review-typescript”或一般 JS/TS 分析
-- 全面精心策划的审核——使用“审核代码”
+- 完整编排式审查——使用“审查代码”
 
-**转交点**：当所有 React 发现结果发出后，将其移交给 `review-code` 进行聚合。对于 XSS 风险（危险的 SetInnerHTML 滥用、未经净化的内容），请记下它们并建议“审查安全性”。
+**转交点**：当所有 React 发现结果发出后，将其移交给 `orchestrate-code-review` 进行聚合。对于 XSS 风险（危险的 SetInnerHTML 滥用、未经净化的内容），请记下它们并建议“审查安全性”。
 
 ---
 
 ## 使用场景（用例）
 
-- **精心安排的审查**：当 [review-code](../review-code/SKILL.md) 运行 React 项目的范围 → 语言 → 框架 → 库 → cognitive时，用作框架步骤。
+- **精心安排的审查**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 运行 React 项目的范围 → 语言 → 框架 → 库 → cognitive时，用作框架步骤。
 - **仅 React 审查**：当用户只想检查 React/前端框架约定时。
 - **PR 前 React 检查表**：确保钩子使用、组件设计和状态管理模式正确。
 
@@ -129,7 +129,7 @@ output_schema:
 
 **何时停止并交接**：
 
-- 当所有 React 发现结果发出后，将其交给“review-code”进行聚合
+- 当所有 React 发现结果发出后，将其交给“orchestrate-code-review”进行聚合
 - 当发现 XSS 风险时（例如不安全的 `dangerouslySetInnerHTML` 使用），请注意并建议 `review-security`
 - 当用户需要全面审查（范围+语言+cognitive）时，重定向到“审查代码”
 
@@ -162,7 +162,7 @@ output_schema:
 
 ### 示例 1：useEffect 中缺少清理
 
-- **Input**：在 useEffect 中建立 WebSocket 连接的组件，不带清理功能。
+- **输入**：在 useEffect 中建立 WebSocket 连接的组件，不带清理功能。
 - **预期**：发出缺少清理的结果（主要）；建议返回一个关闭连接的清理函数。类别=框架-反应。
 
 ### 示例 2：索引作为动态列表中的键
@@ -174,30 +174,3 @@ output_schema:
 
 - **输入**：代码库中的旧类组件，否则使用功能组件和挂钩。
 - **预期**：在可行的情况下提出迁移到带有钩子的功能组件的建议；检查类组件的生命周期正确性（componentDidMount、componentWillUnmount 清理）。请注意，对于稳定、经过充分测试的组件，建议进行迁移，但并不总是需要迁移。
-
----
-
-## 附录：输出合约
-
-每项调查结果必须遵循标准调查结果格式：
-
-|元素|要求 |
-| :--- | :--- |
-| **位置** | `path/to/Component.tsx` 或 `.jsx` （可选行或范围）。 |
-| **类别** | `框架反应`。 |
-| **严重性** | `关键` \| `主要` \| `次要` \| `建议`。 |
-| **标题** |简短的一行摘要。 |
-| **描述** | 1-3 句话。 |
-| **建议** |具体修复或改进（可选）。 |
-
-示例：
-
-
-```markdown
-- **Location**: `src/components/UserList.tsx:42`
-- **Category**: framework-react
-- **Severity**: major
-- **Title**: useEffect missing cleanup for subscription
-- **Description**: The WebSocket subscription in useEffect is never closed, causing memory leaks when the component unmounts.
-- **Suggestion**: Return a cleanup function from useEffect that calls `socket.close()`.
-```

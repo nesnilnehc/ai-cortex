@@ -14,6 +14,6 @@
 
 ## 相关技能
 
-- `discover-docs-norms`：发现与提案
-- `assess-docs`：规范合规评估
-- `tidy-repo`：结构整理
+- 规范发现与提案：由人工或 AgentFabric runtime 承接
+- 规范合规检测：由 runtime / linter / CI 工具按 `rules/doc-health-criteria.md` 执行
+- 结构整理：runtime 按 `rules/repo-structure-hygiene.md` 执行

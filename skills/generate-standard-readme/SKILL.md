@@ -3,7 +3,7 @@ name: generate-standard-readme
 description: Generate lean, high-density README. Sections pruned by value threshold — not fixed count. Primary goal: reader knows what the project is, where to look, and how to use it within 30 seconds.
 description_zh: 生成高信息密度 README。章节按价值门槛裁剪，非固定数量。首要目标：读者 30 秒内知道项目是啥、去哪看、怎么用。
 tags: [documentation, devops, writing]
-version: 2.1.0
+version: 2.1.1
 license: MIT
 recommended_scope: user
 metadata:
@@ -38,7 +38,7 @@ output_schema:
 - anti-fluff 输出（每个主张落到具体路径、命令、行为或约束）
 
 **本技能不负责**：
-- 完整文档套件 → 使用 `bootstrap-docs`
+- 完整 docs/ 套件 → 由 AgentFabric runtime 或人工按 `docs/ARTIFACT_NORMS.md` 承接
 - AGENTS.md / 代理合同文件 → 使用 `generate-agent-entry`
 - 敏感信息脱敏 → 使用 `decontextualize-text`
 
@@ -133,7 +133,7 @@ MIT — see [LICENSE](LICENSE)
 
 **doc 类型**（文档/规范仓库）
 
-判定信号：无可执行入口，主要内容为 `.md` / `.yaml` / `.json` spec 文件，存在 `INDEX.md` / `manifest.json`。
+判定信号：无可执行入口，主要内容为 `.md` / `.yaml` / `.json` spec 文件，存在 `INDEX.md` / `skills/INDEX.md`。
 
 输出重点：导航索引、阅读路径。安装/快速启动默认省略。
 
@@ -145,7 +145,7 @@ MIT — see [LICENSE](LICENSE)
 ## 如何使用
 
 - 从 [INDEX.md](INDEX.md) 开始
-- 核心定义见 [specs/terminology.md](specs/terminology.md)
+- 核心定义见 [docs/architecture/terminology.md](docs/architecture/terminology.md)
 - 贡献规范见 [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## License
@@ -159,8 +159,8 @@ MIT — see [LICENSE](LICENSE)
 
 | 禁止模式 | 示例 | 修复方向 |
 | :--- | :--- | :--- |
-| 空泛形容词堆叠 | "可复用、可治理、可落地" | 删除或替换为具体行为："通过 `manifest.json` 注册，CI 自动验证" |
-| 无主语的价值主张 | "提高工程规范" | 删除或具体化："运行 `npm run verify` 确保结构合规" |
+| 空泛形容词堆叠 | "可复用、可治理、可落地" | 删除或替换为具体行为："通过 `skills/INDEX.md` 注册并与变更一并自检" |
+| 无主语的价值主张 | "提高工程规范" | 删除或具体化："维护 `skills/INDEX.md` 与文档链接一致性" |
 | 重复已知信息 | 在安装节重述描述节的内容 | 合并或删除 |
 | 占位套话 | "欢迎贡献！请提 PR。" | 若无具体流程说明，省略贡献节 |
 | 臆造命令或功能 | 无 `docker-compose.yml` 却写 `docker compose up` | 用 `TBD` 或省略 |
@@ -269,7 +269,7 @@ MIT — see [LICENSE](LICENSE)
 
 - 从 [AGENTS.md](AGENTS.md) 了解代理行为契约
 - 浏览 [skills/INDEX.md](skills/INDEX.md) 查找可用技能
-- 核心术语定义见 [specs/terminology.md](specs/terminology.md)
+- 核心术语定义见 [docs/architecture/terminology.md](docs/architecture/terminology.md)
 
 ## License
 

@@ -84,10 +84,6 @@ output_schema:
 - **选择选项**：一次一个缺失字段的问题；在适用时提供选择
 - **确认**：与默认路径不同时的目标路径；用户在写入前确认
 
-### 第 0 阶段：Norms Resolution（v2.0 引入，v8.0 简化）
-
-按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 实现（取代 v1.x 的"解决项目规范"步骤）：
-
 1. 按 §8.2 发现顺序解析项目规范 → 确定 `backlog-item` 的 `path_pattern`（默认：`docs/process-management/project-board/backlog/YYYY-MM-DD-{slug}.md` 或 fallback `docs/backlog/YYYY-MM-DD-{slug}.md`；项目可覆盖为聚合式）
 2. 按 §8.3 占位符语法替换；未解析占位符按 §8.6 追问用户
 3. 若调用方 frontmatter 输入含 `upstream_ref`（应指向上游 roadmap 条目或 requirement）：在产出制品的 frontmatter emit `parent: <upstream_ref>`
@@ -171,7 +167,6 @@ output_schema:
 
 #### 需求模板
 
-
 ```markdown
 ---
 artifact_type: backlog-item
@@ -199,9 +194,7 @@ trace_id: optional
 [Optional]
 ```
 
-
 #### 错误模板
-
 
 ```markdown
 ---
@@ -233,9 +226,7 @@ severity: [critical|major|minor]
 [Optional]
 ```
 
-
 #### 问题模板
-
 
 ```markdown
 ---
@@ -256,7 +247,6 @@ strategic_goal_id: [goal-N]
 [Content]
 ```
 
-
 ### 状态生命周期
 
 该技能仅设置“状态：捕获”。下游流程（里程碑、升级迭代任务、运行检查点）可能会更新为：“分类”、“进行中”、“完成”、“阻止”、“取消”。
@@ -270,7 +260,7 @@ strategic_goal_id: [goal-N]
 - **不跳过必填字段**：如果无法推断必填字段，请询问用户。不要留空。
 - **不跳过 strategic_goal_id**：`strategic-goals.md` 不存在时 halt 并建议先运行 `design-strategic-goals`，不得留空或推断。
 - **不自动调用 prioritize-backlog**：捕获结束时仅建议，由用户决定何时批量评分（节律不同，单条评分失真）。
-- **No analyze-需求 flow**: Do not run diagnostic states (RA0–RA5).如果输入内容非常模糊，建议先捕获，然后转交给“分析需求”。
+- **No diagnostic flow**: Do not run diagnostic states (RA0–RA5). 如果输入内容非常模糊，建议先捕获，确认意图后再深入澄清。
 - **写入前确认路径**：避免覆盖现有文件；当目标路径不明确时确认。
 - **路径遵循项目结构**：使用路径检测规则；不要硬编码单个路径。
 
@@ -390,19 +380,3 @@ strategic_goal_id: [goal-N]
 **第 2 项** — 类型：问题（任务）。标题：“添加 CONTRIBUTING.md”。描述：来自上下文。保留为“2026-03-06-add-contributing.md”。
 
 **确认**：“两个项目均已捕获。如果需要，请检查并调整。”
-
----
-
-## 附录：输出合约
-
-该技能会生成**文档-制品**（待办项目）。每个输出文件必须符合：
-
-|元素|要求|
-| :--- | :--- |
-| **路径** |每路径检测： `docs/process-management/project-board/待办/YYYY-MM-DD-<slug>.md` 或 `docs/待办/YYYY-MM-DD-<slug>.md` |
-| **产品类型** | `待办项目` |
-| **创建者** | `捕获工作项` |
-| **生命周期** | `生活` |
-| **类型** | `要求` \| `错误` \| `问题` |
-| **状态** | ‘捕获’ |
-| **必填部分** |每个类型：要求（标题、问题/需求、验收标准）； bug（标题、描述、重现步骤、预期与实际、严重性）；问题（标题、描述、子类型）|

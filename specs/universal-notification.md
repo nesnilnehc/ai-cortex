@@ -1,7 +1,7 @@
 ---
 id: UNP_SPEC_V1
-name: Universal Notification Protocol
-description: Channel-agnostic semantic layer defining structured notification model
+name: Universal Notification Schema
+description: Channel-agnostic spec defining notification object structure (fields, types, validation)
 version: 1.0.0
 status: active
 lifecycle: living
@@ -12,108 +12,142 @@ scope: >
 related: [../protocols/im-notification-delivery.md]
 ---
 
-# Universal Notification Protocol (UNP)
+# 通用通知规范（UNP Schema）
 
-> **语义层**：定义 WHAT（通知的结构和意图）
+> **语义层**：定义"是什么"（通知对象的字段结构与校验规则）
 >
-> 与 [INP](../protocols/im-notification-delivery.md) 配套：INP 定义 HOW（如何渲染和投递到 IM 渠道）
+> 与 [INP](../protocols/im-notification-delivery.md) 配套：INP 定义"如何"渲染并投递到 IM 渠道
 
 ---
 
-## 1. CORE PRINCIPLES
+## 1. 核心原则
 
-- All notifications MUST be structured (JSON), not plain text
-- Notifications represent EVENTS, not messages
-- Separate semantic layer from delivery layer
-- Every notification MUST be machine-readable and human-readable
+- 所有通知必须结构化（JSON），不允许纯文本
+- 通知表达**事件**，而非消息
+- 语义层与投递层必须分离
+- 每条通知必须既机器可读又人可读
 
 ---
 
-## 2. REQUIRED SCHEMA
+## 2. 必需结构（Schema）
 
-### required_fields
-- id
-- type
-- source
-- timestamp
-- intent
-- priority
-- title
+### 必填字段
 
-### field_definitions
+- `id`
+- `type`
+- `source`
+- `timestamp`
+- `intent`
+- `priority`
+- `title`
+
+### 字段定义
 
 | 字段 | 类型 | 说明 |
 |:---|:---|:---|
-| `id` | string | uuid |
-| `type` | string | UPPER_SNAKE_CASE event name |
-| `source` | string | system name |
-| `timestamp` | string | ISO8601 |
+| `id` | string | UUID |
+| `type` | string | 事件名（UPPER_SNAKE_CASE） |
+| `source` | string | 来源系统名 |
+| `timestamp` | string | ISO 8601 时间戳 |
 | `intent` | enum | `info` \| `action_required` \| `approval` \| `alert` |
 | `priority` | enum | `P0` \| `P1` \| `P2` \| `P3` |
-| `severity` | enum (optional) | `critical` \| `high` \| `medium` \| `low` |
+| `severity` | enum（可选） | `critical` \| `high` \| `medium` \| `low` |
 | `title` | string | 通知标题 |
 | `body` | string | 通知正文 |
-| `actor` | object (optional) | `{type, id, name}` |
-| `target` | object (optional) | `{type, id}` |
-| `context` | object (optional) | environment / trace / metadata |
-| `actions` | array | 如 priority ∈ [P0, P1]，此字段必需 |
+| `actor` | object（可选） | `{type, id, name}` |
+| `target` | object（可选） | `{type, id}` |
+| `context` | object（可选） | 环境 / trace / 元数据 |
+| `actions` | array | 当 priority ∈ [P0, P1] 时必填 |
 | `actions[].type` | string | `link` \| `command` |
 | `actions[].label` | string | 按钮文案 |
 | `actions[].url \| command` | string | 链接或命令 |
-| `extensions` | object (optional) | 扩展字段 |
+| `extensions` | object（可选） | 扩展字段 |
 
 ---
 
-## 3. HARD RULES (MANDATORY)
+## 3. 字段约束
 
-### no_plain_message
-Direct string-based notification is forbidden.
+### 禁止纯字符串通知
 
-**Forbidden patterns:**
+直接以字符串发送的通知一律禁止。
+
+**禁止的模式**：
+
 ```
 send("...")
 notify("...")
 console.log("alert")
 ```
 
-### must_have_event_type
-Every notification MUST define a semantic event type.
+### 必须有事件类型
 
-### must_have_intent
-Every notification MUST define intent.
+每条通知必须声明语义化事件类型。
 
-### actionable_required_for_high_priority
-P0 and P1 MUST include actions.
+### 必须有 intent
 
-**Enforcement:**
-- priority ∈ [P0, P1] → require: actions
+每条通知必须声明 `intent`。
 
-### naming_convention
-Event type must be UPPER_SNAKE_CASE.
+### 高优先级必须可操作
 
-**Example:** `BUILD_FAILED`, `DEPLOYMENT_COMPLETE`, `APPROVAL_PENDING`
+P0 和 P1 必须包含 `actions`。
 
----
+**约束**：
 
-## 4. ANTI-PATTERNS
+- priority ∈ [P0, P1] → 必须包含 `actions`
 
-❌ Sending raw logs as notifications
-❌ Mixing rendering (markdown/text) inside business logic
-❌ Hardcoding Slack/Feishu in domain code
-❌ Missing priority or intent
+### 命名规范
+
+事件类型必须为 UPPER_SNAKE_CASE。
+
+**示例**：`BUILD_FAILED`、`DEPLOYMENT_COMPLETE`、`APPROVAL_PENDING`
 
 ---
 
-## 5. AI REFACTOR INSTRUCTION
+## 4. 反模式
 
+- ❌ 把原始日志直接当通知发送
+- ❌ 在业务逻辑里混入渲染（markdown / text）
+- ❌ 在领域代码里硬编码 Slack / 飞书 / 企微
+- ❌ 缺少 `priority` 或 `intent`
+
+---
+
+## 5. 合规示例
+
+### P0（紧急，含 actions）
+
+```json
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "type": "BUILD_FAILED",
+  "source": "ci-pipeline",
+  "timestamp": "2026-05-09T10:30:00Z",
+  "intent": "action_required",
+  "priority": "P0",
+  "severity": "critical",
+  "title": "主干构建失败",
+  "body": "main 分支构建 #1234 失败，影响所有下游部署",
+  "actor": { "type": "system", "id": "ci-pipeline", "name": "CI Pipeline" },
+  "target": { "type": "branch", "id": "main" },
+  "actions": [
+    { "type": "link",    "label": "查看构建日志", "url": "https://ci.example.com/builds/1234" },
+    { "type": "command", "label": "重试构建",     "command": "ci retry 1234" }
+  ]
+}
 ```
-Refactor all notification-related code to:
 
-1. Replace direct message sending with UNP object construction
-2. Extract event types from business logic
-3. Add intent and priority to each notification
-4. Ensure all notifications follow the schema strictly
-5. Remove any channel-specific logic from business code
+### P2（普通信息，无 actions）
 
-Output must only use UNP objects as the notification interface.
+```json
+{
+  "id": "660f9511-f30c-52e5-b827-557766551111",
+  "type": "DEPLOYMENT_COMPLETE",
+  "source": "deploy-service",
+  "timestamp": "2026-05-09T11:00:00Z",
+  "intent": "info",
+  "priority": "P2",
+  "title": "staging 环境部署完成",
+  "body": "v2.3.1 已成功部署到 staging 环境",
+  "target": { "type": "environment", "id": "staging" }
+}
 ```

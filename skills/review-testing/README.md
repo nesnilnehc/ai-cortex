@@ -15,7 +15,7 @@
 
 ## 何时使用
 
-- 作为通过 [review-code](../review-code/SKILL.md) 精心策划的审核的一部分（cognitive步骤）。
+- 作为通过 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 精心策划的审核的一部分（cognitive步骤）。
 - 当您只想检查测试维度时（例如，发布前、重构后），请独立使用。
 - 差距分析以识别未经测试的模块或低质量的测试。
 
@@ -29,7 +29,7 @@
 
 ## 相关技能
 
-- [review-code](../review-code/SKILL.md) — 在cognitive阶段包含此技能的 Orchestrator。
+- [orchestrate-code-review](../orchestrate-code-review/SKILL.md) — 在cognitive阶段包含此技能的 Orchestrator。
 - [automate-tests](../automate-tests/SKILL.md) — 实际执行测试；该技能审查测试代码质量。
 - [review-codebase](../review-codebase/SKILL.md) — 将可测试性作为一个维度的范围技能。
 

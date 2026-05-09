@@ -15,7 +15,7 @@ lifecycle: living
 
 **用户不应该手动读协议文档** — Agent 应该自动完成这些工作：
 
-1. **自动发现** — 通过 manifest.json 发现可用的协议
+1. **自动发现** — 通过 skills/INDEX.md 发现可用的协议
 2. **自动注入** — 作为长期背景上下文加载到 Agent 工作会话中
 3. **自动应用** — 在代码生成和审查中应用协议约束
 4. **自动验证** — 通过 skill 验证生成的代码是否符合协议
@@ -26,7 +26,7 @@ lifecycle: living
 
 ### 1.1 通过 Manifest 发现
 
-Agent 在启动时应读取 `manifest.json` 来发现所有可用的协议：
+Agent 在启动时应读取 `skills/INDEX.md` 来发现所有可用的协议：
 
 ```json
 {
@@ -43,7 +43,7 @@ Agent 在启动时应读取 `manifest.json` 来发现所有可用的协议：
 ```python
 # 伪代码：Agent 启动时执行
 def discover_protocols():
-    manifest = load_json("manifest.json")
+    manifest = load_json("skills/INDEX.md")
     protocols_dir = manifest["registry"]["protocols_root"]
     protocols_index = manifest["registry"]["protocols_index"]
 
@@ -276,7 +276,7 @@ violations = check_code_against_rules(code, rules)
 │    ↓ Agent 自动生成补丁代码                             │
 │                                                          │
 │ 6. 应用修复（可选自动应用）                              │
-│    ↓ /automate-repair 整合修复                         │
+│    ↓ /orchestrate-repair-loop 整合修复                  │
 │                                                          │
 └──────────────────────────────────────────────────────────┘
 ```
@@ -366,7 +366,7 @@ jobs:
       # 步骤 1：自动加载协议
       - name: Load protocols
         run: |
-          agent-cli load-protocols --manifest manifest.json
+          agent-cli load-protocols --manifest skills/INDEX.md
 
       # 步骤 2：审查通知代码
       - name: Review notifications
@@ -413,7 +413,7 @@ Agent:
 
 ## 8. 实现清单（For Agent Builders）
 
-- [ ] **发现机制** — 实现 manifest.json 中 protocols 的自动发现
+- [ ] **发现机制** — 实现 skills/INDEX.md 中 protocols 的自动发现
 - [ ] **元数据解析** — 从 frontmatter 提取协议元数据（scope, applies_to, domain）
 - [ ] **上下文注入** — 在 Agent 启动或关键时刻加载相关协议
 - [ ] **Skill 集成** — 在 skill frontmatter 中支持 protocols 声明

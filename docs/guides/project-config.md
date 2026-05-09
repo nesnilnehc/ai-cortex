@@ -8,7 +8,7 @@ status: active
 
 # 项目配置指引
 
-依赖项目配置的技能（如 automate-tests、automate-repair、commit-work、generate-github-workflow）应遵循以下行为，以实现平台无关设计。
+依赖项目配置的技能（如 automate-tests、orchestrate-repair-loop、commit-work、generate-github-workflow）应遵循以下行为，以实现平台无关设计。
 
 ---
 
@@ -23,7 +23,7 @@ status: active
 
 | 字段 | 说明 | 适用技能 |
 | :--- | :--- | :--- |
-| `test_command` | 测试命令或脚本 | automate-tests、automate-repair、commit-work |
+| `test_command` | 测试命令或脚本 | automate-tests、orchestrate-repair-loop、commit-work |
 | `base_branch` | 主分支名（如 main、master） | 涉及 PR 或分支检测的技能 |
 | `deploy_command` | 部署命令 | 部署相关技能 |
 
@@ -43,4 +43,4 @@ status: active
 
 ## 4. 与现有逻辑的关系
 
-本指引不替代技能既有的发现逻辑（如从 `package.json`、CI 配置、文档中推断）。配置优先于推断；推断结果可建议写入配置供下次使用。
+本指引不替代技能既有的发现逻辑（如从依赖/构建清单、CI 配置、文档中推断）。配置优先于推断；推断结果可建议写入配置供下次使用。

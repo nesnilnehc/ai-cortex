@@ -2,7 +2,7 @@
 name: review-go
 description: "Review Go code for language and runtime conventions: concurrency, context usage, error handling, resource management, API stability, type semantics, and testability. Language-only atomic skill; output is a findings list."
 description_zh: 按 Go 语言与运行时规范审查代码：并发、context、错误处理、资源管理、API 稳定性、类型语义、可测性。
-tags: [code-review]
+tags: [code-review, language]
 version: 1.0.0
 license: MIT
 recommended_scope: project
@@ -17,7 +17,7 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion
 ---
 
-# 技能（Skill）：复习围棋
+# 技能（Skill）：审查 Go（Review Go）
 
 ## 目的 (Purpose)
 
@@ -59,15 +59,15 @@ output_schema:
 - 安全分析——使用“review-security”
 - 架构分析——使用“review-architecture”
 - SQL 特定分析 — 使用 `review-sql`
-- 全面精心策划的审核——使用“审核代码”
+- 完整编排式审查——使用“审查代码”
 
-**转交点**：当所有 Go 发现结果发布后，将其移交给 `review-code` 进行聚合。对于 SQL 或安全问题，请记下它们并建议适当的cognitive技能。
+**转交点**：当所有 Go 发现结果发布后，将其移交给 `orchestrate-code-review` 进行聚合。对于 SQL 或安全问题，请记下它们并建议适当的cognitive技能。
 
 ---
 
 ## 使用场景（用例）
 
-- **精心安排的审查**：当 [review-code](../review-code/SKILL.md) 运行 Go 项目的范围 -> 语言 -> 框架 -> 库 -> cognitive时，用作语言步骤。
+- **精心安排的审查**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 运行 Go 项目的范围 -> 语言 -> 框架 -> 库 -> cognitive时，用作语言步骤。
 - **仅 Go 审查**：当用户只想检查语言/运行时约定时（例如，添加新的 Go 文件后）。
 - **PR Go 前检查清单**：确保并发、上下文和错误处理模式正确。
 
@@ -130,7 +130,7 @@ output_schema:
 
 **何时停止并交接**：
 
-- 当所有 Go 发现结果发布后，将其交给“review-code”进行聚合
+- 当所有 Go 发现结果发布后，将其交给“orchestrate-code-review”进行聚合
 - 当用户需要全面审查（范围+语言+cognitive）时，重定向到“审查代码”
 - 当发现 SQL 或安全问题时，记下它们并建议适当的cognitive技能
 
@@ -180,30 +180,3 @@ output_schema:
 
 - **输入**：带有用于数据库查询的嵌入式 SQL 字符串的 Go 文件。
 - **预期**：仅查看 Go 约定（上下文使用、错误处理、资源清理）。不要发出 SQL 注入结果；这是用于 review-security 或 review-sql。
-
----
-
-## 附录：输出合约
-
-每项调查结果必须遵循标准调查结果格式：
-
-|元素|要求 |
-| :--- | :--- |
-| **位置** | `path/to/file.ext`（可选行或范围）。 |
-| **类别** | “语言去”。 |
-| **严重性** | `关键` \| `主要` \| `次要` \| `建议`。 |
-| **标题** |简短的一行摘要。 |
-| **描述** | 1-3句话。 |
-| **建议** |具体修复或改进（可选）。 |
-
-示例：
-
-
-```markdown
-- **Location**: `internal/worker/pool.go:87`
-- **Category**: language-go
-- **Severity**: major
-- **Title**: Goroutine leak due to missing cancellation
-- **Description**: The goroutine blocks on a channel that is never closed or canceled, so it will leak per request.
-- **Suggestion**: Pass a context and exit on cancellation, or close the channel when the work is done.
-```

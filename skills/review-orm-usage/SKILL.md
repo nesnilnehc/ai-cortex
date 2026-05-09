@@ -2,7 +2,7 @@
 name: review-orm-usage
 description: Review ORM usage patterns for N+1 queries, connection management, migration safety, transaction handling, and query efficiency. Library-level atomic skill; output is a findings list.
 description_zh: 审查 ORM 使用：N+1 查询、连接管理、迁移安全、事务与查询效率；库级原子技能。
-tags: [code-review, optimization]
+tags: [code-review, library, optimization]
 version: 1.0.0
 license: MIT
 recommended_scope: project
@@ -17,7 +17,7 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion
 ---
 
-# 技能（Skill）：回顾ORM用法
+# 技能（Skill）：审查 ORM 用法
 
 ## 目的 (Purpose)
 
@@ -59,15 +59,15 @@ output_schema:
 - 架构分析（模块边界、耦合）——使用“review-architecture”
 - 原始 SQL 质量（语法、可移植性、参数化）——使用 `review-sql`
 - 一般性能分析（算法复杂度、I/O 成本）——使用 `review-performance`
-- 全面精心策划的审核——使用“审核代码”
+- 完整编排式审查——使用“审查代码”
 
-**转交点**：当所有 ORM 结果发出后，将其交给“review-code”进行聚合。对于 SQL 注入风险（未经净化的原始查询），请记下它们并建议“审查安全性”。对于复杂的原始 SQL 质量，请注意并建议“review-sql”。
+**转交点**：当所有 ORM 结果发出后，将其交给“orchestrate-code-review”进行聚合。对于 SQL 注入风险（未经净化的原始查询），请记下它们并建议“审查安全性”。对于复杂的原始 SQL 质量，请注意并建议“review-sql”。
 
 ---
 
 ## 使用场景（用例）
 
-- **精心安排的审查**：当 [review-code](../review-code/SKILL.md) 为使用 ORM 的项目运行范围 → 语言 → 框架 → 库 → cognitive时，用作库步骤。
+- **精心安排的审查**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 为使用 ORM 的项目运行范围 → 语言 → 框架 → 库 → cognitive时，用作库步骤。
 - **仅 ORM 审查**：当用户只想在其数据层检查 ORM 使用模式时。
 - **PR ORM 前检查表**：在合并之前确保 N+1 查询、事务处理和迁移安全正确。
 - **迁移审查**：重点检查迁移文件的向后兼容性和回滚安全性。
@@ -132,7 +132,7 @@ output_schema:
 
 **何时停止并交接**：
 
-- 当所有 ORM 结果发出后，将其交给“review-code”进行聚合
+- 当所有 ORM 结果发出后，将其交给“orchestrate-code-review”进行聚合
 - 当发现 SQL 注入风险时（例如原始查询中未经消毒的插值），请记下它们并建议“审查安全性”
 - 当发现原始 SQL 质量问题（语法、可移植性）时，记下它们并建议“review-sql”
 - 当用户需要全面审查（范围+语言+cognitive）时，重定向到“审查代码”
@@ -178,30 +178,3 @@ output_schema:
 
 - **输入**：使用原始 SQL（`prisma.$queryRaw`、`DbContext.Database.ExecuteSqlRaw`、`session.execute(text(...))`）进行查询的存储库方法，可以使用 ORM 查询构建器来表达。
 - **预期**：发出一个发现（建议），指出原始查询绕过 ORM 类型安全和迁移跟踪；如果查询是可表达的，建议使用 ORM 查询构建器。如果原始查询是合理的（性能、不支持的功能），请接受它，但标记缺少参数化（如果存在），并建议针对注入风险进行“审查安全”。类别=库-orm。
-
----
-
-## 附录：输出合约
-
-每项调查结果必须遵循标准调查结果格式：
-
-|元素|要求|
-| :--- | :--- |
-| **位置** | `path/to/file.ext` 或模型/实体名称（可选行或范围）。 |
-| **类别** | `图书馆-orm`。 |
-| **严重性** | `关键` \| `主要` \| `次要` \| `建议`。 |
-| **标题** |简短的一行摘要。 |
-| **描述** | 1-3 句话。 |
-| **建议** |具体修复或改进（可选）。 |
-
-示例：
-
-
-```markdown
-- **Location**: `src/services/OrderService.ts:42`
-- **Category**: library-orm
-- **Severity**: major
-- **Title**: N+1 query on Order.customer relation
-- **Description**: Each order triggers a separate query to fetch the customer. With 100 orders this produces 101 queries instead of 2.
-- **Suggestion**: Use eager loading (e.g. Prisma `include: { customer: true }`, EF `.Include(o => o.Customer)`) or batch the customer lookup.
-```

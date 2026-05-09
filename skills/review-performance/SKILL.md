@@ -2,7 +2,7 @@
 name: review-performance
 description: "Review code for performance: complexity, database/query efficiency, I/O and network cost, memory and allocation behavior, concurrency contention, caching, and latency/throughput regressions. Cognitive-only atomic skill; output is a findings list."
 description_zh: 审查性能：复杂度、数据库/查询效率、I/O 与网络成本、内存与分配、并发竞争、缓存与延迟/吞吐回归。
-tags: [code-review, optimization]
+tags: [code-review, cognitive, optimization]
 version: 1.0.0
 license: MIT
 recommended_scope: project
@@ -17,7 +17,7 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion
 ---
 
-# 技能（Skill）：回顾表现
+# 技能（Skill）：审查性能
 
 ## 目的 (Purpose)
 
@@ -33,7 +33,7 @@ output_schema:
 
 1. ✅ **仅性能范围**：仅审查性能维度；未执行范围选择、安全性、架构或语言/框架风格审查
 2. ✅ **评估所有八个类别**：在相关的情况下评估复杂性、数据库/查询效率、I/O/网络成本、内存/分配、并发/争用、缓存/重用、面向负载的行为和可观察性
-3. ✅ **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive表现”）、严重性、标题、描述和可选建议
+3. ✅ **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive-performance”）、严重性、标题、描述和可选建议
 4. ✅ **准确分配的严重性**：影响生产的问题标记为“严重”；可扩展性风险标记为“重大”；本地化优化标记为“次要”/“建议”
 5. ✅ **可操作的输出**：每个发现都有具体的位置参考和具体的修复或改进建议，除非提供测量证据，否则不要求基准数字
 
@@ -61,7 +61,7 @@ output_schema:
 - 架构审查——使用“review-architecture”
 - 特定于语言/框架的约定 - 使用 `review-dotnet`、`review-java`、`review-go` 等。
 - 全面的 SQL 性能分析 — 使用 `review-sql`
-- 全面精心策划的审核——使用“审核代码”
+- 完整编排式审查——使用“审查代码”
 
 **转交点**：当所有性能结果发布后，移交给“审查代码”编排器进行聚合，或直接交付给用户进行以性能为中心的审查会议。
 
@@ -69,7 +69,7 @@ output_schema:
 
 ## 使用场景（用例）
 
-- **精心安排的审查**：当 [review-code](../review-code/SKILL.md) 运行范围 -> 语言 -> 框架 -> 库 -> cognitive时，用作cognitive步骤。
+- **精心安排的审查**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 运行范围 -> 语言 -> 框架 -> 库 -> cognitive时，用作cognitive步骤。
 - **以性能为中心的审查**：当用户只想在合并或发布之前检查性能维度时。
 - **回归预防**：验证更改不会引入明显的延迟、吞吐量或内存回归。
 
@@ -117,7 +117,7 @@ output_schema:
 ### 输出（输出）
 
 - 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
-- 此技能的类别是**cognitive表现**。
+- 此技能的类别是**cognitive-performance**。
 
 ---
 
@@ -140,7 +140,7 @@ output_schema:
 
 **何时停止并交接**：
 
-- 当所有性能结果发布后，将其移交给“审核代码”以在精心策划的审核中进行聚合
+- 当所有性能结果发布后，将其移交给“审查代码”以在精心策划的审核中进行聚合
 - 当用户需要全面审查（范围+语言+cognitive）时，重定向到“审查代码”
 - 当 SQL 性能问题占主导地位时，建议还运行“review-sql”以获得更深入的 SQL 覆盖
 
@@ -152,7 +152,7 @@ output_schema:
 
 - [ ] **仅性能范围**：仅审查性能维度；未执行范围选择、安全性、架构或语言/框架风格审查
 - [ ] **评估所有八个类别**：在相关的情况下评估复杂性、数据库/查询效率、I/O/网络成本、内存/分配、并发/争用、缓存/重用、面向负载的行为和可观察性
-- [ ] **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive表现”）、严重性、标题、描述和可选建议
+- [ ] **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive-performance”）、严重性、标题、描述和可选建议
 - [ ] **准确分配的严重性**：影响生产的问题标记为“严重”；可扩展性风险标记为“重大”；本地化优化标记为“次要”/“建议”
 - [ ] **可行的输出**：每个发现都有具体的位置参考和具体的修复或改进建议，除非提供了测量证据，否则不会声称基准数字
 
@@ -160,7 +160,7 @@ output_schema:
 
 - [ ] 是否仅审查了性能维度（没有范围/安全/架构/风格）？
 - [ ] 是否涵盖了相关的复杂性、查询效率、I/O、内存、并发、缓存和加载行为？
-- [ ] 每个发现是否都包含位置、类别=cognitive性能、严重性、标题、描述和可选建议？
+- [ ] 每个发现是否都包含位置、类别=cognitive-performance、严重性、标题、描述和可选建议？
 - [ ] 高影响回归风险是否与次要优化明确区分开来？
 
 ### 验收测试
@@ -174,41 +174,14 @@ output_schema:
 ### 示例 1：N+1 查询模式
 
 - **输入**：循环通过每次迭代一个查询来获取每个父级的子记录。
-- **预期**：针对 N+1 行为发出主要/关键发现；建议批量查询或连接策略。类别=cognitive表现。
+- **预期**：针对 N+1 行为发出主要/关键发现；建议批量查询或连接策略。类别=cognitive-performance。
 
 ### 示例 2：热路径分配流失
 
 - **输入**：请求处理程序重复分配大型临时缓冲区并多次序列化有效负载。
-- **预期**：发布关于分配压力和延迟影响的主要发现；建议重用/池化或单遍转换。类别=cognitive表现。
+- **预期**：发布关于分配压力和延迟影响的主要发现；建议重用/池化或单遍转换。类别=cognitive-performance。
 
 ### 边缘情况：小格式差异中没有明显的性能风险
 
 - **输入**：差异仅包括注释/重命名，没有行为变化。
-- **预期**：不发出任何发现或一条建议级别的注释；不要发明优化工作。类别仍然是任何发出的发现的cognitive表现。
-
----
-
-## 附录：输出合约
-
-每项调查结果必须遵循标准调查结果格式：
-
-|元素|要求 |
-| :--- | :--- |
-| **位置** | `path/to/file.ext`（可选行或范围，或查询/块标识符）。 |
-| **类别** | “cognitive表现”。 |
-| **严重性** | `关键` \| `主要` \| `次要` \| `建议`。 |
-| **标题** |简短的一行摘要。 |
-| **描述** | 1-3句话。 |
-| **建议** |具体修复或改进（可选）。 |
-
-示例：
-
-
-```markdown
-- **Location**: `service/orders/handler.go:118`
-- **Category**: cognitive-performance
-- **Severity**: major
-- **Title**: Per-item remote call inside request loop
-- **Description**: The handler performs one downstream call per item, creating linear remote round-trips and latency growth.
-- **Suggestion**: Batch requests or prefetch related data once per request; add timeout and bulk size guards.
-```
+- **预期**：不发出任何发现或一条建议级别的注释；不要发明优化工作。类别仍然是任何发出的发现的cognitive-performance。

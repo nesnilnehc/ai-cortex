@@ -13,8 +13,8 @@
 ### 增强功能
 
 - **预提交审查集成**：自动调用“review-diff”技能以在登台前捕获问题
-- **注册表同步**：确保添加或修改技能时“skills/INDEX.md”和“manifest.json”保持同步
-- **规范合规性**：遵循 AI Cortex `specs/skill.md` 结构和质量标准
+- **注册表同步**：确保添加或修改技能时“skills/INDEX.md”和“skills/INDEX.md”保持同步
+- **规范合规性**：遵循 AI Cortex [agentskills.io](https://agentskills.io) 结构和质量标准
 - **增强的自检**：与 AI Cortex 治理相一致的全面验证清单
 
 ### 进化元数据
@@ -117,11 +117,6 @@ footer (BREAKING CHANGE if needed)
 ## 许可证
 
 MIT 许可证 - 与原始的“commit-work”技能和 AI Cortex 项目相同。
-
-## 版本历史
-
-- **2.0.0**（当前）：AI Cortex 增强版，具有审核集成和注册表同步功能
-- **1.0.0**：原始版本（分叉基线）
 
 ## 反馈
 

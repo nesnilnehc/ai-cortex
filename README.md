@@ -1,90 +1,42 @@
 # AI Cortex
 
-[![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-blue.svg)](.)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![AI-Readiness: High](https://img.shields.io/badge/AI--Readiness-High-success.svg)](llms.txt)
 
-> 面向 Agent 与开发者：治理资产库，包含技能、规范、协议、规则四层，覆盖软件交付与项目治理。按 description、tags、triggers 语义匹配调用能力，按规范与协议协作，按规则执行。详见 [使命](docs/project-overview/mission.md) 与 [愿景](docs/project-overview/vision.md)。
+> 面向 Agent 与开发者的软件交付与项目治理资产库（技能、规范、协议、规则）。使命与愿景见 [使命](docs/project-overview/mission.md)、[愿景](docs/project-overview/vision.md)。
 
-```mermaid
-flowchart LR
-    %% Style Definitions
-    classDef user fill:#eff6ff,stroke:#3b82f6,stroke-width:2px;
-    classDef system fill:#fef3c7,stroke:#f59e0b,stroke-width:2px;
-    classDef core fill:#ecfdf5,stroke:#10b981,stroke-width:2px;
-    classDef out fill:#f8fafc,stroke:#64748b,stroke-width:2px;
-
-    %% Nodes
-    Intent(("User Intent<br/>(Natural Language)")):::user
-    
-    subgraph Cortex [AI Cortex System]
-        direction TB
-        Router{"Skill Match<br/>(description, tags, triggers)"}:::system
-        
-        subgraph Execution [Execution Engine]
-            direction LR
-            Governance[规范 & 协议 & 规则]:::core -.-> Skill[Selected Skill]:::core
-        end
-    end
-
-    Artifact["Standardized Artifact<br/>(Docs / Code / Report)"]:::out
-
-    %% Flow
-    Intent --> Router
-    Router -- Matches Intent --> Skill
-    Skill --> Artifact
-```
-
----
-
-## ✨ 特点
-
-- **四层治理资产**：
-  - 技能（Skill）(`skills/INDEX.md`、`manifest.json`)：主动能力
-  - 规范（Spec）(`specs/`、部分 `protocols/`)：数据结构与接口契约
-  - 协议（Protocol）(`protocols/`)：交互流程与步骤约束
-  - 规则（Rule）(`rules/INDEX.md`)：编码与写作约束
-- **Agent 优先**：无需本地文件；通过 manifest.json 远程发现和加载协议
-- **术语与规范**：[specs/terminology.md](specs/terminology.md) 定义核心术语；`specs/skill.md` 定义技能结构；`specs/protocol.md` 定义协议规范；`specs/artifact-contract.md` 定义制品契约
-- **生态**：[skills.sh](https://skills.sh)、[SkillsMP](https://skillsmp.com)
+在本仓库内使用 Agent 时：**契约、四层资产与注册表、权威来源、发现与加载、技能匹配规则**均以 [AGENTS.md](AGENTS.md) 为准；术语定义见 [docs/architecture/terminology.md](docs/architecture/terminology.md)。
 
 ---
 
 ## 📦 安装与使用
 
-**技能**：
+**用提示词完成安装与接入**，在编码 Agent（Claude Code、Cursor 等）里粘贴下文，由 Agent 执行克隆、路径放置与项目侧说明。
 
-```bash
-npx skills add nesnilnehc/ai-cortex
-```
+### Claude Code
 
-使用 `--force` 覆盖已有技能；`--skill <name>` 仅安装指定技能。无 Node 时见 `scripts/install-fallback.sh`。
+打开 Claude Code，粘贴：
 
-**升级与重装**：若技能曾改名或结构变更，建议先卸载再安装：
+> 安装 AI Cortex：执行 `git clone --single-branch --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.claude/skills/ai-cortex`。若目录已存在则改为在该目录内执行 `git fetch origin && git reset --hard origin/main`。然后在当前项目的 `CLAUDE.md` 增加一节「AI Cortex」，写明：发现与加载技能时读取 `~/.claude/skills/ai-cortex/skills/INDEX.md`，执行某项技能时加载对应目录下完整 `SKILL.md`；与本仓库协作时的契约与权威来源以该克隆路径中的 `AGENTS.md` 为准（若当前仓库自带 `AGENTS.md`，以项目内版本约定为准）。完成后根据任务语义从 `skills/INDEX.md` 帮我选用技能。
 
-```bash
-./scripts/uninstall-reinstall-ai-cortex.sh
-```
+### Cursor
 
-详见 [安装与重装说明](docs/references/skill-install-guide.md)。
+打开 Cursor Agent，粘贴：
 
-**规则**：通过 Agent 说「将此项目规则安装到 Cursor」——或将 `rules/` 复制到 `.cursor/rules/`。见 [rules/INDEX.md](rules/INDEX.md)。
+> 安装 AI Cortex：执行 `git clone --single-branch --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.cursor/skills/ai-cortex`。若目录已存在则在该目录内执行 `git fetch origin && git reset --hard origin/main`。之后在对话或规则中约定：需要调用 AI Cortex 能力时，从 `~/.cursor/skills/ai-cortex/skills/<skill-name>/SKILL.md` 载入完整技能正文；入口契约见 `~/.cursor/skills/ai-cortex/AGENTS.md`，目录见 `skills/INDEX.md`。
 
-**协议**：无需安装；Agent 自动通过 manifest.json 发现和远程加载。见 [protocols/INDEX.md](protocols/INDEX.md) 及快速参考 [docs/guides/protocols-quickstart.md](docs/guides/protocols-quickstart.md)。
+### 升级 / 重装
 
----
+向 Agent 说明即可，例如：「在 `~/.claude/skills/ai-cortex`（或 Cursor 对应路径）执行 `git fetch origin && git reset --hard origin/main` 升级到默认分支最新提交」。无需依赖额外重装脚本。
 
-## 🚀 快速入门
+**规则**：将 `rules/` 复制或符号链接到 IDE 的规则目录（如 `.cursor/rules/`）。见 [rules/INDEX.md](rules/INDEX.md)。
 
-1. 安装后，向 Agent 说意图（如「代码审查」「generate readme」「需求评审」）或询问「有哪些技能」。
-2. Agent 按 `description`、`tags`、`triggers` 语义匹配技能；细则见 [docs/guides/discovery-and-loading.md](docs/guides/discovery-and-loading.md)。
-3. 链式调用时，技能按 SKILL.md 中的 Handoff Point 相互移交。
+**协议**：无需安装；加载方式见 [AGENTS.md](AGENTS.md)（发现与加载、加载策略）。
 
 ---
 
 ## 🤝 贡献
 
-PR 须遵循 [specs/skill.md](specs/skill.md)。更新 `manifest.json` 后运行 `npm run verify`。见 [specs/registry-sync-contract.md](specs/registry-sync-contract.md) 与 [CONTRIBUTING.md](CONTRIBUTING.md)。
+见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ---
 
@@ -94,7 +46,7 @@ PR 须遵循 [specs/skill.md](specs/skill.md)。更新 `manifest.json` 后运行
 
 ---
 
-## 🙏 致谢与署名
+## 🙏 致谢
 
-- **贡献者**：致谢所有 [contributors](https://github.com/nesnilnehc/ai-cortex/graphs/contributors)
-- **参考来源**：技能 fork/integration 自 gstack、anthropics/skills 等，完整列表见 [ATTRIBUTIONS.md](docs/references/ATTRIBUTIONS.md)
+- 贡献者：[contributors](https://github.com/nesnilnehc/ai-cortex/graphs/contributors)
+- 部分技能 fork/integration 自 gstack、anthropics/skills 等；完整列表见 [ATTRIBUTIONS.md](docs/references/ATTRIBUTIONS.md)

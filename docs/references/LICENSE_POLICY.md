@@ -15,7 +15,7 @@ status: active
 ## 1. 技能本体
 
 - 本仓库所有技能（`skills/*/SKILL.md`）必须声明 `license: MIT`。
-- 验证：`npm run verify:skill-structure` 强制此约束。
+- 验证：合并前人工核对各 `SKILL.md` frontmatter 中的 `license` 字段（本仓库不提供自动化 npm 校验）。
 
 ---
 

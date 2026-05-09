@@ -9,7 +9,6 @@ recommended_scope: both
 metadata:
   author: ai-cortex
 triggers: [run tests, automated tests, auto test, autotest]
-aliases: [run-automated-tests]
 compatibility: Requires git (optional), a shell, and the repo's language toolchain(s) (e.g., node, python, go, dotnet, java).
 input_schema:
   type: code-scope
@@ -84,7 +83,7 @@ output_schema:
    - 若存在 `CLAUDE.md` 或 `.ai-cortex/config.yaml`，优先读取其中的 `test_command`；否则按以下来源发现。参见 [docs/guides/project-config.md](../../docs/guides/project-config.md)。
    - 按顺序阅读这些来源；如果发现清晰、明确的测试命令，请尽早停止：
      - `README.md`、`CONTRIBUTING.md`、`TESTING.md`、`docs/testing*`、`Makefile`
-     - CI 配置：`.github/工作流s/*.yml`、`.gitlab-ci.yml`、`azure-pipelines.yml`、`Jenkinsfile`
+     - CI 配置：`.github/workflows/*.yml`、`.gitlab-ci.yml`、`azure-pipelines.yml`、`Jenkinsfile`
      - 构建清单：`package.json`、`pyproject.toml`、`setup.cfg`、`tox.ini`、`go.mod`、`pom.xml`、`build.gradle*`、`*.csproj`、`Cargo.toml`
    - 识别：
      - 主要测试入口点（`npm test`、`pnpm test`、`yarn test`、`pytest`、`tox`、`go test`、`dotnet test`、`mvn test`、`gradle test`、`cargo test`等）
@@ -203,7 +202,7 @@ output_schema:
 
 代理：
 
-1. 解析 `.github/工作流s/ci.yml` 并识别单独的作业：
+1. 解析 `.github/workflows/ci.yml` 并识别单独的作业：
    - 后端单元测试
    - 前端测试
    - 与“docker compose”的集成测试
@@ -219,48 +218,3 @@ output_schema:
    - 服务运行状况/端口冲突
    - 缺少环境变量
    - CI 配置与本地配置有何不同
-
----
-
-## 附录：输出合约
-
-每个技能执行必须以这种精确的 JSON 格式生成**测试计划摘要**：
-
-
-```json
-{
-  "test_plan_summary": {
-    "mode": "fast | ci | full",
-    "evidence": ["path/to/source1", "path/to/source2"],
-    "commands": [
-      {"command": "npm test", "purpose": "run unit tests", "order": 1}
-    ],
-    "prerequisites": ["npm ci", "Docker running"],
-    "executed": ["npm ci", "npm test"],
-    "skipped": ["integration tests - require Docker"],
-    "result": {
-      "status": "passed | failed | blocked",
-      "exit_code": 0,
-      "first_failure": {
-        "command": "npm test",
-        "exit_code": 1,
-        "error_excerpt": "FAIL src/utils.test.js"
-      }
-    }
-  }
-}
-```
-
-|元素|类型 |描述 |
-| :--- | :--- | :--- |
-| `模式` |字符串|所选模式：`fast`、`ci` 或 `full` |
-| `证据` |数组|告知测试计划的源文件 |
-| `命令` |数组|具有目的和顺序的选定测试命令 |
-| `先决条件` |数组|所需的设置步骤 |
-| `已执行` |数组|命令实际运行 |
-| `跳过` |数组|跳过的命令和原因 |
-| `结果.状态` |字符串| “通过”、“失败”或“被阻止”|
-| `结果.退出代码` |数量 |测试命令的退出代码 |
-| `结果.first_failure` |对象|第一次失败详细信息（如果有）|
-
-此架构允许代理使用而无需进行散文解析。

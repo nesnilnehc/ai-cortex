@@ -2,7 +2,7 @@
 name: review-testing
 description: "Review code for testing: test existence, coverage adequacy, test quality and structure, edge-case and error-path coverage, and test maintainability. Cognitive-only atomic skill; output is a findings list."
 description_zh: 审查测试：存在性、覆盖度、质量与结构、边界与错误路径覆盖、可维护性；认知原子技能。
-tags: [code-review]
+tags: [code-review, cognitive]
 version: 1.0.0
 license: MIT
 recommended_scope: project
@@ -17,7 +17,7 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion
 ---
 
-# 技能（Skill）：复习测试
+# 技能（Skill）：审查测试
 
 ## 目的 (Purpose)
 
@@ -33,7 +33,7 @@ output_schema:
 
 1. ✅ **仅测试范围**：仅审核测试维度；未执行范围选择、语言/框架约定、安全性、性能或架构分析
 2. ✅ **涵盖所有六个测试维度**：在相关的情况下评估测试存在性、覆盖范围充分性、质量/结构、类型/分层、边缘情况/错误路径和可维护性
-3. ✅ **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive测试”）、严重性、标题、描述和可选建议
+3. ✅ **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive-testing”）、严重性、标题、描述和可选建议
 4. ✅ **标记高风险差距**：未经测试或测试不充分的高风险代码路径（身份验证、支付、数据突变）被标记为“关键”或“主要”
 5. ✅ **仅从代码进行分析**：从代码结构和可用产品评估测试充分性，无需运行测试或生成覆盖率报告
 
@@ -58,15 +58,15 @@ output_schema:
 - 运行测试或生成覆盖率报告 - 使用“automate-tests”进行测试执行
 - 特定于语言/框架的测试约定 - 使用“review-dotnet”、“review-java”、“review-go”等。
 - 安全性、性能或架构审查——使用各自的原子技能
-- 全面精心策划的审核——使用“审核代码”
+- 完整编排式审查——使用“审查代码”
 
-**转交点**：发出所有测试结果后，将其移交给“审核代码”，以便在精心策划的审核中进行聚合。对于实际运行的测试，请重定向到“automate-tests”。
+**转交点**：发出所有测试结果后，将其移交给“审查代码”，以便在精心策划的审核中进行聚合。对于实际运行的测试，请重定向到“automate-tests”。
 
 ---
 
 ## 使用场景（用例）
 
-- **精心安排的审查**：当[review-code](../review-code/SKILL.md)运行范围→语言→框架→库→cognitive时用作cognitive步骤。
+- **精心安排的审查**：当[orchestrate-code-review](../orchestrate-code-review/SKILL.md)运行范围→语言→框架→库→cognitive时用作cognitive步骤。
 - **以测试为中心的审查**：当用户只想评估测试运行状况和覆盖范围时（例如，在发布之前、主要重构之后或入职期间）。
 - **差距分析**：识别未经测试的模块、缺失的测试类型（单元/集成/e2e）或提供错误置信度的低质量测试。
 
@@ -105,7 +105,7 @@ output_schema:
 ### 输出（输出）
 
 - 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
-- 此技能的类别是**cognitive测试**。
+- 此技能的类别是**cognitive-testing**。
 
 ---
 
@@ -141,7 +141,7 @@ output_schema:
 
 - [ ] **仅测试范围**：仅审查测试维度；未执行范围选择、语言/框架约定、安全性、性能或架构分析
 - [ ] **涵盖所有六个测试维度**：在相关的情况下评估测试存在性、覆盖范围充分性、质量/结构、类型/分层、边缘情况/错误路径和可维护性
-- [ ] **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive测试”）、严重性、标题、描述和可选建议
+- [ ] **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive-testing”）、严重性、标题、描述和可选建议
 - [ ] **标记高风险差距**：未经测试或测试不充分的高风险代码路径（身份验证、支付、数据突变）被标记为“关键”或“主要”
 - [ ] **仅从代码进行分析**：根据代码结构和可用产品评估测试充分性，无需运行测试或生成覆盖率报告
 
@@ -149,7 +149,7 @@ output_schema:
 
 - [ ] 是否仅审查了测试维度（没有范围/语言/安全/架构）？
 - [ ] 是否涵盖相关的测试存在性、覆盖范围充分性、质量/结构、类型/分层、边缘情况和可维护性？
-- [ ] 每个发现是否都包含位置、类别=cognitive测试、严重性、标题、描述和可选建议？
+- [ ] 每个发现是否都包含位置、类别=cognitive-testing、严重性、标题、描述和可选建议？
 - [ ] 关键差距（未经测试的高风险代码）是否已明确标记并可采取行动？
 
 ### 验收测试
@@ -163,41 +163,14 @@ output_schema:
 ### 示例 1：缺少关键模块的测试
 
 - **输入**：没有测试文件的支付处理模块。
-- **预期**：针对高风险代码缺失测试发出关键发现；建议为核心支付逻辑创建单元测试，并为网关交互创建集成测试。类别 = cognitive测试。
+- **预期**：针对高风险代码缺失测试发出关键发现；建议为核心支付逻辑创建单元测试，并为网关交互创建集成测试。类别 = cognitive-testing。
 
 ### 示例 2：测试存在但很浅
 
 - **输入**：身份验证模块有测试，但它们仅涵盖快乐路径（有效登录）并跳过无效凭据、过期令牌、速率限制和帐户锁定。
-- **预期**：发布边缘情况覆盖不足的重大发现；列出要添加的具体场景。类别 = cognitive测试。
+- **预期**：发布边缘情况覆盖不足的重大发现；列出要添加的具体场景。类别 = cognitive-testing。
 
 ### 边缘情况：经过充分测试的代码库
 
 - **输入**：模块具有全面的单元、集成和端到端测试，结构清晰，覆盖范围广。
 - **预期**：发出零结果或建议级别的结果以进行细微改进（例如测试命名一致性）。不要发明问题。
-
----
-
-## 附录：输出合约
-
-每项调查结果必须遵循标准调查结果格式：
-
-|元素|要求 |
-| :--- | :--- |
-| **位置** | `path/to/file.ext` 或模块名称（可选行或范围）。 |
-| **类别** | “cognitive测试”。 |
-| **严重性** | `关键` \| `主要` \| `次要` \| `建议`。 |
-| **标题** |简短的一行摘要。 |
-| **描述** | 1-3 句话。 |
-| **建议** |具体修复或改进（可选）。 |
-
-示例：
-
-
-```markdown
-- **Location**: `src/payment/processor.go`
-- **Category**: cognitive-testing
-- **Severity**: critical
-- **Title**: No tests for payment processing module
-- **Description**: The payment processor handles charge, refund, and webhook verification but has no corresponding test file. This is high-risk code that directly affects revenue.
-- **Suggestion**: Create `processor_test.go` with unit tests for charge/refund logic (mock gateway) and integration tests for webhook signature verification.
-```

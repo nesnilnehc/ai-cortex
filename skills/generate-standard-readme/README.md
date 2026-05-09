@@ -14,7 +14,7 @@
 
 ## 不使用的情况
 
-- 需要完整文档套件 → `bootstrap-docs`
+- 需要完整 docs/ 套件 → 由 AgentFabric runtime 或人工按 `docs/ARTIFACT_NORMS.md` 承接
 - 需要 AGENTS.md → `generate-agent-entry`
 
 ## 输入

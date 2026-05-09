@@ -8,27 +8,7 @@ license: MIT
 recommended_scope: both
 metadata:
   author: ai-cortex
-  evolution:
-    sources:
-      - name: "commit-work"
-        repo: "https://github.com/anthropics/skills (assumed)"
-        version: "1.0.0"
-        license: "MIT"
-        type: "fork"
-        borrowed: "Core workflow, Conventional Commits format, patch staging approach"
-      - name: "review-diff"
-        repo: "https://github.com/nesnilnehc/ai-cortex"
-        version: "1.3.0"
-        license: "MIT"
-        type: "integration"
-        borrowed: "Pre-commit review methodology"
-    enhancements:
-      - "Integrated review-diff for pre-commit quality checks"
-      - "Added specs/skill.md compliance verification"
-      - "Auto-sync with skills/INDEX.md and manifest.json"
-      - "Enhanced Self-Check with AI Cortex standards"
 triggers: [commit, commit work]
-aliases: [cw]
 input_schema:
   type: free-form
   description: Staged and unstaged changes in the working tree to commit
@@ -37,11 +17,11 @@ output_schema:
   description: One or more git commits with Conventional Commits messages
 ---
 
-# 技能（Skill）：承诺工作
+# 技能（Skill）：提交工作（Commit Work）
 
 ## 目的 (Purpose)
 
-通过确保仅包含预期的更改、提交的逻辑范围以及提交消息清楚地描述更改的内容和原因，使提交易于审查且安全交付。该技能使用技能规范集成了项目的 AI Cortex 治理标准。
+产出易于审查、安全交付的 git commit：仅包含预期变更、提交粒度合理、消息清楚说明做了什么 + 为什么。本技能与 AI Cortex 的 INDEX 同步约束集成，提交涉及 `skills/` 目录变更时会校验 INDEX.md 是否已更新。
 
 ---
 
@@ -56,7 +36,7 @@ output_schema:
 3. ✅ **常规提交格式**：所有提交消息均遵循 `type(scope):summary` 格式，正文清晰
 4. ✅ **质量验证**：运行适当的测试、lint 或构建命令并且所有检查均已通过
 5. ✅ **无敏感数据**：不包含秘密、令牌、调试代码或意外更改
-6. ✅ **注册表同步**（AI Cortex 项目）：如果技能/更改，则 INDEX.md 和 manifest.json 都会更新
+6. ✅ **INDEX 同步**（AI Cortex 项目）：技能 / 规则 / spec / protocol 改动时同步对应 INDEX.md
 
 **验收**测试：审阅者是否可以仅从提交消息中了解更改的内容以及原因，而无需阅读差异？
 
@@ -71,7 +51,7 @@ output_schema:
 - 需要时使用补丁模式进行暂存更改
 - 编写常规提交消息
 - 运行预提交质量检查
-- 同步 AI Cortex 注册表（INDEX.md、manifest.json）
+- 同步 AI Cortex 注册表（INDEX.md）
 
 **本技能不负责**：
 
@@ -88,7 +68,7 @@ output_schema:
 - 需要将混合更改拆分为逻辑的、可审查的提交
 - 创建遵循常规提交格式的提交
 - 在推动之前确保提交符合项目质量标准
-- 在AI Cortex项目中工作，其中INDEX.md和manifest.json必须保持同步
+- 在 AI Cortex 项目中工作时，确保 skills/INDEX.md / rules/INDEX.md / specs/INDEX.md / protocols/INDEX.md 与对应资产同步
 
 ## 行为（行为）
 
@@ -101,12 +81,10 @@ output_schema:
    - 运行“git diff”（未暂存的更改）
    - 如果有很多更改：`git diff --stat` 进行概述
 
-2) **运行预提交审查（AI Cortex 增强）**
-   - 调用“review-diff”技能来检查：
-     - 意外的更改或调试代码
-     - 安全问题或泄露的秘密
-     - 重大更改或兼容性问题
-   - 在进行分期之前解决发现的问题
+2) **建议预提交审查（halt-and-suggest）**
+   - 建议用户先跑 `/review-diff`（或 `/orchestrate-code-review`）；本技能不直接调用其他 skill
+   - 用户跑完返回 findings 后再继续暂存
+   - 如果用户跳过此步：直接进入下一步（不阻塞）
 
 3) **决定提交边界（如果需要则分割）**
    - 按逻辑问题划分：
@@ -125,7 +103,7 @@ output_schema:
 5) **审查实际要提交的内容**
    - 运行“git diff --cached”
    - 健全性检查：
-     - 没有秘密或代币
+     - 没有秘密或token
      - 没有意外的调试日志记录
      - 没有不相关的格式改动
      - 没有注释掉的代码块
@@ -146,7 +124,6 @@ output_schema:
      footer (BREAKING CHANGE) if needed
      ```
 
-
    - 更喜欢多行消息的编辑器：`git commit -v`
    - Use `references/commit-message-template.md` if helpful
    - 保持摘要的必要性和具体性（“添加”、“修复”、“删除”、“重构”）
@@ -155,13 +132,12 @@ output_schema:
    - 在继续之前运行存储库最快的有意义的检查（单元测试、lint 或构建）
    - 确保提交不会破坏现有功能
 
-9) **如果需要，同步注册表（仅限 AI Cortex 项目）**
+9) **同步 INDEX.md（仅限 AI Cortex 项目）**
    - 如果提交影响 `skills/` 目录：
-     - 验证“skills/INDEX.md”是否已更新为新的/更改的技能
-     - 验证“manifest.json”功能数组是否已更新
-     - 如果添加、删除或重大更改了技能，则验证 manifest.json 与 INDEX 已同步
-     - 运行“scripts/verify-registry.mjs”（如果存在）
-   - 如果添加或移动技能，INDEX、清单和（根据需要）场景地图必须一起更新
+     - 校验 `skills/INDEX.md` 已为新增 / 修改 / 删除技能同步更新
+     - 校验 INDEX 项与目标 SKILL.md 的 description 一致
+   - 如果提交影响 `rules/` / `specs/` / `protocols/` 目录：
+     - 同步对应 `INDEX.md`
 
 10) **重复下一次提交，直到工作树干净**
 
@@ -170,7 +146,7 @@ output_schema:
 - 询问用户是否想要单个或多个提交（默认：针对不相关的更改进行多个小提交）
 - 确认提交风格需求（该技能需要常规提交）
 - 询问任何特定于项目的规则：最大主题长度、所需范围等。
-- 对于 AI Cortex 项目：确认是否运行注册表同步检查
+- 对于 AI Cortex 项目：确认是否同步对应 INDEX.md
 
 ## 输入与输出 (Input & Output)
 
@@ -188,7 +164,7 @@ output_schema:
 - 每次提交的简短摘要，解释发生了什么变化以及原因
 - 用于暂存和审查的命令（至少：`git diff --cached`）
 - 运行任何测试或验证命令
-- 对于 AI Cortex 项目：确认 INDEX.md、manifest.json 已同步
+- 对于 AI Cortex 项目：确认对应 INDEX.md 已同步
 
 ## 限制（限制）
 
@@ -199,7 +175,7 @@ output_schema:
 - 不要编写模糊的提交消息（“修复内容”、“更新”、“WIP”）
 - 如果测试或 linter 可用，请勿跳过验证步骤
 - 不要提交秘密、令牌或敏感数据
-- 对于 AI Cortex 项目：在未更新 INDEX.md、manifest.json 的情况下，请勿提交技能更改
+- 对于 AI Cortex 项目：在未同步对应 INDEX.md 的情况下，请勿提交资产变更
 
 ### 技能边界 (Skill Boundaries)（避免重叠）
 
@@ -214,7 +190,7 @@ output_schema:
 **何时停止并交接**：
 
 - 用户问“你能审查这个提交吗？” → 对现有提交使用“review-diff”技能
-- 用户问“你能推这个吗？” → 提交完成，移交推送/公关工作流程
+- 用户问“你能推这个吗？” → 提交完成，移交推送 / PR 工作流
 - 用户问“你可以重新调整这些提交的基础吗？” → 提交完成，移交给 git rebase 工作流程
 - 提交并验证所有更改 → 技能完成，准备好推送或下一个任务
 
@@ -227,7 +203,7 @@ output_schema:
 - [ ] **常规提交格式**：所有提交消息均遵循“类型（范围）：摘要”格式，正文清晰
 - [ ] **质量验证**：运行适当的测试、lint 或构建命令并且所有检查均已通过
 - [ ] **无敏感数据**：不包含秘密、令牌、调试代码或意外更改
-- [ ] **注册表同步**（AI Cortex 项目）：如果技能变更，则更新 INDEX.md、manifest.json
+- [ ] **INDEX 同步**（AI Cortex 项目）：技能 / 规则 / spec / protocol 改动时同步对应 INDEX.md
 
 ### 流程质量检查
 
@@ -254,7 +230,6 @@ output_schema:
 
 **命令**：
 
-
 ```bash
 git status
 git diff
@@ -270,7 +245,6 @@ across the application. Returns formatted string or null for
 invalid inputs."
 ```
 
-
 **输出**：
 
 - 提交：`feat(utils)：添加 formatDate 辅助函数`
@@ -282,7 +256,6 @@ invalid inputs."
 **场景**：修改了 auth.js，修复了错误并进行了重构，并更新了测试
 
 **命令**：
-
 
 ```bash
 git status
@@ -322,7 +295,6 @@ git commit -m "test(auth): add tests for token validation edge cases
 Cover null token, malformed token, and expired token scenarios."
 ```
 
-
 **输出**：
 
 - 提交 1：“修复（auth）：在令牌验证中防止空指针” - 修复了令牌为空时的崩溃
@@ -330,63 +302,33 @@ Cover null token, malformed token, and expired token scenarios."
 - 提交 3：“测试（auth）：添加令牌验证边缘情况的测试” - 增加测试覆盖率
 - 命令：`git add -p`、`git diff --cached` (×3)、`npm test` (×3)
 
-### 示例 3：AI Cortex 技能添加（边缘情况）
+### 示例 3：AI Cortex 新增技能（含 INDEX 同步）
 
-**场景**：为 AI Cortex 项目添加新技能“analyze-logs”
+**场景**：为 AI Cortex 项目新增技能 `analyze-logs`
 
 **命令**：
 
-
 ```bash
 git status
-# Shows: skills/analyze-logs/SKILL.md (new), skills/INDEX.md (modified), manifest.json (modified)
+# Shows: skills/analyze-logs/SKILL.md (new), skills/INDEX.md (modified)
 
 git diff skills/INDEX.md
-git diff manifest.json
-# Verify both registries reference the new skill correctly
+# 确认 INDEX 行新增并与 SKILL.md description 一致
 
-git add skills/analyze-logs/
-git add skills/INDEX.md
-git add manifest.json
+git add skills/analyze-logs/ skills/INDEX.md
 git diff --cached
 
-# Run registry verification
-node scripts/verify-registry.mjs
-# ✓ INDEX.md and manifest.json are synchronized
+git commit -m "feat(skills): add analyze-logs for log parsing
 
-npm test
-git commit -m "feat(skills): add analyze-logs skill for log parsing
+新增 analyze-logs 技能，支持按模式匹配解析应用日志并提取错误。
+含常见日志格式的 3 个示例。
 
-Add new skill to parse and analyze application logs with pattern
-matching and error extraction. Includes examples for common log
-formats.
-
-Updated INDEX.md and manifest.json to register the new skill."
+同步更新 skills/INDEX.md。"
 ```
-
 
 **输出**：
 
-- 提交：`feat(skills)：添加分析日志技能以进行日志解析`
-- 摘要：添加了带有注册表同步的日志分析功能
-- 命令：`git diff --cached`、`node script/verify-registry.mjs`、`npm test`
-- 注册表同步：✓ INDEX.md 和 manifest.json 均已更新
-
----
-
-## 附录：输出合约
-
-该技能会产生副作用输出（git 提交）和报告。输出报告必须包括：
-
-|元素|要求 |
-| :--- | :--- |
-| **提交消息** |常规提交格式：`类型（范围）：主题` + 正文 + 可选页脚 |
-| **每次提交摘要** |一句话：改变了什么以及为什么改变|
-| **使用的命令** |最小值：`git diff --cached`；包括暂存和验证命令 |
-| **注册表同步** | 对于 AI Cortex 项目：确认 INDEX.md、manifest.json 已同步 |
-
-报告示例：
-
-- 提交：`feat(utils)：添加 formatDate 辅助函数`
-- 摘要：添加了日期格式化实用程序以集中日期处理逻辑
-- 命令：`git diff`、`git diff --cached`、`npm test`
+- 提交：`feat(skills): add analyze-logs for log parsing`
+- 摘要：新增日志分析技能 + INDEX 同步
+- 命令：`git status`、`git diff --cached`
+- INDEX 同步：✓ skills/INDEX.md 已含新行

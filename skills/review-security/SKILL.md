@@ -2,7 +2,7 @@
 name: review-security
 description: "Review code for security: injection, sensitive data, auth, dependencies, config, and crypto. Atomic skill; output is a findings list."
 description_zh: 审查代码安全性：注入、敏感数据、认证、依赖、配置与加密；原子技能，输出 findings 列表。
-tags: [code-review, security]
+tags: [code-review, cognitive, security]
 version: 1.0.0
 license: MIT
 recommended_scope: project
@@ -33,7 +33,7 @@ output_schema:
 
 1. ✅ **仅安全范围**：仅审查安全维度；未执行范围选择、语言/框架约定或架构分析
 2. ✅ **涵盖所有六个类别**：在相关的情况下评估注入、敏感数据/日志记录、身份验证/授权、依赖项/CVE、配置/秘密和加密技术
-3. ✅ **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive安全”）、严重性、标题、描述和可选建议
+3. ✅ **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive-security”）、严重性、标题、描述和可选建议
 4. ✅ **标记严重问题**：明确的漏洞（例如硬编码秘密、SQL 注入）被标记为“严重”严重性
 5. ✅ **可操作的输出**：每个发现都有特定的位置参考和具体的修复或改进建议
 
@@ -59,7 +59,7 @@ output_schema:
 - 架构分析——使用“review-architecture”
 - 绩效分析——使用“review-performance”
 - SQL特定的深度审查（使用“review-sql”进行全面的SQL分析）
-- 全面精心策划的审核——使用“审核代码”
+- 完整编排式审查——使用“审查代码”
 
 **转交点**：发出所有安全发现后，将其移交给“审查代码”编排器以与其他cognitive发现进行聚合，或直接交付给用户进行以安全为重点的审查会话。
 
@@ -67,7 +67,7 @@ output_schema:
 
 ## 使用场景（用例）
 
-- **精心安排的审查**：当[review-code](../review-code/SKILL.md)运行范围→语言→框架→库→cognitive时用作cognitive步骤。
+- **精心安排的审查**：当[orchestrate-code-review](../orchestrate-code-review/SKILL.md)运行范围→语言→框架→库→cognitive时用作cognitive步骤。
 - **以安全为中心的审查**：当用户只想检查安全维度时（例如在发布或审核之前）。
 - **合规性或审核**：作为文档化的可重复安全检查表输出。
 
@@ -106,7 +106,7 @@ output_schema:
 ### 输出（输出）
 
 - 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
-- 此技能的类别是**cognitive安全**。
+- 此技能的类别是**cognitive-security**。
 
 ---
 
@@ -141,7 +141,7 @@ output_schema:
 
 - [ ] **仅安全范围**：仅审查安全维度；未执行范围选择、语言/框架约定或架构分析
 - [ ] **涵盖所有六个类别**：在相关的情况下评估注入、敏感数据/日志记录、身份验证/授权、依赖项/CVE、配置/秘密和加密技术
-- [ ] **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive安全”）、严重性、标题、描述和可选建议
+- [ ] **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive-security”）、严重性、标题、描述和可选建议
 - [ ] **已标记关键问题**：明显的漏洞（例如硬编码机密、SQL 注入）被标记为“严重”严重性
 - [ ] **可行的输出**：每个发现都有特定的位置参考和具体的修复或改进建议
 
@@ -149,7 +149,7 @@ output_schema:
 
 - [ ] 是否仅审查了安全维度（没有范围/语言/架构）？
 - [ ] 是否涵盖相关的注入、敏感数据、授权、依赖项、配置/秘密和加密？
-- [ ] 每个发现是否都包含位置、类别=cognitive安全、严重性、标题、描述和可选建议？
+- [ ] 每个发现是否都包含位置、类别=cognitive-security、严重性、标题、描述和可选建议？
 - [ ] 关键问题是否明确标记且可采取行动？
 
 ### 验收测试
@@ -163,41 +163,14 @@ output_schema:
 ### 示例 1：硬编码秘密
 
 - **输入**：源代码中的 API 密钥或密码。
-- **预期**：发出关键发现；建议环境变量或秘密管理器；参考该线。类别=cognitive安全。
+- **预期**：发出关键发现；建议环境变量或秘密管理器；参考该线。类别=cognitive-security。
 
 ### 示例 2：根据用户输入构建 SQL
 
 - **输入**：通过用户控制的输入串联构建的查询字符串。
-- **预期**：发出 SQL 注入的关键发现；建议参数化查询。类别=cognitive安全。
+- **预期**：发出 SQL 注入的关键发现；建议参数化查询。类别=cognitive-security。
 
 ### 边缘情况：误报
 
 - **输入**：配置中的占位符，如“changeme”或“TODO”，不在生产中使用。
 - **预期**：发出在生产前删除或更换的次要/建议发现；如果上下文表明非生产，则不要标记为关键。如果不清楚，请询问用户或作为建议发出。
-
----
-
-## 附录：输出合约
-
-每项调查结果必须遵循标准调查结果格式：
-
-|元素|要求 |
-| :--- | :--- |
-| **位置** | `path/to/file.ext`（可选行或范围）。 |
-| **类别** | “cognitive安全”。 |
-| **严重性** | `关键` \| `主要` \| `次要` \| `建议`。 |
-| **标题** |简短的一行摘要。 |
-| **描述** | 1-3 句话。 |
-| **建议** |具体修复或改进（可选）。 |
-
-示例：
-
-
-```markdown
-- **Location**: `config/app.yml:7`
-- **Category**: cognitive-security
-- **Severity**: critical
-- **Title**: API key hardcoded in configuration
-- **Description**: Secret is committed to repo and may be exposed in logs or backups.
-- **Suggestion**: Move to environment variable or secret manager; add to .gitignore if local override.
-```

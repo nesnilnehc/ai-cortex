@@ -45,7 +45,7 @@ output_schema:
 
 **验收测试**：读者能否一眼看到演进路径（包含推进条件）？能否通过成功指标验证阶段成果，而非单纯检查任务列表？
 
-**交接点**：路线图获批并持久化后，交接至待办规划、需求分析（`analyze-requirements`）或执行对齐（`align-planning` / `plan-next`）。
+**交接点**：路线图获批并持久化后，交接至待办规划（`capture-work-items`）或路由诊断（`plan-next`）。
 
 ---
 
@@ -61,7 +61,7 @@ output_schema:
 **本技能不负责**：
 
 - 定义使命、愿景、北极星或战略目标（使用 `define-mission`、`define-vision`、`define-north-star`、`design-strategic-goals`）。
-- 编写具体需求或拆分任务（使用 `analyze-requirements`、`breakdown-tasks`）。
+- 编写具体需求（使用 `capture-work-items`）；任务拆分由 AgentFabric 等 runtime 平台承接。
 - 创建具体的 Backlog 项目（使用 `capture-work-items`）。
 
 ---
@@ -75,10 +75,6 @@ output_schema:
 ---
 
 ## 行为 (Behavior)
-
-### 第 0 阶段：Norms Resolution（v3.2 新增）
-
-按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `roadmap` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/process-management/roadmap.md` 或 `docs/process-management/milestones.md`）。本技能为**固定路径治理产出**，只用 path_pattern 覆盖机制（roadmap 本身是 Now/Next/Later 分层的容器）。
 
 ### 交互（互动）政策
 
@@ -199,11 +195,11 @@ Now / Next / Later（含推进条件简述）
 
 **不要做这些（其他技能负责）**：
 - **定义战略目标**：使用 `design-strategic-goals`。
-- **拆分具体需求/任务**：使用 `analyze-requirements` 或 `breakdown-tasks`。
+- **拆分具体需求**：使用 `capture-work-items`；任务拆分由 AgentFabric 等 runtime 承接。
 - **编写待办**：使用 `capture-work-items`。
 
 **何时停止并交接**：
-- 用户回复「已批准/确认」等 → 路线图完成，持久化文档并交接给 `align-planning` 或待办规划。
+- 用户回复「已批准/确认」等 → 路线图完成，持久化文档并交接给 `plan-next` 或待办规划。
 
 ---
 
@@ -265,16 +261,3 @@ Now / Next / Later（含推进条件简述）
 5. 校验和 = 100 ✓；工程健康 10% 非 0 ✓。
 6. 写入"容量分配"章节，持久化。
 **结果**：roadmap 含有 promote-roadmap-items 可消费的容量分配，体系闭环。
-
----
-
-## 附录：输出合约 (Appendix: Output Contract)
-
-本技能产出 Roadmap Document：
-
-| 元素 | 格式 | 必填字段 | 路径模式 |
-| :--- | :--- | :--- | :--- |
-| 文档主体 | Markdown | front-matter（artifact_type=roadmap / lifecycle=living）；章节：里程碑节点 / 战略赌注 / 成功指标 / 容量分配 / 升迁标准 | roadmap.md 或 milestones.md（按项目 norms） |
-| 里程碑节点 | 列表项 | id（如 M1）/ scope / success_criteria / strategic_goal_ref / status（pending/in-progress/done/blocked） | 「里程碑节点」节 |
-| 容量分配 | 表格 | strategic_goal_id / percentage / rationale；总和=100% | 「容量分配」节，供 promote-roadmap-items 消费 |
-| 升迁标准 | 列表项 | from_tier / to_tier / required_evidence | 「升迁标准」节 |

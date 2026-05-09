@@ -82,10 +82,6 @@ output_schema:
 
 ## 行为（行为）
 
-### 第 0 阶段：Norms Resolution（v1.1 新增）
-
-按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `strategic-pillars` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/project-overview/strategic-pillars.md`）。本技能为**固定路径治理产出**，只用 path_pattern 覆盖机制。
-
 ### 交互（互动）政策
 
 - **默认**：项目规范的输出路径（如果存在）；否则为“docs/project-overview/strategic-pillars.md”。如果有的话，请从“docs/project-overview/”中阅读愿景和北极星。
@@ -184,15 +180,3 @@ output_schema:
 **流程**：阅读愿景、北极星和现有目标。提出对现有目标进行分组或框架的支柱（例如，将目标分为 3-5 个主题）。用户确认。写入“docs/project-overview/strategic-pillars.md”。如果需要，建议更新目标文档以参考支柱。
 
 **结果**：支柱依然存在；目标可以在稍后的过程中明确映射到支柱。
-
----
-
-## 附录：输出合约 (Appendix: Output Contract)
-
-本技能产出 Strategic Pillars Document：
-
-| 元素 | 格式 | 必填字段 | 路径模式 |
-| :--- | :--- | :--- | :--- |
-| 文档主体 | Markdown | front-matter（artifact_type=strategic-pillars / lifecycle=living）；章节：支柱列表 / 与 vision/NSM 的对齐 / 反例 | docs/project-overview/strategic-pillars.md |
-| 支柱条目 | 列表项 | id（如 P1）/ name / description / aligns_with_vision / aligns_with_nsm；3-5 条 | 「支柱列表」节 |
-| 对齐矩阵 | 表格 | pillar_id × (vision/nsm) → strong/medium/weak | 「与 vision/NSM 的对齐」节 |

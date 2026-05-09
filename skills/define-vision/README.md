@@ -34,7 +34,7 @@ npx skills add nesnilnehc/ai-cortex --skill define-vision
 - `define-north-star` — 下一个：用户价值的单一指标。
 - `设计战略目标` — 3-5个战略成果。
 - `define-里程碑` — 目标的阶段检查点。
-- `bootstrap-docs` — 文档结构；可以创建项目概述布局。
+- 完整 docs/ 结构由 AgentFabric runtime 或人工按 `docs/ARTIFACT_NORMS.md` 拉起
 
 ## 完整定义
 
