@@ -169,7 +169,7 @@ strategy chain（define-mission/vision/north-star、design-strategic-goals、def
 - 全部 62 个 skill agent.yaml 无 scores / asqm_quality / validation_gates 字段
 - 全部 62 个 skill 有 acceptance_criteria（≥1 条）
 - 全部 62 个 skill 有 has_output_contract: true（即对应 SKILL.md 含输出合约附录）
-- `npm run verify` 通过
+- （历史）当时以 `npm run verify` 作为验收；本仓库已移除 npm 校验脚本
 - SKILL_INVENTORY.md 反映新规则下的 status 分布
 
 ## 不在范围内

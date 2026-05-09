@@ -1,3 +1,0 @@
-# Optional deps for scripts/translate-skills-zh.py
-# pip install -r scripts/requirements-translate.txt
-deep-translator>=1.11.0

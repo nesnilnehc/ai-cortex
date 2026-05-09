@@ -70,4 +70,4 @@ status: active
 - 图表即代码。须在与所描述功能变更相同的 PR 中更新。
 - 过时图表须删除或归档。
 - `docs/images/*.mmd` 为 README 中 Mermaid 块的权威来源。保持 README 与源文件同步。
-- 提交前运行 `npm run verify:diagram-sync` 防止漂移。
+- 提交前对照 `docs/images/*.mmd` 与 README 中的 Mermaid 块，防止漂移。

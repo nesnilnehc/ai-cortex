@@ -22,7 +22,7 @@ status: active
 
 ## 2. 发现流程
 
-1. 阅读 `skills/INDEX.md` 与 `manifest.json` 获取能力清单与路径。
+1. 阅读 `skills/INDEX.md` 与 `skills/INDEX.md` 获取能力清单与路径。
 2. 按任务语义匹配技能（参考 SKILL 的 `description`、`tags`、`triggers`）。
 3. 使用需求、设计、报告等显式制品传递上下文，避免隐式上下文；链式调用时遵循各技能 prose 中的 Handoff Point 与 Scope Boundaries。
 
@@ -52,4 +52,4 @@ status: active
 
 ## 6. 自引用
 
-在本仓库工作时，用 `manifest.json` 的 `capabilities` 获取技能路径；发现并加载 `skills/` 下资产。
+在本仓库工作时，用 `skills/INDEX.md` 的 `capabilities` 获取技能路径；发现并加载 `skills/` 下资产。

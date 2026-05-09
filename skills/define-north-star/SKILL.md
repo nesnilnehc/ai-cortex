@@ -77,10 +77,6 @@ output_schema:
 
 ## 行为（行为）
 
-### 第 0 阶段：Norms Resolution（v1.2 新增）
-
-按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `north-star` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/project-overview/north-star.md`）。本技能为**固定路径治理产出**，只用 path_pattern 覆盖机制。
-
 ### 交互策略
 
 遵循 Defaults first、Prefer choices、Context inference：
@@ -227,16 +223,3 @@ Measurable Metric (North Star)
 **流程**：推导出 NSM 后，验证原则均满足。新增「度量与局限」节，说明依赖 vercel-labs/skills#426 或类似能力落地；在此之前无法直接度量。可选补充组织内自建 registry（如 SkillReg、SkillHub）时的统计策略。用户确认后持久化。
 
 **结果**：文档含 NSM、推导、原则、度量与局限、反例；读者知晓指标定义正确但当前不可观测。
-
----
-
-## 附录：输出合约 (Appendix: Output Contract)
-
-本技能产出 North Star Document：
-
-| 元素 | 格式 | 必填字段 | 路径模式 |
-| :--- | :--- | :--- | :--- |
-| 文档主体 | Markdown | front-matter（artifact_type=north-star / lifecycle=living）；章节：NSM 定义 / 度量公式 / 数据源 / 支撑指标 / 反 NSM 示例 | docs/project-overview/north-star.md |
-| NSM 定义 | 标量 | name / formula / unit / target / cadence | 「NSM 定义」节 |
-| 支撑指标 | 表格 | name / relation_to_nsm（leading / lagging）/ formula / threshold；3-5 条 | 「支撑指标」节 |
-| 反 NSM | 列表项 | 至少 2 条 vanity-metric 对照，说明为何不选 | 「反 NSM 示例」节 |

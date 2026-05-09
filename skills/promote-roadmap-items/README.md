@@ -36,7 +36,7 @@ npx skills add nesnilnehc/ai-cortex --skill promote-roadmap-items
 - `prioritize-backlog` —— 上游：提供 priority 已定的 backlog 条目
 - `define-roadmap` —— 上游结构依赖：定义 roadmap 和容量分配
 - `design-strategic-goals` —— 上游依赖：提供战略目标
-- `analyze-requirements` —— 下游：处理新晋升的 Now 项
+- `capture-work-items` —— 下游：处理新晋升的 Now 项需要补充的需求记录
 - `plan-next` —— 信号源：大缺口通过 capture-work-items → prioritize-backlog → 本技能进入 Now
 
 ## 完整定义

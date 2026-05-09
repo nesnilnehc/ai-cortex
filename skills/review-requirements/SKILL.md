@@ -18,7 +18,7 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion covering all six requirements quality dimensions
 ---
 
-# 技能（Skill）：复习要求
+# 技能（Skill）：审查需求（Review Requirements）
 
 ## 目的 (Purpose)
 
@@ -55,12 +55,11 @@ output_schema:
 
 **本技能不负责**：
 
-- 生成或重写需求 — 使用“analyze-需求”
-- 根据需求进行设计 — 使用“设计解决方案”
-- 审查代码、架构或实现——使用“review-*”代码技能
-- 全面需求诱导或诊断状态进展 (RA0–RA5) — 使用“分析需求”
+- 生成或重写需求 — 使用 `capture-work-items`
+- 根据需求进行设计 — 由 AgentFabric runtime 承接
+- 审查代码、架构或实现 — 使用 `review-*` 系列技能
 
-**转交点**：当结果发布后，交给作者使用“分析需求”来修复差距，或者确认文档是无发现的并继续“设计解决方案”。
+**转交点**：当结果发布后，交给作者修复差距，或者确认文档是无发现的并交给 AgentFabric runtime 进入下游设计工作流。
 
 ---
 
@@ -153,14 +152,13 @@ output_schema:
 
 **不要做这些**（其他技能可以处理它们）：
 
-- 不要引出、澄清或重写需求——使用“分析需求”
-- 不要根据需求进行设计——使用“设计解决方案”
-- 不要审查代码、架构或实现质量——使用“审查代码”、“审查架构”等。
-- 不要运行完整的 RA0–RA5 诊断状态进程 — 使用“analyze-需求”
+- 不要引出、澄清或重写需求 — 使用 `capture-work-items`
+- 不要根据需求进行设计 — 由 AgentFabric runtime 承接
+- 不要审查代码、架构或实现质量 — 使用 `orchestrate-code-review`、`review-architecture` 等
 
 **何时停止并交接**：
 
-- 当所有发现都发布后，交给作者来修复差距（可以选择使用“分析需求”）
+- 当所有发现都发布后，交给作者来修复差距
 - 当文档的发现为零时，确认其已准备好并建议“设计解决方案”作为下一步
 - 当输入的内容不是需求文档时，澄清并重定向到适当的技能
 
@@ -202,7 +200,6 @@ output_schema:
 
 **预期结果**：
 
-
 ```markdown
 - **Location**: `## Need Hierarchy / Must Have / R-02`
 - **Category**: requirements-quality
@@ -212,13 +209,11 @@ output_schema:
 - **Suggestion**: Add acceptance criteria in the form "Given [context], when [action], then [outcome]". Example: "Given a user has at least one dataset, when they click Export, then a CSV file is downloaded within 3 seconds."
 ```
 
-
 ### 示例 2：问题陈述引用解决方案
 
 **输入**：问题陈述为“我们需要一个带有 PostgreSQL 数据库的 React 应用程序，因为用户无法跟踪库存。”
 
 **预期结果**：
-
 
 ```markdown
 - **Location**: `## Problem Statement`
@@ -229,13 +224,11 @@ output_schema:
 - **Suggestion**: Rewrite as: "Small business owners lose inventory data due to manual tracking limitations. They need a reliable way to track and query inventory across devices."
 ```
 
-
 ### 示例 3：无范围定义
 
 **输入**：需求文档有 10 个需求，但没有范围内/范围外部分，也没有 V1 边界。
 
 **预期结果**：
-
 
 ```markdown
 - **Location**: (document-level — no scope section present)
@@ -246,7 +239,6 @@ output_schema:
 - **Suggestion**: Add a "## Scope Definition" section with explicit In scope (V1), Out of scope, and Walking skeleton entries.
 ```
 
-
 ### 边缘情况：文档完整且调查结果为零
 
 **输入**：完全已满足需求文档，包括问题陈述、所有需求的可测试验收标准、约束库存、V1 范围、唯一验证 R-NN ID 以及带有解决计划的开放问题。
@@ -254,30 +246,3 @@ output_schema:
 **预期输出**：
 
 > 要求文档满足所有六个质量维度。所有必须有的需求都有可测试的验收标准；问题陈述没有解决方案；约束和假设是分开的； V1范围明确；所有需求都带有R-NN ID；开放性问题有解决计划。准备“设计解决方案”。
-
----
-
-## 附录：输出合约
-
-每项调查结果必须遵循标准调查结果格式：
-
-|元素|要求|
-| :--- | :--- |
-| **位置** |章节标题（例如“## 问题陈述”）或需求 ID（例如“R-03”）或“（文档级别）”（如果不存在特定锚点）。 |
-| **类别** | “需求-质量”。 |
-| **严重性** | `关键` \| `主要` \| `次要` \| `建议`。 |
-| **标题** |简短的一行摘要。 |
-| **描述** |用 1-3 句话解释问题。 |
-| **建议** |具体改进方向（可选但强烈推荐）。 |
-
-示例：
-
-
-```markdown
-- **Location**: `## Constraint Inventory`
-- **Category**: requirements-quality
-- **Severity**: minor
-- **Title**: Assumptions not separated from real constraints
-- **Description**: The constraint list mixes validated facts (e.g. "team has 3 engineers") with unvalidated assumptions (e.g. "users will have mobile devices"). Without separation, risk is hidden.
-- **Suggestion**: Split into two sub-sections: "Real Constraints (Validated)" and "Assumptions (Unvalidated — need validation plan)".
-```

@@ -76,10 +76,6 @@ output_schema:
 
 ## 行为（行为）
 
-### 第 0 阶段：Norms Resolution（v1.2 新增）
-
-按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `strategic-goals` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/project-overview/strategic-goals.md`）。本技能为**固定路径治理产出**，只用 path_pattern 覆盖机制。
-
 ### 交互（互动）政策
 
 - **默认**：项目规范的输出路径（如果存在）；否则为“docs/project-overview/strategic-goals.md”。如果有的话，请从“docs/project-overview/”中阅读愿景和北极星。
@@ -221,15 +217,3 @@ output_schema:
 5. 持久化 5 个目标。
 
 **结果**：文档含 5 个战略目标，其中目标 5 是"工程与治理健康可持续"。容量护栏后续按 strategic_goal_id 分配（见 ADR 1 决策 3.4）时有合法位置。
-
----
-
-## 附录：输出合约 (Appendix: Output Contract)
-
-本技能产出 Strategic Goals Document：
-
-| 元素 | 格式 | 必填字段 | 路径模式 |
-| :--- | :--- | :--- | :--- |
-| 文档主体 | Markdown | front-matter（artifact_type=strategic-goals / lifecycle=living）；章节：目标列表 / 与 vision/NSM 的对齐 | docs/project-overview/strategic-goals.md |
-| 目标条目 | 列表项 | id（如 G1）/ name / outcome_statement / acceptance（KPI 名称 + 阈值 + 度量方法）/ status（draft/approved/in-progress/done）/ aligns_with_pillar；3-5 条 | 「目标列表」节 |
-| 验收 | 子字段 | 每个目标必含 KPI name / threshold / data_source；data_source 缺失须在 status 标注 | 「目标列表」每项下 |

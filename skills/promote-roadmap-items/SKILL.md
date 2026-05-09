@@ -56,10 +56,10 @@ output_schema:
 - 创建新 backlog 条目（`capture-work-items`）
 - 为 backlog 条目评分（`prioritize-backlog`）
 - 定义 roadmap 基础结构 / 里程碑（`define-roadmap`）
-- 拆任务（`breakdown-tasks`）
-- 需求分析（`analyze-requirements`）
+- 任务拆分（由 AgentFabric runtime 承接）
+- 需求记录（`capture-work-items`）
 
-**交接点**：晋升后的 Now 层条目按需进入 `analyze-requirements` → `breakdown-tasks` → 执行。
+**交接点**：晋升后的 Now 层条目按需进入 `capture-work-items`，再由 AgentFabric runtime 完成设计 / 任务拆分 / 执行。
 
 ---
 
@@ -160,7 +160,7 @@ output_schema:
 
 - 晋升数 / 降级数 / 保持数
 - 更新后容量使用
-- 下一步建议（如 `analyze-requirements` 处理新晋升的 Now 项）
+- 下一步建议（如 `capture-work-items` 处理新晋升的 Now 项）
 
 ---
 
@@ -190,8 +190,8 @@ output_schema:
 | 创建 backlog | `capture-work-items` |
 | 评分 backlog | `prioritize-backlog` |
 | 定义 roadmap 结构和容量 | `define-roadmap` |
-| 拆分 Now 项为任务 | `breakdown-tasks` |
-| 需求详细分析 | `analyze-requirements` |
+| 拆分 Now 项为任务 | AgentFabric runtime（不在 AI Cortex 范围） |
+| 需求详细记录 | `capture-work-items` |
 
 ---
 
@@ -235,7 +235,7 @@ output_schema:
 4. 更新 roadmap.md + 条目 status 为 active
 5. 容量报告：目标 1 6/6、目标 2 1/2、目标 3 2/2
 
-**结果**：2 个条目晋升 Now；交接建议运行 `analyze-requirements` 处理新 Now 项。
+**结果**：2 个条目晋升 Now；交接建议运行 `capture-work-items` 处理新 Now 项。
 
 ### 示例 2：战略刷新导致大规模重评（边缘场景）
 
@@ -252,29 +252,3 @@ output_schema:
 **结果**：roadmap 与战略重新一致；#17 降级但未丢失。
 
 ---
-
-## 附录：输出契约
-
-### 被晋升条目的 frontmatter 更新
-
-```yaml
-status: active               # 从 captured 或 deferred 进入
-priority: P<N>               # 由 prioritize-backlog 写入
-strategic_goal_id: goal-N
-promoted_at: <ISO date>
-promoted_to: now             # now | next | later
-```
-
-### 被降级条目的 frontmatter 更新
-
-```yaml
-status: deferred             # 从 active 降级
-demoted_at: <ISO date>
-demoted_from: now
-demoted_to: next             # next | later | backlog
-demotion_reason: capacity_overflow | strategy_change | priority_drop
-```
-
-### roadmap.md 更新
-
-在 Now / Next / Later 对应章节中增删条目引用，格式由 `define-roadmap` 规定，本技能只增删不改结构。

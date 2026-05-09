@@ -2,7 +2,7 @@
 name: review-typescript
 description: Review TypeScript/JavaScript code for type safety, async patterns, error handling, and module design. Atomic skill; output is a findings list.
 description_zh: 审查 TypeScript/JavaScript 代码：类型安全、异步模式、错误处理与模块设计；原子技能。
-tags: [code-review]
+tags: [code-review, language]
 version: 1.0.0
 license: MIT
 recommended_scope: project
@@ -17,7 +17,7 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion
 ---
 
-# 技能（Skill）：复习TypeScript
+# 技能（Skill）：审查 TypeScript（Review TypeScript）
 
 ## 目的 (Purpose)
 
@@ -59,15 +59,15 @@ output_schema:
 - 安全分析（注入、秘密、XSS）——使用“review-security”
 - 架构分析——使用“review-architecture”
 - 框架约定（Vue、React、Angular）——使用特定于框架的技能（例如“review-vue”）
-- 全面精心策划的审核——使用“审核代码”
+- 完整编排式审查——使用“审查代码”
 
-**转交点**：当所有 TypeScript/JavaScript 结果发出后，将其移交给“review-code”进行聚合。对于代码中的注入风险或秘密，请记下它们并建议“审查安全性”。
+**转交点**：当所有 TypeScript/JavaScript 结果发出后，将其移交给“orchestrate-code-review”进行聚合。对于代码中的注入风险或秘密，请记下它们并建议“审查安全性”。
 
 ---
 
 ## 使用场景（用例）
 
-- **精心安排的审查**：当 [review-code](../review-code/SKILL.md) 运行 TypeScript/JavaScript 项目的范围 → 语言 → 框架 → 库 → cognitive时，用作语言步骤。
+- **精心安排的审查**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 运行 TypeScript/JavaScript 项目的范围 → 语言 → 框架 → 库 → cognitive时，用作语言步骤。
 - **仅 TypeScript 审查**：当用户只想检查 TypeScript/JavaScript 语言约定时。
 - **PR 前语言检查表**：在合并之前确保类型安全、异步正确性和模块设计健全。
 
@@ -130,7 +130,7 @@ output_schema:
 
 **何时停止并交接**：
 
-- 当所有 TypeScript/JavaScript 结果发出后，将其移交给“review-code”进行聚合
+- 当所有 TypeScript/JavaScript 结果发出后，将其移交给“orchestrate-code-review”进行聚合
 - 当发现注入风险或秘密时，记下它们并建议“审查安全性”
 - 当用户需要全面审查（范围+语言+cognitive）时，重定向到“审查代码”
 
@@ -175,30 +175,3 @@ output_schema:
 
 - **输入**：使用“import”/“export”使用某些文件进行项目，使用“require”/“module.exports”使用其他文件。
 - **预期**：发出模块系统使用不一致的结果；建议迁移到单模块系统（最好是 ESM）或记录混合使用的原因。类别 = 语言打字稿。
-
----
-
-## 附录：输出合约
-
-每项调查结果必须遵循标准调查结果格式：
-
-|元素|要求|
-| :--- | :--- |
-| **位置** | `path/to/file.ts` 或 `.js` （可选行或范围）。 |
-| **类别** | `语言打字稿`。 |
-| **严重性** | `关键` \| `主要` \| `次要` \| `建议`。 |
-| **标题** |简短的一行摘要。 |
-| **描述** | 1-3 句话。 |
-| **建议** |具体修复或改进（可选）。 |
-
-示例：
-
-
-```markdown
-- **Location**: `src/services/userService.ts:42`
-- **Category**: language-typescript
-- **Severity**: major
-- **Title**: Unsafe `any` type in function parameter
-- **Description**: Parameter `data` is typed as `any`, bypassing all type checking and allowing silent runtime errors.
-- **Suggestion**: Replace `any` with `unknown` and add type narrowing, or define a specific interface for the expected shape.
-```

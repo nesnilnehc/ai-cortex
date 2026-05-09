@@ -1,9 +1,8 @@
 ---
 name: review-codebase
-description: Architecture and design review for specified files/dirs/repo. Covers tech debt, patterns, quality. Diff-only review use review-diff. Complements review-code (orchestrated).
-description_zh: 对指定文件/目录/仓库进行架构与设计审查；涵盖技术债、模式与质量；diff 审查使用 review-diff。
-tags: [code-review]
-version: 1.3.1
+description: "Review given file/dir/repo for current-state code organization: module boundaries, design patterns, cross-module dependencies, tech debt, and interface stability. Scope-only atomic skill; output is a findings list."
+description_zh: 对给定路径（文件 / 目录 / 仓库）做 scope-only 原子审查，覆盖模块边界、模式一致性、跨模块依赖、技术债与接口稳定性。
+tags: [code-review, scope-only]
 license: MIT
 recommended_scope: project
 metadata:
@@ -11,207 +10,161 @@ metadata:
 triggers: [review codebase, codebase review]
 input_schema:
   type: code-scope
-  description: Files, directories, or repository path to review for architecture and design
+  description: Files, directories, or repository path to review for current-state structure
 output_schema:
-  type: diagnostic-report
-  description: Structured review report with findings on boundaries, patterns, and tech debt
+  type: findings-list
+  description: Findings on module boundaries, patterns, dependencies, tech debt, and interface stability
 ---
 
-# 技能（Skill）：审查代码库
+# 技能（Skill）：审查代码库（Review Codebase）
 
 ## 目的 (Purpose)
 
-从**高级全栈和生产代码审查**的角度来看，审查**给定范围**（单个文件、目录或整个存储库）的当前状态：架构、设计、技术债务、模式和整体质量。不依赖于 git diff。补充 [review-code](../review-code/SKILL.md)：review-code 重点关注**当前更改**（影响、回归、兼容性、副作用）；该技能侧重于**给定范围的当前状态**。
+对**给定路径**（单文件 / 目录 / 仓库）的**当前状态**做 scope-only 原子审查。与 `review-diff`（仅审查 git 变更）成对作为 orchestrate-code-review 的 scope 步候选——本技能看快照，review-diff 看变更。
+
+**不做**：安全 / 性能 / 架构等 cognitive 维度（由 cognitive 步的原子技能 `review-security` / `review-performance` / `review-architecture` 承接），也不做语言或框架特定分析（由 language / framework 步承接）。
 
 ---
 
 ## 核心目标（Core Objective）
 
-**首要目标**：生成结构化代码质量报告，涵盖给定范围（文件、目录或存储库）的架构、设计、技术债务、模式和整体质量。
+**首要目标**：产出 scope-only findings list，识别给定路径的结构性问题（边界、模式、依赖、技术债、接口）。
 
-**成功标准**（必须满足所有要求）：
+**成功标准**（必须全部满足）：
 
-1. ✅ **范围确认**：在分析开始之前确认用户的审阅路径或目录
-2. ✅ **涵盖所有维度**：架构/边界、设计模式、技术债务/可维护性、跨模块依赖、安全/性能（当前状态）和具体建议都得到解决
-3. ✅ **引用的发现**：每个发现都包含特定的文件：行引用并且是可操作的
-4. ✅ **符合调查结果格式**：所有调查结果包括位置、类别（“范围”）、严重性、标题、描述和可选建议
-5. ✅ **处理大范围**：对于大范围（整个存储库），输出按层/模块组织或与用户商定优先级子集
-
-**验收**测试：报告是否涵盖了所有六个审查维度以及特定文件：给定范围的行引用和可操作的建议，而不依赖于 git diff？
+1. ✅ **范围已确认**：分析前确认用户的路径或目录
+2. ✅ **5 维已覆盖**：模块边界、模式一致性、跨模块依赖、技术债、接口稳定性均输出 findings
+3. ✅ **位置精确**：每个 finding 含 `file:line` 引用
+4. ✅ **格式合规**：findings 含 location / category（`scope`）/ severity / title / description / suggestion
+5. ✅ **大范围处理**：对仓库级范围按层（模块 / 目录）输出，或与用户确认优先子集
+6. ✅ **不越界**：不输出安全 / 性能 / 架构 / 语言 / 框架 cognitive findings（标记并提示对应原子技能）
 
 ---
 
-## 范围边界（范围边界）
+## 范围边界（Scope Boundaries）
 
 **本技能负责**：
 
-- 查看给定路径、目录或完整存储库的当前状态
-- 架构、设计模式、技术债务、跨模块依赖性和整体质量
-- 审查范围内当前状态的安全和性能问题
+- 给定路径当前状态的结构性审查
+- 5 维 findings：模块边界、模式一致性、跨模块依赖与耦合、技术债与可维护性、接口稳定性
 
 **本技能不负责**：
 
-- 仅差异或变更集审查（对这些使用“review-diff”）
-- 结合范围+语言+cognitive技能的完整精心策划的评论（使用“评论代码”）
-- 特定于语言/框架的约定分析（使用 `review-dotnet`、`review-java`、`review-go` 等）
-- 仅针对安全性的审查（使用“review-security”）
-- 仅关注绩效审查（使用“审查绩效”）
+- 仅 git 变更审查（用 `review-diff`）
+- 全维度编排审查（用 `orchestrate-code-review`）
+- 语言 / 框架特定约定（用 `review-<lang>` / `review-<framework>`）
+- 安全 / 性能 / 架构 cognitive 维度（用 `review-security` / `review-performance` / `review-architecture`）
 
-**转交点**：审查完成后，将结果交给“审查代码”进行聚合，或交给用户决定下一步（重构、规划、文档化）。
-
----
-
-## 使用场景（用例）
-
-- **新模块/服务**：给定目录或文件的架构和实现审查。
-- **遗留审计**：路径或存储库的质量和风险审查。
-- **配对/采样**：查看同事指定的文件或目录，无需当前差异。
-- **教学和标准**：根据相同的审查维度解释或检查任意代码。
-
-**何时使用**：当用户想要查看**给定的路径、目录或存储库**时，而不是“仅当前差异”。要仅审查本地更改，请使用 [review-diff](../review-diff/SKILL.md)。要进行完整的精心策划的审核，请使用 [review-code](../review-code/SKILL.md)。
-
-**范围**：此技能侧重于给定范围的**当前状态**（架构、设计、技术债务），不依赖于 diff。它补充了“审查代码”（精心安排）。 Skills.sh 选项（例如“code-review-excellence”）更为通用；这项技能强调界限、模式和整体素质。
+**交接点**：findings 输出后，作为 orchestrate-code-review 的 scope 步聚合输入；或交给用户决定后续（重构 / 进一步深审）。
 
 ---
 
-## 行为（行为）
+## 使用场景
 
-### 范围
-
-- **输入定义范围**：单个文件、目录或“repo root”等，由用户指定；允许多条路径。
-- **不受差异限制**：在给定范围内分析**当前文件内容**；不需要 git 更改集。如果用户还提供差异，它可以告知上下文，但不是唯一的输入。
-
-### 对于范围内的每个文件（以状态/设计为中心）
-
-1. **架构和边界**：模块/服务边界是否清晰、职责是否单一、依赖方向是否合理？
-2. **设计模式和一致性**：模式使用得当吗？风格和模式与存储库/模块的其余部分一致吗？
-3. **技术债务和可维护性**：重复、复杂性、可测试性、文档和评论与当前状态。
-4. **跨模块依赖和耦合**：依赖过多、循环、接口稳定清晰？
-5. **安全和性能（当前）**：当前实现中的输入验证、敏感数据、权限、资源使用和并发风险。
-6. **具体建议**：可操作的重构或改进（使用 file:line）。
-
-这项技能着眼于**完整的实现和整体的位置**，而不是“这个差异”。
-
-### 语气和参考
-
-- **以专业和工程为中心**：审查是否会在生产中运行。
-- **精确**：参考特定位置（文件：行）。
-
-### 范围和优先级
-
-- 如果范围很大（例如整个存储库），则按层（模块/目录）输出或与用户就优先级子集达成一致，以避免肤浅、通用的结论。
+- **新模块审查**：给定 `src/auth/` 看当前结构与依赖
+- **遗留路径审计**：给定路径看技术债与边界问题
+- **采样审查**：同事指定的文件或目录，无需 diff
+- **作为 orchestrate-code-review 的 scope 步**：与 `review-diff` 二选一
 
 ---
 
-## 输入与输出 (Input & Output)
+## 行为 (Behavior)
 
-### 输入（输入）
+### 范围解析
 
-- **路径**：一个或多个文件或目录路径（相对于工作空间根目录或用户给定的根目录）。
-- **可选**：语言/框架限制、重点（例如仅安全性、仅性能）。
+- **输入定义范围**：单文件 / 目录 / 仓库根 / 多路径，由用户指定
+- **不依赖 diff**：分析当前文件内容；用户提供 diff 仅作上下文参考，不是必需
 
-**默认值（确认或选择；避免自由文本）：**
+### 默认值与运行前确认
 
-|项目 |默认 |何时偏离|
-| :--- | :--- | :--- |
-| **路径** | **回购根目录** | Offer: [Repo root] [当前文件目录] [列出要选择的顶级目录];用户选择。 |
-| **范围大** | **按层**（按模块/目录输出）|用户可以选择**优先级子集**（例如从顶级目录中选择）。 |
+| 项目 | 默认 | 用户偏离方式 |
+|---|---|---|
+| **路径** | 仓库根 | 选择：[仓库根] / [当前文件目录] / [列出顶级目录选择] |
+| **大范围处理** | 按层（模块 / 目录）输出 | 选择优先子集（从顶级目录列表选） |
 
-**运行前确认**： (1) *查看存储库根目录？* [默认] 或用户从选项中选择路径。 (2) 如果范围很大，则使用默认的“按层”或用户从提供的列表中选择优先级子集。
+运行前必须确认两件事：(1) 审查路径；(2) 大范围时按层 vs 优先子集。
 
-### 输出（输出）
+### 5 维分析
 
-- **每个文件或模块**：针对上述维度的结论和建议。
-- **格式**：标题（文件或模块）、列表和引用（文件：行），以便读者可以跟踪源代码。
+对范围内代码（按用户选定的层 / 子集），输出以下维度的 findings：
 
----
+1. **模块边界**：模块 / 服务边界是否清晰、职责是否单一、依赖方向是否合理
+2. **模式一致性**：模式使用是否得当、与仓库既有风格是否一致
+3. **跨模块依赖与耦合**：依赖关系、循环依赖、耦合度
+4. **技术债与可维护性**：重复、复杂度、可测试性、文档与注释当前状态
+5. **接口稳定性**：模块对外接口的清晰度与稳定性
 
-## 限制（限制）
+每条 finding 必须含 `file:line` 引用。
 
-### 硬边界（Hard Boundaries）
+### 越界 finding 标记
 
-- 当范围不明确“差异”时，**不要**假设“仅审查差异”；该技能默认为**给定范围内的完整代码**。
-- **不要**在没有具体地点或可行建议的情况下给出结论。
-- **不要**使用含糊的语言（例如，“可能是错误的”，没有类型和修正方向）。
+如果在分析中发现属于安全 / 性能 / 架构 / 语言 / 框架的具体问题：**标记并提示对应原子技能**，但不展开分析。例：
 
-### 技能边界 (Skill Boundaries)
-
-**不要做这些**（其他技能可以处理它们）：
-
-- 不要仅审查 git diff 或当前更改集 — 使用 `review-diff` 进行仅 diff 范围
-- 不要跨范围+语言+cognitive维度协调多种审核技能——使用“审核代码”进行全面协调的审核
-- 不要执行特定于语言的约定分析（.NET、Java、Go 等）——使用相应的语言审查技能
-
-**何时停止并交接**：
-
-- 当调查结果完成后，如果属于精心策划的审核流程的一部分，则将其移交给“审核代码”
-- 当用户只需要 diff 分析时，重定向到 `review-diff`
-- 当用户仅需要深入了解安全性或性能时，重定向到“审查安全性”或“审查性能”
+> 检测到潜在 SQL 注入风险（user input 未转义直接拼接），建议运行 `review-security`
 
 ---
 
-## 自检（Self-Check）
+## 输入与输出
 
-### 核心成功标准
+### 输入
 
-- [ ] **范围已确认**：在分析开始之前确认用户的审阅路径或目录
-- [ ] **涵盖所有维度**：架构/边界、设计模式、技术债务/可维护性、跨模块依赖、安全/性能（当前状态）和具体建议都得到解决
-- [ ] **引用的调查结果**：每个调查结果都包含特定的文件：行引用并且是可操作的
-- [ ] **符合调查结果格式**：所有调查结果包括位置、类别（“范围”）、严重性、标题、描述和可选建议
-- [ ] **处理大范围**：对于大范围（整个存储库），输出按层/模块组织或与用户商定优先级子集
+- **路径**：一个或多个 file / dir 路径
+- **可选**：focus 提示（如"重点看模块边界"）
 
-### 流程质量检查
+### 输出
 
-- [ ] 审核范围是否与用户的路径/目录匹配？
-- [ ] 是否涵盖边界、模式、技术债务、依赖性和耦合以及当前的安全/性能？
-- [ ] file:line 是否引用了问题？
-- [ ] 是否针对重要问题给出了具体的重构或改进建议？
-
-### 验收测试
-
-该报告是否涵盖了所有六个审查维度以及特定文件：行引用和给定范围的可行建议，而不依赖于 git diff？
+- **Findings list**：标准格式（location / category=scope / severity / title / description / suggestion），按文件或模块分组
+- **大范围摘要**：按层组织时输出每层的 findings 数量与严重度分布
 
 ---
 
-## 示例（示例）
+## 限制 (Restrictions)
 
-### 示例 1：单个目录
+### 硬边界
 
-- **输入**：路径`src/auth/`；查看其下的所有相关代码。
-- **预期**：每个文件、列表架构和边界、设计模式和一致性、技术债务和可维护性、跨模块依赖性和耦合、当前安全性和性能；参考行号并给出改进建议；不依赖于当前的 git 更改。
+- 不假设"仅审查 diff"——本技能默认审查给定范围的完整当前状态
+- 不输出 cognitive 维度的 findings（安全 / 性能 / 架构）
+- 不输出语言 / 框架特定的 findings
+- 不输出无 `file:line` 引用的 finding
+- 不使用模糊语言（"可能有问题"无类型与方向 → 删除）
 
-### 示例 2：单个文件
+### 技能边界
 
-- **输入**：路径`pkg/validator/validator.go`。
-- **预期**：对文件进行全面审查：其角色和边界、入口点和依赖项、模式和一致性、技术债务和可测试性、当前安全性和性能；参考行号。
+**不做**（其他原子技能负责）：
 
-### 边缘情况：整个仓库
-
-- **输入**：路径是存储库根或“整个项目”。
-- **预期**：按层（模块/目录）输出或给出高级摘要和风险列表（架构、依赖项、技术债务），然后与用户就子集达成一致以进行更深入的审查；避免长而浅的传球。
+- git 变更审查 → `review-diff`
+- 全维度编排 → `orchestrate-code-review`
+- 语言约定 → `review-<lang>`
+- 框架约定 → `review-<framework>`
+- 安全 / 性能 / 架构 → `review-security` / `review-performance` / `review-architecture`
 
 ---
 
-## 附录：输出合约
+## 自检
 
-当此技能产生评论时，它遵循此契约，以便可以将结果与其他原子技能聚合（例如通过 [review-code](../review-code/SKILL.md)）：
+- [ ] 范围已与用户确认
+- [ ] 大范围已按层输出或确认优先子集
+- [ ] 5 维全部覆盖（模块边界 / 模式 / 依赖 / 技术债 / 接口）
+- [ ] 每条 finding 含 file:line 引用
+- [ ] 未输出 cognitive / 语言 / 框架维度的 finding（仅标记并提示对应原子技能）
+- [ ] 输出格式合规（location / category / severity / title / description / suggestion）
 
-|元素|要求 |
-| :--- | :--- |
-|范围 |用户指定的路径；范围内的完整代码；不受差异约束。 |
-| **调查结果格式** |每个发现必须包括**位置**（`path/to/file.ext` 或 file:line）、**类别**（此技能的`范围`）、**严重性**（`严重`\|`主要`\|`次要`\|`建议`）、**标题**、**描述**和可选的**建议**。 |
-|每个文件/模块 |标题、列表、参考文献（文件：行）。 |
-| 维度 |架构和边界； 设计模式和一致性；技术债务和可维护性；跨模块依赖和耦合；安全性和性能；具体建议。 |
-|范围大 |按层输出或商定优先级子集；避免浅通过。 |
+---
 
-与聚合兼容的示例查找：
+## 示例
 
+### 示例 1：单目录
 
-```markdown
-- **Location**: `pkg/auth/service.go:31`
-- **Category**: scope
-- **Severity**: major
-- **Title**: Module boundary unclear; auth logic mixed with HTTP handling
-- **Description**: Controller contains validation and token logic; hard to test and reuse.
-- **Suggestion**: Extract auth logic into a dedicated service; keep controller thin.
-```
+- 输入：`src/auth/`
+- 输出：5 维 findings，按文件分组，每条带 `auth.go:42` 类引用；遇到加密弱算法仅标记并提示 `review-security`
+
+### 示例 2：单文件
+
+- 输入：`pkg/validator/validator.go`
+- 输出：模块职责 / 接口清晰度 / 测试覆盖 / 与上游模块依赖等 findings
+
+### 示例 3：整仓（大范围）
+
+- 输入：仓库根
+- 行为：先按层（顶级目录）输出 findings 摘要表，再让用户选优先子集深入
+- 输出：层级摘要 + 优先子集的详细 findings

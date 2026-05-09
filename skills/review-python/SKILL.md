@@ -2,7 +2,7 @@
 name: review-python
 description: "Review Python code for language and runtime conventions: type hints, exceptions, async/await, context managers, dependencies, and testability. Language-only atomic skill; output is a findings list."
 description_zh: 按 Python 规范审查代码：类型提示、异常、async/await、上下文管理器、依赖与可测性。
-tags: [code-review]
+tags: [code-review, language]
 version: 1.0.0
 license: MIT
 recommended_scope: project
@@ -17,7 +17,7 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion
 ---
 
-# 技能（Skill）：复习Python
+# 技能（Skill）：审查 Python
 
 ## 目的 (Purpose)
 
@@ -60,15 +60,15 @@ output_schema:
 - 安全分析——使用“review-security”
 - 架构分析——使用“review-architecture”
 - SQL 特定分析 — 使用 `review-sql`
-- 全面精心策划的审核——使用“审核代码”
+- 完整编排式审查——使用“审查代码”
 
-**转交点**：当所有 Python 发现结果发布后，将其交给 `review-code` 进行聚合。对于安全问题（注入、身份验证），请记下它们并建议“审查安全性”。
+**转交点**：当所有 Python 发现结果发布后，将其交给 `orchestrate-code-review` 进行聚合。对于安全问题（注入、身份验证），请记下它们并建议“审查安全性”。
 
 ---
 
 ## 使用场景（用例）
 
-- **精心安排的审查**：当 [review-code](../review-code/SKILL.md) 运行 Python 项目的范围 -> 语言 -> 框架 -> 库 -> cognitive时，用作语言步骤。
+- **精心安排的审查**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 运行 Python 项目的范围 -> 语言 -> 框架 -> 库 -> cognitive时，用作语言步骤。
 - **仅限 Python 的审查**：当用户只想检查语言/运行时约定时（例如，添加新的 Python 文件后）。
 - **PR 前的 Python 检查表**：确保类型提示、异常处理和异步模式正确。
 
@@ -109,7 +109,7 @@ output_schema:
 ### 输出（输出）
 
 - 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
-- 此技能的类别是**语言-python**。
+- 此技能的类别是**language-python**。
 
 ---
 
@@ -132,7 +132,7 @@ output_schema:
 
 **何时停止并交接**：
 
-- 当所有 Python 发现结果发布后，将其交给“review-code”进行聚合
+- 当所有 Python 发现结果发布后，将其交给“orchestrate-code-review”进行聚合
 - 当用户需要全面审查（范围+语言+cognitive）时，重定向到“审查代码”
 - 当发现安全问题时（例如 SQL 注入、命令注入），记下它们并建议 `review-security`
 
@@ -152,7 +152,7 @@ output_schema:
 
 - [ ] 是否仅审查了 Python 语言/运行时维度（无范围/安全/架构）？
 - [ ] 是否涵盖了相关的类型提示、异常处理、异步模式、上下文管理器和可测试性？
-- [ ] 每个发现是否都包含位置、类别=语言-python、严重性、标题、描述和可选建议？
+- [ ] 每个发现是否都包含位置、类别=language-python、严重性、标题、描述和可选建议？
 - [ ] file:line 是否引用了问题？
 
 ### 验收测试
@@ -166,46 +166,19 @@ output_schema:
 ### 示例 1：可变默认参数
 
 - **输入**：`def foo(items=[]):`
-- **预期**：发出可变默认参数的结果；建议使用“None”并在内部初始化。类别 = 语言-python。
+- **预期**：发出可变默认参数的结果；建议使用“None”并在内部初始化。类别 = language-python。
 
 ### 示例 2：除了
 
 - **输入**：`除了：通过`
-- **Expected**: Emit a finding to catch specific exceptions;引用裸露的 except 子句。类别 = 语言-python。
+- **预期**： 输出 finding 要求捕获具体异常类型；引用裸露的 except 子句。类别 = language-python。
 
 ### 示例 3：异步阻塞调用
 
 - **输入**：异步函数内的`async def fetch(): requests.get(url)`。
-- **预期**：发出使用“aiohttp”或“httpx”的发现；引用阻塞调用。类别 = 语言-python。
+- **预期**：发出使用“aiohttp”或“httpx”的发现；引用阻塞调用。类别 = language-python。
 
 ### 边缘情况：Python 和 SQL 混合
 
 - **输入**：带有用于数据库查询的嵌入式 SQL 字符串的 Python 文件。
 - **预期**：仅查看 Python 约定（类型提示、异常处理）。不要发出 SQL 注入结果；这是用于 review-security 或 review-sql。
-
----
-
-## 附录：输出合约
-
-每项调查结果必须遵循标准调查结果格式：
-
-|元素|要求 |
-| :--- | :--- |
-| **位置** | `path/to/file.ext`（可选行或范围）。 |
-| **类别** | `语言-python`。 |
-| **严重性** | `关键` \| `主要` \| `次要` \| `建议`。 |
-| **标题** |简短的一行摘要。 |
-| **描述** | 1-3句话。 |
-| **建议** |具体修复或改进（可选）。 |
-
-示例：
-
-
-```markdown
-- **Location**: `utils/helpers.py:42`
-- **Category**: language-python
-- **Severity**: major
-- **Title**: Mutable default argument
-- **Description**: Using a list as default argument leads to shared state across calls.
-- **Suggestion**: Use `def foo(items=None):` and initialize with `if items is None: items = []`.
-```

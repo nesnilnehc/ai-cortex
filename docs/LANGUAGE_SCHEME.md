@@ -27,7 +27,7 @@ status: active
 | 类型 | 内容 |
 | :--- | :--- |
 | 生态约束 | SKILL 的 `description`、`triggers`（被 skills.sh、agentskills 解析） |
-| 工具解析 | manifest.json、.claude-plugin/marketplace.json |
+| 工具解析 | skills/INDEX.md、.claude-plugin/marketplace.json |
 | 标识符 | 文件名、目录名、`name`、`tags`、`path`（kebab-case 英文） |
 
 ---
@@ -40,7 +40,7 @@ status: active
 
 | 资产 | 路径/字段 |
 | :--- | :--- |
-| manifest.json | 全部 |
+| skills/INDEX.md | 全部 |
 | SKILL 元数据 | name, path, tags, triggers, description |
 | 文件/目录名 | `skills/*/`、`*.md` 等 |
 | INDEX §3 表头 | Name, Tags, Version, Stability |
@@ -78,7 +78,7 @@ status: active
 
 ## §5 与既有规范的关系
 
-- **specs/skill.md**：当项目存在本方案且声明「中文为主」时，项目级文档可中文；`description`、`triggers` 仍为英文；新增可选 `description_zh`
+- **agentskills.io**：当项目存在本方案且声明「中文为主」时，项目级文档可中文；`description`、`triggers` 仍为英文；新增可选 `description_zh`
 - **writing-chinese-technical**：凡使用中文的文档，须符合该规则（中英间距、数字单位、标点等）
 
 ---

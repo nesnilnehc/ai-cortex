@@ -33,8 +33,7 @@ npx skills add nesnilnehc/ai-cortex --skill define-north-star
 - “定义使命”——我们为何存在。
 - “定义愿景”——我们构建什么样的未来。
 - `设计战略目标` — 下一页：推动 NSM 的 3-5 个结果。
-- `define-里程碑` — 目标的阶段检查点。
-- `align-planning` — 可以使用北极星文档作为顶部锚点进行对齐。
+- `define-roadmap` — 目标的阶段检查点。
 
 ## 完整定义
 

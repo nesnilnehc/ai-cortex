@@ -33,8 +33,7 @@ npx skills add nesnilnehc/ai-cortex --skill design-strategic-goals
 - `define-mission`：定义项目存在意义
 - `define-vision`：定义长期未来状态
 - `define-north-star`：定义单一核心指标，目标应驱动其改进
-- `define-milestones`：将目标拆解为阶段性检查点
-- `align-planning`：将目标作为规划对齐锚点
+- `define-roadmap`：将目标拆解为阶段性检查点
 
 ## 完整定义
 

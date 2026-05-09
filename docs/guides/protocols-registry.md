@@ -30,7 +30,7 @@ Agent 工作流：
 ### 单一真实来源 (Single Source of Truth)
 
 ```
-🔗 https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/manifest.json
+🔗 https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/skills/INDEX.md
     ↓
     包含所有协议的注册表信息
 ```
@@ -87,7 +87,7 @@ Agent 启动时只需要知道这个 URL。
 
 ```python
 # Agent 代码
-manifest_url = "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/manifest.json"
+manifest_url = "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/skills/INDEX.md"
 manifest = fetch_json(manifest_url)
 
 # 获取所有可用协议
@@ -172,7 +172,7 @@ for protocol_meta in protocols:
 ### 指定特定版本
 
 ```json
-// manifest.json
+// skills/INDEX.md
 {
   "protocols": [
     {
@@ -214,7 +214,7 @@ def load_protocol_version(protocol_id, version="latest", manifest=None):
 ### 完整的协议注册条目
 
 ```yaml
-# manifest.json protocols 数组中的每一项
+# skills/INDEX.md protocols 数组中的每一项
 {
   "id": "UNP_SPEC_V1",                    # 全局唯一 ID
   "name": "Universal Notification Protocol",
@@ -254,7 +254,7 @@ def load_protocol_version(protocol_id, version="latest", manifest=None):
 ```
 Agent 初始化：
   1. 已知注册表 URL
-  2. 获取 manifest.json
+  2. 获取 skills/INDEX.md
   3. 解析协议列表
   4. 根据任务加载相关协议
   5. 立即可用，无需任何预先配置
@@ -269,15 +269,15 @@ Agent 初始化：
 
 ```
 Agent A 在公司 X 工作：
-  manifest_url = "https://company-x.internal/ai-cortex/manifest.json"
+  manifest_url = "https://company-x.internal/ai-cortex/skills/INDEX.md"
   ↓ 加载 Company X 的协议
 
 Agent B 在公司 Y 工作：
-  manifest_url = "https://company-y.internal/ai-cortex/manifest.json"
+  manifest_url = "https://company-y.internal/ai-cortex/skills/INDEX.md"
   ↓ 加载 Company Y 的协议
 
 Agent C 使用 AI Cortex：
-  manifest_url = "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/manifest.json"
+  manifest_url = "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/skills/INDEX.md"
   ↓ 加载官方 AI Cortex 协议
 ```
 
@@ -350,7 +350,7 @@ class ProtocolRegistry:
 ```yaml
 # .claude/config.yaml
 protocols:
-  registry_url: https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/manifest.json
+  registry_url: https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/skills/INDEX.md
 
   # 可选：指定特定版本
   pinned_versions:
@@ -371,7 +371,7 @@ protocols:
 
 ```python
 # Agent 显式加载协议
-registry = ProtocolRegistry("https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/manifest.json")
+registry = ProtocolRegistry("https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/skills/INDEX.md")
 unp = registry.load("UNP_SPEC_V1")
 ```
 
@@ -420,7 +420,7 @@ protocols:
 Agent 只需要知道**这一个 URL**：
 
 ```
-https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/manifest.json
+https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/skills/INDEX.md
 ```
 
 从这个 URL，Agent 可以：

@@ -68,7 +68,7 @@ output_schema:
 - 定义根本目的（使用 `define-mission`）。
 - 定义北极星指标或战略目标（使用 `define-north-star`、`design-strategic-goals`）。
 - 定义里程碑（使用 `define-roadmap`）。
-- 书写路线图、需求或待办（使用 `analyze-requirements`、`capture-work-items` 等）。
+- 书写路线图、需求或待办（使用 `capture-work-items` 等）。
 
 ---
 
@@ -98,10 +98,6 @@ output_schema:
 ---
 
 ## 行为
-
-### 第 0 阶段：Norms Resolution（v1.3 新增）
-
-按 [specs/artifact-contract.md §8 Runtime Norms Resolution Protocol](../../specs/artifact-contract.md#8-runtime-norms-resolution-protocol) 的 §8.2 / §8.3 / §8.5 实现：读项目规范若声明了 `vision` artifact_type 的 `path_pattern`，则使用项目值；否则 fall through 到技能默认（`docs/project-overview/vision.md`）。本技能为**固定路径治理产出**，只用 path_pattern 覆盖机制。
 
 ### 交互策略
 
@@ -152,7 +148,7 @@ output_schema:
 - **北极星指标**：单关键指标 → Use `define-north-star`
 - **战略目标**：3–5 个结果 → Use `design-strategic-goals`
 - **里程碑**：阶段检查点 → Use `define-roadmap`
-- **路线图、需求或待办** → Use `analyze-requirements`、`capture-work-items` 等
+- **路线图、需求或待办** → Use `capture-work-items` 等
 
 **何时停止并交接**：
 
@@ -206,15 +202,3 @@ output_schema:
 **流程**：询问是否从 README 或上下文中假定目的，或建议先运行 `define-mission`。若用户同意继续，在愿景文档中注明假定目的；起草愿景并与用户确认。持久化；建议稍后补充使命以完善战略链。
 
 **结果**：愿景持久化，附可选「假定目的」注释；用户可稍后运行 `define-mission` 完成链。
-
----
-
-## 附录：输出合约 (Appendix: Output Contract)
-
-本技能产出 Vision Statement：
-
-| 元素 | 格式 | 必填字段 | 路径模式 |
-| :--- | :--- | :--- | :--- |
-| 文档主体 | Markdown | front-matter（artifact_type=vision / lifecycle=living）；章节：愿景陈述 / 时间视野 / 与 mission 的关系 / 反例 | docs/project-overview/vision.md |
-| 愿景陈述 | 单段 | 不超过 3 句；含未来时态、可想象画面、与 mission 一致 | 「愿景陈述」节 |
-| 时间视野 | 标量 | horizon_years（建议 3-10）/ rationale | 「时间视野」节 |

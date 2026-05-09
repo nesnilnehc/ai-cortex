@@ -2,7 +2,7 @@
 name: review-java
 description: "Review Java code for language and runtime conventions: concurrency, exceptions, try-with-resources, API versioning, collections and Streams, NIO, and testability. Language-only atomic skill; output is a findings list."
 description_zh: 按 Java 语言与运行时规范审查代码：并发、异常、try-with-resources、API 版本、集合与 Stream、NIO、可测性。
-tags: [code-review]
+tags: [code-review, language]
 version: 1.0.0
 license: MIT
 recommended_scope: project
@@ -17,7 +17,7 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion
 ---
 
-# 技能（Skill）：复习Java
+# 技能（Skill）：审查 Java
 
 ## 目的 (Purpose)
 
@@ -58,15 +58,15 @@ output_schema:
 - 安全分析——使用“review-security”
 - 架构分析——使用“review-architecture”
 - SQL 特定分析 — 使用 `review-sql`
-- 全面精心策划的审核——使用“审核代码”
+- 完整编排式审查——使用“审查代码”
 
-**转交点**：当所有 Java 发现结果发布后，将其交给“review-code”进行聚合。对于 Java 代码中发现的 SQL 或安全问题，请记下它们并建议适当的cognitive技能。
+**转交点**：当所有 Java 发现结果发布后，将其交给“orchestrate-code-review”进行聚合。对于 Java 代码中发现的 SQL 或安全问题，请记下它们并建议适当的cognitive技能。
 
 ---
 
 ## 使用场景（用例）
 
-- **精心安排的审查**：当 [review-code](../review-code/SKILL.md) 运行 Java 项目的范围 → 语言 → 框架 → 库 → cognitive时，用作语言步骤。
+- **精心安排的审查**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 运行 Java 项目的范围 → 语言 → 框架 → 库 → cognitive时，用作语言步骤。
 - **仅 Java 审查**：当用户只想检查语言/运行时约定时。
 - **PR 前 Java 检查表**：确保并发、资源管理和 API 兼容性正确。
 
@@ -85,7 +85,7 @@ output_schema:
 
 1. **并发和线程安全**：正确使用synchronized、易失性、锁或并发API；可见性和发生之前；共享可变状态；执行器的使用和关闭。
 2. **例外和资源**：Closeable/AutoCloseable 的 try-with-resources；异常处理和抑制；避免空捕获或过于宽泛的捕获。
-3. **API及版本兼容性**：公共API稳定性；向后兼容性；使用已弃用的 API 和迁移路径； module boundaries (JPMS) if applicable.
+3. **API及版本兼容性**：公共API稳定性；向后兼容性；使用已弃用的 API 和迁移路径； 如适用，模块边界（JPMS）。
 4. **Collections 和 Streams**：Stream API 的适当使用；流中的副作用；分配和拳击；在适当的情况下使用不可变集合。
 5. **NIO和关闭**：正确关闭流、通道和选择器；避免资源泄漏；使用尝试资源。
 6. **可测试性**：依赖注入；静态和单例使用；可重写 vs 最终；测试双打和嘲笑。
@@ -105,7 +105,7 @@ output_schema:
 ### 输出（输出）
 
 - 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
-- 该技能的类别是**语言-java**。
+- 该技能的类别是**language-java**。
 
 ---
 
@@ -128,7 +128,7 @@ output_schema:
 
 **何时停止并交接**：
 
-- 当所有 Java 发现结果发布后，将其交给“review-code”进行聚合
+- 当所有 Java 发现结果发布后，将其交给“orchestrate-code-review”进行聚合
 - 当用户需要全面审查（范围+语言+cognitive）时，重定向到“审查代码”
 - 当发现 SQL 或安全问题时，记下它们并建议适当的cognitive技能
 
@@ -148,7 +148,7 @@ output_schema:
 
 - [ ] 是否仅审查了 Java 语言/运行时维度（无范围/安全/架构）？
 - [ ] 是否涵盖了相关的并发、异常、资源、集合/流、NIO 和可测试性？
-- [ ] 每个发现是否都包含位置、类别=语言-java、严重性、标题、描述和可选建议？
+- [ ] 每个发现是否都包含位置、类别=language-java、严重性、标题、描述和可选建议？
 - [ ] file:line 是否引用了问题？
 
 ### 验收测试
@@ -161,42 +161,15 @@ output_schema:
 
 ### 示例 1：资源和异常
 
-- **Input**：打开InputStream并且不使用try-with-resources的Java方法。
-- **预期**：发出资源管理结果；建议尝试使用资源。类别=语言-java。
+- **输入**：打开InputStream并且不使用try-with-resources的Java方法。
+- **预期**：发出资源管理结果；建议尝试使用资源。类别=language-java。
 
 ### 示例 2：并发
 
 - **输入**：从多个线程访问的共享可变列表，无需同步或并发收集。
-- **预期**：发出线程安全的发现（例如使用 CopyOnWriteArrayList 或同步）；参考字段和用法。类别=语言-java。
+- **预期**：发出线程安全的发现（例如使用 CopyOnWriteArrayList 或同步）；参考字段和用法。类别=language-java。
 
 ### 边缘情况：混合 Java 和 SQL
 
 - **输入**：具有 JDBC 或 JPA 和 Java 逻辑的文件。
 - **预期**：仅查看 Java 约定（资源、异常、并发）。不要在此处发出 SQL 注入结果；这是用于 review-security 或 review-sql。
-
----
-
-## 附录：输出合约
-
-每项调查结果必须遵循标准调查结果格式：
-
-|元素|要求|
-| :--- | :--- |
-| **位置** | `path/to/file.ext`（可选行或范围）。 |
-| **类别** | `语言-java`。 |
-| **严重性** | `关键` \| `主要` \| `次要` \| `建议`。 |
-| **标题** |简短的一行摘要。 |
-| **描述** | 1-3 句话。 |
-| **建议** |具体修复或改进（可选）。 |
-
-示例：
-
-
-```markdown
-- **Location**: `src/main/java/com/example/Loader.java:45`
-- **Category**: language-java
-- **Severity**: major
-- **Title**: InputStream not closed in all paths
-- **Description**: Leak possible if an exception is thrown before close.
-- **Suggestion**: Use try-with-resources for the InputStream.
-```

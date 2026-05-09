@@ -2,7 +2,7 @@
 name: review-sql
 description: Review SQL and query code for injection risk, parameterization, indexing and performance, transactions, NULL and constraints, and dialect portability. Language-only atomic skill; output is a findings list.
 description_zh: 审查 SQL 与查询代码：注入风险、参数化、索引与性能、事务、NULL 与约束、方言可移植性。
-tags: [code-review]
+tags: [code-review, language]
 version: 1.0.1
 license: MIT
 recommended_scope: project
@@ -58,15 +58,15 @@ output_schema:
 - 范围选择——范围由调用者提供
 - 更广泛的安全分析（超越 SQL 注入）——使用“review-security”
 - 架构分析——使用“review-architecture”
-- 全面精心策划的审核——使用“审核代码”
+- 完整编排式审查——使用“审查代码”
 
-**转交点**：当所有 SQL 结果发出后，将其交给 `review-code` 进行聚合。对于更广泛的安全问题（身份验证、加密、配置），请重定向到“审查安全”。
+**转交点**：当所有 SQL 结果发出后，将其交给 `orchestrate-code-review` 进行聚合。对于更广泛的安全问题（身份验证、加密、配置），请重定向到“审查安全”。
 
 ---
 
 ## 使用场景（用例）
 
-- **精心安排的审阅**：当 [review-code](../review-code/SKILL.md) 为包含 SQL（.sql 文件、嵌入式 SQL 或 ORM 生成的 SQL）的项目运行时用作语言步骤。
+- **精心安排的审阅**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 为包含 SQL（.sql 文件、嵌入式 SQL 或 ORM 生成的 SQL）的项目运行时用作语言步骤。
 - **仅 SQL 审查**：当用户只想检查查询的正确性、性能和安全性时。
 - **迁移或可移植性**：检查特定方言的构造和跨数据库的可移植性。
 
@@ -106,7 +106,7 @@ output_schema:
 ### 输出（输出）
 
 - 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
-- 此技能的类别是**语言-sql**。
+- 此技能的类别是**language-sql**。
 
 ---
 
@@ -129,7 +129,7 @@ output_schema:
 
 **何时停止并交接**：
 
-- 当所有 SQL 结果发出后，将其交给“review-code”进行聚合
+- 当所有 SQL 结果发出后，将其交给“orchestrate-code-review”进行聚合
 - 当用户需要更广泛的安全分析（身份验证、加密、配置）时，重定向到“审查安全”
 - 当用户需要全面审查（范围+语言+cognitive）时，重定向到“审查代码”
 
@@ -141,7 +141,7 @@ output_schema:
 
 - [ ] **仅 SQL 范围**：仅审查 SQL 和查询约定；未执行范围选择、完全安全性或架构分析
 - [ ] **涵盖所有七个 SQL 维度**：注入/参数化、索引/执行计划、事务/隔离、NULL/唯一约束、方言/可移植性、大表/分页模式以及相关的敏感列/权限
-- [ ] **结果格式兼容**：每个结果包括位置、类别（`语言-sql`）、严重性、标题、描述和可选建议
+- [ ] **结果格式兼容**：每个结果包括位置、类别（`language-sql`）、严重性、标题、描述和可选建议
 - [ ] **已标记关键注入问题**：SQL 注入模式（字符串连接、用户输入插值）被标记为“严重”严重性
 - [ ] **位置精确引用**：所有结果都引用特定文件：行或查询标识符位置
 
@@ -149,7 +149,7 @@ output_schema:
 
 - [ ] 是否仅审查了 SQL/查询维度（没有超出查询设计的范围/架构）？
 - [ ] 是否涵盖相关的参数化、索引、事务、NULL/约束和可移植性？
-- [ ] 每个发现是否都包含位置、类别=语言-sql、严重性、标题、描述和可选建议？
+- [ ] 每个发现是否都包含位置、类别=language-sql、严重性、标题、描述和可选建议？
 - [ ] 问题是否通过 file:line 或查询标识符引用？
 
 ### 验收测试
@@ -163,41 +163,14 @@ output_schema:
 ### 示例 1：查询中的字符串连接
 
 - **输入**：使用字符串连接（包括用户输入）构建的查询。
-- **预期**：发出 SQL 注入的关键发现；建议参数化查询或准备好的语句。类别=语言-sql。
+- **预期**：发出 SQL 注入的关键发现；建议参数化查询或准备好的语句。类别=language-sql。
 
 ### 示例 2：没有分页的大表
 
 - **输入**：SELECT * FROM large_table ORDER BY id，没有 LIMIT 或分页。
-- **预期**：发出性能和可扩展性的结果；建议分页（例如键集或 OFFSET/FETCH），并在不需要时避免使用 SELECT *。类别=语言-sql。
+- **预期**：发出性能和可扩展性的结果；建议分页（例如键集或 OFFSET/FETCH），并在不需要时避免使用 SELECT *。类别=language-sql。
 
 ### 边缘情况：ORM 生成的 SQL
 
 - **输入**：仅使用 ORM 的应用程序代码；生成的 SQL 不可见。
 - **预期**：检查代码中的任何原始 SQL 或查询构建器；如果没有可见的 SQL，请说明并跳过或报告“范围内没有要审查的 SQL”。不要发明 SQL。
-
----
-
-## 附录：输出合约
-
-每项调查结果必须遵循标准调查结果格式：
-
-|元素|要求 |
-| :--- | :--- |
-| **位置** | `path/to/file.ext`（可选行或范围）或查询标识符。 |
-| **类别** | `语言-sql`。 |
-| **严重性** | `关键` \| `主要` \| `次要` \| `建议`。 |
-| **标题** |简短的一行摘要。 |
-| **描述** | 1-3 句话。 |
-| **建议** |具体修复或改进（可选）。 |
-
-示例：
-
-
-```markdown
-- **Location**: `scripts/orders.sql:12`
-- **Category**: language-sql
-- **Severity**: critical
-- **Title**: Query built with string concatenation; injection risk
-- **Description**: User-controlled input is concatenated into the WHERE clause.
-- **Suggestion**: Use parameterized query or prepared statement with placeholders.
-```

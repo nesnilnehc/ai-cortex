@@ -9,11 +9,6 @@ recommended_scope: project
 cognitive_mode: interpretive
 metadata:
   author: ai-cortex
-  evolution:
-    enhancements:
-      - "v13.0.0: add step 2.2 drift scan, step 2.3 hygiene scan, step 3.5 chains_to auto-expansion — Refs: docs/designs/2026-05-08-orphan-skills-cleanup.md (W5)"
-      - "v13.1.0: jargon mitigation + judgment scaffolding — §3.3.1 forbid project codes / MoSCoW / process slang / bare thresholds, §3.3 add TL;DR header + multi-line short-chain context + threshold triplet (current/target/benchmark) + 2 optional fields (deferral_cost / onboarding_threshold), §3.1 multi-task → multi-card rendering rule, §3.7 add glossary lookup with fallback to frontmatter title, §3.4 diagnosis table-form rewrite — Refs: skills/plan-next/SKILL.md (W6)"
-      - "v13.1.1: errata — fix output_schema typo (>30→≤30 char), remove version-history annotations from prose (blacklist cleanup), standardize 现状 header label, update all 6 examples to v13.1.0 output format (TL;DR, multi-line context, diagnosis table), reorder examples 5/6"
 triggers: [plan next, next step, checkpoint, governance, iteration]
 input_schema:
   type: free-form
@@ -34,8 +29,8 @@ output_schema:
 
 > **角色**：治理入口路由器
 > **WHAT**：按三步法 **扫**（盘点治理资产）→ **诊**（目标树遍历——逐目标深度优先找首个未完成节点，结合并行判定）→ **荐**（产出三节路由报告）
-> **HOW**：只读诊断；单一维度问题（只查就绪度 / 漂移 / 已知缺失）直接调专用技能（`assess-docs` / `align-planning` / `define-*` 等）
-> **区别**：不同于 `assess-docs`（深度文档评估）或 `align-planning`（漂移校准），本技能仅做路由分发，不做深度分析
+> **HOW**：只读诊断；单一维度问题（只查已知缺失）直接调专用技能（`define-*` 等）
+> **区别**：本技能仅做路由分发；文档健康检测由 runtime / linter / CI 工具按 `rules/doc-health-criteria.md` 执行
 
 ---
 
@@ -60,7 +55,7 @@ output_schema:
 
 ### 步骤 0：规范解析
 
-按 [artifact-contract §8.2](../../specs/artifact-contract.md#82-发现顺序) 顺序读项目规范到 `cache`：依序检查 `artifact_norms_path`（输入）→ `.ai-cortex/artifact-norms.yaml` → `docs/ARTIFACT_NORMS.md`，YAML 畸形则 HALT 诊断；缺失则继续不报错。`cache` 用于步骤 2.1 的 `path_pattern` 解析。
+`cache` 用于步骤 2.1 的 `path_pattern` 解析。
 
 ### 步骤 1：扫 — 资产盘点
 
@@ -174,26 +169,26 @@ G1-G4 缺口类型用作诊断依据节的子标签。
   [L1] 目标自身 status = done？→ 跳过，检查下一目标
 
   [L2] 取 G 下所有路线图节点，应用并行决策规则：
-    无节点 → 路由: define-roadmap / align-backlog（P1）；停止此目标
+    无节点 → 路由: define-roadmap（P1）；停止此目标
     全 done → G 达成；考虑新目标；停止
     取"当前焦点节点"集合 F（依并行决策）
 
   对 F 中每个节点 N（按优先级）：
 
     [L3] 取 N 下所有需求，应用并行决策规则：
-      无需求 → 路由: analyze-requirements（P2）；停止此节点
+      无需求 → 路由: capture-work-items（P2）；停止此节点
       全 done → N 完成；移向下一兄弟路线图节点
 
     对当前焦点需求 R：
 
       [L4] 取 R 下所有设计，应用并行决策规则：
-        无设计 → 路由: design-solution（P2）；停止此需求
+        无设计 → 输出"设计待制作"待执行卡片（设计工作流由 AgentFabric runtime 承接）；停止此需求
         全 done → R 完成；移向下一兄弟需求
 
       对当前焦点设计 D：
 
         [L5] 取 D 下所有任务，应用并行决策规则：
-          无任务 → 路由: breakdown-tasks（P2）；停止此设计
+          无任务 → 输出"任务待拆分"待执行卡片（任务拆分由 AgentFabric runtime 承接）；停止此设计
           全 done → D 完成；移向下一兄弟设计
           有 blocked 任务 + 有独立 pending 任务 → 并行：路由启动 pending
           有 in-progress 任务（未 blocked）→ 专注：执行中，检测卡点
@@ -202,7 +197,7 @@ G1-G4 缺口类型用作诊断依据节的子标签。
              "现在该做"输出"待执行"标记卡片（区别于"无内容"），含：
                - 焦点任务名 + 任务 ID + 关联战略目标 + 该任务对 L1 验收 KPI 的影响路径
                - 标签：`待执行`（新优先级标签，区别于紧急/重要/缓/可略）
-             此卡片用于告知 auto-iterate：治理就绪、等待外部执行（应输出 blocked，不是 done）
+             此卡片用于告知 orchestrate-governance-step：治理就绪、等待外部执行（应输出 blocked，不是 done）
 ```
 
 ##### 物理扫描方法（L3-L5 存在性检测）
@@ -243,19 +238,15 @@ G1-G4 缺口类型用作诊断依据节的子标签。
 |---|---|---|
 | `drift_staleness_days` | 30 | 制品未更新超过此天数视为漂移 |
 | `backlog_rescore_days` | 90 | backlog 最后重评超过此天数视为老化 |
-| `audit_docs_staleness_days` | 30 | audit-docs 报告超过此天数视为过期 |
+| `doc_health_staleness_days` | 30 | 文档健康报告超过此天数视为过期（runtime / CI 产出） |
 
 **路由表**：
 
 | 漂移信号 | 推荐技能 |
 |---|---|
 | backlog `last_rescored_at` 超 `backlog_rescore_days` | `/prioritize-backlog` |
-| 路线图 vs backlog 状态漂移（路线图阶段 done 但 backlog 条目未收档） | `/align-backlog` |
-| 架构文档 vs 代码漂移（ADR updated_at 与最近代码提交差距超阈值） | `/align-architecture` |
-| 工作项清单 vs 执行漂移 | `/align-work-item-manifest` |
-| 文档 SSOT 漂移信号（assess-docs 报告 > `audit_docs_staleness_days`） | `/assess-docs-ssot` |
-| 文档与代码对齐漂移 | `/assess-docs-code-alignment` |
-| 文档链路腐烂信号 | `/assess-docs-links` |
+| 架构文档 vs 代码漂移（ADR updated_at 与最近代码提交差距超阈值） | `/review-architecture` |
+| 文档 SSOT / 代码对齐 / 链路腐烂等健康信号 | runtime / linter / CI 工具按 `rules/doc-health-criteria.md` 检测 |
 
 **约束**：漂移项强制进「也要留意」节，不占用「现在该做」前两位（除非主路由空闲且漂移优先级达 P1）。
 
@@ -275,10 +266,9 @@ G1-G4 缺口类型用作诊断依据节的子标签。
 | 检查 | 判定条件 | 推荐技能 |
 |---|---|---|
 | 已完成里程碑未归档 | `milestones/{slug}/tasks.md` 全 done，且满足成熟度任一条件 | `/archive-milestone {slug}` |
-| ADR 状态闭环违规 | V1/V2/V3/V4 类型（见 align-architecture v1.4 定义） | `/align-architecture` |
-| 仓库结构漂移 | `_templates/` 遗漏 / 文件命名违规 | `/tidy-repo` |
-| 技能层改动未 curate | git diff 检测到 `skills/` 下有未经 curate-skills 处理的 SKILL.md 变更 | `/curate-skills` |
-| 文档治理审计积压 | audit-docs 报告 > `audit_docs_staleness_days` 天未更新 | `/audit-docs` |
+| ADR 状态闭环违规 | superseded / 冲突 / 无 accepted 结论 | `/review-architecture` |
+| 仓库结构漂移 | `_templates/` 遗漏 / 文件命名违规 | runtime / CI 按 `rules/repo-structure-hygiene.md` 检测 |
+| 文档健康检测积压 | 健康报告 > `doc_health_staleness_days` 天未更新 | runtime / CI 跑一次 `rules/doc-health-criteria.md` 全量检测 |
 
 **约束**：卫生项强制进「也要留意」节，不占用「现在该做」前两位。
 
@@ -467,9 +457,9 @@ G1-G4 缺口类型用作诊断依据节的子标签。
 
 ## 也要留意
 
-<!-- 漂移巡检（步骤 2.2）+ 卫生巡检（步骤 2.3）+ chains_to 链调（步骤 3.5）条目汇聚于此，最多 5 条，按优先级截断 -->
+<!-- 漂移巡检（步骤 2.2）+ 卫生巡检（步骤 2.3）条目汇聚于此，最多 5 条，按优先级截断 -->
 
-**[漂移/卫生/链调名称]** · `缓 / 可略` `链调`（若来自 chains_to）
+**[漂移/卫生名称]** · `缓 / 可略`
 
 [一句话：发现了什么问题]
 
@@ -502,20 +492,6 @@ G1-G4 缺口类型用作诊断依据节的子标签。
 
 </details>
 ````
-
-#### 3.5 chains_to 自动展开
-
-主路由生成后，对每条「现在该做」推荐技能 X，读取 X 的 `chains_to` 字段（来自 `skills/X/SKILL.md` frontmatter）。将 X.chains_to 中每项 Y 作为额外条目追加到「也要留意」末尾：
-
-- 标签：`链调`
-- 依据字段：写明"来自 `X` 的 chains_to"
-- 推荐技能：`/Y [X 完成后，Y 的推荐聚焦点]`
-
-**约束**：
-
-- chains_to 展开仅为输出层推荐，plan-next 不自动执行 Y
-- 「也要留意」总条目数（漂移 + 卫生 + 链调）截断到 5 条，优先级：漂移 P1 > 卫生 P1 > 链调 > 漂移 P2 > 卫生 P2
-- chains_to 指向不存在技能时，跳过该条目（不报错）
 
 #### 3.7 术语字典查表
 
@@ -585,7 +561,7 @@ Goal 1:
 - ❌ **绕过 L1 直接报告中间层（M5/任务）状态**——必须先回答"L1 验收 KPI 是否达成"，再下钻
 - ❌ 治理上下文字段缺 L1 验收 KPI 当前值——违反"路由必须回到战略目标验收"约束
 - ❌ L1 验收 KPI 数据源缺失时直接路由下游执行任务——首条路由应先建立 KPI 数据源
-- ❌ L5 全 pending 时硬塞 breakdown-tasks 或下游技能——任务已存在时无治理技能可用，应输出"待执行"卡片
+- ❌ L5 全 pending 时硬塞下游技能——任务已存在时无治理技能可用，应输出"待执行"卡片
 - ❌ 有 blocked 节点时不考虑并行启动——blocked 是并行信号
 - ❌ 多个 in-progress 未 blocked 时推荐继续并行扩展——应建议收敛
 - ❌ 多目标合并路由但未在依据中注明各目标来源
@@ -597,7 +573,7 @@ Goal 1:
 - ❌ 在主路由「现在该做」中对 done 节点报告缺口（卫生巡检对 done 节点的检查是例外，输出到「也要留意」）
 - ❌ 同时报同一节点的多层缺口（违反深度优先）
 - ❌ 引入 mode 枚举或配置字段（直接看物理信号）
-- ❌ 承担清单维护职责（只读，差异作 G3；维护是 `align-work-item-manifest` 的事）
+- ❌ 承担清单维护职责（plan-next 只读，差异作 G3 输出诊断条目，不做修复）
 
 **关于内部术语泄漏**：
 
@@ -658,8 +634,7 @@ Goal 1:
 - [ ] 深度优先（每目标只报树中首缺口）
 - [ ] 并行建议已体现在路由依据中
 - [ ] 多目标合并路由时依据中已列所有目标来源
-- [ ] chains_to 已展开：「现在该做」每条推荐技能的 chains_to 已读取并追加到「也要留意」末尾（`链调` 标签）
-- [ ] 漂移/卫生/链调条目均在「也要留意」节，未挤占「现在该做」前两位
+- [ ] 漂移/卫生条目均在「也要留意」节，未挤占「现在该做」前两位
 - [ ] **暂缓代价 / 上手门槛字段**信息不足时已省略，未填占位文字
 
 **输出**：
@@ -751,7 +726,7 @@ Goal 1:
   - 当前 KPI：数据缺失（治理规范未建立）
   - 路线图：暂未评估（规范文件就绪后重跑）
   - 当前位置：规范文件缺失，目标树遍历跳过
-- 推荐技能：`/discover-docs-norms` → `/define-docs-norms 基于项目结构生成 docs/ARTIFACT_NORMS.md`
+- 推荐技能：`/define-docs-norms 基于项目结构生成 docs/ARTIFACT_NORMS.md`
 - 依据：`docs/ARTIFACT_NORMS.md` 缺失，`specs/` 为空
 - 完成标志：ARTIFACT_NORMS.md 落盘后重跑 plan-next
 
@@ -778,7 +753,7 @@ Goal 1:
 
 **场景**：目标 A，路线图节点 N1（in-progress）。N1 下有需求 R1（in-progress，子推算）和需求 R2（pending）。R1 下有设计 D1a（done）和 D1b（in-progress）。D1b 下任务尚未拆解。
 
-**遍历路径**：N1 → R1（in-progress，子推算）→ 兄弟扫描：D1a done，D1b in-progress → 进入 D1b → 无任务（L5 缺口）→ 路由 `breakdown-tasks`。
+**遍历路径**：N1 → R1（in-progress，子推算）→ 兄弟扫描：D1a done，D1b in-progress → 进入 D1b → 无任务（L5 缺口）→ 输出"任务待拆分"待执行卡片（任务拆分由 AgentFabric runtime 承接）。
 
 **并行判定**：D1b 为唯一 in-progress 设计，R2 pending。建议：**专注** D1b，完成后 R2 自动成为下一焦点。
 
@@ -802,7 +777,7 @@ Goal 1:
   - 当前 KPI：数据缺失（目标 A 无量化验收标准）
   - 路线图：路线图节点 N1（进行中）
   - 当前位置：设计 D1b 就绪，任务层缺口
-- 推荐技能：`/breakdown-tasks 基于设计 D1b 拆解任务清单，参考 D1a 拆解粒度`
+- 推荐技能：（无治理技能；任务拆分由 AgentFabric runtime 承接，按设计 D1b 与 D1a 同等粒度执行）
 - 依据：D1b 设计文件存在，任务文件缺失；D1a 已完成触发推进
 - 完成标志：D1b 任务列表创建且有至少一条任务记录
 
@@ -821,7 +796,7 @@ Goal 1:
 | 路线图 | N1 | in-progress | 专注（唯一 in-progress 节点） |
 | 需求 | R1 | in-progress（子推算：D1b in-progress） | 继续下钻 |
 | 设计 | D1a | done | D1a done 触发兄弟推进 |
-| 设计 | D1b | in-progress | 无任务（G1），路由 breakdown-tasks |
+| 设计 | D1b | in-progress | 无任务（G1），输出"任务待拆分"待执行卡片 |
 
 - **漂移巡检结果**：无
 - **卫生巡检结果**：无
@@ -901,7 +876,7 @@ Goal 1:
   - 当前 KPI：数据缺失（目标 A 无量化验收标准）
   - 路线图：路线图节点 N1（进行中）
   - 当前位置：设计层，R1 被阻塞触发并行
-- 推荐技能：`/design-solution 为需求 R2 创建设计文档，R1 被阻塞期间并行推进`
+- 推荐技能：（无治理技能；R2 设计工作流由 AgentFabric runtime 承接，R1 被阻塞期间并行推进）
 - 依据：R1 被外部依赖阻塞；R2 无 `depends_on` 依赖
 - 完成标志：R2 设计文件创建；受阻时（R2 与 R1 存在隐含耦合）回 plan-next 重评
 
@@ -957,7 +932,7 @@ Goal 1:
   - 当前 KPI：引用可见率（用户文档被召回占比）数据源缺失 / 目标 ≥80% / 项目自定（无外部基准）
   - 路线图：M5（混合检索成熟里程碑，进行中）
   - 当前位置：战略目标验收，KPI 数据源未建立
-- 推荐技能：`/design-solution 设计 citation 引用可见率埋点 + 监控查询路径，落入 docs/architecture/`
+- 推荐技能：（无治理技能；citation 引用可见率埋点 + 监控查询路径设计由 AgentFabric runtime 承接，落入 docs/architecture/）
 - 依据：`strategic-goals.md` 验收字段含 KPI 但无数据源指向
 - 完成标志：引用可见率可在监控/查询接口取数；数据源指向写入 strategic-goals.md
 
@@ -997,19 +972,3 @@ Goal 1:
 - **卫生巡检结果**：无
 
 </details>
-
----
-
-## 附录：输出合约 (Appendix: Output Contract)
-
-本技能产出三段式路由报告（人类可读 + 可追溯锚点）：
-
-| 元素 | 格式 | 必填字段 | 路径模式 |
-| :--- | :--- | :--- | :--- |
-| 报告主体 | Markdown | 章节：现在该做（Now do）/ 也要留意（Also watch）/ 诊断依据（Diagnosis，可折叠） | 默认聊天输出 |
-| 路由条目（卡片） | Markdown 块 | 卡片头（priority_label）+ TL;DR 引用块（≤30 字） + 6 核心字段：theme / governance_context（多行短链）/ recommended_skill（含 invocation hint）/ rationale / completion_marker；2 选填字段：deferral_cost（暂缓代价）/ onboarding_threshold（上手门槛） | 「现在该做」「也要留意」两节 |
-| 治理上下文 | 多行短链 | 战略目标 → 当前 KPI → 路线图 → 当前位置；每行 ≤25 字；嵌套括号 ≤1 层；KPI 含三件套（当前值 / 目标值 / 参考系） | 每条路由条目内 |
-| 优先级标签 | 单词 | 紧急 / 重要 / 缓 / 可略 / 待执行（仅用于 L5 全 pending 分支） | 卡片头 |
-| 多任务渲染 | 多卡 | L5 全 pending 多任务（≥2 独立可启动）→ 渲染多张并列卡片，禁止合并 | 「现在该做」 |
-| 诊断依据 | 折叠块 + 表格 | 项目情况 + 资产清单 + 判定逻辑表格（层级 / 节点 / 状态 / 推断 4 列）+ 漂移巡检 + 卫生巡检 + 字典缺失提示；内部代码（L1-L5/G1-G4/P0-P3）允许在此节作可追溯锚点 | 「诊断依据」节 |
-| 项目代号 | 字典查表 | 用户输出节首次出现自动附自然语言副标题 `代号（full_name）`；字典源按发现顺序：`glossary_path` 输入 → `.ai-cortex/glossary.yaml` → `docs/glossary.md` → frontmatter `title:` fallback；双重缺失时进诊断依据节标记，不在用户节展示 | 全局 |

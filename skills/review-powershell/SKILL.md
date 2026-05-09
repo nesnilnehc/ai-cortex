@@ -2,7 +2,7 @@
 name: review-powershell
 description: "Review PowerShell code for language and runtime conventions: advanced functions, parameter design, error handling, object pipeline behavior, compatibility, and testability. Language-only atomic skill; output is a findings list."
 description_zh: 按 PowerShell 规范审查代码：高级函数、参数设计、错误处理、对象管道、兼容性与可测性。
-tags: [code-review]
+tags: [code-review, language]
 version: 1.0.0
 license: MIT
 recommended_scope: project
@@ -17,7 +17,7 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion
 ---
 
-# 技能（Skill）：复习PowerShell
+# 技能（Skill）：审查 PowerShell
 
 ## 目的 (Purpose)
 
@@ -58,15 +58,15 @@ output_schema:
 - 范围选择——范围由调用者提供
 - 安全分析——使用“review-security”
 - 架构分析——使用“review-architecture”
-- 全面精心策划的审核——使用“审核代码”
+- 完整编排式审查——使用“审查代码”
 
-**转交点**：当所有 PowerShell 发现结果发出后，将其移交给“review-code”进行聚合。对于安全问题（例如命令注入、凭证暴露），请记下它们并建议“审查安全性”。
+**转交点**：当所有 PowerShell 发现结果发出后，将其移交给“orchestrate-code-review”进行聚合。对于安全问题（例如命令注入、凭证暴露），请记下它们并建议“审查安全性”。
 
 ---
 
 ## 使用场景（用例）
 
-- **精心安排的审查**：当 [review-code](../review-code/SKILL.md) 运行 PowerShell 项目的范围 -> 语言 -> 框架 -> 库 -> cognitive时，用作语言步骤。
+- **精心安排的审查**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 运行 PowerShell 项目的范围 -> 语言 -> 框架 -> 库 -> cognitive时，用作语言步骤。
 - **仅 PowerShell 审查**：当用户只想检查语言/运行时约定时。
 - **PR 前脚本质量检查**：在合并之前验证参数约定、管道行为和错误语义。
 
@@ -101,7 +101,7 @@ output_schema:
 
 ### 输入（输入）
 
-- **代码范围**：用户或范围技能已选择的文件或目录（或差异）。该技能不决定范围； it reviews the provided PowerShell code for language conventions only.
+- **代码范围**：用户或范围技能已选择的文件或目录（或差异）。该技能不决定范围；仅审查所提供的 PowerShell 代码的语言约定。
 
 ### 输出（输出）
 
@@ -128,7 +128,7 @@ output_schema:
 
 **何时停止并交接**：
 
-- 当所有 PowerShell 发现结果发出后，将其移交给“review-code”进行聚合
+- 当所有 PowerShell 发现结果发出后，将其移交给“orchestrate-code-review”进行聚合
 - 当用户需要全面审查（范围+语言+cognitive）时，重定向到“审查代码”
 - 当发现安全问题（凭证暴露、命令注入）时，记下它们并建议“审查安全性”
 
@@ -148,7 +148,7 @@ output_schema:
 
 - [ ] 是否仅审查了 PowerShell 语言/运行时维度（无范围/安全/架构）？
 - [ ] 是否涵盖了相关的函数/参数约定、错误处理、管道行为、兼容性和可测试性？
-- [ ] 发布的每个发现是否包含位置、类别=语言-powershell、严重性、标题、描述和可选建议？
+- [ ] 发布的每个发现是否包含位置、类别=language-powershell、严重性、标题、描述和可选建议？
 - [ ] file:line 是否引用了问题？
 
 ### 验收测试
@@ -162,41 +162,14 @@ output_schema:
 ### 示例 1：管道合同不匹配
 
 - **输入**：函数声明管道输入，但未声明“ValueFromPipeline”，并且仅处理“end”中的完整数组。
-- **预期**：发出管道合同不匹配的结果并建议参数属性+“流程”用法。类别=语言-powershell。
+- **预期**：发出管道合同不匹配的结果并建议参数属性+“流程”用法。类别=language-powershell。
 
 ### 示例 2：错误处理
 
 - **输入**：脚本将有风险的命令包装在“try/catch”中，但不设置“-ErrorAction Stop”，因此非终止错误绕过“catch”。
-- **预期**：发出无效错误处理的结果；建议明确的终止行为。类别=语言-powershell。
+- **预期**：发出无效错误处理的结果；建议明确的终止行为。类别=language-powershell。
 
 ### 边缘情况：数据输出被主机写入污染
 
 - **输入**：函数返回对象，但也在处理循环中使用“Write-Host”。
 - **预期**：发出混合演示/数据输出的结果，这会损害自动化和composability；建议使用“Write-Verbose”/“Write-Information”进行诊断并为管道使用者提供干净的对象输出。
-
----
-
-## 附录：输出合约
-
-每项调查结果必须遵循标准调查结果格式：
-
-|元素|要求|
-| :--- | :--- |
-| **位置** | `path/to/file.ext`（可选行或范围）。 |
-| **类别** | `语言-powershell`。 |
-| **严重性** | `关键` \| `主要` \| `次要` \| `建议`。 |
-| **标题** |简短的一行摘要。 |
-| **描述** | 1-3句话。 |
-| **建议** |具体修复或改进（可选）。 |
-
-示例：
-
-
-```markdown
-- **Location**: `scripts/Build.ps1:34`
-- **Category**: language-powershell
-- **Severity**: major
-- **Title**: Function output mixes objects and host-formatted text
-- **Description**: The function emits `Write-Host` output in the data path, which makes automation output unstable.
-- **Suggestion**: Return structured objects only and move diagnostics to `Write-Verbose` or `Write-Information`.
-```

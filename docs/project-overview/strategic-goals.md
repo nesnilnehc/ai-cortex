@@ -10,7 +10,7 @@ status: active
 
 与 [mission](mission.md)、[vision](vision.md)、[North Star](north-star.md) 对齐。
 
-**目标性质**：战略目标描述项目长期追求的**结果方向**，是持续优化的愿景，而非一次性交付物。目标无「完成」概念，只会不断接近或深化；阶段检查点见 [roadmap](../process-management/roadmap.md)。设计决策见 [20260322-strategic-goals-milestones-framing](../process-management/decisions/20260322-strategic-goals-milestones-framing.md)。
+**目标性质**：战略目标描述项目长期追求的**结果方向**，是持续优化的愿景，而非一次性交付物。目标无「完成」概念，只会不断接近或深化；阶段检查点见 [roadmap](../process-management/roadmap.md)。
 
 ---
 

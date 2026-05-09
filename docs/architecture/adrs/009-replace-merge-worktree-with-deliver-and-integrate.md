@@ -62,9 +62,9 @@ status: active
    - `skills/integrate-worktrees/`（SKILL.md + agent.yaml + README.md）
 3. **manifest.json**：移除 `merge-worktree` 条目，新增上述两条
 4. **skills/INDEX.md**：移除 `merge-worktree` 行，新增上述两行
-5. **skills/SKILL_INVENTORY.md**：通过 `node scripts/generate-skill-inventory.mjs` 重新生成
+5. **skills/SKILL_INVENTORY.md**：（历史）曾通过 `node scripts/generate-skill-inventory.mjs` 重新生成；相关脚本已移除
 6. **ADR 004 grep 正则表达式**：将 `merge-worktree` 替换为 `deliver-feature|integrate-worktrees`
-7. **`npm run verify` 通过**
+7. （历史）当时以 `npm run verify` 作为收尾校验；本仓库已移除 npm 脚本
 
 ## 后果
 

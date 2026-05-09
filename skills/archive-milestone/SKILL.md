@@ -8,7 +8,6 @@ license: MIT
 recommended_scope: project
 metadata:
   author: ai-cortex
-  chains_to: []
   triggers_after: [plan-next]
 triggers: [archive milestone, completed milestone cleanup, milestone summary]
 input_schema:
@@ -154,35 +153,30 @@ output_schema:
 
 ---
 
-## 附录：输出合约
+## 示例（Examples）
 
-本技能在两种模式下产出不同制品：
+### 示例 1：常规场景 — M3 完成后归档
 
-### Dry-run 模式（apply=false，默认）
+**输入**：
+- `docs/process-management/milestones/m3/` 含完成 60 天的 tasks.md（全部 status=completed）
+- `roadmap.md` M3 阶段标记 ✅
+- 后续里程碑 M4 已开始
 
-| 元素 | 要求 |
-|---|---|
-| **输出类型** | 聊天预览报告，零文件修改 |
-| **内容** | 摘要草稿预览 + roadmap.md 待折叠行范围 + 待删除目录 + 引用更新列表（K 处） |
-| **副作用** | 无（严格只读） |
+**执行**（dry-run 默认）：
+1. 成熟度检查：M3 完成日 ≥ 60 天 ✓，后续里程碑索引差 ≥ 1 ✓
+2. 生成快照 `milestones/_archive/m3-summary.md`：完成日、5 条关键交付物、关键 ADR 引用
+3. 给出影响分析：roadmap M3 节将折叠为 3 行；当前路径 `milestones/m3/` 将删除
+4. 输出 dry-run 报告等待用户确认
 
-### Apply 模式（apply=true）
+**Apply 后**：roadmap.md M3 段折叠完成、`milestones/_archive/m3-summary.md` 生成、`milestones/m3/` 移除。
 
-| 元素 | 要求 |
-|---|---|
-| **制品路径** | `docs/process-management/milestones/_archive/{slug}-summary.md` |
-| **artifact_type** | `milestone-summary` |
-| **lifecycle** | `snapshot` |
-| **摘要必须含** | 完成日期 / 关键交付物（≤5 条）/ 遗留缺口（指向后续里程碑）/ 关键 ADR 引用 |
-| **roadmap.md** | 对应阶段折叠为 ≤ 3 行引用 |
-| **引用更新** | 全仓旧 `milestones/{slug}/tasks.md` 路径重定向至摘要路径 |
-| **原目录** | `milestones/{slug}/` 删除 |
-| **操作日志** | 聊天中输出每步操作确认 |
+### 示例 2：边界场景 — 里程碑刚完成但成熟度不够
 
-### 前置条件（违反则拒绝执行）
+**输入**：M5 完成日仅 14 天，M6 尚未启动。
 
-| 条件 | apply=false | apply=true |
-|---|---|---|
-| 成熟度条件满足（≥60 天或索引差≥2） | ✅ 必须 | ✅ 必须 |
-| 全部任务 status=done 或 ✅ | ✅ 必须 | ✅ 必须 |
-| git 工作区干净 | — | ✅ 必须 |
+**执行**：
+1. 成熟度检查：完成日 < 60 天 且 后续里程碑索引差 = 0
+2. 拒绝执行：输出"里程碑尚未成熟（14 天 < 60 天阈值；后续里程碑未启动），建议在 ≥60 天后或 M6 启动后再归档"
+3. 不生成快照、不修改 roadmap
+
+**结果**：保留 M5 现状；用户可在条件满足后重新运行。

@@ -2,7 +2,7 @@
 name: review-dotnet
 description: "Review .NET (C#/F#) code for language and runtime conventions: async/await, nullable, API versioning, IDisposable, LINQ, and testability. Language-only atomic skill; output is a findings list."
 description_zh: 按 .NET (C#/F#) 语言与运行时规范审查代码：async/await、nullable、API 版本、IDisposable、LINQ、可测性。
-tags: [code-review]
+tags: [code-review, language]
 version: 1.0.0
 license: MIT
 recommended_scope: project
@@ -17,7 +17,7 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion
 ---
 
-# 技能（Skill）：回顾.NET
+# 技能（Skill）：审查 .NET
 
 ## 目的 (Purpose)
 
@@ -58,16 +58,16 @@ output_schema:
 - 安全分析（注入、身份验证、加密）——使用“review-security”
 - 架构分析——使用“review-architecture”
 - 性能深入研究——使用“review-performance”
-- 全面精心策划的审核——使用“审核代码”
+- 完整编排式审查——使用“审查代码”
 - 代码库状态审查 — 使用 `review-codebase`
 
-**转交点**：当所有 .NET 发现结果发布后，将其移交给“review-code”进行聚合。对于 .NET 代码中发现的安全或体系结构问题，请记下它们并建议运行适当的cognitive技能。
+**转交点**：当所有 .NET 发现结果发布后，将其移交给“orchestrate-code-review”进行聚合。对于 .NET 代码中发现的安全或体系结构问题，请记下它们并建议运行适当的cognitive技能。
 
 ---
 
 ## 使用场景（用例）
 
-- **精心安排的审查**：当 [review-code](../review-code/SKILL.md) 运行 .NET 项目的范围 → 语言 → 框架 → 库 → cognitive时，用作语言步骤。
+- **精心安排的审查**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 运行 .NET 项目的范围 → 语言 → 框架 → 库 → cognitive时，用作语言步骤。
 - **仅.NET 审查**：当用户只想检查语言/运行时约定时（例如，添加新的 C# 文件后）。
 - **PR .NET 预检查清单**：确保异步、可空和资源模式正确。
 
@@ -106,7 +106,7 @@ output_schema:
 ### 输出（输出）
 
 - 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
-- 此技能的类别是 **语言-dotnet**。
+- 此技能的类别是 **language-dotnet**。
 
 ---
 
@@ -129,7 +129,7 @@ output_schema:
 
 **何时停止并交接**：
 
-- 当所有 .NET 发现结果发布后，将其交给“review-code”进行聚合
+- 当所有 .NET 发现结果发布后，将其交给“orchestrate-code-review”进行聚合
 - 当用户需要全面审查（范围+语言+cognitive）时，重定向到“审查代码”
 - 当.NET代码中发现安全问题时，记下它们并建议“审查安全性”
 
@@ -149,7 +149,7 @@ output_schema:
 
 - [ ] 是否仅审查了 .NET 语言/运行时维度（无范围/安全/架构）？
 - [ ] 是否涵盖了相关的异步、可空、IDisposable、LINQ 和可测试性？
-- [ ] 每个发现是否都包含位置、类别=语言-dotnet、严重性、标题、描述和可选建议？
+- [ ] 每个发现是否都包含位置、类别=language-dotnet、严重性、标题、描述和可选建议？
 - [ ] file:line 是否引用了问题？
 
 ### 验收测试
@@ -163,41 +163,14 @@ output_schema:
 ### 示例 1：异步方法
 
 - **输入**：异步的 C# 方法，无需传递 CancellationToken 即可调用其他异步方法。
-- **预期**：发出 CancellationToken 传播的发现（例如次要/建议）；参考方法和参数列表。类别 = 语言-dotnet.
+- **预期**：发出 CancellationToken 传播的发现（例如次要/建议）；参考方法和参数列表。类别 = language-dotnet.
 
 ### 示例 2：可空和处置
 
-- **Input**：持有 IDisposable 且不实现 IDisposable 或使用 using 的 C# 类。
-- **预期**：发出资源处置的结果，如果字段可以为空，则可能可以为空。类别 = 语言-dotnet.
+- **输入**：持有 IDisposable 且不实现 IDisposable 或使用 using 的 C# 类。
+- **预期**：发出资源处置的结果，如果字段可以为空，则可能可以为空。类别 = language-dotnet.
 
 ### 边缘情况：混合 C# 和 SQL
 
 - **输入**：包含 C# 和嵌入式 SQL 字符串的文件。
 - **预期**：仅查看 .NET 约定的 C# 部分（例如异步、可空、处置）。不要发出 SQL 注入结果；这是用于 review-security 或 review-sql。
-
----
-
-## 附录：输出合约
-
-每项调查结果必须遵循标准调查结果格式：
-
-|元素|要求|
-| :--- | :--- |
-| **位置** | `path/to/file.ext`（可选行或范围）。 |
-| **类别** | `语言-dotnet`。 |
-| **严重性** | `关键` \| `主要` \| `次要` \| `建议`。 |
-| **标题** |简短的一行摘要。 |
-| **描述** | 1-3 句话。 |
-| **建议** |具体修复或改进（可选）。 |
-
-示例：
-
-
-```markdown
-- **Location**: `src/Services/DataLoader.cs:22`
-- **Category**: language-dotnet
-- **Severity**: minor
-- **Title**: Async method does not accept or forward CancellationToken
-- **Description**: Long-running or cancellable operations should support cancellation.
-- **Suggestion**: Add CancellationToken parameter and pass it to underlying async calls.
-```

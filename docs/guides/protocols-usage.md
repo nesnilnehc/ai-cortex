@@ -59,7 +59,7 @@ ls ./protocols/
 
 ```bash
 # 查看协议注册表配置
-cat manifest.json | jq '.registry | {protocols_root, protocols_index}'
+cat skills/INDEX.md | jq '.registry | {protocols_root, protocols_index}'
 ```
 
 ---

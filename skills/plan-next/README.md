@@ -35,9 +35,8 @@
 ## 何时跳过本技能
 
 单一维度问题可直接调用专用技能：
-- 只查就绪度 → `assess-docs`
-- 只查漂移 → `align-planning`
-- 已知某项缺失 → `define-*` / `design-*`
+- 已知某项缺失 → `define-*`
+- 文档健康检测 → AgentFabric runtime + linter / CI 工具（按 `rules/doc-health-criteria.md`）
 
 ## 自动化组合
 
@@ -45,15 +44,14 @@ plan-next 永不执行下游。自动化迭代由外层组合驱动：
 
 - `/plan-next` —— 一次性诊断
 - `/loop /plan-next 30m` —— 周期诊断（持续监控，人工反应）
-- `/loop /auto-iterate 30m` —— 全自动 autopilot（外层 orchestrator 驱动）
+- `/loop /orchestrate-governance-step 30m` —— 全自动 autopilot（外层 orchestrator 驱动）
 
 ## 典型路由
 
 - 无目标：`define-mission` / `design-strategic-goals`
 - 路线图未分层：`promote-roadmap-items`
-- 路线图缺失或未对齐：`define-roadmap` / `align-backlog`
-- 需求缺失：`analyze-requirements`
-- 设计缺失：`design-solution`
-- 任务未拆解：`breakdown-tasks`
-- 规范缺失：`discover-docs-norms → define-docs-norms`
-- 漂移问题：`align-planning`
+- 路线图缺失：`define-roadmap`
+- 需求缺失：`capture-work-items`
+- 设计缺失：输出"待执行"卡片（设计工作流由 AgentFabric runtime 承接）
+- 任务未拆解：输出"待执行"卡片（任务拆分由 AgentFabric runtime 承接）
+- 规范缺失：`define-docs-norms`

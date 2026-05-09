@@ -1,125 +1,44 @@
-# 技能索引
+# Skills
 
-**规范能力清单**：技能注册表（name、tags、version、purpose）与标签/版本策略的权威来源。ASQM 质量、生命周期状态、重叠检测与生态定位见 [ASQM_AUDIT.md](./ASQM_AUDIT.md) 或各技能的 `agent.yaml`。
-
-本文档是 **AI Cortex**（面向 Agent、具备治理能力的能力资产库；仓库 [ai-cortex](https://github.com/nesnilnehc/ai-cortex)）的中心技能索引。定义标准化 SKILL 元数据、标签体系与版本策略。安装：`npx skills add nesnilnehc/ai-cortex`；兼容 [skills.sh](https://skills.sh) 与 [SkillsMP](https://skillsmp.com)。
-
----
-
-## 1. 标签体系
-
-本仓库中所有 SKILL 按下列维度打标签，供 Agent 做任务匹配与调度。
-
-| Tag | 说明 | 典型用途 |
-| :--- | :--- | :--- |
-| `writing` | 内容创作与风格 | 文档、博客、邮件 |
-| `security` | 合规与敏感数据 | 去标识化、匿名化、漏洞说明 |
-| `privacy` | 隐私与数据匿名化 | 个人或组织机密 |
-| `documentation` | 标准化文档 | README、API 文档、Wiki |
-| `generalization` | 抽象与泛化 | 方法提取、术语去专业化 |
-| `code-review` | 代码与制品审查 | 语言、框架、安全、性能、架构、测试审查 |
-| `devops` | 交付与运维自动化 | CI/CD 文档、部署 |
-| `meta-skill` | 技能/规范的设计与重构 | SKILL 审计、规范化、质量 |
-| `automation` | 自动化与动态加载 | 技能发现、热加载、批量操作 |
-| `infrastructure` | 基础设施与运行时能力 | 发现、加载、运行时支持 |
-| `optimization` | 优化与重构 | 设计与结构改进 |
-| `git` | Git 工作流与版本控制 | 提交、分支、历史 |
-| `workflow` | 开发工作流编排 | 多步骤流程、流水线 |
-
----
-
-## 2. 版本与稳定性
-
-本项目遵循 **[Semantic Versioning (SemVer)](https://semver.org/)**。
-
-- **MAJOR**：SKILL 的破坏性或重大结构变更。
-- **MINOR**：新步骤、交互策略或实质性改进的示例。
-- **PATCH**：勘误、元数据调整或引用更新。
-
-### 稳定性等级
-
-每个技能有 **Stability** 指标，反映契约成熟度，与 ASQM 质量分（衡量结构质量）无关。
-
-| Stability | 版本约定 | 含义 |
-| :--- | :--- | :--- |
-| `experimental` | `0.x.x` | 版本间 API 与行为可能显著变化。 |
-| `stable` | `≥ 1.0.0` | 契约已稳定；破坏性变更需主版本升级。 |
-| `mature` | `≥ 2.0.0` 或长期稳定的 `1.x` | 久经考验；广泛使用；预期变动极小。 |
-
-惯例：ASQM 状态为 "validated" 的 `0.x.x` 技能，契约稳定后应升级至 `1.0.0`。
-
----
-
-## 3. Skill registry
-
-| Skill name | Tags | Version | Stability | Purpose |
-| :--- | :--- | :--- | :--- | :--- |
-| [decontextualize-text](./decontextualize-text/SKILL.md) | generalization, privacy, security, writing | `1.3.1` | stable | 将含私有上下文或内部依赖的文本转为通用、无偏向的表述，保留逻辑、移除组织标识，便于交接、开源或跨团队共享。. |
-| [generate-standard-readme](./generate-standard-readme/SKILL.md) | devops, documentation, writing | `2.1.0` | stable | 生成高信息密度 README。章节按价值门槛裁剪，非固定数量。读者 30 秒内知道项目是啥、去哪看、怎么用。 |
-| [discover-docs-norms](./discover-docs-norms/SKILL.md) | documentation, workflow | `4.0.0` | mature | 扫描并推导项目文档规范提案（路径、命名、生命周期）；v4.0 回撤 v3.0 的 Stage 2b 链接模式识别（ADR 005）——回归审计职责。. |
-| [define-docs-norms](./define-docs-norms/SKILL.md) | documentation, workflow | `3.0.0` | stable | 基于已确认提案创建或更新 docs/ARTIFACT_NORMS.md；v3.0 回撤 v2.0 的 Stage 1b 链接模式选择 UI（ADR 005）——回归抄写员职责。. |
-| [discover-skills](./discover-skills/SKILL.md) | automation, generalization, infrastructure | `1.3.1` | stable | 识别能力缺口并从 AI Cortex 或公共技能目录推荐安装；提供前 1–3 条匹配及安装命令。. |
-| [refine-skill-design](./refine-skill-design/SKILL.md) | meta-skill, optimization, writing | `1.4.0` | stable | 审计并重构既有 SKILL，使其符合规范与 LLM 最佳实践；适用于改进草稿、修复质量或对齐规范。. |
-| [generate-agent-entry](./generate-agent-entry/SKILL.md) | documentation | `1.0.1` | stable | 按嵌入式输出契约编写或修订 AGENTS.md，确立项目身份、权威来源与行为预期；采用 AI Cortex 入口格式。. |
-| [review-code](./review-code/SKILL.md) | code-review | `2.6.0` | mature | 编排完整代码审查流水线：依次执行 scope、语言、框架、库与认知类审查技能，并聚合为统一报告。. |
-| [review-codebase](./review-codebase/SKILL.md) | code-review | `1.3.1` | stable | 对指定文件/目录/仓库进行架构与设计审查；涵盖技术债、模式与质量；diff 审查使用 review-diff。. |
-| [review-diff](./review-diff/SKILL.md) | code-review | `1.3.1` | stable | 仅针对 git diff 审查影响、回归、正确性、兼容性与副作用；scope 原子技能，输出 findings 列表。. |
-| [review-dotnet](./review-dotnet/SKILL.md) | code-review | `1.0.0` | stable | 按 .NET (C#/F#) 语言与运行时规范审查代码：async/await、nullable、API 版本、IDisposable、LINQ、可测性。. |
-| [review-java](./review-java/SKILL.md) | code-review | `1.0.0` | stable | 按 Java 语言与运行时规范审查代码：并发、异常、try-with-resources、API 版本、集合与 Stream、NIO、可测性。. |
-| [review-go](./review-go/SKILL.md) | code-review | `1.0.0` | stable | 按 Go 语言与运行时规范审查代码：并发、context、错误处理、资源管理、API 稳定性、类型语义、可测性。. |
-| [review-php](./review-php/SKILL.md) | code-review | `1.0.0` | stable | 按 PHP 语言与运行时规范审查代码：strict types、错误处理、资源管理、PSR、命名空间、null 安全、生成器、可测性。. |
-| [review-powershell](./review-powershell/SKILL.md) | code-review | `1.0.0` | stable | 按 PowerShell 规范审查代码：高级函数、参数设计、错误处理、对象管道、兼容性与可测性。. |
-| [review-python](./review-python/SKILL.md) | code-review | `1.0.0` | stable | 按 Python 规范审查代码：类型提示、异常、async/await、上下文管理器、依赖与可测性。. |
-| [review-sql](./review-sql/SKILL.md) | code-review | `1.0.1` | stable | 审查 SQL 与查询代码：注入风险、参数化、索引与性能、事务、NULL 与约束、方言可移植性。. |
-| [review-vue](./review-vue/SKILL.md) | code-review | `1.0.0` | stable | 审查 Vue 3 代码：Composition API、响应式、组件、状态 (Pinia)、路由与性能；框架级原子技能。. |
-| [review-security](./review-security/SKILL.md) | code-review, security | `1.0.0` | stable | 审查代码安全性：注入、敏感数据、认证、依赖、配置与加密；原子技能，输出 findings 列表。. |
-| [review-architecture](./review-architecture/SKILL.md) | code-review | `1.0.1` | stable | 审查代码架构：模块与层次边界、依赖方向、单一职责、循环依赖、接口稳定性与耦合。. |
-| [review-testing](./review-testing/SKILL.md) | code-review | `1.0.0` | stable | 审查测试：存在性、覆盖度、质量与结构、边界与错误路径覆盖、可维护性；认知原子技能。. |
-| [generate-github-workflow](./generate-github-workflow/SKILL.md) | devops | `1.0.0` | stable | 生成嵌有输出契约的 GitHub Actions YAML：安全优先、最小权限、版本锁定；适用于 CI、发布与 PR 检查。. |
-| [curate-skills](./curate-skills/SKILL.md) | documentation, meta-skill | `2.0.0` | stable | 通过输出合约与验收准则检查、生命周期分配、重叠检测治理技能清单；产出全库技能的可验证 status 与规范化文档。. |
-| [install-rules](./install-rules/SKILL.md) | automation, infrastructure | `1.2.1` | stable | 从源仓库将规则安装到 Cursor 或 Trae IDE；需显式确认与冲突检测；写盘前需用户批准。. |
-| [review-performance](./review-performance/SKILL.md) | code-review, optimization | `1.0.0` | stable | 审查性能：复杂度、数据库/查询效率、I/O 与网络成本、内存与分配、并发竞争、缓存与延迟/吞吐回归。. |
-| [bootstrap-docs](./bootstrap-docs/SKILL.md) | documentation, writing | `2.0.0` | stable | 使用 project-documentation-template 初始化或适配项目文档；v2.0 加 Stage 0 Norms Resolution（per artifact-contract §8）+ colocation/parent-pointer 分支。. |
-| [capture-work-items](./capture-work-items/SKILL.md) | documentation, workflow, writing | `2.0.0` | stable | 将自由形式输入快速捕获为结构化持久的制品；v2.0 重构路径检测为 Stage 0 Norms Resolution + colocation/parent-pointer 分支 + upstream_ref 输入。. |
-| [commit-work](./commit-work/SKILL.md) | automation, git, workflow | `2.0.0` | mature | 创建高质量 git 提交：清晰消息与合理范围；遵循 Conventional Commits，含 pre-commit 质量检查。. |
-| [design-solution](./design-solution/SKILL.md) | documentation, writing | `3.0.0` | stable | 从需求产出验证过的设计文档；v3.0 采用 canonical 统一路径 `docs/designs/{slug}.md`；Stage 0 Norms Resolution 读项目规范解析 path_pattern；可选 upstream_ref 触发 parent: frontmatter emit。. |
-| [breakdown-tasks](./breakdown-tasks/SKILL.md) | documentation, workflow, writing | `3.0.0` | stable | 将设计文档拆解为可执行任务列表；v3.0 采用 canonical 统一路径 `docs/tasks/{slug}.md`；Stage 0 Norms Resolution 读项目规范解析 path_pattern；可选 upstream_ref 触发 parent: frontmatter emit。. |
-| [review-typescript](./review-typescript/SKILL.md) | code-review | `1.0.0` | stable | 审查 TypeScript/JavaScript 代码：类型安全、异步模式、错误处理与模块设计；原子技能。. |
-| [review-react](./review-react/SKILL.md) | code-review | `1.0.0` | stable | 审查 React 代码：组件设计、hooks 正确性、状态管理、渲染性能与可访问性；框架级原子技能。. |
-| [review-orm-usage](./review-orm-usage/SKILL.md) | code-review, optimization | `1.0.0` | stable | 审查 ORM 使用：N+1 查询、连接管理、迁移安全、事务与查询效率；库级原子技能。. |
-| [analyze-requirements](./analyze-requirements/SKILL.md) | documentation, writing | `3.0.0` | stable | 通过诊断状态推进与结构化对话，将模糊意图或不完整需求转为可验证、可测试的需求；v3.0 采用 canonical 统一路径 `docs/requirements/{slug}.md`；Stage 0 Norms Resolution 读项目规范解析 path_pattern；可选 upstream_ref 触发 parent: frontmatter emit。. |
-| [review-requirements](./review-requirements/SKILL.md) | code-review | `1.0.1` | stable | 审查既有需求文档质量：问题清晰度、可测试需求、约束清单、范围边界、需求 ID 与遗留问题。. |
-| [align-planning](./align-planning/SKILL.md) | documentation, workflow | `1.4.0` | stable | 执行任务后追溯、漂移检测与自上而下校准；v1.4 加 Stage 0 Norms Resolution 路径覆盖。. |
-| [align-architecture](./align-architecture/SKILL.md) | documentation, workflow | `1.4.0` | stable | 对照代码实现验证架构与设计文档；加 ADR 状态完整性扫描（V1–V4 违规检测）。. |
-| [align-backlog](./align-backlog/SKILL.md) | documentation, workflow | `1.1.0` | stable | 将产品/工作待办与当前战略、目标、路线图对齐；v1.1 加 Stage 0 Norms Resolution 路径覆盖。. |
-| [align-work-item-manifest](./align-work-item-manifest/SKILL.md) | workflow, documentation, governance, alignment | `1.0.0` | experimental | 检测 manifest 链接模式下清单文件与物理制品的漂移（悬挂引用/未登记/命名不符）；v1.0 只读 advisory；输出供 plan-next 作 G3 漂移源消费（ADR 004）。. |
-| [assess-docs](./assess-docs/SKILL.md) | documentation, governance, workflow | `4.1.0` | mature | 一次性评估文档核心健康：规范合规、分层就绪度评分与最小补齐计划；v4.1 Stage 0 按 artifact-contract §8 重构。. |
-| [assess-docs-code-alignment](./assess-docs-code-alignment/SKILL.md) | documentation, governance, workflow | `1.1.0` | stable | 评估代码变更与应更新文档之间的对齐缺口；v1.1 加 Stage 0 Norms Resolution 路径覆盖。. |
-| [assess-docs-links](./assess-docs-links/SKILL.md) | documentation, governance, workflow | `1.1.0` | stable | 评估文档链接图健康度；v1.1 加 Stage 0 Norms Resolution 路径覆盖。. |
-| [assess-docs-ssot](./assess-docs-ssot/SKILL.md) | documentation, governance, ssot, workflow | `1.1.0` | stable | 执行意图优先 SSOT 完整性审计；v1.1 加 Stage 0 Norms Resolution 路径覆盖。. |
-| [archive-milestone](./archive-milestone/SKILL.md) | governance, lifecycle, archive, milestone | `1.1.0` | stable | 将已完成里程碑归档为精简快照，减少历史文档对 AI 上下文的污染；默认 dry-run，apply=true 时执行。. |
-| [audit-docs](./audit-docs/SKILL.md) | documentation, governance, orchestration, ssot, workflow | `2.2.0` | mature | 以只读方式编排文档治理审计；加未归档完成里程碑检测，路由 archive-milestone。. |
-| [automate-tests](./automate-tests/SKILL.md) | automation, devops | `1.0.0` | stable | 安全发现并执行仓库测试命令；基于证据选择命令并设安全护栏。. |
-| [automate-repair](./automate-repair/SKILL.md) | automation, devops, optimization | `1.1.0` | stable | 迭代审查变更、运行自动化测试并实施定向修复，直至问题解决或满足停止条件。. |
-| [auto-iterate](./auto-iterate/SKILL.md) | automation, meta-skill, workflow | `2.0.0` | stable | 单步治理执行器——读取 plan-next 路由输出，执行最高优先级动作，发出继续信号以支持 /loop 全自动推进。. |
-| [plan-next](./plan-next/SKILL.md) | automation, meta-skill, workflow | `13.1.1` | mature | 盘点治理输入源并输出下一步技能路由——只读，永不执行下游；含漂移巡检、卫生巡检与 chains_to 自动展开；深度优先遍历目标链（战略目标→路线图→需求→设计→任务→完成），完成判定只看任务 status 字段。. |
-| [define-mission](./define-mission/SKILL.md) | documentation, workflow | `1.3.0` | stable | 定义项目或组织的根本目的；v1.3 加 Stage 0 Norms Resolution 路径覆盖。. |
-| [define-vision](./define-vision/SKILL.md) | documentation, workflow | `1.3.0` | stable | 定义项目旨在创造的长远未来；v1.3 加 Stage 0 Norms Resolution 路径覆盖。. |
-| [define-north-star](./define-north-star/SKILL.md) | documentation, workflow | `1.2.0` | stable | 定义代表向用户交付核心价值的单一最重要指标；v1.2 加 Stage 0 Norms Resolution 路径覆盖。. |
-| [design-strategic-goals](./design-strategic-goals/SKILL.md) | documentation, workflow | `1.2.0` | stable | 定义 3–5 个推动项目走向 vision 与 North Star 的长期战略目标；v1.2 加 Stage 0 Norms Resolution 路径覆盖。. |
-| [define-roadmap](./define-roadmap/SKILL.md) | documentation, strategy, workflow | `3.2.0` | mature | 从战略目标推导路线图，包含里程碑、关键举措、成功指标、推进条件与容量分配；v3.2 加 Stage 0 Norms Resolution 路径覆盖。. |
-| [define-strategic-pillars](./define-strategic-pillars/SKILL.md) | documentation, workflow | `1.1.0` | stable | 从 vision 与 North Star 推导 3–5 个战略支柱；v1.1 加 Stage 0 Norms Resolution 路径覆盖。. |
-| [investigate-root-cause](./investigate-root-cause/SKILL.md) | optimization, workflow | `1.0.0` | stable | 系统性根因调试：investigate → analyze → hypothesize → implement。铁律：无根因不修复。适用于报错、异常行为、故障排查。. |
-| [sync-release-docs](./sync-release-docs/SKILL.md) | documentation, workflow | `1.0.0` | stable | 发版后同步项目文档：交叉引用 diff，更新 README/ARCHITECTURE/CONTRIBUTING/CLAUDE.md，润色 CHANGELOG，清理 TODOS。发版后或 PR 合并后建议使用。. |
-| [tidy-repo](./tidy-repo/SKILL.md) | repository, workflow, cleanup, structure | `1.3.0` | stable | 一次性审计仓库目录结构并输出优先级整理报告；v1.3 加 Stage 0 Norms Resolution——整理操作尊重项目声明的 artifact path_pattern。. |
-| [warn-destructive-commands](./warn-destructive-commands/SKILL.md) | security, workflow | `1.0.0` | stable | 在破坏性命令执行前发出警告。检查 Bash 命令中的 rm -rf、DROP TABLE、force-push、git reset --hard、kubectl delete 等模式。用户可覆盖每次警告。适用于接触生产、调试线上或共享环境。. |
-| [deliver-feature](./deliver-feature/SKILL.md) | git, workflow, automation | `1.0.0` | validated | 在 linked worktree 内将当前 feature 分支交付到 main——以 --no-ff 合并、推送，并可选清理本 worktree，全程不离开当前目录。 |
-| [integrate-worktrees](./integrate-worktrees/SKILL.md) | git, workflow, automation | `1.0.0` | validated | 在主仓库 main 分支扫描所有 linked worktree，让用户多选后顺序 --no-ff 合并并推送，最后统一清理成功项。 |
-| [prioritize-backlog](./prioritize-backlog/SKILL.md) | automation, meta-skill, workflow | `2.0.0` | validated | 对全部 backlog 条目强制重评（忽略原 priority），并行跑 RICE / WSJF / MoSCoW / ICE 四框架；自动适配多文件目录或单文件 backlog 形态；surface 分歧并按形态写回 priority_decision（含 previous 旧值快照）。 |
-| [promote-roadmap-items](./promote-roadmap-items/SKILL.md) | automation, meta-skill, workflow | `1.0.0` | validated | 按 strategic_goal 容量分配把已评分 backlog 条目晋升进 roadmap 的 Now/Next/Later；事件驱动；更新 roadmap 和条目 status。 |
-
----
-
-## 4. 调度与扩展
-
-调度技能时，Agent 应先解析 `INDEX.md` 以理解能力图。按 `description`、`tags`、`triggers` 语义匹配技能；链式调用时遵循各技能 prose 中的 Handoff Point 与 Scope Boundaries。细则见 [docs/guides/discovery-and-loading.md](../docs/guides/discovery-and-loading.md)。
+- [archive-milestone](./archive-milestone/SKILL.md) — Archive a completed milestone by generating a snapshot summary, folding the roadmap stage, and removing the stale tasks directory.
+- [automate-tests](./automate-tests/SKILL.md) — Discover and execute repository test commands safely with evidence-based command selection and safety guardrails.
+- [capture-work-items](./capture-work-items/SKILL.md) — Capture requirements, bugs, or issues from free-form input into structured, persistent artifacts. Use when user wants to record a work item quickly without deep validation.
+- [commit-work](./commit-work/SKILL.md) — Create high-quality git commits with clear messages and logical scope. Core goal - produce reviewable commits following Conventional Commits format with pre-commit quality checks.
+- [decontextualize-text](./decontextualize-text/SKILL.md) — Convert text with private context or internal dependencies into generic, unbiased expressions that are standalone and reusable. Core goal - produce decontextualized text that preserves logic while removing organizational identifiers. Use for project handoff, open-source prep, methodology abstraction, cross-team sharing.
+- [define-docs-norms](./define-docs-norms/SKILL.md) — Create or update docs/ARTIFACT_NORMS.md from an approved proposal and establish project docs norms as canonical rules.
+- [define-mission](./define-mission/SKILL.md) — Define the fundamental purpose of a project or organization. Answers why the project exists; produces a single mission statement persisted to docs.
+- [define-north-star](./define-north-star/SKILL.md) — Define the single most important metric representing the core value delivered to users. Produces North Star Metric with rationale, optional supporting metrics, and anti-pattern examples; persisted to docs.
+- [define-roadmap](./define-roadmap/SKILL.md) — Derive a strategic roadmap from goals using milestone checkpoints, strategic bets, success metrics, and promotion criteria. Produces a decision-grade roadmap document.
+- [define-strategic-pillars](./define-strategic-pillars/SKILL.md) — Derive 3–5 strategic pillars (high-level themes) from vision and North Star that structure and guide strategic goals and roadmap. Produces a strategic pillars document; persisted to docs.
+- [define-vision](./define-vision/SKILL.md) — Define the long-term future the project aims to create. Answers what future we are building; produces a vision statement aligned with mission, persisted to docs.
+- [deliver-feature](./deliver-feature/SKILL.md) — From inside a linked worktree, deliver the current feature branch into main — merge with --no-ff, push, and optionally clean up the worktree, all without leaving CWD.
+- [design-strategic-goals](./design-strategic-goals/SKILL.md) — Define 3–5 long-term strategic goals that move the project toward the vision and North Star. Produces a goals document aligned with mission, vision, and NSM; persisted to docs.
+- [generate-agent-entry](./generate-agent-entry/SKILL.md) — Write or revise AGENTS.md per embedded output contract to establish project identity, authoritative sources, and behavioral expectations. Use when creating Agent entry for new projects, auditing existing AGENTS.md, or adopting the AI Cortex entry format.
+- [generate-github-workflow](./generate-github-workflow/SKILL.md) — GitHub Actions YAML with embedded output contract: security-first, minimal permissions, version pinning. For CI, release, PR checks. Differs from generic templates by spec compliance and auditability.
+- [generate-standard-readme](./generate-standard-readme/SKILL.md) — Generate lean, high-density README. Sections pruned by value threshold — not fixed count. Primary goal: reader knows what the project is, where to look, and how to use it within 30 seconds.
+- [integrate-worktrees](./integrate-worktrees/SKILL.md) — From the main repo on the main branch, scan all linked worktrees, let the user multi-select, then merge --no-ff + push them sequentially and clean up the succeeded ones together.
+- [orchestrate-code-review](./orchestrate-code-review/SKILL.md) — Orchestrator skill — sequence atomic review-* skills (scope → language → framework → library → cognitive) and aggregate findings into a unified report.
+- [orchestrate-governance-step](./orchestrate-governance-step/SKILL.md) — Orchestrator skill — reads plan-next routing output, executes the highest-priority action, and emits a continuation signal for /loop-driven autopilot.
+- [orchestrate-repair-loop](./orchestrate-repair-loop/SKILL.md) — Orchestrator skill — iteratively review changes, run automated tests, and apply targeted fixes until issues are resolved (or a stop condition is reached).
+- [plan-next](./plan-next/SKILL.md) — Analyze governance state and produce next-action routing plan from existing docs; read-only — never executes downstream skills.
+- [prioritize-backlog](./prioritize-backlog/SKILL.md) — Force a clean re-score of every backlog item with four frameworks (RICE, WSJF, MoSCoW, ICE) in parallel — ignores any existing priority, auto-detects multi-file or single-file backlog layouts, surfaces framework disagreements, and captures the user's final decision with rationale.
+- [promote-roadmap-items](./promote-roadmap-items/SKILL.md) — Promote prioritized backlog items into the roadmap's Now/Next/Later tiers based on strategic_goal capacity allocation and priority scores. Event-driven (not calendar-driven).
+- [refine-skill-design](./refine-skill-design/SKILL.md) — Audit and refactor existing SKILLs to meet spec compliance and LLM best practices. Use when improving drafts, fixing quality, or aligning to spec.
+- [review-architecture](./review-architecture/SKILL.md) — Review code for architecture: module and layer boundaries, dependency direction, single responsibility, cyclic dependencies, interface stability, and coupling. Cognitive-only atomic skill; output is a findings list.
+- [review-codebase](./review-codebase/SKILL.md) — Review given file/dir/repo for current-state code organization: module boundaries, design patterns, cross-module dependencies, tech debt, and interface stability. Scope-only atomic skill; output is a findings list.
+- [review-diff](./review-diff/SKILL.md) — Review only git diff for impact, regression, correctness, compatibility, and side effects. Scope-only atomic skill; output is a findings list for aggregation.
+- [review-dotnet](./review-dotnet/SKILL.md) — Review .NET (C#/F#) code for language and runtime conventions: async/await, nullable, API versioning, IDisposable, LINQ, and testability. Language-only atomic skill; output is a findings list.
+- [review-go](./review-go/SKILL.md) — Review Go code for language and runtime conventions: concurrency, context usage, error handling, resource management, API stability, type semantics, and testability. Language-only atomic skill; output is a findings list.
+- [review-java](./review-java/SKILL.md) — Review Java code for language and runtime conventions: concurrency, exceptions, try-with-resources, API versioning, collections and Streams, NIO, and testability. Language-only atomic skill; output is a findings list.
+- [review-orm-usage](./review-orm-usage/SKILL.md) — Review ORM usage patterns for N+1 queries, connection management, migration safety, transaction handling, and query efficiency. Library-level atomic skill; output is a findings list.
+- [review-performance](./review-performance/SKILL.md) — Review code for performance: complexity, database/query efficiency, I/O and network cost, memory and allocation behavior, concurrency contention, caching, and latency/throughput regressions. Cognitive-only atomic skill; output is a findings list.
+- [review-php](./review-php/SKILL.md) — Review PHP code for language and runtime conventions: strict types, error handling, resource management, PSR standards, namespaces, null safety, generators, and testability. Language-only atomic skill; output is a findings list.
+- [review-powershell](./review-powershell/SKILL.md) — Review PowerShell code for language and runtime conventions: advanced functions, parameter design, error handling, object pipeline behavior, compatibility, and testability. Language-only atomic skill; output is a findings list.
+- [review-python](./review-python/SKILL.md) — Review Python code for language and runtime conventions: type hints, exceptions, async/await, context managers, dependencies, and testability. Language-only atomic skill; output is a findings list.
+- [review-react](./review-react/SKILL.md) — Review React code for component design, hooks correctness, state management, rendering performance, and accessibility. Framework-only atomic skill; output is a findings list.
+- [review-requirements](./review-requirements/SKILL.md) — Review an existing requirements document for quality: problem clarity, testable needs, constraint inventory, scope boundedness, requirement IDs, and open questions. Evaluative atomic skill; output is a findings list.
+- [review-security](./review-security/SKILL.md) — Review code for security: injection, sensitive data, auth, dependencies, config, and crypto. Atomic skill; output is a findings list.
+- [review-sql](./review-sql/SKILL.md) — Review SQL and query code for injection risk, parameterization, indexing and performance, transactions, NULL and constraints, and dialect portability. Language-only atomic skill; output is a findings list.
+- [review-testing](./review-testing/SKILL.md) — Review code for testing: test existence, coverage adequacy, test quality and structure, edge-case and error-path coverage, and test maintainability. Cognitive-only atomic skill; output is a findings list.
+- [review-typescript](./review-typescript/SKILL.md) — Review TypeScript/JavaScript code for type safety, async patterns, error handling, and module design. Atomic skill; output is a findings list.
+- [review-vue](./review-vue/SKILL.md) — Review Vue 3 code for Composition API, reactivity, components, state (Pinia), routing, and performance. Framework-only atomic skill; output is a findings list.
