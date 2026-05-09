@@ -1,6 +1,6 @@
 ---
 name: generate-standard-readme
-description: Generate lean, high-density README. Sections pruned by value threshold — not fixed count. Primary goal: reader knows what the project is, where to look, and how to use it within 30 seconds.
+description: Generate lean, high-density README. Sections pruned by value threshold — not fixed count. Primary goal — reader knows what the project is, where to look, and how to use it within 30 seconds.
 description_zh: 生成高信息密度 README。章节按价值门槛裁剪，非固定数量。首要目标：读者 30 秒内知道项目是啥、去哪看、怎么用。
 tags: [documentation, devops, writing]
 version: 2.1.1
