@@ -28,6 +28,18 @@
 
 向 Agent 说明即可，例如：「在 `~/.claude/skills/ai-cortex`（或 Cursor 对应路径）执行 `git fetch origin && git reset --hard origin/main` 升级到默认分支最新提交」。无需依赖额外重装脚本。
 
+或使用 [`skills` CLI](https://github.com/vercel-labs/skills) 一条命令装/重装到 `~/.agents/skills/` 并自动软链到各 IDE 目录：`npx skills add nesnilnehc/ai-cortex --force`。
+
+### 卸载
+
+打开 Claude Code，粘贴：
+
+> 卸载 AI Cortex：在当前项目 `CLAUDE.md` 中删除安装时新增的「AI Cortex」一节（若存在）；执行 `rm -rf ~/.claude/skills/ai-cortex` 移除克隆目录；移除从 `~/.claude/skills/ai-cortex/rules/` 复制或链接到 IDE 规则目录的文件（若有）。
+
+打开 Cursor Agent，粘贴：
+
+> 卸载 AI Cortex：执行 `rm -rf ~/.cursor/skills/ai-cortex` 移除克隆目录；移除从 `~/.cursor/skills/ai-cortex/rules/` 复制或链接到 `.cursor/rules/` 的文件（若有）；并清理对话或规则中关于 AI Cortex 的约定。
+
 **规则**：将 `rules/` 复制或符号链接到 IDE 的规则目录（如 `.cursor/rules/`）。见 [rules/INDEX.md](rules/INDEX.md)。
 
 **协议**：无需安装；加载方式见 [AGENTS.md](AGENTS.md)（发现与加载、加载策略）。
