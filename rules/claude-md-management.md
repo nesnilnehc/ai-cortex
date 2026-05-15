@@ -3,6 +3,7 @@ artifact_type: rule
 name: claude-md-management
 version: 1.0.0
 scope: 所有层级 CLAUDE.md（个人 / 项目 / 模块）的撰写与维护
+recommended_scope: user
 status: active
 ---
 

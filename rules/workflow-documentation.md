@@ -1,6 +1,9 @@
 ---
 artifact_type: rule
+name: workflow-documentation
+version: 1.0.0
 scope: 所有新建或维护 .md 文档
+recommended_scope: user
 status: active
 ---
 
