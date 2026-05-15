@@ -27,6 +27,8 @@
 
 技能本身遵循 [agentskills.io](https://agentskills.io) 标准格式；本仓库不维护私有 skill 规范。
 
+**canonical 安装路径**：`${XDG_DATA_HOME:-~/.local/share}/ai-cortex`（可被环境变量 `CORTEX_HOME` 覆盖）。Agent 可从此路径直接读取 `specs/`、`protocols/`、`rules/` 源文件，无需额外安装步骤。
+
 ---
 
 ## 3. 行为预期

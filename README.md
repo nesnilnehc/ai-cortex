@@ -10,39 +10,49 @@
 
 ## 📦 安装与使用
 
-**用提示词完成安装与接入**，在编码 Agent（Claude Code、Cursor 等）里粘贴下文，由 Agent 执行克隆、路径放置与项目侧说明。
+### 快速开始
 
-### Claude Code
+```bash
+mkdir -p ~/.local/share
+git clone --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.local/share/ai-cortex
+~/.local/share/ai-cortex/bin/cortex install
+```
 
-打开 Claude Code，粘贴：
+`cortex install` 自动检测已安装的 IDE（Claude Code、Cursor），将 skills 以 symlink 方式接入，将 rules 以 symlink（Claude Code）或 .mdc 转换（Cursor）方式接入。`specs/`、`protocols/` 无需安装——Agent 从 canonical 路径直读。
 
-> 安装 AI Cortex：执行 `git clone --single-branch --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.claude/skills/ai-cortex`。若目录已存在则改为在该目录内执行 `git fetch origin && git reset --hard origin/main`。然后在当前项目的 `CLAUDE.md` 增加一节「AI Cortex」，写明：发现与加载技能时读取 `~/.claude/skills/ai-cortex/skills/INDEX.md`，执行某项技能时加载对应目录下完整 `SKILL.md`；涉及数据契约（制品 frontmatter 字段、状态机、结构定义）时读取 `~/.claude/skills/ai-cortex/specs/INDEX.md`；涉及多方交互流程（投递、协议）时读取 `~/.claude/skills/ai-cortex/protocols/INDEX.md`；长期被动约束（编码规范、文档纪律、ADR 治理等）按 `~/.claude/skills/ai-cortex/rules/INDEX.md` 加载；与本仓库协作时的契约与权威来源以该克隆路径中的 `AGENTS.md` 为准（若当前仓库自带 `AGENTS.md`，以项目内版本约定为准）。完成后根据任务语义从 `skills/INDEX.md` 帮我选用技能。
+### 升级
 
-### Cursor
+```bash
+cortex update
+```
 
-打开 Cursor Agent，粘贴：
+拉取最新提交并重新同步；自动清理已删除 skill/rule 的孤儿链接。
 
-> 安装 AI Cortex：执行 `git clone --single-branch --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.cursor/skills/ai-cortex`。若目录已存在则在该目录内执行 `git fetch origin && git reset --hard origin/main`。之后在对话或规则中约定：需要调用 AI Cortex 能力时，从 `~/.cursor/skills/ai-cortex/skills/<skill-name>/SKILL.md` 载入完整技能正文；涉及数据契约时读取 `~/.cursor/skills/ai-cortex/specs/INDEX.md`；涉及多方交互流程时读取 `~/.cursor/skills/ai-cortex/protocols/INDEX.md`；长期被动约束按 `~/.cursor/skills/ai-cortex/rules/INDEX.md` 加载；入口契约见 `~/.cursor/skills/ai-cortex/AGENTS.md`，技能目录见 `skills/INDEX.md`。
+### 查看状态
 
-### 升级 / 重装
+```bash
+cortex status
+```
 
-向 Agent 说明即可，例如：「在 `~/.claude/skills/ai-cortex`（或 Cursor 对应路径）执行 `git fetch origin && git reset --hard origin/main` 升级到默认分支最新提交」。无需依赖额外重装脚本。
+显示 CORTEX_HOME、当前 commit、各 IDE 链接数量，以及检测到的历史残留。
 
-或使用 [`skills` CLI](https://github.com/vercel-labs/skills) 一条命令装/重装到 `~/.agents/skills/` 并自动软链到各 IDE 目录：`npx skills add nesnilnehc/ai-cortex --force`。
+### 清理历史残留
+
+首次安装前，若本地曾使用其他方式安装过 AI Cortex，可先审查再清理：
+
+```bash
+cortex clean --dry-run   # 只报告，不动手
+cortex clean             # 交互式逐类确认后清理
+```
 
 ### 卸载
 
-打开 Claude Code，粘贴：
+```bash
+cortex uninstall              # 移除 cortex 管理的 symlink 与 .mdc，保留 CORTEX_HOME
+cortex uninstall --remove-home  # 同上，并删除 CORTEX_HOME 目录
+```
 
-> 卸载 AI Cortex：在当前项目 `CLAUDE.md` 中删除安装时新增的「AI Cortex」一节（若存在）；执行 `rm -rf ~/.claude/skills/ai-cortex` 移除克隆目录；移除从 `~/.claude/skills/ai-cortex/rules/` 复制或链接到 IDE 规则目录的文件（若有）。
-
-打开 Cursor Agent，粘贴：
-
-> 卸载 AI Cortex：执行 `rm -rf ~/.cursor/skills/ai-cortex` 移除克隆目录；移除从 `~/.cursor/skills/ai-cortex/rules/` 复制或链接到 `.cursor/rules/` 的文件（若有）；并清理对话或规则中关于 AI Cortex 的约定。
-
-**规则**：将 `rules/` 复制或符号链接到 IDE 的规则目录（如 `.cursor/rules/`）。见 [rules/INDEX.md](rules/INDEX.md)。
-
-**协议**：无需安装；加载方式见 [AGENTS.md](AGENTS.md)（发现与加载、加载策略）。
+设计说明见 [ADR 0010](docs/adr/0010-installation-strategy.md)。
 
 ---
 
