@@ -1,10 +1,13 @@
 ---
 artifact_type: rule
+name: repo-structure-hygiene
+version: 1.0.0
 scope: 审计或自检仓库目录结构时（runtime / linter / CI / 人工执行）
+recommended_scope: user
 status: active
 ---
 
-# 仓库结构卫生规则
+# Rule: 仓库结构卫生（Repository Structure Hygiene）
 
 > 仓库目录结构的硬约束集合。运行时（AgentFabric / linter / CI / 人工）按本规则执行检测；本规则只规定判据，不规定如何检测。
 >

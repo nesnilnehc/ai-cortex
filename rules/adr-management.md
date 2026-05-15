@@ -3,6 +3,7 @@ artifact_type: rule
 name: adr-management
 version: 1.0.0
 scope: docs/adr/ 下的所有 ADR 文档
+recommended_scope: user
 status: active
 ---
 

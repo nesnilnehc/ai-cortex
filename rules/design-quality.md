@@ -1,10 +1,13 @@
 ---
 artifact_type: rule
+name: design-quality
+version: 1.0.0
 scope: 评审或自检设计文档时
+recommended_scope: user
 status: active
 ---
 
-# 设计质量规则
+# Rule: 设计质量（Design Quality）
 
 > 5 维评审清单 + spec 合规检查。每条独立可验证。
 >

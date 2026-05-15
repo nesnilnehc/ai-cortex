@@ -1,12 +1,15 @@
 ---
 artifact_type: rule
+name: requirement-quality
+version: 1.0.0
 created_by: ai-cortex
 lifecycle: living
 created_at: 2026-05-09
+recommended_scope: user
 status: active
 ---
 
-# 需求质量规则
+# Rule: 需求质量（Requirement Quality）
 
 > 5 维评审清单 + 协议合规检查。每条独立可验证。
 >

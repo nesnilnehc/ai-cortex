@@ -1,10 +1,13 @@
 ---
 artifact_type: rule
+name: doc-health-criteria
+version: 1.0.0
 scope: 评估或自检文档健康度时（runtime / linter / CI 执行）
+recommended_scope: user
 status: active
 ---
 
-# 文档健康判据规则
+# Rule: 文档健康判据（Document Health Criteria）
 
 > 项目文档"健康"的硬约束集合。运行时（AgentFabric / linter / CI / 人工）按本规则执行检测，本规则不规定如何检测。
 >

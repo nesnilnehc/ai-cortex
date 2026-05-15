@@ -1,10 +1,13 @@
 ---
 artifact_type: rule
+name: task-quality
+version: 1.0.0
 scope: 评审或自检任务列表文档时
+recommended_scope: user
 status: active
 ---
 
-# 任务质量规则
+# Rule: 任务质量（Task Quality）
 
 > 任务列表评审清单 + spec 合规检查。每条独立可验证。
 >
