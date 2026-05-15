@@ -3,7 +3,7 @@ name: orchestrate-repair-loop
 description: Iteratively review changes, run automated tests, and apply targeted fixes until issues are resolved (or a stop condition is reached).
 description_zh: 迭代审查变更、运行自动化测试并实施定向修复，直至问题解决或满足停止条件。
 tags: [automation, devops, optimization]
-version: 1.1.0
+version: 1.1.1
 license: MIT
 recommended_scope: both
 metadata:
@@ -63,8 +63,7 @@ output_schema:
 
 **本技能不负责**：
 
-- 在没有明确用户确认的情况下安装依赖项
-- 无需用户确认即可使用网络或启动 Docker/服务
+- 在未明确确认的情况下安装依赖项、使用网络或启动 Docker/服务
 - 未经用户明确批准的大型重构
 - 修改不相关的同级存储库
 - 在未经用户明确批准的情况下禁用测试、削弱断言或删除覆盖范围
@@ -102,9 +101,9 @@ output_schema:
   - `time_budget` 默认值：“尽力而为”；如果用户提供了时间限制，请严格遵守。
 - **允许的操作**（不清楚时询问；默认为更安全的选择）：
   - 修改存储库文件：**是**（此技能用于修复），但保持最小程度的更改。
-  - 安装依赖项：**否**，无需确认。
-  - 网络访问：**否**，无需确认。
-  - Docker/服务（DB/Redis/等）：**否**，无需确认。
+  - 安装依赖项：**执行前确认**（合理操作，但超出"改代码"的隐含授权范围）。
+  - 网络访问：**执行前确认**（仅用于测试执行所需；闲置时不主动发起）。
+  - Docker/服务（DB/Redis/等）：**执行前确认**（按需启动，测试结束后停止）。
   - 大型重构：**否**，未经确认。
 
 ### 2.迭代循环
@@ -199,7 +198,7 @@ output_schema:
 
 ### 硬边界（Hard Boundaries）
 
-- 未经明确确认，请勿安装依赖项、使用网络、启动 Docker/服务或运行破坏性命令。
+- 超出代码修改范围的操作（安装依赖项、网络请求、启动 Docker/服务）执行前需要明确确认——这些是合理的修复操作，但需要用户知情同意；不要不声不响地执行。
 - 不要要求用户将秘密粘贴到聊天中。更喜欢本地环境文件或文档化的开发流程。
 - 不要通过禁用测试、削弱断言或删除覆盖范围来“修复”，除非用户明确批准并且权衡已记录在案。
 - 避免默认进行大型重构；优先考虑能够解锁正确性的最小补丁。
