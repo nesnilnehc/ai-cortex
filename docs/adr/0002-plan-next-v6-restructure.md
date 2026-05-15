@@ -3,13 +3,12 @@ artifact_type: adr
 created_by: decision-record
 lifecycle: snapshot
 created_at: 2026-04-24
-status: active
+status: accepted
+description: plan-next v6 三步法重构（思路清晰 / 逻辑自洽 / 用户看得懂）
 ---
 
-# ADR 002：plan-next v6 结构重构
+# ADR 0002：plan-next v6 结构重构
 
-**状态**：Accepted
-**日期**：2026-04-24
 **上下文**：`skills/plan-next/` v5.0.0；用户反馈 "思路是否清晰 / 逻辑是否自洽 / 用户是否看得懂"
 
 ## 背景
