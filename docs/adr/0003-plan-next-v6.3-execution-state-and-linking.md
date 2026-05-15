@@ -3,18 +3,17 @@ artifact_type: adr
 created_by: decision-record
 lifecycle: snapshot
 created_at: 2026-04-24
-status: active
+status: accepted
+description: plan-next v6.3 补执行态、roadmap 推进与制品链接
 ---
 
-# ADR 003：plan-next v6.3 执行态覆盖与链接方案现实主义
+# ADR 0003：plan-next v6.3 执行态覆盖与链接方案现实主义
 
-**状态**：Accepted
-**日期**：2026-04-24
-**上下文**：ADR 002 奠定的 plan-next v6.0 三步法上，回补三类实际差距——roadmap 到 design/task 的推进、task 执行态健康、制品间的链接串联方案
+**上下文**：ADR 0002 奠定的 plan-next v6.0 三步法上，回补三类实际差距——roadmap 到 design/task 的推进、task 执行态健康、制品间的链接串联方案
 
 ## 背景
 
-v6.0（ADR 002）重构了输出层语义与三步法，但在"roadmap → requirement/design/task → 代码"的贯穿链上留有三处盲区：
+v6.0（ADR 0002）重构了输出层语义与三步法，但在"roadmap → requirement/design/task → 代码"的贯穿链上留有三处盲区：
 
 1. **推进范围模糊**：矩阵写了 `design-solution` / `analyze-requirements` 等技能，但未说明是对 roadmap 全量推进还是只对 Now tier 推进；实际敏捷/ShapeUp 惯例是 Now 深度优先。
 2. **task 执行态失踪**：S5 "执行中"统一归静默，但 in-progress 超期未动、任务状态与代码不一致、完成未归档等真实发现在 v6 里无路由，造成"执行期 plan-next 几乎无话可说"。
@@ -109,7 +108,7 @@ S5 "执行中"原为统一静默态，现拆为 2×2 交叉：
 
 **中性**：
 - v7.x 将在下游技能栈协同改造后重新评估方案 1 / 3 的可行性（例如 design-solution 的 `path_pattern` 改为支持 `work/<slug>/design.md`）
-- 方案 4 的自动维护机制（ADR 003 未决）若未来需要，可新增 `align-work-item-manifest` 技能或在下游技能中加"登记步骤"
+- 方案 4 的自动维护机制（ADR 0003 未决）若未来需要，可新增 `align-work-item-manifest` 技能或在下游技能中加"登记步骤"
 
 ## 后续跟进（v7.x 候选）
 
@@ -135,7 +134,7 @@ S5 "执行中"原为统一静默态，现拆为 2×2 交叉：
 
 ## 参考
 
-- ADR 002：plan-next v6.0 结构重构
+- ADR 0002：plan-next v6.0 结构重构
 - **`specs/linking-modes.md` v1.0.0**（LINKING_MODES_SPEC_V1，本 ADR 配套产出）——链接模式的权威定义与 6 项枚举
 - `skills/plan-next/SKILL.md` v6.3.0 步骤 2.5 / 2.6 / 2.7
 - `specs/artifact-contract.md`

@@ -9,7 +9,7 @@ status: active
 # ASQM Skill Governance Refactor — 15 阶段实施计划
 
 **日期**：2026-04-28
-**锚点决策**：[ADR 008](../architecture/adrs/008-replace-asqm-with-acceptance-criteria.md)
+**锚点决策**：[ADR 0008](../adr/0008-replace-asqm-with-acceptance-criteria.md)
 
 ## 目标
 
@@ -27,7 +27,7 @@ status: active
 
 | Phase | 目标 | 输出 | 依赖 |
 |-------|------|------|------|
-| 1 | 写入 ADR 008（完全移除语义） | `docs/architecture/adrs/008-*.md` | — |
+| 1 | 写入 ADR 0008（完全移除语义） | `docs/adr/0008-*.md` | — |
 | 2 | curate-skills 自身改造 | `skills/curate-skills/{SKILL.md, agent.yaml, README.md}` | 1 |
 | 3 | 62 个 skill agent.yaml 批量手术 | 62 文件删除 14 行 + 新增 acceptance_criteria | 2 |
 | 4 | refine-skill-design 同步更新 | `skills/refine-skill-design/SKILL.md` | 1 |
@@ -120,7 +120,7 @@ status: active
 ### Phase 7 — 历史设计文档注释
 
 `docs/designs/2026-03-02-*.md` 和 `2026-03-06-*.md` 头部追加：
-> 注：本文档中 ASQM 评分体系已于 2026-04-28 由 [ADR 008](../architecture/adrs/008-replace-asqm-with-acceptance-criteria.md) 退役。
+> 注：本文档中 ASQM 评分体系已于 2026-04-28 由 [ADR 0008](../adr/0008-replace-asqm-with-acceptance-criteria.md) 退役。
 
 不重写正文（snapshot 类文档保持时间冻结）。
 

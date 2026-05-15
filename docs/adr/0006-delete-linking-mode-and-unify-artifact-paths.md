@@ -3,13 +3,12 @@ artifact_type: adr
 created_by: decision-record
 lifecycle: snapshot
 created_at: 2026-04-25
-status: active
+status: accepted
+description: 彻底删除 linking_mode 内容并统一需求/设计/任务路径
 ---
 
-# ADR 006：彻底删除 linking_mode 相关内容 + 统一需求/设计/任务路径（v9.0.0）
+# ADR 0006：彻底删除 linking_mode 相关内容 + 统一需求/设计/任务路径（v9.0.0）
 
-**状态**：Accepted
-**日期**：2026-04-25
 **上下文**：v8.0.0 回撤了 linking_mode 的运行时消费，但仍以"废弃"保留了大量引用；用户要求**彻底删除**所有 linking_mode 内容，同时指出 analyze-requirements / design-solution / breakdown-tasks 的输出路径不统一（前两个在顶级目录，tasks 嵌套在 process-management 下；前一个无日期前缀，后两个有 YYYY-MM-DD 前缀）
 
 ## 背景

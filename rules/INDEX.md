@@ -37,6 +37,7 @@
 | [task-quality](./task-quality.md) | content | 任务列表的字段、依赖、可追溯性评审与 spec 合规检查。 | 评审任务列表时 |
 | [doc-health-criteria](./doc-health-criteria.md) | content | 文档健康判据集合（规范合规、链接图、SSOT、代码对齐、层级就绪度）。 | runtime / linter / CI 检测文档健康时 |
 | [repo-structure-hygiene](./repo-structure-hygiene.md) | workflow | 仓库目录结构卫生（错放、命名、空目录、过期制品）。 | 审计或自检仓库结构时 |
+| [adr-management](./adr-management.md) | workflow | ADR 写作纪律：准入门槛（两问验证）、状态字段强制（5 值枚举）、衰减政策（12 月归档 / 6 月可删 / ADR 例外不删）、与 decisions 边界。 | 写或维护 ADR 时 |
 
 ---
 

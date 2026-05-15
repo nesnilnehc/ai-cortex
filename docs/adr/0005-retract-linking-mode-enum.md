@@ -3,13 +3,12 @@ artifact_type: adr
 created_by: decision-record
 lifecycle: snapshot
 created_at: 2026-04-25
-status: active
+status: accepted
+description: 回撤 linking_mode 枚举字段（认定为过度工程）
 ---
 
-# ADR 005：回撤 linking_mode 枚举字段（v8.0.0）
+# ADR 0005：回撤 linking_mode 枚举字段（v8.0.0）
 
-**状态**：Accepted
-**日期**：2026-04-25
 **上下文**：v7.0.0 发布次日用户连续三次质询 linking_mode 的必要性；回顾其他 AI 代理系统无同类设计；认定 v7.0 过度工程
 
 ## 背景

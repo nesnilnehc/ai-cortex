@@ -130,7 +130,7 @@ skills/archive-milestone/
 ```
 ADR 状态完整性检查（v1.4 起）：
 
-扫描范围：docs/process-management/decisions/*.md（或项目实际 ADR 路径）
+扫描范围：docs/adr/*.md（或项目实际 ADR 路径）
 
 违规类型：
 - V1: status=superseded 但缺 superseded_by 字段

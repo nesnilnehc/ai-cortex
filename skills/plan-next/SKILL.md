@@ -65,7 +65,7 @@ output_schema:
 |---|---|---|---|
 | 意图层 | **Why** | `docs/project-overview/{mission,vision,north-star,strategic-goals,strategic-pillars}.md` | — |
 | 意图层 | **What/When** | `docs/process-management/{roadmap,backlog/}.md`、`docs/requirements/`、`docs/tasks/` | 路线图 → 节点状态；tasks/ → `status` |
-| 意图层 | **How** | `docs/architecture/adrs/`、`docs/designs/` | `status` |
+| 意图层 | **How** | `docs/adr/`、`docs/designs/` | `status` |
 | 实施层 | **Is** | 仓库代码 | — |
 | 元规则层 | **Rules** | `docs/ARTIFACT_NORMS.md`、`specs/`、`protocols/`、`rules/` | — |
 

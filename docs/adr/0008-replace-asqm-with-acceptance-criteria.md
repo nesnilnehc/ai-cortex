@@ -3,13 +3,11 @@ artifact_type: adr
 created_by: decision-record
 lifecycle: snapshot
 created_at: 2026-04-28
-status: active
+status: accepted
+description: 用 Acceptance Criteria 替代 ASQM 量化分数决定 Skill status
 ---
 
-# ADR 008：用 Acceptance Criteria 替代 ASQM 分数决定 Skill Status
-
-**状态**：Accepted
-**日期**：2026-04-28
+# ADR 0008：用 Acceptance Criteria 替代 ASQM 分数决定 Skill Status
 
 ## 背景
 

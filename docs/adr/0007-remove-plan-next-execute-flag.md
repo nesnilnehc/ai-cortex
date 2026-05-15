@@ -3,13 +3,12 @@ artifact_type: adr
 created_by: decision-record
 lifecycle: snapshot
 created_at: 2026-04-25
-status: active
+status: accepted
+description: 移除 plan-next 的 execute 参数（导航不开车）
 ---
 
-# ADR 007：移除 plan-next 的 `execute` 参数（v9.0.0）
+# ADR 0007：移除 plan-next 的 `execute` 参数（v9.0.0）
 
-**状态**：Accepted
-**日期**：2026-04-25
 **上下文**：plan-next v8.1 的 `execute=true` 模式实际上是空头支票——文档只一句"按推荐顺序串调下游"，没定义错误处理、重试、并行、检查点等执行引擎语义；同时与"导航不开车"的 stateless / read-only 定位冲突
 
 ## 背景

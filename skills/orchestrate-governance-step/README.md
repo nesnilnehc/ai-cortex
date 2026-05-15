@@ -43,4 +43,4 @@
 ## 参考
 
 - `skills/plan-next/SKILL.md` — 诊断层
-- `docs/architecture/adrs/007-remove-plan-next-execute-flag.md` — 三层模型决策
+- `docs/adr/0007-remove-plan-next-execute-flag.md` — 三层模型决策

@@ -40,7 +40,7 @@ status: active
 
 | 内容性质 | 推荐路径 |
 |----|----|
-| 架构决策记录 | `docs/architecture/adrs/NNN-{topic}.md` |
+| 架构决策记录 | `docs/adr/NNNN-{topic}.md` |
 | 设计文档 | `docs/designs/YYYY-MM-DD-{slug}.md` |
 | 长期使用指引 | `docs/guides/{slug}.md` |
 | 参考资料 | `docs/references/{slug}.md` |

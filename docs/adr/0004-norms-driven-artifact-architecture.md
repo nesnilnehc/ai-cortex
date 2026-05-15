@@ -3,18 +3,17 @@ artifact_type: adr
 created_by: decision-record
 lifecycle: snapshot
 created_at: 2026-04-24
-status: active
+status: accepted
+description: 规范驱动的制品架构闭环：plan-next 读取契约打通
 ---
 
-# ADR 004：规范驱动的制品架构闭环（v7.0.0）
+# ADR 0004：规范驱动的制品架构闭环（v7.0.0）
 
-**状态**：Accepted
-**日期**：2026-04-24
-**上下文**：ADR 003 登记了 5 项 v7.x 后续跟进工作；用户确认本次一次性全做，并把 plan-next 代码侧的读取契约接上
+**上下文**：ADR 0003 登记了 5 项 v7.x 后续跟进工作；用户确认本次一次性全做，并把 plan-next 代码侧的读取契约接上
 
 ## 背景
 
-v6.3（ADR 002 + ADR 003）建立了 plan-next 的三步法、执行态覆盖、Now tier 作用域、与 `specs/linking-modes.md` 6 项固定链接模式枚举。但 v6.3 留下 **半截闭环**：
+v6.3（ADR 0002 + ADR 0003）建立了 plan-next 的三步法、执行态覆盖、Now tier 作用域、与 `specs/linking-modes.md` 6 项固定链接模式枚举。但 v6.3 留下 **半截闭环**：
 
 1. plan-next 声明了 `artifact_norms_path` / `norms_proposal_path` 作为 frontmatter 输入，**但 Behavior 步骤里没有命令式算法实际读**——死契约
 2. `discover-docs-norms` 不探测链接模式；`define-docs-norms` 不接受 `linking_mode` 字段输入——链接模式枚举**无处落盘**
@@ -54,7 +53,7 @@ v6.3（ADR 002 + ADR 003）建立了 plan-next 的三步法、执行态覆盖、
 
 ### 决策 4：manifest 模式维护机制——新技能 `align-work-item-manifest` v1.0.0（advisory-only）
 
-采纳 ADR 003 讨论的**(b) 新技能**路径，拒绝 (a) 自动登记与 (c) 纯人工：
+采纳 ADR 0003 讨论的**(b) 新技能**路径，拒绝 (a) 自动登记与 (c) 纯人工：
 
 - **拒绝 (a) 自动登记**：会把 manifest 突变逻辑散到 5+ 个产出技能，manifest schema 修改面爆炸
 - **拒绝 (c) 纯人工**：`plan-next` 已把纯人工维护作为 G3 漂移源报告，制度化人工 = 把问题正式化
@@ -81,7 +80,7 @@ v6.3（ADR 002 + ADR 003）建立了 plan-next 的三步法、执行态覆盖、
 
 1. **分散 MINOR 迭代**：拒。见决策 5。
 2. **不让下游技能读规范，保持 path_pattern 硬编码**：拒。项目自定义路径（尤其 colocation）不生效；`ARTIFACT_NORMS.md` 退化为人读参考；plan-next 仍需启发式。
-3. **`linking_mode` 做自由文本，不做枚举**：拒。机器不可消费；discover/define 无明确对象；plan-next 扫描策略模糊。（已在 ADR 003 会话中被用户纠正）
+3. **`linking_mode` 做自由文本，不做枚举**：拒。机器不可消费；discover/define 无明确对象；plan-next 扫描策略模糊。（已在 ADR 0003 会话中被用户纠正）
 4. **每种 linking_mode 一个专门 SKILL**（如 `enable-slug-linking` / `enable-colocation` 等）：拒。会让每个产出技能的选择分支爆炸；不符合"Rules 层最高权威"原则。
 5. **manifest 自动登记写入产出技能**：拒。见决策 4。
 6. **colocation / parent-pointer 推迟到 v7.1 或 v8**：拒。本次已经协同 MAJOR，再延后会让部分用户感到"宣称支持但实际不能用"的挫败。
@@ -132,8 +131,8 @@ grep "spec_version" manifest.json
 
 ## 参考
 
-- ADR 002：plan-next v6.0 结构重构
-- ADR 003：plan-next v6.3 执行态 + 链接模式识别（5 项 v7.x 工作登记）
+- ADR 0002：plan-next v6.0 结构重构
+- ADR 0003：plan-next v6.3 执行态 + 链接模式识别（5 项 v7.x 工作登记）
 - `specs/artifact-contract.md` v3.0 §8
 - `specs/artifact-norms-schema.md` v1.2
 - `specs/linking-modes.md` v1.0

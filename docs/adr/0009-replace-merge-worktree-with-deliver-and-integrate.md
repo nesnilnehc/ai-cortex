@@ -3,13 +3,11 @@ artifact_type: adr
 created_by: decision-record
 lifecycle: snapshot
 created_at: 2026-05-07
-status: active
+status: accepted
+description: 把 merge-worktree 拆为 deliver-feature + integrate-worktrees
 ---
 
-# ADR 009：用 `deliver-feature` 与 `integrate-worktrees` 替代 `merge-worktree`
-
-**状态**：Accepted
-**日期**：2026-05-07
+# ADR 0009：用 `deliver-feature` 与 `integrate-worktrees` 替代 `merge-worktree`
 
 ## 背景
 
@@ -50,7 +48,7 @@ status: active
 
 ### 替代方案 D：原地扩展 `merge-worktree` 加 worktree 路径
 
-**被拒原因**：扩展后的能力与"merge-worktree"这个偏实现细节的命名彻底脱节——技能名应反映用户意图（deliver / integrate）而非操作对象（worktree）。即使保留命名做扩展，也违反 ADR 008 后确立的"职责单一、可验收"原则——一个技能两条上下文路径意味着两套 acceptance_criteria，与"原子技能"定位冲突（详见替代方案 A）。
+**被拒原因**：扩展后的能力与"merge-worktree"这个偏实现细节的命名彻底脱节——技能名应反映用户意图（deliver / integrate）而非操作对象（worktree）。即使保留命名做扩展，也违反 ADR 0008 后确立的"职责单一、可验收"原则——一个技能两条上下文路径意味着两套 acceptance_criteria，与"原子技能"定位冲突（详见替代方案 A）。
 
 ## 迁移路径
 
@@ -63,7 +61,7 @@ status: active
 3. **manifest.json**：移除 `merge-worktree` 条目，新增上述两条
 4. **skills/INDEX.md**：移除 `merge-worktree` 行，新增上述两行
 5. **skills/SKILL_INVENTORY.md**：（历史）曾通过 `node scripts/generate-skill-inventory.mjs` 重新生成；相关脚本已移除
-6. **ADR 004 grep 正则表达式**：将 `merge-worktree` 替换为 `deliver-feature|integrate-worktrees`
+6. **ADR 0004 grep 正则表达式**：将 `merge-worktree` 替换为 `deliver-feature|integrate-worktrees`
 7. （历史）当时以 `npm run verify` 作为收尾校验；本仓库已移除 npm 脚本
 
 ## 后果
@@ -73,7 +71,7 @@ status: active
 - 两个独立技能各自有清晰的职责、acceptance_criteria、handoff——`deliver-feature` 的 acceptance 包括"CWD 全程未离开 worktree"，`integrate-worktrees` 的 acceptance 包括"批量预检后再 merge"，互不混淆
 - `deliver-feature` 通过 `git -C <main-repo>` 解决了"交付时被迫离开 worktree"的核心痛点
 - 命名以用户意图为中心（deliver / integrate），符合 [`specs/skill.md` §1](../../../specs/skill.md) 的 verb-noun 规范
-- 与 ADR 008 的"acceptance-criteria 决定 status"一致，每个技能的 status=validated 由各自可验证条件支撑
+- 与 ADR 0008 的"acceptance-criteria 决定 status"一致，每个技能的 status=validated 由各自可验证条件支撑
 
 **负面 / 风险**：
 
@@ -85,9 +83,9 @@ status: active
 
 - CLI 一键入口（`claude deliver-feature` 不区分上下文自动路由）：若需要，应以 slash command 形式实现，不在 skill 层增加 router
 - 共享合并流程的 Protocol 化：`deliver-feature` 与 `integrate-worktrees` 共用的"pull → merge --no-ff → push"primitive 是 git 命令而非 skill 级逻辑，YAGNI 原则下暂不抽 Protocol；若未来出现第三个调用方再考虑
-- Acceptance criteria 自动执行：与 ADR 008 同范畴的后续工作
+- Acceptance criteria 自动执行：与 ADR 0008 同范畴的后续工作
 
 ## 相关决策
 
-- [ADR 005 / 006](./005-retract-linking-mode-enum.md)：硬删除而非软保留的先例，本 ADR 沿用
-- [ADR 008](./008-replace-asqm-with-acceptance-criteria.md)：用 acceptance_criteria 决定 status，本 ADR 的两个新技能各自填写 ≥1 条
+- [ADR 0005 / 0006](./0005-retract-linking-mode-enum.md)：硬删除而非软保留的先例，本 ADR 沿用
+- [ADR 0008](./0008-replace-asqm-with-acceptance-criteria.md)：用 acceptance_criteria 决定 status，本 ADR 的两个新技能各自填写 ≥1 条

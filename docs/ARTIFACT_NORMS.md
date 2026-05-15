@@ -29,7 +29,7 @@ status: active
 | requirements | `docs/requirements-planning/{topic}.md` | ★★★ | 各主题需求的权威来源 |
 | backlog-item（索引） | `docs/process-management/backlog.md` | ★★ | Backlog 工作条目的索引与导航 |
 | backlog-item（详情） | `docs/process-management/backlog/YYYY-MM-DD-*.md` | ★★ | 工作条目的详细定义 |
-| adr | `docs/process-management/decisions/YYYYMMDD-*.md` | ★★ | 架构决策的权威记录 |
+| adr | `docs/adr/NNNN-{slug}.md` | ★★ | 架构决策的权威记录 |
 | design | `docs/designs/YYYY-MM-DD-*.md` | ★★ | 设计方案的权威定义 |
 
 ### 合规引用规则
@@ -46,8 +46,7 @@ status: active
 | :--- | :--- | :--- | :--- |
 | requirements | docs/requirements-planning/{topic}.md | {topic}.md | snapshot |
 | backlog-item | docs/process-management/backlog/YYYY-MM-DD-{slug}.md | YYYY-MM-DD-{slug}.md | living |
-| adr | docs/process-management/decisions/YYYYMMDD-{slug}.md | YYYYMMDD-{slug}.md | living |
-| adr (architecture) | docs/architecture/adrs/NNN-{slug}.md | NNN-{slug}.md | living |
+| adr | docs/adr/NNNN-{slug}.md | NNNN-{slug}.md | living |
 | design | docs/designs/YYYY-MM-DD-{topic}.md | YYYY-MM-DD-{topic}.md | snapshot |
 | doc-readiness | docs/calibration/doc-readiness.md | doc-readiness.md | living |
 | planning-alignment | docs/calibration/planning-alignment.md | planning-alignment.md | living |
@@ -73,7 +72,7 @@ status: active
 
 | Artifact Type | 时间戳要求 | 格式 | 理由 |
 | :--- | :--- | :--- | :--- |
-| **adr** | REQUIRED | `YYYYMMDD-{slug}` | 架构决策具有"点在时间"的特征，时间戳记录决策时刻 |
+| **adr** | FORBIDDEN | `NNNN-{slug}` | ADR 用 4 位顺序号便于口语引用；决策日期在 frontmatter `created_at` 中 |
 | **design** | REQUIRED | `YYYY-MM-DD-{topic}` | 设计是快照制品，时间戳记录方案版本时刻 |
 | **backlog-item** | REQUIRED | `YYYY-MM-DD-{slug}` | 工作项的创建或分配时刻需要记录 |
 | **roadmap** | FORBIDDEN | 无时间戳 | 路线图是活文档，持续演进；不应标注时间 |
@@ -85,5 +84,6 @@ status: active
 
 ### 设计原则
 
-- **点在时间的制品**（ADR、设计、工作项）→ REQUIRED：需要时间戳记录快照时刻
+- **顺序号制品**（ADR）→ FORBIDDEN：用 4 位顺序号 `NNNN-{slug}` 支持口语引用，时间戳在 frontmatter `created_at`
+- **点在时间的制品**（设计、工作项）→ REQUIRED：需要时间戳记录快照时刻
 - **活文档与持续演进的制品**（路线图、目标、需求、报告）→ FORBIDDEN：时间戳会造成版本混乱

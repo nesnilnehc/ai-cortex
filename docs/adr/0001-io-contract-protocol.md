@@ -3,13 +3,12 @@ artifact_type: adr
 created_by: decision-record
 lifecycle: snapshot
 created_at: 2026-03-24
-status: active
+status: accepted
+description: 定义技能链 I/O 契约：上游产出与下游输入的格式与传递语义
 ---
 
-# ADR 001：技能链 I/O 契约协议
+# ADR 0001：技能链 I/O 契约协议
 
-**状态**：Accepted
-**日期**：2026-03-06
 **上下文**：specs/skill.md v2.1.0，roadmap Layer C（Orchestration & Composition）
 
 ## 背景

@@ -16,13 +16,13 @@
 
 打开 Claude Code，粘贴：
 
-> 安装 AI Cortex：执行 `git clone --single-branch --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.claude/skills/ai-cortex`。若目录已存在则改为在该目录内执行 `git fetch origin && git reset --hard origin/main`。然后在当前项目的 `CLAUDE.md` 增加一节「AI Cortex」，写明：发现与加载技能时读取 `~/.claude/skills/ai-cortex/skills/INDEX.md`，执行某项技能时加载对应目录下完整 `SKILL.md`；与本仓库协作时的契约与权威来源以该克隆路径中的 `AGENTS.md` 为准（若当前仓库自带 `AGENTS.md`，以项目内版本约定为准）。完成后根据任务语义从 `skills/INDEX.md` 帮我选用技能。
+> 安装 AI Cortex：执行 `git clone --single-branch --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.claude/skills/ai-cortex`。若目录已存在则改为在该目录内执行 `git fetch origin && git reset --hard origin/main`。然后在当前项目的 `CLAUDE.md` 增加一节「AI Cortex」，写明：发现与加载技能时读取 `~/.claude/skills/ai-cortex/skills/INDEX.md`，执行某项技能时加载对应目录下完整 `SKILL.md`；涉及数据契约（制品 frontmatter 字段、状态机、结构定义）时读取 `~/.claude/skills/ai-cortex/specs/INDEX.md`；涉及多方交互流程（投递、协议）时读取 `~/.claude/skills/ai-cortex/protocols/INDEX.md`；长期被动约束（编码规范、文档纪律、ADR 治理等）按 `~/.claude/skills/ai-cortex/rules/INDEX.md` 加载；与本仓库协作时的契约与权威来源以该克隆路径中的 `AGENTS.md` 为准（若当前仓库自带 `AGENTS.md`，以项目内版本约定为准）。完成后根据任务语义从 `skills/INDEX.md` 帮我选用技能。
 
 ### Cursor
 
 打开 Cursor Agent，粘贴：
 
-> 安装 AI Cortex：执行 `git clone --single-branch --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.cursor/skills/ai-cortex`。若目录已存在则在该目录内执行 `git fetch origin && git reset --hard origin/main`。之后在对话或规则中约定：需要调用 AI Cortex 能力时，从 `~/.cursor/skills/ai-cortex/skills/<skill-name>/SKILL.md` 载入完整技能正文；入口契约见 `~/.cursor/skills/ai-cortex/AGENTS.md`，目录见 `skills/INDEX.md`。
+> 安装 AI Cortex：执行 `git clone --single-branch --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.cursor/skills/ai-cortex`。若目录已存在则在该目录内执行 `git fetch origin && git reset --hard origin/main`。之后在对话或规则中约定：需要调用 AI Cortex 能力时，从 `~/.cursor/skills/ai-cortex/skills/<skill-name>/SKILL.md` 载入完整技能正文；涉及数据契约时读取 `~/.cursor/skills/ai-cortex/specs/INDEX.md`；涉及多方交互流程时读取 `~/.cursor/skills/ai-cortex/protocols/INDEX.md`；长期被动约束按 `~/.cursor/skills/ai-cortex/rules/INDEX.md` 加载；入口契约见 `~/.cursor/skills/ai-cortex/AGENTS.md`，技能目录见 `skills/INDEX.md`。
 
 ### 升级 / 重装
 
