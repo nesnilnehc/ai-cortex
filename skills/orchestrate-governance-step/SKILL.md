@@ -3,7 +3,7 @@ name: orchestrate-governance-step
 description: Single-step governance executor — reads plan-next routing output, executes the highest-priority action, and emits a continuation signal for /loop-driven autopilot.
 description_zh: 单步治理执行器——读取 plan-next 路由输出，执行最高优先级动作，发出继续信号以支持 /loop 全自动推进。
 tags: [automation, workflow, meta-skill]
-version: 2.0.0
+version: 2.2.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -64,8 +64,9 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 - 内部调用 plan-next 获取路由
 - 从"现在该做"选取最高优先级卡片（`紧急` > `重要` > `缓`）
 - 卡死检测（session 内指纹对比）
-- 人工闸门判断
-- 执行 1 条子技能
+- 人工闸门判断（默认跳过被阻塞卡片并尝试下一条，仅当全部被跳过才输出 blocked）
+- 起草执行计划 + 自审循环（上限 3 轮）
+- 执行 1 条子技能（plan 通过后）
 - 执行后轻量验证
 - 输出 IterationStepReport
 
@@ -108,7 +109,15 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 
 ### 步骤 2：解析路由
 
-从"现在该做"取最高优先级 1 条（`紧急` → `重要` → `缓` → `待执行`）。
+从"现在该做"按优先级排序（`紧急` → `重要` → `缓` → `待执行`），**逐条尝试**直到找到第一条未被 session skip-list 命中且通过步骤 4 人工闸门的卡片。
+
+**Skip-list 机制**：session 内维护一个 skip-list（指纹集合），步骤 4 触发跳过时将当前卡片指纹加入。本步骤遍历时跳过 skip-list 命中的卡片。
+
+**遍历终态**：
+
+- 找到可执行卡片 → 进入步骤 5
+- 所有卡片均被跳过（skip-list 已覆盖全部「现在该做」）→ `continuation_signal: blocked`，报告中列出所有被跳过卡片及其阻塞原因
+- 「现在该做」本身为空 → 进入下方三态判定
 
 **三态判定**（不要把"等执行"误认为"已完成"）：
 
@@ -130,20 +139,57 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 - **相同** → `continuation_signal: stalled`，说明"上次执行后目标卡片未推进"，停止
 - **不同（或首次调用）** → 继续
 
-### 步骤 4：人工闸门
+### 步骤 4：人工闸门（默认跳过，不中止）
 
-以下情形必须暂停，输出说明，设置 `continuation_signal: blocked`：
+以下情形当前卡片视为**被阻塞**，将其指纹加入 session skip-list，**返回步骤 2 尝试下一条**，而不是立即终止 /loop：
 
 - 推荐技能属于创意/战略类：`define-mission`、`design-strategic-goals`、`define-vision`、`define-north-star`、`define-strategic-pillars`
 - 路由卡片完成标志含"受阻时回 plan-next 重评"且当前已触发
 - **路由卡片标签为 `待执行`**：治理就绪、需外部开发执行，无治理技能可调用
 - **首条路由是建立 L1 验收 KPI 数据源**且推荐技能属设计/架构类：需人工确认监控方案，不自动执行
 
-### 步骤 5：执行
+**只有当 skip-list 覆盖了「现在该做」全部卡片时**，才输出 `continuation_signal: blocked`，IterationStepReport 列出全部被跳过项与各自阻塞原因，提示用户人工介入。
 
-调用路由卡片中的"推荐技能"命令（格式：`/skill-name [聚焦点]`）。
+**为什么默认跳过而不是立即停**：/loop 的价值在自动推进所有可自动化的部分；一条创意类卡片若立即停，会让后续 N 条非创意类卡片被无意义阻塞。跳过让非阻塞工作继续流动，需要人工的部分集中汇报。
 
-执行失败且无恢复路径 → `continuation_signal: error`，输出报告，停止。
+### 步骤 5：Plan-first 执行（起草 → 自审循环 → 通过后执行）
+
+定位到可执行卡片后，**不得直接调用推荐技能**。必须先起草执行计划、通过自审，再退出 plan mode 执行。
+
+#### 5.1 起草计划（EnterPlanMode）
+
+进入 plan mode，针对该卡片产出一份执行计划，含：
+
+- **目标**：引用路由卡片的主题 + 完成标志（一字不差）
+- **将调用的子技能命令**：完整 `/skill-name [聚焦点]`
+- **聚焦点的来源**：路由卡片中哪一句话推导出的（防止越界）
+- **预期输出**：将创建/修改的文件路径与关键字段
+- **范围红线**：本步骤 MUST NOT 触碰的文件/范围（防止顺手扩张）
+- **回滚要点**：执行失败时的恢复路径（哪些是新建可直接删、哪些是修改需 git restore）
+
+#### 5.2 计划自审循环（上限 3 轮）
+
+每轮按以下清单核对计划，命中任一缺陷即修订并重审：
+
+| 检查项 | 缺陷判定 |
+|---|---|
+| 目标与路由卡片一致 | 计划目标与卡片主题/完成标志有出入或脱漏 |
+| 单步语义 | 计划隐含执行 ≥ 2 条子技能或 ≥ 2 张卡片 |
+| 聚焦点可溯源 | 聚焦点找不到卡片原文支撑 |
+| 范围红线明确 | 缺「MUST NOT 触碰」段或写得过宽（"不破坏其他文件"不算明确） |
+| 预期输出可验证 | 文件路径/字段未具体化，步骤 6 重跑 plan-next 无锚点对比 |
+| 回滚要点存在 | 修改类操作未声明 git restore 锚点 |
+
+通过判定：**一轮自审 0 缺陷**。
+
+**上限触发**：连 3 轮仍有缺陷 → `continuation_signal: error`，IterationStepReport 列出最后一轮残留缺陷，停止；**不要**带着已知缺陷强行执行。
+
+#### 5.3 执行（ExitPlanMode 后）
+
+自审通过后，退出 plan mode，按计划调用 `/skill-name [聚焦点]`。
+
+- 执行过程中发现计划与现实偏离（如文件已存在、依赖缺失）→ **不要**临场扩张范围；中止执行，输出 `continuation_signal: error`，把偏离点记入报告
+- 执行失败且无恢复路径 → `continuation_signal: error`，输出报告，停止
 
 ### 步骤 6：执行后验证
 
@@ -207,7 +253,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 |---|---|---|
 | `advance` | 动作已完成，治理还有工作 | 继续触发下次 |
 | `done` | 步骤 6 重跑 plan-next 后"现在该做"为空；**禁止基于模型自行推断输出此值** | 停止循环 |
-| `blocked` | 需要人工决策或外部依赖 | 停止循环，等用户介入 |
+| `blocked` | 「现在该做」全部卡片均触发人工闸门或为「待执行」（已逐条尝试跳过后仍无可执行项） | 停止循环，等用户介入 |
 | `stalled` | 同一路由卡片连续 2 次无进展 | 停止循环，报告卡死原因 |
 | `error` | 子技能执行失败且无恢复路径 | 停止循环，报告错误 |
 
@@ -222,7 +268,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 - 后果：REJECT（破坏三层模型的单步语义）
 
 **Rule 2**：战略创意类技能 MUST 触发人工闸门，不得直接执行
-- 验证：推荐技能为 define-mission 等时，报告显示 `blocked`
+- 验证：推荐技能为 define-mission 等时，该卡片加入 session skip-list 并尝试下一条；若全部卡片均被跳过，报告显示 `blocked` 并列出全部阻塞项
 - 后果：REJECT（战略决策不应被自动化）
 
 **Rule 3**：每次调用 MUST 输出合法的 `continuation_signal`
@@ -237,9 +283,17 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 - 验证：IterationStepReport 在输出 `done` 时引用了 plan-next 治理上下文中的 KPI 状态字段（如「引用可见率 85% ≥ 80%（达成）」）；只要 KPI 未达成或数据缺失或含「待执行」卡片，一律不得输出 `done`
 - 后果：REJECT（误把"战略目标 status=approved"当成验收达成，导致 /loop 在不该停时停）
 
-**Rule 6**：检测到「待执行」标签卡片 MUST 输出 `blocked`，MUST NOT 尝试执行或 done
-- 验证：IterationStepReport 中 selected_skill 为空或为 N/A，next_step 含「治理就绪、待外部执行」字样
+**Rule 6**：检测到「待执行」标签卡片 MUST 加入 skip-list 并尝试下一条，MUST NOT 尝试执行或直接 done；仅当全部卡片均被跳过时输出 `blocked`
+- 验证：IterationStepReport 中 selected_skill 在「待执行」卡片上不被填写；最终若 blocked，next_step 含「治理就绪、待外部执行」字样并列出全部被跳过项
 - 后果：REJECT
+
+**Rule 7**：MUST 在执行前进入 plan mode 起草计划并通过自审循环；MUST NOT 直接调用推荐技能
+- 验证：IterationStepReport 含 `plan_reviewed_rounds`（≥1）字段，且最后一轮无残留缺陷；执行失败的偏离点不得作为「计划范围扩张」理由
+- 后果：REJECT（跳过 plan 阶段会让单步语义和范围红线失控，下游难以审计）
+
+**Rule 8**：计划自审 MUST NOT 超过 3 轮；超过即输出 error，不得带缺陷强行执行
+- 验证：`plan_reviewed_rounds ≤ 3`；超过则 `continuation_signal: error` 且 next_step 含残留缺陷列表
+- 后果：REJECT（无界自审会陷入死循环或合理化缺陷）
 
 ### 技能边界（Skill Boundaries）
 
@@ -287,6 +341,43 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 ```
 
 **问题分析**：战略目标内容需要人工判断；自动执行产出低质量战略文档，且用户无感知。
+
+---
+
+### ❌ 错误：一条阻塞项立即停下整个 /loop
+
+```
+1. plan-next → 3 条路由：design-strategic-goals（重要）+ capture-work-items（缓）+ prioritize-backlog（缓）
+2. orchestrate-governance-step 在第 1 条触发人工闸门后直接 blocked，停止 /loop
+3. 后续两条非阻塞卡片本可自动推进，但被白白挂起
+```
+
+**问题分析**：违反默认跳过约束。/loop 应推进所有可自动化项，将阻塞项汇总后再一并交给用户。正确做法：将该卡片加入 session skip-list，返回步骤 2 尝试下一条；只有全部卡片均被跳过时才 `blocked`。
+
+---
+
+### ❌ 错误：跳过 plan mode 直接调用推荐技能
+
+```
+1. 步骤 2 找到 capture-work-items 卡片
+2. 直接调用 /capture-work-items …
+3. 技能顺手"补全"了 3 个看起来相关的字段，超出卡片范围
+```
+
+**问题分析**：违反 Rule 7。没有 plan 阶段把「聚焦点 / 范围红线 / 回滚要点」写下来，子技能在调用中很容易顺手扩张；下游审计无法定位"为什么改了 X"。正确做法：先 EnterPlanMode 起草计划、自审通过、再 ExitPlanMode 执行。
+
+---
+
+### ❌ 错误：自审 5 轮后强行执行带缺陷计划
+
+```
+1. 起草计划 → 自审 1：聚焦点无溯源 → 修订
+2. 自审 2：范围红线缺失 → 修订
+3. 自审 3：仍未补齐回滚要点
+4. 模型判断"剩下的是小问题"，强行执行
+```
+
+**问题分析**：违反 Rule 8。自审上限 3 轮是硬约束；超过即说明计划起草本身有结构性问题（卡片不清晰 / 推荐技能不匹配），应输出 error 交还人工，而不是把"自审失败"合理化为"小问题"。
 
 ---
 
@@ -361,9 +452,17 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 **执行过程**：
 1. 内部调用 plan-next → 主题："登记 M5 阶段新增的 3 项 backlog 条目"，推荐技能：`/capture-work-items`，优先级：缓
 2. 卡死检测：首次调用，无历史指纹 → 继续
-3. 人工闸门：`capture-work-items` 非创意类 → 继续
-4. 执行 `/capture-work-items 把 M5 新发现的 3 项需求登记到 backlog`
-5. 执行后验证：重跑 plan-next → 该卡片消失，"现在该做"仍有 1 条 → advance
+3. 人工闸门：`capture-work-items` 非创意类 → 通过
+4. **进入 plan mode 起草计划**：
+   - 目标：登记 M5 阶段 3 项 backlog 条目（引用卡片主题）
+   - 子技能命令：`/capture-work-items 把 M5 新发现的 3 项需求登记到 backlog`
+   - 聚焦点溯源：卡片描述「M5 巡检发现 3 项需求散落在讨论中」
+   - 预期输出：`backlog/` 目录新增 3 个 markdown，含 frontmatter
+   - 范围红线：MUST NOT 修改既有 backlog 条目；MUST NOT 触碰 `roadmap/`、`requirements/`
+   - 回滚要点：新建文件可 `git clean -f backlog/<new-files>`
+5. **自审循环**：第 1 轮 6 项清单全部通过 → `plan_reviewed_rounds = 1`，退出 plan mode
+6. 执行 `/capture-work-items 把 M5 新发现的 3 项需求登记到 backlog`
+7. 执行后验证：重跑 plan-next → 该卡片消失，"现在该做"仍有 1 条 → advance
 
 **IterationStepReport**：
 
@@ -377,29 +476,62 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
   - 修改后：新增 3 个 backlog 条目文件，含 frontmatter 与摘要
 - **结果**：成功 ✅
 - **下一步**：继续自动推进（还有 1 条待处理项）
-- _（内部）继续信号：advance_
+- _（内部）继续信号：advance；plan_reviewed_rounds: 1_
 ```
 
 ---
 
-### 示例 2：人工闸门阻断——战略目标待定义
+### 示例 2：人工闸门跳过 → 命中下一条非创意类卡片
 
-**场景**：plan-next 路由 `design-strategic-goals`（战略创意类）；orchestrate-governance-step 必须暂停。
+**场景**：plan-next 路由两条：`design-strategic-goals`（重要，战略创意类）+ `capture-work-items`（缓，登记类）。
 
 **执行过程**：
-1. 内部调用 plan-next → 推荐技能：`/design-strategic-goals`，优先级：重要
+1. 内部调用 plan-next → 两条路由
 2. 卡死检测：首次调用 → 继续
-3. 人工闸门：`design-strategic-goals` 属战略创意类 → **触发暂停**
+3. 步骤 2 取最高优先级：`design-strategic-goals`
+4. 步骤 4 人工闸门：属战略创意类 → 加入 skip-list，返回步骤 2
+5. 步骤 2 取下一条：`capture-work-items` 未在 skip-list
+6. 步骤 4 人工闸门：非创意类 → 通过
+7. 步骤 5.1 进入 plan mode 起草计划（同示例 1 六段结构，此处省略）
+8. 步骤 5.2 自审：1 轮通过 → `plan_reviewed_rounds = 1`
+9. 步骤 5.3 退出 plan mode，执行 `/capture-work-items …`
+10. 步骤 6 重跑 plan-next：`capture-work-items` 卡片消失 → `advance`
 
 **IterationStepReport**：
 
 ```
 ## 这次自动推进做了什么
 
-- **做了什么**：识别到战略目标文档缺失，需要补充
-- **为什么要修**：docs/strategic-goals.md 不存在，无法推进后续路线图规划
+- **做了什么**：登记 M5 阶段新增的 3 项 backlog 条目
+- **为什么要修**：战略目标卡片需要人工判断，已跳过；同批次另有可自动执行卡片
+- **结果**：成功 ✅
+- **下一步**：继续自动推进（被跳过待人工：1 条 — `design-strategic-goals`）
+- _（内部）继续信号：advance；plan_reviewed_rounds: 1；本次跳过：[design-strategic-goals]_
+```
+
+---
+
+### 示例 2b：所有路由均被跳过 → blocked
+
+**场景**：plan-next 路由两条，均为战略创意类或「待执行」。
+
+**执行过程**：
+1. plan-next → `define-mission`（重要）+ 一条 `待执行` 卡片
+2. 步骤 2 取 `define-mission` → 步骤 4 加入 skip-list → 返回步骤 2
+3. 步骤 2 取「待执行」卡片 → 步骤 4 加入 skip-list → 返回步骤 2
+4. 「现在该做」全部条目已在 skip-list → 输出 `blocked`
+
+**IterationStepReport**：
+
+```
+## 这次自动推进做了什么
+
+- **做了什么**：扫描了 2 条路由，全部需人工介入
+- **为什么要修**：当前「现在该做」均为创意类或待外部执行，无可自动化项
 - **结果**：需要你来决定 ⚠️
-- **下一步**：需要你决定：战略目标内容需要人工判断与确认，请手动运行 `/design-strategic-goals`，完成后重新运行 `/orchestrate-governance-step`
+- **下一步**：需要你决定：
+  1. `define-mission`：战略类技能，需人工判断，建议手动运行
+  2. 「待执行」卡片：治理就绪，等外部开发执行
 - _（内部）继续信号：blocked_
 ```
 
@@ -480,6 +612,8 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 
 ```yaml
 type: object
+# execution_trace 仅当 continuation_signal ∈ {advance, done} 时必填；
+# blocked / stalled / error 路径未执行子技能，不要求该字段。
 required:
   - report_title
   - action_taken
@@ -517,11 +651,15 @@ properties:
     enum: [advance, done, blocked, stalled, error]
   execution_trace:
     type: object
-    required: [selected_skill, post_check_plan_next_rerun]
+    required: [selected_skill, plan_reviewed_rounds, post_check_plan_next_rerun]
     properties:
       selected_skill:
         type: string
         pattern: "^/[a-z0-9-]+"
+      plan_reviewed_rounds:
+        type: integer
+        minimum: 1
+        maximum: 3
       post_check_plan_next_rerun:
         type: boolean
         const: true
@@ -540,8 +678,18 @@ additionalProperties: false
     "action_taken",
     "result",
     "next_step",
-    "continuation_signal",
-    "execution_trace"
+    "continuation_signal"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "continuation_signal": { "enum": ["advance", "done"] }
+        },
+        "required": ["continuation_signal"]
+      },
+      "then": { "required": ["execution_trace"] }
+    }
   ],
   "properties": {
     "report_title": {
@@ -579,11 +727,17 @@ additionalProperties: false
     },
     "execution_trace": {
       "type": "object",
-      "required": ["selected_skill", "post_check_plan_next_rerun"],
+      "required": ["selected_skill", "plan_reviewed_rounds", "post_check_plan_next_rerun"],
       "properties": {
         "selected_skill": {
           "type": "string",
           "pattern": "^/[a-z0-9-]+"
+        },
+        "plan_reviewed_rounds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3,
+          "description": "计划自审轮数；最后一轮 0 缺陷才允许执行"
         },
         "post_check_plan_next_rerun": {
           "type": "boolean",
@@ -610,9 +764,10 @@ additionalProperties: false
 
 - [ ] 每次调用执行且仅执行 1 条动作
 - [ ] 卡死检测：session 内指纹重复 2 次触发 stalled
+- [ ] 执行前 plan：进入 plan mode 起草计划，自审循环 ≤ 3 轮且最后一轮 0 缺陷才允许执行
 - [ ] 执行后验证：重跑 plan-next 确认目标卡片消失
 - [ ] 步骤 6 是否真正执行了重跑 plan-next？（不接受"自行推断治理完成"替代；备注中不出现自我评估语言）
-- [ ] 人工闸门：战略创意类技能触发 blocked；「待执行」标签卡片触发 blocked
+- [ ] 人工闸门：战略创意类技能与「待执行」卡片默认加入 skip-list 并尝试下一条；仅当「现在该做」全部被跳过才输出 blocked
 - [ ] 每次输出合法的 continuation_signal（advance / done / blocked / stalled / error）
 - [ ] **plan-next 输出的"治理上下文"含 L1 验收 KPI 当前状态**？若否，视为 plan-next 不合规，输出 error 并提示升级
 - [ ] **`done` 信号同时满足三条件**：plan-next 输出"现在该做"为空 + KPI 已达成 + 无「待执行」卡片
