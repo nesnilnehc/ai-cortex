@@ -1,15 +1,15 @@
 ---
 name: plan-next
-description: Analyze governance state and produce next-action routing plan from existing docs; read-only — never executes downstream skills.
-description_zh: 基于现有治理文档分析状态并输出下一步路由计划；只读——不执行下游技能。
+description: Analyze governance state and suggest next actions from existing docs; read-only — never executes downstream skills.
+description_zh: 基于现有治理文档分析状态并给出下一步行动建议；只读——不执行下游技能。
 tags: [workflow, meta-skill, automation]
-version: 13.1.1
+version: 13.3.0
 license: MIT
 recommended_scope: project
 cognitive_mode: interpretive
 metadata:
   author: ai-cortex
-triggers: [plan next, next step, checkpoint, governance, iteration]
+triggers: [plan next, next step, checkpoint, governance, iteration, task done, just finished, what's next, after completing]
 input_schema:
   type: free-form
   description: Governance docs sources, optional scope, optional threshold overrides, optional glossary_path override.
@@ -22,30 +22,30 @@ input_schema:
     glossary_path: auto
 output_schema:
   type: chat
-  description: "Two-section user report (Now do / Also watch) + collapsible Diagnosis section. Each routing card has a TL;DR header (≤30-char quote block), 6 core fields (theme / governance_context as multi-line short-chain ≤25 chars per line / recommended_skill / rationale / completion_marker / priority_label) and 2 optional fields (deferral_cost / onboarding_threshold; omit when info insufficient, never fabricate). User-facing sections are jargon-free: no internal codes (L1-L5, G1-G4, P0-P3), no Chinese translations of those codes, no raw status values (pending/in-progress/done/blocked), no layer names (目标层/Rules 层/etc.), no project codes without natural-language subtitle (T\\d+/M\\d+/Goal \\d+/BL-\\d+/ADR-\\d+ first occurrence must include glossary lookup), no MoSCoW words (Must Have / Should Have), no process slang (前置闸门 / soft-blocked / 兄弟扫描). KPI/threshold first occurrence requires triplet (current/target/benchmark). L5 all-pending multi-task (≥2 independent) renders as multi-card, never merged. Diagnosis section uses 4-column table (level / node / status / inference) and is a technical traceability zone where internal codes are allowed."
+  description: "Adaptive text suggestions + plain Diagnosis section (## heading, always present). Simple situations: 1-2 sentences of prose. Complex situations (≥2 parallel suggestions): structured cards each with TL;DR quote block, governance_context multi-line short-chain (≤25 chars/line), recommended_skill, rationale, completion_marker, priority_label; 2 optional fields (deferral_cost / onboarding_threshold; omit when info insufficient). User-facing sections always jargon-free: no internal codes (L1-L5, G1-G4, P0-P3), no raw status values (pending/in-progress/done/blocked), no project codes without natural-language subtitle (T\\d+/M\\d+/Goal \\d+/BL-\\d+/ADR-\\d+), no MoSCoW words, no process slang. KPI/threshold first occurrence requires triplet (current/target/benchmark). Diagnosis section uses 4-column table and is a technical traceability zone where internal codes are allowed."
 ---
 
 # 技能：计划下一步（Plan Next）
 
-> **角色**：治理入口路由器
-> **WHAT**：按三步法 **扫**（盘点治理资产）→ **诊**（目标树遍历——逐目标深度优先找首个未完成节点，结合并行判定）→ **荐**（产出三节路由报告）
-> **HOW**：只读诊断；单一维度问题（只查已知缺失）直接调专用技能（`define-*` 等）
-> **区别**：本技能仅做路由分发；文档健康检测由 runtime / linter / CI 工具按 `rules/doc-health-criteria.md` 执行
+> **角色**：治理入口顾问
+> **WHAT**：按三步法 **扫**（盘点治理资产）→ **诊**（目标树遍历——逐目标深度优先找首个未完成节点，结合并行判定）→ **荐**（给出下一步行动建议）
+> **HOW**：只读诊断；单一维度问题（只查已知缺失）直接推荐专用技能（`define-*` 等）
+> **区别**：本技能仅给出建议，不执行下游；文档健康检测由 runtime / linter / CI 工具按 `rules/doc-health-criteria.md` 执行
 
 ---
 
 ## 目的与边界
 
-盘点治理输入源并生成下一步行动路由。
+盘点治理输入源并给出下一步行动建议。
 
-**适用时机**：迭代收尾 / 发布前治理路径确认 / 输入源缺失补齐 / 对下一步无头绪时。其他场景见头部 HOW。
+**适用时机**：项目任何阶段均可；**推荐在每次任务完成后执行**，用以确认下一焦点。
 
 ### 边界
 
 | 维度 | 做 | 不做 |
 |---|---|---|
-| 路由 | 输出"现在该做"治理路由建议 | 不充当任务状态 API；不维护任务列表 / 不分配；不记任务历史，不答"本周晋升几条"类时序问题 |
-| 执行 | 只读——产路由建议交用户或外层编排器 | 不自动推进下游；不充当自动化引擎——自动化由外层编排器 + `loop` 组合驱动 |
+| 建议 | 给出下一步行动建议（散文或结构化卡片） | 不充当任务状态 API；不维护任务列表 / 不分配；不记任务历史，不答"本周晋升几条"类时序问题 |
+| 执行 | 只读——建议交用户或外层编排器决策 | 不自动推进下游；不充当自动化引擎——自动化由外层编排器 + `loop` 组合驱动 |
 
 ---
 
@@ -305,9 +305,18 @@ G1-G4 缺口类型用作诊断依据节的子标签。
 - **以后（P2）**：L3-L5 任意层级缺口
 - **可忽略（P3）**：其余次要发现
 
-#### 3.3 每条路由：卡片头 + 6 核心字段 + 2 选填字段
+#### 3.3 输出格式选择
 
-每条路由结构：
+输出格式根据场景自适应：
+
+| 场景 | 推荐格式 |
+|---|---|
+| 单条建议，情况清晰 | **散文**：1-3 句话说清楚做什么、为什么、完成标志 |
+| ≥2 条并列建议，或需要并行 / 收敛判断 | **结构化卡片**（见下方格式） |
+
+**散文格式（简单场景）**：直接用自然语言表述，包含：做什么 → 为什么现在 → 怎么算完成。不需要字段、标签、卡片头。
+
+**结构化卡片格式（复杂场景，≥2 条并列建议时）**：
 
 ```
 **N. [行动名称]** · `优先级标签`
@@ -322,7 +331,7 @@ G1-G4 缺口类型用作诊断依据节的子标签。
 - [选填] 上手门槛：[前置知识 / 文档路径 ≤30 字]
 ```
 
-**主题写法**：一句话说明要做什么、为什么现在做，自然语言，≤30 字（详见 反模式 · 内部术语节）。项目代号必须附自然语言副标题（详见 §3.3.1 + §3.7）。
+**共同约束（散文和卡片均适用）**：无论使用哪种格式，每条建议必须包含：做什么、为什么、可观测的完成标志。项目代号首次出现必须附自然语言副标题（详见 §3.3.1 + §3.7）。
 
 **TL;DR 卡片头写法**：
 
@@ -357,7 +366,7 @@ G1-G4 缺口类型用作诊断依据节的子标签。
 
 任何 KPI / 阈值首次出现必须三件套：
 
-> 格式：`<指标名（口语化解释）>：当前 X / 目标 Y / 参考系 Z`
+> 格式：`[指标名（口语化解释）]：当前 X / 目标 Y / 参考系 Z`
 >
 > 示例：`采纳率（用户主动接受推荐占比）：当前 42% / 目标 ≥70% / 行业 50-65% 算良好`
 
@@ -367,7 +376,7 @@ G1-G4 缺口类型用作诊断依据节的子标签。
 
 > `/skill-name [聚焦点：本次要做什么、范围、关键资产路径或任务 ID]`
 
-提示词要求：说明本次调用的具体聚焦点，包含关键资产路径或任务 ID，≤40 字，可直接复制执行。L5 全 pending"待执行"分支无治理技能可用时，写"（无治理技能；交开发团队按 `<路径>` 实施）"。
+提示词要求：说明本次调用的具体聚焦点，包含关键资产路径或任务 ID，≤40 字，可直接复制执行。L5 全 pending"待执行"分支无治理技能可用时，写"（无治理技能；交开发团队按 `[路径]` 实施）"。
 
 **优先级标签**（由 §3.2 内部优先级映射，"现在该做"节只用标签不用编号）：
 
@@ -413,20 +422,22 @@ G1-G4 缺口类型用作诊断依据节的子标签。
 | P0、P1、P2、P3；现在/下次/以后/可忽略(作优先级标注) | 使用 `紧急` / `重要` / `缓` / `可略` |
 | pending、in-progress、done、blocked（作用户输出原文） | 说"待开始"、"进行中"、"已完成"、"被阻塞" |
 | Rules 层、Why 层、What 层、How 层、Is 层 | 说"规范文件"、"战略文档"、"计划文档"、"设计文档"、"代码实现" |
-| **项目代号裸出**：`T\d+` / `M\d+` / `Goal \d+` / `BL-\d+` / `ADR-\d+` / commit hash 等内部 ID | 首次出现必须附自然语言副标题：`T51（覆盖率仪表盘）` / `M5（混合检索成熟里程碑）`；同卡内后续出现可用裸代号；缺字典见 §3.7 fallback |
+| **项目代号裸出**：`T\d+` / `M\d+` / `Goal \d+` / `BL-\d+` / `ADR-\d+` / commit hash 等内部 ID | 在头部摘要、「现在该做」及「也要留意」节中，首次出现必须附自然语言副标题：`T51（覆盖率仪表盘）` / `M5（混合检索成熟里程碑）`；同卡内后续出现可用裸代号；缺字典见 §3.7 fallback |
 | **MoSCoW 框架词**：Must Have / Should Have / Could Have / Won't Have | 改用"必交项 / 应交项 / 可选项 / 暂不做" |
 | **治理流程黑话**：前置闸门 / 短路 / soft-blocked / 兄弟扫描 / 焦点节点 / all-pending 分支 / 子节点推算 | 用通俗描述："规范文件缺失，先建立"/"等开发者执行"/"同层其他节点扫描结果" |
-| **裸阈值无参考系**：`≥70%` / `P95 ≤30s` / `14 天连续窗口`（只给数字不给参考系） | 改用三件套：`<指标名（口语化解释）>：当前 X / 目标 Y / 参考系 Z`（详见 §3.3 阈值标注） |
+| **裸阈值无参考系**：`≥70%` / `P95 ≤30s` / `14 天连续窗口`（只给数字不给参考系） | 改用三件套：`[指标名（口语化解释）]：当前 X / 目标 Y / 参考系 Z`（详见 §3.3 阈值标注） |
 
 违反本表 = "现在该做"节输出不合格，须重写违规字段，不得保留。
 
-#### 3.4 用户输出两节
+#### 3.4 用户输出结构
+
+> **格式选择**：单条建议可用散文替代下方卡片。以下结构化模板适用于 ≥2 条并列建议的场景。
 
 ````
 # 下一步建议
 
-> **现状**：<客观状态摘要，≤25 字。例：M5 必交项已清，应交项三项待启动>
-> **核心矛盾**：<本期判断卡点，≤30 字。例：采纳率管道在线但样本未达 100，验收暂不可判>
+> **现状**：[客观状态摘要，≤25 字。例：M5 必交项已清，应交项三项待启动]
+> **核心矛盾**：[本期判断卡点，≤30 字。例：采纳率管道在线但样本未达 100，验收暂不可判]
 
 ---
 
@@ -468,8 +479,7 @@ G1-G4 缺口类型用作诊断依据节的子标签。
 
 ---
 
-<details>
-<summary>诊断依据（技术追溯）</summary>
+## 诊断依据（技术追溯）
 
 <!-- 本节为内部追溯区：L1-L5、G1-G4、P0-P3 及状态码（pending/in-progress/done/blocked）在此处允许使用 -->
 
@@ -489,8 +499,6 @@ G1-G4 缺口类型用作诊断依据节的子标签。
 - **漂移巡检结果**：[漂移条目列表；空时写"无"]
 - **卫生巡检结果**：[卫生问题列表；空时写"无"]
 - **字典缺失提示**（若有）：[未命中字典的项目代号列表，建议补 `docs/glossary.md`]
-
-</details>
 ````
 
 #### 3.7 术语字典查表
@@ -625,25 +633,26 @@ Goal 1:
 
 **荐**：
 
-- [ ] 卡片头 + 6 核心字段齐（TL;DR 引用块 + 治理上下文 + 推荐技能 + 依据 + 完成标志 + 主题）
-- [ ] **TL;DR 卡片头**（`> ...` 引用块，≤30 字）每条路由都有，且不与主题字段重复
-- [ ] **治理上下文为多行短链**（每行 ≤25 字），无嵌套括号 >1 层；含 L1 验收 KPI 当前状态
+- [ ] 每条建议包含：做什么、为什么、可观测完成标志（无论散文还是卡片）
+- [ ] **格式选择正确**：单条建议用散文；≥2 条并列建议用结构化卡片
 - [ ] **KPI / 阈值首次出现含三件套**（当前值 / 目标值 / 参考系）；无参考时已标注"项目自定（无外部基准）"
-- [ ] 优先级标签正确映射（紧急 / 重要 / 缓 / 可略 / 待执行）
-- [ ] **L5 全 pending 多任务**（≥2 个独立可启动）渲染为多张并列卡，未合并到单卡
 - [ ] 深度优先（每目标只报树中首缺口）
-- [ ] 并行建议已体现在路由依据中
-- [ ] 多目标合并路由时依据中已列所有目标来源
+- [ ] 并行建议已在文字中说明并行理由
 - [ ] 漂移/卫生条目均在「也要留意」节，未挤占「现在该做」前两位
-- [ ] **暂缓代价 / 上手门槛字段**信息不足时已省略，未填占位文字
+- [ ] **（使用结构化卡片时）** TL;DR 引用块 ≤30 字，不与主题重复
+- [ ] **（使用结构化卡片时）** 治理上下文为多行短链（每行 ≤25 字），含 L1 验收 KPI 当前状态
+- [ ] **（使用结构化卡片时）** 优先级标签正确映射（紧急 / 重要 / 缓 / 可略 / 待执行）
+- [ ] **（使用结构化卡片时）** L5 全 pending 多任务（≥2 个独立可启动）渲染为多张并列卡，未合并
+- [ ] **（使用结构化卡片时）** 暂缓代价 / 上手门槛字段信息不足时已省略，未填占位文字
 
 **输出**：
 
+- [ ] **头部摘要（现状/核心矛盾）≤字数上限**：现状 ≤25 字，核心矛盾 ≤30 字；无项目代号裸出（与「现在该做」节规则一致）
 - [ ] "现在该做"节无编码：L1-L5、G1-G4、P0-P3
 - [ ] "现在该做"节无编码中文对应词：资产缺失、内容不全、真相漂移、完成漂移、追踪漂移、位置错位
 - [ ] "现在该做"节无旧优先级标签：现在/下次/以后/可忽略；优先级统一为 `紧急/重要/缓/可略`
 - [ ] "现在该做"节无英文状态码：pending、in-progress、done、blocked
-- [ ] **"现在该做"节无项目代号裸出**（`T\d+` / `M\d+` / `Goal \d+` / `BL-\d+` / `ADR-\d+`）—— 首次出现均附自然语言副标题
+- [ ] **"现在该做"及「也要留意」节无项目代号裸出**（`T\d+` / `M\d+` / `Goal \d+` / `BL-\d+` / `ADR-\d+`）—— 首次出现均附自然语言副标题
 - [ ] **"现在该做"节无 MoSCoW 词**（Must Have / Should Have / Could Have / Won't Have）
 - [ ] **"现在该做"节无治理流程黑话**（前置闸门 / 短路 / soft-blocked / 兄弟扫描 / 焦点节点 / all-pending 分支 / 子节点推算）
 - [ ] **字典缺失代号已进诊断依据节**标记，未在用户输出节硬塞
@@ -685,9 +694,6 @@ Goal 1:
 
 ##### 诊断依据
 
-<details>
-<summary>展开</summary>
-
 - **项目情况**：有使命愿景但无战略目标，路线图对齐待建立
 
 **判定逻辑**：
@@ -699,8 +705,6 @@ Goal 1:
 
 - **漂移巡检结果**：无
 - **卫生巡检结果**：无
-
-</details>
 
 ### 示例 2：新项目起步（短路场景）
 
@@ -732,9 +736,6 @@ Goal 1:
 
 ##### 诊断依据
 
-<details>
-<summary>展开</summary>
-
 - **项目情况**：规范层缺位，目标树遍历跳过
 
 **判定逻辑**：
@@ -746,8 +747,6 @@ Goal 1:
 
 - **漂移巡检结果**：无
 - **卫生巡检结果**：无
-
-</details>
 
 ### 示例 3：兄弟节点推进 + 并行决策
 
@@ -783,9 +782,6 @@ Goal 1:
 
 ##### 诊断依据
 
-<details>
-<summary>展开</summary>
-
 - **项目情况**：目标 A 处于执行阶段，N1→R1→D1b，任务层缺口
 
 **判定逻辑**：
@@ -800,8 +796,6 @@ Goal 1:
 
 - **漂移巡检结果**：无
 - **卫生巡检结果**：无
-
-</details>
 
 ### 示例 4：路线图未分层
 
@@ -833,9 +827,6 @@ Goal 1:
 
 ##### 诊断依据
 
-<details>
-<summary>展开</summary>
-
 - **项目情况**：路线图存在但未分层，遍历在 L2 停止
 
 **判定逻辑**：
@@ -847,8 +838,6 @@ Goal 1:
 
 - **漂移巡检结果**：无
 - **卫生巡检结果**：无
-
-</details>
 
 ### 示例 5：blocked 触发并行
 
@@ -882,9 +871,6 @@ Goal 1:
 
 ##### 诊断依据
 
-<details>
-<summary>展开</summary>
-
 - **项目情况**：目标 A，N1 下 R1 blocked，R2 pending
 
 **判定逻辑**：
@@ -899,8 +885,6 @@ Goal 1:
 - **被阻塞节点**：R1（等待外部依赖，需人工介入解除）
 - **漂移巡检结果**：无
 - **卫生巡检结果**：无
-
-</details>
 
 ---
 
@@ -953,9 +937,6 @@ Goal 1:
 
 ##### 诊断依据
 
-<details>
-<summary>展开</summary>
-
 - **项目情况**：G1 status=approved（设计完成），验收未达成，KPI 数据源缺失；M5 进行中，任务全 pending
 
 **判定逻辑**：
@@ -970,5 +951,3 @@ Goal 1:
 
 - **漂移巡检结果**：无
 - **卫生巡检结果**：无
-
-</details>

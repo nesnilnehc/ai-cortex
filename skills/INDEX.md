@@ -20,7 +20,7 @@
 - [orchestrate-code-review](./orchestrate-code-review/SKILL.md) — Orchestrator skill — sequence atomic review-* skills (scope → language → framework → library → cognitive) and aggregate findings into a unified report.
 - [orchestrate-governance-step](./orchestrate-governance-step/SKILL.md) — Orchestrator skill — reads plan-next routing output, executes the highest-priority action, and emits a continuation signal for /loop-driven autopilot.
 - [orchestrate-repair-loop](./orchestrate-repair-loop/SKILL.md) — Orchestrator skill — iteratively review changes, run automated tests, and apply targeted fixes until issues are resolved (or a stop condition is reached).
-- [plan-next](./plan-next/SKILL.md) — Analyze governance state and produce next-action routing plan from existing docs; read-only — never executes downstream skills.
+- [plan-next](./plan-next/SKILL.md) — Analyze governance state and suggest next actions from existing docs; read-only — never executes downstream skills.
 - [prioritize-backlog](./prioritize-backlog/SKILL.md) — Force a clean re-score of every backlog item with four frameworks (RICE, WSJF, MoSCoW, ICE) in parallel — ignores any existing priority, auto-detects multi-file or single-file backlog layouts, surfaces framework disagreements, and captures the user's final decision with rationale.
 - [promote-roadmap-items](./promote-roadmap-items/SKILL.md) — Promote prioritized backlog items into the roadmap's Now/Next/Later tiers based on strategic_goal capacity allocation and priority scores. Event-driven (not calendar-driven).
 - [refine-skill-design](./refine-skill-design/SKILL.md) — Audit and refactor existing SKILLs to meet spec compliance and LLM best practices. Use when improving drafts, fixing quality, or aligning to spec.
