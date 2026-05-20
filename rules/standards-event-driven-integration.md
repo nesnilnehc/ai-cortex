@@ -5,6 +5,7 @@ version: 1.0.0
 scope: 跨团队 / 跨独立服务的事件驱动消息通信
 recommended_scope: user
 status: active
+created_at: 2026-05-20
 ---
 
 # Rule: 事件驱动集成纪律
