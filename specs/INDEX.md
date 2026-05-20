@@ -7,4 +7,6 @@
 - [adr-modeling.md](./adr-modeling.md) — ADR 文档的 frontmatter 字段、status 5 值枚举与衰减相关字段
 - [claude-md-modeling.md](./claude-md-modeling.md) — CLAUDE.md（三层级 AI 长期记忆文件）的章节结构、形态要求与层级职责（写作纪律见 [rules/claude-md-management.md](../rules/claude-md-management.md)）
 
+- [event-message-envelope.md](./event-message-envelope.md) — 跨服务异步消息的 CloudEvents-aligned envelope 字段结构、ID 规范、Trace 关联与演化约束（评审流程见 [protocols/event-driven-integration.md](../protocols/event-driven-integration.md)）
+
 术语定义见 [docs/architecture/terminology.md](../docs/architecture/terminology.md)。技能本身遵循 [agentskills.io](https://agentskills.io) 的标准格式。
