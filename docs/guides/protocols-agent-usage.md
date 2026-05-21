@@ -65,7 +65,7 @@ def discover_protocols():
 
 ```yaml
 ---
-id: UNP_SPEC_V1
+id: UNIVERSAL_NOTIFICATION_SPEC_V2
 name: Universal Notification Protocol
 version: 1.0.0
 status: active
@@ -137,7 +137,7 @@ Skill 应在 frontmatter 中声明依赖的协议：
 ---
 name: review-notifications
 protocols:
-  - id: UNP_SPEC_V1
+  - id: UNIVERSAL_NOTIFICATION_SPEC_V2
     version: ">=1.0.0"
   - id: INP_SPEC_V1
     version: ">=1.0.0"
@@ -222,7 +222,7 @@ violations = check_code_against_rules(code, rules)
 │    ↓ 关键词: "通知系统"、"Feishu"、"WeCom"              │
 │                                                          │
 │ 2. 自动加载协议                                          │
-│    ↓ 加载: UNP_SPEC_V1 + INP_SPEC_V1                   │
+│    ↓ 加载: UNIVERSAL_NOTIFICATION_SPEC_V2 + INP_SPEC_V1                   │
 │                                                          │
 │ 3. 分析需求                                              │
 │    ↓ 需要支持 2 个渠道，通知优先级从 P0 到 P3          │
@@ -294,7 +294,7 @@ violations = check_code_against_rules(code, rules)
 name: review-notifications
 description: Review notification code for UNP/INP compliance
 protocols:
-  - id: UNP_SPEC_V1
+  - id: UNIVERSAL_NOTIFICATION_SPEC_V2
     version: ">=1.0.0"
   - id: INP_SPEC_V1
     version: ">=1.0.0"
@@ -313,7 +313,7 @@ protocols:
 name: apply-unp
 description: Refactor code to use UNP objects
 protocols:
-  - id: UNP_SPEC_V1
+  - id: UNIVERSAL_NOTIFICATION_SPEC_V2
     version: ">=1.0.0"
 
 # 运行此 skill 时：
