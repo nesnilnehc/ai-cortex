@@ -40,7 +40,7 @@
 | [adr-management](./adr-management.md) | workflow | ADR 写作纪律：准入门槛（两问验证）、状态字段强制（5 值枚举）、衰减政策（12 月归档 / 6 月可删 / ADR 例外不删）、与 decisions 边界。 | 写或维护 ADR 时 |
 | [claude-md-management](./claude-md-management.md) | workflow | CLAUDE.md 写作纪律：篇幅控制（项目级 ≤300 行）、表达方式、内容禁区、修订原则、自检清单（逐项引用 spec 标尺）。 | 撰写或维护任一层级 CLAUDE.md 时 |
 | [standards-cross-team-contracts](./standards-cross-team-contracts.md) | standards | 跨团队契约文档的 5 约束：单向广播、SemVer + CHANGELOG、文件后缀语义化、目录扁平化、版本号引用。 | 创建或修改 `*-contract.md` 跨团队契约文档时 |
-| [standards-event-driven-integration](./standards-event-driven-integration.md) | standards | 事件驱动集成纪律：5 条致命违规 tripwire + 指向 EME spec 与 EDI protocol 的强制预读。 | 实现跨团队 / 跨服务异步消息（NATS、Kafka、Pulsar 等）时 |
+| [standards-nats-integration](./standards-nats-integration.md) | standards | NATS / JetStream 集成纪律：6 条致命违规 tripwire、原语选型速查、Tolerant Reader、引用 NATS 官方文档与 Services API。 | 使用 NATS / JetStream 进行跨服务通信时 |
 
 ---
 
