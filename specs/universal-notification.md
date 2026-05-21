@@ -1,37 +1,46 @@
 ---
-id: UNP_SPEC_V1
+id: UNIVERSAL_NOTIFICATION_SPEC_V2
 name: Universal Notification Schema
-description: Channel-agnostic spec defining notification object structure (fields, types, validation)
-version: 1.0.0
+description: Channel-agnostic spec defining notification object structure (fields, types, validation). All notifications MUST be expressed as UNP objects before delivery to any channel.
+version: 2.0.0
 status: active
 lifecycle: living
 created_at: 2026-03-25
-scope: >
+scope: |
   Applicable whenever designing or reviewing notification systems.
   All notifications MUST be expressed as UNP objects before delivery to any channel.
-related: [../protocols/im-notification-delivery.md]
+related:
+  - ./spec-modeling.md
+  - ../protocols/im-notification-delivery.md
 ---
 
-# 通用通知规范（UNP Schema）
+# 通用通知规范（UNP）
 
-> **语义层**：定义"是什么"（通知对象的字段结构与校验规则）
->
-> 与 [INP](../protocols/im-notification-delivery.md) 配套：INP 定义"如何"渲染并投递到 IM 渠道
-
----
-
-## 1. 核心原则
-
-- 所有通知必须结构化（JSON），不允许纯文本
-- 通知表达**事件**，而非消息
-- 语义层与投递层必须分离
-- 每条通知必须既机器可读又人可读
+> **数据契约**：定义跨渠道通知对象的字段结构与校验规则
 
 ---
 
-## 2. 必需结构（Schema）
+## 1. 定位与适用范围
 
-### 必填字段
+通用通知规范（Universal Notification Protocol，UNP）是通知制品的**语义层**规范——定义"通知是什么"（字段结构与校验规则）。投递层（如何渲染、如何发到具体渠道）由 [INP](../protocols/im-notification-delivery.md) 承担，两者解耦。
+
+### 1.1 适用与不适用
+
+适用：
+
+- 任何跨渠道（IM、邮件、推送、Webhook 等）的通知系统设计与评审
+- 所有发往用户的通知，在投递到具体渠道前必须先表达为 UNP 对象
+
+不适用：
+
+- 单一渠道的私有消息格式（如 Slack block kit 完整字段）——那是投递层的事
+- 系统日志、审计追踪（不是面向人的通知）
+
+---
+
+## 5. 正文结构契约
+
+### 5.1 必填字段
 
 - `id`
 - `type`
@@ -41,80 +50,59 @@ related: [../protocols/im-notification-delivery.md]
 - `priority`
 - `title`
 
-### 字段定义
+### 5.2 字段定义表
 
-| 字段 | 类型 | 说明 |
-|:---|:---|:---|
-| `id` | string | UUID |
-| `type` | string | 事件名（UPPER_SNAKE_CASE） |
-| `source` | string | 来源系统名 |
-| `timestamp` | string | ISO 8601 时间戳 |
-| `intent` | enum | `info` \| `action_required` \| `approval` \| `alert` |
-| `priority` | enum | `P0` \| `P1` \| `P2` \| `P3` |
-| `severity` | enum（可选） | `critical` \| `high` \| `medium` \| `low` |
-| `title` | string | 通知标题 |
-| `body` | string | 通知正文 |
-| `actor` | object（可选） | `{type, id, name}` |
-| `target` | object（可选） | `{type, id}` |
-| `context` | object（可选） | 环境 / trace / 元数据 |
-| `actions` | array | 当 priority ∈ [P0, P1] 时必填 |
-| `actions[].type` | string | `link` \| `command` |
-| `actions[].label` | string | 按钮文案 |
-| `actions[].url \| command` | string | 链接或命令 |
-| `extensions` | object（可选） | 扩展字段 |
+| 字段 | 类型 | 必填 | 说明 |
+|---|---|---|---|
+| `id` | string | 必 | UUID |
+| `type` | string | 必 | 事件名（UPPER_SNAKE_CASE） |
+| `source` | string | 必 | 来源系统名 |
+| `timestamp` | string | 必 | ISO 8601 时间戳 |
+| `intent` | enum | 必 | `info` / `action_required` / `approval` / `alert` |
+| `priority` | enum | 必 | `P0` / `P1` / `P2` / `P3` |
+| `title` | string | 必 | 通知标题 |
+| `severity` | enum | 可选 | `critical` / `high` / `medium` / `low` |
+| `body` | string | 可选 | 通知正文 |
+| `actor` | object | 可选 | `{type, id, name}` |
+| `target` | object | 可选 | `{type, id}` |
+| `context` | object | 可选 | 环境 / trace / 元数据 |
+| `actions` | array | 条件 | 当 `priority ∈ [P0, P1]` 时必填 |
+| `actions[].type` | string | 条件 | `link` / `command` |
+| `actions[].label` | string | 条件 | 按钮文案 |
+| `actions[].url` / `actions[].command` | string | 条件 | 链接或命令 |
+| `extensions` | object | 可选 | 扩展字段 |
 
----
+### 5.3 字段约束
 
-## 3. 字段约束
+#### 5.3.1 必须有事件类型
 
-### 禁止纯字符串通知
+每条通知必须声明语义化事件类型，`type` 字段为 UPPER_SNAKE_CASE。示例：`BUILD_FAILED`、`DEPLOYMENT_COMPLETE`、`APPROVAL_PENDING`。
 
-直接以字符串发送的通知一律禁止。
+#### 5.3.2 必须有 intent
 
-**禁止的模式**：
+每条通知必须声明 `intent`，明确"为什么通知用户"。
 
-```
-send("...")
-notify("...")
-console.log("alert")
-```
+#### 5.3.3 高优先级必须可操作
 
-### 必须有事件类型
-
-每条通知必须声明语义化事件类型。
-
-### 必须有 intent
-
-每条通知必须声明 `intent`。
-
-### 高优先级必须可操作
-
-P0 和 P1 必须包含 `actions`。
-
-**约束**：
-
-- priority ∈ [P0, P1] → 必须包含 `actions`
-
-### 命名规范
-
-事件类型必须为 UPPER_SNAKE_CASE。
-
-**示例**：`BUILD_FAILED`、`DEPLOYMENT_COMPLETE`、`APPROVAL_PENDING`
+`priority ∈ [P0, P1]` 时必须包含 `actions`——高优先级通知应给出明确动作入口。
 
 ---
 
-## 4. 反模式
+## 6. 反模式
 
+- ❌ 直接以字符串发送通知（`send("...")` / `notify("...")` / `console.log("alert")`）
 - ❌ 把原始日志直接当通知发送
 - ❌ 在业务逻辑里混入渲染（markdown / text）
-- ❌ 在领域代码里硬编码 Slack / 飞书 / 企微
+- ❌ 在领域代码里硬编码 Slack / 飞书 / 企微等具体渠道
 - ❌ 缺少 `priority` 或 `intent`
+- ❌ `priority` 为 P0 / P1 但无 `actions`
+- ❌ `type` 不是 UPPER_SNAKE_CASE（如 `buildFailed`）
 
 ---
 
-## 5. 合规示例
+## 7. 示例
 
-### P0（紧急，含 actions）
+### 7.1 P0 紧急通知（含 actions）
 
 ```json
 {
@@ -136,7 +124,7 @@ P0 和 P1 必须包含 `actions`。
 }
 ```
 
-### P2（普通信息，无 actions）
+### 7.2 P2 普通信息（无 actions）
 
 ```json
 {
@@ -151,3 +139,10 @@ P0 和 P1 必须包含 `actions`。
   "target": { "type": "environment", "id": "staging" }
 }
 ```
+
+---
+
+## 8. 与其他资产关系
+
+- **配套 protocol**：[protocols/im-notification-delivery.md](../protocols/im-notification-delivery.md)（INP）——IM 渠道的渲染与投递流程。UNP 定义"是什么"，INP 定义"如何投递"。
+- **递归基础**：本 spec 自身遵循 [spec-modeling.md](./spec-modeling.md) v2.0.0 的 8 节骨架；跳过 §2（运行时对象无 N 问框架）、§3（无文件命名）、§4（无 frontmatter）
