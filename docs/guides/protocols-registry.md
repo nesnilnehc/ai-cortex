@@ -50,7 +50,7 @@ Agent 启动时只需要知道这个 URL。
 
   "protocols": [
     {
-      "id": "UNP_SPEC_V1",
+      "id": "UNIVERSAL_NOTIFICATION_SPEC_V2",
       "name": "Universal Notification Protocol",
       "version": "1.0.0",
       "domain": "notifications",
@@ -104,7 +104,7 @@ def find_relevant_protocols(task_description, protocols):
 
     # 方式 1：通过关键词匹配
     keywords = {
-        "notification": ["UNP_SPEC_V1", "INP_SPEC_V1"],
+        "notification": ["UNIVERSAL_NOTIFICATION_SPEC_V2", "INP_SPEC_V1"],
         "logging": ["LOG_SPEC_V1"],  # 未来的协议
         "error": ["ERR_SPEC_V1"],    # 未来的协议
     }
@@ -124,7 +124,7 @@ def find_relevant_protocols(task_description, protocols):
 # 使用
 task = "我需要设计一个通知系统"
 protocols = find_relevant_protocols(task, manifest["protocols"])
-# 结果: [UNP_SPEC_V1, INP_SPEC_V1]
+# 结果: [UNIVERSAL_NOTIFICATION_SPEC_V2, INP_SPEC_V1]
 ```
 
 ### 步骤 3：远程加载协议
@@ -176,7 +176,7 @@ for protocol_meta in protocols:
 {
   "protocols": [
     {
-      "id": "UNP_SPEC_V1",
+      "id": "UNIVERSAL_NOTIFICATION_SPEC_V2",
       "version": "1.0.0",
       "canonical_url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/unp.md",
 
@@ -216,7 +216,7 @@ def load_protocol_version(protocol_id, version="latest", manifest=None):
 ```yaml
 # skills/INDEX.md protocols 数组中的每一项
 {
-  "id": "UNP_SPEC_V1",                    # 全局唯一 ID
+  "id": "UNIVERSAL_NOTIFICATION_SPEC_V2",                    # 全局唯一 ID
   "name": "Universal Notification Protocol",
   "description": "Channel-agnostic semantic layer for notifications",
 
@@ -354,7 +354,7 @@ protocols:
 
   # 可选：指定特定版本
   pinned_versions:
-    UNP_SPEC_V1: "1.0.0"
+    UNIVERSAL_NOTIFICATION_SPEC_V2: "1.0.0"
     INP_SPEC_V1: "1.0.0"
 
   # 可选：本地缓存
@@ -372,7 +372,7 @@ protocols:
 ```python
 # Agent 显式加载协议
 registry = ProtocolRegistry("https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/skills/INDEX.md")
-unp = registry.load("UNP_SPEC_V1")
+unp = registry.load("UNIVERSAL_NOTIFICATION_SPEC_V2")
 ```
 
 ### 方式 2：任务自动推断
@@ -381,7 +381,7 @@ unp = registry.load("UNP_SPEC_V1")
 # Agent 根据任务自动发现
 task = "生成一个通知系统"
 protocols = registry.get_relevant_protocols(task)
-# 自动发现 → [UNP_SPEC_V1, INP_SPEC_V1]
+# 自动发现 → [UNIVERSAL_NOTIFICATION_SPEC_V2, INP_SPEC_V1]
 ```
 
 ### 方式 3：Skill 声明
@@ -391,7 +391,7 @@ protocols = registry.get_relevant_protocols(task)
 ---
 name: review-notifications
 protocols:
-  - id: UNP_SPEC_V1
+  - id: UNIVERSAL_NOTIFICATION_SPEC_V2
     version: ">=1.0.0"
   - id: INP_SPEC_V1
     version: ">=1.0.0"
