@@ -1,5 +1,5 @@
 ---
-id: SPEC_MODELING_SPEC_V1
+id: SPEC_MODELING_SPEC_V2
 name: Spec Modeling Schema (Meta-Spec)
 description: Meta-spec defining the structural contract that any spec document must follow — frontmatter contract, body section skeleton, and required/conditional/optional section taxonomy.
 version: 2.0.0
@@ -130,7 +130,7 @@ archived_at: YYYY-MM-DD            # status: archived 时必填
 
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
-| `id` | string | 必 | 格式 `<UPPER_SNAKE>_MODELING_SPEC_V<n>`（如 `ADR_MODELING_SPEC_V1`）；运行时对象类 spec 可省略 `_MODELING_`（如 `UNP_SPEC_V1`） |
+| `id` | string | 必 | 格式 `<UPPER_SNAKE>_MODELING_SPEC_V<n>`（如 `ADR_MODELING_SPEC_V1`）；运行时对象类 spec 可省略 `_MODELING_`（如 `UNIVERSAL_NOTIFICATION_SPEC_V2`） |
 | `name` | string | 必 | 英文 spec 名称 |
 | `description` | string | 必 | 一句话英文摘要（≤ 200 字符） |
 | `version` | string | 必 | SemVer 版本号 |
