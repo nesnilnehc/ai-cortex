@@ -43,12 +43,12 @@ status: active
 
 ### Rule（规则）
 
-> 定义不可逾越的单一约束——每条独立可验证。
+> 定义不可逾越的约束——每条独立可验证。
 
-- **业界对位**：ESLint Rule、Google Style Guide 单条、GDPR Article、Pre-commit hook
-- **核心问题**：这条具体**不能做什么 / 必须做什么**？
-- **典型内容**：单一禁令或必为；可机器或人工逐条核验
-- **特征**：原子、可校验、不带流程
+- **业界对位**：ESLint Rule、Google Style Guide、GDPR、Pre-commit hook
+- **核心问题**：这里具体**不能做什么 / 必须做什么**？
+- **典型内容**：禁令或必为；可机器或人工逐条核验
+- **特征**：可校验、不带流程；一份 rule 文档可承载共享 scope 下的多条约束（如 shell 风格指南），每条独立可验证即可，不要求文档本身原子化
 
 ---
 
@@ -82,9 +82,9 @@ status: active
 ### 3. Spec vs Rule
 
 - 共同点：都可能含约束语句
-- **判别问题**：它定义事物长什么样，还是定义不可越过的具体边界？
-- 结构定义 → Spec；单条边界 → Rule
-- **例**：UNP "通知对象有 7 字段" = Spec；"通知正文不得超 500 字符" 单独抽出来作为 lint 规则 = Rule
+- **判别问题**：它定义事物长什么样，还是约束行为边界？
+- 结构定义 → Spec；行为约束 → Rule（可单条，也可同 scope 多条合订）
+- **例**：UNP "通知对象有 7 字段" = Spec；`standards-shell` 列 8 条 Shell 风格约束 = Rule（多条共享同一 scope）
 
 ### 4. Skill vs Rule
 
