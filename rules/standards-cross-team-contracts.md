@@ -142,7 +142,7 @@ docs/integrations/<x>/clarification/
 
 - **互补 `standards-documentation`**：那条 rule 约束**所有**文档的 frontmatter 必填字段（`artifact_type` / `created_by` / `lifecycle` / `created_at`）；本 rule 只约束**契约类**文档额外的 `contract_version` 与 CHANGELOG。两者并行生效。
 - **互补 `workflow-documentation`**：那条 rule 约束临时文档不要泛滥；本 rule 处理已经决定保留的契约文档怎么演化。
-- **互补 `standards-event-driven-integration`**：那条 rule 约束运行时消息治理（envelope + QoS + DLQ）；本 rule 约束契约文档的写法与版本化。
+- **互补 `standards-nats-integration`**：那条 rule 约束 NATS / JetStream 的运行时消息治理（subject、headers、原语选型）；本 rule 约束契约文档本身的写法与版本化。两者正交，跨团队场景同时生效。
 - **不重叠 `standards-coding`**：`-coding` 是单仓库内的代码规范；本 rule 是跨仓库的协作规范。
 
 ## 落地参考
