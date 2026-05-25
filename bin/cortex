@@ -144,6 +144,15 @@ _translate_rule() {
 _sync() {
   _hdr "Syncing skills and rules..."
 
+  _info "Codex-compatible agents skills path"
+  mkdir -p "$HOME/.agents/skills"
+  for _skill_dir in "$CORTEX_HOME/skills"/*/; do
+    if [ -d "$_skill_dir" ]; then
+      _name=$(basename "$_skill_dir")
+      _link_skill "$_skill_dir" "$HOME/.agents/skills/$_name"
+    fi
+  done
+
   if _has_claude; then
     _info "Claude Code detected"
     mkdir -p "$HOME/.claude/skills" "$HOME/.claude/rules"
@@ -182,7 +191,7 @@ _sync() {
   fi
 
   if ! _has_claude && ! _has_cursor; then
-    _warn "No supported IDEs detected (~/.claude or ~/.cursor)"
+    _warn "No Claude Code or Cursor install detected; synced ~/.agents/skills for Codex-compatible skill discovery"
   fi
 }
 
@@ -190,7 +199,7 @@ _sync() {
 # prune cortex-owned broken symlinks after update
 # ---------------------------------------------------------------------------
 _prune_stale() {
-  for _ide_skills in "$HOME/.claude/skills" "$HOME/.cursor/skills"; do
+  for _ide_skills in "$HOME/.agents/skills" "$HOME/.claude/skills" "$HOME/.cursor/skills"; do
     if [ ! -d "$_ide_skills" ]; then continue; fi
     for _link in "$_ide_skills"/*; do
       if [ -L "$_link" ] && [ ! -e "$_link" ]; then
@@ -216,8 +225,8 @@ _prune_stale() {
     done
   done
 
-  for _cursor_rules in "$HOME/.cursor/rules"; do
-    if [ ! -d "$_cursor_rules" ]; then continue; fi
+  _cursor_rules="$HOME/.cursor/rules"
+  if [ -d "$_cursor_rules" ]; then
     for _mdc in "$_cursor_rules"/*.mdc; do
       if [ ! -e "$_mdc" ]; then continue; fi
       if grep -q "$MARKER" "$_mdc" 2>/dev/null; then
@@ -228,7 +237,7 @@ _prune_stale() {
         fi
       fi
     done
-  done
+  fi
 }
 
 # ---------------------------------------------------------------------------
@@ -245,8 +254,8 @@ _detect_legacy() {
     fi
   done
 
-  # B: broken symlinks in IDE skills dirs
-  for _dir in "$HOME/.claude/skills" "$HOME/.cursor/skills" "$HOME/.claude/rules" "$HOME/.cursor/rules"; do
+  # B: broken symlinks in skill/rule target dirs
+  for _dir in "$HOME/.agents/skills" "$HOME/.claude/skills" "$HOME/.cursor/skills" "$HOME/.claude/rules" "$HOME/.cursor/rules"; do
     if [ ! -d "$_dir" ]; then continue; fi
     for _link in "$_dir"/*; do
       if [ -L "$_link" ] && [ ! -e "$_link" ]; then
@@ -420,7 +429,7 @@ cmd_clean() {
   done
 
   # B: broken symlinks
-  for _dir in "$HOME/.claude/skills" "$HOME/.cursor/skills" "$HOME/.claude/rules" "$HOME/.cursor/rules"; do
+  for _dir in "$HOME/.agents/skills" "$HOME/.claude/skills" "$HOME/.cursor/skills" "$HOME/.claude/rules" "$HOME/.cursor/rules"; do
     if [ ! -d "$_dir" ]; then continue; fi
     for _link in "$_dir"/*; do
       if [ -L "$_link" ] && [ ! -e "$_link" ]; then
@@ -519,6 +528,7 @@ cmd_status() {
 
   printf '\n'
   _info "Detected IDEs:"
+  _info "  Codex-compatible agents path (~/.agents/skills)"
   if _has_claude; then _info "  Claude Code (~/.claude)"; else _info "  Claude Code: not detected"; fi
   if _has_cursor; then _info "  Cursor (~/.cursor)"; else _info "  Cursor: not detected"; fi
 
@@ -529,6 +539,17 @@ cmd_status() {
     if [ -d "$_s" ]; then _skill_count=$((_skill_count + 1)); fi
   done
   _info "  Source: $_skill_count skills in CORTEX_HOME/skills/"
+
+  _present=0
+  _linked=0
+  for _s in "$CORTEX_HOME/skills"/*/; do
+    if [ -d "$_s" ]; then
+      _n=$(basename "$_s")
+      if [ -e "$HOME/.agents/skills/$_n" ]; then _present=$((_present + 1)); fi
+      if [ -L "$HOME/.agents/skills/$_n" ]; then _linked=$((_linked + 1)); fi
+    fi
+  done
+  _info "  Codex-compatible ~/.agents/skills: $_present/$_skill_count present ($_linked symlinked)"
 
   if _has_claude; then
     _linked=0
@@ -616,7 +637,7 @@ cmd_uninstall() {
   _info "Removing cortex-managed symlinks and generated files..."
 
   # Remove cortex-owned skill symlinks
-  for _dir in "$HOME/.claude/skills" "$HOME/.cursor/skills"; do
+  for _dir in "$HOME/.agents/skills" "$HOME/.claude/skills" "$HOME/.cursor/skills"; do
     if [ ! -d "$_dir" ]; then continue; fi
     for _link in "$_dir"/*; do
       if [ -L "$_link" ]; then

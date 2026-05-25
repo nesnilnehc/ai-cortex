@@ -18,7 +18,7 @@ git clone --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.local/share/a
 ~/.local/share/ai-cortex/bin/cortex install
 ```
 
-`cortex install` 自动检测已安装的 IDE（Claude Code、Cursor），将 skills 以 symlink 方式接入，将 rules 以 symlink（Claude Code）或 .mdc 转换（Cursor）方式接入。`specs/`、`protocols/` 无需安装——Agent 从 canonical 路径直读。
+`cortex install` 会将每个 skill 以 symlink 方式接入 `~/.agents/skills/<skill>`，供 Codex 等读取该路径的 Agent 在新会话中发现；同时自动检测已安装的 IDE（Claude Code、Cursor）并同步其专用 skills 路径。rules 以 symlink（Claude Code）或 .mdc 转换（Cursor）方式接入。`specs/`、`protocols/` 无需安装——Agent 从 canonical 路径直读。
 
 ### 升级
 

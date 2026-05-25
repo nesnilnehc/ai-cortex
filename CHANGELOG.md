@@ -4,6 +4,7 @@
 
 ### Added
 - `bin/cortex` POSIX sh script: 5 subcommands (install / update / clean / status / uninstall) for cross-IDE asset management
+- Codex-compatible skill sync via per-skill symlinks under `~/.agents/skills/<skill>`
 - `docs/adr/0010-installation-strategy.md`: decision record for XDG canonical path + bin/cortex strategy
 - `rules/*.md`: added `recommended_scope` field and standardized `# Rule: ...` H1 titles to all 12 rules files
 
