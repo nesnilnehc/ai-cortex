@@ -24,7 +24,7 @@ AI Cortex 承载 4 类资产（skills / rules / specs / protocols）。项目积
 
 - **Canonical 路径**：`${XDG_DATA_HOME:-$HOME/.local/share}/ai-cortex`（遵循 freedesktop.org XDG Base Directory Specification）
 - **脚本**：`bin/cortex`，5 个子命令（install / update / clean / status / uninstall）
-- **skills**：per-skill symlink 到 `~/.claude/skills/<skill>` 和 `~/.cursor/skills/<skill>`（与 Vercel CLI 布局兼容）
+- **skills**：per-skill symlink 到 `~/.agents/skills/<skill>`（Codex-compatible）以及检测到的 IDE 专用路径 `~/.claude/skills/<skill>` / `~/.cursor/skills/<skill>`（与 Vercel CLI 布局兼容）
 - **rules**：Claude Code 用 `.md` symlink；Cursor 自动翻译为 `.mdc`（`recommended_scope: user` → `alwaysApply: true`）
 - **specs / protocols**：不安装，Agent 从 `$CORTEX_HOME` 直读
 - **legacy 清理**：`cortex clean` 命令扫描并清理历史多种安装模式残留
@@ -42,6 +42,7 @@ AI Cortex 承载 4 类资产（skills / rules / specs / protocols）。项目积
 ## 后果 (Consequences)
 
 - Agent 调用安装只需两条命令：`git clone ... $CORTEX_HOME && $CORTEX_HOME/bin/cortex install`
+- Codex 的可用 skill 列表通常在会话启动时注入；安装或更新后需开启新会话才能稳定看到新同步的 AI Cortex skills
 - Vercel CLI 既有安装默认共存不冲突（cortex 检测到非 cortex symlink 会跳过）
 - `cortex uninstall --remove-home` 需要显式 `--remove-home` flag 才删除 CORTEX_HOME，防止误删仓库
 - Cursor `.mdc` 自动生成，源文件 `rules/*.md` 需有 `recommended_scope` 字段和 `# Rule: ...` H1 标题
