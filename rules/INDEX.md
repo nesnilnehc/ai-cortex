@@ -32,9 +32,12 @@
 | [workflow-documentation](./workflow-documentation.md) | workflow | 文档管理约束（最小化、DRY、临时文档命名等）；决策树外移至 docs/guides。 | 新建或维护 .md 文档 |
 | [standards-coding](./standards-coding.md) | standards | 通用编码原则：组织、注释、命名、错误处理、日志、简洁性、复杂度阈值。 | 全库代码 |
 | [standards-shell](./standards-shell.md) | standards | Shell 脚本：严格模式、日志函数、trap、命名与变量引用规范。 | *.sh 脚本 |
+| [standards-test-code](./standards-test-code.md) | standards | 测试代码编码标准：AAA、命名三要素、隔离、确定性、Covers 追溯、mock 克制；不覆盖 QA 业务测试用例。 | 编写或评审 *_test 代码文件 |
 | [requirement-quality](./requirement-quality.md) | content | 需求文档的 5 维评审清单与 spec 合规检查。 | 评审需求文档时 |
 | [design-quality](./design-quality.md) | content | 设计文档的 5 维评审清单与 spec 合规检查。 | 评审设计文档时 |
 | [task-quality](./task-quality.md) | content | 任务列表的字段、依赖、可追溯性评审与 spec 合规检查。 | 评审任务列表时 |
+| [test-case-quality](./test-case-quality.md) | content | QA 业务测试用例文档的 5 维评审清单与 spec 合规检查（不覆盖代码级测试）。 | 评审业务测试用例文档时 |
+| [test-coverage-quality](./test-coverage-quality.md) | content | 测试覆盖评估报告的 5 维评审清单（完整性 / 真实性 / 可解释 / 风险匹配 / 时效追溯）与 spec 合规检查；用例集覆盖评审与跨制品对齐评审使用。 | 评审覆盖评估报告时（发布门禁 / 季度审计 / 上游变更） |
 | [doc-health-criteria](./doc-health-criteria.md) | content | 文档健康判据集合（规范合规、链接图、SSOT、代码对齐、层级就绪度）。 | runtime / linter / CI 检测文档健康时 |
 | [repo-structure-hygiene](./repo-structure-hygiene.md) | workflow | 仓库目录结构卫生（错放、命名、空目录、过期制品）。 | 审计或自检仓库结构时 |
 | [adr-management](./adr-management.md) | workflow | ADR 写作纪律：准入门槛（两问验证）、状态字段强制（5 值枚举）、衰减政策（12 月归档 / 6 月可删 / ADR 例外不删）、与 decisions 边界。 | 写或维护 ADR 时 |
