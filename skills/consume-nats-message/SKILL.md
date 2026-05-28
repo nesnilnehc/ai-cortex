@@ -3,7 +3,7 @@ name: consume-nats-message
 description: Drain pending NATS messages from a producer contract via NATS MCP tools (default batch / drain-style). Applies Tolerant Reader semantics and per-message ack/nak/term, returning aggregated stats. Reads project-level cache (.cortex/nats.yaml) to avoid re-prompting.
 description_zh: 通过 NATS MCP 工具批量拉取并处理 producer 契约下的待处理消息（默认 drain-style：拉至空或达上限）。逐条按 Tolerant Reader 处理 + ack/nak/term，返回聚合结果。读取项目级缓存 .cortex/nats.yaml 免重复询问。
 tags: [nats, messaging, cross-team, consumer, mcp]
-version: 1.0.0
+version: 1.1.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -32,7 +32,7 @@ output_schema:
 **成功标准**：
 
 1. ✅ 项目缓存 `.cortex/nats.yaml` 已读取
-2. ✅ producer 契约已定位（本地 vendored 优先）并通过 `contract_version` 兼容性检查
+2. ✅ producer 契约已定位（本地 vendored 优先）并通过 `contract_version` 兼容性检查；**契约缺失时 Bootstrap 已生成 draft 草稿并经用户确认**
 3. ✅ pull consumer 建立 / 复用（durable name 按缓存前缀命名）
 4. ✅ 循环 fetch 至 `drained` / `cap_reached` / `idle_timeout` 之一
 5. ✅ 每条消息：Tolerant Reader 解码 → 业务处理 → ack 决策正确执行
@@ -48,6 +48,7 @@ output_schema:
 **本技能负责**：
 
 - 读项目缓存 + 加载 producer 契约
+- **契约缺失时的 Bootstrap**：peek 样本 + 推断 schema + 生成 draft 草稿（仅 consumer 自用，不外发）
 - 通过 NATS MCP 建立 / 复用 JetStream pull consumer
 - Drain 循环 + 逐条处理 + 逐条 ack 决策
 - Tolerant Reader 解码
@@ -56,7 +57,8 @@ output_schema:
 
 **本技能不负责**：
 
-- 修改 producer 契约 → consumer 不写 producer 文件
+- 修改 producer 契约 → consumer 不写 producer 文件；Bootstrap 生成的 draft 只是 consumer 本地草稿，不是 producer 的权威契约
+- 将 draft 契约升为 active → 必须由用户审阅、对齐 producer owner 后手动 bump 版本
 - 创建 broker 资源（stream / durable）→ IaC 责任（首次缺则报错指向 IaC owner）
 - 实际业务处理逻辑 → consumer repo 自有代码 / handler；本 Skill 仅协调消息与 ack
 - 长连续 push 订阅 → 不在 Skill 调用模型中（应用层 worker 职责）
@@ -67,7 +69,7 @@ output_schema:
 
 - 已连接 NATS MCP server（提供 `mcp__nats__jetstream_pull_consumer` / `mcp__nats__ack` / `mcp__nats__nak` / `mcp__nats__term` / `mcp__nats__publish` 等工具；具体工具名以连接的 server 为准）
 - 当前工作目录是 consumer repo
-- producer 契约的冻结快照已 vendor 到 consumer repo（推荐）或可访问的契约路径
+- producer 契约的冻结快照已 vendor 到 consumer repo（推荐）或可访问的契约路径——**首次使用可缺失，技能会自动进入阶段 2.5 Bootstrap 生成草稿契约**
 
 ---
 
@@ -90,7 +92,7 @@ output_schema:
 
 1. `<vendor_contracts_dir>/<producer>/<event>-contract.md`（冻结快照，含 `@version` 锚定）
 2. 用户显式提供的契约路径或 URL（含 `@version`）
-3. 都缺 → 提示用户先 vendor 一份冻结快照（违反 [cross-team-contract.md §7 跨 repo 引用约定](../../specs/cross-team-contract.md)），终止
+3. 都缺 → **进入阶段 2.5 Bootstrap**（不终止）
 
 读取契约：
 
@@ -98,6 +100,66 @@ output_schema:
 - 必填 headers 清单
 - payload 字段表
 - QoS / DLQ subject / max_deliver / backoff
+
+### 阶段 2.5：Bootstrap（契约草稿引导，仅首次/契约缺失时执行）
+
+**目的**：契约缺失是协作初期的常态，本阶段以"只读探查 + 推断"方式生成草稿契约，让用户在零先决条件下也能合理启动。**全程不 ack、不改 consumer offset、不修改 broker 状态**。
+
+**前置约束**：
+
+- 仅当阶段 2 未找到契约时触发；阶段 2 找到契约时跳过本阶段
+- 本阶段产物是 `status: draft` 的契约草稿，用户审阅确认前**不进入阶段 5 的正式 drain**
+- 草稿仅供 bootstrap consumer 自用；**不**作为对外权威，不替代 producer 的 SSOT 契约
+
+**步骤**：
+
+1. **列举 broker 拓扑**（peek，不订阅）
+   - 列出所有 stream / subject 及消息计数
+   - 优先级展示：与用户提供的 `producer` 名匹配的 stream（如 `producer=zentao` → `ZENTAO` stream）排前
+   - 若用户未提供 producer 名，按消息计数降序列出
+
+2. **选定目标 subject**
+   - 用户提供了 producer + event → 用 `<producer>.<event>.*` 模式匹配
+   - 仅提供 producer → 列出该 stream 下所有 subject 让用户选
+   - 都没提供 → 列出全部 subject + 计数 + 最近一条样本，让用户选
+
+3. **Peek 样本消息**（不创建 durable，不 ack）
+   - 用 stream get 或 ephemeral consumer 直接读最近 N 条（默认 N=5，可被 `bootstrap_sample_size` 覆盖）
+   - 跨样本归并 headers 键集合与 payload 字段集合，记录每字段的类型与出现率（必填/可选推断依据）
+
+4. **推断 schema**
+   - subject pattern：从样本 subject 抽取版本段（如 `.v1` / `.v2` 后缀）
+   - headers：出现率 100% 的归为"必填"，<100% 归为"可选"；标准 NATS headers（`Nats-Msg-Id` / `Nats-Stream` 等）不进入推断
+   - payload：JSON 字段同上，嵌套对象递归处理；枚举值列出样本中所有 distinct 取值
+   - QoS / max_deliver / DLQ：本阶段无法推断，留 `TBD`
+
+5. **生成草稿契约**
+   - 路径：`<vendor_contracts_dir>/<producer>/<event>-contract.md`
+   - frontmatter 必含：
+     ```yaml
+     contract_version: 0.1.0
+     status: draft
+     inferred_from: bootstrap-peek
+     inferred_at: <ISO 8601>
+     inferred_sample_size: <N>
+     inferred_sample_seq_range: <first>-<last>
+     authoritative: false
+     ```
+   - 正文标题前置警告横幅：
+     > ⚠️ 本契约由 consume-nats-message Bootstrap 模式从 N 条样本消息推断生成，**非权威**。请联系 producer owner 确认字段语义、QoS、DLQ 规则后将 `status` 升为 `active`、`authoritative` 升为 `true`。
+   - `.lock` 写入 `<contract-name>@0.1.0`
+
+6. **请求用户确认**
+   - 向用户展示：草稿路径 + headers 推断表 + payload 推断表 + 待澄清字段（标 `TBD`）
+   - 问：
+     - **(a) 继续正式 drain**：阶段 3 起按草稿契约处理消息（带 ack）
+     - **(b) 只看不动**：终止本次执行，让用户先与 producer owner 对齐契约
+   - 默认无输入 → 选 (b)，避免在 draft 契约下误 ack
+
+**Bootstrap 模式下的版本兼容**：
+
+- `contract_version: 0.1.0` 视为 pre-stable，阶段 3 跳过 MAJOR/MINOR 兼容检查
+- 用户每次确认升级草稿后，应手动 bump 到 1.0.0 并标 `status: active`
 
 ### 阶段 3：版本兼容检查
 
@@ -206,7 +268,8 @@ backlog_hint: |
 |---|---|
 | MCP NATS server 未连接 | 提示检查 MCP 配置 |
 | `.cortex/nats.yaml` 缺失 | 引导补齐 |
-| 契约缺失 / 未 vendor | 终止并提示 vendor 流程 |
+| 契约缺失 / 未 vendor | **进入阶段 2.5 Bootstrap**——peek 样本 + 推断 + 生成 draft 草稿，**不**直接终止 |
+| Bootstrap 推断后用户选(b)只看不动 | 草稿落盘后终止，下次调用阶段 2 即可命中 |
 | Durable consumer 不存在 | 报错指向 IaC owner（违反 spec §5.5.2） |
 | MAJOR 版本漂移 | 终止并提示升级 vendor 快照 |
 | 单条解码失败 | term + DLQ + 写入失败清单，**不中断整批** |
@@ -224,6 +287,9 @@ backlog_hint: |
 - ❌ DLQ 投递不带原 headers / 失败原因 —— 失去运营可见性
 - ❌ 修改 producer 契约 —— consumer 不写 producer 文件；用 backlog 跟踪升级
 - ❌ 持续 push 订阅占据 Skill 调用 —— Skill 是一次性调用，长连续应用层 worker 实现
+- ❌ 契约缺失直接终止 —— 应进入 Bootstrap peek + 推断 draft 草稿（不 ack 不改 offset），不让首次使用门槛过高
+- ❌ Bootstrap 推断的 draft 不标 `status: draft` / `authoritative: false` —— 会被误当权威契约对外引用，污染 SSOT
+- ❌ Bootstrap 中创建 durable consumer / 执行 ack —— 必须只读 peek，避免污染 broker 状态
 
 ---
 
