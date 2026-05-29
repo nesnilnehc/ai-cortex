@@ -19,4 +19,4 @@ status: active
 | 代码审查 | `orchestrate-code-review` | 统一编排多维度代码审查 |
 | 提交交付 | `commit-work` | 生成规范提交并附质量检查 |
 
-> 文档健康检测、SSOT 评估、设计、任务拆解等工作流由 AgentFabric runtime 与 linter / CI 工具承接；判据参考 [rules/doc-health-criteria.md](../../rules/doc-health-criteria.md)、[specs/design-modeling.md](../../specs/design-modeling.md)、[specs/task-modeling.md](../../specs/task-modeling.md)。
+> 文档健康检测、SSOT 评估、设计、任务拆解等工作流由 AgentFabric runtime 与 linter / CI 工具承接；判据参考 [rules/doc-health-criteria.md](../../rules/doc-health-criteria.md)、[specs/functional-design-modeling.md](../../specs/functional-design-modeling.md)、[specs/technical-design-modeling.md](../../specs/technical-design-modeling.md)、[specs/task-modeling.md](../../specs/task-modeling.md)。

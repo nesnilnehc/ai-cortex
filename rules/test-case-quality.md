@@ -87,4 +87,4 @@
 - **数据契约**：[specs/test-case-modeling.md](../specs/test-case-modeling.md)
 - **代码测试编码标准**：[rules/standards-test-code.md](./standards-test-code.md)
 - **上游 spec**：[specs/requirement-modeling.md](../specs/requirement-modeling.md)
-- **同族评审 rule**：[requirement-quality](./requirement-quality.md) / [design-quality](./design-quality.md) / [task-quality](./task-quality.md)
+- **同族评审 rule**：[requirement-quality](./requirement-quality.md) / [functional-design-quality](./functional-design-quality.md) / [technical-design-quality](./technical-design-quality.md) / [task-quality](./task-quality.md)

@@ -1,5 +1,5 @@
 ---
-artifact_type: design
+artifact_type: technical-design
 created_by: design-doc
 lifecycle: snapshot
 created_at: 2026-04-28

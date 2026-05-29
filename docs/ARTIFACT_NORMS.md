@@ -30,7 +30,8 @@ status: active
 | backlog-item（索引） | `docs/process-management/backlog.md` | ★★ | Backlog 工作条目的索引与导航 |
 | backlog-item（详情） | `docs/process-management/backlog/YYYY-MM-DD-*.md` | ★★ | 工作条目的详细定义 |
 | adr | `docs/adr/NNNN-{slug}.md` | ★★ | 架构决策的权威记录 |
-| design | `docs/designs/YYYY-MM-DD-*.md` | ★★ | 设计方案的权威定义 |
+| functional-design | `docs/designs/YYYY-MM-DD-*-functional-design.md` | ★★ | 功能设计方案的权威定义（业务 / 产品视角） |
+| technical-design | `docs/designs/YYYY-MM-DD-*-technical-design.md` | ★★ | 技术设计方案的权威定义（工程视角） |
 
 ### 合规引用规则
 
@@ -47,7 +48,8 @@ status: active
 | requirements | docs/requirements-planning/{topic}.md | {topic}.md | snapshot |
 | backlog-item | docs/process-management/backlog/YYYY-MM-DD-{slug}.md | YYYY-MM-DD-{slug}.md | living |
 | adr | docs/adr/NNNN-{slug}.md | NNNN-{slug}.md | living |
-| design | docs/designs/YYYY-MM-DD-{topic}.md | YYYY-MM-DD-{topic}.md | snapshot |
+| functional-design | docs/designs/YYYY-MM-DD-{topic}-functional-design.md | YYYY-MM-DD-{topic}-functional-design.md | snapshot |
+| technical-design | docs/designs/YYYY-MM-DD-{topic}-technical-design.md | YYYY-MM-DD-{topic}-technical-design.md | snapshot |
 | doc-readiness | docs/calibration/doc-readiness.md | doc-readiness.md | living |
 | planning-alignment | docs/calibration/planning-alignment.md | planning-alignment.md | living |
 | architecture-compliance | docs/calibration/architecture-compliance.md | architecture-compliance.md | living |
@@ -73,7 +75,8 @@ status: active
 | Artifact Type | 时间戳要求 | 格式 | 理由 |
 | :--- | :--- | :--- | :--- |
 | **adr** | FORBIDDEN | `NNNN-{slug}` | ADR 用 4 位顺序号便于口语引用；决策日期在 frontmatter `created_at` 中 |
-| **design** | REQUIRED | `YYYY-MM-DD-{topic}` | 设计是快照制品，时间戳记录方案版本时刻 |
+| **functional-design** | REQUIRED | `YYYY-MM-DD-{topic}-functional-design` | 设计是快照制品，时间戳记录方案版本时刻 |
+| **technical-design** | REQUIRED | `YYYY-MM-DD-{topic}-technical-design` | 设计是快照制品，时间戳记录方案版本时刻 |
 | **backlog-item** | REQUIRED | `YYYY-MM-DD-{slug}` | 工作项的创建或分配时刻需要记录 |
 | **roadmap** | FORBIDDEN | 无时间戳 | 路线图是活文档，持续演进；不应标注时间 |
 | **strategic-goals** | FORBIDDEN | 无时间戳 | 战略目标是长期方向，不应带时间戳 |
