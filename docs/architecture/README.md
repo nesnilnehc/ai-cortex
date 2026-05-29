@@ -26,5 +26,5 @@ AI Cortex 是一个面向 Agent 的资产库，按四层治理组织：Spec / Pr
 在以下情形新增 ADR（`adrs/NNN-{slug}.md`）：
 
 - 重大设计决策需显式 rationale
-- 经批准的、值得持久化的架构选择（设计文档字段契约见 [specs/design-modeling.md](../../specs/design-modeling.md)）
+- 经批准的、值得持久化的架构选择（设计文档字段契约见 [specs/functional-design-modeling.md](../../specs/functional-design-modeling.md) 与 [specs/technical-design-modeling.md](../../specs/technical-design-modeling.md)）
 - 跨技能或跨阶段依赖需文档化

@@ -2,7 +2,7 @@
 id: SPEC_MODELING_SPEC_V2
 name: Spec Modeling Schema (Meta-Spec)
 description: Meta-spec defining the structural contract that any spec document must follow — frontmatter contract, body section skeleton, and required/conditional/optional section taxonomy.
-version: 2.0.0
+version: 2.0.1
 status: active
 lifecycle: living
 created_at: 2026-05-21
@@ -13,7 +13,8 @@ scope: |
 related:
   - ./adr-modeling.md
   - ./claude-md-modeling.md
-  - ./design-modeling.md
+  - ./functional-design-modeling.md
+  - ./technical-design-modeling.md
   - ./requirement-modeling.md
   - ./task-modeling.md
   - ./universal-notification.md

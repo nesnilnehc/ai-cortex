@@ -1,5 +1,5 @@
 ---
-artifact_type: design
+artifact_type: technical-design
 created_by: nesnilnehc
 lifecycle: snapshot
 created_at: 2026-05-08
@@ -331,7 +331,7 @@ triggers_after:      # 哪些技能完成后自然链调本技能（反向索引
 施工时各 Workstream 的 commit 应在 PR 描述中引用本设计：
 
 ```
-Refs: docs/designs/2026-05-08-orphan-skills-cleanup.md (W1)
+Refs: docs/designs/2026-05-08-orphan-skills-cleanup-technical-design.md (W1)
 ```
 
 W5 实施完成后，`skills/plan-next/SKILL.md` 的 `metadata.evolution.enhancements` 应追加一条引用本设计的条目。
