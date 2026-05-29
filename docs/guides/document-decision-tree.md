@@ -41,7 +41,8 @@ status: active
 | 内容性质 | 推荐路径 |
 |----|----|
 | 架构决策记录 | `docs/adr/NNNN-{topic}.md` |
-| 设计文档 | `docs/designs/YYYY-MM-DD-{slug}.md` |
+| 功能设计文档 | `docs/designs/YYYY-MM-DD-{slug}-functional-design.md` |
+| 技术设计文档 | `docs/designs/YYYY-MM-DD-{slug}-technical-design.md` |
 | 长期使用指引 | `docs/guides/{slug}.md` |
 | 参考资料 | `docs/references/{slug}.md` |
 | 草稿 / 未定稿 | `<最终位置>.draft.md` |

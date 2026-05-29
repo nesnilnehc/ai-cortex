@@ -1,18 +1,18 @@
 ---
 id: TASK_MODELING_SPEC_V2
 name: Task Modeling Schema
-description: Spec defining task list document fields, table format, task status state machine, dependency semantics, and traceability to design.
-version: 2.0.0
+description: Spec defining task list document fields, table format, task status state machine, dependency semantics, and traceability to technical-design.
+version: 2.1.0
 status: active
 lifecycle: living
 created_at: 2026-05-09
 scope: |
   Defines the structural contract for task list documents: required task fields, status enum,
   dependency semantics, and frontmatter. Applies to implementation task lists derived from
-  approved design documents.
+  approved technical-design documents.
 related:
   - ./spec-modeling.md
-  - ./design-modeling.md
+  - ./technical-design-modeling.md
   - ../rules/task-quality.md
 ---
 
@@ -24,11 +24,11 @@ related:
 
 ## 1. 定位与适用范围
 
-任务列表（task list）是从设计派生的实施工单清单——把"设计中的每个组件 / 接口 / 流程"映射为可独立完成的具体任务，便于派工与追踪。
+任务列表（task list）是从技术设计派生的实施工单清单——把"技术设计中的每个组件 / 接口 / 流程"映射为可独立完成的具体任务，便于派工与追踪。
 
 适用：
 
-- 由设计文档派生的实施任务列表（`tasks.md` 或同等文件）
+- 由技术设计文档派生的实施任务列表（`tasks.md` 或同等文件）
 - 任务粒度：单次专注会话可完成（通常 ≤ 1 天）
 
 不适用：
@@ -46,8 +46,8 @@ related:
 tasks.md
 ```
 
-- 默认名 `tasks.md`，与上游 design 文档同目录或邻近目录
-- 单一 design 派生多份任务列表时，可用 `<scope>-tasks.md`（如 `migration-tasks.md`、`refactor-tasks.md`）
+- 默认名 `tasks.md`，与上游 technical-design 文档同目录或邻近目录
+- 单一 technical-design 派生多份任务列表时，可用 `<scope>-tasks.md`（如 `migration-tasks.md`、`refactor-tasks.md`）
 
 ---
 
@@ -58,7 +58,7 @@ tasks.md
 artifact_type: tasks
 lifecycle: living
 created_at: YYYY-MM-DD
-parent: <path to upstream design document>
+parent: <path to upstream technical-design document>
 status: draft | active | superseded
 # 条件字段
 superseded_by: <path to new tasks document>   # status: superseded 时必填
@@ -72,7 +72,7 @@ superseded_by: <path to new tasks document>   # status: superseded 时必填
 | `artifact_type` | string | 必 | 固定 `tasks` |
 | `lifecycle` | enum | 必 | 固定 `living`（任务列表持续更新） |
 | `created_at` | date | 必 | 任务列表生成日期 |
-| `parent` | path | 必 | 上游 design 文档路径（可追溯性） |
+| `parent` | path | 必 | 上游 technical-design 文档路径（可追溯性）；始终指向技术设计，不指向功能设计 |
 | `status` | enum | 必 | `draft` / `active` / `superseded`（语义见 §4.2） |
 | `superseded_by` | path | 条件 | `status: superseded` 时必填，指向继任任务列表路径 |
 
@@ -139,10 +139,10 @@ superseded_by: <path to new tasks document>   # status: superseded 时必填
 
 ### 5.5 可追溯性
 
-每个任务**至少**映射到上游设计文档的一节或一条验收标准。映射方式：
+每个任务**至少**映射到上游技术设计文档的一节或一条验收标准。映射方式：
 
-- 在任务 `acceptance` 字段中显式引用（如 "实现设计 §3.2 描述的 X"）
-- 或在 `owner_or_hint` 中标注源（如 "基于设计 §架构.组件 A"）
+- 在任务 `acceptance` 字段中显式引用（如 "实现技术设计 §3.2 描述的 X"）
+- 或在 `owner_or_hint` 中标注源（如 "基于技术设计 §架构.组件 A"）
 
 ---
 
@@ -171,7 +171,7 @@ superseded_by: <path to new tasks document>   # status: superseded 时必填
 artifact_type: tasks
 lifecycle: living
 created_at: 2026-05-15
-parent: ../designs/data-export-design.md
+parent: ../designs/2026-05-12-data-export-technical-design.md
 status: active
 ---
 
@@ -179,13 +179,13 @@ status: active
 
 | Id | Task | Depends on | Acceptance | Owner / Hint | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| T1 | 定义导出任务表 schema | — | migration 通过；含 status / progress / file_url 字段（设计 §数据模型） | backend | Todo |
-| T2 | 实现 CSV 序列化器 | — | 单元测试覆盖空集 / 大字段 / 特殊字符（设计 §组件 Serializer） | backend | Todo |
-| T3 | 实现导出任务队列消费者 | T1, T2 | 集成测试通过；含失败重试 3 次（设计 §数据流） | backend | Todo |
-| T4 | 实现 POST /exports 触发接口 | T1 | OpenAPI 文档；幂等键测试（设计 §接口契约） | backend | Todo |
-| T5 | 实现 GET /exports/:id 查询接口 | T1 | 返回 status + progress + 下载 URL（若 Done）（设计 §接口契约） | backend | Todo |
-| T6 | 大文件分片上传到对象存储 | T3 | 10GB 测试文件可成功导出（设计 §错误处理 OOM 路径） | backend | Todo |
-| T7 | 前端导出按钮 + 进度轮询 | T4, T5 | UI 显示进度条；完成后弹下载链接（设计 §UI） | frontend | Todo |
+| T1 | 定义导出任务表 schema | — | migration 通过；含 status / progress / file_url 字段（技术设计 §数据模型） | backend | Todo |
+| T2 | 实现 CSV 序列化器 | — | 单元测试覆盖空集 / 大字段 / 特殊字符（技术设计 §组件 Serializer） | backend | Todo |
+| T3 | 实现导出任务队列消费者 | T1, T2 | 集成测试通过；含失败重试 3 次（技术设计 §数据流） | backend | Todo |
+| T4 | 实现 POST /exports 触发接口 | T1 | OpenAPI 文档；幂等键测试（技术设计 §接口契约） | backend | Todo |
+| T5 | 实现 GET /exports/:id 查询接口 | T1 | 返回 status + progress + 下载 URL（若 Done）（技术设计 §接口契约） | backend | Todo |
+| T6 | 大文件分片上传到对象存储 | T3 | 10GB 测试文件可成功导出（技术设计 §错误处理 OOM 路径） | backend | Todo |
+| T7 | 前端导出按钮 + 进度轮询 | T4, T5 | UI 显示进度条；完成后弹下载链接（功能设计 §UI 交互流程） | frontend | Todo |
 ````
 
 ---
@@ -193,6 +193,6 @@ status: active
 ## 8. 与其他资产关系
 
 - **配套 rule**：[rules/task-quality.md](../rules/task-quality.md)——任务列表质量评审清单（字段完整性 / 依赖图正确性 / 可执行性 / 可追溯性）
-- **上游 spec**：[design-modeling.md](./design-modeling.md)——任务列表的 `parent` 应指向 `approved` 状态的设计文档
+- **上游 spec**：[technical-design-modeling.md](./technical-design-modeling.md)——任务列表的 `parent` 应指向 `approved` 状态的技术设计文档
 - **相关实践**：GTD（每条任务需有明确"下一步行动"，对应 `owner_or_hint` 字段）；DAG 依赖（禁止循环依赖）
 - **递归基础**：本 spec 自身遵循 [spec-modeling.md](./spec-modeling.md) v2.0.0 的 8 节骨架；跳过 §2 心智模型（任务无显著 N 问框架，6 字段表本身即必答维度）
