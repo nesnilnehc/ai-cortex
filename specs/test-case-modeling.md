@@ -2,7 +2,7 @@
 id: TEST_CASE_MODELING_SPEC_V1
 name: Test Case Modeling Schema
 description: Spec defining QA business test case document fields, naming, body sections, traceability to requirements/acceptance criteria, and execution status semantics. Scope limited to document artifacts; code-level test code is governed by rules/standards-test-code.md.
-version: 1.0.0
+version: 1.0.1
 status: active
 lifecycle: living
 created_at: 2026-05-25
@@ -15,7 +15,7 @@ scope: |
 related:
   - ./spec-modeling.md
   - ./requirement-modeling.md
-  - ./design-modeling.md
+  - ./technical-design-modeling.md
   - ../rules/test-case-quality.md
   - ../rules/standards-test-code.md
 ---
@@ -292,5 +292,5 @@ parent: ../requirements/ACME-REQ-08.md
 - **配套 rule**：[rules/test-case-quality.md](../rules/test-case-quality.md)——业务测试用例文档质量评审清单（5 维 + spec 合规）。本 spec 只定义数据契约，评审清单全部归 rule。
 - **同族 rule**：[rules/standards-test-code.md](../rules/standards-test-code.md)——代码级测试的编码标准。**本 spec 与之互不重叠**：本 spec 管"测试用例文档"这一独立制品；该 rule 管"测试代码"这一非文档制品。
 - **上游 spec**：[requirement-modeling.md](./requirement-modeling.md)——`covers` 字段引用 `approved` 状态需求文档的 AC ID；用例的 `parent` 指向需求文档路径
-- **关联资产**：[design-modeling.md](./design-modeling.md)——`test_type: contract` 类用例可引用设计文档中定义的接口契约
+- **关联资产**：[technical-design-modeling.md](./technical-design-modeling.md)——`test_type: contract` 类用例可引用技术设计文档中定义的接口契约
 - **递归基础**：本 spec 自身遵循 [spec-modeling.md](./spec-modeling.md) v2.0.0 的 8 节骨架

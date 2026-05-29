@@ -2,7 +2,7 @@
 id: REQUIREMENT_MODELING_SPEC_V4
 name: Requirement Modeling Schema
 description: Spec defining requirement document fields, formats, and validation rules. Covers frontmatter contract, 6 mandatory body sections (Background/Objective/Acceptance/Dependencies/Risks/Source), and conditionally-mandatory optional sections (Scope, Business Rules).
-version: 4.0.0
+version: 4.0.1
 status: active
 lifecycle: living
 created_at: 2026-03-25
@@ -12,7 +12,7 @@ scope: |
   non-functional requirements, bug fixes, and technical tasks.
 related:
   - ./spec-modeling.md
-  - ./design-modeling.md
+  - ./functional-design-modeling.md
   - ../rules/requirement-quality.md
 ---
 
@@ -309,6 +309,6 @@ P1 · Phase 2 第 3-4 周 · 4 工日
 ## 8. 与其他资产关系
 
 - **配套 rule**：[rules/requirement-quality.md](../rules/requirement-quality.md)——需求文档质量评审清单（5 维：完整性 / 可执行性 / 清晰性 / 合理性 / 可追溯性）。本 spec 只定义数据契约，评审清单全部归 rule。
-- **下游 spec**：[design-modeling.md](./design-modeling.md)——`approved` 状态的需求才能派生设计；design 的 `parent` 指向 requirement 文档路径
+- **下游 spec**：[functional-design-modeling.md](./functional-design-modeling.md)——`approved` 状态的需求才能派生功能设计；功能设计的 `parent` 指向 requirement 文档路径（纯技术任务可跳过功能层，由 [technical-design-modeling.md](./technical-design-modeling.md) 直接 `parent` 至 requirement）
 - **相关行业标准**：IEEE 830（软件需求规格说明）、Gherkin / Cucumber（BDD 验收格式）、ISO 31000（风险管理）、SWEBOK（可追踪性最佳实践）
 - **递归基础**：本 spec 自身遵循 [spec-modeling.md](./spec-modeling.md) v2.0.0 的 8 节骨架；跳过 §2 心智模型（需求的必答维度已在 §5.1 的 6 节中体现）

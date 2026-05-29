@@ -11,7 +11,7 @@ status: active
 
 > 项目文档"健康"的硬约束集合。运行时（AgentFabric / linter / CI / 人工）按本规则执行检测，本规则不规定如何检测。
 >
-> 与各 spec（requirement-modeling / design-modeling / task-modeling / universal-notification）配套：spec 定义"对象长什么样"，本规则定义"对象之间的图关系怎样才健康"。
+> 与各 spec（requirement-modeling / functional-design-modeling / technical-design-modeling / task-modeling / universal-notification）配套：spec 定义"对象长什么样"，本规则定义"对象之间的图关系怎样才健康"。
 
 ---
 
