@@ -1,0 +1,23 @@
+# NATS consumer 项目缓存
+# 由 consume-nats-message 技能读取，字段可被调用时的用户参数覆盖
+
+broker_url: nats://localhost:4222
+
+# 当前服务标识（consumer 的身份，写入 DLQ 消息的 X-Source header）
+service_source: ai-cortex
+
+# Durable consumer 名称前缀，最终名为 <prefix>-<event-slug>
+durable_name_prefix: cortex
+
+# 不可恢复消息（term）会在此目录记录 DLQ 投递日志
+dlq_handler_dir: .cortex/dlq
+
+# Vendored producer 契约存放目录（按 <producer>/<event>-contract.md 结构）
+vendor_contracts_dir: .cortex/vendor/contracts
+
+# 消费默认参数（可在调用时覆盖）
+consume_defaults:
+  max_messages: 200      # 单次 drain 最多处理消息数
+  batch_size: 20         # 单次 fetch 拉取条数
+  fetch_timeout: 5000    # 单次 fetch 等待超时（毫秒）
+  idle_threshold: 15000  # 连续空 fetch 超过此毫秒数则视为 drained（毫秒）
