@@ -45,3 +45,4 @@
 - [review-testing](./review-testing/SKILL.md) — Review code for testing: test existence, coverage adequacy, test quality and structure, edge-case and error-path coverage, and test maintainability. Cognitive-only atomic skill; output is a findings list.
 - [review-typescript](./review-typescript/SKILL.md) — Review TypeScript/JavaScript code for type safety, async patterns, error handling, and module design. Atomic skill; output is a findings list.
 - [review-vue](./review-vue/SKILL.md) — Review Vue 3 code for Composition API, reactivity, components, state (Pinia), routing, and performance. Framework-only atomic skill; output is a findings list.
+- [scaffold-agent-tests](./scaffold-agent-tests/SKILL.md) — Generate an LLM agent test suite (golden cases, mock-LLM unit tests, evaluator harness) from an agent implementation and its agent-test contract. Use when an agent has no tests, or a contract exists but the test code is missing.

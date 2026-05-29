@@ -1,5 +1,6 @@
 # Specifications
 
+- [agent-test-modeling.md](./agent-test-modeling.md) — 单 LLM Agent 测试契约的字段、能力边界 / 输入契约 / 工具边界 / 写回前置 / oracle / golden cases；不覆盖测试代码编码方式
 - [adr-modeling.md](./adr-modeling.md) — ADR 文档的 frontmatter 字段、status 5 值枚举与衰减相关字段
 - [cross-team-contract.md](./cross-team-contract.md) — 跨团队契约文档的命名后缀、`contract_version`、CHANGELOG、扁平布局与版本号引用
 - [claude-md-modeling.md](./claude-md-modeling.md) — CLAUDE.md（三层级 AI 长期记忆文件）的章节结构、形态要求与层级职责
