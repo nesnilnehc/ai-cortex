@@ -2,7 +2,7 @@
 id: FUNCTIONAL_DESIGN_MODELING_SPEC_V1
 name: Functional Design Modeling Schema
 description: Spec defining functional design document fields, formats, and validation rules. Business/product-facing layer. Covers frontmatter contract, 6 mandatory body sections (Goal/Modules/Workflow/Exceptions/Acceptance/Trade-offs), and conditionally-mandatory sections (State Diagram, Permission Matrix).
-version: 1.0.0
+version: 1.0.1
 status: active
 lifecycle: living
 created_at: 2026-05-29
@@ -38,7 +38,7 @@ related:
 
 不适用：
 
-- 纯技术任务（架构重构、依赖升级、基础设施改造）——直接派生技术设计，跳过本层
+- 纯技术工作（架构重构、依赖升级、基础设施改造）——由授权 ADR 直接派生技术设计，跳过本层
 - 工程实现方案（架构、数据库、接口）——归技术设计文档
 - 界面像素级视觉稿——归 UI 设计资产
 

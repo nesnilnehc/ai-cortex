@@ -2,7 +2,7 @@
 id: TECHNICAL_DESIGN_MODELING_SPEC_V1
 name: Technical Design Modeling Schema
 description: Spec defining technical design document fields, formats, and validation rules. Engineering-facing layer. Covers frontmatter contract, 9 mandatory body sections (Goal/Architecture/Components/Database/APIs/DataFlow&Errors/TechChoices/TestStrategy/Acceptance), and conditionally-mandatory sections.
-version: 1.0.0
+version: 2.0.0
 status: active
 lifecycle: living
 created_at: 2026-05-29
@@ -29,14 +29,14 @@ related:
 
 技术设计文档（technical design document）面向工程视角，回答"工程上怎么实现"——架构、服务拆分、组件与详细设计、数据库、接口契约、错误处理、技术选型。它是从上游设计到任务列表之间的桥梁，是任务列表的直接来源。
 
-技术设计**始终存在**于派生任务之前（可因纯流程变更而从简，但不省略）。功能层可被跳过——纯技术任务（重构 / 基建 / 依赖升级）直接派生技术设计。
+技术设计**始终存在**于派生任务之前（可因纯流程变更而从简，但不省略）。功能层可被跳过——纯技术工作（重构 / 基建 / 依赖升级）由授权它的 ADR 直接派生技术设计。
 
 适用：
 
 - **架构设计**：系统层、服务层、模块层架构与服务拆分
 - **组件 / 详细设计**：类、方法、接口的签名级定义
 - **数据与集成设计**：数据库设计、API 契约、跨服务集成
-- **技术任务**：架构重构、依赖升级、基础设施改造（无功能层）
+- **纯技术工作**：架构重构、依赖升级、基础设施改造（无功能层，`parent` 指向授权 ADR）
 
 不适用：
 
@@ -81,7 +81,7 @@ superseded_by: <path to new technical design>   # status: superseded 时必填
 | `artifact_type` | string | 必 | 固定 `technical-design` |
 | `lifecycle` | enum | 必 | 固定 `snapshot`（设计是时点决策） |
 | `created_at` | date | 必 | 设计完成日期 |
-| `parent` | path | 必 | **多态**：常态指向上游 `functional-design`；功能层被跳过（纯技术任务）时指向 `requirement`。校验 `parent` 的 `artifact_type ∈ {functional-design, requirement}` |
+| `parent` | path | 必 | **多态**：常态指向上游 `functional-design`；非功能需求可跳过功能层指向 `requirement`；纯技术工作（无对应需求）指向授权它的 `adr`。校验 `parent` 的 `artifact_type ∈ {functional-design, requirement, adr}` |
 | `status` | enum | 必 | `draft` / `approved` / `superseded`（语义见 §4.2） |
 | `superseded_by` | path | 条件 | `status: superseded` 时必填，指向继任技术设计路径 |
 
@@ -245,7 +245,7 @@ refund_order
 ## 8. 与其他资产关系
 
 - **配套 rule**：[rules/technical-design-quality.md](../rules/technical-design-quality.md)——技术设计质量评审清单（5 维：完整性 / 可执行性 / 清晰性 / 合理性 / 可追溯性）
-- **上游 spec**：[functional-design-modeling.md](./functional-design-modeling.md)（常态）——技术设计的 `parent` 指向 `approved` 功能设计；[requirement-modeling.md](./requirement-modeling.md)（功能层被跳过时）——纯技术任务直接指向 `approved` requirement
+- **上游 spec**：[functional-design-modeling.md](./functional-design-modeling.md)（常态）——技术设计的 `parent` 指向 `approved` 功能设计；[requirement-modeling.md](./requirement-modeling.md)——非功能需求跳过功能层时直接指向 `approved` requirement；纯技术工作（无对应需求）的 `parent` 指向授权它的 ADR
 - **下游 spec**：[task-modeling.md](./task-modeling.md)——任务列表的 `parent` 指向 `approved` 状态的技术设计
 - **相关行业标准**：IEEE 1016（Software Design Description）、C4 Model、arc42 模板、Google Design Doc 实践
 - **递归基础**：本 spec 自身遵循 [spec-modeling.md](./spec-modeling.md) v2.0.0 的 8 节骨架；跳过 §2 心智模型（技术设计的必答维度已落在 §5.1 的 9 节 MECE 结构中）

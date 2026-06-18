@@ -2,14 +2,14 @@
 id: REQUIREMENT_MODELING_SPEC_V4
 name: Requirement Modeling Schema
 description: Spec defining requirement document fields, formats, and validation rules. Covers frontmatter contract, 6 mandatory body sections (Background/Objective/Acceptance/Dependencies/Risks/Source), and conditionally-mandatory optional sections (Scope, Business Rules).
-version: 4.0.1
+version: 5.0.0
 status: active
 lifecycle: living
 created_at: 2026-03-25
 scope: |
   Defines the structural contract for requirement documents: frontmatter fields, required body
-  sections, optional sections, and field formats. Applies to functional requirements,
-  non-functional requirements, bug fixes, and technical tasks.
+  sections, optional sections, and field formats. Applies to functional requirements
+  and non-functional requirements.
 related:
   - ./spec-modeling.md
   - ./functional-design-modeling.md
@@ -32,22 +32,19 @@ related:
 
 - **功能需求**：新增功能、流程调整、体验优化
 - **非功能需求**：性能、安全、可维护性、可扩展性
-- **缺陷修复**：缺陷处理、性能优化、技术债偿还
-- **技术任务**：架构优化、依赖升级、基础设施改造
 
 不适用：
 
 - 探索性研究或方案对比（属 ADR 或 RFC）
 - 内部组件 API 设计（属设计文档）
 - 临时性 bug fix 或代码清理（用 commit / PR 描述即可）
+- 缺陷、技术任务、实现方案、信息不足——属原始进件的非需求类，由 [rules/requirement-intake-triage.md](../rules/requirement-intake-triage.md) 分诊处理，不作为需求文档建模
 
 ### 1.1 按需求类型的简化指引
 
 | 类型 | 必填字段 | 可简化部分 |
 |---|---|---|
 | 功能需求 | 全部 6 节正文 | — |
-| 缺陷修复 | 全部 6 节正文 | 背景（可用问题陈述形式）、风险（1 条关键风险即可） |
-| 技术任务 | 全部 6 节正文 | 背景（可用问题陈述形式） |
 | 非功能需求 | 全部 6 节正文 | — |
 
 风险优先级与缓解策略**永不可选**。
@@ -116,7 +113,7 @@ implemented_at: YYYY-MM-DD             # status: implemented 时必填
 每份需求文档必须包含以下 6 节正文（H1 标题不在统计内）。
 
 **H1 标题**：`# 需求：[类型] 一句话描述`
-- 类型示例：`[功能]` / `[缺陷]` / `[优化]` / `[非功能]` / `[技术任务]`
+- 类型示例：`[功能]` / `[非功能]`
 - 标题 ≤ 80 字符，不含技术实现细节
 - 陈述需求主体（功能 / 问题 / 任务），不陈述期望结果——结果归「目标」节；词性不限（能力短语 / 问题陈述 / 约束陈述均可）
 
@@ -126,7 +123,7 @@ implemented_at: YYYY-MM-DD             # status: implemented 时必填
 | 2 | 目标（Objective） | 陈述本需求交付后世界发生的改变 | 单行；陈述需求级目标（区别于上游战略 / 产品目标，后者经 frontmatter `parent` 引用，不在此重复）；**不**含解决方案 / 技术选型 |
 | 3 | 验收标准（Acceptance Criteria） | 定义需求完成的可验证条件 | ≥ 3 条；每条可自动或人工验证；**无**模糊形容词（"快"/"合理"/"友好"）；非功能需求含具体数值（如延迟 ≤ 500ms） |
 | 4 | 依赖与前置条件（Dependencies & Prerequisites） | 依赖关系与前置条件 | 含 3 类：依赖需求 ID / 前置条件（含验证方式）/ 外部依赖；依赖图无环；无依赖时显式写"无依赖" |
-| 5 | 风险、约束与假设（Risks, Constraints & Assumptions） | 风险（概率 × 影响）/ 已确认约束 / 待验证假设 | 功能 / 技术任务：≥ 1 条风险、≥ 2 条约束；缺陷修复：≥ 1 条关键风险（约束可选）；每条风险标注优先级 = 概率 × 影响；每条假设附验证方式 + 责任方 |
+| 5 | 风险、约束与假设（Risks, Constraints & Assumptions） | 风险（概率 × 影响）/ 已确认约束 / 待验证假设 | 功能 / 非功能需求：≥ 1 条风险、≥ 2 条约束；每条风险标注优先级 = 概率 × 影响；每条假设附验证方式 + 责任方 |
 | 6 | 需求来源（Source） | 业务来源与决策上下文 | 含来源类型（功能请求 / 业务目标 / 故障 / 技术债）+ 来源链接 / ID + 决策背景；可追溯，不是"口头转述" |
 
 ### 5.2 可选章节
@@ -135,7 +132,7 @@ implemented_at: YYYY-MM-DD             # status: implemented 时必填
 
 | 章节 | 触发场景 |
 |---|---|
-| 范围定义（Scope） | 多系统集成、跨边界歧义、技术任务、工作量 > 5 天（满足任一时**升为必填**） |
+| 范围定义（Scope） | 多系统集成、跨边界歧义、工作量 > 5 天（满足任一时**升为必填**） |
 | 业务规则（Business Rules） | 规则集本身即交付物（定价 / 资格 / 计税 / 风险评分）、单条规则被 ≥ 2 条验收标准引用、规则构成状态机 / 决策表、规则需作为下游合规审计权威来源（SSOT）被引用（满足任一时**升为必填**） |
 | 待解决问题（Open Questions） | 评审中尚未解决的事项；按"阻塞 / 非阻塞"分类，附责任方与计划解决方式 |
 | 完成定义（Definition of Done） | 流程与质量门（测试覆盖、文档更新、部署门），与"验收标准"区分（验收 = 功能完成；DoD = 可发布） |
@@ -309,6 +306,7 @@ P1 · Phase 2 第 3-4 周 · 4 工日
 ## 8. 与其他资产关系
 
 - **配套 rule**：[rules/requirement-quality.md](../rules/requirement-quality.md)——需求文档质量评审清单（5 维：完整性 / 可执行性 / 清晰性 / 合理性 / 可追溯性）。本 spec 只定义数据契约，评审清单全部归 rule。
-- **下游 spec**：[functional-design-modeling.md](./functional-design-modeling.md)——`approved` 状态的需求才能派生功能设计；功能设计的 `parent` 指向 requirement 文档路径（纯技术任务可跳过功能层，由 [technical-design-modeling.md](./technical-design-modeling.md) 直接 `parent` 至 requirement）
+- **下游 spec**：[functional-design-modeling.md](./functional-design-modeling.md)——`approved` 状态的需求才能派生功能设计；功能设计的 `parent` 指向 requirement 文档路径
+- **进件分诊**：[rules/requirement-intake-triage.md](../rules/requirement-intake-triage.md)——原始进件先经分诊；仅「属需求」（功能 / 非功能）的进件进入本 spec 建模，缺陷 / 技术任务 / 方案等非需求类不在此列
 - **相关行业标准**：IEEE 830（软件需求规格说明）、Gherkin / Cucumber（BDD 验收格式）、ISO 31000（风险管理）、SWEBOK（可追踪性最佳实践）
 - **递归基础**：本 spec 自身遵循 [spec-modeling.md](./spec-modeling.md) v2.0.0 的 8 节骨架；跳过 §2 心智模型（需求的必答维度已在 §5.1 的 6 节中体现）
