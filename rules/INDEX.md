@@ -35,6 +35,7 @@
 | [standards-test-code](./standards-test-code.md) | standards | 测试代码编码标准：AAA、命名三要素、隔离、确定性、Covers 追溯、mock 克制；不覆盖 QA 业务测试用例。 | 编写或评审 *_test 代码文件 |
 | [standards-agent-testing](./standards-agent-testing.md) | standards | LLM Agent 测试标准：确定性 / 非确定性分流、oracle 扩展（契约 / 轨迹 / rubric / golden / 统计）、真实模型测试隔离、模型 / prompt 变更回归门禁；与 standards-test-code 叠加。 | 测试 LLM Agent 行为的代码与契约时 |
 | [requirement-quality](./requirement-quality.md) | content | 需求文档的 5 维评审清单与 spec 合规检查。 | 评审需求文档时 |
+| [requirement-intake-triage](./requirement-intake-triage.md) | content | 原始进件性质分诊词表（功能/非功能/设计方案/任务/缺陷/信息不足）+ 判别问句 + 合理性镜头；澄清与评审共用的诊断 SSOT。 | 分诊或评审原始进件时 |
 | [functional-design-quality](./functional-design-quality.md) | content | 功能设计文档的 5 维评审清单与 spec 合规检查。 | 评审功能设计文档时 |
 | [technical-design-quality](./technical-design-quality.md) | content | 技术设计文档的 5 维评审清单与 spec 合规检查。 | 评审技术设计文档时 |
 | [task-quality](./task-quality.md) | content | 任务列表的字段、依赖、可追溯性评审与 spec 合规检查。 | 评审任务列表时 |
