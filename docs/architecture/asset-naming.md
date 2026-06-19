@@ -90,7 +90,7 @@ capture-<noun>               如 capture-work-items
 prioritize-<noun>            如 prioritize-backlog
 promote-<noun>               如 promote-roadmap-items
 deliver-<noun>               如 deliver-feature
-integrate-<noun>             如 integrate-worktrees
+integrate-<noun>             如 integrate-branches
 refine-<noun>                如 refine-skill-design
 plan-<noun>                  如 plan-next
 automate-<noun>              如 automate-tests

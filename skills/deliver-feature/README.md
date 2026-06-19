@@ -32,8 +32,8 @@ Lands a single feature branch into main from inside its worktree, in one invocat
 
 ## When NOT to Use
 
-- You want to land **multiple** worktrees in one go → use [`integrate-worktrees`](../integrate-worktrees/SKILL.md) from the main repo
-- You're already on the main repo and main branch → use [`integrate-worktrees`](../integrate-worktrees/SKILL.md)
+- You want to land **multiple** worktrees in one go → use [`integrate-branches`](../integrate-branches/SKILL.md) from the main repo
+- You're already on the main repo and main branch → use [`integrate-branches`](../integrate-branches/SKILL.md)
 
 ---
 
@@ -76,7 +76,7 @@ Lands a single feature branch into main from inside its worktree, in one invocat
 - **Halts on merge conflict** with explicit recovery instructions; worktree stays intact
 - **Halts on push rejection** with explicit recovery instructions
 - **Uses `-d` only** for branch deletion — never `-D`
-- **Halts immediately** if invoked from the main repo or from a worktree on the main branch, with a pointer to `integrate-worktrees`
+- **Halts immediately** if invoked from the main repo or from a worktree on the main branch, with a pointer to `integrate-branches`
 
 ---
 
@@ -84,6 +84,6 @@ Lands a single feature branch into main from inside its worktree, in one invocat
 
 | Skill | Relationship |
 |---|---|
-| [`integrate-worktrees`](../integrate-worktrees/SKILL.md) | Sibling — use from the main repo on the main branch when batching multiple worktrees |
+| [`integrate-branches`](../integrate-branches/SKILL.md) | Sibling — use from the main repo on the main branch when batching multiple worktrees |
 | [`commit-work`](../commit-work/SKILL.md) | Predecessor — use to commit pending changes in the worktree before invoking this skill |
 | [`review-diff`](../review-diff/SKILL.md) | Optional pre-merge — review changes before committing |
