@@ -3,7 +3,7 @@ name: redeploy-local
 description: After code changes, auto-detect the project's build system and local deployment method for a given directory, then build the project and restart its locally-deployed environment (Docker Compose / systemd / process manager). Never assumes — asks only when detection is ambiguous. Caches detected commands per project in .cortex/redeploy-local.yaml; re-invocations on the same project skip re-scanning until signal files change, the cache expires (30 days), or the skill version bumps.
 description_zh: 代码修改后，自动探测目标目录的构建系统与本地部署方式，执行构建并重启本地部署环境（Docker Compose / systemd / 进程管理器）。无法确定时才询问，不盲猜。首次探测后将结果缓存至 .cortex/redeploy-local.yaml；下次同项目调用直接复用，直到信号文件变更、缓存过期（30 天）或技能版本变化。
 tags: [deploy, build, local, workflow, automation, docker, systemd, pm2]
-version: 3.1.0
+version: 3.2.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -17,90 +17,90 @@ output_schema:
   description: Build artifacts produced; local deployment updated (Docker Compose / systemd / process manager); inferences cached to .cortex/redeploy-local.yaml on success. Outputs (1) an inference report attributing each chosen command to its evidence source, and (2) a structured run report with command, exit code, and duration per step.
 ---
 
-# Skill: redeploy-local
+# 技能（Skill）：本地重部署（Redeploy Local）
 
-## Purpose
+## 目的（Purpose）
 
-After an Agent modifies code, execute the project's build and restart its locally-deployed environment — without requiring the user to know the project's tech stack. Covers projects that deploy locally via Docker Compose, systemd units, or process managers (pm2, supervisorctl). Intentionally excludes hot-reload dev servers; the target is a running local environment, not a development watch mode.
-
----
-
-## Core Objective
-
-**Primary goal**: Given a directory, produce one successful build and one successful local deployment restart, and report what was run.
-
-**Success Criteria** (all must be satisfied):
-
-1. ✅ **Directory resolved**: Target directory confirmed to exist before any command is run
-2. ✅ **Build command detected or configured**: Command is traceable to a config file or detection heuristic — not invented
-3. ✅ **Build succeeded**: Exit code 0; build artifacts present where expected
-4. ✅ **Deploy method detected or configured**: Deployment target identified (Compose / systemd / pm2 / supervisord)
-5. ✅ **Deployment restarted**: Service/container restarted and reachable (health check or status check)
-6. ✅ **Run report emitted**: Table of command → exit code → duration for every step executed
-
-**Acceptance Test**: After the skill completes, the locally deployed service reflects the latest code changes and its status check reports healthy/running.
+Agent 修改代码后，执行项目的构建并重启本地部署的环境——无需用户了解项目技术栈。适用于通过 Docker Compose、systemd unit 或进程管理器（pm2、supervisorctl）在本地部署的项目。有意排除热重载开发服务器；目标是运行中的本地环境，而非开发监听模式。
 
 ---
 
-## Scope Boundaries
+## 核心目标（Core Objective）
 
-**This skill handles**:
+**首要目标**：给定一个目录，成功执行一次构建和一次本地部署重启，并报告运行了什么。
 
-- Detecting build system from project files (package.json, Makefile, go.mod, Cargo.toml, pom.xml, build.gradle, *.csproj, pyproject.toml)
-- Detecting local deployment from project files (docker-compose.yml / compose.yaml, systemd unit, pm2 ecosystem file, supervisord.conf)
-- Reading project-level config overrides (`.cortex.yaml` `build_command` / `deploy_command`)
-- Persisting successful inferences to `.cortex/redeploy-local.yaml` and reusing them on next run
-- Executing build + restart in sequence
-- Reporting results
+**成功标准**（必须全部满足）：
 
-**This skill does not handle**:
+1. ✅ **目录已确认**：目标目录在任何命令执行前已验证存在
+2. ✅ **构建命令已确定或已配置**：命令可追溯至配置文件或检测启发式规则——不凭空生成
+3. ✅ **构建成功**：退出码 0；构建产物存在于预期位置
+4. ✅ **部署方式已确定或已配置**：部署目标已识别（Compose / systemd / pm2 / supervisord）
+5. ✅ **部署已重启**：服务/容器已重启并可达（健康检查或状态检查通过）
+6. ✅ **运行报告已输出**：每个执行步骤的命令 → 退出码 → 耗时表格
 
-- Hot-reload dev servers (npm run dev, vite, next dev) — those are not "local deployed environments"
-- Remote deployment (SSH, cloud, Kubernetes) — use a deploy skill targeting remote infra
-- Database migrations — run those separately before invoking this skill
-- Secret injection — environment variables / secrets must already be available in the deployment
-
-**Handoff point**: When the run report shows all steps exit 0, skill is done. If any step fails, the skill reports the failure and stops — it does not auto-retry or patch the build error.
+**验收测试**：技能完成后，本地部署的服务反映最新代码变更，且状态检查报告 healthy/running。
 
 ---
 
-## Use Cases
+## 范围边界（Scope Boundaries）
 
-- **Post-edit rebuild**: Agent finishes modifying code; user wants the local service to reflect the change without manually running build + restart commands
-- **Multi-stack projects**: Project mixes a compiled language (Go, Rust) with a Docker Compose deployment; skill detects both automatically
-- **Scripted overrides**: CI-like reproducibility via `.cortex.yaml` — same commands every time, no detection variance
-- **Shared team environments**: Different team members have different local setups; skill adapts per detected signals rather than requiring identical toolchain
+**本技能负责**：
+
+- 从项目文件检测构建系统（package.json、Makefile、go.mod、Cargo.toml、pom.xml、build.gradle、*.csproj、pyproject.toml）
+- 从项目文件检测本地部署方式（docker-compose.yml / compose.yaml、systemd unit、pm2 ecosystem 文件、supervisord.conf）
+- 读取项目级配置覆盖（`.cortex.yaml` `build_command` / `deploy_command`）
+- 将成功推断持久化到 `.cortex/redeploy-local.yaml`，下次运行复用
+- 顺序执行构建 + 重启
+- 上报结果
+
+**本技能不负责**：
+
+- 热重载开发服务器（npm run dev、vite、next dev）——这些不是"本地部署环境"
+- 远程部署（SSH、云、Kubernetes）——使用针对远程基础设施的部署技能
+- 数据库迁移——在调用本技能前单独运行
+- Secret 注入——环境变量 / secrets 必须已在部署中可用
+
+**转交点**：运行报告显示所有步骤退出码为 0 时，技能完成。若任一步骤失败，技能上报失败并停止——不自动重试或修复构建错误。
 
 ---
 
-## Detection Approach
+## 使用场景（Use Cases）
 
-This skill does **NOT** carry a hardcoded mapping of "file X → command Y". Build and deploy commands are project-specific — two Go projects can have entirely different build conventions (custom ldflags, output paths, cross-compile targets), and a Node project's `build` script may not be what deploy needs (it might want `build:prod` instead). The agent's job is to **scan the directory, read the relevant files, and infer the project's actual commands** — then surface those inferences for user confirmation.
+- **编辑后重建**：Agent 修改代码完毕；用户想让本地服务反映变更，无需手动运行 build + restart 命令
+- **多栈项目**：项目混合编译语言（Go、Rust）与 Docker Compose 部署；技能自动检测两者
+- **脚本化覆盖**：通过 `.cortex.yaml` 实现 CI 式可重现性——每次运行相同命令，无检测差异
+- **团队共享环境**：不同团队成员本地配置各异；技能按检测到的信号自适应，而非要求相同工具链
 
-### Step 0: Honor config override
+---
 
-Check for `.cortex.yaml` in the target directory:
+## 检测方式（Detection Approach）
+
+本技能**不**维护"文件 X → 命令 Y"的硬编码映射。构建和部署命令因项目而异——两个 Go 项目可能有截然不同的构建约定（自定义 ldflags、输出路径、交叉编译目标），而 Node 项目的 `build` 脚本未必是部署所需（可能需要 `build:prod`）。Agent 的职责是**扫描目录、读取相关文件、推断项目实际使用的命令**——然后将这些推断展示给用户确认。
+
+### 步骤 0：优先使用配置覆盖
+
+检查目标目录中的 `.cortex.yaml`：
 
 ```yaml
 build_command: make release
 deploy_command: docker compose up -d --build
 ```
 
-If both fields are present, use them verbatim and skip Steps 1–4 (no confirmation needed either). If only one is present, run inference for the other and still go through Step 4 for confirmation.
+若两个字段均存在，直接使用，跳过步骤 1–4（也无需确认）。若只有一个字段，对另一个运行推断，并仍进行步骤 4 的确认。
 
-### Step 0.5: Honor inference cache
+### 步骤 0.5：优先使用推断缓存
 
-After Step 0 (override) but before Step 1 (full scan), check `.cortex/redeploy-local.yaml` in the target directory. If valid, reuse the cached inferences and jump to Step 4 (Present inferences for confirmation — the user still confirms the report, annotated `(from cache, scanned YYYY-MM-DD; <N> signal files unchanged)`). If absent, malformed, or stale, fall through to Step 1 — never auto-delete a stale cache file; the next successful run overwrites it.
+在步骤 0（覆盖）之后、步骤 1（完整扫描）之前，检查目标目录中的 `.cortex/redeploy-local.yaml`。若有效，复用缓存推断，直接跳到步骤 4（展示推断以供确认——用户仍需确认报告，标注 `(from cache, scanned YYYY-MM-DD; <N> signal files unchanged)`）。若不存在、格式错误或已过期，回落到步骤 1——绝不自动删除过期缓存文件；下次成功运行会覆盖它。
 
-`.cortex.yaml` override (Step 0) wins over the cache. If Step 0 set one of the two commands, that command is taken from `.cortex.yaml` and the cache supplies only the other (if its validation still passes for the remaining field).
+`.cortex.yaml` 覆盖（步骤 0）优先于缓存。若步骤 0 设置了其中一个命令，该命令来自 `.cortex.yaml`，缓存仅供另一个字段使用（若其验证仍通过）。
 
-**NEVER commit `.cortex/redeploy-local.yaml`** — it encodes host-local absolute paths and mtimes; add it (or the whole `.cortex/` directory) to `.gitignore`. The file is regenerable on first successful run.
+**绝不提交 `.cortex/redeploy-local.yaml`**——它编码了宿主机本地的绝对路径和 mtime；请将其（或整个 `.cortex/` 目录）加入 `.gitignore`。该文件在首次成功运行后可重新生成。
 
-**Cache file schema** (`.cortex/redeploy-local.yaml`):
+**缓存文件 schema**（`.cortex/redeploy-local.yaml`）：
 
 ```yaml
 # Auto-generated by redeploy-local skill; do not edit by hand
-skill_version: 3.1.0
+skill_version: 3.2.0
 project_path: /Users/alice/work/api-service
 written_at: 2026-05-20T14:32:11Z
 
@@ -129,70 +129,70 @@ signal_files:
     mtime: 2026-05-20T10:48:09Z
 ```
 
-`evidence` records only `file` + `ref` (e.g. `scripts.build`) — the command body itself is not duplicated, to keep the cache small and free of drift. `signal_files` records every file READ during inference (including cross-references), not just the file the chosen command came from.
+`evidence` 仅记录 `file` + `ref`（如 `scripts.build`）——命令体本身不重复，保持缓存小而不漂移。`signal_files` 记录推断期间**读取过**的每个文件（包括交叉引用），不只是所选命令来源的文件。
 
-**Validation pseudo-logic** — check in order, first failure is a cache miss:
+**验证伪逻辑**——按顺序检查，首次失败即视为缓存未命中：
 
-1. File exists and parses as YAML; top-level required keys present (`skill_version`, `project_path`, `written_at`, `build`, `deploy`, `signal_files`).
-2. `skill_version` string-equals the current skill's frontmatter `version` value.
-3. `project_path` equals the resolved absolute target directory (symlinks resolved via `realpath`).
-4. `now() - written_at` < 30 days.
-5. Every entry in `signal_files`: path still exists AND current mtime equals the recorded mtime.
-6. `build.command` and `deploy.command` are non-empty strings.
+1. 文件存在且可解析为 YAML；顶级必填键存在（`skill_version`、`project_path`、`written_at`、`build`、`deploy`、`signal_files`）。
+2. `skill_version` 字符串等于当前技能 frontmatter 中的 `version` 值。
+3. `project_path` 等于解析后的绝对目标目录（通过 `realpath` 解析符号链接）。
+4. `now() - written_at` < 30 天。
+5. `signal_files` 中每条：路径仍存在，且当前 mtime 等于记录的 mtime。
+6. `build.command` 和 `deploy.command` 为非空字符串。
 
-All pass → cache hit (jump to Step 4 with annotation). Any failure → cache miss; log `cache invalid: <reason>; falling back to full scan` and continue to Step 1.
+全部通过 → 缓存命中（跳到步骤 4 并加注释）。任一失败 → 缓存未命中；记录 `cache invalid: <reason>; falling back to full scan` 并继续步骤 1。
 
-### Step 1: Inventory signal files
+### 步骤 1：列举信号文件
 
-Walk the target directory (depth 1, plus `deploy/`, `.github/workflows/`, `docs/`) and collect the presence of:
+遍历目标目录（深度 1，加 `deploy/`、`.github/workflows/`、`docs/`），收集以下文件的存在情况：
 
-- **Build orchestration**: `Makefile`, `Taskfile.yml`, `justfile`, `package.json`, `scripts/build*`
-- **Container**: `Dockerfile`, `docker-compose.yml`, `compose.yaml`, `compose.*.yaml`
-- **Language manifests**: `go.mod`, `Cargo.toml`, `pom.xml`, `build.gradle*`, `*.csproj`, `*.sln`, `pyproject.toml`, `setup.py`
-- **Local deploy**: `ecosystem.config.{js,cjs,json}`, `supervisord.conf`, `supervisor/*.conf`, `deploy/*.service`, `Procfile`
-- **Documentation that often encodes commands**: `README.md`, `CONTRIBUTING.md`, `docs/development*.md`, `docs/build*.md`
-- **CI as canonical reference**: `.github/workflows/*.yml`, `.gitlab-ci.yml`, `Jenkinsfile` — these often pin the team-blessed build command
+- **构建编排**：`Makefile`、`Taskfile.yml`、`justfile`、`package.json`、`scripts/build*`
+- **容器**：`Dockerfile`、`docker-compose.yml`、`compose.yaml`、`compose.*.yaml`
+- **语言 manifest**：`go.mod`、`Cargo.toml`、`pom.xml`、`build.gradle*`、`*.csproj`、`*.sln`、`pyproject.toml`、`setup.py`
+- **本地部署**：`ecosystem.config.{js,cjs,json}`、`supervisord.conf`、`supervisor/*.conf`、`deploy/*.service`、`Procfile`
+- **通常编码了命令的文档**：`README.md`、`CONTRIBUTING.md`、`docs/development*.md`、`docs/build*.md`
+- **作为权威参考的 CI**：`.github/workflows/*.yml`、`.gitlab-ci.yml`、`Jenkinsfile`——这些通常固定了团队认可的构建命令
 
-### Step 2: Read & infer the build command
+### 步骤 2：读取并推断构建命令
 
-For each signal found, **read its contents** (do not assume defaults):
+对每个找到的信号，**读取其内容**（不假设默认值）：
 
-- **`Makefile`**: enumerate targets (`grep -E '^[a-zA-Z_-]+:' Makefile`); look for `build`, `release`, `compile`, `dist`, `all`. Read the body of the candidate target to confirm it actually builds (not just echoes). If multiple plausible targets exist, list them and ask the user which.
-- **`package.json`**: read the `scripts` object. Look for `build`, `build:prod`, `compile`, `bundle`. If Dockerfile copies `dist/`, prefer the script that produces `dist/`. Detect package manager via lockfile (`pnpm-lock.yaml` → pnpm; `yarn.lock` → yarn; `package-lock.json` → npm).
-- **`Taskfile.yml` / `justfile`**: enumerate tasks/recipes the same way as Makefile.
-- **`Dockerfile`**: inspect `COPY`, `RUN`, `CMD` lines to understand what artifacts the image expects and what builds happen inside the container. Use as a **cross-reference** (e.g., `COPY dist/` means the host build must produce `dist/`) — Dockerfile is rarely the host build command itself.
-- **CI workflow**: search build-like jobs/steps; the canonical command appears verbatim. Use as **cross-reference** to validate other signals.
-- **`README.md` / `docs/`**: scan for "Build" / "Development" / "Getting Started" sections; look for fenced code blocks with shell commands.
-- **Language manifests alone** (no Makefile, no scripts): only then fall back to the language's conventional command, and only **after** scanning README/CI to see if there's a project-specific override. Examples (only as last-resort defaults): Go → `go build ./...`; Rust → `cargo build --release`; Python → `pip install -e .`; Java/Maven → `mvn package`; Java/Gradle → `./gradlew build`; .NET → `dotnet build`.
+- **`Makefile`**：枚举目标（`grep -E '^[a-zA-Z_-]+:' Makefile`）；查找 `build`、`release`、`compile`、`dist`、`all`。读取候选目标的主体以确认它确实执行构建（而非只是 echo）。若存在多个合理目标，列出并询问用户选哪个。
+- **`package.json`**：读取 `scripts` 对象。查找 `build`、`build:prod`、`compile`、`bundle`。若 Dockerfile 复制了 `dist/`，优先使用产出 `dist/` 的脚本。通过 lockfile 检测包管理器（`pnpm-lock.yaml` → pnpm；`yarn.lock` → yarn；`package-lock.json` → npm）。
+- **`Taskfile.yml` / `justfile`**：与 Makefile 相同方式枚举任务/recipe。
+- **`Dockerfile`**：检查 `COPY`、`RUN`、`CMD` 行，理解镜像期望什么产物以及容器内发生了哪些构建。用作**交叉引用**（如 `COPY dist/` 意味着宿主机构建必须产出 `dist/`）——Dockerfile 本身几乎不是宿主机构建命令。
+- **CI workflow**：搜索构建类 job/step；权威命令会逐字出现。用作**交叉引用**以验证其他信号。
+- **`README.md` / `docs/`**：扫描"Build"/"Development"/"Getting Started"节；查找包含 shell 命令的代码块。
+- **仅有语言 manifest**（无 Makefile，无 scripts）：只有在此情况下才回退到语言的惯例命令，且仅在扫描 README/CI 后确认没有项目特定覆盖时使用。示例（仅作最后兜底默认值）：Go → `go build ./...`；Rust → `cargo build --release`；Python → `pip install -e .`；Java/Maven → `mvn package`；Java/Gradle → `./gradlew build`；.NET → `dotnet build`。
 
-**Priority of evidence** (highest first):
-1. `Makefile` / `Taskfile` / `justfile` target with explicit build semantics
-2. `package.json` script (for Node projects)
-3. CI workflow's documented build step
-4. README's "Build" section code block
-5. Language manifest fallback (`go build`, `cargo build`, etc.) — only when above are absent
+**证据优先级**（从高到低）：
+1. 有明确构建语义的 `Makefile` / `Taskfile` / `justfile` 目标
+2. `package.json` script（Node 项目）
+3. CI workflow 中有文档记录的构建步骤
+4. README 的"Build"节代码块
+5. 语言 manifest 兜底（`go build`、`cargo build` 等）——仅在上述均不存在时使用
 
-**Conflict resolution**: if Makefile says `make build` and CI says `make release`, surface both to the user with their sources and ask which to run. Never silently pick.
+**冲突解决**：若 Makefile 说 `make build` 而 CI 说 `make release`，将两者及其来源展示给用户，询问运行哪个。绝不默默选择。
 
-### Step 3: Read & infer the deploy command
+### 步骤 3：读取并推断部署命令
 
-Same principle — read the deploy-related files, don't assume:
+原则相同——读取部署相关文件，不假设：
 
-- **`docker-compose.yml`**: list defined services; the standard command is `docker compose up -d --build`. If a `Makefile` has `deploy`/`up`/`run` targets that wrap Compose, prefer the Makefile target — it captures project-specific flags (profiles, env files).
-- **`ecosystem.config.{js,cjs}`**: read the file and extract `apps[].name`. If `exec_mode: cluster`, prefer `pm2 reload <name>` (zero-downtime); otherwise `pm2 restart <name>`.
-- **`supervisord.conf`**: enumerate `[program:<name>]` sections. If multiple programs, list them and ask which to restart (or `supervisorctl restart all` if user confirms).
-- **`deploy/*.service`**: derive unit name from filename. Check file ownership vs current uid to decide if `sudo` is needed.
-- **`Makefile`** with `deploy` / `restart` / `up` targets: these typically encode the project's true restart procedure (env vars, pre-hooks). Prefer them over raw `docker compose` / `systemctl`.
-- **Compose-only project** (no other build orchestration found): the build step is **subsumed** by `docker compose up -d --build` — do not run a separate build, mark the build step as "skipped — subsumed by deploy".
+- **`docker-compose.yml`**：列出定义的服务；标准命令是 `docker compose up -d --build`。若 `Makefile` 有包装 Compose 的 `deploy`/`up`/`run` 目标，优先使用 Makefile 目标——它包含项目特定标志（profiles、env files）。
+- **`ecosystem.config.{js,cjs}`**：读取文件，提取 `apps[].name`。若 `exec_mode: cluster`，优先 `pm2 reload <name>`（零停机）；否则 `pm2 restart <name>`。
+- **`supervisord.conf`**：枚举 `[program:<name>]` 节。若有多个 program，列出并询问重启哪个（或用户确认 `supervisorctl restart all`）。
+- **`deploy/*.service`**：从文件名推导 unit 名称。检查文件所有权与当前 uid，判断是否需要 `sudo`。
+- **含 `deploy`/`restart`/`up` 目标的 `Makefile`**：这些目标通常编码了项目真实的重启流程（env vars、pre-hooks）。优先于原始 `docker compose` / `systemctl`。
+- **仅 Compose 项目**（无其他构建编排）：构建步骤被 `docker compose up -d --build` **吸收**——不单独运行构建，将构建步骤标记为"skipped — subsumed by deploy"。
 
-**Priority of evidence** (highest first):
-1. `Makefile` `deploy`/`restart`/`up` target (project-specific wrapper)
-2. Compose / pm2 / supervisord / systemd config file (the deployment medium itself)
-3. README "Deploy" / "Run" section code block
+**证据优先级**（从高到低）：
+1. `Makefile` 的 `deploy`/`restart`/`up` 目标（项目特定包装器）
+2. Compose / pm2 / supervisord / systemd 配置文件（部署介质本身）
+3. README 的"Deploy"/"Run"节代码块
 
-### Step 4: Present inferences for confirmation
+### 步骤 4：展示推断以供确认
 
-Show the user a structured inference report **before** executing anything:
+在执行任何操作前，向用户展示结构化推断报告：
 
 ```
 Detected build:
@@ -206,67 +206,67 @@ Detected deploy:
   Command: make up   ← Makefile wrapper preferred over raw compose
 ```
 
-Proceed only after the user confirms. Skip confirmation only when both commands come from `.cortex.yaml`.
+仅在用户确认后继续执行。两个命令均来自 `.cortex.yaml` 时跳过确认。
 
 ---
 
-## Behavior
+## 行为（Behavior）
 
-### Workflow (checklist)
+### 工作流程（Checklist）
 
-1. **Resolve target directory**
-   - Default: CWD
-   - If user provided a path: verify it exists (`test -d <path>`)
-   - Abort with clear error if the directory does not exist
+1. **确认目标目录**
+   - 默认：CWD
+   - 若用户提供了路径：验证其存在（`test -d <path>`）
+   - 目录不存在时以清晰错误中止
 
-2. **Read config override** (if `.cortex.yaml` present)
-   - Parse `build_command` and/or `deploy_command`
-   - Log which fields were overridden; skip heuristics for overridden fields
+2. **读取配置覆盖**（若 `.cortex.yaml` 存在）
+   - 解析 `build_command` 和/或 `deploy_command`
+   - 记录哪些字段被覆盖；跳过被覆盖字段的启发式检测
 
-3. **Check inference cache** (Detection Approach Step 0.5)
-   - Read `.cortex/redeploy-local.yaml` if present
-   - Validate per the 6-step pseudo-logic in Step 0.5
-   - On cache hit: skip steps 4–5 and proceed to step 6 with the report annotated `(from cache, scanned YYYY-MM-DD; <N> signal files unchanged)`
-   - On cache miss / malformed / stale: continue to step 4 (do not delete the file)
-   - Fields overridden by `.cortex.yaml` (step 2) are dropped from cache reuse; the cache may still supply the remaining field
+3. **检查推断缓存**（检测方式步骤 0.5）
+   - 若存在，读取 `.cortex/redeploy-local.yaml`
+   - 按 6 步伪逻辑验证
+   - 缓存命中：跳过步骤 4–5，以标注了 `(from cache, scanned YYYY-MM-DD; <N> signal files unchanged)` 的报告进入步骤 6
+   - 缓存未命中 / 格式错误 / 过期：继续步骤 4（不删除文件）
+   - `.cortex.yaml`（步骤 2）覆盖的字段从缓存复用中剔除；缓存仅供剩余字段使用（若验证仍通过）
 
-4. **Infer build command** (if not overridden and not cached)
-   - Run Detection Approach Steps 1–2: inventory signals, read files, cross-reference
-   - Log the source(s) of evidence and the chosen command
-   - If Compose-only project (no other build orchestration found): mark "build skipped — subsumed by deploy"
-   - If no evidence found: stop and ask user for `build_command`
-   - If evidence conflicts: surface options to user, do not silently pick
+4. **推断构建命令**（若未被覆盖且未缓存）
+   - 执行检测方式步骤 1–2：列举信号，读取文件，交叉引用
+   - 记录证据来源和选定命令
+   - 若为仅 Compose 项目（无其他构建编排）：标记"build skipped — subsumed by deploy"
+   - 若无证据：停止并询问用户 `build_command` 或让其填写 `.cortex.yaml`
+   - 若证据冲突：将选项展示给用户，不默默选择
 
-5. **Infer deploy command** (if not overridden and not cached)
-   - Run Detection Approach Step 3: read deploy config files, prefer Makefile wrappers
-   - Log the source and the chosen command (including extracted service/unit name)
-   - If no evidence found: stop and ask user
+5. **推断部署命令**（若未被覆盖且未缓存）
+   - 执行检测方式步骤 3：读取部署配置文件，优先 Makefile 包装器
+   - 记录来源和选定命令（含提取的服务/unit 名称）
+   - 若无证据：停止并询问用户
 
-6. **Present inferences & confirm**
-   - Show the structured inference report (per Detection Approach Step 4); add cache-hit annotation if reused
-   - Wait for user confirmation
-   - Skip confirmation only when both commands come from `.cortex.yaml`
-   - If the same directory+commands were already confirmed earlier in this conversation, skip re-confirmation
+6. **展示推断并确认**
+   - 展示结构化推断报告（按检测方式步骤 4）；若使用缓存则加注释
+   - 等待用户确认
+   - 仅当两个命令均来自 `.cortex.yaml` 时跳过确认
+   - 若本次对话中已对相同目录 + 命令确认过，跳过重复确认
 
-7. **Execute build** (if not skipped)
-   - Run build command from the target directory
-   - Stream output (do not buffer silently)
-   - Record wall-clock duration with `{ start=$(date +%s); <cmd>; echo $(($(date +%s)-start))s; }`
-   - On exit code ≠ 0: show last 20 lines, report failure, stop — do not run deploy
+7. **执行构建**（若未跳过）
+   - 从目标目录运行构建命令
+   - 实时流式输出（不静默缓冲）
+   - 用 `{ start=$(date +%s); <cmd>; echo $(($(date +%s)-start))s; }` 记录耗时
+   - 退出码 ≠ 0 时：显示最后 20 行，上报失败，停止——不运行部署
 
-8. **Execute deployment restart**
-   - Run restart command
-   - Record duration the same way
-   - On exit code ≠ 0: show last 20 lines, report partial state, stop
+8. **执行部署重启**
+   - 运行重启命令
+   - 同样方式记录耗时
+   - 退出码 ≠ 0 时：显示最后 20 行，上报部分状态，停止
 
-9. **Health check**
-   - Docker Compose: `docker compose ps` — confirm all containers show `Up`
-   - systemd: `systemctl is-active <unit>`
-   - pm2: `pm2 list | grep <name>`
-   - supervisord: `supervisorctl status <program>`
-   - Log result; warn (but do not fail the skill run) if health check command is unavailable
+9. **健康检查**
+   - Docker Compose：`docker compose ps` ——确认所有容器显示 `Up`
+   - systemd：`systemctl is-active <unit>`
+   - pm2：`pm2 list | grep <name>`
+   - supervisord：`supervisorctl status <program>`
+   - 记录结果；若健康检查命令不可用，警告（但不将技能运行标记为失败）
 
-10. **Emit run report**
+10. **输出运行报告**
 
     ```
     Step     Command                         Exit  Duration
@@ -276,110 +276,110 @@ Proceed only after the user confirms. Skip confirmation only when both commands 
     Health   docker compose ps                 0    0.2s
     ```
 
-11. **Write cache on success**
-    - Only when build exit 0 (or skipped-by-subsumption), deploy exit 0, AND health check passed
-    - Skip the write if both commands came from `.cortex.yaml` (cache adds no value)
-    - Skip on partial success (deploy 0 but health unhealthy) — do not cache a known-broken configuration
-    - Create `.cortex/` (mode 0755) if missing, then write `.cortex/redeploy-local.yaml` with the `# Auto-generated by redeploy-local skill; do not edit by hand` header
-    - Record current `skill_version`, resolved absolute `project_path`, ISO 8601 UTC `written_at`, the chosen commands with their evidence, and every signal file READ during inference plus its current mtime
-    - On write failure (permission denied, disk full, concurrent write): log `cache write skipped: <reason>` and continue — the deploy already succeeded; the cache is only an optimization layer
+11. **成功后写入缓存**
+    - 仅当构建退出码 0（或因吸收而跳过）、部署退出码 0、且健康检查通过时写入
+    - 若两个命令均来自 `.cortex.yaml`，跳过写入（缓存无附加价值）
+    - 部分成功（部署 0 但健康不健康）时跳过写入——不缓存已知有问题的配置
+    - 若 `.cortex/` 不存在，创建（mode 0755），然后写入 `.cortex/redeploy-local.yaml`，带 `# Auto-generated by redeploy-local skill; do not edit by hand` 头部
+    - 记录当前 `skill_version`、解析后的绝对 `project_path`、ISO 8601 UTC `written_at`、带证据的选定命令，以及推断期间读取过的每个信号文件及其当前 mtime
+    - 写入失败（权限拒绝、磁盘满、并发写）时：记录 `cache write skipped: <reason>` 并继续——部署已成功；缓存仅是优化层
 
-### Interaction policy
+### 交互策略
 
-- Ask only when detection is ambiguous or fails
-- Never ask when `.cortex.yaml` provides both commands
-- One confirmation prompt covers both build and deploy; never prompt twice for the same run
-- Skip re-confirmation if the same directory and commands were already confirmed earlier in this conversation
-
----
-
-## Input & Output
-
-### Input requirements
-
-- Target directory (explicit path or CWD)
-- Optional: `.cortex.yaml` with `build_command` and/or `deploy_command`
-
-### Output contract
-
-Provides:
-
-- Inference report listing every chosen command with its evidence source(s) (file + section/line + cross-references)
-- Streamed build output (or "skipped" note for Compose-only projects)
-- Streamed deploy output
-- Health check result
-- Run report table (command / exit code / duration per step)
-- Inference cache written to `.cortex/redeploy-local.yaml` on fully successful run (build + deploy + health all pass)
+- 仅在检测有歧义或失败时询问
+- `.cortex.yaml` 提供两个命令时不询问
+- 一次确认提示涵盖构建和部署；同一次运行中不重复提示
+- 若本次对话中相同目录和命令已确认，跳过重新确认
 
 ---
 
-## Limits
+## 输入与输出（Input & Output）
 
-### Hard boundaries
+### 输入要求
 
-- NEVER run `rm -rf` or destructive cleanup commands as part of build without explicit user config
-- NEVER assume a service name for systemd, pm2, or supervisord — extract from config file or ask
-- NEVER proceed past a failed step — report and stop
-- NEVER run deployment restart without a preceding successful build (exit 0), except for Compose-only projects where deploy subsumes build
-- NEVER inject or modify environment variables in the target deployment
-- NEVER prepend `sudo` unless evidence justifies it (e.g., systemd unit file owned by root vs. current uid); ask the user to confirm elevation before running
+- 目标目录（显式路径或 CWD）
+- 可选：含 `build_command` 和/或 `deploy_command` 的 `.cortex.yaml`
 
-### Failure modes
+### 输出契约
 
-| Failure | Behavior |
+提供：
+
+- 推断报告，列出每个选定命令及其证据来源（文件 + 节/行 + 交叉引用）
+- 构建输出实时流（或 Compose-only 项目的"skipped"提示）
+- 部署输出实时流
+- 健康检查结果
+- 运行报告表格（每步的命令 / 退出码 / 耗时）
+- 完全成功运行后（构建 + 部署 + 健康检查全部通过），推断缓存写入 `.cortex/redeploy-local.yaml`
+
+---
+
+## 约束（Restrictions）
+
+### 硬边界（Hard Boundaries）
+
+- **绝不**在未有显式用户配置的情况下运行 `rm -rf` 或破坏性清理命令
+- **绝不**假设 systemd、pm2 或 supervisord 的服务名——从配置文件提取或询问
+- **绝不**在步骤失败后继续——上报并停止
+- **绝不**在未有前置成功构建（退出码 0）的情况下运行部署重启，仅 Compose-only 项目（部署吸收构建）除外
+- **绝不**注入或修改目标部署的环境变量
+- **绝不**在无证据支撑时添加 `sudo`（如 systemd unit 文件为 root 所有而当前 uid 不同）；运行前询问用户确认提权
+
+### 失败模式
+
+| 失败情况 | 行为 |
 |---|---|
-| Directory not found | Abort immediately; show exact path checked |
-| No build evidence found | Stop before build; ask user for `build_command` or to populate `.cortex.yaml` |
-| No deploy evidence found | Stop before deploy; ask user for `deploy_command` or to populate `.cortex.yaml` |
-| Evidence conflicts (e.g., Makefile vs CI disagree) | Stop; surface both options with sources; let user choose |
-| Name/unit extraction fails | Stop; ask user to provide the name explicitly |
-| Build exit ≠ 0 | Show last 20 lines; stop; do not run deploy |
-| Deploy exit ≠ 0 | Show last 20 lines; stop; report partial state |
-| Health check fails | Warn; do not fail the skill run; do not write cache |
-| Cache file malformed or missing required keys | Treat as cache miss; fall through to full scan; do not delete; successful run overwrites |
-| Recorded signal file deleted / mtime changed | Cache miss; re-scan |
-| Cache `skill_version` differs from current | Cache miss; re-scan |
-| Cache write fails (permission / disk full) | Log warning; do not fail the skill run — deploy already succeeded |
+| 目录未找到 | 立即中止；显示检查的确切路径 |
+| 无构建证据 | 在构建前停止；询问用户 `build_command` 或让其填写 `.cortex.yaml` |
+| 无部署证据 | 在部署前停止；询问用户 `deploy_command` 或让其填写 `.cortex.yaml` |
+| 证据冲突（如 Makefile 与 CI 不一致） | 停止；将两个选项及其来源展示给用户；让用户选择 |
+| 名称/unit 提取失败 | 停止；询问用户明确提供名称 |
+| 构建退出码 ≠ 0 | 显示最后 20 行；停止；不运行部署 |
+| 部署退出码 ≠ 0 | 显示最后 20 行；停止；上报部分状态 |
+| 健康检查失败 | 警告；不将技能运行标记为失败；不写入缓存 |
+| 缓存文件格式错误或缺少必填键 | 视为缓存未命中；回落到完整扫描；不删除；成功运行后覆盖 |
+| 记录的信号文件被删除 / mtime 变更 | 缓存未命中；重新扫描 |
+| 缓存 `skill_version` 与当前不同 | 缓存未命中；重新扫描 |
+| 缓存写入失败（权限 / 磁盘满） | 记录警告；不将技能运行标记为失败——部署已成功 |
 
 ---
 
-## Self-Check
+## 自检清单（Self-Check）
 
-### Core success criteria
+### 核心成功标准
 
-- [ ] **Directory resolved**: Target directory verified to exist before any command runs
-- [ ] **Detection traceable**: Every inferred command is attributed to specific evidence (file + line/section, ideally with a cross-reference) — never invented
-- [ ] **Double-build avoided**: Compose-only projects skip the build step; `--build` in deploy command handles it
-- [ ] **User confirmed**: Commands shown and confirmed before first execution (skipped only when both come from `.cortex.yaml`)
-- [ ] **Build succeeded**: Exit code 0 confirmed before deploy runs (or build step legitimately skipped)
-- [ ] **Deploy succeeded**: Exit code 0 confirmed before health check
-- [ ] **Health check run**: Status checked and logged (warn if unavailable; do not fail)
-- [ ] **Run report emitted**: Table covers every step with command / exit code / duration
-- [ ] **Cache honored or refreshed**: `.cortex/redeploy-local.yaml` read before scanning; written only after a fully successful run (build + deploy + health all pass)
+- [ ] **目录已确认**：目标目录在任何命令前已验证存在
+- [ ] **检测可追溯**：每个推断命令均归因于具体证据（文件 + 行/节，最好有交叉引用）——不凭空生成
+- [ ] **避免双重构建**：Compose-only 项目跳过构建步骤；`--build` 在部署命令中处理
+- [ ] **用户已确认**：命令在首次执行前已展示并确认（仅当两个命令均来自 `.cortex.yaml` 时跳过）
+- [ ] **构建成功**：退出码 0 在部署运行前已确认（或构建步骤被合理跳过）
+- [ ] **部署成功**：退出码 0 在健康检查前已确认
+- [ ] **健康检查已运行**：状态已检查并记录（不可用时警告；不失败）
+- [ ] **运行报告已输出**：表格涵盖每步的命令 / 退出码 / 耗时
+- [ ] **缓存已遵守或已刷新**：扫描前读取 `.cortex/redeploy-local.yaml`；仅在完全成功运行后写入（构建 + 部署 + 健康检查全部通过）
 
-### Process quality checks
+### 过程质量检查
 
-- [ ] **No silent buffering**: Build and deploy output streamed, not buffered
-- [ ] **Duration recorded**: Wall-clock time measured for each step
-- [ ] **Name/unit sourced**: pm2/supervisord/systemd name extracted from config file, not hardcoded
-- [ ] **Interaction minimal**: No redundant prompts; re-confirmation skipped when already confirmed in this conversation
+- [ ] **无静默缓冲**：构建和部署输出实时流式，不缓冲
+- [ ] **耗时已记录**：每步均测量了墙上时钟时间
+- [ ] **名称/unit 来自来源**：pm2/supervisord/systemd 名称从配置文件提取，不硬编码
+- [ ] **交互最小化**：无冗余提示；本次对话中已确认时跳过重新确认
 
 ---
 
-## Examples
+## 示例（Examples）
 
-### Example 1: Node.js app behind Docker Compose
+### 示例 1：Node.js 应用 + Docker Compose
 
-**Directory contents**: `package.json`, `pnpm-lock.yaml`, `Dockerfile`, `docker-compose.yml`, `README.md`
+**目录内容**：`package.json`、`pnpm-lock.yaml`、`Dockerfile`、`docker-compose.yml`、`README.md`
 
-**Inference process**:
-- Read `package.json` `scripts`: found `build`, `build:prod`, `test`, `lint`
-- Read `Dockerfile`: `COPY dist/ /app/` — image expects `dist/` to exist
-- Read `package.json` `scripts.build`: `tsc && vite build --outDir dist` — produces `dist/`, matches
-- `scripts.build:prod` is `NODE_ENV=production npm run build` — would also work, but `build` is the default referenced in README
-- Detect package manager: `pnpm-lock.yaml` → pnpm
+**推断过程**：
+- 读取 `package.json` `scripts`：找到 `build`、`build:prod`、`test`、`lint`
+- 读取 `Dockerfile`：`COPY dist/ /app/`——镜像期望 `dist/` 存在
+- 读取 `package.json` `scripts.build`：`tsc && vite build --outDir dist`——产出 `dist/`，匹配
+- `scripts.build:prod` 是 `NODE_ENV=production npm run build`——也可用，但 `build` 是 README 中引用的默认值
+- 检测包管理器：`pnpm-lock.yaml` → pnpm
 
-**Inference report shown to user**:
+**向用户展示的推断报告**：
 
 ```
 Detected build:
@@ -392,7 +392,7 @@ Detected deploy:
   Command: docker compose up -d --build
 ```
 
-**After user confirms**, run report:
+**用户确认后**，运行报告：
 
 ```
 Step     Command                         Exit  Duration
@@ -402,17 +402,17 @@ Deploy   docker compose up -d --build      0    6.3s
 Health   docker compose ps                 0    0.2s
 ```
 
-### Example 2: Go service with Makefile wrapper
+### 示例 2：Go 服务 + Makefile 包装器
 
-**Directory contents**: `go.mod`, `Makefile`, `deploy/myapp.service`, `.github/workflows/ci.yml`
+**目录内容**：`go.mod`、`Makefile`、`deploy/myapp.service`、`.github/workflows/ci.yml`
 
-**Inference process**:
-- Read `Makefile` targets: `build`, `test`, `lint`, `release`, `install`
-- Read `Makefile` body of `build` target: `go build -ldflags "-X main.Version=$(VERSION)" -o bin/myapp ./cmd/myapp` — project-specific ldflags and output path; do NOT default to `go build ./...`
-- Cross-ref `.github/workflows/ci.yml`: build step runs `make build` — confirms canonical
-- Read `deploy/myapp.service` filename → unit `myapp`; check file owner (`root`) vs current uid → `sudo systemctl restart myapp` likely needed
+**推断过程**：
+- 读取 `Makefile` 目标：`build`、`test`、`lint`、`release`、`install`
+- 读取 `Makefile` 中 `build` 目标的主体：`go build -ldflags "-X main.Version=$(VERSION)" -o bin/myapp ./cmd/myapp`——项目特定 ldflags 和输出路径；不默认使用 `go build ./...`
+- 交叉引用 `.github/workflows/ci.yml`：构建步骤运行 `make build`——确认为权威
+- 读取 `deploy/myapp.service` 文件名 → unit `myapp`；检查文件所有者（`root`）vs 当前 uid → 可能需要 `sudo systemctl restart myapp`
 
-**Inference report**:
+**推断报告**：
 
 ```
 Detected build:
@@ -426,16 +426,16 @@ Detected deploy:
   Command: sudo systemctl restart myapp
 ```
 
-### Example 3: Compose-only project (build step skipped)
+### 示例 3：仅 Compose 项目（跳过构建步骤）
 
-**Directory contents**: `docker-compose.yml`, `Dockerfile` (no Makefile, no package.json, no language manifest at root)
+**目录内容**：`docker-compose.yml`、`Dockerfile`（根目录无 Makefile、package.json 或语言 manifest）
 
-**Inference process**:
-- No build orchestration found outside the Docker context
-- `Dockerfile` does the build during `docker compose up --build`
-- Therefore: skip standalone build; deploy command subsumes it
+**推断过程**：
+- Docker 上下文之外未找到构建编排
+- `Dockerfile` 在 `docker compose up --build` 期间执行构建
+- 因此：跳过独立构建；部署命令吸收构建
 
-**Run report**:
+**运行报告**：
 
 ```
 Step     Command                         Exit  Duration
@@ -445,18 +445,18 @@ Deploy   docker compose up -d --build      0    9.1s
 Health   docker compose ps                 0    0.2s
 ```
 
-### Example 4: Config override via .cortex.yaml
+### 示例 4：通过 .cortex.yaml 配置覆盖
 
-**`.cortex.yaml`**:
+**`.cortex.yaml`**：
 
 ```yaml
 build_command: make release GOARCH=arm64
 deploy_command: supervisorctl restart api-worker
 ```
 
-**Detection**: Both commands read from `.cortex.yaml` — no heuristics applied, no confirmation prompt.
+**检测**：两个命令均从 `.cortex.yaml` 读取——不应用启发式规则，不显示确认提示。
 
-**Run report**:
+**运行报告**：
 
 ```
 Step     Command                          Exit  Duration
@@ -466,9 +466,9 @@ Deploy   supervisorctl restart api-worker   0    0.8s
 Health   supervisorctl status api-worker    0    0.1s
 ```
 
-### Example 5: Build failure (edge case)
+### 示例 5：构建失败（边缘情况）
 
-**Scenario**: `pnpm run build` exits with code 1
+**场景**：`pnpm run build` 以退出码 1 退出
 
 ```
 [build] FAILED — exit 1 after 4.2s
@@ -481,16 +481,16 @@ Deployment step skipped.
 Suggested fix: run `pnpm install` to restore dependencies, then retry.
 ```
 
-### Example 6: Cache hit on a previously-deployed project
+### 示例 6：之前部署过的项目缓存命中
 
-**Directory contents**: same as Example 1 (`package.json`, `pnpm-lock.yaml`, `Dockerfile`, `docker-compose.yml`, `README.md`) plus `.cortex/redeploy-local.yaml` written by a prior successful run.
+**目录内容**：与示例 1 相同（`package.json`、`pnpm-lock.yaml`、`Dockerfile`、`docker-compose.yml`、`README.md`），加上之前成功运行后写入的 `.cortex/redeploy-local.yaml`。
 
-**Detection process**:
-- Step 0: no `.cortex.yaml` override
-- Step 0.5: read `.cortex/redeploy-local.yaml`; validation passes (same skill version, same `project_path`, 2 days old, all 4 `signal_files` mtimes unchanged)
-- Skip Steps 1–3 (full scan); jump to Step 4 with cache annotation
+**检测过程**：
+- 步骤 0：无 `.cortex.yaml` 覆盖
+- 步骤 0.5：读取 `.cortex/redeploy-local.yaml`；验证通过（相同技能版本、相同 `project_path`、2 天前、4 个 `signal_files` 的 mtime 均未变更）
+- 跳过步骤 1–3（完整扫描）；直接进入步骤 4 并加缓存注释
 
-**Inference report shown to user**:
+**向用户展示的推断报告**：
 
 ```
 Detected build:
@@ -502,7 +502,7 @@ Detected deploy:
   Command: docker compose up -d --build
 ```
 
-**After user confirms**, run report (identical commands to Example 1, no scan overhead):
+**用户确认后**，运行报告（与示例 1 命令相同，无扫描开销）：
 
 ```
 Step     Command                         Exit  Duration
@@ -512,4 +512,4 @@ Deploy   docker compose up -d --build      0    6.1s
 Health   docker compose ps                 0    0.2s
 ```
 
-The cache file is rewritten on success with a refreshed `written_at` and current signal-file mtimes.
+缓存文件在成功后以刷新的 `written_at` 和当前信号文件 mtime 重新写入。
