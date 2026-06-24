@@ -469,6 +469,36 @@ cmd_clean() {
     fi
   fi
 
+  # E: real directories in ~/.agents/skills/ shadowing cortex-managed skills
+  if [ -d "$HOME/.agents/skills" ]; then
+    _real_dirs=""
+    for _skill_dir in "$CORTEX_HOME/skills"/*/; do
+      _name=$(basename "$_skill_dir")
+      _dst="$HOME/.agents/skills/$_name"
+      if [ -e "$_dst" ] && [ ! -L "$_dst" ]; then
+        _real_dirs="$_real_dirs $_dst"
+      fi
+    done
+    if [ -n "$_real_dirs" ]; then
+      _clean_found=1
+      _count=$(echo "$_real_dirs" | wc -w | tr -d ' ')
+      _info "[E] Found $_count real directories in ~/.agents/skills/ shadowing cortex skills"
+      _info "These block cortex from managing symlinks. Replace with cortex-managed symlinks?"
+      if [ "$_dry" -eq 0 ]; then
+        _do=0
+        if [ "$_yes" -eq 1 ]; then _do=1; else _confirm "Replace $_count real dirs with cortex symlinks?" && _do=1 || true; fi
+        if [ "$_do" -eq 1 ]; then
+          for _dst in $_real_dirs; do
+            _name=$(basename "$_dst")
+            rm -rf "$_dst"
+            ln -sfn "$CORTEX_HOME/skills/$_name" "$_dst"
+            _ok "Replaced real dir with symlink: $_name"
+          done
+        fi
+      fi
+    fi
+  fi
+
   # D: drifted .mdc
   if [ -d "$HOME/.cursor/rules" ]; then
     for _rule in "$CORTEX_HOME/rules"/*.md; do
