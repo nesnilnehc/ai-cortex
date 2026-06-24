@@ -1,3 +1,14 @@
+---
+artifact_type: rule
+name: standards-test-code
+version: 1.0.0
+created_by: ai-cortex
+lifecycle: living
+created_at: 2026-05-26
+recommended_scope: user
+status: active
+---
+
 # Rule: 测试代码编码标准 (Test Code Standards)
 
 ## 适用范围 (Scope)
