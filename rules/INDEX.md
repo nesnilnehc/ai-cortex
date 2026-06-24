@@ -45,6 +45,7 @@
 | [repo-structure-hygiene](./repo-structure-hygiene.md) | workflow | 仓库目录结构卫生（错放、命名、空目录、过期制品）。 | 审计或自检仓库结构时 |
 | [adr-management](./adr-management.md) | workflow | ADR 写作纪律：准入门槛（两问验证）、状态字段强制（5 值枚举）、衰减政策（12 月归档 / 6 月可删 / ADR 例外不删）、与 decisions 边界。 | 写或维护 ADR 时 |
 | [claude-md-management](./claude-md-management.md) | workflow | CLAUDE.md 写作纪律：篇幅控制（项目级 ≤300 行）、表达方式、内容禁区、修订原则、自检清单（逐项引用 spec 标尺）。 | 撰写或维护任一层级 CLAUDE.md 时 |
+| [diagram-selection](./diagram-selection.md) | content | 图表选型判据：关系类型 → 图类型 → 工具速查表、跨工具选型启发式（默认 Mermaid，何时离开 PlantUML / Graphviz / flowchart.js）、渲染避坑清单、多图拆分约束。 | 画技术图表或设计文档嵌图时 |
 
 ---
 

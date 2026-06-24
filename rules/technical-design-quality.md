@@ -85,3 +85,9 @@ status: active
 - ❌ 测试策略写测试代码
 - ❌ `parent` 的 artifact_type 不在 {functional-design, requirement}
 - ❌ 无 `parent` frontmatter（孤立设计）
+
+---
+
+## 关联资产
+
+- **图表选型**：[diagram-selection](./diagram-selection.md)——架构图 / 组件图 / 部署图等结构化表达的选型、跨工具选择与渲染避坑援引此判据
