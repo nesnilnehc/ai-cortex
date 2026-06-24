@@ -81,3 +81,9 @@ status: active
 - ❌ 满足升必填条件却缺状态图 / 权限矩阵
 - ❌ 权衡分析混入技术选型取舍
 - ❌ 无 `parent` frontmatter（孤立设计）
+
+---
+
+## 关联资产
+
+- **图表选型**：[diagram-selection](./diagram-selection.md)——业务流程图 / 状态图选型、跨工具选择与渲染避坑援引此判据
