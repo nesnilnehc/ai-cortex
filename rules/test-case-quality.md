@@ -1,3 +1,14 @@
+---
+artifact_type: rule
+name: test-case-quality
+version: 1.0.0
+created_by: ai-cortex
+lifecycle: living
+created_at: 2026-05-26
+recommended_scope: user
+status: active
+---
+
 # Rule: 测试用例质量（Test Case Quality）
 
 > 5 维评审清单 + spec 合规检查。每条独立可验证。
