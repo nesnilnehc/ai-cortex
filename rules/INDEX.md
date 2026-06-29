@@ -18,6 +18,7 @@
 | `content` | 定义文本/文档的格式、语调、术语与排版规范（含 writing 与 documentation）。 |
 | `workflow` | 定义开发流程与文档管理策略。 |
 | `standards` | 定义通用与语言特定的编码标准。 |
+| `architecture` | 定义跨切的架构与设计原则（如智能体制品生产范式）。 |
 
 ---
 
@@ -27,6 +28,7 @@
 
 | 规则名称 | 分类 | 核心价值 | 适用场景 |
 | :--- | :--- | :--- | :--- |
+| [agentic-artifact-paradigm](./agentic-artifact-paradigm.md) | architecture | 智能体制品生产范式：结构是脚手架非议程、实质优先、提取优先、质量规则当 oracle 且防 oracle 填表化；交互式与一次性能力共用的上位原则。 | 设计/实现「输入→spec 制品」的智能体能力时 |
 | [writing-chinese-technical](./writing-chinese-technical.md) | content | 规范中文技术写作与文案排版，含数字/单位空格与界面文字。 | 所有中文输出场景 |
 | [standards-import](./standards-import.md) | standards | 代码重构时引用同步与排序，减少编译/运行失败。 | 含模块引用的代码变更 |
 | [workflow-documentation](./workflow-documentation.md) | workflow | 文档管理约束（最小化、DRY、临时文档命名等）；决策树外移至 docs/guides。 | 新建或维护 .md 文档 |
