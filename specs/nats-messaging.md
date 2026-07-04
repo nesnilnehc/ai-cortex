@@ -2,7 +2,7 @@
 id: NATS_MESSAGING_SPEC_V1
 name: NATS Messaging Schema
 description: Spec defining the structural contract for NATS messages exchanged between independently-evolving projects — subject naming, headers, ID requirements, payload conventions, versioning, with embedded validation rules.
-version: 1.0.0
+version: 1.1.0
 status: active
 lifecycle: living
 created_at: 2026-05-21
@@ -313,6 +313,11 @@ consume_defaults:
   batch_size: 50                                  # 单次 fetch 条数
   fetch_timeout: 5s                               # 单次 fetch 超时
   idle_threshold: 2s                              # 连续空 fetch 阈值（视为 drain 完成）
+
+# Consumer 消费范围（二选一，见下方互斥说明）
+consume_subjects:                                 # 默认：显式逐 subject 列表，每个 subject 一个精确 durable
+  - clarification.session.requested.v1
+consume_pattern: null                             # 可选：wildcard 消费模式，如 zentao.omnireview.>；设置后优先，consume_subjects 被忽略
 ```
 
 **约定**：
@@ -320,6 +325,9 @@ consume_defaults:
 - 首次会话由配套 Skill 引导生成，commit 进 repo
 - 后续会话 Skill 启动时直接读，免重复询问基础信息
 - 不存在时 Skill 优雅降级：临时问完发送，但提示用户落盘
+- `consume_pattern` 与 `consume_subjects` **互斥**：`consume_pattern` 一旦设置即优先生效，`consume_subjects` 被忽略不读——两者同时生效会导致一条消息被 wildcard consumer 和精确 consumer 各自独立收到、各自独立 ack，造成业务侧重复处理
+- `consume_pattern` 启用后，只建一个 `<durable_name_prefix>-wildcard` durable，而非逐 subject 各建一个；配套 Skill 对每条消息按其实际 `subject` 动态解析对应契约（命中 `active` 契约才 ack，命中草稿或全新 subject 一律 term + DLQ 标注待确认，不会盲目 ack 未审阅过的消息）
+- **已知限制**：JetStream 的 `ack_wait` / `max_deliver` 是 durable 级别配置，不能按 subject 各设各的——`consume_pattern` 模式下所有 subject 共享同一套重试参数，各契约「重试策略」字段在此模式下降级为文档性描述，不再逐 subject 强制生效
 
 ---
 
