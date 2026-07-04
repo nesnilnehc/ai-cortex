@@ -1,9 +1,9 @@
 ---
 name: consume-nats-message
-description: Drain pending NATS messages from a producer contract via NATS MCP tools (default batch / drain-style). Applies Tolerant Reader semantics and per-message ack/nak/term, returning aggregated stats. Reads project-level cache (.cortex/nats.yaml) to avoid re-prompting.
-description_zh: 通过 NATS MCP 工具批量拉取并处理 producer 契约下的待处理消息（默认 drain-style：拉至空或达上限）。逐条按 Tolerant Reader 处理 + ack/nak/term，返回聚合结果。读取项目级缓存 .cortex/nats.yaml 免重复询问。
+description: Drain pending NATS messages from a producer contract via NATS MCP tools. Discovers the available NATS tool capabilities, selects exact-subject or wildcard mode from .cortex/nats.yaml, applies Tolerant Reader semantics, executes ack/nak/term decisions, and returns aggregated stats.
+description_zh: 通过 NATS MCP 工具批量拉取 producer 契约下的待处理消息。先发现并映射可用 NATS 工具能力，再根据 .cortex/nats.yaml 选择精确 subject 或 wildcard 模式，按 Tolerant Reader 处理并执行 ack/nak/term，最终返回聚合统计。
 tags: [nats, messaging, cross-team, consumer, mcp]
-version: 1.1.0
+version: 1.3.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -11,233 +11,271 @@ metadata:
 triggers: [consume nats, subscribe nats, drain nats, 订阅事件, 跨服务收消息, nats consume]
 input_schema:
   type: free-form
-  description: Producer name + event type (or subject); optional contract path/URL with @version; optional override of consume_defaults (max_messages / batch_size / fetch_timeout)
+  description: Producer name + event type or subject; optional contract path with @version; optional consume override max_messages / batch_size / fetch_timeout / idle_threshold
 output_schema:
   type: side-effect
-  description: Messages drained and processed via MCP; per-message ack/nak/term applied; aggregated stats reported (counts + failure list + exit reason)
+  description: Pending messages drained via MCP; each message acked/naked/termed or isolated for contract confirmation; aggregated counts, failures, awaiting_confirmation, and exit reason reported
 ---
 
-# 技能（Skill）：消费 NATS 消息
+# 技能：消费 NATS 消息
 
-## 目的（Purpose）
+## 目的
 
-让相互协作的项目能"正确消费消息"——按 producer 契约通过 NATS MCP 工具批量拉取待处理消息，逐条按 Tolerant Reader 处理并正确 ack。默认 **drain-style**：一次调用拉至队列空或达上限，单条失败不阻断整批，最终返回聚合结果。
+在 consumer 仓库中执行一次有限的 NATS JetStream pull-consume：读取本地配置和 producer 契约，拉取待处理消息，逐条按 Tolerant Reader 解析并调用业务 handler，然后执行正确的 `ack` / `nak` / `term + DLQ` 决策。
 
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：drain producer 契约对应 subject 的待处理消息，每条按 Tolerant Reader 解码 → 业务处理 → 正确 ack / nak / term，输出聚合统计。
-
-**成功标准**：
-
-1. ✅ 项目缓存 `.cortex/nats.yaml` 已读取
-2. ✅ producer 契约已定位（本地 vendored 优先）并通过 `contract_version` 兼容性检查；**契约缺失时 Bootstrap 已生成 draft 草稿并经用户确认**
-3. ✅ pull consumer 建立 / 复用（durable name 按缓存前缀命名）
-4. ✅ 循环 fetch 至 `drained` / `cap_reached` / `idle_timeout` 之一
-5. ✅ 每条消息：Tolerant Reader 解码 → 业务处理 → ack 决策正确执行
-6. ✅ 单条失败不中断整批，写入失败清单
-7. ✅ 返回聚合回执（计数 + 失败详情 + 退出原因 + 续跑建议）
-
-**验收测试**：consumer 处理一批含 1 条新增可选字段的消息时，不抛错并正确 ack；含 1 条业务不可恢复错误的消息时，term + DLQ 投递；含 1 条临时失败的消息时，nak 让 broker 重投。
+默认是 **drain-style**：持续 fetch，直到队列被 drain、达到消息上限，或连续空 fetch 达到 idle 阈值。
 
 ---
 
-## 范围边界
+## 权威引用
 
-**本技能负责**：
+本 Skill 只负责单次消费动作的编排，不重新定义 NATS 契约规则。
 
-- 读项目缓存 + 加载 producer 契约
-- **契约缺失时的 Bootstrap**：peek 样本 + 推断 schema + 生成 draft 草稿（仅 consumer 自用，不外发）
-- 通过 NATS MCP 建立 / 复用 JetStream pull consumer
-- Drain 循环 + 逐条处理 + 逐条 ack 决策
-- Tolerant Reader 解码
-- 失败容错（单条不阻断整批）+ DLQ 投递（term 路径）
-- 聚合回执
+| 内容 | 权威来源 |
+|---|---|
+| subject / headers / payload / Tolerant Reader / DLQ / IaC 边界 | [specs/nats-messaging.md](../../specs/nats-messaging.md) |
+| `contract_version` / CHANGELOG / `*-contract.md` 结构 | [specs/cross-team-contract.md](../../specs/cross-team-contract.md) |
+| Skill / Spec / Protocol / Rule 边界 | [docs/architecture/terminology.md](../../docs/architecture/terminology.md) |
+| 外部链接与 raw content 策略 | [AGENTS.md](../../AGENTS.md) |
 
-**本技能不负责**：
-
-- 修改 producer 契约 → consumer 不写 producer 文件；Bootstrap 生成的 draft 只是 consumer 本地草稿，不是 producer 的权威契约
-- 将 draft 契约升为 active → 必须由用户审阅、对齐 producer owner 后手动 bump 版本
-- 创建 broker 资源（stream / durable）→ IaC 责任（首次缺则报错指向 IaC owner）
-- 实际业务处理逻辑 → consumer repo 自有代码 / handler；本 Skill 仅协调消息与 ack
-- 长连续 push 订阅 → 不在 Skill 调用模型中（应用层 worker 职责）
+若本 Skill 与上述资产冲突，按 `AGENTS.md > specs/ > protocols/ > rules/ > docs/` 的仓库权威顺序处理；Skill 正文只保留执行编排说明。
 
 ---
 
 ## 前置条件
 
-- 已连接 NATS MCP server（提供 `mcp__nats__jetstream_pull_consumer` / `mcp__nats__ack` / `mcp__nats__nak` / `mcp__nats__term` / `mcp__nats__publish` 等工具；具体工具名以连接的 server 为准）
-- 当前工作目录是 consumer repo
-- producer 契约的冻结快照已 vendor 到 consumer repo（推荐）或可访问的契约路径——**首次使用可缺失，技能会自动进入阶段 2.5 Bootstrap 生成草稿契约**
+- 当前工作目录是 consumer repo。
+- consumer repo 含 `.cortex/nats.yaml`，或用户允许本次交互补齐临时配置。
+- 已连接某个 NATS MCP server。工具名不要求固定，但必须能映射出 fetch / ack / nak / term / publish-DLQ 等能力。
+- producer 契约优先来自本地 vendored 快照；只有当前上下文显式允许外部抓取时，才可读取外部 HTTP/HTTPS 契约或官方文档。
 
 ---
 
-## 执行流程
+## 输入
 
-### 阶段 0：宣告
+用户可以提供以下任意组合：
 
-> "我正在使用 consume-nats-message 技能 drain 一批待处理消息。"
+- `producer`：producer 名称或服务来源。
+- `event`：事件名。
+- `subject`：明确的 NATS subject。
+- `contract_path`：本地契约路径，建议包含 `@version` 语义。
+- `max_messages` / `batch_size` / `fetch_timeout` / `idle_threshold`：覆盖 `.cortex/nats.yaml` 中的默认值。
 
-### 阶段 1：读项目缓存
+缺少 producer / event / subject 时，先从 `.cortex/nats.yaml` 和 vendored 契约推断；仍不能唯一确定时再询问用户。
 
-1. 读 `.cortex/nats.yaml`（consumer repo 根目录）
-2. 提取字段：`broker_url` / `service_source` / `durable_name_prefix` / `dlq_handler_dir` / `vendor_contracts_dir` / `consume_defaults`
-3. 用户参数可覆盖 `consume_defaults`（`max_messages` / `batch_size` / `fetch_timeout` / `idle_threshold`）
-4. 缓存缺失或字段缺 → 引导补齐并提示 commit
+---
 
-### 阶段 2：定位 producer 契约
+## 行为
 
-按优先级：
+### 0. 宣告
 
-1. `<vendor_contracts_dir>/<producer>/<event>-contract.md`（冻结快照，含 `@version` 锚定）
-2. 用户显式提供的契约路径或 URL（含 `@version`）
-3. 都缺 → **进入阶段 2.5 Bootstrap**（不终止）
+向用户说明：
 
-读取契约：
+> 我正在使用 consume-nats-message 技能 drain 一批待处理消息。
 
-- subject（含 MAJOR 版本段，如 `clarification.session.requested.v1`）
-- 必填 headers 清单
-- payload 字段表
-- QoS / DLQ subject / max_deliver / backoff
+### 1. 读取本地上下文
 
-### 阶段 2.5：Bootstrap（契约草稿引导，仅首次/契约缺失时执行）
+1. 读取 `.cortex/nats.yaml`。
+2. 提取：
+   - `broker_url`
+   - `service_source`
+   - `durable_name_prefix`
+   - `dlq_handler_dir`
+   - `vendor_contracts_dir`
+   - `consume_defaults`
+   - `consume_subjects`（可选）
+   - `consume_pattern`（可选）
+3. 用用户显式参数覆盖 `consume_defaults`。
+4. 若配置缺失，询问最少必要字段，并提示用户后续把配置 commit 进 repo。
 
-**目的**：契约缺失是协作初期的常态，本阶段以"只读探查 + 推断"方式生成草稿契约，让用户在零先决条件下也能合理启动。**全程不 ack、不改 consumer offset、不修改 broker 状态**。
+### 2. 发现并映射 NATS MCP 工具
 
-**前置约束**：
+不要假设 MCP 工具名固定。先检查当前运行时暴露的 NATS 相关工具，并建立能力映射：
 
-- 仅当阶段 2 未找到契约时触发；阶段 2 找到契约时跳过本阶段
-- 本阶段产物是 `status: draft` 的契约草稿，用户审阅确认前**不进入阶段 5 的正式 drain**
-- 草稿仅供 bootstrap consumer 自用；**不**作为对外权威，不替代 producer 的 SSOT 契约
+| 能力 | 用途 | 缺失时处理 |
+|---|---|---|
+| `list_streams_or_subjects` | Bootstrap 时列举 broker 拓扑 | Bootstrap 不可执行，停止并说明缺失能力 |
+| `peek_message` | Bootstrap 只读样本，不 ack、不移动 durable offset | 契约缺失时停止，不能进入正式 drain |
+| `attach_or_pull_consumer` | 复用既有 durable 并 fetch batch | 停止并提示检查 MCP 配置 |
+| `ack` | 成功或重复消息确认 | 停止；不能安全消费 |
+| `nak` | 可重试失败重投 | 停止；不能安全消费 |
+| `term` | 不可恢复失败停止重投 | 停止；不能安全隔离失败消息 |
+| `publish` | 发送 DLQ 副本 | term 路径不可用，停止或按用户确认降级为只 term |
 
-**步骤**：
+若工具名与示例名不同，按能力而不是名称调用。若没有工具发现能力，则根据当前工具列表人工匹配；无法确认时停止并询问用户配置。
 
-1. **列举 broker 拓扑**（peek，不订阅）
-   - 列出所有 stream / subject 及消息计数
-   - 优先级展示：与用户提供的 `producer` 名匹配的 stream（如 `producer=zentao` → `ZENTAO` stream）排前
-   - 若用户未提供 producer 名，按消息计数降序列出
+### 3. 选择消费模式
 
-2. **选定目标 subject**
-   - 用户提供了 producer + event → 用 `<producer>.<event>.*` 模式匹配
-   - 仅提供 producer → 列出该 stream 下所有 subject 让用户选
-   - 都没提供 → 列出全部 subject + 计数 + 最近一条样本，让用户选
+| 条件 | 模式 | 行为 |
+|---|---|---|
+| `.cortex/nats.yaml` 设置了 `consume_pattern` | wildcard | 建一个 `<durable_name_prefix>-wildcard` durable，按每条消息的实际 `subject` 动态匹配契约 |
+| 未设置 `consume_pattern`，但有 `subject` / `producer + event` / `consume_subjects` | exact-subject | 每个 subject 复用一个精确 durable |
+| 两者都不足以确定 | discovery | 列出本地契约和可见 subject，让用户选择 |
 
-3. **Peek 样本消息**（不创建 durable，不 ack）
-   - 用 stream get 或 ephemeral consumer 直接读最近 N 条（默认 N=5，可被 `bootstrap_sample_size` 覆盖）
-   - 跨样本归并 headers 键集合与 payload 字段集合，记录每字段的类型与出现率（必填/可选推断依据）
+`consume_pattern` 与 `consume_subjects` 互斥；`consume_pattern` 一旦存在，本次调用必须忽略 `consume_subjects`，避免同一消息被多个 durable 独立处理。
 
-4. **推断 schema**
-   - subject pattern：从样本 subject 抽取版本段（如 `.v1` / `.v2` 后缀）
-   - headers：出现率 100% 的归为"必填"，<100% 归为"可选"；标准 NATS headers（`Nats-Msg-Id` / `Nats-Stream` 等）不进入推断
-   - payload：JSON 字段同上，嵌套对象递归处理；枚举值列出样本中所有 distinct 取值
-   - QoS / max_deliver / DLQ：本阶段无法推断，留 `TBD`
+### 4. 定位或引导契约
 
-5. **生成草稿契约**
-   - 路径：`<vendor_contracts_dir>/<producer>/<event>-contract.md`
-   - frontmatter 必含：
-     ```yaml
-     contract_version: 0.1.0
-     status: draft
-     inferred_from: bootstrap-peek
-     inferred_at: <ISO 8601>
-     inferred_sample_size: <N>
-     inferred_sample_seq_range: <first>-<last>
-     authoritative: false
-     ```
-   - 正文标题前置警告横幅：
-     > ⚠️ 本契约由 consume-nats-message Bootstrap 模式从 N 条样本消息推断生成，**非权威**。请联系 producer owner 确认字段语义、QoS、DLQ 规则后将 `status` 升为 `active`、`authoritative` 升为 `true`。
-   - `.lock` 写入 `<contract-name>@0.1.0`
+#### exact-subject 模式
 
-6. **请求用户确认**
-   - 向用户展示：草稿路径 + headers 推断表 + payload 推断表 + 待澄清字段（标 `TBD`）
-   - 问：
-     - **(a) 继续正式 drain**：阶段 3 起按草稿契约处理消息（带 ack）
-     - **(b) 只看不动**：终止本次执行，让用户先与 producer owner 对齐契约
-   - 默认无输入 → 选 (b)，避免在 draft 契约下误 ack
+按顺序定位契约：
 
-**Bootstrap 模式下的版本兼容**：
+1. `<vendor_contracts_dir>/<producer>/<event>-contract.md`
+2. 用户提供的本地 `contract_path`
+3. `.cortex/nats.yaml` 或 `consume_subjects` 指向的本地契约
+4. 仍缺失时进入 Bootstrap
 
-- `contract_version: 0.1.0` 视为 pre-stable，阶段 3 跳过 MAJOR/MINOR 兼容检查
-- 用户每次确认升级草稿后，应手动 bump 到 1.0.0 并标 `status: active`
+读取契约 frontmatter 和正文，至少提取 `contract_version`、`status`、`subject`、必填 headers、payload 字段、DLQ subject、`max_deliver`、backoff。字段语义以 `specs/nats-messaging.md` 和契约自身为准。
 
-### 阶段 3：版本兼容检查
+#### wildcard 模式
 
-1. 读契约 frontmatter `contract_version`
-2. 与 consumer 自身已对齐版本对照（`<vendor_contracts_dir>/<producer>/.lock` 记录 `<contract-name>@<version>`）
-3. **不匹配**：提示版本漂移
-   - MINOR/PATCH 漂移：Tolerant Reader 通常可兼容，警告后继续
-   - MAJOR 漂移（新 subject）：consumer 实际订阅的 subject 已变 → 终止并提示升级 vendor 快照
-4. **未记录 .lock**：首次对齐，写入 `.lock` 后继续
+建 consumer 前不预先锁定单份契约。每条消息到达后，用 `msg.subject` 精确匹配 `<vendor_contracts_dir>/<producer>/*.md` 中 frontmatter 的 `subject:`。
 
-### 阶段 4：建立 / 复用 pull consumer
+- 命中 `status: active`：进入正常处理。
+- 命中 `status: draft`：不进入业务 handler，走 awaiting-confirmation。
+- 未命中：为该 subject 生成 N=1 draft 契约，然后走 awaiting-confirmation。
 
-通过 MCP NATS 工具：
+### 5. Bootstrap 契约草稿
+
+仅在契约缺失时执行。Bootstrap 是只读探查阶段：
+
+- 不 ack。
+- 不 nak。
+- 不 term。
+- 不创建或推进正式 durable offset。
+- 不修改 producer 权威契约。
+
+步骤：
+
+1. 用 NATS MCP 的拓扑/peek 能力列出 stream / subject / 消息计数。
+2. 选择目标 subject；若无法唯一确定，询问用户。
+3. peek 最近 N 条样本，默认 N=5；wildcard 未命中时 N=1。
+4. 推断 headers 和 payload 字段：
+   - N>1 时，出现率 100% 可标为必填，低于 100% 标为可选。
+   - N=1 时，不得把出现字段自动判为必填，必填性统一标为 `待确认`。
+   - QoS / max_deliver / DLQ 无法可靠推断，标为 `TBD`。
+5. 写入本地 draft 契约：`<vendor_contracts_dir>/<producer>/<event>-contract.md`。
+6. frontmatter 必含：
+
+```yaml
+contract_version: 0.1.0
+status: draft
+inferred_from: bootstrap-peek
+inferred_at: <ISO 8601>
+inferred_sample_size: <N>
+inferred_sample_seq_range: <first>-<last>
+authoritative: false
+```
+
+Bootstrap 后的分支：
+
+| 场景 | 默认处理 |
+|---|---|
+| exact-subject 模式新建 draft | 展示草稿摘要并询问用户是否继续正式 drain；默认不继续 |
+| wildcard 模式遇到未知 subject | 生成 draft 后直接 `term + DLQ` 当前消息，标注 `awaiting contract confirmation`，不中断整批 |
+| wildcard 模式命中 draft | 直接 `term + DLQ` 当前消息，标注 `awaiting contract confirmation`，不中断整批 |
+
+只有用户明确确认“按 draft 继续正式 drain”时，exact-subject 模式才可在 draft 契约下进入正式处理；否则停止，等待 producer owner 确认契约。
+
+### 6. 版本与状态检查
+
+exact-subject 模式：
+
+1. 读取契约 `contract_version` 和 `<vendor_contracts_dir>/<producer>/.lock`。
+2. `.lock` 缺失时写入当前 `<contract-name>@<version>`，视为首次对齐。
+3. MINOR / PATCH 漂移：提示风险后继续。
+4. MAJOR 漂移或 subject breaking 变更：停止，提示升级 vendored 契约。
+5. `status: draft`：必须先获得用户确认，才能正式 ack 消息。
+
+wildcard 模式：
+
+- 不做逐条 SemVer 漂移检查。
+- 只允许 `status: active` 的契约进入业务 handler。
+- `draft` 或未知契约一律进入 awaiting-confirmation 路径。
+
+### 7. 建立或复用 pull consumer
+
+遵守 `specs/nats-messaging.md` 的 IaC 边界：Skill 不创建 stream 或 durable 资源。
+
+exact-subject 模式：
 
 - durable name: `<durable_name_prefix>-<event-slug>`
-- 若 durable 不存在 → 报错指向 IaC（违反 spec §5.5.2 "不在应用代码运行时建资源"）
-- 若存在 → 直接 attach
-- ack policy: 契约约定（默认 `explicit`）
-- max_deliver: 契约约定
+- filter subject: 契约 subject
+- durable 不存在时停止，并指向 IaC owner
 
-### 阶段 5：Drain 循环
+wildcard 模式：
+
+- durable name: `<durable_name_prefix>-wildcard`
+- filter subject: `consume_pattern`
+- ack policy: `explicit`
+- `ack_wait` / `max_deliver` 使用 durable 级默认值；不能按 subject 单独强制
+- durable 不存在时停止，并指向 IaC owner
+
+### 8. Drain 循环
 
 ```text
 processed = 0
 last_non_empty_at = now
-while True:
-    if processed >= max_messages:
-        exit_reason = "cap_reached"; break
+
+while processed < max_messages:
     batch = fetch(batch_size, fetch_timeout)
     if batch is empty:
         if now - last_non_empty_at >= idle_threshold:
-            exit_reason = "drained"; break
+            exit_reason = "drained"
+            break
         continue
+
     last_non_empty_at = now
     for msg in batch:
         try:
-            process_one(msg)        # 阶段 6
-        except Exception as e:
-            record_failure(msg, e)  # 不中断整批
+            consume_one(msg)
+        except Exception as error:
+            record_failure(msg, error)
         processed += 1
+
+if processed >= max_messages:
+    exit_reason = "cap_reached"
 ```
 
-退出原因取值：`drained` / `cap_reached` / `idle_timeout`（连续空 fetch + 未达上限）。
+若 fetch 工具区分 broker timeout 和空 batch，broker timeout 计为空 fetch；不要把它当成单条消息失败。
 
-### 阶段 6：逐条处理（Tolerant Reader）
+### 9. 逐条消费
 
-每条消息：
+对每条消息按顺序执行：
 
-1. **去重**：检查应用层去重集合（按 `Nats-Msg-Id`，TTL ≥ broker `duplicate_window`）；命中 → 直接 ack 跳过
-2. **解码 headers**：读必填 headers；缺失 `Nats-Msg-Id` / `X-Source` / `X-Type` → 视为违规消息（业务不可恢复，走 term 路径）；未知 headers 忽略
-3. **解码 payload**：
-   - 缺失必填字段 → 业务不可恢复 → term + DLQ
-   - 未知字段 → 忽略不报错
-   - 未知枚举值 → 走 fallback 分支（业务定义）
-4. **OTel 接续**：提取 `Traceparent` 继续 span（如适用）
-5. **调用业务 handler**：consumer repo 自有处理逻辑；handler 返回结果决定 ack 路径
-6. **决策 ack**：进入阶段 7
+1. **wildcard 契约门禁**：若当前模式是 wildcard，先按 `msg.subject` 定位 active 契约；未知或 draft 走 awaiting-confirmation，不进入后续步骤。
+2. **去重**：按 `Nats-Msg-Id` 查询应用层去重集合；命中则 `ack` 并计入 `duplicates_skipped`。
+3. **解码 headers**：缺失 `Nats-Msg-Id` / `X-Source` / `X-Type` 或契约必填 header 时，判为不可恢复。
+4. **解码 payload**：缺失必填字段判为不可恢复；未知字段忽略；未知枚举走业务 fallback。
+5. **接续 Traceparent**：若存在且 consumer 支持 OTel，则延续 span。
+6. **调用业务 handler**：只调用 consumer repo 自有 handler；本 Skill 不实现业务逻辑。
+7. **执行 ack 决策**。
 
-### 阶段 7：Ack 决策
+### 10. Ack 决策
 
-| 业务结果 | MCP 工具 | 副作用 |
-|---|---|---|
-| 成功 | `mcp__nats__ack` | broker 确认消费 |
-| 可重试错误（网络瞬时 / 下游限流） | `mcp__nats__nak` | broker 按 backoff 重投；最终达 max_deliver 自动 term |
-| 不可恢复错误（schema 违规 / 业务永久失败） | `mcp__nats__term` + `mcp__nats__publish` 投 DLQ | 不再重投；原消息复制到 `<original>.dlq` 含失败原因 header |
+| 结果 | 动作 |
+|---|---|
+| 成功 | `ack` |
+| 重复消息 | `ack` |
+| 可重试失败，如网络瞬断、下游限流 | `nak` |
+| schema 违规或业务永久失败 | `term` 原消息，并 `publish` 副本到 DLQ |
+| wildcard 未知或 draft 契约 | `term` 原消息，并 `publish` 副本到 `<subject>.dlq`，`X-DLQ-Reason` 以 `awaiting contract confirmation` 开头 |
 
-DLQ 消息 headers 附加：
+DLQ 副本至少附加：
 
-- `X-DLQ-Original-Subject`：原 subject
-- `X-DLQ-Reason`：失败摘要
-- `X-DLQ-Failed-At`：ISO 8601 时间戳
+- `X-DLQ-Original-Subject`
+- `X-DLQ-Reason`
+- `X-DLQ-Failed-At`
+- 原始 headers（能保留则保留）
 
-### 阶段 8：聚合回执
+---
 
-输出：
+## 输出
+
+输出聚合回执，不输出完整消息体，避免泄露 payload。
 
 ```yaml
-exit_reason: drained                    # drained / cap_reached / idle_timeout
+exit_reason: drained
 duration: 12.3s
 counts:
   fetched: 87
@@ -251,14 +289,17 @@ failures:
     subject: clarification.session.requested.v1
     decision: term
     reason: missing required payload field 'sessionId'
-  - msg_id: 01HX...A2
-    subject: ...
-    decision: nak
-    reason: downstream timeout (retry will be attempted)
+awaiting_confirmation:
+  - subject: zentao.omnireview.some_new_event
+    contract_path: .cortex/vendor-contracts/recloud-zentao/some-new-event-contract.md
+    reason: newly bootstrapped draft, needs producer confirmation
 backlog_hint: |
   exit_reason=drained，无需续跑。
-  （若为 cap_reached，建议再次调用本 Skill 续 drain。）
+  若 exit_reason=cap_reached，建议再次调用本 Skill 续 drain。
+  若 awaiting_confirmation 非空，请先确认契约，再续跑。
 ```
+
+`awaiting_confirmation` 仅在 wildcard 模式或 Bootstrap draft 未确认时出现。
 
 ---
 
@@ -266,36 +307,85 @@ backlog_hint: |
 
 | 情况 | 处理 |
 |---|---|
-| MCP NATS server 未连接 | 提示检查 MCP 配置 |
-| `.cortex/nats.yaml` 缺失 | 引导补齐 |
-| 契约缺失 / 未 vendor | **进入阶段 2.5 Bootstrap**——peek 样本 + 推断 + 生成 draft 草稿，**不**直接终止 |
-| Bootstrap 推断后用户选(b)只看不动 | 草稿落盘后终止，下次调用阶段 2 即可命中 |
-| Durable consumer 不存在 | 报错指向 IaC owner（违反 spec §5.5.2） |
-| MAJOR 版本漂移 | 终止并提示升级 vendor 快照 |
-| 单条解码失败 | term + DLQ + 写入失败清单，**不中断整批** |
-| 单条业务可重试失败 | nak，broker 自然重投 |
-| Fetch 超时（broker 端无可用消息） | 计入空 fetch 计数，触发 idle_threshold 退出 |
+| NATS MCP server 未连接 | 停止并提示检查 MCP 配置 |
+| 必需 MCP 能力缺失 | 停止并列出缺失能力 |
+| `.cortex/nats.yaml` 缺失 | 询问最少必要字段，并提示落盘 |
+| 契约缺失 | 进入 Bootstrap，不直接终止 |
+| Bootstrap 缺少 peek 能力 | 停止，不能安全推断契约 |
+| 用户未确认 exact-subject draft | 草稿落盘后停止，不 ack |
+| durable 不存在 | 停止并指向 IaC owner |
+| MAJOR 版本漂移 | 停止并提示升级 vendored 契约 |
+| 单条解码失败 | `term + DLQ`，记录失败，继续整批 |
+| 单条可重试失败 | `nak`，记录失败，继续整批 |
+| fetch 连续为空 | 达到 `idle_threshold` 后以 `drained` 退出 |
+| wildcard 命中未知或 draft 契约 | `term + DLQ`，记录 `awaiting_confirmation`，继续整批 |
 
 ---
 
 ## 反模式
 
-- ❌ 单条失败抛错中断整批 —— 必须 try/catch 单条，记入失败清单继续
-- ❌ 解码到未知字段抛错 —— Tolerant Reader 要求忽略
-- ❌ 处理成功不 ack —— 消息会被 broker 重投，造成幂等假死
-- ❌ 业务不可恢复失败用 nak —— 会持续重投直到 max_deliver；应直接 term + DLQ
-- ❌ DLQ 投递不带原 headers / 失败原因 —— 失去运营可见性
-- ❌ 修改 producer 契约 —— consumer 不写 producer 文件；用 backlog 跟踪升级
-- ❌ 持续 push 订阅占据 Skill 调用 —— Skill 是一次性调用，长连续应用层 worker 实现
-- ❌ 契约缺失直接终止 —— 应进入 Bootstrap peek + 推断 draft 草稿（不 ack 不改 offset），不让首次使用门槛过高
-- ❌ Bootstrap 推断的 draft 不标 `status: draft` / `authoritative: false` —— 会被误当权威契约对外引用，污染 SSOT
-- ❌ Bootstrap 中创建 durable consumer / 执行 ack —— 必须只读 peek，避免污染 broker 状态
+- 单条失败抛错中断整批。
+- 解码到未知字段就失败；Tolerant Reader 必须忽略未知字段。
+- 业务成功后不 ack。
+- 不可恢复失败用 nak 导致反复重投。
+- DLQ 不带原 subject、失败原因和时间戳。
+- Skill 运行时创建 stream / durable 等 broker 资源。
+- 契约缺失时直接进入正式 ack。
+- Bootstrap peek 阶段 ack / nak / term。
+- wildcard 模式下对未知或 draft 契约消息直接 ack。
+- 同时启用 `consume_pattern` 与 `consume_subjects`。
+- 默认抓取外部 HTTP/HTTPS 契约或 raw URL。
 
 ---
 
-## 与其他资产关系
+## 自检
 
-- **结构契约标尺**：[specs/nats-messaging.md](../../specs/nats-messaging.md)——subject / headers / payload / QoS / Tolerant Reader / DLQ 规则的权威
-- **契约文档骨架**：[specs/cross-team-contract.md](../../specs/cross-team-contract.md)——vendor 上游契约时遵循其版本号锚定约定
-- **生产侧配套**：[publish-nats-message](../publish-nats-message/SKILL.md)——同一契约的另一端
-- **broker 行为权威**：<https://docs.nats.io>——NATS pull consumer / ack policy / Services API 以官方为准
+- [ ] 已读取 `.cortex/nats.yaml`，或已明确说明缺失字段。
+- [ ] 已完成 NATS MCP 工具能力映射，且未硬编码不存在的工具名。
+- [ ] 已选择 exact-subject / wildcard / discovery 模式。
+- [ ] 已按本地 vendored 契约优先定位契约。
+- [ ] Bootstrap 阶段未 ack、未 nak、未 term、未推进正式 durable offset。
+- [ ] draft 契约在 exact-subject 模式下获得用户确认后才正式 ack。
+- [ ] wildcard 模式只让 active 契约进入业务 handler。
+- [ ] 单条失败不会中断整批。
+- [ ] 输出包含 counts、failures、exit_reason；必要时包含 awaiting_confirmation。
+- [ ] 未默认抓取外部 HTTP/HTTPS 链接。
+
+---
+
+## 示例
+
+### 示例 1：精确 subject drain
+
+输入：
+
+```text
+consume nats producer=agentfabric event=clarification.session.requested max_messages=100
+```
+
+预期：
+
+1. 读取 `.cortex/nats.yaml`。
+2. 映射 NATS MCP fetch / ack / nak / term / publish 能力。
+3. 定位 `clarification-session-requested-contract.md`。
+4. 复用 `<durable_name_prefix>-clarification-session-requested`。
+5. drain 至 `drained` 或 `cap_reached`。
+6. 返回聚合回执。
+
+### 示例 2：wildcard 遇到新 subject
+
+配置：
+
+```yaml
+consume_pattern: zentao.omnireview.>
+consume_subjects:
+  - zentao.omnireview.task.updated.v1
+```
+
+预期：
+
+1. 忽略 `consume_subjects`，只使用 `<durable_name_prefix>-wildcard`。
+2. 收到 `zentao.omnireview.some_new_event.v1`。
+3. 本地未命中 active 契约，生成 N=1 draft，字段必填性标为 `待确认`。
+4. 当前消息 `term + DLQ`，原因以 `awaiting contract confirmation` 开头。
+5. 继续处理同批其他消息，最终在 `awaiting_confirmation` 中列出该 subject。
