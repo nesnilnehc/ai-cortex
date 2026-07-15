@@ -3,7 +3,7 @@ name: consume-nats-message
 description: Drain pending NATS messages from a producer contract via NATS MCP tools. Discovers the available NATS tool capabilities, selects exact-subject or wildcard mode from .cortex/nats.yaml, applies Tolerant Reader semantics, executes ack/nak/term decisions, and returns aggregated stats.
 description_zh: 通过 NATS MCP 工具批量拉取 producer 契约下的待处理消息。先发现并映射可用 NATS 工具能力，再根据 .cortex/nats.yaml 选择精确 subject 或 wildcard 模式，按 Tolerant Reader 处理并执行 ack/nak/term，最终返回聚合统计。
 tags: [nats, messaging, cross-team, consumer, mcp]
-version: 1.3.0
+version: 1.4.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -129,7 +129,19 @@ output_schema:
 
 #### wildcard 模式
 
-建 consumer 前不预先锁定单份契约。每条消息到达后，用 `msg.subject` 精确匹配 `<vendor_contracts_dir>/<producer>/*.md` 中 frontmatter 的 `subject:`。
+建 consumer 前不预先锁定单份契约。每条消息到达后，**先做两项前置过滤**，命中任一项都直接 `ack` 并跳过契约解析、去重、解码、业务 handler（步骤 2-7），两项都未命中才继续往下走：
+
+1. **自产消息**：`headers['X-Source']` 存在且等于 `service_source`（即消息就是本服务自己发出的）→ 直接 `ack`，不解析契约、不生成草稿、不进业务 handler。
+
+   原因：wildcard subject pattern 只按前缀匹配，不携带方向信息。当 producer/consumer 共用同一命名前缀（如双方约定 `zentao.omnireview.>` 承载两个方向的事件）时，本服务发给对方的出站消息也会匹配自己的 wildcard filter 被重新投递回来。这不是"未知契约"，是回声，照 unknown-subject 流程走会为自己的消息生成多余的草稿契约文件。
+
+   `X-Source` 缺失时**不**判定为自产消息（不与 `undefined`/`None` 做相等比较）——直接放行进入下一项过滤和正式契约解析；真正缺失该必填 header 的消息会在步骤 3「解码 headers」被判为不可恢复，走 `term + DLQ`，而不是被这条前置过滤悄悄吞掉或让读取本身报错中断整批。
+
+2. **DLQ 副本自我回环**：消息携带 `X-DLQ-Original-Subject` header（即消息本身就是本服务此前 `publish` 的 DLQ 副本，见"10. Ack 决策"的 DLQ 副本必带 header 列表）→ 直接 `ack`，不解析契约。
+
+   原因：`term + publish DLQ` 产生的副本 subject 落在 `<original-subject>.dlq`，同样匹配 wildcard 前缀，会被同一个 wildcard consumer 再次收到。DLQ 副本是失败归档的终点，不是待处理的业务事件，不需要、也不应该再触发一轮契约解析或二次 DLQ。用 `X-DLQ-Original-Subject` 这一自产 header 判定，而不是裸 `.dlq` 后缀字符串匹配——后者会把恰好以 `.dlq` 结尾的正常业务 subject 误判为回环，静默丢弃真实业务消息。
+
+两项前置过滤都未命中时，用 `msg.subject` 精确匹配 `<vendor_contracts_dir>/<producer>/*.md` 中 frontmatter 的 `subject:`：
 
 - 命中 `status: active`：进入正常处理。
 - 命中 `status: draft`：不进入业务 handler，走 awaiting-confirmation。
@@ -243,7 +255,7 @@ if processed >= max_messages:
 
 对每条消息按顺序执行：
 
-1. **wildcard 契约门禁**：若当前模式是 wildcard，先按 `msg.subject` 定位 active 契约；未知或 draft 走 awaiting-confirmation，不进入后续步骤。
+1. **wildcard 契约门禁**：若当前模式是 wildcard，先做自产消息 / DLQ 回环前置过滤（见"定位或引导契约 > wildcard 模式"）；命中任一项，直接 `ack`，不进入步骤 2-7。均未命中时，再按 `msg.subject` 定位 active 契约；未知或 draft 走 awaiting-confirmation，同样不进入后续步骤。
 2. **去重**：按 `Nats-Msg-Id` 查询应用层去重集合；命中则 `ack` 并计入 `duplicates_skipped`。
 3. **解码 headers**：缺失 `Nats-Msg-Id` / `X-Source` / `X-Type` 或契约必填 header 时，判为不可恢复。
 4. **解码 payload**：缺失必填字段判为不可恢复；未知字段忽略；未知枚举走业务 fallback。
@@ -257,6 +269,8 @@ if processed >= max_messages:
 |---|---|
 | 成功 | `ack` |
 | 重复消息 | `ack` |
+| wildcard 自产消息回声 | `ack`，不解析契约、不进业务 handler |
+| wildcard DLQ 副本回环 | `ack`，不解析契约 |
 | 可重试失败，如网络瞬断、下游限流 | `nak` |
 | schema 违规或业务永久失败 | `term` 原消息，并 `publish` 副本到 DLQ |
 | wildcard 未知或 draft 契约 | `term` 原消息，并 `publish` 副本到 `<subject>.dlq`，`X-DLQ-Reason` 以 `awaiting contract confirmation` 开头 |
@@ -284,6 +298,8 @@ counts:
   termed: 3
   dlq_sent: 3
   duplicates_skipped: 1
+  self_sourced_skipped: 0
+  dlq_echo_skipped: 0
 failures:
   - msg_id: 01HX...A1
     subject: clarification.session.requested.v1
@@ -333,6 +349,9 @@ backlog_hint: |
 - 契约缺失时直接进入正式 ack。
 - Bootstrap peek 阶段 ack / nak / term。
 - wildcard 模式下对未知或 draft 契约消息直接 ack。
+- wildcard 模式下把自产消息（`X-Source == service_source`）或携带 `X-DLQ-Original-Subject` 的 DLQ 回环消息当成未知契约，触发 Bootstrap 生成多余草稿。
+- 用裸 `.dlq` 后缀字符串匹配判定 DLQ 回环，误吞真实以 `.dlq` 结尾的业务 subject。
+- 把缺失的 `X-Source` header 当成等于 `service_source`，误判为自产消息静默 ack。
 - 同时启用 `consume_pattern` 与 `consume_subjects`。
 - 默认抓取外部 HTTP/HTTPS 契约或 raw URL。
 
@@ -347,6 +366,7 @@ backlog_hint: |
 - [ ] Bootstrap 阶段未 ack、未 nak、未 term、未推进正式 durable offset。
 - [ ] draft 契约在 exact-subject 模式下获得用户确认后才正式 ack。
 - [ ] wildcard 模式只让 active 契约进入业务 handler。
+- [ ] wildcard 自产消息 / DLQ 回环前置过滤已生效；`X-Source` 缺失未被误判为自产消息，DLQ 回环靠 `X-DLQ-Original-Subject` 而非裸 `.dlq` 后缀判定。
 - [ ] 单条失败不会中断整批。
 - [ ] 输出包含 counts、failures、exit_reason；必要时包含 awaiting_confirmation。
 - [ ] 未默认抓取外部 HTTP/HTTPS 链接。
