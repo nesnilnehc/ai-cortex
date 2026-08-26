@@ -27,9 +27,7 @@ Roadmap planning ceremony 的支撑技能：读取 priority 已定的 backlog + 
 
 ## 安装
 
-```bash
-npx skills add nesnilnehc/ai-cortex --skill promote-roadmap-items
-```
+统一由 AI Cortex 的 canonical 安装管理，见仓库根 [README](../../README.md#-安装与使用)。
 
 ## 相关技能
 

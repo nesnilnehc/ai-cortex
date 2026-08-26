@@ -3,7 +3,7 @@ name: generate-github-workflow
 description: "GitHub Actions YAML with embedded output contract: security-first, minimal permissions, version pinning. For CI, release, PR checks. Differs from generic templates by spec compliance and auditability."
 description_zh: 生成嵌有输出契约的 GitHub Actions YAML：安全优先、最小权限、版本锁定；适用于 CI、发布与 PR 检查。
 tags: [devops]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -73,7 +73,7 @@ output_schema:
 
 **何时使用**：当用户或项目需要“为当前或指定项目创建或添加 GitHub 工作流”时。
 
-**范围**：此技能的输出遵循**嵌入式附录 A**（狭窄的触发器、最小权限、固定版本、可审核）。通用模板（例如 Skills.sh `github-actions-templates`）更加通用；这项技能强调安全性和可维护性。
+**范围**：此技能的输出遵循**嵌入式附录 A**（狭窄的触发器、最小权限、固定版本、可审核）。通用 GitHub Actions 模板覆盖面更广；这项技能强调安全性和可维护性。
 
 ---
 
