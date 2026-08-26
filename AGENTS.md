@@ -9,6 +9,8 @@
 - Agent `MUST NOT` 默认抓取任何外部 HTTP/HTTPS 链接；仅当当前执行上下文显式声明 `allow_external_fetch=true` 时方可
 - Agent `MUST NOT` 默认加载原始内容（raw content）URL；仅当来源受信任、版本固定（含提交哈希）且本地无等价物时方可
 - Agent `MUST` 始终优先使用本地相对路径作为加载/执行依赖
+- Agent `MUST NOT` 在 Skill 运行时从 skills.sh、GitHub 或其他注册表下载、注册或升级 Skill；外部派生能力必须先作为审核后的本地副本进入 `skills/`
+- Agent `MUST` 以 [skills/SOURCES.yaml](skills/SOURCES.yaml) 识别外部派生 Skill 的固定来源；该清单仅用于维护与审计，不是运行时安装指令
 
 ---
 

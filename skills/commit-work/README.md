@@ -1,59 +1,25 @@
 # 提交工作
 
-使用 AI Cortex 治理创建高质量的 git 提交 - 审查更改、逻辑拆分、编写清晰的消息（常规提交）、与 INDEX/manifest 同步。
+使用 AI Cortex 治理创建高质量的 git 提交——审查更改、逻辑拆分、编写 Conventional Commits 消息，并同步相关 INDEX。
 
 ## 概述
 
 这项技能可以帮助您做出易于审查且安全交付的提交。它指导您检查更改、将混合工作拆分为逻辑提交、编写清晰的常规提交消息以及运行适当的验证步骤。
 
-## AI Cortex 增强版
+## 来源与 AI Cortex 增强
 
-这是“commit-work”技能的增强版本，专为 AI Cortex 项目而开发，具有额外的治理和质量功能：
+这是 `softaworks/agent-toolkit` 中 `commit-work` 的本地 vendored 派生版本。AI Cortex 保留提交检查、逻辑拆分、补丁暂存和 Conventional Commits 工作流，并增加本仓库 review、INDEX 同步和输出契约。
 
-### 增强功能
+固定上游 commit、digest、本地修改和许可证记录见 [`../SOURCES.yaml`](../SOURCES.yaml)；版权通知见 [THIRD_PARTY_NOTICES](../../docs/references/THIRD_PARTY_NOTICES.md)。历史上未经验证的 `anthropics/skills (assumed)` 来源不再使用。
 
-- **预提交审查集成**：自动调用“review-diff”技能以在登台前捕获问题
-- **注册表同步**：确保添加或修改技能时“skills/INDEX.md”和“skills/INDEX.md”保持同步
-- **规范合规性**：遵循 AI Cortex [agentskills.io](https://agentskills.io) 结构和质量标准
-- **增强的自检**：与 AI Cortex 治理相一致的全面验证清单
-
-### 进化元数据
-
-该技能集成了多个来源的内容：
-
-#### 主要来源（分叉）
-
-- **技能**：`提交工作`
-- **存储库**：人类技能集合（假设）
-- **版本**：1.0.0
-- **许可证**：麻省理工学院
-- **借用**：核心工作流结构、常规提交格式、补丁暂存方法
-
-#### 集成组件
-
-- **技能**：`审查差异`
-- **存储库**：nesnilnehc/ai-cortex
-- **版本**：1.3.0
-- **许可证**：麻省理工学院
-- **借用**：预提交审核方法
-
-### 当前版本
-
-- **版本**：2.0.0
-- **许可证**：麻省理工学院
+- **当前版本**：2.0.1
+- **许可证**：MIT
 
 ## 安装
 
-### 对于 AI Cortex 用户
+统一由 AI Cortex 的 canonical 安装管理，见仓库根 [README](../../README.md#-安装与使用)。Agent 运行时不得从上游或 skills.sh 单独下载、替换本 Skill。
 
-```bash
-npx skills add nesnilnehc/ai-cortex --skill commit-work
-```
-文本
-
-### 对于其他项目
-
-该技能适用于任何 git 存储库，但在 AI Cortex 项目中使用时提供附加功能（自动注册表同步检查）。
+该技能适用于任何 git 仓库；在 AI Cortex 仓库中会额外检查对应 INDEX 是否同步。
 
 ## 用法
 
@@ -116,7 +82,7 @@ footer (BREAKING CHANGE if needed)
 
 ## 许可证
 
-MIT 许可证 - 与原始的“commit-work”技能和 AI Cortex 项目相同。
+MIT；上游版权通知见 [THIRD_PARTY_NOTICES](../../docs/references/THIRD_PARTY_NOTICES.md)。
 
 ## 反馈
 

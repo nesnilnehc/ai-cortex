@@ -31,3 +31,5 @@
 | [0007](./0007-remove-plan-next-execute-flag.md) | 移除 plan-next execute 参数 | accepted |
 | [0008](./0008-replace-asqm-with-acceptance-criteria.md) | 用 Acceptance Criteria 替代 ASQM | accepted |
 | [0009](./0009-replace-merge-worktree-with-deliver-and-integrate.md) | 用 deliver-feature + integrate-worktrees 替代 merge-worktree | accepted |
+| [0010](./0010-installation-strategy.md) | XDG canonical path + bin/cortex 安装策略 | accepted |
+| [0011](./0011-vendor-external-skills.md) | 统一 vendored 外部 Skill 管理 | accepted |

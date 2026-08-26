@@ -348,18 +348,34 @@ cmd_install() {
 
   _sync
 
-  # suggest adding to PATH if not already there
+  # register the canonical command without overwriting user-owned files
+  _local_bin_dir="$HOME/.local/bin"
   _local_bin="$HOME/.local/bin/cortex"
-  if [ ! -e "$_local_bin" ]; then
-    if echo ":${PATH}:" | grep -q ":$HOME/.local/bin:"; then
-      printf '\n'
-      _info "Tip: add cortex to PATH with:"
-      _info "  ln -s $CORTEX_HOME/bin/cortex $HOME/.local/bin/cortex"
+  if [ -L "$_local_bin" ]; then
+    _command_target=$(readlink "$_local_bin" 2>/dev/null || true)
+    if [ "$_command_target" = "$CORTEX_HOME/bin/cortex" ]; then
+      ln -sfn "$CORTEX_HOME/bin/cortex" "$_local_bin"
+      _ok "refreshed command $_local_bin"
+    else
+      _warn "skip command link: non-cortex symlink at $_local_bin -> $_command_target"
     fi
+  elif [ -e "$_local_bin" ]; then
+    _warn "skip command link: user-owned file exists at $_local_bin"
+  else
+    mkdir -p "$_local_bin_dir"
+    ln -s "$CORTEX_HOME/bin/cortex" "$_local_bin"
+    _ok "linked command $_local_bin"
+  fi
+
+  if ! echo ":${PATH}:" | grep -q ":$_local_bin_dir:"; then
+    _warn "$_local_bin_dir is not in PATH; add it before using the short 'cortex' command"
+    _status_command="$CORTEX_HOME/bin/cortex status"
+  else
+    _status_command="cortex status"
   fi
 
   printf '\n'
-  _ok "Install complete. Run 'cortex status' to verify."
+  _ok "Install complete. Run '$_status_command' to verify."
 }
 
 # ---------------------------------------------------------------------------
@@ -705,6 +721,16 @@ cmd_uninstall() {
     done
   fi
 
+  # Remove the cortex-owned command symlink only
+  _local_bin="$HOME/.local/bin/cortex"
+  if [ -L "$_local_bin" ]; then
+    _t=$(readlink "$_local_bin" 2>/dev/null || true)
+    if [ "$_t" = "$CORTEX_HOME/bin/cortex" ]; then
+      rm "$_local_bin"
+      _ok "Removed command symlink $_local_bin"
+    fi
+  fi
+
   printf '\n'
   _ok "Cortex-managed files removed."
 
@@ -724,7 +750,7 @@ cmd_uninstall() {
     fi
   else
     _info "CORTEX_HOME preserved: $CORTEX_HOME"
-    _info "To also remove it, run: cortex uninstall --remove-home"
+    _info "To also remove it, run: $CORTEX_HOME/bin/cortex uninstall --remove-home"
   fi
 }
 

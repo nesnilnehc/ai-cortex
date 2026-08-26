@@ -1,0 +1,43 @@
+schema_version: "1.0"
+policy:
+  distribution: vendored-only
+  runtime_external_install: forbidden
+  update: reviewed
+
+skills:
+  commit-work:
+    local_path: skills/commit-work
+    local_version: 2.0.1
+    origin: vendored-derived
+    upstream:
+      repository: https://github.com/softaworks/agent-toolkit.git
+      path: skills/commit-work
+      ref: 06825f04669d4364a16abc267650c86cf153d349
+      tree: sha1:ac7c2ea0f24eb668f5b80e4f237efa4a90f12312
+      skill_digest: sha256:888588ea81b0b2c672e625ad9c49f6f3c69b4c2081962a9d7640a1ef24e105d8
+    license: MIT
+    notice: docs/references/THIRD_PARTY_NOTICES.md
+    update_policy: reviewed-merge
+    modifications:
+      - AI Cortex registry synchronization
+      - review workflow integration
+      - expanded validation and output contract
+
+  changelog-video:
+    local_path: skills/changelog-video
+    local_version: 1.0.1
+    origin: vendored-derived
+    upstream:
+      repository: https://github.com/heygen-com/hyperframes.git
+      path: .agents/skills/changelog-video
+      ref: 4f00336c92f6418aab82c060853da604dd832197
+      tree: sha1:2a319e65255aab42b4b2c98ed905874e26823245
+      skill_digest: sha256:7473e3165c7b1f7649a9fcc49e1ab76c5b3b72b696966d6abe772dda4dc0a032
+    license: Apache-2.0
+    notice: skills/changelog-video/LICENSE.upstream
+    update_policy: reviewed-port
+    modifications:
+      - Replaced the HyperFrames weekly digest input with the Release Package change-item contract
+      - Removed HyperFrames branding, bundled media, fonts, voice, and repository-specific paths
+      - Removed sibling-skill dependencies and runtime skill installation
+      - Added renderer discovery, user-confirmed defaults, and Release Package artifact output

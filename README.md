@@ -18,7 +18,7 @@ git clone --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.local/share/a
 ~/.local/share/ai-cortex/bin/cortex install
 ```
 
-`cortex install` 会将每个 skill 以 symlink 方式接入 `~/.agents/skills/<skill>`，供 Codex 等读取该路径的 Agent 在新会话中发现；同时自动检测已安装的 IDE（Claude Code、Cursor）并同步其专用 skills 路径。rules 以 symlink（Claude Code）或 .mdc 转换（Cursor）方式接入。`specs/`、`protocols/` 无需安装——Agent 从 canonical 路径直读。
+`cortex install` 会将每个 skill（包括审核后的外部派生本地副本）以 symlink 方式接入 `~/.agents/skills/<skill>`，供 Codex 等读取该路径的 Agent 在新会话中发现；同时自动检测已安装的 IDE（Claude Code、Cursor）并同步其专用 skills 路径。rules 以 symlink（Claude Code）或 .mdc 转换（Cursor）方式接入。`specs/`、`protocols/` 无需安装——Agent 从 canonical 路径直读。运行时不会从 skills.sh 或 GitHub 追加安装 Skill。
 
 ### 升级
 
@@ -26,7 +26,7 @@ git clone --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.local/share/a
 cortex update
 ```
 
-拉取最新提交并重新同步；自动清理已删除 skill/rule 的孤儿链接。
+拉取最新的 AI Cortex 提交并重新同步；自动清理已删除 skill/rule 的孤儿链接。外部派生 Skill 的上游更新由维护者审核后进入 AI Cortex，不在用户运行时单独升级。
 
 ### 查看状态
 
@@ -52,7 +52,7 @@ cortex uninstall              # 移除 cortex 管理的 symlink 与 .mdc，保�
 cortex uninstall --remove-home  # 同上，并删除 CORTEX_HOME 目录
 ```
 
-设计说明见 [ADR 0010](docs/adr/0010-installation-strategy.md)。
+安装设计见 [ADR 0010](docs/adr/0010-installation-strategy.md)，外部 Skill 管理见 [ADR 0011](docs/adr/0011-vendor-external-skills.md)。
 
 ---
 
@@ -64,11 +64,11 @@ cortex uninstall --remove-home  # 同上，并删除 CORTEX_HOME 目录
 
 ## 📄 许可证
 
-[MIT](LICENSE)
+AI Cortex 原创内容使用 [MIT](LICENSE)；vendored 外部派生 Skill 保留各自许可证，见 [许可证策略](docs/references/LICENSE_POLICY.md) 和 [第三方通知](docs/references/THIRD_PARTY_NOTICES.md)。
 
 ---
 
 ## 🙏 致谢
 
 - 贡献者：[contributors](https://github.com/nesnilnehc/ai-cortex/graphs/contributors)
-- 部分技能 fork/integration 自 gstack、anthropics/skills 等；完整列表见 [ATTRIBUTIONS.md](docs/references/ATTRIBUTIONS.md)
+- 当前外部派生 Skill 的固定来源和本地修改见 [ATTRIBUTIONS.md](docs/references/ATTRIBUTIONS.md) 与 [skills/SOURCES.yaml](skills/SOURCES.yaml)

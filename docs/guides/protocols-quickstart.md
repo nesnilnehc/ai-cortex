@@ -10,13 +10,12 @@ lifecycle: living
 ## 安装
 
 ```bash
-# 方案 1：安装完整的 AI Cortex 包
-npx skills add nesnilnehc/ai-cortex -g
-
-# 方案 2：仅复制协议文件
-git clone https://github.com/nesnilnehc/ai-cortex.git
-cp -r ai-cortex/protocols/ ./your-project/
+mkdir -p ~/.local/share
+git clone --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.local/share/ai-cortex
+~/.local/share/ai-cortex/bin/cortex install
 ```
+
+Skill 由 `cortex` 统一安装；协议保留在 canonical clone 中，Agent 从 `~/.local/share/ai-cortex/protocols/` 直接读取，不再维护复制、npm 或按需下载路径。
 
 ---
 

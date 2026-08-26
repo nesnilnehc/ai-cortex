@@ -8,7 +8,9 @@
 - [technical-design-modeling.md](./technical-design-modeling.md) — 技术设计文档（工程视角）的字段定义与校验：架构、服务拆分、组件、数据库、接口契约、错误处理、技术选型
 - [nats-messaging.md](./nats-messaging.md) — 跨项目 NATS 消息的 subject、headers、payload 与版本演化契约（cross-team-contract 的 NATS 特化模板）
 - [requirement-modeling.md](./requirement-modeling.md) — 需求文档的字段定义、格式与校验
+- [release-package.md](./release-package.md) — Release Package 的版本身份、发布材料、质量证据与阶段状态契约
 - [spec-modeling.md](./spec-modeling.md) — Spec 的 Spec：定义所有 spec 文档的章节骨架、frontmatter 契约与三态分类
+- [skill-source-modeling.md](./skill-source-modeling.md) — 外部派生 Skill 的本地副本、固定上游 commit/digest、许可证、修改记录与维护期更新契约
 - [task-modeling.md](./task-modeling.md) — 任务列表的字段、状态枚举与依赖语义
 - [test-case-modeling.md](./test-case-modeling.md) — QA 业务测试用例文档的字段、追溯锚（covers）与状态枚举；不覆盖代码级测试
 - [test-coverage-modeling.md](./test-coverage-modeling.md) — 测试覆盖评估报告（追溯矩阵 + 变异概要 + 追溯健康审计）的字段与正文骨架；用例集覆盖评审与跨制品对齐评审的输入制品

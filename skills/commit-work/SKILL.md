@@ -3,11 +3,13 @@ name: commit-work
 description: Create high-quality git commits with clear messages and logical scope. Core goal - produce reviewable commits following Conventional Commits format with pre-commit quality checks.
 description_zh: 创建高质量 git 提交：清晰消息与合理范围；遵循 Conventional Commits，含 pre-commit 质量检查。
 tags: [git, workflow, automation]
-version: 2.0.0
+version: 2.0.1
 license: MIT
 recommended_scope: both
 metadata:
   author: ai-cortex
+  origin: vendored-derived
+  source-registry: ../SOURCES.yaml
 triggers: [commit, commit work]
 input_schema:
   type: free-form
@@ -22,6 +24,8 @@ output_schema:
 ## 目的 (Purpose)
 
 产出易于审查、安全交付的 git commit：仅包含预期变更、提交粒度合理、消息清楚说明做了什么 + 为什么。本技能与 AI Cortex 的 INDEX 同步约束集成，提交涉及 `skills/` 目录变更时会校验 INDEX.md 是否已更新。
+
+本地副本由 AI Cortex 统一安装和更新；可核验上游、固定 commit、许可证和本地增强记录在 [`../SOURCES.yaml`](../SOURCES.yaml)。运行时不得从外部注册表下载或替换本 Skill。
 
 ---
 

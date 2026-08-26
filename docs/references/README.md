@@ -12,8 +12,9 @@ status: active
 
 | 文件 | 用途 |
 | --- | --- |
-| [ATTRIBUTIONS.md](./ATTRIBUTIONS.md) | 参考来源与致谢：技能 evolution.sources 引用的外部仓库/技能枚举，供许可合规与溯源 |
+| [ATTRIBUTIONS.md](./ATTRIBUTIONS.md) | 当前 vendored 外部派生 Skill 的人工可读来源索引 |
 | [LICENSE_POLICY.md](./LICENSE_POLICY.md) | 许可证策略：技能本体与参考来源的许可证要求 |
+| [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md) | 当前 vendored 外部派生 Skills 的版权与许可证通知 |
 | [guides/discovery-and-loading.md](../guides/discovery-and-loading.md) | 发现与加载细则 |
 | [guides/proactive-suggestions.md](../guides/proactive-suggestions.md) | 主动建议表（阶段→技能） |
 | [readme-diagram-standards.md](./readme-diagram-standards.md) | README 图表设计标准：Mermaid 风格、复杂度限制、维护约定 |

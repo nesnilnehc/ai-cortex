@@ -11,12 +11,26 @@
 
 ## 新增技能
 
-技能遵循 [agentskills.io](https://agentskills.io) 标准格式。推荐使用 `/skill-creator` 自动生成骨架。
+技能遵循 [agentskills.io](https://agentskills.io) 标准格式。新建时按本节和仓库既有目录起草，不在贡献流程中临时安装外部创建 Skill。
 
 1. **起草**：在 `skills/<skill-name>/SKILL.md` 编写技能；YAML frontmatter 含必填字段（name、description、tags、version、license）
 2. **补充文件**：可选 `README.md` 作为快速参考
 3. **注册**：将技能添加到 `skills/INDEX.md`
 4. **提交 PR**
+
+### 外部派生技能
+
+AI Cortex 只采用 vendored 分发，不接受要求 Agent 在运行时执行 `npx skills add`、clone 外部仓库或读取浮动 raw URL 的 Skill。
+
+复制、改编或 fork 外部 Skill 时必须：
+
+1. 将可调用副本完整放入 `skills/<skill-name>/`，消除未随仓库分发的 sibling-skill 依赖。
+2. 在 `skills/SOURCES.yaml` 固定上游仓库、路径、完整 commit、tree、`SKILL.md` SHA-256、许可证、本地修改和更新策略。
+3. 保留许可证与版权通知，更新 `docs/references/ATTRIBUTIONS.md` 和 `THIRD_PARTY_NOTICES.md`。
+4. 审查脚本、资源和许可证；未明确授权再分发的字体、音乐、图片或二进制不得复制。
+5. 运行 Skill 校验并确认 `bin/cortex install/update` 可随其他本地 Skill 一起分发。
+
+完整数据契约见 [skill-source-modeling](specs/skill-source-modeling.md)。
 
 ### 命名约定
 

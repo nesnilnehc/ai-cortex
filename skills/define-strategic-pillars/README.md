@@ -24,9 +24,7 @@
 
 ## 安装
 
-```bash
-npx skills add nesnilnehc/ai-cortex --skill define-strategic-pillars
-```
+统一由 AI Cortex 的 canonical 安装管理，见仓库根 [README](../../README.md#-安装与使用)。
 
 ## 相关技能
 

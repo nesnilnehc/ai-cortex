@@ -3,7 +3,7 @@ name: refine-skill-design
 description: Audit and refactor existing SKILLs to meet spec compliance, repository asset boundaries, tool adaptation requirements, and LLM best practices.
 description_zh: 审计并重构既有 SKILL，使其符合规范、仓库资产边界、工具适配要求与 LLM 最佳实践。
 tags: [writing, meta-skill, optimization]
-version: 1.5.0
+version: 1.6.0
 license: MIT
 recommended_scope: user
 metadata:
@@ -60,9 +60,9 @@ output_schema:
 
 **本技能不负责**：
 
-- 从头开始创建新技能（使用人类/技能中的“技能创建者”）
-- 运行包脚本或初始化工作流（使用 Skills.sh 工具）
-- 规划技能资产或参考（使用 Skills.sh 文档）
+- 从头生成新 Skill 的完整骨架
+- 在运行时安装外部 Skill 或初始化器
+- 代替维护者决定外部派生 Skill 的许可证和 vendoring 范围
 - 生成项目 docs/ 结构（由 AgentFabric runtime 或人工承接）
 
 **转交点**：当 SKILL 被细化并提供差异摘要时，移交给用户进行审查和版本控制提交。
@@ -76,7 +76,7 @@ output_schema:
 - **一致性审查**：检查新技能是否与 INDEX.md 中的标签体系和命名相匹配；确保 `description`、`tags`、`triggers` 足以支持语义发现。
 - **升级**：将简单的“格式化工具”转变为具有交互策略和错误处理的完整代理功能。
 
-**范围**：此技能用于**审查并重构现有技能**，而不是从头开始创建。要学习如何创建新技能、规划脚本/引用/资产或运行 init/package 脚本，请使用 Skills.sh 的“技能创建器”（例如 anthropics/skills）。
+**范围**：此技能用于**审查并重构现有技能**，而不是从头开始创建。新建 Skill 按仓库贡献流程和 agentskills.io 规范单独处理；不得为此在运行时安装外部创建 Skill。
 
 ---
 
@@ -91,7 +91,7 @@ output_schema:
 5. **交互策略**（规范§4.3）：行为是否规定默认值、选择选项以及哪些项目需要用户确认？首先首选默认值，首选选择，上下文推理。
 6. **资产边界**：Skill 是否在定义事物结构（Spec）、多方消息序列（Protocol）或原子禁令（Rule）？若是，保留执行编排，将权威定义改为引用现有资产或提出拆分位置。
 7. **执行适配**：Skill 是否依赖 MCP / CLI / API / 外部服务？若依赖，是否说明如何发现可用工具、建立能力映射、处理工具缺失、避免硬编码不存在的工具名？
-8. **仓库契约**：若在 AI Cortex 仓库内优化，必须读取并应用 `AGENTS.md` 与 `docs/architecture/terminology.md`；不得默认抓取外部 HTTP/HTTPS 链接，除非上下文显式声明 `allow_external_fetch=true`。
+8. **仓库契约**：若在 AI Cortex 仓库内优化，必须读取并应用 `AGENTS.md`、`docs/architecture/terminology.md` 和 `skills/SOURCES.yaml`；不得默认抓取外部 HTTP/HTTPS 链接，也不得在运行时安装 Skill。只有维护外部派生副本且上下文显式声明 `allow_external_fetch=true` 时，才可读取固定版本上游。
 9. **触发器**（可选）：对于高可发现性技能，可以考虑在前面添加“触发器”（3-5 个英语短语），以实现快速调用匹配。
 
 ### 优化流程
@@ -149,14 +149,14 @@ output_schema:
 
 **不要做这些（其他技能可以处理它们）**：
 
-- **从头开始创建新技能**：生成初始技能结构和内容→使用“技能创建者”（如 anthropics/skills）
+- **从头开始创建新技能**：生成初始技能结构和内容→按仓库贡献流程单独处理；不得临时安装外部创建 Skill
 - **项目文档**：生成 README → 使用 `generate-standard-readme`；生成 AGENTS.md → 使用 `generate-agent-entry`
 - **文本去上下文化**：删除 PII 或敏感信息 → 使用 `decontextualize-text`
 
 **何时停止并交接**：
 
 - 用户说“看起来不错”、“已批准”、“提交此”→ 细化完成，移交给用户进行版本控制
-- 用户问「如何创建新技能？」 → 移交给技能创建者文档
+- 用户问「如何创建新技能？」 → 移交给仓库贡献指南和 agentskills.io 规范
 
 ---
 

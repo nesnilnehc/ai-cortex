@@ -10,20 +10,21 @@ status: active
 
 <!-- markdownlint-disable MD058 MD060 -->
 
-本文件枚举 AI Cortex 技能中 `metadata.evolution.sources` 引用的外部仓库与技能，供许可合规与溯源使用。详见 [LICENSE_POLICY.md](./LICENSE_POLICY.md)。
+本文件是 [`skills/SOURCES.yaml`](../../skills/SOURCES.yaml) 的人工可读索引，枚举 AI Cortex 当前分发的外部派生 Skill。详见 [LICENSE_POLICY.md](./LICENSE_POLICY.md)。
 
 ---
 
 ## 按仓库
 
-| 仓库 | 来源技能 | 版本 | 许可证 | 类型 | 借用内容 | 使用方 |
-| --- | --- | --- | --- | --- | --- | --- |
-| [anthropics/skills](https://github.com/anthropics/skills) | commit-work | 1.0.0 | MIT | fork | Core workflow, Conventional Commits format, patch staging approach | commit-work |
-| [nesnilnehc/ai-cortex](https://github.com/nesnilnehc/ai-cortex) | review-diff | 1.3.0 | MIT | integration | Pre-commit review methodology | commit-work |
+| 仓库 | 上游路径 | 固定 commit | 许可证 | 本地 Skill | 本地处理 |
+| --- | --- | --- | --- | --- | --- |
+| [softaworks/agent-toolkit](https://github.com/softaworks/agent-toolkit) | `skills/commit-work` | `06825f04669d4364a16abc267650c86cf153d349` | MIT | `commit-work` | 保留提交工作流，集成 AI Cortex review、INDEX 和输出契约 |
+| [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) | `.agents/skills/changelog-video` | `4f00336c92f6418aab82c060853da604dd832197` | Apache-2.0 | `changelog-video` | 改为 Release Package 输入，移除品牌资产、固定语音、仓库路径和 sibling-skill 依赖 |
 
 ---
 
 ## 备注
 
-- **anthropics/skills**：上游仓库根目录未检出 LICENSE 文件；按惯例声明 MIT，建议定期复核。
-- **nesnilnehc/ai-cortex**：本仓库内部引用。
+- 历史记录曾把 `commit-work` 来源写成未经验证的 `anthropics/skills (assumed)`；当前表以可核验且内容匹配的 `softaworks/agent-toolkit` 为准。
+- skills.sh 页面只用于发现，不是 AI Cortex 的安装或更新来源。
+- 完整 digest、修改列表和更新策略以 `skills/SOURCES.yaml` 为准。

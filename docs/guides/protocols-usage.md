@@ -44,83 +44,44 @@ lifecycle: living
    - [`specs/universal-notification.md`](../../specs/universal-notification.md) — 语义层规范（UNP）
    - [`protocols/im-notification-delivery.md`](../../protocols/im-notification-delivery.md) — 投递层规范（INP）
 
-### 2.2 在代码中查找
+### 2.2 在 canonical clone 中查找
 
-如果已安装 AI Cortex 技能：
+安装后直接读取 AI Cortex 的稳定数据目录：
 
 ```bash
-# 全局查找协议目录
-ls ~/.agents/protocols/
-# 或本地项目
-ls ./protocols/
+ls "${XDG_DATA_HOME:-$HOME/.local/share}/ai-cortex/protocols/"
 ```
 
-### 2.3 通过 Manifest 发现
+### 2.3 通过注册表发现
 
 ```bash
-# 查看协议注册表配置
-cat skills/INDEX.md | jq '.registry | {protocols_root, protocols_index}'
+cat "${XDG_DATA_HOME:-$HOME/.local/share}/ai-cortex/protocols/INDEX.md"
 ```
 
 ---
 
 ## 3. 安装 & 使用
 
-### 3.1 作为 AI Cortex 技能的一部分安装
+### 3.1 Canonical 安装
 
-协议随 AI Cortex 技能包一起分发：
+AI Cortex 只保留一种安装与更新方式：
 
 ```bash
-# 全局安装 AI Cortex（包含所有协议）
-npx skills add nesnilnehc/ai-cortex -g
-
-# 仅安装到项目本地
-npx skills add nesnilnehc/ai-cortex
+mkdir -p ~/.local/share
+git clone --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.local/share/ai-cortex
+~/.local/share/ai-cortex/bin/cortex install
 ```
 
 **验证安装**：
 
 ```bash
-# 检查协议是否可用
-cat ~/.agents/.skill-lock.json | grep ai-cortex
-# 验证协议文件
-ls ~/.agents/protocols/
+cortex status
+ls "${XDG_DATA_HOME:-$HOME/.local/share}/ai-cortex/protocols/"
 ```
 
 ### 3.2 在你的项目中使用
 
-#### **方式 1：复制协议文件**（独立项目）
-
-如果你不需要完整的 AI Cortex 技能包，只想要协议：
-
-```bash
-# 复制协议目录到你的项目
-cp -r https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/ ./protocols/
-
-# 或手动下载单个协议
-curl https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/unp.md > ./protocols/unp.md
-curl https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/inp.md > ./protocols/inp.md
-```
-
-#### **方式 2：作为 npm 依赖**（即将支持）
-
-```bash
-npm install @ai-cortex/protocols
-```
-
-（目前此包尚未发布，计划在 v2.1.0 时推出）
-
-#### **方式 3：通过 Git Submodule**（团队共享）
-
-```bash
-# 将 protocols 作为 submodule 引入
-git submodule add https://github.com/nesnilnehc/ai-cortex.git vendor/ai-cortex
-git config submodule.vendor/ai-cortex.sparse-checkout protocols/
-git submodule update --init --recursive
-
-# 项目中引用
-cat vendor/ai-cortex/protocols/unp.md
-```
+项目 Agent 按 `$CORTEX_HOME/protocols/INDEX.md` 或默认 XDG 路径读取协议。项目需要固定 AI Cortex 版本时，在项目配置中记录 canonical clone 的完整 commit；不要复制单文件、curl raw URL 或引入第二份 submodule。
 
 ---
 
