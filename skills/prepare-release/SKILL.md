@@ -3,7 +3,7 @@ name: prepare-release
 description: Build and validate a Release Package from repository history, version policy, quality gates, and optional release artifacts; does not publish or announce.
 description_zh: 基于仓库历史、版本策略、质量门禁和可选发布材料构造并校验 Release Package；不负责发布或公告。
 tags: [release, versioning, changelog, release-package, orchestration]
-version: 1.3.1
+version: 1.4.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -83,6 +83,24 @@ output_schema:
 
 再识别已有 generator，只生成用户确认的 changelog、release notes、customer notes、manifest、SBOM/checksum/build artifacts：技术 changelog 保留接口、配置、迁移和运维细节；用户 release notes 只写可感知价值。两者从同一组 change items 派生，不互相复制后再改写事实。不要重复实现 `commit-work`、`automate-tests` 或 `generate-github-workflow`。
 
+#### 材料的形态：读者是隔一段时间回来的人
+
+受众边界（上一段）决定材料**装什么**，形态决定它**能不能被读**。两者都不满足才算材料合格——
+面向维护者不等于可以不可读：写的人手上有全部背景，把因果、编号、路径一口气塞进一个段落毫无障碍，
+而这种障碍**只对作者不存在**。
+
+- **一条一个意思**。一条讲一件事；讲不完通常是因为它其实是两件，拆开。
+- **结论先行**：先说变成什么样了，再说为什么；不要整段推理铺垫到最后才给结论。
+- **背景与佐证不进正文**，另起一句补在条目下面。
+- **内部记号克制**：需求编号、文件路径、提交哈希是排查时去版本库查的东西。要留就留在佐证句里，
+  且只留真正帮读者定位的那一个，不成串堆。
+- **升级须知单列**：破坏性变更、迁移动作、回滚代价另起一节——运维不该为了确认「要不要人工处置数据」
+  去读完所有功能条目。
+
+**长度阈值由项目定，不由本 Skill 定**：它取决于语种、读者与既往基线，写死一个数换个项目就不成立。
+项目已有阈值或既有条目形态时按项目的来；没有时按上述五条判断，并可从该项目**最早、最可读的那几版**
+量出基线供项目自己确立。项目侧的落点是它自己的规则与检查（如 `rules/` 加一条红线），不是本 Skill。
+
 #### changelog-video 集成边界
 
 `changelog-video` 是随 AI Cortex 分发的本地可选发布材料 Skill，不是本 Skill 的内置实现。只在用户选择 `video` 后调用；传入 `decision=release`、项目标识、版本与通道、git range、已确认的 customer-facing change items、可用 media 引用、输出目录、required 状态和已确认偏好，消费其 `kind: video` artifact entry 与 check 结果。不得要求它重新解析 git 或长篇 Markdown，也不得让它决定版本、修改 changelog、创建 tag 或发送公告。
@@ -118,6 +136,7 @@ output_schema:
 - [ ] 版本候选按用户影响判断并有证据；`none` 不产生空发布。
 - [ ] 产品版本 canonical source、独立版本域和预发布通道已识别。
 - [ ] 技术与用户材料来自同一组可追溯 change items，受众边界明确。
+- [ ] 材料形态合格：一条一个意思、结论先行、背景与内部记号不进正文、升级须知单列。
 - [ ] required checks 与 artifacts 已逐项判定。
 - [ ] 已展示默认与可选材料、用途、required 状态和推荐依据，并取得确认。
 - [ ] changelog-video 只作为本地 vendored 可选 Skill 接入，缺失时未触发外部安装。
