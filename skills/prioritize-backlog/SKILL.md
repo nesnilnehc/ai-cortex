@@ -18,89 +18,89 @@ output_schema:
   description: Per-item scoring table across 4 frameworks + disagreement call-outs + detected backlog mode + user's priority_decision (with previous-value field) written back to each item in its native format
 ---
 
-# 技能：优先级评分（Prioritize Backlog）
+# Skill: Prioritize Backlog
 
-## 目的 (Purpose)
+## Purpose
 
-用多个价值框架并行评估一批 backlog 条目，呈现框架间的分歧，由用户做出优先级决策并记录依据。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：对一批 backlog 条目（无视当前 priority 状态）执行**强制全量重评**，给出用户确认后的新 `priority` 与 `priority_decision`，并写回各自所在的 backlog 形态（多文件目录或单文件）。
-
-**成功标准**（必须全部满足）：
-
-1. ✅ 每个条目有 4 个框架（RICE / WSJF / MoSCoW / ICE）的评分
-2. ✅ 框架间分歧已显式 surface（≥ 2 级差触发人工决策）
-3. ✅ 每条目最终 `priority` 由用户确认，不是算法输出
-4. ✅ 每条目写回 `priority_decision` 字段（含 `previous` 旧值快照，便于回看本次覆盖了什么）
-5. ✅ 输出批量结果表，用户可跨条目比较
-6. ✅ 报告头声明检测到的 backlog 形态（`multi-file` / `yaml-list` / `h2-yaml` / `table`），并按该形态执行写回
-
-**验收测试**：读者能否从 backlog 条目的 frontmatter / yaml 块 / 表格行直接看到新 priority + 决策依据 + 被覆盖的旧值，不用反查对话？
+Assess a batch of backlog items with several value frameworks in parallel, surface where those frameworks disagree, and let the user make the priority decision with its rationale recorded.
 
 ---
 
-## 范围边界（Scope Boundaries）
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: run a **forced, complete re-score** over a batch of backlog items (disregarding their current priority state), produce the user-confirmed new `priority` and `priority_decision`, and write them back into whichever backlog layout each one lives in (a multi-file directory, or a single file).
 
-- 自动识别 backlog 形态（多文件目录 / 单文件 yaml-list / h2-yaml / table）并读取**全部**条目
-- 对每条强制重新跑 RICE / WSJF / MoSCoW / ICE 评分（忽略原 priority 与 priority_decision）
-- Surface 框架间分歧
-- 捕获用户决策并按检测到的形态写回（多文件改 frontmatter；单文件改对应 yaml 块 / 表格单元格）
+**Success criteria** (all of them must hold):
 
-**本技能不负责**：
+1. ✅ Every item carries a score from each of the 4 frameworks (RICE / WSJF / MoSCoW / ICE)
+2. ✅ Disagreement between frameworks is surfaced explicitly (a gap of ≥ 2 levels triggers a human decision)
+3. ✅ Each item's final `priority` is confirmed by the user, not emitted by an algorithm
+4. ✅ Each item gets a `priority_decision` field written back (carrying the `previous` snapshot of the old value, so what this round overwrote can be looked up)
+5. ✅ A batch result table is emitted, so the user can compare across items
+6. ✅ The report header declares the detected backlog layout (`multi-file` / `yaml-list` / `h2-yaml` / `table`), and the write-back follows that layout
 
-- 创建新的 backlog 条目（用 `capture-work-items`）
-- 将条目晋升进 roadmap（用 `promote-roadmap-items`）
-- 为单一条目评分（该技能是**批量**工作流，单条评分会丢失对比性）
-- 归档旧评估历史（仅保留 `previous` 单字段；如需 history 由调用方负责）
-
-**交接点**：评分完成后交给 `promote-roadmap-items` 做 backlog → roadmap 晋升。
+**Acceptance test**: can a reader see the new priority, the decision rationale, and the overwritten old value straight from a backlog item's frontmatter / yaml block / table row, without going back through the conversation?
 
 ---
 
-## 使用场景（Use Cases）
+## Scope Boundaries
 
-- `capture-work-items` 批量捕获后建议触发
-- Planning ceremony 前对积压做一次干净的全量重评
-- 战略刷新后任何节点直接重跑（无需额外开关 —— 默认就是覆盖式重评）
-- `plan-next` 输出的大缺口被 capture 后进入评分
-- 单文件 backlog（如轻量项目维护一份 `backlog.md`）也能直接处理
+**This skill owns**:
+
+- Detecting the backlog layout automatically (multi-file directory / single-file yaml-list / h2-yaml / table) and reading **every** item
+- Force-rerunning the RICE / WSJF / MoSCoW / ICE scoring on each one (ignoring the existing priority and priority_decision)
+- Surfacing disagreement between frameworks
+- Capturing the user's decision and writing it back in the detected layout (frontmatter for multi-file; the matching yaml block or table cell for a single file)
+
+**This skill does not own**:
+
+- Creating new backlog items (use `capture-work-items`)
+- Promoting items into the roadmap (use `promote-roadmap-items`)
+- Scoring a single item (this skill is a **batch** workflow; scoring one item alone loses the comparison)
+- Archiving old assessment history (only the single `previous` field is kept; a caller that needs history owns it)
+
+**Handoff point**: once scoring is done, hand off to `promote-roadmap-items` for the backlog → roadmap promotion.
 
 ---
 
-## 行为（Behavior）
+## Use Cases
 
-### 阶段 0：读取输入与形态探测
+- Suggested as the trigger after a batch capture by `capture-work-items`
+- A clean, complete re-score of the pile before a planning ceremony
+- A direct rerun at any point after a strategy refresh (no extra switch needed — an overwriting re-score is the default)
+- A large gap reported by `plan-next` enters scoring once it has been captured
+- A single-file backlog (a lightweight project keeping one `backlog.md`, say) is handled directly too
 
-1. **形态探测（按优先级尝试，命中即停）**
+---
 
-   | 优先级 | 形态 | 探测条件 |
+## Behavior
+
+### Stage 0: read the input and detect the layout
+
+1. **Layout detection (tried in order, stopping at the first hit)**
+
+   | Order | Layout | Detection condition |
    |---|---|---|
-   | 1 | `multi-file` | `docs/process-management/backlog/` 或 `docs/backlog/` 存在，且至少一个 `*.md` 文件含 `artifact_type: backlog-item` 或 `priority:` frontmatter 字段 |
-   | 2 | `yaml-list` | 单文件 `docs/process-management/backlog.md` 或 `docs/backlog.md` 存在，frontmatter 或顶层 YAML 含 `items:` 数组 |
-   | 3 | `h2-yaml` | 同上单文件，正文中存在 `## <title>` 标题紧随 ```yaml … ``` 代码块 |
-   | 4 | `table` | 同上单文件，正文存在含 `Title` 与 `Priority`（或等价列）的 Markdown 表格 |
+   | 1 | `multi-file` | `docs/process-management/backlog/` or `docs/backlog/` exists, and at least one `*.md` file carries the `artifact_type: backlog-item` or `priority:` frontmatter field |
+   | 2 | `yaml-list` | The single file `docs/process-management/backlog.md` or `docs/backlog.md` exists, and its frontmatter or top-level YAML carries an `items:` array |
+   | 3 | `h2-yaml` | The same single file, whose body has a `## <title>` heading immediately followed by a ```yaml … ``` code block |
+   | 4 | `table` | The same single file, whose body has a Markdown table carrying `Title` and `Priority` (or equivalent columns) |
 
-   优先吃项目自定义路径（若存在 `.ai-cortex/artifact-norms.yaml` 或 `docs/ARTIFACT_NORMS.md` 中的 `backlog-item.path_pattern`）。
+   Prefer the project's own custom path (where `backlog-item.path_pattern` exists in `.ai-cortex/artifact-norms.yaml` or `docs/ARTIFACT_NORMS.md`).
 
-   **全未命中** → halt 报告"未发现可识别的 backlog 形态"，提示先运行 `capture-work-items`。
+   **Nothing hits at all** → halt, report "no recognizable backlog layout found", and point the user at `capture-work-items` first.
 
-   **检测到混合形态**（既有目录又有单文件）→ 默认采用 multi-file 并在报告里告知用户单文件被忽略；不双写，避免不一致。
+   **A mixed layout is detected** (both a directory and a single file) → default to multi-file and tell the user in the report that the single file was ignored; nothing is written twice, to avoid inconsistency.
 
-2. 读取 `docs/project-overview/strategic-goals.md`（用于 WSJF 的 Cost of Delay 判断和 MoSCoW 的 Must 判断）。
+2. Read `docs/project-overview/strategic-goals.md` (used for the WSJF Cost of Delay judgement and the MoSCoW Must judgement).
 
-3. **枚举全部条目**（不再筛选 `priority: unset`）：把已有 `priority` / `priority_decision` 仅作 audit log 显示，**不参与新评分**，避免锚点偏差。
+3. **Enumerate every item** (no longer filtering on `priority: unset`): show any existing `priority` / `priority_decision` as an audit log only, **kept out of the new scoring**, to avoid anchoring bias.
 
-4. 若条目总数 = 1 → **halt 并警告**："单条评分会丢失对比性。建议至少 2 条一起评。是否继续？"
+4. If the total item count = 1 → **halt with a warning**: "scoring one item alone loses the comparison. Scoring at least 2 together is suggested. Continue?"
 
-### 阶段 1：多框架并行评分
+### Stage 1: score against all four frameworks in parallel
 
-对每个条目同时计算：
+Compute all of these for every item at once:
 
 #### RICE
 
@@ -108,22 +108,22 @@ output_schema:
 RICE = (Reach × Impact × Confidence) / Effort
 ```
 
-- **Reach**：受影响人数或实例数（定量）
-- **Impact**：3（巨大）/ 2（高）/ 1（中）/ 0.5（低）/ 0.25（微小）
-  - 下限必须能低于 1。若最低档就是 1，琐碎条目无法被压低，只能靠 Reach 与 Effort 拉开差距，结果是低价值项分数虚高
-- **Confidence**：0-100%，三档锚点——`100% = 有数据支撑` / `80% = 有部分证据` / `50% = 拍脑袋`
-  - 无锚点时同一批条目重跑两次会飘，锚点是为了让评分可复现
-- **Effort**：人周
+- **Reach**: how many people or instances are affected, as a number
+- **Impact**: 3 (massive) / 2 (high) / 1 (medium) / 0.5 (low) / 0.25 (minimal)
+  - The floor must be able to go below 1. If the lowest band is 1, a trivial item cannot be pushed down and only Reach and Effort can separate it from the rest, which leaves low-value items scoring too high
+- **Confidence**: 0-100%, anchored at three points — `100% = backed by data` / `80% = partial evidence` / `50% = a guess`
+  - Without anchors, scoring the same batch twice drifts; the anchors are what make a score reproducible
+- **Effort**: person-weeks
 
-映射为优先级等级：
-| RICE 分数 | 级别 |
+Mapped to a priority level:
+| RICE score | Level |
 |---|---|
 | ≥ 1000 | P0 |
 | 200-1000 | P1 |
 | 50-200 | P2 |
 | < 50 | P3 |
 
-（阈值是默认示例，项目可自定）
+(These thresholds are a default example; a project may set its own.)
 
 #### WSJF
 
@@ -132,10 +132,10 @@ WSJF = Cost of Delay / Job Size
 ```
 
 - **Cost of Delay** = Business Value + Time Criticality + Risk Reduction / Opportunity Enablement
-- **Job Size** = 相对工作量（斐波那契数列：1, 2, 3, 5, 8, 13, 20）
+- **Job Size** = relative effort, on the Fibonacci scale 1, 2, 3, 5, 8, 13, 20
 
-映射为优先级等级（按当前 backlog 的 WSJF 分位数）：
-| WSJF 分位 | 级别 |
+Mapped to a priority level, by the item's WSJF percentile within the current backlog:
+| WSJF percentile | Level |
 |---|---|
 | Top 10% | P0 |
 | 10-30% | P1 |
@@ -144,12 +144,12 @@ WSJF = Cost of Delay / Job Size
 
 #### MoSCoW
 
-按承诺层级分类：
+Classified by level of commitment:
 
-- **Must**：本周期不做会严重阻塞或违反合规 → P0
-- **Should**：本周期做会显著提升价值 → P1
-- **Could**：有时间做就做 → P2
-- **Won't**：明确本周期不做 → P3；若是**永久不做**（而非本周期推迟），走 `status: declined` 终态，见阶段 4
+- **Must**: not doing it this cycle blocks something badly or breaches compliance → P0
+- **Should**: doing it this cycle raises value markedly → P1
+- **Could**: do it if there is time → P2
+- **Won't**: explicitly not this cycle → P3. Where it is **never** to be done, as opposed to deferred past this cycle, take the `status: declined` terminal state instead; see stage 4
 
 #### ICE
 
@@ -157,63 +157,63 @@ WSJF = Cost of Delay / Job Size
 ICE = Impact × Confidence × Ease
 ```
 
-- 每维度 1-10 定性打分
-- Impact：对战略目标的影响
-- Confidence：估算的信心
-- Ease：实施的容易程度（越高越容易）
+- Each dimension scored qualitatively from 1-10
+- Impact: the effect on a strategic goal
+- Confidence: how much the estimate is trusted
+- Ease: how easy it is to build — higher means easier
 
-映射：
-| ICE 分数 | 级别 |
+Mapped:
+| ICE score | Level |
 |---|---|
 | ≥ 500 | P0 |
 | 200-500 | P1 |
 | 50-200 | P2 |
 | < 50 | P3 |
 
-### 阶段 2：Surface 分歧
+### Stage 2: surface the disagreements
 
-对每个条目计算**框架间最大分歧**：
+For each item, compute the **widest gap between frameworks**:
 
-| 分歧级差 | 处理 |
+| Gap in levels | What happens |
 |---|---|
-| ≤ 1 级（如 P1 vs P2） | 默认采用 **RICE** 结果，无需人工决策 |
-| ≥ 2 级（如 P0 vs P3） | 显式 surface，必须人工决策 |
+| ≤ 1 level (P1 vs P2, say) | Take the **RICE** result by default; no human decision needed |
+| ≥ 2 levels (P0 vs P3, say) | Surface it explicitly; a human decision is required |
 
-分歧阈值项目可自定（默认 2 级）。
+A project may set its own disagreement threshold; the default is 2 levels.
 
-### 阶段 3：呈现批量结果
+### Stage 3: present the batch result
 
-输出格式：
+Output format:
 
 ```markdown
 ## Batch Scoring Summary
 
-| # | Title | RICE | WSJF | MoSCoW | ICE | 分歧 | 建议 |
+| # | Title | RICE | WSJF | MoSCoW | ICE | Gap | Suggestion |
 |---|---|---|---|---|---|---|---|
-| 1 | ... | P1 | P1 | Should | P2 | 1 级 | 自动采 P1 |
-| 2 | ... | P3 | P1 | Could | P3 | 2 级 | **需人工** |
+| 1 | ... | P1 | P1 | Should | P2 | 1 level | take P1 automatically |
+| 2 | ... | P3 | P1 | Could | P3 | 2 levels | **human needed** |
 | ... |
 
-## 需人工决策的条目（分歧 ≥ 2 级）
+## Items needing a human decision (gap ≥ 2 levels)
 
 ### Item #2: <title>
 
-- RICE=P3 理由：Reach 仅 10 人、Effort 8 周
-- WSJF=P1 理由：Q3 里程碑依赖本项，Cost of Delay 高
+- RICE=P3 because Reach is only 10 people and Effort is 8 weeks
+- WSJF=P1 because the Q3 milestone depends on it, so Cost of Delay is high
 - MoSCoW=Could
 - ICE=P3
 
-**分歧焦点**：时间敏感性（WSJF）vs 规模（RICE）
+**Where they disagree**: time criticality (WSJF) against reach (RICE)
 
-**请决策**：P? 理由？
+**Your decision**: which P, and why?
 ```
 
-### 阶段 4：捕获决策并写回（按形态分发）
+### Stage 4: capture the decision and write it back, per layout
 
-对每个条目：
+For each item:
 
-1. 确定最终 `priority`（自动采信或用户输入）。
-2. 构造 `priority_decision` 字段内容，**必含** `previous`：
+1. Settle the final `priority`, whether taken automatically or given by the user.
+2. Build the `priority_decision` field, which **must contain** `previous`:
 
    ```yaml
    priority_decision:
@@ -225,139 +225,139 @@ ICE = Impact × Confidence × Ease
        moscow: Must | Should | Could | Won't
        ice: P<N>
      rationale: <one-sentence reason if disagreement was ≥ 2 levels>
-     strategic_override: <理由；仅当最终 priority 高于框架结论时必填>
+     strategic_override: <the reason; required only when the final priority is above what the frameworks concluded>
      decided_by: auto | user
      decided_at: <ISO date>
    ```
 
-   `strategic_override` 用于「四框架都算得低，但战略上必须做」的情形。这类判断本身是合理的，但必须留痕——否则「用户逐项确认」会变成一条不留证据的旁路，谁都能把任意条目抬上去。最终 `priority` 高于框架结论时，本字段必填。
+   `strategic_override` covers the case where all four frameworks score an item low but strategy requires it anyway. That judgement is legitimate, but it must leave a trace — otherwise "the user confirms each item" becomes an evidence-free bypass through which anyone can lift any item. The field is required whenever the final `priority` sits above what the frameworks concluded.
 
-3. **判定是否为终态**：条目若被判为永久不做（价值低且投入高、或需求已失效），不要留在 backlog 里靠 P3 沉底——P3 默认会进 Later，条目将永远参与后续每一轮全量重评。改为写入终态：
+3. **Decide whether it is terminal**: where an item is judged never to be done — low value against high effort, or the need has lapsed — do not leave it in the backlog to sink under P3. P3 goes to Later by default, so the item would take part in every full re-scoring from then on. Write the terminal state instead:
 
    ```yaml
    status: declined
-   declined_reason: <一句话说明为什么永久不做>
+   declined_reason: <one sentence on why it will never be done>
    declined_at: <ISO date>
    ```
 
-   终态条目在后续重评中直接跳过。终态由用户判定，本技能不得自行判定。
+   A terminal item is skipped outright in later re-scorings. The user decides on the terminal state; this skill must not decide it alone.
 
-4. **按形态写回**：
+4. **Write back per layout**:
 
-   | 形态 | 写回方式 |
+   | Layout | How to write back |
    |---|---|
-   | `multi-file` | 更新各 `*.md` 文件 frontmatter 的 `priority` + `priority_decision` |
-   | `yaml-list` | 修改单文件中 `items[i].priority` + `items[i].priority_decision`，保持 YAML 缩进与键序 |
-   | `h2-yaml` | 替换该条目对应 ```yaml``` 代码块内的 `priority` + `priority_decision`，保持代码块位置 |
-   | `table` | 更新表格 `Priority` 单元格；`priority_decision` 写到表格下方 `## Priority Decisions` 小节，按条目锚点列出 |
+   | `multi-file` | Update `priority` + `priority_decision` in each `*.md` file's frontmatter |
+   | `yaml-list` | Change `items[i].priority` + `items[i].priority_decision` in the single file, keeping the YAML indentation and key order |
+   | `h2-yaml` | Inside that item's ```yaml``` block, replace `priority` + `priority_decision`, leaving the block where it is |
+   | `table` | Update the table's `Priority` cell; put `priority_decision` in a `## Priority Decisions` section below the table, listed by item anchor |
 
-   写回前确认：旧值已记录到 `priority_decision.previous`，避免被静默吞掉。
+   Before writing back, confirm the old value is recorded in `priority_decision.previous`, so nothing is swallowed silently.
 
-5. **跳过终态与已定条目的边界**：`status: declined` 的条目不参与重评。
+5. **The boundary on skipping terminal and settled items**: an item with `status: declined` takes no part in re-scoring.
 
-### 阶段 5：输出最终报告
+### Stage 5: emit the final report
 
-报告头必须包含：
+The report header must carry:
 
 - `Backlog mode: multi-file | yaml-list | h2-yaml | table`
-- 本轮新增 `declined` 终态条目数（若有）
-- `Re-scored items: N (含 X 条覆盖了原 priority；Y 条原为 unset)`
+- How many items entered the `declined` terminal state this round, if any
+- `Re-scored items: N (X overwrote an existing priority; Y were unset)`
 
-报告体：
+The report body:
 
-- 处理总数、自动决策数、人工决策数
-- 各优先级分布统计
-- 建议下一步（如 `promote-roadmap-items` 批量晋升）
-
----
-
-## 输入与输出 (Input & Output)
-
-**输入**：见 frontmatter `input_schema` —— backlog 目录、strategic-goals.md、可选阈值覆盖。
-
-**输出**：对话批量评分表 + 每个 backlog 文件 frontmatter 被更新（`priority` 和 `priority_decision` 字段）。
+- How many were processed, decided automatically, and decided by a human
+- The distribution across priorities
+- What to do next, such as a batch promotion with `promote-roadmap-items`
 
 ---
 
-## 限制（Restrictions）
+## Input & Output
 
-### 硬边界（Hard Boundaries）
+**Input**: see the frontmatter `input_schema` — the backlog directory, strategic-goals.md, and optional threshold overrides.
 
-- **强制全量重评**：默认覆盖所有条目的 `priority` 与 `priority_decision`，旧值仅以 `previous` 单字段保留，不做历史归档（保持技能单一职责，归档由调用方负责）
-- **不混合形态**：探测到 multi-file 即不再扫单文件，反之亦然，避免双写不一致
-- 不自动聚合多框架成单一分数（保留分歧信号是核心价值）
-- 分歧 ≥ 阈值时必须人工决策，不得默认兜底
-- 不创建新的 backlog 条目（那是 `capture-work-items` 的职责）
+**Output**: the batch scoring table in conversation, plus updated frontmatter in every backlog file — the `priority` and `priority_decision` fields.
 
-### 技能边界 (Skill Boundaries)
+---
 
-**不做（其他技能负责）**：
+## Restrictions
 
-| 动作 | 归属 |
+### Hard boundaries
+
+- **A full re-score is forced**: by default every item's `priority` and `priority_decision` is overwritten, the old value surviving only in the single `previous` field. No history is archived — the skill keeps one responsibility, and archiving belongs to the caller
+- **Layouts are never mixed**: once multi-file is detected, no single file is scanned, and the reverse likewise, so the two are never written inconsistently
+- The frameworks are never aggregated into one score; keeping the disagreement signal is the point of this skill
+- Where the gap is ≥ the threshold, a human must decide; there is no default fallback
+- No new backlog item is created; that is `capture-work-items`' job
+
+### Skill boundaries
+
+**Not done here; another skill owns it**:
+
+| Action | Owner |
 |---|---|
-| 创建新 backlog 条目 | `capture-work-items` |
-| 把 backlog 条目晋升进 roadmap | `promote-roadmap-items` |
-| 任务拆分 | AgentFabric runtime（不在 AI Cortex 范围） |
-| 需求详细记录 | `capture-work-items` |
+| Creating a new backlog item | `capture-work-items` |
+| Promoting a backlog item into the roadmap | `promote-roadmap-items` |
+| Task breakdown | The AgentFabric runtime, outside AI Cortex |
+| Recording a requirement in detail | `capture-work-items` |
 
 ---
 
 ## Anti-Patterns
 
-- ❌ **不要加权平均四框架分数** —— 聚合等于丢分歧信号，破坏本技能核心价值
-- ❌ **不要为单条目独立评分** —— 没有对比组，RICE / WSJF 的相对性失效
-- ❌ **不要隐藏分歧** —— 即使默认自动采信 RICE，也要在报告表里显示各框架分数
-- ❌ **不要忽略 strategic_goal_id** —— 战略目标决定 MoSCoW 的 Must 判断
-- ❌ **不要用模糊措辞**（"大概"、"可能"）写 `priority_decision.rationale` —— 必须具体引用框架或数据
-- ❌ **不要在重评时"比对旧 priority 是否合理后再决定是否覆盖"** —— 这等于给框架打分加锚点偏差，违反本技能"强制干净重评"的设计意图
-- ❌ **不要丢弃旧值** —— `priority_decision.previous` 必须写入；让用户能在一处看到本次改动了什么
-- ❌ **不要尝试在两种形态间双写** —— 多文件与单文件择一，避免数据漂移
+- ❌ **Never take a weighted average of the four scores** — aggregating throws away the disagreement signal, which is what this skill exists for
+- ❌ **Never score a single item on its own** — with no comparison group, the relative nature of RICE and WSJF stops working
+- ❌ **Never hide a disagreement** — even where RICE is taken automatically, show every framework's score in the report table
+- ❌ **Never ignore `strategic_goal_id`** — the strategic goal is what decides MoSCoW's Must
+- ❌ **Never write `priority_decision.rationale` in vague words** ("roughly", "possibly") — it must cite a framework or a figure concretely
+- ❌ **Never re-score by "checking whether the old priority looks reasonable, then deciding whether to overwrite"** — that anchors the framework scores, defeating the clean forced re-score this skill is designed around
+- ❌ **Never discard the old value** — `priority_decision.previous` must be written, so the user can see what this round changed in one place
+- ❌ **Never try to write to both layouts** — pick multi-file or single-file, so the data cannot drift apart
 
 ---
 
-## 自检（Self-Check）
+## Self-Check
 
-- [ ] 已声明 backlog 形态（`multi-file` / `yaml-list` / `h2-yaml` / `table`）并按形态写回
-- [ ] 形态探测失败时已 halt，并指引 `capture-work-items`
-- [ ] 扫描全部条目，旧 priority 仅作展示不参与评分（无锚点偏差）
-- [ ] 每条目跑了全部 4 个框架
-- [ ] 分歧 ≥ 阈值的条目 surface 了，并要求人工决策
-- [ ] 分歧 ≤ 阈值的条目自动采信 RICE，但各框架分数仍可见
-- [ ] 每条目 `priority_decision` 写回，含 frameworks 结果、rationale（若分歧）、`previous` 旧值快照
-- [ ] 批量汇总报告含 `Backlog mode`、覆盖统计、优先级分布、下一步建议
-- [ ] 未自动调用 `promote-roadmap-items`
+- [ ] The backlog layout is declared (`multi-file` / `yaml-list` / `h2-yaml` / `table`) and written back accordingly
+- [ ] Where layout detection failed, it halted and pointed at `capture-work-items`
+- [ ] Every item was scanned, with the old priority shown but kept out of the scoring, so nothing was anchored
+- [ ] All 4 frameworks ran on every item
+- [ ] Items whose gap is ≥ the threshold were surfaced and a human decision was asked for
+- [ ] Items whose gap is ≤ the threshold took RICE automatically, with every framework's score still visible
+- [ ] `priority_decision` was written back for every item, carrying the framework results, the rationale where there was a disagreement, and the `previous` snapshot of the old value
+- [ ] The batch summary carries `Backlog mode`, the overwrite counts, the priority distribution, and what to do next
+- [ ] `promote-roadmap-items` was not called automatically
 
 ---
 
-## 示例（Examples）
+## Examples
 
-### 示例 1：多文件 backlog 全量重评（主流场景）
+### Example 1: a full re-score of a multi-file backlog, the common case
 
-**输入**：`docs/process-management/backlog/` 下 5 个条目，混合状态 —— 3 个 `priority: unset`、1 个 `priority: P2`（旧）、1 个 `priority: P3`（旧）。
+**Input**: 5 items under `docs/process-management/backlog/`, in mixed states — 3 at `priority: unset`, 1 at an existing `priority: P2`, 1 at an existing `priority: P3`.
 
-**形态探测**：命中 `multi-file`。
+**Layout detection**: `multi-file` matches.
 
-**输出摘要**：
+**Output summary**:
 
 ```markdown
 Backlog mode: multi-file
-Re-scored items: 5 (含 2 条覆盖了原 priority；3 条原为 unset)
+Re-scored items: 5 (2 overwrote an existing priority; 3 were unset)
 
 ## Batch Scoring Summary
 
-| # | Title | 旧 | RICE | WSJF | MoSCoW | ICE | 分歧 | 建议 |
+| # | Title | Old | RICE | WSJF | MoSCoW | ICE | Gap | Suggestion |
 |---|---|---|---|---|---|---|---|---|
-| 1 | 支付 API 响应时间优化 | unset | P1 | P1 | Should | P1 | 0 级 | **自动 P1** |
-| 2 | ARTIFACT_NORMS 格式升级 | P3 | P3 | P3 | Could | P3 | 0 级 | **自动 P3（与旧值一致）** |
-| 3 | Q3 支持多币种 | unset | P2 | P0 | Must | P2 | 2 级 | **需人工** |
-| 4 | 登录错误 500 修复 | P2 | P1 | P2 | Should | P1 | 1 级 | **自动 P1（覆盖旧 P2）** |
-| 5 | 新增技术债：重构 auth 模块 | unset | P3 | P2 | Could | P2 | 1 级 | 自动 P3 |
+| 1 | Payment API response time | unset | P1 | P1 | Should | P1 | 0 levels | **P1 automatically** |
+| 2 | ARTIFACT_NORMS format upgrade | P3 | P3 | P3 | Could | P3 | 0 levels | **P3 automatically, matching the old value** |
+| 3 | Multi-currency support for Q3 | unset | P2 | P0 | Must | P2 | 2 levels | **human needed** |
+| 4 | Fix the 500 on login | P2 | P1 | P2 | Should | P1 | 1 level | **P1 automatically, overwriting P2** |
+| 5 | New technical debt: refactor the auth module | unset | P3 | P2 | Could | P2 | 1 level | P3 automatically |
 
-## 需人工决策：Item #3
-（同前略）
+## Human decision needed: Item #3
+(as above, abridged)
 ```
 
-**写回结果片段**（Item #4，被覆盖的条目）：
+**A fragment of what was written back** (Item #4, the overwritten one):
 
 ```yaml
 priority: P1
@@ -373,21 +373,21 @@ priority_decision:
   decided_at: 2026-04-17
 ```
 
-### 示例 2：单文件 backlog（h2-yaml 形态）
+### Example 2: a single-file backlog in the h2-yaml layout
 
-**输入**：`docs/backlog.md` 维护一份"轻量 backlog"，每条目是 H2 标题 + 行内 yaml 块：
+**Input**: `docs/backlog.md` holds a "lightweight backlog", each item an H2 heading plus an inline yaml block:
 
 ```markdown
-## 支付 API 响应时间优化
+## Payment API response time
 ```yaml
 
 strategic_goal_id: goal-1
 priority: P2
 
 ```markdown
-原因：…
+Reason: ...
 
-## 登录错误 500 修复
+## Fix the 500 on login
 ```yaml
 
 strategic_goal_id: goal-1
@@ -397,10 +397,10 @@ priority: unset
 …
 ```
 
-**形态探测**：multi-file 路径不存在 → yaml-list 不命中 → **命中 `h2-yaml`**。
+**Layout detection**: the multi-file path does not exist -> yaml-list does not match -> **`h2-yaml` matches**.
 
-**写回方式**：替换每条对应的 yaml 代码块内的 `priority` + `priority_decision`，保留代码块外的描述正文不变；`priority_decision.previous` 写入旧值（一条原为 P2，一条为 unset）。
+**How it is written back**: replace `priority` and `priority_decision` inside each item's yaml block, leaving the descriptive prose outside the block untouched; `priority_decision.previous` records the old value — P2 for one item, unset for the other.
 
-报告头：`Backlog mode: h2-yaml`、`Re-scored items: 2 (含 1 条覆盖了原 priority；1 条原为 unset)`。
+The report header: `Backlog mode: h2-yaml`, `Re-scored items: 2 (1 overwrote an existing priority; 1 was unset)`.
 
 ---
