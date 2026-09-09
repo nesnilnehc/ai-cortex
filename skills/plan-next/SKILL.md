@@ -370,7 +370,7 @@ Any KPI or threshold must carry the triplet on first appearance:
 >
 > Example: `Adoption rate (share of recommendations users accept): current 42% / target ≥70% / 50-65% counts as good in the industry`
 
-**The benchmark** is one of: an industry baseline, the project's own historical value, or an empirical threshold. With no benchmark available, write "project-defined (no external baseline)" to put the reader on guard. On a metric's second appearance within the same card, the benchmark may be omitted.
+**The benchmark** is one of: an industry baseline, the project's own historical value, or an empirical threshold. With no benchmark available, write "project-defined (no external benchmark)" to put the reader on guard. On a metric's second appearance within the same card, the benchmark may be omitted.
 
 > The authoritative definition of the triplet format is [rules/roadmap-quality.md](../../rules/roadmap-quality.md) §3; the roadmap's success metrics are produced by `define-roadmap` in the same format, and the wording at both ends must stay consistent.
 
@@ -637,7 +637,7 @@ Goal 1:
 
 - [ ] Every suggestion carries what to do, why, and an observable completion marker (prose or card alike)
 - [ ] **The format choice is right**: prose for a single suggestion; structured cards for ≥2 parallel suggestions
-- [ ] **A KPI or threshold carries the triplet on first appearance** (current value / target value / benchmark); with no benchmark, "project-defined (no external baseline)" is noted
+- [ ] **A KPI or threshold carries the triplet on first appearance** (current value / target value / benchmark); with no benchmark, "project-defined (no external benchmark)" is noted
 - [ ] Depth first (only the first gap in the tree is reported per goal)
 - [ ] A parallel suggestion states the reason for parallelism in the text
 - [ ] Drift and hygiene entries are all in the "Also worth noting" section and have not crowded out the first two slots of "Do now"
@@ -915,7 +915,7 @@ Goal 1:
 
 - Governance context:
   - Strategic goal: G1, requirement clarification depends on the knowledge base running reliably
-  - Current KPI: citation visibility (the share of user documents recalled) data source missing / target ≥80% / project-defined (no external baseline)
+  - Current KPI: citation visibility (the share of user documents recalled) data source missing / target ≥80% / project-defined (no external benchmark)
   - Roadmap: M5 (hybrid-retrieval maturity milestone, in progress)
   - Current position: strategic goal acceptance, the KPI data source is not established
 - Recommended skill: (no governance skill; citation-visibility instrumentation + the design of the monitoring query path is carried by the AgentFabric runtime, landing in docs/architecture/)
