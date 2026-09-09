@@ -183,7 +183,7 @@ git -C <main-repo> branch -d <feature-branch>
 
 **步骤 6 — 汇总报告**
 
-```
+```yaml
 deliver-feature summary
 ──────────────────────────────────────────────────────────────────────────
 Feature branch:   feat/api-v2
@@ -321,7 +321,7 @@ git -C /repos/myapp branch -d feat/api-v2
 
 **汇总**：
 
-```
+```yaml
 deliver-feature summary
 ──────────────────────────────────────────────────────────────────────────
 Feature branch:   feat/api-v2

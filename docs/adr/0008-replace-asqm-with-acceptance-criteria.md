@@ -32,7 +32,7 @@ description: 用 Acceptance Criteria 替代 ASQM 量化分数决定 Skill status
 
 新 status 语义：
 
-```
+```text
 validated         = has_output_contract AND len(acceptance_criteria) >= 1
 experimental      = otherwise
 archive_candidate = 仅由维护者手动设置

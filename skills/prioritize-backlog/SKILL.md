@@ -104,7 +104,7 @@ output_schema:
 
 #### RICE
 
-```
+```text
 RICE = (Reach × Impact × Confidence) / Effort
 ```
 
@@ -127,7 +127,7 @@ RICE = (Reach × Impact × Confidence) / Effort
 
 #### WSJF
 
-```
+```text
 WSJF = Cost of Delay / Job Size
 ```
 
@@ -153,7 +153,7 @@ WSJF = Cost of Delay / Job Size
 
 #### ICE
 
-```
+```text
 ICE = Impact × Confidence × Ease
 ```
 
@@ -185,7 +185,7 @@ ICE = Impact × Confidence × Ease
 
 输出格式：
 
-```
+```markdown
 ## Batch Scoring Summary
 
 | # | Title | RICE | WSJF | MoSCoW | ICE | 分歧 | 建议 |
@@ -339,7 +339,7 @@ ICE = Impact × Confidence × Ease
 
 **输出摘要**：
 
-```
+```markdown
 Backlog mode: multi-file
 Re-scored items: 5 (含 2 条覆盖了原 priority；3 条原为 unset)
 
@@ -380,16 +380,20 @@ priority_decision:
 ```markdown
 ## 支付 API 响应时间优化
 ```yaml
+
 strategic_goal_id: goal-1
 priority: P2
-```
+
+```markdown
 原因：…
 
 ## 登录错误 500 修复
 ```yaml
+
 strategic_goal_id: goal-1
 priority: unset
-```
+
+```text
 …
 ```
 

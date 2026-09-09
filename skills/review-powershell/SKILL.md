@@ -48,7 +48,7 @@ output_schema:
 - `[CmdletBinding()]`、`Verb-Noun` 命名、批准的动词、`begin/process/end` 块
 - 参数类型、“Mandatory”、“ValueFromPipeline”、参数集、验证属性
 - 终止与非终止错误、“-ErrorAction Stop”、静默故障预防
-- 对象管道行为（更喜欢对象而不是格式化文本，“Write-Host”与“Write-Verbose”）
+- 对象管道行为（优先输出对象而非格式化文本，“Write-Host”与“Write-Verbose”）
 - 状态、范围、严格性（全局/有状态副作用、偏好变量变化）
 - Windows PowerShell 5.1 与 PowerShell 7+ 兼容性和可移植性
 - 性能和可测试性（Pester友好的功能设计，DI接缝）
@@ -64,7 +64,7 @@ output_schema:
 
 ---
 
-## 使用场景（用例）
+## 使用场景 (Use Cases)
 
 - **精心安排的审查**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 运行 PowerShell 项目的范围 -> 语言 -> 框架 -> 库 -> cognitive时，用作语言步骤。
 - **仅 PowerShell 审查**：当用户只想检查语言/运行时约定时。
@@ -74,7 +74,7 @@ output_schema:
 
 ---
 
-## 行为（行为）
+## 行为 (Behavior)
 
 ### 该技能的范围
 
@@ -99,18 +99,18 @@ output_schema:
 
 ## 输入与输出 (Input & Output)
 
-### 输入（输入）
+### 输入 (Input)
 
 - **代码范围**：用户或范围技能已选择的文件或目录（或差异）。该技能不决定范围；仅审查所提供的 PowerShell 代码的语言约定。
 
-### 输出（输出）
+### 输出 (Output)
 
 - 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
 - 此技能的类别是 **language-powershell**。
 
 ---
 
-## 限制（限制）
+## 限制 (Restrictions)
 
 ### 硬边界（Hard Boundaries）
 
@@ -157,7 +157,7 @@ output_schema:
 
 ---
 
-## 示例（示例）
+## 示例 (Examples)
 
 ### 示例 1：管道合同不匹配
 

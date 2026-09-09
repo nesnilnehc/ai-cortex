@@ -66,7 +66,7 @@ output_schema:
 
 ---
 
-## 使用场景（用例）
+## 使用场景 (Use Cases)
 
 - **愿景之后**：一旦愿景清晰，建立一个最能捕捉“交付价值”的指标。
 - **产品优先级**：当团队需要一个单一指标来指导优化内容时。
@@ -75,7 +75,7 @@ output_schema:
 
 ---
 
-## 行为（行为）
+## 行为 (Behavior)
 
 ### 交互策略
 
@@ -148,7 +148,7 @@ Measurable Metric (North Star)
 
 ---
 
-## 限制（限制）
+## 限制 (Restrictions)
 
 ### 硬边界（Hard Boundaries）
 
@@ -198,7 +198,7 @@ Measurable Metric (North Star)
 
 ---
 
-## 示例（示例）
+## 示例 (Examples)
 
 ### 示例 1：从愿景到北极星
 

@@ -146,7 +146,7 @@ git branch --format='%(refname:short)'
 
 以序号、类型标识、路径（如适用）、分支名、最近活动提示展示列表：
 
-```
+```text
 Available branches to integrate:
   [1]  worktree  /repos/myapp-auth      feat/user-auth      (last commit: 2 days ago)
   [2]  worktree  /repos/myapp-api       feat/api-v2         (last commit: 5 days ago)
@@ -173,7 +173,7 @@ Available branches to integrate:
 
 若 `<dirty-list>` 非空，在任何合并开始前统一上报所有脏条目：
 
-```
+```text
 Pre-flight check — dirty worktrees (will be skipped):
   /repos/myapp-api  (feat/api-v2)    — 3 uncommitted file(s)
 ```
@@ -258,7 +258,7 @@ git branch -d <E.branch>
 
 **步骤 8 — 汇总报告**
 
-```
+```text
 integrate-branches summary
 ──────────────────────────────────────────────────────────────────────────
 Type      Branch            Merge          Push   Cleanup  Branch-Del
@@ -411,7 +411,7 @@ git branch -d feat/dashboard
 
 **汇总**：
 
-```
+```text
 integrate-branches summary
 ──────────────────────────────────────────────────────────────────────────
 Type      Branch            Merge  Push  Cleanup  Branch-Del
@@ -439,7 +439,7 @@ git -C /repos/myapp-api   status --porcelain   # M  src/api.ts  ← 脏
 
 **技能上报**：
 
-```
+```text
 Pre-flight check — dirty worktrees (will be skipped):
   /repos/myapp-api  (feat/api-v2)    — 1 uncommitted file(s)
 ```
@@ -448,7 +448,7 @@ Pre-flight check — dirty worktrees (will be skipped):
 
 **汇总**：
 
-```
+```text
 integrate-branches summary
 ──────────────────────────────────────────────────────────────────────────
 Type      Branch            Merge          Push  Cleanup  Branch-Del

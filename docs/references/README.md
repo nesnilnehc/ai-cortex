@@ -17,4 +17,5 @@ status: active
 | [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md) | 当前 vendored 外部派生 Skills 的版权与许可证通知 |
 | [guides/discovery-and-loading.md](../guides/discovery-and-loading.md) | 发现与加载细则 |
 | [guides/proactive-suggestions.md](../guides/proactive-suggestions.md) | 主动建议表（阶段→技能） |
+| [guides/roadmap-planning-usage.md](../guides/roadmap-planning-usage.md) | 路线图规划链路使用指南（入口、常见 halt、技能对照） |
 | [readme-diagram-standards.md](./readme-diagram-standards.md) | README 图表设计标准：Mermaid 风格、复杂度限制、维护约定 |

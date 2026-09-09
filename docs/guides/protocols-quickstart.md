@@ -65,7 +65,7 @@ Skill 由 `cortex` 统一安装；协议保留在 canonical clone 中，Agent �
 
 ### 优先级 → 格式映射
 
-```
+```text
 P0 → Card（交互式卡片）  必须包含 mention_user + actionable
 P1 → Card               必须包含 mention_owner + actionable
 P2 → Markdown           禁止 mention_user
@@ -74,7 +74,7 @@ P3 → Text               禁止 mention_user
 
 ### 去重 & 限流
 
-```
+```yaml
 P0: 1 per 5 minutes
 P1: 1 per 10 minutes
 P2: batched
@@ -83,7 +83,7 @@ P3: (unrestricted)
 
 ### 渠道支持
 
-```
+```yaml
 Feishu: ✅ card, button, callback
 WeCom:  ✅ markdown (有限交互)
          ⚠️ 不支持的功能会降级

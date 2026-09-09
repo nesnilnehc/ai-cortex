@@ -8,7 +8,7 @@
 
 ## 三层模型中的位置
 
-```
+```text
 /loop /orchestrate-governance-step 30m
   └─ orchestrate-governance-step        ← 驱动层（本技能）
        └─ /plan-next     ← 诊断层（只读）

@@ -65,7 +65,7 @@ output_schema:
 
 ---
 
-## 使用场景（用例）
+## 使用场景 (Use Cases)
 
 - **精心安排的审查**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 运行 React 项目的范围 → 语言 → 框架 → 库 → cognitive时，用作框架步骤。
 - **仅 React 审查**：当用户只想检查 React/前端框架约定时。
@@ -75,7 +75,7 @@ output_schema:
 
 ---
 
-## 行为（行为）
+## 行为 (Behavior)
 
 ### 该技能的范围
 
@@ -86,9 +86,9 @@ output_schema:
 
 1. **组件设计**：优先选择功能组件；每个组件单一职责；深度嵌套的组合；具有合理默认值的显式 prop 类型（TypeScript 接口或 PropTypes）；适当地使用孩子并渲染道具。
 2. **Hooks正确性**：正确使用useEffect/useMemo/useCallback中的依赖数组；避免陈旧的关闭；将可重用逻辑提取到自定义挂钩中；遵循钩子规则（仅限顶层，仅限 React 函数）； useEffect 中用于订阅和计时器的清理函数。
-3. **状态管理**：适当选择本地状态（useState）与全局状态；使用 Context 来处理横切关注点，但不要过度使用；更喜欢 useReducer 来进行复杂的状态转换；正确集成外部存储（Zustand、Redux Toolkit）；将服务器状态（TanStack 查询、SWR）与客户端状态分开。
+3. **状态管理**：适当选择本地状态（useState）与全局状态；使用 Context 来处理横切关注点，但不要过度使用；复杂状态转换优先用 useReducer；正确集成外部存储（Zustand、Redux Toolkit）；将服务器状态（TanStack 查询、SWR）与客户端状态分开。
 4. **渲染性能**：在明显有益的地方应用 React.memo、useMemo、useCallback；列表中的稳定键（动态列表没有索引作为键）；当导致重新渲染时，避免在 JSX 中内联创建对象/函数；对大型列表使用虚拟化（react-window、react-virtuoso）。
-5. **副作用和数据获取**：正确的useEffect模式（单一目的效果，适当的清理）；使用中止控制器或标志处理竞争条件；明确表示加载/错误/成功状态；与原始 useEffect + fetch 相比，更喜欢数据获取库（TanStack Query、SWR）。
+5. **副作用和数据获取**：正确的useEffect模式（单一目的效果，适当的清理）；使用中止控制器或标志处理竞争条件；明确表示加载/错误/成功状态；优先使用数据获取库（TanStack Query、SWR），而非裸 useEffect + fetch。
 6. **路由和代码分割**：使用React.lazy和Suspense进行基于路由的代码分割；定义延迟加载路由的错误边界；保持路由定义是声明性的；当延迟加载合适时，避免急切地加载完整模块。
 7. **辅助功能**：使用语义HTML元素；正确应用 ARIA 属性（角色、标签、活动区域）；确保键盘导航和焦点管理；支持屏幕阅读器；测试交互组件的可访问性合规性。
 
@@ -100,18 +100,18 @@ output_schema:
 
 ## 输入与输出 (Input & Output)
 
-### 输入（输入）
+### 输入 (Input)
 
 - **代码范围**：包含 React 代码的文件或目录（或 diff）（带有 React API 的 .tsx、.jsx、.ts、.js）。由用户或范围技能提供。
 
-### 输出（输出）
+### 输出 (Output)
 
 - 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
 - 此技能的类别是 **framework-react**。
 
 ---
 
-## 限制（限制）
+## 限制 (Restrictions)
 
 ### 硬边界（Hard Boundaries）
 
@@ -158,7 +158,7 @@ output_schema:
 
 ---
 
-## 示例（示例）
+## 示例 (Examples)
 
 ### 示例 1：useEffect 中缺少清理
 

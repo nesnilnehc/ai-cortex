@@ -198,7 +198,8 @@ def deliver_notification(unp: UNPNotification, channel: str) -> str:
 **方案**：
 
 1. **在公共位置维护协议**：
-```
+
+```text
 my-org/
 ├── protocols/          # 组织级协议库
 │   ├── notification-protocol.md
@@ -248,7 +249,7 @@ protocols:
 
 ### 5.2 示例：AI 驱动的通知重构
 
-```
+```text
 用户：将我的通知代码重构为遵循 UNP 协议
 ↓
 Claude 加载：unp.md 作为系统上下文

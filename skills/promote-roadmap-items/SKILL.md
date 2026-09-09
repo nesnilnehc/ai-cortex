@@ -101,7 +101,7 @@ output_schema:
 
 输出容量表：
 
-```
+```markdown
 ## 当前容量使用
 
 | Strategic Goal | 分配 | 已用 | 剩余 | 占比 |
@@ -131,7 +131,7 @@ output_schema:
 
 输出晋升候选表：
 
-```
+```markdown
 ## 晋升候选（Now 层）
 
 | Goal | Item | Priority | Effort | 动作 |
@@ -152,7 +152,7 @@ output_schema:
 
 呈现合并清单（晋升 + 降级），用户逐项确认：
 
-```
+```markdown
 ## 待确认清单
 
 [ ] #42 晋升 Later → Now？

@@ -64,7 +64,7 @@ output_schema:
 
 ---
 
-## 使用场景（用例）
+## 使用场景 (Use Cases)
 
 - **精心安排的审阅**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 为包含 SQL（.sql 文件、嵌入式 SQL 或 ORM 生成的 SQL）的项目运行时用作语言步骤。
 - **仅 SQL 审查**：当用户只想检查查询的正确性、性能和安全性时。
@@ -74,7 +74,7 @@ output_schema:
 
 ---
 
-## 行为（行为）
+## 行为 (Behavior)
 
 ### 该技能的范围
 
@@ -99,18 +99,18 @@ output_schema:
 
 ## 输入与输出 (Input & Output)
 
-### 输入（输入）
+### 输入 (Input)
 
 - **代码范围**：包含 SQL 的文件或片段（例如 .sql 文件、带有嵌入式 SQL 的代码或 ORM 生成的 SQL（如果可用））。由用户或范围技能提供。
 
-### 输出（输出）
+### 输出 (Output)
 
 - 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
 - 此技能的类别是**language-sql**。
 
 ---
 
-## 限制（限制）
+## 限制 (Restrictions)
 
 ### 硬边界（Hard Boundaries）
 
@@ -158,7 +158,7 @@ output_schema:
 
 ---
 
-## 示例（示例）
+## 示例 (Examples)
 
 ### 示例 1：查询中的字符串连接
 

@@ -5,11 +5,17 @@ lifecycle: snapshot
 created_at: YYYY-MM-DD
 status: proposed
 description: <一句话摘要，与 H1 标题互补>
+
 # 条件字段（按 status 选填）
+
 # superseded_by: NNNN-{slug}       # status: superseded 时必填
+
 # archived_at: YYYY-MM-DD           # status: archived 时必填
+
 # archived_reason: <原因>           # status: archived 时必填
+
 # expires_at: YYYY-MM-DD            # 可选：季度复核触发器
+
 ---
 
 # ADR NNNN：<标题>

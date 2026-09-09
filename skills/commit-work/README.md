@@ -60,7 +60,7 @@ footer (BREAKING CHANGE if needed)
 
 支持的类型：`feat`、`fix`、`refactor`、`docs`、`test`、`chore`、`perf`、`style`
 
-## 示例（示例）
+## 示例 (Examples)
 
 请参阅 [SKILL.md](SKILL.md#examples) 了解详细示例，包括：
 

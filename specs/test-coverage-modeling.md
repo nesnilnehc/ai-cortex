@@ -71,7 +71,7 @@ related:
 
 ## 3. 命名约定
 
-```
+```text
 coverage-report-<scope>-<YYYY-MM-DD>.md
 ```
 

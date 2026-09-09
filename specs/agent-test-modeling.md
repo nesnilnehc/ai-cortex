@@ -63,7 +63,7 @@ Agent 测试契约（agent test contract）回答"这个 agent 必须接受什�
 
 ## 3. 命名约定
 
-```
+```text
 agent-test-<agent-slug>.md
 ```
 

@@ -1,16 +1,30 @@
 # Changelog
 
-## [Unreleased] — 2026-05-15
+## [Unreleased] — 2026-09-09
 
 ### Added
 
-- `rules/roadmap-quality.md` (v1.0.0): new rule — 路线图制品的 5 维评审清单。`rules/` 下原有 requirement / functional-design / technical-design / task / test-case / test-coverage 六份判据 rule，roadmap 是治理链上唯一缺判据的一层。本文件是路线图判据的**唯一权威源**：`define-roadmap`（生产侧）、`plan-next`（诊断侧）、`review-roadmap`（评审侧）三方引用同一份表述，避免重蹈 `rules/requirement-quality.md` 与 `review-requirements` 各维护一套判据的覆辙。三条判据登记了外部出处：五条反模式来自 deanpeters/product-manager-skills 的 `roadmap-planning`，变更频率阈值来自 anthropics/knowledge-work-plugins 的 `roadmap-update`，结果化检查来自 phuryn/pm-skills 的 `outcome-roadmap`。
+- `CODE_OF_CONDUCT.md`、`SECURITY.md`、`.editorconfig`、`.github/`（issue 模板、PR 模板、lint 工作流）: 补齐开源社区标配。SECURITY.md 明确本仓库的安全面只有两处——`bin/cortex` 这个会创建删除符号链接的 shell 脚本，以及技能内容本身（措辞若诱导 Agent 执行破坏性或越权操作即构成安全问题），并区分了哪些属于 / 不属于安全问题。CI 分三个 job：链接检查与注册表一致性阻断合并，markdownlint 暂设 `continue-on-error` —— 仓库已按 MD009/012/022/031/040/047 清理完毕，但默认规则集远不止这些，尚未在 CI 上实跑过完整规则，先以顾问模式收集真实违规再改为阻断。
+- `README.md`: 补「能力概览」节。此前访客第一眼看不出这仓库有什么——现按五个领域列出 55 个技能的分布与代表能力，并说明与同类资产库的四点区别（四层资产分离、编排与原子分层、判据外置、vendored-only 分发）。
+
+
+- `docs/guides/roadmap-planning-usage.md`: new guide — 路线图规划链路的面向使用者入口。此前这条链的九个技能没有任何用户侧入口：`skills/INDEX.md` 是给 Agent 匹配用的一行描述，各技能 README 的「相关技能」是点对点的拼不出全貌，`orchestrate-roadmap-planning` 的 SKILL.md 里虽有完整九步表但那是写给 Agent 的。本指南按「你处在什么状态」组织而非复述执行顺序（顺序的权威定义仍在 SKILL.md，避免 SSOT 双写），重点讲三件容易撞上的事：晋升时的容量分配 halt 为什么不自动填、治理文档全空时为什么不从零盘问、依赖为什么必须排在晋升之前。
+
+- `rules/roadmap-quality.md` (v1.0.0): new rule — 路线图制品的 5 维评审清单。`rules/` 下原有 requirement / functional-design / technical-design / task / test-case / test-coverage 六份判据 rule，roadmap 是治理链上唯一缺判据的一层。本文件是路线图判据的**唯一权威源**：`define-roadmap`（生产侧）、`plan-next`（诊断侧）、`review-roadmap`（评审侧）三方引用同一份表述，避免重蹈 `rules/requirement-quality.md` 与 `review-requirements` 各维护一套判据的覆辙。反模式清单由本 rule 自身的五维结构推出，每条对应一维判据的失效形态；涉及的产品管理通用概念在「判据依据」节回溯至公开出版物（《Product Roadmaps Relaunched》、Intercom RICE、《Lean UX》、《Escaping the Build Trap》等）。**制定过程中调研过三个开源 PM 技能仓库，初版曾把其中之一列为判据出处，随后发现该仓库为 CC BY-NC-SA 4.0——其非商业与相同方式共享条款与本仓库 MIT 不兼容，衍生声明会造成许可证冲突。已重写反模式使其从本 rule 的判据结构自洽推出，并将概念出处回溯到一手公开著作，不再声明衍生自任何外部仓库。**另两个调研对象（Apache-2.0 与 MIT）虽许可证兼容，本 rule 亦未复制其表达，故同样不作衍生登记——按 `specs/skill-source-modeling.md`，`SOURCES.yaml` 只登记 vendored 的 Skill 本地副本，行业通用概念与文档链接不登记。
 - `skills/map-item-dependencies/SKILL.md` (v1.0.0): new skill — 识别 backlog 与 roadmap 条目间的五类依赖（技术 / 团队 / 外部 / 知识 / 顺序），写入条目 `depends_on`，产出依赖图、需解决时点与削减建议。此前本仓库对条目间依赖完全空白：`promote-roadmap-items` 只按 priority 与容量排序，一个「P0 但被仍在 backlog 的条目阻塞」的项会被正常拉进 Now 占着容量不产出。发现依赖环时 halt 并输出环路径，不自行选边打破——拆哪条边是范围决策，超出依赖登记的职责。`depends_on` 字段语义借用 `rules/task-quality.md` 的既有约定；已知债务：backlog-item 目前无 spec，结构只由 `capture-work-items` 的输出模板隐式定义，若该制品字段继续增长应补 `specs/backlog-item-modeling.md`，此处仅记账不代表已解决。
 - `skills/update-roadmap/SKILL.md` (v1.0.0): new skill — 路线图日常运维入口：改状态、挪期并计算下游影响、产出「本次变更了什么」摘要。此前 `define-roadmap` 管从零建、`promote-roadmap-items` 管跨层晋升降级，两者之间的日常动作无处安放。与 promote 的分界写死为「改变层级的归 promote，不改变层级的归本技能」——把 Now 项推迟两周是本技能，把它挪到 Next 是 promote。改为 `at risk` / `blocked` 时阻塞原因与缓解方案缺一不写入；依赖数据缺失时明确声明「下游影响未计算」而非假装已分析。
 - `skills/review-roadmap/SKILL.md` (v1.0.0): new skill — 按 `rules/roadmap-quality.md` 评估既有路线图，输出 findings-list。IO 契约对齐既有的 `review-requirements`（`document-artifact` 进、`findings-list` 出）。输入除 roadmap.md 外还包含佐证源——`strategic-goals.md` 与 Now 层引用的 backlog 条目：判据中有三条的数据在条目 frontmatter 里（`strategic_goal_id` / `depends_on` / `priority_decision`），只读 roadmap.md 的话这些维度结构上就无从求值，负责检查的技能读不到要检查的东西。读不到佐证源时标「无法评估」，不得记为通过。**判据不内嵌**，全部引自 rule，这是与 `review-requirements` 现状的刻意差异。变更频率维度依赖 git log，写明了「发现 → 执行 → 缺失处理」路径：非 git 仓库、浅克隆或无提交历史时标注为「无法评估」并说明原因，不得静默跳过或据此推断通过。判据文件缺失时 halt——没有基准就评估，产出的会是一份看似权威实则无依据的清单。**不输出 mode**：编排层的上下文检测由编排层自己做。
 - `skills/orchestrate-roadmap-planning/SKILL.md` (v1.0.0): new skill — 编排技能，按固定 9 步串联从战略目标到晋升的原子技能。存在价值是**提前满足下游 halt 条件**：手工调用最常见的浪费是做到 `promote-roadmap-items` 才发现缺容量分配、halt、回头跑 `define-roadmap` 再重来（该回退在 promote 的示例 2 里被当成正常流程写着）。每步标注必选 / 默认 / 推荐三档，档位是各原子技能既有约束的机械映射而非本层判断——步骤 1、2 必选因为对应 promote 明写的 halt 条件；步骤 4 双档位对应 promote 对「全部 unset」halt、对「部分 unset」仅跳过的两种行为；步骤 8 推荐因为 `archive-milestone` 自身 `apply` 默认即为 dry-run。档位同时决定失败语义，这是相对 `orchestrate-code-review` 单一 halt 规则的有意偏离（那里各原子技能彼此独立，这里步骤间有数据依赖）。含与 `plan-next` / `orchestrate-governance-step` 的正交边界表，禁止反向调用以避免调用环。
 
 ### Fixed
+
+- 机翻残留清理：164 处重复直译标题（`## 行为（行为）`、`## 限制（限制）`、`## 示例（示例）`、`## 使用场景（用例）`、`### 输入（输入）` 等）改为「中文 + 英文原词」形态；27 处明显误译的技术词修正——preflight 曾译作「飞行前」、flaky tests 译作「片状测试」、AI agent 译作「人工智能代理」、happy path 译作「幸福之路」、prefer 一律译作「更喜欢」。这类痕迹分布在 29 个文件，是公开仓库最扎眼的一类问题。
+- markdown 格式清理：全仓 199 处违规清零——117 个代码块补语言标签（保守推断，判不准的标 `text`，丢高亮但不改语义）、48 处标题与代码块前后补空行、21 处文件结尾换行、连续空行合并。`.cortex/vendor/` 下的外部契约不重排格式。
+- 坏链修复：3 条路径笔误（`docs/adr/0009` 的 `../../../` 深度错误、`docs/architecture/README.md` 指向不存在的 `adrs/`、`rules/claude-md-management.md` 的 README 相对路径）。剩余 8 条全部位于历史 ADR 且指向已删除的资产（`specs/skill.md`、`skills/review-code` 等），属准确的时点记录，按 `rules/adr-management.md`「ADR 写入后不改」保留。
+- `CHANGELOG.md`: `[Unreleased]` 日期从 2026-05-15 更新为 2026-09-09。
+
+- `docs/guides/proactive-suggestions.md`: 补 5 条路线图相关入口（规划 / 体检 / 运维 / 优先级 / 依赖）。此前今天涉及的 10 个技能里只有 `capture-work-items` 在表内，本该作为唯一入口的 `orchestrate-roadmap-planning` 未列。同时移除 `tidy-repo` 一行——该技能在 `skills/` 与 `skills/INDEX.md` 中均不存在，是条死引用。ADR 0003 / 0004 与 2026-05-08 孤儿技能清理设计文档中的 `tidy-repo` 引用保留不动：前者按 `rules/adr-management.md` 写入后不改，后者是记录该技能曾为孤儿的历史快照。
+- `docs/references/README.md`: 注册新指南，避免孤立文档。
 
 - `skills/define-roadmap/SKILL.md` (v3.2.0 → v4.0.0): 补上一个悬空的除数。`promote-roadmap-items` 的容量公式是「百分比 × cycle 总容量」，但「cycle 总容量」全仓仅出现一次且是除数，从未有技能负责生成——容量护栏实际算不出结果。新增第 8 步采集**总容量基线**（人数 × 周期 − 开销，按有效工时 60–70% 折算），写入容量分配章节表头。同时明确缓冲语义：百分比相对于**有效容量**而非日历容量，未规划工作（紧急问题、快速 win、他团队请求）的余量在折算时已让出，不再单列槽位——原规则要求百分比之和 = 100% 且全部指向 strategic_goal，没有给未规划工作留位置。成功指标从「优先量化」的软要求改为**强制三元组**（当前值 / 目标值 / 参考系），与 `plan-next` 自检对齐：此前生产方不保证的格式，消费方在强制检查，正常产出的路线图过不了下游自检。取 MAJOR 而非 MINOR，因为按旧版产出的既有 roadmap.md 不再通过新自检。另补关键举措的可证伪假设句式与里程碑的结果句式（此前只有「成果导向」的要求而无模板，关键举措易退化成名词短语），以及可选章节「本轮明确不做」（此前「不属于路线图的需求默认不做」是隐式规则，读者看不到被排除了什么）。
 - `skills/prioritize-backlog/SKILL.md` (v2.0.0 → v2.2.0): RICE 的 Impact 补齐为五档 `3 / 2 / 1 / 0.5 / 0.25`。原刻度只有 1/2/3，下限为 1 意味着「几乎没影响」与「中等影响」拿同样乘数，琐碎条目只能靠 Reach 与 Effort 拉开差距，结果是低价值项分数虚高。Confidence 补三档锚点（`100%` 有数据支撑 / `80%` 有部分证据 / `50%` 拍脑袋）——原文只写「0-100%」无参照，同一批条目重跑两次会飘。新增 `status: declined` 终态：MoSCoW 的 `Won't` 原本映射到 P3，而 P3 默认进 Later，「明确不做」的条目会永远躺在那里参与每一轮全量重评。新增 `strategic_override` 留痕字段：最终 priority 高于框架结论时必填理由，避免「用户逐项确认」沦为不留证据的旁路。

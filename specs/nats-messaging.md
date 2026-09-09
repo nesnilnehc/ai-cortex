@@ -51,7 +51,7 @@ related:
 
 ### 2.1 Subject 公式
 
-```
+```text
 <domain>.<event>[.<version>]
 ```
 
@@ -64,7 +64,7 @@ related:
 
 需要按 producer 做 ACL / retention 分治理（≥3 团队 / 多租户 SaaS）时允许：
 
-```
+```text
 <tenant>.<domain>.<event>
 ```
 
@@ -74,7 +74,7 @@ related:
 
 每个 subject 对应一份契约文件，遵循 [cross-team-contract.md §2](./cross-team-contract.md#2-命名约定) 的 `-contract.md` 后缀：
 
-```
+```text
 <event>-contract.md
 ```
 

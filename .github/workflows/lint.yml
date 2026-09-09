@@ -1,0 +1,80 @@
+name: lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  markdown:
+    runs-on: ubuntu-latest
+    # 暂不阻断：仓库已按 MD009/012/022/031/040/047 清理完毕，但 markdownlint 默认规则集
+    # 远不止这些，尚未在 CI 上实跑过完整规则。先以顾问模式收集真实违规，清干净后再改为阻断。
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@05f32210e84442804257b2a6f20b273450ec8265 # v19.1.0
+        with:
+          globs: |
+            **/*.md
+            !.cortex/vendor/**
+
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: 检查相对链接
+        run: |
+          python3 - <<'PY'
+          import pathlib, re, sys
+          bad = []
+          for f in pathlib.Path(".").rglob("*.md"):
+              if ".git/" in str(f):
+                  continue
+              lines = f.read_text(encoding="utf-8").split("\n")
+              fence = False
+              for i, l in enumerate(lines):
+                  if l.startswith("```"):
+                      fence = not fence
+                      continue
+                  if fence:
+                      continue
+                  for m in re.finditer(r'\]\(((?!https?://|#|mailto:)[^)]+)\)', l):
+                      t = m.group(1).split("#")[0]
+                      if t and not (f.parent / t).resolve().exists():
+                          bad.append(f"{f}:{i+1} -> {t}")
+          known = sum(1 for b in bad if "/docs/adr/" in b)
+          print(f"broken: {len(bad)} (historical ADR refs: {known})")
+          for b in bad:
+              print(" ", b)
+          # 历史 ADR 中指向已删资产的引用是有意保留的，不计入失败
+          if len(bad) - known:
+              sys.exit(1)
+          PY
+
+  registry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: INDEX 与目录一致性
+        run: |
+          s=$(ls -d skills/*/ | wc -l)
+          i=$(grep -c '^- \[' skills/INDEX.md)
+          echo "skills dirs: $s / INDEX entries: $i"
+          [ "$s" = "$i" ] || { echo "skills/INDEX.md 与 skills/ 目录数量不一致"; exit 1; }
+
+      - name: 技能必填 frontmatter
+        run: |
+          fail=0
+          for f in skills/*/SKILL.md; do
+            grep -q '^name:' "$f" || { echo "缺 name: $f"; fail=1; }
+            grep -q '^description:' "$f" || { echo "缺 description: $f"; fail=1; }
+          done
+          exit $fail

@@ -67,7 +67,7 @@ status: active
 
 ### 4.1 Review 家族
 
-```
+```text
 review-<language>            如 review-python、review-typescript
 review-<framework>           如 review-react、review-vue
 review-<domain>-usage        如 review-orm-usage
@@ -76,13 +76,13 @@ review-<concern>             如 review-security、review-performance、review-a
 
 ### 4.2 Define 家族
 
-```
+```text
 define-<noun>                如 define-mission、define-roadmap、define-vision
 ```
 
 ### 4.3 其他常见 verb 前缀
 
-```
+```text
 generate-<noun>              如 generate-standard-readme、generate-github-workflow
 orchestrate-<noun>           编排技能强制 orchestrate- 前缀（详见 §四 编排 vs 原子 vs 元）
 archive-<noun>               如 archive-milestone
@@ -112,7 +112,7 @@ decontextualize-<noun>       如 decontextualize-text
 
 **命名公式**：**前缀 + 被约束对象**
 
-```
+```python
 standards-<technology-or-domain>     技术规范（编码、Shell、import 等）
 workflow-<concern>                   工作流约束（文档、文档生命周期等）
 documentation-<aspect>               文档输出约束（如 markdown 格式）
@@ -122,7 +122,7 @@ writing-<style-or-language>          写作风格约束（如中文技术文）
 
 ### 现有 Rule 命名例
 
-```
+```text
 standards-coding              编码通用准则
 standards-shell               Shell 脚本规范
 standards-import              引用管理

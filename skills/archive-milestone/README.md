@@ -17,19 +17,19 @@
 
 ### Dry-run（预览，推荐先执行）
 
-```
+```text
 /archive-milestone m3
 ```
 
 或明确指定：
 
-```
+```text
 /archive-milestone m3 apply=false
 ```
 
 输出示例：
 
-```
+```text
 === dry-run 预览 ===
 
 将生成：
@@ -59,7 +59,7 @@
 
 **确认 dry-run 预览无误后**，传入 `apply=true`：
 
-```
+```text
 /archive-milestone m3 apply=true
 ```
 
