@@ -59,7 +59,7 @@ Authors self-check against this list before submitting for review. The checkpoin
 - [ ] The source is explicit (feature request / business goal / incident and the like) and traceable
 - [ ] Dependencies are accurate, with no circular reference
 - [ ] Related documents are complete — specs, ADRs, knowledge base links
-- [ ] Business rules escalated to required carry a stable id, and rule-derived acceptance criteria cite it back (for example `覆盖 R3`)
+- [ ] Business rules escalated to required carry a stable id, and rule-derived acceptance criteria cite it back (for example `Covers R3`)
 - [ ] Version history is clear; where the requirement has iterated, each change record states its reason
 
 ---

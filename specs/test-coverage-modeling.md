@@ -143,9 +143,9 @@ conditional_reasons:                    # required when verdict: conditional
 | # | Section | Purpose | Validation |
 |---|---|---|---|
 | 1 | Summary | One chart or one paragraph stating the verdict and the key figures | Carries the three key metrics: coverage rate / mutation score / number of dead links |
-| 2 | Traceability Matrix | The AC × case × dimension matrix | See §5.2 |
-| 3 | Mutation Summary | The gold-standard evidence for necessity | See §5.3 |
-| 4 | Trace Health | The integrity of the chain across artifacts | See §5.4 |
+| 2 | Traceability matrix | The AC × case × dimension matrix | See §5.2 |
+| 3 | Mutation test summary | The gold-standard evidence for necessity | See §5.3 |
+| 4 | Trace health audit | The integrity of the chain across artifacts | See §5.4 |
 
 ### 5.2 Traceability matrix contract
 

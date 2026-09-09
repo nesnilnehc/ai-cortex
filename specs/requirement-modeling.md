@@ -160,7 +160,7 @@ Once business rules become required (one of the §5.2 triggers has fired):
 
 - Express them declaratively, as a decision table or a state table; do not write procedural steps.
 - Every rule carries a stable id (for example `R1` / `R2`), and ids are never reused.
-- Acceptance criteria cite the rule id back (for example `覆盖 R3`), establishing a traceable chain from rule to acceptance.
+- Acceptance criteria cite the rule id back (for example `Covers R3`), establishing a traceable chain from rule to acceptance.
 
 #### 5.3.4 The boundary between business rules and acceptance criteria
 
@@ -273,7 +273,7 @@ In Scope:
 - Server-side caching (Redis)
 
 Out of Scope:
-- OAuth authentication (a later requirement)
+- OAuth authorization (a later requirement)
 - The search results UI (a front-end project)
 - Real-time vector updates (handled in Phase 3)
 
@@ -297,8 +297,8 @@ The rule set is the deliverable here (pricing discounts), so business rules are 
 
 ## Acceptance Criteria
 
-- [ ] An order total of 80 is charged 80 (覆盖 R1)
-- [ ] A member's order total of 600 is charged 510 (覆盖 R3)
+- [ ] An order total of 80 is charged 80 (Covers R1)
+- [ ] A member's order total of 600 is charged 510 (Covers R3)
 ````
 
 ---

@@ -164,7 +164,7 @@ Every test case must contain these 5 body sections.
 | # | Section | Purpose | Validation |
 |---|---|---|---|
 | 1 | Scenario | One line naming the subject under test and its context | At most 120 characters; names the subject, the trigger and the direction of the expectation; a one-line Given-When-Then is recommended |
-| 2 | Preconditions | The state that must be in place before execution | As a list, each independently verifiable, covering data state, system state and permission state; where there are none, say so explicitly |
+| 2 | Preconditions | The state that must be in place before execution | As a list, each independently verifiable, covering data state, system state and permission state; where there are none, write "no preconditions" |
 | 3 | Steps | The concrete steps to execute | A numbered list; each step atomic and executable, carrying its input data; at most 10 steps, beyond which the case is split |
 | 4 | Expected | The expectation per step, or the final state | Observable and decidable, carrying both positive and negative assertions, with **no** vague words such as "displays normally" or "should be OK" |
 | 5 | Coverage | The business promise this case guards | Agrees with the frontmatter `covers`; each entry carries the referenced text, such as "ACME-REQ-15 AC#3: top-3 relevance precision ≥ 80%" |
@@ -191,7 +191,7 @@ A collection is best expressed as a table:
 
 - **One case, several anchors**: a case may cover several ACs where they share preconditions and results, but not ACs across different requirements
 - **Several cases, one anchor**: one AC may be covered by several cases at different input boundaries, but each case states which dimension of that AC it covers
-- **Broken-link detection**: when an upstream requirement or contract document is deleted or renamed, every `covers` link is validated before the case moves to `deprecated`
+- **Broken-link detection**: when an upstream requirement or contract document is deleted or renamed, every `covers` link must be validated before the case moves to `deprecated`
 
 ---
 

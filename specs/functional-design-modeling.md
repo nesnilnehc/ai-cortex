@@ -28,7 +28,7 @@ related:
 
 A functional design document takes the business and product viewpoint and answers what behaviour the system presents to users: functional modules, business workflow, role permissions, business object states and exception scenarios. It sits between the requirement and the technical design. The requirement answers what to build, the functional design answers how it appears to users, and the technical design answers how it is engineered.
 
-This spec is centred on business behaviour. It carries no architecture, database or API implementation detail — those belong to the technical design — and business rules are not restated here. They are cited from the upstream requirement by rule id, as `覆盖 R<n>`.
+This spec is centred on business behaviour. It carries no architecture, database or API implementation detail — those belong to the technical design — and business rules are not restated here. They are cited from the upstream requirement by rule id, as `Covers R<n>`.
 
 In scope:
 
@@ -134,7 +134,7 @@ Added as the situation requires. A conditionally required section **becomes requ
 
 #### 5.3.3 Citing business rules
 
-Business rules are declared in the upstream requirement. In its workflow and exception sections, a functional design cites the rule id back as `覆盖 R<n>` rather than restating it, so the same rule is not maintained across requirement, functional design and technical design.
+Business rules are declared in the upstream requirement. In its workflow and exception sections, a functional design cites the rule id back as `Covers R<n>` rather than restating it, so the same rule is not maintained across requirement, functional design and technical design.
 
 ---
 
@@ -147,7 +147,7 @@ Business rules are declared in the upstream requirement. In its workflow and exc
 - ❌ Fewer than 2 exception or edge scenarios, or listing the exception without the expected business behaviour
 - ❌ A business object with ≥ 3 states and no state diagram — the trigger is met but the section is missing
 - ❌ Several roles involved and no permission matrix — the trigger is met but the section is missing
-- ❌ Restating a business rule here instead of citing the upstream requirement as `覆盖 R<n>`
+- ❌ Restating a business rule here instead of citing the upstream requirement as `Covers R<n>`
 - ❌ Fewer than 3 acceptance criteria, or criteria that cannot be traced to the upstream requirement
 - ❌ Trade-off analysis mixed with technology-selection trade-offs, which belong to the technical design
 - ❌ No `parent` frontmatter — an orphaned design with no traceability
@@ -172,7 +172,7 @@ status: approved
 
 # Functional design: order refund approval
 
-## Objective
+## Goal
 
 A refund raised by a support agent is paid out automatically once a supervisor approves it, so no refund is ever paid without approval and the turnaround time shortens.
 
@@ -187,12 +187,12 @@ A refund raised by a support agent is paid out automatically once a supervisor a
 ```
 
 Agent raises refund -> system validates amount -> awaiting supervisor
-  -> approved: trigger refund -> refund succeeds -> notify customer (覆盖 R1, the single-level approval rule)
+  -> approved: trigger refund -> refund succeeds -> notify customer (Covers R1, the single-level approval rule)
   -> rejected: return to the agent with the rejection reason
 
 ```markdown
 
-## Exception and boundary scenarios
+## Exception and edge scenarios
 
 - **Duplicate submission**: raising a refund on an order that already has one "awaiting approval" or "in progress" -> reject, and state that a refund is already under way
 - **Approval timeout**: awaiting approval for more than 48 hours -> escalate to the supervisor's manager by notification; never auto-approve
@@ -228,5 +228,5 @@ The refund state machine: `awaiting approval` ->(approved) `in progress` ->(refu
 - **Paired rule**: [rules/functional-design-quality.md](../rules/functional-design-quality.md) — the functional design quality review checklist across 5 dimensions: completeness, executability, clarity, soundness, traceability
 - **Upstream spec**: [requirement-modeling.md](./requirement-modeling.md) — a functional design's `parent` must point at a requirement in `approved` status; business rules are declared on the requirement side and cited here by id
 - **Downstream spec**: [technical-design-modeling.md](./technical-design-modeling.md) — only a functional design in `approved` status can derive a technical design, whose `parent` points back at it
-- **Related industry standards**: IEEE 1016 (Software Design Description), BPMN, UML state diagrams, and RBAC
+- **Related industry standards**: IEEE 1016 (Software Design Description), BPMN (business process modelling), UML state diagrams, RBAC (the role-permission model)
 - **Recursive basis**: this spec itself follows the 8-section skeleton of [spec-modeling.md](./spec-modeling.md) v2.0.0, skipping §2 mental model — the dimensions a functional design must answer are already carried by the 6-section MECE structure in §5.1

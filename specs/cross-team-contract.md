@@ -95,7 +95,7 @@ A cross-team contract file must contain these sections. The order may vary and t
 |---|---|
 | Contract scope | The interfaces, data shapes and state machines promised externally |
 | Field and interface definitions | Concrete field tables, types, enums, whether each is required, and examples |
-| CHANGELOG | Version history; every `contract_version` bump leaves an entry |
+| CHANGELOG | Version history; every `contract_version` bump must leave an entry |
 
 ### 5.2 CHANGELOG entry structure
 

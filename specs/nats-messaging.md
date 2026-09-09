@@ -62,7 +62,7 @@ The actual send and receive actions are carried out by the companion Skills thro
 
 ### 2.2 Multi-tenant exception
 
-Permitted when ACL and retention must be governed per producer (≥3 teams, or multi-tenant SaaS):
+Permitted when ACL or retention must be governed per producer (≥3 teams, or multi-tenant SaaS):
 
 ```text
 <tenant>.<domain>.<event>
@@ -152,7 +152,7 @@ Every contract's field table must carry: field name / type / whether required / 
 
 ### 5.5 Embedded validation rules
 
-The behavioural constraints below are embedded in this spec (terminology's section on what may and may not be embedded permits a Spec to embed Rules) — they are preconditions for the structural contract to hold, not standalone rules.
+The behavioural constraints below are embedded in this spec (terminology §IV permits a Spec to embed Rules) — they are preconditions for the structural contract to hold, not standalone rules.
 
 #### 5.5.1 QoS defaults
 

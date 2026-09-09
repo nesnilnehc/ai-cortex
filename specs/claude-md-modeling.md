@@ -73,11 +73,11 @@ A project-level CLAUDE.md must contain these sections. The order may vary, but n
 | Section | Contents |
 |---|---|
 | Project overview | 2-3 sentences on what the project is, who it is for and its core value. Not a restatement of the README — only what bears on the AI's decisions |
-| Stack | Language, framework, runtime version, package manager — name it explicitly to avoid the AI reaching for the wrong one — plus key dependencies and version constraints |
+| Tech stack | Language, framework, runtime version, package manager — name it explicitly to avoid the AI reaching for the wrong one — plus key dependencies and version constraints |
 | Key commands | The standard commands to start, build, test, lint and deploy. Prefer the higher-level command such as `make dev` over the underlying composition |
 | Directory structure | Only the directories that bear on the AI's decisions, one line of responsibility each. Not a copy of `tree` output |
 | Core conventions | Coding style, naming rules, commit conventions, branching strategy, testing requirements |
-| No-go zones | Directories and files that must not be modified, APIs that must not be called, operations requiring human confirmation |
+| Off limits | Directories and files that must not be modified, APIs that must not be called, operations requiring human confirmation |
 
 ### 5.3 Optional sections
 

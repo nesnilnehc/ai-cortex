@@ -131,11 +131,11 @@ deprecated_reason: <reason>         # required when status is deprecated
 |---|---|---|---|
 | 1 | Capability boundary | What the agent does and does not do | As a list; at least 1 item on each side |
 | 2 | Input contract | Required input fields, and how a missing field is recognised | Each field carries name, type, whether it is required, and the expected behaviour when absent |
-| 3 | Tool boundary | The allowed and forbidden tool sets | Both sets listed explicitly; where the forbidden set is non-empty, each entry carries its reason |
-| 4 | Write-back preconditions | What must hold before a side effect occurs | Each independently verifiable; an agent with no side effects states so explicitly |
+| 3 | Tool call boundary | The allowed and forbidden tool sets | Both sets listed explicitly; where the forbidden set is non-empty, each entry carries its reason |
+| 4 | Write-back preconditions | What must hold before a side effect occurs | Each independently verifiable; an agent with no side effects writes "no write-back" |
 | 5 | Oracles | Which oracle each kind of behaviour uses | Each kind maps to an oracle type in [standards-agent-testing §2](../rules/standards-agent-testing.md) |
 | 6 | Golden cases | An input-to-expectation table | Each row carries input, expectation, oracle and Covers; at least 1 each of positive, boundary and exception |
-| 7 | Threshold and coverage | The golden pass rate threshold and the business promises guarded | The threshold matches the frontmatter `pass_threshold`; the text each `covers` entry cites can be located |
+| 7 | Pass threshold and coverage | The golden pass rate threshold and the business promises guarded | The threshold matches the frontmatter `pass_threshold`; the text each `covers` entry cites can be located |
 
 ### 5.2 Golden cases table format
 
@@ -203,7 +203,7 @@ parent: ../requirements/ACME-REQ-08.md
 - Allowed: `search_requirements`, `ask_user`
 - Forbidden: `write_requirement` while the write-back precondition is unmet — this keeps insufficient information out of the store
 
-## Write-back precondition
+## Write-back preconditions
 
 - Every required field has been collected and passes the completeness check
 
