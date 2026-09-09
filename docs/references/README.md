@@ -6,16 +6,16 @@ created_at: 2026-03-24
 status: active
 ---
 
-# 参考资料
+# References
 
-本目录存放项目设计与决策所依据的权威参考材料汇编。
+This directory collects the authoritative reference material the project's design and decisions rest on.
 
-| 文件 | 用途 |
+| File | Purpose |
 | --- | --- |
-| [ATTRIBUTIONS.md](./ATTRIBUTIONS.md) | 当前 vendored 外部派生 Skill 的人工可读来源索引 |
-| [LICENSE_POLICY.md](./LICENSE_POLICY.md) | 许可证策略：技能本体与参考来源的许可证要求 |
-| [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md) | 当前 vendored 外部派生 Skills 的版权与许可证通知 |
-| [guides/discovery-and-loading.md](../guides/discovery-and-loading.md) | 发现与加载细则 |
-| [guides/proactive-suggestions.md](../guides/proactive-suggestions.md) | 主动建议表（阶段→技能） |
-| [guides/roadmap-planning-usage.md](../guides/roadmap-planning-usage.md) | 路线图规划链路使用指南（入口、常见 halt、技能对照） |
-| [readme-diagram-standards.md](./readme-diagram-standards.md) | README 图表设计标准：Mermaid 风格、复杂度限制、维护约定 |
+| [ATTRIBUTIONS.md](./ATTRIBUTIONS.md) | A human-readable source index for the vendored externally derived skills |
+| [LICENSE_POLICY.md](./LICENSE_POLICY.md) | The license policy: what is required of a skill's own license and of a reference source |
+| [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md) | Copyright and license notices for the vendored externally derived skills |
+| [guides/discovery-and-loading.md](../guides/discovery-and-loading.md) | The detail of discovery and loading |
+| [guides/proactive-suggestions.md](../guides/proactive-suggestions.md) | The proactive suggestion table, mapping stage to skill |
+| [guides/roadmap-planning-usage.md](../guides/roadmap-planning-usage.md) | A guide to the roadmap planning chain: entry points, the halts you will hit, and which skill does what |
+| [readme-diagram-standards.md](./readme-diagram-standards.md) | Diagram standards for a README: Mermaid style, complexity limits, maintenance conventions |

@@ -6,13 +6,13 @@ created_at: 2026-08-26
 status: active
 ---
 
-# 第三方通知
+# Third-party notices
 
-本文件覆盖 AI Cortex 当前分发的外部派生 Skills；固定来源和修改列表见 [`skills/SOURCES.yaml`](../../skills/SOURCES.yaml)。
+This file covers the externally derived skills AI Cortex currently distributes; the pinned sources and the list of modifications are in [`skills/SOURCES.yaml`](../../skills/SOURCES.yaml).
 
 ## softaworks/agent-toolkit — commit-work
 
-本地 `skills/commit-work` 派生自 `softaworks/agent-toolkit` 的 `skills/commit-work`。
+The local `skills/commit-work` derives from `skills/commit-work` in `softaworks/agent-toolkit`.
 
 ```text
 MIT License
@@ -40,4 +40,4 @@ SOFTWARE.
 
 ## heygen-com/hyperframes — changelog-video
 
-本地 `skills/changelog-video` 的编辑和验证方法派生自 HyperFrames `changelog-video`。AI Cortex 没有复制上游品牌素材、字体、音乐、固定语音或 sibling skills。上游项目使用 Apache License 2.0；完整许可证随本地 Skill 保存在 [`LICENSE.upstream`](../../skills/changelog-video/LICENSE.upstream)。
+The editing and verification method in the local `skills/changelog-video` derives from HyperFrames' `changelog-video`. AI Cortex copied no upstream brand assets, fonts, music, fixed voices or sibling skills. The upstream project is under the Apache License 2.0; the full license is kept alongside the local skill at [`LICENSE.upstream`](../../skills/changelog-video/LICENSE.upstream).
