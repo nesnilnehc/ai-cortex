@@ -139,7 +139,10 @@ def blocks(text):
                 out.append((lang, "\n".join(cur)))
                 cur, inside = [], False
             else:
-                lang, inside = line[3:].strip(), True
+                # lstrip so a ````markdown fence (used to wrap an example
+                # that itself contains ``` fences) reports "markdown", not
+                # "`markdown", and is classified as prose like any other.
+                lang, inside = line.lstrip("`").strip(), True
             continue
         if inside:
             cur.append(line)
