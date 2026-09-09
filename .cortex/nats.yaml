@@ -1,23 +1,25 @@
-# NATS consumer 项目缓存
-# 由 consume-nats-message 技能读取，字段可被调用时的用户参数覆盖
+# NATS consumer project cache
+# Read by the consume-nats-message skill; any field can be overridden by a
+# user parameter at call time
 
 broker_url: nats://localhost:4222
 
-# 当前服务标识（consumer 的身份，写入 DLQ 消息的 X-Source header）
+# This service's identity as a consumer, written to the X-Source header of a
+# DLQ message
 service_source: ai-cortex
 
-# Durable consumer 名称前缀，最终名为 <prefix>-<event-slug>
+# Durable consumer name prefix; the full name is <prefix>-<event-slug>
 durable_name_prefix: cortex
 
-# 不可恢复消息（term）会在此目录记录 DLQ 投递日志
+# An unrecoverable message (term) has its DLQ delivery logged in this directory
 dlq_handler_dir: .cortex/dlq
 
-# Vendored producer 契约存放目录（按 <producer>/<event>-contract.md 结构）
+# Where vendored producer contracts live, as <producer>/<event>-contract.md
 vendor_contracts_dir: .cortex/vendor/contracts
 
-# 消费默认参数（可在调用时覆盖）
+# Consumption defaults, overridable at call time
 consume_defaults:
-  max_messages: 200      # 单次 drain 最多处理消息数
-  batch_size: 20         # 单次 fetch 拉取条数
-  fetch_timeout: 5000    # 单次 fetch 等待超时（毫秒）
-  idle_threshold: 15000  # 连续空 fetch 超过此毫秒数则视为 drained（毫秒）
+  max_messages: 200      # most messages handled in one drain
+  batch_size: 20         # messages pulled per fetch
+  fetch_timeout: 5000    # per-fetch wait timeout, in milliseconds
+  idle_threshold: 15000  # consecutive empty fetches beyond this many ms means drained

@@ -11,8 +11,9 @@ permissions:
 jobs:
   markdown:
     runs-on: ubuntu-latest
-    # 暂不阻断：仓库已按 MD009/012/022/031/040/047 清理完毕，但 markdownlint 默认规则集
-    # 远不止这些，尚未在 CI 上实跑过完整规则。先以顾问模式收集真实违规，清干净后再改为阻断。
+    # Advisory for now. The repository has been cleaned against MD009/012/022/
+    # 031/040/047, but markdownlint's default set is far larger and has never
+    # been run in full in CI. Collect the real violations first, then enforce.
     continue-on-error: true
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -29,7 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: 检查相对链接
+      - name: check relative links
         run: |
           python3 - <<'PY'
           import pathlib, re, sys
@@ -53,7 +54,8 @@ jobs:
           print(f"broken: {len(bad)} (historical ADR refs: {known})")
           for b in bad:
               print(" ", b)
-          # 历史 ADR 中指向已删资产的引用是有意保留的，不计入失败
+          # References in older ADRs to assets since deleted are kept on
+          # purpose and do not count as failures
           if len(bad) - known:
               sys.exit(1)
           PY
@@ -63,19 +65,19 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: INDEX 与目录一致性
+      - name: INDEX matches the directories
         run: |
           s=$(ls -d skills/*/ | wc -l)
           i=$(grep -c '^- \[' skills/INDEX.md)
           echo "skills dirs: $s / INDEX entries: $i"
-          [ "$s" = "$i" ] || { echo "skills/INDEX.md 与 skills/ 目录数量不一致"; exit 1; }
+          [ "$s" = "$i" ] || { echo "skills/INDEX.md and skills/ disagree on the count"; exit 1; }
 
-      - name: 技能必填 frontmatter
+      - name: required skill frontmatter
         run: |
           fail=0
           for f in skills/*/SKILL.md; do
-            grep -q '^name:' "$f" || { echo "缺 name: $f"; fail=1; }
-            grep -q '^description:' "$f" || { echo "缺 description: $f"; fail=1; }
+            grep -q '^name:' "$f" || { echo "missing name: $f"; fail=1; }
+            grep -q '^description:' "$f" || { echo "missing description: $f"; fail=1; }
           done
           exit $fail
 
@@ -87,11 +89,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 语言迁移不变量检查
+      - name: language migration invariants
         run: |
           base="${{ github.event.pull_request.base.sha }}"
           files=$(git diff --name-only "$base"...HEAD -- '*.md' | tr '\n' ' ')
           if [ -z "$files" ]; then echo "no markdown changed"; exit 0; fi
-          # 报告模式：不阻断普通 PR，但让审阅者看到结构性差异
+          # Report mode: it does not block an ordinary PR, but it shows the
+          # reviewer any structural difference
           python3 scripts/verify-translation.py --mode=rewrite "$base" $files
 
