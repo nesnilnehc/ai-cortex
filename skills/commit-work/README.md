@@ -17,7 +17,7 @@
 
 ## 安装
 
-统一由 AI Cortex 的 canonical 安装管理，见仓库根 [README](../../README.md#-安装与使用)。Agent 运行时不得从上游或 skills.sh 单独下载、替换本 Skill。
+统一由 AI Cortex 的 canonical 安装管理，见仓库根 [README](../../README.md#-install-and-use)。Agent 运行时不得从上游或 skills.sh 单独下载、替换本 Skill。
 
 该技能适用于任何 git 仓库；在 AI Cortex 仓库中会额外检查对应 INDEX 是否同步。
 

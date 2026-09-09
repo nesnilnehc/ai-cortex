@@ -1,43 +1,43 @@
-# 安全策略
+# Security Policy
 
-## 本仓库的性质
+## What this repository is
 
-AI Cortex 是 markdown 资产库（技能、规范、协议、规则），本身不是可执行服务。安全面集中在两处：
+AI Cortex is a library of Markdown assets — skills, specs, protocols and rules. It is not a running service. The attack surface is two things:
 
-1. **`bin/cortex`**：POSIX shell 安装脚本，会在用户主目录下创建与删除符号链接。
-2. **技能内容**：技能会指导 AI Agent 执行动作。措辞若引导 Agent 执行破坏性或越权操作，即构成安全问题。
+1. **`bin/cortex`** — a POSIX shell installer that creates and removes symlinks under the user's home directory.
+2. **Skill content** — skills instruct AI agents to take actions. Wording that leads an agent to perform destructive or out-of-scope operations is a security problem, not a quality problem.
 
-## 支持的版本
+## Supported versions
 
-本仓库为滚动发布，仅对默认分支 `main` 的最新提交提供安全修复。
+This is a rolling-release repository. Security fixes are provided for the latest commit on the default branch, `main`.
 
-## 报告漏洞
+## Reporting a vulnerability
 
-**请不要通过公开 issue 报告安全问题。**
+**Do not report security issues in a public issue.**
 
-请使用 GitHub 的私密报告通道：仓库的 **Security → Report a vulnerability**（GitHub Private Vulnerability Reporting）。若该通道不可用，请通过 [@nesnilnehc](https://github.com/nesnilnehc) 的 GitHub 主页所列方式私下联系。
+Use GitHub's private channel: **Security → Report a vulnerability** on this repository. If that is unavailable, contact the maintainer privately through the links on [@nesnilnehc](https://github.com/nesnilnehc)'s GitHub profile.
 
-报告时请尽量包含：
+Please include what you can:
 
-- 受影响的文件或技能名
-- 触发条件与复现步骤
-- 你判断的影响范围
-- 已知的缓解或规避方式（如有）
+- The affected file or skill name
+- Trigger conditions and reproduction steps
+- Your assessment of the impact
+- Any known mitigation or workaround
 
-## 处理时限
+## Response timeline
 
-- **72 小时内**确认收到
-- **7 天内**给出初步评估与处理计划
-- 修复发布后，在 `CHANGELOG.md` 中标注，并在报告人同意的前提下致谢
+- **Within 72 hours** — acknowledgement of receipt
+- **Within 7 days** — initial assessment and a remediation plan
+- On release of a fix — noted in `CHANGELOG.md`, with credit to the reporter if they consent
 
-## 属于安全问题的例子
+## In scope
 
-- `bin/cortex` 中的路径穿越、符号链接攻击、未加引号的变量展开导致的意外删除
-- 技能内容诱导 Agent 泄露凭据、执行未经确认的破坏性命令、或绕过用户确认
-- vendored 外部派生技能中夹带的恶意内容
+- Path traversal, symlink attacks or unquoted variable expansion in `bin/cortex` leading to unintended deletion
+- Skill content that induces an agent to leak credentials, run destructive commands without confirmation, or bypass a user approval gate
+- Malicious content in a vendored, externally derived skill
 
-## 不属于安全问题的例子
+## Out of scope
 
-- 技能给出的建议质量欠佳（请提普通 issue）
-- 文档笔误、坏链（请提普通 issue 或直接 PR）
-- 第三方 AI Agent 自身的漏洞（请向其上游报告）
+- A skill giving poor-quality advice — open a normal issue
+- Documentation typos or broken links — open a normal issue, or send a PR
+- Vulnerabilities in third-party AI agents themselves — report those upstream

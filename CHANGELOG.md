@@ -4,6 +4,9 @@
 
 ### Added
 
+- 语言方案反转:仓库主语言从中文切换为英文。`docs/LANGUAGE_SCHEME.md` 重写为英文并反转原则——英文为默认,中文仅保留于**不可变记录**(既有 ADR、已发布 CHANGELOG 条目、设计快照)。这三类按 `rules/adr-management.md`「写入后不改」保留原文,改写它们等于伪造时点记录。新增第 6 节「翻译质量门槛」:明确禁止机器翻译,要求「重写而非翻译」——本仓库已为机翻付过一次代价(164 处重复直译标题、27 处误译),反向迁移不能重演。第 7 节列出 E0–E6 分阶段迁移表,每阶段独立可发布;`skills/INDEX.md` 与全部 frontmatter 全程保持英文,因此迁移期间发现与技能匹配不受影响。
+- E1 阶段完成:`README.md` / `AGENTS.md` / `CONTRIBUTING.md` / `SECURITY.md` / `CODE_OF_CONDUCT.md` 改写为英文。CONTRIBUTING 新增一条硬要求——外部派生技能的**许可证兼容性**:本仓库为 MIT,派生自 copyleft 或非商业上游(CC BY-NC-SA、AGPL 等)的技能无法以 MIT 再分发,不予接受,须在动手前而非事后核对上游许可证。README 标题变更导致 15 个技能 README 的锚点 `#-安装与使用` 失效,已同步更新为 `#-install-and-use`。
+
 - `CODE_OF_CONDUCT.md`、`SECURITY.md`、`.editorconfig`、`.github/`（issue 模板、PR 模板、lint 工作流）: 补齐开源社区标配。SECURITY.md 明确本仓库的安全面只有两处——`bin/cortex` 这个会创建删除符号链接的 shell 脚本，以及技能内容本身（措辞若诱导 Agent 执行破坏性或越权操作即构成安全问题），并区分了哪些属于 / 不属于安全问题。CI 分三个 job：链接检查与注册表一致性阻断合并，markdownlint 暂设 `continue-on-error` —— 仓库已按 MD009/012/022/031/040/047 清理完毕，但默认规则集远不止这些，尚未在 CI 上实跑过完整规则，先以顾问模式收集真实违规再改为阻断。
 - `README.md`: 补「能力概览」节。此前访客第一眼看不出这仓库有什么——现按五个领域列出 55 个技能的分布与代表能力，并说明与同类资产库的四点区别（四层资产分离、编排与原子分层、判据外置、vendored-only 分发）。
 
