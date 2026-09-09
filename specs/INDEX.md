@@ -1,19 +1,19 @@
 # Specifications
 
-- [agent-test-modeling.md](./agent-test-modeling.md) — 单 LLM Agent 测试契约的字段、能力边界 / 输入契约 / 工具边界 / 写回前置 / oracle / golden cases；不覆盖测试代码编码方式
-- [adr-modeling.md](./adr-modeling.md) — ADR 文档的 frontmatter 字段、status 5 值枚举与衰减相关字段
-- [cross-team-contract.md](./cross-team-contract.md) — 跨团队契约文档的命名后缀、`contract_version`、CHANGELOG、扁平布局与版本号引用
-- [claude-md-modeling.md](./claude-md-modeling.md) — CLAUDE.md（三层级 AI 长期记忆文件）的章节结构、形态要求与层级职责
-- [functional-design-modeling.md](./functional-design-modeling.md) — 功能设计文档（业务 / 产品视角）的字段定义与校验：功能模块、业务流程、角色权限、业务对象状态、异常场景
-- [technical-design-modeling.md](./technical-design-modeling.md) — 技术设计文档（工程视角）的字段定义与校验：架构、服务拆分、组件、数据库、接口契约、错误处理、技术选型
-- [nats-messaging.md](./nats-messaging.md) — 跨项目 NATS 消息的 subject、headers、payload 与版本演化契约（cross-team-contract 的 NATS 特化模板）
-- [requirement-modeling.md](./requirement-modeling.md) — 需求文档的字段定义、格式与校验
-- [release-package.md](./release-package.md) — Release Package 的版本身份、发布材料、质量证据与阶段状态契约
-- [spec-modeling.md](./spec-modeling.md) — Spec 的 Spec：定义所有 spec 文档的章节骨架、frontmatter 契约与三态分类
-- [skill-source-modeling.md](./skill-source-modeling.md) — 外部派生 Skill 的本地副本、固定上游 commit/digest、许可证、修改记录与维护期更新契约
-- [task-modeling.md](./task-modeling.md) — 任务列表的字段、状态枚举与依赖语义
-- [test-case-modeling.md](./test-case-modeling.md) — QA 业务测试用例文档的字段、追溯锚（covers）与状态枚举；不覆盖代码级测试
-- [test-coverage-modeling.md](./test-coverage-modeling.md) — 测试覆盖评估报告（追溯矩阵 + 变异概要 + 追溯健康审计）的字段与正文骨架；用例集覆盖评审与跨制品对齐评审的输入制品
-- [universal-notification.md](./universal-notification.md) — 通知制品的结构与字段
+- [agent-test-modeling.md](./agent-test-modeling.md) — fields of a single LLM agent's test contract: capability boundary / input contract / tool boundary / write-back preconditions / oracles / golden cases. Does not cover how test code is written
+- [adr-modeling.md](./adr-modeling.md) — frontmatter fields of an ADR document, the 5-value status enum, and the fields decay depends on
+- [cross-team-contract.md](./cross-team-contract.md) — naming suffix, `contract_version`, CHANGELOG, flat layout and version references for a cross-team contract document
+- [claude-md-modeling.md](./claude-md-modeling.md) — section structure, form requirements and per-level responsibilities of CLAUDE.md, the three-level long-term AI memory file
+- [functional-design-modeling.md](./functional-design-modeling.md) — field definitions and validation for a functional design document, from the business and product viewpoint: functional modules, business workflow, role permissions, business object states, exception scenarios
+- [technical-design-modeling.md](./technical-design-modeling.md) — field definitions and validation for a technical design document, from the engineering viewpoint: architecture, service decomposition, components, database, interface contracts, error handling, technology selection
+- [nats-messaging.md](./nats-messaging.md) — subject, headers, payload and version evolution contract for cross-project NATS messages; the NATS specialisation of cross-team-contract
+- [requirement-modeling.md](./requirement-modeling.md) — field definitions, format and validation for a requirement document
+- [release-package.md](./release-package.md) — version identity, release materials, quality evidence and stage status contract for a Release Package
+- [spec-modeling.md](./spec-modeling.md) — the spec for specs: the section skeleton, frontmatter contract and three-state classification every spec document follows
+- [skill-source-modeling.md](./skill-source-modeling.md) — the local copy, pinned upstream commit and digest, license, modification record and maintenance update contract for an externally derived skill
+- [task-modeling.md](./task-modeling.md) — fields, status enum and dependency semantics of a task list
+- [test-case-modeling.md](./test-case-modeling.md) — fields, traceability anchor (covers) and status enum of a QA business test case document. Does not cover code-level tests
+- [test-coverage-modeling.md](./test-coverage-modeling.md) — fields and body skeleton of a test coverage report (traceability matrix + mutation summary + traceability health audit); the input artifact for suite coverage review and cross-artifact alignment review
+- [universal-notification.md](./universal-notification.md) — structure and fields of a notification artifact
 
-术语定义见 [docs/architecture/terminology.md](../docs/architecture/terminology.md)。
+Terminology is defined in [docs/architecture/terminology.md](../docs/architecture/terminology.md).

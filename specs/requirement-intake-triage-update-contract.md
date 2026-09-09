@@ -9,23 +9,23 @@ status: accepted
 
 # requirement-intake-triage-update-contract
 
-ai-cortex 向下游广播「需求进件分诊」治理更新的通知契约。fire-and-forget，下游各自决定何时对齐。
+The notification contract by which ai-cortex broadcasts governance updates to requirement intake triage downstream. Fire-and-forget: each consumer decides for itself when to align.
 
-## 契约概述
+## Contract overview
 
-| 项 | 值 |
+| Item | Value |
 |---|---|
 | **Subject** | `cortex.updates.requirement-intake-triage` |
 | **Stream** | `CORTEX` |
 | **Producer** | `ai-cortex` |
-| **Consumer** | `recloud-wright`（订阅 `cortex.updates.>`） |
-| **QoS** | at-most-once（通知性质，丢失可从仓库 diff 倒查） |
+| **Consumer** | `recloud-wright`, subscribing to `cortex.updates.>` |
+| **QoS** | at-most-once — it is a notification, and a lost one can be recovered from the repository diff |
 
 ## Headers
 
-| Header | 必填 | 取值 |
+| Header | Required | Value |
 |---|---|---|
-| `Nats-Msg-Id` | ✅ | UUID v7（发送时生成；重试复用同一 ID） |
+| `Nats-Msg-Id` | ✅ | UUID v7, generated at send time; a retry reuses the same ID |
 | `X-Source` | ✅ | `ai-cortex` |
 | `X-Type` | ✅ | `requirement-intake-triage.published` |
 | `Content-Type` | ✅ | `application/json` |
@@ -51,10 +51,10 @@ ai-cortex 向下游广播「需求进件分诊」治理更新的通知契约。f
 }
 ```
 
-Tolerant Reader：consumer 须忽略未知字段与未知枚举值。
+Tolerant Reader: a consumer must ignore unknown fields and unknown enum values.
 
 ## CHANGELOG
 
 ### 1.0.0 — 2026-06-18
 
-**Initial Release**：首次广播「需求进件分诊」治理更新——`requirement-intake-triage@1.0.0` 词表发布，`requirement-modeling@5.0.0` 类型收窄，缺陷/技术任务降级为分诊标签。
+**Initial Release**: the first broadcast of a requirement intake triage governance update — the `requirement-intake-triage@1.0.0` vocabulary published, `requirement-modeling@5.0.0` narrowing its types, and defect and technical task demoted to triage labels.

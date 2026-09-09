@@ -244,7 +244,11 @@ def main():
         findings = compare(extract(old_text), extract(new_text))
         kept = []
         for sev, key, detail in findings:
-            reason = waivers.get(f"{path}::{key}")
+            # A waiver on the base invariant covers its indexed findings:
+            # "code_blocks" also waives "code_blocks[0]", "code_blocks[3]".
+            base = key.split("[", 1)[0]
+            reason = (waivers.get(f"{path}::{key}")
+                      or waivers.get(f"{path}::{base}"))
             if sev == "HARD" and reason:
                 waived.append((str(path), key, reason))
                 continue
