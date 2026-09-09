@@ -317,10 +317,13 @@ def main():
             continue
 
         new_text = path.read_text()
-        if mode == "translate" and old_text == new_text:
+        if (mode == "translate" and old_text == new_text
+                and not waivers.get(f"{path}::unchanged")):
             # A file identical to its baseline was never touched. The invariant
             # comparison would pass trivially - every invariant matches itself -
             # so an omitted file is invisible unless checked for explicitly.
+            # A file that was already English at the baseline is not a
+            # translation target at all; waive it by name, with the reason.
             hard += 1
             print(f"\n{path}")
             print("  [HARD] unchanged: identical to the baseline, so nothing "
