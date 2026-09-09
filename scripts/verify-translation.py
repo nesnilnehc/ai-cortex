@@ -330,8 +330,12 @@ def main():
                   "was translated. An omitted file passes every invariant "
                   "trivially; this check is what makes it visible.")
             continue
-        old_cjk = len(CJK.findall(old_text))
-        new_cjk = len(CJK.findall(new_text))
+        # Count residual Chinese in the body only. Frontmatter carries
+        # `description_zh`, a deliberately Chinese field that every SKILL.md
+        # has and that the migration must not touch; counting it would make
+        # every skill look partly untranslated.
+        old_cjk = len(CJK.findall(FRONTMATTER.sub("", old_text, count=1)))
+        new_cjk = len(CJK.findall(FRONTMATTER.sub("", new_text, count=1)))
         if (mode == "translate" and old_cjk and new_cjk
                 and not waivers.get(f"{path}::residual_chinese")):
             # Any surviving character is a finding, not just a large share of
