@@ -3,7 +3,7 @@ name: review-vue
 description: Review Vue 3 code for Composition API, reactivity, components, state (Pinia), routing, and performance. Framework-only atomic skill; output is a findings list.
 description_zh: 审查 Vue 3 代码：Composition API、响应式、组件、状态 (Pinia)、路由与性能；框架级原子技能。
 tags: [code-review, framework]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -106,7 +106,7 @@ Review only the **framework conventions** of **Vue 3** code. Do not define the s
 
 ### Output
 
-- Emit zero or more **findings** in the format defined in **Appendix: Output Contract**.
+- Emit zero or more **findings** in the format defined in [specs/findings-list.md](../../specs/findings-list.md), with **Category** `framework-vue`.
 - The category for this skill is **framework-vue**.
 
 ---

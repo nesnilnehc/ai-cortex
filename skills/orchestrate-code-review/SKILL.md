@@ -3,6 +3,7 @@ name: orchestrate-code-review
 description: Orchestrator skill — sequence atomic review-* skills (scope → language → framework → library → cognitive) and aggregate findings into a unified report.
 description_zh: 编排技能——按 scope → language → framework → library → cognitive 顺序串联原子 review-* 技能，聚合 findings 为统一报告。
 tags: [code-review, orchestration]
+version: 1.0.0
 license: MIT
 recommended_scope: project
 metadata:

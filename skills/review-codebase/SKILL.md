@@ -3,6 +3,7 @@ name: review-codebase
 description: "Review given file/dir/repo for current-state code organization: module boundaries, design patterns, cross-module dependencies, tech debt, and interface stability. Scope-only atomic skill; output is a findings list."
 description_zh: 对给定路径（文件 / 目录 / 仓库）做 scope-only 原子审查，覆盖模块边界、模式一致性、跨模块依赖、技术债与接口稳定性。
 tags: [code-review, scope-only]
+version: 1.0.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -35,7 +36,7 @@ Run a scope-only atomic review of the **current state** of a **given path** (a s
 1. ✅ **Scope confirmed**: confirm the user's path or directory before analysis
 2. ✅ **5 dimensions covered**: findings are emitted for module boundaries, pattern consistency, cross-module dependencies, tech debt and interface stability
 3. ✅ **Precise locations**: every finding carries a `file:line` reference
-4. ✅ **Format conformant**: findings carry location / category (`scope`) / severity / title / description / suggestion
+4. ✅ **Format conformant**: findings carry location / category=`scope` / severity / title / description / suggestion, per [specs/findings-list.md](../../specs/findings-list.md)
 5. ✅ **Large scopes handled**: for a repository-level scope, emit by layer (module / directory), or settle a priority subset with the user
 6. ✅ **No overreach**: no security / performance / architecture / language / framework cognitive findings are emitted (they are flagged, pointing at the matching atomic skill)
 

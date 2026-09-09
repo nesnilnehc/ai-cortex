@@ -3,7 +3,7 @@ name: review-architecture
 description: "Review code for architecture: module and layer boundaries, dependency direction, single responsibility, cyclic dependencies, interface stability, and coupling. Cognitive-only atomic skill; output is a findings list."
 description_zh: 审查代码架构：模块与层次边界、依赖方向、单一职责、循环依赖、接口稳定性与耦合。
 tags: [code-review, cognitive]
-version: 1.0.1
+version: 1.0.2
 license: MIT
 recommended_scope: project
 metadata:
@@ -105,7 +105,7 @@ Review code for **architecture** concerns only. Do not define scope (diff vs cod
 
 ### Output
 
-- Emit zero or more **findings** in the format defined in **Appendix: Output contract**.
+- Emit zero or more **findings** in the format defined in [specs/findings-list.md](../../specs/findings-list.md), with **Category** `cognitive-architecture`.
 - Category for this skill is **cognitive-architecture**.
 
 ---

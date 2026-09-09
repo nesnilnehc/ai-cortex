@@ -3,7 +3,7 @@ name: review-python
 description: "Review Python code for language and runtime conventions: type hints, exceptions, async/await, context managers, dependencies, and testability. Language-only atomic skill; output is a findings list."
 description_zh: 按 Python 规范审查代码：类型提示、异常、async/await、上下文管理器、依赖与可测性。
 tags: [code-review, language]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -108,7 +108,7 @@ Review code in **Python** for **language and runtime conventions** only. Do not 
 
 ### Output
 
-- Emit zero or more **findings** in the format defined in **Appendix: Output contract**.
+- Emit zero or more **findings** in the format defined in [specs/findings-list.md](../../specs/findings-list.md), with **Category** `language-python`.
 - Category for this skill is **language-python**.
 
 ---
