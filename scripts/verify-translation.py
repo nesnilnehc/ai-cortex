@@ -53,7 +53,7 @@ STRONG_RE = re.compile(
     r'[Mm]ust not|MUST NOT|[Mm]ust|MUST|[Nn]ever|[Rr]equired|shall|'
     r'[Ff]orbidden|[Pp]rohibited')
 WEAK_RE = re.compile(
-    r'应当|应该|建议|尽量|最好|优先(?!级)|避免|'
+    r'应当|应该|建议|推荐|尽量|最好|优先(?!级)|避免|'
     r'[Ss]hould not|SHOULD NOT|[Ss]hould|SHOULD|[Pp]refer(?!ence)|recommended|[Ss]uggest(?:ed|ion)?|[Aa]void')
 
 

@@ -20,77 +20,77 @@ related:
   - ../rules/standards-test-code.md
 ---
 
-# 测试用例建模规范
+# Test Case Modeling Schema
 
-> **Data contract**: 定义 QA 业务测试用例文档的字段结构与正文骨架
+> **Data contract**: defines the field structure and body skeleton of a QA business test case document
 
 ---
 
 ## 1. Position and scope
 
-测试用例文档（test case document）回答"在什么前提下、做什么操作、期望看到什么结果"——它是 QA 体系下从需求验收标准、接口契约或关键场景清单派生的可执行黑盒验证记录。
+A test case document answers what preconditions hold, what actions are taken, and what result is expected. It is the executable black-box verification record derived, within QA, from a requirement's acceptance criteria, an interface contract, or a list of key scenarios.
 
 In scope:
 
-- **QA 业务测试用例**：从 `approved` 状态的需求文档派生，验证 AC 是否被产品满足
-- **接口契约验证用例**：基于上游接口契约（如 `*-contract.md`）派生的契约级用例
-- **关键场景回归用例**：业务关键路径的回归测试集合
+- **QA business test cases**, derived from a requirement document in `approved` status, verifying that the product satisfies an AC
+- **Interface contract verification cases**, derived from an upstream interface contract such as a `*-contract.md`
+- **Key scenario regression cases**, the regression set for a business-critical path
 
-不In scope:
+Out of scope:
 
-- **代码级测试**（unit / integration / E2E in code）——测试函数本身即制品，无独立文档；由 [`rules/standards-test-code.md`](../rules/standards-test-code.md) 约束
-- **探索性测试笔记**——非结构化探索过程，不需要数据契约
-- **性能压测脚本**——由专门工具与脚本承载，本 spec 不覆盖
+- **Code-level tests** (unit, integration and E2E in code) — the test function is itself the artifact and has no separate document; governed by [`rules/standards-test-code.md`](../rules/standards-test-code.md)
+- **Exploratory testing notes**, an unstructured process that needs no data contract
+- **Performance and load scripts**, carried by dedicated tools and scripts, out of scope here
 
 ---
 
 ## 2. Mental model
 
-> 一份合格测试用例要回答的核心问题。
+> The core questions a sound test case answers.
 
-每个测试用例必须能回答 **3 问 + 1 锚**：
+Every test case must be able to answer **3 questions plus 1 anchor**:
 
-| 维度 | 核心问题 | 落地字段 |
+| Dimension | Core question | Field |
 |---|---|---|
-| **主体（Subject）** | 在测什么对象 / 流程？ | `scenario` |
-| **条件（Condition）** | 在什么前置与触发下？ | `preconditions` + `steps` |
-| **期望（Expected）** | 预期看到什么结果？ | `expected` |
-| **追溯锚（Trace）** | 这条用例守护哪条业务承诺？ | `covers`（指向 AC / 接口契约 / 场景） |
+| **Subject** | Which object or flow is under test? | `scenario` |
+| **Condition** | Under what preconditions and trigger? | `preconditions` and `steps` |
+| **Expected** | What result is expected? | `expected` |
+| **Trace** | Which business promise does this case guard? | `covers`, pointing at an AC, an interface contract or a scenario |
 
-缺任一即视为不合格用例——下游评审无法定位"为何要这条用例"。
+Missing any one makes the case unsound: downstream review has no way to locate why the case exists.
 
 ---
 
 ## 3. Naming
 
-### 3.1 单用例文档形态
+### 3.1 Single-case document form
 
 ```text
 TC-<MODULE>-<nn>.md
 ```
 
-- `<MODULE>`：所属模块缩写（大写，2-6 字符，如 `AUTH` / `PAY` / `KB`）
-- `<nn>`：模块内顺序号，2 位起步，单调递增，**不复用**
-- 示例：`TC-AUTH-05.md` / `TC-PAY-042.md`
-- 存放位置由项目治理决定（典型：`docs/test-cases/`）
+- `<MODULE>`: the module abbreviation in upper case, 2-6 characters, such as `AUTH`, `PAY` or `KB`
+- `<nn>`: a sequence number within the module, starting at 2 digits, monotonically increasing, and **never reused**
+- Examples: `TC-AUTH-05.md`, `TC-PAY-042.md`
+- Where they live is decided by project governance; typically `docs/test-cases/`
 
-### 3.2 集合表格形态
+### 3.2 Collection table form
 
-当同一模块用例 ≥ 5 条时，推荐合并为表格集合：
+Once a module has ≥ 5 cases, merging them into a table collection is recommended:
 
 ```text
 test-cases-<module>.md
 ```
 
-- 示例：`test-cases-auth.md`
-- 表格每行一条用例，字段同 §5.1
-- 集合内 `id` 仍遵循 `TC-<MODULE>-<nn>` 格式
+- Example: `test-cases-auth.md`
+- One case per table row, with the fields from §5.1
+- Within a collection, `id` still follows `TC-<MODULE>-<nn>`
 
 ---
 
 ## 4. Frontmatter contract
 
-### 4.1 单用例文档 frontmatter
+### 4.1 Single-case frontmatter
 
 ```yaml
 ---
@@ -105,13 +105,13 @@ covers:
   - <requirement-id>#<AC-n>
   - <contract-path>#<endpoint>
 parent: <upstream requirement or contract path>
-# 条件字段
-deprecated_at: YYYY-MM-DD          # status: deprecated 时必填
-deprecated_reason: <原因>           # status: deprecated 时必填
+# conditional fields
+deprecated_at: YYYY-MM-DD          # required when status is deprecated
+deprecated_reason: <reason>         # required when status is deprecated
 ---
 ```
 
-### 4.2 集合表格 frontmatter
+### 4.2 Collection frontmatter
 
 ```yaml
 ---
@@ -123,63 +123,63 @@ parent: <upstream requirement or contract path>
 ---
 ```
 
-### 4.3 字段表
+### 4.3 Field table
 
 | Field | Type | Required | Description |
 |---|---|---|---|
-| `id` | string | 必（单用例） | 格式 `TC-<MODULE>-<nn>` |
-| `artifact_type` | string | 必 | 单用例 `test-case`；集合 `test-cases` |
-| `lifecycle` | enum | 必 | 单用例 `snapshot`（用例稳定后冻结）；集合 `living` |
-| `created_at` | date | 必 | 用例落地日期 |
-| `status` | enum | 必（单用例） | `draft` / `active` / `deprecated`（语义见 §4.4） |
-| `priority` | enum | 必 | `P0`（阻断发布）/ `P1`（核心路径）/ `P2`（边缘场景） |
-| `test_type` | enum | 必 | `functional` / `contract` / `regression` / `non-functional` |
-| `covers` | list[string] | 必 | 追溯锚列表；指向 AC / 接口契约 / 关键场景；**禁空** |
-| `parent` | path | 必 | 上游需求或接口契约路径 |
-| `deprecated_at` | date | 条件 | `status: deprecated` 时必填 |
-| `deprecated_reason` | string | 条件 | `status: deprecated` 时必填（"需求废弃" / "被 TC-X-NN 替代"等） |
+| `id` | string | yes, for a single case | Follows `TC-<MODULE>-<nn>` |
+| `artifact_type` | string | yes | `test-case` for a single case; `test-cases` for a collection |
+| `lifecycle` | enum | yes | `snapshot` for a single case, frozen once stable; `living` for a collection |
+| `created_at` | date | yes | The date the case landed |
+| `status` | enum | yes, for a single case | `draft` / `active` / `deprecated`; semantics in §4.4 |
+| `priority` | enum | yes | `P0` blocks a release / `P1` core path / `P2` edge scenario |
+| `test_type` | enum | yes | `functional` / `contract` / `regression` / `non-functional` |
+| `covers` | list[string] | yes | The traceability anchors, pointing at an AC, an interface contract or a key scenario; **never empty** |
+| `parent` | path | yes | Path to the upstream requirement or interface contract |
+| `deprecated_at` | date | conditional | Required when `status: deprecated` |
+| `deprecated_reason` | string | conditional | Required when `status: deprecated`, such as "the requirement was dropped" or "replaced by TC-X-NN" |
 
 ### 4.4 状态机语义
 
 | Status | Meaning | Entry condition |
 |---|---|---|
-| `draft` | 起草中 | 用例首次落地，尚未通过 QA 评审 |
-| `active` | 已生效，纳入回归 | QA 评审通过，可被测试执行计划引用 |
-| `deprecated` | 已废弃 | 上游需求废弃 / 被新用例替代 / 场景不再存在（需填 `deprecated_at` + `deprecated_reason`） |
+| `draft` | Being drafted | The case has just landed and has not passed QA review |
+| `active` | In force and part of regression | QA review passed; a test execution plan may reference it |
+| `deprecated` | Retired | The upstream requirement was dropped, a new case replaced it, or the scenario no longer exists; `deprecated_at` and `deprecated_reason` must be filled in |
 
-**不引入 `executed` / `passed` 状态**：执行结果是测试报告的职责（按版本/构建产出），不污染用例自身生命周期。
+**No `executed` or `passed` status is introduced**: execution results belong to the test report, produced per version or build, and do not pollute the case's own lifecycle.
 
 ---
 
 ## 5. Body structure contract
 
-### 5.1 必填章节（5 节）
+### 5.1 The 5 required sections
 
-每条测试用例必须包含以下 5 节正文。
+Every test case must contain these 5 body sections.
 
-**H1 标题**：`# 用例：<场景一句话描述>`
-- 标题 ≤ 80 字符
-- 含主体 + 关键条件（如 `# 用例：过期 token 访问受保护资源时返回 401`）
+**H1 title**: `# 用例：<场景一句话描述>`
+- At most 80 characters
+- Names the subject and the key condition, for example `# 用例：过期 token 访问受保护资源时返回 401`
 
-| # | 章节 | 用途 | 校验 |
+| # | Section | Purpose | Validation |
 |---|---|---|---|
-| 1 | 场景（Scenario） | 一句话描述被测主体 + 上下文 | ≤ 120 字符；含主体 / 触发 / 预期方向；推荐 Given-When-Then 一行式 |
-| 2 | 前置条件（Preconditions） | 执行前必须就位的状态 | 清单形式；每条可独立验证；含数据状态、系统状态、权限状态；无前置时显式写"无前置条件" |
-| 3 | 操作步骤（Steps） | 具体执行步骤 | 编号清单；每步原子可执行；含输入数据；步骤数 ≤ 10（超过则拆用例） |
-| 4 | 预期结果（Expected） | 每步对应或终态期望 | 可观察、可判定；含正向断言与负向断言；**无**模糊词（"正常显示" / "应该 OK"） |
-| 5 | 追溯锚（Coverage） | 本用例守护的业务承诺 | 与 frontmatter `covers` 一致；每条含引用文本（如 "ACME-REQ-15 AC#3：top-3 相关性精度 ≥ 80%"） |
+| 1 | Scenario | One line naming the subject under test and its context | At most 120 characters; names the subject, the trigger and the direction of the expectation; a one-line Given-When-Then is recommended |
+| 2 | Preconditions | The state that must be in place before execution | As a list, each independently verifiable, covering data state, system state and permission state; where there are none, say so explicitly |
+| 3 | Steps | The concrete steps to execute | A numbered list; each step atomic and executable, carrying its input data; at most 10 steps, beyond which the case is split |
+| 4 | Expected | The expectation per step, or the final state | Observable and decidable, carrying both positive and negative assertions, with **no** vague words such as "displays normally" or "should be OK" |
+| 5 | Coverage | The business promise this case guards | Agrees with the frontmatter `covers`; each entry carries the referenced text, such as "ACME-REQ-15 AC#3: top-3 relevance precision ≥ 80%" |
 
-### 5.2 可选章节
+### 5.2 Optional sections
 
-| 章节 | 触发场景 |
+| Section | When it applies |
 |---|---|
-| 测试数据（Test Data） | 步骤中数据较复杂，需独立列出 fixture / mock 响应 / 边界值 |
-| 清理步骤（Teardown） | 用例产生副作用（写库 / 改配置 / 发消息），需说明清理动作 |
-| 备注（Notes） | 已知限制、与其他用例的交互、跳过条件 |
+| Test data | The data in the steps is complex enough to warrant listing fixtures, mock responses or boundary values separately |
+| Teardown | The case has side effects — writing to a database, changing configuration, sending a message — and the cleanup needs stating |
+| Notes | Known limitations, interactions with other cases, conditions for skipping |
 
-### 5.3 集合表格格式
+### 5.3 Collection table format
 
-集合形态推荐表格：
+A collection is best expressed as a table:
 
 ```markdown
 | Id | Priority | Type | Scenario | Preconditions | Steps | Expected | Covers | Status |
@@ -187,34 +187,34 @@ parent: <upstream requirement or contract path>
 | TC-AUTH-01 | P0 | functional | 过期 token 访问受保护资源 | 用户 token 已过期 ≥ 1 分钟 | 1. GET /api/profile 携带过期 token | 返回 401 + error_code=TOKEN_EXPIRED | ACME-REQ-15#AC3 | active |
 ```
 
-### 5.4 追溯语义
+### 5.4 Traceability semantics
 
-- **单用例 ↔ 多锚**：一条用例可覆盖多个 AC（共同前置 + 共同结果时），但**不应**覆盖跨需求的 AC
-- **多用例 ↔ 单锚**：一条 AC 可被多条用例覆盖（不同输入边界），但每条用例应明确"覆盖该 AC 的哪个维度"
-- **追溯断链检测**：上游需求 / 契约文档被删除或重命名时，本用例进入 `deprecated` 状态前需校验所有 `covers` 链接有效
+- **One case, several anchors**: a case may cover several ACs where they share preconditions and results, but not ACs across different requirements
+- **Several cases, one anchor**: one AC may be covered by several cases at different input boundaries, but each case states which dimension of that AC it covers
+- **Broken-link detection**: when an upstream requirement or contract document is deleted or renamed, every `covers` link is validated before the case moves to `deprecated`
 
 ---
 
 ## 6. Anti-patterns
 
-- ❌ 缺 frontmatter 必填字段（`id` / `covers` / `parent` / `priority` / `test_type`）
-- ❌ `covers` 字段为空或写 `TBD`（无追溯锚 = 无评审价值）
-- ❌ `id` 格式不规范（小写、缺 MODULE 前缀、复用编号）
-- ❌ 场景标题缺主体或缺条件（如 "测试登录"）
-- ❌ 预期结果含模糊词（"正常" / "OK" / "合理" / "应该"）
-- ❌ 步骤 > 10 条（说明用例粒度过粗，应拆分）
-- ❌ 步骤含具体代码实现（用例是黑盒视角，不该含 `await axios.post(...)`）
-- ❌ 同时验证多个独立场景（单条用例只验证一个主体的一类条件）
-- ❌ `deprecated` 状态未填 `deprecated_at` 或 `deprecated_reason`
-- ❌ 引入 `executed` / `passed` / `failed` 等执行态字段（执行结果归测试报告）
-- ❌ 把"自检清单"写进 spec 正文（评审清单归 [rules/test-case-quality.md](../rules/test-case-quality.md)）
-- ❌ 用本 spec 描述代码级测试（代码测试归 [rules/standards-test-code.md](../rules/standards-test-code.md)）
+- ❌ A missing required frontmatter field (`id` / `covers` / `parent` / `priority` / `test_type`)
+- ❌ `covers` empty or set to `TBD`; with no anchor the case has no review value
+- ❌ A malformed `id`: lower case, missing the MODULE prefix, or a reused number
+- ❌ A scenario title missing the subject or the condition, such as "test login"
+- ❌ Vague words in the expected result: "normal", "OK", "reasonable", "should"
+- ❌ More than 10 steps, which means the case is too coarse and needs splitting
+- ❌ Implementation code in the steps; a case takes a black-box view and should not contain `await axios.post(...)`
+- ❌ Verifying several independent scenarios at once; one case verifies one kind of condition on one subject
+- ❌ A `deprecated` status with no `deprecated_at` or `deprecated_reason`
+- ❌ Introducing an execution-state field such as `executed` / `passed` / `failed`; execution results belong to the test report
+- ❌ Writing a self-check list into the spec body; review checklists belong to [rules/test-case-quality.md](../rules/test-case-quality.md)
+- ❌ Using this spec to describe a code-level test; those belong to [rules/standards-test-code.md](../rules/standards-test-code.md)
 
 ---
 
 ## 7. Examples
 
-### 7.1 单用例完整示例
+### 7.1 A complete single-case example
 
 ````markdown
 ---
@@ -264,7 +264,7 @@ Given 知识库已向量化 10M 条目，When 客户端 POST /search/semantic �
 - **ACME-REQ-15 AC#3**：top-3 相关性精度 ≥ 80%（50+ 典型查询验证）
 ````
 
-### 7.2 集合表格示例
+### 7.2 A collection table example
 
 ````markdown
 ---
@@ -289,8 +289,8 @@ parent: ../requirements/ACME-REQ-08.md
 
 ## 8. Relationship to other assets
 
-- **配套 rule**：[rules/test-case-quality.md](../rules/test-case-quality.md)——业务测试用例文档质量评审清单（5 维 + spec 合规）。本 spec 只定义数据契约，评审清单全部归 rule。
-- **同族 rule**：[rules/standards-test-code.md](../rules/standards-test-code.md)——代码级测试的编码标准。**本 spec 与之互不重叠**：本 spec 管"测试用例文档"这一独立制品；该 rule 管"测试代码"这一非文档制品。
-- **上游 spec**：[requirement-modeling.md](./requirement-modeling.md)——`covers` 字段引用 `approved` 状态需求文档的 AC ID；用例的 `parent` 指向需求文档路径
-- **关联资产**：[technical-design-modeling.md](./technical-design-modeling.md)——`test_type: contract` 类用例可引用技术设计文档中定义的接口契约
-- **递归基础**：本 spec 自身遵循 [spec-modeling.md](./spec-modeling.md) v2.0.0 的 8 节骨架
+- **Paired rule**: [rules/test-case-quality.md](../rules/test-case-quality.md) — the quality review checklist for business test case documents, 5 dimensions plus spec compliance. This spec defines the data contract only; every checklist item belongs to the rule.
+- **Sibling rule**: [rules/standards-test-code.md](../rules/standards-test-code.md) — coding standards for code-level tests. **They do not overlap**: this spec governs the test case document as an artifact in its own right; that rule governs test code, which is not a document.
+- **Upstream spec**: [requirement-modeling.md](./requirement-modeling.md) — `covers` cites the AC IDs of a requirement document in `approved` status, and the case's `parent` points at that document
+- **Related asset**: [technical-design-modeling.md](./technical-design-modeling.md) — a `test_type: contract` case may reference an interface contract defined in a technical design document
+- **Recursive basis**: this spec itself follows the 8-section skeleton of [spec-modeling.md](./spec-modeling.md) v2.0.0
