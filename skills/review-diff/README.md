@@ -1,32 +1,32 @@
-# 回顾差异
+# Review Diff
 
-**状态**：已验证
+**Status**: Validated
 
-## 用途
+## Purpose
 
-仅审查当前更改（git diff、已暂存和未暂存）。涵盖意图和影响、回归和正确性、重大变更和兼容性、副作用和幂等性、可观察性。以标准格式发出结果列表，以便通过审查代码进行聚合。
+Reviews the current changes only (git diff, staged and unstaged). Covers intent and impact, regression and correctness, breaking changes and compatibility, side effects and idempotency, observability. Emits a findings list in the standard format so review-code can aggregate it.
 
-## 何时使用
+## When to use
 
-- 预提交：提交前仅进行差异检查。
-- 精心安排的审查：当审查代码运行整个管道时，用作范围步骤。
-- 集中变更审查：当用户只想分析“变更内容”时。
+- Pre-commit: a diff-only check before committing.
+- Orchestrated review: the scope step when review-code runs the whole pipeline.
+- Focused change review: when the user wants "what changed" analysed and nothing else.
 
-## 输入
+## Inputs
 
-- Git diff（暂存+未暂存）。
+- The git diff (staged plus unstaged).
 
-## 输出
+## Outputs
 
-- 结果列表：位置、类别=范围、严重性、标题、描述、可选建议。
+- Findings list: location, category=scope, severity, title, description, optional suggestion.
 
-## 生态
+## Ecosystem
 
-|领域|价值|
+| Field | Value |
 | :------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex: 审查代码库、 nesnilnehc/ai-cortex: 审查代码、 wshobson/agents: 代码审查卓越、 Trailofbits/skills: 差异审查 |
-|市场地位 |商品 |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, wshobson/agents:code-review-excellence, Trailofbits/skills:diff-review |
+| market_position | commodity |
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md) 了解清单、限制和输出合同。
+See [SKILL.md](./SKILL.md) for the checklist, the limits, and the output contract.

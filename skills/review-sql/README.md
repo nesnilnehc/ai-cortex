@@ -1,32 +1,32 @@
-# 回顾 SQL
+# Review SQL
 
-**状态**：已验证
+**Status**: Validated
 
-## 用途
+## Purpose
 
-仅审查 SQL 和查询代码的语言和查询约定：注入和参数化、索引和执行计划、事务和隔离、NULL 和约束、方言可移植性、大表和分页、敏感列和权限。以标准格式发出结果列表。不执行范围选择或全面的安全/架构审查。
+Reviews SQL and query code for language and query conventions only: injection and parameterisation, indexes and execution plans, transactions and isolation, NULL and constraints, dialect portability, large tables and pagination, sensitive columns and privileges. Emits a findings list in the standard format. Does not select scope and does not perform a full security or architecture review.
 
-## 何时使用
+## When to use
 
-- 精心安排的审核：当针对包含 SQL 的项目运行审查代码时，用作语言步骤。
-- 仅 SQL 审查：当用户只想检查查询的正确性、性能和安全性时。
-- 迁移或可移植性：检查方言特定的结构。
+- Orchestrated review: the language step when review-code runs on a project that contains SQL.
+- SQL-only review: when the user wants query correctness, performance, and safety checked and nothing else.
+- Migration or portability: check for dialect-specific constructs.
 
-## 输入
+## Inputs
 
-- 包含 SQL（.sql 文件、嵌入式 SQL 或 ORM 生成的 SQL）的代码范围（文件、片段或 diff），由用户或范围技能提供。
+- A code scope containing SQL (.sql files, embedded SQL, or ORM-generated SQL) (files, snippets, or a diff), supplied by the user or by a scope skill.
 
-## 输出
+## Outputs
 
-- 结果列表：位置、类别=语言-sql、严重性、标题、描述、可选建议。
+- Findings list: location, category=language-sql, severity, title, description, optional suggestion.
 
-## 生态
+## Ecosystem
 
-|领域|价值|
+| Field | Value |
 | :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex: 审查代码库、 nesnilnehc/ai-cortex: 审查代码、 nesnilnehc/ai-cortex: 审查安全、 nesnilnehc/ai-cortex: 审查差异 |
-|市场地位 |商品 |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-security, nesnilnehc/ai-cortex:review-diff |
+| market_position | commodity |
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md) 查看清单和输出合同。
+See [SKILL.md](./SKILL.md) for the checklist and the output contract.

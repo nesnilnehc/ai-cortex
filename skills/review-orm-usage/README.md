@@ -1,33 +1,33 @@
-# 查看 ORM 用法
+# Review ORM Usage
 
-**状态**：已验证
+**Status**: Validated
 
-## 用途
+## Purpose
 
-回顾跨 ORM 库（Prisma、Entity Framework、SQLAlchemy、Sequelize、TypeORM、Hibernate、Django ORM、ActiveRecord 等）在库级别的 ORM 使用模式：N+1 查询检测、连接管理、迁移安全、事务处理、查询效率和模型设计。以标准格式发出结果列表。不执行范围选择、安全性、架构或原始 SQL 审查。
+Reviews ORM usage patterns at the library level across ORM libraries (Prisma, Entity Framework, SQLAlchemy, Sequelize, TypeORM, Hibernate, Django ORM, ActiveRecord, and others): N+1 query detection, connection management, migration safety, transaction handling, query efficiency, and model design. Emits a findings list in the standard format. Does not select scope and does not perform security, architecture, or raw SQL review.
 
-## 何时使用
+## When to use
 
-- 精心安排的审查：当使用 ORM 为项目运行审查代码时，用作库步骤。
-- 仅 ORM 审查：当用户只想在其数据层检查 ORM 使用模式时。
-- PR ORM 前检查表：确保 N+1 查询、事务处理和迁移安全正确。
-- 迁移审查：重点检查迁移文件的向后兼容性和回滚安全性。
+- Orchestrated review: the library step when review-code runs on a project that uses an ORM.
+- ORM-only review: when the user wants ORM usage patterns checked in the data layer and nothing else.
+- Pre-PR ORM checklist: confirm N+1 queries, transaction handling, and migration safety are right.
+- Migration review: check migration files for backward compatibility and rollback safety.
 
-## 输入
+## Inputs
 
-- 包含 ORM 代码（模型、迁移、存储库、查询）的代码范围（文件、目录或 diff），由用户或范围技能提供。
+- A code scope containing ORM code (models, migrations, repositories, queries) (files, a directory, or a diff), supplied by the user or by a scope skill.
 
-## 输出
+## Outputs
 
-- 结果列表：位置、类别=library-orm、严重性、标题、描述、可选建议。
+- Findings list: location, category=library-orm, severity, title, description, optional suggestion.
 
-## 生态
+## Ecosystem
 
-|领域|价值|
-| :------------------------------------ | ：------------------------------------------------------------------------------------ |
-|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex：审查-sql，nesnilnehc/ai-cortex：审查-性能 |
-|市场地位 |差异化|
+| Field | Value |
+| :------------------------------------ | :------------------------------------------------------------------------------------ |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-sql, nesnilnehc/ai-cortex:review-performance |
+| market_position | differentiated |
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md) 查看清单和输出合同。
+See [SKILL.md](./SKILL.md) for the checklist and the output contract.

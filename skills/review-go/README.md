@@ -1,32 +1,32 @@
-# 回顾Go
+# Review Go
 
-**状态**：已验证
+**Status**: Validated
 
-## 用途
+## Purpose
 
-仅审查 Go 代码的语言和运行时约定：并发性和 goroutine 生命周期、上下文使用、错误处理、资源管理、API 稳定性、类型和零值语义、可测试性。以标准格式发出结果列表。不执行范围选择或安全/架构审查。
+Reviews Go code for language and runtime conventions only: concurrency and goroutine lifetime, context usage, error handling, resource management, API stability, type and zero-value semantics, testability. Emits a findings list in the standard format. Does not select scope and does not perform security or architecture review.
 
-## 何时使用
+## When to use
 
-- 精心安排的审查：在 Go 项目运行审查代码时用作语言步骤。
-- 仅 Go 审查：当用户只想检查语言/运行时约定时。
-- PR Go 前检查清单：确保并发、上下文和错误处理模式正确。
+- Orchestrated review: the language step when review-code runs on a Go project.
+- Go-only review: when the user wants language and runtime conventions checked and nothing else.
+- Pre-PR Go checklist: confirm the concurrency, context, and error-handling patterns are right.
 
-## 输入
+## Inputs
 
-- 包含 Go 代码的代码范围（文件、目录或 diff），由用户或范围技能提供。
+- A code scope containing Go code (files, a directory, or a diff), supplied by the user or by a scope skill.
 
-## 输出
+## Outputs
 
-- 结果列表：位置、类别=语言、严重性、标题、描述、可选建议。
+- Findings list: location, category=language, severity, title, description, optional suggestion.
 
-## 生态
+## Ecosystem
 
-|领域 |价值|
+| Field | Value |
 | :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------ |
-|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:审查代码库，nesnilnehc/ai-cortex:审查代码，nesnilnehc/ai-cortex:审查差异 |
-|市场地位 |商品 |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-diff |
+| market_position | commodity |
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md) 查看清单和输出合同。
+See [SKILL.md](./SKILL.md) for the checklist and the output contract.

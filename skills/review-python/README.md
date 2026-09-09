@@ -1,32 +1,32 @@
-# 回顾Python
+# Review Python
 
-**状态**：已验证
+**Status**: Validated
 
-## 用途
+## Purpose
 
-仅审查 Python 代码的语言和运行时约定：类型提示、异常、异步/等待、上下文管理器、依赖项、可测试性。以标准格式发出结果列表。不执行范围选择或安全/架构审查。
+Reviews Python code for language and runtime conventions only: type hints, exceptions, async/await, context managers, dependencies, testability. Emits a findings list in the standard format. Does not select scope and does not perform security or architecture review.
 
-## 何时使用
+## When to use
 
-- 精心安排的审查：在 Python 项目运行审查代码时用作语言步骤。
-- 仅 Python 审查：当用户只想检查语言/运行时约定时。
-- PR 前的 Python 检查表：确保类型提示、异常处理和异步模式正确。
+- Orchestrated review: the language step when review-code runs on a Python project.
+- Python-only review: when the user wants language and runtime conventions checked and nothing else.
+- Pre-PR Python checklist: confirm type hints, exception handling, and async patterns are right.
 
-## 输入
+## Inputs
 
-- 包含 Python 代码的代码范围（文件、目录或 diff），由用户或范围技能提供。
+- A code scope containing Python code (files, a directory, or a diff), supplied by the user or by a scope skill.
 
-## 输出
+## Outputs
 
-- 调查结果列表：位置、类别=语言-python、严重性、标题、描述、可选建议。
+- Findings list: location, category=language-python, severity, title, description, optional suggestion.
 
-## 生态
+## Ecosystem
 
-|领域|价值|
+| Field | Value |
 | :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------ |
-|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:审查代码库，nesnilnehc/ai-cortex:审查代码，nesnilnehc/ai-cortex:审查差异 |
-|市场地位 |商品 |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-diff |
+| market_position | commodity |
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md) 查看清单和输出合同。
+See [SKILL.md](./SKILL.md) for the checklist and the output contract.

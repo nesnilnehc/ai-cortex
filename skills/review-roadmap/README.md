@@ -1,45 +1,45 @@
-# 审查路线图（Review Roadmap）
+# Review Roadmap
 
-按 `rules/roadmap-quality.md` 评估既有路线图文档，产出 findings 列表。只评估，不改写。
+Evaluates an existing roadmap document against `rules/roadmap-quality.md` and produces a findings list. It evaluates only; it does not rewrite.
 
-## 用途
+## Purpose
 
-从五个维度审查路线图质量：完整性（核心模型四件套、容量基线与分配）、可执行性（分母是否存在、WIP 上限、目标归属）、清晰性（指标三元组、结果句式与假设句式）、合理性（结果导向、依赖已映射、变更频率）、可追溯性（目标映射、明确不做清单）。**判据不内嵌在技能里**，全部引自 rule——判据变更改那份 rule，不改技能。
+Reviews roadmap quality across five dimensions: completeness (the four parts of the core model, the capacity baseline and its allocation), executability (whether the denominator exists, the WIP limit, goal ownership), clarity (metric triplets, outcome phrasing and hypothesis phrasing), soundness (outcome-driven items, mapped dependencies, change frequency), and traceability (goal mapping, the explicit not-doing list). **The criteria are not embedded in the skill** — every one of them is cited from the rule, so when a criterion changes, that rule changes and the skill does not.
 
-## 何时使用
+## When to use
 
-- **晋升前把关**：容量与依赖判据不过关时，晋升算不出正确结果
-- **接手他人路线图**：快速看清这份路线图缺什么
-- **定期体检**：路线图是 living 文档，随时间会漂
-- **编排链路入口**：作为 `orchestrate-roadmap-planning` 的第 0 步
+- **Gate before promotion**: when the capacity and dependency criteria do not hold, promotion cannot compute a correct result
+- **Taking over someone else's roadmap**: see quickly what this roadmap is missing
+- **Periodic health check**: a roadmap is a living document and drifts over time
+- **Entry point of the orchestration chain**: step 0 of `orchestrate-roadmap-planning`
 
-## 输入
+## Inputs
 
-- 既有路线图文档（路径或内容）
-- [rules/roadmap-quality.md](../../rules/roadmap-quality.md)（缺失时 halt）
-- 佐证源：`docs/project-overview/strategic-goals.md` 与 Now 层引用的 backlog 条目
+- The existing roadmap document (a path or the content)
+- [rules/roadmap-quality.md](../../rules/roadmap-quality.md) (halt when it is missing)
+- Corroborating sources: `docs/project-overview/strategic-goals.md` and the backlog items the Now tier references
 
-## 输出
+## Outputs
 
-- findings 列表（location / category / severity / title / description / suggestion）
-- 无法评估维度的显式说明及原因
-- 零 findings 时明确说明通过全部判据
+- A findings list (location / category / severity / title / description / suggestion)
+- An explicit statement of any dimension that could not be evaluated, with the reason
+- When there are zero findings, an explicit statement that every criterion passed
 
-## 边界
+## Boundaries
 
-不生成也不改写路线图——结构性缺口交接 `define-roadmap`，状态与时点类缺口交接 `update-roadmap`。**不输出编排 mode**：上下文检测是编排层自己的职责。
+It neither generates nor rewrites a roadmap — structural gaps hand off to `define-roadmap`, and status or timing gaps hand off to `update-roadmap`. **It emits no orchestration mode**: detecting the context is the orchestration layer's own job.
 
-## 安装
+## Installation
 
-统一由 AI Cortex 的 canonical 安装管理，见仓库根 [README](../../README.md#-install-and-use)。
+Installation is handled centrally by the AI Cortex canonical installer; see the repository root [README](../../README.md#-install-and-use).
 
-## 相关技能
+## Related skills
 
-- `define-roadmap` —— 下游交接：结构性 findings 由它修复
-- `update-roadmap` —— 下游交接：状态与时点类 findings 由它修复
-- `review-requirements` —— 同族：同为「评估既有治理文档」的原子技能，共用 IO 契约
-- `orchestrate-roadmap-planning` —— 编排方：作为第 0 步提供条件判定依据
+- `define-roadmap` — downstream handoff: it fixes the structural findings
+- `update-roadmap` — downstream handoff: it fixes the status and timing findings
+- `review-requirements` — same family: another atomic skill that evaluates an existing governance document, sharing the same IO contract
+- `orchestrate-roadmap-planning` — the orchestrator: this skill is its step 0 and supplies the basis for its conditional decisions
 
-## 完整定义
+## Full definition
 
-参见 [SKILL.md](./SKILL.md)。
+See [SKILL.md](./SKILL.md).

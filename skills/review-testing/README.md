@@ -1,38 +1,38 @@
-# 审查测试
+# Review Testing
 
-检查**测试**关注的代码：测试存在、覆盖充分性、测试质量和结构、测试类型和分层、边缘情况和错误路径覆盖以及测试可维护性。
+Reviews code for the **testing** concern: test existence, coverage adequacy, test quality and structure, test type and layering, edge-case and error-path coverage, and test maintainability.
 
-## 用途
+## Purpose
 
-分析给定的代码范围以跨六个维度测试运行状况：
+Analyses a given code scope for testing health across six dimensions:
 
-1. **测试是否存在**——关键模块是否有相应的测试？
-2. **覆盖充分性** — 是否测试了高风险路径？
-3. **测试质量和结构** — 测试的结构是否良好且具有有意义的断言？
-4. **测试类型和分层** — 单元、集成和 e2e 的适当组合？
-5. **边缘情况和错误路径** — 边界条件、无效输入、故障模式？
-6. **测试可维护性** — 干燥、有组织的固定装置、不易碎？
+1. **Do tests exist** — do the critical modules have tests of their own?
+2. **Coverage adequacy** — are the high-risk paths tested?
+3. **Test quality and structure** — are the tests well structured, with meaningful assertions?
+4. **Test type and layering** — a sound mix of unit, integration, and e2e?
+5. **Edge cases and error paths** — boundary conditions, invalid input, failure modes?
+6. **Test maintainability** — DRY, organised fixtures, not brittle?
 
-## 何时使用
+## When to use
 
-- 作为通过 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 精心策划的审核的一部分（cognitive步骤）。
-- 当您只想检查测试维度时（例如，发布前、重构后），请独立使用。
-- 差距分析以识别未经测试的模块或低质量的测试。
+- As part of an orchestrated review run by [orchestrate-code-review](../orchestrate-code-review/SKILL.md) (the cognitive step).
+- Standalone, when you want the testing dimension checked and nothing else (before a release, after a refactor).
+- Gap analysis, to identify untested modules or low-quality tests.
 
-## 输入
+## Inputs
 
-- **代码范围**：调用者或范围技能提供的文件、目录或差异。
+- **Code scope**: files, a directory, or a diff, supplied by the caller or by a scope skill.
 
-## 输出
+## Outputs
 
-- 标准格式的调查结果列表：位置、类别（“cognitive测试”）、严重性、标题、描述、建议。
+- A findings list in the standard format: location, category ("cognitive-testing"), severity, title, description, suggestion.
 
-## 相关技能
+## Related skills
 
-- [orchestrate-code-review](../orchestrate-code-review/SKILL.md) — 在cognitive阶段包含此技能的 Orchestrator。
-- [automate-tests](../automate-tests/SKILL.md) — 实际执行测试；该技能审查测试代码质量。
-- [review-codebase](../review-codebase/SKILL.md) — 将可测试性作为一个维度的范围技能。
+- [orchestrate-code-review](../orchestrate-code-review/SKILL.md) — the orchestrator that includes this skill in the cognitive phase.
+- [automate-tests](../automate-tests/SKILL.md) — actually runs the tests; this skill reviews test code quality.
+- [review-codebase](../review-codebase/SKILL.md) — the scope skill that treats testability as one of its dimensions.
 
-## 安装
+## Installation
 
-统一由 AI Cortex 的 canonical 安装管理，见仓库根 [README](../../README.md#-install-and-use)。
+Installation is handled centrally by the AI Cortex canonical installer; see the repository root [README](../../README.md#-install-and-use).

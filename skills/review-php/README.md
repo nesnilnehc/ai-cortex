@@ -1,32 +1,32 @@
-# 回顾 PHP
+# Review PHP
 
-**状态**：已验证
+**Status**: Validated
 
-## 用途
+## Purpose
 
-仅审查 PHP 代码的语言和运行时约定：严格类型和声明、错误处理、资源管理、PSR 标准（PSR-4、PSR-12）、命名空间、空安全、生成器和可迭代、PHP 版本兼容性、可测试性。以标准格式发出结果列表。不执行范围选择或安全/架构审查。
+Reviews PHP code for language and runtime conventions only: strict types and declarations, error handling, resource management, PSR standards (PSR-4, PSR-12), namespaces, null safety, generators and iterables, PHP version compatibility, testability. Emits a findings list in the standard format. Does not select scope and does not perform security or architecture review.
 
-## 何时使用
+## When to use
 
-- 精心策划的审查：在 PHP 项目运行审查代码时用作语言步骤。
-- 仅 PHP 审查：当用户只想检查语言/运行时约定时。
-- PR 前 PHP 检查表：确保类型安全、资源清理和 PSR 合规性正确。
+- Orchestrated review: the language step when review-code runs on a PHP project.
+- PHP-only review: when the user wants language and runtime conventions checked and nothing else.
+- Pre-PR PHP checklist: confirm type safety, resource cleanup, and PSR compliance are right.
 
-## 输入
+## Inputs
 
-- 包含 PHP 代码的代码范围（文件、目录或 diff），由用户或范围技能提供。
+- A code scope containing PHP code (files, a directory, or a diff), supplied by the user or by a scope skill.
 
-## 输出
+## Outputs
 
-- 调查结果列表：位置、类别=语言-php、严重性、标题、描述、可选建议。
+- Findings list: location, category=language-php, severity, title, description, optional suggestion.
 
-## 生态
+## Ecosystem
 
-|领域 |价值|
+| Field | Value |
 | :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------ |
-|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:审查代码库，nesnilnehc/ai-cortex:审查代码，nesnilnehc/ai-cortex:审查差异 |
-|市场地位 |商品 |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-diff |
+| market_position | commodity |
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md) 查看清单和输出合同。
+See [SKILL.md](./SKILL.md) for the checklist and the output contract.

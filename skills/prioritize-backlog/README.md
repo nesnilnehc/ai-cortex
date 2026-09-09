@@ -1,40 +1,40 @@
-# 优先级评分（Prioritize Backlog）
+# Prioritize Backlog
 
-用多框架（RICE + WSJF + MoSCoW + ICE）并行**强制重评**全部 backlog 条目（忽略原 priority），自动适配多文件目录或单文件 backlog，呈现框架分歧，由用户做出最终优先级决策。
+Re-scores every backlog item with four frameworks (RICE + WSJF + MoSCoW + ICE) in parallel, **forcing a fresh score** and ignoring the existing priority. Adapts on its own to a multi-file directory or a single-file backlog, surfaces where the frameworks disagree, and leaves the final priority decision to the user.
 
-## 用途
+## Purpose
 
-批量重评 backlog 条目（自动识别单 / 多文件形态，强制覆盖旧评估）：每条跑四个框架评分，Surface 框架间分歧，捕获用户决策并按所在形态写回。**不聚合单一分数** —— 保留分歧信号是核心设计：聚合会掩盖框架间的判断冲突，而那正是需要人工决策的地方。
+Re-scores backlog items in bulk (detecting the single-file or multi-file layout on its own, and overwriting the old assessment): runs all four frameworks on each item, surfaces the disagreements between them, captures the user's decision, and writes it back in whichever layout is in use. **It does not aggregate to a single score** — keeping the disagreement signal is the core of the design: aggregation hides the conflicts in judgement between frameworks, and those conflicts are exactly what a human has to decide.
 
-## 何时使用
+## When to use
 
-- `capture-work-items` 批量捕获后建议触发
-- Planning ceremony 前对积压做一次干净的全量重评
-- 战略刷新后任何节点直接重跑（无需额外开关）
-- `plan-next` 输出的大缺口被 capture 后进入评分
-- 单文件 backlog 项目（仅有 `backlog.md`）也能直接处理
+- A suggested trigger after a bulk capture by `capture-work-items`
+- A clean full re-score of the backlog before a planning ceremony
+- A direct re-run at any point after a strategy refresh (no extra switch needed)
+- Scoring the large gaps reported by `plan-next` once they have been captured
+- Single-file backlog projects (only a `backlog.md`) are handled directly too
 
-## 输入
+## Inputs
 
-- 任意 priority 状态的 backlog 条目（多文件目录形式或单文件 backlog.md 均可）
+- Backlog items in any priority state (either a multi-file directory or a single backlog.md)
 - `docs/project-overview/strategic-goals.md`
-- 可选：项目自定义的阈值覆盖
+- Optional: project-specific threshold overrides
 
-## 输出
+## Outputs
 
-- 对话批量评分表（四框架结果 + 分歧标记 + 决策建议 + 形态声明 + 覆盖统计）
-- 每个 backlog 条目按所在形态被更新：`priority` + `priority_decision`（含 `previous` 旧值快照）
+- A bulk scoring table in the conversation (four framework results + disagreement markers + decision suggestions + a statement of the layout + overwrite statistics)
+- Every backlog item updated in its own layout: `priority` + `priority_decision` (including a `previous` snapshot of the old value)
 
-## 安装
+## Installation
 
-统一由 AI Cortex 的 canonical 安装管理，见仓库根 [README](../../README.md#-install-and-use)。
+Installation is handled centrally by the AI Cortex canonical installer; see the repository root [README](../../README.md#-install-and-use).
 
-## 相关技能
+## Related skills
 
-- `capture-work-items` —— 上游：产生 `priority: unset` 条目
-- `promote-roadmap-items` —— 下游：基于评分结果批量晋升
-- `design-strategic-goals` —— 上游依赖：提供 strategic-goals 供 MoSCoW 判断
+- `capture-work-items` — upstream: produces items with `priority: unset`
+- `promote-roadmap-items` — downstream: promotes in bulk from the scoring results
+- `design-strategic-goals` — upstream dependency: supplies the strategic goals that MoSCoW judges against
 
-## 完整定义
+## Full definition
 
-参见 [SKILL.md](./SKILL.md)。
+See [SKILL.md](./SKILL.md).

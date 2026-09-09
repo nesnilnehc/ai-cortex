@@ -1,32 +1,32 @@
-# 回顾 TypeScript
+# Review TypeScript
 
-**状态**：已验证
+**Status**: Validated
 
-## 用途
+## Purpose
 
-仅审查语言和运行时约定的 TypeScript 和 JavaScript 代码：类型安全和类型系统使用、异步模式和 Promise 处理、错误处理、模块设计 (ESM/CJS)、运行时正确性（空/未定义、相等、强制）、API 和接口设计以及性能和内存。以标准格式发出结果列表。不执行范围选择或安全/架构审查。
+Reviews TypeScript and JavaScript code for language and runtime conventions only: type safety and type-system usage, async patterns and promise handling, error handling, module design (ESM/CJS), runtime correctness (null/undefined, equality, coercion), API and interface design, and performance and memory. Emits a findings list in the standard format. Does not select scope and does not perform security or architecture review.
 
-## 何时使用
+## When to use
 
-- 精心安排的审查：在 TypeScript/JavaScript 项目运行审查代码时用作语言步骤。
-- 仅 TypeScript 审查：当用户只想检查 TypeScript/JavaScript 语言约定时。
-- PR 前语言检查表：确保类型安全、异步正确性和模块设计健全。
+- Orchestrated review: the language step when review-code runs on a TypeScript/JavaScript project.
+- TypeScript-only review: when the user wants TypeScript/JavaScript language conventions checked and nothing else.
+- Pre-PR language checklist: confirm type safety, async correctness, and module design are sound.
 
-## 输入
+## Inputs
 
-- 包含 TypeScript 或 JavaScript 代码（.ts、.tsx、.js、.jsx、.mts、.mjs、.cts、.cjs）的代码范围（文件、目录或 diff），由用户或范围技能提供。
+- A code scope containing TypeScript or JavaScript code (.ts, .tsx, .js, .jsx, .mts, .mjs, .cts, .cjs) (files, a directory, or a diff), supplied by the user or by a scope skill.
 
-## 输出
+## Outputs
 
-- 结果列表：位置、类别=语言打字稿、严重性、标题、描述、可选建议。
+- Findings list: location, category=language-typescript, severity, title, description, optional suggestion.
 
-## 生态
+## Ecosystem
 
-|领域|价值|
+| Field | Value |
 | :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------ |
-|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:审查代码库，nesnilnehc/ai-cortex:审查代码，nesnilnehc/ai-cortex:审查差异 |
-|市场地位 |商品 |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-diff |
+| market_position | commodity |
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md) 查看清单和输出合同。
+See [SKILL.md](./SKILL.md) for the checklist and the output contract.
