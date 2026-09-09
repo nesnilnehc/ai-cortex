@@ -7,113 +7,113 @@ recommended_scope: user
 status: active
 ---
 
-# Rule: CLAUDE.md 写作纪律（CLAUDE.md Management）
+# Rule: CLAUDE.md Management
 
-## 适用范围 (Scope)
+## Scope
 
-所有撰写、修改、审计 CLAUDE.md 的行为，包括：
+Every act of writing, modifying or auditing a CLAUDE.md, including:
 
-- 人工撰写
-- AI 协助撰写
-- Claude Code 内置 `/init` skill 自动生成的草案
+- Written by hand
+- Written with AI assistance
+- Drafted automatically by Claude Code's built-in `/init` skill
 
-`/init` 输出**不直接入库**，需经本 Rule §5 自检通过后方可 commit。
+Output from `/init` **does not go straight into the repository**; it may be committed only after passing the §5 self-check in this rule.
 
-数据契约（章节结构、形态要求）见 [specs/claude-md-modeling.md](../specs/claude-md-modeling.md)；本 rule 约束行为面（篇幅、表达、禁区、修订、自检）。
+The data contract — section structure and form requirements — is in [specs/claude-md-modeling.md](../specs/claude-md-modeling.md); this rule constrains behaviour: length, expression, no-go content, revision, self-check.
 
 ---
 
-## §1 篇幅控制
+## §1 Length limits
 
-| 层级 | 上限 |
+| Level | Limit |
 |---|---|
-| 项目级（仓库根 `CLAUDE.md`） | ≤ 300 行 |
-| 模块级（子目录 `CLAUDE.md`） | ≤ 100 行 |
-| 个人级（`~/.claude/CLAUDE.md`） | 不强制，建议同等克制 |
+| Project (repository root `CLAUDE.md`) | ≤ 300 lines |
+| Module (subdirectory `CLAUDE.md`) | ≤ 100 lines |
+| Personal (`~/.claude/CLAUDE.md`) | Not enforced; equal restraint recommended |
 
-超出项目级上限时，先拆分模块级 CLAUDE.md，再精简（删低价值条目）。**不允许通过加副 spec 链接绕过上限**——CLAUDE.md 是直接加载的，加载量本身即成本。
+When the project limit is exceeded, first split out a module-level CLAUDE.md, then trim by deleting low-value entries. **Working around the limit by adding links to side specs is not allowed** — CLAUDE.md is loaded directly, and the volume loaded is itself the cost.
 
 ---
 
-## §2 表达方式
+## §2 Expression
 
-### 使用祈使句或断言
+### Use imperatives or assertions
 
 ✅ "使用 pnpm，不要用 npm"
 ❌ "本项目的包管理器经过团队讨论后决定使用 pnpm，因为..."
 
-### 关键约束显式标注
+### Mark the critical constraints explicitly
 
-不可违反的规则用 `IMPORTANT:` / `NEVER:` / `ALWAYS:` 前缀。模型对这些信号敏感，标注后更易在生成时被遵守。
+Prefix an unbreakable rule with `IMPORTANT:`, `NEVER:` or `ALWAYS:`. The model is sensitive to these signals and follows a marked rule more reliably during generation.
 
-### 负面清单优于正面要求
+### A prohibition beats a positive requirement
 
-"不要做 X" 比 "应该做 Y" 更易被遵守。能用禁令表达的，优先用禁令。
+"Do not do X" is followed more reliably than "you should do Y". Where a prohibition expresses it, prefer the prohibition.
 
-### 不使用模糊措辞
+### No vague wording
 
-避免 "尽量"、"建议"、"最好"。规则的约束强度需明确：要么是强制，要么删除。
+Avoid "尽量", "建议", "最好". A rule's binding strength needs to be unambiguous: either it is mandatory, or it is deleted.
 
 ---
 
-## §3 内容禁区
+## §3 Content no-go zones
 
-CLAUDE.md 中**禁止**写以下内容：
+The following **must not** appear in a CLAUDE.md:
 
-| 禁区 | 理由 |
+| No-go zone | Why |
 |---|---|
-| 通用编程知识（Docker / REST / 测试金字塔等） | AI 已知，写入只稀释 context |
-| 易变状态（sprint、owner、待办、临时分支名） | 此类信息应在 issue tracker / wiki 中维护 |
-| 敏感信息（密钥、token、生产 IP、内部域名、PII） | 安全风险；CLAUDE.md 进入 git 即泄露 |
-| README / CONTRIBUTING / 架构文档的完整复述 | 双源不一致；用链接引用即可 |
-| "以防万一" 的预测性规则 | 规则必须来自真实痛点，不来自预测 |
+| General programming knowledge (Docker, REST, the test pyramid) | The AI already knows it; writing it in only dilutes the context |
+| Volatile state (sprint, owner, todos, temporary branch names) | That belongs in an issue tracker or a wiki |
+| Sensitive material (keys, tokens, production IPs, internal domains, PII) | A security risk; once CLAUDE.md is in git, it has leaked |
+| A full restatement of the README, CONTRIBUTING or architecture docs | Two sources drift apart; link instead |
+| A speculative "just in case" rule | A rule must come from a real pain point, not from a prediction |
 
 ---
 
-## §4 修订原则
+## §4 Revision principles
 
-### 删除测试（每条规则必过）
+### The deletion test — every rule has to pass it
 
-新增任何规则前自问：**删掉这条之后，AI 行为是否会变差？**
+Before adding any rule, ask: **would the AI behave worse if this were deleted?**
 
-- 是 → 保留
-- 否 → 不加
+- Yes → keep it
+- No → do not add it
 
-### 何时修订
+### When to revise
 
-- AI 反复犯同样的错（说明规则缺失或不清晰）
-- 团队约定发生变化
-- 关联 spec 升级，需对齐——特别是 [spec §5 必备章节](../specs/claude-md-modeling.md#5-必备章节项目级) 或 [§3 强制范围](../specs/claude-md-modeling.md#3-适用范围与强制范围) 变更时，必须同步审查本 rule §1 篇幅控制 与 §5 自检清单
-- 月度回顾发现的改进点
+- The AI keeps making the same mistake — the rule is missing or unclear
+- A team convention changed
+- A related spec was upgraded and needs alignment. In particular, when [spec §5 required sections](../specs/claude-md-modeling.md#5-必备章节项目级) or [§3 scope of enforcement](../specs/claude-md-modeling.md#3-适用范围与强制范围) changes, §1 length limits and the §5 self-check in this rule must be reviewed alongside it
+- An improvement identified in the monthly retrospective
 
-### 何时不修订
+### When not to revise
 
-- 一次性偶发问题
-- 单个项目的特殊情况（应放进项目 CLAUDE.md，而非提升为通用规则）
-- 未实践验证的设想
+- A one-off incident
+- A situation specific to a single project — that belongs in the project's CLAUDE.md, not promoted into a general rule
+- An idea not yet validated in practice
 
 ### DRY
 
-重叠内容用链接引用而非复制。同一信息只在一处维护。
+Link overlapping content rather than copying it. One piece of information is maintained in one place.
 
 ---
 
-## §5 自检清单
+## §5 Self-check
 
-Commit 任何 CLAUDE.md 变更前，逐项确认：
+Before committing any CLAUDE.md change, confirm each item:
 
-- [ ] 必备章节齐全（见 [spec §5](../specs/claude-md-modeling.md#5-必备章节项目级)）
-- [ ] 层级职责无串台（见 [spec §4](../specs/claude-md-modeling.md#4-三层结构与职责切分)）
-- [ ] 形态要求达标——简洁 / 可执行 / 决策导向 / 就近原则（见 [spec §7](../specs/claude-md-modeling.md#7-形态要求)）
-- [ ] 篇幅符合本 rule §1 上限
-- [ ] 关键约束已用 `IMPORTANT:` / `NEVER:` / `ALWAYS:` 标注（见 §2）
-- [ ] 无 §3 禁区内容（通用知识 / 易变状态 / 敏感信息 / README 复述 / 预测性规则）
-- [ ] 重叠内容用链接而非复制（见 §4 DRY）
-- [ ] 每条新增规则通过删除测试（见 §4）
+- [ ] Required sections all present (see [spec §5](../specs/claude-md-modeling.md#5-必备章节项目级))
+- [ ] No crossover of responsibility between levels (see [spec §4](../specs/claude-md-modeling.md#4-三层结构与职责切分))
+- [ ] Form requirements met — concise, actionable, decision-oriented, kept close to what it governs (see [spec §7](../specs/claude-md-modeling.md#7-形态要求))
+- [ ] Length within the §1 limit of this rule
+- [ ] Critical constraints marked with `IMPORTANT:`, `NEVER:` or `ALWAYS:` (see §2)
+- [ ] No §3 no-go content (general knowledge / volatile state / sensitive material / README restatement / speculative rules)
+- [ ] Overlapping content linked rather than copied (see §4 DRY)
+- [ ] Every added rule passes the deletion test (see §4)
 
 ---
 
-## 违规示例
+## Bad patterns
 
 ```markdown
 <!-- ❌ 通用知识科普 -->
@@ -146,25 +146,25 @@ Docker 是一个容器化平台，使用 Dockerfile 定义镜像...
 
 ---
 
-## 修正指南
+## Remediation
 
-1. **超长**：拆模块级 CLAUDE.md，或删除"通用知识"段
-2. **散文化**：改写为祈使句；保留约束，删除论证
-3. **禁区内容渗入**：通用知识删除；易变状态移到 issue tracker；敏感信息立即移除并轮换
-4. **缺关键标注**：高代价规则加 `IMPORTANT:` 前缀并挪至文末
-5. **README 复述**：替换为 `> 项目介绍见 [README.md](../README.md)` 链接
-
----
-
-## 相关指引
-
-- 数据契约：[specs/claude-md-modeling.md](../specs/claude-md-modeling.md)
-- 文档管理通则：[rules/workflow-documentation.md](./workflow-documentation.md)
+1. **Too long**: split out a module-level CLAUDE.md, or delete the "general knowledge" sections
+2. **Written as prose**: rewrite as imperatives; keep the constraint, drop the argument for it
+3. **No-go content crept in**: delete general knowledge; move volatile state to the issue tracker; remove sensitive material at once and rotate it
+4. **Missing critical marks**: prefix the expensive rules with `IMPORTANT:` and move them to the end of the file
+5. **README restatement**: replace with a `> 项目介绍见 [README.md](../README.md)` link
 
 ---
 
-## 变更记录
+## Related guidance
+
+- Data contract: [specs/claude-md-modeling.md](../specs/claude-md-modeling.md)
+- General documentation policy: [rules/workflow-documentation.md](./workflow-documentation.md)
+
+---
+
+## Change log
 
 ### 1.0.0 — 2026-05-15
 
-**Initial Release**：定义 5 §约束（篇幅、表达、禁区、修订、自检），自检清单逐项引用 spec 作为标尺，与 [specs/claude-md-modeling.md](../specs/claude-md-modeling.md) 配套。
+**Initial Release**: defines 5 sets of constraints (length, expression, no-go content, revision, self-check), with each self-check item citing the spec as its yardstick. Paired with [specs/claude-md-modeling.md](../specs/claude-md-modeling.md).

@@ -9,94 +9,96 @@ recommended_scope: user
 status: active
 ---
 
-# Rule: 测试代码编码标准 (Test Code Standards)
+# Rule: Test Code Standards
 
-## 适用范围 (Scope)
+## Scope
 
-所有项目中的代码级测试文件（`test_*.py` / `*.spec.ts` / `*_test.go` / `*Test.java` 等）。覆盖单元测试、集成测试、端到端测试三种分层。
+Every code-level test file in a project (`test_*.py`, `*.spec.ts`, `*_test.go`, `*Test.java`), across all three layers — unit, integration and end-to-end.
 
-代码级测试**没有独立测试用例文档**——测试函数本身即制品。本规则定义测试代码作为代码制品时的编码标准，与 [standards-coding](./standards-coding.md) 叠加生效。
+Code-level tests have **no separate test case document**; the test function is the artifact. This rule defines coding standards for test code as a code artifact, and applies on top of [standards-coding](./standards-coding.md).
 
-QA 业务测试用例（markdown 制品）不在本规则范围，归 [specs/test-case-modeling.md](../specs/test-case-modeling.md) + [rules/test-case-quality.md](./test-case-quality.md)。
+QA business test cases, which are Markdown artifacts, are out of scope here and belong to [specs/test-case-modeling.md](../specs/test-case-modeling.md) plus [rules/test-case-quality.md](./test-case-quality.md).
 
 ---
 
-## 强制约束 (Constraints)
+## Constraints
 
-### 1. 结构（Arrange-Act-Assert）
+### 1. Structure (Arrange-Act-Assert)
 
-- 每个测试函数严格按 AAA 三段组织，必要时用空行分隔
-- **Act 只有 1 行**：被测行为只有一次调用；多次调用意味着用例职责不单一
-- **断言聚焦该 Act 的产物**：不在同一用例混入对其他副作用的额外断言
+- Each test function is organised strictly into the three AAA parts, separated by blank lines where that helps
+- **Act is 1 line**: the behaviour under test is invoked once. Several invocations mean the case has more than one responsibility
+- **Assertions focus on what that Act produced**: do not mix in extra assertions about other side effects in the same case
 
-### 2. 命名
+### 2. Naming
 
-- 测试函数名遵循 `test_<subject>_<expected>_when_<condition>` 或等价模式（如 `should_<expected>_when_<condition>`）
-- 名字必须含三要素：**主体 / 期望 / 条件**；缺任一即不合格
-- 反例：`test_login`、`test1`、`test_user`
-- 正例：`test_returns_401_when_token_expired`、`should_throw_when_amount_negative`
+- Test function names follow `test_<subject>_<expected>_when_<condition>` or an equivalent such as `should_<expected>_when_<condition>`
+- A name must carry three elements — **subject / expected / condition**. Missing any one fails the check
+- Counter-examples: `test_login`, `test1`, `test_user`
+- Good examples: `test_returns_401_when_token_expired`, `should_throw_when_amount_negative`
 
-### 3. 隔离性（Isolation）
+### 3. Isolation
 
-- 不共享可变状态：测试间不依赖共享全局变量、单例、模块级状态
-- 不依赖执行顺序：用例必须能在任意顺序、任意子集下通过
-- 每用例自带 setup / teardown，或使用框架提供的 fixture 隔离机制
-- 副作用（写库、写文件、发消息）必须在 teardown 清理或使用事务回滚 / 临时目录 / 嵌入式实例
+- No shared mutable state: tests do not depend on shared globals, singletons or module-level state
+- No dependence on execution order: a case must pass in any order and in any subset
+- Each case brings its own setup and teardown, or uses the framework's fixture isolation
+- Side effects (writing to a database, a file, a message queue) must be cleaned up in teardown, or contained by a transaction rollback, a temporary directory or an embedded instance
 
-### 4. 确定性（Determinism）
+### 4. Determinism
 
-- **不依赖时钟**：用注入的 clock / 冻结时间（`freezegun` / `@MockBean Clock` / `vi.useFakeTimers` 等）
-- **不依赖随机**：用 seeded RNG，断言基于种子产出
-- **不依赖网络**：真实外部依赖必须 mock 或用本地替身（test container / 嵌入式实例）
-- **不依赖并发调度**：避免裸 `sleep`；用条件等待（`await condition` / polling with timeout）
-- 同样输入必然同样结果——`pytest --count=100` / 反复跑全绿
+- **No dependence on the clock**: inject a clock or freeze time (`freezegun`, `@MockBean Clock`, `vi.useFakeTimers`)
+- **No dependence on randomness**: use a seeded RNG and assert against what that seed produces
+- **No dependence on the network**: a real external dependency must be mocked or replaced by a local stand-in — a test container or an embedded instance
+- **No dependence on concurrent scheduling**: avoid a bare `sleep`; wait on a condition instead (`await condition`, polling with timeout)
+- The same input always gives the same result — `pytest --count=100`, run repeatedly, all green
 
-### 5. 追溯（Traceability）
+### 5. Traceability
 
-- 验证业务承诺的测试在 docstring / 注释头部标注 `Covers:` 字段
-- 格式：`Covers: <REQ-ID>#AC<n>` 或 `Covers: <REQ-ID>#AC<n>, ADR-<NNNN>`
-- 例：
+- A test that verifies a business promise carries a `Covers:` field at the top of its docstring or comment
+- Format: `Covers: <REQ-ID>#AC<n>` or `Covers: <REQ-ID>#AC<n>, ADR-<NNNN>`
+- For example:
+
   ```python
   def test_returns_401_when_token_expired():
       """Covers: ACME-REQ-08#AC1."""
       ...
   ```
-- 纯函数级单元测试可省略（如 `test_add_two_positives`）；任何验证业务规则、AC、契约的用例**必须**标注
 
-### 6. 测真实行为，不测实现细节
+- A purely functional unit test may omit it (`test_add_two_positives`); any case verifying a business rule, an AC or a contract **must** carry it
 
-- 断言公共契约（输入→输出、状态转移、外部可观察副作用）
-- **禁止**断言私有方法被调用次数、内部字段值、mock 调用顺序（除非该调用顺序本身是契约的一部分）
-- 重构内部不应让用例红
+### 6. Test real behaviour, not implementation detail
 
-### 7. Mock 克制原则
+- Assert the public contract — input to output, state transitions, externally observable side effects
+- **Never** assert how many times a private method was called, the value of an internal field, or the order of mock calls, unless that order is itself part of the contract
+- Refactoring the internals does not turn a case red
 
-- **优先用真实依赖**：数据库用嵌入式 / test container；HTTP 用本地 stub server
-- Mock 只用于：外部不可控依赖（第三方 API）、慢/贵的依赖（GPU 推理）、需要触发异常路径
-- **禁止** mock 数据库 ORM 层（mock 通过但生产 migration 失败的经典反模式）
-- 集成测试**必须**命中真实数据库或等价的嵌入式实现
+### 7. Restraint with mocks
 
-### 8. 失败信息有用
+- **Prefer a real dependency**: an embedded database or test container; a local stub server for HTTP
+- Mocks are for: external dependencies outside your control (a third-party API), slow or expensive ones (GPU inference), and triggering an error path
+- **Never** mock the database ORM layer — the classic anti-pattern where mocks pass and the production migration fails
+- Integration tests **must** hit a real database or an equivalent embedded implementation
 
-- 断言失败 message 直接说明"期望 X 实际 Y 在场景 Z"
-- 优先用框架自带带 diff 的断言（`pytest` 原生断言、`assertEquals` 带 message）
-- **禁止** `assert True` / `assert result`（无信息）；用 `assert result == expected` 或带 message
+### 8. Useful failure messages
 
-### 9. 性能预算
+- The assertion failure message states directly "expected X, got Y, in scenario Z"
+- Prefer the framework's diff-carrying assertions (`pytest`'s native assert, `assertEquals` with a message)
+- **Never** write `assert True` or `assert result` — they carry no information. Use `assert result == expected`, or add a message
 
-- 单元测试单条 ≤ 50ms；测试套件总时长在 CI 上 ≤ 5min（超出则分层）
-- 慢用例（集成 / E2E）必须用 tag / marker 隔离（`@pytest.mark.slow` / `@Tag("integration")`），不阻塞日常反馈循环
-- 网络 / DB / 文件 IO 类用例不视为单元测试，归集成层
+### 9. Performance budget
 
-### 10. 覆盖边界，不堆 happy path
+- A unit test takes ≤ 50ms; the whole suite takes ≤ 5min in CI, and is split into layers beyond that
+- Slow cases (integration, E2E) must be isolated behind a tag or marker (`@pytest.mark.slow`, `@Tag("integration")`) so they do not block the daily feedback loop
+- A case touching the network, a database or file IO is not a unit test; it belongs to the integration layer
 
-- 每个 AC 至少覆盖：正向 1 条 + 边界 1 条 + 异常 1 条
-- 边界覆盖：空值 / 零 / 负数 / 上限 / 越界 / 并发竞争 / 超时
-- 每个边界一条独立用例，不堆在同一函数里
+### 10. Cover the boundaries, do not pile up happy paths
+
+- Each AC is covered by at least 1 positive case, 1 boundary case and 1 exception case
+- Boundary coverage: empty, zero, negative, upper limit, out of range, concurrent contention, timeout
+- One independent case per boundary, not several piled into one function
 
 ---
 
-## 违规示例 (Bad Patterns)
+## Bad Patterns
 
 ```python
 # ❌ 命名缺三要素 + 一个函数测多件事
@@ -144,20 +146,20 @@ def test_overdraft_blocked():
 
 ---
 
-## 修正指南 (Remediation)
+## Remediation
 
-1. **AAA 拆分**：每个测试函数明确分三段；Act 只有一行；多个 Act 拆成多个测试
-2. **命名补三要素**：重命名为 `test_<subject>_<expected>_when_<condition>`
-3. **注入时钟与随机**：把 `time.time()` / `random()` 改为可注入参数，测试中传入固定值
-4. **替换 mock DB**：改用 SQLite / test container / 事务回滚 fixture
-5. **补 Covers 注释**：业务规则用例 docstring 加 `Covers: <REQ-ID>#AC<n>`
-6. **隔离副作用**：用框架 fixture（pytest `tmp_path` / JUnit `@TempDir`）替代手动 setup/teardown
-7. **慢用例打 tag**：集成 / E2E 加 marker，CI 分管道执行
+1. **Split into AAA**: give each test function three clear parts; one line of Act; split multiple Acts into multiple tests
+2. **Add the three naming elements**: rename to `test_<subject>_<expected>_when_<condition>`
+3. **Inject the clock and the randomness**: turn `time.time()` and `random()` into injectable parameters and pass fixed values in tests
+4. **Replace the mocked DB**: use SQLite, a test container, or a transaction-rollback fixture
+5. **Add the Covers comment**: put `Covers: <REQ-ID>#AC<n>` in the docstring of a business-rule case
+6. **Isolate side effects**: use framework fixtures (pytest `tmp_path`, JUnit `@TempDir`) instead of hand-written setup and teardown
+7. **Tag the slow cases**: mark integration and E2E, and run them in a separate CI pipeline
 
 ---
 
-## 关联资产
+## Related assets
 
-- **同族编码标准**：[standards-coding](./standards-coding.md)（通用）、[standards-shell](./standards-shell.md)、[standards-import](./standards-import.md)
-- **业务测试用例**：[specs/test-case-modeling.md](../specs/test-case-modeling.md) + [rules/test-case-quality.md](./test-case-quality.md)
-- **追溯锚来源**：[specs/requirement-modeling.md](../specs/requirement-modeling.md)（AC ID 格式）
+- **Sibling coding standards**: [standards-coding](./standards-coding.md) for the general case, plus [standards-shell](./standards-shell.md) and [standards-import](./standards-import.md)
+- **Business test cases**: [specs/test-case-modeling.md](../specs/test-case-modeling.md) plus [rules/test-case-quality.md](./test-case-quality.md)
+- **Source of traceability anchors**: [specs/requirement-modeling.md](../specs/requirement-modeling.md), for the AC ID format

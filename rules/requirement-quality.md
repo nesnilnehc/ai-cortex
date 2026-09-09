@@ -9,96 +9,96 @@ recommended_scope: user
 status: active
 ---
 
-# Rule: 需求质量（Requirement Quality）
+# Rule: Requirement Quality
 
-> 5 维评审清单 + 协议合规检查。每条独立可验证。
+> A 5-dimension review checklist plus protocol compliance. Every item is independently verifiable.
 >
-> 适用于：声明遵循 [specs/requirement-modeling.md](../specs/requirement-modeling.md) 的需求文档。
+> Applies to requirement documents that declare conformance to [specs/requirement-modeling.md](../specs/requirement-modeling.md).
 
 ---
 
-## 5 维审查清单
+## 5-dimension review
 
-提交评审前，作者应按本清单自检。这些检查点与 5 维审查标准（完整性、可执行性、清晰性、合理性、可追踪性）一一对应。
+Authors self-check against this list before submitting for review. The checkpoints map one to one onto the 5 review dimensions: completeness, executability, clarity, soundness, traceability.
 
-### 1. 完整性（信息齐全吗？）
+### 1. Completeness — is the information all there?
 
-- [ ] 全部 8 个必填字段已填（ID、标题、背景、目标、验收、来源、依赖、风险）
-- [ ] 背景字段含用户故事或问题陈述（**不**含解决方案或技术细节）
-- [ ] 3 条以上验收标准覆盖功能范围与质量要求
-- [ ] 需求来源清晰可追溯（不是 "口头转述" 或 "某人提的"）
+- [ ] All 8 required fields are filled in (ID, title, background, objective, acceptance, source, dependencies, risks)
+- [ ] The background field carries a user story or a problem statement, and **not** a solution or technical detail
+- [ ] More than 3 acceptance criteria, covering both functional scope and quality requirements
+- [ ] The requirement's source is clear and traceable — not "someone mentioned it" or "passed on verbally"
 
-### 2. 可执行性（实施者能马上动手吗？）
+### 2. Executability — can an implementer start immediately?
 
-- [ ] 依赖清单清晰，关键依赖已标注
-- [ ] 每条前置条件附验证方式（无歧义）
-- [ ] 每条验收标准可自动验证或明确可测
-- [ ] 范围定义存在（或满足 "简单需求" 豁免），边界清晰
-- [ ] 待解决问题清单完整；阻塞问题有解决方案
+- [ ] The dependency list is clear, with the critical ones marked
+- [ ] Every precondition states how it is verified, without ambiguity
+- [ ] Every acceptance criterion is automatically verifiable or plainly testable
+- [ ] A scope definition exists, or the "simple requirement" exemption applies, and the boundary is clear
+- [ ] The open questions list is complete, and blocking questions have a resolution
 
-### 3. 清晰性（易懂无歧义吗？）
+### 3. Clarity — is it easy to read and unambiguous?
 
-- [ ] 标题简洁（≤ 15 词最佳），≤ 80 字符
-- [ ] 标题陈述需求主体（功能 / 问题 / 任务），不陈述期望结果（结果归「目标」节）
-- [ ] 背景不含解决方案、技术实现或架构细节
-- [ ] 验收标准无模糊词（"应当"、"合理"、"合适"、"快"）
-- [ ] 所有技术术语首次出现时已定义或链接到文档
-- [ ] 风险、约束、假设的术语一致（避免混用）
+- [ ] The title is concise — ideally ≤ 15 words, and ≤ 80 characters
+- [ ] The title states the subject of the requirement (a capability, a problem, a task), not the expected outcome; outcomes belong in the objective section
+- [ ] The background contains no solution, implementation or architecture detail
+- [ ] Acceptance criteria carry no vague words ("should", "reasonable", "appropriate", "fast")
+- [ ] Every technical term is defined or linked on first use
+- [ ] Terminology for risks, constraints and assumptions is used consistently, without mixing
 
-### 4. 合理性（值得做、能做到吗？）
+### 4. Soundness — is it worth doing, and can it be done?
 
-- [ ] 优先级与工作量匹配（P0 / P1 不应是 1 天能搞定的小任务）
-- [ ] 至少 1 条关键风险，缓解策略明确
-- [ ] 时间约束与需求复杂度匹配（无过度乐观估算）
-- [ ] 与既有需求无直接冲突（或冲突已显式标注）
-- [ ] 技术可行性已验证（POC 完成或属已知技术栈）
+- [ ] Priority matches the effort — a P0 or P1 should not be a task that takes 1 day
+- [ ] At least 1 critical risk, with an explicit mitigation
+- [ ] The schedule matches the complexity, with no over-optimistic estimate
+- [ ] No direct conflict with an existing requirement, or the conflict is stated explicitly
+- [ ] Technical feasibility has been verified — a POC is done, or it is a known stack
 
-### 5. 可追踪性（能追溯演进与影响吗？）
+### 5. Traceability — can evolution and impact be traced?
 
-- [ ] 需求 ID 格式正确（PROJECT-REQ-nn），无重复
-- [ ] 需求来源明确（功能请求 / 业务目标 / 故障 等），可追溯
-- [ ] 依赖准确，无循环引用
-- [ ] 关联文档完整（规范、ADR、知识库链接）
-- [ ] 升为必填的业务规则有稳定 id；规则类验收标准回引其规则 id（如「覆盖 R3」）
-- [ ] 版本历史清晰（如经迭代，变更记录附理由）
+- [ ] The requirement ID follows the format PROJECT-REQ-nn and is not duplicated
+- [ ] The source is explicit (feature request / business goal / incident) and traceable
+- [ ] Dependencies are accurate, with no circular reference
+- [ ] Related documents are complete — specs, ADRs, knowledge base links
+- [ ] Business rules escalated to required carry a stable id, and rule-derived acceptance criteria cite it back (for example 「覆盖 R3」)
+- [ ] Version history is clear; where the requirement has iterated, each change record states its reason
 
 ---
 
-## 协议合规清单
+## Protocol compliance
 
-用本清单验证一份需求文档是否符合协议：
+Use this list to verify that a requirement document conforms to the protocol:
 
-- [ ] **Frontmatter**：含元数据（ID、标题、版本如适用）
-- [ ] **8 个必填字段**：齐全且完整
-  - [ ] 需求 ID（PROJECT-REQ-nn 格式）
-  - [ ] 标题（< 80 字符，含类型）
-  - [ ] 背景与价值（无方案，上下文清晰）
-  - [ ] 目标（单行，陈述需求交付后的世界改变；不与背景重复，不含方案）
-  - [ ] 验收标准（≥ 3 条，可量化，无模糊词）
-  - [ ] 依赖与前置条件（无依赖时显式写 "无依赖"）
-  - [ ] 风险、约束、假设（已计算优先级、附缓解）
-  - [ ] 需求来源（类型 + 链接 + 决策背景）
-- [ ] **条件性必填**：以下任一情况下范围定义须填：
-  - [ ] 多系统集成、或
-  - [ ] 跨边界歧义、或
-  - [ ] 预估工作量 > 5 天
-- [ ] **条件性必填**：以下任一情况下业务规则须单列：
-  - [ ] 规则集本身即交付物（定价 / 资格 / 计税 / 风险评分）、或
-  - [ ] 单条规则被 ≥ 2 条验收标准引用、或
-  - [ ] 规则构成状态机 / 决策表、或
-  - [ ] 规则需作为下游合规审计权威来源（SSOT）
-- [ ] **5 维评审**：全部通过
-  - [ ] 完整性：信息齐全
-  - [ ] 可执行性：实施者能立即动手
-  - [ ] 清晰性：无歧义无术语堆砌
-  - [ ] 合理性：值得做、技术可行
-  - [ ] 可追踪性：来源与依赖清晰
-- [ ] **可选字段**：如使用，需完整有效
-  - [ ] 范围定义（满足上文条件时必填）
-  - [ ] 业务规则（满足上文条件时必填；声明式 / 决策表形式）
-  - [ ] 待解决问题（标注阻塞 / 非阻塞）
-  - [ ] 关联文档（链接有效）
-  - [ ] 优先级与时间表（P0 / P1 / P2，时间合理）
-  - [ ] 完成定义（清单完整）
+- [ ] **Frontmatter**: carries the metadata (ID, title, version where applicable)
+- [ ] **8 required fields**: all present and complete
+  - [ ] Requirement ID (PROJECT-REQ-nn format)
+  - [ ] Title (< 80 characters, carrying the type)
+  - [ ] Background and value (no solution, context clear)
+  - [ ] Objective (a single line stating how the world changes once this ships; not a repeat of the background, and no solution)
+  - [ ] Acceptance criteria (≥ 3, quantifiable, no vague words)
+  - [ ] Dependencies and preconditions (write "no dependencies" explicitly when there are none)
+  - [ ] Risks, constraints, assumptions (priority computed, mitigation attached)
+  - [ ] Requirement source (type + link + decision background)
+- [ ] **Conditionally required**: a scope definition is required when any of these hold:
+  - [ ] Integration across multiple systems, or
+  - [ ] Ambiguity across a boundary, or
+  - [ ] Estimated effort > 5 days
+- [ ] **Conditionally required**: a separate business rules section is required when any of these hold:
+  - [ ] The rule set is itself the deliverable (pricing / eligibility / tax / risk scoring), or
+  - [ ] One rule is cited by ≥ 2 acceptance criteria, or
+  - [ ] The rules form a state machine or a decision table, or
+  - [ ] The rules serve as the authoritative source (SSOT) for a downstream compliance audit
+- [ ] **5-dimension review**: all pass
+  - [ ] Completeness: the information is all there
+  - [ ] Executability: an implementer can start immediately
+  - [ ] Clarity: unambiguous, no piled-up jargon
+  - [ ] Soundness: worth doing and technically feasible
+  - [ ] Traceability: source and dependencies are clear
+- [ ] **Optional fields**: where used, complete and valid
+  - [ ] Scope definition (required when the conditions above hold)
+  - [ ] Business rules (required when the conditions above hold; declarative or decision-table form)
+  - [ ] Open questions (marked blocking or non-blocking)
+  - [ ] Related documents (links working)
+  - [ ] Priority and schedule (P0 / P1 / P2, timing realistic)
+  - [ ] Definition of done (checklist complete)
 
 ---
