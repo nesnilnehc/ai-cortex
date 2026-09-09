@@ -36,7 +36,7 @@ In scope:
 - **Workflow change**: adjustments to how an approval, order or document flows
 - **Permission change**: adjustments to the role model, or to menu, operation and data permissions
 
-不In scope:
+Out of scope:
 
 - Purely technical work such as architectural refactoring, dependency upgrades or infrastructure changes, which derives a technical design directly from an authorising ADR and skips this layer
 - The engineering solution — architecture, database, interfaces — which belongs to the technical design document
@@ -170,55 +170,55 @@ parent: ../requirements/SHOP-REQ-22.md
 status: approved
 ---
 
-# 功能设计：订单退款审批
+# Functional design: order refund approval
 
-## 目标
+## Objective
 
-让客服发起的退款请求经主管审批后自动退款，杜绝未审批直接退款，缩短退款时效。
+A refund raised by a support agent is paid out automatically once a supervisor approves it, so no refund is ever paid without approval and the turnaround time shortens.
 
-## 功能模块与边界
+## Functional modules and boundaries
 
-- **退款发起**：客服按订单发起退款，填写金额与原因。做：校验金额 ≤ 可退余额。不做：实际打款（归技术设计的支付集成）。
-- **审批处理**：主管审批 / 驳回。做：审批意见留痕。不做：多级审批（本期单级）。
-- **退款执行**：审批通过后触发退款并通知客户。
+- **Raising a refund**: a support agent raises a refund against an order, entering the amount and the reason. Does: validate that the amount <= the refundable balance. Does not: make the actual payment, which belongs to the payment integration in the technical design.
+- **Approval handling**: a supervisor approves or rejects. Does: keep a record of the approval comment. Does not: multi-level approval, which stays single-level this round.
+- **Refund execution**: once approved, trigger the refund and notify the customer.
 
-## 业务流程
+## Business workflow
 
 ```
 
-客服发起退款 → 系统校验金额 → 主管待审
-  → 通过：触发退款 → 退款成功 → 通知客户（覆盖 R1 单级审批规则）
-  → 驳回：退回客服，附驳回原因
+Agent raises refund -> system validates amount -> awaiting supervisor
+  -> approved: trigger refund -> refund succeeds -> notify customer (覆盖 R1, the single-level approval rule)
+  -> rejected: return to the agent with the rejection reason
 
 ```markdown
 
-## 异常与边界场景
+## Exception and boundary scenarios
 
-- **重复提交**：同一订单已有"待审 / 处理中"退款时再次发起 → 拒绝并提示已有进行中退款
-- **审批超时**：待审超 48 小时 → 自动升级通知上级主管，不自动通过
-- **退款失败**：支付侧退款失败 → 退款单转"失败"，保留可重试，不影响订单其他状态
+- **Duplicate submission**: raising a refund on an order that already has one "awaiting approval" or "in progress" -> reject, and state that a refund is already under way
+- **Approval timeout**: awaiting approval for more than 48 hours -> escalate to the supervisor's manager by notification; never auto-approve
+- **Refund failure**: the payment side fails the refund -> the refund moves to "failed", stays retryable, and leaves the rest of the order's state untouched
 
-## 业务对象状态
+## Business object states
 
-退款单状态机：`待审` →(通过) `处理中` →(退款成功) `已完成` / `处理中` →(退款失败) `失败` →(重试) `处理中` / `待审` →(驳回) `已驳回` / `待审` →(超时48h) `待审`(升级通知，状态不变)
+The refund state machine: `awaiting approval` ->(approved) `in progress` ->(refund succeeded) `completed` / `in progress` ->(refund failed) `failed` ->(retry) `in progress` / `awaiting approval` ->(rejected) `rejected` / `awaiting approval` ->(48h timeout) `awaiting approval` (escalation notice; the state does not change)
 
-## 角色与权限矩阵
+## Roles and permission matrix
 
-| 角色 | 发起退款 | 审批退款 | 查看全部退款单 |
+| Role | Raise a refund | Approve a refund | See every refund |
 |---|---|---|---|
-| 客服 | 可 | 不可 | 仅本人发起 |
-| 主管 | 不可 | 可 | 可 |
+| Support agent | Yes | No | Own submissions only |
+| Supervisor | No | Yes | Yes |
 
-## 验收标准
+## Acceptance criteria
 
-- [ ] 退款必须经主管审批通过才触发打款（对应 SHOP-REQ-22 §验收 1）
-- [ ] 同一订单不允许并发的进行中退款（对应 §验收 3）
-- [ ] 待审超 48 小时自动升级通知（对应 §验收 4）
+- [ ] A refund must be approved by a supervisor before any payout is triggered (SHOP-REQ-22 §Acceptance 1)
+- [ ] Concurrent in-progress refunds on one order are not allowed (§Acceptance 3)
+- [ ] Awaiting approval for more than 48 hours escalates automatically (§Acceptance 4)
 
-## 权衡与开放问题
+## Trade-offs and open questions
 
-- **单级审批 vs 多级审批**（选单级）。多级更严但拖慢退款时效，与"缩短退款时效"目标冲突，本期单级。
-- 开放问题：大额退款是否需财务二次确认——待业务方在 D+7 前确认（非阻塞）。
+- **Single-level vs multi-level approval** (single-level chosen). Multi-level is stricter but slows the refund down, which conflicts with the objective of shortening turnaround; single-level this round.
+- Open question: does a large refund need a second confirmation from finance — awaiting the business owner's answer by D+7 (non-blocking).
 ````
 
 ---

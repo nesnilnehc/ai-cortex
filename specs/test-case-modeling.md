@@ -139,7 +139,7 @@ parent: <upstream requirement or contract path>
 | `deprecated_at` | date | conditional | Required when `status: deprecated` |
 | `deprecated_reason` | string | conditional | Required when `status: deprecated`, such as "the requirement was dropped" or "replaced by TC-X-NN" |
 
-### 4.4 状态机语义
+### 4.4 State machine semantics
 
 | Status | Meaning | Entry condition |
 |---|---|---|
@@ -157,9 +157,9 @@ parent: <upstream requirement or contract path>
 
 Every test case must contain these 5 body sections.
 
-**H1 title**: `# 用例：<场景一句话描述>`
+**H1 title**: `# Case: <one-line scenario description>`
 - At most 80 characters
-- Names the subject and the key condition, for example `# 用例：过期 token 访问受保护资源时返回 401`
+- Names the subject and the key condition, for example `# Case: an expired token returns 401 on a protected resource`
 
 | # | Section | Purpose | Validation |
 |---|---|---|---|
@@ -184,7 +184,7 @@ A collection is best expressed as a table:
 ```markdown
 | Id | Priority | Type | Scenario | Preconditions | Steps | Expected | Covers | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| TC-AUTH-01 | P0 | functional | 过期 token 访问受保护资源 | 用户 token 已过期 ≥ 1 分钟 | 1. GET /api/profile 携带过期 token | 返回 401 + error_code=TOKEN_EXPIRED | ACME-REQ-15#AC3 | active |
+| TC-AUTH-01 | P0 | functional | An expired token reaches a protected resource | The user's token expired ≥ 1 minute ago | 1. GET /api/profile carrying the expired token | Returns 401 + error_code=TOKEN_EXPIRED | ACME-REQ-15#AC3 | active |
 ```
 
 ### 5.4 Traceability semantics
@@ -231,37 +231,37 @@ covers:
 parent: ../requirements/ACME-REQ-15.md
 ---
 
-# 用例：语义搜索在 10M 数据集上返回 top-3 结果且 p95 ≤ 500ms
+# Case: semantic search returns top-3 results on a 10M dataset within p95 ≤ 500ms
 
-## 场景
+## Scenario
 
-Given 知识库已向量化 10M 条目，When 客户端 POST /search/semantic 提交典型查询，Then 接口在 500ms 内返回 top-3 结果且相关性 ≥ 80%。
+Given the knowledge base has vectorised 10M entries, When a client POSTs a representative query to /search/semantic, Then the endpoint returns top-3 results within 500ms at a relevance of ≥ 80%.
 
-## 前置条件
+## Preconditions
 
-- 知识库向量化已完成（向量库 `count` API 返回 ≥ 10_000_000）
-- API Gateway 已配置 `/search/semantic` 路由
-- 测试 API Key 已签发且未触发限流
-- 准备 50 条标注好相关性的典型查询数据集（fixture：`fixtures/queries-50.json`）
+- Knowledge base vectorisation is complete (the vector store's `count` API returns ≥ 10_000_000)
+- The API gateway has the `/search/semantic` route configured
+- A test API key has been issued and is not rate limited
+- A dataset of 50 representative queries with relevance labels is ready (fixture: `fixtures/queries-50.json`)
 
-## 操作步骤
+## Steps
 
-1. 从 fixture 加载 50 条查询，逐条调用 `POST /search/semantic`，body: `{"query": "<text>", "top_k": 3}`
-2. 记录每次响应时间 + 返回的 3 条文档 ID
-3. 用人工标注的相关性数据计算 top-3 精度
-4. 计算所有响应时间的 p95
+1. Load the 50 queries from the fixture and call `POST /search/semantic` for each, body: `{"query": "<text>", "top_k": 3}`
+2. Record each response time plus the 3 document IDs returned
+3. Compute top-3 precision against the hand-labelled relevance data
+4. Compute the p95 over all response times
 
-## 预期结果
+## Expected
 
-- 50 次调用全部 HTTP 200，响应体含 `results` 数组，长度 = 3
-- p95 响应时间 ≤ 500ms（满足 AC2 性能指标）
-- top-3 相关性精度 ≥ 80%（满足 AC3 精度指标）
-- 响应体含 `query_id` 字段（用于追溯）
+- All 50 calls return HTTP 200, with a `results` array of length 3 in the body
+- p95 response time ≤ 500ms (meeting the AC2 performance target)
+- top-3 relevance precision ≥ 80% (meeting the AC3 precision target)
+- The body carries a `query_id` field, used for tracing
 
-## 追溯锚
+## Coverage
 
-- **ACME-REQ-15 AC#2**：在 10M 条目数据集上响应时间 ≤ 500ms（p95）
-- **ACME-REQ-15 AC#3**：top-3 相关性精度 ≥ 80%（50+ 典型查询验证）
+- **ACME-REQ-15 AC#2**: response time ≤ 500ms (p95) on a 10M-entry dataset
+- **ACME-REQ-15 AC#3**: top-3 relevance precision ≥ 80%, verified over 50+ representative queries
 ````
 
 ### 7.2 A collection table example
@@ -275,14 +275,14 @@ module: AUTH
 parent: ../requirements/ACME-REQ-08.md
 ---
 
-# 测试用例集：认证模块
+# Test case suite: the authentication module
 
 | Id | Priority | Type | Scenario | Preconditions | Steps | Expected | Covers | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| TC-AUTH-01 | P0 | functional | 过期 token 访问受保护资源 | token 过期 ≥ 1min | GET /api/profile 带过期 token | 401 + TOKEN_EXPIRED | ACME-REQ-08#AC1 | active |
-| TC-AUTH-02 | P0 | functional | 无 token 访问受保护资源 | 无 | GET /api/profile 不带 Authorization | 401 + MISSING_TOKEN | ACME-REQ-08#AC1 | active |
-| TC-AUTH-03 | P1 | functional | 篡改 token 访问 | 有效 token base64 后改尾字符 | GET /api/profile 带篡改 token | 401 + INVALID_SIGNATURE | ACME-REQ-08#AC2 | active |
-| TC-AUTH-04 | P2 | regression | 大小写错误的 Bearer 前缀 | 有效 token | GET /api/profile 带 "bearer xxx"（小写 b） | 401 + MALFORMED_HEADER | ACME-REQ-08#AC4 | active |
+| TC-AUTH-01 | P0 | functional | An expired token reaches a protected resource | Token expired ≥ 1min ago | GET /api/profile with the expired token | 401 + TOKEN_EXPIRED | ACME-REQ-08#AC1 | active |
+| TC-AUTH-02 | P0 | functional | No token reaches a protected resource | None | GET /api/profile without an Authorization header | 401 + MISSING_TOKEN | ACME-REQ-08#AC1 | active |
+| TC-AUTH-03 | P1 | functional | A tampered token is used | A valid token with its trailing base64 character altered | GET /api/profile with the tampered token | 401 + INVALID_SIGNATURE | ACME-REQ-08#AC2 | active |
+| TC-AUTH-04 | P2 | regression | A Bearer prefix in the wrong case | A valid token | GET /api/profile with "bearer xxx" (lower-case b) | 401 + MALFORMED_HEADER | ACME-REQ-08#AC4 | active |
 ````
 
 ---

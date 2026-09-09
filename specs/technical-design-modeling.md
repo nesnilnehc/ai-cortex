@@ -36,9 +36,9 @@ In scope:
 - **Architecture**: system, service and module architecture, and service decomposition
 - **Component and detailed design**: signature-level definitions of classes, methods and interfaces
 - **Data and integration design**: database design, API contracts, cross-service integration
-- **纯技术工作**：架构重构、依赖升级、基础设施改造（无功能层，`parent` 指向授权 ADR）
+- **Purely technical work**: architectural refactoring, dependency upgrades, infrastructure changes — there is no functional layer, and `parent` points at the authorising ADR
 
-不In scope:
+Out of scope:
 
 - Implementation at code level, which belongs in code comments or an ADR
 - The local design of a single function or class, which goes straight into the PR description
@@ -130,7 +130,7 @@ Added as the situation requires. A conditionally required section **becomes requ
 
 #### 5.3.1 What acceptance criteria trace to depends on the `parent` type
 
-- Where `parent` is a `functional-design`, the normal case: each criterion traces to an acceptance item of that functional design, cited as `覆盖 FD §验收 N`.
+- Where `parent` is a `functional-design`, the normal case: each criterion traces to an acceptance item of that functional design, cited as `覆盖 FD §Acceptance N`.
 - Where `parent` is a `requirement`, the functional layer having been skipped: each criterion traces to an acceptance item of the requirement.
 
 #### 5.3.2 The "no change" escape hatch
@@ -173,30 +173,31 @@ parent: ../designs/2026-05-20-order-refund-functional-design.md
 status: approved
 ---
 
-# 技术设计：订单退款审批
+# Technical design: order refund approval
 
-## 目标
+## Objective
 
-实现退款单的发起 / 审批 / 执行流程，集成支付侧退款 API，支撑功能设计的单级审批与超时升级。
+Implement the raise / approve / execute flow for a refund order, integrate the payment side's refund API, and support the single-level approval and timeout escalation set by the functional design.
 
-## 架构与服务拆分
+## Architecture and service decomposition
 
 ```
 
-[客服端/主管端] → [Order Service] → [Refund Module] → [Payment Gateway (外部)]
-                                          ↓
+[agent / supervisor client] -> [Order Service] -> [Refund Module] -> [Payment Gateway (external)]
+                                          |
+                                          v
                                     [Notification Service]
 
 ```markdown
 
-外部依赖：Payment Gateway（退款 API）。内部依赖：Order Service、Notification Service。本期不拆独立 Refund Service，作为 Order Service 模块。
+External dependency: the Payment Gateway (its refund API). Internal dependencies: Order Service, Notification Service. No separate Refund Service is split out this round; it lives as a module of Order Service.
 
-## 组件与详细设计
+## Components and detailed design
 
-- **RefundService**：`initiate(orderId, amount, reason)` / `approve(refundId, approverId)` / `reject(refundId, reason)`。职责：状态流转、并发控制。
-- **RefundExecutor**：`execute(refundId)` 调用 Payment Gateway，失败重试。职责：幂等退款。
+- **RefundService**: `initiate(orderId, amount, reason)` / `approve(refundId, approverId)` / `reject(refundId, reason)`. Responsible for state transitions and concurrency control.
+- **RefundExecutor**: `execute(refundId)` calls the Payment Gateway and retries on failure. Responsible for idempotent refunds.
 
-## 数据库设计
+## Database design
 
 ```
 
@@ -204,44 +205,44 @@ refund_order
   id: UUID PK
   order_id: UUID FK -> order.id (index)
   amount: decimal NOT NULL
-  status: enum NOT NULL (待审/处理中/已完成/失败/已驳回)
+  status: enum NOT NULL (awaiting_approval/in_progress/completed/failed/rejected)
   approver_id: UUID NULL
   created_at: timestamp NOT NULL
 
 ```markdown
 
-约束：(order_id) 部分唯一索引 WHERE status IN ('待审','处理中')——保证同订单无并发进行中退款。迁移：新增表，无数据回填。
+Constraint: a partial unique index on (order_id) WHERE status IN ('awaiting_approval','in_progress'), guaranteeing that one order never has two refunds in flight. Migration: a new table, with no data backfill.
 
-## 接口契约
+## Interface contracts
 
-- `POST /refunds` — body `{order_id, amount, reason}` → 201 `{refund_id, status}` / 409 `DUPLICATE_ACTIVE_REFUND` / 422 `AMOUNT_EXCEEDS_REFUNDABLE`；鉴权：客服角色
-- `POST /refunds/{id}/approve` → 200 `{status}` / 403 `NOT_APPROVER`；鉴权：主管角色
-- 事件：`REFUND_APPROVED` / `REFUND_FAILED`（payload schema 见 nats-messaging spec）
+- `POST /refunds` — body `{order_id, amount, reason}` -> 201 `{refund_id, status}` / 409 `DUPLICATE_ACTIVE_REFUND` / 422 `AMOUNT_EXCEEDS_REFUNDABLE`; authorization: the support agent role
+- `POST /refunds/{id}/approve` -> 200 `{status}` / 403 `NOT_APPROVER`; authorization: the supervisor role
+- Events: `REFUND_APPROVED` / `REFUND_FAILED` (payload schema in the nats-messaging spec)
 
-## 数据流与错误处理
+## Data flow and error handling
 
-退款执行：approve → 写 status=处理中 → RefundExecutor 调用 Payment Gateway → 成功写 已完成 + 发 REFUND_APPROVED / 失败写 失败 + 发 REFUND_FAILED。
+Refund execution: approve -> write status=in_progress -> RefundExecutor calls the Payment Gateway -> on success write completed and emit REFUND_APPROVED / on failure write failed and emit REFUND_FAILED.
 
-- **支付网关超时**：标记失败，保留可重试；不阻塞订单其他操作
-- **并发审批**：approve 用乐观锁（status 版本），第二次审批返回 409
+- **Payment gateway timeout**: mark it failed and keep it retryable; do not block other operations on the order
+- **Concurrent approval**: approve uses optimistic locking on the status version, and a second approval returns 409
 
-## 技术选型与权衡
+## Technology choices and trade-offs
 
-- **方案 A：唯一部分索引防并发退款**（选用）。优点：DB 层强保证。缺点：依赖 PostgreSQL 部分索引。
-- **方案 B：应用层分布式锁**（拒）。优点：DB 无关。缺点：锁失效边界复杂，弱于 DB 约束。
-- 依赖与风险：Payment Gateway 退款 API 限流 10 QPS，高峰需排队。
+- **Option A: a partial unique index preventing concurrent refunds** (chosen). Upside: a strong guarantee at the database layer. Downside: it depends on PostgreSQL partial indexes.
+- **Option B: an application-level distributed lock** (rejected). Upside: database-independent. Downside: the lock-expiry boundaries are complex, and it is weaker than a database constraint.
+- Dependencies and risks: the Payment Gateway refund API is rate limited to 10 QPS, so peaks have to queue.
 
-## 测试策略
+## Test strategy
 
-- 单元：状态流转、金额校验、幂等执行
-- 集成：完整发起 / 审批 / 退款链路（mock Payment Gateway）
-- 验证方式：CI 自动跑单元 + 集成
+- Unit: state transitions, amount validation, idempotent execution
+- Integration: the full raise / approve / refund path with a mocked Payment Gateway
+- How it is verified: CI runs unit plus integration automatically
 
-## 验收标准
+## Acceptance criteria
 
-- [ ] 同订单并发退款被 DB 约束拒绝（覆盖 FD §验收 2）
-- [ ] 退款失败可重试且不影响订单状态（覆盖 FD §验收 1）
-- [ ] 审批鉴权：仅主管角色可 approve（覆盖 FD §权限矩阵）
+- [ ] A concurrent refund on the same order is rejected by the database constraint (覆盖 FD §Acceptance 2)
+- [ ] A failed refund is retryable and leaves the order state untouched (覆盖 FD §Acceptance 1)
+- [ ] Approval authorization: only the supervisor role may approve (覆盖 FD §permission matrix)
 ````
 
 ---
