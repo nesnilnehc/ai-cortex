@@ -20,82 +20,82 @@ output_schema:
   lifecycle: living
 ---
 
-# 技能 (Skill)：定义北极星
+# Skill: Define North Star
 
-## 目的 (Purpose)
+## Purpose
 
-定义**北极星指标 (NSM)**：捕获交付给用户的核心价值的最重要的单一指标。使用 NSM 生成文档，说明为什么它代表用户价值、可选支持指标 (3-5) 以及反北极星示例。不定义使命、愿景、战略目标或里程碑。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：生成一份用户确认的北极星文档，其中包含一个反映用户价值和受产品影响的行为的主要指标，并坚持项目商定的路径。
-
-**成功标准**（必须满足所有要求）：
-
-1. ✅ **北极星指标定义**：一个具有清晰、可衡量定义的主要指标（名称+衡量方式）。
-2. ✅ **基本原理记录**：解释为什么此指标代表用户价值（不是虚荣或仅收入）。
-3. ✅ **满足的原则**：NSM反映用户价值，代表用户行为，衡量持续参与度，产品驱动，简单明了。
-4. ✅ **用户确认**：用户明确批准（例如“已批准”、“看起来不错”、“继续”或同等内容）。
-5. ✅ **文档持久化**：写入商定的路径（默认 `docs/project-overview/north-star.md` 或每个项目规范）。
-6. ✅ **列出的反模式**：至少列出 2-3 个虚荣或反北极星指标作为不应优化的示例（例如收入、总用户数、注册量、下载量、原始页面浏览量）。
-
-**验收**测试：读者能否在一分钟内理解哪个单一指标定义了该产品的成功以及为什么它反映了用户价值而不是虚荣心？
-
-**交接点**：当“北极星”获得批准并坚持时，将其移交给“设计-战略-目标”来设定推动 NSM 的目标，或者停止。
+Define the **North Star Metric (NSM)**: the single most important metric capturing the core value delivered to users. Produce a document with the NSM, why it represents user value, optional supporting metrics (3-5), and anti-North-Star examples. Do not define mission, vision, strategic goals, or milestones.
 
 ---
 
-## 范围边界 (Scope Boundaries)
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: produce a user-confirmed North Star document holding one primary metric that reflects user value and behavior the product can influence, persisted to the path the project agreed on.
 
-- 从用户价值和产品背景中得出一个主要的北极星指标。
-- 记录为什么该指标代表用户价值（而不是虚荣）。
-- 可选：3-5 个补充 NSM 的支持指标。
-- 列出不应用作北极星的反北极星指标（虚荣示例）。
-- 坚持项目同意的路径（默认“docs/project-overview/north-star.md”）。
+**Success criteria** (all of them must hold):
 
-**本技能不负责**：
+1. ✅ **North Star Metric defined**: one primary metric with a clear, measurable definition (name + how it is measured).
+2. ✅ **Rationale recorded**: why this metric represents user value (not vanity, and not revenue alone).
+3. ✅ **Principles satisfied**: the NSM reflects user value, represents user behavior, measures sustained engagement, is product-driven, and is plain and simple.
+4. ✅ **User confirmation**: the user approves explicitly ("approved", "looks good", "go ahead", or equivalent).
+5. ✅ **Document persisted**: written to the agreed path (`docs/project-overview/north-star.md` by default, or the per-project norm).
+6. ✅ **Anti-patterns listed**: at least 2-3 vanity or anti-North-Star metrics listed as examples of what not to optimize (revenue, total users, sign-ups, downloads, raw page views).
 
-- 定义使命或愿景（使用“定义使命”、“定义愿景”）。
-- 定义战略目标或 OKR（使用“设计战略目标”）。
-- 定义里程碑（使用“定义里程碑”）。
-- 书写路线图、需求或待办（使用项目计划、“分析需求”、“捕获工作项目”）。
+**Acceptance** test: can a reader understand within a minute which single metric defines success for this product, and why it reflects user value rather than vanity?
 
----
-
-## 使用场景 (Use Cases)
-
-- **愿景之后**：一旦愿景清晰，建立一个最能捕捉“交付价值”的指标。
-- **产品优先级**：当团队需要一个单一指标来指导优化内容时。
-- **取代虚荣指标**：当当前的重点是收入、总用户数、下载量或页面浏览量并且团队想要一个用户价值锚时。
-- **战略链中的第三层**：在构建完整的层次结构时遵循使命和愿景。
+**Handoff point**: once the North Star is approved and persisted, hand it to `design-strategic-goals` to set the goals that drive the NSM, or stop.
 
 ---
 
-## 行为 (Behavior)
+## Scope Boundaries
 
-### 交互策略
+**This skill owns**:
 
-遵循 Defaults first、Prefer choices、Context inference：
+- Deriving one primary North Star Metric from user value and product context.
+- Recording why that metric represents user value (rather than vanity).
+- Optional: 3-5 supporting metrics that complement the NSM.
+- Listing the anti-North-Star metrics (vanity examples) that are not to be used as a North Star.
+- Persisting to the path the project agreed on (`docs/project-overview/north-star.md` by default).
 
-- **默认**：从 `docs/project-overview/` 或项目规范加载使命/愿景；输出路径取项目规范或 `docs/project-overview/north-star.md`。无额外输入时直接运行推导框架。
-- **选择选项**：存在多个候选指标时，提供 1–3 个并说明理由，让用户选择或细化。
-- **确认**：覆盖现有 north-star 文件前、持久化前必须获得用户批准。若候选为虚荣指标，警告并建议基于行为的替代。
+**This skill does not own**:
 
-### 北极星原则（在推导指标时应用）
+- Defining the mission or the vision (use `define-mission`, `define-vision`).
+- Defining strategic goals or OKRs (use `design-strategic-goals`).
+- Defining milestones (use `define-milestones`).
+- Writing the roadmap, requirements, or backlog (use project planning, `analyze-requirements`, `capture-work-items`).
 
-1. **反映用户价值**，而不是仅反映公司收入。
-2. **代表用户行为**，并非虚荣统计。
-3. **衡量持续参与度**，而不是一次性事件。
-4. **是产品驱动的**：产品团队可以影响它。
-5. **简单明了**：理想情况下是一个可衡量的指标。
+---
 
-### 推导框架（执行流程）
+## Use Cases
 
-使用此推理链推导出北极星：
+- **After the vision**: once the vision is clear, establish the metric that best captures "value delivered".
+- **Product prioritization**: when the team needs a single metric to guide what gets optimized.
+- **Replacing a vanity metric**: when the current focus is revenue, total users, downloads, or page views and the team wants a user-value anchor.
+- **The third layer of the strategy chain**: follows mission and vision when the full hierarchy is being built.
+
+---
+
+## Behavior
+
+### Interaction strategy
+
+Follow Defaults first, Prefer choices, Context inference:
+
+- **Defaults**: load mission/vision from `docs/project-overview/` or from the project norm; the output path comes from the project norm or `docs/project-overview/north-star.md`. With no further input, run the derivation framework directly.
+- **Offer choices**: where several candidate metrics exist, offer 1–3 of them with the reasoning and let the user choose or refine.
+- **Confirm**: user approval must be obtained before overwriting an existing north-star file and before persisting. When a candidate is a vanity metric, warn and suggest a behavior-based alternative.
+
+### North Star principles (applied while deriving the metric)
+
+1. **Reflects user value**, not company revenue alone.
+2. **Represents user behavior**, not a vanity count.
+3. **Measures sustained engagement**, not a one-off event.
+4. **Is product-driven**: the product team can influence it.
+5. **Is plain and simple**: ideally a single measurable quantity.
+
+### Derivation framework (execution flow)
+
+Derive the North Star with this reasoning chain:
 
 ```text
 User
@@ -109,117 +109,117 @@ Observable Behavior
 Measurable Metric (North Star)
 ```
 
-1. **上下文**：从 `docs/project-overview/` 或用户加载使命/愿景；确定目标用户和核心价值主张。
-2. **核心价值**：产品为用户带来什么价值？ （不是“收入”——用户成果。）
-3. **主要操作**：反映该值的主要用户操作是什么？
-4. **可观察的行为**：我们可以观察到哪些行为（例如发送的消息、预订的住宿天数、花费的时间）？
-5. **指标**：定义一个可衡量的指标来捕获该行为；保持简单。
-6. **验证**：对照五项原则进行检查；避免虚荣（收入、总用户数、注册量、下载量、原始页面浏览量作为北极星）。
-7. **度量与局限**（可选）：若指标依赖外部数据源或当前无法直接度量，在产出文档中新增「度量与局限」节，说明依赖与替代策略。
-8. **支持指标**（可选）：添加 3–5 个支持或补充 NSM 的指标。
-9. **反例**：列出 2–3 个不应用作北极星的指标并附简短理由。
-10. **持久化**：写入约定路径；若目录不存在则创建。
+1. **Context**: load mission/vision from `docs/project-overview/` or from the user; determine the target users and the core value proposition.
+2. **Core value**: what value does the product bring users? (Not "revenue" — user outcomes.)
+3. **Primary action**: what is the main user action that reflects that value?
+4. **Observable behavior**: which behaviors can be observed (messages sent, nights booked, time spent)?
+5. **Metric**: define one measurable metric that captures that behavior; keep it simple.
+6. **Validate**: check against the five principles; avoid vanity (revenue, total users, sign-ups, downloads, raw page views as the North Star).
+7. **Measurement and limits** (optional): when the metric depends on an external data source, or cannot currently be measured directly, add a "Measurement and limits" section to the output document covering the dependency and the fallback strategy.
+8. **Supporting metrics** (optional): add 3–5 metrics that support or complement the NSM.
+9. **Anti-examples**: list 2–3 metrics that are not to be used as a North Star, each with a short reason.
+10. **Persist**: write to the agreed path; create the directory if it does not exist.
 
-### 反模式（不建议作为北极星）
+### Anti-patterns (not suggested as a North Star)
 
-- 收入（公司成果，而不是用户价值）。
-- 用户总数（虚荣心；不反映参与度或价值）。
-- 注册（一次性；非持续参与）。
-- 下载（一次性；而非行为）。
-- 原始页面浏览量（虚荣心；不是价值交付行为）。
+- Revenue (a company outcome, not user value).
+- Total users (vanity; reflects neither engagement nor value).
+- Sign-ups (one-off; not sustained engagement).
+- Downloads (one-off; not a behavior).
+- Raw page views (vanity; not a value-delivering behavior).
 
-这些可能仅作为**反北极星示例**出现在输出中，而不是作为所选指标。
-
----
-
-## 输入与输出 (Input & Output)
-
-**输入**：
-
-- **必填**：项目/产品描述；目标用户；核心价值主张（或使命/愿景路径）。
-- **可选**：使命/愿景文本或路径；当前指标；限制；类似产品的示例。
-
-**输出**：
-
-- **制品**：北极星文档。
-- **路径**：`docs/project-overview/north-star.md`（或项目规范）。
-- **结构**：指标定义、推导链、原则、可选支持指标、可选度量与局限、反北极星示例。保持简洁（YAGNI、DRY）。
-- **生命周期**：living（产品或策略变更时更新）。
+These may appear in the output only as **anti-North-Star examples**, and not as the chosen metric.
 
 ---
 
-## 限制 (Restrictions)
+## Input & Output
 
-### 硬边界（Hard Boundaries）
+**Input**:
 
-- 不要在此技能中定义使命、愿景、战略目标或里程碑。
-- 不要提出虚荣指标（收入、总用户数、注册量、下载量、原始页面浏览量）作为北极星；仅将它们作为反例列出。
-- 未经用户明确确认，请勿覆盖现有的北极星文件。
+- **Required**: project/product description; target users; core value proposition (or a mission/vision path).
+- **Optional**: mission/vision text or path; current metrics; constraints; examples from comparable products.
 
-### When to Stop（交接）
+**Output**:
 
-- 用户说「已批准」或同等 → 北极星完成；交接至 `design-strategic-goals`。
-- 用户询问目标或里程碑 → 交接至 `design-strategic-goals` 或 `define-roadmap`。
-
-### 技能边界 (Skill Boundaries)（避免重叠）
-
-**不要做这些（其他技能可以处理它们）**：
-
-- **使命**：为何存在 → 使用 `define-mission`
-- **愿景**：构建何种未来 → 使用 `define-vision`
-- **战略目标**：3–5 个成果 → 使用 `design-strategic-goals`
-- **里程碑**：阶段检查点 → 使用 `define-roadmap`
+- **Artifact**: the North Star document.
+- **Path**: `docs/project-overview/north-star.md` (or the project norm).
+- **Structure**: metric definition, derivation chain, principles, optional supporting metrics, optional measurement and limits, anti-North-Star examples. Keep it lean (YAGNI, DRY).
+- **Lifecycle**: living (updated when the product or the strategy changes).
 
 ---
 
-## 自检（Self-Check）
+## Restrictions
 
-### 核心成功标准（必须满足所有标准）
+### Hard Boundaries
 
-- [ ] **北极星指标定义**：一个具有清晰、可衡量定义的主要指标。
-- [ ] **基本原理记录**：为什么这个指标代表用户价值（而不是虚荣心）。
-- [ ] **满足的原则**：用户价值、行为、持续参与、产品驱动、简单。
-- [ ] **用户确认**：用户说“已批准”、“看起来不错”、“继续”或类似内容。
-- [ ] **文档持久化**：写入约定路径（默认 `docs/project-overview/north-star.md` 或项目规范）。
-- [ ] **列出的反模式**：文档中至少有 2-3 个虚荣/反北极星示例。
+- Do not define the mission, the vision, strategic goals, or milestones in this skill.
+- Do not put forward a vanity metric (revenue, total users, sign-ups, downloads, raw page views) as the North Star; list them as anti-examples only.
+- Do not overwrite an existing North Star file without explicit user confirmation.
 
-### 流程质量检查
+### When to Stop (handoff)
 
-- [ ] **使用的推导**：是否应用用户 → 核心价值 → 行动 → 行为 → 指标链？
-- [ ] **度量与局限**：若指标依赖外部数据或当前不可观测，是否新增「度量与局限」节？
-- [ ] **无虚荣 NSM**：是否避免将收入、总用户数、注册量、下载量或原始页面浏览量作为北极星？
+- The user says "approved" or equivalent → the North Star is done; hand off to `design-strategic-goals`.
+- The user asks about goals or milestones → hand off to `design-strategic-goals` or `define-roadmap`.
 
-### 验收测试
+### Skill Boundaries (avoid overlap)
 
-**读者能否在一分钟内理解哪个单一指标定义了成功以及为什么它反映了用户价值？**
+**Do not do these (other skills handle them)**:
 
-如果否：NSM 不明确或虚荣。使用框架和原则重新推导。
-如果是：北极星已完成。继续转交或停止。
+- **Mission**: why it exists → use `define-mission`
+- **Vision**: what future is being built → use `define-vision`
+- **Strategic goals**: 3–5 outcomes → use `design-strategic-goals`
+- **Milestones**: stage checkpoints → use `define-roadmap`
 
 ---
 
-## 示例 (Examples)
+## Self-Check
 
-### 示例 1：从愿景到北极星
+### Core success criteria (all of them must hold)
 
-**背景**：愿景是“每个团队只需单击一下即可在 5 分钟内交付生产。”目标用户：工程团队。核心价值：可靠、快速部署。
+- [ ] **North Star Metric defined**: one primary metric with a clear, measurable definition.
+- [ ] **Rationale recorded**: why this metric represents user value (rather than vanity).
+- [ ] **Principles satisfied**: user value, behavior, sustained engagement, product-driven, simple.
+- [ ] **User confirmation**: the user said "approved", "looks good", "go ahead", or something similar.
+- [ ] **Document persisted**: written to the agreed path (`docs/project-overview/north-star.md` by default, or the project norm).
+- [ ] **Anti-patterns listed**: at least 2-3 vanity / anti-North-Star examples in the document.
 
-**流程**：核心价值 = 成功、低摩擦的部署。主要操作 = 完成部署。可观察的行为 = 在时间/简单性条内成功的部署数量。指标：“每周成功部署（触发后 5 分钟内完成）”。支持：部署频率、回滚率、部署时间。反例：总用户数、收入、页面浏览量。用户确认。写入“docs/project-overview/north-star.md”。
+### Process quality checks
 
-**结果**：北极星持续存在； 转交到“设计战略目标”。
+- [ ] **Derivation used**: was the user → core value → action → behavior → metric chain applied?
+- [ ] **Measurement and limits**: when the metric depends on external data or is currently unobservable, was a "Measurement and limits" section added?
+- [ ] **No vanity NSM**: did it avoid revenue, total users, sign-ups, downloads, or raw page views as the North Star?
 
-### 示例 2：用户建议虚荣指标
+### Acceptance test
 
-**上下文**：用户说“我们的北极星应该是注册用户总数。”
+**Can a reader understand within a minute which single metric defines success, and why it reflects user value?**
 
-**流程**：应用原则——总用户数是虚荣心，而不是持续的参与或行为。使用推导：用户 → 核心价值（例如“用户完成 X 件事”）→ 主要操作 → 可观察行为 → 指标。提出一种基于行为的替代方案（例如“完成至少一项核心操作的每周活跃用户”）并列出“总注册用户”作为反北极星示例。要求用户确认基于行为的 NSM 或细化。
+If no: the NSM is unclear or vanity. Re-derive it with the framework and the principles.
+If yes: the North Star is done. Move on to the handoff, or stop.
 
-**结果**：文档包括所选的 NSM 以及反例“注册用户总数 - 而非持续参与”；持久化完成。
+---
 
-### 示例 3：指标有度量局限
+## Examples
 
-**背景**：NSM 为「月度技能采纳量」，但依赖外部生态（如 skills.sh）的 API 开放，当前无法直接获取。
+### Example 1: from vision to North Star
 
-**流程**：推导出 NSM 后，验证原则均满足。新增「度量与局限」节，说明依赖 vercel-labs/skills#426 或类似能力落地；在此之前无法直接度量。可选补充组织内自建 registry（如 SkillReg、SkillHub）时的统计策略。用户确认后持久化。
+**Context**: the vision is "every team ships to production in 5 minutes with a single click." Target users: engineering teams. Core value: reliable, fast deployment.
 
-**结果**：文档含 NSM、推导、原则、度量与局限、反例；读者知晓指标定义正确但当前不可观测。
+**Process**: core value = successful, low-friction deployment. Primary action = completing a deployment. Observable behavior = the number of deployments that succeed within the time/simplicity bar. Metric: "weekly successful deployments (completed within 5 minutes of trigger)". Supporting: deployment frequency, rollback rate, deployment duration. Anti-examples: total users, revenue, page views. The user confirms. Write to `docs/project-overview/north-star.md`.
+
+**Result**: the North Star is persisted; hand off to `design-strategic-goals`.
+
+### Example 2: the user suggests a vanity metric
+
+**Context**: the user says "our North Star should be total registered users."
+
+**Process**: apply the principles — total users is vanity, not sustained engagement or behavior. Use the derivation: user → core value ("users get X done", say) → primary action → observable behavior → metric. Put forward a behavior-based alternative ("weekly active users who complete at least one core action", say) and list "total registered users" as an anti-North-Star example. Ask the user to confirm the behavior-based NSM, or to refine it.
+
+**Result**: the document holds the chosen NSM together with the anti-example "total registered users - not sustained engagement"; persistence complete.
+
+### Example 3: the metric has measurement limits
+
+**Context**: the NSM is "monthly skill adoption", but it depends on an external ecosystem (skills.sh, say) opening its API, and cannot currently be obtained directly.
+
+**Process**: after deriving the NSM, verify that every principle holds. Add a "Measurement and limits" section stating the dependency on vercel-labs/skills#426 or an equivalent capability landing; until then it cannot be measured directly. Optionally add the counting strategy for an in-house registry (SkillReg, SkillHub) inside the organization. Persist once the user confirms.
+
+**Result**: the document holds the NSM, the derivation, the principles, measurement and limits, and the anti-examples; the reader knows the metric is correctly defined but currently unobservable.
