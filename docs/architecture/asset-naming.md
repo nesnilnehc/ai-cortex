@@ -112,7 +112,7 @@ decontextualize-<noun>       如 decontextualize-text
 
 **命名公式**：**前缀 + 被约束对象**
 
-```python
+```text
 standards-<technology-or-domain>     技术规范（编码、Shell、import 等）
 workflow-<concern>                   工作流约束（文档、文档生命周期等）
 documentation-<aspect>               文档输出约束（如 markdown 格式）
