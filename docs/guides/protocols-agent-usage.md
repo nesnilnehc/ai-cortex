@@ -94,7 +94,7 @@ related: [./inp.md]
 
 Agent 应在以下情况自动加载相关协议：
 
-```yaml
+```text
 触发器 1：用户提及"通知"相关词汇
   → 自动加载 UNP + INP
 
@@ -385,7 +385,7 @@ jobs:
 
 ### 传统模式（不推荐）
 
-```yaml
+```text
 用户: "我该怎么用这个通知协议?"
 Agent: "请阅读 docs/guides/protocols-usage.md 第 4 节..."
 用户: 😞 （需要手动理解）
@@ -393,7 +393,7 @@ Agent: "请阅读 docs/guides/protocols-usage.md 第 4 节..."
 
 ### Agent 驱动模式（推荐）
 
-```yaml
+```text
 用户: "生成一个通知系统"
 Agent: ✅ 自动加载 UNP + INP
 Agent: ✅ 生成合规代码
@@ -403,7 +403,7 @@ Agent: ✅ 返回符合协议的实现
 
 ### 混合模式（最优）
 
-```yaml
+```text
 用户: "我想更深入理解通知协议"
 Agent:
   "你可以：
