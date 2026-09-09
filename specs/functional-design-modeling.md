@@ -18,29 +18,29 @@ related:
   - ../rules/functional-design-quality.md
 ---
 
-# 功能设计建模规范
+# Functional Design Modeling Schema
 
-> **Data contract**: 定义功能设计文档的字段结构与正文骨架
+> **Data contract**: defines the field structure and body skeleton of a functional design document
 
 ---
 
 ## 1. Position and scope
 
-功能设计文档（functional design document）面向业务 / 产品视角，回答"系统对用户呈现什么行为"——功能模块、业务流程、角色权限、业务对象状态、异常场景。它处在需求与技术设计之间：需求回答"做什么"，功能设计回答"对用户表现成什么样"，技术设计回答"工程上怎么实现"。
+A functional design document takes the business and product viewpoint and answers what behaviour the system presents to users: functional modules, business workflow, role permissions, business object states and exception scenarios. It sits between the requirement and the technical design. The requirement answers what to build, the functional design answers how it appears to users, and the technical design answers how it is engineered.
 
-本规范以业务行为为中心：不含架构、数据库、API 等工程实现细节（那些归技术设计）；业务规则不在此重新声明，而是用 `覆盖 R<n>` 引用上游需求已声明的规则 id。
+This spec is centred on business behaviour. It carries no architecture, database or API implementation detail — those belong to the technical design — and business rules are not restated here. They are cited from the upstream requirement by rule id, as `覆盖 R<n>`.
 
 In scope:
 
-- **新功能**：用户可见的功能模块、业务流程
-- **流程变更**：审批 / 订单 / 单据等业务流转的调整
-- **权限变更**：角色模型、菜单 / 操作 / 数据权限的调整
+- **New capability**: user-visible functional modules and business workflow
+- **Workflow change**: adjustments to how an approval, order or document flows
+- **Permission change**: adjustments to the role model, or to menu, operation and data permissions
 
 不In scope:
 
-- 纯技术工作（架构重构、依赖升级、基础设施改造）——由授权 ADR 直接派生技术设计，跳过本层
-- 工程实现方案（架构、数据库、接口）——归技术设计文档
-- 界面像素级视觉稿——归 UI 设计资产
+- Purely technical work such as architectural refactoring, dependency upgrades or infrastructure changes, which derives a technical design directly from an authorising ADR and skips this layer
+- The engineering solution — architecture, database, interfaces — which belongs to the technical design document
+- Pixel-level visual mockups, which belong to the UI design assets
 
 ---
 
@@ -50,10 +50,10 @@ In scope:
 YYYY-MM-DD-<topic>-functional-design.md
 ```
 
-- `<topic>`：所设计功能的简短描述（kebab-case）
-- `YYYY-MM-DD`：设计落地日期（快照制品需时间戳记录方案版本时刻）
-- 示例：`2026-05-20-order-refund-functional-design.md`
-- 存放位置由项目治理决定（典型：`docs/designs/`）
+- `<topic>`: a short description of the capability being designed, in kebab-case
+- `YYYY-MM-DD`: the date the design landed; a snapshot artifact needs a timestamp to record which moment the approach belongs to
+- Example: `2026-05-20-order-refund-functional-design.md`
+- Where it lives is decided by project governance; typically `docs/designs/`
 
 ---
 
@@ -66,8 +66,8 @@ lifecycle: snapshot
 created_at: YYYY-MM-DD
 parent: <path to upstream requirement document>
 status: draft | approved | superseded
-# 条件字段
-superseded_by: <path to new functional design>   # status: superseded 时必填
+# conditional field
+superseded_by: <path to new functional design>   # required when status is superseded
 ---
 ```
 
@@ -75,91 +75,91 @@ superseded_by: <path to new functional design>   # status: superseded 时必填
 
 | Field | Type | Required | Description |
 |---|---|---|---|
-| `artifact_type` | string | 必 | 固定 `functional-design` |
-| `lifecycle` | enum | 必 | 固定 `snapshot`（设计是时点决策） |
-| `created_at` | date | 必 | 设计完成日期 |
-| `parent` | path | 必 | 上游 requirement 文档路径（须 `approved` 状态） |
-| `status` | enum | 必 | `draft` / `approved` / `superseded`（语义见 §4.2） |
-| `superseded_by` | path | 条件 | `status: superseded` 时必填，指向继任功能设计路径 |
+| `artifact_type` | string | yes | Fixed as `functional-design` |
+| `lifecycle` | enum | yes | Fixed as `snapshot` — a design is a point-in-time decision |
+| `created_at` | date | yes | The date the design was completed |
+| `parent` | path | yes | Path to the upstream requirement document, which must be in `approved` status |
+| `status` | enum | yes | `draft` / `approved` / `superseded`; semantics in §4.2 |
+| `superseded_by` | path | conditional | Required when `status: superseded`, pointing at the successor functional design |
 
 ### 4.2 State machine semantics
 
 | Status | Meaning | Entry condition |
 |---|---|---|
-| `draft` | 草稿，尚在评审 | 功能设计首次落地 |
-| `approved` | 已批准，可派生技术设计 | 业务 / 产品评审通过，可作为技术设计的 `parent` |
-| `superseded` | 被新功能设计替代 | 新功能设计已落地并接管（需填 `superseded_by`） |
+| `draft` | A draft still under review | The functional design has just landed |
+| `approved` | Approved; a technical design may derive from it | Business and product review passed, so it can serve as a technical design's `parent` |
+| `superseded` | Replaced by a new functional design | The new design has landed and taken over; `superseded_by` must be filled in |
 
 ---
 
 ## 5. Body structure contract
 
-### 5.1 必填章节（6 节）
+### 5.1 The 6 required sections
 
-按 **What / How-结构 / How-行为 / Why / Verify** 五维 MECE 组织。每份功能设计文档必须包含以下 6 节：
+Organised MECE across five dimensions: **What / How-structure / How-behaviour / Why / Verify**. Every functional design document must contain these 6 sections:
 
-| # | 章节 | 维度 | 用途 | 校验 |
+| # | Section | Dimension | Purpose | Validation |
 |---|---|---|---|---|
-| 1 | 目标（Goal） | What | 陈述本设计要实现的业务能力与成功状态 | ≤ 200 字符；不含技术实现；与上游 requirement 目标一致 |
-| 2 | 功能模块与边界（Functional Modules & Boundaries） | How-结构 | 划分功能模块、各模块职责、明确范围内 / 外 | ≥ 1 模块；每模块含名称 + 职责 + 功能边界（做什么 / 不做什么）；模块职责不重叠 |
-| 3 | 业务流程（Business Workflow） | How-行为 | 完整业务从开始到结束的端到端流转 | ≥ 1 条主流程，含起点 / 终点 / 关键步骤 / 参与角色；用流程图表达；分支显式标注 |
-| 4 | 异常与边界场景（Exception & Edge Scenarios） | How-行为 | 业务异常分支与边界情况的预期行为 | ≥ 2 条；覆盖失败 / 撤回 / 超时 / 重复提交 / 并发中适用者；每条含触发条件 + 预期业务行为（非技术处理） |
-| 5 | 验收标准（Acceptance Criteria） | Verify | 业务层面可验证的完成条件 | ≥ 3 条；每条可追溯至上游 requirement 的某条 acceptance；无模糊形容词 |
-| 6 | 权衡与开放问题（Trade-offs & Open Questions） | Why | 业务方案的取舍与未决事项 | ≥ 1 组业务取舍含被拒方案的业务代价，或显式写"无重大业务取舍"；只记业务取舍，技术选型取舍归技术设计 |
+| 1 | Goal | What | States the business capability this design delivers and what success looks like | At most 200 characters; no implementation detail; agrees with the upstream requirement's objective |
+| 2 | Functional modules and boundaries | How-structure | Divides the capability into modules, states each one's responsibility, and marks what is in and out of scope | At least 1 module; each carries a name, a responsibility and a boundary — what it does and does not do; responsibilities do not overlap |
+| 3 | Business workflow | How-behaviour | The end-to-end flow of the business from start to finish | At least 1 main flow carrying its start, its end, key steps and the roles involved; expressed as a flowchart, with branches marked explicitly |
+| 4 | Exception and edge scenarios | How-behaviour | Expected behaviour on business exception branches and at the edges | At least 2, covering whichever of failure, withdrawal, timeout, duplicate submission and concurrency apply; each carries its trigger and the expected business behaviour, not the technical handling |
+| 5 | Acceptance criteria | Verify | Completion conditions verifiable at the business level | At least 3, each traceable to an acceptance item of the upstream requirement, with no vague adjectives |
+| 6 | Trade-offs and open questions | Why | The business trade-offs made and what remains undecided | At least 1 business trade-off stating the business cost of the rejected option, or an explicit statement that there were none. Business trade-offs only; technology-selection trade-offs belong to the technical design |
 
-### 5.2 可选章节
+### 5.2 Optional sections
 
-按场景需要添加。条件必备项满足触发条件时**升为必填**：
+Added as the situation requires. A conditionally required section **becomes required** once its trigger is met:
 
-| 章节 | 类型 | 触发场景 |
+| Section | Kind | Trigger |
 |---|---|---|
-| 业务对象状态（Business Object States） | 条件必备 | 业务对象（订单 / 任务 / 审批 / 单据等）有 ≥ 3 状态且转换由业务规则驱动——升为必填，用状态图 / 状态表声明 |
-| 角色与权限矩阵（Roles & Permission Matrix） | 条件必备 | 涉及 ≥ 2 个角色，或存在差异化的菜单 / 操作 / 数据权限——升为必填，用角色 × 权限矩阵声明 |
-| 范围定义（Scope） | 可选 | 跨系统 / 跨团队，业务边界易误读 |
-| UI 与交互流程（UI & Interaction Flow） | 可选 | 有面向用户的界面交互需描述 |
-| 关联文档（References） | 可选 | 引用上游 requirement / 法规 / 业务流程规范 |
+| Business object states | Conditionally required | A business object — an order, task, approval or document — has ≥ 3 states and its transitions are driven by business rules. It then becomes required, declared as a state diagram or state table |
+| Roles and permission matrix | Conditionally required | ≥ 2 roles are involved, or menu, operation or data permissions differ by role. It then becomes required, declared as a role-by-permission matrix |
+| Scope | Optional | It spans systems or teams and the business boundary is easily misread |
+| UI and interaction flow | Optional | There is user-facing interface interaction to describe |
+| References | Optional | It cites an upstream requirement, a regulation or a business process standard |
 
-### 5.3 格式细节
+### 5.3 Format detail
 
-#### 5.3.1 业务对象状态的声明形式（升为必填时）
+#### 5.3.1 How business object states are declared, once required
 
-- 用状态图或状态表声明，不写过程式步骤。
-- 每个状态含名称 + 进入条件；每条转换含触发事件 + 源状态 + 目标状态。
-- 覆盖终态（完成 / 取消 / 关闭）与异常态（超时 / 撤回）。
+- Declare them as a state diagram or a state table, not as procedural steps.
+- Each state carries a name and its entry condition; each transition carries its triggering event, source state and target state.
+- Cover the terminal states (completed, cancelled, closed) and the exception states (timeout, withdrawal).
 
-#### 5.3.2 权限矩阵的声明形式（升为必填时）
+#### 5.3.2 How the permission matrix is declared, once required
 
-- 行 = 角色，列 = 菜单权限 / 操作权限 / 数据权限三类。
-- 每个单元格明确"可 / 不可 / 条件可"；条件可须注明条件。
+- Rows are roles; columns are the three permission kinds — menu, operation and data.
+- Each cell states allowed, not allowed, or conditionally allowed; a conditional cell must state its condition.
 
-#### 5.3.3 业务规则的引用
+#### 5.3.3 Citing business rules
 
-业务规则归上游 requirement 声明。功能设计在业务流程与异常场景节用 `覆盖 R<n>` 回引规则 id，不在本文档重新声明，避免需求 / 功能设计 / 技术设计三处重复。
+Business rules are declared in the upstream requirement. In its workflow and exception sections, a functional design cites the rule id back as `覆盖 R<n>` rather than restating it, so the same rule is not maintained across requirement, functional design and technical design.
 
 ---
 
 ## 6. Anti-patterns
 
-- ❌ 缺 frontmatter 必填字段（artifact_type / lifecycle / created_at / parent / status）
-- ❌ 含架构 / 数据库 / API 等技术实现细节（归技术设计）
-- ❌ 功能模块用大段散文描述而非结构化职责 + 边界
-- ❌ 业务流程缺起点 / 终点或不画流程图
-- ❌ 异常与边界场景 < 2 条，或只列异常不写预期业务行为
-- ❌ 业务对象有 ≥ 3 状态却不画状态图（满足升必填条件但缺状态节）
-- ❌ 涉及多角色却无权限矩阵（满足升必填条件但缺权限节）
-- ❌ 在本文档重新声明业务规则而非用 `覆盖 R<n>` 引用上游需求
-- ❌ 验收标准 < 3 条，或无法追溯至上游 requirement
-- ❌ 权衡分析混入技术选型取舍（应归技术设计）
-- ❌ 无 `parent` frontmatter（孤立设计，无可追溯性）
-- ❌ `superseded` 状态未填 `superseded_by`
+- ❌ A missing required frontmatter field (artifact_type / lifecycle / created_at / parent / status)
+- ❌ Architecture, database or API implementation detail, which belongs to the technical design
+- ❌ Functional modules described in long prose instead of structured responsibility plus boundary
+- ❌ A workflow missing its start or end, or with no flowchart
+- ❌ Fewer than 2 exception or edge scenarios, or listing the exception without the expected business behaviour
+- ❌ A business object with ≥ 3 states and no state diagram — the trigger is met but the section is missing
+- ❌ Several roles involved and no permission matrix — the trigger is met but the section is missing
+- ❌ Restating a business rule here instead of citing the upstream requirement as `覆盖 R<n>`
+- ❌ Fewer than 3 acceptance criteria, or criteria that cannot be traced to the upstream requirement
+- ❌ Trade-off analysis mixed with technology-selection trade-offs, which belong to the technical design
+- ❌ No `parent` frontmatter — an orphaned design with no traceability
+- ❌ A `superseded` status with no `superseded_by`
 
 ---
 
 ## 7. Examples
 
-### 7.1 紧凑骨架示例：订单退款审批功能设计
+### 7.1 A compact skeleton: order refund approval
 
-每节用 1-3 句展示骨架，实际功能设计每节应展开为完整内容。
+Each section shows the skeleton in 1-3 sentences; a real functional design expands each into full content.
 
 ````markdown
 ---
@@ -225,8 +225,8 @@ status: approved
 
 ## 8. Relationship to other assets
 
-- **配套 rule**：[rules/functional-design-quality.md](../rules/functional-design-quality.md)——功能设计质量评审清单（5 维：完整性 / 可执行性 / 清晰性 / 合理性 / 可追溯性）
-- **上游 spec**：[requirement-modeling.md](./requirement-modeling.md)——功能设计的 `parent` 必须指向 `approved` 状态的 requirement；业务规则在需求侧声明，本层引用其 id
-- **下游 spec**：[technical-design-modeling.md](./technical-design-modeling.md)——`approved` 状态的功能设计才能派生技术设计；技术设计的 `parent` 指向功能设计
-- **相关行业标准**：IEEE 1016（Software Design Description）、BPMN（业务流程建模）、UML 状态图、RBAC（角色权限模型）
-- **递归基础**：本 spec 自身遵循 [spec-modeling.md](./spec-modeling.md) v2.0.0 的 8 节骨架；跳过 §2 心智模型（功能设计的必答维度已落在 §5.1 的 6 节 MECE 结构中）
+- **Paired rule**: [rules/functional-design-quality.md](../rules/functional-design-quality.md) — the functional design quality review checklist across 5 dimensions: completeness, executability, clarity, soundness, traceability
+- **Upstream spec**: [requirement-modeling.md](./requirement-modeling.md) — a functional design's `parent` must point at a requirement in `approved` status; business rules are declared on the requirement side and cited here by id
+- **Downstream spec**: [technical-design-modeling.md](./technical-design-modeling.md) — only a functional design in `approved` status can derive a technical design, whose `parent` points back at it
+- **Related industry standards**: IEEE 1016 (Software Design Description), BPMN, UML state diagrams, and RBAC
+- **Recursive basis**: this spec itself follows the 8-section skeleton of [spec-modeling.md](./spec-modeling.md) v2.0.0, skipping §2 mental model — the dimensions a functional design must answer are already carried by the 6-section MECE structure in §5.1
