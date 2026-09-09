@@ -187,7 +187,7 @@ User: "run the tests for this repository."
 
 Agent:
 
-1. Check the `package.json` scripts and `.github/Workflows/*`.
+1. Check the `package.json` scripts and `.github/workflows/*`.
 2. Settle on `fast` mode and propose:
    - `npm test` (or `pnpm test` / `yarn test` if the repository standardizes on one)
 3.Ask: "install dependencies (`npm ci`) and allow network access?"

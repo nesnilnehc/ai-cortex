@@ -191,7 +191,7 @@ If yes: the vision is done. Continue to the handoff, or stop.
 
 **Context**: the mission reads "We exist to give engineering teams one reliable way to take a service from code to production." The user asks for a vision.
 
-**Flow**: elicit the 2–5 year aim, such as "every team ships to production in 5 minutes with a single click, with full audit and rollback." Draft the vision; check that it supports the mission. The user confirms. Write to `docs/project-overview/vision.md`.
+**Flow**: elicit the 2–5 year aim, such as "every team ships to production in under 5 minutes with a single click, with full audit and rollback." Draft the vision; check that it supports the mission. The user confirms. Write to `docs/project-overview/vision.md`.
 
 **Result**: the vision is persisted; hand off to `define-north-star` (for instance "successful deployments per week within 5 minutes") or `design-strategic-goals`.
 

@@ -173,4 +173,4 @@ Does the output contain a React-centered findings list with component/file refer
 ### Edge case: class components in a modern codebase
 
 - **Input**: legacy class components in a codebase that otherwise uses function components and hooks.
-- **Expected**: raise the suggestion of migrating to function components with hooks where that is practical; check the class components for lifecycle correctness (componentDidMount, componentWillUnmount cleanup). Note that for stable, well-tested components migration is a suggestion, not always warranted.
+- **Expected**: raise the suggestion of migrating to function components with hooks where that is practical; check the class components for lifecycle correctness (componentDidMount, componentWillUnmount cleanup). Note that for stable, well-tested components migration is recommended but not always required.

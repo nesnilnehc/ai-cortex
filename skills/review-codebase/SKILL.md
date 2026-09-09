@@ -64,7 +64,7 @@ Run a scope-only atomic review of the **current state** of a **given path** (a s
 - **New module review**: given `src/auth/`, look at the current structure and dependencies
 - **Legacy path audit**: given a path, look at tech debt and boundary problems
 - **Sampled review**: a file or directory a colleague names, with no diff needed
-- **As the scope step of orchestrate-code-review**: one of the two, alongside `review-diff`
+- **As the scope step of orchestrate-code-review**: this one or `review-diff`, never both
 
 ---
 
@@ -161,7 +161,7 @@ When the analysis turns up a concrete security / performance / architecture / la
 ### Example 2: a single file
 
 - Input: `pkg/validator/validator.go`
-- Output: findings on module responsibility / interface clarity / test coverage / dependencies on upstream modules
+- Output: findings on module responsibility / interface clarity / test coverage / dependencies on upstream modules, and so on
 
 ### Example 3: the whole repository (large scope)
 

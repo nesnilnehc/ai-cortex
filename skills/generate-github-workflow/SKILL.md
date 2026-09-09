@@ -21,7 +21,7 @@ output_schema:
 
 ## Purpose
 
-Generate **GitHub Actions workflow files** for software projects of every kind, satisfying this skill's **Appendix A: Workflow Output Contract**. Standardized structure, triggers, and security lower the cost of setting up CI/CD and raise maintainability and auditability, while avoiding the common security and permission problems. This skill produces workflow YAML only; it has nothing to do with the documentation or rules skills. If the user later needs a README or AGENTS.md update, invoke those skills separately.
+Generate **GitHub Actions workflow files** for software projects of every kind, satisfying this skill's **Appendix A: Workflow Output Contract**. Standardized structure, triggers, and security lower the cost of setting up CI/CD and raise maintainability and auditability, while avoiding the common security and permission problems. This skill produces workflow YAML only; it does not chain to the documentation or rule skills. If the user later needs a README or AGENTS.md update, invoke those skills separately.
 
 ---
 
@@ -31,11 +31,11 @@ Generate **GitHub Actions workflow files** for software projects of every kind, 
 
 **Success criteria** (all requirements must be met):
 
-1. ✅ **Appendix A satisfied**: the output meets every mandatory structural and security requirement in Appendix A (name, jobs, runs-on, steps, pinned actions, no hard-coded secrets)
-2. ✅ **Narrow triggers**: the `on` block is scoped to specific branches/paths/tags - no bare `on: Push` without a filter
+1. ✅ **Appendix A satisfied**: the output meets every mandatory structural and security requirement in Appendix A (name, on, jobs, runs-on, steps, pinned actions, no hard-coded secrets)
+2. ✅ **Narrow triggers**: the `on` block is scoped to specific branches/paths/tags - no bare `on: push` without a filter
 3. ✅ **Least privilege**: `permissions` is set at workflow or job level to the least the scenario type needs (CI: `contents: read`; release: `contents: write`, `packages: write`)
 4. ✅ **Stack aligned**: runner, language version, package manager, and commands match the stack the user named
-5. ✅ **User confirmation before writing**: the required notes and placeholders are listed, and the user's confirmation is obtained before writing to `.github/Workflows/`
+5. ✅ **User confirmation before writing**: the required notes and placeholders are listed, and the user's confirmation is obtained before writing to `.github/workflows/`
 
 **Acceptance** test: once the user replaces the placeholders, can the workflow run in the target repository with no further modification beyond secret names and environment-specific values?
 
@@ -88,7 +88,7 @@ Generate **GitHub Actions workflow files** for software projects of every kind, 
 
 ### Tone and style
 
-- Use objective technical language; keep workflow and step `name` values short and easy to read in an operations log.
+- Use objective technical language; keep workflow and step `name` values short and readable for the Actions log.
 - Match the project stack: pick the runner, package manager, and build commands by project type (Node/Python/Go/Rust) and existing convention; where the project already has workflows, align naming and style with them.
 
 ### Input-driven
@@ -111,7 +111,7 @@ Generate **GitHub Actions workflow files** for software projects of every kind, 
 - **Scenario**: the purpose (CI, PR check, release, schedule, matrix).
 - **Stack**: language and version (e.g. Node 20, Python 3.11, Go 1.21), package manager (npm/pnpm/yarn, pip, cargo), test/build/release commands.
 - **Triggers**: branches (e.g. `main`, `develop`), path filters, an optional `workflow_dispatch`.
-- **Target path**: where the file is written, defaulting to `.github/Workflows/` under the project root; for several workflows, name each file (e.g. `ci.yml`, `release.yml`).
+- **Target path**: where the file is written, defaulting to `.github/workflows/` under the project root; for several workflows, name each file (e.g. `ci.yml`, `release.yml`).
 
 ### Output
 
@@ -151,11 +151,11 @@ Generate **GitHub Actions workflow files** for software projects of every kind, 
 
 ### Core success criteria
 
-- [ ] **Appendix A satisfied**: the output meets every mandatory structural and security requirement in Appendix A (name, jobs, runs-on, steps, pinned actions, no hard-coded secrets)
-- [ ] **Narrow triggers**: the `on` block is scoped to specific branches/paths/tags - no bare `on：push` without a filter
+- [ ] **Appendix A satisfied**: the output meets every mandatory structural and security requirement in Appendix A (name, on, jobs, runs-on, steps, pinned actions, no hard-coded secrets)
+- [ ] **Narrow triggers**: the `on` block is scoped to specific branches/paths/tags - no bare `on: push` without a filter
 - [ ] **Least privilege**: `permissions` is set at workflow or job level to the least the scenario type needs
 - [ ] **Stack aligned**: runner, language version, package manager, and commands match the stack the user named
-- [ ] **User confirmation before writing**: the required notes and placeholders are listed, and the user's confirmation is obtained before writing to `.github/Workflows/`
+- [ ] **User confirmation before writing**: the required notes and placeholders are listed, and the user's confirmation is obtained before writing to `.github/workflows/`
 
 ### Process quality checks
 
@@ -190,7 +190,7 @@ Once the user replaces the placeholders, can the workflow run in the target repo
 
 **Input**: scenario: CD/release. Stack: Go, multi-architecture Docker (amd64/arm64), GoReleaser for the image and the GitHub Release. Trigger: `push` on `v*` tags only. File: `release.yml`.
 
-**Expected**: `on:push:tags:['v*']`; `permissions` including `contents: write` and `packages: write`. Steps: checkout (`fetch-depth: 0`) → set up Go (`go-version-file：go.mod`, cached) → set up QEMU (`linux/amd64`, `linux/arm64`) → set up Docker Buildx (`id：buildx`, same platforms) → log in to GHCR (`docker/login-action`, `ghcr.io`) → GoReleaser (`goreleaser/goreleaser-action` pinned, pass `GITHUB_TOKEN` and `BUILDX_BUILDER: ${{ steps.buildx.outputs.name }}`). Do not reimplement the logic defined in `.goreleaser.yaml`/Dockerfile. **See Appendix B**.
+**Expected**: `on:push:tags:['v*']`; `permissions` including `contents: write` and `packages: write`. Steps: checkout (`fetch-depth: 0`) → set up Go (`go-version-file: go.mod`, cached) → set up QEMU (`linux/amd64`, `linux/arm64`) → set up Docker Buildx (`id: buildx`, same platforms) → log in to GHCR (`docker/login-action`, `ghcr.io`) → GoReleaser (`goreleaser/goreleaser-action` pinned, pass `GITHUB_TOKEN` and `BUILDX_BUILDER: ${{ steps.buildx.outputs.name }}`). Do not reimplement the logic defined in `.goreleaser.yaml`/Dockerfile. **See Appendix B**.
 
 ### Example 4 (edge): minimal information
 

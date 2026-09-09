@@ -21,7 +21,7 @@ output_schema:
 
 ## Purpose
 
-Review only the **framework conventions** of **Vue 3** code. Do not define the scope (diff vs codebase) and do not run security/architecture analysis; the scope and cognitive skills handle those. Emit a **findings list** in the standard format for aggregation. Concentrate on the Composition API and `<script setup>`, reactivity (ref/reactive, computed/watch), component boundaries and props/emits, state (Pinia/store), routing and guards, performance (v-memo, for example) and the accessibility that goes with them.
+Review only the **framework conventions** of **Vue 3** code. Do not define the scope (diff vs codebase) and do not run security/architecture analysis; the scope and cognitive skills handle those. Emit a **findings list** in the standard format for aggregation. Concentrate on the Composition API and `<script setup>`, reactivity (ref/reactive, computed/watch), component boundaries and props/emits, state (Pinia/store), routing and guards, performance (v-memo, for example) and accessibility where relevant.
 
 ---
 

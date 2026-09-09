@@ -88,7 +88,7 @@ Review code for **performance** issues only. Do not define scope (diff vs codeba
 
 1. **Complexity hotspots**: detect unnecessary O(n^2)+ behavior, repeated scans, nested loops over large collections, and avoidable recomputation.
 2. **Database and query efficiency**: N+1 access patterns, missing pagination, wide selects, inefficient joins/filters, and query frequency amplification.
-3. **I/O and network cost**: frequent remote calls, missing batching, blocking calls on the critical path, unbounded retries/timeouts, and poor backoff behavior.
+3. **I/O and network cost**: chatty remote calls, missing batching, blocking calls on the critical path, unbounded retries/timeouts, and poor backoff behavior.
 4. **Memory and allocation**: excessive allocation/churn, large object retention, unnecessary copies, unbounded growth, and avoidable buffering.
 5. **Concurrency and contention**: lock contention, serialized critical sections, thread/goroutine starvation, queue backpressure, and oversubscription risk.
 6. **Caching and reuse**: missed caching opportunities on hot read paths, invalidation correctness risk, stampede risk, and low-value cache layers.

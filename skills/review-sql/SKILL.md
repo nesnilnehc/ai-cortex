@@ -125,7 +125,7 @@ Review **SQL** and query-related code for **language and query conventions** onl
 - Do NOT select or define the code scope — scope is determined by the caller or `orchestrate-code-review`
 - Do NOT perform broad security analysis beyond SQL injection — use `review-security`
 - Do NOT perform architecture analysis — use `review-architecture`
-- Do NOT review non-SQL code for SQL conventions (SQL injection in application code is flagged by `review-security`)
+- Do NOT review non-SQL code for SQL conventions (SQL injection in application code should be flagged by `review-security`)
 
 **When to stop and hand off**:
 

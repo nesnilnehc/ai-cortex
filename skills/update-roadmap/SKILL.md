@@ -96,7 +96,7 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 4. **Handling a date shift**:
    - Ask for the reason for the shift (scope change / dependency slip / resource change / other)
    - **Compute the downstream impact**: read each item's `depends_on`, find the items that carry this one as a prerequisite, and list their affected dates one by one
-   - **Flag hard-deadline breaches**: items that cross a compliance, commitment, or external-constraint deadline after the shift are marked in red on their own
+   - **Flag hard-deadline breaches**: items that cross a compliance, commitment, external-constraint or similar hard deadline after the shift are marked in red on their own
    - With the dependency data missing (`map-item-dependencies` was never run), state outright "downstream impact not computed, dependency data missing"; do not pretend the analysis happened
 5. **Present the change list**: changed items + reasons + downstream impact + deadline breaches, then ask the user to confirm.
 6. **Persist to both places**: roadmap.md and the item frontmatter are updated together, leaving nothing one-sided.

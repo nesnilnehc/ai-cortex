@@ -67,7 +67,7 @@ Evaluate an **existing requirements document** against defined quality criteria.
 
 - **Pre-design gate**: validate the requirements document before handing off to `design-solution`.
 - **Collaborative review**: one team member writes the requirements; another runs this skill to assess quality.
-- **Imported requirements**: the requirements were written outside this workflow (Confluence, Notion, Jira); a quality assessment is needed before they are used.
+- **Imported requirements**: the requirements were written outside this workflow (e.g. Confluence, Notion, Jira); a quality assessment is needed before they are used.
 - **Post-`analyze-requirements` validation**: run after `analyze-requirements` as an independent check that all success criteria are met.
 
 ---
@@ -105,7 +105,7 @@ For each dimension, scan the whole document and emit a finding for every violati
    - Is a walking skeleton or minimal viable version described?
 
 5. **Requirement IDs**
-   - Does every requirement carry a unique ID in the form "R-NN" (R-01, R-02)?
+   - Does every requirement carry a unique ID in the form "R-NN" (e.g. R-01, R-02)?
    - Are the IDs sequential, with no gaps or duplicates?
    - Do all cross-references in the document use the ID rather than a free-text description?
 

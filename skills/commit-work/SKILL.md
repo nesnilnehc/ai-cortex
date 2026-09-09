@@ -37,7 +37,7 @@ The local copy is installed and updated by AI Cortex; the verifiable upstream, p
 
 1. ✅ **Changes reviewed**: `git diff` before staging, `git diff --cached` before every commit
 2. ✅ **Logical scope**: each commit contains related changes only; unrelated changes go into separate commits
-3. ✅ **Conventional Commits format**: every commit message follows the `type(scope):summary` format, with a clear body
+3. ✅ **Conventional Commits format**: every commit message follows the `type(scope): summary` format, with a clear body
 4. ✅ **Quality verified**: the appropriate test, lint, or build command was run and every check passed
 5. ✅ **No sensitive data**: no secrets, tokens, debug code, or accidental changes are included
 6. ✅ **INDEX synced** (AI Cortex projects): the matching INDEX.md is updated whenever a skill / rule / spec / protocol changes
@@ -101,7 +101,7 @@ If `CLAUDE.md` or `.ai-cortex/config.yaml` exists, prefer the `test_command` rec
 
 4) **Stage only what belongs in the next commit**
    - For mixed changes, prefer hunk staging: `git add -p`
-   - To unstage a hunk/file: `git restore --staged -p` or `git Restore --staged <path>`
+   - To unstage a hunk/file: `git restore --staged -p` or `git restore --staged <path>`
    - Stage related changes together
 
 5) **Review what will actually be committed**

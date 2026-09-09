@@ -138,7 +138,7 @@ User override: if the user names a path or a strategy, follow it. Otherwise use 
 ### Hard Boundaries
 
 - **Overwrite by default, but it must stay auditable**: the default strategy overwrites the source `SKILL.md` directly, but the frontmatter `version` must be updated in step and the output carries a complete change summary, which is what keeps it auditable.
-- **Respect an explicit "draft mode" request**: where the user explicitly asks "do not modify the original" or "only produce a refined draft", the source `SKILL.md` must not be overwritten; write only to a temporary or new refined file.
+- **Respect an explicit "draft mode" request**: where the user explicitly asks "do not modify the original", "only produce a refined draft" or the like, the source `SKILL.md` must not be overwritten; write only to a temporary or new refined file.
 - **Do not change the intent**: the optimisation must preserve the skill's core purpose.
 - **Do not dress a split suggestion up as done**: if only the Skill's reference changed and no Spec / Protocol / Rule was actually created, the output must say "split suggested" and must not claim the asset already exists.
 - **Do not route around the local contract**: in a repository that forbids external fetching by default, an external URL must not be written in as a source that execution depends on; it serves only as a reference source where conditions allow.
