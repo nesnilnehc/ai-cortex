@@ -16,217 +16,217 @@ related:
   - ./cross-team-contract.md
 ---
 
-# NATS 消息规范
+# NATS Messaging Schema
 
-> **Data contract**: 定义跨项目 NATS 消息的 subject、headers、payload 与版本演化契约
+> **Data contract**: defines the subject, headers, payload and version evolution contract for NATS messages exchanged between projects
 
 ---
 
 ## 1. Position and scope
 
-本规范定义跨独立 repo / team / service 通过 NATS 共享 broker 交换的消息应如何组织——subject 怎么命名、headers 必须含哪些字段、消息 ID 怎么发、payload 怎么写、版本怎么演化。
+This spec defines how messages exchanged over a shared NATS broker between independent repos / teams / services must be organised: how a subject is named, which fields the headers must carry, how a message ID is issued, how a payload is written, and how versions evolve.
 
 In scope:
 
-- 两个或更多独立演进的项目通过 NATS broker 交换消息
-- 单一项目对外发布事件让上游/下游团队消费
-- 多团队共享 broker、subject 域跨团队治理
+- Two or more independently evolving projects exchanging messages over a NATS broker
+- A single project publishing events for upstream / downstream teams to consume
+- Several teams sharing a broker, with subject domains governed across teams
 
-不In scope:
+Out of scope:
 
-- 同团队、同发布周期的内部模块间消息（无需跨团队对齐成本）
-- broker 自身行为（NATS protocol、JetStream 内部机制——以 <https://docs.nats.io> 为权威）
-- 消息生产/消费的代码实现细节（这是应用层职责，本 spec 只规定线上契约）
+- Messaging between internal modules of the same team on the same release cycle (no cross-team alignment cost to pay)
+- Broker behaviour itself (the NATS protocol and JetStream internals — <https://docs.nats.io> is authoritative)
+- Code-level details of producing and consuming messages (an application-layer responsibility; this spec fixes only the on-the-wire contract)
 
-本 spec 是 [cross-team-contract.md](./cross-team-contract.md) 的 NATS 特化模板——通用契约文档骨架（命名后缀、`contract_version`、CHANGELOG、扁平布局）由 cross-team-contract 承接，本 spec 只补 NATS 特有的 subject/headers/payload 细节。
+This spec is the NATS specialisation of [cross-team-contract.md](./cross-team-contract.md)  — the generic contract-document skeleton (naming suffix, `contract_version`, CHANGELOG, flat layout) is carried by cross-team-contract, and this spec adds only the NATS-specific subject / headers / payload detail.
 
-实际消息收发动作由配套 Skill 通过 NATS MCP server 完成：
+The actual send and receive actions are carried out by the companion Skills through the NATS MCP server:
 
-- [publish-nats-message](../skills/publish-nats-message/SKILL.md) — 生产侧
-- [consume-nats-message](../skills/consume-nats-message/SKILL.md) — 消费侧
+- [publish-nats-message](../skills/publish-nats-message/SKILL.md) — the producer side
+- [consume-nats-message](../skills/consume-nats-message/SKILL.md) — the consumer side
 
 ---
 
-## 2. 命名约定
+## 2. Naming
 
-### 2.1 Subject 公式
+### 2.1 Subject formula
 
 ```text
 <domain>.<event>[.<version>]
 ```
 
-- **事件中心命名**，不按发起方/团队前缀
-- `<domain>`：业务域名（如 `clarification` / `orders` / `inventory`）
-- `<event>`：事件类型（动词过去式 / 名词，如 `created` / `session.requested` / `stock.depleted`）
-- `<version>`：可选 MAJOR 版本（如 `v1`、`v2`）；MAJOR breaking 时引入新 subject 而非改旧 subject 语义
+- **Event-centric naming**; never prefixed by originator or team
+- `<domain>`: the business domain (for example `clarification` / `orders` / `inventory`)
+- `<event>`: the event type (past-tense verb or noun, for example `created` / `session.requested` / `stock.depleted`)
+- `<version>`: the optional MAJOR version (for example `v1`, `v2`); a breaking MAJOR introduces a new subject instead of changing the meaning of the old one
 
-### 2.2 多租户例外
+### 2.2 Multi-tenant exception
 
-需要按 producer 做 ACL / retention 分治理（≥3 团队 / 多租户 SaaS）时允许：
+Permitted when ACL and retention must be governed per producer (≥3 teams, or multi-tenant SaaS):
 
 ```text
 <tenant>.<domain>.<event>
 ```
 
-**前提**：前缀语义须在契约的「Subject 命名」节显式声明，不允许隐含推断。
+**Precondition**: the meaning of the prefix must be declared explicitly in the contract's "Subject naming" section; implicit inference is not allowed.
 
-### 2.3 契约文件命名
+### 2.3 Contract file naming
 
-每个 subject 对应一份契约文件，遵循 [cross-team-contract.md §2](./cross-team-contract.md#2-命名约定) 的 `-contract.md` 后缀：
+Each subject has one contract file, following the `-contract.md` suffix set by [cross-team-contract.md §2](./cross-team-contract.md#2-命名约定):
 
 ```text
 <event>-contract.md
 ```
 
-例：`clarification-session-requested-contract.md`、`orders-created-contract.md`。
+Examples: `clarification-session-requested-contract.md`, `orders-created-contract.md`.
 
 ---
 
 ## 5. Body structure contract
 
-跨团队 NATS 消息由三个层次组成：消息 ID（idempotency anchor）、Headers（元信息）、Payload（业务数据）。本节定义每层的结构契约，以及版本演化与内嵌校验规则。
+A cross-team NATS message has three layers: the message ID (the idempotency anchor), the headers (metadata) and the payload (business data). This section defines the structural contract of each layer, together with version evolution and the embedded validation rules.
 
-### 5.1 消息 ID 契约
+### 5.1 Message ID contract
 
-跨团队消息 ID 必须全局唯一，并充当 idempotency key：
+A cross-team message ID must be globally unique and doubles as the idempotency key:
 
-| 项 | 约束 |
+| Item | Constraint |
 |---|---|
-| ID 格式 | UUID v7（推荐，自带时间序）/ ULID / Snowflake；可加语义前缀（`req-clarify-01HXXX...`） |
-| 承载位置 | NATS Header `Nats-Msg-Id`（JetStream 据此做 `duplicate_window` 去重） |
-| 续号 | ❌ 严格禁止（`msg-1` / `REQ-001` / `evt-0042`）——分布式竞态 + retention 截断后无法续号 |
-| 重试 | 同一逻辑消息重发**必须复用同一 ID**（idempotency 前提） |
+| ID format | UUID v7 (recommended, time-ordered by construction) / ULID / Snowflake; a semantic prefix may be added (`req-clarify-01HXXX...`) |
+| Carried in | The NATS header `Nats-Msg-Id` (JetStream deduplicates on it within `duplicate_window`) |
+| Sequential numbering | ❌ Strictly forbidden (`msg-1` / `REQ-001` / `evt-0042`) — distributed races, and the sequence cannot be resumed once retention truncates it |
+| Retry | Resending the same logical message **must reuse the same ID** (the premise of idempotency) |
 
-Consumer 凭 `Nats-Msg-Id` 做应用层去重（维护 TTL ≥ 重试窗口的已处理 ID 集合）。
+The consumer deduplicates at the application layer on `Nats-Msg-Id`, keeping a processed-ID set whose TTL ≥ the retry window.
 
-### 5.2 Headers 契约
+### 5.2 Headers contract
 
-跨团队消息的元信息一律走 NATS Headers，不嵌进 payload JSON envelope。
+Metadata for a cross-team message always travels in NATS headers, and is never embedded in a payload JSON envelope.
 
-#### 5.2.1 字段表
+#### 5.2.1 Field table
 
-| Header | 必填 | 类型 | 说明 |
+| Header | Required | Type | Description |
 |---|---|---|---|
-| `Nats-Msg-Id` | 必 | string | 消息 ID，UUID v7 / ULID（见 §5.1） |
-| `X-Source` | 必 | string | Producer 服务名 / URI（如 `urn:recloud:agentfabric`），描述发起方 |
-| `X-Type` | 必 | string | 事件类型字符串，与 subject 末段对齐（如 `clarification.session.requested`） |
-| `Traceparent` | 推荐 | string | W3C Trace Context（`00-{traceId}-{spanId}-{flags}`），OTel 标准 |
-| `X-Correlation-Id` | 条件必填 | string | 请求-响应 / 多轮会话场景必填，指向原请求的 `Nats-Msg-Id` |
-| `X-Schema-Url` | 推荐 | string | payload schema 注册表 URL，consumer 可据此动态校验 |
+| `Nats-Msg-Id` | Yes | string | The message ID, UUID v7 / ULID (see §5.1) |
+| `X-Source` | Yes | string | Producer service name / URI (for example `urn:recloud:agentfabric`), identifying the originator |
+| `X-Type` | Yes | string | The event type string, aligned with the trailing segment of the subject (for example `clarification.session.requested`) |
+| `Traceparent` | Recommended | string | W3C Trace Context (`00-{traceId}-{spanId}-{flags}`), the OTel standard |
+| `X-Correlation-Id` | Conditionally required | string | Required for request-response and multi-turn session scenarios; points at the original request's `Nats-Msg-Id` |
+| `X-Schema-Url` | Recommended | string | The payload schema registry URL; a consumer can validate against it dynamically |
 
-#### 5.2.2 禁止字段
+#### 5.2.2 Forbidden fields
 
-- ❌ 自创 `in_reply_to` / `messageId` / `correlationid`（混淆 OTel 标准）—— 用 `X-Correlation-Id` + `Traceparent`
-- ❌ 把 producer 标识塞进 subject 前缀 —— 用 `X-Source` header
-- ❌ JSON envelope 嵌 `id` / `source` / `type` / `time` 字段 —— 这些信息属 headers 层
+- ❌ Inventing `in_reply_to` / `messageId` / `correlationid` (which muddles the OTel standard) — use `X-Correlation-Id` + `Traceparent`
+- ❌ Stuffing the producer identity into the subject prefix — use the `X-Source` header
+- ❌ Embedding `id` / `source` / `type` / `time` fields in a JSON envelope — that information belongs to the headers layer
 
-### 5.3 Payload 约定
+### 5.3 Payload conventions
 
-#### 5.3.1 序列化
+#### 5.3.1 Serialisation
 
-- 必须结构化（JSON / Protobuf / MsgPack），**禁止裸字符串 / 二进制流**（除非走 JetStream Object Store 的对象引用）
-- 默认 JSON；其他格式须在契约的「序列化」节显式声明
-- 用 **binary mode**：headers 承载元信息，body 承载业务 payload；**不强制** CloudEvents structured mode（NATS Headers 已是更原生的元信息通道）
+- Must be structured (JSON / Protobuf / MsgPack); **a bare string or binary stream is forbidden** unless it is an object reference into the JetStream Object Store
+- JSON by default; any other format must be declared explicitly in the contract's "Serialisation" section
+- Use **binary mode**: headers carry the metadata, the body carries the business payload; CloudEvents structured mode is **not mandatory** (NATS headers are already the more native metadata channel)
 
 #### 5.3.2 Tolerant Reader
 
-Consumer 必须：
+A consumer must:
 
-- 忽略未知字段（向前兼容 producer 新增）
-- 忽略未知枚举值并走 fallback 分支（不抛错退出）
-- 不依赖字段顺序
+- Ignore unknown fields (forward compatibility with producer additions)
+- Ignore unknown enum values and take the fallback branch, rather than throwing and exiting
+- Not depend on field order
 
-#### 5.3.3 业务字段表
+#### 5.3.3 Business field table
 
-每份契约的字段表须含：字段名 / 类型 / 必填性 / 取值约束 / 默认值（如适用）。具体字段由各契约自行定义，本 spec 不规定业务字段。
+Every contract's field table must carry: field name / type / whether required / value constraints / default value where applicable. The concrete fields are defined by each contract; this spec prescribes no business fields.
 
-### 5.4 版本演化
+### 5.4 Version evolution
 
-| 变更 | 版本号 | 实现方式 |
+| Change | Version | How it is done |
 |---|---|---|
-| MAJOR（breaking） | 新 subject | 引入 `<domain>.<event>.v2` 等新 subject；旧 subject 保留至所有 consumer 切换完毕 |
-| MINOR（兼容新增） | `contract_version` MINOR bump | 同一 subject，新增可选字段 / 枚举值；consumer 按 Tolerant Reader 兼容 |
-| PATCH（文档修订） | `contract_version` PATCH bump | 注释更正、错别字、示例补充；不影响线上行为 |
+| MAJOR (breaking) | New subject | Introduce a new subject such as `<domain>.<event>.v2`; keep the old subject until every consumer has switched over |
+| MINOR (compatible addition) | `contract_version` MINOR bump | Same subject, with new optional fields or enum values; consumers stay compatible through Tolerant Reader |
+| PATCH (documentation revision) | `contract_version` PATCH bump | Comment corrections, typos, added examples; no effect on on-the-wire behaviour |
 
-`contract_version` 与 CHANGELOG 由 [cross-team-contract.md §4-§5](./cross-team-contract.md#4-frontmatter-契约) 承接，本 spec 不重复定义。
+`contract_version` and the CHANGELOG are carried by [cross-team-contract.md §4-§5](./cross-team-contract.md#4-frontmatter-契约); this spec does not redefine them.
 
-### 5.5 内嵌校验规则
+### 5.5 Embedded validation rules
 
-以下行为约束嵌入本 spec（terminology §四允许 Spec 内嵌 Rule）——它们是结构契约成立的前提，不是独立 rule。
+The behavioural constraints below are embedded in this spec (terminology's section on what may and may not be embedded permits a Spec to embed Rules) — they are preconditions for the structural contract to hold, not standalone rules.
 
-#### 5.5.1 QoS 默认
+#### 5.5.1 QoS defaults
 
-- 跨团队消息**默认 at-least-once**，必须 JetStream durable consumer
-- 降级 at-most-once 须在契约的「QoS」节显式声明，并说明可丢失场景
-- exactly-once 要求 producer 端 `Nats-Msg-Id` + JetStream `duplicate_window` + consumer 端幂等处理三者齐备
+- Cross-team messages are **at-least-once by default** and must use a JetStream durable consumer
+- Downgrading to at-most-once must be declared explicitly in the contract's "QoS" section, along with the scenarios in which messages may be lost
+- exactly-once requires all three of `Nats-Msg-Id` on the producer side, JetStream `duplicate_window`, and idempotent handling on the consumer side
 
-#### 5.5.2 资源治理
+#### 5.5.2 Resource governance
 
-- Stream / Consumer / KV / Object Store **由 IaC 管理**（Terraform / NATS Operator / CI 脚本 / GitOps）
-- ❌ 应用代码运行时禁止 `streams.add()` / `KV.create()` / `AdminAPI` 操作
-- Subject 域归属方负责该域 broker 资源的 IaC，所有权写进契约的「IaC 责任」节
+- Stream / Consumer / KV / Object Store are **managed by IaC** (Terraform / NATS Operator / CI scripts / GitOps)
+- ❌ Application code must not perform `streams.add()` / `KV.create()` / `AdminAPI` operations at runtime
+- The owner of a subject domain is responsible for the IaC of that domain's broker resources; ownership is written into the contract's "IaC responsibility" section
 
-#### 5.5.3 DLQ 与重试
+#### 5.5.3 DLQ and retry
 
-- 跨团队消息的契约**必须显式定义**：
-  - DLQ subject（约定 `<original>.dlq`）
-  - 最大重试次数（`max_deliver`）
-  - 退避算法（exponential / linear / fixed 及参数）
-- consumer 处理失败的 ack 决策（`ack` / `nak` / `term`）必须按契约执行
+- A cross-team message contract **must define explicitly**:
+  - The DLQ subject (by convention `<original>.dlq`)
+  - The maximum number of retries (`max_deliver`)
+  - The backoff algorithm (exponential / linear / fixed) and its parameters
+- The ack decision taken when a consumer fails to process a message (`ack` / `nak` / `term`) must follow the contract
 
-#### 5.5.4 会话与状态
+#### 5.5.4 Sessions and state
 
-- `sessionId` / `workflowId` / `conversationId` **不是 NATS 原生概念**，是应用层叠加
-- 实现方式：subject 内编码（`chat.session.<sid>.message`）+ headers 串联（`X-Correlation-Id`）+ 可选 JetStream KV 存会话状态
-- ❌ 不要在契约中表述为 broker 原生能力
+- `sessionId` / `workflowId` / `conversationId` are **not native NATS concepts**; they are an application-layer overlay
+- How to implement: encode it in the subject (`chat.session.<sid>.message`) + chain it through headers (`X-Correlation-Id`) + optionally store session state in JetStream KV
+- ❌ Do not describe them in a contract as native broker capabilities
 
-#### 5.5.5 服务发现 / 健康 / Schema
+#### 5.5.5 Service discovery / health / schema
 
-- 用 NATS Services API（`$SRV.*`）做服务发现 / 健康检查 / schema 查询
-- ❌ 禁止在业务 subject 上自创元协议（如 `<service>.health` / `<service>.schema`）
+- Use the NATS Services API (`$SRV.*`) for service discovery, health checks and schema queries
+- ❌ Inventing a meta-protocol on a business subject is forbidden (for example `<service>.health` / `<service>.schema`)
 
 ---
 
 ## 6. Anti-patterns
 
 ```text
-❌ 消息 ID 续号
+❌ Sequential message IDs
 Nats-Msg-Id: msg-1 / REQ-001 / evt-0042
-✅ Nats-Msg-Id: 01HX3W7K9N4PQRSTUVWXYZ0123（ULID）/ UUID v7
+✅ Nats-Msg-Id: 01HX3W7K9N4PQRSTUVWXYZ0123(ULID) / UUID v7
 ```
 
 ```text
-❌ subject 按发起方前缀
+❌ Subject prefixed by the originator
 service-zentao.events / team-payments.events
 ✅ clarification.session.requested / orders.created.v1
 ```
 
 ```text
-❌ JSON payload 内嵌 CloudEvents envelope
+❌ CloudEvents envelope embedded in the JSON payload
 { "id": "...", "source": "...", "type": "...", "time": "...", "data": {...} }
-✅ 元信息走 headers，payload 只放业务字段
+✅ Metadata in headers, payload carries business fields only
 ```
 
 ```text
-❌ 自创追踪字段
+❌ Home-grown tracing fields
 { "in_reply_to": "...", "messageId": "..." }
 ✅ Header: X-Correlation-Id / Traceparent
 ```
 
 ```text
-❌ 应用代码运行时建资源
+❌ Application code creating resources at runtime
 await jetstreamManager.streams.add({ name: 'EVENTS', subjects: [...] });
-✅ IaC（Terraform NATS provider / NATS Operator）声明式管理
+✅ Declarative management through IaC (Terraform NATS provider / NATS Operator)
 ```
 
 ```text
-❌ 表述 sessionId 为 NATS 原生
-"NATS 自动按 sessionId 路由"
-✅ 应用层：subject 内编码 + X-Correlation-Id 串联 + 可选 KV 存状态
+❌ Describing sessionId as native to NATS
+"NATS routes by sessionId automatically"
+✅ Application layer: encode in the subject + chain with X-Correlation-Id + optional KV state
 ```
 
 ```text
-❌ 跨团队消息用 Core NATS 不持久化
+❌ Cross-team messages sent over Core NATS without persistence
 nc.publish('orders.created', payload);
 ✅ JetStream + durable consumer + ack policy
 ```
@@ -235,7 +235,7 @@ nc.publish('orders.created', payload);
 
 ## 7. Examples
 
-### 7.1 契约文件样板
+### 7.1 Contract file template
 
 ```markdown
 ---
@@ -247,36 +247,36 @@ related:
   - ../../specs/cross-team-contract.md
 ---
 
-# clarification.session.requested 契约
+# clarification.session.requested contract
 
-## 契约范围
+## Contract scope
 
-producer：urn:recloud:agentfabric（澄清服务）
-consumer：urn:recloud:zentao-bridge（禅道桥接）
-subject：`clarification.session.requested.v1`
-QoS：at-least-once（JetStream durable consumer `zentao-bridge-clarify`）
-IaC 责任：terraform/nats/clarification-stream.tf（agentfabric 团队）
+producer: urn:recloud:agentfabric (clarification service)
+consumer: urn:recloud:zentao-bridge (ZenTao bridge)
+subject: `clarification.session.requested.v1`
+QoS: at-least-once (JetStream durable consumer `zentao-bridge-clarify`)
+IaC responsibility: terraform/nats/clarification-stream.tf (agentfabric team)
 
 ## Headers
 
-| Header | 必填 | 取值 |
+| Header | Required | Value |
 |---|---|---|
-| Nats-Msg-Id | 必 | UUID v7 |
-| X-Source | 必 | urn:recloud:agentfabric |
-| X-Type | 必 | clarification.session.requested |
-| Traceparent | 推荐 | W3C Trace Context |
-| X-Correlation-Id | 条件必填 | 多轮会话时关联首条 Nats-Msg-Id |
+| Nats-Msg-Id | Yes | UUID v7 |
+| X-Source | Yes | urn:recloud:agentfabric |
+| X-Type | Yes | clarification.session.requested |
+| Traceparent | Recommended | W3C Trace Context |
+| X-Correlation-Id | Conditionally required | Links to the first Nats-Msg-Id of a multi-turn session |
 
-## Payload 字段
+## Payload fields
 
 | Field | Type | Required | Description |
 |---|---|---|---|
-| sessionId | string | 必 | ULID，会话标识 |
-| feedbackId | string | 必 | 待澄清的反馈 ID |
-| question | string | 必 | 澄清问题 |
-| context | object | 可选 | 附加上下文 |
+| sessionId | string | Yes | ULID, the session identifier |
+| feedbackId | string | Yes | ID of the feedback awaiting clarification |
+| question | string | Yes | The clarification question |
+| context | object | Optional | Additional context |
 
-## QoS / DLQ / 重试
+## QoS / DLQ / retry
 
 - max_deliver: 5
 - backoff: exponential, base 1s, max 30s
@@ -285,57 +285,57 @@ IaC 责任：terraform/nats/clarification-stream.tf（agentfabric 团队）
 ## CHANGELOG
 
 ### 1.0.0 — 2026-05-21
-**Initial Release**：首版发布。
+**Initial Release**: first published version.
 ```
 
-### 7.2 项目级缓存 `.cortex/nats.yaml`
+### 7.2 Project-level cache `.cortex/nats.yaml`
 
-每个使用 NATS 的 repo 在根目录维护一份 `.cortex/nats.yaml`，配套 Skill 启动时直接读取，免重复询问：
+Every repo that uses NATS keeps a `.cortex/nats.yaml` at its root; the companion Skills read it at startup so they need not ask the same questions again:
 
 ```yaml
-# 公共字段
+# Shared fields
 broker_url: nats://nats.internal:4222
-service_source: urn:recloud:agentfabric          # 本服务 X-Source 标识
+service_source: urn:recloud:agentfabric          # this service's X-Source identity
 
-# Producer 侧字段
-default_stream: AGENTFABRIC_EVENTS                # JetStream stream 名（IaC 管理）
-contract_dir: integrations/                       # 契约文件根目录
-iac_owner: terraform/nats/                        # IaC 资源声明位置
+# Producer-side fields
+default_stream: AGENTFABRIC_EVENTS                # JetStream stream name (IaC-managed)
+contract_dir: integrations/                       # contract file root directory
+iac_owner: terraform/nats/                        # where IaC resources are declared
 
-# Consumer 侧字段
-durable_name_prefix: recloud-agentfabric          # durable consumer 命名前缀
-dlq_handler_dir: integrations/<producer>/dlq/     # DLQ 处理逻辑位置
-vendor_contracts_dir: vendor/contracts/           # vendored 上游契约根目录
+# Consumer-side fields
+durable_name_prefix: recloud-agentfabric          # durable consumer name prefix
+dlq_handler_dir: integrations/<producer>/dlq/     # where DLQ handling lives
+vendor_contracts_dir: vendor/contracts/           # vendored upstream contract root
 
-# Consumer 默认 drain 参数
+# Consumer drain defaults
 consume_defaults:
-  max_messages: 200                               # 单次调用最大处理数
-  batch_size: 50                                  # 单次 fetch 条数
-  fetch_timeout: 5s                               # 单次 fetch 超时
-  idle_threshold: 2s                              # 连续空 fetch 阈值（视为 drain 完成）
+  max_messages: 200                               # max messages handled per invocation
+  batch_size: 50                                  # messages per fetch
+  fetch_timeout: 5s                               # per-fetch timeout
+  idle_threshold: 2s                              # consecutive-empty-fetch threshold (drain treated as complete)
 
-# Consumer 消费范围（二选一，见下方互斥说明）
-consume_subjects:                                 # 默认：显式逐 subject 列表，每个 subject 一个精确 durable
+# Consumer scope (pick one; see the mutual-exclusion note below)
+consume_subjects:                                 # default: explicit per-subject list, one exact durable per subject
   - clarification.session.requested.v1
-consume_pattern: null                             # 可选：wildcard 消费模式，如 zentao.omnireview.>；设置后优先，consume_subjects 被忽略
+consume_pattern: null                             # optional: wildcard consume pattern, e.g. zentao.omnireview.>; when set it wins and consume_subjects is ignored
 ```
 
-**约定**：
+**Conventions**:
 
-- 首次会话由配套 Skill 引导生成，commit 进 repo
-- 后续会话 Skill 启动时直接读，免重复询问基础信息
-- 不存在时 Skill 优雅降级：临时问完发送，但提示用户落盘
-- `consume_pattern` 与 `consume_subjects` **互斥**：`consume_pattern` 一旦设置即优先生效，`consume_subjects` 被忽略不读——两者同时生效会导致一条消息被 wildcard consumer 和精确 consumer 各自独立收到、各自独立 ack，造成业务侧重复处理
-- `consume_pattern` 启用后，只建一个 `<durable_name_prefix>-wildcard` durable，而非逐 subject 各建一个；配套 Skill 对每条消息按其实际 `subject` 动态解析对应契约（命中 `active` 契约才 ack，命中草稿或全新 subject 一律 term + DLQ 标注待确认，不会盲目 ack 未审阅过的消息）
-- **已知限制**：JetStream 的 `ack_wait` / `max_deliver` 是 durable 级别配置，不能按 subject 各设各的——`consume_pattern` 模式下所有 subject 共享同一套重试参数，各契约「重试策略」字段在此模式下降级为文档性描述，不再逐 subject 强制生效
+- Generated by the companion Skill during the first session, then committed into the repo
+- In later sessions the Skill reads it at startup instead of asking for the basics again
+- When it is absent the Skill degrades gracefully: it asks ad hoc and sends, but prompts the user to persist the file
+- `consume_pattern` and `consume_subjects` are **mutually exclusive**: once `consume_pattern` is set it takes precedence and `consume_subjects` is ignored entirely — letting both take effect would have one message received and acked independently by the wildcard consumer and by the exact consumer, causing duplicate processing on the business side
+- With `consume_pattern` enabled only one `<durable_name_prefix>-wildcard` durable is created, rather than one per subject; the companion Skill resolves the matching contract dynamically from each message's actual `subject` (it acks only on an `active` contract, and a draft or brand-new subject is always termed and flagged in the DLQ as pending confirmation, so a message nobody has reviewed is never acked blindly)
+- **Known limitation**: JetStream's `ack_wait` / `max_deliver` are durable-level settings and cannot be set per subject — under `consume_pattern` every subject shares one set of retry parameters, and each contract's "retry policy" field degrades to documentation in this mode rather than being enforced per subject
 
 ---
 
 ## 8. Relationship to other assets
 
-- **父规范**：[cross-team-contract.md](./cross-team-contract.md)——通用跨团队契约骨架；本 spec 是其 NATS 特化模板
-- **递归基础**：[spec-modeling.md](./spec-modeling.md) v2.0.0——本 spec 自身遵循 8 节骨架
-- **配套 Skill**：
-  - [publish-nats-message](../skills/publish-nats-message/SKILL.md)——生产侧端到端能力
-  - [consume-nats-message](../skills/consume-nats-message/SKILL.md)——消费侧端到端能力（drain-style 批量）
-- **broker 行为权威**：<https://docs.nats.io>——NATS protocol / JetStream / Services API 等以官方文档为准，本 spec 不复述
+- **Parent spec**: [cross-team-contract.md](./cross-team-contract.md) — the generic cross-team contract skeleton; this spec is its NATS specialisation
+- **Recursive basis**: [spec-modeling.md](./spec-modeling.md) v2.0.0 — this spec itself follows the 8-section skeleton
+- **Companion Skills**:
+  - [publish-nats-message](../skills/publish-nats-message/SKILL.md) — end-to-end capability on the producer side
+  - [consume-nats-message](../skills/consume-nats-message/SKILL.md) — end-to-end capability on the consumer side (drain-style batching)
+- **Authority on broker behaviour**: <https://docs.nats.io> — the NATS protocol, JetStream, the Services API and the rest follow the official documentation; this spec does not restate them
