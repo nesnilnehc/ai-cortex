@@ -1,59 +1,69 @@
-# 贡献指南
+# Contributing
 
-感谢你对 AI Cortex 的贡献兴趣。本文档说明如何贡献技能、规则与改进。
+Thanks for your interest in AI Cortex. This document covers how to contribute skills, rules and improvements.
 
-## 快速开始
+## Quick start
 
-1. Fork 本仓库
-2. 创建功能分支：`git checkout -b feat/your-skill-name`
-3. 按下列指南修改
-4. 提交 Pull Request
+1. Fork the repository
+2. Create a branch: `git checkout -b feat/your-skill-name`
+3. Make your changes following the guidance below
+4. Open a pull request
 
-## 新增技能
+## Language
 
-技能遵循 [agentskills.io](https://agentskills.io) 标准格式。新建时按本节和仓库既有目录起草，不在贡献流程中临时安装外部创建 Skill。
+Write in English. The only exceptions are immutable records — existing ADRs, released changelog entries and design snapshots — documented in [docs/LANGUAGE_SCHEME.md](docs/LANGUAGE_SCHEME.md).
 
-1. **起草**：在 `skills/<skill-name>/SKILL.md` 编写技能；YAML frontmatter 含必填字段（name、description、tags、version、license）
-2. **补充文件**：可选 `README.md` 作为快速参考
-3. **注册**：将技能添加到 `skills/INDEX.md`
-4. **提交 PR**
+If you are converting existing Chinese content, read §6 of that document first. **Machine translation is not accepted.** Read the paragraph, understand what it asserts, then write that assertion in English.
 
-### 外部派生技能
+## Adding a skill
 
-AI Cortex 只采用 vendored 分发，不接受要求 Agent 在运行时执行 `npx skills add`、clone 外部仓库或读取浮动 raw URL 的 Skill。
+Skills follow the [agentskills.io](https://agentskills.io) standard format. Draft new skills against this section and the existing directory layout; do not install an external skill generator as part of the contribution flow.
 
-复制、改编或 fork 外部 Skill 时必须：
+1. **Draft**: write `skills/<skill-name>/SKILL.md`. The YAML frontmatter must contain `name`, `description`, `tags`, `version` and `license`.
+2. **Optional**: add a `README.md` as a quick reference.
+3. **Register**: add the skill to `skills/INDEX.md`.
+4. **Open a PR.**
 
-1. 将可调用副本完整放入 `skills/<skill-name>/`，消除未随仓库分发的 sibling-skill 依赖。
-2. 在 `skills/SOURCES.yaml` 固定上游仓库、路径、完整 commit、tree、`SKILL.md` SHA-256、许可证、本地修改和更新策略。
-3. 保留许可证与版权通知，更新 `docs/references/ATTRIBUTIONS.md` 和 `THIRD_PARTY_NOTICES.md`。
-4. 审查脚本、资源和许可证；未明确授权再分发的字体、音乐、图片或二进制不得复制。
-5. 运行 Skill 校验并确认 `bin/cortex install/update` 可随其他本地 Skill 一起分发。
+`description` and `triggers` must be English — skills.sh and agentskills.io parse them, and skill matching depends on them.
 
-完整数据契约见 [skill-source-modeling](specs/skill-source-modeling.md)。
+### Externally derived skills
 
-### 命名约定
+AI Cortex distributes vendored copies only. We do not accept a skill that requires an agent to run `npx skills add`, clone an external repository, or read a floating raw URL at runtime.
 
-详见 [docs/architecture/asset-naming.md](docs/architecture/asset-naming.md)（4 类资产的命名规范集中文档）。
+When you copy, adapt or fork an external skill you must:
 
-## 新增规则
+1. Place a complete, callable copy under `skills/<skill-name>/`, removing any dependency on sibling skills that are not distributed with this repository.
+2. Pin the upstream in `skills/SOURCES.yaml`: repository, path, full commit, tree, `SKILL.md` SHA-256, license, local modifications and update policy.
+3. Preserve license and copyright notices, and update `docs/references/ATTRIBUTIONS.md` and `THIRD_PARTY_NOTICES.md`.
+4. Review scripts, assets and licensing. Do not copy fonts, music, images or binaries that are not explicitly licensed for redistribution.
+5. Verify the skill passes validation and that `bin/cortex install` / `update` distributes it alongside the other local skills.
 
-规则位于 `rules/` 目录，须在 `rules/INDEX.md` 注册。遵循既有规则格式。下游消费方（如 Cursor / Trae）按各自方式拷贝或符号链接 `rules/`，本仓库不提供安装工具。
+**License compatibility is a hard requirement.** This repository is MIT. A skill derived from a copyleft or non-commercial upstream — CC BY-NC-SA, AGPL and similar — cannot be redistributed under MIT and will not be accepted. Check the upstream license before you start, not after.
 
-## 版本管理
+The full data contract is [skill-source-modeling](specs/skill-source-modeling.md).
 
-本项目遵循 [Semantic Versioning](https://semver.org/)。修改技能时：
+### Naming
 
-- **PATCH**（1.0.0 → 1.0.1）：勘误、元数据调整、引用更新
-- **MINOR**（1.0.0 → 1.1.0）：新步骤、示例改进、交互策略变更
-- **MAJOR**（1.0.0 → 2.0.0）：破坏性结构变更
+See [docs/architecture/asset-naming.md](docs/architecture/asset-naming.md), the single document covering naming for all four asset types.
 
-更新 SKILL.md frontmatter 版本号后，同步更新 `skills/INDEX.md` 中的对应条目。
+## Adding a rule
 
-## 行为准则
+Rules live in `rules/` and must be registered in `rules/INDEX.md`. Follow the format of the existing rules. Downstream consumers such as Cursor and Trae copy or symlink `rules/` in their own way; this repository does not ship an installer for them.
 
-保持专业、建设性与尊重。聚焦贡献的技术价值。
+## Versioning
 
-## 问题？
+This project follows [Semantic Versioning](https://semver.org/). When you modify a skill:
 
-使用「question」标签提交 Issue，或查看 [技能目录](skills/INDEX.md) 了解既有能力。
+- **PATCH** (1.0.0 → 1.0.1): errata, metadata adjustments, reference updates
+- **MINOR** (1.0.0 → 1.1.0): new steps, improved examples, interaction policy changes
+- **MAJOR** (1.0.0 → 2.0.0): breaking structural changes, including making a previously optional output format mandatory
+
+After bumping `version` in the SKILL.md frontmatter, update the matching entry in `skills/INDEX.md`.
+
+## Code of conduct
+
+See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md). Report security issues privately per [SECURITY.md](SECURITY.md) rather than opening a public issue.
+
+## Questions
+
+Open an issue with the `question` label, or browse [the skill index](skills/INDEX.md) to see what already exists.

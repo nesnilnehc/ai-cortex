@@ -2,38 +2,38 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-> 面向 Agent 与开发者的软件交付与项目治理资产库（技能、规范、协议、规则）。使命与愿景见 [使命](docs/project-overview/mission.md)、[愿景](docs/project-overview/vision.md)。
+> A governance and delivery asset library for AI agents — skills, specs, protocols and rules. See [mission](docs/project-overview/mission.md) and [vision](docs/project-overview/vision.md).
 
-在本仓库内使用 Agent 时：**契约、四层资产与注册表、权威来源、发现与加载、技能匹配规则**均以 [AGENTS.md](AGENTS.md) 为准；术语定义见 [docs/architecture/terminology.md](docs/architecture/terminology.md)。
+When an agent works inside this repository, [AGENTS.md](AGENTS.md) is authoritative for the execution contract, the four asset layers, precedence, discovery and skill matching. Terminology is defined in [docs/architecture/terminology.md](docs/architecture/terminology.md).
 
 ---
 
-## 🧭 能力概览
+## 🧭 What's inside
 
-**55 个技能**（[完整索引](skills/INDEX.md)）、**21 条规则**（[索引](rules/INDEX.md)）、**16 份规范**（[索引](specs/INDEX.md)）、协议（[索引](protocols/INDEX.md)）。
+**55 skills** ([index](skills/INDEX.md)), **21 rules** ([index](rules/INDEX.md)), **16 specs** ([index](specs/INDEX.md)) and protocols ([index](protocols/INDEX.md)).
 
-| 领域 | 数量 | 代表技能 |
+| Area | Count | Representative skills |
 | :--- | ---: | :--- |
-| **治理与规划** | 17 | 使命 / 愿景 / 北极星 / 战略目标 / 路线图的逐层推导；backlog 评分、依赖排查、晋升与归档；`plan-next` 诊断下一步 |
-| **代码审查** | 20 | `orchestrate-code-review` 按 scope → language → framework → library → cognitive 编排；8 种语言与 React / Vue / ORM 的原子审查技能 |
-| **交付与发布** | 9 | 提交、worktree 交付与合流、发布包构建与发布、变更公告、测试执行、本地重部署 |
-| **文档与资产** | 5 | README / AGENTS.md / GitHub Actions 生成；技能设计精炼；文本去上下文化 |
-| **集成与运维** | 4 | NATS 跨团队消息收发、macOS Keychain 凭据管理、Agent 测试套件脚手架 |
+| **Governance & planning** | 17 | Deriving mission → vision → North Star → strategic goals → roadmap layer by layer; backlog scoring, dependency mapping, promotion and archival; `plan-next` diagnoses what to do next |
+| **Code review** | 20 | `orchestrate-code-review` sequences scope → language → framework → library → cognitive; atomic review skills for 8 languages plus React, Vue and ORM usage |
+| **Delivery & release** | 9 | Commits, worktree delivery and integration, release package build and publication, announcements, test execution, local redeployment |
+| **Docs & assets** | 5 | Generating README, AGENTS.md and GitHub Actions; refining skill design; decontextualizing text |
+| **Integration & ops** | 4 | NATS cross-team messaging, macOS Keychain credential management, agent test scaffolding |
 
-技能可被 Claude Code、Cursor、Codex 等 20+ Agent 直接调用。一次完整的路线图规划流程见 [路线图规划链路使用指南](docs/guides/roadmap-planning-usage.md)；按协作阶段找入口见 [主动建议表](docs/guides/proactive-suggestions.md)。
+Skills are callable from Claude Code, Cursor, Codex and 20+ other agents. For a worked end-to-end flow, see the [roadmap planning guide](docs/guides/roadmap-planning-usage.md); to find an entry point by collaboration stage, see the [stage-to-skill table](docs/guides/proactive-suggestions.md).
 
-### 与同类资产库的区别
+### How this differs from similar libraries
 
-- **四层资产分离**：Skill（能做什么）/ Spec（长什么样）/ Protocol（多方怎么协调）/ Rule（不能做什么）边界明确，见 [术语定义](docs/architecture/terminology.md)
-- **编排与原子分层**：`orchestrate-*` 只做「检测上下文 / 串联调用 / halt-on-failure / 聚合输出」四件事，不内嵌领域逻辑
-- **判据外置**：评审类技能的判据落在 `rules/*-quality.md`，一处维护多方引用
-- **vendored-only 分发**：外部派生技能固定到 commit 与摘要并登记许可证，运行时不联网安装，见 [ADR 0011](docs/adr/0011-vendor-external-skills.md)
+- **Four separated asset layers** — Skill (what an agent can do) / Spec (what a thing looks like) / Protocol (how parties coordinate) / Rule (what must not happen), with explicit boundaries. See [terminology](docs/architecture/terminology.md).
+- **Orchestrators are thin** — an `orchestrate-*` skill does exactly four things: detect context, sequence calls, halt on failure, aggregate output. Domain logic stays in the atomic skills.
+- **Review criteria live outside the skills** — evaluative skills read their criteria from `rules/*-quality.md`, so one definition serves the producing, diagnosing and reviewing sides.
+- **Vendored-only distribution** — externally derived skills are pinned to a commit and digest with their license recorded. Nothing is installed from the network at runtime. See [ADR 0011](docs/adr/0011-vendor-external-skills.md).
 
 ---
 
-## 📦 安装与使用
+## 📦 Install and use
 
-### 快速开始
+### Quick start
 
 ```bash
 mkdir -p ~/.local/share
@@ -41,57 +41,59 @@ git clone --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.local/share/a
 ~/.local/share/ai-cortex/bin/cortex install
 ```
 
-`cortex install` 会将每个 skill（包括审核后的外部派生本地副本）以 symlink 方式接入 `~/.agents/skills/<skill>`，供 Codex 等读取该路径的 Agent 在新会话中发现；同时自动检测已安装的 IDE（Claude Code、Cursor）并同步其专用 skills 路径。rules 以 symlink（Claude Code）或 .mdc 转换（Cursor）方式接入。`specs/`、`protocols/` 无需安装——Agent 从 canonical 路径直读。运行时不会从 skills.sh 或 GitHub 追加安装 Skill。
+`cortex install` symlinks every skill — including reviewed local copies of externally derived ones — into `~/.agents/skills/<skill>`, where Codex and other agents reading that path discover them in a new session. It also detects installed IDEs (Claude Code, Cursor) and syncs their skill paths. Rules are symlinked for Claude Code and converted to `.mdc` for Cursor. `specs/` and `protocols/` need no installation — agents read them from the canonical path. Nothing is ever installed from skills.sh or GitHub at runtime.
 
-### 升级
+### Upgrade
 
 ```bash
 cortex update
 ```
 
-拉取最新的 AI Cortex 提交并重新同步；自动清理已删除 skill/rule 的孤儿链接。外部派生 Skill 的上游更新由维护者审核后进入 AI Cortex，不在用户运行时单独升级。
+Pulls the latest AI Cortex commit and re-syncs, pruning orphaned links for deleted skills and rules. Upstream updates to externally derived skills are reviewed by maintainers before entering AI Cortex; they are not upgraded independently at the user's runtime.
 
-### 查看状态
+### Status
 
 ```bash
 cortex status
 ```
 
-显示 CORTEX_HOME、当前 commit、各 IDE 链接数量，以及检测到的历史残留。
+Shows `CORTEX_HOME`, the current commit, link counts per IDE, and any legacy artifacts detected.
 
-### 清理历史残留
+### Clean up legacy artifacts
 
-首次安装前，若本地曾使用其他方式安装过 AI Cortex，可先审查再清理：
-
-```bash
-cortex clean --dry-run   # 只报告，不动手
-cortex clean             # 交互式逐类确认后清理
-```
-
-### 卸载
+If this machine previously installed AI Cortex some other way, review before removing:
 
 ```bash
-cortex uninstall              # 移除 cortex 管理的 symlink 与 .mdc，保留 CORTEX_HOME
-cortex uninstall --remove-home  # 同上，并删除 CORTEX_HOME 目录
+cortex clean --dry-run   # report only
+cortex clean             # interactive, confirms each category
 ```
 
-安装设计见 [ADR 0010](docs/adr/0010-installation-strategy.md)，外部 Skill 管理见 [ADR 0011](docs/adr/0011-vendor-external-skills.md)。
+### Uninstall
+
+```bash
+cortex uninstall                # remove cortex-managed symlinks and .mdc files, keep CORTEX_HOME
+cortex uninstall --remove-home  # also delete the CORTEX_HOME directory
+```
+
+Install design is recorded in [ADR 0010](docs/adr/0010-installation-strategy.md); external skill management in [ADR 0011](docs/adr/0011-vendor-external-skills.md).
 
 ---
 
-## 🤝 贡献
+## 🤝 Contributing
 
-见 [CONTRIBUTING.md](CONTRIBUTING.md)；参与前请阅读 [行为准则](CODE_OF_CONDUCT.md)。安全问题请按 [安全策略](SECURITY.md) 私下报告，不要提交公开 issue。
+See [CONTRIBUTING.md](CONTRIBUTING.md), and read the [Code of Conduct](CODE_OF_CONDUCT.md) before taking part. Report security issues privately per the [security policy](SECURITY.md) rather than opening a public issue.
 
----
-
-## 📄 许可证
-
-AI Cortex 原创内容使用 [MIT](LICENSE)；vendored 外部派生 Skill 保留各自许可证，见 [许可证策略](docs/references/LICENSE_POLICY.md) 和 [第三方通知](docs/references/THIRD_PARTY_NOTICES.md)。
+Documentation is written in English; the exceptions are listed in [docs/LANGUAGE_SCHEME.md](docs/LANGUAGE_SCHEME.md).
 
 ---
 
-## 🙏 致谢
+## 📄 License
 
-- 贡献者：[contributors](https://github.com/nesnilnehc/ai-cortex/graphs/contributors)
-- 当前外部派生 Skill 的固定来源和本地修改见 [ATTRIBUTIONS.md](docs/references/ATTRIBUTIONS.md) 与 [skills/SOURCES.yaml](skills/SOURCES.yaml)
+Original AI Cortex content is [MIT](LICENSE). Vendored externally derived skills keep their own licenses — see the [license policy](docs/references/LICENSE_POLICY.md) and [third-party notices](docs/references/THIRD_PARTY_NOTICES.md).
+
+---
+
+## 🙏 Acknowledgements
+
+- [Contributors](https://github.com/nesnilnehc/ai-cortex/graphs/contributors)
+- Pinned sources and local modifications for externally derived skills are listed in [ATTRIBUTIONS.md](docs/references/ATTRIBUTIONS.md) and [skills/SOURCES.yaml](skills/SOURCES.yaml)
