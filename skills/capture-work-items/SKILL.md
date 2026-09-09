@@ -3,7 +3,7 @@ name: capture-work-items
 description: Capture requirements, bugs, or issues from free-form input into structured, persistent artifacts. Use when user wants to record a work item quickly without deep validation.
 description_zh: 将自由形式输入快速捕获为结构化、可持久的需求、缺陷或问题制品；无需深度验证。
 tags: [writing, documentation, workflow]
-version: 2.0.0
+version: 2.0.1
 license: MIT
 recommended_scope: both
 metadata:
@@ -37,7 +37,7 @@ output_schema:
 1. ✅ **已识别的类型**：分类为需求、错误或问题的工作项
 2. ✅ **必填字段完成**：该类型的所有必填字段均已填写（无推断；缺失时询问用户）
 3. ✅ **状态设置**：前面的初始`状态：已捕获`
-4. ✅ **strategic_goal_id 已标**：每个工作项必填 `strategic_goal_id`，映射到项目 strategic-goals 中的某一目标（依据 ADR 20260417-unified-value-driven-prioritization-model 决策 3.4）
+4. ✅ **strategic_goal_id 已标**：每个工作项必填 `strategic_goal_id`，映射到项目 strategic-goals 中的某一目标。晋升时要按目标归集容量，没有归属就无法计算已用容量
 5. ✅ **priority 标为 unset**：新建工作项 frontmatter 必含 `priority: unset`，等待 `prioritize-backlog` 批量评分
 6. ✅ **检测到的路径**：根据项目文档结构选择的输出路径（请参阅路径检测）
 7. ✅ **工件持久化**：工作项写入所选路径
@@ -126,7 +126,7 @@ output_schema:
 - 读取 `docs/project-overview/strategic-goals.md`，呈现可选目标列表给用户
 - 用户选择该工作项主要服务于哪个战略目标
 - 若 strategic-goals.md 不存在 → **halt**，建议先运行 `design-strategic-goals`
-- Bug / 技术债类工作项通常映射到"工程 / 治理健康"目标（依据 ADR 1 决策 3.5）
+- Bug / 技术债类工作项通常映射到"工程 / 治理健康"目标——这类工作若无战略代言，在价值竞争中永远排不进容量
 
 ### 第 2 阶段：提示 — 填写缺少的必填字段
 
@@ -137,7 +137,7 @@ output_schema:
 1. 运行“解决项目规范”，然后运行“路径检测”（见上文）
 2. 如果目标路径与默认路径不同，请与用户确认
 3. 使用适当的模板使用 YAML front-matter 编写 Markdown（请参阅输出模板）
-4. 在 front-matter 中设置 `status: capture`
+4. 在 front-matter 中设置 `status: captured`
 
 ### 第 4 阶段：确认
 

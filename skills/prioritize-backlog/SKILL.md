@@ -3,7 +3,7 @@ name: prioritize-backlog
 description: Force a clean re-score of every backlog item with four frameworks (RICE, WSJF, MoSCoW, ICE) in parallel — ignores any existing priority, auto-detects multi-file or single-file backlog layouts, surfaces framework disagreements, and captures the user's final decision with rationale.
 description_zh: 对全部 backlog 条目强制重评（忽略原 priority），并行跑 RICE / WSJF / MoSCoW / ICE 四框架；自动适配多文件目录或单文件 backlog 形态，呈现分歧并捕获用户决策依据。
 tags: [workflow, automation, meta-skill]
-version: 2.0.0
+version: 2.2.0
 license: MIT
 recommended_scope: project
 cognitive_mode: interpretive
@@ -109,8 +109,10 @@ RICE = (Reach × Impact × Confidence) / Effort
 ```
 
 - **Reach**：受影响人数或实例数（定量）
-- **Impact**：1（低）/ 2（中）/ 3（高）
-- **Confidence**：0-100%（对 Reach × Impact 估算的信心）
+- **Impact**：3（巨大）/ 2（高）/ 1（中）/ 0.5（低）/ 0.25（微小）
+  - 下限必须能低于 1。若最低档就是 1，琐碎条目无法被压低，只能靠 Reach 与 Effort 拉开差距，结果是低价值项分数虚高
+- **Confidence**：0-100%，三档锚点——`100% = 有数据支撑` / `80% = 有部分证据` / `50% = 拍脑袋`
+  - 无锚点时同一批条目重跑两次会飘，锚点是为了让评分可复现
 - **Effort**：人周
 
 映射为优先级等级：
@@ -147,7 +149,7 @@ WSJF = Cost of Delay / Job Size
 - **Must**：本周期不做会严重阻塞或违反合规 → P0
 - **Should**：本周期做会显著提升价值 → P1
 - **Could**：有时间做就做 → P2
-- **Won't**：明确本周期不做 → P3
+- **Won't**：明确本周期不做 → P3；若是**永久不做**（而非本周期推迟），走 `status: declined` 终态，见阶段 4
 
 #### ICE
 
@@ -223,11 +225,24 @@ ICE = Impact × Confidence × Ease
        moscow: Must | Should | Could | Won't
        ice: P<N>
      rationale: <one-sentence reason if disagreement was ≥ 2 levels>
+     strategic_override: <理由；仅当最终 priority 高于框架结论时必填>
      decided_by: auto | user
      decided_at: <ISO date>
    ```
 
-3. **按形态写回**：
+   `strategic_override` 用于「四框架都算得低，但战略上必须做」的情形。这类判断本身是合理的，但必须留痕——否则「用户逐项确认」会变成一条不留证据的旁路，谁都能把任意条目抬上去。最终 `priority` 高于框架结论时，本字段必填。
+
+3. **判定是否为终态**：条目若被判为永久不做（价值低且投入高、或需求已失效），不要留在 backlog 里靠 P3 沉底——P3 默认会进 Later，条目将永远参与后续每一轮全量重评。改为写入终态：
+
+   ```yaml
+   status: declined
+   declined_reason: <一句话说明为什么永久不做>
+   declined_at: <ISO date>
+   ```
+
+   终态条目在后续重评中直接跳过。终态由用户判定，本技能不得自行判定。
+
+4. **按形态写回**：
 
    | 形态 | 写回方式 |
    |---|---|
@@ -238,11 +253,14 @@ ICE = Impact × Confidence × Ease
 
    写回前确认：旧值已记录到 `priority_decision.previous`，避免被静默吞掉。
 
+5. **跳过终态与已定条目的边界**：`status: declined` 的条目不参与重评。
+
 ### 阶段 5：输出最终报告
 
 报告头必须包含：
 
 - `Backlog mode: multi-file | yaml-list | h2-yaml | table`
+- 本轮新增 `declined` 终态条目数（若有）
 - `Re-scored items: N (含 X 条覆盖了原 priority；Y 条原为 unset)`
 
 报告体：

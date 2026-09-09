@@ -3,7 +3,7 @@ name: promote-roadmap-items
 description: Promote prioritized backlog items into the roadmap's Now/Next/Later tiers based on strategic_goal capacity allocation and priority scores. Event-driven (not calendar-driven).
 description_zh: 把已评分的 backlog 条目按 strategic_goal 容量分配晋升进 roadmap 的 Now/Next/Later 槽位；事件驱动，不绑定固定周期。
 tags: [workflow, automation, meta-skill]
-version: 1.0.0
+version: 1.2.1
 license: MIT
 recommended_scope: project
 cognitive_mode: interpretive
@@ -77,7 +77,7 @@ output_schema:
 ### 阶段 0：读取输入
 
 1. 读取 `docs/process-management/roadmap.md`（当前 Now / Next / Later 状态）
-2. 读取 backlog 目录，筛选 `priority` 已定（非 unset）的条目
+2. 读取 backlog 目录，筛选 `priority` 已定（非 unset）**且 `status` 非 `declined`** 的条目——`declined` 是永久不做的终态，由 `prioritize-backlog` 写入，不参与晋升
 3. 读取 `docs/project-overview/strategic-goals.md`（战略目标列表）
 4. 读取 roadmap.md 中声明的战略目标容量分配（见阶段 1）
 
@@ -85,15 +85,17 @@ output_schema:
 - roadmap.md 不存在 → 建议先 `define-roadmap`
 - strategic-goals.md 不存在 → 建议先 `design-strategic-goals`
 - 所有 backlog 条目均 `priority: unset` → 建议先 `prioritize-backlog`
-- roadmap.md 中无容量分配 → halt，提示运行 `define-roadmap` 敲定容量
+- roadmap.md 中无容量分配、或无总容量基线 → halt，提示运行 `define-roadmap` 敲定容量
 
 ### 阶段 1：计算当前容量状态
+
+**总容量基线**取自 roadmap.md「容量分配」章节表头，由 `define-roadmap` 第 8 步采集并写入（人数 × 周期 − 开销，按有效工时折算）。基线缺失时 halt，提示重跑 `define-roadmap` —— 没有分母算不出任何一个目标的分配容量。
 
 对每个 strategic_goal：
 
 | 字段 | 含义 |
 |---|---|
-| 分配容量 | roadmap.md 中该目标的百分比 × cycle 总容量 |
+| 分配容量 | roadmap.md 中该目标的百分比 × **总容量基线** |
 | 已用容量 | 当前 Now 层归属该目标的条目工作量之和 |
 | 剩余容量 | 分配 - 已用 |
 
@@ -109,6 +111,17 @@ output_schema:
 ```
 
 ### 阶段 2：生成晋升候选
+
+**Now 层准入规则**：排名靠前、且无未决前置依赖的 3–5 条。两个条件都要满足。
+
+依赖检查读取条目 frontmatter 的 `depends_on`（由 `map-item-dependencies` 登记）：
+
+| `depends_on` 状态 | 处理 |
+|---|---|
+| `—`（已排查，无依赖） | 可进 Now |
+| 有依赖，且全部前置已在 Now 或已完成 | 可进 Now |
+| 有依赖，存在未决前置 | **不得进 Now**，最高只能到 Next；候选表中标注卡在哪一条 |
+| 字段缺失（未排查） | 不静默放行。提示先跑 `map-item-dependencies`；用户坚持继续时，在候选表标注「依赖未排查」并由用户自担风险 |
 
 对每个 strategic_goal：
 
@@ -177,8 +190,10 @@ output_schema:
 ### 硬边界（Hard Boundaries）
 
 - 不对 `priority: unset` 条目晋升（先走 `prioritize-backlog`）
+- 不对 `status: declined` 条目晋升——该终态表示永久不做，重新纳入需用户显式撤销终态
 - 不超出 strategic_goal 容量分配（超配时必须先降级再晋升）
 - 不自动晋升 P3 条目到 Now（P3 默认进 Later）
+- 不把存在未决前置依赖的条目晋升到 Now（先解决前置，或只晋升到 Next）
 - 不自动修改 roadmap 的 strategic_goal 容量分配（那是 `define-roadmap` 的职责）
 
 ### 技能边界
@@ -199,8 +214,9 @@ output_schema:
 
 - ❌ **不要绑定固定 cycle**（"每周一跑"）—— 本技能是**事件驱动**（容量释出 / 战略变动 / 按需）
 - ❌ **不要忽略容量护栏** —— 不能因某目标有高 priority 条目就超配抢其他目标的容量
-- ❌ **不要一次晋升太多** —— Now 层堆积超过 WIP 限制会破坏 pull-based 流
+- ❌ **不要一次晋升太多** —— Now 层条目数默认上限 **3–5 条**（项目可在 roadmap.md 中覆盖），堆积超过该上限会破坏 pull-based 流
 - ❌ **不要对 priority unset 条目操作** —— 强制先评分
+- ❌ **不要跳过依赖检查** —— 优先级高不代表现在拉得动；被阻塞的条目进了 Now 就是占着容量不产出
 - ❌ **不要修改 roadmap 结构**（如新增里程碑）—— 那是 `define-roadmap` 的事
 
 ---
@@ -209,9 +225,11 @@ output_schema:
 
 - [ ] 读取 roadmap.md、backlog、strategic-goals.md 成功
 - [ ] 容量分配存在；不存在时已 halt 并建议 `define-roadmap`
-- [ ] 只处理 `priority` 已定的 backlog 条目
+- [ ] 只处理 `priority` 已定、且 `status` 非 `declined` 的 backlog 条目
 - [ ] 每个 strategic_goal 的容量使用已计算
 - [ ] 晋升候选按 priority 排序 + 容量约束生成
+- [ ] Now 层候选已过依赖检查；`depends_on` 缺失的条目已提示先跑 `map-item-dependencies`，未静默放行
+- [ ] Now 层条目数未超过 WIP 上限（默认 3–5）
 - [ ] 降级建议考虑 priority 和容量超配
 - [ ] 用户逐项确认，未自动批准
 - [ ] roadmap.md 更新 + 条目 frontmatter 更新

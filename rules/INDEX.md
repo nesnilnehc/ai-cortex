@@ -41,6 +41,7 @@
 | [functional-design-quality](./functional-design-quality.md) | content | 功能设计文档的 5 维评审清单与 spec 合规检查。 | 评审功能设计文档时 |
 | [technical-design-quality](./technical-design-quality.md) | content | 技术设计文档的 5 维评审清单与 spec 合规检查。 | 评审技术设计文档时 |
 | [task-quality](./task-quality.md) | content | 任务列表的字段、依赖、可追溯性评审与 spec 合规检查。 | 评审任务列表时 |
+| [roadmap-quality](./roadmap-quality.md) | content | 路线图的 5 维评审清单：核心模型、容量基线与分配、指标三元组、依赖已映射、变更频率。 | 评审路线图文档时 |
 | [test-case-quality](./test-case-quality.md) | content | QA 业务测试用例文档的 5 维评审清单与 spec 合规检查（不覆盖代码级测试）。 | 评审业务测试用例文档时 |
 | [test-coverage-quality](./test-coverage-quality.md) | content | 测试覆盖评估报告的 5 维评审清单（完整性 / 真实性 / 可解释 / 风险匹配 / 时效追溯）与 spec 合规检查；用例集覆盖评审与跨制品对齐评审使用。 | 评审覆盖评估报告时（发布门禁 / 季度审计 / 上游变更） |
 | [doc-health-criteria](./doc-health-criteria.md) | content | 文档健康判据集合（规范合规、链接图、SSOT、代码对齐、层级就绪度）。 | runtime / linter / CI 检测文档健康时 |
