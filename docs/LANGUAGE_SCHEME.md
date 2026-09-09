@@ -78,7 +78,36 @@ When converting an existing Chinese document:
 
 ---
 
-## 7. Migration status
+## 7. Verification
+
+Prose is unreviewable at this volume — roughly 196,000 characters remain. Correctness is enforced mechanically instead.
+
+`scripts/verify-translation.py` compares a file against a git ref and asserts that every machine-meaningful element survived the rewrite. Prose is expected to differ; nothing else is.
+
+```bash
+scripts/verify-translation.py <git-ref> <path>...      # gate a pure translation
+scripts/verify-translation.py --mode=rewrite <ref> ... # report only
+```
+
+**HARD invariants** — a difference blocks the migration:
+
+frontmatter keys and values · fenced code block count and bodies · link targets · backtick identifiers (skill names, field names, paths) · numbers and thresholds · checkbox count · list item count · strong constraint markers (必须 / 不得 / MUST / never) · weak constraint markers (建议 / 尽量 / SHOULD / prefer)
+
+The last two catch the failure that matters most: a translation that quietly turns a prohibition into a suggestion. In a pure translation a constraint moves between languages, it never weakens or disappears.
+
+**SOFT differences** — reported for judgement: heading depth sequence, code block languages, table row count.
+
+The checker is validated by mutation testing, not by trusting it. Eight classes of injected error — dropped self-check item, altered threshold, weakened modality, dropped code block, misspelled cross-reference, dropped field identifier, deleted section, altered frontmatter version — are all blocked, while a legitimate prose rewording passes. Re-run that validation after changing the checker; a checker that reports nothing on a clean sample has proved nothing.
+
+**One commit, one kind of change.** A translation commit changes prose only, so the checker can gate it. Content changes go in their own commit, before or after. Mixing them makes the gate useless — the E0 and E1 commits mixed both and had to be justified in prose instead.
+
+### What this does not cover
+
+The checker proves structure survived. It cannot prove the English says what the Chinese said, nor that it reads as English rather than as translationese. Those need a reader who did not write the translation.
+
+---
+
+## 8. Migration status
 
 Conversion from Chinese-first to English-first, in descending order of reader impact:
 
