@@ -5,28 +5,28 @@ status: active
 lifecycle: living
 ---
 
-# Agent 驱动的协议使用 (Protocols for AI Agents)
+# Protocols for AI agents
 
-本指南说明 AI Agent 和 Claude Code 如何**自动发现、加载和应用**协议规范。
-
----
-
-## 核心理念
-
-**用户不应该手动读协议文档** — Agent 应该自动完成这些工作：
-
-1. **自动发现** — 通过 skills/INDEX.md 发现可用的协议
-2. **自动注入** — 作为长期背景上下文加载到 Agent 工作会话中
-3. **自动应用** — 在代码生成和审查中应用协议约束
-4. **自动验证** — 通过 skill 验证生成的代码是否符合协议
+This guide explains how an AI agent, Claude Code included, **discovers, loads and applies** a protocol spec automatically.
 
 ---
 
-## 1. 协议发现 (Automatic Discovery)
+## The idea
 
-### 1.1 通过 Manifest 发现
+**A user must not have to read the protocol documents by hand** — the agent does this work:
 
-Agent 在启动时应读取 `skills/INDEX.md` 来发现所有可用的协议：
+1. **Discovery** — find the available protocols through skills/INDEX.md
+2. **Injection** — load them into the working session as long-lived background context
+3. **Application** — apply the protocol's constraints while generating and reviewing code
+4. **Verification** — check the generated code against the protocol through a skill
+
+---
+
+## 1. Automatic discovery
+
+### 1.1 Discovery through the manifest
+
+At startup the agent reads `skills/INDEX.md` to find every available protocol:
 
 ```json
 {
@@ -38,30 +38,30 @@ Agent 在启动时应读取 `skills/INDEX.md` 来发现所有可用的协议：
 }
 ```
 
-### 1.2 Agent 发现流程
+### 1.2 The discovery flow
 
 ```python
-# 伪代码：Agent 启动时执行
+# pseudocode, run at agent startup
 def discover_protocols():
     manifest = load_json("skills/INDEX.md")
     protocols_dir = manifest["registry"]["protocols_root"]
     protocols_index = manifest["registry"]["protocols_index"]
 
-    # 读取 INDEX.md 获取所有协议及其元数据
+    # read INDEX.md for every protocol and its metadata
     index = parse_markdown(protocols_index)
 
     for protocol in index.protocols:
         protocol_file = f"{protocols_dir}/{protocol.file}"
         metadata = extract_frontmatter(protocol_file)
 
-        # 根据上下文判断是否需要加载
+        # decide from the context whether to load it
         if is_relevant_to_current_task(protocol):
             load_protocol_as_context(protocol_file)
 ```
 
-### 1.3 协议元数据 (Front-matter)
+### 1.3 Protocol metadata in the frontmatter
 
-协议文件应包含可机器读取的元数据：
+A protocol file carries machine-readable metadata:
 
 ```yaml
 ---
@@ -79,45 +79,45 @@ related: [./inp.md]
 ---
 ```
 
-**关键字段用途**：
-- `id` — 全局唯一标识符（用于 Agent 引用）
-- `scope` — Agent 判断是否相关的关键字
-- `applies_to` — 指示在哪些阶段应用（设计、审查、实现）
-- `domain` — 协议适用的问题域
-- `related` — 相关协议的引用
+**What each field is for**:
+- `id` — the globally unique identifier an agent refers to it by
+- `scope` — the text an agent judges relevance from
+- `applies_to` — which phases it applies in: design, review, implementation
+- `domain` — the problem domain it covers
+- `related` — references to related protocols
 
 ---
 
-## 2. 自动加载 (Automatic Injection)
+## 2. Automatic injection
 
-### 2.1 加载触发器
+### 2.1 What triggers a load
 
-Agent 应在以下情况自动加载相关协议：
+An agent loads the relevant protocol automatically in these cases:
 
 ```text
-触发器 1：用户提及"通知"相关词汇
-  → 自动加载 UNP + INP
+Trigger 1: the user mentions a word related to "notification"
+  -> load UNP + INP automatically
 
-触发器 2：运行 skill 时
-  → 读取 skill 的 frontmatter 中的 protocols 字段
-  例：review-notifications 会自动加载 [UNP, INP]
+Trigger 2: a skill runs
+  -> read the protocols field from the skill's frontmatter
+  e.g. review-notifications loads [UNP, INP] automatically
 
-触发器 3：项目配置指定
-  → 从 .claude/config.yaml 或 CLAUDE.md 读取
+Trigger 3: the project configuration names them
+  -> read from .claude/config.yaml or CLAUDE.md
   protocols:
     - protocols/unp.md
     - protocols/inp.md
 
-触发器 4：上下文相关推断
-  → 分析代码或 diff，检测是否涉及协议相关领域
+Trigger 4: inference from context
+  -> analyse the code or the diff for a domain a protocol covers
 ```
 
-### 2.2 加载方式
+### 2.2 How they are loaded
 
 ```yaml
-# .claude/config.yaml（项目配置）
+# .claude/config.yaml, the project configuration
 protocols:
-  # 通知系统
+  # notification system
   - file: ./protocols/unp.md
     domain: notifications
     inject_as: system_context
@@ -125,13 +125,13 @@ protocols:
     domain: notifications
     inject_as: system_context
 
-# 或在 CLAUDE.md 中
+# or in CLAUDE.md
 # PROTOCOLS: ./protocols/unp.md, ./protocols/inp.md
 ```
 
-### 2.3 Skill 级别的协议声明
+### 2.3 Declaring a protocol at the skill level
 
-Skill 应在 frontmatter 中声明依赖的协议：
+A skill declares the protocols it depends on in its frontmatter:
 
 ```yaml
 ---
@@ -144,55 +144,55 @@ protocols:
 ---
 ```
 
-Agent 运行 skill 时，会自动加载声明的协议。
+When the agent runs the skill, it loads the declared protocols automatically.
 
 ---
 
-## 3. 自动应用 (Automatic Application)
+## 3. Automatic application
 
-### 3.1 代码生成阶段
+### 3.1 While generating code
 
-当 Agent 生成涉及通知的代码时，应自动应用协议：
-
-```text
-用户需求："生成通知系统，发送构建失败警告"
-
-Agent 流程：
-  1. 识别任务涉及 notifications 域
-  2. 自动加载 UNP + INP
-  3. 根据 UNP schema 生成通知对象结构
-  4. 根据 INP 规则生成渲染逻辑
-  5. 输出代码已符合协议
-```
-
-### 3.2 代码审查阶段
-
-Agent 审查代码时应检查协议合规性：
+When an agent generates code that touches notifications, it applies the protocol:
 
 ```text
-运行 skill：/review-notifications
+User request: "generate a notification system that sends a build-failure alert"
 
-自动检查列表（来自协议）：
-  ✓ 所有通知对象都有 id, type, intent, priority
-  ✓ P0/P1 包含 actions
-  ✓ type 使用 UPPER_SNAKE_CASE
-  ✓ P0/P1 已应用去重和限流
-  ✓ INP 渲染规则正确应用
-  ✓ 没有直接的 send("message") 调用
-
-返回：合规性报告（自动生成，无需人工输入）
+Agent flow:
+  1. recognise that the task is in the notifications domain
+  2. load UNP + INP automatically
+  3. build the notification object structure from the UNP schema
+  4. build the rendering logic from the INP rules
+  5. emit code that already conforms
 ```
 
-### 3.3 从协议生成验证规则
+### 3.2 While reviewing code
+
+While reviewing code, an agent checks it against the protocol:
+
+```text
+Run the skill: /review-notifications
+
+The checks, taken from the protocol:
+  ✓ every notification object has id, type, intent, priority
+  ✓ P0 and P1 carry actions
+  ✓ type uses UPPER_SNAKE_CASE
+  ✓ deduplication and rate limiting applied to P0 and P1
+  ✓ the INP rendering rules applied correctly
+  ✓ no direct send("message") call
+
+Returns: a compliance report, generated automatically with no human input
+```
+
+### 3.3 Deriving validation rules from a protocol
 
 ```python
-# Agent 可以从协议 frontmatter 自动解析验证规则
+# an agent can parse validation rules out of a protocol's frontmatter
 def extract_validation_rules(protocol_doc):
-    """从协议文档中提取验证规则"""
+    """Extract the validation rules from a protocol document"""
 
     rules = []
 
-    # 解析 "MUST"、"MUST NOT"、"FORBIDDEN" 等强制要求
+    # parse the normative statements: MUST, MUST NOT, FORBIDDEN
     must_rules = extract_patterns(protocol_doc, r"MUST\s+(.+)")
     must_not_rules = extract_patterns(protocol_doc, r"MUST NOT\s+(.+)")
     forbidden_rules = extract_patterns(protocol_doc, r"FORBIDDEN:\s*(.+)")
@@ -202,93 +202,93 @@ def extract_validation_rules(protocol_doc):
         "forbidden": must_not_rules + forbidden_rules
     }
 
-# 在审查时应用
+# apply them during review
 rules = extract_validation_rules(load_protocol("unp.md"))
 violations = check_code_against_rules(code, rules)
 ```
 
 ---
 
-## 4. Agent 工作流示例
+## 4. Example agent workflows
 
-### 4.1 通知系统设计工作流
+### 4.1 Designing a notification system
 
 ```text
-用户: "设计一个通知系统，支持 Feishu 和 WeCom"
+User: "design a notification system supporting Feishu and WeCom"
 
-┌─ Agent 自动化流程 ──────────────────────────────────────┐
+┌─ Agent automation ──────────────────────────────────────┐
 │                                                          │
-│ 1. 识别任务                                              │
-│    ↓ 关键词: "通知系统"、"Feishu"、"WeCom"              │
+│ 1. Recognise the task                                    │
+│    -> keywords: "notification system", Feishu, WeCom     │
 │                                                          │
-│ 2. 自动加载协议                                          │
-│    ↓ 加载: UNIVERSAL_NOTIFICATION_SPEC_V2 + INP_SPEC_V1                   │
+│ 2. Load the protocols automatically                      │
+│    -> loads UNIVERSAL_NOTIFICATION_SPEC_V2 + INP_SPEC_V1 │
 │                                                          │
-│ 3. 分析需求                                              │
-│    ↓ 需要支持 2 个渠道，通知优先级从 P0 到 P3          │
+│ 3. Analyse the requirement                               │
+│    -> 2 channels needed, priorities from P0 to P3        │
 │                                                          │
-│ 4. 应用 UNP 规范                                         │
-│    ↓ 设计通知对象 schema（UNP 兼容）                   │
+│ 4. Apply the UNP spec                                    │
+│    -> design a UNP-compatible notification schema        │
 │                                                          │
-│ 5. 应用 INP 规范                                         │
-│    ↓ 针对 Feishu/WeCom 的渲染和路由规则               │
+│ 5. Apply the INP spec                                    │
+│    -> rendering and routing rules for Feishu and WeCom   │
 │                                                          │
-│ 6. 生成代码（自动合规）                                  │
-│    ├─ notification.py （UNP 对象定义）                  │
-│    ├─ feishu_adapter.py （Feishu INP 实现）            │
-│    ├─ wecom_adapter.py  （WeCom INP 实现）             │
-│    └─ router.py         （动态路由）                     │
+│ 6. Generate the code, compliant by construction          │
+│    |- notification.py   (the UNP object definitions)     │
+│    |- feishu_adapter.py (the Feishu INP implementation)  │
+│    |- wecom_adapter.py  (the WeCom INP implementation)   │
+│    \- router.py         (dynamic routing)                │
 │                                                          │
-│ 7. 自动验证                                              │
-│    ↓ 运行 /review-notifications                        │
-│    ↓ 所有代码 ✅ 符合 UNP + INP                         │
+│ 7. Verify automatically                                  │
+│    -> run /review-notifications                          │
+│    -> all code ✅ conforms to UNP + INP                  │
 │                                                          │
-│ 8. 输出给用户                                            │
-│    ↓ "系统已设计并实现，符合 UNP v1.0.0 + INP v1.0.0" │
+│ 8. Report to the user                                    │
+│    -> "built to UNP v1.0.0 + INP v1.0.0"                 │
 │                                                          │
 └──────────────────────────────────────────────────────────┘
 ```
 
-### 4.2 代码审查工作流
+### 4.2 Reviewing code
 
 ```text
-用户: "审查这个通知代码"
+User: "review this notification code"
 
-┌─ Agent 自动化流程 ──────────────────────────────────────┐
+┌─ Agent automation ──────────────────────────────────────┐
 │                                                          │
-│ 1. 分析代码                                              │
-│    ↓ 检测到: notification sending, Feishu API         │
+│ 1. Analyse the code                                      │
+│    -> detected: notification sending, the Feishu API     │
 │                                                          │
-│ 2. 自动加载协议                                          │
-│    ↓ 加载: UNP + INP（检测到相关性）                   │
+│ 2. Load the protocols automatically                      │
+│    -> loads UNP + INP, having found them relevant        │
 │                                                          │
-│ 3. 运行合规性检查                                        │
-│    ├─ UNP 验证（10 项检查）                             │
-│    ├─ INP 验证（8 项检查）                              │
-│    └─ 架构检查（通知层分离）                             │
+│ 3. Run the compliance checks                             │
+│    |- UNP validation (10 checks)                         │
+│    |- INP validation (8 checks)                          │
+│    \- architecture check (notification layer separated)  │
 │                                                          │
-│ 4. 生成报告                                              │
-│    ├─ ✅ UNP 合规: 8/10                                │
-│    ├─ ✅ INP 合规: 8/8                                 │
-│    └─ ⚠️ 建议: 添加去重机制（INP §7）                 │
+│ 4. Produce the report                                    │
+│    |- ✅ UNP compliance: 8/10                            │
+│    |- ✅ INP compliance: 8/8                             │
+│    \- ⚠️ suggestion: add deduplication (INP §7)          │
 │                                                          │
-│ 5. 生成修复建议                                          │
-│    ↓ Agent 自动生成补丁代码                             │
+│ 5. Produce fix suggestions                               │
+│    -> the agent generates the patch                      │
 │                                                          │
-│ 6. 应用修复（可选自动应用）                              │
-│    ↓ /orchestrate-repair-loop 整合修复                  │
+│ 6. Apply the fixes, optionally automatically             │
+│    -> /orchestrate-repair-loop applies them              │
 │                                                          │
 └──────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 5. Skill 集成
+## 5. Skill integration
 
-### 5.1 review-notifications Skill
+### 5.1 The review-notifications skill
 
 ```yaml
-# skills/review-notifications/SKILL.md (伪代码)
+# skills/review-notifications/SKILL.md (pseudocode)
 
 ---
 name: review-notifications
@@ -300,36 +300,36 @@ protocols:
     version: ">=1.0.0"
 ---
 
-# 当此 skill 运行时：
-# 1. Agent 自动加载 UNP + INP 作为上下文
-# 2. Agent 使用协议中定义的规则进行审查
-# 3. 返回合规性报告
+# when this skill runs:
+# 1. the agent loads UNP + INP as context
+# 2. the agent reviews against the rules the protocols define
+# 3. it returns a compliance report
 ```
 
-### 5.2 apply-unp Skill（计划）
+### 5.2 The apply-unp skill (planned)
 
 ```yaml
-# 协议驱动的代码重构
+# a protocol-driven code refactor
 name: apply-unp
 description: Refactor code to use UNP objects
 protocols:
   - id: UNIVERSAL_NOTIFICATION_SPEC_V2
     version: ">=1.0.0"
 
-# 运行此 skill 时：
-# 用户: "将我的通知代码重构为使用 UNP"
-# Agent 自动：
-#   1. 加载 UNP 协议
-#   2. 分析现有代码
-#   3. 生成符合 UNP 的重构
-#   4. 应用变更
+# when this skill runs:
+# user: "refactor my notification code to use UNP"
+# the agent then:
+#   1. loads the UNP protocol
+#   2. analyses the existing code
+#   3. produces a UNP-conforming refactor
+#   4. applies the change
 ```
 
 ---
 
-## 6. 协议驱动的自动化 (Protocol-Driven Automation)
+## 6. Protocol-driven automation
 
-### 6.1 配置驱动的 Agent 行为
+### 6.1 Configuration-driven agent behaviour
 
 ```yaml
 # .claude/config.yaml
@@ -343,13 +343,13 @@ protocols:
     applies_to: [implementation, testing]
     auto_apply: true
 
-# 含义：
-# - 代码生成时自动应用 UNP
-# - 代码审查时自动验证 UNP
-# - 失败时自动提示修复方案
+# what this means:
+# - UNP is applied while generating code
+# - UNP is verified while reviewing code
+# - on a failure, a fix is suggested
 ```
 
-### 6.2 CI/CD 集成
+### 6.2 CI/CD integration
 
 ```yaml
 # .github/workflows/protocols.yml
@@ -363,17 +363,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # 步骤 1：自动加载协议
+      # step 1: load the protocols
       - name: Load protocols
         run: |
           agent-cli load-protocols --manifest skills/INDEX.md
 
-      # 步骤 2：审查通知代码
+      # step 2: review the notification code
       - name: Review notifications
         run: |
           agent-cli review --protocols unp,inp ./src/notifications
 
-      # 步骤 3：报告合规性
+      # step 3: report compliance
       - name: Report compliance
         run: |
           agent-cli report --format json > compliance-report.json
@@ -381,98 +381,98 @@ jobs:
 
 ---
 
-## 7. Agent 与用户的交互模式
+## 7. How an agent interacts with the user
 
-### 传统模式（不推荐）
+### The traditional pattern, not recommended
 
 ```text
-用户: "我该怎么用这个通知协议?"
-Agent: "请阅读 docs/guides/protocols-usage.md 第 4 节..."
-用户: 😞 （需要手动理解）
+User:  "how do I use this notification protocol?"
+Agent: "please read section 4 of docs/guides/protocols-usage.md..."
+User:  😞 (has to work it out by hand)
 ```
 
-### Agent 驱动模式（推荐）
+### The agent-driven pattern, recommended
 
 ```text
-用户: "生成一个通知系统"
-Agent: ✅ 自动加载 UNP + INP
-Agent: ✅ 生成合规代码
-Agent: ✅ 返回符合协议的实现
-用户: 😊 （开箱即用）
+User:  "generate a notification system"
+Agent: ✅ loads UNP + INP
+Agent: ✅ generates conforming code
+Agent: ✅ returns an implementation that follows the protocol
+User:  😊 (it works out of the box)
 ```
 
-### 混合模式（最优）
+### The mixed pattern, the best of both
 
 ```text
-用户: "我想更深入理解通知协议"
+User:  "I want to understand the notification protocol properly"
 Agent:
-  "你可以：
-   1. 查看快速参考: docs/guides/protocols-quickstart.md
-   2. 看完整指南: docs/guides/protocols-usage.md
-   3. 我可以帮你审查或生成代码"
+  "You can:
+   1. read the quick reference: docs/guides/protocols-quickstart.md
+   2. read the full guide: docs/guides/protocols-usage.md
+   3. or have me review or generate the code for you"
 ```
 
 ---
 
-## 8. 实现清单（For Agent Builders）
+## 8. Implementation checklist for agent builders
 
-- [ ] **发现机制** — 实现 skills/INDEX.md 中 protocols 的自动发现
-- [ ] **元数据解析** — 从 frontmatter 提取协议元数据（scope, applies_to, domain）
-- [ ] **上下文注入** — 在 Agent 启动或关键时刻加载相关协议
-- [ ] **Skill 集成** — 在 skill frontmatter 中支持 protocols 声明
-- [ ] **自动验证** — 实现从协议规则自动生成的检查函数
-- [ ] **报告生成** — 生成机器可读的合规性报告（JSON/YAML）
-- [ ] **代码生成** — 在代码生成时自动应用协议约束
-- [ ] **修复建议** — 当违反协议时自动生成补丁代码
-
----
-
-## 9. 未来方向
-
-### 动态协议生成
-
-```text
-长期愿景：Agent 可以根据项目需求动态生成协议
-  例："我需要一个日志协议"
-  Agent 生成 logging-protocol.md（基于模板 + 需求）
-```
-
-### 跨协议验证
-
-```text
-长期愿景：自动验证多个协议之间的兼容性
-  例：UNP + INP + 安全协议是否兼容？
-```
-
-### 协议版本管理
-
-```text
-长期愿景：Agent 自动跟踪协议版本和迁移路径
-  当 UNP 升级到 v2.0.0 时：
-  Agent 自动：
-    1. 检测代码中使用的版本
-    2. 生成迁移计划
-    3. 应用自动迁移（如果可能）
-```
+- [ ] **Discovery** — discover the protocols in skills/INDEX.md automatically
+- [ ] **Metadata parsing** — extract the protocol metadata from the frontmatter: scope, applies_to, domain
+- [ ] **Context injection** — load the relevant protocol at startup, or at the moment it matters
+- [ ] **Skill integration** — support a protocols declaration in a skill's frontmatter
+- [ ] **Automatic verification** — generate the check functions from the protocol's rules
+- [ ] **Reporting** — produce a machine-readable compliance report in JSON or YAML
+- [ ] **Code generation** — apply the protocol's constraints while generating code
+- [ ] **Fix suggestions** — generate the patch when the protocol is violated
 
 ---
 
-## 10. 与传统指南的关系
+## 9. Where this could go
 
-| 方面 | 传统指南 | Agent 指南 |
+### Generating a protocol dynamically
+
+```text
+The long-term vision: an agent generates a protocol from a project's needs
+  e.g. "I need a logging protocol"
+  the agent produces logging-protocol.md, from a template plus the requirement
+```
+
+### Cross-protocol validation
+
+```text
+The long-term vision: check several protocols against each other automatically
+  e.g. are UNP, INP and a security protocol mutually compatible?
+```
+
+### Protocol version management
+
+```text
+The long-term vision: an agent tracks protocol versions and migration paths
+  when UNP moves to v2.0.0:
+  the agent then:
+    1. detects the version the code uses
+    2. produces a migration plan
+    3. applies the migration automatically, where that is possible
+```
+
+---
+
+## 10. How this relates to the human-facing guide
+
+| Aspect | The human guide | The agent guide |
 |:---|:---|:---|
-| **目标受众** | 人类开发者 | AI Agent |
-| **学习方式** | 阅读文档 | 自动加载和应用 |
-| **验证方式** | 手动检查清单 | 自动验证 |
-| **代码生成** | 用户手写 | Agent 自动生成 |
-| **合规性** | 用户负责 | Agent 保证 |
+| **Audience** | A human developer | An AI agent |
+| **How it is learned** | By reading the document | By loading and applying it |
+| **How it is verified** | A manual checklist | Automatically |
+| **Code generation** | Written by the user | Generated by the agent |
+| **Compliance** | The user's responsibility | Guaranteed by the agent |
 
-**两者互补**：
-- 用户 = docs/guides/protocols-usage.md（理解概念）
-- Agent = docs/guides/protocols-agent-usage.md（自动执行）
+**They complement each other**:
+- The user reads docs/guides/protocols-usage.md, to understand the concepts
+- The agent reads docs/guides/protocols-agent-usage.md, to act on them
 
 ---
 
-**核心原则**：让 Agent 做繁重的工作，用户关注高层需求。
+**The principle**: the agent does the heavy lifting; the user stays on the high-level requirement.
 
-**最后更新**：2026-03-25
+**Last updated**: 2026-03-25
