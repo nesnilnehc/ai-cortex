@@ -5,31 +5,31 @@ scope: 全库代码
 recommended_scope: user
 ---
 
-# Rule: 通用编码原则 (Coding Principles)
+# Rule: General Coding Principles
 
-## 适用范围 (Scope)
+## Scope
 
-项目内所有代码（跨语言）。作为通用原则，与语言特定规则（如 standards-shell）同时生效时，两者均须满足。
+All code in the project, in every language. These are general principles; where a language-specific rule such as standards-shell also applies, both must be satisfied.
 
-## 强制约束 (Constraints)
+## Constraints
 
-1. **代码组织**：模块化、单一职责、自顶向下、相关函数就近放置。
-2. **注释**：说明「为什么」而非「做什么」；非显而易见才注释；复杂函数必须有参数与返回值说明；代码变更时同步更新注释。
-3. **命名**：描述性、一致、避免未公认缩写、在作用域内有意义。
-4. **错误处理**：快速失败、错误信息含上下文与解决建议、统一错误处理机制、错误路径下正确清理资源。
-5. **日志**：使用标准日志级别与统一日志函数、不直接 echo/print 调试信息、日志含足够上下文、支持通过参数控制详细程度。
-6. **简洁性**：遵循 DRY、避免过度抽象、不保留注释掉的死代码与过时注释。
-7. **复杂度阈值**：单函数 ≤ 50 行；嵌套层级 ≤ 3 层；重复代码必须提取为函数；过时注释必须删除。
+1. **Organisation**: modular, single responsibility, top-down, related functions kept near each other.
+2. **Comments**: explain *why*, not *what*. Comment only what is not self-evident. A complex function must document its parameters and return value. Update comments together with the code they describe.
+3. **Naming**: descriptive, consistent, avoid unestablished abbreviations, meaningful within its scope.
+4. **Error handling**: fail fast; error messages carry context and a suggested resolution; one consistent error-handling mechanism; resources released correctly on the error path.
+5. **Logging**: use the standard log levels and the shared log function; no echoing or printing debug output directly; enough context in each log line; verbosity controllable by a parameter.
+6. **Simplicity**: follow DRY, avoid over-abstraction, and keep neither commented-out dead code nor stale comments.
+7. **Complexity thresholds**: a function is ≤ 50 lines; nesting is ≤ 3 levels; duplicated code must be extracted into a function; stale comments must be deleted.
 
-## 违规示例 (Bad Patterns)
+## Bad Patterns
 
-- 注释仅重复代码逻辑（如 `// 设置变量 x 为 1`）。
-- 错误被吞掉或仅打印无上下文信息。
-- 多处复制相同逻辑未提取为函数。
-- 保留大段注释掉的旧实现。
+- A comment that merely restates the code — `// 设置变量 x 为 1`.
+- An error swallowed, or printed without context.
+- The same logic copied in several places instead of extracted into a function.
+- Large blocks of commented-out former implementation left in place.
 
-## 修正指南 (Remediation)
+## Remediation
 
-1. 将重复逻辑提取为函数；用早返回减少嵌套。
-2. 用统一日志函数替换直接 echo/print；错误路径补充上下文与清理。
-3. 删除死代码与过时注释；复杂逻辑补充「原因」类注释与函数文档。
+1. Extract the duplicated logic into a function; reduce nesting with early returns.
+2. Replace direct echo/print calls with the shared log function; add context and cleanup to the error path.
+3. Delete dead code and stale comments; add "why" comments and function documentation to complex logic.

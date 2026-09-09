@@ -28,10 +28,13 @@ KEYWORDS = ("MUST NOT", "MUST", "SHOULD NOT", "SHOULD", "halt", "HALT",
 # Normative markers in either language. A pure translation moves a constraint
 # from one column to the other; it never makes one disappear. Weakening
 # "不得" into "尽量不" (or MUST into SHOULD) drops the total.
-STRONG = ("必须", "不得", "禁止", "务必", "严禁", "MUST NOT", "MUST",
-          "never", "Never", "required", "shall")
-WEAK = ("应当", "应该", "建议", "尽量", "最好", "SHOULD NOT", "SHOULD",
-        "prefer", "Prefer", "recommended")
+# Alternation is longest-first so that 必须 is not also counted as 须.
+STRONG_RE = re.compile(
+    r'必须|必填|不得|禁止|严禁|务必|不留空|须|'
+    r'[Mm]ust not|MUST NOT|[Mm]ust|MUST|[Nn]ever|[Rr]equired|shall')
+WEAK_RE = re.compile(
+    r'应当|应该|建议|尽量|最好|优先|避免|'
+    r'SHOULD NOT|SHOULD|[Pp]refer|recommended|[Ss]uggest(?:ed|ion)?|[Aa]void')
 
 
 def frontmatter(text):
@@ -90,8 +93,8 @@ def extract(text):
         "list_items": len(re.findall(r'^\s*(?:[-*+]|\d+\.)\s', prose, re.M)),
         "checkboxes": len(re.findall(r'^\s*- \[[ x]\]', prose, re.M)),
         "table_rows": len(re.findall(r'^\|', prose, re.M)),
-        "strong_constraints": sum(prose.count(k) for k in STRONG),
-        "weak_constraints": sum(prose.count(k) for k in WEAK),
+        "strong_constraints": len(STRONG_RE.findall(prose)),
+        "weak_constraints": len(WEAK_RE.findall(prose)),
     }
 
 
