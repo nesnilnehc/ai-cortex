@@ -1,39 +1,39 @@
-#定义愿景
+#Define Vision
 
-定义项目旨在创造的长期未来。回答“我们正在努力建设什么样的未来？”
+Defines the long-term future the project aims to create. Answers "what future are we working to build?"
 
-## 用途
+## Purpose
 
-生成一个愿景声明（1-3句话），描述与使命一致的预期的未来状态。不定义北极星指标、目标或里程碑。输出保存到“docs/project-overview/vision.md”（或项目规范）。
+Produces a vision statement (1-3 sentences) describing the intended future state, consistent with the mission. Does not define the North Star metric, goals, or milestones. The output is saved to "docs/project-overview/vision.md" (or wherever the project norm puts it).
 
-## 何时使用
+## When to use
 
-- 完成任务后——一旦“我们存在的理由”明确，就确定“我们构建什么样的未来”。
-- 战略或方向重置——重新调整长期目标。
-- 战略链中的第二层——构建任务→愿景→北极星→目标→里程碑时在“定义任务”之后运行。
+- After the mission — once "why we exist" is clear, settle "what future we are building".
+- A strategy or direction reset — realign the long-term target.
+- The second layer of the strategy chain — run it after "define-mission" when building mission → vision → North Star → goals → milestones.
 
-## 输入
+## Inputs
 
-- 使命（声明或路径）；项目/产品背景。
-- 任选：现有愿景草案、时间范围、受众。
+- The mission (statement or path); project/product context.
+- Optional: an existing vision draft, the time horizon, the audience.
 
-## 输出
+## Outputs
 
-- 愿景声明文档位于“docs/project-overview/vision.md”（或遵循项目规范）。
-- 任选：“与使命保持一致”、“时间范围”。
+- A vision statement document at "docs/project-overview/vision.md" (or wherever the project norm puts it).
+- Optional: "alignment with the mission" and "time horizon".
 
-## 安装
+## Install
 
-统一由 AI Cortex 的 canonical 安装管理，见仓库根 [README](../../README.md#-install-and-use)。
+Handled centrally by the canonical AI Cortex install; see the repository root [README](../../README.md#-install-and-use).
 
-## 相关技能
+## Related skills
 
-- `define-mission` — 上游：我们为何存在。
-- `define-north-star` — 下一个：用户价值的单一指标。
-- `设计战略目标` — 3-5个战略成果。
-- `define-里程碑` — 目标的阶段检查点。
-- 完整 docs/ 结构由 AgentFabric runtime 或人工按 `docs/ARTIFACT_NORMS.md` 拉起
+- `define-mission` — upstream: why we exist.
+- `define-north-star` — next: the single metric for user value.
+- `design-strategic-goals` — 3-5 strategic outcomes.
+- `define-milestones` — the stage checkpoints for the goals.
+- The full docs/ structure is stood up by the AgentFabric runtime or by hand, following `docs/ARTIFACT_NORMS.md`
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md) 了解行为、限制和示例。
+See [SKILL.md](./SKILL.md) for behavior, limits, and examples.

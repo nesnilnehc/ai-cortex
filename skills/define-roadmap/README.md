@@ -1,37 +1,37 @@
 # define-roadmap
 
-从战略目标推导由里程碑节点组成的路线图；每节点为阶段检查点，含成功标准与目标可追溯性。
+Derives a roadmap of milestone nodes from the strategic goals; each node is a stage checkpoint carrying success criteria and traceability back to a goal.
 
-## 用途
+## Purpose
 
-生成路线图文档，其中每个节点为里程碑（名称、范围、成功标准、目标映射）。不定义目标或待办事项。输出保存至 `docs/process-management/roadmap.md` 或 `milestones.md`（依项目规范）。
+Produces a roadmap document in which every node is a milestone (name, scope, success criteria, goal mapping). Does not define goals or backlog items. The output is saved to `docs/process-management/roadmap.md` or `milestones.md` (per the project norm).
 
-## 何时使用
+## When to use
 
-- **战略目标之后**：定义阶段或主要检查点，表示各目标的进展水平。
-- **规划周期**：为接下来 1–2 个阶段确定「完成的内容」。
-- **治理门**：提供里程碑路线图，供 `plan-next` 评估。
-- **待办之前**：提供路线图，待办项目可按倡议或主题分组。
+- **After the strategic goals**: define the stages or major checkpoints that express how far each goal has progressed.
+- **Planning cycle**: settle "what counts as done" for the next 1–2 stages.
+- **Governance gate**: supply the milestone roadmap for `plan-next` to assess.
+- **Before the backlog**: supply the roadmap so backlog items can be grouped by initiative or theme.
 
-## 输入
+## Inputs
 
-- 战略目标（文档或路径）；项目背景。
-- 可选：vision/NSM；时间范围；阶段偏好。
+- The strategic goals (document or path); project context.
+- Optional: vision/NSM; time horizon; stage preferences.
 
-## 输出
+## Outputs
 
-- 路线图文档（roadmap.md 或 milestones.md）：有序里程碑节点，含范围、成功标准、目标映射。
+- A roadmap document (roadmap.md or milestones.md): ordered milestone nodes with scope, success criteria, and goal mapping.
 
-## 安装
+## Install
 
-统一由 AI Cortex 的 canonical 安装管理，见仓库根 [README](../../README.md#-install-and-use)。
+Handled centrally by the canonical AI Cortex install; see the repository root [README](../../README.md#-install-and-use).
 
-## 相关技能
+## Related skills
 
-- `design-strategic-goals` — 上游：路线图节点（里程碑）源自战略目标。
-- `define-strategic-pillars` — 可选输入：支柱可引导路线图主题分组。
-- `plan-next` — 下游：治理诊断时引用里程碑状态。
+- `design-strategic-goals` — upstream: roadmap nodes (milestones) come from the strategic goals.
+- `define-strategic-pillars` — optional input: the pillars can drive how roadmap themes are grouped.
+- `plan-next` — downstream: reads milestone status during governance diagnosis.
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md) 了解行为、限制与示例。
+See [SKILL.md](./SKILL.md) for behavior, limits, and examples.

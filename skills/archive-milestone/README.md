@@ -1,77 +1,77 @@
 # archive-milestone
 
-将已完成里程碑从活跃路径归档为快照摘要，折叠路线图历史阶段，防止历史文档污染 AI 对当前项目状态的判断。
+Archives a completed milestone out of the active path into a snapshot summary and folds up the roadmap's historical stage, so that stale documents do not distort the AI's read of the current project state.
 
-## 何时调用
+## When to invoke
 
-- `plan-next` 的卫生巡检（步骤 2.3）检测到未归档的已完成里程碑时
-- 里程碑完成后 ≥ 60 天
-- 当前进行中里程碑索引 ≥ 目标 + 2（如 M5 进行中，m3 满足，m4 不满足）
-- tasks.md > 300 行且全部任务已完成
+- The hygiene sweep of `plan-next` (step 2.3) finds a completed milestone that was never archived
+- The milestone completed ≥ 60 days ago
+- The index of the milestone in progress is ≥ target + 2 (with M5 in progress, m3 qualifies and m4 does not)
+- tasks.md is over 300 lines and every task is done
 
-## 默认行为：dry-run
+## Default behavior: dry-run
 
-**不传 `apply` 参数时默认 dry-run**，只输出预览，不修改任何文件。这是安全默认值。
+**Without the `apply` argument, the default is dry-run** — it prints a preview and changes no file. That is the safe default.
 
-## 示例
+## Examples
 
-### Dry-run（预览，推荐先执行）
+### Dry-run (preview, recommended first)
 
 ```text
 /archive-milestone m3
 ```
 
-或明确指定：
+Or state it explicitly:
 
 ```text
 /archive-milestone m3 apply=false
 ```
 
-输出示例：
+Example output:
 
 ```text
-=== dry-run 预览 ===
+=== dry-run preview ===
 
-将生成：
+Will create:
   docs/process-management/milestones/_archive/m3-summary.md
 
-  完成日期：2026-02-15
-  关键交付物：
-    - T31 QueryRouter 混合检索上线（commit abc123）
-    - T32 BGE-M3 Embedding 接入（ADR-006 compliant）
+  Completed on: 2026-02-15
+  Key deliverables:
+    - T31 QueryRouter hybrid retrieval shipped (commit abc123)
+    - T32 BGE-M3 embedding wired in (ADR-006 compliant)
     ...
 
-将修改：
-  roadmap.md 第 45-89 行折叠为：
-    ### M3 混合检索基础设施（已完成 2026-02-15）→ 详见 [milestones/_archive/m3-summary.md]
+Will modify:
+  roadmap.md lines 45-89 folded into:
+    ### M3 hybrid retrieval infrastructure (completed 2026-02-15) → see [milestones/_archive/m3-summary.md]
 
-将删除：
-  docs/process-management/milestones/m3/（3 个文件，共 312 行）
+Will delete:
+  docs/process-management/milestones/m3/ (3 files, 312 lines total)
 
-引用更新（2 处）：
-  docs/architecture/system-architecture.md:78 → 已更新
-  docs/calibration/planning-alignment.md:34  → 已更新
+Reference updates (2):
+  docs/architecture/system-architecture.md:78 → updated
+  docs/calibration/planning-alignment.md:34  → updated
 
-=== 无文件已修改 ===
+=== no file was modified ===
 ```
 
-### Apply（确认执行）
+### Apply (execute for real)
 
-**确认 dry-run 预览无误后**，传入 `apply=true`：
+**Once the dry-run preview checks out**, pass `apply=true`:
 
 ```text
 /archive-milestone m3 apply=true
 ```
 
-执行前提：git 工作区无未提交变更（技能会主动检查）。
+Precondition: the git working tree has no uncommitted changes (the skill checks this itself).
 
-## 产出文件
+## Output files
 
-| 文件 | 说明 |
+| File | Description |
 |---|---|
-| `milestones/_archive/{slug}-summary.md` | 快照摘要（lifecycle: snapshot） |
+| `milestones/_archive/{slug}-summary.md` | Snapshot summary (lifecycle: snapshot) |
 
-## 摘要结构
+## Summary structure
 
 ```markdown
 ---
@@ -83,20 +83,20 @@ milestone_slug: {slug}
 completed_at: YYYY-MM-DD
 ---
 
-# {里程碑名称} 归档摘要
+# {milestone name} archive summary
 
-## 关键交付物
+## Key deliverables
 ...
 
-## 遗留缺口
+## Remaining gaps
 ...
 
-## 关键 ADR
+## Key ADRs
 ...
 ```
 
-## 不会执行
+## What it will not do
 
-- 不自动执行（必须显式调用）
-- dry-run 时不修改任何文件
-- 不归档未达成熟度条件的里程碑
+- Never runs by itself (it must be invoked explicitly)
+- Changes no file during a dry-run
+- Does not archive a milestone that fails the maturity conditions

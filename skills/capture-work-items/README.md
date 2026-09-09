@@ -1,39 +1,39 @@
-# 捕获工作项
+# Capture Work Items
 
-从自由格式的输入中捕获需求、错误或问题，并将其转化为结构化的、持久的待办产品。
+Captures a requirement, bug, or issue from free-form input and turns it into a structured, persisted backlog artifact.
 
-## 用途
+## Purpose
 
-该技能提供快速结构化记录，无需“分析需求”执行的深度验证。它将用户提供的描述转换为具有所有必需字段的工作项（需求、错误或问题），并将它们保留到项目约定路径。输出与项目文档结构（例如项目-文档-模板）保持一致，并包括治理的状态跟踪。
+This skill gives you a fast structured record without the deep validation that "analyze-requirements" performs. It converts a user-supplied description into a work item (requirement, bug, or issue) carrying every required field, and persists it to the path the project has agreed on. The output stays aligned with the project documentation structure (project-docs-template, for instance) and includes status tracking for governance.
 
-## 何时使用
+## When to use
 
-- 用户说“记录此错误”或“添加此要求” - 无需全面分析即可构建并保留
-- 从会议记录或电子邮件中提取工作项目并保存为结构化产品
-- 捕获项目以便以后在里程碑或任务分解中进行分类和优先级排序
-- 填补评估文档中确定的待办事项缺口
+- The user says "log this bug" or "add this requirement" - structure and persist it without a full analysis
+- Pull work items out of meeting notes or email and save them as structured artifacts
+- Capture items so they can be triaged and prioritized later in milestones or task breakdowns
+- Fill the backlog gaps identified in an assessment document
 
-## 输入
+## Inputs
 
-- 用户的需求、错误或问题的原始描述
-- 可选：项目上下文（用于路径检测的现有“docs/”结构）
+- The user's raw description of a requirement, bug, or issue
+- Optional: project context (an existing "docs/" structure used for path detection)
 
-## 输出
+## Outputs
 
-- 带有 YAML front-matter 的结构化工作项 Markdown
-- 路径：每个的“docs/process-management/project-board/待办/”（规范）或“docs/待办/”（后备）
-- 类型：需求、错误、问题
-- 状态：初始“已捕获”（下游更新：分类、进行中、完成、阻止、取消）
+- Structured work item Markdown with YAML front-matter
+- Path: one file each, under "docs/process-management/project-board/backlog/" (canonical) or "docs/backlog/" (fallback)
+- Types: requirement, bug, issue
+- Status: starts at "captured" (downstream updates: triaged, in-progress, done, blocked, cancelled)
 
-## 相关技能
+## Related skills
 
-- `分析需求`：当项目模糊且需要澄清时进行深度验证
-- `设计解决方案`：当捕获的项目导致架构决策时进行设计探索
+- `analyze-requirements`: deep validation when an item is vague and needs clarification
+- `design-solution`: design exploration when a captured item leads to an architecture decision
 
-## 安装
+## Install
 
-统一由 AI Cortex 的 canonical 安装管理，见仓库根 [README](../../README.md#-install-and-use)。
+Handled centrally by the canonical AI Cortex install; see the repository root [README](../../README.md#-install-and-use).
 
-## 许可证
+## License
 
-麻省理工学院
+MIT

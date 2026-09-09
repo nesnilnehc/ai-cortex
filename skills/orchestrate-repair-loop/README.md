@@ -1,42 +1,42 @@
-# 运行修复循环
+# Run Repair Loop
 
-**状态**：已验证
+**Status**: Validated
 
-## 用途
+## Purpose
 
-迭代地把代码收敛到「干净」：审查 → 测试 → 修复 → 重复，直到测试通过且没有阻塞性的审查发现
-（或触发停止条件）。
+Iteratively converges the code to "clean": review → test → fix → repeat, until the tests pass and no blocking review finding is left
+(or a stop condition fires).
 
-## 何时使用
+## When to use
 
-- 希望一直修到测试通过，而不是修一次就交回来。
-- 需要审查与测试反复交替，防止改出新问题。
+- You want it to keep fixing until the tests pass, rather than fix once and hand back.
+- You need review and testing to alternate repeatedly, so a fix does not introduce a new problem.
 
-## 输入
+## Inputs
 
-- 目标路径（默认 `.`）
-- 范围：`diff`（默认）或 `codebase`
-- 测试模式：`fast`（默认）/ `ci` / `full`
-- 允许的操作：装依赖 / 联网 / 起 Docker 与服务（默认都要先确认）
-- `max_iterations`（默认 5）
+- Target path (default `.`)
+- Scope: `diff` (default) or `codebase`
+- Test mode: `fast` (default) / `ci` / `full`
+- Permitted operations: install dependencies / use the network / start Docker and services (all confirmed first by default)
+- `max_iterations` (default 5)
 
-## 输出
+## Outputs
 
-修复循环报告：逐轮列出跑了哪些命令、失败在哪、改了什么、还剩什么风险。**默认不落盘**，
-只在明确要求时才写文件。
+A repair-loop report: round by round, which commands ran, where they failed, what changed, and what risk is left. **Nothing is written to disk by default**;
+a file is written only when explicitly asked for.
 
-## 一句话要点
+## The one thing to remember
 
-**测试绿不等于收敛。** 仓库进来就是绿的时，推进力全在审查那一半——见 SKILL.md 的
-「审查该找什么」。
+**Green tests are not convergence.** When the repository arrives already green, all the forward motion sits in the review half — see
+"What to look for in review" in SKILL.md.
 
-## 生态位
+## Niche
 
-| 维度 | 值 |
+| Dimension | Value |
 | :--- | :--- |
-| 能力重叠 | nesnilnehc/ai-cortex：`review-codebase`、`automate-tests` |
-| 市场定位 | 通用能力 |
+| Capability overlap | nesnilnehc/ai-cortex: `review-codebase`, `automate-tests` |
+| Market position | General capability |
 
-## 完整定义
+## Full definition
 
-行为、限制与示例见 [SKILL.md](./SKILL.md)。
+Behavior, limits, and examples are in [SKILL.md](./SKILL.md).

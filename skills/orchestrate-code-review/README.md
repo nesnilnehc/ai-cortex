@@ -1,30 +1,30 @@
-# 编排：代码审查（orchestrate-code-review）
+# Orchestrate: Code Review (orchestrate-code-review)
 
-按固定顺序串联原子 review-* 技能（scope → language → framework → library → cognitive），聚合 findings 为统一报告。本技能仅做编排，不执行代码分析。
+Chains the atomic review-* skills in a fixed order (scope → language → framework → library → cognitive) and aggregates the findings into one unified report. This skill only orchestrates; it runs no code analysis of its own.
 
-## 何时使用
+## When to use
 
-- 完整代码审查：用户要求"审查代码"或"审查我的更改"并期望统一报告
-- pre-PR / pre-commit：跑完整流水线一次拿到 baseline
-- 与 `orchestrate-repair-loop` 配合：先跑本技能拿到 findings，再交给 `orchestrate-repair-loop` 迭代修复
+- Full code review: the user asks to "review the code" or "review my changes" and expects one unified report
+- pre-PR / pre-commit: run the whole pipeline once to get a baseline
+- Paired with `orchestrate-repair-loop`: run this skill first for the findings, then hand them to `orchestrate-repair-loop` for iterative fixing
 
-## 何时不用
+## When not to use
 
-- 单维度审查 → 直接调用对应原子技能（`review-diff` / `review-security` / 等）
+- A single-dimension review → call the matching atomic skill directly (`review-diff` / `review-security` / etc.)
 
-## 输入
+## Inputs
 
-- 用户意图（diff 还是 codebase；指定路径）
-- 可选：语言 / 框架提示
+- User intent (diff or codebase; the path given)
+- Optional: language / framework hints
 
-## 输出
+## Outputs
 
-- 单一聚合报告（findings + risk_signals + 跳过步骤说明）
+- One aggregated report (findings + risk_signals + notes on the steps that were skipped)
 
-## 编排原则
+## Orchestration principles
 
-仅做：检测上下文 / 串联子技能 / halt-on-failure / 聚合输出。所有 domain 检测逻辑位于原子 review-* 子技能内。
+It does four things only: detect the context / chain the sub-skills / halt-on-failure / aggregate the output. All domain detection logic lives inside the atomic review-* sub-skills.
 
-## 完整定义
+## Full definition
 
-见 [SKILL.md](./SKILL.md)。
+See [SKILL.md](./SKILL.md).
