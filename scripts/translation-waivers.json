@@ -29,5 +29,6 @@
   "specs/technical-design-modeling.md::residual_chinese": "`覆盖 FD §Acceptance N` 中的 `覆盖` 是与 `覆盖 R<n>` 同族的回引 token，跨文件一致保留。",
   "rules/standards-agent-testing.md::code_blocks": "违规示例中 agent.handle / assert 的中文字符串是面向读者的样例文案，不是可执行逻辑；英文读者看中文样例无法判断断言在说什么。与 universal-notification 的 JSON 样例文案处理一致，函数名与断言结构未动。",
   "rules/claude-md-management.md::numbers": "四处 spec 交叉引用的章节号由 §5/§3/§4/§7 更正为 §5.2/§1/§5.1/§5.4——迁移前就已失效的引用，作为独立内容提交 bca6fe4 修正。相对迁移前基线做全量审计时会持续显示，故在此登记。",
-  "docs/LANGUAGE_SCHEME.md::residual_chinese": "§7 列出校验器实际比对的不变量，其中强 / 弱约束标记词表本身就是中文（必须 / 不得 / 建议 / 尽量）——译成英文就不再是校验器在基线侧查找的字符串。"
+  "docs/LANGUAGE_SCHEME.md::residual_chinese": "§7 列出校验器实际比对的不变量，其中强 / 弱约束标记词表本身就是中文（必须 / 不得 / 建议 / 尽量）——译成英文就不再是校验器在基线侧查找的字符串。",
+  "docs/architecture/terminology.md::residual_chinese": "§VI 第 1 条讲的就是中文文档里首次出现时中英并列的写法，示例 `规范（Spec）` / `协议（Protocol）` 必须保持中文才说明得了这条约定。"
 }
