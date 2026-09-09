@@ -82,7 +82,7 @@ Generate **GitHub Actions workflow files** for software projects of every kind, 
 ### Principles
 
 - **Appendix A is authoritative**: the YAML produced must satisfy Appendix A (structure, naming, security, maintainability).
-- **Narrow triggers**: `on` must name branches/paths/tags; avoid firing on every push. Common pattern: `push`/`pull_request` with `branches` or `paths`. A **release** workflow must fire on version tags only (e.g. `push:tags:['v*']`) and live in a different file from CI.
+- **Narrow triggers**: `on` must name branches/paths/tags; avoid firing on every push. Common pattern: `push`/`pull_request` with `branches` or `paths`. A **release** workflow must fire on version tags only (e.g. `push: tags: ['v*']`) and live in a different file from CI.
 - **Least privilege**: when a workflow needs repo write, PR, or secrets access, set `permissions` at workflow or job level to the least required; e.g. CI `contents: read`, release `contents: write`, `packages: write`; avoid `all`.
 - **Pinned versions**: pin third-party actions (a commit SHA or a major version tag); do not use `@master` or an unpinned reference; for security and scanning actions, prefer pinning to a concrete version (Trivy, for one).
 
@@ -190,12 +190,12 @@ Once the user replaces the placeholders, can the workflow run in the target repo
 
 **Input**: scenario: CD/release. Stack: Go, multi-architecture Docker (amd64/arm64), GoReleaser for the image and the GitHub Release. Trigger: `push` on `v*` tags only. File: `release.yml`.
 
-**Expected**: `on:push:tags:['v*']`; `permissions` including `contents: write` and `packages: write`. Steps: checkout (`fetch-depth: 0`) → set up Go (`go-version-file: go.mod`, cached) → set up QEMU (`linux/amd64`, `linux/arm64`) → set up Docker Buildx (`id: buildx`, same platforms) → log in to GHCR (`docker/login-action`, `ghcr.io`) → GoReleaser (`goreleaser/goreleaser-action` pinned, pass `GITHUB_TOKEN` and `BUILDX_BUILDER: ${{ steps.buildx.outputs.name }}`). Do not reimplement the logic defined in `.goreleaser.yaml`/Dockerfile. **See Appendix B**.
+**Expected**: `on: push: tags: ['v*']`; `permissions` including `contents: write` and `packages: write`. Steps: checkout (`fetch-depth: 0`) → set up Go (`go-version-file: go.mod`, cached) → set up QEMU (`linux/amd64`, `linux/arm64`) → set up Docker Buildx (`id: buildx`, same platforms) → log in to GHCR (`docker/login-action`, `ghcr.io`) → GoReleaser (`goreleaser/goreleaser-action` pinned, pass `GITHUB_TOKEN` and `BUILDX_BUILDER: ${{ steps.buildx.outputs.name }}`). Do not reimplement the logic defined in `.goreleaser.yaml`/Dockerfile. **See Appendix B**.
 
 ### Example 4 (edge): minimal information
 
 **Input**: project: legacy-api. No description. Language and commands unknown. The user wants "at least a placeholder CI workflow".
 
-**Expected**: generate structurally complete YAML that conforms to Appendix A; use placeholders for the runner and the steps (e.g. "name the runner and the install/test commands") and mark them "to be replaced"; keep `on` narrow (e.g. `pull_request:branches:[main]`); do not invent test or build commands; keep `name`, `on`, `jobs`, `runs-on`, `steps` and the recommended fields (e.g. `permissions`) for the user to fill in later.
+**Expected**: generate structurally complete YAML that conforms to Appendix A; use placeholders for the runner and the steps (e.g. "name the runner and the install/test commands") and mark them "to be replaced"; keep `on` narrow (e.g. `pull_request: branches: [main]`); do not invent test or build commands; keep `name`, `on`, `jobs`, `runs-on`, `steps` and the recommended fields (e.g. `permissions`) for the user to fill in later.
 
 ---
