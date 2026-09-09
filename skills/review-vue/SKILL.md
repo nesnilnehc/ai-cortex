@@ -17,160 +17,160 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion
 ---
 
-# 技能（Skill）：审查 Vue
+# Skill: Review Vue
 
-## 目的 (Purpose)
+## Purpose
 
-仅查看 **Vue 3** 代码的 **框架约定**。不要定义范围（差异与代码库）或执行安全/架构分析；这些是通过范围和cognitive技能来处理的。以标准格式发出**结果列表**以进行聚合。重点关注组合 API 和 `<script setup>`、反应性（ref/reactive、compute/watch）、组件边界和 props/emits、状态（Pinia/store）、路由和防护、性能（例如 v-memo）以及相关的可访问性。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：生成 Vue 3 框架调查结果列表，涵盖组合 API 使用情况、反应性正确性、组件边界、状态管理、路由、性能和给定代码范围的可访问性。
-
-**成功标准**（必须满足所有要求）：
-
-1. ✅ **仅 Vue 3 框架范围**：仅审查 Vue 3 框架约定；未执行范围选择、安全性或架构分析
-2. ✅ **涵盖所有七个 Vue 维度**：组合 API/脚本设置、反应性（参考/反应/计算/监视）、组件边界/道具/发射、状态 (Pinia)、路由/防护、渲染性能和可访问性（如果相关）
-3. ✅ **结果格式兼容**：每个结果包括位置、类别（`framework-vue`）、严重性、标题、描述和可选建议
-4. ✅ **组件/文件引用**：所有发现都引用特定文件：行或组件名称
-5. ✅ **排除非 Vue 代码**：除非明确在范围内，否则不会分析非 Vue 文件的 Vue 特定规则
-
-**验收**测试：输出是否包含以 Vue 3 为中心的结果列表，其中包含涵盖所有相关框架维度的组件/文件引用，而无需执行安全性、架构或范围分析？
+Review only the **framework conventions** of **Vue 3** code. Do not define the scope (diff vs codebase) and do not run security/architecture analysis; the scope and cognitive skills handle those. Emit a **findings list** in the standard format for aggregation. Concentrate on the Composition API and `<script setup>`, reactivity (ref/reactive, computed/watch), component boundaries and props/emits, state (Pinia/store), routing and guards, performance (v-memo, for example) and the accessibility that goes with them.
 
 ---
 
-## 范围边界（范围边界）
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: produce a Vue 3 framework findings list covering Composition API usage, reactivity correctness, component boundaries, state management, routing, performance and accessibility across the given code scope.
 
-- 组合 API 和 `<script setup>` 正确性（defineProps、defineEmits、defineExpose、生命周期挂钩）
-- 反应性正确性（参考与反应性、计算与观察、道具突变、深度反应性）
-- 组件边界设计（道具/发射合同、道具钻探、提供/注入）
-- 状态管理（Pinia/Vuex：动作与直接突变，避免服务器状态重复）
-- 路由（Vue Router、导航守卫、延迟加载、路由参数/查询处理）
-- 性能（v-memo、v-for key 稳定性、不必要的重新渲染）
-- 辅助功能（语义 HTML、ARIA、表单标签、焦点管理）
+**Success criteria** (all of them must hold):
 
-**本技能不负责**：
+1. ✅ **Vue 3 framework scope only**: only Vue 3 framework conventions were reviewed; no scope selection, security or architecture analysis was performed
+2. ✅ **All seven Vue dimensions covered**: Composition API/script setup, reactivity (ref/reactive/computed/watch), component boundaries/props/emits, state (Pinia), routing/guards, render performance, and accessibility where relevant
+3. ✅ **Findings format compatible**: every finding carries location, category (`framework-vue`), severity, title, description and an optional suggestion
+4. ✅ **Component/file references**: every finding points at a specific file:line or component name
+5. ✅ **Non-Vue code excluded**: Vue-specific rules are not applied to non-Vue files unless they are explicitly in scope
 
-- 范围选择——范围由调用者提供
-- 安全分析（XSS、注入风险）——使用“review-security”
-- 架构分析——使用“review-architecture”
-- 语言/运行时（JavaScript/TypeScript）约定——使用一般的 JS/TS 分析或注释作为单独的关注点
-- 完整编排式审查——使用“审查代码”
-
-**转交点**：当所有 Vue 发现结果发出后，将其移交给“orchestrate-code-review”进行聚合。对于 XSS 风险（v-html 滥用、未经净化的内容），请记下它们并建议“审查安全性”。
+**Acceptance** test: does the output carry a Vue 3-centred findings list, with component/file references covering every relevant framework dimension, and without security, architecture or scope analysis?
 
 ---
 
-## 使用场景 (Use Cases)
+## Scope Boundary
 
-- **精心安排的审查**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 运行 Vue 项目的范围 → 语言 → 框架 → 库 → cognitive时，用作框架步骤。
-- **仅 Vue 审查**：当用户只想检查 Vue/前端框架约定时。
-- **PR Vue 前检查表**：确保 Composition API 使用、反应性和组件契约正确。
+**This skill owns**:
 
-**何时使用**：当正在审查的代码是 Vue 3 并且任务包括框架质量时。范围由调用者或用户确定。
+- Composition API and `<script setup>` correctness (defineProps, defineEmits, defineExpose, lifecycle hooks)
+- Reactivity correctness (ref vs reactive, computed vs watch, prop mutation, deep reactivity)
+- Component boundary design (props/emits contract, prop drilling, provide/inject)
+- State management (Pinia/Vuex: actions vs direct mutation, avoid duplicating server state)
+- Routing (Vue Router, navigation guards, lazy loading, route param/query handling)
+- Performance (v-memo, v-for key stability, needless re-renders)
+- Accessibility (semantic HTML, ARIA, form labels, focus management)
 
----
+**This skill does not own**:
 
-## 行为 (Behavior)
+- Scope selection — the scope comes from the caller
+- Security analysis (XSS, injection risk) — use `review-security`
+- Architecture analysis — use `review-architecture`
+- Language/runtime (JavaScript/TypeScript) conventions — use general JS/TS analysis, or note them as a separate concern
+- A full orchestrated review — use `orchestrate-code-review`
 
-### 该技能的范围
-
-- **分析**：**给定代码范围**（调用者提供的文件或 diff）中的 Vue 3 框架约定。不决定范围；接受代码范围作为输入。
-- **不要**：执行范围选择、安全审查或架构审查；不要审查非 Vue 文件的 Vue 规则，除非在范围内（例如混合存储库）。
-
-### 审查清单（仅限 Vue 框架）
-
-1. **Composition API 和脚本设置**：优先选择 `<script setup>` 和 Composition API；正确使用defineProps、defineEmits、defineExpose；生命周期挂钩（onMounted、onUnmounted 等）。
-2. **反应性**：正确使用ref与reactive；计算与手表；避免改变道具；深度反应性和模板中的展开。
-3. **组件边界**：明确 props/emits 合约；避免在适合储存或提供/注入的地方进行支柱钻探；每个组件单一责任。
-4. **状态（Pinia/store）**：适当使用Pinia（或Vuex）商店；避免在多个地方重复服务器状态；行动与直接突变。
-5. **路由和守卫**：Vue Router 的使用；导航守卫和延迟加载；路由参数和查询处理。
-6. **性能**：列表渲染代价昂贵的v-memo；避免不必要的重新渲染；列表中的键用法。
-7. **辅助功能**：语义 HTML 和 ARIA（如果相关）；表单标签和焦点管理。
-
-### 语气和参考
-
-- **专业和技术**：参考具体位置（文件：行或组件名称）。发出包含位置、类别、严重性、标题、描述、建议的结果。
+**Handoff point**: once every Vue finding has been emitted, hand off to `orchestrate-code-review` for aggregation. For XSS risks (v-html misuse, unsanitized content), note them and suggest `review-security`.
 
 ---
 
-## 输入与输出 (Input & Output)
+## Use Cases
 
-### 输入 (Input)
+- **Orchestrated review**: used as the framework step when [orchestrate-code-review](../orchestrate-code-review/SKILL.md) runs scope → language → framework → library → cognitive over a Vue project.
+- **Vue-only review**: when the user wants to check Vue/frontend framework conventions alone.
+- **Pre-PR Vue checklist**: confirm that Composition API usage, reactivity and component contracts are correct.
 
-- **代码范围**：包含 Vue 3 代码（.vue、带有 Vue API 的 .ts）的文件或目录（或 diff）。由用户或范围技能提供。
-
-### 输出 (Output)
-
-- 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
-- 此技能的类别是 **framework-vue**。
+**When to use**: when the code under review is Vue 3 and the task includes framework quality. The scope is set by the caller or the user.
 
 ---
 
-## 限制 (Restrictions)
+## Behavior
 
-### 硬边界（Hard Boundaries）
+### What this skill covers
 
-- **不要**执行范围选择、安全性或架构审查。遵守 Vue 3 框架约定。
-- **不要**在没有具体地点或可行建议的情况下给出结论。
-- **不要**审查非 Vue 代码的 Vue 特定规则，除非明确在范围内。
+- **Analyze**: Vue 3 framework conventions inside the **given code scope** (files or a diff supplied by the caller). It does not decide the scope; it takes the code scope as input.
+- **Do not**: perform scope selection, a security review or an architecture review; do not apply Vue rules to non-Vue files unless they are in scope (a mixed repository, for example).
 
-### 技能边界 (Skill Boundaries)
+### Review checklist (Vue framework only)
 
-**不要做这些**（其他技能可以处理它们）：
+1. **Composition API and script setup**: prefer `<script setup>` and the Composition API; correct use of defineProps, defineEmits, defineExpose; lifecycle hooks (onMounted, onUnmounted and so on).
+2. **Reactivity**: correct use of ref vs reactive; computed vs watch; avoid mutating props; deep reactivity and unwrapping in templates.
+3. **Component boundaries**: explicit props/emits contracts; avoid prop drilling where a store or provide/inject fits; one responsibility per component.
+4. **State (Pinia/store)**: appropriate use of the Pinia (or Vuex) store; avoid duplicating server state in several places; actions vs direct mutation.
+5. **Routing and guards**: Vue Router usage; navigation guards and lazy loading; route param and query handling.
+6. **Performance**: v-memo for expensive list rendering; avoid needless re-renders; key usage in lists.
+7. **Accessibility**: semantic HTML and ARIA where relevant; form labels and focus management.
 
-- 不要选择或定义代码范围 - 范围由调用者或“审查代码”确定
-- 不要执行安全分析（XSS、注入）——使用“review-security”
-- 不要执行架构分析——使用“review-architecture”
+### Tone and references
 
-**何时停止并交接**：
-
-- 当所有 Vue 发现结果发出后，将其交给“orchestrate-code-review”进行聚合
-- 当发现 XSS 风险时（例如不安全的 `v-html` 使用），记下它们并建议 `review-security`
-- 当用户需要全面审查（范围+语言+cognitive）时，重定向到“审查代码”
-
----
-
-## 自检（Self-Check）
-
-### 核心成功标准
-
-- [ ] **仅 Vue 3 框架范围**：仅审查 Vue 3 框架约定；未执行范围选择、安全性或架构分析
-- [ ] **涵盖所有七个 Vue 维度**：组合 API/脚本设置、反应性（参考/反应/计算/监视）、组件边界/道具/发射、状态 (Pinia)、路由/防护、渲染性能和可访问性（如果相关）
-- [ ] **符合调查结果格式**：每个调查结果包括位置、类别（`framework-vue`）、严重性、标题、描述和可选建议
-- [ ] **组件/文件引用**：所有结果引用特定文件：行或组件名称
-- [ ] **排除非 Vue 代码**：除非明确在范围内，否则不会分析非 Vue 文件的 Vue 特定规则
-
-### 流程质量检查
-
-- [ ] 是否仅审查了 Vue 框架维度（无范围/安全/架构）？
-- [ ] 是否涵盖了相关的组合 API、反应性、组件、状态、路由和性能？
-- [ ] 每个发现是否都包含位置、类别=framework-vue、严重性、标题、描述和可选建议？
-- [ ] 问题是否与 file:line 或组件相关？
-
-### 验收测试
-
-输出是否包含以 Vue 3 为中心的结果列表，其中包含涵盖所有相关框架维度的组件/文件引用，而无需执行安全性、架构或范围分析？
+- **Professional and technical**: cite a concrete location (file:line or component name). Emit findings carrying location, category, severity, title, description, suggestion.
 
 ---
 
-## 示例 (Examples)
+## Input and Output
 
-### 示例 1：改变 props
+### Input
 
-- **输入**：分配给脚本或模板中的道具的组件。
-- **预期**：发出 prop 突变的发现（主要/次要）；建议本地状态或发送给父级。类别=framework-vue.
+- **Code scope**: files or directories (or a diff) holding Vue 3 code (.vue, or .ts that uses the Vue API). Supplied by the user or by the scope skill.
 
-### 示例 2：v-for 中缺少键
+### Output
 
-- **输入**：v-for 不带 :key 或带有不稳定密钥（例如索引）。
-- **预期**：发出列表身份和性能的结果；建议稳定的唯一密钥。类别=framework-vue.
+- Emit zero or more **findings** in the format defined in **Appendix: Output Contract**.
+- The category for this skill is **framework-vue**.
 
-### 边缘情况：Vue 2 选项 API
+---
 
-- **输入**：混合代码库中的旧版 Vue 2 Options API。
-- **预期**：如果技能扩展到 Vue 2，则回顾 Vue 2 模式（数据、方法、生命周期）；否则请注意“首选 Vue 3 Composition API”（在迁移可行的情况下）。对于这个技能，重点关注Vue 3；仅当明确在范围内时才注意 Vue 2。
+## Restrictions
+
+### Hard Boundaries
+
+- **Do not** perform scope selection, security or architecture review. Stay inside Vue 3 framework conventions.
+- **Do not** land a conclusion without a concrete location or an actionable suggestion.
+- **Do not** apply Vue-specific rules to non-Vue code unless it is explicitly in scope.
+
+### Skill Boundaries
+
+**Do not do these** (other skills handle them):
+
+- Do not select or define the code scope - the caller or `orchestrate-code-review` sets it
+- Do not perform security analysis (XSS, injection) — use `review-security`
+- Do not perform architecture analysis — use `review-architecture`
+
+**When to stop and hand off**:
+
+- Once every Vue finding has been emitted, hand it to `orchestrate-code-review` for aggregation
+- When an XSS risk turns up (unsafe `v-html` usage, for example), note it and suggest `review-security`
+- When the user wants a full review (scope + language + cognitive), redirect to `orchestrate-code-review`
+
+---
+
+## Self-Check
+
+### Core success criteria
+
+- [ ] **Vue 3 framework scope only**: only Vue 3 framework conventions were reviewed; no scope selection, security or architecture analysis was performed
+- [ ] **All seven Vue dimensions covered**: Composition API/script setup, reactivity (ref/reactive/computed/watch), component boundaries/props/emits, state (Pinia), routing/guards, render performance, and accessibility where relevant
+- [ ] **Findings format conformant**: every finding carries location, category (`framework-vue`), severity, title, description and an optional suggestion
+- [ ] **Component/file references**: every finding points at a specific file:line or component name
+- [ ] **Non-Vue code excluded**: Vue-specific rules are not applied to non-Vue files unless they are explicitly in scope
+
+### Process quality checks
+
+- [ ] Were only the Vue framework dimensions reviewed (no scope/security/architecture)?
+- [ ] Were the relevant Composition API, reactivity, component, state, routing and performance aspects covered?
+- [ ] Does every finding carry location, category=framework-vue, severity, title, description and an optional suggestion?
+- [ ] Is every issue tied to a file:line or a component?
+
+### Acceptance test
+
+Does the output carry a Vue 3-centred findings list, with component/file references covering every relevant framework dimension, and without security, architecture or scope analysis?
+
+---
+
+## Examples
+
+### Example 1: mutating props
+
+- **Input**: a component that assigns to a prop in its script or template.
+- **Expected**: emit a finding for the prop mutation (major/minor); suggest local state or an emit to the parent. category=framework-vue.
+
+### Example 2: missing key in v-for
+
+- **Input**: a v-for with no :key, or with an unstable key (the array index, for example).
+- **Expected**: emit a finding on list identity and performance; suggest a stable, unique key. category=framework-vue.
+
+### Edge case: Vue 2 Options API
+
+- **Input**: legacy Vue 2 Options API in a mixed codebase.
+- **Expected**: if the skill is extended to Vue 2, review the Vue 2 patterns (data, methods, lifecycle); otherwise note "use the Vue 3 Composition API" where migration is feasible. For this skill, concentrate on Vue 3; note Vue 2 only when it is explicitly in scope.

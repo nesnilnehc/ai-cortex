@@ -18,255 +18,255 @@ output_schema:
   description: Promotion/demotion decisions for Now/Next/Later tiers + capacity usage report + updated roadmap.md
 ---
 
-# 技能：晋升 Roadmap 条目（Promote Roadmap Items）
+# Skill: Promote Roadmap Items
 
-## 目的 (Purpose)
+## Purpose
 
-把已评分的 backlog 条目按战略目标容量分配晋升进 roadmap 的 Now / Next / Later 槽位。是 **roadmap planning ceremony** 的支撑技能，事件驱动。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：基于当前战略目标容量分配和 backlog 优先级，决定哪些条目晋升 / 降级 / 保持，更新 roadmap.md。
-
-**成功标准**（必须全部满足）：
-
-1. ✅ 读取 priority 已定的 backlog 条目（跳过 unset）
-2. ✅ 计算当前 roadmap 各层（Now/Next/Later）容量使用与剩余
-3. ✅ 按 strategic_goal 容量分配（来自 roadmap.md 或战略设置）呈现晋升候选
-4. ✅ 用户确认每条晋升 / 降级决策
-5. ✅ 更新 roadmap.md 和被晋升条目的 status 字段
-6. ✅ 输出容量使用报告（各目标已用 / 总量 / 剩余）
-
-**验收测试**：晋升后，读者能否从 roadmap.md 直接看到 Now 层每项来自哪个 strategic_goal、priority 为多少？
+Promote scored backlog items into the roadmap's Now / Next / Later slots according to the strategic-goal capacity allocation. This is the supporting skill for the **roadmap planning ceremony**, and it is event-driven.
 
 ---
 
-## 范围边界（Scope Boundaries）
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: decide which items are promoted / demoted / held, based on the current strategic-goal capacity allocation and the backlog priorities, and update roadmap.md.
 
-- Backlog → Roadmap 晋升 / 降级决策
-- 按 strategic_goal 容量护栏控制
-- 更新 roadmap.md 和被晋升条目状态
+**Success criteria** (all of them must hold):
 
-**本技能不负责**：
+1. ✅ Backlog items with a priority set were read (unset ones skipped)
+2. ✅ The capacity used and remaining in each roadmap tier (Now/Next/Later) was computed
+3. ✅ Promotion candidates were presented against the strategic_goal capacity allocation (from roadmap.md or the strategy setup)
+4. ✅ The user confirmed every promotion / demotion decision
+5. ✅ roadmap.md and the status field of each promoted item were updated
+6. ✅ A capacity usage report was emitted (used / total / remaining per goal)
 
-- 创建新 backlog 条目（`capture-work-items`）
-- 为 backlog 条目评分（`prioritize-backlog`）
-- 定义 roadmap 基础结构 / 里程碑（`define-roadmap`）
-- 任务拆分（由 AgentFabric runtime 承接）
-- 需求记录（`capture-work-items`）
-
-**交接点**：晋升后的 Now 层条目按需进入 `capture-work-items`，再由 AgentFabric runtime 完成设计 / 任务拆分 / 执行。
+**Acceptance test**: after promotion, can a reader see straight from roadmap.md which strategic_goal each Now item came from and what its priority is?
 
 ---
 
-## 使用场景（Use Cases）
+## Scope Boundaries
 
-- **容量释出**：上一批 Now 层条目完成，释出容量，需要拉新条目进入
-- **战略刷新**：战略目标调整后，重新评估 Now 层条目是否仍合适
-- **大缺口补入**：`plan-next` 输出的大缺口被 capture + prioritize 后进入晋升决策
-- **按需 planning**：用户主动启动 roadmap planning，不绑定固定 cycle
+**This skill owns**:
+
+- Backlog → Roadmap promotion / demotion decisions
+- Holding to the strategic_goal capacity guardrail
+- Updating roadmap.md and the status of the promoted items
+
+**This skill does not own**:
+
+- Creating new backlog items (`capture-work-items`)
+- Scoring backlog items (`prioritize-backlog`)
+- Defining the roadmap's base structure / milestones (`define-roadmap`)
+- Task breakdown (the AgentFabric runtime takes it)
+- Requirement capture (`capture-work-items`)
+
+**Handoff point**: promoted Now-tier items go into `capture-work-items` as needed, and the AgentFabric runtime then carries out design / task breakdown / execution.
 
 ---
 
-## 行为（Behavior）
+## Use Cases
 
-### 阶段 0：读取输入
+- **Capacity freed**: the previous batch of Now-tier items finished, capacity came free, and new items need pulling in
+- **Strategy refresh**: after the strategic goals shift, re-assess whether the Now-tier items still fit
+- **Filling a large gap**: a large gap reported by `plan-next` reaches the promotion decision after capture + prioritize
+- **Planning on demand**: the user starts roadmap planning themselves, tied to no fixed cycle
 
-1. 读取 `docs/process-management/roadmap.md`（当前 Now / Next / Later 状态）
-2. 读取 backlog 目录，筛选 `priority` 已定（非 unset）**且 `status` 非 `declined`** 的条目——`declined` 是永久不做的终态，由 `prioritize-backlog` 写入，不参与晋升
-3. 读取 `docs/project-overview/strategic-goals.md`（战略目标列表）
-4. 读取 roadmap.md 中声明的战略目标容量分配（见阶段 1）
+---
 
-**halt 条件**：
-- roadmap.md 不存在 → 建议先 `define-roadmap`
-- strategic-goals.md 不存在 → 建议先 `design-strategic-goals`
-- 所有 backlog 条目均 `priority: unset` → 建议先 `prioritize-backlog`
-- roadmap.md 中无容量分配、或无总容量基线 → halt，提示运行 `define-roadmap` 敲定容量
+## Behavior
 
-### 阶段 1：计算当前容量状态
+### Stage 0: read the inputs
 
-**总容量基线**取自 roadmap.md「容量分配」章节表头，由 `define-roadmap` 第 8 步采集并写入（人数 × 周期 − 开销，按有效工时折算）。基线缺失时 halt，提示重跑 `define-roadmap` —— 没有分母算不出任何一个目标的分配容量。
+1. Read `docs/process-management/roadmap.md` (the current Now / Next / Later state)
+2. Read the backlog directory and select the items whose `priority` is set (not unset) **and whose `status` is not `declined`** — `declined` is the terminal state for never doing it, written by `prioritize-backlog`, and it takes no part in promotion
+3. Read `docs/project-overview/strategic-goals.md` (the list of strategic goals)
+4. Read the strategic-goal capacity allocation declared in roadmap.md (see Stage 1)
 
-对每个 strategic_goal：
+**halt conditions**:
+- roadmap.md does not exist → suggest running `define-roadmap` first
+- strategic-goals.md does not exist → suggest running `design-strategic-goals` first
+- every backlog item is `priority: unset` → suggest running `prioritize-backlog` first
+- roadmap.md carries no capacity allocation, or no total capacity baseline → halt, and prompt for a `define-roadmap` run to settle the capacity
 
-| 字段 | 含义 |
+### Stage 1: compute the current capacity state
+
+The **total capacity baseline** comes from the header of the "Capacity allocation" section in roadmap.md, gathered and written by step 8 of `define-roadmap` (headcount × cycle − overhead, converted into effective working hours). When the baseline is missing, halt and prompt for a rerun of `define-roadmap` — with no denominator, no goal's allocated capacity can be worked out.
+
+For each strategic_goal:
+
+| Field | Meaning |
 |---|---|
-| 分配容量 | roadmap.md 中该目标的百分比 × **总容量基线** |
-| 已用容量 | 当前 Now 层归属该目标的条目工作量之和 |
-| 剩余容量 | 分配 - 已用 |
+| Allocated capacity | that goal's percentage in roadmap.md × the **total capacity baseline** |
+| Used capacity | the sum of effort across the current Now-tier items belonging to that goal |
+| Remaining capacity | allocated - used |
 
-输出容量表：
+Emit the capacity table:
 
 ```markdown
-## 当前容量使用
+## Current capacity usage
 
-| Strategic Goal | 分配 | 已用 | 剩余 | 占比 |
-| 目标 1（用户价值） | 6 人周 | 4 人周 | 2 人周 | 67% |
-| 目标 2（市场扩张） | 2 人周 | 1 人周 | 1 人周 | 50% |
-| 目标 3（工程健康） | 2 人周 | 0 人周 | 2 人周 | 0% |
+| Strategic Goal | Allocated | Used | Remaining | Share |
+| Goal 1 (user value) | 6 person-weeks | 4 person-weeks | 2 person-weeks | 67% |
+| Goal 2 (market expansion) | 2 person-weeks | 1 person-week | 1 person-week | 50% |
+| Goal 3 (engineering health) | 2 person-weeks | 0 person-weeks | 2 person-weeks | 0% |
 ```
 
-### 阶段 2：生成晋升候选
+### Stage 2: generate promotion candidates
 
-**Now 层准入规则**：排名靠前、且无未决前置依赖的 3–5 条。两个条件都要满足。
+**Now-tier admission rule**: the 3–5 top-ranked items that carry no unresolved prerequisite. Both conditions hold.
 
-依赖检查读取条目 frontmatter 的 `depends_on`（由 `map-item-dependencies` 登记）：
+The dependency check reads each item's frontmatter `depends_on` (registered by `map-item-dependencies`):
 
-| `depends_on` 状态 | 处理 |
+| `depends_on` state | Handling |
 |---|---|
-| `—`（已排查，无依赖） | 可进 Now |
-| 有依赖，且全部前置已在 Now 或已完成 | 可进 Now |
-| 有依赖，存在未决前置 | **不得进 Now**，最高只能到 Next；候选表中标注卡在哪一条 |
-| 字段缺失（未排查） | 不静默放行。提示先跑 `map-item-dependencies`；用户坚持继续时，在候选表标注「依赖未排查」并由用户自担风险 |
+| `—` (checked, no dependency) | may enter Now |
+| has dependencies, and every prerequisite is already in Now or finished | may enter Now |
+| has dependencies with an unresolved prerequisite | **must not enter Now**; Next is as far as it goes, and the candidate table names which one blocks it |
+| field missing (never checked) | do not wave it through silently. Prompt for a `map-item-dependencies` run first; when the user insists on continuing, mark it "dependencies unchecked" in the candidate table and leave the risk with the user |
 
-对每个 strategic_goal：
+For each strategic_goal:
 
-1. 筛选该目标的 backlog 条目
-2. 按 `priority` 排序（P0 > P1 > P2 > P3）
-3. 按剩余容量从高优先级往下拉，直到填满该目标容量或无更多条目
+1. Select the backlog items belonging to that goal
+2. Sort by `priority` (P0 > P1 > P2 > P3)
+3. Pull from the highest priority downward against the remaining capacity, until that goal's capacity is full or no items are left
 
-输出晋升候选表：
+Emit the promotion candidate table:
 
 ```markdown
-## 晋升候选（Now 层）
+## Promotion candidates (Now tier)
 
-| Goal | Item | Priority | Effort | 动作 |
-| 目标 1 | #42 支付优化 | P0 | 2w | 晋升 Later → Now |
-| 目标 3 | #17 技术债：auth 重构 | P1 | 2w | 晋升 Backlog → Now |
+| Goal | Item | Priority | Effort | Action |
+| Goal 1 | #42 payment optimization | P0 | 2w | promote Later → Now |
+| Goal 3 | #17 tech debt: auth refactor | P1 | 2w | promote Backlog → Now |
 ```
 
-### 阶段 3：降级 / 拖延决策
+### Stage 3: demotion / deferral decisions
 
-对当前 Now 层条目检查：
+Check the current Now-tier items:
 
-- 若 priority 已降级（如战略变动后重评结果） → 建议降级到 Next 或 Later
-- 若 strategic_goal 容量超配 → 建议最低 priority 条目降级
+- if the priority has dropped (a re-score after a strategy change, say) → suggest demoting it to Next or Later
+- if a strategic_goal is over its capacity → suggest demoting the lowest-priority item
 
-输出降级建议。
+Emit the demotion suggestions.
 
-### 阶段 4：用户确认每项决策
+### Stage 4: the user confirms each decision
 
-呈现合并清单（晋升 + 降级），用户逐项确认：
+Present the merged list (promotions + demotions) and have the user confirm item by item:
 
 ```markdown
-## 待确认清单
+## Confirmation list
 
-[ ] #42 晋升 Later → Now？
-[ ] #17 晋升 Backlog → Now？
-[ ] #8 降级 Now → Next？（超配 + priority 低）
+[ ] #42 promote Later → Now?
+[ ] #17 promote Backlog → Now?
+[ ] #8 demote Now → Next? (over capacity + low priority)
 [ ] ...
 ```
 
-### 阶段 5：持久化
+### Stage 5: persist
 
-对每项被确认的决策：
+For each confirmed decision:
 
-1. 更新条目 frontmatter 的 `status`（`captured` → `active` 进入 Now；`active` → `deferred` 降级）
-2. 更新 roadmap.md，增加 / 移除对应条目引用
-3. 写入 `promoted_at` / `demoted_at` 时间戳到条目 frontmatter
+1. Update the item's frontmatter `status` (`captured` → `active` on entering Now; `active` → `deferred` on demotion)
+2. Update roadmap.md, adding / removing the matching item reference
+3. Write the `promoted_at` / `demoted_at` timestamp into the item's frontmatter
 
-### 阶段 6：输出最终报告
+### Stage 6: emit the final report
 
-- 晋升数 / 降级数 / 保持数
-- 更新后容量使用
-- 下一步建议（如 `capture-work-items` 处理新晋升的 Now 项）
-
----
-
-## 输入与输出 (Input & Output)
-
-**输入**：roadmap.md + backlog（priority 已定）+ strategic-goals.md + 容量分配。
-
-**输出**：对话决策表 + roadmap.md 更新 + 条目 frontmatter 更新（status + promoted_at / demoted_at）。
+- Counts promoted / demoted / held
+- Capacity usage after the update
+- The suggested next step (`capture-work-items` for the newly promoted Now items, for example)
 
 ---
 
-## 限制（Restrictions）
+## Input and Output
 
-### 硬边界（Hard Boundaries）
+**Input**: roadmap.md + the backlog (priority set) + strategic-goals.md + the capacity allocation.
 
-- 不对 `priority: unset` 条目晋升（先走 `prioritize-backlog`）
-- 不对 `status: declined` 条目晋升——该终态表示永久不做，重新纳入需用户显式撤销终态
-- 不超出 strategic_goal 容量分配（超配时必须先降级再晋升）
-- 不自动晋升 P3 条目到 Now（P3 默认进 Later）
-- 不把存在未决前置依赖的条目晋升到 Now（先解决前置，或只晋升到 Next）
-- 不自动修改 roadmap 的 strategic_goal 容量分配（那是 `define-roadmap` 的职责）
+**Output**: the decision table in chat + the roadmap.md update + the item frontmatter update (status + promoted_at / demoted_at).
 
-### 技能边界
+---
 
-**不做（其他技能负责）**：
+## Restrictions
 
-| 动作 | 归属 |
+### Hard Boundaries
+
+- Do not promote a `priority: unset` item (go through `prioritize-backlog` first)
+- Do not promote a `status: declined` item — that terminal state means never doing it, and taking it back in needs the user to lift the terminal state explicitly
+- Do not exceed a strategic_goal's capacity allocation (when it is over capacity, something must be demoted before anything is promoted)
+- Do not promote a P3 item into Now automatically (P3 goes to Later by default)
+- Do not promote an item with an unresolved prerequisite into Now (clear the prerequisite first, or promote only as far as Next)
+- Do not change the roadmap's strategic_goal capacity allocation automatically (that is `define-roadmap`'s job)
+
+### Skill boundaries
+
+**Not done here (other skills own it)**:
+
+| Action | Owner |
 |---|---|
-| 创建 backlog | `capture-work-items` |
-| 评分 backlog | `prioritize-backlog` |
-| 定义 roadmap 结构和容量 | `define-roadmap` |
-| 拆分 Now 项为任务 | AgentFabric runtime（不在 AI Cortex 范围） |
-| 需求详细记录 | `capture-work-items` |
+| Creating backlog items | `capture-work-items` |
+| Scoring the backlog | `prioritize-backlog` |
+| Defining roadmap structure and capacity | `define-roadmap` |
+| Breaking a Now item into tasks | AgentFabric runtime (outside AI Cortex) |
+| Detailed requirement capture | `capture-work-items` |
 
 ---
 
 ## Anti-Patterns
 
-- ❌ **不要绑定固定 cycle**（"每周一跑"）—— 本技能是**事件驱动**（容量释出 / 战略变动 / 按需）
-- ❌ **不要忽略容量护栏** —— 不能因某目标有高 priority 条目就超配抢其他目标的容量
-- ❌ **不要一次晋升太多** —— Now 层条目数默认上限 **3–5 条**（项目可在 roadmap.md 中覆盖），堆积超过该上限会破坏 pull-based 流
-- ❌ **不要对 priority unset 条目操作** —— 强制先评分
-- ❌ **不要跳过依赖检查** —— 优先级高不代表现在拉得动；被阻塞的条目进了 Now 就是占着容量不产出
-- ❌ **不要修改 roadmap 结构**（如新增里程碑）—— 那是 `define-roadmap` 的事
+- ❌ **Do not tie it to a fixed cycle** ("run it every Monday") — this skill is **event-driven** (capacity freed / strategy change / on demand)
+- ❌ **Do not ignore the capacity guardrail** — one goal holding a high-priority item is no licence to overrun and take another goal's capacity
+- ❌ **Do not promote too much at once** — the Now tier caps at **3–5 items** by default (a project can override it in roadmap.md), and stacking past that cap breaks the pull-based flow
+- ❌ **Do not act on priority-unset items** — score them first
+- ❌ **Do not skip the dependency check** — high priority does not mean it can be pulled now; a blocked item in Now just holds capacity and produces nothing
+- ❌ **Do not change the roadmap structure** (adding a milestone, say) — that is `define-roadmap`'s business
 
 ---
 
-## 自检（Self-Check）
+## Self-Check
 
-- [ ] 读取 roadmap.md、backlog、strategic-goals.md 成功
-- [ ] 容量分配存在；不存在时已 halt 并建议 `define-roadmap`
-- [ ] 只处理 `priority` 已定、且 `status` 非 `declined` 的 backlog 条目
-- [ ] 每个 strategic_goal 的容量使用已计算
-- [ ] 晋升候选按 priority 排序 + 容量约束生成
-- [ ] Now 层候选已过依赖检查；`depends_on` 缺失的条目已提示先跑 `map-item-dependencies`，未静默放行
-- [ ] Now 层条目数未超过 WIP 上限（默认 3–5）
-- [ ] 降级建议考虑 priority 和容量超配
-- [ ] 用户逐项确认，未自动批准
-- [ ] roadmap.md 更新 + 条目 frontmatter 更新
-- [ ] 输出最终容量使用报告
+- [ ] roadmap.md, the backlog and strategic-goals.md were read successfully
+- [ ] The capacity allocation exists; where it does not, the run halted and suggested `define-roadmap`
+- [ ] Only backlog items with `priority` set and `status` other than `declined` were handled
+- [ ] Capacity usage was computed for every strategic_goal
+- [ ] Promotion candidates were generated by priority order plus the capacity constraint
+- [ ] Now-tier candidates passed the dependency check; items missing `depends_on` were told to run `map-item-dependencies` first, not waved through silently
+- [ ] The Now-tier item count stays within the WIP cap (3–5 by default)
+- [ ] The demotion suggestions weigh priority and over-capacity
+- [ ] The user confirmed item by item; nothing was auto-approved
+- [ ] roadmap.md was updated and the item frontmatter was updated
+- [ ] The final capacity usage report was emitted
 
 ---
 
-## 示例（Examples）
+## Examples
 
-### 示例 1：容量释出触发晋升（主流场景）
+### Example 1: freed capacity triggers a promotion (the mainstream case)
 
-**背景**：cycle 里 3 个 Now 项完成，释出 4 人周容量。strategic goals：目标 1（60%）、目标 2（20%）、目标 3 工程健康（20%）。
+**Context**: 3 Now items finished during the cycle, freeing 4 person-weeks of capacity. Strategic goals: Goal 1 (60%), Goal 2 (20%), Goal 3 engineering health (20%).
 
-**流程**：
+**Flow**:
 
-1. 计算容量 —— 目标 3 空余 2 周，目标 1 空余 2 周
-2. 生成候选：
-   - 目标 1：#42 支付优化（P0, 2w）→ 晋升 Later → Now
-   - 目标 3：#17 auth 重构（P1, 2w）→ 晋升 Backlog → Now
-3. 用户逐项确认（全部 yes）
-4. 更新 roadmap.md + 条目 status 为 active
-5. 容量报告：目标 1 6/6、目标 2 1/2、目标 3 2/2
+1. Compute capacity — Goal 3 has 2 weeks free, Goal 1 has 2 weeks free
+2. Generate candidates:
+   - Goal 1: #42 payment optimization (P0, 2w) → promote Later → Now
+   - Goal 3: #17 auth refactor (P1, 2w) → promote Backlog → Now
+3. The user confirms item by item (all yes)
+4. Update roadmap.md and set the item status to active
+5. Capacity report: Goal 1 6/6, Goal 2 1/2, Goal 3 2/2
 
-**结果**：2 个条目晋升 Now；交接建议运行 `capture-work-items` 处理新 Now 项。
+**Result**: 2 items promoted into Now; the handoff suggests running `capture-work-items` for the new Now items.
 
-### 示例 2：战略刷新导致大规模重评（边缘场景）
+### Example 2: a strategy refresh forces a broad re-assessment (edge case)
 
-**背景**：季度战略刷新后，新战略目标 4 加入，目标 3 容量从 20% 调到 10%。
+**Context**: after the quarterly strategy refresh, a new strategic goal 4 joins and Goal 3's capacity moves from 20% to 10%.
 
-**流程**：
+**Flow**:
 
-1. halt 并检测 —— roadmap.md 的容量分配未反映新战略
-2. 提示："战略目标或容量有变，本技能无法处理结构变更。请先运行 `define-roadmap` 重新敲定容量分配。"
-3. 用户运行 `define-roadmap` 后重来
-4. 重入 promote-roadmap-items：发现目标 3 超配（Now 中 2w，新容量 1w），建议降级 #17 到 Next
-5. 用户确认 → 更新
+1. halt and check — the capacity allocation in roadmap.md does not reflect the new strategy
+2. Prompt: "the strategic goals or the capacity have changed, and this skill cannot handle a structural change. Run `define-roadmap` first to settle the capacity allocation again."
+3. The user runs `define-roadmap`, then starts over
+4. Re-enter promote-roadmap-items: Goal 3 turns out to be over capacity (2w in Now, new capacity 1w), so suggest demoting #17 to Next
+5. The user confirms → update
 
-**结果**：roadmap 与战略重新一致；#17 降级但未丢失。
+**Result**: the roadmap lines up with the strategy again; #17 is demoted but not lost.
 
 ---

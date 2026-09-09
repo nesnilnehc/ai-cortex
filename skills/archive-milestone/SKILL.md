@@ -16,12 +16,12 @@ input_schema:
     milestone_slug:
       type: string
       required: true
-      description: 里程碑目录名（如 "m3"）
+      description: Milestone directory name (e.g. "m3")
     apply:
       type: bool
       required: false
       default: false
-      description: false = dry-run（仅预览），true = 落盘执行
+      description: false = dry-run (preview only), true = write changes to disk
   defaults:
     apply: false
 output_schema:
@@ -32,151 +32,151 @@ output_schema:
   lifecycle: snapshot
 ---
 
-# 技能：里程碑归档（Archive Milestone）
+# Skill: Archive Milestone
 
-## 目的 (Purpose)
+## Purpose
 
-将已完成里程碑的历史执行细节从活跃路径移出，生成精简快照摘要，防止历史文档持续污染 AI 对当前项目状态的判断。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：为已完成里程碑生成快照摘要，折叠路线图历史段落，并将原始任务目录移至 `_archive/`。
-
-**成功标准**（apply=true 时必须全部满足）：
-
-1. ✅ 已在 `milestones/_archive/{slug}-summary.md` 生成快照摘要
-2. ✅ 摘要含：完成日期 / 关键交付物（≤5 条）/ 遗留缺口（指向后续里程碑）/ 关键 ADR 引用
-3. ✅ `roadmap.md` 中对应阶段已折叠为 ≤ 3 行引用
-4. ✅ 全仓 grep 旧 tasks.md 路径已重定向到摘要
-5. ✅ `milestones/{slug}/` 目录已移除（内容已在摘要中保留关键信息）
-
-**验收测试**：执行后，AI 读取 `milestones/_archive/m3-summary.md` 能准确理解 m3 的关键结果，不需要读取原始 tasks.md。
+Move the historical execution detail of a completed milestone out of the active paths and produce a lean snapshot summary, so old documents stop clouding the AI's read of the project's current state.
 
 ---
 
-## 成熟度判定
+## Core Objective
 
-**满足以下任意一条即可归档**；全部不满足则技能拒绝执行并说明原因：
+**Primary goal**: produce a snapshot summary for a completed milestone, fold the historical roadmap section, and move the original tasks directory into `_archive/`.
 
-| 条件 | 判定依据 |
+**Success criteria** (with apply=true, all of them must hold):
+
+1. ✅ The snapshot summary was produced at `milestones/_archive/{slug}-summary.md`
+2. ✅ The summary carries: completion date / key deliverables (≤5 items) / leftover gaps (pointing at later milestones) / key ADR references
+3. ✅ The matching stage in `roadmap.md` was folded into a reference of ≤ 3 lines
+4. ✅ Every repository-wide grep hit on the old tasks.md path was redirected to the summary
+5. ✅ The `milestones/{slug}/` directory was removed (its key information is held in the summary)
+
+**Acceptance test**: afterwards, an AI reading `milestones/_archive/m3-summary.md` understands the key outcomes of m3 accurately, without reading the original tasks.md.
+
+---
+
+## Maturity Test
+
+**Any one of the following is enough to archive**; when none of them holds, the skill refuses to run and explains why:
+
+| Condition | Basis for the decision |
 |---|---|
-| 距完成日期 ≥ 60 天 | tasks.md frontmatter 中 `completed_at` 字段 |
-| 当前进行中里程碑索引 ≥ slug + 2 | roadmap.md 中 `in-progress` 里程碑的数字后缀 |
+| ≥ 60 days since the completion date | the `completed_at` field in the tasks.md frontmatter |
+| The in-progress milestone index is ≥ slug + 2 | the numeric suffix of the `in-progress` milestone in roadmap.md |
 
-两个条件均需同时满足"全部任务 status=done 或 ✅"。
+For both conditions, "every task is status=done or ✅" is also required.
 
-未达成熟度时输出诊断：`里程碑 {slug} 尚不满足归档条件：{具体原因}`。
+When maturity is not reached, emit the diagnostic `Milestone {slug} does not yet meet the archiving conditions: {specific reason}`.
 
 ---
 
-## 行为（Behavior）
+## Behavior
 
-### 阶段 1：成熟度检查
+### Stage 1: maturity check
 
-读取 `milestones/{slug}/tasks.md`，验证成熟度条件。不满足任一条件则停止。
+Read `milestones/{slug}/tasks.md` and verify the maturity conditions. Stop when no condition is met.
 
-### 阶段 2：摘要生成（始终执行）
+### Stage 2: summary generation (always runs)
 
-从 `tasks.md` 提取：
+Extract from `tasks.md`:
 
-- **完成日期**：frontmatter `completed_at` 或最后任务完成日期
-- **关键交付物**：所有 `status=done` 的任务，按验收凭据分组，提炼为 ≤ 5 条
-- **遗留缺口**：任何标记为"延后"、"下迭代"或未完成的条目，连同目标里程碑
-- **关键 ADR 引用**：tasks.md 中提到的 ADR 编号
+- **Completion date**: the frontmatter `completed_at`, or the completion date of the last task
+- **Key deliverables**: every `status=done` task, grouped by acceptance evidence, distilled into ≤ 5 items
+- **Leftover gaps**: any entry marked "deferred" or "next iteration", or left unfinished, together with its target milestone
+- **Key ADR references**: the ADR numbers mentioned in tasks.md
 
-### 阶段 3：影响分析（始终执行）
+### Stage 3: impact analysis (always runs)
 
-检测：
+Detect:
 
-- `roadmap.md` 中需折叠的阶段段落
-- 全仓所有引用 `milestones/{slug}/tasks.md` 的文件
+- The stage sections in `roadmap.md` that need folding
+- Every file in the repository that references `milestones/{slug}/tasks.md`
 
-### 阶段 4：输出（dry-run vs apply）
+### Stage 4: output (dry-run vs apply)
 
-**dry-run（apply=false，默认）**：
+**dry-run (apply=false, the default)**:
 
-输出预览报告，不修改任何文件：
+Emit a preview report, changing no file:
 
 ```text
-=== dry-run 预览 ===
+=== dry-run preview ===
 
-将生成：
+Will create:
   docs/process-management/milestones/_archive/{slug}-summary.md
-  （摘要草稿如下）
+  (draft summary below)
 
-将修改：
-  roadmap.md 第 N-M 行折叠为：
-    ### {阶段名}（已完成 {日期}）→ 详见 [milestones/_archive/{slug}-summary.md]
+Will modify:
+  roadmap.md lines N-M folded into:
+    ### {stage name} (completed {date}) → see [milestones/_archive/{slug}-summary.md]
 
-将删除：
-  docs/process-management/milestones/{slug}/（{N} 个文件）
+Will delete:
+  docs/process-management/milestones/{slug}/ ({N} files)
 
-引用更新（{K} 处）：
-  {文件路径}:{行号} → 旧路径 → 新摘要路径
+Reference updates ({K} sites):
+  {file path}:{line} → old path → new summary path
 
-=== 无文件已修改 ===
+=== no file was modified ===
 ```
 
 **apply=true**：
 
-按预览执行全部操作，最后输出操作日志。
+Perform every operation as previewed, then emit the operation log.
 
 ---
 
-## 反模式（Anti-Patterns）
+## Anti-Patterns
 
-- ❌ 未经成熟度检查直接执行
-- ❌ apply=false 时修改任何文件
-- ❌ git 工作区有未提交变更时执行 apply=true（应先 commit 保存现场）
-- ❌ 摘要省略遗留缺口（历史决策的债务必须传递到后续里程碑）
-- ❌ 仅生成摘要不折叠 roadmap.md（两者必须同步）
-- ❌ 删除任务目录前未完成全仓引用更新
-
----
-
-## 自检清单
-
-**执行前**：
-
-- [ ] 成熟度条件至少一条满足
-- [ ] git 工作区干净（apply=true 时）
-- [ ] 摘要模板字段完整（完成日期 / 交付物 / 缺口 / ADR）
-
-**执行后（apply=true）**：
-
-- [ ] `_archive/{slug}-summary.md` 存在且内容完整
-- [ ] roadmap.md 阶段段落已折叠为 ≤ 3 行
-- [ ] 全仓 grep `milestones/{slug}/tasks.md` 无结果
-- [ ] `milestones/{slug}/` 目录不存在
+- ❌ Running straight through without the maturity check
+- ❌ Modifying any file while apply=false
+- ❌ Running apply=true while the git working tree holds uncommitted changes (commit first to preserve the state)
+- ❌ A summary that omits the leftover gaps (the debt of a past decision must carry over into later milestones)
+- ❌ Producing the summary without folding roadmap.md (the two must stay in step)
+- ❌ Deleting the tasks directory before the repository-wide reference update is finished
 
 ---
 
-## 示例（Examples）
+## Self-Check
 
-### 示例 1：常规场景 — M3 完成后归档
+**Before running**:
 
-**输入**：
-- `docs/process-management/milestones/m3/` 含完成 60 天的 tasks.md（全部 status=completed）
-- `roadmap.md` M3 阶段标记 ✅
-- 后续里程碑 M4 已开始
+- [ ] At least one maturity condition holds
+- [ ] The git working tree is clean (when apply=true)
+- [ ] The summary template fields are complete (completion date / deliverables / gaps / ADR)
 
-**执行**（dry-run 默认）：
-1. 成熟度检查：M3 完成日 ≥ 60 天 ✓，后续里程碑索引差 ≥ 1 ✓
-2. 生成快照 `milestones/_archive/m3-summary.md`：完成日、5 条关键交付物、关键 ADR 引用
-3. 给出影响分析：roadmap M3 节将折叠为 3 行；当前路径 `milestones/m3/` 将删除
-4. 输出 dry-run 报告等待用户确认
+**After running (apply=true)**:
 
-**Apply 后**：roadmap.md M3 段折叠完成、`milestones/_archive/m3-summary.md` 生成、`milestones/m3/` 移除。
+- [ ] `_archive/{slug}-summary.md` exists and its content is complete
+- [ ] The roadmap.md stage section was folded into ≤ 3 lines
+- [ ] A repository-wide grep for `milestones/{slug}/tasks.md` returns nothing
+- [ ] The `milestones/{slug}/` directory does not exist
 
-### 示例 2：边界场景 — 里程碑刚完成但成熟度不够
+---
 
-**输入**：M5 完成日仅 14 天，M6 尚未启动。
+## Examples
 
-**执行**：
-1. 成熟度检查：完成日 < 60 天 且 后续里程碑索引差 = 0
-2. 拒绝执行：输出"里程碑尚未成熟（14 天 < 60 天阈值；后续里程碑未启动），建议在 ≥60 天后或 M6 启动后再归档"
-3. 不生成快照、不修改 roadmap
+### Example 1: the normal case — archiving after M3 completes
 
-**结果**：保留 M5 现状；用户可在条件满足后重新运行。
+**Input**:
+- `docs/process-management/milestones/m3/` holds a tasks.md completed 60 days ago (all status=completed)
+- The M3 stage in `roadmap.md` is marked ✅
+- The next milestone, M4, has started
+
+**Execution** (dry-run by default):
+1. Maturity check: M3 completed ≥ 60 days ago ✓, the later milestone index differs by ≥ 1 ✓
+2. Produce the snapshot `milestones/_archive/m3-summary.md`: completion date, 5 key deliverables, key ADR references
+3. Give the impact analysis: the roadmap M3 section will fold into 3 lines; the current path `milestones/m3/` will be deleted
+4. Emit the dry-run report and wait for the user to confirm
+
+**After apply**: the roadmap.md M3 section is folded, `milestones/_archive/m3-summary.md` is produced, and `milestones/m3/` is removed.
+
+### Example 2: edge case — the milestone just completed and is not mature enough
+
+**Input**: M5 completed only 14 days ago, and M6 has not started.
+
+**Execution**:
+1. Maturity check: completion is < 60 days ago and the later milestone index differs by 0
+2. Refuse to run: emit "the milestone is not mature yet (14 days < the 60-day threshold; no later milestone has started); suggest archiving after ≥60 days, or once M6 starts"
+3. Produce no snapshot and change no roadmap
+
+**Result**: M5 stays as it is; the user can rerun once the conditions are met.
