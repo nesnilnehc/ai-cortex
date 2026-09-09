@@ -119,28 +119,28 @@ expires_at: YYYY-MM-DD            # optional; the quarterly review trigger
 ### 5.1 The 4 required sections
 
 ```markdown
-## 背景
+## Context
 
-<上下文说明：驱动本决策的问题、约束、前置条件——回答 Why>
+<the problem, constraints and preconditions that drove this decision — answering Why>
 
-## 决策
+## Decision
 
-<做了什么决定，一句话核心陈述 + 必要细节——回答 What>
+<what was decided: the core statement in one sentence, plus the detail it needs — answering What>
 
-## 替代方案
+## Alternatives
 
-<考虑过哪些替代，每种方案为什么被拒——回答 Alternatives>
+<which alternatives were considered, and why each was rejected — answering Alternatives>
 
-## 后果
+## Consequences
 
-<正面、负面、中性后果——回答 Consequences>
+<the positive, negative and neutral consequences — answering Consequences>
 ```
 
 ### 5.2 Content validation
 
-- All 4 sections are required (`背景` / `决策` / `替代方案` / `后果`)
-- The `替代方案` section carries at least 1 rejected option; a new ADR must explain why the other paths were not taken
-- The `后果` section must cover both positive and negative, or neutral, consequences
+- All 4 sections are required (`Context` / `Decision` / `Alternatives` / `Consequences`)
+- The `Alternatives` section carries at least 1 rejected option; a new ADR must explain why the other paths were not taken
+- The `Consequences` section must cover both positive and negative, or neutral, consequences
 
 ---
 
@@ -152,7 +152,7 @@ expires_at: YYYY-MM-DD            # optional; the quarterly review trigger
 - ❌ An `archived` status with no `archived_at` and `archived_reason`
 - ❌ A missing `description` field
 - ❌ The body missing any one of the 4 sections
-- ❌ An empty `替代方案` section; it must explain why the other paths were not taken
+- ❌ An empty `Alternatives` section; it must explain why the other paths were not taken
 - ❌ A filename number shorter than 4 digits — `001-` rather than `0001-`
 - ❌ Reusing a filename number; a retired number is never reassigned
 
@@ -169,31 +169,31 @@ created_by: decision-record
 lifecycle: snapshot
 created_at: 2026-04-12
 status: accepted
-description: 采用 PostgreSQL 作为主数据库，替代 MongoDB
+description: Adopt PostgreSQL as the primary database, replacing MongoDB
 ---
 
-# ADR 0017：采用 PostgreSQL 作为主数据库
+# ADR 0017: adopt PostgreSQL as the primary database
 
-## 背景
+## Context
 
-服务上线初期选用 MongoDB 以应对 schema 频繁演化。随着业务稳定，多数核心实体已形成稳定 schema，且开始出现跨实体事务、复杂报表、外键约束等需求——这些场景 MongoDB 表达成本高、运行时风险大。
+MongoDB was chosen when the service first shipped, because the schema was still changing constantly. As the business settled, most core entities reached a stable schema, and needs began to appear for cross-entity transactions, complex reporting, foreign key constraints and the like — all of which MongoDB expresses at high cost and with real runtime risk.
 
-## 决策
+## Decision
 
-主数据库切换为 PostgreSQL 15，所有核心实体迁移到关系模型。MongoDB 仅保留用于日志聚合等真正非结构化的场景。
+Switch the primary database to PostgreSQL 15 and move every core entity onto the relational model. MongoDB is kept only for genuinely unstructured work such as log aggregation.
 
-## 替代方案
+## Alternatives
 
-- **保留 MongoDB**：被拒。跨实体事务、强一致性约束代价过高；团队 SQL 经验积累优于文档查询。
-- **MySQL**：被拒。JSON 列支持、生成列、`RETURNING` 子句、CTE 等高级特性 PostgreSQL 更成熟。
-- **双写 PostgreSQL + MongoDB**：被拒。双写一致性维护成本高，长期债务大于短期灵活性。
+- **Keep MongoDB**: rejected. Cross-entity transactions and strong consistency constraints cost too much, and the team's accumulated SQL experience outweighs its document-query experience.
+- **MySQL**: rejected. PostgreSQL is more mature on the advanced features that matter here — JSON columns, generated columns, the `RETURNING` clause, CTEs.
+- **Dual-write to PostgreSQL and MongoDB**: rejected. Keeping a dual write consistent costs too much to maintain; the long-term debt outweighs the short-term flexibility.
 
-## 后果
+## Consequences
 
-- ✅ 事务一致性、外键约束、复杂查询表达直接，开发与运维成本下降
-- ✅ 团队 SQL 技能复用，招聘门槛与之前相当
-- ⚠️ 迁移期需要双写过渡，约 2 个迭代窗口
-- ⚠️ 已有的 MongoDB 聚合查询要重写为 SQL，约 30 个查询需逐个验证
+- ✅ Transactional consistency, foreign key constraints and complex queries all express directly, lowering both development and operations cost
+- ✅ The team's SQL skills carry over, and the hiring bar is no higher than before
+- ⚠️ The migration needs a dual-write transition, about 2 iteration windows
+- ⚠️ The existing MongoDB aggregation queries have to be rewritten as SQL, about 30 of them, each verified individually
 ````
 
 ### 7.2 A superseded status example
@@ -205,7 +205,7 @@ created_by: decision-record
 lifecycle: snapshot
 created_at: 2025-08-12
 status: superseded
-description: 用 Elasticsearch 实现全文检索
+description: Implement full-text search with Elasticsearch
 superseded_by: 0058-adopt-typesense-for-search
 ---
 ```
