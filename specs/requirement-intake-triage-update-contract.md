@@ -39,14 +39,14 @@ The notification contract by which ai-cortex broadcasts governance updates to re
   "artifact_kind": "rule",
   "artifact_version": "1.0.0",
   "artifact_path": "rules/requirement-intake-triage.md",
-  "summary": "新增需求进件分诊词表：6 类性质（功能需求/非功能需求/设计方案类/任务类/缺陷类/信息不足）+ 判别问句 + 合理性镜头，作为澄清与评审共用的诊断 SSOT。",
+  "summary": "Adds the requirement intake triage vocabulary: 6 kinds (functional / non-functional requirement, design proposal, task, defect, insufficient information) plus decision questions and soundness lenses, as the diagnostic SSOT shared by clarification and review.",
   "related_changes": [
     {"artifact": "requirement-modeling", "version": "5.0.0", "breaking": true,
-     "note": "需求类型收窄为功能/非功能；缺陷修复、技术任务降级为分诊标签（非需求）"},
+     "note": "Requirement types narrowed to functional and non-functional; bug fixes and technical tasks demoted to triage labels rather than requirements"},
     {"artifact": "technical-design-modeling", "version": "2.0.0", "breaking": true,
-     "note": "纯技术工作的 parent 重锚至授权 ADR；枚举 {functional-design, requirement, adr}"}
+     "note": "Purely technical work re-anchors its parent to an authorising ADR; enum is {functional-design, requirement, adr}"}
   ],
-  "consumer_action": "Wright 的 StubVerdict 档位（qualified/salvageable/tech_selection/empty）向 6 类性质对齐；缺陷/技术任务按分诊标签处理，不再视为需求子类型。",
+  "consumer_action": "Align Wright's StubVerdict grades (qualified / salvageable / tech_selection / empty) with the 6 kinds; treat defects and technical tasks as triage labels rather than requirement subtypes.",
   "anchor_ref": "requirement-intake-triage@1.0.0"
 }
 ```

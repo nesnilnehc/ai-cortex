@@ -13,5 +13,7 @@
   "rules/writing-chinese-technical.md::weak_constraints": "违规示例中「应使用中文直角引号或无符号」用的是裸『应』，标记表不收。英文 should use 是忠实翻译。",
   "rules/INDEX.md::weak_constraints": "§3「规则应作为『长期背景』注入 AI 运行时」用的是裸『应』，标记表不收。英文 should be injected 是忠实翻译，独立复核要求保住该处的指令语气。",
   "specs/universal-notification.md::code_blocks": "§7 两个 JSON 示例 payload 中的 title / body / label 是面向读者的样例文案，非可执行代码；英文读者看中文样例无法判断字段用法。与 rules/standards-agent-testing.md 中译出代码块注释的处理一致。JSON 结构与字段名未动。",
-  "specs/adr-modeling.md::code_blocks": "§4 frontmatter 模板中的占位符（description / archived_reason 的 <...> 说明文字）是给读者照填的提示语，非可执行代码。与 rules/adr-management.md 中 archived_reason 模板值的处理一致；字段名与结构未动。"
+  "specs/adr-modeling.md::code_blocks": "§4 frontmatter 模板中的占位符（description / archived_reason 的 <...> 说明文字）是给读者照填的提示语，非可执行代码。与 rules/adr-management.md 中 archived_reason 模板值的处理一致；字段名与结构未动。",
+  "specs/requirement-intake-triage-update-contract.md::code_blocks": "JSON 示例 payload 中的 summary / note / consumer_action 是面向读者的说明文案，非可执行代码；字段名、subject、枚举值均未动。与 universal-notification 的处理一致。",
+  "specs/adr-modeling.md::residual_chinese": "保留的中文有两类：一是本 spec 定义的 ADR 四节 canonical 章节名（背景 / 决策 / 替代方案 / 后果），改它等于改契约，须单独作为内容变更处理；二是 §7.1 的完整示例 ADR 正文。**已知待办**：英文 ADR 使用中文章节名是语言迁移遗留的不一致，应在后续内容提交中统一决定。"
 }

@@ -18,6 +18,13 @@ from collections import Counter
 
 WAIVERS_PATH = pathlib.Path(__file__).with_name("translation-waivers.json")
 
+CJK = re.compile(r'[\u4e00-\u9fff]')
+# Above this share of the original's Chinese still present, the file is treated
+# as only partly translated. "unchanged" catches a file nobody touched; this
+# catches one where only the headings were done. Files that legitimately retain
+# Chinese - detection patterns, counter-examples - are waived by name.
+RESIDUAL_LIMIT = 0.25
+
 # --- invariant extractors -------------------------------------------------
 
 FRONTMATTER = re.compile(r'\A---\n(.*?)\n---\n', re.S)
@@ -260,6 +267,18 @@ def main():
                   "was translated. An omitted file passes every invariant "
                   "trivially; this check is what makes it visible.")
             continue
+        old_cjk = len(CJK.findall(old_text))
+        new_cjk = len(CJK.findall(new_text))
+        if (mode == "translate" and old_cjk
+                and new_cjk / old_cjk > RESIDUAL_LIMIT
+                and not waivers.get(f"{path}::residual_chinese")):
+            hard += 1
+            print(f"\n{path}")
+            print(f"  [HARD] residual_chinese: {new_cjk} of {old_cjk} "
+                  f"characters remain ({new_cjk / old_cjk:.0%}); only part of "
+                  f"the file was translated")
+            continue
+
         findings = compare(extract(old_text), extract(new_text))
         kept = []
         for sev, key, detail in findings:
