@@ -4,6 +4,7 @@
 - [adr-modeling.md](./adr-modeling.md) — frontmatter fields of an ADR document, the 5-value status enum, and the fields decay depends on
 - [cross-team-contract.md](./cross-team-contract.md) — naming suffix, `contract_version`, CHANGELOG, flat layout and version references for a cross-team contract document
 - [claude-md-modeling.md](./claude-md-modeling.md) — section structure, form requirements and per-level responsibilities of CLAUDE.md, the three-level long-term AI memory file
+- [findings-list.md](./findings-list.md) — the six elements, severity enum and category convention of a finding; the output contract every evaluative skill emits and every orchestrator aggregates
 - [functional-design-modeling.md](./functional-design-modeling.md) — field definitions and validation for a functional design document, from the business and product viewpoint: functional modules, business workflow, role permissions, business object states, exception scenarios
 - [technical-design-modeling.md](./technical-design-modeling.md) — field definitions and validation for a technical design document, from the engineering viewpoint: architecture, service decomposition, components, database, interface contracts, error handling, technology selection
 - [nats-messaging.md](./nats-messaging.md) — subject, headers, payload and version evolution contract for cross-project NATS messages; the NATS specialisation of cross-team-contract

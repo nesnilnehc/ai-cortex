@@ -3,7 +3,7 @@ name: generate-github-workflow
 description: "GitHub Actions YAML with embedded output contract: security-first, minimal permissions, version pinning. For CI, release, PR checks. Differs from generic templates by spec compliance and auditability."
 description_zh: 生成嵌有输出契约的 GitHub Actions YAML：安全优先、最小权限、版本锁定；适用于 CI、发布与 PR 检查。
 tags: [devops]
-version: 1.0.1
+version: 1.1.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -199,3 +199,139 @@ Once the user replaces the placeholders, can the workflow run in the target repo
 **Expected**: generate structurally complete YAML that conforms to Appendix A; use placeholders for the runner and the steps (e.g. "name the runner and the install/test commands") and mark them "to be replaced"; keep `on` narrow (e.g. `pull_request: branches: [main]`); do not invent test or build commands; keep `name`, `on`, `jobs`, `runs-on`, `steps` and the recommended fields (e.g. `permissions`) for the user to fill in later.
 
 ---
+
+## Appendix A: Workflow output contract
+
+The following are **mandatory** for workflow files produced by this skill; use this appendix for self-check.
+
+**Scope**: YAML workflow files produced by this skill for a project's `.github/workflows/`.
+
+### A.1 File and path
+
+- **Location**: Must live under the target project's `.github/workflows/`.
+- **Naming**: `kebab-case`, extension `.yml` or `.yaml`; name should reflect purpose (e.g. `ci.yml`, `pr-check.yml`, `release.yml`).
+- **One file, one workflow**: One file defines one workflow; split into multiple files for complex cases; avoid many unrelated jobs in one file.
+
+### A.2 Required structure
+
+Each workflow YAML must contain (order recommended):
+
+| Field               | Required | Description                                                                                                                      |
+| :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------- |
+| `name`              | Yes      | Display name in GitHub UI; short and readable (e.g. "CI", "PR check", "Release").                                                |
+| `on`                | Yes      | Triggers: `push`, `pull_request`, `workflow_dispatch`, etc.; must narrow branch/path/tag; avoid broad `on: push` with no filter. |
+| `jobs`              | Yes      | At least one job; each job must have `runs-on` and `steps`.                                                                      |
+| `jobs.<id>.runs-on` | Yes      | Runner (e.g. `ubuntu-latest`).                                                                                                   |
+| `jobs.<id>.steps`   | Yes      | List of steps; each step has `name` (human-readable) and `uses` or `run`.                                                        |
+
+Optional but recommended: `permissions`, `concurrency`, `env`.
+
+### A.3 Naming and readability
+
+- **Job id**: `kebab-case`, clear meaning (e.g. `build`, `test`, `lint`, `deploy-preview`).
+- **Step name**: Short, scannable description for the Actions log.
+- **Workflow name**: Align with filename and other workflows in the repo.
+
+### A.4 Security and minimal permissions
+
+- **Permissions**: If `permissions` is not set, GitHub uses default `GITHUB_TOKEN` permissions. For sensitive operations, set `permissions` at workflow or job level to the minimum needed. **By type**: CI (build/test/scan only) → `contents: read`; release (Release, GHCR push) → explicit `contents: write`, `packages: write`; avoid default or `all`.
+- **Secrets**: Inject secrets via Secrets; never hardcode keys, tokens, or passwords in YAML.
+- **Third-party actions**: Prefer official or widely used actions; pin version (commit SHA or major-version tag); do not use `@master` or unpinned; use specific versions for security/scan actions to reduce drift.
+
+### A.5 Maintainability
+
+- **CI vs CD (recommended)**: CI only builds, tests, and scans; **no release**. CD (image push, GitHub Release) runs only on version tags (e.g. `v*`). Use separate files (e.g. `ci.yml`, `release.yml`); do not mix "run on every push" and "release only on tag" in one workflow.
+- **Reuse**: Extract common logic into Composite Actions or reusable workflows.
+- **Comments**: Briefly comment non-obvious triggers, matrix strategy, or env usage; keep comments short.
+- **Project alignment**: Runner, language version, package manager, and commands must match the target project; if the project has existing workflows, align style and naming.
+
+### A.6 Self-check (producer)
+
+After producing the workflow:
+
+- [ ] File is under `.github/workflows/` with a kebab-case name.
+- [ ] Contains `name`, `on`, `jobs`; each job has `runs-on` and `steps`.
+- [ ] `on` is narrowed to specific branches/paths/tags.
+- [ ] No hardcoded secrets; third-party actions pinned (specific version for security/scan).
+- [ ] Step and job names are clear; consistent with project stack and existing workflow style.
+- [ ] YAML is valid (indent, no duplicate keys); step order and dependencies are correct.
+
+---
+
+## Appendix B: Go + Docker + GHCR + GoReleaser
+
+Conventions and practices for **Go + Docker + GHCR + GoReleaser** workflows; follow together with the main skill and Appendix A when generating or editing such workflows.
+
+### B.1 Layout
+
+- **CI and CD separate**: Two workflows.
+  - **CI** (e.g. `ci.yml`): `push`/`pull_request` to main branch. Build, test, security scan only; **no release**.
+  - **CD** (e.g. `release.yml`): Only on `push` of version tags (e.g. `v*`). Publish image and GitHub Release.
+- Do not mix "run on every push" and "release only on tag" in one workflow.
+
+### B.2 Permissions
+
+- Set `permissions` explicitly. CI: `contents: read`. Release: `contents: write`, `packages: write`. Do not use `all`.
+
+### B.3 Steps and order
+
+#### Go
+
+- Use `actions/setup-go@v5` with `go-version-file: go.mod`. Enable `cache: true`. For release, checkout with `fetch-depth: 0` (needed for GoReleaser); CI can use the same for consistency.
+
+#### CI (Example Order)
+
+1. Checkout (`fetch-depth: 0`)
+2. Set up Go (go.mod + cache)
+3. `go test ./...`
+4. govulncheck: `go install golang.org/x/vuln/cmd/govulncheck@latest` then `govulncheck ./...`
+5. Docker Buildx (setup only, single platform)
+6. Build image for scanning: single arch `linux/amd64`, `push: false`, `load: true`, tag e.g. `local/your-app:ci-${{ github.sha }}`
+7. Trivy on that image: `severity: HIGH,CRITICAL`, `ignore-unfixed: true`, `exit-code: 1` so CI fails on findings
+
+Multi-arch in Release only; CI scans single arch for speed.
+
+#### Release (Example Order)
+
+1. Checkout (`fetch-depth: 0`)
+2. Set up Go (go.mod + cache)
+3. Set up QEMU: `docker/setup-qemu-action`, `platforms: linux/amd64,linux/arm64`
+4. Set up Docker Buildx: `id: buildx`, `driver: docker-container`, `platforms: linux/amd64,linux/arm64`
+5. Login to GHCR: `docker/login-action`, registry `ghcr.io`, password `secrets.GHCR_TOKEN || secrets.GITHUB_TOKEN`, `logout: true`
+6. GoReleaser: `goreleaser/goreleaser-action@v6`, `args: release --clean`, env `GITHUB_TOKEN` and `BUILDX_BUILDER: ${{ steps.buildx.outputs.name }}`
+
+QEMU before Buildx; Buildx `platforms` must match QEMU. GoReleaser needs the Buildx builder name for multi-arch, so set `id: buildx` and pass `BUILDX_BUILDER`.
+
+### B.4 Relation to repo config
+
+- **Docker image**: Shape is defined in `.goreleaser.yaml` and Dockerfile; workflow does not duplicate build logic.
+- **GHCR**: Image path and tagging in GoReleaser config; workflow only logs in and passes `GITHUB_TOKEN` and Buildx builder.
+- **Makefile**: Local build/test can stay; CI steps can align with Make targets but need not depend on them.
+
+### B.5 When editing
+
+1. **Full flow**: Changing one job may affect the whole flow; verify checkout → Go → QEMU → Buildx → login → GoReleaser order and deps.
+2. **Action versions**: Use current major versions (e.g. `checkout@v4`, `setup-go@v5`, `setup-buildx-action@v3`, `goreleaser-action@v6`); check changelog for breaking changes when upgrading.
+3. **Trivy**: Pin version (e.g. `@0.33.1`) to avoid CI breakage from behavior changes.
+4. **YAML**: Check indent and no duplicate keys; validate with a tool after edits.
+
+### B.6 Lessons learned
+
+| Issue                                | Approach                                                                                                                          |
+| :----------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
+| Single workflow too large            | Split into **CI + Release**: CI for build/test/scan, Release only on tag via GoReleaser; clearer permissions and logic.           |
+| GHCR auth too complex                | Use minimal login (`docker/login-action` + token); avoid heavy auth-verify that can false-fail.                                   |
+| Multi-arch manifest validation fails | Pull and validate **per platform** instead of generic manifest pull.                                                              |
+| Date/version format inconsistent     | Use one format (e.g. ISO8601) in workflow and Dockerfile; add `dist/` to `.gitignore` if using GoReleaser output.                 |
+| GoReleaser multi-arch build fails    | GoReleaser needs Buildx builder: set **id: buildx** on Buildx step and pass **BUILDX_BUILDER: ${{ steps.buildx.outputs.name }}**. |
+| Version drift                        | Use reasonable version constraints and check release notes when upgrading; validate on a branch first.                            |
+
+**Inspect workflow history**: `git log --oneline -- .github/workflows/`
+
+---
+
+## References
+
+- [GitHub Actions docs](https://docs.github.com/en/actions)
+- [Workflow syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+- [Security hardening](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions)

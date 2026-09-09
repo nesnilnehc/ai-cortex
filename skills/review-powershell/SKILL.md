@@ -3,7 +3,7 @@ name: review-powershell
 description: "Review PowerShell code for language and runtime conventions: advanced functions, parameter design, error handling, object pipeline behavior, compatibility, and testability. Language-only atomic skill; output is a findings list."
 description_zh: 按 PowerShell 规范审查代码：高级函数、参数设计、错误处理、对象管道、兼容性与可测性。
 tags: [code-review, language]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -105,7 +105,7 @@ Review code in **PowerShell** for **language and runtime conventions** only. Do 
 
 ### Output
 
-- Emit zero or more **findings** in the format defined in **Appendix: Output contract**.
+- Emit zero or more **findings** in the format defined in [specs/findings-list.md](../../specs/findings-list.md), with **Category** `language-powershell`.
 - Category for this skill is **language-powershell**.
 
 ---

@@ -3,7 +3,7 @@ name: review-java
 description: "Review Java code for language and runtime conventions: concurrency, exceptions, try-with-resources, API versioning, collections and Streams, NIO, and testability. Language-only atomic skill; output is a findings list."
 description_zh: 按 Java 语言与运行时规范审查代码：并发、异常、try-with-resources、API 版本、集合与 Stream、NIO、可测性。
 tags: [code-review, language]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -104,7 +104,7 @@ Review only the **language and runtime conventions** of **Java** code. Do not de
 
 ### Output
 
-- Emit zero or more **findings** in the format defined in **Appendix: Output Contract**.
+- Emit zero or more **findings** in the format defined in [specs/findings-list.md](../../specs/findings-list.md), with **Category** `language-java`.
 - The category for this skill is **language-java**.
 
 ---

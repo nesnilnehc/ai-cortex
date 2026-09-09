@@ -3,7 +3,7 @@ name: review-testing
 description: "Review code for testing: test existence, coverage adequacy, test quality and structure, edge-case and error-path coverage, and test maintainability. Cognitive-only atomic skill; output is a findings list."
 description_zh: 审查测试：存在性、覆盖度、质量与结构、边界与错误路径覆盖、可维护性；认知原子技能。
 tags: [code-review, cognitive]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -104,7 +104,7 @@ Review code for **testing** concerns only. Do not define the scope (diff versus 
 
 ### Output
 
-- Emit zero or more **findings** in the format defined in **Appendix: Output Contract**.
+- Emit zero or more **findings** in the format defined in [specs/findings-list.md](../../specs/findings-list.md), with **Category** `cognitive-testing`.
 - The category for this skill is **cognitive-testing**.
 
 ---

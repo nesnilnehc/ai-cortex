@@ -3,7 +3,7 @@ name: review-typescript
 description: Review TypeScript/JavaScript code for type safety, async patterns, error handling, and module design. Atomic skill; output is a findings list.
 description_zh: 审查 TypeScript/JavaScript 代码：类型安全、异步模式、错误处理与模块设计；原子技能。
 tags: [code-review, language]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -106,7 +106,7 @@ Review **TypeScript and JavaScript** code for **language and runtime conventions
 
 ### Output
 
-- Emit zero or more **findings** in the format defined in **Appendix: Output Contract**.
+- Emit zero or more **findings** in the format defined in [specs/findings-list.md](../../specs/findings-list.md), with **Category** `language-typescript`.
 - The category for this skill is **language-typescript**.
 
 ---

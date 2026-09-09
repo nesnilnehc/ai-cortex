@@ -3,7 +3,7 @@ name: review-requirements
 description: "Review an existing requirements document for quality: problem clarity, testable needs, constraint inventory, scope boundedness, requirement IDs, and open questions. Evaluative atomic skill; output is a findings list."
 description_zh: 审查既有需求文档质量：问题清晰度、可测试需求、约束清单、范围边界、需求 ID 与遗留问题。
 tags: [code-review]
-version: 1.0.1
+version: 1.0.2
 license: MIT
 recommended_scope: both
 metadata:
@@ -134,7 +134,7 @@ For each dimension, scan the whole document and emit a finding for every violati
 
 ### Output
 
-- Emit zero or more **findings** in the format defined in **Appendix: Output Contract**.
+- Emit zero or more **findings** in the format defined in [specs/findings-list.md](../../specs/findings-list.md), with **Category** `requirements-quality`.
 - The category for every finding from this skill is **requirements-quality**.
 - With no findings: emit the short confirmation "The requirements document meets all six quality dimensions. Ready for `design-solution`."
 

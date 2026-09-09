@@ -3,7 +3,7 @@ name: review-roadmap
 description: "Review an existing roadmap document against roadmap-quality criteria: core model completeness, capacity baseline and allocation, metric triplets, outcome framing, dependency mapping, and change frequency. Evaluative atomic skill; output is a findings list."
 description_zh: 按 roadmap-quality 判据评估既有路线图文档：核心模型完整性、容量基线与分配、指标三元组、结果导向、依赖已映射、变更频率。评估型原子技能，产出 findings 列表。
 tags: [code-review, planning]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: both
 metadata:
@@ -35,7 +35,7 @@ Evaluate an **existing roadmap document** against the established quality criter
 **Success criteria** (all must be met):
 
 1. ✅ All five dimensions scanned: completeness / executability / clarity / soundness / traceability
-2. ✅ Every finding carries location / category / severity / title / description / suggestion
+2. ✅ Every finding carries location / category=`roadmap-quality` / severity / title / description / suggestion, per [specs/findings-list.md](../../specs/findings-list.md)
 3. ✅ Every criterion is cited from `rules/roadmap-quality.md`; this skill invents none of its own
 4. ✅ A dimension that cannot be evaluated is explicitly marked "cannot evaluate" with the reason, and is not skipped silently
 5. ✅ The roadmap is not rewritten; only findings and suggestions are emitted

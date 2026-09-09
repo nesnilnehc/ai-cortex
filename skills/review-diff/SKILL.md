@@ -3,6 +3,7 @@ name: review-diff
 description: Review only git diff for impact, regression, correctness, compatibility, and side effects. Scope-only atomic skill; output is a findings list for aggregation.
 description_zh: 仅审查 git diff（含未跟踪文件）的影响、回归、正确性、兼容性与副作用；scope-only 原子技能，输出 findings 列表。
 tags: [code-review, scope-only]
+version: 1.0.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -34,7 +35,7 @@ No architecture / security / language / framework-specific analysis — those be
 
 1. ✅ **Diff scope only**: review the change set alone; do not open repository-level / architecture / security / language-specific checks
 2. ✅ **All 5 dimensions covered**: intent / impact, regression / correctness, breaking change / compatibility, side effects / idempotency, observability
-3. ✅ **Format conformant**: every finding carries location / category=`scope` / severity / title / description / suggestion
+3. ✅ **Format conformant**: every finding carries location / category=`scope` / severity / title / description / suggestion, per [specs/findings-list.md](../../specs/findings-list.md)
 4. ✅ **Precise locations**: every finding cites a concrete `file:line` or `@@` hunk
 5. ✅ **Bug fix verified**: a bug-fix diff must have its fix verified for correctness, with any leftover or partial problem flagged
 

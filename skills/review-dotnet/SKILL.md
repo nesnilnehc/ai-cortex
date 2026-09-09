@@ -3,7 +3,7 @@ name: review-dotnet
 description: "Review .NET (C#/F#) code for language and runtime conventions: async/await, nullable, API versioning, IDisposable, LINQ, and testability. Language-only atomic skill; output is a findings list."
 description_zh: 按 .NET (C#/F#) 语言与运行时规范审查代码：async/await、nullable、API 版本、IDisposable、LINQ、可测性。
 tags: [code-review, language]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -105,7 +105,7 @@ Review only the **language and runtime conventions** of code in the **.NET** eco
 
 ### Output
 
-- Emit zero or more **findings** in the format defined in **Appendix: Output Contract**.
+- Emit zero or more **findings** in the format defined in [specs/findings-list.md](../../specs/findings-list.md), with **Category** `language-dotnet`.
 - The category for this skill is **language-dotnet**.
 
 ---
