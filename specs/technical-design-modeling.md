@@ -2,7 +2,7 @@
 id: TECHNICAL_DESIGN_MODELING_SPEC_V1
 name: Technical Design Modeling Schema
 description: Spec defining technical design document fields, formats, and validation rules. Engineering-facing layer. Covers frontmatter contract, 9 mandatory body sections (Goal/Architecture/Components/Database/APIs/DataFlow&Errors/TechChoices/TestStrategy/Acceptance), and conditionally-mandatory sections.
-version: 2.0.0
+version: 2.0.1
 status: active
 lifecycle: living
 created_at: 2026-05-29
@@ -67,7 +67,7 @@ YYYY-MM-DD-<topic>-technical-design.md
 artifact_type: technical-design
 lifecycle: snapshot
 created_at: YYYY-MM-DD
-parent: <path to upstream functional-design OR requirement>
+parent: <path to the upstream functional-design, requirement, or authorising adr>
 status: draft | approved | superseded
 # conditional field
 superseded_by: <path to new technical design>   # required when status is superseded
@@ -142,7 +142,7 @@ For a purely procedural design, §4 database design and §5 interface contracts 
 ## 6. Anti-patterns
 
 - ❌ A missing required frontmatter field (artifact_type / lifecycle / created_at / parent / status)
-- ❌ The `parent`'s artifact_type outside {functional-design, requirement}, breaking the chain
+- ❌ The `parent`'s artifact_type outside {functional-design, requirement, adr}, breaking the chain
 - ❌ Code or scaffolding; a design does not carry the implementation, which lives in the code
 - ❌ Business workflow, role permissions or business object states, which belong to the functional design
 - ❌ A components section written as long prose instead of structured responsibilities plus signature-level definitions

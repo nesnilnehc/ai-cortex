@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: technical-design-quality
-version: 1.0.0
+version: 1.0.1
 scope: reviewing or self-checking a technical design document
 recommended_scope: user
 status: active
@@ -48,7 +48,7 @@ status: active
 
 ### 5. Traceability — can the impact of a change be located?
 
-- [ ] The frontmatter `parent`'s artifact_type ∈ {functional-design, requirement}
+- [ ] The frontmatter `parent`'s artifact_type ∈ {functional-design, requirement, adr}
 - [ ] Each acceptance criterion traces to an acceptance item of the upstream functional-design — or, when the functional layer is skipped, of the requirement
 - [ ] Key decisions can be turned into an ADR, or already link to one
 - [ ] Cited external specifications have working links
@@ -83,7 +83,7 @@ status: active
 - ❌ A single approach with no trade-off analysis
 - ❌ §4 or §5 left blank instead of stating "no change"
 - ❌ A test strategy written as test code
-- ❌ The `parent`'s artifact_type outside {functional-design, requirement}
+- ❌ The `parent`'s artifact_type outside {functional-design, requirement, adr}
 - ❌ No `parent` frontmatter — an orphaned design
 
 ---

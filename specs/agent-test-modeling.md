@@ -2,7 +2,7 @@
 id: AGENT_TEST_MODELING_SPEC_V1
 name: Agent Test Contract Modeling Schema
 description: Spec defining the per-agent test contract document — capability boundary, input contract, tool boundary, write-back preconditions, oracles, golden cases, and pass threshold. Governs the contract document; test code conventions are governed by rules/standards-agent-testing.md.
-version: 1.0.0
+version: 1.0.1
 status: active
 lifecycle: living
 created_at: 2026-05-29
@@ -144,7 +144,7 @@ deprecated_reason: <reason>         # required when status is deprecated
 | :--- | :--- | :--- | :--- | :--- |
 ```
 
-- The oracle column takes `field` / `semantic` / `trajectory` / `rubric` / `statistical`, corresponding to the oracle types in standards-agent-testing §2
+- The oracle column takes `contract` / `trajectory` / `rubric` / `field` / `semantic` / `statistical`, corresponding to the oracle types in standards-agent-testing §2
 
 ### 5.3 Validation is centralised
 
