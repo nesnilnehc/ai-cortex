@@ -5,39 +5,39 @@ status: active
 lifecycle: living
 ---
 
-# 协议注册表和远程加载 (Protocol Registry & Remote Loading)
+# Protocol registry and remote loading
 
-Agent 应该通过**协议注册表**发现和加载协议，而不是依赖本地文件。
+An agent discovers and loads a protocol through the **protocol registry**, rather than relying on a local file.
 
 ---
 
-## 核心原理
+## The idea
 
-Agent **不应该**假设任何本地文件存在。取而代之：
+An agent **must not** assume any local file exists. Instead:
 
 ```text
-Agent 工作流：
-  1. 知道注册表位置（这是唯一的先验）
-  2. 从注册表查询协议信息（包括远程 URL）
-  3. 根据需要远程加载协议
-  4. 可选：缓存到本地（但不依赖）
+Agent workflow:
+  1. Know where the registry is — the only thing it knows in advance
+  2. Query the registry for protocol information, including the remote URL
+  3. Load a protocol remotely as needed
+  4. Optionally cache it locally, without depending on the cache
 ```
 
 ---
 
-## 1. 协议发现入口
+## 1. The discovery entry point
 
-### 单一真实来源 (Single Source of Truth)
+### A single source of truth
 
 ```text
 🔗 https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/skills/INDEX.md
     ↓
-    包含所有协议的注册表信息
+    carries the registry information for every protocol
 ```
 
-Agent 启动时只需要知道这个 URL。
+This URL is all an agent needs at startup.
 
-### Manifest 中的协议定义
+### How a protocol is defined in the manifest
 
 ```json
 {
@@ -73,40 +73,40 @@ Agent 启动时只需要知道这个 URL。
 }
 ```
 
-**关键字段**：
-- `canonical_url` — 协议的权威 URL（Agent 加载的地址）
-- `domain` — 协议适用的问题域
-- `version` — 语义版本号
-- `repository` — 源代码仓库
+**The fields that matter**:
+- `canonical_url` — the protocol's authoritative URL, which is where an agent loads it from
+- `domain` — the problem domain the protocol applies to
+- `version` — the semantic version
+- `repository` — the source repository
 
 ---
 
-## 2. Agent 发现流程
+## 2. The agent's discovery flow
 
-### 步骤 1：获取协议目录
+### Step 1: fetch the protocol catalogue
 
 ```python
-# Agent 代码
+# agent code
 manifest_url = "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/skills/INDEX.md"
 manifest = fetch_json(manifest_url)
 
-# 获取所有可用协议
+# every available protocol
 protocols = manifest["protocols"]
 ```
 
-### 步骤 2：根据任务域查询相关协议
+### Step 2: query for the protocols relevant to the task's domain
 
 ```python
 def find_relevant_protocols(task_description, protocols):
-    """查找与任务相关的协议"""
+    """Find the protocols relevant to a task"""
 
     relevant = []
 
-    # 方式 1：通过关键词匹配
+    # approach 1: match on keywords
     keywords = {
         "notification": ["UNIVERSAL_NOTIFICATION_SPEC_V2", "INP_SPEC_V1"],
-        "logging": ["LOG_SPEC_V1"],  # 未来的协议
-        "error": ["ERR_SPEC_V1"],    # 未来的协议
+        "logging": ["LOG_SPEC_V1"],  # a future protocol
+        "error": ["ERR_SPEC_V1"],    # a future protocol
     }
 
     for keyword, protocol_ids in keywords.items():
@@ -114,24 +114,24 @@ def find_relevant_protocols(task_description, protocols):
             for pid in protocol_ids:
                 relevant.append(find_by_id(protocols, pid))
 
-    # 方式 2：通过 domain 标签
+    # approach 2: match on the domain tag
     for protocol in protocols:
         if any(domain in task_description for domain in protocol["domains"]):
             relevant.append(protocol)
 
     return relevant
 
-# 使用
-task = "我需要设计一个通知系统"
+# usage
+task = "I need to design a notification system"
 protocols = find_relevant_protocols(task, manifest["protocols"])
-# 结果: [UNIVERSAL_NOTIFICATION_SPEC_V2, INP_SPEC_V1]
+# result: [UNIVERSAL_NOTIFICATION_SPEC_V2, INP_SPEC_V1]
 ```
 
-### 步骤 3：远程加载协议
+### Step 3: load the protocol remotely
 
 ```python
 def load_protocol(protocol_metadata):
-    """从远程 URL 加载协议"""
+    """Load a protocol from its remote URL"""
 
     url = protocol_metadata["canonical_url"]
     content = fetch_text(url)
@@ -143,7 +143,7 @@ def load_protocol(protocol_metadata):
         "url": url
     }
 
-# 使用
+# usage
 for protocol_meta in protocols:
     protocol = load_protocol(protocol_meta)
     inject_into_context(protocol)
@@ -151,25 +151,25 @@ for protocol_meta in protocols:
 
 ---
 
-## 3. 版本管理
+## 3. Version management
 
-### 版本策略
+### The versioning strategy
 
 ```text
-主版本（Breaking Changes）：
-  UNP v1.0.0  →  UNP v2.0.0（不兼容）
-  URL: .../v1/unp.md  →  .../v2/unp.md
+Major (breaking changes):
+  UNP v1.0.0  ->  UNP v2.0.0 (incompatible)
+  URL: .../v1/unp.md  ->  .../v2/unp.md
 
-次版本（新增功能）：
-  UNP v1.0.0  →  UNP v1.1.0（兼容）
-  URL: .../unp.md 保持不变（始终指向最新次版本）
+Minor (new capability):
+  UNP v1.0.0  ->  UNP v1.1.0 (compatible)
+  URL: .../unp.md is unchanged, always pointing at the newest minor
 
-修订版本（Bug 修复）：
-  UNP v1.0.0  →  UNP v1.0.1
-  URL 不变（自动获得修复）
+Patch (bug fix):
+  UNP v1.0.0  ->  UNP v1.0.1
+  URL unchanged; the fix arrives automatically
 ```
 
-### 指定特定版本
+### Pinning a specific version
 
 ```json
 // skills/INDEX.md
@@ -180,7 +180,7 @@ for protocol_meta in protocols:
       "version": "1.0.0",
       "canonical_url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/unp.md",
 
-      // 可选：指定特定版本的 URL
+      // optional: URLs for specific versions
       "version_urls": {
         "1.0.0": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/v1.0.0/protocols/unp.md",
         "1.0.1": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/v1.0.1/protocols/unp.md",
@@ -191,11 +191,11 @@ for protocol_meta in protocols:
 }
 ```
 
-### Agent 选择版本
+### How an agent picks a version
 
 ```python
 def load_protocol_version(protocol_id, version="latest", manifest=None):
-    """加载指定版本的协议"""
+    """Load a specific version of a protocol"""
 
     protocol = find_by_id(manifest["protocols"], protocol_id)
 
@@ -209,36 +209,36 @@ def load_protocol_version(protocol_id, version="latest", manifest=None):
 
 ---
 
-## 4. 协议注册格式
+## 4. The registry entry format
 
-### 完整的协议注册条目
+### A complete registry entry
 
 ```yaml
-# skills/INDEX.md protocols 数组中的每一项
+# one element of the protocols array in skills/INDEX.md
 {
-  "id": "UNIVERSAL_NOTIFICATION_SPEC_V2",                    # 全局唯一 ID
+  "id": "UNIVERSAL_NOTIFICATION_SPEC_V2",                    # globally unique id
   "name": "Universal Notification Protocol",
   "description": "Channel-agnostic semantic layer for notifications",
 
-  # URL 信息
+  # URL information
   "canonical_url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/unp.md",
   "repository": "https://github.com/nesnilnehc/ai-cortex",
   "repository_path": "protocols/unp.md",
 
-  # 版本信息
+  # version information
   "version": "1.0.0",
   "status": "active",                    # active | deprecated | experimental
-  "lifecycle": "living",                 # 是否持续维护
+  "lifecycle": "living",                 # whether it is still maintained
 
-  # Agent 发现和加载
-  "domain": "notifications",             # 问题域
+  # discovery and loading
+  "domain": "notifications",             # the problem domain
   "scope": "Applicable whenever designing or reviewing notification systems",
   "applies_to": ["design", "code-review", "implementation"],
 
-  # 关系
-  "related": ["INP_SPEC_V1"],            # 相关协议
+  # relationships
+  "related": ["INP_SPEC_V1"],            # related protocols
 
-  # 元数据
+  # metadata
   "author": "AI Cortex Team",
   "license": "MIT",
   "tags": ["semantic", "channel-agnostic", "notifications"]
@@ -247,68 +247,68 @@ def load_protocol_version(protocol_id, version="latest", manifest=None):
 
 ---
 
-## 5. 使用场景
+## 5. Scenarios
 
-### 场景 1：Agent 在新项目中首次工作
+### Scenario 1: an agent's first run in a new project
 
 ```text
-Agent 初始化：
-  1. 已知注册表 URL
-  2. 获取 skills/INDEX.md
-  3. 解析协议列表
-  4. 根据任务加载相关协议
-  5. 立即可用，无需任何预先配置
+Agent initialisation:
+  1. It knows the registry URL
+  2. It fetches skills/INDEX.md
+  3. It parses the protocol list
+  4. It loads the protocols the task needs
+  5. It is ready at once, with nothing configured in advance
 
-用户视角：
-  Agent: "我已加载 UNP v1.0.0 和 INP v1.0.0 协议"
-  用户: "生成通知系统"
-  Agent: ✅ 完成（使用远程加载的协议）
+From the user's side:
+  Agent: "I have loaded the UNP v1.0.0 and INP v1.0.0 protocols"
+  User:  "Generate a notification system"
+  Agent: ✅ done, using the remotely loaded protocols
 ```
 
-### 场景 2：Agent 跨越不同组织
+### Scenario 2: an agent across different organisations
 
 ```text
-Agent A 在公司 X 工作：
+Agent A works at company X:
   manifest_url = "https://company-x.internal/ai-cortex/skills/INDEX.md"
-  ↓ 加载 Company X 的协议
+  -> loads company X's protocols
 
-Agent B 在公司 Y 工作：
+Agent B works at company Y:
   manifest_url = "https://company-y.internal/ai-cortex/skills/INDEX.md"
-  ↓ 加载 Company Y 的协议
+  -> loads company Y's protocols
 
-Agent C 使用 AI Cortex：
+Agent C uses AI Cortex:
   manifest_url = "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/skills/INDEX.md"
-  ↓ 加载官方 AI Cortex 协议
+  -> loads the official AI Cortex protocols
 ```
 
-### 场景 3：Agent 协议版本升级
+### Scenario 3: upgrading an agent's protocol version
 
 ```text
-用户代码在 UNP v1.0.0 上运行：
-  Agent 检测：当前代码使用 "UNP v1.0.0"
-  manifest 发现：最新版本是 UNP v2.0.0
+The user's code runs on UNP v1.0.0:
+  The agent detects that the code uses "UNP v1.0.0"
+  The manifest says the newest version is UNP v2.0.0
 
-Agent 行为（可选）：
-  1. 询问用户："UNP 有新版本，是否升级？"
-  2. 如果同意，加载 v2.0.0 并生成迁移建议
-  3. 保持向后兼容性（除非明确选择升级）
+What the agent may then do:
+  1. Ask the user: "a newer UNP exists, upgrade?"
+  2. If they agree, load v2.0.0 and produce migration suggestions
+  3. Stay backward compatible unless the upgrade is explicitly chosen
 ```
 
 ---
 
-## 6. 实现要点
+## 6. Implementation notes
 
-### 对于 Agent 框架
+### For an agent framework
 
 ```python
 class ProtocolRegistry:
     def __init__(self, manifest_url: str):
         self.manifest_url = manifest_url
         self.manifest = None
-        self._cache = {}  # 可选：本地缓存
+        self._cache = {}  # optional local cache
 
     def discover(self, domain: str = None) -> List[Protocol]:
-        """发现协议"""
+        """Discover protocols"""
         if not self.manifest:
             self.manifest = fetch_json(self.manifest_url)
 
@@ -320,44 +320,44 @@ class ProtocolRegistry:
         return protocols
 
     def load(self, protocol_id: str, version: str = "latest") -> str:
-        """加载协议内容"""
+        """Load a protocol's content"""
         protocol = self._find_by_id(protocol_id)
 
-        # 检查缓存
+        # check the cache
         cache_key = f"{protocol_id}:{version}"
         if cache_key in self._cache:
             return self._cache[cache_key]
 
-        # 远程加载
+        # load it remotely
         if version == "latest":
             url = protocol["canonical_url"]
         else:
             url = protocol["version_urls"][version]
 
         content = fetch_text(url)
-        self._cache[cache_key] = content  # 可选缓存
+        self._cache[cache_key] = content  # optional cache
 
         return content
 
     def get_relevant_protocols(self, task_description: str):
-        """根据任务描述获取相关协议"""
-        # 关键词匹配或语义相似度匹配
+        """Get the protocols relevant to a task description"""
+        # keyword matching, or semantic similarity
         ...
 ```
 
-### 对于项目
+### For a project
 
 ```yaml
 # .claude/config.yaml
 protocols:
   registry_url: https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/skills/INDEX.md
 
-  # 可选：指定特定版本
+  # optional: pin specific versions
   pinned_versions:
     UNIVERSAL_NOTIFICATION_SPEC_V2: "1.0.0"
     INP_SPEC_V1: "1.0.0"
 
-  # 可选：本地缓存
+  # optional: local cache
   cache:
     enabled: true
     directory: ./.claude/protocol-cache
@@ -365,26 +365,26 @@ protocols:
 
 ---
 
-## 7. 协议发现的三种方式
+## 7. Three ways to discover a protocol
 
-### 方式 1：显式指定
+### 1. Named explicitly
 
 ```python
-# Agent 显式加载协议
+# the agent loads the protocol by name
 registry = ProtocolRegistry("https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/skills/INDEX.md")
 unp = registry.load("UNIVERSAL_NOTIFICATION_SPEC_V2")
 ```
 
-### 方式 2：任务自动推断
+### 2. Inferred from the task
 
 ```python
-# Agent 根据任务自动发现
-task = "生成一个通知系统"
+# the agent discovers them from the task
+task = "generate a notification system"
 protocols = registry.get_relevant_protocols(task)
-# 自动发现 → [UNIVERSAL_NOTIFICATION_SPEC_V2, INP_SPEC_V1]
+# discovered -> [UNIVERSAL_NOTIFICATION_SPEC_V2, INP_SPEC_V1]
 ```
 
-### 方式 3：Skill 声明
+### 3. Declared by the skill
 
 ```yaml
 # skill frontmatter
@@ -397,46 +397,46 @@ protocols:
     version: ">=1.0.0"
 ---
 
-# Skill 运行时：Agent 自动加载声明的协议
+# at skill runtime the agent loads the declared protocols
 ```
 
 ---
 
-## 8. 与本地 Clone 的对比
+## 8. Compared with a local clone
 
-| 方面 | 远程加载（推荐） | 本地 Clone（不推荐） |
+| Aspect | Remote loading (recommended) | A local clone (not recommended) |
 |:---|:---|:---|
-| **初始化** | ✅ 0 步（只需 URL） | ❌ 需要 clone/download |
-| **无状态** | ✅ Agent 可在任何地方工作 | ❌ 依赖本地文件 |
-| **版本控制** | ✅ 自动从 manifest 获取最新 | ❌ 需要手动更新 |
-| **跨项目** | ✅ 可加载不同源的协议 | ❌ 只能用本地版本 |
-| **磁盘空间** | ✅ 无需存储（可选缓存） | ❌ 占用本地空间 |
-| **网络依赖** | ⚠️ 需要网络 | ✅ 离线可用（如果缓存） |
+| **Setup** | ✅ 0 steps, just a URL | ❌ requires a clone or download |
+| **Statelessness** | ✅ the agent works anywhere | ❌ depends on a local file |
+| **Versioning** | ✅ the newest comes from the manifest automatically | ❌ has to be updated by hand |
+| **Across projects** | ✅ can load protocols from different sources | ❌ only the local version |
+| **Disk** | ✅ stores nothing, caching optional | ❌ takes local space |
+| **Network** | ⚠️ needs the network | ✅ works offline, if cached |
 
 ---
 
-## 9. 最小化 Agent 集成
+## 9. The minimum an agent has to integrate
 
-Agent 只需要知道**这一个 URL**：
+An agent only has to know **this one URL**:
 
 ```text
 https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/skills/INDEX.md
 ```
 
-从这个 URL，Agent 可以：
-- ✅ 发现所有可用协议
-- ✅ 获取协议的规范 URL
-- ✅ 加载任何版本的任何协议
-- ✅ 了解协议的 domain 和 scope
-- ✅ 找到相关协议
+From it, an agent can:
+- ✅ discover every available protocol
+- ✅ get a protocol's canonical URL
+- ✅ load any version of any protocol
+- ✅ learn a protocol's domain and scope
+- ✅ find the related protocols
 
 ---
 
-**设计原则**：
+**Design principles**:
 
-- Agent 应该是**无状态和无配置的**
-- 协议应该是**可远程发现和加载的**
-- 版本应该**明确且可追踪的**
-- 唯一的先验知识应该是**一个注册表 URL**
+- An agent is **stateless and unconfigured**
+- A protocol is **discoverable and loadable remotely**
+- A version is **explicit and traceable**
+- The only prior knowledge is **one registry URL**
 
-**最后更新**：2026-03-25
+**Last updated**: 2026-03-25

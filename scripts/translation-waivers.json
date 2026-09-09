@@ -27,5 +27,7 @@
   "docs/LANGUAGE_SCHEME.md::residual_chinese": "§7 列出校验器实际比对的不变量，其中强 / 弱约束标记词表本身就是中文（必须 / 不得 / 建议 / 尽量）——译成英文就不再是校验器在基线侧查找的字符串。",
   "docs/architecture/terminology.md::residual_chinese": "§VI 第 1 条讲的就是中文文档里首次出现时中英并列的写法，示例 `规范（Spec）` / `协议（Protocol）` 必须保持中文才说明得了这条约定。",
   "skills/deliver-feature/README.md::unchanged": "该文件在迁移基线上已是全英文（`git show f294b43:... | grep -c \"[一-鿿]\"` 为 0），本就不是翻译目标，未改动属正确结果而非遗漏。",
-  "skills/integrate-branches/README.md::unchanged": "同 deliver-feature：迁移基线上已是全英文，未改动属正确结果而非遗漏。"
+  "skills/integrate-branches/README.md::unchanged": "同 deliver-feature：迁移基线上已是全英文，未改动属正确结果而非遗漏。",
+  "docs/guides/protocols-registry.md::code_blocks[2]": "示例中 `task = \"我需要设计一个通知系统\"` / `task = \"生成一个通知系统\"` 是喂给演示函数的样例输入文案，不是可执行逻辑；英文读者看中文样例无法判断这段代码在演示什么。函数名、参数与结构未动。与 rules/standards-agent-testing.md 中断言字符串的处理一致。",
+  "docs/guides/protocols-registry.md::code_blocks[10]": "示例中 `task = \"我需要设计一个通知系统\"` / `task = \"生成一个通知系统\"` 是喂给演示函数的样例输入文案，不是可执行逻辑；英文读者看中文样例无法判断这段代码在演示什么。函数名、参数与结构未动。与 rules/standards-agent-testing.md 中断言字符串的处理一致。"
 }
