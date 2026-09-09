@@ -2,7 +2,7 @@
 artifact_type: rule
 name: functional-design-quality
 version: 1.0.0
-scope: 评审或自检功能设计文档时
+scope: reviewing or self-checking a functional design document
 recommended_scope: user
 status: active
 ---

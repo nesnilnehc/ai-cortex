@@ -2,7 +2,7 @@
 artifact_type: rule
 name: task-quality
 version: 1.0.0
-scope: 评审或自检任务列表文档时
+scope: reviewing or self-checking a task list document
 recommended_scope: user
 status: active
 ---

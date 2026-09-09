@@ -72,7 +72,7 @@ Permitted when ACL and retention must be governed per producer (≥3 teams, or m
 
 ### 2.3 Contract file naming
 
-Each subject has one contract file, following the `-contract.md` suffix set by [cross-team-contract.md §2](./cross-team-contract.md#2-命名约定):
+Each subject has one contract file, following the `-contract.md` suffix set by [cross-team-contract.md §2](./cross-team-contract.md#2-naming):
 
 ```text
 <event>-contract.md
@@ -148,7 +148,7 @@ Every contract's field table must carry: field name / type / whether required / 
 | MINOR (compatible addition) | `contract_version` MINOR bump | Same subject, with new optional fields or enum values; consumers stay compatible through Tolerant Reader |
 | PATCH (documentation revision) | `contract_version` PATCH bump | Comment corrections, typos, added examples; no effect on on-the-wire behaviour |
 
-`contract_version` and the CHANGELOG are carried by [cross-team-contract.md §4-§5](./cross-team-contract.md#4-frontmatter-契约); this spec does not redefine them.
+`contract_version` and the CHANGELOG are carried by [cross-team-contract.md §4-§5](./cross-team-contract.md#4-frontmatter-contract); this spec does not redefine them.
 
 ### 5.5 Embedded validation rules
 

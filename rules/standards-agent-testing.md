@@ -2,7 +2,7 @@
 artifact_type: rule
 name: standards-agent-testing
 version: 1.0.0
-scope: LLM Agent 行为相关的测试代码与单 agent 测试契约
+scope: test code for LLM agent behaviour, and single-agent test contracts
 recommended_scope: user
 status: active
 ---
@@ -66,8 +66,8 @@ An assertion on non-deterministic behaviour must hit at least one of these oracl
 ```python
 # ❌ exact assertion on free-form LLM text
 def test_agent_reply():
-    reply = agent.handle("我要提个需求")
-    assert reply == "您的需求已记录"   # one wording change and it goes red for no reason
+    reply = agent.handle("I want to raise a requirement")
+    assert reply == "Your requirement has been recorded"   # one wording change and it goes red for no reason
 ```
 
 ```python

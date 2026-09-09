@@ -1,7 +1,7 @@
 ---
 name: standards-shell
 version: 1.0.0
-scope: 所有 *.sh 脚本
+scope: every *.sh script
 recommended_scope: user
 ---
 

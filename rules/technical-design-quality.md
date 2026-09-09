@@ -2,7 +2,7 @@
 artifact_type: rule
 name: technical-design-quality
 version: 1.0.0
-scope: 评审或自检技术设计文档时
+scope: reviewing or self-checking a technical design document
 recommended_scope: user
 status: active
 ---

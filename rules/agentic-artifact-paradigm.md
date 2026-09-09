@@ -2,7 +2,7 @@
 artifact_type: rule
 name: agentic-artifact-paradigm
 version: 1.0.0
-scope: 输入到 spec 制品的智能体能力
+scope: an agent capability that turns input into a spec-conforming artifact
 recommended_scope: user
 lifecycle: living
 created_at: 2026-06-28

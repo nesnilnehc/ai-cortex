@@ -2,7 +2,7 @@
 artifact_type: rule
 name: roadmap-quality
 version: 1.0.0
-scope: 评审或自检路线图文档时
+scope: reviewing or self-checking a roadmap document
 recommended_scope: user
 status: active
 ---
