@@ -155,7 +155,7 @@ for protocol_meta in protocols:
 
 ### 版本策略
 
-```yaml
+```text
 主版本（Breaking Changes）：
   UNP v1.0.0  →  UNP v2.0.0（不兼容）
   URL: .../v1/unp.md  →  .../v2/unp.md
@@ -251,7 +251,7 @@ def load_protocol_version(protocol_id, version="latest", manifest=None):
 
 ### 场景 1：Agent 在新项目中首次工作
 
-```yaml
+```text
 Agent 初始化：
   1. 已知注册表 URL
   2. 获取 skills/INDEX.md
@@ -419,7 +419,7 @@ protocols:
 
 Agent 只需要知道**这一个 URL**：
 
-```yaml
+```text
 https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/skills/INDEX.md
 ```
 
