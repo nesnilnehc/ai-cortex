@@ -45,7 +45,7 @@ Two opposites, in one line each:
 
 1. **Structure is scaffolding, not an agenda**: a spec's sections and a review's dimensions define the **target structure and its presentation**. They must not be used as the driving sequence for interaction or generation. **Never** advance the agent by asking "which spec section is empty?" or "which dimension do I score next?".
 
-2. **Substance-led**: the agent's **foreground** is domain substance — how this requirement actually works, what this code actually does, what really matters in this review. Questions and findings must be **domain substance**, not "please supply field X" or "score dimension Y at N".
+2. **Substance-led**: the agent's **foreground** is domain substance — how this requirement actually works, what this code actually does, what is genuinely critical in this review. Questions and findings must be **domain substance**, not "please supply field X" or "score dimension Y at N".
 
 3. **Extract first, interrogate and score last (extract-first)**: fill the framework's fields and dimensions first by **extraction** (upstream artifacts, existing sources) and **inference** (from the substantive conversation itself). Only what is **genuinely missing, unrecoverable by inference, and critical** is escalated to a direct question. **Never** deduct points for, or ask about, anything extractable from upstream, provided by the platform, or inferable.
 
@@ -62,7 +62,7 @@ The paradigm is fixed; capabilities differ only in four parameters. This is what
 | Parameter | Meaning | Clarification (example) | Review (example) |
 |---|---|---|---|
 | **Target spec** | The structure to converge on | requirement-modeling | Review dimension schema |
-| **Substance lens** | What "substance" means here | How the feature works | What really matters in this change |
+| **Substance lens** | What "substance" means here | How the feature works | What is genuinely critical in this change |
 | **Extraction sources** | Where the framework fills from | ZenTao + the repository | The diff + repository context |
 | **Interaction model** | How convergence happens | Multiple interactive rounds | One-shot deep dig |
 
@@ -75,7 +75,7 @@ The paradigm is fixed; capabilities differ only in four parameters. This is what
 - ❌ Deducting points for, or asking about, content already supplied upstream, provided by the platform, or inferable
 - ❌ Building a parallel "completeness check" alongside the `*-quality` criteria — duplication that then drifts
 - ❌ Quality verification producing only a final scorecard that is not fed back into substantive convergence
-- ❌ Writing this paradigm in the shape of one interactive capability (a "five-phase interaction skeleton") and treating it as cross-scenario. An interaction skeleton belongs to an **interactive instance**, not to this paradigm
+- ❌ Writing this paradigm in the shape of one interactive capability (such as a "five-phase interaction skeleton") and treating it as cross-scenario. An interaction skeleton belongs to an **interactive instance**, not to this paradigm
 
 ---
 
