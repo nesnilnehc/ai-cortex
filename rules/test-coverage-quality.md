@@ -39,7 +39,7 @@ status: active
 
 - [ ] Every row of the traceability matrix has at least 1 `✓`, or the whole row is marked `—` with a stated reason for being not applicable
 - [ ] Gaps — empty rows — are listed in the gap list, each with a remedial action, an owner and a due date
-- [ ] Every mutation row marked `fail` carries a "surviving mutants" subsection inferring which dimension is untested
+- [ ] Every mutation row marked `fail` carries a "surviving mutants detail" subsection inferring which dimension is untested
 - [ ] A `waived` status carries the reason for the waiver, not an empty phrase like "skipped for now"
 
 ### 4. Risk alignment — does gap severity match the verdict?
@@ -88,7 +88,7 @@ status: active
 
 ---
 
-## Boundary with the neighbouring rules
+## Boundary with the upstream rules
 
 | Subject of review | Owning rule | Trigger |
 |---|---|---|

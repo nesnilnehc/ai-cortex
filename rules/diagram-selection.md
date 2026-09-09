@@ -56,7 +56,7 @@ Default to Mermaid, and leave it only when a row of the table below applies. Do 
 | Many nodes and edges, needing automatic layout: dependency graph / call chain / topology / knowledge graph | **Graphviz** |
 | Just a simple standard flow rendered in a web page, with no other diagram type needed | **flowchart.js** |
 
-Where the platform has standardised on a documentation tool, check which renderer version it supports first — Mermaid in particular varies noticeably between versions.
+Where the platform has standardised on a documentation tool, check which renderer version it supports first, and pay particular attention to Mermaid's version differences.
 
 Pick the right Graphviz layout engine: `dot` for layered directed graphs, dependency graphs and call chains; `neato` and `fdp` for general networks and undirected graphs; `sfdp` for large graphs; `circo` for circular and cyclic relationships; `twopi` for radial, centre-outward layouts; `osage` for grouped clusters.
 

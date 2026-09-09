@@ -8,5 +8,8 @@
   "rules/agentic-artifact-paradigm.md::strong_constraints": "§2 核心命题中「不可填表化」是禁令，但『不可』已从标记表移除（它在『不可验证』中意为『无法』）。英文 'never reduced to filling in a form' 是忠实翻译。",
   "rules/standards-agent-testing.md::strong_constraints": "两处：中文「变更需记录 model version comparison」用『需』、「不进默认 unit 管道」与前半句『必须打 marker』并列共享义务。『需』未入标记表（收录会误命中『需求』）。独立复核明确要求恢复这两处的义务语气，英文 must 是忠实翻译。",
   "rules/workflow-documentation.md::strong_constraints": "中文「同一主题须有唯一权威文档」的『须』与英文 must 对应，但本文件另有若干中文义务词（『需』『应』）不在标记表内，导致总数无法逐一配平。独立复核确认四处义务表述与中文一一对应。",
-  "rules/workflow-documentation.md::identifiers": "新增的适用范围声明句列举了英文侧待补的检测词（deprecated / TBD）。中文原文靠『模式本身是中文』隐式传达适用范围，译为英文后该信息丢失，独立复核判定为语义漂移。补这句是还原原文含义，非新增约束。"
+  "rules/workflow-documentation.md::identifiers": "新增的适用范围声明句列举了英文侧待补的检测词（deprecated / TBD）。中文原文靠『模式本身是中文』隐式传达适用范围，译为英文后该信息丢失，独立复核判定为语义漂移。补这句是还原原文含义，非新增约束。",
+  "rules/repo-structure-hygiene.md::weak_constraints": "两处裸『应』：「过期制品应：删除 / 归档 / 标 deprecated」与「文件名高度相似的不应共存」。标记表不收裸『应』（收录会误命中『应用 / 应对 / 响应』）。英文 should / should not 是忠实翻译。",
+  "rules/writing-chinese-technical.md::weak_constraints": "违规示例中「应使用中文直角引号或无符号」用的是裸『应』，标记表不收。英文 should use 是忠实翻译。",
+  "rules/INDEX.md::weak_constraints": "§3「规则应作为『长期背景』注入 AI 运行时」用的是裸『应』，标记表不收。英文 should be injected 是忠实翻译，独立复核要求保住该处的指令语气。"
 }

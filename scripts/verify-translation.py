@@ -229,7 +229,19 @@ def main():
         if not old_text:
             skipped += 1
             continue
-        findings = compare(extract(old_text), extract(path.read_text()))
+
+        new_text = path.read_text()
+        if mode == "translate" and old_text == new_text:
+            # A file identical to its baseline was never touched. The invariant
+            # comparison would pass trivially - every invariant matches itself -
+            # so an omitted file is invisible unless checked for explicitly.
+            hard += 1
+            print(f"\n{path}")
+            print("  [HARD] unchanged: identical to the baseline, so nothing "
+                  "was translated. An omitted file passes every invariant "
+                  "trivially; this check is what makes it visible.")
+            continue
+        findings = compare(extract(old_text), extract(new_text))
         kept = []
         for sev, key, detail in findings:
             reason = waivers.get(f"{path}::{key}")
