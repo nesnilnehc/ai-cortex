@@ -5,54 +5,54 @@ status: active
 lifecycle: living
 ---
 
-# 协议使用指南 (Protocols Usage Guide)
+# Protocols usage guide
 
-本指南说明如何在项目中发现、安装和使用 AI Cortex 提供的领域协议规范。
+This guide explains how to discover, install and use the domain protocol specs AI Cortex provides.
 
 ---
 
-## 1. 协议是什么？
+## 1. What is a protocol?
 
-**定义**：协议是对特定问题域（如通知系统）的标准化接口规范。
+**Definition**: a protocol is a standardised interface spec for one problem domain, notification systems for instance.
 
-**特征**：
-- **版本化**：明确的语义版本号（1.0.0 等）
-- **分层**：通常包含多层（如 UNP 的语义层 + INP 的投递层）
-- **标准化**：定义强制要求（MUST）、禁止项（FORBIDDEN）、最佳实践
-- **可重用**：跨多个项目和团队适用
+**Characteristics**:
+- **Versioned**: an explicit semantic version, 1.0.0 and so on
+- **Layered**: usually several layers, such as UNP's semantic layer plus INP's delivery layer
+- **Standardised**: it states what is required (MUST), what is FORBIDDEN, and the best practice
+- **Reusable**: it applies across projects and teams
 
-**与其他资产的区别**：
+**How it differs from the other assets**:
 
-| 资产类型 | 用途 | 加载方式 |
+| Asset type | What it is for | How it is loaded |
 |:---|:---|:---|
-| **Skill（技能）** | 主动能力（调用来完成任务） | 按需注入 |
-| **Protocol（协议）** | 接口契约（遵循来确保兼容性） | 常驻加载（长期背景） |
-| **Rule（规则）** | 行为约束（工作时的约束） | 常驻加载（长期背景） |
+| **Skill** | An active capability, invoked to complete a task | Injected on demand |
+| **Protocol** | An interface contract, followed to stay compatible | Loaded permanently, as long-lived background |
+| **Rule** | A behavioural constraint that holds while working | Loaded permanently, as long-lived background |
 
 ---
 
-## 2. 发现协议
+## 2. Discovering a protocol
 
-### 2.1 在线浏览
+### 2.1 Browsing online
 
-1. **查看协议注册表**：访问 [`protocols/INDEX.md`](../../protocols/INDEX.md)
-2. **确认当前可用的协议**：
-   - UNP（Universal Notification Protocol）v1.0.0
-   - INP（IM Notification Protocol）v1.0.0
+1. **Look at the protocol registry**: open [`protocols/INDEX.md`](../../protocols/INDEX.md)
+2. **Confirm what is available today**:
+   - UNP (Universal Notification Protocol) v1.0.0
+   - INP (IM Notification Protocol) v1.0.0
 
-3. **查看协议详情**：
-   - [`specs/universal-notification.md`](../../specs/universal-notification.md) — 语义层规范（UNP）
-   - [`protocols/im-notification-delivery.md`](../../protocols/im-notification-delivery.md) — 投递层规范（INP）
+3. **Read the detail**:
+   - [`specs/universal-notification.md`](../../specs/universal-notification.md) — the semantic layer spec (UNP)
+   - [`protocols/im-notification-delivery.md`](../../protocols/im-notification-delivery.md) — the delivery layer spec (INP)
 
-### 2.2 在 canonical clone 中查找
+### 2.2 Looking in the canonical clone
 
-安装后直接读取 AI Cortex 的稳定数据目录：
+After installation, read AI Cortex's stable data directory directly:
 
 ```bash
 ls "${XDG_DATA_HOME:-$HOME/.local/share}/ai-cortex/protocols/"
 ```
 
-### 2.3 通过注册表发现
+### 2.3 Through the registry
 
 ```bash
 cat "${XDG_DATA_HOME:-$HOME/.local/share}/ai-cortex/protocols/INDEX.md"
@@ -60,11 +60,11 @@ cat "${XDG_DATA_HOME:-$HOME/.local/share}/ai-cortex/protocols/INDEX.md"
 
 ---
 
-## 3. 安装 & 使用
+## 3. Installing and using
 
-### 3.1 Canonical 安装
+### 3.1 The canonical install
 
-AI Cortex 只保留一种安装与更新方式：
+AI Cortex keeps exactly one way to install and update:
 
 ```bash
 mkdir -p ~/.local/share
@@ -72,40 +72,40 @@ git clone --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.local/share/a
 ~/.local/share/ai-cortex/bin/cortex install
 ```
 
-**验证安装**：
+**Verify the install**:
 
 ```bash
 cortex status
 ls "${XDG_DATA_HOME:-$HOME/.local/share}/ai-cortex/protocols/"
 ```
 
-### 3.2 在你的项目中使用
+### 3.2 Using it in your project
 
-项目 Agent 按 `$CORTEX_HOME/protocols/INDEX.md` 或默认 XDG 路径读取协议。项目需要固定 AI Cortex 版本时，在项目配置中记录 canonical clone 的完整 commit；不要复制单文件、curl raw URL 或引入第二份 submodule。
+A project's agent reads protocols from `$CORTEX_HOME/protocols/INDEX.md`, or from the default XDG path. When a project has to pin an AI Cortex version, record the canonical clone's full commit in the project configuration. Do not copy individual files, do not curl a raw URL, and do not add a second submodule.
 
 ---
 
-## 4. 使用场景和示例
+## 4. Scenarios and examples
 
-### 4.1 通知系统设计（UNP 使用）
+### 4.1 Designing a notification system, using UNP
 
-**场景**：设计新的通知系统
+**Scenario**: designing a new notification system
 
-**步骤**：
+**Steps**:
 
-1. **阅读 UNP 规范**：理解必填字段和约束
+1. **Read the UNP spec**: understand the required fields and the constraints
 
 ```markdown
-# 根据 UNP，所有通知必须包含：
+# Under UNP, every notification must carry:
 - id (uuid)
 - type (UPPER_SNAKE_CASE)
 - intent (info | action_required | approval | alert)
 - priority (P0 | P1 | P2 | P3)
 - title, body
-- 如果 priority ∈ [P0, P1]，必须包含 actions
+- actions, required when priority ∈ [P0, P1]
 ```
 
-2. **实现 UNP 对象**：
+2. **Implement the UNP object**:
 
 ```typescript
 interface UNPNotification {
@@ -124,43 +124,43 @@ interface UNPNotification {
 }
 ```
 
-3. **验证合规性**：使用 `review-notifications` 技能（计划中）
+3. **Check compliance**: use the `review-notifications` skill (planned)
 
 ```bash
-# 运行审查
+# run the review
 claude-code /review-notifications
-# 输入：notification code
-# 输出：UNP 合规性报告
+# input:  notification code
+# output: a UNP compliance report
 ```
 
-### 4.2 IM 投递实现（INP 使用）
+### 4.2 Implementing IM delivery, using INP
 
-**场景**：将 UNP 通知投递到 Feishu/WeCom
+**Scenario**: delivering a UNP notification to Feishu or WeCom
 
-**步骤**：
+**Steps**:
 
-1. **阅读 INP 规范**：理解渲染和路由规则
+1. **Read the INP spec**: understand the rendering and routing rules
 
 ```markdown
-# 根据 INP：
-- P0 → card（交互式卡片）
-- P1 → card
-- P2 → markdown
-- P3 → text（纯文本）
-# P0/P1 必须包含 mention_user 和 actionable 内容
+# Under INP:
+- P0 -> card (an interactive card)
+- P1 -> card
+- P2 -> markdown
+- P3 -> text (plain text)
+# P0 and P1 must carry mention_user and actionable content
 ```
 
-2. **实现投递层**：
+2. **Implement the delivery layer**:
 
 ```python
 def deliver_notification(unp: UNPNotification, channel: str) -> str:
     """Transform UNP to channel-specific format"""
 
-    # 步骤 1：根据优先级映射渲染格式
+    # step 1: map the render format from the priority
     format_map = {'P0': 'card', 'P1': 'card', 'P2': 'markdown', 'P3': 'text'}
     render_format = format_map[unp.priority]
 
-    # 步骤 2：根据 INP 规则构建消息
+    # step 2: build the message per the INP rules
     message = {
         'header': {
             'priority': unp.priority,
@@ -170,38 +170,38 @@ def deliver_notification(unp: UNPNotification, channel: str) -> str:
         'format': render_format
     }
 
-    # 步骤 3：注入提及（如果需要）
+    # step 3: inject mentions, where they are needed
     if unp.priority in ['P0', 'P1']:
         message['mentions'] = get_mentions_for_priority(unp.priority)
 
-    # 步骤 4：应用去重和限流
+    # step 4: apply deduplication and rate limiting
     if not is_duplicate(unp.id) and not is_throttled(unp.source, unp.priority):
         send_to_channel(channel, message)
 
     return message
 ```
 
-3. **测试 INP 合规性**：
+3. **Test INP compliance**:
 
 ```text
-# 验证：
-✓ P0/P1 消息包含 actions
-✓ 没有原始 JSON 输出
-✓ 应用了去重和限流
-✓ 渠道功能降级（如 WeCom 不支持 card，降为 markdown）
+# Verify:
+✓ P0 and P1 messages carry actions
+✓ no raw JSON in the output
+✓ deduplication and rate limiting applied
+✓ channel capability degrades gracefully (WeCom has no card, so it falls back to markdown)
 ```
 
-### 4.3 跨项目共享
+### 4.3 Sharing across projects
 
-**场景**：多个项目都需要遵循同一个通知协议
+**Scenario**: several projects have to follow the same notification protocol
 
-**方案**：
+**Approach**:
 
-1. **在公共位置维护协议**：
+1. **Keep the protocols in a shared location**:
 
 ```text
 my-org/
-├── protocols/          # 组织级协议库
+├── protocols/          # the organisation's protocol library
 │   ├── notification-protocol.md
 │   └── logging-protocol.md
 └── projects/
@@ -209,7 +209,7 @@ my-org/
     ├── service-b/
 ```
 
-2. **在每个项目中引用**：
+2. **Reference them from each project**:
 
 ```yaml
 # service-a/.protocol-config.yaml
@@ -219,128 +219,128 @@ protocols:
     version: "1.0.0"
 ```
 
-3. **验证合规性**：
+3. **Check compliance**:
 
 ```bash
-# 在 CI/CD 中
+# in CI/CD
 protocols-validate --config .protocol-config.yaml
 ```
 
 ---
 
-## 5. 与 AI Agent 集成
+## 5. Integrating with an AI agent
 
-### 5.1 在 Claude Code 中使用协议
+### 5.1 Using a protocol in Claude Code
 
-将协议文件作为**长期背景上下文**注入：
+Inject the protocol file as **long-lived background context**:
 
 ```bash
-# 方法 1：通过 .claude/config.yaml
+# option 1: through .claude/config.yaml
 echo "
 protocols:
   - ./protocols/unp.md
   - ./protocols/inp.md
 " >> .claude/config.yaml
 
-# 方法 2：通过 AGENTS.md（AI Cortex 入口）
-# 在 AGENTS.md 中声明协议依赖
-# 见 docs/guides/discovery-and-loading.md
+# option 2: through AGENTS.md, the AI Cortex entry point
+# declare the protocol dependency in AGENTS.md
+# see docs/guides/discovery-and-loading.md
 ```
 
-### 5.2 示例：AI 驱动的通知重构
+### 5.2 Example: an AI-driven notification refactor
 
 ```text
-用户：将我的通知代码重构为遵循 UNP 协议
-↓
-Claude 加载：unp.md 作为系统上下文
-↓
-Claude 分析：现有通知代码与 UNP 的差异
-↓
-Claude 建议：
-  1. 替换 send("message") 为 UNP 对象
-  2. 添加 type（UPPER_SNAKE_CASE）
-  3. 为 P0/P1 添加 actions
-  4. 应用去重和限流
-↓
-Claude 实现：自动化重构
-↓
-验证：运行 review-notifications 技能检查合规性
+User:   refactor my notification code to follow the UNP protocol
+|
+Claude loads:    unp.md as system context
+|
+Claude analyses: where the existing notification code differs from UNP
+|
+Claude proposes:
+  1. replace send("message") with a UNP object
+  2. add type (UPPER_SNAKE_CASE)
+  3. add actions for P0 and P1
+  4. apply deduplication and rate limiting
+|
+Claude implements: the refactor, automatically
+|
+Verify: run the review-notifications skill to check compliance
 ```
 
 ---
 
-## 6. 版本管理和更新
+## 6. Versions and updates
 
-### 6.1 检查协议版本
+### 6.1 Checking a protocol's version
 
 ```bash
-# 查看当前版本
+# the current version
 grep "^version:" protocols/unp.md
 
-# 查看变更日志
-grep -A 10 "版本" protocols/INDEX.md
+# the change log
+grep -A 10 "Version" protocols/INDEX.md
 ```
 
-### 6.2 升级协议
+### 6.2 Upgrading a protocol
 
 ```bash
-# 获取最新版本
+# get the newest version
 git pull origin main
 
-# 或从 GitHub 下载最新
+# or download the newest from GitHub
 curl -O https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/unp.md
 
-# 检查 breaking changes
+# check for breaking changes
 git diff protocols/unp.md
 ```
 
-### 6.3 协议的向后兼容性
+### 6.3 Backward compatibility
 
-- **Minor updates**（1.0.0 → 1.1.0）：新增可选字段，向后兼容
-- **Major updates**（1.0.0 → 2.0.0）：可能有 breaking changes，需要迁移计划
+- **Minor updates** (1.0.0 -> 1.1.0): new optional fields, backward compatible
+- **Major updates** (1.0.0 -> 2.0.0): may carry breaking changes, and need a migration plan
 
 ---
 
-## 7. 常见问题 (FAQ)
+## 7. FAQ
 
-### Q: 我需要遵循协议吗？
+### Q: do I have to follow a protocol?
 
-**A**：取决于你的用例。
+**A**: it depends on your case.
 
-- ✅ **应该遵循**：
-  - 你的项目是 AI Cortex 技能的一部分
-  - 你需要跨项目共享通知接口
-  - 你想要标准化和可预测的行为
+- ✅ **Follow it when**:
+  - your project is part of an AI Cortex skill
+  - you share a notification interface across projects
+  - you want standardised, predictable behaviour
 
-- ❌ **可以不遵循**：
-  - 完全独立的项目，无协作需求
-  - 协议规范不适用你的场景
+- ❌ **You need not when**:
+  - the project stands entirely alone, with nothing to coordinate
+  - the spec does not fit your situation
 
-### Q: UNP 和 INP 的区别是什么？
+### Q: what is the difference between UNP and INP?
 
-**A**：
+**A**:
 
 | UNP | INP |
 |:---|:---|
-| **语义层** | **投递层** |
-| 定义 WHAT（通知的结构和含义） | 定义 HOW（如何渲染和投递） |
-| Channel-agnostic | Channel-specific（Feishu、WeCom） |
-| 业务/应用层制造 | 投递/中间件层消费 |
-| 示例：BUILD_FAILED 事件 | 示例：Feishu 卡片、WeCom 文本 |
+| **The semantic layer** | **The delivery layer** |
+| Defines WHAT: a notification's structure and meaning | Defines HOW: how it is rendered and delivered |
+| Channel-agnostic | Channel-specific: Feishu, WeCom |
+| Produced by the business or application layer | Consumed by the delivery or middleware layer |
+| Example: a BUILD_FAILED event | Example: a Feishu card, a WeCom text message |
 
-### Q: 如果协议与我的需求不符怎么办？
+### Q: what if the protocol does not fit what I need?
 
-**A**：两个选择：
+**A**: two options:
 
-1. **贡献改进**（推荐）：向 AI Cortex 提 issue 或 PR
-2. **创建扩展**：在 `extensions` 字段中添加自定义数据
+1. **Contribute the improvement** (preferred): open an issue or a PR against AI Cortex
+2. **Create an extension**: put your own data in the `extensions` field
 
 ```javascript
 {
-  // UNP 标准字段
+  // the standard UNP fields
   type: "BUILD_FAILED",
   priority: "P1",
-  // 自定义扩展
+  // a custom extension
   extensions: {
     "my-org:build-system": {
       failureCode: "E_TIMEOUT",
@@ -350,12 +350,12 @@ git diff protocols/unp.md
 }
 ```
 
-### Q: 能否支持我的特定渠道（如 Slack）？
+### Q: can my own channel be supported, Slack for instance?
 
-**A**：可以。
+**A**: yes.
 
-1. **遵循 UNP**：确保你的通知是有效的 UNP 对象
-2. **扩展 INP**：为 Slack 添加投递规则
+1. **Follow UNP**: make sure your notification is a valid UNP object
+2. **Extend INP**: add the delivery rules for Slack
 
 ```yaml
 # protocols/inp-extended.md
@@ -368,64 +368,64 @@ channel_matrix:
       - no_rich_cards
 ```
 
-3. **贡献回 AI Cortex**：如果通用性强，考虑提交为官方扩展
+3. **Contribute it back to AI Cortex**: where it generalises well, submit it as an official extension
 
 ---
 
-## 8. 最佳实践
+## 8. Best practice
 
-### ✅ 推荐做法
+### ✅ Do
 
-1. **使用完整的 UNP 对象**：不要简化或省略字段
-2. **版本锁定**：在项目中明确指定协议版本
-3. **定期审查**：每个季度检查是否有新的协议版本或改进
-4. **文档化**：在项目 README 中说明使用的协议及版本
-5. **测试合规性**：集成自动化验证（如 review-notifications）
+1. **Use a complete UNP object**: do not simplify it or leave fields out
+2. **Pin the version**: name the protocol version explicitly in the project
+3. **Review periodically**: check each quarter for a newer protocol version or an improvement
+4. **Write it down**: state the protocols and versions used in the project README
+5. **Test compliance**: wire in automated validation, review-notifications for instance
 
-### ❌ 避免做法
+### ❌ Do not
 
-1. **混合协议版本**：不要在同一项目中使用不同的 UNP 版本
-2. **绕过约束**：不要违反 MUST/FORBIDDEN 规则，除非有充分理由
-3. **硬编码渠道**：将渠道逻辑放入业务层，违反了 UNP 的 channel-agnostic 原则
-4. **忽视更新**：不要长期不更新协议版本
+1. **Mix protocol versions**: never use different UNP versions within one project
+2. **Route around a constraint**: never violate a MUST or FORBIDDEN rule without a solid reason
+3. **Hard-code a channel**: putting channel logic in the business layer breaks UNP's channel-agnostic principle
+4. **Ignore updates**: never leave a protocol version unupdated for long
 
 ---
 
-## 9. 参考资源
+## 9. Reference
 
-| 资源 | 链接 | 说明 |
+| Resource | Link | What it is |
 |:---|:---|:---|
-| **协议注册表** | [protocols/INDEX.md](../../protocols/INDEX.md) | 所有可用协议及版本 |
-| **UNP 规范** | [specs/universal-notification.md](../../specs/universal-notification.md) | 通知语义层规范 |
-| **INP 规范** | [protocols/im-notification-delivery.md](../../protocols/im-notification-delivery.md) | 通知投递层规范 |
-| **发现与加载** | [docs/guides/discovery-and-loading.md](./discovery-and-loading.md) | AI Agent 如何发现资产 |
-| **AI Cortex 入口** | [AGENTS.md](../../AGENTS.md) | 项目身份和权威来源 |
+| **The protocol registry** | [protocols/INDEX.md](../../protocols/INDEX.md) | Every available protocol and its version |
+| **The UNP spec** | [specs/universal-notification.md](../../specs/universal-notification.md) | The notification semantic layer |
+| **The INP spec** | [protocols/im-notification-delivery.md](../../protocols/im-notification-delivery.md) | The notification delivery layer |
+| **Discovery and loading** | [docs/guides/discovery-and-loading.md](./discovery-and-loading.md) | How an AI agent discovers an asset |
+| **The AI Cortex entry point** | [AGENTS.md](../../AGENTS.md) | The project's identity and its authoritative sources |
 
 ---
 
-## 10. 获取帮助
+## 10. Getting help
 
-### 报告问题
+### Reporting a problem
 
-如果协议有缺陷或不清楚：
+When a protocol is defective or unclear:
 
-1. **提交 issue**：https://github.com/nesnilnehc/ai-cortex/issues
-2. **标签**：`protocols`, `unp`, `inp`, `documentation`
-3. **描述**：包含你的用例和期望行为
+1. **Open an issue**: https://github.com/nesnilnehc/ai-cortex/issues
+2. **Label it**: `protocols`, `unp`, `inp`, `documentation`
+3. **Describe it**: include your case and the behaviour you expected
 
-### 贡献改进
+### Contributing an improvement
 
 ```bash
-# Fork → 创建分支 → 提交 PR
+# fork -> branch -> open a PR
 git checkout -b feature/protocols-enhancement
-# 修改 protocols/*.md
+# edit protocols/*.md
 git commit -m "docs(protocols): ..."
 git push origin feature/protocols-enhancement
-# 创建 PR
+# open the PR
 ```
 
 ---
 
-**最后更新**：2026-03-25
-**维护者**：AI Cortex Team
-**相关技能**：`review-notifications`（计划中）
+**Last updated**: 2026-03-25
+**Maintainer**: the AI Cortex team
+**Related skill**: `review-notifications` (planned)
