@@ -5,9 +5,9 @@ status: active
 lifecycle: living
 ---
 
-# 协议快速参考 (Protocols Quick Reference)
+# Protocols Quick Reference
 
-## 安装
+## Installation
 
 ```bash
 mkdir -p ~/.local/share
@@ -15,41 +15,41 @@ git clone --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.local/share/a
 ~/.local/share/ai-cortex/bin/cortex install
 ```
 
-Skill 由 `cortex` 统一安装；协议保留在 canonical clone 中，Agent 从 `~/.local/share/ai-cortex/protocols/` 直接读取，不再维护复制、npm 或按需下载路径。
+Skills are installed through `cortex`. Protocols stay in the canonical clone: agents read them straight from `~/.local/share/ai-cortex/protocols/`, and no copy, npm or on-demand download path is maintained any more.
 
 ---
 
-## 核心概念
+## Core concepts
 
-| | UNP（语义层） | INP（投递层） |
+| | UNP (semantic layer) | INP (delivery layer) |
 |:---|:---|:---|
-| **定义** | WHAT：通知的结构和含义 | HOW：如何渲染和投递 |
-| **范围** | Channel-agnostic | Channel-specific |
-| **使用者** | 业务/应用层 | 投递/中间件层 |
-| **必填字段** | id, type, intent, priority, title, body | 基于 priority 的格式和提及规则 |
+| **Definition** | WHAT: the structure and meaning of a notification | HOW: how it is rendered and delivered |
+| **Scope** | Channel-agnostic | Channel-specific |
+| **Consumers** | Business / application layer | Delivery / middleware layer |
+| **Required fields** | id, type, intent, priority, title, body | Format and mention rules derived from priority |
 
 ---
 
-## UNP 必填字段
+## UNP required fields
 
 ```typescript
 {
   id: string;              // uuid
-  type: string;            // 事件名 (UPPER_SNAKE_CASE)
-  source: string;          // 来源系统
+  type: string;            // event name (UPPER_SNAKE_CASE)
+  source: string;          // source system
   timestamp: string;       // ISO8601
-  intent: 'info' |         // 通知意图
+  intent: 'info' |         // notification intent
           'action_required' |
           'approval' |
           'alert';
-  priority: 'P0' |         // 优先级
-            'P1' |         // P0: 中断, P1: 重要
-            'P2' |         // P2: 正常, P3: 信息
+  priority: 'P0' |         // priority
+            'P1' |         // P0: interrupt, P1: important
+            'P2' |         // P2: normal, P3: informational
             'P3';
-  title: string;           // 标题
-  body: string;            // 正文 (max 500 chars)
+  title: string;           // title
+  body: string;            // body (max 500 chars)
 
-  // 如果 priority ∈ [P0, P1]，必须包含 actions
+  // if priority is in [P0, P1], actions must be present
   actions?: [{
     type: 'link' | 'command';
     label: string;
@@ -61,18 +61,18 @@ Skill 由 `cortex` 统一安装；协议保留在 canonical clone 中，Agent �
 
 ---
 
-## INP 规则速览
+## INP rules at a glance
 
-### 优先级 → 格式映射
+### Priority to format mapping
 
 ```text
-P0 → Card（交互式卡片）  必须包含 mention_user + actionable
-P1 → Card               必须包含 mention_owner + actionable
-P2 → Markdown           禁止 mention_user
-P3 → Text               禁止 mention_user
+P0 -> Card (interactive card)  must include mention_user + actionable
+P1 -> Card                     must include mention_owner + actionable
+P2 -> Markdown                 mention_user forbidden
+P3 -> Text                     mention_user forbidden
 ```
 
-### 去重 & 限流
+### Deduplication and rate limiting
 
 ```yaml
 P0: 1 per 5 minutes
@@ -81,19 +81,19 @@ P2: batched
 P3: (unrestricted)
 ```
 
-### 渠道支持
+### Channel support
 
 ```text
 Feishu: ✅ card, button, callback
-WeCom:  ✅ markdown (有限交互)
-         ⚠️ 不支持的功能会降级
+WeCom:  ✅ markdown (limited interaction)
+         ⚠️ unsupported features degrade
 ```
 
 ---
 
-## 代码示例
+## Code examples
 
-### 创建 UNP 通知
+### Creating a UNP notification
 
 ```python
 from datetime import datetime
@@ -128,13 +128,13 @@ notification = {
 }
 ```
 
-### 投递到 IM 渠道
+### Delivering to an IM channel
 
 ```python
 def send_notification(unp: dict, channel: str):
-    """根据 INP 规则投递 UNP 通知"""
+    """Deliver a UNP notification according to the INP rules"""
 
-    # 规则 1：根据优先级选择格式
+    # Rule 1: choose the format from the priority
     format_map = {
         'P0': 'card',
         'P1': 'card',
@@ -143,16 +143,16 @@ def send_notification(unp: dict, channel: str):
     }
     msg_format = format_map[unp['priority']]
 
-    # 规则 2：检查 P0/P1 是否有 actions
+    # Rule 2: check that P0/P1 carry actions
     if unp['priority'] in ['P0', 'P1']:
         assert 'actions' in unp and len(unp['actions']) > 0, \
             f"{unp['priority']} requires actions"
 
-    # 规则 3：应用去重
+    # Rule 3: apply deduplication
     if is_duplicate(unp['id']):
         return
 
-    # 规则 4：应用限流
+    # Rule 4: apply rate limiting
     rate_limit = {
         'P0': 5 * 60,      # 1 per 5 min
         'P1': 10 * 60,     # 1 per 10 min
@@ -161,75 +161,75 @@ def send_notification(unp: dict, channel: str):
     if is_throttled(unp['source'], rate_limit):
         return
 
-    # 规则 5：投递到渠道
+    # Rule 5: deliver to the channel
     send_to_channel(channel, msg_format, unp)
 ```
 
 ---
 
-## 验证合规性
+## Verifying compliance
 
-### 手动检查清单
+### Manual checklist
 
-- [ ] 所有 UNP 对象都有 id, type, intent, priority
-- [ ] P0/P1 包含 actions
-- [ ] type 使用 UPPER_SNAKE_CASE
-- [ ] priority 和 intent 值在枚举范围内
-- [ ] P0/P1 已应用去重和限流
-- [ ] body 长度 ≤ 500 字符
+- [ ] Every UNP object carries id, type, intent, priority
+- [ ] P0/P1 include actions
+- [ ] type uses UPPER_SNAKE_CASE
+- [ ] priority and intent values are inside their enums
+- [ ] Deduplication and rate limiting are applied to P0/P1
+- [ ] body is at most 500 characters
 
-### 自动验证（计划中）
+### Automated validation (planned)
 
 ```bash
-# 使用 review-notifications 技能
+# use the review-notifications skill
 claude-code /review-notifications
 
-# 或本地验证
+# or validate locally
 protocols-validate --protocol unp ./notifications.json
 protocols-validate --protocol inp ./deliveries.json
 ```
 
 ---
 
-## 常见错误
+## Common mistakes
 
-| 错误 | 修复 |
+| Mistake | Fix |
 |:---|:---|
-| `type` 不是 UPPER_SNAKE_CASE | ✅ `BUILD_FAILED` 而非 `buildFailed` |
-| P0 缺少 actions | ✅ 添加至少一个 action 对象 |
-| body > 500 字符 | ✅ 截断为 ≤ 500 字符 |
-| intent 值不匹配 | ✅ 使用: info \| action_required \| approval \| alert |
-| 缺少 source 字段 | ✅ 添加通知源系统名称 |
+| `type` is not UPPER_SNAKE_CASE | ✅ `BUILD_FAILED`, not `buildFailed` |
+| P0 has no actions | ✅ Add at least one action object |
+| body over 500 characters | ✅ Truncate to at most 500 characters |
+| intent value does not match | ✅ Use: info \| action_required \| approval \| alert |
+| source field missing | ✅ Add the name of the originating system |
 
 ---
 
-## 常见问题
+## FAQ
 
-**Q: 是否必须使用这些协议？**
-A: 如果你是 AI Cortex 用户或需要跨项目通知共享，建议遵循。否则可选。
+**Q: Must these protocols be used?**
+A: If you are an AI Cortex user, or you need to share notifications across projects, following them is recommended. Otherwise they are optional.
 
-**Q: 能否修改协议？**
-A: 不建议修改核心规范。可在 `extensions` 字段中添加自定义数据。
+**Q: Can the protocols be modified?**
+A: Modifying the core spec is not recommended. Custom data can be added under the `extensions` field.
 
-**Q: 如何添加新的渠道支持（如 Slack）？**
-A: 创建 INP 扩展或向 AI Cortex 贡献。见 [完整指南](./protocols-usage.md#qa-能否支持我的特定渠道如-slack)。
+**Q: How do I add support for a new channel, such as Slack?**
+A: Write an INP extension, or contribute it to AI Cortex. See the [full guide](./protocols-usage.md#q-can-my-own-channel-be-supported-such-as-slack).
 
-**Q: UNP/INP 版本如何升级？**
-A: 检查 `protocols/INDEX.md` 查看最新版本。breaking changes 会在主版本号中标记。
+**Q: How are UNP/INP versions upgraded?**
+A: Check `protocols/INDEX.md` for the latest version. Breaking changes are marked by the major version number.
 
 ---
 
-## 资源链接
+## Resources
 
-| 资源 | 链接 |
+| Resource | Link |
 |:---|:---|
-| **完整使用指南** | [protocols-usage.md](./protocols-usage.md) |
-| **UNP 规范** | [specs/universal-notification.md](../../specs/universal-notification.md) |
-| **INP 规范** | [protocols/im-notification-delivery.md](../../protocols/im-notification-delivery.md) |
-| **协议注册表** | [protocols/INDEX.md](../../protocols/INDEX.md) |
+| **Full usage guide** | [protocols-usage.md](./protocols-usage.md) |
+| **UNP spec** | [specs/universal-notification.md](../../specs/universal-notification.md) |
+| **INP spec** | [protocols/im-notification-delivery.md](../../protocols/im-notification-delivery.md) |
+| **Protocol registry** | [protocols/INDEX.md](../../protocols/INDEX.md) |
 | **GitHub** | [ai-cortex/protocols](https://github.com/nesnilnehc/ai-cortex/tree/main/protocols) |
 
 ---
 
-**最后更新**：2026-03-25
-**相关技能**：`review-notifications`（计划中）
+**Last updated**: 2026-03-25
+**Related skill**: `review-notifications` (planned)
