@@ -36,7 +36,7 @@ status: active
 - [ ] Terminology is consistent, with the English given alongside on first use
 - [ ] At least one structured representation is present (flowchart / state diagram / permission matrix)
 - [ ] No technical implementation detail — architecture, database, API
-- [ ] Business rules are cited from the upstream requirement as `覆盖 R<n>`, not restated here
+- [ ] Business rules are cited from the upstream requirement as `Covers R<n>`, not restated here
 
 ### 4. Soundness — does the design hold up?
 
@@ -49,7 +49,7 @@ status: active
 
 - [ ] Frontmatter `parent` points at an upstream requirement in `approved` status
 - [ ] Each acceptance criterion traces to an acceptance item of that requirement
-- [ ] Each business rule id cited (`覆盖 R<n>`) exists in the upstream requirement
+- [ ] Each business rule id cited (`Covers R<n>`) exists in the upstream requirement
 - [ ] Cited external specifications have working links
 
 ---

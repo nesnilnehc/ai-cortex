@@ -130,7 +130,7 @@ Added as the situation requires. A conditionally required section **becomes requ
 
 #### 5.3.1 What acceptance criteria trace to depends on the `parent` type
 
-- Where `parent` is a `functional-design`, the normal case: each criterion traces to an acceptance item of that functional design, cited as `覆盖 FD §Acceptance N`.
+- Where `parent` is a `functional-design`, the normal case: each criterion traces to an acceptance item of that functional design, cited as `Covers FD §Acceptance N`.
 - Where `parent` is a `requirement`, the functional layer having been skipped: each criterion traces to an acceptance item of the requirement.
 
 #### 5.3.2 The "no change" escape hatch
@@ -175,7 +175,7 @@ status: approved
 
 # Technical design: order refund approval
 
-## Objective
+## Goal
 
 Implement the raise / approve / execute flow for a refund order, integrate the payment side's refund API, and support the single-level approval and timeout escalation set by the functional design.
 
@@ -240,9 +240,9 @@ Refund execution: approve -> write status=in_progress -> RefundExecutor calls th
 
 ## Acceptance criteria
 
-- [ ] A concurrent refund on the same order is rejected by the database constraint (覆盖 FD §Acceptance 2)
-- [ ] A failed refund is retryable and leaves the order state untouched (覆盖 FD §Acceptance 1)
-- [ ] Approval authorization: only the supervisor role may approve (覆盖 FD §permission matrix)
+- [ ] A concurrent refund on the same order is rejected by the database constraint (Covers FD §Acceptance 2)
+- [ ] A failed refund is retryable and leaves the order state untouched (Covers FD §Acceptance 1)
+- [ ] Approval authorization: only the supervisor role may approve (Covers FD §permission matrix)
 ````
 
 ---
