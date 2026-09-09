@@ -17,185 +17,185 @@ output_schema:
   description: GitHub Actions YAML workflow file(s) written to .github/workflows/
 ---
 
-# 技能（Skill）：生成GitHub工作流程
+# Skill: Generate GitHub Workflow
 
-## 目的 (Purpose)
+## Purpose
 
-为各种软件项目生成满足此技能的 **附录 A：工作流输出合同** 的 **GitHub Actions 工作流文件**。标准化结构、触发器和安全性可降低 CI/CD 设置成本并提高可维护性和可审核性，同时避免常见的安全和权限问题。该技能仅产生工作流YAML；它与文档或规则技能无关。如果用户稍后需要 README 或 AGENTS.md 更新，请单独调用这些技能。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：针对用户的场景、堆栈和安全态势生成完整、符合规范且可立即运行的 GitHub Actions 工作流 YAML 文件 — 只需要替换占位符即可部署。
-
-**成功标准**（必须满足所有要求）：
-
-1. ✅ **符合附录 A**：输出满足附录 A 中的所有强制结构和安全需求（名称、工作、运行、步骤、固定操作、无硬编码秘密）
-2. ✅ **窄触发器**：`on` 块的范围仅限于特定分支/路径/标签 - 没有没有过滤器的裸露 `on: Push`
-3. ✅ **最小权限**：在工作流程或作业级别将“权限”设置为场景类型所需的最低权限（CI：“内容：读取”；发布：“内容：写入”、“包：写入”）
-4. ✅ **堆栈对齐**：Runner、语言版本、包管理器和命令与用户指定的堆栈匹配
-5. ✅ **写入前用户确认**：列出必需的注释和占位符，并在写入 `.github/Workflows/` 之前获得用户确认
-
-**验收**测试：用户替换占位符后，除了秘密名称和环境特定值之外，工作流是否可以在目标存储库中运行而无需进一步修改？
+Generate **GitHub Actions workflow files** for software projects of every kind, satisfying this skill's **Appendix A: Workflow Output Contract**. Standardized structure, triggers, and security lower the cost of setting up CI/CD and raise maintainability and auditability, while avoiding the common security and permission problems. This skill produces workflow YAML only; it has nothing to do with the documentation or rules skills. If the user later needs a README or AGENTS.md update, invoke those skills separately.
 
 ---
 
-## 范围边界（范围边界）
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: generate a complete, compliant, immediately runnable GitHub Actions workflow YAML file for the user's scenario, stack, and security posture — deployable as soon as the placeholders are replaced.
 
-- 为 CI、PR 检查、发布和计划场景生成完整的 GitHub Actions 工作流 YAML
-- 安全强化（固定操作、最小权限、无硬编码秘密）
-- 堆栈对齐（Node/Python/Go/Rust 运行程序、包管理器、构建命令）
-- 多工作流生成（CI + Release 分成单独的文件）
-- 与现有工作流程的冲突检测
-- Go + Docker + GHCR + GoReleaser 模式（参见附录 B）
+**Success criteria** (all requirements must be met):
 
-**本技能不负责**：
+1. ✅ **Appendix A satisfied**: the output meets every mandatory structural and security requirement in Appendix A (name, jobs, runs-on, steps, pinned actions, no hard-coded secrets)
+2. ✅ **Narrow triggers**: the `on` block is scoped to specific branches/paths/tags - no bare `on: Push` without a filter
+3. ✅ **Least privilege**: `permissions` is set at workflow or job level to the least the scenario type needs (CI: `contents: read`; release: `contents: write`, `packages: write`)
+4. ✅ **Stack aligned**: runner, language version, package manager, and commands match the stack the user named
+5. ✅ **User confirmation before writing**: the required notes and placeholders are listed, and the user's confirmation is obtained before writing to `.github/Workflows/`
 
-- 链接到文档技能（README、AGENTS.md 更新）——在工作流生成后单独调用这些技能
-- 无需用户确认即可写入 `.github/工作流s/`
-- 在没有警告的情况下覆盖现有的工作流程
-- 实现已在“.goreleaser.yaml”或 Dockerfile 中定义的构建/发布逻辑
-- 生成非 GitHub CI/CD（GitLab CI、Jenkins 等）
-
-**转交点**：生成并确认工作流YAML后，经用户批准将文件写入`.github/工作流/`。对于新工作流触发的文档更新，请单独使用文档技能。
+**Acceptance** test: once the user replaces the placeholders, can the workflow run in the target repository with no further modification beyond secret names and environment-specific values?
 
 ---
 
-## 使用场景 (Use Cases)
+## Scope Boundaries
 
-- **新项目设置**：将 CI（构建、测试、lint）或 PR 检查工作流添加到新存储库。
-- **统一标准**：在多个存储库中协调工作流程风格和命名，以进行操作和审计。
-- **填补空白**：使用最少的权限和固定版本将缺少的 CI/发布/预定工作流添加到遗留项目中。
-- **基于场景**：为给定场景生成 YAML（例如“仅在 PR 上运行测试”、“在标签上构建和发布”）。
+**This skill owns**:
 
-**何时使用**：当用户或项目需要“为当前或指定项目创建或添加 GitHub 工作流”时。
+- Generating complete GitHub Actions workflow YAML for CI, PR check, release, and scheduled scenarios
+- Security hardening (pinned actions, least privilege, no hard-coded secrets)
+- Stack alignment (Node/Python/Go/Rust runners, package managers, build commands)
+- Multi-workflow generation (CI + Release split into separate files)
+- Conflict detection against existing workflows
+- The Go + Docker + GHCR + GoReleaser pattern (see Appendix B)
 
-**范围**：此技能的输出遵循**嵌入式附录 A**（狭窄的触发器、最小权限、固定版本、可审核）。通用 GitHub Actions 模板覆盖面更广；这项技能强调安全性和可维护性。
+**This skill does not own**:
 
----
+- Chaining into the documentation skills (README, AGENTS.md updates) — invoke those separately once the workflow is generated
+- Writing to `.github/workflows/` without user confirmation
+- Overwriting an existing workflow without warning
+- Implementing build/release logic already defined in `.goreleaser.yaml` or a Dockerfile
+- Generating non-GitHub CI/CD (GitLab CI, Jenkins, and the like)
 
-## 行为 (Behavior)
-
-### 原则（原则）
-
-- **附录A具有权威性**：输出的YAML必须满足附录A（结构、命名、安全性、可维护性）。
-- **窄触发器**：`on`必须指定分支/路径/标签；避免每次推送时触发。常见模式：带有“branches”或“paths”的“push”/“pull_request”。 **发布** 工作流必须仅在版本标签上触发（例如`push:tags:['v*']`）并且存在于与 CI 不同的文件中。
-- **最小权限**：当工作流需要repo write、PR或Secrets时，将工作流或作业级别的“权限”设置为所需的最低权限；例如CI `内容：读取`，释放`内容：写入`，`包：写入`；避免“全部”。
-- **固定版本**：固定第三方操作（提交 SHA 或主要版本标签）；不要使用“@master”或未固定的引用；对安全与扫描类 action 优先固定到具体版本（例如 Trivy）。
-
-### 语气和风格
-
-- 使用客观的技术语言；保持工作流程和步骤“名称”简短且便于操作日志阅读。
-- 匹配项目堆栈：按项目类型（Node/Python/Go/Rust）和现有约定选择运行器、包管理器和构建命令；如果项目已经有工作流程，请调整命名和风格。
-
-### 输入驱动
-
-- 若存在 `CLAUDE.md` 或 `.ai-cortex/config.yaml`，优先读取其中的 `test_command`、`base_branch` 等；否则从用户输入或项目推断。参见 [docs/guides/project-config.md](../../docs/guides/project-config.md)。
-- 使用用户的**场景**（例如“CI：在 PR 上运行测试”、“发布：在标签上构建和上传”）和 **堆栈**（语言、包管理器、测试/构建命令）来生成工作流；当信息丢失时使用合理的占位符并将其标记为替换；不要发明命令或路径。
-
-### 交互政策
-
-- **写入前确认**：生成YAML后，列出**必填注释**（占位符、分支名称、用户必须设置的Secret名称），然后要求确认；不要写入 `.github/工作流s/` 或在未经用户确认的情况下提交。
-- **多个文件/发布**：如果生成多个工作流（例如 CI + Release）或使用写入权限（`contents: write`、`packages: write`），列出要创建/覆盖的文件和权限范围，然后在写入之前确认。
-- **冲突**：如果目标路径已经存在目的相同或重叠的工作流，则警告并询问是否覆盖或保存到其他地方；不要默默地覆盖。
+**Handoff point**: once the workflow YAML is generated and confirmed, write the file to `.github/workflows/` with the user's approval. For documentation updates a new workflow triggers, use the documentation skills separately.
 
 ---
 
-## 输入与输出 (Input & Output)
+## Use Cases
 
-### 输入 (Input)
+- **New project setup**: add a CI (build, test, lint) or PR check workflow to a new repository.
+- **Unified standards**: harmonize workflow style and naming across repositories, for operations and audit.
+- **Filling gaps**: add the missing CI/release/scheduled workflow to a legacy project, with least privilege and pinned versions.
+- **Scenario-driven**: generate YAML for a given scenario (e.g. "run tests on PRs only", "build and release on tags").
 
-- **场景**：目的（CI、PR 检查、发布、计划、矩阵）。
-- **Stack**：语言和版本（例如 Node 20、Python 3.11、Go 1.21）、包管理器（npm/pnpm/yarn、pip、cargo）、测试/构建/发布命令。
-- **触发器**：分支（例如`main`、`develop`）、路径过滤器、可选的`工作流_dispatch`。
-- **目标路径**：写入文件的位置，默认项目根目录下的`.github/Workflows/`；对于多个工作流，指定每个文件名（例如“ci.yml”、“release.yml”）。
+**When to use**: when the user or the project needs to "create or add a GitHub workflow for the current or a named project".
 
-### 输出 (Output)
-
-- **工作流 YAML**：完整文件内容符合附录 A，准备写入 `.github/工作流s/<name>.yml`。
-- **注释**：列出占位符（例如“npm run test”、分支“main”）、秘密名称以及用户必须配置的任何项目。
+**Scope**: this skill's output follows the **embedded Appendix A** (narrow triggers, least privilege, pinned versions, auditable). Generic GitHub Actions templates cover more ground; this skill stresses security and maintainability.
 
 ---
 
-## 限制 (Restrictions)
+## Behavior
 
-### 硬边界（Hard Boundaries）
+### Principles
 
-- **不要违反附录A**：输出必须有`name`、`on`、`jobs`，并且每个作业必须有`runs-on`和`steps`；不要使用未固定的第三方操作或硬编码的机密。
-- **不要过度触发**：除非用户明确请求，否则不要使用没有分支/路径过滤器的裸“on:push”。
-- **不要发明命令**：对未知的测试/构建/发布命令使用占位符并标记“替换为实际命令”；不要发明脚本或路径。
-- **不要忽略现有的工作流**：如果项目已经有`.github/工作流/`，请调整命名和风格并避免重复或冲突。
-- **不要重复构建逻辑**：如果项目使用 GoReleaser、Dockerfile 等进行构建和镜像塑造，则工作流程仅触发、登录并传递参数（例如 `GITHUB_TOKEN`、`BUILDX_BUILDER`）；不要重新实现该逻辑。
+- **Appendix A is authoritative**: the YAML produced must satisfy Appendix A (structure, naming, security, maintainability).
+- **Narrow triggers**: `on` must name branches/paths/tags; avoid firing on every push. Common pattern: `push`/`pull_request` with `branches` or `paths`. A **release** workflow must fire on version tags only (e.g. `push:tags:['v*']`) and live in a different file from CI.
+- **Least privilege**: when a workflow needs repo write, PR, or secrets access, set `permissions` at workflow or job level to the least required; e.g. CI `contents: read`, release `contents: write`, `packages: write`; avoid `all`.
+- **Pinned versions**: pin third-party actions (a commit SHA or a major version tag); do not use `@master` or an unpinned reference; for security and scanning actions, prefer pinning to a concrete version (Trivy, for one).
 
-### 技能边界 (Skill Boundaries)
+### Tone and style
 
-**不要做这些**（其他技能可以处理它们）：
+- Use objective technical language; keep workflow and step `name` values short and easy to read in an operations log.
+- Match the project stack: pick the runner, package manager, and build commands by project type (Node/Python/Go/Rust) and existing convention; where the project already has workflows, align naming and style with them.
 
-- 不要链接到文档或自述文件技能 - 单独调用它们
-- 未经用户确认，请勿写入 `.github/工作流s/`
-- 不要默默地覆盖现有的工作流程
-- 不要重新实现 `.goreleaser.yaml` 或 Dockerfiles 中已定义的构建/发布逻辑
-- 不要为非 GitHub 平台（GitLab CI、Jenkins 等）生成 CI/CD
+### Input-driven
 
-**何时停止并交接**：
+- Where `CLAUDE.md` or `.ai-cortex/config.yaml` exists, prefer reading `test_command`, `base_branch`, and the rest from it; otherwise infer them from user input or from the project. See [docs/guides/project-config.md](../../docs/guides/project-config.md).
+- Use the user's **scenario** (e.g. "CI: run tests on PRs", "release: build and upload on tags") and **stack** (language, package manager, test/build commands) to generate the workflow; where information is missing, use sensible placeholders and mark them for replacement; do not invent commands or paths.
 
-- 编写工作流文件并确认后，如果需要 README/AGENTS.md 更新，请移交给文档技能
-- 当用户需要注册表或机密配置时，提供指导但不自动进行外部服务设置
+### Interaction policy
 
----
-
-## 自检（Self-Check）
-
-### 核心成功标准
-
-- [ ] **符合附录 A**：输出满足附录 A 中的所有强制结构和安全需求（名称、工作、运行、步骤、固定操作、无硬编码秘密）
-- [ ] **窄触发器**：`on`块的范围仅限于特定分支/路径/标签 - 没有没有过滤器的裸露`on：push`
-- [ ] **最小权限**：在工作流程或作业级别将“权限”设置为场景类型所需的最低权限
-- [ ] **堆栈对齐**：运行程序、语言版本、包管理器和命令与用户指定的堆栈匹配
-- [ ] **写入前用户确认**：列出必需的注释和占位符，并在写入 `.github/Workflows/` 之前获得用户确认
-
-### 流程质量检查
-
-- [ ] **附录 A**：输出是否满足附录 A 中的强制结构和安全性？
-- [ ] **触发器**：“on”是否缩小到特定分支/路径/标签？
-- [ ] **权限和安全**：是否设置了最小“权限”？第三方操作已固定？没有硬编码的秘密吗？
-- [ ] **可运行**：用户替换占位符后，工作流能否在目标仓库中运行？
-- [ ] **堆栈对齐**：运行程序、语言版本、包管理器和命令是否与用户的堆栈匹配？
-- [ ] **步骤顺序和依赖关系**：对于多步骤作业（例如 QEMU → Buildx → 登录 → GoReleaser），顺序是否正确以及 ids/env 变量是否已传递？请参阅 Go + Docker + GoReleaser 的 **附录 B**。
-
-### 验收测试
-
-用户替换占位符后，除了秘密名称和环境特定值之外，工作流是否可以在目标存储库中运行而无需进一步修改？
+- **Confirm before writing**: once the YAML is generated, list the **required notes** (placeholders, branch names, secret names the user must set), then ask for confirmation; do not write to `.github/workflows/` or commit without the user's confirmation.
+- **Multiple files / release**: when generating several workflows (CI + Release, say) or using write permissions (`contents: write`, `packages: write`), list the files to be created or overwritten and the permission scope, then confirm before writing.
+- **Conflicts**: where the target path already holds a workflow with the same or an overlapping purpose, warn and ask whether to overwrite or save elsewhere; do not overwrite silently.
 
 ---
 
-## 示例 (Examples)
+## Input & Output
 
-### 示例 1：节点 CI（测试 + PR 上的 lint）
+### Input
 
-**输入**：场景：CI。堆栈：节点 20、pnpm、测试 `pnpm test`、lint `pnpm lint`。触发器：“pull_request”到“main”。文件：`ci.yml`。
+- **Scenario**: the purpose (CI, PR check, release, schedule, matrix).
+- **Stack**: language and version (e.g. Node 20, Python 3.11, Go 1.21), package manager (npm/pnpm/yarn, pip, cargo), test/build/release commands.
+- **Triggers**: branches (e.g. `main`, `develop`), path filters, an optional `workflow_dispatch`.
+- **Target path**: where the file is written, defaulting to `.github/Workflows/` under the project root; for several workflows, name each file (e.g. `ci.yml`, `release.yml`).
 
-**预期**：带有“name”的单个“ci.yml”，例如“CI”； `on: pull_request: 分支: [main]`;在 `ubuntu-latest` 上进行工作，包括结帐、设置 Node/pnpm、安装、lint、测试；使用固定的官方“actions/checkout”和“pnpm/action-setup”（或同等内容）；没有硬编码的秘密；如果设置了“权限”，则为只读。
+### Output
 
-### 示例 2：使用路径过滤器进行 PR 检查
+- **Workflow YAML**: complete file content conforming to Appendix A, ready to be written to `.github/workflows/<name>.yml`.
+- **Notes**: list the placeholders (e.g. `npm run test`, the branch `main`), the secret names, and anything else the user must configure.
 
-**输入**：场景：PR 检查。堆栈：Go 1.21，测试“go test ./...”。仅当 `go.mod` 或 `*.go` 更改时触发。文件：`pr-check.yml`。
+---
 
-**预期**：`on.pull_request` 和 `paths: ['**.go', 'go.mod']`；固定“actions/setup-go”的工作，步骤结账，设置 Go，进行测试；如果不需要写入，则省略“权限”或“内容：读取”。
+## Restrictions
 
-### 示例 3：Go 发布（Docker + GHCR + GoReleaser）
+### Hard Boundaries
 
-**输入**：场景：CD/发行版。堆栈：Go、Docker 多架构 (amd64/arm64)、GoReleaser for image 和 GitHub Release。触发器：仅“push”标签“v*”。文件：`release.yml`。
+- **Do not violate Appendix A**: the output must have `name`, `on`, and `jobs`, and every job must have `runs-on` and `steps`; do not use unpinned third-party actions or hard-coded secrets.
+- **Do not over-trigger**: unless the user asks for it explicitly, do not use a bare `on:push` with no branch/path filter.
+- **Do not invent commands**: use a placeholder for an unknown test/build/release command and mark it "replace with the real command"; do not invent scripts or paths.
+- **Do not ignore existing workflows**: where the project already has `.github/workflows/`, align naming and style, and avoid duplication or conflict.
+- **Do not duplicate build logic**: where the project builds and shapes images with GoReleaser, a Dockerfile, and the like, the workflow only fires, logs in, and passes parameters (e.g. `GITHUB_TOKEN`, `BUILDX_BUILDER`); do not reimplement that logic.
 
-**预期**：`on:push:tags:['v*']`; `权限`包括`内容：写`、`包：写`。步骤：签出（`fetch-深度：0`）→设置Go（`go-version-file：go.mod`，缓存）→设置QEMU（`linux/amd64`，`linux/arm64`）→设置Docker Buildx（`id：buildx`，相同平台）→登录GHCR（`docker/login-action`，`ghcr.io`）→GoReleaser（`goreleaser/goreleaser-action` pinned, pass `GITHUB_TOKEN` and `BUILDX_BUILDER: ${{ steps.buildx.outputs.name }}`).不要重新实现 `.goreleaser.yaml`/Dockerfile 中定义的逻辑。 **参见附录 B**。
+### Skill Boundaries
 
-### 示例 4（边缘）：最少信息
+**Do not do these** (other skills handle them):
 
-**输入**：项目：legacy-api。没有描述。语言和命令未知。用户想要“至少一个 CI 占位符工作流程”。
+- Do not chain into the documentation or README skills - invoke them separately
+- Do not write to `.github/workflows/` without user confirmation
+- Do not silently overwrite an existing workflow
+- Do not reimplement build/release logic already defined in `.goreleaser.yaml` or Dockerfiles
+- Do not generate CI/CD for non-GitHub platforms (GitLab CI, Jenkins, and the like)
 
-**预期**：生成一个结构完整、符合附录 A 的 YAML；对运行程序和步骤使用占位符（例如“指定运行程序和安装/测试命令”）并标记“要替换”；保持“on”范围较小（例如“pull_request:branches:[main]”）；不要发明测试或构建命令；保留“name”、“on”、“jobs”、“runs-on”、“steps”和推荐字段（例如“permissions”），以便用户稍后填写。
+**When to stop and hand off**:
+
+- Once the workflow file is written and confirmed, hand off to the documentation skills if a README/AGENTS.md update is needed
+- When the user needs registry or secret configuration, give guidance but do not automate the external service setup
+
+---
+
+## Self-Check
+
+### Core success criteria
+
+- [ ] **Appendix A satisfied**: the output meets every mandatory structural and security requirement in Appendix A (name, jobs, runs-on, steps, pinned actions, no hard-coded secrets)
+- [ ] **Narrow triggers**: the `on` block is scoped to specific branches/paths/tags - no bare `on：push` without a filter
+- [ ] **Least privilege**: `permissions` is set at workflow or job level to the least the scenario type needs
+- [ ] **Stack aligned**: runner, language version, package manager, and commands match the stack the user named
+- [ ] **User confirmation before writing**: the required notes and placeholders are listed, and the user's confirmation is obtained before writing to `.github/Workflows/`
+
+### Process quality checks
+
+- [ ] **Appendix A**: does the output meet the mandatory structure and security of Appendix A?
+- [ ] **Triggers**: is `on` narrowed to specific branches/paths/tags?
+- [ ] **Permissions and security**: is a minimal `permissions` set? Are third-party actions pinned? Are there no hard-coded secrets?
+- [ ] **Runnable**: once the user replaces the placeholders, can the workflow run in the target repository?
+- [ ] **Stack aligned**: do the runner, language version, package manager, and commands match the user's stack?
+- [ ] **Step order and dependencies**: for a multi-step job (e.g. QEMU → Buildx → login → GoReleaser), is the order right, and are the ids/env variables passed through? See **Appendix B** for Go + Docker + GoReleaser.
+
+### Acceptance test
+
+Once the user replaces the placeholders, can the workflow run in the target repository with no further modification beyond secret names and environment-specific values?
+
+---
+
+## Examples
+
+### Example 1: Node CI (test + lint on PRs)
+
+**Input**: scenario: CI. Stack: Node 20, pnpm, test `pnpm test`, lint `pnpm lint`. Trigger: `pull_request` onto `main`. File: `ci.yml`.
+
+**Expected**: a single `ci.yml` with a `name` such as `CI`; `on: pull_request: branches: [main]`; a job on `ubuntu-latest` covering checkout, Node/pnpm setup, install, lint, and test; using pinned official `actions/checkout` and `pnpm/action-setup` (or equivalents); no hard-coded secrets; read-only if `permissions` is set.
+
+### Example 2: PR check with path filters
+
+**Input**: scenario: PR check. Stack: Go 1.21, test `go test ./...`. Fires only when `go.mod` or `*.go` changes. File: `pr-check.yml`.
+
+**Expected**: `on.pull_request` plus `paths: ['**.go', 'go.mod']`; a job with a pinned `actions/setup-go`, with steps for checkout, Go setup, and test; omit `permissions`, or use `contents: read`, when no write access is needed.
+
+### Example 3: Go release (Docker + GHCR + GoReleaser)
+
+**Input**: scenario: CD/release. Stack: Go, multi-architecture Docker (amd64/arm64), GoReleaser for the image and the GitHub Release. Trigger: `push` on `v*` tags only. File: `release.yml`.
+
+**Expected**: `on:push:tags:['v*']`; `permissions` including `contents: write` and `packages: write`. Steps: checkout (`fetch-depth: 0`) → set up Go (`go-version-file：go.mod`, cached) → set up QEMU (`linux/amd64`, `linux/arm64`) → set up Docker Buildx (`id：buildx`, same platforms) → log in to GHCR (`docker/login-action`, `ghcr.io`) → GoReleaser (`goreleaser/goreleaser-action` pinned, pass `GITHUB_TOKEN` and `BUILDX_BUILDER: ${{ steps.buildx.outputs.name }}`). Do not reimplement the logic defined in `.goreleaser.yaml`/Dockerfile. **See Appendix B**.
+
+### Example 4 (edge): minimal information
+
+**Input**: project: legacy-api. No description. Language and commands unknown. The user wants "at least a placeholder CI workflow".
+
+**Expected**: generate structurally complete YAML that conforms to Appendix A; use placeholders for the runner and the steps (e.g. "name the runner and the install/test commands") and mark them "to be replaced"; keep `on` narrow (e.g. `pull_request:branches:[main]`); do not invent test or build commands; keep `name`, `on`, `jobs`, `runs-on`, `steps` and the recommended fields (e.g. `permissions`) for the user to fill in later.
 
 ---
