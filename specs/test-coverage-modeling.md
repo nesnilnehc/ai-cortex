@@ -2,7 +2,7 @@
 id: TEST_COVERAGE_MODELING_SPEC_V1
 name: Test Coverage Report Schema
 description: Spec defining the structural contract for test coverage assessment reports — the unified artifact carrying traceability matrix (AC × test cases), mutation test summary, and cross-artifact trace health audit. Consumed by suite-coverage and cross-artifact-alignment review services to judge sufficiency and necessity of a test case suite.
-version: 1.0.0
+version: 1.0.1
 status: active
 lifecycle: living
 created_at: 2026-05-25
@@ -289,9 +289,9 @@ verdict = **conditional**: releasable, but the session module must close its mut
 | :--- | :---: | :---: | :---: | :---: |
 | ACME-REQ-08#AC1 · positive | ✓ |  |  |  |
 | ACME-REQ-08#AC1 · exception |  | ✓ |  |  |
-| ACME-REQ-08#AC2 · tampering |  |  | ✓ |  |
-| ACME-REQ-08#AC4 · header format |  |  |  | ✓ |
-| ACME-REQ-08#AC5 · OAuth callback |  |  |  |  | ← gap
+| ACME-REQ-08#AC2 · exception |  |  | ✓ |  |
+| ACME-REQ-08#AC4 · boundary |  |  |  | ✓ |
+| ACME-REQ-08#AC5 · positive |  |  |  |  | ← gap
 
 ### Gap list
 

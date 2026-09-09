@@ -2,7 +2,7 @@
 id: REQUIREMENT_MODELING_SPEC_V4
 name: Requirement Modeling Schema
 description: Spec defining requirement document fields, formats, and validation rules. Covers frontmatter contract, 6 mandatory body sections (Background/Objective/Acceptance/Dependencies/Risks/Source), and conditionally-mandatory optional sections (Scope, Business Rules).
-version: 5.0.0
+version: 5.0.1
 status: active
 lifecycle: living
 created_at: 2026-03-25
@@ -186,7 +186,7 @@ Once business rules become required (one of the §5.2 triggers has fired):
 - ❌ The source is vague ("someone asked for it", "we discussed it verbally")
 - ❌ Status `superseded` with `superseded_by` left empty
 - ❌ Status `implemented` with `implemented_at` left empty
-- ❌ One of the 4 conditions that make Scope required is met, but the Scope section is missing
+- ❌ One of the 3 conditions that make Scope required is met, but the Scope section is missing
 - ❌ One of the triggers that make Business Rules required is met, but the rules are still scattered through the acceptance criteria with no separate declarative rules section
 - ❌ Business rules that have become required are expressed as procedural steps instead of a decision table or state table
 - ❌ Rule-derived acceptance criteria do not cite their business rule id back, leaving the MECE overlap between rules and acceptance unclosed
