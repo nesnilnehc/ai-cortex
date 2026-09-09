@@ -39,7 +39,7 @@ Define the **North Star Metric (NSM)**: the single most important metric capturi
 3. ✅ **Principles satisfied**: the NSM reflects user value, represents user behavior, measures sustained engagement, is product-driven, and is plain and simple.
 4. ✅ **User confirmation**: the user approves explicitly ("approved", "looks good", "go ahead", or equivalent).
 5. ✅ **Document persisted**: written to the agreed path (`docs/project-overview/north-star.md` by default, or the per-project norm).
-6. ✅ **Anti-patterns listed**: at least 2-3 vanity or anti-North-Star metrics listed as examples of what not to optimize (revenue, total users, sign-ups, downloads, raw page views).
+6. ✅ **Anti-patterns listed**: at least 2-3 vanity or anti-North-Star metrics listed as examples of what not to optimize (e.g. revenue, total users, sign-ups, downloads, raw page views).
 
 **Acceptance** test: can a reader understand within a minute which single metric defines success for this product, and why it reflects user value rather than vanity?
 
@@ -112,7 +112,7 @@ Measurable Metric (North Star)
 1. **Context**: load mission/vision from `docs/project-overview/` or from the user; determine the target users and the core value proposition.
 2. **Core value**: what value does the product bring users? (Not "revenue" — user outcomes.)
 3. **Primary action**: what is the main user action that reflects that value?
-4. **Observable behavior**: which behaviors can be observed (messages sent, nights booked, time spent)?
+4. **Observable behavior**: which behaviors can be observed (e.g. messages sent, nights booked, time spent)?
 5. **Metric**: define one measurable metric that captures that behavior; keep it simple.
 6. **Validate**: check against the five principles; avoid vanity (revenue, total users, sign-ups, downloads, raw page views as the North Star).
 7. **Measurement and limits** (optional): when the metric depends on an external data source, or cannot currently be measured directly, add a "Measurement and limits" section to the output document covering the dependency and the fallback strategy.
@@ -202,7 +202,7 @@ If yes: the North Star is done. Move on to the handoff, or stop.
 
 ### Example 1: from vision to North Star
 
-**Context**: the vision is "every team ships to production in 5 minutes with a single click." Target users: engineering teams. Core value: reliable, fast deployment.
+**Context**: the vision is "every team ships to production in under 5 minutes with a single click." Target users: engineering teams. Core value: reliable, fast deployment.
 
 **Process**: core value = successful, low-friction deployment. Primary action = completing a deployment. Observable behavior = the number of deployments that succeed within the time/simplicity bar. Metric: "weekly successful deployments (completed within 5 minutes of trigger)". Supporting: deployment frequency, rollback rate, deployment duration. Anti-examples: total users, revenue, page views. The user confirms. Write to `docs/project-overview/north-star.md`.
 

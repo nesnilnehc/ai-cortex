@@ -62,7 +62,7 @@ No architecture / security / language / framework-specific analysis — those be
 ## Use Cases
 
 - **pre-commit / pre-PR gate**: a quick look at what the change introduces before committing
-- **As the scope step of orchestrate-code-review**: one of the two, alongside `review-codebase`
+- **As the scope step of orchestrate-code-review**: this one or `review-codebase`, never both
 - **Focused review**: the user says "look at the change only"
 
 ---

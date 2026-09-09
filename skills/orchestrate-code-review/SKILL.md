@@ -108,7 +108,7 @@ One aggregated report:
 
 ### Skill boundaries
 
-**Not done inside the orchestrator skill** (an atomic sub-skill or a downstream skill takes it):
+**Not done inside the orchestrator skill** (an atomic sub-skill or a downstream skill should take it):
 
 - Direct code analysis → the individual atomic review-* skills
 - Single-dimension review → call the matching atomic skill directly

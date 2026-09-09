@@ -119,7 +119,7 @@ Reference updates ({K} sites):
 === no file was modified ===
 ```
 
-**apply=true**：
+**apply=true**:
 
 Perform every operation as previewed, then emit the operation log.
 

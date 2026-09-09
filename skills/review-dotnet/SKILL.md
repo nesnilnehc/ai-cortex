@@ -55,7 +55,7 @@ Review only the **language and runtime conventions** of code in the **.NET** eco
 **This skill does not own**:
 
 - Scope selection — the scope comes from the caller
-- Security analysis (injection, authentication, cryptography) — use `review-security`
+- Security analysis (injection, auth, cryptography) — use `review-security`
 - Architecture analysis — use `review-architecture`
 - A performance deep dive — use `review-performance`
 - A full orchestrated review — use `orchestrate-code-review`
@@ -85,7 +85,7 @@ Review only the **language and runtime conventions** of code in the **.NET** eco
 ### Review checklist (.NET dimensions only)
 
 1. **async/await and ConfigureAwait**: correct use of async; ConfigureAwait(false) where appropriate (library code); cancellation-token propagation; avoid async void outside event handlers.
-2. **Nullable reference types and NREs**: nullable annotations; null checks and null tolerance where they are warranted; avoid needless null-forgiving.
+2. **Nullable reference types and NREs**: nullable annotations; null checks and null-forgiving where justified; avoid needless null-forgiving.
 3. **API and versioning**: public API surface stability; breaking changes; the versioning or deprecation policy for a library.
 4. **Resources and IDisposable**: correct use of IDisposable, the using statement, IAsyncDisposable; no leaked handles or streams.
 5. **Collections and LINQ**: appropriate use of LINQ; allocation and enumeration; avoid multiple enumeration; Span/Memory where relevant.
