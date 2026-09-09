@@ -29,5 +29,6 @@
   "skills/deliver-feature/README.md::unchanged": "该文件在迁移基线上已是全英文（`git show f294b43:... | grep -c \"[一-鿿]\"` 为 0），本就不是翻译目标，未改动属正确结果而非遗漏。",
   "skills/integrate-branches/README.md::unchanged": "同 deliver-feature：迁移基线上已是全英文，未改动属正确结果而非遗漏。",
   "docs/guides/protocols-registry.md::code_blocks[2]": "示例中 `task = \"我需要设计一个通知系统\"` / `task = \"生成一个通知系统\"` 是喂给演示函数的样例输入文案，不是可执行逻辑；英文读者看中文样例无法判断这段代码在演示什么。函数名、参数与结构未动。与 rules/standards-agent-testing.md 中断言字符串的处理一致。",
-  "docs/guides/protocols-registry.md::code_blocks[10]": "示例中 `task = \"我需要设计一个通知系统\"` / `task = \"生成一个通知系统\"` 是喂给演示函数的样例输入文案，不是可执行逻辑；英文读者看中文样例无法判断这段代码在演示什么。函数名、参数与结构未动。与 rules/standards-agent-testing.md 中断言字符串的处理一致。"
+  "docs/guides/protocols-registry.md::code_blocks[10]": "示例中 `task = \"我需要设计一个通知系统\"` / `task = \"生成一个通知系统\"` 是喂给演示函数的样例输入文案，不是可执行逻辑；英文读者看中文样例无法判断这段代码在演示什么。函数名、参数与结构未动。与 rules/standards-agent-testing.md 中断言字符串的处理一致。",
+  "docs/guides/protocols-usage.md::code_blocks[10]": "§6.1 的 `grep -A 10 \"版本\" protocols/INDEX.md` 检索的是目标文件里的中文标题。protocols/INDEX.md 迁移后已是英文，保留中文检索词会让这条文档化的命令必然返回空；改为 \"Version\"。（附带发现：该文件目前根本没有版本小节，此命令在迁移前就已检索不到内容，属既有缺陷，另行处理。）"
 }
