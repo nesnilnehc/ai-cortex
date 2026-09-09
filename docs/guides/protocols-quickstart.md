@@ -83,7 +83,7 @@ P3: (unrestricted)
 
 ### 渠道支持
 
-```yaml
+```text
 Feishu: ✅ card, button, callback
 WeCom:  ✅ markdown (有限交互)
          ⚠️ 不支持的功能会降级
