@@ -20,89 +20,89 @@ related:
   - ./universal-notification.md
 ---
 
-# Spec 建模规范（Meta-Spec）
+# Spec Modeling Schema (Meta-Spec)
 
-> **Data contract**: 定义任何 spec 文档的结构骨架与字段约束
+> **Data contract**: defines the structural skeleton and field constraints of any spec document
 
 ---
 
 ## 1. Position and scope
 
-本规范是 spec 的 spec——任何 spec 文档（包含本文件自身）必须遵循此处定义的章节骨架与 frontmatter 契约。
+This is the spec of specs: every spec document, this file included, must follow the section skeleton and frontmatter contract defined here.
 
-每份 spec 定义一类制品的数据契约（字段、章节、状态、校验）；本 meta-spec 定义这些 spec 自身应如何组织。
+Each spec defines the data contract of one kind of artifact — its fields, sections, states and validation; this meta-spec defines how those specs themselves are organised.
 
 In scope:
 
-- 任何描述制品数据契约的 spec 文档
+- Any spec document that describes an artifact's data contract
 
-不In scope:
+Out of scope:
 
-- 配套的 rule（行为约束）
-- protocols（流程描述）
-- 制品本身（spec 描述的对象，由具体 spec 定义）
+- The companion rule (behavioural constraints)
+- Protocols (process descriptions)
+- The artifact itself (the object a spec describes, defined by that concrete spec)
 
-具体存放路径由各项目治理决定（如本仓库的 `specs/` 目录、其他项目的 `docs/specs/` 等），不在本规范约束范围。
+The storage path is decided by each project's governance (this repository's `specs/` directory, another project's `docs/specs/`, and so on) and is outside this spec's constraints.
 
 ---
 
 ## 2. Mental model
 
-> 一份合格制品要回答的核心问题。
+> The core questions a sound artifact has to answer.
 
-每份 spec 描述的制品，往往有少数几个"核心问题"——一份合格制品必须能在这些问题上立得住。把这些问题前置在 §2，能让 spec 作者和读者抓住要点、避免偏离本质。
+The artifact a spec describes usually has a handful of "core questions" — a sound artifact must hold up on each of them. Putting those questions up front in §2 lets both the spec author and the reader grasp the essentials and avoid drifting away from what matters.
 
-| 制品 | 核心问题示例 |
+| Artifact | Example core questions |
 |---|---|
-| ADR | What / Why / Alternatives / Consequences（4 问） |
-| CLAUDE.md | What / With / How / Don't（4 问） |
-| spec 自身 | 章节按何时该写的三态分类（必备 / 条件必备 / 可选） |
+| ADR | What / Why / Alternatives / Consequences (4 questions) |
+| CLAUDE.md | What / With / How / Don't (4 questions) |
+| A spec itself | Its sections classified into three states by when each is to be written (required / conditionally required / optional) |
 
-### 2.1 spec 自身的心智模型：章节的三态
+### 2.1 The mental model of a spec itself: the three states of a section
 
-一份合格 spec 的本质维度是"它的每个章节按何时该写如何分类"。三态就是这个维度的答案——所有后续章节都依赖此分类。
+The defining dimension of a sound spec is "how each of its sections is classified by when it is to be written". The three states are the answer along that dimension, and every later section depends on this classification.
 
-| 类型 | 触发条件成立时 | 触发条件不成立时 |
+| Type | When the trigger holds | When the trigger does not hold |
 |---|---|---|
-| **必备** | 必须写（恒成立，无条件） | — |
-| **条件必备** | 必须写 | **不该写**（写了即冗余） |
-| **可选** | 可写 | 可不写 |
+| **Required** | Must be written (always, unconditionally) | — |
+| **Conditionally required** | Must be written | **Must not be written** (writing it is redundant) |
+| **Optional** | May be written | May be left out |
 
-#### 关键差异
+#### The distinctions that matter
 
-- **必备 vs 条件必备**：必备无触发条件；条件必备只在某个特征成立时才该出现
-- **条件必备 vs 可选**：条件必备是二值开关（满足条件就必须写，不满足就不该写）；可选是作者自由判断
+- **Required vs conditionally required**: a required section has no trigger; a conditionally required one appears only when some characteristic holds
+- **Conditionally required vs optional**: conditionally required is a binary switch — meet the condition and it must be written, miss it and it must not be; optional is the author's free judgement
 
-### 2.2 章节分类与触发条件速查
+### 2.2 Section classification and triggers at a glance
 
-| 章节 | 类型 | 触发条件（如有） |
+| Section | Type | Trigger (if any) |
 |---|---|---|
-| §1 定位与适用范围 | 必备 | — |
-| §2 心智模型 | 条件必备 | 制品有显著思维框架（N 个核心问题） |
-| §3 命名约定 | 条件必备 | 制品落盘且文件名有惯用模式 |
-| §4 Frontmatter 契约 | 条件必备 | 制品是 markdown 且有 frontmatter |
-| §5 正文结构契约 | 必备 | — |
-| §6 反模式 | 必备 | — |
-| §7 示例 | 必备 | — |
-| §8 与其他资产关系 | 可选 | — |
+| §1 Position and scope | Required | — |
+| §2 Mental model | Conditionally required | The artifact has a distinct thinking framework (N core questions) |
+| §3 Naming | Conditionally required | The artifact is written to disk and its filename follows a customary pattern |
+| §4 Frontmatter contract | Conditionally required | The artifact is markdown and carries frontmatter |
+| §5 Body structure contract | Required | — |
+| §6 Anti-patterns | Required | — |
+| §7 Examples | Required | — |
+| §8 Relationship to other assets | Optional | — |
 
 ---
 
 ## 3. Naming
 
-每份 spec 描述其所建模制品的**文件命名规则**（如有）。不规定具体存放路径——路径由各项目治理决定。
+Each spec describes the **file naming rule** of the artifact it models, where one exists. It does not prescribe a storage path; the path is decided by each project's governance.
 
-### 3.1 spec 自身的命名约定
+### 3.1 How a spec itself is named
 
-- 文档建模类 spec：`<artifact-name>-modeling.md`（如 `adr-modeling.md`）
-- 运行时对象类 spec：`<concept>.md`（不带 `-modeling` 后缀，如 `universal-notification.md`）
-- Meta-spec 本身：`spec-modeling.md`
+- A document-modelling spec: `<artifact-name>-modeling.md` (for example `adr-modeling.md`)
+- A runtime-object spec: `<concept>.md`, without the `-modeling` suffix (for example `universal-notification.md`)
+- The meta-spec itself: `spec-modeling.md`
 
-### 3.2 适用判断
+### 3.2 Deciding whether it applies
 
-- 制品是固定单文件（如 `CLAUDE.md`） → §3 可省略，命名是常量
-- 制品是模式化命名的多文件（如 ADR 的 `NNNN-{slug}.md`） → §3 必备
-- 制品是运行时对象（无文件） → §3 不该写
+- The artifact is a single fixed file (such as `CLAUDE.md`) → §3 may be omitted, since the name is a constant
+- The artifact is many files sharing a naming pattern (such as an ADR's `NNNN-{slug}.md`) → §3 is required
+- The artifact is a runtime object with no file → §3 must not be written
 
 ---
 
@@ -112,18 +112,18 @@ In scope:
 ---
 id: <UPPER_SNAKE>_MODELING_SPEC_V<n>
 name: <English Name>
-description: <一句话英文摘要>
+description: <one-line summary in English>
 version: <SemVer>
 status: active | draft | superseded | archived
 lifecycle: living
 created_at: YYYY-MM-DD
 scope: |
-  <多行说明 spec 约束什么、不约束什么>
+  <a multi-line statement of what the spec constrains and what it does not>
 related:
-  - <相关 rule / spec / 文档的相对路径>
-# 条件字段（按 status 必填）
-superseded_by: <new-spec-id>      # status: superseded 时必填
-archived_at: YYYY-MM-DD            # status: archived 时必填
+  - <relative path to a related rule, spec or document>
+# conditional fields (required by status)
+superseded_by: <new-spec-id>      # required when status: superseded
+archived_at: YYYY-MM-DD            # required when status: archived
 ---
 ```
 
@@ -131,98 +131,98 @@ archived_at: YYYY-MM-DD            # status: archived 时必填
 
 | Field | Type | Required | Description |
 |---|---|---|---|
-| `id` | string | 必 | 格式 `<UPPER_SNAKE>_MODELING_SPEC_V<n>`（如 `ADR_MODELING_SPEC_V1`）；运行时对象类 spec 可省略 `_MODELING_`（如 `UNIVERSAL_NOTIFICATION_SPEC_V2`） |
-| `name` | string | 必 | 英文 spec 名称 |
-| `description` | string | 必 | 一句话英文摘要（≤ 200 字符） |
-| `version` | string | 必 | SemVer 版本号 |
-| `status` | enum | 必 | `active` / `draft` / `superseded` / `archived`（语义见 §4.2） |
-| `lifecycle` | enum | 必 | 固定 `living`（spec 本身持续演化） |
-| `created_at` | date | 必 | spec 首次发布日期（`YYYY-MM-DD`） |
-| `scope` | string | 必 | 多行说明适用范围；使用 `\|` 而非 `>`（保留换行） |
-| `related` | list[path] | 可选 | 关联资产相对路径列表 |
-| `superseded_by` | string | 条件 | `status: superseded` 时必填，指向替代 spec 的 id |
-| `archived_at` | date | 条件 | `status: archived` 时必填 |
+| `id` | string | Yes | Format `<UPPER_SNAKE>_MODELING_SPEC_V<n>` (for example `ADR_MODELING_SPEC_V1`); a runtime-object spec may drop `_MODELING_` (for example `UNIVERSAL_NOTIFICATION_SPEC_V2`) |
+| `name` | string | Yes | The spec's English name |
+| `description` | string | Yes | A one-line summary in English (≤ 200 characters) |
+| `version` | string | Yes | The SemVer version |
+| `status` | enum | Yes | `active` / `draft` / `superseded` / `archived` (semantics in §4.2) |
+| `lifecycle` | enum | Yes | Fixed as `living`, since a spec keeps evolving |
+| `created_at` | date | Yes | The date the spec was first published (`YYYY-MM-DD`) |
+| `scope` | string | Yes | A multi-line statement of applicability; use `\|` rather than `>`, so line breaks survive |
+| `related` | list[path] | Optional | A list of relative paths to related assets |
+| `superseded_by` | string | Conditional | Required when `status: superseded`; points at the id of the replacing spec |
+| `archived_at` | date | Conditional | Required when `status: archived` |
 
 ### 4.2 State machine semantics
 
-`status` 的 4 个枚举值含义与转入条件：
+The meaning of the 4 `status` values and the condition for entering each:
 
 | Status | Meaning | Entry condition |
 |---|---|---|
-| `draft` | 初稿，尚未稳定 | spec 首次落地，未在生产中被引用 |
-| `active` | 当前有效 | spec 已稳定，被下游引用 |
-| `superseded` | 已被新版本 spec 替代 | 新版本 spec 已发布并接管职责 |
-| `archived` | 已归档，不再维护 | 描述的制品已淘汰或概念已合并 |
+| `draft` | A first draft, not yet stable | The spec has just been written and nothing in production references it |
+| `active` | Currently in force | The spec has stabilised and downstream assets reference it |
+| `superseded` | Replaced by a newer spec | A newer spec has been published and taken over the responsibility |
+| `archived` | Archived and no longer maintained | The artifact it describes has been retired, or the concept has been merged elsewhere |
 
-**何时写本子节**：当制品的状态机有非平凡含义（≥3 状态 + 有条件字段）时必写；若 status 仅是简单标记（如 `draft` / `published` 二值且无附加语义），可省略本子节，§4.1 字段表已足够。
+**When to write this subsection**: it must be written when the artifact's state machine carries non-trivial meaning (≥3 states plus conditional fields). When status is just a simple marker — a binary `draft` / `published` with no further semantics — this subsection may be omitted, because the §4.1 field table already suffices.
 
 ---
 
 ## 5. Body structure contract
 
-### 5.1 章节顺序
+### 5.1 Section order
 
 ```markdown
-# {制品名}建模规范
+# {Artifact} Modeling Schema
 
-> **Data contract**: <一句话定位>
+> **Data contract**: <one-line statement of position>
 
-## 1. Position and scope            【必备】
-## 2. Mental model                  【条件必备】
-## 3. Naming                  【条件必备】
-## 4. Frontmatter contract          【条件必备】
-## 5. Body structure contract              【必备】
-## 6. Anti-patterns                    【必备】
-## 7. Examples                      【必备】
-## 8. Relationship to other assets            【可选】
+## 1. Position and scope            [required]
+## 2. Mental model                  [conditionally required]
+## 3. Naming                  [conditionally required]
+## 4. Frontmatter contract          [conditionally required]
+## 5. Body structure contract              [required]
+## 6. Anti-patterns                    [required]
+## 7. Examples                      [required]
+## 8. Relationship to other assets            [optional]
 ```
 
-### 5.2 编号规则
+### 5.2 Numbering rules
 
-- **统一数字编号**：所有 spec 用 `## N. <名>`，不用主题词标题
-- **跳号允许**：若某章节不适用（条件必备的触发条件不成立），跳过该编号，**不重新排号**——保持跨 spec 的编号对位
-- **首段统一**：H1 下紧跟单行 blockquote：`> **Data contract**: <一句话定位>`；附加说明应进 §1，不进 blockquote
+- **Uniform numeric headings**: every spec uses `## N. <name>`, never a topic-word heading
+- **Skipping a number is allowed**: when a section does not apply, because a conditionally required section's trigger does not hold, skip that number and **do not renumber** — the numbering must stay aligned across specs
+- **A uniform opening**: the H1 is followed immediately by a single-line blockquote, `> **Data contract**: <one-line statement of position>`; anything further belongs in §1, not in the blockquote
 
-### 5.3 校验集中
+### 5.3 Validation kept in one place
 
-所有**正文结构**字段 / 章节的校验规则集中在 §5 内一次性列出；不允许散落到各字段定义后或 §6 反模式中。
+Every validation rule for a **body structure** field or section is listed once, together, inside §5; scattering them after individual field definitions or into the §6 anti-patterns is not allowed.
 
-§4 frontmatter 字段的校验（必填 / 类型 / 枚举）天然属于 §4，不视为散落。
+Validation of §4 frontmatter fields — whether required, the type, the enum — naturally belongs to §4 and does not count as scattering.
 
-§6 反模式列举"违反 §4 / §5 校验规则"的具体形态，不重复定义规则本身。
+§6 anti-patterns enumerate the concrete shapes of "violating a §4 or §5 validation rule"; they do not redefine the rule itself.
 
-### 5.4 示例集中
+### 5.4 Examples kept in one place
 
-所有示例集中在 §7；不在每个字段定义后追加示例（保持 §5 结构紧凑）。
+Every example lives in §7; do not append an example after each field definition, so that §5 stays compact.
 
 ---
 
 ## 6. Anti-patterns
 
-- ❌ 章节用主题词而非数字编号（如 `## 适用范围` 而非 `## 1. Position and scope`）
-- ❌ 不适用的条件必备章节强行加上（如运行时对象 spec 加 §3 命名约定 / §4 Frontmatter 契约）
-- ❌ 校验规则散落到各字段定义内（应集中在 §5）
-- ❌ 示例散落到各字段定义后（应集中在 §7）
-- ❌ 反模式节重复定义校验规则（应只列违规形态，规则在 §4 / §5）
-- ❌ frontmatter 缺 `id` / `name` / `description` / `version` 等必填字段
-- ❌ `scope` 字段用 `>` 折叠而非 `|` 保留（前者吞掉换行）
-- ❌ 因某节不适用而重新排号（应跳号保持对位）
-- ❌ 首段 blockquote 含多段或附加说明（应只含一句话定位，附加说明进 §1）
-- ❌ 把状态机语义独立成章节（应作为 §4.x 子节并入 Frontmatter 契约）
-- ❌ 把文件存放路径写进 §3（§3 只规定命名，路径由项目治理决定）
-- ❌ 正文写"变更记录"章节——spec 版本史由 git 历史 + frontmatter `version` 承担，不在正文重复
-- ❌ 设立独立的"术语表"章节——术语不是制品本身的维度，应按性质分流：
-  - 后续章节依赖的基础概念 / 心智框架 → 写入 §2 心智模型
-  - 仅服务单个字段的术语 → 嵌入 §5 该字段的定义内（就近原则）
-  - 行业通识术语（Gherkin / C4 模型 / IEEE 830 等） → 链接到外部术语表或外部参考
+- ❌ Sections headed by a topic word instead of a number (`## Scope` rather than `## 1. Position and scope`)
+- ❌ Forcing in a conditionally required section that does not apply (a runtime-object spec that adds §3 Naming or §4 Frontmatter contract)
+- ❌ Validation rules scattered through individual field definitions (they belong together in §5)
+- ❌ Examples scattered after individual field definitions (they belong together in §7)
+- ❌ The anti-patterns section redefining validation rules (it lists violation shapes only; the rules live in §4 and §5)
+- ❌ Frontmatter missing a required field such as `id` / `name` / `description` / `version`
+- ❌ A `scope` field folded with `>` instead of preserved with `|` (the former swallows line breaks)
+- ❌ Renumbering because one section does not apply (skip the number and keep the alignment)
+- ❌ An opening blockquote with several paragraphs or extra explanation (it carries one line of positioning; everything else goes to §1)
+- ❌ State machine semantics given a section of their own (they belong as a §4.x subsection of the Frontmatter contract)
+- ❌ Writing the storage path into §3 (§3 governs naming only; the path is decided by project governance)
+- ❌ A "change log" section in the body — a spec's version history is carried by git history plus the frontmatter `version`, and must not be repeated in the body
+- ❌ A standalone "glossary" section — terminology is not a dimension of the artifact itself, so route each term by its nature:
+  - A foundational concept or thinking framework that later sections depend on → write it into §2 Mental model
+  - A term that serves only one field → embed it in that field's definition in §5, keeping it close to where it is used
+  - Common industry terminology (Gherkin, the C4 model, IEEE 830 and the like) → link to an external glossary or reference
 
 ---
 
 ## 7. Examples
 
-### 7.1 最小合规骨架（仅必备章节）
+### 7.1 The minimal compliant skeleton (required sections only)
 
-适用于描述运行时对象的 spec（制品本身无 frontmatter / 无状态机 / 无命名模式 / 无心智框架；spec 文档自身仍有 frontmatter）：
+For a spec describing a runtime object, where the artifact itself has no frontmatter, no state machine, no naming pattern and no thinking framework — the spec document, of course, still has frontmatter of its own:
 
 ````markdown
 ---
@@ -237,12 +237,12 @@ scope: |
   Defines the structural contract for widget runtime objects passed between services.
 ---
 
-# Widget 规范
+# Widget Schema
 
-> **Data contract**: 定义 widget 运行时对象的字段与校验
+> **Data contract**: defines the fields and validation of the widget runtime object
 
 ## 1. Position and scope
-适用于 ...；不适用于 ...
+Applies to ...; does not apply to ...
 
 ## 5. Body structure contract
 | Field | Type | Required | Description |
@@ -260,14 +260,14 @@ scope: |
 ```text
 ````
 
-注：跳过 §2 / §3 / §4 / §8，因为不适用。
+Note: §2, §3, §4 and §8 are skipped because they do not apply.
 
-### 7.2 完整骨架（含所有条件必备章节）
+### 7.2 The full skeleton, with every conditionally required section
 
-适用于文档类 spec（markdown 制品 + frontmatter + 状态机 + 命名模式 + 心智框架），例如 ADR：
+For a document spec — a markdown artifact with frontmatter, a state machine, a naming pattern and a thinking framework — such as an ADR:
 
 ```markdown
-# ADR 建模规范
+# ADR Modeling Schema
 
 > **Data contract**: ...
 
@@ -276,16 +276,16 @@ scope: |
 ## 3. Naming               ← NNNN-{slug}.md
 ## 4. Frontmatter contract       ← artifact_type / status / superseded_by / ...
    ### 4.2 State machine semantics        ← proposed/accepted/superseded/archived/rejected
-## 5. Body structure contract           ← 4 节正文：背景 / 决策 / 替代方案 / 后果
+## 5. Body structure contract           ← 4 body sections: context / decision / alternatives / consequences
 ## 6. Anti-patterns
 ## 7. Examples
-## 8. Relationship to other assets         ← 配套 rule、衰减政策
+## 8. Relationship to other assets         ← the companion rule, the decay policy
 ```
 
 ---
 
 ## 8. Relationship to other assets
 
-- **递归适用**：本文件自身遵循此 meta-spec 定义的骨架（自示范）
-- **下游 spec**：任何 spec 都继承本规范
-- **写作纪律**：通用 markdown 写作纪律见各项目自身的文档管理 rule；本 meta-spec 暂无独立 rule
+- **Applies recursively**: this file follows the skeleton this meta-spec defines, demonstrating it on itself
+- **Downstream specs**: every spec inherits this one
+- **Writing discipline**: general markdown writing discipline lives in each project's own documentation-management rule; this meta-spec has no separate rule of its own yet
