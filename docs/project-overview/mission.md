@@ -8,4 +8,4 @@ status: active
 
 # Mission
 
-AI Cortex 为**软件交付与项目治理**提供治理资产库（技能、规范、约束），支撑从想法到上线的交付链与规划、对齐、合规等治理链。
+AI Cortex provides a governance asset library — skills, specs and constraints — for **software delivery and project governance**, supporting the delivery chain from idea to production and the governance chain of planning, alignment, compliance and the like.

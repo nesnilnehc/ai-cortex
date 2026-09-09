@@ -6,26 +6,26 @@ created_at: 2026-03-24
 status: active
 ---
 
-# 战略目标
+# Strategic goals
 
-与 [mission](mission.md)、[vision](vision.md)、[North Star](north-star.md) 对齐。
+Aligned with [mission](mission.md), [vision](vision.md) and [North Star](north-star.md).
 
-**目标性质**：战略目标描述项目长期追求的**结果方向**，是持续优化的愿景，而非一次性交付物。目标无「完成」概念，只会不断接近或深化；阶段检查点见 [roadmap](../process-management/roadmap.md)。
+**What a goal is here**: a strategic goal describes the **direction of outcome** the project pursues over the long term. It is a vision under continuous improvement, not a one-off deliverable. A goal has no notion of "done"; it is only ever approached more closely or deepened. Phase checkpoints are in the [roadmap](../process-management/roadmap.md).
 
 ---
 
-## 目标 1：交付链能力可获得
+## Goal 1: delivery-chain capabilities are discoverable
 
-团队在编码、review、部署等交付环节能按任务或意图发现并调用正确技能，支撑半自动化交付链。推进愿景；发现是使用的前提。
+In delivery activities such as coding, review and deployment, a team can find and invoke the right skill by task or by intent, supporting a semi-automated delivery chain. This advances the vision; discovery is the precondition for use.
 
-## 目标 2：治理链能力可获得
+## Goal 2: governance-chain capabilities are discoverable
 
-团队在规划、对齐、合规等治理环节能按任务或意图发现并调用正确技能，共享 Spec 与质量门槛支撑可审计、可演进的治理行为。推进愿景；治理建立信任，促进使用。
+In governance activities such as planning, alignment and compliance, a team can find and invoke the right skill by task or by intent, with shared Specs and quality gates supporting governance behaviour that is auditable and can evolve. This advances the vision; governance builds trust, which drives use.
 
-## 目标 3：能力可跨项目复用与编排
+## Goal 3: capabilities can be reused and orchestrated across projects
 
-技能可跨项目复用与组合，按规范编排协作，成熟能力被采纳而非重写，成为半自动化交付与治理链的稳定支撑。推进愿景；复用提高从目录的使用。
+Skills can be reused and combined across projects, orchestrated to collaborate per the specs, so a mature capability is adopted rather than rewritten and becomes a stable foundation for the semi-automated delivery and governance chains. This advances the vision; reuse increases use of the catalogue.
 
-## 目标 4：采纳摩擦低
+## Goal 4: adoption friction is low
 
-能力在团队已用渠道与工具中可用（skills.sh、SkillsMP、IDE），使团队将技能融入半自动化交付与治理链的摩擦最小化。推进愿景；直接推动月度技能使用量。
+Capabilities are available in the channels and tools a team already uses — skills.sh, SkillsMP, the IDE — minimising the friction of folding skills into the semi-automated delivery and governance chains. This advances the vision; it drives monthly skill usage directly.

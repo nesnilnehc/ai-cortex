@@ -6,37 +6,37 @@ created_at: 2026-03-24
 status: active
 ---
 
-# North Star（北极星）
+# North Star
 
-## North Star 指标
+## The North Star metric
 
-**月度技能使用量**（本目录技能的调用或使用事件）。
+**Monthly skill usage** — invocation or use events for the skills in this catalogue.
 
-- **定义**：引用本目录技能的 distinct 调用或使用事件数量——Agent 或用户触发技能、产生可交付成果（如 review 输出、设计文档）——按日历月统计。
-- **为何代表用户价值**：使命聚焦软件交付与项目治理；愿景是帮助团队基于本 catalog 实现半自动化交付与治理。使用能力（在场景中调用技能、获得输出）才是价值交付；使用量表明团队正在将能力融入其半自动化交付与治理链。它是行为指标，而非虚荣指标（stars 或 clones）。
+- **Definition**: the number of distinct invocation or use events referencing a skill in this catalogue — an agent or a user triggers a skill and it produces something deliverable, such as a review output or a design document — counted per calendar month.
+- **Why it stands for user value**: the mission is focused on software delivery and project governance, and the vision is to help teams reach semi-automated delivery and governance on this catalogue. Value is delivered when a capability is used — a skill invoked in context, an output obtained — so usage shows that a team is folding these capabilities into its semi-automated delivery and governance chains. It is a behavioural metric, not a vanity one such as stars or clones.
 
-## 推导（来自 mission/vision）
+## Derivation, from mission and vision
 
-1. **使命**：提供软件交付与项目治理过程中使用的 Agent 技能，支撑交付链与治理链。
-2. **愿景**：帮助团队基于本 catalog 实现半自动化交付与治理，在交付链与治理链中按场景调用、按规范协作。
-3. **用户**：在交付链与治理链中工作的团队，需半自动化能力以提升效率与可预期性。
-4. **核心价值**：团队在交付与治理各环节能按场景调用能力，实现半自动化且协作可预期。
-5. **主要行为**：使用能力——在上下文中触发技能、获得可交付成果。
-6. **可观测行为**：技能调用或使用事件。
-7. **可度量指标**：月度技能使用量。
+1. **Mission**: provide the agent skills used throughout software delivery and project governance, supporting both the delivery chain and the governance chain.
+2. **Vision**: help teams reach semi-automated delivery and governance on this catalogue, invoking capabilities by situation and collaborating per the specs across both chains.
+3. **Users**: teams working in the delivery and governance chains, who need semi-automated capabilities to raise both efficiency and predictability.
+4. **Core value**: at every step of delivery and governance a team can invoke a capability suited to the situation, making the work semi-automated and collaboration predictable.
+5. **Primary behaviour**: using a capability — triggering a skill in context and obtaining something deliverable.
+6. **Observable behaviour**: a skill invocation or use event.
+7. **Measurable metric**: monthly skill usage.
 
-## 原则
+## Principles
 
-1. 反映用户价值；2. 代表用户行为；3. 衡量持续参与；4. 产品驱动；5. 简单清晰。
+1. It reflects user value; 2. it stands for user behaviour; 3. it measures sustained engagement; 4. it is product-driven; 5. it is simple and clear.
 
-## 辅助指标（可选）
+## Supporting metrics (optional)
 
-目录技能数、Spec 合规率、意图覆盖、渠道存在。安装量可作为替代观测（当 usage 不可达时），但非北极星。
+The number of skills in the catalogue, the Spec compliance rate, intent coverage, channel presence. Install count can serve as a proxy observation while usage is out of reach, but it is not the North Star.
 
-## 度量与局限
+## Measurement and its limits
 
-**短中期不可达**。当前生态（skills.sh、Cursor、Claude 等）无对 skill 作者开放的 usage telemetry。若未来有 API 或数据源支持，再行度量；在此之前无直接观测手段。
+**Out of reach in the short and medium term**. Today's ecosystem — skills.sh, Cursor, Claude and the like — exposes no usage telemetry to a skill's author. If an API or data source appears later, measurement can start then; until it does, there is no direct way to observe this.
 
-## 反 North Star
+## Anti North Star
 
-GitHub stars、仓库克隆/Fork、总独立访客——虚荣或一次性，不反映使用与价值。
+GitHub stars, clones and forks, total unique visitors — vanity or one-off, and none of them reflects use or value.
