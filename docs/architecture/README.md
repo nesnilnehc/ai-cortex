@@ -6,25 +6,25 @@ created_at: 2026-03-24
 status: active
 ---
 
-# 架构
+# Architecture
 
-AI Cortex 是一个面向 Agent 的资产库，按四层治理组织：Spec / Protocol / Skill / Rule。
+AI Cortex is an asset library for agents, organised into four governance layers: Spec / Protocol / Skill / Rule.
 
-## Canonical 来源
+## Canonical sources
 
-- [terminology.md](terminology.md) — 4 类资产的业界定义、独立点与交叉判别
-- [asset-naming.md](asset-naming.md) — 4 类资产命名规范
-- [skills/INDEX.md](../../skills/INDEX.md) — 技能目录
-- [agentskills.io](https://agentskills.io) — Skill 标准格式（外部权威）
+- [terminology.md](terminology.md) — the industry definitions of the 4 asset types, what each owns exclusively, and how to tell them apart
+- [asset-naming.md](asset-naming.md) — the naming convention for the 4 asset types
+- [skills/INDEX.md](../../skills/INDEX.md) — the skill catalogue
+- [agentskills.io](https://agentskills.io) — the standard Skill format, the external authority
 
 ## ADR
 
-历史架构决策见 [adrs/](../adr/) 目录。
+Past architecture decisions are under [adrs/](../adr/).
 
-## 何时新增 ADR
+## When to add an ADR
 
-在以下情形新增 ADR（`adrs/NNN-{slug}.md`）：
+Add an ADR (`adrs/NNN-{slug}.md`) in these situations:
 
-- 重大设计决策需显式 rationale
-- 经批准的、值得持久化的架构选择（设计文档字段契约见 [specs/functional-design-modeling.md](../../specs/functional-design-modeling.md) 与 [specs/technical-design-modeling.md](../../specs/technical-design-modeling.md)）
-- 跨技能或跨阶段依赖需文档化
+- A significant design decision whose rationale has to be stated explicitly
+- An approved architectural choice worth keeping on record (the field contracts for design documents are in [specs/functional-design-modeling.md](../../specs/functional-design-modeling.md) and [specs/technical-design-modeling.md](../../specs/technical-design-modeling.md))
+- A dependency across skills or across phases that has to be documented

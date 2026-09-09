@@ -6,153 +6,153 @@ created_at: 2026-05-09
 status: active
 ---
 
-# 资产命名规范
+# Asset naming convention
 
-> 4 类资产（Spec / Protocol / Skill / Rule）的命名约定。新增资产前必读。
+> Naming conventions for the 4 asset types: Spec / Protocol / Skill / Rule. Required reading before adding an asset.
 >
-> 类型边界与判别见 [terminology.md](terminology.md)。
+> Type boundaries and how to tell them apart are in [terminology.md](terminology.md).
 
 ---
 
-## 一、通用规则（4 类共同遵守）
+## I. General rules, shared by all 4 types
 
-1. **kebab-case**：全小写，单词间用连字符 `-`
-2. **路径与 frontmatter `name` 字段一致**：文件 `skills/foo-bar/SKILL.md` 的 `name: foo-bar`
-3. **英文，禁拼音 / 中文**：机器消费字段保持英文便于跨工具协作
-4. **不连续连字符**：`foo--bar` 禁；`foo-bar` 通
-5. **不以 `-` 开头或结尾**
+1. **kebab-case**: all lower case, words joined by a hyphen `-`
+2. **The path matches the frontmatter `name`**: `skills/foo-bar/SKILL.md` carries `name: foo-bar`
+3. **English; pinyin and Chinese are forbidden**: machine-consumed fields stay English so tools can work together
+4. **No consecutive hyphens**: `foo--bar` is forbidden; `foo-bar` is fine
+5. **Never starts or ends with `-`**
 
 ---
 
-## 二、Spec（规范）
+## II. Spec
 
-定位：定义事物本身的结构与行为契约（见 [terminology.md §一](terminology.md#一四个概念)）。
+What it is: it defines a thing's own structural and behavioural contract (see [terminology.md §I](terminology.md#i-the-four-concepts)).
 
-**命名公式**：**主词为被定义对象的名词**（noun-first）
+**Formula**: **the head word is the noun being defined** (noun-first)
 
 - `<thing-being-specified>`
-- 例：`universal-notification`（定义通知对象）、`requirement-modeling`（定义需求文档结构）
+- Examples: `universal-notification`, defining the notification object; `requirement-modeling`, defining the structure of a requirement document
 
-**反例**：
+**Counter-examples**:
 
-- ❌ `define-notification`（动词开头是 Skill 风格）
-- ❌ `notification-protocol`（"协议" 是 Protocol 类型，混淆）
+- ❌ `define-notification` — a leading verb is Skill style
+- ❌ `notification-protocol` — "protocol" names the Protocol type, which confuses the two
 
 ---
 
-## 三、Protocol（协议）
+## III. Protocol
 
-定位：定义多个实体之间如何交互——步骤、状态、消息序列。
+What it is: it defines how several entities interact — the steps, the states, the message sequence.
 
-**命名公式**：**对象 + 行为**（表达谁在跟谁做什么）
+**Formula**: **subject + action**, saying who is doing what with whom
 
 - `<actor-or-domain>-<action>`
-- 例：`im-notification-delivery`（IM 渠道 + 投递通知）
+- Example: `im-notification-delivery` — the IM channel, plus delivering a notification
 
-**反例**：
+**Counter-examples**:
 
-- ❌ `notification`（仅名词，是 Spec 风格）
-- ❌ `delivery-protocol`（在 Protocol 后缀里再加 "protocol" 冗余）
+- ❌ `notification` — a bare noun, which is Spec style
+- ❌ `delivery-protocol` — adding "protocol" to a Protocol name is redundant
 
 ---
 
-## 四、Skill（技能）
+## IV. Skill
 
-定位：单一 Agent 可调用的能力（目标 + 执行 + 示例）。遵循 [agentskills.io](https://agentskills.io) 标准。
+What it is: a capability a single agent can invoke — objective, execution, examples. It follows the [agentskills.io](https://agentskills.io) standard.
 
-**命名公式**：**verb-noun**（动宾结构）
+**Formula**: **verb-noun**
 
 - `<verb>-<noun>`
-- 例：`commit-work`、`generate-readme`、`review-typescript`、`define-mission`
+- Examples: `commit-work`, `generate-readme`, `review-typescript`, `define-mission`
 
-### 4.1 Review 家族
-
-```text
-review-<language>            如 review-python、review-typescript
-review-<framework>           如 review-react、review-vue
-review-<domain>-usage        如 review-orm-usage
-review-<concern>             如 review-security、review-performance、review-architecture、review-testing
-```
-
-### 4.2 Define 家族
+### 4.1 The review family
 
 ```text
-define-<noun>                如 define-mission、define-roadmap、define-vision
+review-<language>            e.g. review-python, review-typescript
+review-<framework>           e.g. review-react, review-vue
+review-<domain>-usage        e.g. review-orm-usage
+review-<concern>             e.g. review-security, review-performance, review-architecture, review-testing
 ```
 
-### 4.3 其他常见 verb 前缀
+### 4.2 The define family
 
 ```text
-generate-<noun>              如 generate-standard-readme、generate-github-workflow
-orchestrate-<noun>           编排技能强制 orchestrate- 前缀（详见 §四 编排 vs 原子 vs 元）
-archive-<noun>               如 archive-milestone
-capture-<noun>               如 capture-work-items
-prioritize-<noun>            如 prioritize-backlog
-promote-<noun>               如 promote-roadmap-items
-deliver-<noun>               如 deliver-feature
-integrate-<noun>             如 integrate-branches
-refine-<noun>                如 refine-skill-design
-plan-<noun>                  如 plan-next
-automate-<noun>              如 automate-tests
-commit-<noun>                如 commit-work
-decontextualize-<noun>       如 decontextualize-text
+define-<noun>                e.g. define-mission, define-roadmap, define-vision
 ```
 
-### 4.4 反例
+### 4.3 Other common verb prefixes
 
-- ❌ `code-review`（noun-verb 反向，应为 `orchestrate-code-review`）
-- ❌ `documentation`（仅名词，看不出动作）
-- ❌ `ts-review`（缩写不明）
+```text
+generate-<noun>              e.g. generate-standard-readme, generate-github-workflow
+orchestrate-<noun>           an orchestrator skill must carry the orchestrate- prefix (see §IV orchestrator vs atomic vs meta)
+archive-<noun>               e.g. archive-milestone
+capture-<noun>               e.g. capture-work-items
+prioritize-<noun>            e.g. prioritize-backlog
+promote-<noun>               e.g. promote-roadmap-items
+deliver-<noun>               e.g. deliver-feature
+integrate-<noun>             e.g. integrate-branches
+refine-<noun>                e.g. refine-skill-design
+plan-<noun>                  e.g. plan-next
+automate-<noun>              e.g. automate-tests
+commit-<noun>                e.g. commit-work
+decontextualize-<noun>       e.g. decontextualize-text
+```
+
+### 4.4 Counter-examples
+
+- ❌ `code-review` — noun-verb, the wrong way round; it is `orchestrate-code-review`
+- ❌ `documentation` — a bare noun, with no action visible
+- ❌ `ts-review` — an opaque abbreviation
 
 ---
 
-## 五、Rule（规则）
+## V. Rule
 
-定位：单一可校验约束。
+What it is: a single checkable constraint.
 
-**命名公式**：**前缀 + 被约束对象**
-
-```text
-standards-<technology-or-domain>     技术规范（编码、Shell、import 等）
-workflow-<concern>                   工作流约束（文档、文档生命周期等）
-documentation-<aspect>               文档输出约束（如 markdown 格式）
-tools-<tool-or-action>               工具使用约束（如 list-dir 行为）
-writing-<style-or-language>          写作风格约束（如中文技术文）
-```
-
-### 现有 Rule 命名例
+**Formula**: **prefix + the thing constrained**
 
 ```text
-standards-coding              编码通用准则
-standards-shell               Shell 脚本规范
-standards-import              引用管理
-workflow-document-lifecycle   治理文档生命周期
-workflow-documentation        文档管理策略
-documentation-markdown-format Markdown 格式
-tools-list-dir-dotfiles       目录列举工具行为
-writing-chinese-technical     中文技术写作
-requirement-quality           需求文档质量评审清单（无标准前缀，名词主导，仅当前缀都不贴切时使用）
+standards-<technology-or-domain>     technical standards: coding, shell, imports and the like
+workflow-<concern>                   workflow constraints: documentation, document lifecycle and the like
+documentation-<aspect>               constraints on documentation output, such as markdown formatting
+tools-<tool-or-action>               constraints on tool use, such as list-dir behaviour
+writing-<style-or-language>          writing-style constraints, such as Chinese technical writing
 ```
 
-### 反例
+### Existing Rule names
 
-- ❌ `coding`（缺前缀，不知约束哪一类）
-- ❌ `markdown-rule`（"rule" 后缀冗余）
+```text
+standards-coding              general coding principles
+standards-shell               shell script standards
+standards-import              import management
+workflow-document-lifecycle   the governance document lifecycle
+workflow-documentation        documentation management policy
+documentation-markdown-format markdown formatting
+tools-list-dir-dotfiles       directory listing tool behaviour
+writing-chinese-technical     Chinese technical writing
+requirement-quality           the requirement quality review checklist (no standard prefix, noun-led; use this only when no prefix fits)
+```
+
+### Counter-examples
+
+- ❌ `coding` — no prefix, so the class of constraint is unclear
+- ❌ `markdown-rule` — a "rule" suffix is redundant
 
 ---
 
-## 六、检查清单（新增资产前自检）
+## VI. Checklist before adding an asset
 
-- [ ] 类型已确定（Spec / Protocol / Skill / Rule，按 [terminology.md](terminology.md) 4 组判别）
-- [ ] 命名遵循通用规则（kebab-case、英文、与目录一致）
-- [ ] 命名遵循对应类型的命名公式
-- [ ] 在同类资产中无名称冲突
-- [ ] 不与已弃用资产同名
+- [ ] The type is settled — Spec / Protocol / Skill / Rule — using the 4 cross-checks in [terminology.md](terminology.md)
+- [ ] The name follows the general rules: kebab-case, English, matching the directory
+- [ ] The name follows the formula for its type
+- [ ] No name collision among assets of the same type
+- [ ] The name is not that of a retired asset
 
 ---
 
-## 七、相关文档
+## VII. Related documents
 
-- [terminology.md](terminology.md) — 4 类资产的定义与判别
-- [agentskills.io](https://agentskills.io) — Skill 标准格式（外部权威）
-- [CONTRIBUTING.md](../../CONTRIBUTING.md) — 贡献流程
+- [terminology.md](terminology.md) — the definitions of the 4 asset types and how to tell them apart
+- [agentskills.io](https://agentskills.io) — the standard Skill format, the external authority
+- [CONTRIBUTING.md](../../CONTRIBUTING.md) — the contribution process
