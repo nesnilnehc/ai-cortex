@@ -125,7 +125,7 @@ deprecated_reason: <reason>         # required when status is deprecated
 
 ### 5.1 The 7 required sections
 
-**H1 title**: `# Agent 测试契约：<agent 名>`
+**H1 title**: `# Agent test contract: <agent name>`
 
 | # | Section | Purpose | Validation |
 |---|---|---|---|
@@ -140,11 +140,11 @@ deprecated_reason: <reason>         # required when status is deprecated
 ### 5.2 Golden cases table format
 
 ```markdown
-| Case | 输入 | 期望（输出 / 轨迹） | 判定方式 | Covers |
+| Case | Input | Expected (output / trajectory) | Oracle | Covers |
 | :--- | :--- | :--- | :--- | :--- |
 ```
 
-- The oracle column takes `字段` / `语义` / `轨迹` / `rubric` / `统计`, corresponding to the oracle types in standards-agent-testing §2
+- The oracle column takes `field` / `semantic` / `trajectory` / `rubric` / `statistical`, corresponding to the oracle types in standards-agent-testing §2
 
 ### 5.3 Validation is centralised
 
@@ -184,50 +184,50 @@ covers:
 parent: ../requirements/ACME-REQ-08.md
 ---
 
-# Agent 测试契约：需求澄清
+# Agent test contract: requirement clarification
 
-## 能力边界
+## Capability boundary
 
-- 做：从自由文本识别需求要素，缺字段时按流程追问
-- 不做：信息不足时禁止写回需求系统
+- Does: identify the elements of a requirement from free text, and follow up on missing fields through the flow
+- Does not: write back to the requirement system when information is insufficient — that is forbidden
 
-## 输入契约
+## Input contract
 
-| 字段 | 类型 | 必填 | 缺失时预期行为 |
+| Field | Type | Required | Expected behaviour when missing |
 |---|---|---|---|
-| title | string | 是 | 追问标题，不写回 |
-| acceptance | list | 是 | 追问验收标准，不写回 |
+| title | string | Yes | Ask for the title; do not write back |
+| acceptance | list | Yes | Ask for the acceptance criteria; do not write back |
 
-## 工具调用边界
+## Tool call boundary
 
-- 允许：`search_requirements`、`ask_user`
-- 禁止：`write_requirement`（写回前置未满足时）——防止信息不足时落库
+- Allowed: `search_requirements`, `ask_user`
+- Forbidden: `write_requirement` while the write-back precondition is unmet — this keeps insufficient information out of the store
 
-## 写回前置
+## Write-back precondition
 
-- 全部必填字段已收集且通过完整性校验
+- Every required field has been collected and passes the completeness check
 
-## 判定方式
+## Oracles
 
-| 行为 | oracle 类型 |
+| Behaviour | Oracle type |
 |---|---|
-| 缺字段识别 | 轨迹（断言触发 ask_user，未触发 write_requirement） |
-| 完整需求写回 | 契约（写回 payload schema 合法） |
-| 追问话术质量 | rubric（清晰度评分 ≥ 4/5） |
+| Recognising a missing field | trajectory (assert ask_user fired and write_requirement did not) |
+| Writing back a complete requirement | contract (the write-back payload schema is valid) |
+| Quality of the follow-up wording | rubric (clarity score ≥ 4/5) |
 
 ## Golden Cases
 
-| Case | 输入 | 期望（输出 / 轨迹） | 判定方式 | Covers |
+| Case | Input | Expected (output / trajectory) | Oracle | Covers |
 | :--- | :--- | :--- | :--- | :--- |
-| 缺验收标准 | "做个登录功能" | 触发 ask_user 追问验收；不触发 write_requirement | 轨迹 | ACME-REQ-08#AC1 |
-| 信息完整 | 含标题 + 3 条验收的描述 | 触发 write_requirement，payload schema 合法 | 契约 | ACME-REQ-08#AC3 |
-| 空输入 | "" | 返回引导提示；不触发任何工具 | 轨迹 | ACME-REQ-08#AC1 |
+| Missing acceptance criteria | "build me a login feature" | ask_user fires asking for acceptance; write_requirement does not fire | trajectory | ACME-REQ-08#AC1 |
+| Complete information | a description carrying a title plus 3 acceptance criteria | write_requirement fires with a valid payload schema | contract | ACME-REQ-08#AC3 |
+| Empty input | "" | returns a guiding prompt; fires no tool at all | trajectory | ACME-REQ-08#AC1 |
 
-## 通过阈值与追溯锚
+## Pass threshold and coverage
 
-- golden 集通过率 ≥ 0.9（与 `pass_threshold` 一致）
-- **ACME-REQ-08 AC#1**：信息不足时禁止写回
-- **ACME-REQ-08 AC#3**：完整需求写回 payload 合法
+- Golden suite pass rate ≥ 0.9, matching `pass_threshold`
+- **ACME-REQ-08 AC#1**: writing back is forbidden when information is insufficient
+- **ACME-REQ-08 AC#3**: a complete requirement writes back a valid payload
 ````
 
 ---

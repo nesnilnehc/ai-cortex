@@ -175,17 +175,17 @@ parent: ../designs/2026-05-12-data-export-technical-design.md
 status: active
 ---
 
-# 任务：数据导出功能实施
+# Tasks: implementing data export
 
 | Id | Task | Depends on | Acceptance | Owner / Hint | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| T1 | 定义导出任务表 schema | — | migration 通过；含 status / progress / file_url 字段（技术设计 §数据模型） | backend | Todo |
-| T2 | 实现 CSV 序列化器 | — | 单元测试覆盖空集 / 大字段 / 特殊字符（技术设计 §组件 Serializer） | backend | Todo |
-| T3 | 实现导出任务队列消费者 | T1, T2 | 集成测试通过；含失败重试 3 次（技术设计 §数据流） | backend | Todo |
-| T4 | 实现 POST /exports 触发接口 | T1 | OpenAPI 文档；幂等键测试（技术设计 §接口契约） | backend | Todo |
-| T5 | 实现 GET /exports/:id 查询接口 | T1 | 返回 status + progress + 下载 URL（若 Done）（技术设计 §接口契约） | backend | Todo |
-| T6 | 大文件分片上传到对象存储 | T3 | 10GB 测试文件可成功导出（技术设计 §错误处理 OOM 路径） | backend | Todo |
-| T7 | 前端导出按钮 + 进度轮询 | T4, T5 | UI 显示进度条；完成后弹下载链接（功能设计 §UI 交互流程） | frontend | Todo |
+| T1 | Define the export job table schema | — | The migration passes and carries the status / progress / file_url fields (technical design §data model) | backend | Todo |
+| T2 | Implement the CSV serialiser | — | Unit tests cover the empty set, large fields and special characters (technical design §component Serializer) | backend | Todo |
+| T3 | Implement the export job queue consumer | T1, T2 | Integration tests pass, including 3 retries on failure (technical design §data flow) | backend | Todo |
+| T4 | Implement the POST /exports trigger endpoint | T1 | OpenAPI documentation; idempotency key tested (technical design §interface contract) | backend | Todo |
+| T5 | Implement the GET /exports/:id query endpoint | T1 | Returns status + progress + the download URL when Done (technical design §interface contract) | backend | Todo |
+| T6 | Multipart upload of large files to object storage | T3 | A 10GB test file exports successfully (technical design §error handling, OOM path) | backend | Todo |
+| T7 | Front-end export button + progress polling | T4, T5 | The UI shows a progress bar and offers a download link on completion (functional design §UI interaction flow) | frontend | Todo |
 ````
 
 ---

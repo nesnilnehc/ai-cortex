@@ -14,7 +14,7 @@ related:
   - ./spec-modeling.md
 ---
 
-# 跨团队契约规范
+# Cross-Team Contract Schema
 
 > **Data contract**: defines how a document describing interfaces, data shapes, state machines and event payloads shared across independent services, repositories or teams is organised
 

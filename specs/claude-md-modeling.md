@@ -120,42 +120,42 @@ Unsound forms fall into two layers. The individual items and the reasons they ar
 ````markdown
 # CLAUDE.md
 
-Claude Code 在本仓库工作时的简报。
+A briefing for Claude Code working in this repository.
 
-## 项目概览
+## Project overview
 
-跨平台日志聚合工具，面向 SRE 团队，将多源日志归一并提供查询 UI。
+A cross-platform log aggregation tool for SRE teams: it normalises logs from several sources and offers a query UI.
 
-## 技术栈
+## Tech stack
 
 - Node.js 20 + TypeScript 5
-- pnpm（**NEVER** 用 npm 或 yarn——锁文件不兼容）
-- Vitest 测试 / Biome lint
+- pnpm (**NEVER** npm or yarn — the lockfiles are incompatible)
+- Vitest for tests / Biome for lint
 
-## 关键命令
+## Key commands
 
-- `pnpm dev` — 启动开发服务器（localhost:3000）
-- `pnpm test` — 运行全部测试
-- `pnpm lint` — Biome 检查
+- `pnpm dev` — start the dev server (localhost:3000)
+- `pnpm test` — run every test
+- `pnpm lint` — Biome check
 
-## 目录结构
+## Directory structure
 
-- `src/agents/` — 日志采集器（与具体平台对接）
-- `src/aggregator/` — 聚合逻辑
+- `src/agents/` — log collectors, one per platform
+- `src/aggregator/` — aggregation logic
 - `src/api/` — REST endpoints
 - `db/migrations/` — Drizzle schema
 
-## 核心约定
+## Core conventions
 
-- 提交格式：Conventional Commits（`feat:` / `fix:` / `refactor:`）
-- 新功能必须含测试；覆盖率 ≥ 80%
-- 数据库迁移用 `pnpm db:gen` 生成，**NEVER** 手写 SQL
+- Commit format: Conventional Commits (`feat:` / `fix:` / `refactor:`)
+- Every new feature must carry tests; coverage ≥ 80%
+- Database migrations are generated with `pnpm db:gen`; **NEVER** hand-write SQL
 
-## 禁区
+## Off limits
 
-- **NEVER**：直接修改 `db/migrations/*.sql`——总是用 Drizzle 重新生成
-- **NEVER**：在 `src/agents/` 内引入第三方 SDK——agents 必须保持极小依赖面
-- **ALWAYS**：修改 `src/api/auth/` 前人工确认（涉及鉴权敏感路径）
+- **NEVER**: edit `db/migrations/*.sql` directly — always regenerate with Drizzle
+- **NEVER**: pull a third-party SDK into `src/agents/` — the agents must keep a minimal dependency surface
+- **ALWAYS**: confirm with a human before changing `src/api/auth/`, which is an authorization-sensitive path
 ````
 
 Note: this example is a minimal skeleton. A real project adds optional sections from §5.3 — domain glossary, architecture constraints and the like.
