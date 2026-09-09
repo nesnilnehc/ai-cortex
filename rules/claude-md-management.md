@@ -83,7 +83,7 @@ Before adding any rule, ask: **would the AI behave worse if this were deleted?**
 
 - The AI keeps making the same mistake — the rule is missing or unclear
 - A team convention changed
-- A related spec was upgraded and needs alignment. In particular, when [spec §5 required sections](../specs/claude-md-modeling.md#5-必备章节项目级) or [§3 scope of enforcement](../specs/claude-md-modeling.md#3-适用范围与强制范围) changes, §1 length limits and the §5 self-check in this rule must be reviewed alongside it
+- A related spec was upgraded and needs alignment. In particular, when [spec §5.2 required sections](../specs/claude-md-modeling.md#52-required-sections-at-project-level) or [§1 position and scope](../specs/claude-md-modeling.md#1-position-and-scope) changes, §1 length limits and the §5 self-check in this rule must be reviewed alongside it
 - An improvement identified in the monthly retrospective
 
 ### When not to revise
@@ -102,9 +102,9 @@ Link overlapping content rather than copying it. One piece of information is mai
 
 Before committing any CLAUDE.md change, confirm each item:
 
-- [ ] Required sections all present (see [spec §5](../specs/claude-md-modeling.md#5-必备章节项目级))
-- [ ] No crossover of responsibility between levels (see [spec §4](../specs/claude-md-modeling.md#4-三层结构与职责切分))
-- [ ] Form requirements met — concise, actionable, decision-oriented, kept close to what it governs (see [spec §7](../specs/claude-md-modeling.md#7-形态要求))
+- [ ] Required sections all present (see [spec §5.2](../specs/claude-md-modeling.md#52-required-sections-at-project-level))
+- [ ] No crossover of responsibility between levels (see [spec §5.1](../specs/claude-md-modeling.md#51-the-three-levels-and-how-responsibility-divides))
+- [ ] Form requirements met — concise, actionable, decision-oriented, kept close to what it governs (see [spec §5.4](../specs/claude-md-modeling.md#54-form-requirements))
 - [ ] Length within the §1 limit of this rule
 - [ ] Critical constraints marked with `IMPORTANT:`, `NEVER:` or `ALWAYS:` (see §2)
 - [ ] No §3 no-go content (general knowledge / volatile state / sensitive material / README restatement / speculative rules)
