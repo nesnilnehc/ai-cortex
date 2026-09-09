@@ -6,60 +6,60 @@ created_at: 2026-05-09
 status: active
 ---
 
-# 文档创建决策指引
+# Deciding whether to create a document
 
-> 该不该创建一份新 markdown 文档？放哪儿？本指引用决策树回答。
+> Should you create a new markdown document at all, and where does it go? This guide answers with a decision tree.
 >
-> 配套：约束清单见 [rules/workflow-documentation.md](../../rules/workflow-documentation.md)。
+> Companion: the list of constraints is in [rules/workflow-documentation.md](../../rules/workflow-documentation.md).
 
 ---
 
-## 决策树
+## The decision tree
 
-创建任何新 `.md` 之前自问以下 4 个问题：
+Ask yourself these 4 questions before creating any new `.md`:
 
-1. **是否需要持续维护？**
-   - 是 → 进入问题 2
-   - 否 → 不创建文档；用 commit message、PR description、Issue 评论或临时笔记
+1. **Does it need ongoing maintenance?**
+   - Yes → go to question 2
+   - No → create nothing; use a commit message, a PR description, an issue comment or a scratch note
 
-2. **该主题是否已存在权威文档？**
-   - 是 → 不新建；更新已有文档或添加引用链接
-   - 否 → 进入问题 3
+2. **Is there already an authoritative document on this topic?**
+   - Yes → create nothing; update the existing document, or add a link to it
+   - No → go to question 3
 
-3. **是否有 ≥ 3 个用户/Agent 会消费这份文档？**
-   - 是 → 进入问题 4
-   - 否 → 考虑用 Wiki / 内部笔记 / Slack pin 替代
+3. **Will ≥ 3 users or agents consume it?**
+   - Yes → go to question 4
+   - No → consider a wiki page, an internal note or a pinned Slack message instead
 
-4. **文档生命周期是什么？**
-   - 长期（living）→ 创建在正式目录（`docs/architecture/`、`docs/guides/` 等），完整 frontmatter
-   - 短期（snapshot）→ 必须命名为 `*.draft.md` 或 `YYYY-MM-DD-主题.md`，放专门目录（`docs/design/`、`experiments/`、`meetings/`），并设定清理时间
+4. **What is its lifecycle?**
+   - Long-lived (living) → create it in a formal directory such as `docs/architecture/` or `docs/guides/`, with complete frontmatter
+   - Short-lived (snapshot) → it must be named `*.draft.md` or `YYYY-MM-DD-topic.md`, kept in a dedicated directory such as `docs/design/`, `experiments/` or `meetings/`, with a date set for clearing it out
 
 ---
 
-## 路径速查
+## Paths at a glance
 
-| 内容性质 | 推荐路径 |
+| What it is | Where it goes |
 |----|----|
-| 架构决策记录 | `docs/adr/NNNN-{topic}.md` |
-| 功能设计文档 | `docs/designs/YYYY-MM-DD-{slug}-functional-design.md` |
-| 技术设计文档 | `docs/designs/YYYY-MM-DD-{slug}-technical-design.md` |
-| 长期使用指引 | `docs/guides/{slug}.md` |
-| 参考资料 | `docs/references/{slug}.md` |
-| 草稿 / 未定稿 | `<最终位置>.draft.md` |
-| 临时讨论笔记 | `experiments/`、`meetings/` 等专门目录 |
+| An architecture decision record | `docs/adr/NNNN-{topic}.md` |
+| A functional design document | `docs/designs/YYYY-MM-DD-{slug}-functional-design.md` |
+| A technical design document | `docs/designs/YYYY-MM-DD-{slug}-technical-design.md` |
+| A long-lived usage guide | `docs/guides/{slug}.md` |
+| Reference material | `docs/references/{slug}.md` |
+| A draft, not yet settled | `<final location>.draft.md` |
+| Notes from an ad hoc discussion | A dedicated directory such as `experiments/` or `meetings/` |
 
 ---
 
-## 反模式
+## Anti-patterns
 
-- ❌ 创建 `SUMMARY.md`、`COMPLETE_REFACTOR.md`、`REVIEW_2024.md` 这类无明确生命周期的总结文档
-- ❌ 在多个 README 中复制相同安装步骤（应有唯一权威 + 引用）
-- ❌ 把临时讨论放在 `docs/` 顶级（污染正式文档区）
-- ❌ 把版本变更记录写进新文档（应进 CHANGELOG.md）
+- ❌ Creating a summary document with no defined lifecycle, such as `SUMMARY.md`, `COMPLETE_REFACTOR.md` or `REVIEW_2024.md`
+- ❌ Copying the same installation steps into several READMEs; there is one authoritative copy, and everything else links to it
+- ❌ Putting an ad hoc discussion at the top level of `docs/`, which pollutes the formal documentation
+- ❌ Writing a version change record into a new document; it belongs in CHANGELOG.md
 
 ---
 
-## 相关
+## Related
 
-- 约束清单：[rules/workflow-documentation.md](../../rules/workflow-documentation.md)
-- 文档制品命名与路径：[docs/architecture/terminology.md](../architecture/terminology.md)
+- The list of constraints: [rules/workflow-documentation.md](../../rules/workflow-documentation.md)
+- Naming and paths for document artifacts: [docs/architecture/terminology.md](../architecture/terminology.md)

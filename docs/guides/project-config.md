@@ -6,41 +6,41 @@ created_at: 2026-03-24
 status: active
 ---
 
-# 项目配置指引
+# Project configuration
 
-依赖项目配置的技能（如 automate-tests、orchestrate-repair-loop、commit-work、generate-github-workflow）应遵循以下行为，以实现平台无关设计。
+A skill that depends on project configuration — automate-tests, orchestrate-repair-loop, commit-work, generate-github-workflow and the like — behaves as described below, which is what keeps it platform-independent.
 
 ---
 
-## 1. 优先读取
+## 1. Read the configuration first
 
-若存在以下配置之一，优先读取其中的项目特定值：
+Where either of these exists, read the project-specific values from it first:
 
-- **CLAUDE.md**：项目根目录下的 Claude/Agent 配置（若项目采用该约定）
-- **.ai-cortex/config.yaml**：AI Cortex 项目级配置（机器可读）
+- **CLAUDE.md**: the Claude or agent configuration at the project root, where the project follows that convention
+- **.ai-cortex/config.yaml**: the machine-readable AI Cortex project configuration
 
-**可配置字段**（按需扩展）：
+**Configurable fields**, extended as needed:
 
-| 字段 | 说明 | 适用技能 |
+| Field | Meaning | Skills that use it |
 | :--- | :--- | :--- |
-| `test_command` | 测试命令或脚本 | automate-tests、orchestrate-repair-loop、commit-work |
-| `base_branch` | 主分支名（如 main、master） | 涉及 PR 或分支检测的技能 |
-| `deploy_command` | 部署命令 | 部署相关技能 |
+| `test_command` | The test command or script | automate-tests, orchestrate-repair-loop, commit-work |
+| `base_branch` | The name of the main branch, such as main or master | Any skill that touches a PR or detects a branch |
+| `deploy_command` | The deployment command | Deployment-related skills |
 
 ---
 
-## 2. 缺失时询问
+## 2. Ask when it is missing
 
-若无配置或所需字段缺失，使用 AskUserQuestion 获取；勿猜测或硬编码。
-
----
-
-## 3. 持久化
-
-将用户确认的配置写入 `.ai-cortex/config.yaml` 或项目约定的位置，供后续复用。写入前征求用户同意。
+Where there is no configuration, or the field you need is absent, get it with AskUserQuestion. Never guess it, and never hard-code it.
 
 ---
 
-## 4. 与现有逻辑的关系
+## 3. Persist it
 
-本指引不替代技能既有的发现逻辑（如从依赖/构建清单、CI 配置、文档中推断）。配置优先于推断；推断结果可建议写入配置供下次使用。
+Write the configuration the user confirmed into `.ai-cortex/config.yaml`, or wherever the project keeps it, so later runs can reuse it. Ask the user before writing.
+
+---
+
+## 4. How this relates to a skill's own discovery logic
+
+This does not replace the discovery logic a skill already has, such as inferring from a dependency or build manifest, a CI configuration, or the documentation. Configuration wins over inference, and an inferred value can be offered for writing into the configuration for next time.
