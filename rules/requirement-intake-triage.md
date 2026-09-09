@@ -9,108 +9,108 @@ recommended_scope: user
 status: active
 ---
 
-# Rule: 需求进件分诊（Requirement Intake Triage）
+# Rule: Requirement Intake Triage
 
-> 对原始进件（如禅道需求字段堆）做性质分诊的共享词表 + 判别标准 + 合理性镜头。
+> A shared vocabulary, decision criteria and soundness lenses for triaging raw intake — a pile of ZenTao requirement fields, for instance — by what it actually is.
 >
-> **定位**：进件 = 需求**之前**的原始输入，不假设它已符合 [specs/requirement-modeling.md](../specs/requirement-modeling.md)。本 rule 分类「这坨输入本质是什么」；只有「属需求」的进件才进 requirement-modeling 评判。
+> **Position**: intake is the raw input that arrives **before** a requirement exists, and is not assumed to conform to [specs/requirement-modeling.md](../specs/requirement-modeling.md). This rule classifies what a lump of input fundamentally is; only intake classified as a requirement goes on to be judged against requirement-modeling.
 >
-> **消费方**：上游澄清（按性质走不同澄清 workflow）与下游评审（按性质选不同合理性镜头）共用本词表作为单一诊断 SSOT。跨 repo 引用锚版本号：`requirement-intake-triage@1.0.0`。
+> **Consumers**: upstream clarification (which routes to a different clarification workflow per kind) and downstream review (which picks a different soundness lens per kind) share this vocabulary as the single diagnostic SSOT. Cite it across repositories with the anchored version `requirement-intake-triage@1.0.0`.
 
 ---
 
-## 1. 性质轴（单一判别问句，MECE）
+## 1. The kind axis — one decision question, MECE
 
-判别问句：**「这条目主要在表达哪一件事？」** 一个问题定一类。
+The decision question is: **"which single thing is this item mainly expressing?"** One question fixes one kind.
 
-| 性质 | 表达的是 | 归属 |
+| Kind | What it expresses | Category |
 |---|---|---|
-| **功能需求** | 一个待满足的、面向用户的能力需要 | 属需求 |
-| **非功能需求** | 一个待达成的质量属性目标（性能/安全/可维护/可扩展） | 属需求 |
-| **设计方案类** | 「怎么实现」——一个实现方案 / 技术选择 | 非需求 |
-| **任务类** | 「执行哪个工作单元」——一个待执行的工作动作 | 非需求 |
-| **缺陷类** | 「现有行为坏了」——一个缺陷 | 非需求 |
-| **信息不足** | 识别不出上述任何内核 | 兜底 |
+| **Functional requirement** | A user-facing capability need waiting to be met | Is a requirement |
+| **Non-functional requirement** | A quality attribute target waiting to be reached (performance / security / maintainability / scalability) | Is a requirement |
+| **Design proposal** | "How to build it" — an implementation approach or a technology choice | Not a requirement |
+| **Task** | "Which unit of work to carry out" — an action waiting to be executed | Not a requirement |
+| **Defect** | "The existing behaviour is broken" — a defect | Not a requirement |
+| **Insufficient information** | None of the above cores can be identified | Fallback |
 
-- **互斥**靠判别问句的单一性保证；边界歧义由 §2 tie-break 切开。
-- **穷尽**靠「信息不足」兜底——任何识别不出内核的进件都归它。
-- 「属需求」两类的定义以 [specs/requirement-modeling.md](../specs/requirement-modeling.md) 的类型为准，本 rule 不重复定义。
-
----
-
-## 2. 判别问句与 tie-break
-
-逐条用单一问句判定，命中即归类；多类疑似时按 tie-break 切：
-
-- **是否连「改功能 / 修 bug / 搞技术」都判不出来？** 是 → **信息不足**（兜底优先级最高，收窄触发：仅当类型完全不可判时）。
-- **现有行为偏离了既定预期（故障 / 回归 / 低于已知基线）？** 是 → **缺陷类**。
-- **设定一个质量属性的新目标（指标 / 基线）？** 是 → **非功能需求**。
-- **新增 / 改变面向用户的能力？** 是 → **功能需求**。
-- **说的是「怎么做」（实现结构 / 技术选择），还是指向一个可交付工作单元？** 前者 → **设计方案类**；后者 → **任务类**。
-
-tie-break：
-
-- **设计方案 vs 任务**：同时疑似时，看有无指向可交付工作单元——有 → 任务类；只是技术取向 → 设计方案类。
-- **缺陷 vs 非功能**：偏离既定基线 → 缺陷类；设新目标 → 非功能需求。
-- **缺陷 vs 功能**：曾经可用 / 曾被规定过 → 缺陷类；从未存在 → 功能需求。
-- **设计方案-服务业务 vs 设计方案-服务技术**：倒推出的目标落在用户/业务结果 → 倒推为功能需求；落在系统/技术指标且自洽 → 实为合理的技术工作（任务类）。
+- **Mutual exclusivity** comes from the singleness of the decision question; boundary ambiguity is cut by the tie-breaks in §2.
+- **Exhaustiveness** comes from "insufficient information" as the fallback — any intake whose core cannot be identified lands there.
+- The two "is a requirement" kinds are defined by the types in [specs/requirement-modeling.md](../specs/requirement-modeling.md); this rule does not redefine them.
 
 ---
 
-## 3. 正交属性：完整度
+## 2. Decision questions and tie-breaks
 
-完整度独立于性质，**不进性质轴**。一条功能需求可以「完整」或「部分缺失」。
+Apply the single questions in order and classify on the first hit. Where several kinds look plausible, cut with the tie-breaks:
 
-| 完整度 | 判据 |
+- **Can you not even tell whether this is a feature change, a bug fix, or technical work?** Yes → **insufficient information** (the fallback has the highest precedence, on a deliberately narrow trigger: only when the kind is entirely undecidable).
+- **Has existing behaviour departed from an established expectation (a fault, a regression, falling below a known baseline)?** Yes → **defect**.
+- **Does it set a new target for a quality attribute (a metric, a baseline)?** Yes → **non-functional requirement**.
+- **Does it add or change a user-facing capability?** Yes → **functional requirement**.
+- **Is it saying "how to do it" (an implementation structure, a technology choice), or is it pointing at a deliverable unit of work?** The former → **design proposal**; the latter → **task**.
+
+Tie-breaks:
+
+- **Design proposal vs task**: when both look plausible, check whether it points at a deliverable unit of work — if it does → task; if it is only a technical leaning → design proposal.
+- **Defect vs non-functional**: departing from an established baseline → defect; setting a new target → non-functional requirement.
+- **Defect vs functional**: it once worked, or was once specified → defect; it did not exist before → functional requirement.
+- **Design proposal serving business vs serving technology**: if the goal you work back to lands on a user or business outcome → work it back into a functional requirement; if it lands on a system or technical metric and is self-consistent → it is genuinely reasonable technical work, so classify it as a task.
+
+---
+
+## 3. An orthogonal attribute: completeness
+
+Completeness is independent of kind and **does not belong on the kind axis**. A functional requirement can be either "complete" or "partially missing".
+
+| Completeness | Criterion |
 |---|---|
-| 完整 | 该性质所需内核齐全 |
-| 部分缺失 | 能识别出内核但缺关键要素 |
+| Complete | The core that kind requires is fully present |
+| Partially missing | The core is identifiable but a key element is absent |
 
 ---
 
-## 4. 各性质的合理性镜头
+## 4. Soundness lenses per kind
 
-评审以合理性为脊柱（判逻辑/业务成立性），不以格式为脊柱。每类镜头切分两栏：
+Review runs on soundness as its spine — judging whether the logic and the business case hold — not on format. Each lens splits into two columns:
 
-- **可断言**：仅凭文本即可下结论（层次混淆 / 手段-目的缺口 / 无法验收 / 内部矛盾）。
-- **需提问**：依赖业务上下文，只作探问 + 风险提示，**不下判决**（业务价值真伪 / 优先级 / 市场判断）。
+- **Assertable**: a conclusion can be drawn from the text alone (level confusion / a gap between means and ends / not acceptance-testable / internal contradiction).
+- **Ask, do not assert**: it depends on business context, so only probe and flag the risk. **Do not pass judgement** (whether the business value is real / priority / market judgement).
 
-| 性质 | 可断言镜头 | 需提问镜头 |
+| Kind | Assertable lens | Ask-only lens |
 |---|---|---|
-| 功能需求 | 逻辑自洽、方案-问题匹配、验收可推出目标 | 价值真伪、优先级 |
-| 非功能需求 | 指标具体、有基线、可测 | 目标水平是否值得 |
-| 设计方案类 | **倒推隐含需求**；评其成立性 + 方案是否对症 / 过度设计；无法验收 | 倒推需求的业务价值 |
-| 任务类 | 倒推它服务的需求；技术必要性、影响范围 | 优先级、ROI |
-| 缺陷类 | 根因清晰度、影响面、复现可靠性 | 修复优先级 |
-| 信息不足 | 标注缺失项；不硬套类型 | — |
+| Functional requirement | Internally coherent, solution matches problem, the acceptance implies the goal | Whether the value is real, priority |
+| Non-functional requirement | The metric is concrete, has a baseline, is measurable | Whether that target level is worth it |
+| Design proposal | **Work back to the implied requirement**; judge whether it holds, whether the approach fits the problem, whether it is over-engineered; not acceptance-testable | The business value of the requirement worked back to |
+| Task | Work back to the requirement it serves; technical necessity, blast radius | Priority, ROI |
+| Defect | Clarity of root cause, blast radius, reliability of reproduction | Fix priority |
+| Insufficient information | Note what is missing; do not force it into a kind | — |
 
-**设计方案类 / 任务类的关键守则**：倒推隐含需求并评其成立性，**不评设计 / 任务的技术优劣**——对其技术细节打分等于奖励误投。
+**The key discipline for design proposals and tasks**: work back to the implied requirement and judge whether that holds. **Do not judge the technical merit of the design or the task** — scoring their technical detail rewards filing the wrong kind of item.
 
 ---
 
-## 5. 消费方处置差异
+## 5. How consumers differ in what they do next
 
-诊断（§1–§4）统一；处置因消费方的交互模型而异，**不统一**。
+Diagnosis (§1–§4) is shared; what happens next varies by the consumer's interaction model and is **not** shared.
 
-| 消费方 | 交互模型 | 处置 |
+| Consumer | Interaction model | What it does |
 |---|---|---|
-| 上游澄清 | 多轮交互 | 按性质走不同澄清 workflow：设计/任务 → 回推需求；缺陷 → bug 澄清流；信息不足 → 从零问起；属需求 → 标准补缺 |
-| 下游评审 | 一次性 | 按性质选合理性镜头，诊断 + 打分，不修复；非需求类给低分并附倒推，不退回 |
+| Upstream clarification | Multiple rounds | Route to a different clarification workflow by kind: design or task → work back to the requirement; defect → the bug clarification flow; insufficient information → start from scratch; is a requirement → fill the gaps as normal |
+| Downstream review | One-shot | Pick the soundness lens by kind, then diagnose and score without fixing. Non-requirement kinds get a low score plus the requirement worked back to, and are not sent back |
 
 ---
 
-## 反模式
+## Anti-patterns
 
-- ❌ 把完整度档位塞进性质轴（性质量「是什么」，完整度量「有多少」，两轴正交）
-- ❌ 对误投的设计方案 / 任务评其技术优劣，而非倒推需求 + 合理性
-- ❌ 凡识别不出类型就硬塞某一类，而非归「信息不足」
-- ❌ 以格式（缺哪节）为评审脊柱，而非合理性
-- ❌ 对「需提问」镜头下业务判决（模型无业务上下文时只应探问）
+- ❌ Forcing a completeness grade onto the kind axis — kind measures "what it is", completeness measures "how much of it there is", and the two axes are orthogonal
+- ❌ Judging the technical merit of a misfiled design proposal or task, instead of working back to the requirement and judging its soundness
+- ❌ Forcing anything unidentifiable into some kind rather than classifying it as insufficient information
+- ❌ Running review on format — which section is missing — as its spine, rather than on soundness
+- ❌ Passing business judgement through an ask-only lens; with no business context the model can only probe
 
 ---
 
-## 变更记录
+## Change log
 
 ### 1.0.0 — 2026-06-18
 
-**Initial Release**：定义需求进件 6 类性质分诊词表（功能需求 / 非功能需求 / 设计方案类 / 任务类 / 缺陷类 / 信息不足）+ 判别问句 + tie-break + 正交完整度 + 各性质合理性镜头（可断言 / 需提问切分）+ 消费方处置差异。配套 [specs/requirement-modeling.md](../specs/requirement-modeling.md) 类型收窄（缺陷 / 技术任务降级为分诊标签）。
+**Initial Release**: defines the 6-kind triage vocabulary for requirement intake (functional requirement / non-functional requirement / design proposal / task / defect / insufficient information), the decision questions, the tie-breaks, completeness as an orthogonal attribute, the soundness lens per kind split into assertable and ask-only, and how consumers differ in what they do next. Pairs with the type narrowing in [specs/requirement-modeling.md](../specs/requirement-modeling.md), where defect and technical task are demoted to triage labels.

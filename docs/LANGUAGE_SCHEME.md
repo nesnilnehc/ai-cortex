@@ -114,8 +114,8 @@ Conversion from Chinese-first to English-first, in descending order of reader im
 | Stage | Assets | Status |
 | :--- | :--- | :--- |
 | E0 | This document | done |
-| E1 | `README.md`, `AGENTS.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md` | |
-| E2 | `rules/*.md` | |
+| E1 | `README.md`, `AGENTS.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md` | done |
+| E2 | `rules/*.md` | done |
 | E3 | `specs/*.md`, `protocols/*.md` | |
 | E4 | `docs/**` (excluding `adr/` and `designs/`) | |
 | E5 | `skills/*/README.md` | |

@@ -39,8 +39,8 @@ When the project limit is exceeded, first split out a module-level CLAUDE.md, th
 
 ### Use imperatives or assertions
 
-✅ "使用 pnpm，不要用 npm"
-❌ "本项目的包管理器经过团队讨论后决定使用 pnpm，因为..."
+✅ "Use pnpm, not npm"
+❌ "After team discussion this project settled on pnpm as its package manager, because..."
 
 ### Mark the critical constraints explicitly
 
@@ -52,7 +52,7 @@ Prefix an unbreakable rule with `IMPORTANT:`, `NEVER:` or `ALWAYS:`. The model i
 
 ### No vague wording
 
-Avoid "尽量", "建议", "最好". A rule's binding strength needs to be unambiguous: either it is mandatory, or it is deleted.
+Avoid hedges — "try to", "ideally", "where possible", "consider", "if practical". In Chinese documents the equivalents are "尽量", "建议", "最好". A rule's binding strength needs to be unambiguous: either it is mandatory, or it is deleted.
 
 ---
 
@@ -62,7 +62,7 @@ The following **must not** appear in a CLAUDE.md:
 
 | No-go zone | Why |
 |---|---|
-| General programming knowledge (Docker, REST, the test pyramid) | The AI already knows it; writing it in only dilutes the context |
+| General programming knowledge (Docker, REST, the test pyramid and the like) | The AI already knows it; writing it in only dilutes the context |
 | Volatile state (sprint, owner, todos, temporary branch names) | That belongs in an issue tracker or a wiki |
 | Sensitive material (keys, tokens, production IPs, internal domains, PII) | A security risk; once CLAUDE.md is in git, it has leaked |
 | A full restatement of the README, CONTRIBUTING or architecture docs | Two sources drift apart; link instead |
@@ -151,7 +151,7 @@ Docker 是一个容器化平台，使用 Dockerfile 定义镜像...
 1. **Too long**: split out a module-level CLAUDE.md, or delete the "general knowledge" sections
 2. **Written as prose**: rewrite as imperatives; keep the constraint, drop the argument for it
 3. **No-go content crept in**: delete general knowledge; move volatile state to the issue tracker; remove sensitive material at once and rotate it
-4. **Missing critical marks**: prefix the expensive rules with `IMPORTANT:` and move them to the end of the file
+4. **Missing critical marks**: prefix the high-stakes rules — those whose violation is costly — with `IMPORTANT:` and move them to the end of the file
 5. **README restatement**: replace with a `> 项目介绍见 [README.md](../README.md)` link
 
 ---

@@ -38,7 +38,7 @@ An assertion on non-deterministic behaviour must hit at least one of these oracl
 
 ### 3. Marking and isolating tests that hit a real model
 
-- A test that hits a real model API must carry an `eval` or `e2e` marker (for example `@pytest.mark.eval`) and stays out of the default unit pipeline
+- A test that hits a real model API must carry an `eval` or `e2e` marker (for example `@pytest.mark.eval`) and must stay out of the default unit pipeline
 - The default unit pipeline uses a mock LLM or recorded response replay, for determinism and speed
 - Mocks isolate model non-determinism only. You **must not** mock the agent's own logic — intent recognition, field validation, tool selection
 
@@ -46,7 +46,7 @@ An assertion on non-deterministic behaviour must hit at least one of these oracl
 
 - Any change to the model version, the prompt template or a tool definition → the full golden eval must be run
 - A golden eval pass rate below the contract threshold blocks the merge
-- The change records a model version comparison — pass rate before against after
+- Every such change must record a model version comparison — pass rate before against after
 
 ### 5. Maintaining the golden dataset
 
@@ -64,29 +64,29 @@ An assertion on non-deterministic behaviour must hit at least one of these oracl
 ## Bad Patterns
 
 ```python
-# ❌ 对 LLM 自由文本做精确断言
+# ❌ exact assertion on free-form LLM text
 def test_agent_reply():
     reply = agent.handle("我要提个需求")
-    assert reply == "您的需求已记录"   # 模型措辞一变即误红
+    assert reply == "您的需求已记录"   # one wording change and it goes red for no reason
 ```
 
 ```python
-# ❌ 真实模型测试无 marker，混进 unit 管道
+# ❌ a real-model test with no marker, leaking into the unit pipeline
 def test_clarification_flow():
-    result = agent.run(real_llm_client, payload)  # CI 慢且 flaky
+    result = agent.run(real_llm_client, payload)  # slow and flaky in CI
     assert result.ok
 ```
 
 ```python
-# ❌ mock 掉 agent 自身的意图识别逻辑
+# ❌ mocking away the agent's own intent recognition
 def test_intent():
     agent.detect_intent = Mock(return_value="create_requirement")
-    assert agent.detect_intent("...") == "create_requirement"  # 测了个寂寞
+    assert agent.detect_intent("...") == "create_requirement"  # this tests nothing
 ```
 
 ```text
-# ❌ prompt 改了不跑 golden eval 直接合并
-# ❌ agent 无测试契约，测试断言无 Covers 追溯
+# ❌ merging a prompt change without running the golden eval
+# ❌ an agent with no test contract, whose assertions have no Covers anchor
 ```
 
 ---

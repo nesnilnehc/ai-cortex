@@ -18,9 +18,9 @@ Every act of creating, naming or maintaining a Markdown document (`.md`), coveri
 ## Constraints
 
 1. **Minimise**: do not create a document to record a thinking process. Product documentation carries neither discussion history nor traces of version evolution — see "Identifying a temporary document" below.
-2. **DRY**: do not repeat the same content across documents. A topic has one authoritative document; everywhere else links to it.
-3. **Reader-oriented**: write usage documentation that solves a real problem. Do not write process-oriented notes to self.
-4. **A temporary document must be labelled as one**: any document meeting a condition below must carry a date prefix or a `.draft` suffix in its filename, and live in a dedicated directory (`docs/designs/`, `experiments/`, `meetings/`).
+2. **DRY**: do not repeat the same content across documents. A topic must have exactly one authoritative document; everywhere else links to it.
+3. **Reader-oriented**: write only usage documentation that solves a real problem. Do not write process-oriented records of your own thinking.
+4. **A temporary document must be labelled as one**: any document meeting a condition below must carry a date prefix or a `.draft` suffix in its filename, and live in a dedicated directory such as `docs/designs/`, `experiments/` or `meetings/`.
 5. **Change records go where they belong**: version changes into `CHANGELOG.md`, improvement notes into an issue or PR. Do not open a new document for them.
 
 ---
@@ -33,6 +33,8 @@ Every act of creating, naming or maintaining a Markdown document (`.md`), coveri
 - A process record that neither starts with `YYYY-MM-DD-` nor ends in `.draft.md`
 
 ### By body
+
+These patterns match Chinese-language document bodies, the repository's historical corpus. English documents need the equivalent grep set — `since v1.3` / `removed in` / `deprecated` / `TBD` / `as mentioned above` / `we decided` / `I recommend` — which is not yet enumerated here.
 
 - **Version-evolution narration**: `v\d+\.\d+ 起` / `v\d+\.\d+ 移除` / `v\d+\.\d+ 简化` / `v\d+\.\d+ 回撤` / `v\d+\.\d+ 引入`
 - **Section-heading suffixes**: `（新增）` / `（已废弃）` / `（v\d.\d 简化）` / `（v\d.\d 重写）`
@@ -60,7 +62,7 @@ Shorthand, references and first-person narration established between an author a
 - The "change record" section at the top of a spec file — a local CHANGELOG, an accepted convention
 - An ADR's own "context / decision / alternatives / consequences" narration — that is its genre
 - The whole of `CHANGELOG.md`
-- **The example fragments in this rule (`workflow-documentation.md`) that demonstrate the forbidden patterns** — a rule defining a forbidden zone necessarily has to show those patterns as counter-examples, on the same reasoning as the blanket CHANGELOG exception
+- **The example fragments in this rule (`workflow-documentation.md`) that demonstrate the forbidden patterns** — a rule defining a no-go zone necessarily has to show those patterns as counter-examples, on the same reasoning as the blanket CHANGELOG exception
 
 ---
 

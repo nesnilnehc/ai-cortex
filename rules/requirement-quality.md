@@ -25,7 +25,7 @@ Authors self-check against this list before submitting for review. The checkpoin
 
 - [ ] All 8 required fields are filled in (ID, title, background, objective, acceptance, source, dependencies, risks)
 - [ ] The background field carries a user story or a problem statement, and **not** a solution or technical detail
-- [ ] More than 3 acceptance criteria, covering both functional scope and quality requirements
+- [ ] At least 3 acceptance criteria, covering both functional scope and quality requirements
 - [ ] The requirement's source is clear and traceable — not "someone mentioned it" or "passed on verbally"
 
 ### 2. Executability — can an implementer start immediately?
@@ -33,7 +33,7 @@ Authors self-check against this list before submitting for review. The checkpoin
 - [ ] The dependency list is clear, with the critical ones marked
 - [ ] Every precondition states how it is verified, without ambiguity
 - [ ] Every acceptance criterion is automatically verifiable or plainly testable
-- [ ] A scope definition exists, or the "simple requirement" exemption applies, and the boundary is clear
+- [ ] Either a scope definition exists or the "simple requirement" exemption applies — and either way the boundary is clear
 - [ ] The open questions list is complete, and blocking questions have a resolution
 
 ### 3. Clarity — is it easy to read and unambiguous?
@@ -56,10 +56,10 @@ Authors self-check against this list before submitting for review. The checkpoin
 ### 5. Traceability — can evolution and impact be traced?
 
 - [ ] The requirement ID follows the format PROJECT-REQ-nn and is not duplicated
-- [ ] The source is explicit (feature request / business goal / incident) and traceable
+- [ ] The source is explicit (feature request / business goal / incident and the like) and traceable
 - [ ] Dependencies are accurate, with no circular reference
 - [ ] Related documents are complete — specs, ADRs, knowledge base links
-- [ ] Business rules escalated to required carry a stable id, and rule-derived acceptance criteria cite it back (for example 「覆盖 R3」)
+- [ ] Business rules escalated to required carry a stable id, and rule-derived acceptance criteria cite it back (for example `覆盖 R3`)
 - [ ] Version history is clear; where the requirement has iterated, each change record states its reason
 
 ---
