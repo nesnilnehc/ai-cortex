@@ -1,37 +1,37 @@
-# 定义战略支柱
+# Define Strategic Pillars
 
-从愿景与北极星衍生 3–5 个战略支柱（高层主题），用于组织后续战略目标与路线图。
+Derives 3–5 strategic pillars (high-level themes) from the vision and the North Star, used to organize the strategic goals and roadmap that follow.
 
-## 用途
+## Purpose
 
-产出战略支柱文档，包含 3–5 个与愿景和北极星一致的主题。后续目标与路线图可按支柱进行分组。本技能不定义使命、愿景、北极星、目标、里程碑或路线图。默认输出到 `docs/project-overview/strategic-pillars.md`（或按项目规范路径）。
+Produces a strategic pillars document holding 3–5 themes consistent with the vision and the North Star. Later goals and roadmaps can be grouped by pillar. This skill does not define the mission, vision, North Star, goals, milestones, or roadmap. Output goes by default to `docs/project-overview/strategic-pillars.md` (or the path set by the project norm).
 
-## 何时使用
+## When to use
 
-- 在愿景和北极星之后，先建立稳定主题，再组织目标和路线图。
-- 需要战略结构层时，使用支柱统一归类不同目标与行动方向。
-- 适用于战略链路：使命 → 愿景 → 北极星 → 支柱 → 目标 → 里程碑 → 路线图。
+- After the vision and the North Star: establish stable themes first, then organize the goals and the roadmap.
+- When a structural strategy layer is needed: use pillars to file differing goals and directions of action under one scheme.
+- Fits the strategy chain: mission → vision → North Star → pillars → goals → milestones → roadmap.
 
-## 输入
+## Inputs
 
-- 愿景、北极星（或对应文档路径）、项目背景
-- 可选：使命、现有目标、现有支柱草案
+- The vision, the North Star (or the paths to those documents), project context
+- Optional: the mission, existing goals, an existing pillars draft
 
-## 输出
+## Outputs
 
-- 战略支柱文档（默认 `docs/project-overview/strategic-pillars.md`）
-- 内容包含 3–5 个支柱（名称 + 描述），可选说明其与愿景/NSM 的关系
+- A strategic pillars document (by default `docs/project-overview/strategic-pillars.md`)
+- It holds 3–5 pillars (name + description), optionally spelling out how each relates to the vision/NSM
 
-## 安装
+## Install
 
-统一由 AI Cortex 的 canonical 安装管理，见仓库根 [README](../../README.md#-install-and-use)。
+Handled centrally by the canonical AI Cortex install; see the repository root [README](../../README.md#-install-and-use).
 
-## 相关技能
+## Related skills
 
-- `define-vision`、`define-north-star`：上游输入来源
-- `design-strategic-goals`：下游可将目标映射到支柱
-- `define-roadmap`：下游可按支柱组织路线图主题
+- `define-vision`, `define-north-star`: the upstream inputs
+- `design-strategic-goals`: downstream, maps the goals onto the pillars
+- `define-roadmap`: downstream, organizes roadmap themes by pillar
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md) 了解行为、限制和示例。
+See [SKILL.md](./SKILL.md) for behavior, limits, and examples.

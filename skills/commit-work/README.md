@@ -1,54 +1,54 @@
-# 提交工作
+# Commit Work
 
-使用 AI Cortex 治理创建高质量的 git 提交——审查更改、逻辑拆分、编写 Conventional Commits 消息，并同步相关 INDEX。
+Creates high-quality git commits under AI Cortex governance — review the changes, split them along logical lines, write a Conventional Commits message, and sync the relevant INDEX.
 
-## 概述
+## Overview
 
-这项技能可以帮助您做出易于审查且安全交付的提交。它指导您检查更改、将混合工作拆分为逻辑提交、编写清晰的常规提交消息以及运行适当的验证步骤。
+This skill helps you produce commits that are easy to review and safe to ship. It walks you through inspecting the changes, splitting mixed work into logical commits, writing a clear Conventional Commits message, and running the fitting verification steps.
 
-## 来源与 AI Cortex 增强
+## Origin and AI Cortex additions
 
-这是 `softaworks/agent-toolkit` 中 `commit-work` 的本地 vendored 派生版本。AI Cortex 保留提交检查、逻辑拆分、补丁暂存和 Conventional Commits 工作流，并增加本仓库 review、INDEX 同步和输出契约。
+This is a locally vendored derivative of `commit-work` from `softaworks/agent-toolkit`. AI Cortex keeps the commit inspection, logical splitting, patch staging, and Conventional Commits workflow, and adds this repository's review, INDEX sync, and output contract.
 
-固定上游 commit、digest、本地修改和许可证记录见 [`../SOURCES.yaml`](../SOURCES.yaml)；版权通知见 [THIRD_PARTY_NOTICES](../../docs/references/THIRD_PARTY_NOTICES.md)。历史上未经验证的 `anthropics/skills (assumed)` 来源不再使用。
+The pinned upstream commit, digest, local modifications, and license record live in [`../SOURCES.yaml`](../SOURCES.yaml); copyright notices live in [THIRD_PARTY_NOTICES](../../docs/references/THIRD_PARTY_NOTICES.md). The historical, unverified `anthropics/skills (assumed)` origin is no longer in use.
 
-- **当前版本**：2.0.1
-- **许可证**：MIT
+- **Current version**: 2.0.1
+- **License**: MIT
 
-## 安装
+## Install
 
-统一由 AI Cortex 的 canonical 安装管理，见仓库根 [README](../../README.md#-install-and-use)。Agent 运行时不得从上游或 skills.sh 单独下载、替换本 Skill。
+Handled centrally by the canonical AI Cortex install; see the repository root [README](../../README.md#-install-and-use). An agent runtime must not download or replace this skill on its own, from upstream or from skills.sh.
 
-该技能适用于任何 git 仓库；在 AI Cortex 仓库中会额外检查对应 INDEX 是否同步。
+The skill works in any git repository; inside the AI Cortex repository it additionally checks that the matching INDEX is in sync.
 
-## 用法
+## Usage
 
-当您需要时激活此技能：
+Activate this skill when you need to:
 
-- 以清晰、可审查的方式提交您的工作
-- 将混合更改拆分为逻辑、原子提交
-- 编写常规提交消息
-- 在推送之前确保提交符合质量标准
-- 维护 AI Cortex 项目中的注册表同步
+- Commit your work in a clear, reviewable form
+- Split mixed changes into logical, atomic commits
+- Write a Conventional Commits message
+- Get a commit up to the quality bar before pushing
+- Keep the registries of an AI Cortex project in sync
 
-该技能将指导您完成从检查到验证的全面工作流程。
+The skill guides you through the whole workflow, from inspection to verification.
 
-## 主要特点
+## Key features
 
-### 工作流程步骤
+### Workflow steps
 
-1. 登台前检查工作树
-2. **运行提交前审查**（AI Cortex 增强）
-3. 决定提交边界并根据需要进行拆分
-4. 仅暂存相关更改
-5. 仔细审查分阶段的变更
-6. 清楚地描述变化
-7. 编写常规提交消息
-8. 运行验证（测试/lint）
-9. **如果需要同步注册表**（AI Cortex 项目）
-10.重复直到工作树干净
+1. Inspect the working tree before staging
+2. **Run the pre-commit review** (AI Cortex addition)
+3. Decide the commit boundaries and split as needed
+4. Stage only the relevant changes
+5. Review the staged changes carefully
+6. Describe the change clearly
+7. Write the Conventional Commits message
+8. Run verification (tests/lint)
+9. **Sync the registries if needed** (AI Cortex projects)
+10.Repeat until the working tree is clean
 
-### 常规提交格式
+### Conventional Commits format
 
 ```text
 type(scope): short summary
@@ -58,32 +58,32 @@ body explaining what and why
 footer (BREAKING CHANGE if needed)
 ```
 
-支持的类型：`feat`、`fix`、`refactor`、`docs`、`test`、`chore`、`perf`、`style`
+Supported types: `feat`, `fix`, `refactor`, `docs`, `test`, `chore`, `perf`, `style`
 
-## 示例 (Examples)
+## Examples
 
-请参阅 [SKILL.md](SKILL.md#examples) 了解详细示例，包括：
+See [SKILL.md](SKILL.md#examples) for worked examples, including:
 
-- 简单的功能添加
-- 需要拆分的混合更改
-- AI Cortex 技能添加与注册表同步
+- A simple feature addition
+- Mixed changes that need splitting
+- Adding an AI Cortex skill alongside the registry sync
 
-## 相关技能
+## Related skills
 
-- [review-diff](../review-diff/SKILL.md): 预提交代码审查（集成在步骤 2 中）
+- [review-diff](../review-diff/SKILL.md): pre-commit code review (wired into step 2)
 
-## 贡献
+## Contributing
 
-这项技能是 AI Cortex 项目的一部分。提出改进建议：
+This skill is part of the AI Cortex project. To propose an improvement:
 
-1. 在 [nesnilnehc/ai-cortex](https://github.com/nesnilnehc/ai-cortex) 提出问题
-2. 遵循贡献指南
-3. 确保变更保持向后兼容性或明确记录重大变更
+1. Open an issue at [nesnilnehc/ai-cortex](https://github.com/nesnilnehc/ai-cortex)
+2. Follow the contribution guidelines
+3. Keep the change backward compatible, or document the breaking change explicitly
 
-## 许可证
+## License
 
-MIT；上游版权通知见 [THIRD_PARTY_NOTICES](../../docs/references/THIRD_PARTY_NOTICES.md)。
+MIT; upstream copyright notices are in [THIRD_PARTY_NOTICES](../../docs/references/THIRD_PARTY_NOTICES.md).
 
-## 反馈
+## Feedback
 
-如果您发现问题或有改进建议，请在 [AI Cortex 存储库](https://github.com/nesnilnehc/ai-cortex/issues) 中提出问题。
+If you hit a problem or have an improvement in mind, open an issue in the [AI Cortex repository](https://github.com/nesnilnehc/ai-cortex/issues).

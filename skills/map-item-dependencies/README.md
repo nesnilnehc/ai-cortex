@@ -1,40 +1,40 @@
-# 映射条目依赖（Map Item Dependencies）
+# Map Item Dependencies
 
-识别 backlog 与 roadmap 条目之间的依赖，写入条目 `depends_on`，产出依赖图与阻塞清单。在晋升前运行，避免被阻塞的条目被拉进 Now。
+Identifies the dependencies among backlog and roadmap items, writes them into each item's `depends_on`, and produces a dependency graph and a blocked list. Runs before promotion, so blocked items do not get pulled into Now.
 
-## 用途
+## Purpose
 
-按五类（技术 / 团队 / 外部 / 知识 / 顺序）逐一排查条目间依赖，标注「需在何时前解决」与责任方，对高风险依赖给出削减建议，并输出可被 `promote-roadmap-items` 直接消费的阻塞清单。依赖是路线图上风险最高的一类因素——它不体现在优先级里，也不体现在容量里，但会让高优先级条目进入 Now 后原地卡住。
+Walks the dependencies between items in five categories (technical / team / external / knowledge / sequencing), records "needed by when" and who owns it, gives reduction options for the high-risk ones, and emits a blocked list that `promote-roadmap-items` can consume directly. Dependencies are the highest-risk factor on a roadmap — they appear neither in the priority nor in the capacity, yet they leave a high-priority item stuck in place once it enters Now.
 
-## 何时使用
+## When to use
 
-- **晋升前**：候选条目 ≥ 2 时先跑，避免把被阻塞条目拉进 Now
-- **排期评审**：需要看清哪些条目必须串行、哪些可以并行
-- **卡住时复盘**：Now 层条目迟迟不动，排查是否有未登记的前置
+- **Before promotion**: run it first once there are ≥ 2 candidate items, so no blocked item gets pulled into Now
+- **Schedule review**: you need to see which items must run in series and which can run in parallel
+- **Post-mortem on a stall**: a Now-tier item has not moved in a long while, so check for an unrecorded prerequisite
 
-## 输入
+## Inputs
 
-- backlog 条目（任意 priority 状态）
+- Backlog items (in any priority state)
 - `docs/process-management/roadmap.md`
-- 可选：范围限定（默认取当前晋升候选）
+- Optional: a scope restriction (defaults to the current promotion candidates)
 
-## 输出
+## Outputs
 
-- 对话依赖图 + 需解决时点表 + 削减建议
-- 阻塞清单（哪些条目当前不可进 Now）
-- 各条目 frontmatter 的 `depends_on` 被更新
+- An in-conversation dependency graph + a need-by table + reduction options
+- A blocked list (which items cannot enter Now as things stand)
+- The `depends_on` field in each item's frontmatter is updated
 
-## 安装
+## Install
 
-统一由 AI Cortex 的 canonical 安装管理，见仓库根 [README](../../README.md#-install-and-use)。
+Handled centrally by the canonical AI Cortex install; see the repository root [README](../../README.md#-install-and-use).
 
-## 相关技能
+## Related skills
 
-- `promote-roadmap-items` —— 下游：Now 层准入护栏消费本技能产出的 `depends_on`
-- `prioritize-backlog` —— 上游：提供已评分的候选条目
-- `update-roadmap` —— 消费方：挪期时读 `depends_on` 计算下游影响
-- `orchestrate-roadmap-planning` —— 编排方：作为晋升前的第 5 步
+- `promote-roadmap-items` — downstream: the Now-tier admission guardrail consumes the `depends_on` this skill produces
+- `prioritize-backlog` — upstream: supplies the scored candidate items
+- `update-roadmap` — consumer: reads `depends_on` when shifting dates, to work out the downstream impact
+- `orchestrate-roadmap-planning` — orchestrator: this is step 5, the one before promotion
 
-## 完整定义
+## Full definition
 
-参见 [SKILL.md](./SKILL.md)。
+See [SKILL.md](./SKILL.md).

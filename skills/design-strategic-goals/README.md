@@ -1,38 +1,38 @@
-# 设计战略目标
+# Design Strategic Goals
 
-定义 3–5 个长期战略目标，推动项目朝着愿景和北极星方向发展。
+Defines 3–5 long-term strategic goals that move the project toward the vision and the North Star.
 
-## 用途
+## Purpose
 
-产出战略目标文档，包含 3–5 个与愿景和北极星一致、以结果为导向的目标。**长期项目（计划期 > 6 个月）必须包含一个"工程 / 治理健康"类目标**，为治理 / 技术债 / 文档类工作提供战略代言——这类工作若无战略目标代言，在价值竞争中永远排不进容量。本技能不定义使命、愿景、北极星或里程碑。默认输出到 `docs/project-overview/strategic-goals.md`（或按项目规范路径）。
+Produces a strategic goals document holding 3–5 outcome-oriented goals consistent with the vision and the North Star. **A long-term project (planning horizon > 6 months) must include one "engineering / governance health" goal**, which gives governance, tech-debt, and documentation work a strategic sponsor — without one, that kind of work never wins capacity in the competition for value. This skill does not define the mission, vision, North Star, or milestones. Output goes by default to `docs/project-overview/strategic-goals.md` (or the path set by the project norm).
 
-## 何时使用
+## When to use
 
-- 在愿景和北极星之后，设定 3–5 个结果型目标以推进 NSM。
-- 用于年度或季度战略更新，明确阶段内的核心结果。
-- 适用于战略链路：使命 → 愿景 → 北极星 → 支柱 → 目标。
+- After the vision and the North Star: set 3–5 outcome goals that advance the NSM.
+- For an annual or quarterly strategy update: pin down the core outcomes for the period.
+- Fits the strategy chain: mission → vision → North Star → pillars → goals.
 
-## 输入
+## Inputs
 
-- 愿景、北极星（或对应文档路径）、项目背景
-- 可选：使命、时间范围、现有目标或优先事项
+- The vision, the North Star (or the paths to those documents), project context
+- Optional: the mission, the time horizon, existing goals or priorities
 
-## 输出
+## Outputs
 
-- 战略目标文档（默认 `docs/project-overview/strategic-goals.md`）
-- 内容包含 3–5 个目标（标题 + 描述），可选补充“如何支持愿景/NSM”
+- A strategic goals document (by default `docs/project-overview/strategic-goals.md`)
+- It holds 3–5 goals (title + description), optionally adding "how this supports the vision/NSM"
 
-## 安装
+## Install
 
-统一由 AI Cortex 的 canonical 安装管理，见仓库根 [README](../../README.md#-install-and-use)。
+Handled centrally by the canonical AI Cortex install; see the repository root [README](../../README.md#-install-and-use).
 
-## 相关技能
+## Related skills
 
-- `define-mission`：定义项目存在意义
-- `define-vision`：定义长期未来状态
-- `define-north-star`：定义单一核心指标，目标应驱动其改进
-- `define-roadmap`：将目标拆解为阶段性检查点
+- `define-mission`: defines why the project exists
+- `define-vision`: defines the long-term future state
+- `define-north-star`: defines the single core metric that the goals drive upward
+- `define-roadmap`: breaks the goals down into stage checkpoints
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md) 了解行为、限制和示例。
+See [SKILL.md](./SKILL.md) for behavior, limits, and examples.

@@ -1,34 +1,34 @@
 # generate-standard-readme
 
-**状态**：已验证
+**Status**: Validated
 
-## 用途
+## Purpose
 
-生成高信息密度 README。章节按价值门槛裁剪，非固定数量。读者 30 秒内知道项目是啥、去哪看、怎么用。
+Generates a high-density README. Sections are pruned by a value threshold, not a fixed count. Within 30 seconds the reader knows what the project is, where to look, and how to use it.
 
-## 何时使用
+## When to use
 
-- 新项目：快速生成精简首页文档
-- 资产治理：统一跨服务 README 风格
-- 遗留系统：以最小信息量补全缺失文档
+- New project: produce a lean front-page document fast
+- Asset governance: unify README style across services
+- Legacy system: fill in the missing documentation with the least information that works
 
-## 不使用的情况
+## When not to use
 
-- 需要完整 docs/ 套件 → 由 AgentFabric runtime 或人工按 `docs/ARTIFACT_NORMS.md` 承接
-- 需要 AGENTS.md → `generate-agent-entry`
+- A full docs/ suite is needed → carried by the AgentFabric runtime or by hand, following `docs/ARTIFACT_NORMS.md`
+- AGENTS.md is needed → `generate-agent-entry`
 
-## 输入
+## Inputs
 
-- 项目名称 + 一句话描述（必需）
-- 项目类型：`code` 或 `doc`（可选，从仓库结构推断）
-- 许可证类型 + 文件路径（可选）
-- 安装命令、快速启动示例（code 类型可选）
-- 核心入口列表（可选）
+- Project name + one-line description (required)
+- Project type: `code` or `doc` (optional, inferred from the repository structure)
+- License type + file path (optional)
+- Install command, quick-start example (optional for the code type)
+- List of core entry points (optional)
 
-## 输出
+## Outputs
 
-章节数由价值门槛决定，最少 3 节：标题+说明 / 入口或使用 / 许可证。
+The value threshold decides how many sections there are, with a floor of 3: title + description / entry points or usage / license.
 
-## 完整定义
+## Full definition
 
-见 [SKILL.md](./SKILL.md)：章节策略、anti-fluff 规则、项目类型分流、失败案例。
+See [SKILL.md](./SKILL.md): the section strategy, the anti-fluff rules, project-type routing, failure cases.

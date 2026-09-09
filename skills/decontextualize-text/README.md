@@ -1,33 +1,33 @@
-# 去语境化文本 (Decontextualize Text)
+# Decontextualize Text
 
-**状态**：已验证
+**Status**: Validated
 
-## 用途
+## Purpose
 
-将具有私有上下文或内部依赖关系的文本转换为通用、无偏见的表达式。保留所做的事情和原因；删除人物、地点和内部条件。将专有名词替换为方法抽象、跨团队共享、匿名或公开发布的通用描述。
+Converts text that carries private context or internal dependencies into generic, unbiased wording. Keeps what was done and why; drops the people, the places, and the internal terms. Replaces proper nouns with generic descriptions fit for method abstraction, cross-team sharing, anonymization, or public release.
 
-## 何时使用
+## When to use
 
-- 泛化：将特定项目的经验教训转化为通用方法
-- 跨团队协作：删除行话或代号
-- 去识别化：在共享之前删除敏感名称
-- 发布准备：发布前的最后清理
+- Generalization: turn lessons from one project into a general method
+- Cross-team collaboration: strip jargon and code names
+- De-identification: remove sensitive names before sharing
+- Release preparation: the last pass before publishing
 
-## 输入
+## Inputs
 
-- 包含组织/公司/项目名称、内部约定或环境特定详细信息的文本
+- Text containing organization/company/project names, internal conventions, or environment-specific details
 
-## 输出
+## Outputs
 
-- 保留逻辑和结构的通用版本；无需额外上下文即可使用
+- A generic version that keeps the logic and the structure; usable with no extra context
 
-## 生态
+## Ecosystem
 
-|领域 |价值|
+| Field | Value |
 | :------------------------------------ | :-------------------------------------------------------- |
-|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:生成标准自述文件 |
-|市场地位 |差异化|
+| overlaps_with (owner/repo: skill name) | nesnilnehc/ai-cortex:generate-standard-readme |
+| Market position | Differentiated |
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md) 了解完整的行为、限制和示例。
+See [SKILL.md](./SKILL.md) for the full behavior, limits, and examples.

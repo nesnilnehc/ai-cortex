@@ -1,11 +1,11 @@
-# 公告发布
+# Announce Release
 
-**状态**：实验性的
+**Status**: Experimental
 
-## 用途
+## Purpose
 
-基于已发布 Release Package 生成多受众公告；在具备渠道能力且用户确认时投递。
+Generates multi-audience announcements from a published Release Package; delivers them when the channel capability is available and the user confirms.
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md)。
+See [SKILL.md](./SKILL.md).

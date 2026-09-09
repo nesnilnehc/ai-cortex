@@ -1,38 +1,38 @@
-# 定义北极星
+# Define North Star
 
-定义代表向用户提供的核心价值的最重要的单一指标（北极星指标）。
+Defines the single most important metric that represents the core value delivered to users (the North Star Metric).
 
-## 用途
+## Purpose
 
-使用以下链导出并记录一个北极星指标 (NSM)：用户 → 核心价值 → 主要操作 → 可观察行为 → 可衡量指标。确保指标反映用户价值、行为和持续参与度（而不是虚荣心）。输出包括 NSM、基本原理、可选的 3-5 个支持指标以及反北极星示例。坚持“docs/project-overview/north-star.md”（或项目规范）。
+Derives and records one North Star Metric (NSM) along this chain: user → core value → primary action → observable behavior → measurable metric. Keeps the metric tied to user value, behavior, and sustained engagement rather than vanity. The output covers the NSM, its rationale, an optional 3-5 supporting metrics, and anti-North-Star examples. Persisted to "docs/project-overview/north-star.md" (or wherever the project norm puts it).
 
-## 何时使用
+## When to use
 
-- 愿景之后——建立一个衡量“交付价值”的指标。
-- 产品优先级——指导优化内容的单一指标。
-- 取代虚荣指标——当重点是收入/总用户数/下载量并且您想要一个用户价值锚时。
-- 战略链的第三层——追求使命和愿景。
+- After the vision — establish a metric that measures "value delivered".
+- Product prioritization — the single metric that steers what gets optimized.
+- Replacing vanity metrics — when the focus is revenue/total users/downloads and you want an anchor on user value.
+- The third layer of the strategy chain — it follows the mission and the vision.
 
-## 输入
+## Inputs
 
-- 项目/产品描述；目标用户；核心价值主张（或使命/愿景）。
-- 可选：当前指标、限制、可比产品示例。
+- Project/product description; target users; the core value proposition (or the mission/vision).
+- Optional: current metrics, constraints, examples from comparable products.
 
-## 输出
+## Outputs
 
-- North Star 文档位于“docs/project-overview/north-star.md”（或项目规范）：NSM + 基本原理、可选支持指标、反示例。
+- A North Star document at "docs/project-overview/north-star.md" (or wherever the project norm puts it): NSM + rationale, optional supporting metrics, counter-examples.
 
-## 安装
+## Install
 
-统一由 AI Cortex 的 canonical 安装管理，见仓库根 [README](../../README.md#-install-and-use)。
+Handled centrally by the canonical AI Cortex install; see the repository root [README](../../README.md#-install-and-use).
 
-## 相关技能
+## Related skills
 
-- “定义使命”——我们为何存在。
-- “定义愿景”——我们构建什么样的未来。
-- `设计战略目标` — 下一页：推动 NSM 的 3-5 个结果。
-- `define-roadmap` — 目标的阶段检查点。
+- "define-mission" — why we exist.
+- "define-vision" — what future we are building.
+- `design-strategic-goals` — next: the 3-5 outcomes that move the NSM.
+- `define-roadmap` — the stage checkpoints for the goals.
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md) 了解行为、限制、推导框架和示例。
+See [SKILL.md](./SKILL.md) for behavior, limits, the derivation framework, and examples.

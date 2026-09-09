@@ -1,39 +1,39 @@
-# 定义使命 (define-mission)
+# Define Mission (define-mission)
 
-定义项目或组织的基本目的。回答「项目为何存在？」。
+Defines the fundamental purpose of a project or organization. Answers "why does this project exist?".
 
-## 用途
+## Purpose
 
-引出并记录一个单一的使命宣言（1-3句话），说明该项目存在的原因。不定义愿景、北极星指标、目标或里程碑。输出保存到“docs/project-overview/mission.md”（或项目规范）。
+Draws out and records a single mission statement (1-3 sentences) saying why the project exists. Does not define the vision, the North Star metric, goals, or milestones. The output is saved to "docs/project-overview/mission.md" (or wherever the project norm puts it).
 
-## 何时使用
+## When to use
 
-- 新项目或倡议——在愿景或战略中确定“我们存在的原因”。
-- 更新策略——方向不明确时重新定位。
-- 战略链的顶部——构建任务→愿景→北极星→目标→里程碑时首次运行。
+- A new project or initiative — settle "why we exist" within the vision or the strategy.
+- A strategy refresh — re-anchor when the direction has blurred.
+- The top of the strategy chain — the first run when building mission → vision → North Star → goals → milestones.
 
-## 输入
+## Inputs
 
-- 项目或产品标识符；当前对目的的理解（来自文档、自述文件或用户）。
-- 任选：现有任务草案、受众、问题陈述。
+- The project or product identifier; the current understanding of its purpose (from the docs, the README, or the user).
+- Optional: an existing mission draft, the audience, the problem statement.
 
-## 输出
+## Outputs
 
-- 使命宣言文档位于“docs/project-overview/mission.md”（或遵循项目规范）。
-- 任选：“为谁”、“解决核心问题”（1-2行）。
+- A mission statement document at "docs/project-overview/mission.md" (or wherever the project norm puts it).
+- Optional: "for whom" and "the core problem solved" (1-2 lines).
 
-## 安装
+## Install
 
-统一由 AI Cortex 的 canonical 安装管理，见仓库根 [README](../../README.md#-install-and-use)。
+Handled centrally by the canonical AI Cortex install; see the repository root [README](../../README.md#-install-and-use).
 
-## 相关技能
+## Related skills
 
-- `define-vision` — 下一层：我们构建什么样的未来。
-- `define-north-star` — 用户价值的单一指标。
-- `design-strategic-goals` — 3–5 个战略成果。
-- `define-roadmap` — 路线图（含里程碑节点）与阶段检查点。
-- 完整 docs/ 结构由 AgentFabric runtime 或人工按 `docs/ARTIFACT_NORMS.md` 拉起
+- `define-vision` — the next layer: what future we are building.
+- `define-north-star` — the single metric for user value.
+- `design-strategic-goals` — 3–5 strategic outcomes.
+- `define-roadmap` — the roadmap (with its milestone nodes) and the stage checkpoints.
+- The full docs/ structure is stood up by the AgentFabric runtime or by hand, following `docs/ARTIFACT_NORMS.md`
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md) 了解行为、限制和示例。
+See [SKILL.md](./SKILL.md) for behavior, limits, and examples.

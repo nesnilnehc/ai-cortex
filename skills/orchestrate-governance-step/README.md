@@ -1,46 +1,46 @@
 # orchestrate-governance-step
 
-单步治理执行器——plan-next 的配对执行层。
+A single-step governance executor — the execution layer that pairs with plan-next.
 
-## 一句话
+## In one line
 
-读取 plan-next 路由输出，执行最高优先级动作，返回 `continuation_signal` 供 `/loop` 驱动迭代推进。
+Reads the routing output of plan-next, runs the highest-priority action, and returns a `continuation_signal` that `/loop` uses to drive the iteration forward.
 
-## 三层模型中的位置
+## Position in the three-layer model
 
 ```text
 /loop /orchestrate-governance-step 30m
-  └─ orchestrate-governance-step        ← 驱动层（本技能）
-       └─ /plan-next     ← 诊断层（只读）
+  └─ orchestrate-governance-step        ← driver layer (this skill)
+       └─ /plan-next     ← diagnostic layer (read-only)
 ```
 
-## 使用方式
+## How to use
 
-| 场景 | 命令 |
+| Scenario | Command |
 |---|---|
-| 执行下一条治理动作 | `/orchestrate-governance-step` |
-| 全自动 autopilot | `/loop /orchestrate-governance-step` |
-| 每 30 分钟自动推进 | `/loop /orchestrate-governance-step 30m` |
-| 只查看建议（不执行） | `/plan-next` |
+| Run the next governance action | `/orchestrate-governance-step` |
+| Fully automatic autopilot | `/loop /orchestrate-governance-step` |
+| Advance automatically every 30 minutes | `/loop /orchestrate-governance-step 30m` |
+| Only view the suggestions (no execution) | `/plan-next` |
 
-## 输出：IterationStepReport
+## Output: IterationStepReport
 
-每次调用输出一份报告，包含：
-- 执行动作与治理上下文
-- 调用的子技能
-- 执行结果
-- `continuation_signal`：`advance` / `done` / `blocked` / `stalled` / `error`
+Every invocation emits one report containing:
+- The action executed and the governance context
+- The sub-skills invoked
+- The execution result
+- `continuation_signal`: `advance` / `done` / `blocked` / `stalled` / `error`
 
-## 停止条件
+## Stop conditions
 
-| 信号 | 原因 |
+| Signal | Reason |
 |---|---|
-| `done` | 治理链全部就绪 |
-| `blocked` | 战略创意类技能需要人工 |
-| `stalled` | 同一路由卡片连续 2 次无进展 |
-| `error` | 子技能执行失败 |
+| `done` | The whole governance chain is ready |
+| `blocked` | A strategic or creative skill needs a human |
+| `stalled` | The same routing card made no progress 2 times running |
+| `error` | A sub-skill failed to execute |
 
-## 参考
+## References
 
-- `skills/plan-next/SKILL.md` — 诊断层
-- `docs/adr/0007-remove-plan-next-execute-flag.md` — 三层模型决策
+- `skills/plan-next/SKILL.md` — the diagnostic layer
+- `docs/adr/0007-remove-plan-next-execute-flag.md` — the three-layer model decision

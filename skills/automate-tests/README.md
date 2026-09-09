@@ -1,35 +1,35 @@
-# 运行自动化测试
+# Run Automated Tests
 
-**状态**：实验性的
+**Status**: Experimental
 
-## 用途
+## Purpose
 
-分析目标存储库的自动化测试方法（文档、CI工作流程和构建清单），并使用安全第一的策略运行最合适的测试命令。
+Analyzes how the target repository runs automated tests (docs, CI workflows, and build manifests), then runs the best-matching test command under a safety-first strategy.
 
-## 何时使用
+## When to use
 
-- 您需要正确的测试命令而无需猜测。
-- 在尝试集成/e2e时，您需要安全的默认运行（首先进行单元测试）。
-- 您想要在本地进行 CI 测试执行。
+- You need the correct test command without guessing.
+- You want a safe default run (unit tests first) before reaching for integration/e2e.
+- You want to reproduce the CI test run locally.
 
-## 输入
+## Inputs
 
-- 目标存储库路径（“默认”）
-- 模式：`fast`（默认）、`ci`、`full`
-- 约束：允许依赖安装、允许网络、允许 Docker
+- Target repository path ("default")
+- Mode: `fast` (default), `ci`, `full`
+- Constraints: dependency installation allowed, network allowed, Docker allowed
 
-## 输出
+## Outputs
 
-- 测试计划摘要（证据、选择的命令、假设、执行与跳过）
-- 执行结果（成功/失败，第一个失败的命令以及失败时的退出代码）
+- Test plan summary (evidence, selected commands, assumptions, what ran and what was skipped)
+- Execution result (pass/fail, the first failing command and, on failure, its exit code)
 
-## 生态
+## Ecosystem
 
-|领域|价值|
+| Field | Value |
 | :--- | :--- |
-|overlaps_with（所有者/仓库：技能名称）| — |
-|市场地位 |商品 |
+| overlaps_with (owner/repo: skill name) | — |
+| Market position | Commodity |
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md) 了解完整的行为、限制和示例。
+See [SKILL.md](./SKILL.md) for the full behavior, limits, and examples.

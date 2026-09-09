@@ -1,36 +1,36 @@
-# 生成代理条目
+# Generate Agent Entry
 
-**状态**：已验证
+**Status**: Validated
 
-## 用途
+## Purpose
 
-根据嵌入式输出合约在存储库根写入或修改 AGENTS.md。建立项目身份、权威来源和行为期望。可执行的期望（必须/应当/不得）；规格和索引链接的参考表。
+Writes or revises AGENTS.md at the repository root against the embedded output contract. Establishes the project identity, the authoritative sources, and the behavioral expectations. Actionable expectations (must / should / must not); a reference table of spec and index links.
 
-## 何时使用
+## When to use
 
-- 新项目：为没有 AGENTS.md 的存储库添加代理条目
-- 修改现有内容：审核并完成缺失的部分
-- 采用格式：将输出合同用于其他项目
-- 合规检查：对照合同审核，输出修改建议
+- New project: add an agent entry to a repository that has no AGENTS.md
+- Revising what exists: audit it and complete the missing sections
+- Adopting the format: apply the output contract to other projects
+- Compliance check: audit against the contract and emit suggested revisions
 
-## 输入
+## Inputs
 
-- 一线定位
-- 顶级资产和目录
-- 可选：AGENTS.md 原始 URL、现有条目、主要语言
+- The one-line positioning
+- Top-level assets and directories
+- Optional: the raw AGENTS.md URL, an existing entry, the primary language
 
-## 输出
+## Outputs
 
-- 完整的 AGENTS.md（或差异/修订文本）
-- 或审核清单和修改建议
+- A complete AGENTS.md (or diff/revision text)
+- Or an audit checklist plus suggested revisions
 
-## 生态
+## Ecosystem
 
-|领域|价值|
+| Field | Value |
 | :------------------------------------ | :------------------------------------------------------------------------------------------ |
-|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:generate-standard-readme, nesnilnehc/ai-cortex:refine-skill-design |
-|市场地位 |差异化|
+| overlaps_with (owner/repo: skill name) | nesnilnehc/ai-cortex:generate-standard-readme, nesnilnehc/ai-cortex:refine-skill-design |
+| Market position | Differentiated |
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md) 了解完整的行为、输出契约、限制和示例。
+See [SKILL.md](./SKILL.md) for the full behavior, the output contract, limits, and examples.

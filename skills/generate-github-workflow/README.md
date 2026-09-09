@@ -1,36 +1,36 @@
-# 生成 GitHub 工作流程
+# Generate GitHub Workflow
 
-**状态**：已验证
+**Status**: Validated
 
-## 用途
+## Purpose
 
-生成满足技能附录 A 输出合同的 GitHub Actions 工作流 YAML。安全第一、最小权限、版本固定。用于 CI、发布、PR 检查。支持 Node、Python、Go、Rust；包括 Go + Docker + GoReleaser 附录。
+Generates GitHub Actions workflow YAML that meets the output contract in Appendix A of the skill. Security first, least privilege, pinned versions. For CI, releases, and PR checks. Supports Node, Python, Go, Rust; includes a Go + Docker + GoReleaser appendix.
 
-## 何时使用
+## When to use
 
-- 新项目设置：添加 CI 或 PR 检查工作流程
-- 统一标准：跨存储库调整工作流程风格
-- 填补空白：将缺失的 CI/发布工作流程添加到遗留项目中
+- New project setup: add a CI or PR-check workflow
+- Standardization: align workflow style across repositories
+- Filling gaps: add the missing CI/release workflow to a legacy project
 
-## 输入
+## Inputs
 
-- 场景（CI、PR 检查、发布、计划、矩阵）
-- 堆栈（语言、版本、包管理器、测试/构建命令）
-- 触发器（分支、路径、标签）
-- 目标路径（默认`.github/工作流s/`）
+- Scenario (CI, PR check, release, schedule, matrix)
+- Stack (language, version, package manager, test/build commands)
+- Triggers (branches, paths, tags)
+- Target path (default `.github/workflows/`)
 
-## 输出
+## Outputs
 
-- 工作流程 YAML 文件内容
-- 注释：占位符、秘密名称、配置项
+- The workflow YAML file content
+- Notes: placeholders, secret names, configuration items
 
-## 生态
+## Ecosystem
 
-|领域|价值|
+| Field | Value |
 | :------------------------------------ | :------------- |
-|overlaps_with（所有者/存储库：技能名称）| — |
-|市场地位 |差异化|
+| overlaps_with (owner/repo: skill name) | — |
+| Market position | Differentiated |
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md) 了解完整的行为、限制、附录 A/B 和示例。
+See [SKILL.md](./SKILL.md) for the full behavior, limits, appendices A/B, and examples.

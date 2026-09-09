@@ -1,15 +1,15 @@
-# 准备发布
+# Prepare Release
 
-**状态**：实验性的
+**Status**: Experimental
 
-## 用途
+## Purpose
 
-以 Release Package 为核心，确定版本与范围、准备发布材料、运行门禁并产出 ready 预览。
+Centered on the Release Package: settles the version and the scope, prepares the release material, runs the gates, and produces a ready preview.
 
-## 生态位
+## Niche
 
-与 `publish-release`、`announce-release` 配套；可选调用 AI Cortex 本地 vendored `changelog-video`，不内置视频生成，也不运行时安装外部 Skill。
+Pairs with `publish-release` and `announce-release`; optionally calls the AI Cortex locally vendored `changelog-video`. Video generation is not built in, and no external skill is installed at runtime.
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md)。
+See [SKILL.md](./SKILL.md).
