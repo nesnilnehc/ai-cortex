@@ -9,93 +9,93 @@ recommended_scope: user
 status: active
 ---
 
-# Rule: 测试用例质量（Test Case Quality）
+# Rule: Test Case Quality
 
-> 5 维评审清单 + spec 合规检查。每条独立可验证。
+> A 5-dimension review checklist plus spec compliance. Every item is independently verifiable.
 >
-> 适用于：声明遵循 [specs/test-case-modeling.md](../specs/test-case-modeling.md) 的 QA 业务测试用例文档（单用例与集合表格两种形态）。
+> Applies to QA business test case documents that declare conformance to [specs/test-case-modeling.md](../specs/test-case-modeling.md), in either form — a single case, or a collection table.
 >
-> **不适用**于代码级测试——代码测试的评审归 [rules/standards-test-code.md](./standards-test-code.md)。
+> **Does not apply** to code-level tests; reviewing those belongs to [rules/standards-test-code.md](./standards-test-code.md).
 
 ---
 
-## 5 维审查清单
+## 5-dimension review
 
-提交评审前，作者应按本清单自检。这些检查点与 5 维审查标准（完整性、可执行性、清晰性、合理性、可追踪性）一一对应。
+Authors should self-check against this list before submitting for review. The checkpoints map one to one onto the 5 review dimensions: completeness, executability, clarity, soundness, traceability.
 
-### 1. 完整性（信息齐全吗？）
+### 1. Completeness — is the information all there?
 
-- [ ] frontmatter 必填字段齐全（`id` / `artifact_type` / `created_at` / `status` / `priority` / `test_type` / `covers` / `parent`）
-- [ ] 5 节正文齐全（场景 / 前置 / 步骤 / 预期 / 追溯锚），集合形态需对应表格列齐全
-- [ ] `covers` 字段至少 1 条追溯锚（指向 AC / 接口契约 / 关键场景）
-- [ ] `deprecated` 状态用例已填 `deprecated_at` + `deprecated_reason`
+- [ ] Every required frontmatter field is present (`id` / `artifact_type` / `created_at` / `status` / `priority` / `test_type` / `covers` / `parent`)
+- [ ] All 5 body sections present (scenario / preconditions / steps / expected result / traceability anchor); a collection needs the corresponding table columns
+- [ ] The `covers` field carries at least 1 traceability anchor, pointing at an AC, an interface contract or a key scenario
+- [ ] A case in `deprecated` status has `deprecated_at` and `deprecated_reason` filled in
 
-### 2. 可执行性（执行者能直接照做吗？）
+### 2. Executability — can an executor follow it directly?
 
-- [ ] 前置条件每条可独立验证（无"环境正常"等不可验证条款）
-- [ ] 步骤编号清晰，每步原子可执行（不含"测试一下"、"检查相关功能"）
-- [ ] 步骤含具体输入数据（参数值、payload、用户身份），非"输入合法数据"
-- [ ] 步骤数 ≤ 10（超过即过粗，应拆用例）
-- [ ] 副作用类用例已含清理步骤或在 Teardown 节说明
+- [ ] Every precondition is independently verifiable — no unverifiable clause such as "the environment is fine"
+- [ ] Steps are clearly numbered and each is atomic and executable — not "give it a test" or "check the related functionality"
+- [ ] Steps carry concrete input data — parameter values, payloads, user identity — not "enter valid data"
+- [ ] At most 10 steps; beyond that the case is too coarse and should be split
+- [ ] A case with side effects includes cleanup steps, or documents them in a Teardown section
 
-### 3. 清晰性（无歧义吗？）
+### 3. Clarity — is it unambiguous?
 
-- [ ] 标题含主体 + 关键条件（不是"测试登录"这种泛泛之言）
-- [ ] 预期结果**无模糊词**："正常" / "OK" / "合理" / "应该" / "差不多"
-- [ ] 预期结果可观察、可判定（HTTP 状态码、字段值、UI 元素出现/消失等）
-- [ ] 步骤是**黑盒视角**，不含具体代码实现（如 `await axios.post(...)`）
-- [ ] 术语一致，与上游需求 / 契约用词不冲突
+- [ ] The title names the subject and the key condition, not something vague like "test login"
+- [ ] The expected result carries **no vague words**: "normal", "OK", "reasonable", "should", "roughly"
+- [ ] The expected result is observable and decidable — an HTTP status code, a field value, a UI element appearing or disappearing
+- [ ] Steps take a **black-box view** and contain no implementation code such as `await axios.post(...)`
+- [ ] Terminology is consistent and does not conflict with the upstream requirement or contract
 
-### 4. 合理性（这条用例值得存在吗？）
+### 4. Soundness — does this case deserve to exist?
 
-- [ ] 一条用例只验证一个主体的一类条件（不混测多个独立场景）
-- [ ] 优先级与场景重要性匹配（P0 限"阻断发布"路径，不滥用）
-- [ ] 与现有用例无重复（同一 AC 多条用例时，每条覆盖不同维度——正向 / 边界 / 异常）
-- [ ] 用例粒度可在合理时间内执行（手工用例 ≤ 5min / 自动化用例 ≤ 30s）
-- [ ] `test_type` 选择正确（functional / contract / regression / non-functional）
+- [ ] One case verifies one kind of condition on one subject; independent scenarios are not mixed together
+- [ ] Priority matches the importance of the scenario — P0 is reserved for release-blocking paths and not overused
+- [ ] No duplication of an existing case; where one AC has several cases, each covers a different dimension — positive, boundary, exception
+- [ ] The case is small enough to run in reasonable time — at most 5 min manual, at most 30 s automated
+- [ ] `test_type` is chosen correctly (functional / contract / regression / non-functional)
 
-### 5. 可追溯性（能定位变更影响吗？）
+### 5. Traceability — can the impact of a change be located?
 
-- [ ] `covers` 字段格式规范（`<req-id>#<AC-n>` 或 `<contract-path>#<endpoint>`）
-- [ ] `covers` 引用的 AC / 契约确实存在（无指向已删需求的死链）
-- [ ] `parent` 指向上游需求或契约的实际路径
-- [ ] 上游需求 `status: approved` 或更高态（不基于 `draft` 需求写正式用例）
-- [ ] 反向可查：从需求 AC 能找到至少 1 条覆盖用例（无"裸 AC"）
+- [ ] The `covers` field follows the format (`<req-id>#<AC-n>` or `<contract-path>#<endpoint>`)
+- [ ] The AC or contract referenced by `covers` actually exists — no dead link to a deleted requirement
+- [ ] `parent` points at the real path of the upstream requirement or contract
+- [ ] The upstream requirement is at `status: approved` or beyond; formal cases are not written against a `draft` requirement
+- [ ] Reverse lookup works: from a requirement's AC, at least 1 covering case can be found — no bare ACs
 
 ---
 
-## Spec 合规清单（specs/test-case-modeling.md）
+## Spec compliance (specs/test-case-modeling.md)
 
-- [ ] frontmatter `artifact_type` 为 `test-case`（单用例）或 `test-cases`（集合）
-- [ ] `id` 格式 `TC-<MODULE>-<nn>`（单用例必填；集合内每行同样格式）
-- [ ] `lifecycle` 单用例为 `snapshot`，集合为 `living`
+- [ ] Frontmatter `artifact_type` is `test-case` for a single case, or `test-cases` for a collection
+- [ ] `id` follows `TC-<MODULE>-<nn>` — required for a single case, and for every row of a collection
+- [ ] `lifecycle` is `snapshot` for a single case and `living` for a collection
 - [ ] `status` ∈ `draft` / `active` / `deprecated`
 - [ ] `priority` ∈ `P0` / `P1` / `P2`
 - [ ] `test_type` ∈ `functional` / `contract` / `regression` / `non-functional`
-- [ ] `covers` 非空且每条格式规范
-- [ ] **未引入** `executed` / `passed` / `failed` 等执行态字段（执行结果归测试报告）
-- [ ] 文件命名遵循 §3：`TC-<MODULE>-<nn>.md`（单用例）或 `test-cases-<module>.md`（集合）
+- [ ] `covers` is non-empty and every entry follows the format
+- [ ] **No execution-state field** such as `executed` / `passed` / `failed` has been introduced — results belong in a test report
+- [ ] File naming follows §3: `TC-<MODULE>-<nn>.md` for a single case, `test-cases-<module>.md` for a collection
 
 ---
 
-## 反模式
+## Anti-patterns
 
-- ❌ `covers` 字段为空或填 `TBD`
-- ❌ 同一用例覆盖跨需求的 AC（应拆分）
-- ❌ 预期结果用模糊词（"显示正常"、"返回合理结果"）
-- ❌ 步骤含代码实现（破坏黑盒视角）
-- ❌ 一条用例验证多个独立主体
-- ❌ 用例进入 `deprecated` 但 frontmatter 未补必填条件字段
-- ❌ 用例引用 `draft` 状态需求作为追溯锚
-- ❌ 同一模块用例 ≥ 5 条仍用单文件形态（应合并为集合表格）
-- ❌ 集合表格内 `id` 格式混用（如 `TC-AUTH-01` 与 `AUTH-002` 同存）
-- ❌ 用本 rule 评审代码级测试（代码测试归 [standards-test-code](./standards-test-code.md)）
+- ❌ `covers` empty or filled with `TBD`
+- ❌ One case covering ACs across different requirements — split it
+- ❌ Vague words in the expected result ("displays normally", "returns a reasonable result")
+- ❌ Implementation code in the steps, breaking the black-box view
+- ❌ One case verifying several independent subjects
+- ❌ A case moved to `deprecated` without the conditionally required frontmatter fields
+- ❌ A case citing a `draft` requirement as its traceability anchor
+- ❌ A module with ≥ 5 cases still kept as single files instead of merged into a collection table
+- ❌ Mixed `id` formats inside one collection table, such as `TC-AUTH-01` next to `AUTH-002`
+- ❌ Reviewing a code-level test against this rule; those belong to [standards-test-code](./standards-test-code.md)
 
 ---
 
-## 关联资产
+## Related assets
 
-- **数据契约**：[specs/test-case-modeling.md](../specs/test-case-modeling.md)
-- **代码测试编码标准**：[rules/standards-test-code.md](./standards-test-code.md)
-- **上游 spec**：[specs/requirement-modeling.md](../specs/requirement-modeling.md)
-- **同族评审 rule**：[requirement-quality](./requirement-quality.md) / [functional-design-quality](./functional-design-quality.md) / [technical-design-quality](./technical-design-quality.md) / [task-quality](./task-quality.md)
+- **Data contract**: [specs/test-case-modeling.md](../specs/test-case-modeling.md)
+- **Test code standards**: [rules/standards-test-code.md](./standards-test-code.md)
+- **Upstream spec**: [specs/requirement-modeling.md](../specs/requirement-modeling.md)
+- **Sibling review rules**: [requirement-quality](./requirement-quality.md) / [functional-design-quality](./functional-design-quality.md) / [technical-design-quality](./technical-design-quality.md) / [task-quality](./task-quality.md)

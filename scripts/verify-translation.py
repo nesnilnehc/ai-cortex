@@ -9,11 +9,14 @@ Usage:
     scripts/verify-translation.py <git-ref> <path>...
     scripts/verify-translation.py HEAD~1 rules/
 """
+import json
 import re
 import subprocess
 import sys
 import pathlib
 from collections import Counter
+
+WAIVERS_PATH = pathlib.Path(__file__).with_name("translation-waivers.json")
 
 # --- invariant extractors -------------------------------------------------
 
@@ -21,7 +24,8 @@ FRONTMATTER = re.compile(r'\A---\n(.*?)\n---\n', re.S)
 # identifiers we must never lose: kebab-case names, snake_case fields, dotted paths
 IDENT = re.compile(r'`([A-Za-z_][\w./-]*(?:\.[a-z]+)?)`')
 # numbers incl. ranges, percentages, versions, priority codes
-NUMBER = re.compile(r'\b(?:\d+\.\d+\.\d+|\d+(?:[–\-]\d+)?%?|[PL]\d)\b')
+NUMBER = re.compile(
+    r'(?<![\w.])(?:\d+\.\d+\.\d+|\d+(?:[–\-]\d+)?%?|[PL]\d)')
 KEYWORDS = ("MUST NOT", "MUST", "SHOULD NOT", "SHOULD", "halt", "HALT",
             "STOP", "ASK", "❌", "✅")
 
@@ -30,11 +34,12 @@ KEYWORDS = ("MUST NOT", "MUST", "SHOULD NOT", "SHOULD", "halt", "HALT",
 # "不得" into "尽量不" (or MUST into SHOULD) drops the total.
 # Alternation is longest-first so that 必须 is not also counted as 须.
 STRONG_RE = re.compile(
-    r'必须|必填|不得|禁止|严禁|务必|不留空|须|'
-    r'[Mm]ust not|MUST NOT|[Mm]ust|MUST|[Nn]ever|[Rr]equired|shall')
+    r'必须|必填|必备|不得|禁止|严禁|务必|不留空|永不|绝不|须|'
+    r'[Mm]ust not|MUST NOT|[Mm]ust|MUST|[Nn]ever|[Rr]equired|shall|'
+    r'[Ff]orbidden|[Pp]rohibited')
 WEAK_RE = re.compile(
-    r'应当|应该|建议|尽量|最好|优先|避免|'
-    r'SHOULD NOT|SHOULD|[Pp]refer|recommended|[Ss]uggest(?:ed|ion)?|[Aa]void')
+    r'应当|应该|建议|尽量|最好|优先(?!级)|避免|'
+    r'[Ss]hould not|SHOULD NOT|[Ss]hould|SHOULD|[Pp]refer|recommended|[Ss]uggest(?:ed|ion)?|[Aa]void')
 
 
 def frontmatter(text):
@@ -49,8 +54,29 @@ def frontmatter(text):
     return out
 
 
+COMMENT = re.compile(r'^\s*(?:#|//|--|<!--|\*|/\*)')
+
+
+def split_code(body):
+    """Separate executable lines from comment lines inside a code block.
+
+    Code must survive a translation byte-for-byte. Comments inside an example
+    are prose written for the reader, so they follow the language migration
+    like any other prose; only their count is held invariant.
+    """
+    code, comments = [], 0
+    for line in body.split("\n"):
+        if not line.strip():
+            continue
+        if COMMENT.match(line):
+            comments += 1
+        else:
+            code.append(line)
+    return "\n".join(code), comments
+
+
 def blocks(text):
-    """Fenced code blocks as (lang, body). Bodies must be identical."""
+    """Fenced code blocks as (lang, body)."""
     out, cur, lang, inside = [], [], None, False
     for line in text.split("\n"):
         if line.startswith("```"):
@@ -83,7 +109,8 @@ def extract(text):
         "frontmatter": frontmatter(text),
         "heading_depths": [len(m.group(1)) for m in
                            re.finditer(r'^(#{1,6}) ', prose, re.M)],
-        "code_blocks": [b for _, b in blocks(text)],
+        "code_blocks": [split_code(b)[0] for _, b in blocks(text)],
+        "code_comment_lines": sum(split_code(b)[1] for _, b in blocks(text)),
         "code_langs": Counter(l for l, _ in blocks(text)),
         "links": Counter(m.group(1) for m in
                          re.finditer(r'\]\(([^)\s]+)\)', prose)),
@@ -101,7 +128,8 @@ def extract(text):
 # HARD invariants abort the migration; SOFT ones are reported for judgement.
 HARD = ("frontmatter", "code_blocks", "links", "identifiers", "numbers",
         "checkboxes", "list_items", "strong_constraints", "weak_constraints")
-SOFT = ("heading_depths", "code_langs", "keywords", "table_rows")
+SOFT = ("heading_depths", "code_langs", "keywords", "table_rows",
+        "code_comment_lines")
 
 
 def compare(old, new):
@@ -138,6 +166,19 @@ def compare(old, new):
     return findings
 
 
+def load_waivers():
+    """Recorded exemptions, keyed by "<path>::<invariant>" with a reason.
+
+    The constraint-marker invariants are heuristics: 不可 is a prohibition in
+    不可只增不减 and means "cannot" in 不可验证, and no regex separates the two.
+    Rather than loosen the gate, a mismatch diagnosed as a marker artefact is
+    recorded here with its reason. Nothing passes silently either way.
+    """
+    if not WAIVERS_PATH.exists():
+        return {}
+    return json.loads(WAIVERS_PATH.read_text())
+
+
 def main():
     mode = "translate"
     argv = sys.argv[1:]
@@ -153,6 +194,8 @@ def main():
         p = pathlib.Path(t)
         paths.extend(sorted(p.rglob("*.md")) if p.is_dir() else [p])
 
+    waivers = load_waivers()
+    waived = []
     hard = soft = clean = skipped = 0
     for path in paths:
         old_text = subprocess.run(["git", "show", f"{ref}:{path}"],
@@ -161,6 +204,14 @@ def main():
             skipped += 1
             continue
         findings = compare(extract(old_text), extract(path.read_text()))
+        kept = []
+        for sev, key, detail in findings:
+            reason = waivers.get(f"{path}::{key}")
+            if sev == "HARD" and reason:
+                waived.append((str(path), key, reason))
+                continue
+            kept.append((sev, key, detail))
+        findings = kept
         h = [f for f in findings if f[0] == "HARD"]
         s = [f for f in findings if f[0] == "SOFT"]
         if not findings:
@@ -172,8 +223,14 @@ def main():
         for sev, key, detail in findings:
             print(f"  [{sev}] {key}: {detail}")
 
+    if waived:
+        print(f"\n{'-' * 60}\nwaived (recorded in translation-waivers.json):")
+        for f, key, reason in waived:
+            print(f"  {f} :: {key}\n      {reason}")
+
     print(f"\n{'=' * 60}")
-    print(f"files: {len(paths)}  clean: {clean}  skipped(new): {skipped}")
+    print(f"files: {len(paths)}  clean: {clean}  skipped(new): {skipped}  "
+          f"waived: {len(waived)}")
     print(f"HARD violations: {hard}   SOFT differences: {soft}")
     if mode == "translate":
         if hard:

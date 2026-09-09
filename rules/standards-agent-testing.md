@@ -7,61 +7,61 @@ recommended_scope: user
 status: active
 ---
 
-# Rule: LLM Agent 测试标准 (Agent Testing Standards)
+# Rule: Agent Testing Standards
 
-## 适用范围 (Scope)
+## Scope
 
-被测对象为 LLM Agent 行为（依赖模型能力、模型版本、prompt、工具调用、检索上下文的非确定性行为）的测试代码与单 agent 测试契约文档。
+Test code and single-agent test contract documents whose subject is LLM agent behaviour — non-deterministic behaviour that depends on model capability, model version, prompt, tool calls and retrieved context.
 
-本 rule 与 [standards-test-code](./standards-test-code.md) 叠加生效——后者约束通用测试编码标准（AAA、命名三要素、隔离、确定性、Covers 追溯、mock 克制），本 rule 只约束"被测对象是 Agent 行为"带来的增量。确定性代码的测试仍归 standards-test-code。
+This rule applies on top of [standards-test-code](./standards-test-code.md). That one constrains general test coding standards (AAA, the three naming elements, isolation, determinism, Covers traceability, restraint with mocks); this one constrains only what changes because the subject under test is agent behaviour. Tests of deterministic code still belong to standards-test-code.
 
-单 agent 测试契约的数据结构见 [specs/agent-test-modeling.md](../specs/agent-test-modeling.md)；本 rule 约束行为面（断言方式、隔离、回归门禁、追溯）。
-
----
-
-## 强制约束 (Constraints)
-
-### 1. 确定性与非确定性分流
-
-- **确定性部分**（parser、schema 校验、状态机转移、tool 参数构造、权限判断、错误处理）→ 按 standards-test-code 精确断言，照常 unit 测
-- **非确定性部分**（LLM 自然语言输出、模型推理路径）→ 禁止用精确文案做唯一断言；改用 §2 的 oracle
-
-### 2. 测试 oracle 扩展
-
-非确定性行为的断言必须命中以下至少一类 oracle：
-
-- **契约断言**：输出 schema 合法、必填字段存在、字段类型正确
-- **轨迹断言**：工具调用序列在允许集合内、禁止调用未出现、写回前置条件满足
-- **评估打分**：rubric 评分或 LLM-as-judge，附通过阈值
-- **golden dataset**：录制"输入 → 期望输出 / 期望轨迹"对，断言基于语义匹配或字段匹配，而非字符串相等
-- **统计回归阈值**：成功率 ≥ 阈值（如 golden 集通过率 ≥ 90%）
-
-### 3. 真实模型测试的标注与隔离
-
-- 命中真实模型 API 的测试必须打 `eval` / `e2e` marker（如 `@pytest.mark.eval`），不进默认 unit 管道
-- 默认 unit 管道用 mock LLM 或 recorded response replay，保证确定性与速度
-- mock 只用于隔离模型不确定性，**不得** mock 被测 agent 自身的逻辑（意图识别、字段校验、工具选择）
-
-### 4. 模型 / prompt 变更的回归门禁
-
-- 模型版本、prompt 模板、工具定义任一变更 → 必须跑 golden eval 全集
-- golden eval 通过率低于契约阈值 → 阻断合并
-- 变更需记录 model version comparison（变更前后通过率对比）
-
-### 5. golden dataset 维护
-
-- 每条 golden case 必须含：输入、期望输出 / 期望轨迹、判定方式（字段 / 语义 / rubric）、`Covers` 追溯锚
-- golden 集是版本化制品，与 agent 代码同仓；新增能力必须补 golden case
-- **不得**为让 eval 通过而删除失败的 golden case——应修 agent，或显式标 `known-failure` + 原因
-
-### 6. 单 agent 测试契约
-
-- 每个对外提供能力的 agent 必须有一份测试契约文档，遵循 [specs/agent-test-modeling.md](../specs/agent-test-modeling.md)
-- 测试代码的断言必须可追溯到契约的某条（`Covers` 锚指向契约 ID 或上游 AC）
+The data structure of a single-agent test contract is in [specs/agent-test-modeling.md](../specs/agent-test-modeling.md); this rule constrains behaviour — how to assert, isolation, regression gating, traceability.
 
 ---
 
-## 违规示例 (Bad Patterns)
+## Constraints
+
+### 1. Separate the deterministic from the non-deterministic
+
+- **Deterministic parts** (parsers, schema validation, state machine transitions, tool argument construction, permission decisions, error handling) → assert precisely per standards-test-code, unit tested as usual
+- **Non-deterministic parts** (LLM natural-language output, the model's reasoning path) → exact wording must not be the sole assertion; use an oracle from §2 instead
+
+### 2. Extended test oracles
+
+An assertion on non-deterministic behaviour must hit at least one of these oracles:
+
+- **Contract assertion**: the output schema is valid, required fields are present, field types are correct
+- **Trajectory assertion**: the tool call sequence is within the allowed set, forbidden calls did not occur, preconditions for a write-back were met
+- **Evaluated score**: a rubric score or LLM-as-judge, with a pass threshold
+- **Golden dataset**: recorded "input → expected output / expected trajectory" pairs, asserted by semantic or field matching rather than string equality
+- **Statistical regression threshold**: success rate ≥ a threshold, such as a golden set pass rate ≥ 90%
+
+### 3. Marking and isolating tests that hit a real model
+
+- A test that hits a real model API must carry an `eval` or `e2e` marker (for example `@pytest.mark.eval`) and stays out of the default unit pipeline
+- The default unit pipeline uses a mock LLM or recorded response replay, for determinism and speed
+- Mocks isolate model non-determinism only. You **must not** mock the agent's own logic — intent recognition, field validation, tool selection
+
+### 4. Regression gate on a model or prompt change
+
+- Any change to the model version, the prompt template or a tool definition → the full golden eval must be run
+- A golden eval pass rate below the contract threshold blocks the merge
+- The change records a model version comparison — pass rate before against after
+
+### 5. Maintaining the golden dataset
+
+- Every golden case must carry: input, expected output or expected trajectory, the decision method (field / semantic / rubric), and a `Covers` traceability anchor
+- The golden set is a versioned artifact living in the same repository as the agent code; a new capability must come with new golden cases
+- You **must not** delete a failing golden case to make the eval pass — fix the agent, or mark it `known-failure` explicitly with a reason
+
+### 6. Single-agent test contract
+
+- Every agent that offers a capability externally must have a test contract document following [specs/agent-test-modeling.md](../specs/agent-test-modeling.md)
+- Assertions in the test code must trace back to an item in that contract, with the `Covers` anchor pointing at a contract ID or an upstream AC
+
+---
+
+## Bad Patterns
 
 ```python
 # ❌ 对 LLM 自由文本做精确断言
@@ -91,18 +91,18 @@ def test_intent():
 
 ---
 
-## 修正指南 (Remediation)
+## Remediation
 
-1. **精确文案断言** → 改契约 / 轨迹 / rubric / golden oracle（§2）
-2. **真实模型测试** → 打 `eval` marker；unit 管道换 mock LLM 或 recorded replay（§3）
-3. **建立 golden dataset**，prompt / 模型变更挂回归门禁（§4 / §5）
-4. **为每个 agent 补测试契约**（[specs/agent-test-modeling.md](../specs/agent-test-modeling.md)），断言加 `Covers` 锚（§6）
+1. **Exact-wording assertion** → switch to a contract, trajectory, rubric or golden oracle (§2)
+2. **Test hitting a real model** → add the `eval` marker; swap the unit pipeline to a mock LLM or recorded replay (§3)
+3. **Build the golden dataset** and gate prompt and model changes on it (§4 / §5)
+4. **Add a test contract for each agent** ([specs/agent-test-modeling.md](../specs/agent-test-modeling.md)) and add `Covers` anchors to the assertions (§6)
 
 ---
 
-## 关联资产
+## Related assets
 
-- **通用测试编码标准**：[standards-test-code](./standards-test-code.md)（叠加生效；确定性代码测试归此）
-- **数据契约**：[specs/agent-test-modeling.md](../specs/agent-test-modeling.md)（单 agent 测试契约结构）
-- **执行能力**：[skills/scaffold-agent-tests](../skills/scaffold-agent-tests/SKILL.md)（从 agent 实现 + 契约生成测试套件）
-- **术语权威**：[docs/architecture/terminology.md](../docs/architecture/terminology.md)（Rule / Spec / Skill 边界）
+- **General test coding standards**: [standards-test-code](./standards-test-code.md) — applies on top; tests of deterministic code belong there
+- **Data contract**: [specs/agent-test-modeling.md](../specs/agent-test-modeling.md) — the structure of a single-agent test contract
+- **Execution capability**: [skills/scaffold-agent-tests](../skills/scaffold-agent-tests/SKILL.md) — generates a test suite from an agent implementation plus its contract
+- **Terminology authority**: [docs/architecture/terminology.md](../docs/architecture/terminology.md) — the Rule / Spec / Skill boundary

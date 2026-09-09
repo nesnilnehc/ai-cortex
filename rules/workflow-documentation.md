@@ -7,99 +7,99 @@ recommended_scope: user
 status: active
 ---
 
-# Rule: 文档管理策略（Documentation Management）
+# Rule: Documentation Management
 
-## 适用范围 (Scope)
+## Scope
 
-所有创建、命名或维护 Markdown 文档（`.md`）的行为，含产品文档（SKILL.md / agent.yaml / README / specs / 正文 *.md）与临时文档（设计稿、复盘、审计快照等）。
-
----
-
-## 强制约束 (Constraints)
-
-1. **最小化**：不为了记录思考过程而创建文档；产品文档不写讨论过程或版本演化痕迹（详见下方"临时文档判别"）
-2. **DRY**：不在多个文档中重复相同内容；同一主题须有唯一权威文档，其他位置以引用方式接入
-3. **用户导向**：只写解决实际问题的使用文档；不写面向过程的思考记录
-4. **临时文档必须显式标识**：满足下方"临时文档判别"任一条件的文档，文件名必须含日期前缀或 `.draft` 后缀，并存放于专门目录（`docs/designs/`、`experiments/`、`meetings/` 等）
-5. **变更记录归位**：版本变更进 `CHANGELOG.md`；改进记录进 Issue / PR；不另开新文档
+Every act of creating, naming or maintaining a Markdown document (`.md`), covering both product documentation (SKILL.md / agent.yaml / README / specs / body `*.md`) and temporary documents (design drafts, retrospectives, audit snapshots).
 
 ---
 
-## 临时文档判别（满足任一即是）
+## Constraints
 
-### 文件名形态
+1. **Minimise**: do not create a document to record a thinking process. Product documentation carries neither discussion history nor traces of version evolution — see "Identifying a temporary document" below.
+2. **DRY**: do not repeat the same content across documents. A topic has one authoritative document; everywhere else links to it.
+3. **Reader-oriented**: write usage documentation that solves a real problem. Do not write process-oriented notes to self.
+4. **A temporary document must be labelled as one**: any document meeting a condition below must carry a date prefix or a `.draft` suffix in its filename, and live in a dedicated directory (`docs/designs/`, `experiments/`, `meetings/`).
+5. **Change records go where they belong**: version changes into `CHANGELOG.md`, improvement notes into an issue or PR. Do not open a new document for them.
 
-- 含 `SUMMARY` / `COMPLETE` / `FINAL` / `REVIEW` / `NOTES` / `UPDATES` / `OPTIMIZATION` 等纯总结性词汇
-- 非以 `YYYY-MM-DD-` 开头且非以 `.draft.md` 结尾的过程性记录
+---
 
-### 正文形态
+## Identifying a temporary document (any one of these)
 
-- **版本演化叙述**：`v\d+\.\d+ 起` / `v\d+\.\d+ 移除` / `v\d+\.\d+ 简化` / `v\d+\.\d+ 回撤` / `v\d+\.\d+ 引入`
-- **节标题后缀**：`（新增）` / `（已废弃）` / `（v\d.\d 简化）` / `（v\d.\d 重写）`
-- **过程词汇**：`废弃` / `vaporware` / `待建` / `历史` / `原本` / `回撤` / `沿用历史` / `本次新增`
+### By filename
 
-### 对话上下文残留形态（产品文档专项）
+- Contains a purely summarising word such as `SUMMARY` / `COMPLETE` / `FINAL` / `REVIEW` / `NOTES` / `UPDATES` / `OPTIMIZATION`
+- A process record that neither starts with `YYYY-MM-DD-` nor ends in `.draft.md`
 
-作者与协作方在对话/讨论中建立的简称、指代、第一人称叙事，溜进产品文档后对冷读者完全断层。三类典型模式：
+### By body
 
-- **对话简称**（仓库无 canonical 定义却作为术语使用）：
-  - `\bL[0-9]+\b`（如 `L1` / `L2` / `L3`，未在本文档定义即视为泄漏）
-  - `\b(方案|选项|Option)\s*[A-Z]\b`（如 `方案 A` / `Option B`，对话遗留的待选编号）
-  - 临时编号 `\b[TC]\d+\b`（如 `T1` / `C1`，除非作为本文档章节标题）
+- **Version-evolution narration**: `v\d+\.\d+ 起` / `v\d+\.\d+ 移除` / `v\d+\.\d+ 简化` / `v\d+\.\d+ 回撤` / `v\d+\.\d+ 引入`
+- **Section-heading suffixes**: `（新增）` / `（已废弃）` / `（v\d.\d 简化）` / `（v\d.\d 重写）`
+- **Process vocabulary**: `废弃` / `vaporware` / `待建` / `历史` / `原本` / `回撤` / `沿用历史` / `本次新增`
 
-- **指代回溯**（引用对话历史而非文档历史）：
+### By conversational residue (product documentation specifically)
+
+Shorthand, references and first-person narration established between an author and a collaborator during a discussion. Once they leak into product documentation, a cold reader is left with nothing to go on. Three typical patterns:
+
+- **Conversational shorthand** used as terminology without a canonical definition anywhere in the repository:
+  - `\bL[0-9]+\b` — `L1` / `L2` / `L3`; a leak unless defined in this very document
+  - `\b(方案|选项|Option)\s*[A-Z]\b` — `方案 A` / `Option B`, leftover option numbering from a discussion
+  - Ad-hoc numbering `\b[TC]\d+\b` — `T1` / `C1`, unless it is a section heading in this document
+
+- **Backward reference** to conversation history rather than document history:
   - `如上(所述|所说|提到|讨论)` / `刚才(提到|说过|讨论)` / `前面(说过|提到|讨论)`
   - `我们(之前|刚才|刚刚|前面)` / `基于(我们|刚才|之前的)讨论`
 
-- **第一人称叙事**（把作者视角带入产品文档）：
+- **First-person narration** carrying the author's viewpoint into product documentation:
   - `我(建议|认为|觉得|推荐)` / `我们(决定|选择|采用|认为)`
   - `经(讨论|协商|沟通)后`
 
-### 例外（不视为临时文档）
+### Exceptions (not treated as temporary documents)
 
-- spec 文件顶部的"变更记录"小节（局部 CHANGELOG，公认惯例）
-- ADR 自身的"背景 / 决策 / 替代方案 / 后果"叙述（其文体本质）
-- `CHANGELOG.md` 通篇
-- **本规则（`workflow-documentation.md`）正文中用于演示禁止模式的示例片段**——定义禁区的规则必然需要出现这些模式作为反例，与 CHANGELOG 通篇豁免同理
-
----
-
-## 违规示例 (Bad Patterns)
-
-- 创建 `SUMMARY.md` / `COMPLETE_REFACTOR.md` / `REVIEW_2024.md`
-- 在多个 README 中复制相同安装步骤而非引用
-- 为一次重构过程新建"优化记录"文档，而非写进 CHANGELOG 或 commit
-- 临时文档放在仓库根或正式 `docs/` 路径，未带 `.draft` 后缀或日期前缀
-- SKILL.md / specs 正文出现 `v1.3 起 / 移除 / 简化` 等版本演化叙述
+- The "change record" section at the top of a spec file — a local CHANGELOG, an accepted convention
+- An ADR's own "context / decision / alternatives / consequences" narration — that is its genre
+- The whole of `CHANGELOG.md`
+- **The example fragments in this rule (`workflow-documentation.md`) that demonstrate the forbidden patterns** — a rule defining a forbidden zone necessarily has to show those patterns as counter-examples, on the same reasoning as the blanket CHANGELOG exception
 
 ---
 
-## Commit 前自检
+## Bad Patterns
 
-stage 任意 markdown 文件前，按以下两步执行：
-
-### 1. 冷读者测试（必做）
-
-逐段自问：**"一个今天才加入项目、从未参与任何对话的人，能仅凭这段文字理解我在说什么吗？"**
-
-- 能 → 通过
-- 不能 → 要么在文档内定义该术语，要么改写为自解释的名字（如 `L2 评审` → `用例集覆盖评审`）
-
-冷读者测试不是 grep 能完全替代的——它捕捉的是"作者脑里的上下文 ≠ 读者脑里的上下文"这种语义断层。
-
-### 2. grep 黑名单扫描（自动化兜底）
-
-对照本规则的"临时文档判别"清单（含文件名形态 / 正文形态 / 对话上下文残留形态）grep；命中即按"必须显式标识"约束处理：
-
-- 文件名 / 节标题命中 → 重命名 / 移到专门目录
-- 版本演化叙述 → 挪到 ADR 或 CHANGELOG
-- 对话上下文残留 → 替换为自解释表达，或在文档内定义术语
-- 第一人称叙事 → 改写为陈述句或祈使句
+- Creating `SUMMARY.md` / `COMPLETE_REFACTOR.md` / `REVIEW_2024.md`
+- Copying the same install steps into several READMEs instead of linking
+- Opening an "optimisation record" document for one refactor instead of writing it into the CHANGELOG or the commit
+- A temporary document placed at the repository root or under the formal `docs/` path without a `.draft` suffix or a date prefix
+- Version-evolution narration such as `v1.3 起 / 移除 / 简化` in the body of a SKILL.md or a spec
 
 ---
 
-## 相关指引
+## Pre-commit self-check
 
-- 文档创建决策（"该不该创建？放哪儿？"）见 [docs/guides/document-decision-tree.md](../docs/guides/document-decision-tree.md)
-- 仓库结构卫生约束见 [rules/repo-structure-hygiene.md](./repo-structure-hygiene.md)
-- 文档健康判据（链接图、SSOT、对齐）见 [rules/doc-health-criteria.md](./doc-health-criteria.md)
+Before staging any Markdown file, run these two steps:
+
+### 1. The cold-reader test (mandatory)
+
+Ask of each paragraph: **"could someone who joined the project today, and took part in no conversation, understand what I am saying from this text alone?"**
+
+- Yes → it passes
+- No → either define the term inside the document, or rewrite it into a self-explaining name (`L2 评审` → `用例集覆盖评审`)
+
+The cold-reader test is not fully replaceable by grep — what it catches is the semantic gap where the author's context is not the reader's context.
+
+### 2. Grep blacklist scan (the automated backstop)
+
+Grep against the "Identifying a temporary document" list above — filename patterns, body patterns and conversational residue. On a hit, apply the "must be labelled" constraint:
+
+- Filename or section heading hit → rename, or move to a dedicated directory
+- Version-evolution narration → move it into an ADR or the CHANGELOG
+- Conversational residue → replace with a self-explaining expression, or define the term in the document
+- First-person narration → rewrite as a statement or an imperative
+
+---
+
+## Related guidance
+
+- Deciding whether to create a document at all, and where to put it: [docs/guides/document-decision-tree.md](../docs/guides/document-decision-tree.md)
+- Repository structure hygiene: [rules/repo-structure-hygiene.md](./repo-structure-hygiene.md)
+- Document health criteria (link graph, SSOT, alignment): [rules/doc-health-criteria.md](./doc-health-criteria.md)

@@ -7,87 +7,87 @@ recommended_scope: user
 status: active
 ---
 
-# Rule: 技术设计质量（Technical Design Quality）
+# Rule: Technical Design Quality
 
-> 5 维评审清单 + spec 合规检查。每条独立可验证。
+> A 5-dimension review checklist plus spec compliance. Every item is independently verifiable.
 >
-> 适用于：声明遵循 [specs/technical-design-modeling.md](../specs/technical-design-modeling.md) 的技术设计文档。
+> Applies to technical design documents that declare conformance to [specs/technical-design-modeling.md](../specs/technical-design-modeling.md).
 
 ---
 
-## 5 维审查清单
+## 5-dimension review
 
-### 1. 完整性（结构齐全吗？）
+### 1. Completeness — is the structure all there?
 
-- [ ] 9 个必填节齐全（目标 / 架构与服务拆分 / 组件与详细设计 / 数据库设计 / 接口契约 / 数据流与错误处理 / 技术选型与权衡 / 测试策略 / 验收标准）
-- [ ] frontmatter 完整（artifact_type / lifecycle / created_at / parent / status）
-- [ ] 至少 2 种替代方案及权衡
-- [ ] 至少 2 条技术失败路径与恢复策略
+- [ ] All 9 required sections present (objective / architecture and service decomposition / components and detailed design / database design / interface contracts / data flow and error handling / technology selection and trade-offs / test strategy / acceptance criteria)
+- [ ] Frontmatter complete (artifact_type / lifecycle / created_at / parent / status)
+- [ ] At least 2 alternative approaches, with trade-offs
+- [ ] At least 2 technical failure paths, with recovery strategies
 
-### 2. 可执行性（下游能直接拆任务吗？）
+### 2. Executability — can the next layer break this into tasks directly?
 
-- [ ] 组件含签名级类 / 方法 / 接口定义，可独立实施
-- [ ] 数据库设计含字段 / 类型 / 约束 / 关系，可据此建表
-- [ ] 接口契约含路径 / 方法 / 入参 / 出参 / 错误码 / 鉴权，可据此对接
-- [ ] 无澄清问题即可派生任务列表
+- [ ] Components carry signature-level class, method and interface definitions, and can be implemented independently
+- [ ] The database design carries fields, types, constraints and relationships, enough to create the tables from
+- [ ] Interface contracts carry path, method, request, response, error codes and authorization, enough to integrate against
+- [ ] A task list can be derived without asking a clarifying question
 
-### 3. 清晰性（无歧义吗？）
+### 3. Clarity — is it unambiguous?
 
-- [ ] 术语一致（首次出现含中英对照）
-- [ ] 含至少一种结构化表达（图、表）
-- [ ] 不含实现代码或脚手架
-- [ ] 测试策略 = 验证方法（不是测试代码）
-- [ ] §4 / §5 不涉及变更时写"无变更"而非留空
+- [ ] Terminology is consistent, with the English given alongside on first use
+- [ ] At least one structured representation is present — a diagram or a table
+- [ ] No implementation code and no scaffolding
+- [ ] The test strategy states verification methods, not test code
+- [ ] Where §4 or §5 involves no change, it says "no change" rather than being left blank
 
-### 4. 合理性（设计成立吗？）
+### 4. Soundness — does the design hold up?
 
-- [ ] 技术选型有明确理由（非"看起来好"）
-- [ ] 权衡分析含弃用方案的具体缺点
-- [ ] 错误处理覆盖主要技术失败路径
-- [ ] 显式列出依赖与风险
+- [ ] Each technology choice has a stated reason, not "it looks good"
+- [ ] The trade-off analysis states the concrete drawbacks of each rejected option
+- [ ] Error handling covers the main technical failure paths
+- [ ] Dependencies and risks are listed explicitly
 
-### 5. 可追溯性（能定位变更影响吗？）
+### 5. Traceability — can the impact of a change be located?
 
-- [ ] frontmatter `parent` 的 artifact_type ∈ {functional-design, requirement}
-- [ ] 验收标准每条追溯至上游 functional-design 的某条 acceptance；功能层被跳过时追溯至 requirement
-- [ ] 关键决策可派生 ADR（或已存在 ADR 链接）
-- [ ] 引用的外部规范有有效链接
-
----
-
-## 条件必备项检查
-
-- [ ] 涉及破坏性 schema 变更 / 数据回填 / 不可回滚操作时，已单列数据迁移详案（含回滚策略）
+- [ ] The frontmatter `parent`'s artifact_type ∈ {functional-design, requirement}
+- [ ] Each acceptance criterion traces to an acceptance item of the upstream functional-design — or, when the functional layer is skipped, of the requirement
+- [ ] Key decisions can be turned into an ADR, or already link to one
+- [ ] Cited external specifications have working links
 
 ---
 
-## Spec 合规清单（specs/technical-design-modeling.md）
+## Conditionally required sections
 
-- [ ] frontmatter 含全部必填字段
+- [ ] Where a breaking schema change, a data backfill or an irreversible operation is involved, a detailed data migration plan is present, including the rollback strategy
+
+---
+
+## Spec compliance (specs/technical-design-modeling.md)
+
+- [ ] Frontmatter carries every required field
 - [ ] `artifact_type: technical-design`
 - [ ] `lifecycle: snapshot`
 - [ ] `status` ∈ `draft` / `approved` / `superseded`
-- [ ] 9 节必填全部存在
-- [ ] 替代方案 ≥ 2 种
-- [ ] 技术失败路径 ≥ 2 条
-- [ ] 验收标准 ≥ 3 条
-- [ ] `parent` 指向 `approved` 状态的上游设计
-- [ ] `superseded` 状态已填 `superseded_by`
+- [ ] All 9 required sections exist
+- [ ] At least 2 alternative approaches
+- [ ] At least 2 technical failure paths
+- [ ] At least 3 acceptance criteria
+- [ ] `parent` points at an upstream design in `approved` status
+- [ ] `superseded_by` filled in when status is `superseded`
 
 ---
 
-## 反模式
+## Anti-patterns
 
-- ❌ 含代码或脚手架
-- ❌ 含业务流程 / 角色权限 / 业务对象状态（归功能设计）
-- ❌ 单一方案不做权衡
-- ❌ §4 / §5 无变更时留空而非写"无变更"
-- ❌ 测试策略写测试代码
-- ❌ `parent` 的 artifact_type 不在 {functional-design, requirement}
-- ❌ 无 `parent` frontmatter（孤立设计）
+- ❌ Contains code or scaffolding
+- ❌ Contains business workflow, role permissions or business object states — those belong to the functional design
+- ❌ A single approach with no trade-off analysis
+- ❌ §4 or §5 left blank instead of stating "no change"
+- ❌ A test strategy written as test code
+- ❌ The `parent`'s artifact_type outside {functional-design, requirement}
+- ❌ No `parent` frontmatter — an orphaned design
 
 ---
 
-## 关联资产
+## Related assets
 
-- **图表选型**：[diagram-selection](./diagram-selection.md)——架构图 / 组件图 / 部署图等结构化表达的选型、跨工具选择与渲染避坑援引此判据
+- **Diagram selection**: [diagram-selection](./diagram-selection.md) — choosing among structured representations — architecture, component and deployment diagrams and the like — picking a tool, and steering clear of rendering pitfalls all defer to those criteria
