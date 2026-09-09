@@ -6,42 +6,42 @@ created_at: 2026-03-24
 status: active
 ---
 
-# 制品规范
+# Artifact norms
 
-**来源**：AI Cortex 项目覆盖
+**Source**: applies across the AI Cortex project
 
-语言：见 [docs/LANGUAGE_SCHEME.md](LANGUAGE_SCHEME.md) 了解项目语言规则。
+Language: the project's language rules are in [docs/LANGUAGE_SCHEME.md](LANGUAGE_SCHEME.md).
 
-本规范定义生成制品的单一权威路径。除非用户明确要求快照，技能应覆盖下列路径下的规范文件。
+This document defines the single authoritative path for each generated artifact. Unless the user explicitly asks for a snapshot, a skill overwrites the canonical file at the path below.
 
 ---
 
-## 单一事实源（SSOT）原则
+## The single-source-of-truth principle
 
-每类制品的定义与权威来源明确如下。其他文档在涉及同类信息时，应采用"引用+补充"而非"复写"的方式。
+The definition and canonical source of each artifact type are fixed below. Any other document touching the same information cites and adds to it rather than restating it.
 
-### Canonical Source（权威来源）定义
+### Canonical sources
 
-| Artifact Type | Canonical Source | 强制性 | 规则 |
+| Artifact type | Canonical source | Strength | Rule |
 | :--- | :--- | :--- | :--- |
-| strategic-goals | `docs/project-overview/strategic-goals.md` | ★★★ | 战略目标的唯一权威定义；其他文档应用链接+摘要引用 |
-| roadmap（含 milestones） | `docs/process-management/roadmap.md` | ★★★ | 路线图与里程碑的唯一权威定义；其他文档不应独立重定义 |
-| requirements | `docs/requirements-planning/{topic}.md` | ★★★ | 各主题需求的权威来源 |
-| backlog-item（索引） | `docs/process-management/backlog.md` | ★★ | Backlog 工作条目的索引与导航 |
-| backlog-item（详情） | `docs/process-management/backlog/YYYY-MM-DD-*.md` | ★★ | 工作条目的详细定义 |
-| adr | `docs/adr/NNNN-{slug}.md` | ★★ | 架构决策的权威记录 |
-| functional-design | `docs/designs/YYYY-MM-DD-*-functional-design.md` | ★★ | 功能设计方案的权威定义（业务 / 产品视角） |
-| technical-design | `docs/designs/YYYY-MM-DD-*-technical-design.md` | ★★ | 技术设计方案的权威定义（工程视角） |
+| strategic-goals | `docs/project-overview/strategic-goals.md` | ★★★ | The one authoritative definition of the strategic goals; other documents cite it with a link plus a summary |
+| roadmap (milestones included) | `docs/process-management/roadmap.md` | ★★★ | The one authoritative definition of the roadmap and its milestones; no other document redefines them |
+| requirements | `docs/requirements-planning/{topic}.md` | ★★★ | The canonical source for the requirements on each topic |
+| backlog-item (index) | `docs/process-management/backlog.md` | ★★ | The index and navigation for backlog work items |
+| backlog-item (detail) | `docs/process-management/backlog/YYYY-MM-DD-*.md` | ★★ | The detailed definition of a work item |
+| adr | `docs/adr/NNNN-{slug}.md` | ★★ | The authoritative record of an architecture decision |
+| functional-design | `docs/designs/YYYY-MM-DD-*-functional-design.md` | ★★ | The authoritative definition of a functional design, from the business and product view |
+| technical-design | `docs/designs/YYYY-MM-DD-*-technical-design.md` | ★★ | The authoritative definition of a technical design, from the engineering view |
 
-### 合规引用规则
+### What counts as a compliant citation
 
-- **纯链接**：引用文档仅包含指向 canonical source 的链接 → ✅ **最佳实践**
-- **摘要+链接**：20-30% 原文摘要 + 链接指向权威源 → ✅ **合规**
-- **完全复写**（>60% 重叠，无链接）→ ❌ **违规**，需优化
+- **A bare link**: the citing document carries only a link to the canonical source → ✅ **best practice**
+- **A summary plus a link**: 20-30% of the original summarised, with a link to the canonical source → ✅ **compliant**
+- **A full restatement** (>60% overlap, no link) → ❌ **a violation**, and it must be fixed
 
 ---
 
-## 制品类型
+## Artifact types
 
 | artifact_type | path_pattern | naming | lifecycle |
 | :--- | :--- | :--- | :--- |
@@ -56,37 +56,37 @@ status: active
 | repair-loop | docs/calibration/repair-loop.md | repair-loop.md | living |
 | audit-docs | docs/calibration/audit-docs.md | audit-docs.md | living |
 
-## 路径检测（backlog-item）
+## Path detection for a backlog-item
 
 | Condition | Output path |
 | :--- | :--- |
-| docs/process-management/ 存在 | docs/process-management/backlog/YYYY-MM-DD-{slug}.md |
+| docs/process-management/ exists | docs/process-management/backlog/YYYY-MM-DD-{slug}.md |
 
-## 例外（backlog 目录）
+## The backlog directory, an exception
 
-`backlog/` 目录仅存放 `YYYY-MM-DD-{slug}.md` 格式的 backlog-item。索引类文件置于 `docs/process-management/` 下。
+The `backlog/` directory holds backlog-items named `YYYY-MM-DD-{slug}.md` and nothing else. Index files live directly under `docs/process-management/`.
 
 ---
 
-## 时间戳策略（Timestamp Policy）
+## Timestamp policy
 
-文件名中的时间戳（YYYY-MM-DD 或 YYYYMMDD 格式）应遵循以下规则，避免不必要的时间戳滋生：
+A timestamp in a filename, in YYYY-MM-DD or YYYYMMDD form, follows the rules below, which keep unnecessary timestamps from spreading:
 
-| Artifact Type | 时间戳要求 | 格式 | 理由 |
+| Artifact type | Timestamp | Form | Why |
 | :--- | :--- | :--- | :--- |
-| **adr** | FORBIDDEN | `NNNN-{slug}` | ADR 用 4 位顺序号便于口语引用；决策日期在 frontmatter `created_at` 中 |
-| **functional-design** | REQUIRED | `YYYY-MM-DD-{topic}-functional-design` | 设计是快照制品，时间戳记录方案版本时刻 |
-| **technical-design** | REQUIRED | `YYYY-MM-DD-{topic}-technical-design` | 设计是快照制品，时间戳记录方案版本时刻 |
-| **backlog-item** | REQUIRED | `YYYY-MM-DD-{slug}` | 工作项的创建或分配时刻需要记录 |
-| **roadmap** | FORBIDDEN | 无时间戳 | 路线图是活文档，持续演进；不应标注时间 |
-| **strategic-goals** | FORBIDDEN | 无时间戳 | 战略目标是长期方向，不应带时间戳 |
-| **requirements** | FORBIDDEN | 无时间戳 | 需求是活文档，持续更新；不应标注时间 |
-| **backlog（索引）** | FORBIDDEN | 无时间戳 | Backlog 索引是实时导航，不应标注时间 |
-| **audit-docs** | FORBIDDEN | 无时间戳 | 审计报告是活文档，持续更新；不应标注时间 |
-| **detect-ssot-violations-report** | FORBIDDEN | 无时间戳 | SSOT 报告是活文档，持续迭代；不应标注时间 |
+| **adr** | FORBIDDEN | `NNNN-{slug}` | An ADR uses a 4-digit sequence number so it can be referred to out loud; the decision date lives in the frontmatter `created_at` |
+| **functional-design** | REQUIRED | `YYYY-MM-DD-{topic}-functional-design` | A design is a snapshot artifact, and the timestamp records the moment that version was made |
+| **technical-design** | REQUIRED | `YYYY-MM-DD-{topic}-technical-design` | A design is a snapshot artifact, and the timestamp records the moment that version was made |
+| **backlog-item** | REQUIRED | `YYYY-MM-DD-{slug}` | The moment a work item was created or assigned has to be recorded |
+| **roadmap** | FORBIDDEN | no timestamp | A roadmap is a living document under continuous evolution, and carries no date |
+| **strategic-goals** | FORBIDDEN | no timestamp | Strategic goals are a long-term direction and carry no timestamp |
+| **requirements** | FORBIDDEN | no timestamp | A requirement is a living document under continuous update, and carries no date |
+| **backlog (index)** | FORBIDDEN | no timestamp | The backlog index is live navigation and carries no date |
+| **audit-docs** | FORBIDDEN | no timestamp | An audit report is a living document under continuous update, and carries no date |
+| **detect-ssot-violations-report** | FORBIDDEN | no timestamp | An SSOT report is a living document under continuous iteration, and carries no date |
 
-### 设计原则
+### The principle behind it
 
-- **顺序号制品**（ADR）→ FORBIDDEN：用 4 位顺序号 `NNNN-{slug}` 支持口语引用，时间戳在 frontmatter `created_at`
-- **点在时间的制品**（设计、工作项）→ REQUIRED：需要时间戳记录快照时刻
-- **活文档与持续演进的制品**（路线图、目标、需求、报告）→ FORBIDDEN：时间戳会造成版本混乱
+- **Sequence-numbered artifacts** (the ADR) → FORBIDDEN: a 4-digit `NNNN-{slug}` supports spoken reference, and the timestamp lives in the frontmatter `created_at`
+- **Point-in-time artifacts** (designs, work items) → REQUIRED: the timestamp records the moment of the snapshot
+- **Living, continuously evolving artifacts** (roadmaps, goals, requirements, reports) → FORBIDDEN: a timestamp only confuses which version is current
