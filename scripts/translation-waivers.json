@@ -1,7 +1,6 @@
 {
   "rules/adr-management.md::strong_constraints": "中文「不可只增不减」是禁令，但「不可」已从标记表移除——它在「不可验证 / 不可回滚」中意为『无法』而非『禁止』，正则无法区分两义。英文 'must not only ever grow' 是忠实翻译。",
   "rules/test-case-quality.md::weak_constraints": "中文「超过即过粗，应拆用例」用的是裸『应』，标记表只收『应当 / 应该』——收录裸『应』会误命中『应用 / 应对 / 响应』。英文 'should be split' 是忠实翻译。",
-  "rules/adr-management.md::code_blocks[1]": "§3 diff 块中的 archived_reason 值是给读者照抄的模板文案，非可执行代码；同文件 §2 表格已把该字段的占位符 <原因> 按散文译出，两处需一致。独立复核指出这一不一致。",
   "rules/adr-management.md::weak_constraints": "§3 开头中文「ADR 应随决策生命周期演化」用的是裸『应』，标记表不收（收录会大量误命中『应用 / 应对 / 应符合』）。英文 'ADRs should evolve' 是忠实翻译，独立复核亦要求恢复该处的指令语气。",
   "rules/test-coverage-quality.md::strong_constraints": "中文「P0 需求缺口不可与 P2 需求缺口同等对待」是禁令，但『不可』已从标记表移除（它在『不可验证 / 不可回滚』中意为『无法』）。英文 'must not be treated the same' 是忠实翻译。",
   "rules/agentic-artifact-paradigm.md::weak_constraints": "中文 5 处「优先」在本文件是排序义（『优先靠提取』『提取 / 推断优先』），英文自然译作 first；把 first 收入弱标记表会在全语料大量误命中，得不偿失。",
@@ -15,5 +14,6 @@
   "specs/universal-notification.md::code_blocks": "§7 两个 JSON 示例 payload 中的 title / body / label 是面向读者的样例文案，非可执行代码；英文读者看中文样例无法判断字段用法。与 rules/standards-agent-testing.md 中译出代码块注释的处理一致。JSON 结构与字段名未动。",
   "specs/adr-modeling.md::code_blocks": "§4 frontmatter 模板中的占位符（description / archived_reason 的 <...> 说明文字）是给读者照填的提示语，非可执行代码。与 rules/adr-management.md 中 archived_reason 模板值的处理一致；字段名与结构未动。",
   "specs/requirement-intake-triage-update-contract.md::code_blocks": "JSON 示例 payload 中的 summary / note / consumer_action 是面向读者的说明文案，非可执行代码；字段名、subject、枚举值均未动。与 universal-notification 的处理一致。",
-  "specs/adr-modeling.md::residual_chinese": "保留的中文有两类：一是本 spec 定义的 ADR 四节 canonical 章节名（背景 / 决策 / 替代方案 / 后果），改它等于改契约，须单独作为内容变更处理；二是 §7.1 的完整示例 ADR 正文。**已知待办**：英文 ADR 使用中文章节名是语言迁移遗留的不一致，应在后续内容提交中统一决定。"
+  "specs/adr-modeling.md::residual_chinese": "保留的中文有两类：一是本 spec 定义的 ADR 四节 canonical 章节名（背景 / 决策 / 替代方案 / 后果），改它等于改契约，须单独作为内容变更处理；二是 §7.1 的完整示例 ADR 正文。**已知待办**：英文 ADR 使用中文章节名是语言迁移遗留的不一致，应在后续内容提交中统一决定。",
+  "rules/adr-management.md::code_blocks": "§3 diff 块中的 archived_reason 值是给读者照抄的模板文案，非可执行代码；同文件 §2 表格已把该字段的占位符 <原因> 按散文译出，两处需一致。独立复核指出这一不一致。"
 }

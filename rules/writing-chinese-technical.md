@@ -16,7 +16,7 @@ Applies to every Chinese-language document, Chinese code comment and Chinese age
 1. **Chinese–Latin spacing**: one space must be kept between a Chinese character and an adjacent Latin word or digit — “使用 Git 提交”, not “使用Git提交”.
 2. **Numbers and units**: a space must be kept between a number and its unit — “10 Gbps”, “20 TB”, not “10Gbps”, “20TB”. Do not add a space between a Latin character or half-width digit and a full-width punctuation mark.
 3. **Terminology**: prefer the Chinese term defined under this project's `specs/`, and keep the English in parentheses on first use.
-4. **Punctuation**: full-width punctuation in Chinese sentences, half-width in English sentences, half-width digits throughout. Use backticks when quoting code or a term.
+4. **Punctuation**: full-width punctuation in Chinese sentences, half-width in English sentences, half-width digits throughout. Use backticks (` `) when quoting code or a term.
 5. **Interface strings**: prompts do not need terminal punctuation — “请输入用户名”. Complete sentences end with 「。」. Avoid 「!」.
 6. **Tone**: keep a professional, no-nonsense engineering voice. Text must not contain excessive emoji, nor filler particles such as “哒” or “呢”.
 

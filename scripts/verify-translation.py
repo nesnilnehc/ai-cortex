@@ -24,12 +24,20 @@ CJK = re.compile(r'[\u4e00-\u9fff]')
 # catches one where only the headings were done. Files that legitimately retain
 # Chinese - detection patterns, counter-examples - are waived by name.
 RESIDUAL_LIMIT = 0.25
+# Below this many Chinese characters the baseline was not a translation target,
+# so the residual ratio is meaningless - a file already in English keeps a
+# handful of characters in its frontmatter and would read as 100% untranslated.
+RESIDUAL_MIN_BASELINE = 100
 
 # --- invariant extractors -------------------------------------------------
 
 FRONTMATTER = re.compile(r'\A---\n(.*?)\n---\n', re.S)
-# identifiers we must never lose: kebab-case names, snake_case fields, dotted paths
-IDENT = re.compile(r'`([A-Za-z_][\w./-]*(?:\.[a-z]+)?)`')
+# Everything inside backticks. Backticks mark tokens that carry meaning
+# literally - field names, paths, enum values, command fragments - and a
+# translation must not alter any of them. Matching the whole span rather than
+# an identifier shape also catches `artifact_type: tasks` and similar, which an
+# identifier-shaped pattern silently ignores.
+IDENT = re.compile(r'`([^`\n]+)`')
 # numbers incl. ranges, percentages, versions, priority codes
 NUMBER = re.compile(
     r'(?<![\w.])(?:\d+\.\d+\.\d+|\d+(?:[–\-]\d+)?%?|[PL]\d)')
@@ -142,12 +150,28 @@ def extract(text):
         "frontmatter": frontmatter(text),
         "heading_depths": [len(m.group(1)) for m in
                            re.finditer(r'^(#{1,6}) ', prose, re.M)],
-        "code_blocks": [split_code(b)[0] for _, b in blocks(text)],
+        # Blocks tagged with a real language hold code and are compared byte
+        # for byte. Blocks tagged text or markdown hold illustrative prose, and
+        # follow the language migration like any other prose, so their bodies
+        # are reported as SOFT. The block COUNT stays HARD either way, so
+        # dropping a whole block is still caught.
+        "code_blocks": [split_code(b)[0] for lg, b in blocks(text)
+                        if lg not in ("text", "markdown", "")],
+        "prose_blocks": [split_code(b)[0] for lg, b in blocks(text)
+                         if lg in ("text", "markdown", "")],
+        "block_count": len(blocks(text)),
         "code_comment_lines": sum(split_code(b)[1] for _, b in blocks(text)),
         "code_langs": Counter(l for l, _ in blocks(text)),
         "links": Counter(m.group(1) for m in
                          re.finditer(r'\]\(([^)\s]+)\)', prose)),
-        "identifiers": Counter(IDENT.findall(prose)),
+        # A backticked span containing CJK is illustrative prose - a
+        # placeholder like `archived_reason: <原因>`, a counter-example like
+        # `1.5.0 — 完善文档` - and follows the migration. One without CJK is a
+        # literal token: a field name, a path, an enum value, a format string.
+        "identifiers": Counter(x for x in IDENT.findall(prose)
+                               if not CJK.search(x)),
+        "prose_spans": Counter(x for x in IDENT.findall(prose)
+                               if CJK.search(x)),
         "numbers": Counter(NUMBER.findall(prose)),
         "keywords": Counter({k: prose.count(k) for k in KEYWORDS}),
         "list_items": len(re.findall(r'^\s*(?:[-*+]|\d+\.)\s', prose, re.M)),
@@ -159,10 +183,10 @@ def extract(text):
 
 
 # HARD invariants abort the migration; SOFT ones are reported for judgement.
-HARD = ("frontmatter", "code_blocks", "links", "identifiers", "numbers",
-        "checkboxes", "list_items")
+HARD = ("frontmatter", "code_blocks", "block_count", "links",
+        "numbers", "checkboxes", "list_items")
 SOFT = ("heading_depths", "code_langs", "keywords", "table_rows",
-        "code_comment_lines")
+        "code_comment_lines", "prose_blocks", "prose_spans")
 
 # Constraint markers are checked by direction, not by equality. English needs
 # more modals than Chinese to say the same thing, so demanding equal counts
@@ -170,7 +194,11 @@ SOFT = ("heading_depths", "code_langs", "keywords", "table_rows",
 #   strong down  - a prohibition or obligation was weakened or lost
 #   weak up      - a hedge was introduced where the original had none
 # The opposite directions are usually idiom and are reported as SOFT.
-DIRECTIONAL = {"strong_constraints": "down", "weak_constraints": "up"}
+DIRECTIONAL = {"strong_constraints": "down", "weak_constraints": "up",
+               # A literal token must never disappear. A gained one is usually
+               # the English rendering of a backticked prose span, whose Chinese
+               # form was excluded from this set by construction.
+               "identifiers": "down"}
 
 
 def compare(old, new):
@@ -178,6 +206,13 @@ def compare(old, new):
     for key, bad in DIRECTIONAL.items():
         a, b = old[key], new[key]
         if a == b:
+            continue
+        if isinstance(a, Counter):
+            lost, gained = a - b, b - a
+            if lost:
+                findings.append(("HARD", key, f"lost {dict(lost)}"))
+            if gained:
+                findings.append(("SOFT", key, f"gained {dict(gained)}"))
             continue
         dropped = b < a
         dangerous = (bad == "down" and dropped) or (bad == "up" and not dropped)
@@ -269,7 +304,7 @@ def main():
             continue
         old_cjk = len(CJK.findall(old_text))
         new_cjk = len(CJK.findall(new_text))
-        if (mode == "translate" and old_cjk
+        if (mode == "translate" and old_cjk >= RESIDUAL_MIN_BASELINE
                 and new_cjk / old_cjk > RESIDUAL_LIMIT
                 and not waivers.get(f"{path}::residual_chinese")):
             hard += 1
