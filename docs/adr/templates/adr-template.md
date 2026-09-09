@@ -4,48 +4,48 @@ created_by: decision-record
 lifecycle: snapshot
 created_at: YYYY-MM-DD
 status: proposed
-description: <一句话摘要，与 H1 标题互补>
+description: <a one-line summary, complementing the H1 title>
 
-# 条件字段（按 status 选填）
+# conditional fields, filled in according to status
 
-# superseded_by: NNNN-{slug}       # status: superseded 时必填
+# superseded_by: NNNN-{slug}       # required when status: superseded
 
-# archived_at: YYYY-MM-DD           # status: archived 时必填
+# archived_at: YYYY-MM-DD           # required when status: archived
 
-# archived_reason: <原因>           # status: archived 时必填
+# archived_reason: <reason>         # required when status: archived
 
-# expires_at: YYYY-MM-DD            # 可选：季度复核触发器
+# expires_at: YYYY-MM-DD            # optional: the quarterly review trigger
 
 ---
 
-# ADR NNNN：<标题>
+# ADR NNNN: <title>
 
-## 背景
+## Context
 
-<!-- Why：驱动本决策的问题、约束、前置条件 -->
+<!-- Why: the problem, constraints and preconditions that drove this decision -->
 
-## 决策
+## Decision
 
-<!-- What：核心决定一句话，然后展开必要细节 -->
+<!-- What: the core decision in one sentence, then the detail it needs -->
 
-## 替代方案
+## Alternatives
 
-<!-- Alternatives：考虑过哪些方案，每种为什么被拒 -->
+<!-- Alternatives: which options were considered, and why each was rejected -->
 
-### 替代方案 A：<名称>
+### Alternative A: <name>
 
-**被拒原因**：
+**Why it was rejected**:
 
-### 替代方案 B：<名称>
+### Alternative B: <name>
 
-**被拒原因**：
+**Why it was rejected**:
 
-## 后果
+## Consequences
 
-<!-- Consequences：正面、负面、中性 -->
+<!-- Consequences: positive, negative, neutral -->
 
-**正面**：
+**Positive**:
 
-**负面 / 风险**：
+**Negative / risks**:
 
-**中性**：
+**Neutral**:
