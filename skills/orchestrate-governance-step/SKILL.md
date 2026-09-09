@@ -19,601 +19,601 @@ output_schema:
   description: "IterationStepReport: action taken, skill invoked, outcome, continuation_signal (advance | done | blocked | stalled | error)."
 ---
 
-# 技能：自动迭代（orchestrate-governance-step）
+# Skill: Auto-iterate (orchestrate-governance-step)
 
-> **角色**：单步治理执行器——plan-next 的配对执行层
-> **WHAT**：每次调用执行 1 条 plan-next 路由建议，发出 `continuation_signal` 供 `/loop` 驱动迭代推进
-> **HOW**：内部调用 plan-next → 取最高优先级卡片 → 人工闸门判断 → 执行子技能 → 执行后验证 → 输出报告
-> **区别**：不同于 `plan-next`（只读诊断，不执行）；不同于 `/loop`（只调度，不执行业务逻辑）；不同于 `orchestrate-repair-loop`（修复代码缺陷，不推进治理层）
+> **Role**: single-step governance executor — the execution half that pairs with plan-next
+> **WHAT**: each invocation carries out 1 plan-next routing suggestion and emits a `continuation_signal` for `/loop` to drive the next iteration
+> **HOW**: call plan-next internally → take the highest-priority card → apply the human gate → run the sub-skill → verify afterwards → emit the report
+> **Distinct from**: `plan-next` (read-only diagnosis, no execution); `/loop` (scheduling only, no business logic); `orchestrate-repair-loop` (repairs code defects, does not advance the governance layer)
 
 ---
 
-## 目的
+## Purpose
 
-将 plan-next 的路由建议转化为一次可执行的治理动作，使全自动 autopilot（`/loop /orchestrate-governance-step`）成为可能。
+Turn a plan-next routing suggestion into one executable governance action, which is what makes a fully automatic autopilot (`/loop /orchestrate-governance-step`) possible.
 
-plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrate-governance-step 填补这一执行缺口，配合 `/loop` 实现三层正交自动化：
+plan-next can only diagnose and suggest; the user has to run each suggestion by hand. orchestrate-governance-step fills that execution gap and, together with `/loop`, gives three orthogonal layers of automation:
 
-| 层 | 技能 | 职责 |
+| Layer | Skill | Responsibility |
 |---|---|---|
-| 调度 | `/loop` | 每 N 分钟触发一次 |
-| **驱动** | **orchestrate-governance-step** | 读路由 → 执行 1 步 → 报告 |
-| 诊断 | `plan-next` | 盘点 + 识别缺口 + 路由建议（只读） |
+| Scheduling | `/loop` | Fires once every N minutes |
+| **Driving** | **orchestrate-governance-step** | Read the routing → run 1 step → report |
+| Diagnosis | `plan-next` | Inventory + gap identification + routing suggestions (read-only) |
 
 ---
 
-## 核心目标
+## Core Objective
 
-**首要目标**：每次调用执行恰好 1 条治理动作，并通过 IterationStepReport 明确告知执行结果和是否继续。
+**Primary goal**: each invocation carries out exactly 1 governance action and states, through the IterationStepReport, what the result was and whether to continue.
 
-**成功标准**（须全部满足）：
+**Success criteria** (all must be met):
 
-1. ✅ **单步执行**：每次调用执行且仅执行 1 条路由动作
-2. ✅ **卡死检测**：同一路由卡片指纹在 session 内连续 2 次出现且目标未推进，触发 `stalled` 信号
-3. ✅ **执行后验证**：执行子技能后重跑 plan-next，确认目标卡片是否已消失
-4. ✅ **人工闸门**：战略创意类技能（define-mission、design-strategic-goals 等）执行前必须暂停并告知用户
-5. ✅ **明确继续信号**：每次调用必须在 IterationStepReport 中输出 `continuation_signal` 五值之一
+1. ✅ **Single step**: each invocation runs exactly 1 routing action, and no more
+2. ✅ **Stall detection**: when the same routing-card fingerprint appears 2 times in a row within a session and the target has not advanced, the `stalled` signal fires
+3. ✅ **Post-execution verification**: after the sub-skill runs, plan-next is re-run to confirm whether the target card has disappeared
+4. ✅ **Human gate**: a strategic or creative skill (define-mission, design-strategic-goals, and the like) must pause and tell the user before it runs
+5. ✅ **Explicit continuation signal**: every invocation must emit one of the five `continuation_signal` values in the IterationStepReport
 
-**验收测试**：执行完成后，IterationStepReport 是否清晰说明了执行了什么、结果如何、以及下一步是继续还是需要人工介入？
-
----
-
-## 范围边界
-
-**本技能负责**：
-- 内部调用 plan-next 获取路由
-- 从"现在该做"选取最高优先级卡片（`紧急` > `重要` > `缓`）
-- 卡死检测（session 内指纹对比）
-- 人工闸门判断（默认跳过被阻塞卡片并尝试下一条，仅当全部被跳过才输出 blocked）
-- 起草执行计划 + 自审循环（上限 3 轮）
-- 执行 1 条子技能（plan 通过后）
-- 执行后轻量验证
-- 输出 IterationStepReport
-
-**本技能不负责**：
-- 治理诊断与路由生成 → `plan-next`
-- 循环调度 → `/loop`（Claude Code 内置）
-- 代码缺陷修复循环 → `orchestrate-repair-loop`
-- 战略创意决策内容（使命、愿景、战略目标内容）→ 需要人工
-
-**转交点**：
-- `continuation_signal: done` → 治理就绪，告知用户，停止
-- `continuation_signal: blocked | stalled | error` → 需人工介入，停止并说明原因
+**Acceptance test**: after execution, does the IterationStepReport state clearly what was done, how it turned out, and whether the next step is to continue or to bring in a human?
 
 ---
 
-## 使用场景
+## Scope Boundaries
 
-- "继续推进治理，直到完成" → `/loop /orchestrate-governance-step`
-- "执行下一条治理动作" → `/orchestrate-governance-step`
-- "全自动 autopilot，每 30 分钟推进一次" → `/loop /orchestrate-governance-step 30m`
-- "只查看下一步会执行什么（不执行）" → 使用 `/plan-next`
+**This skill covers**:
+- Calling plan-next internally to get the routing
+- Taking the highest-priority card from "Do now" (`urgent` > `important` > `defer`)
+- Stall detection (fingerprint comparison within the session)
+- The human gate (skip a blocked card by default and try the next one; emit blocked only once every card has been skipped)
+- Drafting an execution plan + a self-review loop (3 rounds maximum)
+- Running 1 sub-skill (once the plan passes)
+- Light post-execution verification
+- Emitting the IterationStepReport
+
+**This skill does not cover**:
+- Governance diagnosis and routing generation → `plan-next`
+- Loop scheduling → `/loop` (built into Claude Code)
+- The code-defect repair loop → `orchestrate-repair-loop`
+- The content of strategic and creative decisions (mission, vision, strategic goals) → a human is needed
+
+**Handoff points**:
+- `continuation_signal: done` → governance is ready; tell the user and stop
+- `continuation_signal: blocked | stalled | error` → a human is needed; stop and explain why
 
 ---
 
-## 行为
+## Use Cases
 
-### 步骤 0：前置检查
+- "Keep advancing governance until it is finished" → `/loop /orchestrate-governance-step`
+- "Run the next governance action" → `/orchestrate-governance-step`
+- "Fully automatic autopilot, one step every 30 minutes" → `/loop /orchestrate-governance-step 30m`
+- "Just show me what the next step would be, without running it" → use `/plan-next`
 
-读取治理文档路径（默认同 plan-next 的 `docs_root`，或调用方显式提供）。
+---
 
-### 步骤 1：调用 plan-next
+## Behavior
 
-内部调用 `/plan-next`，捕获路由输出。若调用方提供了 `pre_run_output`，直接使用，跳过此步。
+### Step 0: preconditions
 
-记录**目标卡片指纹**（用于卡死检测）：
+Read the governance documentation path (by default the same `docs_root` as plan-next, or one the caller supplies explicitly).
+
+### Step 1: call plan-next
+
+Call `/plan-next` internally and capture the routing output. If the caller supplied `pre_run_output`, use that and skip this step.
+
+Record the **target card fingerprint** (used for stall detection):
 
 ```text
-指纹 = 主题字段 + "||" + 治理上下文字段
+fingerprint = subject field + "||" + governance context field
 ```
 
-### 步骤 2：解析路由
+### Step 2: parse the routing
 
-从"现在该做"按优先级排序（`紧急` → `重要` → `缓` → `待执行`），**逐条尝试**直到找到第一条未被 session skip-list 命中且通过步骤 4 人工闸门的卡片。
+Sort "Do now" by priority (`urgent` → `important` → `defer` → `awaiting execution`) and **try the cards one by one** until you reach the first that is not on the session skip-list and passes the step 4 human gate.
 
-**Skip-list 机制**：session 内维护一个 skip-list（指纹集合），步骤 4 触发跳过时将当前卡片指纹加入。本步骤遍历时跳过 skip-list 命中的卡片。
+**Skip-list mechanism**: the session keeps a skip-list (a set of fingerprints); when step 4 triggers a skip, the current card's fingerprint is added to it. This step skips any card on the skip-list as it iterates.
 
-**遍历终态**：
+**End states of the iteration**:
 
-- 找到可执行卡片 → 进入步骤 5
-- 所有卡片均被跳过（skip-list 已覆盖全部「现在该做」）→ `continuation_signal: blocked`，报告中列出所有被跳过卡片及其阻塞原因
-- 「现在该做」本身为空 → 进入下方三态判定
+- An executable card is found → go to step 5
+- Every card was skipped (the skip-list covers all of "Do now") → `continuation_signal: blocked`, and the report lists every skipped card with its blocking reason
+- "Do now" is itself empty → apply the three-state decision below
 
-**三态判定**（不要把"等执行"误认为"已完成"）：
+**Three-state decision** (do not mistake "awaiting execution" for "finished"):
 
-| plan-next 输出 | continuation_signal | 含义 |
+| plan-next output | continuation_signal | Meaning |
 |---|---|---|
-| 有路由卡片（紧急/重要/缓） | 进入步骤 3 继续 | 治理有缺口，可执行子技能 |
-| 仅含「待执行」卡片（任务已拆分等开发） | `blocked` | 治理就绪、等外部执行 |
-| 完全为空（所有目标 status=done 且 L1 KPI 已达成） | `done` | 治理 + 验收双重达成 |
+| Routing cards present (urgent / important / defer) | Continue at step 3 | Governance has a gap; a sub-skill can run |
+| Only "awaiting execution" cards (tasks already broken down, waiting on development) | `blocked` | Governance is ready, waiting on outside work |
+| Completely empty (every goal has status=done and the L1 KPI is met) | `done` | Governance and acceptance are both met |
 
-**关键约束**：
-- 「现在该做」为空 ≠ done。必须先确认 plan-next 是否在 L1 验收 KPI 检查 + L5 待执行分支后判定
-- 若 plan-next 输出未含 L1 验收 KPI 状态字段 → 视为 plan-next 调用不合规，输出 `error` + 提示升级 plan-next
-- 战略目标 `status = approved` 但验收未达成 → plan-next 必然返回路由（建立 KPI 或待执行卡片），不应空
+**Key constraints**:
+- An empty "Do now" ≠ done. It must first be confirmed that plan-next reached that verdict after the L1 acceptance-KPI check and the L5 awaiting-execution branch
+- If the plan-next output carries no L1 acceptance-KPI status field → treat the plan-next call as non-compliant, emit `error`, and prompt for a plan-next upgrade
+- A strategic goal with `status = approved` whose acceptance is not met → plan-next necessarily returns routing (establish the KPI, or an awaiting-execution card), so the result is not empty
 
-### 步骤 3：卡死检测
+### Step 3: stall detection
 
-将本次指纹与 session 内**上次执行的指纹**对比：
+Compare this fingerprint with the **fingerprint of the previous execution** in the session:
 
-- **相同** → `continuation_signal: stalled`，说明"上次执行后目标卡片未推进"，停止
-- **不同（或首次调用）** → 继续
+- **Same** → `continuation_signal: stalled`, stating "the target card did not advance after the last execution", and stop
+- **Different (or first invocation)** → continue
 
-### 步骤 4：人工闸门（默认跳过，不中止）
+### Step 4: human gate (skip by default, do not abort)
 
-以下情形当前卡片视为**被阻塞**，将其指纹加入 session skip-list，**返回步骤 2 尝试下一条**，而不是立即终止 /loop：
+In the following cases the current card counts as **blocked**: add its fingerprint to the session skip-list and **go back to step 2 to try the next one**, rather than terminating /loop right away:
 
-- 推荐技能属于创意/战略类：`define-mission`、`design-strategic-goals`、`define-vision`、`define-north-star`、`define-strategic-pillars`
-- 路由卡片完成标志含"受阻时回 plan-next 重评"且当前已触发
-- **路由卡片标签为 `待执行`**：治理就绪、需外部开发执行，无治理技能可调用
-- **首条路由是建立 L1 验收 KPI 数据源**且推荐技能属设计/架构类：需人工确认监控方案，不自动执行
+- The recommended skill is a creative or strategic one: `define-mission`, `design-strategic-goals`, `define-vision`, `define-north-star`, `define-strategic-pillars`
+- The card's completion marker contains "return to plan-next for re-evaluation if blocked", and that has already fired
+- **The card's label is `awaiting execution`**: governance is ready and outside development has to run it, so there is no governance skill to call
+- **The first routing item is to establish the L1 acceptance-KPI data source** and the recommended skill is a design or architecture one: the monitoring approach needs human confirmation and is not run automatically
 
-**只有当 skip-list 覆盖了「现在该做」全部卡片时**，才输出 `continuation_signal: blocked`，IterationStepReport 列出全部被跳过项与各自阻塞原因，提示用户人工介入。
+**Only once the skip-list covers every card in "Do now"** is `continuation_signal: blocked` emitted, with the IterationStepReport listing every skipped item and its blocking reason and asking the user to step in.
 
-**为什么默认跳过而不是立即停**：/loop 的价值在自动推进所有可自动化的部分；一条创意类卡片若立即停，会让后续 N 条非创意类卡片被无意义阻塞。跳过让非阻塞工作继续流动，需要人工的部分集中汇报。
+**Why skip by default instead of stopping immediately**: the value of /loop lies in advancing everything that can be automated; stopping at the first creative card would pointlessly block the N non-creative cards behind it. Skipping keeps the non-blocked work flowing and collects the parts that need a human into one report.
 
-### 步骤 5：Plan-first 执行（起草 → 自审循环 → 通过后执行）
+### Step 5: plan-first execution (draft → self-review loop → run once it passes)
 
-定位到可执行卡片后，**不得直接调用推荐技能**。必须先起草执行计划、通过自审，再退出 plan mode 执行。
+Once an executable card is located, **the recommended skill must not be called directly**. The execution plan must be drafted and pass self-review first; only then leave plan mode and run it.
 
-#### 5.1 起草计划（EnterPlanMode）
+#### 5.1 Draft the plan (EnterPlanMode)
 
-进入 plan mode，针对该卡片产出一份执行计划，含：
+Enter plan mode and produce an execution plan for that card, containing:
 
-- **目标**：引用路由卡片的主题 + 完成标志（一字不差）
-- **将调用的子技能命令**：完整 `/skill-name [聚焦点]`
-- **聚焦点的来源**：路由卡片中哪一句话推导出的（防止越界）
-- **预期输出**：将创建/修改的文件路径与关键字段
-- **范围红线**：本步骤 MUST NOT 触碰的文件/范围（防止顺手扩张）
-- **回滚要点**：执行失败时的恢复路径（哪些是新建可直接删、哪些是修改需 git restore）
+- **Goal**: quote the routing card's subject + completion marker, word for word
+- **The sub-skill command to be called**: the complete `/skill-name [focus]`
+- **Where the focus comes from**: the sentence in the routing card it was derived from (this prevents overreach)
+- **Expected output**: the file paths to be created or modified, and the key fields
+- **Scope red lines**: the files and scope this step MUST NOT touch (this prevents casual expansion)
+- **Rollback points**: the recovery path when execution fails (which files are new and can simply be deleted, which are modifications needing git restore)
 
-#### 5.2 计划自审循环（上限 3 轮）
+#### 5.2 Plan self-review loop (3 rounds maximum)
 
-每轮按以下清单核对计划，命中任一缺陷即修订并重审：
+Each round checks the plan against the list below; on any defect, revise it and review again:
 
-| 检查项 | 缺陷判定 |
+| Check | What counts as a defect |
 |---|---|
-| 目标与路由卡片一致 | 计划目标与卡片主题/完成标志有出入或脱漏 |
-| 单步语义 | 计划隐含执行 ≥ 2 条子技能或 ≥ 2 张卡片 |
-| 聚焦点可溯源 | 聚焦点找不到卡片原文支撑 |
-| 范围红线明确 | 缺「MUST NOT 触碰」段或写得过宽（"不破坏其他文件"不算明确） |
-| 预期输出可验证 | 文件路径/字段未具体化，步骤 6 重跑 plan-next 无锚点对比 |
-| 回滚要点存在 | 修改类操作未声明 git restore 锚点 |
+| The goal matches the routing card | The plan's goal diverges from, or drops part of, the card's subject or completion marker |
+| Single-step semantics | The plan implicitly runs ≥ 2 sub-skills or covers ≥ 2 cards |
+| The focus is traceable | The focus has no support in the card's own text |
+| Scope red lines are explicit | The "MUST NOT touch" paragraph is missing or written too broadly ("do not break other files" does not count as explicit) |
+| Expected output is verifiable | File paths and fields are not made concrete, leaving the step 6 plan-next re-run nothing to compare against |
+| Rollback points exist | A modifying operation declares no git restore anchor |
 
-通过判定：**一轮自审 0 缺陷**。
+Passing verdict: **one review round with 0 defects**.
 
-**上限触发**：连 3 轮仍有缺陷 → `continuation_signal: error`，IterationStepReport 列出最后一轮残留缺陷，停止；**不要**带着已知缺陷强行执行。
+**Cap reached**: still defective after 3 consecutive rounds → `continuation_signal: error`, the IterationStepReport lists the defects left after the final round, and execution stops; **do not** push ahead with a known defect.
 
-#### 5.3 执行（ExitPlanMode 后）
+#### 5.3 Execution (after ExitPlanMode)
 
-自审通过后，退出 plan mode，按计划调用 `/skill-name [聚焦点]`。
+Once the self-review passes, leave plan mode and call `/skill-name [focus]` as planned.
 
-- 执行过程中发现计划与现实偏离（如文件已存在、依赖缺失）→ **不要**临场扩张范围；中止执行，输出 `continuation_signal: error`，把偏离点记入报告
-- 执行失败且无恢复路径 → `continuation_signal: error`，输出报告，停止
+- The plan turns out to diverge from reality during execution (the file already exists, a dependency is missing) → **do not** widen the scope on the spot; abort execution, emit `continuation_signal: error`, and record the divergence in the report
+- Execution fails with no recovery path → `continuation_signal: error`, emit the report, stop
 
-### 步骤 6：执行后验证
+### Step 6: post-execution verification
 
-**强制重跑** `/plan-next`（不可跳过），检查目标卡片是否已从"现在该做"消失。
-`done` 信号的唯一合法来源是本步骤的验证结果——禁止以模型自行推断替代。
+**Re-running** `/plan-next` **is mandatory** (it cannot be skipped): check whether the target card has disappeared from "Do now".
+The only legitimate source of a `done` signal is this step's verification result — substituting the model's own inference is forbidden.
 
-| 结果 | 行动 |
+| Result | Action |
 |---|---|
-| 卡片消失，"现在该做"仍有条目 | `continuation_signal: advance` |
-| 卡片消失，"现在该做"为空 | `continuation_signal: done` |
-| 卡片仍存在 | 更新卡死计数器；若计数达 2 → `continuation_signal: stalled` |
+| The card is gone, "Do now" still has entries | `continuation_signal: advance` |
+| The card is gone, "Do now" is empty | `continuation_signal: done` |
+| The card is still there | Update the stall counter; when the count reaches 2 → `continuation_signal: stalled` |
 
-### 步骤 7：输出 IterationStepReport
-
----
-
-## 与 /loop 交互模式（重要）
-
-`/loop` 有两种模式，对 `continuation_signal` 的消费方式完全不同：
-
-| /loop 模式 | 触发方式 | 信号消费 | 推荐用法 |
-|---|---|---|---|
-| **Dynamic** | 无 interval（自调度 ScheduleWakeup） | 读 `continuation_signal`：done/blocked/stalled/error 会停止循环 | ✅ **推荐**：`/loop /orchestrate-governance-step`（不带 interval） |
-| **Fixed-interval (cron)** | 有 interval（如 `5m`） | **不读** `continuation_signal`：cron 持续触发，信号被忽略 | ⚠️ 不推荐自动停止场景；用户须手动 CronDelete |
-
-**强制行为**：
-- 检测到 fixed-interval cron 模式（通过会话上下文中存在 CronCreate 记录的 prompt=`/orchestrate-governance-step`），首条 IterationStepReport 必须警示用户：「当前为 cron 模式，信号被忽略；如不希望持续触发请改用 dynamic /loop 或在收到 stalled/blocked/done 后 CronDelete」
-- `stalled` 信号在第 2 次连续出现时，IterationStepReport 须明示「**强烈建议立即 CronDelete <job-id>**」并提供 job ID
-
-**解决方案**：用户希望「治理就绪后自动停」时，应使用 `/loop /orchestrate-governance-step`（无 interval，dynamic 模式），不要用 `/loop 1m /orchestrate-governance-step`。
+### Step 7: emit the IterationStepReport
 
 ---
 
-## 输入与输出
+## Interaction with /loop (important)
 
-### 输入
+`/loop` has two modes, and they consume `continuation_signal` in completely different ways:
 
-| 参数 | 必选 | 默认 | 说明 |
+| /loop mode | How it fires | Signal consumption | Recommended use |
 |---|---|---|---|
-| `docs_root` | 否 | auto | 治理文档根目录；auto 同 plan-next 默认路径 |
-| `pre_run_output` | 否 | — | 预运行的 plan-next 输出；提供时跳过内部调用 |
+| **Dynamic** | No interval (self-scheduled ScheduleWakeup) | Reads `continuation_signal`: done/blocked/stalled/error stop the loop | ✅ **Recommended**: `/loop /orchestrate-governance-step` (no interval) |
+| **Fixed-interval (cron)** | An interval is given (`5m`, say) | **Does not read** `continuation_signal`: cron keeps firing and the signal is ignored | ⚠️ Not recommended where automatic stopping matters; the user must CronDelete by hand |
 
-### 输出：IterationStepReport
+**Mandatory behavior**:
+- On detecting fixed-interval cron mode (through a CronCreate record in the session context whose prompt is `/orchestrate-governance-step`), the first IterationStepReport must warn the user: "this is cron mode and the signal is ignored; to stop the repeated firing, switch to a dynamic /loop, or CronDelete once you get stalled/blocked/done"
+- On the 2nd consecutive `stalled` signal, the IterationStepReport must state "**CronDelete <job-id> immediately, strongly recommended**" and give the job ID
+
+**The fix**: a user who wants it to "stop automatically once governance is ready" uses `/loop /orchestrate-governance-step` (no interval, dynamic mode), not `/loop 1m /orchestrate-governance-step`.
+
+---
+
+## Input & Output
+
+### Input
+
+| Parameter | Required | Default | Description |
+|---|---|---|---|
+| `docs_root` | No | auto | The governance docs root; auto means the same default path as plan-next |
+| `pre_run_output` | No | — | A pre-run plan-next output; when supplied, the internal call is skipped |
+
+### Output: IterationStepReport
 
 ```markdown
-## 这次自动推进做了什么
+## What this automatic step did
 
-- **做了什么**：[用文件名/功能名说明；禁用"路由卡片""治理层级"等词]
-- **为什么要修**：[发现了什么具体问题；首次新建文件时省略]
-- **改了什么**（有文件变更时）：
-  - 修改前：...
-  - 修改后：...
-- **结果**：成功 ✅ | 需要你来决定 ⚠️ | 出错了 ❌
-- **下一步**：继续自动推进 | 全部完成，无需继续 | 需要你决定：[说明] | 卡住了：[说明]
-- _（内部）继续信号：advance | done | blocked | stalled | error_
+- **What was done**: [describe it with file names or feature names; the words "routing card" and "governance layer" are banned]
+- **Why it needed fixing**: [the concrete problem found; omit when creating a file for the first time]
+- **What changed** (when files changed):
+  - Before: ...
+  - After: ...
+- **Result**: Success ✅ | Your call needed ⚠️ | Error ❌
+- **Next**: keep going automatically | all done, nothing left | your decision needed: [explanation] | stuck: [explanation]
+- _(internal) continuation signal: advance | done | blocked | stalled | error_
 ```
 
-### continuation_signal 语义
+### continuation_signal semantics
 
-| 值 | 含义 | /loop 行为 |
+| Value | Meaning | /loop behavior |
 |---|---|---|
-| `advance` | 动作已完成，治理还有工作 | 继续触发下次 |
-| `done` | 步骤 6 重跑 plan-next 后"现在该做"为空；**禁止基于模型自行推断输出此值** | 停止循环 |
-| `blocked` | 「现在该做」全部卡片均触发人工闸门或为「待执行」（已逐条尝试跳过后仍无可执行项） | 停止循环，等用户介入 |
-| `stalled` | 同一路由卡片连续 2 次无进展 | 停止循环，报告卡死原因 |
-| `error` | 子技能执行失败且无恢复路径 | 停止循环，报告错误 |
+| `advance` | The action finished and governance still has work | Fire again |
+| `done` | "Do now" was empty when plan-next was re-run in step 6; **emitting this value from the model's own inference is forbidden** | Stop the loop |
+| `blocked` | Every card in "Do now" either hit the human gate or is "awaiting execution" (nothing executable was left after trying and skipping each one) | Stop the loop and wait for the user |
+| `stalled` | The same routing card made no progress for 2 rounds in a row | Stop the loop and report the stall |
+| `error` | The sub-skill failed with no recovery path | Stop the loop and report the error |
 
 ---
 
-## 限制
+## Restrictions
 
-### 硬边界（Hard Boundaries）
+### Hard Boundaries
 
-**Rule 1**：每次调用 MUST NOT 执行超过 1 条动作
-- 验证：IterationStepReport 中 `调用技能` 字段只有 1 条
-- 后果：REJECT（破坏三层模型的单步语义）
+**Rule 1**: an invocation MUST NOT run more than 1 action
+- Verification: the IterationStepReport has exactly 1 entry in the `skill called` field
+- Consequence: REJECT (it breaks the single-step semantics of the three-layer model)
 
-**Rule 2**：战略创意类技能 MUST 触发人工闸门，不得直接执行
-- 验证：推荐技能为 define-mission 等时，该卡片加入 session skip-list 并尝试下一条；若全部卡片均被跳过，报告显示 `blocked` 并列出全部阻塞项
-- 后果：REJECT（战略决策不应被自动化）
+**Rule 2**: a strategic or creative skill MUST trigger the human gate and must not be run directly
+- Verification: when the recommended skill is define-mission or similar, that card goes on the session skip-list and the next one is tried; if every card is skipped, the report shows `blocked` and lists every blocked item
+- Consequence: REJECT (strategic decisions are not there to be automated)
 
-**Rule 3**：每次调用 MUST 输出合法的 `continuation_signal`
-- 验证：IterationStepReport 含 `继续信号` 字段且值在五值枚举内
-- 后果：REJECT（/loop 依赖此信号决定是否继续）
+**Rule 3**: every invocation MUST emit a valid `continuation_signal`
+- Verification: the IterationStepReport carries the `continuation signal` field and its value is one of the five in the enum
+- Consequence: REJECT (/loop depends on this signal to decide whether to continue)
 
-**Rule 4**：`done` 信号 MUST 来自步骤 6 plan-next 重跑结果，MUST NOT 来自模型自行推断
-- 验证：IterationStepReport 备注中不出现"治理层全部就绪"、"当前可执行的…均已创建"等自我评估语言；`done` 仅在步骤 6 确认"现在该做"为空后输出
-- 后果：REJECT（模型替代 plan-next 做了路由判断，破坏三层模型的职责边界）
+**Rule 4**: the `done` signal MUST come from the step 6 plan-next re-run, and MUST NOT come from the model's own inference
+- Verification: the IterationStepReport notes carry no self-assessment language such as "the whole governance layer is ready" or "everything currently executable has been created"; `done` is emitted only after step 6 confirms that "Do now" is empty
+- Consequence: REJECT (the model took the routing judgment away from plan-next, breaking the responsibility boundaries of the three-layer model)
 
-**Rule 5**：`done` MUST 满足「plan-next 输出含 L1 验收 KPI 已达成」声明 AND「现在该做为空」AND「无待执行卡片」三者同时满足
-- 验证：IterationStepReport 在输出 `done` 时引用了 plan-next 治理上下文中的 KPI 状态字段（如「引用可见率 85% ≥ 80%（达成）」）；只要 KPI 未达成或数据缺失或含「待执行」卡片，一律不得输出 `done`
-- 后果：REJECT（误把"战略目标 status=approved"当成验收达成，导致 /loop 在不该停时停）
+**Rule 5**: `done` MUST satisfy all three at once — the plan-next output declares "the L1 acceptance KPI is met" AND "Do now is empty" AND "there is no awaiting-execution card"
+- Verification: when emitting `done`, the IterationStepReport quotes the KPI status field from the plan-next governance context (such as "citation visibility 85% ≥ 80% (met)"); as long as the KPI is unmet, its data is missing, or an "awaiting execution" card is present, `done` must never be emitted
+- Consequence: REJECT (mistaking "strategic goal status=approved" for acceptance being met makes /loop stop at the wrong time)
 
-**Rule 6**：检测到「待执行」标签卡片 MUST 加入 skip-list 并尝试下一条，MUST NOT 尝试执行或直接 done；仅当全部卡片均被跳过时输出 `blocked`
-- 验证：IterationStepReport 中 selected_skill 在「待执行」卡片上不被填写；最终若 blocked，next_step 含「治理就绪、待外部执行」字样并列出全部被跳过项
-- 后果：REJECT
+**Rule 6**: a card labeled "awaiting execution" MUST go on the skip-list with the next one tried, and MUST NOT be executed or turned straight into done; `blocked` is emitted only once every card has been skipped
+- Verification: selected_skill is left unfilled on an "awaiting execution" card; if the end state is blocked, next_step carries the words "governance is ready, waiting on outside execution" and lists every skipped item
+- Consequence: REJECT
 
-**Rule 7**：MUST 在执行前进入 plan mode 起草计划并通过自审循环；MUST NOT 直接调用推荐技能
-- 验证：IterationStepReport 含 `plan_reviewed_rounds`（≥1）字段，且最后一轮无残留缺陷；执行失败的偏离点不得作为「计划范围扩张」理由
-- 后果：REJECT（跳过 plan 阶段会让单步语义和范围红线失控，下游难以审计）
+**Rule 7**: MUST enter plan mode, draft the plan, and pass the self-review loop before executing; MUST NOT call the recommended skill directly
+- Verification: the IterationStepReport carries a `plan_reviewed_rounds` field (≥1) and the final round leaves no defect; a divergence found in a failed execution must not be used as grounds for "expanding the plan's scope"
+- Consequence: REJECT (skipping the plan stage lets the single-step semantics and the scope red lines get out of hand, and leaves downstream auditing with nothing to go on)
 
-**Rule 8**：计划自审 MUST NOT 超过 3 轮；超过即输出 error，不得带缺陷强行执行
-- 验证：`plan_reviewed_rounds ≤ 3`；超过则 `continuation_signal: error` 且 next_step 含残留缺陷列表
-- 后果：REJECT（无界自审会陷入死循环或合理化缺陷）
+**Rule 8**: plan self-review MUST NOT exceed 3 rounds; beyond that, emit error — a defective plan must not be forced through
+- Verification: `plan_reviewed_rounds ≤ 3`; beyond it, `continuation_signal: error` and next_step carries the list of remaining defects
+- Consequence: REJECT (unbounded self-review either loops forever or rationalizes the defect away)
 
-### 技能边界（Skill Boundaries）
+### Skill Boundaries
 
-**不做以下事项**（其他技能负责）：
-- **治理诊断与路由** → `plan-next`
-- **循环调度** → `/loop`
-- **代码修复循环** → `orchestrate-repair-loop`
-- **文档健康检测** → AgentFabric runtime + linter / CI 工具（按 `rules/doc-health-criteria.md`）
+**Do not do the following** (other skills own them):
+- **Governance diagnosis and routing** → `plan-next`
+- **Loop scheduling** → `/loop`
+- **The code repair loop** → `orchestrate-repair-loop`
+- **Document health checks** → the AgentFabric runtime + linter / CI tooling (per `rules/doc-health-criteria.md`)
 
 ---
 
-## 反模式
+## Anti-Patterns
 
-### ✅ 正确：单步执行 + 后验证 + 继续信号
+### ✅ Correct: one step, then verification, then a continuation signal
 
 ```text
-1. plan-next → 2 条路由：capture-work-items（缓）、prioritize-backlog（缓）
-2. 取最高优先级：capture-work-items
-3. 人工闸门：非创意类 → 继续
-4. 执行 /capture-work-items
-5. 重跑 plan-next → capture-work-items 卡片消失
-6. 报告 continuation_signal: advance
+1. plan-next → 2 routing cards: capture-work-items (defer), prioritize-backlog (defer)
+2. Take the highest priority: capture-work-items
+3. Human gate: not a creative skill → continue
+4. Run /capture-work-items
+5. Re-run plan-next → the capture-work-items card is gone
+6. Report continuation_signal: advance
 ```
 
-**为什么正确**：单步执行保持三层模型正交性；后验证确认真实推进；/loop 自然驱动下一步。
+**Why it is correct**: single-step execution keeps the three layers orthogonal; the post-check confirms real progress; /loop drives the next step naturally.
 
 ---
 
-### ❌ 错误：一次执行两条路由
+### ❌ Wrong: running two routing items at once
 
 ```text
-1. plan-next → 2 条路由
-2. orchestrate-governance-step 执行 capture-work-items AND prioritize-backlog
+1. plan-next → 2 routing cards
+2. orchestrate-governance-step runs capture-work-items AND prioritize-backlog
 ```
 
-**问题分析**：违反单步语义；若第二条失败，难以确定回滚范围；破坏 /loop 的粒度控制。
+**What goes wrong**: it violates the single-step semantics; if the second one fails, the rollback scope is hard to pin down; and it destroys /loop's control over granularity.
 
 ---
 
-### ❌ 错误：绕过人工闸门
+### ❌ Wrong: bypassing the human gate
 
 ```text
-1. plan-next 路由：/design-strategic-goals
-2. orchestrate-governance-step 直接执行，不暂停
+1. plan-next routes to /design-strategic-goals
+2. orchestrate-governance-step runs it directly, without pausing
 ```
 
-**问题分析**：战略目标内容需要人工判断；自动执行产出低质量战略文档，且用户无感知。
+**What goes wrong**: the content of strategic goals needs human judgment; running it automatically produces a low-quality strategy document, and the user never notices.
 
 ---
 
-### ❌ 错误：一条阻塞项立即停下整个 /loop
+### ❌ Wrong: one blocked item stops the whole /loop immediately
 
 ```text
-1. plan-next → 3 条路由：design-strategic-goals（重要）+ capture-work-items（缓）+ prioritize-backlog（缓）
-2. orchestrate-governance-step 在第 1 条触发人工闸门后直接 blocked，停止 /loop
-3. 后续两条非阻塞卡片本可自动推进，但被白白挂起
+1. plan-next → 3 routing cards: design-strategic-goals (important) + capture-work-items (defer) + prioritize-backlog (defer)
+2. orchestrate-governance-step goes straight to blocked after the human gate fires on the 1st card, stopping /loop
+3. The two non-blocked cards behind it could have advanced automatically, but are left hanging for nothing
 ```
 
-**问题分析**：违反默认跳过约束。/loop 应推进所有可自动化项，将阻塞项汇总后再一并交给用户。正确做法：将该卡片加入 session skip-list，返回步骤 2 尝试下一条；只有全部卡片均被跳过时才 `blocked`。
+**What goes wrong**: it violates the skip-by-default constraint. /loop exists to advance everything automatable and to hand the blocked items to the user together at the end. The right move: put that card on the session skip-list and go back to step 2 for the next one; only when every card has been skipped does it become `blocked`.
 
 ---
 
-### ❌ 错误：跳过 plan mode 直接调用推荐技能
+### ❌ Wrong: skipping plan mode and calling the recommended skill directly
 
 ```text
-1. 步骤 2 找到 capture-work-items 卡片
-2. 直接调用 /capture-work-items …
-3. 技能顺手"补全"了 3 个看起来相关的字段，超出卡片范围
+1. Step 2 finds the capture-work-items card
+2. Call /capture-work-items … directly
+3. The skill "completes" 3 seemingly related fields along the way, beyond the card's scope
 ```
 
-**问题分析**：违反 Rule 7。没有 plan 阶段把「聚焦点 / 范围红线 / 回滚要点」写下来，子技能在调用中很容易顺手扩张；下游审计无法定位"为什么改了 X"。正确做法：先 EnterPlanMode 起草计划、自审通过、再 ExitPlanMode 执行。
+**What goes wrong**: it violates Rule 7. Without a plan stage writing down "focus / scope red lines / rollback points", a sub-skill very easily expands its reach along the way, and a downstream audit cannot work out "why X was changed". The right move: EnterPlanMode and draft the plan, pass the self-review, then ExitPlanMode and execute.
 
 ---
 
-### ❌ 错误：自审 5 轮后强行执行带缺陷计划
+### ❌ Wrong: forcing a defective plan through after 5 review rounds
 
 ```text
-1. 起草计划 → 自审 1：聚焦点无溯源 → 修订
-2. 自审 2：范围红线缺失 → 修订
-3. 自审 3：仍未补齐回滚要点
-4. 模型判断"剩下的是小问题"，强行执行
+1. Draft the plan → review 1: the focus has no traceable source → revise
+2. Review 2: the scope red lines are missing → revise
+3. Review 3: the rollback points are still not filled in
+4. The model decides "what is left is minor" and forces execution
 ```
 
-**问题分析**：违反 Rule 8。自审上限 3 轮是硬约束；超过即说明计划起草本身有结构性问题（卡片不清晰 / 推荐技能不匹配），应输出 error 交还人工，而不是把"自审失败"合理化为"小问题"。
+**What goes wrong**: it violates Rule 8. The 3-round self-review cap is a hard constraint; going past it means the plan drafting itself has a structural problem (an unclear card, a mismatched recommended skill), and the answer is to emit error and hand it back to a human rather than rationalizing "the self-review failed" into "a minor problem".
 
 ---
 
-### ❌ 错误：跳过执行后验证直接报告 advance
+### ❌ Wrong: reporting advance while skipping the post-execution check
 
 ```text
-1. 执行 /capture-work-items 完成
-2. 直接报告 continuation_signal: advance
-3. 实际上文件未成功写入
+1. /capture-work-items finishes
+2. continuation_signal: advance is reported directly
+3. In reality the file was never written
 ```
 
-**问题分析**：缺少后验证导致虚假 advance；下次 plan-next 仍给出同一路由，触发 stalled。
+**What goes wrong**: without the post-check, advance is false; the next plan-next produces the same routing and triggers stalled.
 
 ---
 
-### ❌ 错误：自行判断"治理完成"替代步骤 6 重跑 plan-next
+### ❌ Wrong: deciding "governance is finished" instead of re-running plan-next in step 6
 
 ```text
-1. 执行子技能成功
-2. 模型推断"当前可执行的治理文档均已创建，其余依赖开发者执行层"
-3. 直接输出 continuation_signal: done，未重跑 plan-next
+1. The sub-skill runs successfully
+2. The model infers "every governance document that can be created has been created; the rest depends on the developer execution layer"
+3. continuation_signal: done is emitted directly, with no plan-next re-run
 ```
 
-**问题分析**：模型把"治理层 vs 开发者执行层"的判断权抢走了——这是 plan-next 的职责，不是 orchestrate-governance-step 的。blocked 节点（如 T48/T52 依赖 T47/T49）应由 plan-next 路由并触发 `blocked` 信号，而不是由模型自行宣布"治理完成"。`done` 只有一个合法来源：步骤 6 重跑 plan-next 后"现在该做"为空。
+**What goes wrong**: the model has taken over the "governance layer vs developer execution layer" judgment — that is plan-next's job, not orchestrate-governance-step's. A blocked node (T48/T52 depending on T47/T49, say) is for plan-next to route and to trigger a `blocked` signal, not for the model to declare "governance finished" on its own. `done` has exactly one legitimate source: "Do now" is empty when plan-next is re-run in step 6.
 
 ---
 
-### ❌ 错误：把 `战略目标 status=approved` 当成验收已达成 → 输出 done
+### ❌ Wrong: treating `strategic goal status=approved` as acceptance met → emitting done
 
 ```text
-1. plan-next: G1 status=approved，验收 KPI「引用可见率」无监控数据
-2. orchestrate-governance-step 取空"现在该做"（plan-next 实际应返回路由，但此例假定 plan-next 也漏判）
-3. 输出 done，/loop 停止
-4. 实际上 G1 远未达成；下次唤醒检查时陷入 stalled 死循环
+1. plan-next: G1 status=approved, and the acceptance KPI "citation visibility" has no monitoring data
+2. orchestrate-governance-step takes an empty "Do now" (plan-next really ought to return routing here, but this example assumes plan-next misjudged it too)
+3. done is emitted and /loop stops
+4. G1 is in fact nowhere near met; the next wake-up check falls into a stalled loop
 ```
 
-**问题分析**：违反 Rule 5——必须先确认 plan-next 输出含 L1 验收 KPI 状态字段且 KPI 已达成；否则即使「现在该做」为空也不应 done。`approved` 只代表决策批准，验收未达成时应继续推进，输出应是 blocked（等执行 + 等 KPI 数据）。
+**What goes wrong**: it violates Rule 5 — the plan-next output must first be confirmed to carry the L1 acceptance-KPI status field with the KPI met; otherwise done is wrong even when "Do now" is empty. `approved` only means the decision was approved; while acceptance is unmet the work carries on, and the output belongs as blocked (waiting on execution + waiting on KPI data).
 
 ---
 
-### ❌ 错误：从中间层（M5/任务）状态推断 done
+### ❌ Wrong: inferring done from a middle layer (M5/tasks)
 
 ```text
-1. plan-next 报：M5 任务全部 pending、设计 ADR 完备、需求文件完备
-2. 模型推断"治理层无缺口" → 输出 done
-3. 未回到战略目标 G1 验收检查
+1. plan-next reports: every M5 task pending, the design ADRs complete, the requirement files complete
+2. The model infers "the governance layer has no gaps" → emits done
+3. It never returns to the G1 strategic-goal acceptance check
 ```
 
-**问题分析**：从中间层扫描会丢失"为什么这条任务重要"的因果链。orchestrate-governance-step 的判定起点必须是「L1 验收 KPI 是否达成」，不是「中间层文档是否完备」。这与 plan-next 的目标树遍历方向一致——根节点是战略目标的验收标准。
+**What goes wrong**: scanning from a middle layer loses the causal chain of "why this task matters". The verdict of orchestrate-governance-step must start from "is the L1 acceptance KPI met", not from "are the middle-layer documents complete". This matches the direction in which plan-next traverses the goal tree — the root is the strategic goal's acceptance criteria.
 
 ---
 
-### ❌ 错误：cron 模式下持续输出 done 而不警示用户
+### ❌ Wrong: emitting done repeatedly in cron mode without warning the user
 
 ```text
-1. /loop 1m /orchestrate-governance-step 注册 cron
-2. 首次 plan-next 返回空 → 输出 done（错误）
-3. cron 不读信号，继续每分钟触发，陷入 done 空转
-4. 用户不知 cron 在空转
+1. /loop 1m /orchestrate-governance-step registers a cron job
+2. The first plan-next returns empty → done is emitted (wrong)
+3. cron does not read the signal and keeps firing every minute, spinning on done
+4. The user has no idea the cron job is spinning
 ```
 
-**问题分析**：违反「与 /loop 交互模式」节约束。cron 模式下信号被忽略，技能必须主动警示用户改用 dynamic /loop 或建议 CronDelete。
+**What goes wrong**: it violates the constraints in the "Interaction with /loop" section. In cron mode the signal is ignored, so the skill must actively warn the user to switch to a dynamic /loop, or suggest CronDelete.
 
 ---
 
-## 示例
+## Examples
 
-### 示例 1：快乐路径——需求登记成功
+### Example 1: happy path — a requirement is registered
 
-**场景**：plan-next 路由 backlog 新条目登记；首次调用；子技能成功。
+**Scenario**: plan-next routes to registering new backlog entries; first invocation; the sub-skill succeeds.
 
-**执行过程**：
-1. 内部调用 plan-next → 主题："登记 M5 阶段新增的 3 项 backlog 条目"，推荐技能：`/capture-work-items`，优先级：缓
-2. 卡死检测：首次调用，无历史指纹 → 继续
-3. 人工闸门：`capture-work-items` 非创意类 → 通过
-4. **进入 plan mode 起草计划**：
-   - 目标：登记 M5 阶段 3 项 backlog 条目（引用卡片主题）
-   - 子技能命令：`/capture-work-items 把 M5 新发现的 3 项需求登记到 backlog`
-   - 聚焦点溯源：卡片描述「M5 巡检发现 3 项需求散落在讨论中」
-   - 预期输出：`backlog/` 目录新增 3 个 markdown，含 frontmatter
-   - 范围红线：MUST NOT 修改既有 backlog 条目；MUST NOT 触碰 `roadmap/`、`requirements/`
-   - 回滚要点：新建文件可 `git clean -f backlog/<new-files>`
-5. **自审循环**：第 1 轮 6 项清单全部通过 → `plan_reviewed_rounds = 1`，退出 plan mode
-6. 执行 `/capture-work-items 把 M5 新发现的 3 项需求登记到 backlog`
-7. 执行后验证：重跑 plan-next → 该卡片消失，"现在该做"仍有 1 条 → advance
+**Execution**:
+1. Call plan-next internally → subject: "register the 3 backlog entries added in stage M5", recommended skill: `/capture-work-items`, priority: defer
+2. Stall detection: first invocation, no fingerprint history → continue
+3. Human gate: `capture-work-items` is not a creative skill → pass
+4. **Enter plan mode and draft the plan**:
+   - Goal: register the 3 M5-stage backlog entries (quoting the card subject)
+   - Sub-skill command: `/capture-work-items register the 3 requirements newly found in M5 into the backlog`
+   - Focus traceability: the card says "the M5 sweep found 3 requirements scattered through discussions"
+   - Expected output: 3 new markdown files under `backlog/`, with frontmatter
+   - Scope red lines: MUST NOT modify existing backlog entries; MUST NOT touch `roadmap/` or `requirements/`
+   - Rollback points: the new files can be removed with `git clean -f backlog/<new-files>`
+5. **Self-review loop**: round 1 passes all 6 checks → `plan_reviewed_rounds = 1`, leave plan mode
+6. Run `/capture-work-items register the 3 requirements newly found in M5 into the backlog`
+7. Post-execution check: re-run plan-next → that card is gone, "Do now" still has 1 entry → advance
 
-**IterationStepReport**：
+**IterationStepReport**:
 
 ```markdown
-## 这次自动推进做了什么
+## What this automatic step did
 
-- **做了什么**：把 M5 新发现的 3 项需求登记到 backlog
-- **为什么要修**：M5 巡检发现 3 项需求散落在讨论中，未结构化登记
-- **改了什么**：
-  - 修改前：backlog/ 目录下无对应条目
-  - 修改后：新增 3 个 backlog 条目文件，含 frontmatter 与摘要
-- **结果**：成功 ✅
-- **下一步**：继续自动推进（还有 1 条待处理项）
-- _（内部）继续信号：advance；plan_reviewed_rounds: 1_
+- **What was done**: registered the 3 requirements newly found in M5 into the backlog
+- **Why it needed fixing**: the M5 sweep found 3 requirements scattered through discussions, never registered in structured form
+- **What changed**:
+  - Before: no matching entries under backlog/
+  - After: 3 new backlog entry files, with frontmatter and a summary
+- **Result**: Success ✅
+- **Next**: keep going automatically (1 item still pending)
+- _(internal) continuation signal: advance; plan_reviewed_rounds: 1_
 ```
 
 ---
 
-### 示例 2：人工闸门跳过 → 命中下一条非创意类卡片
+### Example 2: the human gate skips a card → the next non-creative card is taken
 
-**场景**：plan-next 路由两条：`design-strategic-goals`（重要，战略创意类）+ `capture-work-items`（缓，登记类）。
+**Scenario**: plan-next routes two cards: `design-strategic-goals` (important, strategic/creative) + `capture-work-items` (defer, registration).
 
-**执行过程**：
-1. 内部调用 plan-next → 两条路由
-2. 卡死检测：首次调用 → 继续
-3. 步骤 2 取最高优先级：`design-strategic-goals`
-4. 步骤 4 人工闸门：属战略创意类 → 加入 skip-list，返回步骤 2
-5. 步骤 2 取下一条：`capture-work-items` 未在 skip-list
-6. 步骤 4 人工闸门：非创意类 → 通过
-7. 步骤 5.1 进入 plan mode 起草计划（同示例 1 六段结构，此处省略）
-8. 步骤 5.2 自审：1 轮通过 → `plan_reviewed_rounds = 1`
-9. 步骤 5.3 退出 plan mode，执行 `/capture-work-items …`
-10. 步骤 6 重跑 plan-next：`capture-work-items` 卡片消失 → `advance`
+**Execution**:
+1. Call plan-next internally → two routing cards
+2. Stall detection: first invocation → continue
+3. Step 2 takes the highest priority: `design-strategic-goals`
+4. Step 4 human gate: it is strategic/creative → add to the skip-list, back to step 2
+5. Step 2 takes the next one: `capture-work-items` is not on the skip-list
+6. Step 4 human gate: not creative → pass
+7. Step 5.1 enter plan mode and draft the plan (the same six-part structure as example 1, omitted here)
+8. Step 5.2 self-review: passes in 1 round → `plan_reviewed_rounds = 1`
+9. Step 5.3 leave plan mode and run `/capture-work-items …`
+10. Step 6 re-run plan-next: the `capture-work-items` card is gone → `advance`
 
-**IterationStepReport**：
+**IterationStepReport**:
 
 ```markdown
-## 这次自动推进做了什么
+## What this automatic step did
 
-- **做了什么**：登记 M5 阶段新增的 3 项 backlog 条目
-- **为什么要修**：战略目标卡片需要人工判断，已跳过；同批次另有可自动执行卡片
-- **结果**：成功 ✅
-- **下一步**：继续自动推进（被跳过待人工：1 条 — `design-strategic-goals`）
-- _（内部）继续信号：advance；plan_reviewed_rounds: 1；本次跳过：[design-strategic-goals]_
+- **What was done**: registered the 3 backlog entries added in stage M5
+- **Why it needed fixing**: the strategic-goal card needs human judgment and was skipped; the same batch held another card that could run automatically
+- **Result**: Success ✅
+- **Next**: keep going automatically (skipped, awaiting a human: 1 — `design-strategic-goals`)
+- _(internal) continuation signal: advance; plan_reviewed_rounds: 1; skipped this time: [design-strategic-goals]_
 ```
 
 ---
 
-### 示例 2b：所有路由均被跳过 → blocked
+### Example 2b: every routing card is skipped → blocked
 
-**场景**：plan-next 路由两条，均为战略创意类或「待执行」。
+**Scenario**: plan-next routes two cards, both either strategic/creative or "awaiting execution".
 
-**执行过程**：
-1. plan-next → `define-mission`（重要）+ 一条 `待执行` 卡片
-2. 步骤 2 取 `define-mission` → 步骤 4 加入 skip-list → 返回步骤 2
-3. 步骤 2 取「待执行」卡片 → 步骤 4 加入 skip-list → 返回步骤 2
-4. 「现在该做」全部条目已在 skip-list → 输出 `blocked`
+**Execution**:
+1. plan-next → `define-mission` (important) + one `awaiting execution` card
+2. Step 2 takes `define-mission` → step 4 adds it to the skip-list → back to step 2
+3. Step 2 takes the "awaiting execution" card → step 4 adds it to the skip-list → back to step 2
+4. Every entry in "Do now" is on the skip-list → emit `blocked`
 
-**IterationStepReport**：
+**IterationStepReport**:
 
 ```markdown
-## 这次自动推进做了什么
+## What this automatic step did
 
-- **做了什么**：扫描了 2 条路由，全部需人工介入
-- **为什么要修**：当前「现在该做」均为创意类或待外部执行，无可自动化项
-- **结果**：需要你来决定 ⚠️
-- **下一步**：需要你决定：
-  1. `define-mission`：战略类技能，需人工判断，建议手动运行
-  2. 「待执行」卡片：治理就绪，等外部开发执行
-- _（内部）继续信号：blocked_
+- **What was done**: scanned 2 routing cards, all of which need a human
+- **Why it needed fixing**: everything in "Do now" is either creative or waiting on outside execution, so nothing can be automated
+- **Result**: Your call needed ⚠️
+- **Next**: your decision needed:
+  1. `define-mission`: a strategic skill that needs human judgment; running it by hand is recommended
+  2. The "awaiting execution" card: governance is ready, waiting on outside development
+- _(internal) continuation signal: blocked_
 ```
 
 ---
 
-### 示例 3（边界场景）：卡死检测——子技能未推进
+### Example 3 (edge case): stall detection — the sub-skill made no progress
 
-**场景**：上次 `/capture-work-items` 执行后需求文档未成功写入；本次 plan-next 路由出同一卡片。
+**Scenario**: after the last `/capture-work-items` run, the requirement document was never written; this time plan-next routes the same card.
 
-**执行过程**：
-1. 内部调用 plan-next → 指纹 = "分析路线图节点 N1 的需求||战略目标「目标 A」→ 路线图「N1」当前：需求层"
-2. 卡死检测：与上次指纹相同 → **触发 stalled**
+**Execution**:
+1. Call plan-next internally → fingerprint = "analyze the requirements of roadmap node N1||strategic goal 'Goal A' → roadmap 'N1' current: requirements layer"
+2. Stall detection: identical to the previous fingerprint → **stalled fires**
 
-**IterationStepReport**：
+**IterationStepReport**:
 
 ```markdown
-## 这次自动推进做了什么
+## What this automatic step did
 
-- **做了什么**：尝试分析路线图 N1 的需求，但检测到连续 2 次未推进
-- **为什么要修**：requirements/N1-requirements.md 在上次 `/capture-work-items` 后未成功写入
-- **结果**：出错了 ❌
-- **下一步**：卡住了：同一任务连续 2 次无进展，可能原因：需求文件未写入、路径配置错误、或技能执行有误。建议手动运行 `/capture-work-items` 并检查输出文件是否存在，解决后重新运行 /orchestrate-governance-step
-- _（内部）继续信号：stalled_
+- **What was done**: tried to analyze the requirements of roadmap N1, but detected 2 consecutive rounds with no progress
+- **Why it needed fixing**: requirements/N1-requirements.md was never written after the last `/capture-work-items`
+- **Result**: Error ❌
+- **Next**: stuck: the same task made no progress twice in a row. Possible causes: the requirement file was not written, the path configuration is wrong, or the skill ran incorrectly. Suggested: run `/capture-work-items` by hand, check whether the output file exists, and re-run /orchestrate-governance-step once it is resolved
+- _(internal) continuation signal: stalled_
 ```
 
 ---
 
-## AI 重构指令
+## AI Repair Instructions
 
-### 问题 1：执行了多条路由
+### Problem 1: several routing items were run
 
-- **识别标志**：IterationStepReport 出现多个 `调用技能` 条目
-- **纠正步骤**：
-  1. 识别被执行的多条路由
-  2. 仅保留优先级最高 1 条（`紧急` > `重要` > `缓`）
-  3. 重新输出 IterationStepReport，只报告 1 条动作
-
----
-
-### 问题 2：遗漏 continuation_signal
-
-- **识别标志**：IterationStepReport 缺少内部继续信号字段，或值不在五值枚举内
-- **纠正步骤**：
-  1. 检查执行结果，按以下逻辑补填：
-     - 子技能成功 + 仍有路由 → `advance`
-     - 子技能成功 + 无路由 → `done`
-     - 人工闸门触发 → `blocked`
-     - 指纹重复 → `stalled`
-     - 子技能失败 → `error`
-  2. 在 `下一步` 字段说明原因
+- **How to spot it**: the IterationStepReport has several `skill called` entries
+- **How to correct it**:
+  1. Identify the routing items that were run
+  2. Keep only the 1 highest-priority item (`urgent` > `important` > `defer`)
+  3. Re-emit the IterationStepReport, reporting only 1 action
 
 ---
 
-### 问题 3：跳过执行后验证就报告 advance
+### Problem 2: continuation_signal is missing
 
-- **识别标志**：报告显示 `advance` 但未重跑 plan-next 确认
-- **纠正步骤**：
-  1. 重跑 `/plan-next`，检查目标卡片是否已消失
-  2. 若已消失 → 确认 `advance` 正确
-  3. 若仍存在 → 更新卡死计数；若第 2 次出现 → 修正为 `stalled`
+- **How to spot it**: the IterationStepReport lacks the internal continuation-signal field, or its value is outside the five-value enum
+- **How to correct it**:
+  1. Check the execution result and fill it in by this logic:
+     - Sub-skill succeeded + routing remains → `advance`
+     - Sub-skill succeeded + no routing → `done`
+     - The human gate fired → `blocked`
+     - The fingerprint repeated → `stalled`
+     - The sub-skill failed → `error`
+  2. Explain why in the `Next` field
 
 ---
 
-### 问题 4：自行判断完成状态跳过步骤 6
+### Problem 3: reporting advance while skipping the post-execution check
 
-- **识别标志**：`下一步` 字段出现"治理层全部就绪"、"当前可执行的…均已创建"、"属于开发者执行层"等自我评估语言，且无步骤 6 plan-next 重跑记录
-- **纠正步骤**：
-  1. 重跑 `/plan-next`
-  2. 若"现在该做"为空 → `done` 正确，报告无需修改
-  3. 若"现在该做"仅含 blocked 条目 → 修正为内部继续信号 `blocked`，`下一步` 说明阻塞原因
-  4. 若"现在该做"仍有可执行条目 → 修正为内部继续信号 `advance`，继续下一步
+- **How to spot it**: the report says `advance` but plan-next was never re-run to confirm
+- **How to correct it**:
+  1. Re-run `/plan-next` and check whether the target card is gone
+  2. If it is gone → `advance` is confirmed correct
+  3. If it is still there → update the stall count; on the 2nd occurrence → correct it to `stalled`
+
+---
+
+### Problem 4: judging completion internally and skipping step 6
+
+- **How to spot it**: the `Next` field carries self-assessment language such as "the whole governance layer is ready", "everything currently executable has been created", or "this belongs to the developer execution layer", with no record of a step 6 plan-next re-run
+- **How to correct it**:
+  1. Re-run `/plan-next`
+  2. If "Do now" is empty → `done` was right, and the report needs no change
+  3. If "Do now" holds only blocked entries → correct the internal continuation signal to `blocked` and explain the blocking reason in `Next`
+  4. If "Do now" still has executable entries → correct the internal continuation signal to `advance` and carry on
 
 ---
 
 ## Appendix: Output contract
 
-### YAML schema（formal）
+### YAML schema (formal)
 
 ```yaml
 type: object
-# execution_trace 仅当 continuation_signal ∈ {advance, done} 时必填；
-# blocked / stalled / error 路径未执行子技能，不要求该字段。
+# execution_trace is required only when continuation_signal ∈ {advance, done};
+# the blocked / stalled / error paths run no sub-skill and do not require the field.
 required:
   - report_title
   - action_taken
@@ -623,15 +623,15 @@ required:
 properties:
   report_title:
     type: string
-    const: "这次自动推进做了什么"
+    const: "What this automatic step did"
   action_taken:
     type: string
     minLength: 1
-    description: 用文件名或功能名描述本次唯一执行动作
+    description: describes the single action taken, by file name or feature name
   why_fix:
     type: string
     minLength: 1
-    description: 可选；首次创建文件可省略
+    description: optional; may be omitted when a file is created for the first time
   changes:
     type: object
     required: [before, after]
@@ -642,7 +642,7 @@ properties:
         type: string
   result:
     type: string
-    enum: ["成功 ✅", "需要你来决定 ⚠️", "出错了 ❌"]
+    enum: ["Success ✅", "Your call needed ⚠️", "Error ❌"]
   next_step:
     type: string
     minLength: 1
@@ -666,7 +666,7 @@ properties:
 additionalProperties: false
 ```
 
-### JSON schema（formal）
+### JSON schema (formal)
 
 ```json
 {
@@ -694,7 +694,7 @@ additionalProperties: false
   "properties": {
     "report_title": {
       "type": "string",
-      "const": "这次自动推进做了什么"
+      "const": "What this automatic step did"
     },
     "action_taken": {
       "type": "string",
@@ -715,7 +715,7 @@ additionalProperties: false
     },
     "result": {
       "type": "string",
-      "enum": ["成功 ✅", "需要你来决定 ⚠️", "出错了 ❌"]
+      "enum": ["Success ✅", "Your call needed ⚠️", "Error ❌"]
     },
     "next_step": {
       "type": "string",
@@ -737,7 +737,7 @@ additionalProperties: false
           "type": "integer",
           "minimum": 1,
           "maximum": 3,
-          "description": "计划自审轮数；最后一轮 0 缺陷才允许执行"
+          "description": "number of plan self-review rounds; execution is allowed only when the final round has 0 defects"
         },
         "post_check_plan_next_rerun": {
           "type": "boolean",
@@ -753,34 +753,34 @@ additionalProperties: false
 
 ---
 
-## 自检
+## Self-Check
 
-### 必选节完整性
+### Required sections present
 
-- [ ] 11 个必选节全部存在（目的 / 核心目标 / 范围边界 / 使用场景 / 行为 / 输入与输出 / 限制 / 反模式 / 示例 / AI 重构指令 / 自检）
-- [ ] Semantic Role 定位块存在，说明了与 plan-next / loop / orchestrate-repair-loop 的区别
+- [ ] All 11 required sections exist (Purpose / Core Objective / Scope Boundaries / Use Cases / Behavior / Input & Output / Restrictions / Anti-Patterns / Examples / AI Repair Instructions / Self-Check)
+- [ ] The Semantic Role block exists and states the difference from plan-next / loop / orchestrate-repair-loop
 
-### 核心成功标准
+### Core success criteria
 
-- [ ] 每次调用执行且仅执行 1 条动作
-- [ ] 卡死检测：session 内指纹重复 2 次触发 stalled
-- [ ] 执行前 plan：进入 plan mode 起草计划，自审循环 ≤ 3 轮且最后一轮 0 缺陷才允许执行
-- [ ] 执行后验证：重跑 plan-next 确认目标卡片消失
-- [ ] 步骤 6 是否真正执行了重跑 plan-next？（不接受"自行推断治理完成"替代；备注中不出现自我评估语言）
-- [ ] 人工闸门：战略创意类技能与「待执行」卡片默认加入 skip-list 并尝试下一条；仅当「现在该做」全部被跳过才输出 blocked
-- [ ] 每次输出合法的 continuation_signal（advance / done / blocked / stalled / error）
-- [ ] **plan-next 输出的"治理上下文"含 L1 验收 KPI 当前状态**？若否，视为 plan-next 不合规，输出 error 并提示升级
-- [ ] **`done` 信号同时满足三条件**：plan-next 输出"现在该做"为空 + KPI 已达成 + 无「待执行」卡片
-- [ ] **cron 模式（fixed-interval）下首次报告含 dynamic /loop 改用建议**
-- [ ] **`stalled` 第 2 次连续出现时含「立即 CronDelete <job-id>」提示**
+- [ ] Each invocation runs exactly 1 action, and no more
+- [ ] Stall detection: a fingerprint repeated 2 times within a session fires stalled
+- [ ] Plan before execution: enter plan mode and draft the plan; the self-review loop is ≤ 3 rounds and execution is allowed only once the final round has 0 defects
+- [ ] Post-execution check: re-run plan-next and confirm that the target card is gone
+- [ ] Was the step 6 plan-next re-run actually carried out? ("inferring governance completion internally" is not accepted as a substitute; the notes carry no self-assessment language)
+- [ ] Human gate: a strategic or creative skill and an "awaiting execution" card go on the skip-list by default and the next card is tried; blocked is emitted only once every card in "Do now" has been skipped
+- [ ] A valid continuation_signal is emitted every time (advance / done / blocked / stalled / error)
+- [ ] **Does the "governance context" in the plan-next output carry the current L1 acceptance-KPI status**? If not, treat plan-next as non-compliant, emit error, and prompt for an upgrade
+- [ ] **The `done` signal satisfies all three conditions**: the plan-next output has "Do now" empty + the KPI met + no "awaiting execution" card
+- [ ] **In cron mode (fixed interval), the first report carries the suggestion to switch to a dynamic /loop**
+- [ ] **The 2nd consecutive `stalled` carries the "CronDelete <job-id> immediately" prompt**
 
-### 质量门检查
+### Quality gate checks
 
-- [ ] Hard Boundaries 使用 MUST / MUST NOT 并附验证方式
-- [ ] Anti-Patterns ≥ 2 个对比示例（实际 4 个）
-- [ ] Examples ≥ 2 个，其中 ≥ 1 个边界场景（示例 3 覆盖卡死检测）
-- [ ] AI 重构指令覆盖 ≥ 2 种错误模式（实际 3 种）
+- [ ] Hard Boundaries use MUST / MUST NOT and state how each is verified
+- [ ] Anti-Patterns has ≥ 2 contrasting examples (4 in practice)
+- [ ] Examples has ≥ 2, of which ≥ 1 is an edge case (example 3 covers stall detection)
+- [ ] The AI repair instructions cover ≥ 2 error patterns (3 in practice)
 
-### 验收测试
+### Acceptance test
 
-执行完成后，IterationStepReport 是否清晰说明了执行了什么、结果如何、以及下一步是继续还是需要人工介入？若否 → 重写 IterationStepReport。
+After execution, does the IterationStepReport state clearly what was done, how it turned out, and whether the next step is to continue or to bring in a human? If not → rewrite the IterationStepReport.

@@ -17,102 +17,102 @@ output_schema:
   description: Lean README.md written to the project root; section count varies by project type and available content
 ---
 
-# 技能（Skill）：生成精简 README
+# Skill: Generate Lean README
 
-## 目的
+## Purpose
 
-为任何软件项目或文档仓库生成**高信息密度、低冗余**的首页文档。
+Generate a **high-density, low-redundancy** front page for any software project or documentation repository.
 
-唯一核心目标：读者在 30 秒内知道——
-1. 这个项目是什么（一句话）
-2. 去哪里找关键入口
-3. 怎么用（可执行的最短路径）
-
----
-
-## 适用范围
-
-**本技能负责**：
-- 按价值门槛裁剪章节的精简 README 生成
-- 项目类型分流（代码/应用仓库 vs 文档/规范仓库）
-- anti-fluff 输出（每个主张落到具体路径、命令、行为或约束）
-
-**本技能不负责**：
-- 完整 docs/ 套件 → 由 AgentFabric runtime 或人工按 `docs/ARTIFACT_NORMS.md` 承接
-- AGENTS.md / 代理合同文件 → 使用 `generate-agent-entry`
-- 敏感信息脱敏 → 使用 `decontextualize-text`
+The one core goal: within 30 seconds the reader knows —
+1. What this project is (one sentence)
+2. Where the key entry points are
+3. How to use it (the shortest runnable path)
 
 ---
 
-## 使用场景
+## Scope
 
-- **新建仓库**：项目创建后需要首页文档，无现有 README。
-- **资产治理**：跨服务统一 README 风格，提升可索引性。
-- **遗留系统**：补全缺失文档，以最小信息量覆盖核心入口。
-- **移交与发布**：项目转交或公开发布前确保首页文档完整。
+**This skill handles**:
+- Lean README generation, with sections pruned by a value threshold
+- Project-type triage (code/application repository vs documentation/spec repository)
+- Anti-fluff output (every claim lands on a concrete path, command, behavior, or constraint)
 
-**触发信号**：用户说"帮我写 README"、"生成自述文件"或直接提供仓库路径。
+**This skill does NOT handle**:
+- A full docs/ suite → taken on by the AgentFabric runtime or by a person, per `docs/ARTIFACT_NORMS.md`
+- AGENTS.md / agent contract files → use `generate-agent-entry`
+- Redaction of sensitive information → use `decontextualize-text`
 
 ---
 
-## 行为
+## Use Cases
 
-### 交互策略
+- **New repository**: The project has just been created and needs a front page; no README exists yet.
+- **Asset governance**: Unify README style across services to improve indexability.
+- **Legacy systems**: Fill in the missing documentation, covering the core entry points with the least information that works.
+- **Handover and release**: Make the front page complete before the project is transferred or published.
 
-| 情况 | 行为 |
+**Trigger signals**: The user says "write me a README", "generate a readme", or simply hands over a repository path.
+
+---
+
+## Behavior
+
+### Interaction Policy
+
+| Situation | Behavior |
 | :--- | :--- |
-| 项目类型已知 | 直接生成，无需询问 |
-| 项目类型不明 | 先检查仓库结构（是否有 `package.json` / `pyproject.toml` / `Dockerfile` / `INDEX.md` 等）推断类型；推断有把握则直接生成并说明推断依据；推断不确定时询问用户 |
-| 用户未提供描述 | 从仓库名称和文件结构推断最保守描述，标注 `TBD`，不臆造 |
-| 写文件前 | 默认直接写入 `README.md`；若仓库已有 README，先提示将覆盖，等待确认 |
+| Project type known | Generate directly, no questions |
+| Project type unclear | Inspect the repository structure first (is there a `package.json` / `pyproject.toml` / `Dockerfile` / `INDEX.md`, and so on) to infer the type; when the inference is solid, generate directly and state what it rests on; when it is not, ask the user |
+| User gave no description | Infer the most conservative description from the repository name and file structure, mark it `TBD`, invent nothing |
+| Before writing the file | By default write `README.md` directly; if the repository already has a README, warn that it will be overwritten and wait for confirmation |
 
-### 默认骨架
+### Default Skeleton
 
 ```markdown
-# <项目名> [徽章（可选）]
+# <project name> [badges (optional)]
 
-<一句话说明>（必须）
+<one-sentence description> (required)
 
-## <核心入口 / 如何使用>（必须）
+## <Core entry points / How to use> (required)
 
-## License（必须）
+## License (required)
 ```
 
-其余章节按价值门槛决定是否保留。
+Every other section is kept or dropped by the value threshold.
 
-### 章节价值门槛
+### Section Value Threshold
 
-**判定原则**：若某章节不能提供其他章节中不存在的新决策信息，则删除或并入最近的章节。
+**Decision rule**: If a section carries no decision-making information the other sections lack, delete it or fold it into the nearest section.
 
-| 章节 | 类型 | 保留条件 |
+| Section | Type | Kept when |
 | :--- | :--- | :--- |
-| 标题 + 一句话说明 | **必须** | 无条件保留 |
-| 核心入口 / 如何使用 | **必须** | 无条件保留 |
-| License | **必须** | 无条件保留，含有效链接 |
-| 功能列表 | 可选 | 存在 ≥2 个非显而易见的功能且一句话说明无法覆盖时 |
-| 安装 | 可选（仅 code 类型） | 安装步骤超过 `pip install` / `npm install` 单行时 |
-| 快速启动 | 可选（仅 code 类型） | 存在可复制粘贴的最小可运行示例时 |
-| 配置/使用说明 | 可选 | 有非显而易见的配置项或参数时 |
-| 贡献指南 | 可选 | 贡献流程有特殊要求时（PR 规范、测试门槛等） |
-| 作者/致谢 | 可选 | 有明确归属需求时 |
+| Title + one-sentence description | **Required** | Always kept |
+| Core entry points / How to use | **Required** | Always kept |
+| License | **Required** | Always kept, with a working link |
+| Feature list | Optional | There are ≥2 non-obvious features and the one-sentence description cannot carry them |
+| Installation | Optional (code type only) | Installation takes more than a single `pip install` / `npm install` line |
+| Quick start | Optional (code type only) | A copy-pasteable minimal runnable example exists |
+| Configuration / usage notes | Optional | There are non-obvious configuration options or parameters |
+| Contributing guide | Optional | The contribution process has particular requirements (PR conventions, test gates, and so on) |
+| Authors / acknowledgements | Optional | There is an explicit attribution need |
 
-**省略规则**：
-- `doc` 类型仓库：默认不生成安装和快速启动节，改为导航索引
-- 任何章节若内容为空或仅含 TBD → 省略（不保留空壳章节）
-- 贡献/作者章节若只能写通用套话 → 省略
+**Omission rules**:
+- `doc` type repository: by default no installation or quick-start section is generated; a navigation index takes their place
+- Any section whose content is empty or only TBD → omit it (no hollow sections)
+- If the contributing or authors section can only hold boilerplate → omit it
 
-### 项目类型分流
+### Project-Type Triage
 
-**code 类型**（代码/应用仓库）
+**code type** (code/application repository)
 
-判定信号：存在 `package.json` / `pyproject.toml` / `Makefile` / `Dockerfile` / 主程序入口文件。
+Signals: a `package.json` / `pyproject.toml` / `Makefile` / `Dockerfile` / main entry-point file exists.
 
-输出重点：安装路径、最小可运行示例、关键 API 入口。
+Output focus: the installation path, a minimal runnable example, the key API entry points.
 
 ```markdown
 # MyApp
 
-单行说明项目做什么。
+One line on what the project does.
 
 ## Installation
 
@@ -131,108 +131,108 @@ myapp --input file.csv --output result.json
 MIT — see [LICENSE](LICENSE)
 ```
 
-**doc 类型**（文档/规范仓库）
+**doc type** (documentation/spec repository)
 
-判定信号：无可执行入口，主要内容为 `.md` / `.yaml` / `.json` spec 文件，存在 `INDEX.md` / `skills/INDEX.md`。
+Signals: no executable entry point; the bulk of the content is `.md` / `.yaml` / `.json` spec files; an `INDEX.md` / `skills/INDEX.md` exists.
 
-输出重点：导航索引、阅读路径。安装/快速启动默认省略。
+Output focus: a navigation index and reading paths. Installation and quick start are omitted by default.
 
 ```markdown
 # MySpec
 
-单行说明规范/文档的范围和受众。
+One line on the scope and audience of the spec or docs.
 
-## 如何使用
+## How to use
 
-- 从 [INDEX.md](INDEX.md) 开始
-- 核心定义见 [docs/architecture/terminology.md](docs/architecture/terminology.md)
-- 贡献规范见 [CONTRIBUTING.md](CONTRIBUTING.md)
+- Start from [INDEX.md](INDEX.md)
+- Core definitions: [docs/architecture/terminology.md](docs/architecture/terminology.md)
+- Contribution conventions: [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## License
 
 MIT — see [LICENSE](LICENSE)
 ```
 
-### Anti-Fluff 规则
+### Anti-Fluff Rules
 
-以下内容禁止出现：
+The following are forbidden:
 
-| 禁止模式 | 示例 | 修复方向 |
+| Forbidden pattern | Example | Fix |
 | :--- | :--- | :--- |
-| 空泛形容词堆叠 | "可复用、可治理、可落地" | 删除或替换为具体行为："通过 `skills/INDEX.md` 注册并与变更一并自检" |
-| 无主语的价值主张 | "提高工程规范" | 删除或具体化："维护 `skills/INDEX.md` 与文档链接一致性" |
-| 重复已知信息 | 在安装节重述描述节的内容 | 合并或删除 |
-| 占位套话 | "欢迎贡献！请提 PR。" | 若无具体流程说明，省略贡献节 |
-| 臆造命令或功能 | 无 `docker-compose.yml` 却写 `docker compose up` | 用 `TBD` 或省略 |
+| Piled-up empty adjectives | "reusable, governable, actionable" | Delete, or replace with concrete behavior: "registered through `skills/INDEX.md` and self-checked alongside each change" |
+| Subjectless value claims | "improves engineering standards" | Delete or make concrete: "keeps `skills/INDEX.md` consistent with the document links" |
+| Repeating known information | Restating the description section inside the installation section | Merge or delete |
+| Placeholder boilerplate | "Contributions welcome! Send a PR." | With no concrete process to describe, omit the contributing section |
+| Invented commands or features | Writing `docker compose up` when there is no `docker-compose.yml` | Use `TBD`, or omit |
 
-**每个主张必须落到**：具体文件路径 / shell 命令 / 可观测行为 / 明确约束。
+**Every claim must land on**: a concrete file path / a shell command / an observable behavior / an explicit constraint.
 
 ---
 
-## 输入与输出
+## Input & Output
 
-### 输入
+### Input
 
-| 字段 | 必需 | 说明 |
+| Field | Required | Notes |
 | :--- | :--- | :--- |
-| 项目名称 | 必需 | 用于标题 |
-| 一句话描述 | 必需 | 精确说明项目做什么 |
-| 项目类型 | 推荐 | `code` 或 `doc`；不提供时从仓库结构推断 |
-| 许可证 | 推荐 | 类型 + 文件路径；不提供时用 `TBD` |
-| 安装命令 | 可选 | 仅 `code` 类型项目使用 |
-| 快速启动示例 | 可选 | 仅 `code` 类型项目使用 |
-| 核心入口列表 | 可选 | 关键文件、目录、URL |
+| Project name | Required | Used as the title |
+| One-sentence description | Required | States precisely what the project does |
+| Project type | Recommended | `code` or `doc`; inferred from the repository structure when not given |
+| License | Recommended | Type + file path; `TBD` when not given |
+| Installation command | Optional | Used only for `code` type projects |
+| Quick-start example | Optional | Used only for `code` type projects |
+| Core entry point list | Optional | Key files, directories, URLs |
 
-**未提供的字段**：用 `TBD` 占位或直接省略该章节；禁止臆造。
+**Fields not supplied**: use `TBD` as a placeholder, or drop the section outright; inventing them is forbidden.
 
-### 输出
+### Output
 
-- `README.md` 写入项目根目录
-- 章节数由价值门槛决定，最少 3 节（标题+说明、入口/使用、许可证）
-- 无损坏链接，内部路径优先
-
----
-
-## 限制
-
-- **禁止臆造**：所有命令、路径、功能必须来自输入或仓库实际内容；缺失时用 `TBD` 或省略
-- **禁止损坏链接**：外部链接仅在高度稳定时使用（如 shields.io）；内部路径须可验证存在
-- **禁止空壳章节**：每个保留章节至少含一条可执行信息；内容为空则省略
-- **doc 类型硬限制**：doc 类型仓库不生成安装/快速启动节，即使用户要求也应说明理由
-- **许可证不可省**：始终包含 License 节；未提供时用 `TBD` 而非省略
-- **已有 README 须确认**：若目标目录已有 README.md，覆盖前必须提示用户
+- `README.md` written to the project root
+- The section count follows from the value threshold, with a floor of 3 sections (title + description, entry points/usage, license)
+- No broken links; internal paths preferred
 
 ---
 
-## 自检
+## Restrictions
 
-生成 README 后逐项核查：
-
-- [ ] **30 秒测试**：陌生读者能否在 30 秒内读完一句话说明并找到使用入口？
-- [ ] **无空泛形容词**：未出现"可复用"、"可治理"、"专业"等无具体行为支撑的形容词
-- [ ] **无臆造内容**：所有命令、路径、功能均来自输入或仓库实际内容
-- [ ] **无损坏链接**：内部路径已验证存在；外部链接仅在高度稳定时使用
-- [ ] **无空壳章节**：每个保留章节至少含一条可执行信息
-- [ ] **许可证节存在**：含许可证类型 + 有效链接（或 TBD）
-- [ ] **项目类型匹配**：doc 类型无安装/快速启动节；code 类型的安装命令实际可执行
-- [ ] **价值门槛通过**：每个保留章节能提供其他章节不含的新决策信息
-
-**验收标准**：以上 8 项全部通过，或对每个未通过项有明确的豁免理由。
+- **Never invent**: every command, path, and feature must come from the input or from what the repository actually contains; when one is missing, use `TBD` or omit it
+- **Never leave a broken link**: use an external link only where it is highly stable (shields.io, for example); an internal path must be verifiable as existing
+- **Never keep a hollow section**: every section kept carries at least one actionable piece of information; an empty one is omitted
+- **Hard limit on doc type**: a doc type repository gets no installation or quick-start section; if the user asks for one anyway, explain the reason
+- **License cannot be dropped**: always include a License section; when none is given use `TBD` rather than omitting it
+- **An existing README must be confirmed**: if the target directory already holds a README.md, the user must be prompted before it is overwritten
 
 ---
 
-## 示例
+## Self-Check
 
-### 示例 1：代码仓库（精简输出）
+After generating the README, work through each item:
 
-**输入**：名称 `img-crush`，描述"批量压缩图片"，安装 `pip install img-crush`，用法 `img-crush ./images`，许可证 MIT。
+- [ ] **30-second test**: Can a reader new to the project read the one-sentence description and find the usage entry point within 30 seconds?
+- [ ] **No empty adjectives**: no "reusable", "governable", "professional" or similar adjectives with no concrete behavior behind them
+- [ ] **Nothing invented**: every command, path, and feature comes from the input or from what the repository actually contains
+- [ ] **No broken links**: internal paths verified to exist; external links used only where highly stable
+- [ ] **No hollow sections**: every section kept carries at least one actionable piece of information
+- [ ] **License section present**: license type + a working link (or TBD)
+- [ ] **Project type matches**: a doc type has no installation or quick-start section; a code type's installation command actually runs
+- [ ] **Value threshold passed**: every section kept supplies decision-making information the other sections do not carry
 
-**输出**：
+**Acceptance criteria**: all 8 items above pass, or each item that does not has an explicit waiver reason.
+
+---
+
+## Examples
+
+### Example 1: Code repository (lean output)
+
+**Input**: name `img-crush`, description "batch-compress images", install `pip install img-crush`, usage `img-crush ./images`, license MIT.
+
+**Output**:
 
 ```markdown
 # img-crush
 
-批量压缩图片，支持 WebP / PNG / JPEG 格式。
+Batch-compress images; supports WebP / PNG / JPEG.
 
 ## Installation
 
@@ -243,8 +243,8 @@ pip install img-crush
 ## Usage
 
 \```bash
-img-crush ./images          # 原地压缩
-img-crush ./images -o out/  # 输出到指定目录
+img-crush ./images          # compress in place
+img-crush ./images -o out/  # write to a chosen directory
 \```
 
 ## License
@@ -254,22 +254,22 @@ MIT — see [LICENSE](LICENSE)
 
 ---
 
-### 示例 2：文档/规范仓库（doc 类型）
+### Example 2: Documentation/spec repository (doc type)
 
-**输入**：名称 `ai-cortex`，描述"agent-first 技能库"，许可证 MIT，核心入口 `skills/INDEX.md`、`AGENTS.md`。
+**Input**: name `ai-cortex`, description "agent-first skill library", license MIT, core entry points `skills/INDEX.md` and `AGENTS.md`.
 
-**输出**：
+**Output**:
 
 ```markdown
 # ai-cortex
 
-面向软件交付和项目治理的 agent-first 技能库。
+An agent-first skill library for software delivery and project governance.
 
-## 如何使用
+## How to use
 
-- 从 [AGENTS.md](AGENTS.md) 了解代理行为契约
-- 浏览 [skills/INDEX.md](skills/INDEX.md) 查找可用技能
-- 核心术语定义见 [docs/architecture/terminology.md](docs/architecture/terminology.md)
+- Start at [AGENTS.md](AGENTS.md) for the agent behavior contract
+- Browse [skills/INDEX.md](skills/INDEX.md) for the available skills
+- Core terminology: [docs/architecture/terminology.md](docs/architecture/terminology.md)
 
 ## License
 
@@ -278,26 +278,26 @@ MIT — see [LICENSE](LICENSE)
 
 ---
 
-### 示例 3：边缘案例——信息极少的遗留项目
+### Example 3: Edge case — a legacy project with almost no information
 
-**输入**：名称 `legacy-auth`，无描述，无功能列表，安装和环境未知。
+**Input**: name `legacy-auth`, no description, no feature list, installation and environment unknown.
 
-**处理**：
-- 一句话说明：从名称推断最保守描述，标注 `TBD`
-- 安装节：省略（无可执行命令）
-- 功能节：省略（无内容）
-- 许可证：`TBD`（不省略，只是内容待补）
+**Handling**:
+- One-sentence description: infer the most conservative wording from the name, marked `TBD`
+- Installation section: omitted (no runnable command)
+- Feature section: omitted (nothing to say)
+- License: `TBD` (not omitted, only left to be filled in)
 
-**输出**：
+**Output**:
 
 ```markdown
 # legacy-auth
 
-认证服务（详情待补充）。
+Authentication service (details to be filled in).
 
-## 如何使用
+## How to use
 
-TBD — 请参阅项目内部文档。
+TBD — see the project's internal documentation.
 
 ## License
 
@@ -306,10 +306,10 @@ TBD
 
 ---
 
-### 示例 4：失败案例——doc 类型仓库生成了安装节
+### Example 4: Failure case — an installation section generated for a doc type repository
 
-**症状**：为文档规范仓库生成了 `## Installation` 节，内容为 `npm install` 或空 TBD。
+**Symptom**: An `## Installation` section was generated for a documentation/spec repository, holding `npm install` or an empty TBD.
 
-**根因**：未识别项目类型，套用了 code 模板。
+**Root cause**: The project type was not identified, so the code template was applied.
 
-**修复**：检查仓库结构 → 无可执行入口则判定为 doc 类型 → 删除安装/快速启动节，替换为导航索引。
+**Fix**: Inspect the repository structure → no executable entry point means doc type → delete the installation and quick-start sections and put a navigation index in their place.

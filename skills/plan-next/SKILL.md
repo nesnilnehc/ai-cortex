@@ -25,931 +25,931 @@ output_schema:
   description: "Adaptive text suggestions + plain Diagnosis section (## heading, always present). Simple situations: 1-2 sentences of prose. Complex situations (≥2 parallel suggestions): structured cards each with TL;DR quote block, governance_context multi-line short-chain (≤25 chars/line), recommended_skill, rationale, completion_marker, priority_label; 2 optional fields (deferral_cost / onboarding_threshold; omit when info insufficient). User-facing sections always jargon-free: no internal codes (L1-L5, G1-G4, P0-P3), no raw status values (pending/in-progress/done/blocked), no project codes without natural-language subtitle (T\\d+/M\\d+/Goal \\d+/BL-\\d+/ADR-\\d+), no MoSCoW words, no process slang. KPI/threshold first occurrence requires triplet (current/target/benchmark). Diagnosis section uses 4-column table and is a technical traceability zone where internal codes are allowed."
 ---
 
-# 技能：计划下一步（Plan Next）
+# Skill: Plan Next
 
-> **角色**：治理入口顾问
-> **WHAT**：按三步法 **扫**（盘点治理资产）→ **诊**（目标树遍历——逐目标深度优先找首个未完成节点，结合并行判定）→ **荐**（给出下一步行动建议）
-> **HOW**：只读诊断；单一维度问题（只查已知缺失）直接推荐专用技能（`define-*` 等）
-> **区别**：本技能仅给出建议，不执行下游；文档健康检测由 runtime / linter / CI 工具按 `rules/doc-health-criteria.md` 执行
-
----
-
-## 目的与边界
-
-盘点治理输入源并给出下一步行动建议。
-
-**适用时机**：项目任何阶段均可；**推荐在每次任务完成后执行**，用以确认下一焦点。
-
-### 边界
-
-| 维度 | 做 | 不做 |
-|---|---|---|
-| 建议 | 给出下一步行动建议（散文或结构化卡片） | 不充当任务状态 API；不维护任务列表 / 不分配；不记任务历史，不答"本周晋升几条"类时序问题 |
-| 执行 | 只读——建议交用户或外层编排器决策 | 不自动推进下游；不充当自动化引擎——自动化由外层编排器 + `loop` 组合驱动 |
+> **Role**: governance entry-point advisor
+> **WHAT**: three steps — **Scan** (inventory the governance assets) → **Diagnose** (goal-tree traversal: depth-first per goal to the first unfinished node, combined with a parallelism verdict) → **Recommend** (suggest the next action)
+> **HOW**: read-only diagnosis; for a single-dimension problem (only a known omission to check), recommend the dedicated skill directly (`define-*` and the like)
+> **Distinct from**: this skill only makes suggestions and runs nothing downstream; document health checks are run by the runtime / linter / CI tooling per `rules/doc-health-criteria.md`
 
 ---
 
-## 行为
+## Purpose and Boundaries
 
-**整体规则**：**无状态**——每次从零重扫，不依赖上次结果。三步法：**扫 → 诊 → 荐**。
+Inventory the governance input sources and suggest the next action.
 
-### 步骤 0：规范解析
+**When to use**: at any stage of a project; **running it after every completed task is recommended**, to confirm the next focus.
 
-`cache` 用于步骤 2.1 的 `path_pattern` 解析。
+### Boundaries
 
-### 步骤 1：扫 — 资产盘点
+| Dimension | Does | Does not |
+|---|---|---|
+| Suggestions | Suggests the next action (prose or structured cards) | Is not a task-status API; does not maintain or assign a task list; keeps no task history and does not answer time-series questions such as "how many were promoted this week" |
+| Execution | Read-only — the suggestions go to the user or to an outer orchestrator to decide on | Does not advance anything downstream on its own; is not an automation engine — automation comes from an outer orchestrator combined with `loop` |
 
-**扫什么**：3 抽象层 × 5 主题（联合 MECE）。
+---
 
-| 抽象层 | 主题 | 扫描位置 | 细化字段 |
+## Behavior
+
+**Overall rule**: **stateless** — every run rescans from scratch and depends on no previous result. Three steps: **Scan → Diagnose → Recommend**.
+
+### Step 0: resolve the norms
+
+`cache` is used for the `path_pattern` resolution in step 2.1.
+
+### Step 1: Scan — asset inventory
+
+**What to scan**: 3 abstraction layers × 5 subjects (MECE in combination).
+
+| Abstraction layer | Subject | Where to scan | Refinement fields |
 |---|---|---|---|
-| 意图层 | **Why** | `docs/project-overview/{mission,vision,north-star,strategic-goals,strategic-pillars}.md` | — |
-| 意图层 | **What/When** | `docs/process-management/{roadmap,backlog/}.md`、`docs/requirements/`、`docs/tasks/` | 路线图 → 节点状态；tasks/ → `status` |
-| 意图层 | **How** | `docs/adr/`、`docs/designs/` | `status` |
-| 实施层 | **Is** | 仓库代码 | — |
-| 元规则层 | **Rules** | `docs/ARTIFACT_NORMS.md`、`specs/`、`protocols/`、`rules/` | — |
+| Intent | **Why** | `docs/project-overview/{mission,vision,north-star,strategic-goals,strategic-pillars}.md` | — |
+| Intent | **What/When** | `docs/process-management/{roadmap,backlog/}.md`, `docs/requirements/`, `docs/tasks/` | roadmap → node status; tasks/ → `status` |
+| Intent | **How** | `docs/adr/`, `docs/designs/` | `status` |
+| Implementation | **Is** | the repository code | — |
+| Meta-rule | **Rules** | `docs/ARTIFACT_NORMS.md`, `specs/`, `protocols/`, `rules/` | — |
 
-抽象层互斥；细化字段是同主题的辅助维度，**不是独立扫描**，供 §2.1 消费。
+The abstraction layers are mutually exclusive; the refinement fields are auxiliary dimensions of the same subject, **not a separate scan**, and are consumed by §2.1.
 
-**怎么扫**——对每项资产记录 2 字段：
+**How to scan** — record 2 fields for each asset:
 
-| 字段 | 判据 |
+| Field | Criterion |
 |---|---|
-| **路径** | 文件系统路径 |
-| **状态** | `present`（存在且内容非空非占位）/ `placeholder`（仅含 `[TODO]`/`<待填>`/`TBD`）/ `missing`（不存在） |
+| **Path** | The filesystem path |
+| **Status** | `present` (exists, content non-empty and not a placeholder) / `placeholder` (contains only `[TODO]`/`<to-fill>`/`TBD`) / `missing` (does not exist) |
 
-### 步骤 2：诊 — 目标树遍历
+### Step 2: Diagnose — goal-tree traversal
 
-**核心问题**：目标链在哪里卡住了？下一步该专注还是并行？
+**Core question**: where is the goal chain stuck? Is the next step focus or parallelism?
 
-**模型**：治理制品构成一棵树；"下一步"= 优先级最高目标下，深度优先找首个未完成节点，结合并行判定给出执行建议。
+**Model**: the governance artifacts form a tree; "the next step" = the first unfinished node found depth-first under the highest-priority goal, combined with the parallelism verdict, to give an execution suggestion.
 
 ```text
-战略目标
-└── 路线图节点（多个，有顺序）
-    └── 需求（多个，每路线图节点下）
-        └── 设计/ADR（多个，每需求下）
-            └── 任务（多个，每设计下）
+Strategic goal
+└── Roadmap node (several, ordered)
+    └── Requirement (several, one set per roadmap node)
+        └── Design/ADR (several, one set per requirement)
+            └── Task (several, one set per design)
 ```
 
-**4 子步骤**（依次执行）：
+**4 sub-steps** (run in order):
 
-| 子步 | 做什么 | 产出 |
+| Sub-step | What it does | Output |
 |---|---|---|
-| 2.0 前置闸门 | Rules 层是否就位？ | 否则短路 |
-| 2.1 目标树遍历 | 逐目标深度优先遍历，定位首缺口 + 并行判定 | 每目标的当前位置 + 路由建议 |
-| 2.2 漂移巡检 | 制品 updated_at vs 对齐目标变更时间，超阈值路由专用技能 | 漂移条目列表 |
-| 2.3 卫生巡检 | 已完成里程碑归档、ADR 状态、仓库结构、技能层改动等 | 卫生问题条目列表 |
+| 2.0 Precondition gate | Is the Rules layer in place? | Otherwise short-circuit |
+| 2.1 Goal-tree traversal | Traverse each goal depth-first, locate the first gap + the parallelism verdict | Each goal's current position + routing suggestions |
+| 2.2 Drift sweep | Artifact updated_at vs the time the aligned goal changed; past the threshold, route to a dedicated skill | A list of drift entries |
+| 2.3 Hygiene sweep | Archiving finished milestones, ADR status, repository structure, changes in the skills layer, and so on | A list of hygiene issues |
 
-G1-G4 缺口类型用作诊断依据节的子标签。
+The G1-G4 gap types are used as sub-labels in the diagnostic-basis section.
 
-#### 2.0 前置闸门：Rules 层缺位检查
+#### 2.0 Precondition gate: check for a missing Rules layer
 
-若 `ARTIFACT_NORMS.md` 缺失或 `specs/` 为空，触发**短路**：跳过目标树遍历，"现在该做"只列一条 P0 路由（建立规范 + 重跑 plan-next）。
+If `ARTIFACT_NORMS.md` is missing or `specs/` is empty, trigger a **short-circuit**: skip the goal-tree traversal, and let "Do now" list a single P0 route (establish the norms + re-run plan-next).
 
-#### 2.1 目标树遍历
+#### 2.1 Goal-tree traversal
 
-##### 节点状态判定
+##### Node status resolution
 
-每个制品节点（路线图节点 / 需求 / 设计 / 任务）的状态按以下规则解析：
+The status of every artifact node (roadmap node / requirement / design / task) is resolved by these rules:
 
-1. **显式优先**：读取制品文件 frontmatter 中的 `status:` 字段
-   - 有效值：`pending`（默认）| `in-progress` | `done` | `blocked`
-2. **子节点推算**（无显式 `status:` 时）：
-   - 所有直接子节点 `done` → 当前节点视为 `done`
-   - 任一直接子节点 `in-progress` → 当前节点视为 `in-progress`
-   - 无子节点 → 视为 `pending`
-3. **优先级**：显式字段 > 子节点推算
+1. **Explicit first**: read the `status:` field in the artifact file's frontmatter
+   - Valid values: `pending` (default) | `in-progress` | `done` | `blocked`
+2. **Inferred from children** (when there is no explicit `status:`):
+   - All direct children `done` → the node counts as `done`
+   - Any direct child `in-progress` → the node counts as `in-progress`
+   - No children → counts as `pending`
+3. **Precedence**: the explicit field beats inference from children
 
-##### 并行决策规则
+##### Parallelism decision rules
 
-在任意层级，扫描该层所有兄弟节点后，按以下规则判定：
+At any level, after scanning every sibling node at that level, decide as follows:
 
-| 当前层兄弟节点状态 | 并行建议 |
+| Sibling status at this level | Parallelism suggestion |
 |---|---|
-| 仅 1 个 `in-progress`，其余 `pending` | **专注**：完成当前再启动下一个 |
-| 1+ 个 `blocked`，有 `pending` 且独立 | **并行**：blocked 继续等待，启动下一个独立节点 |
-| 多个 `in-progress`（均未 blocked） | **收敛**：识别最滞后的，优先推进至完成 |
-| 全部 `done` | 触发上层下一兄弟推进 |
-| 全部 `pending`，无 `in-progress` | **启动**：路由最高优先级 pending 节点 |
+| Exactly 1 `in-progress`, the rest `pending` | **Focus**: finish the current one before starting the next |
+| 1+ `blocked`, with an independent `pending` | **Parallel**: leave the blocked one waiting and start the next independent node |
+| Several `in-progress` (none blocked) | **Converge**: identify the one lagging most and push it to completion first |
+| All `done` | Advance the next sibling one level up |
+| All `pending`, none `in-progress` | **Start**: route to the highest-priority pending node |
 
-节点间有显式 `depends_on:` 依赖 → 被依赖节点必须先完成，不可并行。
+Where nodes carry an explicit `depends_on:` dependency → the depended-on node must finish first, and the two cannot run in parallel.
 
-##### 层级定义
+##### Level definitions
 
-| 层级 | 名称 | 存在性判据 | 完成判据 |
+| Level | Name | Existence criterion | Completion criterion |
 |---|---|---|---|
-| L1 | 战略目标 | `strategic-goals.md` present 且非占位，含 ≥1 可识别目标项 | **同时**满足：(a) 目标 `status = done`；(b) 目标"验收标准"中所有可观测 KPI 已达成（数据可查且达标）。`status = approved` 视同 `in-progress`，必须继续下钻 |
-| L2 | 路线图节点 | 路线图节点存在且可追溯到 L1 某目标 | 节点 `status = done`（显式或子推算） |
-| L3 | 需求 | 需求文件 present 且非占位 | `status = done`（显式或子推算） |
-| L4 | 设计 | 设计/ADR 文件 present 且非占位 | `status = done`（显式或子推算） |
-| L5 | 任务 | 任务记录 present | `status = done` |
+| L1 | Strategic goal | `strategic-goals.md` is present, not a placeholder, and holds ≥1 identifiable goal item | **Both** hold: (a) the goal has `status = done`; (b) every observable KPI in the goal's "acceptance criteria" is met (the data is available and at target). `status = approved` counts as `in-progress`, and drilling down must continue |
+| L2 | Roadmap node | The roadmap node exists and traces back to an L1 goal | The node has `status = done` (explicit or inferred) |
+| L3 | Requirement | The requirement file is present and not a placeholder | `status = done` (explicit or inferred) |
+| L4 | Design | The design/ADR file is present and not a placeholder | `status = done` (explicit or inferred) |
+| L5 | Task | The task record is present | `status = done` |
 
-##### L1 验收 KPI 强制检查（关键）
+##### Mandatory L1 acceptance-KPI check (critical)
 
-**不可跳过**：每次遍历 L1 目标时，必须先解析「验收标准」字段，提取其中的可观测 KPI（含名称 + 目标阈值 + 数据源）。然后判定 KPI 当前状态：
+**Cannot be skipped**: every time an L1 goal is traversed, the "acceptance criteria" field must be parsed first, and the observable KPIs extracted from it (name + target threshold + data source). Then judge the current state of each KPI:
 
-| KPI 状态 | 含义 | L1 完成判定 |
+| KPI state | Meaning | L1 completion verdict |
 |---|---|---|
-| 已达成（数据≥阈值，连续条件满足） | 验收通过 | L1 done（前提 status=done） |
-| 未达成（数据<阈值或连续条件不满足） | 验收未通过 | L1 in-progress，继续下钻 |
-| **数据缺失**（无监控/无查询路径） | 验收不可验证 | **L1 in-progress，且首条路由必须先建立 KPI 数据源**（早于任何下游路由） |
+| Met (data ≥ threshold, the continuity condition holds) | Acceptance passes | L1 done (given status=done) |
+| Not met (data < threshold, or the continuity condition fails) | Acceptance fails | L1 in-progress, keep drilling down |
+| **Data missing** (no monitoring, no query path) | Acceptance cannot be verified | **L1 in-progress, and the first route must be to establish the KPI data source** (ahead of any downstream route) |
 
-**关键反模式**：`status = approved` ≠ L1 完成。`approved` 表示决策已批准，仅说明文档已成型；`done` 表示验收已达成。混淆这两者会跳过整棵 L1 子树的下游遍历，导致直接从中间层（M5/任务）开始扫描，丢失"为什么这条任务重要"的因果链。
+**Key anti-pattern**: `status = approved` ≠ L1 finished. `approved` means the decision was approved and says only that the document has taken shape; `done` means acceptance is met. Confusing the two skips the downstream traversal of the whole L1 subtree, so scanning starts from a middle layer (M5/tasks) and the causal chain of "why this task matters" is lost.
 
-**无目标场景**：`strategic-goals.md` 缺失且 `mission.md` 也缺失 → 路由 `define-mission`（P0）；`mission.md` present 但无战略目标 → 路由 `design-strategic-goals`（P0）。
+**No-goal cases**: `strategic-goals.md` missing and `mission.md` missing too → route `define-mission` (P0); `mission.md` present but with no strategic goal → route `design-strategic-goals` (P0).
 
-**路线图未分层**：路线图存在但无 Now/Next/Later 分层 → 路由 `promote-roadmap-items`（P1），不继续评估下游。
+**Roadmap not tiered**: the roadmap exists but has no Now/Next/Later tiers → route `promote-roadmap-items` (P1), and evaluate nothing downstream.
 
-##### 遍历算法
+##### Traversal algorithm
 
 ```text
-对 每个战略目标 G（按优先级顺序，跳过 status = done 的）：
+For each strategic goal G (in priority order, skipping any with status = done):
 
-  [L1] 目标自身 status = done？→ 跳过，检查下一目标
+  [L1] Does the goal itself have status = done? → skip it, check the next goal
 
-  [L2] 取 G 下所有路线图节点，应用并行决策规则：
-    无节点 → 路由: define-roadmap（P1）；停止此目标
-    全 done → G 达成；考虑新目标；停止
-    取"当前焦点节点"集合 F（依并行决策）
+  [L2] Take every roadmap node under G and apply the parallelism decision rules:
+    No nodes → route: define-roadmap (P1); stop on this goal
+    All done → G is met; consider a new goal; stop
+    Take the set F of "current focus nodes" (per the parallelism decision)
 
-  对 F 中每个节点 N（按优先级）：
+  For each node N in F (in priority order):
 
-    [L3] 取 N 下所有需求，应用并行决策规则：
-      无需求 → 路由: capture-work-items（P2）；停止此节点
-      全 done → N 完成；移向下一兄弟路线图节点
+    [L3] Take every requirement under N and apply the parallelism decision rules:
+      No requirements → route: capture-work-items (P2); stop on this node
+      All done → N is finished; move to the next sibling roadmap node
 
-    对当前焦点需求 R：
+    For the current focus requirement R:
 
-      [L4] 取 R 下所有设计，应用并行决策规则：
-        无设计 → 输出"设计待制作"待执行卡片（设计工作流由 AgentFabric runtime 承接）；停止此需求
-        全 done → R 完成；移向下一兄弟需求
+      [L4] Take every design under R and apply the parallelism decision rules:
+        No design → emit a "design to be produced" awaiting-execution card (the design workflow is carried by the AgentFabric runtime); stop on this requirement
+        All done → R is finished; move to the next sibling requirement
 
-      对当前焦点设计 D：
+      For the current focus design D:
 
-        [L5] 取 D 下所有任务，应用并行决策规则：
-          无任务 → 输出"任务待拆分"待执行卡片（任务拆分由 AgentFabric runtime 承接）；停止此设计
-          全 done → D 完成；移向下一兄弟设计
-          有 blocked 任务 + 有独立 pending 任务 → 并行：路由启动 pending
-          有 in-progress 任务（未 blocked）→ 专注：执行中，检测卡点
-          ★ 全 pending 无 in-progress（任务已拆分但未启动）→
-             治理层无可路由子技能（执行属开发者层，不是 plan-next 范围）；
-             "现在该做"输出"待执行"标记卡片（区别于"无内容"），含：
-               - 焦点任务名 + 任务 ID + 关联战略目标 + 该任务对 L1 验收 KPI 的影响路径
-               - 标签：`待执行`（新优先级标签，区别于紧急/重要/缓/可略）
-             此卡片用于告知 orchestrate-governance-step：治理就绪、等待外部执行（应输出 blocked，不是 done）
+        [L5] Take every task under D and apply the parallelism decision rules:
+          No tasks → emit a "tasks to be broken down" awaiting-execution card (task breakdown is carried by the AgentFabric runtime); stop on this design
+          All done → D is finished; move to the next sibling design
+          Blocked tasks + independent pending tasks → parallel: route to start a pending one
+          An in-progress task (not blocked) → focus: it is running, look for the sticking point
+          ★ All pending, none in-progress (tasks broken down but not started) →
+             no governance sub-skill to route to (execution belongs to the developer layer, outside plan-next's scope);
+             "Do now" emits an "awaiting execution" marker card (distinct from "nothing to show"), carrying:
+               - the focus task name + task ID + the strategic goal it serves + how that task affects the L1 acceptance KPI
+               - label: `awaiting execution` (a new priority label, distinct from urgent/important/defer/minor)
+             This card tells orchestrate-governance-step: governance is ready, waiting on outside execution (the signal emitted is blocked, not done)
 ```
 
-##### 物理扫描方法（L3-L5 存在性检测）
+##### Physical scan method (L3-L5 existence detection)
 
 ```text
-2.1.1 从步骤 0 cache 读各 artifact_type 的 path_pattern
-      （命中用项目值；未命中 fall back 到技能默认规范路径）
-2.1.2 按节点 slug 在各 path_pattern 目录 glob
-      → 匹配到 = 存在；未匹配 = G1 缺口
-2.1.3 (增强) 扫前置属性 `parent:` 字段构反向索引补充信任度
-2.1.4 (增强) 检测清单文件（如 `now/<slug>.md`）
-      → 存在则对比清单 vs 物理；差异作 G3 漂移
-2.1.5 G1 通过后检查层间内容对应（G3 链路）：
-      L3→L4：设计含 parent/upstream_ref 指向需求，或内容明确响应需求关键约束
-      L4→L5：任务含 parent 指向设计，或覆盖设计中的主要实现模块
-      深度优先：L3→L4 G3 命中则不继续报 L4→L5 G3
+2.1.1 Read each artifact_type's path_pattern from the step 0 cache
+      (use the project value on a hit; fall back to the skill's default norm path on a miss)
+2.1.2 Glob each path_pattern directory by node slug
+      → matched = exists; unmatched = a G1 gap
+2.1.3 (enhancement) Scan the `parent:` frontmatter field to build a reverse index and raise confidence
+2.1.4 (enhancement) Detect manifest files (`now/<slug>.md`, say)
+      → when one exists, compare manifest vs physical; treat a difference as G3 drift
+2.1.5 After G1 passes, check the content correspondence between levels (the G3 chain):
+      L3→L4: the design carries parent/upstream_ref pointing at the requirement, or its content clearly answers the requirement's key constraints
+      L4→L5: the task carries parent pointing at the design, or covers the main implementation modules of the design
+      Depth first: when L3→L4 hits a G3, do not go on to report an L4→L5 G3
 ```
 
-诊断依据需注明扫描依赖的物理信号组合（例："slug + 检测到 2 个清单 + 无 parent 字段"）。
+The diagnostic basis has to name the combination of physical signals the scan relied on (for example: "slug + 2 manifests detected + no parent field").
 
-#### 诊步骤产出物
+#### Outputs of the Diagnose step
 
-步骤 3 消费以下产出：
+Step 3 consumes the following:
 
-- **每目标遍历结果**：{目标名称, 当前焦点节点, 所在层级, 并行建议, 缺口子标签（G1/G2/G3）, 推荐技能}
-- **blocked 节点列表**：[(层级, 节点名, blocked 原因（若有）)]
-- **次要发现**：聚焦目标之外的其他发现
-- **漂移条目列表**（步骤 2.2 产出）：[(制品路径, 漂移类型, 推荐技能)]
-- **卫生问题列表**（步骤 2.3 产出）：[(问题描述, 推荐技能)]
+- **Per-goal traversal result**: {goal name, current focus node, level, parallelism suggestion, gap sub-label (G1/G2/G3), recommended skill}
+- **List of blocked nodes**: [(level, node name, blocking reason if any)]
+- **Secondary findings**: findings outside the focus goal
+- **List of drift entries** (from step 2.2): [(artifact path, drift type, recommended skill)]
+- **List of hygiene issues** (from step 2.3): [(issue description, recommended skill)]
 
-#### 步骤 2.2：漂移巡检
+#### Step 2.2: drift sweep
 
-比较制品的 `updated_at` 与对应层级变更事件时间，超阈值则路由专用技能。
+Compare the artifact's `updated_at` with the time of the change event at the matching level; past the threshold, route to a dedicated skill.
 
-**阈值（内部常量，不暴露给用户）**：
+**Thresholds (internal constants, not exposed to the user)**:
 
-| 参数 | 默认值 | 含义 |
+| Parameter | Default | Meaning |
 |---|---|---|
-| `drift_staleness_days` | 30 | 制品未更新超过此天数视为漂移 |
-| `backlog_rescore_days` | 90 | backlog 最后重评超过此天数视为老化 |
-| `doc_health_staleness_days` | 30 | 文档健康报告超过此天数视为过期（runtime / CI 产出） |
+| `drift_staleness_days` | 30 | An artifact not updated for more than this many days counts as drifted |
+| `backlog_rescore_days` | 90 | A backlog last re-scored more than this many days ago counts as stale |
+| `doc_health_staleness_days` | 30 | A document health report older than this many days counts as expired (produced by the runtime / CI) |
 
-**路由表**：
+**Routing table**:
 
-| 漂移信号 | 推荐技能 |
+| Drift signal | Recommended skill |
 |---|---|
-| backlog `last_rescored_at` 超 `backlog_rescore_days` | `/prioritize-backlog` |
-| 架构文档 vs 代码漂移（ADR updated_at 与最近代码提交差距超阈值） | `/review-architecture` |
-| 文档 SSOT / 代码对齐 / 链路腐烂等健康信号 | runtime / linter / CI 工具按 `rules/doc-health-criteria.md` 检测 |
+| backlog `last_rescored_at` older than `backlog_rescore_days` | `/prioritize-backlog` |
+| Architecture docs drifting from the code (the gap between an ADR's updated_at and the latest code commit exceeds the threshold) | `/review-architecture` |
+| Health signals such as document SSOT, code alignment, or link rot | detected by the runtime / linter / CI tooling per `rules/doc-health-criteria.md` |
 
-**约束**：漂移项强制进「也要留意」节，不占用「现在该做」前两位（除非主路由空闲且漂移优先级达 P1）。
+**Constraint**: a drift item must go into the "Also worth noting" section and must not take one of the first two slots in "Do now" (unless the main routing is idle and the drift priority reaches P1).
 
-#### 步骤 2.3：卫生巡检
+#### Step 2.3: hygiene sweep
 
-检查慢性积累的治理债务，输出卫生问题列表。
+Check for slowly accumulating governance debt and output a list of hygiene issues.
 
-**阈值（内部常量）**：
+**Thresholds (internal constants)**:
 
-| 参数 | 默认值 | 含义 |
+| Parameter | Default | Meaning |
 |---|---|---|
-| `milestone_archive_age_days` | 60 | 里程碑完成后超过此天数成熟可归档 |
-| `milestone_archive_lookback` | 2 | 当前进行中里程碑索引与 slug 差值 ≥ N 视为可归档 |
+| `milestone_archive_age_days` | 60 | A milestone finished more than this many days ago is mature enough to archive |
+| `milestone_archive_lookback` | 2 | A gap of ≥ N between the current in-progress milestone index and the slug counts as archivable |
 
-**检查项**：
+**Checks**:
 
-| 检查 | 判定条件 | 推荐技能 |
+| Check | Condition | Recommended skill |
 |---|---|---|
-| 已完成里程碑未归档 | `milestones/{slug}/tasks.md` 全 done，且满足成熟度任一条件 | `/archive-milestone {slug}` |
-| ADR 状态闭环违规 | superseded / 冲突 / 无 accepted 结论 | `/review-architecture` |
-| 仓库结构漂移 | `_templates/` 遗漏 / 文件命名违规 | runtime / CI 按 `rules/repo-structure-hygiene.md` 检测 |
-| 文档健康检测积压 | 健康报告 > `doc_health_staleness_days` 天未更新 | runtime / CI 跑一次 `rules/doc-health-criteria.md` 全量检测 |
+| A finished milestone is not archived | `milestones/{slug}/tasks.md` all done, and any one of the maturity conditions holds | `/archive-milestone {slug}` |
+| ADR status loop violated | superseded / conflicting / no accepted conclusion | `/review-architecture` |
+| Repository structure drift | `_templates/` entries missing / file naming violations | detected by the runtime / CI per `rules/repo-structure-hygiene.md` |
+| Document health checks backed up | The health report has not been updated for > `doc_health_staleness_days` days | have the runtime / CI run one full `rules/doc-health-criteria.md` check |
 
-**约束**：卫生项强制进「也要留意」节，不占用「现在该做」前两位。
+**Constraint**: a hygiene item must go into the "Also worth noting" section and must not take one of the first two slots in "Do now".
 
-### 步骤 3：荐 — 路由生成与分层
+### Step 3: Recommend — routing generation and tiering
 
-**来源**：消费步骤 2 的产出（见"诊步骤产出物"）。
+**Source**: consumes the output of step 2 (see "Outputs of the Diagnose step").
 
-#### 3.1 分层决策
+#### 3.1 Tiering decision
 
-消费 §2.1 产出的每目标遍历结果，全部路由至"现在该做"（1-3 条）：
+Consume the per-goal traversal results from §2.1 and route them all into "Do now" (1-3 entries):
 
-- **主链路由**（最高优先级目标的首缺口）必进"现在该做"
-- **并行路由**（blocked 触发的独立节点）若可立即执行，也进"现在该做"
-- 超出 3 条时，按优先级截断；其余目标的次要缺口不展示
+- The **main-chain route** (the first gap under the highest-priority goal) always goes into "Do now"
+- A **parallel route** (an independent node opened up by a blocked one) also goes into "Do now" when it can start immediately
+- Beyond 3 entries, truncate by priority; the secondary gaps of the other goals are not shown
 
-**并行路由**：并行决策建议为"并行"或"收敛"时，在路由依据中明确说明并行理由或收敛目标；"专注"时只路由当前节点。
+**Parallel routing**: when the parallelism verdict is "parallel" or "converge", state the reason for parallelism or the convergence target explicitly in the routing evidence; when it is "focus", route only the current node.
 
-**兄弟推进规则**：当一个节点完成时，自动推进至同层下一兄弟节点，不需要用户重跑；遍历在下一兄弟的首缺口处停止。
+**Sibling advance rule**: when a node finishes, advance automatically to the next sibling at the same level, with no re-run needed from the user; the traversal stops at the first gap of that next sibling.
 
-**多任务多卡渲染规则**：
+**Multi-task, multi-card rendering rule**:
 
-当 L5 全 pending 触发"待执行"分支且独立可启动任务 ≥2 个时，**渲染多张并列卡片**而非合并到单卡。每张卡聚焦 1 个任务。最多 3 张；超出按 §3.2 优先级截断。
+When an all-pending L5 triggers the "awaiting execution" branch and there are ≥2 independently startable tasks, **render several cards side by side** rather than merging them into one. Each card covers 1 task. At most 3; beyond that, truncate by priority per §3.2.
 
-- ✅ 正确：3 张并列卡片，每张一个任务（行动名称、TL;DR、完成标志各自独立）
-- ❌ 禁止：单卡主题用顿号 / 加号 / "并行启动" 等动词合并多任务（如 `T51 + T-SG5-002 并行启动`）
-- ❌ 禁止：单卡完成标志堆叠多任务的 KPI（如 `T51 仪表盘可访问 + T52 日志可查 + T-SG5-002 后台可用`）
+- ✅ Correct: 3 cards side by side, one task each (action name, TL;DR and completion marker all independent)
+- ❌ Forbidden: merging several tasks into one card subject with a comma, a plus sign, or a verb like "start in parallel" (`T51 + T-SG5-002 start in parallel`)
+- ❌ Forbidden: stacking several tasks' KPIs into one card's completion marker (`T51 dashboard reachable + T52 logs queryable + T-SG5-002 admin usable`)
 
-明日就绪、本周稍后就绪等时间差任务，用 `缓` 标签 + TL;DR 注明就绪时间；不要把它塞进当下卡的脚注。
+For tasks that become ready tomorrow or later in the week, use the `defer` label + a TL;DR noting when they are ready; do not tuck them into a footnote on the current card.
 
-#### 3.2 优先级（治理紧迫性）
+#### 3.2 Priority (governance urgency)
 
-- **现在（P0）**：阻断其他治理进展的根基问题（Rules 层缺失或 L1 无目标）
-- **下次（P1）**：L2 路线图缺失或未对齐目标
-- **以后（P2）**：L3-L5 任意层级缺口
-- **可忽略（P3）**：其余次要发现
+- **Now (P0)**: a foundational problem blocking all other governance progress (the Rules layer is missing, or L1 has no goal)
+- **Next (P1)**: the L2 roadmap is missing or not aligned to a goal
+- **Later (P2)**: a gap at any of L3-L5
+- **Ignorable (P3)**: the remaining secondary findings
 
-#### 3.3 输出格式选择
+#### 3.3 Output format selection
 
-输出格式根据场景自适应：
+The output format adapts to the situation:
 
-| 场景 | 推荐格式 |
+| Situation | Recommended format |
 |---|---|
-| 单条建议，情况清晰 | **散文**：1-3 句话说清楚做什么、为什么、完成标志 |
-| ≥2 条并列建议，或需要并行 / 收敛判断 | **结构化卡片**（见下方格式） |
+| One suggestion, the situation is clear | **Prose**: 1-3 sentences saying what to do, why, and what counts as done |
+| ≥2 parallel suggestions, or a parallel / converge judgment is needed | **Structured cards** (format below) |
 
-**散文格式（简单场景）**：直接用自然语言表述，包含：做什么 → 为什么现在 → 怎么算完成。不需要字段、标签、卡片头。
+**Prose format (simple situations)**: state it directly in natural language, covering what to do → why now → what counts as done. No fields, labels or card headers needed.
 
-**结构化卡片格式（复杂场景，≥2 条并列建议时）**：
-
-```text
-**N. [行动名称]** · `优先级标签`
-
-> [TL;DR 卡片头：一句话答"做什么 → 立刻可见的收益"，≤30 字]
-
-- 治理上下文：[多行短链，每行 ≤25 字，详见下方"治理上下文写法"]
-- 推荐技能：`/skill-name [聚焦点 ≤40 字]`
-- 依据：[文件路径或可观测信号 ≤20 字]
-- 完成标志：[可观测结果 1 句话]
-- [选填] 暂缓代价：[不做的影响 ≤30 字]
-- [选填] 上手门槛：[前置知识 / 文档路径 ≤30 字]
-```
-
-**共同约束（散文和卡片均适用）**：无论使用哪种格式，每条建议必须包含：做什么、为什么、可观测的完成标志。项目代号首次出现必须附自然语言副标题（详见 §3.3.1 + §3.7）。
-
-**TL;DR 卡片头写法**：
-
-引用块（`> ...`）形式，置于优先级标签下方、字段列表上方。回答"做什么 → 立刻可见的收益"，≤30 字。视觉锚点最高，让读者首屏即知核心动作。
-
-- ✅ 好例：`> 让 PM 实时看到覆盖率进度，填补 Goal 1 验收的可视化缺口。`
-- ❌ 坏例：`> 启动并行任务以推进里程碑（与下方主题字段重复，无新信息）。`
-
-**治理上下文写法**：
-
-显示从战略目标到当前缺口的追踪链，**且必须包含 L1 验收 KPI 的当前状态**。改为多行短链格式（每行 ≤25 字）：
+**Structured card format (complex situations, ≥2 parallel suggestions)**:
 
 ```text
-- 治理上下文：
-  - 战略目标：[目标自然语言名 + 一句话核心 KPI]
-  - 当前 KPI：[当前值 / 目标值 / 参考系；无数据写"数据缺失"]
-  - 路线图：[里程碑自然语言名 + 当前阶段]
-  - 当前位置：[卡口所在层 + 卡因，≤15 字]
+**N. [action name]** · `priority label`
+
+> [TL;DR card header: one sentence answering "what to do → the immediately visible benefit", ≤30 characters]
+
+- Governance context: [multi-line short chain, ≤25 characters per line; see "Writing the governance context" below]
+- Recommended skill: `/skill-name [focus ≤40 characters]`
+- Evidence: [file path or observable signal ≤20 characters]
+- Completion marker: [observable result, 1 sentence]
+- [optional] Cost of deferral: [the impact of not doing it ≤30 characters]
+- [optional] Onboarding threshold: [prior knowledge / doc path ≤30 characters]
 ```
 
-每行 ≤25 字硬上限。超长拆下一行；嵌套括号不超过 1 层。
+**Shared constraints (prose and cards alike)**: whichever format is used, every suggestion must carry what to do, why, and an observable completion marker. A project code must carry a natural-language subtitle on first appearance (see §3.3.1 + §3.7).
 
-**强制约束**：每条路由必须显式回答「这个动作如何回到战略目标的验收？」如果回不到，应改为路由 KPI 数据源建立任务，不得直接路由下游执行。
+**Writing the TL;DR card header**:
 
-**KPI 状态三种表达**（沿用三件套，详见 §3.3 阈值标注）：
+A quote block (`> ...`), placed under the priority label and above the field list. It answers "what to do → the immediately visible benefit" in ≤30 characters. It is the strongest visual anchor, so the reader sees the core action on the first screen.
 
-- 已达成：`引用可见率 85% / 目标 ≥80% / 行业 75-85%（达成）`
-- 未达成：`引用可见率 62% / 目标 ≥80% / 行业 75-85%（未达）` 或 `引用可见率 数据未测 / 目标 ≥80%（待测）`
-- 数据缺失：`引用可见率 数据源缺失 / 目标 ≥80% / 参考系无（数据源待建）`
+- ✅ Good: `> Let the PM see coverage progress live, filling the visibility gap in Goal 1's acceptance.`
+- ❌ Bad: `> Start parallel tasks to advance the milestone (repeats the subject field below, no new information).`
 
-**阈值标注三件套**：
+**Writing the governance context**:
 
-任何 KPI / 阈值首次出现必须三件套：
+Show the trace chain from the strategic goal down to the current gap, **and it must carry the current state of the L1 acceptance KPI**. Use a multi-line short-chain format (≤25 characters per line):
 
-> 格式：`[指标名（口语化解释）]：当前 X / 目标 Y / 参考系 Z`
+```text
+- Governance context:
+  - Strategic goal: [the goal's natural-language name + its core KPI in one sentence]
+  - Current KPI: [current value / target value / benchmark; write "data missing" when there is none]
+  - Roadmap: [the milestone's natural-language name + its current stage]
+  - Current position: [the layer the blockage sits in + why, ≤15 characters]
+```
+
+The ≤25-character limit per line is hard. Wrap onto the next line when it overflows; nest parentheses no more than 1 level deep.
+
+**Mandatory constraint**: every route must answer explicitly, "how does this action lead back to the strategic goal's acceptance?" If it cannot, route to the task of establishing the KPI data source instead; it must not route straight to downstream execution.
+
+**Three ways to express KPI state** (following the triplet; see the threshold annotation in §3.3):
+
+- Met: `citation visibility 85% / target ≥80% / industry 75-85% (met)`
+- Not met: `citation visibility 62% / target ≥80% / industry 75-85% (not met)` or `citation visibility not yet measured / target ≥80% (pending measurement)`
+- Data missing: `citation visibility data source missing / target ≥80% / no benchmark (data source to be built)`
+
+**The threshold annotation triplet**:
+
+Any KPI or threshold must carry the triplet on first appearance:
+
+> Format: `[metric name (plain-language gloss)]: current X / target Y / benchmark Z`
 >
-> 示例：`采纳率（用户主动接受推荐占比）：当前 42% / 目标 ≥70% / 行业 50-65% 算良好`
+> Example: `Adoption rate (share of recommendations users accept): current 42% / target ≥70% / 50-65% counts as good in the industry`
 
-**参考系**取一：行业基准 / 项目历史值 / 经验阈值。无参考时写"项目自定（无外部基准）"提醒读者警惕。同卡片同指标第二次出现可省略参考系。
+**The benchmark** is one of: an industry baseline, the project's own historical value, or an empirical threshold. With no benchmark available, write "project-defined (no external baseline)" to put the reader on guard. On a metric's second appearance within the same card, the benchmark may be omitted.
 
-> 三元组格式的权威定义见 [rules/roadmap-quality.md](../../rules/roadmap-quality.md) §3；路线图的成功指标由 `define-roadmap` 按同一格式产出，两端措辞须保持一致。
+> The authoritative definition of the triplet format is [rules/roadmap-quality.md](../../rules/roadmap-quality.md) §3; the roadmap's success metrics are produced by `define-roadmap` in the same format, and the wording at both ends must stay consistent.
 
-**推荐技能写法**：斜杠命令 + 完成提示词，格式：
+**Writing the recommended skill**: a slash command + a completion prompt, in the format:
 
-> `/skill-name [聚焦点：本次要做什么、范围、关键资产路径或任务 ID]`
+> `/skill-name [focus: what to do this time, the scope, the key asset path or task ID]`
 
-提示词要求：说明本次调用的具体聚焦点，包含关键资产路径或任务 ID，≤40 字，可直接复制执行。L5 全 pending"待执行"分支无治理技能可用时，写"（无治理技能；交开发团队按 `[路径]` 实施）"。
+Prompt requirements: state the specific focus of this call, include the key asset path or task ID, ≤40 characters, and make it directly copy-pasteable. When the all-pending L5 "awaiting execution" branch has no governance skill available, write "(no governance skill; hand to the development team to implement per `[path]`)".
 
-**优先级标签**（由 §3.2 内部优先级映射，"现在该做"节只用标签不用编号）：
+**Priority labels** (mapped from the internal priorities in §3.2; the "Do now" section uses only labels, never the codes):
 
-| 内部码 | 用户标签 |
+| Internal code | User-facing label |
 |---|---|
-| P0 | `紧急` |
-| P1 | `重要` |
-| P2 | `缓` |
-| P3 | `可略` |
-| —  | `待执行`（特殊：治理就绪、等执行；只用于 L5 全 pending 分支） |
+| P0 | `urgent` |
+| P1 | `important` |
+| P2 | `defer` |
+| P3 | `minor` |
+| —  | `awaiting execution` (special: governance is ready, waiting on execution; used only for the all-pending L5 branch) |
 
-**完成标志**：可观测的结果，1 句话；若执行受阻（战略冲突、依赖循环）则追加"受阻时回 plan-next 重评"。多任务时**每张卡管自己的完成标志**，不在外层堆叠。
+**Completion marker**: an observable result, 1 sentence; where execution can be blocked (a strategic conflict, a dependency cycle), append "return to plan-next for re-evaluation if blocked". With several tasks, **each card owns its own completion marker**; they are not stacked at the outer level.
 
-**暂缓代价（选填）**：
+**Cost of deferral (optional)**:
 
-回答"不做这条会怎样"，让读者能判断"先做这个 vs 先做别的"。≤30 字。
+Answers "what happens if this is not done", so the reader can judge "this one first vs something else first". ≤30 characters.
 
-- ✅ 好例：`Goal 1 验收无可视化途径，PM 无法判断应交项收尾时机`
-- ❌ 占位填充（禁止）：`待补充` / `详见任务` / `影响进度`（同反模式 · 模糊措辞）
+- ✅ Good: `Goal 1's acceptance has no visible route, so the PM cannot judge when to wrap up the deliverables`
+- ❌ Placeholder filler (forbidden): `to be added` / `see the task` / `affects the schedule` (the same as the vague-wording anti-pattern)
 
-信息不足时**省略此字段**，不允许臆造。
+When there is not enough information, **omit this field**; inventing one is not allowed.
 
-**上手门槛（选填）**：
+**Onboarding threshold (optional)**:
 
-回答"接下来该谁做、要不要先补课"。≤30 字。指向具体文档时附路径。
+Answers "who does this next, and do they need to read up first". ≤30 characters. Attach the path when pointing at a specific document.
 
-- ✅ 好例：`需了解 Grafana 数据源配置；不熟可参考 docs/runbooks/grafana-setup.md`
-- ❌ 占位填充（禁止）：`需相关知识` / `参考文档`
+- ✅ Good: `Requires knowing how to configure a Grafana data source; if unfamiliar, see docs/runbooks/grafana-setup.md`
+- ❌ Placeholder filler (forbidden): `needs relevant knowledge` / `see the docs`
 
-信息不足时**省略此字段**，不允许臆造。
+When there is not enough information, **omit this field**; inventing one is not allowed.
 
-#### 3.3.1 现在该做节输出禁用词
+#### 3.3.1 Words banned from the "Do now" section
 
-"现在该做"节，以下词汇**一律禁止出现**——包括编码本身及其中文对应词：
+In the "Do now" section the following are **banned outright** — the codes themselves and their natural-language equivalents alike:
 
-| 禁止使用 | 允许的替代写法 |
+| Banned | Allowed instead |
 |---|---|
-| L1、L2、L3、L4、L5；目标层、路线图层、需求层、设计层、任务层 | 直接说"战略目标"、"路线图"、"需求文档"、"设计文档"、"任务" |
-| G1、资产缺失 | 描述具体缺什么："`xxx.md` 不存在" |
-| G2、内容不全 | 描述具体缺什么内容："缺 X 字段 / X 节" |
-| G3、真相漂移、完成漂移、追踪漂移 | 描述具体不一致："任务状态未反映代码进度" |
-| G4、位置错位 | 描述具体问题："文件命名不符规范" |
-| P0、P1、P2、P3；现在/下次/以后/可忽略(作优先级标注) | 使用 `紧急` / `重要` / `缓` / `可略` |
-| pending、in-progress、done、blocked（作用户输出原文） | 说"待开始"、"进行中"、"已完成"、"被阻塞" |
-| Rules 层、Why 层、What 层、How 层、Is 层 | 说"规范文件"、"战略文档"、"计划文档"、"设计文档"、"代码实现" |
-| **项目代号裸出**：`T\d+` / `M\d+` / `Goal \d+` / `BL-\d+` / `ADR-\d+` / commit hash 等内部 ID | 在头部摘要、「现在该做」及「也要留意」节中，首次出现必须附自然语言副标题：`T51（覆盖率仪表盘）` / `M5（混合检索成熟里程碑）`；同卡内后续出现可用裸代号；缺字典见 §3.7 fallback |
-| **MoSCoW 框架词**：Must Have / Should Have / Could Have / Won't Have | 改用"必交项 / 应交项 / 可选项 / 暂不做" |
-| **治理流程黑话**：前置闸门 / 短路 / soft-blocked / 兄弟扫描 / 焦点节点 / all-pending 分支 / 子节点推算 | 用通俗描述："规范文件缺失，先建立"/"等开发者执行"/"同层其他节点扫描结果" |
-| **裸阈值无参考系**：`≥70%` / `P95 ≤30s` / `14 天连续窗口`（只给数字不给参考系） | 改用三件套：`[指标名（口语化解释）]：当前 X / 目标 Y / 参考系 Z`（详见 §3.3 阈值标注） |
+| L1, L2, L3, L4, L5; goal layer, roadmap layer, requirement layer, design layer, task layer | Say "strategic goal", "roadmap", "requirement document", "design document", "task" directly |
+| G1, asset missing | Describe what is actually missing: "`xxx.md` does not exist" |
+| G2, incomplete content | Describe what content is missing: "missing field X / section X" |
+| G3, truth drift, completion drift, traceability drift | Describe the actual inconsistency: "the task status does not reflect the code progress" |
+| G4, misplacement | Describe the actual problem: "the file name does not follow the norms" |
+| P0, P1, P2, P3; now/next time/later/ignorable (as a priority annotation) | Use `urgent` / `important` / `defer` / `minor` |
+| pending, in-progress, done, blocked (verbatim in user-facing output) | Say "not started", "in progress", "finished", "blocked" |
+| Rules layer, Why layer, What layer, How layer, Is layer | Say "norms files", "strategy documents", "planning documents", "design documents", "code implementation" |
+| **A bare project code**: `T\d+` / `M\d+` / `Goal \d+` / `BL-\d+` / `ADR-\d+` / a commit hash and other internal IDs | In the header summary and the "Do now" and "Also worth noting" sections, the first appearance must carry a natural-language subtitle: `T51 (coverage dashboard)` / `M5 (hybrid-retrieval maturity milestone)`; later appearances within the same card may use the bare code; for a missing dictionary entry see the §3.7 fallback |
+| **MoSCoW framework words**: Must Have / Should Have / Could Have / Won't Have | Use "must-deliver / expected-deliver / optional / not for now" instead |
+| **Governance process jargon**: precondition gate / short-circuit / soft-blocked / sibling scan / focus node / all-pending branch / inference from children | Use a plain description: "the norms file is missing, establish it first" / "waiting on the developers" / "the scan result for the other nodes at this level" |
+| **A bare threshold with no benchmark**: `≥70%` / `P95 ≤30s` / `a 14-day continuous window` (a number with no benchmark) | Use the triplet: `[metric name (plain-language gloss)]: current X / target Y / benchmark Z` (see the threshold annotation in §3.3) |
 
-违反本表 = "现在该做"节输出不合格，须重写违规字段，不得保留。
+Violating this table = the "Do now" output is unacceptable; the offending fields must be rewritten and must not be kept.
 
-#### 3.4 用户输出结构
+#### 3.4 User output structure
 
-> **格式选择**：单条建议可用散文替代下方卡片。以下结构化模板适用于 ≥2 条并列建议的场景。
+> **Format choice**: a single suggestion may use prose instead of the cards below. The structured template below applies where there are ≥2 parallel suggestions.
 
 ````
-# 下一步建议
+# Next-step suggestions
 
-> **现状**：[客观状态摘要，≤25 字。例：M5 必交项已清，应交项三项待启动]
-> **核心矛盾**：[本期判断卡点，≤30 字。例：采纳率管道在线但样本未达 100，验收暂不可判]
-
----
-
-## 现在该做
-
-**1. [行动名称（含项目代号自然语言副标题）]** · `紧急 / 重要 / 缓 / 待执行`
-
-> [TL;DR 卡片头：做什么 → 立刻可见的收益，≤30 字]
-
-- 治理上下文：
-  - 战略目标：[目标自然语言名 + 一句话核心 KPI]
-  - 当前 KPI：[当前值 / 目标值 / 参考系；无数据写"数据缺失"]
-  - 路线图：[里程碑自然语言名 + 当前阶段]
-  - 当前位置：[卡口所在层 + 卡因，≤15 字]
-- 推荐技能：`/skill-name [聚焦点 ≤40 字]`
-- 依据：[文件路径或可观测信号 ≤20 字]
-- 完成标志：[可观测结果 1 句话]
-- [选填] 暂缓代价：[不做的影响 ≤30 字；信息不足省略，不允许臆造]
-- [选填] 上手门槛：[前置知识 / 文档路径 ≤30 字；信息不足省略]
+> **Situation**: [objective status summary, ≤25 characters. Example: the M5 must-deliver items are clear, three expected-deliver items not started]
+> **Core tension**: [the sticking point this cycle, ≤30 characters. Example: the adoption-rate pipeline is live but the sample has not reached 100, so acceptance cannot be judged yet]
 
 ---
 
-**2. [行动名称]** · `优先级标签`
+## Do now
 
-...（格式同上，最多 3 条；多任务并行启动渲染为多张并列卡，详见 §3.1 多任务多卡渲染规则）
+**1. [action name (project code with a natural-language subtitle)]** · `urgent / important / defer / awaiting execution`
+
+> [TL;DR card header: what to do → the immediately visible benefit, ≤30 characters]
+
+- Governance context:
+  - Strategic goal: [the goal's natural-language name + its core KPI in one sentence]
+  - Current KPI: [current value / target value / benchmark; write "data missing" when there is none]
+  - Roadmap: [the milestone's natural-language name + its current stage]
+  - Current position: [the layer the blockage sits in + why, ≤15 characters]
+- Recommended skill: `/skill-name [focus ≤40 characters]`
+- Evidence: [file path or observable signal ≤20 characters]
+- Completion marker: [observable result, 1 sentence]
+- [optional] Cost of deferral: [the impact of not doing it ≤30 characters; omit when information is short, inventing one is not allowed]
+- [optional] Onboarding threshold: [prior knowledge / doc path ≤30 characters; omit when information is short]
 
 ---
 
-## 也要留意
+**2. [action name]** · `priority label`
 
-<!-- 漂移巡检（步骤 2.2）+ 卫生巡检（步骤 2.3）条目汇聚于此，最多 5 条，按优先级截断 -->
-
-**[漂移/卫生名称]** · `缓 / 可略`
-
-[一句话：发现了什么问题]
-
-- 依据：[文件路径或可观测信号]
-- 推荐技能：`/skill-name [聚焦点]`
+...(same format as above, at most 3; several tasks starting in parallel render as several side-by-side cards, see the multi-task multi-card rendering rule in §3.1)
 
 ---
 
-## 诊断依据（技术追溯）
+## Also worth noting
 
-<!-- 本节为内部追溯区：L1-L5、G1-G4、P0-P3 及状态码（pending/in-progress/done/blocked）在此处允许使用 -->
+<!-- The drift sweep (step 2.2) and hygiene sweep (step 2.3) entries collect here, at most 5, truncated by priority -->
 
-- **项目情况**：[一句话摘要]
-- **资产清单**：[仅列有状态变化的资产]
+**[drift/hygiene name]** · `defer / minor`
 
-**判定逻辑**：
+[one sentence: what problem was found]
 
-| 层级 | 节点 | 状态 | 推断 |
+- Evidence: [file path or observable signal]
+- Recommended skill: `/skill-name [focus]`
+
+---
+
+## Diagnostic basis (technical traceability)
+
+<!-- This section is the internal traceability zone: L1-L5, G1-G4, P0-P3 and the status codes (pending/in-progress/done/blocked) are allowed here -->
+
+- **Project situation**: [one-sentence summary]
+- **Asset inventory**: [list only the assets whose status changed]
+
+**Decision logic**:
+
+| Level | Node | Status | Inference |
 |---|---|---|---|
-| 战略目标 | [Goal 名] | [KPI 状态] | [继续下钻 / 跳过 / 路由] |
-| 路线图 | [节点名] | [pending/in-progress/done/blocked] | [兄弟扫描结论 + 焦点节点 / 触发的规则] |
-| 需求 | [需求名] | [状态] | [判定结果] |
-| 设计 | [设计名] | [状态] | [判定结果] |
-| 任务 | [任务名 / 集合] | [状态] | ["待执行"分支 / 路由下游 / 完成判定] |
+| Strategic goal | [goal name] | [KPI state] | [keep drilling down / skip / route] |
+| Roadmap | [node name] | [pending/in-progress/done/blocked] | [sibling scan conclusion + focus node / the rule that fired] |
+| Requirement | [requirement name] | [status] | [verdict] |
+| Design | [design name] | [status] | [verdict] |
+| Task | [task name / set] | [status] | ["awaiting execution" branch / route downstream / completion verdict] |
 
-- **漂移巡检结果**：[漂移条目列表；空时写"无"]
-- **卫生巡检结果**：[卫生问题列表；空时写"无"]
-- **字典缺失提示**（若有）：[未命中字典的项目代号列表，建议补 `docs/glossary.md`]
+- **Drift sweep result**: [list of drift entries; write "none" when empty]
+- **Hygiene sweep result**: [list of hygiene issues; write "none" when empty]
+- **Missing dictionary notice** (if any): [the project codes not found in the dictionary, with a suggestion to add them to `docs/glossary.md`]
 ````
 
-#### 3.7 术语字典查表
+#### 3.7 Terminology dictionary lookup
 
-**目的**：对项目代号自动注入自然语言副标题，让用户输出可独立判读，不让读者必须查内部 ID 字典才能理解。
+**Purpose**: inject a natural-language subtitle for project codes automatically, so the user-facing output can be read on its own and no one has to consult an internal ID dictionary to understand it.
 
-**字典源（按发现顺序）**：
+**Dictionary sources (in discovery order)**:
 
-1. 输入参数 `glossary_path`（若调用方提供）
+1. The `glossary_path` input parameter (when the caller supplies it)
 2. `.ai-cortex/glossary.yaml`
 3. `docs/glossary.md`
-4. **Fallback**：读源制品 frontmatter `title:` 字段（如 `docs/tasks/T51.md` 的 `title:`）；无 frontmatter 时取首个 H1 标题
+4. **Fallback**: read the source artifact's frontmatter `title:` field (the `title:` of `docs/tasks/T51.md`, say); with no frontmatter, take the first H1 heading
 
-**字典 schema**（YAML 形式）：
+**Dictionary schema** (in YAML):
 
 ```yaml
 T51:
-  full_name: 覆盖率仪表盘任务
-  one_liner: 让 PM 实时看到覆盖率进度
+  full_name: coverage dashboard task
+  one_liner: lets the PM see coverage progress live
 M5:
-  full_name: 第 5 个里程碑「混合检索成熟」
+  full_name: milestone 5, "hybrid retrieval matures"
 Goal 1:
-  full_name: 需求澄清依赖知识库稳定跑通
-  kpi: 采纳率 ≥70% 连续 14 天
+  full_name: requirement clarification depends on the knowledge base running reliably
+  kpi: adoption rate ≥70% for 14 consecutive days
 ```
 
-**字段说明**：
+**Field notes**:
 
-- `full_name`（必填）：自然语言名称，用于注入副标题
-- `one_liner`（选填）：一句话核心价值，可用于 TL;DR 卡片头辅助生成
-- `kpi`（选填，仅战略目标）：核心 KPI 简述
+- `full_name` (required): the natural-language name, used to inject the subtitle
+- `one_liner` (optional): the core value in one sentence, usable to help generate the TL;DR card header
+- `kpi` (optional, strategic goals only): a short statement of the core KPI
 
-**输出层查表规则**：
+**Lookup rules at the output layer**:
 
-| 场景 | 渲染策略 |
+| Situation | Rendering |
 |---|---|
-| 项目代号首次出现，字典命中 | 注入 `代号（full_name）`，例：`T51（覆盖率仪表盘任务）` |
-| 同卡内后续出现 | 仅用裸代号 |
-| 字典缺失对应条目 | Fallback 读源制品 frontmatter `title:`，取前 ≤12 字注入 |
-| 字典 + Fallback 双重缺失 | 进诊断依据节标记"字典缺失：建议补 `docs/glossary.md` 加入 `<代号>`"，**不在用户输出节展示该代号**；改用通用描述（如"待执行的任务"） |
+| A project code appears for the first time and the dictionary has it | Inject `code (full_name)`, for example `T51 (coverage dashboard task)` |
+| Later appearances within the same card | The bare code only |
+| The dictionary has no matching entry | Fall back to the source artifact's frontmatter `title:`, injecting the first ≤12 characters |
+| Both the dictionary and the fallback are missing | Mark it in the diagnostic-basis section as "dictionary miss: suggest adding `<code>` to `docs/glossary.md`", and **do not show that code in the user-facing sections**; use a generic description instead ("the task awaiting execution", say) |
 
-**约束**：
+**Constraints**:
 
-- 字典缺失不报错、不阻塞——退化输出仍可用
-- 字典查表仅注入到"现在该做"和"也要留意"节；诊断依据节允许裸代号
-- 字典源 YAML 畸形 → HALT 并提示用户修复（同 §0 规范解析行为）
-
----
-
-## 反模式
-
-**关于职责边界**：
-
-- ❌ 调用任何下游技能（只读硬边界）
-- ❌ 隐藏跳过原因（短路时必须明示）
-- ❌ 混入下游执行细节（不写 ADR、不修代码、不整结构）
-
-**关于路由本身**：
-
-- ❌ 模糊措辞（"可能 / 或许 / 可以考虑"）
-- ❌ 省略完成标志
-- ❌ 一条路由混多个缺口类型
-- ❌ 按缺口数量给优先级
-- ❌ 树遍历跳层报告（L2 缺失时直接报 L3 路由）——违反"首缺口优先"
-- ❌ 用 git 信号判"完成"——L2-L5 完成判定看 `status` 字段；**L1 完成必须叠加验收 KPI 检查**
-- ❌ 忽略显式 `status:` 字段，只用子节点推算——显式优先
-- ❌ **以 `status = approved` 作为 L1 done 判据**——approved=决策已批准≠验收已达成；混淆会跳过整棵 L1 子树
-- ❌ **绕过 L1 直接报告中间层（M5/任务）状态**——必须先回答"L1 验收 KPI 是否达成"，再下钻
-- ❌ 治理上下文字段缺 L1 验收 KPI 当前值——违反"路由必须回到战略目标验收"约束
-- ❌ L1 验收 KPI 数据源缺失时直接路由下游执行任务——首条路由应先建立 KPI 数据源
-- ❌ L5 全 pending 时硬塞下游技能——任务已存在时无治理技能可用，应输出"待执行"卡片
-- ❌ 有 blocked 节点时不考虑并行启动——blocked 是并行信号
-- ❌ 多个 in-progress 未 blocked 时推荐继续并行扩展——应建议收敛
-- ❌ 多目标合并路由但未在依据中注明各目标来源
-- ❌ 路线图未分层时跳过 `promote-roadmap-items` 直接评估下游
-- ❌ 忽略 `depends_on:` 字段强行建议并行——有依赖必须顺序
-
-**关于树遍历与扫描**：
-
-- ❌ 在主路由「现在该做」中对 done 节点报告缺口（卫生巡检对 done 节点的检查是例外，输出到「也要留意」）
-- ❌ 同时报同一节点的多层缺口（违反深度优先）
-- ❌ 引入 mode 枚举或配置字段（直接看物理信号）
-- ❌ 承担清单维护职责（plan-next 只读，差异作 G3 输出诊断条目，不做修复）
-
-**关于内部术语泄漏**：
-
-- ❌ "现在该做"节出现编码：L1-L5、G1-G4、P0-P3 任一形式
-- ❌ "现在该做"节出现编码中文对应词：资产缺失、内容不全、真相漂移、完成漂移、追踪漂移、位置错位、目标层、路线图层、需求层、设计层、任务层、Rules 层、Why 层、What 层、How 层、Is 层
-- ❌ 优先级使用旧标签"现在/下次/以后/可忽略"或 P0-P3 编号（改用 `紧急/重要/缓/可略`）
-- ❌ status 值原文出现在"现在该做"节：pending/in-progress/done/blocked（改用：待开始/进行中/已完成/被阻塞）
-- ❌ 诊断依据用层级编号作主语（允许括注追溯，不允许作主语）
-- ❌ 示例标题写"L2→L3 推进"（用自然语言场景描述）
-
-**关于黑话与判断脚手架**：
-
-- ❌ 项目代号裸出（`T51` / `M5` / `Goal 1` / `BL-001` / `ADR-033` 等）首次出现无自然语言副标题
-- ❌ MoSCoW 框架词在用户输出节出现（Must Have / Should Have / Could Have / Won't Have）
-- ❌ 治理流程黑话出现在用户输出节（前置闸门、短路、soft-blocked、兄弟扫描、焦点节点、all-pending 分支、子节点推算）
-- ❌ 阈值无参考系（裸 `≥70%` / `P95 ≤30s` / `14 天连续窗口`）—— 必须三件套：当前值 / 目标值 / 参考系
-- ❌ 多任务用顿号 / 加号 / "并行启动" 合并到单卡主题（`T51 + T-SG5-002` / `T51、T52 并行`）—— 多任务渲染多卡
-- ❌ 单卡完成标志堆叠多任务的 KPI（`A 可访问 + B 可查 + C 可用`）—— 每张卡管自己的完成标志
-- ❌ 治理上下文嵌套括号超过 1 层（`目标X（验收: KPI A 当前 80%（达成）/ 目标 ≥70%（高线））`）—— 拆多行短链
-- ❌ 治理上下文写成单链超 60 字 ——必须改为多行短链每行 ≤25 字
-- ❌ 暂缓代价 / 上手门槛字段填占位文字（"待补充" / "详见任务" / "影响进度" / "需相关知识"）—— 信息不足应省略
-- ❌ TL;DR 卡片头与主题字段语义重复（"启动并行任务以推进里程碑"重述主题）—— 必须答"立刻可见的收益"
-- ❌ 字典缺失代号硬塞用户输出节（应进诊断依据节标记，用户节用通用描述）
+- A missing dictionary is not an error and blocks nothing — the degraded output is still usable
+- The dictionary lookup injects only into the "Do now" and "Also worth noting" sections; the diagnostic-basis section allows bare codes
+- A malformed dictionary source YAML → HALT and ask the user to fix it (the same behavior as the norms resolution in §0)
 
 ---
 
-## 自检
+## Anti-Patterns
 
-**扫**：
+**On responsibility boundaries**:
 
-- [ ] 缓存已加载或明示"no norms found"
-- [ ] 资产 2 字段齐（路径 + 状态）
-- [ ] 路线图是否分层已判定；未分层时已路由 `promote-roadmap-items`
+- ❌ Calling any downstream skill (the read-only hard boundary)
+- ❌ Hiding the reason for a skip (a short-circuit must be stated explicitly)
+- ❌ Mixing in downstream execution detail (no writing ADRs, no fixing code, no tidying structure)
 
-**诊**：
+**On the routing itself**:
 
-- [ ] 战略目标已读取；无目标时已触发 L1 路由
-- [ ] **L1 验收标准 KPI 已解析**；每个目标的 KPI 当前状态已判定（已达成 / 未达成 / 数据缺失）
-- [ ] **L1 status=approved 视同 in-progress**，未跳过下钻
-- [ ] **KPI 数据源缺失时**，首条路由是建立数据源，未直接路由下游
-- [ ] 每个节点的 status 已按"显式优先 > 子节点推算"解析
-- [ ] 每个层级的兄弟节点已全量扫描并分类（done / in-progress / blocked / pending）
-- [ ] 并行决策规则已应用；建议（专注 / 并行 / 收敛 / 启动）已标注
-- [ ] L3-L5 物理扫描完成（glob + 可选 parent: + 可选 manifest）
-- [ ] L3→L4 / L4→L5 G3 链路检查已执行；深度优先（上层 G3 命中不继续报下层）
-- [ ] "完成"判定仅依赖 status 字段，未引入 git 信号
-- [ ] 漂移巡检（步骤 2.2）已执行；超阈值制品已列入漂移条目列表
-- [ ] 卫生巡检（步骤 2.3）已执行；已完成未归档里程碑、ADR 状态问题、仓库结构问题均已扫描
+- ❌ Vague wording ("possibly / perhaps / could consider")
+- ❌ Omitting the completion marker
+- ❌ Mixing several gap types into one route
+- ❌ Assigning priority by the number of gaps
+- ❌ Skipping a level in the tree-traversal report (reporting an L3 route while L2 is missing) — it violates "first gap first"
+- ❌ Judging "finished" from git signals — completion at L2-L5 is judged by the `status` field; **L1 completion must additionally pass the acceptance-KPI check**
+- ❌ Ignoring an explicit `status:` field and relying only on inference from children — explicit wins
+- ❌ **Treating `status = approved` as the criterion for L1 done** — approved = the decision was approved ≠ acceptance met; confusing them skips the whole L1 subtree
+- ❌ **Bypassing L1 and reporting a middle layer (M5/tasks) directly** — answer "is the L1 acceptance KPI met" first, then drill down
+- ❌ A governance-context field with no current L1 acceptance-KPI value — it violates the "a route must lead back to the strategic goal's acceptance" constraint
+- ❌ Routing straight to downstream execution while the L1 acceptance-KPI data source is missing — the first route establishes the KPI data source
+- ❌ Forcing a downstream skill in when L5 is all pending — with the tasks already there, no governance skill applies, and the output is an "awaiting execution" card
+- ❌ Not considering a parallel start when a blocked node is present — blocked is a parallelism signal
+- ❌ Recommending yet more parallel expansion when several nodes are in-progress and none blocked — the suggestion is to converge
+- ❌ Merging routes for several goals without naming each goal's source in the evidence
+- ❌ Evaluating downstream while the roadmap is untiered, skipping `promote-roadmap-items`
+- ❌ Ignoring the `depends_on:` field and suggesting parallelism anyway — a dependency forces sequence
 
-**荐**：
+**On tree traversal and scanning**:
 
-- [ ] 每条建议包含：做什么、为什么、可观测完成标志（无论散文还是卡片）
-- [ ] **格式选择正确**：单条建议用散文；≥2 条并列建议用结构化卡片
-- [ ] **KPI / 阈值首次出现含三件套**（当前值 / 目标值 / 参考系）；无参考时已标注"项目自定（无外部基准）"
-- [ ] 深度优先（每目标只报树中首缺口）
-- [ ] 并行建议已在文字中说明并行理由
-- [ ] 漂移/卫生条目均在「也要留意」节，未挤占「现在该做」前两位
-- [ ] **（使用结构化卡片时）** TL;DR 引用块 ≤30 字，不与主题重复
-- [ ] **（使用结构化卡片时）** 治理上下文为多行短链（每行 ≤25 字），含 L1 验收 KPI 当前状态
-- [ ] **（使用结构化卡片时）** 优先级标签正确映射（紧急 / 重要 / 缓 / 可略 / 待执行）
-- [ ] **（使用结构化卡片时）** L5 全 pending 多任务（≥2 个独立可启动）渲染为多张并列卡，未合并
-- [ ] **（使用结构化卡片时）** 暂缓代价 / 上手门槛字段信息不足时已省略，未填占位文字
+- ❌ Reporting a gap on a done node in the main "Do now" routing (the hygiene sweep's checks on done nodes are the exception, and go to "Also worth noting")
+- ❌ Reporting gaps at several levels of the same node at once (it violates depth-first)
+- ❌ Introducing a mode enum or a config field (read the physical signals directly)
+- ❌ Taking on manifest maintenance (plan-next is read-only; a difference is emitted as a G3 diagnostic entry, not repaired)
 
-**输出**：
+**On internal terminology leaking**:
 
-- [ ] **头部摘要（现状/核心矛盾）≤字数上限**：现状 ≤25 字，核心矛盾 ≤30 字；无项目代号裸出（与「现在该做」节规则一致）
-- [ ] "现在该做"节无编码：L1-L5、G1-G4、P0-P3
-- [ ] "现在该做"节无编码中文对应词：资产缺失、内容不全、真相漂移、完成漂移、追踪漂移、位置错位
-- [ ] "现在该做"节无旧优先级标签：现在/下次/以后/可忽略；优先级统一为 `紧急/重要/缓/可略`
-- [ ] "现在该做"节无英文状态码：pending、in-progress、done、blocked
-- [ ] **"现在该做"及「也要留意」节无项目代号裸出**（`T\d+` / `M\d+` / `Goal \d+` / `BL-\d+` / `ADR-\d+`）—— 首次出现均附自然语言副标题
-- [ ] **"现在该做"节无 MoSCoW 词**（Must Have / Should Have / Could Have / Won't Have）
-- [ ] **"现在该做"节无治理流程黑话**（前置闸门 / 短路 / soft-blocked / 兄弟扫描 / 焦点节点 / all-pending 分支 / 子节点推算）
-- [ ] **字典缺失代号已进诊断依据节**标记，未在用户输出节硬塞
-- [ ] **诊断依据节判定逻辑用表格**（4 列：层级 / 节点 / 状态 / 推断），未用陈述
-- [ ] 只读已遵守
-- [ ] 诊断依据注明每目标的遍历位置及 blocked 节点
+- ❌ A code appearing in the "Do now" section: any form of L1-L5, G1-G4, P0-P3
+- ❌ The natural-language equivalents of those codes appearing in "Do now": asset missing, incomplete content, truth drift, completion drift, traceability drift, misplacement, goal layer, roadmap layer, requirement layer, design layer, task layer, Rules layer, Why layer, What layer, How layer, Is layer
+- ❌ Priorities using the old labels "now/next time/later/ignorable" or the P0-P3 numbering (use `urgent/important/defer/minor`)
+- ❌ Verbatim status values in the "Do now" section: pending/in-progress/done/blocked (use: not started/in progress/finished/blocked)
+- ❌ Using a level number as the subject in the diagnostic basis (a parenthetical trace is allowed, a subject is not)
+- ❌ An example titled "L2→L3 advance" (use a natural-language description of the situation)
 
----
+**On jargon and judgment scaffolding**:
 
-## 示例
-
-### 示例 1：战略半成品（正常路径）
-
-**场景**：项目有 mission / vision；无 strategic-goals；roadmap 存在但无法追溯到战略目标。
-
-**输出**（示例）：
-
-#### 下一步建议
-
-> **现状**：有使命愿景，战略目标文档缺失
-> **核心矛盾**：路线图节点存在但无目标可追溯，治理遍历无法开始
+- ❌ A bare project code (`T51` / `M5` / `Goal 1` / `BL-001` / `ADR-033`, and so on) with no natural-language subtitle on first appearance
+- ❌ MoSCoW framework words in a user-facing section (Must Have / Should Have / Could Have / Won't Have)
+- ❌ Governance process jargon in a user-facing section (precondition gate, short-circuit, soft-blocked, sibling scan, focus node, all-pending branch, inference from children)
+- ❌ A threshold with no benchmark (a bare `≥70%` / `P95 ≤30s` / `14-day continuous window`) — the triplet is mandatory: current value / target value / benchmark
+- ❌ Merging several tasks into one card subject with a comma, a plus sign, or "start in parallel" (`T51 + T-SG5-002` / `T51, T52 in parallel`) — several tasks render as several cards
+- ❌ Stacking several tasks' KPIs into one card's completion marker (`A reachable + B queryable + C usable`) — each card owns its own completion marker
+- ❌ A governance context nesting parentheses more than 1 level deep (`Goal X (acceptance: KPI A current 80% (met) / target ≥70% (stretch))`) — split it into a multi-line short chain
+- ❌ A governance context written as a single chain over 60 characters — it must become a multi-line short chain of ≤25 characters per line
+- ❌ Filling the cost-of-deferral / onboarding-threshold fields with placeholder text ("to be added" / "see the task" / "affects the schedule" / "needs relevant knowledge") — omit when information is short
+- ❌ A TL;DR card header that repeats the subject field ("start parallel tasks to advance the milestone" restates the subject) — it must answer "the immediately visible benefit"
+- ❌ Forcing a code missing from the dictionary into a user-facing section (mark it in the diagnostic basis, and use a generic description in the user-facing section)
 
 ---
 
-##### 现在该做
+## Self-Check
 
-**1. 补充战略目标文档** · `重要`
+**Scan**:
 
-> 补全缺失的战略目标文件，让路线图节点有来源可追溯。
+- [ ] The cache is loaded, or "no norms found" is stated explicitly
+- [ ] The 2 asset fields are present (path + status)
+- [ ] Whether the roadmap is tiered has been decided; where it is not, `promote-roadmap-items` has been routed
 
-- 治理上下文：
-  - 战略目标：缺失（使命愿景已存在）
-  - 当前 KPI：数据缺失（战略目标未建立，无验收标准）
-  - 路线图：存在，但节点无目标可追溯
-  - 当前位置：战略目标缺失，遍历停止
-- 推荐技能：`/design-strategic-goals 基于 mission.md 和 vision.md 生成 strategic-goals.md，包含可识别的目标项`
-- 依据：`docs/project-overview/strategic-goals.md` 缺失
-- 完成标志：strategic-goals.md 写入并含可识别目标项；受阻时回 plan-next 重评
+**Diagnose**:
 
-##### 诊断依据
+- [ ] The strategic goals were read; with no goal, the L1 route fired
+- [ ] **The L1 acceptance-criteria KPIs were parsed**; each goal's current KPI state was decided (met / not met / data missing)
+- [ ] **L1 status=approved counts as in-progress**, and drilling down was not skipped
+- [ ] **Where the KPI data source is missing**, the first route establishes the data source rather than routing downstream
+- [ ] Every node's status was resolved by "explicit first > inference from children"
+- [ ] Every level's sibling nodes were scanned in full and classified (done / in-progress / blocked / pending)
+- [ ] The parallelism decision rules were applied; the suggestion (focus / parallel / converge / start) is stated
+- [ ] The L3-L5 physical scan is complete (glob + optional parent: + optional manifest)
+- [ ] The L3→L4 / L4→L5 G3 chain check was run; depth first (an upper-level G3 hit stops the lower-level report)
+- [ ] The "finished" verdict rests on the status field alone, with no git signals introduced
+- [ ] The drift sweep (step 2.2) was run; artifacts past the threshold are in the drift entry list
+- [ ] The hygiene sweep (step 2.3) was run; finished-but-unarchived milestones, ADR status problems and repository structure problems were all scanned
 
-- **项目情况**：有使命愿景但无战略目标，路线图对齐待建立
+**Recommend**:
 
-**判定逻辑**：
+- [ ] Every suggestion carries what to do, why, and an observable completion marker (prose or card alike)
+- [ ] **The format choice is right**: prose for a single suggestion; structured cards for ≥2 parallel suggestions
+- [ ] **A KPI or threshold carries the triplet on first appearance** (current value / target value / benchmark); with no benchmark, "project-defined (no external baseline)" is noted
+- [ ] Depth first (only the first gap in the tree is reported per goal)
+- [ ] A parallel suggestion states the reason for parallelism in the text
+- [ ] Drift and hygiene entries are all in the "Also worth noting" section and have not crowded out the first two slots of "Do now"
+- [ ] **(When using structured cards)** The TL;DR quote block is ≤30 characters and does not repeat the subject
+- [ ] **(When using structured cards)** The governance context is a multi-line short chain (≤25 characters per line) carrying the current L1 acceptance-KPI state
+- [ ] **(When using structured cards)** The priority label is mapped correctly (urgent / important / defer / minor / awaiting execution)
+- [ ] **(When using structured cards)** An all-pending L5 with several tasks (≥2 independently startable) renders as several side-by-side cards, not merged
+- [ ] **(When using structured cards)** The cost-of-deferral / onboarding-threshold fields are omitted where information is short, not filled with placeholder text
 
-| 层级 | 节点 | 状态 | 推断 |
+**Output**:
+
+- [ ] **The header summary (situation/core tension) is within the character limits**: situation ≤25 characters, core tension ≤30 characters; no bare project code (the same rule as the "Do now" section)
+- [ ] The "Do now" section carries no codes: L1-L5, G1-G4, P0-P3
+- [ ] The "Do now" section carries no natural-language equivalents of the codes: asset missing, incomplete content, truth drift, completion drift, traceability drift, misplacement
+- [ ] The "Do now" section carries no old priority labels: now/next time/later/ignorable; priorities are uniformly `urgent/important/defer/minor`
+- [ ] The "Do now" section carries no English status codes: pending, in-progress, done, blocked
+- [ ] **The "Do now" and "Also worth noting" sections carry no bare project code** (`T\d+` / `M\d+` / `Goal \d+` / `BL-\d+` / `ADR-\d+`) — every first appearance carries a natural-language subtitle
+- [ ] **The "Do now" section carries no MoSCoW words** (Must Have / Should Have / Could Have / Won't Have)
+- [ ] **The "Do now" section carries no governance process jargon** (precondition gate / short-circuit / soft-blocked / sibling scan / focus node / all-pending branch / inference from children)
+- [ ] **A code missing from the dictionary is marked in the diagnostic-basis section**, not forced into a user-facing section
+- [ ] **The diagnostic-basis decision logic uses a table** (4 columns: level / node / status / inference), not prose
+- [ ] Read-only was respected
+- [ ] The diagnostic basis names each goal's traversal position and the blocked nodes
+
+---
+
+## Examples
+
+### Example 1: a half-built strategy (the normal path)
+
+**Scenario**: the project has mission / vision; no strategic-goals; a roadmap exists but cannot be traced back to a strategic goal.
+
+**Output** (example):
+
+#### Next-step suggestions
+
+> **Situation**: mission and vision exist, the strategic-goals document is missing
+> **Core tension**: roadmap nodes exist but trace back to no goal, so the governance traversal cannot start
+
+---
+
+##### Do now
+
+**1. Add the strategic-goals document** · `important`
+
+> Fill in the missing strategic-goals file, so the roadmap nodes have a traceable source.
+
+- Governance context:
+  - Strategic goal: missing (mission and vision already exist)
+  - Current KPI: data missing (no strategic goal established, so no acceptance criteria)
+  - Roadmap: exists, but its nodes trace back to no goal
+  - Current position: the strategic goal is missing, traversal stops
+- Recommended skill: `/design-strategic-goals generate strategic-goals.md from mission.md and vision.md, with identifiable goal items`
+- Evidence: `docs/project-overview/strategic-goals.md` is missing
+- Completion marker: strategic-goals.md is written and holds identifiable goal items; return to plan-next for re-evaluation if blocked
+
+##### Diagnostic basis
+
+- **Project situation**: mission and vision exist but there is no strategic goal; roadmap alignment is yet to be established
+
+**Decision logic**:
+
+| Level | Node | Status | Inference |
 |---|---|---|---|
-| 战略目标 | strategic-goals.md | missing | L1 缺口，遍历停止；路由 design-strategic-goals |
-| 路线图 | — | 未评估 | L1 就绪后重跑 |
+| Strategic goal | strategic-goals.md | missing | L1 gap, traversal stops; route design-strategic-goals |
+| Roadmap | — | not evaluated | re-run once L1 is ready |
 
-- **漂移巡检结果**：无
-- **卫生巡检结果**：无
+- **Drift sweep result**: none
+- **Hygiene sweep result**: none
 
-### 示例 2：新项目起步（短路场景）
+### Example 2: a new project starting up (the short-circuit case)
 
-**场景**：新项目，`docs/ARTIFACT_NORMS.md` 不存在，`specs/` 为空。
+**Scenario**: a new project; `docs/ARTIFACT_NORMS.md` does not exist and `specs/` is empty.
 
-**输出**（示例）：
+**Output** (example):
 
-#### 下一步建议
+#### Next-step suggestions
 
-> **现状**：新项目，文档规范文件缺失
-> **核心矛盾**：无统一规范，后续所有治理文档无标准可依，目标树遍历跳过
+> **Situation**: a new project, the documentation norms file is missing
+> **Core tension**: with no shared norms, every governance document that follows has no standard to work from, so the goal-tree traversal is skipped
 
 ---
 
-##### 现在该做
+##### Do now
 
-**1. 建立文档规范基础** · `紧急`
+**1. Establish the documentation norms foundation** · `urgent`
 
-> 先建立文档规范，后续所有治理文件有标准可依。
+> Establish the documentation norms first, so every governance file that follows has a standard to work from.
 
-- 治理上下文：
-  - 战略目标：暂未可及（规范文件缺失导致提前停止）
-  - 当前 KPI：数据缺失（治理规范未建立）
-  - 路线图：暂未评估（规范文件就绪后重跑）
-  - 当前位置：规范文件缺失，目标树遍历跳过
-- 推荐技能：`/define-docs-norms 基于项目结构生成 docs/ARTIFACT_NORMS.md`
-- 依据：`docs/ARTIFACT_NORMS.md` 缺失，`specs/` 为空
-- 完成标志：ARTIFACT_NORMS.md 落盘后重跑 plan-next
+- Governance context:
+  - Strategic goal: not yet reachable (stopped early because the norms file is missing)
+  - Current KPI: data missing (the governance norms are not established)
+  - Roadmap: not yet evaluated (re-run once the norms file is ready)
+  - Current position: the norms file is missing, the goal-tree traversal is skipped
+- Recommended skill: `/define-docs-norms generate docs/ARTIFACT_NORMS.md from the project structure`
+- Evidence: `docs/ARTIFACT_NORMS.md` is missing, `specs/` is empty
+- Completion marker: re-run plan-next once ARTIFACT_NORMS.md lands
 
-##### 诊断依据
+##### Diagnostic basis
 
-- **项目情况**：规范层缺位，目标树遍历跳过
+- **Project situation**: the norms layer is absent, the goal-tree traversal is skipped
 
-**判定逻辑**：
+**Decision logic**:
 
-| 层级 | 节点 | 状态 | 推断 |
+| Level | Node | Status | Inference |
 |---|---|---|---|
-| 规范层 | ARTIFACT_NORMS.md | missing | 规范缺位触发提前停止，目标树遍历跳过 |
-| 战略目标 | — | 未评估 | 规范就绪后重跑 plan-next |
+| Norms layer | ARTIFACT_NORMS.md | missing | the absent norms trigger an early stop, the goal-tree traversal is skipped |
+| Strategic goal | — | not evaluated | re-run plan-next once the norms are ready |
 
-- **漂移巡检结果**：无
-- **卫生巡检结果**：无
+- **Drift sweep result**: none
+- **Hygiene sweep result**: none
 
-### 示例 3：兄弟节点推进 + 并行决策
+### Example 3: sibling advance + parallelism decision
 
-**场景**：目标 A，路线图节点 N1（in-progress）。N1 下有需求 R1（in-progress，子推算）和需求 R2（pending）。R1 下有设计 D1a（done）和 D1b（in-progress）。D1b 下任务尚未拆解。
+**Scenario**: goal A, roadmap node N1 (in-progress). Under N1 are requirement R1 (in-progress, inferred from children) and requirement R2 (pending). Under R1 are design D1a (done) and D1b (in-progress). No tasks have been broken out under D1b yet.
 
-**遍历路径**：N1 → R1（in-progress，子推算）→ 兄弟扫描：D1a done，D1b in-progress → 进入 D1b → 无任务（L5 缺口）→ 输出"任务待拆分"待执行卡片（任务拆分由 AgentFabric runtime 承接）。
+**Traversal path**: N1 → R1 (in-progress, inferred) → sibling scan: D1a done, D1b in-progress → enter D1b → no tasks (an L5 gap) → emit a "tasks to be broken down" awaiting-execution card (task breakdown is carried by the AgentFabric runtime).
 
-**并行判定**：D1b 为唯一 in-progress 设计，R2 pending。建议：**专注** D1b，完成后 R2 自动成为下一焦点。
+**Parallelism verdict**: D1b is the only in-progress design, R2 is pending. Suggestion: **focus** on D1b; once it finishes, R2 becomes the next focus automatically.
 
-**输出**（示例）：
+**Output** (example):
 
-#### 下一步建议
+#### Next-step suggestions
 
-> **现状**：目标 A 进行中，设计 D1b 就绪待拆任务
-> **核心矛盾**：D1a 已完成，D1b 无任务，执行层无法推进
+> **Situation**: goal A is in progress, design D1b is ready for task breakdown
+> **Core tension**: D1a is finished and D1b has no tasks, so the execution layer cannot move
 
 ---
 
-##### 现在该做
+##### Do now
 
-**1. 为设计 D1b 拆解可执行任务** · `缓`
+**1. Break design D1b into executable tasks** · `defer`
 
-> D1b 设计就绪，拆出任务后 D1b 可进入执行。
+> The D1b design is ready; once tasks are broken out, D1b can move into execution.
 
-- 治理上下文：
-  - 战略目标：目标 A（进行中）
-  - 当前 KPI：数据缺失（目标 A 无量化验收标准）
-  - 路线图：路线图节点 N1（进行中）
-  - 当前位置：设计 D1b 就绪，任务层缺口
-- 推荐技能：（无治理技能；任务拆分由 AgentFabric runtime 承接，按设计 D1b 与 D1a 同等粒度执行）
-- 依据：D1b 设计文件存在，任务文件缺失；D1a 已完成触发推进
-- 完成标志：D1b 任务列表创建且有至少一条任务记录
+- Governance context:
+  - Strategic goal: goal A (in progress)
+  - Current KPI: data missing (goal A has no quantified acceptance criteria)
+  - Roadmap: roadmap node N1 (in progress)
+  - Current position: design D1b is ready, the task layer has a gap
+- Recommended skill: (no governance skill; task breakdown is carried by the AgentFabric runtime, at the same granularity as designs D1b and D1a)
+- Evidence: the D1b design file exists, the task file is missing; D1a finishing triggers the advance
+- Completion marker: the D1b task list is created and holds at least one task record
 
-##### 诊断依据
+##### Diagnostic basis
 
-- **项目情况**：目标 A 处于执行阶段，N1→R1→D1b，任务层缺口
+- **Project situation**: goal A is in the execution stage, N1→R1→D1b, with a gap at the task layer
 
-**判定逻辑**：
+**Decision logic**:
 
-| 层级 | 节点 | 状态 | 推断 |
+| Level | Node | Status | Inference |
 |---|---|---|---|
-| 战略目标 | 目标 A | in-progress | 继续下钻 |
-| 路线图 | N1 | in-progress | 专注（唯一 in-progress 节点） |
-| 需求 | R1 | in-progress（子推算：D1b in-progress） | 继续下钻 |
-| 设计 | D1a | done | D1a done 触发兄弟推进 |
-| 设计 | D1b | in-progress | 无任务（G1），输出"任务待拆分"待执行卡片 |
+| Strategic goal | goal A | in-progress | keep drilling down |
+| Roadmap | N1 | in-progress | focus (the only in-progress node) |
+| Requirement | R1 | in-progress (inferred: D1b in-progress) | keep drilling down |
+| Design | D1a | done | D1a done triggers the sibling advance |
+| Design | D1b | in-progress | no tasks (G1), emit a "tasks to be broken down" awaiting-execution card |
 
-- **漂移巡检结果**：无
-- **卫生巡检结果**：无
+- **Drift sweep result**: none
+- **Hygiene sweep result**: none
 
-### 示例 4：路线图未分层
+### Example 4: the roadmap is not tiered
 
-**场景**：战略目标存在，路线图存在但节点无 Now/Next/Later 分层，仅为扁平列表。
+**Scenario**: strategic goals exist; a roadmap exists but its nodes have no Now/Next/Later tiers — it is only a flat list.
 
-**输出**（示例）：
+**Output** (example):
 
-#### 下一步建议
+#### Next-step suggestions
 
-> **现状**：战略目标存在，路线图为扁平节点列表
-> **核心矛盾**：无 Now/Next/Later 分层，无法确定当前执行焦点
+> **Situation**: strategic goals exist, the roadmap is a flat list of nodes
+> **Core tension**: with no Now/Next/Later tiers, the current execution focus cannot be determined
 
 ---
 
-##### 现在该做
+##### Do now
 
-**1. 为路线图建立当期/下期/远期分层** · `重要`
+**1. Give the roadmap current/next/long-term tiers** · `important`
 
-> 分层后可锁定当前焦点节点，下游层级才能继续评估。
+> Once tiered, the current focus node can be pinned down and the levels below it can be evaluated.
 
-- 治理上下文：
-  - 战略目标：存在
-  - 当前 KPI：数据缺失（路线图无分层前无法评估）
-  - 路线图：存在，但无 Now/Next/Later 分层
-  - 当前位置：路线图层，缺优先级分层
-- 推荐技能：`/promote-roadmap-items 将 roadmap.md 中的节点按 Now/Next/Later 优先级分层`
-- 依据：`docs/requirements-planning/roadmap.md` 存在但无分层结构
-- 完成标志：路线图含 Now/Next/Later 分层后重跑 plan-next
+- Governance context:
+  - Strategic goal: exists
+  - Current KPI: data missing (the roadmap cannot be evaluated before it is tiered)
+  - Roadmap: exists, but has no Now/Next/Later tiers
+  - Current position: the roadmap layer, missing its priority tiers
+- Recommended skill: `/promote-roadmap-items tier the nodes in roadmap.md by Now/Next/Later priority`
+- Evidence: `docs/requirements-planning/roadmap.md` exists but has no tier structure
+- Completion marker: re-run plan-next once the roadmap carries Now/Next/Later tiers
 
-##### 诊断依据
+##### Diagnostic basis
 
-- **项目情况**：路线图存在但未分层，遍历在 L2 停止
+- **Project situation**: the roadmap exists but is not tiered; traversal stops at L2
 
-**判定逻辑**：
+**Decision logic**:
 
-| 层级 | 节点 | 状态 | 推断 |
+| Level | Node | Status | Inference |
 |---|---|---|---|
-| 战略目标 | strategic-goals.md | present | 继续下钻 |
-| 路线图 | roadmap.md | 未分层（扁平列表） | 路线图未分层规则命中，路由 promote-roadmap-items，不评估下游 |
+| Strategic goal | strategic-goals.md | present | keep drilling down |
+| Roadmap | roadmap.md | not tiered (a flat list) | the untiered-roadmap rule fires, route promote-roadmap-items, do not evaluate downstream |
 
-- **漂移巡检结果**：无
-- **卫生巡检结果**：无
+- **Drift sweep result**: none
+- **Hygiene sweep result**: none
 
-### 示例 5：blocked 触发并行
+### Example 5: blocked triggers parallelism
 
-**场景**：目标 A，路线图节点 N1。N1 下需求 R1（blocked，等待外部依赖）和 R2（pending，与 R1 无 depends_on 依赖）。
+**Scenario**: goal A, roadmap node N1. Under N1 are requirement R1 (blocked, waiting on an external dependency) and R2 (pending, with no depends_on link to R1).
 
-**并行判定**：R1 blocked，R2 pending 且独立 → **并行**：建议同时启动 R2。
+**Parallelism verdict**: R1 blocked, R2 pending and independent → **parallel**: suggest starting R2 alongside it.
 
-**输出**（示例）：
+**Output** (example):
 
-#### 下一步建议
+#### Next-step suggestions
 
-> **现状**：目标 A 进行中，N1 下 R1 被外部依赖阻塞
-> **核心矛盾**：等待 R1 解锁将浪费窗口期，R2 独立且可安全并行推进
+> **Situation**: goal A is in progress; under N1, R1 is blocked by an external dependency
+> **Core tension**: waiting for R1 to unblock wastes the window, and R2 is independent and safe to advance in parallel
 
 ---
 
-##### 现在该做
+##### Do now
 
-**1. 启动需求 R2 的方案设计** · `缓`
+**1. Start the solution design for requirement R2** · `defer`
 
-> R1 阻塞期间并行推进 R2，避免等待浪费。
+> Advance R2 in parallel while R1 is blocked, so the wait is not wasted.
 
-- 治理上下文：
-  - 战略目标：目标 A（进行中）
-  - 当前 KPI：数据缺失（目标 A 无量化验收标准）
-  - 路线图：路线图节点 N1（进行中）
-  - 当前位置：设计层，R1 被阻塞触发并行
-- 推荐技能：（无治理技能；R2 设计工作流由 AgentFabric runtime 承接，R1 被阻塞期间并行推进）
-- 依据：R1 被外部依赖阻塞；R2 无 `depends_on` 依赖
-- 完成标志：R2 设计文件创建；受阻时（R2 与 R1 存在隐含耦合）回 plan-next 重评
+- Governance context:
+  - Strategic goal: goal A (in progress)
+  - Current KPI: data missing (goal A has no quantified acceptance criteria)
+  - Roadmap: roadmap node N1 (in progress)
+  - Current position: the design layer, R1 being blocked triggers parallelism
+- Recommended skill: (no governance skill; the R2 design workflow is carried by the AgentFabric runtime, advanced in parallel while R1 is blocked)
+- Evidence: R1 is blocked by an external dependency; R2 has no `depends_on` link
+- Completion marker: the R2 design file is created; return to plan-next for re-evaluation if blocked (R2 turns out to be implicitly coupled to R1)
 
-##### 诊断依据
+##### Diagnostic basis
 
-- **项目情况**：目标 A，N1 下 R1 blocked，R2 pending
+- **Project situation**: goal A, with R1 blocked and R2 pending under N1
 
-**判定逻辑**：
+**Decision logic**:
 
-| 层级 | 节点 | 状态 | 推断 |
+| Level | Node | Status | Inference |
 |---|---|---|---|
-| 战略目标 | 目标 A | in-progress | 继续下钻 |
-| 路线图 | N1 | in-progress | 专注 |
-| 需求 | R1 | blocked | 被外部依赖阻塞，触发并行决策 |
-| 需求 | R2 | pending | 无 depends_on 依赖，可安全并行启动 |
+| Strategic goal | goal A | in-progress | keep drilling down |
+| Roadmap | N1 | in-progress | focus |
+| Requirement | R1 | blocked | blocked by an external dependency, triggers the parallelism decision |
+| Requirement | R2 | pending | no depends_on link, safe to start in parallel |
 
-- **被阻塞节点**：R1（等待外部依赖，需人工介入解除）
-- **漂移巡检结果**：无
-- **卫生巡检结果**：无
-
----
-
-### 示例 6：战略目标 status=approved 但验收未达成（最易误判）
-
-**场景**：`strategic-goals.md` 中目标 G1 frontmatter `status: approved`，验收标准为「引用可见率 ≥ 80% 连续两个迭代」，无监控数据。M5 阶段（承载 G1 的里程碑）下 17 条任务全部 `pending`，任务已拆分完整、设计/ADR 完备。
-
-**关键判定**：
-- L1: G1 `status=approved` 视同 `in-progress`；验收 KPI「引用可见率」数据缺失 → 首条路由必须建立 KPI 数据源
-- L5: 任务全 pending 触发"待执行"分支，第二条路由输出"待执行"卡片标记焦点任务
-
-**输出**（示例）：
-
-#### 下一步建议
-
-> **现状**：G1 验收未达成，引用可见率无监控；M5 任务全部待启动
-> **核心矛盾**：KPI 数据源缺失，验收不可验证；任务治理就绪但等开发执行
+- **Blocked nodes**: R1 (waiting on an external dependency, a human is needed to clear it)
+- **Drift sweep result**: none
+- **Hygiene sweep result**: none
 
 ---
 
-##### 现在该做
+### Example 6: a strategic goal with status=approved whose acceptance is not met (the easiest misjudgment)
 
-**1. 建立 G1（需求澄清稳定跑通）验收 KPI 数据源** · `紧急`
+**Scenario**: in `strategic-goals.md`, goal G1 has frontmatter `status: approved`, its acceptance criterion is "citation visibility ≥ 80% across two consecutive iterations", and there is no monitoring data. Under stage M5 (the milestone carrying G1) all 17 tasks are `pending`, the task breakdown is complete, and the designs/ADRs are in place.
 
-> 建立引用可见率监控，才能判断 G1 验收是否达线。
+**Key verdicts**:
+- L1: G1 `status=approved` counts as `in-progress`; the acceptance KPI "citation visibility" has no data → the first route must establish the KPI data source
+- L5: all tasks pending triggers the "awaiting execution" branch; the second route emits an "awaiting execution" card marking the focus task
 
-- 治理上下文：
-  - 战略目标：G1 需求澄清依赖知识库稳定跑通
-  - 当前 KPI：引用可见率（用户文档被召回占比）数据源缺失 / 目标 ≥80% / 项目自定（无外部基准）
-  - 路线图：M5（混合检索成熟里程碑，进行中）
-  - 当前位置：战略目标验收，KPI 数据源未建立
-- 推荐技能：（无治理技能；citation 引用可见率埋点 + 监控查询路径设计由 AgentFabric runtime 承接，落入 docs/architecture/）
-- 依据：`strategic-goals.md` 验收字段含 KPI 但无数据源指向
-- 完成标志：引用可见率可在监控/查询接口取数；数据源指向写入 strategic-goals.md
+**Output** (example):
+
+#### Next-step suggestions
+
+> **Situation**: G1's acceptance is not met, citation visibility has no monitoring; every M5 task is waiting to start
+> **Core tension**: the KPI data source is missing so acceptance cannot be verified; the tasks are governance-ready but waiting on development
 
 ---
 
-**2. 启动 T47（BM25 稀疏检索集成）** · `待执行`
+##### Do now
 
-> 任务治理就绪，等开发者执行；T47 是引用可见率提升的关键依赖。
+**1. Establish the acceptance-KPI data source for G1 (requirement clarification running reliably)** · `urgent`
 
-- 治理上下文：
-  - 战略目标：G1 需求澄清依赖知识库稳定跑通
-  - 当前 KPI：引用可见率 数据源缺失 / 目标 ≥80%
-  - 路线图：M5（混合检索成熟里程碑，进行中）
-  - 当前位置：任务层，全部待启动（治理就绪，等开发执行）
-- 推荐技能：（无治理技能；交开发团队按 m5/tasks.md T47 实施）
-- 依据：M4 T31（QueryRouter）已完成；T47 待开始且无前置阻塞
-- 完成标志：T47 验收通过（BM25 召回率较纯向量提升 ≥15%、混合检索 P95 ≤1.5s）；完成后回 plan-next 重评
+> Establish citation-visibility monitoring, so it becomes possible to judge whether G1's acceptance is met.
 
-##### 诊断依据
+- Governance context:
+  - Strategic goal: G1, requirement clarification depends on the knowledge base running reliably
+  - Current KPI: citation visibility (the share of user documents recalled) data source missing / target ≥80% / project-defined (no external baseline)
+  - Roadmap: M5 (hybrid-retrieval maturity milestone, in progress)
+  - Current position: strategic goal acceptance, the KPI data source is not established
+- Recommended skill: (no governance skill; citation-visibility instrumentation + the design of the monitoring query path is carried by the AgentFabric runtime, landing in docs/architecture/)
+- Evidence: the acceptance field of `strategic-goals.md` names a KPI but points at no data source
+- Completion marker: citation visibility can be read from a monitoring or query interface; the data source pointer is written into strategic-goals.md
 
-- **项目情况**：G1 status=approved（设计完成），验收未达成，KPI 数据源缺失；M5 进行中，任务全 pending
+---
 
-**判定逻辑**：
+**2. Start T47 (BM25 sparse retrieval integration)** · `awaiting execution`
 
-| 层级 | 节点 | 状态 | 推断 |
+> The task is governance-ready and waiting on a developer; T47 is the key dependency for raising citation visibility.
+
+- Governance context:
+  - Strategic goal: G1, requirement clarification depends on the knowledge base running reliably
+  - Current KPI: citation visibility data source missing / target ≥80%
+  - Roadmap: M5 (hybrid-retrieval maturity milestone, in progress)
+  - Current position: the task layer, everything waiting to start (governance-ready, waiting on development)
+- Recommended skill: (no governance skill; hand to the development team to implement T47 per m5/tasks.md)
+- Evidence: M4 T31 (QueryRouter) is finished; T47 has not started and has no blocking predecessor
+- Completion marker: T47 passes acceptance (BM25 recall ≥15% above pure vector search, hybrid retrieval P95 ≤1.5s); return to plan-next for re-evaluation once done
+
+##### Diagnostic basis
+
+- **Project situation**: G1 status=approved (design complete), acceptance not met, KPI data source missing; M5 in progress, tasks all pending
+
+**Decision logic**:
+
+| Level | Node | Status | Inference |
 |---|---|---|---|
-| 战略目标 | G1 | approved（视同 in-progress） | status=approved ≠ done；KPI 数据源缺失 → 首条路由建立数据源 |
-| 路线图 | M5 | in-progress | 唯一焦点里程碑，继续下钻 |
-| 需求 | M5 需求集 | in-progress | 设计/ADR 已就绪，下钻到任务层 |
-| 设计 | ADR-033/034 | done | 无任务缺口 |
-| 任务 | T47（共 17 项，all-pending） | all-pending | "待执行"分支，输出焦点任务卡片（标签：待执行） |
+| Strategic goal | G1 | approved (counts as in-progress) | status=approved ≠ done; the KPI data source is missing → the first route establishes the data source |
+| Roadmap | M5 | in-progress | the only focus milestone, keep drilling down |
+| Requirement | M5 requirement set | in-progress | designs/ADRs are ready, drill down to the task layer |
+| Design | ADR-033/034 | done | no task gap |
+| Task | T47 (17 in total, all-pending) | all-pending | the "awaiting execution" branch, emit the focus task card (label: awaiting execution) |
 
-- **漂移巡检结果**：无
-- **卫生巡检结果**：无
+- **Drift sweep result**: none
+- **Hygiene sweep result**: none

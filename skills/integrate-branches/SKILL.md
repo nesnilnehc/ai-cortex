@@ -17,134 +17,134 @@ output_schema:
   description: Selected branches merged into main and pushed; succeeded worktrees removed; per-branch batch summary report.
 ---
 
-# 技能（Skill）：整合分支（Integrate Branches）
+# Skill: Integrate Branches
 
-## 目的（Purpose）
+## Purpose
 
-在主仓库中批量收尾功能分支：扫描所有活跃的 linked worktree 以及没有 worktree 的本地分支，让用户选择哪些落地，逐一校验工作区干净，依次 merge + push，最后统一清理所有成功合并的 worktree。省去逐个 `cd` 进目录再手动交付的操作。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：在主仓库 main 分支上，将用户选定的分支（来自 worktree 或独立分支）合并进 main，推送到 origin，并清理成功的 worktree——使仓库处于已知干净状态。
-
-**成功标准**（必须全部满足）：
-
-1. ✅ **调用上下文已验证**：CWD 是主仓库根目录（而非 linked worktree 内部），且当前分支是 main 分支
-2. ✅ **所有候选项已发现**：`git worktree list --porcelain` 与 `git branch` 均已解析；非 main 条目以带类型标识的统一列表呈现给用户
-3. ✅ **预检在任何合并前完成**：所有选中的 worktree 条目均已检查工作区是否干净；所有脏条目在一个块中统一上报
-4. ✅ **顺序 merge + push**：每条选中的干净分支依次以 `--no-ff` 合并并推送；逐条记录状态（`succeeded` / `failed`）
-5. ✅ **统一清理**：所有 `succeeded` 的 worktree 条目一起移除；branch-only 条目跳过 worktree 移除；失败条目不做任何清理
-6. ✅ **汇总报告已输出**：每条分支的 merge / push / cleanup / 分支删除状态均已覆盖
-
-**验收测试**：技能执行完毕后，`git log --oneline <main-branch>` 对每条成功分支各有一条 merge commit；`git worktree list` 仅剩主仓库加上失败/跳过的 worktree 条目；`git ls-remote origin <main-branch>` 与本地一致。
+Wrap up feature branches in bulk from the main repository: scan every active linked worktree plus the local branches that have no worktree, let the user pick which ones land, check each working tree is clean, merge + push them one after another, then clean up every successfully merged worktree in one pass. It removes the `cd` into each directory followed by a manual delivery.
 
 ---
 
-## 范围边界（Scope Boundaries）
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: on the main repository's main branch, merge the branches the user selected (from a worktree or standalone) into main, push to origin, and clean up the worktrees that succeeded — leaving the repository in a known clean state.
 
-- 验证调用上下文（主仓库根目录 + main 分支）
-- 确定 main 分支（自动检测；仅在无法确定时询问用户）
-- 扫描 linked worktree（`git worktree list --porcelain`）与无 worktree 的本地分支（`git branch`）
-- 去重：已被 worktree 条目覆盖的分支不再重复展示
-- 用户多选待合并分支（`all` 或按序号子集）
-- 预检工作区：worktree 条目用 `git -C <path> status --porcelain`；branch-only 条目跳过脏检查（无独立工作区）
-- 对每条选中分支依次执行 pull → `--no-ff` merge → push
-- 每次失败后询问用户：继续剩余条目还是中止
-- 统一清理所有成功合并的 worktree 条目（`git worktree remove`）
-- 可选功能分支删除（用户确认，仅 `-d`）
-- 逐条分支汇总报告
+**Success criteria** (all must be satisfied):
 
-**本技能不负责**：
+1. ✅ **Invocation context verified**: CWD is the main repository root (not inside a linked worktree), and the current branch is the main branch
+2. ✅ **All candidates discovered**: both `git worktree list --porcelain` and `git branch` are parsed; the non-main entries are presented to the user as one list with type markers
+3. ✅ **Pre-flight finished before any merge**: every selected worktree entry was checked for a clean working tree; every dirty entry is reported together in one block
+4. ✅ **Sequential merge + push**: each selected clean branch is merged with `--no-ff` and pushed in turn; the status of each is recorded (`succeeded` / `failed`)
+5. ✅ **Cleanup in one pass**: every `succeeded` worktree entry is removed together; branch-only entries skip the worktree removal; failed entries get no cleanup at all
+6. ✅ **Summary report emitted**: the merge / push / cleanup / branch-deletion status of every branch is covered
 
-- 单 worktree 交付（请在 worktree 内使用 `deliver-feature`）
-- 提交未提交的变更（请先在各 worktree 内使用 `commit-work`）
-- 合并前的 rebase 或 squash
-- 解决合并冲突（遇冲突则停止并上报用户）
-- 创建或管理 pull request
-- 向任何分支强制推送
-- 并行合并执行（始终顺序执行）
-
-**转交点**：
-
-- **→ `deliver-feature`**：用户在单个 worktree 内，只想交付该分支而无需 `cd` 回主仓库时
-- **停止并提示用户**：在 linked worktree 内部调用，或在主仓库非 main 分支上调用时
-- **某条分支合并冲突时**：停止该条，询问是否继续剩余
-- **某条分支推送被拒时**：停止该条，询问是否继续剩余
+**Acceptance test**: after the skill finishes, `git log --oneline <main-branch>` holds one merge commit per successful branch; `git worktree list` holds only the main repository plus the failed or skipped worktree entries; `git ls-remote origin <main-branch>` matches the local state.
 
 ---
 
-## 使用场景（Use Cases）
+## Scope Boundaries
 
-- 开发者有 2–4 条功能分支（部分在 worktree 中，部分为独立分支）准备一次性落地 main
-- Sprint 结束批量收尾：在主仓库中合并、推送、清理所有已完成功能分支
-- CI / 自动化流程生成了多个并行 worktree 加若干 topic 分支，现在汇总结果
+**This skill does**:
+
+- Verify the invocation context (main repository root + main branch)
+- Determine the main branch (auto-detected; the user is asked only when it cannot be determined)
+- Scan linked worktrees (`git worktree list --porcelain`) and local branches with no worktree (`git branch`)
+- Deduplicate: a branch already covered by a worktree entry is not shown twice
+- Let the user multi-select the branches to merge (`all`, or a subset by index)
+- Pre-flight the working tree: worktree entries through `git -C <path> status --porcelain`; branch-only entries skip the dirty check (they have no working tree of their own)
+- Run pull → `--no-ff` merge → push in turn for each selected branch
+- After each failure, ask the user: continue with the remaining entries, or abort
+- Clean up every successfully merged worktree entry in one pass (`git worktree remove`)
+- Optional feature-branch deletion (user-confirmed, `-d` only)
+- A per-branch summary report
+
+**This skill does not do**:
+
+- Single-worktree delivery (use `deliver-feature` from inside the worktree)
+- Commit uncommitted changes (use `commit-work` inside each worktree first)
+- Rebase or squash before merging
+- Resolve merge conflicts (on a conflict it stops and reports to the user)
+- Create or manage pull requests
+- Force-push to any branch
+- Parallel merge execution (execution is always sequential)
+
+**Handoff points**:
+
+- **→ `deliver-feature`**: the user is inside a single worktree and wants to deliver only that branch, without a `cd` back to the main repository
+- **Stop and prompt the user**: invoked inside a linked worktree, or invoked on a non-main branch of the main repository
+- **A branch hits a merge conflict**: stop that one, and ask whether to continue with the rest
+- **A branch's push is rejected**: stop that one, and ask whether to continue with the rest
 
 ---
 
-## 行为（Behavior）
+## Use Cases
 
-### 工作流程（Checklist）
+- A developer has 2–4 feature branches (some in worktrees, some standalone) ready to land on main in one go
+- End-of-sprint wrap-up in bulk: merge, push, and clean up every finished feature branch from the main repository
+- A CI or automation run produced several parallel worktrees plus a handful of topic branches, and the results are now being consolidated
 
-**步骤 1 — 验证调用上下文**
+---
+
+## Behavior
+
+### Workflow (Checklist)
+
+**Step 1 — verify the invocation context**
 
 ```bash
-git rev-parse --git-dir              # 主仓库: <root>/.git ; linked worktree: <main-root>/.git/worktrees/<name>
-git rev-parse --git-common-dir       # 两种上下文均返回同一值: <main-root>/.git
-git rev-parse --abbrev-ref HEAD      # 当前分支
-git rev-parse --show-toplevel        # 当前仓库根目录
+git rev-parse --git-dir              # main repo: <root>/.git ; linked worktree: <main-root>/.git/worktrees/<name>
+git rev-parse --git-common-dir       # same value in both contexts: <main-root>/.git
+git rev-parse --abbrev-ref HEAD      # current branch
+git rev-parse --show-toplevel        # current repository root
 ```
 
-linked worktree 的 `git-dir != git-common-dir`；主仓库两者相等。
+For a linked worktree `git-dir != git-common-dir`; in the main repository the two are equal.
 
-- 若 `git rev-parse --git-dir` 与 `git rev-parse --git-common-dir` 不同（即 CWD 在 linked worktree 内部）→ **停止**：
-  > "本技能必须在主仓库根目录运行，不能在 worktree 内部运行。当前位置：`<cwd>`。若要交付当前 worktree 的分支，请使用 `deliver-feature`。"
+- If `git rev-parse --git-dir` differs from `git rev-parse --git-common-dir` (that is, CWD is inside a linked worktree) → **stop**:
+  > "This skill must run from the main repository root, not from inside a worktree. Current location: `<cwd>`. To deliver the current worktree's branch, use `deliver-feature`."
 
-- 若当前分支不是检测到的 main 分支（步骤 2）→ **停止**：
-  > "当前分支是 `<current-branch>`，不是 `<main-branch>`。请先切换到 main 分支：`git checkout <main-branch>`。"
+- If the current branch is not the detected main branch (step 2) → **stop**:
+  > "The current branch is `<current-branch>`, not `<main-branch>`. Switch to the main branch first: `git checkout <main-branch>`."
 
-记录 `<main-repo>`（= `git rev-parse --show-toplevel`）。此后每一步 CWD 均保持在此。
+Record `<main-repo>` (= `git rev-parse --show-toplevel`). CWD stays there for every step that follows.
 
-**步骤 2 — 确定 main 分支**
+**Step 2 — determine the main branch**
 
 ```bash
 git remote show origin | grep 'HEAD branch'
 ```
 
-- 结果无歧义（如 `HEAD branch: main`）→ 直接使用。
-- 命令失败或无结果 → 检查 `git branch -r` 中的 `origin/main`，再看 `origin/master`。
-- 仍无法确定 → **询问用户**：
-  > "无法自动确定 main 分支，请输入 main 分支名称（如 main、master、develop）："
+- The result is unambiguous (such as `HEAD branch: main`) → use it directly.
+- The command fails or returns nothing → look for `origin/main` in `git branch -r`, then `origin/master`.
+- Still undetermined → **ask the user**:
+  > "The main branch could not be determined automatically. Enter the main branch name (main, master, develop, and so on):"
 
-记录 `<main-branch>`。
+Record `<main-branch>`.
 
-**步骤 3 — 扫描并展示可选分支**
+**Step 3 — scan and present the selectable branches**
 
 ```bash
-# 来源 1：linked worktrees
+# Source 1: linked worktrees
 git worktree list --porcelain
 
-# 来源 2：所有本地分支
+# Source 2: all local branches
 git branch --format='%(refname:short)'
 ```
 
-解析 porcelain 输出。第一条 worktree 记录是主仓库本身——跳过。其余每条记为 `type: worktree` 候选项。
+Parse the porcelain output. The first worktree record is the main repository itself — skip it. Record each of the others as a `type: worktree` candidate.
 
-从 `git branch` 输出中排除：
-- `<main-branch>` 本身
-- 已被 worktree 条目覆盖的分支（按分支名去重）
+Exclude from the `git branch` output:
+- `<main-branch>` itself
+- Branches already covered by a worktree entry (deduplicated by branch name)
 
-剩余分支记为 `type: branch` 候选项（无关联 worktree 路径）。
+Record the remaining branches as `type: branch` candidates (with no associated worktree path).
 
-构建 `{path, branch, type}` 元组的统一列表。跳过 detached 条目，将其标记为不可用。
+Build one list of `{path, branch, type}` tuples. Skip detached entries and mark them unavailable.
 
-- 无候选项 → **停止**：
-  > "未找到活跃的 linked worktree 或本地分支，无可整合项。"
+- No candidates → **stop**:
+  > "No active linked worktree or local branch was found; there is nothing to integrate."
 
-以序号、类型标识、路径（如适用）、分支名、最近活动提示展示列表：
+Present the list with an index, a type marker, the path where applicable, the branch name, and a hint about recent activity:
 
 ```text
 Available branches to integrate:
@@ -153,110 +153,110 @@ Available branches to integrate:
   [3]  branch    —                      feat/dashboard      (last commit: 14 days ago — STALE)
 ```
 
-询问：
+Ask:
 
-> "请选择要整合的分支，输入序号（逗号分隔）或 `all`："
+> "Select the branches to integrate. Enter the indexes (comma-separated) or `all`:"
 
-记录 `<selected-list>`。
+Record `<selected-list>`.
 
-**步骤 4 — 预检：检查所有选中条目**
+**Step 4 — pre-flight: check every selected entry**
 
-对 `<selected-list>` 中每条条目 `E`：
+For each entry `E` in `<selected-list>`:
 
-- 若 `E.type == worktree`：
+- If `E.type == worktree`:
   ```bash
   git -C <E.path> status --porcelain
   ```
-- 若 `E.type == branch`：无独立工作区——跳过脏检查，始终视为干净。
+- If `E.type == branch`: it has no working tree of its own — skip the dirty check and treat it as clean.
 
-将结果分别收集到 `<clean-list>` 和 `<dirty-list>`。
+Collect the results into `<clean-list>` and `<dirty-list>` respectively.
 
-若 `<dirty-list>` 非空，在任何合并开始前统一上报所有脏条目：
+If `<dirty-list>` is not empty, report every dirty entry together before any merge starts:
 
 ```text
 Pre-flight check — dirty worktrees (will be skipped):
   /repos/myapp-api  (feat/api-v2)    — 3 uncommitted file(s)
 ```
 
-询问：
+Ask:
 
-> "以上 worktree 有未提交变更。继续合并其余干净条目，还是全部停止？[continue / halt]"
+> "The worktrees above hold uncommitted changes. Continue merging the remaining clean entries, or stop everything? [continue / halt]"
 
-- `halt` → 停止；不执行任何合并。
-- `continue` → 仅对 `<clean-list>` 继续。若 `<clean-list>` 为空 → 停止并提示"无可操作项"。
+- `halt` → stop; run no merges.
+- `continue` → carry on with `<clean-list>` only. If `<clean-list>` is empty → stop and report "nothing to act on".
 
-任何情况下均不自动 stash。
+Nothing is stashed automatically under any circumstances.
 
-**步骤 5 — 批量 merge + push（顺序执行）**
+**Step 5 — bulk merge + push (sequential)**
 
-对 `<clean-list>` 中每条条目 `E`：
+For each entry `E` in `<clean-list>`:
 
 ```bash
-# 多分支运行期间保持最新
+# stay current across a multi-branch run
 git pull origin <main-branch>
 
-# --no-ff 合并
+# --no-ff merge
 git merge --no-ff <E.branch> -m "Merge branch '<E.branch>' into <main-branch>"
 
-# 推送
+# push
 git push origin <main-branch>
 ```
 
-CWD 全程保持在 `<main-repo>`。
+CWD stays at `<main-repo>` throughout.
 
-条目 `E` 失败时：
+When entry `E` fails:
 
-- 合并冲突：
-  > "合并 `<E.branch>` 到 `<main-branch>` 时发生冲突。请在 `<main-repo>` 中解决冲突、手动完成合并，然后推送并移除 worktree（如适用）。"
-- 推送被拒（非 fast-forward）：
-  > "合并 `<E.branch>` 后推送被拒。请在 `<main-repo>` 中运行 `git reset --hard HEAD~1` 撤销合并，然后 pull、重新合并并推送。"
+- Merge conflict:
+  > "Merging `<E.branch>` into `<main-branch>` hit a conflict. Resolve the conflict in `<main-repo>`, finish the merge by hand, then push and remove the worktree where applicable."
+- Push rejected (not a fast-forward):
+  > "The push after merging `<E.branch>` was rejected. Run `git reset --hard HEAD~1` in `<main-repo>` to undo the merge, then pull, merge again, and push."
 
-两种情况均将 `E` 标记为 `failed`，并询问：
+In both cases mark `E` as `failed` and ask:
 
-> "继续处理剩余分支，还是中止所有剩余项？[continue / abort]"
+> "Continue with the remaining branches, or abort everything left? [continue / abort]"
 
-- `abort` → 停止；不再处理任何剩余条目。
-- `continue` → 标记 `E` 为 `failed`，继续下一条。
+- `abort` → stop; process none of the remaining entries.
+- `continue` → mark `E` as `failed` and move on to the next one.
 
-逐条记录结果：`succeeded` 或 `failed`。
+Record the result of each one: `succeeded` or `failed`.
 
-**步骤 6 — 统一清理（仅 worktree 条目）**
+**Step 6 — cleanup in one pass (worktree entries only)**
 
-所有合并完成后，确认 CWD 仍为 `<main-repo>`：
+Once all merges are done, confirm CWD is still `<main-repo>`:
 
 ```bash
-pwd   # 必须等于 <main-repo>
+pwd   # must equal <main-repo>
 ```
 
-仅对 `<succeeded-list>` 中 `E.type == worktree` 的条目：
+Only for the entries in `<succeeded-list>` where `E.type == worktree`:
 
 ```bash
 git worktree remove <E.path>
 ```
 
-顺序执行。若某次移除失败（如路径已不存在），记录错误后继续下一条。
+Run these in order. If one removal fails (the path no longer exists, say), record the error and move on to the next.
 
-`type: branch` 条目无 worktree 路径——本步骤完全跳过。失败条目的 worktree 绝不移除。
+`type: branch` entries have no worktree path — this step skips them entirely. The worktree of a failed entry is never removed.
 
-**步骤 7 — 提供本地分支删除选项**
+**Step 7 — offer the local branch deletion option**
 
-对 `<succeeded-list>` 中所有条目，统一展示分支列表：
+For every entry in `<succeeded-list>`, present the branch list together:
 
-> "已清理成功条目。删除以下本地功能分支？输入序号、`all` 或 `none`："
+> "The successful entries are cleaned up. Delete the local feature branches below? Enter the indexes, `all`, or `none`:"
 > ```
 > [1]  feat/user-auth  (was worktree)
 > [2]  feat/dashboard  (was branch)
 > ```
 
-每条确认后执行：
+Once each one is confirmed, run:
 
 ```bash
 git branch -d <E.branch>
 ```
 
-仅用 `-d`——绝不用 `-D`。若 `-d` 失败，上报错误并停止该分支的删除。
+Use `-d` only — never `-D`. If `-d` fails, report the error and stop deleting that branch.
 
-**步骤 8 — 汇总报告**
+**Step 8 — summary report**
 
 ```text
 integrate-branches summary
@@ -269,122 +269,122 @@ branch    feat/dashboard    ✓              ✓      —        deleted
 Main repo: /repos/myapp · Main branch: main · Remote: origin
 ```
 
-状态码：`✓` 成功 · `✗(原因)` 失败 · `skipped(dirty)` 预检失败 · `—` 不适用
+Status codes: `✓` succeeded · `✗(reason)` failed · `skipped(dirty)` pre-flight failed · `—` not applicable
 
-`type: branch` 条目的 `Cleanup` 列始终为 `—`（无 worktree 可移除）。
+The `Cleanup` column of a `type: branch` entry is always `—` (there is no worktree to remove).
 
 ---
 
-## 输入与输出（Input & Output）
+## Input & Output
 
-### 输入要求
+### Input Requirements
 
-| 输入 | 是否必需 | 说明 |
+| Input | Required | Note |
 |---|---|---|
-| 主仓库 + main 分支上下文 | 是 | CWD 必须是主仓库根目录，当前分支必须等于 main 分支 |
-| 活跃候选项 | 是 | 至少存在一个 linked worktree 或本地分支（main 除外） |
-| 分支选择 | 用户输入 | `all` 或从展示列表中输入逗号分隔的序号 |
-| 工作区干净 | 每个 worktree 条目 | 脏 worktree 预先上报并跳过；branch-only 条目始终通过预检 |
-| main 分支名 | 自动/询问 | 从 remote 检测；无法确定时询问用户 |
-| 网络访问 | 是 | pull 和 push 到 `origin` 需要网络 |
+| Main repo + main branch context | Yes | CWD must be the main repository root, and the current branch must equal the main branch |
+| Active candidates | Yes | At least one linked worktree or local branch exists, other than main |
+| Branch selection | User input | `all`, or comma-separated indexes from the presented list |
+| Clean working tree | Per worktree entry | A dirty worktree is reported up front and skipped; branch-only entries always pass pre-flight |
+| Main branch name | Auto / ask | Detected from the remote; the user is asked when it cannot be determined |
+| Network access | Yes | pull and push to `origin` need the network |
 
-### 输出契约
+### Output Contract
 
-| 元素 | 说明 |
+| Element | Note |
 |---|---|
-| Merge commits | 每条成功分支在 `<main-branch>` 上产生一条 `--no-ff` merge commit |
-| 远程推送 | 每条成功分支推送一次，更新 `origin/<main-branch>` |
-| Worktree 移除 | 所有成功的 `type: worktree` 条目从 `git worktree list` 中移除 |
-| 分支删除 | 可选，用户确认后执行；仅 `git branch -d` |
-| 批量汇总报告 | 逐条分支表格：type / branch / merge / push / cleanup / 分支删除状态 |
+| Merge commits | Each successful branch produces one `--no-ff` merge commit on `<main-branch>` |
+| Remote push | One push per successful branch, updating `origin/<main-branch>` |
+| Worktree removal | Every successful `type: worktree` entry is removed from `git worktree list` |
+| Branch deletion | Optional, run after user confirmation; `git branch -d` only |
+| Batch summary report | A per-branch table: type / branch / merge / push / cleanup / branch-deletion status |
 
 ---
 
-## 约束（Restrictions）
+## Restrictions
 
-### 硬边界（Hard Boundaries）
+### Hard Boundaries
 
-- **禁止强制推送**（`--force`、`--force-with-lease`）到任何分支
-- **禁止在 merge 或 push 失败后移除该 worktree**
-- **禁止自动 stash** 未提交变更——预先上报并跳过该 worktree
-- **禁止使用 `git branch -D`**——仅 `-d`（安全删除）
-- **禁止在所有选中条目预检完成前开始任何合并**
-- **禁止在 linked worktree 内部或主仓库非 main 分支上继续执行**——停止并给出对应提示
+- **Never force-push** (`--force`, `--force-with-lease`) to any branch
+- **Never remove a worktree after its merge or push failed**
+- **Never stash automatically** — uncommitted changes are reported up front and that worktree is skipped
+- **Never use `git branch -D`** — `-d` only (the safe delete)
+- **Never start a merge before pre-flight has finished for every selected entry**
+- **Never continue from inside a linked worktree, or on a non-main branch of the main repository** — stop and give the matching prompt
 
-### 技能边界（Skill Boundaries）
+### Skill Boundaries
 
-- **单 worktree 交付**：在 worktree 内使用 `deliver-feature`
-- **提交待处理变更**：先在各 worktree 内使用 `commit-work`
-- **rebase / squash**：在调用本技能前直接使用 `git rebase`
-- **创建 PR**：使用平台专用 PR 工具；本技能直接合并到 main
-- **代码审查**：提交前使用 `review-diff`；本技能不做代码审查
-
----
-
-## 反模式（Anti-Patterns）
-
-### 调用上下文
-
-✅ 在主仓库根目录、main 分支上运行
-❌ 不要在 linked worktree 内部运行——那是 `deliver-feature` 的职责；worktree 被删除后 CWD 会失效，导致后续所有命令失败
-
-### 预检顺序
-
-✅ 在开始任何合并前，对所有选中的 worktree 条目统一做脏检查
-❌ 不要在合并前才检查该条目——脏 worktree 会在部分合并已提交后才被发现
-
-### 合并方式
-
-✅ `git merge --no-ff` 保留分支历史
-❌ 不要使用 `git merge --squash` 或 fast-forward——历史会丢失
-
-### 推送安全
-
-✅ 标准 `git push origin <main-branch>`
-❌ 绝不在 main 上使用 `--force` 或 `--force-with-lease`
-
-### 清理顺序
-
-✅ 仅在 merge 与 push 均成功后才移除 worktree
-❌ 不要在 merge 后、push 前移除——push 失败则分支将无法访问
-
-### 分支删除
-
-✅ `git branch -d`（安全），且需用户确认
-❌ 绝不使用 `git branch -D`（强制）——可能删除未合并的提交
+- **Single-worktree delivery**: use `deliver-feature` from inside the worktree
+- **Commit pending changes**: use `commit-work` inside each worktree first
+- **rebase / squash**: use `git rebase` directly, before invoking this skill
+- **Create a PR**: use the platform's own PR tooling; this skill merges straight into main
+- **Code review**: use `review-diff` before committing; this skill does no code review
 
 ---
 
-## 示例（Examples）
+## Anti-Patterns
 
-### 示例 1：worktree 分支与独立分支混合（正常路径）
+### Invocation Context
 
-**场景**：两条 worktree 分支和一条独立分支准备合并进 `main`。
+✅ Run from the main repository root, on the main branch
+❌ Do not run from inside a linked worktree — that is `deliver-feature`'s job; once the worktree is deleted the CWD goes stale and every command after it fails
 
-**执行过程**：
+### Pre-Flight Order
+
+✅ Run the dirty check across every selected worktree entry before any merge starts
+❌ Do not check an entry only just before its own merge — a dirty worktree then surfaces after some merges are already committed
+
+### Merge Method
+
+✅ `git merge --no-ff` keeps the branch history
+❌ Do not use `git merge --squash` or a fast-forward — the history is lost
+
+### Push Safety
+
+✅ Standard `git push origin <main-branch>`
+❌ Never use `--force` or `--force-with-lease` on main
+
+### Cleanup Order
+
+✅ Remove a worktree only after both the merge and the push succeeded
+❌ Do not remove between the merge and the push — if the push fails the branch becomes unreachable
+
+### Branch Deletion
+
+✅ `git branch -d` (safe), with user confirmation
+❌ Never use `git branch -D` (force) — it can delete unmerged commits
+
+---
+
+## Examples
+
+### Example 1: worktree branches and standalone branches mixed (happy path)
+
+**Scenario**: two worktree branches and one standalone branch are ready to merge into `main`.
+
+**Execution**:
 
 ```bash
-# 步骤 3：扫描
+# Step 3: scan
 git worktree list --porcelain
 # main: /repos/myapp  +  /repos/myapp-auth feat/user-auth  +  /repos/myapp-api feat/api-v2
 
 git branch --format='%(refname:short)'
-# feat/user-auth（已在 worktree 中——去重）
-# feat/api-v2   （已在 worktree 中——去重）
-# feat/dashboard（独立分支）
+# feat/user-auth (already in a worktree — deduplicated)
+# feat/api-v2   (already in a worktree — deduplicated)
+# feat/dashboard (standalone branch)
 
-# 展示列表：
+# Presented list:
 #   [1]  worktree  /repos/myapp-auth  feat/user-auth  (last commit: 2 days ago)
 #   [2]  worktree  /repos/myapp-api   feat/api-v2     (last commit: 5 days ago)
 #   [3]  branch    —                  feat/dashboard  (last commit: 14 days ago — STALE)
-# 用户选择：all
+# User selects: all
 
-# 步骤 4：预检
+# Step 4: pre-flight
 git -C /repos/myapp-auth status --porcelain   # (empty ✓)
 git -C /repos/myapp-api  status --porcelain   # (empty ✓)
-# feat/dashboard — 无 worktree，跳过 ✓
+# feat/dashboard — no worktree, skipped ✓
 
-# 步骤 5：顺序 merge + push（3 条）
+# Step 5: sequential merge + push (3 of them)
 git pull origin main
 git merge --no-ff feat/user-auth -m "Merge branch 'feat/user-auth' into main"
 git push origin main
@@ -397,19 +397,19 @@ git pull origin main
 git merge --no-ff feat/dashboard -m "Merge branch 'feat/dashboard' into main"
 git push origin main
 
-# 步骤 6：清理——仅 worktree 条目
+# Step 6: cleanup — worktree entries only
 pwd                                       # /repos/myapp ✓
 git worktree remove /repos/myapp-auth
 git worktree remove /repos/myapp-api
-# feat/dashboard — type: branch，跳过
+# feat/dashboard — type: branch, skipped
 
-# 步骤 7：删除分支——用户选 all
+# Step 7: delete branches — the user picks all
 git branch -d feat/user-auth
 git branch -d feat/api-v2
 git branch -d feat/dashboard
 ```
 
-**汇总**：
+**Summary**:
 
 ```text
 integrate-branches summary
@@ -424,29 +424,29 @@ Main repo: /repos/myapp · Main branch: main · Remote: origin
 
 ---
 
-### 示例 2：脏 worktree 被跳过，独立分支正常推进
+### Example 2: the dirty worktree is skipped, the standalone branch proceeds
 
-**场景**：选中三条条目，其中一个 worktree 有未提交变更。
+**Scenario**: three entries are selected, and one of the worktrees holds uncommitted changes.
 
-**执行过程**：
+**Execution**:
 
 ```bash
-# 步骤 4：预检
+# Step 4: pre-flight
 git -C /repos/myapp-auth  status --porcelain   # (empty ✓)
-git -C /repos/myapp-api   status --porcelain   # M  src/api.ts  ← 脏
-# feat/dashboard — 无 worktree，跳过 ✓
+git -C /repos/myapp-api   status --porcelain   # M  src/api.ts  ← dirty
+# feat/dashboard — no worktree, skipped ✓
 ```
 
-**技能上报**：
+**The skill reports**:
 
 ```text
 Pre-flight check — dirty worktrees (will be skipped):
   /repos/myapp-api  (feat/api-v2)    — 1 uncommitted file(s)
 ```
 
-用户回答 `continue` → `feat/user-auth` 和 `feat/dashboard` 继续；`feat/api-v2` 跳过。
+The user answers `continue` → `feat/user-auth` and `feat/dashboard` carry on; `feat/api-v2` is skipped.
 
-**汇总**：
+**Summary**:
 
 ```text
 integrate-branches summary
@@ -460,52 +460,52 @@ branch    feat/dashboard    ✓              ✓     —        deleted
 
 ---
 
-### 示例 3：错误上下文——在 worktree 内部调用
+### Example 3: wrong context — invoked from inside a worktree
 
-**场景**：开发者在 `/repos/myapp-api` 的 `feat/api-v2` 分支上。
+**Scenario**: the developer is on branch `feat/api-v2` in `/repos/myapp-api`.
 
-**执行过程**：
+**Execution**:
 
 ```bash
 git rev-parse --git-dir          # /repos/myapp/.git/worktrees/myapp-api
-git rev-parse --git-common-dir   # /repos/myapp/.git   (不同 → linked worktree)
+git rev-parse --git-common-dir   # /repos/myapp/.git   (differs → linked worktree)
 ```
 
-**技能停止**：
+**The skill stops**:
 
-> "本技能必须在主仓库根目录运行，不能在 worktree 内部运行。当前位置：`/repos/myapp-api`。若要交付当前 worktree 的分支，请使用 `deliver-feature`。"
-
----
-
-## AI 重构指引（AI Refactor Instruction）
-
-若本技能产生错误行为：
-
-1. **错误上下文继续执行**：回到步骤 1，补充 git-dir vs git-common-dir 比较及分支相等性校验
-2. **预检被跳过或延后**：回到步骤 4，确保在任何合并前对所有选中条目完成预检
-3. **失败 worktree 被删除**：停止；仅 `<succeeded-list>` 中 `type: worktree` 的条目可移除
-4. **branch-only 条目执行了 worktree remove**：branch-only 条目无 worktree 路径——完全跳过步骤 6
-5. **尝试强制推送**：替换为标准推送；若失败，停止并上报
-6. **合并前跳过 pull**：从 pull 步骤重新执行
-7. **worktree 分支重复出现**：步骤 3 的去重必须将已在 worktree 列表中的分支从 `git branch` 输出中排除
+> "This skill must run from the main repository root, not from inside a worktree. Current location: `/repos/myapp-api`. To deliver the current worktree's branch, use `deliver-feature`."
 
 ---
 
-## 自检清单（Self-Check）
+## AI Refactor Instruction
 
-- [ ] **调用上下文已验证**：`git rev-parse --git-dir` 等于 `git rev-parse --git-common-dir`，且当前分支等于 `<main-branch>`
-- [ ] **main 分支已确认**：自动检测或由用户明确提供，未作假设
-- [ ] **两个来源均已扫描**：`git worktree list --porcelain` 和 `git branch` 均已解析，非 main 条目已展示
-- [ ] **去重已执行**：worktree 中的分支未在分支列表中重复出现
-- [ ] **用户选择已记录**：在任何预检前已获取 `all` 或序号子集
-- [ ] **所有 worktree 条目预检在任何合并前完成**：对每个选中的 worktree 条目执行了 `git -C <path> status --porcelain`
-- [ ] **branch-only 条目已跳过脏检查**：它们无工作区可检查
-- [ ] **脏 worktree 已统一上报**：所有脏条目在 continue/halt 提示前一并列出
-- [ ] **每次合并前已 pull**：每次 `git merge --no-ff` 前立即执行了 `git pull origin <main-branch>`
-- [ ] **使用了 --no-ff 合并**：确认使用 `git merge --no-ff`，无 fast-forward 或 squash
-- [ ] **push 成功后才标记 `succeeded`**：仅在 `git push` 返回 0 后才将条目加入 `<succeeded-list>`
-- [ ] **统一清理仅对成功的 worktree 条目执行**：`git worktree remove` 从未对失败、跳过或 `type: branch` 条目调用
-- [ ] **清理前已确认 CWD**：任何 `git worktree remove` 前 `pwd` 等于 `<main-repo>`
-- [ ] **分支删除使用了 `-d`**：任何分支删除命令中无 `-D` 标志；用户已确认每条分支
-- [ ] **汇总报告已输出**：每条分支的状态码均正确填写
-- [ ] **未使用强制推送**：任何命令中未出现 `--force` 或 `--force-with-lease`
+If this skill behaves wrongly:
+
+1. **It carried on in the wrong context**: go back to step 1 and add the git-dir vs git-common-dir comparison and the branch-equality check
+2. **Pre-flight was skipped or deferred**: go back to step 4 and make sure pre-flight completes for every selected entry before any merge
+3. **A failed worktree was deleted**: stop; only `type: worktree` entries in `<succeeded-list>` may be removed
+4. **worktree remove ran on a branch-only entry**: a branch-only entry has no worktree path — step 6 skips it entirely
+5. **A force-push was attempted**: replace it with a standard push; if that fails, stop and report
+6. **pull was skipped before a merge**: rerun from the pull step
+7. **A worktree branch showed up twice**: the deduplication in step 3 must exclude branches already in the worktree list from the `git branch` output
+
+---
+
+## Self-Check
+
+- [ ] **Invocation context verified**: `git rev-parse --git-dir` equals `git rev-parse --git-common-dir`, and the current branch equals `<main-branch>`
+- [ ] **Main branch confirmed**: auto-detected or explicitly given by the user, never assumed
+- [ ] **Both sources scanned**: `git worktree list --porcelain` and `git branch` are both parsed, and the non-main entries are presented
+- [ ] **Deduplication done**: a branch held in a worktree does not show up again in the branch list
+- [ ] **User selection recorded**: `all` or the index subset was captured before any pre-flight
+- [ ] **Pre-flight for every worktree entry finished before any merge**: `git -C <path> status --porcelain` ran for each selected worktree entry
+- [ ] **Branch-only entries skipped the dirty check**: they have no working tree to check
+- [ ] **Dirty worktrees reported together**: every dirty entry was listed before the continue/halt prompt
+- [ ] **pull ran before every merge**: `git pull origin <main-branch>` ran immediately before each `git merge --no-ff`
+- [ ] **Merged with --no-ff**: `git merge --no-ff` confirmed, with no fast-forward and no squash
+- [ ] **`succeeded` marked only after the push succeeded**: an entry joins `<succeeded-list>` only after `git push` returns 0
+- [ ] **Cleanup in one pass touched only successful worktree entries**: `git worktree remove` was never called on a failed, skipped, or `type: branch` entry
+- [ ] **CWD confirmed before cleanup**: `pwd` equals `<main-repo>` before any `git worktree remove`
+- [ ] **Branch deletion used `-d`**: no `-D` flag in any branch-deletion command; the user confirmed each branch
+- [ ] **Summary report emitted**: the status code of every branch is filled in correctly
+- [ ] **No force-push used**: `--force` and `--force-with-lease` show up in no command
