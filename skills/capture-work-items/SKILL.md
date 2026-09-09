@@ -20,152 +20,152 @@ output_schema:
   lifecycle: living
 ---
 
-# 技能（Skill）：捕获工作项
+# Skill: Capture Work Items
 
-## 目的 (Purpose)
+## Purpose
 
-从自由格式的输入中捕获需求、错误或问题，并将其转化为结构化、持久性的产品。提供快速结构化记录，无需“分析需求”执行的深度验证。将输出路径与项目文档结构（例如项目文档模板）保持一致，并包括治理状态跟踪。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：将用户提供的需求、错误或问题描述转换为具有所有必填字段的结构化工作项，并将其保留到项目约定路径中。
-
-**成功标准**（必须满足所有要求）：
-
-1. ✅ **已识别的类型**：分类为需求、错误或问题的工作项
-2. ✅ **必填字段完成**：该类型的所有必填字段均已填写（无推断；缺失时询问用户）
-3. ✅ **状态设置**：前面的初始`状态：已捕获`
-4. ✅ **strategic_goal_id 已标**：每个工作项必填 `strategic_goal_id`，映射到项目 strategic-goals 中的某一目标。晋升时要按目标归集容量，没有归属就无法计算已用容量
-5. ✅ **priority 标为 unset**：新建工作项 frontmatter 必含 `priority: unset`，等待 `prioritize-backlog` 批量评分
-6. ✅ **检测到的路径**：根据项目文档结构选择的输出路径（请参阅路径检测）
-7. ✅ **工件持久化**：工作项写入所选路径
-8. ✅ **用户确认**：用户明确确认或委托写入
-9. ✅ **批量捕获后建议优先级评分**：批量捕获结束时，统计未评分 backlog 总数并建议（**不自动执行**）运行 `prioritize-backlog`
-
-**验收测试**：某人或下游系统是否可以阅读产品并理解完整的工作项目并在不提出澄清问题的情况下采取行动？
+Capture a requirement, bug, or issue from free-form input and turn it into a structured, persistent artifact. It gives a fast structured record without the deep validation that "analyze-requirements" performs. It keeps the output path aligned with the project's documentation structure (a project documentation template, for instance) and covers governance status tracking.
 
 ---
 
-## 范围边界（范围边界）
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: turn the requirement, bug, or issue description the user gives into a structured work item carrying every required field, and persist it to the path agreed for the project.
 
-- 自由格式输入 → 结构化工作项
-- 单次或批量捕获（批量：按项目或批次确认）
-- 输出到项目约定路径下的本地 Markdown
-- 状态生命周期：仅限初始“已捕获”（下游更新“分类”、“进行中”、“完成”、“阻止”、“取消”）
+**Success criteria** (all must be met):
 
-**本技能不负责**：
+1. ✅ **Type identified**: the work item is classified as a requirement, a bug, or an issue
+2. ✅ **Required fields complete**: every required field for that type is filled in (no inference; ask the user when one is missing)
+3. ✅ **Status set**: the front-matter starts at `status: captured`
+4. ✅ **strategic_goal_id tagged**: `strategic_goal_id` is required on every work item and maps to one of the goals in the project's strategic-goals. Promotion pools capacity by goal, and with nothing to attribute it to there is no way to compute the capacity already used
+5. ✅ **priority marked unset**: a new work item's frontmatter carries `priority: unset`, waiting for `prioritize-backlog` to score the batch
+6. ✅ **Path detected**: the output path is chosen from the project's documentation structure (see Path Detection)
+7. ✅ **Artifact persisted**: the work item is written to the chosen path
+8. ✅ **User confirmation**: the user explicitly confirms the write, or delegates it
+9. ✅ **Priority scoring suggested after a bulk capture**: at the end of a bulk capture, count the unscored backlog entries and suggest running `prioritize-backlog` (**never automatically**)
 
-- 深入需求澄清或验证 → 使用“分析需求”
-- 设计或建筑 → 使用“设计解决方案”
-- 直接 API 调用 Zentao/GitHub 以创建问题（扩展点；v1 不需要）
-
-**转交点**：当产品被持久化并且用户确认后，如果项目需要更深入的验证，则移交给“分析需求”，或者移交给流程管理/里程碑进行规划。
-
----
-
-## 使用场景 (Use Cases)
-
-- **快速待办条目**：用户说“记录此错误”或“添加此要求” - 结构并持续，无需全面分析。
-- **会议/电子邮件捕获**：从会议记录或电子邮件中提取工作项目并保存为结构化产品。
-- **分类输入**：捕获项目以供以后在里程碑或任务分解中进行分类和优先级排序。
-- **积压证据**：填补评估文档中确定的积压差距（例如“积压：弱 - 没有明确的待办文档”）。
+**Acceptance test**: can a person or a downstream system read the artifact, understand the whole work item, and act on it without asking a clarifying question?
 
 ---
 
-## 行为 (Behavior)
+## Scope Boundaries
 
-### 交互政策
+**This skill does**:
 
-- **默认**：项目规范或规格/产品合同的路径；从输入中键入
-- **选择选项**：一次一个缺失字段的问题；在适用时提供选择
-- **确认**：与默认路径不同时的目标路径；用户在写入前确认
+- Free-form input → a structured work item
+- Single or bulk capture (bulk: confirmed per item or per batch)
+- Output local Markdown under the path agreed for the project
+- The status lifecycle: the initial "captured" only (downstream updates it to "triaged", "in progress", "done", "blocked", "cancelled")
 
-1. 按 §8.2 发现顺序解析项目规范 → 确定 `backlog-item` 的 `path_pattern`（默认：`docs/process-management/project-board/backlog/YYYY-MM-DD-{slug}.md` 或 fallback `docs/backlog/YYYY-MM-DD-{slug}.md`；项目可覆盖为聚合式）
-2. 按 §8.3 占位符语法替换；未解析占位符按 §8.6 追问用户
-3. 若调用方 frontmatter 输入含 `upstream_ref`（应指向上游 roadmap 条目或 requirement）：在产出制品的 frontmatter emit `parent: <upstream_ref>`
-4. 记录 resolved_path + frontmatter 增量供后续写入使用
+**This skill does not do**:
 
-注：默认情况保留 §3 路径检测逻辑（`docs/process-management/` 存在否决定 canonical vs fallback），但若项目在 `ARTIFACT_NORMS.md` 声明了显式 `path_pattern`，以项目声明为准。
+- Deep requirement clarification or validation → use "analyze-requirements"
+- Design or architecture → use "design-solution"
+- Direct API calls to Zentao/GitHub to create issues (an extension point; not needed for v1)
 
-### 路径检测
+**Handoff point**: once the artifact is persisted and the user has confirmed it, hand off to "analyze-requirements" where the item needs deeper validation, or to process management / milestones for planning.
 
-使用解析规范（或合同默认值）选择输出路径：
+---
 
-|状况 |输出路径|
+## Use Cases
+
+- **Quick backlog entry**: the user says "record this bug" or "add this requirement" — structure it and persist it, with no full analysis.
+- **Meeting / email capture**: pull the work items out of meeting notes or email and save them as structured artifacts.
+- **Triage intake**: capture items so they can be triaged and ranked later, during milestones or task breakdown.
+- **Backlog evidence**: fill the backlog gap an assessment document identified (such as "backlog: weak — no explicit backlog document").
+
+---
+
+## Behavior
+
+### Interaction Policy
+
+- **Default**: the path from the project norms or from the spec / artifact contract; the type comes from the input
+- **Choice options**: one question per missing field at a time; offer choices where they apply
+- **Confirm**: the target path whenever it differs from the default; the user confirms before the write
+
+1. Resolve the project norms in the §8.2 discovery order → determine the `path_pattern` for `backlog-item` (default: `docs/process-management/project-board/backlog/YYYY-MM-DD-{slug}.md`, or the fallback `docs/backlog/YYYY-MM-DD-{slug}.md`; a project can override it with an aggregated form)
+2. Substitute using the §8.3 placeholder syntax; for a placeholder that does not resolve, follow §8.6 and ask the user
+3. If the caller's frontmatter input carries `upstream_ref` (which points at an upstream roadmap entry or requirement): emit `parent: <upstream_ref>` in the produced artifact's frontmatter
+4. Record resolved_path plus the frontmatter delta, for the write that follows
+
+Note: by default the §3 path detection logic stands (whether `docs/process-management/` exists decides canonical vs fallback), but where a project declares an explicit `path_pattern` in `ARTIFACT_NORMS.md`, the project's declaration wins.
+
+### Path Detection
+
+Choose the output path from the resolved norms (or the contract default):
+
+| Condition | Output path |
 | :--- | :--- |
-| `docs/process-management/` 存在 | `docs/process-management/project-board/待办/YYYY-MM-DD-<slug>.md` |
-|否则 | `docs/待办/YYYY-MM-DD-<slug>.md` |
+| `docs/process-management/` exists | `docs/process-management/project-board/backlog/YYYY-MM-DD-<slug>.md` |
+| Otherwise | `docs/backlog/YYYY-MM-DD-<slug>.md` |
 
-如果子目录不存在，则创建它们。今天使用“YYYY-MM-DD”； `<slug>` 是标题中的 kebab-case。
+Create the subdirectories if they do not exist. Use today's date for "YYYY-MM-DD"; `<slug>` is the kebab-case form of the title.
 
-### 第 0 阶段：分类 — 识别类型
+### Phase 0: Classify — identify the type
 
-**开始时宣布：**“我正在使用捕获工作项技能来记录此工作项。”
+**Announce at the start:** "I am using the capture-work-items skill to record this work item."
 
-将输入分类为：
+Classify the input as:
 
-- **要求**：新需求、功能请求或增强
-- **bug**：缺陷、不正确的行为、未能满足规范
-- **问题**：任务、改进或问题（通用工作项）
+- **Requirement**: a new need, a feature request, or an enhancement
+- **Bug**: a defect, incorrect behaviour, a failure to meet the spec
+- **Issue**: a task, an improvement, or a question (the generic work item)
 
-### 第 1 阶段：提取 — 识别字段
+### Phase 1: Extract — identify the fields
 
-从输入中提取可用字段。按类型划分的必填字段：
+Extract the available fields from the input. Required fields by type:
 
-|类型 |必填字段 |
+| Type | Required fields |
 | :--- | :--- |
-|要求|标题、问题/需求、验收标准、**strategic_goal_id** |
-|错误|标题、描述、重现步骤、预期与实际、严重性、**strategic_goal_id** |
-|问题 |标题、描述、类型（任务\|改进\|问题）、**strategic_goal_id** |
+| Requirement | Title, problem/need, acceptance criteria, **strategic_goal_id** |
+| Bug | Title, description, steps to reproduce, expected vs actual, severity, **strategic_goal_id** |
+| Issue | Title, description, type (task\|improvement\|question), **strategic_goal_id** |
 
-**strategic_goal_id 说明**：
-- 读取 `docs/project-overview/strategic-goals.md`，呈现可选目标列表给用户
-- 用户选择该工作项主要服务于哪个战略目标
-- 若 strategic-goals.md 不存在 → **halt**，建议先运行 `design-strategic-goals`
-- Bug / 技术债类工作项通常映射到"工程 / 治理健康"目标——这类工作若无战略代言，在价值竞争中永远排不进容量
+**Notes on strategic_goal_id**:
+- Read `docs/project-overview/strategic-goals.md` and present the list of selectable goals to the user
+- The user picks which strategic goal this work item mainly serves
+- If strategic-goals.md does not exist → **halt**, and suggest running `design-strategic-goals` first
+- A bug or tech-debt work item usually maps to the "engineering / governance health" goal — with no strategic sponsor, work of that kind never wins capacity in the competition for value
 
-### 第 2 阶段：提示 — 填写缺少的必填字段
+### Phase 2: Prompt — fill in the missing required fields
 
-对于任何缺少的必填字段，请询问用户**一次一个问题**。不要推断或猜测。
+For any missing required field, ask the user **one question at a time**. Do not infer or guess.
 
-### 第 3 阶段：坚持 — 编写工件
+### Phase 3: Persist — write the artifact
 
-1. 运行“解决项目规范”，然后运行“路径检测”（见上文）
-2. 如果目标路径与默认路径不同，请与用户确认
-3. 使用适当的模板使用 YAML front-matter 编写 Markdown（请参阅输出模板）
-4. 在 front-matter 中设置 `status: captured`
+1. Run "resolve the project norms", then "path detection" (above)
+2. If the target path differs from the default, confirm with the user
+3. Write the Markdown with YAML front-matter from the appropriate template (see the output templates)
+4. Set `status: captured` in the front-matter
 
-### 第 4 阶段：确认
+### Phase 4: Confirm
 
-与用户确认产品已编写且完整。除非用户明确请求，否则不要提交版本控制。
+Confirm with the user that the artifact is written and complete. Do not commit to version control unless the user explicitly asks.
 
-### 第 5 阶段：建议批量评分（不自动执行）
+### Phase 5: Suggest batch scoring (never automatic)
 
-捕获结束时（单项或批量），执行以下 **suggest 动作**：
+At the end of a capture (single or bulk), run the following **suggest action**:
 
-1. 扫描 backlog 目录，统计 `priority: unset` 的条目总数
-2. 若 ≥ 阈值（默认 ≥ 3）或本次批量捕获 ≥ 2 项，则输出建议：
-   > "Backlog 当前有 N 个未定优先级的条目。建议在下次 planning 前运行 `prioritize-backlog` 批量评分。此技能不会自动调用 —— 由用户决定时机（批量评分在有对照组时质量更高）。"
-3. **不自动执行** `prioritize-backlog`（理由见 ADR 2 决策 3.7.1：两技能节律不同，强行链式破坏评分质量）
+1. Scan the backlog directory and count the entries at `priority: unset`
+2. If that count is ≥ the threshold (default ≥ 3), or this bulk capture held ≥ 2 items, emit the suggestion:
+   > "The backlog currently holds N entries with no priority set. Running `prioritize-backlog` for a batch scoring before the next planning session is recommended. This skill does not invoke it automatically — the timing is the user's call (batch scoring comes out better when there is a comparison group)."
+3. **Never invoke** `prioritize-backlog` automatically (rationale in ADR 2, decision 3.7.1: the two skills run on different rhythms, and forcing them into a chain wrecks the scoring quality)
 
 ---
 
-## 输入与输出 (Input & Output)
+## Input & Output
 
-### 输入 (Input)
+### Input
 
-- 用户的需求、错误或问题的原始描述
-- 可选：项目上下文（用于路径检测的现有“docs/”结构）
+- The user's raw description of a requirement, a bug, or an issue
+- Optional: project context (the existing "docs/" structure used for path detection)
 
-### 输出 (Output)
+### Output
 
-带有 YAML front-matter 的结构化工作项 Markdown 文件。模板如下。
+A structured work-item Markdown file with YAML front-matter. The templates follow.
 
-#### 需求模板
+#### Requirement template
 
 ```markdown
 ---
@@ -194,7 +194,7 @@ trace_id: optional
 [Optional]
 ```
 
-#### 错误模板
+#### Bug template
 
 ```markdown
 ---
@@ -226,7 +226,7 @@ severity: [critical|major|minor]
 [Optional]
 ```
 
-#### 问题模板
+#### Issue template
 
 ```markdown
 ---
@@ -247,136 +247,136 @@ strategic_goal_id: [goal-N]
 [Content]
 ```
 
-### 状态生命周期
+### Status Lifecycle
 
-该技能仅设置“状态：捕获”。下游流程（里程碑、升级迭代任务、运行检查点）可能会更新为：“分类”、“进行中”、“完成”、“阻止”、“取消”。
-
----
-
-## 限制 (Restrictions)
-
-### 硬边界（Hard Boundaries）
-
-- **不跳过必填字段**：如果无法推断必填字段，请询问用户。不要留空。
-- **不跳过 strategic_goal_id**：`strategic-goals.md` 不存在时 halt 并建议先运行 `design-strategic-goals`，不得留空或推断。
-- **不自动调用 prioritize-backlog**：捕获结束时仅建议，由用户决定何时批量评分（节律不同，单条评分失真）。
-- **No diagnostic flow**: Do not run diagnostic states (RA0–RA5). 如果输入内容非常模糊，建议先捕获，确认意图后再深入澄清。
-- **写入前确认路径**：避免覆盖现有文件；当目标路径不明确时确认。
-- **路径遵循项目结构**：使用路径检测规则；不要硬编码单个路径。
-
-### 技能边界 (Skill Boundaries)（避免重叠）
-
-**不要做这些**（其他技能可以处理它们）：
-
-- **深度需求验证**：诊断状态、问题阐明、范围边界 → 使用“分析需求”
-- **设计和架构**：解决方案、替代方案、权衡 → 使用“设计解决方案”
-- **任务分解**：史诗/任务分解、验收标准细化→使用流程管理或实施计划
-
-**何时停止并交接**：
-
-- 用户说“这需要更多分析” → 移交给“分析需求”
-- 用户说“设计这个” → 移交给“设计解决方案”
-- 工件保留并确认 → 移交完成
+This skill only sets "status: captured". Downstream processes (milestones, promotion into iteration tasks, run checkpoints) may update it to "triaged", "in progress", "done", "blocked", or "cancelled".
 
 ---
 
-## 自检（Self-Check）
+## Restrictions
 
-### 核心成功标准（必须满足所有标准）
+### Hard Boundaries
 
-- [ ] **识别的类型**：工作项是需求、错误或问题
-- [ ] **必填字段已填写**：已填写所有必填字段（无推断）
-- [ ] **strategic_goal_id 已标**：已映射到 strategic-goals 中具体目标
-- [ ] **priority 为 unset**：frontmatter 包含 `priority: unset`
-- [ ] **状态集**：前面的内容中的“状态：已捕获”
-- [ ] **检测到路径**：输出路径遵循路径检测规则
-- [ ] **工件保留**：文件写入所选路径
-- [ ] **用户确认**：用户确认或委托写入
-- [ ] **建议批量评分**：批量场景下建议用户运行 `prioritize-backlog`（但未自动执行）
+- **Do not skip a required field**: where a required field cannot be inferred, ask the user. Do not leave it blank.
+- **Do not skip strategic_goal_id**: when `strategic-goals.md` does not exist, halt and suggest running `design-strategic-goals` first; it must not be left blank or inferred.
+- **Do not invoke prioritize-backlog automatically**: at the end of a capture, only suggest it and let the user decide when to score the batch (the rhythms differ, and scoring one item at a time distorts the result).
+- **No diagnostic flow**: Do not run diagnostic states (RA0–RA5). Where the input is very vague, the suggestion is to capture first, then go deeper on clarification once the intent is confirmed.
+- **Confirm the path before writing**: avoid overwriting an existing file; confirm whenever the target path is unclear.
+- **Paths follow the project structure**: use the path detection rules; do not hard-code a single path.
 
-### 流程质量检查
+### Skill Boundaries (avoid overlap)
 
-- [ ] **一次一个问题**：没有让用户因多个缺失字段的问题而不知所措
-- [ ] **需求中没有解决方案语言**：问题/需求描述了问题，而不是实现
-- [ ] **路径创建**：如果需要，创建`待办/`子目录
-- [ ] **文件名约定**：使用 YYYY-MM-DD-{slug}.md
+**Do not do these** (other skills handle them):
 
-### 验收测试
+- **Deep requirement validation**: diagnostic states, problem articulation, scope boundaries → use "analyze-requirements"
+- **Design and architecture**: solutions, alternatives, trade-offs → use "design-solution"
+- **Task breakdown**: epic/task breakdown, refining acceptance criteria → use process management or the implementation plan
 
-**某人或下游系统是否可以阅读产品并理解完整的工作项目并在不提出澄清问题的情况下采取行动？**
+**When to stop and hand off**:
 
-如果否：必填字段不完整。返回提示阶段。
-
-如果是：捕获完成。根据需要进行交接。
+- The user says "this needs more analysis" → hand off to "analyze-requirements"
+- The user says "design this" → hand off to "design-solution"
+- The artifact is persisted and confirmed → the handoff is complete
 
 ---
 
-## 示例 (Examples)
+## Self-Check
 
-### 示例 1：错误捕获
+### Core Success Criteria (all must be met)
 
-**用户**：“当我在密码字段中使用特殊字符时，登录页面显示 500。”
+- [ ] **Type identified**: the work item is a requirement, a bug, or an issue
+- [ ] **Required fields filled in**: every required field is filled in (no inference)
+- [ ] **strategic_goal_id tagged**: mapped to a specific goal in strategic-goals
+- [ ] **priority is unset**: the frontmatter carries `priority: unset`
+- [ ] **Status set**: "status: captured" sits in the front-matter
+- [ ] **Path detected**: the output path follows the path detection rules
+- [ ] **Artifact persisted**: the file is written to the chosen path
+- [ ] **User confirmation**: the user confirmed the write, or delegated it
+- [ ] **Batch scoring suggested**: in a bulk scenario, running `prioritize-backlog` was put to the user (and not run automatically)
 
-**代理宣布**：“我正在使用捕获工作项技能来记录此工作项。”
+### Process Quality Checks
 
-**分类**：分类为错误。
+- [ ] **One question at a time**: the user was not swamped with questions about several missing fields at once
+- [ ] **No solution language in the requirement**: the problem/need describes the problem, not the implementation
+- [ ] **Path created**: the `backlog/` subdirectory was created where it was needed
+- [ ] **Filename convention**: YYYY-MM-DD-{slug}.md is used
 
-**摘录**：存在标题和描述；重现步骤、预期与实际、严重性缺失。
+### Acceptance Test
 
-**提示**（一次一个）：
+**Can a person or a downstream system read the artifact, understand the whole work item, and act on it without asking a clarifying question?**
 
-特工：“重现这个的具体步骤是什么？”
+If no: the required fields are incomplete. Go back to the prompt phase.
 
-用户：“1. 转到 /login 2. 输入任意用户名 3. 输入带有 @ 或 # 的密码 4. 单击“登录””
+If yes: the capture is done. Hand off as needed.
 
-特工：“你的预期与实际发生的情况有何不同？”
+---
 
-用户：“预期：正常登录或验证错误。实际：500 内部服务器错误。”
+## Examples
 
-特工：“您会分配什么严重程度：严重、严重还是轻微？”
+### Example 1: Bug capture
 
-用户：“少校。”
+**User**: "When I use special characters in the password field, the login page returns a 500."
 
-**持久**：检测到路径 - `docs/process-management/` 存在。写入“docs/process-management/project-board/待办/2026-03-06-login-500-special-chars.md”。
+**Agent announces**: "I am using the capture-work-items skill to record this work item."
 
-**确认**：“已写入。您想要调整任何内容还是移交分类？”
+**Classify**: classified as a bug.
 
-### 示例 2：需求捕获 — 模糊输入
+**Extract**: the title and the description are there; steps to reproduce, expected vs actual, and severity are missing.
 
-**用户**：“我们需要更好的错误消息。”
+**Prompt** (one at a time):
 
-**代理宣布**：“我正在使用捕获工作项技能来记录此工作项。”
+Agent: "What are the exact steps to reproduce this?"
 
-**分类**：分类为要求（可能是问题；代理选择要求作为默认的“需要”）。
+User: "1. Go to /login 2. Enter any username 3. Enter a password containing @ or # 4. Click "Log in""
 
-**摘录**：标题可推导（“更好的错误消息”）；缺少问题/需求和验收标准。
+Agent: "How does what you expected differ from what actually happened?"
 
-**提示**：
+User: "Expected: a normal login, or a validation error. Actual: a 500 internal server error."
 
-代理：“谁遇到了这个问题？当前的错误消息到底出了什么问题？”
+Agent: "What severity would you assign: critical, major, or minor?"
 
-用户：“我们的 API 用户得到的是通用的‘出了问题’，但没有任何可操作的信息。”
+User: "Major."
 
-特工：“‘完成’会是什么样子——至少有一个具体的验收标准？”
+**Persist**: path detected — `docs/process-management/` exists. Write to "docs/process-management/project-board/backlog/2026-03-06-login-500-special-chars.md".
 
-用户：“错误响应应包括代码（例如 ERR_001）和一条简短的人类可读消息，解释出现的问题。”
+**Confirm**: "Written. Would you like to adjust anything, or hand it to triage?"
 
-**持续**：检测到路径 - `docs/process-management/` 不存在。写入“docs/待办/2026-03-06-better-error-messages.md”。
+### Example 2: Requirement capture — vague input
 
-**移交建议**：“这可能受益于分析需求的更深入验证。仅继续捕获，还是移交进行全面分析？”
+**User**: "We need better error messages."
 
-用户：“暂时只捕获。”
+**Agent announces**: "I am using the capture-work-items skill to record this work item."
 
-**确认**：“已书面。准备好后交给分诊。”
+**Classify**: classified as a requirement (it could be an issue; the agent picks requirement as the default for a "need").
 
-### 示例 3：问题捕获 — 边缘情况（一条消息中包含多个项目）
+**Extract**: the title can be derived ("better error messages"); the problem/need and the acceptance criteria are missing.
 
-**用户**：“两件事：1）更新自述文件安装部分。2）添加 CONTRIBUTING.md。”
+**Prompt**:
 
-**特工宣布**：“我正在使用捕获工作项技能。我看到两个单独的工作项。我将一次捕获它们一个。”
+Agent: "Who runs into this problem? What exactly is wrong with the current error messages?"
 
-**第 1 项** — 类型：问题（任务）。标题：“更新自述文件安装部分”。描述：来自上下文。保留为“2026-03-06-update-readme-install.md”。
+User: "Our API users get a generic 'something went wrong' with nothing actionable in it."
 
-**第 2 项** — 类型：问题（任务）。标题：“添加 CONTRIBUTING.md”。描述：来自上下文。保留为“2026-03-06-add-contributing.md”。
+Agent: "What would 'done' look like — at least one concrete acceptance criterion?"
 
-**确认**：“两个项目均已捕获。如果需要，请检查并调整。”
+User: "An error response carries a code (ERR_001, for example) and a short human-readable message explaining what went wrong."
+
+**Persist**: path detected — `docs/process-management/` does not exist. Write to "docs/backlog/2026-03-06-better-error-messages.md".
+
+**Handoff suggestion**: "This could benefit from the deeper validation in analyze-requirements. Carry on with capture alone, or hand off for the full analysis?"
+
+User: "Capture only, for now."
+
+**Confirm**: "Written. Hand it to triage when you are ready."
+
+### Example 3: Issue capture — edge case (several items in one message)
+
+**User**: "Two things: 1) update the README install section. 2) add CONTRIBUTING.md."
+
+**Agent announces**: "I am using the capture-work-items skill. I see two separate work items. I will capture them one at a time."
+
+**Item 1** — type: issue (task). Title: "update the README install section". Description: from the context. Persisted as "2026-03-06-update-readme-install.md".
+
+**Item 2** — type: issue (task). Title: "add CONTRIBUTING.md". Description: from the context. Persisted as "2026-03-06-add-contributing.md".
+
+**Confirm**: "Both items are captured. Review and adjust them if you need to."

@@ -19,105 +19,105 @@ output_schema:
   description: One or more git commits with Conventional Commits messages
 ---
 
-# 技能（Skill）：提交工作（Commit Work）
+# Skill: Commit Work
 
-## 目的 (Purpose)
+## Purpose
 
-产出易于审查、安全交付的 git commit：仅包含预期变更、提交粒度合理、消息清楚说明做了什么 + 为什么。本技能与 AI Cortex 的 INDEX 同步约束集成，提交涉及 `skills/` 目录变更时会校验 INDEX.md 是否已更新。
+Produce git commits that are easy to review and safe to ship: only the intended changes, sensible commit granularity, and a message that says what was done and why. This skill is wired into the AI Cortex INDEX synchronization constraint — when a commit touches the `skills/` directory it checks that INDEX.md was updated.
 
-本地副本由 AI Cortex 统一安装和更新；可核验上游、固定 commit、许可证和本地增强记录在 [`../SOURCES.yaml`](../SOURCES.yaml)。运行时不得从外部注册表下载或替换本 Skill。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：生成一个或多个 git 提交，其中包含清晰的消息、逻辑范围和经过验证的质量，可供推送。
-
-**成功标准**（必须满足所有要求）：
-
-1. ✅ **已审查的更改**：在暂存之前运行“git diff”，在每次提交之前运行“git diff --cached”
-2. ✅ **逻辑范围**：每次提交仅包含相关更改；不相关的更改分为单独的提交
-3. ✅ **常规提交格式**：所有提交消息均遵循 `type(scope):summary` 格式，正文清晰
-4. ✅ **质量验证**：运行适当的测试、lint 或构建命令并且所有检查均已通过
-5. ✅ **无敏感数据**：不包含秘密、令牌、调试代码或意外更改
-6. ✅ **INDEX 同步**（AI Cortex 项目）：技能 / 规则 / spec / protocol 改动时同步对应 INDEX.md
-
-**验收**测试：审阅者是否可以仅从提交消息中了解更改的内容以及原因，而无需阅读差异？
+The local copy is installed and updated by AI Cortex; the verifiable upstream, pinned commit, license, and local enhancements are recorded in [`../SOURCES.yaml`](../SOURCES.yaml). At runtime this skill must not be downloaded or replaced from an external registry.
 
 ---
 
-## 范围边界（范围边界）
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: produce one or more git commits with a clear message, logical scope, and verified quality, ready to push.
 
-- 审查未提交的更改
-- 将混合更改拆分为逻辑提交
-- 需要时使用补丁模式进行暂存更改
-- 编写常规提交消息
-- 运行预提交质量检查
-- 同步 AI Cortex 注册表（INDEX.md）
+**Success criteria** (all must hold):
 
-**本技能不负责**：
+1. ✅ **Changes reviewed**: `git diff` before staging, `git diff --cached` before every commit
+2. ✅ **Logical scope**: each commit contains related changes only; unrelated changes go into separate commits
+3. ✅ **Conventional Commits format**: every commit message follows the `type(scope):summary` format, with a clear body
+4. ✅ **Quality verified**: the appropriate test, lint, or build command was run and every check passed
+5. ✅ **No sensitive data**: no secrets, tokens, debug code, or accidental changes are included
+6. ✅ **INDEX synced** (AI Cortex projects): the matching INDEX.md is updated whenever a skill / rule / spec / protocol changes
 
-- 现有提交的代码审查（使用“review-diff”技能）
-- 重写 git 历史记录或变基（使用 git rebase 命令）
-- 解决合并冲突（使用 git merge/rebase 工作流）
-- 创建拉取请求或推送到远程（单独的工作流）
+**Acceptance** test: can a reviewer tell what changed and why from the commit message alone, without reading the diff?
 
-**转交点**：当所有变更都提交并验证后，移交给推送/PR 工作流或下一个开发任务。
+---
 
-## 使用场景 (Use Cases)
+## Scope Boundaries
 
-- 用户要求提交工作、阶段更改或制作提交消息
-- 需要将混合更改拆分为逻辑的、可审查的提交
-- 创建遵循常规提交格式的提交
-- 在推动之前确保提交符合项目质量标准
-- 在 AI Cortex 项目中工作时，确保 skills/INDEX.md / rules/INDEX.md / specs/INDEX.md / protocols/INDEX.md 与对应资产同步
+**This skill owns**:
 
-## 行为 (Behavior)
+- Reviewing uncommitted changes
+- Splitting mixed changes into logical commits
+- Staging changes with patch mode when needed
+- Writing Conventional Commits messages
+- Running pre-commit quality checks
+- Syncing the AI Cortex registries (INDEX.md)
 
-### 工作流程（清单）
+**This skill does not own**:
 
-若存在 `CLAUDE.md` 或 `.ai-cortex/config.yaml`，优先读取其中的 `test_command` 用于质量验证；否则从项目构建配置推断。参见 [docs/guides/project-config.md](../../docs/guides/project-config.md)。
+- Code review of existing commits (use the `review-diff` skill)
+- Rewriting git history or rebasing (use the git rebase commands)
+- Resolving merge conflicts (use the git merge/rebase workflow)
+- Creating pull requests or pushing to a remote (a separate workflow)
 
-1) **在登台前检查工作树**
-   - 运行`git status`
-   - 运行“git diff”（未暂存的更改）
-   - 如果有很多更改：`git diff --stat` 进行概述
+**Handoff point**: once every change is committed and verified, hand off to the push/PR workflow or to the next development task.
 
-2) **建议预提交审查（halt-and-suggest）**
-   - 建议用户先跑 `/review-diff`（或 `/orchestrate-code-review`）；本技能不直接调用其他 skill
-   - 用户跑完返回 findings 后再继续暂存
-   - 如果用户跳过此步：直接进入下一步（不阻塞）
+## Use Cases
 
-3) **决定提交边界（如果需要则分割）**
-   - 按逻辑问题划分：
-     - 功能与重构
-     - 后端与前端
-     - 格式与逻辑
-     - 测试与生产代码
-     - 依赖性颠簸与行为改变
-   - 如果更改混合在一个文件中，则计划使用补丁暂存
+- The user asks to commit work, stage changes, or craft a commit message
+- Mixed changes need splitting into logical, reviewable commits
+- Creating commits that follow the Conventional Commits format
+- Making sure commits meet the project's quality bar before pushing
+- Working in an AI Cortex project, keeping skills/INDEX.md / rules/INDEX.md / specs/INDEX.md / protocols/INDEX.md in step with the corresponding assets
 
-4) **仅暂存属于下一次提交的内容**
-   - 混合改动优先用分块暂存：`git add -p`
-   - 要取消暂存块/文件： `git restore --staged -p` 或 `git Restore --staged <path>`
-   - 阶段相关的变化一起
+## Behavior
 
-5) **审查实际要提交的内容**
-   - 运行“git diff --cached”
-   - 健全性检查：
-     - 没有秘密或token
-     - 没有意外的调试日志记录
-     - 没有不相关的格式改动
-     - 没有注释掉的代码块
+### Workflow (checklist)
 
-6) **用 1-2 句话描述阶段性变化**
-   - 回答：“什么改变了？” +“为什么？”
-   - 如果你不能清楚地描述它，则提交可能太大或混合；返回步骤 3
+If `CLAUDE.md` or `.ai-cortex/config.yaml` exists, prefer the `test_command` recorded there for quality verification; otherwise infer it from the project build configuration. See [docs/guides/project-config.md](../../docs/guides/project-config.md).
 
-7) **写入提交消息**
-   - 使用常规提交（必需）：
+1) **Inspect the working tree before staging**
+   - Run `git status`
+   - Run `git diff` (unstaged changes)
+   - With many changes: `git diff --stat` for an overview
+
+2) **Suggest a pre-commit review (halt-and-suggest)**
+   - Tell the user to run `/review-diff` (or `/orchestrate-code-review`) first; this skill does not call other skills itself
+   - Resume staging once the user comes back with the findings
+   - If the user skips this step: go straight to the next one (no blocking)
+
+3) **Decide the commit boundaries (split if needed)**
+   - Divide by logical concern:
+     - Feature vs refactor
+     - Backend vs frontend
+     - Formatting vs logic
+     - Tests vs production code
+     - Dependency bumps vs behavior changes
+   - If the changes are mixed inside one file, plan for patch staging
+
+4) **Stage only what belongs in the next commit**
+   - For mixed changes, prefer hunk staging: `git add -p`
+   - To unstage a hunk/file: `git restore --staged -p` or `git Restore --staged <path>`
+   - Stage related changes together
+
+5) **Review what will actually be committed**
+   - Run `git diff --cached`
+   - Sanity checks:
+     - No secrets or tokens
+     - No stray debug logging
+     - No unrelated formatting changes
+     - No commented-out code blocks
+
+6) **Describe the staged change in 1-2 sentences**
+   - Answer: "what changed?" + "why?"
+   - If you cannot describe it clearly, the commit is too large or mixed; go back to step 3
+
+7) **Write the commit message**
+   - Use Conventional Commits (required):
 
      
 ```text
@@ -128,111 +128,111 @@ output_schema:
      footer (BREAKING CHANGE) if needed
      ```
 
-   - 多行消息优先用编辑器：`git commit -v`
+   - For a multi-line message, prefer the editor: `git commit -v`
    - Use `references/commit-message-template.md` if helpful
-   - 保持摘要的必要性和具体性（“添加”、“修复”、“删除”、“重构”）
+   - Keep the summary imperative and specific ("add", "fix", "remove", "refactor")
 
-8) **运行最小相关验证**
-   - 在继续之前运行存储库最快的有意义的检查（单元测试、lint 或构建）
-   - 确保提交不会破坏现有功能
+8) **Run the minimum relevant verification**
+   - Run the repository's fastest meaningful check before moving on (unit tests, lint, or build)
+   - Make sure the commit does not break existing functionality
 
-9) **同步 INDEX.md（仅限 AI Cortex 项目）**
-   - 如果提交影响 `skills/` 目录：
-     - 校验 `skills/INDEX.md` 已为新增 / 修改 / 删除技能同步更新
-     - 校验 INDEX 项与目标 SKILL.md 的 description 一致
-   - 如果提交影响 `rules/` / `specs/` / `protocols/` 目录：
-     - 同步对应 `INDEX.md`
+9) **Sync INDEX.md (AI Cortex projects only)**
+   - If the commit touches the `skills/` directory:
+     - Check that `skills/INDEX.md` was updated for the added / modified / removed skill
+     - Check that the INDEX entry matches the description in the target SKILL.md
+   - If the commit touches the `rules/` / `specs/` / `protocols/` directories:
+     - Sync the corresponding `INDEX.md`
 
-10) **重复下一次提交，直到工作树干净**
+10) **Repeat for the next commit until the working tree is clean**
 
-### 交互政策
+### Interaction policy
 
-- 询问用户是否想要单个或多个提交（默认：针对不相关的更改进行多个小提交）
-- 确认提交风格需求（该技能需要常规提交）
-- 询问任何特定于项目的规则：最大主题长度、所需范围等。
-- 对于 AI Cortex 项目：确认是否同步对应 INDEX.md
+- Ask the user whether they want one commit or several (default: several small commits for unrelated changes)
+- Confirm the commit style requirement (this skill expects Conventional Commits)
+- Ask about project-specific rules: maximum subject length, required scopes, and so on.
+- For AI Cortex projects: confirm whether the corresponding INDEX.md is synced
 
-## 输入与输出 (Input & Output)
+## Input & Output
 
-### 输入要求
+### Input requirements
 
-- 包含未提交更改的 git 存储库
-- 用户意图：应该致力于哪些工作
-- 可选：提交样式首选项、范围规则
+- A git repository with uncommitted changes
+- User intent: which work goes into the commit
+- Optional: commit style preferences, scope rules
 
-### 产出（Output）合约
+### Output contract
 
-提供：
+Deliver:
 
-- 最终提交消息，包含类型、范围和清晰的描述
-- 每次提交的简短摘要，解释发生了什么变化以及原因
-- 用于暂存和审查的命令（至少：`git diff --cached`）
-- 运行任何测试或验证命令
-- 对于 AI Cortex 项目：确认对应 INDEX.md 已同步
+- The final commit message, with type, scope, and a clear description
+- A short summary per commit explaining what changed and why
+- The commands used for staging and review (at minimum: `git diff --cached`)
+- Any test or verification command that was run
+- For AI Cortex projects: confirmation that the corresponding INDEX.md is synced
 
-## 限制 (Restrictions)
+## Restrictions
 
-### 硬边界（Hard Boundaries）
+### Hard Boundaries
 
-- 在未审查分阶段更改的情况下不要提交（`git diff --cached`）
-- 不要在一次提交中混合不相关的更改
-- 不要编写模糊的提交消息（“修复内容”、“更新”、“WIP”）
-- 如果测试或 linter 可用，请勿跳过验证步骤
-- 不要提交秘密、令牌或敏感数据
-- 对于 AI Cortex 项目：在未同步对应 INDEX.md 的情况下，请勿提交资产变更
+- Do not commit without reviewing the staged changes (`git diff --cached`)
+- Do not mix unrelated changes into one commit
+- Do not write vague commit messages ("fix stuff", "update", "WIP")
+- Do not skip the verification step when tests or a linter are available
+- Do not commit secrets, tokens, or sensitive data
+- For AI Cortex projects: do not commit an asset change without syncing the corresponding INDEX.md
 
-### 技能边界 (Skill Boundaries)（避免重叠）
+### Skill Boundaries (avoid overlap)
 
-**不要做这些（其他技能可以处理它们）**：
+**Do not do these (other skills handle them)**:
 
-- **现有提交的代码审查**：审查已提交的差异 → 使用“review-diff”技能
-- **Git 历史重写**：变基、压缩、修改旧提交 → 直接使用 git rebase/amend 命令
-- **合并冲突解决**：解决合并/变基期间的冲突 → 使用 git merge/rebase 工作流程
-- **拉取请求创建**：创建 PR、请求审查、管理 PR 工作流程 → 使用特定于平台的 PR 工具
-- **代码实施**：编写正在提交的代码更改→使用开发/实施技能
+- **Code review of existing commits**: reviewing a committed diff → use the `review-diff` skill
+- **Git history rewriting**: rebase, squash, amend old commits → use the git rebase/amend commands directly
+- **Merge conflict resolution**: resolving conflicts during a merge/rebase → use the git merge/rebase workflow
+- **Pull request creation**: creating a PR, requesting review, running the PR workflow → use the platform-specific PR tooling
+- **Code implementation**: writing the code changes being committed → use the development/implementation skills
 
-**何时停止并交接**：
+**When to stop and hand off**:
 
-- 用户问“你能审查这个提交吗？” → 对现有提交使用“review-diff”技能
-- 用户问“你能推这个吗？” → 提交完成，移交推送 / PR 工作流
-- 用户问“你可以重新调整这些提交的基础吗？” → 提交完成，移交给 git rebase 工作流程
-- 提交并验证所有更改 → 技能完成，准备好推送或下一个任务
+- The user asks "can you review this commit?" → use the `review-diff` skill on the existing commit
+- The user asks "can you push this?" → committing is done; hand off to the push / PR workflow
+- The user asks "can you rebase these commits?" → committing is done; hand off to the git rebase workflow
+- Every change committed and verified → the skill is done, ready to push or move to the next task
 
-## 自检（Self-Check）
+## Self-Check
 
-### 核心成功标准（必须满足所有标准）
+### Core success criteria (all must hold)
 
-- [ ] **已审查的更改**：在暂存之前运行“git diff”，在每次提交之前运行“git diff --cached”
-- [ ] **逻辑范围**：每次提交仅包含相关更改；不相关的更改分为单独的提交
-- [ ] **常规提交格式**：所有提交消息均遵循“类型（范围）：摘要”格式，正文清晰
-- [ ] **质量验证**：运行适当的测试、lint 或构建命令并且所有检查均已通过
-- [ ] **无敏感数据**：不包含秘密、令牌、调试代码或意外更改
-- [ ] **INDEX 同步**（AI Cortex 项目）：技能 / 规则 / spec / protocol 改动时同步对应 INDEX.md
+- [ ] **Changes reviewed**: `git diff` before staging, `git diff --cached` before every commit
+- [ ] **Logical scope**: each commit contains related changes only; unrelated changes go into separate commits
+- [ ] **Conventional Commits format**: every commit message follows the "type(scope): summary" format, with a clear body
+- [ ] **Quality verified**: the appropriate test, lint, or build command was run and every check passed
+- [ ] **No sensitive data**: no secrets, tokens, debug code, or accidental changes are included
+- [ ] **INDEX synced** (AI Cortex projects): the matching INDEX.md is updated whenever a skill / rule / spec / protocol changes
 
-### 流程质量检查
+### Process quality checks
 
-- [ ] **提交前审查**：为 AI Cortex 项目运行“review-diff”技能，以检查是否存在意外更改、安全问题或重大更改
-- [ ] **使用补丁暂存**：当更改混合在单个文件中时使用`git add -p`
-- [ ] **提交边界清晰**：可以用 1-2 句话描述每个提交的目的
-- [ ] **消息质量**：摘要是必要且具体的；正文解释了内容和原因（不是实现细节）
+- [ ] **Pre-commit review**: ran the `review-diff` skill for AI Cortex projects, checking for unintended changes, security issues, or breaking changes
+- [ ] **Patch staging used**: `git add -p` used when changes are mixed inside a single file
+- [ ] **Commit boundaries clear**: the purpose of each commit can be stated in 1-2 sentences
+- [ ] **Message quality**: the summary is imperative and specific; the body explains what and why (not implementation detail)
 - [ ] **Breaking changes marked**: Used `!` or `BREAKING CHANGE:` footer if applicable
-- [ ] **记录的命令**：列出用于暂存、审查和验证的命令
+- [ ] **Commands recorded**: the commands used for staging, review, and verification are listed
 
-### 验收测试
+### Acceptance test
 
-**审阅者可以仅从提交消息中了解更改的内容和原因，而不阅读差异吗？**
+**Can a reviewer tell what changed and why from the commit message alone, without reading the diff?**
 
-如果否：提交消息不清楚。修改消息以解释内容和原因。
+If no: the commit message is unclear. Revise it to explain what and why.
 
-如果是：提交已准备好推送。
+If yes: the commit is ready to push.
 
-## 示例 (Examples)
+## Examples
 
-### 示例 1：简单的功能添加
+### Example 1: a simple feature addition
 
-**场景**：向 utils.js 添加新函数
+**Scenario**: add a new function to utils.js
 
-**命令**：
+**Commands**:
 
 ```bash
 
@@ -255,17 +255,17 @@ invalid inputs."
 
 ```markdown
 
-**输出**：
+**Output**:
 
-- 提交：`feat(utils)：添加 formatDate 辅助函数`
-- 摘要：添加了日期格式化实用程序以集中日期处理逻辑
-- 命令：`git diff`、`git diff --cached`、`npm test`
+- Commit: `feat(utils): add formatDate helper function`
+- Summary: added a date formatting utility to centralize date handling logic
+- Commands: `git diff`, `git diff --cached`, `npm test`
 
-### 示例 2：需要拆分的混合更改（边缘情况）
+### Example 2: mixed changes that need splitting (edge case)
 
-**场景**：修改了 auth.js，修复了错误并进行了重构，并更新了测试
+**Scenario**: auth.js was changed with a bug fix and a refactor, and the tests were updated
 
-**命令**：
+**Commands**:
 
 ```bash
 
@@ -317,18 +317,18 @@ Cover null token, malformed token, and expired token scenarios."
 
 ```markdown
 
-**输出**：
+**Output**:
 
-- 提交 1：“修复（auth）：在令牌验证中防止空指针” - 修复了令牌为空时的崩溃
-- 提交 2：“重构（auth）：将令牌解析提取到单独的函数” - 改进的代码组织
-- 提交 3：“测试（auth）：添加令牌验证边缘情况的测试” - 增加测试覆盖率
-- 命令：`git add -p`、`git diff --cached` (×3)、`npm test` (×3)
+- Commit 1: "fix(auth): prevent null pointer in token validation" - fixes the crash when the token is null
+- Commit 2: "refactor(auth): extract token parsing to separate function" - better code organization
+- Commit 3: "test(auth): add tests for token validation edge cases" - more test coverage
+- Commands: `git add -p`, `git diff --cached` (×3), `npm test` (×3)
 
-### 示例 3：AI Cortex 新增技能（含 INDEX 同步）
+### Example 3: adding a skill to AI Cortex (with INDEX sync)
 
-**场景**：为 AI Cortex 项目新增技能 `analyze-logs`
+**Scenario**: add the `analyze-logs` skill to an AI Cortex project
 
-**命令**：
+**Commands**:
 
 ```bash
 
@@ -338,23 +338,23 @@ git status
 
 git diff skills/INDEX.md
 
-# 确认 INDEX 行新增并与 SKILL.md description 一致
+# Confirm the INDEX line was added and matches the SKILL.md description
 
 git add skills/analyze-logs/ skills/INDEX.md
 git diff --cached
 
 git commit -m "feat(skills): add analyze-logs for log parsing
 
-新增 analyze-logs 技能，支持按模式匹配解析应用日志并提取错误。
-含常见日志格式的 3 个示例。
+Add the analyze-logs skill: parses application logs by pattern matching and extracts errors.
+Includes 3 examples covering common log formats.
 
-同步更新 skills/INDEX.md。"
+Sync skills/INDEX.md."
 
 ```text
 
-**输出**：
+**Output**:
 
-- 提交：`feat(skills): add analyze-logs for log parsing`
-- 摘要：新增日志分析技能 + INDEX 同步
-- 命令：`git status`、`git diff --cached`
-- INDEX 同步：✓ skills/INDEX.md 已含新行
+- Commit: `feat(skills): add analyze-logs for log parsing`
+- Summary: new log analysis skill + INDEX sync
+- Commands: `git status`, `git diff --cached`
+- INDEX sync: ✓ skills/INDEX.md contains the new line

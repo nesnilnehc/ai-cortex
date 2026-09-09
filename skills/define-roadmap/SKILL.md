@@ -21,264 +21,264 @@ output_schema:
   lifecycle: living
 ---
 
-# 技能 (Skill)：定义路线图
+# Skill: Define Roadmap
 
-## 目的 (Purpose)
+## Purpose
 
-从战略目标推导"可驱动决策的路线图"，而非任务列表。路线图不是里程碑集合，而是**路径表达**。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：生成用户确认的可驱动决策的路线图文档，每个阶段明确包含里程碑、关键举措、成功指标与推进条件。
-
-**成功标准**（必须满足所有要求）：
-
-1. ✅ **核心模型完整**：每个阶段必须包含里程碑（Milestone）、关键举措（Strategic Bets）、成功指标（Metrics）和推进条件（Promotion Criteria）。
-2. ✅ **有序结构与路径感**：采用 **Now / Next / Later** 划分阶段，体现演进路径。
-3. ✅ **结果与指标导向**：成功指标必须写成三元组（当前值 / 目标值 / 参考系），里程碑为成果导向，绝非功能列表或 TODO 的混入。判据见 [rules/roadmap-quality.md](../../rules/roadmap-quality.md)。
-4. ✅ **避免虚假精确**：Later 阶段仅说明方向，**不写具体时间**。
-5. ✅ **目标追溯与约束**：建立目标映射，且明确约束「Backlog 必须映射到路线图，不属于路线图的需求默认不做」。
-6. ✅ **用户确认与持久化**：用户明确批准，并写入约定路径（默认 `docs/process-management/roadmap.md` 或依规范 `milestones.md`）。
-7. ✅ **容量分配按 strategic_goal**：路线图必须声明当前 cycle 的**总容量基线**，以及每个 strategic_goal 占该基线的百分比，所有目标百分比之和必须为 100%。百分比由用户敲定，不得由本技能推断——容量护栏要能按战略目标控制，就必须有一个可归属、且用户认账的分母。
-
-**验收测试**：读者能否一眼看到演进路径（包含推进条件）？能否通过成功指标验证阶段成果，而非单纯检查任务列表？
-
-**交接点**：路线图获批并持久化后，交接至待办规划（`capture-work-items`）或路由诊断（`plan-next`）。
+Derive a "decision-driving roadmap" from the strategic goals, not a task list. A roadmap is not a set of milestones; it is an **expression of the path**.
 
 ---
 
-## 范围边界 (Scope Boundaries)
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: produce a user-confirmed, decision-driving roadmap document in which every stage explicitly carries a milestone, strategic bets, success metrics, and promotion criteria.
 
-- 从战略目标中推导并划分阶段（Now / Next / Later）。
-- 为每个阶段定义里程碑、关键举措（2–5个）、成功指标和推进条件。
-- 组织并生成结构化的路线图文档。
-- 坚持项目约定路径。
+**Success criteria** (all must be met):
 
-**本技能不负责**：
+1. ✅ **Core model complete**: every stage must carry a Milestone, Strategic Bets, Metrics, and Promotion Criteria.
+2. ✅ **Ordered structure, visible path**: stages are split by **Now / Next / Later**, showing the evolution path.
+3. ✅ **Outcome- and metric-driven**: success metrics must be written as a triplet (current value / target value / frame of reference); milestones are outcome-driven, never a feature list or mixed-in TODOs. Criteria in [rules/roadmap-quality.md](../../rules/roadmap-quality.md).
+4. ✅ **No false precision**: the Later stage states direction only and **carries no specific dates**.
+5. ✅ **Goal traceability and constraint**: a goal mapping exists, and the constraint is stated explicitly: "the backlog must map to the roadmap; a requirement outside the roadmap is not done by default".
+6. ✅ **User confirmation and persistence**: the user explicitly approves, and the document is written to the agreed path (default `docs/process-management/roadmap.md`, or `milestones.md` per project norms).
+7. ✅ **Capacity allocated by strategic_goal**: the roadmap must declare the **total capacity baseline** for the current cycle, plus each strategic_goal's percentage of that baseline; the percentages must sum to 100%. The percentages are settled by the user and must not be inferred by this skill — for the capacity guardrail to control by strategic goal, there has to be a denominator that is attributable and that the user owns.
 
-- 定义使命、愿景、北极星或战略目标（使用 `define-mission`、`define-vision`、`define-north-star`、`design-strategic-goals`）。
-- 编写具体需求（使用 `capture-work-items`）；任务拆分由 AgentFabric 等 runtime 平台承接。
-- 创建具体的 Backlog 项目（使用 `capture-work-items`）。
+**Acceptance test**: can a reader see the evolution path at a glance, promotion criteria included? Can the stage outcome be verified through the success metrics rather than by checking a task list?
 
----
-
-## 使用场景 (Use Cases)
-
-- **战略目标确立后**：需要将高层的战略目标转化为具体阶段、关键举措与指标。
-- **阶段流转评估**：通过"推进条件"（Next → Now）决定团队是否可以进入下一阶段。
-- **规划与对齐会议**：为团队和利益相关者提供清晰的路径表达与决策依据，淘汰不符合当前路径的杂乱需求。
+**Handoff point**: once the roadmap is approved and persisted, hand off to backlog planning (`capture-work-items`) or routing diagnosis (`plan-next`).
 
 ---
 
-## 行为 (Behavior)
+## Scope Boundaries
 
-### 交互政策
+**This skill does**:
 
-- **默认**：输出至 `docs/process-management/roadmap.md` 或遵循项目既有规范。自动读取 `docs/project-overview/strategic-goals.md` 作为输入依据。
-- **推断与确认**：基于现有的项目状态或上下文提炼关键举措与指标；涉及核心决策或覆盖既有文档前，向用户请求明确确认。
+- Derive the stages from the strategic goals and split them (Now / Next / Later).
+- Define the milestone, strategic bets (2–5), success metrics, and promotion criteria for each stage.
+- Organise and generate the structured roadmap document.
+- Persist to the path agreed for the project.
 
-### 执行过程
+**This skill does not do**:
 
-1. **加载战略目标**：读取现有战略目标及项目背景。
-2. **划分阶段**：结构化为 Now / Next / Later 视角。
-3. **定义里程碑**：写成结果句式——`让 [客群] 能够 [达成某事]，从而 [业务影响]`，确保以成果而非交付物为导向。
-4. **提炼关键举措**：每个阶段提炼 2–5 个关键举措（Strategic Bets），每条写成可证伪的假设句式——`我们相信 [做 X] 对 [人群] 会带来 [结果]，因为 [假设]`。赌注必须可证伪，否则会退化成名词短语。
-5. **定义成功指标**：为阶段成果设定验证标准，每条写成三元组——当前值 / 目标值 / 参考系。参考系取行业基准、项目历史值或经验阈值；无参考时写「项目自定（无外部基准）」。该格式与 `plan-next` 的诊断自检共用同一判据，见 [rules/roadmap-quality.md](../../rules/roadmap-quality.md)。
-6. **定义推进条件**：明确进入下一阶段的前提（如 Next → Now 的切换条件）。
-7. **建立目标映射**：确保阶段目标和 Backlog 可以映射到战略。
-8. **敲定总容量基线**：询问当前 cycle 的可投入容量，这是下游 `promote-roadmap-items` 容量公式的分母，缺了整个护栏算不出数。
-   - 采集口径：工程师人数 × 周期时长 − 已知开销（会议、oncall、面试、假期）
-   - 按有效工时 60–70% 折算；用户有实测值时优先用实测值
-   - 结果以人周为单位写入"容量分配"章节表头
-   - **缓冲已在此处扣除**：后续百分比是相对于这个有效容量，而非日历容量。未规划工作（紧急问题、快速 win、他团队请求）的余量在折算时已经让出，不再单列槽位
-9. **敲定容量分配**：询问用户当前 cycle 每个 strategic_goal 占总容量基线的百分比。
-   - 呈现 strategic-goals 列表，逐项询问或要求用户一次性给出分配
-   - 校验百分比之和 = 100%，不等时 halt 并提示修正
-   - 建议默认分层（示例：用户价值 60% / 市场扩张 20% / 工程健康 20%），但由用户敲定
-   - 可按项目阶段调节配比：新产品偏功能、成熟产品偏技术债、事故后偏可靠性、快速增长期偏扩展性
-   - **工程健康目标不得为 0%**——治理 / 技术债 / 文档类工作若无容量，在价值竞争中永远排不进来
-10. **生成路线图文档**：按照输出结构模板生成文档草案（含"容量分配"章节）。
-11. **确认与持久化**：用户确认后持久化写入并标注最后更新日期。
+- Define the mission, vision, North Star, or strategic goals (use `define-mission`, `define-vision`, `define-north-star`, `design-strategic-goals`).
+- Write concrete requirements (use `capture-work-items`); task breakdown is taken on by a runtime platform such as AgentFabric.
+- Create concrete backlog items (use `capture-work-items`).
 
-### 输出结构模板 (内嵌契约)
+---
+
+## Use Cases
+
+- **After the strategic goals are set**: high-level strategic goals need turning into concrete stages, strategic bets, and metrics.
+- **Stage transition assessment**: the "promotion criteria" (Next → Now) decide whether the team can enter the next stage.
+- **Planning and alignment meetings**: give the team and stakeholders a clear expression of the path and a basis for decisions, and weed out scattered requirements that do not fit the current path.
+
+---
+
+## Behavior
+
+### Interaction Policy
+
+- **Default**: output to `docs/process-management/roadmap.md`, or follow the project's existing norms. Read `docs/project-overview/strategic-goals.md` automatically as the input basis.
+- **Inference and confirmation**: distil the strategic bets and metrics from the current project state or context; before a core decision, and before overwriting an existing document, ask the user for explicit confirmation.
+
+### Execution Process
+
+1. **Load the strategic goals**: read the existing strategic goals and the project context.
+2. **Split the stages**: structure them into a Now / Next / Later view.
+3. **Define the milestone**: write it as an outcome sentence — `let [segment] be able to [achieve something], so that [business impact]` — keeping it driven by outcome rather than by deliverable.
+4. **Distil the strategic bets**: distil 2–5 Strategic Bets per stage, each written as a falsifiable hypothesis — `we believe [doing X] brings [result] for [audience], because [assumption]`. A bet must be falsifiable, or it degenerates into a noun phrase.
+5. **Define the success metrics**: set the verification standard for the stage outcome, each written as a triplet — current value / target value / frame of reference. The frame of reference is an industry benchmark, a project historical value, or an empirical threshold; where there is none, write "project-defined (no external benchmark)". This format shares one set of criteria with the `plan-next` diagnostic self-check; see [rules/roadmap-quality.md](../../rules/roadmap-quality.md).
+6. **Define the promotion criteria**: state the precondition for entering the next stage (such as the switch condition for Next → Now).
+7. **Build the goal mapping**: make sure the stage goals and the backlog can map to the strategy.
+8. **Settle the total capacity baseline**: ask for the capacity available in the current cycle. It is the denominator of the downstream `promote-roadmap-items` capacity formula, and without it the whole guardrail computes nothing.
+   - Collection basis: engineer headcount × cycle length − known overheads (meetings, oncall, interviews, holidays)
+   - Discount to 60–70% effective working hours; prefer the user's measured value where one exists
+   - Write the result, in person-weeks, into the header of the "Capacity Allocation" section
+   - **The buffer is deducted here**: the percentages that follow are relative to this effective capacity, not to calendar capacity. Room for unplanned work (urgent issues, quick wins, requests from other teams) was already given up in the discount, and gets no separate slot
+9. **Settle the capacity allocation**: ask the user for each strategic_goal's percentage of the total capacity baseline for the current cycle.
+   - Present the strategic-goals list and ask item by item, or ask the user for the whole allocation in one go
+   - Check that the percentages sum to 100%; where they do not, halt and prompt for a correction
+   - A default split is suggested (example: user value 60% / market expansion 20% / engineering health 20%), but the user settles it
+   - The ratio can be tuned to the project stage: a new product leans to features, a mature product to tech debt, the aftermath of an incident to reliability, a fast-growth period to scalability
+   - **The engineering-health goal must not be 0%** — with no capacity, governance / tech-debt / documentation work never gets in during the competition for value
+10. **Generate the roadmap document**: draft the document from the output structure template (including the "Capacity Allocation" section).
+11. **Confirm and persist**: once the user confirms, write it out and note the last-updated date.
+
+### Output Structure Template (embedded contract)
 
 ```markdown
-# 路线图
+# Roadmap
 
-## 路线概览
+## Route Overview
 
-Now / Next / Later（含推进条件简述）
+Now / Next / Later (with a brief note on promotion criteria)
 
-## 容量分配（当前 cycle）
+## Capacity Allocation (current cycle)
 
-**总容量基线**：<N> 人周（<人数> 人 × <周期> − 开销，按有效工时 <60–70>% 折算；未规划工作的缓冲已在折算中扣除）
+**Total capacity baseline**: <N> person-weeks (<headcount> people × <cycle> − overheads, discounted to <60–70>% effective working hours; the buffer for unplanned work is already deducted in the discount)
 
-| Strategic Goal | 百分比 | 折合容量 | 说明 |
-| 目标 1（用户价值） | 60% | 6 人周 | 核心交付 |
-| 目标 2（市场扩张） | 20% | 2 人周 | 邻近扩展 |
-| 目标 3（工程健康） | 20% | 2 人周 | 治理与技术债，不得为 0 |
+| Strategic Goal | Percentage | Capacity | Note |
+| Goal 1 (user value) | 60% | 6 person-weeks | Core delivery |
+| Goal 2 (market expansion) | 20% | 2 person-weeks | Adjacent expansion |
+| Goal 3 (engineering health) | 20% | 2 person-weeks | Governance and tech debt, must not be 0 |
 
-> 本分配由 `promote-roadmap-items` 技能在容量护栏中消费：分配容量 = 百分比 × 总容量基线。
-> 百分比之和必须为 100%；工程健康目标不得为 0%。
-> 战略刷新或容量调整需重跑本技能。
+> This allocation is consumed by the `promote-roadmap-items` skill inside its capacity guardrail: allocated capacity = percentage × total capacity baseline.
+> The percentages must sum to 100%; the engineering-health goal must not be 0%.
+> A strategy refresh or a capacity change must rerun this skill.
 
 ---
 
 ## Now
 
-### 里程碑
-- 让 [客群] 能够 [达成某事]，从而 [业务影响]
+### Milestone
+- Let [segment] be able to [achieve something], so that [business impact]
 
-### 关键举措
-- 我们相信 [做 X] 对 [人群] 会带来 [结果]，因为 [假设]
+### Strategic Bets
+- We believe [doing X] brings [result] for [audience], because [assumption]
 
-### 成功指标
-- <指标名>：当前 <值> / 目标 <值> / 参考系 <行业基准 | 项目历史值 | 经验阈值 | 项目自定（无外部基准）>
+### Success Metrics
+- <metric name>: current <value> / target <value> / frame of reference <industry benchmark | project historical value | empirical threshold | project-defined (no external benchmark)>
 
 ---
 
 ## Next
 
-### 推进条件
+### Promotion Criteria
 - ...
 
-### 里程碑
+### Milestone
 - ...
 
-### 关键举措
+### Strategic Bets
 - ...
 
 ---
 
 ## Later
 
-仅方向，不写时间
+Direction only, no dates
 
 ---
 
-## 本轮明确不做（可选）
+## Explicitly Not Doing This Round (optional)
 
-| 被排除项 | 原因 | 重新评估时机 |
+| Excluded item | Reason | When to re-evaluate |
 
-> 「不属于路线图的需求默认不做」是隐式规则，读者看不到被排除了什么。
-> 有干系人诉求被挡在门外时列出来，可省去逐个解释。
+> "A requirement outside the roadmap is not done by default" is an implicit rule, and the reader cannot see what was excluded.
+> Listing a stakeholder request that was kept out saves explaining it one person at a time.
 
 ---
 
-## 里程碑详情（附录）
+## Milestone Detail (appendix)
 
 | Milestone | Scope | Metrics | Goals |
 ```
 
 ---
 
-## 输入与输出 (Input & Output)
+## Input & Output
 
-**输入**：
-- **必填**：战略目标（文档或路径）；项目背景。
-- **可选**：愿景/北极星指标；时间范围或阶段偏好。
+**Input**:
+- **Required**: the strategic goals (document or path); the project context.
+- **Optional**: vision / North Star metric; time horizon or stage preference.
 
-**输出**：
-- **工件**：决策级路线图文档。
-- **位置**：`docs/process-management/roadmap.md` 或 `milestones.md`（依项目规范）。
-- **内容**：含路线概览、Now/Next/Later 详情（里程碑、关键举措、指标、推进条件）。
-- **生命周期**：living（随阶段推进持续更新）。
-
----
-
-## 限制 (Restrictions)
-
-### 硬边界 (Hard Boundaries)
-
-- **路线图映射约束**：明确「Backlog 必须映射到路线图，不属于路线图的需求默认不做」。
-- **结构强制**：每个阶段必须包含核心模型（里程碑、关键举措、成功指标、推进条件），缺一不可。
-- **总容量基线不得省略**：缺基线则下游容量公式无分母，护栏形同虚设。
-- **容量分配不得省略**：每个 strategic_goal 必须有百分比，和 = 100%；工程健康目标不得为 0%。
-- **容量分配不得由本技能推断**：必须由用户敲定，可提建议但不自动写入。
-- **无覆盖**：未经用户明确确认，不覆盖既有路线图文件。
-
-### 反模式（避免）
-
-- **功能列表**：将路线图降级为功能特性堆砌。
-- **TODO 混入**：掺杂具体执行级别的任务。
-- **无指标**：无法验证里程碑是否达成。
-- **无关键举措**：只有目标没有对应的战略动作。
-- **虚假精确**：在 Later 阶段写明具体日期/时间。
-
-### 技能边界 (Skill Boundaries)（避免重叠）
-
-**不要做这些（其他技能负责）**：
-- **定义战略目标**：使用 `design-strategic-goals`。
-- **拆分具体需求**：使用 `capture-work-items`；任务拆分由 AgentFabric 等 runtime 承接。
-- **编写待办**：使用 `capture-work-items`。
-
-**何时停止并交接**：
-- 用户回复「已批准/确认」等 → 路线图完成，持久化文档并交接给 `plan-next` 或待办规划。
+**Output**:
+- **Artifact**: a decision-grade roadmap document.
+- **Location**: `docs/process-management/roadmap.md` or `milestones.md` (per project norms).
+- **Content**: the route overview plus the Now/Next/Later detail (milestone, strategic bets, metrics, promotion criteria).
+- **Lifecycle**: living (updated continuously as the stages advance).
 
 ---
 
-## 自检 (Self-Check)
+## Restrictions
 
-### 核心成功标准（必须满足所有标准）
+### Hard Boundaries
 
-- [ ] **核心模型完整**：文档包含里程碑、关键举措、成功指标、推进条件。
-- [ ] **有序结构与路径感**：路线图基于 Now / Next / Later 展现演进路径。
-- [ ] **结果与指标导向**：内容为成果导向，无功能或 TODO 列表；里程碑用结果句式，关键举措用假设句式。
-- [ ] **指标三元组**：每条成功指标含当前值 / 目标值 / 参考系；无参考系时已标注「项目自定（无外部基准）」。
-- [ ] **避免虚假精确**：Later 阶段未包含具体时间，仅指明方向。
-- [ ] **目标追溯与约束**：体现了路线图到战略目标的映射关系，约束了 Backlog。
-- [ ] **总容量基线已声明**：含人周数与折算口径。
-- [ ] **容量分配完整**：每个 strategic_goal 有百分比，和 = 100%，工程健康 ≠ 0%。
-- [ ] **用户确认与持久化**：用户已批准，并写入约定路径。
+- **Roadmap mapping constraint**: state explicitly that "the backlog must map to the roadmap; a requirement outside the roadmap is not done by default".
+- **Structure enforced**: every stage must carry the core model (milestone, strategic bets, success metrics, promotion criteria); not one of them may be missing.
+- **The total capacity baseline must not be omitted**: with no baseline the downstream capacity formula has no denominator, and the guardrail is decorative.
+- **The capacity allocation must not be omitted**: every strategic_goal must have a percentage, summing to 100%; the engineering-health goal must not be 0%.
+- **The capacity allocation must not be inferred by this skill**: the user must settle it; a suggestion can be offered, but nothing is written automatically.
+- **No overwrite**: do not overwrite an existing roadmap file without the user's explicit confirmation.
 
-### 验收测试
+### Anti-Patterns (avoid)
 
-读者能否一眼看到演进路径（包含推进条件）？能否通过成功指标验证阶段成果，而非单纯检查任务列表？
+- **Feature list**: degrading the roadmap into a pile of features.
+- **Mixed-in TODOs**: blending in execution-level tasks.
+- **No metrics**: no way to verify whether a milestone was reached.
+- **No strategic bets**: goals with no matching strategic action.
+- **False precision**: writing specific dates or times into the Later stage.
 
-- 若否：需补充成功指标或推进条件，剔除功能性 TODO 列表。
-- 若是：路线图符合生产级要求，继续转交。
+### Skill Boundaries (avoid overlap)
+
+**Do not do these (other skills own them)**:
+- **Define the strategic goals**: use `design-strategic-goals`.
+- **Break down concrete requirements**: use `capture-work-items`; task breakdown is taken on by a runtime such as AgentFabric.
+- **Write the backlog**: use `capture-work-items`.
+
+**When to stop and hand off**:
+- The user replies "approved / confirmed" or similar → the roadmap is done; persist the document and hand off to `plan-next` or to backlog planning.
 
 ---
 
-## 示例 (Examples)
+## Self-Check
 
-### 示例 1：根据战略目标生成生产级路线图
+### Core Success Criteria (all must be met)
 
-**背景**：已有包含 3 项指标的战略目标，需制定演进路径。
-**流程**：
-1. 读取目标并按 Now / Next / Later 视角划分。
-2. 为 Now 定义明确的 3 项关键举措与量化成功指标。
-3. 定义 Next 阶段的"推进条件"（如"当核心架构验证达到 10k QPS 时，启动 Next 阶段"）。
-4. 在 Later 中列出长远探索主题（无日期）。
-5. 呈现文档草案并获批后写入 `docs/process-management/roadmap.md`。
-**结果**：路线图持久化，清晰驱动下一步的资源分配与决策。
+- [ ] **Core model complete**: the document carries the milestone, strategic bets, success metrics, and promotion criteria.
+- [ ] **Ordered structure, visible path**: the roadmap shows the evolution path through Now / Next / Later.
+- [ ] **Outcome- and metric-driven**: the content is outcome-driven, with no feature or TODO list; milestones use the outcome sentence, strategic bets the hypothesis sentence.
+- [ ] **Metric triplet**: every success metric carries current value / target value / frame of reference; where there is no frame of reference, "project-defined (no external benchmark)" is marked.
+- [ ] **No false precision**: the Later stage carries no specific dates, only direction.
+- [ ] **Goal traceability and constraint**: the mapping from roadmap to strategic goals is shown, and the backlog is constrained.
+- [ ] **Total capacity baseline declared**: with the person-week count and the discount basis.
+- [ ] **Capacity allocation complete**: every strategic_goal has a percentage, they sum to 100%, and engineering health is ≠ 0%.
+- [ ] **User confirmation and persistence**: the user approved it, and it is written to the agreed path.
 
-### 示例 2：纠正任务列表反模式
+### Acceptance Test
 
-**背景**：用户要求「帮我把这些 Backlog 任务排期做成路线图」。
-**流程**：
-1. 向用户说明本技能的原则：路线图是路径表达与决策模型，而非任务清单。
-2. 将具体的 Backlog 抽象为对应的关键举措与阶段性里程碑。
-3. 补充各阶段的成功指标与推进条件，去除细碎的 TODO。
-4. 提供草案并与用户确认。
-**结果**：将需求列表成功转换为符合生产级的决策路线图。
+Can a reader see the evolution path at a glance, promotion criteria included? Can the stage outcome be verified through the success metrics rather than by checking a task list?
 
-### 示例 3：容量分配必填（边缘场景）
+- If no: add the success metrics or the promotion criteria, and strip out the feature TODO list.
+- If yes: the roadmap meets the production bar; move on to the handoff.
 
-**背景**：用户草拟 roadmap 但跳过容量分配章节，要求直接持久化。
-**流程**：
-1. 检测到路线图缺"容量分配"。
-2. halt 并解释："容量分配是 promote-roadmap-items 的护栏依据，缺失会导致晋升无法按战略目标控制。"
-3. 呈现 strategic-goals 列表：
-   - 目标 1（用户价值）：? %
-   - 目标 2（市场扩张）：? %
-   - 目标 3（工程健康）：? %
-4. 先补总容量基线：4 人 × 6 周 × 65% ≈ 10 人周。
-5. 用户给出 70/20/10。
-6. 校验和 = 100 ✓；工程健康 10% 非 0 ✓；折合 7 / 2 / 1 人周。
-7. 写入"容量分配"章节，持久化。
-**结果**：roadmap 含有 promote-roadmap-items 可消费的容量分配，体系闭环。
+---
+
+## Examples
+
+### Example 1: Generate a production-grade roadmap from the strategic goals
+
+**Context**: strategic goals carrying 3 metrics already exist; an evolution path is needed.
+**Process**:
+1. Read the goals and split them into the Now / Next / Later view.
+2. Define 3 explicit strategic bets and quantified success metrics for Now.
+3. Define the "promotion criteria" for the Next stage (e.g. "start the Next stage when core architecture validation reaches 10k QPS").
+4. List the long-range exploration themes in Later (no dates).
+5. Present the draft, and write to `docs/process-management/roadmap.md` once it is approved.
+**Result**: the roadmap is persisted and drives the next round of resource allocation and decisions.
+
+### Example 2: Correcting the task-list anti-pattern
+
+**Context**: the user asks "turn these backlog tasks into a scheduled roadmap for me".
+**Process**:
+1. State this skill's principle to the user: a roadmap is an expression of the path and a decision model, not a task list.
+2. Abstract the concrete backlog into matching strategic bets and stage milestones.
+3. Add the success metrics and promotion criteria for each stage, and remove the fine-grained TODOs.
+4. Offer the draft and confirm it with the user.
+**Result**: the requirement list is converted into a production-grade decision roadmap.
+
+### Example 3: Capacity allocation is required (edge case)
+
+**Context**: the user drafts a roadmap but skips the capacity allocation section and asks to persist it as is.
+**Process**:
+1. Detect that the roadmap has no "capacity allocation".
+2. halt and explain: "capacity allocation is what promote-roadmap-items uses as its guardrail; without it, promotion cannot be controlled by strategic goal."
+3. Present the strategic-goals list:
+   - Goal 1 (user value): ? %
+   - Goal 2 (market expansion): ? %
+   - Goal 3 (engineering health): ? %
+4. Fill in the total capacity baseline first: 4 people × 6 weeks × 65% ≈ 10 person-weeks.
+5. The user gives 70/20/10.
+6. Check the sum = 100 ✓; engineering health at 10% is not 0 ✓; that converts to 7 / 2 / 1 person-weeks.
+7. Write the "Capacity Allocation" section and persist.
+**Result**: the roadmap carries a capacity allocation that promote-roadmap-items can consume, and the loop closes.

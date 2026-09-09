@@ -18,211 +18,211 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion, covering all five roadmap quality dimensions
 ---
 
-# 技能：审查路线图（Review Roadmap）
+# Skill: Review Roadmap
 
-## 目的 (Purpose)
+## Purpose
 
-按既定质量判据评估**现有路线图文档**。不生成也不改写路线图——那是 `define-roadmap` 与 `update-roadmap` 的职责。产出 **findings 列表**，供作者在下游消费之前修补。
+Evaluate an **existing roadmap document** against the established quality criteria. Neither generate nor rewrite the roadmap — that is the job of `define-roadmap` and `update-roadmap`. Produce a **findings list** the author can act on before anything downstream consumes it.
 
-**判据不在本技能内**：全部条目定义在 [rules/roadmap-quality.md](../../rules/roadmap-quality.md)，本技能只负责执行评估与组织输出。判据变更改那份 rule，不改本文件。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：产出覆盖五个质量维度的路线图 findings 列表，使作者能在晋升决策依赖它之前把问题补齐。
-
-**成功标准**（必须全部满足）：
-
-1. ✅ 五个维度全部扫过：完整性 / 可执行性 / 清晰性 / 合理性 / 可追溯性
-2. ✅ 每条 finding 含 location / category / severity / title / description / suggestion
-3. ✅ 判据全部引自 `rules/roadmap-quality.md`，本技能不新造判据
-4. ✅ 无法评估的维度显式标注「无法评估」及原因，不静默跳过
-5. ✅ 不改写路线图，只出发现与建议
-
-**验收测试**：作者能否只看 findings 列表就知道该改哪几处、改成什么样？
-
-**交接点**：findings 交给作者；结构性缺口交接 `define-roadmap`，状态与时点类缺口交接 `update-roadmap`。
+**The criteria do not live in this skill**: every item is defined in [rules/roadmap-quality.md](../../rules/roadmap-quality.md); this skill only runs the evaluation and organizes the output. Change the criteria in that rule, not in this file.
 
 ---
 
-## 范围边界（Scope Boundaries）
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: Produce a roadmap findings list covering all five quality dimensions, so the author can close the gaps before a promotion decision depends on them.
 
-- 按 `rules/roadmap-quality.md` 逐维评估既有路线图
-- 产出带位置、严重度与建议的 findings 列表
-- 标注无法评估的维度及原因
+**Success criteria** (all must be met):
 
-**本技能不负责**：
+1. ✅ All five dimensions scanned: completeness / executability / clarity / soundness / traceability
+2. ✅ Every finding carries location / category / severity / title / description / suggestion
+3. ✅ Every criterion is cited from `rules/roadmap-quality.md`; this skill invents none of its own
+4. ✅ A dimension that cannot be evaluated is explicitly marked "cannot evaluate" with the reason, and is not skipped silently
+5. ✅ The roadmap is not rewritten; only findings and suggestions are emitted
 
-- 生成或改写路线图（`define-roadmap` / `update-roadmap`）
-- 判定编排 mode —— 那是编排层「检测上下文」的职责，本技能只出 findings
-- 晋升决策（`promote-roadmap-items`）
-- 依赖识别（`map-item-dependencies`）
-- 维护判据本身（`rules/roadmap-quality.md`）
+**Acceptance test**: From the findings list alone, can the author tell which parts to change and what to change them into?
 
----
-
-## 使用场景（Use Cases）
-
-- **晋升前把关**：容量与依赖判据不过关时，晋升算不出正确结果
-- **接手他人路线图**：快速看清这份路线图缺什么
-- **定期体检**：路线图是 living 文档，随时间会漂
-- **编排链路的入口**：作为 `orchestrate-roadmap-planning` 的第 0 步，为后续步骤提供条件判定依据
+**Handoff point**: The findings go to the author; structural gaps hand off to `define-roadmap`, and status or timing gaps hand off to `update-roadmap`.
 
 ---
 
-## 行为（Behavior）
+## Scope Boundaries
 
-### 交互政策
+**This skill handles**:
 
-- **默认**：读取 `docs/process-management/roadmap.md` 或项目规范路径；用户可指定路径或直接粘贴内容
-- **只读**：全程不修改任何文件
-- **不追问**：这是一次性评估，缺信息就记为 finding 或标为无法评估，不与用户来回澄清
+- Evaluating an existing roadmap dimension by dimension against `rules/roadmap-quality.md`
+- Producing a findings list carrying location, severity, and suggestion
+- Marking the dimensions that cannot be evaluated, with the reason
 
-### 执行过程
+**This skill does NOT handle**:
 
-1. **加载判据**：读取 [rules/roadmap-quality.md](../../rules/roadmap-quality.md)。**该文件缺失时 halt**——没有判据就没有评估基准，此时凭印象打分只会产出看似权威实则无依据的结论。
-2. **加载路线图与佐证源**：读取目标文档。判据中有三条的数据不在 roadmap.md 里，须一并读取，否则这些维度无从求值：
+- Generating or rewriting the roadmap (`define-roadmap` / `update-roadmap`)
+- Deciding the orchestration mode — that is the orchestration layer's "detect the context" job; this skill only emits findings
+- Promotion decisions (`promote-roadmap-items`)
+- Dependency identification (`map-item-dependencies`)
+- Maintaining the criteria themselves (`rules/roadmap-quality.md`)
 
-   | 判据 | 数据在哪 |
+---
+
+## Use Cases
+
+- **Gate before promotion**: when the capacity and dependency criteria do not hold, promotion cannot compute a correct result
+- **Taking over someone else's roadmap**: see quickly what this roadmap is missing
+- **Periodic checkup**: a roadmap is a living document and drifts over time
+- **Entry point of the orchestration chain**: as step 0 of `orchestrate-roadmap-planning`, supplying the conditions the later steps are judged against
+
+---
+
+## Behavior
+
+### Interaction Policy
+
+- **Default**: read `docs/process-management/roadmap.md` or the path set by project norms; the user may name a path or paste the content directly
+- **Read-only**: no file is modified at any point
+- **No follow-up questions**: this is a one-shot evaluation; missing information becomes a finding or a "cannot evaluate" mark, with no clarification round-trip with the user
+
+### Procedure
+
+1. **Load the criteria**: read [rules/roadmap-quality.md](../../rules/roadmap-quality.md). **A missing file means halt** — without criteria there is no yardstick, and scoring from impressions yields conclusions that look authoritative and rest on nothing.
+2. **Load the roadmap and its evidence sources**: read the target document. Three of the criteria draw on data that is not in roadmap.md; that data must be read as well, or those dimensions cannot be evaluated:
+
+   | Criterion | Where the data lives |
    |---|---|
-   | Now 层条目可追溯到所属 strategic_goal | 条目 frontmatter 的 `strategic_goal_id`，兼看 `docs/project-overview/strategic-goals.md` |
-   | Now 层条目无未决前置依赖 | 条目 frontmatter 的 `depends_on` |
-   | 优先级非单一来源拍定 | 条目 frontmatter 的 `priority_decision`（含 `strategic_override`） |
+   | A Now-tier item traces to its strategic_goal | The item frontmatter's `strategic_goal_id`, cross-checked against `docs/project-overview/strategic-goals.md` |
+   | A Now-tier item has no unresolved prerequisite | The item frontmatter's `depends_on` |
+   | Priority was not set by a single source | The item frontmatter's `priority_decision` (including `strategic_override`) |
 
-   **缺失处理**：backlog 条目读不到、或 roadmap.md 的 Now 层未引用具体条目时，这三条判据标注为「无法评估 —— <原因>」。**不得因读不到就记为通过**，那等于让判据形同虚设。
-3. **逐维扫描**：按 rule 的五维清单逐条核对，每条不通过即生成一条 finding。
-4. **变更频率维度的工具适配**：该维度需要读 git log 统计 roadmap.md 的结构性变更次数。
-   - **发现**：确认当前目录是 git 仓库且 roadmap.md 有提交历史
-   - **执行**：统计设定窗口内该文件的结构性变更次数，与 rule 中的阈值比较
-   - **缺失处理**：非 git 仓库、浅克隆导致历史不全、或该文件无提交历史时，本维度标注为「无法评估 —— <具体原因>」。**不得静默跳过，也不得据此推断该维度通过**
-5. **定严重度**：按下表机械映射，不做主观加权。
-6. **输出 findings 列表**。
+   **When it is missing**: if the backlog items cannot be read, or roadmap.md's Now tier references no concrete items, mark these three criteria "cannot evaluate — <reason>". **A criterion must not be recorded as passing because it could not be read** — that hollows the criterion out.
+3. **Scan dimension by dimension**: work through the rule's five-dimension checklist item by item; each item that fails produces one finding.
+4. **Tool adaptation for the change-frequency dimension**: this dimension needs git log to count structural changes to roadmap.md.
+   - **Discover**: confirm the current directory is a git repository and that roadmap.md has commit history
+   - **Run**: count the file's structural changes inside the configured window and compare against the threshold in the rule
+   - **When it is missing**: for a non-git directory, a shallow clone with incomplete history, or a file with no commit history, mark this dimension "cannot evaluate — <the specific reason>". **It must not be skipped silently, and it must not be inferred to pass on that basis**
+5. **Set severity**: map mechanically from the table below, with no subjective weighting.
+6. **Emit the findings list**.
 
-### 严重度映射
+### Severity Mapping
 
-| 严重度 | 判定 |
+| Severity | Trigger |
 |---|---|
-| `关键` | 缺总容量基线或容量分配；核心模型四件套缺项；Now 层条目有未决前置依赖 |
-| `主要` | 成功指标非三元组；里程碑或关键举措未用规定句式；容量百分比之和 ≠ 100%；工程健康目标为 0% |
-| `轻微` | 缺「本轮明确不做」章节；缺最后更新日期；变更频率接近但未越阈值 |
+| `critical` | No total capacity baseline or no capacity allocation; a missing piece of the four-part core model; a Now-tier item with an unresolved prerequisite |
+| `major` | A success metric that is not a triplet; a milestone or strategic bet not written in the prescribed form; capacity percentages that do not sum to 100%; an engineering-health goal at 0% |
+| `minor` | No "explicitly not doing this round" section; no last-updated date; change frequency close to the threshold but not over it |
 
-### findings 格式
+### Findings Format
 
 ```yaml
-- location: <文档内章节或行>
-  category: 完整性 | 可执行性 | 清晰性 | 合理性 | 可追溯性
-  severity: 关键 | 主要 | 轻微
-  title: <一句话结论>
-  description: <哪里不符合，对照哪条判据>
-  suggestion: <改成什么样，可直接照做>
+- location: <section or line in the document>
+  category: completeness | executability | clarity | soundness | traceability
+  severity: critical | major | minor
+  title: <one-line conclusion>
+  description: <what fails, and which criterion it is measured against>
+  suggestion: <what to change it to, ready to apply>
 ```
 
 ---
 
-## 输入与输出 (Input & Output)
+## Input & Output
 
-**输入**：既有路线图文档（路径或内容）；`rules/roadmap-quality.md`；佐证源 `strategic-goals.md` 与 Now 层引用的 backlog 条目。
+**Input**: the existing roadmap document (path or content); `rules/roadmap-quality.md`; the evidence sources `strategic-goals.md` and the backlog items referenced by the Now tier.
 
-**输出**：findings 列表（零条或多条）+ 无法评估维度的说明。零 findings 时明确说明该路线图通过全部判据。
+**Output**: a findings list (zero or more) plus a note on any dimension that could not be evaluated. With zero findings, state plainly that the roadmap passes every criterion.
 
 ---
 
-## 限制（Restrictions）
+## Restrictions
 
-### 硬边界（Hard Boundaries）
+### Hard Boundaries
 
-- **不改写**：不生成新的路线图文本、里程碑或指标。只出 findings 与建议，落笔交给作者或 `define-roadmap`
-- **不内嵌判据**：所有判据引自 `rules/roadmap-quality.md`；需要新判据时改那份 rule，不在本技能里加
-- **rule 缺失即 halt**：没有判据基准不得凭印象评估
-- **不输出 mode**：编排层的上下文检测由编排层自己做，本技能只出 findings
-- **无法评估必须显式标注**：不得因为工具缺失或佐证源读不到就把某维度记为通过
+- **No rewriting**: do not generate new roadmap text, milestones, or metrics. Emit findings and suggestions only; the writing is left to the author or to `define-roadmap`
+- **No embedded criteria**: every criterion is cited from `rules/roadmap-quality.md`; a new criterion goes into that rule, not into this skill
+- **A missing rule means halt**: with no yardstick, evaluation from impressions must not happen
+- **No mode output**: the orchestration layer does its own context detection; this skill emits findings only
+- **"Cannot evaluate" must be marked explicitly**: a dimension must not be recorded as passing because a tool was unavailable or an evidence source could not be read
 
-### 反模式（避免）
+### Anti-Patterns (Avoid)
 
-- ❌ **把判据抄进技能**：判据两处维护必然漂移，这正是本技能刻意规避的
-- ❌ **静默跳过 git 依赖的维度**：读不到历史就说读不到，不要让读者以为已评估
-- ❌ **主观加权严重度**：severity 按映射表机械判定，不按「感觉这条更要紧」调整
-- ❌ **顺手把问题改了**：评估与改写混在一起，作者就看不清原始问题是什么
+- ❌ **Copying the criteria into the skill**: criteria maintained in two places inevitably drift, which is exactly what this skill is built to sidestep
+- ❌ **Silently skipping the git-dependent dimension**: if the history cannot be read, say so; do not leave the reader thinking it was evaluated
+- ❌ **Weighting severity subjectively**: severity comes mechanically from the mapping table, not from "this one feels more important"
+- ❌ **Fixing the problem along the way**: evaluation mixed with rewriting leaves the author unable to see what the original problem was
 
-### 技能边界（避免重叠）
+### Skill Boundaries (Avoid Overlap)
 
-| 动作 | 归属 |
+| Action | Owner |
 |---|---|
-| 生成 / 改写路线图 | `define-roadmap` |
-| 改状态 / 挪期 | `update-roadmap` |
-| 晋升 / 降级 | `promote-roadmap-items` |
-| 依赖识别 | `map-item-dependencies` |
-| 判据维护 | `rules/roadmap-quality.md` |
-| 跨层治理诊断 | `plan-next` |
+| Generate / rewrite the roadmap | `define-roadmap` |
+| Change status / shift dates | `update-roadmap` |
+| Promote / demote | `promote-roadmap-items` |
+| Dependency identification | `map-item-dependencies` |
+| Criteria maintenance | `rules/roadmap-quality.md` |
+| Cross-layer governance diagnosis | `plan-next` |
 
 ---
 
-## 自检（Self-Check）
+## Self-Check
 
-- [ ] 已加载 `rules/roadmap-quality.md`；缺失时已 halt
-- [ ] 五个维度全部扫过
-- [ ] 每条 finding 六个字段齐全
-- [ ] 严重度按映射表机械判定
-- [ ] 变更频率维度已走「发现 → 执行 → 缺失处理」；无法评估时已写明原因
-- [ ] 依赖 backlog 条目 frontmatter 的三条判据已读取佐证源；读不到时已标「无法评估」而非记为通过
-- [ ] 未改写路线图文档
-- [ ] 未输出 mode 或其他编排层字段
-- [ ] 零 findings 时已明确说明通过
+- [ ] `rules/roadmap-quality.md` loaded; halted when it was missing
+- [ ] All five dimensions scanned
+- [ ] Every finding carries all six fields
+- [ ] Severity taken mechanically from the mapping table
+- [ ] The change-frequency dimension went through "discover → run → handle the gap"; where it cannot be evaluated, the reason is written out
+- [ ] The three criteria that depend on backlog item frontmatter had their evidence sources read; where they could not be read, they are marked "cannot evaluate" rather than recorded as passing
+- [ ] The roadmap document was not rewritten
+- [ ] No mode or other orchestration-layer field was emitted
+- [ ] With zero findings, the pass was stated plainly
 
 ---
 
-## 示例（Examples）
+## Examples
 
-### 示例 1：缺容量基线（主流场景）
+### Example 1: Missing capacity baseline (mainstream case)
 
-**输入**：一份 Now / Next / Later 齐全的路线图，含容量分配百分比表，但表头没有总容量基线。
+**Input**: a roadmap with a complete Now / Next / Later structure and a capacity allocation percentage table, but no total capacity baseline in the table header.
 
-**输出**（节选）：
+**Output** (excerpt):
 
 ```yaml
-- location: "## 容量分配（当前 cycle）"
-  category: 可执行性
-  severity: 关键
-  title: 缺总容量基线，下游容量护栏算不出结果
-  description: 容量分配只有百分比，没有声明总容量基线。promote-roadmap-items 的公式是「百分比 × 总容量基线」，缺基线即缺分母，各目标的分配容量无法计算。对照 rules/roadmap-quality.md §2。
-  suggestion: 在容量分配表头补一行总容量基线，格式为「<N> 人周（<人数> 人 × <周期> − 开销，按有效工时 <60–70>% 折算）」。可重跑 define-roadmap 第 8 步采集。
+- location: "## Capacity allocation (current cycle)"
+  category: executability
+  severity: critical
+  title: No total capacity baseline, so the downstream capacity guardrail cannot compute
+  description: The capacity allocation gives only percentages and declares no total capacity baseline. The promote-roadmap-items formula is "percentage × total capacity baseline"; with no baseline there is no denominator, and the allocated capacity per goal cannot be computed. Measured against rules/roadmap-quality.md §2.
+  suggestion: Add a total capacity baseline line to the capacity allocation header, in the form "<N> person-weeks (<headcount> people × <cycle length> − overhead, discounted to <60–70>% effective hours)". Step 8 of define-roadmap can be re-run to collect it.
 ```
 
-**结果**：作者知道这份路线图看着完整，但晋升环节会立刻卡住。
+**Result**: the author learns that the roadmap looks complete but will jam at the promotion step.
 
-### 示例 2：非 git 仓库（边缘场景）
+### Example 2: Not a git repository (edge case)
 
-**输入**：路线图内容由用户直接粘贴，不在任何 git 仓库中。
+**Input**: the roadmap content is pasted directly by the user and lives in no git repository.
 
-**流程**：
+**Process**:
 
-1. 前四个维度正常扫描。
-2. 变更频率维度：发现阶段即确认无 git 仓库 → 无法读取历史。
-3. 标注该维度为「无法评估 —— 输入为粘贴内容，无 git 提交历史可供统计变更频率」。
-4. **不据此推断该维度通过**，也不在 findings 里编造一条变更频率相关问题。
+1. The first four dimensions scan normally.
+2. Change-frequency dimension: the discover step establishes there is no git repository → the history cannot be read.
+3. Mark the dimension "cannot evaluate — the input is pasted content, with no git commit history to count change frequency from".
+4. **Do not infer from this that the dimension passes**, and do not invent a change-frequency finding either.
 
-**输出**（节选）：
+**Output** (excerpt):
 
 ```text
-无法评估的维度：
-- 合理性 / 变更频率：输入为粘贴内容，无 git 提交历史。
-  如需评估此维度，请提供仓库内的 roadmap.md 路径。
+Dimensions that could not be evaluated:
+- Soundness / change frequency: the input is pasted content, with no git commit history.
+  To evaluate this dimension, supply the path to a roadmap.md inside a repository.
 ```
 
-**结果**：读者清楚哪一块没查过，不会误以为全维度都过了。
+**Result**: the reader knows exactly which part went unchecked and will not assume every dimension passed.
 
-### 示例 3：判据文件缺失（边缘场景）
+### Example 3: Criteria file missing (edge case)
 
-**输入**：一份路线图，但项目未安装 `rules/roadmap-quality.md`。
+**Input**: a roadmap, in a project where `rules/roadmap-quality.md` is not installed.
 
-**流程**：
+**Process**:
 
-1. 第 1 步加载判据即失败。
-2. **halt**，不进入扫描。
-3. 说明理由：没有判据基准就评估，产出的会是一份看似权威、实则无依据的清单——这比不评估更有害。
-4. 给出补救路径：从 AI Cortex 安装 `rules/roadmap-quality.md`，或显式指定另一份判据文件。
+1. Step 1, loading the criteria, fails.
+2. **halt**; the scan is not entered.
+3. State the reason: evaluating with no yardstick produces a list that looks authoritative and rests on nothing — more harmful than not evaluating at all.
+4. Give the way out: install `rules/roadmap-quality.md` from AI Cortex, or name another criteria file explicitly.
 
-**结果**：技能拒绝在无基准的情况下产出结论，而不是凭印象凑一份。
+**Result**: the skill refuses to produce conclusions with no yardstick, rather than assembling one from impressions.

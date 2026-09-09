@@ -18,207 +18,207 @@ output_schema:
   description: Dependency graph + need-by table + reduction options; depends_on written back to each item's frontmatter
 ---
 
-# 技能：映射条目依赖（Map Item Dependencies）
+# Skill: Map Item Dependencies
 
-## 目的 (Purpose)
+## Purpose
 
-找出 backlog 与 roadmap 条目之间的依赖关系，登记到条目上，让晋升决策知道哪些条目现在拉不动。
+Find the dependencies between backlog and roadmap items, register them on the items, and let the promotion decision see which items cannot be pulled in right now.
 
-依赖是路线图上风险最高的一类因素：它不体现在优先级里，也不体现在容量里，但会让一个高优先级条目在进入 Now 之后原地卡住。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：为给定范围内的条目识别依赖、写回 `depends_on`，并输出可据以排序的依赖图。
-
-**成功标准**（必须全部满足）：
-
-1. ✅ 每个条目的依赖按五类逐一排查（技术 / 团队 / 外部 / 知识 / 顺序），无依赖时显式记为 `—`
-2. ✅ 依赖图无环；发现环时 halt 并指出环路径，不自行打破
-3. ✅ 每条依赖标注「需在何时前解决」与责任方
-4. ✅ `depends_on` 写回条目 frontmatter，跨文档依赖以路径前缀标注
-5. ✅ 对高风险依赖给出削减建议
-6. ✅ 输出可直接被 `promote-roadmap-items` 消费的阻塞清单（哪些条目当前不可进 Now）
-
-**验收测试**：拿到输出后，能否直接回答「这条目现在能不能进 Now，不能的话卡在谁身上」？
-
-**交接点**：依赖登记完成后交接 `promote-roadmap-items` 执行晋升。
+Dependencies are the highest-risk factor on a roadmap: they show up neither in the priority nor in the capacity, yet they leave a high-priority item stuck in place once it enters Now.
 
 ---
 
-## 范围边界（Scope Boundaries）
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: identify the dependencies of the items in a given scope, write `depends_on` back, and output a dependency graph that sequencing can be based on.
 
-- 识别条目间依赖并分类
-- 写回 `depends_on` 字段
-- 产出依赖图、需解决时点、削减建议
-- 输出阻塞清单
+**Success criteria** (all must hold):
 
-**本技能不负责**：
+1. ✅ Every item's dependencies are checked one by one against the five categories (technical / team / external / knowledge / sequential), with `—` recorded explicitly where there are none
+2. ✅ The dependency graph is acyclic; on finding a cycle, halt and name the cycle path instead of breaking it here
+3. ✅ Each dependency is annotated with "resolve by when" and its owner
+4. ✅ `depends_on` is written back into the item frontmatter, with cross-document dependencies marked by a path prefix
+5. ✅ High-risk dependencies come with reduction suggestions
+6. ✅ A blocked list is output in a form `promote-roadmap-items` can consume directly (which items cannot enter Now at present)
 
-- 晋升 / 降级决策（`promote-roadmap-items`）
-- 条目评分（`prioritize-backlog`）
-- 创建条目（`capture-work-items`）
-- 解决依赖本身（那是执行层的事，本技能只登记与提示）
-- 任务级依赖拆解（由 AgentFabric 等 runtime 承接）
+**Acceptance test**: with the output in hand, can you answer "can this item enter Now, and if not, who is it stuck behind" straight away?
 
----
-
-## 使用场景（Use Cases）
-
-- **晋升前**：候选条目 ≥ 2 时，先跑本技能，避免把被阻塞条目拉进 Now
-- **排期评审**：需要看清哪些条目必须串行、哪些可以并行
-- **卡住时复盘**：Now 层条目迟迟不动，排查是否有未登记的前置
+**Handoff point**: once the dependencies are registered, hand off to `promote-roadmap-items` for the promotion.
 
 ---
 
-## 行为（Behavior）
+## Scope Boundaries
 
-### 交互政策
+**This skill owns**:
 
-- **默认**：范围取当前晋升候选；用户可指定为全量 backlog 或指定条目集
-- **推断与确认**：依赖关系优先从条目正文、`strategic_goal_id`、既有 roadmap 顺序中推断；推断出的依赖须经用户确认后才写回，不自动落盘
-- **halt**：发现依赖环时停止并报告，由用户决定如何拆环
+- Identifying dependencies between items and classifying them
+- Writing the `depends_on` field back
+- Producing the dependency graph, the resolve-by dates, and reduction suggestions
+- Outputting the blocked list
 
-### 依赖五类
+**This skill does not own**:
 
-| 类别 | 含义 | 典型信号 |
+- Promotion / demotion decisions (`promote-roadmap-items`)
+- Item scoring (`prioritize-backlog`)
+- Creating items (`capture-work-items`)
+- Resolving the dependencies themselves (that belongs to the execution layer; this skill only registers and flags them)
+- Task-level dependency breakdown (carried by a runtime such as AgentFabric)
+
+---
+
+## Use Cases
+
+- **Before promotion**: with candidate items ≥ 2, run this skill first to avoid pulling blocked items into Now
+- **Scheduling review**: when it matters which items must run in series and which can run in parallel
+- **Retrospective when stuck**: a Now-tier item is not moving, so check for an unregistered prerequisite
+
+---
+
+## Behavior
+
+### Interaction policy
+
+- **Default**: the scope is the current promotion candidates; the user can widen it to the whole backlog or to a named set of items
+- **Inference and confirmation**: prefer to infer a dependency from the item body, `strategic_goal_id`, and the existing roadmap order; an inferred dependency must be confirmed by the user before it is written back, and is never persisted automatically
+- **halt**: on finding a dependency cycle, stop and report it; the user decides how to break it
+
+### The five dependency categories
+
+| Category | Meaning | Typical signal |
 |---|---|---|
-| 技术 | 本条目需要另一条目产出的技术能力 | 「需要新的数据管道」「依赖 API 重构」 |
-| 团队 | 需要另一团队交付物（设计、平台、数据） | 「等设计稿」「需平台组开权限」 |
-| 外部 | 等供应商、合作方、第三方集成 | 「等对方接口上线」 |
-| 知识 | 需先有调研或验证结论才能开工 | 「方案未定」「需先做 POC」 |
-| 顺序 | 必须先交付 A 才能开始 B（共用代码或用户流程） | 「先上注册再上邀请」 |
+| Technical | This item needs a technical capability another item produces | "needs a new data pipeline" "depends on the API refactor" |
+| Team | Needs a deliverable from another team (design, platform, data) | "waiting on the design" "needs the platform team to grant access" |
+| External | Waiting on a vendor, a partner, or a third-party integration | "waiting for their API to go live" |
+| Knowledge | Work cannot start until research or validation reaches a conclusion | "the approach is undecided" "a POC comes first" |
+| Sequential | A must ship before B can start (shared code or a shared user flow) | "registration ships before invitations" |
 
-### 执行过程
+### Execution
 
-1. **确定范围**：默认取晋升候选；用户可指定全量或子集。
-2. **逐类排查**：对范围内每个条目，按上表五类逐一提问，不跳类。无依赖的类别明确记为无，不留空。
-3. **构图与查环**：把依赖关系构成有向图，检测是否有环。**有环立即 halt**，输出环路径，请用户决定拆哪条边——本技能不自行打破环。
-4. **标注需解决时点与责任方**：每条依赖记「谁负责解决」与「需在何时前解决」。无责任方的依赖视为高风险，单独标出。
-5. **给削减建议**：对高风险依赖逐条问四个问题——
-   - 能否做一个简化版绕过这个依赖？
-   - 能否用接口契约或替身并行推进？
-   - 能否调整顺序，把依赖提前解决？
-   - 能否把这部分工作吸收进本团队，去掉跨团队协调？
-6. **确认后写回**：呈现依赖清单，用户确认后写入各条目 frontmatter 的 `depends_on`。
-7. **输出阻塞清单**：列出当前存在未决前置的条目，供 `promote-roadmap-items` 作为 Now 层准入依据。
+1. **Fix the scope**: the promotion candidates by default; the user can name the full set or a subset.
+2. **Check category by category**: for every item in scope, ask about each of the five categories in the table above, skipping none. A category with no dependency is recorded as none, never left blank.
+3. **Build the graph and look for cycles**: assemble the dependencies into a directed graph and test it for cycles. **A cycle halts the run immediately**: output the cycle path and ask the user which edge to cut — this skill does not break a cycle itself.
+4. **Annotate the resolve-by date and the owner**: record "who resolves it" and "by when it needs resolving" for each dependency. A dependency with no owner counts as high risk and is called out on its own.
+5. **Give reduction suggestions**: for each high-risk dependency, ask four questions —
+   - Can a simplified version route around this dependency?
+   - Can an interface contract or a stand-in let the work proceed in parallel?
+   - Can the order change so the dependency is resolved earlier?
+   - Can this piece of work be absorbed into our own team, removing the cross-team coordination?
+6. **Write back after confirmation**: present the dependency list, and once the user confirms, write it into the `depends_on` in each item's frontmatter.
+7. **Output the blocked list**: list the items with an unresolved prerequisite, for `promote-roadmap-items` to use as the Now-tier admission criterion.
 
-### `depends_on` 字段
+### The `depends_on` field
 
 ```yaml
 depends_on:
-  - ref: <条目 ID 或 相对路径#锚点>
+  - ref: <item ID or relative-path#anchor>
     kind: technical | team | external | knowledge | sequential
-    need_by: <ISO date | 阶段名>
-    owner: <责任方>
+    need_by: <ISO date | stage name>
+    owner: <owner>
 ```
 
-无依赖时写 `depends_on: —`，不留空——留空无法区分「没有依赖」与「还没排查」。
+With no dependency, write `depends_on: —`, never blank — a blank cannot separate "no dependency" from "not checked yet".
 
-**字段语义来源**：沿用 [rules/task-quality.md](../../rules/task-quality.md) 对 `depends_on` 的既有约定（依赖图无环、无依赖填 `—`、跨文档依赖以路径前缀标注）。该 rule 原本约束的是 task，此处是把同一套语义借用到 backlog-item 上。
+**Where the field semantics come from**: this follows the existing convention for `depends_on` in [rules/task-quality.md](../../rules/task-quality.md) (acyclic dependency graph, `—` where there is no dependency, cross-document dependencies marked by a path prefix). That rule was written to constrain tasks; here the same semantics are borrowed for the backlog item.
 
-> **已知债务**：backlog-item 目前没有对应的 spec，结构只由 `capture-work-items` 的输出模板隐式定义。本技能是在一个无 spec 的制品上增加字段，属于语义借用。若 backlog-item 的字段继续增长，应补 `specs/backlog-item-modeling.md` 把结构收归 spec。此处仅记账，不代表已解决。
-
----
-
-## 输入与输出 (Input & Output)
-
-**输入**：backlog 条目（任意 priority 状态）+ 当前 roadmap；可选的范围限定。
-
-**输出**：对话依赖图 + 需解决时点表 + 削减建议 + 阻塞清单；各条目 frontmatter 的 `depends_on` 被更新。
+> **Known debt**: backlog-item has no spec of its own; its structure is defined only implicitly by the output template of `capture-work-items`. This skill adds a field to an artifact that has no spec, which is semantic borrowing. If the backlog-item fields keep growing, add `specs/backlog-item-modeling.md` to bring the structure back under a spec. This is booked here as debt, not as something resolved.
 
 ---
 
-## 限制（Restrictions）
+## Input & Output
 
-### 硬边界（Hard Boundaries）
+**Input**: backlog items (any priority state) + the current roadmap; an optional scope restriction.
 
-- 发现依赖环时必须 halt，不得自行选边打破
-- 推断出的依赖未经用户确认不得写回
-- 不修改条目的 `priority` / `status` / 所在层级
-- 不因为「看起来该有依赖」而编造依赖；无证据即记为无
-- 无责任方的依赖必须显式标为高风险，不得静默略过
+**Output**: the dependency graph in chat + the resolve-by table + reduction suggestions + the blocked list; the `depends_on` in each item's frontmatter is updated.
 
-### 反模式（避免）
+---
 
-- ❌ **只查技术依赖**：团队与外部依赖才是最常拖垮排期的，不能只盯代码层
-- ❌ **登记完就算完**：依赖登记的价值在于喂给晋升决策，不产出阻塞清单等于白做
-- ❌ **把依赖当既定事实**：每条高风险依赖都要过一遍削减建议，先问能不能不依赖
-- ❌ **留空代替「无依赖」**：留空会让下游无法区分「没有」与「没查」
+## Restrictions
 
-### 技能边界（避免重叠）
+### Hard Boundaries
 
-| 动作 | 归属 |
+- On finding a dependency cycle, must halt; must not pick an edge and break it here
+- An inferred dependency must not be written back without the user's confirmation
+- Do not change an item's `priority` / `status` / tier
+- Do not invent a dependency because "there ought to be one"; with no evidence, record none
+- A dependency with no owner must be flagged explicitly as high risk; it must not be passed over in silence
+
+### Anti-patterns (avoid)
+
+- ❌ **Checking technical dependencies only**: team and external dependencies are what wreck a schedule most often; watching the code layer alone is not enough
+- ❌ **Treating registration as the end of it**: the value of registering dependencies is feeding the promotion decision; with no blocked list the work was for nothing
+- ❌ **Treating a dependency as a given**: every high-risk dependency goes through the reduction suggestions once, starting with whether the dependency can be dropped
+- ❌ **Leaving it blank in place of "no dependency"**: a blank leaves downstream unable to tell "none" from "not checked"
+
+### Skill Boundaries (avoid overlap)
+
+| Action | Owner |
 |---|---|
-| 晋升 / 降级 | `promote-roadmap-items` |
-| 评分 | `prioritize-backlog` |
-| 创建条目 | `capture-work-items` |
-| 改状态 / 挪期 | `update-roadmap` |
-| 任务级依赖 | AgentFabric runtime（不在 AI Cortex 范围） |
+| Promotion / demotion | `promote-roadmap-items` |
+| Scoring | `prioritize-backlog` |
+| Creating items | `capture-work-items` |
+| Status change / date shift | `update-roadmap` |
+| Task-level dependencies | AgentFabric runtime (outside AI Cortex) |
 
 ---
 
-## 自检（Self-Check）
+## Self-Check
 
-- [ ] 范围已与用户确认
-- [ ] 每个条目按五类逐一排查，无依赖的类别已显式记为无
-- [ ] 已做环检测；有环时已 halt 并输出环路径
-- [ ] 每条依赖有 kind / need_by / owner；无 owner 的已标为高风险
-- [ ] 高风险依赖已逐条过削减建议四问
-- [ ] 依赖清单经用户确认后才写回 `depends_on`
-- [ ] 已输出阻塞清单，可被 `promote-roadmap-items` 直接消费
-- [ ] 未修改条目的 priority / status / 层级
+- [ ] The scope was confirmed with the user
+- [ ] Every item was checked against all five categories, and categories with no dependency were recorded as none explicitly
+- [ ] Cycle detection was run; a cycle led to a halt and the cycle path was output
+- [ ] Every dependency carries kind / need_by / owner; those without an owner are flagged as high risk
+- [ ] Each high-risk dependency went through the four reduction suggestion questions
+- [ ] `depends_on` was written back only after the user confirmed the dependency list
+- [ ] The blocked list was output and can be consumed directly by `promote-roadmap-items`
+- [ ] No item's priority / status / tier was changed
 
 ---
 
-## 示例（Examples）
+## Examples
 
-### 示例 1：晋升前排查（主流场景）
+### Example 1: checking before promotion (mainstream case)
 
-**背景**：4 个晋升候选，准备进 Now。
+**Background**: 4 promotion candidates, lined up for Now.
 
-**流程**：
+**Flow**:
 
-1. 范围取这 4 条候选。
-2. 逐类排查：
-   - #42 支付优化 → 无依赖
-   - #51 高级报表 → 技术依赖 #38 数据管道升级（在 backlog，未晋升）
-   - #17 auth 重构 → 无依赖
-   - #63 移动端工作流 → 团队依赖：等设计组交付稿，need_by 本阶段中点，owner 设计组
-3. 构图无环。
-4. 削减建议：#51 可否先做只读报表绕开管道升级 → 用户认为可行，记为备选方案。
-5. 用户确认后写回 `depends_on`。
-6. 阻塞清单：**#51 当前不可进 Now**（前置 #38 仍在 backlog）；#63 可进但需盯设计交付。
+1. The scope is these 4 candidates.
+2. Check category by category:
+   - #42 payment optimization → no dependency
+   - #51 advanced reporting → technical dependency on #38 data pipeline upgrade (in the backlog, not promoted)
+   - #17 auth refactor → no dependency
+   - #63 mobile workflow → team dependency: waiting on the design team's deliverable, need_by the midpoint of this stage, owner the design team
+3. The graph has no cycle.
+4. Reduction suggestion: could #51 ship read-only reporting first and route around the pipeline upgrade → the user judges it workable, recorded as the fallback plan.
+5. `depends_on` is written back once the user confirms.
+6. Blocked list: **#51 cannot enter Now at present** (its prerequisite #38 is still in the backlog); #63 can enter, but the design deliverable needs watching.
 
-**结果**：晋升时 #51 改进 Next，避免了一个会在 Now 里卡住的条目。
+**Result**: at promotion #51 went to Next instead, which avoided an item that would have stalled inside Now.
 
-### 示例 2：发现依赖环（边缘场景）
+### Example 2: a dependency cycle turns up (edge case)
 
-**背景**：三个条目互相引用——#12 说要等 #19 的接口，#19 说要等 #25 的鉴权模型，#25 又说要等 #12 的数据结构。
+**Background**: three items reference each other — #12 says it waits on #19's API, #19 says it waits on #25's auth model, and #25 says it waits on #12's data structure.
 
-**流程**：
+**Flow**:
 
-1. 构图时检测到环：`#12 → #19 → #25 → #12`。
-2. **halt**，输出环路径与三条边各自的依据。
-3. 说明本技能不自行拆环——拆哪条边是范围与设计决策，超出依赖登记的职责。
-4. 提示两个常见拆法供用户判断：把某条边降级为「接口契约先行、实现后补」，或把三者合并为一个条目一次做完。
-5. 用户决定把 `#25 → #12` 改为接口契约先行。
-6. 重新构图无环，继续正常流程。
+1. Building the graph detects a cycle: `#12 → #19 → #25 → #12`.
+2. **halt**, output the cycle path and the evidence behind each of the three edges.
+3. State that this skill does not break the cycle itself — which edge to cut is a scope and design decision, beyond what dependency registration covers.
+4. Offer two common ways out for the user to judge: downgrade one edge to "interface contract first, implementation later", or merge the three into a single item done in one pass.
+5. The user decides to turn `#25 → #12` into interface-contract-first.
+6. The rebuilt graph has no cycle, and the normal flow continues.
 
-**结果**：环被用户显式拆掉并留下决策依据；技能没有替用户做范围决策。
+**Result**: the cycle was cut explicitly by the user, with the reasoning left on record; the skill made no scope decision on the user's behalf.
 
-### 示例 3：证据不足（边缘场景）
+### Example 3: not enough evidence (edge case)
 
-**背景**：条目正文只有一句「优化搜索」，看不出是否依赖别的条目。
+**Background**: the item body is one line, "optimize search", giving no sign of whether it depends on anything else.
 
-**流程**：
+**Flow**:
 
-1. 五类逐一排查，均无可依据的信号。
-2. **不编造依赖**——不因为「搜索通常要依赖索引」就凭空加一条。
-3. 记为 `depends_on: —`，并在报告中标注「该条目描述过简，依赖排查依据不足」。
-4. 建议用户补充条目描述后重跑，或在晋升时人工确认。
+1. All five categories are checked; none of them produces a usable signal.
+2. **No invented dependency** — nothing is added out of thin air because "search usually depends on an index".
+3. Record `depends_on: —`, and note in the report: "this item's description is too thin for the dependency check to have evidence".
+4. Suggest the user flesh out the item description and re-run, or confirm manually at promotion time.
 
-**结果**：无依据处不臆造；同时把「查不动」这件事显式告诉用户，而不是静默记为无依赖。
+**Result**: nothing is fabricated where there is no evidence, and "this could not be checked" is stated to the user outright rather than silently recorded as no dependency.

@@ -17,214 +17,214 @@ output_schema:
   description: Optimized SKILL written to source SKILL.md (default) or to temp/new path when user opts out; includes diff summary and version suggestion
 ---
 
-# 技能：完善技能设计
+# Skill: Refine Skill Design
 
-## 目的 (Purpose)
+## Purpose
 
-作为一项“元技能”，该技能**审查并重构**草稿形式的人工智能能力定义。它应用高级即时工程视角来提高逻辑稳健性、场景覆盖率和指令依从性，以便每项功能都满足LLM最佳实践。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：生成经过审查并重构的技能文档，以满足规范合规性、仓库资产边界和 LLM 最佳实践。
-
-**成功标准**（必须满足所有要求）：
-
-1. ✅ **结构兼容**：技能遵循标准模板（YAML、目的、用例、行为、输入和输出、限制、自检、示例）
-2. ✅ **逻辑清晰**：输入→行为→输出链清晰明确
-3. ✅ **定义的约束**：限制部分涵盖了域中常见的故障模式
-4. ✅ **资产边界清晰**：Skill 不内嵌应由 Spec / Protocol / Rule 承载的权威定义；必要时改为引用或提出拆分建议
-5. ✅ **执行适配明确**：外部工具、MCP 工具、运行环境和缺失能力均有发现、映射、失败处理路径
-6. ✅ **仓库契约合规**：遵守 `AGENTS.md`、术语定义、外部链接、语言和资产优先级规则
-7. ✅ **示例全面**：至少提供 2 个示例，包括一种边缘情况或具有挑战性的场景
-8. ✅ **记录的更改**：差异摘要列出了所有更改以及部分、描述和原因
-9. ✅ **建议版本**：SemVer 建议并提供理由
-
-**验收测试**：AI Agent 能否在不同的环境中一致地应用这种精炼的技能，而不会产生歧义？
+As a "meta-skill", this skill **reviews and refactors** AI capability definitions that are still in draft form. It applies an advanced prompt-engineering lens to raise logical robustness, scenario coverage, and instruction adherence, so that every capability meets LLM best practices.
 
 ---
 
-## 范围边界
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: produce a reviewed and refactored skill document that meets spec compliance, the repository's asset boundaries, and LLM best practices.
 
-- 审查现有技能草稿的质量和合规性
-- 重构技能结构和内容以满足规范
-- 审计 Skill / Spec / Protocol / Rule 边界，避免把结构契约、交互协议或单点规则埋进 Skill
-- 审计工具适配层，确保 MCP / CLI / API 工具的发现、能力映射和缺失处理可执行
-- 审计仓库本地契约，确保优化后的 Skill 遵守 `AGENTS.md` 和本地术语定义
-- 提高逻辑清晰度和指令精度
-- 添加缺失部分或加强薄弱区域
-- 提供差异摘要和版本建议
+**Success criteria** (all must be met):
 
-**本技能不负责**：
+1. ✅ **Structurally compatible**: the skill follows the standard template (YAML, purpose, use cases, behavior, input and output, restrictions, self-check, examples)
+2. ✅ **Logic is clear**: the input → behavior → output chain is clear and unambiguous
+3. ✅ **Constraints defined**: the restrictions section covers the failure modes common to the domain
+4. ✅ **Asset boundaries clear**: the Skill embeds no authoritative definition that belongs to a Spec / Protocol / Rule; where needed it references one instead, or proposes a split
+5. ✅ **Execution adaptation explicit**: external tools, MCP tools, the runtime environment, and missing capabilities all have a discovery, mapping, and failure-handling path
+6. ✅ **Repository contract compliant**: obeys `AGENTS.md`, the terminology definitions, and the external-link, language, and asset-priority rules
+7. ✅ **Examples are thorough**: at least 2 examples, one of them an edge case or a challenging scenario
+8. ✅ **Changes recorded**: the diff summary lists every change together with its section, description, and reason
+9. ✅ **Version proposed**: a SemVer proposal with its rationale
 
-- 从头生成新 Skill 的完整骨架
-- 在运行时安装外部 Skill 或初始化器
-- 代替维护者决定外部派生 Skill 的许可证和 vendoring 范围
-- 生成项目 docs/ 结构（由 AgentFabric runtime 或人工承接）
-
-**转交点**：当 SKILL 被细化并提供差异摘要时，移交给用户进行审查和版本控制提交。
+**Acceptance test**: can an AI Agent apply this refined skill consistently across different environments, with no ambiguity?
 
 ---
 
-## 使用场景 (Use Cases)
+## Scope Boundaries
 
-- **新技能入门**：代理生成新技能草案后进行专家审查。
-- **质量修复**：当技能在新模型上表现不一致时，请调整逻辑并加强示例。
-- **一致性审查**：检查新技能是否与 INDEX.md 中的标签体系和命名相匹配；确保 `description`、`tags`、`triggers` 足以支持语义发现。
-- **升级**：将简单的“格式化工具”转变为具有交互策略和错误处理的完整代理功能。
+**This skill does**:
 
-**范围**：此技能用于**审查并重构现有技能**，而不是从头开始创建。新建 Skill 按仓库贡献流程和 agentskills.io 规范单独处理；不得为此在运行时安装外部创建 Skill。
+- Review an existing skill draft for quality and compliance
+- Refactor the skill's structure and content to meet the spec
+- Audit the Skill / Spec / Protocol / Rule boundary, to avoid burying a structural contract, an interaction protocol, or a single-point rule inside a Skill
+- Audit the tool adaptation layer, so that discovery, capability mapping, and missing-tool handling for MCP / CLI / API tools are executable
+- Audit the repository's local contract, so the optimised Skill obeys `AGENTS.md` and the local terminology definitions
+- Raise logical clarity and instruction precision
+- Add the missing sections or strengthen the weak areas
+- Provide the diff summary and a version proposal
 
----
+**This skill does not do**:
 
-## 行为 (Behavior)
+- Generate the full skeleton of a new Skill from scratch
+- Install an external Skill or initialiser at runtime
+- Decide, in the maintainer's place, the licence and vendoring scope of an externally derived Skill
+- Generate the project docs/ structure (taken on by the AgentFabric runtime or a human)
 
-### 元审计模型
-
-1. **意图**：目的是否足够具体？避免使用“助手”、“实用程序”等模糊术语。
-2. **逻辑**：输入→行为→输出是否形成清晰的链条？
-3. **约束**：限制是否涵盖域中最常见的故障模式？
-4. **示例**：示例是否从简单到复杂并至少包含一种边缘情况？
-5. **交互策略**（规范§4.3）：行为是否规定默认值、选择选项以及哪些项目需要用户确认？首先首选默认值，首选选择，上下文推理。
-6. **资产边界**：Skill 是否在定义事物结构（Spec）、多方消息序列（Protocol）或原子禁令（Rule）？若是，保留执行编排，将权威定义改为引用现有资产或提出拆分位置。
-7. **执行适配**：Skill 是否依赖 MCP / CLI / API / 外部服务？若依赖，是否说明如何发现可用工具、建立能力映射、处理工具缺失、避免硬编码不存在的工具名？
-8. **仓库契约**：若在 AI Cortex 仓库内优化，必须读取并应用 `AGENTS.md`、`docs/architecture/terminology.md` 和 `skills/SOURCES.yaml`；不得默认抓取外部 HTTP/HTTPS 链接，也不得在运行时安装 Skill。只有维护外部派生副本且上下文显式声明 `allow_external_fetch=true` 时，才可读取固定版本上游。
-9. **触发器**（可选）：对于高可发现性技能，可以考虑在前面添加“触发器”（3-5 个英语短语），以实现快速调用匹配。
-
-### 优化流程
-
-1. **结构**：应用标准模板（YAML、目的、用例、行为、I/O、限制、自检、示例）。
-2. **动词**：使用精确、明确的动词（例如“处理”→“解析”、“转换”、“修剪”）。
-3. **交互**：对于复杂的逻辑，添加“确认后再继续”或“选择选项”。与规范交互策略保持一致（默认优先，首选选择）。
-4. **边界**：把权威结构定义、消息序列和原子规则从 Skill 正文中降级为引用；若现有资产缺失，在差异摘要中列出建议新增的 Spec / Protocol / Rule，不要在本技能内凭空创建无关资产。
-5. **适配**：为工具依赖添加“发现 → 映射 → 执行 → 缺失处理”步骤；工具名以当前运行时实际暴露为准，示例工具名只能作为能力提示。
-6. **本地契约**：检查外链、raw URL、语言、资产优先级和本地路径优先策略；违反时改为本地引用或条件化说明。
-7. **元数据**：将标签与 INDEX.md 对齐；建议高可发现性技能的 triggers；建议合理的 SemVer。
-8. **应用更改**：除非用户明确要求空运行/临时细化文件，否则将细化内容**直接回写到源 `SKILL.md`**，并在输出中同时附上diff摘要与版本号建议，方便审阅和审核。
+**Handoff point**: once the SKILL is refined and the diff summary is delivered, hand off to the user for review and a version-control commit.
 
 ---
 
-## 输入与输出 (Input & Output)
+## Use Cases
 
-### 输入 (Input)
+- **New skill onboarding**: an expert review after an agent has drafted a new skill.
+- **Quality repair**: when a skill behaves inconsistently on a new model, adjust the logic and strengthen the examples.
+- **Consistency review**: check that a new skill matches the tag system and naming in INDEX.md; make sure `description`, `tags`, and `triggers` are enough to support semantic discovery.
+- **Upgrade**: turn a plain "formatter" into a full agent capability with an interaction policy and error handling.
 
-- 一个需要优化的 SKILL Markdown 文档，或者一个草稿。
+**Scope**: this skill is for **reviewing and refactoring an existing skill**, not for creating one from scratch. A new Skill is handled separately, through the repository contribution process and the agentskills.io spec; an external skill-creator must not be installed at runtime for that purpose.
 
-### 输出 (Output)
+---
 
-- **优化的技能**：满足规范的生产级 Markdown。
-- **差异摘要**：更改了什么以及原因。
-- **版本建议**：SemVer 推荐。
+## Behavior
 
-### 输出（Output） 持久化（文档处理）
+### Meta-Audit Model
 
-**规则**：默认直接改进并覆盖原始`SKILL.md`，同时提供可审计的diff摘要与版本号建议；只有在用户明确要求“只生成精修草稿、不改源文件”时，才写入临时或新建精修文件。每次运行须在以下策略中二选一：
+1. **Intent**: is the purpose specific enough? Avoid vague terms such as "assistant" or "utility".
+2. **Logic**: do input → behavior → output form a clear chain?
+3. **Constraints**: do the restrictions cover the most common failure modes in the domain?
+4. **Examples**: do the examples run from simple to complex and include at least one edge case?
+5. **Interaction policy** (spec §4.3): does the behavior state the defaults, the choice options, and which items need user confirmation? Defaults first, then choices, then context inference.
+6. **Asset boundary**: is the Skill defining the structure of a thing (Spec), a multi-party message sequence (Protocol), or an atomic prohibition (Rule)? If so, keep the execution orchestration and turn the authoritative definition into a reference to an existing asset, or name where the split belongs.
+7. **Execution adaptation**: does the Skill depend on MCP / CLI / API / an external service? If it does, does it state how to discover the available tools, build the capability mapping, handle a missing tool, and avoid hard-coding a tool name that does not exist?
+8. **Repository contract**: when optimising inside the AI Cortex repository, `AGENTS.md`, `docs/architecture/terminology.md`, and `skills/SOURCES.yaml` must be read and applied; external HTTP/HTTPS links must not be fetched by default, and a Skill must not be installed at runtime. A pinned upstream version can be read only where an externally derived copy is maintained and the context explicitly declares `allow_external_fetch=true`.
+9. **Triggers** (optional): for a high-discoverability skill, consider putting "triggers" (3-5 English phrases) up front, for fast invocation matching.
 
-|战略|路径模式|行为 |
+### Optimisation Process
+
+1. **Structure**: apply the standard template (YAML, purpose, use cases, behavior, I/O, restrictions, self-check, examples).
+2. **Verbs**: use precise, unambiguous verbs (e.g. "process" → "parse", "convert", "trim").
+3. **Interaction**: for complex logic, add "confirm before continuing" or "choose an option". Keep it in line with the spec's interaction policy (defaults preferred, then choices).
+4. **Boundaries**: demote authoritative structural definitions, message sequences, and atomic rules from the Skill body to references; where the asset does not yet exist, list the suggested new Spec / Protocol / Rule in the diff summary, and do not conjure unrelated assets inside this skill.
+5. **Adaptation**: add "discover → map → execute → handle absence" steps for the tool dependencies; a tool name is whatever the current runtime actually exposes, and an example tool name serves only as a capability hint.
+6. **Local contract**: check external links, raw URLs, language, asset priority, and the local-path-first policy; on a violation, switch to a local reference or a conditional note.
+7. **Metadata**: align the tags with INDEX.md; suggest triggers for a high-discoverability skill; suggest a sensible SemVer.
+8. **Apply the changes**: unless the user explicitly asks for a dry run or a temporary refined file, write the refined content **straight back to the source `SKILL.md`**, and attach both the diff summary and the version proposal to the output, so it can be reviewed and audited.
+
+---
+
+## Input & Output
+
+### Input
+
+- A SKILL Markdown document that needs optimising, or a draft.
+
+### Output
+
+- **Optimised skill**: production-grade Markdown that meets the spec.
+- **Diff summary**: what changed, and why.
+- **Version proposal**: a SemVer recommendation.
+
+### Output Persistence (document handling)
+
+**Rule**: by default, improve and overwrite the original `SKILL.md` in place, together with an auditable diff summary and a version proposal; only when the user explicitly asks for "a refined draft only, leave the source file alone" is a temporary or new refined file written. Every run must pick one of the two strategies below:
+
+| Strategy | Path pattern | Behavior |
 | :--- | :--- | :--- |
-| **直接覆盖**（默认）| `技能/<技能名称>/SKILL.md` | 直接覆盖源文件，保证前置事项`版本`已更新，且在产出中包含变更摘要，属于审计 |
-| **固定温度**（选择退出）| `skills/<技能名称>/SKILL.refined.md` | 在用户要求“不要改原文件，只给细化”时使用；每次运行覆盖相同的临时文件 |
-| **每次运行新**（选择退出）| `skills/<技能名称>/SKILL.refined.YYYYMMDD.md` | 在用户要求“为这次细化保留单独的文件”时使用；每次运行创建新的细化文件 |
+| **Overwrite in place** (default) | `skills/<skill-name>/SKILL.md` | Overwrite the source file directly, keep the frontmatter `version` updated, and carry the change summary in the output, which is what makes it auditable |
+| **Fixed temp file** (opt-out) | `skills/<skill-name>/SKILL.refined.md` | Used when the user asks "do not touch the original, just give me the refinement"; every run overwrites the same temporary file |
+| **New file per run** (opt-out) | `skills/<skill-name>/SKILL.refined.YYYYMMDD.md` | Used when the user asks "keep a separate file for this refinement"; every run creates a new refined file |
 
-用户覆盖：如果用户指定路径或策略，请遵守它。否则使用**直接覆盖**。
-
----
-
-## 限制 (Restrictions)
-
-### 硬边界（Hard Boundaries）
-
-- **默认覆盖但必须可审计**：默认策略是直接覆盖源 `SKILL.md`，但必须同步更新 frontmatter 的 `version`，并在输出中提供完整的变更摘要，确保可审计。
-- **尊重显式“稿草模式”请求**：若用户明确要求“不要修改原文件”“只生成精炼草稿”等，则不得覆盖源`SKILL.md`，只能写入临时或新建精炼文件。
-- **不要改变意图**：优化必须保留技能的核心目的。
-- **不要把拆分建议伪装成已完成**：若只改了 Skill 引用而未实际创建 Spec / Protocol / Rule，必须在输出中说明“建议拆分”，不能声称资产已存在。
-- **不要绕过本地契约**：在禁止默认外部抓取的仓库中，不得把外部 URL 写成执行必需来源；只能作为条件允许时的参考来源。
-- **少写散文**：优先用列表和表格，而非冗长的自述式段落。
-- **多个示例**：不要只保留一个「顺利路径」示例；包括至少一个具有挑战性或极端情况的示例。
-
-### 技能边界 (Skill Boundaries)（避免重叠）
-
-**不要做这些（其他技能可以处理它们）**：
-
-- **从头开始创建新技能**：生成初始技能结构和内容→按仓库贡献流程单独处理；不得临时安装外部创建 Skill
-- **项目文档**：生成 README → 使用 `generate-standard-readme`；生成 AGENTS.md → 使用 `generate-agent-entry`
-- **文本去上下文化**：删除 PII 或敏感信息 → 使用 `decontextualize-text`
-
-**何时停止并交接**：
-
-- 用户说“看起来不错”、“已批准”、“提交此”→ 细化完成，移交给用户进行版本控制
-- 用户问「如何创建新技能？」 → 移交给仓库贡献指南和 agentskills.io 规范
+User override: if the user names a path or a strategy, follow it. Otherwise use **overwrite in place**.
 
 ---
 
-## 自检（Self-Check）
+## Restrictions
 
-### 核心成功标准（必须满足所有标准）
+### Hard Boundaries
 
-- [ ] **结构兼容**：技能遵循标准模板（YAML、目的、用例、行为、输入和输出、限制、自检、示例）
-- [ ] **逻辑清晰**：输入→行为→输出链清晰明确
-- [ ] **定义的约束**：限制部分涵盖了域中的常见故障模式
-- [ ] **资产边界**：Skill 未承载应由 Spec / Protocol / Rule 承载的权威定义；必要拆分已说明
-- [ ] **执行适配**：外部工具和 MCP 工具具备发现、能力映射、缺失处理路径
-- [ ] **仓库契约**：已应用 `AGENTS.md`、术语定义、外部链接和语言规则
-- [ ] **示例全面**：至少提供 2 个示例，包括一种边缘情况或具有挑战性的场景
-- [ ] **记录的更改**：差异摘要列出了所有更改以及部分、描述和原因
-- [ ] **建议版本**：提供 SemVer 建议并说明理由
+- **Overwrite by default, but it must stay auditable**: the default strategy overwrites the source `SKILL.md` directly, but the frontmatter `version` must be updated in step and the output carries a complete change summary, which is what keeps it auditable.
+- **Respect an explicit "draft mode" request**: where the user explicitly asks "do not modify the original" or "only produce a refined draft", the source `SKILL.md` must not be overwritten; write only to a temporary or new refined file.
+- **Do not change the intent**: the optimisation must preserve the skill's core purpose.
+- **Do not dress a split suggestion up as done**: if only the Skill's reference changed and no Spec / Protocol / Rule was actually created, the output must say "split suggested" and must not claim the asset already exists.
+- **Do not route around the local contract**: in a repository that forbids external fetching by default, an external URL must not be written in as a source that execution depends on; it serves only as a reference source where conditions allow.
+- **Write less prose**: prefer lists and tables over long narrative paragraphs.
+- **Several examples**: do not keep only one "happy path" example; include at least one challenging or extreme case.
 
-### 流程质量检查
+### Skill Boundaries (avoid overlap)
 
-- [ ] **自举**：此技能能否成功作用于自身（精炼自身）？
-- [ ] **清晰度**：没有域背景的代理能否重现行为结果？
-- [ ] **合规性**：是否存在所有必填部分和元数据字段？
-- [ ] **意图保留**：精炼后的技能是否保持了原技能的核心目的？
-- [ ] **精确**：动词是否具体且明确（不是“处理”等模糊术语）？
-- [ ] **交互策略**（规范§4.3）：行为是否有默认或基于选择的交互（如果适用）？
-- [ ] **触发器**（可选）：对于高可发现性技能，是否建议使用“触发器”？
+**Do not do these (other skills handle them)**:
 
-### 验收测试
+- **Create a new skill from scratch**: generating the initial skill structure and content → handled separately through the repository contribution process; an external skill-creator must not be installed ad hoc
+- **Project documentation**: generate a README → use `generate-standard-readme`; generate AGENTS.md → use `generate-agent-entry`
+- **Decontextualise text**: strip PII or sensitive information → use `decontextualize-text`
 
-**AI Agent 能否在不同的环境中一致地应用这种精炼的技能而不会产生歧义？**
+**When to stop and hand off**:
 
-如果否：技能需要进一步完善。查看“行为”部分以确保清晰并添加更具体的说明。
-
-如果是：细化已完成。向用户提供差异摘要和版本推荐。
+- The user says "looks good", "approved", "commit this" → the refinement is done; hand off to the user for version control
+- The user asks "how do I create a new skill?" → hand off to the repository contribution guide and the agentskills.io spec
 
 ---
 
-## 示例 (Examples)
+## Self-Check
 
-### 之前
+### Core Success Criteria (all must be met)
 
-> 名称：拼写检查
-> 该技能检查拼写。
-> 输入：多语言文本。
-> 输出：更正后的文本。
+- [ ] **Structurally compatible**: the skill follows the standard template (YAML, purpose, use cases, behavior, input and output, restrictions, self-check, examples)
+- [ ] **Logic is clear**: the input → behavior → output chain is clear and unambiguous
+- [ ] **Constraints defined**: the restrictions section covers the failure modes common to the domain
+- [ ] **Asset boundaries**: the Skill carries no authoritative definition that belongs to a Spec / Protocol / Rule; any necessary split is stated
+- [ ] **Execution adaptation**: external tools and MCP tools have a discovery, capability-mapping, and missing-tool handling path
+- [ ] **Repository contract**: `AGENTS.md`, the terminology definitions, and the external-link and language rules are applied
+- [ ] **Examples are thorough**: at least 2 examples, one of them an edge case or a challenging scenario
+- [ ] **Changes recorded**: the diff summary lists every change together with its section, description, and reason
+- [ ] **Version proposed**: a SemVer proposal is given, with its rationale
 
-### 之后
+### Process Quality Checks
 
-> 名称：波兰语-文本-拼写
-> 描述：多语言文档的上下文感知拼写和术语纠正。
-> 标签：[写作、质量控制]
-> 版本：1.1.0
+- [ ] **Bootstrapping**: can this skill be applied to itself successfully (refine itself)?
+- [ ] **Clarity**: can an agent with no domain background reproduce the behavior's result?
+- [ ] **Compliance**: are all the required sections and metadata fields present?
+- [ ] **Intent preserved**: does the refined skill keep the original skill's core purpose?
+- [ ] **Precision**: are the verbs concrete and unambiguous (not a vague term such as "process")?
+- [ ] **Interaction policy** (spec §4.3): does the behavior have default-based or choice-based interaction, where that applies?
+- [ ] **Triggers** (optional): for a high-discoverability skill, are "triggers" suggested?
+
+### Acceptance Test
+
+**Can an AI Agent apply this refined skill consistently across different environments, with no ambiguity?**
+
+If no: the skill needs further refinement. Go through the "Behavior" section for clarity and add more specific instructions.
+
+If yes: the refinement is done. Give the user the diff summary and the version recommendation.
+
+---
+
+## Examples
+
+### Before
+
+> Name: spell-check
+> This skill checks spelling.
+> Input: multilingual text.
+> Output: the corrected text.
+
+### After
+
+> Name: polish-text-spelling
+> Description: context-aware spelling and terminology correction for multilingual documents.
+> Tags: [writing, quality-control]
+> Version: 1.1.0
 >
 > ---
 >
-> **技能：拼写和术语**
+> **Skill: Spelling and Terminology**
 >
-> **目的**：识别并修复低级拼写错误和术语不一致，而不改变作者的意图或语气
+> **Purpose**: find and fix low-level spelling errors and terminology inconsistencies without changing the author's intent or tone
 >
-> **行为**
+> **Behavior**
 >
-> 1. 检测语言。
-> 2. 如果文本较长，则构建术语列表。
-> 3. 区分“打字错误”和“故意风格”。
+> 1. Detect the language.
+> 2. If the text is long, build a terminology list.
+> 3. Tell a "typo" apart from "deliberate style".
 >
-> **限制**：不要更改专有名词或特定缩写，除非明显错误
+> **Restrictions**: do not change proper nouns or specific abbreviations unless they are plainly wrong
 
-### 示例 2：边缘情况 — 草案不明确
+### Example 2: Edge case — an ambiguous draft
 
-- **输入**：技能草稿，其目的是“帮助用户处理文件”，没有用例或限制。
-- **预期**：确定意图（用具体动词替换“处理”：解析、转换、合并等）；添加用例和限制（例如，不要覆盖源代码；不要修改二进制文件）；添加至少一个边缘示例（例如空文件、非常大的文件、权限被拒绝）。
+- **Input**: a skill draft whose purpose is "help users process files", with no use cases and no restrictions.
+- **Expected**: pin down the intent (replace "process" with a concrete verb: parse, convert, merge, and so on); add use cases and restrictions (e.g. do not overwrite the source; do not modify binary files); add at least one edge-case example (e.g. an empty file, a very large file, permission denied).
