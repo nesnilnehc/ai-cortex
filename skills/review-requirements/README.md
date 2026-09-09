@@ -1,35 +1,35 @@
-# 审核要求
+# Review Requirements
 
-**状态**：已验证
+**Status**: Validated
 
-## 用途
+## Purpose
 
-从六个维度审查现有的质量需求文档：问题陈述的清晰度、需求的可测试性（验收标准 + R-NN ID）、约束清单完整性、范围界限（V1 边界）、需求 ID 格式和唯一性以及带有解决计划的开放问题。以标准格式发出结果列表，以便作者可以在移交给“设计解决方案”之前修复差距。
+Reviews an existing requirements document for quality across six dimensions: clarity of the problem statement, testability of the requirements (acceptance criteria + R-NN IDs), completeness of the constraint inventory, scope boundedness (the V1 boundary), requirement ID format and uniqueness, and open questions with a plan to resolve them. Emits a findings list in the standard format so the author can close the gaps before handing off to design-solution.
 
-## 何时使用
+## When to use
 
-- 预设计门：在调用“设计解决方案”之前验证需求文档。
-- 协作评审：团队成员撰写需求；第二方独立评估质量。
-- 导入需求：需求来自外部工具（Confluence、Notion、Jira），在此工作流程中使用之前需要进行质量评估。
--“分析-需求”后验证：独立检查是否满足所有成功标准。
+- Pre-design gate: validate the requirements document before invoking design-solution.
+- Collaborative review: a team member writes the requirements; a second party assesses the quality independently.
+- Imported requirements: requirements come from an external tool (Confluence, Notion, Jira) and need a quality assessment before they are used in this workflow.
+-post-analyze-requirements validation: an independent check that every success criterion is met.
 
-## 输入
+## Inputs
 
-- 需求文档（路径，例如 `docs/requirements-planning/<topic>.md`，或原始内容）。
-- 可选的项目背景或下游技能（例如“这提供了设计解决方案”）。
+- A requirements document (a path, for example `docs/requirements-planning/<topic>.md`, or the raw content).
+- Optional project background or the downstream skill (for example "this feeds design-solution").
 
-## 输出
+## Outputs
 
-- 结果列表：位置（章节标题或 R-NN ID）、类别=`需求-质量`、严重性、标题、描述、可选建议。
-- 零发现→确认文档已准备好用于“设计解决方案”。
+- Findings list: location (a section heading or an R-NN ID), category=`requirements-quality`, severity, title, description, optional suggestion.
+- Zero findings → confirmation that the document is ready for design-solution.
 
-## 生态
+## Ecosystem
 
-|领域 |价值|
-| :------------------------------------ | ：-------------------------------------------------------- |
-|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:分析需求 |
-|市场地位 |差异化|
+| Field | Value |
+| :------------------------------------ | :-------------------------------------------------------- |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:analyze-requirements |
+| market_position | differentiated |
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md) 了解清单、限制和输出合同。
+See [SKILL.md](./SKILL.md) for the checklist, the limits, and the output contract.

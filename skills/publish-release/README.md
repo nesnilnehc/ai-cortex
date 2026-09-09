@@ -1,11 +1,11 @@
-# 发布版本
+# Publish Release
 
-**状态**：实验性的
+**Status**: Experimental
 
-## 用途
+## Purpose
 
-消费 ready Release Package，按仓库约定执行 tag、构建、打包与 provider 发布，并返回可审计回执。
+Consumes a ready Release Package, carries out the repository's tag, build, package, and provider-release steps, and returns an auditable receipt.
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md)。
+See [SKILL.md](./SKILL.md).

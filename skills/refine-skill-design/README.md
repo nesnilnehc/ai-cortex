@@ -1,35 +1,35 @@
-# 完善技能设计
+# Refine Skill Design
 
-**状态**：已验证
+**Status**: Validated
 
-## 用途
+## Purpose
 
-审查并重构现有技能。应用元审计模型：意图、逻辑、约束、示例。符合规范，提高稳健性和场景覆盖范围。对于草稿和质量修复；不是为了从头开始创造新技能。
+Reviews and refactors an existing skill. Applies a meta-audit model: intent, logic, constraints, examples. Brings the skill into spec compliance and improves its robustness and scenario coverage. For drafts and quality fixes; not for creating a new skill from scratch.
 
-## 何时使用
+## When to use
 
-- 新技能培训：草稿生成后的专家评审
-- 质量修复：行为不一致时调整逻辑
-- 一致性审查：匹配 INDEX.md 中的标记和命名
-- 升级：将简单的格式化变成完整的Agent功能
+- New skill onboarding: expert review after a draft is generated
+- Quality fix: adjust the logic when the behaviour is inconsistent
+- Consistency review: match the tags and naming in INDEX.md
+- Upgrade: turn plain formatting into a full agent capability
 
-## 输入
+## Inputs
 
-- SKILL Markdown 文档或草稿
+- A SKILL Markdown document or draft
 
-## 输出
+## Outputs
 
-- 优化SKILL（写入固定临时“SKILL.refined.md”或每次运行新的“SKILL.refined.YYYYMMDD.md”；永远不会覆盖原始文件）
-- 差异摘要（发生了什么变化以及原因）
-- 版本建议（SemVer）
+- A refined SKILL (written to a fixed temporary "SKILL.refined.md", or to a new "SKILL.refined.YYYYMMDD.md" per run; the original file is never overwritten)
+- A diff summary (what changed and why)
+- A version suggestion (SemVer)
 
-## 生态
+## Ecosystem
 
-|领域|价值|
-| :------------------------------------ | ：------------------------------------------------------------------------------------ |
-|overlaps_with（所有者/存储库：技能名称）| nesnilnehc/ai-cortex:策划技能，nesnilnehc/ai-cortex:发现技能 |
-|市场地位 |差异化|
+| Field | Value |
+| :------------------------------------ | :------------------------------------------------------------------------------------ |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:curate-skills, nesnilnehc/ai-cortex:discover-skills |
+| market_position | differentiated |
 
-## 完整定义
+## Full definition
 
-请参阅 [SKILL.md](./SKILL.md) 了解完整的行为、限制和示例。
+See [SKILL.md](./SKILL.md) for the full behaviour, the limits, and the examples.

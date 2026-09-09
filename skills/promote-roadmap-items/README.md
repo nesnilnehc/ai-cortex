@@ -1,42 +1,42 @@
-# 晋升 Roadmap 条目（Promote Roadmap Items）
+# Promote Roadmap Items
 
-把已评分的 backlog 条目按战略目标容量分配晋升到 roadmap 的 Now / Next / Later 槽位。事件驱动，不绑固定周期。
+Promotes scored backlog items into the roadmap's Now / Next / Later slots according to the capacity allocated to each strategic goal. Event-driven, not tied to a fixed cycle.
 
-## 用途
+## Purpose
 
-Roadmap planning ceremony 的支撑技能：读取 priority 已定的 backlog + 当前 roadmap + 战略目标容量分配，生成晋升 / 降级候选，用户逐项确认后更新 roadmap 和条目 status。
+The skill behind a roadmap planning ceremony: it reads the prioritized backlog, the current roadmap, and the capacity allocation across strategic goals, produces promotion and demotion candidates, and — once the user confirms each one — updates the roadmap and the item status.
 
-## 何时使用
+## When to use
 
-- **容量释出**：上一批 Now 层条目完成后
-- **战略刷新**：战略目标或容量分配调整后
-- **大缺口补入**：`plan-next` 输出的治理大缺口被 capture + prioritize 后进入晋升
-- **按需 planning**：用户主动启动，不绑定固定 cycle
+- **Capacity freed up**: after the previous batch of Now-tier items is done
+- **Strategy refresh**: after the strategic goals or the capacity allocation change
+- **Filling a large gap**: a large governance gap reported by `plan-next` reaches promotion once it has been captured and prioritized
+- **Planning on demand**: started by the user, not bound to a fixed cycle
 
-## 输入
+## Inputs
 
-- `docs/process-management/roadmap.md`（含战略目标容量分配）
-- priority 已定的 backlog 条目
+- `docs/process-management/roadmap.md` (including the capacity allocation across strategic goals)
+- Backlog items whose priority is already set
 - `docs/project-overview/strategic-goals.md`
 
-## 输出
+## Outputs
 
-- 对话决策表（晋升 + 降级）
-- `roadmap.md` 更新
-- 条目 frontmatter 更新（`status`、`promoted_at` / `demoted_at`、`strategic_goal_id` 等）
+- A decision table in the conversation (promotions plus demotions)
+- An updated `roadmap.md`
+- Updated item frontmatter (`status`, `promoted_at` / `demoted_at`, `strategic_goal_id`, and so on)
 
-## 安装
+## Installation
 
-统一由 AI Cortex 的 canonical 安装管理，见仓库根 [README](../../README.md#-install-and-use)。
+Installation is handled centrally by the AI Cortex canonical installer; see the repository root [README](../../README.md#-install-and-use).
 
-## 相关技能
+## Related skills
 
-- `prioritize-backlog` —— 上游：提供 priority 已定的 backlog 条目
-- `define-roadmap` —— 上游结构依赖：定义 roadmap 和容量分配
-- `design-strategic-goals` —— 上游依赖：提供战略目标
-- `capture-work-items` —— 下游：处理新晋升的 Now 项需要补充的需求记录
-- `plan-next` —— 信号源：大缺口通过 capture-work-items → prioritize-backlog → 本技能进入 Now
+- `prioritize-backlog` — upstream: supplies backlog items whose priority is already set
+- `define-roadmap` — upstream structural dependency: defines the roadmap and the capacity allocation
+- `design-strategic-goals` — upstream dependency: supplies the strategic goals
+- `capture-work-items` — downstream: records the requirements a newly promoted Now item still needs
+- `plan-next` — signal source: a large gap reaches Now via capture-work-items → prioritize-backlog → this skill
 
-## 完整定义
+## Full definition
 
-参见 [SKILL.md](./SKILL.md)。
+See [SKILL.md](./SKILL.md).
