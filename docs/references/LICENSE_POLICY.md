@@ -6,31 +6,31 @@ created_at: 2026-03-24
 status: active
 ---
 
-# 许可证策略
+# License policy
 
-本文件定义 AI Cortex 原创 Skills 与外部派生 Skills 的许可证和通知要求。
+This file defines the license and notice requirements for AI Cortex's original skills and for externally derived ones.
 
-## 1. 原创 Skill
+## 1. Original skills
 
-- AI Cortex 原创 `skills/*/SKILL.md` 默认声明 `license: MIT`。
-- 仓库根 [`LICENSE`](../../LICENSE) 覆盖 AI Cortex 原创内容，不覆盖另有明确许可证的 vendored 内容。
+- An original AI Cortex `skills/*/SKILL.md` declares `license: MIT` by default.
+- The [`LICENSE`](../../LICENSE) at the repository root covers AI Cortex's original content. It does not cover vendored content that carries a license of its own.
 
-## 2. 外部派生 Skill
+## 2. Externally derived skills
 
-- 所有外部派生 Skill 必须作为审核后的本地副本进入 `skills/`，并登记在 [`skills/SOURCES.yaml`](../../skills/SOURCES.yaml)。
-- 来源必须固定到完整 commit、Git tree 和 `SKILL.md` SHA-256；不得以 branch、tag、`latest` 或 raw URL 作为发布依据。
-- 只接受明确允许复制、修改和再分发的许可证。MIT、Apache-2.0、BSD-2-Clause、BSD-3-Clause 可进入评审；未发现许可证或许可证不明确时不得 vendor。
-- Skill frontmatter 的 `license` 必须反映该本地副本实际适用的 SPDX license expression，不得为统一外观把 Apache-2.0 派生内容标成 MIT。
-- 必须保留上游要求的版权与许可证文本；集中通知见 [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md)，完整许可证可随 Skill 保存为 `LICENSE.upstream`。
+- Every externally derived skill must enter `skills/` as a reviewed local copy and be registered in [`skills/SOURCES.yaml`](../../skills/SOURCES.yaml).
+- The source must be pinned to a full commit, a Git tree and the SHA-256 of `SKILL.md`. A branch, a tag, `latest` or a raw URL must never be the basis for distribution.
+- Only a license that explicitly permits copying, modification and redistribution is accepted. MIT, Apache-2.0, BSD-2-Clause and BSD-3-Clause may go to review; where no license is found, or the license is unclear, the skill must not be vendored.
+- A skill's frontmatter `license` must carry the SPDX license expression that actually applies to that local copy. Labelling Apache-2.0-derived content as MIT for the sake of a uniform look is forbidden.
+- The copyright and license text the upstream requires must be preserved. The central notices are in [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md), and the full license may be kept alongside the skill as `LICENSE.upstream`.
 
-## 3. 维护与发布
+## 3. Maintenance and release
 
-- 上游检查和更新只发生在维护期，经过 diff、许可证、脚本和资产复核后合并；Agent 运行时不得安装或升级外部 Skill。
-- 从 `skills/SOURCES.yaml`、本地文件和许可证通知生成 SPDX；SPDX 是发布审计产物，不替代来源清单或更新流程。
-- 删除外部派生 Skill 时同步删除来源登记、无其他使用者的许可证副本和通知条目；Git 历史保留旧版本溯源。
+- Checking and updating the upstream happens only during maintenance, and lands after the diff, the license, the scripts and the assets have all been re-reviewed. An agent must never install or upgrade an external skill at runtime.
+- SPDX is generated from `skills/SOURCES.yaml`, the local files and the license notices. It is a release audit artifact and replaces neither the source registry nor the update process.
+- When an externally derived skill is deleted, remove its source registration, any license copy no longer used by anything else, and its notice entry at the same time. Git history keeps the provenance of the old version.
 
-## 4. 参考
+## 4. References
 
-- [skill-source-modeling.md](../../specs/skill-source-modeling.md)：来源清单数据契约
-- [ATTRIBUTIONS.md](./ATTRIBUTIONS.md)：当前外部派生 Skill 人工索引
-- [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md)：许可证与版权通知
+- [skill-source-modeling.md](../../specs/skill-source-modeling.md): the data contract for the source registry
+- [ATTRIBUTIONS.md](./ATTRIBUTIONS.md): the human index of the externally derived skills
+- [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md): the license and copyright notices
