@@ -36,9 +36,9 @@ status: active
 
 ### 3. Clarity — is it unambiguous?
 
-- [ ] **Metrics are triplets**: current value / target value / reference point. The reference is an industry benchmark, the project's own history, or an empirical threshold; where there is none, write 「项目自定（无外部基准）」
-- [ ] Milestones use the outcome form (`让 [客群] 能够 [达成某事]，从而 [业务影响]`) rather than the name of a deliverable
-- [ ] Strategic bets use the falsifiable hypothesis form (`我们相信 [做 X] 对 [人群] 会带来 [结果]，因为 [假设]`) rather than a noun phrase
+- [ ] **Metrics are triplets**: current value / target value / reference point. The reference is an industry benchmark, the project's own history, or an empirical threshold; where there is none, write "project-defined (no external benchmark)"
+- [ ] Milestones use the outcome form (`let [segment] be able to [achieve something], so that [business impact]`) rather than the name of a deliverable
+- [ ] Strategic bets use the falsifiable hypothesis form (`We believe [doing X] brings [result] for [audience], because [assumption]`) rather than a noun phrase
 - [ ] The Later tier states direction only, with no specific dates
 
 ### 4. Soundness — does this roadmap hold up?
