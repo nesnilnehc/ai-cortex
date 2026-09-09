@@ -9,7 +9,7 @@ indent_style = space
 indent_size = 2
 
 [*.md]
-# Markdown 中行尾双空格是换行语义，不做裁剪
+# In markdown a double space at end of line means a line break, so keep it
 trim_trailing_whitespace = false
 
 [*.sh]
