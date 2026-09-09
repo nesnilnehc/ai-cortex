@@ -5,32 +5,32 @@ scope: 代码重构、含模块引用的代码变更
 recommended_scope: both
 ---
 
-# Rule: 代码重构引用管理 (Import Management)
+# Rule: Import Management
 
-## 适用范围 (Scope)
+## Scope
 
-所有涉及新增、删除、重命名文件或类，或修改命名空间的代码变更。适用于使用 `using`、`import` 等模块引用的语言与项目。
+Every change that adds, removes or renames a file or class, or modifies a namespace. Applies to any language or project that uses module references such as `using` or `import`.
 
-## 强制约束 (Constraints)
+## Constraints
 
-1. **同步更新引用**：在修改代码后必须立即检查并同步更新所有相关的 `using`、`import` 或其他形式的模块引用。
-2. **新增**：添加新依赖时，在文件顶部添加相应引用语句。
-3. **删除**：移除某类的所有引用时，删除不再需要的引用语句。
-4. **修改**：重命名或移动文件/类时，立即更新所有引用该文件/类的语句。
-5. **排序**：引用按以下顺序分组且组内无空行：标准库 → 第三方库 → 本地/项目内引用。
-6. **无空行**：`using` 或 `import` 语句之间不得添加空行。
-7. **避免别名**：优先使用完整命名空间；仅在命名空间过长或存在命名冲突时使用别名，并添加注释说明原因。
-8. **验证**：引用更新完成后须执行编译、构建或代码检查以验证正确性。
+1. **Update references together with the code**: after modifying code you must immediately check and update every affected `using`, `import` or equivalent module reference.
+2. **Additions**: when adding a new dependency, add the corresponding reference statement at the top of the file.
+3. **Removals**: when the last reference to a class is gone, delete the now-unnecessary reference statement.
+4. **Renames and moves**: when a file or class is renamed or moved, update every statement referring to it immediately.
+5. **Ordering**: group references in this order, with no blank line inside a group — standard library → third-party libraries → local or in-project references.
+6. **No blank lines**: a blank line must not be inserted between `using` or `import` statements.
+7. **Avoid aliases**: prefer the full namespace. Use an alias only when the namespace is excessively long or when there is a name collision, and add a comment explaining why.
+8. **Verify**: after updating references you must run a compile, build or lint pass to confirm correctness.
 
-## 违规示例 (Bad Patterns)
+## Bad Patterns
 
-- 重命名类后未更新其他文件中的 import。
-- 引用语句组之间或组内插入空行。
-- 无必要地使用 `using Alias = Long.Namespace` 且未注释原因。
-- 引用顺序混乱（如本地引用夹在标准库与第三方之间）。
+- A class renamed, but imports in other files left pointing at the old name.
+- Blank lines inserted between or within reference groups.
+- `using Alias = Long.Namespace` used without need and without a comment explaining why.
+- Reference order scrambled — a local reference sitting between standard library and third-party ones.
 
-## 修正指南 (Remediation)
+## Remediation
 
-1. 执行主要代码更改后，全局搜索受影响的符号，逐一更新引用。
-2. 按「标准库 → 第三方 → 本地」重新排序并移除引用间的空行。
-3. 运行构建/静态检查，修复因引用错误导致的失败。
+1. After the main code change, search the whole repository for the affected symbol and update each reference.
+2. Re-sort into "standard library → third-party → local" and remove blank lines between references.
+3. Run the build or static check and fix whatever the broken references caused to fail.

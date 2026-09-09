@@ -5,34 +5,34 @@ scope: 所有 *.sh 脚本
 recommended_scope: user
 ---
 
-# Rule: Shell 脚本编码标准 (Shell Coding)
+# Rule: Shell Coding Standards
 
-## 适用范围 (Scope)
+## Scope
 
-所有 Bash/Shell 脚本（`*.sh`）。在编辑或生成此类文件时自动适用。
+This rule applies automatically whenever a Bash or Shell script (`*.sh`) is edited or generated.
 
-## 强制约束 (Constraints)
+## Constraints
 
-1. **严格模式**：始终使用 `set -euo pipefail`。
-2. **日志**：使用标准日志函数（如 `log_debug`、`log_info`、`log_error`），禁止直接 `echo "[DEBUG]"`、`echo "[INFO]"` 等。
-3. **函数注释**：必须包含参数与返回值说明（如 `# 参数: $1 - 说明, $2 - 说明（可选）`、`# 返回: 0 成功，1 失败`）。
-4. **模块分隔**：使用 `# =============================================================================` 与模块名称作为分隔。
-5. **错误处理**：实现 `trap` 错误捕获（如 `trap 'log_error "错误: 第 $LINENO 行"; exit 1' ERR`）。
-6. **命名**：全局变量 `UPPER_CASE`，局部变量与函数名 `lower_case`，常量使用 `readonly`。
-7. **变量引用**：始终使用引号（`"$VAR"`、`"${VAR:-default}"`），避免未加引号的 `$VAR`。
-8. **条件测试**：使用 `[[ ]]` 而非 `[ ]`（如 `[[ -f "$file" ]]`、`[[ "$str" == "value" ]]`）。
+1. **Strict mode**: always `set -euo pipefail`.
+2. **Logging**: use the standard log functions (`log_debug`, `log_info`, `log_error`). Never `echo "[DEBUG]"`, `echo "[INFO]"` or similar directly.
+3. **Function comments**: document parameters and return value (for example `# 参数: $1 - 说明, $2 - 说明（可选）`, `# 返回: 0 成功，1 失败`).
+4. **Section separators**: use `# =============================================================================` followed by the section name.
+5. **Error handling**: install a `trap` (for example `trap 'log_error "错误: 第 $LINENO 行"; exit 1' ERR`).
+6. **Naming**: `UPPER_CASE` for globals, `lower_case` for locals and function names, `readonly` for constants.
+7. **Variable expansion**: always quote — `"$VAR"`, `"${VAR:-default}"`. Avoid bare `$VAR`.
+8. **Conditionals**: use `[[ ]]`, not `[ ]` (for example `[[ -f "$file" ]]`, `[[ "$str" == "value" ]]`).
 
-## 违规示例 (Bad Patterns)
+## Bad Patterns
 
-- 脚本未使用 `set -euo pipefail` 或未设置 `trap`。
-- 使用 `echo "[INFO] ..."` 而非统一日志函数。
-- 函数无参数/返回值注释。
-- 变量未加引号（`$VAR`）或在 `[ ]` 中测试文件。
+- A script without `set -euo pipefail`, or without a `trap`.
+- `echo "[INFO] ..."` instead of the shared log function.
+- A function with no parameter or return documentation.
+- Unquoted variables (`$VAR`), or file tests inside `[ ]`.
 
-## 修正指南 (Remediation)
+## Remediation
 
-1. 在脚本头部加入 `set -euo pipefail` 与 `trap`。
-2. 定义并统一使用 `log_*` 函数，替换所有直接 echo 的日志。
-3. 为每个函数补充 `# 参数`、`# 返回` 注释。
-4. 变量引用改为 `"$VAR"`；条件改为 `[[ ... ]]`。
-5. 提交前执行 `bash -n script.sh` 做语法检查。
+1. Add `set -euo pipefail` and a `trap` at the top of the script.
+2. Define and consistently use `log_*` functions; replace every direct echo used for logging.
+3. Add parameter and return-value comments to each function (this repository uses `# 参数` / `# 返回`).
+4. Quote every expansion as `"$VAR"`; convert conditionals to `[[ ... ]]`.
+5. Run `bash -n script.sh` for a syntax check before committing.

@@ -5,29 +5,29 @@ scope: 全局文档产出
 recommended_scope: user
 ---
 
-# Rule: 中文技术写作规范 (Chinese Technical Writing)
+# Rule: Chinese Technical Writing
 
-## 适用范围 (Scope)
+## Scope
 
-本规则适用于本项目内所有中文化文档、代码注释及 Agent 中文输出内容。哪些资产使用中文由 [docs/LANGUAGE_SCHEME.md](../docs/LANGUAGE_SCHEME.md) 定义；凡使用中文的文档须符合本规范，并遵循 [rules/INDEX.md](./INDEX.md) 的规则注册约定。
+Applies to every Chinese-language document, Chinese code comment and Chinese agent output in this project. [docs/LANGUAGE_SCHEME.md](../docs/LANGUAGE_SCHEME.md) decides which assets are written in Chinese; any document that does use Chinese must conform to this rule and follow the registration conventions in [rules/INDEX.md](./INDEX.md).
 
-## 强制约束 (Constraints)
+## Constraints
 
-1. **中英文间距**：汉字与英文单词、数字之间必须保留一个空格（如：“使用 Git 提交”而非“使用Git提交”）。
-2. **数字与单位**：数字与单位之间须加空格（如：“10 Gbps”“20 TB”而非“10Gbps”“20TB”）；英文和半角数字与全角标点之间不加空格。
-3. **术语统一**：优先使用本项目 `specs/` 定义的术语中文译名，并在首次出现时保留括号英文。
-4. **标点符号**：中文句子使用全角标点，英文句子使用半角标点；数字使用半角字符。引用代码或术语时使用反引号（` `）。
-5. **用户界面文字**：提示类文字无需句末标点（如：“请输入用户名”）；完整句子使用句号「。」；避免使用感叹号「!」。
-6. **语气调性**：保持专业、干练的工程口吻，禁止出现过多的表情符号或无意义的助词（如：“哒”、“呢”）。
+1. **Chinese–Latin spacing**: one space must be kept between a Chinese character and an adjacent Latin word or digit — “使用 Git 提交”, not “使用Git提交”.
+2. **Numbers and units**: a space must be kept between a number and its unit — “10 Gbps”, “20 TB”, not “10Gbps”, “20TB”. Do not add a space between a Latin character or half-width digit and a full-width punctuation mark.
+3. **Terminology**: prefer the Chinese term defined under this project's `specs/`, and keep the English in parentheses on first use.
+4. **Punctuation**: full-width punctuation in Chinese sentences, half-width in English sentences, half-width digits throughout. Use backticks when quoting code or a term.
+5. **Interface strings**: prompts do not need terminal punctuation — “请输入用户名”. Complete sentences end with 「。」. Avoid 「!」.
+6. **Tone**: keep a professional, no-nonsense engineering voice. Text must not contain excessive emoji, nor filler particles such as “哒” or “呢”.
 
-## 违规示例 (Bad Patterns)
+## Bad Patterns
 
-- `使用Python进行开发` (缺少空格)
-- `10Gbps`、`20TB` (数字与单位间缺少空格)
-- `这个技能好厉害呀！` (语气不专业)
-- `请点击"确定"按钮` (应使用中文直角引号或无符号)
-- 界面提示句末加句号或感叹号（如：“请重试。”）
+- `使用Python进行开发` — missing space
+- `10Gbps`, `20TB` — missing space between number and unit
+- `这个技能好厉害呀！` — unprofessional tone
+- `请点击"确定"按钮` — should use Chinese corner brackets, or no quotes at all
+- An interface prompt ending in a period or exclamation mark — “请重试。”
 
-## 修正指南 (Remediation)
+## Remediation
 
-发现违规时，Agent 应立即重写受影响的内容块，确保符合本规范要求。
+When a violation is found, immediately rewrite the affected block until it conforms.
