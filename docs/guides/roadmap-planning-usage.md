@@ -6,90 +6,90 @@ created_at: 2026-09-09
 status: active
 ---
 
-# 路线图规划链路使用指南
+# Using the roadmap planning chain
 
-面向使用者：从战略目标到条目进入 Now，这条链上有九个技能，本文说明什么时候用哪个、以及第一次用会撞上什么。
+For users: nine skills sit on the chain from strategic goals to items entering Now. This page says when to reach for each, and what you will run into the first time.
 
-各技能的权威定义在各自的 `SKILL.md`，执行顺序与档位的权威定义在 [orchestrate-roadmap-planning](../../skills/orchestrate-roadmap-planning/SKILL.md)。本文不复述这些，只讲怎么进门。
+Each skill is defined authoritatively in its own `SKILL.md`, and the execution order and tiering in [orchestrate-roadmap-planning](../../skills/orchestrate-roadmap-planning/SKILL.md). This page restates neither; it only tells you how to get in the door.
 
 ---
 
-## 1. 绝大多数情况：一句话
+## 1. Almost always: one line
 
 ```text
 /orchestrate-roadmap-planning
 ```
 
-它先做体检，判断当前卡在哪一环，再只执行需要执行的步骤，跳过的会在报告里说明原因。**不需要自己判断该调哪个技能**——这正是它存在的理由。
+It checks the roadmap's health first, works out which link in the chain you are stuck on, then runs only the steps that need running; whatever it skips, the report says why. **You do not have to work out which skill to call** — that is exactly why it exists.
 
-也可以不用斜杠命令，直接说「跑一轮路线图规划」。
+You can skip the slash command and just say "run a round of roadmap planning".
 
 ---
 
-## 2. 按状态找入口
+## 2. Finding the entry point from where you are
 
-明确知道自己要干什么时，直接点名单个技能更快。
+When you know exactly what you want, naming a single skill is faster.
 
-| 你的处境 | 用哪个 |
+| Where you are | What to use |
 | :--- | :--- |
-| 想知道这份路线图有什么问题 | [`review-roadmap`](../../skills/review-roadmap/SKILL.md) |
-| 战略目标还没有 | [`design-strategic-goals`](../../skills/design-strategic-goals/SKILL.md) |
-| 要从战略目标建一份路线图 | [`define-roadmap`](../../skills/define-roadmap/SKILL.md) |
-| 有个需求 / 缺陷要记下来 | [`capture-work-items`](../../skills/capture-work-items/SKILL.md) |
-| 积压该重排优先级了 | [`prioritize-backlog`](../../skills/prioritize-backlog/SKILL.md) |
-| 想搞清楚条目之间谁卡谁 | [`map-item-dependencies`](../../skills/map-item-dependencies/SKILL.md) |
-| 要把条目拉进 Now | [`promote-roadmap-items`](../../skills/promote-roadmap-items/SKILL.md) |
-| 某项卡住了 / 要挪期 | [`update-roadmap`](../../skills/update-roadmap/SKILL.md) |
-| 里程碑做完了要归档 | [`archive-milestone`](../../skills/archive-milestone/SKILL.md) |
+| You want to know what is wrong with this roadmap | [`review-roadmap`](../../skills/review-roadmap/SKILL.md) |
+| There are no strategic goals yet | [`design-strategic-goals`](../../skills/design-strategic-goals/SKILL.md) |
+| You want to build a roadmap from the strategic goals | [`define-roadmap`](../../skills/define-roadmap/SKILL.md) |
+| You have a requirement or a defect to write down | [`capture-work-items`](../../skills/capture-work-items/SKILL.md) |
+| The backlog needs re-prioritising | [`prioritize-backlog`](../../skills/prioritize-backlog/SKILL.md) |
+| You want to see which items block which | [`map-item-dependencies`](../../skills/map-item-dependencies/SKILL.md) |
+| You want to pull items into Now | [`promote-roadmap-items`](../../skills/promote-roadmap-items/SKILL.md) |
+| Something is stuck, or the dates have to move | [`update-roadmap`](../../skills/update-roadmap/SKILL.md) |
+| A milestone is finished and needs archiving | [`archive-milestone`](../../skills/archive-milestone/SKILL.md) |
 
-用白话描述也能匹配上——匹配规则见 [AGENTS.md](../../AGENTS.md) §4，各技能的 `triggers` 字段就是为此准备的。
-
----
-
-## 3. 两个会挡住你的地方
-
-这两个都是设计如此，不是故障。
-
-### 3.1 晋升时说「缺容量分配」
-
-`promote-roadmap-items` 的容量公式是「该目标的百分比 × 总容量基线」。这两个数都不在，它会停下来让你先跑 `define-roadmap`。
-
-**为什么不自动填**：容量分配是资源承诺，技能不允许替你推断。`define-roadmap` 会问你两件事——
-
-1. **总容量基线**：工程师人数 × 周期时长 − 已知开销（会议、oncall、假期），按有效工时 60–70% 折算。未规划工作的缓冲在这一步就让出去了，所以后面的百分比是相对于有效容量，不是日历容量。
-2. **各战略目标的百分比**：之和必须为 100%，且工程健康类目标不得为 0%——这类工作没有战略代言，在价值竞争里永远排不进容量。
-
-### 3.2 治理文档全空时不会从零盘问你
-
-新项目跑 `design-strategic-goals`，如果愿景与北极星都还没有，它不会一条条问你要答案，而是从仓库实证反推候选目标：README 与 AGENTS.md 看意图，CHANGELOG 与 git log 看实际投入方向，代码结构看能力边界，backlog 看未满足的需要。
-
-**但产出会被明确标记**：每条候选目标都附指向具体文件的推断依据，推不出依据的不写；未经你逐条确认不落盘；文档头部留「缺上游背书、属临时锚」的标记。补齐愿景与北极星后应当重跑。
-
-理由很直接——实证反推出来的目标读着会很顺、很自洽，恰恰因此最容易是脑补在填空。挂上依据、要你确认，是为了让你能当场证伪。
+Plain description matches too — the matching rules are in [AGENTS.md](../../AGENTS.md) §4, and each skill's `triggers` field exists for exactly this.
 
 ---
 
-## 4. 依赖为什么要在晋升之前排
+## 3. Two places that will stop you
 
-`map-item-dependencies` 排在 `promote-roadmap-items` 前面，是整条链顺序上最关键的一处。
+Both are by design, not a fault.
 
-优先级高不代表现在拉得动。一个 P0 条目如果前置还躺在 backlog 里，晋升进 Now 之后就是占着容量不产出，而容量报告看起来是满的。所以 Now 层准入有两个条件：排名靠前，**且**无未决前置依赖。
+### 3.1 Promotion says the capacity allocation is missing
 
-条目没登记过依赖时，`promote-roadmap-items` 不会静默放行，会提示先跑依赖登记；你坚持继续的话，候选表里会标「依赖未排查」。
+`promote-roadmap-items` computes capacity as "that goal's percentage × the total capacity baseline". With neither number present, it stops and sends you to `define-roadmap` first.
+
+**Why it does not fill them in for you**: a capacity allocation is a commitment of resources, and a skill is not allowed to infer one on your behalf. `define-roadmap` asks you two things:
+
+1. **The total capacity baseline**: engineer count × cycle length − known overhead (meetings, oncall, holidays), discounted to 60–70% effective hours. The buffer for unplanned work is given up at this step, so the percentages that follow are relative to effective capacity, not calendar capacity.
+2. **The percentage per strategic goal**: they must sum to 100%, and an engineering-health goal must not be 0% — that kind of work has no advocate in the strategy, and never wins capacity in a contest of value.
+
+### 3.2 With the governance documents empty, it does not interrogate you from scratch
+
+Run `design-strategic-goals` on a new project with no vision and no North Star, and it does not ask you for answers one field at a time. It works candidate goals back out of the evidence in the repository: README and AGENTS.md for intent, CHANGELOG and git log for where effort actually went, the code structure for the boundaries of what exists, the backlog for needs not yet met.
+
+**The output is marked as such**: every candidate goal carries the evidence it was inferred from, pointing at a specific file, and one with no evidence is not written at all; nothing lands on disk until you confirm it item by item; and the document's header carries a note that it lacks upstream backing and is a temporary anchor. Once the vision and North Star exist, it should be run again.
+
+The reason is blunt: a goal reasoned back out of evidence reads smoothly and hangs together, and that is precisely what makes it most likely to be invention filling a gap. Attaching the evidence and asking you to confirm is what lets you falsify it on the spot.
 
 ---
 
-## 5. 判据在哪
+## 4. Why dependencies are mapped before promotion
 
-路线图该长什么样、哪些算问题，判据统一在 [rules/roadmap-quality.md](../../rules/roadmap-quality.md)。生产侧（`define-roadmap`）、诊断侧（`plan-next`）、评审侧（`review-roadmap`）都引用同一份，改判据改那里，不改技能。
+Putting `map-item-dependencies` ahead of `promote-roadmap-items` is the most important ordering decision on the whole chain.
+
+High priority does not mean it can be pulled now. Promote a P0 item whose prerequisite is still sitting in the backlog and it occupies capacity in Now while producing nothing — and the capacity report shows full. So entry to Now has two conditions: it ranks near the top, **and** it has no unresolved prerequisite.
+
+Where an item has no dependencies recorded, `promote-roadmap-items` does not wave it through silently: it tells you to record dependencies first, and if you press on regardless, the candidate table marks it "dependencies not checked".
 
 ---
 
-## 6. 与 plan-next 的区别
+## 5. Where the criteria live
 
-两个都能告诉你「下一步做什么」，但覆盖面不同：
+What a roadmap has to look like, and what counts as a problem, is settled in one place: [rules/roadmap-quality.md](../../rules/roadmap-quality.md). The producing side (`define-roadmap`), the diagnosing side (`plan-next`) and the reviewing side (`review-roadmap`) all cite that same file. To change a criterion, change it there — not in a skill.
 
-- [`plan-next`](../../skills/plan-next/SKILL.md) 回答「整个项目下一步该干什么」，跨使命到任务全层，只读不执行。
-- `orchestrate-roadmap-planning` 回答「路线图这条线，从战略到晋升一次走完」，只管这一条纵切片，会实际执行。
+---
 
-治理层面不确定该往哪走时先跑 `plan-next`；确定要推进路线图时用 `orchestrate-roadmap-planning`。
+## 6. How this differs from plan-next
+
+Both tell you what to do next, but they cover different ground:
+
+- [`plan-next`](../../skills/plan-next/SKILL.md) answers "what does the whole project do next", across every layer from mission to task. It reads; it does not execute.
+- `orchestrate-roadmap-planning` answers "take the roadmap line from strategy through to promotion in one pass". It covers only that vertical slice, and it does execute.
+
+When you are unsure where governance goes next, run `plan-next` first; when you have decided to move the roadmap forward, use `orchestrate-roadmap-planning`.
