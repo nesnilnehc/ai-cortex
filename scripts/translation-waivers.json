@@ -11,5 +11,6 @@
   "rules/workflow-documentation.md::identifiers": "新增的适用范围声明句列举了英文侧待补的检测词（deprecated / TBD）。中文原文靠『模式本身是中文』隐式传达适用范围，译为英文后该信息丢失，独立复核判定为语义漂移。补这句是还原原文含义，非新增约束。",
   "rules/repo-structure-hygiene.md::weak_constraints": "两处裸『应』：「过期制品应：删除 / 归档 / 标 deprecated」与「文件名高度相似的不应共存」。标记表不收裸『应』（收录会误命中『应用 / 应对 / 响应』）。英文 should / should not 是忠实翻译。",
   "rules/writing-chinese-technical.md::weak_constraints": "违规示例中「应使用中文直角引号或无符号」用的是裸『应』，标记表不收。英文 should use 是忠实翻译。",
-  "rules/INDEX.md::weak_constraints": "§3「规则应作为『长期背景』注入 AI 运行时」用的是裸『应』，标记表不收。英文 should be injected 是忠实翻译，独立复核要求保住该处的指令语气。"
+  "rules/INDEX.md::weak_constraints": "§3「规则应作为『长期背景』注入 AI 运行时」用的是裸『应』，标记表不收。英文 should be injected 是忠实翻译，独立复核要求保住该处的指令语气。",
+  "specs/universal-notification.md::code_blocks": "§7 两个 JSON 示例 payload 中的 title / body / label 是面向读者的样例文案，非可执行代码；英文读者看中文样例无法判断字段用法。与 rules/standards-agent-testing.md 中译出代码块注释的处理一致。JSON 结构与字段名未动。"
 }
