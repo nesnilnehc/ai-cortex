@@ -570,8 +570,8 @@ Goal 1:
 - ❌ **Treating `status = approved` as the criterion for L1 done** — approved = the decision was approved ≠ acceptance met; confusing them skips the whole L1 subtree
 - ❌ **Bypassing L1 and reporting a middle layer (M5/tasks) directly** — answer "is the L1 acceptance KPI met" first, then drill down
 - ❌ A governance-context field with no current L1 acceptance-KPI value — it violates the "a route must lead back to the strategic goal's acceptance" constraint
-- ❌ Routing straight to downstream execution while the L1 acceptance-KPI data source is missing — the first route establishes the KPI data source
-- ❌ Forcing a downstream skill in when L5 is all pending — with the tasks already there, no governance skill applies, and the output is an "awaiting execution" card
+- ❌ Routing straight to downstream execution while the L1 acceptance-KPI data source is missing — the first route should establish the KPI data source
+- ❌ Forcing a downstream skill in when L5 is all pending — with the tasks already there, no governance skill applies, and the output should be an "awaiting execution" card
 - ❌ Not considering a parallel start when a blocked node is present — blocked is a parallelism signal
 - ❌ Recommending yet more parallel expansion when several nodes are in-progress and none blocked — the suggestion is to converge
 - ❌ Merging routes for several goals without naming each goal's source in the evidence

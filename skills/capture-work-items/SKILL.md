@@ -86,7 +86,7 @@ Capture a requirement, bug, or issue from free-form input and turn it into a str
 
 1. Resolve the project norms in the §8.2 discovery order → determine the `path_pattern` for `backlog-item` (default: `docs/process-management/project-board/backlog/YYYY-MM-DD-{slug}.md`, or the fallback `docs/backlog/YYYY-MM-DD-{slug}.md`; a project can override it with an aggregated form)
 2. Substitute using the §8.3 placeholder syntax; for a placeholder that does not resolve, follow §8.6 and ask the user
-3. If the caller's frontmatter input carries `upstream_ref` (which points at an upstream roadmap entry or requirement): emit `parent: <upstream_ref>` in the produced artifact's frontmatter
+3. If the caller's frontmatter input carries `upstream_ref` (which should point at an upstream roadmap entry or requirement): emit `parent: <upstream_ref>` in the produced artifact's frontmatter
 4. Record resolved_path plus the frontmatter delta, for the write that follows
 
 Note: by default the §3 path detection logic stands (whether `docs/process-management/` exists decides canonical vs fallback), but where a project declares an explicit `path_pattern` in `ARTIFACT_NORMS.md`, the project's declaration wins.
@@ -359,7 +359,7 @@ User: "Our API users get a generic 'something went wrong' with nothing actionabl
 
 Agent: "What would 'done' look like — at least one concrete acceptance criterion?"
 
-User: "An error response carries a code (ERR_001, for example) and a short human-readable message explaining what went wrong."
+User: "An error response should include a code (ERR_001, for example) and a short human-readable message explaining what went wrong."
 
 **Persist**: path detected — `docs/process-management/` does not exist. Write to "docs/backlog/2026-03-06-better-error-messages.md".
 
