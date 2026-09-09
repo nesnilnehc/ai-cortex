@@ -1,6 +1,6 @@
 # AI Cortex
 
-> 面向 Agent 与开发者的软件交付与项目治理资产库（技能、规范、协议、规则）。
+> An asset library for software delivery and project governance — skills, specs, protocols and rules — for agents and developers.
 
 ## Project
 
@@ -10,12 +10,12 @@
 
 ## Assets
 
-- [Skills](skills/INDEX.md) — 主动能力
-- [Protocols](protocols/INDEX.md) — 交互流程
-- [Rules](rules/INDEX.md) — 被动约束
-- [Specs](specs/INDEX.md) — 数据结构
+- [Skills](skills/INDEX.md) — active capabilities
+- [Protocols](protocols/INDEX.md) — interaction flows
+- [Rules](rules/INDEX.md) — passive constraints
+- [Specs](specs/INDEX.md) — data structures
 
 ## Working in this repo
 
-- 行为契约：[AGENTS.md](AGENTS.md)
-- 安装与使用：[README](README.md)
+- The execution contract: [AGENTS.md](AGENTS.md)
+- Install and use: [README](README.md)
