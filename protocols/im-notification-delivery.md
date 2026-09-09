@@ -12,133 +12,133 @@ scope: >
 related: [../specs/universal-notification.md]
 ---
 
-# IM 通知投递协议（INP）
+# IM Notification Delivery Protocol (INP)
 
-> **投递层**：定义"如何"渲染并投递到 IM 渠道
+> **Delivery layer**: defines *how* a notification is rendered and delivered to an IM channel
 >
-> 与 [UNP](../specs/universal-notification.md) 配套：UNP 定义"是什么"（通知的结构与意图）
+> Paired with [UNP](../specs/universal-notification.md), which defines *what* a notification is — its structure and intent
 
 ---
 
-## 参与方
+## Participants
 
-| 角色 | 职责 |
+| Role | Responsibility |
 |:---|:---|
-| **UNP 生产方**（业务系统） | 构造合规的 UNP 通知对象并提交给投递层 |
-| **INP 投递层**（本协议执行者） | 按优先级渲染、路由、去重、限流，适配渠道能力 |
-| **IM 渠道**（飞书 / 企微等） | 接收渠道适配后的消息并最终呈现给用户 |
+| **UNP producer** (the business system) | Constructs a conforming UNP notification object and hands it to the delivery layer |
+| **INP delivery layer** (this protocol's executor) | Renders by priority, routes, deduplicates, throttles, and adapts to the channel's capabilities |
+| **IM channel** (Feishu, WeCom and others) | Receives the channel-adapted message and presents it to the user |
 
 ---
 
-## 1. 核心原则
+## 1. Core principles
 
-- 渲染必须与 UNP 分离
-- 通知必须结构化（不允许自由文本）
-- 高优先级消息必须可操作
-- 必须控制通知噪音
+- Rendering must stay separate from UNP
+- Notifications must be structured; free text is not allowed
+- High-priority messages must be actionable
+- Notification noise must be kept under control
 
 ---
 
-## 2. 优先级策略
+## 2. Priority policy
 
-### P0（紧急，必须打断）
+### P0 — urgent, must interrupt
 
-**必须包含**：
+**Must include**:
 
-- `mention_user`（@相关人）
-- `interactive_card`（交互式卡片）
-- `actionable`（可操作）
-
-**禁止**：
-
-- `plain_text_only`（纯文本）
-
-### P1（重要）
-
-**必须包含**：
-
-- `mention_owner`（@责任人）
+- `mention_user`
+- `interactive_card`
 - `actionable`
 
-### P2（普通）
+**Forbidden**:
 
-**禁止**：
+- `plain_text_only`
+
+### P1 — important
+
+**Must include**:
+
+- `mention_owner`
+- `actionable`
+
+### P2 — normal
+
+**Forbidden**:
 
 - `mention_user`
 
-### P3（提示）
+### P3 — informational
 
-**禁止**：
+**Forbidden**:
 
 - `mention_user`
 
 ---
 
-## 3. 消息结构
+## 3. Message structure
 
-### 必填
+### Required
 
-- `header`（标题）
-- `body`（正文）
+- `header`
+- `body`
 
-### 可选
+### Optional
 
-- `fields`（字段）
-- `actions`（操作）
-- `footer`（页脚）
+- `fields`
+- `actions`
+- `footer`
 
-### 约束
+### Constraints
 
 **header**：
 
-- 必须包含 `priority`（优先级）和 `emoji`（情绪图标）
+- Must include `priority` and `emoji`
 
 **body**：
 
-- 最大长度 500 字符
+- At most 500 characters
 
 **actions**：
 
-- 最多 3 项
+- At most 3 items
 
 ---
 
-## 4. 渲染规则
+## 4. Rendering rules
 
-### 优先级 → 格式映射
+### Priority to format mapping
 
-| 优先级 | 渲染格式 |
+| Priority | Rendered format |
 |:---|:---|
-| P0 | card（卡片） |
+| P0 | card |
 | P1 | card |
 | P2 | markdown |
-| P3 | text（纯文本） |
+| P3 | text |
 
-### 渲染细则
+### Rendering detail
 
-- ❌ 不得直接渲染原始 JSON
-- ❌ 不得直接嵌入 stacktrace
-- ✅ 使用结构化字段替代长文本
+- ❌ Must not render raw JSON directly
+- ❌ Must not embed a stacktrace directly
+- ✅ Use structured fields in place of long text
 
 ---
 
-## 5. @人规则
+## 5. Mention rules
 
-| 优先级 | @ 谁 |
+| Priority | Who is mentioned |
 |:---|:---|
-| P0 | oncall（值班）+ owner（责任人）|
+| P0 | oncall and owner |
 | P1 | owner |
-| P2 | 不 @ |
-| P3 | 不 @ |
+| P2 | nobody |
+| P3 | nobody |
 
-### 约束
+### Constraints
 
-- 禁止手动 @
-- 禁止 @ 全员（@all）
+- Manual mentions are forbidden
+- Mentioning everyone (@all) is forbidden
 
 ---
 
-## 6. 路由规则
+## 6. Routing rules
 
 ```yaml
 routing:
@@ -151,69 +151,69 @@ routing:
 
 ---
 
-## 7. 反垃圾策略
+## 7. Anti-spam policy
 
-### 去重（dedup）
+### Deduplication
 
-- 必需：是
-- 键：`dedup_key`
+- Required: yes
+- Key: `dedup_key`
 
-### 限流（throttle）
+### Throttling
 
-- 必需：是
+- Required: yes
 
-### 限额
+### Rate limits
 
-| 优先级 | 速率限制 |
+| Priority | Rate limit |
 |:---|:---|
-| P0 | 每 5 分钟 1 条 |
-| P1 | 每 10 分钟 1 条 |
-| P2 | 批量发送 |
+| P0 | 1 per 5 minutes |
+| P1 | 1 per 10 minutes |
+| P2 | Batched |
 
 ---
 
-## 8. 渠道兼容性
+## 8. Channel compatibility
 
-### 飞书（Feishu）
+### Feishu
 
-**支持**：
+**Supports**:
 
-- card（交互卡片）
-- button（按钮）
-- callback（回调）
+- card
+- button
+- callback
 
-### 企业微信（WeCom）
+### WeCom
 
-**支持**：
+**Supports**:
 
 - markdown
 
-**限制**：
+**Limitations**:
 
-- 交互能力较弱
+- Weaker interactive capability
 
-### 兜底规则
+### Fallback rule
 
-若渠道不支持某能力，须优雅降级（graceful degradation）。
-
----
-
-## 9. 安全规则
-
-- webhook 不得硬编码
-- token 必须安全存储
-- 支持签名校验
+Where a channel does not support a capability, it must degrade gracefully.
 
 ---
 
-## 10. 执行摘要
+## 9. Security rules
 
-UNP → IM 消息的转换步骤：
+- A webhook must not be hard-coded
+- Tokens must be stored securely
+- Signature verification is supported
 
-1. 按 priority 映射渲染格式（card / markdown / text）
-2. 按路由规则注入 @ 信息
-3. 确保 P0 / P1 消息可操作
-4. 应用去重与限流
-5. 按渠道能力适配输出
+---
 
-业务逻辑中不得直接调用 Feishu / WeCom API。
+## 10. Execution summary
+
+The steps that turn a UNP object into an IM message:
+
+1. Map priority to a rendered format (card / markdown / text)
+2. Inject mentions according to the routing rules
+3. Ensure P0 and P1 messages are actionable
+4. Apply deduplication and throttling
+5. Adapt the output to the channel's capabilities
+
+Business logic must not call the Feishu or WeCom API directly.
