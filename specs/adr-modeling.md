@@ -15,59 +15,59 @@ related:
   - ../rules/adr-management.md
 ---
 
-# ADR 建模规范
+# ADR Modeling Schema
 
-> **数据契约**：定义 Architecture Decision Record（ADR）文档的字段结构与正文骨架
-
----
-
-## 1. 定位与适用范围
-
-ADR（Architecture Decision Record）是记录架构决策的时点快照——为什么做这个决定、当时考虑过什么替代、可能带来什么后果。一个组织通过堆积 ADR 形成长期决策记录，让后来者能追溯并理解既有架构的成因。
-
-适用：
-
-- 所有需要长期保留 why 的架构 / 技术 / 设计决策
-- 影响多人、跨服务、影响长期结构的决策
-
-不适用：
-
-- 日常 bug fix 或小功能改动（用 commit message 即可）
-- 单纯的规范性约束（应写 rule，而非"我们决定遵守规范"）
-- 已有 ADR 的局部细化（追加到原 ADR 即可）
-
-ADR 准入门槛与衰减政策由 [rules/adr-management.md](../rules/adr-management.md) 定义；本 spec 只规范数据结构。
+> **Data contract**: defines the field structure and body skeleton of an Architecture Decision Record
 
 ---
 
-## 2. 心智模型（Mental Model）
+## 1. Position and scope
 
-> 一份合格 ADR 必须能清晰回答的四个核心问题。
+An Architecture Decision Record is a point-in-time snapshot of an architectural decision — why it was made, what alternatives were considered at the time, and what it might lead to. Accumulated ADRs form an organisation's long-term decision record, letting whoever comes later trace and understand how the existing architecture came about.
 
-| 问题 | 描述 |
+In scope:
+
+- Any architectural, technical or design decision whose why is worth keeping long-term
+- Decisions that affect several people, span services, or shape long-term structure
+
+Out of scope:
+
+- A routine bug fix or small feature change, where a commit message suffices
+- A purely normative constraint — write a rule, not "we decided to follow the convention"
+- A local refinement of an existing ADR, which is appended to that ADR
+
+The admission test and decay policy for ADRs are defined in [rules/adr-management.md](../rules/adr-management.md); this spec governs the data structure only.
+
+---
+
+## 2. Mental model
+
+> The four core questions a sound ADR must answer clearly.
+
+| Question | Description |
 |---|---|
-| **What** | 我们做了什么决定？（一句话陈述） |
-| **Why** | 为什么这样决定？（上下文、驱动力、约束） |
-| **Alternatives** | 考虑过哪些替代方案？为什么不选？（含被拒方案与理由） |
-| **Consequences** | 会带来什么后果？（含正面、负面、未知风险） |
+| **What** | What did we decide? A one-line statement |
+| **Why** | Why this way? Context, driving forces, constraints |
+| **Alternatives** | Which alternatives were considered, and why were they not chosen? Including each rejected option and its reason |
+| **Consequences** | What will it lead to? Positive, negative and unknown risks |
 
-§5 正文结构契约的 4 节（背景 / 决策 / 替代方案 / 后果）一一对应这四个问题。
+The 4 sections of the body structure contract in §5 — context / decision / alternatives / consequences — map one to one onto these four questions.
 
 ---
 
-## 3. 命名约定
+## 3. Naming
 
 ```text
 NNNN-{slug}.md
 ```
 
-- **编号**：4 位顺序号，从 `0001` 起，单调递增，**不复用**
-- **slug**：小写横线分隔的简短描述性名称（3-6 词）
-- **新编号取法**：取当前最大编号 + 1（编号唯一性依赖 ADR 文档统一存放位置，由项目治理决定）
+- **Number**: a 4-digit sequence starting at `0001`, monotonically increasing, and **never reused**
+- **slug**: a short descriptive name in lowercase with hyphens, 3-6 words
+- **Choosing a new number**: take the current maximum and add 1. Uniqueness relies on ADR documents living in one place, which project governance decides
 
 ---
 
-## 4. Frontmatter 契约
+## 4. Frontmatter contract
 
 ```yaml
 ---
@@ -76,47 +76,47 @@ created_by: decision-record
 lifecycle: snapshot
 created_at: YYYY-MM-DD
 status: proposed | accepted | superseded | archived | rejected
-description: <一句话 ADR 摘要，与 H1 标题互补>
-# 条件字段（按 status 必填）
-superseded_by: NNNN-{slug}       # status: superseded 时必填
-archived_at: YYYY-MM-DD           # status: archived 时必填
-archived_reason: <原因一句话>    # status: archived 时必填
-expires_at: YYYY-MM-DD            # 可选；季度复核触发器
+description: <a one-line summary of the ADR, complementing the H1 title>
+# conditional fields, required according to status
+superseded_by: NNNN-{slug}       # required when status is superseded
+archived_at: YYYY-MM-DD           # required when status is archived
+archived_reason: <one-line reason>  # required when status is archived
+expires_at: YYYY-MM-DD            # optional; the quarterly review trigger
 ---
 ```
 
-### 4.1 字段表
+### 4.1 Field table
 
-| 字段 | 类型 | 必填 | 说明 |
+| Field | Type | Required | Description |
 |---|---|---|---|
-| `artifact_type` | string | 必 | 固定 `adr` |
-| `created_by` | string | 必 | 固定 `decision-record` |
-| `lifecycle` | enum | 必 | 固定 `snapshot`（ADR 是时点决策） |
-| `created_at` | date | 必 | 决策日期（`YYYY-MM-DD`） |
-| `status` | enum | 必 | 5 值枚举（语义见 §4.2） |
-| `description` | string | 必 | 一句话摘要，补充 H1 标题 |
-| `superseded_by` | string | 条件 | `status: superseded` 时必填，值为替代 ADR 编号（`NNNN-{slug}`） |
-| `archived_at` | date | 条件 | `status: archived` 时必填 |
-| `archived_reason` | string | 条件 | `status: archived` 时必填 |
-| `expires_at` | date | 可选 | 复核提醒日期；超过该日期未复核则触发衰减评估 |
+| `artifact_type` | string | yes | Fixed as `adr` |
+| `created_by` | string | yes | Fixed as `decision-record` |
+| `lifecycle` | enum | yes | Fixed as `snapshot` — an ADR is a point-in-time decision |
+| `created_at` | date | yes | The decision date, `YYYY-MM-DD` |
+| `status` | enum | yes | A 5-value enum; semantics in §4.2 |
+| `description` | string | yes | A one-line summary complementing the H1 title |
+| `superseded_by` | string | conditional | Required when `status: superseded`; the number of the replacing ADR, `NNNN-{slug}` |
+| `archived_at` | date | conditional | Required when `status: archived` |
+| `archived_reason` | string | conditional | Required when `status: archived` |
+| `expires_at` | date | optional | The review reminder date; passing it without a review triggers a decay assessment |
 
-### 4.2 状态机语义
+### 4.2 State machine semantics
 
-| 状态值 | 含义 | 转入条件 |
+| Status | Meaning | Entry condition |
 |---|---|---|
-| `proposed` | 已提出，待决策 | ADR 首次落地，尚未通过评审 |
-| `accepted` | 已采纳，当前有效 | 决策已批准并实施 |
-| `superseded` | 被另一篇 ADR 替代 | 新 ADR 落地并接管该决策（需填 `superseded_by`） |
-| `archived` | 已归档，不再活跃 | 决策不再影响当前系统（需填 `archived_at` + `archived_reason`） |
-| `rejected` | 已明确拒绝，保留作决策历史 | 评审决定不采纳，保留作为"被拒方案"的记录 |
+| `proposed` | Proposed, awaiting decision | The ADR has just landed and has not passed review |
+| `accepted` | Adopted and currently in force | The decision was approved and implemented |
+| `superseded` | Replaced by another ADR | A new ADR landed and took over the decision; `superseded_by` must be filled in |
+| `archived` | Archived, no longer active | The decision no longer affects the current system; `archived_at` and `archived_reason` must be filled in |
+| `rejected` | Explicitly rejected, kept as decision history | Review decided against it, and the record is kept as a rejected option |
 
-**禁止使用的旧枚举值**：`draft` / `active` / `approved` / `已批准` / `live`
+**Legacy enum values, forbidden**: `draft` / `active` / `approved` / `已批准` / `live`
 
 ---
 
-## 5. 正文结构契约
+## 5. Body structure contract
 
-### 5.1 4 节必填结构
+### 5.1 The 4 required sections
 
 ```markdown
 ## 背景
@@ -136,31 +136,31 @@ expires_at: YYYY-MM-DD            # 可选；季度复核触发器
 <正面、负面、中性后果——回答 Consequences>
 ```
 
-### 5.2 内容校验
+### 5.2 Content validation
 
-- 4 节缺一不可（`背景` / `决策` / `替代方案` / `后果`）
-- `替代方案` 节至少含 1 个被拒方案（新建 ADR 时须说明为何不选其他路径）
-- `后果` 节须含正面与负面（或中性）两类
-
----
-
-## 6. 反模式
-
-- ❌ `status` 在 frontmatter 以外额外用 `**状态**：` 行重复（双写违规）
-- ❌ 使用 `active` / `draft` / `approved` / `已批准` / `live` 等旧枚举值
-- ❌ `superseded` 状态未填 `superseded_by`
-- ❌ `archived` 状态未填 `archived_at` 与 `archived_reason`
-- ❌ 缺少 `description` 字段
-- ❌ 正文缺少 4 节中的任一节
-- ❌ `替代方案` 节为空（必须解释为何不选其他路径）
-- ❌ 文件名编号少于 4 位（`001-` 而非 `0001-`）
-- ❌ 文件名编号复用（已弃用编号不可重新分配）
+- All 4 sections are required (`背景` / `决策` / `替代方案` / `后果`)
+- The `替代方案` section carries at least 1 rejected option; a new ADR must explain why the other paths were not taken
+- The `后果` section must cover both positive and negative, or neutral, consequences
 
 ---
 
-## 7. 示例
+## 6. Anti-patterns
 
-### 7.1 完整合规 ADR
+- ❌ `status` repeated outside the frontmatter on a `**状态**：` line — writing it twice
+- ❌ Using a legacy enum value such as `active` / `draft` / `approved` / `已批准` / `live`
+- ❌ A `superseded` status with no `superseded_by`
+- ❌ An `archived` status with no `archived_at` and `archived_reason`
+- ❌ A missing `description` field
+- ❌ The body missing any one of the 4 sections
+- ❌ An empty `替代方案` section; it must explain why the other paths were not taken
+- ❌ A filename number shorter than 4 digits — `001-` rather than `0001-`
+- ❌ Reusing a filename number; a retired number is never reassigned
+
+---
+
+## 7. Examples
+
+### 7.1 A fully compliant ADR
 
 ````markdown
 ---
@@ -196,7 +196,7 @@ description: 采用 PostgreSQL 作为主数据库，替代 MongoDB
 - ⚠️ 已有的 MongoDB 聚合查询要重写为 SQL，约 30 个查询需逐个验证
 ````
 
-### 7.2 superseded 状态示例
+### 7.2 A superseded status example
 
 ```yaml
 ---
@@ -212,22 +212,22 @@ superseded_by: 0058-adopt-typesense-for-search
 
 ---
 
-## 8. 与其他资产关系
+## 8. Relationship to other assets
 
-- **配套 rule**：[rules/adr-management.md](../rules/adr-management.md)——ADR 写作纪律（准入门槛、状态执行、衰减政策、与 decisions 边界）
+- **Paired rule**: [rules/adr-management.md](../rules/adr-management.md) — ADR discipline: the admission test, status enforcement, the decay policy, and the boundary with decisions
 
-### 8.1 衰减阈值
+### 8.1 Decay thresholds
 
-| 触发条件 | 动作 |
+| Trigger | Action |
 |---|---|
-| `accepted` 且距 `created_at` ≥ 12 个月 且 近 12 个月无文档引用 且 决策已不影响系统 | 转 `archived`，填 `archived_at` + `archived_reason` |
-| `archived` 且距 `archived_at` ≥ 6 个月 且 无任何文件引用 | 可执行 `git rm` 物理删除 |
-| `rejected` / `superseded` / 被其他 ADR 的 `superseded_by` 字段引用 | **永不物理删除**（决策历史与替代脉络是组织记忆） |
+| `accepted`, and `created_at` was ≥ 12 months ago, and no document has referenced it in the last 12 months, and the decision no longer affects the system | Move to `archived` and fill in `archived_at` and `archived_reason` |
+| `archived`, and `archived_at` was ≥ 6 months ago, and no file references it | `git rm` may be used to delete it physically |
+| `rejected` / `superseded` / referenced by another ADR's `superseded_by` field | **Never deleted physically** — decision history and the chain of supersession are organisational memory |
 
-### 8.2 与 rule 的边界
+### 8.2 Boundary with the rule
 
-本 spec 只规范数据结构（字段、状态机、必填关系）；具体的写作纪律（如何判断 ADR 准入、如何执行状态转换、如何执行 `git rm` 衰减）由 [rules/adr-management.md](../rules/adr-management.md) 承担。两者并行生效。
+This spec governs the data structure only — fields, state machine, required-field relationships. The writing discipline itself, how to judge admission, how to perform a status transition, how to carry out a `git rm` decay, is carried by [rules/adr-management.md](../rules/adr-management.md). The two apply in parallel.
 
-### 8.3 递归基础
+### 8.3 Recursive basis
 
-本 spec 自身遵循 [spec-modeling.md](./spec-modeling.md) v2.0.0 的 8 节骨架；所有条件必备章节（§2 / §3 / §4 / §4.2）均触发——ADR 是完整骨架样板。
+This spec itself follows the 8-section skeleton of [spec-modeling.md](./spec-modeling.md) v2.0.0. Every conditionally required section (§2 / §3 / §4 / §4.2) is triggered, making the ADR a full template for the skeleton.

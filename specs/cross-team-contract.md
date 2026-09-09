@@ -16,11 +16,11 @@ related:
 
 # 跨团队契约规范
 
-> **数据契约**：定义跨独立 service / repo / team 共享的接口、数据形状、状态机、事件 payload 文档应如何组织
+> **Data contract**: 定义跨独立 service / repo / team 共享的接口、数据形状、状态机、事件 payload 文档应如何组织
 
 ---
 
-## 1. 定位与适用范围
+## 1. Position and scope
 
 凡满足以下任一条件的契约文件，适用本规范：
 
@@ -67,7 +67,7 @@ related:
 
 ---
 
-## 4. Frontmatter 契约
+## 4. Frontmatter contract
 
 跨团队契约文件除遵循各项目通用 frontmatter 字段外，必须额外含：
 
@@ -85,7 +85,7 @@ contract_version: <SemVer>      # 必填；MAJOR.MINOR.PATCH
 
 ---
 
-## 5. 正文结构契约
+## 5. Body structure contract
 
 跨团队契约文件必须含以下章节（顺序可调，名称可本地化）：
 

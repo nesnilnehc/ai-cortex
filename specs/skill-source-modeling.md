@@ -16,39 +16,39 @@ related:
   - ../docs/references/ATTRIBUTIONS.md
 ---
 
-# 外部派生 Skill 来源规范
+# Externally Derived Skill Source Schema
 
-> **数据契约**：定义 AI Cortex 内 vendored 外部派生 Skill 的来源、固定版本、许可证、修改和更新记录
+> **Data contract**: defines the source, pinned version, license, modifications and update record of a vendored externally derived skill in AI Cortex
 
-## 1. 定位与适用范围
+## 1. Position and scope
 
-`skills/SOURCES.yaml` 是 AI Cortex 当前外部派生 Skill 的机器可读来源清单。凡是复制、改编、fork 或实质借用外部 Skill 工作流并继续作为 AI Cortex Skill 分发的本地目录，都必须登记；普通工具依赖、行业标准、文档链接和已删除的历史 Skill 不登记。
+`skills/SOURCES.yaml` is the machine-readable source registry for AI Cortex's externally derived skills. Every local directory that copies, adapts, forks or substantially borrows an external skill's workflow and continues to be distributed as an AI Cortex skill must be registered. Ordinary tool dependencies, industry standards, documentation links and historical skills that have been deleted are not registered.
 
-运行时只加载 `skills/` 下的本地副本。来源清单用于维护、审计、许可证合规和生成 SPDX，不是依赖解析器，也不授权 Agent 联网安装。
+At runtime only the local copies under `skills/` are loaded. The registry exists for maintenance, audit, license compliance and SPDX generation. It is not a dependency resolver, and it does not authorise an agent to install anything over the network.
 
-## 2. 心智模型
+## 2. Mental model
 
-每个登记项必须回答五个问题：
+Every registry entry must answer five questions:
 
-| 问题 | 字段 |
+| Question | Fields |
 |---|---|
-| 本地调用什么？ | `local_path`、`local_version` |
-| 从哪里派生？ | `upstream.repository`、`upstream.path` |
-| 固定到什么内容？ | `upstream.ref`、`tree`、`skill_digest` |
-| 以什么许可分发？ | `license`、`notice` |
-| AI Cortex 改了什么、如何更新？ | `modifications`、`update_policy` |
+| What is called locally? | `local_path`, `local_version` |
+| What was it derived from? | `upstream.repository`, `upstream.path` |
+| What is it pinned to? | `upstream.ref`, `tree`, `skill_digest` |
+| Under what license is it distributed? | `license`, `notice` |
+| What did AI Cortex change, and how is it updated? | `modifications`, `update_policy` |
 
-“已登记”不等于“运行时可下载”；只有本地目录存在、已在 `skills/INDEX.md` 注册并由 canonical installer 同步后，Agent 才可调用。
+Registered does not mean downloadable at runtime. An agent can call a skill only once the local directory exists, it is registered in `skills/INDEX.md`, and the canonical installer has synced it.
 
-## 3. 命名约定
+## 3. Naming
 
-- 来源清单固定为 `skills/SOURCES.yaml`。
-- Skill key、`local_path` 目录名和 `SKILL.md` 的 `name` 必须一致。
-- 清单中的本地路径一律相对仓库根目录。上游许可证副本可放在目标 Skill 的 `LICENSE.upstream`；集中致谢使用 `docs/references/THIRD_PARTY_NOTICES.md`。
+- The registry is always `skills/SOURCES.yaml`.
+- The skill key, the `local_path` directory name and the `name` in `SKILL.md` must all match.
+- Local paths in the registry are always relative to the repository root. A copy of the upstream license may live at the target skill's `LICENSE.upstream`; centralised attribution uses `docs/references/THIRD_PARTY_NOTICES.md`.
 
-## 5. 正文结构契约
+## 5. Body structure contract
 
-### 5.1 根结构
+### 5.1 Root structure
 
 ```yaml
 schema_version: "1.0"
@@ -59,38 +59,38 @@ policy:
 skills: {}
 ```
 
-`distribution` 和 `runtime_external_install` 是全仓不变量，不得为单个 Skill 增加 `on-demand`、`remote` 或 `auto-install` 例外。
+`distribution` and `runtime_external_install` are repository-wide invariants. An `on-demand`, `remote` or `auto-install` exception must not be added for an individual skill.
 
 ### 5.2 Skill entry
 
-| 字段 | 类型 | 必填 | 约束 |
+| Field | Type | Required | Constraint |
 |---|---|---|---|
-| `local_path` | path | 必 | `skills/<name>`，目录必须存在 |
-| `local_version` | SemVer | 必 | 与本地 `SKILL.md` 一致 |
-| `origin` | enum | 必 | 当前固定为 `vendored-derived` |
-| `upstream.repository` | HTTPS Git URL | 必 | 仓库 URL，不使用 raw URL |
-| `upstream.path` | path | 必 | 上游 Skill 根目录 |
-| `upstream.ref` | full commit SHA | 必 | 40 位 commit，不得为 branch/tag/`latest` |
-| `upstream.tree` | digest | 必 | 固定上游目录 Git tree |
-| `upstream.skill_digest` | digest | 必 | 上游 `SKILL.md` 的 SHA-256 |
-| `license` | SPDX expression | 必 | 已核验的上游/本地分发许可证 |
-| `notice` | path | 必 | 相对仓库根目录的本地许可证或 NOTICE 路径，文件必须存在 |
-| `update_policy` | enum | 必 | `reviewed-merge` 或 `reviewed-port` |
-| `modifications` | list[string] | 必 | 至少一项，说明本地差异 |
+| `local_path` | path | yes | `skills/<name>`; the directory must exist |
+| `local_version` | SemVer | yes | Matches the local `SKILL.md` |
+| `origin` | enum | yes | Currently fixed as `vendored-derived` |
+| `upstream.repository` | HTTPS Git URL | yes | The repository URL; never a raw URL |
+| `upstream.path` | path | yes | The upstream skill's root directory |
+| `upstream.ref` | full commit SHA | yes | A 40-character commit; must not be a branch, tag or `latest` |
+| `upstream.tree` | digest | yes | Pins the upstream directory's Git tree |
+| `upstream.skill_digest` | digest | yes | SHA-256 of the upstream `SKILL.md` |
+| `license` | SPDX expression | yes | The verified upstream and local distribution license |
+| `notice` | path | yes | Path to the local license or NOTICE, relative to the repository root; the file must exist |
+| `update_policy` | enum | yes | `reviewed-merge` or `reviewed-port` |
+| `modifications` | list[string] | yes | At least one entry, describing the local differences |
 
-### 5.3 更新校验
+### 5.3 Update validation
 
-维护期更新必须先固定新的 commit，比较 upstream tree 与本地差异，复核许可证和资产，再更新本地副本、版本、来源清单、致谢和 SPDX 输入。更新不得发生在业务 Skill 调用过程中。
+A maintenance update must first pin the new commit, compare the upstream tree against the local differences, re-verify the license and the assets, and only then update the local copy, the version, the registry, the attribution and the SPDX inputs. An update must not happen in the middle of a business skill invocation.
 
-## 6. 反模式
+## 6. Anti-patterns
 
-- ❌ Skill 正文要求 Agent 执行 `npx skills add`、clone 外部仓库或读取浮动 raw URL。
-- ❌ `upstream.ref` 使用 `main`、tag、版本范围或省略 commit。
-- ❌ 复制外部 Skill 但只写 `author: ai-cortex`，没有来源和 notice。
-- ❌ 只登记一个入口 Skill，却遗漏复制进仓库的 sibling Skill 或资源。
-- ❌ 把外部 CLI/API 当成外部 Skill 登记，或借来源清单自动安装软件依赖。
+- ❌ A skill body that asks the agent to run `npx skills add`, clone an external repository, or read a floating raw URL.
+- ❌ An `upstream.ref` set to `main`, a tag, a version range, or omitting the commit.
+- ❌ Copying an external skill but writing only `author: ai-cortex`, with no source and no notice.
+- ❌ Registering only the entry skill while omitting sibling skills or assets that were copied into the repository.
+- ❌ Registering an external CLI or API as an external skill, or using the registry to auto-install software dependencies.
 
-## 7. 示例
+## 7. Examples
 
 ```yaml
 skills:
@@ -110,9 +110,9 @@ skills:
     modifications: [Adapted output contract]
 ```
 
-## 8. 与其他资产关系
+## 8. Relationship to other assets
 
-- [ADR 0011](../docs/adr/0011-vendor-external-skills.md) 决定只采用 vendored 分发策略。
-- [许可证策略](../docs/references/LICENSE_POLICY.md) 规定许可核验和 notice 保留。
-- [来源与致谢](../docs/references/ATTRIBUTIONS.md) 是人类可读视图。
-- Release Package 的 SPDX artifact 可从本清单和仓库内容生成，但 SPDX 不参与运行时 Skill 发现。
+- [ADR 0011](../docs/adr/0011-vendor-external-skills.md) decided on the vendored-only distribution strategy.
+- The [license policy](../docs/references/LICENSE_POLICY.md) governs license verification and notice retention.
+- [Sources and attributions](../docs/references/ATTRIBUTIONS.md) is the human-readable view.
+- A Release Package's SPDX artifact can be generated from this registry and the repository contents, but SPDX plays no part in runtime skill discovery.

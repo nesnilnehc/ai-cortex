@@ -18,22 +18,22 @@ related:
 
 # 需求建模规范
 
-> **数据契约**：定义需求文档的字段结构与正文骨架
+> **Data contract**: 定义需求文档的字段结构与正文骨架
 
 ---
 
-## 1. 定位与适用范围
+## 1. Position and scope
 
 需求文档（requirement document）回答"做什么"——通过用户故事或问题陈述、可验收的标准、依赖与风险，让团队对"要交付的东西"达成共识。它是上游目标（goal / roadmap 节点）与下游设计文档之间的桥梁。
 
 本规范以验收标准为中心：业务规则默认内联进验收标准，不单列；实现层面的场景流程（步骤流、状态流转细节）下沉至下游设计文档。这些刻意的省略是契约的一部分——避免作者在规则与场景的归属上反复猜测。
 
-适用：
+In scope:
 
 - **功能需求**：新增功能、流程调整、体验优化
 - **非功能需求**：性能、安全、可维护性、可扩展性
 
-不适用：
+不In scope:
 
 - 探索性研究或方案对比（属 ADR 或 RFC）
 - 内部组件 API 设计（属设计文档）
@@ -51,7 +51,7 @@ related:
 
 ---
 
-## 3. 命名约定
+## 3. Naming
 
 ```text
 <PROJECT>-REQ-<nn>.md
@@ -64,7 +64,7 @@ related:
 
 ---
 
-## 4. Frontmatter 契约
+## 4. Frontmatter contract
 
 ```yaml
 ---
@@ -81,9 +81,9 @@ implemented_at: YYYY-MM-DD             # status: implemented 时必填
 ---
 ```
 
-### 4.1 字段表
+### 4.1 Field table
 
-| 字段 | 类型 | 必填 | 说明 |
+| Field | Type | Required | Description |
 |---|---|---|---|
 | `id` | string | 必 | 格式 `<PROJECT>-REQ-<nn>`（如 `ACME-REQ-05`） |
 | `artifact_type` | string | 必 | 固定 `requirement` |
@@ -95,9 +95,9 @@ implemented_at: YYYY-MM-DD             # status: implemented 时必填
 | `superseded_by` | string | 条件 | `status: superseded` 时必填，指向继任需求 id |
 | `implemented_at` | date | 条件 | `status: implemented` 时必填，记录实现完成日期 |
 
-### 4.2 状态机语义
+### 4.2 State machine semantics
 
-| 状态 | 含义 | 转入条件 |
+| Status | Meaning | Entry condition |
 |---|---|---|
 | `draft` | 起草中 | 需求文档首次落地，尚未通过评审 |
 | `approved` | 已批准 | 评审通过，可派生设计文档（design 的 `parent`） |
@@ -106,7 +106,7 @@ implemented_at: YYYY-MM-DD             # status: implemented 时必填
 
 ---
 
-## 5. 正文结构契约
+## 5. Body structure contract
 
 ### 5.1 必填章节（6 节）
 
@@ -170,7 +170,7 @@ Gherkin BDD（`Given / When / Then`）或清单（`- [ ] ...`）二选一。Gher
 
 ---
 
-## 6. 反模式
+## 6. Anti-patterns
 
 - ❌ 缺 frontmatter 必填字段（id / artifact_type / status / created_at）
 - ❌ `id` 格式不规范（小写、缺 PROJECT 前缀、复用编号）
@@ -194,7 +194,7 @@ Gherkin BDD（`Given / When / Then`）或清单（`- [ ] ...`）二选一。Gher
 
 ---
 
-## 7. 示例
+## 7. Examples
 
 ### 7.1 功能需求完整示例
 
@@ -303,7 +303,7 @@ P1 · Phase 2 第 3-4 周 · 4 工日
 
 ---
 
-## 8. 与其他资产关系
+## 8. Relationship to other assets
 
 - **配套 rule**：[rules/requirement-quality.md](../rules/requirement-quality.md)——需求文档质量评审清单（5 维：完整性 / 可执行性 / 清晰性 / 合理性 / 可追溯性）。本 spec 只定义数据契约，评审清单全部归 rule。
 - **下游 spec**：[functional-design-modeling.md](./functional-design-modeling.md)——`approved` 状态的需求才能派生功能设计；功能设计的 `parent` 指向 requirement 文档路径

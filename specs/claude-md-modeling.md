@@ -17,11 +17,11 @@ related:
 
 # CLAUDE.md 建模规范
 
-> **数据契约**：定义合格 CLAUDE.md 的层级结构、必备章节与形态要求
+> **Data contract**: 定义合格 CLAUDE.md 的层级结构、必备章节与形态要求
 
 ---
 
-## 1. 定位与适用范围
+## 1. Position and scope
 
 CLAUDE.md 是项目级长期记忆文件，由 AI 编程助手（Claude Code、Cursor 等）在会话进入仓库时自动加载。其作用是让 AI 第一次出手即符合项目期待，避免每次会话重复解释项目背景。
 
@@ -37,11 +37,11 @@ CLAUDE.md 不是 README 的替代品：README 面向人类读者，CLAUDE.md 面
 
 ---
 
-## 2. 心智模型（Mental Model）
+## 2. Mental model
 
 > 一份合格 CLAUDE.md 必使 AI 能清晰回答的四个核心问题。
 
-| 问题 | 描述 |
+| Question | Description |
 |---|---|
 | **What** | 这是什么项目？面向谁？解决什么问题？ |
 | **With** | 使用什么技术栈、运行时与依赖？ |
@@ -52,7 +52,7 @@ CLAUDE.md 不是 README 的替代品：README 面向人类读者，CLAUDE.md 面
 
 ---
 
-## 5. 正文结构契约
+## 5. Body structure contract
 
 ### 5.1 三层结构与职责切分
 
@@ -102,7 +102,7 @@ CLAUDE.md 不是 README 的替代品：README 面向人类读者，CLAUDE.md 面
 
 ---
 
-## 6. 反模式
+## 6. Anti-patterns
 
 不合格形态分为两层（具体条目与禁止理由由 [rules/claude-md-management.md](../rules/claude-md-management.md) 单一权威承载，本 spec 仅给出范畴划分）：
 
@@ -113,7 +113,7 @@ CLAUDE.md 不是 README 的替代品：README 面向人类读者，CLAUDE.md 面
 
 ---
 
-## 7. 示例
+## 7. Examples
 
 ### 7.1 最小合规项目级 CLAUDE.md
 
@@ -162,7 +162,7 @@ Claude Code 在本仓库工作时的简报。
 
 ---
 
-## 8. 与其他资产关系
+## 8. Relationship to other assets
 
 ### 8.1 配套 rule
 

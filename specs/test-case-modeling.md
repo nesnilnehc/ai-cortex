@@ -22,21 +22,21 @@ related:
 
 # 测试用例建模规范
 
-> **数据契约**：定义 QA 业务测试用例文档的字段结构与正文骨架
+> **Data contract**: 定义 QA 业务测试用例文档的字段结构与正文骨架
 
 ---
 
-## 1. 定位与适用范围
+## 1. Position and scope
 
 测试用例文档（test case document）回答"在什么前提下、做什么操作、期望看到什么结果"——它是 QA 体系下从需求验收标准、接口契约或关键场景清单派生的可执行黑盒验证记录。
 
-适用：
+In scope:
 
 - **QA 业务测试用例**：从 `approved` 状态的需求文档派生，验证 AC 是否被产品满足
 - **接口契约验证用例**：基于上游接口契约（如 `*-contract.md`）派生的契约级用例
 - **关键场景回归用例**：业务关键路径的回归测试集合
 
-不适用：
+不In scope:
 
 - **代码级测试**（unit / integration / E2E in code）——测试函数本身即制品，无独立文档；由 [`rules/standards-test-code.md`](../rules/standards-test-code.md) 约束
 - **探索性测试笔记**——非结构化探索过程，不需要数据契约
@@ -44,7 +44,7 @@ related:
 
 ---
 
-## 2. 心智模型（Mental Model）
+## 2. Mental model
 
 > 一份合格测试用例要回答的核心问题。
 
@@ -61,7 +61,7 @@ related:
 
 ---
 
-## 3. 命名约定
+## 3. Naming
 
 ### 3.1 单用例文档形态
 
@@ -88,7 +88,7 @@ test-cases-<module>.md
 
 ---
 
-## 4. Frontmatter 契约
+## 4. Frontmatter contract
 
 ### 4.1 单用例文档 frontmatter
 
@@ -125,7 +125,7 @@ parent: <upstream requirement or contract path>
 
 ### 4.3 字段表
 
-| 字段 | 类型 | 必填 | 说明 |
+| Field | Type | Required | Description |
 |---|---|---|---|
 | `id` | string | 必（单用例） | 格式 `TC-<MODULE>-<nn>` |
 | `artifact_type` | string | 必 | 单用例 `test-case`；集合 `test-cases` |
@@ -141,7 +141,7 @@ parent: <upstream requirement or contract path>
 
 ### 4.4 状态机语义
 
-| 状态 | 含义 | 转入条件 |
+| Status | Meaning | Entry condition |
 |---|---|---|
 | `draft` | 起草中 | 用例首次落地，尚未通过 QA 评审 |
 | `active` | 已生效，纳入回归 | QA 评审通过，可被测试执行计划引用 |
@@ -151,7 +151,7 @@ parent: <upstream requirement or contract path>
 
 ---
 
-## 5. 正文结构契约
+## 5. Body structure contract
 
 ### 5.1 必填章节（5 节）
 
@@ -195,7 +195,7 @@ parent: <upstream requirement or contract path>
 
 ---
 
-## 6. 反模式
+## 6. Anti-patterns
 
 - ❌ 缺 frontmatter 必填字段（`id` / `covers` / `parent` / `priority` / `test_type`）
 - ❌ `covers` 字段为空或写 `TBD`（无追溯锚 = 无评审价值）
@@ -212,7 +212,7 @@ parent: <upstream requirement or contract path>
 
 ---
 
-## 7. 示例
+## 7. Examples
 
 ### 7.1 单用例完整示例
 
@@ -287,7 +287,7 @@ parent: ../requirements/ACME-REQ-08.md
 
 ---
 
-## 8. 与其他资产关系
+## 8. Relationship to other assets
 
 - **配套 rule**：[rules/test-case-quality.md](../rules/test-case-quality.md)——业务测试用例文档质量评审清单（5 维 + spec 合规）。本 spec 只定义数据契约，评审清单全部归 rule。
 - **同族 rule**：[rules/standards-test-code.md](../rules/standards-test-code.md)——代码级测试的编码标准。**本 spec 与之互不重叠**：本 spec 管"测试用例文档"这一独立制品；该 rule 管"测试代码"这一非文档制品。

@@ -21,24 +21,24 @@ related:
 
 # 技术设计建模规范
 
-> **数据契约**：定义技术设计文档的字段结构与正文骨架
+> **Data contract**: 定义技术设计文档的字段结构与正文骨架
 
 ---
 
-## 1. 定位与适用范围
+## 1. Position and scope
 
 技术设计文档（technical design document）面向工程视角，回答"工程上怎么实现"——架构、服务拆分、组件与详细设计、数据库、接口契约、错误处理、技术选型。它是从上游设计到任务列表之间的桥梁，是任务列表的直接来源。
 
 技术设计**始终存在**于派生任务之前（可因纯流程变更而从简，但不省略）。功能层可被跳过——纯技术工作（重构 / 基建 / 依赖升级）由授权它的 ADR 直接派生技术设计。
 
-适用：
+In scope:
 
 - **架构设计**：系统层、服务层、模块层架构与服务拆分
 - **组件 / 详细设计**：类、方法、接口的签名级定义
 - **数据与集成设计**：数据库设计、API 契约、跨服务集成
 - **纯技术工作**：架构重构、依赖升级、基础设施改造（无功能层，`parent` 指向授权 ADR）
 
-不适用：
+不In scope:
 
 - 代码层级的具体实现（应写在代码注释或 ADR）
 - 单一函数 / 类的局部设计（直接写在 PR 描述）
@@ -47,7 +47,7 @@ related:
 
 ---
 
-## 3. 命名约定
+## 3. Naming
 
 ```text
 YYYY-MM-DD-<topic>-technical-design.md
@@ -60,7 +60,7 @@ YYYY-MM-DD-<topic>-technical-design.md
 
 ---
 
-## 4. Frontmatter 契约
+## 4. Frontmatter contract
 
 ```yaml
 ---
@@ -74,9 +74,9 @@ superseded_by: <path to new technical design>   # status: superseded 时必填
 ---
 ```
 
-### 4.1 字段表
+### 4.1 Field table
 
-| 字段 | 类型 | 必填 | 说明 |
+| Field | Type | Required | Description |
 |---|---|---|---|
 | `artifact_type` | string | 必 | 固定 `technical-design` |
 | `lifecycle` | enum | 必 | 固定 `snapshot`（设计是时点决策） |
@@ -85,9 +85,9 @@ superseded_by: <path to new technical design>   # status: superseded 时必填
 | `status` | enum | 必 | `draft` / `approved` / `superseded`（语义见 §4.2） |
 | `superseded_by` | path | 条件 | `status: superseded` 时必填，指向继任技术设计路径 |
 
-### 4.2 状态机语义
+### 4.2 State machine semantics
 
-| 状态 | 含义 | 转入条件 |
+| Status | Meaning | Entry condition |
 |---|---|---|
 | `draft` | 草稿，尚在评审 | 技术设计首次落地 |
 | `approved` | 已批准，可派生任务 | 工程评审通过，可作为任务列表的 `parent` |
@@ -95,7 +95,7 @@ superseded_by: <path to new technical design>   # status: superseded 时必填
 
 ---
 
-## 5. 正文结构契约
+## 5. Body structure contract
 
 ### 5.1 必填章节（9 节）
 
@@ -139,7 +139,7 @@ superseded_by: <path to new technical design>   # status: superseded 时必填
 
 ---
 
-## 6. 反模式
+## 6. Anti-patterns
 
 - ❌ 缺 frontmatter 必填字段（artifact_type / lifecycle / created_at / parent / status）
 - ❌ `parent` 的 artifact_type 不在 {functional-design, requirement}（链条断裂）
@@ -158,7 +158,7 @@ superseded_by: <path to new technical design>   # status: superseded 时必填
 
 ---
 
-## 7. 示例
+## 7. Examples
 
 ### 7.1 紧凑骨架示例：订单退款审批技术设计
 
@@ -246,7 +246,7 @@ refund_order
 
 ---
 
-## 8. 与其他资产关系
+## 8. Relationship to other assets
 
 - **配套 rule**：[rules/technical-design-quality.md](../rules/technical-design-quality.md)——技术设计质量评审清单（5 维：完整性 / 可执行性 / 清晰性 / 合理性 / 可追溯性）
 - **上游 spec**：[functional-design-modeling.md](./functional-design-modeling.md)（常态）——技术设计的 `parent` 指向 `approved` 功能设计；[requirement-modeling.md](./requirement-modeling.md)——非功能需求跳过功能层时直接指向 `approved` requirement；纯技术工作（无对应需求）的 `parent` 指向授权它的 ADR

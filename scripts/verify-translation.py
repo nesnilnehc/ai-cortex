@@ -153,13 +153,32 @@ def extract(text):
 
 # HARD invariants abort the migration; SOFT ones are reported for judgement.
 HARD = ("frontmatter", "code_blocks", "links", "identifiers", "numbers",
-        "checkboxes", "list_items", "strong_constraints", "weak_constraints")
+        "checkboxes", "list_items")
 SOFT = ("heading_depths", "code_langs", "keywords", "table_rows",
         "code_comment_lines")
+
+# Constraint markers are checked by direction, not by equality. English needs
+# more modals than Chinese to say the same thing, so demanding equal counts
+# produces constant noise. Only the dangerous directions block:
+#   strong down  - a prohibition or obligation was weakened or lost
+#   weak up      - a hedge was introduced where the original had none
+# The opposite directions are usually idiom and are reported as SOFT.
+DIRECTIONAL = {"strong_constraints": "down", "weak_constraints": "up"}
 
 
 def compare(old, new):
     findings = []
+    for key, bad in DIRECTIONAL.items():
+        a, b = old[key], new[key]
+        if a == b:
+            continue
+        dropped = b < a
+        dangerous = (bad == "down" and dropped) or (bad == "up" and not dropped)
+        sev = "HARD" if dangerous else "SOFT"
+        why = ("weakened or lost" if bad == "down" and dropped
+               else "hedge introduced" if bad == "up" and not dropped
+               else "opposite direction, usually idiom")
+        findings.append((sev, key, f"{a} -> {b} ({why})"))
     for key in HARD + SOFT:
         a, b = old[key], new[key]
         if a == b:

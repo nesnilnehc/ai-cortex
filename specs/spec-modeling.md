@@ -22,21 +22,21 @@ related:
 
 # Spec 建模规范（Meta-Spec）
 
-> **数据契约**：定义任何 spec 文档的结构骨架与字段约束
+> **Data contract**: 定义任何 spec 文档的结构骨架与字段约束
 
 ---
 
-## 1. 定位与适用范围
+## 1. Position and scope
 
 本规范是 spec 的 spec——任何 spec 文档（包含本文件自身）必须遵循此处定义的章节骨架与 frontmatter 契约。
 
 每份 spec 定义一类制品的数据契约（字段、章节、状态、校验）；本 meta-spec 定义这些 spec 自身应如何组织。
 
-适用：
+In scope:
 
 - 任何描述制品数据契约的 spec 文档
 
-不适用：
+不In scope:
 
 - 配套的 rule（行为约束）
 - protocols（流程描述）
@@ -46,7 +46,7 @@ related:
 
 ---
 
-## 2. 心智模型（Mental Model）
+## 2. Mental model
 
 > 一份合格制品要回答的核心问题。
 
@@ -88,7 +88,7 @@ related:
 
 ---
 
-## 3. 命名约定
+## 3. Naming
 
 每份 spec 描述其所建模制品的**文件命名规则**（如有）。不规定具体存放路径——路径由各项目治理决定。
 
@@ -106,7 +106,7 @@ related:
 
 ---
 
-## 4. Frontmatter 契约
+## 4. Frontmatter contract
 
 ```yaml
 ---
@@ -127,9 +127,9 @@ archived_at: YYYY-MM-DD            # status: archived 时必填
 ---
 ```
 
-### 4.1 字段表
+### 4.1 Field table
 
-| 字段 | 类型 | 必填 | 说明 |
+| Field | Type | Required | Description |
 |---|---|---|---|
 | `id` | string | 必 | 格式 `<UPPER_SNAKE>_MODELING_SPEC_V<n>`（如 `ADR_MODELING_SPEC_V1`）；运行时对象类 spec 可省略 `_MODELING_`（如 `UNIVERSAL_NOTIFICATION_SPEC_V2`） |
 | `name` | string | 必 | 英文 spec 名称 |
@@ -143,11 +143,11 @@ archived_at: YYYY-MM-DD            # status: archived 时必填
 | `superseded_by` | string | 条件 | `status: superseded` 时必填，指向替代 spec 的 id |
 | `archived_at` | date | 条件 | `status: archived` 时必填 |
 
-### 4.2 状态机语义
+### 4.2 State machine semantics
 
 `status` 的 4 个枚举值含义与转入条件：
 
-| 状态 | 含义 | 转入条件 |
+| Status | Meaning | Entry condition |
 |---|---|---|
 | `draft` | 初稿，尚未稳定 | spec 首次落地，未在生产中被引用 |
 | `active` | 当前有效 | spec 已稳定，被下游引用 |
@@ -158,30 +158,30 @@ archived_at: YYYY-MM-DD            # status: archived 时必填
 
 ---
 
-## 5. 正文结构契约
+## 5. Body structure contract
 
 ### 5.1 章节顺序
 
 ```markdown
 # {制品名}建模规范
 
-> **数据契约**：<一句话定位>
+> **Data contract**: <一句话定位>
 
-## 1. 定位与适用范围            【必备】
-## 2. 心智模型                  【条件必备】
-## 3. 命名约定                  【条件必备】
-## 4. Frontmatter 契约          【条件必备】
-## 5. 正文结构契约              【必备】
-## 6. 反模式                    【必备】
-## 7. 示例                      【必备】
-## 8. 与其他资产关系            【可选】
+## 1. Position and scope            【必备】
+## 2. Mental model                  【条件必备】
+## 3. Naming                  【条件必备】
+## 4. Frontmatter contract          【条件必备】
+## 5. Body structure contract              【必备】
+## 6. Anti-patterns                    【必备】
+## 7. Examples                      【必备】
+## 8. Relationship to other assets            【可选】
 ```
 
 ### 5.2 编号规则
 
 - **统一数字编号**：所有 spec 用 `## N. <名>`，不用主题词标题
 - **跳号允许**：若某章节不适用（条件必备的触发条件不成立），跳过该编号，**不重新排号**——保持跨 spec 的编号对位
-- **首段统一**：H1 下紧跟单行 blockquote：`> **数据契约**：<一句话定位>`；附加说明应进 §1，不进 blockquote
+- **首段统一**：H1 下紧跟单行 blockquote：`> **Data contract**: <一句话定位>`；附加说明应进 §1，不进 blockquote
 
 ### 5.3 校验集中
 
@@ -197,9 +197,9 @@ archived_at: YYYY-MM-DD            # status: archived 时必填
 
 ---
 
-## 6. 反模式
+## 6. Anti-patterns
 
-- ❌ 章节用主题词而非数字编号（如 `## 适用范围` 而非 `## 1. 定位与适用范围`）
+- ❌ 章节用主题词而非数字编号（如 `## 适用范围` 而非 `## 1. Position and scope`）
 - ❌ 不适用的条件必备章节强行加上（如运行时对象 spec 加 §3 命名约定 / §4 Frontmatter 契约）
 - ❌ 校验规则散落到各字段定义内（应集中在 §5）
 - ❌ 示例散落到各字段定义后（应集中在 §7）
@@ -218,7 +218,7 @@ archived_at: YYYY-MM-DD            # status: archived 时必填
 
 ---
 
-## 7. 示例
+## 7. Examples
 
 ### 7.1 最小合规骨架（仅必备章节）
 
@@ -239,20 +239,20 @@ scope: |
 
 # Widget 规范
 
-> **数据契约**：定义 widget 运行时对象的字段与校验
+> **Data contract**: 定义 widget 运行时对象的字段与校验
 
-## 1. 定位与适用范围
+## 1. Position and scope
 适用于 ...；不适用于 ...
 
-## 5. 正文结构契约
-| 字段 | 类型 | 必填 | 说明 |
+## 5. Body structure contract
+| Field | Type | Required | Description |
 |---|---|---|---|
 | ... | ... | ... | ... |
 
-## 6. 反模式
+## 6. Anti-patterns
 - ❌ ...
 
-## 7. 示例
+## 7. Examples
 ```json
 
 { "id": "...", "type": "..." }
@@ -269,22 +269,22 @@ scope: |
 ```markdown
 # ADR 建模规范
 
-> **数据契约**：...
+> **Data contract**: ...
 
-## 1. 定位与适用范围
-## 2. 心智模型               ← What/Why/Alternatives/Consequences
-## 3. 命名约定               ← NNNN-{slug}.md
-## 4. Frontmatter 契约       ← artifact_type / status / superseded_by / ...
-   ### 4.2 状态机语义        ← proposed/accepted/superseded/archived/rejected
-## 5. 正文结构契约           ← 4 节正文：背景 / 决策 / 替代方案 / 后果
-## 6. 反模式
-## 7. 示例
-## 8. 与其他资产关系         ← 配套 rule、衰减政策
+## 1. Position and scope
+## 2. Mental model               ← What/Why/Alternatives/Consequences
+## 3. Naming               ← NNNN-{slug}.md
+## 4. Frontmatter contract       ← artifact_type / status / superseded_by / ...
+   ### 4.2 State machine semantics        ← proposed/accepted/superseded/archived/rejected
+## 5. Body structure contract           ← 4 节正文：背景 / 决策 / 替代方案 / 后果
+## 6. Anti-patterns
+## 7. Examples
+## 8. Relationship to other assets         ← 配套 rule、衰减政策
 ```
 
 ---
 
-## 8. 与其他资产关系
+## 8. Relationship to other assets
 
 - **递归适用**：本文件自身遵循此 meta-spec 定义的骨架（自示范）
 - **下游 spec**：任何 spec 都继承本规范

@@ -21,25 +21,25 @@ related:
 
 # Release Package 规范
 
-> **数据契约**：定义跨发布准备、发布执行与发布沟通阶段共享的发布包结构
+> **Data contract**: 定义跨发布准备、发布执行与发布沟通阶段共享的发布包结构
 
-## 1. 定位与适用范围
+## 1. Position and scope
 
 Release Package 是一次候选发布的可审计载体，把版本、提交范围、发布材料、质量证据与阶段状态放在同一个对象中。
 
-适用：准备版本、执行发布、生成发布沟通材料，以及在阶段之间传递发布证据。
+In scope:准备版本、执行发布、生成发布沟通材料，以及在阶段之间传递发布证据。
 
-不适用：具体平台的上传 API、部署协议、媒体生成算法或渠道投递格式。
+不In scope:具体平台的上传 API、部署协议、媒体生成算法或渠道投递格式。
 
-## 2. 心智模型
+## 2. Mental model
 
 Release Package 回答六个问题：Decision（是否值得形成新版本）、Identity（哪个项目/提交范围）、Versions（哪些版本域变化）、Changes（用户与技术上改变了什么）、Artifacts（有哪些材料）、State（当前阶段与证据）。
 
-## 5. 正文结构契约
+## 5. Body structure contract
 
 ### 5.1 顶层字段
 
-| 字段 | 类型 | 必填 | 说明 |
+| Field | Type | Required | Description |
 |---|---|---|---|
 | `schema_version` | string | 必 | Release Package schema 版本 |
 | `project` | string | 必 | 项目标识 |
@@ -81,7 +81,7 @@ Release Package 回答六个问题：Decision（是否值得形成新版本）�
 
 `communication` 至少包含目标 audience、逐渠道 required/optional 标记、投递状态和 receipt。只有至少一个渠道成功且所有 required 渠道成功时，顶层状态才可从 `published` 变为 `announced`；optional 渠道失败必须保留，但不阻塞该状态转换。
 
-## 6. 反模式
+## 6. Anti-patterns
 
 - ❌ 三个 Skill 各自定义版本、制品或状态字段
 - ❌ 仅按 commit prefix 或 commit 数量决定 SemVer，而不检查实际用户影响
@@ -91,7 +91,7 @@ Release Package 回答六个问题：Decision（是否值得形成新版本）�
 - ❌ 没有提交 SHA 或 git range，导致内容不可追溯
 - ❌ 将渠道私有消息块直接塞进 Release Package
 
-## 7. 示例
+## 7. Examples
 
 ### 7.1 可发布包
 
@@ -147,7 +147,7 @@ checks:
   - {name: changelog-video, status: skipped, evidence: "vendored local skill is not installed", required: false}
 ```
 
-## 8. 与其他资产关系
+## 8. Relationship to other assets
 
 - `prepare-release` 构造并校验 Release Package。
 - `changelog-video` 消费已确认的 change items，并返回可选 video artifact 与 check 结果。

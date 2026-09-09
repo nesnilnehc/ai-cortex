@@ -22,19 +22,19 @@ related:
 
 # Agent 测试契约建模规范
 
-> **数据契约**：定义单个 LLM Agent 的测试契约文档的字段结构与正文骨架
+> **Data contract**: 定义单个 LLM Agent 的测试契约文档的字段结构与正文骨架
 
 ---
 
-## 1. 定位与适用范围
+## 1. Position and scope
 
 Agent 测试契约（agent test contract）回答"这个 agent 必须接受什么、必须拒绝什么、怎么算对、守护哪条承诺"——它是单个 LLM Agent 的可验证行为契约，是测试代码断言的追溯源。
 
-适用：
+In scope:
 
 - 对外提供能力的 LLM Agent（如需求澄清 agent、代码审查 agent）的测试契约
 
-不适用：
+不In scope:
 
 - **测试代码编码方式**（断言 oracle、mock 隔离、回归门禁）——归 [rules/standards-agent-testing.md](../rules/standards-agent-testing.md)
 - **QA 业务测试用例文档**——归 [test-case-modeling.md](./test-case-modeling.md)
@@ -44,7 +44,7 @@ Agent 测试契约（agent test contract）回答"这个 agent 必须接受什�
 
 ---
 
-## 2. 心智模型（Mental Model）
+## 2. Mental model
 
 > 一份合格 agent 测试契约要回答的核心问题。
 
@@ -61,7 +61,7 @@ Agent 测试契约（agent test contract）回答"这个 agent 必须接受什�
 
 ---
 
-## 3. 命名约定
+## 3. Naming
 
 ```text
 agent-test-<agent-slug>.md
@@ -73,7 +73,7 @@ agent-test-<agent-slug>.md
 
 ---
 
-## 4. Frontmatter 契约
+## 4. Frontmatter contract
 
 ```yaml
 ---
@@ -94,9 +94,9 @@ deprecated_reason: <原因>           # status: deprecated 时必填
 ---
 ```
 
-### 4.1 字段表
+### 4.1 Field table
 
-| 字段 | 类型 | 必填 | 说明 |
+| Field | Type | Required | Description |
 |---|---|---|---|
 | `id` | string | 必 | 格式 `ATC-<AGENT>` |
 | `artifact_type` | string | 必 | 固定 `agent-test-contract` |
@@ -111,9 +111,9 @@ deprecated_reason: <原因>           # status: deprecated 时必填
 | `deprecated_at` | date | 条件 | `status: deprecated` 时必填 |
 | `deprecated_reason` | string | 条件 | `status: deprecated` 时必填 |
 
-### 4.2 状态机语义
+### 4.2 State machine semantics
 
-| 状态 | 含义 | 转入条件 |
+| Status | Meaning | Entry condition |
 |---|---|---|
 | `draft` | 起草中 | 契约首次落地，golden 集未稳定 |
 | `active` | 已生效 | golden 集稳定，回归门禁已挂接 |
@@ -121,7 +121,7 @@ deprecated_reason: <原因>           # status: deprecated 时必填
 
 ---
 
-## 5. 正文结构契约
+## 5. Body structure contract
 
 ### 5.1 必填章节（7 节）
 
@@ -152,7 +152,7 @@ deprecated_reason: <原因>           # status: deprecated 时必填
 
 ---
 
-## 6. 反模式
+## 6. Anti-patterns
 
 - ❌ 缺 frontmatter 必填字段（`id` / `agent_ref` / `model_baseline` / `pass_threshold` / `covers`）
 - ❌ `covers` 为空或写 `TBD`（无追溯锚 = 测试断言无源）
@@ -166,7 +166,7 @@ deprecated_reason: <原因>           # status: deprecated 时必填
 
 ---
 
-## 7. 示例
+## 7. Examples
 
 ````markdown
 ---
@@ -232,7 +232,7 @@ parent: ../requirements/ACME-REQ-08.md
 
 ---
 
-## 8. 与其他资产关系
+## 8. Relationship to other assets
 
 - **配套 rule**：[rules/standards-agent-testing.md](../rules/standards-agent-testing.md)——agent 测试代码的红线与方法论约束（断言 oracle、隔离、回归门禁）。本 spec 只定义契约结构，编码方式归 rule。
 - **执行能力**：[skills/scaffold-agent-tests](../skills/scaffold-agent-tests/SKILL.md)——读本 spec 的契约实例 + agent 实现，生成测试套件。
