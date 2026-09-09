@@ -73,6 +73,11 @@ def frontmatter(text):
 
 
 COMMENT = re.compile(r'^\s*(?:#|//|--|<!--|\*|/\*)')
+# A docstring alone on its line is prose written for the reader, exactly
+# like a `#` comment, so it follows the migration too. Only a complete
+# one-line docstring qualifies; a multi-line one still compares byte for
+# byte.
+DOCSTRING = re.compile(r'''^\s*[rbuf]*("""|\'\'\').*\1\s*$''')
 
 
 def strip_trailing_comment(line):
@@ -123,7 +128,7 @@ def split_code(body):
     for line in body.split("\n"):
         if not line.strip():
             continue
-        if COMMENT.match(line):
+        if COMMENT.match(line) or DOCSTRING.match(line):
             comments += 1
         else:
             stripped = normalise_placeholders(strip_trailing_comment(line))
