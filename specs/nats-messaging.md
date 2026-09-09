@@ -18,21 +18,21 @@ related:
 
 # NATS 消息规范
 
-> **数据契约**：定义跨项目 NATS 消息的 subject、headers、payload 与版本演化契约
+> **Data contract**: 定义跨项目 NATS 消息的 subject、headers、payload 与版本演化契约
 
 ---
 
-## 1. 定位与适用范围
+## 1. Position and scope
 
 本规范定义跨独立 repo / team / service 通过 NATS 共享 broker 交换的消息应如何组织——subject 怎么命名、headers 必须含哪些字段、消息 ID 怎么发、payload 怎么写、版本怎么演化。
 
-适用：
+In scope:
 
 - 两个或更多独立演进的项目通过 NATS broker 交换消息
 - 单一项目对外发布事件让上游/下游团队消费
 - 多团队共享 broker、subject 域跨团队治理
 
-不适用：
+不In scope:
 
 - 同团队、同发布周期的内部模块间消息（无需跨团队对齐成本）
 - broker 自身行为（NATS protocol、JetStream 内部机制——以 <https://docs.nats.io> 为权威）
@@ -82,7 +82,7 @@ related:
 
 ---
 
-## 5. 正文结构契约
+## 5. Body structure contract
 
 跨团队 NATS 消息由三个层次组成：消息 ID（idempotency anchor）、Headers（元信息）、Payload（业务数据）。本节定义每层的结构契约，以及版本演化与内嵌校验规则。
 
@@ -187,7 +187,7 @@ Consumer 必须：
 
 ---
 
-## 6. 反模式
+## 6. Anti-patterns
 
 ```text
 ❌ 消息 ID 续号
@@ -233,7 +233,7 @@ nc.publish('orders.created', payload);
 
 ---
 
-## 7. 示例
+## 7. Examples
 
 ### 7.1 契约文件样板
 
@@ -269,7 +269,7 @@ IaC 责任：terraform/nats/clarification-stream.tf（agentfabric 团队）
 
 ## Payload 字段
 
-| 字段 | 类型 | 必填 | 说明 |
+| Field | Type | Required | Description |
 |---|---|---|---|
 | sessionId | string | 必 | ULID，会话标识 |
 | feedbackId | string | 必 | 待澄清的反馈 ID |
@@ -331,7 +331,7 @@ consume_pattern: null                             # 可选：wildcard 消费模�
 
 ---
 
-## 8. 与其他资产关系
+## 8. Relationship to other assets
 
 - **父规范**：[cross-team-contract.md](./cross-team-contract.md)——通用跨团队契约骨架；本 spec 是其 NATS 特化模板
 - **递归基础**：[spec-modeling.md](./spec-modeling.md) v2.0.0——本 spec 自身遵循 8 节骨架

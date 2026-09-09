@@ -20,23 +20,23 @@ related:
 
 # 功能设计建模规范
 
-> **数据契约**：定义功能设计文档的字段结构与正文骨架
+> **Data contract**: 定义功能设计文档的字段结构与正文骨架
 
 ---
 
-## 1. 定位与适用范围
+## 1. Position and scope
 
 功能设计文档（functional design document）面向业务 / 产品视角，回答"系统对用户呈现什么行为"——功能模块、业务流程、角色权限、业务对象状态、异常场景。它处在需求与技术设计之间：需求回答"做什么"，功能设计回答"对用户表现成什么样"，技术设计回答"工程上怎么实现"。
 
 本规范以业务行为为中心：不含架构、数据库、API 等工程实现细节（那些归技术设计）；业务规则不在此重新声明，而是用 `覆盖 R<n>` 引用上游需求已声明的规则 id。
 
-适用：
+In scope:
 
 - **新功能**：用户可见的功能模块、业务流程
 - **流程变更**：审批 / 订单 / 单据等业务流转的调整
 - **权限变更**：角色模型、菜单 / 操作 / 数据权限的调整
 
-不适用：
+不In scope:
 
 - 纯技术工作（架构重构、依赖升级、基础设施改造）——由授权 ADR 直接派生技术设计，跳过本层
 - 工程实现方案（架构、数据库、接口）——归技术设计文档
@@ -44,7 +44,7 @@ related:
 
 ---
 
-## 3. 命名约定
+## 3. Naming
 
 ```text
 YYYY-MM-DD-<topic>-functional-design.md
@@ -57,7 +57,7 @@ YYYY-MM-DD-<topic>-functional-design.md
 
 ---
 
-## 4. Frontmatter 契约
+## 4. Frontmatter contract
 
 ```yaml
 ---
@@ -71,9 +71,9 @@ superseded_by: <path to new functional design>   # status: superseded 时必填
 ---
 ```
 
-### 4.1 字段表
+### 4.1 Field table
 
-| 字段 | 类型 | 必填 | 说明 |
+| Field | Type | Required | Description |
 |---|---|---|---|
 | `artifact_type` | string | 必 | 固定 `functional-design` |
 | `lifecycle` | enum | 必 | 固定 `snapshot`（设计是时点决策） |
@@ -82,9 +82,9 @@ superseded_by: <path to new functional design>   # status: superseded 时必填
 | `status` | enum | 必 | `draft` / `approved` / `superseded`（语义见 §4.2） |
 | `superseded_by` | path | 条件 | `status: superseded` 时必填，指向继任功能设计路径 |
 
-### 4.2 状态机语义
+### 4.2 State machine semantics
 
-| 状态 | 含义 | 转入条件 |
+| Status | Meaning | Entry condition |
 |---|---|---|
 | `draft` | 草稿，尚在评审 | 功能设计首次落地 |
 | `approved` | 已批准，可派生技术设计 | 业务 / 产品评审通过，可作为技术设计的 `parent` |
@@ -92,7 +92,7 @@ superseded_by: <path to new functional design>   # status: superseded 时必填
 
 ---
 
-## 5. 正文结构契约
+## 5. Body structure contract
 
 ### 5.1 必填章节（6 节）
 
@@ -138,7 +138,7 @@ superseded_by: <path to new functional design>   # status: superseded 时必填
 
 ---
 
-## 6. 反模式
+## 6. Anti-patterns
 
 - ❌ 缺 frontmatter 必填字段（artifact_type / lifecycle / created_at / parent / status）
 - ❌ 含架构 / 数据库 / API 等技术实现细节（归技术设计）
@@ -155,7 +155,7 @@ superseded_by: <path to new functional design>   # status: superseded 时必填
 
 ---
 
-## 7. 示例
+## 7. Examples
 
 ### 7.1 紧凑骨架示例：订单退款审批功能设计
 
@@ -223,7 +223,7 @@ status: approved
 
 ---
 
-## 8. 与其他资产关系
+## 8. Relationship to other assets
 
 - **配套 rule**：[rules/functional-design-quality.md](../rules/functional-design-quality.md)——功能设计质量评审清单（5 维：完整性 / 可执行性 / 清晰性 / 合理性 / 可追溯性）
 - **上游 spec**：[requirement-modeling.md](./requirement-modeling.md)——功能设计的 `parent` 必须指向 `approved` 状态的 requirement；业务规则在需求侧声明，本层引用其 id

@@ -24,11 +24,11 @@ related:
 
 # 测试覆盖评估报告建模规范
 
-> **数据契约**：定义测试覆盖评估报告的字段结构与正文骨架
+> **Data contract**: 定义测试覆盖评估报告的字段结构与正文骨架
 
 ---
 
-## 1. 定位与适用范围
+## 1. Position and scope
 
 测试覆盖评估报告（test coverage report）是**用例集覆盖评审**与**跨制品对齐评审**的输入制品——它把"用例集对需求/方案的充分性 + 必要性 + 追溯闭环"的判断证据，固化为可评审、可对比、可归档的快照。
 
@@ -38,14 +38,14 @@ related:
 | 用例集覆盖评审 | 用例集对需求充分且必要吗？ | §5.2 追溯矩阵 + §5.3 变异测试概要 |
 | 跨制品对齐评审 | 用例集与上游需求/契约的链路完整吗？ | §5.4 追溯健康审计 |
 
-适用：
+In scope:
 
 - **发布门禁**：发版前对当前用例集做一次覆盖快照
 - **季度回归集治理**：周期性审视用例集冗余与缺口
 - **需求/契约/ADR 变更影响评估**：上游变更后用快照前后对比判断影响
 - **跨团队契约对接评审**：契约升级时输出覆盖证据
 
-不适用：
+不In scope:
 
 - **单条用例评审**（归 [rules/test-case-quality.md](../rules/test-case-quality.md)）
 - **测试执行报告**（pass/fail/duration 等运行结果，由 CI 报告承载）
@@ -53,7 +53,7 @@ related:
 
 ---
 
-## 2. 心智模型（Mental Model）
+## 2. Mental model
 
 > 一份合格覆盖报告要回答的核心问题。
 
@@ -69,7 +69,7 @@ related:
 
 ---
 
-## 3. 命名约定
+## 3. Naming
 
 ```text
 coverage-report-<scope>-<YYYY-MM-DD>.md
@@ -84,7 +84,7 @@ coverage-report-<scope>-<YYYY-MM-DD>.md
 
 ---
 
-## 4. Frontmatter 契约
+## 4. Frontmatter contract
 
 ```yaml
 ---
@@ -107,9 +107,9 @@ conditional_reasons:                    # verdict: conditional 时必填
 ---
 ```
 
-### 4.1 字段表
+### 4.1 Field table
 
-| 字段 | 类型 | 必填 | 说明 |
+| Field | Type | Required | Description |
 |---|---|---|---|
 | `artifact_type` | string | 必 | 固定 `test-coverage-report` |
 | `lifecycle` | enum | 必 | 固定 `snapshot` |
@@ -134,7 +134,7 @@ conditional_reasons:                    # verdict: conditional 时必填
 
 ---
 
-## 5. 正文结构契约
+## 5. Body structure contract
 
 ### 5.1 必填章节（4 节）
 
@@ -231,7 +231,7 @@ conditional_reasons:                    # verdict: conditional 时必填
 
 ---
 
-## 6. 反模式
+## 6. Anti-patterns
 
 - ❌ verdict 与正文矛盾（如 verdict: pass 但追溯矩阵有空行未声明不适用）
 - ❌ 没跑变异测试却给出 mutation score（数据捏造）
@@ -246,7 +246,7 @@ conditional_reasons:                    # verdict: conditional 时必填
 
 ---
 
-## 7. 示例
+## 7. Examples
 
 ### 7.1 最小合规覆盖报告：auth 模块发布门禁
 
@@ -329,7 +329,7 @@ verdict = **conditional**：可发布，session 模块需在 v2.5 前补齐变�
 
 ---
 
-## 8. 与其他资产关系
+## 8. Relationship to other assets
 
 - **配套 rule**：[rules/test-coverage-quality.md](../rules/test-coverage-quality.md)——覆盖评估报告的 5 维评审清单
 - **下游消费者**：用例集覆盖评审服务、跨制品对齐评审服务读取本制品产出评审决策
