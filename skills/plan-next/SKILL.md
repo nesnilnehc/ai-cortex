@@ -3,7 +3,7 @@ name: plan-next
 description: Analyze governance state and suggest next actions from existing docs; read-only — never executes downstream skills.
 description_zh: 基于现有治理文档分析状态并给出下一步行动建议；只读——不执行下游技能。
 tags: [workflow, meta-skill, automation]
-version: 13.3.0
+version: 13.3.1
 license: MIT
 recommended_scope: project
 cognitive_mode: interpretive
@@ -371,6 +371,8 @@ G1-G4 缺口类型用作诊断依据节的子标签。
 > 示例：`采纳率（用户主动接受推荐占比）：当前 42% / 目标 ≥70% / 行业 50-65% 算良好`
 
 **参考系**取一：行业基准 / 项目历史值 / 经验阈值。无参考时写"项目自定（无外部基准）"提醒读者警惕。同卡片同指标第二次出现可省略参考系。
+
+> 三元组格式的权威定义见 [rules/roadmap-quality.md](../../rules/roadmap-quality.md) §3；路线图的成功指标由 `define-roadmap` 按同一格式产出，两端措辞须保持一致。
 
 **推荐技能写法**：斜杠命令 + 完成提示词，格式：
 

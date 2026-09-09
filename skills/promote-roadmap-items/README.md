@@ -4,7 +4,7 @@
 
 ## 用途
 
-Roadmap planning ceremony 的支撑技能：读取 priority 已定的 backlog + 当前 roadmap + 战略目标容量分配，生成晋升 / 降级候选，用户逐项确认后更新 roadmap 和条目 status（依据 ADR 20260417-work-lifecycle-and-skill-responsibilities 决策 3.7.2）。
+Roadmap planning ceremony 的支撑技能：读取 priority 已定的 backlog + 当前 roadmap + 战略目标容量分配，生成晋升 / 降级候选，用户逐项确认后更新 roadmap 和条目 status。
 
 ## 何时使用
 
