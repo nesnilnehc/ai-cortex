@@ -15,107 +15,107 @@ related:
   - ../rules/claude-md-management.md
 ---
 
-# CLAUDE.md 建模规范
+# CLAUDE.md Modeling Schema
 
-> **Data contract**: 定义合格 CLAUDE.md 的层级结构、必备章节与形态要求
+> **Data contract**: defines the level structure, required sections and form requirements of a sound CLAUDE.md
 
 ---
 
 ## 1. Position and scope
 
-CLAUDE.md 是项目级长期记忆文件，由 AI 编程助手（Claude Code、Cursor 等）在会话进入仓库时自动加载。其作用是让 AI 第一次出手即符合项目期待，避免每次会话重复解释项目背景。
+CLAUDE.md is a project-level long-term memory file, loaded automatically by AI coding assistants such as Claude Code and Cursor when a session enters the repository. Its purpose is for the AI to meet the project's expectations on its first move, so the project background does not have to be re-explained every session.
 
-CLAUDE.md 不是 README 的替代品：README 面向人类读者，CLAUDE.md 面向 AI Agent。两者目标受众不同，因而详略、形态、信息密度均不同。
+CLAUDE.md does not replace the README. A README addresses human readers; CLAUDE.md addresses an AI agent. Different audiences make for different depth, form and information density.
 
-### 1.1 适用层级
+### 1.1 Levels it applies to
 
-| 层级 | 位置 | 强制范围 |
+| Level | Location | Enforcement |
 |---|---|---|
-| 项目级 | 仓库根 `CLAUDE.md` | 强制 |
-| 模块级 | 子目录 `CLAUDE.md` | 强制（若存在） |
-| 个人级 | `~/.claude/CLAUDE.md` | 引导性（位于用户主目录，不在任一项目仓库内，无法被项目级治理强制；建议遵循 §5.4 形态要求） |
+| Project | `CLAUDE.md` at the repository root | Enforced |
+| Module | `CLAUDE.md` in a subdirectory | Enforced where one exists |
+| Personal | `~/.claude/CLAUDE.md` | Advisory. It lives in the user's home directory, outside any project repository, so project governance cannot enforce it; following the §5.4 form requirements is recommended |
 
 ---
 
 ## 2. Mental model
 
-> 一份合格 CLAUDE.md 必使 AI 能清晰回答的四个核心问题。
+> The four core questions a sound CLAUDE.md must let the AI answer clearly.
 
 | Question | Description |
 |---|---|
-| **What** | 这是什么项目？面向谁？解决什么问题？ |
-| **With** | 使用什么技术栈、运行时与依赖？ |
-| **How** | 怎么启动、构建、测试、部署？目录组织如何？ |
-| **Don't** | 哪些目录 / 文件 / 操作不能动？必须人工确认的边界在哪？ |
+| **What** | What project is this? Who is it for? What problem does it solve? |
+| **With** | Which stack, runtime and dependencies does it use? |
+| **How** | How is it started, built, tested and deployed? How are the directories organised? |
+| **Don't** | Which directories, files or operations are off limits? Where is the boundary that requires human confirmation? |
 
-§5 正文结构契约定义的章节均围绕回答这四个问题展开。
+Every section the body structure contract defines in §5 exists to answer one of these four questions.
 
 ---
 
 ## 5. Body structure contract
 
-### 5.1 三层结构与职责切分
+### 5.1 The three levels and how responsibility divides
 
-三层职责互不重叠：
+The three levels do not overlap:
 
-| 层级 | 内容 |
+| Level | Contents |
 |---|---|
-| **个人级**（`~/.claude/CLAUDE.md`） | 跨项目的个人协作偏好：语言、风格、通用 rule 引用、个人快捷指令 |
-| **项目级**（仓库根 `CLAUDE.md`） | 本项目的技术栈、关键命令、目录约定、核心约束、禁区 |
-| **模块级**（子目录 `CLAUDE.md`） | 特定模块的局部补充（仅在 monorepo / 多服务结构下使用） |
+| **Personal** (`~/.claude/CLAUDE.md`) | Cross-project personal collaboration preferences: language, style, references to general rules, personal shortcuts |
+| **Project** (`CLAUDE.md` at the repository root) | This project's stack, key commands, directory conventions, core constraints and no-go zones |
+| **Module** (`CLAUDE.md` in a subdirectory) | Local additions for one module, used only in a monorepo or multi-service layout |
 
-跨层不重复：项目级不写"个人偏好"，模块级不重述项目级已声明的全局约束。
+No repetition across levels: the project level does not carry personal preferences, and the module level does not restate a global constraint the project level already declared.
 
-### 5.2 必备章节（项目级）
+### 5.2 Required sections at project level
 
-项目级 CLAUDE.md 必须包含以下章节（顺序可调，但条目不可缺）：
+A project-level CLAUDE.md must contain these sections. The order may vary, but none may be missing:
 
-| 章节 | 内容 |
+| Section | Contents |
 |---|---|
-| 项目概览 | 2-3 句话说明项目是什么、面向谁、核心价值。不复述 README，只提炼对 AI 决策有影响的信息 |
-| 技术栈 | 语言、框架、运行时版本、包管理器（明确指定避免 AI 用错）、关键依赖及版本约束 |
-| 关键命令 | 启动、构建、测试、lint、部署的标准命令。优先列抽象层命令（如 `make dev`），而非底层组合 |
-| 目录结构 | 仅列对 AI 决策有意义的目录，每条一行说明职责。不复制 `tree` 输出 |
-| 核心约定 | 编码风格、命名规则、Git 提交规范、分支策略、测试要求 |
-| 禁区 | 不能修改的目录 / 文件、不能调用的 API、必须人工确认的操作 |
+| Project overview | 2-3 sentences on what the project is, who it is for and its core value. Not a restatement of the README — only what bears on the AI's decisions |
+| Stack | Language, framework, runtime version, package manager — name it explicitly to avoid the AI reaching for the wrong one — plus key dependencies and version constraints |
+| Key commands | The standard commands to start, build, test, lint and deploy. Prefer the higher-level command such as `make dev` over the underlying composition |
+| Directory structure | Only the directories that bear on the AI's decisions, one line of responsibility each. Not a copy of `tree` output |
+| Core conventions | Coding style, naming rules, commit conventions, branching strategy, testing requirements |
+| No-go zones | Directories and files that must not be modified, APIs that must not be called, operations requiring human confirmation |
 
-### 5.3 可选章节
+### 5.3 Optional sections
 
-按需添加：
+Add as needed:
 
-- 业务术语表：领域黑话密集的项目必备
-- 架构约束：跨层调用规则、依赖方向
-- Skill 索引：列出本项目可触发的 Skill 及触发条件
-- 外部集成：数据库、消息队列、第三方 API 的连接说明
-- 已知陷阱：实践中踩过的坑及规避方式
+- Domain glossary: required in a project dense with domain jargon
+- Architecture constraints: cross-layer call rules, dependency direction
+- Skill index: which skills this project can trigger, and on what conditions
+- External integrations: how to connect to databases, message queues and third-party APIs
+- Known traps: pitfalls hit in practice and how to avoid them
 
-### 5.4 形态要求
+### 5.4 Form requirements
 
-合格的 CLAUDE.md 在形态上须满足：
+A sound CLAUDE.md must satisfy these:
 
-| 要求 | 含义 |
+| Requirement | Meaning |
 |---|---|
-| 简洁 | 项目级总长 ≤ 300 行；超过则拆模块级或精简 |
-| 可执行 | 每条规则可被 AI 直接遵循，不需要再解释 |
-| 决策导向 | 每条内容都影响 AI 实际选择；删掉后 AI 行为变差 |
-| 就近原则 | 最易违反、最高代价的约束放文末，利用模型对近因敏感的特性 |
+| Concise | A project-level file is ≤ 300 lines; beyond that, split out a module level or trim |
+| Actionable | Every rule can be followed directly by the AI, with no further explanation |
+| Decision-oriented | Every line changes what the AI actually chooses; deleting it makes the AI's behaviour worse |
+| Recency | Put the most easily violated and most costly constraints at the end, exploiting the model's sensitivity to what came last |
 
 ---
 
 ## 6. Anti-patterns
 
-不合格形态分为两层（具体条目与禁止理由由 [rules/claude-md-management.md](../rules/claude-md-management.md) 单一权威承载，本 spec 仅给出范畴划分）：
+Unsound forms fall into two layers. The individual items and the reasons they are forbidden live in a single authority, [rules/claude-md-management.md](../rules/claude-md-management.md); this spec gives only the categorisation:
 
-| 层 | 含义 | 权威清单 |
+| Layer | Meaning | Authoritative list |
 |---|---|---|
-| 表达层反模式 | 散文化论证、模糊措辞、缺少强标注——使 AI 难以遵循明确约束 | [rules/claude-md-management.md §2 表达方式](../rules/claude-md-management.md) |
-| 内容层反模式 | 通用知识冗余、易变状态、敏感信息、外部文档复述、预测性规则——使 CLAUDE.md 偏离"长期记忆"定位 | [rules/claude-md-management.md §3 内容禁区](../rules/claude-md-management.md) |
+| Expression anti-patterns | Prose argumentation, vague wording, missing strong markers — all of which make a clear constraint hard for the AI to follow | [rules/claude-md-management.md §2 Expression](../rules/claude-md-management.md) |
+| Content anti-patterns | Redundant general knowledge, volatile state, sensitive material, restatements of external documents, speculative rules — all of which pull CLAUDE.md away from being long-term memory | [rules/claude-md-management.md §3 Content no-go zones](../rules/claude-md-management.md) |
 
 ---
 
 ## 7. Examples
 
-### 7.1 最小合规项目级 CLAUDE.md
+### 7.1 A minimally compliant project-level CLAUDE.md
 
 ````markdown
 # CLAUDE.md
@@ -158,28 +158,28 @@ Claude Code 在本仓库工作时的简报。
 - **ALWAYS**：修改 `src/api/auth/` 前人工确认（涉及鉴权敏感路径）
 ````
 
-注：本示例为最小骨架，实际项目可按 §5.3 增加可选章节（业务术语、架构约束等）。
+Note: this example is a minimal skeleton. A real project adds optional sections from §5.3 — domain glossary, architecture constraints and the like.
 
 ---
 
 ## 8. Relationship to other assets
 
-### 8.1 配套 rule
+### 8.1 Paired rule
 
-[rules/claude-md-management.md](../rules/claude-md-management.md)——CLAUDE.md 写作纪律（篇幅控制、表达方式、内容禁区、修订原则、自检清单）。
+[rules/claude-md-management.md](../rules/claude-md-management.md) — CLAUDE.md discipline: length limits, expression, content no-go zones, revision principles and the self-check.
 
-### 8.2 与其他文档的边界
+### 8.2 Boundary with other documents
 
-CLAUDE.md 不替代以下文档，应通过链接引用而不复制其内容：
+CLAUDE.md does not replace the documents below; it links to them rather than copying their content:
 
-| 文档 | 关系 |
+| Document | Relationship |
 |---|---|
-| `README.md` | 面向人类读者的项目介绍；CLAUDE.md 通过链接引用 |
-| `CONTRIBUTING.md` | 面向贡献者的协作流程；CLAUDE.md 不重复 |
-| `AGENTS.md`（若有） | 跨 Agent 的契约与权威边界；CLAUDE.md 服从其约束 |
-| 架构文档 | 深度技术设计；CLAUDE.md 仅引用，不内嵌 |
+| `README.md` | The project introduction for human readers; CLAUDE.md links to it |
+| `CONTRIBUTING.md` | The contribution process; CLAUDE.md does not repeat it |
+| `AGENTS.md`, where one exists | The cross-agent contract and authority boundaries; CLAUDE.md defers to its constraints |
+| Architecture documents | Deep technical design; CLAUDE.md references them rather than embedding them |
 
-### 8.3 加载与递归基础
+### 8.3 Loading, and the recursive basis
 
-- CLAUDE.md 的加载由 AI 编程助手内置决定，无需 frontmatter 标记
-- 本 spec 自身遵循 [spec-modeling.md](./spec-modeling.md) v2.0.0 的 8 节骨架；跳过 §3（固定文件名）与 §4（无 frontmatter）
+- Loading of CLAUDE.md is built into the AI coding assistant and needs no frontmatter marker
+- This spec itself follows the 8-section skeleton of [spec-modeling.md](./spec-modeling.md) v2.0.0, skipping §3 (the filename is fixed) and §4 (there is no frontmatter)

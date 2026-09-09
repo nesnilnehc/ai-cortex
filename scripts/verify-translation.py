@@ -54,7 +54,7 @@ STRONG_RE = re.compile(
     r'[Ff]orbidden|[Pp]rohibited')
 WEAK_RE = re.compile(
     r'应当|应该|建议|尽量|最好|优先(?!级)|避免|'
-    r'[Ss]hould not|SHOULD NOT|[Ss]hould|SHOULD|[Pp]refer|recommended|[Ss]uggest(?:ed|ion)?|[Aa]void')
+    r'[Ss]hould not|SHOULD NOT|[Ss]hould|SHOULD|[Pp]refer(?!ence)|recommended|[Ss]uggest(?:ed|ion)?|[Aa]void')
 
 
 def frontmatter(text):
@@ -95,6 +95,20 @@ def strip_trailing_comment(line):
     return line
 
 
+PLACEHOLDER = re.compile(r'<[^<>\n]{1,80}>')
+
+
+def normalise_placeholders(line):
+    """Collapse <...> slots so their descriptions do not count as code.
+
+    In a template, `description: <a one-line summary>` is a slot whose angle
+    brackets are the contract and whose inner text is prose for the reader. The
+    field name, the structure and the presence of the slot are all still
+    compared; only the wording inside it is free to follow the migration.
+    """
+    return PLACEHOLDER.sub("<>", line)
+
+
 def split_code(body):
     """Separate executable lines from comment lines inside a code block.
 
@@ -109,7 +123,7 @@ def split_code(body):
         if COMMENT.match(line):
             comments += 1
         else:
-            stripped = strip_trailing_comment(line)
+            stripped = normalise_placeholders(strip_trailing_comment(line))
             if stripped != line:
                 comments += 1
             code.append(stripped)
