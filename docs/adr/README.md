@@ -1,35 +1,35 @@
 # Architecture Decision Records
 
-本仓库使用 ADR（Architecture Decision Record）记录影响系统结构与治理的关键决策。
+This repository uses Architecture Decision Records to capture the decisions that shape its structure and its governance.
 
-## 为什么用 ADR
+## Why an ADR
 
-好的决策记录回答四个问题：**What**（决定了什么）/ **Why**（为什么）/ **Alternatives**（考虑过哪些替代）/ **Consequences**（带来什么后果）。这些问题的答案散落在 commit、PR、口头讨论中会迅速消失；集中在 ADR 里，半年后的团队成员仍能重建决策上下文，而不是在代码里看到一个"为什么这样设计"的谜题。
+A good decision record answers four questions: **What** was decided / **Why** / which **Alternatives** were considered / what **Consequences** follow. Scattered across commits, pull requests and conversations, those answers disappear fast. Gathered into an ADR, a team member six months later can reconstruct the context instead of finding a "why is it built this way" puzzle in the code.
 
-## 数据契约与写作纪律
+## The data contract and the writing discipline
 
-- **数据契约**（frontmatter 字段、status 枚举、正文结构）→ [specs/adr-modeling.md](../../specs/adr-modeling.md)
-- **写作纪律**（准入门槛、状态执行、衰减政策）→ [rules/adr-management.md](../../rules/adr-management.md)
+- **The data contract** — frontmatter fields, the status enum, the body structure → [specs/adr-modeling.md](../../specs/adr-modeling.md)
+- **The writing discipline** — the bar for admission, enforcing status, the decay policy → [rules/adr-management.md](../../rules/adr-management.md)
 
-## 如何新增 ADR
+## How to add an ADR
 
-1. 复制 [`templates/adr-template.md`](./templates/adr-template.md)
-2. 命名为 `NNNN-{slug}.md`，编号取下方索引最大编号 + 1（首篇新 ADR 从 `0010` 起）
-3. 填写 frontmatter 与 4 节正文（背景 / 决策 / 替代方案 / 后果）
-4. 在下方索引追加一行
+1. Copy [`templates/adr-template.md`](./templates/adr-template.md)
+2. Name it `NNNN-{slug}.md`, taking the highest number in the index below + 1 (the first new ADR started at `0010`)
+3. Fill in the frontmatter and the 4 body sections (Context / Decision / Alternatives / Consequences)
+4. Append a row to the index below
 
-## ADR 索引
+## The ADR index
 
-| 编号 | 标题 | 状态 |
+| Number | Title | Status |
 |---|---|---|
-| [0001](./0001-io-contract-protocol.md) | 技能链 I/O 契约协议 | accepted |
-| [0002](./0002-plan-next-v6-restructure.md) | plan-next v6 结构重构 | accepted |
-| [0003](./0003-plan-next-v6.3-execution-state-and-linking.md) | plan-next v6.3 执行态与制品链接 | accepted |
-| [0004](./0004-norms-driven-artifact-architecture.md) | 规范驱动制品架构 | accepted |
-| [0005](./0005-retract-linking-mode-enum.md) | 回撤 linking_mode 枚举 | accepted |
-| [0006](./0006-delete-linking-mode-and-unify-artifact-paths.md) | 删除 linking_mode 并统一制品路径 | accepted |
-| [0007](./0007-remove-plan-next-execute-flag.md) | 移除 plan-next execute 参数 | accepted |
-| [0008](./0008-replace-asqm-with-acceptance-criteria.md) | 用 Acceptance Criteria 替代 ASQM | accepted |
-| [0009](./0009-replace-merge-worktree-with-deliver-and-integrate.md) | 用 deliver-feature + integrate-worktrees 替代 merge-worktree | accepted |
-| [0010](./0010-installation-strategy.md) | XDG canonical path + bin/cortex 安装策略 | accepted |
-| [0011](./0011-vendor-external-skills.md) | 统一 vendored 外部 Skill 管理 | accepted |
+| [0001](./0001-io-contract-protocol.md) | The skill-chain I/O contract protocol | accepted |
+| [0002](./0002-plan-next-v6-restructure.md) | Restructuring plan-next for v6 | accepted |
+| [0003](./0003-plan-next-v6.3-execution-state-and-linking.md) | plan-next v6.3: execution state and artifact linking | accepted |
+| [0004](./0004-norms-driven-artifact-architecture.md) | A norms-driven artifact architecture | accepted |
+| [0005](./0005-retract-linking-mode-enum.md) | Retracting the linking_mode enum | accepted |
+| [0006](./0006-delete-linking-mode-and-unify-artifact-paths.md) | Deleting linking_mode and unifying the artifact paths | accepted |
+| [0007](./0007-remove-plan-next-execute-flag.md) | Removing the plan-next execute flag | accepted |
+| [0008](./0008-replace-asqm-with-acceptance-criteria.md) | Replacing ASQM with acceptance criteria | accepted |
+| [0009](./0009-replace-merge-worktree-with-deliver-and-integrate.md) | Replacing merge-worktree with deliver-feature + integrate-worktrees | accepted |
+| [0010](./0010-installation-strategy.md) | The installation strategy: an XDG canonical path plus bin/cortex | accepted |
+| [0011](./0011-vendor-external-skills.md) | Unifying the management of vendored external skills | accepted |
