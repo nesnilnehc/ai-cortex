@@ -16,38 +16,38 @@ related:
   - ../rules/requirement-quality.md
 ---
 
-# 需求建模规范
+# Requirement Modeling Schema
 
-> **Data contract**: 定义需求文档的字段结构与正文骨架
+> **Data contract**: defines the field structure and body skeleton of a requirement document
 
 ---
 
 ## 1. Position and scope
 
-需求文档（requirement document）回答"做什么"——通过用户故事或问题陈述、可验收的标准、依赖与风险，让团队对"要交付的东西"达成共识。它是上游目标（goal / roadmap 节点）与下游设计文档之间的桥梁。
+A requirement document answers "what are we building" — through a user story or problem statement, verifiable acceptance criteria, dependencies and risks, it brings the team to a shared understanding of what will be delivered. It is the bridge between an upstream objective (a goal or roadmap node) and a downstream design document.
 
-本规范以验收标准为中心：业务规则默认内联进验收标准，不单列；实现层面的场景流程（步骤流、状态流转细节）下沉至下游设计文档。这些刻意的省略是契约的一部分——避免作者在规则与场景的归属上反复猜测。
+This spec is centred on acceptance criteria: business rules are inlined into the acceptance criteria by default rather than listed separately, and implementation-level scenario flows (step sequences, state-transition detail) are pushed down to the downstream design document. These omissions are deliberate and are part of the contract — they spare the author from guessing repeatedly where a rule or a scenario belongs.
 
 In scope:
 
-- **功能需求**：新增功能、流程调整、体验优化
-- **非功能需求**：性能、安全、可维护性、可扩展性
+- **Functional requirements**: new features, process changes, experience improvements
+- **Non-functional requirements**: performance, security, maintainability, extensibility
 
-不In scope:
+Out of scope:
 
-- 探索性研究或方案对比（属 ADR 或 RFC）
-- 内部组件 API 设计（属设计文档）
-- 临时性 bug fix 或代码清理（用 commit / PR 描述即可）
-- 缺陷、技术任务、实现方案、信息不足——属原始进件的非需求类，由 [rules/requirement-intake-triage.md](../rules/requirement-intake-triage.md) 分诊处理，不作为需求文档建模
+- Exploratory research or option comparison (an ADR or an RFC)
+- Internal component API design (a design document)
+- One-off bug fixes or code cleanups (a commit or PR description is enough)
+- Defects, technical tasks, implementation proposals and insufficient information — these are the non-requirement classes of raw intake, triaged by [rules/requirement-intake-triage.md](../rules/requirement-intake-triage.md) and not modelled as requirement documents
 
-### 1.1 按需求类型的简化指引
+### 1.1 Simplification guidance by requirement type
 
-| 类型 | 必填字段 | 可简化部分 |
+| Type | Required sections | What may be simplified |
 |---|---|---|
-| 功能需求 | 全部 6 节正文 | — |
-| 非功能需求 | 全部 6 节正文 | — |
+| Functional requirement | All 6 body sections | — |
+| Non-functional requirement | All 6 body sections | — |
 
-风险优先级与缓解策略**永不可选**。
+Risk priority and mitigation strategy are **never optional**.
 
 ---
 
@@ -57,10 +57,10 @@ In scope:
 <PROJECT>-REQ-<nn>.md
 ```
 
-- `<PROJECT>`：项目缩写（大写，2-6 字符，如 `ACME` / `MYAPP`）
-- `<nn>`：顺序号，2 位起步，单调递增，**不复用**
-- 示例：`ACME-REQ-05.md` / `MYAPP-REQ-042.md`
-- 存放位置由项目治理决定（典型：`docs/requirements/`）
+- `<PROJECT>`: the project abbreviation (upper case, 2-6 characters, for example `ACME` / `MYAPP`)
+- `<nn>`: the sequence number, at least 2 digits, monotonically increasing, and **never reused**
+- Examples: `ACME-REQ-05.md` / `MYAPP-REQ-042.md`
+- The storage location is decided by project governance (typically `docs/requirements/`)
 
 ---
 
@@ -75,9 +75,9 @@ created_at: YYYY-MM-DD
 status: draft | approved | implemented | superseded
 priority: P0 | P1 | P2
 parent: <upstream goal / roadmap node path>
-# 条件字段
-superseded_by: <new-requirement-id>   # status: superseded 时必填
-implemented_at: YYYY-MM-DD             # status: implemented 时必填
+# conditional fields
+superseded_by: <new-requirement-id>   # required when status: superseded
+implemented_at: YYYY-MM-DD             # required when status: implemented
 ---
 ```
 
@@ -85,118 +85,118 @@ implemented_at: YYYY-MM-DD             # status: implemented 时必填
 
 | Field | Type | Required | Description |
 |---|---|---|---|
-| `id` | string | 必 | 格式 `<PROJECT>-REQ-<nn>`（如 `ACME-REQ-05`） |
-| `artifact_type` | string | 必 | 固定 `requirement` |
-| `lifecycle` | enum | 必 | 固定 `snapshot`（需求批准后冻结，变更新建新需求） |
-| `created_at` | date | 必 | 需求落地日期 |
-| `status` | enum | 必 | `draft` / `approved` / `implemented` / `superseded`（语义见 §4.2） |
-| `priority` | enum | 可选 | `P0`（阻塞路径）/ `P1`（关键路径）/ `P2`（非关键） |
-| `parent` | path | 可选 | 上游目标 / roadmap 节点路径 |
-| `superseded_by` | string | 条件 | `status: superseded` 时必填，指向继任需求 id |
-| `implemented_at` | date | 条件 | `status: implemented` 时必填，记录实现完成日期 |
+| `id` | string | Yes | Format `<PROJECT>-REQ-<nn>` (for example `ACME-REQ-05`) |
+| `artifact_type` | string | Yes | Fixed as `requirement` |
+| `lifecycle` | enum | Yes | Fixed as `snapshot` (a requirement freezes once approved; a change creates a new requirement) |
+| `created_at` | date | Yes | The date the requirement was written down |
+| `status` | enum | Yes | `draft` / `approved` / `implemented` / `superseded` (semantics in §4.2) |
+| `priority` | enum | Optional | `P0` (blocking path) / `P1` (critical path) / `P2` (non-critical) |
+| `parent` | path | Optional | Path to the upstream objective or roadmap node |
+| `superseded_by` | string | Conditional | Required when `status: superseded`; points at the successor requirement id |
+| `implemented_at` | date | Conditional | Required when `status: implemented`; records the date implementation completed |
 
 ### 4.2 State machine semantics
 
 | Status | Meaning | Entry condition |
 |---|---|---|
-| `draft` | 起草中 | 需求文档首次落地，尚未通过评审 |
-| `approved` | 已批准 | 评审通过，可派生设计文档（design 的 `parent`） |
-| `implemented` | 已实现 | 关联实施任务全部 `Done`，验收标准全部满足（需填 `implemented_at`） |
-| `superseded` | 被新需求替代 | 业务变更导致需求重写（需填 `superseded_by`） |
+| `draft` | Being drafted | The requirement document has just been written and has not passed review |
+| `approved` | Approved | Review passed; a design document may be derived from it (as the design's `parent`) |
+| `implemented` | Implemented | Every associated implementation task is `Done` and every acceptance criterion is met (`implemented_at` must be filled in) |
+| `superseded` | Replaced by a newer requirement | A business change caused the requirement to be rewritten (`superseded_by` must be filled in) |
 
 ---
 
 ## 5. Body structure contract
 
-### 5.1 必填章节（6 节）
+### 5.1 Required sections (6)
 
-每份需求文档必须包含以下 6 节正文（H1 标题不在统计内）。
+Every requirement document must contain the following 6 body sections (the H1 title is not counted).
 
-**H1 标题**：`# 需求：[类型] 一句话描述`
-- 类型示例：`[功能]` / `[非功能]`
-- 标题 ≤ 80 字符，不含技术实现细节
-- 陈述需求主体（功能 / 问题 / 任务），不陈述期望结果——结果归「目标」节；词性不限（能力短语 / 问题陈述 / 约束陈述均可）
+**H1 title**: `# Requirement: [type] one-line description`
+- Example types: `[Functional]` / `[Non-functional]`
+- The title is ≤ 80 characters and carries no technical implementation detail
+- It states the subject of the requirement (a capability, a problem, a task), not the expected outcome — outcomes belong to the "Objective" section; any grammatical form is acceptable (a capability phrase, a problem statement or a constraint statement)
 
-| # | 章节 | 用途 | 校验 |
+| # | Section | Purpose | Validation |
 |---|---|---|---|
-| 1 | 背景与价值（Background & Value） | 解释问题背景与重要性 | ≤ 300 字符；**不**含解决方案 / 技术选型；推荐用户故事格式（`作为 X / 我希望 Y / 以便 Z`）或问题陈述（`背景 / 期望状态 / 影响`） |
-| 2 | 目标（Objective） | 陈述本需求交付后世界发生的改变 | 单行；陈述需求级目标（区别于上游战略 / 产品目标，后者经 frontmatter `parent` 引用，不在此重复）；**不**含解决方案 / 技术选型 |
-| 3 | 验收标准（Acceptance Criteria） | 定义需求完成的可验证条件 | ≥ 3 条；每条可自动或人工验证；**无**模糊形容词（"快"/"合理"/"友好"）；非功能需求含具体数值（如延迟 ≤ 500ms） |
-| 4 | 依赖与前置条件（Dependencies & Prerequisites） | 依赖关系与前置条件 | 含 3 类：依赖需求 ID / 前置条件（含验证方式）/ 外部依赖；依赖图无环；无依赖时显式写"无依赖" |
-| 5 | 风险、约束与假设（Risks, Constraints & Assumptions） | 风险（概率 × 影响）/ 已确认约束 / 待验证假设 | 功能 / 非功能需求：≥ 1 条风险、≥ 2 条约束；每条风险标注优先级 = 概率 × 影响；每条假设附验证方式 + 责任方 |
-| 6 | 需求来源（Source） | 业务来源与决策上下文 | 含来源类型（功能请求 / 业务目标 / 故障 / 技术债）+ 来源链接 / ID + 决策背景；可追溯，不是"口头转述" |
+| 1 | Background & Value | Explain the problem's background and why it matters | ≤ 300 characters; carries **no** solution or technology choice; a user-story form (`As X / I want Y / so that Z`) or a problem statement (`background / desired state / impact`) is recommended |
+| 2 | Objective | State how the world changes once this requirement ships | One line; states a requirement-level objective (as distinct from the upstream strategic or product objective, which is referenced through frontmatter `parent` and not repeated here); carries **no** solution or technology choice |
+| 3 | Acceptance Criteria | Define the verifiable conditions under which the requirement is complete | ≥ 3 of them; each verifiable automatically or by hand; **no** vague adjectives ("fast" / "reasonable" / "friendly"); a non-functional requirement carries concrete numbers (for example latency ≤ 500ms) |
+| 4 | Dependencies & Prerequisites | Dependency relationships and preconditions | Covers 3 kinds: dependent requirement IDs / preconditions (with how each is verified) / external dependencies; the dependency graph is acyclic; when there is no dependency, write "no dependencies" explicitly |
+| 5 | Risks, Constraints & Assumptions | Risks (probability × impact) / confirmed constraints / assumptions still to be verified | Functional and non-functional requirements alike: ≥ 1 risk and ≥ 2 constraints; each risk carries a priority = probability × impact; each assumption carries how it will be verified plus who owns it |
+| 6 | Source | The business origin and the decision context | Carries the source type (feature request / business objective / incident / technical debt) + a source link or ID + the decision context; traceable, not "someone mentioned it" |
 
-### 5.2 可选章节
+### 5.2 Optional sections
 
-按场景需要添加：
+Add them as the situation requires:
 
-| 章节 | 触发场景 |
+| Section | Triggering situation |
 |---|---|
-| 范围定义（Scope） | 多系统集成、跨边界歧义、工作量 > 5 天（满足任一时**升为必填**） |
-| 业务规则（Business Rules） | 规则集本身即交付物（定价 / 资格 / 计税 / 风险评分）、单条规则被 ≥ 2 条验收标准引用、规则构成状态机 / 决策表、规则需作为下游合规审计权威来源（SSOT）被引用（满足任一时**升为必填**） |
-| 待解决问题（Open Questions） | 评审中尚未解决的事项；按"阻塞 / 非阻塞"分类，附责任方与计划解决方式 |
-| 完成定义（Definition of Done） | 流程与质量门（测试覆盖、文档更新、部署门），与"验收标准"区分（验收 = 功能完成；DoD = 可发布） |
-| 时间表（Timeline） | 排期周期 + 预估工作量（如"Phase 2 第 3-4 周 / 4 工日"） |
+| Scope | Multi-system integration, ambiguity across a boundary, or estimated effort > 5 days (any one of these makes the section **required**) |
+| Business Rules | The rule set is itself the deliverable (pricing / eligibility / tax / risk scoring), a single rule is cited by ≥ 2 acceptance criteria, the rules form a state machine or decision table, or the rules must serve as the authoritative source (SSOT) for a downstream compliance audit (any one of these makes the section **required**) |
+| Open Questions | Items left unresolved in review; classified as "blocking" or "non-blocking", with an owner and a plan for resolving each |
+| Definition of Done | Process and quality gates (test coverage, documentation updates, deployment gates), distinct from the acceptance criteria (acceptance = the feature is complete; DoD = it is releasable) |
+| Timeline | The scheduling window plus the estimated effort (for example "Phase 2, weeks 3-4 / 4 person-days") |
 
-### 5.3 格式细节
+### 5.3 Format details
 
-#### 5.3.1 风险优先级计算
+#### 5.3.1 Computing risk priority
 
 ```text
-优先级 = 概率 × 影响
+priority = probability × impact
 
-- 高优先级：概率 ≥ 中 且 影响 ≥ 高
-- 中优先级：（概率 = 中 且 影响 = 中）或（概率 = 高 且 影响 = 低）
-- 低优先级：概率 ≤ 低 或 影响 ≤ 低
+- High priority: probability >= medium AND impact >= high
+- Medium priority: (probability = medium AND impact = medium) OR (probability = high AND impact = low)
+- Low priority: probability <= low OR impact <= low
 ```
 
-#### 5.3.2 验收标准推荐格式
+#### 5.3.2 Recommended acceptance-criteria formats
 
-Gherkin BDD（`Given / When / Then`）或清单（`- [ ] ...`）二选一。Gherkin 适合行为类需求，清单适合特性堆叠。
+Pick either Gherkin BDD (`Given / When / Then`) or a checklist (`- [ ] ...`). Gherkin suits behavioural requirements; a checklist suits a stack of features.
 
-#### 5.3.3 业务规则的声明形式（升为必填时）
+#### 5.3.3 Declarative form for business rules (once they become required)
 
-业务规则升为必填（§5.2 触发条件之一命中）时：
+Once business rules become required (one of the §5.2 triggers has fired):
 
-- 用声明式表达：决策表（decision table）或状态表（state table），不写过程式步骤。
-- 每条规则有稳定 id（如 `R1` / `R2`），id 不复用。
-- 验收标准回引规则 id（如 `覆盖 R3`），建立规则到验收的可追溯链。
+- Express them declaratively, as a decision table or a state table; do not write procedural steps.
+- Every rule carries a stable id (for example `R1` / `R2`), and ids are never reused.
+- Acceptance criteria cite the rule id back (for example `覆盖 R3`), establishing a traceable chain from rule to acceptance.
 
-#### 5.3.4 业务规则与验收标准的边界
+#### 5.3.4 The boundary between business rules and acceptance criteria
 
-- 业务规则 = 规范性声明（normative）：声明"什么必须为真"，一条规则可派生多条验收标准。
-- 验收标准 = 规则的可验证投影（verification）：声明"如何验证它为真"，并覆盖非规则项（性能、可用性、接口存在性等）。
-- 规则类验收标准回引其规则 id，闭合规则与验收的 MECE 重叠。
+- A business rule is normative: it declares "what must be true", and one rule can yield several acceptance criteria.
+- An acceptance criterion is the verifiable projection of a rule: it declares "how we verify that it is true", and it also covers non-rule items such as performance, availability and the existence of an interface.
+- Rule-derived acceptance criteria cite their rule id back, closing the MECE overlap between rules and acceptance.
 
 ---
 
 ## 6. Anti-patterns
 
-- ❌ 缺 frontmatter 必填字段（id / artifact_type / status / created_at）
-- ❌ `id` 格式不规范（小写、缺 PROJECT 前缀、复用编号）
-- ❌ 背景字段含技术选型 / 实现路径 / 具体功能描述
-- ❌ 标题陈述期望结果而非需求主体（与「目标」节重复）
-- ❌ 缺「目标」节，或把需求级目标混入「背景与价值」
-- ❌ 验收标准 < 3 条
-- ❌ 验收标准含模糊词（"应当"、"合理"、"友好"、"快"）
-- ❌ 非功能需求验收标准缺具体数值
-- ❌ 依赖图含环
-- ❌ 缺风险章节或风险无优先级标注
-- ❌ 风险只列"风险描述"不附"缓解策略"
-- ❌ 需求来源含糊（"某人提的"、"口头讨论"）
-- ❌ `superseded` 状态未填 `superseded_by`
-- ❌ `implemented` 状态未填 `implemented_at`
-- ❌ 满足"范围定义升为必填"4 个条件之一但缺范围章节
-- ❌ 满足"业务规则升为必填"触发条件之一但规则仍散落在验收标准内（未单列声明式规则节）
-- ❌ 业务规则升为必填后用过程式步骤而非决策表 / 状态表表达
-- ❌ 规则类验收标准未回引其业务规则 id（规则与验收 MECE 重叠未闭合）
-- ❌ 把"自检清单"写进 spec 正文（评审清单归 [rules/requirement-quality.md](../rules/requirement-quality.md)）
+- ❌ A required frontmatter field is missing (id / artifact_type / status / created_at)
+- ❌ The `id` format is wrong (lower case, missing PROJECT prefix, a reused number)
+- ❌ The background section carries a technology choice, an implementation path or a concrete feature description
+- ❌ The title states the expected outcome rather than the subject of the requirement (duplicating the "Objective" section)
+- ❌ The "Objective" section is missing, or the requirement-level objective is mixed into "Background & Value"
+- ❌ Fewer than 3 acceptance criteria
+- ❌ Acceptance criteria contain vague words ("should", "reasonable", "friendly", "fast")
+- ❌ A non-functional requirement's acceptance criteria carry no concrete numbers
+- ❌ The dependency graph contains a cycle
+- ❌ The risk section is missing, or risks carry no priority
+- ❌ A risk lists only its description with no mitigation strategy
+- ❌ The source is vague ("someone asked for it", "we discussed it verbally")
+- ❌ Status `superseded` with `superseded_by` left empty
+- ❌ Status `implemented` with `implemented_at` left empty
+- ❌ One of the 4 conditions that make Scope required is met, but the Scope section is missing
+- ❌ One of the triggers that make Business Rules required is met, but the rules are still scattered through the acceptance criteria with no separate declarative rules section
+- ❌ Business rules that have become required are expressed as procedural steps instead of a decision table or state table
+- ❌ Rule-derived acceptance criteria do not cite their business rule id back, leaving the MECE overlap between rules and acceptance unclosed
+- ❌ A self-check list written into the spec body (review checklists belong to [rules/requirement-quality.md](../rules/requirement-quality.md))
 
 ---
 
 ## 7. Examples
 
-### 7.1 功能需求完整示例
+### 7.1 A complete functional requirement
 
 ````markdown
 ---
@@ -209,104 +209,104 @@ priority: P1
 parent: ../roadmap/2026-q2.md#open-integration
 ---
 
-# 需求：[功能] 知识库检索的语义搜索 API
+# Requirement: [Functional] Semantic search API for knowledge base retrieval
 
-## 目标
+## Objective
 
-集成方接入知识库检索的实现成本从重复造轮子降至近零，官方语义搜索 API 成为唯一权威检索入口。
+The cost for an integrator to adopt knowledge base retrieval drops from reinventing the wheel to near zero, and the official semantic search API becomes the single authoritative retrieval entry point.
 
-## 背景与价值
+## Background & Value
 
-作为系统集成方
-我希望有 API 能对存储的规范执行语义搜索
-以便外部系统能基于上下文高效检索相关文档
+As a systems integrator
+I want an API that runs semantic search over the stored specifications
+so that external systems can retrieve relevant documents efficiently from context
 
-当前知识库仅支持关键词检索，外部 Agent 接入需自行做 embedding 与向量召回，重复造轮子。
+The knowledge base currently supports keyword search only, so an external agent has to build its own embedding and vector recall — reinventing the wheel.
 
-## 验收标准
+## Acceptance Criteria
 
-- [ ] REST API `POST /search/semantic` 已实现且能响应查询
-- [ ] 在 10M 条目数据集上响应时间 ≤ 500ms（p95）
-- [ ] top-3 相关性精度 ≥ 80%（50+ 典型查询验证）
-- [ ] API 文档完备（OpenAPI 规范 + 5+ 用例）
-- [ ] API Key 鉴权 + 限流（默认 10 QPS / key）
+- [ ] The REST API `POST /search/semantic` is implemented and answers queries
+- [ ] Response time ≤ 500ms (p95) on a 10M-entry dataset
+- [ ] top-3 relevance precision ≥ 80% (verified over 50+ representative queries)
+- [ ] The API documentation is complete (an OpenAPI specification + 5+ examples)
+- [ ] API key authentication + rate limiting (10 QPS per key by default)
 
-## 依赖与前置条件
+## Dependencies & Prerequisites
 
-依赖需求：
-- ACME-REQ-05（向量化流水线）
-- ACME-REQ-08（向量数据库部署）
+Dependent requirements:
+- ACME-REQ-05 (the vectorisation pipeline)
+- ACME-REQ-08 (vector database deployment)
 
-前置条件：
-- 知识库向量化完成（≥ 10M 向量）—— 验证方式：向量库 `count` API
-- 向量数据库健康度 ≥ 99.5%（监控大盘可见）
+Preconditions:
+- Knowledge base vectorisation is complete (≥ 10M vectors) — verified through the vector store's `count` API
+- Vector database health ≥ 99.5% (visible on the monitoring dashboard)
 
-外部依赖：
-- 向量数据库（已部署，无需额外申请）
-- API Gateway（已有，需新增路由）
+External dependencies:
+- The vector database (already deployed, nothing extra to request)
+- The API gateway (already in place, a new route is needed)
 
-## 风险、约束与假设
+## Risks, Constraints & Assumptions
 
-风险：
-- **高并发下 API 性能退化**（概率 = 中 35% / 影响 = 高 → 高优先级）
-  缓解：第 1 周完成压测，引入 Redis 查询缓存（TTL 5min）
-- **embedding 模型精度不达标**（概率 = 低 15% / 影响 = 中 → 中优先级）
-  缓解：第 1 周完成基准测试，准备备选模型 model-B
+Risks:
+- **API performance degrades under high concurrency** (probability = medium 35% / impact = high → high priority)
+  Mitigation: finish load testing in week 1 and introduce a Redis query cache (TTL 5min)
+- **The embedding model falls short on precision** (probability = low 15% / impact = medium → medium priority)
+  Mitigation: finish benchmarking in week 1 and keep model-B ready as an alternative
 
-约束（已确认）：
-- 向量数据库选型不可变（基础设施约束）
-- Phase 2 末（2 周后）必须交付（与 Phase 3 串行依赖）
+Constraints (confirmed):
+- The choice of vector database cannot be changed (an infrastructure constraint)
+- Delivery must happen by the end of Phase 2 (2 weeks from now), because Phase 3 depends on it serially
 
-假设（待验证）：
-- 当前 embedding 模型在 10M 数据集精度 ≥ 80% | 第 1 周基准测试 | 技术负责人
+Assumptions (to be verified):
+- The current embedding model reaches ≥ 80% precision on the 10M dataset | benchmark in week 1 | tech lead
 
-## 需求来源
+## Source
 
-- **来源类型**：业务目标
-- **来源链接**：2026 Q2 OKR——"开放第三方与知识库的集成能力"
-- **决策背景**：开发者社区反馈接入成本高（社区调研报告 §3）；2026 Q1 已有 3 个集成方独立实现 embedding 流程，重复工作约 40 工日
+- **Source type**: business objective
+- **Source link**: the 2026 Q2 OKR — "open up third-party integration with the knowledge base"
+- **Decision context**: the developer community reports that adoption costs are high (community survey report §3); in 2026 Q1, 3 integrators independently built their own embedding pipeline, about 40 person-days of duplicated work
 
-## 范围定义
+## Scope
 
 In Scope:
-- REST API 实现、向量数据库集成、API Key 鉴权、OpenAPI 文档
-- 服务端缓存（Redis）
+- The REST API implementation, vector database integration, API key authentication, OpenAPI documentation
+- Server-side caching (Redis)
 
 Out of Scope:
-- OAuth 鉴权（后续需求）
-- 搜索结果 UI（属前端项目）
-- 实时向量更新（Phase 3 处理）
+- OAuth authentication (a later requirement)
+- The search results UI (a front-end project)
+- Real-time vector updates (handled in Phase 3)
 
-## 时间表
+## Timeline
 
-P1 · Phase 2 第 3-4 周 · 4 工日
+P1 · Phase 2, weeks 3-4 · 4 person-days
 ````
 
-### 7.2 业务规则升为必填示例（决策表 + 验收回引）
+### 7.2 Business rules escalated to mandatory (decision table + acceptance back-reference)
 
-规则集即交付物（定价折扣），故业务规则升为必填，用决策表声明，验收标准回引规则 id。
+The rule set is the deliverable here (pricing discounts), so business rules are escalated to mandatory, declared as a decision table, with the acceptance criteria citing the rule ids back.
 
 ````markdown
-## 业务规则
+## Business Rules
 
-| id | 条件 | 折扣 |
+| id | Condition | Discount |
 |---|---|---|
-| R1 | 订单金额 < 100 | 0% |
-| R2 | 100 ≤ 订单金额 < 500 | 5% |
-| R3 | 订单金额 ≥ 500 且为会员 | 15% |
+| R1 | order total < 100 | 0% |
+| R2 | 100 <= order total < 500 | 5% |
+| R3 | order total >= 500 and the customer is a member | 15% |
 
-## 验收标准
+## Acceptance Criteria
 
-- [ ] 订单金额 80，下单后实付 80（覆盖 R1）
-- [ ] 会员订单金额 600，下单后实付 510（覆盖 R3）
+- [ ] An order total of 80 is charged 80 (覆盖 R1)
+- [ ] A member's order total of 600 is charged 510 (覆盖 R3)
 ````
 
 ---
 
 ## 8. Relationship to other assets
 
-- **配套 rule**：[rules/requirement-quality.md](../rules/requirement-quality.md)——需求文档质量评审清单（5 维：完整性 / 可执行性 / 清晰性 / 合理性 / 可追溯性）。本 spec 只定义数据契约，评审清单全部归 rule。
-- **下游 spec**：[functional-design-modeling.md](./functional-design-modeling.md)——`approved` 状态的需求才能派生功能设计；功能设计的 `parent` 指向 requirement 文档路径
-- **进件分诊**：[rules/requirement-intake-triage.md](../rules/requirement-intake-triage.md)——原始进件先经分诊；仅「属需求」（功能 / 非功能）的进件进入本 spec 建模，缺陷 / 技术任务 / 方案等非需求类不在此列
-- **相关行业标准**：IEEE 830（软件需求规格说明）、Gherkin / Cucumber（BDD 验收格式）、ISO 31000（风险管理）、SWEBOK（可追踪性最佳实践）
-- **递归基础**：本 spec 自身遵循 [spec-modeling.md](./spec-modeling.md) v2.0.0 的 8 节骨架；跳过 §2 心智模型（需求的必答维度已在 §5.1 的 6 节中体现）
+- **Companion rule**: [rules/requirement-quality.md](../rules/requirement-quality.md) — the quality review checklist for requirement documents (5 dimensions: completeness / actionability / clarity / soundness / traceability). This spec defines the data contract only; every review checklist belongs to the rule.
+- **Downstream spec**: [functional-design-modeling.md](./functional-design-modeling.md) — only a requirement in `approved` status may yield a functional design, whose `parent` points at the requirement document path
+- **Intake triage**: [rules/requirement-intake-triage.md](../rules/requirement-intake-triage.md) — raw intake is triaged first; only intake classified as a requirement (functional or non-functional) is modelled by this spec, while defects, technical tasks, proposals and other non-requirement classes are not
+- **Related industry standards**: IEEE 830 (software requirements specifications), Gherkin / Cucumber (the BDD acceptance format), ISO 31000 (risk management), SWEBOK (traceability best practice)
+- **Recursive basis**: this spec itself follows the 8-section skeleton of [spec-modeling.md](./spec-modeling.md) v2.0.0, skipping §2 Mental model — the questions a requirement must answer are already carried by the 6 sections in §5.1
