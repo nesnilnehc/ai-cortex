@@ -9,103 +9,103 @@ recommended_scope: user
 status: active
 ---
 
-# Rule: 图表选型（Diagram Selection）
+# Rule: Diagram Selection
 
-> 画技术图表时的判据：先判关系类型选图，再跨工具选型，最后避渲染坑、按需拆多图。
+> Criteria for drawing a technical diagram: judge the kind of relationship first to pick the diagram, then pick the tool, then steer clear of the rendering traps and split into several diagrams where needed.
 >
-> **定位**：本 rule 管「判断」（选哪种图 / 哪个工具 / 能否渲染 / 该不该拆），不管「形状」（设计文档必须含哪种图归 [specs/functional-design-modeling.md](../specs/functional-design-modeling.md) 与 [specs/technical-design-modeling.md](../specs/technical-design-modeling.md)），也不教语法（PlantUML / Mermaid / Graphviz 语法属通用知识）。
+> **Position**: this rule governs **judgement** — which diagram, which tool, will it render, does it need splitting. It does not govern **shape** (which diagram a design document must contain belongs to [specs/functional-design-modeling.md](../specs/functional-design-modeling.md) and [specs/technical-design-modeling.md](../specs/technical-design-modeling.md)), and it does not teach syntax (PlantUML, Mermaid and Graphviz syntax is general knowledge).
 >
-> **生效时机**：任何画图动作——设计文档内嵌流程图 / 状态图、或临时出一张图——都援引本判据。
+> **When it applies**: any act of drawing — a flowchart or state diagram embedded in a design document, or a one-off diagram — defers to these criteria.
 
 ---
 
-## 1. 适用范围
+## 1. Scope
 
-用文本绘图工具（PlantUML / Mermaid / Graphviz / flowchart.js）产出技术图表的任何场景。聚焦选型与可渲染性，不约束图的业务内容正确性。
+Any situation where a technical diagram is produced with a text-based drawing tool (PlantUML, Mermaid, Graphviz, flowchart.js). The focus is selection and renderability; the correctness of the diagram's business content is out of scope.
 
 ---
 
-## 2. 第一步：按关系类型选图
+## 2. Step one: pick the diagram by the kind of relationship
 
-一张好图只回答一个主要问题。先判断「要表达哪类关系」，再定图类型——不要让一张图同时承担多个解释任务。
+A good diagram answers one main question. Decide **which kind of relationship you are expressing** first, then pick the diagram type — do not make one diagram carry several explanatory jobs at once.
 
-| 要表达的关系 | 图类型 | 首选工具 |
+| Relationship to express | Diagram type | First-choice tool |
 | :--- | :--- | :--- |
-| 顺序（一步步怎么发生） | 流程图、活动图、用户旅程图 | Mermaid、PlantUML |
-| 交互（谁和谁按什么顺序） | 时序图 | PlantUML、Mermaid |
-| 状态（对象有哪些态、怎么迁移） | 状态图 | PlantUML、Mermaid |
-| 结构（系统由哪些部分组成） | C4 图、组件图、类图、ER 图 | PlantUML、Mermaid |
-| 部署与网络 | 部署图、拓扑图、依赖图 | PlantUML、Graphviz |
-| 时间计划 | 甘特图、时间线 | Mermaid、PlantUML |
-| 拆解（任务 / 知识层级） | WBS、Mindmap、树形 | PlantUML、Mermaid |
-| 复杂关系（多节点多边） | 有向图、无向图、知识图谱 | Graphviz |
-| 数值（数量 / 流量 / 比例） | Sankey、XY Chart、Radar、Treemap | Mermaid |
+| Sequence — how it happens, step by step | Flowchart, activity diagram, user journey | Mermaid, PlantUML |
+| Interaction — who talks to whom, in what order | Sequence diagram | PlantUML, Mermaid |
+| State — what states an object has, and how it moves | State diagram | PlantUML, Mermaid |
+| Structure — what parts the system is made of | C4, component diagram, class diagram, ER diagram | PlantUML, Mermaid |
+| Deployment and network | Deployment diagram, topology, dependency graph | PlantUML, Graphviz |
+| Schedule | Gantt chart, timeline | Mermaid, PlantUML |
+| Decomposition — a task or knowledge hierarchy | WBS, mind map, tree | PlantUML, Mermaid |
+| Complex relationships — many nodes, many edges | Directed graph, undirected graph, knowledge graph | Graphviz |
+| Quantities — volume, flow, proportion | Sankey, XY chart, radar, treemap | Mermaid |
 
-按读者调抽象层级：面向业务方少节点少术语（流程图 / 用户旅程图 / 时间线）；面向研发保留服务名 / 接口名 / 状态名 / 异常分支（C4 / 组件图 / 时序图 / 状态图）；面向运维强调部署位置 / 依赖 / 调用链（拓扑图 / 部署图 / 依赖图）。
+Tune the abstraction level to the reader: for the business side, fewer nodes and less jargon (flowchart, user journey, timeline); for engineers, keep service names, interface names, state names and exception branches (C4, component, sequence, state); for operations, emphasise where things are deployed, what depends on what, and the call chain (topology, deployment, dependency graph).
 
 ---
 
-## 3. 第二步：跨工具选型启发式
+## 3. Step two: heuristics for choosing across tools
 
-默认 Mermaid，仅在命中下表条件时才离开它。不要凭「能不能画」选，要看可渲染性与长期维护。
+Default to Mermaid, and leave it only when a row of the table below applies. Do not choose on "can it draw this?" — choose on renderability and long-term maintenance.
 
-| 条件 | 选型 |
+| Condition | Choice |
 | :--- | :--- |
-| 文档内嵌、上手快、README / 博客 / 知识库 / 轻量方案 | **Mermaid**（默认） |
-| 正式工程建模：UML / C4 / 部署 / 活动图，进设计文档 | **PlantUML** |
-| 节点与边数量大、需自动布局：依赖图 / 调用链 / 拓扑 / 知识图谱 | **Graphviz** |
-| 仅网页内展示简单标准流程，且不需要其他图类型 | **flowchart.js** |
+| Embedded in a document, quick to pick up, README / blog / knowledge base / lightweight plan | **Mermaid** (default) |
+| Formal engineering modelling: UML / C4 / deployment / activity, going into a design document | **PlantUML** |
+| Many nodes and edges, needing automatic layout: dependency graph / call chain / topology / knowledge graph | **Graphviz** |
+| Just a simple standard flow rendered in a web page, with no other diagram type needed | **flowchart.js** |
 
-平台已统一文档工具时，先看平台支持的渲染版本——Mermaid 尤其要注意版本差异。
+Where the platform has standardised on a documentation tool, check which renderer version it supports first — Mermaid in particular varies noticeably between versions.
 
-Graphviz 选对布局引擎：`dot`（分层有向图 / 依赖图 / 调用链）、`neato` / `fdp`（一般网络与无向图）、`sfdp`（大规模图）、`circo`（环形 / 循环关系）、`twopi`（径向 / 中心扩散）、`osage`（分组集群）。
-
----
-
-## 4. 渲染避坑清单
-
-产出的图必须能在目标平台渲染。落盘前自检：
-
-- [ ] **Mermaid 保留词加引号**：节点文字含 `end` 等保留词或特殊符号易被解析器吃掉，统一加引号
-- [ ] **确认平台 Mermaid 版本**：嵌入前核对目标平台支持的 Mermaid 版本，避免新语法在旧渲染器失败
-- [ ] **复杂流程换 ELK 布局**：线条交叉多时，flowchart / state diagram 改用 ELK 布局减少交叉
-- [ ] **PlantUML 渲染链可达**：PlantUML 依赖 Java / 渲染器，纯文档平台不一定能渲染，选前确认渲染链
-- [ ] **CI 渲染或校验**：长期维护的图优先选团队熟悉、CI 能渲染或校验的文本 DSL
+Pick the right Graphviz layout engine: `dot` for layered directed graphs, dependency graphs and call chains; `neato` and `fdp` for general networks and undirected graphs; `sfdp` for large graphs; `circo` for circular and cyclic relationships; `twopi` for radial, centre-outward layouts; `osage` for grouped clusters.
 
 ---
 
-## 5. 多图拆分约束
+## 4. Rendering traps checklist
 
-- 一张图只回答一个核心问题；超过一屏还看不清时，停止调样式，**拆图**
-- 常见拆法：业务流程图 + C4 / 组件图 + 时序图 + 部署图，各自独立成图
-- 图名描述结论而非类型（「订单状态流转图」优于「状态图」）
-- 节点名用稳定的业务概念或系统边界，不用临时代码变量名
-- 只是字段清单 / 接口参数 / 简单对比时，用表格而非图——只有关系 / 顺序 / 层级 / 依赖 / 状态迁移 / 数量流向是重点时，图才有价值
+A diagram must render on its target platform. Check before committing:
 
----
-
-## 反模式
-
-- ❌ 不判关系类型就条件反射上 Mermaid
-- ❌ 一张图回答多个问题
-- ❌ 大图靠调样式硬塞而不拆
-- ❌ 图名只写类型不写结论
-- ❌ 简单清单 / 对比用图而非表格
-- ❌ 嵌入前不确认平台 Mermaid 版本，导致渲染失败
-- ❌ 节点名用临时变量名，图随代码漂移失去长期可读性
+- [ ] **Quote Mermaid reserved words**: node text containing a reserved word such as `end`, or a special character, is easily swallowed by the parser — quote it consistently
+- [ ] **Confirm the platform's Mermaid version**: check which version the target platform supports before embedding, avoiding a failure where newer syntax meets an older renderer
+- [ ] **Switch to ELK layout for complex flows**: where lines cross heavily, switch the flowchart or state diagram to ELK layout to reduce crossings
+- [ ] **Confirm the PlantUML rendering chain**: PlantUML depends on Java and a renderer, and a pure documentation platform may not be able to render it — confirm the chain before choosing it
+- [ ] **Render or validate in CI**: for a diagram that will be maintained long-term, prefer a text DSL the team knows and that CI can render or validate
 
 ---
 
-## 关联资产
+## 5. Constraints on splitting into several diagrams
 
-- **设计评审 rule**：[functional-design-quality](./functional-design-quality.md) / [technical-design-quality](./technical-design-quality.md)——设计文档嵌流程图 / 状态图时援引本判据
-- **设计数据契约**：[specs/functional-design-modeling.md](../specs/functional-design-modeling.md) / [specs/technical-design-modeling.md](../specs/technical-design-modeling.md)——定义「制品必须含哪种图」，本 rule 与之互补（spec 说形状，本 rule 说判断）
-- **中文写作**：[writing-chinese-technical](./writing-chinese-technical.md)
+- One diagram answers one core question. When it no longer fits legibly on one screen, stop adjusting the styling and **split it**
+- A common split: business flowchart + C4 or component diagram + sequence diagram + deployment diagram, each standing alone
+- Name a diagram after its conclusion, not its type — "Order state transitions" beats "State diagram"
+- Name nodes after stable business concepts or system boundaries, not after a transient code variable
+- For a plain field list, interface parameters or a simple comparison, use a table rather than a diagram. A diagram earns its place only when relationships, sequence, hierarchy, dependency, state transitions or quantity flows are the point
 
 ---
 
-## 变更记录
+## Anti-patterns
+
+- ❌ Reaching for Mermaid reflexively without judging the kind of relationship
+- ❌ One diagram answering several questions
+- ❌ Forcing a large diagram to fit by styling instead of splitting it
+- ❌ Naming a diagram after its type rather than its conclusion
+- ❌ Using a diagram for a simple list or comparison instead of a table
+- ❌ Embedding without confirming the platform's Mermaid version, so it fails to render
+- ❌ Naming nodes after transient variables, so the diagram drifts with the code and loses long-term readability
+
+---
+
+## Related assets
+
+- **Design review rules**: [functional-design-quality](./functional-design-quality.md) / [technical-design-quality](./technical-design-quality.md) — embedding a flowchart or state diagram in a design document defers to these criteria
+- **Design data contracts**: [specs/functional-design-modeling.md](../specs/functional-design-modeling.md) / [specs/technical-design-modeling.md](../specs/technical-design-modeling.md) — they define which diagram an artifact must contain; this rule complements them, the spec giving the shape and this rule the judgement
+- **Chinese writing**: [writing-chinese-technical](./writing-chinese-technical.md)
+
+---
+
+## Change log
 
 ### 1.0.0 — 2026-06-24
 
-**Initial Release**：定义图表选型判据——关系类型 → 图类型 → 工具的速查表、跨工具选型启发式（默认 Mermaid，何时离开）、渲染避坑清单、多图拆分约束。
+**Initial Release**: defines the diagram selection criteria — a lookup from relationship kind to diagram type to tool, heuristics for choosing across tools (default Mermaid, and when to leave it), the rendering traps checklist, and constraints on splitting into several diagrams.

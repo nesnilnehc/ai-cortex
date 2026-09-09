@@ -2,5 +2,11 @@
   "rules/adr-management.md::strong_constraints": "中文「不可只增不减」是禁令，但「不可」已从标记表移除——它在「不可验证 / 不可回滚」中意为『无法』而非『禁止』，正则无法区分两义。英文 'must not only ever grow' 是忠实翻译。",
   "rules/test-case-quality.md::weak_constraints": "中文「超过即过粗，应拆用例」用的是裸『应』，标记表只收『应当 / 应该』——收录裸『应』会误命中『应用 / 应对 / 响应』。英文 'should be split' 是忠实翻译。",
   "rules/adr-management.md::code_blocks[1]": "§3 diff 块中的 archived_reason 值是给读者照抄的模板文案，非可执行代码；同文件 §2 表格已把该字段的占位符 <原因> 按散文译出，两处需一致。独立复核指出这一不一致。",
-  "rules/adr-management.md::weak_constraints": "§3 开头中文「ADR 应随决策生命周期演化」用的是裸『应』，标记表不收（收录会大量误命中『应用 / 应对 / 应符合』）。英文 'ADRs should evolve' 是忠实翻译，独立复核亦要求恢复该处的指令语气。"
+  "rules/adr-management.md::weak_constraints": "§3 开头中文「ADR 应随决策生命周期演化」用的是裸『应』，标记表不收（收录会大量误命中『应用 / 应对 / 应符合』）。英文 'ADRs should evolve' 是忠实翻译，独立复核亦要求恢复该处的指令语气。",
+  "rules/test-coverage-quality.md::strong_constraints": "中文「P0 需求缺口不可与 P2 需求缺口同等对待」是禁令，但『不可』已从标记表移除（它在『不可验证 / 不可回滚』中意为『无法』）。英文 'must not be treated the same' 是忠实翻译。",
+  "rules/agentic-artifact-paradigm.md::weak_constraints": "中文 5 处「优先」在本文件是排序义（『优先靠提取』『提取 / 推断优先』），英文自然译作 first；把 first 收入弱标记表会在全语料大量误命中，得不偿失。",
+  "rules/agentic-artifact-paradigm.md::strong_constraints": "§2 核心命题中「不可填表化」是禁令，但『不可』已从标记表移除（它在『不可验证』中意为『无法』）。英文 'never reduced to filling in a form' 是忠实翻译。",
+  "rules/standards-agent-testing.md::strong_constraints": "两处：中文「变更需记录 model version comparison」用『需』、「不进默认 unit 管道」与前半句『必须打 marker』并列共享义务。『需』未入标记表（收录会误命中『需求』）。独立复核明确要求恢复这两处的义务语气，英文 must 是忠实翻译。",
+  "rules/workflow-documentation.md::strong_constraints": "中文「同一主题须有唯一权威文档」的『须』与英文 must 对应，但本文件另有若干中文义务词（『需』『应』）不在标记表内，导致总数无法逐一配平。独立复核确认四处义务表述与中文一一对应。",
+  "rules/workflow-documentation.md::identifiers": "新增的适用范围声明句列举了英文侧待补的检测词（deprecated / TBD）。中文原文靠『模式本身是中文』隐式传达适用范围，译为英文后该信息丢失，独立复核判定为语义漂移。补这句是还原原文含义，非新增约束。"
 }

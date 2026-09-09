@@ -57,6 +57,29 @@ def frontmatter(text):
 COMMENT = re.compile(r'^\s*(?:#|//|--|<!--|\*|/\*)')
 
 
+def strip_trailing_comment(line):
+    """Drop a trailing comment from a code line, respecting quotes.
+
+    A trailing comment is prose for the reader just as a full-line comment is,
+    so it follows the language migration. The executable part of the line is
+    still compared byte for byte.
+    """
+    quote = None
+    for i, ch in enumerate(line):
+        if quote:
+            if ch == quote and (i == 0 or line[i - 1] != "\\"):
+                quote = None
+            continue
+        if ch in "\"'":
+            quote = ch
+            continue
+        if ch == "#" and i and line[i - 1] in " \t":
+            return line[:i].rstrip()
+        if line[i:i + 2] == "//" and i and line[i - 1] in " \t":
+            return line[:i].rstrip()
+    return line
+
+
 def split_code(body):
     """Separate executable lines from comment lines inside a code block.
 
@@ -71,7 +94,10 @@ def split_code(body):
         if COMMENT.match(line):
             comments += 1
         else:
-            code.append(line)
+            stripped = strip_trailing_comment(line)
+            if stripped != line:
+                comments += 1
+            code.append(stripped)
     return "\n".join(code), comments
 
 

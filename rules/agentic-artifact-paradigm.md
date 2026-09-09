@@ -9,96 +9,96 @@ created_at: 2026-06-28
 status: active
 ---
 
-# Rule: 智能体制品生产范式（Agentic Artifact Production Paradigm）
+# Rule: Agentic Artifact Production Paradigm
 
-> 凡「把杂乱输入加工成一份符合 spec 的制品」的智能体能力，**质量框架是脚手架，不是议程**。
+> For any agent capability that turns messy input into an artifact conforming to a spec, **the quality framework is scaffolding, not an agenda**.
 >
-> **定位**：本 rule 管**范式**（智能体如何对待结构 vs 实质），不管具体制品形状（归各 `*-modeling.md` spec），也不管具体质量判据（归各 `*-quality.md`）。它是这两类的**共同上位原则**。
+> **Position**: this rule governs the **paradigm** — how an agent treats structure against substance. It does not govern the shape of a particular artifact (that belongs to each `*-modeling.md` spec) nor its particular quality criteria (each `*-quality.md`). It is the **shared higher-order principle** above both.
 >
-> **生效时机**：设计或实现任何「输入 → spec 制品」的智能体能力时援引——无论交互式（澄清 / 设计）还是一次性（评审 / 评估）。
+> **When it applies**: whenever an "input → spec artifact" agent capability is designed or implemented, whether interactive (clarification, design) or one-shot (review, assessment).
 
 ---
 
-## 1. 适用范围 (Scope)
+## 1. Scope
 
-任何**把杂乱输入加工为一份符合 spec 的制品**的智能体能力：
+Any agent capability that **turns messy input into an artifact conforming to a spec**:
 
-- **交互式**：需求澄清（→ 需求 spec）、技术设计（→ 技术设计 spec）、用例生成（→ 用例 spec）。
-- **一次性**：代码 / 需求评审（→ 评审维度结构）、覆盖评估（→ 评估报告 spec）。
+- **Interactive**: requirement clarification (→ requirement spec), technical design (→ technical design spec), test case generation (→ test case spec).
+- **One-shot**: code or requirement review (→ review dimension structure), coverage assessment (→ assessment report spec).
 
-**不适用**：无目标 spec 的自由生成（如开放对话、纯代码补全）——没有「框架」可言，本范式无的放矢。
-
----
-
-## 2. 核心命题
-
-> **制品的质量框架（spec 的章节 / 评审的维度）是「脚手架 + 呈现方式」，不是「交互 / 生成的议程」。智能体先实质、后结构；框架靠提取 + 推断潜移默化填满，只作为产物呈现，绝不作为逐项逼问 / 逐维打分的清单。质量规则是收敛 oracle——且 oracle 自身也必须实质驱动，不可填表化。**
-
-一句话区分两个反面：
-
-- **脚手架（对）**：框架是制品**收敛到的目标 + 呈现结构**；它在背景里被填满。
-- **议程（错）**：框架是**驱动智能体一步步做什么**的清单（「下一个空字段是什么」「下一个该打分的维度是什么」）→ 必然空洞、对所有输入千篇一律。
+**Does not apply**: free generation with no target spec, such as open-ended conversation or plain code completion. There is no "framework" there, so the paradigm has nothing to act on.
 
 ---
 
-## 3. 强制约束 (Constraints)
+## 2. Core proposition
 
-1. **结构是脚手架，非议程**：spec 的章节 / 评审的维度定义**目标结构 + 呈现**，不得用作交互或生成的驱动序。**禁止**用「哪节 spec 空了 / 下一个该打分哪维」来推进智能体。
+> **An artifact's quality framework — a spec's sections, a review's dimensions — is scaffolding and a presentation form, not the agenda for the interaction or the generation. The agent leads with substance and structure follows; the framework fills in quietly through extraction and inference, and appears only in the product. It is never a checklist for interrogating field by field or scoring dimension by dimension. The quality rule is the convergence oracle — and the oracle itself must be substance-driven, never reduced to filling in a form.**
 
-2. **实质优先（substance-led）**：智能体的**前景**是领域实质——这个需求的机制、这段代码到底做了什么、这次评审真正要命的发现。提问 / 发现必须是**领域实质**，不是「请补充字段 X / 维度 Y 评 N 分」。
+Two opposites, in one line each:
 
-3. **提取 / 推断优先，逼问 / 打分垫底（extract-first）**：框架的字段 / 维度优先靠**提取**（上游制品 / 已有源）+ **推断**（实质对话本身）填充；只有**既真缺、又推不出、又关键**的，才升为直接发问。**禁止**为「可从上游提取 / 平台自带 / 可推断」的内容扣分或追问。
-
-4. **质量规则当收敛 oracle（quality-as-oracle）**：对应的 `*-quality.md` 是**收敛目标**——智能体把制品收敛到质量达标为止（交互式：继续实质对话；一次性：深挖到发现覆盖各维）。**禁止**另造一套平行的「完整度 / 覆盖度检查」，与质量判据重复。
-
-5. **防 oracle 自身填表化（anti-form-filling oracle）**：质量验证必须**由实质驱动**（真实发现 / 真实缺口），并作为**收敛信号喂回**；**禁止**退化成一张「逐维打分卡」却不驱动实质——那只是把「填字段」换成「填评分维度」，同病不同名。
+- **Scaffolding (right)**: the framework is the **target the artifact converges on, and its presentation structure**. It fills in the background.
+- **Agenda (wrong)**: the framework is a checklist **driving what the agent does next** ("which field is empty?", "which dimension do I score next?") → inevitably hollow, and identical for every input.
 
 ---
 
-## 4. 实例化参数（每能力填四个，范式不变）
+## 3. Constraints
 
-范式固定，差异只在四个参数——这是「一套范式 + 参数化场景」而非「每能力一套工作流」的依据：
+1. **Structure is scaffolding, not an agenda**: a spec's sections and a review's dimensions define the **target structure and its presentation**. They must not be used as the driving sequence for interaction or generation. **Never** advance the agent by asking "which spec section is empty?" or "which dimension do I score next?".
 
-| 参数 | 含义 | 澄清（例） | 评审（例） |
+2. **Substance-led**: the agent's **foreground** is domain substance — how this requirement actually works, what this code actually does, what really matters in this review. Questions and findings must be **domain substance**, not "please supply field X" or "score dimension Y at N".
+
+3. **Extract first, interrogate and score last (extract-first)**: fill the framework's fields and dimensions first by **extraction** (upstream artifacts, existing sources) and **inference** (from the substantive conversation itself). Only what is **genuinely missing, unrecoverable by inference, and critical** is escalated to a direct question. **Never** deduct points for, or ask about, anything extractable from upstream, provided by the platform, or inferable.
+
+4. **The quality rule is the convergence oracle (quality-as-oracle)**: the corresponding `*-quality.md` is the **convergence target** — the agent converges the artifact until it meets those criteria (interactive: continue the substantive conversation; one-shot: dig until findings span the dimensions). **Never** build a parallel "completeness or coverage check" that duplicates the quality criteria.
+
+5. **Guard the oracle against becoming a form (anti-form-filling oracle)**: quality verification must be **driven by substance** — real findings, real gaps — and fed back as a **convergence signal**. **Never** let it decay into a per-dimension scorecard that drives nothing. That merely swaps "filling in fields" for "filling in score dimensions"; same illness, different name.
+
+---
+
+## 4. Instantiation parameters — four per capability, paradigm unchanged
+
+The paradigm is fixed; capabilities differ only in four parameters. This is what makes it "one paradigm, parameterised per scenario" rather than "one workflow per capability":
+
+| Parameter | Meaning | Clarification (example) | Review (example) |
 |---|---|---|---|
-| **目标 spec** | 收敛到的结构 | requirement-modeling | 评审维度 schema |
-| **实质镜头** | 「实质」指什么 | 功能机制 | 真正要命的发现 |
-| **提取源** | 框架从哪填 | 禅道 + 仓库 | diff + 仓库上下文 |
-| **交互模型** | 怎么收敛 | 交互多轮 | 一次性深挖 |
+| **Target spec** | The structure to converge on | requirement-modeling | Review dimension schema |
+| **Substance lens** | What "substance" means here | How the feature works | What really matters in this change |
+| **Extraction sources** | Where the framework fills from | ZenTao + the repository | The diff + repository context |
+| **Interaction model** | How convergence happens | Multiple interactive rounds | One-shot deep dig |
 
 ---
 
-## 5. 违规示例 (Bad Patterns)
+## 5. Bad Patterns
 
-- ❌ 澄清逐个问「需求来源 / 风险 / 依赖」这些必填字段缺口（把 schema 缺格当议程逼问）
-- ❌ 评审逐维打分，却没挖出 THIS 变更真正要命的发现（填表式打分）
-- ❌ 为「上游已提供 / 平台自带 / 可推断」的内容扣分或追问
-- ❌ 另造一套「完整度检查」与 `*-quality` 判据并行（重复 + 漂移）
-- ❌ 质量验证只产终点评分表，不喂回实质收敛
-- ❌ 把本范式写成某个交互式能力的形状（如「五相位交互骨架」），当作跨场景通用——交互骨架是**交互式实例**的事，不属本范式
-
----
-
-## 6. 修正指南 (Remediation)
-
-1. **议程化框架**：把「填下一个空字段 / 打下一个维度」改为「问 / 找最有价值的领域实质」，框架退为背景收敛目标。
-2. **逼问可提取项**：接上提取源（上游制品 / 平台能力清单），提取 / 推断在前，直接发问只对真缺且关键项。
-3. **平行完整度检查**：删掉，改用 `*-quality.md` 作唯一收敛 oracle。
-4. **填表式 oracle**：让质量验证由实质发现驱动，输出作收敛信号而非终点评分。
-5. **范式被写成交互形状**：把交互专属相位下沉到具体实例设计，本范式只保留与交互模型解耦的上位原则。
+- ❌ Clarification asking one by one about the empty required fields — requirement source, risks, dependencies — turning schema gaps into an interrogation agenda
+- ❌ A review scoring each dimension without surfacing what really matters in THIS change — form-filling dressed as scoring
+- ❌ Deducting points for, or asking about, content already supplied upstream, provided by the platform, or inferable
+- ❌ Building a parallel "completeness check" alongside the `*-quality` criteria — duplication that then drifts
+- ❌ Quality verification producing only a final scorecard that is not fed back into substantive convergence
+- ❌ Writing this paradigm in the shape of one interactive capability (a "five-phase interaction skeleton") and treating it as cross-scenario. An interaction skeleton belongs to an **interactive instance**, not to this paradigm
 
 ---
 
-## 7. 关联资产
+## 6. Remediation
 
-- **收敛 oracle（各质量判据）**：对应制品的 `rules/*-quality.md`。例如：[requirement-quality](./requirement-quality.md) / [functional-design-quality](./functional-design-quality.md) / [technical-design-quality](./technical-design-quality.md) / [task-quality](./task-quality.md) / [test-case-quality](./test-case-quality.md) / [test-coverage-quality](./test-coverage-quality.md)。
-- **目标结构（各数据契约）**：`specs/*-modeling.md` ——本范式的「脚手架」即这些 spec 定义的结构。
-- **消费方实例化**：各项目把本范式实例化为具体能力（交互式 / 一次性），按 §4 填四参数；实例化设计归各项目本地，不回灌本 rule。
+1. **Framework turned into an agenda**: replace "fill the next empty field / score the next dimension" with "ask or find the most valuable piece of domain substance", and let the framework recede to a background convergence target.
+2. **Interrogating what is extractable**: connect the extraction sources (upstream artifacts, the platform's capability list). Extract and infer first; ask directly only about what is genuinely missing and critical.
+3. **Parallel completeness check**: delete it and use `*-quality.md` as the single convergence oracle.
+4. **Form-filling oracle**: drive quality verification from substantive findings, and treat its output as a convergence signal rather than a final score.
+5. **Paradigm written in an interaction shape**: push the interaction-specific phases down into the concrete instance design, and keep only the higher-order principles that are decoupled from the interaction model here.
 
 ---
 
-## 变更记录
+## 7. Related assets
+
+- **Convergence oracles (the quality criteria)**: the artifact's `rules/*-quality.md`. For example [requirement-quality](./requirement-quality.md) / [functional-design-quality](./functional-design-quality.md) / [technical-design-quality](./technical-design-quality.md) / [task-quality](./task-quality.md) / [test-case-quality](./test-case-quality.md) / [test-coverage-quality](./test-coverage-quality.md).
+- **Target structures (the data contracts)**: `specs/*-modeling.md` — the "scaffolding" in this paradigm is the structure those specs define.
+- **Instantiation by consumers**: each project instantiates this paradigm into concrete capabilities, interactive or one-shot, by filling in the four parameters from §4. That instantiation design stays local to the project and is not fed back into this rule.
+
+---
+
+## Change log
 
 ### 1.0.0 — 2026-06-28
 
-**Initial Release**：定义「结构是脚手架非议程 / 实质优先 / 提取优先 / 质量当 oracle 且防 oracle 填表化」四约束 + 四实例化参数。源自交互式澄清中「填表式问题空洞」的根因分析，并经一次性评审场景交叉验证为**与交互模型解耦的上位原则**。
+**Initial Release**: defines four constraints — structure is scaffolding not an agenda, substance-led, extract-first, quality-as-oracle with the oracle itself guarded against form-filling — plus four instantiation parameters. It came out of a root-cause analysis of hollow form-filling questions in interactive clarification, and was cross-validated against one-shot review as a **higher-order principle decoupled from the interaction model**.
