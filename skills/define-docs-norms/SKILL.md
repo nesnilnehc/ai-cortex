@@ -20,130 +20,130 @@ output_schema:
   lifecycle: living
 ---
 
-# 技能：定义文档规范（Define Docs Norms）
+# Skill: Define Docs Norms
 
-## 目的 (Purpose)
+## Purpose
 
-将已审阅的规范提案固化为 `docs/ARTIFACT_NORMS.md`，并作为项目文档治理的 canonical 规则。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：安全、可审计地创建或更新项目规范文件。
-
-**成功标准**（必须全部满足）：
-
-1. ✅ 输入提案已明确并可落盘
-2. ✅ 规范文件结构符合项目 schema 与约定
-3. ✅ 变更说明清晰（新增、修改、删除规则）
-4. ✅ 写入目标仅限 `docs/ARTIFACT_NORMS.md`
-5. ✅ 输出后可被 runtime / linter / CI 工具直接消费（按 `rules/doc-health-criteria.md`）
-
-**验收测试**：规范文件是否可直接作为路径/命名/front-matter 校验依据，并被其他技能稳定解析？
+Fix a reviewed norms proposal into `docs/ARTIFACT_NORMS.md` and make it the canonical rule set for the project's documentation governance.
 
 ---
 
-## 范围边界（Scope Boundaries）
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: create or update the project norms file safely and auditably.
 
-- 创建或更新 `docs/ARTIFACT_NORMS.md`
-- 合并已有规范与新提案（可配置策略）
-- 输出变更摘要与迁移提示
+**Success criteria** (all of them must hold):
 
-**本技能不负责**：
+1. ✅ The input proposal is unambiguous and ready to write
+2. ✅ The norms file structure matches the project schema and conventions
+3. ✅ The change notes are clear (rules added, modified, removed)
+4. ✅ The only write target is `docs/ARTIFACT_NORMS.md`
+5. ✅ The output can be consumed directly by runtime / linter / CI tooling (per `rules/doc-health-criteria.md`)
 
-- 规范发现与推导（由人工或 AgentFabric runtime 承接）
-- 仓库整理与文件迁移（按 `rules/repo-structure-hygiene.md`，由 AgentFabric runtime 或人工执行）
-- 合规审计与就绪评分（由 runtime / linter / CI 工具承接）
-
-**交接点**：规范写入后，结构整改与合规检测由 runtime / linter / CI 工具按 `rules/repo-structure-hygiene.md` 与 `rules/doc-health-criteria.md` 执行。
+**Acceptance test**: can the norms file serve directly as the basis for path/naming/front-matter validation, and be parsed reliably by other skills?
 
 ---
 
-## 使用场景（Use Cases）
+## Scope Boundaries
 
-- 新项目首次建立 `ARTIFACT_NORMS`
-- 旧项目将提案升级为正式规则
-- 规范迭代更新（路径、命名、字段政策）
+**This skill owns**:
 
----
+- Creating or updating `docs/ARTIFACT_NORMS.md`
+- Merging existing norms with a new proposal (configurable strategy)
+- Emitting the change summary and migration notes
 
-## 行为（Behavior）
+**This skill does not own**:
 
-### 阶段 1：输入确认
+- Discovering and deriving norms (a person or the AgentFabric runtime takes that)
+- Repository tidying and file migration (per `rules/repo-structure-hygiene.md`, carried out by the AgentFabric runtime or by a person)
+- Compliance audit and readiness scoring (runtime / linter / CI tooling takes that)
 
-1. 读取提案（通常来自 `docs/calibration/docs-norms-proposal.md`）
-2. 检查是否存在旧版 `docs/ARTIFACT_NORMS.md`
-3. 确认落盘策略：`create | merge | replace`
-
-### 阶段 2：规范组装
-
-1. 组装路径映射、命名策略、front-matter 标准
-2. 写入低置信度规则的人工确认注记（如有）
-3. 校验格式一致性与可解析性
-
-### 阶段 3：落盘与摘要
-
-1. 写入 `docs/ARTIFACT_NORMS.md`
-2. 输出本次变更摘要（新增/修改/删除）
-3. 输出后续建议：runtime 按 `rules/repo-structure-hygiene.md` 整理 + `rules/doc-health-criteria.md` 合规检测
+**Handoff point**: once the norms are written, structural cleanup and compliance checking are carried out by runtime / linter / CI tooling per `rules/repo-structure-hygiene.md` and `rules/doc-health-criteria.md`.
 
 ---
 
-## 输入与输出 (Input & Output)
+## Use Cases
 
-### 输入
+- A new project establishing `ARTIFACT_NORMS` for the first time
+- An existing project promoting a proposal into formal rules
+- Iterating on the norms (paths, naming, field policy)
 
-- 已审阅规范提案
-- 可选已有 `docs/ARTIFACT_NORMS.md`
-- 可选合并策略（`create|merge|replace`）
+---
 
-### 输出
+## Behavior
+
+### Stage 1: confirm the input
+
+1. Read the proposal (usually from `docs/calibration/docs-norms-proposal.md`)
+2. Check whether an older `docs/ARTIFACT_NORMS.md` exists
+3. Confirm the write strategy: `create | merge | replace`
+
+### Stage 2: assemble the norms
+
+1. Assemble the path mapping, the naming policy and the front-matter standard
+2. Write a manual-confirmation note for any low-confidence rule (where there is one)
+3. Validate format consistency and parseability
+
+### Stage 3: write and summarize
+
+1. Write `docs/ARTIFACT_NORMS.md`
+2. Emit the change summary for this pass (added/modified/removed)
+3. Emit the suggested next steps: the runtime tidies up per `rules/repo-structure-hygiene.md`, plus compliance checking per `rules/doc-health-criteria.md`
+
+---
+
+## Input and Output
+
+### Input
+
+- The reviewed norms proposal
+- Optionally an existing `docs/ARTIFACT_NORMS.md`
+- Optionally a merge strategy (`create|merge|replace`)
+
+### Output
 
 - `docs/ARTIFACT_NORMS.md`
-- 变更摘要
+- The change summary
 
 ---
 
-## 限制（Restrictions）
+## Restrictions
 
-### 硬边界（Hard Boundaries）
+### Hard Boundaries
 
-- 仅允许写入规范文件，不执行仓库结构改造
-- 输入提案不明确时停止并要求确认
-- 不得把未确认冲突规则标记为已定稿
+- Writing the norms file is the only write allowed; no repository restructuring is performed
+- Stop and ask for confirmation when the input proposal is ambiguous
+- Must not mark an unresolved conflicting rule as settled
 
-### 技能边界 (Skill Boundaries)
+### Skill Boundaries
 
-**不要做这些（其他技能负责）**：
+**Do not do these (other skills own them)**:
 
-- 发现与推导：人工或 AgentFabric runtime
-- 合规评分：runtime / linter / CI 工具（按 `rules/doc-health-criteria.md`）
-- 文件整理：runtime 按 `rules/repo-structure-hygiene.md` 执行
-
----
-
-## 自检（Self-Check）
-
-- [ ] 已接收可落盘的规则输入
-- [ ] 已正确写入 `docs/ARTIFACT_NORMS.md`
-- [ ] 已输出规则变更摘要
-- [ ] 未执行非规范文件写入
+- Discovery and derivation: a person or the AgentFabric runtime
+- Compliance scoring: runtime / linter / CI tooling (per `rules/doc-health-criteria.md`)
+- File tidying: the runtime, per `rules/repo-structure-hygiene.md`
 
 ---
 
-## 示例（Examples）
+## Self-Check
 
-### 示例 1：从提案新建规范
+- [ ] A rule input ready to write was received
+- [ ] `docs/ARTIFACT_NORMS.md` was written correctly
+- [ ] The rule change summary was emitted
+- [ ] No write outside the norms file was performed
 
-- 输入：`docs/calibration/docs-norms-proposal.md`
-- 行为：`create`
-- 输出：`docs/ARTIFACT_NORMS.md`
+---
 
-### 示例 2：对旧规范增量更新
+## Examples
 
-- 输入：旧规范 + 新提案
-- 行为：`merge`
-- 输出：更新后的规范文件 + 变更摘要
+### Example 1: creating norms from a proposal
+
+- Input: `docs/calibration/docs-norms-proposal.md`
+- Behavior: `create`
+- Output: `docs/ARTIFACT_NORMS.md`
+
+### Example 2: an incremental update to existing norms
+
+- Input: the old norms + the new proposal
+- Behavior: `merge`
+- Output: the updated norms file + the change summary

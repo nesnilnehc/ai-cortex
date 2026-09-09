@@ -16,147 +16,147 @@ output_schema:
   description: Scope-only findings for impact, regression, correctness, compatibility, and side effects
 ---
 
-# 技能（Skill）：审查 Diff（Review Diff）
+# Skill: Review Diff
 
-## 目的 (Purpose)
+## Purpose
 
-仅审查**当前变更**（git diff：暂存 + 未暂存 + 可选未跟踪文件）的 5 维：意图 / 影响、回归 / 正确性、breaking change / 兼容性、副作用 / 幂等性、可观测性。产出 scope-only findings list，作为 `orchestrate-code-review` 的 scope 步聚合输入。
+Review the **current change** alone (git diff: staged + unstaged + optionally untracked files) across 5 dimensions: intent / impact, regression / correctness, breaking change / compatibility, side effects / idempotency, observability. Produce a scope-only findings list that feeds the scope step of `orchestrate-code-review` for aggregation.
 
-不做架构 / 安全 / 语言 / 框架特定分析——这些归对应原子技能。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：仅针对 diff 范围（含未跟踪文件）产出 5 维 findings list。
-
-**成功标准**（必须全部满足）：
-
-1. ✅ **仅 diff 范围**：仅审查变更集，不展开仓库级 / 架构 / 安全 / 语言特定检查
-2. ✅ **5 维全覆盖**：意图 / 影响、回归 / 正确性、breaking change / 兼容性、副作用 / 幂等性、可观测性
-3. ✅ **格式合规**：每条 finding 含 location / category=`scope` / severity / title / description / suggestion
-4. ✅ **位置精确**：所有 findings 引用具体 `file:line` 或 `@@` 块
-5. ✅ **bug fix 验证**：bug 修复 diff 必须验证修复正确性，并标记任何遗留或部分问题
+No architecture / security / language / framework-specific analysis — those belong to the matching atomic skills.
 
 ---
 
-## 范围边界（Scope Boundaries）
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: produce a findings list across the 5 dimensions for the diff scope alone (untracked files included).
 
-- 当前 git diff（暂存 + 未暂存）
-- 变更集中的未跟踪文件（默认包含，视为完整文件 add）
-- 5 维分析：意图 / 影响、回归 / 正确性、breaking / 兼容性、副作用 / 幂等性、可观测性
+**Success criteria** (all of them must hold):
 
-**本技能不负责**：
-
-- 仓库级或快照级审查 → `review-codebase`
-- 全维度编排审查 → `orchestrate-code-review`
-- 架构 / 安全 / 性能 / 测试 cognitive 维度 → 对应 cognitive 原子技能
-- 语言 / 框架特定约定 → 对应原子技能
-
-**交接点**：findings 输出后作为 orchestrate-code-review 的 scope 步聚合输入；或交给 `orchestrate-repair-loop` 做修复迭代。
+1. ✅ **Diff scope only**: review the change set alone; do not open repository-level / architecture / security / language-specific checks
+2. ✅ **All 5 dimensions covered**: intent / impact, regression / correctness, breaking change / compatibility, side effects / idempotency, observability
+3. ✅ **Format conformant**: every finding carries location / category=`scope` / severity / title / description / suggestion
+4. ✅ **Precise locations**: every finding cites a concrete `file:line` or `@@` hunk
+5. ✅ **Bug fix verified**: a bug-fix diff must have its fix verified for correctness, with any leftover or partial problem flagged
 
 ---
 
-## 使用场景
+## Scope Boundaries
 
-- **pre-commit / pre-PR 门禁**：提交前快速看变更引入的问题
-- **作为 orchestrate-code-review 的 scope 步**：与 `review-codebase` 二选一
-- **聚焦审查**：用户明确"只看变更"
+**This skill owns**:
 
----
+- The current git diff (staged + unstaged)
+- Untracked files in the change set (included by default, treated as a whole-file add)
+- Analysis across 5 dimensions: intent / impact, regression / correctness, breaking / compatibility, side effects / idempotency, observability
 
-## 行为 (Behavior)
+**This skill does not own**:
 
-### 范围解析
+- Repository-level or snapshot-level review → `review-codebase`
+- The full orchestrated review → `orchestrate-code-review`
+- The architecture / security / performance / testing cognitive dimensions → the matching cognitive atomic skills
+- Language- / framework-specific conventions → the matching atomic skills
 
-- **分析对象**：变更集中的文件——diff（暂存 + 未暂存）+ 默认包含的未跟踪文件
-- **未跟踪文件处理**：调用方传入路径与完整内容；视为完整文件 add，应用同 5 维清单；引用 file:line
-- **不分析**：未变更或超出变更集的文件
-
-### 5 维分析清单
-
-对每个变更文件，按以下维度产出 findings：
-
-1. **意图与影响**：发生了什么变更、为什么；对调用方 / 数据 / 配置 / 部署的影响
-2. **回归与正确性**：是否引入新 bug 或漏掉边界情况；bug fix diff 修复是否完整
-3. **breaking change 与兼容性**：是否破坏 API / 数据 / 配置契约；向后兼容；版本控制 / 弃用
-4. **副作用与幂等性**：意外副作用、数据损坏、重复执行风险、幂等性问题
-5. **可观测性**：变更是否新增 / 修复用于生产调试的日志、指标、错误信息
-
-### 特殊情况
-
-- **bug fix diff**：验证修复正确性，记录任何遗留或部分问题
-- **仅格式 / 注释 diff**：输出一条次要 finding "仅格式 / 注释，无行为变更"；如注释与代码矛盾则发 finding 含建议
+**Handoff point**: once the findings are out, they feed the scope step of orchestrate-code-review for aggregation, or go to `orchestrate-repair-loop` for a fix iteration.
 
 ---
 
-## 输入与输出
+## Use Cases
 
-### 输入
-
-- **git diff**：当前分支 vs HEAD 的暂存 + 未暂存变更
-- **未跟踪文件**（默认包含）：路径 + 完整内容
-
-### 输出
-
-- **Findings list**：标准格式（`location` / `category=scope` / `severity` / `title` / `description` / `suggestion`）
-- 每条 finding 必须含 file:line 或 @@ 块引用
-- 每条 finding 必须含 actionable suggestion（修复方向 + 具体位置）
+- **pre-commit / pre-PR gate**: a quick look at what the change introduces before committing
+- **As the scope step of orchestrate-code-review**: one of the two, alongside `review-codebase`
+- **Focused review**: the user says "look at the change only"
 
 ---
 
-## 限制 (Restrictions)
+## Behavior
 
-### 硬边界
+### Scope resolution
 
-- 不审查 diff 之外的文件
-- 不输出无 file:line 引用的 finding
-- 不使用模糊语言（"可能有问题"无类型与方向 → 删除）
-- 不做安全 / 架构 / 语言 / 框架检查（保持在 scope 维度内）
+- **What gets analyzed**: the files in the change set — the diff (staged + unstaged) plus the untracked files included by default
+- **Untracked file handling**: the caller passes the path and the full content; treat it as a whole-file add, apply the same 5-dimension checklist, and cite file:line
+- **What does not get analyzed**: files that are unchanged or outside the change set
 
-### 技能边界
+### The 5-dimension checklist
 
-**不做**（其他原子技能负责）：
+For each changed file, produce findings on these dimensions:
 
-- 仓库级 / 快照级审查 → `review-codebase`
-- 全维度编排 → `orchestrate-code-review`
-- 安全 → `review-security`
-- 架构 → `review-architecture`
-- 语言 / 框架 → 对应原子技能
+1. **Intent and impact**: what changed and why; the effect on callers / data / configuration / deployment
+2. **Regression and correctness**: whether a new bug or a missed edge case was introduced; whether a bug-fix diff fixes the whole thing
+3. **Breaking change and compatibility**: whether an API / data / configuration contract breaks; backward compatibility; versioning / deprecation
+4. **Side effects and idempotency**: unintended side effects, data corruption, risk on repeated execution, idempotency problems
+5. **Observability**: whether the change adds or repairs the logs, metrics and error messages needed to debug in production
 
----
+### Special cases
 
-## 自检
-
-- [ ] 仅审查变更集（diff + 包含的未跟踪文件）
-- [ ] 5 维全覆盖
-- [ ] 每条 finding 格式合规（含 6 字段）
-- [ ] 每条 finding 含 file:line 或 @@ 块引用
-- [ ] 每条 finding 含 actionable suggestion
-- [ ] bug fix diff 已验证修复正确性
+- **A bug-fix diff**: verify the fix is correct, and record any leftover or partial problem
+- **A formatting- / comment-only diff**: emit one minor finding, "formatting / comments only, no behavior change"; where a comment contradicts the code, emit a finding with a suggestion
 
 ---
 
-## 示例
+## Input and Output
 
-### 示例 1：API 变更
+### Input
 
-- **输入**：diff 新增 query 参数并修改 response 形状
-- **预期**：findings 覆盖意图 / 影响（对调用方）、向后兼容性风险、breaking change 建议（如版本控制或弃用）；引用具体行或 @@ 块；不输出安全 / 架构 finding（移交对应原子技能）
+- **git diff**: the staged + unstaged changes of the current branch against HEAD
+- **Untracked files** (included by default): path + full content
 
-### 示例 2：bug fix
+### Output
 
-- **输入**：diff 修复 null pointer 与错误码
-- **预期**：findings 确认修复 + 验证类似 null pointer / 错误码问题是否仍存在；可观测性维度（日志 / 错误）；引用变更行；category=scope
+- **Findings list**: the standard format (`location` / `category=scope` / `severity` / `title` / `description` / `suggestion`)
+- Every finding must carry a file:line or @@ hunk reference
+- Every finding must carry an actionable suggestion (the direction of the fix + the exact location)
 
-### 示例 3：仅格式 / 注释
+---
 
-- **输入**：diff 仅含缩进 / 空格 / 注释变更
-- **预期**：要么无 finding，要么一条 minor finding "仅格式 / 注释，无行为变更"；如注释与代码矛盾则发 finding 含建议
+## Restrictions
 
-### 示例 4：变更集中的新（未跟踪）文件
+### Hard boundaries
 
-- **输入**：diff + 未跟踪文件（路径 + 完整内容）
-- **预期**：新文件作完整文件 add 审查；应用 5 维清单；location=路径与行引用；category=scope
+- Do not review files outside the diff
+- Emit no finding that lacks a file:line reference
+- Use no vague language ("might be a problem", carrying neither a type nor a direction → delete it)
+- Run no security / architecture / language / framework check (stay inside the scope dimension)
+
+### Skill boundaries
+
+**Not done here** (other atomic skills own it):
+
+- Repository-level / snapshot-level review → `review-codebase`
+- Full-dimension orchestration → `orchestrate-code-review`
+- Security → `review-security`
+- Architecture → `review-architecture`
+- Language / framework → the matching atomic skills
+
+---
+
+## Self-Check
+
+- [ ] Only the change set was reviewed (the diff plus the untracked files included)
+- [ ] All 5 dimensions are covered
+- [ ] Every finding conforms to the format (all 6 fields)
+- [ ] Every finding carries a file:line or @@ hunk reference
+- [ ] Every finding carries an actionable suggestion
+- [ ] The fix in a bug-fix diff was verified for correctness
+
+---
+
+## Examples
+
+### Example 1: an API change
+
+- **Input**: a diff that adds a query parameter and reshapes the response
+- **Expected**: findings covering intent / impact (on callers), backward-compatibility risk, and a breaking-change suggestion (versioning or deprecation, say); citing the exact lines or @@ hunks; no security / architecture finding (those go to the matching atomic skills)
+
+### Example 2: a bug fix
+
+- **Input**: a diff that fixes a null pointer and an error code
+- **Expected**: findings confirming the fix, plus a check of whether similar null pointer / error code problems remain; the observability dimension (logs / errors); citing the changed lines; category=scope
+
+### Example 3: formatting / comments only
+
+- **Input**: a diff carrying only indentation / whitespace / comment changes
+- **Expected**: either no finding, or one minor finding, "formatting / comments only, no behavior change"; where a comment contradicts the code, emit a finding with a suggestion
+
+### Example 4: a new (untracked) file in the change set
+
+- **Input**: the diff plus an untracked file (path + full content)
+- **Expected**: the new file is reviewed as a whole-file add; the 5-dimension checklist applies; location=the path with line references; category=scope

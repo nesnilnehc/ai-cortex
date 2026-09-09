@@ -20,185 +20,185 @@ output_schema:
   lifecycle: living
 ---
 
-# 技能：定义愿景
+# Skill: Define Vision
 
-## 目的
+## Purpose
 
-定义并记录**愿景**：项目旨在创造的长期未来。愿景声明回答「我们正在建设什么样的未来？」并与使命保持一致。不定义指标、目标或里程碑。
+Define and record the **vision**: the long-term future the project sets out to create. A vision statement answers "what future are we building?" and stays consistent with the mission. It defines no metrics, goals or milestones.
 
-**愿景不同于**：
+**A vision is not**:
 
-- **使命**：项目存在的根本目的（使用 `define-mission`）。
-- **北极星**：表示交付价值的单个指标（使用 `define-north-star`）。
-- **战略目标**：实现愿景的 3–5 个结果（使用 `design-strategic-goals`）。
-- **里程碑**：执行的阶段检查点（使用 `define-roadmap`）。
-
----
-
-## 核心目标
-
-**首要目标**：生成与使命一致的、经用户确认的愿景声明，并持久化到项目商定的路径。
-
-**成功标准**（必须满足所有要求）：
-
-1. ✅ **存在愿景陈述**：一到三句话仅描述期望的未来状态（没有指标、OKR、路线图）。
-2. ✅ **与使命一致**：愿景与使命不矛盾；若缺少使命，建议先运行 `define-mission` 或说明假定目的。
-3. ✅ **用户确认**：用户明确批准（如「已批准」「看起来不错」「继续」或同等内容）。
-4. ✅ **文档持久化**：写入商定的路径（默认 `docs/project-overview/vision.md` 或项目规范）。
-5. ✅ **尊重范围**：声明未定义北极星指标、战略目标或里程碑。
-6. ✅ **YAGNI/DRY/简洁**：遵循 spec §4 文档制品原则；愿景陈述即核心，避免不必要的可选段落（如与使命对齐、时间范围的显式说明）。
-
-**验收测试**：读者能否理解该项目试图创造什么样的长期未来，并看到其与使命一致？
-
-**交接点**：愿景批准并持久化后，交接至 `define-north-star` 或 `design-strategic-goals`；若仅请求愿景则停止。
+- **The mission**: the fundamental purpose behind the project (use `define-mission`).
+- **The north star**: the single metric that stands for delivered value (use `define-north-star`).
+- **Strategic goals**: the 3–5 outcomes that realize the vision (use `design-strategic-goals`).
+- **Milestones**: stage checkpoints during execution (use `define-roadmap`).
 
 ---
 
-## 范围边界
+## Core Goal
 
-### 本技能必须做什么
+**Primary goal**: produce a user-confirmed vision statement consistent with the mission, and persist it to the path the project agreed on.
 
-- 阐明项目或产品期望的长期未来状态。
-- 制作愿景声明（1–3 句话）。
-- 确保与使命一致（从 `define-mission` 输出或现有文档读取使命）。
-- 持久化到项目约定的路径（默认 `docs/project-overview/vision.md`）。
+**Success criteria** (all of them must hold):
 
-### 本技能不能做什么
+1. ✅ **A vision statement exists**: one to three sentences describing the desired future state alone (no metrics, OKRs, roadmap).
+2. ✅ **Consistent with the mission**: the vision does not contradict the mission; when the mission is missing, suggest running `define-mission` first, or state the assumed purpose.
+3. ✅ **User confirmation**: the user approved it explicitly ("approved", "looks good", "go ahead" or equivalent).
+4. ✅ **Persisted as a document**: written to the agreed path (default `docs/project-overview/vision.md`, or the project norms).
+5. ✅ **Scope respected**: the statement defines no north star metric, strategic goal or milestone.
+6. ✅ **YAGNI/DRY/concision**: follow the document-artifact principles in spec §4; the vision statement is the core, avoid optional paragraphs that earn nothing (an explicit note on mission alignment or on the time horizon, say).
 
-- 定义根本目的（使用 `define-mission`）。
-- 定义北极星指标或战略目标（使用 `define-north-star`、`design-strategic-goals`）。
-- 定义里程碑（使用 `define-roadmap`）。
-- 书写路线图、需求或待办（使用 `capture-work-items` 等）。
+**Acceptance test**: can a reader tell what long-term future the project is trying to create, and see that it is consistent with the mission?
 
----
-
-## 愿景质量指南
-
-强有力的愿景声明应具备：
-
-- **简洁**：1–3 句话；聚焦未来状态。
-- **与使命一致**：支持使命中的根本目的；不引入新目的。
-- **可想象**：2–5 年后的成功画面；读者可勾勒具体景象。
-- **无指标**：不包含 KPI、OKR 或数字目标；指标由 `define-north-star` 或 `design-strategic-goals` 负责。
-
-愿景中应避免：
-
-- **实施细节**：技术、可交付成果或「如何」做到。
-- **流行语**：模糊术语，无法阐明未来状态。
+**Handoff point**: once the vision is approved and persisted, hand off to `define-north-star` or `design-strategic-goals`; stop when only the vision was asked for.
 
 ---
 
-## 使用场景
+## Scope Boundary
 
-- **使命完成后**：明确「我们为何存在」后，建立「我们构建的未来」。
-- **战略或方向重置**：根据长期目标重新对齐团队。
-- **路线图缺乏目标时**：创建清晰的愿景，使路线图与目标一致。
-- **战略链第二层**：构建完整层次结构时，在 `define-mission` 之后运行。
+### What this skill must do
 
----
+- Articulate the desired long-term future state of the project or product.
+- Produce the vision statement (1–3 sentences).
+- Keep it consistent with the mission (read the mission from the `define-mission` output or from existing docs).
+- Persist it to the path the project agreed on (default `docs/project-overview/vision.md`).
 
-## 行为
+### What this skill cannot do
 
-### 交互策略
-
-- **默认**：项目规范的输出路径（`docs/ARTIFACT_NORMS.md` 或 `.ai-cortex/artifact-norms.yaml`）；否则为 `docs/project-overview/vision.md`。从 `docs/project-overview/mission.md` 或用户处推断使命。
-- **选择选项**：若存在多个可能的未来，提供 1–3 个候选陈述并要求用户选择或完善。
-- **确认**：覆盖现有愿景文件前；最终持久化前。若缺少使命，确认是否假定目的或建议先运行 `define-mission`。
-
-### 执行过程
-
-1. **加载使命**：从 `docs/project-overview/mission.md` 或用户提供的摘要中读取使命。
-2. **引出**：2–5 年后「成功」会是什么样子？我们正在为用户创造什么样的世界？
-3. **草案**：愿景陈述（1–3 句）；仅未来状态，无指标或 KPI。
-4. **检查一致性**：确保愿景支持使命；必要时与用户一起完善。
-5. **持久化**：写入项目约定的路径；若缺少，创建 `docs/project-overview/`。
+- Define the fundamental purpose (use `define-mission`).
+- Define the north star metric or the strategic goals (use `define-north-star`, `design-strategic-goals`).
+- Define milestones (use `define-roadmap`).
+- Write the roadmap, requirements or backlog (use `capture-work-items` and the like).
 
 ---
 
-## 输入与输出
+## Vision Quality Guide
 
-**输入**：
+A strong vision statement has:
 
-- **必填**：使命（使命文档的声明或路径）；项目/产品背景。
-- **可选**：现有愿景草案、时间范围、受众。
+- **Concision**: 1–3 sentences, focused on the future state.
+- **Consistency with the mission**: it supports the fundamental purpose in the mission and introduces no new one.
+- **Imaginability**: a picture of success 2–5 years out; the reader can sketch a concrete scene.
+- **No metrics**: no KPI, OKR or numeric target; metrics belong to `define-north-star` or `design-strategic-goals`.
 
-**输出**：
+What to avoid in a vision:
 
-- **Artifact**：愿景陈述（1–3 句话）。
-- **位置**：`docs/project-overview/vision.md`（或按项目规范）。
-- **内容**：愿景声明；可选（YAGNI：仅当确有需要时）「与使命一致」「时间范围」说明。
-- **生命周期**：living（战略方向改变时更新）。
-
----
-
-## 限制
-
-### 硬边界（Hard Boundaries）
-
-- 请勿在愿景声明中包含北极星指标、战略目标、OKR 或里程碑。
-- 未经用户明确确认，请勿覆盖现有愿景文件。
-- 请勿生产超过一份愿景文档；该技能仅生成愿景制品。
-- **YAGNI**：愿景文档以陈述为核心；不添加不必要的可选段落。
-
-### Skill Boundaries（避免重叠）
-
-**不要做这些（其他技能负责）**：
-
-- **使命**：根本目的 → Use `define-mission`
-- **北极星指标**：单关键指标 → Use `define-north-star`
-- **战略目标**：3–5 个结果 → Use `design-strategic-goals`
-- **里程碑**：阶段检查点 → Use `define-roadmap`
-- **路线图、需求或待办** → Use `capture-work-items` 等
-
-**何时停止并交接**：
-
-- 用户说「已批准」或同等内容 → 愿景完成，hand off to `define-north-star` 或 `design-strategic-goals`
-- 用户请求「一个指标」或「北极星」 → Hand off to `define-north-star`
-- 用户询问目标或里程碑 → Hand off to `design-strategic-goals` 或 `define-roadmap`
+- **Implementation detail**: technology, deliverables, or "how" it gets done.
+- **Buzzwords**: vague terms that clarify no future state.
 
 ---
 
-## 自检
+## When to Use
 
-### 核心成功标准（必须满足所有标准）
-
-- [ ] **存在愿景陈述**：一到三句话，仅未来状态（无指标、目标、里程碑）。
-- [ ] **与使命一致**：与使命不矛盾；或已注明使命缺失并由用户确认。
-- [ ] **用户确认**：用户说「已批准」「看起来不错」「继续」或类似内容。
-- [ ] **文档持久化**：写入约定路径（默认 `docs/project-overview/vision.md` 或项目规范）。
-- [ ] **尊重范围**：声明中没有北极星、目标或里程碑。
-- [ ] **YAGNI/DRY/简洁**：遵循 spec §4 文档制品原则。
-
-### 流程质量检查
-
-- [ ] **使用使命**：起草愿景前是否阅读或请求了使命？
-- [ ] **仅未来状态**：是否避免混合指标或 OKR？
-- [ ] **质量指南**：是否应用了愿景质量指南（简洁、与使命一致、可想象、无流行语）？
-- [ ] **文档制品原则**：是否遵循 YAGNI、DRY、简洁（spec §4）？
-
-### 验收测试
-
-**读者能否理解该项目试图创造什么样的长期未来，并看到其支持使命？**
-
-如果否：愿景不完整或错位。根据使命进行细化和重新检查。
-如果是：愿景完成。继续交接或停止。
+- **After the mission is done**: with "why we exist" settled, establish "the future we are building".
+- **A strategy or direction reset**: realign the team around the long-term aim.
+- **The roadmap has no aim**: create a clear vision so the roadmap lines up with it.
+- **The second layer of the strategy chain**: run it after `define-mission` when building the full hierarchy.
 
 ---
 
-## 示例
+## Behavior
 
-### 示例 1：使命已存在时定义愿景
+### Interaction strategy
 
-**背景**：使命为「我们的存在是为工程团队提供单一、可靠的方式将服务从代码部署到生产。」用户要求定义愿景。
+- **Default**: the output path from the project norms (`docs/ARTIFACT_NORMS.md` or `.ai-cortex/artifact-norms.yaml`); otherwise `docs/project-overview/vision.md`. Infer the mission from `docs/project-overview/mission.md` or from the user.
+- **Offer options**: when several futures are possible, present 1–3 candidate statements and ask the user to pick or refine one.
+- **Confirm**: before overwriting an existing vision file, and before the final persist. When the mission is missing, confirm whether to assume a purpose, or suggest running `define-mission` first.
 
-**流程**：引出 2–5 年目标，如「每个团队仅需一键，即可在 5 分钟内交付生产，并具备全面审核与回滚。」起草愿景；检查是否支持使命。用户确认。写入 `docs/project-overview/vision.md`。
+### Execution
 
-**结果**：愿景持久化；交接至 `define-north-star`（如「每周 5 分钟内成功部署数」）或 `design-strategic-goals`。
+1. **Load the mission**: read it from `docs/project-overview/mission.md` or from a summary the user provides.
+2. **Elicit**: what does "success" look like 2–5 years out? What kind of world are we creating for users?
+3. **Draft**: the vision statement (1–3 sentences); future state only, no metrics or KPIs.
+4. **Check consistency**: make sure the vision supports the mission; refine it with the user where needed.
+5. **Persist**: write to the path the project agreed on; create `docs/project-overview/` when it is missing.
 
-### 示例 2：使命尚未定义（边界场景）
+---
 
-**背景**：用户要求「定义我们的愿景」，但不存在使命文档。
+## Input and Output
 
-**流程**：询问是否从 README 或上下文中假定目的，或建议先运行 `define-mission`。若用户同意继续，在愿景文档中注明假定目的；起草愿景并与用户确认。持久化；建议稍后补充使命以完善战略链。
+**Input**:
 
-**结果**：愿景持久化，附可选「假定目的」注释；用户可稍后运行 `define-mission` 完成链。
+- **Required**: the mission (the statement itself, or the path to the mission document); project/product context.
+- **Optional**: an existing vision draft, a time horizon, the audience.
+
+**Output**:
+
+- **Artifact**: the vision statement (1–3 sentences).
+- **Location**: `docs/project-overview/vision.md` (or per the project norms).
+- **Content**: the vision statement; optionally (YAGNI: only where there is a real need) a "mission alignment" or "time horizon" note.
+- **Lifecycle**: living (updated when the strategic direction changes).
+
+---
+
+## Limits
+
+### Hard Boundaries
+
+- Do not put a north star metric, strategic goals, OKRs or milestones into the vision statement.
+- Do not overwrite an existing vision file without explicit user confirmation.
+- Do not produce more than one vision document; this skill emits the vision artifact alone.
+- **YAGNI**: the vision document centres on the statement; add no optional paragraph that earns nothing.
+
+### Skill Boundaries (avoid overlap)
+
+**Do not do these (other skills own them)**:
+
+- **Mission**: the fundamental purpose → Use `define-mission`
+- **North star metric**: the single key metric → Use `define-north-star`
+- **Strategic goals**: 3–5 outcomes → Use `design-strategic-goals`
+- **Milestones**: stage checkpoints → Use `define-roadmap`
+- **Roadmap, requirements or backlog** → Use `capture-work-items` and the like
+
+**When to stop and hand off**:
+
+- The user says "approved" or equivalent → the vision is done, hand off to `define-north-star` or `design-strategic-goals`
+- The user asks for "a metric" or "a north star" → Hand off to `define-north-star`
+- The user asks about goals or milestones → Hand off to `design-strategic-goals` or `define-roadmap`
+
+---
+
+## Self-Check
+
+### Core success criteria (all of them must hold)
+
+- [ ] **A vision statement exists**: one to three sentences, future state only (no metric, goal or milestone).
+- [ ] **Consistent with the mission**: it does not contradict the mission, or the missing mission is noted and confirmed by the user.
+- [ ] **User confirmation**: the user said "approved", "looks good", "go ahead" or similar.
+- [ ] **Persisted as a document**: written to the agreed path (default `docs/project-overview/vision.md`, or the project norms).
+- [ ] **Scope respected**: the statement carries no north star, goal or milestone.
+- [ ] **YAGNI/DRY/concision**: follows the document-artifact principles in spec §4.
+
+### Process quality checks
+
+- [ ] **The mission was used**: was the mission read or asked for before the vision was drafted?
+- [ ] **Future state only**: were metrics and OKRs kept out of the mix?
+- [ ] **The quality guide**: was the vision quality guide applied (concision, consistency with the mission, imaginability, no buzzwords)?
+- [ ] **Document-artifact principles**: were YAGNI, DRY and concision followed (spec §4)?
+
+### Acceptance test
+
+**Can a reader tell what long-term future the project is trying to create, and see that it supports the mission?**
+
+If not: the vision is incomplete or misaligned. Refine it against the mission and check again.
+If yes: the vision is done. Continue to the handoff, or stop.
+
+---
+
+## Examples
+
+### Example 1: defining a vision when the mission already exists
+
+**Context**: the mission reads "We exist to give engineering teams one reliable way to take a service from code to production." The user asks for a vision.
+
+**Flow**: elicit the 2–5 year aim, such as "every team ships to production in 5 minutes with a single click, with full audit and rollback." Draft the vision; check that it supports the mission. The user confirms. Write to `docs/project-overview/vision.md`.
+
+**Result**: the vision is persisted; hand off to `define-north-star` (for instance "successful deployments per week within 5 minutes") or `design-strategic-goals`.
+
+### Example 2: the mission is not defined yet (edge case)
+
+**Context**: the user asks to "define our vision", but no mission document exists.
+
+**Flow**: ask whether to assume a purpose from the README or the surrounding context, or suggest running `define-mission` first. If the user chooses to continue, note the assumed purpose in the vision document; draft the vision and confirm it with the user. Persist it, and suggest filling in the mission later to complete the strategy chain.
+
+**Result**: the vision is persisted with an optional "assumed purpose" note; the user can run `define-mission` later to complete the chain.

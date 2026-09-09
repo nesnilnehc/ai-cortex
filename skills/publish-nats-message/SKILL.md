@@ -17,166 +17,166 @@ output_schema:
   description: NATS message published via MCP; ack/result reported; contract file created (first time) or reused (subsequent)
 ---
 
-# 技能（Skill）：发布 NATS 消息
+# Skill: Publish NATS Message
 
-## 目的（Purpose）
+## Purpose
 
-让相互协作的项目能"正确生产消息"——按跨团队契约通过 NATS MCP 工具发布一条消息，确保 subject / headers / payload / QoS 严格对齐 [specs/nats-messaging.md](../../specs/nats-messaging.md)。首次某事件无契约时，引导生成契约并落盘 producer repo。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：通过 NATS MCP 工具发布一条符合 contract 的消息；契约不存在时先生成契约再发送。
-
-**成功标准**：
-
-1. ✅ 项目缓存 `.cortex/nats.yaml` 已读取（不存在则引导生成）
-2. ✅ 事件对应的 `<event>-contract.md` 已就位（存在则读取；不存在则起草并提示 commit）
-3. ✅ 实际发送的 subject / headers / payload 严格符合契约定义
-4. ✅ `Nats-Msg-Id` 为本次生成的 UUID v7（或同消息重试复用原 ID）
-5. ✅ JetStream 发送收到 ack；at-most-once 仅做 fire-and-forget
-6. ✅ 用户拿到发送结果（成功 + headers 实摘要 / 失败 + 原因）
-
-**验收测试**：consumer 侧用 `consume-nats-message` 订阅同一 subject，能正确解码 headers + payload 且无校验失败。
+Let collaborating projects "produce messages correctly" — publish one message through the NATS MCP tools according to the cross-team contract, with subject / headers / payload / QoS aligned strictly to [specs/nats-messaging.md](../../specs/nats-messaging.md). The first time an event has no contract, walk through generating one and write it into the producer repo.
 
 ---
 
-## 范围边界
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: publish one contract-conforming message through the NATS MCP tools; when the contract does not exist, generate it before sending.
 
-- 读项目缓存 + 加载契约
-- 首次缺契约时按 [specs/nats-messaging.md](../../specs/nats-messaging.md) + [specs/cross-team-contract.md](../../specs/cross-team-contract.md) 起草契约
-- 构造合规消息（subject + headers + payload）
-- 通过 NATS MCP 工具完成 publish / jetstream_publish / request
-- Ack 校验与失败重试（按契约重试策略）
+**Success criteria**:
 
-**本技能不负责**：
+1. ✅ The project cache `.cortex/nats.yaml` was read (walk through creating it when it is absent)
+2. ✅ The `<event>-contract.md` for the event is in place (read it when it exists; draft it and prompt for a commit when it does not)
+3. ✅ The subject / headers / payload actually sent match the contract definition strictly
+4. ✅ `Nats-Msg-Id` is a UUID v7 generated for this send (or the original ID reused when retrying the same message)
+5. ✅ A JetStream send received its ack; at-most-once is fire-and-forget only
+6. ✅ The user got the send result (success + a summary of the actual headers / failure + the reason)
 
-- 实际写 publisher 代码 → 不在 Skill 范畴（应用工程职责）
-- 创建 / 修改 JetStream stream / consumer / KV → IaC 责任（见 spec §5.5.2）
-- 订阅 / 消费消息 → 用 [consume-nats-message](../consume-nats-message/SKILL.md)
-
----
-
-## 前置条件
-
-- 已连接 NATS MCP server（提供 `mcp__nats__publish` / `mcp__nats__jetstream_publish` / `mcp__nats__request` 等工具；具体工具名以连接的 server 为准）
-- 当前工作目录是 producer repo（用于读 `.cortex/nats.yaml` 与契约文件）
-- 用户能授权对 broker 的发布权限
+**Acceptance test**: on the consumer side, `consume-nats-message` subscribes to the same subject and decodes headers + payload correctly, with no validation failure.
 
 ---
 
-## 执行流程
+## Scope Boundary
 
-### 阶段 0：宣告
+**This skill owns**:
 
-> "我正在使用 publish-nats-message 技能发送一条 NATS 消息。"
+- Reading the project cache and loading the contract
+- Drafting the contract per [specs/nats-messaging.md](../../specs/nats-messaging.md) + [specs/cross-team-contract.md](../../specs/cross-team-contract.md) when it is missing on first use
+- Building the conforming message (subject + headers + payload)
+- Carrying out publish / jetstream_publish / request through the NATS MCP tools
+- Ack verification and retry on failure (per the contract's retry policy)
 
-### 阶段 1：读项目缓存
+**This skill does not own**:
 
-1. 读 `.cortex/nats.yaml`（producer repo 根目录）
-2. 提取字段：`broker_url` / `service_source` / `default_stream` / `contract_dir` / `iac_owner`
-3. **缓存不存在**：进入"缓存初始化子流程"——询问上述字段，写入 `.cortex/nats.yaml`，提示用户 review 并 commit；后续步骤复用此次填的值
-4. **缓存存在但字段缺**：仅就缺字段询问，更新缓存
+- Writing the actual publisher code → outside the Skill's remit (an application-engineering responsibility)
+- Creating / modifying a JetStream stream / consumer / KV → an IaC responsibility (see spec §5.5.2)
+- Subscribing to / consuming messages → use [consume-nats-message](../consume-nats-message/SKILL.md)
 
-### 阶段 2：定位契约
+---
 
-1. 解析用户输入的事件描述（如"发 clarification.session.requested"）
+## Preconditions
+
+- A NATS MCP server is connected (offering tools such as `mcp__nats__publish` / `mcp__nats__jetstream_publish` / `mcp__nats__request`; the exact tool names come from the connected server)
+- The current working directory is the producer repo (for reading `.cortex/nats.yaml` and the contract file)
+- The user can authorize publish permission on the broker
+
+---
+
+## Execution
+
+### Stage 0: announce
+
+> "I am using the publish-nats-message skill to send a NATS message."
+
+### Stage 1: read the project cache
+
+1. Read `.cortex/nats.yaml` (at the producer repo root)
+2. Extract the fields: `broker_url` / `service_source` / `default_stream` / `contract_dir` / `iac_owner`
+3. **Cache absent**: enter the "cache initialization subflow" — ask for the fields above, write `.cortex/nats.yaml`, and prompt the user to review and commit it; later steps reuse the values filled in here
+4. **Cache present but a field is missing**: ask about the missing field only, and update the cache
+
+### Stage 2: locate the contract
+
+1. Parse the event description the user gave ("send clarification.session.requested", for example)
 2. Glob `<contract_dir>/**/<event>-contract.md`
-3. **命中**：读取契约 → 进入阶段 4
-4. **未命中**：进入阶段 3 起草契约
+3. **Hit**: read the contract → go to Stage 4
+4. **Miss**: go to Stage 3 and draft the contract
 
-### 阶段 3：契约起草子流程（仅首次某 event）
+### Stage 3: contract drafting subflow (first time for a given event only)
 
-询问最少必要信息（其他从缓存得到）：
+Ask for the minimum information needed (the rest comes from the cache):
 
-- consumer 名称（一个或多个）
-- QoS 选型（默认 at-least-once；用户可选 at-most-once 但须说明可丢失场景）
-- 是否多轮会话场景（若是 → `X-Correlation-Id` 标条件必填，subject 内规划 sessionId 位置）
-- 业务字段表（payload schema 草案；可让用户列出主要字段类型必填性）
-- DLQ + 重试参数（默认值：DLQ `<subject>.dlq`、max_deliver=5、exponential backoff base 1s max 30s）
+- The consumer name (one or several)
+- The QoS choice (at-least-once by default; the user can pick at-most-once but must state where loss is acceptable)
+- Whether this is a multi-turn session (if so → mark `X-Correlation-Id` conditionally required, and plan a slot for sessionId inside the subject)
+- The business field table (a draft payload schema; the user can list the main fields, their types and whether each is required)
+- DLQ + retry parameters (defaults: DLQ `<subject>.dlq`, max_deliver=5, exponential backoff base 1s max 30s)
 
-生成契约文件：
+Generate the contract file:
 
-- 路径：`<contract_dir>/<consumer>/<event>-contract.md`（按 [cross-team-contract.md §3](../../specs/cross-team-contract.md) 扁平布局）
-- frontmatter 含 `contract_version: 1.0.0` + CHANGELOG 首条 `### 1.0.0 — YYYY-MM-DD Initial Release`
-- 正文按 [specs/nats-messaging.md §7.1](../../specs/nats-messaging.md) 样板
+- Path: `<contract_dir>/<consumer>/<event>-contract.md` (the flat layout of [cross-team-contract.md §3](../../specs/cross-team-contract.md))
+- The frontmatter carries `contract_version: 1.0.0`, and the first CHANGELOG entry is `### 1.0.0 — YYYY-MM-DD Initial Release`
+- The body follows the template in [specs/nats-messaging.md §7.1](../../specs/nats-messaging.md)
 
-完成后：
+Afterwards:
 
-- 提示用户 review + commit 契约文件
-- **等待用户确认**契约 ok 后再进入阶段 4 实发送（避免按未确认契约发出污染消息）
+- Prompt the user to review and commit the contract file
+- **Wait for the user to confirm** the contract is fine before entering Stage 4 and sending for real (this avoids polluting the stream with a message sent against an unconfirmed contract)
 
-### 阶段 4：构造消息
+### Stage 4: build the message
 
-按契约填字段：
+Fill the fields per the contract:
 
-| 项 | 取值 |
+| Field | Value |
 |---|---|
-| subject | 契约「契约范围」节定义的 subject |
-| `Nats-Msg-Id` | 现场生成 UUID v7（重试时复用原 ID） |
-| `X-Source` | 缓存 `service_source` |
-| `X-Type` | 契约定义的事件类型字符串 |
-| `Traceparent` | 若运行环境有 OTel context，注入；否则跳过 |
-| `X-Correlation-Id` | 多轮会话场景必填，由调用方提供原 ID |
-| `X-Schema-Url` | 契约定义 schema URL 时填 |
-| payload | 用户提供的业务数据，按契约字段表逐字段校验（必填齐全、类型对、枚举值合法） |
+| subject | the subject defined in the contract's "Contract Scope" section |
+| `Nats-Msg-Id` | a UUID v7 generated on the spot (reuse the original ID when retrying) |
+| `X-Source` | the cached `service_source` |
+| `X-Type` | the event-type string defined in the contract |
+| `Traceparent` | inject it when the runtime has an OTel context; otherwise skip |
+| `X-Correlation-Id` | required in a multi-turn session; the caller supplies the original ID |
+| `X-Schema-Url` | filled in when the contract defines a schema URL |
+| payload | the business data the user supplied, validated field by field against the contract's field table (every required field present, types correct, enum values legal) |
 
-校验失败 → 报错指出违规字段，**不发送**。
+Validation fails → report the offending fields and **send nothing**.
 
-### 阶段 5：调用 MCP NATS 工具发送
+### Stage 5: send through the MCP NATS tools
 
-按 QoS 选用工具：
+Pick the tool by QoS:
 
-| 场景 | MCP 工具 | 备注 |
+| Case | MCP tool | Note |
 |---|---|---|
-| at-most-once（telemetry / 心跳） | `mcp__nats__publish` | 无 ack，fire-and-forget |
-| at-least-once（跨团队默认） | `mcp__nats__jetstream_publish` | 必须等 ack；触发 `duplicate_window` 去重 |
-| 同步请求-响应（< 5s） | `mcp__nats__request` | 含 reply subject + `X-Correlation-Id` |
+| at-most-once (telemetry / heartbeat) | `mcp__nats__publish` | no ack, fire-and-forget |
+| at-least-once (the cross-team default) | `mcp__nats__jetstream_publish` | must wait for the ack; triggers `duplicate_window` deduplication |
+| synchronous request-response (< 5s) | `mcp__nats__request` | carries a reply subject + `X-Correlation-Id` |
 
-具体工具名以连接的 NATS MCP server 提供为准；如工具签名不一致，Skill 自适应映射（headers 参数 / subject 参数）。
+The exact tool names come from the connected NATS MCP server; when a tool signature differs, the Skill maps onto it adaptively (the headers argument / the subject argument).
 
-### 阶段 6：自检与回执
+### Stage 6: self-check and receipt
 
-- **JetStream**：等 ack；超时 / 无 ack → 视为失败
-- **失败重试**：按契约重试策略重发，**复用同一 `Nats-Msg-Id`**（broker 端去重）；达 max_deliver 仍失败 → 上报用户
-- **成功回执**：输出
+- **JetStream**: wait for the ack; a timeout / no ack → treat it as a failure
+- **Retry on failure**: resend per the contract's retry policy, **reusing the same `Nats-Msg-Id`** (the broker deduplicates); still failing at max_deliver → report to the user
+- **Success receipt**: emit
   - subject
-  - headers 实际值（敏感字段如有可脱敏）
-  - ack 信息（JetStream sequence / stream / domain）
-  - 用时
+  - the actual header values (sensitive fields can be redacted where present)
+  - the ack information (JetStream sequence / stream / domain)
+  - the elapsed time
 
 ---
 
-## 错误处理
+## Error Handling
 
-| 情况 | 处理 |
+| Situation | Handling |
 |---|---|
-| MCP NATS server 未连接 | 提示用户检查 MCP 配置，列出期望工具名 |
-| `.cortex/nats.yaml` 不存在 | 进入缓存初始化子流程（阶段 1） |
-| 契约不存在 | 进入契约起草子流程（阶段 3） |
-| Payload 字段校验失败 | 列出违规字段，要求修正后重发 |
-| JetStream ack 超时 | 按契约 backoff 重试；最终失败上报用户 |
-| Stream 不存在（Subject 域未 IaC 化） | 报错指出违反 [specs/nats-messaging.md §5.5.2](../../specs/nats-messaging.md)；提示联系 IaC 责任方 |
+| The MCP NATS server is not connected | prompt the user to check the MCP configuration, and list the expected tool names |
+| `.cortex/nats.yaml` does not exist | enter the cache initialization subflow (Stage 1) |
+| The contract does not exist | enter the contract drafting subflow (Stage 3) |
+| Payload field validation fails | list the offending fields and ask for a correction before resending |
+| The JetStream ack times out | retry with the contract's backoff; report the final failure to the user |
+| The stream does not exist (the subject domain was never put under IaC) | report the violation of [specs/nats-messaging.md §5.5.2](../../specs/nats-messaging.md), and point at the IaC owner |
 
 ---
 
-## 反模式
+## Anti-Patterns
 
-- ❌ 应用代码运行时建 Stream / Consumer / KV（违反 spec §5.5.2）—— 报错并指向 IaC
-- ❌ 跨团队消息走 Core NATS 不持久化 —— 默认转 JetStream，需用户显式确认才降级
-- ❌ 重试时换新 `Nats-Msg-Id` —— 必须复用，否则 broker 去重失效
-- ❌ 元信息塞进 payload JSON envelope（`id` / `source` / `time` 等）—— 必须走 Headers
-- ❌ 未读缓存就重复询问 `broker_url` / `service_source` 等基础信息
-- ❌ 契约不存在就直接发 —— 必须先起草并提示 commit
+- ❌ Application code creating a Stream / Consumer / KV at runtime (a violation of spec §5.5.2) — report the error and point at IaC
+- ❌ Cross-team messages going over Core NATS with no persistence — switch to JetStream by default; a downgrade takes an explicit user confirmation
+- ❌ A fresh `Nats-Msg-Id` on retry — it must be reused, or the broker's deduplication stops working
+- ❌ Stuffing metadata into the payload JSON envelope (`id` / `source` / `time` and the like) — it must go in the Headers
+- ❌ Asking again for basics such as `broker_url` / `service_source` without reading the cache
+- ❌ Sending with no contract in place — it must be drafted first, with a prompt to commit
 
 ---
 
-## 与其他资产关系
+## Relation to Other Assets
 
-- **结构契约标尺**：[specs/nats-messaging.md](../../specs/nats-messaging.md)——subject / headers / payload / QoS / 校验规则的权威
-- **契约文档骨架**：[specs/cross-team-contract.md](../../specs/cross-team-contract.md)——首次起草契约时套用其 frontmatter + 章节结构
-- **消费侧配套**：[consume-nats-message](../consume-nats-message/SKILL.md)——同一契约的另一端
-- **broker 行为权威**：<https://docs.nats.io>——NATS protocol / JetStream / Services API 以官方为准
+- **The structural contract yardstick**: [specs/nats-messaging.md](../../specs/nats-messaging.md) — the authority on subject / headers / payload / QoS / validation rules
+- **The contract document skeleton**: [specs/cross-team-contract.md](../../specs/cross-team-contract.md) — apply its frontmatter and section structure when drafting a contract for the first time
+- **The consumer-side counterpart**: [consume-nats-message](../consume-nats-message/SKILL.md) — the other end of the same contract
+- **The authority on broker behavior**: <https://docs.nats.io> — the official docs govern the NATS protocol / JetStream / Services API

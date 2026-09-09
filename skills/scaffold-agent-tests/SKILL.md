@@ -20,141 +20,141 @@ output_schema:
   description: Generated test files (mock-LLM unit tests, golden dataset, evaluator harness) traceable to the contract
 ---
 
-# 技能 (Skill)：生成 Agent 测试套件
+# Skill: Scaffold Agent Tests
 
-## 目的 (Purpose)
+## Purpose
 
-读取一个 LLM Agent 的实现与其测试契约（[specs/agent-test-modeling.md](../../specs/agent-test-modeling.md) 实例），生成可追溯到契约的测试套件——确定性部分的精确断言、非确定性部分的 oracle 测试、golden dataset 与 evaluator harness。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：产出一套遵循 [rules/standards-agent-testing.md](../../rules/standards-agent-testing.md) 的 agent 测试代码，每条断言可追溯到契约的某条。
-
-**成功标准**（必须全部满足）：
-
-1. ✅ **契约已定位**：读取 agent 实现 + `agent-test-contract` 文档
-2. ✅ **测试矩阵已生成**：能力边界 / 输入契约 / 工具边界 / 写回前置逐项映射到测试
-3. ✅ **oracle 选型正确**：确定性行为用精确断言；非确定性行为用契约 / 轨迹 / rubric / golden oracle
-4. ✅ **golden dataset 已落盘**：正向 + 边界 + 异常各 ≥ 1，含 `Covers` 追溯锚
-5. ✅ **真实模型测试已隔离**：命中真实模型的测试打 `eval` marker，unit 管道用 mock LLM
-6. ✅ **可追溯**：每个测试的 `Covers` 指向契约 ID 或上游 AC
-
-**验收测试**：开发者能否在不读 agent 源码的情况下，仅凭生成的测试 + 契约理解每条测试守护什么？
+Read an LLM agent's implementation and its test contract (an instance of [specs/agent-test-modeling.md](../../specs/agent-test-modeling.md)), and generate a test suite traceable to that contract — exact assertions for the deterministic parts, oracle tests for the non-deterministic parts, a golden dataset and an evaluator harness.
 
 ---
 
-## 范围边界 (Scope Boundaries)
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: produce agent test code that follows [rules/standards-agent-testing.md](../../rules/standards-agent-testing.md), with every assertion traceable to a clause of the contract.
 
-- 读 agent 实现 + 测试契约，生成测试矩阵
-- 生成 mock LLM 单测、golden dataset、evaluator harness
-- 为非确定性行为选 oracle、为确定性行为写精确断言
-- 为每个测试挂 `Covers` 追溯锚
+**Success criteria** (all of them must hold):
 
-**本技能不负责**：
+1. ✅ **Contract located**: the agent implementation and the `agent-test-contract` document were read
+2. ✅ **Test matrix generated**: capability boundary / input contract / tool boundary / write-back precondition each map onto a test
+3. ✅ **Oracle chosen correctly**: deterministic behavior gets exact assertions; non-deterministic behavior gets a contract / trace / rubric / golden oracle
+4. ✅ **Golden dataset on disk**: positive + boundary + error, ≥ 1 of each, carrying a `Covers` traceability anchor
+5. ✅ **Real-model tests isolated**: tests that hit a real model carry the `eval` marker, and the unit pipeline uses a mock LLM
+6. ✅ **Traceable**: each test's `Covers` points at a contract ID or an upstream AC
 
-- **运行测试** → 用 [automate-tests](../automate-tests/SKILL.md)
-- **评审测试质量 / 覆盖** → 用 [review-testing](../review-testing/SKILL.md)
-- **编写测试契约文档** → 契约由人按 [specs/agent-test-modeling.md](../../specs/agent-test-modeling.md) 撰写；本技能消费契约，不创作契约
-- **修复失败测试 / 调试 agent** → 用 [orchestrate-repair-loop](../orchestrate-repair-loop/SKILL.md)
-
-**转交点**：测试生成完毕 → 交 automate-tests 运行、review-testing 评审。
+**Acceptance test**: can a developer tell what each test guards from the generated tests plus the contract alone, without reading the agent source?
 
 ---
 
-## 前置条件
+## Scope Boundaries
 
-- agent 实现源码可读
-- 存在遵循 [specs/agent-test-modeling.md](../../specs/agent-test-modeling.md) 的测试契约；**缺失时**先提示用户按该 spec 撰写契约，不自行编造能力边界
+**This skill owns**:
+
+- Reading the agent implementation and the test contract, then generating the test matrix
+- Generating mock-LLM unit tests, the golden dataset and the evaluator harness
+- Choosing an oracle for non-deterministic behavior and writing exact assertions for deterministic behavior
+- Attaching a `Covers` traceability anchor to every test
+
+**This skill does not own**:
+
+- **Running the tests** → use [automate-tests](../automate-tests/SKILL.md)
+- **Reviewing test quality / coverage** → use [review-testing](../review-testing/SKILL.md)
+- **Writing the test contract document** → a person writes the contract per [specs/agent-test-modeling.md](../../specs/agent-test-modeling.md); this skill consumes a contract, it does not author one
+- **Fixing failing tests / debugging the agent** → use [orchestrate-repair-loop](../orchestrate-repair-loop/SKILL.md)
+
+**Handoff point**: once the tests are generated → hand them to automate-tests to run, and to review-testing to review.
 
 ---
 
-## 执行流程
+## Preconditions
 
-### 1. 定位契约与实现
+- The agent implementation source is readable
+- A test contract following [specs/agent-test-modeling.md](../../specs/agent-test-modeling.md) exists; **when it is missing**, prompt the user to write one per that spec rather than inventing capability boundaries
 
-- 读 `agent-test-contract` 文档（frontmatter `agent_ref` 指向实现）
-- 契约缺失 → 终止并提示：先按 [specs/agent-test-modeling.md](../../specs/agent-test-modeling.md) 撰写契约
+---
 
-### 2. 生成测试矩阵
+## Execution
 
-将契约各章节映射为测试条目：
+### 1. Locate the contract and the implementation
 
-| 契约章节 | 测试类型 | oracle |
+- Read the `agent-test-contract` document (its frontmatter `agent_ref` points at the implementation)
+- Contract missing → stop and prompt: write the contract per [specs/agent-test-modeling.md](../../specs/agent-test-modeling.md) first
+
+### 2. Generate the test matrix
+
+Map each section of the contract onto test entries:
+
+| Contract section | Test type | oracle |
 |---|---|---|
-| 能力边界 | 正向 + 反向行为测试 | 轨迹 / 契约 |
-| 输入契约（缺字段识别） | 边界 + 异常测试 | 轨迹（断言追问、不写回） |
-| 工具调用边界 | 轨迹测试 | 轨迹（禁止集未出现） |
-| 写回前置 | 前置不满足时的拒绝测试 | 轨迹 |
-| Golden Cases | 回归测试集 | 按契约判定方式列 |
+| Capability boundary | positive + negative behavior test | trace / contract |
+| Input contract (missing-field detection) | boundary + error test | trace (assert it asks back and writes nothing) |
+| Tool-call boundary | trace test | trace (the forbidden set never appears) |
+| Write-back precondition | refusal test when the precondition fails | trace |
+| Golden Cases | regression suite | per the contract's judgement-method column |
 
-### 3. 选 oracle 并写测试
+### 3. Choose the oracle and write the tests
 
-- **确定性逻辑**（schema 校验、tool 参数、权限）→ 精确断言（遵循 [standards-test-code](../../rules/standards-test-code.md) AAA + 命名三要素）
-- **非确定性输出** → 契约 / 轨迹 / rubric / golden oracle（遵循 [standards-agent-testing §2](../../rules/standards-agent-testing.md)）
-- unit 管道用 mock LLM / recorded replay；真实模型测试打 `eval` marker
+- **Deterministic logic** (schema validation, tool arguments, permissions) → exact assertions (following [standards-test-code](../../rules/standards-test-code.md): AAA plus the three naming elements)
+- **Non-deterministic output** → a contract / trace / rubric / golden oracle (following [standards-agent-testing §2](../../rules/standards-agent-testing.md))
+- The unit pipeline uses a mock LLM / recorded replay; real-model tests carry the `eval` marker
 
-### 4. 落 golden dataset
+### 4. Write the golden dataset
 
-- 从契约 Golden Cases 表生成版本化 golden 数据文件
-- 每条含输入 / 期望 / 判定方式 / `Covers`
+- Generate a versioned golden data file from the contract's Golden Cases table
+- Each entry carries input / expectation / judgement method / `Covers`
 
-### 5. 生成 evaluator harness
+### 5. Generate the evaluator harness
 
-- 对 rubric / 语义 / 统计类判定，生成 evaluator（LLM-as-judge 或语义匹配器）
-- 输出 golden 集通过率，对比契约 `pass_threshold`
+- For rubric / semantic / statistical judgements, generate an evaluator (LLM-as-judge or a semantic matcher)
+- Emit the golden-set pass rate and compare it against the contract's `pass_threshold`
 
-### 6. 汇总
+### 6. Summarize
 
-- 列出生成的文件、各测试的 `Covers`、unit vs eval 分层
-- 提示后续：automate-tests 运行、review-testing 评审
-
----
-
-## 限制 (Limitations)
-
-### 硬边界（Hard Boundaries）
-
-- 契约缺失时不编造 agent 能力边界（先要契约）
-- 不 mock 被测 agent 自身逻辑（仅 mock 模型不确定性）
-- 不为通过 eval 而弱化断言或删 golden case
-- 不运行测试、不修改 agent 实现（仅生成测试制品）
-
-### 技能边界（避免重叠）
-
-- **运行测试** → [automate-tests](../automate-tests/SKILL.md)
-- **评审测试质量** → [review-testing](../review-testing/SKILL.md)
-- **调试 / 修复** → [orchestrate-repair-loop](../orchestrate-repair-loop/SKILL.md)
+- List the generated files, each test's `Covers`, and the unit vs eval split
+- Point at what follows: automate-tests to run them, review-testing to review them
 
 ---
 
-## 自检 (Self-Check)
+## Limitations
 
-- [ ] 读取了 agent 实现 + 测试契约
-- [ ] 测试矩阵覆盖契约全部章节（能力边界 / 输入 / 工具 / 写回 / golden）
-- [ ] 确定性用精确断言，非确定性用 oracle
-- [ ] golden 集含正向 + 边界 + 异常，每条有 `Covers`
-- [ ] 真实模型测试打 `eval` marker，unit 用 mock LLM
-- [ ] 每个测试可追溯到契约或上游 AC
+### Hard Boundaries
+
+- Do not invent agent capability boundaries when the contract is missing (ask for the contract first)
+- Do not mock the logic of the agent under test (mock the model's non-determinism only)
+- Do not weaken an assertion or delete a golden case to make an eval pass
+- Do not run the tests and do not modify the agent implementation (generate test artifacts only)
+
+### Skill boundaries (avoid overlap)
+
+- **Running the tests** → [automate-tests](../automate-tests/SKILL.md)
+- **Reviewing test quality** → [review-testing](../review-testing/SKILL.md)
+- **Debugging / fixing** → [orchestrate-repair-loop](../orchestrate-repair-loop/SKILL.md)
 
 ---
 
-## 示例 (Examples)
+## Self-Check
 
-### 示例：需求澄清 agent
+- [ ] The agent implementation and the test contract were read
+- [ ] The test matrix covers every section of the contract (capability boundary / input / tools / write-back / golden)
+- [ ] Deterministic parts use exact assertions, non-deterministic parts use an oracle
+- [ ] The golden set holds positive + boundary + error cases, each with a `Covers`
+- [ ] Real-model tests carry the `eval` marker; unit tests use a mock LLM
+- [ ] Every test traces back to the contract or to an upstream AC
 
-用户："为 clarification agent 生成测试。"
+---
 
-代理：
+## Examples
 
-1. 读 `agent-test-clarification.md`（契约）+ `src/agents/clarification.py`
-2. 生成矩阵：缺字段识别（轨迹）、完整写回（契约）、空输入（轨迹）、禁止工具（轨迹）
-3. 写测试：
-   - unit：mock LLM 返回 recorded response，断言触发 `ask_user` 不触发 `write_requirement`
-   - eval（打 marker）：真实模型跑 golden 集，rubric 评追问话术清晰度
-4. 落 `golden/clarification.jsonl`（3 条：缺验收 / 信息完整 / 空输入）
-5. 生成 evaluator：计算 golden 通过率，对比 `pass_threshold: 0.9`
-6. 汇总：4 个 unit + 1 个 eval 套件，各挂 `Covers: ACME-REQ-08#AC1/AC3`；提示 automate-tests 运行
+### Example: a requirement-clarification agent
+
+User: "generate tests for the clarification agent."
+
+Agent:
+
+1. Read `agent-test-clarification.md` (the contract) and `src/agents/clarification.py`
+2. Generate the matrix: missing-field detection (trace), full write-back (contract), empty input (trace), forbidden tools (trace)
+3. Write the tests:
+   - unit: the mock LLM returns a recorded response; assert that `ask_user` fires and `write_requirement` does not
+   - eval (marked): run the golden set against the real model, with a rubric scoring how clear the follow-up wording is
+4. Write `golden/clarification.jsonl` (3 entries: acceptance missing / information complete / empty input)
+5. Generate the evaluator: compute the golden pass rate and compare it against `pass_threshold: 0.9`
+6. Summarize: 4 unit suites plus 1 eval suite, each carrying `Covers: ACME-REQ-08#AC1/AC3`; point at automate-tests to run them
