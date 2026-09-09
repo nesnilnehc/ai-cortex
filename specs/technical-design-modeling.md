@@ -19,31 +19,31 @@ related:
   - ../rules/technical-design-quality.md
 ---
 
-# 技术设计建模规范
+# Technical Design Modeling Schema
 
-> **Data contract**: 定义技术设计文档的字段结构与正文骨架
+> **Data contract**: defines the field structure and body skeleton of a technical design document
 
 ---
 
 ## 1. Position and scope
 
-技术设计文档（technical design document）面向工程视角，回答"工程上怎么实现"——架构、服务拆分、组件与详细设计、数据库、接口契约、错误处理、技术选型。它是从上游设计到任务列表之间的桥梁，是任务列表的直接来源。
+A technical design document takes the engineering viewpoint and answers how something is built: architecture, service decomposition, components and detailed design, database, interface contracts, error handling and technology selection. It bridges the upstream design and the task list, and is the direct source of that list.
 
-技术设计**始终存在**于派生任务之前（可因纯流程变更而从简，但不省略）。功能层可被跳过——纯技术工作（重构 / 基建 / 依赖升级）由授权它的 ADR 直接派生技术设计。
+A technical design **always exists** before tasks are derived. A purely procedural change may make it brief, but never absent. The functional layer, by contrast, can be skipped: purely technical work such as refactoring, infrastructure or a dependency upgrade derives its technical design directly from the ADR that authorised it.
 
 In scope:
 
-- **架构设计**：系统层、服务层、模块层架构与服务拆分
-- **组件 / 详细设计**：类、方法、接口的签名级定义
-- **数据与集成设计**：数据库设计、API 契约、跨服务集成
+- **Architecture**: system, service and module architecture, and service decomposition
+- **Component and detailed design**: signature-level definitions of classes, methods and interfaces
+- **Data and integration design**: database design, API contracts, cross-service integration
 - **纯技术工作**：架构重构、依赖升级、基础设施改造（无功能层，`parent` 指向授权 ADR）
 
 不In scope:
 
-- 代码层级的具体实现（应写在代码注释或 ADR）
-- 单一函数 / 类的局部设计（直接写在 PR 描述）
-- 业务流程 / 角色权限 / 业务对象状态（归功能设计文档）
-- 探索性原型方案（应写为 `experiments/` 或 ADR 候选）
+- Implementation at code level, which belongs in code comments or an ADR
+- The local design of a single function or class, which goes straight into the PR description
+- Business workflow, role permissions and business object states, which belong to the functional design document
+- Exploratory prototypes, which belong in `experiments/` or as an ADR candidate
 
 ---
 
@@ -53,10 +53,10 @@ In scope:
 YYYY-MM-DD-<topic>-technical-design.md
 ```
 
-- `<topic>`：所设计对象的简短描述（kebab-case）
-- `YYYY-MM-DD`：设计落地日期（快照制品需时间戳记录方案版本时刻）
-- 示例：`2026-05-22-order-refund-technical-design.md`
-- 存放位置由项目治理决定（典型：`docs/designs/`）
+- `<topic>`: a short description of what is being designed, in kebab-case
+- `YYYY-MM-DD`: the date the design landed; a snapshot artifact needs a timestamp to record which moment the approach belongs to
+- Example: `2026-05-22-order-refund-technical-design.md`
+- Where it lives is decided by project governance; typically `docs/designs/`
 
 ---
 
@@ -69,8 +69,8 @@ lifecycle: snapshot
 created_at: YYYY-MM-DD
 parent: <path to upstream functional-design OR requirement>
 status: draft | approved | superseded
-# 条件字段
-superseded_by: <path to new technical design>   # status: superseded 时必填
+# conditional field
+superseded_by: <path to new technical design>   # required when status is superseded
 ---
 ```
 
@@ -78,91 +78,91 @@ superseded_by: <path to new technical design>   # status: superseded 时必填
 
 | Field | Type | Required | Description |
 |---|---|---|---|
-| `artifact_type` | string | 必 | 固定 `technical-design` |
-| `lifecycle` | enum | 必 | 固定 `snapshot`（设计是时点决策） |
-| `created_at` | date | 必 | 设计完成日期 |
-| `parent` | path | 必 | **多态**：常态指向上游 `functional-design`；非功能需求可跳过功能层指向 `requirement`；纯技术工作（无对应需求）指向授权它的 `adr`。校验 `parent` 的 `artifact_type ∈ {functional-design, requirement, adr}` |
-| `status` | enum | 必 | `draft` / `approved` / `superseded`（语义见 §4.2） |
-| `superseded_by` | path | 条件 | `status: superseded` 时必填，指向继任技术设计路径 |
+| `artifact_type` | string | yes | Fixed as `technical-design` |
+| `lifecycle` | enum | yes | Fixed as `snapshot` — a design is a point-in-time decision |
+| `created_at` | date | yes | The date the design was completed |
+| `parent` | path | yes | **Polymorphic**: normally points at the upstream `functional-design`; a non-functional requirement may skip the functional layer and point at the `requirement`; purely technical work with no corresponding requirement points at the `adr` that authorised it. Validate that the `parent` has `artifact_type ∈ {functional-design, requirement, adr}` |
+| `status` | enum | yes | `draft` / `approved` / `superseded`; semantics in §4.2 |
+| `superseded_by` | path | conditional | Required when `status: superseded`, pointing at the successor technical design |
 
 ### 4.2 State machine semantics
 
 | Status | Meaning | Entry condition |
 |---|---|---|
-| `draft` | 草稿，尚在评审 | 技术设计首次落地 |
-| `approved` | 已批准，可派生任务 | 工程评审通过，可作为任务列表的 `parent` |
-| `superseded` | 被新技术设计替代 | 新技术设计已落地并接管（需填 `superseded_by`） |
+| `draft` | A draft still under review | The technical design has just landed |
+| `approved` | Approved; tasks may derive from it | Engineering review passed, so it can serve as a task list's `parent` |
+| `superseded` | Replaced by a new technical design | The new design has landed and taken over; `superseded_by` must be filled in |
 
 ---
 
 ## 5. Body structure contract
 
-### 5.1 必填章节（9 节）
+### 5.1 The 9 required sections
 
-按 **What / How-结构 / How-行为 / Why / Verify** 五维 MECE 组织。每份技术设计文档必须包含以下 9 节：
+Organised MECE across five dimensions: **What / How-structure / How-behaviour / Why / Verify**. Every technical design document must contain these 9 sections:
 
-| # | 章节 | 维度 | 用途 | 校验 |
+| # | Section | Dimension | Purpose | Validation |
 |---|---|---|---|---|
-| 1 | 目标（Goal） | What | 陈述本技术设计要实现的范围与成功状态 | ≤ 200 字符；与上游 functional-design（或 requirement）一致 |
-| 2 | 架构与服务拆分（Architecture & Service Decomposition） | How-结构 | 系统 / 服务 / 模块层次、边界、服务拆分 | 含 ≥ 1 种结构化表达（图 / 表）；标注外部与内部依赖；多服务时画拆分边界 |
-| 3 | 组件与详细设计（Components & Detailed Design） | How-结构 | 关键组件职责 + 类 / 方法 / 接口定义，指导开发实现 | ≥ 1 组件，每个含职责 + 依赖；关键类 / 方法 / 接口含签名级定义 |
-| 4 | 数据库设计（Database Design） | How-结构 | 表结构 / 字段 / 索引 / 关系 / 初始化数据 + 迁移 | 实体含字段 / 类型 / 约束 / 关系；关键索引标注；含初始化数据与迁移方案；**无变更时写"无数据库变更"，不留空** |
-| 5 | 接口契约（API Contracts） | How-结构 | 对外接口：路径 / 方法 / 请求参数 / 响应结构 / 错误码 / 鉴权方式 | 每接口含路径 + 方法 + 入参 + 出参 + 错误码 + 鉴权；事件含 topic + payload schema；**无变更时写"无接口变更"** |
-| 6 | 数据流与错误处理（Data Flow & Error Handling） | How-行为 | 数据在组件 / 服务间的流动 + 技术失败路径与处理 | 关键路径数据流标注；≥ 2 条技术失败路径，每条含失败条件 + 检测方式 + 恢复策略 |
-| 7 | 技术选型与权衡（Tech Choices & Trade-offs） | Why | 技术选型决策 + 替代方案 + 依赖与风险 | ≥ 2 种替代方案，每种含优点 / 缺点 / 是否选用 + 理由；显式列依赖与风险 |
-| 8 | 测试策略（Test Strategy） | Verify | 声明验证方法（**不写测试代码**） | 含测试层次（单元 / 集成 / 端到端）；含验收方式（自动化 / 人工） |
-| 9 | 验收标准（Acceptance Criteria） | Verify | 技术设计完成的可验证条件 | ≥ 3 条；每条可追溯至上游 functional-design 的某条 acceptance；功能层被跳过（`parent` 直指 requirement）时追溯至 requirement 的某条 acceptance |
+| 1 | Goal | What | States the scope this technical design delivers and what success looks like | At most 200 characters; agrees with the upstream functional-design, or requirement |
+| 2 | Architecture and service decomposition | How-structure | The system, service and module layers, their boundaries, and how services are split | At least 1 structured representation, a diagram or a table; external and internal dependencies marked; the split boundary drawn where several services are involved |
+| 3 | Components and detailed design | How-structure | The responsibilities of the key components, plus class, method and interface definitions to implement from | At least 1 component, each carrying its responsibility and dependencies; key classes, methods and interfaces given at signature level |
+| 4 | Database design | How-structure | Table structure, fields, indexes, relationships, seed data and migration | Entities carry fields, types, constraints and relationships; key indexes marked; seed data and the migration plan included; **where nothing changes, state "no database change" rather than leaving it blank** |
+| 5 | Interface contracts | How-structure | The outward interfaces: path, method, request parameters, response shape, error codes and authorization | Each interface carries path, method, request, response, error codes and authorization; each event carries its topic and payload schema; **where nothing changes, state "no interface change"** |
+| 6 | Data flow and error handling | How-behaviour | How data moves between components and services, plus the technical failure paths and their handling | The data flow on the key paths marked; at least 2 technical failure paths, each carrying its failure condition, how it is detected, and the recovery strategy |
+| 7 | Technology choices and trade-offs | Why | The technology decisions, the alternatives, and the dependencies and risks | At least 2 alternatives, each carrying advantages, drawbacks, whether it was chosen, and why; dependencies and risks listed explicitly |
+| 8 | Test strategy | Verify | States the verification methods — **not test code** | Covers the test layers (unit, integration, end-to-end) and how acceptance happens (automated or manual) |
+| 9 | Acceptance criteria | Verify | The verifiable conditions for the technical design being complete | At least 3, each traceable to an acceptance item of the upstream functional-design — or of the requirement where the functional layer was skipped and `parent` points straight at it |
 
-### 5.2 可选章节
+### 5.2 Optional sections
 
-按场景需要添加。条件必备项满足触发条件时**升为必填**：
+Added as the situation requires. A conditionally required section **becomes required** once its trigger is met:
 
-| 章节 | 类型 | 触发场景 |
+| Section | Kind | Trigger |
 |---|---|---|
-| 数据迁移详案（Migration Plan） | 条件必备 | 涉及破坏性 schema 变更 / 数据回填 / 不可回滚操作——升为必填，含回滚策略（否则迁移内联于 §4） |
-| 部署与运维（Deployment & Operations） | 可选 | 含部署变更、扩缩容策略、配置管理 |
-| 横切关注点（Cross-cutting Concerns） | 可选 | 安全 / 性能 / 可观测性有专门设计 |
-| 作业调度（Scheduling） | 可选 | 含定时任务 / 后台 job / 队列消费者 |
-| 范围定义（Scope） | 可选 | 跨服务 / 跨团队集成边界易误读 |
-| 关联文档（References） | 可选 | 引用 ADR / 外部规范 / 上游设计 |
+| Migration plan | Conditionally required | A breaking schema change, a data backfill or an irreversible operation is involved. It then becomes required, including the rollback strategy; otherwise the migration is inlined in §4 |
+| Deployment and operations | Optional | There are deployment changes, scaling policy or configuration management to cover |
+| Cross-cutting concerns | Optional | Security, performance or observability has a design of its own |
+| Scheduling | Optional | There are scheduled tasks, background jobs or queue consumers |
+| Scope | Optional | The integration boundary across services or teams is easily misread |
+| References | Optional | It cites an ADR, an external specification or an upstream design |
 
-### 5.3 格式细节
+### 5.3 Format detail
 
-#### 5.3.1 验收标准的追溯目标随 `parent` 类型而定
+#### 5.3.1 What acceptance criteria trace to depends on the `parent` type
 
-- `parent` 为 `functional-design`（常态）：每条验收追溯至功能设计的某条 acceptance（`覆盖 FD §验收 N`）。
-- `parent` 为 `requirement`（功能层被跳过）：每条验收追溯至 requirement 的某条 acceptance。
+- Where `parent` is a `functional-design`, the normal case: each criterion traces to an acceptance item of that functional design, cited as `覆盖 FD §验收 N`.
+- Where `parent` is a `requirement`, the functional layer having been skipped: each criterion traces to an acceptance item of the requirement.
 
-#### 5.3.2 "无变更"逃生阀
+#### 5.3.2 The "no change" escape hatch
 
-§4 数据库设计、§5 接口契约对纯流程类设计可能不涉及变更。此时必须显式写"无数据库变更" / "无接口变更"作为正向断言，**不得留空**——留空无法区分"遗漏"与"确实无变更"。
+For a purely procedural design, §4 database design and §5 interface contracts may involve no change at all. In that case the document must state "no database change" or "no interface change" explicitly, as a positive assertion, and **must not be left blank** — a blank leaves no way to tell an omission from a genuine absence of change.
 
 ---
 
 ## 6. Anti-patterns
 
-- ❌ 缺 frontmatter 必填字段（artifact_type / lifecycle / created_at / parent / status）
-- ❌ `parent` 的 artifact_type 不在 {functional-design, requirement}（链条断裂）
-- ❌ 含代码或脚手架（设计不写实现，实现在代码层）
-- ❌ 含业务流程 / 角色权限 / 业务对象状态（归功能设计）
-- ❌ 组件节用大段散文描述而非结构化职责 + 签名级定义
-- ❌ 数据模型只列实体名不含字段 / 类型 / 关系（无法据此实施）
-- ❌ 接口契约只写"有一个 API"不列方法 / 入参 / 出参 / 错误码（无法据此对接）
-- ❌ §4 / §5 不涉及变更时留空而非写"无变更"（遗漏与 N/A 不可区分）
-- ❌ 单一方案不做权衡（缺 §7 替代方案）
-- ❌ 权衡分析只列被选方案的优点（必须含被拒方案的缺点）
-- ❌ 测试策略写测试代码而非验证方法
-- ❌ 验收标准 < 3 条，或追溯目标与 `parent` 类型不符
-- ❌ 无 `parent` frontmatter（孤立设计，无可追溯性）
-- ❌ `superseded` 状态未填 `superseded_by`
+- ❌ A missing required frontmatter field (artifact_type / lifecycle / created_at / parent / status)
+- ❌ The `parent`'s artifact_type outside {functional-design, requirement}, breaking the chain
+- ❌ Code or scaffolding; a design does not carry the implementation, which lives in the code
+- ❌ Business workflow, role permissions or business object states, which belong to the functional design
+- ❌ A components section written as long prose instead of structured responsibilities plus signature-level definitions
+- ❌ A data model listing entity names without fields, types or relationships, which cannot be implemented from
+- ❌ An interface contract that says there is an API without listing method, request, response and error codes, which cannot be integrated against
+- ❌ §4 or §5 left blank rather than stating no change, leaving an omission indistinguishable from N/A
+- ❌ A single approach with no trade-off analysis, missing the alternatives in §7
+- ❌ A trade-off analysis listing only the chosen option's advantages; it must carry the rejected options' drawbacks
+- ❌ A test strategy written as test code rather than as verification methods
+- ❌ Fewer than 3 acceptance criteria, or criteria tracing to the wrong target for the `parent` type
+- ❌ No `parent` frontmatter — an orphaned design with no traceability
+- ❌ A `superseded` status with no `superseded_by`
 
 ---
 
 ## 7. Examples
 
-### 7.1 紧凑骨架示例：订单退款审批技术设计
+### 7.1 A compact skeleton: order refund approval
 
-每节用 1-3 句展示骨架，实际技术设计每节应展开为完整内容。
+Each section shows the skeleton in 1-3 sentences; a real technical design expands each into full content.
 
 ````markdown
 ---
@@ -248,8 +248,8 @@ refund_order
 
 ## 8. Relationship to other assets
 
-- **配套 rule**：[rules/technical-design-quality.md](../rules/technical-design-quality.md)——技术设计质量评审清单（5 维：完整性 / 可执行性 / 清晰性 / 合理性 / 可追溯性）
-- **上游 spec**：[functional-design-modeling.md](./functional-design-modeling.md)（常态）——技术设计的 `parent` 指向 `approved` 功能设计；[requirement-modeling.md](./requirement-modeling.md)——非功能需求跳过功能层时直接指向 `approved` requirement；纯技术工作（无对应需求）的 `parent` 指向授权它的 ADR
-- **下游 spec**：[task-modeling.md](./task-modeling.md)——任务列表的 `parent` 指向 `approved` 状态的技术设计
-- **相关行业标准**：IEEE 1016（Software Design Description）、C4 Model、arc42 模板、Google Design Doc 实践
-- **递归基础**：本 spec 自身遵循 [spec-modeling.md](./spec-modeling.md) v2.0.0 的 8 节骨架；跳过 §2 心智模型（技术设计的必答维度已落在 §5.1 的 9 节 MECE 结构中）
+- **Paired rule**: [rules/technical-design-quality.md](../rules/technical-design-quality.md) — the technical design quality review checklist across 5 dimensions: completeness, executability, clarity, soundness, traceability
+- **Upstream specs**: [functional-design-modeling.md](./functional-design-modeling.md) in the normal case, where the technical design's `parent` points at an `approved` functional design; [requirement-modeling.md](./requirement-modeling.md) where a non-functional requirement skips the functional layer and points straight at an `approved` requirement; and for purely technical work with no corresponding requirement, the `parent` points at the ADR that authorised it
+- **Downstream spec**: [task-modeling.md](./task-modeling.md) — a task list's `parent` points at a technical design in `approved` status
+- **Related industry standards**: IEEE 1016 (Software Design Description), the C4 model, the arc42 template, and Google's design doc practice
+- **Recursive basis**: this spec itself follows the 8-section skeleton of [spec-modeling.md](./spec-modeling.md) v2.0.0, skipping §2 mental model — the dimensions a technical design must answer are already carried by the 9-section MECE structure in §5.1
