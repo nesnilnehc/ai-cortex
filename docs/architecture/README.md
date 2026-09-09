@@ -19,7 +19,7 @@ AI Cortex 是一个面向 Agent 的资产库，按四层治理组织：Spec / Pr
 
 ## ADR
 
-历史架构决策见 [adrs/](adrs/) 目录。
+历史架构决策见 [adrs/](../adr/) 目录。
 
 ## 何时新增 ADR
 

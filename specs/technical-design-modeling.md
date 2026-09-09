@@ -49,7 +49,7 @@ related:
 
 ## 3. 命名约定
 
-```
+```text
 YYYY-MM-DD-<topic>-technical-design.md
 ```
 
@@ -182,10 +182,12 @@ status: approved
 ## 架构与服务拆分
 
 ```
+
 [客服端/主管端] → [Order Service] → [Refund Module] → [Payment Gateway (外部)]
                                           ↓
                                     [Notification Service]
-```
+
+```markdown
 
 外部依赖：Payment Gateway（退款 API）。内部依赖：Order Service、Notification Service。本期不拆独立 Refund Service，作为 Order Service 模块。
 
@@ -197,6 +199,7 @@ status: approved
 ## 数据库设计
 
 ```
+
 refund_order
   id: UUID PK
   order_id: UUID FK -> order.id (index)
@@ -204,7 +207,8 @@ refund_order
   status: enum NOT NULL (待审/处理中/已完成/失败/已驳回)
   approver_id: UUID NULL
   created_at: timestamp NOT NULL
-```
+
+```markdown
 
 约束：(order_id) 部分唯一索引 WHERE status IN ('待审','处理中')——保证同订单无并发进行中退款。迁移：新增表，无数据回填。
 

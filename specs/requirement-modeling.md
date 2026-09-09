@@ -53,7 +53,7 @@ related:
 
 ## 3. 命名约定
 
-```
+```text
 <PROJECT>-REQ-<nn>.md
 ```
 
@@ -142,7 +142,7 @@ implemented_at: YYYY-MM-DD             # status: implemented 时必填
 
 #### 5.3.1 风险优先级计算
 
-```
+```text
 优先级 = 概率 × 影响
 
 - 高优先级：概率 ≥ 中 且 影响 ≥ 高

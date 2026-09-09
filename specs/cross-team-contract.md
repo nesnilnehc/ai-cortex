@@ -55,7 +55,7 @@ related:
 
 契约目录扁平化——文件名后缀已经标注了类型，再用 `contracts/` 子目录区分一遍是冗余。
 
-```
+```text
 ✅ integrations/<x>/lifecycle-contract.md
    integrations/<x>/lifecycle-design.md          ← 同级
 

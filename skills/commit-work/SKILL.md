@@ -66,7 +66,7 @@ output_schema:
 
 **转交点**：当所有变更都提交并验证后，移交给推送/PR 工作流或下一个开发任务。
 
-## 使用场景（用例）
+## 使用场景 (Use Cases)
 
 - 用户要求提交工作、阶段更改或制作提交消息
 - 需要将混合更改拆分为逻辑的、可审查的提交
@@ -74,7 +74,7 @@ output_schema:
 - 在推动之前确保提交符合项目质量标准
 - 在 AI Cortex 项目中工作时，确保 skills/INDEX.md / rules/INDEX.md / specs/INDEX.md / protocols/INDEX.md 与对应资产同步
 
-## 行为（行为）
+## 行为 (Behavior)
 
 ### 工作流程（清单）
 
@@ -100,7 +100,7 @@ output_schema:
    - 如果更改混合在一个文件中，则计划使用补丁暂存
 
 4) **仅暂存属于下一次提交的内容**
-   - 更喜欢混合更改的补丁暂存：`git add -p`
+   - 混合改动优先用分块暂存：`git add -p`
    - 要取消暂存块/文件： `git restore --staged -p` 或 `git Restore --staged <path>`
    - 阶段相关的变化一起
 
@@ -128,7 +128,7 @@ output_schema:
      footer (BREAKING CHANGE) if needed
      ```
 
-   - 更喜欢多行消息的编辑器：`git commit -v`
+   - 多行消息优先用编辑器：`git commit -v`
    - Use `references/commit-message-template.md` if helpful
    - 保持摘要的必要性和具体性（“添加”、“修复”、“删除”、“重构”）
 
@@ -145,7 +145,7 @@ output_schema:
 
 10) **重复下一次提交，直到工作树干净**
 
-### 交互（互动）政策
+### 交互政策
 
 - 询问用户是否想要单个或多个提交（默认：针对不相关的更改进行多个小提交）
 - 确认提交风格需求（该技能需要常规提交）
@@ -154,7 +154,7 @@ output_schema:
 
 ## 输入与输出 (Input & Output)
 
-### 输入（输入）要求
+### 输入要求
 
 - 包含未提交更改的 git 存储库
 - 用户意图：应该致力于哪些工作
@@ -170,7 +170,7 @@ output_schema:
 - 运行任何测试或验证命令
 - 对于 AI Cortex 项目：确认对应 INDEX.md 已同步
 
-## 限制（限制）
+## 限制 (Restrictions)
 
 ### 硬边界（Hard Boundaries）
 
@@ -226,7 +226,7 @@ output_schema:
 
 如果是：提交已准备好推送。
 
-## 示例（示例）
+## 示例 (Examples)
 
 ### 示例 1：简单的功能添加
 
@@ -235,19 +235,25 @@ output_schema:
 **命令**：
 
 ```bash
+
 git status
 git diff
+
 # Review shows only the new function, no other changes
+
 git add utils.js
 git diff --cached
+
 # Verify staged changes are correct
+
 npm test
 git commit -m "feat(utils): add formatDate helper function
 
 Add formatDate to handle ISO 8601 date formatting consistently
 across the application. Returns formatted string or null for
 invalid inputs."
-```
+
+```markdown
 
 **输出**：
 
@@ -262,17 +268,24 @@ invalid inputs."
 **命令**：
 
 ```bash
+
 git status
 git diff --stat
+
 # Shows auth.js and auth.test.js changed
 
 # Run review-diff first (AI Cortex)
+
 # [review-diff identifies: bug fix in line 45, refactor in lines 100-150]
 
 # Split into logical commits
+
 # Commit 1: Bug fix only
+
 git add -p auth.js
+
 # Select only the bug fix hunk
+
 git diff --cached
 npm test
 git commit -m "fix(auth): prevent null pointer in token validation
@@ -281,8 +294,11 @@ Check for null token before accessing properties to avoid
 runtime errors when token is missing."
 
 # Commit 2: Refactor
+
 git add -p auth.js
+
 # Select refactor hunks
+
 git diff --cached
 npm test
 git commit -m "refactor(auth): extract token parsing to separate function
@@ -291,13 +307,15 @@ Move token parsing logic into parseAuthToken() for better
 testability and reuse across auth module."
 
 # Commit 3: Tests
+
 git add auth.test.js
 git diff --cached
 npm test
 git commit -m "test(auth): add tests for token validation edge cases
 
 Cover null token, malformed token, and expired token scenarios."
-```
+
+```markdown
 
 **输出**：
 
@@ -313,10 +331,13 @@ Cover null token, malformed token, and expired token scenarios."
 **命令**：
 
 ```bash
+
 git status
+
 # Shows: skills/analyze-logs/SKILL.md (new), skills/INDEX.md (modified)
 
 git diff skills/INDEX.md
+
 # 确认 INDEX 行新增并与 SKILL.md description 一致
 
 git add skills/analyze-logs/ skills/INDEX.md
@@ -328,7 +349,8 @@ git commit -m "feat(skills): add analyze-logs for log parsing
 含常见日志格式的 3 个示例。
 
 同步更新 skills/INDEX.md。"
-```
+
+```text
 
 **输出**：
 

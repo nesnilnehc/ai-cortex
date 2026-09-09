@@ -46,7 +46,7 @@ related:
 
 ## 3. 命名约定
 
-```
+```text
 YYYY-MM-DD-<topic>-functional-design.md
 ```
 
@@ -185,10 +185,12 @@ status: approved
 ## 业务流程
 
 ```
+
 客服发起退款 → 系统校验金额 → 主管待审
   → 通过：触发退款 → 退款成功 → 通知客户（覆盖 R1 单级审批规则）
   → 驳回：退回客服，附驳回原因
-```
+
+```markdown
 
 ## 异常与边界场景
 

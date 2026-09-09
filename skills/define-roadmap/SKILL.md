@@ -76,7 +76,7 @@ output_schema:
 
 ## 行为 (Behavior)
 
-### 交互（互动）政策
+### 交互政策
 
 - **默认**：输出至 `docs/process-management/roadmap.md` 或遵循项目既有规范。自动读取 `docs/project-overview/strategic-goals.md` 作为输入依据。
 - **推断与确认**：基于现有的项目状态或上下文提炼关键举措与指标；涉及核心决策或覆盖既有文档前，向用户请求明确确认。

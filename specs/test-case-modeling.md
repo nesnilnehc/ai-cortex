@@ -65,7 +65,7 @@ related:
 
 ### 3.1 单用例文档形态
 
-```
+```text
 TC-<MODULE>-<nn>.md
 ```
 
@@ -78,7 +78,7 @@ TC-<MODULE>-<nn>.md
 
 当同一模块用例 ≥ 5 条时，推荐合并为表格集合：
 
-```
+```text
 test-cases-<module>.md
 ```
 

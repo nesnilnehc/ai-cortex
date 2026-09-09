@@ -65,7 +65,7 @@ output_schema:
 
 ---
 
-## 使用场景（用例）
+## 使用场景 (Use Cases)
 
 - **精心安排的审查**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 为使用 ORM 的项目运行范围 → 语言 → 框架 → 库 → cognitive时，用作库步骤。
 - **仅 ORM 审查**：当用户只想在其数据层检查 ORM 使用模式时。
@@ -76,7 +76,7 @@ output_schema:
 
 ---
 
-## 行为（行为）
+## 行为 (Behavior)
 
 ### 该技能的范围
 
@@ -100,18 +100,18 @@ output_schema:
 
 ## 输入与输出 (Input & Output)
 
-### 输入（输入）
+### 输入 (Input)
 
 - **代码范围**：包含 ORM 代码（模型、迁移、存储库、查询）的文件或目录（或 diff）。由用户或范围技能提供。
 
-### 输出（输出）
+### 输出 (Output)
 
 - 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
 - 此技能的类别是 **library-orm**。
 
 ---
 
-## 限制（限制）
+## 限制 (Restrictions)
 
 ### 硬边界（Hard Boundaries）
 
@@ -162,7 +162,7 @@ output_schema:
 
 ---
 
-## 示例（示例）
+## 示例 (Examples)
 
 ### 示例 1：循环中的 N+1 次查询
 

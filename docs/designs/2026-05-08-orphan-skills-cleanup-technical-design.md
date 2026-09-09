@@ -94,7 +94,7 @@ acceptance_criteria:
 
 **新文件清单**
 
-```
+```text
 skills/archive-milestone/
   SKILL.md       # 行为契约 + 反模式 + 自检
   agent.yaml     # frontmatter（含 has_output_contract / acceptance_criteria）
@@ -127,7 +127,7 @@ skills/archive-milestone/
 
 **新增 Constraint 节**（追加在现有约束之后）
 
-```
+```text
 ADR 状态完整性检查（v1.4 起）：
 
 扫描范围：docs/adr/*.md（或项目实际 ADR 路径）
@@ -150,7 +150,7 @@ ADR 状态完整性检查（v1.4 起）：
 
 **新增 Constraint 节**
 
-```
+```text
 未归档完成里程碑检测（v2.2 起）：
 
 扫描：docs/process-management/milestones/*/tasks.md（排除 _archive/）
@@ -172,7 +172,7 @@ ADR 状态完整性检查（v1.4 起）：
 
 ##### 步骤 2.2 漂移巡检
 
-```
+```text
 对每层制品 P 与其声明对齐的目标 T：
   比较 P.updated_at 与 T 实际状态最近变更时间
   超 drift_staleness_days（默认 30）→ 路由对应技能
@@ -189,7 +189,7 @@ ADR 状态完整性检查（v1.4 起）：
 
 ##### 步骤 2.3 卫生巡检
 
-```
+```text
 检查项：
 - 已完成里程碑未归档（满足 archive-milestone 成熟度）→ /archive-milestone {slug}
 - ADR 状态闭环违规                                       → /align-architecture
@@ -258,7 +258,7 @@ triggers_after:      # 哪些技能完成后自然链调本技能（反向索引
 
 ## 五、实施顺序
 
-```
+```text
 阶段 1（基础能力，预计 1-2 天）
 ├─ W2 写 rule（最小改动，先定调）
 ├─ W1 archive-milestone 技能（独立可用，dry-run 优先）
@@ -330,7 +330,7 @@ triggers_after:      # 哪些技能完成后自然链调本技能（反向索引
 
 施工时各 Workstream 的 commit 应在 PR 描述中引用本设计：
 
-```
+```yaml
 Refs: docs/designs/2026-05-08-orphan-skills-cleanup-technical-design.md (W1)
 ```
 

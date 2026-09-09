@@ -103,7 +103,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 
 记录**目标卡片指纹**（用于卡死检测）：
 
-```
+```text
 指纹 = 主题字段 + "||" + 治理上下文字段
 ```
 
@@ -234,7 +234,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 
 ### 输出：IterationStepReport
 
-```
+```markdown
 ## 这次自动推进做了什么
 
 - **做了什么**：[用文件名/功能名说明；禁用"路由卡片""治理层级"等词]
@@ -309,7 +309,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 
 ### ✅ 正确：单步执行 + 后验证 + 继续信号
 
-```
+```text
 1. plan-next → 2 条路由：capture-work-items（缓）、prioritize-backlog（缓）
 2. 取最高优先级：capture-work-items
 3. 人工闸门：非创意类 → 继续
@@ -324,7 +324,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 
 ### ❌ 错误：一次执行两条路由
 
-```
+```text
 1. plan-next → 2 条路由
 2. orchestrate-governance-step 执行 capture-work-items AND prioritize-backlog
 ```
@@ -335,7 +335,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 
 ### ❌ 错误：绕过人工闸门
 
-```
+```text
 1. plan-next 路由：/design-strategic-goals
 2. orchestrate-governance-step 直接执行，不暂停
 ```
@@ -346,7 +346,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 
 ### ❌ 错误：一条阻塞项立即停下整个 /loop
 
-```
+```text
 1. plan-next → 3 条路由：design-strategic-goals（重要）+ capture-work-items（缓）+ prioritize-backlog（缓）
 2. orchestrate-governance-step 在第 1 条触发人工闸门后直接 blocked，停止 /loop
 3. 后续两条非阻塞卡片本可自动推进，但被白白挂起
@@ -358,7 +358,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 
 ### ❌ 错误：跳过 plan mode 直接调用推荐技能
 
-```
+```text
 1. 步骤 2 找到 capture-work-items 卡片
 2. 直接调用 /capture-work-items …
 3. 技能顺手"补全"了 3 个看起来相关的字段，超出卡片范围
@@ -370,7 +370,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 
 ### ❌ 错误：自审 5 轮后强行执行带缺陷计划
 
-```
+```text
 1. 起草计划 → 自审 1：聚焦点无溯源 → 修订
 2. 自审 2：范围红线缺失 → 修订
 3. 自审 3：仍未补齐回滚要点
@@ -383,7 +383,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 
 ### ❌ 错误：跳过执行后验证直接报告 advance
 
-```
+```text
 1. 执行 /capture-work-items 完成
 2. 直接报告 continuation_signal: advance
 3. 实际上文件未成功写入
@@ -395,7 +395,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 
 ### ❌ 错误：自行判断"治理完成"替代步骤 6 重跑 plan-next
 
-```
+```text
 1. 执行子技能成功
 2. 模型推断"当前可执行的治理文档均已创建，其余依赖开发者执行层"
 3. 直接输出 continuation_signal: done，未重跑 plan-next
@@ -407,7 +407,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 
 ### ❌ 错误：把 `战略目标 status=approved` 当成验收已达成 → 输出 done
 
-```
+```text
 1. plan-next: G1 status=approved，验收 KPI「引用可见率」无监控数据
 2. orchestrate-governance-step 取空"现在该做"（plan-next 实际应返回路由，但此例假定 plan-next 也漏判）
 3. 输出 done，/loop 停止
@@ -420,7 +420,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 
 ### ❌ 错误：从中间层（M5/任务）状态推断 done
 
-```
+```text
 1. plan-next 报：M5 任务全部 pending、设计 ADR 完备、需求文件完备
 2. 模型推断"治理层无缺口" → 输出 done
 3. 未回到战略目标 G1 验收检查
@@ -432,7 +432,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 
 ### ❌ 错误：cron 模式下持续输出 done 而不警示用户
 
-```
+```text
 1. /loop 1m /orchestrate-governance-step 注册 cron
 2. 首次 plan-next 返回空 → 输出 done（错误）
 3. cron 不读信号，继续每分钟触发，陷入 done 空转
@@ -466,7 +466,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 
 **IterationStepReport**：
 
-```
+```markdown
 ## 这次自动推进做了什么
 
 - **做了什么**：把 M5 新发现的 3 项需求登记到 backlog
@@ -499,7 +499,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 
 **IterationStepReport**：
 
-```
+```markdown
 ## 这次自动推进做了什么
 
 - **做了什么**：登记 M5 阶段新增的 3 项 backlog 条目
@@ -523,7 +523,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 
 **IterationStepReport**：
 
-```
+```markdown
 ## 这次自动推进做了什么
 
 - **做了什么**：扫描了 2 条路由，全部需人工介入
@@ -547,7 +547,7 @@ plan-next 只能诊断和建议；用户需手动执行每条建议。orchestrat
 
 **IterationStepReport**：
 
-```
+```markdown
 ## 这次自动推进做了什么
 
 - **做了什么**：尝试分析路线图 N1 的需求，但检测到连续 2 次未推进

@@ -21,7 +21,7 @@ description: 把 merge-worktree 拆为 deliver-feature + integrate-worktrees
 
 | 新技能 | 职责 | 调用上下文 |
 |--------|------|-----------|
-| [`deliver-feature`](../../../skills/deliver-feature/SKILL.md) | 单点交付：在 linked worktree 内将当前 feature 分支以 `--no-ff` 合并到 main 并 push，全程通过 `git -C <main-repo>` 驱动主仓库、CWD 不离开 worktree | 必须在 linked worktree 内、当前分支 ≠ main |
+| [`deliver-feature`](../../skills/deliver-feature/SKILL.md) | 单点交付：在 linked worktree 内将当前 feature 分支以 `--no-ff` 合并到 main 并 push，全程通过 `git -C <main-repo>` 驱动主仓库、CWD 不离开 worktree | 必须在 linked worktree 内、当前分支 ≠ main |
 | [`integrate-worktrees`](../../../skills/integrate-worktrees/SKILL.md) | 批量集成：在主仓库 main 分支上扫描所有 linked worktree、用户多选后顺序 merge + push，统一清理成功项 | 必须在主仓库根、当前分支 = main |
 
 **两者**：

@@ -15,7 +15,7 @@ Agent 应该通过**协议注册表**发现和加载协议，而不是依赖本�
 
 Agent **不应该**假设任何本地文件存在。取而代之：
 
-```
+```text
 Agent 工作流：
   1. 知道注册表位置（这是唯一的先验）
   2. 从注册表查询协议信息（包括远程 URL）
@@ -29,7 +29,7 @@ Agent 工作流：
 
 ### 单一真实来源 (Single Source of Truth)
 
-```
+```text
 🔗 https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/skills/INDEX.md
     ↓
     包含所有协议的注册表信息
@@ -155,7 +155,7 @@ for protocol_meta in protocols:
 
 ### 版本策略
 
-```
+```yaml
 主版本（Breaking Changes）：
   UNP v1.0.0  →  UNP v2.0.0（不兼容）
   URL: .../v1/unp.md  →  .../v2/unp.md
@@ -251,7 +251,7 @@ def load_protocol_version(protocol_id, version="latest", manifest=None):
 
 ### 场景 1：Agent 在新项目中首次工作
 
-```
+```yaml
 Agent 初始化：
   1. 已知注册表 URL
   2. 获取 skills/INDEX.md
@@ -267,7 +267,7 @@ Agent 初始化：
 
 ### 场景 2：Agent 跨越不同组织
 
-```
+```text
 Agent A 在公司 X 工作：
   manifest_url = "https://company-x.internal/ai-cortex/skills/INDEX.md"
   ↓ 加载 Company X 的协议
@@ -283,7 +283,7 @@ Agent C 使用 AI Cortex：
 
 ### 场景 3：Agent 协议版本升级
 
-```
+```text
 用户代码在 UNP v1.0.0 上运行：
   Agent 检测：当前代码使用 "UNP v1.0.0"
   manifest 发现：最新版本是 UNP v2.0.0
@@ -419,7 +419,7 @@ protocols:
 
 Agent 只需要知道**这一个 URL**：
 
-```
+```yaml
 https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/skills/INDEX.md
 ```
 

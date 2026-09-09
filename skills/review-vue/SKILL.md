@@ -65,7 +65,7 @@ output_schema:
 
 ---
 
-## 使用场景（用例）
+## 使用场景 (Use Cases)
 
 - **精心安排的审查**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 运行 Vue 项目的范围 → 语言 → 框架 → 库 → cognitive时，用作框架步骤。
 - **仅 Vue 审查**：当用户只想检查 Vue/前端框架约定时。
@@ -75,7 +75,7 @@ output_schema:
 
 ---
 
-## 行为（行为）
+## 行为 (Behavior)
 
 ### 该技能的范围
 
@@ -100,18 +100,18 @@ output_schema:
 
 ## 输入与输出 (Input & Output)
 
-### 输入（输入）
+### 输入 (Input)
 
 - **代码范围**：包含 Vue 3 代码（.vue、带有 Vue API 的 .ts）的文件或目录（或 diff）。由用户或范围技能提供。
 
-### 输出（输出）
+### 输出 (Output)
 
 - 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
 - 此技能的类别是 **framework-vue**。
 
 ---
 
-## 限制（限制）
+## 限制 (Restrictions)
 
 ### 硬边界（Hard Boundaries）
 
@@ -158,7 +158,7 @@ output_schema:
 
 ---
 
-## 示例（示例）
+## 示例 (Examples)
 
 ### 示例 1：改变 props
 

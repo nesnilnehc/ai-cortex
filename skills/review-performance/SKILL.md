@@ -67,7 +67,7 @@ output_schema:
 
 ---
 
-## 使用场景（用例）
+## 使用场景 (Use Cases)
 
 - **精心安排的审查**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 运行范围 -> 语言 -> 框架 -> 库 -> cognitive时，用作cognitive步骤。
 - **以性能为中心的审查**：当用户只想在合并或发布之前检查性能维度时。
@@ -77,7 +77,7 @@ output_schema:
 
 ---
 
-## 行为（行为）
+## 行为 (Behavior)
 
 ### 该技能的范围
 
@@ -110,18 +110,18 @@ output_schema:
 
 ## 输入与输出 (Input & Output)
 
-### 输入（输入）
+### 输入 (Input)
 
 - **代码范围**：用户或范围技能已选择的文件或目录（或差异）。该技能不决定范围；它仅检查所提供的代码的性能。
 
-### 输出（输出）
+### 输出 (Output)
 
 - 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
 - 此技能的类别是**cognitive-performance**。
 
 ---
 
-## 限制（限制）
+## 限制 (Restrictions)
 
 ### 硬边界（Hard Boundaries）
 
@@ -169,7 +169,7 @@ output_schema:
 
 ---
 
-## 示例（示例）
+## 示例 (Examples)
 
 ### 示例 1：N+1 查询模式
 

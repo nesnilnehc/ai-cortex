@@ -57,7 +57,7 @@ ADR 准入门槛与衰减政策由 [rules/adr-management.md](../rules/adr-manage
 
 ## 3. 命名约定
 
-```
+```text
 NNNN-{slug}.md
 ```
 

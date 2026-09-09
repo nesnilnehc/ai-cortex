@@ -54,7 +54,7 @@ status: active
 
 扩展层依赖：
 
-```
+```text
 1→2→3→(4‖5)→6→7
          │
          ├─ Phase 8  (需 Phase 5 先完成)

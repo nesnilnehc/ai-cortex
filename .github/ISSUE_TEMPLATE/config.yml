@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 安全问题
+    url: https://github.com/nesnilnehc/ai-cortex/security/advisories/new
+    about: 请通过私密通道报告安全漏洞，不要提交公开 issue

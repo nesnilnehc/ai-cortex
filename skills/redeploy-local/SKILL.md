@@ -194,7 +194,7 @@ signal_files:
 
 在执行任何操作前，向用户展示结构化推断报告：
 
-```
+```yaml
 Detected build:
   Source: Makefile target `build` (line 12, calls `go build -ldflags ...`)
   Cross-ref: README "Building" section confirms `make build`
@@ -381,7 +381,7 @@ Detected deploy:
 
 **向用户展示的推断报告**：
 
-```
+```yaml
 Detected build:
   Source: package.json scripts.build (tsc && vite build --outDir dist)
   Cross-ref: Dockerfile copies dist/, matches output path
@@ -394,7 +394,7 @@ Detected deploy:
 
 **用户确认后**，运行报告：
 
-```
+```text
 Step     Command                         Exit  Duration
 ───────  ──────────────────────────────  ────  ────────
 Build    pnpm run build                    0   18.2s
@@ -414,7 +414,7 @@ Health   docker compose ps                 0    0.2s
 
 **推断报告**：
 
-```
+```yaml
 Detected build:
   Source: Makefile target `build` (line 8)
   Cross-ref: .github/workflows/ci.yml uses `make build`
@@ -437,7 +437,7 @@ Detected deploy:
 
 **运行报告**：
 
-```
+```text
 Step     Command                         Exit  Duration
 ───────  ──────────────────────────────  ────  ────────
 Build    (skipped — subsumed by deploy)   —      —
@@ -458,7 +458,7 @@ deploy_command: supervisorctl restart api-worker
 
 **运行报告**：
 
-```
+```text
 Step     Command                          Exit  Duration
 ───────  ───────────────────────────────  ────  ────────
 Build    make release GOARCH=arm64          0   22.7s
@@ -470,7 +470,7 @@ Health   supervisorctl status api-worker    0    0.1s
 
 **场景**：`pnpm run build` 以退出码 1 退出
 
-```
+```json
 [build] FAILED — exit 1 after 4.2s
 
 Last 20 lines of output:
@@ -492,7 +492,7 @@ Suggested fix: run `pnpm install` to restore dependencies, then retry.
 
 **向用户展示的推断报告**：
 
-```
+```yaml
 Detected build:
   Source: .cortex/redeploy-local.yaml (cached 2026-05-20; 4 signal files unchanged)
   Command: pnpm run build
@@ -504,7 +504,7 @@ Detected deploy:
 
 **用户确认后**，运行报告（与示例 1 命令相同，无扫描开销）：
 
-```
+```text
 Step     Command                         Exit  Duration
 ───────  ──────────────────────────────  ────  ────────
 Build    pnpm run build                    0   17.8s

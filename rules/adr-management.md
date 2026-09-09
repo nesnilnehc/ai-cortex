@@ -51,7 +51,8 @@ status: active
 ### 唯一 status 源
 
 `status` 字段**只在 frontmatter 里写一次**，使用 5 值枚举：
-```
+
+```text
 proposed | accepted | superseded | archived | rejected
 ```
 

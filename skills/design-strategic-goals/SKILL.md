@@ -65,7 +65,7 @@ output_schema:
 
 ---
 
-## 使用场景（用例）
+## 使用场景 (Use Cases)
 
 - **在愿景和北极星之后**：设定 3-5 个战略成果，以推进愿景并推动 NSM。
 - **年度或季度战略**：定义或更新战略优先事项。
@@ -74,9 +74,9 @@ output_schema:
 
 ---
 
-## 行为（行为）
+## 行为 (Behavior)
 
-### 交互（互动）政策
+### 交互政策
 
 - **默认**：项目规范的输出路径（如果存在）；否则为“docs/project-overview/strategic-goals.md”。如果有的话，请从“docs/project-overview/”中阅读愿景和北极星。
 - **冷启动降级**：`vision.md` 与 `north-star.md` **均**缺失时，不 halt，转入下方「冷启动降级模式」从仓库实证反推候选目标。只缺其一时仍走正常路径，用现有的那一份做推导依据。
@@ -169,7 +169,7 @@ output_schema:
 
 ---
 
-## 限制（限制）
+## 限制 (Restrictions)
 
 ### 硬边界（Hard Boundaries）
 
@@ -227,7 +227,7 @@ output_schema:
 
 ---
 
-## 示例（示例）
+## 示例 (Examples)
 
 ### 示例 1：完整的层次结构到位
 
