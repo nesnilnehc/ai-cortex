@@ -119,7 +119,7 @@ Conversion from Chinese-first to English-first, in descending order of reader im
 | E3 | `specs/*.md`, `protocols/*.md` | done |
 | E4 | `docs/**` (excluding `adr/` and `designs/`) | done |
 | E5 | `skills/*/README.md` | done |
-| E6 | `skills/*/SKILL.md` bodies | in progress |
+| E6 | `skills/*/SKILL.md` bodies | done |
 | E7 | `CLAUDE.md`, `llms.txt`, `.github/**`, `.editorconfig`, `.cortex/nats.yaml` | done |
 
 E7 was not in the original plan. It exists because a repository-wide sweep
