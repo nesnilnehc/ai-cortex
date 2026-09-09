@@ -14,11 +14,11 @@ Aligned with [mission](mission.md), [vision](vision.md) and [North Star](north-s
 
 ---
 
-## Goal 1: delivery-chain capabilities are discoverable
+## Goal 1: delivery-chain capabilities are available
 
 In delivery activities such as coding, review and deployment, a team can find and invoke the right skill by task or by intent, supporting a semi-automated delivery chain. This advances the vision; discovery is the precondition for use.
 
-## Goal 2: governance-chain capabilities are discoverable
+## Goal 2: governance-chain capabilities are available
 
 In governance activities such as planning, alignment and compliance, a team can find and invoke the right skill by task or by intent, with shared Specs and quality gates supporting governance behaviour that is auditable and can evolve. This advances the vision; governance builds trust, which drives use.
 

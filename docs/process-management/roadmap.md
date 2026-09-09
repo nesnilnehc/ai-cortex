@@ -22,14 +22,14 @@ The path of evolution derived from the [strategic goals](../project-overview/str
 
 ## Now
 
-**Strategic goals it serves**: [Goal 1, delivery-chain capabilities are discoverable](../project-overview/strategic-goals.md#goal-1-delivery-chain-capabilities-are-discoverable) and [Goal 2, governance-chain capabilities are discoverable](../project-overview/strategic-goals.md#goal-2-governance-chain-capabilities-are-discoverable)
+**Strategic goals it serves**: [Goal 1, delivery-chain capabilities are available](../project-overview/strategic-goals.md#goal-1-delivery-chain-capabilities-are-available) and [Goal 2, governance-chain capabilities are available](../project-overview/strategic-goals.md#goal-2-governance-chain-capabilities-are-available)
 
 **What success looks like**: once the Now milestones are met, core delivery and governance intents are 80% covered.
 
 ### Milestones
 
 - **M5, core intent coverage**: full coverage of the core delivery and governance intents, enough for most everyday software engineering situations.
-- **M6, multi-channel verification**: verify integration across platforms in the ecosystem, lowering adoption friction further.
+- **M6, ecosystem multi-channel verification**: verify integration across platforms in the ecosystem, lowering adoption friction further.
 
 ### Key initiatives
 
@@ -83,7 +83,7 @@ Direction only, with no dates attached:
 | :--- | :--- | :--- | :--- |
 | M1-M4 (completed) | Discoverability, reuse, governance, establishing the channels | (archived) | (the stage goals were met) |
 | M5, core intent coverage | Enriching and completing the delivery and governance skills | >80% of high-frequency everyday intents covered | Goal 1, Goal 2 |
-| M6, multi-channel verification | Adapting to and verifying different IDE and agent platforms | Running smoothly on >2 new platforms | Goal 4 |
+| M6, ecosystem multi-channel verification | Adapting to and verifying different IDE and agent platforms | Running smoothly on >2 new platforms | Goal 4 |
 | M7, complex orchestration and a closed workflow loop | End-to-end chained execution, and an upgraded I/O spec | >3 chained workflows in production | Goal 3 |
 
 ---
@@ -91,4 +91,4 @@ Direction only, with no dates attached:
 ## Constraints
 
 - **Mapping**: a backlog item must map to the roadmap's Now or Next stage.
-- **Out of scope**: a requirement that does not fit a roadmap direction is not worked on, until the roadmap changes.
+- **Out of scope**: a requirement that does not fit a roadmap direction is not worked on by default, until the roadmap changes.

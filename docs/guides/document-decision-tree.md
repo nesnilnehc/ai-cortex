@@ -32,7 +32,7 @@ Ask yourself these 4 questions before creating any new `.md`:
 
 4. **What is its lifecycle?**
    - Long-lived (living) → create it in a formal directory such as `docs/architecture/` or `docs/guides/`, with complete frontmatter
-   - Short-lived (snapshot) → it must be named `*.draft.md` or `YYYY-MM-DD-topic.md`, kept in a dedicated directory such as `docs/design/`, `experiments/` or `meetings/`, with a date set for clearing it out
+   - Short-lived (snapshot) → it must be named `*.draft.md` or `YYYY-MM-DD-topic.md`, kept in a dedicated directory — `docs/design/`, `experiments/` or `meetings/` — with a date set for clearing it out
 
 ---
 

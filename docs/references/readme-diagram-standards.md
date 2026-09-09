@@ -50,14 +50,14 @@ status: active
 
 ### 3.3 Complexity limits
 
-- **Node count**: about 15 per diagram. Beyond that, split into subgraphs or raise the level of abstraction.
+- **Maximum node count**: about 15 per diagram. Beyond that, split into subgraphs or raise the level of abstraction.
 - **Depth**: at most 3 levels of nested subgraphs.
 
 ---
 
 ## 4. The standard diagram set for a README
 
-The README of a professional infrastructure project carries:
+The README of a professional infrastructure project should carry:
 
 1. **A "concept" diagram, as the banner or introduction**: a simple input-process-output model. *Goal*: the reader grasps the value proposition within 5 seconds.
 1. **A "flow" diagram, for usage**: the typical path a user takes. *Goal*: the reader understands how it runs.

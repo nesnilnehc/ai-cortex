@@ -17,217 +17,217 @@ output_schema:
   description: AGENTS.md written to the project root per the embedded output contract
 ---
 
-# 技能（Skill）：生成代理条目
+# Skill: Generate Agent Entry
 
-## 目的 (Purpose)
+## Purpose
 
-根据下面的“输出合约”部分在存储库根目录编写或修改**AGENTS.md**，以便当代理接触项目时，它具有明确的**项目身份**、**权威来源**和**行为期望**，并且行为一致且可预测。输出合同嵌入在此 SKILL.md 中，因此一次加载即可提供完整的规范和步骤。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：生成一个合规的 AGENTS.md 文件，该文件为 AI 代理建立项目身份、权威来源和行为期望。
-
-**成功标准**（必须满足所有要求）：
-
-1. ✅ **AGENTS.md 存在**：文件写入存储库根目录并提交给版本控制
-2. ✅ **存在三个核心要素**：存在项目身份、权威来源和行为期望部分
-3. ✅ **七部分完成**：开场、项目身份、权威来源、行为、发现/加载摘要、语言/沟通、参考表
-4. ✅ **可执行的行为**：行为期望将“必须”、“应该”或“不得”与可操作的项目一起使用
-5. ✅ **参考表完整**：包含 spec 来源、条目 Raw URL（如适用）、定义规范、使用/安装与条目索引
-6. ✅ **合同合规性**：输出遵循嵌入的输出合同结构和内容需求
-
-**验收**测试：AI 代理能否阅读此 AGENTS.md 并了解该项目是什么、权威来源在哪里以及在使用该项目时如何表现？
+Write or revise **AGENTS.md** at the repository root according to the "Output Contract" section below, so that when an agent meets the project it holds an explicit **project identity**, **authoritative sources**, and **behavioural expectations**, and acts consistently and predictably. The output contract is embedded in this SKILL.md, so a single load supplies the whole spec and the steps.
 
 ---
 
-## 范围边界（范围边界）
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: produce a compliant AGENTS.md that establishes project identity, authoritative sources, and behavioural expectations for AI agents.
 
-- 从头开始编写新的 AGENTS.md
-- 修改现有的 AGENTS.md 以确保合规性
-- 根据输出合同审查 AGENTS.md
-- 根据嵌入式合约规范生成 AGENTS.md
+**Success criteria** (all must be met):
 
-**本技能不负责**：
+1. ✅ **AGENTS.md exists**: the file is written to the repository root and committed to version control
+2. ✅ **The three core elements are present**: the project identity, authoritative sources, and behavioural expectations sections all exist
+3. ✅ **Seven sections complete**: opening, project identity, authoritative sources, behaviour, discovery/loading summary, language/communication, reference table
+4. ✅ **Actionable behaviour**: the behavioural expectations pair "must", "should", or "must not" with actionable items
+5. ✅ **Reference table complete**: covers the spec source, the entry Raw URL (where applicable), the defining spec, usage/installation, and the entry index
+6. ✅ **Contract compliance**: the output follows the embedded output contract's structure and content requirements
 
-- 编写自述文件（使用“generate-standard-readme”）
-- 引导完整的项目 docs/ 结构（由 AgentFabric runtime 或人工按 `docs/ARTIFACT_NORMS.md` 承接）
-- 精炼技能设计（使用“精炼技能设计”）
-- 编写其他文档类型（超出范围）
-
-**转交点**：当AGENTS.md编写、提交并通过自检后，移交给项目文档化工作流程或下一个文档化任务。
+**Acceptance** test: can an AI agent read this AGENTS.md and learn what the project is, where the authoritative sources are, and how to act when using the project?
 
 ---
 
-## 使用场景 (Use Cases)
+## Scope Boundaries
 
-- **新项目**：为没有 AGENTS.md 的存储库添加 Agent 条目；根据输出合同的推荐结构和部分制定初稿。
-- **修改现有条目**：审核并完成现有的 AGENTS.md（添加缺少的部分，例如权威来源、行为、参考表）或修复与合同不匹配的措辞。
-- **采用其他地方的格式**：其他项目可以使用该技能的输出合约来生成具有身份、权限和行为的 AGENTS.md，然后替换其项目的资产类型和路径。
-- **合规性检查**：根据合同审查现有 AGENTS.md（§3 部分、§4 内容、§6 参考表）并输出修订建议。
+**This skill does**:
 
----
+- Write a new AGENTS.md from scratch
+- Revise an existing AGENTS.md into compliance
+- Review AGENTS.md against the output contract
+- Generate AGENTS.md from the embedded contract spec
 
-## 行为 (Behavior)
+**This skill does not do**:
 
-1. **先阅读合约**：在执行之前，阅读此文件的“输出合约”部分，并将其作为唯一的事实来源；不要发明部分或删除推荐元素。
-2. **收集输入**：从用户或上下文获取：单行项目定位、顶级资产类型和目录（例如技能/和规范路径）、是否提供原始 URL、主要描述语言。如果信息丢失，请根据技能的交互政策进行询问。
-3. **按部分生成**：输出或修改合同§3中的AGENTS.md顺序：开放→项目标识→权威来源→行为期望→发现和加载（摘要）→语言和沟通→参考表。章节标题可以调整，但保持顺序：身份→权限→行为→操作摘要→语言→参考。
-4. **可执行的行为**：使用“必须”、“应该”、“不得”（或同等词），以便每个期望都是可操作的；每个项目都可以引用规范或文档。不要将完整的规范/文档粘贴到 AGENTS.md 中；仅索引和总结。
-5. **完整参考表**：至少包括：规格来源、本条目的原始URL（如果适用）、定义规格、使用和安装、条目索引；使用相对路径或可解析的 URL。
-6. **提交前自检**：制作或修改后审查，运行该技能的自检；全部通过后才提交。如果用户仅要求进行合规性审查，则输出修订列表而不是编辑文件。
+- Write the README (use "generate-standard-readme")
+- Bootstrap a full project docs/ structure (taken on by the AgentFabric runtime or a human, per `docs/ARTIFACT_NORMS.md`)
+- Refine skill design (use "refine-skill-design")
+- Write other document types (out of scope)
 
----
-
-## 输入与输出 (Input & Output)
-
-### 输入 (Input)
-
-- **单行定位**：项目是什么（例如“代理优先、治理就绪的能力清单”）。
-- **顶级资产和目录**：资产类型（例如技能）、目录、规范路径；如果类型不存在，请说“无”或省略。
-- **可选**：AGENTS.md 原始 URL、现有 AGENTS.md 或自述文件摘录（用于修订）、主要描述语言（例如英语）。
-
-### 输出 (Output)
-
-- **创作**：满足输出合同的完整 AGENTS.md（或 diff/修订后的全文）。
-- **审核**：每个合同第 §3–§6 条的合规性检查表和修订建议（缺失部分、参考表差距、行为措辞）；不要强制重写该文件。
+**Handoff point**: once AGENTS.md is written, committed, and passes the self-check, hand off to the project documentation workflow or to the next documentation task.
 
 ---
 
-## 限制 (Restrictions)
+## Use Cases
 
-### 硬边界（Hard Boundaries）
-
-- **不要离开合同**：不要将合同不需要的部分添加为“必需”，或者在没有正当理由的情况下删除任何七种推荐的部分类型。
-- **不要粘贴完整规范**：不要将完整规范内容粘贴到 AGENTS.md 中；仅总结和链接。
-- **没有含糊的行为**：不要使用“如果可能”、“酌情”等；使用“必须”、“应当”、“不得”（或同等词）。
-- **不要省略参考表**：该表必须包含规格来源、定义/使用/安装规格、条目索引；如果项目没有索引，请说“N/A”或省略该行。
-
-### 技能边界 (Skill Boundaries)（避免重叠）
-
-**不要做这些（其他技能可以处理它们）**：
-
-- **编写 README 文件**：创建或更新 README.md → 使用 `generate-standard-readme`
-- **引导完整的项目文档**：设置完整的文档结构 → 由 AgentFabric runtime 或人工按 `docs/ARTIFACT_NORMS.md` 拉起
-- **精炼技能设计**：审查或重构 SKILL.md 文件 → 使用 `refine-skill-design`
-- **编写其他文档类型**：API 文档、用户指南、教程 → 超出范围
-
-**何时停止并交接**：
-
-- 用户说“AGENTS.md 看起来不错”或“已批准”→ 技能完成，移交给下一个文档化任务
-- 用户问“你也可以写自述文件吗？” → 移交给“生成标准自述文件”
-- 用户询问"您可以设置所有项目文档吗？" → 移交给 AgentFabric runtime（按 `docs/ARTIFACT_NORMS.md` 执行）
-- 用户问“你能审查这个技能吗？” → 交给“精炼技能设计”
+- **New project**: add an Agent entry to a repository that has no AGENTS.md; draft the first version from the output contract's recommended structure and sections.
+- **Revise an existing entry**: audit and complete an existing AGENTS.md (add the missing sections, such as authoritative sources, behaviour, reference table) or fix wording that does not match the contract.
+- **Adopt the format elsewhere**: another project can use this skill's output contract to generate an AGENTS.md carrying identity, authority, and behaviour, then swap in its own asset types and paths.
+- **Compliance check**: review an existing AGENTS.md against the contract (§3 sections, §4 content, §6 reference table) and output the revision suggestions.
 
 ---
 
-## 自检（Self-Check）
+## Behavior
 
-### 核心成功标准（必须满足所有标准）
-
-- [ ] **AGENTS.md 存在**：写入存储库根目录并提交给版本控制的文件
-- [ ] **存在三个核心要素**：存在项目身份、权威来源和行为期望部分
-- [ ] **七部分完成**：开场、项目身份、权威来源、行为、发现/加载摘要、语言/沟通和参考表
-- [ ] **可执行行为**：行为期望对可操作的项目使用“必须”、“应该”或“不得”
-- [ ] **参考表完整**：包括规范源、条目原始 URL（如果适用）、定义规范、使用/安装和条目索引
-- [ ] **合同合规性**：输出遵循嵌入式输出合同结构和内容 需求
-
-### 流程质量检查
-
-- [ ] **合约读取**：执行前我是否读取了输出合约部分？
-- [ ] **收集输入**：我是否收集了所有必需的输入（定位、资产类型、目录）或在丢失时询问？
-- [ ] **章节顺序**：我是否按照合同§3顺序（身份→权限→行为→操作→语言→参考）生成了AGENTS.md？
-- [ ] **没有规范重复**：我是否避免粘贴完整的规范/文档内容而仅索引和总结？
-- [ ] **可执行语言**：我是否使用“必须”/“应该”/“不得”来表达行为期望？
-- [ ] **参考表**：我是否包含了所有必需的元素（规范来源、原始 URL（如果适用）、定义规范、使用/安装、索引）？
-
-### 验收测试
-
-**AI 代理能否阅读此 AGENTS.md 并了解该项目是什么、权威来源在哪里以及在使用该项目时如何表现？**
-
-如果否：AGENTS.md 不完整。返回以收集意见或修改部分。
-
-如果是：AGENTS.md 已完成。继续提交并转交。
+1. **Read the contract first**: before acting, read this file's "Output Contract" section and treat it as the single source of truth; do not invent sections or drop recommended elements.
+2. **Gather the inputs**: from the user or the context, get the one-line project positioning, the top-level asset types and directories (e.g. skills/ and the spec paths), whether a raw URL is available, and the primary description language. If information is missing, ask in line with the skill's interaction policy.
+3. **Generate section by section**: produce or revise AGENTS.md in the order of the contract's §3: opening → project identity → authoritative sources → behavioural expectations → discovery and loading (summary) → language and communication → reference table. Section titles can be adjusted, but keep the order: identity → authority → behaviour → operations summary → language → reference.
+4. **Actionable behaviour**: use "must", "should", "must not" (or equivalents) so that every expectation is actionable; each item can cite a spec or a document. Do not paste whole specs or documents into AGENTS.md; index and summarise only.
+5. **Complete reference table**: include at least the spec source, this entry's raw URL (where applicable), the defining spec, usage and installation, and the entry index; use relative paths or resolvable URLs.
+6. **Self-check before committing**: review after producing or revising, run this skill's self-check, and commit only once everything passes. If the user asked only for a compliance review, output the revision list instead of editing the file.
 
 ---
 
-## 示例 (Examples)
+## Input & Output
 
-### 示例 1：新项目（最少信息）
+### Input
 
-**输入**：项目：my-cli。一行：用于本地批处理文件重命名的 CLI。资产：没有技能，只有自述文件和源代码。想要一个代理入口；主要语言英语。
+- **One-line positioning**: what the project is (e.g. "an agent-first, governance-ready capability inventory").
+- **Top-level assets and directories**: asset types (e.g. skills), directories, spec paths; where a type does not exist, say "none" or leave it out.
+- **Optional**: the AGENTS.md raw URL, an excerpt of an existing AGENTS.md or README (for a revision), the primary description language (e.g. English).
 
-**预期**：生成 AGENTS.md，内容包括：打开（此文件是代理条目和合同）、项目标识（一行 + 资产表；可以简化为“文档/源”等）、权威来源（自述文件或文档/中的定义和目录）、行为预期（几个“必须”项目）、发现和加载（如果存在 INDEX 或同等项，则进行摘要，否则代理应如何理解项目）、语言和沟通（英语）、参考表（规范来源、此条目原始（如果适用）、文档和条目链接）。不要发明不存在的规范/路径。
+### Output
 
-### 示例 2：边缘情况 — 不完整的 AGENTS.md
-
-**输入**：现有的AGENTS.md只有“这个项目是XX”和“读取INDEX”，没有权威来源，没有行为，没有参考表。项目有 docs/、README，没有技巧。按照输出合同完成。
-
-**预期**：保留现有的“项目标识”；添加权威来源（其中存在定义和目录）、行为期望（至少 2-3 个可执行项目，例如“遵循自述文件和文档”、“列出功能时，阅读索引然后枚举”）、发现和加载（摘要）、语言和通信、参考表。请勿删除正确的用户措辞；如果项目没有 INDEX，参考表可以说“N/A”或列出 README/docs。输出修订后的全文或差异并说明添加了哪些部分。
+- **Authoring**: a complete AGENTS.md that satisfies the output contract (or a diff / the full revised text).
+- **Audit**: a compliance checklist against each of the contract's §3–§6 clauses, plus revision suggestions (missing sections, reference-table gaps, behaviour wording); do not force a rewrite of the file.
 
 ---
 
-## 输出（Output）合约：AGENTS.md 创作标准
+## Restrictions
 
-以下是该技能在制作AGENTS.md时使用的标准；它嵌入在此 SKILL.md 中。采用“代理优先、治理就绪的能力清单（Spec）”形态的项目可以使用；此存储库的 [AGENTS.md](../../AGENTS.md) 紧随其后。
+### Hard Boundaries
 
-### 1. 目的和作用
+- **Do not leave the contract**: do not mark a section the contract does not call for as "required", and do not drop any of the seven recommended section types without good reason.
+- **Do not paste whole specs**: do not paste whole spec content into AGENTS.md; summarise and link only.
+- **No vague behaviour**: do not use "if possible", "as appropriate", and the like; use "must", "should", "must not" (or equivalents).
+- **Do not omit the reference table**: the table must carry the spec source, the defining/usage/installation spec, and the entry index; where the project has no index, say "N/A" or drop that row.
 
-- **AGENTS.md** 是 AI 代理与项目交互的 **单一条目和合约**；它通常位于 repo 根目录。
-- **目的**：当代理接触项目时，定义**项目身份**、**权威来源**和**行为期望**，以便代理在引用存储库时或在引用存储库时表现一致且可预测。
-- **受众**：可以读取文件的代理（例如 IDE 代理、CLI 代理）；也可以由通过原始 URL 引用它的消费者存储库使用。
+### Skill Boundaries (avoid overlap)
 
-### 2. 主要目标
+**Do not do these (other skills handle them)**:
 
-AGENTS.md 的主要目标不是“教 Agent 如何使用技能”，而是建立**入口和行为**。这意味着三件事：
+- **Write the README file**: create or update README.md → use `generate-standard-readme`
+- **Bootstrap the full project documentation**: set up the complete documentation structure → stood up by the AgentFabric runtime or a human, per `docs/ARTIFACT_NORMS.md`
+- **Refine skill design**: review or refactor SKILL.md files → use `refine-skill-design`
+- **Write other document types**: API docs, user guides, tutorials → out of scope
 
-|目标|描述 |
+**When to stop and hand off**:
+
+- The user says "AGENTS.md looks good" or "approved" → the skill is done; hand off to the next documentation task
+- The user asks "can you write the README too?" → hand off to "generate-standard-readme"
+- The user asks "can you set up all the project documentation?" → hand off to the AgentFabric runtime (which acts per `docs/ARTIFACT_NORMS.md`)
+- The user asks "can you review this skill?" → hand to "refine-skill-design"
+
+---
+
+## Self-Check
+
+### Core Success Criteria (all must be met)
+
+- [ ] **AGENTS.md exists**: the file is written to the repository root and committed to version control
+- [ ] **The three core elements are present**: the project identity, authoritative sources, and behavioural expectations sections all exist
+- [ ] **Seven sections complete**: opening, project identity, authoritative sources, behaviour, discovery/loading summary, language/communication, and reference table
+- [ ] **Actionable behaviour**: the behavioural expectations use "must", "should", or "must not" on actionable items
+- [ ] **Reference table complete**: covers the spec source, the entry raw URL (where applicable), the defining spec, usage/installation, and the entry index
+- [ ] **Contract compliance**: the output follows the embedded output contract structure and content requirements
+
+### Process Quality Checks
+
+- [ ] **Contract read**: did I read the output contract section before acting?
+- [ ] **Inputs gathered**: did I gather every required input (positioning, asset types, directories), or ask when one was missing?
+- [ ] **Section order**: did I generate AGENTS.md in the contract's §3 order (identity → authority → behaviour → operations → language → reference)?
+- [ ] **No spec duplication**: did I avoid pasting whole spec or document content, indexing and summarising instead?
+- [ ] **Actionable language**: did I use "must" / "should" / "must not" for the behavioural expectations?
+- [ ] **Reference table**: did I include every required element (spec source, raw URL where applicable, defining spec, usage/installation, index)?
+
+### Acceptance Test
+
+**Can an AI agent read this AGENTS.md and learn what the project is, where the authoritative sources are, and how to act when using the project?**
+
+If no: AGENTS.md is incomplete. Go back to gather input or to revise the sections.
+
+If yes: AGENTS.md is done. Move on to commit and hand off.
+
+---
+
+## Examples
+
+### Example 1: New project (minimal information)
+
+**Input**: project: my-cli. One line: a CLI for renaming files locally in batches. Assets: no skills, only a README and source code. Wants an agent entry; primary language English.
+
+**Expected**: generate an AGENTS.md covering: opening (this file is the agent entry and contract), project identity (one line + asset table; can collapse to "docs/source" and the like), authoritative sources (the definitions and directories in the README or in docs/), behavioural expectations (a few "must" items), discovery and loading (a summary where an INDEX or equivalent exists, otherwise how the agent is to make sense of the project), language and communication (English), reference table (spec source, this entry raw where applicable, links to the docs and the entry). Do not invent specs or paths that do not exist.
+
+### Example 2: Edge case — an incomplete AGENTS.md
+
+**Input**: the existing AGENTS.md holds only "this project is XX" and "read INDEX" — no authoritative sources, no behaviour, no reference table. The project has docs/ and a README, no skills. Complete it per the output contract.
+
+**Expected**: keep the existing "project identity"; add authoritative sources (where the definitions and directories live), behavioural expectations (at least 2-3 actionable items, e.g. "follow the README and the docs", "when listing capabilities, read the index then enumerate"), discovery and loading (summary), language and communication, and the reference table. Do not delete correct user wording; where the project has no INDEX, the reference table can say "N/A" or list README/docs. Output the full revised text or a diff, and state which sections were added.
+
+---
+
+## Output Contract: AGENTS.md Authoring Standard
+
+Below is the standard this skill applies when producing AGENTS.md; it is embedded in this SKILL.md. Any project shaped as an "agent-first, governance-ready capability inventory (Spec)" can use it; this repository's [AGENTS.md](../../AGENTS.md) follows it.
+
+### 1. Purpose and Role
+
+- **AGENTS.md** is the **single entry and contract** through which an AI agent interacts with the project; it usually sits at the repo root.
+- **Purpose**: when an agent meets the project, define the **project identity**, the **authoritative sources**, and the **behavioural expectations**, so the agent acts consistently and predictably whenever it references the repository.
+- **Audience**: agents that can read files (e.g. IDE agents, CLI agents); also usable by consumer repositories that reference it through a raw URL.
+
+### 2. Primary Goal
+
+The primary goal of AGENTS.md is not to "teach the Agent how to use skills" but to establish the **entry and the behaviour**. That means three things:
+
+| Goal | Description |
 | :--- | :--- |
-| **项目身份** |一句话说明项目是什么；列出顶级资产类型（例如技能）、其目录和定义规范。 |
-| **权威来源** | “定义”和“目录/列表”所在的位置；特工将这些视为事实，而不是口头或分散的文档。 |
-| **行为期望** |代理在引用项目时**必须或不可以**做什么（例如遵循规范、提交前自检、读取索引然后在列出功能时枚举）。 |
+| **Project identity** | One sentence on what the project is; lists the top-level asset types (e.g. skills), their directories, and the defining spec. |
+| **Authoritative sources** | Where the "definitions" and the "directory/listing" live; the agent treats these as fact, not hearsay or scattered documents. |
+| **Behavioural expectations** | What the agent **must or must not** do when referencing the project (e.g. follow the spec, self-check before committing, read the index then enumerate when listing capabilities). |
 
-### 3. 推荐的结构和部分
+### 3. Recommended Structure and Sections
 
-代理和人类都按以下顺序组织：
+Both agents and humans work from this order:
 
-|订单|部分|内容 |
+| Order | Section | Content |
 | :--- | :--- | :--- |
-| 1 | **开幕** |一句话：这个文件是Agent的条目和合同；目的（身份+权威+行为）。 |
-| 2 | **项目身份** |一行定位+资产类型/目​​录/规格表+目录和清单（如果有）。 |
-| 3 | **权威来源** |定义、目录/列表和使用合同所在的位置；仅提供指针，无详细说明。 |
-| 4 | **行为期望** |特工必须遵循的编号期望；每个都可以引用规范或文档。 |
-| 5 | **发现和加载（摘要）** |资产根，如何发现，如何注入； AGENTS.md §4 或同等内容中的详细信息；避免在 AGENTS.md 中重复。 |
-| 6 | **语言和沟通** |主要描述语言和术语；与规格/技能或同等内容保持一致。 |
-| 7 | **参考** |表：规范来源、本条目原始 URL（如果适用）、定义规范、用法和安装、条目索引。 |
+| 1 | **Opening** | One sentence: this file is the Agent's entry and contract; its purpose (identity + authority + behaviour). |
+| 2 | **Project identity** | One-line positioning + a table of asset types / directories / specs + the directory and inventory, where present. |
+| 3 | **Authoritative sources** | Where the definitions, the directory/listing, and the usage contract live; pointers only, no elaboration. |
+| 4 | **Behavioural expectations** | Numbered expectations the agent must follow; each can cite a spec or a document. |
+| 5 | **Discovery and loading (summary)** | The asset root, how discovery works, how injection works; the detail lives in AGENTS.md §4 or its equivalent; avoid repeating it inside AGENTS.md. |
+| 6 | **Language and communication** | The primary description language and terminology; kept consistent with specs/skills or the equivalent. |
+| 7 | **Reference** | A table: spec source, this entry's raw URL where applicable, the defining spec, usage and installation, the entry index. |
 
-章节标题和级别可以遵循项目风格，但保持顺序：身份→权限→行为→操作摘要→语言→参考。
+Section titles and levels can follow the project's style, but keep the order: identity → authority → behaviour → operations summary → language → reference.
 
-### 4.内容需求
+### 4. Content Requirements
 
-- **可执行的期望**：使用“必须”、“应该”、“不得”（或同等内容），以便代理可以解析和遵循。
-- **不要重复规范和文档**：AGENTS.md 索引和总结；指向“specs/”或“docs/”以获取完整定义并安装。
-- **稳定引用**：使用存储库中规范和索引的相对路径或可解析 URL；如果可以通过原始 URL 引用该项目，请在引用表中提供 AGENTS.md 的规范原始 URL。
+- **Actionable expectations**: use "must", "should", "must not" (or equivalents) so the agent can parse and follow them.
+- **Do not duplicate specs and docs**: AGENTS.md indexes and summarises; point at "specs/" or "docs/" for the full definitions and for installation.
+- **Stable references**: use relative paths or resolvable URLs for the specs and indexes inside the repository; where the project can be referenced through a raw URL, give the canonical raw URL of AGENTS.md in the reference table.
 
-### 5. 格式和风格
+### 5. Format and Style
 
-- **标题**：简短且可解析；可选英文字幕（例如“特工进入”）。
-- **长度**：目标是大约一页（例如 60-80 行），以便代理可以一次性加载和解析。
-- **语言**：匹配项目的主要资产语言。
-- **表格**：使用 Markdown 表格作为项目标识、权威来源和结构化解析的参考。
+- **Title**: short and parseable; an optional English subtitle (e.g. "Agent Entry").
+- **Length**: aim for roughly one page (e.g. 60-80 lines) so the agent can load and parse it in one pass.
+- **Language**: match the project's primary asset language.
+- **Tables**: use Markdown tables for project identity, authoritative sources, and the reference, so they parse structurally.
 
-### 6.参考表
+### 6. Reference Table
 
-- 以**参考表**结尾，至少列出：规范源、此条目原始 URL（如果支持原始引用）、定义规范（例如规范/技能）、条目索引（例如技能/INDEX.md）。用法见 AGENTS.md §4。该表允许代理和工具跳转到权威文档，而无需爬行存储库。
+- End with a **reference table** listing at least: the spec source, this entry's raw URL (where raw references are supported), the defining spec (e.g. specs/skill), the entry index (e.g. skills/INDEX.md). For usage see AGENTS.md §4. The table lets agents and tools jump to the authoritative document without crawling the repository.
 
-### 7. 与其他规范的关系
+### 7. Relationship to Other Specs
 
-- **用法**：发现、注入和自检的运行时行为位于 AGENTS.md §4 中； AGENTS.md 是单一条目和合同。
-- **语言**：AGENTS.md 的描述和沟通期望应与项目主要资产语言保持一致。
+- **Usage**: the runtime behaviour for discovery, injection, and self-check lives in AGENTS.md §4; AGENTS.md is the single entry and contract.
+- **Language**: the description and communication expectations in AGENTS.md stay in line with the project's primary asset language.
 
-### 8. 适应其他项目
+### 8. Adapting to Other Projects
 
-其他采用该合约的项目可以： 保留三要素（身份、权限、行为）和推荐的节序；将“项目标识”替换为一行定位和资产表；将“权威来源”、“行为”和“发现和加载”中的路径和规范名称替换为“specs/”或等效项；如果项目没有技能或索引，则省略或替换为该项目的顶级资产和目录，并相应地调整参考表。
+Another project adopting this contract can: keep the three elements (identity, authority, behaviour) and the recommended section order; replace "project identity" with its own one-line positioning and asset table; replace the paths and spec names in "authoritative sources", "behaviour", and "discovery and loading" with "specs/" or the equivalent; and where the project has no skills or index, leave those out or substitute the project's own top-level assets and directories, adjusting the reference table to match.

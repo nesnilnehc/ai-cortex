@@ -29,9 +29,9 @@ The day-to-day maintenance entry point once a roadmap is in place: change status
 
 **Anything that changes the tier belongs to promote; anything that does not belongs here.** Pushing a Now item back by two weeks is this skill; moving it into Next is promote. The test is whether the tier changed, not whether the date changed.
 
-## Installation
+## Install
 
-Installation is handled centrally by the AI Cortex canonical installer; see the repository root [README](../../README.md#-install-and-use).
+Handled centrally by the canonical AI Cortex install; see the repository root [README](../../README.md#-install-and-use).
 
 ## Related skills
 

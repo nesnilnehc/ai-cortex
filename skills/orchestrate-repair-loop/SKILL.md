@@ -21,288 +21,296 @@ output_schema:
   description: Repair loop report with iterations, commands, patches, and final state (persist only if explicitly requested)
 ---
 
-# 技能 (Skill)：运行修复循环（审查+测试+修复）
+# Skill: Run the repair loop (review + test + fix)
 
-## 目的 (Purpose)
+## Purpose
 
-通过运行 **多次迭代循环** 将代码库收敛或更改设置为“干净”：
+Converge a repository, or a change set, to "clean" by running **multiple loop iterations**:
 
-1. **审查**（及早发现问题并防止倒退），
-2. **测试**（获取可执行信号），
-3. **修复**（应用最小的正确补丁），
-4. 重复直到**不再存在阻塞问题**或达到**停止条件**。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：使用有界的、证据驱动的审查-测试-修复循环，将存储库收敛到“干净”状态——所有测试都通过并且没有“关键”/“主要”审查结果。
-
-**成功标准**（必须满足所有要求）：
-
-1. ✅ **完成解析的定义**：在循环开始之前确认预检选择（范围、测试模式、最大迭代、允许的操作）
-2. ✅ **每次迭代证据优先**：每次迭代至少产生以下之一：新的测试结果、新的审查信号或具体的代码更改
-3. ✅ **修复后重新运行测试**：失败的测试命令（或目标子集）始终在同一迭代中应用修复后重新运行
-4. ✅ **有界循环**：循环由于收敛或显式停止条件而终止 - 没有无限重试
-5. ✅ **结构化最终报告**：输出包括修复循环报告（附录：输出合约），其中包含命令运行、故障、补丁和剩余风险
-
-**验收**测试：最终报告是否显示（a）测试通过且没有阻止审查结果，或（b）明确的停止条件，并为用户提供明确的剩余问题和选项？
+1. **Review** (catch problems early and prevent regressions),
+2. **Test** (get an actionable signal),
+3. **Fix** (apply the smallest correct patch),
+4. Repeat until **no blocking problems remain** or a **stop condition** is reached.
 
 ---
 
-## 范围边界 (Scope Boundaries)
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: converge the repository to a "clean" state — all tests passing and no "critical"/"major" review findings — using a bounded, evidence-driven review-test-fix loop.
 
-- 多次迭代审查→测试→修复循环
-- 使用“review-diff”和“orchestrate-code-review”进行差异范围和代码库范围的审查
-- 通过“run-automated-tests”执行测试（快速/ci/完整模式）
-- 保留 API 合约的最少目标补丁
-- 停止条件检测（无进展、环境阻碍、不稳定测试、迭代限制）
-- 结构化修复循环报告输出
+**Success criteria** (all must be met):
 
-**本技能不负责**：
+1. ✅ **Definition of done resolved**: the preflight choices (scope, test mode, max iterations, allowed actions) are confirmed before the loop starts
+2. ✅ **Evidence first in every iteration**: each iteration produces at least one of a new test result, a new review signal, or a concrete code change
+3. ✅ **Tests re-run after a fix**: the failing test command (or a targeted subset) is always re-run after the fix is applied, within the same iteration
+4. ✅ **Bounded loop**: the loop terminates on convergence or on an explicit stop condition - no unbounded retrying
+5. ✅ **Structured final report**: the output includes a repair-loop report (appendix: output contract) covering the commands run, the failures, the patches, and the remaining risk
 
-- 在未明确确认的情况下安装依赖项、使用网络或启动 Docker/服务
-- 未经用户明确批准的大型重构
-- 修改不相关的同级存储库
-- 在未经用户明确批准的情况下禁用测试、削弱断言或删除覆盖范围
-
-**转交点**：当循环收敛或达到停止条件时，向用户呈现修复环路报告。对于有风险的更改（架构迁移、身份验证更改、广泛重构），请在申请之前暂停并请求明确批准。
+**Acceptance** test: does the final report show either (a) tests passing with no blocking review findings, or (b) an explicit stop condition, with the remaining problems and the options open to the user stated clearly?
 
 ---
 
-## 使用场景 (Use Cases)
+## Scope Boundaries
 
-- “继续修复直到测试通过。”
-- “进行审查-测试-修复循环并使存储库变得绿色。”
-- “通过迭代测试和有针对性的修复来稳定此 PR/变更集。”
-- “运行类似 CI 的测试，修复故障，重复直到稳定。”
+**This skill covers**:
+
+- The multi-iteration review → test → fix loop
+- Diff-scoped and codebase-scoped review through `review-diff` and `orchestrate-code-review`
+- Test execution through `run-automated-tests` (fast/ci/full modes)
+- Minimal targeted patches that preserve the API contract
+- Stop-condition detection (no progress, environment blocker, flaky tests, iteration limit)
+- A structured repair-loop report as output
+
+**This skill does not cover**:
+
+- Installing dependencies, using the network, or starting Docker/services without explicit confirmation
+- Large refactors without explicit user approval
+- Modifying unrelated sibling repositories
+- Disabling tests, weakening assertions, or deleting coverage without explicit user approval
+
+**Handoff point**: when the loop converges or reaches a stop condition, present the repair-loop report to the user. For a risky change (architecture migration, authentication change, broad refactor), pause and ask for explicit approval before applying it.
 
 ---
 
-## 行为 (Behavior)
+## Use Cases
 
-### 1. 预检（必须解决一次）
+- "Keep fixing until the tests pass."
+- "Run a review-test-fix loop and get the repository green."
+- "Stabilize this PR/change set with iterative testing and targeted fixes."
+- "Run CI-like tests, fix the failures, repeat until stable."
 
-若存在 `CLAUDE.md` 或 `.ai-cortex/config.yaml`，优先读取其中的 `test_command` 等；否则按发现逻辑获取。参见 [docs/guides/project-config.md](../../docs/guides/project-config.md)。
+---
 
-确认或默认以下内容：
+## Behavior
 
-- **目标**：存储库路径（默认“.”）和范围：
-  - `diff`（默认）：关注当前更改，优先考虑`review-diff`。
-  - `codebase`：审查指定的路径集，通过`orchestrate-code-review`优先考虑`review-codebase`/语言技能。
-- **完成的定义**：
-  - 测试：所选测试计划通过（快速/ci/完整）。
-  - 审查：没有保留“关键”/“主要”审查结果。
-  - 如果仅剩下“次要”/“建议”发现，请将其列出并询问是否解决它们。
-- **循环边界**：
-  - `max_iterations` 默认值：`5`。
-  - `time_budget` 默认值：“尽力而为”；如果用户提供了时间限制，请严格遵守。
-- **允许的操作**（不清楚时询问；默认为更安全的选择）：
-  - 修改存储库文件：**是**（此技能用于修复），但保持最小程度的更改。
-  - 安装依赖项：**执行前确认**（合理操作，但超出"改代码"的隐含授权范围）。
-  - 网络访问：**执行前确认**（仅用于测试执行所需；闲置时不主动发起）。
-  - Docker/服务（DB/Redis/等）：**执行前确认**（按需启动，测试结束后停止）。
-  - 大型重构：**否**，未经确认。
+### 1. Preflight (must be resolved once)
 
-### 2.迭代循环
+If `CLAUDE.md` or `.ai-cortex/config.yaml` exists, read `test_command` and the rest from there first; otherwise fall back to discovery. See [docs/guides/project-config.md](../../docs/guides/project-config.md).
 
-对于“i = 1..max_iterations”：
+Confirm or default the following:
 
-1. **收集当前信号（证据优先）**
-   - 范围 = `diff`：对当前改动（含未跟踪的新增）跑 `review-diff`。
-   - 范围 = `codebase`：跑 `orchestrate-code-review`，或按语言选对应的原子审查技能
-     （`review-typescript` / `review-python` / …）。
-   - 上一轮有测试失败：优先解决它们。
-   - **先试着调既有审查技能，调不动再自己审**。查不到技能名不等于它不存在——不同的技能清单
-     接口覆盖面不同，一处查不到就断定"没装"会白白放弃一整套现成能力。自己审时在报告里
-     写明"未能调用 `<技能名>`，改为内联审查"，别让读者以为走的是标准路径。
+- **Target**: repository path (default `.`) and scope:
+  - `diff` (default): focus on the current changes, preferring `review-diff`.
+  - `codebase`: review the given set of paths, preferring `review-codebase` / the language skills through `orchestrate-code-review`.
+- **Definition of done**:
+  - Tests: the selected test plan passes (fast/ci/full).
+  - Review: no "critical"/"major" review findings remain.
+  - If only "minor"/"suggestion" findings remain, list them and ask whether to address them.
+- **Loop bounds**:
+  - `max_iterations` default: `5`.
+  - `time_budget` default: "best effort"; if the user gives a time limit, honor it strictly.
+- **Allowed actions** (ask when unclear; default to the safer choice):
+  - Modify repository files: **yes** (this skill exists to repair), but keep the change minimal.
+  - Install dependencies: **confirm before running** (a reasonable action, but outside the implicit authorization of "change the code").
+  - Network access: **confirm before running** (only where test execution needs it; not initiated while idle).
+  - Docker/services (DB/Redis/etc.): **confirm before running** (start on demand, stop once the tests finish).
+  - Large refactors: **no**, not without confirmation.
 
-2. **运行测试**
-   - 使用“run-automated-tests”在所选模式下发现并运行最匹配的测试命令：
-     - `fast`（默认）：仅单元测试，最少的准备。
-     - `ci`：尽量贴近 CI 的步骤。
-     - `full`：含集成 / e2e（依赖与服务需先确认）。
-   - **循环结束前至少跑一次集成层**，哪怕全程用的是 `fast`。理由很实在：单元测试大多直接
-     `new` 出被测对象，**改了构造签名它们照样绿**，而集成测试会当场炸——更要命的是，
-     那声炸响常常盖住它背后真正的缺陷（先是构造参数没传导致 `undefined.x`，修完才露出
-     真正的问题）。`fast` 全绿从不构成「不必跑集成」的理由。
-   - 捕获：
-     - 第一个失败的命令+退出代码
-     - 最相关的错误摘录（除非要求，否则不要转储大量日志）
+### 2. The iteration loop
 
-3. **综合修复计划（最小正确补丁）**
-   - 选择首先要解决的**一个**主要问题：
-     - 第一个失败的测试/命令通常获胜（最高信号）。
-     - 如果审查发现“关键”安全/正确性问题，请在测试之前或同时修复该问题。
-   - 优先选择这类修复：
-     - 改变最小表面积
-     - 保留 API/合同，除非明确批准
-     - 修复错误时添加或调整测试（如果可行）
+For `i = 1..max_iterations`:
 
-4. **应用修复**
-   - 实施补丁。
-   - 避免不相关的格式或流失。
-   - 如果修复需要进行有风险的更改（架构迁移、身份验证更改、广泛重构），请暂停并询问。
+1. **Gather the current signals (evidence first)**
+   - Scope = `diff`: run `review-diff` over the current changes, including untracked additions.
+   - Scope = `codebase`: run `orchestrate-code-review`, or pick the atomic review skill for the language
+     (`review-typescript` / `review-python` / …).
+   - Test failures from the previous round: settle those first.
+   - **Try an existing review skill first; review it yourself only when none can be invoked**. Not finding a
+     skill name does not mean it is absent — different skill-listing interfaces cover different sets, and
+     concluding "not installed" from a single lookup throws away a whole set of ready-made capability. When
+     reviewing inline, write in the report that you "could not invoke `<skill name>`, reviewed inline", so the
+     reader does not take it for the standard path.
 
-5. **重新运行最小验证**
-   - 如果框架支持，重新运行最相关的失败测试子集；否则重新运行相同的测试命令。
-   - If fixed, proceed to the next remaining failure/finding within the same iteration only if it is trivial;否则进入下一个循环迭代。
+2. **Run the tests**
+   - Use `run-automated-tests` to discover and run the best-matching test command in the selected mode:
+     - `fast` (default): unit tests only, minimal setup.
+     - `ci`: stay as close to the CI steps as possible.
+     - `full`: includes integration / e2e (dependencies and services need confirming first).
+   - **Run the integration layer at least once before the loop ends**, even if `fast` was used throughout.
+     The reason is concrete: unit tests mostly `new` the object under test directly, so **they stay green
+     when a constructor signature changes**, while an integration test blows up on the spot — and worse,
+     that explosion often masks the real defect behind it (a missing constructor argument first yields
+     `undefined.x`, and the real problem surfaces only once that is fixed). A fully green `fast` run is never
+     a reason to leave integration unrun.
+   - Capture:
+     - The first failing command and its exit code
+     - The most relevant error excerpt (do not dump large logs unless asked)
 
-6. **收敛就早停**
-   - 测试通过、且没有"关键"/"主要"审查结果时停止。
-   - **但"测试一开始就是绿的"不算收敛**。绿只说明已有断言没被打破，不说明这批改动没问题——
-     单测天然验的是零件的行为，而零件之间、真实规模下的问题它照不到。仓库进来就是绿的时，
-     循环的推进力全在审查那一半：**至少完整跑过一轮审查（见「审查该找什么」），
-     才谈得上收敛**。跳过它直接宣布干净，等于把这次循环变成一次空转。
+3. **Synthesize the fix plan (smallest correct patch)**
+   - Pick the **one** primary problem to address first:
+     - The first failing test/command usually wins (highest signal).
+     - If the review found a "critical" security/correctness problem, fix it before or alongside the tests.
+   - Prefer a fix that:
+     - Changes the smallest surface area
+     - Preserves the API/contract unless explicitly approved
+     - Adds or adjusts a test when fixing a bug (where feasible)
 
-### 2b. 审查该找什么（测试照不到的那一类）
+4. **Apply the fix**
+   - Implement the patch.
+   - Avoid unrelated formatting or churn.
+   - If the fix requires a risky change (architecture migration, authentication change, broad refactor), pause and ask.
 
-测试绿而问题仍在时，问题几乎总是同一种形状：**零件都对、装配处出错、失败是安静的**。
-逐文件通读很难看见它们——要按下面几类去找，每类都给出「怎么找」和「为什么它不会被测出来」。
+5. **Re-run the minimal verification**
+   - If the framework supports it, re-run the most relevant subset of failing tests; otherwise re-run the same test command.
+   - If fixed, proceed to the next remaining failure/finding within the same iteration only if it is trivial; otherwise move to the next loop iteration.
 
-| 找什么 | 怎么找 | 为什么测试照不到 |
+6. **Stop early once converged**
+   - Stop when the tests pass and no "critical"/"major" review findings remain.
+   - **But "the tests were green from the start" is not convergence**. Green only says the existing
+     assertions were not broken; it says nothing about whether this batch of changes is sound — a unit test
+     verifies the behavior of a part, and it cannot see what goes wrong between parts or at real scale. When
+     the repository arrives green, all of the loop's forward motion sits in the review half: **convergence
+     requires at least one complete review pass (see "What to look for in review")**. Skipping it and
+     declaring the repo clean turns the loop into an idle spin.
+
+### 2b. What to look for in review (the class tests cannot see)
+
+When the tests are green and the problem is still there, it almost always has the same shape: **every part
+is correct, the assembly is wrong, and the failure is silent**. Reading file by file rarely reveals them — hunt
+by the categories below, each of which gives a "how to find it" and a "why the tests miss it".
+
+| What to look for | How to find it | Why the tests miss it |
 | :--- | :--- | :--- |
-| **热路径上的重复工作** | 每请求 / 每消息都走的函数里，同一份数据被读了两次；新加的调用挂在既有的全量加载后面 | 功能完全正确，只是随规模变慢；断言里没有"读了几次" |
-| **验收里写了但没实现的** | 把任务 / 需求的验收条目逐句对着实现读（"带超时**与缓存**"——超时有，缓存呢？） | 测试是照着实现写的，实现漏了什么，测试就一起漏 |
-| **跨层传递时被丢掉的字段** | 一个字段在下层算出来了，跟着它走到最上层，看它在哪一层消失 | 每层的单测各自都过，没有一条跨越那个接缝 |
-| **可选依赖造成的静默降级** | 新增的 `@Optional()` / 可选入参 / `?? 默认值`：漏给的时候会发生什么？ | 漏给不报错，只是行为退回旧路径 |
-| **有上限的批处理不报积压** | 分批任务打满一批时，日志说得出"后面还有"吗？ | 上限本身是对的，只是"看着像做完了" |
-| **建好了没接线** | 新符号除自身与测试外有没有生产调用点（**不算 import 行**） | 零件测试全绿，没有一条问过"谁在用它" |
-| **配置 / 接线只在真机暴露** | 依赖注入、清单登记、路由前缀、载荷字段透传 | 单测直接 `new` 出对象，走不到容器装配那一步 |
+| **Duplicated work on the hot path** | In a function that runs per request / per message, the same data is read twice; a newly added call is hung off an existing full load | The behavior is entirely correct, it only gets slower with scale; no assertion counts how many reads happened |
+| **Written into the acceptance criteria but never implemented** | Read the acceptance items of the task / requirement against the implementation clause by clause ("with a timeout **and a cache**" — the timeout is there, where is the cache?) | The tests were written from the implementation, so whatever the implementation missed, the tests miss too |
+| **A field dropped while crossing layers** | A field is computed in a lower layer; follow it up to the top layer and see which layer it disappears in | Each layer's unit tests pass on their own; not one of them crosses that seam |
+| **Silent degradation from an optional dependency** | A newly added `@Optional()` / optional parameter / `?? default`: what happens when it is not supplied? | Omitting it raises no error, the behavior just falls back to the old path |
+| **A capped batch job that never reports its backlog** | When a batched job fills a batch to the cap, can the log say "there is more behind this"? | The cap itself is correct, it only "looks like it finished" |
+| **Built but never wired up** | Whether a new symbol has a production call site beyond itself and its tests (**import lines do not count**) | The part-level tests are all green; not one of them asks "who uses this" |
+| **Configuration / wiring that only shows up in a real deployment** | Dependency injection, manifest registration, route prefixes, payload field pass-through | The unit tests `new` the object directly and never reach container assembly |
 
-**判读的两条纪律**：
+**Two disciplines for reading the results**:
 
-- **某条判据命中率极高，先怀疑判据太严，而不是产出有问题。**
-- **零误报要看分母。** 在一批近乎空白的样本上"零命中"证明不了任何事——分母虚高的零误报，
-  比没有数据更容易让人误判。
+- **When one criterion hits at an extremely high rate, suspect the criterion is too strict rather than the output.**
+- **A zero false-positive rate means nothing without its denominator.** "Zero hits" across a batch of
+  near-empty samples proves nothing — a zero false-positive rate over an inflated denominator misleads
+  more easily than having no data at all.
 
-### 3.停止条件（不得永远循环）
+### 3. Stop conditions (must not loop forever)
 
-如果发生任何情况，请停止并向用户询问方向：
+Stop and ask the user for direction if any of the following happens:
 
-- **没有进展**：同样的失败重复了 2 次迭代，没有新信息。
-- **环境拦截器**：缺少工具链、缺少机密或不可用的依赖项（DB/Docker）并且用户尚未批准所需的设置。
-- **不稳定测试**：怀疑不确定性故障（例如，在没有更改的情况下重试）。
-- **达到迭代限制**：`max_iterations` 已耗尽，剩余失败。
+- **No progress**: the same failure repeats for 2 iterations with no new information.
+- **Environment blocker**: a missing toolchain, a missing secret, or an unavailable dependency (DB/Docker), with the setup it needs not yet approved by the user.
+- **Flaky tests**: a nondeterministic failure is suspected (for example, a retry passes with nothing changed).
+- **Iteration limit reached**: `max_iterations` is exhausted and failures remain.
 
-停止时，提供最短路径选项：
+When stopping, offer the shortest-path options:
 
-- 运行不同的测试模式（`fast` -> `ci` -> `full`）
-- 允许安装/网络/Docker
-- 范围狭窄（仅修复第一个失败的测试）
-- 增加迭代限制
+- Run a different test mode (`fast` -> `ci` -> `full`)
+- Allow install/network/Docker
+- Narrow the scope (fix only the first failing test)
+- Raise the iteration limit
 
-### 报告持久性
+### Report persistence
 
-默认情况下不要编写独立的报告文件。如果用户明确要求保留，请写入从项目规范解析的路径，或默认为“docs/calibration/repair-loop.md”并覆盖规范文件，除非明确请求快照。
-
----
-
-## 输入与输出 (Input & Output)
-
-### 输入 (Input)
-
-- 目标路径（默认`.`）
-- 范围：“diff”（默认）或“codebase”（+ 路径）
-- 测试模式：`fast`（默认）、`ci`、`full`
-- 约束：允许安装/网络/Docker/服务（是/否）
-- `max_iterations`（默认为`5`）
-- 可选：时间预算
-
-### 输出 (Output)
-
-- **修复循环报告**：
-  - 完成使用的定义
-  - 证据来源（哪些文件/CI 配置告知测试计划）
-  - 对于每次迭代：
-    - 测试命令运行和结果
-    - 第一次失败摘录（如果有）
-    - 所做的更改（触及的文件+意图）
-    - 剩余的失败/发现
-  - 最终状态：
-    - 测试通过（哪个命令）
-    - 剩余的审查项目（如果有）以及它们是否被阻止
+By default, do not write a standalone report file. If the user explicitly asks for it to be kept, write to the path resolved from the project norms, or default to `docs/calibration/repair-loop.md` and overwrite the canonical file, unless a snapshot is explicitly requested.
 
 ---
 
-## 限制 (Restrictions)
+## Input & Output
 
-### 硬边界（Hard Boundaries）
+### Input
 
-- 超出代码修改范围的操作（安装依赖项、网络请求、启动 Docker/服务）执行前需要明确确认——这些是合理的修复操作，但需要用户知情同意；不要不声不响地执行。
-- 不要要求用户将凭据粘贴到对话中。优先使用本地环境文件或已文档化的开发流程。
-- 不要通过禁用测试、削弱断言或删除覆盖范围来“修复”，除非用户明确批准并且权衡已记录在案。
-- 避免默认进行大型重构；优先考虑能够解锁正确性的最小补丁。
-- 将更改范围保持在目标存储库范围内；不要修改不相关的同级存储库。
+- Target path (default `.`)
+- Scope: `diff` (default) or `codebase` (+ paths)
+- Test mode: `fast` (default), `ci`, `full`
+- Constraints: install/network/Docker/services allowed (yes/no)
+- `max_iterations` (default `5`)
+- Optional: a time budget
 
-### 技能边界 (Skill Boundaries)（避免重叠）
+### Output
 
-**不要做这些（其他技能可以处理它们）**：
-
-- **仅测试执行**（无审查或修复循环）：使用“run-automated-tests”
-- **测试质量评估**（覆盖范围、结构、边缘情况充分性）：使用“审查测试”
-- **全面的代码审查**（无测试修复迭代）：使用“orchestrate-code-review”
-- **仅差异审查**（没有测试执行或修复迭代）：使用 `review-diff`
-- **从头开始编写新测试**（不修复现有故障）：使用开发技能
-
-**何时停止并交接**：
-
-- 循环收敛（测试通过，没有阻塞发现）→ 当前修复环路报告并停止
-- 遇到停止条件（无进展、环境阻碍、不稳定测试、迭代限制）→ 显示选项并等待用户指示
-- 用户请求一次性代码审查而不修复 → 移交给“orchestrate-code-review”或“review-diff”
-- 用户要求仅运行测试而不修复 → 移交给“run-automated-tests”
+- **Repair-loop report**:
+  - The definition of done used
+  - Evidence sources (which files/CI config informed the test plan)
+  - For each iteration:
+    - The test command run and its result
+    - The first-failure excerpt (if any)
+    - The changes made (files touched + intent)
+    - Remaining failures/findings
+  - Final state:
+    - Tests passing (under which command)
+    - Remaining review items (if any) and whether they are blocking
 
 ---
 
-## 自检（Self-Check）
+## Restrictions
 
-### 核心成功标准
+### Hard Boundaries
 
-- [ ] **完成解析的定义**：在循环开始之前确认预检选择（范围、测试模式、最大迭代次数、允许的操作）
-- [ ] **每次迭代证据优先**：每次迭代至少产生以下之一：新的测试结果、新的审查信号或具体的代码更改
-- [ ] **绿仓不算收敛**：仓库进来就是绿的时，至少完整跑过一轮审查（§2b）才宣布干净
-- [ ] **优先用既有审查技能**：自己内联审查前先试着调；改走内联时在报告里写明
-- [ ] **修复后重新运行测试**：在同一迭代中应用修复后，失败的测试命令（或目标子集）始终重新运行
-- [ ] **有界循环**：循环由于收敛或显式停止条件而终止 - 没有无限重试
-- [ ] **结构化最终报告**：输出包括修复循环报告（附录：输出合约），其中包含命令运行、故障、补丁和剩余风险
+- An action beyond modifying code (installing a dependency, a network request, starting Docker/services) needs explicit confirmation before it runs — these are reasonable repair actions, but they need the user's informed consent; do not carry them out quietly.
+- Do not ask the user to paste credentials into the conversation. Prefer a local env file or the documented development workflow.
+- Do not "fix" by disabling tests, weakening assertions, or deleting coverage, unless the user explicitly approves and the trade-off is recorded.
+- Avoid large refactors by default; prefer the smallest patch that unblocks correctness.
+- Keep the change scope inside the target repository; do not modify unrelated sibling repositories.
 
-### 流程质量检查
+### Skill Boundaries (avoid overlap)
 
-- [ ] **最小补丁表面**：每个修复仅涉及解决已识别问题所需的文件 - 没有不相关的格式或改动。
-- [ ] **不稳定的测试意识**：检测到非确定性故障（例如，在不更改代码的情况下传递重试）并进行标记，而不是盲目地“修复”。
-- [ ] **应用了风险更改暂停**：架构迁移、身份验证更改或广泛的重构在继续之前触发了明确的用户确认。
-- [ ] **每次迭代跟踪的进度**：每个迭代日志都显示一个清晰的增量（新信号或新修复） - 没有空洞的迭代。
+**Do not do these (other skills handle them)**:
 
-### 验收测试
+- **Test execution only** (no review, no repair loop): use `run-automated-tests`
+- **Test quality assessment** (coverage, structure, edge-case adequacy): use `review-testing`
+- **Full code review** (no test-fix iteration): use `orchestrate-code-review`
+- **Diff review only** (no test execution, no fix iteration): use `review-diff`
+- **Writing new tests from scratch** (rather than fixing existing failures): use a development skill
 
-最终报告是否显示（a）测试通过且没有阻止审查结果，或（b）明确的停止条件，并为用户提供明确的剩余问题和选项？
+**When to stop and hand off**:
+
+- The loop converges (tests pass, no blocking findings) → present the repair-loop report and stop
+- A stop condition is hit (no progress, environment blocker, flaky tests, iteration limit) → show the options and wait for the user's direction
+- The user asks for a one-off code review without fixes → hand off to `orchestrate-code-review` or `review-diff`
+- The user asks only to run the tests without fixing → hand off to `run-automated-tests`
 
 ---
 
-## 示例 (Examples)
+## Self-Check
 
-### 示例 1：修复 Node 存储库中失败的单元测试
+### Core success criteria
 
-用户：“让测试通过。继续修复直到绿色。”
+- [ ] **Definition of done resolved**: the preflight choices (scope, test mode, max iterations, allowed actions) are confirmed before the loop starts
+- [ ] **Evidence first in every iteration**: each iteration produces at least one of a new test result, a new review signal, or a concrete code change
+- [ ] **A green repo is not convergence**: when the repository arrives green, one complete review pass (§2b) is run before it is declared clean
+- [ ] **Prefer the existing review skills**: try to invoke one before reviewing inline; when switching to inline, say so in the report
+- [ ] **Tests re-run after a fix**: once the fix is applied within an iteration, the failing test command (or a targeted subset) is always re-run
+- [ ] **Bounded loop**: the loop terminates on convergence or on an explicit stop condition - no unbounded retrying
+- [ ] **Structured final report**: the output includes a repair-loop report (appendix: output contract) covering the commands run, the failures, the patches, and the remaining risk
 
-代理：
+### Process quality checks
 
-1. 预检：scope=`diff`，测试模式=`fast`，max_iterations=5；确认允许安装（`npm ci`）并且允许网络。
-2. 迭代 1：运行 `npm test`，修复第一个失败的测试，重新运行 `npm test`。
-3. 迭代 2：运行 `review-diff` 以捕获修复引入的边缘情况；重新运行`npm test`。
-4. 当“npm test”通过并且没有重大审查结果时停止。
+- [ ] **Minimal patch surface**: each fix touches only the files needed to solve the identified problem - no unrelated formatting or churn.
+- [ ] **Flaky-test awareness**: a nondeterministic failure (for example, a retry that passes with no code change) is detected and flagged rather than blindly "fixed".
+- [ ] **Risky-change pause applied**: an architecture migration, an authentication change, or a broad refactor triggered an explicit user confirmation before proceeding.
+- [ ] **Progress tracked per iteration**: every iteration log shows a clear delta (a new signal or a new fix) - no empty iterations.
 
-### 示例 2（边缘情况）：集成测试需要 Docker 和密钥
+### Acceptance test
 
-用户：“镜像 CI 并修复故障。”
+Does the final report show either (a) tests passing with no blocking review findings, or (b) an explicit stop condition, with the remaining problems and the options open to the user stated clearly?
 
-代理：
+---
 
-1. 预检：建议测试模式=`ci`，但检测 CI 使用 `docker compose` 和 env 密钥。
-2. 触发停止条件：环境拦截器（Docker + 机密未批准/不可用）。
-3. 要求用户选择：
-   - 仅在本地运行“快速”单元测试，或者
-   - 允许 Docker 并提供非聊天秘密工作流，或者
-   - 仅运行不需要机密的失败 CI 作业步骤。
+## Examples
+
+### Example 1: fix a failing unit test in a Node repository
+
+User: "Make the tests pass. Keep fixing until it is green."
+
+Agent:
+
+1. Preflight: scope=`diff`, test mode=`fast`, max_iterations=5; installing (`npm ci`) and network access are confirmed as allowed.
+2. Iteration 1: run `npm test`, fix the first failing test, re-run `npm test`.
+3. Iteration 2: run `review-diff` to catch edge cases introduced by the fix; re-run `npm test`.
+4. Stop once `npm test` passes and no major review findings remain.
+
+### Example 2 (edge case): the integration tests need Docker and secrets
+
+User: "Mirror CI and fix the failures."
+
+Agent:
+
+1. Preflight: test mode=`ci` is suggested, but CI is detected to use `docker compose` and env secrets.
+2. A stop condition fires: environment blocker (Docker + secrets not approved/unavailable).
+3. Ask the user to choose:
+   - Run only the `fast` unit tests locally, or
+   - Allow Docker and provide a non-chat secrets workflow, or
+   - Run only the failing CI job steps that do not need secrets.

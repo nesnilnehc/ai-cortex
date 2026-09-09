@@ -43,7 +43,7 @@ status: active
 | 3. Authoritative sources | Cut to 3–4 entries: spec, INDEX/manifest, rules, principles; one line and a link each | 6–8 |
 | 4. Expected behaviour | 4 numbered, actionable entries (must / should / must not); one sentence each, with a link where useful | 8–10 |
 | 5. Discovery and self-reference | One summary paragraph: the asset root, discovery (read INDEX/manifest), injection (the full SKILL text), self-reference (manifest capabilities); the detail lives in a docs/ page | 6–8 |
-| 6. Language | One line: Chinese first, see LANGUAGE_SCHEME | 2–3 |
+| 6. Language and communication | One line: Chinese first, see LANGUAGE_SCHEME | 2–3 |
 | 7. Reference | A table: spec, raw, conventions, directories, a trimmed self-reference task-to-skill mapping, and the local commands (verify, skill:check) | 15–20 |
 
 ---
@@ -54,7 +54,7 @@ The following was removed from AGENTS.md and moved to the document named:
 
 | Content | Moved to | Why |
 | :--- | :--- | :--- |
-| The detailed match priority (intent, triggers, semantic fallback) | docs/guides/discovery-and-loading.md, newly created, or an addition to intent-routing.md | Detail does not belong in the entry point |
+| The detailed match priority (intent, triggers, semantic fallback and the like) | docs/guides/discovery-and-loading.md, newly created, or an addition to intent-routing.md | Detail does not belong in the entry point |
 | The proactive suggestion table, stage to skill | skills/intent-routing.md or docs/guides/proactive-suggestions.md | The table is long and is maintained on its own |
 | The invocation examples | Keep a trimmed 3-line version, or move them to INDEX or intent-routing | Decided by the final length |
 | The long list of authoritative sources | Compressed to 3–4 entries, with the full list in AUDIENCE_AND_SCOPE or a new document | Avoids duplication |
@@ -76,7 +76,7 @@ The following was removed from AGENTS.md and moved to the document named:
 ## 6. Acceptance criteria
 
 - [x] AGENTS.md is 60–80 lines in total (73 lines)
-- [x] The 7-section structure is kept: opening, identity, authority, behaviour, discovery, language, reference
+- [x] The 7-section structure is kept: opening, identity, authority, behaviour, discovery, language and communication, reference
 - [x] No user-facing content, such as installation or usage instructions
 - [x] The detail has moved out to docs/guides/discovery-and-loading.md and proactive-suggestions.md
 - [x] The local command table keeps the commands iteration needs, verify and skill:check among them

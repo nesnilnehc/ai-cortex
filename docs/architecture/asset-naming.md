@@ -100,7 +100,7 @@ decontextualize-<noun>       e.g. decontextualize-text
 
 ### 4.4 Counter-examples
 
-- ❌ `code-review` — noun-verb, the wrong way round; it is `orchestrate-code-review`
+- ❌ `code-review` — noun-verb, the wrong way round; it should be `orchestrate-code-review`
 - ❌ `documentation` — a bare noun, with no action visible
 - ❌ `ts-review` — an opaque abbreviation
 

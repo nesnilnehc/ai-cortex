@@ -12,13 +12,13 @@ status: active
 
 Language: the project's language rules are in [docs/LANGUAGE_SCHEME.md](LANGUAGE_SCHEME.md).
 
-This document defines the single authoritative path for each generated artifact. Unless the user explicitly asks for a snapshot, a skill overwrites the canonical file at the path below.
+This document defines the single authoritative path for each generated artifact. Unless the user explicitly asks for a snapshot, a skill should overwrite the canonical file at the path below.
 
 ---
 
 ## The single-source-of-truth principle
 
-The definition and canonical source of each artifact type are fixed below. Any other document touching the same information cites and adds to it rather than restating it.
+The definition and canonical source of each artifact type are fixed below. Any other document touching the same information should cite and add to it rather than restating it.
 
 ### Canonical sources
 
@@ -70,7 +70,7 @@ The `backlog/` directory holds backlog-items named `YYYY-MM-DD-{slug}.md` and no
 
 ## Timestamp policy
 
-A timestamp in a filename, in YYYY-MM-DD or YYYYMMDD form, follows the rules below, which keep unnecessary timestamps from spreading:
+A timestamp in a filename, in YYYY-MM-DD or YYYYMMDD form, should follow the rules below, which keep unnecessary timestamps from spreading:
 
 | Artifact type | Timestamp | Form | Why |
 | :--- | :--- | :--- | :--- |

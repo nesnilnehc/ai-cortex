@@ -17,161 +17,161 @@ output_schema:
   description: Decontextualized text that preserves logic while removing organizational identifiers
 ---
 
-# 技能 (Skill)：去语境化文本 (Decontextualize Text)
+# Skill: Decontextualize Text
 
-## 目的 (Purpose)
+## Purpose
 
-将**依赖于私人上下文、隐含假设或特定环境细节**的内容转变为**通用、可重用的措辞**。主要场景：**项目去语境化** — 准备一个用于转交、开源或跨组织使用的项目。通过删除或替换特定标识符（包括文本中出现的路径字符串和文件/文件夹名称），可以在不同的上下文中正确理解内容，同时保护组织隐私。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：生成去上下文的文本，保留核心逻辑和结构，同时删除所有组织标识符和私人上下文。
-
-**成功标准**（必须满足所有要求）：
-
-1. ✅ **替换所有敏感术语**：公司名称、项目代号、内部 URL、人员姓名、路径字符串以及具有内部上下文的文件/文件夹名称均被识别并替换为通用等效项
-2. ✅ **保留核心逻辑**：所做的事情和原因的本质保持不变；没有功能信息丢失
-3. ✅ **内容是独立的**：文本无需原始上下文即可完全理解；隐含的假设被明确化或删除
-4. ✅ **保留结构**：Markdown 格式、段落结构、逻辑层次和功能指令保持不变
-5. ✅ **无重新识别残留物**：输出不包含任何可以重新识别组织或个人的内容（没有唯一 ID、内部流程编号、非公开术语）
-
-**验收测试**：来自不同组织的人可以在不询问有关原始上下文的澄清问题的情况下理解和使用此内容吗？
+Turn content that **depends on private context, implicit assumptions, or environment-specific details** into **generic, reusable wording**. Primary scenario: **project decontextualization** — preparing a project for handoff, open-source, or cross-org use. By removing or replacing specific identifiers (including path strings and file/folder names as they appear in text), the content can be understood correctly in different contexts while protecting organizational privacy.
 
 ---
 
-## 使用场景 (Use Cases)
+## Core Objective
 
-- **项目去语境化**：准备一个用于转交或开源的项目——去上下文化文档、自述文件、评论；将路径字符串和文件/文件夹名称（如文本中所示）替换为通用等效项（例如 `acme-internal/config.yaml` → `project-root/config.yaml`）。
-- **泛化**：将特定项目的经验教训转化为通用方法或最佳实践。
-- **跨团队协作**：删除只有一个团队理解的术语或代号，以便其他人无需额外上下文即可阅读文档。
-- **去识别化**：在分享案例研究或博客文章之前，删除敏感的项目名称、人员和内部地址。
-- **发布准备**：在外部发布内部内容之前的最终清理（例如开源、转交）。
-- **文档同步**：分叉或合并跨组织存储库后，清理过时的特定于环境的描述。
+**Primary Goal**: Produce decontextualized text that preserves core logic and structure while removing all organizational identifiers and private context.
 
-**何时使用**：当您需要消除“由于环境差异而造成的理解障碍”或“信息安全边界”时。
+**Success Criteria** (ALL must be met):
 
----
+1. ✅ **All sensitive terms replaced**: Company names, project codenames, internal URLs, people's names, path strings, and file/folder names with internal context are identified and replaced with generic equivalents
+2. ✅ **Core logic preserved**: The essence of what is done and why remains intact; no functional information is lost
+3. ✅ **Content is standalone**: Text is fully understandable without the original context; implicit assumptions are made explicit or removed
+4. ✅ **Structure preserved**: Markdown formatting, paragraph structure, logic hierarchy, and functional instructions remain unchanged
+5. ✅ **No re-identification residue**: Output contains nothing that could re-identify an organization or person (no unique IDs, internal process numbers, non-public terms)
 
-## 行为 (Behavior)
-
-### 原则（原则）
-
-- 保留**做了什么**和**为什么**。
-- 删除**谁**、**地点**和**哪些内部条件**。
-- 用通用描述替换专有名词（例如“内部系统”、“给定的工作流程”）。
-- 明确隐含的假设或放弃它们。
-
-### 交互（Interaction）政策
-
-- **不确定术语**：当您发现可能敏感或内部术语（例如不清楚的缩写、内部服务器名称）时，**列出它们**并要求用户在重写之前确认。
-- **替代方案**：对于核心逻辑，提供2-3个不同抽象级别的重写选项供用户选择。
-
-### 步骤 (Steps)
-
-1. **识别敏感术语**：扫描包含内部上下文的公司名称、项目代号、内部 URL、人员姓名、**路径字符串**和**文件/文件夹名称**（例如 `acme-internal/`、`team-alpha-output/`）。
-2. **提取核心逻辑**：确定步骤的本质（例如“JIRA批准”→“任务状态变更审核”）。
-3. **一般性重写**：对已识别的部分使用中性措辞。
-4. **保留结构**：保留段落结构和能力边界；不要丢弃信息。
+**Acceptance Test**: Can someone from a different organization understand and use this content without asking clarifying questions about the original context?
 
 ---
 
-## 输入与输出 (Input & Output)
+## Use Cases
 
-### 输入 (Input)
+- **Project decontextualization**: Prepare a project for handoff or open-source — decontextualize docs, README, comments; replace path strings and file/folder names (as they appear in text) with generic equivalents (e.g. `acme-internal/config.yaml` → `project-root/config.yaml`).
+- **Generalization**: Turn project-specific lessons into generic methodology or best practices.
+- **Cross-team collaboration**: Remove jargon or codenames that only one team understands so others can read the doc without extra context.
+- **De-identification**: Before sharing case studies or blog posts, strip sensitive project names, people, and internal addresses.
+- **Release preparation**: Final cleanup before publishing internal content externally (e.g. open source, handoff).
+- **Doc sync**: After forking or merging cross-org repos, clean up outdated environment-specific descriptions.
 
-- 包含以下一项或多项的文本：
-  - 组织、公司、项目或系统名称。
-  - **携带内部上下文的路径字符串和文件/文件夹名称**（例如 `acme-internal/config.yaml`、`team-alpha/output/`）。
-  - 内部约定、隐式上下文或默认假设。
-  - 仅在特定环境中成立的过程或假设。
-
-### 输出 (Output)
-
-- **通用版本**：删除或替换私有上下文的文本。
-- **保留结构**：必须保留逻辑层次结构、Markdown 和功能指令。
-- **可重用**：输出应该无需额外上下文即可使用。
+**When to use**: When you need to remove “understanding barriers due to environment differences” or “information security boundaries.”
 
 ---
 
-## 限制 (Restrictions)
+## Behavior
 
-### 硬边界（Hard Boundaries）
+### Principles
 
-- **无发明**：不要发明原始内容中没有的上下文或功能。
-- **无推论**：不要添加未陈述的事实或结论。
-- **无新语义**：不引入新的业务含义。
-- **无残留**：不要留下任何可以重新识别组织或个人的东西（例如唯一 ID、内部流程编号、非公开术语）。
+- Keep **what is done** and **why**.
+- Remove **who**, **where**, and **which internal conditions**.
+- Replace proper nouns with generic descriptions (e.g. “internal system”, “a given workflow”).
+- Make implicit assumptions explicit or drop them.
 
-### 技能边界 (Skill Boundaries)（避免重叠）
+### Interaction policy
 
-**不要做这些（其他技能可以处理它们）**：
+- **Uncertain terms**: When you spot possibly sensitive or internal terms (e.g. unclear abbreviations, internal server names), **list them** and ask the user to confirm before rewriting.
+- **Alternatives**: For core logic, offer 2–3 rewrite options at different abstraction levels for the user to choose.
 
-- **文档生成**：从头开始创建新的 README 或项目文档 → 使用 `generate-standard-readme`
-- **内容写作**：编写原创内容或文档 → 使用写作/文档技能
-- **代码重构**：更改代码结构或变量名称→使用代码重构技巧
-- **翻译**：在人类语言之间转换文本→使用翻译技巧
-- **总结**：在保留上下文的同时压缩内容 → 使用摘要技能（此技能会删除上下文，而不是压缩它）
+### Steps
 
-**何时停止并交接**：
-
-- 用户问“你能为此生成一个自述文件吗？” → 移交给“生成标准自述文件”
-- 用户问“你能写文档吗？” → 交给文档写作技巧
-- 用户提供去上下文化的代码 → 仅关注注释和字符串；针对代码结构中的标识符提出代码重构技巧
-- 内容已经是通用的 → 不需要脱离语境；与用户确认并完成
+1. **Identify sensitive terms**: Scan for company names, project codenames, internal URLs, people’s names, **path strings**, and **file/folder names** that carry internal context (e.g. `acme-internal/`, `team-alpha-output/`).
+2. **Extract core logic**: Identify the essence of the steps (e.g. “JIRA approval” → “task state change review”).
+3. **Rewrite generically**: Use neutral wording for the identified parts.
+4. **Preserve structure**: Keep paragraph structure and capability boundaries; do not drop information.
 
 ---
 
-## 自检（Self-Check）
+## Input & Output
 
-### 核心成功标准（必须满足所有标准）
+### Input
 
-- [ ] **所有敏感术语均已替换**：公司名称、项目代号、内部 URL、人员姓名、路径字符串以及具有内部上下文的文件/文件夹名称均已识别并替换为通用等效项
-- [ ] **保留核心逻辑**：所做的事情和原因的本质保持不变；没有功能信息丢失
-- [ ] **内容可独立理解**：文本无需原始上下文即可完全理解；隐含假设已明确化或删除
-- [ ] **保留结构**：Markdown 格式、段落结构、逻辑层次和功能指令保持不变
-- [ ] **无重新识别残留物**：输出不包含任何可以重新识别组织或个人的内容（无唯一 ID、内部流程编号、非公开术语）
+- Text that has one or more of:
+  - Organization, company, project, or system names.
+  - **Path strings and file/folder names** that carry internal context (e.g. `acme-internal/config.yaml`, `team-alpha/output/`).
+  - Internal conventions, implicit context, or default assumptions.
+  - Processes or assumptions that only hold in a specific environment.
 
-### 流程质量检查
+### Output
 
-- [ ] **确认不确定的术语**：当发现可能敏感或内部术语（不清楚的缩写、内部服务器名称）时，我是否列出它们并要求用户在重写之前确认？
-- [ ] **提供的替代方案**：对于核心逻辑重写，我是否提供了2-3个不同抽象级别的重写选项供用户选择？
-- [ ] **没有发明**：我是否避免发明原始内容中没有的上下文或功能？
-- [ ] **无推论**：我是否避免添加原文中未陈述的事实或结论？
-
-### 验收测试
-
-**来自不同组织的人可以在不询问有关原始上下文的澄清问题的情况下理解和使用此内容吗？**
-
-如果否：去情境化不完整。检查剩余的上下文依赖性或不清楚的通用术语。
-
-如果是：去情境化已完成。
+- **Generic version**: Text with private context removed or replaced.
+- **Structure preserved**: Logic hierarchy, Markdown, and functional instructions must be preserved.
+- **Reusable**: Output should be usable without extra context.
 
 ---
 
-## 示例 (Examples)
+## Restrictions
 
-### 示例 1：内部流程 → 通用
+### Hard Boundaries
 
-|原创|脱离语境 |
-| ------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-|在Acme的JIRA工作流程中，当需求进入“Tech Review”时，运行X团队的Checklist，然后通知PM李四。 |当需求进入“技术审核”阶段时，运行定义的检查表并通知相关产品负责人。 |
+- **No invention**: Do not invent context or capabilities not in the original.
+- **No inference**: Do not add facts or conclusions not stated.
+- **No new semantics**: Do not introduce new business meaning.
+- **No residue**: Do not leave anything that can re-identify an organization or person (e.g. unique IDs, internal process numbers, non-public terms).
 
-### 示例 2：系统和 API → 中性
+### Skill Boundaries (Avoid Overlap)
 
-|原创|脱离语境 |
-| ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
-|通过我们公司LLM网关（api.acme.internal）调用gpt-4，超时30s。 |通过LLM API调用模型；设置合理的超时时间（例如 30 秒）。 |
+**Do NOT do these (other skills handle them)**:
 
-### 示例 3：团队特定规则 → 摘要
+- **Documentation generation**: Creating new README files or project documentation from scratch → Use `generate-standard-readme`
+- **Content writing**: Writing original content or documentation → Use writing/documentation skills
+- **Code refactoring**: Changing code structure or variable names → Use code refactoring skills
+- **Translation**: Converting text between human languages → Use translation skills
+- **Summarization**: Condensing content while keeping context → Use summarization skills (this skill removes context, not condenses it)
 
-|原创|脱离语境 |
-| -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-|根据 Kiro 团队政策，Python 必须通过分数 ≥ 9.0 的“pylint”才能合并到“master”。 |根据代码质量策略，代码应通过静态检查（例如“pylint”）并在合并到主分支之前满足所需的阈值。 |
+**When to stop and hand off**:
 
-### 示例 4：文档中的路径和文件/文件夹名称
+- User asks "can you generate a README for this?" → Hand off to `generate-standard-readme`
+- User asks "can you write documentation?" → Hand off to documentation writing skills
+- User provides code to decontextualize → Focus on comments and strings only; suggest code refactoring skills for identifiers in code structure
+- Content is already generic → No decontextualization needed; confirm with user and complete
 
-|原创|脱离语境 |
+---
+
+## Self-Check
+
+### Core Success Criteria (ALL must be met)
+
+- [ ] **All sensitive terms replaced**: Company names, project codenames, internal URLs, people's names, path strings, and file/folder names with internal context are identified and replaced with generic equivalents
+- [ ] **Core logic preserved**: The essence of what is done and why remains intact; no functional information is lost
+- [ ] **Content is standalone**: Text is fully understandable without the original context; implicit assumptions are made explicit or removed
+- [ ] **Structure preserved**: Markdown formatting, paragraph structure, logic hierarchy, and functional instructions remain unchanged
+- [ ] **No re-identification residue**: Output contains nothing that could re-identify an organization or person (no unique IDs, internal process numbers, non-public terms)
+
+### Process Quality Checks
+
+- [ ] **Uncertain terms confirmed**: When spotting possibly sensitive or internal terms (unclear abbreviations, internal server names), did I list them and ask the user to confirm before rewriting?
+- [ ] **Alternatives offered**: For core logic rewrites, did I offer 2-3 rewrite options at different abstraction levels for the user to choose?
+- [ ] **No invention**: Did I avoid inventing context or capabilities not in the original?
+- [ ] **No inference**: Did I avoid adding facts or conclusions not stated in the original?
+
+### Acceptance Test
+
+**Can someone from a different organization understand and use this content without asking clarifying questions about the original context?**
+
+If NO: Decontextualization is incomplete. Review for remaining context dependencies or unclear generic terms.
+
+If YES: Decontextualization is complete.
+
+---
+
+## Examples
+
+### Example 1: Internal Process → Generic
+
+| Original                                                                                                        | Decontextualized                                                                                                    |
+| --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| In Acme’s JIRA workflow, when a requirement enters “Tech Review”, run X team’s Checklist, then notify PM Li Si. | When a requirement enters the “Tech Review” stage, run the defined Checklist and notify the relevant product owner. |
+
+### Example 2: System and API → Neutral
+
+| Original                                                                 | Decontextualized                                                    |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------- |
+| Call gpt-4 via our company LLM Gateway (api.acme.internal), timeout 30s. | Call the model via an LLM API; set a reasonable timeout (e.g. 30s). |
+
+### Example 3: Team-Specific Rule → Abstract
+
+| Original                                                                                     | Decontextualized                                                                                                                           |
+| -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Per Kiro team policy, Python must pass `pylint` with score ≥ 9.0 before merging to `master`. | Per code quality policy, code should pass static checks (e.g. `pylint`) and meet the required threshold before merging to the main branch. |
+
+### Example 4: Path and File/Folder Names in Docs
+
+| Original                                                                         | Decontextualized                                                                                 |
 | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-|配置位于“acme-internal/settings.yaml”中。输出进入“team-alpha/output/”。 |配置位于“project-root/settings.yaml”（或“config/settings.yaml”）中。输出转到“输出/”。 |
+| Config is in `acme-internal/settings.yaml`. Output goes to `team-alpha/output/`. | Config is in `project-root/settings.yaml` (or `config/settings.yaml`). Output goes to `output/`. |

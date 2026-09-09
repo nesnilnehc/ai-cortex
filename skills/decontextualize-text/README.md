@@ -4,7 +4,7 @@
 
 ## Purpose
 
-Converts text that carries private context or internal dependencies into generic, unbiased wording. Keeps what was done and why; drops the people, the places, and the internal terms. Replaces proper nouns with generic descriptions fit for method abstraction, cross-team sharing, anonymization, or public release.
+Converts text that carries private context or internal dependencies into generic, unbiased wording. Keeps what was done and why; drops the people, the places, and the internal circumstances. Replaces proper nouns with generic descriptions fit for method abstraction, cross-team sharing, anonymization, or public release.
 
 ## When to use
 

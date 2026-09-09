@@ -9,7 +9,7 @@ Analyzes how the target repository runs automated tests (docs, CI workflows, and
 ## When to use
 
 - You need the correct test command without guessing.
-- You want a safe default run (unit tests first) before reaching for integration/e2e.
+- You want a safe default run (unit tests first) when reaching for integration/e2e.
 - You want to reproduce the CI test run locally.
 
 ## Inputs

@@ -19,133 +19,133 @@ output_schema:
   description: Aggregated, deduplicated findings with risk signals from all executed atomic skills
 ---
 
-# 编排技能：代码审查（Orchestrate Code Review）
+# Orchestrator Skill: Orchestrate Code Review
 
-## 目的 (Purpose)
+## Purpose
 
-按固定顺序串联原子 review-* 技能并聚合 findings。本技能仅做编排，不执行代码分析。单维度审查请直接调用对应原子技能（如仅查 diff 用 `review-diff`、仅查安全用 `review-security`）。
-
----
-
-## 编排职责（Orchestrator Role）
-
-按命名规范，编排技能**只做 4 件事**：
-
-1. **检测上下文**：根据用户意图与项目状态确定 scope（diff / codebase）、语言、框架
-2. **串联调用**：按固定顺序 scope → language → framework → library → cognitive 执行原子 review-* 技能
-3. **halt-on-failure**：任一原子技能失败时停止后续，汇报已收集 findings
-4. **聚合输出**：合并 findings、去重（位置 + 标题相同保留最高严重度）、机械派生 risk_signals
-
-**严禁**：在本技能内执行代码分析、内嵌 lint 规则、为单一原子 skill 重复实现其逻辑。
+Chain the atomic review-* skills in a fixed order and aggregate their findings. This skill orchestrates only; it runs no code analysis. For a single-dimension review, call the matching atomic skill directly (`review-diff` for the diff alone, `review-security` for security alone).
 
 ---
 
-## 执行顺序（固定）
+## Orchestrator Role
 
-| 步骤 | 类型 | 候选原子技能 | 选择规则 |
+Under the naming convention, an orchestrator skill **does exactly 4 things**:
+
+1. **Detect context**: determine scope (diff / codebase), language and framework from user intent and project state
+2. **Chain the calls**: run the atomic review-* skills in the fixed order scope → language → framework → library → cognitive
+3. **halt-on-failure**: when any atomic skill fails, stop the remaining steps and report the findings collected so far
+4. **Aggregate output**: merge findings, deduplicate (same location + title keeps the highest severity), derive risk_signals mechanically
+
+**Strictly forbidden**: running code analysis inside this skill, embedding lint rules, reimplementing the logic of a single atomic skill.
+
+---
+
+## Execution Order (Fixed)
+
+| Step | Type | Candidate atomic skills | Selection rule |
 |---|---|---|---|
-| 1 | scope | `review-diff` 或 `review-codebase` | 二选一，按用户意图（diff = 当前变更；codebase = 给定路径） |
-| 2 | language | `review-typescript` / `review-python` / `review-go` / `review-java` / `review-php` / `review-powershell` / `review-dotnet` / `review-sql` | 0 或 1 个，按范围内主语言推断 |
-| 3 | framework | `review-react` / `review-vue` | 0 或 1 个，按范围内框架推断 |
-| 4 | library | `review-orm-usage` | 0 或 1 个，按范围内 ORM 使用情况推断 |
-| 5 | cognitive | `review-security` → `review-performance` → `review-architecture` → `review-testing` | 全部按顺序执行 |
+| 1 | scope | `review-diff` or `review-codebase` | Pick one, by user intent (diff = the current changes; codebase = the given path) |
+| 2 | language | `review-typescript` / `review-python` / `review-go` / `review-java` / `review-php` / `review-powershell` / `review-dotnet` / `review-sql` | 0 or 1, inferred from the dominant language in scope |
+| 3 | framework | `review-react` / `review-vue` | 0 or 1, inferred from the framework in scope |
+| 4 | library | `review-orm-usage` | 0 or 1, inferred from ORM usage in scope |
+| 5 | cognitive | `review-security` → `review-performance` → `review-architecture` → `review-testing` | All of them, in order |
 
-无匹配的步骤跳过；最终报告标注哪些步骤跳过及原因。
-
----
-
-## 行为 (Behavior)
-
-### 步骤 1：检测上下文
-
-- 范围（scope）确认：用户未明示时让其在 `diff` / `codebase` 间二选一
-- diff 模式默认包含未跟踪文件
-- codebase 模式默认仓库根，可指定路径
-- 语言 / 框架推断：从范围内文件后缀与依赖文件（package.json、pyproject.toml 等）推断；不确定时从候选列表让用户选
-
-### 步骤 2：串联调用
-
-按上表顺序依次调用原子技能，每步收集 findings（标准格式：location / category / severity / title / description / suggestion）。
-
-### 步骤 3：halt-on-failure
-
-任一原子技能失败 → 停止后续，输出已收集 findings + 失败说明。
-
-### 步骤 4：聚合输出
-
-- **去重规则**：相同 `location + title` 跨步骤合并，保留最高 severity，在 description 标注其他命中步骤
-- **风险信号**：基于聚合后 findings + 变更上下文做**机械规则映射**（按 severity 分布、文件涉及面、关键词匹配），不做主观判断；无明确信号时输出空列表 `[]`
+A step with no match is skipped; the final report names which steps were skipped and why.
 
 ---
 
-## 输入与输出
+## Behavior
 
-### 输入
+### Step 1: Detect context
 
-- 用户意图（要查 diff / codebase / 指定路径）
-- 可选：语言 / 框架提示
+- Confirm the scope: when the user has not said, have them pick between `diff` and `codebase`
+- diff mode includes untracked files by default
+- codebase mode defaults to the repository root; a path may be given
+- Language / framework inference: infer from the file extensions in scope and from dependency files (package.json, pyproject.toml and the like); when it is unclear, have the user choose from the candidate list
 
-### 输出
+### Step 2: Chain the calls
 
-单一聚合报告：
+Call the atomic skills in the order of the table above, collecting findings at each step (standard format: location / category / severity / title / description / suggestion).
 
-- 各原子技能 findings（按 category 或 location 分组）
-- 跳过步骤说明
-- `risk_signals` 列表（每条含 signal_name + 可选 confidence ∈ [0, 1]）
-- 顶部摘要（按 severity 计数、按 category 计数）
+### Step 3: halt-on-failure
 
----
+Any atomic skill fails → stop the remaining steps, output the findings collected plus an account of the failure.
 
-## 限制 (Restrictions)
+### Step 4: Aggregate output
 
-### 硬边界
-
-- 不在本技能内执行代码分析、lint、规则匹配（违反 orchestrator 4-things 原则）
-- 不改变执行顺序（scope → language → framework → library → cognitive）
-- 不发明 findings；只聚合原子技能产出
-- 不要求每个原子技能输出 risk_signals；风险标签只在聚合阶段产出
-- 不修改代码 / 不实施修复（交给开发或 `orchestrate-repair-loop`）
-
-### 技能边界
-
-**编排技能内不做**（应由原子子技能或下游技能承接）：
-
-- 直接代码分析 → 各原子 review-* 技能
-- 单维度审查 → 直接调用对应原子技能
-- 修复实施 → `orchestrate-repair-loop` 或开发流程
-- 测试编写 → 测试相关技能
+- **Deduplication rule**: merge identical `location + title` across steps, keep the highest severity, and note the other matching steps in the description
+- **Risk signals**: a **mechanical rule mapping** over the aggregated findings plus the change context (severity distribution, file spread, keyword matches), with no subjective judgement; output the empty list `[]` when no signal is clear
 
 ---
 
-## 自检
+## Input and Output
 
-- [ ] 仅做"检测上下文 / 串联调用 / halt-on-failure / 聚合输出" 4 件事
-- [ ] 未在本技能内实现 domain 检测逻辑
-- [ ] scope 已与用户确认
-- [ ] 执行顺序固定（scope → language → framework → library → cognitive）
-- [ ] 跳过步骤已在报告中注明
-- [ ] findings 去重规则已应用（同 location + title 保留最高 severity）
-- [ ] risk_signals 基于聚合 findings 机械派生，无主观判断
+### Input
+
+- User intent (review the diff / the codebase / a given path)
+- Optional: a language / framework hint
+
+### Output
+
+One aggregated report:
+
+- Findings from each atomic skill (grouped by category or location)
+- An account of the skipped steps
+- The `risk_signals` list (each entry carries signal_name plus an optional confidence ∈ [0, 1])
+- A summary at the top (counts by severity, counts by category)
 
 ---
 
-## 示例
+## Restrictions
 
-### 示例 1：.NET 项目 diff 审查
+### Hard boundaries
 
-- 输入：用户说"查我的更改"，项目是 C#
-- 调度：`review-diff` → `review-dotnet` → `review-security` → `review-performance` → `review-architecture` → `review-testing`
-- 跳过：framework / library 步（无匹配）
-- 聚合：单一报告 + risk_signals
+- No code analysis, lint or rule matching inside this skill (it breaks the orchestrator 4-things principle)
+- No change to the execution order (scope → language → framework → library → cognitive)
+- No invented findings; only what the atomic skills produced gets aggregated
+- Atomic skills are not asked to emit risk_signals; risk labels are produced in the aggregation stage alone
+- No code edits / no fixes applied (that goes to the developer or to `orchestrate-repair-loop`)
 
-### 示例 2：Vue 前端 codebase 审查
+### Skill boundaries
 
-- 输入：`src/frontend`，项目使用 Vue 3 + ORM
-- 调度：`review-codebase` → `review-typescript` → `review-vue` → `review-orm-usage` → `review-security` → `review-performance` → `review-architecture` → `review-testing`
-- 聚合：单一报告
+**Not done inside the orchestrator skill** (an atomic sub-skill or a downstream skill takes it):
 
-### 示例 3：边界场景——无语言匹配
+- Direct code analysis → the individual atomic review-* skills
+- Single-dimension review → call the matching atomic skill directly
+- Applying fixes → `orchestrate-repair-loop` or the development process
+- Writing tests → the test-related skills
 
-- 输入：Rust 项目（无对应原子技能）
-- 调度：`review-codebase` → 跳过 language / framework / library → cognitive 全部执行
-- 聚合：报告标注语言 / 框架步跳过及原因
+---
+
+## Self-Check
+
+- [ ] Only the 4 things get done: detect context / chain the calls / halt-on-failure / aggregate output
+- [ ] No domain detection logic was implemented inside this skill
+- [ ] The scope was confirmed with the user
+- [ ] The execution order is fixed (scope → language → framework → library → cognitive)
+- [ ] Skipped steps are noted in the report
+- [ ] The findings deduplication rule was applied (same location + title keeps the highest severity)
+- [ ] risk_signals were derived mechanically from the aggregated findings, with no subjective judgement
+
+---
+
+## Examples
+
+### Example 1: diff review of a .NET project
+
+- Input: the user says "review my changes"; the project is C#
+- Dispatch: `review-diff` → `review-dotnet` → `review-security` → `review-performance` → `review-architecture` → `review-testing`
+- Skipped: the framework / library steps (no match)
+- Aggregation: one report plus risk_signals
+
+### Example 2: codebase review of a Vue frontend
+
+- Input: `src/frontend`; the project uses Vue 3 and an ORM
+- Dispatch: `review-codebase` → `review-typescript` → `review-vue` → `review-orm-usage` → `review-security` → `review-performance` → `review-architecture` → `review-testing`
+- Aggregation: one report
+
+### Example 3: edge case — no language match
+
+- Input: a Rust project (no atomic skill covers it)
+- Dispatch: `review-codebase` → skip language / framework / library → run every cognitive step
+- Aggregation: the report names the skipped language / framework steps and the reason
