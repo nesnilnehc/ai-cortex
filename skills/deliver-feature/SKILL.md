@@ -179,7 +179,7 @@ For option 3 only, after the worktree has been removed:
 git -C <main-repo> branch -d <feature-branch>
 ```
 
-`-d` only — never `-D`. If `-d` fails (which will not happen after a successful `--no-ff` merge), report the error and stop the deletion (do not retry with `-D`).
+`-d` only — never `-D`. If `-d` fails (which should not happen after a successful `--no-ff` merge), report the error and stop the deletion (do not retry with `-D`).
 
 **Step 6 — summary report**
 

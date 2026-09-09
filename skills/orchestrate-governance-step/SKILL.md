@@ -130,7 +130,7 @@ Sort "Do now" by priority (`urgent` → `important` → `defer` → `awaiting ex
 **Key constraints**:
 - An empty "Do now" ≠ done. It must first be confirmed that plan-next reached that verdict after the L1 acceptance-KPI check and the L5 awaiting-execution branch
 - If the plan-next output carries no L1 acceptance-KPI status field → treat the plan-next call as non-compliant, emit `error`, and prompt for a plan-next upgrade
-- A strategic goal with `status = approved` whose acceptance is not met → plan-next necessarily returns routing (establish the KPI, or an awaiting-execution card), so the result is not empty
+- A strategic goal with `status = approved` whose acceptance is not met → plan-next necessarily returns routing (establish the KPI, or an awaiting-execution card), so the result should not be empty
 
 ### Step 3: stall detection
 
@@ -237,7 +237,7 @@ The only legitimate source of a `done` signal is this step's verification result
 ```markdown
 ## What this automatic step did
 
-- **What was done**: [describe it with file names or feature names; the words "routing card" and "governance layer" are banned]
+- **What was done**: [describe it with file names or feature names; words such as "routing card" or "governance layer" are banned]
 - **Why it needed fixing**: [the concrete problem found; omit when creating a file for the first time]
 - **What changed** (when files changed):
   - Before: ...
