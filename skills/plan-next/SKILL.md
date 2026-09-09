@@ -22,7 +22,7 @@ input_schema:
     glossary_path: auto
 output_schema:
   type: chat
-  description: "Adaptive text suggestions + plain Diagnosis section (## heading, always present). Simple situations: 1-2 sentences of prose. Complex situations (≥2 parallel suggestions): structured cards each with TL;DR quote block, governance_context multi-line short-chain (≤25 chars/line), recommended_skill, rationale, completion_marker, priority_label; 2 optional fields (deferral_cost / onboarding_threshold; omit when info insufficient). User-facing sections always jargon-free: no internal codes (L1-L5, G1-G4, P0-P3), no raw status values (pending/in-progress/done/blocked), no project codes without natural-language subtitle (T\\d+/M\\d+/Goal \\d+/BL-\\d+/ADR-\\d+), no MoSCoW words, no process slang. KPI/threshold first occurrence requires triplet (current/target/benchmark). Diagnosis section uses 4-column table and is a technical traceability zone where internal codes are allowed."
+  description: "Adaptive text suggestions + plain Diagnosis section (## heading, always present). Simple situations: 1-2 sentences of prose. Complex situations (≥2 parallel suggestions): structured cards each with TL;DR quote block, governance_context multi-line short-chain (≤25 words/line), recommended_skill, rationale, completion_marker, priority_label; 2 optional fields (deferral_cost / onboarding_threshold; omit when info insufficient). User-facing sections always jargon-free: no internal codes (L1-L5, G1-G4, P0-P3), no raw status values (pending/in-progress/done/blocked), no project codes without natural-language subtitle (T\\d+/M\\d+/Goal \\d+/BL-\\d+/ADR-\\d+), no MoSCoW words, no process slang. KPI/threshold first occurrence requires triplet (current/target/benchmark). Diagnosis section uses 4-column table and is a technical traceability zone where internal codes are allowed."
 ---
 
 # Skill: Plan Next
@@ -321,38 +321,38 @@ The output format adapts to the situation:
 ```text
 **N. [action name]** · `priority label`
 
-> [TL;DR card header: one sentence answering "what to do → the immediately visible benefit", ≤30 characters]
+> [TL;DR card header: one sentence answering "what to do → the immediately visible benefit", ≤30 words]
 
-- Governance context: [multi-line short chain, ≤25 characters per line; see "Writing the governance context" below]
-- Recommended skill: `/skill-name [focus ≤40 characters]`
-- Evidence: [file path or observable signal ≤20 characters]
+- Governance context: [multi-line short chain, ≤25 words per line; see "Writing the governance context" below]
+- Recommended skill: `/skill-name [focus ≤40 words]`
+- Evidence: [file path or observable signal ≤20 words]
 - Completion marker: [observable result, 1 sentence]
-- [optional] Cost of deferral: [the impact of not doing it ≤30 characters]
-- [optional] Onboarding threshold: [prior knowledge / doc path ≤30 characters]
+- [optional] Cost of deferral: [the impact of not doing it ≤30 words]
+- [optional] Onboarding threshold: [prior knowledge / doc path ≤30 words]
 ```
 
 **Shared constraints (prose and cards alike)**: whichever format is used, every suggestion must carry what to do, why, and an observable completion marker. A project code must carry a natural-language subtitle on first appearance (see §3.3.1 + §3.7).
 
 **Writing the TL;DR card header**:
 
-A quote block (`> ...`), placed under the priority label and above the field list. It answers "what to do → the immediately visible benefit" in ≤30 characters. It is the strongest visual anchor, so the reader sees the core action on the first screen.
+A quote block (`> ...`), placed under the priority label and above the field list. It answers "what to do → the immediately visible benefit" in ≤30 words. It is the strongest visual anchor, so the reader sees the core action on the first screen.
 
 - ✅ Good: `> Let the PM see coverage progress live, filling the visibility gap in Goal 1's acceptance.`
 - ❌ Bad: `> Start parallel tasks to advance the milestone (repeats the subject field below, no new information).`
 
 **Writing the governance context**:
 
-Show the trace chain from the strategic goal down to the current gap, **and it must carry the current state of the L1 acceptance KPI**. Use a multi-line short-chain format (≤25 characters per line):
+Show the trace chain from the strategic goal down to the current gap, **and it must carry the current state of the L1 acceptance KPI**. Use a multi-line short-chain format (≤25 words per line):
 
 ```text
 - Governance context:
   - Strategic goal: [the goal's natural-language name + its core KPI in one sentence]
   - Current KPI: [current value / target value / benchmark; write "data missing" when there is none]
   - Roadmap: [the milestone's natural-language name + its current stage]
-  - Current position: [the layer the blockage sits in + why, ≤15 characters]
+  - Current position: [the layer the blockage sits in + why, ≤15 words]
 ```
 
-The ≤25-character limit per line is hard. Wrap onto the next line when it overflows; nest parentheses no more than 1 level deep.
+The ≤25-word limit per line is hard. Wrap onto the next line when it overflows; nest parentheses no more than 1 level deep.
 
 **Mandatory constraint**: every route must answer explicitly, "how does this action lead back to the strategic goal's acceptance?" If it cannot, route to the task of establishing the KPI data source instead; it must not route straight to downstream execution.
 
@@ -378,7 +378,7 @@ Any KPI or threshold must carry the triplet on first appearance:
 
 > `/skill-name [focus: what to do this time, the scope, the key asset path or task ID]`
 
-Prompt requirements: state the specific focus of this call, include the key asset path or task ID, ≤40 characters, and make it directly copy-pasteable. When the all-pending L5 "awaiting execution" branch has no governance skill available, write "(no governance skill; hand to the development team to implement per `[path]`)".
+Prompt requirements: state the specific focus of this call, include the key asset path or task ID, ≤40 words, and make it directly copy-pasteable. When the all-pending L5 "awaiting execution" branch has no governance skill available, write "(no governance skill; hand to the development team to implement per `[path]`)".
 
 **Priority labels** (mapped from the internal priorities in §3.2; the "Do now" section uses only labels, never the codes):
 
@@ -394,7 +394,7 @@ Prompt requirements: state the specific focus of this call, include the key asse
 
 **Cost of deferral (optional)**:
 
-Answers "what happens if this is not done", so the reader can judge "this one first vs something else first". ≤30 characters.
+Answers "what happens if this is not done", so the reader can judge "this one first vs something else first". ≤30 words.
 
 - ✅ Good: `Goal 1's acceptance has no visible route, so the PM cannot judge when to wrap up the deliverables`
 - ❌ Placeholder filler (forbidden): `to be added` / `see the task` / `affects the schedule` (the same as the vague-wording anti-pattern)
@@ -403,7 +403,7 @@ When there is not enough information, **omit this field**; inventing one is not 
 
 **Onboarding threshold (optional)**:
 
-Answers "who does this next, and do they need to read up first". ≤30 characters. Attach the path when pointing at a specific document.
+Answers "who does this next, and do they need to read up first". ≤30 words. Attach the path when pointing at a specific document.
 
 - ✅ Good: `Requires knowing how to configure a Grafana data source; if unfamiliar, see docs/runbooks/grafana-setup.md`
 - ❌ Placeholder filler (forbidden): `needs relevant knowledge` / `see the docs`
@@ -438,8 +438,8 @@ Violating this table = the "Do now" output is unacceptable; the offending fields
 ````
 # Next-step suggestions
 
-> **Situation**: [objective status summary, ≤25 characters. Example: the M5 must-deliver items are clear, three expected-deliver items not started]
-> **Core tension**: [the sticking point this cycle, ≤30 characters. Example: the adoption-rate pipeline is live but the sample has not reached 100, so acceptance cannot be judged yet]
+> **Situation**: [objective status summary, ≤25 words. Example: the M5 must-deliver items are clear, three expected-deliver items not started]
+> **Core tension**: [the sticking point this cycle, ≤30 words. Example: the adoption-rate pipeline is live but the sample has not reached 100, so acceptance cannot be judged yet]
 
 ---
 
@@ -447,18 +447,18 @@ Violating this table = the "Do now" output is unacceptable; the offending fields
 
 **1. [action name (project code with a natural-language subtitle)]** · `urgent / important / defer / awaiting execution`
 
-> [TL;DR card header: what to do → the immediately visible benefit, ≤30 characters]
+> [TL;DR card header: what to do → the immediately visible benefit, ≤30 words]
 
 - Governance context:
   - Strategic goal: [the goal's natural-language name + its core KPI in one sentence]
   - Current KPI: [current value / target value / benchmark; write "data missing" when there is none]
   - Roadmap: [the milestone's natural-language name + its current stage]
-  - Current position: [the layer the blockage sits in + why, ≤15 characters]
-- Recommended skill: `/skill-name [focus ≤40 characters]`
-- Evidence: [file path or observable signal ≤20 characters]
+  - Current position: [the layer the blockage sits in + why, ≤15 words]
+- Recommended skill: `/skill-name [focus ≤40 words]`
+- Evidence: [file path or observable signal ≤20 words]
 - Completion marker: [observable result, 1 sentence]
-- [optional] Cost of deferral: [the impact of not doing it ≤30 characters; omit when information is short, inventing one is not allowed]
-- [optional] Onboarding threshold: [prior knowledge / doc path ≤30 characters; omit when information is short]
+- [optional] Cost of deferral: [the impact of not doing it ≤30 words; omit when information is short, inventing one is not allowed]
+- [optional] Onboarding threshold: [prior knowledge / doc path ≤30 words; omit when information is short]
 
 ---
 
@@ -539,7 +539,7 @@ Goal 1:
 |---|---|
 | A project code appears for the first time and the dictionary has it | Inject `code (full_name)`, for example `T51 (coverage dashboard task)` |
 | Later appearances within the same card | The bare code only |
-| The dictionary has no matching entry | Fall back to the source artifact's frontmatter `title:`, injecting the first ≤12 characters |
+| The dictionary has no matching entry | Fall back to the source artifact's frontmatter `title:`, injecting the first ≤12 words |
 | Both the dictionary and the fallback are missing | Mark it in the diagnostic-basis section as "dictionary miss: suggest adding `<code>` to `docs/glossary.md`", and **do not show that code in the user-facing sections**; use a generic description instead ("the task awaiting execution", say) |
 
 **Constraints**:
@@ -603,7 +603,7 @@ Goal 1:
 - ❌ Merging several tasks into one card subject with a comma, a plus sign, or "start in parallel" (`T51 + T-SG5-002` / `T51, T52 in parallel`) — several tasks render as several cards
 - ❌ Stacking several tasks' KPIs into one card's completion marker (`A reachable + B queryable + C usable`) — each card owns its own completion marker
 - ❌ A governance context nesting parentheses more than 1 level deep (`Goal X (acceptance: KPI A current 80% (met) / target ≥70% (stretch))`) — split it into a multi-line short chain
-- ❌ A governance context written as a single chain over 60 characters — it must become a multi-line short chain of ≤25 characters per line
+- ❌ A governance context written as a single chain over 60 words — it must become a multi-line short chain of ≤25 words per line
 - ❌ Filling the cost-of-deferral / onboarding-threshold fields with placeholder text ("to be added" / "see the task" / "affects the schedule" / "needs relevant knowledge") — omit when information is short
 - ❌ A TL;DR card header that repeats the subject field ("start parallel tasks to advance the milestone" restates the subject) — it must answer "the immediately visible benefit"
 - ❌ Forcing a code missing from the dictionary into a user-facing section (mark it in the diagnostic basis, and use a generic description in the user-facing section)
@@ -641,15 +641,15 @@ Goal 1:
 - [ ] Depth first (only the first gap in the tree is reported per goal)
 - [ ] A parallel suggestion states the reason for parallelism in the text
 - [ ] Drift and hygiene entries are all in the "Also worth noting" section and have not crowded out the first two slots of "Do now"
-- [ ] **(When using structured cards)** The TL;DR quote block is ≤30 characters and does not repeat the subject
-- [ ] **(When using structured cards)** The governance context is a multi-line short chain (≤25 characters per line) carrying the current L1 acceptance-KPI state
+- [ ] **(When using structured cards)** The TL;DR quote block is ≤30 words and does not repeat the subject
+- [ ] **(When using structured cards)** The governance context is a multi-line short chain (≤25 words per line) carrying the current L1 acceptance-KPI state
 - [ ] **(When using structured cards)** The priority label is mapped correctly (urgent / important / defer / minor / awaiting execution)
 - [ ] **(When using structured cards)** An all-pending L5 with several tasks (≥2 independently startable) renders as several side-by-side cards, not merged
 - [ ] **(When using structured cards)** The cost-of-deferral / onboarding-threshold fields are omitted where information is short, not filled with placeholder text
 
 **Output**:
 
-- [ ] **The header summary (situation/core tension) is within the character limits**: situation ≤25 characters, core tension ≤30 characters; no bare project code (the same rule as the "Do now" section)
+- [ ] **The header summary (situation/core tension) is within the word limits**: situation ≤25 words, core tension ≤30 words; no bare project code (the same rule as the "Do now" section)
 - [ ] The "Do now" section carries no codes: L1-L5, G1-G4, P0-P3
 - [ ] The "Do now" section carries no natural-language equivalents of the codes: asset missing, incomplete content, truth drift, completion drift, traceability drift, misplacement
 - [ ] The "Do now" section carries no old priority labels: now/next time/later/ignorable; priorities are uniformly `urgent/important/defer/minor`
