@@ -6,20 +6,20 @@ created_at: 2026-03-24
 status: active
 ---
 
-# 需求规划
+# Requirements planning
 
-AI Cortex 的需求由项目目标与路线图决策推导而来。
+AI Cortex's requirements are derived from the project's goals and its roadmap decisions.
 
-## Canonical 来源
+## Canonical sources
 
-- [项目概览](../project-overview/README.md) — 项目身份、成功标准、范围
-- [Roadmap](../process-management/roadmap.md) — 战略衍生里程碑、发布范围与状态
+- [Project overview](../project-overview/README.md) — the project's identity, its criteria for success, and its scope
+- [Roadmap](../process-management/roadmap.md) — the milestones derived from strategy, the release scope, and the status
 
-## 何时新增需求文档
+## When to add a requirement document
 
-在以下情形添加结构化需求文档（如 `docs/requirements/<slug>.md`）：
+Add a structured requirement document, such as `docs/requirements/<slug>.md`, in these situations:
 
-- 重大范围变更
-- 多干系人需要正式需求追溯
+- A significant change of scope
+- Several stakeholders need formal requirement traceability
 
-撰写需求文档遵循 [specs/requirement-modeling.md](../../specs/requirement-modeling.md) 的字段规范；提交前用 [rules/requirement-quality.md](../../rules/requirement-quality.md) 自检。需求撰写工作流由 AgentFabric 等 runtime 平台承接，AI Cortex 仅提供字段契约与质量规则。
+Write a requirement document to the field spec in [specs/requirement-modeling.md](../../specs/requirement-modeling.md), and self-check it against [rules/requirement-quality.md](../../rules/requirement-quality.md) before submitting. The workflow for writing requirements is carried by a runtime platform such as AgentFabric; AI Cortex supplies only the field contract and the quality rules.
