@@ -183,7 +183,7 @@ def deliver_notification(unp: UNPNotification, channel: str) -> str:
 
 3. **测试 INP 合规性**：
 
-```bash
+```text
 # 验证：
 ✓ P0/P1 消息包含 actions
 ✓ 没有原始 JSON 输出
