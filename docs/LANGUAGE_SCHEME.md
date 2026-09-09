@@ -129,4 +129,14 @@ contributor sees.
 
 Stages are independently shippable. A partially migrated repository is expected during the transition; `skills/INDEX.md` and all frontmatter stay English throughout, so discovery and skill matching are unaffected at every point.
 
-Each stage is gated by `scripts/verify-translation.py` against the commit it started from, and reviewed by a fresh reader who did not write the translation. The gate holds what a translation must not change; the review catches what it structurally cannot see — a dropped modal, a disjunction read as a conjunction, a term whose English narrows the Chinese. Every deliberate Chinese retention is recorded, with its reason, in `scripts/translation-waivers.json`.
+Each stage is gated by `scripts/verify-translation.py` against the commit it started from, and reviewed by a fresh reader who did not write the translation.
+
+Auditing the whole migration at once — every asset against the
+pre-migration baseline — reports six findings, all of them expected and
+none a translation defect: this document, which was rewritten rather than
+translated at E0, and five files whose fenced blocks were re-labelled
+because prose had been tagged `yaml`, `json` or `python`. Each re-label
+is its own commit. They are deliberately not waived: the day-to-day gate
+runs against the preceding commit, where those files are clean, and
+waiving them would switch off byte-comparison of their code blocks for
+good. The gate holds what a translation must not change; the review catches what it structurally cannot see — a dropped modal, a disjunction read as a conjunction, a term whose English narrows the Chinese. Every deliberate Chinese retention is recorded, with its reason, in `scripts/translation-waivers.json`.
