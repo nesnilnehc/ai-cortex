@@ -101,7 +101,7 @@ QA business test cases, which are Markdown artifacts, are out of scope here and 
 ## Bad Patterns
 
 ```python
-# ❌ 命名缺三要素 + 一个函数测多件事
+# ❌ the name is missing the three elements, and one function tests several things
 def test_user():
     user = create_user("alice")
     assert user.name == "alice"
@@ -112,33 +112,33 @@ def test_user():
 ```
 
 ```python
-# ❌ 依赖系统时钟
+# ❌ depends on the system clock
 def test_token_expires():
     token = issue_token(ttl=1)
-    time.sleep(2)  # 不确定，且慢
+    time.sleep(2)  # non-deterministic, and slow
     assert not token.is_valid()
 ```
 
 ```python
-# ❌ Mock 数据库——通过但生产 migration 炸
+# ❌ mocking the database: it passes, then the production migration blows up
 def test_user_created():
     db = Mock()
     db.insert.return_value = {"id": 1}
     user = UserService(db).create("alice")
-    assert user.id == 1  # 没测到真实 schema
+    assert user.id == 1  # the real schema was never exercised
 ```
 
 ```python
-# ❌ 断言无信息
+# ❌ the assertion carries no information
 def test_returns_something():
     result = compute(42)
-    assert result  # 失败时什么都不知道
+    assert result  # on failure you learn nothing
 ```
 
 ```python
-# ❌ 业务规则测试缺 Covers 追溯
+# ❌ a business rule test with no Covers trace
 def test_overdraft_blocked():
-    # 这条测试守护哪条 AC？无人能查
+    # which AC does this test guard? nobody can find out
     account = Account(balance=0)
     with pytest.raises(InsufficientFunds):
         account.withdraw(100)

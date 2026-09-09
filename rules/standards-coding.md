@@ -1,7 +1,7 @@
 ---
 name: standards-coding
 version: 1.0.0
-scope: 全库代码
+scope: all code in the repository, across languages
 recommended_scope: user
 ---
 
@@ -23,7 +23,7 @@ All code in the project, in every language. These are general principles; where 
 
 ## Bad Patterns
 
-- A comment that merely restates the code — `// 设置变量 x 为 1`.
+- A comment that merely restates the code — `// set variable x to 1`.
 - An error swallowed, or printed without context.
 - The same logic copied in several places instead of extracted into a function.
 - Large blocks of commented-out former implementation left in place.

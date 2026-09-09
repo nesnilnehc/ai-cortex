@@ -2,7 +2,7 @@
 artifact_type: rule
 name: doc-health-criteria
 version: 1.0.0
-scope: 评估或自检文档健康度时（runtime / linter / CI 执行）
+scope: assessing or self-checking document health (run by the runtime, a linter or CI)
 recommended_scope: user
 status: active
 ---

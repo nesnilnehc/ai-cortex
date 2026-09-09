@@ -2,7 +2,7 @@
 artifact_type: rule
 name: repo-structure-hygiene
 version: 1.0.0
-scope: 审计或自检仓库目录结构时（runtime / linter / CI / 人工执行）
+scope: auditing or self-checking the repository directory structure (run by the runtime, a linter, CI or a person)
 recommended_scope: user
 status: active
 ---

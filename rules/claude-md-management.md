@@ -2,7 +2,7 @@
 artifact_type: rule
 name: claude-md-management
 version: 1.0.0
-scope: 所有层级 CLAUDE.md（个人 / 项目 / 模块）的撰写与维护
+scope: writing and maintaining CLAUDE.md at every level (personal / project / module)
 recommended_scope: user
 status: active
 ---
@@ -116,32 +116,32 @@ Before committing any CLAUDE.md change, confirm each item:
 ## Bad patterns
 
 ```markdown
-<!-- ❌ 通用知识科普 -->
+<!-- ❌ general knowledge explained -->
 ## Docker
 
-Docker 是一个容器化平台，使用 Dockerfile 定义镜像...
+Docker is a containerisation platform; images are defined with a Dockerfile...
 ```
 
 ```markdown
-<!-- ❌ 易变状态 -->
-## 当前任务
+<!-- ❌ volatile state -->
+## Current tasks
 
-- [ ] @zhangsan 在做 OAuth 重构（预计 Q3 完成）
-- [ ] @lisi 负责数据库迁移
+- [ ] @zhangsan is doing the OAuth refactor (expected to land in Q3)
+- [ ] @lisi owns the database migration
 ```
 
 ```markdown
-<!-- ❌ 模糊措辞 -->
-## 测试
+<!-- ❌ vague wording -->
+## Testing
 
-尽量写测试，最好覆盖率高一些。
+Try to write tests, and ideally keep coverage fairly high.
 ```
 
 ```markdown
-<!-- ❌ README 复述 -->
-## 项目介绍
+<!-- ❌ restating the README -->
+## About this project
 
-（粘贴了 README 前 50 行）
+(the first 50 lines of the README, pasted in)
 ```
 
 ---
@@ -152,7 +152,7 @@ Docker 是一个容器化平台，使用 Dockerfile 定义镜像...
 2. **Written as prose**: rewrite as imperatives; keep the constraint, drop the argument for it
 3. **No-go content crept in**: delete general knowledge; move volatile state to the issue tracker; remove sensitive material at once and rotate it
 4. **Missing critical marks**: prefix the high-stakes rules — those whose violation is costly — with `IMPORTANT:` and move them to the end of the file
-5. **README restatement**: replace with a `> 项目介绍见 [README.md](../README.md)` link
+5. **README restatement**: replace with a `> For an introduction to the project see [README.md](../README.md)` link
 
 ---
 

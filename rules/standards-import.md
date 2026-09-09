@@ -1,7 +1,7 @@
 ---
 name: standards-import
 version: 1.0.0
-scope: 代码重构、含模块引用的代码变更
+scope: refactoring, and any code change involving module imports
 recommended_scope: both
 ---
 
