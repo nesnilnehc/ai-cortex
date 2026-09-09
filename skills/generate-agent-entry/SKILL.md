@@ -226,7 +226,7 @@ Section titles and levels can follow the project's style, but keep the order: id
 ### 7. Relationship to Other Specs
 
 - **Usage**: the runtime behaviour for discovery, injection, and self-check lives in AGENTS.md §4; AGENTS.md is the single entry and contract.
-- **Language**: the description and communication expectations in AGENTS.md stay in line with the project's primary asset language.
+- **Language**: the description and communication expectations in AGENTS.md should stay in line with the project's primary asset language.
 
 ### 8. Adapting to Other Projects
 

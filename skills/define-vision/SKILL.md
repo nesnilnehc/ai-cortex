@@ -74,7 +74,7 @@ Define and record the **vision**: the long-term future the project sets out to c
 
 ## Vision Quality Guide
 
-A strong vision statement has:
+A strong vision statement should have:
 
 - **Concision**: 1–3 sentences, focused on the future state.
 - **Consistency with the mission**: it supports the fundamental purpose in the mission and introduces no new one.
