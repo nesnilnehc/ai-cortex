@@ -20,259 +20,259 @@ output_schema:
   lifecycle: living
 ---
 
-#技能 (Skill)：设计战略目标
+#Skill: Design Strategic Goals
 
-## 目的 (Purpose)
+## Purpose
 
-定义 **3-5 个长期战略目标**，推动项目朝着愿景和北极星方向发展。制作一个以结果为中心的目标文档（不是任务列表或路线图）。不定义使命、愿景、北极星或里程碑。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：生成用户确认的战略目标文档，其中包含 3-5 个与愿景和北极星一致的以结果为中心的目标，并坚持项目商定的路径。
-
-**成功标准**（必须满足所有要求）：
-
-1. ✅ **记录 3-5 个目标**：正好 3-5 个战略目标，每个目标都有清晰的标题和简短描述。
-2. ✅ **以结果为中心**：每个目标都描述可判断达成与否的结果，而不是任务列表、功能列表或支柱方向的重述。
-3. ✅ **与愿景保持一致**：每个目标都支持愿景；对齐是明确的或明显的。
-4. ✅ **北极星联系**：至少一个目标明确支持或移动北极星指标；可选：每个目标简要说明“这如何支持愿景/NSM”。
-5. ✅ **用户确认**：用户明确批准（例如“已批准”、“看起来不错”、“继续”或同等内容）。
-6. ✅ **文档持久化**：写入商定的路径（默认 `docs/project-overview/strategic-goals.md` 或每个项目规范）。
-7. ✅ **包含工程健康目标**：长期项目（计划期 > 6 个月）必须包含一个"工程 / 治理健康可持续"类目标；短期 / 实验性项目可显式豁免并在文档中说明理由。理由：治理 / 技术债 / 文档类工作若无战略代言，在价值竞争中永远排不进容量。
-
-**验收测试**：读者能否看到 3-5 个目标中的每一个如何推进愿景和北极星，而不需要日期或阶段（那些属于里程碑）？长期项目中是否有一个目标为治理 / 工程健康代言？
-
-**交接点**：当目标被批准并坚持时，交接至“定义里程碑”以将目标分解为阶段检查点，或停止。
+Define **3-5 long-term strategic goals** that move the project toward the vision and the North Star. Produce an outcome-centred goals document (not a task list or a roadmap). Does not define mission, vision, North Star, or milestones.
 
 ---
 
-## 范围边界 (Scope Boundaries)
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: produce a user-confirmed strategic goals document holding 3-5 outcome-centred goals aligned with the vision and the North Star, persisted to the path agreed for the project.
 
-- 引出并记录 3-5 个长期战略目标。
-- 确保与愿景和北极星保持一致（从“define-vision”/“define-north-star”输出或现有文档中读取）。
-- 坚持项目商定的路径（默认“docs/project-overview/strategic-goals.md”）。
-- 可选：每个目标的说明，说明它如何支持愿景或北极星。
+**Success criteria** (all must be met):
 
-**本技能不负责**：
+1. ✅ **3-5 goals recorded**: exactly 3-5 strategic goals, each with a clear title and a short description.
+2. ✅ **Outcome-centred**: each goal describes an outcome whose attainment can be judged, not a task list, a feature list, or a restatement of a pillar direction.
+3. ✅ **Aligned with the vision**: every goal supports the vision; the alignment is stated or self-evident.
+4. ✅ **North Star link**: at least one goal explicitly supports or moves the North Star metric; optional: a short note per goal on "how this supports the vision/NSM".
+5. ✅ **User confirmation**: the user explicitly approves (e.g. "approved", "looks good", "go ahead", or equivalent).
+6. ✅ **Document persisted**: written to the agreed path (default `docs/project-overview/strategic-goals.md`, or per project norms).
+7. ✅ **Engineering-health goal included**: a long-term project (planning horizon > 6 months) must include a goal of the "sustainable engineering / governance health" kind; a short-term or experimental project may take an explicit exemption and record the reason in the document. Rationale: without a strategic sponsor, governance / tech-debt / documentation work never wins capacity in the competition for value.
 
-- 定义使命、愿景或北极星（使用“定义使命”、“定义愿景”、“定义北极星”）。
-- 将目标分解为阶段或日期（使用“定义里程碑”）。
-- 撰写需求、路线图或待办（使用“分析需求”、“项目计划”、“捕获工作项目”）。
+**Acceptance test**: can a reader see how each of the 3-5 goals advances the vision and the North Star, with no dates or stages (those belong to milestones)? Does a long-term project carry one goal that speaks for governance / engineering health?
 
----
-
-## 使用场景 (Use Cases)
-
-- **在愿景和北极星之后**：设定 3-5 个战略成果，以推进愿景并推动 NSM。
-- **年度或季度战略**：定义或更新战略优先事项。
-- **当待办缺乏目标一致性时**：创建明确的目标，以便路线图和待办可以追踪它们。
-- **战略链中的第四层**：在构建完整的层次结构时遵循使命、愿景和北极星。
+**Handoff point**: once the goals are approved and persisted, hand off to "define-milestones" to break the goals into stage checkpoints, or stop.
 
 ---
 
-## 行为 (Behavior)
+## Scope Boundaries
 
-### 交互政策
+**This skill does**:
 
-- **默认**：项目规范的输出路径（如果存在）；否则为“docs/project-overview/strategic-goals.md”。如果有的话，请从“docs/project-overview/”中阅读愿景和北极星。
-- **冷启动降级**：`vision.md` 与 `north-star.md` **均**缺失时，不 halt，转入下方「冷启动降级模式」从仓库实证反推候选目标。只缺其一时仍走正常路径，用现有的那一份做推导依据。
-- **选择选项**：如果用户有超过 5 个候选目标，请提供优先级或聚类为 3-5 个；要求用户确认最终设置。
-- **确认**：覆盖现有战略目标文件之前；在最终坚持之前。
+- Elicit and record 3-5 long-term strategic goals.
+- Ensure alignment with the vision and the North Star (read from the "define-vision" / "define-north-star" output, or from existing documents).
+- Persist to the path agreed for the project (default "docs/project-overview/strategic-goals.md").
+- Optional: a note per goal explaining how it supports the vision or the North Star.
 
-### 执行过程
+**This skill does not do**:
 
-1. **加载愿景、北极星和战略支柱**：阅读 `docs/project-overview/vision.md`、`docs/project-overview/north-star.md` 和 `docs/project-overview/strategic-pillars.md`（如存在）或用户提供的摘要。
-   - 两者均缺失 → 转「冷启动降级模式」，其余步骤照常。
-2. **逆向拆解北极星指标**：问"要让北极星指标增长，什么必须为真？"每个"必须为真"就是一个候选目标。目标从基础能力到完善逐层递进。
-3. **目标草案**：注重结果（例如“将 80% 团队的部署时间减少到 5 分钟以下”）；不是任务列表或功能列表。
-4. **工程健康目标检查**：
-   - 询问或判断项目计划期（> 6 个月视为长期项目）。
-   - 若长期项目且草案无工程 / 治理健康目标 → 提示用户是否引入默认模板（见下方"工程健康目标模板"）；用户可按项目实际调整关键结果。
-   - 若短期 / 实验性项目用户选择豁免 → 在文档末尾记录"豁免理由"。
-5. **检查一致性**：每个目标都支持愿景；至少有一个明确支持北极星。
-6. **持久化**：写入到项目约定的路径；如果缺少，请创建“docs/project-overview/”。可选：为每个目标添加“这如何支持愿景/NSM”。
+- Define the mission, vision, or North Star (use "define-mission", "define-vision", "define-north-star").
+- Break goals into stages or dates (use "define-milestones").
+- Write requirements, roadmaps, or backlog (use "analyse-requirements", "project-planning", "capture-work-items").
 
-### 冷启动降级模式
+---
 
-**触发**：`vision.md` 与 `north-star.md` 均缺失。此时逆向拆解北极星无依据可用，但仓库本身就是可提取的证据源——不该退化成从零逐项盘问用户。
+## Use Cases
 
-**提取源**（按意图密度排序，从上往下取，够用即止）：
+- **After the vision and the North Star**: set 3-5 strategic outcomes that advance the vision and move the NSM.
+- **Annual or quarterly strategy**: define or update strategic priorities.
+- **When the backlog lacks goal alignment**: create explicit goals so the roadmap and the backlog can trace to them.
+- **The fourth layer of the strategy chain**: follows mission, vision, and North Star when the full hierarchy is being built.
 
-1. `README.md` / `AGENTS.md` / `CLAUDE.md` —— 项目自述的意图
-2. `CHANGELOG.md` —— 实际投入方向，意图密度最高
-3. 近期 git log —— 同上；**两者相互独立，缺 CHANGELOG 时 git log 单独也够用**，不要因为缺其一就跳过这一级
-4. 代码目录结构与依赖清单 —— 能力边界
-5. 已有 backlog / issue —— 未满足的需要
-6. `docs/` 其余部分
+---
 
-**安全约束（不可省略）**：从实证反推出的目标读起来会很自洽、很顺畅——恰恰因此最可能是脑补在填空。因此：
+## Behavior
 
-- 每条候选目标必须附「推断依据」，指向具体文件与位置。**推不出依据的目标不许写**
-- 全部标注为推断而非确认。**不得自动持久化**，用户须逐条确认或修正
-- 落盘文档头部留标记：`> 本批目标缺愿景 / 北极星背书，属临时锚，补齐上游后须重跑本技能`
-- 明确告知用户：这是降级产出，正常路径是先跑 `define-vision` 与 `define-north-star`
+### Interaction Policy
 
-**输出形态**：
+- **Default**: the output path from project norms if one exists; otherwise "docs/project-overview/strategic-goals.md". Read the vision and the North Star from "docs/project-overview/" if they are there.
+- **Cold-start fallback**: when `vision.md` and `north-star.md` are **both** missing, do not halt; switch to "Cold-Start Fallback Mode" below and infer candidate goals from repository evidence. When only one is missing, stay on the normal path and derive from the one that exists.
+- **Choice of options**: if the user has more than 5 candidate goals, offer to rank or cluster them into 3-5; ask the user to confirm the final set.
+- **Confirm**: before overwriting an existing strategic goals file; before the final persist.
+
+### Execution Process
+
+1. **Load the vision, North Star, and strategic pillars**: read `docs/project-overview/vision.md`, `docs/project-overview/north-star.md`, and `docs/project-overview/strategic-pillars.md` (where present), or a summary supplied by the user.
+   - Both missing → switch to "Cold-Start Fallback Mode"; the remaining steps are unchanged.
+2. **Work backwards from the North Star metric**: ask "what must be true for the North Star metric to grow?" Each "must be true" is a candidate goal. Goals climb in layers, from base capability to refinement.
+3. **Draft the goals**: focus on outcomes (e.g. "cut deployment time to under 5 minutes for 80% of teams"); not a task list or a feature list.
+4. **Engineering-health goal check**:
+   - Ask about or judge the project's planning horizon (> 6 months counts as a long-term project).
+   - Long-term project whose draft has no engineering / governance health goal → ask the user whether to bring in the default template (see "Engineering-Health Goal Template" below); the user can adjust the key results to fit the project.
+   - Short-term or experimental project where the user takes the exemption → record the "exemption rationale" at the end of the document.
+5. **Check alignment**: every goal supports the vision; at least one explicitly supports the North Star.
+6. **Persist**: write to the path agreed for the project; create "docs/project-overview/" if it is missing. Optional: add "how this supports the vision/NSM" to each goal.
+
+### Cold-Start Fallback Mode
+
+**Trigger**: `vision.md` and `north-star.md` are both missing. Working backwards from the North Star then has no basis, but the repository itself is an extractable evidence source — this must not degrade into interrogating the user from scratch, item by item.
+
+**Extraction sources** (ordered by intent density; work down the list and stop once you have enough):
+
+1. `README.md` / `AGENTS.md` / `CLAUDE.md` — the intent the project states about itself
+2. `CHANGELOG.md` — where effort actually went; the highest intent density
+3. Recent git log — same as above; **the two are independent, and git log on its own is enough when CHANGELOG is missing** — do not skip this level because one of the two is absent
+4. Code directory structure and dependency manifest — the capability boundary
+5. Existing backlog / issues — unmet needs
+6. The rest of `docs/`
+
+**Safety constraints (not omissible)**: a goal inferred from evidence reads as coherent and fluent — which is exactly why it is most likely to be invention filling a blank. So:
+
+- Every candidate goal must carry an "inference basis" pointing at a specific file and location. **A goal whose basis cannot be derived must not be written**
+- Mark everything as inferred rather than confirmed. **Must not persist automatically**; the user must confirm or correct each item
+- Leave a marker at the top of the persisted document: `> This batch of goals lacks vision / North Star backing and is a temporary anchor; once the upstream is in place this skill must be rerun`
+- Tell the user plainly: this is fallback output, and the normal path is to run `define-vision` and `define-north-star` first
+
+**Output shape**:
 
 ```markdown
-## 候选目标 N：<目标标题>
+## Candidate Goal N: <goal title>
 
-**描述**：<以结果为中心的一句话>
+**Description**: <one outcome-centred sentence>
 
-**推断依据**：
-- `CHANGELOG.md` 近 5 个条目集中在 X 方向
-- `README.md` 第 12 行自述目标为 Y
+**Inference basis**:
+- The last 5 `CHANGELOG.md` entries cluster on direction X
+- `README.md` line 12 states the goal as Y
 
-**待确认**：本目标由实证反推，请确认、修正或删除
+**To confirm**: this goal was inferred from evidence — confirm it, correct it, or delete it
 ```
 
-### 工程健康目标模板（默认）
+### Engineering-Health Goal Template (Default)
 
-长期项目必含此类目标（具体关键结果按项目调整）：
+A long-term project must hold a goal of this kind (tune the specific key results per project):
 
 ```markdown
-## 目标 N: 工程与治理健康可持续
+## Goal N: Sustainable Engineering and Governance Health
 
-**描述**：确保项目的代码质量、文档一致性、治理机制持续演进，
-支撑其他战略目标的长期可达成。
+**Description**: keep the project's code quality, documentation consistency, and
+governance mechanisms evolving, so the other strategic goals stay achievable long-term.
 
-**关键结果**（示例，按项目调整）：
-- 核心文档规范（ARTIFACT_NORMS）100% 合规
-- ADR 覆盖率 ≥ 90%（所有架构决策有文档）
-- 技术债 backlog 项数 ≤ X（按团队规模定）
-- 治理健康矩阵通过率 ≥ 95%（plan-next 输出）
-- 生产事故 MTTR ≤ Y 小时
+**Key results** (illustrative; tune per project):
+- Core documentation norms (ARTIFACT_NORMS) 100% compliant
+- ADR coverage ≥ 90% (every architecture decision is documented)
+- Tech-debt backlog item count ≤ X (set by team size)
+- Governance health matrix pass rate ≥ 95% (plan-next output)
+- Production incident MTTR ≤ Y hours
 ```
 
-此目标**支持的是所有其他战略目标的长期可达成性**，不是独立产品目标。它的存在保证治理 / 技术债 / 文档等基础工作在价值竞争中有合法战略位置——容量护栏按 strategic_goal 分配，没有这个目标，这类工作就没有可归属的容量。
+This goal **supports the long-term achievability of all the other strategic goals**; it is not a standalone product goal. Its existence guarantees that governance / tech-debt / documentation groundwork holds a legitimate strategic position in the competition for value — the capacity guardrail allocates by strategic_goal, and without this goal such work has no capacity to belong to.
 
 ---
 
-## 输入与输出 (Input & Output)
+## Input & Output
 
-**输入**：
+**Input**:
 
-- **必需**：项目背景。
-- **正常路径必需**：愿景；北极星（或通往愿景/北极星文档的路径）。两者均缺失时转冷启动降级模式，从仓库实证反推。
-- **可选**：任务；时间范围；现有的目标或优先事项。
+- **Required**: project context.
+- **Required on the normal path**: the vision; the North Star (or paths to the vision/North Star documents). When both are missing, switch to cold-start fallback mode and infer from repository evidence.
+- **Optional**: mission; time horizon; existing goals or priorities.
 
-**输出**：
+**Output**:
 
-- **工件**：战略目标文档。
-- **位置**：`docs/project-overview/strategic-goals.md`（或每个项目规范）。
-- **内容**：3-5个战略目标（标题+简短描述）；可选：链接到愿景/NSM；每个目标“这如何支持愿景/NSM”。
-- **生命周期**：生活（在战略周期进行审查）。
-
----
-
-## 限制 (Restrictions)
-
-### 硬边界（Hard Boundaries）
-
-- 不要在此技能中定义使命、愿景、北极星或里程碑。
-- 不要在目标文档中包含日期或阶段（这些属于“定义里程碑”）。
-- 文档中的战略目标不得少于 3 个或多于 5 个。
-- 长期项目（计划期 > 6 个月）不得完全省略工程 / 治理健康类目标；若豁免必须在文档记录理由。
-- **降级模式下不得自动持久化**：实证反推的候选目标必须逐条经用户确认或修正后才落盘。
-- **降级模式下不得写出无依据的目标**：每条候选目标必须能指向具体的提取源文件与位置，推不出依据的宁可不写。
-
-### 技能边界 (Skill Boundaries)（避免重叠）
-
-**不要做这些（其他技能可以处理它们）**：
-
-- **使命**：我们为何存在→使用`define-mission`。
-- **愿景**：我们构建什么样的未来→使用“定义愿景”。
-- **北极星**：单一指标 → 使用 `define-north-star`。
-- **里程碑**：阶段检查点→使用`define-里程碑`。
-- **需求或待办**：使用“分析需求”、“捕获工作项目”、项目规划。
-
-**何时停止并交接**：
-
-- 用户说“已批准”或同等内容 → 目标完成；提供转交“定义里程碑”。
-- 用户请求阶段或里程碑 → 移交给“定义里程碑”。
+- **Artifact**: the strategic goals document.
+- **Location**: `docs/project-overview/strategic-goals.md` (or per project norms).
+- **Content**: 3-5 strategic goals (title + short description); optional: links to the vision/NSM, and a "how this supports the vision/NSM" note per goal.
+- **Lifecycle**: living (reviewed on the strategy cycle).
 
 ---
 
-## 自检（Self-Check）
+## Restrictions
 
-### 核心成功标准（必须满足所有标准）
+### Hard Boundaries
 
-- [ ] **记录了 3–5 个目标**：正好有 3–5 个战略目标，并带有标题和说明。
-- [ ] **注重结果**：每个目标都是结果或结果，而不是任务列表。
-- [ ] **与愿景保持一致**：每个目标都支持愿景。
-- [ ] **北极星连接**：至少一个目标明确支持或移动北极星（降级模式下此项不适用，改为下一条）。
-- [ ] **降级模式合规**（仅当走降级路径）：每条目标附推断依据并指向具体文件；已逐条经用户确认；文档头部留了「缺上游背书、属临时锚」标记。
-- [ ] **工程健康目标**：长期项目包含一个工程 / 治理健康类目标；若豁免已记录理由。
-- [ ] **用户确认**：用户说“已批准”、“看起来不错”、“继续”或类似内容。
-- [ ] **文档持久化**：写入商定的路径（默认 `docs/project-overview/strategic-goals.md` 或项目规范）。
+- Do not define the mission, vision, North Star, or milestones in this skill.
+- Do not put dates or stages in the goals document (those belong to "define-milestones").
+- The document must not carry fewer than 3 or more than 5 strategic goals.
+- A long-term project (planning horizon > 6 months) must not drop the engineering / governance health goal entirely; an exemption must record its reason in the document.
+- **Must not persist automatically in fallback mode**: an evidence-inferred candidate goal is written only after the user confirms or corrects each item.
+- **Must not write an unsupported goal in fallback mode**: every candidate goal must point at a specific extraction-source file and location; where no basis can be derived, leave it out.
 
-### 流程质量检查
+### Skill Boundaries (no overlap)
 
-- [ ] **使用愿景/NSM**：在起草目标之前我是否阅读或请求了愿景和北极星？
-- [ ] **没有日期/阶段**：我是否避免将里程碑或时间表放入目标文档中？
-- [ ] **目标不是支柱的重述**：每个目标描述可判断达成与否的结果，而非持续方向。
-- [ ] **目标可跨支柱**：一个目标可以涉及多个支柱，目标与支柱不必一一对应。
-- [ ] **逐层递进**：目标从基础能力到完善有清晰的层次关系。
+**Do not do these (other skills handle them)**:
 
-### 验收测试
+- **Mission**: why we exist → use `define-mission`.
+- **Vision**: what future we are building → use "define-vision".
+- **North Star**: the single metric → use `define-north-star`.
+- **Milestones**: stage checkpoints → use `define-milestones`.
+- **Requirements or backlog**: use "analyse-requirements", "capture-work-items", project planning.
 
-**读者能否在不需要日期或阶段的情况下了解每个目标如何推进愿景和北极星？**
+**When to stop and hand off**:
 
-如果否：目标可能过于战术性或缺乏一致性。细化结果和状态一致性。
-如果是：战略目标已完成。继续转交或停止。
+- The user says "approved" or equivalent → the goals are done; offer the handoff to "define-milestones".
+- The user asks for stages or milestones → hand off to "define-milestones".
 
 ---
 
-## 示例 (Examples)
+## Self-Check
 
-### 示例 1：完整的层次结构到位
+### Core Success Criteria (all must be met)
 
-**背景**：愿景和北极星存在。用户想要 3-5 个战略目标。
+- [ ] **3–5 goals recorded**: exactly 3–5 strategic goals, with titles and descriptions.
+- [ ] **Outcome-focused**: every goal is an outcome or a result, not a task list.
+- [ ] **Aligned with the vision**: every goal supports the vision.
+- [ ] **North Star link**: at least one goal explicitly supports or moves the North Star (not applicable in fallback mode; the next item replaces it).
+- [ ] **Fallback-mode compliance** (fallback path only): every goal carries an inference basis pointing at a specific file; each has been confirmed by the user; the document header carries the "no upstream backing, temporary anchor" marker.
+- [ ] **Engineering-health goal**: a long-term project holds an engineering / governance health goal; an exemption has its reason recorded.
+- [ ] **User confirmation**: the user said "approved", "looks good", "go ahead", or similar.
+- [ ] **Document persisted**: written to the agreed path (default `docs/project-overview/strategic-goals.md`, or project norms).
 
-**流程**：阅读愿景和北极星文档。得出结果（例如“80% 的团队在 5 分钟内完成部署”、“标准部署零手动步骤”、“每次部署的完整审核跟踪”）。起草 3-5 个目标；说明每个人如何支持愿景/NSM。用户确认。写入“docs/project-overview/strategic-goals.md”。
+### Process Quality Checks
 
-**结果**：目标持续存在； 提供转交“定义里程碑”。
+- [ ] **Vision/NSM used**: did I read or request the vision and the North Star before drafting goals?
+- [ ] **No dates or stages**: did I avoid putting milestones or timelines into the goals document?
+- [ ] **Goals are not restated pillars**: each goal describes an outcome whose attainment can be judged, not an ongoing direction.
+- [ ] **Goals may span pillars**: one goal can touch several pillars; goals and pillars need not map one to one.
+- [ ] **Layered progression**: the goals hold a clear layering from base capability to refinement.
 
-### 示例 2：用户提出六个目标
+### Acceptance Test
 
-**上下文**：用户列出了六个候选目标；计划只允许 3-5 个。
+**Can a reader see how each goal advances the vision and the North Star with no dates or stages?**
 
-**流程**：聚类或按优先级划分为 3-5 个（例如，合并两个相关目标，或放弃最低优先级）。展示第 3-5 组并附上理由；请用户确认或调整。确保每一项都以结果为中心并与愿景/NSM 保持一致。一旦确认就坚持。
+If no: the goals are probably too tactical, or the alignment is missing. Sharpen the outcomes and state the alignment.
+If yes: the strategic goals are done. Move to the handoff or stop.
 
-**结果**：文档恰好包含 3-5 个目标；用户已明确批准该集。
+---
 
-### 示例 4：冷启动降级（边缘场景）
+## Examples
 
-**背景**：新接手的仓库只有 README 和源码，`docs/project-overview/` 为空。用户要求先把战略目标立起来。
+### Example 1: Full hierarchy in place
 
-**流程**：
+**Context**: the vision and the North Star exist. The user wants 3-5 strategic goals.
 
-1. 检测到 `vision.md` 与 `north-star.md` 均缺失 → 转降级模式，并告知用户这是降级产出。
-2. 按提取源顺序扫描：README 自述「让中小团队免运维地跑起私有部署」；CHANGELOG 近 8 条集中在安装脚本与跨平台兼容；backlog 里 5 条是文档缺失投诉。
-3. 反推 3 条候选目标，每条附依据：
-   - 候选 1「安装即可用」← README:3 自述 + CHANGELOG 近 8 条投入方向
-   - 候选 2「文档可自助」← backlog 5 条投诉
-   - 候选 3「工程与治理健康可持续」← 长期项目必含项
-4. 呈现候选清单，标注「由实证反推，请确认、修正或删除」，**不落盘**。
-5. 用户改掉候选 2 的措辞、确认其余两条。
-6. 写入文档，头部留标记：`> 本批目标缺愿景 / 北极星背书，属临时锚，补齐上游后须重跑本技能`。
-7. 提示用户：正常路径是先跑 `define-vision` 与 `define-north-star`，补齐后重跑本技能。
+**Process**: read the vision and North Star documents. Derive outcomes (e.g. "80% of teams deploy within 5 minutes", "zero manual steps in a standard deployment", "a complete audit trail for every deployment"). Draft 3-5 goals; state how each supports the vision/NSM. The user confirms. Write to "docs/project-overview/strategic-goals.md".
 
-**结果**：链路没有在起点空转；产出可用但被明确标记为临时，且每条都能查到出处。
+**Result**: the goals are persisted; offer the handoff to "define-milestones".
 
-### 示例 3：长期项目缺工程健康目标（边缘场景）
+### Example 2: The user proposes six goals
 
-**背景**：用户草拟了 4 个战略目标，全部是用户 / 市场导向；项目计划期 12 个月（长期项目）。
+**Context**: the user lists six candidate goals; the plan allows only 3-5.
 
-**流程**：
-1. 检测到 4 个目标均无涉及工程 / 治理健康。
-2. 提示用户："这是长期项目，建议引入工程健康目标，否则技术债 / 治理工作长期无战略代言，容量护栏无处施加。"
-3. 展示默认模板；用户调整关键结果（如"技术债 backlog 项数 ≤ 20"改为"≤ 30"，基于团队规模）。
-4. 用户确认纳入为目标 5。
-5. 持久化 5 个目标。
+**Process**: cluster or rank them down to 3-5 (e.g. merge two related goals, or drop the lowest-ranked one). Present the set of 3-5 with the rationale; ask the user to confirm or adjust. Make sure each one is outcome-centred and aligned with the vision/NSM. Persist once confirmed.
 
-**结果**：文档含 5 个战略目标，其中目标 5 是"工程与治理健康可持续"。容量护栏后续按 strategic_goal_id 分配时有合法位置。
+**Result**: the document holds exactly 3-5 goals; the user explicitly approved the set.
+
+### Example 4: Cold-start fallback (edge case)
+
+**Context**: a newly inherited repository holds only a README and source code; `docs/project-overview/` is empty. The user wants the strategic goals stood up first.
+
+**Process**:
+
+1. Detect that `vision.md` and `north-star.md` are both missing → switch to fallback mode, and tell the user this is fallback output.
+2. Scan in extraction-source order: the README states "let small and mid-sized teams run a private deployment with no ops work"; the last 8 CHANGELOG entries cluster on the install script and cross-platform compatibility; 5 backlog items are complaints about missing documentation.
+3. Infer 3 candidate goals, each with its basis:
+   - Candidate 1 "install and it runs" ← the README:3 statement + the direction of the last 8 CHANGELOG entries
+   - Candidate 2 "documentation is self-service" ← 5 backlog complaints
+   - Candidate 3 "sustainable engineering and governance health" ← required for a long-term project
+4. Present the candidate list, marked "inferred from evidence — confirm, correct, or delete", and **write nothing to disk**.
+5. The user rewords candidate 2 and confirms the other two.
+6. Write the document with a marker at the top: `> This batch of goals lacks vision / North Star backing and is a temporary anchor; once the upstream is in place this skill must be rerun`.
+7. Tell the user: the normal path is to run `define-vision` and `define-north-star` first, then rerun this skill once they are in place.
+
+**Result**: the chain does not spin at its starting point; the output is usable but explicitly marked as temporary, and every item's source can be looked up.
+
+### Example 3: Long-term project with no engineering-health goal (edge case)
+
+**Context**: the user drafted 4 strategic goals, all user- or market-oriented; the planning horizon is 12 months (a long-term project).
+
+**Process**:
+1. Detect that none of the 4 goals touches engineering / governance health.
+2. Tell the user: "This is a long-term project; an engineering-health goal is recommended here, otherwise tech-debt and governance work has no strategic sponsor over the long run and the capacity guardrail has nothing to attach to."
+3. Show the default template; the user tunes the key results (e.g. "tech-debt backlog item count ≤ 20" becomes "≤ 30", based on team size).
+4. The user confirms it as goal 5.
+5. Persist the 5 goals.
+
+**Result**: the document holds 5 strategic goals, goal 5 being "sustainable engineering and governance health". The capacity guardrail then has a legitimate slot when it allocates by strategic_goal_id.

@@ -8,7 +8,7 @@ status: active
 
 # Project configuration
 
-A skill that depends on project configuration — automate-tests, orchestrate-repair-loop, commit-work, generate-github-workflow and the like — behaves as described below, which is what keeps it platform-independent.
+A skill that depends on project configuration — automate-tests, orchestrate-repair-loop, commit-work, generate-github-workflow and the like — should behave as described below, which is what keeps it platform-independent.
 
 ---
 

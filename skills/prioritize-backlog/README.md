@@ -25,9 +25,9 @@ Re-scores backlog items in bulk (detecting the single-file or multi-file layout 
 - A bulk scoring table in the conversation (four framework results + disagreement markers + decision suggestions + a statement of the layout + overwrite statistics)
 - Every backlog item updated in its own layout: `priority` + `priority_decision` (including a `previous` snapshot of the old value)
 
-## Installation
+## Install
 
-Installation is handled centrally by the AI Cortex canonical installer; see the repository root [README](../../README.md#-install-and-use).
+Handled centrally by the canonical AI Cortex install; see the repository root [README](../../README.md#-install-and-use).
 
 ## Related skills
 

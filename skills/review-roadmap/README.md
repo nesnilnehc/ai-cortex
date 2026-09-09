@@ -29,9 +29,9 @@ Reviews roadmap quality across five dimensions: completeness (the four parts of 
 
 It neither generates nor rewrites a roadmap — structural gaps hand off to `define-roadmap`, and status or timing gaps hand off to `update-roadmap`. **It emits no orchestration mode**: detecting the context is the orchestration layer's own job.
 
-## Installation
+## Install
 
-Installation is handled centrally by the AI Cortex canonical installer; see the repository root [README](../../README.md#-install-and-use).
+Handled centrally by the canonical AI Cortex install; see the repository root [README](../../README.md#-install-and-use).
 
 ## Related skills
 

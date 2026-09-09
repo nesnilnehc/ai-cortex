@@ -24,7 +24,7 @@ The root of the current repository, the root of the repository this file lives i
 
 1. Read `skills/INDEX.md` and `skills/INDEX.md` for the list of capabilities and their paths.
 2. Match a skill against the task semantically, using the SKILL's `description`, `tags` and `triggers`.
-3. Pass context through explicit artifacts — a requirement, a design, a report — rather than implicitly; when chaining calls, follow each skill's stated handoff points and scope boundaries.
+3. Pass context through explicit artifacts — a requirement, a design, a report and the like — rather than implicitly; when chaining calls, follow the Handoff Point and Scope Boundaries each skill states in its prose.
 
 ---
 
@@ -39,7 +39,7 @@ The root of the current repository, the root of the repository this file lives i
 
 - The primary skill comes first: route every request to the primary skill, and call an optional skill only once the primary skill's output exposes a definite gap.
 - Escalation: when several intents are live within one cycle, escalate the orchestration to `plan-next`.
-- Artifact handoff: pass context through explicit artifacts — a requirement, a design, an alignment report, a doc-readiness report — rather than implicitly.
+- Artifact handoff: pass context through explicit artifacts — a requirement, a design, an alignment report, a doc-readiness report and the like — rather than implicitly.
 - Defaults: where `input_schema.defaults` exists and the user supplied nothing explicit, use that default.
 
 ---

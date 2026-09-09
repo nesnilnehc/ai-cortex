@@ -17,161 +17,161 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion
 ---
 
-# 技能（Skill）：审查 TypeScript（Review TypeScript）
+# Skill: Review TypeScript
 
-## 目的 (Purpose)
+## Purpose
 
-仅查看 **TypeScript 和 JavaScript** 代码的 **语言和运行时约定**。不要定义范围（差异与代码库）或执行安全/架构分析；这些是通过范围和cognitive技能来处理的。以标准格式发出**结果列表**以进行聚合。重点关注类型安全和类型系统使用、异步模式和 Promise 处理、错误处理、模块设计、运行时正确性、API 和接口设计以及性能和内存注意事项。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：生成 TypeScript/JavaScript 语言调查结果列表，涵盖给定代码范围的类型安全、异步模式、错误处理、模块设计、运行时正确性、API/界面设计和性能/内存。
-
-**成功标准**（必须满足所有要求）：
-
-1. ✅ **仅限 TypeScript/JavaScript 语言范围**：仅审查 TypeScript 和 JavaScript 语言以及运行时约定；未执行范围选择、安全性或架构分析
-2. ✅ **涵盖所有七种语言维度**：类型安全、异步模式、错误处理、模块设计、运行时正确性、API/接口设计和性能/内存（如果相关）进行评估
-3. ✅ **结果格式兼容**：每个结果包括位置、类别（`语言打字稿`）、严重性、标题、描述和可选建议
-4. ✅ **文件/行引用**：所有发现都引用特定文件：行或符号名称
-5. ✅ **排除非 TS/JS 代码**：除非明确在范围内，否则不会分析非 TypeScript/JavaScript 文件的 TS/JS 特定规则
-
-**验收**测试：输出是否包含以 TypeScript/JavaScript 为中心的结果列表，其中包含涵盖所有相关语言维度的文件/行引用，而无需执行安全性、架构或范围分析？
+Review **TypeScript and JavaScript** code for **language and runtime conventions** only. Do not define scope (diff vs codebase) or perform security/architecture analysis; those are handled by the scope and cognitive skills. Emit a **findings list** in the standard format for aggregation. Focus on type safety and type system usage, async patterns and Promise handling, error handling, module design, runtime correctness, API and interface design, and performance and memory considerations.
 
 ---
 
-## 范围边界（范围边界）
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: produce a TypeScript/JavaScript language findings list covering type safety, async patterns, error handling, module design, runtime correctness, API/interface design, and performance/memory for the given code scope.
 
-- 类型安全和类型系统使用（严格模式、正确类型、“任何”避免、受歧视联合、类型保护、泛型）
-- 异步模式（异步/等待、承诺处理、错误传播、竞争条件、未处理的拒绝）
-- 错误处理（try/catch 模式、自定义错误类型、错误边界、详尽的错误处理）
-- 模块设计（ESM vs CJS、桶式导出、循环依赖、tree-shaking、副作用）
-- 运行时正确性（空/未定义处理、相等性检查、强制陷阱、原型污染）
-- API和接口设计（函数签名、重载、品牌类型、只读正确性）
-- 性能和内存（闭包泄漏、事件侦听器清理、WeakRef/WeakMap 使用、包大小影响）
+**Success criteria** (all must hold):
 
-**本技能不负责**：
+1. ✅ **TypeScript/JavaScript language scope only**: reviews TypeScript and JavaScript language and runtime conventions only; performs no scope selection, security, or architecture analysis
+2. ✅ **All seven language dimensions covered**: type safety, async patterns, error handling, module design, runtime correctness, API/interface design, and performance/memory are assessed where relevant
+3. ✅ **Findings format compliant**: each finding carries location, category (`language-typescript`), severity, title, description, and an optional suggestion
+4. ✅ **File/line references**: every finding cites a specific file:line or symbol name
+5. ✅ **Non-TS/JS code excluded**: non-TypeScript/JavaScript files are not analyzed against TS/JS-specific rules unless they are explicitly in scope
 
-- 范围选择——范围由调用者提供
-- 安全分析（注入、秘密、XSS）——使用“review-security”
-- 架构分析——使用“review-architecture”
-- 框架约定（Vue、React、Angular）——使用特定于框架的技能（例如“review-vue”）
-- 完整编排式审查——使用“审查代码”
-
-**转交点**：当所有 TypeScript/JavaScript 结果发出后，将其移交给“orchestrate-code-review”进行聚合。对于代码中的注入风险或秘密，请记下它们并建议“审查安全性”。
+**Acceptance** test: does the output contain a TypeScript/JavaScript-centered findings list with file/line references covering all relevant language dimensions, without performing security, architecture, or scope analysis?
 
 ---
 
-## 使用场景 (Use Cases)
+## Scope Boundaries
 
-- **精心安排的审查**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 运行 TypeScript/JavaScript 项目的范围 → 语言 → 框架 → 库 → cognitive时，用作语言步骤。
-- **仅 TypeScript 审查**：当用户只想检查 TypeScript/JavaScript 语言约定时。
-- **PR 前语言检查表**：在合并之前确保类型安全、异步正确性和模块设计健全。
+**This skill owns**:
 
-**何时使用**：当审查的代码是 TypeScript 或 JavaScript 并且任务包括语言质量时。范围由调用者或用户确定。
+- Type safety and type system usage (strict mode, precise types, `any` avoidance, discriminated unions, type guards, generics)
+- Async patterns (async/await, Promise handling, error propagation, race conditions, unhandled rejections)
+- Error handling (try/catch patterns, custom error types, error boundaries, exhaustive error handling)
+- Module design (ESM vs CJS, barrel exports, circular dependencies, tree-shaking, side effects)
+- Runtime correctness (null/undefined handling, equality checks, coercion pitfalls, prototype pollution)
+- API and interface design (function signatures, overloads, branded types, readonly correctness)
+- Performance and memory (closure leaks, event listener cleanup, WeakRef/WeakMap usage, bundle size impact)
 
----
+**This skill does not own**:
 
-## 行为 (Behavior)
+- Scope selection — the scope is supplied by the caller
+- Security analysis (injection, secrets, XSS) — use `review-security`
+- Architecture analysis — use `review-architecture`
+- Framework conventions (Vue, React, Angular) — use the framework-specific skill (for example `review-vue`)
+- Full orchestrated review — use `orchestrate-code-review`
 
-### 该技能的范围
-
-- **分析**：**给定代码范围**（调用者提供的文件或差异）中的 TypeScript 和 JavaScript 语言和运行时约定。不决定范围；接受代码范围作为输入。
-- **不要**：执行范围选择、安全审查或架构审查；除非在范围内，否则不要检查非 TS/JS 文件的 TS/JS 规则。
-
-### 审核清单（仅限 TypeScript/JavaScript 语言）
-
-1. **类型安全和类型系统使用**：强制执行“严格”模式；优先显式类型而非 `any`；使用受歧视的联合进行状态建模；应用类型保护和缩小；利用泛型进行重用，而不牺牲类型信息；在可能缩小范围的情况下避免类型断言（`as`）。
-2. **异步模式**：确保正确的 async/await 使用和 Promise 链；验证通过异步边界的错误传播；检测竞争条件和未处理的 Promise 拒绝；检查悬空的 Promise（缺少 `await`）；验证并发模式（“Promise.all”、“Promise.allSettled”）。
-3. **错误处理**：验证try/catch的位置和特异性；优先自定义错误类型，而非裸字符串或原始 Error；确保详尽的错误处理（switch/if-else 涵盖所有情况）；检查错误是否带有足够的上下文；验证finally 块中的清理。
-4. **模块设计**：优先 ESM（`import` / `export`）而非 CJS（`require` / `module.exports`）；审计桶出口的影响；检测循环依赖；检查模块范围内的意外副作用；验证一致的模块分辨率。
-5. **运行时正确性**：检查空/未定义处理（可选链接、空合并）；强制严格相等（`===`/`!==`）；检测强制陷阱（隐式类型转换）；检查原型污染风险；验证迭代器/生成器的正确性。
-6. **API和界面设计**：检查函数签名的清晰度和一致性；验证重载的顺序正确且不含糊；检查品牌/不透明类型以确保域安全；在意外突变的情况下强制执行“只读”；验证索引签名和映射类型。
-7. **性能和内存**：检测基于闭包的内存泄漏；验证事件监听器和订阅清理；检查 WeakRef/WeakMap 的缓存模式使用情况；评估进口捆绑规模的影响；识别热路径效率低下的情况（例如循环中不必要的分配）。
-
-### 语气和参考
-
-- **专业和技术**：参考具体位置（文件：行或符号名称）。发出包含位置、类别、严重性、标题、描述、建议的结果。
+**Handoff point**: once all TypeScript/JavaScript findings are emitted, hand them to `orchestrate-code-review` for aggregation. For injection risks or secrets in the code, note them and point at `review-security`.
 
 ---
 
-## 输入与输出 (Input & Output)
+## Use Cases
 
-### 输入 (Input)
+- **Orchestrated review**: serves as the language step when [orchestrate-code-review](../orchestrate-code-review/SKILL.md) runs scope → language → framework → library → cognitive on a TypeScript/JavaScript project.
+- **TypeScript-only review**: when the user wants nothing but TypeScript/JavaScript language conventions checked.
+- **Pre-PR language checklist**: confirm type safety, async correctness, and sound module design before merging.
 
-- **代码范围**：包含 TypeScript 或 JavaScript 代码（.ts、.tsx、.js、.jsx、.mts、.mjs、.cts、.cjs）的文件或目录（或 diff）。由用户或范围技能提供。
-
-### 输出 (Output)
-
-- 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
-- 此技能的类别是**语言打字稿**。
+**When to use**: when the code under review is TypeScript or JavaScript and the task includes language quality. Scope is set by the caller or the user.
 
 ---
 
-## 限制 (Restrictions)
+## Behavior
 
-### 硬边界（Hard Boundaries）
+### What this skill covers
 
-- **不要**执行范围选择、安全性或架构审查。遵守 TypeScript/JavaScript 语言和运行时约定。
-- **不要**在没有具体地点或可行建议的情况下给出结论。
-- **不要**审查非 TS/JS 代码的 TS/JS 特定规则，除非明确在范围内。
+- **Analyse**: TypeScript and JavaScript language and runtime conventions inside the **given code scope** (files or a diff supplied by the caller). Does not decide scope; takes the code scope as input.
+- **Do not**: perform scope selection, security review, or architecture review; do not check non-TS/JS files against TS/JS rules unless they are in scope.
 
-### 技能边界 (Skill Boundaries)
+### Review checklist (TypeScript/JavaScript language only)
 
-**不要做这些**（其他技能可以处理它们）：
+1. **Type safety and type system usage**: enforce `strict` mode; prefer explicit types over `any`; model state with discriminated unions; apply type guards and narrowing; use generics for reuse without giving up type information; avoid type assertions (`as`) where narrowing would do.
+2. **Async patterns**: ensure correct async/await usage and Promise chaining; verify error propagation across async boundaries; detect race conditions and unhandled Promise rejections; check for dangling Promises (missing `await`); verify concurrency patterns (`Promise.all`, `Promise.allSettled`).
+3. **Error handling**: verify try/catch placement and specificity; prefer custom error types over bare strings or a raw Error; ensure exhaustive error handling (switch/if-else covering every case); check that errors carry enough context; verify cleanup in finally blocks.
+4. **Module design**: prefer ESM (`import` / `export`) over CJS (`require` / `module.exports`); audit the impact of barrel exports; detect circular dependencies; check for unintended side effects at module scope; verify consistent module resolution.
+5. **Runtime correctness**: check null/undefined handling (optional chaining, nullish coalescing); enforce strict equality (`===`/`!==`); detect coercion pitfalls (implicit type conversion); check prototype pollution risk; verify iterator/generator correctness.
+6. **API and interface design**: check function signatures for clarity and consistency; verify overloads are ordered correctly and unambiguous; check branded/opaque types for domain safety; enforce `readonly` where mutation would be unintended; verify index signatures and mapped types.
+7. **Performance and memory**: detect closure-based memory leaks; verify event listener and subscription cleanup; check WeakRef/WeakMap usage for caching patterns; assess the bundle size impact of imports; identify hot-path inefficiencies (for example unnecessary allocations inside a loop).
 
-- 不要选择或定义代码范围 - 范围由调用者或“审查代码”确定
-- 不要执行安全分析（注入、秘密）——使用“review-security”
-- 不要执行架构分析——使用“review-architecture”
-- 不要查看特定于框架的约定（Vue、React、Angular）——使用相应的框架技能
+### Tone and references
 
-**何时停止并交接**：
-
-- 当所有 TypeScript/JavaScript 结果发出后，将其移交给“orchestrate-code-review”进行聚合
-- 当发现注入风险或秘密时，记下它们并建议“审查安全性”
-- 当用户需要全面审查（范围+语言+cognitive）时，重定向到“审查代码”
+- **Professional and technical**: cite the exact location (file:line or symbol name). Emit findings carrying location, category, severity, title, description, and suggestion.
 
 ---
 
-## 自检（Self-Check）
+## Input & Output
 
-### 核心成功标准
+### Input
 
-- [ ] **仅限 TypeScript/JavaScript 语言范围**：仅审查 TypeScript 和 JavaScript 语言以及运行时约定；未执行范围选择、安全性或架构分析
-- [ ] **涵盖所有七种语言维度**：类型安全、异步模式、错误处理、模块设计、运行时正确性、API/界面设计和性能/内存（如果相关）进行评估
-- [ ] **符合调查结果格式**：每个调查结果包括位置、类别（`语言打字稿`）、严重性、标题、描述和可选建议
-- [ ] **文件/行引用**：所有结果引用特定文件：行或符号名称
-- [ ] **排除非 TS/JS 代码**：除非明确在范围内，否则不会分析非 TypeScript/JavaScript 文件的 TS/JS 特定规则
+- **Code scope**: files or directories (or a diff) containing TypeScript or JavaScript code (.ts, .tsx, .js, .jsx, .mts, .mjs, .cts, .cjs). Supplied by the user or by a scope skill.
 
-### 流程质量检查
+### Output
 
-- [ ] 是否仅审查了 TypeScript/JavaScript 语言维度（无范围/安全/架构）？
-- [ ] 是否涵盖了相关的类型安全、异步模式、错误处理、模块设计、运行时正确性、API 设计和性能？
-- [ ] 每个发现是否都包含位置、类别=语言打字稿、严重性、标题、描述和可选建议？
-- [ ] 问题是否通过文件：行或符号名称引用？
-
-### 验收测试
-
-输出是否包含以 TypeScript/JavaScript 为中心的结果列表，其中包含涵盖所有相关语言维度的文件/行引用，而无需执行安全性、架构或范围分析？
+- Emit zero or more **findings** in the format defined in **Appendix: Output Contract**.
+- The category for this skill is **language-typescript**.
 
 ---
 
-## 示例 (Examples)
+## Restrictions
 
-### 示例 1：不安全地使用 `any`
+### Hard Boundaries
 
-- **输入**：函数参数类型为“any”且没有运行时验证的模块。
-- **预期**：针对不安全的“any”使用发出一个发现（主要）；建议用适当的类型、泛型或类型缩小的“未知”来替换。类别 = 语言打字稿。
+- **Do not** perform scope selection, security, or architecture review. Stay inside TypeScript/JavaScript language and runtime conventions.
+- **Do not** state a finding without a concrete location or an actionable suggestion.
+- **Do not** review non-TS/JS code against TS/JS-specific rules unless it is explicitly in scope.
 
-### 示例 2：异步调用时缺少 `await`
+### Skill Boundaries
 
-- **输入**：异步函数调用另一个异步函数而不使用“await”，丢弃 Promise。
-- **预期**：针对悬空 Promise 发出一个发现（关键/主要）；建议添加 `await` 或显式处理返回的 Promise。类别 = 语言打字稿。
+**Do not do these** (other skills handle them):
 
-### 边缘情况：在同一项目中混合使用 ESM 和 CJS
+- Do not select or define the code scope - it is set by the caller or by `orchestrate-code-review`
+- Do not perform security analysis (injection, secrets) — use `review-security`
+- Do not perform architecture analysis — use `review-architecture`
+- Do not review framework-specific conventions (Vue, React, Angular) — use the corresponding framework skill
 
-- **输入**：使用“import”/“export”使用某些文件进行项目，使用“require”/“module.exports”使用其他文件。
-- **预期**：发出模块系统使用不一致的结果；建议迁移到单模块系统（最好是 ESM）或记录混合使用的原因。类别 = 语言打字稿。
+**When to stop and hand off**:
+
+- Once all TypeScript/JavaScript findings are emitted, hand them to `orchestrate-code-review` for aggregation
+- When injection risks or secrets turn up, note them and point at `review-security`
+- When the user wants a full review (scope + language + cognitive), redirect to `orchestrate-code-review`
+
+---
+
+## Self-Check
+
+### Core success criteria
+
+- [ ] **TypeScript/JavaScript language scope only**: reviews TypeScript and JavaScript language and runtime conventions only; performs no scope selection, security, or architecture analysis
+- [ ] **All seven language dimensions covered**: type safety, async patterns, error handling, module design, runtime correctness, API/interface design, and performance/memory are assessed where relevant
+- [ ] **Findings format compliant**: each finding carries location, category (`language-typescript`), severity, title, description, and an optional suggestion
+- [ ] **File/line references**: every finding cites a specific file:line or symbol name
+- [ ] **Non-TS/JS code excluded**: non-TypeScript/JavaScript files are not analyzed against TS/JS-specific rules unless they are explicitly in scope
+
+### Process quality checks
+
+- [ ] Were only TypeScript/JavaScript language dimensions reviewed (no scope/security/architecture)?
+- [ ] Were type safety, async patterns, error handling, module design, runtime correctness, API design, and performance covered where relevant?
+- [ ] Does every finding carry location, category = language-typescript, severity, title, description, and an optional suggestion?
+- [ ] Is each issue referenced by file:line or symbol name?
+
+### Acceptance test
+
+Does the output contain a TypeScript/JavaScript-centered findings list with file/line references covering all relevant language dimensions, without performing security, architecture, or scope analysis?
+
+---
+
+## Examples
+
+### Example 1: unsafe use of `any`
+
+- **Input**: a module whose function parameters are typed `any` with no runtime validation.
+- **Expected**: one finding (major) for the unsafe `any` usage; the suggestion is to replace it with a proper type, a generic, or `unknown` plus narrowing. Category = language-typescript.
+
+### Example 2: missing `await` on an async call
+
+- **Input**: an async function calls another async function without `await`, discarding the Promise.
+- **Expected**: one finding (critical/major) for the dangling Promise; the suggestion is to add `await` or handle the returned Promise explicitly. Category = language-typescript.
+
+### Edge case: ESM and CJS mixed in one project
+
+- **Input**: a project where some files use `import`/`export` and others use `require`/`module.exports`.
+- **Expected**: a finding for inconsistent module system usage; the suggestion is to migrate to a single module system (preferably ESM) or to document why the mix exists. Category = language-typescript.

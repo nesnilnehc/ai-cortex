@@ -17,52 +17,52 @@ output_schema:
   description: Grounded announcement drafts and, when authorized and supported, delivery receipts linked to the Release Package
 ---
 
-# 技能（Skill）：公告发布（Announce Release）
+# Skill: Announce Release
 
-## 目的
+## Purpose
 
-将已发布 Release Package 的事实转换为面向不同受众的公告，并在用户明确要求且运行时具备渠道能力时投递。材料生成归 `prepare-release`，版本发布归 `publish-release`。
+Turn the facts of a published Release Package into announcements aimed at different audiences, and deliver them when the user explicitly asks and the runtime has the channel capability. Material generation belongs to `prepare-release`; version publication belongs to `publish-release`.
 
-## 核心目标
+## Core Goal
 
-产出与已发布版本事实一致的公告；在渠道、权限和用户确认均满足时逐渠道投递，并保留可审计的 delivery receipt。
+Produce announcements consistent with the facts of the published version; deliver them channel by channel once channel, permission and user confirmation are all satisfied, and keep an auditable delivery receipt.
 
-## 行为
+## Behavior
 
-1. 要求 package 为 `decision=release` / `status=published`，且版本、通道、tag、commit、发布回执和所有 required artifact 路径齐全；optional artifact 可为 `skipped` / `unavailable` / `failed`，不得因此阻塞普通公告。`not_required` 或缺少 required 事实时停止，不猜测。
-2. 优先消费 package 的 `change_items`，按 `audiences`、`user_impact`、breaking/migration、语言、highlight 和 media 选择内容；artifact 用于补充已审核文案与链接。只有旧 package 没有 change items 时才回退解析 changelog/release notes，并明确标记推断。
-3. 按受众生成 internal、customer-facing、technical/operator 草稿。同一事实可按受众改写表达，但版本、用户影响、迁移动作与来源不得漂移。结构遵循 [Universal Notification](../../specs/universal-notification.md)，实际 IM 投递遵循 [INP](../../protocols/im-notification-delivery.md)。
-4. 发现可用的邮件、IM、网站、客户门户或项目 provider 工具，映射发送能力、目标、链接/附件支持和回执，并把每个目标渠道明确为 required 或 optional。没有工具时只输出草稿。
-5. 投递前展示渠道、受众、正文、链接、权限和影响；确认后发送。逐渠道记录成功、失败和跳过。
-6. 只有至少一个目标渠道收到成功回执、所有 required 渠道均成功，且用户要求记录状态时，才将 communication 写为 `announced`；required 渠道失败或没有成功投递时保持 `published`。optional 渠道失败必须保留回执，但不阻塞 `announced`。
+1. Require the package to be `decision=release` / `status=published`, with version, channel, tag, commit, publication receipt and every required artifact path present; an optional artifact may be `skipped` / `unavailable` / `failed`, and that must not block an ordinary announcement. Stop on `not_required` or a missing required fact; do not guess.
+2. Prefer the package's `change_items` as the source, selecting content by `audiences`, `user_impact`, breaking/migration, language, highlight and media; artifacts supply reviewed copy and links on top of that. Fall back to parsing changelog/release notes only when an older package carries no change items, and mark what was inferred.
+3. Produce internal, customer-facing and technical/operator drafts per audience. The same fact may be reworded for a different audience, but the version, user impact, migration actions and sources must not drift. Structure follows [Universal Notification](../../specs/universal-notification.md); actual IM delivery follows [INP](../../protocols/im-notification-delivery.md).
+4. Discover the available email, IM, website, customer portal or project provider tools, map their send capability, targets, link/attachment support and receipts, and mark each target channel explicitly as required or optional. With no tool available, output drafts only.
+5. Before delivery, show the channels, audiences, body, links, permissions and impact; send after confirmation. Record success, failure and skip per channel.
+6. Write communication as `announced` only when at least one target channel returned a success receipt, all required channels succeeded, and the user asked for the status to be recorded; keep `published` when a required channel fails or nothing was delivered successfully. A failed optional channel must keep its receipt, but it does not block `announced`.
 
-## 输入与输出
+## Input and Output
 
-输入为 `published` Release Package、目标受众/渠道和可选的投递请求。输出为按受众区分的公告草稿；在获得确认且具备渠道能力时，附逐渠道 delivery receipt，并按 Spec 记录 communication 结果。
+Input is a `published` Release Package, the target audiences/channels and an optional delivery request. Output is announcement drafts separated by audience; once confirmed and channel-capable, it also carries a per-channel delivery receipt and records the communication result per the Spec.
 
-## 限制
+## Limits
 
-- 不生成或改写 `CHANGELOG.md` 的权威内容，不创建 tag，不发布构建产物。
-- 不把 `internal` change item 自动暴露给 customer audience；不把技术 changelog 逐句复制成客户公告。
-- 不把未发布版本、未验证功能或视频存在性写成事实。
-- 没有渠道工具、账号或目标时不发送；不把凭据写入草稿或 package。
-- video 仅作为 optional artifact 链接；缺失不阻塞普通公告，除非项目明确要求。
+- Does not generate or rewrite the authoritative content of `CHANGELOG.md`, does not create tags, does not publish build artifacts.
+- Does not expose an `internal` change item to a customer audience automatically; does not copy a technical changelog sentence by sentence into a customer announcement.
+- Does not state an unpublished version, an unverified capability or the existence of a video as fact.
+- Does not send when there is no channel tool, account or target; does not write credentials into a draft or into the package.
+- video is linked only as an optional artifact; its absence does not block an ordinary announcement unless the project explicitly demands it.
 
-## 自检
+## Self-Check
 
-- [ ] package 为 `decision=release` / `status=published`，公告中的版本/tag/commit 与其一致。
-- [ ] 优先使用 change items，audience、语言、highlight、migration 和 media 选择可追溯。
-- [ ] 每条事实可追溯到 package artifact 或发布回执。
-- [ ] 渠道能力已发现，投递前已展示并获确认。
-- [ ] 每个渠道有独立 receipt，失败未被隐藏。
-- [ ] `announced` 只在符合条件的成功回执后写入。
+- [ ] The package is `decision=release` / `status=published`, and the version/tag/commit in the announcement match it.
+- [ ] Change items were preferred as the source, and the audience, language, highlight, migration and media selections are traceable.
+- [ ] Every fact traces back to a package artifact or a publication receipt.
+- [ ] Channel capabilities were discovered, and the delivery was shown and confirmed before it ran.
+- [ ] Each channel has its own receipt, and no failure is hidden.
+- [ ] `announced` was written only after a qualifying success receipt.
 
-## 示例
+## Examples
 
-### 示例 1：只生成公告草稿
+### Example 1: Drafts only
 
-用户要求准备 v3.2.0 客户公告但未授权发送。读取 published package，生成客户版与技术版 Markdown 草稿，不调用渠道工具，也不改变状态。
+The user asks for a v3.2.0 customer announcement but has not authorized sending. Read the published package and produce a customer draft and a technical draft in Markdown; call no channel tool and change no status.
 
-### 示例 2：部分渠道失败
+### Example 2: Some channels fail
 
-邮件成功，但被标为 required 的企业 IM 未连接。输出邮件 receipt 与 IM 未发送原因，package 保持 `published`，不把 required 渠道未完成的部分成功标为 `announced`。
+Email succeeds, but the enterprise IM marked required is not connected. Output the email receipt and the reason the IM was not sent, keep the package at `published`, and do not mark a partial success with an unfinished required channel as `announced`.

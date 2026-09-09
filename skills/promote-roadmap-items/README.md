@@ -25,9 +25,9 @@ The skill behind a roadmap planning ceremony: it reads the prioritized backlog, 
 - An updated `roadmap.md`
 - Updated item frontmatter (`status`, `promoted_at` / `demoted_at`, `strategic_goal_id`, and so on)
 
-## Installation
+## Install
 
-Installation is handled centrally by the AI Cortex canonical installer; see the repository root [README](../../README.md#-install-and-use).
+Handled centrally by the canonical AI Cortex install; see the repository root [README](../../README.md#-install-and-use).
 
 ## Related skills
 

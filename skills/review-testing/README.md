@@ -33,6 +33,6 @@ Analyses a given code scope for testing health across six dimensions:
 - [automate-tests](../automate-tests/SKILL.md) — actually runs the tests; this skill reviews test code quality.
 - [review-codebase](../review-codebase/SKILL.md) — the scope skill that treats testability as one of its dimensions.
 
-## Installation
+## Install
 
-Installation is handled centrally by the AI Cortex canonical installer; see the repository root [README](../../README.md#-install-and-use).
+Handled centrally by the canonical AI Cortex install; see the repository root [README](../../README.md#-install-and-use).

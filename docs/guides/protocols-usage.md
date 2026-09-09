@@ -350,7 +350,7 @@ git diff protocols/unp.md
 }
 ```
 
-### Q: can my own channel be supported, Slack for instance?
+### Q: can my own channel be supported, such as Slack?
 
 **A**: yes.
 

@@ -17,171 +17,171 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion
 ---
 
-# 技能（Skill）：审查性能
+# Skill: Review Performance
 
-## 目的 (Purpose)
+## Purpose
 
-仅审查 **性能** 问题的代码。不要定义范围（差异与代码库）或执行安全/架构/语言框架约定分析；这些由其他原子技能处理。以标准格式发出**结果列表**以进行聚合。重点关注算法复杂性、查询效率、I/O 和网络成本、内存行为、争用和并发瓶颈、缓存策略以及可测量的回归风险。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：生成一个以性能为中心的结果列表，涵盖给定代码范围的复杂性热点、查询效率、I/O 成本、内存行为、并发争用、缓存和回归风险。
-
-**成功标准**（必须满足所有要求）：
-
-1. ✅ **仅性能范围**：仅审查性能维度；未执行范围选择、安全性、架构或语言/框架风格审查
-2. ✅ **评估所有八个类别**：在相关的情况下评估复杂性、数据库/查询效率、I/O/网络成本、内存/分配、并发/争用、缓存/重用、面向负载的行为和可观察性
-3. ✅ **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive-performance”）、严重性、标题、描述和可选建议
-4. ✅ **准确分配的严重性**：影响生产的问题标记为“严重”；可扩展性风险标记为“重大”；本地化优化标记为“次要”/“建议”
-5. ✅ **可操作的输出**：每个发现都有具体的位置参考和具体的修复或改进建议，除非提供测量证据，否则不要求基准数字
-
-**验收**测试：输出是否包含涵盖所有相关维度的性能结果列表，以及基于证据的严重性评级和可操作的、位置参考的建议？
+Review code for **performance** issues only. Do not define scope (diff vs codebase) or analyze security/architecture/language-framework conventions; other atomic skills handle those. Emit a **findings list** in the standard format for aggregation. Focus on algorithmic complexity, query efficiency, I/O and network cost, memory behavior, contention and concurrency bottlenecks, caching strategy, and measurable regression risk.
 
 ---
 
-## 范围边界（范围边界）
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: produce a performance-centered findings list covering complexity hotspots, query efficiency, I/O cost, memory behavior, concurrency contention, caching, and regression risk for the given code scope.
 
-- 算法复杂度热点（O(n²)+、嵌套循环、重复扫描）
-- 数据库/查询效率（N+1、缺少分页、广泛选择）
-- I/O 和网络成本（闲聊、缺少批处理、关键路径阻塞）
-- 内存和分配行为（流失、大对象保留、无限增长）
-- 并发和争用（锁争用、goroutine 饥饿、队列背压）
-- 缓存策略（热路径上缺少缓存、失效风险、踩踏风险）
-- 面向负载的行为（缺少限制/防护、昂贵的默认值）
-- 性能的可观察性（缺少指标/跟踪热路径）
+**Success criteria** (all must hold):
 
-**本技能不负责**：
+1. ✅ **Performance scope only**: reviews performance dimensions only; performs no scope selection, security, architecture, or language/framework style review
+2. ✅ **All eight categories assessed**: complexity, database/query efficiency, I/O and network cost, memory/allocation, concurrency/contention, caching/reuse, load-facing behavior, and observability are assessed where relevant
+3. ✅ **Findings format compliant**: each finding carries location, category (`cognitive-performance`), severity, title, description, and an optional suggestion
+4. ✅ **Severity assigned accurately**: production-impacting issues are marked "critical"; scalability risk is marked "major"; localized optimizations are marked "minor"/"suggestion"
+5. ✅ **Actionable output**: every finding carries a concrete location reference and a specific fix or improvement suggestion, and claims no benchmark numbers unless measurement evidence is supplied
 
-- 范围选择（决定要分析哪些文件/路径）——范围由调用者提供
-- 安全审查——使用“review-security”
-- 架构审查——使用“review-architecture”
-- 特定于语言/框架的约定 - 使用 `review-dotnet`、`review-java`、`review-go` 等。
-- 全面的 SQL 性能分析 — 使用 `review-sql`
-- 完整编排式审查——使用“审查代码”
-
-**转交点**：当所有性能结果发布后，移交给“审查代码”编排器进行聚合，或直接交付给用户进行以性能为中心的审查会议。
+**Acceptance** test: does the output contain a performance findings list covering all relevant dimensions, with evidence-based severity ratings and actionable, location-referenced suggestions?
 
 ---
 
-## 使用场景 (Use Cases)
+## Scope Boundaries
 
-- **精心安排的审查**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 运行范围 -> 语言 -> 框架 -> 库 -> cognitive时，用作cognitive步骤。
-- **以性能为中心的审查**：当用户只想在合并或发布之前检查性能维度时。
-- **回归预防**：验证更改不会引入明显的延迟、吞吐量或内存回归。
+**This skill owns**:
 
-**何时使用**：当任务包含绩效审核时。范围和代码范围由调用者或用户确定。
+- Algorithmic complexity hotspots (O(n²)+, nested loops, repeated scans)
+- Database/query efficiency (N+1, missing pagination, wide selects)
+- I/O and network cost (chatty calls, missing batching, blocking on the critical path)
+- Memory and allocation behavior (churn, large object retention, unbounded growth)
+- Concurrency and contention (lock contention, goroutine starvation, queue backpressure)
+- Caching strategy (missing cache on hot paths, invalidation risk, stampede risk)
+- Load-facing behavior (missing limits/guards, expensive defaults)
+- Observability for performance (missing metrics/traces around hot paths)
 
----
+**This skill does not own**:
 
-## 行为 (Behavior)
+- Scope selection (deciding which files/paths to analyze) — the scope is supplied by the caller
+- Security review — use `review-security`
+- Architecture review — use `review-architecture`
+- Language/framework-specific conventions - use `review-dotnet`, `review-java`, `review-go` and so on.
+- Comprehensive SQL performance analysis — use `review-sql`
+- Full orchestrated review — use `orchestrate-code-review`
 
-### 该技能的范围
-
-- **分析**：**给定代码范围**中的性能维度（调用者提供的文件或差异）。不决定范围；接受代码范围作为输入。
-- **不要**：执行范围选择、安全审查、架构审查或语言/框架风格审查。只关注性能。
-
-### 审查清单（仅限性能维度）
-
-1. **复杂性热点**：检测不必要的 O(n^2)+ 行为、重复扫描、大型集合上的嵌套循环以及可避免的重新计算。
-2. **数据库和查询效率**：N+1 访问模式、缺少分页、广泛选择、低效联接/过滤器以及查询频率放大。
-3. **I/O 和网络成本**：频繁的远程调用、缺少批处理、关键路径上的阻​​塞调用、无限制的重试/超时以及不良的退避行为。
-4. **内存和分配**：过多的分配/搅动、大对象保留、不必要的副本、无限增长和可避免的缓冲。
-5. **并发和争用**：锁争用、序列化关键部分、线程/goroutine 饥饿、队列背压和超额订阅风险。
-6. **缓存和重用**：热读路径上缺少缓存机会、失效正确性风险、踩踏风险和低价值缓存层。
-7. **面向负载的行为**：缺少限制/防护（批量大小、页面大小、并发上限）、昂贵的默认值以及负载下缺乏降级策略。
-8. **性能可观察性**：缺少围绕热路径的指标/跟踪，从而妨碍回归检测和容量规划。
-
-### 严重性指导
-
-- **关键**：可能会对生产产生明显影响（例如无界循环/增长、热路径中重复昂贵的 I/O、灾难性查询模式）。
-- **主要**：现实流量/数据增长带来的强烈回归或可扩展性风险。
-- **次要/建议**：本地化或影响较低的优化机会。
-
-### 语气和参考
-
-- **专业和技术**：参考特定位置（文件：行或查询/块）。
-- 发出包含位置、类别、严重性、标题、描述、建议的调查结果。
+**Handoff point**: once all performance findings are emitted, hand them to the `orchestrate-code-review` orchestrator for aggregation, or deliver them straight to the user for a performance-centered review session.
 
 ---
 
-## 输入与输出 (Input & Output)
+## Use Cases
 
-### 输入 (Input)
+- **Orchestrated review**: serves as the cognitive step when [orchestrate-code-review](../orchestrate-code-review/SKILL.md) runs scope -> language -> framework -> library -> cognitive.
+- **Performance-centered review**: when the user wants the performance dimensions alone checked before a merge or a release.
+- **Regression prevention**: verify that a change introduces no visible latency, throughput, or memory regression.
 
-- **代码范围**：用户或范围技能已选择的文件或目录（或差异）。该技能不决定范围；它仅检查所提供的代码的性能。
-
-### 输出 (Output)
-
-- 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
-- 此技能的类别是**cognitive-performance**。
+**When to use**: when the task includes a performance review. The scope and code range are set by the caller or the user.
 
 ---
 
-## 限制 (Restrictions)
+## Behavior
 
-### 硬边界（Hard Boundaries）
+### What this skill covers
 
-- **不要**执行范围选择、安全性、架构或语言/框架风格审查。保持在性能范围内。
-- **不要**在没有具体地点或可行建议的情况下给出结论。
-- **不要**声称基准数字，除非在输入中提供了测量证据。
+- **Analyze**: performance dimensions inside the **given code scope** (files or a diff supplied by the caller). Does not decide scope; takes the code scope as input.
+- **Do not**: perform scope selection, security review, architecture review, or language/framework style review. Stay on performance.
 
-### 技能边界 (Skill Boundaries)
+### Review checklist (performance dimensions only)
 
-**不要做这些**（其他技能可以处理它们）：
+1. **Complexity hotspots**: detect unnecessary O(n^2)+ behavior, repeated scans, nested loops over large collections, and avoidable recomputation.
+2. **Database and query efficiency**: N+1 access patterns, missing pagination, wide selects, inefficient joins/filters, and query frequency amplification.
+3. **I/O and network cost**: frequent remote calls, missing batching, blocking calls on the critical path, unbounded retries/timeouts, and poor backoff behavior.
+4. **Memory and allocation**: excessive allocation/churn, large object retention, unnecessary copies, unbounded growth, and avoidable buffering.
+5. **Concurrency and contention**: lock contention, serialized critical sections, thread/goroutine starvation, queue backpressure, and oversubscription risk.
+6. **Caching and reuse**: missed caching opportunities on hot read paths, invalidation correctness risk, stampede risk, and low-value cache layers.
+7. **Load-facing behavior**: missing limits/guards (batch size, page size, concurrency caps), expensive defaults, and no degradation strategy under load.
+8. **Performance observability**: missing metrics/traces around hot paths, which blocks regression detection and capacity planning.
 
-- 不要选择或定义代码范围 - 范围由调用者或“审查代码”确定
-- 不要执行安全性、架构或语言/框架审查——使用各自的原子技能
-- 不要执行全面的 SQL 性能分析 — 使用 `review-sql`
-- 不要运行或执行代码来测量性能 - 使用“run-automated-tests”进行测试执行
+### Severity guidance
 
-**何时停止并交接**：
+- **Critical**: likely to have a visible production impact (unbounded loops/growth, repeated expensive I/O in a hot path, catastrophic query patterns, for example).
+- **Major**: strong regression or scalability risk under realistic traffic/data growth.
+- **Minor/suggestion**: localized or lower-impact optimization opportunities.
 
-- 当所有性能结果发布后，将其移交给“审查代码”以在精心策划的审核中进行聚合
-- 当用户需要全面审查（范围+语言+cognitive）时，重定向到“审查代码”
-- 当 SQL 性能问题占主导地位时，建议还运行“review-sql”以获得更深入的 SQL 覆盖
+### Tone and references
 
----
-
-## 自检（Self-Check）
-
-### 核心成功标准
-
-- [ ] **仅性能范围**：仅审查性能维度；未执行范围选择、安全性、架构或语言/框架风格审查
-- [ ] **评估所有八个类别**：在相关的情况下评估复杂性、数据库/查询效率、I/O/网络成本、内存/分配、并发/争用、缓存/重用、面向负载的行为和可观察性
-- [ ] **符合调查结果格式**：每个调查结果包括位置、类别（“cognitive-performance”）、严重性、标题、描述和可选建议
-- [ ] **准确分配的严重性**：影响生产的问题标记为“严重”；可扩展性风险标记为“重大”；本地化优化标记为“次要”/“建议”
-- [ ] **可行的输出**：每个发现都有具体的位置参考和具体的修复或改进建议，除非提供了测量证据，否则不会声称基准数字
-
-### 流程质量检查
-
-- [ ] 是否仅审查了性能维度（没有范围/安全/架构/风格）？
-- [ ] 是否涵盖了相关的复杂性、查询效率、I/O、内存、并发、缓存和加载行为？
-- [ ] 每个发现是否都包含位置、类别=cognitive-performance、严重性、标题、描述和可选建议？
-- [ ] 高影响回归风险是否与次要优化明确区分开来？
-
-### 验收测试
-
-输出是否包含涵盖所有相关维度的绩效结果列表，以及基于证据的严重性评级和可操作的、位置参考的建议？
+- **Professional and technical**: cite the exact location (file:line, or the query/block).
+- Emit findings carrying location, category, severity, title, description, and suggestion.
 
 ---
 
-## 示例 (Examples)
+## Input & Output
 
-### 示例 1：N+1 查询模式
+### Input
 
-- **输入**：循环通过每次迭代一个查询来获取每个父级的子记录。
-- **预期**：针对 N+1 行为发出主要/关键发现；建议批量查询或连接策略。类别=cognitive-performance。
+- **Code scope**: files or directories (or a diff) already selected by the user or by a scope skill. This skill does not decide scope; it only examines the code it is given for performance.
 
-### 示例 2：热路径分配流失
+### Output
 
-- **输入**：请求处理程序重复分配大型临时缓冲区并多次序列化有效负载。
-- **预期**：发布关于分配压力和延迟影响的主要发现；建议重用/池化或单遍转换。类别=cognitive-performance。
+- Emit zero or more **findings** in the format defined in **Appendix: Output Contract**.
+- The category for this skill is **cognitive-performance**.
 
-### 边缘情况：小格式差异中没有明显的性能风险
+---
 
-- **输入**：差异仅包括注释/重命名，没有行为变化。
-- **预期**：不发出任何发现或一条建议级别的注释；不要发明优化工作。类别仍然是任何发出的发现的cognitive-performance。
+## Restrictions
+
+### Hard Boundaries
+
+- **Do not** perform scope selection, security, architecture, or language/framework style review. Stay inside performance.
+- **Do not** state a finding without a concrete location or an actionable suggestion.
+- **Do not** claim benchmark numbers unless measurement evidence is supplied in the input.
+
+### Skill Boundaries
+
+**Do not do these** (other skills handle them):
+
+- Do not select or define the code scope - it is set by the caller or by `orchestrate-code-review`
+- Do not perform security, architecture, or language/framework review — use the respective atomic skills
+- Do not perform comprehensive SQL performance analysis — use `review-sql`
+- Do not run or execute code to measure performance - use `run-automated-tests` for test execution
+
+**When to stop and hand off**:
+
+- Once all performance findings are emitted, hand them to `orchestrate-code-review` for aggregation inside an orchestrated review
+- When the user wants a full review (scope + language + cognitive), redirect to `orchestrate-code-review`
+- When SQL performance issues dominate, suggest also running `review-sql` for deeper SQL coverage
+
+---
+
+## Self-Check
+
+### Core success criteria
+
+- [ ] **Performance scope only**: reviews performance dimensions only; performs no scope selection, security, architecture, or language/framework style review
+- [ ] **All eight categories assessed**: complexity, database/query efficiency, I/O and network cost, memory/allocation, concurrency/contention, caching/reuse, load-facing behavior, and observability are assessed where relevant
+- [ ] **Findings format compliant**: each finding carries location, category (`cognitive-performance`), severity, title, description, and an optional suggestion
+- [ ] **Severity assigned accurately**: production-impacting issues are marked "critical"; scalability risk is marked "major"; localized optimizations are marked "minor"/"suggestion"
+- [ ] **Actionable output**: every finding carries a concrete location reference and a specific fix or improvement suggestion, and claims no benchmark numbers unless measurement evidence is supplied
+
+### Process quality checks
+
+- [ ] Were only performance dimensions reviewed (no scope/security/architecture/style)?
+- [ ] Were complexity, query efficiency, I/O, memory, concurrency, caching, and load behavior covered where relevant?
+- [ ] Does every finding carry location, category = cognitive-performance, severity, title, description, and an optional suggestion?
+- [ ] Is high-impact regression risk clearly separated from minor optimizations?
+
+### Acceptance test
+
+Does the output contain a performance findings list covering all relevant dimensions, with evidence-based severity ratings and actionable, location-referenced suggestions?
+
+---
+
+## Examples
+
+### Example 1: N+1 query pattern
+
+- **Input**: a loop that fetches the child records of each parent with one query per iteration.
+- **Expected**: a major/critical finding for the N+1 behavior; the suggestion is a batched query or a join strategy. Category = cognitive-performance.
+
+### Example 2: allocation churn on a hot path
+
+- **Input**: a request handler that repeatedly allocates large temporary buffers and serializes the payload several times.
+- **Expected**: a major finding on allocation pressure and its latency impact; the suggestion is reuse/pooling or a single-pass transformation. Category = cognitive-performance.
+
+### Edge case: no material performance risk in a small formatting diff
+
+- **Input**: the diff contains only comments/renames, with no behavior change.
+- **Expected**: emit no findings, or a single suggestion-level note; do not invent optimization work. The category for anything emitted is still cognitive-performance.

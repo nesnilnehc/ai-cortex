@@ -7,7 +7,7 @@ lifecycle: living
 
 # Protocol registry and remote loading
 
-An agent discovers and loads a protocol through the **protocol registry**, rather than relying on a local file.
+An agent should discover and load a protocol through the **protocol registry**, rather than relying on a local file.
 
 ---
 
@@ -434,9 +434,9 @@ From it, an agent can:
 
 **Design principles**:
 
-- An agent is **stateless and unconfigured**
-- A protocol is **discoverable and loadable remotely**
-- A version is **explicit and traceable**
-- The only prior knowledge is **one registry URL**
+- An agent should be **stateless and unconfigured**
+- A protocol should be **discoverable and loadable remotely**
+- A version should be **explicit and traceable**
+- The only prior knowledge should be **one registry URL**
 
 **Last updated**: 2026-03-25
