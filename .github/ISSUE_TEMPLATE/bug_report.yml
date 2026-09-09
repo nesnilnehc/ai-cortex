@@ -1,36 +1,36 @@
-name: 缺陷报告
-description: 报告技能、规则或安装脚本中的问题
+name: Bug report
+description: Report a problem in a skill, a rule or the install script
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        安全问题请勿在此提交，见 [SECURITY.md](../../SECURITY.md)。
+        Do not report a security issue here; see [SECURITY.md](../../SECURITY.md).
   - type: input
     id: asset
     attributes:
-      label: 涉及资产
-      description: 技能 / 规则 / 规范的名称或路径
+      label: Asset involved
+      description: The name or path of the skill, rule or spec
       placeholder: skills/review-roadmap/SKILL.md
     validations:
       required: true
   - type: textarea
     id: expected
     attributes:
-      label: 预期行为
+      label: Expected behaviour
     validations:
       required: true
   - type: textarea
     id: actual
     attributes:
-      label: 实际行为
-      description: Agent 实际做了什么；如有输出请粘贴关键片段
+      label: Actual behaviour
+      description: What the agent actually did; paste the key part of any output
     validations:
       required: true
   - type: textarea
     id: repro
     attributes:
-      label: 复现步骤
-      description: 使用的 Agent、调用方式、相关的项目状态
+      label: Steps to reproduce
+      description: Which agent, how it was invoked, and the relevant project state
     validations:
       required: true

@@ -1,22 +1,22 @@
 # CLAUDE.md
 
-Claude Code 在本仓库工作时的简报。
+A briefing for Claude Code working in this repository.
 
-## 这是什么仓库
+## What this repository is
 
-不是代码项目，是 markdown 资产库（技能、协议、规则、规范）。**不要**尝试 `npm test` / `npm run build` / `npm run verify`——本仓库的 `package.json` `scripts` 为空，没有可运行的命令。
+Not a code project: a markdown asset library of skills, protocols, rules and specs. **Do not** try `npm test` / `npm run build` / `npm run verify` — this repository's `package.json` has an empty `scripts`, and there is nothing to run.
 
-工作树是 `skills/`、`protocols/`、`rules/`、`specs/`，改动以 markdown 编辑为主。
+The working tree is `skills/`, `protocols/`, `rules/` and `specs/`, and a change here means editing markdown.
 
-## 进一步指引
+## Where to go next
 
-- **行为契约（必读）**：[AGENTS.md](AGENTS.md) — 加载顺序、技能匹配、失败处理、权威优先级
-- **贡献流程**：[CONTRIBUTING.md](CONTRIBUTING.md) — fork、PR、版本号
-- **术语**：[docs/architecture/terminology.md](docs/architecture/terminology.md) — 4 类资产定义与边界
-- **命名规范**：[docs/architecture/asset-naming.md](docs/architecture/asset-naming.md) — 4 类资产命名公式与例子
+- **The execution contract, required reading**: [AGENTS.md](AGENTS.md) — load order, skill matching, failure handling, precedence
+- **How to contribute**: [CONTRIBUTING.md](CONTRIBUTING.md) — forking, PRs, version numbers
+- **Terminology**: [docs/architecture/terminology.md](docs/architecture/terminology.md) — the definitions and boundaries of the 4 asset types
+- **Naming**: [docs/architecture/asset-naming.md](docs/architecture/asset-naming.md) — the naming formula and examples for each of the 4 asset types
 
-## Claude Code 易踩的坑
+## Traps Claude Code falls into here
 
-- 技能遵循 [agentskills.io](https://agentskills.io) 标准格式；本仓库不再维护私有 spec（无 `agent.yaml`、无 `manifest.json`、无 `specs/skill.md`）
-- 修改 SKILL.md 后只需同步 `skills/INDEX.md` 一处，没有其他注册表
-- 历史 ADR 与 CHANGELOG 含已删机制（manifest、agent.yaml、artifact-contract、Stage 0 Norms Resolution 等）；阅读时注意时间线，不要按这些历史描述去找文件
+- Skills follow the [agentskills.io](https://agentskills.io) standard format. This repository no longer maintains a private spec — there is no `agent.yaml`, no `manifest.json`, no `specs/skill.md`
+- After editing a SKILL.md, the only registry to update is `skills/INDEX.md`; there is no other
+- Older ADRs and CHANGELOG entries describe mechanisms that have since been deleted — manifest, agent.yaml, artifact-contract, Stage 0 Norms Resolution and others. Mind the timeline as you read, and do not go looking for files those descriptions name

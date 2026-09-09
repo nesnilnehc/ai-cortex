@@ -1,30 +1,30 @@
-name: 新技能提议
-description: 提议新增一个技能
+name: New skill proposal
+description: Propose a new skill
 labels: ["enhancement"]
 body:
   - type: markdown
     attributes:
       value: |
-        提议前请先读 [术语定义](../../docs/architecture/terminology.md) 确认要提的是 Skill 而非 Spec / Protocol / Rule。
+        Before proposing, read the [terminology](../../docs/architecture/terminology.md) and confirm you mean a Skill and not a Spec, Protocol or Rule.
   - type: input
     id: name
     attributes:
-      label: 建议命名
-      description: 遵循 verb-noun 公式，见 [命名规范](../../docs/architecture/asset-naming.md)
+      label: Proposed name
+      description: Follow the verb-noun formula; see the [naming convention](../../docs/architecture/asset-naming.md)
       placeholder: review-something
     validations:
       required: true
   - type: textarea
     id: problem
     attributes:
-      label: 要解决什么问题
-      description: 具体场景，而非泛泛的能力描述
+      label: What problem it solves
+      description: A concrete situation, not a general description of a capability
     validations:
       required: true
   - type: textarea
     id: boundary
     attributes:
-      label: 与现有技能的边界
-      description: 为什么现有的 55 个技能覆盖不了？会与哪些技能相邻？
+      label: Boundary with the existing skills
+      description: Why do the existing 55 skills not cover it, and which skills would it sit next to?
     validations:
       required: true
