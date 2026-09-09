@@ -116,9 +116,17 @@ Conversion from Chinese-first to English-first, in descending order of reader im
 | E0 | This document | done |
 | E1 | `README.md`, `AGENTS.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md` | done |
 | E2 | `rules/*.md` | done |
-| E3 | `specs/*.md`, `protocols/*.md` | |
-| E4 | `docs/**` (excluding `adr/` and `designs/`) | |
-| E5 | `skills/*/README.md` | |
-| E6 | `skills/*/SKILL.md` bodies | |
+| E3 | `specs/*.md`, `protocols/*.md` | done |
+| E4 | `docs/**` (excluding `adr/` and `designs/`) | done |
+| E5 | `skills/*/README.md` | done |
+| E6 | `skills/*/SKILL.md` bodies | in progress |
+| E7 | `CLAUDE.md`, `llms.txt`, `.github/**`, `.editorconfig`, `.cortex/nats.yaml` | done |
+
+E7 was not in the original plan. It exists because a repository-wide sweep
+found four bodies of Chinese that no stage covered — among them the pull
+request template and the three issue templates, which are the first thing a
+contributor sees.
 
 Stages are independently shippable. A partially migrated repository is expected during the transition; `skills/INDEX.md` and all frontmatter stay English throughout, so discovery and skill matching are unaffected at every point.
+
+Each stage is gated by `scripts/verify-translation.py` against the commit it started from, and reviewed by a fresh reader who did not write the translation. The gate holds what a translation must not change; the review catches what it structurally cannot see — a dropped modal, a disjunction read as a conjunction, a term whose English narrows the Chinese. Every deliberate Chinese retention is recorded, with its reason, in `scripts/translation-waivers.json`.
