@@ -22,50 +22,50 @@ related:
   - ../rules/doc-health-criteria.md
 ---
 
-# 测试覆盖评估报告建模规范
+# Test Coverage Report Modeling Schema
 
-> **Data contract**: 定义测试覆盖评估报告的字段结构与正文骨架
+> **Data contract**: defines the field structure and body skeleton of a test coverage assessment report
 
 ---
 
 ## 1. Position and scope
 
-测试覆盖评估报告（test coverage report）是**用例集覆盖评审**与**跨制品对齐评审**的输入制品——它把"用例集对需求/方案的充分性 + 必要性 + 追溯闭环"的判断证据，固化为可评审、可对比、可归档的快照。
+A test coverage report is the input artifact for a **suite-coverage review** and a **cross-artifact alignment review**. It fixes the evidence behind the judgement of "how sufficient, how necessary and how well traced a test suite is against its requirements and designs" into a snapshot that can be reviewed, compared and archived.
 
-| 评审类型 | 关注问题 | 本报告对应章节 |
+| Review type | The question it asks | Corresponding section here |
 |---|---|---|
-| 单用例评审 | 单条用例本身立得住吗？ | **不在本报告范围**（归 [rules/test-case-quality.md](../rules/test-case-quality.md)） |
-| 用例集覆盖评审 | 用例集对需求充分且必要吗？ | §5.2 追溯矩阵 + §5.3 变异测试概要 |
-| 跨制品对齐评审 | 用例集与上游需求/契约的链路完整吗？ | §5.4 追溯健康审计 |
+| Single-case review | Does this one test case hold up on its own? | **Out of this report's scope** (it belongs to [rules/test-case-quality.md](../rules/test-case-quality.md)) |
+| Suite-coverage review | Is the suite both sufficient and necessary against the requirements? | §5.2 traceability matrix + §5.3 mutation test summary |
+| Cross-artifact alignment review | Is the chain from the suite to the upstream requirements and contracts intact? | §5.4 trace health audit |
 
 In scope:
 
-- **发布门禁**：发版前对当前用例集做一次覆盖快照
-- **季度回归集治理**：周期性审视用例集冗余与缺口
-- **需求/契约/ADR 变更影响评估**：上游变更后用快照前后对比判断影响
-- **跨团队契约对接评审**：契约升级时输出覆盖证据
+- **Release gate**: take one coverage snapshot of the current suite before shipping
+- **Quarterly regression-suite governance**: review the suite's redundancy and gaps on a cycle
+- **Impact assessment for a requirement, contract or ADR change**: compare snapshots before and after an upstream change to judge the impact
+- **Cross-team contract integration review**: produce coverage evidence when a contract is upgraded
 
-不In scope:
+Out of scope:
 
-- **单条用例评审**（归 [rules/test-case-quality.md](../rules/test-case-quality.md)）
-- **测试执行报告**（pass/fail/duration 等运行结果，由 CI 报告承载）
-- **代码覆盖率原始数据**（line/branch coverage，由覆盖工具直接产出，本制品只引用其结论）
+- **Reviewing an individual test case** (it belongs to [rules/test-case-quality.md](../rules/test-case-quality.md))
+- **Test execution reports** (pass/fail/duration and other run results, carried by the CI report)
+- **Raw code coverage data** (line/branch coverage, produced directly by the coverage tool; this artifact only cites its conclusion)
 
 ---
 
 ## 2. Mental model
 
-> 一份合格覆盖报告要回答的核心问题。
+> The core questions a sound coverage report has to answer.
 
-每份报告必须能回答 **3 问**：
+Every report must be able to answer **3 questions**:
 
-| 维度 | 核心问题 | 落地章节 |
+| Dimension | Core question | Where it lands |
 |---|---|---|
-| **充分性（Sufficiency）** | 覆盖到位了吗？哪里有空白？ | §5.2 追溯矩阵 |
-| **必要性（Necessity）** | 用例冗余多少？哪些可剪？ | §5.3 变异测试概要 |
-| **追溯闭环（Trace Health）** | 用例与上游制品的链路是否完整有效？ | §5.4 追溯健康审计 |
+| **Sufficiency** | Is the coverage there? Where are the blanks? | §5.2 traceability matrix |
+| **Necessity** | How redundant is the suite? What can be pruned? | §5.3 mutation test summary |
+| **Trace health** | Is the chain from the cases to the upstream artifacts intact and valid? | §5.4 trace health audit |
 
-任一问题无答案，报告即不合格——评审无法据此做发布/治理决策。
+Leave any one of them unanswered and the report is unfit: a reviewer cannot make a release or governance decision from it.
 
 ---
 
@@ -75,12 +75,12 @@ In scope:
 coverage-report-<scope>-<YYYY-MM-DD>.md
 ```
 
-- `<scope>`：覆盖评估范围标识（推荐 `<module>` 或 `<release>`，kebab-case）
-- `<YYYY-MM-DD>`：报告生成日期
-- 示例：`coverage-report-auth-2026-05-25.md` / `coverage-report-v2.4-2026-05-25.md`
-- 存放位置由项目治理决定（典型：`docs/test-coverage/`）
+- `<scope>`: the identifier of the assessed scope — `<module>` or `<release>` is recommended, in kebab-case
+- `<YYYY-MM-DD>`: the date the report was generated
+- Examples: `coverage-report-auth-2026-05-25.md` / `coverage-report-v2.4-2026-05-25.md`
+- The storage location is decided by project governance (typically `docs/test-coverage/`)
 
-报告是 **snapshot 制品**——每次生成新文件，不在旧文件上覆盖。
+A report is a **snapshot artifact**: each run creates a new file and never overwrites an older one.
 
 ---
 
@@ -101,9 +101,9 @@ tool_provenance:
   matrix_generator: <tool-name@version>
   mutation_tool: <tool-name@version>
 verdict: pass | fail | conditional
-# 条件字段
-conditional_reasons:                    # verdict: conditional 时必填
-  - <原因>
+# conditional fields
+conditional_reasons:                    # required when verdict: conditional
+  - <reason>
 ---
 ```
 
@@ -111,83 +111,83 @@ conditional_reasons:                    # verdict: conditional 时必填
 
 | Field | Type | Required | Description |
 |---|---|---|---|
-| `artifact_type` | string | 必 | 固定 `test-coverage-report` |
-| `lifecycle` | enum | 必 | 固定 `snapshot` |
-| `created_at` | date | 必 | 报告生成日期 |
-| `scope` | string | 必 | 覆盖评估范围（模块名 / release 号 / 自定义标识） |
-| `trigger` | enum | 必 | 报告生成触发场景（决定评审严苛度） |
-| `covers_artifacts` | list[path] | 必 | 本报告评估覆盖的上游制品（需求 / 契约 / 设计） |
-| `test_case_sources` | list[path] | 必 | 数据来源的测试用例文档 / 代码目录 |
-| `tool_provenance` | object | 必 | 关键数据的产出工具与版本（保证可追溯与可复现） |
-| `verdict` | enum | 必 | 总体结论：`pass` / `fail` / `conditional`（语义见 §4.2） |
-| `conditional_reasons` | list[string] | 条件 | `verdict: conditional` 时必填，列出条件项 |
+| `artifact_type` | string | Yes | Fixed as `test-coverage-report` |
+| `lifecycle` | enum | Yes | Fixed as `snapshot` |
+| `created_at` | date | Yes | The date the report was generated |
+| `scope` | string | Yes | The assessed scope (a module name, a release number, or a custom identifier) |
+| `trigger` | enum | Yes | What triggered the report, which sets how strict the review is |
+| `covers_artifacts` | list[path] | Yes | The upstream artifacts whose coverage this report assesses (requirements / contracts / designs) |
+| `test_case_sources` | list[path] | Yes | The test case documents or code directories the data came from |
+| `tool_provenance` | object | Yes | The tool and version that produced each key figure, so the data stays traceable and reproducible |
+| `verdict` | enum | Yes | The overall conclusion: `pass` / `fail` / `conditional` (semantics in §4.2) |
+| `conditional_reasons` | list[string] | Conditional | Required when `verdict: conditional`; lists the conditions attached |
 
-### 4.2 verdict 语义
+### 4.2 verdict semantics
 
-| 值 | 含义 | 转入条件 |
+| Value | Meaning | Entry condition |
 |---|---|---|
-| `pass` | 覆盖充分、冗余可控、追溯完整 | 三节（矩阵 / 变异 / 追溯）均无 blocker |
-| `conditional` | 有限通过，需特定豁免或后续补救 | 单项有可接受偏离，已记录条件 |
-| `fail` | 不通过，需补用例或重审 | 任一节出现 blocker（关键 AC 未覆盖 / mutation score < 阈值 / 追溯死链） |
+| `pass` | Coverage is sufficient, redundancy is under control, tracing is intact | None of the three sections (matrix / mutation / tracing) carries a blocker |
+| `conditional` | A qualified pass, needing a specific waiver or later remediation | One item deviates acceptably and the condition has been recorded |
+| `fail` | Not passed; cases must be added or the review redone | Any section carries a blocker (a critical AC uncovered / mutation score below the threshold / a dead trace link) |
 
-**verdict 是结论字段，不是过程字段**——它来源于报告正文，不应与正文矛盾。
+**verdict is a conclusion field, not a process field**: it derives from the report body and must not contradict it.
 
 ---
 
 ## 5. Body structure contract
 
-### 5.1 必填章节（4 节）
+### 5.1 Required sections (4)
 
-**H1 标题**：`# 测试覆盖评估报告：<scope> @ <date>`
+**H1 title**: `# Test coverage report: <scope> @ <date>`
 
-| # | 章节 | 用途 | 校验 |
+| # | Section | Purpose | Validation |
 |---|---|---|---|
-| 1 | 评估摘要（Summary） | 一图/一段说清楚 verdict + 关键数字 | 含覆盖率 / mutation score / 死链数 三项关键指标 |
-| 2 | 追溯矩阵（Traceability Matrix） | AC × 用例 × 维度 矩阵 | 详见 §5.2 |
-| 3 | 变异测试概要（Mutation Summary） | 必要性的金标准证据 | 详见 §5.3 |
-| 4 | 追溯健康审计（Trace Health） | 跨制品链路完整性 | 详见 §5.4 |
+| 1 | Summary | One chart or one paragraph stating the verdict and the key figures | Carries the three key metrics: coverage rate / mutation score / number of dead links |
+| 2 | Traceability Matrix | The AC × case × dimension matrix | See §5.2 |
+| 3 | Mutation Summary | The gold-standard evidence for necessity | See §5.3 |
+| 4 | Trace Health | The integrity of the chain across artifacts | See §5.4 |
 
-### 5.2 追溯矩阵契约
+### 5.2 Traceability matrix contract
 
-格式：表格，行 = AC × 维度，列 = 用例 id。
+Format: a table whose rows are AC × dimension and whose columns are test case ids.
 
-| 字段 | 取值 |
+| Field | Value |
 |---|---|
-| 行键 | `<REQ-ID>#AC<n> · <维度>`，维度 ∈ `正向` / `边界` / `异常` / `非功能` / `状态转移` / `并发` |
-| 列键 | 测试用例 id（`TC-<MODULE>-<nn>` 或代码用例的 `<module>::<function>`） |
-| 单元格 | `✓`（覆盖）/ `—`（不适用）/ 空（缺失） |
+| Row key | `<REQ-ID>#AC<n> · <dimension>`, where dimension ∈ `positive` / `boundary` / `exception` / `non-functional` / `state-transition` / `concurrency` |
+| Column key | The test case id (`TC-<MODULE>-<nn>`, or `<module>::<function>` for a code-level case) |
+| Cell | `✓` covered / `—` not applicable / empty means missing |
 
-**充分性硬判据**：每行至少 1 个 `✓` 或全行标 `—`（声明该维度不适用并附理由）。
-**必要性软判据**：每列至少 1 个 `✓` 占据**唯一**单元（同维度重复 = 冗余信号）。
+**Hard criterion for sufficiency**: every row carries at least 1 `✓`, or the whole row is marked `—`, declaring that dimension inapplicable with a reason.
+**Soft criterion for necessity**: every column has at least 1 `✓` occupying a **unique** cell; a repeat within the same dimension is a redundancy signal.
 
-示例：
+Example:
 
 ```markdown
-| AC × 维度 | TC-AUTH-01 | TC-AUTH-02 | TC-AUTH-03 |
+| AC × dimension | TC-AUTH-01 | TC-AUTH-02 | TC-AUTH-03 |
 | :--- | :---: | :---: | :---: |
-| ACME-REQ-08#AC1 · 正向 | ✓ |  |  |
-| ACME-REQ-08#AC1 · 异常 |  | ✓ |  |
-| ACME-REQ-08#AC1 · 边界 |  |  | ✓ |
-| ACME-REQ-08#AC2 · 正向 | — | — | — |  ← 显式声明不适用
+| ACME-REQ-08#AC1 · positive | ✓ |  |  |
+| ACME-REQ-08#AC1 · exception |  | ✓ |  |
+| ACME-REQ-08#AC1 · boundary |  |  | ✓ |
+| ACME-REQ-08#AC2 · positive | — | — | — |  ← explicitly declared inapplicable
 ```
 
-**空行必标因由**：缺失覆盖的行需在矩阵下方列"缺口清单"，每条含计划补救动作 + 责任方 + 截止日。
+**An empty row must carry its reason**: a row with missing coverage must appear in a "gap list" below the matrix, each entry carrying the planned remediation, the owner and the due date.
 
-### 5.3 变异测试概要契约
+### 5.3 Mutation test summary contract
 
-每个被测模块一行，必含字段：
+One row per module under test, and each row must carry these fields:
 
-| 字段 | 类型 | 说明 |
+| Field | Type | Description |
 |---|---|---|
-| `module` | string | 模块标识（与代码路径对应） |
-| `mutants_total` | int | 注入变异总数 |
-| `mutants_killed` | int | 被用例集捕获的变异数 |
-| `mutation_score` | float | `killed / total`，百分比表示 |
-| `survived_critical` | int | 存活的关键路径变异数（按工具或人工标注） |
-| `threshold` | float | 项目约定阈值（推荐 ≥ 0.80） |
-| `status` | enum | `pass`（≥ threshold）/ `fail`（< threshold）/ `waived`（豁免，需附原因） |
+| `module` | string | The module identifier, matching the code path |
+| `mutants_total` | int | Total mutants injected |
+| `mutants_killed` | int | Mutants caught by the suite |
+| `mutation_score` | float | `killed / total`, expressed as a percentage |
+| `survived_critical` | int | Surviving mutants on a critical path, labelled by the tool or by hand |
+| `threshold` | float | The threshold the project agreed on (≥ 0.80 is recommended) |
+| `status` | enum | `pass` (≥ threshold) / `fail` (< threshold) / `waived`, which must carry a reason |
 
-示例：
+Example:
 
 ```markdown
 | Module | Total | Killed | Score | Survived (critical) | Threshold | Status |
@@ -196,59 +196,59 @@ conditional_reasons:                    # verdict: conditional 时必填
 | auth/session | 89 | 61 | 68.5% | 3 | 80% | fail |
 ```
 
-**`fail` 行必附"存活变异详情"子节**：列出存活的关键变异 + 推断的缺测维度 + 补用例建议。
+**A `fail` row must carry a "surviving mutants detail" subsection**: list the surviving critical mutants, the untested dimension inferred from them, and the cases suggested to close the gap.
 
-**没跑变异测试不得伪造数据**：若工具未集成，本节写"未执行 — <原因> — 计划接入日期"，并要求 verdict ≤ `conditional`。
+**Never fabricate figures for a mutation run that did not happen**: when no tool is integrated, write "not run — <reason> — planned integration date" in this section, and require verdict ≤ `conditional`.
 
-### 5.4 追溯健康审计契约
+### 5.4 Trace health audit contract
 
-3 类检查项，每项一表：
+3 kinds of check, one table each:
 
-**5.4.1 死链清单**（用例 `covers` 锚指向已删/已重命名的上游制品）：
+**5.4.1 Dead link list** — a case whose `covers` anchor points at an upstream artifact that has been deleted or renamed:
 
-| 用例 id | 死链锚 | 上游变化 | 建议动作 |
+| Case id | Dead anchor | What changed upstream | Suggested action |
 |---|---|---|---|
 
-**5.4.2 裸 AC 清单**（上游 AC 未被任何用例覆盖）：
+**5.4.2 Bare AC list** — an upstream AC covered by no case at all:
 
-| AC id | 所属需求 | 缺测维度 | 补救责任方 |
+| AC id | Owning requirement | Untested dimension | Remediation owner |
 |---|---|---|---|
 
-**5.4.3 悬空守护清单**（用例守护的需求已 `deprecated` 但用例未同步）：
+**5.4.3 Dangling guard list** — the requirement a case guards is already `deprecated`, but the case has not followed:
 
-| 用例 id | 悬空守护对象 | 上游 deprecated 日期 | 建议动作 |
+| Case id | Dangling guard target | Upstream deprecation date | Suggested action |
 |---|---|---|---|
 
-三类清单**任一非空** → verdict ≥ `conditional`；**关键 AC 裸露或死链** → verdict = `fail`。
+If **any** of the three lists is non-empty → verdict ≥ `conditional`; if **a critical AC is bare or its link is dead** → verdict = `fail`.
 
-### 5.5 可选章节
+### 5.5 Optional sections
 
-| 章节 | 触发场景 |
+| Section | Triggering situation |
 |---|---|
-| 历史趋势（Trends） | 与上一次同 scope 报告对比，含 mutation score / 死链数 / 裸 AC 数变化 |
-| 风险加权评估 | 把缺口按"频率 × 影响"标注优先级，引导补救排期 |
-| 决策守护审计 | 检查 ADR 中被拒方案的拒绝前提是否仍有用例守护 |
+| Trends | Compared against the previous report of the same scope, covering changes in mutation score, dead link count and bare AC count |
+| Risk-weighted assessment | Prioritise gaps by "frequency × impact" to drive the remediation schedule |
+| Decision guard audit | Check whether the premises for rejecting an alternative in an ADR are still guarded by a case |
 
 ---
 
 ## 6. Anti-patterns
 
-- ❌ verdict 与正文矛盾（如 verdict: pass 但追溯矩阵有空行未声明不适用）
-- ❌ 没跑变异测试却给出 mutation score（数据捏造）
-- ❌ 追溯矩阵把多个 AC 合并到一行（破坏每行可独立判定）
-- ❌ 缺 `tool_provenance` 字段（无法复现 / 无法判断数据可信度）
-- ❌ 用代码覆盖率（line coverage）冒充充分性证据（line coverage 不等于业务覆盖）
-- ❌ 把每次用例修改都生成一份报告（snapshot 应对应有意义的 trigger，不是 PR 级噪音）
-- ❌ verdict: conditional 未填 `conditional_reasons`
-- ❌ 死链/裸 AC/悬空守护清单合并为一张表（3 类问题责任方与补救动作不同，必须分列）
-- ❌ 把单条用例 5 维评审结论塞进报告（单用例评审归 [test-case-quality](../rules/test-case-quality.md)，不与覆盖评审混评）
-- ❌ 报告生成后修改正文（snapshot 一经发布即冻结，更正用新报告 + CHANGELOG）
+- ❌ A verdict that contradicts the body (verdict: pass while the traceability matrix has an empty row never declared inapplicable)
+- ❌ A mutation score given without a mutation run — fabricated data
+- ❌ A traceability matrix merging several ACs into one row, which destroys per-row judgement
+- ❌ A missing `tool_provenance` field, leaving the figures irreproducible and their credibility unjudgeable
+- ❌ Passing off code coverage (line coverage) as evidence of sufficiency; line coverage is not business coverage
+- ❌ Generating a report for every edit to a case; a snapshot answers a meaningful trigger, not PR-level noise
+- ❌ verdict: conditional with `conditional_reasons` left empty
+- ❌ Merging the dead link, bare AC and dangling guard lists into one table; the 3 problems have different owners and different remedies, so they must be listed separately
+- ❌ Stuffing the 5-dimension verdict on an individual case into this report; single-case review belongs to [test-case-quality](../rules/test-case-quality.md) and is not mixed with coverage review
+- ❌ Editing the body after the report is generated; a snapshot freezes once published, and a correction means a new report plus a CHANGELOG entry
 
 ---
 
 ## 7. Examples
 
-### 7.1 最小合规覆盖报告：auth 模块发布门禁
+### 7.1 A minimal compliant coverage report: the auth module at a release gate
 
 ````markdown
 ---
@@ -268,72 +268,72 @@ tool_provenance:
   mutation_tool: mutmut@2.4.3
 verdict: conditional
 conditional_reasons:
-  - auth/session 模块 mutation score 68.5% < 80% 阈值，已排期下个迭代补
+  - the auth/session module's mutation score of 68.5% is below the 80% threshold; remediation is scheduled for the next iteration
 ---
 
-# 测试覆盖评估报告：auth @ 2026-05-25
+# Test coverage report: auth @ 2026-05-25
 
-## 评估摘要
+## Summary
 
-- **AC 覆盖率**：12/13（92.3%）—— 缺 ACME-REQ-08#AC5（OAuth 回调链路）
-- **Mutation Score**：auth/token 90.1% ✅ / auth/session 68.5% ❌
-- **追溯死链**：0
-- **裸 AC**：1（已记录补救计划）
-- **悬空守护**：0
+- **AC coverage**: 12/13 (92.3%) — ACME-REQ-08#AC5 (the OAuth callback path) is missing
+- **Mutation score**: auth/token 90.1% ✅ / auth/session 68.5% ❌
+- **Dead trace links**: 0
+- **Bare ACs**: 1 (remediation plan recorded)
+- **Dangling guards**: 0
 
-verdict = **conditional**：可发布，session 模块需在 v2.5 前补齐变异覆盖。
+verdict = **conditional**: releasable, but the session module must close its mutation coverage before v2.5.
 
-## 追溯矩阵
+## Traceability matrix
 
-| AC × 维度 | TC-AUTH-01 | TC-AUTH-02 | TC-AUTH-03 | TC-AUTH-04 |
+| AC × dimension | TC-AUTH-01 | TC-AUTH-02 | TC-AUTH-03 | TC-AUTH-04 |
 | :--- | :---: | :---: | :---: | :---: |
-| ACME-REQ-08#AC1 · 正向 | ✓ |  |  |  |
-| ACME-REQ-08#AC1 · 异常 |  | ✓ |  |  |
-| ACME-REQ-08#AC2 · 篡改 |  |  | ✓ |  |
-| ACME-REQ-08#AC4 · header 格式 |  |  |  | ✓ |
-| ACME-REQ-08#AC5 · OAuth 回调 |  |  |  |  | ← 缺口
+| ACME-REQ-08#AC1 · positive | ✓ |  |  |  |
+| ACME-REQ-08#AC1 · exception |  | ✓ |  |  |
+| ACME-REQ-08#AC2 · tampering |  |  | ✓ |  |
+| ACME-REQ-08#AC4 · header format |  |  |  | ✓ |
+| ACME-REQ-08#AC5 · OAuth callback |  |  |  |  | ← gap
 
-### 缺口清单
+### Gap list
 
-| 行 | 计划动作 | 责任方 | 截止 |
+| Row | Planned action | Owner | Due |
 | :--- | :--- | :--- | :--- |
-| ACME-REQ-08#AC5 · 正向 | 新增 TC-AUTH-05 + TC-AUTH-06 | qa-alice | v2.5 |
+| ACME-REQ-08#AC5 · positive | Add TC-AUTH-05 + TC-AUTH-06 | qa-alice | v2.5 |
 
-## 变异测试概要
+## Mutation test summary
 
 | Module | Total | Killed | Score | Survived (critical) | Threshold | Status |
 | :--- | ---: | ---: | ---: | ---: | ---: | :--- |
 | auth/token | 142 | 128 | 90.1% | 0 | 80% | pass |
 | auth/session | 89 | 61 | 68.5% | 3 | 80% | fail |
 
-### auth/session 存活变异详情
+### auth/session surviving mutants detail
 
-- `session.expire_at` 比较符 `<` → `<=` 存活 → 缺"恰好过期一刻"边界用例
-- `refresh_token` 旋转后旧 token 未失效检测变异存活 → 缺安全回归用例
-- `concurrent refresh` 锁失效变异存活 → 缺并发用例
+- The `session.expire_at` comparison `<` → `<=` survives → no boundary case for "the exact instant of expiry"
+- The mutant removing the check that an old token is invalidated after `refresh_token` rotation survives → no security regression case
+- The `concurrent refresh` lock-failure mutant survives → no concurrency case
 
-## 追溯健康审计
+## Trace health audit
 
-### 死链清单
-（空）
+### Dead link list
+(empty)
 
-### 裸 AC 清单
+### Bare AC list
 
-| AC id | 所属需求 | 缺测维度 | 补救责任方 |
+| AC id | Owning requirement | Untested dimension | Remediation owner |
 | :--- | :--- | :--- | :--- |
-| ACME-REQ-08#AC5 | ACME-REQ-08 | 正向 + 异常 | qa-alice |
+| ACME-REQ-08#AC5 | ACME-REQ-08 | positive + exception | qa-alice |
 
-### 悬空守护清单
-（空）
+### Dangling guard list
+(empty)
 ````
 
 ---
 
 ## 8. Relationship to other assets
 
-- **配套 rule**：[rules/test-coverage-quality.md](../rules/test-coverage-quality.md)——覆盖评估报告的 5 维评审清单
-- **下游消费者**：用例集覆盖评审服务、跨制品对齐评审服务读取本制品产出评审决策
-- **数据来源 spec**：[test-case-modeling.md](./test-case-modeling.md)——追溯矩阵的列与裸 AC 检测依赖用例的 `covers` 字段
-- **上游对齐 spec**：[requirement-modeling.md](./requirement-modeling.md)——矩阵行键的 `<REQ-ID>#AC<n>` 锚定 AC ID 格式
-- **关联 rule**：[doc-health-criteria.md](../rules/doc-health-criteria.md)——死链检测复用其链接图健康判据
-- **递归基础**：本 spec 自身遵循 [spec-modeling.md](./spec-modeling.md) v2.0.0 的 8 节骨架
+- **Companion rule**: [rules/test-coverage-quality.md](../rules/test-coverage-quality.md) — the 5-dimension review checklist for a coverage assessment report
+- **Downstream consumers**: the suite-coverage review service and the cross-artifact alignment review service read this artifact and produce a review decision from it
+- **Data source spec**: [test-case-modeling.md](./test-case-modeling.md) — the matrix columns and the bare-AC detection both rely on a case's `covers` field
+- **Upstream alignment spec**: [requirement-modeling.md](./requirement-modeling.md) — the matrix row key's `<REQ-ID>#AC<n>` anchors to that AC ID format
+- **Related rule**: [doc-health-criteria.md](../rules/doc-health-criteria.md) — dead link detection reuses its link-graph health criteria
+- **Recursive basis**: this spec itself follows the 8-section skeleton of [spec-modeling.md](./spec-modeling.md) v2.0.0
