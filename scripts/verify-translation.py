@@ -19,15 +19,10 @@ from collections import Counter
 WAIVERS_PATH = pathlib.Path(__file__).with_name("translation-waivers.json")
 
 CJK = re.compile(r'[\u4e00-\u9fff]')
-# Above this share of the original's Chinese still present, the file is treated
-# as only partly translated. "unchanged" catches a file nobody touched; this
-# catches one where only the headings were done. Files that legitimately retain
-# Chinese - detection patterns, counter-examples - are waived by name.
-RESIDUAL_LIMIT = 0.25
-# Below this many Chinese characters the baseline was not a translation target,
-# so the residual ratio is meaningless - a file already in English keeps a
-# handful of characters in its frontmatter and would read as 100% untranslated.
-RESIDUAL_MIN_BASELINE = 100
+# Any Chinese character surviving the migration is a finding. "unchanged"
+# catches a file nobody touched; this catches one where only part was done -
+# a heading, an example block. Files that legitimately retain Chinese
+# (detection patterns, counter-examples) are waived by name, with a reason.
 
 # --- invariant extractors -------------------------------------------------
 
@@ -57,6 +52,12 @@ WEAK_RE = re.compile(
     r'[Ss]hould not|SHOULD NOT|[Ss]hould|SHOULD|[Pp]refer(?!ence)|recommended|[Ss]uggest(?:ed|ion)?|[Aa]void')
 
 
+# Frontmatter keys whose value is a sentence written for a reader, not a
+# machine token. Their wording follows the migration like any other prose;
+# their presence is still compared, so deleting one is still caught.
+PROSE_KEYS = ("description", "scope")
+
+
 def frontmatter(text):
     m = FRONTMATTER.match(text)
     if not m:
@@ -65,7 +66,9 @@ def frontmatter(text):
     for line in m.group(1).split("\n"):
         km = re.match(r'^([a-z_]+):\s*(.*)$', line)
         if km:
-            out[km.group(1)] = km.group(2).strip()
+            key = km.group(1)
+            out[key] = ("<prose>" if key in PROSE_KEYS
+                        else km.group(2).strip())
     return out
 
 
@@ -179,7 +182,12 @@ def extract(text):
         "block_count": len(blocks(text)),
         "code_comment_lines": sum(split_code(b)[1] for _, b in blocks(text)),
         "code_langs": Counter(l for l, _ in blocks(text)),
-        "links": Counter(m.group(1) for m in
+        # The target path is machine-meaningful and compared exactly. The
+        # "#fragment" is a heading slug, so it follows that heading through the
+        # migration; only its presence is held invariant, not its wording.
+        # Dropping an anchor, or repointing a link at another file, is still
+        # caught.
+        "links": Counter(re.sub(r'#.*$', '#', m.group(1)) for m in
                          re.finditer(r'\]\(([^)\s]+)\)', prose)),
         # A backticked span containing CJK is illustrative prose - a
         # placeholder like `archived_reason: <原因>`, a counter-example like
@@ -321,14 +329,19 @@ def main():
             continue
         old_cjk = len(CJK.findall(old_text))
         new_cjk = len(CJK.findall(new_text))
-        if (mode == "translate" and old_cjk >= RESIDUAL_MIN_BASELINE
-                and new_cjk / old_cjk > RESIDUAL_LIMIT
+        if (mode == "translate" and old_cjk and new_cjk
                 and not waivers.get(f"{path}::residual_chinese")):
+            # Any surviving character is a finding, not just a large share of
+            # them. A ratio alone lets a big file keep an untranslated example
+            # block and still come in under the limit - which is exactly how
+            # several E3 §7 examples slipped through. A retention that is
+            # deliberate belongs in the waiver file with its reason.
             hard += 1
             print(f"\n{path}")
             print(f"  [HARD] residual_chinese: {new_cjk} of {old_cjk} "
-                  f"characters remain ({new_cjk / old_cjk:.0%}); only part of "
-                  f"the file was translated")
+                  f"characters remain ({new_cjk / old_cjk:.0%}). Every "
+                  f"retention must be recorded in translation-waivers.json "
+                  f"as {path}::residual_chinese")
             continue
 
         findings = compare(extract(old_text), extract(new_text))
