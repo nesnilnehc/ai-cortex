@@ -17,164 +17,164 @@ output_schema:
   description: Zero or more findings with location, category, severity, and suggestion
 ---
 
-# 技能（Skill）：审查 ORM 用法
+# Skill: Review ORM Usage
 
-## 目的 (Purpose)
+## Purpose
 
-仅在**库级别**查看**ORM 使用模式**。不要定义范围（差异与代码库）或执行安全/架构分析；这些是通过范围和cognitive技能来处理的。以标准格式发出**结果列表**以进行聚合。专注于跨 ORM 库（Prisma、Entity Framework、SQLAlchemy、Sequelize、TypeORM、Hibernate、Django ORM、ActiveRecord 等）的 N+1 查询检测、连接管理、迁移安全、事务处理、查询效率和模型设计。
-
----
-
-## 核心目标（Core Objective）
-
-**首要目标**：生成一个 ORM 使用结果列表，涵盖给定代码范围的 N+1 查询、连接管理、迁移安全、事务处理、查询效率和模型设计。
-
-**成功标准**（必须满足所有要求）：
-
-1. ✅ **ORM库专用范围**：仅审查ORM使用模式；未执行范围选择、安全性或架构分析
-2. ✅ **涵盖所有六个 ORM 维度**：N+1、连接、迁移、事务、查询效率和模型设计（如果相关）进行评估
-3. ✅ **结果格式兼容**：每个结果包括位置、类别（`library-orm`）、严重性、标题、描述和可选建议
-4. ✅ **文件/模型引用**：所有发现都引用特定文件：行或模型/实体名称
-5. ✅ **ORM 不可知**：研究结果适用于整个 ORM 库；特定库仅在上下文中引用
-
-**验收**测试：输出是否包含以 ORM 为中心的结果列表，其中包含涵盖所有相关库维度的文件/模型引用，而无需执行安全性、架构或范围分析？
+Look at **ORM usage patterns** at the **library level** only. Do not define scope (diff vs. codebase) or perform security/architecture analysis; those are handled by the scope and cognitive skills. Emit a **findings list** in the standard format for aggregation. Focus on N+1 query detection, connection management, migration safety, transaction handling, query efficiency, and model design across ORM libraries (Prisma, Entity Framework, SQLAlchemy, Sequelize, TypeORM, Hibernate, Django ORM, ActiveRecord, and so on).
 
 ---
 
-## 范围边界（范围边界）
+## Core Objective
 
-**本技能负责**：
+**Primary goal**: produce an ORM usage findings list covering N+1 queries, connection management, migration safety, transaction handling, query efficiency, and model design for the given code scope.
 
-- N+1 查询检测（急切加载与延迟加载、包含/连接模式、批量加载、数据加载模式）
-- 连接管理（池配置、连接泄漏、超时处理、连接重用）
-- 迁移安全（向后兼容的迁移、零停机部署、数据与模式迁移、回滚策略）
-- 事务处理（事务范围、隔离级别、嵌套事务、死锁预防）
-- 查询效率（不必要的 SELECT *、查询模式暗示的缺失索引、原始查询回退、查询复杂性）
-- 模型设计（适当的关系、级联行为、软删除模式、审计列、索引声明）
+**Success criteria** (all must be met):
 
-**本技能不负责**：
+1. ✅ **ORM-library scope only**: only ORM usage patterns reviewed; no scope selection, security, or architecture analysis performed
+2. ✅ **All six ORM dimensions covered**: N+1, connections, migrations, transactions, query efficiency, and model design assessed where relevant
+3. ✅ **Findings format compatible**: every finding includes location, category (`library-orm`), severity, title, description, and an optional suggestion
+4. ✅ **File/model references**: every finding cites a specific file:line or model/entity name
+5. ✅ **ORM-agnostic**: findings hold across ORM libraries; a specific library is cited only for context
 
-- 范围选择——范围由调用者提供
-- 安全分析（SQL注入、敏感数据暴露）——使用“review-security”
-- 架构分析（模块边界、耦合）——使用“review-architecture”
-- 原始 SQL 质量（语法、可移植性、参数化）——使用 `review-sql`
-- 一般性能分析（算法复杂度、I/O 成本）——使用 `review-performance`
-- 完整编排式审查——使用“审查代码”
-
-**转交点**：当所有 ORM 结果发出后，将其交给“orchestrate-code-review”进行聚合。对于 SQL 注入风险（未经净化的原始查询），请记下它们并建议“审查安全性”。对于复杂的原始 SQL 质量，请注意并建议“review-sql”。
+**Acceptance** test: does the output contain an ORM-focused findings list, with file/model references covering every relevant library dimension, and without performing security, architecture, or scope analysis?
 
 ---
 
-## 使用场景 (Use Cases)
+## Scope Boundaries
 
-- **精心安排的审查**：当 [orchestrate-code-review](../orchestrate-code-review/SKILL.md) 为使用 ORM 的项目运行范围 → 语言 → 框架 → 库 → cognitive时，用作库步骤。
-- **仅 ORM 审查**：当用户只想在其数据层检查 ORM 使用模式时。
-- **PR ORM 前检查表**：在合并之前确保 N+1 查询、事务处理和迁移安全正确。
-- **迁移审查**：重点检查迁移文件的向后兼容性和回滚安全性。
+**This skill owns**:
 
-**何时使用**：当正在审查的代码使用 ORM 库并且任务包括库级质量时。范围由调用者或用户确定。
+- N+1 query detection (eager vs. lazy loading, include/join patterns, batch loading, dataloader patterns)
+- Connection management (pool configuration, connection leaks, timeout handling, connection reuse)
+- Migration safety (backward-compatible migrations, zero-downtime deploys, data vs. schema migrations, rollback strategy)
+- Transaction handling (transaction scope, isolation levels, nested transactions, deadlock prevention)
+- Query efficiency (unnecessary SELECT *, missing indexes implied by query patterns, raw-query fallbacks, query complexity)
+- Model design (appropriate relationships, cascade behavior, soft-delete patterns, audit columns, index declarations)
 
----
+**This skill does not own**:
 
-## 行为 (Behavior)
+- Scope selection — the scope is supplied by the caller
+- Security analysis (SQL injection, sensitive data exposure) — use `review-security`
+- Architecture analysis (module boundaries, coupling) — use `review-architecture`
+- Raw SQL quality (syntax, portability, parameterization) — use `review-sql`
+- General performance analysis (algorithmic complexity, I/O cost) — use `review-performance`
+- Full orchestrated review — use `orchestrate-code-review`
 
-### 该技能的范围
-
-- **分析**：**给定代码范围**（调用者提供的文件或 diff）中的 ORM 使用模式。不决定范围；接受代码范围作为输入。
-- **不要**：执行范围选择、安全审查或架构审查；除非在范围内，否则不要检查非 ORM 文件中的 ORM 规则。
-
-### 审查清单（仅限 ORM 库）
-
-1. **N+1查询检测**：识别触发N+1查询的延迟加载模式；检查急切加载（包含/连接）、批量加载或数据加载模式；标记每次迭代发出单独查询的循环。
-2. **连接管理**：验证池配置（最小/最大、空闲超时）；检测潜在的连接泄漏（未返回的连接、丢失处置/关闭）；检查超时和重试设置；确认请求范围上下文中的连接重用。
-3. **迁移安全**：评估向后兼容性（仅添加性更改与破坏性更改）；检查零停机部署准备情况（大型表上没有表锁，没有默认值则没有 NOT NULL）；验证数据迁移与模式迁移分开；确认回滚策略存在。
-4. **交易处理**：评估交易范围（太宽或太窄）；检查隔离级别的正确性；检测嵌套事务滥用（保存点与平面）；标记潜在的死锁模式（不一致的锁顺序、长期持有的锁）。
-5. **查询效率**：标记不必要的`SELECT *`或过度获取的列；识别暗示缺少索引的查询模式（未索引的 WHERE/ORDER BY 列）；评估原始查询回退的适当性；评估查询复杂性（深度连接、循环中的子查询）。
-6. **模型设计**：验证正确的关系声明（一对多、多对多、多态）；检查级联行为（意外级联删除）；审查软删除的实施；确认预期的审核列（createdAt、updatedAt）；检查频繁查询字段的索引声明。
-
-### 语气和参考
-
-- **专业和技术**：参考具体位置（文件：行或型号/实体名称）。发出包含位置、类别、严重性、标题、描述、建议的结果。
+**Handoff**: once all ORM findings are emitted, hand them to `orchestrate-code-review` for aggregation. For SQL injection risks (unsanitized raw queries), note them and point at `review-security`. For complex raw SQL quality, note it and point at `review-sql`.
 
 ---
 
-## 输入与输出 (Input & Output)
+## Use Cases
 
-### 输入 (Input)
+- **Orchestrated review**: used as the library step when [orchestrate-code-review](../orchestrate-code-review/SKILL.md) runs scope → language → framework → library → cognitive for a project that uses an ORM.
+- **ORM-only review**: when the user wants only the ORM usage patterns in their data layer checked.
+- **Pre-PR ORM checklist**: confirming N+1 queries, transaction handling, and migration safety are correct before merging.
+- **Migration review**: a focused pass over migration files for backward compatibility and rollback safety.
 
-- **代码范围**：包含 ORM 代码（模型、迁移、存储库、查询）的文件或目录（或 diff）。由用户或范围技能提供。
-
-### 输出 (Output)
-
-- 以**附录：输出合同**中定义的格式发出零个或多个**结果**。
-- 此技能的类别是 **library-orm**。
+**When to use**: when the code under review uses an ORM library and the task includes library-level quality. The scope is determined by the caller or the user.
 
 ---
 
-## 限制 (Restrictions)
+## Behavior
 
-### 硬边界（Hard Boundaries）
+### What this skill covers
 
-- **不要**执行范围选择、安全性或架构审查。保持 ORM 库的使用模式。
-- **不要**在没有具体地点或可行建议的情况下给出结论。
-- **不要**审查非 ORM 代码的 ORM 特定规则，除非明确在范围内。
-- **不要**重复属于“review-sql”的原始 SQL 分析；仅标记 ORM 生成的查询问题。
+- **Analyze**: ORM usage patterns within the **given code scope** (files or a diff supplied by the caller). Does not decide the scope; takes the code scope as input.
+- **Do not**: perform scope selection, security review, or architecture review; do not check ORM rules in non-ORM files unless they are in scope.
 
-### 技能边界 (Skill Boundaries)
+### Review checklist (ORM library only)
 
-**不要做这些**（其他技能可以处理它们）：
+1. **N+1 query detection**: identify lazy-loading patterns that trigger N+1 queries; check for eager loading (include/join), batch loading, or dataloader patterns; flag loops that issue a separate query per iteration.
+2. **Connection management**: verify pool configuration (min/max, idle timeout); detect potential connection leaks (connections never returned, missing dispose/close); check timeout and retry settings; confirm connection reuse within a request-scoped context.
+3. **Migration safety**: assess backward compatibility (additive-only vs. breaking changes); check zero-downtime deploy readiness (no table locks on large tables, no NOT NULL without a default); verify data migrations are kept separate from schema migrations; confirm a rollback strategy exists.
+4. **Transaction handling**: assess transaction scope (too wide or too narrow); check isolation levels for correctness; detect nested-transaction misuse (savepoints vs. flat); flag potential deadlock patterns (inconsistent lock ordering, long-held locks).
+5. **Query efficiency**: flag unnecessary `SELECT *` or over-fetched columns; identify query patterns that imply a missing index (unindexed WHERE/ORDER BY columns); assess whether raw-query fallbacks are appropriate; assess query complexity (deep joins, subqueries inside loops).
+6. **Model design**: verify correct relationship declarations (one-to-many, many-to-many, polymorphic); check cascade behavior (accidental cascade deletes); review the soft-delete implementation; confirm the expected audit columns (createdAt, updatedAt); check index declarations on frequently queried fields.
 
-- 不要选择或定义代码范围 - 范围由调用者或“审查代码”确定
-- 不执行安全分析（SQL 注入、数据暴露）——使用“review-security”
-- 不要执行架构分析（模块边界、耦合）——使用“review-architecture”
-- 不要执行原始 SQL 语法或可移植性审查 - 使用 `review-sql`
-- 不要执行一般算法性能分析 - 使用“review-performance”
+### Tone and references
 
-**何时停止并交接**：
-
-- 当所有 ORM 结果发出后，将其交给“orchestrate-code-review”进行聚合
-- 当发现 SQL 注入风险时（例如原始查询中未经消毒的插值），请记下它们并建议“审查安全性”
-- 当发现原始 SQL 质量问题（语法、可移植性）时，记下它们并建议“review-sql”
-- 当用户需要全面审查（范围+语言+cognitive）时，重定向到“审查代码”
+- **Professional and technical**: cite concrete locations (file:line or model/entity name). Emit findings carrying location, category, severity, title, description, suggestion.
 
 ---
 
-## 自检（Self-Check）
+## Input & Output
 
-### 核心成功标准
+### Input
 
-- [ ] **仅 ORM 库范围**：仅审查 ORM 使用模式；未执行范围选择、安全性或架构分析
-- [ ] **涵盖所有六个 ORM 维度**：N+1、连接、迁移、事务、查询效率和模型设计（如果相关）进行评估
-- [ ] **结果格式兼容**：每个结果包括位置、类别（`library-orm`）、严重性、标题、描述和可选建议
-- [ ] **文件/模型引用**：所有结果引用特定文件：行或模型/实体名称
-- [ ] **ORM 无关**：研究结果适用于整个 ORM 库；特定库仅在上下文中引用
+- **Code scope**: files or directories (or a diff) containing ORM code (models, migrations, repositories, queries). Supplied by the user or by a scope skill.
 
-### 流程质量检查
+### Output
 
-- [ ] 是否仅审查了 ORM 库维度（无范围/安全/架构）？
-- [ ] 是否涵盖了相关的 N+1、连接、迁移、事务、查询效率和模型设计？
-- [ ] 发布的每个发现是否包含位置、类别=library-orm、严重性、标题、描述和可选建议？
-- [ ] 问题是否通过文件：行或模型/实体名称引用？
-
-### 验收测试
-
-输出是否包含以 ORM 为中心的结果列表，其中包含涵盖所有相关库维度的文件/模型引用，而无需执行安全性、体系结构或范围分析？
+- Emit zero or more **findings** in the format defined in **Appendix: Output Contract**.
+- The category for this skill is **library-orm**.
 
 ---
 
-## 示例 (Examples)
+## Restrictions
 
-### 示例 1：循环中的 N+1 次查询
+### Hard Boundaries
 
-- **输入**：获取订单列表的控制器或服务，然后迭代访问“order.customer”，而无需急切加载。
-- **预期**：发出 N+1 查询模式的结果（主要）；建议通过 include/join 进行急切加载（例如 Prisma `include`、EF `Include`、SQLAlchemy `joinedload`、Hibernate `@EntityGraph`）。类别=库-orm。
+- **Do not** perform scope selection, security, or architecture review. Stay on ORM library usage patterns.
+- **Do not** state a conclusion without a concrete location or an actionable fix.
+- **Do not** review non-ORM code against ORM-specific rules unless it is explicitly in scope.
+- **Do not** duplicate the raw SQL analysis that belongs to `review-sql`; flag only ORM-generated query problems.
 
-### 示例 2：不回滚的破坏性迁移
+### Skill Boundaries
 
-- **输入**：删除列或重命名表的迁移，无需相应的向下/回滚迁移，也无需数据保存步骤。
-- **预期**：在没有回滚策略的情况下发出破坏性迁移的发现（关键）；建议附加迁移模式（添加新列→回填→切换读取→删除旧列）。类别=库-orm。
+**Do not do these** (other skills handle them):
 
-### 边缘情况：ORM 上下文中的原始查询回退
+- Do not select or define the code scope — the scope is set by the caller or by `orchestrate-code-review`
+- Do not perform security analysis (SQL injection, data exposure) — use `review-security`
+- Do not perform architecture analysis (module boundaries, coupling) — use `review-architecture`
+- Do not perform raw SQL syntax or portability review — use `review-sql`
+- Do not perform general algorithmic performance analysis — use `review-performance`
 
-- **输入**：使用原始 SQL（`prisma.$queryRaw`、`DbContext.Database.ExecuteSqlRaw`、`session.execute(text(...))`）进行查询的存储库方法，可以使用 ORM 查询构建器来表达。
-- **预期**：发出一个发现（建议），指出原始查询绕过 ORM 类型安全和迁移跟踪；如果查询是可表达的，建议使用 ORM 查询构建器。如果原始查询是合理的（性能、不支持的功能），请接受它，但标记缺少参数化（如果存在），并建议针对注入风险进行“审查安全”。类别=库-orm。
+**When to stop and hand off**:
+
+- Once all ORM findings are emitted, hand them to `orchestrate-code-review` for aggregation
+- When SQL injection risks turn up (for example unsanitized interpolation in a raw query), note them and point at `review-security`
+- When raw SQL quality problems (syntax, portability) turn up, note them and point at `review-sql`
+- When the user wants a full review (scope + language + cognitive), redirect to `orchestrate-code-review`
+
+---
+
+## Self-Check
+
+### Core success criteria
+
+- [ ] **ORM library scope only**: only ORM usage patterns reviewed; no scope selection, security, or architecture analysis performed
+- [ ] **All six ORM dimensions covered**: N+1, connections, migrations, transactions, query efficiency, and model design assessed where relevant
+- [ ] **Findings format compatible**: every finding includes location, category (`library-orm`), severity, title, description, and an optional suggestion
+- [ ] **File/model references**: every finding cites a specific file:line or model/entity name
+- [ ] **ORM-agnostic**: findings hold across ORM libraries; a specific library is cited only for context
+
+### Process quality checks
+
+- [ ] Were only ORM library dimensions reviewed (no scope/security/architecture)?
+- [ ] Were the relevant N+1, connection, migration, transaction, query efficiency, and model design dimensions covered?
+- [ ] Does every emitted finding include location, category=library-orm, severity, title, description, and an optional suggestion?
+- [ ] Is each issue referenced by file:line or model/entity name?
+
+### Acceptance test
+
+Does the output contain an ORM-focused findings list, with file/model references covering every relevant library dimension, and without performing security, architecture, or scope analysis?
+
+---
+
+## Examples
+
+### Example 1: N+1 queries in a loop
+
+- **Input**: a controller or service that fetches a list of orders and then iterates over them accessing `order.customer` without eager loading.
+- **Expected**: emit a finding for the N+1 query pattern (major); suggest eager loading via include/join (for example Prisma `include`, EF `Include`, SQLAlchemy `joinedload`, Hibernate `@EntityGraph`). category=library-orm.
+
+### Example 2: destructive migration with no rollback
+
+- **Input**: a migration that drops a column or renames a table, with no matching down/rollback migration and no data-preservation step.
+- **Expected**: emit a finding for a destructive migration with no rollback strategy (critical); suggest the additive migration pattern (add new column → backfill → switch reads → drop old column). category=library-orm.
+
+### Edge case: raw query fallback in an ORM context
+
+- **Input**: a repository method that queries with raw SQL (`prisma.$queryRaw`, `DbContext.Database.ExecuteSqlRaw`, `session.execute(text(...))`) where the query could be expressed with the ORM query builder.
+- **Expected**: emit a finding (suggestion) noting that raw queries bypass ORM type safety and migration tracking; where the query is expressible, suggest the ORM query builder. Where the raw query is justified (performance, an unsupported feature), accept it, but flag missing parameterization if present and point at `review-security` for the injection risk. category=library-orm.
