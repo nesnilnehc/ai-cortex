@@ -3,7 +3,7 @@ name: review-requirements
 description: "Review an existing requirements document for quality: problem clarity, testable needs, constraint inventory, scope boundedness, requirement IDs, and open questions. Evaluative atomic skill; output is a findings list."
 description_zh: 审查既有需求文档质量：问题清晰度、可测试需求、约束清单、范围边界、需求 ID 与遗留问题。
 tags: [code-review]
-version: 1.0.3
+version: 1.0.4
 license: MIT
 recommended_scope: both
 metadata:
@@ -28,13 +28,13 @@ Evaluate an **existing requirements document** against defined quality criteria.
 
 ## Core Objective
 
-**Primary goal**: produce a requirements-quality findings list that names the gaps across all six quality dimensions, so the author can reach a reviewable standard before handing off to design.
+**Primary goal**: produce a requirement-quality findings list that names the gaps across all six quality dimensions, so the author can reach a reviewable standard before handing off to design.
 
 **Success criteria** (all must hold):
 
 1. ✅ **All six dimensions reviewed**: problem clarity, testability, constraint inventory, scope boundedness, requirement IDs, and open questions are assessed
 2. ✅ **Findings confined to the document**: reviews only what the supplied document contains; no outside assumptions, no generative additions
-3. ✅ **Findings format compliant**: each finding carries location, category (`requirements-quality`), severity, title, description, and an optional suggestion
+3. ✅ **Findings format compliant**: each finding carries location, category (`requirement-quality`), severity, title, description, and an optional suggestion
 4. ✅ **Locations cited precisely**: every finding names a specific section of the document or a requirement ID (not a vague description)
 5. ✅ **Actionable output**: every finding gives a concrete direction for improvement, keyed to the relevant section or ID
 
@@ -134,8 +134,8 @@ For each dimension, scan the whole document and emit a finding for every violati
 
 ### Output
 
-- Emit zero or more **findings** in the format defined in [specs/findings-list.md](../../specs/findings-list.md), with **Category** `requirements-quality`.
-- The category for every finding from this skill is **requirements-quality**.
+- Emit zero or more **findings** in the format defined in [specs/findings-list.md](../../specs/findings-list.md), with **Category** `requirement-quality`.
+- The category for every finding from this skill is **requirement-quality**.
 - With no findings: emit the short confirmation "The requirements document meets all six quality dimensions. Ready for the design stage."
 
 ---
@@ -170,7 +170,7 @@ For each dimension, scan the whole document and emit a finding for every violati
 
 - [ ] **All six dimensions reviewed**: problem clarity, testability, constraint inventory, scope boundedness, requirement IDs, and open questions are assessed
 - [ ] **Findings confined to the document**: no outside assumptions; findings based on the supplied document alone
-- [ ] **Findings format compliant**: each finding carries location, category (`requirements-quality`), severity, title, description, and an optional suggestion
+- [ ] **Findings format compliant**: each finding carries location, category (`requirement-quality`), severity, title, description, and an optional suggestion
 - [ ] **Locations cited precisely**: every finding names a specific section heading or requirement ID
 - [ ] **Actionable output**: every finding states what is wrong and what to improve
 
@@ -202,7 +202,7 @@ If yes: the findings are ready. Hand them to the author for improvement, or conf
 
 ```markdown
 - **Location**: `## Need Hierarchy / Must Have / R-02`
-- **Category**: requirements-quality
+- **Category**: requirement-quality
 - **Severity**: major
 - **Title**: Must Have requirement lacks acceptance criteria
 - **Description**: R-02 ("Users can export data") has no acceptance criteria. Without a testable criterion, this requirement cannot be verified or designed against.
@@ -217,7 +217,7 @@ If yes: the findings are ready. Hand them to the author for improvement, or conf
 
 ```markdown
 - **Location**: `## Problem Statement`
-- **Category**: requirements-quality
+- **Category**: requirement-quality
 - **Severity**: major
 - **Title**: Problem statement contains solution references
 - **Description**: "React app" and "PostgreSQL database" are technology choices, not problem descriptions. The problem statement should describe the pain without referencing solutions.
@@ -232,7 +232,7 @@ If yes: the findings are ready. Hand them to the author for improvement, or conf
 
 ```markdown
 - **Location**: (document-level — no scope section present)
-- **Category**: requirements-quality
+- **Category**: requirement-quality
 - **Severity**: critical
 - **Title**: No scope definition or V1 boundary
 - **Description**: The document lists requirements but does not define what is in scope for V1, what is deferred, or what a minimal useful version looks like. Without scope boundaries, design and implementation have no stopping condition.

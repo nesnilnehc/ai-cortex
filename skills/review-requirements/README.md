@@ -20,7 +20,7 @@ Reviews an existing requirements document for quality across six dimensions: cla
 
 ## Outputs
 
-- Findings list: location (a section heading or an R-NN ID), category=`requirements-quality`, severity, title, description, optional suggestion.
+- Findings list: location (a section heading or an R-NN ID), category=`requirement-quality`, severity, title, description, optional suggestion.
 - Zero findings → confirmation that the document is ready for the design stage.
 
 ## Ecosystem
