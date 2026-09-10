@@ -65,6 +65,18 @@ for name, mutate, should_block in cases:
     print(f"  {mark}  {name}: want {want}, got {got}")
     pathlib.Path(F).write_text(orig)
 
-print(f"\n  {ok}/{len(cases)} correct")
-sys.exit(0 if ok == len(cases) else 1)
+# Not a mutation of the file: a mutation of the invocation. An unresolvable ref
+# used to make every `git show` fail, every file read as "new", and the run
+# report "0 HARD violations" having compared nothing.
+extra = 0
+r = subprocess.run(["python3", "scripts/verify-translation.py", "NOSUCHREF", F],
+                   capture_output=True, text=True)
+correct = r.returncode != 0
+ok += correct; extra += 1
+print(f"  {'PASS' if correct else 'FAIL'}  unresolvable git ref: "
+      f"want block, got {'blocked' if r.returncode != 0 else 'allowed'}")
+
+total = len(cases) + extra
+print(f"\n  {ok}/{total} correct")
+sys.exit(0 if ok == total else 1)
 PY

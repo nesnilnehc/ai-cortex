@@ -293,7 +293,11 @@ def load_waivers():
     """
     if not WAIVERS_PATH.exists():
         return {}
-    return json.loads(WAIVERS_PATH.read_text())
+    try:
+        return json.loads(WAIVERS_PATH.read_text())
+    except json.JSONDecodeError as exc:
+        raise SystemExit(
+            f"fatal: {WAIVERS_PATH} is not valid JSON: {exc}") from exc
 
 
 def main():
@@ -306,6 +310,17 @@ def main():
         return 2
     ref, targets = argv[0], argv[1:]
 
+    # Resolve the ref before doing anything. Without this a mistyped ref makes
+    # every `git show` fail, every file read as "new", and the run report
+    # "0 HARD violations" having compared nothing - a gate that passes by
+    # failing to look.
+    probe = subprocess.run(["git", "rev-parse", "--verify", f"{ref}^{{commit}}"],
+                           capture_output=True, text=True)
+    if probe.returncode != 0:
+        print(f"fatal: cannot resolve git ref {ref!r}\n"
+              f"       {probe.stderr.strip()}")
+        return 2
+
     paths = []
     for t in targets:
         p = pathlib.Path(t)
@@ -315,11 +330,14 @@ def main():
     waived = []
     hard = soft = clean = skipped = 0
     for path in paths:
-        old_text = subprocess.run(["git", "show", f"{ref}:{path}"],
-                                  capture_output=True, text=True).stdout
-        if not old_text:
+        shown = subprocess.run(["git", "show", f"{ref}:{path}"],
+                               capture_output=True, text=True)
+        if shown.returncode != 0:
+            # The path does not exist at that ref, so the file is new. The ref
+            # itself is already known good, so this cannot mask a bad ref.
             skipped += 1
             continue
+        old_text = shown.stdout
 
         new_text = path.read_text()
         if (mode == "translate" and old_text == new_text
