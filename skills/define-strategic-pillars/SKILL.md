@@ -3,7 +3,7 @@ name: define-strategic-pillars
 description: Derive 3–5 strategic pillars (high-level themes) from vision and North Star that structure and guide strategic goals and roadmap. Produces a strategic pillars document; persisted to docs.
 description_zh: 从 vision 与 North Star 推导 3–5 个战略支柱（高层次主题），指导战略目标与路线图。
 tags: [documentation, workflow]
-version: 1.1.0
+version: 1.1.1
 license: MIT
 recommended_scope: both
 metadata:

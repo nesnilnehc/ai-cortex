@@ -3,7 +3,7 @@ name: capture-work-items
 description: Capture requirements, bugs, or issues from free-form input into structured, persistent artifacts. Use when user wants to record a work item quickly without deep validation.
 description_zh: 将自由形式输入快速捕获为结构化、可持久的需求、缺陷或问题制品；无需深度验证。
 tags: [writing, documentation, workflow]
-version: 2.0.1
+version: 2.0.2
 license: MIT
 recommended_scope: both
 metadata:

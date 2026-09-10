@@ -3,7 +3,7 @@ name: review-requirements
 description: "Review an existing requirements document for quality: problem clarity, testable needs, constraint inventory, scope boundedness, requirement IDs, and open questions. Evaluative atomic skill; output is a findings list."
 description_zh: 审查既有需求文档质量：问题清晰度、可测试需求、约束清单、范围边界、需求 ID 与遗留问题。
 tags: [code-review]
-version: 1.0.2
+version: 1.0.3
 license: MIT
 recommended_scope: both
 metadata:

@@ -3,7 +3,7 @@ name: orchestrate-repair-loop
 description: Iteratively review changes, run automated tests, and apply targeted fixes until issues are resolved (or a stop condition is reached).
 description_zh: 迭代审查变更、运行自动化测试并实施定向修复，直至问题解决或满足停止条件。
 tags: [automation, devops, optimization]
-version: 1.2.0
+version: 1.2.1
 license: MIT
 recommended_scope: both
 metadata:
