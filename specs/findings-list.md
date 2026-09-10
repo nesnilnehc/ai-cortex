@@ -2,7 +2,7 @@
 id: FINDINGS_LIST_SPEC_V1
 name: Findings List Schema
 description: Spec defining the structure of a findings list — the artifact every evaluative skill emits, and the one an orchestrator aggregates. Covers the six elements of a finding, the severity enum, and the category convention.
-version: 1.0.0
+version: 1.0.1
 status: active
 lifecycle: living
 created_at: 2026-09-10
@@ -79,7 +79,7 @@ A category names the dimension a skill reviews, so an aggregated list stays read
 | `framework` | the framework | `framework-react`, `framework-vue` |
 | `library` | the library or usage area | `library-orm` |
 | `cognitive` | the concern | `cognitive-security`, `cognitive-performance`, `cognitive-architecture`, `cognitive-testing` |
-| `<artifact>-quality` | — | `requirements-quality`, `roadmap-quality`, for a skill evaluating a governance document against a quality rule |
+| `<artifact>-quality` | — | `requirement-quality`, `roadmap-quality` — matching the `rules/<artifact>-quality.md` that owns the criteria |
 
 A skill declares its own category once, in its body, and every finding it emits carries that value. A skill must not invent a category outside this form.
 
