@@ -10,7 +10,7 @@ status: active
 
 This document sets out how an agent discovers and loads a **skill** inside this repository, for reference when you need the detail. AGENTS.md keeps only the summary.
 
-> **Note**: discovery and loading for Protocols and Rules is in [protocols-registry.md](protocols-registry.md) and AGENTS.md §4.
+> **Note**: discovery and loading for Protocols and Rules is in [AGENTS.md](../../AGENTS.md) §4 — agents read them straight from the canonical clone, with no install step.
 
 ---
 
