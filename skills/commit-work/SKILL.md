@@ -3,7 +3,7 @@ name: commit-work
 description: Create high-quality git commits with clear messages and logical scope. Core goal - produce reviewable commits following Conventional Commits format with pre-commit quality checks.
 description_zh: 创建高质量 git 提交：清晰消息与合理范围；遵循 Conventional Commits，含 pre-commit 质量检查。
 tags: [git, workflow, automation]
-version: 2.0.1
+version: 2.0.2
 license: MIT
 recommended_scope: both
 metadata:

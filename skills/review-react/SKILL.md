@@ -3,7 +3,7 @@ name: review-react
 description: Review React code for component design, hooks correctness, state management, rendering performance, and accessibility. Framework-only atomic skill; output is a findings list.
 description_zh: 审查 React 代码：组件设计、hooks 正确性、状态管理、渲染性能与可访问性；框架级原子技能。
 tags: [code-review, framework]
-version: 1.0.1
+version: 1.0.2
 license: MIT
 recommended_scope: project
 metadata:

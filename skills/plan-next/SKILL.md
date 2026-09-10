@@ -3,7 +3,7 @@ name: plan-next
 description: Analyze governance state and suggest next actions from existing docs; read-only — never executes downstream skills.
 description_zh: 基于现有治理文档分析状态并给出下一步行动建议；只读——不执行下游技能。
 tags: [workflow, meta-skill, automation]
-version: 13.3.1
+version: 13.3.2
 license: MIT
 recommended_scope: project
 cognitive_mode: interpretive

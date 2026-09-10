@@ -3,7 +3,7 @@ name: define-vision
 description: Define the long-term future the project aims to create. Answers what future we are building; produces a vision statement aligned with mission, persisted to docs.
 description_zh: 定义项目旨在创造的长远未来；回答我们在构建什么未来；产出 vision 陈述并持久化到 docs。
 tags: [documentation, workflow]
-version: 1.3.0
+version: 1.3.1
 license: MIT
 recommended_scope: both
 metadata:

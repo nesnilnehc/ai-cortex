@@ -3,7 +3,7 @@ name: orchestrate-governance-step
 description: Single-step governance executor — reads plan-next routing output, executes the highest-priority action, and emits a continuation signal for /loop-driven autopilot.
 description_zh: 单步治理执行器——读取 plan-next 路由输出，执行最高优先级动作，发出继续信号以支持 /loop 全自动推进。
 tags: [automation, workflow, meta-skill]
-version: 2.2.0
+version: 2.2.1
 license: MIT
 recommended_scope: project
 metadata:
