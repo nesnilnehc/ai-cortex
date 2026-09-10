@@ -15,7 +15,7 @@ This guide explains how an AI agent, Claude Code included, **discovers, loads an
 
 **A user must not have to read the protocol documents by hand** — the agent should do this work:
 
-1. **Discovery** — find the available protocols through skills/INDEX.md
+1. **Discovery** — find the available protocols through `protocols/INDEX.md` in the canonical clone
 2. **Injection** — load them into the working session as long-lived background context
 3. **Application** — apply the protocol's constraints while generating and reviewing code
 4. **Verification** — check the generated code against the protocol through a skill
@@ -24,18 +24,15 @@ This guide explains how an AI agent, Claude Code included, **discovers, loads an
 
 ## 1. Automatic discovery
 
-### 1.1 Discovery through the manifest
+### 1.1 Discovery through the registry
 
-At startup the agent should read `skills/INDEX.md` to find every available protocol:
+At startup the agent should read `protocols/INDEX.md` from the canonical clone to find every available protocol. There is no manifest to fetch and no install step: [AGENTS.md](../../AGENTS.md) §2 places the assets at a fixed path, and §4 lists the three registries an agent reads on demand.
 
-```json
-{
-  "registry": {
-    "protocols_root": "protocols/",
-    "protocols_index": "protocols/INDEX.md",
-    ...
-  }
-}
+```text
+${CORTEX_HOME:-${XDG_DATA_HOME:-$HOME/.local/share}/ai-cortex}/
+├── protocols/INDEX.md     the protocol registry, Markdown
+├── specs/INDEX.md
+└── rules/INDEX.md
 ```
 
 ### 1.2 The discovery flow
@@ -43,12 +40,11 @@ At startup the agent should read `skills/INDEX.md` to find every available proto
 ```python
 # pseudocode, run at agent startup
 def discover_protocols():
-    manifest = load_json("skills/INDEX.md")
-    protocols_dir = manifest["registry"]["protocols_root"]
-    protocols_index = manifest["registry"]["protocols_index"]
+    cortex_home = os.environ.get("CORTEX_HOME") or default_xdg_path()
+    protocols_dir = f"{cortex_home}/protocols"
 
-    # read INDEX.md for every protocol and its metadata
-    index = parse_markdown(protocols_index)
+    # the registry is Markdown, not a manifest to fetch
+    index = parse_markdown(f"{protocols_dir}/INDEX.md")
 
     for protocol in index.protocols:
         protocol_file = f"{protocols_dir}/{protocol.file}"
@@ -366,7 +362,7 @@ jobs:
       # step 1: load the protocols
       - name: Load protocols
         run: |
-          agent-cli load-protocols --manifest skills/INDEX.md
+          agent-cli load-protocols --index protocols/INDEX.md
 
       # step 2: review the notification code
       - name: Review notifications
@@ -416,7 +412,7 @@ Agent:
 
 ## 8. Implementation checklist for agent builders
 
-- [ ] **Discovery** — discover the protocols in skills/INDEX.md automatically
+- [ ] **Discovery** — discover the protocols in `protocols/INDEX.md` automatically, from the canonical clone
 - [ ] **Metadata parsing** — extract the protocol metadata from the frontmatter: scope, applies_to, domain
 - [ ] **Context injection** — load the relevant protocol at startup, or at the moment it matters
 - [ ] **Skill integration** — support a protocols declaration in a skill's frontmatter
