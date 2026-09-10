@@ -3,7 +3,7 @@ name: refine-skill-design
 description: Audit and refactor existing SKILLs to meet spec compliance, repository asset boundaries, tool adaptation requirements, and LLM best practices.
 description_zh: 审计并重构既有 SKILL，使其符合规范、仓库资产边界、工具适配要求与 LLM 最佳实践。
 tags: [writing, meta-skill, optimization]
-version: 1.6.0
+version: 1.6.1
 license: MIT
 recommended_scope: user
 metadata:

@@ -3,7 +3,7 @@ name: review-codebase
 description: "Review given file/dir/repo for current-state code organization: module boundaries, design patterns, cross-module dependencies, tech debt, and interface stability. Scope-only atomic skill; output is a findings list."
 description_zh: 对给定路径（文件 / 目录 / 仓库）做 scope-only 原子审查，覆盖模块边界、模式一致性、跨模块依赖、技术债与接口稳定性。
 tags: [code-review, scope-only]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: project
 metadata:

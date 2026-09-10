@@ -3,7 +3,7 @@ name: deliver-feature
 description: From inside a linked worktree, deliver the current feature branch into main — merge with --no-ff, push, and optionally clean up the worktree, all without leaving CWD.
 description_zh: 在 linked worktree 内将当前 feature 分支交付到 main——以 --no-ff 合并、推送，并可选清理本 worktree，全程不离开当前目录。
 tags: [git, workflow, automation]
-version: 1.1.0
+version: 1.1.1
 license: MIT
 recommended_scope: both
 metadata:

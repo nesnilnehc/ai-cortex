@@ -3,7 +3,7 @@ name: archive-milestone
 description: Archive a completed milestone by generating a snapshot summary, folding the roadmap stage, and removing the stale tasks directory.
 description_zh: 将已完成里程碑转为快照摘要，折叠路线图历史阶段，移除历史任务目录，减少 AI 上下文污染。
 tags: [governance, lifecycle, archive, milestone]
-version: 1.1.0
+version: 1.1.1
 license: MIT
 recommended_scope: project
 metadata:

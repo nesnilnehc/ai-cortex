@@ -3,7 +3,7 @@ name: generate-agent-entry
 description: Write or revise AGENTS.md per embedded output contract to establish project identity, authoritative sources, and behavioral expectations. Use when creating Agent entry for new projects, auditing existing AGENTS.md, or adopting the AI Cortex entry format.
 description_zh: 按嵌入式输出契约编写或修订 AGENTS.md，确立项目身份、权威来源与行为预期；采用 AI Cortex 入口格式。
 tags: [documentation]
-version: 1.0.1
+version: 1.0.2
 license: MIT
 recommended_scope: user
 metadata:

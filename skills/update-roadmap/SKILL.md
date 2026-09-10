@@ -3,7 +3,7 @@ name: update-roadmap
 description: Day-to-day roadmap maintenance — change item status, shift dates with downstream impact analysis, and produce a what-changed summary. Does not move items between Now/Next/Later tiers.
 description_zh: 路线图日常运维——改条目状态、挪期并计算下游影响、产出本次变更摘要；不改变条目所在的 Now/Next/Later 层级。
 tags: [workflow, planning, maintenance]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: project
 cognitive_mode: interpretive
