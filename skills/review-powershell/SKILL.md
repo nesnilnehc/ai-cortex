@@ -3,7 +3,7 @@ name: review-powershell
 description: "Review PowerShell code for language and runtime conventions: advanced functions, parameter design, error handling, object pipeline behavior, compatibility, and testability. Language-only atomic skill; output is a findings list."
 description_zh: 按 PowerShell 规范审查代码：高级函数、参数设计、错误处理、对象管道、兼容性与可测性。
 tags: [code-review, language]
-version: 1.0.1
+version: 1.0.2
 license: MIT
 recommended_scope: project
 metadata:
@@ -27,7 +27,7 @@ Review code in **PowerShell** for **language and runtime conventions** only. Do 
 
 ## Core Objective
 
-**Primary Goal**: Produce a PowerShell language/runtime findings list covering function design, parameter contracts, error handling, pipeline behavior, state/scope, compatibility, and testability for the given code scope.
+**Primary goal**: Produce a PowerShell language/runtime findings list covering function design, parameter contracts, error handling, pipeline behavior, state/scope, compatibility, and testability for the given code scope.
 
 **Success Criteria** (ALL must be met):
 

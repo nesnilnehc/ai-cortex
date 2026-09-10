@@ -3,7 +3,7 @@ name: review-python
 description: "Review Python code for language and runtime conventions: type hints, exceptions, async/await, context managers, dependencies, and testability. Language-only atomic skill; output is a findings list."
 description_zh: 按 Python 规范审查代码：类型提示、异常、async/await、上下文管理器、依赖与可测性。
 tags: [code-review, language]
-version: 1.0.1
+version: 1.0.2
 license: MIT
 recommended_scope: project
 metadata:
@@ -27,7 +27,7 @@ Review code in **Python** for **language and runtime conventions** only. Do not 
 
 ## Core Objective
 
-**Primary Goal**: Produce a Python language/runtime findings list covering type hints, exception handling, async/await patterns, context managers, dependency management, naming conventions, and testability for the given code scope.
+**Primary goal**: Produce a Python language/runtime findings list covering type hints, exception handling, async/await patterns, context managers, dependency management, naming conventions, and testability for the given code scope.
 
 **Success Criteria** (ALL must be met):
 
@@ -86,7 +86,7 @@ Review code in **Python** for **language and runtime conventions** only. Do not 
 ### Review checklist (Python dimension only)
 
 1. **Type hints**: Use `typing` module for complex types, avoid `Any` where possible, use `Optional[T]` over `T | None` for Python <3.10, proper use of `Union`, `List`, `Dict`, `Callable`, and generic type hints.
-2. **Exception handling**: Catch specific exceptions, avoid bare ` except:`, use `raise ... from` for exception chaining, avoid swallowing exceptions without logging, proper use of `try/finally`.
+2. **Exception handling**: Catch specific exceptions, avoid bare `except:`, use `raise ... from` for exception chaining, avoid swallowing exceptions without logging, proper use of `try/finally`.
 3. **Async/await**: Proper use of `async def` and `await`, avoid blocking calls in async functions, proper exception handling in async context, use of `asyncio.gather`, `asyncio.create_task` for concurrency.
 4. **Context managers**: Use `with` statement for resource management, implement `__enter__`/`__exit__` or use `@contextmanager`, avoid manual open/close.
 5. **Dependency management**: Pin dependencies in `requirements.txt` or `pyproject.toml`, avoid `import *`, use virtual environments, proper use of `sys.path` manipulation.

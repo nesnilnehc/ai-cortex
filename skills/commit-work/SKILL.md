@@ -3,7 +3,7 @@ name: commit-work
 description: Create high-quality git commits with clear messages and logical scope. Core goal - produce reviewable commits following Conventional Commits format with pre-commit quality checks.
 description_zh: 创建高质量 git 提交：清晰消息与合理范围；遵循 Conventional Commits，含 pre-commit 质量检查。
 tags: [git, workflow, automation]
-version: 2.0.2
+version: 2.0.3
 license: MIT
 recommended_scope: both
 metadata:
@@ -120,7 +120,7 @@ If `CLAUDE.md` or `.ai-cortex/config.yaml` exists, prefer the `test_command` rec
    - Use Conventional Commits (required):
 
      
-```text
+     ```text
      type(scope): short summary
      
      body (what/why, not implementation diary)
@@ -253,7 +253,7 @@ Add formatDate to handle ISO 8601 date formatting consistently
 across the application. Returns formatted string or null for
 invalid inputs."
 
-```markdown
+```
 
 **Output**:
 
@@ -315,7 +315,7 @@ git commit -m "test(auth): add tests for token validation edge cases
 
 Cover null token, malformed token, and expired token scenarios."
 
-```markdown
+```
 
 **Output**:
 
@@ -350,7 +350,7 @@ Includes 3 examples covering common log formats.
 
 Sync skills/INDEX.md."
 
-```text
+```
 
 **Output**:
 
