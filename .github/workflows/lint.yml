@@ -50,7 +50,7 @@ jobs:
                       t = m.group(1).split("#")[0]
                       if t and not (f.parent / t).resolve().exists():
                           bad.append(f"{f}:{i+1} -> {t}")
-          known = sum(1 for b in bad if "/docs/adr/" in b)
+          known = sum(1 for b in bad if b.startswith("docs/adr/"))
           print(f"broken: {len(bad)} (historical ADR refs: {known})")
           for b in bad:
               print(" ", b)
