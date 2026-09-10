@@ -3,13 +3,13 @@ name: orchestrate-repair-loop
 description: Iteratively review changes, run automated tests, and apply targeted fixes until issues are resolved (or a stop condition is reached).
 description_zh: 迭代审查变更、运行自动化测试并实施定向修复，直至问题解决或满足停止条件。
 tags: [automation, devops, optimization]
-version: 1.2.1
+version: 1.2.2
 license: MIT
 recommended_scope: both
 metadata:
   author: ai-cortex
 triggers: [repair, fix tests, delivery, stabilize, auto repair, auto fix, auto fix changes]
-aliases: [orchestrate-repair-loop]
+aliases: [run-repair-loop]
 compatibility: Requires a shell and the repo's toolchains to run tests (language-dependent). May require git for diff-based review.
 input_schema:
   type: code-scope
