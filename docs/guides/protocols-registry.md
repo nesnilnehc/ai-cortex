@@ -9,7 +9,7 @@ deprecated_reason: Described runtime remote loading, which ADR 0011 forbids and 
 
 # Protocol registry and remote loading (superseded)
 
-**This guide described a model the project no longer uses, and following it would violate the execution contract.** It is kept as a pointer so existing links resolve; the content is in git history.
+**This guide described a model the project no longer uses, and following it would violate the execution contract.** It is kept as a pointer so a link arriving from outside the repository — a bookmark, a search result, another project — still lands somewhere that explains the change. Nothing inside the repository links here any more, by design. The content is in git history.
 
 ## What it said, and why it is gone
 

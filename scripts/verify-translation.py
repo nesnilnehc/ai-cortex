@@ -340,8 +340,11 @@ def main():
         old_text = shown.stdout
 
         new_text = path.read_text()
+        unchanged_waiver = waivers.get(f"{path}::unchanged")
+        if mode == "translate" and old_text == new_text and unchanged_waiver:
+            waived.append((str(path), "unchanged", unchanged_waiver))
         if (mode == "translate" and old_text == new_text
-                and not waivers.get(f"{path}::unchanged")):
+                and not unchanged_waiver):
             # A file identical to its baseline was never touched. The invariant
             # comparison would pass trivially - every invariant matches itself -
             # so an omitted file is invisible unless checked for explicitly.
@@ -359,8 +362,11 @@ def main():
         # every skill look partly untranslated.
         old_cjk = len(CJK.findall(FRONTMATTER.sub("", old_text, count=1)))
         new_cjk = len(CJK.findall(FRONTMATTER.sub("", new_text, count=1)))
+        residual_waiver = waivers.get(f"{path}::residual_chinese")
+        if mode == "translate" and old_cjk and new_cjk and residual_waiver:
+            waived.append((str(path), "residual_chinese", residual_waiver))
         if (mode == "translate" and old_cjk and new_cjk
-                and not waivers.get(f"{path}::residual_chinese")):
+                and not residual_waiver):
             # Any surviving character is a finding, not just a large share of
             # them. A ratio alone lets a big file keep an untranslated example
             # block and still come in under the limit - which is exactly how
