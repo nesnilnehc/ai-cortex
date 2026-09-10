@@ -61,8 +61,8 @@ Define the **North Star Metric (NSM)**: the single most important metric capturi
 
 - Defining the mission or the vision (use `define-mission`, `define-vision`).
 - Defining strategic goals or OKRs (use `design-strategic-goals`).
-- Defining milestones (use `define-milestones`).
-- Writing the roadmap, requirements, or backlog (use project planning, `analyze-requirements`, `capture-work-items`).
+- Defining milestones (use `define-roadmap`).
+- Writing the roadmap, requirements, or backlog (use `define-roadmap`, `capture-work-items`).
 
 ---
 

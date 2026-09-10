@@ -46,7 +46,7 @@ The skill guides you through the whole workflow, from inspection to verification
 7. Write the Conventional Commits message
 8. Run verification (tests/lint)
 9. **Sync the registries if needed** (AI Cortex projects)
-10.Repeat until the working tree is clean
+10. Repeat until the working tree is clean
 
 ### Conventional Commits format
 

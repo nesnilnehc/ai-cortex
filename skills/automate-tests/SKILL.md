@@ -56,11 +56,11 @@ Work out how the target repository expects automated tests to be run (commands, 
 **This skill does not own**:
 
 - Test quality assessment or coverage analysis (use `review-testing`)
-- Fixing failing tests or debugging test failures (use `run-repair-loop`)
+- Fixing failing tests or debugging test failures (use `orchestrate-repair-loop`)
 - Writing new tests or test infrastructure (use the development skills)
 - Reviewing test code against best practices (use `review-testing`)
 
-**Handoff point**: once the tests finish (pass or fail), hand off to `run-repair-loop` to fix the failures, or to `review-testing` for a quality assessment.
+**Handoff point**: once the tests finish (pass or fail), hand off to `orchestrate-repair-loop` to fix the failures, or to `review-testing` for a quality assessment.
 
 ## Use Cases
 
@@ -140,14 +140,14 @@ Work out how the target repository expects automated tests to be run (commands, 
 **Do not do these (other skills handle them)**:
 
 - **Test quality assessment**: judging test coverage, test design, or testing best practices → use `review-testing`
-- **Fixing test failures**: debugging failing tests, repairing broken test code, or root-causing → use `run-repair-loop`
+- **Fixing test failures**: debugging failing tests, repairing broken test code, or root-causing → use `orchestrate-repair-loop`
 - **Writing tests**: creating new test cases, test infrastructure, or a test framework → use the development/implementation skills
 - **Code review**: reviewing test code for quality, maintainability, or best practices → use `review-testing`
 - **Repository analysis**: full codebase structure analysis or architecture review → use `review-codebase`
 
 **When to stop and hand off**:
 
-- Tests fail and the user asks "why?" or "how do I fix it?" → hand off to `run-repair-loop` for debugging and repair
+- Tests fail and the user asks "why?" or "how do I fix it?" → hand off to `orchestrate-repair-loop` for debugging and repair
 - The user asks "are these tests any good?" or "what is our coverage?" → hand off to `review-testing` for a quality assessment
 - The user asks "can you write tests for X?" → hand off to the development workflow for test implementation
 - Tests pass and the user asks "what should we test next?" → hand the test strategy suggestion to `review-testing`

@@ -1,4 +1,4 @@
-#Define Vision
+# Define Vision
 
 Defines the long-term future the project aims to create. Answers "what future are we working to build?"
 
@@ -31,7 +31,7 @@ Handled centrally by the canonical AI Cortex install; see the repository root [R
 - `define-mission` — upstream: why we exist.
 - `define-north-star` — next: the single metric for user value.
 - `design-strategic-goals` — 3-5 strategic outcomes.
-- `define-milestones` — the stage checkpoints for the goals.
+- `define-roadmap` — the stage checkpoints for the goals.
 - The full docs/ structure is stood up by the AgentFabric runtime or by hand, following `docs/ARTIFACT_NORMS.md`
 
 ## Full definition

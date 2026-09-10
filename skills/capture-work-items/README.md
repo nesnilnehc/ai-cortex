@@ -4,7 +4,7 @@ Captures a requirement, bug, or issue from free-form input and turns it into a s
 
 ## Purpose
 
-This skill gives you a fast structured record without the deep validation that "analyze-requirements" performs. It converts a user-supplied description into a work item (requirement, bug, or issue) carrying every required field, and persists it to the path the project has agreed on. The output stays aligned with the project documentation structure (project-docs-template, for instance) and includes status tracking for governance.
+This skill gives you a fast structured record without the deep validation that `review-requirements` performs. It converts a user-supplied description into a work item (requirement, bug, or issue) carrying every required field, and persists it to the path the project has agreed on. The output stays aligned with the project documentation structure (project-docs-template, for instance) and includes status tracking for governance.
 
 ## When to use
 
@@ -27,8 +27,8 @@ This skill gives you a fast structured record without the deep validation that "
 
 ## Related skills
 
-- `analyze-requirements`: deep validation when an item is vague and needs clarification
-- `design-solution`: design exploration when a captured item leads to an architecture decision
+- `review-requirements`: deep validation, once the item has been written up as a requirements document. Interactive clarification of a vague item is not an AI Cortex skill — it belongs to the runtime
+- Design exploration, where a captured item leads to an architecture decision, is carried by the runtime; AI Cortex supplies the shape in [specs/functional-design-modeling.md](../../specs/functional-design-modeling.md) and [specs/technical-design-modeling.md](../../specs/technical-design-modeling.md)
 
 ## Install
 

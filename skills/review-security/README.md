@@ -8,7 +8,7 @@ Reviews code for security only: injection (SQL, command, template), sensitive da
 
 ## When to use
 
-- Orchestrated review: the cognitive step when review-code runs the whole pipeline.
+- Orchestrated review: the cognitive step when orchestrate-code-review runs the whole pipeline.
 - Security-focused review: when the user wants the security dimension checked and nothing else.
 - Compliance or audit: a repeatable security-checklist output.
 
@@ -24,7 +24,7 @@ Reviews code for security only: injection (SQL, command, template), sensitive da
 
 | Field | Value |
 | :------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-sql, nesnilnehc/ai-cortex:review-diff |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:orchestrate-code-review, nesnilnehc/ai-cortex:review-sql, nesnilnehc/ai-cortex:review-diff |
 | market_position | commodity |
 
 ## Full definition

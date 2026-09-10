@@ -66,7 +66,7 @@ A pillar is indispensable — drop one and the strategy has a structural gap. Go
 **This skill does NOT handle**:
 
 - Defining mission, vision, or North Star (use `define-mission`, `define-vision`, `define-north-star`).
-- Defining strategic goals or milestones (use `design-strategic-goals`, `define-milestones`).
+- Defining strategic goals or milestones (use `design-strategic-goals`, `define-roadmap`).
 - Defining roadmap (use `define-roadmap`).
 
 ---
@@ -127,7 +127,7 @@ A pillar is indispensable — drop one and the strategy has a structural gap. Go
 
 - **Mission / vision / North Star**: Use `define-mission`, `define-vision`, `define-north-star`.
 - **Strategic goals**: Use `design-strategic-goals`; goals can map to pillars.
-- **Milestones / roadmap**: Use `define-milestones`, `define-roadmap`.
+- **Milestones / roadmap**: Use `define-roadmap`.
 
 **When to stop and hand off**:
 

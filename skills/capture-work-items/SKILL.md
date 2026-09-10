@@ -24,7 +24,7 @@ output_schema:
 
 ## Purpose
 
-Capture a requirement, bug, or issue from free-form input and turn it into a structured, persistent artifact. It gives a fast structured record without the deep validation that "analyze-requirements" performs. It keeps the output path aligned with the project's documentation structure (a project documentation template, for instance) and covers governance status tracking.
+Capture a requirement, bug, or issue from free-form input and turn it into a structured, persistent artifact. It gives a fast structured record without the deep validation that `review-requirements` performs. It keeps the output path aligned with the project's documentation structure (a project documentation template, for instance) and covers governance status tracking.
 
 ---
 
@@ -59,11 +59,11 @@ Capture a requirement, bug, or issue from free-form input and turn it into a str
 
 **This skill does not do**:
 
-- Deep requirement clarification or validation → use "analyze-requirements"
-- Design or architecture → use "design-solution"
+- Deep validation of a written requirements document → use `review-requirements`; interactive clarification belongs to the requirement-authoring workflow a runtime platform carries (see [docs/requirements-planning/README.md](../../docs/requirements-planning/README.md))
+- Design or architecture → carried by the runtime; the artifact shapes are [specs/functional-design-modeling.md](../../specs/functional-design-modeling.md) and [specs/technical-design-modeling.md](../../specs/technical-design-modeling.md)
 - Direct API calls to Zentao/GitHub to create issues (an extension point; not needed for v1)
 
-**Handoff point**: once the artifact is persisted and the user has confirmed it, hand off to "analyze-requirements" where the item needs deeper validation, or to process management / milestones for planning.
+**Handoff point**: once the artifact is persisted and the user has confirmed it, hand off to `review-requirements` where the item needs deeper validation, or to `prioritize-backlog` and `promote-roadmap-items` for planning.
 
 ---
 
@@ -268,14 +268,14 @@ This skill only sets "status: captured". Downstream processes (milestones, promo
 
 **Do not do these** (other skills handle them):
 
-- **Deep requirement validation**: diagnostic states, problem articulation, scope boundaries → use "analyze-requirements"
-- **Design and architecture**: solutions, alternatives, trade-offs → use "design-solution"
+- **Deep requirement validation**: diagnostic states, problem articulation, scope boundaries → use `review-requirements`
+- **Design and architecture**: solutions, alternatives, trade-offs → carried by the runtime, to the shapes in [specs/functional-design-modeling.md](../../specs/functional-design-modeling.md) and [specs/technical-design-modeling.md](../../specs/technical-design-modeling.md)
 - **Task breakdown**: epic/task breakdown, refining acceptance criteria → use process management or the implementation plan
 
 **When to stop and hand off**:
 
-- The user says "this needs more analysis" → hand off to "analyze-requirements"
-- The user says "design this" → hand off to "design-solution"
+- The user says "this needs more analysis" → hand off to `review-requirements`
+- The user says "design this" → hand off to the runtime's design workflow
 - The artifact is persisted and confirmed → the handoff is complete
 
 ---
@@ -363,7 +363,7 @@ User: "An error response should include a code (ERR_001, for example) and a shor
 
 **Persist**: path detected — `docs/process-management/` does not exist. Write to "docs/backlog/2026-03-06-better-error-messages.md".
 
-**Handoff suggestion**: "This could benefit from the deeper validation in analyze-requirements. Carry on with capture alone, or hand off for the full analysis?"
+**Handoff suggestion**: "This could benefit from the deeper validation in review-requirements. Carry on with capture alone, or hand off for the full analysis?"
 
 User: "Capture only, for now."
 

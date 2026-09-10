@@ -8,7 +8,7 @@ Reviews TypeScript and JavaScript code for language and runtime conventions only
 
 ## When to use
 
-- Orchestrated review: the language step when review-code runs on a TypeScript/JavaScript project.
+- Orchestrated review: the language step when orchestrate-code-review runs on a TypeScript/JavaScript project.
 - TypeScript-only review: when the user wants TypeScript/JavaScript language conventions checked and nothing else.
 - Pre-PR language checklist: confirm type safety, async correctness, and module design are sound.
 
@@ -24,7 +24,7 @@ Reviews TypeScript and JavaScript code for language and runtime conventions only
 
 | Field | Value |
 | :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------ |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-diff |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:orchestrate-code-review, nesnilnehc/ai-cortex:review-diff |
 | market_position | commodity |
 
 ## Full definition

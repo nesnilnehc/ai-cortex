@@ -9,7 +9,7 @@ recommended_scope: both
 metadata:
   author: ai-cortex
 triggers: [repair, fix tests, delivery, stabilize, auto repair, auto fix, auto fix changes]
-aliases: [run-repair-loop]
+aliases: [orchestrate-repair-loop]
 compatibility: Requires a shell and the repo's toolchains to run tests (language-dependent). May require git for diff-based review.
 input_schema:
   type: code-scope
@@ -56,7 +56,7 @@ Converge a repository, or a change set, to "clean" by running **multiple loop it
 
 - The multi-iteration review → test → fix loop
 - Diff-scoped and codebase-scoped review through `review-diff` and `orchestrate-code-review`
-- Test execution through `run-automated-tests` (fast/ci/full modes)
+- Test execution through `automate-tests` (fast/ci/full modes)
 - Minimal targeted patches that preserve the API contract
 - Stop-condition detection (no progress, environment blocker, flaky tests, iteration limit)
 - A structured repair-loop report as output
@@ -122,7 +122,7 @@ For `i = 1..max_iterations`:
      reader does not take it for the standard path.
 
 2. **Run the tests**
-   - Use `run-automated-tests` to discover and run the best-matching test command in the selected mode:
+   - Use `automate-tests` to discover and run the best-matching test command in the selected mode:
      - `fast` (default): unit tests only, minimal setup.
      - `ci`: stay as close to the CI steps as possible.
      - `full`: includes integration / e2e (dependencies and services need confirming first).
@@ -249,7 +249,7 @@ By default, do not write a standalone report file. If the user explicitly asks f
 
 **Do not do these (other skills handle them)**:
 
-- **Test execution only** (no review, no repair loop): use `run-automated-tests`
+- **Test execution only** (no review, no repair loop): use `automate-tests`
 - **Test quality assessment** (coverage, structure, edge-case adequacy): use `review-testing`
 - **Full code review** (no test-fix iteration): use `orchestrate-code-review`
 - **Diff review only** (no test execution, no fix iteration): use `review-diff`
@@ -260,7 +260,7 @@ By default, do not write a standalone report file. If the user explicitly asks f
 - The loop converges (tests pass, no blocking findings) → present the repair-loop report and stop
 - A stop condition is hit (no progress, environment blocker, flaky tests, iteration limit) → show the options and wait for the user's direction
 - The user asks for a one-off code review without fixes → hand off to `orchestrate-code-review` or `review-diff`
-- The user asks only to run the tests without fixing → hand off to `run-automated-tests`
+- The user asks only to run the tests without fixing → hand off to `automate-tests`
 
 ---
 

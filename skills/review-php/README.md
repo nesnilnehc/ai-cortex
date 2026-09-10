@@ -8,7 +8,7 @@ Reviews PHP code for language and runtime conventions only: strict types and dec
 
 ## When to use
 
-- Orchestrated review: the language step when review-code runs on a PHP project.
+- Orchestrated review: the language step when orchestrate-code-review runs on a PHP project.
 - PHP-only review: when the user wants language and runtime conventions checked and nothing else.
 - Pre-PR PHP checklist: confirm type safety, resource cleanup, and PSR compliance are right.
 
@@ -24,7 +24,7 @@ Reviews PHP code for language and runtime conventions only: strict types and dec
 
 | Field | Value |
 | :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------ |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-diff |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:orchestrate-code-review, nesnilnehc/ai-cortex:review-diff |
 | market_position | commodity |
 
 ## Full definition

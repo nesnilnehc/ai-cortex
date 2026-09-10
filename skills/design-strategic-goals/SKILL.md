@@ -44,7 +44,7 @@ Define **3-5 long-term strategic goals** that move the project toward the vision
 
 **Acceptance test**: can a reader see how each of the 3-5 goals advances the vision and the North Star, with no dates or stages (those belong to milestones)? Does a long-term project carry one goal that speaks for governance / engineering health?
 
-**Handoff point**: once the goals are approved and persisted, hand off to "define-milestones" to break the goals into stage checkpoints, or stop.
+**Handoff point**: once the goals are approved and persisted, hand off to "define-roadmap" to break the goals into stage checkpoints, or stop.
 
 ---
 
@@ -60,7 +60,7 @@ Define **3-5 long-term strategic goals** that move the project toward the vision
 **This skill does not do**:
 
 - Define the mission, vision, or North Star (use "define-mission", "define-vision", "define-north-star").
-- Break goals into stages or dates (use "define-milestones").
+- Break goals into stages or dates (use "define-roadmap").
 - Write requirements, roadmaps, or backlog (use "analyse-requirements", "project-planning", "capture-work-items").
 
 ---
@@ -174,7 +174,7 @@ This goal **supports the long-term achievability of all the other strategic goal
 ### Hard Boundaries
 
 - Do not define the mission, vision, North Star, or milestones in this skill.
-- Do not put dates or stages in the goals document (those belong to "define-milestones").
+- Do not put dates or stages in the goals document (those belong to "define-roadmap").
 - The document must not carry fewer than 3 or more than 5 strategic goals.
 - A long-term project (planning horizon > 6 months) must not drop the engineering / governance health goal entirely; an exemption must record its reason in the document.
 - **Must not persist automatically in fallback mode**: an evidence-inferred candidate goal is written only after the user confirms or corrects each item.
@@ -187,13 +187,13 @@ This goal **supports the long-term achievability of all the other strategic goal
 - **Mission**: why we exist → use `define-mission`.
 - **Vision**: what future we are building → use "define-vision".
 - **North Star**: the single metric → use `define-north-star`.
-- **Milestones**: stage checkpoints → use `define-milestones`.
+- **Milestones**: stage checkpoints → use `define-roadmap`.
 - **Requirements or backlog**: use "analyse-requirements", "capture-work-items", project planning.
 
 **When to stop and hand off**:
 
-- The user says "approved" or equivalent → the goals are done; offer the handoff to "define-milestones".
-- The user asks for stages or milestones → hand off to "define-milestones".
+- The user says "approved" or equivalent → the goals are done; offer the handoff to "define-roadmap".
+- The user asks for stages or milestones → hand off to "define-roadmap".
 
 ---
 
@@ -235,7 +235,7 @@ If yes: the strategic goals are done. Move to the handoff or stop.
 
 **Process**: read the vision and North Star documents. Derive outcomes (e.g. "80% of teams deploy within 5 minutes", "zero manual steps in a standard deployment", "a complete audit trail for every deployment"). Draft 3-5 goals; state how each supports the vision/NSM. The user confirms. Write to "docs/project-overview/strategic-goals.md".
 
-**Result**: the goals are persisted; offer the handoff to "define-milestones".
+**Result**: the goals are persisted; offer the handoff to "define-roadmap".
 
 ### Example 2: The user proposes six goals
 
