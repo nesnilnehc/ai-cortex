@@ -3,7 +3,7 @@ name: define-north-star
 description: Define the single most important metric representing the core value delivered to users. Produces North Star Metric with rationale, optional supporting metrics, and anti-pattern examples; persisted to docs.
 description_zh: 定义代表向用户交付核心价值的单一最重要指标；产出 North Star Metric 及理由、辅助指标与反例。
 tags: [documentation, workflow]
-version: 1.2.0
+version: 1.2.1
 license: MIT
 recommended_scope: both
 metadata:

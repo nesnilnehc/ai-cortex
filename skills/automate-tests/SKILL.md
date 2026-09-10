@@ -3,7 +3,7 @@ name: automate-tests
 description: Discover and execute repository test commands safely with evidence-based command selection and safety guardrails.
 description_zh: 安全发现并执行仓库测试命令；基于证据选择命令并设安全护栏。
 tags: [automation, devops]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: both
 metadata:
