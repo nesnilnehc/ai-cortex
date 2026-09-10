@@ -238,8 +238,8 @@ Inject the protocol file as **long-lived background context**:
 # option 1: through .claude/config.yaml
 echo "
 protocols:
-  - ./protocols/unp.md
-  - ./protocols/inp.md
+  - ./specs/universal-notification.md
+  - ./protocols/im-notification-delivery.md
 " >> .claude/config.yaml
 
 # option 2: through AGENTS.md, the AI Cortex entry point
@@ -275,7 +275,7 @@ Verify: run the review-notifications skill to check compliance
 
 ```bash
 # the current version
-grep "^version:" protocols/unp.md
+grep "^version:" specs/universal-notification.md
 
 # the change log
 grep -A 10 "Version" protocols/INDEX.md
@@ -284,14 +284,11 @@ grep -A 10 "Version" protocols/INDEX.md
 ### 6.2 Upgrading a protocol
 
 ```bash
-# get the newest version
-git pull origin main
-
-# or download the newest from GitHub
-curl -O https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/unp.md
+# pull the newest AI Cortex and re-sync the canonical clone
+cortex update
 
 # check for breaking changes
-git diff protocols/unp.md
+git -C "${XDG_DATA_HOME:-$HOME/.local/share}/ai-cortex" log -p specs/universal-notification.md
 ```
 
 ### 6.3 Backward compatibility

@@ -105,8 +105,8 @@ Trigger 2: a skill runs
 Trigger 3: the project configuration names them
   -> read from .claude/config.yaml or CLAUDE.md
   protocols:
-    - protocols/unp.md
-    - protocols/inp.md
+    - specs/universal-notification.md
+    - protocols/im-notification-delivery.md
 
 Trigger 4: inference from context
   -> analyse the code or the diff for a domain a protocol covers
@@ -118,15 +118,15 @@ Trigger 4: inference from context
 # .claude/config.yaml, the project configuration
 protocols:
   # notification system
-  - file: ./protocols/unp.md
+  - file: ./specs/universal-notification.md
     domain: notifications
     inject_as: system_context
-  - file: ./protocols/inp.md
+  - file: ./protocols/im-notification-delivery.md
     domain: notifications
     inject_as: system_context
 
 # or in CLAUDE.md
-# PROTOCOLS: ./protocols/unp.md, ./protocols/inp.md
+# PROTOCOLS: ./specs/universal-notification.md, ./protocols/im-notification-delivery.md
 ```
 
 ### 2.3 Declaring a protocol at the skill level
@@ -334,12 +334,12 @@ protocols:
 ```yaml
 # .claude/config.yaml
 protocols:
-  - file: ./protocols/unp.md
+  - file: ./specs/universal-notification.md
     applies_to: [code-generation, code-review]
     auto_apply: true
     auto_verify: true
 
-  - file: ./protocols/inp.md
+  - file: ./protocols/im-notification-delivery.md
     applies_to: [implementation, testing]
     auto_apply: true
 
