@@ -8,7 +8,7 @@ Reviews .NET (C#, F#) code for language and runtime conventions only: async/awai
 
 ## When to use
 
-- Orchestrated review: the language step when review-code runs on a .NET project.
+- Orchestrated review: the language step when orchestrate-code-review runs on a .NET project.
 - .NET-only review: when the user wants language and runtime conventions checked and nothing else.
 - Pre-PR .NET checklist: confirm the async, nullable, and resource patterns are right.
 
@@ -24,7 +24,7 @@ Reviews .NET (C#, F#) code for language and runtime conventions only: async/awai
 
 | Field | Value |
 | :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------ |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-diff |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:orchestrate-code-review, nesnilnehc/ai-cortex:review-diff |
 | market_position | commodity |
 
 ## Full definition

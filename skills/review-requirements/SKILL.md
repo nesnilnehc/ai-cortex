@@ -22,7 +22,7 @@ output_schema:
 
 ## Purpose
 
-Evaluate an **existing requirements document** against defined quality criteria. Does not produce or rewrite requirements; that is the job of `analyze-requirements`. Emit a **findings list** so the author can improve the document before design starts or before a review.
+Evaluate an **existing requirements document** against defined quality criteria. Does not produce or rewrite requirements; authoring is carried by the runtime, per [docs/requirements-planning/README.md](../../docs/requirements-planning/README.md). Emit a **findings list** so the author can improve the document before design starts or before a review.
 
 ---
 
@@ -65,10 +65,10 @@ Evaluate an **existing requirements document** against defined quality criteria.
 
 ## Use Cases
 
-- **Pre-design gate**: validate the requirements document before handing off to `design-solution`.
+- **Pre-design gate**: validate the requirements document before it is handed to the design stage.
 - **Collaborative review**: one team member writes the requirements; another runs this skill to assess quality.
 - **Imported requirements**: the requirements were written outside this workflow (e.g. Confluence, Notion, Jira); a quality assessment is needed before they are used.
-- **Post-`analyze-requirements` validation**: run after `analyze-requirements` as an independent check that all success criteria are met.
+- **Post-authoring validation**: run after the requirements are written as an independent check that all success criteria are met.
 
 ---
 
@@ -130,13 +130,13 @@ For each dimension, scan the whole document and emit a finding for every violati
 ### Input
 
 - **Requirements document**: a file path (`docs/requirements-planning/<topic>.md`, for example) or the raw content pasted inline.
-- **Optional context**: project name, target audience, or the downstream skill (for example "this feeds `design-solution`").
+- **Optional context**: project name, target audience, or what consumes the document downstream (for example "this feeds a technical design").
 
 ### Output
 
 - Emit zero or more **findings** in the format defined in [specs/findings-list.md](../../specs/findings-list.md), with **Category** `requirements-quality`.
 - The category for every finding from this skill is **requirements-quality**.
-- With no findings: emit the short confirmation "The requirements document meets all six quality dimensions. Ready for `design-solution`."
+- With no findings: emit the short confirmation "The requirements document meets all six quality dimensions. Ready for the design stage."
 
 ---
 
@@ -144,7 +144,7 @@ For each dimension, scan the whole document and emit a finding for every violati
 
 ### Hard Boundaries
 
-- **Do not rewrite**: do not produce new requirement text, acceptance criteria, or problem statements. Emit findings with a suggestion; leave the authoring to the user or to `analyze-requirements`.
+- **Do not rewrite**: do not produce new requirement text, acceptance criteria, or problem statements. Emit findings with a suggestion; leave the authoring to the user, or to the runtime workflow that carries it (see [docs/requirements-planning/README.md](../../docs/requirements-planning/README.md)).
 - **Do not add scope**: do not invent missing requirements or widen the document's scope.
 - **Document only**: base findings on the supplied document alone. Do not add findings drawn from outside knowledge of what a requirements document "should" contain beyond the six dimensions.
 
@@ -159,7 +159,7 @@ For each dimension, scan the whole document and emit a finding for every violati
 **When to stop and hand off**:
 
 - Once all findings are emitted, hand them to the author to close the gaps
-- When the document draws zero findings, confirm it is ready and suggest `design-solution` as the next step
+- When the document draws zero findings, confirm it is ready and name the design stage as the next step
 - When the input is not a requirements document, clarify and redirect to the appropriate skill
 
 ---
@@ -188,7 +188,7 @@ For each dimension, scan the whole document and emit a finding for every violati
 
 If no: the findings are incomplete or imprecise. Add location references and a concrete suggestion.
 
-If yes: the findings are ready. Hand them to the author for improvement, or confirm the document is ready for `design-solution`.
+If yes: the findings are ready. Hand them to the author for improvement, or confirm the document is ready for the design stage.
 
 ---
 
@@ -245,4 +245,4 @@ If yes: the findings are ready. Hand them to the author for improvement, or conf
 
 **Expected output**:
 
-> The requirements document meets all six quality dimensions. Every Must Have requirement has testable acceptance criteria; the problem statement is free of solutions; constraints and assumptions are separated; V1 scope is explicit; all requirements carry an R-NN ID; open questions have resolution plans. Ready for `design-solution`.
+> The requirements document meets all six quality dimensions. Every Must Have requirement has testable acceptance criteria; the problem statement is free of solutions; constraints and assumptions are separated; V1 scope is explicit; all requirements carry an R-NN ID; open questions have resolution plans. Ready for the design stage.

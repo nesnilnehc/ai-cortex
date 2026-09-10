@@ -8,7 +8,7 @@ Reviews SQL and query code for language and query conventions only: injection an
 
 ## When to use
 
-- Orchestrated review: the language step when review-code runs on a project that contains SQL.
+- Orchestrated review: the language step when orchestrate-code-review runs on a project that contains SQL.
 - SQL-only review: when the user wants query correctness, performance, and safety checked and nothing else.
 - Migration or portability: check for dialect-specific constructs.
 
@@ -24,7 +24,7 @@ Reviews SQL and query code for language and query conventions only: injection an
 
 | Field | Value |
 | :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-security, nesnilnehc/ai-cortex:review-diff |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:orchestrate-code-review, nesnilnehc/ai-cortex:review-security, nesnilnehc/ai-cortex:review-diff |
 | market_position | commodity |
 
 ## Full definition

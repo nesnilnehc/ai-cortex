@@ -8,7 +8,7 @@ Reviews Go code for language and runtime conventions only: concurrency and gorou
 
 ## When to use
 
-- Orchestrated review: the language step when review-code runs on a Go project.
+- Orchestrated review: the language step when orchestrate-code-review runs on a Go project.
 - Go-only review: when the user wants language and runtime conventions checked and nothing else.
 - Pre-PR Go checklist: confirm the concurrency, context, and error-handling patterns are right.
 
@@ -18,13 +18,13 @@ Reviews Go code for language and runtime conventions only: concurrency and gorou
 
 ## Outputs
 
-- Findings list: location, category=language, severity, title, description, optional suggestion.
+- Findings list: location, category=language-go, severity, title, description, optional suggestion.
 
 ## Ecosystem
 
 | Field | Value |
 | :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------ |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-diff |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:orchestrate-code-review, nesnilnehc/ai-cortex:review-diff |
 | market_position | commodity |
 
 ## Full definition

@@ -8,7 +8,7 @@ Reviews code for architecture only: module and layer boundaries, dependency dire
 
 ## When to use
 
-- Orchestrated review: the cognitive step when review-code runs the whole pipeline.
+- Orchestrated review: the cognitive step when orchestrate-code-review runs the whole pipeline.
 - Architecture-focused review: when the user wants boundaries and structure checked and nothing else.
 - Refactoring or onboarding: understand and critique the current structure.
 
@@ -24,7 +24,7 @@ Reviews code for architecture only: module and layer boundaries, dependency dire
 
 | Field | Value |
 | :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------ |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-diff |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:orchestrate-code-review, nesnilnehc/ai-cortex:review-diff |
 | market_position | commodity |
 
 ## Full definition

@@ -27,7 +27,7 @@ Reviews and refactors an existing skill. Applies a meta-audit model: intent, log
 
 | Field | Value |
 | :------------------------------------ | :------------------------------------------------------------------------------------ |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:curate-skills, nesnilnehc/ai-cortex:discover-skills |
+| overlaps_with (owner/repo:skill-name) | — |
 | market_position | differentiated |
 
 ## Full definition

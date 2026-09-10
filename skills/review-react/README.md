@@ -8,7 +8,7 @@ Reviews React code for framework conventions only: component design (function co
 
 ## When to use
 
-- Orchestrated review: the framework step when review-code runs on a React project.
+- Orchestrated review: the framework step when orchestrate-code-review runs on a React project.
 - React-only review: when the user wants React/front-end framework conventions checked and nothing else.
 - Pre-PR React checklist: confirm hook usage, component design, and state-management patterns are right.
 
@@ -24,7 +24,7 @@ Reviews React code for framework conventions only: component design (function co
 
 | Field | Value |
 | :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------ |
-| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:review-code, nesnilnehc/ai-cortex:review-diff |
+| overlaps_with (owner/repo:skill-name) | nesnilnehc/ai-cortex:review-codebase, nesnilnehc/ai-cortex:orchestrate-code-review, nesnilnehc/ai-cortex:review-diff |
 | market_position | commodity |
 
 ## Full definition

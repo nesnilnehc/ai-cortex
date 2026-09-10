@@ -136,7 +136,7 @@ Review code for **performance** issues only. Do not define scope (diff vs codeba
 - Do not select or define the code scope - it is set by the caller or by `orchestrate-code-review`
 - Do not perform security, architecture, or language/framework review — use the respective atomic skills
 - Do not perform comprehensive SQL performance analysis — use `review-sql`
-- Do not run or execute code to measure performance - use `run-automated-tests` for test execution
+- Do not run or execute code to measure performance - use `automate-tests` for test execution
 
 **When to stop and hand off**:
 

@@ -8,7 +8,7 @@ Reviews ORM usage patterns at the library level across ORM libraries (Prisma, En
 
 ## When to use
 
-- Orchestrated review: the library step when review-code runs on a project that uses an ORM.
+- Orchestrated review: the library step when orchestrate-code-review runs on a project that uses an ORM.
 - ORM-only review: when the user wants ORM usage patterns checked in the data layer and nothing else.
 - Pre-PR ORM checklist: confirm N+1 queries, transaction handling, and migration safety are right.
 - Migration review: check migration files for backward compatibility and rollback safety.
