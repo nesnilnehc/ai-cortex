@@ -3,7 +3,7 @@ name: automate-tests
 description: Discover and execute repository test commands safely with evidence-based command selection and safety guardrails.
 description_zh: 安全发现并执行仓库测试命令；基于证据选择命令并设安全护栏。
 tags: [automation, devops]
-version: 1.0.1
+version: 1.0.2
 license: MIT
 recommended_scope: both
 metadata:
@@ -190,7 +190,7 @@ Agent:
 1. Check the `package.json` scripts and `.github/workflows/*`.
 2. Settle on `fast` mode and propose:
    - `npm test` (or `pnpm test` / `yarn test` if the repository standardizes on one)
-3.Ask: "install dependencies (`npm ci`) and allow network access?"
+3. Ask: "install dependencies (`npm ci`) and allow network access?"
 4. Run:
    - `npm ci`
    - `npm test`

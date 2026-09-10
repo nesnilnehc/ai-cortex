@@ -3,7 +3,7 @@ name: prepare-release
 description: Build and validate a Release Package from repository history, version policy, quality gates, and optional release artifacts; does not publish or announce.
 description_zh: 基于仓库历史、版本策略、质量门禁和可选发布材料构造并校验 Release Package；不负责发布或公告。
 tags: [release, versioning, changelog, release-package, orchestration]
-version: 1.4.0
+version: 1.4.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -85,7 +85,7 @@ Then identify the existing generators and produce only the changelog, release no
 
 #### Artifact shape: the reader is someone coming back after a while
 
-The audience boundary (previous section) decides **what goes into** an artifact; its shape decides **whether it can be read**. An artifact counts as sound only when neither is met — writing for maintainers is not a licence to be unreadable: the writer holds all the background, so cramming causes, IDs, and paths into a single breathless paragraph costs them nothing, and that cost **is absent for the author alone**.
+The audience boundary (previous section) decides **what goes into** an artifact; its shape decides **whether it can be read**. An artifact counts as sound only when both are met — writing for maintainers is not a licence to be unreadable: the writer holds all the background, so cramming causes, IDs, and paths into a single breathless paragraph costs them nothing, and that cost **is absent for the author alone**.
 
 - **One meaning per entry**. An entry says one thing; when it will not fit, that is usually because it is two things — split it.
 - **Conclusion first**: say what it became, then why; do not spend a whole paragraph on reasoning before delivering the conclusion.

@@ -3,7 +3,7 @@ name: review-security
 description: "Review code for security: injection, sensitive data, auth, dependencies, config, and crypto. Atomic skill; output is a findings list."
 description_zh: 审查代码安全性：注入、敏感数据、认证、依赖、配置与加密；原子技能，输出 findings 列表。
 tags: [code-review, cognitive, security]
-version: 1.0.1
+version: 1.0.2
 license: MIT
 recommended_scope: project
 metadata:
@@ -27,7 +27,7 @@ Review code for **security** concerns only. Do not define scope (diff vs codebas
 
 ## Core Objective
 
-**Primary Goal**: Produce a security-focused findings list covering injection, sensitive data, authentication/authorization, dependencies, configuration, and cryptography for the given code scope.
+**Primary goal**: Produce a security-focused findings list covering injection, sensitive data, authentication/authorization, dependencies, configuration, and cryptography for the given code scope.
 
 **Success Criteria** (ALL must be met):
 

@@ -3,12 +3,12 @@ name: publish-nats-message
 description: Publish a NATS message conforming to a cross-team contract, using NATS MCP tools. Authors the contract on first use if missing. Reads project-level cache (.cortex/nats.yaml) to avoid re-prompting basics across sessions.
 description_zh: 通过 NATS MCP 工具按跨团队契约发布消息；首次缺契约时引导起草。读取项目级缓存 .cortex/nats.yaml，避免跨会话重复询问。
 tags: [nats, messaging, cross-team, producer, mcp]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: both
 metadata:
   author: ai-cortex
-triggers: [publish nats, send nats message, 发布事件, 跨服务发消息, nats publish]
+triggers: [publish nats, send nats message, nats publish]
 input_schema:
   type: free-form
   description: Event description (domain + type); payload data; consumer name (first time only); optional QoS hint; optional explicit contract path

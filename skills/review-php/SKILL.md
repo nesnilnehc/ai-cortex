@@ -3,7 +3,7 @@ name: review-php
 description: "Review PHP code for language and runtime conventions: strict types, error handling, resource management, PSR standards, namespaces, null safety, generators, and testability. Language-only atomic skill; output is a findings list."
 description_zh: 按 PHP 语言与运行时规范审查代码：strict types、错误处理、资源管理、PSR、命名空间、null 安全、生成器、可测性。
 tags: [code-review, language]
-version: 1.0.1
+version: 1.0.2
 license: MIT
 recommended_scope: project
 metadata:
@@ -27,7 +27,7 @@ Review code in **PHP** for **language and runtime conventions** only. Do not def
 
 ## Core Objective
 
-**Primary Goal**: Produce a PHP language/runtime findings list covering strict types, error handling, resource management, PSR standards, namespaces, null safety, generators, version compatibility, and testability for the given code scope.
+**Primary goal**: Produce a PHP language/runtime findings list covering strict types, error handling, resource management, PSR standards, namespaces, null safety, generators, version compatibility, and testability for the given code scope.
 
 **Success Criteria** (ALL must be met):
 

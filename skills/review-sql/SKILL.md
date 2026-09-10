@@ -3,7 +3,7 @@ name: review-sql
 description: Review SQL and query code for injection risk, parameterization, indexing and performance, transactions, NULL and constraints, and dialect portability. Language-only atomic skill; output is a findings list.
 description_zh: 审查 SQL 与查询代码：注入风险、参数化、索引与性能、事务、NULL 与约束、方言可移植性。
 tags: [code-review, language]
-version: 1.0.3
+version: 1.0.4
 license: MIT
 recommended_scope: project
 metadata:
@@ -27,7 +27,7 @@ Review **SQL** and query-related code for **language and query conventions** onl
 
 ## Core Objective
 
-**Primary Goal**: Produce a SQL-focused findings list covering injection/parameterization, indexing, transactions, NULL/constraints, dialect portability, paging patterns, and sensitive column access for the given code scope.
+**Primary goal**: Produce a SQL-focused findings list covering injection/parameterization, indexing, transactions, NULL/constraints, dialect portability, paging patterns, and sensitive column access for the given code scope.
 
 **Success Criteria** (ALL must be met):
 

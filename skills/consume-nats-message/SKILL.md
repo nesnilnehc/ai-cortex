@@ -3,12 +3,12 @@ name: consume-nats-message
 description: Drain pending NATS messages from a producer contract via NATS MCP tools. Discovers the available NATS tool capabilities, selects exact-subject or wildcard mode from .cortex/nats.yaml, applies Tolerant Reader semantics, executes ack/nak/term decisions, and returns aggregated stats.
 description_zh: 通过 NATS MCP 工具批量拉取 producer 契约下的待处理消息。先发现并映射可用 NATS 工具能力，再根据 .cortex/nats.yaml 选择精确 subject 或 wildcard 模式，按 Tolerant Reader 处理并执行 ack/nak/term，最终返回聚合统计。
 tags: [nats, messaging, cross-team, consumer, mcp]
-version: 1.4.0
+version: 1.4.1
 license: MIT
 recommended_scope: both
 metadata:
   author: ai-cortex
-triggers: [consume nats, subscribe nats, drain nats, 订阅事件, 跨服务收消息, nats consume]
+triggers: [consume nats, subscribe nats, drain nats, nats consume]
 input_schema:
   type: free-form
   description: Producer name + event type or subject; optional contract path with @version; optional consume override max_messages / batch_size / fetch_timeout / idle_threshold

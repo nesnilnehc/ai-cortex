@@ -3,7 +3,7 @@ name: define-strategic-pillars
 description: Derive 3–5 strategic pillars (high-level themes) from vision and North Star that structure and guide strategic goals and roadmap. Produces a strategic pillars document; persisted to docs.
 description_zh: 从 vision 与 North Star 推导 3–5 个战略支柱（高层次主题），指导战略目标与路线图。
 tags: [documentation, workflow]
-version: 1.1.1
+version: 1.1.2
 license: MIT
 recommended_scope: both
 metadata:
@@ -24,7 +24,7 @@ output_schema:
 
 ## Purpose
 
-Derive **3-5 strategic pillars** (high-level themes) from **vision** and **North Star** that structure and guide strategic goals and roadmap. Produce a pillars document so goals and roadmap can be grouped under pillars. Does not define mission, vision, North Star, goals, milestones, or roadmap.
+Derive **3–5 strategic pillars** (high-level themes) from **vision** and **North Star** that structure and guide strategic goals and roadmap. Produce a pillars document so goals and roadmap can be grouped under pillars. Does not define mission, vision, North Star, goals, milestones, or roadmap.
 
 **Pillar vs goal**:
 
@@ -37,11 +37,11 @@ A pillar is indispensable — drop one and the strategy has a structural gap. Go
 
 ## Core Objective
 
-**Primary Goal**: Produce a user-confirmed strategic pillars document containing exactly 3-5 pillars (themes) aligned with vision and North Star, persisted to the project-agreed path.
+**Primary Goal**: Produce a user-confirmed strategic pillars document containing exactly 3–5 pillars (themes) aligned with vision and North Star, persisted to the project-agreed path.
 
 **Success Criteria** (ALL must be met):
 
-1. ✅ **3-5 pillars documented**: Exactly 3-5 strategic pillars, each with a clear name and short description (what this pillar represents).
+1. ✅ **3–5 pillars documented**: Exactly 3–5 strategic pillars, each with a clear name and short description (what this pillar represents).
 2. ✅ **Theme-level**: Each pillar is a high-level theme or a strategic direction of sustained investment, not a completable goal or a specific initiative.
 3. ✅ **Aligned with vision**: Each pillar supports the vision; alignment is stated or evident.
 4. ✅ **North Star connection**: At least one pillar clearly supports or frames the North Star; optional: brief "how this supports vision/NSM" per pillar.
@@ -58,7 +58,7 @@ A pillar is indispensable — drop one and the strategy has a structural gap. Go
 
 **This skill handles**:
 
-- Eliciting and documenting 3-5 strategic pillars (high-level themes).
+- Eliciting and documenting 3–5 strategic pillars (high-level themes).
 - Ensuring alignment with vision and North Star (read from `define-vision` / `define-north-star` outputs or existing docs).
 - Persisting to project-agreed path (default `docs/project-overview/strategic-pillars.md`).
 - Optional: per-pillar note on how it supports vision or North Star.
@@ -73,7 +73,7 @@ A pillar is indispensable — drop one and the strategy has a structural gap. Go
 
 ## Use Cases
 
-- **After vision and North Star**: Establish 3-5 pillars that structure how goals and roadmap are organized.
+- **After vision and North Star**: Establish 3–5 pillars that structure how goals and roadmap are organized.
 - **Strategy structure**: Provide a stable set of themes so goals and initiatives can be grouped (e.g. "Product Excellence", "Customer Success", "Operational Efficiency").
 - **Before or with goals**: Run before or in parallel with `design-strategic-goals` so goals can map to pillars.
 - **Fourth layer in strategy chain**: Run after mission, vision, and north star when building the full hierarchy (Mission → Vision → North Star → Pillars → Goals → Milestones → Roadmap).
@@ -85,13 +85,13 @@ A pillar is indispensable — drop one and the strategy has a structural gap. Go
 ### Interaction Policy
 
 - **Defaults**: Output path from project norms if present; otherwise `docs/project-overview/strategic-pillars.md`. Read vision and North Star from `docs/project-overview/` when available.
-- **Choice options**: If user has more than 5 candidate pillars, offer to prioritize or merge into 3-5; ask user to confirm the final set.
+- **Choice options**: If user has more than 5 candidate pillars, offer to prioritize or merge into 3–5; ask user to confirm the final set.
 - **Confirm**: Before overwriting an existing strategic-pillars file; before final persist.
 
 ### Execution Process
 
 1. **Load vision and North Star**: Read from `docs/project-overview/vision.md` and `docs/project-overview/north-star.md` or user-provided summary.
-2. **Elicit**: What 3-5 high-level themes or pillars would structure the strategy and guide goals/roadmap?
+2. **Elicit**: What 3–5 high-level themes or pillars would structure the strategy and guide goals/roadmap?
 3. **Draft pillars**: Theme-level (e.g. "Customer First", "Operational Excellence"); not goals or initiatives.
 4. **Check alignment**: Each pillar supports the vision; at least one clearly supports or frames the North Star.
 5. **Persist**: Write to project-agreed path; create `docs/project-overview/` if missing. Optional: add "How this supports vision/NSM" per pillar.
@@ -109,7 +109,7 @@ A pillar is indispensable — drop one and the strategy has a structural gap. Go
 
 - **Artifact**: Strategic pillars document.
 - **Location**: `docs/project-overview/strategic-pillars.md` (or per project norms).
-- **Content**: List of 3-5 pillars (name, short description); optional mapping to vision/NSM.
+- **Content**: List of 3–5 pillars (name, short description); optional mapping to vision/NSM.
 - **Lifecycle**: Living (updated when vision or strategy direction changes).
 
 ---
@@ -169,7 +169,7 @@ If YES: Pillars are complete. Proceed to handoff or stop.
 
 **Context**: Vision and North Star documents exist. User wants strategic pillars to structure goals and roadmap.
 
-**Process**: Read vision and north-star. Propose 3-5 pillars (e.g. "Discoverability", "Reusability", "Governance", "Ecosystem"). Add short description per pillar and how it supports vision/NSM. User confirms. Write to `docs/project-overview/strategic-pillars.md`.
+**Process**: Read vision and north-star. Propose 3–5 pillars (e.g. "Discoverability", "Reusability", "Governance", "Ecosystem"). Add short description per pillar and how it supports vision/NSM. User confirms. Write to `docs/project-overview/strategic-pillars.md`.
 
 **Outcome**: Pillars persisted; handoff to `design-strategic-goals` or `define-roadmap`.
 
@@ -177,6 +177,6 @@ If YES: Pillars are complete. Proceed to handoff or stop.
 
 **Context**: Strategic goals document exists; user wants to add a pillars layer for structure.
 
-**Process**: Read vision, North Star, and existing goals. Propose pillars that group or frame the existing goals (e.g. cluster goals under 3-5 themes). User confirms. Write to `docs/project-overview/strategic-pillars.md`. Suggest updating goals doc to reference pillars if desired.
+**Process**: Read vision, North Star, and existing goals. Propose pillars that group or frame the existing goals (e.g. cluster goals under 3–5 themes). User confirms. Write to `docs/project-overview/strategic-pillars.md`. Suggest updating goals doc to reference pillars if desired.
 
 **Outcome**: Pillars persisted; goals can be explicitly mapped to pillars in a later pass.

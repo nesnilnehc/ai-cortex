@@ -3,7 +3,7 @@ name: orchestrate-governance-step
 description: Single-step governance executor — reads plan-next routing output, executes the highest-priority action, and emits a continuation signal for /loop-driven autopilot.
 description_zh: 单步治理执行器——读取 plan-next 路由输出，执行最高优先级动作，发出继续信号以支持 /loop 全自动推进。
 tags: [automation, workflow, meta-skill]
-version: 2.2.1
+version: 2.2.2
 license: MIT
 recommended_scope: project
 metadata:
@@ -777,7 +777,7 @@ additionalProperties: false
 ### Quality gate checks
 
 - [ ] Hard Boundaries use MUST / MUST NOT and state how each is verified
-- [ ] Anti-Patterns has ≥ 2 contrasting examples (4 in practice)
+- [ ] Anti-Patterns has ≥ 2 contrasting examples (11 in practice)
 - [ ] Examples has ≥ 2, of which ≥ 1 is an edge case (example 3 covers stall detection)
 - [ ] The AI repair instructions cover ≥ 2 error patterns (3 in practice)
 

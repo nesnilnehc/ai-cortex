@@ -3,7 +3,7 @@ name: archive-milestone
 description: Archive a completed milestone by generating a snapshot summary, folding the roadmap stage, and removing the stale tasks directory.
 description_zh: 将已完成里程碑转为快照摘要，折叠路线图历史阶段，移除历史任务目录，减少 AI 上下文污染。
 tags: [governance, lifecycle, archive, milestone]
-version: 1.1.1
+version: 1.1.2
 license: MIT
 recommended_scope: project
 metadata:
@@ -163,7 +163,7 @@ Perform every operation as previewed, then emit the operation log.
 - The next milestone, M4, has started
 
 **Execution** (dry-run by default):
-1. Maturity check: M3 completed ≥ 60 days ago ✓, the later milestone index differs by ≥ 1 ✓
+1. Maturity check: M3 completed ≥ 60 days ago ✓ — one condition is enough, so the index condition (in-progress ≥ M5, currently M4) does not also have to hold
 2. Produce the snapshot `milestones/_archive/m3-summary.md`: completion date, 5 key deliverables, key ADR references
 3. Give the impact analysis: the roadmap M3 section will fold into 3 lines; the current path `milestones/m3/` will be deleted
 4. Emit the dry-run report and wait for the user to confirm
@@ -172,7 +172,7 @@ Perform every operation as previewed, then emit the operation log.
 
 ### Example 2: edge case — the milestone just completed and is not mature enough
 
-**Input**: M5 completed only 14 days ago, and M6 has not started.
+**Input**: M5 completed only 14 days ago, and the in-progress milestone is still M5, so neither condition holds.
 
 **Execution**:
 1. Maturity check: completion is < 60 days ago and the later milestone index differs by 0

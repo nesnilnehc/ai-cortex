@@ -3,12 +3,12 @@ name: redeploy-local
 description: After code changes, auto-detect the project's build system and local deployment method for a given directory, then build the project and restart its locally-deployed environment (Docker Compose / systemd / process manager). Never assumes — asks only when detection is ambiguous. Caches detected commands per project in .cortex/redeploy-local.yaml; re-invocations on the same project skip re-scanning until signal files change, the cache expires (30 days), or the skill version bumps.
 description_zh: 代码修改后，自动探测目标目录的构建系统与本地部署方式，执行构建并重启本地部署环境（Docker Compose / systemd / 进程管理器）。无法确定时才询问，不盲猜。首次探测后将结果缓存至 .cortex/redeploy-local.yaml；下次同项目调用直接复用，直到信号文件变更、缓存过期（30 天）或技能版本变化。
 tags: [deploy, build, local, workflow, automation, docker, systemd, pm2]
-version: 3.2.0
+version: 3.2.1
 license: MIT
 recommended_scope: both
 metadata:
   author: ai-cortex
-triggers: [redeploy local, redeploy locally, rebuild and redeploy, update local env, rebuild local, deploy local, build and deploy, 本地重部署, 重部署本地, 更新本地环境, 重建并部署, 本地部署]
+triggers: [redeploy local, redeploy locally, rebuild and redeploy, update local env, rebuild local, deploy local, build and deploy]
 input_schema:
   type: free-form
   description: A directory path (defaults to CWD). May include an optional override for build or deploy command via .cortex.yaml. Cache at .cortex/redeploy-local.yaml is honored when valid.
@@ -194,7 +194,7 @@ Same principle — read the deployment files, do not assume:
 
 Before doing anything, show the user a structured inference report:
 
-```yaml
+```text
 Detected build:
   Source: Makefile target `build` (line 12, calls `go build -ldflags ...`)
   Cross-ref: README "Building" section confirms `make build`
@@ -268,7 +268,7 @@ Proceed only after the user confirms. The confirmation is skipped when both comm
 
 10. **Emit the run report**
 
-    ```
+    ```text
     Step     Command                         Exit  Duration
     ───────  ──────────────────────────────  ────  ────────
     Build    pnpm run build                    0   18.2s
@@ -381,7 +381,7 @@ Provide:
 
 **Inference report shown to the user**:
 
-```yaml
+```text
 Detected build:
   Source: package.json scripts.build (tsc && vite build --outDir dist)
   Cross-ref: Dockerfile copies dist/, matches output path
@@ -414,7 +414,7 @@ Health   docker compose ps                 0    0.2s
 
 **Inference report**:
 
-```yaml
+```text
 Detected build:
   Source: Makefile target `build` (line 8)
   Cross-ref: .github/workflows/ci.yml uses `make build`
@@ -470,7 +470,7 @@ Health   supervisorctl status api-worker    0    0.1s
 
 **Scenario**: `pnpm run build` exits with code 1
 
-```json
+```text
 [build] FAILED — exit 1 after 4.2s
 
 Last 20 lines of output:
@@ -492,7 +492,7 @@ Suggested fix: run `pnpm install` to restore dependencies, then retry.
 
 **Inference report shown to the user**:
 
-```yaml
+```text
 Detected build:
   Source: .cortex/redeploy-local.yaml (cached 2026-05-20; 4 signal files unchanged)
   Command: pnpm run build

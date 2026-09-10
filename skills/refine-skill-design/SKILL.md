@@ -3,7 +3,7 @@ name: refine-skill-design
 description: Audit and refactor existing SKILLs to meet spec compliance, repository asset boundaries, tool adaptation requirements, and LLM best practices.
 description_zh: 审计并重构既有 SKILL，使其符合规范、仓库资产边界、工具适配要求与 LLM 最佳实践。
 tags: [writing, meta-skill, optimization]
-version: 1.6.1
+version: 1.6.2
 license: MIT
 recommended_scope: user
 metadata:
@@ -121,7 +121,7 @@ As a "meta-skill", this skill **reviews and refactors** AI capability definition
 
 ### Output Persistence (document handling)
 
-**Rule**: by default, improve and overwrite the original `SKILL.md` in place, together with an auditable diff summary and a version proposal; only when the user explicitly asks for "a refined draft only, leave the source file alone" is a temporary or new refined file written. Every run must pick one of the two strategies below:
+**Rule**: by default, improve and overwrite the original `SKILL.md` in place, together with an auditable diff summary and a version proposal; only when the user explicitly asks for "a refined draft only, leave the source file alone" is a temporary or new refined file written. Every run must pick one of the three strategies below:
 
 | Strategy | Path pattern | Behavior |
 | :--- | :--- | :--- |
