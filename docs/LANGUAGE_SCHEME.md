@@ -45,7 +45,6 @@ These were always English and are unaffected by this scheme:
 | `name`, `tags`, `triggers`, `description` | SKILL frontmatter |
 | File and directory names | kebab-case, no exceptions |
 | `skills/INDEX.md`, `rules/INDEX.md`, `specs/INDEX.md` | Registries |
-| `.claude-plugin/marketplace.json` | Plugin manifest |
 
 `description` must remain English regardless of anything else here: skills.sh and agentskills.io parse it, and `AGENTS.md` §4 matches skills against it.
 
