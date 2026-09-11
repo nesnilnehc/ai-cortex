@@ -1,0 +1,33 @@
+{
+  "name": "minimal conforming task list",
+  "profiles": [
+    "handoff"
+  ],
+  "parent": {
+    "declared": true,
+    "resolves": true
+  },
+  "tasks": [
+    {
+      "id": "T1",
+      "required_fields_present": true,
+      "status": "Todo",
+      "depends_on": []
+    },
+    {
+      "id": "T2",
+      "required_fields_present": true,
+      "status": "Todo",
+      "depends_on": [
+        "T1"
+      ]
+    }
+  ],
+  "annotations": [],
+  "known_rule_ids": [
+    "ARC-008",
+    "REL-002"
+  ],
+  "valid_waiver_ids": [],
+  "expected_failed_rules": []
+}

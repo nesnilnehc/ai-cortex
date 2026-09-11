@@ -1,9 +1,9 @@
 ---
 name: orchestrate-code-review
-description: Orchestrator skill — sequence atomic review-* skills (scope → language → framework → library → cognitive) and aggregate findings into a unified report.
+description: Orchestrator skill — sequence atomic review-* skills into the post-coding engineering gate and aggregate their findings; functional alignment and acceptance verification remain separate.
 description_zh: 编排技能——按 scope → language → framework → library → cognitive 顺序串联原子 review-* 技能，聚合 findings 为统一报告。
 tags: [code-review, orchestration]
-version: 1.0.1
+version: 1.2.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -17,14 +17,14 @@ input_schema:
     untracked: include
 output_schema:
   type: findings-list
-  description: Aggregated, deduplicated findings with risk signals from all executed atomic skills
+  description: Aggregated findings, duplicate-group annotations and risk signals from all executed atomic skills
 ---
 
 # Orchestrator Skill: Orchestrate Code Review
 
 ## Purpose
 
-Chain the atomic review-* skills in a fixed order and aggregate their findings. This skill orchestrates only; it runs no code analysis. For a single-dimension review, call the matching atomic skill directly (`review-diff` for the diff alone, `review-security` for security alone).
+Chain the atomic review-* skills in a fixed order and aggregate their findings as the **engineering gate**. This skill orchestrates only; it runs no code analysis. Functional alignment against requirements/design/tasks and functional acceptance execution are a sibling gate handled by `review-implementation-alignment` and `automate-tests`, normally converged by `orchestrate-repair-loop`.
 
 ---
 
@@ -35,7 +35,7 @@ Under the naming convention, an orchestrator skill **does exactly 4 things**:
 1. **Detect context**: determine scope (diff / codebase), language and framework from user intent and project state
 2. **Chain the calls**: run the atomic review-* skills in the fixed order scope → language → framework → library → cognitive
 3. **halt-on-failure**: when any atomic skill fails, stop the remaining steps and report the findings collected so far
-4. **Aggregate output**: merge findings, deduplicate (same location + title keeps the highest severity), derive risk_signals mechanically
+4. **Aggregate output**: collect and sort findings without rewriting or merging them, group them by location so one defect's several concerns read as one site, and derive risk_signals mechanically
 
 **Strictly forbidden**: running code analysis inside this skill, embedding lint rules, reimplementing the logic of a single atomic skill.
 
@@ -49,7 +49,7 @@ Under the naming convention, an orchestrator skill **does exactly 4 things**:
 | 2 | language | `review-typescript` / `review-python` / `review-go` / `review-java` / `review-php` / `review-powershell` / `review-dotnet` / `review-sql` | 0 or 1, inferred from the dominant language in scope |
 | 3 | framework | `review-react` / `review-vue` | 0 or 1, inferred from the framework in scope |
 | 4 | library | `review-orm-usage` | 0 or 1, inferred from ORM usage in scope |
-| 5 | cognitive | `review-security` → `review-performance` → `review-architecture` → `review-testing` | All of them, in order |
+| 5 | cognitive | `review-security` → `review-reliability` → `review-performance` → `review-architecture` → `review-observability` → `review-testing` | All of them, in order; each atomic Skill resolves whether its profiles apply |
 
 A step with no match is skipped; the final report names which steps were skipped and why.
 
@@ -74,8 +74,10 @@ Any atomic skill fails → stop the remaining steps, output the findings collect
 
 ### Step 4: Aggregate output
 
-- **Deduplication rule**: merge identical `location + title` across steps, keep the highest severity, and note the other matching steps in the description
+- **Grouping**: preserve every atomic finding unchanged, and group them by normalized location per [findings-list](../../specs/findings-list.md) §5.4.1. One changed contract failing an architecture, a testing and an alignment item is one site with three concerns, not three defects. The group takes its highest-severity member as primary; severity counts stay computed over findings, so grouping never changes a total. A group is one site, not a claim of shared cause — never group by an inferred common root.
+- **Duplicate handling**: when two findings in a group share `location + title`, additionally mark them an exact duplicate; do not merge them or discard either source.
 - **Risk signals**: a **mechanical rule mapping** over the aggregated findings plus the change context (severity distribution, file spread, keyword matches), with no subjective judgement; output the empty list `[]` when no signal is clear
+- **Rule coverage**: preserve each atomic Skill's Rule coverage object separately; never merge evidence-limited or not-applicable IDs into passed IDs
 
 ---
 
@@ -93,7 +95,8 @@ One aggregated report:
 - Findings from each atomic skill (grouped by category or location)
 - An account of the skipped steps
 - The `risk_signals` list (each entry carries signal_name plus an optional confidence ∈ [0, 1])
-- A summary at the top (counts by severity, counts by category)
+- A summary at the top (counts by severity, counts by category, and the number of sites the findings group into)
+- Rule coverage by emitting Skill (`passed` / `waived` / `not_applicable` / `evidence_limited`)
 
 ---
 
@@ -115,6 +118,8 @@ One aggregated report:
 - Single-dimension review → call the matching atomic skill directly
 - Applying fixes → `orchestrate-repair-loop` or the development process
 - Writing tests → the test-related skills
+- Comparing implementation with approved requirements/design/tasks → `review-implementation-alignment`
+- Running functional acceptance checks → `automate-tests` or the project-specific acceptance harness
 
 ---
 
@@ -125,8 +130,10 @@ One aggregated report:
 - [ ] The scope was confirmed with the user
 - [ ] The execution order is fixed (scope → language → framework → library → cognitive)
 - [ ] Skipped steps are noted in the report
-- [ ] The findings deduplication rule was applied (same location + title keeps the highest severity)
+- [ ] Every atomic finding was preserved unchanged; findings were grouped by location only, and exact duplicates were annotated rather than merged
+- [ ] Severity counts were computed over findings, not over groups
 - [ ] risk_signals were derived mechanically from the aggregated findings, with no subjective judgement
+- [ ] Rule coverage metadata was preserved per emitting Skill
 
 ---
 
@@ -135,14 +142,14 @@ One aggregated report:
 ### Example 1: diff review of a .NET project
 
 - Input: the user says "review my changes"; the project is C#
-- Dispatch: `review-diff` → `review-dotnet` → `review-security` → `review-performance` → `review-architecture` → `review-testing`
+- Dispatch: `review-diff` → `review-dotnet` → `review-security` → `review-reliability` → `review-performance` → `review-architecture` → `review-observability` → `review-testing`
 - Skipped: the framework / library steps (no match)
 - Aggregation: one report plus risk_signals
 
 ### Example 2: codebase review of a Vue frontend
 
 - Input: `src/frontend`; the project uses Vue 3 and an ORM
-- Dispatch: `review-codebase` → `review-typescript` → `review-vue` → `review-orm-usage` → `review-security` → `review-performance` → `review-architecture` → `review-testing`
+- Dispatch: `review-codebase` → `review-typescript` → `review-vue` → `review-orm-usage` → all six cognitive reviewers
 - Aggregation: one report
 
 ### Example 3: edge case — no language match

@@ -4,7 +4,7 @@
 
 ## Purpose
 
-Reviews code for security only: injection (SQL, command, template), sensitive data and logging, authentication and authorisation, dependencies and CVEs, configuration and secrets, cryptography and hashing. Emits a findings list in the standard format. Does not define scope and does not perform language or architecture analysis.
+Executes the canonical [security quality Rules](../../rules/security-quality.md) over supplied code, configuration and dependency scope. It resolves trust-boundary profiles, gathers evidence, and emits Rule-traceable findings.
 
 ## When to use
 
@@ -29,4 +29,4 @@ Reviews code for security only: injection (SQL, command, template), sensitive da
 
 ## Full definition
 
-See [SKILL.md](./SKILL.md) for the checklist and the output contract.
+See [SKILL.md](./SKILL.md) for execution and boundaries; the criteria live only in [security-quality.md](../../rules/security-quality.md).

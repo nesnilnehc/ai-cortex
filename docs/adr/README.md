@@ -33,3 +33,4 @@ A good decision record answers four questions: **What** was decided / **Why** / 
 | [0009](./0009-replace-merge-worktree-with-deliver-and-integrate.md) | Replacing merge-worktree with deliver-feature + integrate-worktrees | accepted |
 | [0010](./0010-installation-strategy.md) | The installation strategy: an XDG canonical path plus bin/cortex | accepted |
 | [0011](./0011-vendor-external-skills.md) | Unifying the management of vendored external skills | accepted |
+| [0012](./0012-adopt-profiled-engineering-rules.md) | Adopting profiled engineering quality rules | accepted |

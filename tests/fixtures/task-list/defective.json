@@ -1,0 +1,57 @@
+{
+  "name": "defective task list at handoff",
+  "profiles": [
+    "handoff"
+  ],
+  "parent": {
+    "declared": false,
+    "resolves": false
+  },
+  "tasks": [
+    {
+      "id": "T1",
+      "required_fields_present": false,
+      "status": "Todo",
+      "depends_on": [
+        "T2"
+      ]
+    },
+    {
+      "id": "T2",
+      "required_fields_present": true,
+      "status": "In progress",
+      "depends_on": [
+        "T1"
+      ]
+    },
+    {
+      "id": "T3",
+      "required_fields_present": true,
+      "status": "Todo",
+      "depends_on": [
+        "T9"
+      ]
+    }
+  ],
+  "annotations": [
+    {
+      "task": "T1",
+      "rule_refs": [
+        "ARC-999"
+      ],
+      "waiver": "WV-EXPIRED"
+    }
+  ],
+  "known_rule_ids": [
+    "ARC-008",
+    "REL-002"
+  ],
+  "valid_waiver_ids": [],
+  "expected_failed_rules": [
+    "TASK-001",
+    "TASK-002",
+    "TASK-004",
+    "TASK-005",
+    "TASK-011"
+  ]
+}

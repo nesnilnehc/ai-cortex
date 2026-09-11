@@ -105,6 +105,33 @@ _link_rule_md() {
   _ok "linked rule $_base"
 }
 
+_is_global_rule() {
+  _src="$1"
+  _scope=$(_frontmatter_field "$_src" "recommended_scope")
+  case "$_scope" in
+    user|both) return 0 ;;
+    project)   return 1 ;;
+    *)
+      _warn "skip $(basename "$_src"): invalid or missing recommended_scope"
+      return 1
+      ;;
+  esac
+}
+
+_remove_on_demand_rule_install() {
+  _dst="$1"
+  if [ -L "$_dst" ]; then
+    _target=$(readlink "$_dst" 2>/dev/null || true)
+    if echo "$_target" | grep -Fq "$CORTEX_HOME"; then
+      rm "$_dst"
+      _ok "removed global link for on-demand rule $(basename "$_dst")"
+    fi
+  elif [ -f "$_dst" ] && grep -Fq "$MARKER" "$_dst" 2>/dev/null; then
+    rm "$_dst"
+    _ok "removed global translation for on-demand rule $(basename "$_dst")"
+  fi
+}
+
 # ---------------------------------------------------------------------------
 # .md -> .mdc translation for Cursor
 # ---------------------------------------------------------------------------
@@ -166,7 +193,11 @@ _sync() {
       if [ -e "$_rule" ]; then
         _rbase=$(basename "$_rule")
         if [ "$_rbase" = "INDEX.md" ]; then continue; fi
-        _link_rule_md "$_rule" "$HOME/.claude/rules/$_rbase"
+        if _is_global_rule "$_rule"; then
+          _link_rule_md "$_rule" "$HOME/.claude/rules/$_rbase"
+        else
+          _remove_on_demand_rule_install "$HOME/.claude/rules/$_rbase"
+        fi
       fi
     done
   fi
@@ -185,7 +216,11 @@ _sync() {
         _rbase=$(basename "$_rule")
         if [ "$_rbase" = "INDEX.md" ]; then continue; fi
         _mdc="$HOME/.cursor/rules/$(basename "$_rule" .md).mdc"
-        _translate_rule "$_rule" "$_mdc" || true
+        if _is_global_rule "$_rule"; then
+          _translate_rule "$_rule" "$_mdc" || true
+        else
+          _remove_on_demand_rule_install "$_mdc"
+        fi
       fi
     done
   fi

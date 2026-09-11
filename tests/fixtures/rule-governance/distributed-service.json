@@ -1,0 +1,72 @@
+{
+  "name": "distributed-public-service",
+  "profiles": [
+    "dependency-injection",
+    "public-api",
+    "public-contract"
+  ],
+  "allowed_dependencies": {
+    "orders": [
+      "contracts",
+      "payments-client"
+    ],
+    "payments-client": [
+      "contracts"
+    ],
+    "contracts": []
+  },
+  "actual_edges": [
+    [
+      "orders",
+      "contracts"
+    ],
+    [
+      "orders",
+      "payments-client"
+    ],
+    [
+      "payments-client",
+      "contracts"
+    ]
+  ],
+  "protected_contracts": [
+    "openapi/orders.yaml"
+  ],
+  "breaking_contracts": [
+    "openapi/orders.yaml"
+  ],
+  "versioned_migrations": [],
+  "change_budget": {
+    "files": 15,
+    "modules": 3,
+    "public_contracts": 0,
+    "data_migrations": 1
+  },
+  "change_metrics": {
+    "files": 10,
+    "modules": 3,
+    "public_contracts": 1,
+    "data_migrations": 0
+  },
+  "expected_failed_rules": [
+    "ARC-005",
+    "ARC-009",
+    "TST-004"
+  ],
+  "secret_candidates": [
+    {
+      "location": "src/config.ts:7",
+      "live": true,
+      "source": "secret-manager",
+      "redacted_in_telemetry": true
+    }
+  ],
+  "changed_public_contracts": [
+    {
+      "path": "openapi/orders.yaml",
+      "has_released_consumer": true,
+      "compatibility_tests": [],
+      "versioned_migration_tested": false
+    }
+  ]
+}

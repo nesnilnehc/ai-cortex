@@ -1,9 +1,9 @@
 ---
 name: review-security
-description: "Review code for security: injection, sensitive data, auth, dependencies, config, and crypto. Atomic skill; output is a findings list."
-description_zh: 审查代码安全性：注入、敏感数据、认证、依赖、配置与加密；原子技能，输出 findings 列表。
+description: "Review code and configuration against the canonical security quality Rule set. Resolves trust-boundary profiles, gathers tool-assisted evidence and emits findings traceable to stable Rule IDs."
+description_zh: 依据权威安全质量规则审查代码与配置，解析信任边界配置并输出可追溯 findings。
 tags: [code-review, cognitive, security]
-version: 1.0.2
+version: 2.0.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -11,166 +11,78 @@ metadata:
 triggers: [review security, security review]
 input_schema:
   type: code-scope
-  description: Source files or directories to review
+  description: Source files, configuration, manifests or a diff selected by the caller
 output_schema:
   type: findings-list
-  description: Zero or more findings with location, category, severity, and suggestion
+  description: Zero or more security findings traceable to canonical Rule IDs
 ---
 
 # Skill: Review Security
 
 ## Purpose
 
-Review code for **security** concerns only. Do not define scope (diff vs codebase) or perform language/framework/architecture analysis; those are separate atomic skills. Emit a **findings list** in the standard format for aggregation. Focus on injection (SQL, command, template), sensitive data and logging, authentication and authorization, dependencies and CVEs, configuration and secrets, and cryptography and hashing.
+Evaluate the supplied scope against [security-quality](../../rules/security-quality.md). The Rule owns the security criteria; this Skill resolves applicability, gathers evidence and emits [findings-list](../../specs/findings-list.md) output with category `cognitive-security`.
 
----
+## Core objective
 
-## Core Objective
+Produce complete, location-precise security findings for all applicable failed Rule items without treating tool output as proof beyond its coverage.
 
-**Primary goal**: Produce a security-focused findings list covering injection, sensitive data, authentication/authorization, dependencies, configuration, and cryptography for the given code scope.
+Success requires the active Rule version, resolved profiles and waivers, one decision per applicable item, a Rule ID in every finding and a coverage footer separating pass, waiver, N/A and evidence limitations.
 
-**Success Criteria** (ALL must be met):
+## Scope boundaries
 
-1. ✅ **Security-only scope**: Only security dimensions are reviewed; no scope selection, language/framework conventions, or architecture analysis performed
-2. ✅ **All six categories covered**: Injection, sensitive data/logging, authentication/authorization, dependencies/CVEs, configuration/secrets, and cryptography are assessed where relevant
-3. ✅ **Findings format compliant**: Each finding includes Location, Category (`cognitive-security`), Severity, Title, Description, and optional Suggestion
-4. ✅ **Critical issues flagged**: Clear vulnerabilities (e.g. hardcoded secrets, SQL injection) are marked as `critical` severity
-5. ✅ **Actionable output**: Each finding has a specific location reference and a concrete fix or improvement suggestion
+This Skill covers security only. Scope selection, language/framework conventions, architecture, reliability, performance, observability, test quality and fixes belong to other Skills. It may inspect manifests and configuration needed by applicable security items, but it must not broaden into a general dependency or operations audit.
 
-**Acceptance Test**: Does the output contain a findings list in the standard format covering all relevant security dimensions, with critical vulnerabilities clearly marked and actionable suggestions provided?
+## Use cases
 
----
-
-## Scope Boundaries
-
-**This skill handles**:
-
-- Injection vulnerabilities (SQL, command, template, path traversal)
-- Sensitive data exposure in logs, responses, or client-side storage
-- Authentication and authorization weaknesses (auth bypass, IDOR, CSRF, session handling)
-- Dependency vulnerabilities and CVE assessments
-- Configuration and secrets management issues
-- Cryptographic weaknesses and key management problems
-
-**This skill does NOT handle**:
-
-- Scope selection (deciding which files/paths to analyze) — scope is provided by the caller
-- Language/framework convention analysis — use `review-dotnet`, `review-java`, `review-go`, etc.
-- Architecture analysis — use `review-architecture`
-- Performance analysis — use `review-performance`
-- SQL-specific deep review (use `review-sql` for comprehensive SQL analysis)
-- Full orchestrated review — use `orchestrate-code-review`
-
-**Handoff point**: When all security findings are emitted, hand off to `orchestrate-code-review` orchestrator for aggregation with other cognitive findings, or deliver directly to the user for security-focused review sessions.
-
----
-
-## Use Cases
-
-- **Orchestrated review**: Used as a cognitive step when [orchestrate-code-review](../orchestrate-code-review/SKILL.md) runs scope → language → framework → library → cognitive.
-- **Security-focused review**: When the user wants only security dimensions checked (e.g. before release or audit).
-- **Compliance or audit**: As a repeatable security checklist output for documentation.
-
-**When to use**: When the task includes security review. Scope and code scope are determined by the caller or user.
-
----
+- Security-focused review of code, configuration or dependency changes
+- The security cognitive step in `orchestrate-code-review`
+- Review of a public entry point, authenticated flow, sensitive-data path or supply-chain change
 
 ## Behavior
 
-### Scope of this skill
+1. Load [security-quality](../../rules/security-quality.md) and record its version.
+2. Resolve active profiles and parameters from project contracts, data classification, entry points, manifests and `.ai-cortex/config.yaml`. Validate any waiver against [rule-modeling](../../specs/rule-modeling.md).
+3. Gather the evidence named by each applicable item. Prefer repository-native secret, dependency and static-analysis results, then inspect source-to-sink flows, access-control placement, defaults, cryptographic calls and telemetry.
+4. Follow data and authorization across the complete reachable path. Do not clear a Rule merely because one layer validates it when a later layer bypasses that control.
+5. Emit one finding per failed obligation, cite the fully qualified Rule ID in its description and use the Rule's default severity unless concrete impact justifies a documented adjustment.
+6. Return Rule coverage using the exact `passed`, `waived`, `not_applicable` and `evidence_limited` fields from the findings-list Spec.
 
-- **Analyze**: Security dimensions in the **given code scope** (files or diff provided by the caller). Do not decide scope; accept the code range as input.
-- **Do not**: Perform scope selection, language/framework conventions, or architecture review. Focus only on security.
+## Input and output
 
-### Review checklist (security dimension only)
-
-1. **Injection**: SQL injection (parameterization, raw queries); command injection (shell, exec); template injection (user-controlled templates); path traversal; LDAP/XML injection where relevant.
-2. **Sensitive data and logging**: Secrets, tokens, or PII in logs or error messages; sensitive data in URLs or client-side storage; exposure in responses or caches.
-3. **Authentication and authorization**: Missing or weak authentication; broken access control (IDOR, privilege escalation); session handling and CSRF; permission checks on every sensitive operation.
-4. **Dependencies and CVEs**: Known vulnerable dependencies (versions, advisories); unpinned or overly broad version ranges; supply-chain and integrity.
-5. **Configuration and secrets**: Hardcoded secrets; secrets in config files or environment; secure default configuration; feature flags and debug mode in production.
-6. **Cryptography and hashing**: Weak or deprecated algorithms (e.g. MD5, SHA1 for security); inappropriate use of encryption; key management and storage; password hashing (e.g. bcrypt, Argon2).
-
-### Tone and references
-
-- **Professional and technical**: Reference specific locations (file:line). Emit findings with Location, Category, Severity, Title, Description, Suggestion. Use severity critical for clear vulnerabilities.
-
----
-
-## Input & Output
-
-### Input
-
-- **Code scope**: Files or directories (or diff) already selected by the user or scope skill. This skill does not decide scope; it reviews the provided code for security only.
-
-### Output
-
-- Emit zero or more **findings** in the format defined in [specs/findings-list.md](../../specs/findings-list.md), with **Category** `cognitive-security`.
-- Category for this skill is **cognitive-security**.
-
----
+Input is an already selected code/configuration scope. Output follows [findings-list](../../specs/findings-list.md); every finding uses category `cognitive-security` and cites `security-quality@<version>/<SEC-ID>`.
 
 ## Restrictions
 
-### Hard Boundaries
-
-- **Do not** perform scope selection, language, framework, or architecture review. Stay within security dimensions.
-- **Do not** give conclusions without specific locations or actionable suggestions.
-- **Do not** assume deployment or network topology unless stated; focus on code and configuration in scope.
-
-### Skill Boundaries
-
-**Do NOT do these** (other skills handle them):
-
-- Do NOT select or define the code scope (diff vs codebase) — scope is determined by the caller or `orchestrate-code-review`
-- Do NOT perform language/framework convention analysis — use `review-dotnet`, `review-java`, `review-go`, etc.
-- Do NOT perform architecture or performance review — use `review-architecture` or `review-performance`
-- Do NOT perform comprehensive SQL analysis — use `review-sql`
-
-**When to stop and hand off**:
-
-- When all security findings are emitted, hand off to `orchestrate-code-review` for aggregation in an orchestrated review
-- When the user needs a full review (scope + language + cognitive), redirect to `orchestrate-code-review`
-- When SQL-specific security issues dominate, suggest also running `review-sql` for deeper SQL coverage
-
----
+- Do not invent security criteria or restate the Rule checklist.
+- Do not claim a vulnerability scan ran when no tool result exists.
+- Do not expose secret values in findings; identify the location and credential type only.
+- Do not approve waivers or lower a severity to make a gate pass.
+- Do not repair unless the caller invokes a repair capability.
+- Do not restate an observability obligation about where a failure is recorded. This Skill owns whether security telemetry is actionable and non-disclosing; `review-observability` owns whether a terminal failure is recorded once at its owning boundary.
 
 ## Self-Check
 
-### Core Success Criteria
-
-- [ ] **Security-only scope**: Only security dimensions are reviewed; no scope selection, language/framework conventions, or architecture analysis performed
-- [ ] **All six categories covered**: Injection, sensitive data/logging, authentication/authorization, dependencies/CVEs, configuration/secrets, and cryptography are assessed where relevant
-- [ ] **Findings format compliant**: Each finding includes Location, Category (`cognitive-security`), Severity, Title, Description, and optional Suggestion
-- [ ] **Critical issues flagged**: Clear vulnerabilities (e.g. hardcoded secrets, SQL injection) are marked as `critical` severity
-- [ ] **Actionable output**: Each finding has a specific location reference and a concrete fix or improvement suggestion
-
-### Process Quality Checks
-
-- [ ] Was only the security dimension reviewed (no scope/language/architecture)?
-- [ ] Are injection, sensitive data, authz, dependencies, config/secrets, and crypto covered where relevant?
-- [ ] Is each finding emitted with Location, Category=cognitive-security, Severity, Title, Description, and optional Suggestion?
-- [ ] Are critical issues clearly marked and actionable?
-
-### Acceptance Test
-
-Does the output contain a findings list in the standard format covering all relevant security dimensions, with critical vulnerabilities clearly marked and actionable suggestions provided?
-
----
+- [ ] The canonical security Rule and version were loaded.
+- [ ] Trust-boundary profiles, parameters and waivers were resolved from evidence.
+- [ ] Every applicable SEC item has a pass, finding, valid waiver or evidence limitation.
+- [ ] Findings are precise, actionable, secret-safe and traceable to Rule IDs.
+- [ ] Tool coverage was not overstated and no criteria were duplicated.
 
 ## Examples
 
-### Example 1: Hardcoded secret
+### Example 1: user input reaches a shell
 
-- **Input**: API key or password in source code.
-- **Expected**: Emit a critical finding; suggest environment variable or secret manager; reference the line. Category = cognitive-security.
+Trace request input to a string-built process command. Emit a `critical` finding citing SEC-001 at the sink and suggest the parameterized process API plus domain validation.
 
-### Example 2: SQL built from user input
+### Example 2: dependency scan unavailable
 
-- **Input**: Query string built with concatenation of user-controlled input.
-- **Expected**: Emit a critical finding for SQL injection; suggest parameterized queries. Category = cognitive-security.
+For a lockfile change, inspect provenance and pinning but mark the vulnerability-assessment evidence for SEC-006 as limited; do not report it as passed.
 
-### Edge case: False positive
+## Change record
 
-- **Input**: Placeholder like "changeme" or "TODO" in config, not used in production.
-- **Expected**: Emit a minor/suggestion finding to remove or replace before production; do not mark as critical if context indicates non-production. If unclear, ask user or emit as suggestion.
+- Externalized all security criteria to `security-quality`.
+- Added profile, waiver, evidence-limitation and Rule-traceability behavior.
+- Preserved the `code-scope -> findings-list` contract and category.
+
+Version `2.0.0` reflects the new canonical policy source and completeness semantics.

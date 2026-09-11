@@ -81,6 +81,12 @@ jobs:
           done
           exit $fail
 
+      - name: modeled Rule contracts
+        run: python3 scripts/validate-rules.py
+
+      - name: architecture Rule scenarios
+        run: python3 scripts/test-rule-scenarios.py
+
   translation-invariants:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
@@ -97,4 +103,3 @@ jobs:
           # Report mode: it does not block an ordinary PR, but it shows the
           # reviewer any structural difference
           python3 scripts/verify-translation.py --mode=rewrite "$base" $files
-

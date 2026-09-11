@@ -1,0 +1,40 @@
+{
+  "name": "task list with triggered engineering governance",
+  "profiles": [
+    "handoff",
+    "engineering-governance"
+  ],
+  "parent": {
+    "declared": true,
+    "resolves": true
+  },
+  "tasks": [
+    {
+      "id": "T1",
+      "required_fields_present": true,
+      "status": "Todo",
+      "depends_on": []
+    }
+  ],
+  "annotations": [
+    {
+      "task": "T1",
+      "rule_refs": [
+        "ARC-008",
+        "ARC-999"
+      ],
+      "waiver": "WV-EXPIRED"
+    }
+  ],
+  "known_rule_ids": [
+    "ARC-008",
+    "REL-002"
+  ],
+  "valid_waiver_ids": [
+    "WV-2026-001"
+  ],
+  "expected_failed_rules": [
+    "TASK-016",
+    "TASK-018"
+  ]
+}

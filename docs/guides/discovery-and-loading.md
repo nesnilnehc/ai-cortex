@@ -48,6 +48,13 @@ The root of the current repository, the root of the repository this file lives i
 
 Load the selected SKILL's **complete Markdown** as system or context input, injected as one atomic unit.
 
+For Rules, use `recommended_scope` as the context boundary:
+
+- `user` or `both`: the installer exposes the Rule as long-lived IDE context.
+- `project`: the Rule remains in the canonical AI Cortex clone and is loaded in full only when the matched Skill or explicit project configuration references it.
+
+A project-scoped Rule is still mandatory when its applicability condition holds; on-demand loading controls context size, not policy strength.
+
 ---
 
 ## 6. Self-reference
