@@ -1,0 +1,45 @@
+{
+  "name": "technical design with triggered quality attribute",
+  "profiles": [
+    "quality-attribute"
+  ],
+  "required_sections": [
+    "objective",
+    "architecture",
+    "components",
+    "database",
+    "interfaces",
+    "dataflow",
+    "tradeoffs",
+    "tests",
+    "acceptance"
+  ],
+  "sections_present": [
+    "objective",
+    "architecture",
+    "components",
+    "database",
+    "interfaces",
+    "dataflow",
+    "tradeoffs",
+    "tests",
+    "acceptance"
+  ],
+  "candidate_approaches": 3,
+  "cited_rule_ids": [
+    "ARC-008",
+    "SEC-999"
+  ],
+  "known_rule_ids": [
+    "ARC-008",
+    "SEC-002"
+  ],
+  "parent": {
+    "resolves": true,
+    "artifact_type": "adr",
+    "status": "accepted"
+  },
+  "expected_failed_rules": [
+    "TDES-009"
+  ]
+}

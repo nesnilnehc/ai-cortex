@@ -1,8 +1,8 @@
 ---
 id: TASK_MODELING_SPEC_V2
 name: Task Modeling Schema
-description: Spec defining task list document fields, table format, task status state machine, dependency semantics, and traceability to technical-design.
-version: 2.1.0
+description: Spec defining task fields, dependency semantics, design traceability and conditionally required engineering-governance annotations.
+version: 2.2.0
 status: active
 lifecycle: living
 created_at: 2026-05-09
@@ -144,6 +144,27 @@ Every task maps to **at least** one section or one acceptance criterion of the u
 - Reference it explicitly in the task's `acceptance` field, such as "implements X as described in technical design §3.2"
 - Or note the source in `owner_or_hint`, such as "based on technical design §architecture.component A"
 
+### 5.6 Engineering governance annotations
+
+An `Engineering governance` table is conditionally required when at least one task:
+
+- implements a Quality attribute design row from the parent technical design;
+- crosses a declared module, public-contract, data, trust or process boundary;
+- adds fallible external I/O, concurrency, background work or production telemetry; or
+- is subject to a project quality budget or a waiver.
+
+Only affected tasks appear in the table:
+
+| Field | Required | Description |
+|---|---|---|
+| `task` | yes | Existing task ID |
+| `affected_scope` | yes | Exact modules, contracts, data stores or operational paths expected to change |
+| `rule_refs` | yes | Applicable canonical engineering Rule IDs; cite, never copy, the Rule text |
+| `verification` | yes | Concrete test, tool command, review or evidence artifact for those IDs |
+| `waiver` | conditional | Waiver ID when one is already approved; otherwise `—` |
+
+The annotation is planning input, not completion evidence. A task reaches `Done` only after the declared verification actually passes.
+
 ---
 
 ## 6. Anti-patterns
@@ -159,6 +180,7 @@ Every task maps to **at least** one section or one acceptance criterion of the u
 - ❌ Several dependencies separated by semicolons or spaces rather than commas, which breaks dependency graph parsing
 - ❌ A `Blocked` or `Cancelled` status with no reason noted
 - ❌ Mixed task id formats within one file, such as `T1` alongside `TASK-002`
+- ❌ A triggered task has no Engineering governance annotation, an affected scope such as “various files”, copied Rule prose instead of IDs, or a verification entry such as “test it”
 
 ---
 
@@ -186,6 +208,14 @@ status: active
 | T5 | Implement the GET /exports/:id query endpoint | T1 | Returns status + progress + the download URL when Done (technical design §interface contract) | backend | Todo |
 | T6 | Multipart upload of large files to object storage | T3 | A 10GB test file exports successfully (technical design §error handling, OOM path) | backend | Todo |
 | T7 | Front-end export button + progress polling | T4, T5 | The UI shows a progress bar and offers a download link on completion (functional design §UI interaction flow) | frontend | Todo |
+
+## Engineering governance
+
+| task | affected_scope | rule_refs | verification | waiver |
+|---|---|---|---|---|
+| T3 | export consumer, queue contract, export_job state | ARC-008, REL-002, REL-003, REL-006, OBS-007, TST-003 | Consumer integration test covers duplicate delivery, exhausted retries and dead-letter state; review-reliability and review-observability return no blocking finding | — |
+| T4 | public POST /exports contract and auth boundary | ARC-005, SEC-002, TST-004 | OpenAPI compatibility check, negative authorization test and consumer contract suite | — |
+| T6 | object-store adapter and worker memory path | PERF-001, PERF-004, PERF-008 | 10GB streaming test records bounded peak memory and verifies temporary-file cleanup on failure | — |
 ````
 
 ---

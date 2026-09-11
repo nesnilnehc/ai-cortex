@@ -9,6 +9,8 @@
 - [technical-design-modeling.md](./technical-design-modeling.md) — field definitions and validation for a technical design document, from the engineering viewpoint: architecture, service decomposition, components, database, interface contracts, error handling, technology selection
 - [nats-messaging.md](./nats-messaging.md) — subject, headers, payload and version evolution contract for cross-project NATS messages; the NATS specialisation of cross-team-contract
 - [requirement-modeling.md](./requirement-modeling.md) — field definitions, format and validation for a requirement document
+- [requirement-intake-triage-update-contract.md](./requirement-intake-triage-update-contract.md) — the patch contract for targeted updates produced by requirement intake triage
+- [rule-modeling.md](./rule-modeling.md) — the data contract for modeled Rule documents, stable item IDs, applicability profiles, project parameters and auditable waivers
 - [release-package.md](./release-package.md) — version identity, release materials, quality evidence and stage status contract for a Release Package
 - [spec-modeling.md](./spec-modeling.md) — the spec for specs: the section skeleton, frontmatter contract and three-state classification every spec document follows
 - [skill-source-modeling.md](./skill-source-modeling.md) — the local copy, pinned upstream commit and digest, license, modification record and maintenance update contract for an externally derived skill

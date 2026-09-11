@@ -4,7 +4,7 @@
 
 ## Purpose
 
-Reviews the given code scope for performance only (complexity, query efficiency, I/O and network cost, memory behaviour, contention, caching, and regression risk). Emits a findings list in the standard format for aggregation.
+Executes the canonical [performance quality Rules](../../rules/performance-quality.md) over a supplied code scope. It resolves budgets and load profiles, separates measured defects from evidence limitations, and emits Rule-traceable findings.
 
 ## When to use
 
@@ -29,4 +29,4 @@ Reviews the given code scope for performance only (complexity, query efficiency,
 
 ## Full definition
 
-See [SKILL.md](./SKILL.md) for the full behaviour, the limits, and the examples.
+See [SKILL.md](./SKILL.md) for execution and boundaries; the criteria live only in [performance-quality.md](../../rules/performance-quality.md).

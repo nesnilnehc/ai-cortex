@@ -1,38 +1,17 @@
 # Review Testing
 
-Reviews code for the **testing** concern: test existence, coverage adequacy, test quality and structure, test type and layering, edge-case and error-path coverage, and test maintainability.
-
-## Purpose
-
-Analyses a given code scope for testing health across six dimensions:
-
-1. **Do tests exist** — do the critical modules have tests of their own?
-2. **Coverage adequacy** — are the high-risk paths tested?
-3. **Test quality and structure** — are the tests well structured, with meaningful assertions?
-4. **Test type and layering** — a sound mix of unit, integration, and e2e?
-5. **Edge cases and error paths** — boundary conditions, invalid input, failure modes?
-6. **Test maintainability** — DRY, organised fixtures, not brittle?
+Executes the canonical [testing quality Rules](../../rules/testing-quality.md) over changed production behavior and its tests. It evaluates whether assertions detect missing or wrong behavior, resolves project profiles and emits Rule-traceable findings with category `cognitive-testing`.
 
 ## When to use
 
-- As part of an orchestrated review run by [orchestrate-code-review](../orchestrate-code-review/SKILL.md) (the cognitive step).
-- Standalone, when you want the testing dimension checked and nothing else (before a release, after a refactor).
-- Gap analysis, to identify untested modules or low-quality tests.
+- As the testing cognitive step in [orchestrate-code-review](../orchestrate-code-review/SKILL.md).
+- Standalone before release or after a behavior-changing refactor.
+- To distinguish a green test run from adequate behavioral evidence.
 
-## Inputs
+## Boundaries
 
-- **Code scope**: files, a directory, or a diff, supplied by the caller or by a scope skill.
+- Test execution belongs to [automate-tests](../automate-tests/SKILL.md).
+- Functional intent alignment belongs to [review-implementation-alignment](../review-implementation-alignment/SKILL.md).
+- Repair belongs to [orchestrate-repair-loop](../orchestrate-repair-loop/SKILL.md).
 
-## Outputs
-
-- A findings list in the standard format: location, category ("cognitive-testing"), severity, title, description, suggestion.
-
-## Related skills
-
-- [orchestrate-code-review](../orchestrate-code-review/SKILL.md) — the orchestrator that includes this skill in the cognitive phase.
-- [automate-tests](../automate-tests/SKILL.md) — actually runs the tests; this skill reviews test code quality.
-- [review-codebase](../review-codebase/SKILL.md) — the scope skill that treats testability as one of its dimensions.
-
-## Install
-
-Handled centrally by the canonical AI Cortex install; see the repository root [README](../../README.md#-install-and-use).
+See [SKILL.md](./SKILL.md) for execution and boundaries; the criteria live only in [testing-quality.md](../../rules/testing-quality.md) and [standards-test-code.md](../../rules/standards-test-code.md).

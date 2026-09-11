@@ -1,0 +1,42 @@
+{
+  "name": "defective technical design",
+  "profiles": [],
+  "required_sections": [
+    "objective",
+    "architecture",
+    "components",
+    "database",
+    "interfaces",
+    "dataflow",
+    "tradeoffs",
+    "tests",
+    "acceptance"
+  ],
+  "sections_present": [
+    "objective",
+    "architecture",
+    "components",
+    "interfaces",
+    "dataflow",
+    "tradeoffs",
+    "acceptance"
+  ],
+  "candidate_approaches": 1,
+  "cited_rule_ids": [
+    "ARC-999"
+  ],
+  "known_rule_ids": [
+    "ARC-008",
+    "SEC-002"
+  ],
+  "parent": {
+    "resolves": true,
+    "artifact_type": "requirement",
+    "status": "draft"
+  },
+  "expected_failed_rules": [
+    "TDES-001",
+    "TDES-003",
+    "TDES-022"
+  ]
+}

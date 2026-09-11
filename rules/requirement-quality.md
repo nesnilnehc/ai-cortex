@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: requirement-quality
-version: 2.1.0
+version: 2.2.0
 created_by: ai-cortex
 lifecycle: living
 created_at: 2026-05-09
@@ -26,6 +26,7 @@ Authors self-check against this list before submitting for review. The checkpoin
 - [ ] All 8 required fields are filled in (ID, title, background, objective, acceptance, source, dependencies, risks)
 - [ ] The background field carries a user story or a problem statement, and **not** a solution or technical detail
 - [ ] At least 3 acceptance criteria, covering both functional scope and quality requirements
+- [ ] A Quality Attribute Scenarios section is present when a quality target can shape architecture or block release, or when the requirement is non-functional
 - [ ] The requirement's source is clear and traceable — not "someone mentioned it" or "passed on verbally"
 
 ### 2. Executability — can an implementer start immediately?
@@ -33,6 +34,7 @@ Authors self-check against this list before submitting for review. The checkpoin
 - [ ] The dependency list is clear, with the critical ones marked
 - [ ] Every precondition states how it is verified, without ambiguity
 - [ ] Every acceptance criterion is automatically verifiable or plainly testable
+- [ ] Every quality attribute scenario has a stable ID, stimulus, environment, affected artifact, response and measurable threshold; related acceptance criteria cite its ID
 - [ ] Either a scope definition exists or the "simple requirement" exemption applies — and either way the boundary is clear
 - [ ] The open questions list is complete, and blocking questions have a resolution
 
@@ -52,6 +54,7 @@ Authors self-check against this list before submitting for review. The checkpoin
 - [ ] The schedule matches the complexity, with no over-optimistic estimate
 - [ ] No direct conflict with an existing requirement, or the conflict is stated explicitly
 - [ ] Technical feasibility has been verified — a POC is done, or it is a known stack
+- [ ] Quality targets are system-specific scenarios rather than generic adjectives or unexplained scores
 
 ### 5. Traceability — can evolution and impact be traced?
 
@@ -60,6 +63,7 @@ Authors self-check against this list before submitting for review. The checkpoin
 - [ ] Dependencies are accurate, with no circular reference
 - [ ] Related documents are complete — specs, ADRs, knowledge base links
 - [ ] Business rules escalated to required carry a stable id, and rule-derived acceptance criteria cite it back (for example `Covers R3`)
+- [ ] Known engineering Rule references in quality scenarios resolve; project-specific references not yet known are explicitly deferred to technical design
 - [ ] Version history is clear; where the requirement has iterated, each change record states its reason
 
 ---
@@ -87,6 +91,9 @@ Use this list to verify that a requirement document conforms to the protocol:
   - [ ] One rule is cited by ≥ 2 acceptance criteria, or
   - [ ] The rules form a state machine or a decision table, or
   - [ ] The rules serve as the authoritative source (SSOT) for a downstream compliance audit
+- [ ] **Conditionally required**: a Quality Attribute Scenarios section is required when either of these holds:
+  - [ ] A quality target can shape architecture or block release, or
+  - [ ] The requirement is non-functional
 - [ ] **5-dimension review**: all pass
   - [ ] Completeness: the information is all there
   - [ ] Executability: an implementer can start immediately
