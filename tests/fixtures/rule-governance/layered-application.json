@@ -1,0 +1,66 @@
+{
+  "name": "layered-application",
+  "profiles": [
+    "dependency-injection"
+  ],
+  "allowed_dependencies": {
+    "domain": [],
+    "application": [
+      "domain"
+    ],
+    "infrastructure": [
+      "application",
+      "domain"
+    ],
+    "api": [
+      "application"
+    ]
+  },
+  "actual_edges": [
+    [
+      "application",
+      "domain"
+    ],
+    [
+      "infrastructure",
+      "application"
+    ],
+    [
+      "api",
+      "application"
+    ],
+    [
+      "domain",
+      "infrastructure"
+    ]
+  ],
+  "protected_contracts": [],
+  "breaking_contracts": [],
+  "change_budget": {
+    "files": 8,
+    "modules": 2,
+    "public_contracts": 0,
+    "data_migrations": 0
+  },
+  "change_metrics": {
+    "files": 5,
+    "modules": 3,
+    "public_contracts": 0,
+    "data_migrations": 0
+  },
+  "expected_failed_rules": [
+    "ARC-002",
+    "ARC-003",
+    "ARC-009",
+    "SEC-003"
+  ],
+  "secret_candidates": [
+    {
+      "location": "src/infrastructure/db.ts:18",
+      "live": true,
+      "source": "hardcoded",
+      "redacted_in_telemetry": true
+    }
+  ],
+  "changed_public_contracts": []
+}

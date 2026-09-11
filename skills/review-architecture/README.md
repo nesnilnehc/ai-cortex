@@ -4,7 +4,7 @@
 
 ## Purpose
 
-Reviews code for architecture only: module and layer boundaries, dependency direction, single responsibility, cyclic dependencies, interface stability, coupling, and extension points. Emits a findings list in the standard format. Does not define scope and does not perform language or security analysis.
+Executes the canonical [architecture quality Rules](../../rules/architecture-quality.md) over a supplied code scope. It resolves project profiles and topology, gathers evidence, and emits Rule-traceable findings without selecting scope or performing another concern's analysis.
 
 ## When to use
 
@@ -29,4 +29,4 @@ Reviews code for architecture only: module and layer boundaries, dependency dire
 
 ## Full definition
 
-See [SKILL.md](./SKILL.md) for the checklist and the output contract.
+See [SKILL.md](./SKILL.md) for execution and boundaries; the criteria live only in [architecture-quality.md](../../rules/architecture-quality.md).

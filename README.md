@@ -10,17 +10,19 @@ When an agent works inside this repository, [AGENTS.md](AGENTS.md) is authoritat
 
 ## 🧭 What's inside
 
-**55 skills** ([index](skills/INDEX.md)), **21 rules** ([index](rules/INDEX.md)), **16 specs** ([index](specs/INDEX.md)) and protocols ([index](protocols/INDEX.md)).
+**61 skills** ([index](skills/INDEX.md)), **29 rules** ([index](rules/INDEX.md)), **18 specs** ([index](specs/INDEX.md)) and protocols ([index](protocols/INDEX.md)).
 
 | Area | Count | Representative skills |
 | :--- | ---: | :--- |
 | **Governance & planning** | 17 | Deriving mission → vision → North Star → strategic goals → roadmap layer by layer; backlog scoring, dependency mapping, promotion and archival; `plan-next` diagnoses what to do next |
-| **Code review** | 20 | `orchestrate-code-review` sequences scope → language → framework → library → cognitive; atomic review skills for 8 languages plus React, Vue and ORM usage |
+| **Code review** | 26 | Pre-coding artifact reviews, post-coding implementation alignment, and `orchestrate-code-review` across 8 languages, frameworks, libraries and six engineering concerns |
 | **Delivery & release** | 9 | Commits, worktree delivery and integration, release package build and publication, announcements, test execution, local redeployment |
 | **Docs & assets** | 5 | Generating README, AGENTS.md and GitHub Actions; refining skill design; decontextualizing text |
 | **Integration & ops** | 4 | NATS cross-team messaging, macOS Keychain credential management, agent test scaffolding |
 
 Skills are callable from Claude Code, Cursor, Codex and 20+ other agents. For a worked end-to-end flow, see the [roadmap planning guide](docs/guides/roadmap-planning-usage.md); to find an entry point by collaboration stage, see the [stage-to-skill table](docs/guides/proactive-suggestions.md).
+
+For project adoption of requirement/design/task constraints and the post-coding engineering + functional repair loop, see [engineering quality governance](docs/guides/engineering-quality-governance.md).
 
 ### How this differs from similar libraries
 
@@ -41,7 +43,7 @@ git clone --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.local/share/a
 ~/.local/share/ai-cortex/bin/cortex install
 ```
 
-`cortex install` symlinks every skill — including reviewed local copies of externally derived ones — into `~/.agents/skills/<skill>`, where Codex and other agents reading that path discover them in a new session. It also detects installed IDEs (Claude Code, Cursor) and syncs their skill paths. Rules are symlinked for Claude Code and converted to `.mdc` for Cursor. `specs/` and `protocols/` need no installation — agents read them from the canonical path. Nothing is ever installed from skills.sh or GitHub at runtime.
+`cortex install` symlinks every skill — including reviewed local copies of externally derived ones — into `~/.agents/skills/<skill>`, where Codex and other agents reading that path discover them in a new session. It also detects installed IDEs (Claude Code, Cursor) and syncs their skill paths. User-scoped Rules are symlinked for Claude Code and converted to `.mdc` for Cursor; project-scoped engineering Rule sets stay in the canonical clone and are loaded on demand by their review Skills, avoiding permanent context inflation. `specs/` and `protocols/` need no installation — agents read them from the canonical path. Nothing is ever installed from skills.sh or GitHub at runtime.
 
 ### Upgrade
 
@@ -76,6 +78,7 @@ cortex uninstall --remove-home  # also delete the CORTEX_HOME directory
 ```
 
 Install design is recorded in [ADR 0010](docs/adr/0010-installation-strategy.md); external skill management in [ADR 0011](docs/adr/0011-vendor-external-skills.md).
+Engineering Rule profiles and review-gate responsibilities are recorded in [ADR 0012](docs/adr/0012-adopt-profiled-engineering-rules.md).
 
 ---
 

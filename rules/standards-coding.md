@@ -1,6 +1,6 @@
 ---
 name: standards-coding
-version: 1.0.0
+version: 1.0.1
 scope: all code in the repository, across languages
 recommended_scope: user
 ---
@@ -33,3 +33,10 @@ All code in the project, in every language. These are general principles; where 
 1. Extract the duplicated logic into a function; reduce nesting with early returns.
 2. Replace direct echo/print calls with the shared log function; add context and cleanup to the error path.
 3. Delete dead code and stale comments; add "why" comments and function documentation to complex logic.
+
+## References
+
+- [Classic software engineering sources](../docs/references/software-engineering-classics.md) — source hierarchy and applicability boundaries
+- [Code Complete, Second Edition](https://www.microsoftpressstore.com/store/code-complete-9780735619678) — construction complexity, naming, defensive programming and collaborative construction
+- [The Pragmatic Programmer, 20th Anniversary Edition](https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/) — DRY knowledge, orthogonality, resource balance, feedback and deliberate testing
+- [Refactoring, Second Edition](https://martinfowler.com/books/refactoring.html) — small behavior-preserving changes and code-smell-guided structural improvement
