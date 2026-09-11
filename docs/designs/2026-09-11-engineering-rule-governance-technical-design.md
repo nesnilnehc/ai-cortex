@@ -236,7 +236,7 @@ Every changed or new review Skill is checked against `refine-skill-design`: cano
 - [x] Requirements, technical designs and tasks carry scenario, tactic, Rule-reference and verification information without copying canonical policy. (Covers ADR 0012 quality-attribute chain)
 - [x] `orchestrate-code-review` owns only the engineering gate; `orchestrate-repair-loop` converges engineering and functional sibling gates. (Covers ADR 0012 Decision 4)
 - [x] `AGENTS.md` and `CLAUDE.md` remain unchanged; adopting repositories receive a short entry-file pattern and project configuration guide. (Covers ADR 0012 separation decision)
-- [x] The experimental umbrella Protocol and Skill are removed. (Covers ADR 0012 rejected umbrella alternative)
+- [x] No umbrella Protocol and no umbrella governance Skill exist: the phases are connected by the artifact reviewers and the repair loop alone. (Covers ADR 0012 rejected umbrella alternative)
 
 ## Sources
 

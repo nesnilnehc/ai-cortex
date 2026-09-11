@@ -13,7 +13,7 @@ description: Adopt versioned engineering quality rules with risk profiles, proje
 
 AI Cortex already separates Specs, Protocols, Skills and Rules, and states that review criteria live outside review Skills. The existing cognitive review Skills nevertheless embed architecture, security, performance and testing checklists. The repository also has no canonical rule model for stable rule identifiers, applicability, evidence, enforcement strength or waivers. This makes criteria difficult to reuse before coding, difficult to configure for different project types, and difficult to audit after a review.
 
-An experimental `engineering-governance` Protocol and `orchestrate-engineering-governance` Skill attempted to connect the phases. The Protocol did not have two active interacting roles, and the Skill only routed existing capabilities while depending on review capabilities that did not yet exist. Keeping them would add a layer without a distinct contract or independently testable outcome.
+An umbrella `engineering-governance` Protocol and `orchestrate-engineering-governance` Skill were considered as the way to connect the phases, and were not built. The Protocol would have had no two actively interacting roles, and the Skill would only have routed existing capabilities while depending on review capabilities that did not yet exist. Either would add a layer with no distinct contract and no independently testable outcome.
 
 ## Decision
 
@@ -47,4 +47,4 @@ Quality attributes enter the delivery chain at three points: measurable scenario
 - A rule can move from judgment-based review to deterministic tooling without changing its identity.
 - Adopting projects configure context and thresholds instead of rewriting policy, while exceptional departures remain visible and expire.
 - Rule authors take on schema and compatibility obligations: identifiers are never reused, breaking semantic changes require a major version, and new blocking rules require validation against representative project shapes.
-- The initial implementation adds more Rule documents and atomic review Skills, but removes the premature umbrella assets and keeps `AGENTS.md` and `CLAUDE.md` free of duplicated policy.
+- The initial implementation adds more Rule documents and atomic review Skills, but declines the premature umbrella assets and keeps `AGENTS.md` and `CLAUDE.md` free of duplicated policy.
