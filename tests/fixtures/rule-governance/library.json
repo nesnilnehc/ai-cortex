@@ -1,0 +1,33 @@
+{
+  "name": "single-package-library",
+  "profiles": [],
+  "allowed_dependencies": {},
+  "actual_edges": [],
+  "protected_contracts": [],
+  "breaking_contracts": [],
+  "change_budget": null,
+  "change_metrics": {
+    "files": 3,
+    "modules": 1,
+    "public_contracts": 0,
+    "data_migrations": 0
+  },
+  "expected_failed_rules": [],
+  "secret_candidates": [
+    {
+      "location": "README.md:42",
+      "live": false,
+      "source": "hardcoded",
+      "redacted_in_telemetry": true,
+      "note": "documentation placeholder, cannot authenticate"
+    }
+  ],
+  "changed_public_contracts": [
+    {
+      "path": "src/index.ts",
+      "has_released_consumer": false,
+      "compatibility_tests": [],
+      "versioned_migration_tested": false
+    }
+  ]
+}

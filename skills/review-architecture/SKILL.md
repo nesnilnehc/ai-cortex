@@ -1,9 +1,9 @@
 ---
 name: review-architecture
-description: "Review code for architecture: module and layer boundaries, dependency direction, single responsibility, cyclic dependencies, interface stability, and coupling. Cognitive-only atomic skill; output is a findings list."
-description_zh: 审查代码架构：模块与层次边界、依赖方向、单一职责、循环依赖、接口稳定性与耦合。
-tags: [code-review, cognitive]
-version: 1.0.3
+description: "Review code against the canonical architecture quality Rule set, including boundaries, dependency direction, cohesion, cycles, contract stability, coupling, composition and change surface. Cognitive-only atomic skill; output is a findings list."
+description_zh: 依据权威架构质量规则审查边界、依赖方向、内聚性、循环、契约稳定性、耦合、装配与变更面。
+tags: [code-review, cognitive, architecture]
+version: 2.0.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -11,166 +11,104 @@ metadata:
 triggers: [review architecture, architecture review]
 input_schema:
   type: code-scope
-  description: Source files or directories to review
+  description: Source files, directories or a diff selected by the caller
 output_schema:
   type: findings-list
-  description: Zero or more findings with location, category, severity, and suggestion
+  description: Zero or more architecture findings traceable to canonical Rule IDs
 ---
 
 # Skill: Review Architecture
 
 ## Purpose
 
-Review code for **architecture** concerns only. Do not define scope (diff vs codebase) or perform language/framework/security analysis; those are separate atomic skills. Emit a **findings list** in the standard format for aggregation. Focus on module and layer boundaries, dependency direction, single responsibility, cyclic dependencies, interface stability, and coupling and extension points.
+Evaluate the supplied code scope against [architecture-quality](../../rules/architecture-quality.md). This Skill owns execution and evidence gathering; the Rule owns every architecture criterion. Emit a [findings list](../../specs/findings-list.md), never a score or a rewrite.
 
----
+## Core objective
 
-## Core Objective
+Produce location-precise, actionable architecture findings for every applicable failed Rule item, while reporting which items were not applicable or could not be evaluated because project parameters were absent.
 
-**Primary goal**: Produce an architecture-focused findings list covering module/layer boundaries, dependency direction, single responsibility, cyclic dependencies, interface stability, and coupling for the given code scope.
+Success requires:
 
-**Success Criteria** (ALL must be met):
+1. The active Rule version and every applicable item ID are named.
+2. Project topology, protected contracts, profiles and valid waivers are resolved before judgment.
+3. Automated evidence is preferred where the Rule declares it, without overstating tool coverage.
+4. Every finding cites one failed Rule ID and uses category `cognitive-architecture`.
+5. Zero findings is reported only after all applicable items have a pass, valid waiver or explicit evidence limitation.
 
-1. ✅ **Architecture-only scope**: Only architecture dimensions are reviewed; no scope selection, language/framework conventions, security, or performance analysis performed
-2. ✅ **All six architecture dimensions covered**: Module/layer boundaries, dependency direction, single responsibility, cyclic dependencies, interface stability, and coupling are assessed where relevant
-3. ✅ **Findings format compliant**: Each finding includes Location, Category (`cognitive-architecture`), Severity, Title, Description, and optional Suggestion
-4. ✅ **Location-precise references**: All findings reference specific modules, packages, or files (not vague descriptions)
-5. ✅ **Actionable output**: Each finding provides a concrete refactoring suggestion or improvement direction
+## Scope boundaries
 
-**Acceptance Test**: Does the output contain an architecture findings list covering all relevant structural dimensions with specific module/file references and actionable refactoring suggestions?
+This Skill reviews architecture only. It does not select diff versus codebase scope, review language conventions, security, performance, reliability, observability or test quality, modify code, or approve a waiver. Use the corresponding atomic Skill or `orchestrate-code-review` for those concerns.
 
----
+## Use cases
 
-## Scope Boundaries
-
-**This skill handles**:
-
-- Module and layer boundary clarity (API, domain, data layer separation)
-- Dependency direction analysis (inward toward domain, stable abstractions)
-- Single responsibility assessment per module/class
-- Cyclic dependency detection and break points
-- Interface stability and leaking implementation details
-- Coupling analysis and extension point design
-
-**This skill does NOT handle**:
-
-- Scope selection (deciding which files/paths to analyze) — scope is provided by the caller
-- Language/framework convention analysis — use `review-dotnet`, `review-java`, `review-go`, etc.
-- Security review — use `review-security`
-- Performance review — use `review-performance`
-- Current-state codebase review combining all dimensions — use `review-codebase`
-- Full orchestrated review — use `orchestrate-code-review`
-
-**Handoff point**: When all architecture findings are emitted, hand off to `orchestrate-code-review` orchestrator for aggregation, or deliver directly to the user for architecture-focused sessions. For deep codebase audits, suggest also running `review-codebase`.
-
----
-
-## Use Cases
-
-- **Orchestrated review**: Used as a cognitive step when [orchestrate-code-review](../orchestrate-code-review/SKILL.md) runs scope → language → framework → library → cognitive.
-- **Architecture-focused review**: When the user wants only boundaries, dependencies, and structure checked.
-- **Refactor or onboarding**: Understand and critique current structure for planning or documentation.
-
-**When to use**: When the task includes architecture or design review. Scope and code scope are determined by the caller or user.
-
----
+- Architecture-focused review of a change, module or repository
+- The architecture cognitive step inside `orchestrate-code-review`
+- Verification of declared module topology or a protected-contract change
+- Review of composition, wiring and change-surface risk after implementation
 
 ## Behavior
 
-### Scope of this skill
+1. Load [architecture-quality](../../rules/architecture-quality.md) in full and record its version.
+2. Read the nearest project `AGENTS.md`, architecture documentation and `.ai-cortex/config.yaml` when present. Resolve active profiles, parameters and waivers according to [rule-modeling](../../specs/rule-modeling.md).
+3. Build only the evidence required by applicable items:
+   - Prefer repository-native dependency or contract checks.
+   - Otherwise use build metadata, import graphs, exported signatures, production call sites and the supplied diff.
+   - For judgment items, compare concrete responsibility and dependency evidence; do not use an unexplained quality score.
+4. Evaluate each applicable item independently. A missing project parameter makes only its `project:*` item not evaluable; it does not suppress baseline items.
+5. Emit one finding per failed obligation. Include the active Rule version in the description, for example `architecture-quality@<active-version>/ARC-003`.
+6. Apply a waiver only when every waiver field is valid and its Rule ID and scope cover the exact finding. Report waived items separately; do not erase their existence.
+7. Return Rule coverage using the exact `passed`, `waived`, `not_applicable` and `evidence_limited` fields from the findings-list Spec.
 
-- **Analyze**: Architecture dimensions in the **given code scope** (files or diff provided by the caller). Do not decide scope; accept the code range as input. For large scope, consider layers or modules and summarize.
-- **Do not**: Perform scope selection, language/framework conventions, or security review. Focus only on architecture and structure.
+## Input and output
 
-### Review checklist (architecture dimension only)
+Input is an already selected code scope: files, directories or a diff. Optional project context may include the change size and upstream technical design.
 
-1. **Module and layer boundaries**: Are module/service boundaries clear? Are layers (e.g. API, domain, data) respected? Do high-level modules avoid depending on low-level details?
-2. **Dependency direction**: Do dependencies point in the intended direction (e.g. inward toward domain, or toward stable abstractions)? No reverse or circular dependency direction at module level.
-3. **Single responsibility**: Does each module/class have one clear responsibility? Are boundaries cohesive?
-4. **Cyclic dependencies**: Are there cycles between modules, packages, or components? Suggest break points (e.g. extract interface, move shared code).
-5. **Interface stability**: Are public APIs and interfaces stable and minimal? Are implementation details leaking across boundaries?
-6. **Coupling and extension points**: Is coupling to concrete types or frameworks minimized where extension is expected? Are extension points (e.g. plugins, strategies) clear?
-
-### Tone and references
-
-- **Professional and technical**: Reference specific locations (file, module, or package). Emit findings with Location, Category, Severity, Title, Description, Suggestion.
-
----
-
-## Input & Output
-
-### Input
-
-- **Code scope**: Files or directories (or diff) already selected by the user or scope skill. This skill does not decide scope; it reviews the provided code for architecture only.
-
-### Output
-
-- Emit zero or more **findings** in the format defined in [specs/findings-list.md](../../specs/findings-list.md), with **Category** `cognitive-architecture`.
-- Category for this skill is **cognitive-architecture**.
-
----
+Output is zero or more findings in [findings-list](../../specs/findings-list.md) format. Every finding uses category `cognitive-architecture`; the description cites the failed Rule ID. The coverage footer is metadata, not a finding.
 
 ## Restrictions
 
-### Hard Boundaries
-
-- **Do not** perform scope selection, language, framework, or security review. Stay within architecture dimensions.
-- **Do not** give conclusions without specific locations or actionable suggestions.
-- **Do not** assume a specific architecture style (e.g. clean/hexagonal) unless the project states it; evaluate against general boundaries and dependency principles.
-
-### Skill Boundaries
-
-**Do NOT do these** (other skills handle them):
-
-- Do NOT select or define the code scope — scope is determined by the caller or `orchestrate-code-review`
-- Do NOT perform language/framework convention analysis — use `review-dotnet`, `review-java`, `review-go`, etc.
-- Do NOT perform security or performance review — use `review-security` or `review-performance`
-- Do NOT assume a specific architecture pattern (clean, hexagonal, etc.) unless explicitly stated
-
-**When to stop and hand off**:
-
-- When all architecture findings are emitted, hand off to `orchestrate-code-review` for aggregation in an orchestrated review
-- When the user needs a full review (scope + language + cognitive), redirect to `orchestrate-code-review`
-- When comprehensive codebase state review is needed beyond architecture, redirect to `review-codebase`
-
----
+- Do not restate or locally extend the architecture checklist; propose a Rule change when a criterion is missing.
+- Do not assume a named architecture style or invent module topology.
+- Do not treat a missing dependency tool as proof that dependency items pass.
+- Do not approve, broaden or create a waiver during review.
+- Do not perform repairs; hand blocking findings to `orchestrate-repair-loop` when repair is requested.
+- Do not report a missing test as an architecture finding. This Skill owns whether composition and contracts are correct in production code; `review-testing` owns whether anything would have caught it.
 
 ## Self-Check
 
-### Core Success Criteria
-
-- [ ] **Architecture-only scope**: Only architecture dimensions are reviewed; no scope selection, language/framework conventions, security, or performance analysis performed
-- [ ] **All six architecture dimensions covered**: Module/layer boundaries, dependency direction, single responsibility, cyclic dependencies, interface stability, and coupling are assessed where relevant
-- [ ] **Findings format compliant**: Each finding includes Location, Category (`cognitive-architecture`), Severity, Title, Description, and optional Suggestion
-- [ ] **Location-precise references**: All findings reference specific modules, packages, or files (not vague descriptions)
-- [ ] **Actionable output**: Each finding provides a concrete refactoring suggestion or improvement direction
-
-### Process Quality Checks
-
-- [ ] Was only the architecture dimension reviewed (no scope/language/security)?
-- [ ] Are boundaries, dependency direction, responsibility, cycles, interfaces, and coupling covered where relevant?
-- [ ] Is each finding emitted with Location, Category=cognitive-architecture, Severity, Title, Description, and optional Suggestion?
-- [ ] Are module/package/file references precise enough to act on?
-
-### Acceptance Test
-
-Does the output contain an architecture findings list covering all relevant structural dimensions with specific module/file references and actionable refactoring suggestions?
-
----
+- [ ] The canonical architecture Rule was loaded and its version recorded.
+- [ ] Active profiles, parameters and waivers were resolved from project evidence.
+- [ ] Every applicable Rule ID received a pass, finding, valid waiver or explicit evidence limitation.
+- [ ] Each finding has a precise location, category `cognitive-architecture`, valid severity and cited Rule ID.
+- [ ] No architecture criterion was invented or duplicated in this Skill.
+- [ ] The coverage footer distinguishes pass, waiver, N/A and evidence limitation.
 
 ## Examples
 
-### Example 1: Reverse dependency
+### Example 1: declared dependency violation
 
-- **Input**: Domain layer imports from infrastructure (e.g. DB driver) directly.
-- **Expected**: Emit a finding for dependency direction; suggest interface in domain and implementation in infrastructure. Category = cognitive-architecture.
+Input: the project declares that `domain` has no outward module dependencies, but `domain/order.ts` imports a database adapter.
 
-### Example 2: Cycle between packages
+Expected: emit a `major` `cognitive-architecture` finding at the import, citing ARC-002. Also evaluate ARC-003 and the other applicable baseline items; do not assume they fail.
 
-- **Input**: Package A imports B, B imports C, C imports A.
-- **Expected**: Emit finding(s) identifying the cycle and suggest break point (e.g. extract shared interface or type to a neutral package). Category = cognitive-architecture.
+### Example 2: valid legacy-cycle waiver
 
-### Edge case: Small or single-file scope
+Input: a cycle matches ARC-003, and a non-expired waiver covers the exact legacy directory with an approved freeze control.
 
-- **Input**: Single file or very small module.
-- **Expected**: Review internal structure (responsibility, coupling to external types); if scope is too small for module-level concerns, state that and emit only findings that apply (e.g. single responsibility, interface clarity).
+Expected: list ARC-003 under waived IDs, verify no new node or edge joined the frozen cycle, and emit a finding if the compensating control was violated.
+
+### Example 3: no project topology
+
+Input: a small library has no `.ai-cortex/config.yaml`.
+
+Expected: mark ARC-002 and ARC-009 not evaluable or not applicable as their parameters require, then evaluate baseline cohesion, cycles, boundary leakage, coupling and speculative extension normally.
+
+## Change record
+
+- Externalized architecture criteria to `rules/architecture-quality.md`.
+- Added profile, parameter, waiver and coverage semantics.
+- Preserved the `code-scope -> findings-list` contract and category.
+
+Version `2.0.0` is intentional: the source of truth and completeness semantics changed, even though the I/O artifact types remain compatible.
+
+Version `2.0.1` removes a stale example pin so the Skill always reports the active Rule version it loaded.

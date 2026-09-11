@@ -1,9 +1,9 @@
 ---
 name: orchestrate-repair-loop
-description: Iteratively review changes, run automated tests, and apply targeted fixes until issues are resolved (or a stop condition is reached).
-description_zh: 迭代审查变更、运行自动化测试并实施定向修复，直至问题解决或满足停止条件。
+description: Iteratively converge the sibling engineering and functional gates, apply targeted fixes, then re-review and re-verify until both pass or a stop condition is reached.
+description_zh: 迭代收敛工程门禁与功能门禁，实施定向修复并重新审查、验证，直至两者通过或满足停止条件。
 tags: [automation, devops, optimization]
-version: 1.2.2
+version: 1.3.0
 license: MIT
 recommended_scope: both
 metadata:
@@ -21,32 +21,34 @@ output_schema:
   description: Repair loop report with iterations, commands, patches, and final state (persist only if explicitly requested)
 ---
 
-# Skill: Run the repair loop (review + test + fix)
+# Skill: Run the repair loop (engineering gate + functional gate + fix)
 
 ## Purpose
 
-Converge a repository, or a change set, to "clean" by running **multiple loop iterations**:
+Converge a repository or change set by running two sibling gates and applying the smallest targeted repair:
 
-1. **Review** (catch problems early and prevent regressions),
-2. **Test** (get an actionable signal),
-3. **Fix** (apply the smallest correct patch),
-4. Repeat until **no blocking problems remain** or a **stop condition** is reached.
+1. **Engineering gate** — `orchestrate-code-review` evaluates intrinsic code quality.
+2. **Functional gate** — `review-implementation-alignment` compares approved intent with implementation, while `automate-tests` or the acceptance harness executes correctness evidence.
+3. **Repair** — fix a blocking signal from either gate.
+4. **Repeat** — rerun every gate affected by the repair until both pass or a stop condition is reached.
+
+The gates are logically peers. They may run in either order or in parallel when the runtime supports it; passing one never substitutes for the other.
 
 ---
 
 ## Core Objective
 
-**Primary goal**: converge the repository to a "clean" state — all tests passing and no "critical"/"major" review findings — using a bounded, evidence-driven review-test-fix loop.
+**Primary goal**: converge the repository to a verified state — no blocking engineering findings, approved intent aligned with production code, and functional checks passing — using a bounded, evidence-driven loop.
 
 **Success criteria** (all must be met):
 
 1. ✅ **Definition of done resolved**: the preflight choices (scope, test mode, max iterations, allowed actions) are confirmed before the loop starts
-2. ✅ **Evidence first in every iteration**: each iteration produces at least one of a new test result, a new review signal, or a concrete code change
-3. ✅ **Tests re-run after a fix**: the failing test command (or a targeted subset) is always re-run after the fix is applied, within the same iteration
+2. ✅ **Both gates evidenced**: engineering findings and functional alignment/acceptance evidence are reported separately
+3. ✅ **Affected gates re-run after a fix**: every repair is followed by the narrowest functional and engineering checks it can invalidate
 4. ✅ **Bounded loop**: the loop terminates on convergence or on an explicit stop condition - no unbounded retrying
 5. ✅ **Structured final report**: the output includes a repair-loop report (appendix: output contract) covering the commands run, the failures, the patches, and the remaining risk
 
-**Acceptance** test: does the final report show either (a) tests passing with no blocking review findings, or (b) an explicit stop condition, with the remaining problems and the options open to the user stated clearly?
+**Acceptance** test: does the final report show either (a) both sibling gates passing with traceable evidence, or (b) an explicit stop condition with remaining engineering and functional problems separated?
 
 ---
 
@@ -54,9 +56,10 @@ Converge a repository, or a change set, to "clean" by running **multiple loop it
 
 **This skill covers**:
 
-- The multi-iteration review → test → fix loop
+- The multi-iteration engineering-gate + functional-gate → fix loop
 - Diff-scoped and codebase-scoped review through `review-diff` and `orchestrate-code-review`
-- Test execution through `automate-tests` (fast/ci/full modes)
+- Functional alignment through `review-implementation-alignment` when approved artifacts exist
+- Test and acceptance execution through `automate-tests` or the project harness
 - Minimal targeted patches that preserve the API contract
 - Stop-condition detection (no progress, environment blocker, flaky tests, iteration limit)
 - A structured repair-loop report as output
@@ -75,7 +78,7 @@ Converge a repository, or a change set, to "clean" by running **multiple loop it
 ## Use Cases
 
 - "Keep fixing until the tests pass."
-- "Run a review-test-fix loop and get the repository green."
+- "Run engineering and functional gates, then fix until both pass."
 - "Stabilize this PR/change set with iterative testing and targeted fixes."
 - "Run CI-like tests, fix the failures, repeat until stable."
 
@@ -93,8 +96,9 @@ Confirm or default the following:
   - `diff` (default): focus on the current changes, preferring `review-diff`.
   - `codebase`: review the given set of paths, preferring `review-codebase` / the language skills through `orchestrate-code-review`.
 - **Definition of done**:
-  - Tests: the selected test plan passes (fast/ci/full).
-  - Review: no "critical"/"major" review findings remain.
+  - Engineering: no `critical`/`major` findings remain from `orchestrate-code-review`.
+  - Functional alignment: no `critical`/`major` ALN findings remain when an approved artifact chain exists.
+  - Functional execution: the selected test and acceptance plan passes.
   - If only "minor"/"suggestion" findings remain, list them and ask whether to address them.
 - **Loop bounds**:
   - `max_iterations` default: `5`.
@@ -110,23 +114,22 @@ Confirm or default the following:
 
 For `i = 1..max_iterations`:
 
-1. **Gather the current signals (evidence first)**
-   - Scope = `diff`: run `review-diff` over the current changes, including untracked additions.
-   - Scope = `codebase`: run `orchestrate-code-review`, or pick the atomic review skill for the language
-     (`review-typescript` / `review-python` / …).
-   - Test failures from the previous round: settle those first.
+1. **Run or refresh the engineering gate**
+   - Run `orchestrate-code-review` over the selected diff or codebase scope, including untracked additions in diff mode.
+   - A narrow rerun may call only the atomic reviewers whose evidence a repair changed, but the final iteration includes the complete applicable engineering gate.
    - **Try an existing review skill first; review it yourself only when none can be invoked**. Not finding a
      skill name does not mean it is absent — different skill-listing interfaces cover different sets, and
      concluding "not installed" from a single lookup throws away a whole set of ready-made capability. When
      reviewing inline, write in the report that you "could not invoke `<skill name>`, reviewed inline", so the
      reader does not take it for the standard path.
 
-2. **Run the tests**
+2. **Run or refresh the functional gate**
+   - When approved requirements, designs or tasks exist, run `review-implementation-alignment` over that artifact chain, the implementation scope and current evidence.
    - Use `automate-tests` to discover and run the best-matching test command in the selected mode:
      - `fast` (default): unit tests only, minimal setup.
      - `ci`: stay as close to the CI steps as possible.
      - `full`: includes integration / e2e (dependencies and services need confirming first).
-   - **Run the integration layer at least once before the loop ends**, even if `fast` was used throughout.
+   - **When changed behavior crosses an integration boundary and the repository provides a runnable integration layer, run it at least once before the loop ends**, even if `fast` was used throughout. Otherwise record why it is not applicable or what environment blocks it.
      The reason is concrete: unit tests mostly `new` the object under test directly, so **they stay green
      when a constructor signature changes**, while an integration test blows up on the spot — and worse,
      that explosion often masks the real defect behind it (a missing constructor argument first yields
@@ -139,7 +142,7 @@ For `i = 1..max_iterations`:
 3. **Synthesize the fix plan (smallest correct patch)**
    - Pick the **one** primary problem to address first:
      - The first failing test/command usually wins (highest signal).
-     - If the review found a "critical" security/correctness problem, fix it before or alongside the tests.
+     - A `critical` engineering, alignment, data or security problem takes precedence over non-critical test cleanup.
    - Prefer a fix that:
      - Changes the smallest surface area
      - Preserves the API/contract unless explicitly approved
@@ -150,41 +153,24 @@ For `i = 1..max_iterations`:
    - Avoid unrelated formatting or churn.
    - If the fix requires a risky change (architecture migration, authentication change, broad refactor), pause and ask.
 
-5. **Re-run the minimal verification**
-   - If the framework supports it, re-run the most relevant subset of failing tests; otherwise re-run the same test command.
+5. **Re-run every affected gate**
+   - Re-run the most relevant failing test or acceptance subset.
+   - Re-run alignment when behavior, contracts, data mapping, wiring or tests changed.
+   - Re-run the affected engineering reviewers when production code, configuration or tests changed.
    - If fixed, proceed to the next remaining failure/finding within the same iteration only if it is trivial; otherwise move to the next loop iteration.
 
 6. **Stop early once converged**
-   - Stop when the tests pass and no "critical"/"major" review findings remain.
+   - Stop only when both sibling gates pass: no blocking engineering or alignment findings, and all selected functional checks pass.
    - **But "the tests were green from the start" is not convergence**. Green only says the existing
      assertions were not broken; it says nothing about whether this batch of changes is sound — a unit test
      verifies the behavior of a part, and it cannot see what goes wrong between parts or at real scale. When
      the repository arrives green, all of the loop's forward motion sits in the review half: **convergence
-     requires at least one complete review pass (see "What to look for in review")**. Skipping it and
+     requires the complete engineering gate and, when artifacts exist, implementation-alignment review**. Skipping them and
      declaring the repo clean turns the loop into an idle spin.
 
-### 2b. What to look for in review (the class tests cannot see)
+### 2b. Criteria ownership
 
-When the tests are green and the problem is still there, it almost always has the same shape: **every part
-is correct, the assembly is wrong, and the failure is silent**. Reading file by file rarely reveals them — hunt
-by the categories below, each of which gives a "how to find it" and a "why the tests miss it".
-
-| What to look for | How to find it | Why the tests miss it |
-| :--- | :--- | :--- |
-| **Duplicated work on the hot path** | In a function that runs per request / per message, the same data is read twice; a newly added call is hung off an existing full load | The behavior is entirely correct, it only gets slower with scale; no assertion counts how many reads happened |
-| **Written into the acceptance criteria but never implemented** | Read the acceptance items of the task / requirement against the implementation clause by clause ("with a timeout **and a cache**" — the timeout is there, where is the cache?) | The tests were written from the implementation, so whatever the implementation missed, the tests miss too |
-| **A field dropped while crossing layers** | A field is computed in a lower layer; follow it up to the top layer and see which layer it disappears in | Each layer's unit tests pass on their own; not one of them crosses that seam |
-| **Silent degradation from an optional dependency** | A newly added `@Optional()` / optional parameter / `?? default`: what happens when it is not supplied? | Omitting it raises no error, the behavior just falls back to the old path |
-| **A capped batch job that never reports its backlog** | When a batched job fills a batch to the cap, can the log say "there is more behind this"? | The cap itself is correct, it only "looks like it finished" |
-| **Built but never wired up** | Whether a new symbol has a production call site beyond itself and its tests (**import lines do not count**) | The part-level tests are all green; not one of them asks "who uses this" |
-| **Configuration / wiring that only shows up in a real deployment** | Dependency injection, manifest registration, route prefixes, payload field pass-through | The unit tests `new` the object directly and never reach container assembly |
-
-**Two disciplines for reading the results**:
-
-- **When one criterion hits at an extremely high rate, suspect the criterion is too strict rather than the output.**
-- **A zero false-positive rate means nothing without its denominator.** "Zero hits" across a batch of
-  near-empty samples proves nothing — a zero false-positive rate over an inflated denominator misleads
-  more easily than having no data at all.
+This Skill does not maintain another review checklist. Intrinsic quality criteria live in the canonical engineering Rule sets. Missing acceptance behavior, dropped fields, built-but-unwired code and implementation-shaped tests live in [implementation-alignment-quality](../../rules/implementation-alignment-quality.md). The loop routes to those owners and consumes their findings.
 
 ### 3. Stop conditions (must not loop forever)
 
@@ -225,13 +211,15 @@ By default, do not write a standalone report file. If the user explicitly asks f
   - The definition of done used
   - Evidence sources (which files/CI config informed the test plan)
   - For each iteration:
-    - The test command run and its result
+    - Engineering gate findings and coverage state
+    - Functional alignment findings when an artifact chain exists
+    - Test/acceptance command and result
     - The first-failure excerpt (if any)
     - The changes made (files touched + intent)
     - Remaining failures/findings
   - Final state:
-    - Tests passing (under which command)
-    - Remaining review items (if any) and whether they are blocking
+    - Engineering gate: pass or remaining blocking findings
+    - Functional gate: alignment state plus passing commands, or remaining failures
 
 ---
 
@@ -257,7 +245,7 @@ By default, do not write a standalone report file. If the user explicitly asks f
 
 **When to stop and hand off**:
 
-- The loop converges (tests pass, no blocking findings) → present the repair-loop report and stop
+- The loop converges (both sibling gates pass) → present the repair-loop report and stop
 - A stop condition is hit (no progress, environment blocker, flaky tests, iteration limit) → show the options and wait for the user's direction
 - The user asks for a one-off code review without fixes → hand off to `orchestrate-code-review` or `review-diff`
 - The user asks only to run the tests without fixing → hand off to `automate-tests`
@@ -269,8 +257,9 @@ By default, do not write a standalone report file. If the user explicitly asks f
 ### Core success criteria
 
 - [ ] **Definition of done resolved**: the preflight choices (scope, test mode, max iterations, allowed actions) are confirmed before the loop starts
-- [ ] **Evidence first in every iteration**: each iteration produces at least one of a new test result, a new review signal, or a concrete code change
-- [ ] **A green repo is not convergence**: when the repository arrives green, one complete review pass (§2b) is run before it is declared clean
+- [ ] **Both gates evidenced**: engineering findings and functional alignment/acceptance results are reported separately
+- [ ] **Coverage preserved**: the engineering report retains Rule coverage by emitting Skill, including waived, not-applicable and evidence-limited IDs
+- [ ] **A green test run is not convergence**: the complete engineering gate and applicable alignment review ran before completion
 - [ ] **Prefer the existing review skills**: try to invoke one before reviewing inline; when switching to inline, say so in the report
 - [ ] **Tests re-run after a fix**: once the fix is applied within an iteration, the failing test command (or a targeted subset) is always re-run
 - [ ] **Bounded loop**: the loop terminates on convergence or on an explicit stop condition - no unbounded retrying
@@ -285,7 +274,7 @@ By default, do not write a standalone report file. If the user explicitly asks f
 
 ### Acceptance test
 
-Does the final report show either (a) tests passing with no blocking review findings, or (b) an explicit stop condition, with the remaining problems and the options open to the user stated clearly?
+Does the final report show either (a) both sibling gates passing with traceable evidence, or (b) an explicit stop condition with remaining engineering and functional problems separated?
 
 ---
 
@@ -298,9 +287,9 @@ User: "Make the tests pass. Keep fixing until it is green."
 Agent:
 
 1. Preflight: scope=`diff`, test mode=`fast`, max_iterations=5; installing (`npm ci`) and network access are confirmed as allowed.
-2. Iteration 1: run `npm test`, fix the first failing test, re-run `npm test`.
-3. Iteration 2: run `review-diff` to catch edge cases introduced by the fix; re-run `npm test`.
-4. Stop once `npm test` passes and no major review findings remain.
+2. Iteration 1: run the engineering gate, applicable alignment review and `npm test`; select the highest-priority blocking signal.
+3. Apply the smallest fix, rerun `npm test`, then rerun every engineering/alignment dimension the fix can invalidate.
+4. Stop once the engineering gate, applicable alignment review and `npm test` all pass.
 
 ### Example 2 (edge case): the integration tests need Docker and secrets
 

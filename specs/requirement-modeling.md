@@ -1,8 +1,8 @@
 ---
 id: REQUIREMENT_MODELING_SPEC_V4
 name: Requirement Modeling Schema
-description: Spec defining requirement document fields, formats, and validation rules. Covers frontmatter contract, 6 mandatory body sections (Background/Objective/Acceptance/Dependencies/Risks/Source), and conditionally-mandatory optional sections (Scope, Business Rules).
-version: 5.0.1
+description: Spec defining requirement document fields, validation and conditionally required quality-attribute scenarios in addition to the 6 mandatory body sections.
+version: 5.1.0
 status: active
 lifecycle: living
 created_at: 2026-03-25
@@ -134,6 +134,7 @@ Add them as the situation requires:
 |---|---|
 | Scope | Multi-system integration, ambiguity across a boundary, or estimated effort > 5 days (any one of these makes the section **required**) |
 | Business Rules | The rule set is itself the deliverable (pricing / eligibility / tax / risk scoring), a single rule is cited by ≥ 2 acceptance criteria, the rules form a state machine or decision table, or the rules must serve as the authoritative source (SSOT) for a downstream compliance audit (any one of these makes the section **required**) |
+| Quality Attribute Scenarios | A quality target can shape architecture or block release — for example security, performance, reliability, observability, maintainability or extensibility — or the requirement is non-functional (either makes the section **required**) |
 | Open Questions | Items left unresolved in review; classified as "blocking" or "non-blocking", with an owner and a plan for resolving each |
 | Definition of Done | Process and quality gates (test coverage, documentation updates, deployment gates), distinct from the acceptance criteria (acceptance = the feature is complete; DoD = it is releasable) |
 | Timeline | The scheduling window plus the estimated effort (for example "Phase 2, weeks 3-4 / 4 person-days") |
@@ -168,6 +169,23 @@ Once business rules become required (one of the §5.2 triggers has fired):
 - An acceptance criterion is the verifiable projection of a rule: it declares "how we verify that it is true", and it also covers non-rule items such as performance, availability and the existence of an interface.
 - Rule-derived acceptance criteria cite their rule id back, closing the MECE overlap between rules and acceptance.
 
+#### 5.3.5 Quality attribute scenario format
+
+Once `Quality Attribute Scenarios` is required, each scenario is a table row with:
+
+| Field | Meaning |
+|---|---|
+| `id` | Stable local identifier such as `QAS-01`; never reused in this requirement |
+| `quality` | Architecture, security, performance, observability, reliability, testing or another named attribute |
+| `source/stimulus` | Who or what causes the condition, and what occurs |
+| `environment` | Normal operation, peak load, degraded dependency, attack, deployment or another concrete context |
+| `affected artifact` | The system, service, module, contract, data or user journey that must respond |
+| `response` | Required behavior, without selecting an implementation tactic |
+| `measure` | A binary or numeric success threshold and the representative conditions |
+| `rule_refs` | Applicable canonical engineering Rule IDs when known; may be completed during design if project context is not yet resolved |
+
+Acceptance criteria cite the scenario ID they verify. A Rule ID identifies a reusable constraint; the scenario supplies this requirement's context and target. Neither replaces the other.
+
 ---
 
 ## 6. Anti-patterns
@@ -190,6 +208,8 @@ Once business rules become required (one of the §5.2 triggers has fired):
 - ❌ One of the triggers that make Business Rules required is met, but the rules are still scattered through the acceptance criteria with no separate declarative rules section
 - ❌ Business rules that have become required are expressed as procedural steps instead of a decision table or state table
 - ❌ Rule-derived acceptance criteria do not cite their business rule id back, leaving the MECE overlap between rules and acceptance unclosed
+- ❌ A non-functional or architecture-significant quality target has no Quality Attribute Scenario
+- ❌ A quality scenario uses “secure”, “scalable”, “observable” or “fast” without a response measure and representative environment
 - ❌ A self-check list written into the spec body (review checklists belong to [rules/requirement-quality.md](../rules/requirement-quality.md))
 
 ---
@@ -230,6 +250,13 @@ The knowledge base currently supports keyword search only, so an external agent 
 - [ ] top-3 relevance precision ≥ 80% (verified over 50+ representative queries)
 - [ ] The API documentation is complete (an OpenAPI specification + 5+ examples)
 - [ ] API key authentication + rate limiting (10 QPS per key by default)
+
+## Quality Attribute Scenarios
+
+| id | quality | source/stimulus | environment | affected artifact | response | measure | rule_refs |
+|---|---|---|---|---|---|---|---|
+| QAS-01 | performance | An authenticated client submits a semantic query | 10M entries, 100 concurrent requests | semantic search journey | Return ranked results without rejecting valid traffic | p95 ≤ 500ms and error rate < 1% over a 15-minute representative run | PERF-001, PERF-007 |
+| QAS-02 | security | A client presents an invalid or over-limit API key | normal and burst traffic | public search API | Reject before query execution and emit safe security telemetry | 100% rejected with no query issued and no credential value logged | SEC-002, SEC-008 |
 
 ## Dependencies & Prerequisites
 

@@ -1,0 +1,38 @@
+{
+  "name": "minimal conforming technical design",
+  "profiles": [],
+  "required_sections": [
+    "objective",
+    "architecture",
+    "components",
+    "database",
+    "interfaces",
+    "dataflow",
+    "tradeoffs",
+    "tests",
+    "acceptance"
+  ],
+  "sections_present": [
+    "objective",
+    "architecture",
+    "components",
+    "database",
+    "interfaces",
+    "dataflow",
+    "tradeoffs",
+    "tests",
+    "acceptance"
+  ],
+  "candidate_approaches": 2,
+  "cited_rule_ids": [],
+  "known_rule_ids": [
+    "ARC-008",
+    "SEC-002"
+  ],
+  "parent": {
+    "resolves": true,
+    "artifact_type": "requirement",
+    "status": "approved"
+  },
+  "expected_failed_rules": []
+}

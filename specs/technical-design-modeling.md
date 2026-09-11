@@ -1,8 +1,8 @@
 ---
 id: TECHNICAL_DESIGN_MODELING_SPEC_V1
 name: Technical Design Modeling Schema
-description: Spec defining technical design document fields, formats, and validation rules. Engineering-facing layer. Covers frontmatter contract, 9 mandatory body sections (Goal/Architecture/Components/Database/APIs/DataFlow&Errors/TechChoices/TestStrategy/Acceptance), and conditionally-mandatory sections.
-version: 2.0.1
+description: Spec defining technical design fields, 9 mandatory sections and conditionally required quality-attribute design mapped to canonical engineering Rules.
+version: 2.1.0
 status: active
 lifecycle: living
 created_at: 2026-05-29
@@ -121,7 +121,7 @@ Added as the situation requires. A conditionally required section **becomes requ
 |---|---|---|
 | Migration plan | Conditionally required | A breaking schema change, a data backfill or an irreversible operation is involved. It then becomes required, including the rollback strategy; otherwise the migration is inlined in §4 |
 | Deployment and operations | Optional | There are deployment changes, scaling policy or configuration management to cover |
-| Cross-cutting concerns | Optional | Security, performance or observability has a design of its own |
+| Quality attribute design | Conditionally required | The upstream requirement carries a Quality Attribute Scenario, or the change crosses a module/public-contract/data/trust/process boundary, introduces fallible I/O, or affects a declared quality budget. Map scenario and Rule IDs to tactics, trade-offs and verification |
 | Scheduling | Optional | There are scheduled tasks, background jobs or queue consumers |
 | Scope | Optional | The integration boundary across services or teams is easily misread |
 | References | Optional | It cites an ADR, an external specification or an upstream design |
@@ -132,10 +132,26 @@ Added as the situation requires. A conditionally required section **becomes requ
 
 - Where `parent` is a `functional-design`, the normal case: each criterion traces to an acceptance item of that functional design, cited as `Covers FD §Acceptance N`.
 - Where `parent` is a `requirement`, the functional layer having been skipped: each criterion traces to an acceptance item of the requirement.
+- Where `parent` is an `adr`, for purely technical work with no requirement: each criterion traces to a numbered Decision obligation or a concrete Consequence of the accepted ADR.
 
 #### 5.3.2 The "no change" escape hatch
 
 For a purely procedural design, §4 database design and §5 interface contracts may involve no change at all. In that case the document must state "no database change" or "no interface change" explicitly, as a positive assertion, and **must not be left blank** — a blank leaves no way to tell an omission from a genuine absence of change.
+
+#### 5.3.3 Quality attribute design format
+
+Once the trigger holds, use one row per upstream Quality Attribute Scenario or newly discovered architecture-significant concern:
+
+| Field | Meaning |
+|---|---|
+| `source` | Upstream scenario/acceptance ID, or a design-time risk ID |
+| `rule_refs` | Applicable canonical engineering Rule IDs |
+| `design tactic` | Concrete architecture or implementation tactic selected for this system |
+| `trade-off` | Cost or quality attribute weakened by the tactic |
+| `verification` | Tool, test, review or operational evidence that will prove the tactic works |
+| `owner` | Component or role responsible for the tactic and evidence |
+
+The section cites Rule IDs and adds system-specific decisions. It must not copy Rule text. If a profile or required project parameter cannot yet be resolved, record it as a blocking open question rather than silently treating the concern as not applicable.
 
 ---
 
@@ -155,6 +171,7 @@ For a purely procedural design, §4 database design and §5 interface contracts 
 - ❌ Fewer than 3 acceptance criteria, or criteria tracing to the wrong target for the `parent` type
 - ❌ No `parent` frontmatter — an orphaned design with no traceability
 - ❌ A `superseded` status with no `superseded_by`
+- ❌ A triggered Quality attribute design section is absent, copies generic Rule text, or names a tactic without trade-off and verification evidence
 
 ---
 
@@ -237,6 +254,14 @@ Refund execution: approve -> write status=in_progress -> RefundExecutor calls th
 - Unit: state transitions, amount validation, idempotent execution
 - Integration: the full raise / approve / refund path with a mocked Payment Gateway
 - How it is verified: CI runs unit plus integration automatically
+
+## Quality attribute design
+
+| source | rule_refs | design tactic | trade-off | verification | owner |
+|---|---|---|---|---|---|
+| FD §Acceptance 1 | REL-003, REL-004 | Persist an idempotency key and refund outcome in the same transaction; publish via an outbox | Extra write and cleanup retention | Duplicate-delivery integration test and failure between commit/publish | Refund module |
+| FD §Acceptance 2 | ARC-005, TST-004 | Preserve the existing response contract and add the refund fields as optional in this version | Consumers cannot require the new field immediately | Schema compatibility check plus existing consumer suite | API owner |
+| Payment rate-limit risk | PERF-001, REL-002, OBS-007 | Bounded queue, one retry owner with backoff, and queue age/dead-letter metrics | Higher completion latency during throttling | Load/failure test and an observable backlog query | Refund executor |
 
 ## Acceptance criteria
 
