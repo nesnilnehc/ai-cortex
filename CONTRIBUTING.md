@@ -19,9 +19,9 @@ If you are converting existing Chinese content, read §6 of that document first.
 
 Skills follow the [agentskills.io](https://agentskills.io) standard format. Draft new skills against this section and the existing directory layout; do not install an external skill generator as part of the contribution flow.
 
-1. **Draft**: write `skills/<skill-name>/SKILL.md`. The YAML frontmatter must contain `name`, `description`, `tags`, `version` and `license`.
+1. **Draft**: write `skills/<skill-name>/SKILL.md`. The YAML frontmatter must contain `name`, `description`, `tags`, `triggers`, `version` and `license`.
 2. **Optional**: add a `README.md` as a quick reference.
-3. **Register**: add the skill to `skills/INDEX.md`.
+3. **Register**: run `python3 scripts/sync-skills-index.py`. That regenerates `skills/INDEX.md` from the frontmatter; do not edit the registry by hand, because CI rejects one that disagrees with the skills it registers.
 4. **Open a PR.**
 
 `description` and `triggers` must be English — skills.sh and agentskills.io parse them, and skill matching depends on them.
@@ -58,7 +58,7 @@ This project follows [Semantic Versioning](https://semver.org/). When you modify
 - **MINOR** (1.0.0 → 1.1.0): new steps, improved examples, interaction policy changes
 - **MAJOR** (1.0.0 → 2.0.0): breaking structural changes, including making a previously optional output format mandatory
 
-After bumping `version` in the SKILL.md frontmatter, update the matching entry in `skills/INDEX.md`.
+After bumping `version` in the SKILL.md frontmatter, run `python3 scripts/sync-skills-index.py` so any description, tag or trigger change reaches `skills/INDEX.md`.
 
 ## Code of conduct
 

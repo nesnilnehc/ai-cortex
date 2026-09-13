@@ -5,7 +5,7 @@
 ## Self-check
 
 - [ ] Every skill you changed has its `version` bumped per [SemVer](../CONTRIBUTING.md#versioning)
-- [ ] A new or renamed skill is reflected in `skills/INDEX.md`; a new rule is reflected in `rules/INDEX.md`
+- [ ] `skills/INDEX.md` regenerated with `python3 scripts/sync-skills-index.py`; a new rule is reflected in `rules/INDEX.md`
 - [ ] Names follow the verb-noun formula in [asset-naming.md](../docs/architecture/asset-naming.md)
 - [ ] Every relative link resolves; none is broken
 - [ ] `CHANGELOG.md` has an entry

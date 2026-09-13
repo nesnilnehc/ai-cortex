@@ -2,7 +2,7 @@
 id: AGENT_TEST_MODELING_SPEC_V1
 name: Agent Test Contract Modeling Schema
 description: Spec defining the per-agent test contract document — capability boundary, input contract, tool boundary, write-back preconditions, oracles, golden cases, and pass threshold. Governs the contract document; test code conventions are governed by rules/standards-agent-testing.md.
-version: 1.0.1
+version: 1.0.2
 status: active
 lifecycle: living
 created_at: 2026-05-29
@@ -235,7 +235,7 @@ parent: ../requirements/ACME-REQ-08.md
 ## 8. Relationship to other assets
 
 - **Paired rule**: [rules/standards-agent-testing.md](../rules/standards-agent-testing.md) — the red lines and methodology for agent test code: assertion oracles, isolation, regression gates. This spec defines the contract structure only; how code is written belongs to the rule.
-- **Execution capability**: [skills/scaffold-agent-tests](../skills/scaffold-agent-tests/SKILL.md) — reads a contract instance of this spec plus the agent implementation and generates a test suite.
+- **Execution capability**, resolved through `skills/INDEX.md`: `scaffold-agent-tests` — reads a contract instance of this spec plus the agent implementation and generates a test suite.
 - **Sibling spec**: [test-case-modeling.md](./test-case-modeling.md) — QA business test case documents. **They do not overlap**: this spec governs one agent's behavioural contract, that one governs black-box business cases.
 - **Upstream spec**: [requirement-modeling.md](./requirement-modeling.md) — `covers` cites requirement AC IDs.
 - **Recursive basis**: this spec itself follows the 8-section skeleton of [spec-modeling.md](./spec-modeling.md) v2.0.0.

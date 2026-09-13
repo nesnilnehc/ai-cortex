@@ -1,6 +1,6 @@
 ---
 contract_version: 1.0.0
-artifact_type: guide
+artifact_type: contract
 created_by: ai-cortex
 lifecycle: living
 created_at: 2026-06-18

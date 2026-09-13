@@ -2,7 +2,7 @@
 id: CROSS_TEAM_CONTRACT_SPEC_V1
 name: Cross-Team Contract Schema
 description: Spec defining the structural contract for cross-team interface documents — naming suffixes, frontmatter requirements, CHANGELOG conventions, broadcast model, and cross-repo reference rules.
-version: 1.0.0
+version: 1.0.1
 status: active
 lifecycle: living
 created_at: 2026-05-21
@@ -216,4 +216,4 @@ See `docs/architecture/integrations/zentao/clarification/lifecycle-contract.md` 
 
 - The generally required documentation frontmatter fields (`artifact_type` / `created_by` / `lifecycle` / `created_at`) are governed by each project's own documentation conventions; this spec only adds the `contract_version` and CHANGELOG requirements specific to contract documents
 - Governance of temporary documents is carried by each project's documentation workflow rules, orthogonal to this spec
-- **NATS specialisation**: [nats-messaging.md](./nats-messaging.md) inherits this spec's general skeleton — naming suffix, `contract_version`, CHANGELOG, flat layout, cross-repository references — and adds the NATS-specific subject naming, headers table, payload conventions and embedded validation rules. Producing and consuming are handled by the paired skills [publish-nats-message](../skills/publish-nats-message/SKILL.md) and [consume-nats-message](../skills/consume-nats-message/SKILL.md)
+- **NATS specialisation**: [nats-messaging.md](./nats-messaging.md) inherits this spec's general skeleton — naming suffix, `contract_version`, CHANGELOG, flat layout, cross-repository references — and adds the NATS-specific subject naming, headers table, payload conventions and embedded validation rules. Producing and consuming are handled by whatever paired capability a project provides; in the ai-cortex repository those are `publish-nats-message` and `consume-nats-message`

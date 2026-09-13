@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: roadmap-quality
-version: 1.0.0
+version: 1.0.1
 scope: reviewing or self-checking a roadmap document
 recommended_scope: user
 status: active
@@ -11,7 +11,7 @@ status: active
 
 > A review checklist for a roadmap artifact. Every item is independently verifiable.
 >
-> Applies to the roadmap document produced by [skills/define-roadmap](../skills/define-roadmap/SKILL.md) and stored at `docs/process-management/roadmap.md`, or at the project's conventional path.
+> Applies to the roadmap document stored at `docs/process-management/roadmap.md`, or at the project's conventional path.
 >
 > **This rule is the single authoritative source for roadmap criteria.** The producing side (`define-roadmap`), the diagnosing side (`plan-next`) and the reviewing side (`review-roadmap`) all cite this file rather than each maintaining its own wording.
 
@@ -112,7 +112,5 @@ The dimensions and failure modes above are derived from this rule's own five-dim
 
 ## Related assets
 
-- **Producing side**: [skills/define-roadmap](../skills/define-roadmap/SKILL.md) — constructs the roadmap against this checklist
-- **Reviewing side**: [skills/review-roadmap](../skills/review-roadmap/SKILL.md) — produces findings against this checklist
-- **Consuming side**: [skills/promote-roadmap-items](../skills/promote-roadmap-items/SKILL.md) — the consumer of the capacity and WIP criteria
+- **Companion capabilities**, resolved through `skills/INDEX.md`: `define-roadmap` constructs the roadmap against this checklist, `review-roadmap` produces findings against it, `promote-roadmap-items` consumes the capacity and WIP criteria
 - **Sibling review rules**: [requirement-quality](./requirement-quality.md) / [functional-design-quality](./functional-design-quality.md) / [technical-design-quality](./technical-design-quality.md) / [task-quality](./task-quality.md)
