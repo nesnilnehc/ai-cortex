@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: standards-agent-testing
-version: 1.0.0
+version: 1.0.1
 scope: test code for LLM agent behaviour, and single-agent test contracts
 recommended_scope: user
 status: active
@@ -104,5 +104,5 @@ def test_intent():
 
 - **General test coding standards**: [standards-test-code](./standards-test-code.md) — applies on top; tests of deterministic code belong there
 - **Data contract**: [specs/agent-test-modeling.md](../specs/agent-test-modeling.md) — the structure of a single-agent test contract
-- **Execution capability**: [skills/scaffold-agent-tests](../skills/scaffold-agent-tests/SKILL.md) — generates a test suite from an agent implementation plus its contract
+- **Execution capability**, resolved through `skills/INDEX.md`: `scaffold-agent-tests` — generates a test suite from an agent implementation plus its contract
 - **Terminology authority**: [docs/architecture/terminology.md](../docs/architecture/terminology.md) — the Rule / Spec / Skill boundary

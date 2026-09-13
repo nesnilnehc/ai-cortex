@@ -61,6 +61,21 @@ status: active
 | Skill | "an objective-driven capability an agent can be routed to" — nowhere else may declare an invocable capability matchable by description or tags |
 | Rule | "an atomic, checkable constraint" — nowhere else may say "X is forbidden" or "Y is required" without supplying the means to verify it |
 
+### Reference direction between layers
+
+A Spec, Protocol or Rule `MUST NOT` link into `skills/`. A contract or a
+criterion outlives any capability that applies it, so the capability is named
+and the reader resolves the name through `skills/INDEX.md`. Linking downward
+would make the contract depend on one implementation of itself, and a copy of
+the contract taken into another repository would carry a path to a capability
+that is not there.
+
+A Spec and the Rule that judges the artifact that Spec describes are **one unit**:
+they are versioned and changed together, and their mutual references are
+deliberate. The same holds for a Spec and the Protocol that delivers its
+structure. Reference cycles inside such a pair are intentional and are not
+reported as dependency cycles.
+
 ---
 
 ## III. Telling confusable pairs apart (4 of them)

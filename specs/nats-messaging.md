@@ -2,7 +2,7 @@
 id: NATS_MESSAGING_SPEC_V1
 name: NATS Messaging Schema
 description: Spec defining the structural contract for NATS messages exchanged between independently-evolving projects — subject naming, headers, ID requirements, payload conventions, versioning, with embedded validation rules.
-version: 1.1.0
+version: 1.1.1
 status: active
 lifecycle: living
 created_at: 2026-05-21
@@ -40,10 +40,7 @@ Out of scope:
 
 This spec is the NATS specialisation of [cross-team-contract.md](./cross-team-contract.md)  — the generic contract-document skeleton (naming suffix, `contract_version`, CHANGELOG, flat layout) is carried by cross-team-contract, and this spec adds only the NATS-specific subject / headers / payload detail.
 
-The actual send and receive actions are carried out by the companion Skills through the NATS MCP server:
-
-- [publish-nats-message](../skills/publish-nats-message/SKILL.md) — the producer side
-- [consume-nats-message](../skills/consume-nats-message/SKILL.md) — the consumer side
+This spec defines the contract only. Sending and receiving are carried out by whatever capability a consuming project provides; in the ai-cortex repository those are `publish-nats-message` and `consume-nats-message`.
 
 ---
 
@@ -335,7 +332,5 @@ consume_pattern: null                             # optional: wildcard consume p
 
 - **Parent spec**: [cross-team-contract.md](./cross-team-contract.md) — the generic cross-team contract skeleton; this spec is its NATS specialisation
 - **Recursive basis**: [spec-modeling.md](./spec-modeling.md) v2.0.0 — this spec itself follows the 8-section skeleton
-- **Companion Skills**:
-  - [publish-nats-message](../skills/publish-nats-message/SKILL.md) — end-to-end capability on the producer side
-  - [consume-nats-message](../skills/consume-nats-message/SKILL.md) — end-to-end capability on the consumer side (drain-style batching)
+- **Companion capabilities in the ai-cortex repository**, resolved through `skills/INDEX.md`: `publish-nats-message` on the producer side, `consume-nats-message` on the consumer side with drain-style batching
 - **Authority on broker behaviour**: <https://docs.nats.io> — the NATS protocol, JetStream, the Services API and the rest follow the official documentation; this spec does not restate them

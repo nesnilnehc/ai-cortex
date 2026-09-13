@@ -65,12 +65,11 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: INDEX matches the directories
-        run: |
-          s=$(ls -d skills/*/ | wc -l)
-          i=$(grep -c '^- \[' skills/INDEX.md)
-          echo "skills dirs: $s / INDEX entries: $i"
-          [ "$s" = "$i" ] || { echo "skills/INDEX.md and skills/ disagree on the count"; exit 1; }
+      - name: skills registry matches the skills
+        # The registry carries the description, tags and triggers AGENTS.md
+        # ranks on, so a count check is not enough: it has to agree field by
+        # field with the SKILL.md files it registers.
+        run: python3 scripts/sync-skills-index.py --check
 
       - name: required skill frontmatter
         run: |
@@ -80,6 +79,19 @@ jobs:
             grep -q '^description:' "$f" || { echo "missing description: $f"; fail=1; }
           done
           exit $fail
+
+      - name: reference direction between layers
+        # docs/architecture/terminology.md §II: a Spec, Protocol or Rule names
+        # the capability that applies it and never links down into skills/.
+        run: |
+          if grep -rnoE '\]\((\.\./)*skills/[^)]*\)' rules specs protocols --include='*.md'; then
+            echo "a Spec, Protocol or Rule must not link into skills/ — name the capability instead"
+            exit 1
+          fi
+          echo "no governance asset links into skills/"
+
+      - name: skills registry generator
+        run: python3 scripts/test-skills-index.py
 
       - name: modeled Rule contracts
         run: python3 scripts/validate-rules.py
