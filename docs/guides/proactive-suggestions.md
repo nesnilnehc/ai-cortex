@@ -13,6 +13,11 @@ It is a suggested mapping and does not replace semantic matching against the tas
 
 | Stage | Suggested skill | Note |
 | :--- | :--- | :--- |
+| Open research question | `deep-research` | Decomposes an uncertain question and returns source-backed findings, conflicts and gaps |
+| Policy or compliance research | `policy-research` | Studies a named jurisdiction, effective dates, applicability and product implications |
+| Market demand or size research | `market-research` | Defines the market boundary, demand and defensible sizing or an explicit evidence gap |
+| Competitor comparison | `competitive-research` | Produces a dated, cited capability or positioning comparison with Unknown cells |
+| Product or feature opportunity decision | `product-opportunity-analysis` | Combines relevant lanes into an Opportunity Package with recommendation and trace |
 | Roadmap planning | `orchestrate-roadmap-planning` | One full pass from strategic goals to items entering Now; it checks the roadmap's health first, then decides which steps to run |
 | Roadmap health check | `review-roadmap` | Evaluates an existing roadmap against the roadmap-quality criteria and produces findings |
 | Roadmap upkeep | `update-roadmap` | Changes an item's status, moves its dates, and computes the downstream impact |
@@ -29,5 +34,7 @@ It is a suggested mapping and does not replace semantic matching against the tas
 | Committing work | `commit-work` | Produces a conventional commit with the quality checks attached |
 
 > The full usage of the roadmap chain — the entry points, the halts you will hit, and why dependency mapping comes before promotion — is in [roadmap-planning-usage.md](./roadmap-planning-usage.md).
+
+> The research entry routes, scope inputs and package handoff are in [research-skills-usage.md](./research-skills-usage.md).
 
 > Document authoring and task derivation may be carried by an AgentFabric runtime or another producer. AI Cortex owns the review contracts above and keeps their criteria in the paired Rules.

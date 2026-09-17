@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "report_id": "C-1",
+  "question": "What feature does the example competitor document?",
+  "scope": {
+    "geography": null,
+    "jurisdiction": null,
+    "period": null,
+    "as_of": "2026-09-17"
+  },
+  "subquestions": [
+    {
+      "id": "Q1",
+      "question": "What feature does the example competitor document?"
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "S1",
+      "title": "Example competitor documentation",
+      "publisher": "Example Vendor",
+      "source_type": "official-product",
+      "uri": "https://example.invalid/competitive",
+      "published_at": null,
+      "effective_at": null,
+      "accessed_at": "2026-09-17",
+      "provenance_family": "example-competitive",
+      "limitations": [
+        "The page describes vendor documentation, not customer adoption."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F1",
+      "statement": "The inspected page documents event budgeting in the stated edition.",
+      "classification": "Fact",
+      "scope": "Illustrative competitive source as inspected on 2026-09-17",
+      "as_of": "2026-09-17",
+      "confidence": "high",
+      "confidence_rationale": "Direct wording in the cited section; limited to documentation.",
+      "evidence": [
+        {
+          "source_id": "S1",
+          "relationship": "supports",
+          "locator": "Section 1"
+        }
+      ],
+      "derived_from": [],
+      "gaps": []
+    }
+  ],
+  "conflicts": [],
+  "gaps": [],
+  "summary": "The inspected page documents event budgeting in the stated edition.",
+  "domain": "competitive"
+}

@@ -8,6 +8,9 @@ here alone is overwritten and does not reach the skill.
   - tags: `release`, `announcement`, `communication`, `notification` · triggers: `announce release`, `release announcement`, `release communication`, `notify release`
 - [archive-milestone](./archive-milestone/SKILL.md) — Archive a completed milestone by generating a snapshot summary, folding the roadmap stage, and removing the stale tasks directory.
   - tags: `governance`, `lifecycle`, `archive`, `milestone` · triggers: `archive milestone`, `completed milestone cleanup`, `milestone summary`
+- [assess-product-opportunity](./assess-product-opportunity/SKILL.md) — Assess a product opportunity from existing research reports and user signals, producing a restrained, traceable decision layer.
+  - tags: `research`, `opportunity`, `assessment`, `internal` · triggers: `internal opportunity assessment`
+  - type: `domain` · user-invocable: `false`
 - [automate-tests](./automate-tests/SKILL.md) — Discover and execute repository test commands safely with evidence-based command selection and safety guardrails.
   - tags: `automation`, `devops` · triggers: `run tests`, `automated tests`, `auto test`, `autotest`
 - [capture-work-items](./capture-work-items/SKILL.md) — Capture requirements, bugs, or issues from free-form input into structured, persistent artifacts. Use when user wants to record a work item quickly without deep validation.
@@ -16,10 +19,16 @@ here alone is overwritten and does not reach the skill.
   - tags: `release`, `changelog`, `video`, `release-package` · triggers: `changelog video`, `release video`, `generate release video`
 - [commit-work](./commit-work/SKILL.md) — Create high-quality git commits with clear messages and logical scope. Core goal - produce reviewable commits following Conventional Commits format with pre-commit quality checks.
   - tags: `git`, `workflow`, `automation` · triggers: `commit`, `commit work`
+- [competitive-research](./competitive-research/SKILL.md) — Compare a dated competitor set by capabilities, positioning, pricing, and evidence quality without treating undocumented features as absent.
+  - tags: `research`, `competitors`, `products`, `comparison` · triggers: `competitive research`, `competitor comparison`, `feature matrix`, `竞品调研`, `竞品对比`
+  - type: `domain` · user-invocable: `true`
 - [consume-nats-message](./consume-nats-message/SKILL.md) — Drain pending NATS messages from a producer contract via NATS MCP tools. Discovers the available NATS tool capabilities, selects exact-subject or wildcard mode from .cortex/nats.yaml, applies Tolerant Reader semantics, executes ack/nak/term decisions, and returns aggregated stats.
   - tags: `nats`, `messaging`, `cross-team`, `consumer`, `mcp` · triggers: `consume nats`, `subscribe nats`, `drain nats`, `nats consume`
 - [decontextualize-text](./decontextualize-text/SKILL.md) — Convert text with private context or internal dependencies into generic, unbiased expressions that are standalone and reusable. Core goal - produce decontextualized text that preserves logic while removing organizational identifiers. Use for project handoff, open-source prep, methodology abstraction, cross-team sharing.
   - tags: `writing`, `security`, `privacy`, `generalization` · triggers: `decontextualize`, `remove context`
+- [deep-research](./deep-research/SKILL.md) — Investigate an open question through scoped decomposition, source selection, corroboration, and traceable findings without making a product decision.
+  - tags: `research`, `evidence`, `sources`, `investigation` · triggers: `deep research`, `open research question`, `research an uncertain topic`, `深度研究`, `开放问题研究`
+  - type: `foundation` · user-invocable: `true`
 - [define-docs-norms](./define-docs-norms/SKILL.md) — Create or update docs/ARTIFACT_NORMS.md from an approved proposal and establish project docs norms as canonical rules.
   - tags: `documentation`, `workflow` · triggers: `define docs norms`, `create docs norms`, `apply norms`
 - [define-mission](./define-mission/SKILL.md) — Define the fundamental purpose of a project or organization. Answers why the project exists; produces a single mission statement persisted to docs.
@@ -48,6 +57,9 @@ here alone is overwritten and does not reach the skill.
   - tags: `security`, `secrets`, `keychain`, `macos`, `credentials`, `memory` · triggers: `store keychain secret`, `save api key`, `save password`, `save credential`, `look up password`, `rotate secret`, `delete keychain entry`
 - [map-item-dependencies](./map-item-dependencies/SKILL.md) — Identify dependencies among backlog and roadmap items across five categories, record them in each item's depends_on field, and produce a dependency graph with need-by dates and reduction options. Runs before promotion so blocked items are not pulled into Now.
   - tags: `workflow`, `planning`, `dependencies` · triggers: `map dependencies`, `dependency graph`, `item dependencies`, `blocked by`, `sequencing`
+- [market-research](./market-research/SKILL.md) — Define a market and examine customers, demand, segments, trends, and defensible size estimates with transparent evidence.
+  - tags: `research`, `market`, `demand`, `sizing` · triggers: `market research`, `market demand`, `market size`, `市场调研`, `市场规模`
+  - type: `domain` · user-invocable: `true`
 - [orchestrate-code-review](./orchestrate-code-review/SKILL.md) — Orchestrator skill — sequence atomic review-* skills into the post-coding engineering gate and aggregate their findings; functional alignment and acceptance verification remain separate.
   - tags: `code-review`, `orchestration` · triggers: `review code`, `code review`, `pr review`, `orchestrate code review`
 - [orchestrate-governance-step](./orchestrate-governance-step/SKILL.md) — Single-step governance executor — reads plan-next routing output, executes the highest-priority action, and emits a continuation signal for /loop-driven autopilot.
@@ -58,10 +70,16 @@ here alone is overwritten and does not reach the skill.
   - tags: `planning`, `orchestration` · triggers: `roadmap planning`, `plan the roadmap`, `roadmap ceremony`, `orchestrate roadmap`
 - [plan-next](./plan-next/SKILL.md) — Analyze governance state and suggest next actions from existing docs; read-only — never executes downstream skills.
   - tags: `workflow`, `meta-skill`, `automation` · triggers: `plan next`, `next step`, `checkpoint`, `governance`, `iteration`, `task done`, `just finished`, `what's next`, `after completing`
+- [policy-research](./policy-research/SKILL.md) — Research a jurisdiction's policy or compliance question with official sources, effective dates, applicability, and product implications.
+  - tags: `research`, `policy`, `regulation`, `compliance` · triggers: `policy research`, `regulation research`, `compliance impact`, `政策研究`, `法规调研`
+  - type: `domain` · user-invocable: `true`
 - [prepare-release](./prepare-release/SKILL.md) — Build and validate a Release Package from repository history, version policy, quality gates, and optional release artifacts; does not publish or announce.
   - tags: `release`, `versioning`, `changelog`, `release-package`, `orchestration` · triggers: `prepare release`, `release package`, `release readiness`, `cut release`
 - [prioritize-backlog](./prioritize-backlog/SKILL.md) — Force a clean re-score of every backlog item with four frameworks (RICE, WSJF, MoSCoW, ICE) in parallel — ignores any existing priority, auto-detects multi-file or single-file backlog layouts, surfaces framework disagreements, and captures the user's final decision with rationale.
   - tags: `workflow`, `automation`, `meta-skill` · triggers: `prioritize backlog`, `score backlog`, `backlog ranking`, `planning prep`, `re-score backlog`
+- [product-opportunity-analysis](./product-opportunity-analysis/SKILL.md) — Coordinate relevant research lenses and deliver a traceable Opportunity Package for a product or feature decision.
+  - tags: `research`, `product`, `opportunity`, `orchestration` · triggers: `product opportunity analysis`, `should we build`, `feature opportunity`, `产品机会分析`, `功能是否值得做`
+  - type: `orchestrator` · user-invocable: `true`
 - [promote-roadmap-items](./promote-roadmap-items/SKILL.md) — Promote prioritized backlog items into the roadmap's Now/Next/Later tiers based on strategic_goal capacity allocation and priority scores. Event-driven (not calendar-driven).
   - tags: `workflow`, `automation`, `meta-skill` · triggers: `promote roadmap`, `roadmap planning`, `pull items`, `release planning`
 - [publish-nats-message](./publish-nats-message/SKILL.md) — Publish a NATS message conforming to a cross-team contract, using NATS MCP tools. Authors the contract on first use if missing. Reads project-level cache (.cortex/nats.yaml) to avoid re-prompting basics across sessions.

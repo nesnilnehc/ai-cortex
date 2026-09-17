@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "report_id": "STALE-MARKET",
+  "question": "What demand is reported in the example market?",
+  "scope": {
+    "geography": null,
+    "jurisdiction": null,
+    "period": null,
+    "as_of": "2026-09-17"
+  },
+  "subquestions": [
+    {
+      "id": "Q1",
+      "question": "What demand is reported in the example market?"
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "S1",
+      "title": "Example market survey",
+      "publisher": "Example Vendor",
+      "source_type": "dataset",
+      "uri": "https://example.invalid/market",
+      "published_at": "2018-01-01",
+      "effective_at": null,
+      "accessed_at": "2026-09-17",
+      "provenance_family": "example-market",
+      "limitations": [
+        "The source is eight years old; current demand is unverified."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F1",
+      "statement": "The inspected survey reports demand among its sampled respondents.",
+      "classification": "Fact",
+      "scope": "Illustrative sampled market in 2018 only",
+      "as_of": "2018-01-01",
+      "confidence": "low",
+      "confidence_rationale": "Directly reported for the old sample; not generalizable to 2026.",
+      "evidence": [
+        {
+          "source_id": "S1",
+          "relationship": "supports",
+          "locator": "Section 1"
+        }
+      ],
+      "derived_from": [],
+      "gaps": []
+    }
+  ],
+  "conflicts": [],
+  "gaps": [
+    {
+      "gap_id": "G1",
+      "question": "What is current demand?",
+      "reason": "Only an old sample was inspected.",
+      "validation_step": "Find a current method-bearing study."
+    }
+  ],
+  "summary": "The old survey describes its sampled demand; current demand is unknown.",
+  "domain": "market"
+}

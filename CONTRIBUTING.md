@@ -26,6 +26,10 @@ Skills follow the [agentskills.io](https://agentskills.io) standard format. Draf
 
 `description` and `triggers` must be English — skills.sh and agentskills.io parse them, and skill matching depends on them.
 
+Research Skills use optional `metadata.ai_cortex_type` (`foundation`, `domain`, or `orchestrator`) and `metadata.ai_cortex_user_invocable` (`"true"` or `"false"`). Declare both together; the index generator validates and displays them. The flag is a repository routing contract, not a guarantee that every host hides an internal Skill. Use explicit local artifact handoffs between Skills and preserve the [Research Evidence](specs/research-evidence.md) and [Opportunity Package](specs/opportunity-package.md) contracts. The five public research names are a narrow [naming exception](docs/adr/0013-research-skill-entry-names.md).
+
+The new research Skills are original AI Cortex content. Only copy an external Skill through the vendored-source process below; a link to an external prompt is not a local implementation. Run `python3 scripts/test-skills-index.py`, `python3 scripts/sync-skills-index.py --check` and, for research artifact changes, `python3 scripts/test-research-artifacts.py` before opening a PR.
+
 ### Externally derived skills
 
 AI Cortex distributes vendored copies only. We do not accept a skill that requires an agent to run `npx skills add`, clone an external repository, or read a floating raw URL at runtime.
@@ -48,7 +52,7 @@ See [docs/architecture/asset-naming.md](docs/architecture/asset-naming.md), the 
 
 ## Adding a rule
 
-Rules live in `rules/` and must be registered in `rules/INDEX.md`. Follow the format of the existing rules. Downstream consumers such as Cursor and Trae copy or symlink `rules/` in their own way; this repository does not ship an installer for them.
+Rules live in `rules/` and must be registered in `rules/INDEX.md`. Follow the format of the existing rules. `bin/cortex` installs user-scoped Rules for supported IDEs (Claude Code links them; Cursor receives `.mdc` translations), while project-scoped Rules stay in the canonical clone for on-demand loading. Other consumers must follow their own supported loading path.
 
 ## Versioning
 

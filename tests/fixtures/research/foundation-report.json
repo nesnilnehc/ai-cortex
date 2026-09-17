@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "report_id": "R1",
+  "question": "Does Example Vendor document event budget tracking and a standard ROI model?",
+  "scope": {
+    "geography": null,
+    "jurisdiction": null,
+    "period": null,
+    "as_of": "2026-09-17"
+  },
+  "subquestions": [
+    {
+      "id": "Q1",
+      "question": "Is budget tracking documented?"
+    },
+    {
+      "id": "Q2",
+      "question": "Is a standard ROI model documented?"
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "S1",
+      "title": "Example product documentation",
+      "publisher": "Example Vendor",
+      "source_type": "official-product",
+      "uri": "https://example.invalid/events",
+      "published_at": null,
+      "effective_at": null,
+      "accessed_at": "2026-09-17",
+      "provenance_family": "example-vendor",
+      "limitations": [
+        "The page describes vendor documentation, not customer adoption."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F1",
+      "statement": "The inspected page documents event budget tracking.",
+      "classification": "Fact",
+      "scope": "Example product documentation as accessed on 2026-09-17",
+      "as_of": "2026-09-17",
+      "confidence": "high",
+      "confidence_rationale": "Direct wording in the cited section; limited to documentation.",
+      "evidence": [
+        {
+          "source_id": "S1",
+          "relationship": "supports",
+          "locator": "Events > Budget"
+        }
+      ],
+      "derived_from": [],
+      "gaps": []
+    },
+    {
+      "finding_id": "F2",
+      "statement": "A standard ROI model is available.",
+      "classification": "Unknown",
+      "scope": "Example Vendor product",
+      "as_of": "2026-09-17",
+      "confidence": "low",
+      "confidence_rationale": "The inspected source does not establish the model.",
+      "evidence": [],
+      "derived_from": [],
+      "gaps": [
+        "An official model definition or demonstration is needed."
+      ]
+    }
+  ],
+  "conflicts": [],
+  "gaps": [
+    {
+      "gap_id": "G1",
+      "question": "Is a standard ROI model available?",
+      "reason": "No inspected source establishes it.",
+      "validation_step": "Request official documentation or a demo."
+    }
+  ],
+  "summary": "Budget tracking is documented; standard ROI-model availability is unknown."
+}

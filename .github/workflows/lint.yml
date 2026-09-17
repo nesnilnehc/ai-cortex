@@ -93,6 +93,9 @@ jobs:
       - name: skills registry generator
         run: python3 scripts/test-skills-index.py
 
+      - name: research artifact contracts
+        run: python3 scripts/test-research-artifacts.py
+
       - name: modeled Rule contracts
         run: python3 scripts/validate-rules.py
 
