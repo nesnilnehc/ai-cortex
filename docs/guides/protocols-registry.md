@@ -18,7 +18,7 @@ It told an agent to know one registry URL, fetch `skills/INDEX.md` over HTTPS at
 Three things now contradict it:
 
 - **[ADR 0011](../adr/0011-vendor-external-skills.md)** decided that an agent runtime must not download, register or update anything from a registry, GitHub or a raw URL. External content enters as a reviewed local copy, and only through a maintenance pass.
-- **[AGENTS.md](../../AGENTS.md) §1** encodes that as the execution contract: an agent `MUST NOT` fetch external links or raw-content URLs by default, and `MUST` prefer local relative paths.
+- **[AGENTS.md](../../AGENTS.md) §1** distinguishes public source reading from runtime dependencies: an agent may read public documentation for research, but it must prefer local paths for build and runtime dependencies and must not install a Skill from a remote source at runtime.
 - **[ADR 0010](../adr/0010-installation-strategy.md)** established the canonical clone at `${XDG_DATA_HOME:-~/.local/share}/ai-cortex`, which is where protocols are read from.
 
 Its examples were also built on a structure that does not exist: they described `skills/INDEX.md` as JSON carrying a `protocols` array, and referenced `protocols/unp.md` and `protocols/inp.md`. `skills/INDEX.md` is a Markdown index, and the two protocol documents were split into a Spec and a Protocol when [terminology](../architecture/terminology.md) separated the four asset layers.
