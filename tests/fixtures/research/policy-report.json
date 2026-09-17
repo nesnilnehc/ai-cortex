@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "report_id": "P-1",
+  "question": "What does the example policy require?",
+  "scope": {
+    "geography": null,
+    "jurisdiction": null,
+    "period": null,
+    "as_of": "2026-09-17"
+  },
+  "subquestions": [
+    {
+      "id": "Q1",
+      "question": "What does the example policy require?"
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "S1",
+      "title": "Example policy text",
+      "publisher": "Example Vendor",
+      "source_type": "official-policy",
+      "uri": "https://example.invalid/policy",
+      "published_at": null,
+      "effective_at": null,
+      "accessed_at": "2026-09-17",
+      "provenance_family": "example-policy",
+      "limitations": [
+        "The page describes vendor documentation, not customer adoption."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F1",
+      "statement": "The inspected example policy states a recordkeeping duty.",
+      "classification": "Fact",
+      "scope": "Illustrative policy source as inspected on 2026-09-17",
+      "as_of": "2026-09-17",
+      "confidence": "high",
+      "confidence_rationale": "Direct wording in the cited section; limited to documentation.",
+      "evidence": [
+        {
+          "source_id": "S1",
+          "relationship": "supports",
+          "locator": "Section 1"
+        }
+      ],
+      "derived_from": [],
+      "gaps": []
+    }
+  ],
+  "conflicts": [],
+  "gaps": [],
+  "summary": "The inspected example policy states a recordkeeping duty.",
+  "domain": "policy"
+}

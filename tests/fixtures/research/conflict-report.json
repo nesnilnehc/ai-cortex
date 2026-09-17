@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0",
+  "report_id": "MARKET-CONFLICT",
+  "question": "What demand is reported in the example market?",
+  "scope": {
+    "geography": null,
+    "jurisdiction": null,
+    "period": null,
+    "as_of": "2026-09-17"
+  },
+  "subquestions": [
+    {
+      "id": "Q1",
+      "question": "What demand is reported in the example market?"
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "S1",
+      "title": "Example market survey",
+      "publisher": "Example Vendor",
+      "source_type": "dataset",
+      "uri": "https://example.invalid/market",
+      "published_at": null,
+      "effective_at": null,
+      "accessed_at": "2026-09-17",
+      "provenance_family": "example-market",
+      "limitations": [
+        "The page describes vendor documentation, not customer adoption."
+      ]
+    },
+    {
+      "source_id": "S2",
+      "title": "Contrary example survey",
+      "publisher": "Example Vendor",
+      "source_type": "dataset",
+      "uri": "https://example.invalid/market-contrary",
+      "published_at": null,
+      "effective_at": null,
+      "accessed_at": "2026-09-17",
+      "provenance_family": "independent-example",
+      "limitations": [
+        "The page describes vendor documentation, not customer adoption."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F1",
+      "statement": "The inspected survey reports demand among its sampled respondents.",
+      "classification": "Fact",
+      "scope": "Illustrative market source as inspected on 2026-09-17",
+      "as_of": "2026-09-17",
+      "confidence": "high",
+      "confidence_rationale": "Direct wording in the cited section; limited to documentation.",
+      "evidence": [
+        {
+          "source_id": "S1",
+          "relationship": "supports",
+          "locator": "Section 1"
+        }
+      ],
+      "derived_from": [],
+      "gaps": []
+    },
+    {
+      "finding_id": "F2",
+      "statement": "A separate illustrative sample reports low demand.",
+      "classification": "Fact",
+      "scope": "Illustrative market source as inspected on 2026-09-17",
+      "as_of": "2026-09-17",
+      "confidence": "high",
+      "confidence_rationale": "Direct wording in the cited section; limited to documentation.",
+      "evidence": [
+        {
+          "source_id": "S2",
+          "relationship": "supports",
+          "locator": "Section 1"
+        }
+      ],
+      "derived_from": [],
+      "gaps": []
+    }
+  ],
+  "conflicts": [
+    {
+      "conflict_id": "X1",
+      "finding_ids": [
+        "F1",
+        "F2"
+      ],
+      "dimension": "sample and method",
+      "impact": "Demand cannot be generalized."
+    }
+  ],
+  "gaps": [],
+  "summary": "The illustrative surveys disagree; demand is unresolved.",
+  "domain": "market"
+}

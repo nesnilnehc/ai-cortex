@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "report_id": "UNAVAILABLE-1",
+  "question": "Does Example Vendor document event budget tracking and a standard ROI model?",
+  "scope": {
+    "geography": null,
+    "jurisdiction": null,
+    "period": null,
+    "as_of": "2026-09-17"
+  },
+  "subquestions": [
+    {
+      "id": "Q1",
+      "question": "Is budget tracking documented?"
+    },
+    {
+      "id": "Q2",
+      "question": "Is a standard ROI model documented?"
+    }
+  ],
+  "sources": [],
+  "findings": [
+    {
+      "finding_id": "F2",
+      "statement": "The required source is inaccessible.",
+      "classification": "Unknown",
+      "scope": "Example Vendor product",
+      "as_of": "2026-09-17",
+      "confidence": "low",
+      "confidence_rationale": "The inspected source does not establish the model.",
+      "evidence": [],
+      "derived_from": [],
+      "gaps": [
+        "Only an inaccessible title was found; obtain the full document."
+      ]
+    }
+  ],
+  "conflicts": [],
+  "gaps": [
+    {
+      "gap_id": "G1",
+      "question": "What does the inaccessible document actually establish?",
+      "reason": "No inspected source establishes it.",
+      "validation_step": "Request official documentation or a demo."
+    }
+  ],
+  "summary": "No source was inspected; the answer is unknown."
+}

@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "package_id": "OP-1",
+  "status": "draft",
+  "question": "Should a hypothetical product add event ROI analysis?",
+  "context": {
+    "product": "Example CRM",
+    "target_users": [
+      "operations"
+    ],
+    "geography": "Example market",
+    "as_of": "2026-09-17",
+    "decision_owner": null
+  },
+  "problem": {
+    "statement": "Whether users can assess event value is unconfirmed.",
+    "alternatives": [
+      "manual analysis"
+    ],
+    "why_now": "A feature request prompted investigation."
+  },
+  "lanes": {
+    "policy": {
+      "status": "not_applicable",
+      "reason": "No regulated workflow is in scope.",
+      "report_ids": []
+    },
+    "market": {
+      "status": "missing",
+      "reason": "No accessible demand research yet.",
+      "report_ids": []
+    },
+    "competitive": {
+      "status": "missing",
+      "reason": "Comparison has not started.",
+      "report_ids": []
+    },
+    "user_signals": {
+      "status": "missing",
+      "reason": "No customer evidence supplied.",
+      "report_ids": []
+    }
+  },
+  "reports": [],
+  "claims": [
+    {
+      "claim_id": "C1",
+      "statement": "User demand remains unknown.",
+      "role": "context",
+      "finding_refs": [],
+      "unknown_reason": "No user research has been inspected."
+    }
+  ],
+  "analysis": {
+    "unmet_needs": [],
+    "differentiation": [],
+    "constraints": [],
+    "size_or_impact": null,
+    "assumptions": [],
+    "opposing_evidence": [],
+    "conflicts": [],
+    "gaps": [
+      "Interview target users about current analysis."
+    ]
+  },
+  "recommendation": {
+    "decision": "defer",
+    "confidence": "low",
+    "rationale": "Demand evidence is missing.",
+    "claim_ids": [
+      "C1"
+    ],
+    "proposed_scope": null,
+    "risks": [
+      "Building without demand evidence"
+    ],
+    "validation_steps": [
+      "Interview target users."
+    ]
+  }
+}

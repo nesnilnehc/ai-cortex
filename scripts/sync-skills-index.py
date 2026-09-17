@@ -33,6 +33,8 @@ REGISTRY_FIELDS = ("name", "description", "tags", "triggers")
 LIST_FIELDS = ("tags", "triggers")
 SCALAR = re.compile(r"^(name|description):\s*(.+?)\s*$", re.M)
 FLOW_LIST = re.compile(r"^(tags|triggers):\s*\[(.*?)\]\s*$", re.M)
+RESEARCH_METADATA = re.compile(r"^  (ai_cortex_type|ai_cortex_user_invocable):\s*(.+?)\s*$", re.M)
+SKILL_TYPES = {"foundation", "domain", "orchestrator"}
 
 
 class SkillError(Exception):
@@ -63,6 +65,15 @@ def read_frontmatter(skill_md: pathlib.Path) -> dict[str, object]:
     for key in REGISTRY_FIELDS:
         if not fields.get(key):
             raise SkillError(f"{relative(skill_md)}: {absence_reason(key, block)}")
+    metadata = re.search(r"^metadata:\s*\n((?:[ \t]+[^\n]*\n?)*)", block, re.M)
+    if metadata:
+        research = {key: value.strip("\"'") for key, value in RESEARCH_METADATA.findall(metadata.group(1))}
+        if research:
+            if research.get("ai_cortex_type") not in SKILL_TYPES:
+                raise SkillError(f"{relative(skill_md)}: invalid `ai_cortex_type`")
+            if research.get("ai_cortex_user_invocable") not in {"true", "false"}:
+                raise SkillError(f"{relative(skill_md)}: invalid `ai_cortex_user_invocable`")
+            fields.update(research)
     return fields
 
 
@@ -113,6 +124,11 @@ def render(skills: list[tuple[str, dict[str, object]]]) -> str:
             f"  - tags: {code_list(fields['tags'])}"
             f" · triggers: {code_list(fields['triggers'])}"
         )
+        if "ai_cortex_type" in fields:
+            lines.append(
+                f"  - type: `{fields['ai_cortex_type']}`"
+                f" · user-invocable: `{fields['ai_cortex_user_invocable']}`"
+            )
     return "\n".join(lines) + "\n"
 
 

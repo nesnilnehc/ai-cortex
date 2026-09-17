@@ -17,9 +17,13 @@ AI Cortex's requirements are derived from the project's goals and its roadmap de
 
 ## When to add a requirement document
 
-Add a structured requirement document, such as `docs/requirements/<slug>.md`, in these situations:
+Add a structured requirement document, such as `docs/requirements-planning/<PROJECT>-REQ-<nn>.md`, in these situations:
 
 - A significant change of scope
 - Several stakeholders need formal requirement traceability
 
 Write a requirement document to the field spec in [specs/requirement-modeling.md](../../specs/requirement-modeling.md), and self-check it against [rules/requirement-quality.md](../../rules/requirement-quality.md) before submitting. The workflow for writing requirements is carried by a runtime platform such as AgentFabric; AI Cortex supplies only the field contract and the quality rules.
+
+## Current requirements
+
+- [AIC-REQ-01: research skills for product opportunity decisions](./AIC-REQ-01.md)

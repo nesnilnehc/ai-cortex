@@ -1,0 +1,335 @@
+{
+  "schema_version": "1.0",
+  "package_id": "OP-2",
+  "status": "ready_for_decision",
+  "question": "Should a hypothetical product add event ROI analysis?",
+  "context": {
+    "product": "Example CRM",
+    "target_users": [
+      "operations"
+    ],
+    "geography": "Example market",
+    "as_of": "2026-09-17",
+    "decision_owner": "Example product owner"
+  },
+  "problem": {
+    "statement": "Whether users can assess event value is unconfirmed.",
+    "alternatives": [
+      "manual analysis"
+    ],
+    "why_now": "A feature request prompted investigation."
+  },
+  "lanes": {
+    "policy": {
+      "status": "complete",
+      "reason": "Illustrative inspected source available.",
+      "report_ids": [
+        "P-1"
+      ]
+    },
+    "market": {
+      "status": "complete",
+      "reason": "Illustrative inspected source available.",
+      "report_ids": [
+        "M-1"
+      ]
+    },
+    "competitive": {
+      "status": "complete",
+      "reason": "Illustrative inspected source available.",
+      "report_ids": [
+        "C-1"
+      ]
+    },
+    "user_signals": {
+      "status": "complete",
+      "reason": "Illustrative inspected source available.",
+      "report_ids": [
+        "U-1"
+      ]
+    }
+  },
+  "reports": [
+    {
+      "schema_version": "1.0",
+      "report_id": "P-1",
+      "question": "What does the example policy require?",
+      "scope": {
+        "geography": null,
+        "jurisdiction": null,
+        "period": null,
+        "as_of": "2026-09-17"
+      },
+      "subquestions": [
+        {
+          "id": "Q1",
+          "question": "What does the example policy require?"
+        }
+      ],
+      "sources": [
+        {
+          "source_id": "S1",
+          "title": "Example policy text",
+          "publisher": "Example Vendor",
+          "source_type": "official-policy",
+          "uri": "https://example.invalid/policy",
+          "published_at": null,
+          "effective_at": null,
+          "accessed_at": "2026-09-17",
+          "provenance_family": "example-policy",
+          "limitations": [
+            "The page describes vendor documentation, not customer adoption."
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "finding_id": "F1",
+          "statement": "The inspected example policy states a recordkeeping duty.",
+          "classification": "Fact",
+          "scope": "Illustrative policy source as inspected on 2026-09-17",
+          "as_of": "2026-09-17",
+          "confidence": "high",
+          "confidence_rationale": "Direct wording in the cited section; limited to documentation.",
+          "evidence": [
+            {
+              "source_id": "S1",
+              "relationship": "supports",
+              "locator": "Section 1"
+            }
+          ],
+          "derived_from": [],
+          "gaps": []
+        }
+      ],
+      "conflicts": [],
+      "gaps": [],
+      "summary": "The inspected example policy states a recordkeeping duty.",
+      "domain": "policy"
+    },
+    {
+      "schema_version": "1.0",
+      "report_id": "M-1",
+      "question": "What demand is reported in the example market?",
+      "scope": {
+        "geography": null,
+        "jurisdiction": null,
+        "period": null,
+        "as_of": "2026-09-17"
+      },
+      "subquestions": [
+        {
+          "id": "Q1",
+          "question": "What demand is reported in the example market?"
+        }
+      ],
+      "sources": [
+        {
+          "source_id": "S1",
+          "title": "Example market survey",
+          "publisher": "Example Vendor",
+          "source_type": "dataset",
+          "uri": "https://example.invalid/market",
+          "published_at": null,
+          "effective_at": null,
+          "accessed_at": "2026-09-17",
+          "provenance_family": "example-market",
+          "limitations": [
+            "The page describes vendor documentation, not customer adoption."
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "finding_id": "F1",
+          "statement": "The inspected survey reports demand among its sampled respondents.",
+          "classification": "Fact",
+          "scope": "Illustrative market source as inspected on 2026-09-17",
+          "as_of": "2026-09-17",
+          "confidence": "high",
+          "confidence_rationale": "Direct wording in the cited section; limited to documentation.",
+          "evidence": [
+            {
+              "source_id": "S1",
+              "relationship": "supports",
+              "locator": "Section 1"
+            }
+          ],
+          "derived_from": [],
+          "gaps": []
+        }
+      ],
+      "conflicts": [],
+      "gaps": [],
+      "summary": "The inspected survey reports demand among its sampled respondents.",
+      "domain": "market"
+    },
+    {
+      "schema_version": "1.0",
+      "report_id": "C-1",
+      "question": "What feature does the example competitor document?",
+      "scope": {
+        "geography": null,
+        "jurisdiction": null,
+        "period": null,
+        "as_of": "2026-09-17"
+      },
+      "subquestions": [
+        {
+          "id": "Q1",
+          "question": "What feature does the example competitor document?"
+        }
+      ],
+      "sources": [
+        {
+          "source_id": "S1",
+          "title": "Example competitor documentation",
+          "publisher": "Example Vendor",
+          "source_type": "official-product",
+          "uri": "https://example.invalid/competitive",
+          "published_at": null,
+          "effective_at": null,
+          "accessed_at": "2026-09-17",
+          "provenance_family": "example-competitive",
+          "limitations": [
+            "The page describes vendor documentation, not customer adoption."
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "finding_id": "F1",
+          "statement": "The inspected page documents event budgeting in the stated edition.",
+          "classification": "Fact",
+          "scope": "Illustrative competitive source as inspected on 2026-09-17",
+          "as_of": "2026-09-17",
+          "confidence": "high",
+          "confidence_rationale": "Direct wording in the cited section; limited to documentation.",
+          "evidence": [
+            {
+              "source_id": "S1",
+              "relationship": "supports",
+              "locator": "Section 1"
+            }
+          ],
+          "derived_from": [],
+          "gaps": []
+        }
+      ],
+      "conflicts": [],
+      "gaps": [],
+      "summary": "The inspected page documents event budgeting in the stated edition.",
+      "domain": "competitive"
+    },
+    {
+      "schema_version": "1.0",
+      "report_id": "U-1",
+      "question": "What user difficulty was reported?",
+      "scope": {
+        "geography": null,
+        "jurisdiction": null,
+        "period": null,
+        "as_of": "2026-09-17"
+      },
+      "subquestions": [
+        {
+          "id": "Q1",
+          "question": "What user difficulty was reported?"
+        }
+      ],
+      "sources": [
+        {
+          "source_id": "S1",
+          "title": "Example authorized interview",
+          "publisher": "Example Vendor",
+          "source_type": "interview",
+          "uri": "https://example.invalid/user_signals",
+          "published_at": null,
+          "effective_at": null,
+          "accessed_at": "2026-09-17",
+          "provenance_family": "example-user_signals",
+          "limitations": [
+            "The page describes vendor documentation, not customer adoption."
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "finding_id": "F1",
+          "statement": "The interviewee reports difficulty evaluating events.",
+          "classification": "Fact",
+          "scope": "Illustrative user_signals source as inspected on 2026-09-17",
+          "as_of": "2026-09-17",
+          "confidence": "high",
+          "confidence_rationale": "Direct wording in the cited section; limited to documentation.",
+          "evidence": [
+            {
+              "source_id": "S1",
+              "relationship": "supports",
+              "locator": "Section 1"
+            }
+          ],
+          "derived_from": [],
+          "gaps": []
+        }
+      ],
+      "conflicts": [],
+      "gaps": [],
+      "summary": "The interviewee reports difficulty evaluating events.",
+      "domain": "user_signals"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "C1",
+      "statement": "A sampled user reports an analysis difficulty.",
+      "role": "supports",
+      "finding_refs": [
+        {
+          "report_id": "U-1",
+          "finding_id": "F1"
+        }
+      ],
+      "unknown_reason": null
+    },
+    {
+      "claim_id": "C2",
+      "statement": "Demand beyond one sampled interview is unknown.",
+      "role": "opposes",
+      "finding_refs": [],
+      "unknown_reason": "No representative demand study was inspected."
+    }
+  ],
+  "analysis": {
+    "unmet_needs": [
+      "C1"
+    ],
+    "differentiation": [],
+    "constraints": [],
+    "size_or_impact": null,
+    "assumptions": [],
+    "opposing_evidence": [
+      "C2"
+    ],
+    "conflicts": [],
+    "gaps": [
+      "Interview more users before estimating demand."
+    ]
+  },
+  "recommendation": {
+    "decision": "explore",
+    "confidence": "low",
+    "rationale": "One signal warrants discovery but not a build decision.",
+    "claim_ids": [
+      "C1",
+      "C2"
+    ],
+    "proposed_scope": "Discovery prototype only",
+    "risks": [
+      "Small sample"
+    ],
+    "validation_steps": [
+      "Interview more users."
+    ]
+  }
+}

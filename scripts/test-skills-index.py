@@ -14,6 +14,7 @@ import importlib.util
 import io
 import pathlib
 import sys
+import tempfile
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -97,12 +98,41 @@ def check_unknown_argument(sync, errors: list[str]) -> None:
         errors.append(f"unknown argument: expected exit 2, got {code}")
 
 
+def check_research_metadata(sync, errors: list[str]) -> None:
+    """New metadata is optional for existing skills and strict when present."""
+    with tempfile.TemporaryDirectory() as tmp:
+        folder = pathlib.Path(tmp) / "research-example"
+        folder.mkdir()
+        skill = folder / "SKILL.md"
+        base = (FIXTURES / "research-metadata" / "research-example" / "SKILL.md").read_text(encoding="utf-8")
+        skill.write_text(base, encoding="utf-8")
+        fields = sync.read_frontmatter(skill)
+        if fields.get("ai_cortex_type") != "foundation" or fields.get("ai_cortex_user_invocable") != "true":
+            errors.append(f"research metadata: parsed {fields}")
+        rendered = sync.render([("research-example", fields)])
+        if "type: `foundation` · user-invocable: `true`" not in rendered:
+            errors.append("research metadata: missing from registry output")
+        for old, bad, fragment in [
+            ("ai_cortex_type: foundation", "ai_cortex_type: invalid", "ai_cortex_type"),
+            ('ai_cortex_user_invocable: "true"', "ai_cortex_user_invocable: maybe", "ai_cortex_user_invocable"),
+        ]:
+            skill.write_text(base.replace(old, bad), encoding="utf-8")
+            try:
+                sync.read_frontmatter(skill)
+            except sync.SkillError as exc:
+                if fragment not in str(exc):
+                    errors.append(f"research metadata: wrong error {exc}")
+            else:
+                errors.append(f"research metadata: accepted {bad}")
+
+
 def main() -> int:
     sync = load_generator()
     errors: list[str] = []
     check_clean(sync, errors)
     check_rejections(sync, errors)
     check_unknown_argument(sync, errors)
+    check_research_metadata(sync, errors)
 
     if errors:
         print("skills registry generator tests failed:")
@@ -110,7 +140,7 @@ def main() -> int:
             print(f"- {error}")
         return 1
     print(
-        f"Validated the skills registry generator on 1 clean tree "
+        f"Validated the skills registry generator on 1 clean tree, 1 metadata fixture "
         f"and {len(REJECTIONS)} malformed ones."
     )
     return 0

@@ -10,7 +10,7 @@ When an agent works inside this repository, [AGENTS.md](AGENTS.md) is authoritat
 
 ## 🧭 What's inside
 
-**61 skills** ([index](skills/INDEX.md)), **29 rules** ([index](rules/INDEX.md)), **18 specs** ([index](specs/INDEX.md)) and protocols ([index](protocols/INDEX.md)).
+**67 skills** ([index](skills/INDEX.md)), **29 rules** ([index](rules/INDEX.md)), **19 specs** ([index](specs/INDEX.md)) and protocols ([index](protocols/INDEX.md)).
 
 | Area | Count | Representative skills |
 | :--- | ---: | :--- |
@@ -19,8 +19,11 @@ When an agent works inside this repository, [AGENTS.md](AGENTS.md) is authoritat
 | **Delivery & release** | 9 | Commits, worktree delivery and integration, release package build and publication, announcements, test execution, local redeployment |
 | **Docs & assets** | 5 | Generating README, AGENTS.md and GitHub Actions; refining skill design; decontextualizing text |
 | **Integration & ops** | 4 | NATS cross-team messaging, macOS Keychain credential management, agent test scaffolding |
+| **Research & opportunity** | 6 | Open, policy, market and competitive research; internal opportunity assessment; product opportunity package |
 
 Skills are callable from Claude Code, Cursor, Codex and 20+ other agents. For a worked end-to-end flow, see the [roadmap planning guide](docs/guides/roadmap-planning-usage.md); to find an entry point by collaboration stage, see the [stage-to-skill table](docs/guides/proactive-suggestions.md).
+
+For open research, focused policy/market/competitive studies and product opportunity decisions, see the [research Skills usage guide](docs/guides/research-skills-usage.md).
 
 For project adoption of requirement/design/task constraints and the post-coding engineering + functional repair loop, see [engineering quality governance](docs/guides/engineering-quality-governance.md).
 

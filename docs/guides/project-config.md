@@ -29,8 +29,22 @@ Where either of these exists, read the project-specific values from it first:
 | `governance.profiles` | Contexts that activate conditionally mandatory engineering Rules | review-* cognitive skills, review-technical-design, review-tasks |
 | `governance.parameters` | Project topology, protected contracts, quality targets and change budgets referenced by Rules | review-* cognitive skills |
 | `governance.waivers` | Narrow, approved and expiring Rule exceptions | review-* cognitive skills, orchestrate-code-review, orchestrate-repair-loop |
+| `research.default_geography` | Optional starting geography when the request leaves it open | deep-research and research Skills using its method |
+| `research.default_jurisdiction` | Optional starting jurisdiction for policy questions; must be stated as an assumption | policy-research and product-opportunity-analysis |
+| `research.preferred_source_types` | Optional source-type preference; never replaces source quality or access checks | deep-research and research Skills using its method |
 
 The data contract and validity rules for these governance fields are in [rule-modeling](../../specs/rule-modeling.md). A profile is not an opt-out switch: when its context holds, its Rule items are mandatory. Project parameters supply facts; they do not copy or rewrite canonical Rule text.
+
+Research defaults are optional. For example:
+
+```yaml
+research:
+  default_geography: China
+  default_jurisdiction: China
+  preferred_source_types: [official-policy, official-product, dataset]
+```
+
+They provide context only when the user leaves it open. The agent states a consequential default in the report scope, asks when the exact boundary changes applicability, and follows the normal access and evidence rules. A source preference cannot promote a vendor claim to Fact or authorize private access. The [research guide](./research-skills-usage.md) shows the user entries and their outputs.
 
 ### What you actually have to write
 
