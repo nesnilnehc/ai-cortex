@@ -82,6 +82,12 @@ jobs:
       - name: document hygiene checker
         run: python3 scripts/test-doc-hygiene.py
 
+      - name: the checks can fail
+        # Each test above asserts a list of findings over a fixture tree,
+        # and passes just as happily when the checker has stopped looking.
+        # This seeds a known defect into each and requires the test to go red.
+        run: python3 scripts/mutation-check.py
+
   translation-invariants:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
