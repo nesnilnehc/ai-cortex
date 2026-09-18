@@ -206,7 +206,7 @@ Next: cd /repos/myapp        (shown only when the worktree was removed)
 ### Input requirements
 
 | Input | Required | Notes |
-|---|---|---|
+| --- | --- | --- |
 | Worktree context | Yes | CWD must be inside a linked worktree; invoked in the main repo, it stops |
 | Non-main branch | Yes | The current branch must not be `<main-branch>`; otherwise it stops |
 | Clean working tree | Yes | `git status --porcelain` must be empty; nothing is stashed automatically |
@@ -219,7 +219,7 @@ Next: cd /repos/myapp        (shown only when the worktree was removed)
 Produced (as side effects):
 
 | Element | Notes |
-|---|---|
+| --- | --- |
 | Merge commit | Exactly one `--no-ff` merge commit on `<main-branch>` in the main repo |
 | Remote push | `origin/<main-branch>` updated once |
 | Worktree removal | Optional, the user's choice |

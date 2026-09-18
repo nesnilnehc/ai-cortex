@@ -36,7 +36,7 @@ A Research Report is a JSON object when persisted or passed as machine-readable 
 ### 5.1 Top-level fields
 
 | Field | Type | Required | Meaning |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `schema_version` | string | yes | `"1.0"` |
 | `report_id` | string | yes | Stable within a package, unique among reports |
 | `question` | string | yes | The bounded research question |
@@ -53,7 +53,7 @@ A Research Report is a JSON object when persisted or passed as machine-readable 
 ### 5.2 Source
 
 | Field | Type | Required | Meaning |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `source_id` | string | yes | Unique within the report |
 | `title`, `publisher` | string | yes | Identifiable document and responsible publisher |
 | `source_type` | string | yes | Such as `official-policy`, `official-product`, `dataset`, `filing`, `interview`, `review`, `vendor`, or `media` |
@@ -69,7 +69,7 @@ A source entry means its content was inspected. A snippet or a paywalled title a
 ### 5.3 Finding and evidence link
 
 | Field | Type | Required | Meaning |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `finding_id` | string | yes | Unique within the report |
 | `statement` | string | yes | One material assertion or unresolved question |
 | `classification` | enum | yes | `Fact`, `Claim`, `Inference`, or `Unknown` |

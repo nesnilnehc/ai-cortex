@@ -88,7 +88,7 @@ A cross-team NATS message has three layers: the message ID (the idempotency anch
 A cross-team message ID must be globally unique and doubles as the idempotency key:
 
 | Item | Constraint |
-|---|---|
+| --- | --- |
 | ID format | UUID v7 (recommended, time-ordered by construction) / ULID / Snowflake; a semantic prefix may be added (`req-clarify-01HXXX...`) |
 | Carried in | The NATS header `Nats-Msg-Id` (JetStream deduplicates on it within `duplicate_window`) |
 | Sequential numbering | ❌ Strictly forbidden (`msg-1` / `REQ-001` / `evt-0042`) — distributed races, and the sequence cannot be resumed once retention truncates it |
@@ -103,7 +103,7 @@ Metadata for a cross-team message always travels in NATS headers, and is never e
 #### 5.2.1 Field table
 
 | Header | Required | Type | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `Nats-Msg-Id` | Yes | string | The message ID, UUID v7 / ULID (see §5.1) |
 | `X-Source` | Yes | string | Producer service name / URI (for example `urn:recloud:agentfabric`), identifying the originator |
 | `X-Type` | Yes | string | The event type string, aligned with the trailing segment of the subject (for example `clarification.session.requested`) |
@@ -140,7 +140,7 @@ Every contract's field table must carry: field name / type / whether required / 
 ### 5.4 Version evolution
 
 | Change | Version | How it is done |
-|---|---|---|
+| --- | --- | --- |
 | MAJOR (breaking) | New subject | Introduce a new subject such as `<domain>.<event>.v2`; keep the old subject until every consumer has switched over |
 | MINOR (compatible addition) | `contract_version` MINOR bump | Same subject, with new optional fields or enum values; consumers stay compatible through Tolerant Reader |
 | PATCH (documentation revision) | `contract_version` PATCH bump | Comment corrections, typos, added examples; no effect on on-the-wire behaviour |

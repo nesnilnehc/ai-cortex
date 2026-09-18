@@ -55,7 +55,7 @@ status: active
 ## II. What each layer owns exclusively
 
 | Concept | Exclusive meaning |
-|----|----|
+| ---- | ---- |
 | Spec | "the contract describing a thing" — nowhere else may redefine that structure |
 | Protocol | "the byte-level or message-level sequence coordinating several parties" — nowhere else may prescribe the interaction steps |
 | Skill | "an objective-driven capability an agent can be routed to" — nowhere else may declare an invocable capability matchable by description or tags |
@@ -128,7 +128,7 @@ reported as dependency cycles.
 ## V. Where each lives on disk
 
 | Term | Default directory | Note |
-|----|----|----|
+| ---- | ---- | ---- |
 | Spec | `specs/` | A small Spec embedded in a Protocol may stay under `protocols/` |
 | Protocol | `protocols/` | — |
 | Skill | `skills/` | — |

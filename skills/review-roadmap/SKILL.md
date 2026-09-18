@@ -87,7 +87,7 @@ Evaluate an **existing roadmap document** against the established quality criter
 2. **Load the roadmap and its evidence sources**: read the target document. Three of the criteria draw on data that is not in roadmap.md; that data must be read as well, or those dimensions cannot be evaluated:
 
    | Criterion | Where the data lives |
-   |---|---|
+   | --- | --- |
    | A Now-tier item traces to its strategic_goal | The item frontmatter's `strategic_goal_id`, cross-checked against `docs/project-overview/strategic-goals.md` |
    | A Now-tier item has no unresolved prerequisite | The item frontmatter's `depends_on` |
    | Priority was not set by a single source | The item frontmatter's `priority_decision` (including `strategic_override`) |
@@ -104,7 +104,7 @@ Evaluate an **existing roadmap document** against the established quality criter
 ### Severity Mapping
 
 | Severity | Trigger |
-|---|---|
+| --- | --- |
 | `critical` | No total capacity baseline or no capacity allocation; a missing piece of the four-part core model; a Now-tier item with an unresolved prerequisite |
 | `major` | A success metric that is not a triplet; a milestone or strategic bet not written in the prescribed form; capacity percentages that do not sum to 100%; an engineering-health goal at 0% |
 | `minor` | No "explicitly not doing this round" section; no last-updated date; change frequency close to the threshold but not over it |
@@ -150,7 +150,7 @@ Evaluate an **existing roadmap document** against the established quality criter
 ### Skill Boundaries (Avoid Overlap)
 
 | Action | Owner |
-|---|---|
+| --- | --- |
 | Generate / rewrite the roadmap | `define-roadmap` |
 | Change status / shift dates | `update-roadmap` |
 | Promote / demote | `promote-roadmap-items` |

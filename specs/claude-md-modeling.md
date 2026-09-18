@@ -30,7 +30,7 @@ CLAUDE.md does not replace the README. A README addresses human readers; CLAUDE.
 ### 1.1 Levels it applies to
 
 | Level | Location | Enforcement |
-|---|---|---|
+| --- | --- | --- |
 | Project | `CLAUDE.md` at the repository root | Enforced |
 | Module | `CLAUDE.md` in a subdirectory | Enforced where one exists |
 | Personal | `~/.claude/CLAUDE.md` | Advisory. It lives in the user's home directory, outside any project repository, so project governance cannot enforce it; following the §5.4 form requirements is recommended |
@@ -42,7 +42,7 @@ CLAUDE.md does not replace the README. A README addresses human readers; CLAUDE.
 > The four core questions a sound CLAUDE.md must let the AI answer clearly.
 
 | Question | Description |
-|---|---|
+| --- | --- |
 | **What** | What project is this? Who is it for? What problem does it solve? |
 | **With** | Which stack, runtime and dependencies does it use? |
 | **How** | How is it started, built, tested and deployed? How are the directories organised? |
@@ -59,7 +59,7 @@ Every section the body structure contract defines in §5 exists to answer one of
 The three levels do not overlap:
 
 | Level | Contents |
-|---|---|
+| --- | --- |
 | **Personal** (`~/.claude/CLAUDE.md`) | Cross-project personal collaboration preferences: language, style, references to general rules, personal shortcuts |
 | **Project** (`CLAUDE.md` at the repository root) | This project's stack, key commands, directory conventions, core constraints and no-go zones |
 | **Module** (`CLAUDE.md` in a subdirectory) | Local additions for one module, used only in a monorepo or multi-service layout |
@@ -71,7 +71,7 @@ No repetition across levels: the project level does not carry personal preferenc
 A project-level CLAUDE.md must contain these sections. The order may vary, but none may be missing:
 
 | Section | Contents |
-|---|---|
+| --- | --- |
 | Project overview | 2-3 sentences on what the project is, who it is for and its core value. Not a restatement of the README — only what bears on the AI's decisions |
 | Tech stack | Language, framework, runtime version, package manager — name it explicitly to avoid the AI reaching for the wrong one — plus key dependencies and version constraints |
 | Key commands | The standard commands to start, build, test, lint and deploy. Prefer the higher-level command such as `make dev` over the underlying composition |
@@ -94,7 +94,7 @@ Add as needed:
 A sound CLAUDE.md must satisfy these:
 
 | Requirement | Meaning |
-|---|---|
+| --- | --- |
 | Concise | A project-level file is ≤ 300 lines; beyond that, split out a module level or trim |
 | Actionable | Every rule can be followed directly by the AI, with no further explanation |
 | Decision-oriented | Every line changes what the AI actually chooses; deleting it makes the AI's behaviour worse |
@@ -107,7 +107,7 @@ A sound CLAUDE.md must satisfy these:
 Unsound forms fall into two layers. The individual items and the reasons they are forbidden live in a single authority, [rules/claude-md-management.md](../rules/claude-md-management.md); this spec gives only the categorisation:
 
 | Layer | Meaning | Authoritative list |
-|---|---|---|
+| --- | --- | --- |
 | Expression anti-patterns | Prose argumentation, vague wording, missing strong markers — all of which make a clear constraint hard for the AI to follow | [rules/claude-md-management.md §2 Expression](../rules/claude-md-management.md) |
 | Content anti-patterns | Redundant general knowledge, volatile state, sensitive material, restatements of external documents, speculative rules — all of which pull CLAUDE.md away from being long-term memory | [rules/claude-md-management.md §3 Content no-go zones](../rules/claude-md-management.md) |
 
@@ -173,7 +173,7 @@ Note: this example is a minimal skeleton. A real project adds optional sections 
 CLAUDE.md does not replace the documents below; it links to them rather than copying their content:
 
 | Document | Relationship |
-|---|---|
+| --- | --- |
 | `README.md` | The project introduction for human readers; CLAUDE.md links to it |
 | `CONTRIBUTING.md` | The contribution process; CLAUDE.md does not repeat it |
 | `AGENTS.md`, where one exists | The cross-agent contract and authority boundaries; CLAUDE.md defers to its constraints |

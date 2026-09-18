@@ -134,6 +134,7 @@ git branch --format='%(refname:short)'
 Parse the porcelain output. The first worktree record is the main repository itself — skip it. Record each of the others as a `type: worktree` candidate.
 
 Exclude from the `git branch` output:
+
 - `<main-branch>` itself
 - Branches already covered by a worktree entry (deduplicated by branch name)
 
@@ -164,9 +165,11 @@ Record `<selected-list>`.
 For each entry `E` in `<selected-list>`:
 
 - If `E.type == worktree`:
+
   ```bash
   git -C <E.path> status --porcelain
   ```
+
 - If `E.type == branch`: it has no working tree of its own — skip the dirty check and treat it as clean.
 
 Collect the results into `<clean-list>` and `<dirty-list>` respectively.
@@ -243,6 +246,7 @@ Run these in order. If one removal fails (the path no longer exists, say), recor
 For every entry in `<succeeded-list>`, present the branch list together:
 
 > "The successful entries are cleaned up. Delete the local feature branches below? Enter the indexes, `all`, or `none`:"
+>
 > ```
 > [1]  feat/user-auth  (was worktree)
 > [2]  feat/dashboard  (was branch)
@@ -280,7 +284,7 @@ The `Cleanup` column of a `type: branch` entry is always `—` (there is no work
 ### Input Requirements
 
 | Input | Required | Note |
-|---|---|---|
+| --- | --- | --- |
 | Main repo + main branch context | Yes | CWD must be the main repository root, and the current branch must equal the main branch |
 | Active candidates | Yes | At least one linked worktree or local branch exists, other than main |
 | Branch selection | User input | `all`, or comma-separated indexes from the presented list |
@@ -291,7 +295,7 @@ The `Cleanup` column of a `type: branch` entry is always `—` (there is no work
 ### Output Contract
 
 | Element | Note |
-|---|---|
+| --- | --- |
 | Merge commits | Each successful branch produces one `--no-ff` merge commit on `<main-branch>` |
 | Remote push | One push per successful branch, updating `origin/<main-branch>` |
 | Worktree removal | Every successful `type: worktree` entry is removed from `git worktree list` |

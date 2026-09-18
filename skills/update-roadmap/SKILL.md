@@ -156,7 +156,7 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 ### Skill Boundaries (avoid overlap)
 
 | Action | Owner |
-|---|---|
+| --- | --- |
 | Cross-tier promotion / demotion | `promote-roadmap-items` |
 | New milestone / capacity edit | `define-roadmap` |
 | Creating items | `capture-work-items` |

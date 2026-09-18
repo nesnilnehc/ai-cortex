@@ -37,7 +37,7 @@ Out of scope:
 ## User entries and capability boundaries
 
 | Capability | Direct user entry | Primary user intent | Required output | Boundary |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | `deep-research` | `/deep-research <question>` | Investigate an open question without an existing domain lens | Research question, scoped findings, evidence, conflicts, gaps, sources | Does not decide policy impact, market attractiveness, competitor strategy, or product scope |
 | `policy-research` | `/policy-research <jurisdiction, topic, period>` | Understand policy, regulation, and compliance effects | Applicable instruments, effective dates, obligations versus guidance, affected actors, product implications, open interpretations | Does not provide legal advice or treat an interpretation as statutory text |
 | `market-research` | `/market-research <market, geography, segment, period>` | Understand demand, customers, size, structure, and trends | Market definition, segments, demand signals, size method and range when supportable, trends, evidence gaps | Does not invent TAM/SAM/SOM or turn vendor assertions into independent demand |
@@ -64,7 +64,7 @@ The Opportunity Package contains at least:
 ## Business Rules
 
 | ID | Condition | Required behavior |
-|---|---|---|
+| --- | --- | --- |
 | R1 | User asks an open question without a domain-specific decision | Route to `deep-research`; return research findings, not an opportunity verdict |
 | R2 | User names policy, market, or competitor research as the deliverable | Route directly to that domain skill; do not force a full Opportunity Package |
 | R3 | User asks whether to pursue a product or feature opportunity | Route to `product-opportunity-analysis`; use relevant domain skills and shared findings |

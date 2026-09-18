@@ -37,7 +37,7 @@ This spec applies to a contract file meeting any one of these conditions:
 A cross-team contract declares its type through a **filename suffix**, so a consumer can enumerate every outward promise this repository makes with `grep -- '-contract\.md$'`:
 
 | Suffix | Meaning | Example |
-|---|---|---|
+| --- | --- | --- |
 | `*-contract.md` | A cross-team interface, data or lifecycle contract — a binding promise | `lifecycle-contract.md` |
 | `*-design.md` | Internal design intent, promising nothing externally | `lifecycle-design.md` |
 | `*-guide.md` | A usage guide or integration manual | `bff-integration-guide.md` |
@@ -78,7 +78,7 @@ contract_version: <SemVer>      # required; MAJOR.MINOR.PATCH
 ### 4.1 SemVer semantics
 
 | Kind | Trigger |
-|---|---|
+| --- | --- |
 | **MAJOR** | Removing a field, changing a URL, changing state machine semantics, changing what an enum value means |
 | **MINOR** | Adding a field, an endpoint or an enum value; a backwards-compatible behavioural extension |
 | **PATCH** | Documentation revision, an additional error code, an updated example |
@@ -92,7 +92,7 @@ A cross-team contract file must contain these sections. The order may vary and t
 ### 5.1 Required sections
 
 | Section | Contents |
-|---|---|
+| --- | --- |
 | Contract scope | The interfaces, data shapes and state machines promised externally |
 | Field and interface definitions | Concrete field tables, types, enums, whether each is required, and examples |
 | CHANGELOG | Version history; every `contract_version` bump must leave an entry |

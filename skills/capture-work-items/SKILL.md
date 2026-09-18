@@ -123,6 +123,7 @@ Extract the available fields from the input. Required fields by type:
 | Issue | Title, description, type (task\|improvement\|question), **strategic_goal_id** |
 
 **Notes on strategic_goal_id**:
+
 - Read `docs/project-overview/strategic-goals.md` and present the list of selectable goals to the user
 - The user picks which strategic goal this work item mainly serves
 - If strategic-goals.md does not exist → **halt**, and suggest running `design-strategic-goals` first

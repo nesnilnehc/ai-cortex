@@ -14,7 +14,7 @@ The notification contract by which ai-cortex broadcasts governance updates to re
 ## Contract overview
 
 | Item | Value |
-|---|---|
+| --- | --- |
 | **Subject** | `cortex.updates.requirement-intake-triage` |
 | **Stream** | `CORTEX` |
 | **Producer** | `ai-cortex` |
@@ -24,7 +24,7 @@ The notification contract by which ai-cortex broadcasts governance updates to re
 ## Headers
 
 | Header | Required | Value |
-|---|---|---|
+| --- | --- | --- |
 | `Nats-Msg-Id` | ✅ | UUID v7, generated at send time; a retry reuses the same ID |
 | `X-Source` | ✅ | `ai-cortex` |
 | `X-Type` | ✅ | `requirement-intake-triage.published` |

@@ -22,7 +22,7 @@ Skills are installed through `cortex`. Protocols stay in the canonical clone: ag
 ## Core concepts
 
 | | UNP (semantic layer) | INP (delivery layer) |
-|:---|:---|:---|
+| :--- | :--- | :--- |
 | **Definition** | WHAT: the structure and meaning of a notification | HOW: how it is rendered and delivered |
 | **Scope** | Channel-agnostic | Channel-specific |
 | **Consumers** | Business / application layer | Delivery / middleware layer |
@@ -194,7 +194,7 @@ protocols-validate --protocol inp ./deliveries.json
 ## Common mistakes
 
 | Mistake | Fix |
-|:---|:---|
+| :--- | :--- |
 | `type` is not UPPER_SNAKE_CASE | ✅ `BUILD_FAILED`, not `buildFailed` |
 | P0 has no actions | ✅ Add at least one action object |
 | body over 500 characters | ✅ Truncate to at most 500 characters |
@@ -222,7 +222,7 @@ A: Check `protocols/INDEX.md` for the latest version. Breaking changes are marke
 ## Resources
 
 | Resource | Link |
-|:---|:---|
+| :--- | :--- |
 | **Full usage guide** | [protocols-usage.md](./protocols-usage.md) |
 | **UNP spec** | [specs/universal-notification.md](../../specs/universal-notification.md) |
 | **INP spec** | [protocols/im-notification-delivery.md](../../protocols/im-notification-delivery.md) |

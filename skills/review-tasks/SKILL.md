@@ -80,4 +80,3 @@ If the technical design has no engineering quality mapping and the task changes 
 ## Change record
 
 - Initial atomic reviewer for task readiness and engineering-governance annotations.
-

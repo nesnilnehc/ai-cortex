@@ -44,7 +44,7 @@ Under the naming convention, an orchestrator skill **does exactly 4 things**:
 ## Execution Order (Fixed)
 
 | Step | Type | Candidate atomic skills | Selection rule |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | 1 | scope | `review-diff` or `review-codebase` | Pick one, by user intent (diff = the current changes; codebase = the given path) |
 | 2 | language | `review-typescript` / `review-python` / `review-go` / `review-java` / `review-php` / `review-powershell` / `review-dotnet` / `review-sql` | 0 or 1, inferred from the dominant language in scope |
 | 3 | framework | `review-react` / `review-vue` | 0 or 1, inferred from the framework in scope |

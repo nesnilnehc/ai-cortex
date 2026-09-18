@@ -68,7 +68,7 @@ superseded_by: <path to new tasks document>   # required when status is supersed
 ### 4.1 Field table
 
 | Field | Type | Required | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `artifact_type` | string | yes | Fixed as `tasks` |
 | `lifecycle` | enum | yes | Fixed as `living` — a task list is updated continuously |
 | `created_at` | date | yes | The date the task list was generated |
@@ -83,7 +83,7 @@ Note: the file-level `status` expresses the lifecycle of the task list itself. T
 The 3-value enum for the file-level `status`:
 
 | Status | Meaning | Entry condition |
-|---|---|---|
+| --- | --- | --- |
 | `draft` | The task list is being drafted | Tasks are still being defined and none has been assigned |
 | `active` | Assigned, tasks in progress | Assignment is complete and the list has entered implementation, with every task row at `Todo` |
 | `superseded` | Replaced by a new task list | A design change or similar prompted a re-decomposition and the old list is void as a whole; `superseded_by` must be filled in |
@@ -99,7 +99,7 @@ The 3-value enum for the file-level `status`:
 Every task must carry these 6 fields:
 
 | Field | Type | Required | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `id` | string | yes | Unique task identifier. `T<n>` is recommended (`T1`, `T2`); a project's own convention such as `AUTH-T1` or `TASK-001` may be kept, but the format must be consistent within one file |
 | `title` | string | yes | Task title, ≤ 80 characters, containing a verb, avoiding vague phrasing such as "implement X" |
 | `depends_on` | list[string] | yes | List of task IDs depended on; write `—` when there are none |
@@ -121,7 +121,7 @@ Every task must carry these 6 fields:
 The status enum for the `status` field on a task **row**, at a different granularity from the file-level `status`:
 
 | Status | Meaning | Entry condition |
-|---|---|---|
+| --- | --- | --- |
 | `Todo` | Initial state, waiting to start | Written uniformly at assignment |
 | `In Progress` | Being worked on | An executor picked it up and started |
 | `Blocked` | Blocked | A dependency is unmet, or something external blocks it. The reason **must** be noted in an adjacent column |
@@ -156,7 +156,7 @@ An `Engineering governance` table is conditionally required when at least one ta
 Only affected tasks appear in the table:
 
 | Field | Required | Description |
-|---|---|---|
+| --- | --- | --- |
 | `task` | yes | Existing task ID |
 | `affected_scope` | yes | Exact modules, contracts, data stores or operational paths expected to change |
 | `rule_refs` | yes | Applicable canonical engineering Rule IDs; cite, never copy, the Rule text |

@@ -31,7 +31,7 @@ At runtime only the local copies under `skills/` are loaded. The registry exists
 Every registry entry must answer five questions:
 
 | Question | Fields |
-|---|---|
+| --- | --- |
 | What is called locally? | `local_path`, `local_version` |
 | What was it derived from? | `upstream.repository`, `upstream.path` |
 | What is it pinned to? | `upstream.ref`, `tree`, `skill_digest` |
@@ -64,7 +64,7 @@ skills: {}
 ### 5.2 Skill entry
 
 | Field | Type | Required | Constraint |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `local_path` | path | yes | `skills/<name>`; the directory must exist |
 | `local_version` | SemVer | yes | Matches the local `SKILL.md` |
 | `origin` | enum | yes | Currently fixed as `vendored-derived` |

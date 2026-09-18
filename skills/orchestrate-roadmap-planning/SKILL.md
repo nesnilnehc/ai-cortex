@@ -45,7 +45,7 @@ By the naming convention, an orchestrator skill **does exactly 4 things**:
 Every step carries a tier — a **mandatory** step runs when its condition is hit and cannot be skipped, a **default** step runs when its condition is hit but the user can skip it explicitly, a **recommended** step is only surfaced and never runs on its own.
 
 | Step | Kind | Atomic skill | Tier | Run condition |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | 0 | Health check | `review-roadmap` | mandatory | Always runs. Read-only, no side effects; its findings are the input to every condition below |
 | 1 | Upstream | `design-strategic-goals` | mandatory | `strategic-goals.md` does not exist |
 | 2 | Structure | `define-roadmap` | mandatory | No roadmap.md / no total capacity baseline / no capacity allocation / percentages do not sum to 100% |
@@ -76,7 +76,7 @@ A step whose condition does not match is skipped; the final report names which s
 Run `review-roadmap` for its findings and map them mechanically to a mode with the table below. When several signatures match at once, take the one earlier in the table, because an earlier mode corresponds to a gap further upstream.
 
 | mode | findings signature | Effect |
-|---|---|---|
+| --- | --- | --- |
 | `bootstrap` | roadmap.md or strategic-goals.md missing | Steps 1 and 2 will run |
 | `refresh` | No capacity baseline / no capacity allocation / percentages do not sum to 100% / strategic goals out of step with the roadmap | Step 2 will run; step 6 deals with the over-allocation first |
 | `intake` | Scored items not yet promoted, with capacity left | Main path 3→4→5→6 |
@@ -96,7 +96,7 @@ Call in the order of the table above, collecting each step's output. Before a ca
 The tier decides the failure semantics. This is a deliberate divergence from the single halt rule in `orchestrate-code-review` — there the atomic skills are independent of one another, here the steps carry data dependencies, and one blanket rule would cut short a flow that could have continued:
 
 | Tier | On failure |
-|---|---|
+| --- | --- |
 | mandatory | Terminate the orchestration; emit what completed plus the failure explanation |
 | default | Record it and continue. If a later step depends on its output (step 5 for step 6's dependency guardrail, say), that later step drops to recommended and the report states that the guardrail did not take effect |
 | recommended | Not running it does not count as a failure |
@@ -138,7 +138,7 @@ A single report, containing:
 ### Orthogonal boundary against the existing orchestration layers
 
 | Skill | Coverage | Behavior | Relationship |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `plan-next` | Cross-layer, read-only | Traverses the goal tree into a routing suggestion | This skill must not reimplement the traversal; it may read that state |
 | `orchestrate-governance-step` | Cross-layer, executes 1 suggestion | Generic single-step executor | May call this skill as one executable action |
 | `orchestrate-roadmap-planning` | The roadmap vertical slice only | Runs the fixed sequence end to end | Must not call either of the two above in reverse |

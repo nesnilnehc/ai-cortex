@@ -47,7 +47,7 @@ Out of scope:
 The effective policy is resolved from four layers. A lower layer supplies context; it does not copy or silently weaken the layer above it.
 
 | Layer | Owns | Example |
-|---|---|---|
+| --- | --- | --- |
 | Canonical Rule item | The invariant, default severity and pass condition | `ARC-003`: module dependency graph has no cycle |
 | Profile | A reusable applicability condition | `deployable-service`, `public-api`, `sensitive-data` |
 | Project parameters | The local facts needed to evaluate the rule | module map, allowed dependencies, p95 target |
@@ -56,7 +56,7 @@ The effective policy is resolved from four layers. A lower layer supplies contex
 Applicability has three levels:
 
 | Level | Meaning |
-|---|---|
+| --- | --- |
 | `baseline` | Applies whenever the Rule document's scope is present; no profile selection can turn it off |
 | `profile` | Applies when the named profile is active or its `applies_when` condition is true |
 | `project` | Applies only when the project explicitly declares the named parameter or policy |
@@ -97,7 +97,7 @@ superseded_by: <rule document name>  # required when status: superseded
 ### 4.1 Field table
 
 | Field | Type | Required | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `artifact_type` | string | yes | Fixed as `rule` |
 | `name` | string | yes | Matches the filename without `.md` |
 | `version` | SemVer | yes | Version of the whole Rule set |
@@ -114,7 +114,7 @@ superseded_by: <rule document name>  # required when status: superseded
 ### 4.2 State and compatibility semantics
 
 | Change | Required version change |
-|---|---|
+| --- | --- |
 | Clarify wording without changing pass/fail meaning | patch |
 | Add an item, evidence method or non-breaking applicability profile | minor |
 | Broaden an existing item's applicability, raise its default severity, or change its pass condition incompatibly | major |
@@ -140,7 +140,7 @@ Every modeled Rule document contains these sections in this order:
 Each item begins with `### <ID> — <title>` and contains exactly one field table with these rows:
 
 | Field | Required | Contract |
-|---|---|---|
+| --- | --- | --- |
 | `Level` | yes | `baseline`, `profile:<name>` or `project:<parameter>` |
 | `Requirement` | yes | One normative `MUST` or `MUST NOT` statement |
 | `Applies when` | yes | A concrete condition; use `always` only for a true baseline |
@@ -174,7 +174,7 @@ governance:
 ```
 
 | Field | Required | Description |
-|---|---|---|
+| --- | --- | --- |
 | `profiles` | yes | Reusable contexts activated for the project |
 | `parameters` | optional | Facts or thresholds referenced by Rule items. A project only writes the `declared` ones; see §5.4 |
 
@@ -185,7 +185,7 @@ Unknown profiles and parameters are configuration errors; they are not silently 
 A parameter declares how its value is obtained. Provenance decides what a review does when the value is absent, so that configuration effort falls only where a human decision is genuinely required.
 
 | Provenance | Meaning | When the value is absent |
-|---|---|---|
+| --- | --- | --- |
 | `derived` | The reviewer computes the value from the repository. A project never has to write it, and may only narrow or extend it. | Compute it. Only a failed derivation makes the item evidence-limited. |
 | `baseline` | The present state is recorded once as a starting point; afterwards only a change that worsens it fails. | Record the present state, report the item as baselined rather than passed, and fail nothing on that run. |
 | `declared` | A target, budget, threshold or classification that cannot be observed from code because it is a business decision. | The item is evidence-limited and the report names the decision the project still owes. |

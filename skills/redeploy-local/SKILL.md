@@ -166,6 +166,7 @@ For every signal found, **read its contents** — do not assume a default:
 - **Language manifest only** (no Makefile, no scripts): only in this case fall back to the language's conventional command, and only once a scan of the README and CI has confirmed there is no project-specific override. Examples (last-resort defaults only): Go → `go build ./...`; Rust → `cargo build --release`; Python → `pip install -e .`; Java/Maven → `mvn package`; Java/Gradle → `./gradlew build`; .NET → `dotnet build`.
 
 **Evidence priority** (highest to lowest):
+
 1. A `Makefile` / `Taskfile` / `justfile` target with clear build semantics
 2. A `package.json` script (Node projects)
 3. A documented build step in the CI workflow
@@ -186,6 +187,7 @@ Same principle — read the deployment files, do not assume:
 - **Compose-only project** (no other build orchestration): the build step is **subsumed** by `docker compose up -d --build` — do not run a separate build; mark the build step "skipped — subsumed by deploy".
 
 **Evidence priority** (highest to lowest):
+
 1. A `Makefile` `deploy`/`restart`/`up` target (the project-specific wrapper)
 2. The Compose / pm2 / supervisord / systemd config file (the deployment medium itself)
 3. A code block in the README's "Deploy"/"Run" section
@@ -327,7 +329,7 @@ Provide:
 ### Failure modes
 
 | Failure | Behavior |
-|---|---|
+| --- | --- |
 | Directory not found | Abort immediately; show the exact path that was checked |
 | No build evidence | Stop before the build; ask the user for `build_command`, or have them fill in `.cortex.yaml` |
 | No deploy evidence | Stop before the deployment; ask the user for `deploy_command`, or have them fill in `.cortex.yaml` |
@@ -373,6 +375,7 @@ Provide:
 **Directory contents**: `package.json`, `pnpm-lock.yaml`, `Dockerfile`, `docker-compose.yml`, `README.md`
 
 **Inference**:
+
 - Read `package.json` `scripts`: found `build`, `build:prod`, `test`, `lint`
 - Read `Dockerfile`: `COPY dist/ /app/` — the image expects `dist/` to exist
 - Read `package.json` `scripts.build`: `tsc && vite build --outDir dist` — produces `dist/`, which matches
@@ -407,6 +410,7 @@ Health   docker compose ps                 0    0.2s
 **Directory contents**: `go.mod`, `Makefile`, `deploy/myapp.service`, `.github/workflows/ci.yml`
 
 **Inference**:
+
 - Read the `Makefile` targets: `build`, `test`, `lint`, `release`, `install`
 - Read the body of the `build` target in the `Makefile`: `go build -ldflags "-X main.Version=$(VERSION)" -o bin/myapp ./cmd/myapp` — project-specific ldflags and output path; `go build ./...` is not taken as the default
 - Cross-reference `.github/workflows/ci.yml`: the build step runs `make build` — confirmed as authoritative
@@ -431,6 +435,7 @@ Detected deploy:
 **Directory contents**: `docker-compose.yml`, `Dockerfile` (no Makefile, package.json, or language manifest in the root)
 
 **Inference**:
+
 - No build orchestration found outside the Docker context
 - `Dockerfile` performs the build during `docker compose up --build`
 - Therefore: skip the standalone build; the deploy command subsumes it
@@ -486,6 +491,7 @@ Suggested fix: run `pnpm install` to restore dependencies, then retry.
 **Directory contents**: the same as example 1 (`package.json`, `pnpm-lock.yaml`, `Dockerfile`, `docker-compose.yml`, `README.md`), plus the `.cortex/redeploy-local.yaml` written after an earlier successful run.
 
 **Detection**:
+
 - Step 0: no `.cortex.yaml` override
 - Step 0.5: read `.cortex/redeploy-local.yaml`; validation passes (same skill version, same `project_path`, 2 days old, all 4 `signal_files` mtimes unchanged)
 - Skip steps 1–3 (the full scan); go straight to step 4 with the cache annotation

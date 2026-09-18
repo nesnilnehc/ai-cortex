@@ -47,7 +47,7 @@ Closes out a batch of feature branches in a single invocation:
 ## Inputs
 
 | Input | Required | Description |
-|---|---|---|
+| --- | --- | --- |
 | Main repo + main branch | Yes | CWD must be the main repo root and current branch must equal the main branch |
 | Active candidates | Yes | At least one linked worktree or local branch (excluding main) must exist |
 | Branch selection | User input | `all` or comma-separated index numbers from the presented list (e.g., `1,3`) |
@@ -59,7 +59,7 @@ Closes out a batch of feature branches in a single invocation:
 ## Outputs
 
 | Output | Description |
-|---|---|
+| --- | --- |
 | Merge commits | One `--no-ff` merge commit on the main branch per succeeded branch |
 | Remote push | `origin/<main-branch>` updated once per succeeded branch |
 | Worktree removal | All succeeded `type: worktree` entries removed from `git worktree list` |
@@ -84,7 +84,7 @@ Closes out a batch of feature branches in a single invocation:
 ## Related Skills
 
 | Skill | Relationship |
-|---|---|
+| --- | --- |
 | [`deliver-feature`](../deliver-feature/SKILL.md) | Sibling — use from inside a single worktree to deliver only that branch without `cd`-ing back to main |
 | [`commit-work`](../commit-work/SKILL.md) | Predecessor — use to commit pending changes in each worktree before invoking this skill |
 | [`review-diff`](../review-diff/SKILL.md) | Optional pre-merge — review changes before committing |

@@ -79,7 +79,7 @@ Run a scope-only atomic review of the **current state** of a **given path** (a s
 ### Defaults and pre-run confirmation
 
 | Item | Default | How the user departs from it |
-|---|---|---|
+| --- | --- | --- |
 | **Path** | Repository root | Choose: [repository root] / [the current file's directory] / [list the top-level directories and pick] |
 | **Large-scope handling** | Emit by layer (module / directory) | Choose a priority subset (from the top-level directory list) |
 

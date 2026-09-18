@@ -24,6 +24,7 @@ output_schema:
 Generate a **high-density, low-redundancy** front page for any software project or documentation repository.
 
 The one core goal: within 30 seconds the reader knows —
+
 1. What this project is (one sentence)
 2. Where the key entry points are
 3. How to use it (the shortest runnable path)
@@ -33,11 +34,13 @@ The one core goal: within 30 seconds the reader knows —
 ## Scope
 
 **This skill handles**:
+
 - Lean README generation, with sections pruned by a value threshold
 - Project-type triage (code/application repository vs documentation/spec repository)
 - Anti-fluff output (every claim lands on a concrete path, command, behavior, or constraint)
 
 **This skill does NOT handle**:
+
 - A full docs/ suite → taken on by the AgentFabric runtime or by a person, per `docs/ARTIFACT_NORMS.md`
 - AGENTS.md / agent contract files → use `generate-agent-entry`
 - Redaction of sensitive information → use `decontextualize-text`
@@ -97,6 +100,7 @@ Every other section is kept or dropped by the value threshold.
 | Authors / acknowledgements | Optional | There is an explicit attribution need |
 
 **Omission rules**:
+
 - `doc` type repository: by default no installation or quick-start section is generated; a navigation index takes their place
 - Any section whose content is empty or only TBD → omit it (no hollow sections)
 - If the contributing or authors section can only hold boilerplate → omit it
@@ -283,6 +287,7 @@ MIT — see [LICENSE](LICENSE)
 **Input**: name `legacy-auth`, no description, no feature list, installation and environment unknown.
 
 **Handling**:
+
 - One-sentence description: infer the most conservative wording from the name, marked `TBD`
 - Installation section: omitted (no runnable command)
 - Feature section: omitted (nothing to say)
