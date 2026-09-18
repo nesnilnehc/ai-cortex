@@ -96,43 +96,43 @@ A project's agent reads protocols from `$CORTEX_HOME/protocols/INDEX.md`, or fro
 
 1. **Read the UNP spec**: understand the required fields and the constraints
 
-```markdown
-# Under UNP, every notification must carry:
-- id (uuid)
-- type (UPPER_SNAKE_CASE)
-- intent (info | action_required | approval | alert)
-- priority (P0 | P1 | P2 | P3)
-- title, body
-- actions, required when priority ∈ [P0, P1]
-```
+   ```markdown
+   # Under UNP, every notification must carry:
+   - id (uuid)
+   - type (UPPER_SNAKE_CASE)
+   - intent (info | action_required | approval | alert)
+   - priority (P0 | P1 | P2 | P3)
+   - title, body
+   - actions, required when priority ∈ [P0, P1]
+   ```
 
 2. **Implement the UNP object**:
 
-```typescript
-interface UNPNotification {
-  id: string;           // uuid
-  type: string;         // e.g., "BUILD_FAILED"
-  source: string;       // e.g., "ci-pipeline"
-  timestamp: string;    // ISO8601
-  intent: 'info' | 'action_required' | 'approval' | 'alert';
-  priority: 'P0' | 'P1' | 'P2' | 'P3';
-  title: string;
-  body: string;
-  actor?: {type, id, name};
-  target?: {type, id};
-  actions?: Array<{type, label, url | command}>;
-  extensions?: object;
-}
-```
+   ```typescript
+   interface UNPNotification {
+     id: string;           // uuid
+     type: string;         // e.g., "BUILD_FAILED"
+     source: string;       // e.g., "ci-pipeline"
+     timestamp: string;    // ISO8601
+     intent: 'info' | 'action_required' | 'approval' | 'alert';
+     priority: 'P0' | 'P1' | 'P2' | 'P3';
+     title: string;
+     body: string;
+     actor?: {type, id, name};
+     target?: {type, id};
+     actions?: Array<{type, label, url | command}>;
+     extensions?: object;
+   }
+   ```
 
 3. **Check compliance**: use the `review-notifications` skill (planned)
 
-```bash
-# run the review
-claude-code /review-notifications
-# input:  notification code
-# output: a UNP compliance report
-```
+   ```bash
+   # run the review
+   claude-code /review-notifications
+   # input:  notification code
+   # output: a UNP compliance report
+   ```
 
 ### 4.2 Implementing IM delivery, using INP
 
@@ -142,55 +142,55 @@ claude-code /review-notifications
 
 1. **Read the INP spec**: understand the rendering and routing rules
 
-```markdown
-# Under INP:
-- P0 -> card (an interactive card)
-- P1 -> card
-- P2 -> markdown
-- P3 -> text (plain text)
-# P0 and P1 must carry mention_user and actionable content
-```
+   ```markdown
+   # Under INP:
+   - P0 -> card (an interactive card)
+   - P1 -> card
+   - P2 -> markdown
+   - P3 -> text (plain text)
+   # P0 and P1 must carry mention_user and actionable content
+   ```
 
 2. **Implement the delivery layer**:
 
-```python
-def deliver_notification(unp: UNPNotification, channel: str) -> str:
-    """Transform UNP to channel-specific format"""
+   ```python
+   def deliver_notification(unp: UNPNotification, channel: str) -> str:
+       """Transform UNP to channel-specific format"""
 
-    # step 1: map the render format from the priority
-    format_map = {'P0': 'card', 'P1': 'card', 'P2': 'markdown', 'P3': 'text'}
-    render_format = format_map[unp.priority]
+       # step 1: map the render format from the priority
+       format_map = {'P0': 'card', 'P1': 'card', 'P2': 'markdown', 'P3': 'text'}
+       render_format = format_map[unp.priority]
 
-    # step 2: build the message per the INP rules
-    message = {
-        'header': {
-            'priority': unp.priority,
-            'emoji': get_emoji_for_intent(unp.intent)
-        },
-        'body': unp.body[:500],  # INP: max_length = 500
-        'format': render_format
-    }
+       # step 2: build the message per the INP rules
+       message = {
+           'header': {
+               'priority': unp.priority,
+               'emoji': get_emoji_for_intent(unp.intent)
+           },
+           'body': unp.body[:500],  # INP: max_length = 500
+           'format': render_format
+       }
 
-    # step 3: inject mentions, where they are needed
-    if unp.priority in ['P0', 'P1']:
-        message['mentions'] = get_mentions_for_priority(unp.priority)
+       # step 3: inject mentions, where they are needed
+       if unp.priority in ['P0', 'P1']:
+           message['mentions'] = get_mentions_for_priority(unp.priority)
 
-    # step 4: apply deduplication and rate limiting
-    if not is_duplicate(unp.id) and not is_throttled(unp.source, unp.priority):
-        send_to_channel(channel, message)
+       # step 4: apply deduplication and rate limiting
+       if not is_duplicate(unp.id) and not is_throttled(unp.source, unp.priority):
+           send_to_channel(channel, message)
 
-    return message
-```
+       return message
+   ```
 
 3. **Test INP compliance**:
 
-```text
-# Verify:
-✓ P0 and P1 messages carry actions
-✓ no raw JSON in the output
-✓ deduplication and rate limiting applied
-✓ channel capability degrades gracefully (WeCom has no card, so it falls back to markdown)
-```
+   ```text
+   # Verify:
+   ✓ P0 and P1 messages carry actions
+   ✓ no raw JSON in the output
+   ✓ deduplication and rate limiting applied
+   ✓ channel capability degrades gracefully (WeCom has no card, so it falls back to markdown)
+   ```
 
 ### 4.3 Sharing across projects
 
@@ -200,32 +200,32 @@ def deliver_notification(unp: UNPNotification, channel: str) -> str:
 
 1. **Keep the protocols in a shared location**:
 
-```text
-my-org/
-├── protocols/          # the organisation's protocol library
-│   ├── notification-protocol.md
-│   └── logging-protocol.md
-└── projects/
-    ├── service-a/
-    ├── service-b/
-```
+   ```text
+   my-org/
+   ├── protocols/          # the organisation's protocol library
+   │   ├── notification-protocol.md
+   │   └── logging-protocol.md
+   └── projects/
+       ├── service-a/
+       ├── service-b/
+   ```
 
 2. **Reference them from each project**:
 
-```yaml
-# service-a/.protocol-config.yaml
-protocols:
-  - name: notification
-    url: ../../../protocols/notification-protocol.md
-    version: "1.0.0"
-```
+   ```yaml
+   # service-a/.protocol-config.yaml
+   protocols:
+     - name: notification
+       url: ../../../protocols/notification-protocol.md
+       version: "1.0.0"
+   ```
 
 3. **Check compliance**:
 
-```bash
-# in CI/CD
-protocols-validate --config .protocol-config.yaml
-```
+   ```bash
+   # in CI/CD
+   protocols-validate --config .protocol-config.yaml
+   ```
 
 ---
 
@@ -333,20 +333,20 @@ git -C "${XDG_DATA_HOME:-$HOME/.local/share}/ai-cortex" log -p specs/universal-n
 1. **Contribute the improvement** (preferred): open an issue or a PR against AI Cortex
 2. **Create an extension**: put your own data in the `extensions` field
 
-```javascript
-{
-  // the standard UNP fields
-  type: "BUILD_FAILED",
-  priority: "P1",
-  // a custom extension
-  extensions: {
-    "my-org:build-system": {
-      failureCode: "E_TIMEOUT",
-      retryable: true
-    }
-  }
-}
-```
+   ```javascript
+   {
+     // the standard UNP fields
+     type: "BUILD_FAILED",
+     priority: "P1",
+     // a custom extension
+     extensions: {
+       "my-org:build-system": {
+         failureCode: "E_TIMEOUT",
+         retryable: true
+       }
+     }
+   }
+   ```
 
 ### Q: can my own channel be supported, such as Slack?
 
@@ -355,16 +355,16 @@ git -C "${XDG_DATA_HOME:-$HOME/.local/share}/ai-cortex" log -p specs/universal-n
 1. **Follow UNP**: make sure your notification is a valid UNP object
 2. **Extend INP**: add the delivery rules for Slack
 
-```yaml
-# protocols/inp-extended.md
-channel_matrix:
-  slack:
-    supports:
-      - thread
-      - button
-    limitations:
-      - no_rich_cards
-```
+   ```yaml
+   # protocols/inp-extended.md
+   channel_matrix:
+     slack:
+       supports:
+         - thread
+         - button
+       limitations:
+         - no_rich_cards
+   ```
 
 3. **Contribute it back to AI Cortex**: where it generalises well, submit it as an official extension
 
