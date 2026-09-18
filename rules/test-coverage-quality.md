@@ -31,7 +31,7 @@ status: active
 ### 2. Truthfulness — is the data credible?
 
 - [ ] `tool_provenance` names the tools that actually produced the numbers, with versions — not empty, not a placeholder
-- [ ] The mutation score comes from a real tool run; where mutation testing is not integrated, it must be marked explicitly as "not run — <reason>" and the verdict is at most `conditional`
+- [ ] The mutation score comes from a real tool run; where mutation testing is not integrated, it must be marked explicitly as `not run — <reason>` and the verdict is at most `conditional`
 - [ ] Traceability matrix cells are aggregated from `covers` fields, not filled in by hand
 - [ ] The report's generation date agrees with the run dates of the tools it cites, avoiding stale data passing as a fresh assessment
 

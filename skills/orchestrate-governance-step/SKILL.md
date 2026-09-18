@@ -222,7 +222,7 @@ The only legitimate source of a `done` signal is this step's verification result
 **Mandatory behavior**:
 
 - On detecting fixed-interval cron mode (through a CronCreate record in the session context whose prompt is `/orchestrate-governance-step`), the first IterationStepReport must warn the user: "this is cron mode and the signal is ignored; to stop the repeated firing, switch to a dynamic /loop, or CronDelete once you get stalled/blocked/done"
-- On the 2nd consecutive `stalled` signal, the IterationStepReport must state "**CronDelete <job-id> immediately, strongly recommended**" and give the job ID
+- On the 2nd consecutive `stalled` signal, the IterationStepReport must state "**CronDelete `<job-id>` immediately, strongly recommended**" and give the job ID
 
 **The fix**: a user who wants it to "stop automatically once governance is ready" should use `/loop /orchestrate-governance-step` (no interval, dynamic mode), not `/loop 1m /orchestrate-governance-step`.
 
@@ -790,7 +790,7 @@ additionalProperties: false
 - [ ] **Does the "governance context" in the plan-next output carry the current L1 acceptance-KPI status**? If not, treat plan-next as non-compliant, emit error, and prompt for an upgrade
 - [ ] **The `done` signal satisfies all three conditions**: the plan-next output has "Do now" empty + the KPI met + no "awaiting execution" card
 - [ ] **In cron mode (fixed interval), the first report carries the suggestion to switch to a dynamic /loop**
-- [ ] **The 2nd consecutive `stalled` carries the "CronDelete <job-id> immediately" prompt**
+- [ ] **The 2nd consecutive `stalled` carries the "CronDelete `<job-id>` immediately" prompt**
 
 ### Quality gate checks
 

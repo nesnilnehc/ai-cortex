@@ -1,0 +1,5 @@
+# A pull request template opens at the heading GitHub renders it under, so it
+# has no top-level heading of its own. Requiring one would put a redundant
+# title in the body of every pull request.
+extends: ../.markdownlint.yaml
+MD041: false  # first-line-heading
