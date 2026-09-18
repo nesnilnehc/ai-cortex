@@ -167,7 +167,7 @@ status: archived
 ```markdown
 <!-- ❌ a dead link repointed at the successor asset, asserting a continuity
      the decision never claimed -->
-[`integrate-worktrees`](../../path/to/integrate-branches/SKILL.md)
+[`integrate-worktrees`](../../skills/integrate-branches/SKILL.md)
 ```
 
 ---
@@ -178,7 +178,7 @@ status: archived
 2. **Replace legacy enum values**: `active` → `accepted`; `draft` → `proposed`; `approved` → `accepted`
 3. **Add the conditional fields**: `superseded_by` for `superseded`; `archived_at` and `archived_reason` for `archived`
 4. **Delete retired fields**: grep for `implementation_status\|decision_status` and remove
-5. **Downgrade a dead link**: keep the label, delete the parenthesised path and the brackets around the label, and change nothing else — never repoint it at a renamed successor
+5. **Downgrade a dead link**: replace `[label](dead/path.md)` with `label`, changing nothing else — never repoint it at a renamed successor
 
 ---
 
