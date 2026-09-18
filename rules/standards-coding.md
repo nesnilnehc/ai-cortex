@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: standards-coding
-version: 1.1.0
+version: 1.1.1
 scope: all code in the repository, across languages
 recommended_scope: user
 status: active
@@ -16,12 +16,12 @@ All code in the project, in every language. These are general principles; where 
 ## Constraints
 
 1. **Organisation**: modular, single responsibility, top-down, related functions kept near each other.
-2. **Comments**: explain *why*, not *what*. Comment only what is not self-evident. A complex function must document its parameters and return value. Update comments together with the code they describe.
+2. **Comments**: explain *why*, not *what*. Comment only what is not self-evident. A complex function must document its parameters and return value. Update a comment together with the code it describes, and delete one that no longer matches.
 3. **Naming**: descriptive, consistent, avoid unestablished abbreviations, meaningful within its scope.
 4. **Error handling**: one consistent error-handling mechanism; resources released correctly on the error path. Where a failure must be detected, and what the resulting message owes its reader, are defined by [error-surfacing-quality](./error-surfacing-quality.md) — cite its items rather than restating them here.
 5. **Logging**: use the standard log levels and the shared log function; no echoing or printing debug output directly; enough context in each log line; verbosity controllable by a parameter.
-6. **Simplicity**: follow DRY, avoid over-abstraction, and delete stale comments. Code no consumer reaches, including a commented-out former implementation, is [architecture-quality](./architecture-quality.md) ARC-010.
-7. **Complexity thresholds**: a function is ≤ 50 lines; nesting is ≤ 3 levels; duplicated code must be extracted into a function; stale comments must be deleted.
+6. **Simplicity**: follow DRY — duplicated logic is extracted into a function — and avoid over-abstraction. Code no consumer reaches, including a commented-out former implementation, is [architecture-quality](./architecture-quality.md) ARC-010.
+7. **Complexity thresholds**: a function is ≤ 50 lines; nesting is ≤ 3 levels.
 
 ## Bad Patterns
 
