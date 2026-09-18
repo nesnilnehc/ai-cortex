@@ -49,6 +49,11 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
+      - name: README asset counts match the repository
+        # The counts are written by hand in a sentence and again as a table
+        # column, so adding a skill leaves both wrong with nothing to notice.
+        run: python3 scripts/check-asset-counts.py
+
       - name: skills registry matches the skills
         # The registry carries the description, tags and triggers AGENTS.md
         # ranks on, so a count check is not enough: it has to agree field by
@@ -81,6 +86,9 @@ jobs:
 
       - name: document hygiene checker
         run: python3 scripts/test-doc-hygiene.py
+
+      - name: asset count checker
+        run: python3 scripts/test-asset-counts.py
 
       - name: the checks can fail
         # Every check reports a verdict, and a clean verdict proves nothing on
