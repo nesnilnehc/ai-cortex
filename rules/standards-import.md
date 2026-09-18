@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: standards-import
-version: 1.0.0
+version: 1.0.1
 scope: refactoring, and any code change involving module imports
 recommended_scope: both
 status: active

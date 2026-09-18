@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: workflow-documentation
-version: 1.1.0
+version: 1.1.1
 scope: creating or maintaining any .md document
 recommended_scope: user
 status: active

@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: standards-shell
-version: 1.0.0
+version: 1.0.1
 scope: every *.sh script
 recommended_scope: user
 status: active
