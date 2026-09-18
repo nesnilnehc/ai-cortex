@@ -98,6 +98,8 @@ here alone is overwritten and does not reach the skill.
   - tags: `code-review`, `scope-only` · triggers: `review diff`, `diff review`
 - [review-dotnet](./review-dotnet/SKILL.md) — Review .NET (C#/F#) code for language and runtime conventions: async/await, nullable, API versioning, IDisposable, LINQ, and testability. Language-only atomic skill; output is a findings list.
   - tags: `code-review`, `language` · triggers: `review dotnet`, `review csharp`
+- [review-error-surfacing](./review-error-surfacing/SKILL.md) — Review code against the canonical error surfacing quality Rule set, covering boundary decisions on untrusted input, stopping on a broken invariant, detection layer, and messages a person or a program can act on. Cognitive-only atomic skill; output is a findings list.
+  - tags: `code-review`, `cognitive`, `error-handling` · triggers: `review error handling`, `error surfacing review`, `error message review`
 - [review-functional-design](./review-functional-design/SKILL.md) — Review an existing functional design against its modeling Spec and canonical quality Rule before technical design begins. Evaluative atomic skill; outputs findings without rewriting.
   - tags: `review`, `functional-design`, `pre-coding` · triggers: `review functional design`, `functional design review`, `validate functional design`
 - [review-go](./review-go/SKILL.md) — Review Go code for language and runtime conventions: concurrency, context usage, error handling, resource management, API stability, type semantics, and testability. Language-only atomic skill; output is a findings list.
