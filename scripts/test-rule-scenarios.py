@@ -186,6 +186,26 @@ POPULATIONS = (
 )
 
 
+def load_case(path: pathlib.Path) -> dict | str:
+    """Read one fixture, or return the reason it could not be read.
+
+    The reason names the file. A bare json.loads raises a JSONDecodeError
+    carrying a line and column and no path, which is unusable when three
+    directories of fixtures could be the one at fault.
+    """
+    try:
+        case = json.loads(path.read_text(encoding="utf-8"))
+    except OSError as exc:
+        return f"{path.relative_to(ROOT)}: cannot be read — {exc.strerror}"
+    except json.JSONDecodeError as exc:
+        return f"{path.relative_to(ROOT)}: not valid JSON — {exc.msg} at line {exc.lineno} column {exc.colno}"
+    if not isinstance(case, dict):
+        return f"{path.relative_to(ROOT)}: must hold a JSON object, found {type(case).__name__}"
+    if "expected_failed_rules" not in case:
+        return f"{path.relative_to(ROOT)}: missing \"expected_failed_rules\", which says what this shape must report"
+    return case
+
+
 def main() -> int:
     errors: list[str] = []
     total = 0
@@ -197,7 +217,10 @@ def main() -> int:
             )
         for path in cases:
             total += 1
-            case = json.loads(path.read_text(encoding="utf-8"))
+            case = load_case(path)
+            if isinstance(case, str):
+                errors.append(case)
+                continue
             actual = evaluator(case)
             expected = set(case["expected_failed_rules"])
             if actual != expected:
