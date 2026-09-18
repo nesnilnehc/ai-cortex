@@ -22,6 +22,14 @@
 
   Found by running the new `error-surfacing-quality` items against this repository's own `scripts/`, which is the first time they were pointed at anything.
 
+- `bin/cortex` no longer ignores an option a command does not define.
+
+  `cortex clean --dryrun` — one missing hyphen — read as no `--dry-run` at all and deleted for real, while the caller believed they were previewing. `uninstall` swallowed a mistyped `--remove-home` the same way, `update` a mistyped `--force`, and `install` and `status` ignored their arguments entirely.
+
+  Found by pointing shellcheck at `bin/cortex` for the first time, which reported the two `case` statements with no `*)` arm. Reading the other three commands showed the same defect where no static check could see it: `update` parsed with an `if`, and the two option-less commands never read `"$@"`. All five now name the option, print usage and exit 1.
+
+  ERR-001: input the code does not control is rejected at the boundary it enters rather than accepted tolerantly and reinterpreted later.
+
 ## [0.3.0] — 2026-09-18
 
 ### Added
