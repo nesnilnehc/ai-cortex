@@ -3,7 +3,7 @@ name: review-technical-design
 description: "Review an existing technical design against its modeling Spec, canonical quality Rule and applicable engineering Rule profiles before tasks or coding begin."
 description_zh: 在任务拆分或编码前依据技术设计规范、权威质量规则及适用工程规则画像审查既有技术设计。
 tags: [review, technical-design, pre-coding]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: both
 metadata:
@@ -77,7 +77,3 @@ The design defines endpoints but no compatibility tactic or contract verificatio
 ### Example 2: no database change
 
 Accept an explicit “no database change” statement. Do not require a migration plan when its trigger is false.
-
-## Change record
-
-- Initial atomic reviewer combining the existing design contract with profiled engineering Rule references.

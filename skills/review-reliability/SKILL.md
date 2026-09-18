@@ -3,7 +3,7 @@ name: review-reliability
 description: "Review failure behavior against the canonical reliability quality Rule set, including timeouts, retries, idempotency, partial failure, isolation, dead letters, fault tests and release objectives."
 description_zh: 依据权威可靠性规则审查超时、重试、幂等、部分失败、隔离、死信、故障测试与发布目标。
 tags: [code-review, cognitive, reliability]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -74,7 +74,3 @@ A payment call retries on timeout but has no idempotency key or durable outcome 
 ### Example 2: local pure function
 
 For a deterministic parser with no external resource or durable state, mark remote and workflow profile items N/A. Do not force service resilience patterns onto it.
-
-## Change record
-
-- Initial atomic reliability reviewer using externalized, profile-aware Rule criteria.

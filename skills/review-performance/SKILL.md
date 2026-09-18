@@ -3,7 +3,7 @@ name: review-performance
 description: "Review code against the canonical performance quality Rule set, covering bounded work, I/O amplification, complexity, memory, concurrency, caching, budgets and resource ownership."
 description_zh: 依据权威性能质量规则审查工作边界、I/O 放大、复杂度、内存、并发、缓存、预算与资源生命周期。
 tags: [code-review, cognitive, optimization]
-version: 2.0.0
+version: 2.0.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -77,11 +77,3 @@ Emit a `major` finding citing PERF-002, identify the loop and query location, an
 ### Example 2: no benchmark environment
 
 If PERF-007 applies but a representative benchmark cannot run, report an evidence limitation. Do not mark the budget passed from code inspection alone.
-
-## Change record
-
-- Externalized performance criteria to `performance-quality`.
-- Added explicit measurement, profile, waiver and coverage behavior.
-- Preserved the `code-scope -> findings-list` contract and category.
-
-Version `2.0.0` reflects the new canonical policy source and completeness semantics.

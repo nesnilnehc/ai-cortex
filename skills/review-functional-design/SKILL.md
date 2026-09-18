@@ -3,7 +3,7 @@ name: review-functional-design
 description: "Review an existing functional design against its modeling Spec and canonical quality Rule before technical design begins. Evaluative atomic skill; outputs findings without rewriting."
 description_zh: 在技术设计开始前依据功能设计规范和权威质量规则审查既有功能设计，只输出 findings，不改写。
 tags: [review, functional-design, pre-coding]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: both
 metadata:
@@ -72,7 +72,3 @@ If two roles have different operation permissions and no permission matrix exist
 ### Example 2: purely technical refactor
 
 If the input is an ADR-authorized refactor with no user-visible behavior, stop and redirect to technical design; a functional design is not required.
-
-## Change record
-
-- Initial atomic reviewer for the existing functional-design Spec and Rule.
