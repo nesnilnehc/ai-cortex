@@ -26,7 +26,7 @@ Three categories stay in Chinese. All of them are **immutable records**, not liv
 
 | Category | Why it is not translated |
 | :--- | :--- |
-| `docs/adr/*.md` (existing records) | An ADR is a snapshot of a decision at a point in time. `rules/adr-management.md` forbids editing anything but `status`. Rewriting the prose would falsify the record. |
+| `docs/adr/*.md` (existing records) | An ADR is a snapshot of a decision at a point in time. `rules/adr-management.md` forbids editing its prose, allowing only the status field and markup that no longer resolves. Rewriting the prose would falsify the record. |
 | `CHANGELOG.md` (existing entries) | Same reasoning: released entries describe what shipped, in the words used at the time. |
 | `docs/designs/*.md` (snapshots) | `lifecycle: snapshot` artifacts record a design as it stood. |
 
