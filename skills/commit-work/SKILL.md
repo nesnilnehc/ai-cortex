@@ -129,7 +129,7 @@ If `CLAUDE.md` or `.ai-cortex/config.yaml` exists, prefer the `test_command` rec
      ```
 
    - For a multi-line message, prefer the editor: `git commit -v`
-   - Use `references/commit-message-template.md` if helpful
+   - Use the [commit message template](references/commit-message-template.md) if helpful
    - Keep the summary imperative and specific ("add", "fix", "remove", "refactor")
 
 8) **Run the minimum relevant verification**

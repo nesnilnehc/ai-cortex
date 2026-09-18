@@ -34,4 +34,4 @@ description: 定义技能链 I/O 契约：上游产出与下游输入的格式�
 ## 参考
 
 - specs/skill.md § I/O contracts
-- [Evolution Roadmap](../../designs/2026-03-02-ai-cortex-evolution-roadmap.md) C8 Skill Chain & Workflow Protocol
+- Evolution Roadmap C8 Skill Chain & Workflow Protocol

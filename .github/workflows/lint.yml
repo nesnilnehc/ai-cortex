@@ -50,15 +50,21 @@ jobs:
                       t = m.group(1).split("#")[0]
                       if t and not (f.parent / t).resolve().exists():
                           bad.append(f"{f}:{i+1} -> {t}")
-          known = sum(1 for b in bad if b.startswith("docs/adr/"))
-          print(f"broken: {len(bad)} (historical ADR refs: {known})")
+          print(f"broken: {len(bad)}")
           for b in bad:
               print(" ", b)
-          # References in older ADRs to assets since deleted are kept on
-          # purpose and do not count as failures
-          if len(bad) - known:
+          # No exemption by directory. An ADR that mentions an asset since
+          # deleted names it as text, not as a link, so the record stays
+          # truthful without leaving a dead edge in the link graph.
+          if bad:
               sys.exit(1)
           PY
+
+      - name: orphaned documents and temporary filenames
+        # rules/doc-health-criteria.md §2 and rules/repo-structure-hygiene.md
+        # §4. Only what a path and a link graph can prove; whether a document
+        # is semantically stale still needs a reader.
+        run: python3 scripts/check-doc-hygiene.py
 
   registry:
     runs-on: ubuntu-latest
