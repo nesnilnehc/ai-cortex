@@ -3,7 +3,7 @@ name: review-codebase
 description: "Review given file/dir/repo for current-state code organization: module boundaries, design patterns, cross-module dependencies, tech debt, and interface stability. Scope-only atomic skill; output is a findings list."
 description_zh: 对给定路径（文件 / 目录 / 仓库）做 scope-only 原子审查，覆盖模块边界、模式一致性、跨模块依赖、技术债与接口稳定性。
 tags: [code-review, scope-only]
-version: 1.0.1
+version: 1.1.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -92,7 +92,7 @@ For the code in scope (at the layer / subset the user chose), emit findings on t
 1. **Module boundaries**: whether module / service boundaries are clear, whether responsibilities are single, whether the dependency direction is sound
 2. **Pattern consistency**: whether patterns are used aptly and match the repository's existing style
 3. **Cross-module dependency and coupling**: dependency relations, cyclic dependencies, degree of coupling
-4. **Tech debt and maintainability**: duplication, complexity, testability, the current state of docs and comments
+4. **Tech debt and maintainability**: duplication, complexity, testability, the current state of docs and comments, code with no apparent caller, and deprecation markers still in place
 5. **Interface stability**: how clear and how stable a module's outward interface is
 
 Every finding must carry a `file:line` reference.
@@ -102,6 +102,12 @@ Every finding must carry a `file:line` reference.
 When the analysis turns up a concrete security / performance / architecture / language / framework problem: **flag it and point at the matching atomic skill**, without opening the analysis. For example:
 
 > Potential SQL injection risk detected (user input concatenated without escaping); suggest running `review-security`
+
+Two tech-debt observations are worth calling out because this Skill is usually the first to meet them and neither is settled by reading the code. A symbol with no apparent caller may be reached by reflection or named in configuration, so deciding it needs a runtime signal over a full business cycle; a deprecation marker is decided by the owner, removal point and replacement recorded beside it. Report the observation with its location and route the decision:
+
+> `jobs/settlement.py:18` defines a class no call site in scope reaches, and `config/jobs.yaml` names handlers as strings; suggest running `review-architecture`, which decides it under ARC-010 with the evidence that item requires
+>
+> `api/v1/search.py:7` carries a deprecation marker recording neither an owner nor a removal point; suggest running `review-architecture`, which decides it under ARC-011
 
 ---
 
