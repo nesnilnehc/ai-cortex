@@ -169,7 +169,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Default severity | `minor` |
 | Enforcement | `tool-assisted` |
 | Evidence | Unused-symbol analysis over the built artifact, and, for any symbol that analysis cannot resolve — reached by reflection, named in configuration, dispatched dynamically, or consumed from another repository — a runtime or telemetry signal covering one full business cycle, including the low-frequency paths a month-end or annual run exercises. |
-| Pass condition | Every symbol reported unreached is either removed, or has a named live consumer evidenced by one of the two sources above. A clean analyzer run is not by itself evidence that a symbol the analyzer cannot resolve is unused. |
+| Pass condition | Every symbol reported unreached is either shown to have a named live consumer, or removed — and where the analyzer cannot resolve the symbol's call paths, its removal additionally rests on a runtime signal over one full business cycle showing no consumer. A clean analyzer run is not by itself evidence about a symbol it cannot resolve, in either direction. |
 | Not applicable when | The symbol is a protected public contract with independent consumers, which ARC-005 governs, or the scope is generated from a reviewed source. |
 | Remediation | Delete it. Version control holds the history, so a commented-out or permanently disabled copy preserves nothing a reader can rely on while still costing every reader who meets it. |
 
