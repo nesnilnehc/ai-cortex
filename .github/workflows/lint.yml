@@ -32,35 +32,10 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: check relative links
-        run: |
-          python3 - <<'PY'
-          import pathlib, re, sys
-          bad = []
-          for f in pathlib.Path(".").rglob("*.md"):
-              if ".git/" in str(f):
-                  continue
-              lines = f.read_text(encoding="utf-8").split("\n")
-              fence = False
-              for i, l in enumerate(lines):
-                  if l.startswith("```"):
-                      fence = not fence
-                      continue
-                  if fence:
-                      continue
-                  for m in re.finditer(r'\]\(((?!https?://|#|mailto:)[^)]+)\)', l):
-                      t = m.group(1).split("#")[0]
-                      if t and not (f.parent / t).resolve().exists():
-                          bad.append(f"{f}:{i+1} -> {t}")
-          print(f"broken: {len(bad)}")
-          for b in bad:
-              print(" ", b)
-          # No exemption by directory. An ADR that mentions an asset since
-          # deleted names it as text, not as a link, so the record stays
-          # truthful without leaving a dead edge in the link graph.
-          if bad:
-              sys.exit(1)
-          PY
+      - name: relative links resolve and governance assets do not link down
+        # One extractor for both: a link inside a fence or a code span is a
+        # demonstration, not a link. scripts/test-markdown-links.py pins that.
+        run: python3 scripts/check-markdown-links.py
 
       - name: orphaned documents and temporary filenames
         # rules/doc-health-criteria.md §2 and rules/repo-structure-hygiene.md
@@ -88,16 +63,6 @@ jobs:
           done
           exit $fail
 
-      - name: reference direction between layers
-        # docs/architecture/terminology.md §II: a Spec, Protocol or Rule names
-        # the capability that applies it and never links down into skills/.
-        run: |
-          if grep -rnoE '\]\((\.\./)*skills/[^)]*\)' rules specs protocols --include='*.md'; then
-            echo "a Spec, Protocol or Rule must not link into skills/ — name the capability instead"
-            exit 1
-          fi
-          echo "no governance asset links into skills/"
-
       - name: skills registry generator
         run: python3 scripts/test-skills-index.py
 
@@ -109,6 +74,9 @@ jobs:
 
       - name: architecture Rule scenarios
         run: python3 scripts/test-rule-scenarios.py
+
+      - name: markdown link checker
+        run: python3 scripts/test-markdown-links.py
 
   translation-invariants:
     runs-on: ubuntu-latest
