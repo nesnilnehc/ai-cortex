@@ -93,6 +93,8 @@ Engineering Rule profiles and review-gate responsibilities are recorded in [ADR 
 
 See [CONTRIBUTING.md](CONTRIBUTING.md), and read the [Code of Conduct](CODE_OF_CONDUCT.md) before taking part. Report security issues privately per the [security policy](SECURITY.md) rather than opening a public issue.
 
+Maintainers releasing AI Cortex: [docs/guides/releasing.md](docs/guides/releasing.md) covers what counts as worth releasing, the independent version domains, and the Skills that own each step.
+
 Documentation is written in English; the exceptions are listed in [docs/LANGUAGE_SCHEME.md](docs/LANGUAGE_SCHEME.md).
 
 ---
