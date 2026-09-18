@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.3.0] — 2026-09-18
+
 ### Added
 
 - A tenth modeled Rule set governs where a defect is decided and whether the failure that results can be acted on: `error-surfacing-quality`, prefix ERR, six items, with `review-error-surfacing` to execute it.
