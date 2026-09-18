@@ -4,9 +4,9 @@ decision: release
 version: 0.2.1
 release_channel: stable
 version_source: git tag
-commit: 1629c0c0d2240cfda01304641eda4255560a3b38
-range: v0.2.0..HEAD
-status: draft
+commit: 94196bb9fbf0e30bd9a53bdb02c321f28ddb111c
+range: v0.2.0..94196bb9f
+status: ready
 
 version_domains:
   product:
