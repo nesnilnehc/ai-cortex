@@ -6,7 +6,7 @@ release_channel: stable
 version_source: git tag
 commit: f52040ce497d49fcb53f961fa671f083ab491a3d
 range: v0.2.1..f52040ce4
-status: ready
+status: published
 
 decision_basis: >-
   The range adds a Rule set and a Skill, both of which a consumer consumes:
@@ -188,3 +188,31 @@ checks:
       two stale reviewer counts, the ERR activation evidence, two changelog defects. The ERR
       finding was raised by both the engineering gate and implementation-alignment review
       against the approved rule-governance design.
+
+publication:
+  tag: v0.3.0
+  tag_object: 25760cac9da400751a55da87f241d4658872061c
+  tag_sha: 3e848a75a6880dc27520b294437d59cb5ed2b852
+  tag_offset: >-
+    One commit past `commit`, which records the release content. A manifest
+    cannot carry the hash of the commit containing it; the tag points at the
+    merge that brought the release cut onto main.
+  provider: github
+  release_url: https://github.com/nesnilnehc/ai-cortex/releases/tag/v0.3.0
+  release_body_source: .cortex/release/0.3.0/release-notes.md
+  published_at: 2026-09-18T06:24:31Z
+  latest: true
+  steps:
+    version_sync: not_started — the product version lives only in the git tag, so there is nothing to sync
+    release_commit: complete
+    validation: complete
+    tag: complete
+    build_package: not_started — this repository ships no build artifact
+    provider_publish: complete
+  post_publish_verification: >-
+    The released changelog section is byte-identical to `git show v0.3.0:CHANGELOG.md`
+    for that section, which is the cut check docs/guides/releasing.md requires.
+  rollback: >-
+    `gh release delete v0.3.0 --yes` then `git push origin :refs/tags/v0.3.0` and
+    `git tag -d v0.3.0`. Anyone who already fetched the tag keeps it. The four
+    commits on main are the release content and are not part of this rollback.
