@@ -46,7 +46,9 @@ git clone --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.local/share/a
 ~/.local/share/ai-cortex/bin/cortex install
 ```
 
-`cortex install` symlinks every skill — including reviewed local copies of externally derived ones — into `~/.agents/skills/<skill>`, where Codex and other agents reading that path discover them in a new session. It also detects installed IDEs (Claude Code, Cursor) and syncs their skill paths. User-scoped Rules are symlinked for Claude Code and converted to `.mdc` for Cursor; project-scoped engineering Rule sets stay in the canonical clone and are loaded on demand by their review Skills, avoiding permanent context inflation. `specs/` and `protocols/` need no installation — agents read them from the canonical path. Nothing is ever installed from skills.sh or GitHub at runtime.
+`cortex install` also puts the command itself at `~/.local/bin/cortex`, which is where the short `cortex` used below comes from; it warns if `~/.local/bin` is not on your `PATH`, and until it is, call the script by its full path.
+
+It symlinks every skill — including reviewed local copies of externally derived ones — into `~/.agents/skills/<skill>`, where Codex and other agents reading that path discover them in a new session. It also detects installed IDEs (Claude Code, Cursor) and syncs their skill paths. User-scoped Rules are symlinked for Claude Code and converted to `.mdc` for Cursor; project-scoped engineering Rule sets stay in the canonical clone and are loaded on demand by their review Skills, avoiding permanent context inflation. `specs/` and `protocols/` need no installation — agents read them from the canonical path. Nothing is ever installed from skills.sh or GitHub at runtime.
 
 ### Upgrade
 
@@ -54,7 +56,9 @@ git clone --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.local/share/a
 cortex update
 ```
 
-Pulls the latest AI Cortex commit and re-syncs, pruning orphaned links for deleted skills and rules. Upstream updates to externally derived skills are reviewed by maintainers before entering AI Cortex; they are not upgraded independently at the user's runtime.
+Fetches `origin` and **hard-resets the canonical clone onto it**, then re-syncs, pruning orphaned links for deleted skills and rules. It refuses to run on a dirty working tree; `cortex update --force` overrides that and discards whatever was uncommitted. Local commits on the tracked branch are discarded either way, so keep your own changes on a branch or a fork rather than in the canonical clone.
+
+Upstream updates to externally derived skills are reviewed by maintainers before entering AI Cortex; they are not upgraded independently at the user's runtime.
 
 ### Status
 
