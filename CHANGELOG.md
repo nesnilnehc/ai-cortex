@@ -2,6 +2,26 @@
 
 ## [Unreleased]
 
+### Added
+
+- `scripts/check-asset-versions.py` blocks a merge when an asset the range edits kept its version, and runs in CI.
+
+  The obligation was written down in the releasing guide and enforced by nothing. It caught `orchestrate-code-review` gaining a dispatch step and keeping 1.2.0 through a fully green run — found by hand during the 0.3.0 release, which is one release later than a check would have found it. Run against that range it reports the defect and exits 1. What it cannot decide is whether the size of a bump is right; that stays with a reader.
+
+  Its CI job checks out with `fetch-depth: 0`, because the check diffs against the most recent product tag and a shallow checkout fetches none. With no tag reachable it prints `NOTHING CHECKED` and fails rather than passing on an empty range.
+
+### Fixed
+
+- `validate-rules.py` no longer lets a Rule that means to be modeled drop silently out of validation.
+
+  A leading blank line before the frontmatter, or `RULE_MODEL_V1` spelt with one letter's wrong case, took a Rule out of the modeled set. The run then validated nine documents instead of ten, printed the lower number and exited 0. Both were verified by breaking a real file. A file that declares some other `model` value, or that carries `### ABC-001 —` item headings without parsing as modeled, is now an error naming the file and what to check.
+
+- The two scripts that read JSON fixtures now name the file when one is malformed.
+
+  `test-rule-scenarios.py` and `test-research-artifacts.py` called `json.loads` bare, so a broken fixture produced a `JSONDecodeError` carrying a line and column and no path, or a `KeyError` naming a key and no file — unusable when three directories of fixtures could be the one at fault. `validate-research-artifacts.py` and `verify-translation.py` already did this correctly; the two stragglers now match them.
+
+  Found by running the new `error-surfacing-quality` items against this repository's own `scripts/`, which is the first time they were pointed at anything.
+
 ## [0.3.0] — 2026-09-18
 
 ### Added
