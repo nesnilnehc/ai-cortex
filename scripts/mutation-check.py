@@ -43,6 +43,8 @@ LINKS_TEST = "scripts/test-markdown-links.py"
 HYGIENE = "scripts/check-doc-hygiene.py"
 HYGIENE_TEST = "scripts/test-doc-hygiene.py"
 SCENARIOS = "scripts/test-rule-scenarios.py"
+COUNTS = "scripts/check-asset-counts.py"
+COUNTS_TEST = "scripts/test-asset-counts.py"
 TRANSLATED = "rules/task-quality.md"
 VERIFIER = "scripts/verify-translation.py"
 
@@ -167,6 +169,23 @@ PERTURBATIONS = [
     code(SCENARIOS, SCENARIOS, "accept a removal point that passed with no action",
      '        elif marker.get("removal_point_passed") and not (\n            marker.get("removed") or marker.get("renewed")\n        ):\n            failed.add("ARC-011")\n',
      ""),
+    code(COUNTS, COUNTS_TEST, "count skill documents instead of skill directories",
+         '        return len([p for p in path.iterdir() if p.is_dir()])',
+         '        return len(list(path.rglob("*.md")))'),
+    code(COUNTS, COUNTS_TEST, "count a layer's index as one of its documents",
+         '    return len([p for p in path.glob("*.md") if p.name != "INDEX.md"])',
+         '    return len(list(path.glob("*.md")))'),
+    code(COUNTS, COUNTS_TEST, "pass a layer the README stopped declaring",
+         '            problems.append(f"README declares no {layer} count; {directory}/ holds {actual}")\n            continue',
+         '            continue'),
+    code(COUNTS, COUNTS_TEST, "stop comparing the declared count with the disk",
+         "        if declared[layer] != actual:", "        if False:"),
+    code(COUNTS, COUNTS_TEST, "stop summing the capability table",
+         '    elif "skill" in declared and sum(rows) != declared["skill"]:', "    elif False:"),
+    code(COUNTS, COUNTS_TEST, "read the table without the multiline flag",
+         'TABLE_ROW = re.compile(r"^\\| \\*\\*[^|]+\\*\\* \\| +(\\d+) \\|", re.MULTILINE)',
+         'TABLE_ROW = re.compile(r"^\\| \\*\\*[^|]+\\*\\* \\| +(\\d+) \\|")'),
+
     # Structural edits the translation verifier must block. The anchors quote
     # rules/task-quality.md, so an edit to that document lands here as a stale
     # perturbation rather than a silent loss of coverage.
