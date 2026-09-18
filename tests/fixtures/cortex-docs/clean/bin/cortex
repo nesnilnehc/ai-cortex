@@ -1,0 +1,13 @@
+#!/bin/sh
+# A stand-in dispatch, shaped like the real one.
+#
+# Usage: cortex <command>
+#   install   Install to detected IDEs
+#   update    Fetch latest and re-sync (--force to override a dirty tree)
+case "$_cmd" in
+  install)   cmd_install "$@" ;;
+  update)    cmd_update "$@" ;;
+  *)
+    _err "Unknown command: $_cmd"
+    ;;
+esac

@@ -45,6 +45,8 @@ HYGIENE_TEST = "scripts/test-doc-hygiene.py"
 SCENARIOS = "scripts/test-rule-scenarios.py"
 COUNTS = "scripts/check-asset-counts.py"
 COUNTS_TEST = "scripts/test-asset-counts.py"
+CORTEX = "scripts/check-cortex-docs.py"
+CORTEX_TEST = "scripts/test-cortex-docs.py"
 TRANSLATED = "rules/task-quality.md"
 VERIFIER = "scripts/verify-translation.py"
 
@@ -185,6 +187,20 @@ PERTURBATIONS = [
     code(COUNTS, COUNTS_TEST, "read the table without the multiline flag",
          'TABLE_ROW = re.compile(r"^\\| \\*\\*[^|]+\\*\\* \\| +(\\d+) \\|", re.MULTILINE)',
          'TABLE_ROW = re.compile(r"^\\| \\*\\*[^|]+\\*\\* \\| +(\\d+) \\|")'),
+
+    code(CORTEX, CORTEX_TEST, "read prose as well as code",
+         "        for number, line in code_lines(path.read_text(encoding=\"utf-8\")):",
+         "        for number, line in enumerate(path.read_text(encoding=\"utf-8\").split(chr(10)), 1):"),
+    code(CORTEX, CORTEX_TEST, "stop reporting a command the script does not have",
+         "            if command not in commands:", "            if False:"),
+    code(CORTEX, CORTEX_TEST, "stop reporting an unknown flag",
+         "                if flag not in flags:", "                if False:"),
+    code(CORTEX, CORTEX_TEST, "stop reporting a command no document mentions",
+         '    for command in sorted(commands - set(mentions)):\n        problems.append(f"{SCRIPT} offers `{command}`, which none of {\', \'.join(DOCS)} mentions")\n',
+         ""),
+    code(CORTEX, CORTEX_TEST, "read the dispatch without the dotall flag",
+         'DISPATCH = re.compile(r"^case \\"\\$_cmd\\" in$(.*?)^esac$", re.MULTILINE | re.DOTALL)',
+         'DISPATCH = re.compile(r"^case \\"\\$_cmd\\" in$(.*?)^esac$", re.MULTILINE)'),
 
     # Structural edits the translation verifier must block. The anchors quote
     # rules/task-quality.md, so an edit to that document lands here as a stale
