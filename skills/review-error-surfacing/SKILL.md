@@ -3,7 +3,7 @@ name: review-error-surfacing
 description: "Review code against the canonical error surfacing quality Rule set, covering boundary decisions on untrusted input, stopping on a broken invariant, detection layer, and messages a person or a program can act on. Cognitive-only atomic skill; output is a findings list."
 description_zh: 依据权威的错误暴露质量规则审查边界输入判定、不变量破坏时的停止、检测层次，以及人或程序能据以行动的失败消息。
 tags: [code-review, cognitive, error-handling]
-version: 1.0.0
+version: 1.1.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -51,7 +51,10 @@ The distinction against observability is the one most often confused: **this Ski
 
 1. Load [error-surfacing-quality](../../rules/error-surfacing-quality.md) in full and record its version.
 2. Resolve active profiles (`human-facing`, `machine-consumer`) and declared parameters from `.ai-cortex/config.yaml` and the nearest `AGENTS.md`, per [rule-modeling](../../specs/rule-modeling.md). A tool whose failures only a person reads activates `human-facing` and not `machine-consumer`; a library both activates both.
-3. Build only the evidence applicable items require: entry points and the shapes they return, guards and what follows a failed one, the declared detection layers, and the text or payload at each failure path.
+3. Build only the evidence applicable items require:
+   - Prefer a check the repository already runs — a linter, an analyzer, a compiler diagnostic — when it produces the evidence an item needs.
+   - Otherwise read it from the scope: entry points and the shapes they return, guards and what follows a failed one, the declared detection layers, and the text or payload at each failure path.
+   - Either way, say what the evidence does not cover. A reading of a diff decides what that change introduces; it does not establish that the rest of the codebase is free of the same defect, and neither does a clean run of a tool that cannot resolve reflective or configuration-driven paths.
 4. Evaluate each applicable item independently. An absent parameter makes only its `project:*` item not evaluable; baseline items still run.
 5. Emit one finding per failed obligation, citing the active version, for example `error-surfacing-quality@<active-version>/ERR-002`.
 6. Apply a waiver only when every field is valid and its Rule ID and scope cover the exact finding. Report waived items separately.
