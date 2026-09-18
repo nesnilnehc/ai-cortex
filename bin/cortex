@@ -34,6 +34,15 @@ _err()  { printf '  \033[31m✗\033[0m %s\n' "$*" >&2; }
 _info() { printf '  %s\n' "$*"; }
 _hdr()  { printf '\n\033[1m%s\033[0m\n' "$*"; }
 
+# An option a command does not define is a mistake, not a no-op. Silently
+# ignoring it is dangerous here: `clean --dryrun` would read as no --dry-run at
+# all, and delete for real while the caller believed they were previewing.
+_unknown_option() {
+  _err "Unknown option for '$1': $2"
+  _usage
+  exit 1
+}
+
 _confirm() {
   _msg="$1"
   printf '  %s [y/N] ' "$_msg"
@@ -365,6 +374,10 @@ _detect_legacy() {
 # cmd_install
 # ---------------------------------------------------------------------------
 cmd_install() {
+  for _arg in "$@"; do
+    _unknown_option install "$_arg"
+  done
+
   _hdr "cortex install"
 
   _detect_legacy
@@ -419,7 +432,10 @@ cmd_install() {
 cmd_update() {
   _force=0
   for _arg in "$@"; do
-    if [ "$_arg" = "--force" ]; then _force=1; fi
+    case "$_arg" in
+      --force) _force=1 ;;
+      *)       _unknown_option update "$_arg" ;;
+    esac
   done
 
   _hdr "cortex update"
@@ -460,6 +476,7 @@ cmd_clean() {
     case "$_arg" in
       --dry-run) _dry=1 ;;
       --yes)     _yes=1 ;;
+      *)         _unknown_option clean "$_arg" ;;
     esac
   done
 
@@ -596,6 +613,10 @@ cmd_clean() {
 # cmd_status
 # ---------------------------------------------------------------------------
 cmd_status() {
+  for _arg in "$@"; do
+    _unknown_option status "$_arg"
+  done
+
   _hdr "cortex status"
 
   _info "CORTEX_HOME: $CORTEX_HOME"
@@ -711,6 +732,7 @@ cmd_uninstall() {
     case "$_arg" in
       --yes)         _yes=1 ;;
       --remove-home) _remove_home=1 ;;
+      *)             _unknown_option uninstall "$_arg" ;;
     esac
   done
 
