@@ -1,0 +1,12 @@
+# A design here is a `lifecycle: snapshot` artifact: it records a design as it
+# stood on its date and is not revised as the code moves on. Every rule
+# disabled here would be fixed by restructuring prose — inserting blank lines
+# around a list, renumbering an ordered list, promoting a bold label to a
+# heading, padding a table's delimiter row. That is a content revision, so the
+# rule is switched off rather than the record rewritten.
+extends: ../../.markdownlint.json
+MD029: false  # ol-prefix
+MD031: false  # blanks-around-fences
+MD032: false  # blanks-around-lists
+MD036: false  # no-emphasis-as-heading
+MD060: false  # table-column-style
