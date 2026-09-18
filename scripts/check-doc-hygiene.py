@@ -111,20 +111,25 @@ QUOTING_HEADING = re.compile(r"anti-?pattern|bad pattern|counter-?example|remedi
 QUOTED_SPAN = re.compile(r"\"[^\"]*\"|\u201c[^\u201d]*\u201d")
 
 
-def in_scope(path: pathlib.Path) -> bool:
-    parts = path.relative_to(ROOT).parts
+def in_scope(path: pathlib.Path, root: pathlib.Path = ROOT) -> bool:
+    parts = path.relative_to(root).parts
     joined = "/".join(parts)
     return not any(
         joined == d or joined.startswith(d + "/") for d in EXCLUDED_DIRS
     )
 
 
-def markdown_files() -> set[pathlib.Path]:
-    return {p.resolve() for p in ROOT.rglob("*.md") if in_scope(p.resolve())}
+def markdown_files(root: pathlib.Path = ROOT) -> set[pathlib.Path]:
+    return {p.resolve() for p in root.rglob("*.md") if in_scope(p.resolve(), root)}
 
 
 def outbound_links(path: pathlib.Path) -> set[pathlib.Path]:
-    """Resolve every relative markdown link, mapping a directory to its index."""
+    """Resolve every relative markdown link to a path.
+
+    A link to a directory is left unresolved on purpose. Its index or README
+    is an entry point in its own right, so nothing about reachability would
+    change, and a mutation test showed the resolution reached nothing.
+    """
     found: set[pathlib.Path] = set()
     in_fence = False
     for line in path.read_text(encoding="utf-8").split("\n"):
@@ -137,13 +142,7 @@ def outbound_links(path: pathlib.Path) -> set[pathlib.Path]:
             target = match.group(1).split("#")[0].strip()
             if not target:
                 continue
-            resolved = (path.parent / target).resolve()
-            if resolved.is_dir():
-                for index_name in ("INDEX.md", "README.md"):
-                    if (resolved / index_name).exists():
-                        resolved = resolved / index_name
-                        break
-            found.add(resolved)
+            found.add((path.parent / target).resolve())
     return found
 
 
@@ -171,18 +170,20 @@ def find_orphans(files: set[pathlib.Path]) -> list[pathlib.Path]:
     return sorted(f for f in files - reached if not is_tombstone(f))
 
 
-def find_temp_names(files: set[pathlib.Path]) -> list[tuple[pathlib.Path, str]]:
+def find_temp_names(
+    files: set[pathlib.Path], root: pathlib.Path = ROOT
+) -> list[tuple[pathlib.Path, str]]:
     """Flag process-record names among the documents, backups among all files.
 
     A backup carries its own extension — `usage.md.bak` is not a `.md` file —
     so the suffix check has to walk every file, not just the document set.
     """
     hits = {}
-    for path in ROOT.rglob("*"):
+    for path in root.rglob("*"):
         if not path.is_file():
             continue
         resolved = path.resolve()
-        if not in_scope(resolved):
+        if not in_scope(resolved, root):
             continue
         if resolved.name.endswith(TEMP_SUFFIXES):
             hits[resolved] = "backup or editor leftover extension"
