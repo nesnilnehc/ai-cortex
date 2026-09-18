@@ -1,8 +1,10 @@
 ---
+artifact_type: rule
 name: standards-shell
 version: 1.0.0
 scope: every *.sh script
 recommended_scope: user
+status: active
 ---
 
 # Rule: Shell Coding Standards

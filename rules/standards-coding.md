@@ -1,8 +1,10 @@
 ---
+artifact_type: rule
 name: standards-coding
 version: 1.0.1
 scope: all code in the repository, across languages
 recommended_scope: user
+status: active
 ---
 
 # Rule: General Coding Principles
