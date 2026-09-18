@@ -20,6 +20,16 @@
 
   Verified that the job can fail rather than only that it passes: removing any one of the three `*)` arms turns it red, and a prose-only edit leaves it green.
 
+- `scripts/test-validate-rules.py` covers the Rule validator, which blocked a merge with nothing asking whether it could still fail.
+
+  `validate-rules.py` decides about 28 conditions and runs as a blocking CI step. It was the one checker here with neither a fixture test nor a perturbation, so a clean verdict from it meant nothing: a checker that has stopped looking prints the same line. The gap was found by listing every checker against its paired test, not by a failure.
+
+  27 defect shapes run against a two-document fixture pair — frontmatter fields and enums, section presence and order, identifier prefix and duplication within and across documents, item field presence, emptiness and enums, and the two ways a file falls out of the modeled set entirely — plus a clean control asserting the counts. A case whose anchor stops matching fails rather than passing quietly, which was itself verified by breaking one.
+
+  Eight perturbations join `mutation-check.py`, bringing it to 68. Each seeds a defect into the validator and requires the new test to go red.
+
+  `main()` was split into a `check(rules_dir, index_text, root)` returning a `Result`, matching the shape every other checker here already had and which is why this one was never tested. Proved behaviour-identical against the previous revision: the same output byte for byte on the clean tree and on four seeded defects, covering both report headings and the cross-document duplicate.
+
 ### Changed
 
 - `doc-health-criteria` 1.0.0 → 2.0.0: the link-graph criteria now describe a healthy graph rather than forbidding the shape of one.

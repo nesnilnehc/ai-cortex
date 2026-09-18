@@ -7,6 +7,7 @@ import pathlib
 import re
 import sys
 from datetime import date
+from typing import NamedTuple
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -209,8 +210,32 @@ def unparsed_modeled(path: pathlib.Path, text: str) -> str | None:
     return None
 
 
-def main() -> int:
-    candidates = sorted(RULES_DIR.glob("*.md"))
+class Result(NamedTuple):
+    """What one run over a rules directory found.
+
+    `excluded` and `errors` are reported under different headings and are not
+    merged: a file that fell out of the modeled set was never validated, which
+    is a different statement from a file that was validated and failed.
+    """
+
+    excluded: list[str]
+    errors: list[str]
+    documents: int
+    items: int
+
+
+def check(
+    rules_dir: pathlib.Path, index_text: str, root: pathlib.Path | None = None
+) -> Result:
+    """Validate every modeled Rule in one directory.
+
+    `root` is what error messages are made relative to, and defaults to the
+    repository. A caller pointing this at a fixture directory passes that
+    directory, so a finding names the fixture rather than a path through
+    tests/.
+    """
+    root = ROOT if root is None else root
+    candidates = sorted(rules_dir.glob("*.md"))
     texts = {path: path.read_text(encoding="utf-8") for path in candidates}
     excluded = [
         reason
@@ -218,37 +243,48 @@ def main() -> int:
         if (reason := unparsed_modeled(path, texts[path])) is not None
     ]
     if excluded:
-        print("Rule documents that mean to be modeled but were not read as modeled:")
-        for reason in excluded:
-            print(f"- {reason}")
-        return 1
+        # An unread file was never validated, so validating the rest would
+        # report against an incomplete set. Stop here, as the caller does.
+        return Result(excluded, [], 0, 0)
+
     modeled = [
         path
         for path in candidates
         if parse_frontmatter(texts[path]).get("model") == "RULE_MODEL_V1"
     ]
-    index_text = INDEX.read_text(encoding="utf-8")
-    all_errors: list[str] = []
+    errors: list[str] = []
     owners: dict[str, pathlib.Path] = {}
 
     for path in modeled:
-        errors, ids = validate(path, index_text)
-        all_errors.extend(f"{path.relative_to(ROOT)}: {error}" for error in errors)
+        found, ids = validate(path, index_text)
+        errors.extend(f"{path.relative_to(root)}: {error}" for error in found)
         for rule_id in ids:
             if rule_id in owners:
-                all_errors.append(
+                errors.append(
                     f"duplicate Rule ID {rule_id}: "
-                    f"{owners[rule_id].relative_to(ROOT)} and {path.relative_to(ROOT)}"
+                    f"{owners[rule_id].relative_to(root)} and {path.relative_to(root)}"
                 )
             owners[rule_id] = path
 
-    if all_errors:
+    return Result(excluded, errors, len(modeled), len(owners))
+
+
+def main() -> int:
+    result = check(RULES_DIR, INDEX.read_text(encoding="utf-8"))
+
+    if result.excluded:
+        print("Rule documents that mean to be modeled but were not read as modeled:")
+        for reason in result.excluded:
+            print(f"- {reason}")
+        return 1
+
+    if result.errors:
         print("Rule validation failed:")
-        for error in all_errors:
+        for error in result.errors:
             print(f"- {error}")
         return 1
 
-    print(f"Validated {len(modeled)} modeled Rule documents and {len(owners)} Rule items.")
+    print(f"Validated {result.documents} modeled Rule documents and {result.items} Rule items.")
     return 0
 
 
