@@ -116,7 +116,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Applies when | `error.false_positive_threshold` is declared and a check is added, or an existing one is measured. |
 | Default severity | `minor` |
 | Enforcement | `tool-assisted` |
-| Evidence | The check's findings over the project's own population, and the share of them that a reviewer confirms as legitimate use. A tool supplies the count; only a reviewer can classify a finding as legitimate. |
+| Evidence | The check's findings over the project's own population, and the share of them that a reviewer confirms as legitimate use. The count comes from the tool class that runs the check and can enumerate its own output — a linter, a static analyzer, a compiler diagnostic or a repository checker. That class decides how many findings there are and where; it cannot decide whether a finding is legitimate use, which only a reviewer sampling the findings can classify. |
 | Pass condition | The share is measured, and any check above the declared threshold carries a recorded decision to narrow, retarget or withdraw it. An unmeasured check does not pass by default. |
 | Not applicable when | The check has produced no findings over the population, so there is no share to measure. |
 | Remediation | Narrow the applicability, sharpen the condition, or withdraw the check. Absorbing the noise is not a remedy: a report that is mostly legitimate teaches its readers to skim. |
