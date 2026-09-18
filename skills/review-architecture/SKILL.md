@@ -1,9 +1,9 @@
 ---
 name: review-architecture
-description: "Review code against the canonical architecture quality Rule set, including boundaries, dependency direction, cohesion, cycles, contract stability, coupling, composition and change surface. Cognitive-only atomic skill; output is a findings list."
-description_zh: 依据权威架构质量规则审查边界、依赖方向、内聚性、循环、契约稳定性、耦合、装配与变更面。
+description: "Review code against the canonical architecture quality Rule set, including boundaries, dependency direction, cohesion, cycles, contract stability, coupling, composition, change surface, unreachable code and deprecation discipline. Cognitive-only atomic skill; output is a findings list."
+description_zh: 依据权威架构质量规则审查边界、依赖方向、内聚性、循环、契约稳定性、耦合、装配、变更面、无人调用的代码与废弃标记纪律。
 tags: [code-review, cognitive, architecture]
-version: 2.0.1
+version: 2.1.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -103,6 +103,18 @@ Input: a small library has no `.ai-cortex/config.yaml`.
 
 Expected: mark ARC-002 and ARC-009 not evaluable or not applicable as their parameters require, then evaluate baseline cohesion, cycles, boundary leakage, coupling and speculative extension normally.
 
+### Example 4: a symbol the analyzer cannot resolve
+
+Input: the unused-symbol analyzer reports `jobs.QuarterlyCloseTask` unreached. The class is instantiated from a name held in configuration, and the change under review deletes it.
+
+Expected: emit a `minor` finding citing ARC-010. The deletion rests on a tool that cannot see configuration-named or reflective construction, so it is not evidence that nothing calls the class — the item requires a runtime signal over one full business cycle, with the low-frequency paths a quarterly close exercises included. Where the change keeps such a symbol instead and no runtime signal exists either way, report ARC-010 as `evidence_limited`; a clean analyzer run is not a pass for what the analyzer cannot resolve.
+
+### Example 5: a deprecation marker with no owner or removal point
+
+Input: a `@deprecated` annotation on `api.v1.SearchRequest` names its replacement but records neither an owner nor a release or date by which it goes.
+
+Expected: emit a `minor` finding citing ARC-011, naming the two missing fields rather than the marker in general. A marker on a dependency the project does not own is not applicable, and a recorded removal point already past is a finding only when nothing was removed and no renewal was recorded.
+
 ## Change record
 
 - Externalized architecture criteria to `rules/architecture-quality.md`.
@@ -112,3 +124,5 @@ Expected: mark ARC-002 and ARC-009 not evaluable or not applicable as their para
 Version `2.0.0` is intentional: the source of truth and completeness semantics changed, even though the I/O artifact types remain compatible.
 
 Version `2.0.1` removes a stale example pin so the Skill always reports the active Rule version it loaded.
+
+Version `2.1.0` adds worked examples for ARC-010 and ARC-011, the two lifecycle items `architecture-quality` 1.1.0 introduced. Both turn on a distinction a reviewer gets wrong by default: an analyzer reporting nothing is not a pass for what it cannot resolve.
