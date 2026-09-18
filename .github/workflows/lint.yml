@@ -124,6 +124,12 @@ jobs:
       - name: modeled Rule contracts
         run: python3 scripts/validate-rules.py
 
+      - name: Rule validator
+        # validate-rules.py blocks a merge and, until this test existed,
+        # nothing asked whether it could still fail. 27 defect shapes against a
+        # fixture pair, plus eight perturbations in mutation-check.py.
+        run: python3 scripts/test-validate-rules.py
+
       - name: architecture Rule scenarios
         run: python3 scripts/test-rule-scenarios.py
 
