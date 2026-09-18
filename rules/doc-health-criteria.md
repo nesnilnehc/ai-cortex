@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: doc-health-criteria
-version: 1.0.0
+version: 2.0.0
 scope: assessing or self-checking document health (run by the runtime, a linter or CI)
 recommended_scope: user
 status: active
@@ -28,12 +28,14 @@ For each document:
 
 ## 2. Link graph health
 
-For the repository-wide Markdown link graph:
+For the repository-wide Markdown link graph.
+
+An **entry document** is one a reader reaches without following a link: the README, any INDEX.md, and any other root-level document the project designates as one. Both criteria below that speak of reachability use this same set; measuring one of them from the README alone and the other from a wider set makes them disagree about the same graph.
 
 - [ ] **No broken links**: every relative link resolves to an existing file or anchor
-- [ ] **No orphaned documents**: every document is reachable by link from the README or its INDEX.md
-- [ ] **No circular references**: A→B→A counts as a cycle
-- [ ] **Chain length ≤ 4**: the shortest path from the README to any document is at most 4 hops
+- [ ] **No orphaned documents**: every document is reachable by link from an entry document. A tombstone is exempt — a document kept only so that a link arriving from outside still lands somewhere, and which says on its face that nothing inside links to it any more
+- [ ] **Every deferral resolves**: where a document sends the reader elsewhere for a definition, following that chain arrives at the definition. Mutual links are not a defect, and neither is an index linking its members while they link back — those are how a graph is navigated, and a project whose documents cross-reference each other well will have many. What this forbids is following "the answer is over there" from document to document and arriving back where you started with nothing. It is a judgement about content, not a computation on edges: a cycle detector answers a different question and must not be run in its place
+- [ ] **Chain length ≤ 4**: the shortest path from an entry document to any document is at most 4 hops
 - [ ] **External URLs** are format-checked only — no HEAD requests
 
 ---
@@ -66,6 +68,7 @@ For the governance document layers (mission / vision / goals / roadmap / require
 
 - [ ] **No layer runs ahead of the one above it**: requirements must trace to a roadmap node; designs must trace to a requirement; tasks must trace to a design
 - [ ] **The frontmatter `parent` field** points at the correct upstream
+- [ ] **The `parent` chain terminates**: following `parent` upward from any document reaches a root in a finite number of steps — no document is its own ancestor
 - [ ] **Completion is computed bottom-up**: when all children are done, the parent counts as done
 
 ---
@@ -75,8 +78,10 @@ For the governance document layers (mission / vision / goals / roadmap / require
 - ❌ One field defined and maintained independently in 2 or more documents — an SSOT violation
 - ❌ Documentation out of step with the code, such as a README listing a capability that was removed
 - ❌ A timestamped filename for an artifact_type that does not allow one, such as a requirement or a spec
-- ❌ An orphaned document that nothing links to
-- ❌ A circular reference (A → B → C → A)
+- ❌ An orphaned document that nothing links to, and that is not a tombstone saying so
+- ❌ A definition that defers to a second document which defers back, so that following it never reaches the definition
+- ❌ A `parent` chain that closes on itself, leaving no document in it with an upstream
+- ❌ Reporting mutual links, or an index and its members, as a link-graph defect
 - ❌ A misplaced parent across layers — a task whose `parent:` points at a requirement rather than a design
 
 ---
