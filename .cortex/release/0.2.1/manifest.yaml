@@ -6,7 +6,7 @@ release_channel: stable
 version_source: git tag
 commit: 94196bb9fbf0e30bd9a53bdb02c321f28ddb111c
 range: v0.2.0..94196bb9f
-status: ready
+status: published
 
 version_domains:
   product:
@@ -114,3 +114,18 @@ checks:
     evidence: 54 perturbations, every one producing the expected verdict
   - command: npx markdownlint-cli2
     status: pass
+
+publication:
+  tag: v0.2.1
+  tag_sha: ef611869d38cabb04955784419c6a96148d9c925
+  tag_offset: >-
+    One commit past `commit`, which records the release content. A manifest
+    cannot carry the hash of the commit containing it; the extra commit adds
+    only the ready status.
+  provider: github
+  release_url: https://github.com/nesnilnehc/ai-cortex/releases/tag/v0.2.1
+  release_body_source: .cortex/release/0.2.1/release-notes.md
+  latest: true
+  rollback: >-
+    `gh release delete v0.2.1` then `git push origin :refs/tags/v0.2.1` and
+    `git tag -d v0.2.1`. Anyone who already fetched the tag keeps it.
