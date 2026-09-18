@@ -8,6 +8,10 @@
 
   The four obligations are deciding untrusted input at the boundary it enters, stopping once an invariant is known broken, detecting at the earliest declared layer, and giving a person the next action or a program a stable identifier. The Skill joins `orchestrate-code-review` as a seventh cognitive step.
 
+- `orchestrate-code-review` 1.2.0 → 1.3.0 for the dispatch step it gained.
+
+  A new step is a MINOR bump under CONTRIBUTING's versioning rules. Caught by the release gate rather than by a check: the file was edited in this range and its version was not, which is exactly the thing a consuming project would read wrong.
+
 - ERR-006 turns this repository's own experience into an obligation: a check whose findings are mostly legitimate use must be narrowed, retargeted or withdrawn rather than left for readers to filter.
 
   A report that is mostly legitimate teaches its readers to skim, which costs more than the check was ever worth.
