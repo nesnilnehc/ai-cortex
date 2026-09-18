@@ -184,13 +184,48 @@ def validate(path: pathlib.Path, index_text: str) -> tuple[list[str], set[str]]:
     return errors, ids
 
 
+def unparsed_modeled(path: pathlib.Path, text: str) -> str | None:
+    """Report a file that means to be a modeled Rule but was not read as one.
+
+    A file whose frontmatter does not parse, or whose model field is spelt
+    wrongly, falls out of the modeled list and is then never validated. The run
+    stays green and the count printed at the end quietly drops by one, which
+    nothing compares against anything. Two signals say a file meant to be
+    modeled: it declares a model field of some other value, or its body carries
+    the `### ABC-001 — ...` item headings only a modeled Rule has.
+    """
+    declared = parse_frontmatter(text).get("model")
+    if declared == "RULE_MODEL_V1":
+        return None
+    name = path.name
+    if declared:
+        return f"{name}: model is {declared!r}; a modeled Rule declares RULE_MODEL_V1 exactly"
+    if ITEM_HEADING.search(text):
+        found = ITEM_HEADING.search(text).group(1)
+        return (
+            f"{name}: carries modeled Rule items ({found}) but no RULE_MODEL_V1 frontmatter was read. "
+            "Check that the file opens with --- on its first line and declares model: RULE_MODEL_V1"
+        )
+    return None
+
+
 def main() -> int:
     candidates = sorted(RULES_DIR.glob("*.md"))
+    texts = {path: path.read_text(encoding="utf-8") for path in candidates}
+    excluded = [
+        reason
+        for path in candidates
+        if (reason := unparsed_modeled(path, texts[path])) is not None
+    ]
+    if excluded:
+        print("Rule documents that mean to be modeled but were not read as modeled:")
+        for reason in excluded:
+            print(f"- {reason}")
+        return 1
     modeled = [
         path
         for path in candidates
-        if parse_frontmatter(path.read_text(encoding="utf-8")).get("model")
-        == "RULE_MODEL_V1"
+        if parse_frontmatter(texts[path]).get("model") == "RULE_MODEL_V1"
     ]
     index_text = INDEX.read_text(encoding="utf-8")
     all_errors: list[str] = []
