@@ -3,7 +3,7 @@ name: review-architecture
 description: "Review code against the canonical architecture quality Rule set, including boundaries, dependency direction, cohesion, cycles, contract stability, coupling, composition, change surface, unreachable code and deprecation discipline. Cognitive-only atomic skill; output is a findings list."
 description_zh: 依据权威架构质量规则审查边界、依赖方向、内聚性、循环、契约稳定性、耦合、装配、变更面、无人调用的代码与废弃标记纪律。
 tags: [code-review, cognitive, architecture]
-version: 2.1.0
+version: 2.1.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -114,15 +114,3 @@ Expected: emit a `minor` finding citing ARC-010. The deletion rests on a tool th
 Input: a `@deprecated` annotation on `api.v1.SearchRequest` names its replacement but records neither an owner nor a release or date by which it goes.
 
 Expected: emit a `minor` finding citing ARC-011, naming the two missing fields rather than the marker in general. A marker on a dependency the project does not own is not applicable, and a recorded removal point already past is a finding only when nothing was removed and no renewal was recorded.
-
-## Change record
-
-- Externalized architecture criteria to `rules/architecture-quality.md`.
-- Added profile, parameter, waiver and coverage semantics.
-- Preserved the `code-scope -> findings-list` contract and category.
-
-Version `2.0.0` is intentional: the source of truth and completeness semantics changed, even though the I/O artifact types remain compatible.
-
-Version `2.0.1` removes a stale example pin so the Skill always reports the active Rule version it loaded.
-
-Version `2.1.0` adds worked examples for ARC-010 and ARC-011, the two lifecycle items `architecture-quality` 1.1.0 introduced. Both turn on a distinction a reviewer gets wrong by default: an analyzer reporting nothing is not a pass for what it cannot resolve.

@@ -3,7 +3,7 @@ name: review-security
 description: "Review code and configuration against the canonical security quality Rule set. Resolves trust-boundary profiles, gathers tool-assisted evidence and emits findings traceable to stable Rule IDs."
 description_zh: 依据权威安全质量规则审查代码与配置，解析信任边界配置并输出可追溯 findings。
 tags: [code-review, cognitive, security]
-version: 2.0.0
+version: 2.0.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -78,11 +78,3 @@ Trace request input to a string-built process command. Emit a `critical` finding
 ### Example 2: dependency scan unavailable
 
 For a lockfile change, inspect provenance and pinning but mark the vulnerability-assessment evidence for SEC-006 as limited; do not report it as passed.
-
-## Change record
-
-- Externalized all security criteria to `security-quality`.
-- Added profile, waiver, evidence-limitation and Rule-traceability behavior.
-- Preserved the `code-scope -> findings-list` contract and category.
-
-Version `2.0.0` reflects the new canonical policy source and completeness semantics.

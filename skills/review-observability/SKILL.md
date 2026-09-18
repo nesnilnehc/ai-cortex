@@ -3,7 +3,7 @@ name: review-observability
 description: "Review production telemetry against the canonical observability quality Rule set, including structured outcomes, correlation, SLIs, tracing, data safety, error ownership and background-work visibility."
 description_zh: 依据权威可观测性规则审查结构化结果、关联上下文、SLI、追踪、数据安全、错误归属与后台任务可见性。
 tags: [code-review, cognitive, observability]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -74,7 +74,3 @@ The producer starts a trace but omits context from message metadata. Emit an OBS
 ### Example 2: library-only change
 
 A pure parser emits no telemetry and crosses no process boundary. Mark service/profile items N/A; evaluate OBS-005 only if telemetry was added or changed.
-
-## Change record
-
-- Initial atomic observability reviewer using externalized, profile-aware Rule criteria.
