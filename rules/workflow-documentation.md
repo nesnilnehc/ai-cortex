@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: workflow-documentation
-version: 1.0.0
+version: 1.1.0
 scope: creating or maintaining any .md document
 recommended_scope: user
 status: active
@@ -34,11 +34,21 @@ Every act of creating, naming or maintaining a Markdown document (`.md`), coveri
 
 ### By body
 
-These patterns match Chinese-language document bodies, the repository's historical corpus. English documents need the equivalent grep set — `since v1.3` / `removed in` / `deprecated` / `TBD` / `as mentioned above` / `we decided` / `I recommend` — which is not yet enumerated here.
+Two sets, one per language corpus. The Chinese patterns match this repository's historical documents; the English ones match everything written since. Run both, because a single file can carry either.
+
+Chinese:
 
 - **Version-evolution narration**: `v\d+\.\d+ 起` / `v\d+\.\d+ 移除` / `v\d+\.\d+ 简化` / `v\d+\.\d+ 回撤` / `v\d+\.\d+ 引入`
 - **Section-heading suffixes**: `（新增）` / `（已废弃）` / `（v\d.\d 简化）` / `（v\d.\d 重写）`
 - **Process vocabulary**: `废弃` / `vaporware` / `待建` / `历史` / `原本` / `回撤` / `沿用历史` / `本次新增`
+
+English:
+
+- **Version-evolution narration**: `^Version \`?\d+\.\d+\.\d+` / `\b(since|as of) v?\d+\.\d+\b` / `\b(removed|added|simplified|reverted|introduced|dropped|renamed) in v?\d+\.\d+\b` / `\bv?\d+\.\d+ onwards?\b`
+- **Section-heading suffixes**: `^#{1,6} .*\((new|added|deprecated|removed|rewritten|simplified)\)\s*$`
+- **Process vocabulary**: `vaporware` / `\bfor historical reasons\b` / `\bnewly added\b` / `\bcarried over from\b` / `\bto be built later\b`
+
+Two candidates were measured against this repository and left out. `\bTBD\b` fired 19 times, nearly all of them Skills instructing an agent to write `TBD` where a value cannot be inferred, and Rules naming it as an anti-pattern. `\bto be built\b` fired on a metric whose data source is genuinely pending. A pattern whose hits are mostly legitimate trains a reader to skim the report, so neither is in the set; the narrower `to be built later` is.
 
 ### By conversational residue (product documentation specifically)
 
@@ -52,17 +62,21 @@ Shorthand, references and first-person narration established between an author a
 - **Backward reference** to conversation history rather than document history:
   - `如上(所述|所说|提到|讨论)` / `刚才(提到|说过|讨论)` / `前面(说过|提到|讨论)`
   - `我们(之前|刚才|刚刚|前面)` / `基于(我们|刚才|之前的)讨论`
+  - `\b(as|like) (mentioned|discussed|noted|stated) (above|earlier|previously)\b`
+  - `\bthe (earlier|previous|original) (discussion|conversation|proposal)\b` / `\bwe (just |earlier |previously )?(discussed|talked about|said)\b`
 
 - **First-person narration** carrying the author's viewpoint into product documentation:
   - `我(建议|认为|觉得|推荐)` / `我们(决定|选择|采用|认为)`
   - `经(讨论|协商|沟通)后`
+  - `\bI (recommend|suggest|think|believe|propose)\b` / `\bwe (decided|chose|agreed|concluded)\b`
+  - `\bafter (discussion|discussing|talking)\b`
 
 ### Exceptions (not treated as temporary documents)
 
 - The "change record" section at the top of a spec file — a local CHANGELOG, an accepted convention
 - An ADR's own "context / decision / alternatives / consequences" narration — that is its genre
 - The whole of `CHANGELOG.md`
-- **The example fragments in this rule (`workflow-documentation.md`) that demonstrate the forbidden patterns** — a rule defining a no-go zone necessarily has to show those patterns as counter-examples, on the same reasoning as the blanket CHANGELOG exception
+- **A pattern quoted as a labelled counter-example** — in this rule, which defines a no-go zone and so has to display the forms it forbids, and equally in any Rule or Spec whose anti-pattern list quotes one. The label is what makes it a quotation rather than a use: `specs/adr-modeling.md` writing `write a rule, not "we decided to follow the convention"` is not a document narrating its own decision
 
 ---
 
