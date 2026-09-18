@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: standards-coding
-version: 1.0.1
+version: 1.0.2
 scope: all code in the repository, across languages
 recommended_scope: user
 status: active

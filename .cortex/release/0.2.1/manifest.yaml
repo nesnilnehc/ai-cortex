@@ -1,0 +1,116 @@
+schema_version: RELEASE_PACKAGE_SPEC_V1
+project: ai-cortex
+decision: release
+version: 0.2.1
+release_channel: stable
+version_source: git tag
+commit: 1629c0c0d2240cfda01304641eda4255560a3b38
+range: v0.2.0..HEAD
+status: draft
+
+version_domains:
+  product:
+    current: 0.2.0
+    source: git tag
+    action: bump-patch
+  rules:
+    current: per-file frontmatter
+    source: rules/*.md
+    action: bumped 5 of 29 — the files this range edits
+  skills:
+    current: per-file frontmatter
+    source: skills/*/SKILL.md
+    action: preserve — no skill changed in this range
+  specs:
+    current: per-file frontmatter
+    source: specs/*.md
+    action: preserve — no spec changed in this range
+
+change_items:
+  - id: CI-0221-01
+    category: fixed
+    audience: customer
+    summary: >-
+      workflow-documentation's version-narration pattern sat in a single-backtick span around a
+      backtick, so it rendered wrong and could not be copied.
+    user_impact: A reader copying that pattern got a regex that does not compile.
+    source: e0bd5ad
+  - id: CI-0221-02
+    category: changed
+    audience: customer
+    summary: >-
+      workflow-documentation records which of its detection patterns CI runs and which need a reader.
+    user_impact: A reader no longer has to assume the whole list is enforced.
+    source: e0bd5ad
+  - id: CI-0221-03
+    category: changed
+    audience: customer
+    summary: Five rules take a patch bump; four of them changed only in frontmatter.
+    user_impact: A consuming project can tell from the version that these rules were edited.
+    source: 676bf72
+  - id: CI-0221-04
+    category: internal
+    audience: internal
+    summary: >-
+      Six repository checks now block a merge, each with a fixture suite, and a mutation harness
+      requires every suite to fail when its checker is broken.
+    user_impact: None — these run on this repository and are not installed.
+    source: 7daec58, 027a5d4
+  - id: CI-0221-05
+    category: internal
+    audience: internal
+    summary: CLAUDE.md, AGENTS.md and the README corrected where they described bin/cortex wrongly.
+    user_impact: None for an installed asset; the README's upgrade section is now accurate for anyone reading it.
+    source: e857fd1, 3cede28, ba06e9c
+
+artifacts:
+  changelog:
+    kind: changelog
+    audience: technical
+    path: CHANGELOG.md
+    required: true
+    status: present
+    source: change_items
+  release_notes:
+    kind: release_notes
+    audience: customer
+    path: .cortex/release/0.2.1/release-notes.md
+    required: true
+    status: present
+    source: change_items
+    note: >-
+      Not RELEASE_NOTES.md as the Spec's example shows. That path fails this repository's own
+      checks twice — an orphaned document, and NOTES on the process-record filename list.
+  manifest:
+    kind: manifest
+    audience: internal
+    path: .cortex/release/0.2.1/manifest.yaml
+    required: true
+    status: present
+    source: change_items
+  video:
+    kind: video
+    audience: customer
+    path: null
+    required: false
+    status: skipped
+    source: change_items
+
+checks:
+  - command: python3 scripts/check-markdown-links.py
+    status: pass
+  - command: python3 scripts/check-doc-hygiene.py
+    status: pass
+  - command: python3 scripts/check-asset-counts.py
+    status: pass
+  - command: python3 scripts/check-cortex-docs.py
+    status: pass
+  - command: python3 scripts/validate-rules.py
+    status: pass
+  - command: python3 scripts/sync-skills-index.py --check
+    status: pass
+  - command: python3 scripts/mutation-check.py
+    status: pass
+    evidence: 54 perturbations, every one producing the expected verdict
+  - command: npx markdownlint-cli2
+    status: pass
