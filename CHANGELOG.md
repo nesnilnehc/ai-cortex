@@ -40,6 +40,14 @@
 
   ERR-001: input the code does not control is rejected at the boundary it enters rather than accepted tolerantly and reinterpreted later.
 
+- The confirm-or-`--yes` branches in `bin/cortex` collapsed into one condition.
+
+  Seven sites read `if [ "$_yes" -eq 1 ]; then _do=1; else _confirm "..." && _do=1 || true; fi`. They now read `if [ "$_yes" -eq 1 ] || _confirm "..."; then _do=1; fi` — "already said yes, or confirms now" — and the seven `|| true` guards written only to survive `set -e` are gone.
+
+  Prompted by the first CI run of the shellcheck job: the runner carries shellcheck 0.9.0, which reports SC2015 on that shape, while 0.11.0 no longer does. The report is a false positive — `_do=1` is an assignment and cannot fail, so `|| true` only ran when the answer was no — but the shorter form is clearer on its own terms and is clean under both versions.
+
+  Equivalence was checked against a stubbed `_confirm` across all four combinations of `--yes` and the answer, comparing both the resulting flag and whether a prompt was shown: passing `--yes` still skips the prompt.
+
 ## [0.3.0] — 2026-09-18
 
 ### Added
