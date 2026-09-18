@@ -37,10 +37,11 @@ jobs:
         # demonstration, not a link. scripts/test-markdown-links.py pins that.
         run: python3 scripts/check-markdown-links.py
 
-      - name: orphaned documents and temporary filenames
-        # rules/doc-health-criteria.md §2 and rules/repo-structure-hygiene.md
-        # §4. Only what a path and a link graph can prove; whether a document
-        # is semantically stale still needs a reader.
+      - name: orphans, temporary filenames and unlabelled temporary documents
+        # rules/doc-health-criteria.md §2, rules/repo-structure-hygiene.md §4
+        # and rules/workflow-documentation.md. A body pattern identifies a
+        # document as temporary rather than condemning it; the finding is a
+        # temporary document that is not labelled as one.
         run: python3 scripts/check-doc-hygiene.py
 
   registry:
@@ -77,6 +78,9 @@ jobs:
 
       - name: markdown link checker
         run: python3 scripts/test-markdown-links.py
+
+      - name: document hygiene checker
+        run: python3 scripts/test-doc-hygiene.py
 
   translation-invariants:
     runs-on: ubuntu-latest
