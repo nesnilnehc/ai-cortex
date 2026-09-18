@@ -20,3 +20,5 @@ Two of the snapshots below are written in Chinese. They predate the English-firs
 ## Adding one
 
 Name the file `YYYY-MM-DD-{topic}-{functional,technical}-design.md`, fill in the frontmatter its Spec requires including `parent`, and append a row here. A design nothing links to cannot be found by a reader, and CI reports it as an orphan.
+
+Write it for someone who took part in no conversation. A snapshot is not revised once it is dated, so a sentence that leans on a discussion the reader cannot reach stays unhelpful for good: `2026-09-17-research-skills-technical-design.md` argues against a layout "from the earlier discussion", and nothing in the repository says which discussion or what it concluded. Name the option and the reason instead. The temporary-document check in CI does not catch this — a dated design in this directory is a labelled temporary document, which is exactly what it is allowed to be.
