@@ -24,6 +24,7 @@ jobs:
           globs: |
             **/*.md
             !.cortex/vendor/**
+            !tests/fixtures/**
 
   links:
     runs-on: ubuntu-latest
