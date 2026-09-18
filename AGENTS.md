@@ -31,7 +31,9 @@ This file is the execution contract for AI agents working inside this repository
 
 Skills follow the [agentskills.io](https://agentskills.io) standard format. This repository does not maintain a private skill spec.
 
-**Canonical install path**: `${XDG_DATA_HOME:-~/.local/share}/ai-cortex`, overridable with the `CORTEX_HOME` environment variable. Agents read `specs/`, `protocols/` and `rules/` directly from that path — no install step required.
+**Canonical install path**: `${XDG_DATA_HOME:-~/.local/share}/ai-cortex`. `CORTEX_HOME` overrides it, and `bin/cortex` run from inside a clone resolves to that clone instead.
+
+`specs/` and `protocols/` are read from that path directly; nothing installs them elsewhere. Rules divide by their `recommended_scope`: `bin/cortex` installs the `user` and `both` ones into each supported IDE's own rules directory, where they load as long-lived context, while `project` ones stay in the clone and are loaded on demand.
 
 ---
 
