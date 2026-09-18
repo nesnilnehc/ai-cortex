@@ -1,0 +1,51 @@
+{
+  "name": "plugin-host-application",
+  "note": "A host that loads handlers by name from configuration and instantiates them reflectively. Static analysis is weakest here, which is the shape ARC-010 exists for.",
+  "profiles": [
+    "dependency-injection"
+  ],
+  "allowed_dependencies": {},
+  "actual_edges": [],
+  "protected_contracts": [],
+  "breaking_contracts": [],
+  "change_budget": null,
+  "change_metrics": {
+    "files": 6,
+    "modules": 2,
+    "public_contracts": 0,
+    "data_migrations": 0
+  },
+  "expected_failed_rules": [
+    "ARC-010",
+    "ARC-011"
+  ],
+  "secret_candidates": [],
+  "changed_public_contracts": [],
+  "unreached_symbols": [
+    {
+      "symbol": "handlers.SettlementHandler",
+      "statically_resolvable": false,
+      "reached_by": "configuration",
+      "removed": true,
+      "runtime_signal_full_cycle": false,
+      "note": "deleted because the analyzer reported it unreached, with no runtime check"
+    },
+    {
+      "symbol": "handlers.registry._unused_index",
+      "statically_resolvable": true,
+      "removed": true
+    }
+  ],
+  "deprecations": [
+    {
+      "marker": "handlers.LegacyHandler",
+      "owner": "platform",
+      "removal_point": "2026-03-31",
+      "replacement": "handlers.Handler",
+      "removal_point_passed": true,
+      "removed": false,
+      "renewed": false,
+      "note": "the date passed with no removal and no renewal"
+    }
+  ]
+}
