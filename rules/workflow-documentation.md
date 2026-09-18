@@ -44,7 +44,7 @@ Chinese:
 
 English:
 
-- **Version-evolution narration**: `^Version \`?\d+\.\d+\.\d+` / `\b(since|as of) v?\d+\.\d+\b` / `\b(removed|added|simplified|reverted|introduced|dropped|renamed) in v?\d+\.\d+\b` / `\bv?\d+\.\d+ onwards?\b`
+- **Version-evolution narration**: `` ^Version `?\d+\.\d+\.\d+ `` / `\b(since|as of) v?\d+\.\d+\b` / `\b(removed|added|simplified|reverted|introduced|dropped|renamed) in v?\d+\.\d+\b` / `\bv?\d+\.\d+ onwards?\b`
 - **Section-heading suffixes**: `^#{1,6} .*\((new|added|deprecated|removed|rewritten|simplified)\)\s*$`
 - **Process vocabulary**: `vaporware` / `\bfor historical reasons\b` / `\bnewly added\b` / `\bcarried over from\b` / `\bto be built later\b`
 
@@ -104,6 +104,11 @@ Ask of each paragraph: **"could someone who joined the project today, and took p
 The cold-reader test is not fully replaceable by grep — what it catches is the semantic gap where the author's context is not the reader's context.
 
 ### 2. Grep blacklist scan (the automated backstop)
+
+Part of this list runs in CI and part does not, and the split is deliberate rather than unfinished. `scripts/check-doc-hygiene.py` runs the filename patterns, the version-evolution and process-vocabulary patterns of both corpora, and the English conversational residue. Three groups stay with the reader:
+
+- **Chinese conversational residue** and the **Chinese heading suffixes** match nothing in this repository — 0 and 3 hits, and all 3 sit inside immutable records that are exempt anyway. Automating them would add a check that fires on nothing.
+- **Conversational shorthand** (`` `\bL[0-9]+\b` `` and its neighbours) matches 156 times in live documents, nearly all of it defined terminology: `plan-next` alone accounts for 100 and defines L1 through L5 in a table. The criterion above says a shorthand is a leak *unless defined in this very document*, and no grep can decide that clause.
 
 Grep against the "Identifying a temporary document" list above — filename patterns, body patterns and conversational residue. On a hit, apply the "must be labelled" constraint:
 
