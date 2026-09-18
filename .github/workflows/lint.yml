@@ -64,7 +64,10 @@ jobs:
         # shellcheck is preinstalled on the runner rather than pinned through an
         # action, to avoid taking a third-party action as a dependency for one
         # binary invocation. The version is printed so a verdict that changes
-        # with the image is traceable to that, not to the script.
+        # with the image is traceable to that, not to the script — which is how
+        # the first run was diagnosed: the runner carries 0.9.0, which reports
+        # SC2015 on `a && b || true` where 0.11.0 no longer does. The script is
+        # now clean under both, so the image may move within that range.
         #
         # add-default-case is the one optional check turned on, because a `case`
         # with no *) arm is how every command here used to swallow a mistyped
