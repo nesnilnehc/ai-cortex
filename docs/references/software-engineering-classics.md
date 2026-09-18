@@ -71,7 +71,24 @@ A review finding must cite a canonical Rule ID and concrete evidence. “A book 
 | John Z. Sonmez, [*Soft Skills: The Software Developer's Life Manual*](https://www.manning.com/books/soft-skills-retired) | Career, communication, productivity, health and personal development | Maintainer education only; outside code and architecture gates |
 | Andy Hunt, [*Pragmatic Thinking and Learning*](https://www.pragprog.com/titles/ahptl/pragmatic-thinking-and-learning/) | Deliberate learning, cognitive bias awareness, focus and knowledge management | Contributor learning and retrospective practice; not an implementation finding category |
 
-## 8. Verified content anchors
+## 8. Failure surfacing and error presentation
+
+These sources ground [error-surfacing-quality](../../rules/error-surfacing-quality.md). Unlike the sections above, most are not books: the current normative statement is an RFC, and the human-facing criterion comes from empirically derived usability work. The evidence hierarchy in §1 puts both ahead of a classic on this topic.
+
+| Source | Durable contribution | AI Cortex use |
+| --- | --- | --- |
+| IETF, [RFC 9413 *Maintaining Robust Protocols*](https://www.rfc-editor.org/rfc/rfc9413.html), Thomson and Schinazi, June 2023 | Tolerating unexpected input causes protocol decay, where errors become de facto standards; tolerance is no longer best practice in all scenarios | ERR-001 |
+| Jim Shore, [*Fail Fast*](https://martinfowler.com/ieeeSoftware/failFast.pdf), IEEE Software 21(5), pages 21–25, September 2004 | Fail immediately and visibly on a broken invariant; assertions are the mechanism, and continuing carries the fault away from its cause | ERR-002 |
+| Alexis King, [*Parse, don't validate*](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/), November 2019 | Decide at the boundary and return a value that preserves what was decided, so downstream code cannot forget or repeat it | ERR-001, ERR-003 |
+| Jakob Nielsen, [10 Usability Heuristics](https://www.nngroup.com/articles/ten-usability-heuristics/), heuristic 9, 1990 with Molich and revised 1994 over 249 usability problems | An error message uses plain language, precisely indicates the problem and constructively suggests a solution | ERR-004 |
+| George Candea and Armando Fox, [*Crash-Only Software*](https://www.usenix.org/legacy/events/hotos03/tech/full_papers/candea/candea_html/index.html), HotOS-IX, May 2003 | One way to stop and one way to recover beats a separate graceful-shutdown path that is rarely exercised | ERR-002's boundary against reliability-quality |
+| Barry Boehm and Victor Basili, *Software Defect Reduction Top 10 List*, IEEE Computer, January 2001 | Post-delivery repair costs roughly 100 times a requirements-stage fix on large projects, and about 5 times on small non-critical ones | ERR-003 |
+
+**One source is recorded as counter-evidence.** Laurent Bossavit, *The Leprechauns of Software Engineering*, shows that the unattributed cost-of-change chart in wide circulation — the one ending at a neat 100x — has no traceable data behind it, and that the institution named as its source was an internal training programme. Cite the 2001 measured range above; a bare "100x" must not ground a finding.
+
+**Three ideas in this area have no citable source and are recorded as such.** "Make illegal states unrepresentable" is community vocabulary rather than a published result. The four elements of a good diagnostic — what failed, where, why, what to do — are this repository's reading of Elm and Rust compiler output, not a finding either project published. And ERR-006's threshold reasoning rests on measurements taken in this repository, which §1 places at the fourth tier: local evidence determines local applicability.
+
+## 9. Verified content anchors
 
 These anchors are available from the author or publisher material linked above. They make the influence inspectable without copying copyrighted text.
 
@@ -88,7 +105,7 @@ These anchors are available from the author or publisher material linked above. 
 
 A future Rule change that relies materially on a book should add an edition-specific chapter, section or item locator verified from an authorized copy or official contents. A work-level citation remains useful for discovery, but is not enough by itself to justify a blocking semantic change.
 
-## 9. Converting a source idea into a Rule
+## 10. Converting a source idea into a Rule
 
 Before an idea from any source becomes enforceable:
 
