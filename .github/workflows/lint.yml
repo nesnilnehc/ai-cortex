@@ -44,6 +44,40 @@ jobs:
         # temporary document that is not labelled as one.
         run: python3 scripts/check-doc-hygiene.py
 
+  shell:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: bin/cortex passes shellcheck
+        # bin/cortex is the only executable this repository ships, and the only
+        # code here that runs on someone else's machine: it links, prunes and
+        # removes paths under $HOME. Every markdown asset had a checker and the
+        # installer had none.
+        #
+        # Blocking from its first run because the script is already clean at the
+        # strictest severity, so anything reported later is a regression rather
+        # than a backlog to work off. --shell=sh is passed explicitly: the file
+        # header declares POSIX sh as a constraint, and reading the shebang
+        # would silently relax the check if someone retargeted it at bash.
+        #
+        # shellcheck is preinstalled on the runner rather than pinned through an
+        # action, to avoid taking a third-party action as a dependency for one
+        # binary invocation. The version is printed so a verdict that changes
+        # with the image is traceable to that, not to the script.
+        #
+        # add-default-case is the one optional check turned on, because a `case`
+        # with no *) arm is how every command here used to swallow a mistyped
+        # option: `clean --dryrun` read as no --dry-run and deleted for real.
+        # It guards the `case`-based parsers only — install and status take no
+        # options and reject their arguments in a plain loop, which no static
+        # check can see, so those two are held by review rather than by CI.
+        # The rest of the optional set stays off: require-variable-braces alone
+        # reports 423 brace-style preferences, which buys no defect.
+        run: |
+          shellcheck --version
+          shellcheck --shell=sh --severity=style --enable=add-default-case bin/cortex
+
   registry:
     runs-on: ubuntu-latest
     steps:
