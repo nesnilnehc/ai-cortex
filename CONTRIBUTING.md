@@ -7,7 +7,7 @@ Thanks for your interest in AI Cortex. This document covers how to contribute sk
 1. Fork the repository
 2. Create a branch: `git checkout -b feat/your-skill-name`
 3. Make your changes following the guidance below
-4. Open a pull request
+4. Run the [checks](#checks) and open a pull request
 
 ## Language
 
@@ -28,7 +28,7 @@ Skills follow the [agentskills.io](https://agentskills.io) standard format. Draf
 
 Research Skills use optional `metadata.ai_cortex_type` (`foundation`, `domain`, or `orchestrator`) and `metadata.ai_cortex_user_invocable` (`"true"` or `"false"`). Declare both together; the index generator validates and displays them. The flag is a repository routing contract, not a guarantee that every host hides an internal Skill. Use explicit local artifact handoffs between Skills and preserve the [Research Evidence](specs/research-evidence.md) and [Opportunity Package](specs/opportunity-package.md) contracts. The five public research names are a narrow [naming exception](docs/adr/0013-research-skill-entry-names.md).
 
-The new research Skills are original AI Cortex content. Only copy an external Skill through the vendored-source process below; a link to an external prompt is not a local implementation. Run `python3 scripts/test-skills-index.py`, `python3 scripts/sync-skills-index.py --check` and, for research artifact changes, `python3 scripts/test-research-artifacts.py` before opening a PR.
+The new research Skills are original AI Cortex content. Only copy an external Skill through the vendored-source process below; a link to an external prompt is not a local implementation. The [checks](#checks) below say what to run before opening a pull request.
 
 ### Externally derived skills
 
@@ -63,6 +63,25 @@ This project follows [Semantic Versioning](https://semver.org/). When you modify
 - **MAJOR** (1.0.0 → 2.0.0): breaking structural changes, including making a previously optional output format mandatory
 
 After bumping `version` in the SKILL.md frontmatter, run `python3 scripts/sync-skills-index.py` so any description, tag or trigger change reaches `skills/INDEX.md`.
+
+## Checks
+
+CI runs these on every pull request and they all block a merge, so run the ones your change touches first. Each prints what it validated rather than only a pass or fail.
+
+| Command | Run it when |
+| --- | --- |
+| `python3 scripts/check-markdown-links.py` | Any markdown change — relative links must resolve, and a Spec, Protocol or Rule must not link into `skills/` |
+| `python3 scripts/check-doc-hygiene.py` | Any markdown change — orphaned documents, temporary filenames, and a temporary document that is not labelled as one |
+| `python3 scripts/sync-skills-index.py --check` | A skill's frontmatter changed; regenerate with the same script without `--check` |
+| `python3 scripts/validate-rules.py` | A modeled Rule document changed |
+| `python3 scripts/test-rule-scenarios.py` | A modeled Rule item changed, or its fixtures did |
+| `python3 scripts/test-skills-index.py`, `python3 scripts/test-research-artifacts.py`, `python3 scripts/test-markdown-links.py`, `python3 scripts/test-doc-hygiene.py` | The generator or checker they cover changed |
+| `python3 scripts/mutation-check.py` | A checker, its fixtures, or `rules/task-quality.md` changed |
+| `npx markdownlint-cli2 "**/*.md" "!.cortex/vendor/**" "!tests/fixtures/**"` | Any markdown change |
+
+`mutation-check.py` is the one that needs explaining. Every other check reports a verdict, and a clean verdict proves nothing on its own — a checker that has stopped looking returns exactly the same thing. This one perturbs what each checker reads and requires the verdict to change: a defect seeded into a checker must turn its fixture test red, an edit to an already-translated document must be blocked by the translation verifier, and two controls must be allowed through, or the verifier is refusing everything rather than catching anything.
+
+A perturbation whose pattern no longer matches its target fails the run rather than being skipped. So a refactor that moves the code a case quotes, or an edit to `rules/task-quality.md`, means updating the case — that coupling is the point. Its predecessor skipped instead, and eleven of its fifteen cases had quietly stopped matching before anyone noticed.
 
 ## Code of conduct
 
