@@ -3,7 +3,7 @@ name: review-tasks
 description: "Review an existing task list against its modeling Spec and canonical quality Rule before assignment or coding, including design coverage, affected scope, Rule references and verification evidence."
 description_zh: 在分派或编码前依据任务规范和权威质量规则审查任务列表，包括设计覆盖、影响面、规则引用与验证证据。
 tags: [review, tasks, pre-coding]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: both
 metadata:
@@ -76,7 +76,3 @@ A task changes two declared modules but has no affected-scope or ARC verificatio
 ### Example 2: local documentation task
 
 If the technical design has no engineering quality mapping and the task changes one document, do not require governance annotations.
-
-## Change record
-
-- Initial atomic reviewer for task readiness and engineering-governance annotations.

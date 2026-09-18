@@ -3,7 +3,7 @@ name: review-testing
 description: "Review changed behavior and tests against the canonical testing quality Rule set, including direct oracles, boundary paths, integration assembly, contracts, determinism, doubles and coverage evidence."
 description_zh: 依据权威测试质量规则审查行为断言、边界路径、集成装配、契约、确定性、测试替身与覆盖证据。
 tags: [code-review, cognitive, testing]
-version: 2.0.0
+version: 2.0.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -77,10 +77,3 @@ Unit tests instantiate a new handler directly, but production registration is ab
 ### Example 2: line coverage without an oracle
 
 A branch executes but no assertion distinguishes the required outcome. Emit a TST-001 finding; do not accept the coverage percentage as proof.
-
-## Change record
-
-- Externalized adequacy criteria to `testing-quality` while retaining `standards-test-code` for construction.
-- Added profile, evidence limitation, waiver and Rule-traceability semantics.
-
-Version `2.0.0` reflects the new canonical policy source and completeness semantics.
