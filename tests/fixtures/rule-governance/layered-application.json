@@ -52,6 +52,8 @@
     "ARC-002",
     "ARC-003",
     "ARC-009",
+    "ARC-010",
+    "ARC-011",
     "SEC-003"
   ],
   "secret_candidates": [
@@ -62,5 +64,22 @@
       "redacted_in_telemetry": true
     }
   ],
-  "changed_public_contracts": []
+  "changed_public_contracts": [],
+  "unreached_symbols": [
+    {
+      "symbol": "billing.legacy.ReportBuilder",
+      "statically_resolvable": true,
+      "removed": false,
+      "live_consumer_evidence": null
+    }
+  ],
+  "deprecations": [
+    {
+      "marker": "billing.legacy.ReportBuilder",
+      "owner": null,
+      "removal_point": null,
+      "replacement": "billing.reporting.Builder",
+      "removal_point_passed": false
+    }
+  ]
 }

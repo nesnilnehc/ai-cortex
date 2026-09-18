@@ -68,5 +68,39 @@
       "compatibility_tests": [],
       "versioned_migration_tested": false
     }
+  ],
+  "unreached_symbols": [
+    {
+      "symbol": "jobs.QuarterlyCloseTask",
+      "statically_resolvable": false,
+      "reached_by": "configuration",
+      "removed": false,
+      "live_consumer_evidence": "scheduler invocations, 1 full close cycle"
+    },
+    {
+      "symbol": "jobs.LegacyExportTask",
+      "statically_resolvable": false,
+      "reached_by": "reflection",
+      "removed": true,
+      "runtime_signal_full_cycle": true
+    },
+    {
+      "symbol": "internal.util.unused_helper",
+      "statically_resolvable": true,
+      "removed": true
+    }
+  ],
+  "deprecations": [
+    {
+      "marker": "api.v1.SearchRequest",
+      "owner": "search-platform",
+      "removal_point": "2027-01-31",
+      "replacement": "api.v2.SearchRequest",
+      "removal_point_passed": false
+    },
+    {
+      "marker": "vendor.sdk.OldClient",
+      "external_dependency": true
+    }
   ]
 }
