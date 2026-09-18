@@ -85,6 +85,10 @@ CI runs these on every pull request and they all block a merge, so run the ones 
 
 A perturbation whose pattern no longer matches its target fails the run rather than being skipped. So a refactor that moves the code a case quotes, or an edit to `rules/task-quality.md`, means updating the case — that coupling is the point. Its predecessor skipped instead, and eleven of its fifteen cases had quietly stopped matching before anyone noticed.
 
+## Releasing
+
+Releases go through `prepare-release` and then `publish-release`, never by hand. [docs/guides/releasing.md](docs/guides/releasing.md) covers what counts as worth releasing, how the independent version domains work, and the three details that are easy to get wrong.
+
 ## Code of conduct
 
 See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md). Report security issues privately per [SECURITY.md](SECURITY.md) rather than opening a public issue.
