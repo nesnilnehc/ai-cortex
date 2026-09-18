@@ -3,7 +3,7 @@ name: review-implementation-alignment
 description: "Compare an implemented change and its verification evidence with approved requirements, designs and tasks. Post-coding atomic functional-alignment review; outputs findings without repairing."
 description_zh: 对比已实现变更及验证证据与已批准的需求、设计和任务；编码后原子对齐审查，只输出 findings。
 tags: [review, implementation, alignment, post-coding]
-version: 1.0.0
+version: 1.1.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -30,6 +30,8 @@ Find omissions, scope drift, contract/data divergence, missing production wiring
 ## Scope boundaries
 
 This Skill compares approved artifacts, code and evidence. Intrinsic engineering quality belongs to `orchestrate-code-review`; test execution belongs to `automate-tests`; fixes and repetition belong to `orchestrate-repair-loop`.
+
+Two neighbouring cases are easy to file here by mistake. Delivered code that nothing reaches **is** this Skill's: ALN-003 requires each in-scope design element to have a reachable production implementation. The implementation a change replaced and left behind is **not**: it belongs to ARC-010 of [architecture-quality](../../rules/architecture-quality.md), which `review-architecture` runs over the same scope in the sibling engineering gate. Name it and move on rather than emitting a finding for it.
 
 ## Use cases
 
@@ -78,3 +80,5 @@ The repository maps a new field, but the API response omits it. Emit ALN-004 wit
 ## Change record
 
 - Initial post-coding alignment reviewer externalizing criteria to a canonical Rule.
+
+Version `1.1.0` names the boundary against ARC-010 in the scope section. Leftover code from a replaced implementation reads like an alignment defect and is not one; the engineering gate already covers it, and stating which side owns it keeps the two gates from both reporting or both skipping it.
