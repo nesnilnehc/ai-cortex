@@ -8,6 +8,7 @@
 
 ### Changed
 
+- `CLAUDE.md` stops telling an agent there is nothing to run. It said the repository was not a code project and that `package.json` had an empty `scripts` — there is no `package.json` at all, it went with the agent.yaml and manifest mechanisms, and there are now fourteen Python scripts of which CI runs thirteen. The instruction not to reach for npm stays, with a reason that is true; the briefing points at the checks and names `scripts/` and `tests/fixtures/` as working areas beside the markdown. The registry trap also says the skills index is generated and that the other three are maintained by hand.
 - `docs/designs/README.md` tells the next author to write for someone who took part in no conversation. A snapshot is not revised once dated, so a sentence leaning on a discussion the reader cannot reach stays unhelpful permanently — the research technical design argues against a layout "from the earlier discussion" and nothing records which one. The existing snapshot stays as written; rewriting its prose would falsify what it recorded. CI cannot catch this either, because a dated design in that directory is a labelled temporary document, which is what it is entitled to be.
 - The README states the protocol layer's count alongside the other three. One protocol is not a gap in a layer that needs a single document, and leaving the number out read as an omission.
 
