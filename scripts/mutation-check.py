@@ -47,6 +47,8 @@ COUNTS = "scripts/check-asset-counts.py"
 COUNTS_TEST = "scripts/test-asset-counts.py"
 CORTEX = "scripts/check-cortex-docs.py"
 CORTEX_TEST = "scripts/test-cortex-docs.py"
+VERSIONS = "scripts/check-asset-versions.py"
+VERSIONS_TEST = "scripts/test-asset-versions.py"
 TRANSLATED = "rules/task-quality.md"
 VERIFIER = "scripts/verify-translation.py"
 
@@ -198,6 +200,24 @@ PERTURBATIONS = [
     code(CORTEX, CORTEX_TEST, "stop reporting a command no document mentions",
          '    for command in sorted(commands - set(mentions)):\n        problems.append(f"{SCRIPT} offers `{command}`, which none of {\', \'.join(DOCS)} mentions")\n',
          ""),
+    # The asset-version check. Each mutation removes one thing it decides; the
+    # decision is small enough that a silent regression would look exactly like
+    # a range with nothing wrong in it.
+    code(VERSIONS, VERSIONS_TEST, "stop reporting an edited asset whose version did not move",
+         "        if after == before:", "        if False:"),
+    code(VERSIONS, VERSIONS_TEST, "stop reporting an edited asset that lost its version",
+         '        if after is None:\n            findings.append(f"{path}: was edited and no longer declares a version")',
+         '        if False:\n            findings.append(f"{path}: was edited and no longer declares a version")'),
+    code(VERSIONS, VERSIONS_TEST, "stop reporting a new asset that declares no version",
+         "            if after is None:", "            if False:",
+         inside='        if status == "added":'),
+    code(VERSIONS, VERSIONS_TEST, "stop reporting a version that went backwards",
+         "        if old and new and new < old:", "        if False:"),
+    code(VERSIONS, VERSIONS_TEST, "count a Skill README as the versioned file",
+         '        return len(parts) == 3 and parts[2] == "SKILL.md"', "        return True"),
+    code(VERSIONS, VERSIONS_TEST, "count a registry index as a versioned asset",
+         '    if parts[-1] == "INDEX.md":\n        return False\n', ""),
+
     code(CORTEX, CORTEX_TEST, "read the dispatch without the dotall flag",
          'DISPATCH = re.compile(r"^case \\"\\$_cmd\\" in$(.*?)^esac$", re.MULTILINE | re.DOTALL)',
          'DISPATCH = re.compile(r"^case \\"\\$_cmd\\" in$(.*?)^esac$", re.MULTILINE)'),
