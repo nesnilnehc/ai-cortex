@@ -4,9 +4,11 @@ A briefing for Claude Code working in this repository.
 
 ## What this repository is
 
-Not a code project: a markdown asset library of skills, protocols, rules and specs. **Do not** try `npm test` / `npm run build` / `npm run verify` — this repository's `package.json` has an empty `scripts`, and there is nothing to run.
+Mostly a markdown asset library: skills, protocols, rules and specs. **NEVER** try `npm test` / `npm run build` — there is no `package.json`, and no JavaScript toolchain to reach for.
 
-The working tree is `skills/`, `protocols/`, `rules/` and `specs/`, and a change here means editing markdown.
+There is plenty to run, just not with npm. `scripts/` holds the checkers and their tests, CI runs them on every pull request, and [CONTRIBUTING.md](CONTRIBUTING.md) says which to run for which kind of change. Run them before opening one.
+
+The working tree is `skills/`, `protocols/`, `rules/` and `specs/` in markdown, plus `scripts/` and `tests/fixtures/` in Python.
 
 ## Where to go next
 
@@ -18,5 +20,5 @@ The working tree is `skills/`, `protocols/`, `rules/` and `specs/`, and a change
 ## Traps Claude Code falls into here
 
 - Skills follow the [agentskills.io](https://agentskills.io) standard format. This repository no longer maintains a private spec — there is no `agent.yaml`, no `manifest.json`, no `specs/skill.md`
-- After editing a SKILL.md, the only registry to update is `skills/INDEX.md`; there is no other
+- After editing a SKILL.md, the only registry to update is `skills/INDEX.md` — and it is generated, so run `python3 scripts/sync-skills-index.py` rather than editing it. The indexes under `rules/`, `specs/` and `protocols/` are hand-maintained; a new file there means a new row by hand
 - Older ADRs and CHANGELOG entries describe mechanisms that have since been deleted — manifest, agent.yaml, artifact-contract, Stage 0 Norms Resolution and others. Mind the timeline as you read, and do not go looking for files those descriptions name
