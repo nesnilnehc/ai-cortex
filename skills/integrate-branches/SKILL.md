@@ -247,7 +247,7 @@ For every entry in `<succeeded-list>`, present the branch list together:
 
 > "The successful entries are cleaned up. Delete the local feature branches below? Enter the indexes, `all`, or `none`:"
 >
-> ```
+> ```text
 > [1]  feat/user-auth  (was worktree)
 > [2]  feat/dashboard  (was branch)
 > ```
