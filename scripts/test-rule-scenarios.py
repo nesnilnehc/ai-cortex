@@ -1,5 +1,14 @@
 #!/usr/bin/env python3
-"""Forward-test the automated blocking Rule items on representative project shapes."""
+"""Forward-test Rule items whose decision is mechanical, on representative shapes.
+
+Every automated blocking item is here because constraint 8 of
+rules/workflow-rule-governance.md requires it. ARC-010 and ARC-011 are
+neither automated nor blocking, so they owe nothing, but the half of each
+that is mechanical — deciding an obligation once the evidence is in hand —
+is pinned here anyway, because that is where their sharp edge lives. What
+no fixture can test is the other half: gathering the evidence, and judging
+whether a recorded owner still owns anything.
+"""
 
 from __future__ import annotations
 
@@ -68,6 +77,33 @@ def evaluate_code(case: dict[str, object]) -> set[str]:
             failed.add("SEC-003")
         elif not candidate.get("redacted_in_telemetry", True):
             failed.add("SEC-003")
+
+    # ARC-010. Silence from an analyzer is not evidence about a symbol the
+    # analyzer cannot resolve, so a reflection- or configuration-reached symbol
+    # may be neither kept on its word nor deleted on its word.
+    for symbol in case.get("unreached_symbols", []):
+        if symbol.get("protected_public_contract"):
+            continue
+        if symbol.get("live_consumer_evidence"):
+            continue
+        if not symbol.get("removed"):
+            failed.add("ARC-010")
+        elif not symbol.get("statically_resolvable", True) and not symbol.get(
+            "runtime_signal_full_cycle"
+        ):
+            failed.add("ARC-010")
+
+    # ARC-011. A marker owes an owner, a removal point and a replacement, and a
+    # removal point already past owes an action or a renewal.
+    for marker in case.get("deprecations", []):
+        if marker.get("external_dependency"):
+            continue
+        if not all(marker.get(field) for field in ("owner", "removal_point", "replacement")):
+            failed.add("ARC-011")
+        elif marker.get("removal_point_passed") and not (
+            marker.get("removed") or marker.get("renewed")
+        ):
+            failed.add("ARC-011")
 
     if "public-contract" in profiles:
         for contract in case.get("changed_public_contracts", []):

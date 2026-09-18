@@ -29,5 +29,30 @@
       "compatibility_tests": [],
       "versioned_migration_tested": false
     }
+  ],
+  "unreached_symbols": [
+    {
+      "symbol": "legacy_parse_v1",
+      "protected_public_contract": true,
+      "statically_resolvable": true,
+      "removed": false
+    }
+  ],
+  "deprecations": [
+    {
+      "marker": "legacy_parse_v1",
+      "owner": "parsing-maintainers",
+      "removal_point": "3.0.0",
+      "replacement": "parse(..., strict=True)",
+      "removal_point_passed": false
+    },
+    {
+      "marker": "encode_legacy",
+      "owner": "parsing-maintainers",
+      "removal_point": "2026-06-30",
+      "replacement": "encode",
+      "removal_point_passed": true,
+      "renewed": true
+    }
   ]
 }
