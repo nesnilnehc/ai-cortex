@@ -2,7 +2,11 @@
 """Check the document-hygiene criteria CI can decide mechanically.
 
 Orphans come from rules/doc-health-criteria.md §2 — every document must be
-reachable by link from the README or an INDEX. Temporary filenames come from
+reachable by link from an entry document. This module is where that rule's
+"any other root-level document the project designates" is designated:
+ENTRY_FILENAMES below is the set, and a tombstone — a document marked
+`status: deprecated`, kept unlinked on purpose so a link from outside still
+lands — is exempt, per is_tombstone. Temporary filenames come from
 rules/repo-structure-hygiene.md §4 and rules/workflow-documentation.md — a
 backup extension, or a summarising word used as the name of a document.
 

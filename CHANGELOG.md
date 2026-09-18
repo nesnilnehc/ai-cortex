@@ -20,6 +20,16 @@
 
   Verified that the job can fail rather than only that it passes: removing any one of the three `*)` arms turns it red, and a prose-only edit leaves it green.
 
+### Changed
+
+- `doc-health-criteria` 1.0.0 → 2.0.0: the link-graph criteria now describe a healthy graph rather than forbidding the shape of one.
+
+  "No circular references: A→B→A counts as a cycle" was wrong, and wrong in the direction that penalises good structure. This repository violates it 72 times: 40 mutual links, where a Rule and its Spec point at each other, and 32 longer loops that are almost all an index linking its members while they link back. A project whose documents cross-reference each other well produces more of these, not fewer. Nothing ever ran the criterion, which is why it stood as long as it did — `check-doc-hygiene.py` implements the two criteria beside it and never implemented this one.
+
+  It is replaced by the harm it was reaching for: **every deferral resolves** — following "the answer is over there" from document to document must arrive at the answer. That is a judgement about content, and the rule now says so, and says a cycle detector must not be run in its place. The mechanical remainder moves to §5, where it is unambiguous: a `parent` chain must terminate, so no document is its own ancestor.
+
+  Two neighbouring criteria were corrected with it. The orphan criterion measured reachability from "the README or its INDEX.md" while the chain-length criterion measured from "the README" alone; §2 now defines an entry document once and both use it. From the entry set the checker actually uses, every document sits within 3 hops and none exceeds the limit; from the README alone, 78 are unreachable and 4 exceed it — same graph, two answers. The orphan criterion also gained the tombstone exemption `check-doc-hygiene.py` has implemented since it was written, and that module's docstring now states the entry set and the exemption instead of understating both.
+
 ### Fixed
 
 - `validate-rules.py` no longer lets a Rule that means to be modeled drop silently out of validation.
