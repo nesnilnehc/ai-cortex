@@ -4,7 +4,7 @@
 # around a list, renumbering an ordered list, promoting a bold label to a
 # heading, padding a table's delimiter row. That is a content revision, so the
 # rule is switched off rather than the record rewritten.
-extends: ../../.markdownlint.json
+extends: ../../.markdownlint.yaml
 MD029: false  # ol-prefix
 MD031: false  # blanks-around-fences
 MD032: false  # blanks-around-lists

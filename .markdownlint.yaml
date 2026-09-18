@@ -1,0 +1,27 @@
+# Every entry here is a decision, not a default. The reason sits beside it so
+# a later reader does not have to reconstruct it from git history.
+
+default: true
+
+# MD013 line-length: prose in this repository is written one paragraph per
+# line and wraps in the reader's editor, so a column limit measures nothing.
+MD013: false
+
+# MD024 no-duplicate-heading: the Rule and Spec documents repeat the same
+# field headings under different items by design. Only siblings collide.
+MD024:
+  siblings_only: true
+
+# MD036 no-emphasis-as-heading: a bold label groups a list inside a section
+# without entering the table of contents, and the repository uses that form
+# consistently across rules, specs and skills. Five instances also sit in
+# snapshot records that must not be restructured, so the rule has findings it
+# can never clear. Narrow the rule rather than reshape the documents.
+MD036: false
+
+# MD060 table-column-style: left at its default the rule measures each table
+# against whichever of aligned, compact and tight is closest, which leaves
+# findings its own fixer cannot resolve when two styles tie. Naming compact
+# matches the roughly 200 tables already written that way.
+MD060:
+  style: compact

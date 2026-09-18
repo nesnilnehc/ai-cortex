@@ -8,7 +8,7 @@
 # This also covers templates/, which is not a protected record. Its own
 # violations are under rules left enabled here, so nothing is lost by the
 # broader scope.
-extends: ../../.markdownlint.json
+extends: ../../.markdownlint.yaml
 MD029: false  # ol-prefix
 MD031: false  # blanks-around-fences
 MD032: false  # blanks-around-lists
