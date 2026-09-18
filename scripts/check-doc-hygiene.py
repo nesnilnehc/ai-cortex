@@ -1,13 +1,21 @@
 #!/usr/bin/env python3
-"""Check the two document-hygiene criteria CI can decide mechanically.
+"""Check the document-hygiene criteria CI can decide mechanically.
 
 Orphans come from rules/doc-health-criteria.md §2 — every document must be
 reachable by link from the README or an INDEX. Temporary filenames come from
 rules/repo-structure-hygiene.md §4 and rules/workflow-documentation.md — a
 backup extension, or a summarising word used as the name of a document.
 
+The third check reads rules/workflow-documentation.md the way the rule is
+written: a body pattern does not condemn a document, it identifies it as a
+temporary one, and constraint 4 then requires such a document to carry a date
+prefix or a `.draft` suffix and to live in a dedicated directory. A dated
+design snapshot narrating its own history is therefore compliant; the same
+sentence in a Spec or a Skill is not.
+
 Whether a document is *semantically* stale is not decided here; that needs a
-reader. This script only reports what a path and a link graph can prove.
+reader. This script only reports what a path, a link graph and a literal
+pattern can prove.
 """
 
 from __future__ import annotations
@@ -60,6 +68,47 @@ TEMP_NAME_TOKENS = {
     "COPY",
 }
 TEMP_SUFFIXES = (".bak", ".tmp", ".orig", ".swp", ".rej")
+
+# rules/workflow-documentation.md, "Identifying a temporary document". Version
+# narration and conversational residue, in both corpora. A hit says the
+# document is a temporary one, not that it is wrong.
+TEMPORARY_BODY = (
+    re.compile(r"^Version `?\d+\.\d+\.\d+"),
+    re.compile(r"\b(?:since|as of) v?\d+\.\d+\b", re.I),
+    re.compile(
+        r"\b(?:removed|added|simplified|reverted|introduced|dropped|renamed) in v?\d+\.\d+\b",
+        re.I,
+    ),
+    re.compile(r"\bv?\d+\.\d+ onwards?\b", re.I),
+    re.compile(r"^#{1,6} .*\((?:new|added|deprecated|removed|rewritten|simplified)\)\s*$", re.I),
+    re.compile(r"\bfor historical reasons\b", re.I),
+    re.compile(r"\bnewly added\b", re.I),
+    re.compile(r"\bcarried over from\b", re.I),
+    re.compile(r"\bto be built later\b", re.I),
+    re.compile(r"\b(?:as|like) (?:mentioned|discussed|noted|stated) (?:above|earlier|previously)\b", re.I),
+    re.compile(r"\bthe (?:earlier|previous|original) (?:discussion|conversation|proposal)\b", re.I),
+    re.compile(r"\bwe (?:just |earlier |previously )?(?:discussed|talked about|said)\b", re.I),
+    re.compile(r"\bI (?:recommend|suggest|think|believe|propose)\b"),
+    re.compile(r"\bwe (?:decided|chose|agreed|concluded)\b", re.I),
+    re.compile(r"\bafter (?:discussion|discussing|talking)\b", re.I),
+    re.compile("v\\d+\\.\\d+ (?:起|移除|简化|回撤|引入)"),
+)
+
+# A document may be labelled temporary two ways at once, and needs both.
+DEDICATED_DIRS = ("docs/designs/", "experiments/", "meetings/")
+DATED_NAME = re.compile(r"^\d{4}-\d{2}-\d{2}-")
+
+# Its genre is narration; the changelog is narration; and the rule that names
+# these patterns has to spell them out.
+BODY_EXEMPT_FILES = ("CHANGELOG.md", "rules/workflow-documentation.md")
+BODY_EXEMPT_DIRS = ("docs/adr/",)
+
+# A pattern shown rather than used: under an anti-pattern heading, marked with
+# a cross, or inside quotation marks. The last one carries most of the weight —
+# `write a rule, not "we decided to follow the convention"` quotes the form it
+# forbids.
+QUOTING_HEADING = re.compile(r"anti-?pattern|bad pattern|counter-?example|remediation", re.I)
+QUOTED_SPAN = re.compile(r"\"[^\"]*\"|\u201c[^\u201d]*\u201d")
 
 
 def in_scope(path: pathlib.Path) -> bool:
@@ -145,10 +194,59 @@ def find_temp_names(files: set[pathlib.Path]) -> list[tuple[pathlib.Path, str]]:
     return sorted(hits.items())
 
 
+def is_labelled_temporary(relative: pathlib.Path) -> bool:
+    """A temporary document carries a dated or draft name inside a dedicated directory."""
+    posix = relative.as_posix()
+    named = bool(DATED_NAME.match(relative.name)) or relative.name.endswith(".draft.md")
+    return named and any(posix.startswith(d) for d in DEDICATED_DIRS)
+
+
+def temporary_markers(path: pathlib.Path) -> list[tuple[int, str]]:
+    """Lines that identify this document as a temporary one, quotations excluded."""
+    found: list[tuple[int, str]] = []
+    in_fence = False
+    under_quoting_heading = False
+    for number, line in enumerate(path.read_text(encoding="utf-8").split("\n"), 1):
+        if line.lstrip().startswith("```"):
+            in_fence = not in_fence
+            continue
+        if in_fence:
+            continue
+        if line.startswith("#"):
+            under_quoting_heading = bool(QUOTING_HEADING.search(line))
+        if under_quoting_heading or "❌" in line:
+            continue
+        bare = QUOTED_SPAN.sub("", line)
+        for pattern in TEMPORARY_BODY:
+            if pattern.search(bare):
+                found.append((number, line.strip()))
+                break
+    return found
+
+
+def find_unlabelled_temporary(
+    files: set[pathlib.Path], root: pathlib.Path = ROOT
+) -> list[tuple[pathlib.Path, list[tuple[int, str]]]]:
+    """Exemptions are by repository-relative path, so the root is a parameter."""
+    hits = []
+    for path in sorted(files):
+        relative = path.relative_to(root)
+        posix = relative.as_posix()
+        if posix in BODY_EXEMPT_FILES or any(posix.startswith(d) for d in BODY_EXEMPT_DIRS):
+            continue
+        if is_labelled_temporary(relative):
+            continue
+        markers = temporary_markers(path)
+        if markers:
+            hits.append((path, markers))
+    return hits
+
+
 def main() -> int:
     files = markdown_files()
     orphans = find_orphans(files)
     temp_names = find_temp_names(files)
+    unlabelled = find_unlabelled_temporary(files)
 
     if orphans:
         print("Orphaned documents — nothing links here, so no reader can find them:")
@@ -167,10 +265,26 @@ def main() -> int:
             "or delete it. See rules/repo-structure-hygiene.md §4."
         )
 
-    if orphans or temp_names:
+    if unlabelled:
+        print("Temporary documents that are not labelled as temporary:")
+        for path, markers in unlabelled:
+            print(f"- {path.relative_to(ROOT)}")
+            for number, line in markers:
+                print(f"    :{number}  {line[:100]}")
+        print(
+            "  A body narrating its own version history or citing a conversation makes a "
+            "document temporary. Fix: move the narration to CHANGELOG.md, an issue or a PR, "
+            "or move the document under a dated name in a dedicated directory. See "
+            "rules/workflow-documentation.md."
+        )
+
+    if orphans or temp_names or unlabelled:
         return 1
 
-    print(f"Checked {len(files)} documents: no orphans, no temporary filenames.")
+    print(
+        f"Checked {len(files)} documents: no orphans, no temporary filenames, "
+        "no unlabelled temporary documents."
+    )
     return 0
 
 

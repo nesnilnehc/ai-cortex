@@ -1,0 +1,3 @@
+# Skill
+
+A nested layout from the earlier discussion would require installer changes.
