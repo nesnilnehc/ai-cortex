@@ -31,7 +31,7 @@ A decision owner should be able to answer: Which problem and audience are at sta
 ### 5.1 Package fields
 
 | Field | Type | Required | Meaning |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `schema_version` | string | yes | `"1.0"` |
 | `package_id` | string | yes | Stable package identity |
 | `status` | enum | yes | `draft` or `ready_for_decision` |

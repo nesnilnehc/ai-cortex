@@ -1,0 +1,16 @@
+# An ADR body is a decision record, and rules/adr-management.md §4 allows only
+# the status field and markup that no longer resolves to be edited. Every rule
+# disabled here would be fixed by restructuring prose — inserting blank lines
+# around a list, renumbering an ordered list, promoting a bold label to a
+# heading, padding a table's delimiter row. That is a content revision, so the
+# rule is switched off rather than the record rewritten.
+#
+# This also covers templates/, which is not a protected record. Its own
+# violations are under rules left enabled here, so nothing is lost by the
+# broader scope.
+extends: ../../.markdownlint.json
+MD029: false  # ol-prefix
+MD031: false  # blanks-around-fences
+MD032: false  # blanks-around-lists
+MD036: false  # no-emphasis-as-heading
+MD060: false  # table-column-style

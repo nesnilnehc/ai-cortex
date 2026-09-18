@@ -21,7 +21,7 @@ Applies to code changes and their automated verification. These criteria complem
 ## Profiles and parameters
 
 | Name | Kind | Provenance | Meaning |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `public-contract` | profile | — | A released API, event, persisted format or CLI contract changes |
 | `integration-boundary` | profile | — | Behavior depends on wiring, serialization, storage or a remote boundary |
 | `critical-path` | profile | — | Failure can cause data loss, security impact or core user-journey failure |
@@ -34,7 +34,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TST-001 — Changed behavior has a direct oracle
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Every changed observable behavior **MUST** have at least one automated test whose assertion would fail if that behavior were absent or wrong. |
 | Applies when | Production behavior changes. |
@@ -48,7 +48,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TST-002 — Error and boundary paths are verified
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Tests **MUST** cover applicable invalid, empty, limit, timeout, cancellation and dependency-failure paths introduced or changed by the scope. |
 | Applies when | The changed behavior has one or more such paths. |
@@ -62,7 +62,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TST-003 — Integration behavior is tested at the assembly boundary
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:integration-boundary` |
 | Requirement | Wiring, serialization, migration, route registration and cross-component behavior **MUST** be verified by an integration test that crosses the real assembly boundary. |
 | Applies when | The change affects an integration boundary. |
@@ -76,7 +76,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TST-004 — Public contracts have compatibility tests
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:public-contract` |
 | Requirement | A changed public contract **MUST** have consumer, schema-diff or compatibility tests covering existing supported consumers. |
 | Applies when | A released API, event, persisted format or CLI contract changes. |
@@ -90,7 +90,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TST-005 — Critical paths resist implementation-shaped blind spots
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:critical-path` |
 | Requirement | Critical-path tests **MUST** derive expected outcomes from the requirement or contract and **MUST NOT** merely mirror the current implementation structure. |
 | Applies when | The change affects a critical path. |
@@ -104,7 +104,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TST-006 — Tests are deterministic and isolated
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Tests **MUST** control time, randomness, concurrency and external state sufficiently to produce repeatable outcomes and independent ordering. |
 | Applies when | A test uses mutable global state, time, randomness, concurrency, network or shared storage. |
@@ -118,7 +118,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TST-007 — Doubles preserve the relevant contract
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | A mock, fake or stub **MUST** preserve the contract behavior relevant to the test and **MUST NOT** replace the behavior being verified. |
 | Applies when | A test uses a test double. |
@@ -132,7 +132,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TST-008 — Declared coverage policy has reproducible evidence
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `project:testing.coverage_policy` |
 | Requirement | A declared coverage, mutation or traceability gate **MUST** be measured by a reproducible tool run and interpreted against the changed risk, not treated as a standalone quality score. |
 | Applies when | `testing.coverage_policy` is declared for the scope. |

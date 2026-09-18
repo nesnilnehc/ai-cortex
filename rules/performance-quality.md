@@ -21,7 +21,7 @@ Applies to production request paths, batch jobs, queries, message consumers and 
 ## Profiles and parameters
 
 | Name | Kind | Provenance | Meaning |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `high-volume-data` | profile | — | Input, result or retained data can exceed safe in-memory or single-query size |
 | `concurrent-workload` | profile | — | Multiple requests or jobs contend for resources |
 | `performance.budgets` | parameter | declared | Latency, throughput, memory, query-count or cost targets |
@@ -34,7 +34,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### PERF-001 — Work is bounded by explicit limits
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Work that grows with input, data size, retries or concurrency **MUST** have an explicit upper bound, pagination, backpressure or streaming strategy. |
 | Applies when | A loop, query, queue, collection, recursion or fan-out is controlled by non-constant input. |
@@ -48,7 +48,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### PERF-002 — Repeated remote and storage work is eliminated
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | A hot path **MUST NOT** perform N+1, duplicate or avoidably serial database, filesystem or network operations. |
 | Applies when | A request or job performs I/O inside iteration or repeats an equivalent read/call. |
@@ -62,7 +62,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### PERF-003 — Algorithmic growth matches the load model
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:high-volume-data` |
 | Requirement | Algorithmic time and space growth **MUST** remain within the declared load model and performance budget. |
 | Applies when | Input cardinality can materially grow or a nested scan/sort/copy is introduced. |
@@ -76,7 +76,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### PERF-004 — Large data is streamed or chunked
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:high-volume-data` |
 | Requirement | Large or unbounded payloads and result sets **MUST** be streamed, paged or processed in bounded chunks rather than materialized repeatedly in memory. |
 | Applies when | Data size can exceed the project's safe single-allocation or request limit. |
@@ -90,7 +90,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### PERF-005 — Concurrency is bounded and non-blocking where required
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:concurrent-workload` |
 | Requirement | Concurrent work **MUST** have a bounded degree of parallelism and **MUST NOT** block an asynchronous execution resource on avoidable synchronous I/O or locks. |
 | Applies when | The code creates tasks, threads, workers, goroutines or concurrent callbacks. |
@@ -104,7 +104,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### PERF-006 — Caches have ownership and invalidation semantics
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | A cache **MUST** declare its key, owner, freshness/invalidation rule, capacity bound and failure behavior. |
 | Applies when | The change adds or changes cached data or memoization. |
@@ -118,7 +118,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### PERF-007 — Performance-sensitive changes carry representative evidence
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `project:performance.budgets` |
 | Requirement | A change affecting a declared performance budget **MUST** provide a reproducible measurement under the declared load model. |
 | Applies when | The changed path is covered by `performance.budgets`. |
@@ -132,7 +132,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### PERF-008 — Resource ownership prevents accumulation
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Connections, streams, buffers, subscriptions, timers and temporary files **MUST** have bounded lifetimes and deterministic release on success, failure and cancellation paths. |
 | Applies when | The scope acquires or retains a finite runtime resource. |

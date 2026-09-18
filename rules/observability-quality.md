@@ -21,7 +21,7 @@ Applies to production operations where operators need to determine what happened
 ## Profiles and parameters
 
 | Name | Kind | Provenance | Meaning |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `deployable-service` | profile | — | Independently operated request-serving process |
 | `distributed-workflow` | profile | — | One operation crosses process, service or queue boundaries |
 | `background-workload` | profile | — | Scheduled, queued or batch execution without an interactive caller |
@@ -36,7 +36,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### OBS-001 — Critical operations emit structured outcome events
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `project:observability.critical_operations` |
 | Requirement | Each critical operation **MUST** emit structured telemetry containing operation identity, outcome, duration and safe diagnostic context. |
 | Applies when | The operation is listed in `observability.critical_operations`. |
@@ -50,7 +50,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### OBS-002 — Correlation crosses execution boundaries
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:distributed-workflow` |
 | Requirement | Correlation or trace context **MUST** propagate across every synchronous and asynchronous process boundary. |
 | Applies when | A request or job crosses two independently executing components. |
@@ -64,7 +64,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### OBS-003 — User-facing behavior has measurable indicators
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `project:observability.sli_targets` |
 | Requirement | Each declared service-level indicator **MUST** be computed from production signals that represent user-observed success, latency, freshness or correctness. |
 | Applies when | `observability.sli_targets` defines an indicator for the changed behavior. |
@@ -78,7 +78,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### OBS-004 — Distributed spans describe meaningful boundaries
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:distributed-workflow` |
 | Requirement | Distributed operations **MUST** create spans at meaningful service, dependency and asynchronous-consumption boundaries with status and duration. |
 | Applies when | Standard tracing is available and an operation crosses a process or dependency boundary. |
@@ -92,7 +92,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### OBS-005 — Telemetry is safe and cardinality-bounded
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Telemetry **MUST NOT** contain secrets or disallowed protected data, and metric/span attributes **MUST** have bounded cardinality. |
 | Applies when | The change emits logs, metrics, traces or events. |
@@ -106,7 +106,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### OBS-006 — Error signals are actionable and non-duplicative
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:deployable-service` |
 | Requirement | A terminal failure **MUST** be recorded once at the owning boundary with stable error identity, severity and recovery context; intermediate layers **MUST NOT** duplicate the same error as separate incidents. |
 | Applies when | A failure crosses layers or service boundaries. |
@@ -120,7 +120,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### OBS-007 — Background work exposes progress and terminal backlog
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:background-workload` |
 | Requirement | Background processing **MUST** expose started, succeeded, retried, failed, age/backlog and dead-letter or terminal-loss signals. |
 | Applies when | A scheduled, batch or queued workload can outlive one request. |
@@ -134,7 +134,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### OBS-008 — New behavior updates its operational evidence
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | A change that adds a production behavior or failure mode **MUST** add or update the telemetry needed to verify and diagnose that behavior. |
 | Applies when | The change creates a new externally meaningful outcome, dependency or failure path. |

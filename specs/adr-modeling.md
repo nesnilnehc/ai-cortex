@@ -45,7 +45,7 @@ The admission test and decay policy for ADRs are defined in [rules/adr-managemen
 > The four core questions a sound ADR must answer clearly.
 
 | Question | Description |
-|---|---|
+| --- | --- |
 | **What** | What did we decide? A one-line statement |
 | **Why** | Why this way? Context, driving forces, constraints |
 | **Alternatives** | Which alternatives were considered, and why were they not chosen? Including each rejected option and its reason |
@@ -88,7 +88,7 @@ expires_at: YYYY-MM-DD            # optional; the quarterly review trigger
 ### 4.1 Field table
 
 | Field | Type | Required | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `artifact_type` | string | yes | Fixed as `adr` |
 | `created_by` | string | yes | Fixed as `decision-record` |
 | `lifecycle` | enum | yes | Fixed as `snapshot` — an ADR is a point-in-time decision |
@@ -103,7 +103,7 @@ expires_at: YYYY-MM-DD            # optional; the quarterly review trigger
 ### 4.2 State machine semantics
 
 | Status | Meaning | Entry condition |
-|---|---|---|
+| --- | --- | --- |
 | `proposed` | Proposed, awaiting decision | The ADR has just landed and has not passed review |
 | `accepted` | Adopted and currently in force | The decision was approved and implemented |
 | `superseded` | Replaced by another ADR | A new ADR landed and took over the decision; `superseded_by` must be filled in |
@@ -219,7 +219,7 @@ superseded_by: 0058-adopt-typesense-for-search
 ### 8.1 Decay thresholds
 
 | Trigger | Action |
-|---|---|
+| --- | --- |
 | `accepted`, and `created_at` was ≥ 12 months ago, and no document has referenced it in the last 12 months, and the decision no longer affects the system | Move to `archived` and fill in `archived_at` and `archived_reason` |
 | `archived`, and `archived_at` was ≥ 6 months ago, and no file references it | `git rm` may be used to delete it physically |
 | `rejected` / `superseded` / referenced by another ADR's `superseded_by` field | **Never deleted physically** — decision history and the chain of supersession are organisational memory |

@@ -80,10 +80,10 @@ Assess a batch of backlog items with several value frameworks in parallel, surfa
 1. **Layout detection (tried in order, stopping at the first hit)**
 
    | Order | Layout | Detection condition |
-   |---|---|---|
+   | --- | --- | --- |
    | 1 | `multi-file` | `docs/process-management/backlog/` or `docs/backlog/` exists, and at least one `*.md` file carries the `artifact_type: backlog-item` or `priority:` frontmatter field |
    | 2 | `yaml-list` | The single file `docs/process-management/backlog.md` or `docs/backlog.md` exists, and its frontmatter or top-level YAML carries an `items:` array |
-   | 3 | `h2-yaml` | The same single file, whose body has a `## <title>` heading immediately followed by a ```yaml … ``` code block |
+   | 3 | `h2-yaml` | The same single file, whose body has a `## <title>` heading immediately followed by a ```yaml …``` code block |
    | 4 | `table` | The same single file, whose body has a Markdown table carrying `Title` and `Priority` (or equivalent columns) |
 
    Prefer the project's own custom path (where `backlog-item.path_pattern` exists in `.ai-cortex/artifact-norms.yaml` or `docs/ARTIFACT_NORMS.md`).
@@ -116,8 +116,9 @@ RICE = (Reach × Impact × Confidence) / Effort
 - **Effort**: person-weeks
 
 Mapped to a priority level:
+
 | RICE score | Level |
-|---|---|
+| --- | --- |
 | ≥ 1000 | P0 |
 | 200-1000 | P1 |
 | 50-200 | P2 |
@@ -135,8 +136,9 @@ WSJF = Cost of Delay / Job Size
 - **Job Size** = relative effort, on the Fibonacci scale 1, 2, 3, 5, 8, 13, 20
 
 Mapped to a priority level, by the item's WSJF percentile within the current backlog:
+
 | WSJF percentile | Level |
-|---|---|
+| --- | --- |
 | Top 10% | P0 |
 | 10-30% | P1 |
 | 30-70% | P2 |
@@ -163,8 +165,9 @@ ICE = Impact × Confidence × Ease
 - Ease: how easy it is to build — higher means easier
 
 Mapped:
+
 | ICE score | Level |
-|---|---|
+| --- | --- |
 | ≥ 500 | P0 |
 | 200-500 | P1 |
 | 50-200 | P2 |
@@ -175,7 +178,7 @@ Mapped:
 For each item, compute the **widest gap between frameworks**:
 
 | Gap in levels | What happens |
-|---|---|
+| --- | --- |
 | ≤ 1 level (P1 vs P2, say) | Take the **RICE** result by default; no human decision needed |
 | ≥ 2 levels (P0 vs P3, say) | Surface it explicitly; a human decision is required |
 
@@ -245,7 +248,7 @@ For each item:
 4. **Write back per layout**:
 
    | Layout | How to write back |
-   |---|---|
+   | --- | --- |
    | `multi-file` | Update `priority` + `priority_decision` in each `*.md` file's frontmatter |
    | `yaml-list` | Change `items[i].priority` + `items[i].priority_decision` in the single file, keeping the YAML indentation and key order |
    | `h2-yaml` | Inside that item's ```yaml``` block, replace `priority` + `priority_decision`, leaving the block where it is |
@@ -294,7 +297,7 @@ The report body:
 **Not done here; another skill owns it**:
 
 | Action | Owner |
-|---|---|
+| --- | --- |
 | Creating a new backlog item | `capture-work-items` |
 | Promoting a backlog item into the roadmap | `promote-roadmap-items` |
 | Task breakdown | The AgentFabric runtime, outside AI Cortex |

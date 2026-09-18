@@ -53,7 +53,7 @@ The storage path is decided by each project's governance (this repository's `spe
 The artifact a spec describes usually has a handful of "core questions" — a sound artifact must hold up on each of them. Putting those questions up front in §2 lets both the spec author and the reader grasp the essentials and avoid drifting away from what matters.
 
 | Artifact | Example core questions |
-|---|---|
+| --- | --- |
 | ADR | What / Why / Alternatives / Consequences (4 questions) |
 | CLAUDE.md | What / With / How / Don't (4 questions) |
 | A spec itself | Its sections classified into three states by when each is to be written (required / conditionally required / optional) |
@@ -63,7 +63,7 @@ The artifact a spec describes usually has a handful of "core questions" — a so
 The defining dimension of a sound spec is "how each of its sections is classified by when it is to be written". The three states are the answer along that dimension, and every later section depends on this classification.
 
 | Type | When the trigger holds | When the trigger does not hold |
-|---|---|---|
+| --- | --- | --- |
 | **Required** | Must be written (always, unconditionally) | — |
 | **Conditionally required** | Must be written | **Must not be written** (writing it is redundant) |
 | **Optional** | May be written | May be left out |
@@ -76,7 +76,7 @@ The defining dimension of a sound spec is "how each of its sections is classifie
 ### 2.2 Section classification and triggers at a glance
 
 | Section | Type | Trigger (if any) |
-|---|---|---|
+| --- | --- | --- |
 | §1 Position and scope | Required | — |
 | §2 Mental model | Conditionally required | The artifact has a distinct thinking framework (N core questions) |
 | §3 Naming | Conditionally required | The artifact is written to disk and its filename follows a customary pattern |
@@ -130,7 +130,7 @@ archived_at: YYYY-MM-DD            # required when status: archived
 ### 4.1 Field table
 
 | Field | Type | Required | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `id` | string | Yes | Format `<UPPER_SNAKE>_MODELING_SPEC_V<n>` (for example `ADR_MODELING_SPEC_V1`); a runtime-object spec may drop `_MODELING_` (for example `UNIVERSAL_NOTIFICATION_SPEC_V2`) |
 | `name` | string | Yes | The spec's English name |
 | `description` | string | Yes | A one-line summary in English (≤ 200 characters) |
@@ -148,7 +148,7 @@ archived_at: YYYY-MM-DD            # required when status: archived
 The meaning of the 4 `status` values and the condition for entering each:
 
 | Status | Meaning | Entry condition |
-|---|---|---|
+| --- | --- | --- |
 | `draft` | A first draft, not yet stable | The spec has just been written and nothing in production references it |
 | `active` | Currently in force | The spec has stabilised and downstream assets reference it |
 | `superseded` | Replaced by a newer spec | A newer spec has been published and taken over the responsibility |

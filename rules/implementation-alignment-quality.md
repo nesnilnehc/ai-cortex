@@ -21,7 +21,7 @@ Applies after coding when an artifact chain exists. It assesses whether the deli
 ## Profiles and parameters
 
 | Name | Kind | Provenance | Meaning |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `artifact-chain` | profile | — | At least one requirement, design or task artifact is available |
 | `public-contract` | profile | — | The artifact chain defines an externally consumed contract |
 | `data-change` | profile | — | The artifact chain defines schema, migration or persisted-state behavior |
@@ -34,7 +34,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### ALN-001 — Every approved acceptance item has implementation evidence
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:artifact-chain` |
 | Requirement | Every approved acceptance criterion in scope **MUST** map to implemented behavior and independent verification evidence. |
 | Applies when | An upstream acceptance criterion is assigned to the change. |
@@ -48,7 +48,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### ALN-002 — Delivered behavior stays within approved scope
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:artifact-chain` |
 | Requirement | Production behavior **MUST NOT** be added, removed or materially changed outside the approved artifact scope. |
 | Applies when | The diff changes externally or operationally observable behavior. |
@@ -62,7 +62,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### ALN-003 — Design boundaries and tactics appear in production code
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:artifact-chain` |
 | Requirement | Approved component boundaries, dependency directions and quality tactics **MUST** be represented in production code and composition. |
 | Applies when | A technical design specifies boundaries, interfaces or quality tactics. |
@@ -76,7 +76,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### ALN-004 — Interface implementation matches the approved contract
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:public-contract` |
 | Requirement | Implemented requests, responses, events, errors and authorization behavior **MUST** match the approved interface contract exactly. |
 | Applies when | The artifact chain defines or changes a public contract. |
@@ -90,7 +90,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### ALN-005 — Persisted-state behavior matches the approved data design
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:data-change` |
 | Requirement | Schema, constraints, indexes, migration order, backfill and rollback behavior **MUST** match the approved data design. |
 | Applies when | The change alters persisted data or migration behavior. |
@@ -104,7 +104,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### ALN-006 — Completed tasks have concrete evidence
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:artifact-chain` |
 | Requirement | A task marked complete **MUST** have its declared code, artifact and verification evidence present. |
 | Applies when | A task in the change is marked done or equivalent. |
@@ -118,7 +118,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### ALN-007 — Tests trace to intent rather than implementation inventory
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:artifact-chain` |
 | Requirement | Functional verification **MUST** cover the approved acceptance and failure outcomes, including an item omitted entirely from the implementation. |
 | Applies when | Automated or manual functional verification is used for completion. |

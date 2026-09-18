@@ -26,7 +26,7 @@ The data contract — section structure and form requirements — is in [specs/c
 ## §1 Length limits
 
 | Level | Limit |
-|---|---|
+| --- | --- |
 | Project (repository root `CLAUDE.md`) | ≤ 300 lines |
 | Module (subdirectory `CLAUDE.md`) | ≤ 100 lines |
 | Personal (`~/.claude/CLAUDE.md`) | Not enforced; equal restraint recommended |
@@ -61,7 +61,7 @@ Avoid hedges — "try to", "ideally", "where possible", "consider", "if practica
 The following **must not** appear in a CLAUDE.md:
 
 | No-go zone | Why |
-|---|---|
+| --- | --- |
 | General programming knowledge (Docker, REST, the test pyramid and the like) | The AI already knows it; writing it in only dilutes the context |
 | Volatile state (sprint, owner, todos, temporary branch names) | That belongs in an issue tracker or a wiki |
 | Sensitive material (keys, tokens, production IPs, internal domains, PII) | A security risk; once CLAUDE.md is in git, it has leaked |

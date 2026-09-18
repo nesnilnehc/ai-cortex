@@ -35,6 +35,7 @@ Takes stock of the governance input sources and routes to the next skill — **n
 ## When to skip this skill
 
 A single-dimension question can go straight to the dedicated skill:
+
 - A specific item is known to be missing → `define-*`
 - Document health checking → the AgentFabric runtime + linter / CI tooling (per `rules/doc-health-criteria.md`)
 

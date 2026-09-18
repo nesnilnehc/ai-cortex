@@ -77,7 +77,7 @@ superseded_by: <path to new technical design>   # required when status is supers
 ### 4.1 Field table
 
 | Field | Type | Required | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `artifact_type` | string | yes | Fixed as `technical-design` |
 | `lifecycle` | enum | yes | Fixed as `snapshot` — a design is a point-in-time decision |
 | `created_at` | date | yes | The date the design was completed |
@@ -88,7 +88,7 @@ superseded_by: <path to new technical design>   # required when status is supers
 ### 4.2 State machine semantics
 
 | Status | Meaning | Entry condition |
-|---|---|---|
+| --- | --- | --- |
 | `draft` | A draft still under review | The technical design has just landed |
 | `approved` | Approved; tasks may derive from it | Engineering review passed, so it can serve as a task list's `parent` |
 | `superseded` | Replaced by a new technical design | The new design has landed and taken over; `superseded_by` must be filled in |
@@ -102,7 +102,7 @@ superseded_by: <path to new technical design>   # required when status is supers
 Organised MECE across five dimensions: **What / How-structure / How-behaviour / Why / Verify**. Every technical design document must contain these 9 sections:
 
 | # | Section | Dimension | Purpose | Validation |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | 1 | Goal | What | States the scope this technical design delivers and what success looks like | At most 200 characters; agrees with the upstream functional-design, or requirement |
 | 2 | Architecture and service decomposition | How-structure | The system, service and module layers, their boundaries, and how services are split | At least 1 structured representation, a diagram or a table; external and internal dependencies marked; the split boundary drawn where several services are involved |
 | 3 | Components and detailed design | How-structure | The responsibilities of the key components, plus class, method and interface definitions to implement from | At least 1 component, each carrying its responsibility and dependencies; key classes, methods and interfaces given at signature level |
@@ -118,7 +118,7 @@ Organised MECE across five dimensions: **What / How-structure / How-behaviour / 
 Added as the situation requires. A conditionally required section **becomes required** once its trigger is met:
 
 | Section | Kind | Trigger |
-|---|---|---|
+| --- | --- | --- |
 | Migration plan | Conditionally required | A breaking schema change, a data backfill or an irreversible operation is involved. It then becomes required, including the rollback strategy; otherwise the migration is inlined in §4 |
 | Deployment and operations | Optional | There are deployment changes, scaling policy or configuration management to cover |
 | Quality attribute design | Conditionally required | The upstream requirement carries a Quality Attribute Scenario, or the change crosses a module/public-contract/data/trust/process boundary, introduces fallible I/O, or affects a declared quality budget. Map scenario and Rule IDs to tactics, trade-offs and verification |
@@ -143,7 +143,7 @@ For a purely procedural design, §4 database design and §5 interface contracts 
 Once the trigger holds, use one row per upstream Quality Attribute Scenario or newly discovered architecture-significant concern:
 
 | Field | Meaning |
-|---|---|
+| --- | --- |
 | `source` | Upstream scenario/acceptance ID, or a design-time risk ID |
 | `rule_refs` | Applicable canonical engineering Rule IDs |
 | `design tactic` | Concrete architecture or implementation tactic selected for this system |

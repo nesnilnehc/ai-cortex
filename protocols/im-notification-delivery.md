@@ -23,7 +23,7 @@ related: [../specs/universal-notification.md]
 ## Participants
 
 | Role | Responsibility |
-|:---|:---|
+| :--- | :--- |
 | **UNP producer** (the business system) | Constructs a conforming UNP notification object and hands it to the delivery layer |
 | **INP delivery layer** (this protocol's executor) | Renders by priority, routes, deduplicates, throttles, and adapts to the channel's capabilities |
 | **IM channel** (Feishu, WeCom and others) | Receives the channel-adapted message and presents it to the user |
@@ -108,7 +108,7 @@ related: [../specs/universal-notification.md]
 ### Priority to format mapping
 
 | Priority | Rendered format |
-|:---|:---|
+| :--- | :--- |
 | P0 | card |
 | P1 | card |
 | P2 | markdown |
@@ -125,7 +125,7 @@ related: [../specs/universal-notification.md]
 ## 5. Mention rules
 
 | Priority | Who is mentioned |
-|:---|:---|
+| :--- | :--- |
 | P0 | oncall and owner |
 | P1 | owner |
 | P2 | nobody |
@@ -165,7 +165,7 @@ routing:
 ### Rate limits
 
 | Priority | Rate limit |
-|:---|:---|
+| :--- | :--- |
 | P0 | 1 per 5 minutes |
 | P1 | 1 per 10 minutes |
 | P2 | Batched |

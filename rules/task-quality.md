@@ -23,7 +23,7 @@ It does not review the upstream design, schedule or staff the work, execute a ta
 ## Profiles and parameters
 
 | Name | Kind | Provenance | Meaning |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `handoff` | profile | — | The list is being handed to execution rather than still drafted |
 | `engineering-governance` | profile | — | A task implements a quality-attribute tactic, crosses a declared boundary, adds fallible I/O, concurrency, background work or telemetry, or is subject to a quality budget or waiver |
 | `tasks.session_budget` | parameter | declared | What the project counts as one focused working session |
@@ -35,7 +35,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TASK-001 — Every task row carries its required fields
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Every task row **MUST** carry an id, title, dependency list, acceptance, owner or execution hint, and a status drawn from the modeled enum. |
 | Applies when | The document contains one or more task rows. |
@@ -49,7 +49,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TASK-002 — A handed-off list carries no started work
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:handoff` |
 | Requirement | Every task **MUST** be at its initial status when the list is handed off for execution. |
 | Applies when | The list is presented as ready for assignment or execution. |
@@ -63,7 +63,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TASK-003 — The document declares its required frontmatter
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | The document **MUST** declare the artifact type, lifecycle, creation date and parent required by its modeling Spec. |
 | Applies when | always |
@@ -77,7 +77,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TASK-004 — The dependency graph is acyclic
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Task dependencies **MUST NOT** form a cycle. |
 | Applies when | Two or more tasks declare dependencies. |
@@ -91,7 +91,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TASK-005 — Every dependency reference resolves
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Every declared dependency **MUST** resolve to an existing task, and a dependency outside this document **MUST** carry its document path. |
 | Applies when | A task declares at least one dependency. |
@@ -105,7 +105,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TASK-006 — An absent dependency is recorded explicitly
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | A task with no dependency **MUST** record that explicitly rather than leaving the field blank. |
 | Applies when | A task has no prerequisite. |
@@ -119,7 +119,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TASK-007 — A task is bounded to one working session
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Each task **MUST** be small enough to be completed and verified within one focused working session. |
 | Applies when | The document contains one or more task rows. |
@@ -133,7 +133,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TASK-008 — Every task names an owner or an execution hint
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Every task **MUST** name a human owner or an explicit execution hint. |
 | Applies when | The document contains one or more task rows. |
@@ -147,7 +147,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TASK-009 — A task title states its concrete action
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | A task title **MUST** name the action to be performed and its object, not a module name alone. |
 | Applies when | The document contains one or more task rows. |
@@ -161,7 +161,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TASK-010 — Task acceptance is verifiable
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Every task's acceptance **MUST** be decidable by a test, a command, an inspection or a named artifact. |
 | Applies when | The document contains one or more task rows. |
@@ -175,7 +175,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TASK-011 — The list declares its upstream design
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | The document **MUST** name the upstream design it derives from. |
 | Applies when | always |
@@ -189,7 +189,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TASK-012 — Every task traces to a design element
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Every task **MUST** trace to a section or an acceptance item of the upstream design. |
 | Applies when | An upstream design exists. |
@@ -203,7 +203,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TASK-013 — Every design component has a task
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Every component and acceptance item in the upstream design's scope **MUST** be covered by at least one task. |
 | Applies when | An upstream design exists and is in scope for this list. |
@@ -217,7 +217,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TASK-014 — A quality-sensitive task carries its governance annotation
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:engineering-governance` |
 | Requirement | A task meeting an engineering-governance trigger **MUST** carry the complete annotation its modeling Spec defines. |
 | Applies when | A task implements a quality-attribute tactic, crosses a declared boundary, adds fallible I/O, concurrency, background work or telemetry, or is subject to a quality budget or waiver. |
@@ -231,7 +231,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TASK-015 — Affected scope is named exactly
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:engineering-governance` |
 | Requirement | An annotated task **MUST** name the exact modules, contracts, data stores or operational paths it affects. |
 | Applies when | A task carries an engineering-governance annotation. |
@@ -245,7 +245,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TASK-016 — Cited engineering Rule references resolve
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:engineering-governance` |
 | Requirement | Every engineering Rule reference on a task **MUST** resolve to an active canonical Rule item, and the task **MUST NOT** restate that Rule's text. |
 | Applies when | A task cites one or more engineering Rule ids. |
@@ -259,7 +259,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TASK-017 — Verification can decide the cited Rule items
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:engineering-governance` |
 | Requirement | An annotated task's verification **MUST** name a test, tool command, review or evidence artifact capable of deciding every Rule item it cites. |
 | Applies when | A task carries an engineering-governance annotation. |
@@ -273,7 +273,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TASK-018 — A cited waiver is valid
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:engineering-governance` |
 | Requirement | A waiver cited by a task **MUST** resolve to a valid, approved, unexpired waiver covering that exact Rule item and scope. |
 | Applies when | A task cites a waiver. |
@@ -287,7 +287,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TASK-019 — Task identifiers match the format and are unique
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Every task id **MUST** match the format its modeling Spec defines and **MUST** be unique inside the document. |
 | Applies when | The document contains one or more task rows. |

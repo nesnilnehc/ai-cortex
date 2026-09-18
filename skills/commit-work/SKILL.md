@@ -119,7 +119,6 @@ If `CLAUDE.md` or `.ai-cortex/config.yaml` exists, prefer the `test_command` rec
 7) **Write the commit message**
    - Use Conventional Commits (required):
 
-     
      ```text
      type(scope): short summary
      

@@ -40,7 +40,7 @@ A Release Package answers six questions. Decision: is a new version warranted? I
 ### 5.1 Top-level fields
 
 | Field | Type | Required | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `schema_version` | string | yes | The Release Package schema version |
 | `project` | string | yes | Project identifier |
 | `decision` | enum | yes | `release` / `none` |

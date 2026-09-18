@@ -24,7 +24,7 @@ status: active
 The decision question is: **"which single thing is this item mainly expressing?"** One question fixes one kind.
 
 | Kind | What it expresses | Category |
-|---|---|---|
+| --- | --- | --- |
 | **Functional requirement** | A user-facing capability need waiting to be met | Is a requirement |
 | **Non-functional requirement** | A quality attribute target waiting to be reached (performance / security / maintainability / scalability) | Is a requirement |
 | **Design proposal** | "How to build it" — an implementation approach or a technology choice | Not a requirement |
@@ -62,7 +62,7 @@ Tie-breaks:
 Completeness is independent of kind and **does not belong on the kind axis**. A functional requirement can be either "complete" or "partially missing".
 
 | Completeness | Criterion |
-|---|---|
+| --- | --- |
 | Complete | The core that kind requires is fully present |
 | Partially missing | The core is identifiable but a key element is absent |
 
@@ -76,7 +76,7 @@ Review runs on soundness as its spine — judging whether the logic and the busi
 - **Ask, do not assert**: it depends on business context, so only probe and flag the risk. **Do not pass judgement** (whether the business value is real / priority / market judgement).
 
 | Kind | Assertable lens | Ask-only lens |
-|---|---|---|
+| --- | --- | --- |
 | Functional requirement | Internally coherent, solution matches problem, the acceptance implies the goal | Whether the value is real, priority |
 | Non-functional requirement | The metric is concrete, has a baseline, is measurable | Whether that target level is worth it |
 | Design proposal | **Work back to the implied requirement**; judge whether it holds, whether the approach fits the problem, whether it is over-engineered; not acceptance-testable | The business value of the requirement worked back to |
@@ -93,7 +93,7 @@ Review runs on soundness as its spine — judging whether the logic and the busi
 Diagnosis (§1–§4) is shared; what happens next varies by the consumer's interaction model and is **not** shared.
 
 | Consumer | Interaction model | What it does |
-|---|---|---|
+| --- | --- | --- |
 | Upstream clarification | Multiple rounds | Route to a different clarification workflow by kind: design or task → work back to the requirement; defect → the bug clarification flow; insufficient information → start from scratch; is a requirement → fill the gaps as normal |
 | Downstream review | One-shot | Pick the soundness lens by kind, then diagnose and score without fixing. Non-requirement kinds get a low score plus the requirement worked back to, and are not sent back |
 

@@ -43,7 +43,7 @@ Inventory the governance input sources and suggest the next action.
 ### Boundaries
 
 | Dimension | Does | Does not |
-|---|---|---|
+| --- | --- | --- |
 | Suggestions | Suggests the next action (prose or structured cards) | Is not a task-status API; does not maintain or assign a task list; keeps no task history and does not answer time-series questions such as "how many were promoted this week" |
 | Execution | Read-only — the suggestions go to the user or to an outer orchestrator to decide on | Does not advance anything downstream on its own; is not an automation engine — automation comes from an outer orchestrator combined with `loop` |
 
@@ -62,7 +62,7 @@ Inventory the governance input sources and suggest the next action.
 **What to scan**: 3 abstraction layers × 5 subjects (MECE in combination).
 
 | Abstraction layer | Subject | Where to scan | Refinement fields |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Intent | **Why** | `docs/project-overview/{mission,vision,north-star,strategic-goals,strategic-pillars}.md` | — |
 | Intent | **What/When** | `docs/process-management/{roadmap,backlog/}.md`, `docs/requirements/`, `docs/tasks/` | roadmap → node status; tasks/ → `status` |
 | Intent | **How** | `docs/adr/`, `docs/designs/` | `status` |
@@ -74,7 +74,7 @@ The abstraction layers are mutually exclusive; the refinement fields are auxilia
 **How to scan** — record 2 fields for each asset:
 
 | Field | Criterion |
-|---|---|
+| --- | --- |
 | **Path** | The filesystem path |
 | **Status** | `present` (exists, content non-empty and not a placeholder) / `placeholder` (contains only `[TODO]`/`<to-fill>`/`TBD`) / `missing` (does not exist) |
 
@@ -95,7 +95,7 @@ Strategic goal
 **4 sub-steps** (run in order):
 
 | Sub-step | What it does | Output |
-|---|---|---|
+| --- | --- | --- |
 | 2.0 Precondition gate | Is the Rules layer in place? | Otherwise short-circuit |
 | 2.1 Goal-tree traversal | Traverse each goal depth-first, locate the first gap + the parallelism verdict | Each goal's current position + routing suggestions |
 | 2.2 Drift sweep | Artifact updated_at vs the time the aligned goal changed; past the threshold, route to a dedicated skill | A list of drift entries |
@@ -126,7 +126,7 @@ The status of every artifact node (roadmap node / requirement / design / task) i
 At any level, after scanning every sibling node at that level, decide as follows:
 
 | Sibling status at this level | Parallelism suggestion |
-|---|---|
+| --- | --- |
 | Exactly 1 `in-progress`, the rest `pending` | **Focus**: finish the current one before starting the next |
 | 1+ `blocked`, with an independent `pending` | **Parallel**: leave the blocked one waiting and start the next independent node |
 | Several `in-progress` (none blocked) | **Converge**: identify the one lagging most and push it to completion first |
@@ -138,7 +138,7 @@ Where nodes carry an explicit `depends_on:` dependency → the depended-on node 
 ##### Level definitions
 
 | Level | Name | Existence criterion | Completion criterion |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | L1 | Strategic goal | `strategic-goals.md` is present, not a placeholder, and holds ≥1 identifiable goal item | **Both** hold: (a) the goal has `status = done`; (b) every observable KPI in the goal's "acceptance criteria" is met (the data is available and at target). `status = approved` counts as `in-progress`, and drilling down must continue |
 | L2 | Roadmap node | The roadmap node exists and traces back to an L1 goal | The node has `status = done` (explicit or inferred) |
 | L3 | Requirement | The requirement file is present and not a placeholder | `status = done` (explicit or inferred) |
@@ -150,7 +150,7 @@ Where nodes carry an explicit `depends_on:` dependency → the depended-on node 
 **Cannot be skipped**: every time an L1 goal is traversed, the "acceptance criteria" field must be parsed first, and the observable KPIs extracted from it (name + target threshold + data source). Then judge the current state of each KPI:
 
 | KPI state | Meaning | L1 completion verdict |
-|---|---|---|
+| --- | --- | --- |
 | Met (data ≥ threshold, the continuity condition holds) | Acceptance passes | L1 done (given status=done) |
 | Not met (data < threshold, or the continuity condition fails) | Acceptance fails | L1 in-progress, keep drilling down |
 | **Data missing** (no monitoring, no query path) | Acceptance cannot be verified | **L1 in-progress, and the first route must be to establish the KPI data source** (ahead of any downstream route) |
@@ -235,7 +235,7 @@ Compare the artifact's `updated_at` with the time of the change event at the mat
 **Thresholds (internal constants, not exposed to the user)**:
 
 | Parameter | Default | Meaning |
-|---|---|---|
+| --- | --- | --- |
 | `drift_staleness_days` | 30 | An artifact not updated for more than this many days counts as drifted |
 | `backlog_rescore_days` | 90 | A backlog last re-scored more than this many days ago counts as stale |
 | `doc_health_staleness_days` | 30 | A document health report older than this many days counts as expired (produced by the runtime / CI) |
@@ -243,7 +243,7 @@ Compare the artifact's `updated_at` with the time of the change event at the mat
 **Routing table**:
 
 | Drift signal | Recommended skill |
-|---|---|
+| --- | --- |
 | backlog `last_rescored_at` older than `backlog_rescore_days` | `/prioritize-backlog` |
 | Architecture docs drifting from the code (the gap between an ADR's updated_at and the latest code commit exceeds the threshold) | `/review-architecture` |
 | Health signals such as document SSOT, code alignment, or link rot | detected by the runtime / linter / CI tooling per `rules/doc-health-criteria.md` |
@@ -257,14 +257,14 @@ Check for slowly accumulating governance debt and output a list of hygiene issue
 **Thresholds (internal constants)**:
 
 | Parameter | Default | Meaning |
-|---|---|---|
+| --- | --- | --- |
 | `milestone_archive_age_days` | 60 | A milestone finished more than this many days ago is mature enough to archive |
 | `milestone_archive_lookback` | 2 | A gap of ≥ N between the current in-progress milestone index and the slug counts as archivable |
 
 **Checks**:
 
 | Check | Condition | Recommended skill |
-|---|---|---|
+| --- | --- | --- |
 | A finished milestone is not archived | `milestones/{slug}/tasks.md` all done, and any one of the maturity conditions holds | `/archive-milestone {slug}` |
 | ADR status loop violated | superseded / conflicting / no accepted conclusion | `/review-architecture` |
 | Repository structure drift | `_templates/` entries missing / file naming violations | detected by the runtime / CI per `rules/repo-structure-hygiene.md` |
@@ -310,7 +310,7 @@ For tasks that become ready tomorrow or later in the week, use the `defer` label
 The output format adapts to the situation:
 
 | Situation | Recommended format |
-|---|---|
+| --- | --- |
 | One suggestion, the situation is clear | **Prose**: 1-3 sentences saying what to do, why, and what counts as done |
 | ≥2 parallel suggestions, or a parallel / converge judgment is needed | **Structured cards** (format below) |
 
@@ -383,12 +383,12 @@ Prompt requirements: state the specific focus of this call, include the key asse
 **Priority labels** (mapped from the internal priorities in §3.2; the "Do now" section uses only labels, never the codes):
 
 | Internal code | User-facing label |
-|---|---|
+| --- | --- |
 | P0 | `urgent` |
 | P1 | `important` |
 | P2 | `defer` |
 | P3 | `minor` |
-| —  | `awaiting execution` (special: governance is ready, waiting on execution; used only for the all-pending L5 branch) |
+| — | `awaiting execution` (special: governance is ready, waiting on execution; used only for the all-pending L5 branch) |
 
 **Completion marker**: an observable result, 1 sentence; where execution can be blocked (a strategic conflict, a dependency cycle), append "return to plan-next for re-evaluation if blocked". With several tasks, **each card owns its own completion marker**; they are not stacked at the outer level.
 
@@ -415,7 +415,7 @@ When there is not enough information, **omit this field**; inventing one is not 
 In the "Do now" section the following are **banned outright** — the codes themselves and their natural-language equivalents alike:
 
 | Banned | Allowed instead |
-|---|---|
+| --- | --- |
 | L1, L2, L3, L4, L5; goal layer, roadmap layer, requirement layer, design layer, task layer | Say "strategic goal", "roadmap", "requirement document", "design document", "task" directly |
 | G1, asset missing | Describe what is actually missing: "`xxx.md` does not exist" |
 | G2, incomplete content | Describe what content is missing: "missing field X / section X" |
@@ -536,7 +536,7 @@ Goal 1:
 **Lookup rules at the output layer**:
 
 | Situation | Rendering |
-|---|---|
+| --- | --- |
 | A project code appears for the first time and the dictionary has it | Inject `code (full_name)`, for example `T51 (coverage dashboard task)` |
 | Later appearances within the same card | The bare code only |
 | The dictionary has no matching entry | Fall back to the source artifact's frontmatter `title:`, injecting the first ≤12 words |
@@ -701,7 +701,7 @@ Goal 1:
 **Decision logic**:
 
 | Level | Node | Status | Inference |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Strategic goal | strategic-goals.md | missing | L1 gap, traversal stops; route design-strategic-goals |
 | Roadmap | — | not evaluated | re-run once L1 is ready |
 
@@ -743,7 +743,7 @@ Goal 1:
 **Decision logic**:
 
 | Level | Node | Status | Inference |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Norms layer | ARTIFACT_NORMS.md | missing | the absent norms trigger an early stop, the goal-tree traversal is skipped |
 | Strategic goal | — | not evaluated | re-run plan-next once the norms are ready |
 
@@ -789,7 +789,7 @@ Goal 1:
 **Decision logic**:
 
 | Level | Node | Status | Inference |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Strategic goal | goal A | in-progress | keep drilling down |
 | Roadmap | N1 | in-progress | focus (the only in-progress node) |
 | Requirement | R1 | in-progress (inferred: D1b in-progress) | keep drilling down |
@@ -834,7 +834,7 @@ Goal 1:
 **Decision logic**:
 
 | Level | Node | Status | Inference |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Strategic goal | strategic-goals.md | present | keep drilling down |
 | Roadmap | roadmap.md | not tiered (a flat list) | the untiered-roadmap rule fires, route promote-roadmap-items, do not evaluate downstream |
 
@@ -878,7 +878,7 @@ Goal 1:
 **Decision logic**:
 
 | Level | Node | Status | Inference |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Strategic goal | goal A | in-progress | keep drilling down |
 | Roadmap | N1 | in-progress | focus |
 | Requirement | R1 | blocked | blocked by an external dependency, triggers the parallelism decision |
@@ -895,6 +895,7 @@ Goal 1:
 **Scenario**: in `strategic-goals.md`, goal G1 has frontmatter `status: approved`, its acceptance criterion is "citation visibility ≥ 80% across two consecutive iterations", and there is no monitoring data. Under stage M5 (the milestone carrying G1) all 17 tasks are `pending`, the task breakdown is complete, and the designs/ADRs are in place.
 
 **Key verdicts**:
+
 - L1: G1 `status=approved` counts as `in-progress`; the acceptance KPI "citation visibility" has no data → the first route must establish the KPI data source
 - L5: all tasks pending triggers the "awaiting execution" branch; the second route emits an "awaiting execution" card marking the focus task
 
@@ -944,7 +945,7 @@ Goal 1:
 **Decision logic**:
 
 | Level | Node | Status | Inference |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Strategic goal | G1 | approved (counts as in-progress) | status=approved ≠ done; the KPI data source is missing → the first route establishes the data source |
 | Roadmap | M5 | in-progress | the only focus milestone, keep drilling down |
 | Requirement | M5 requirement set | in-progress | designs/ADRs are ready, drill down to the task layer |

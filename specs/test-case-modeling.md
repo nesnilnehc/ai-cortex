@@ -51,7 +51,7 @@ Out of scope:
 Every test case must be able to answer **3 questions plus 1 anchor**:
 
 | Dimension | Core question | Field |
-|---|---|---|
+| --- | --- | --- |
 | **Subject** | Which object or flow is under test? | `scenario` |
 | **Condition** | Under what preconditions and trigger? | `preconditions` and `steps` |
 | **Expected** | What result is expected? | `expected` |
@@ -126,7 +126,7 @@ parent: <upstream requirement or contract path>
 ### 4.3 Field table
 
 | Field | Type | Required | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `id` | string | yes, for a single case | Follows `TC-<MODULE>-<nn>` |
 | `artifact_type` | string | yes | `test-case` for a single case; `test-cases` for a collection |
 | `lifecycle` | enum | yes | `snapshot` for a single case, frozen once stable; `living` for a collection |
@@ -142,7 +142,7 @@ parent: <upstream requirement or contract path>
 ### 4.4 State machine semantics
 
 | Status | Meaning | Entry condition |
-|---|---|---|
+| --- | --- | --- |
 | `draft` | Being drafted | The case has just landed and has not passed QA review |
 | `active` | In force and part of regression | QA review passed; a test execution plan may reference it |
 | `deprecated` | Retired | The upstream requirement was dropped, a new case replaced it, or the scenario no longer exists; `deprecated_at` and `deprecated_reason` must be filled in |
@@ -158,11 +158,12 @@ parent: <upstream requirement or contract path>
 Every test case must contain these 5 body sections.
 
 **H1 title**: `# Case: <one-line scenario description>`
+
 - At most 80 characters
 - Names the subject and the key condition, for example `# Case: an expired token returns 401 on a protected resource`
 
 | # | Section | Purpose | Validation |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | 1 | Scenario | One line naming the subject under test and its context | At most 120 characters; names the subject, the trigger and the direction of the expectation; a one-line Given-When-Then is recommended |
 | 2 | Preconditions | The state that must be in place before execution | As a list, each independently verifiable, covering data state, system state and permission state; where there are none, write "no preconditions" |
 | 3 | Steps | The concrete steps to execute | A numbered list; each step atomic and executable, carrying its input data; at most 10 steps, beyond which the case is split |
@@ -172,7 +173,7 @@ Every test case must contain these 5 body sections.
 ### 5.2 Optional sections
 
 | Section | When it applies |
-|---|---|
+| --- | --- |
 | Test data | The data in the steps is complex enough to warrant listing fixtures, mock responses or boundary values separately |
 | Teardown | The case has side effects — writing to a database, changing configuration, sending a message — and the cleanup needs stating |
 | Notes | Known limitations, interactions with other cases, conditions for skipping |

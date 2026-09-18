@@ -21,7 +21,7 @@ Applies where dependency failure, duplication, concurrency, partial completion o
 ## Profiles and parameters
 
 | Name | Kind | Provenance | Meaning |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `remote-dependency` | profile | — | Code calls a network, process, database or cloud dependency |
 | `durable-workflow` | profile | — | Work spans transactions, messages, retries or process restarts |
 | `background-workload` | profile | — | Scheduled, queued or batch processing |
@@ -36,7 +36,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### REL-001 — Every remote attempt has a timeout and cancellation path
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:remote-dependency` |
 | Requirement | Every outbound dependency attempt **MUST** have a finite timeout compatible with the end-to-end objective and a cancellation or abandonment path. |
 | Applies when | Code waits for a remote service, database, process or broker. |
@@ -50,7 +50,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### REL-002 — Retries are selective, bounded and budgeted
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:remote-dependency` |
 | Requirement | Retries **MUST** target transient failures only, use a finite attempt/time budget and backoff with jitter, and **MUST NOT** multiply across uncoordinated layers. |
 | Applies when | A client, framework, queue or caller retries an operation. |
@@ -64,7 +64,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### REL-003 — Repeated operations preserve correctness
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:durable-workflow` |
 | Requirement | Any operation that can be retried, redelivered or resumed **MUST** be idempotent or protected by deduplication and durable outcome recording. |
 | Applies when | Delivery or response loss can cause the same logical operation to execute more than once. |
@@ -78,7 +78,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### REL-004 — Partial failure has an explicit consistency outcome
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:durable-workflow` |
 | Requirement | A multi-step durable operation **MUST** define the committed state after each partial failure and a recovery, compensation or reconciliation path. |
 | Applies when | One logical operation spans more than one transaction or external side effect. |
@@ -92,7 +92,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### REL-005 — Dependency failure is isolated
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:critical-service` |
 | Requirement | Failure or saturation of one dependency **MUST NOT** exhaust unrelated service capacity; isolation, admission control or a bounded fallback must contain the blast radius. |
 | Applies when | A critical service shares threads, connections, queues or resource pools across dependency paths. |
@@ -106,7 +106,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### REL-006 — Poison and terminal background work is retained
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:background-workload` |
 | Requirement | Background work that exhausts retries **MUST** enter a durable terminal state or dead-letter path with enough context for replay or resolution. |
 | Applies when | A job or message can fail permanently. |
@@ -120,7 +120,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### REL-007 — Failure modes are verified at their real boundary
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Every changed timeout, retry, transaction, concurrency or recovery behavior **MUST** have a deterministic test at the narrowest boundary that can reproduce its failure mode. |
 | Applies when | Reliability behavior or a fallible dependency path changes. |
@@ -134,7 +134,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### REL-008 — Reliability targets govern release risk
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `project:reliability.slo` |
 | Requirement | A critical service **MUST** define measurable objectives and an error-budget or equivalent release policy, and releases **MUST** respect its current state. |
 | Applies when | `reliability.slo` is declared. |

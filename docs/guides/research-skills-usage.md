@@ -11,8 +11,8 @@ status: active
 Describe the research goal in ordinary language. The agent should choose the narrowest Skill that produces the requested result. You can also invoke one of the five public entries directly:
 
 | Desired result | Direct entry | Output |
-|---|---|---|
- Understand an open question | `/deep-research` | Research Report with findings, sources, conflicts and gaps |
+| --- | --- | --- |
+| Understand an open question | `/deep-research` | Research Report with findings, sources, conflicts and gaps |
 | Understand rules in a jurisdiction | `/policy-research` | Policy Research Report with obligations, guidance, dates and implications |
 | Understand a defined market | `/market-research` | Market Research Report with demand, segments and a defensible size method or explicit gap |
 | Compare products | `/competitive-research` | Dated comparison and Research Report; unknown cells remain Unknown |
