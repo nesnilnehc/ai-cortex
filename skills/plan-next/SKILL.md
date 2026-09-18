@@ -435,7 +435,7 @@ Violating this table = the "Do now" output is unacceptable; the offending fields
 
 > **Format choice**: a single suggestion may use prose instead of the cards below. The structured template below applies where there are ≥2 parallel suggestions.
 
-````
+````markdown
 # Next-step suggestions
 
 > **Situation**: [objective status summary, ≤25 words. Example: the M5 must-deliver items are clear, three expected-deliver items not started]

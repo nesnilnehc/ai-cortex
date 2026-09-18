@@ -34,7 +34,7 @@ It is a suggested mapping and does not replace semantic matching against the tas
 | Committing work | `commit-work` | Produces a conventional commit with the quality checks attached |
 
 > The full usage of the roadmap chain — the entry points, the halts you will hit, and why dependency mapping comes before promotion — is in [roadmap-planning-usage.md](./roadmap-planning-usage.md).
-
+>
 > The research entry routes, scope inputs and package handoff are in [research-skills-usage.md](./research-skills-usage.md).
-
+>
 > Document authoring and task derivation may be carried by an AgentFabric runtime or another producer. AI Cortex owns the review contracts above and keeps their criteria in the paired Rules.

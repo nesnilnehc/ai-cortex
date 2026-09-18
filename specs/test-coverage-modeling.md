@@ -198,7 +198,7 @@ Example:
 
 **A `fail` row must carry a "surviving mutants detail" subsection**: list the surviving critical mutants, the untested dimension inferred from them, and the cases suggested to close the gap.
 
-**Never fabricate figures for a mutation run that did not happen**: when no tool is integrated, write "not run — <reason> — planned integration date" in this section, and require verdict ≤ `conditional`.
+**Never fabricate figures for a mutation run that did not happen**: when no tool is integrated, write `not run — <reason> — planned integration date` in this section, and require verdict ≤ `conditional`.
 
 ### 5.4 Trace health audit contract
 

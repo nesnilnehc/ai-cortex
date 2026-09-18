@@ -18,7 +18,7 @@ description: <a one-line summary, complementing the H1 title>
 
 ---
 
-# ADR NNNN: <title>
+# ADR NNNN: `<title>`
 
 ## Context
 
@@ -32,11 +32,11 @@ description: <a one-line summary, complementing the H1 title>
 
 <!-- Alternatives: which options were considered, and why each was rejected -->
 
-### Alternative A: <name>
+### Alternative A: `<name>`
 
 **Why it was rejected**:
 
-### Alternative B: <name>
+### Alternative B: `<name>`
 
 **Why it was rejected**:
 

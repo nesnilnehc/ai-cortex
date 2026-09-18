@@ -45,7 +45,7 @@ The definition and canonical source of each artifact type are fixed below. Any o
 
 | artifact_type | path_pattern | naming | lifecycle |
 | :--- | :--- | :--- | :--- |
-| requirements | docs/requirements-planning/<PROJECT>-REQ-<nn>.md | <PROJECT>-REQ-<nn>.md | snapshot |
+| requirements | `docs/requirements-planning/<PROJECT>-REQ-<nn>.md` | `<PROJECT>-REQ-<nn>.md` | snapshot |
 | backlog-item | docs/process-management/backlog/YYYY-MM-DD-{slug}.md | YYYY-MM-DD-{slug}.md | living |
 | adr | docs/adr/NNNN-{slug}.md | NNNN-{slug}.md | living |
 | functional-design | docs/designs/YYYY-MM-DD-{topic}-functional-design.md | YYYY-MM-DD-{topic}-functional-design.md | snapshot |

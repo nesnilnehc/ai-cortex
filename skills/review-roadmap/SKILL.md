@@ -92,12 +92,12 @@ Evaluate an **existing roadmap document** against the established quality criter
    | A Now-tier item has no unresolved prerequisite | The item frontmatter's `depends_on` |
    | Priority was not set by a single source | The item frontmatter's `priority_decision` (including `strategic_override`) |
 
-   **When it is missing**: if the backlog items cannot be read, or roadmap.md's Now tier references no concrete items, mark these three criteria "cannot evaluate — <reason>". **A criterion must not be recorded as passing because it could not be read** — that hollows the criterion out.
+   **When it is missing**: if the backlog items cannot be read, or roadmap.md's Now tier references no concrete items, mark these three criteria `cannot evaluate — <reason>`. **A criterion must not be recorded as passing because it could not be read** — that hollows the criterion out.
 3. **Scan dimension by dimension**: work through the rule's five-dimension checklist item by item; each item that fails produces one finding.
 4. **Tool adaptation for the change-frequency dimension**: this dimension needs git log to count structural changes to roadmap.md.
    - **Discover**: confirm the current directory is a git repository and that roadmap.md has commit history
    - **Run**: count the file's structural changes inside the configured window and compare against the threshold in the rule
-   - **When it is missing**: for a non-git directory, a shallow clone with incomplete history, or a file with no commit history, mark this dimension "cannot evaluate — <the specific reason>". **It must not be skipped silently, and it must not be inferred to pass on that basis**
+   - **When it is missing**: for a non-git directory, a shallow clone with incomplete history, or a file with no commit history, mark this dimension `cannot evaluate — <the specific reason>`. **It must not be skipped silently, and it must not be inferred to pass on that basis**
 5. **Set severity**: map mechanically from the table below, with no subjective weighting.
 6. **Emit the findings list**.
 
