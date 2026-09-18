@@ -18,7 +18,26 @@ spec.loader.exec_module(validator)
 
 
 def load(name: str) -> dict:
-    return json.loads((FIXTURES / name).read_text(encoding="utf-8"))
+    """Read one fixture, failing with the name of the file that is wrong.
+
+    A bare json.loads reports a line and column and no path, which does not
+    identify the fixture among the directory's files.
+    """
+    path = FIXTURES / name
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except OSError as exc:
+        raise SystemExit(f"fatal: {path.relative_to(ROOT)} cannot be read — {exc.strerror}") from exc
+    except json.JSONDecodeError as exc:
+        raise SystemExit(
+            f"fatal: {path.relative_to(ROOT)} is not valid JSON — "
+            f"{exc.msg} at line {exc.lineno} column {exc.colno}"
+        ) from exc
+    if not isinstance(data, dict):
+        raise SystemExit(
+            f"fatal: {path.relative_to(ROOT)} must hold a JSON object, found {type(data).__name__}"
+        )
+    return data
 
 
 def expect_error(data: dict, fragment: str, package: bool = False) -> None:

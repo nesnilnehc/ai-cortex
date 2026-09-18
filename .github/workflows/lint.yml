@@ -48,6 +48,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          # check-asset-versions.py diffs against the most recent product tag,
+          # and a shallow checkout fetches none.
+          fetch-depth: 0
 
       - name: the prose about bin/cortex matches the script
         # Semantics are a reader's job, but a named subcommand or flag either
@@ -97,6 +101,17 @@ jobs:
 
       - name: cortex documentation checker
         run: python3 scripts/test-cortex-docs.py
+
+      - name: asset version checker
+        run: python3 scripts/test-asset-versions.py
+
+      - name: edited assets moved their versions
+        # An asset's version is what a consuming project reads to decide
+        # whether to re-read it, so an edited asset whose version is unchanged
+        # tells that project something untrue. Needs the tags the job fetches
+        # below; with a shallow checkout the check reports NOTHING CHECKED and
+        # fails rather than passing on an empty range.
+        run: python3 scripts/check-asset-versions.py
 
       - name: the checks can fail
         # Every check reports a verdict, and a clean verdict proves nothing on
