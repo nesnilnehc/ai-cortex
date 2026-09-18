@@ -3,7 +3,7 @@ name: review-requirements
 description: "Review an existing requirement document against its modeling Spec and canonical quality Rule before design begins. Evaluative atomic skill; outputs findings without rewriting."
 description_zh: 在设计开始前依据需求建模规范和权威质量规则审查既有需求文档，只输出 findings，不改写。
 tags: [review, requirements, pre-coding]
-version: 2.0.0
+version: 2.0.1
 license: MIT
 recommended_scope: both
 metadata:
@@ -73,10 +73,3 @@ Input: “The API should be fast.” Expected: a `major` finding at the acceptan
 ### Example 2: small functional change
 
 Input: a bounded UI wording change with no architecture-significant quality attribute. Expected: do not manufacture a Quality Attribute Scenarios section; review the normal requirement contract.
-
-## Change record
-
-- Replaced the embedded, obsolete checklist with the canonical requirement Spec and Rule.
-- Added conditional quality-scenario review while preserving findings-list output.
-
-Version `2.0.0` reflects the authority and criteria change.

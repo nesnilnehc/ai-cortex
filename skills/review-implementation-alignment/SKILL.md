@@ -3,7 +3,7 @@ name: review-implementation-alignment
 description: "Compare an implemented change and its verification evidence with approved requirements, designs and tasks. Post-coding atomic functional-alignment review; outputs findings without repairing."
 description_zh: 对比已实现变更及验证证据与已批准的需求、设计和任务；编码后原子对齐审查，只输出 findings。
 tags: [review, implementation, alignment, post-coding]
-version: 1.1.0
+version: 1.1.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -76,9 +76,3 @@ The design requires timeout and caching; code implements only timeout and tests 
 ### Example 2: field disappears between layers
 
 The repository maps a new field, but the API response omits it. Emit ALN-004 with the contract and mapping locations.
-
-## Change record
-
-- Initial post-coding alignment reviewer externalizing criteria to a canonical Rule.
-
-Version `1.1.0` names the boundary against ARC-010 in the scope section. Leftover code from a replaced implementation reads like an alignment defect and is not one; the engineering gate already covers it, and stating which side owns it keeps the two gates from both reporting or both skipping it.
