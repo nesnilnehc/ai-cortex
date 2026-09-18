@@ -24,9 +24,13 @@ Run `prepare-release` first, then `publish-release`. Neither step is done by han
 
 ## What counts as worth releasing
 
-The four directories `bin/cortex` installs are `skills/`, `rules/`, `specs/` and `protocols/`. A range that changes none of them changes nothing for anyone who installed AI Cortex, and `prepare-release` is expected to return `decision=none` for it.
+`cortex update` resets the whole clone to `origin`, so every tracked file reaches a consumer's `CORTEX_HOME`. Reaching them is not the test — being consumed is. Five things are consumed:
 
-A range of documentation, scripts, CI or tests alone is therefore not a release. A change to a rule's obligations, a skill's behaviour or a spec's contract is.
+- `skills/` and `rules/`, which `bin/cortex` installs into each supported IDE's own directories
+- `specs/` and `protocols/`, which are read from the clone directly, as [AGENTS.md](../../AGENTS.md) §2 records
+- `bin/cortex` itself, because `cortex install` links `~/.local/bin/cortex` at it — so an edit to the script changes the command the moment someone updates
+
+A range that changes none of those five changes nothing for anyone who installed AI Cortex, and `prepare-release` is expected to return `decision=none` for it. A range of documentation, `scripts/`, CI or tests alone is therefore not a release: those travel with the clone but nothing outside this repository runs them. A change to a rule's obligations, a skill's behaviour, a spec's contract or the installer's behaviour is.
 
 ## Version domains are independent
 
