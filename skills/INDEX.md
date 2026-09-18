@@ -90,7 +90,7 @@ here alone is overwritten and does not reach the skill.
   - tags: `deploy`, `build`, `local`, `workflow`, `automation`, `docker`, `systemd`, `pm2` · triggers: `redeploy local`, `redeploy locally`, `rebuild and redeploy`, `update local env`, `rebuild local`, `deploy local`, `build and deploy`
 - [refine-skill-design](./refine-skill-design/SKILL.md) — Audit and refactor existing SKILLs to meet spec compliance, repository asset boundaries, tool adaptation requirements, and LLM best practices.
   - tags: `writing`, `meta-skill`, `optimization` · triggers: `refine skill`, `skill design`, `audit skill`, `skill refactor`, `skill compliance`
-- [review-architecture](./review-architecture/SKILL.md) — Review code against the canonical architecture quality Rule set, including boundaries, dependency direction, cohesion, cycles, contract stability, coupling, composition and change surface. Cognitive-only atomic skill; output is a findings list.
+- [review-architecture](./review-architecture/SKILL.md) — Review code against the canonical architecture quality Rule set, including boundaries, dependency direction, cohesion, cycles, contract stability, coupling, composition, change surface, unreachable code and deprecation discipline. Cognitive-only atomic skill; output is a findings list.
   - tags: `code-review`, `cognitive`, `architecture` · triggers: `review architecture`, `architecture review`
 - [review-codebase](./review-codebase/SKILL.md) — Review given file/dir/repo for current-state code organization: module boundaries, design patterns, cross-module dependencies, tech debt, and interface stability. Scope-only atomic skill; output is a findings list.
   - tags: `code-review`, `scope-only` · triggers: `review codebase`, `codebase review`
