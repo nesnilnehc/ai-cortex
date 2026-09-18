@@ -18,9 +18,12 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / "tests" / "fixtures" / "markdown-links"
 
-# Every other link in the tree is a demonstration: inside a code span, a
-# top-level fence, a fence indented into a list item, or a longer fence
-# holding a shorter one. None of them may appear.
+# Every other link in the tree must stay out of both lists. The
+# demonstrations — inside a code span, a top-level fence, a fence indented
+# into a list item, and a longer fence holding a shorter one — are shown, not
+# made. The anchor, the absolute URL and the mail address are not repository
+# paths. And a guide outside rules/, specs/ and protocols/ may link a Skill:
+# the reference-direction rule binds governance assets, not prose.
 EXPECTED_BROKEN = ["docs/links.md:5 -> ./missing.md"]
 EXPECTED_DOWNWARD = ["rules/downward.md:3"]
 
@@ -53,7 +56,7 @@ def main() -> int:
         return 1
     print(
         "Validated the markdown link checker: 1 broken link and 1 downward link found, "
-        "7 demonstrations in code spans and fences correctly ignored."
+        "with demonstrations, anchors, absolute links and non-governance prose correctly ignored."
     )
     return 0
 
