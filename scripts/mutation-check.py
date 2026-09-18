@@ -49,6 +49,8 @@ CORTEX = "scripts/check-cortex-docs.py"
 CORTEX_TEST = "scripts/test-cortex-docs.py"
 VERSIONS = "scripts/check-asset-versions.py"
 VERSIONS_TEST = "scripts/test-asset-versions.py"
+RULES = "scripts/validate-rules.py"
+RULES_TEST = "scripts/test-validate-rules.py"
 TRANSLATED = "rules/task-quality.md"
 VERIFIER = "scripts/verify-translation.py"
 
@@ -217,6 +219,27 @@ PERTURBATIONS = [
          '        return len(parts) == 3 and parts[2] == "SKILL.md"', "        return True"),
     code(VERSIONS, VERSIONS_TEST, "count a registry index as a versioned asset",
          '    if parts[-1] == "INDEX.md":\n        return False\n', ""),
+
+    code(RULES, RULES_TEST, "stop requiring a Rule to be registered in the index",
+         '    if f"(./{path.name})" not in index_text:', "    if False:"),
+    code(RULES, RULES_TEST, "stop checking the order of the required sections",
+         "        if [positions[name] for name in required_order] != sorted(",
+         "        if False and [positions[name] for name in required_order] != sorted("),
+    code(RULES, RULES_TEST, "stop reporting an identifier repeated inside one document",
+         "        if rule_id in seen_ids:", "        if False:"),
+    code(RULES, RULES_TEST, "stop reporting an identifier owned by two documents",
+         "            if rule_id in owners:", "            if False:"),
+    code(RULES, RULES_TEST, "accept a Requirement with no MUST or MUST NOT",
+         '        if "**MUST**" not in requirement and "**MUST NOT**" not in requirement:',
+         "        if False:"),
+    code(RULES, RULES_TEST, "accept any Default severity",
+         '        if severity not in {"critical", "major", "minor", "suggestion"}:',
+         "        if False:"),
+    code(RULES, RULES_TEST, "stop reporting a required item field left empty",
+         "        empty_fields = sorted(name for name in REQUIRED_ITEM_FIELDS if not fields.get(name))",
+         "        empty_fields = []"),
+    code(RULES, RULES_TEST, "stop noticing items under frontmatter that did not parse",
+         "    if ITEM_HEADING.search(text):", "    if False:"),
 
     code(CORTEX, CORTEX_TEST, "read the dispatch without the dotall flag",
          'DISPATCH = re.compile(r"^case \\"\\$_cmd\\" in$(.*?)^esac$", re.MULTILINE | re.DOTALL)',
