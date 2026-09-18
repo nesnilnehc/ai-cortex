@@ -83,9 +83,11 @@ jobs:
         run: python3 scripts/test-doc-hygiene.py
 
       - name: the checks can fail
-        # Each test above asserts a list of findings over a fixture tree,
-        # and passes just as happily when the checker has stopped looking.
-        # This seeds a known defect into each and requires the test to go red.
+        # Every check reports a verdict, and a clean verdict proves nothing on
+        # its own: a checker that has stopped looking returns the same thing.
+        # This perturbs the material each one reads — a defect seeded into a
+        # checker, an edit made to a translated document, an unresolvable git
+        # ref — and requires the verdict to change.
         run: python3 scripts/mutation-check.py
 
   translation-invariants:
