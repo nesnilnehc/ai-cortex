@@ -1,0 +1,190 @@
+schema_version: RELEASE_PACKAGE_SPEC_V1
+project: ai-cortex
+decision: release
+version: 0.3.0
+release_channel: stable
+version_source: git tag
+commit: f52040ce497d49fcb53f961fa671f083ab491a3d
+range: v0.2.1..f52040ce4
+status: ready
+
+decision_basis: >-
+  The range adds a Rule set and a Skill, both of which a consumer consumes:
+  bin/cortex installs rules/ and skills/ into each supported IDE's directories.
+  Per docs/guides/releasing.md that makes it a release rather than a
+  documentation range. MINOR because the additions are backward compatible and
+  no existing obligation was removed or tightened.
+
+version_domains:
+  product:
+    current: 0.2.1
+    source: git tag
+    action: bump-minor
+  rules:
+    current: per-file frontmatter
+    source: rules/*.md
+    action: >-
+      error-surfacing-quality added at 1.0.0; standards-coding 1.0.2 -> 1.1.1.
+      The other 28 preserve — this range does not edit them.
+  skills:
+    current: per-file frontmatter
+    source: skills/*/SKILL.md
+    action: >-
+      review-error-surfacing added at 1.2.0; orchestrate-code-review 1.2.0 -> 1.3.0
+      for the dispatch step it gained. The other 66 preserve.
+  specs:
+    current: per-file frontmatter
+    source: specs/*.md
+    action: preserve — no spec changed in this range
+  protocols:
+    current: per-file frontmatter
+    source: protocols/*.md
+    action: preserve — no protocol changed in this range
+
+change_items:
+  - id: CI-0300-01
+    category: added
+    audience: customer
+    summary: >-
+      error-surfacing-quality, a tenth modeled Rule set with six ERR items covering boundary
+      decisions on untrusted input, stopping on a broken invariant, detection layer, and what a
+      failure message owes a person or a program.
+    user_impact: >-
+      A project adopting the engineering Rule sets gains six items it can cite, waive and
+      count in coverage. Two are major, four are minor.
+    source: 70f4dbc
+  - id: CI-0300-02
+    category: added
+    audience: customer
+    summary: >-
+      review-error-surfacing executes the Rule set, and orchestrate-code-review dispatches it
+      as a seventh cognitive step.
+    user_impact: An orchestrated review runs the new concern with no change on the caller's side.
+    source: 70f4dbc, 8ad5f18
+  - id: CI-0300-03
+    category: added
+    audience: customer
+    summary: >-
+      Two optional project parameters — error.detection_layers and
+      error.false_positive_threshold — gate the two items that need project facts.
+    user_impact: >-
+      Leaving a parameter unset makes only its own item unevaluable; baseline items still run.
+    source: 70f4dbc
+  - id: CI-0300-04
+    category: changed
+    audience: customer
+    summary: >-
+      standards-coding points at error-surfacing-quality and ARC-010 rather than restating
+      "fail fast", "messages carry context" and "keep no commented-out dead code".
+    user_impact: >-
+      standards-coding is user-scoped and both targets are project-scoped, so a consumer
+      installing user-scoped rules alone now receives a pointer where the text used to be.
+    source: 874674f, b4874d8
+  - id: CI-0300-05
+    category: added
+    audience: operator
+    summary: docs/guides/releasing.md records how this repository is released.
+    user_impact: Relevant to a fork maintainer; no effect on an installed asset.
+    source: 02020e5, 10ae3a6, 39e3391
+  - id: CI-0300-06
+    category: internal
+    audience: internal
+    summary: >-
+      Every ERR judgment item gained a worked pass and a worked failure, and ERR-006 names the
+      tool class behind its count, which is the activation evidence constraint 8 of
+      workflow-rule-governance requires before an item is active.
+    user_impact: >-
+      None to an adopter's code. It is what makes the six items legitimately active rather
+      than asserted.
+    source: fc9a6d1, f81db9f
+  - id: CI-0300-07
+    category: internal
+    audience: internal
+    summary: >-
+      The ERR references carry verified locators, the source map gains a failure-surfacing
+      section, and the three ideas here with no citable source are recorded as such.
+    user_impact: None — repository provenance, not an installed obligation.
+    source: 0a4cd03
+  - id: CI-0300-08
+    category: internal
+    audience: internal
+    summary: >-
+      The unreleased changelog entries were reshaped to one meaning per entry with the
+      conclusion first, and two relative dates removed.
+    user_impact: None — this document's own readability.
+    source: 5bf8210, 9e76d04, 3db888f
+
+artifacts:
+  changelog:
+    kind: changelog
+    audience: technical
+    path: CHANGELOG.md
+    required: true
+    status: present
+    source: change_items
+  release_notes:
+    kind: release_notes
+    audience: customer
+    path: .cortex/release/0.3.0/release-notes.md
+    required: true
+    status: present
+    source: change_items
+    note: >-
+      Not RELEASE_NOTES.md as the Spec's example shows. That path fails this repository's own
+      checks twice — an orphaned document, and NOTES on the process-record filename list.
+  manifest:
+    kind: manifest
+    audience: internal
+    path: .cortex/release/0.3.0/manifest.yaml
+    required: true
+    status: present
+    source: change_items
+  video:
+    kind: video
+    audience: customer
+    path: null
+    required: false
+    status: skipped
+    source: change_items
+
+checks:
+  - command: python3 scripts/check-markdown-links.py
+    status: pass
+    required: true
+  - command: python3 scripts/check-doc-hygiene.py
+    status: pass
+    required: true
+  - command: python3 scripts/check-asset-counts.py
+    status: pass
+    required: true
+  - command: python3 scripts/check-cortex-docs.py
+    status: pass
+    required: true
+  - command: python3 scripts/validate-rules.py
+    status: pass
+    required: true
+  - command: python3 scripts/test-rule-scenarios.py
+    status: pass
+    required: true
+  - command: python3 scripts/sync-skills-index.py --check
+    status: pass
+    required: true
+  - command: python3 scripts/mutation-check.py
+    status: pass
+    required: true
+    evidence: >-
+      54 perturbations, every one producing the expected verdict — task-quality 14,
+      check-asset-counts 6, check-cortex-docs 5, check-doc-hygiene 14, check-markdown-links 7,
+      test-rule-scenarios 7, the invocation 1.
+  - command: npx markdownlint-cli2
+    status: pass
+    required: true
+    evidence: 251 files, 0 issues
+  - command: orchestrate-code-review over v0.2.1..HEAD
+    status: pass
+    required: false
+    evidence: >-
+      Engineering gate run as a repair loop. Six findings, all repaired: the release criterion,
+      two stale reviewer counts, the ERR activation evidence, two changelog defects. The ERR
+      finding was raised by both the engineering gate and implementation-alignment review
+      against the approved rule-governance design.
