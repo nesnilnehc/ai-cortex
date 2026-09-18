@@ -30,7 +30,7 @@ Before writing an ADR, answer two questions. **Write one only when both answers 
 ### Either no → do not write an ADR; use the alternative
 
 | Situation | Where it belongs |
-|---|---|
+| --- | --- |
 | Why this code changed | commit message |
 | Why this PR did it this way | PR description |
 | A coding convention | `rules/*.md` |
@@ -66,7 +66,7 @@ proposed | accepted | superseded | archived | rejected
 ### Status transition rules
 
 | Target status | Additional required fields |
-|---|---|
+| --- | --- |
 | `superseded` | `superseded_by: NNNN-{slug}` |
 | `archived` | `archived_at: YYYY-MM-DD` plus `archived_reason: <reason>` |
 
@@ -116,7 +116,7 @@ These are **never physically deleted**, however old:
 `rules/` and `docs/adr/` serve different audiences, and no automatic derivation is built between them:
 
 | Dimension | `rules/` | `docs/adr/` |
-|---|---|---|
+| --- | --- | --- |
 | Audience | Claude agent, loaded at runtime | People, consulted for history |
 | Tense | Currently effective constraint | Snapshot of a decision at a point in time |
 | Content | Behavioural rules — active constraints | Decision records — why plus alternatives |

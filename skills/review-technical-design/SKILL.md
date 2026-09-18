@@ -81,4 +81,3 @@ Accept an explicit “no database change” statement. Do not require a migratio
 ## Change record
 
 - Initial atomic reviewer combining the existing design contract with profiled engineering Rule references.
-

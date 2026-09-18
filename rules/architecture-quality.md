@@ -21,7 +21,7 @@ Applies to code with more than one responsibility, module or externally consumed
 ## Profiles and parameters
 
 | Name | Kind | Provenance | Meaning |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `public-api` | profile | — | Other independently released code or external users consume a contract |
 | `dependency-injection` | profile | — | A composition root wires abstractions to implementations |
 | `architecture.modules` | parameter | derived | Named modules and ownership boundaries |
@@ -36,7 +36,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### ARC-001 — Responsibilities have one owner
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Each business or technical responsibility **MUST** have one clear module owner, and a module **MUST NOT** mix responsibilities that change for unrelated reasons. |
 | Applies when | A scope contains two or more responsibilities or modules. |
@@ -50,7 +50,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### ARC-002 — Dependencies follow declared direction
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `project:architecture.allowed_dependencies` |
 | Requirement | Every inter-module dependency **MUST** be an allowed directed edge in the project's declared topology. |
 | Applies when | `architecture.allowed_dependencies` is declared. |
@@ -64,7 +64,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### ARC-003 — A module graph has no cycles
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | A module dependency graph **MUST NOT** contain a directed cycle. |
 | Applies when | Two or more modules exist. |
@@ -78,7 +78,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### ARC-004 — Boundaries do not leak implementation details
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | A module's outward contract **MUST NOT** expose an implementation-only type, storage model, framework primitive or private dependency. |
 | Applies when | One module is consumed across a boundary. |
@@ -92,7 +92,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### ARC-005 — Public contracts evolve compatibly
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:public-api` |
 | Requirement | A protected public contract **MUST** remain backward compatible, or carry an explicit version and migration path approved by its owner. |
 | Applies when | A changed artifact is listed in `architecture.protected_contracts` or has independent consumers. |
@@ -106,7 +106,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### ARC-006 — Cross-module coupling is necessary and bounded
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | A change **MUST NOT** add cross-module dependencies that are unused, duplicative or avoidable through an existing owner contract. |
 | Applies when | The change adds or broadens a dependency edge. |
@@ -120,7 +120,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### ARC-007 — Extension points correspond to demonstrated variation
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | An abstraction or extension point **MUST** represent an existing contract boundary or at least two demonstrated variants; speculative generality is not allowed. |
 | Applies when | The change introduces an interface, plugin point, strategy registry or generic framework. |
@@ -134,7 +134,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### ARC-008 — Composition is explicit and complete
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:dependency-injection` |
 | Requirement | Every required implementation **MUST** be wired at an explicit composition root, and production code **MUST** have a call path to newly delivered behavior. |
 | Applies when | The project uses dependency injection, registries, plugins or route/handler registration. |
@@ -148,7 +148,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### ARC-009 — Change surface stays within its declared budget
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `project:architecture.change_budgets` |
 | Requirement | A change that exceeds its declared file, module, public-contract or migration budget **MUST** be split or carry an approved impact justification. |
 | Applies when | A change size and `architecture.change_budgets` are declared. |

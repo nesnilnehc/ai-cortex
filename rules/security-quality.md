@@ -21,7 +21,7 @@ Applies to code and configuration that accepts input, performs privileged operat
 ## Profiles and parameters
 
 | Name | Kind | Provenance | Meaning |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `public-entrypoint` | profile | — | Untrusted callers can reach an API, command, file importer or message consumer |
 | `authenticated-system` | profile | — | Identity or authorization controls access to operations or objects |
 | `sensitive-data` | profile | — | The workload handles secrets, credentials, personal, financial or regulated data |
@@ -36,7 +36,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### SEC-001 — Untrusted input is constrained before a dangerous sink
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:public-entrypoint` |
 | Requirement | Untrusted input **MUST** be validated for the intended domain and parameterized or contextually encoded before reaching a query, command, template, path, parser or interpreter sink. |
 | Applies when | Caller-controlled data can influence a dangerous sink. |
@@ -50,7 +50,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### SEC-002 — Authorization is enforced at the protected operation
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:authenticated-system` |
 | Requirement | Every protected operation and object access **MUST** enforce authorization server-side at or below the operation boundary, using deny-by-default behavior. |
 | Applies when | An operation or object has role, tenant, ownership or policy restrictions. |
@@ -64,7 +64,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### SEC-003 — Secrets never enter source, artifacts or telemetry
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Credentials, private keys, tokens and production secrets **MUST NOT** be hardcoded, committed, returned to clients or emitted to telemetry. |
 | Applies when | Code, configuration, examples or logs contain credential-shaped values or secret-bearing objects. |
@@ -78,7 +78,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### SEC-004 — Protected data is minimized and purpose-bound
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:sensitive-data` |
 | Requirement | Protected data **MUST** be collected, stored, transmitted, cached and logged only to the minimum extent required by its declared purpose and retention policy. |
 | Applies when | A field is classified under `security.protected_data` or is evidently credential, personal, financial or regulated data. |
@@ -92,7 +92,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### SEC-005 — Cryptography uses approved primitives and key handling
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Security-sensitive encryption, signing, hashing and random generation **MUST** use approved maintained libraries, algorithms and key-management mechanisms; custom cryptography is forbidden. |
 | Applies when | The change performs a cryptographic security function. |
@@ -106,7 +106,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### SEC-006 — Executable dependencies are trusted, pinned and reviewed
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:software-supply-chain` |
 | Requirement | A new or updated executable dependency **MUST** have a traceable source, compatible license, integrity pin, vulnerability assessment and demonstrated need. |
 | Applies when | A manifest, lockfile, build action, container base or downloaded executable changes. |
@@ -120,7 +120,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### SEC-007 — Production defaults fail closed
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Missing or invalid security configuration **MUST** fail closed, and production defaults **MUST NOT** enable debug access, broad permissions or insecure transport. |
 | Applies when | Configuration controls authentication, authorization, transport, origins, diagnostics or privileged features. |
@@ -134,7 +134,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### SEC-008 — Security failures are observable without disclosure
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Authentication, authorization, validation and integrity failures **MUST** produce actionable security telemetry while responses and logs **MUST NOT** disclose secrets or exploitable internals. |
 | Applies when | A security control rejects or detects an operation. |

@@ -51,7 +51,7 @@ Where these documents live is decided by each project's governance; typically `d
 Every contract must be able to answer **3 questions plus 1 anchor**:
 
 | Dimension | Core question | Section |
-|---|---|---|
+| --- | --- | --- |
 | **Input contract (Accept)** | What must the agent accept? How does it recognise a missing field? | §5 Input contract |
 | **Behavioural boundary (Reject)** | What must the agent reject? Which tools may it call, and which are forbidden? | §5 Tool boundary and write-back preconditions |
 | **Judgement (Judge)** | What counts as correct? Which oracle, at what threshold? | §5 Oracles and golden cases |
@@ -97,7 +97,7 @@ deprecated_reason: <reason>         # required when status is deprecated
 ### 4.1 Field table
 
 | Field | Type | Required | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `id` | string | yes | Follows `ATC-<AGENT>` |
 | `artifact_type` | string | yes | Fixed as `agent-test-contract` |
 | `lifecycle` | enum | yes | Fixed as `living` — the contract evolves with the agent's capability |
@@ -114,7 +114,7 @@ deprecated_reason: <reason>         # required when status is deprecated
 ### 4.2 State machine semantics
 
 | Status | Meaning | Entry condition |
-|---|---|---|
+| --- | --- | --- |
 | `draft` | Being drafted | The contract has just landed and the golden set is not yet stable |
 | `active` | In force | The golden set is stable and the regression gate is wired up |
 | `deprecated` | Retired | The agent was decommissioned or its capability merged; `deprecated_at` and `deprecated_reason` must be filled in |
@@ -128,7 +128,7 @@ deprecated_reason: <reason>         # required when status is deprecated
 **H1 title**: `# Agent test contract: <agent name>`
 
 | # | Section | Purpose | Validation |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | 1 | Capability boundary | What the agent does and does not do | As a list; at least 1 item on each side |
 | 2 | Input contract | Required input fields, and how a missing field is recognised | Each field carries name, type, whether it is required, and the expected behaviour when absent |
 | 3 | Tool call boundary | The allowed and forbidden tool sets | Both sets listed explicitly; where the forbidden set is non-empty, each entry carries its reason |

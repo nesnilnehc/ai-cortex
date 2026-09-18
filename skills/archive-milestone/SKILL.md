@@ -61,7 +61,7 @@ Move the historical execution detail of a completed milestone out of the active 
 **Any one of the following is enough to archive**; when none of them holds, the skill refuses to run and explains why:
 
 | Condition | Basis for the decision |
-|---|---|
+| --- | --- |
 | ≥ 60 days since the completion date | the `completed_at` field in the tasks.md frontmatter |
 | The in-progress milestone index is ≥ slug + 2 | the numeric suffix of the `in-progress` milestone in roadmap.md |
 
@@ -158,11 +158,13 @@ Perform every operation as previewed, then emit the operation log.
 ### Example 1: the normal case — archiving after M3 completes
 
 **Input**:
+
 - `docs/process-management/milestones/m3/` holds a tasks.md completed 60 days ago (all status=completed)
 - The M3 stage in `roadmap.md` is marked ✅
 - The next milestone, M4, has started
 
 **Execution** (dry-run by default):
+
 1. Maturity check: M3 completed ≥ 60 days ago ✓ — one condition is enough, so the index condition (in-progress ≥ M5, currently M4) does not also have to hold
 2. Produce the snapshot `milestones/_archive/m3-summary.md`: completion date, 5 key deliverables, key ADR references
 3. Give the impact analysis: the roadmap M3 section will fold into 3 lines; the current path `milestones/m3/` will be deleted
@@ -175,6 +177,7 @@ Perform every operation as previewed, then emit the operation log.
 **Input**: M5 completed only 14 days ago, and the in-progress milestone is still M5, so neither condition holds.
 
 **Execution**:
+
 1. Maturity check: completion is < 60 days ago and the later milestone index differs by 0
 2. Refuse to run: emit "the milestone is not mature yet (14 days < the 60-day threshold; no later milestone has started); suggest archiving after ≥60 days, or once M6 starts"
 3. Produce no snapshot and change no roadmap

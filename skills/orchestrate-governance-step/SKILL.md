@@ -35,7 +35,7 @@ Turn a plan-next routing suggestion into one executable governance action, which
 plan-next can only diagnose and suggest; the user has to run each suggestion by hand. orchestrate-governance-step fills that execution gap and, together with `/loop`, gives three orthogonal layers of automation:
 
 | Layer | Skill | Responsibility |
-|---|---|---|
+| --- | --- | --- |
 | Scheduling | `/loop` | Fires once every N minutes |
 | **Driving** | **orchestrate-governance-step** | Read the routing → run 1 step → report |
 | Diagnosis | `plan-next` | Inventory + gap identification + routing suggestions (read-only) |
@@ -61,6 +61,7 @@ plan-next can only diagnose and suggest; the user has to run each suggestion by 
 ## Scope Boundaries
 
 **This skill covers**:
+
 - Calling plan-next internally to get the routing
 - Taking the highest-priority card from "Do now" (`urgent` > `important` > `defer`)
 - Stall detection (fingerprint comparison within the session)
@@ -71,12 +72,14 @@ plan-next can only diagnose and suggest; the user has to run each suggestion by 
 - Emitting the IterationStepReport
 
 **This skill does not cover**:
+
 - Governance diagnosis and routing generation → `plan-next`
 - Loop scheduling → `/loop` (built into Claude Code)
 - The code-defect repair loop → `orchestrate-repair-loop`
 - The content of strategic and creative decisions (mission, vision, strategic goals) → a human is needed
 
 **Handoff points**:
+
 - `continuation_signal: done` → governance is ready; tell the user and stop
 - `continuation_signal: blocked | stalled | error` → a human is needed; stop and explain why
 
@@ -122,12 +125,13 @@ Sort "Do now" by priority (`urgent` → `important` → `defer` → `awaiting ex
 **Three-state decision** (do not mistake "awaiting execution" for "finished"):
 
 | plan-next output | continuation_signal | Meaning |
-|---|---|---|
+| --- | --- | --- |
 | Routing cards present (urgent / important / defer) | Continue at step 3 | Governance has a gap; a sub-skill can run |
 | Only "awaiting execution" cards (tasks already broken down, waiting on development) | `blocked` | Governance is ready, waiting on outside work |
 | Completely empty (every goal has status=done and the L1 KPI is met) | `done` | Governance and acceptance are both met |
 
 **Key constraints**:
+
 - An empty "Do now" ≠ done. It must first be confirmed that plan-next reached that verdict after the L1 acceptance-KPI check and the L5 awaiting-execution branch
 - If the plan-next output carries no L1 acceptance-KPI status field → treat the plan-next call as non-compliant, emit `error`, and prompt for a plan-next upgrade
 - A strategic goal with `status = approved` whose acceptance is not met → plan-next necessarily returns routing (establish the KPI, or an awaiting-execution card), so the result should not be empty
@@ -172,7 +176,7 @@ Enter plan mode and produce an execution plan for that card, containing:
 Each round checks the plan against the list below; on any defect, revise it and review again:
 
 | Check | What counts as a defect |
-|---|---|
+| --- | --- |
 | The goal matches the routing card | The plan's goal diverges from, or drops part of, the card's subject or completion marker |
 | Single-step semantics | The plan implicitly runs ≥ 2 sub-skills or covers ≥ 2 cards |
 | The focus is traceable | The focus has no support in the card's own text |
@@ -197,7 +201,7 @@ Once the self-review passes, leave plan mode and call `/skill-name [focus]` as p
 The only legitimate source of a `done` signal is this step's verification result — substituting the model's own inference is forbidden.
 
 | Result | Action |
-|---|---|
+| --- | --- |
 | The card is gone, "Do now" still has entries | `continuation_signal: advance` |
 | The card is gone, "Do now" is empty | `continuation_signal: done` |
 | The card is still there | Update the stall counter; when the count reaches 2 → `continuation_signal: stalled` |
@@ -211,11 +215,12 @@ The only legitimate source of a `done` signal is this step's verification result
 `/loop` has two modes, and they consume `continuation_signal` in completely different ways:
 
 | /loop mode | How it fires | Signal consumption | Recommended use |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | **Dynamic** | No interval (self-scheduled ScheduleWakeup) | Reads `continuation_signal`: done/blocked/stalled/error stop the loop | ✅ **Recommended**: `/loop /orchestrate-governance-step` (no interval) |
 | **Fixed-interval (cron)** | An interval is given (`5m`, say) | **Does not read** `continuation_signal`: cron keeps firing and the signal is ignored | ⚠️ Not recommended where automatic stopping matters; the user must CronDelete by hand |
 
 **Mandatory behavior**:
+
 - On detecting fixed-interval cron mode (through a CronCreate record in the session context whose prompt is `/orchestrate-governance-step`), the first IterationStepReport must warn the user: "this is cron mode and the signal is ignored; to stop the repeated firing, switch to a dynamic /loop, or CronDelete once you get stalled/blocked/done"
 - On the 2nd consecutive `stalled` signal, the IterationStepReport must state "**CronDelete <job-id> immediately, strongly recommended**" and give the job ID
 
@@ -228,7 +233,7 @@ The only legitimate source of a `done` signal is this step's verification result
 ### Input
 
 | Parameter | Required | Default | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `docs_root` | No | auto | The governance docs root; auto means the same default path as plan-next |
 | `pre_run_output` | No | — | A pre-run plan-next output; when supplied, the internal call is skipped |
 
@@ -250,7 +255,7 @@ The only legitimate source of a `done` signal is this step's verification result
 ### continuation_signal semantics
 
 | Value | Meaning | /loop behavior |
-|---|---|---|
+| --- | --- | --- |
 | `advance` | The action finished and governance still has work | Fire again |
 | `done` | "Do now" was empty when plan-next was re-run in step 6; **emitting this value from the model's own inference is forbidden** | Stop the loop |
 | `blocked` | Every card in "Do now" either hit the human gate or is "awaiting execution" (nothing executable was left after trying and skipping each one) | Stop the loop and wait for the user |
@@ -264,40 +269,49 @@ The only legitimate source of a `done` signal is this step's verification result
 ### Hard Boundaries
 
 **Rule 1**: an invocation MUST NOT run more than 1 action
+
 - Verification: the IterationStepReport has exactly 1 entry in the `skill called` field
 - Consequence: REJECT (it breaks the single-step semantics of the three-layer model)
 
 **Rule 2**: a strategic or creative skill MUST trigger the human gate and must not be run directly
+
 - Verification: when the recommended skill is define-mission or similar, that card goes on the session skip-list and the next one is tried; if every card is skipped, the report shows `blocked` and lists every blocked item
 - Consequence: REJECT (strategic decisions are not there to be automated)
 
 **Rule 3**: every invocation MUST emit a valid `continuation_signal`
+
 - Verification: the IterationStepReport carries the `continuation signal` field and its value is one of the five in the enum
 - Consequence: REJECT (/loop depends on this signal to decide whether to continue)
 
 **Rule 4**: the `done` signal MUST come from the step 6 plan-next re-run, and MUST NOT come from the model's own inference
+
 - Verification: the IterationStepReport notes carry no self-assessment language such as "the whole governance layer is ready" or "everything currently executable has been created"; `done` is emitted only after step 6 confirms that "Do now" is empty
 - Consequence: REJECT (the model took the routing judgment away from plan-next, breaking the responsibility boundaries of the three-layer model)
 
 **Rule 5**: `done` MUST satisfy all three at once — the plan-next output declares "the L1 acceptance KPI is met" AND "Do now is empty" AND "there is no awaiting-execution card"
+
 - Verification: when emitting `done`, the IterationStepReport quotes the KPI status field from the plan-next governance context (such as "citation visibility 85% ≥ 80% (met)"); as long as the KPI is unmet, its data is missing, or an "awaiting execution" card is present, `done` must never be emitted
 - Consequence: REJECT (mistaking "strategic goal status=approved" for acceptance being met makes /loop stop at the wrong time)
 
 **Rule 6**: a card labeled "awaiting execution" MUST go on the skip-list with the next one tried, and MUST NOT be executed or turned straight into done; `blocked` is emitted only once every card has been skipped
+
 - Verification: selected_skill is left unfilled on an "awaiting execution" card; if the end state is blocked, next_step carries the words "governance is ready, waiting on outside execution" and lists every skipped item
 - Consequence: REJECT
 
 **Rule 7**: MUST enter plan mode, draft the plan, and pass the self-review loop before executing; MUST NOT call the recommended skill directly
+
 - Verification: the IterationStepReport carries a `plan_reviewed_rounds` field (≥1) and the final round leaves no defect; a divergence found in a failed execution must not be used as grounds for "expanding the plan's scope"
 - Consequence: REJECT (skipping the plan stage lets the single-step semantics and the scope red lines get out of hand, and leaves downstream auditing with nothing to go on)
 
 **Rule 8**: plan self-review MUST NOT exceed 3 rounds; beyond that, emit error — a defective plan must not be forced through
+
 - Verification: `plan_reviewed_rounds ≤ 3`; beyond it, `continuation_signal: error` and next_step carries the list of remaining defects
 - Consequence: REJECT (unbounded self-review either loops forever or rationalizes the defect away)
 
 ### Skill Boundaries
 
 **Do not do the following** (other skills own them):
+
 - **Governance diagnosis and routing** → `plan-next`
 - **Loop scheduling** → `/loop`
 - **The code repair loop** → `orchestrate-repair-loop`
@@ -450,6 +464,7 @@ The only legitimate source of a `done` signal is this step's verification result
 **Scenario**: plan-next routes to registering new backlog entries; first invocation; the sub-skill succeeds.
 
 **Execution**:
+
 1. Call plan-next internally → subject: "register the 3 backlog entries added in stage M5", recommended skill: `/capture-work-items`, priority: defer
 2. Stall detection: first invocation, no fingerprint history → continue
 3. Human gate: `capture-work-items` is not a creative skill → pass
@@ -486,6 +501,7 @@ The only legitimate source of a `done` signal is this step's verification result
 **Scenario**: plan-next routes two cards: `design-strategic-goals` (important, strategic/creative) + `capture-work-items` (defer, registration).
 
 **Execution**:
+
 1. Call plan-next internally → two routing cards
 2. Stall detection: first invocation → continue
 3. Step 2 takes the highest priority: `design-strategic-goals`
@@ -516,6 +532,7 @@ The only legitimate source of a `done` signal is this step's verification result
 **Scenario**: plan-next routes two cards, both either strategic/creative or "awaiting execution".
 
 **Execution**:
+
 1. plan-next → `define-mission` (important) + one `awaiting execution` card
 2. Step 2 takes `define-mission` → step 4 adds it to the skip-list → back to step 2
 3. Step 2 takes the "awaiting execution" card → step 4 adds it to the skip-list → back to step 2
@@ -542,6 +559,7 @@ The only legitimate source of a `done` signal is this step's verification result
 **Scenario**: after the last `/capture-work-items` run, the requirement document was never written; this time plan-next routes the same card.
 
 **Execution**:
+
 1. Call plan-next internally → fingerprint = "analyze the requirements of roadmap node N1||strategic goal 'Goal A' → roadmap 'N1' current: requirements layer"
 2. Stall detection: identical to the previous fingerprint → **stalled fires**
 

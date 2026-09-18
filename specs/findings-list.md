@@ -49,7 +49,7 @@ Out of scope:
 Every finding carries these. Location, category, severity, title and description are required; suggestion is optional.
 
 | Element | Required | Content |
-|---|---|---|
+| --- | --- | --- |
 | **Location** | yes | `path/to/file.ext`, optionally with a line or range — `path/to/file.ext:42`, `path/to/file.ext:42-58`. For a document artifact, a section anchor is acceptable in place of a line. |
 | **Category** | yes | The dimension this finding belongs to, per §5.3. One value, matching the emitting skill's declared category. |
 | **Severity** | yes | `critical` / `major` / `minor` / `suggestion`, per §5.2. |
@@ -60,7 +60,7 @@ Every finding carries these. Location, category, severity, title and description
 ### 5.2 Severity
 
 | Value | Meaning |
-|---|---|
+| --- | --- |
 | `critical` | Correctness, security or data loss. It must be fixed before the change ships. |
 | `major` | A real defect that will cost something later — a broken contract, a missing error path, a regression risk. |
 | `minor` | A defect with bounded present cost — naming, a narrow edge case, a local inconsistency — or missing **evidence** for behavior that appears correct, such as an absent test, measurement or operational signal. Evidence-class findings raise future risk rather than causing a present failure. |
@@ -73,7 +73,7 @@ An orchestrator aggregating several skills sorts by severity first, so the value
 A category names the dimension a skill reviews, so an aggregated list stays readable when findings from a dozen skills sit together. It takes the form `<class>` or `<class>-<subject>`:
 
 | Class | Subject | Example |
-|---|---|---|
+| --- | --- | --- |
 | `scope` | — | `scope`, for a skill bounded by a diff or a path set |
 | `language` | the language | `language-python`, `language-go`, `language-sql` |
 | `framework` | the framework | `framework-react`, `framework-vue` |
@@ -111,7 +111,7 @@ An exact duplicate — same location and same title — stays annotated as such 
 An evaluative Skill executing a modeled Rule set appends one optional coverage object:
 
 | Field | Required | Content |
-|---|---|---|
+| --- | --- | --- |
 | `rule_set` | yes | Canonical Rule document name |
 | `version` | yes | Rule-set version evaluated |
 | `passed` | yes | Applicable Rule IDs that passed |

@@ -91,7 +91,7 @@ status: active
 ## Boundary with the upstream rules
 
 | Subject of review | Owning rule | Trigger |
-|---|---|---|
+| --- | --- | --- |
 | One business test case | [test-case-quality](./test-case-quality.md) | A single-case PR, or a new case |
 | Test code, as code | [standards-test-code](./standards-test-code.md) | A test code PR |
 | A report on how a suite covers the requirements | **this rule** | Release gate / quarterly audit / upstream change impact |

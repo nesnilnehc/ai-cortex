@@ -68,7 +68,7 @@ Precondition: the git working tree has no uncommitted changes (the skill checks 
 ## Output files
 
 | File | Description |
-|---|---|
+| --- | --- |
 | `milestones/_archive/{slug}-summary.md` | Snapshot summary (lifecycle: snapshot) |
 
 ## Summary structure

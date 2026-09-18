@@ -269,6 +269,7 @@ If yes: the strategic goals are done. Move to the handoff or stop.
 **Context**: the user drafted 4 strategic goals, all user- or market-oriented; the planning horizon is 12 months (a long-term project).
 
 **Process**:
+
 1. Detect that none of the 4 goals touches engineering / governance health.
 2. Tell the user: "This is a long-term project; an engineering-health goal is recommended here, otherwise tech-debt and governance work has no strategic sponsor over the long run and the capacity guardrail has nothing to attach to."
 3. Show the default template; the user tunes the key results (e.g. "tech-debt backlog item count ≤ 20" becomes "≤ 30", based on team size).

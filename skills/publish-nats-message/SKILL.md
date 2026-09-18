@@ -114,7 +114,7 @@ Afterwards:
 Fill the fields per the contract:
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | subject | the subject defined in the contract's "Contract Scope" section |
 | `Nats-Msg-Id` | a UUID v7 generated on the spot (reuse the original ID when retrying) |
 | `X-Source` | the cached `service_source` |
@@ -131,7 +131,7 @@ Validation fails → report the offending fields and **send nothing**.
 Pick the tool by QoS:
 
 | Case | MCP tool | Note |
-|---|---|---|
+| --- | --- | --- |
 | at-most-once (telemetry / heartbeat) | `mcp__nats__publish` | no ack, fire-and-forget |
 | at-least-once (the cross-team default) | `mcp__nats__jetstream_publish` | must wait for the ack; triggers `duplicate_window` deduplication |
 | synchronous request-response (< 5s) | `mcp__nats__request` | carries a reply subject + `X-Correlation-Id` |
@@ -153,7 +153,7 @@ The exact tool names come from the connected NATS MCP server; when a tool signat
 ## Error Handling
 
 | Situation | Handling |
-|---|---|
+| --- | --- |
 | The MCP NATS server is not connected | prompt the user to check the MCP configuration, and list the expected tool names |
 | `.cortex/nats.yaml` does not exist | enter the cache initialization subflow (Stage 1) |
 | The contract does not exist | enter the contract drafting subflow (Stage 3) |

@@ -36,6 +36,7 @@ Define and record the mission: the lasting reason a project or organization exis
 **Primary goal**: produce a single, user-confirmed mission statement and persist it to the agreed path.
 
 **Success criteria**:
+
 1. ✅ A mission statement exists: 1–2 sentences (3 at most), stating the fundamental purpose alone
 2. ✅ The user approved it explicitly ("approved", "looks good", and the like)
 3. ✅ It was written to the agreed path (default `docs/project-overview/mission.md`, overridden by project norms)
@@ -49,6 +50,7 @@ Define and record the mission: the lasting reason a project or organization exis
 **This skill owns**: eliciting the fundamental purpose; drafting a 1–2 sentence mission; confirming with the user; writing to the agreed path.
 
 **This skill does not own** (handed off to the named skill):
+
 - Vision → `define-vision`
 - North star metric → `define-north-star`
 - Strategic goals → `design-strategic-goals`
@@ -65,6 +67,7 @@ Define and record the mission: the lasting reason a project or organization exis
 ## Behavior
 
 **Execution**:
+
 1. Load context: project name, domain, the existing understanding of the purpose (README, existing docs, the user's description)
 2. Elicit: for whom? what fundamental problem does it solve? why is it worth doing?
 3. Draft the mission statement (1–2 sentences, purpose only, no future state/metric/goal/feature)
@@ -119,6 +122,7 @@ Bad draft: "We built a CLI with one-click deployment, and by 2027 we will have t
 **Detection**: the statement contains wording such as "by YYYY", "deliver an X% improvement", "become the fastest/largest".
 
 **Correction**:
+
 1. Identify the future-state/metric fragment
 2. Tell the user: "this part belongs to the vision or the north star; suggest removing it from the mission"
 3. Rewrite it as a pure purpose statement

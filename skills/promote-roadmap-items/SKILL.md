@@ -82,6 +82,7 @@ Promote scored backlog items into the roadmap's Now / Next / Later slots accordi
 4. Read the strategic-goal capacity allocation declared in roadmap.md (see Stage 1)
 
 **halt conditions**:
+
 - roadmap.md does not exist → suggest running `define-roadmap` first
 - strategic-goals.md does not exist → suggest running `design-strategic-goals` first
 - every backlog item is `priority: unset` → suggest running `prioritize-backlog` first
@@ -94,7 +95,7 @@ The **total capacity baseline** comes from the header of the "Capacity allocatio
 For each strategic_goal:
 
 | Field | Meaning |
-|---|---|
+| --- | --- |
 | Allocated capacity | that goal's percentage in roadmap.md × the **total capacity baseline** |
 | Used capacity | the sum of effort across the current Now-tier items belonging to that goal |
 | Remaining capacity | allocated - used |
@@ -117,7 +118,7 @@ Emit the capacity table:
 The dependency check reads each item's frontmatter `depends_on` (registered by `map-item-dependencies`):
 
 | `depends_on` state | Handling |
-|---|---|
+| --- | --- |
 | `—` (checked, no dependency) | may enter Now |
 | has dependencies, and every prerequisite is already in Now or finished | may enter Now |
 | has dependencies with an unresolved prerequisite | **must not enter Now**; Next is as far as it goes, and the candidate table names which one blocks it |
@@ -201,7 +202,7 @@ For each confirmed decision:
 **Not done here (other skills own it)**:
 
 | Action | Owner |
-|---|---|
+| --- | --- |
 | Creating backlog items | `capture-work-items` |
 | Scoring the backlog | `prioritize-backlog` |
 | Defining roadmap structure and capacity | `define-roadmap` |

@@ -42,7 +42,7 @@ Read [Research Evidence](../../specs/research-evidence.md) before producing a re
 ## Source strategy
 
 | Question | Preferred order | Watch for |
-|---|---|---|
+| --- | --- | --- |
 | Policy or compliance | Official instrument and regulator publication; official guidance; authoritative commentary | Jurisdiction, binding force, amendment and effective date |
 | Product capability | Current official documentation, release notes, dated demos; then independent use evidence | Vendor assertion versus observed deployment |
 | Market size and structure | Documented dataset or study method, association data, filings; then attributed estimates | Definition, denominator, sample, currency and year |

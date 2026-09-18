@@ -76,6 +76,7 @@ related: [./inp.md]
 ```
 
 **What each field is for**:
+
 - `id` — the globally unique identifier an agent refers to it by
 - `scope` — the text an agent judges relevance from
 - `applies_to` — which phases it applies in: design, review, implementation
@@ -456,7 +457,7 @@ The long-term vision: an agent tracks protocol versions and migration paths
 ## 10. How this relates to the human-facing guide
 
 | Aspect | The human guide | The agent guide |
-|:---|:---|:---|
+| :--- | :--- | :--- |
 | **Audience** | A human developer | An AI agent |
 | **How it is learned** | By reading the document | By loading and applying it automatically |
 | **How it is verified** | A manual checklist | Automatically |
@@ -464,6 +465,7 @@ The long-term vision: an agent tracks protocol versions and migration paths
 | **Compliance** | The user's responsibility | Guaranteed by the agent |
 
 **They complement each other**:
+
 - The user reads docs/guides/protocols-usage.md, to understand the concepts
 - The agent reads docs/guides/protocols-agent-usage.md, to act on them
 

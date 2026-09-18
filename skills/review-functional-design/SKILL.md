@@ -76,4 +76,3 @@ If the input is an ADR-authorized refactor with no user-visible behavior, stop a
 ## Change record
 
 - Initial atomic reviewer for the existing functional-design Spec and Rule.
-
