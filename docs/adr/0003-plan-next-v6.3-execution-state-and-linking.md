@@ -68,7 +68,7 @@ S5 "执行中"原为统一静默态，现拆为 2×2 交叉：
 
 **固定模式枚举**：
 
-权威定义在新规范 **[`specs/linking-modes.md`](../../../specs/linking-modes.md)**（LINKING_MODES_SPEC_V1，本 ADR 配套产出）。共 6 项：`slug` / `colocation` / `parent-pointer` / `manifest` / `mixed` / `none`。每项按 7 维描述（本质 / 识别信号 / 追溯方向 / 维护成本 / 工具要求 / 适用场景 / 示例），消除 LLM 与人对"模式"一词的理解分歧。`discover-docs-norms` 消费此规范的识别信号，`define-docs-norms` 消费此规范的描述作为选择 UI，plan-next 消费此规范的消费规则（§5）。
+权威定义在新规范 **`specs/linking-modes.md`**（LINKING_MODES_SPEC_V1，本 ADR 配套产出）。共 6 项：`slug` / `colocation` / `parent-pointer` / `manifest` / `mixed` / `none`。每项按 7 维描述（本质 / 识别信号 / 追溯方向 / 维护成本 / 工具要求 / 适用场景 / 示例），消除 LLM 与人对"模式"一词的理解分歧。`discover-docs-norms` 消费此规范的识别信号，`define-docs-norms` 消费此规范的描述作为选择 UI，plan-next 消费此规范的消费规则（§5）。
 
 **plan-next 的消费流程**：
 
