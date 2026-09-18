@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: architecture-quality
-version: 1.0.1
+version: 1.1.0
 model: RULE_MODEL_V1
 rule_prefix: ARC
 scope: production code and its declared module, component and public-contract boundaries
@@ -159,6 +159,34 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Not applicable when | No budget is declared; reviewers still assess avoidable coupling under ARC-006. |
 | Remediation | Split the change, remove unrelated edits, or record and approve the cross-boundary impact. |
 
+### ARC-010 — Code no consumer reaches is removed, not retained
+
+| Field | Value |
+| --- | --- |
+| Level | `baseline` |
+| Requirement | Code that no consumer reaches **MUST** be removed, rather than retained as commented-out text, an indefinitely disabled branch, or a symbol kept in case it is wanted again. |
+| Applies when | A scope contains a symbol, module or branch reported as unreached by its declared consumers. |
+| Default severity | `minor` |
+| Enforcement | `tool-assisted` |
+| Evidence | Unused-symbol analysis over the built artifact, and, for any symbol that analysis cannot resolve — reached by reflection, named in configuration, dispatched dynamically, or consumed from another repository — a runtime or telemetry signal covering one full business cycle, including the low-frequency paths a month-end or annual run exercises. |
+| Pass condition | Every symbol reported unreached is either removed, or has a named live consumer evidenced by one of the two sources above. A clean analyzer run is not by itself evidence that a symbol the analyzer cannot resolve is unused. |
+| Not applicable when | The symbol is a protected public contract with independent consumers, which ARC-005 governs, or the scope is generated from a reviewed source. |
+| Remediation | Delete it. Version control holds the history, so a commented-out or permanently disabled copy preserves nothing a reader can rely on while still costing every reader who meets it. |
+
+### ARC-011 — A deprecation names its owner, its removal point and its replacement
+
+| Field | Value |
+| --- | --- |
+| Level | `baseline` |
+| Requirement | A symbol or contract marked deprecated **MUST** record the owner accountable for removing it, the release or date by which it is removed, and the replacement a caller migrates to. |
+| Applies when | The change adds a deprecation marker, or retains one already inside the scope under review. |
+| Default severity | `minor` |
+| Enforcement | `tool-assisted` |
+| Evidence | An inventory of deprecation markers — language annotations, compiler or linter deprecation diagnostics, documented status fields — with the owner, removal point and replacement recorded beside each, and the migration instruction a caller is expected to follow. |
+| Pass condition | Every marker in scope carries all three, and a recorded removal point that has passed has either been acted on or explicitly renewed. An inventory that lists markers without those fields is an incomplete evaluation, not a pass. |
+| Not applicable when | The scope carries no deprecation marker, or the marker belongs to an external dependency the project does not own. |
+| Remediation | Record the three, or remove the marker. A deprecation with no owner and no removal point is a second implementation kept indefinitely, not a migration in progress. |
+
 ## Severity and gate policy
 
 - `critical`: an unversioned breaking public contract or equivalent consumer outage risk.
@@ -180,6 +208,7 @@ Waivers follow [rule-modeling](../specs/rule-modeling.md). ARC-005 requires appr
 - [Refactoring, Second Edition](https://martinfowler.com/books/refactoring.html) — behavior-preserving structural change in small steps; informs ARC-001, ARC-006 and ARC-009
 - [Design Patterns](https://www.informit.com/store/design-patterns-elements-of-reusable-object-oriented-software-9780201633610) — applicability and trade-offs of recurring designs; informs ARC-004, ARC-007 and ARC-008 without requiring pattern use
 - [The Mythical Man-Month, Anniversary Edition](https://www.informit.com/store/mythical-man-month-anniversary-edition-essays-on-software-9780132119160) — conceptual integrity and coordination complexity; informs ARC-001 and ARC-009
+- [Software Engineering at Google](https://abseil.io/resources/swe-book/html/ch15.html) — Chapter 15, "Deprecation": a deprecation needs explicit owners, incremental milestones and staffed migration of callers, rather than a marker and the hope that users move; informs ARC-011
 - [Rule Modeling Schema](../specs/rule-modeling.md)
 - [Technical Design Quality](./technical-design-quality.md)
 - [DORA: loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/)
