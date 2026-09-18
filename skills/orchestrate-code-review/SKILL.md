@@ -149,7 +149,7 @@ One aggregated report:
 ### Example 2: codebase review of a Vue frontend
 
 - Input: `src/frontend`; the project uses Vue 3 and an ORM
-- Dispatch: `review-codebase` → `review-typescript` → `review-vue` → `review-orm-usage` → all six cognitive reviewers
+- Dispatch: `review-codebase` → `review-typescript` → `review-vue` → `review-orm-usage` → all seven cognitive reviewers
 - Aggregation: one report
 
 ### Example 3: edge case — no language match
