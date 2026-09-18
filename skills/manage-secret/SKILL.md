@@ -80,7 +80,7 @@ Decide whether the user wants a **create/update**, a **look-up**, or a **delete*
 Infer from the table below; do not ask about what can be inferred, and follow up only on fields that are genuinely missing and cannot be inferred:
 
 | Field | Inference cues | Default/fallback |
-|---|---|---|
+| --- | --- | --- |
 | project | The repository/project name the user names (converted to kebab-case); "personal" mentioned → `personal`; "shared by the team"/"used by several projects" → `shared`; "this project" mentioned and the current cwd sits inside a repository → use that repository's directory name | Nothing can be determined → ask the user |
 | env | "production"/"live"/prod → `prod`; "development" → `dev`; "testing"/QA → `test`; "pre-release"/staging → `staging`; "local" → `local`; the credential has no notion of environment at all (a personal website account, say) → `na` | Cannot be determined → ask the user |
 | kind | "database"/db/postgres/mysql/redis/mongo → `db`; "server"/SSH/host → `ssh`; "website"/"web page"/login → `web`; API/Token/secret/key → `api`; "certificate"/private-key passphrase → `cert` | Cannot be determined → ask the user |
@@ -187,7 +187,7 @@ One natural-language description, carrying enough information to infer project/e
 ### Failure modes
 
 | Situation | Handling |
-|---|---|
+| --- | --- |
 | The current platform is not macOS, or the `security` command cannot be found | Stop, and explain that this skill supports the macOS Keychain only and this machine does not meet the condition |
 | project/env/kind cannot be inferred from the description | Ask the user; do not guess wildly at the three parts — a wrong guess leaves the credential unfindable |
 | account missing (non-api kinds) | It must be asked; do not stand `$USER` in for it |

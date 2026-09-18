@@ -32,7 +32,7 @@ The default is **drain-style**: keep fetching until the queue is drained, the me
 This Skill orchestrates a single consume action and nothing more; it does not redefine the NATS contract rules.
 
 | Topic | Authoritative source |
-|---|---|
+| --- | --- |
 | subject / headers / payload / Tolerant Reader / DLQ / IaC boundary | [specs/nats-messaging.md](../../specs/nats-messaging.md) |
 | `contract_version` / CHANGELOG / `*-contract.md` structure | [specs/cross-team-contract.md](../../specs/cross-team-contract.md) |
 | Skill / Spec / Protocol / Rule boundaries | [docs/architecture/terminology.md](../../docs/architecture/terminology.md) |
@@ -93,7 +93,7 @@ Tell the user:
 Do not assume the MCP tool names are fixed. Inspect the NATS-related tools the current runtime exposes and build a capability map first:
 
 | Capability | Use | If missing |
-|---|---|---|
+| --- | --- | --- |
 | `list_streams_or_subjects` | List the broker topology during Bootstrap | Bootstrap cannot run; stop and name the missing capability |
 | `peek_message` | Read-only sampling during Bootstrap; no ack, no durable offset movement | Stop where the contract is missing; a real drain cannot start |
 | `attach_or_pull_consumer` | Reuse an existing durable and fetch a batch | Stop, and prompt the user to check the MCP configuration |
@@ -107,7 +107,7 @@ Where a tool name differs from the example name, call by capability rather than 
 ### 3. Choose the consume mode
 
 | Condition | Mode | Behavior |
-|---|---|---|
+| --- | --- | --- |
 | `.cortex/nats.yaml` sets `consume_pattern` | wildcard | Build one `<durable_name_prefix>-wildcard` durable and match contracts dynamically against each message's actual `subject` |
 | `consume_pattern` unset, but `subject` / `producer + event` / `consume_subjects` present | exact-subject | Reuse one exact durable per subject |
 | Neither is enough to settle it | discovery | List the local contracts and the visible subjects, and let the user choose |
@@ -182,7 +182,7 @@ authoritative: false
 Branches after Bootstrap:
 
 | Scenario | Default handling |
-|---|---|
+| --- | --- |
 | A new draft in exact-subject mode | Show the draft summary and ask the user whether to continue into a real drain; by default it does not continue |
 | wildcard mode meets an unknown subject | Generate the draft, then `term + DLQ` the current message, annotate it `awaiting contract confirmation`, and do not break the batch |
 | wildcard mode hits a draft | `term + DLQ` the current message, annotate it `awaiting contract confirmation`, and do not break the batch |
@@ -266,7 +266,7 @@ For each message, in order:
 ### 10. Ack decisions
 
 | Outcome | Action |
-|---|---|
+| --- | --- |
 | Success | `ack` |
 | Duplicate message | `ack` |
 | wildcard echo of a self-produced message | `ack`; no contract resolution, no business handler |
@@ -322,7 +322,7 @@ backlog_hint: |
 ## Error handling
 
 | Situation | Handling |
-|---|---|
+| --- | --- |
 | The NATS MCP server is not connected | Stop, and prompt for a check of the MCP configuration |
 | A required MCP capability is missing | Stop, and list the missing capabilities |
 | `.cortex/nats.yaml` is missing | Ask for the minimum necessary fields, and prompt for them to be written to disk |

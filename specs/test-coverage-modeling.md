@@ -33,7 +33,7 @@ related:
 A test coverage report is the input artifact for a **suite-coverage review** and a **cross-artifact alignment review**. It fixes the evidence behind the judgement of "how sufficient, how necessary and how well traced a test suite is against its requirements and designs" into a snapshot that can be reviewed, compared and archived.
 
 | Review type | The question it asks | Corresponding section here |
-|---|---|---|
+| --- | --- | --- |
 | Single-case review | Does this one test case hold up on its own? | **Out of this report's scope** (it belongs to [rules/test-case-quality.md](../rules/test-case-quality.md)) |
 | Suite-coverage review | Is the suite both sufficient and necessary against the requirements? | §5.2 traceability matrix + §5.3 mutation test summary |
 | Cross-artifact alignment review | Is the chain from the suite to the upstream requirements and contracts intact? | §5.4 trace health audit |
@@ -60,7 +60,7 @@ Out of scope:
 Every report must be able to answer **3 questions**:
 
 | Dimension | Core question | Where it lands |
-|---|---|---|
+| --- | --- | --- |
 | **Sufficiency** | Is the coverage there? Where are the blanks? | §5.2 traceability matrix |
 | **Necessity** | How redundant is the suite? What can be pruned? | §5.3 mutation test summary |
 | **Trace health** | Is the chain from the cases to the upstream artifacts intact and valid? | §5.4 trace health audit |
@@ -110,7 +110,7 @@ conditional_reasons:                    # required when verdict: conditional
 ### 4.1 Field table
 
 | Field | Type | Required | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `artifact_type` | string | Yes | Fixed as `test-coverage-report` |
 | `lifecycle` | enum | Yes | Fixed as `snapshot` |
 | `created_at` | date | Yes | The date the report was generated |
@@ -125,7 +125,7 @@ conditional_reasons:                    # required when verdict: conditional
 ### 4.2 verdict semantics
 
 | Value | Meaning | Entry condition |
-|---|---|---|
+| --- | --- | --- |
 | `pass` | Coverage is sufficient, redundancy is under control, tracing is intact | None of the three sections (matrix / mutation / tracing) carries a blocker |
 | `conditional` | A qualified pass, needing a specific waiver or later remediation | One item deviates acceptably and the condition has been recorded |
 | `fail` | Not passed; cases must be added or the review redone | Any section carries a blocker (a critical AC uncovered / mutation score below the threshold / a dead trace link) |
@@ -141,7 +141,7 @@ conditional_reasons:                    # required when verdict: conditional
 **H1 title**: `# Test coverage report: <scope> @ <date>`
 
 | # | Section | Purpose | Validation |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | 1 | Summary | One chart or one paragraph stating the verdict and the key figures | Carries the three key metrics: coverage rate / mutation score / number of dead links |
 | 2 | Traceability matrix | The AC × case × dimension matrix | See §5.2 |
 | 3 | Mutation test summary | The gold-standard evidence for necessity | See §5.3 |
@@ -152,7 +152,7 @@ conditional_reasons:                    # required when verdict: conditional
 Format: a table whose rows are AC × dimension and whose columns are test case ids.
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Row key | `<REQ-ID>#AC<n> · <dimension>`, where dimension ∈ `positive` / `boundary` / `exception` / `non-functional` / `state-transition` / `concurrency` |
 | Column key | The test case id (`TC-<MODULE>-<nn>`, or `<module>::<function>` for a code-level case) |
 | Cell | `✓` covered / `—` not applicable / empty means missing |
@@ -178,7 +178,7 @@ Example:
 One row per module under test, and each row must carry these fields:
 
 | Field | Type | Description |
-|---|---|---|
+| --- | --- | --- |
 | `module` | string | The module identifier, matching the code path |
 | `mutants_total` | int | Total mutants injected |
 | `mutants_killed` | int | Mutants caught by the suite |
@@ -207,24 +207,24 @@ Example:
 **5.4.1 Dead link list** — a case whose `covers` anchor points at an upstream artifact that has been deleted or renamed:
 
 | Case id | Dead anchor | What changed upstream | Suggested action |
-|---|---|---|---|
+| --- | --- | --- | --- |
 
 **5.4.2 Bare AC list** — an upstream AC covered by no case at all:
 
 | AC id | Owning requirement | Untested dimension | Remediation owner |
-|---|---|---|---|
+| --- | --- | --- | --- |
 
 **5.4.3 Dangling guard list** — the requirement a case guards is already `deprecated`, but the case has not followed:
 
 | Case id | Dangling guard target | Upstream deprecation date | Suggested action |
-|---|---|---|---|
+| --- | --- | --- | --- |
 
 If **any** of the three lists is non-empty → verdict ≥ `conditional`; if **a critical AC is bare or its link is dead** → verdict = `fail`.
 
 ### 5.5 Optional sections
 
 | Section | Triggering situation |
-|---|---|
+| --- | --- |
 | Trends | Compared against the previous report of the same scope, covering changes in mutation score, dead link count and bare AC count |
 | Risk-weighted assessment | Prioritise gaps by "frequency × impact" to drive the remediation schedule |
 | Decision guard audit | Check whether the premises for rejecting an alternative in an ADR are still guarded by a case |

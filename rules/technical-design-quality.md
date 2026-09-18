@@ -23,7 +23,7 @@ It does not review business workflow, role permissions or business object states
 ## Profiles and parameters
 
 | Name | Kind | Provenance | Meaning |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `quality-attribute` | profile | — | An upstream quality scenario exists, or the change crosses a module, contract, data, trust or process boundary, introduces fallible I/O, or affects a declared quality budget |
 | `data-change` | profile | — | The design defines or changes persisted schema, stored data or migration behaviour |
 | `interface-change` | profile | — | The design defines or changes an interface consumed outside its own module |
@@ -35,7 +35,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-001 — All required sections are present
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | The document **MUST** contain every section its modeling Spec requires. |
 | Applies when | always |
@@ -49,7 +49,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-002 — Frontmatter is complete and within its enums
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | The document **MUST** declare every required frontmatter field with a value inside its enum. |
 | Applies when | always |
@@ -63,7 +63,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-003 — At least two candidate approaches are recorded
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | The design **MUST** record at least two candidate approaches to the problem it solves. |
 | Applies when | always |
@@ -77,7 +77,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-004 — Each rejected approach states its concrete drawback
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Every rejected approach **MUST** state the specific drawback that ruled it out. |
 | Applies when | The design records a rejected approach. |
@@ -91,7 +91,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-005 — Technical failure paths carry recovery behaviour
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | The design **MUST** describe at least two technical failure paths and the recovery behaviour for each. |
 | Applies when | always |
@@ -105,7 +105,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-006 — A section with nothing to change says so
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | A required section that the change does not affect **MUST** say so explicitly rather than being left empty. |
 | Applies when | A required section is not affected by this change. |
@@ -119,7 +119,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-007 — A triggered quality-attribute design is present
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:quality-attribute` |
 | Requirement | A design meeting a quality-attribute trigger **MUST** contain the quality attribute design section. |
 | Applies when | An upstream quality scenario exists, or the change crosses a module, contract, data, trust or process boundary, introduces fallible I/O, or affects a declared quality budget. |
@@ -133,7 +133,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-008 — Each triggered concern maps to a tactic, trade-off, verification and owner
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:quality-attribute` |
 | Requirement | Each triggered quality concern **MUST** map its source and cited Rule ids to a system-specific tactic, its trade-off, a verification method and an owner. |
 | Applies when | The quality attribute design section is required. |
@@ -147,7 +147,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-009 — Every cited engineering Rule reference resolves
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:quality-attribute` |
 | Requirement | Every engineering Rule id cited by the design **MUST** resolve to an active canonical Rule item. |
 | Applies when | The design cites one or more engineering Rule ids. |
@@ -161,7 +161,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-010 — Profiles and required parameters are resolved or explicitly blocked
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:quality-attribute` |
 | Requirement | The design **MUST** resolve the project profiles and parameters its triggered concerns need, or record their absence as a blocking open question. |
 | Applies when | A triggered concern depends on a project profile or parameter. |
@@ -175,7 +175,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-011 — Components carry signature-level definitions
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Each component **MUST** be defined to the level of its types, operations and interfaces, so it can be implemented independently. |
 | Applies when | The design introduces or changes a component. |
@@ -189,7 +189,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-012 — A data design is complete enough to build from
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:data-change` |
 | Requirement | The data design **MUST** carry fields, types, constraints and relationships sufficient to create the schema from it. |
 | Applies when | The design changes persisted schema or stored data. |
@@ -203,7 +203,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-013 — An interface contract is complete enough to integrate against
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:interface-change` |
 | Requirement | Each interface contract **MUST** carry its address, operation, request, response, error outcomes and authorization behaviour. |
 | Applies when | The design defines or changes an interface consumed outside its own module. |
@@ -217,7 +217,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-014 — A task list can be derived without a clarifying question
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | The design **MUST** be decided enough that the next layer can derive tasks without asking what was meant. |
 | Applies when | always |
@@ -231,7 +231,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-015 — Terminology is consistent and introduced on first use
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Each technical term **MUST** be used consistently and introduced or linked where it first appears. |
 | Applies when | always |
@@ -245,7 +245,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-016 — At least one structured representation is present
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | The design **MUST** carry at least one diagram or table that shows structure rather than prose alone. |
 | Applies when | always |
@@ -259,7 +259,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-017 — The document carries no implementation code
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | The design **MUST NOT** contain implementation code or scaffolding in place of a definition. |
 | Applies when | always |
@@ -273,7 +273,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-018 — The test strategy states verification methods
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | The test strategy **MUST** state how the design will be verified, not carry test code. |
 | Applies when | always |
@@ -287,7 +287,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-019 — The document carries no business-layer content
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | The design **MUST NOT** define business workflow, role permissions or business object states, which the functional layer owns. |
 | Applies when | always |
@@ -301,7 +301,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-020 — Each technology choice states its reason
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Every technology choice **MUST** state the reason it was selected for this system. |
 | Applies when | The design selects a technology, library or platform. |
@@ -315,7 +315,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-021 — Dependencies and risks are listed explicitly
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | The design **MUST** list the dependencies it takes on and the risks it carries. |
 | Applies when | always |
@@ -329,7 +329,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-022 — The parent resolves to an approved upstream of an allowed type
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | The parent **MUST** point at a functional design, requirement or decision record that has reached its approved state. |
 | Applies when | always |
@@ -343,7 +343,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-023 — Each acceptance criterion traces upstream
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Every acceptance criterion **MUST** trace to an upstream acceptance item, or for technical work authorized by a decision record, to one of its obligations or consequences. |
 | Applies when | The design states acceptance criteria. |
@@ -357,7 +357,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-024 — At least three acceptance criteria are stated
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | The design **MUST** state at least three acceptance criteria. |
 | Applies when | always |
@@ -371,7 +371,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-025 — Cited external specifications resolve
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | Every cited external specification or document **MUST** resolve. |
 | Applies when | The design cites an external specification or document. |
@@ -385,7 +385,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-026 — A structural decision links to its decision record
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `baseline` |
 | Requirement | A decision with long-term structural consequence **MUST** link to its decision record, or record that one is to be written. |
 | Applies when | The design makes a decision that constrains future structure beyond this change. |
@@ -399,7 +399,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 ### TDES-027 — A breaking data change carries a migration and rollback plan
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Level | `profile:data-change` |
 | Requirement | A breaking schema change, a data backfill or an irreversible operation **MUST** carry a detailed migration plan including its rollback strategy. |
 | Applies when | The change breaks a schema, backfills data or performs an irreversible operation. |

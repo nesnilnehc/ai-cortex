@@ -17,7 +17,7 @@ Reads the routing output of plan-next, runs the highest-priority action, and ret
 ## How to use
 
 | Scenario | Command |
-|---|---|
+| --- | --- |
 | Run the next governance action | `/orchestrate-governance-step` |
 | Fully automatic autopilot | `/loop /orchestrate-governance-step` |
 | Advance automatically every 30 minutes | `/loop /orchestrate-governance-step 30m` |
@@ -26,6 +26,7 @@ Reads the routing output of plan-next, runs the highest-priority action, and ret
 ## Output: IterationStepReport
 
 Every invocation emits one report containing:
+
 - The action executed and the governance context
 - The sub-skills invoked
 - The execution result
@@ -34,7 +35,7 @@ Every invocation emits one report containing:
 ## Stop conditions
 
 | Signal | Reason |
-|---|---|
+| --- | --- |
 | `done` | The whole governance chain is ready |
 | `blocked` | A strategic or creative skill needs a human |
 | `stalled` | The same routing card made no progress 2 times running |

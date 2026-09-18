@@ -74,7 +74,7 @@ superseded_by: <path to new functional design>   # required when status is super
 ### 4.1 Field table
 
 | Field | Type | Required | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `artifact_type` | string | yes | Fixed as `functional-design` |
 | `lifecycle` | enum | yes | Fixed as `snapshot` — a design is a point-in-time decision |
 | `created_at` | date | yes | The date the design was completed |
@@ -85,7 +85,7 @@ superseded_by: <path to new functional design>   # required when status is super
 ### 4.2 State machine semantics
 
 | Status | Meaning | Entry condition |
-|---|---|---|
+| --- | --- | --- |
 | `draft` | A draft still under review | The functional design has just landed |
 | `approved` | Approved; a technical design may derive from it | Business and product review passed, so it can serve as a technical design's `parent` |
 | `superseded` | Replaced by a new functional design | The new design has landed and taken over; `superseded_by` must be filled in |
@@ -99,7 +99,7 @@ superseded_by: <path to new functional design>   # required when status is super
 Organised MECE across five dimensions: **What / How-structure / How-behaviour / Why / Verify**. Every functional design document must contain these 6 sections:
 
 | # | Section | Dimension | Purpose | Validation |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | 1 | Goal | What | States the business capability this design delivers and what success looks like | At most 200 characters; no implementation detail; agrees with the upstream requirement's objective |
 | 2 | Functional modules and boundaries | How-structure | Divides the capability into modules, states each one's responsibility, and marks what is in and out of scope | At least 1 module; each carries a name, a responsibility and a boundary — what it does and does not do; responsibilities do not overlap |
 | 3 | Business workflow | How-behaviour | The end-to-end flow of the business from start to finish | At least 1 main flow carrying its start, its end, key steps and the roles involved; expressed as a flowchart, with branches marked explicitly |
@@ -112,7 +112,7 @@ Organised MECE across five dimensions: **What / How-structure / How-behaviour / 
 Added as the situation requires. A conditionally required section **becomes required** once its trigger is met:
 
 | Section | Kind | Trigger |
-|---|---|---|
+| --- | --- | --- |
 | Business object states | Conditionally required | A business object — an order, task, approval or document — has ≥ 3 states and its transitions are driven by business rules. It then becomes required, declared as a state diagram or state table |
 | Roles and permission matrix | Conditionally required | ≥ 2 roles are involved, or menu, operation or data permissions differ by role. It then becomes required, declared as a role-by-permission matrix |
 | Scope | Optional | It spans systems or teams and the business boundary is easily misread |

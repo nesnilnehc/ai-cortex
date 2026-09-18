@@ -21,7 +21,7 @@ This file is the execution contract for AI agents working inside this repository
 **AI Cortex** is an asset library for software delivery and project governance. See [mission](docs/project-overview/mission.md), [vision](docs/project-overview/vision.md) and [terminology](docs/architecture/terminology.md).
 
 | Layer | Type | Registry | Authority |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Active capability | Skill | [skills/INDEX.md](skills/INDEX.md) | — |
 | Data structure | Spec | [specs/INDEX.md](specs/INDEX.md) | High |
 | Interaction flow | Protocol | [protocols/INDEX.md](protocols/INDEX.md) | Medium |
@@ -50,7 +50,7 @@ Inside this repository, an agent `MUST`:
 **Load tiers**:
 
 | Tier | Resource | On absence |
-|---|---|---|
+| --- | --- | --- |
 | MUST | `AGENTS.md` | `STOP` + `ASK` |
 | SHOULD | `docs/architecture/terminology.md` | Continue, but state that it is missing; `STOP`/`ASK` if a critical decision depends on it |
 | ON DEMAND | `skills/INDEX.md`, `protocols/INDEX.md`, `rules/INDEX.md` | `STOP` + `ASK` when discovery is triggered |

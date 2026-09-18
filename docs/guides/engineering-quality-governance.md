@@ -13,7 +13,7 @@ This guide explains how an adopting repository uses AI Cortex to constrain work 
 ## 1. Asset responsibilities
 
 | Asset | Owns | Must not own |
-|---|---|---|
+| --- | --- | --- |
 | `AGENTS.md` / `CLAUDE.md` | Project identity, non-negotiable invariants, workflow entry points and links to canonical assets | Detailed quality checklists, temporary lessons or copies of Rule text |
 | Rules | Stable, independently verifiable obligations and default severity | Review steps, repair loops or project topology |
 | `.ai-cortex/config.yaml` | Active profiles, module topology, protected contracts, targets, change budgets and waivers | Canonical Rule wording |
@@ -44,7 +44,7 @@ Then add `.ai-cortex/config.yaml` with only profiles and parameters that are tru
 The artifact chain carries quality intent without duplicating policy:
 
 | Layer | Quality content | Gate Skill |
-|---|---|---|
+| --- | --- | --- |
 | Requirement | Measurable Quality Attribute Scenarios when architecture or release can be affected | `review-requirements` |
 | Functional design | Business workflows, states, permissions and exceptions; no engineering tactics | `review-functional-design` |
 | Technical design | Scenario/Rule IDs mapped to system-specific tactics, trade-offs, verification and ownership | `review-technical-design` |

@@ -179,10 +179,12 @@ Direction only, no dates
 ## Input & Output
 
 **Input**:
+
 - **Required**: the strategic goals (document or path); the project context.
 - **Optional**: vision / North Star metric; time horizon or stage preference.
 
 **Output**:
+
 - **Artifact**: a decision-grade roadmap document.
 - **Location**: `docs/process-management/roadmap.md` or `milestones.md` (per project norms).
 - **Content**: the route overview plus the Now/Next/Later detail (milestone, strategic bets, metrics, promotion criteria).
@@ -212,11 +214,13 @@ Direction only, no dates
 ### Skill Boundaries (avoid overlap)
 
 **Do not do these (other skills own them)**:
+
 - **Define the strategic goals**: use `design-strategic-goals`.
 - **Break down concrete requirements**: use `capture-work-items`; task breakdown is taken on by a runtime such as AgentFabric.
 - **Write the backlog**: use `capture-work-items`.
 
 **When to stop and hand off**:
+
 - The user replies "approved / confirmed" or similar → the roadmap is done; persist the document and hand off to `plan-next` or to backlog planning.
 
 ---
@@ -250,6 +254,7 @@ Can a reader see the evolution path at a glance, promotion criteria included? Ca
 
 **Context**: strategic goals carrying 3 metrics already exist; an evolution path is needed.
 **Process**:
+
 1. Read the goals and split them into the Now / Next / Later view.
 2. Define 3 explicit strategic bets and quantified success metrics for Now.
 3. Define the "promotion criteria" for the Next stage (e.g. "start the Next stage when core architecture validation reaches 10k QPS").
@@ -261,6 +266,7 @@ Can a reader see the evolution path at a glance, promotion criteria included? Ca
 
 **Context**: the user asks "turn these backlog tasks into a scheduled roadmap for me".
 **Process**:
+
 1. State this skill's principle to the user: a roadmap is an expression of the path and a decision model, not a task list.
 2. Abstract the concrete backlog into matching strategic bets and stage milestones.
 3. Add the success metrics and promotion criteria for each stage, and remove the fine-grained TODOs.
@@ -271,6 +277,7 @@ Can a reader see the evolution path at a glance, promotion criteria included? Ca
 
 **Context**: the user drafts a roadmap but skips the capacity allocation section and asks to persist it as is.
 **Process**:
+
 1. Detect that the roadmap has no "capacity allocation".
 2. halt and explain: "capacity allocation is what promote-roadmap-items uses as its guardrail; without it, promotion cannot be controlled by strategic goal."
 3. Present the strategic-goals list:

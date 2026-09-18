@@ -53,7 +53,7 @@ Out of scope:
 ### 5.2 Field definitions
 
 | Field | Type | Required | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `id` | string | yes | UUID |
 | `type` | string | yes | Event name, UPPER_SNAKE_CASE |
 | `source` | string | yes | Name of the originating system |

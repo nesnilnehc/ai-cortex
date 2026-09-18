@@ -26,7 +26,7 @@ Its examples were also built on a structure that does not exist: they described 
 ## Where to look instead
 
 | For | See |
-|---|---|
+| --- | --- |
 | How an agent discovers and loads a protocol | [AGENTS.md §4](../../AGENTS.md) and [discovery-and-loading.md](discovery-and-loading.md) |
 | Where protocols live and how they are installed | [protocols-quickstart.md](protocols-quickstart.md) — they stay in the canonical clone; there is no install step |
 | The protocols that exist | [protocols/INDEX.md](../../protocols/INDEX.md) |

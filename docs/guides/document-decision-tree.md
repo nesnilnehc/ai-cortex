@@ -39,7 +39,7 @@ Ask yourself these 4 questions before creating any new `.md`:
 ## Paths at a glance
 
 | What it is | Where it goes |
-|----|----|
+| ---- | ---- |
 | An architecture decision record | `docs/adr/NNNN-{topic}.md` |
 | A functional design document | `docs/designs/YYYY-MM-DD-{slug}-functional-design.md` |
 | A technical design document | `docs/designs/YYYY-MM-DD-{slug}-technical-design.md` |

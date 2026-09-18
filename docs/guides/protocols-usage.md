@@ -16,6 +16,7 @@ This guide explains how to discover, install and use the domain protocol specs A
 **Definition**: a protocol is a standardised interface spec for one problem domain, notification systems for instance.
 
 **Characteristics**:
+
 - **Versioned**: an explicit semantic version, 1.0.0 and so on
 - **Layered**: usually several layers, such as UNP's semantic layer plus INP's delivery layer
 - **Standardised**: it states what is required (MUST), what is FORBIDDEN, and the best practice
@@ -24,7 +25,7 @@ This guide explains how to discover, install and use the domain protocol specs A
 **How it differs from the other assets**:
 
 | Asset type | What it is for | How it is loaded |
-|:---|:---|:---|
+| :--- | :--- | :--- |
 | **Skill** | An active capability, invoked to complete a task | Injected on demand |
 | **Protocol** | An interface contract, followed to stay compatible | Loaded permanently, as long-lived background |
 | **Rule** | A behavioural constraint that holds while working | Loaded permanently, as long-lived background |
@@ -318,7 +319,7 @@ git -C "${XDG_DATA_HOME:-$HOME/.local/share}/ai-cortex" log -p specs/universal-n
 **A**:
 
 | UNP | INP |
-|:---|:---|
+| :--- | :--- |
 | **The semantic layer** | **The delivery layer** |
 | Defines WHAT: a notification's structure and meaning | Defines HOW: how it is rendered and delivered |
 | Channel-agnostic | Channel-specific: Feishu, WeCom |
@@ -391,7 +392,7 @@ channel_matrix:
 ## 9. Reference
 
 | Resource | Link | What it is |
-|:---|:---|:---|
+| :--- | :--- | :--- |
 | **The protocol registry** | [protocols/INDEX.md](../../protocols/INDEX.md) | Every available protocol and its version |
 | **The UNP spec** | [specs/universal-notification.md](../../specs/universal-notification.md) | The notification semantic layer |
 | **The INP spec** | [protocols/im-notification-delivery.md](../../protocols/im-notification-delivery.md) | The notification delivery layer |
@@ -406,7 +407,7 @@ channel_matrix:
 
 When a protocol is defective or unclear:
 
-1. **Open an issue**: https://github.com/nesnilnehc/ai-cortex/issues
+1. **Open an issue**: <https://github.com/nesnilnehc/ai-cortex/issues>
 2. **Label it**: `protocols`, `unp`, `inp`, `documentation`
 3. **Describe it**: include your case and the behaviour you expected
 

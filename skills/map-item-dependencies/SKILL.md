@@ -85,7 +85,7 @@ Dependencies are the highest-risk factor on a roadmap: they show up neither in t
 ### The five dependency categories
 
 | Category | Meaning | Typical signal |
-|---|---|---|
+| --- | --- | --- |
 | Technical | This item needs a technical capability another item produces | "needs a new data pipeline" "depends on the API refactor" |
 | Team | Needs a deliverable from another team (design, platform, data) | "waiting on the design" "needs the platform team to grant access" |
 | External | Waiting on a vendor, a partner, or a third-party integration | "waiting for their API to go live" |
@@ -152,7 +152,7 @@ With no dependency, write `depends_on: —`, never blank — a blank cannot sepa
 ### Skill Boundaries (avoid overlap)
 
 | Action | Owner |
-|---|---|
+| --- | --- |
 | Promotion / demotion | `promote-roadmap-items` |
 | Scoring | `prioritize-backlog` |
 | Creating items | `capture-work-items` |

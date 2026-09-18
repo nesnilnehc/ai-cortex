@@ -60,7 +60,7 @@ Two opposites, in one line each:
 The paradigm is fixed; capabilities differ only in four parameters. This is what makes it "one paradigm, parameterised per scenario" rather than "one workflow per capability":
 
 | Parameter | Meaning | Clarification (example) | Review (example) |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | **Target spec** | The structure to converge on | requirement-modeling | Review dimension schema |
 | **Substance lens** | What "substance" means here | How the feature works | What is genuinely critical in this change |
 | **Extraction sources** | Where the framework fills from | ZenTao + the repository | The diff + repository context |

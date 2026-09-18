@@ -46,7 +46,7 @@ Lands a single feature branch into main from inside its worktree, in one invocat
 ## Inputs
 
 | Input | Required | Description |
-|---|---|---|
+| --- | --- | --- |
 | Worktree context | Yes | CWD must be inside a linked worktree; halts if invoked from main repo |
 | Non-main branch | Yes | Current branch must not be the main branch; halts otherwise |
 | Clean working tree | Yes | `git status --porcelain` empty; no auto-stash |
@@ -58,7 +58,7 @@ Lands a single feature branch into main from inside its worktree, in one invocat
 ## Outputs
 
 | Output | Description |
-|---|---|
+| --- | --- |
 | Merge commit | Exactly one `--no-ff` merge commit on `<main-branch>` in the main repo |
 | Remote push | `origin/<main-branch>` updated once |
 | Worktree removal | Optional (user-chosen) |
@@ -83,7 +83,7 @@ Lands a single feature branch into main from inside its worktree, in one invocat
 ## Related Skills
 
 | Skill | Relationship |
-|---|---|
+| --- | --- |
 | [`integrate-branches`](../integrate-branches/SKILL.md) | Sibling — use from the main repo on the main branch when batching multiple worktrees |
 | [`commit-work`](../commit-work/SKILL.md) | Predecessor — use to commit pending changes in the worktree before invoking this skill |
 | [`review-diff`](../review-diff/SKILL.md) | Optional pre-merge — review changes before committing |

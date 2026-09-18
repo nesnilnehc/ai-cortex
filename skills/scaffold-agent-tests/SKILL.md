@@ -84,7 +84,7 @@ Read an LLM agent's implementation and its test contract (an instance of [specs/
 Map each section of the contract onto test entries:
 
 | Contract section | Test type | oracle |
-|---|---|---|
+| --- | --- | --- |
 | Capability boundary | positive + negative behavior test | trace / contract |
 | Input contract (missing-field detection) | boundary + error test | trace (assert it asks back and writes nothing) |
 | Tool-call boundary | trace test | trace (the forbidden set never appears) |

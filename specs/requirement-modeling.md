@@ -43,7 +43,7 @@ Out of scope:
 ### 1.1 Simplification guidance by requirement type
 
 | Type | Required sections | What may be simplified |
-|---|---|---|
+| --- | --- | --- |
 | Functional requirement | All 6 body sections | — |
 | Non-functional requirement | All 6 body sections | — |
 
@@ -84,7 +84,7 @@ implemented_at: YYYY-MM-DD             # required when status: implemented
 ### 4.1 Field table
 
 | Field | Type | Required | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `id` | string | Yes | Format `<PROJECT>-REQ-<nn>` (for example `ACME-REQ-05`) |
 | `artifact_type` | string | Yes | Fixed as `requirement` |
 | `lifecycle` | enum | Yes | Fixed as `snapshot` (a requirement freezes once approved; a change creates a new requirement) |
@@ -98,7 +98,7 @@ implemented_at: YYYY-MM-DD             # required when status: implemented
 ### 4.2 State machine semantics
 
 | Status | Meaning | Entry condition |
-|---|---|---|
+| --- | --- | --- |
 | `draft` | Being drafted | The requirement document has just been written and has not passed review |
 | `approved` | Approved | Review passed; a design document may be derived from it (as the design's `parent`) |
 | `implemented` | Implemented | Every associated implementation task is `Done` and every acceptance criterion is met (`implemented_at` must be filled in) |
@@ -113,12 +113,13 @@ implemented_at: YYYY-MM-DD             # required when status: implemented
 Every requirement document must contain the following 6 body sections (the H1 title is not counted).
 
 **H1 title**: `# Requirement: [type] one-line description`
+
 - Example types: `[Functional]` / `[Non-functional]`
 - The title is ≤ 80 characters and carries no technical implementation detail
 - It states the subject of the requirement (a capability, a problem, a task), not the expected outcome — outcomes belong to the "Objective" section; any grammatical form is acceptable (a capability phrase, a problem statement or a constraint statement)
 
 | # | Section | Purpose | Validation |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | 1 | Background & Value | Explain the problem's background and why it matters | ≤ 300 characters; carries **no** solution or technology choice; a user-story form (`As X / I want Y / so that Z`) or a problem statement (`background / desired state / impact`) is recommended |
 | 2 | Objective | State how the world changes once this requirement ships | One line; states a requirement-level objective (as distinct from the upstream strategic or product objective, which is referenced through frontmatter `parent` and not repeated here); carries **no** solution or technology choice |
 | 3 | Acceptance Criteria | Define the verifiable conditions under which the requirement is complete | ≥ 3 of them; each verifiable automatically or by hand; **no** vague adjectives ("fast" / "reasonable" / "friendly"); a non-functional requirement carries concrete numbers (for example latency ≤ 500ms) |
@@ -131,7 +132,7 @@ Every requirement document must contain the following 6 body sections (the H1 ti
 Add them as the situation requires:
 
 | Section | Triggering situation |
-|---|---|
+| --- | --- |
 | Scope | Multi-system integration, ambiguity across a boundary, or estimated effort > 5 days (any one of these makes the section **required**) |
 | Business Rules | The rule set is itself the deliverable (pricing / eligibility / tax / risk scoring), a single rule is cited by ≥ 2 acceptance criteria, the rules form a state machine or decision table, or the rules must serve as the authoritative source (SSOT) for a downstream compliance audit (any one of these makes the section **required**) |
 | Quality Attribute Scenarios | A quality target can shape architecture or block release — for example security, performance, reliability, observability, maintainability or extensibility — or the requirement is non-functional (either makes the section **required**) |
@@ -174,7 +175,7 @@ Once business rules become required (one of the §5.2 triggers has fired):
 Once `Quality Attribute Scenarios` is required, each scenario is a table row with:
 
 | Field | Meaning |
-|---|---|
+| --- | --- |
 | `id` | Stable local identifier such as `QAS-01`; never reused in this requirement |
 | `quality` | Architecture, security, performance, observability, reliability, testing or another named attribute |
 | `source/stimulus` | Who or what causes the condition, and what occurs |
