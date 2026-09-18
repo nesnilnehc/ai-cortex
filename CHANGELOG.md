@@ -4,19 +4,59 @@
 
 ### Added
 
-- `error-surfacing-quality` (ERR), a tenth modeled Rule set carrying six items, and `review-error-surfacing` to execute it. It governs where a defect is decided and whether the failure that results can be acted on: deciding untrusted input at the boundary it enters, stopping when an invariant is already known broken, detecting at the earliest declared layer, and giving a person the next action or a program a stable identifier. Its sixth item turns this repository's own experience into an obligation — a check whose findings are mostly legitimate use must be narrowed rather than left for readers to filter.
-- The Rule's boundary against its three neighbours is stated rather than left to a reviewer: retry and partial-failure behaviour is reliability's, the telemetry event is observability's, and disclosure is security's. The confusable one is observability, so both the Rule and the Skill put it in a sentence — this reads the message handed back to whoever asked, that reads the event written for whoever operates.
-- References carry verified locators rather than remembered ones: RFC 9413 for why tolerant acceptance decays a protocol, Shore's *Fail Fast* in IEEE Software 21(5) for failing immediately and visibly, Nielsen's ninth heuristic for what a message owes a person, King's *Parse, don't validate* for deciding at the boundary, and Boehm and Basili's 2001 list for the cost argument — with its range recorded as 100:1 on large projects and 5:1 on small ones, and a note that the unattributed "100x" chart in wide circulation has no traceable data and must not ground a finding.
-- `docs/guides/releasing.md` writes down how this repository is released, linked from the README and from a new Releasing section in `CONTRIBUTING.md`. It is a usage map for `prepare-release` and `publish-release` rather than a second definition of them: which Skill owns which step, what counts as worth releasing, why the asset version domains do not follow the product version, and the three details that had each been got wrong once — the manifest status, the tag sitting one commit past the recorded commit, and where the release notes live.
-- The release criterion names what a consumer actually consumes, which is five things and not four. `cortex update` hard-resets the whole clone, so every tracked file arrives; that is not the test. `skills/` and `rules/` are installed into the IDE directories, `specs/` and `protocols/` are read from the clone, and `bin/cortex` is itself linked at `~/.local/bin/cortex`, so editing the installer changes the command someone runs. A guide built on the four directories alone would have called an installer fix a non-release.
-- `review-error-surfacing` carries a worked pass and a worked failure for each of its five judgment items, and ERR-006 names the tool class behind its count. Constraint 8 of `workflow-rule-governance` makes that the activation evidence a judgment item owes, and the approved rule-governance design says the same in its test strategy; the Skill had shipped with the pair for ERR-001 only, one failure for ERR-002, and an applicability note standing in for ERR-004 and ERR-005. Thirteen examples now, from five, and the section says which constraint it is discharging so the next reader can check it rather than take it on trust.
-- The source map gains a section for failure surfacing, and records what has no source. `docs/references/software-engineering-classics.md` maps each of the six sources to the ERR items it informs, and names three things it will not dress as authority: "make illegal states unrepresentable" is community vocabulary, the four elements of a good diagnostic are this repository's reading of Elm and Rust rather than a published finding, and ERR-006's reasoning rests on measurements taken here, which the evidence hierarchy already places at its fourth tier. Bossavit's *Leprechauns* is recorded as counter-evidence against the unattributed cost chart.
+- A tenth modeled Rule set governs where a defect is decided and whether the failure that results can be acted on: `error-surfacing-quality`, prefix ERR, six items, with `review-error-surfacing` to execute it.
+
+  The four obligations are deciding untrusted input at the boundary it enters, stopping once an invariant is known broken, detecting at the earliest declared layer, and giving a person the next action or a program a stable identifier. The Skill joins `orchestrate-code-review` as a seventh cognitive step.
+
+- ERR-006 turns this repository's own experience into an obligation: a check whose findings are mostly legitimate use must be narrowed, retargeted or withdrawn rather than left for readers to filter.
+
+  A report that is mostly legitimate teaches its readers to skim, which costs more than the check was ever worth.
+
+- The Rule states its boundary against its three neighbours rather than leaving a reviewer to find it.
+
+  Retry and partial-failure behaviour is reliability's, the telemetry event is observability's, and disclosure is security's. Observability is the confusable one, so the Rule and the Skill each spend a sentence on it — this reads the message handed back to whoever asked, that reads the event written for whoever operates.
+
+- Every ERR reference carries a verified locator rather than a remembered one.
+
+  RFC 9413 for why tolerant acceptance decays a protocol, Shore's *Fail Fast* in IEEE Software 21(5) for failing immediately and visibly, Nielsen's ninth heuristic for what a message owes a person, King's *Parse, don't validate* for deciding at the boundary, and Boehm and Basili's 2001 list for the cost argument — recorded as a range, 100:1 on large projects and 5:1 on small non-critical ones.
+
+- The unattributed "100x" cost chart must not ground a finding, and is recorded as such.
+
+  It has no traceable data behind it, and the institution named as its source ran an internal training programme. Bossavit's *Leprechauns* is the counter-evidence; the measured range above is what a finding cites instead.
+
+- The source map gains a section for failure surfacing, mapping each of the six sources to the ERR items it informs.
+
+  In `docs/references/software-engineering-classics.md`. Most of these are not books: the current normative statement is an RFC and the human-facing criterion comes from empirical usability work, both of which the evidence hierarchy places ahead of a classic on this topic.
+
+- The source map also names the three ideas here that have no citable source, rather than dressing them as authority.
+
+  "Make illegal states unrepresentable" is community vocabulary. The four elements of a good diagnostic are this repository's reading of Elm and Rust compiler output, not a finding either project published. ERR-006's threshold reasoning rests on measurements taken here, which the hierarchy already places at its fourth tier.
+
+- `docs/guides/releasing.md` writes down how this repository is released, linked from the README and from a new Releasing section in `CONTRIBUTING.md`.
+
+  It is a usage map for `prepare-release` and `publish-release`, not a second definition of them: which Skill owns which step, what counts as worth releasing, why the asset version domains do not follow the product version, and the three details that had each been got wrong once — the manifest status, the tag sitting one commit past the recorded commit, and where the release notes live.
+
+- The release criterion counts what a consumer consumes, which is five things and not four.
+
+  `cortex update` hard-resets the whole clone, so every tracked file arrives; arriving is not the test. `skills/` and `rules/` are installed into the IDE directories, `specs/` and `protocols/` are read from the clone, and `bin/cortex` is itself linked at `~/.local/bin/cortex` — so editing the installer changes the command someone runs, while falling outside all four directories the first draft named.
+
+- `review-error-surfacing` carries a worked pass and a worked failure for each of its five judgment items, and ERR-006 names the tool class behind its count.
+
+  Constraint 8 of `workflow-rule-governance` makes that the activation evidence a judgment item owes, and the approved rule-governance design says the same in its test strategy. The Skill had shipped active with the pair for ERR-001 only, one failure for ERR-002, nothing for ERR-003, and an applicability note standing in for ERR-004 and ERR-005. Thirteen examples now, from five, and the section names the constraint it discharges so a reader can audit the claim.
 
 ### Fixed
 
-- `review-error-surfacing` states its evidence order, which it had omitted: prefer a check the repository already runs, otherwise read the scope, and either way say what the evidence does not cover. `review-architecture` has carried that shape since the Rule sets were externalised; the new Skill listed what to look at without saying that a tool is used when present and not required when absent. The third clause is the one no scanner supplies — a reading of a diff decides what that change introduces and settles nothing about the rest of the codebase, and a clean tool run settles nothing about paths the tool cannot resolve.
-- `standards-coding` 1.0.2 → 1.1.0 points at two obligations instead of restating them. Its error-handling constraint carried "fail fast" and "messages carry context and a suggested resolution", which `error-surfacing-quality` now defines precisely and waivably; its simplicity constraint carried "keep no commented-out dead code", which ARC-010 defines. Both duplications were introduced today by writing the new items without checking what already said the same thing. What is unique to this document stays: one consistent mechanism, and resources released on the error path. The pointers matter because this Rule is user-scoped and installed everywhere while both targets are project-scoped, so a reader who loads only this one still learns where the obligation lives.
-- `standards-coding` 1.1.0 → 1.1.1 also stops repeating itself. Its simplicity and complexity constraints both said duplicated code must be extracted and stale comments deleted; a comment obligation now lives with the other comment obligations, DRY lives in simplicity, and the complexity constraint keeps only what is actually a threshold — 50 lines and three levels of nesting. This overlap predates today, unlike the two cross-document ones in the entry above.
+- `review-error-surfacing` states its evidence order, which it had omitted: prefer a check the repository already runs, otherwise read the scope, and either way say what the evidence does not cover.
+
+  `review-architecture` has carried that shape since the Rule sets were externalised; the new Skill listed what to look at without saying that a tool is used when present and not required when absent. The third clause is the one no scanner supplies — a reading of a diff decides what that change introduces and settles nothing about the rest of the codebase, and a clean tool run settles nothing about paths the tool cannot resolve.
+
+- `standards-coding` 1.0.2 → 1.1.0 points at two obligations instead of restating them.
+
+  Its error-handling constraint carried "fail fast" and "messages carry context and a suggested resolution", which `error-surfacing-quality` now defines precisely and waivably; its simplicity constraint carried "keep no commented-out dead code", which ARC-010 defines. Both duplications arrived with the new items, written without checking what already said the same thing. What is unique to this document stays: one consistent mechanism, and resources released on the error path. The pointers earn their cross-links because this Rule is user-scoped and installed everywhere while both targets are project-scoped, so a reader who loads only this one still learns where the obligation lives.
+
+- `standards-coding` 1.1.0 → 1.1.1 stops repeating itself.
+
+  Its simplicity and complexity constraints both said duplicated code must be extracted and stale comments deleted. A comment obligation now lives with the other comment obligations, DRY lives in simplicity, and the complexity constraint keeps only what is actually a threshold — 50 lines and three levels of nesting. This overlap predates the two cross-document ones above, which arrived with the new Rule set.
 
 ## [0.2.1] — 2026-09-18
 
