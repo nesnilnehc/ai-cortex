@@ -11,10 +11,11 @@ permissions:
 jobs:
   markdown:
     runs-on: ubuntu-latest
-    # Advisory for now. The repository has been cleaned against MD009/012/022/
-    # 031/040/047, but markdownlint's default set is far larger and has never
-    # been run in full in CI. Collect the real violations first, then enforce.
-    continue-on-error: true
+    # Blocking since the default rule set was run in full and the repository
+    # reached zero findings under both the version pinned below and a newer
+    # one. The decisions behind the enabled set, and the exemptions for the
+    # records that must not be reformatted, are in .markdownlint.yaml and the
+    # nested configurations beside the documents they cover.
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
