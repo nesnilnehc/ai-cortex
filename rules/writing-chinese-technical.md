@@ -1,8 +1,10 @@
 ---
+artifact_type: rule
 name: writing-chinese-technical
 version: 1.3.0
 scope: all documentation output
 recommended_scope: user
+status: active
 ---
 
 # Rule: Chinese Technical Writing
