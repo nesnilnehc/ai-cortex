@@ -75,9 +75,10 @@ CI runs these on every pull request and they all block a merge, so run the ones 
 | `python3 scripts/check-cortex-docs.py` | `bin/cortex` gained or lost a subcommand or flag, or a document changed how it tells someone to invoke it |
 | `python3 scripts/check-asset-counts.py` | A skill, rule, spec or protocol was added or removed — the README states the counts in a sentence and again in the capability table |
 | `python3 scripts/sync-skills-index.py --check` | A skill's frontmatter changed; regenerate with the same script without `--check` |
+| `python3 scripts/check-asset-versions.py` | A skill, rule, spec or protocol changed — an edited asset must move its `version`, and the check compares the range since the last product tag |
 | `python3 scripts/validate-rules.py` | A modeled Rule document changed |
 | `python3 scripts/test-rule-scenarios.py` | A modeled Rule item changed, or its fixtures did |
-| `python3 scripts/test-skills-index.py`, `python3 scripts/test-research-artifacts.py`, `python3 scripts/test-markdown-links.py`, `python3 scripts/test-doc-hygiene.py`, `python3 scripts/test-asset-counts.py`, `python3 scripts/test-cortex-docs.py` | The generator or checker they cover changed |
+| `python3 scripts/test-skills-index.py`, `python3 scripts/test-research-artifacts.py`, `python3 scripts/test-markdown-links.py`, `python3 scripts/test-doc-hygiene.py`, `python3 scripts/test-asset-counts.py`, `python3 scripts/test-cortex-docs.py`, `python3 scripts/test-asset-versions.py` | The generator or checker they cover changed |
 | `python3 scripts/mutation-check.py` | A checker, its fixtures, or `rules/task-quality.md` changed |
 | `npx markdownlint-cli2 "**/*.md" "!.cortex/vendor/**" "!tests/fixtures/**"` | Any markdown change |
 
