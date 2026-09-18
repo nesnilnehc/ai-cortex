@@ -8,6 +8,7 @@
 
 ### Changed
 
+- `docs/designs/README.md` tells the next author to write for someone who took part in no conversation. A snapshot is not revised once dated, so a sentence leaning on a discussion the reader cannot reach stays unhelpful permanently — the research technical design argues against a layout "from the earlier discussion" and nothing records which one. The existing snapshot stays as written; rewriting its prose would falsify what it recorded. CI cannot catch this either, because a dated design in that directory is a labelled temporary document, which is what it is entitled to be.
 - The README states the protocol layer's count alongside the other three. One protocol is not a gap in a layer that needs a single document, and leaving the number out read as an omission.
 
 ## [0.2.0] — 2026-09-18
