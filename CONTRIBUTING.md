@@ -80,6 +80,7 @@ CI runs these on every pull request and they all block a merge, so run the ones 
 | `python3 scripts/test-rule-scenarios.py` | A modeled Rule item changed, or its fixtures did |
 | `python3 scripts/test-skills-index.py`, `python3 scripts/test-research-artifacts.py`, `python3 scripts/test-markdown-links.py`, `python3 scripts/test-doc-hygiene.py`, `python3 scripts/test-asset-counts.py`, `python3 scripts/test-cortex-docs.py`, `python3 scripts/test-asset-versions.py` | The generator or checker they cover changed |
 | `python3 scripts/mutation-check.py` | A checker, its fixtures, or `rules/task-quality.md` changed |
+| `shellcheck --shell=sh --severity=style --enable=add-default-case bin/cortex` | `bin/cortex` changed — it is the only executable this repository ships, and the only code that runs on someone else's machine |
 | `npx markdownlint-cli2 "**/*.md" "!.cortex/vendor/**" "!tests/fixtures/**"` | Any markdown change |
 
 `mutation-check.py` is the one that needs explaining. Every other check reports a verdict, and a clean verdict proves nothing on its own — a checker that has stopped looking returns exactly the same thing. This one perturbs what each checker reads and requires the verdict to change: a defect seeded into a checker must turn its fixture test red, an edit to an already-translated document must be blocked by the translation verifier, and two controls must be allowed through, or the verifier is refusing everything rather than catching anything.

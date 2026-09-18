@@ -10,6 +10,16 @@
 
   Its CI job checks out with `fetch-depth: 0`, because the check diffs against the most recent product tag and a shallow checkout fetches none. With no tag reachable it prints `NOTHING CHECKED` and fails rather than passing on an empty range.
 
+- `bin/cortex` is checked by shellcheck in CI.
+
+  Every markdown asset here had a checker. The one executable this repository ships — the code that links, prunes and removes paths under `$HOME` — had none, because the repository describes itself as a markdown asset library and every checker followed that description.
+
+  The script is already clean at the strictest severity, so the job blocks from its first run: anything reported later is a regression rather than a backlog to work off. `--shell=sh` is passed explicitly, since the file header declares POSIX sh as a constraint and reading the shebang would silently relax the check if someone retargeted it at bash.
+
+  `add-default-case` is the one optional check enabled, because a `case` with no `*)` arm is how every command used to swallow a mistyped option. It covers the three `case`-based parsers; `install` and `status` reject their arguments in a plain loop that no static check can see, so those two are held by review. The rest of the optional set stays off — `require-variable-braces` alone reports 423 brace-style preferences and buys no defect.
+
+  Verified that the job can fail rather than only that it passes: removing any one of the three `*)` arms turns it red, and a prose-only edit leaves it green.
+
 ### Fixed
 
 - `validate-rules.py` no longer lets a Rule that means to be modeled drop silently out of validation.
@@ -21,6 +31,14 @@
   `test-rule-scenarios.py` and `test-research-artifacts.py` called `json.loads` bare, so a broken fixture produced a `JSONDecodeError` carrying a line and column and no path, or a `KeyError` naming a key and no file — unusable when three directories of fixtures could be the one at fault. `validate-research-artifacts.py` and `verify-translation.py` already did this correctly; the two stragglers now match them.
 
   Found by running the new `error-surfacing-quality` items against this repository's own `scripts/`, which is the first time they were pointed at anything.
+
+- `bin/cortex` no longer ignores an option a command does not define.
+
+  `cortex clean --dryrun` — one missing hyphen — read as no `--dry-run` at all and deleted for real, while the caller believed they were previewing. `uninstall` swallowed a mistyped `--remove-home` the same way, `update` a mistyped `--force`, and `install` and `status` ignored their arguments entirely.
+
+  Found by pointing shellcheck at `bin/cortex` for the first time, which reported the two `case` statements with no `*)` arm. Reading the other three commands showed the same defect where no static check could see it: `update` parsed with an `if`, and the two option-less commands never read `"$@"`. All five now name the option, print usage and exit 1.
+
+  ERR-001: input the code does not control is rejected at the boundary it enters rather than accepted tolerantly and reinterpreted later.
 
 ## [0.3.0] — 2026-09-18
 
