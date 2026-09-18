@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: adr-management
-version: 1.0.0
+version: 1.1.0
 scope: every ADR document under docs/adr/
 recommended_scope: user
 status: active
@@ -120,9 +120,22 @@ These are **never physically deleted**, however old:
 | Audience | Claude agent, loaded at runtime | People, consulted for history |
 | Tense | Currently effective constraint | Snapshot of a decision at a point in time |
 | Content | Behavioural rules — active constraints | Decision records — why plus alternatives |
-| Updates | Revised continuously as conventions evolve | Not edited after writing, except the status field |
+| Updates | Revised continuously as conventions evolve | Not edited after writing, except the status field and the maintenance below |
 
 **Not built**: a rule does not generate an ADR automatically, and ADR content is not synchronised into a rule automatically. Traceability between the two is established by hand, through cross-references.
+
+### Markup maintenance is not a content revision
+
+"Not edited after writing" protects the **words** of the record. It does not protect a piece of markup that no longer does anything.
+
+A relative link inside an ADR may be **downgraded to its own label text** when its target no longer exists, or never resolved in the first place. The visible words stay identical; what goes is the promise that the reader can follow the link. A record that offers a dead path is less truthful than one that names the asset as text, so the downgrade restores the record rather than altering it.
+
+Two things remain forbidden, because both change what the record says:
+
+- **Repointing the link at the target's successor.** An ADR that names `integrate-worktrees` records the decision as it stood; making that name link to today's `integrate-branches` asserts a continuity the decision never claimed.
+- **Rewriting the prose around the link** — including translating it, tidying it or bringing its terminology up to date.
+
+Anything beyond removing the link syntax is a content revision, and a content revision means a new ADR that supersedes this one.
 
 ---
 
@@ -151,6 +164,12 @@ status: superseded
 status: archived
 ```
 
+```markdown
+<!-- ❌ a dead link repointed at the successor asset, asserting a continuity
+     the decision never claimed -->
+[`integrate-worktrees`](../../path/to/integrate-branches/SKILL.md)
+```
+
 ---
 
 ## Remediation
@@ -159,6 +178,7 @@ status: archived
 2. **Replace legacy enum values**: `active` → `accepted`; `draft` → `proposed`; `approved` → `accepted`
 3. **Add the conditional fields**: `superseded_by` for `superseded`; `archived_at` and `archived_reason` for `archived`
 4. **Delete retired fields**: grep for `implementation_status\|decision_status` and remove
+5. **Downgrade a dead link**: keep the label, delete the parenthesised path and the brackets around the label, and change nothing else — never repoint it at a renamed successor
 
 ---
 
