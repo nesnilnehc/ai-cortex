@@ -49,7 +49,7 @@ Under the naming convention, an orchestrator skill **does exactly 4 things**:
 | 2 | language | `review-typescript` / `review-python` / `review-go` / `review-java` / `review-php` / `review-powershell` / `review-dotnet` / `review-sql` | 0 or 1, inferred from the dominant language in scope |
 | 3 | framework | `review-react` / `review-vue` | 0 or 1, inferred from the framework in scope |
 | 4 | library | `review-orm-usage` | 0 or 1, inferred from ORM usage in scope |
-| 5 | cognitive | `review-security` → `review-reliability` → `review-performance` → `review-architecture` → `review-observability` → `review-testing` | All of them, in order; each atomic Skill resolves whether its profiles apply |
+| 5 | cognitive | `review-security` → `review-reliability` → `review-error-surfacing` → `review-performance` → `review-architecture` → `review-observability` → `review-testing` | All of them, in order; each atomic Skill resolves whether its profiles apply |
 
 A step with no match is skipped; the final report names which steps were skipped and why.
 
@@ -142,7 +142,7 @@ One aggregated report:
 ### Example 1: diff review of a .NET project
 
 - Input: the user says "review my changes"; the project is C#
-- Dispatch: `review-diff` → `review-dotnet` → `review-security` → `review-reliability` → `review-performance` → `review-architecture` → `review-observability` → `review-testing`
+- Dispatch: `review-diff` → `review-dotnet` → `review-security` → `review-reliability` → `review-error-surfacing` → `review-performance` → `review-architecture` → `review-observability` → `review-testing`
 - Skipped: the framework / library steps (no match)
 - Aggregation: one report plus risk_signals
 
