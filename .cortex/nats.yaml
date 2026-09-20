@@ -1,25 +1,17 @@
-# NATS consumer project cache
-# Read by the consume-nats-message skill; any field can be overridden by a
-# user parameter at call time
+# NATS project cache
+# Read by the publish-nats-message skill; any field can be overridden by a
+# user parameter at call time.
+#
+# This repository publishes and does not consume. The inbound proposal channel
+# and its receive-side settings were retired — see the CHANGELOG.
 
 broker_url: nats://localhost:4222
 
-# This service's identity as a consumer, written to the X-Source header of a
-# DLQ message
+# This service's identity, written to the X-Source header of every message
 service_source: ai-cortex
 
-# Durable consumer name prefix; the full name is <prefix>-<event-slug>
-durable_name_prefix: cortex
+# JetStream stream this repository publishes into (IaC-managed elsewhere)
+default_stream: CORTEX
 
-# An unrecoverable message (term) has its DLQ delivery logged in this directory
-dlq_handler_dir: .cortex/dlq
-
-# Where vendored producer contracts live, as <producer>/<event>-contract.md
-vendor_contracts_dir: .cortex/vendor/contracts
-
-# Consumption defaults, overridable at call time
-consume_defaults:
-  max_messages: 200      # most messages handled in one drain
-  batch_size: 20         # messages pulled per fetch
-  fetch_timeout: 5000    # per-fetch wait timeout, in milliseconds
-  idle_threshold: 15000  # consecutive empty fetches beyond this many ms means drained
+# Where this repository's own outbound contracts live
+contract_dir: .cortex/contracts
