@@ -27,6 +27,18 @@ OTHER = "other-quality.md"
 INDEX = "INDEX.md"
 
 EXPECTED_CLEAN = (2, 3)
+# Each of the three clean items declares an Enforcement and carries none of the
+# activation rows that class owes — automated without Verification, judgment
+# without the worked rows, tool-assisted without Tool limits — so all three derive
+# as provisional. Asserting the distribution is what makes the derivation
+# falsifiable: without it, forcing every item to `ready` leaves this test,
+# mutation-check and the printed count all unchanged.
+EXPECTED_MATURITY = {"ready": 0, "provisional": 3}
+# Completing the judgment item's two worked rows must move exactly that one item.
+EXPECTED_AFTER_PROMOTION = {"ready": 1, "provisional": 2}
+# A row that is present but empty is not evidence. Without this, treating
+# presence as completeness reads identically to reading the value.
+EXPECTED_WITH_EMPTY_ROW = {"ready": 0, "provisional": 3}
 
 
 def load_checker():
@@ -165,6 +177,65 @@ def main() -> int:
             errors.append(
                 f"the clean fixture counted {(result.documents, result.items)}, "
                 f"expected {EXPECTED_CLEAN}"
+            )
+        derived = {key: result.maturity[key] for key in EXPECTED_MATURITY}
+        if derived != EXPECTED_MATURITY:
+            errors.append(
+                f"the clean fixture derived maturity {derived}, "
+                f"expected {EXPECTED_MATURITY}"
+            )
+
+    # The clean fixture holds no complete item, so its distribution alone cannot
+    # catch the opposite error: an item whose rows are all present read as
+    # provisional. Completing one and requiring it to move is the other half.
+    with tempfile.TemporaryDirectory() as tmp:
+        base = pathlib.Path(tmp) / "clean"
+        shutil.copytree(CLEAN, base)
+        target = base / DEMO
+        completed = target.read_text(encoding="utf-8").replace(
+            "| Remediation | Renumber the duplicate. |\n",
+            "| Remediation | Renumber the duplicate. |\n"
+            "| Worked pass | A shape that passes. |\n"
+            "| Worked failure | A shape that fails. |\n",
+            1,
+        )
+        target.write_text(completed, encoding="utf-8")
+        result = module.check(base, (base / INDEX).read_text(encoding="utf-8"), root=base)
+        if result.excluded or result.errors:
+            errors.append(
+                f"completing an item's activation rows produced findings: "
+                f"{result.excluded + result.errors}"
+            )
+        derived = {key: result.maturity[key] for key in EXPECTED_AFTER_PROMOTION}
+        if derived != EXPECTED_AFTER_PROMOTION:
+            errors.append(
+                f"completing a judgment item's rows derived {derived}, "
+                f"expected {EXPECTED_AFTER_PROMOTION}"
+            )
+
+    # A present-but-empty row is reported as a defect elsewhere; this asserts it
+    # also fails to complete the item, which is a separate decision the error
+    # path does not exercise.
+    with tempfile.TemporaryDirectory() as tmp:
+        base = pathlib.Path(tmp) / "clean"
+        shutil.copytree(CLEAN, base)
+        target = base / DEMO
+        target.write_text(
+            target.read_text(encoding="utf-8").replace(
+                "| Remediation | Renumber the duplicate. |\n",
+                "| Remediation | Renumber the duplicate. |\n"
+                "| Worked pass | A shape that passes. |\n"
+                "| Worked failure |  |\n",
+                1,
+            ),
+            encoding="utf-8",
+        )
+        result = module.check(base, (base / INDEX).read_text(encoding="utf-8"), root=base)
+        derived = {key: result.maturity[key] for key in EXPECTED_WITH_EMPTY_ROW}
+        if derived != EXPECTED_WITH_EMPTY_ROW:
+            errors.append(
+                f"an empty activation row derived {derived}, "
+                f"expected {EXPECTED_WITH_EMPTY_ROW}"
             )
 
     for label, filename, edit, fragment in CASES:
