@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: task-quality
-version: 2.0.0
+version: 2.1.0
 model: RULE_MODEL_V1
 rule_prefix: TASK
 scope: task list documents conforming to specs/task-modeling.md
@@ -45,6 +45,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No row omits a required field, and every status value is inside the enum. |
 | Not applicable when | The document declares no task rows yet. |
 | Remediation | Fill the missing field, or remove a row that is not yet a task. |
+| Verification | `tests/fixtures/task-list/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TASK-002 — A handed-off list carries no started work
 
@@ -59,6 +60,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No task carries a status beyond the initial one at hand-off. |
 | Not applicable when | The list is an in-progress execution record rather than a hand-off. |
 | Remediation | Reset the status, or state explicitly that this is a progress record and not a hand-off. |
+| Verification | `tests/fixtures/task-list/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TASK-003 — The document declares its required frontmatter
 
@@ -87,6 +89,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every strongly connected component contains exactly one task. |
 | Not applicable when | No task declares a dependency. |
 | Remediation | Break the cycle by splitting a task or inverting one dependency. |
+| Verification | `tests/fixtures/task-list/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TASK-005 — Every dependency reference resolves
 
@@ -101,6 +104,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every reference resolves to a real task, and no cross-document reference is written as a bare id. |
 | Not applicable when | No task declares a dependency. |
 | Remediation | Correct the id, or add the document path to the cross-document reference. |
+| Verification | `tests/fixtures/task-list/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TASK-006 — An absent dependency is recorded explicitly
 
@@ -185,6 +189,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The parent resolves to an existing upstream artifact. |
 | Not applicable when | never |
 | Remediation | Add the parent reference, or create the missing upstream artifact before deriving tasks. |
+| Verification | `tests/fixtures/task-list/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TASK-012 — Every task traces to a design element
 
@@ -255,6 +260,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every id resolves to an active item, and no Rule prose is copied into the task. |
 | Not applicable when | No task cites an engineering Rule. |
 | Remediation | Correct the id, or cite the item that actually governs the work. |
+| Verification | `tests/fixtures/task-list/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TASK-017 — Verification can decide the cited Rule items
 
@@ -283,6 +289,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The waiver resolves, is unexpired and approved, and its scope covers the task's work. |
 | Not applicable when | No task cites a waiver. |
 | Remediation | Obtain a valid waiver, or plan the work to satisfy the Rule item. |
+| Verification | `tests/fixtures/task-list/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TASK-019 — Task identifiers match the format and are unique
 

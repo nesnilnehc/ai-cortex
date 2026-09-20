@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: technical-design-quality
-version: 2.1.0
+version: 2.2.0
 model: RULE_MODEL_V1
 rule_prefix: TDES
 scope: technical design documents conforming to specs/technical-design-modeling.md
@@ -46,6 +46,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every required section exists, and a section with nothing to say states that rather than being absent. |
 | Not applicable when | never |
 | Remediation | Add the missing section, or state explicitly that it involves no change. |
+| Verification | `tests/fixtures/technical-design/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TDES-002 — Frontmatter is complete and within its enums
 
@@ -74,6 +75,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Two or more distinct approaches are described, not one approach and its absence. |
 | Not applicable when | never |
 | Remediation | Record the approaches that were genuinely considered, including the one already ruled out. |
+| Verification | `tests/fixtures/technical-design/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TDES-004 — Each rejected approach states its concrete drawback
 
@@ -158,6 +160,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every cited id resolves to an active item of the version the design names. |
 | Not applicable when | The design cites no engineering Rule. |
 | Remediation | Correct the id, or cite the item that actually governs the concern. |
+| Verification | `tests/fixtures/technical-design/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TDES-010 — Profiles and required parameters are resolved or explicitly blocked
 
@@ -340,6 +343,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The parent resolves, its type is allowed, and its status is approved or accepted. |
 | Not applicable when | never |
 | Remediation | Point at the correct upstream, or get that upstream approved before designing against it. |
+| Verification | `tests/fixtures/technical-design/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TDES-023 — Each acceptance criterion traces upstream
 

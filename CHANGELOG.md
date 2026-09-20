@@ -48,6 +48,14 @@
 
 ### Changed
 
+- The first 16 Rule items reach `ready`, by recording forward-test evidence that already existed.
+
+  `scripts/test-rule-scenarios.py` has been forward-testing `automated` items over three representative shapes since before this maturity mechanism existed, but no item said so, so the first derived distribution read 0 ready against 118 provisional — understating the corpus. Cross-referencing the identifiers that script decides against each item's `Enforcement` gives 16 `automated` items with real evidence; each now carries a `Verification` row naming the fixture directory and the script. Three further identifiers it decides (`ARC-005`, `ARC-010`, `ARC-011`) are `tool-assisted` and owe `Tool limits` instead, so they stay provisional.
+
+  Nothing was written to reach this: the row records where evidence already lives. The remaining 14 `automated` items are not yet forward-tested and stay provisional rather than being marked `adopter` — the repository does host code-shaped fixtures for engineering concerns, so "structurally cannot" would be false.
+
+  Distribution is now 16 ready, 102 provisional.
+
 - Rule activation is keyed on enforcement, not on a term that named nothing, and maturity is derived rather than declared. `workflow-rule-governance` 2.0.0, `rule-modeling` 1.1.0, `findings-list` 1.5.0.
 
   Constraint §8 scaled its obligations by "blocking item". Nothing in this repository blocks a merge on a Rule item — the review Skills emit a findings list a person reads, and the orchestrator aggregates and sorts it. The severity table defines only `critical` as "must be fixed before the change ships", while §8's own wording left the population undecidable, so the obligation reached 11 items or 22 or 118 depending on who read it. That, rather than neglect, is why two of its three bullets were never met: nobody could say whom they applied to. The word is now gone and each bullet names its enforcement class directly.
