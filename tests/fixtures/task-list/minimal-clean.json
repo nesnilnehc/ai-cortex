@@ -12,7 +12,9 @@
       "id": "T1",
       "required_fields_present": true,
       "status": "Todo",
-      "depends_on": []
+      "depends_on": [],
+      "depends_on_declared": true,
+      "owner": "the delivery team"
     },
     {
       "id": "T2",
@@ -20,7 +22,9 @@
       "status": "Todo",
       "depends_on": [
         "T1"
-      ]
+      ],
+      "depends_on_declared": true,
+      "owner": "the delivery team"
     }
   ],
   "annotations": [],
@@ -29,5 +33,10 @@
     "REL-002"
   ],
   "valid_waiver_ids": [],
-  "expected_failed_rules": []
+  "expected_failed_rules": [],
+  "frontmatter": {
+    "required_present": true,
+    "enums_valid": true
+  },
+  "id_format": "^T\\d+$"
 }

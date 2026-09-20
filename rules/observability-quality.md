@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: observability-quality
-version: 1.2.0
+version: 1.3.0
 model: RULE_MODEL_V1
 rule_prefix: OBS
 scope: deployable services, background workloads and cross-process operations whose behavior must be diagnosed in production
@@ -76,6 +76,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The indicator can be reproduced and separates successful from failed user outcomes under its stated denominator. |
 | Not applicable when | No indicator is declared for the scope. |
 | Remediation | Instrument the user outcome and define a stable numerator, denominator and aggregation window. |
+| Verification | `adopter`. This repository runs no service emitting user-facing indicators, so it cannot host the population this item governs. An adopting project returns the three shapes as fixtures in the format `scripts/test-rule-scenarios.py` reads, under `tests/fixtures/`, through the pull-request process in `CONTRIBUTING.md`. |
 
 ### OBS-004 — Distributed spans describe meaningful boundaries
 

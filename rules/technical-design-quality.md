@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: technical-design-quality
-version: 2.4.0
+version: 2.5.0
 model: RULE_MODEL_V1
 rule_prefix: TDES
 scope: technical design documents conforming to specs/technical-design-modeling.md
@@ -61,6 +61,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every required field is present, and the artifact type, lifecycle and status are inside their enums. |
 | Not applicable when | never |
 | Remediation | Add the missing field or correct the out-of-enum value. |
+| Verification | `tests/fixtures/technical-design/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TDES-003 — At least two candidate approaches are recorded
 
@@ -121,6 +122,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No required section is empty; each states its content or that it involves no change. |
 | Not applicable when | Every required section carries content. |
 | Remediation | Write "no change" so a reader cannot mistake an omission for an oversight. |
+| Verification | `tests/fixtures/technical-design/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TDES-007 — A triggered quality-attribute design is present
 
@@ -276,6 +278,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | At least one structured representation is present and is referenced by the text. |
 | Not applicable when | never |
 | Remediation | Add the representation the content calls for; see [diagram-selection](./diagram-selection.md). |
+| Verification | `tests/fixtures/technical-design/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TDES-017 — The document carries no implementation code
 
@@ -353,6 +356,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Both are present and specific; "none" is stated explicitly where true. |
 | Not applicable when | never |
 | Remediation | List the dependency or risk, or state explicitly that there is none. |
+| Verification | `tests/fixtures/technical-design/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TDES-022 — The parent resolves to an approved upstream of an allowed type
 
@@ -397,6 +401,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Three or more distinct criteria are present. |
 | Not applicable when | never |
 | Remediation | Add the criteria that would decide whether this design was delivered. |
+| Verification | `tests/fixtures/technical-design/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TDES-025 — Cited external specifications resolve
 
@@ -411,6 +416,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every citation resolves to an existing target. |
 | Not applicable when | The design cites nothing external. |
 | Remediation | Correct the reference, or remove the citation it cannot support. |
+| Verification | `tests/fixtures/technical-design/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TDES-026 — A structural decision links to its decision record
 

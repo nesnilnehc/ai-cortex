@@ -14,7 +14,9 @@
       "status": "Todo",
       "depends_on": [
         "T2"
-      ]
+      ],
+      "depends_on_declared": true,
+      "owner": "the delivery team"
     },
     {
       "id": "T2",
@@ -22,7 +24,10 @@
       "status": "In progress",
       "depends_on": [
         "T1"
-      ]
+      ],
+      "depends_on_declared": true,
+      "owner": null,
+      "execution_hint": null
     },
     {
       "id": "T3",
@@ -30,7 +35,17 @@
       "status": "Todo",
       "depends_on": [
         "T9"
-      ]
+      ],
+      "depends_on_declared": false,
+      "owner": "the delivery team"
+    },
+    {
+      "id": "t4",
+      "required_fields_present": true,
+      "status": "Todo",
+      "depends_on": [],
+      "depends_on_declared": true,
+      "owner": "the delivery team"
     }
   ],
   "annotations": [
@@ -50,8 +65,17 @@
   "expected_failed_rules": [
     "TASK-001",
     "TASK-002",
+    "TASK-003",
     "TASK-004",
     "TASK-005",
-    "TASK-011"
-  ]
+    "TASK-006",
+    "TASK-008",
+    "TASK-011",
+    "TASK-019"
+  ],
+  "frontmatter": {
+    "required_present": false,
+    "enums_valid": false
+  },
+  "id_format": "^T\\d+$"
 }

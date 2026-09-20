@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: task-quality
-version: 2.3.0
+version: 2.4.0
 model: RULE_MODEL_V1
 rule_prefix: TASK
 scope: task list documents conforming to specs/task-modeling.md
@@ -75,6 +75,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every required field is present and inside its enum. |
 | Not applicable when | never |
 | Remediation | Add the missing frontmatter field. |
+| Verification | `tests/fixtures/task-list/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TASK-004 — The dependency graph is acyclic
 
@@ -119,6 +120,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No dependency cell is empty; "none" is written with the modeled placeholder. |
 | Not applicable when | Every task declares at least one dependency. |
 | Remediation | Write the explicit placeholder so an unfilled cell cannot be mistaken for an omission. |
+| Verification | `tests/fixtures/task-list/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TASK-007 — A task is bounded to one working session
 
@@ -149,6 +151,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No task leaves both empty. |
 | Not applicable when | never |
 | Remediation | Assign an owner, or state how the task is to be executed. |
+| Verification | `tests/fixtures/task-list/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TASK-009 — A task title states its concrete action
 
@@ -318,6 +321,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every id matches the format and appears exactly once. |
 | Not applicable when | never |
 | Remediation | Renumber the duplicate or malformed id, then update every reference to it. |
+| Verification | `tests/fixtures/task-list/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ## Severity and gate policy
 

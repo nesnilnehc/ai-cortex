@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: testing-quality
-version: 1.3.0
+version: 1.4.0
 model: RULE_MODEL_V1
 rule_prefix: TST
 scope: automated tests and the verification strategy for changed production behavior
@@ -153,6 +153,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The configured threshold passes and no critical changed behavior is uncovered despite aggregate success. |
 | Not applicable when | No coverage policy is declared. |
 | Remediation | Run the configured tool, close critical gaps and record the reproducible result. |
+| Verification | `adopter`. This item decides a reviewed project's coverage policy against its own threshold, which this repository cannot supply for it. An adopting project returns the three shapes as fixtures in the format `scripts/test-rule-scenarios.py` reads, under `tests/fixtures/`, through the pull-request process in `CONTRIBUTING.md`. |
 
 ## Severity and gate policy
 
