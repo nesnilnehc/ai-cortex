@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: technical-design-quality
-version: 2.3.0
+version: 2.4.0
 model: RULE_MODEL_V1
 rule_prefix: TDES
 scope: technical design documents conforming to specs/technical-design-modeling.md
@@ -90,6 +90,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Each rejection names a concrete cost or limitation, not a preference or an unexplained score. |
 | Not applicable when | No approach was rejected because only one is technically available, and that is stated. |
 | Remediation | Replace the preference with the specific cost that decided against the option. |
+| Worked pass | "Rejected: one database shared by both services. It would couple their release cycles, since any schema change would require the two to deploy together." |
+| Worked failure | "Rejected: one shared database. Maintainability score 2 of 5." A score is not the cost that ruled it out, and nobody can check it later. |
 
 ### TDES-005 — Technical failure paths carry recovery behaviour
 
@@ -148,6 +150,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No triggered concern is answered by a generic instruction such as following best practice; each names what this system will do and how that will be checked. |
 | Not applicable when | The quality attribute design section is not required. |
 | Remediation | Replace the generic answer with the tactic this system adopts, its cost and the check that decides it. |
+| Worked pass | "Concern: p99 catalogue read under 200ms, from REQ-04 §QA-2. Tactic: read-through cache on the SKU lookup, 60s TTL. Trade-off: prices may be up to 60s stale. Verification: load test at 3x peak asserting p99. Owner: catalogue team." |
+| Worked failure | "Performance: follow caching best practice and monitor latency." It names no tactic this system will run, no cost it accepts, and nothing anyone can check. |
 
 ### TDES-009 — Every cited engineering Rule reference resolves
 
@@ -192,6 +196,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | An implementer could build each component without inventing its interface. |
 | Not applicable when | The change introduces no component. |
 | Remediation | Add the operation and interface definitions the component is missing. |
+| Worked pass | "`PriceQuoter.quote(sku: string, quantity: int, at: Instant) -> Quote or OutOfStock`, where `Quote` carries `unitPriceCents`, `currency` and `validUntil`." |
+| Worked failure | "A pricing component that works out prices and takes stock into account." An implementer has to invent the operation, its arguments and both outcomes. |
 
 ### TDES-012 — A data design is complete enough to build from
 
@@ -206,6 +212,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The schema could be created from the document without a further question. |
 | Not applicable when | The change alters no persisted data. |
 | Remediation | Add the missing field, type, constraint or relationship. |
+| Worked pass | "`order_line(id uuid pk, order_id uuid references order(id) on delete cascade, sku text not null, quantity int not null check (quantity > 0), unit_price_cents bigint not null)`." |
+| Worked failure | "An order-line table holding the product ordered and how many." Types, constraints and the relationship to the order are all left to whoever writes the migration. |
 
 ### TDES-013 — An interface contract is complete enough to integrate against
 
@@ -220,6 +228,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | A consumer could integrate from the document without a further question. |
 | Not applicable when | The change defines no externally consumed interface. |
 | Remediation | Add the missing request, response, error or authorization detail. |
+| Worked pass | "`POST /v1/quotes`, body `{sku, quantity}`; `200` returns the quote; `409` when the SKU is out of stock; `422` when quantity is not positive; bearer token carrying scope `quotes:write`." |
+| Worked failure | "A quote endpoint that takes a SKU and returns a price." A consumer cannot build against it without asking the address, the failure outcomes and who is allowed to call it. |
 
 ### TDES-014 — A task list can be derived without a clarifying question
 
@@ -234,6 +244,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No section leaves a choice open that a task would have to make on its own. |
 | Not applicable when | never |
 | Remediation | Decide the open choice, or record it as a blocking open question with an owner. |
+| Worked pass | "The migration runs before the new writer is deployed. The old column is dropped in a later release, not this one." |
+| Worked failure | "The migration will be run at an appropriate point in the release." A task would have to decide when, and that decision belongs here. |
 
 ### TDES-015 — Terminology is consistent and introduced on first use
 
@@ -248,6 +260,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | One concept is named one way throughout, and no undefined term carries load. |
 | Not applicable when | never |
 | Remediation | Unify the naming, and define or link the term at first use. |
+| Worked pass | "The document says *quote* throughout, and introduces it on first use as a price that holds until a stated instant." |
+| Worked failure | The same object is a *quote* in the components section, an *offer* in the workflow and a *price record* in the data design, with nothing saying they are one thing. |
 
 ### TDES-016 — At least one structured representation is present
 
@@ -291,6 +305,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Each verification names a method and what it would decide, with no test implementation. |
 | Not applicable when | never |
 | Remediation | Replace the test code with the method and the outcome it decides. |
+| Worked pass | "Contract tests replay the recorded consumer requests against the new handler, and fail when a request the old handler accepted is rejected." |
+| Worked failure | A block of `expect(quote(sku, 1).price).toBe(999)` in place of the strategy. Test code says what one case does; it does not say what will be verified or what would decide it. |
 
 ### TDES-019 — The document carries no business-layer content
 
@@ -305,6 +321,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Business behaviour is cited from the functional layer rather than redefined here. |
 | Not applicable when | never |
 | Remediation | Move the business content upstream and cite it instead. |
+| Worked pass | "Approval routing follows the functional design's approval workflow, FD-07 §3. This design carries only the queue and retry behaviour that transports it." |
+| Worked failure | "A manager may approve up to 5,000; above that it routes to finance." That is a business rule, and redefining it here creates a second place for it to drift. |
 
 ### TDES-020 — Each technology choice states its reason
 
@@ -319,6 +337,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Each choice names the property of this system that made it the right one. |
 | Not applicable when | The change selects nothing new and says so. |
 | Remediation | State the deciding property, or reconsider the choice. |
+| Worked pass | "Postgres, because the ordering guarantee this design depends on needs a single transactional writer, which the cluster already in place provides." |
+| Worked failure | "Postgres, because it is mature and widely adopted." That is a property of the technology, not of this system, and it would justify the same choice anywhere. |
 
 ### TDES-021 — Dependencies and risks are listed explicitly
 
@@ -405,6 +425,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Each structural decision is either recorded or explicitly queued to be recorded. |
 | Not applicable when | The design makes no decision beyond this change's own scope. |
 | Remediation | Link the existing record, or note that one is owed and by whom. |
+| Worked pass | "Splitting the writer from the read replica is recorded in ADR 0014." Or, where the record is not yet written: "an ADR for this split is queued as an open question of this design." |
+| Worked failure | The split appears in the components diagram and nowhere else. Six months on, the reason for it is only recoverable from whoever remembers. |
 
 ### TDES-027 — A breaking data change carries a migration and rollback plan
 
@@ -434,6 +456,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every such value appears in the table; each defining location is single and resolves to a path; each copy that cannot read that location names the check that reconciles it; and an enum whose values are natural-language words is declared to be an identifier rather than display text. |
 | Not applicable when | The design introduces no user-visible text and no value read by more than one runtime. |
 | Remediation | Add the table. Where a defining location is undecided, record it as a blocking open question of this design rather than leaving each implementation to settle it. |
+| Worked pass | A table row reading: privacy-policy address — defined in `contracts/site.json` — read by the web client and both native clients — reconciled at build time by the manifest check. |
+| Worked failure | "Site addresses are managed centrally." It resolves to no path, so each runtime still decides for itself where to read, which is the condition this item exists to prevent. |
 
 ## Severity and gate policy
 

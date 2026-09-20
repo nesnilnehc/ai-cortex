@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: performance-quality
-version: 1.1.0
+version: 1.2.0
 model: RULE_MODEL_V1
 rule_prefix: PERF
 scope: code paths whose work, latency, throughput, memory, storage or downstream load can grow with input or concurrency
@@ -119,6 +119,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Stale or cross-tenant reads are prevented, growth is bounded and cache failure preserves correctness. |
 | Not applicable when | No cached state is introduced or changed. |
 | Remediation | Define invalidation and capacity, include ownership dimensions in keys, and make fallback explicit. |
+| Worked pass | The catalogue cache declares: key `sku` scoped by tenant, owned by the catalogue team, 60s TTL with explicit invalidation on price write, 10,000-entry bound, and on cache failure it reads through to the store. |
+| Worked failure | A module-level dictionary keyed by SKU alone. It has no owner, no bound, no invalidation, and one tenant's price can be served to another. |
 
 ### PERF-007 — Performance-sensitive changes carry representative evidence
 
