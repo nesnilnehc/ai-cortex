@@ -36,7 +36,32 @@
   },
   "expected_failed_rules": [
     "TDES-001",
+    "TDES-002",
     "TDES-003",
-    "TDES-022"
+    "TDES-006",
+    "TDES-016",
+    "TDES-021",
+    "TDES-022",
+    "TDES-024",
+    "TDES-025"
+  ],
+  "frontmatter": {
+    "required_present": false,
+    "enums_valid": true
+  },
+  "empty_sections": [
+    "dataflow"
+  ],
+  "structured_representations": 0,
+  "structured_referenced": false,
+  "dependencies_stated": false,
+  "risks_stated": true,
+  "acceptance_criteria": 2,
+  "citations": [
+    "specs/rule-modeling.md",
+    "specs/deleted-spec.md"
+  ],
+  "resolvable_citations": [
+    "specs/rule-modeling.md"
   ]
 }

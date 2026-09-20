@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: reliability-quality
-version: 1.2.0
+version: 1.3.0
 model: RULE_MODEL_V1
 rule_prefix: REL
 scope: deployable services, durable workflows and code that communicates with fallible external resources
@@ -153,6 +153,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The objective is measurable from user-facing signals and the release decision follows the declared policy. |
 | Not applicable when | The project is not an operated service or has no declared SLO. |
 | Remediation | Define the user-facing objective and connect its budget state to the release decision. |
+| Verification | `adopter`. This repository declares no service level and runs no release gate against one, so it cannot host the population this item governs. An adopting project returns the three shapes as fixtures in the format `scripts/test-rule-scenarios.py` reads, under `tests/fixtures/`, through the pull-request process in `CONTRIBUTING.md`. |
 
 ## Severity and gate policy
 

@@ -48,6 +48,14 @@
 
 ### Changed
 
+- The last 14 `automated` items are activated, and the corpus reaches **118 ready, 0 provisional**.
+
+  Ten are decidable from a document and are now forward-tested: `scripts/test-rule-scenarios.py` gained four checks over the task-list population and six over the technical-design population, and the six fixtures gained the fields those checks read. Each of the ten was verified by removing its check and confirming the run goes red — a passing forward test proves nothing until it has been shown it can fail.
+
+  Four cannot be hosted here at all. `OBS-003` needs a running service's user-facing indicators, `PERF-007` a benchmark suite and a declared budget, `REL-008` a declared service level and a release gate, `TST-008` a reviewed project's coverage report. Their `Verification` reads `adopter` and names the route back, which CONTRIBUTING now documents as a procedure rather than a claim: three fixtures under `tests/fixtures/<population>/`, an evaluator that decides the item, a demonstrated red run, and a pull request that flips the row from `adopter` to the directory. An item is promoted when the fixtures are in the repository, not when someone reports that evidence exists elsewhere.
+
+  All three of §8's bullets are now met for every item it reaches. The obligation that reached nobody for four months, because the term deciding its population was never defined, now reaches all 118 and is computed on every run.
+
 - All 41 `judgment` items carry a worked pass and a worked failure, taking the corpus to 104 `ready` of 118.
 
   §8 asks a `judgment` item for a source anchor, an evidence contract, a bounded pass condition and one worked example of each verdict. The first three had fields already; the fourth had none, in any item. A judgment item has no tool to calibrate against, so an example is the only place a reader learns where the author drew the line.

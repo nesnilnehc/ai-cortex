@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import pathlib
+import re
 import sys
 
 
@@ -149,6 +150,23 @@ def evaluate_task_list(case: dict[str, object]) -> set[str]:
             waiver = annotation.get("waiver")
             if waiver and waiver not in valid_waivers:
                 failed.add("TASK-018")
+
+    frontmatter = case.get("frontmatter", {})
+    if not frontmatter.get("required_present") or not frontmatter.get("enums_valid"):
+        failed.add("TASK-003")
+
+    # An undeclared dependency cell is not the same as "no dependencies": the
+    # first is silence, the second is a decision, and only the second is a pass.
+    if any(not task.get("depends_on_declared", True) for task in tasks):
+        failed.add("TASK-006")
+
+    if any(not (task.get("owner") or task.get("execution_hint")) for task in tasks):
+        failed.add("TASK-008")
+
+    id_format = re.compile(case.get("id_format", r"^T\d+$"))
+    ids = [task["id"] for task in tasks]
+    if any(not id_format.fullmatch(i) for i in ids) or len(ids) != len(set(ids)):
+        failed.add("TASK-019")
     return failed
 
 
@@ -174,6 +192,28 @@ def evaluate_technical_design(case: dict[str, object]) -> set[str]:
         or parent.get("status") not in {"approved", "accepted"}
     ):
         failed.add("TDES-022")
+
+    frontmatter = case.get("frontmatter", {})
+    if not frontmatter.get("required_present") or not frontmatter.get("enums_valid"):
+        failed.add("TDES-002")
+
+    # A required section that is present but says nothing is the shape this item
+    # exists for: TDES-001 already decides absence, and "no change" is a pass.
+    if case.get("empty_sections"):
+        failed.add("TDES-006")
+
+    if case.get("structured_representations", 0) < 1 or not case.get("structured_referenced"):
+        failed.add("TDES-016")
+
+    if not case.get("dependencies_stated") or not case.get("risks_stated"):
+        failed.add("TDES-021")
+
+    if case.get("acceptance_criteria", 0) < 3:
+        failed.add("TDES-024")
+
+    resolvable = set(case.get("resolvable_citations", []))
+    if any(citation not in resolvable for citation in case.get("citations", [])):
+        failed.add("TDES-025")
     return failed
 
 

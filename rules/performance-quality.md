@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: performance-quality
-version: 1.2.0
+version: 1.3.0
 model: RULE_MODEL_V1
 rule_prefix: PERF
 scope: code paths whose work, latency, throughput, memory, storage or downstream load can grow with input or concurrency
@@ -135,6 +135,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The result meets every applicable budget without shifting unacceptable cost to another resource. |
 | Not applicable when | No declared budget or affected performance-sensitive path exists. |
 | Remediation | Optimize or revise the design; change a budget only through the owning requirement or decision. |
+| Verification | `adopter`. This repository has no benchmark suite and no declared performance budget, so it cannot host the population this item governs. An adopting project returns the three shapes as fixtures in the format `scripts/test-rule-scenarios.py` reads, under `tests/fixtures/`, through the pull-request process in `CONTRIBUTING.md`. |
 
 ### PERF-008 — Resource ownership prevents accumulation
 
