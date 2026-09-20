@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: technical-design-quality
-version: 2.0.0
+version: 2.1.0
 model: RULE_MODEL_V1
 rule_prefix: TDES
 scope: technical design documents conforming to specs/technical-design-modeling.md
@@ -27,6 +27,7 @@ It does not review business workflow, role permissions or business object states
 | `quality-attribute` | profile | — | An upstream quality scenario exists, or the change crosses a module, contract, data, trust or process boundary, introduces fallible I/O, or affects a declared quality budget |
 | `data-change` | profile | — | The design defines or changes persisted schema, stored data or migration behaviour |
 | `interface-change` | profile | — | The design defines or changes an interface consumed outside its own module |
+| `shared-value` | profile | — | The design introduces user-visible text, or a value that more than one runtime reads |
 
 Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project writes only the `declared` values. This Rule set needs no project parameter; its obligations are decided from the document and its upstream chain.
 
@@ -410,9 +411,23 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Not applicable when | The change is additive and reversible. |
 | Remediation | Add the migration ordering and the rollback strategy, or make the change reversible. |
 
+### TDES-028 — User-visible text and cross-runtime values declare a single source
+
+| Field | Value |
+| --- | --- |
+| Level | `profile:shared-value` |
+| Requirement | For each kind of user-visible text it introduces, and each value it introduces that more than one runtime reads, the design **MUST** name the single place that value is defined, how each runtime obtains it, and how a copy that cannot read that place is reconciled against it. |
+| Applies when | The design introduces user-visible text, or a value that more than one runtime reads. |
+| Default severity | `major` |
+| Enforcement | `judgment` |
+| Evidence | The design's table of value, defining location, consumers and reconciliation method, each defining location given as a path rather than a statement of intent. |
+| Pass condition | Every such value appears in the table; each defining location is single and resolves to a path; each copy that cannot read that location names the check that reconciles it; and an enum whose values are natural-language words is declared to be an identifier rather than display text. |
+| Not applicable when | The design introduces no user-visible text and no value read by more than one runtime. |
+| Remediation | Add the table. Where a defining location is undecided, record it as a blocking open question of this design rather than leaving each implementation to settle it. |
+
 ## Severity and gate policy
 
-A defect that would send the next layer the wrong way is `major`: a missing required section, a single approach with no alternative, an unexplained rejection, unhandled failure paths, an absent or generic quality-attribute design, an unresolvable Rule citation, an unresolved parameter that is not recorded as blocking, an underspecified component, data design or interface, a design that cannot be turned into tasks, an unjustified technology choice, an unapproved or wrong-type parent, an untraced acceptance criterion, and a breaking data change with no rollback.
+A defect that would send the next layer the wrong way is `major`: a missing required section, a single approach with no alternative, an unexplained rejection, unhandled failure paths, an absent or generic quality-attribute design, an unresolvable Rule citation, an unresolved parameter that is not recorded as blocking, an underspecified component, data design or interface, a design that cannot be turned into tasks, an unjustified technology choice, an unapproved or wrong-type parent, an untraced acceptance criterion, a breaking data change with no rollback, and user-visible text or a cross-runtime value whose defining location the design leaves undeclared.
 
 Escalate to `critical` when the design authorizes an irreversible data operation with no stated rollback, since the damage cannot be undone downstream.
 
