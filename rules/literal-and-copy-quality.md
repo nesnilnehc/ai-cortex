@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: literal-and-copy-quality
-version: 1.1.0
+version: 1.2.0
 model: RULE_MODEL_V1
 rule_prefix: LIT
 scope: code that produces text a person sees, or that carries a value read by more than one runtime
@@ -141,6 +141,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The declaration exists, the bounding check exists, and every runtime compares by equality rather than translating. |
 | Not applicable when | No enum value contains a natural-language word. |
 | Remediation | Add the declaration and the bounding check. Renaming is **not** recommended once the value has entered user data through a sync protocol, since the cost of the migration exceeds the benefit of the better name. |
+| Worked pass | The contract says: "`unit` takes the values 天 and 次. These are identifiers, not display text, and must not be translated." A schema check bounds the set, and all three clients compare by equality. |
+| Worked failure | The same values with no such note. One client's localization pass translates 天 to "day" on the way out, and the server stops recognising its own enum. |
 
 ## Severity and gate policy
 

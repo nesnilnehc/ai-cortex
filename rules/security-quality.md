@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: security-quality
-version: 1.2.0
+version: 1.3.0
 model: RULE_MODEL_V1
 rule_prefix: SEC
 scope: production code, configuration and dependency changes that cross a trust boundary or handle protected data
@@ -91,6 +91,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every protected field has a necessary purpose, bounded exposure, approved protection and deletion behavior. |
 | Not applicable when | No protected data enters the scope. |
 | Remediation | Remove the field, narrow access, encrypt where required, redact telemetry and define retention/deletion. |
+| Worked pass | The full card number is never stored; the last four digits are kept for the customer's statement, are excluded from logs by the redaction policy, and are deleted with the account after the stated retention period. |
+| Worked failure | The full number is stored "in case support needs it", appears in a request log, and has no deletion path. None of the three has a declared purpose behind it. |
 
 ### SEC-005 — Cryptography uses approved primitives and key handling
 

@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: error-surfacing-quality
-version: 1.1.0
+version: 1.2.0
 model: RULE_MODEL_V1
 rule_prefix: ERR
 scope: production code that accepts input it does not control, or reports a failure to a person or an automated consumer
@@ -50,6 +50,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every entry point rejects input it cannot represent, and no later layer repeats a check the boundary already made. |
 | Not applicable when | The input originates inside the same deployable and already carries a checked type. |
 | Remediation | Move the check to the boundary and return a value that carries the result, so downstream code cannot forget it. |
+| Worked pass | The HTTP handler parses the body into a `QuoteRequest` whose `quantity` is a positive-integer type, and nothing downstream checks the sign again. |
+| Worked failure | The handler passes the body on as an untyped map; the pricing layer checks the quantity, and the store checks it a third time. Three places now hold the same rule and can disagree. |
 
 ### ERR-002 — A broken invariant stops the operation
 
@@ -64,6 +66,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No detected invariant violation flows into subsequent work. |
 | Not applicable when | The fallback is part of the declared contract and the caller can observe that it was taken. |
 | Remediation | Fail the operation where the violation is detected, rather than at the point the wrong value finally causes damage. |
+| Worked pass | Finding the cached price's currency differs from the order's, the quoter raises and the request fails. |
+| Worked failure | It logs a warning and carries on with the cached price, so a value already determined to be wrong reaches the customer's total. |
 
 ### ERR-003 — Detection sits at the earliest layer that can decide it
 
@@ -78,6 +82,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Each check runs at the earliest declared layer that has the information to decide it, or the reason it cannot is recorded. |
 | Not applicable when | The property depends on runtime state that no earlier layer can observe. |
 | Remediation | Move the check left, or record why the information it needs is unavailable until later. |
+| Worked pass | A non-positive quantity is rejected by the request schema at the edge, before any round trip. |
+| Worked failure | The schema accepts any integer and the only rejection is the database's `check (quantity > 0)`, so a user error surfaces as a storage error one layer too late. |
 
 ### ERR-004 — A failure a person must act on says what to do next
 
@@ -92,6 +98,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Each message carries all three. An identifier may accompany them and does not replace them. |
 | Not applicable when | The only consumer of that path is a program, which ERR-005 governs. |
 | Remediation | Add the missing element. Where no action exists, say what the person can do instead — retry, report, or wait. |
+| Worked pass | "Could not price SKU ABC-123: it is not in the current catalogue. Check the SKU, or ask the catalogue team to add it." What failed, where, and what to do. |
+| Worked failure | "Error QTE-500." An identifier standing in for all three. The reader learns that something went wrong and nothing else. |
 
 ### ERR-005 — A failure a program consumes carries a stable identity
 
@@ -106,6 +114,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every such failure carries an identifier that is stable independently of its message. |
 | Not applicable when | The only consumer is a person, which ERR-004 governs. |
 | Remediation | Add a stable identifier alongside the message, rather than freezing the message so consumers can keep matching it. |
+| Worked pass | The response carries `code: "quantity_not_positive"` beside a human message that may be reworded in any release without breaking a consumer. |
+| Worked failure | The consumer matches on `message == "Quantity must be positive"`, so improving the wording is a breaking change nobody will notice until it ships. |
 
 ### ERR-006 — A check whose findings are mostly legitimate use is narrowed
 

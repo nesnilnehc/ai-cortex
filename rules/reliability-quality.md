@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: reliability-quality
-version: 1.1.0
+version: 1.2.0
 model: RULE_MODEL_V1
 rule_prefix: REL
 scope: deployable services, durable workflows and code that communicates with fallible external resources
@@ -91,6 +91,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every interruption point leads to a valid state that can converge without lost or duplicated effects. |
 | Not applicable when | The operation is atomic within one proven transaction. |
 | Remediation | Make state transitions durable and add compensation or reconciliation for non-atomic effects. |
+| Worked pass | After the payment commits and before the order is marked paid, the operation is interrupted. The design states the committed state, payment taken and order unpaid, and the reconciliation job that converges it by matching payment ids. |
+| Worked failure | "If it fails midway, retry." It names neither the state the interruption leaves behind nor which of the two steps a retry would repeat, and repeating the first takes the money twice. |
 
 ### REL-005 — Dependency failure is isolated
 
@@ -105,6 +107,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | A representative dependency outage leaves unrelated critical operations within their declared service level or fails them predictably. |
 | Not applicable when | The service has one indivisible dependency and no unrelated capacity to protect. |
 | Remediation | Add bounded pools/queues, circuit breaking or fail-fast admission at the dependency boundary. |
+| Worked pass | Calls to the recommendations service run through a bounded pool of eight connections. When it stalls, those eight wait and checkout continues, serving its page without recommendations. |
+| Worked failure | Recommendations share the service-wide connection pool with no bound. When it stalls, checkout's threads block on a feature that is decorative, and an optional dependency takes down the paid path. |
 
 ### REL-006 — Poison and terminal background work is retained
 

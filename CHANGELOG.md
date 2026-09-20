@@ -48,6 +48,14 @@
 
 ### Changed
 
+- All 41 `judgment` items carry a worked pass and a worked failure, taking the corpus to 104 `ready` of 118.
+
+  §8 asks a `judgment` item for a source anchor, an evidence contract, a bounded pass condition and one worked example of each verdict. The first three had fields already; the fourth had none, in any item. A judgment item has no tool to calibrate against, so an example is the only place a reader learns where the author drew the line.
+
+  The pairs are written to pin the distinction each pass condition turns on, not to illustrate the topic. `TDES-020` fails on "Postgres, because it is mature and widely adopted" — a property of the technology that would justify the same choice anywhere — and passes on a reason naming a property of this system. `TST-005` fails on expected values captured by running the implementation and pasting its output, which agrees with the code by construction and would ratify the same defect tomorrow. `ERR-004` fails on "Error QTE-500", an identifier standing in for what failed, where, and what to do next.
+
+  Fourteen `automated` items remain provisional, owing a forward test over three representative shapes. §8's other two bullets are now closed.
+
 - All 47 `tool-assisted` items state what their tool class cannot decide, taking the corpus from 16 `ready` to 63.
 
   §8 asks a `tool-assisted` item for the tool class supplying its decidable evidence and for what that class cannot decide, "so that a clean tool run is never read as a passed item". One item in the repository did that, inside its `Evidence` prose; the other 46 left the reader to infer where the tool stops. Each now carries a `Tool limits` row, and the one that already had the statement has it lifted out of prose into the row.

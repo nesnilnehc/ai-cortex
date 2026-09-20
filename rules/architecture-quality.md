@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: architecture-quality
-version: 1.3.0
+version: 1.4.0
 model: RULE_MODEL_V1
 rule_prefix: ARC
 scope: production code and its declared module, component and public-contract boundaries
@@ -46,6 +46,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Each responsibility maps to one owner and every module has one coherent reason to change. |
 | Not applicable when | A single-purpose script or generated artifact has no meaningful internal boundary. |
 | Remediation | Move the misplaced responsibility to its owner or split the module along independent change reasons. |
+| Worked pass | `billing/` owns what a customer is charged and changes when pricing rules change. `invoicing/` owns how that charge is rendered and changes when a tax authority changes its format. Two reasons to change, two modules. |
+| Worked failure | `billing/` also formats the PDF. A tax-format change and a pricing change now touch the same module, and either release can break the other. |
 
 ### ARC-002 — Dependencies follow declared direction
 
@@ -120,6 +122,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every new edge serves a demonstrated requirement and uses the narrowest stable contract. |
 | Not applicable when | No cross-module edge changes. |
 | Remediation | Reuse the owner contract, move the behavior, or remove the unnecessary edge. |
+| Worked pass | Reporting needs a customer's tier, and reads it through the existing `CustomerProfile` contract that billing already publishes. |
+| Worked failure | Reporting imports billing's internal `PricingRow` to read one field off it. The edge is avoidable through a contract that already exists, and it pins billing's internals in place. |
 
 ### ARC-007 — Extension points correspond to demonstrated variation
 
@@ -134,6 +138,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The abstraction isolates a real boundary or supports demonstrated variants with lower total coupling. |
 | Not applicable when | The abstraction is required by an external contract or framework boundary. |
 | Remediation | Keep the concrete implementation, narrow the interface, or defer the extension point until variation exists. |
+| Worked pass | A `PaymentGateway` interface with two implementations already in production, card and bank transfer, and a third in the current scope. |
+| Worked failure | A `NotificationStrategy` interface with one implementation, added because a second channel is expected next year. It costs indirection today for a variant nobody has yet. |
 
 ### ARC-008 — Composition is explicit and complete
 

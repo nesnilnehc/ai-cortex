@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: observability-quality
-version: 1.1.0
+version: 1.2.0
 model: RULE_MODEL_V1
 rule_prefix: OBS
 scope: deployable services, background workloads and cross-process operations whose behavior must be diagnosed in production
@@ -120,6 +120,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | One owning event identifies the failure and correlation context, while lower layers preserve context without alert duplication. |
 | Not applicable when | The failure is fully handled locally and has no operational consequence. |
 | Remediation | Assign log ownership to the boundary, preserve error cause and remove duplicate terminal logs. |
+| Worked pass | The payment boundary records one terminal `payment.failed` event carrying the stable error code, the correlation id and what was attempted. The retry layer beneath logs at debug and raises no incident of its own. |
+| Worked failure | The client, the retry wrapper and the handler each raise an error event for the same failed payment. One outage pages three times and the on-call reads three stories about one fact. |
 
 ### OBS-007 — Background work exposes progress and terminal backlog
 
@@ -149,6 +151,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every new production outcome and failure can be distinguished with existing or changed signals. |
 | Not applicable when | The change has no production behavior or failure-mode effect. |
 | Remediation | Add the smallest structured signal and verification query that closes the diagnostic gap. |
+| Worked pass | The change adds a new rejection path for expired cards, and adds `payment.failed` a `reason` attribute whose values now distinguish it from the existing decline. |
+| Worked failure | The rejection path ships with no signal change, so an expired card and a bank decline arrive as the same event. The first question in the incident is one nobody can answer from telemetry. |
 
 ## Severity and gate policy
 
