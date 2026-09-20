@@ -35,3 +35,4 @@ A good decision record answers four questions: **What** was decided / **Why** / 
 | [0011](./0011-vendor-external-skills.md) | Unifying the management of vendored external skills | accepted |
 | [0012](./0012-adopt-profiled-engineering-rules.md) | Adopting profiled engineering quality rules | accepted |
 | [0013](./0013-research-skill-entry-names.md) | Research Skill entry names and requirement paths | accepted |
+| [0014](./0014-rule-activation-maturity.md) | Rule activation keys on enforcement, and maturity travels with the finding | accepted |
