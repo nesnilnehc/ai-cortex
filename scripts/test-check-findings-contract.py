@@ -12,6 +12,7 @@ from __future__ import annotations
 import importlib.util
 import pathlib
 import sys
+import tempfile
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
@@ -45,9 +46,44 @@ def load():
     return module
 
 
+# Three shapes for the directory walk: a Skill that emits findings and restates
+# the list, one that emits and cites the Spec, and one that emits nothing. The
+# walk decides which files it even opens, and until `check` took a `root` it
+# could not be pointed at a fixture, so only `restates_contract` was covered.
+WALK_FIXTURE = {
+    "review-restater": "output type: findings-list\n"
+    "Each finding includes Location, Category, Severity, Title, Description, and optional Suggestion\n",
+    "review-citer": "output type: findings-list\n"
+    "Every finding carries every element the findings-list Spec requires\n",
+    "define-something": "This Skill writes a document and emits no findings.\n"
+    "It mentions a location, a category and a severity in passing.\n",
+}
+EXPECTED_WALK = {"findings": 1, "emitters": 2}
+
+
+def check_walk(module) -> list[str]:
+    """Run check() over the three-shape fixture and report what disagrees."""
+    with tempfile.TemporaryDirectory() as tmp:
+        base = pathlib.Path(tmp) / "skills"
+        for name, body in WALK_FIXTURE.items():
+            (base / name).mkdir(parents=True)
+            (base / name / "SKILL.md").write_text(body, encoding="utf-8")
+        findings, emitters = module.check(base, root=base)
+    problems = []
+    actual = {"findings": len(findings), "emitters": emitters}
+    if actual != EXPECTED_WALK:
+        problems.append(f"the walk reported {actual}, expected {EXPECTED_WALK}")
+    if findings and not findings[0].startswith("review-restater/SKILL.md:2:"):
+        problems.append(
+            f"a finding must name its file and line relative to the given root, got {findings[0]!r}"
+        )
+    return problems
+
+
 def main() -> int:
     module = load()
     errors = []
+    errors.extend(check_walk(module))
     for text, expected, why in CASES:
         actual = module.restates_contract(text)
         if actual != expected:
@@ -63,7 +99,8 @@ def main() -> int:
     reported = sum(1 for _, expected, _ in CASES if expected)
     print(
         f"Validated the findings-contract checker over {len(CASES)} shapes: "
-        f"{reported} restatements reported, {len(CASES) - reported} legitimate uses left alone."
+        f"{reported} restatements reported, {len(CASES) - reported} legitimate uses left alone, "
+        "and the directory walk over three Skill shapes."
     )
     return 0
 

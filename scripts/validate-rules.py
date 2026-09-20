@@ -3,8 +3,8 @@
 
 from __future__ import annotations
 
-import pathlib
 import collections
+import pathlib
 import re
 import sys
 from datetime import date
@@ -197,7 +197,8 @@ def validate(
         if severity not in {"critical", "major", "minor", "suggestion"}:
             errors.append(f"{rule_id}: invalid Default severity")
         enforcement = fields.get("Enforcement", "").strip("`")
-        if enforcement not in {"automated", "tool-assisted", "judgment"}:
+        known_enforcement = enforcement in {"automated", "tool-assisted", "judgment"}
+        if not known_enforcement:
             errors.append(f"{rule_id}: invalid Enforcement")
         if "Maturity" in fields:
             errors.append(
@@ -205,15 +206,19 @@ def validate(
                 "and must not be written by hand"
             )
         owed = ACTIVATION_FIELDS.get(enforcement, ())
-        stray = sorted((ALL_ACTIVATION & fields.keys()) - set(owed))
-        if stray:
-            errors.append(
-                f"{rule_id}: enforcement {enforcement or '(unset)'} "
-                f"does not take {', '.join(stray)}"
-            )
-        blank = sorted(name for name in owed if name in fields and not fields[name])
-        if blank:
-            errors.append(f"{rule_id}: empty activation fields: {', '.join(blank)}")
+        # An unreadable Enforcement is already reported. Deriving what that class
+        # owes from it would add a second error for one cause, and the second one
+        # misdirects: it names rows as unexpected when the truth is that nothing
+        # can yet say which rows belong.
+        if known_enforcement:
+            stray = sorted((ALL_ACTIVATION & fields.keys()) - set(owed))
+            if stray:
+                errors.append(
+                    f"{rule_id}: enforcement {enforcement} does not take {', '.join(stray)}"
+                )
+            blank = sorted(name for name in owed if name in fields and not fields[name])
+            if blank:
+                errors.append(f"{rule_id}: empty activation fields: {', '.join(blank)}")
         ready = bool(owed) and all(fields.get(name) for name in owed)
         maturity["ready" if ready else "provisional"] += 1
     return errors, ids, maturity
@@ -256,7 +261,7 @@ class Result(NamedTuple):
     errors: list[str]
     documents: int
     items: int
-    maturity: collections.Counter[str] = collections.Counter()
+    maturity: collections.Counter[str]
 
 
 def check(

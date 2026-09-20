@@ -157,7 +157,9 @@ def evaluate_task_list(case: dict[str, object]) -> set[str]:
 
     # An undeclared dependency cell is not the same as "no dependencies": the
     # first is silence, the second is a decision, and only the second is a pass.
-    if any(not task.get("depends_on_declared", True) for task in tasks):
+    # Absent defaults to undeclared: every sibling check here fails closed, and a
+    # fixture that forgets the field should not quietly pass this one.
+    if any(not task.get("depends_on_declared", False) for task in tasks):
         failed.add("TASK-006")
 
     if any(not (task.get("owner") or task.get("execution_hint")) for task in tasks):
