@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: architecture-quality
-version: 1.1.0
+version: 1.2.0
 model: RULE_MODEL_V1
 rule_prefix: ARC
 scope: production code and its declared module, component and public-contract boundaries
@@ -60,6 +60,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The actual edge set is a subset of the allowed edge set. |
 | Not applicable when | The project has not declared module topology; ARC-003 and the other baseline items still apply. |
 | Remediation | Move the dependency, introduce an owned contract, or update topology through an approved architecture decision. |
+| Verification | `tests/fixtures/rule-governance/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### ARC-003 — A module graph has no cycles
 
@@ -74,6 +75,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every strongly connected component contains exactly one module. |
 | Not applicable when | The code scope contains one module only. |
 | Remediation | Move the shared contract to its owner, merge inseparable modules, or invert one dependency through an interface. |
+| Verification | `tests/fixtures/rule-governance/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### ARC-004 — Boundaries do not leak implementation details
 
@@ -158,6 +160,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every measured dimension is within budget, or an approved justification identifies why the wider surface is indivisible. |
 | Not applicable when | No budget is declared; reviewers still assess avoidable coupling under ARC-006. |
 | Remediation | Split the change, remove unrelated edits, or record and approve the cross-boundary impact. |
+| Verification | `tests/fixtures/rule-governance/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### ARC-010 — Code no consumer reaches is removed, not retained
 
