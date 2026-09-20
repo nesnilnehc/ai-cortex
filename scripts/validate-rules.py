@@ -324,10 +324,12 @@ def main() -> int:
     print(f"Validated {result.documents} modeled Rule documents and {result.items} Rule items.")
     ready = result.maturity["ready"]
     provisional = result.maturity["provisional"]
-    print(
-        f"Activation materials: {ready} ready, {provisional} provisional "
-        "(provisional items still report findings; their activation evidence is incomplete)."
+    note = (
+        " (provisional items still report findings; their activation evidence is incomplete)"
+        if provisional
+        else ""
     )
+    print(f"Activation materials: {ready} ready, {provisional} provisional{note}.")
     return 0
 
 

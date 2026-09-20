@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: performance-quality
-version: 1.0.1
+version: 1.3.0
 model: RULE_MODEL_V1
 rule_prefix: PERF
 scope: code paths whose work, latency, throughput, memory, storage or downstream load can grow with input or concurrency
@@ -44,6 +44,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Worst-case work and retained data are finite and compatible with the execution context. |
 | Not applicable when | The input is structurally bounded to a small constant. |
 | Remediation | Add limits, pagination, streaming, admission control or backpressure. |
+| Tool limits | Static inspection decides that a bound exists on a loop, query, queue or recursion. It cannot decide whether the bound's magnitude suits the load, nor whether an apparently unbounded input is already bounded upstream. A reviewer reads the bound against the load model. |
 
 ### PERF-002 — Repeated remote and storage work is eliminated
 
@@ -58,6 +59,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Operations are batched, joined, cached with valid ownership, or proven necessary and bounded. |
 | Not applicable when | The repeated count is a small fixed constant and batching would increase risk or cost. |
 | Remediation | Batch, join, prefetch, parallelize safely or reuse the existing result. |
+| Tool limits | A query trace or ORM log counts calls per request and shows their shape. It produces nothing without a representative workload to run against, and it cannot decide whether a repeated call is intentional — a cache-miss path or a fan-out that must run per item. A reviewer classifies the repeats. |
 
 ### PERF-003 — Algorithmic growth matches the load model
 
@@ -72,6 +74,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Measured and asymptotic costs meet the largest supported representative input. |
 | Not applicable when | Input is bounded to a documented small constant. |
 | Remediation | Use a more appropriate data structure or algorithm, reduce copies, index access, or constrain input. |
+| Tool limits | A benchmark decides the cost at the sizes it was run at. It cannot establish a complexity class from those points alone, and it cannot decide whether the load model it ran against is the distribution the system meets. A reviewer reads the analysis alongside the measurement. |
 
 ### PERF-004 — Large data is streamed or chunked
 
@@ -86,6 +89,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Peak retained memory stays within budget as total data grows. |
 | Not applicable when | The format or protocol guarantees a small maximum payload. |
 | Remediation | Introduce streaming, cursor pagination, chunked processing or spill-to-disk with cleanup. |
+| Tool limits | An allocation profile decides peak memory on the run it observed. It cannot decide the largest input the system will meet in service, which is what the item turns on. A reviewer supplies that bound. |
 
 ### PERF-005 — Concurrency is bounded and non-blocking where required
 
@@ -100,6 +104,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Concurrency has a configured cap, cancellation and no avoidable blocking on the hot execution resource. |
 | Not applicable when | Execution is intentionally single-threaded and bounded. |
 | Remediation | Add a pool or semaphore, use asynchronous I/O, shrink lock scope or serialize the critical section. |
+| Tool limits | Static inspection finds unbounded task creation and blocking calls on a path declared non-blocking. It cannot decide whether a lock's scope is the smallest correct one — narrowing it may break the invariant it protects — nor whether an observed contention profile is representative. A reviewer decides the scope. |
 
 ### PERF-006 — Caches have ownership and invalidation semantics
 
@@ -114,6 +119,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Stale or cross-tenant reads are prevented, growth is bounded and cache failure preserves correctness. |
 | Not applicable when | No cached state is introduced or changed. |
 | Remediation | Define invalidation and capacity, include ownership dimensions in keys, and make fallback explicit. |
+| Worked pass | The catalogue cache declares: key `sku` scoped by tenant, owned by the catalogue team, 60s TTL with explicit invalidation on price write, 10,000-entry bound, and on cache failure it reads through to the store. |
+| Worked failure | A module-level dictionary keyed by SKU alone. It has no owner, no bound, no invalidation, and one tenant's price can be served to another. |
 
 ### PERF-007 — Performance-sensitive changes carry representative evidence
 
@@ -128,6 +135,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The result meets every applicable budget without shifting unacceptable cost to another resource. |
 | Not applicable when | No declared budget or affected performance-sensitive path exists. |
 | Remediation | Optimize or revise the design; change a budget only through the owning requirement or decision. |
+| Verification | `adopter`. This repository has no benchmark suite and no declared performance budget, so it cannot host the population this item governs. An adopting project returns the three shapes as fixtures in the format `scripts/test-rule-scenarios.py` reads, under `tests/fixtures/`, through the pull-request process in `CONTRIBUTING.md`. |
 
 ### PERF-008 — Resource ownership prevents accumulation
 
@@ -142,6 +150,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every acquired resource is released exactly once on every terminal path and retained collections are bounded. |
 | Not applicable when | No resource is acquired or retained. |
 | Remediation | Use the language's scoped resource construct and add failure/cancellation cleanup. |
+| Tool limits | Static inspection decides that an acquire has a matching release on the normal path. It cannot decide whether every failure, early-return and cancellation path reaches that release, where control flow leaves the function by routes the tool does not enumerate. A reviewer walks the failure paths. |
 
 ## Severity and gate policy
 

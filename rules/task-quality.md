@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: task-quality
-version: 2.1.0
+version: 2.4.0
 model: RULE_MODEL_V1
 rule_prefix: TASK
 scope: task list documents conforming to specs/task-modeling.md
@@ -75,6 +75,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every required field is present and inside its enum. |
 | Not applicable when | never |
 | Remediation | Add the missing frontmatter field. |
+| Verification | `tests/fixtures/task-list/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TASK-004 — The dependency graph is acyclic
 
@@ -119,6 +120,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No dependency cell is empty; "none" is written with the modeled placeholder. |
 | Not applicable when | Every task declares at least one dependency. |
 | Remediation | Write the explicit placeholder so an unfilled cell cannot be mistaken for an omission. |
+| Verification | `tests/fixtures/task-list/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TASK-007 — A task is bounded to one working session
 
@@ -133,6 +135,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No task bundles deliverables that would have to be verified and handed over separately. |
 | Not applicable when | The row is an explicitly labelled epic that decomposes into listed child tasks. |
 | Remediation | Split the task along its deliverable boundaries. |
+| Worked pass | "Add the `quantity > 0` constraint to `order_line`, with its migration." One deliverable, verified once, handed over once. |
+| Worked failure | "Build the quoting service." The endpoint, the store and the cache would each be finished, verified and handed over at different times. |
 
 ### TASK-008 — Every task names an owner or an execution hint
 
@@ -147,6 +151,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No task leaves both empty. |
 | Not applicable when | never |
 | Remediation | Assign an owner, or state how the task is to be executed. |
+| Verification | `tests/fixtures/task-list/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TASK-009 — A task title states its concrete action
 
@@ -161,6 +166,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Each title tells a reader what will be different afterwards without opening the design. |
 | Not applicable when | never |
 | Remediation | Rewrite the title with a verb and the specific object it acts on. |
+| Worked pass | "Reject a quote request whose quantity is not positive, returning 422." A reader knows what will be different afterwards. |
+| Worked failure | "Quoting module." It names where the work happens and nothing about what changes there. |
 
 ### TASK-010 — Task acceptance is verifiable
 
@@ -175,6 +182,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Each acceptance statement can be decided without asking its author what was meant. |
 | Not applicable when | never |
 | Remediation | Replace a vague acceptance statement with the observable outcome that decides it. |
+| Worked pass | "`POST /v1/quotes` with `quantity: 0` returns 422 and a body whose `code` is `quantity_not_positive`." |
+| Worked failure | "Quoting works correctly for edge cases." Deciding it means asking the author which edges were meant. |
 
 ### TASK-011 — The list declares its upstream design
 
@@ -204,6 +213,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No task exists that the upstream design does not call for. |
 | Not applicable when | The list is authorized directly by an approved decision record that names the work. |
 | Remediation | Add the design reference, or return the untraced work upstream for approval. |
+| Tool limits | A mapping check decides that a task names a design element and that the element exists upstream. It cannot decide whether the task implements that element or merely cites it, which is the substance of the trace. |
 
 ### TASK-013 — Every design component has a task
 
@@ -218,6 +228,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No in-scope design element is left without a task, or its deferral is stated in the list. |
 | Not applicable when | The list deliberately covers one phase and names the phases it excludes. |
 | Remediation | Add the missing task, or record the deferral and its reason in the list. |
+| Worked pass | Each of the design's four components carries at least one task, and the fifth, the admin view, is listed as deferred to the next milestone with that stated in the list. |
+| Worked failure | The design defines a reconciliation job. No task mentions it and the list does not record a deferral, so it leaves scope without anyone deciding to drop it. |
 
 ### TASK-014 — A quality-sensitive task carries its governance annotation
 
@@ -232,6 +244,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every triggered task carries all annotation fields, and no triggered task is missing from the table. |
 | Not applicable when | No task in the list meets a trigger. |
 | Remediation | Add the annotation, or show that the task meets no trigger. |
+| Tool limits | An annotation check decides that the governance annotation is present wherever a declared trigger condition matches the task's recorded fields. It cannot decide whether a task's description conceals a trigger it does not name, which a reviewer reads for. |
 
 ### TASK-015 — Affected scope is named exactly
 
@@ -246,6 +259,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | A reader can locate every named element; no entry is a category such as "backend" or "various". |
 | Not applicable when | No annotated task exists. |
 | Remediation | Replace the category with the specific elements the task touches. |
+| Worked pass | "Affects `services/quoting/handler.ts`, the `quotes` contract v2, and the `order_line` table." Every entry can be opened. |
+| Worked failure | "Affects: backend, database." Neither entry locates anything, so nobody can tell whether the blast radius was considered. |
 
 ### TASK-016 — Cited engineering Rule references resolve
 
@@ -275,6 +290,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Each cited item has a named means of verification that could actually decide it. |
 | Not applicable when | No annotated task exists. |
 | Remediation | Name a concrete verification, or drop the citation the task cannot verify. |
+| Worked pass | "Cites SEC-001. Verified by the taint-analysis run over the handler, plus a reviewer confirming the new validator covers the SQL sink the analyzer has no rule for." |
+| Worked failure | "Cites SEC-001 and REL-002. Verified by running the test suite." The suite decides neither item, so the citation buys nothing. |
 
 ### TASK-018 — A cited waiver is valid
 
@@ -304,6 +321,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every id matches the format and appears exactly once. |
 | Not applicable when | never |
 | Remediation | Renumber the duplicate or malformed id, then update every reference to it. |
+| Verification | `tests/fixtures/task-list/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ## Severity and gate policy
 

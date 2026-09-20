@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: reliability-quality
-version: 1.0.1
+version: 1.3.0
 model: RULE_MODEL_V1
 rule_prefix: REL
 scope: deployable services, durable workflows and code that communicates with fallible external resources
@@ -46,6 +46,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No attempt can wait indefinitely and remaining deadline is propagated or enforced. |
 | Not applicable when | The operation is a non-waiting fire-and-forget handoff with separately verified durability. |
 | Remediation | Configure per-attempt timeout and propagate cancellation/deadline. |
+| Tool limits | Client configuration inspection decides that a timeout and cancellation path are set on each call. It cannot decide whether the deadline budget composes along the chain — a series of individually reasonable timeouts can sum past the caller's own. |
 
 ### REL-002 — Retries are selective, bounded and budgeted
 
@@ -60,6 +61,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Permanent failures fail fast, aggregate retry load is bounded and one layer owns retry policy. |
 | Not applicable when | The operation is never retried. |
 | Remediation | Centralize retry ownership, classify errors, cap attempts/time and add exponential backoff with jitter. |
+| Tool limits | Retry-policy inspection decides that attempt and time limits exist, and reads the SDK defaults beneath them. It cannot decide whether the predicate retries only what is safe to retry, nor whether two layers each retrying multiply into an attempt count neither declared. |
 
 ### REL-003 — Repeated operations preserve correctness
 
@@ -74,6 +76,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Repeating the same logical operation cannot duplicate side effects or corrupt state. |
 | Not applicable when | At-most-once execution is formally guaranteed and evidenced end to end. |
 | Remediation | Add an idempotency key and durable uniqueness/outcome record at the side-effect owner. |
+| Tool limits | Schema inspection and duplicate tests decide that an idempotency key or uniqueness constraint exists and that a repeat is rejected. Neither decides whether the key spans everything that makes the operation distinct — a key too narrow passes both checks and collapses two real operations into one. |
 
 ### REL-004 — Partial failure has an explicit consistency outcome
 
@@ -88,6 +91,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every interruption point leads to a valid state that can converge without lost or duplicated effects. |
 | Not applicable when | The operation is atomic within one proven transaction. |
 | Remediation | Make state transitions durable and add compensation or reconciliation for non-atomic effects. |
+| Worked pass | After the payment commits and before the order is marked paid, the operation is interrupted. The design states the committed state, payment taken and order unpaid, and the reconciliation job that converges it by matching payment ids. |
+| Worked failure | "If it fails midway, retry." It names neither the state the interruption leaves behind nor which of the two steps a retry would repeat, and repeating the first takes the money twice. |
 
 ### REL-005 — Dependency failure is isolated
 
@@ -102,6 +107,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | A representative dependency outage leaves unrelated critical operations within their declared service level or fails them predictably. |
 | Not applicable when | The service has one indivisible dependency and no unrelated capacity to protect. |
 | Remediation | Add bounded pools/queues, circuit breaking or fail-fast admission at the dependency boundary. |
+| Worked pass | Calls to the recommendations service run through a bounded pool of eight connections. When it stalls, those eight wait and checkout continues, serving its page without recommendations. |
+| Worked failure | Recommendations share the service-wide connection pool with no bound. When it stalls, checkout's threads block on a feature that is decorative, and an optional dependency takes down the paid path. |
 
 ### REL-006 — Poison and terminal background work is retained
 
@@ -116,6 +123,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Permanent failures do not loop forever or disappear, and operators can locate and safely resolve them. |
 | Not applicable when | The workload has no durable input and loss is an explicitly accepted outcome. |
 | Remediation | Add bounded retries and durable terminal disposition with replay identity. |
+| Tool limits | Queue configuration inspection decides that a delivery limit and a dead-letter target exist. It cannot decide whether the retained payload carries enough to replay the work, nor whether anyone is on the other end of the dead-letter. A reviewer confirms the replay procedure. |
 
 ### REL-007 — Failure modes are verified at their real boundary
 
@@ -130,6 +138,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Tests reproduce timeout, duplicate, partial failure or restart as applicable and verify the intended outcome. |
 | Not applicable when | No reliability behavior or fallible dependency path changes. |
 | Remediation | Add deterministic fault injection or integration tests at the owning boundary. |
+| Tool limits | Test inspection decides that a failure-injection or state-transition test exists and asserts a terminal state. It cannot decide whether the fault was injected at the real boundary — a fault raised inside the process never exercises the network the production failure crosses. |
 
 ### REL-008 — Reliability targets govern release risk
 
@@ -144,6 +153,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The objective is measurable from user-facing signals and the release decision follows the declared policy. |
 | Not applicable when | The project is not an operated service or has no declared SLO. |
 | Remediation | Define the user-facing objective and connect its budget state to the release decision. |
+| Verification | `adopter`. This repository declares no service level and runs no release gate against one, so it cannot host the population this item governs. An adopting project returns the three shapes as fixtures in the format `scripts/test-rule-scenarios.py` reads, under `tests/fixtures/`, through the pull-request process in `CONTRIBUTING.md`. |
 
 ## Severity and gate policy
 

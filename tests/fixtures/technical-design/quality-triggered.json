@@ -41,5 +41,21 @@
   },
   "expected_failed_rules": [
     "TDES-009"
+  ],
+  "frontmatter": {
+    "required_present": true,
+    "enums_valid": true
+  },
+  "empty_sections": [],
+  "structured_representations": 1,
+  "structured_referenced": true,
+  "dependencies_stated": true,
+  "risks_stated": true,
+  "acceptance_criteria": 3,
+  "citations": [
+    "specs/rule-modeling.md"
+  ],
+  "resolvable_citations": [
+    "specs/rule-modeling.md"
   ]
 }

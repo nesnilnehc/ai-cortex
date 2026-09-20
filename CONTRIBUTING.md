@@ -54,6 +54,14 @@ See [docs/architecture/asset-naming.md](docs/architecture/asset-naming.md), the 
 
 Rules live in `rules/` and must be registered in `rules/INDEX.md`. Follow the format of the existing rules. `bin/cortex` installs user-scoped Rules for supported IDEs (Claude Code links them; Cursor receives `.mdc` translations), while project-scoped Rules stay in the canonical clone for on-demand loading. Other consumers must follow their own supported loading path.
 
+## Returning forward-test evidence
+
+Some Rule items are marked `Verification: adopter`. They govern a population this repository cannot host — a running service's indicators, a benchmark suite, a declared service level, a reviewed project's coverage report — so their activation evidence has to come from a project that has one.
+
+To return it, add a fixture for each of three representative shapes under `tests/fixtures/<population>/`, in the JSON shape `scripts/test-rule-scenarios.py` reads: the inputs the evaluator needs, plus `expected_failed_rules` naming what that shape must report. Extend the evaluator for that population to decide the item, run `python3 scripts/test-rule-scenarios.py`, and confirm it goes red when the new check is removed. Then open a pull request and change the item's `Verification` row from `adopter` to the fixture directory.
+
+An item is not promoted on a claim that the evidence exists elsewhere; it is promoted when the fixtures are in the repository and the test decides them.
+
 ## Versioning
 
 This project follows [Semantic Versioning](https://semver.org/). When you modify a skill:
