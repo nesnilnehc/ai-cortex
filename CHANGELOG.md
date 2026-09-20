@@ -48,6 +48,14 @@
 
 ### Changed
 
+- All 47 `tool-assisted` items state what their tool class cannot decide, taking the corpus from 16 `ready` to 63.
+
+  §8 asks a `tool-assisted` item for the tool class supplying its decidable evidence and for what that class cannot decide, "so that a clean tool run is never read as a passed item". One item in the repository did that, inside its `Evidence` prose; the other 46 left the reader to infer where the tool stops. Each now carries a `Tool limits` row, and the one that already had the statement has it lifted out of prose into the row.
+
+  The rows are written against each item's own evidence rather than to a template, because what a tool cannot decide differs by item: a taint analyzer silently passes a sink it carries no rule for; a benchmark cannot establish a complexity class from the points it measured; repeated green test runs bound flakiness without disproving it; a test double registered in a production composition root resolves exactly as cleanly as the real implementation. Each row names who decides the remainder.
+
+  This closes the second of §8's three bullets. The first (`automated`) was already met for 16 items. The third (`judgment`) remains: 41 items still owe a worked pass and a worked failure, and 14 `automated` items still owe a forward test.
+
 - The first 16 Rule items reach `ready`, by recording forward-test evidence that already existed.
 
   `scripts/test-rule-scenarios.py` has been forward-testing `automated` items over three representative shapes since before this maturity mechanism existed, but no item said so, so the first derived distribution read 0 ready against 118 provisional — understating the corpus. Cross-referencing the identifiers that script decides against each item's `Enforcement` gives 16 `automated` items with real evidence; each now carries a `Verification` row naming the fixture directory and the script. Three further identifiers it decides (`ARC-005`, `ARC-010`, `ARC-011`) are `tool-assisted` and owe `Tool limits` instead, so they stay provisional.

@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: testing-quality
-version: 1.1.0
+version: 1.2.0
 model: RULE_MODEL_V1
 rule_prefix: TST
 scope: automated tests and the verification strategy for changed production behavior
@@ -72,6 +72,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The test fails for a missing binding, field, route or migration and passes with the intended assembly. |
 | Not applicable when | The code has no integration boundary. |
 | Remediation | Add an integration or contract test using production composition and serialization. |
+| Tool limits | Test-setup inspection decides whether the test constructs production wiring or substitutes a double for it. It cannot decide whether the boundary assembled is the one whose integration carries the risk — a real wiring of the wrong two components passes. |
 
 ### TST-004 — Public contracts have compatibility tests
 
@@ -115,6 +116,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Reordering or repeating tests does not change outcomes under the supported environment. |
 | Not applicable when | The test is purely deterministic and local. |
 | Remediation | Inject controllable dependencies, isolate resources and remove order dependence. |
+| Tool limits | Repeat runs and setup inspection decide that a suite passed a given number of consecutive times and that a clock and seeds are injected. Neither disproves nondeterminism the runs did not meet: repeated passes bound flakiness, they do not establish its absence. |
 
 ### TST-007 — Doubles preserve the relevant contract
 

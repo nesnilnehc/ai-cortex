@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: task-quality
-version: 2.1.0
+version: 2.2.0
 model: RULE_MODEL_V1
 rule_prefix: TASK
 scope: task list documents conforming to specs/task-modeling.md
@@ -204,6 +204,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No task exists that the upstream design does not call for. |
 | Not applicable when | The list is authorized directly by an approved decision record that names the work. |
 | Remediation | Add the design reference, or return the untraced work upstream for approval. |
+| Tool limits | A mapping check decides that a task names a design element and that the element exists upstream. It cannot decide whether the task implements that element or merely cites it, which is the substance of the trace. |
 
 ### TASK-013 — Every design component has a task
 
@@ -232,6 +233,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every triggered task carries all annotation fields, and no triggered task is missing from the table. |
 | Not applicable when | No task in the list meets a trigger. |
 | Remediation | Add the annotation, or show that the task meets no trigger. |
+| Tool limits | An annotation check decides that the governance annotation is present wherever a declared trigger condition matches the task's recorded fields. It cannot decide whether a task's description conceals a trigger it does not name, which a reviewer reads for. |
 
 ### TASK-015 — Affected scope is named exactly
 

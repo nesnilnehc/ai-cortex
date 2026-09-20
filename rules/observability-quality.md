@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: observability-quality
-version: 1.0.0
+version: 1.1.0
 model: RULE_MODEL_V1
 rule_prefix: OBS
 scope: deployable services, background workloads and cross-process operations whose behavior must be diagnosed in production
@@ -46,6 +46,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Operators can filter and aggregate outcomes and latency without parsing free-form messages. |
 | Not applicable when | The operation is not declared critical and no operational contract requires telemetry. |
 | Remediation | Emit a structured completion event through the shared telemetry API. |
+| Tool limits | Schema validation over emitted events decides that a field is present and well typed. It cannot decide whether the operation is critical enough to owe an event, nor whether the outcome recorded is the one that matters when the operation goes wrong. |
 
 ### OBS-002 — Correlation crosses execution boundaries
 
@@ -60,6 +61,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | One standard trace or correlation identity connects the complete representative path. |
 | Not applicable when | Execution never crosses a process boundary. |
 | Remediation | Propagate standard trace context in request headers and message metadata. |
+| Tool limits | Inspecting one end-to-end trace decides that the correlation field survived the boundaries that trace crossed. It cannot decide whether every boundary in the system was exercised by it, so a clean trace bounds the claim to the path it took. |
 
 ### OBS-003 — User-facing behavior has measurable indicators
 
@@ -88,6 +90,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The trace shows the responsible boundary, dependency latency and error status without redundant per-line spans. |
 | Not applicable when | The runtime cannot support tracing and an approved equivalent correlation mechanism exists. |
 | Remediation | Instrument boundary calls and consumers with standard semantic conventions. |
+| Tool limits | Instrumentation inspection and trace topology decide that spans exist and nest correctly. Neither decides whether a span boundary is meaningful — a span per function is well formed and tells an operator nothing. A reviewer judges the boundaries. |
 
 ### OBS-005 — Telemetry is safe and cardinality-bounded
 
@@ -102,6 +105,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Sensitive values are absent/redacted and unbounded identifiers are not used as metric dimensions. |
 | Not applicable when | No telemetry is emitted or changed. |
 | Remediation | Redact or remove protected fields and move high-cardinality context to logs or exemplars. |
+| Tool limits | Attribute inspection decides an attribute's distinct-value count over observed traffic and matches keys against the redaction policy. It cannot decide whether an unredacted value is sensitive in this system, nor whether the cardinality observed bounds the cardinality to come. |
 
 ### OBS-006 — Error signals are actionable and non-duplicative
 
@@ -130,6 +134,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Operators can distinguish idle, healthy progress, retrying, stuck backlog and terminal failure. |
 | Not applicable when | No background work exists. |
 | Remediation | Add lifecycle counters/events and expose queue age, depth and terminal disposition. |
+| Tool limits | Metric inspection decides that the counters, queue age and terminal-failure path are emitted. It cannot decide whether the backlog they expose is the one an operator must act on, nor whether the signal arrives early enough to act. |
 
 ### OBS-008 — New behavior updates its operational evidence
 

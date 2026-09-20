@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: technical-design-quality
-version: 2.2.0
+version: 2.3.0
 model: RULE_MODEL_V1
 rule_prefix: TDES
 scope: technical design documents conforming to specs/technical-design-modeling.md
@@ -104,6 +104,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The main failure paths the design creates are named, and each has a stated recovery or terminal outcome. |
 | Not applicable when | never |
 | Remediation | Add the missing failure path and state what the system does when it occurs. |
+| Tool limits | A document checker enumerates the dependencies the design names and whether the error-handling section mentions each. It cannot decide whether the recovery described is adequate for the failure it names, which is the obligation. A reviewer reads each path. |
 
 ### TDES-006 — A section with nothing to change says so
 
@@ -132,6 +133,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The section exists and covers every triggered concern. |
 | Not applicable when | No trigger is met and the design states which boundaries it does not cross. |
 | Remediation | Add the section, or show that no trigger applies. |
+| Tool limits | A document checker decides that the upstream carries quality scenarios and that this design has the section they trigger. It cannot decide whether the section addresses those scenarios or restates them generically, which is what separates a design from a heading. |
 
 ### TDES-008 — Each triggered concern maps to a tactic, trade-off, verification and owner
 
@@ -175,6 +177,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Each needed value is resolved, or its absence is listed as blocking; no needed value is silently skipped. |
 | Not applicable when | No triggered concern depends on a project profile or parameter. |
 | Remediation | Resolve the value, or record the missing decision as a blocking open question with an owner. |
+| Tool limits | Configuration inspection decides which parameters the cited items need and which the project defines. It cannot decide whether an unresolved parameter was deliberately deferred or simply forgotten — that follows from reading the open-questions entry, or from its absence. |
 
 ### TDES-011 — Components carry signature-level definitions
 
@@ -273,6 +276,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Code blocks carry contracts, schemas or configuration; none is an implementation body. |
 | Not applicable when | never |
 | Remediation | Replace the implementation with the signature or contract it was standing in for. |
+| Tool limits | A document scan enumerates the code blocks in the document. It cannot decide whether a block is implementation or an interface contract, schema or signature, which is the distinction this item turns on. A reviewer classifies each block. |
 
 ### TDES-018 — The test strategy states verification methods
 
@@ -358,6 +362,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No criterion exists that the upstream chain does not call for. |
 | Not applicable when | never |
 | Remediation | Add the upstream reference, or return the untraced criterion upstream for approval. |
+| Tool limits | A traceability check decides that each acceptance criterion names an upstream item and that the item exists. It cannot decide whether the criterion actually verifies what that item promises, which is the substance of the trace. |
 
 ### TDES-024 — At least three acceptance criteria are stated
 
@@ -414,6 +419,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The plan states the order of operations and what happens if it must be reversed partway. |
 | Not applicable when | The change is additive and reversible. |
 | Remediation | Add the migration ordering and the rollback strategy, or make the change reversible. |
+| Tool limits | A document checker decides that a migration plan exists and states a rollback. It cannot decide whether the ordering is safe, nor whether the rollback actually reverses the change — both follow from reading the plan against the schema it touches. |
 
 ### TDES-028 — User-visible text and cross-runtime values declare a single source
 

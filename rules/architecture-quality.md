@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: architecture-quality
-version: 1.2.0
+version: 1.3.0
 model: RULE_MODEL_V1
 rule_prefix: ARC
 scope: production code and its declared module, component and public-contract boundaries
@@ -90,6 +90,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Consumers can use the contract without importing or understanding the provider's private implementation. |
 | Not applicable when | The symbol is private to one module. |
 | Remediation | Define an owned boundary type and translate at the adapter edge. |
+| Tool limits | Export and import analysis enumerates what a boundary exposes and who consumes it. It cannot decide whether an exported type is an implementation detail or a legitimate part of the promise, which depends on what the boundary undertook to provide. A reviewer reads the exports against that promise. |
 
 ### ARC-005 — Public contracts evolve compatibly
 
@@ -104,6 +105,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Existing consumers continue to work, or the breaking change is versioned with tested migration. |
 | Not applicable when | The contract has no released or independent consumer and is not protected. |
 | Remediation | Restore compatibility, add a new version, or provide and verify a migration adapter. |
+| Tool limits | A contract diff decides that a field was removed, renamed or retyped, and the declared compatibility tests decide that the consumers they cover still pass. Neither decides whether the change breaks a consumer no test covers, nor whether the version declared matches the severity of the change. |
 
 ### ARC-006 — Cross-module coupling is necessary and bounded
 
@@ -146,6 +148,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Required bindings resolve and a production entry point reaches the delivered behavior. |
 | Not applicable when | The project has no runtime composition or registration mechanism. |
 | Remediation | Add the binding/registration at the composition root and verify the complete path. |
+| Tool limits | Composition-root inspection and an integration test decide that every registration resolves at startup. Neither decides whether the resolved implementation is the one production intends — a test double registered in the production root resolves exactly as cleanly. |
 
 ### ARC-009 — Change surface stays within its declared budget
 
@@ -175,6 +178,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every symbol reported unreached is either shown to have a named live consumer, or removed — and where the analyzer cannot resolve the symbol's call paths, its removal additionally rests on a runtime signal over one full business cycle showing no consumer. A clean analyzer run is not by itself evidence about a symbol it cannot resolve, in either direction. |
 | Not applicable when | The symbol is a protected public contract with independent consumers, which ARC-005 governs, or the scope is generated from a reviewed source. |
 | Remediation | Delete it. Version control holds the history, so a commented-out or permanently disabled copy preserves nothing a reader can rely on while still costing every reader who meets it. |
+| Tool limits | Unused-symbol analysis decides that a symbol carries no static reference. It cannot resolve a symbol reached by reflection, named in configuration, dispatched dynamically or consumed from another repository, and telemetry silence over one cycle is evidence of disuse rather than proof of it. A reviewer decides whether the cycle observed covers the low-frequency paths. |
 
 ### ARC-011 — A deprecation names its owner, its removal point and its replacement
 
@@ -189,6 +193,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every marker in scope carries all three, and a recorded removal point that has passed has either been acted on or explicitly renewed. An inventory that lists markers without those fields is an incomplete evaluation, not a pass. |
 | Not applicable when | The scope carries no deprecation marker, or the marker belongs to an external dependency the project does not own. |
 | Remediation | Record the three, or remove the marker. A deprecation with no owner and no removal point is a second implementation kept indefinitely, not a migration in progress. |
+| Tool limits | A marker inventory decides that a deprecation exists and whether its owner, removal point and replacement fields are filled. It cannot decide whether the named replacement is actually equivalent, nor whether the removal point is a date anyone intends to keep. |
 
 ## Severity and gate policy
 
