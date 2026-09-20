@@ -3,7 +3,7 @@ name: review-vue
 description: Review Vue 3 code for Composition API, reactivity, components, state (Pinia), routing, and performance. Framework-only atomic skill; output is a findings list.
 description_zh: 审查 Vue 3 代码：Composition API、响应式、组件、状态 (Pinia)、路由与性能；框架级原子技能。
 tags: [code-review, framework]
-version: 1.0.3
+version: 1.0.4
 license: MIT
 recommended_scope: project
 metadata:
@@ -14,7 +14,7 @@ input_schema:
   description: Source files or directories to review
 output_schema:
   type: findings-list
-  description: Zero or more findings with location, category, severity, and suggestion
+  description: Zero or more findings, each carrying every element the findings-list Spec requires
 ---
 
 # Skill: Review Vue
@@ -33,7 +33,7 @@ Review only the **framework conventions** of **Vue 3** code. Do not define the s
 
 1. ✅ **Vue 3 framework scope only**: only Vue 3 framework conventions were reviewed; no scope selection, security or architecture analysis was performed
 2. ✅ **All seven Vue dimensions covered**: Composition API/script setup, reactivity (ref/reactive/computed/watch), component boundaries/props/emits, state (Pinia), routing/guards, render performance, and accessibility where relevant
-3. ✅ **Findings format compatible**: every finding carries location, category (`framework-vue`), severity, title, description and an optional suggestion
+3. ✅ **Findings format compatible**: every finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `framework-vue`
 4. ✅ **Component/file references**: every finding points at a specific file:line or component name
 5. ✅ **Non-Vue code excluded**: Vue-specific rules are not applied to non-Vue files unless they are explicitly in scope
 
@@ -94,7 +94,7 @@ Review only the **framework conventions** of **Vue 3** code. Do not define the s
 
 ### Tone and references
 
-- **Professional and technical**: cite a concrete location (file:line or component name). Emit findings carrying location, category, severity, title, description, suggestion.
+- **Professional and technical**: cite a concrete location (file:line or component name). Emit findings carrying every element [findings-list](../../specs/findings-list.md) §5.1 requires.
 
 ---
 
@@ -141,7 +141,7 @@ Review only the **framework conventions** of **Vue 3** code. Do not define the s
 
 - [ ] **Vue 3 framework scope only**: only Vue 3 framework conventions were reviewed; no scope selection, security or architecture analysis was performed
 - [ ] **All seven Vue dimensions covered**: Composition API/script setup, reactivity (ref/reactive/computed/watch), component boundaries/props/emits, state (Pinia), routing/guards, render performance, and accessibility where relevant
-- [ ] **Findings format conformant**: every finding carries location, category (`framework-vue`), severity, title, description and an optional suggestion
+- [ ] **Findings format conformant**: every finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `framework-vue`
 - [ ] **Component/file references**: every finding points at a specific file:line or component name
 - [ ] **Non-Vue code excluded**: Vue-specific rules are not applied to non-Vue files unless they are explicitly in scope
 
@@ -149,7 +149,7 @@ Review only the **framework conventions** of **Vue 3** code. Do not define the s
 
 - [ ] Were only the Vue framework dimensions reviewed (no scope/security/architecture)?
 - [ ] Were the relevant Composition API, reactivity, component, state, routing and performance aspects covered?
-- [ ] Does every finding carry location, category=framework-vue, severity, title, description and an optional suggestion?
+- [ ] Does every finding carry every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category=framework-vue?
 - [ ] Is every issue tied to a file:line or a component?
 
 ### Acceptance test

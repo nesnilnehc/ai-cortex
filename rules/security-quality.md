@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: security-quality
-version: 1.0.0
+version: 1.1.0
 model: RULE_MODEL_V1
 rule_prefix: SEC
 scope: production code, configuration and dependency changes that cross a trust boundary or handle protected data
@@ -74,6 +74,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No live secret is present and secret values are loaded through an approved runtime mechanism and redacted from output. |
 | Not applicable when | A clearly non-secret placeholder cannot authenticate and is excluded from production configuration. |
 | Remediation | Revoke exposed credentials, remove them from artifacts, use secret storage and add redaction. |
+| Verification | `tests/fixtures/rule-governance/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### SEC-004 — Protected data is minimized and purpose-bound
 

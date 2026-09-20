@@ -3,7 +3,7 @@ name: review-powershell
 description: "Review PowerShell code for language and runtime conventions: advanced functions, parameter design, error handling, object pipeline behavior, compatibility, and testability. Language-only atomic skill; output is a findings list."
 description_zh: 按 PowerShell 规范审查代码：高级函数、参数设计、错误处理、对象管道、兼容性与可测性。
 tags: [code-review, language]
-version: 1.0.2
+version: 1.0.3
 license: MIT
 recommended_scope: project
 metadata:
@@ -14,7 +14,7 @@ input_schema:
   description: Source files or directories to review
 output_schema:
   type: findings-list
-  description: Zero or more findings with location, category, severity, and suggestion
+  description: Zero or more findings, each carrying every element the findings-list Spec requires
 ---
 
 # Skill: Review PowerShell
@@ -33,7 +33,7 @@ Review code in **PowerShell** for **language and runtime conventions** only. Do 
 
 1. ✅ **PowerShell-only scope**: Only PowerShell language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
 2. ✅ **All seven PowerShell dimensions covered**: Advanced functions/cmdlet conventions, parameter design/validation, error handling semantics, object pipeline behavior, state/scope/strictness, compatibility/portability, and testability are assessed where relevant
-3. ✅ **Findings format compliant**: Each finding includes Location, Category (`language-powershell`), Severity, Title, Description, and optional Suggestion
+3. ✅ **Findings format compliant**: Every finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `language-powershell`
 4. ✅ **File:line references**: All findings reference specific file locations with line numbers
 5. ✅ **Non-PowerShell code excluded**: Non-PowerShell files are not analyzed for PowerShell-specific rules unless explicitly in scope
 
@@ -93,7 +93,7 @@ Review code in **PowerShell** for **language and runtime conventions** only. Do 
 
 ### Tone and references
 
-- **Professional and technical**: Reference specific locations (file:line). Emit findings with Location, Category, Severity, Title, Description, Suggestion.
+- **Professional and technical**: Reference specific locations (file:line). Emit findings carrying every element [findings-list](../../specs/findings-list.md) §5.1 requires.
 
 ---
 
@@ -140,7 +140,7 @@ Review code in **PowerShell** for **language and runtime conventions** only. Do 
 
 - [ ] **PowerShell-only scope**: Only PowerShell language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
 - [ ] **All seven PowerShell dimensions covered**: Advanced functions/cmdlet conventions, parameter design/validation, error handling semantics, object pipeline behavior, state/scope/strictness, compatibility/portability, and testability are assessed where relevant
-- [ ] **Findings format compliant**: Each finding includes Location, Category (`language-powershell`), Severity, Title, Description, and optional Suggestion
+- [ ] **Findings format compliant**: Every finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `language-powershell`
 - [ ] **File:line references**: All findings reference specific file locations with line numbers
 - [ ] **Non-PowerShell code excluded**: Non-PowerShell files are not analyzed for PowerShell-specific rules unless explicitly in scope
 
@@ -148,7 +148,7 @@ Review code in **PowerShell** for **language and runtime conventions** only. Do 
 
 - [ ] Was only the PowerShell language/runtime dimension reviewed (no scope/security/architecture)?
 - [ ] Are function/parameter conventions, error handling, pipeline behavior, compatibility, and testability covered where relevant?
-- [ ] Is each finding emitted with Location, Category=language-powershell, Severity, Title, Description, and optional Suggestion?
+- [ ] Does every finding carry every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category=language-powershell?
 - [ ] Are issues referenced with file:line?
 
 ### Acceptance Test

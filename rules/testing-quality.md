@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: testing-quality
-version: 1.0.1
+version: 1.1.0
 model: RULE_MODEL_V1
 rule_prefix: TST
 scope: automated tests and the verification strategy for changed production behavior
@@ -86,6 +86,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Existing supported inputs and consumers remain valid, or a versioned migration is tested. |
 | Not applicable when | The contract has no released or independent consumer. |
 | Remediation | Restore compatibility or add a versioned contract with migration tests. |
+| Verification | `tests/fixtures/rule-governance/`, three shapes decided by `scripts/test-rule-scenarios.py` |
 
 ### TST-005 — Critical paths resist implementation-shaped blind spots
 

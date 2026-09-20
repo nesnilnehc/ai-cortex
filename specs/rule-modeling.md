@@ -2,7 +2,7 @@
 id: RULE_MODELING_SPEC_V1
 name: Rule Modeling Schema
 description: Spec defining modeled Rule documents, stable rule items, applicability profiles, project parameters and auditable waivers.
-version: 1.0.0
+version: 1.1.0
 status: active
 lifecycle: living
 created_at: 2026-09-11
@@ -152,6 +152,21 @@ Each item begins with `### <ID> — <title>` and contains exactly one field tabl
 | `Remediation` | yes | The smallest normal direction for correction |
 
 One item can have several evidence sources, but it has one obligation. If a paragraph contains independently violable obligations, split it into separate IDs.
+
+Four further rows are **conditional on `Enforcement`**, and carry the activation materials [workflow-rule-governance](../rules/workflow-rule-governance.md) §8 owes per class:
+
+| Field | Required when `Enforcement` is | Contract |
+| --- | --- | --- |
+| `Verification` | `automated` | Where the forward test over three representative shapes lives — a path — or `adopter` when this repository structurally cannot host that population |
+| `Tool limits` | `tool-assisted` | What the tool class supplying the evidence **cannot** decide, so a clean tool run is never read as a passed item |
+| `Worked pass` | `judgment` | One concrete shape that passes this item |
+| `Worked failure` | `judgment` | One concrete shape that fails it |
+
+A row belonging to another class **must not** appear on an item; a row belonging to this item's class **may** be absent, and its absence is a reported state rather than a defect.
+
+**`Maturity` is derived, never written.** An item is `ready` when every row its `Enforcement` owes is present and non-empty, and `provisional` otherwise. A hand-written `Maturity` row is rejected, because a status anyone can type is a status nobody has earned. A `provisional` item still reports findings — its maturity travels with each finding, per [findings-list](./findings-list.md) §5.1, so the reader sees how well prepared the criterion behind it is. Withholding the finding would hide information rather than qualify it.
+
+Maturity answers a different question from severity. Severity says what the defect costs once it is established; maturity says how well prepared the criterion that found it is. Neither substitutes for the other, and an item is never promoted by raising one to cover the other.
 
 ### 5.3 Project profile object
 
