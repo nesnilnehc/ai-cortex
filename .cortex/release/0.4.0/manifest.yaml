@@ -6,7 +6,7 @@ release_channel: stable
 version_source: git tag
 commit: b236891f33af986c75f5bf18bfa6b654b799888a
 range: v0.3.0..b236891f
-status: ready
+status: published
 
 decision_basis: >-
   The range edits four of the five asset classes a consumer consumes: rules/ and
@@ -362,20 +362,35 @@ checks:
 
 publication:
   tag: v0.4.0
-  provider: github
-  release_body_source: .cortex/release/0.4.0/release-notes.md
-  steps:
-    version_sync: not_started — the product version lives only in the git tag, so there is nothing to sync
-    release_commit: not_started
-    validation: complete
-    tag: not_started
-    build_package: not_started — this repository ships no build artifact
-    provider_publish: not_started
+  tag_object: 73f259cb47cae97216cbe162f4b3c3d86cfdd5a8
+  tag_sha: 504b1a6059a4f50dc73645971d093db475b2e464
   tag_offset: >-
-    Expect one commit. `commit` records the content this package was prepared
-    against; the release cut that adds this manifest lands after it, and the tag
-    points at the commit that finalises it.
+    Two commits past `commit`: the release cut that adds this package, then the
+    merge that brings it onto main, which the tag points at. The guide says
+    "one commit"; 0.3.0's real offset was two as well, so the guide's wording is
+    approximate and this field carries the measured value.
+  provider: github
+  release_url: https://github.com/nesnilnehc/ai-cortex/releases/tag/v0.4.0
+  release_body_source: .cortex/release/0.4.0/release-notes.md
+  published_at: 2026-09-20T06:33:42Z
+  latest: true
+  steps:
+    version_sync: >-
+      not_started — no file in the repository carries the product version; it
+      lives only in the git tag, which a grep for the previous version confirmed
+    release_commit: complete — fdcf74e, merged as 504b1a6
+    validation: complete — 14 required checks on the merge commit, before the tag
+    tag: complete
+    build_package: not_started — this repository ships no build artifact
+    provider_publish: complete
+  post_publish_verification: >-
+    The released changelog section is byte-identical to
+    `git show v0.4.0:CHANGELOG.md` for that section — 158 lines, 23,500 bytes —
+    which is the cut check docs/guides/releasing.md requires. The provider
+    reports draft=false, prerelease=false and latest=v0.4.0. The release body
+    differs from release-notes.md by one trailing newline the provider appends,
+    and by nothing else.
   rollback: >-
-    Before publication there is nothing to roll back — this package is files in
-    the working tree. After publication: `gh release delete v0.4.0 --yes`, then
-    `git push origin :refs/tags/v0.4.0` and `git tag -d v0.4.0`.
+    `gh release delete v0.4.0 --yes`, then `git push origin :refs/tags/v0.4.0`
+    and `git tag -d v0.4.0`. Anyone who already fetched the tag keeps it. The two
+    commits on main are the release content and are not part of this rollback.
