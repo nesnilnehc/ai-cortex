@@ -3,7 +3,7 @@ name: review-typescript
 description: Review TypeScript/JavaScript code for type safety, async patterns, error handling, and module design. Atomic skill; output is a findings list.
 description_zh: 审查 TypeScript/JavaScript 代码：类型安全、异步模式、错误处理与模块设计；原子技能。
 tags: [code-review, language]
-version: 1.0.2
+version: 1.0.3
 license: MIT
 recommended_scope: project
 metadata:
@@ -14,7 +14,7 @@ input_schema:
   description: Source files or directories to review
 output_schema:
   type: findings-list
-  description: Zero or more findings with location, category, severity, and suggestion
+  description: Zero or more findings, each carrying every element the findings-list Spec requires
 ---
 
 # Skill: Review TypeScript
@@ -33,7 +33,7 @@ Review **TypeScript and JavaScript** code for **language and runtime conventions
 
 1. ✅ **TypeScript/JavaScript language scope only**: reviews TypeScript and JavaScript language and runtime conventions only; performs no scope selection, security, or architecture analysis
 2. ✅ **All seven language dimensions covered**: type safety, async patterns, error handling, module design, runtime correctness, API/interface design, and performance/memory are assessed where relevant
-3. ✅ **Findings format compliant**: each finding carries location, category (`language-typescript`), severity, title, description, and an optional suggestion
+3. ✅ **Findings format compliant**: each finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `language-typescript`
 4. ✅ **File/line references**: every finding cites a specific file:line or symbol name
 5. ✅ **Non-TS/JS code excluded**: non-TypeScript/JavaScript files are not analyzed against TS/JS-specific rules unless they are explicitly in scope
 
@@ -94,7 +94,7 @@ Review **TypeScript and JavaScript** code for **language and runtime conventions
 
 ### Tone and references
 
-- **Professional and technical**: cite the exact location (file:line or symbol name). Emit findings carrying location, category, severity, title, description, and suggestion.
+- **Professional and technical**: cite the exact location (file:line or symbol name). Emit findings carrying every element [findings-list](../../specs/findings-list.md) §5.1 requires.
 
 ---
 
@@ -142,7 +142,7 @@ Review **TypeScript and JavaScript** code for **language and runtime conventions
 
 - [ ] **TypeScript/JavaScript language scope only**: reviews TypeScript and JavaScript language and runtime conventions only; performs no scope selection, security, or architecture analysis
 - [ ] **All seven language dimensions covered**: type safety, async patterns, error handling, module design, runtime correctness, API/interface design, and performance/memory are assessed where relevant
-- [ ] **Findings format compliant**: each finding carries location, category (`language-typescript`), severity, title, description, and an optional suggestion
+- [ ] **Findings format compliant**: each finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `language-typescript`
 - [ ] **File/line references**: every finding cites a specific file:line or symbol name
 - [ ] **Non-TS/JS code excluded**: non-TypeScript/JavaScript files are not analyzed against TS/JS-specific rules unless they are explicitly in scope
 
@@ -150,7 +150,7 @@ Review **TypeScript and JavaScript** code for **language and runtime conventions
 
 - [ ] Were only TypeScript/JavaScript language dimensions reviewed (no scope/security/architecture)?
 - [ ] Were type safety, async patterns, error handling, module design, runtime correctness, API design, and performance covered where relevant?
-- [ ] Does every finding carry location, category = language-typescript, severity, title, description, and an optional suggestion?
+- [ ] Does every finding carry every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category = language-typescript?
 - [ ] Is each issue referenced by file:line or symbol name?
 
 ### Acceptance test
