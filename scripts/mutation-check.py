@@ -90,6 +90,24 @@ def document(label: str, edit: Callable[[str], str], expect: str = "blocked", al
     return Perturbation(label, (VERIFIER, "HEAD", TRANSLATED), TRANSLATED, edit, expect, allow_unchanged)
 
 
+
+def set_version(value: str):
+    """Rewrite whatever version the document declares, whatever it currently is.
+
+    A literal `version: 2.0.0` anchor broke on every release of the document it
+    points at, and a broken anchor reports as a missing perturbation rather than
+    as the finding it was written to provoke — it goes quiet exactly when the
+    document is being changed, which is when it is needed.
+    """
+
+    def edit(text: str) -> str:
+        return re.sub(
+            r"^version: \d+\.\d+\.\d+$", f"version: {value}", text, count=1, flags=re.M
+        )
+
+    return edit
+
+
 PERTURBATIONS = [
     code(LINKS, LINKS_TEST, "stop stripping inline code spans",
      '        out.append((number, CODE_SPAN.sub("", line)))',
@@ -251,7 +269,7 @@ PERTURBATIONS = [
     document("alter a number",
              replace("[rule-modeling](../specs/rule-modeling.md) \u00a75.4",
                      "[rule-modeling](../specs/rule-modeling.md) \u00a79.4")),
-    document("alter a version", replace("version: 2.1.0", "version: 9.9.9")),
+    document("alter a version", set_version("9.9.9")),
     document("weaken modality",
              replace("Every task row **MUST** carry an id",
                      "Every task row should carry an id")),
