@@ -2,19 +2,15 @@
 
 ## [Unreleased]
 
-### Removed
-
-- The inbound proposal channel: its vendored contract, its version lock, and the receive-side half of `.cortex/nats.yaml`.
-
-  The channel let another project publish a proposed change to an asset here and have it wait until someone drained the queue. It ran for four months, accumulated 12 messages and acknowledged none. Nothing reached this repository through it: the batch sent 2026-05-14 landed the next day by another route, and the one proposal adopted out of the queue — the design-time obligation now carried by `TDES-028` — was read out by a read-only peek and applied by hand, so the acknowledge step was never exercised at all.
-
-  Three things it needed were never supplied. Its contract was inferred by a Bootstrap peek at 5 samples from a single publisher and no owner ever confirmed it, so no message could be acknowledged safely; as written it also condemned two valid proposals, having hard-coded one publisher's name into a field it marked required. The durable consumer's name cannot be read back with the tools available here. Nobody owns the subject domain's broker resources.
-
-  `.cortex/nats.yaml` keeps the two shared fields and gains the producer-side stream and contract directory, which it had never carried although this repository publishes `cortex.updates.requirement-intake-triage` under an accepted contract. The `CORTEX` stream itself stays, since it carries that outbound channel too; retiring the inbound half is not a reason to drop it.
-
-  Reopening the channel would have to answer the three questions the retired contract recorded: a subject carrying a per-proposal slug, which no exact contract match can ever resolve; unverified header presence, where the sampling tool cannot distinguish absent from not displayed; and a field name that varies by publisher. They are in the git history of `.cortex/vendor/contracts/proposals-contract.md`.
-
 ### Added
+
+- `rules/literal-and-copy-quality.md` (`LIT`), seven criteria for a value that exists in more than one place.
+
+  No rule set here covered the defect shape "a value was written down twice and the copies drifted". Its signature is that nothing fails: the code compiles, the existing tests stay green, nothing is logged, and the product serves a screen that contradicts itself — one record showing two different times, a link that resolves on one platform and not another. Only a reader notices, and usually a reader who has already lost some trust by the time they do.
+
+  Every item is `tool-assisted` or `judgment` — a deliberate reduction from the five `automated` blocking items the originating proposal asked for. [workflow-rule-governance](rules/workflow-rule-governance.md) §8 admits an automated blocking item only after a forward test against three representative shapes of the population it governs, and the evidence behind this set is one project carrying three runtimes and four kinds of page, which the proposal's own authors stated was not three independent projects. Reducing the enforcement rather than relaxing §8 keeps the criteria available now without spending the credibility of a first false block on a project whose structure differs. Raising an item to `automated` waits on evidence from adopting projects.
+
+  Pairs with `TDES-028`: the design names each value's defining place before the code is written, and this set checks afterwards that no second copy appeared. The boundary against `error-surfacing-quality` is stated in the Scope — how the words are assembled is decided here, whether they are the right words to act on is decided there.
 
 - `scripts/check-asset-versions.py` blocks a merge when an asset the range edits kept its version, and runs in CI.
 
@@ -79,6 +75,18 @@
   Prompted by the first CI run of the shellcheck job: the runner carries shellcheck 0.9.0, which reports SC2015 on that shape, while 0.11.0 no longer does. The report is a false positive — `_do=1` is an assignment and cannot fail, so `|| true` only ran when the answer was no — but the shorter form is clearer on its own terms and is clean under both versions.
 
   Equivalence was checked against a stubbed `_confirm` across all four combinations of `--yes` and the answer, comparing both the resulting flag and whether a prompt was shown: passing `--yes` still skips the prompt.
+
+### Removed
+
+- The inbound proposal channel: its vendored contract, its version lock, and the receive-side half of `.cortex/nats.yaml`.
+
+  The channel let another project publish a proposed change to an asset here and have it wait until someone drained the queue. It ran for four months, accumulated 12 messages and acknowledged none. Nothing reached this repository through it: the batch sent 2026-05-14 landed the next day by another route, and the one proposal adopted out of the queue — the design-time obligation now carried by `TDES-028` — was read out by a read-only peek and applied by hand, so the acknowledge step was never exercised at all.
+
+  Three things it needed were never supplied. Its contract was inferred by a Bootstrap peek at 5 samples from a single publisher and no owner ever confirmed it, so no message could be acknowledged safely; as written it also condemned two valid proposals, having hard-coded one publisher's name into a field it marked required. The durable consumer's name cannot be read back with the tools available here. Nobody owns the subject domain's broker resources.
+
+  `.cortex/nats.yaml` keeps the two shared fields and gains the producer-side stream and contract directory, which it had never carried although this repository publishes `cortex.updates.requirement-intake-triage` under an accepted contract. The `CORTEX` stream itself stays, since it carries that outbound channel too; retiring the inbound half is not a reason to drop it.
+
+  Reopening the channel would have to answer the three questions the retired contract recorded: a subject carrying a per-proposal slug, which no exact contract match can ever resolve; unverified header presence, where the sampling tool cannot distinguish absent from not displayed; and a field name that varies by publisher. They are in the git history of `.cortex/vendor/contracts/proposals-contract.md`.
 
 ## [0.3.0] — 2026-09-18
 
