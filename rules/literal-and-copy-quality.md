@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: literal-and-copy-quality
-version: 1.0.0
+version: 1.1.0
 model: RULE_MODEL_V1
 rule_prefix: LIT
 scope: code that produces text a person sees, or that carries a value read by more than one runtime
@@ -51,6 +51,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every hit outside the contract is a consumption point or a recorded fallback copy, and a reader confirms that none is an unrecorded second definition. |
 | Not applicable when | The value is read by one runtime only and appears in no outward-facing material. |
 | Remediation | Move the value into the contract and have each runtime read it. Where a runtime cannot read the contract, record the copy as a fallback and add a check that reconciles it. |
+| Tool limits | A repository search enumerates every occurrence of a literal and where it sits. It cannot decide whether an occurrence is a consumption point, a recorded fallback or a second definition, and it cannot find a copy spelled differently — a second string that means the same value. A reviewer classifies the hits. |
 
 ### LIT-002 — A displayed format comes from a formatting API, not from cutting a string
 
@@ -65,6 +66,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No hit slices a serialized value for display, and a reader confirms each remaining hit is not on a display path. |
 | Not applicable when | The value is not shown to a person. |
 | Remediation | Replace with the localized formatting API. A deliberately fixed format **MUST** pin its locale and state in a comment why it is fixed. |
+| Tool limits | A linter or AST search finds substring slicing of serialized values and hand-rolled padding. It cannot decide whether the sliced value reaches a person or stays internal, and it does not follow into a helper that formats on the item's behalf. A reviewer decides which hits are display paths. |
 
 ### LIT-003 — A copy entry is a whole sentence, not a fragment awaiting concatenation
 
@@ -79,6 +81,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No copy lookup's return value is concatenated into a sentence, and a reader confirms that entries carrying trailing punctuation are not fragments. |
 | Not applicable when | Neither side of the join is natural language. |
 | Remediation | Merge into one entry carrying a named placeholder. |
+| Tool limits | A search finds copy lookups taking part in concatenation and entries ending in a colon or space. It cannot decide whether the joined pieces are natural language — a number joined to a slash is legitimate — so a reviewer reads each join. |
 
 ### LIT-004 — Every visible string covers all supported languages
 
@@ -93,6 +96,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No gap, or a gap recorded as an intentional fall-through with its reason. |
 | Not applicable when | The product supports one language. |
 | Remediation | Fill the gap, or record the waiver. |
+| Tool limits | A key-by-key comparison decides that a key is absent from a table, block or manifest. It cannot decide whether the gap is an intended fall-through, nor whether a value that is present is written in the language it claims. A reviewer settles both. |
 
 ### LIT-005 — A fallback copy agrees with its defining source
 
@@ -107,6 +111,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Each seed equals its source and matches the page's declared language. |
 | Not applicable when | The page injects every value at build time. |
 | Remediation | Synchronise the seed, or move it to build-time injection. |
+| Tool limits | A value comparison decides that a seed and its source differ. It cannot decide which of the two is authoritative when both are plausible, nor whether a seed differs deliberately. A reviewer decides the direction of the fix. |
 
 ### LIT-006 — A value that expires is not written into the display layer
 
@@ -121,6 +126,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | No hit in the display layer is a value that changes with time. |
 | Not applicable when | The value is a fixed historical date, such as a founding year. |
 | Remediation | Compute at run time, or inject at build time. |
+| Tool limits | A search finds four-digit year literals and version strings in the display layer. It cannot distinguish a fixed historical date, such as a founding year, from a stale reference to the current one. A reviewer reads each hit. |
 
 ### LIT-007 — A natural-language word used as a machine value is declared and bounded
 

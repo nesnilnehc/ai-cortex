@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: implementation-alignment-quality
-version: 1.0.0
+version: 1.1.0
 model: RULE_MODEL_V1
 rule_prefix: ALN
 scope: implemented changes with one or more upstream requirements, designs or tasks
@@ -86,6 +86,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Names, types, optionality, errors and authorization agree, with no field dropped across layers. |
 | Not applicable when | No public contract is in scope. |
 | Remediation | Correct the implementation or return the contract change to design and consumer review. |
+| Tool limits | A contract diff, the generated artifact and compatibility tests decide that the implementation's shape differs from the approved contract. None decides whether a given difference is a permitted extension or a breach, which follows from what the contract undertook. |
 
 ### ALN-005 — Persisted-state behavior matches the approved data design
 
@@ -100,6 +101,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The executable migration and runtime model preserve every designed constraint and transition. |
 | Not applicable when | No persisted-state change exists. |
 | Remediation | Align migration and runtime schema, then rerun forward and rollback verification. |
+| Tool limits | Migration inspection and a dry run decide that the migration exists and applies cleanly. Neither decides whether the resulting state is what the data design intended, nor whether the rollback preserves rows written after the migration ran. |
 
 ### ALN-006 — Completed tasks have concrete evidence
 
@@ -114,6 +116,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every completion claim resolves to the promised artifact and passing verification. |
 | Not applicable when | No task list exists or the task is not claimed complete. |
 | Remediation | Complete and verify the task or return its status to an unfinished state. |
+| Tool limits | Task status, changed paths and captured command output decide that a task is marked complete and that files changed. None decides whether the paths changed are the ones the task called for, nor whether the cited output came from this change rather than an earlier run. |
 
 ### ALN-007 — Tests trace to intent rather than implementation inventory
 

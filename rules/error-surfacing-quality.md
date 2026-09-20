@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: error-surfacing-quality
-version: 1.0.0
+version: 1.1.0
 model: RULE_MODEL_V1
 rule_prefix: ERR
 scope: production code that accepts input it does not control, or reports a failure to a person or an automated consumer
@@ -120,6 +120,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The share is measured, and any check above the declared threshold carries a recorded decision to narrow, retarget or withdraw it. An unmeasured check does not pass by default. |
 | Not applicable when | The check has produced no findings over the population, so there is no share to measure. |
 | Remediation | Narrow the applicability, sharpen the condition, or withdraw the check. Absorbing the noise is not a remedy: a report that is mostly legitimate teaches its readers to skim. |
+| Tool limits | The count comes from the tool class that runs the check and can enumerate its own output — a linter, a static analyzer, a compiler diagnostic or a repository checker. That class decides how many findings there are and where; it cannot decide whether a finding is legitimate use, which only a reviewer sampling the findings can classify. |
 
 ## Severity and gate policy
 

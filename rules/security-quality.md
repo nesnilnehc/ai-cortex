@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: security-quality
-version: 1.1.0
+version: 1.2.0
 model: RULE_MODEL_V1
 rule_prefix: SEC
 scope: production code, configuration and dependency changes that cross a trust boundary or handle protected data
@@ -46,6 +46,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every reachable source-to-sink path has domain validation and sink-appropriate neutralization. |
 | Not applicable when | The value is constant or proven unreachable from untrusted input. |
 | Remediation | Use typed validation and the sink's parameterized API; remove string-built commands or queries. |
+| Tool limits | A taint or data-flow analyzer traces declared sources to declared sinks and reports missing parameter binding or encoding. It cannot decide whether a project's own validator is adequate for the sink's context, and it silently passes a sink it carries no rule for. A reviewer confirms the validator and names sinks the tool does not know. |
 
 ### SEC-002 — Authorization is enforced at the protected operation
 
@@ -60,6 +61,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Unauthorized identities and cross-tenant or cross-owner identifiers cannot reach the protected action or data. |
 | Not applicable when | The operation and data are intentionally public and documented as such. |
 | Remediation | Add centralized policy enforcement and object-level checks; add negative tests. |
+| Tool limits | Route and policy inspection decides that a guard is attached to an operation, and negative tests decide that it rejects. Neither decides whether the policy expresses the authorization actually intended, nor whether an object-level filter covers every path by which ownership can be reached. A reviewer reads the policy against the intent. |
 
 ### SEC-003 — Secrets never enter source, artifacts or telemetry
 
@@ -103,6 +105,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every operation uses an approved primitive for its purpose and keys never enter source or insecure storage. |
 | Not applicable when | Hashing is explicitly non-security data partitioning and cannot be mistaken for protection. |
 | Remediation | Replace custom or deprecated primitives with an approved library and migrate affected data or tokens safely. |
+| Tool limits | A crypto linter decides that an algorithm or parameter is off the approved list. It cannot decide whether the key source is sound, whether a nonce repeats across invocations, or whether the rotation path completes — those follow from reading the protocol, not from the call site. |
 
 ### SEC-006 — Executable dependencies are trusted, pinned and reviewed
 
@@ -117,6 +120,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Provenance and integrity resolve, no unaccepted critical vulnerability exists, and existing capabilities cannot meet the need at lower risk. |
 | Not applicable when | The change removes a dependency without replacing it. |
 | Remediation | Pin and verify the dependency, replace it, or remove the unnecessary addition. |
+| Tool limits | A dependency scanner and lock diff decide that a dependency is unpinned, or carries a published advisory. Neither decides whether a package of unknown provenance is trustworthy, and a compromised release with no advisory yet is reported clean. A reviewer judges provenance. |
 
 ### SEC-007 — Production defaults fail closed
 
@@ -131,6 +135,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Absent/invalid values deny access or stop startup safely, and shipped production defaults are restrictive. |
 | Not applicable when | The configuration has no security effect. |
 | Remediation | Validate at startup, remove permissive fallback and require an explicit secure value. |
+| Tool limits | Configuration inspection and startup tests decide what a default value is and whether validation runs before service. Neither decides which failure mode is the safe one for this system — what "closed" means here is a design judgement a reviewer makes. |
 
 ### SEC-008 — Security failures are observable without disclosure
 
@@ -145,6 +150,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Operators can identify the control, outcome and correlation context without protected values or stack internals being exposed. |
 | Not applicable when | No security control or failure path exists in scope. |
 | Remediation | Add structured security events, stable public errors and central redaction. |
+| Tool limits | Response and log inspection decides that a field appears in an error body or an audit event. It cannot decide whether that value is sensitive in this system's context, nor whether the event carries enough to investigate the failure. A reviewer decides both. |
 
 ## Severity and gate policy
 
