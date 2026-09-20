@@ -40,6 +40,18 @@
 
 ### Changed
 
+- Rule activation is keyed on enforcement, not on a term that named nothing, and maturity is derived rather than declared. `workflow-rule-governance` 2.0.0, `rule-modeling` 1.1.0, `findings-list` 1.5.0.
+
+  Constraint §8 scaled its obligations by "blocking item". Nothing in this repository blocks a merge on a Rule item — the review Skills emit a findings list a person reads, and the orchestrator aggregates and sorts it. The severity table defines only `critical` as "must be fixed before the change ships", while §8's own wording left the population undecidable, so the obligation reached 11 items or 22 or 118 depending on who read it. That, rather than neglect, is why two of its three bullets were never met: nobody could say whom they applied to. The word is now gone and each bullet names its enforcement class directly.
+
+  What each class owes now has a row to live in: `Verification` for `automated`, `Tool limits` for `tool-assisted`, `Worked pass` and `Worked failure` for `judgment`. The rows are conditional on `Enforcement`, so a missing one leaves the item `provisional` — a state the validator reports — rather than failing the 118 existing items and reddening CI. Present-but-empty and present-on-the-wrong-class remain defects, since both are bookkeeping errors rather than honest gaps.
+
+  `validate-rules.py` derives maturity from those rows and prints the distribution; a hand-written `Maturity` row is rejected, because a status anyone can type is a status nobody has earned. The first run reports **0 ready, 118 provisional**. That number is the point of the change: the gap existed before and nothing counted it.
+
+  Maturity travels with the finding rather than suppressing it. Withholding a finding from a `provisional` item would silence most of the corpus to fix a documentation gap; carrying `ready` / `provisional` on each finding costs one field and lets the reader weigh it. Severity and maturity are now explicitly different questions — what the defect costs, against how well prepared the criterion is — and neither may be moved to express the other.
+
+  An item whose population this repository structurally cannot host sets `Verification: adopter`. §8 already forbids requiring evidence the producing repository cannot generate; naming the adopter as the verifier discharges that, and a new bad pattern covers the failure of doing so with no return path.
+
 - `doc-health-criteria` 1.0.0 → 2.0.0: the link-graph criteria now describe a healthy graph rather than forbidding the shape of one.
 
   "No circular references: A→B→A counts as a cycle" was wrong, and wrong in the direction that penalises good structure. This repository violates it 72 times: 40 mutual links, where a Rule and its Spec point at each other, and 32 longer loops that are almost all an index linking its members while they link back. A project whose documents cross-reference each other well produces more of these, not fewer. Nothing ever ran the criterion, which is why it stood as long as it did — `check-doc-hygiene.py` implements the two criteria beside it and never implemented this one.

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import pathlib
+import collections
 import re
 import sys
 from datetime import date
@@ -45,6 +46,19 @@ REQUIRED_ITEM_FIELDS = {
     "Not applicable when",
     "Remediation",
 }
+# Activation materials, per workflow-rule-governance §8. Each enforcement class
+# owes different evidence, so these fields are conditional on Enforcement rather
+# than globally required: a missing one leaves the item `provisional`, which is
+# a state to report, not a defect to block on. Present-but-empty and
+# present-on-the-wrong-class are defects, because both are bookkeeping errors
+# rather than honest gaps.
+ACTIVATION_FIELDS = {
+    "automated": ("Verification",),
+    "tool-assisted": ("Tool limits",),
+    "judgment": ("Worked pass", "Worked failure"),
+}
+ALL_ACTIVATION = {name for names in ACTIVATION_FIELDS.values() for name in names}
+
 SEMVER = re.compile(r"^\d+\.\d+\.\d+$")
 ITEM_HEADING = re.compile(r"^### ([A-Z]{3,8}-\d{3}) — (.+)$", re.MULTILINE)
 LEVEL = re.compile(r"^(baseline|profile:[a-z0-9][a-z0-9-]*|project:[a-z0-9][a-z0-9._-]*)$")
@@ -79,11 +93,14 @@ def parse_item_fields(block: str) -> dict[str, str]:
     return fields
 
 
-def validate(path: pathlib.Path, index_text: str) -> tuple[list[str], set[str]]:
+def validate(
+    path: pathlib.Path, index_text: str
+) -> tuple[list[str], set[str], collections.Counter[str]]:
     text = path.read_text(encoding="utf-8")
     frontmatter = parse_frontmatter(text)
     errors: list[str] = []
     ids: set[str] = set()
+    maturity: collections.Counter[str] = collections.Counter()
 
     missing = REQUIRED_FRONTMATTER - frontmatter.keys()
     if missing:
@@ -182,7 +199,24 @@ def validate(path: pathlib.Path, index_text: str) -> tuple[list[str], set[str]]:
         enforcement = fields.get("Enforcement", "").strip("`")
         if enforcement not in {"automated", "tool-assisted", "judgment"}:
             errors.append(f"{rule_id}: invalid Enforcement")
-    return errors, ids
+        if "Maturity" in fields:
+            errors.append(
+                f"{rule_id}: Maturity is derived from the activation fields "
+                "and must not be written by hand"
+            )
+        owed = ACTIVATION_FIELDS.get(enforcement, ())
+        stray = sorted((ALL_ACTIVATION & fields.keys()) - set(owed))
+        if stray:
+            errors.append(
+                f"{rule_id}: enforcement {enforcement or '(unset)'} "
+                f"does not take {', '.join(stray)}"
+            )
+        blank = sorted(name for name in owed if name in fields and not fields[name])
+        if blank:
+            errors.append(f"{rule_id}: empty activation fields: {', '.join(blank)}")
+        ready = bool(owed) and all(fields.get(name) for name in owed)
+        maturity["ready" if ready else "provisional"] += 1
+    return errors, ids, maturity
 
 
 def unparsed_modeled(path: pathlib.Path, text: str) -> str | None:
@@ -222,6 +256,7 @@ class Result(NamedTuple):
     errors: list[str]
     documents: int
     items: int
+    maturity: collections.Counter[str] = collections.Counter()
 
 
 def check(
@@ -245,7 +280,7 @@ def check(
     if excluded:
         # An unread file was never validated, so validating the rest would
         # report against an incomplete set. Stop here, as the caller does.
-        return Result(excluded, [], 0, 0)
+        return Result(excluded, [], 0, 0, collections.Counter())
 
     modeled = [
         path
@@ -255,8 +290,10 @@ def check(
     errors: list[str] = []
     owners: dict[str, pathlib.Path] = {}
 
+    maturity: collections.Counter[str] = collections.Counter()
     for path in modeled:
-        found, ids = validate(path, index_text)
+        found, ids, counts = validate(path, index_text)
+        maturity.update(counts)
         errors.extend(f"{path.relative_to(root)}: {error}" for error in found)
         for rule_id in ids:
             if rule_id in owners:
@@ -266,7 +303,7 @@ def check(
                 )
             owners[rule_id] = path
 
-    return Result(excluded, errors, len(modeled), len(owners))
+    return Result(excluded, errors, len(modeled), len(owners), maturity)
 
 
 def main() -> int:
@@ -285,6 +322,12 @@ def main() -> int:
         return 1
 
     print(f"Validated {result.documents} modeled Rule documents and {result.items} Rule items.")
+    ready = result.maturity["ready"]
+    provisional = result.maturity["provisional"]
+    print(
+        f"Activation materials: {ready} ready, {provisional} provisional "
+        "(provisional items still report findings; their activation evidence is incomplete)."
+    )
     return 0
 
 
