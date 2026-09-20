@@ -2,7 +2,7 @@
 id: FINDINGS_LIST_SPEC_V1
 name: Findings List Schema
 description: Spec defining findings, severity/category conventions, aggregation and optional Rule coverage metadata for evaluative Skills.
-version: 1.4.0
+version: 1.5.0
 status: active
 lifecycle: living
 created_at: 2026-09-10
@@ -44,9 +44,9 @@ Out of scope:
 
 ## 5. Body structure contract
 
-### 5.1 The six elements
+### 5.1 The seven elements
 
-Every finding carries these. Location, category, severity, title and description are required; suggestion is optional.
+Every finding carries these. Location, category, severity, title, description and maturity are required; suggestion is optional.
 
 | Element | Required | Content |
 | --- | --- | --- |
@@ -55,6 +55,7 @@ Every finding carries these. Location, category, severity, title and description
 | **Severity** | yes | `critical` / `major` / `minor` / `suggestion`, per §5.2. |
 | **Title** | yes | A single line naming the defect. Not a restatement of the category. |
 | **Description** | yes | 1-3 sentences: what is wrong, and what follows from it. |
+| **Maturity** | yes | `ready` or `provisional`, taken from the deriving Rule item per [rule-modeling](./rule-modeling.md) §5.2. A finding from a `provisional` item is still emitted; the value says its criterion's activation evidence is incomplete, so a reader weighs it accordingly. A finding with no deriving Rule item is `ready`. |
 | **Suggestion** | no | A concrete fix. Where the fix is not obvious, omitting this is better than padding it. |
 
 ### 5.2 Severity
@@ -67,6 +68,8 @@ Every finding carries these. Location, category, severity, title and description
 | `suggestion` | An improvement, not a defect. Declining it leaves nothing broken. |
 
 An orchestrator aggregating several skills sorts by severity first, so the values must mean the same thing in every skill that emits them.
+
+Severity is not maturity. Severity states what the defect costs once established; maturity (§5.1) states how well prepared the criterion behind it is. A criterion whose activation evidence is thin is not thereby a smaller defect, and must not be demoted in severity to express that doubt.
 
 ### 5.3 Category
 

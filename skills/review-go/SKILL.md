@@ -3,7 +3,7 @@ name: review-go
 description: "Review Go code for language and runtime conventions: concurrency, context usage, error handling, resource management, API stability, type semantics, and testability. Language-only atomic skill; output is a findings list."
 description_zh: 按 Go 语言与运行时规范审查代码：并发、context、错误处理、资源管理、API 稳定性、类型语义、可测性。
 tags: [code-review, language]
-version: 1.0.2
+version: 1.0.3
 license: MIT
 recommended_scope: project
 metadata:
@@ -14,7 +14,7 @@ input_schema:
   description: Source files or directories to review
 output_schema:
   type: findings-list
-  description: Zero or more findings with location, category, severity, and suggestion
+  description: Zero or more findings, each carrying every element the findings-list Spec requires
 ---
 
 # Skill: Review Go
@@ -33,7 +33,7 @@ Review code in **Go** for **language and runtime conventions** only. Do not defi
 
 1. ✅ **Go-only scope**: Only Go language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
 2. ✅ **All seven Go dimensions covered**: Concurrency/goroutine lifecycle, context usage, error handling, resource management, API stability, type/zero-value semantics, and testability are assessed where relevant
-3. ✅ **Findings format compliant**: Each finding includes Location, Category (`language-go`), Severity, Title, Description, and optional Suggestion
+3. ✅ **Findings format compliant**: Every finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `language-go`
 4. ✅ **File:line references**: All findings reference specific file locations with line numbers
 5. ✅ **Non-Go code excluded**: Non-Go files are not analyzed for Go-specific rules unless explicitly in scope
 
@@ -94,7 +94,7 @@ Review code in **Go** for **language and runtime conventions** only. Do not defi
 
 ### Tone and references
 
-- **Professional and technical**: Reference specific locations (file:line). Emit findings with Location, Category, Severity, Title, Description, Suggestion.
+- **Professional and technical**: Reference specific locations (file:line). Emit findings carrying every element [findings-list](../../specs/findings-list.md) §5.1 requires.
 
 ---
 
@@ -142,7 +142,7 @@ Review code in **Go** for **language and runtime conventions** only. Do not defi
 
 - [ ] **Go-only scope**: Only Go language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
 - [ ] **All seven Go dimensions covered**: Concurrency/goroutine lifecycle, context usage, error handling, resource management, API stability, type/zero-value semantics, and testability are assessed where relevant
-- [ ] **Findings format compliant**: Each finding includes Location, Category (`language-go`), Severity, Title, Description, and optional Suggestion
+- [ ] **Findings format compliant**: Every finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `language-go`
 - [ ] **File:line references**: All findings reference specific file locations with line numbers
 - [ ] **Non-Go code excluded**: Non-Go files are not analyzed for Go-specific rules unless explicitly in scope
 
@@ -150,7 +150,7 @@ Review code in **Go** for **language and runtime conventions** only. Do not defi
 
 - [ ] Was only the Go language/runtime dimension reviewed (no scope/security/architecture)?
 - [ ] Are concurrency, context usage, error handling, resource management, API stability, type semantics, and testability covered where relevant?
-- [ ] Is each finding emitted with Location, Category=language-go, Severity, Title, Description, and optional Suggestion?
+- [ ] Does every finding carry every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category=language-go?
 - [ ] Are issues referenced with file:line?
 
 ### Acceptance Test

@@ -3,7 +3,7 @@ name: review-dotnet
 description: "Review .NET (C#/F#) code for language and runtime conventions: async/await, nullable, API versioning, IDisposable, LINQ, and testability. Language-only atomic skill; output is a findings list."
 description_zh: 按 .NET (C#/F#) 语言与运行时规范审查代码：async/await、nullable、API 版本、IDisposable、LINQ、可测性。
 tags: [code-review, language]
-version: 1.0.3
+version: 1.0.4
 license: MIT
 recommended_scope: project
 metadata:
@@ -14,7 +14,7 @@ input_schema:
   description: Source files or directories to review
 output_schema:
   type: findings-list
-  description: Zero or more findings with location, category, severity, and suggestion
+  description: Zero or more findings, each carrying every element the findings-list Spec requires
 ---
 
 # Skill: Review .NET
@@ -33,7 +33,7 @@ Review only the **language and runtime conventions** of code in the **.NET** eco
 
 1. ✅ **.NET scope only**: only .NET (C#/F#) language and runtime conventions were reviewed; no scope selection, security or architecture analysis was performed
 2. ✅ **All six .NET dimensions covered**: async/await, nullable reference types, API/versioning, resources/IDisposable, collections/LINQ and testability where relevant
-3. ✅ **Findings format compatible**: every finding carries location, category (`language-dotnet`), severity, title, description and an optional suggestion
+3. ✅ **Findings format compatible**: every finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `language-dotnet`
 4. ✅ **file:line references**: every finding points at a specific file location with a line number
 5. ✅ **Non-.NET code excluded**: .NET-specific rules are not applied to non-.NET files unless they are explicitly in scope
 
@@ -93,7 +93,7 @@ Review only the **language and runtime conventions** of code in the **.NET** eco
 
 ### Tone and references
 
-- **Professional and technical**: cite a concrete location (file:line). Emit findings carrying location, category, severity, title, description, suggestion.
+- **Professional and technical**: cite a concrete location (file:line). Emit findings carrying every element [findings-list](../../specs/findings-list.md) §5.1 requires.
 
 ---
 
@@ -141,7 +141,7 @@ Review only the **language and runtime conventions** of code in the **.NET** eco
 
 - [ ] **.NET scope only**: only .NET (C#/F#) language and runtime conventions were reviewed; no scope selection, security or architecture analysis was performed
 - [ ] **All six .NET dimensions covered**: async/await, nullable reference types, API/versioning, resources/IDisposable, collections/LINQ and testability where relevant
-- [ ] **Findings format conformant**: every finding carries location, category (`language-dotnet`), severity, title, description and an optional suggestion
+- [ ] **Findings format conformant**: every finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `language-dotnet`
 - [ ] **file:line references**: every finding points at a specific file location with a line number
 - [ ] **Non-.NET code excluded**: .NET-specific rules are not applied to non-.NET files unless they are explicitly in scope
 
@@ -149,7 +149,7 @@ Review only the **language and runtime conventions** of code in the **.NET** eco
 
 - [ ] Were only the .NET language/runtime dimensions reviewed (no scope/security/architecture)?
 - [ ] Were the relevant async, nullable, IDisposable, LINQ and testability aspects covered?
-- [ ] Does every finding carry location, category=language-dotnet, severity, title, description and an optional suggestion?
+- [ ] Does every finding carry every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category=language-dotnet?
 - [ ] Does a file:line reference point at each issue?
 
 ### Acceptance test

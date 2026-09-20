@@ -251,7 +251,7 @@ PERTURBATIONS = [
     document("alter a number",
              replace("[rule-modeling](../specs/rule-modeling.md) \u00a75.4",
                      "[rule-modeling](../specs/rule-modeling.md) \u00a79.4")),
-    document("alter a version", replace("version: 2.0.0", "version: 9.9.9")),
+    document("alter a version", replace("version: 2.1.0", "version: 9.9.9")),
     document("weaken modality",
              replace("Every task row **MUST** carry an id",
                      "Every task row should carry an id")),

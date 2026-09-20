@@ -3,7 +3,7 @@ name: review-orm-usage
 description: Review ORM usage patterns for N+1 queries, connection management, migration safety, transaction handling, and query efficiency. Library-level atomic skill; output is a findings list.
 description_zh: 审查 ORM 使用：N+1 查询、连接管理、迁移安全、事务与查询效率；库级原子技能。
 tags: [code-review, library, optimization]
-version: 1.0.1
+version: 1.0.2
 license: MIT
 recommended_scope: project
 metadata:
@@ -14,7 +14,7 @@ input_schema:
   description: Source files or directories to review
 output_schema:
   type: findings-list
-  description: Zero or more findings with location, category, severity, and suggestion
+  description: Zero or more findings, each carrying every element the findings-list Spec requires
 ---
 
 # Skill: Review ORM Usage
@@ -33,7 +33,7 @@ Look at **ORM usage patterns** at the **library level** only. Do not define scop
 
 1. ✅ **ORM-library scope only**: only ORM usage patterns reviewed; no scope selection, security, or architecture analysis performed
 2. ✅ **All six ORM dimensions covered**: N+1, connections, migrations, transactions, query efficiency, and model design assessed where relevant
-3. ✅ **Findings format compatible**: every finding includes location, category (`library-orm`), severity, title, description, and an optional suggestion
+3. ✅ **Findings format compatible**: every finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `library-orm`
 4. ✅ **File/model references**: every finding cites a specific file:line or model/entity name
 5. ✅ **ORM-agnostic**: findings hold across ORM libraries; a specific library is cited only for context
 
@@ -94,7 +94,7 @@ Look at **ORM usage patterns** at the **library level** only. Do not define scop
 
 ### Tone and references
 
-- **Professional and technical**: cite concrete locations (file:line or model/entity name). Emit findings carrying location, category, severity, title, description, suggestion.
+- **Professional and technical**: cite concrete locations (file:line or model/entity name). Emit findings carrying every element [findings-list](../../specs/findings-list.md) §5.1 requires.
 
 ---
 
@@ -145,7 +145,7 @@ Look at **ORM usage patterns** at the **library level** only. Do not define scop
 
 - [ ] **ORM library scope only**: only ORM usage patterns reviewed; no scope selection, security, or architecture analysis performed
 - [ ] **All six ORM dimensions covered**: N+1, connections, migrations, transactions, query efficiency, and model design assessed where relevant
-- [ ] **Findings format compatible**: every finding includes location, category (`library-orm`), severity, title, description, and an optional suggestion
+- [ ] **Findings format compatible**: every finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `library-orm`
 - [ ] **File/model references**: every finding cites a specific file:line or model/entity name
 - [ ] **ORM-agnostic**: findings hold across ORM libraries; a specific library is cited only for context
 
@@ -153,7 +153,7 @@ Look at **ORM usage patterns** at the **library level** only. Do not define scop
 
 - [ ] Were only ORM library dimensions reviewed (no scope/security/architecture)?
 - [ ] Were the relevant N+1, connection, migration, transaction, query efficiency, and model design dimensions covered?
-- [ ] Does every emitted finding include location, category=library-orm, severity, title, description, and an optional suggestion?
+- [ ] Does every finding carry every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category=library-orm?
 - [ ] Is each issue referenced by file:line or model/entity name?
 
 ### Acceptance test

@@ -4,6 +4,14 @@
 
 ### Added
 
+- `scripts/check-findings-contract.py`, which reports a Skill that restates the finding element list instead of citing the Spec, and its paired test.
+
+  `specs/findings-list.md` owns what a finding carries, but twelve of the twenty-seven findings-emitting Skills had copied that list into their own prose. Adding the `Maturity` element reached the fifteen that cite the Spec and silently missed the twelve that do not — a change landing in one place while half its consumers never hear about it. This is the same shape as the two defects found alongside it: an obligation written in one place, executed somewhere else, with nothing binding the two.
+
+  All twelve now cite the Spec, at fifty-six sites. Four of those sites were found by the checker rather than by the migration that preceded it — `category = framework-react` with spaces around the equals, and a run ending `description, and suggestion` with no "optional" — which is the argument for the checker existing rather than trusting one careful pass.
+
+  The check is deliberately narrow: it reports a run of four or more element names joined by commas, which is a copy of the table and nothing else. Prose naming one or two elements — "cite a concrete location", "sorts by severity, then by location" — is legitimate and left alone, per `workflow-rule-governance` §9, which makes a noisy check a defect in the check. Its test pins both halves: four restatement shapes that must report, and four legitimate uses that must not.
+
 - `rules/literal-and-copy-quality.md` (`LIT`), seven criteria for a value that exists in more than one place.
 
   No rule set here covered the defect shape "a value was written down twice and the copies drifted". Its signature is that nothing fails: the code compiles, the existing tests stay green, nothing is logged, and the product serves a screen that contradicts itself — one record showing two different times, a link that resolves on one platform and not another. Only a reader notices, and usually a reader who has already lost some trust by the time they do.
@@ -39,6 +47,26 @@
   `main()` was split into a `check(rules_dir, index_text, root)` returning a `Result`, matching the shape every other checker here already had and which is why this one was never tested. Proved behaviour-identical against the previous revision: the same output byte for byte on the clean tree and on four seeded defects, covering both report headings and the cross-document duplicate.
 
 ### Changed
+
+- The first 16 Rule items reach `ready`, by recording forward-test evidence that already existed.
+
+  `scripts/test-rule-scenarios.py` has been forward-testing `automated` items over three representative shapes since before this maturity mechanism existed, but no item said so, so the first derived distribution read 0 ready against 118 provisional — understating the corpus. Cross-referencing the identifiers that script decides against each item's `Enforcement` gives 16 `automated` items with real evidence; each now carries a `Verification` row naming the fixture directory and the script. Three further identifiers it decides (`ARC-005`, `ARC-010`, `ARC-011`) are `tool-assisted` and owe `Tool limits` instead, so they stay provisional.
+
+  Nothing was written to reach this: the row records where evidence already lives. The remaining 14 `automated` items are not yet forward-tested and stay provisional rather than being marked `adopter` — the repository does host code-shaped fixtures for engineering concerns, so "structurally cannot" would be false.
+
+  Distribution is now 16 ready, 102 provisional.
+
+- Rule activation is keyed on enforcement, not on a term that named nothing, and maturity is derived rather than declared. `workflow-rule-governance` 2.0.0, `rule-modeling` 1.1.0, `findings-list` 1.5.0.
+
+  Constraint §8 scaled its obligations by "blocking item". Nothing in this repository blocks a merge on a Rule item — the review Skills emit a findings list a person reads, and the orchestrator aggregates and sorts it. The severity table defines only `critical` as "must be fixed before the change ships", while §8's own wording left the population undecidable, so the obligation reached 11 items or 22 or 118 depending on who read it. That, rather than neglect, is why two of its three bullets were never met: nobody could say whom they applied to. The word is now gone and each bullet names its enforcement class directly.
+
+  What each class owes now has a row to live in: `Verification` for `automated`, `Tool limits` for `tool-assisted`, `Worked pass` and `Worked failure` for `judgment`. The rows are conditional on `Enforcement`, so a missing one leaves the item `provisional` — a state the validator reports — rather than failing the 118 existing items and reddening CI. Present-but-empty and present-on-the-wrong-class remain defects, since both are bookkeeping errors rather than honest gaps.
+
+  `validate-rules.py` derives maturity from those rows and prints the distribution; a hand-written `Maturity` row is rejected, because a status anyone can type is a status nobody has earned. The first run reports **0 ready, 118 provisional**. That number is the point of the change: the gap existed before and nothing counted it.
+
+  Maturity travels with the finding rather than suppressing it. Withholding a finding from a `provisional` item would silence most of the corpus to fix a documentation gap; carrying `ready` / `provisional` on each finding costs one field and lets the reader weigh it. Severity and maturity are now explicitly different questions — what the defect costs, against how well prepared the criterion is — and neither may be moved to express the other.
+
+  An item whose population this repository structurally cannot host sets `Verification: adopter`. §8 already forbids requiring evidence the producing repository cannot generate; naming the adopter as the verifier discharges that, and a new bad pattern covers the failure of doing so with no return path.
 
 - `doc-health-criteria` 1.0.0 → 2.0.0: the link-graph criteria now describe a healthy graph rather than forbidding the shape of one.
 

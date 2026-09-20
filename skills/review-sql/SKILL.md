@@ -3,7 +3,7 @@ name: review-sql
 description: Review SQL and query code for injection risk, parameterization, indexing and performance, transactions, NULL and constraints, and dialect portability. Language-only atomic skill; output is a findings list.
 description_zh: 审查 SQL 与查询代码：注入风险、参数化、索引与性能、事务、NULL 与约束、方言可移植性。
 tags: [code-review, language]
-version: 1.0.4
+version: 1.0.5
 license: MIT
 recommended_scope: project
 metadata:
@@ -14,7 +14,7 @@ input_schema:
   description: Source files or directories to review
 output_schema:
   type: findings-list
-  description: Zero or more findings with location, category, severity, and suggestion
+  description: Zero or more findings, each carrying every element the findings-list Spec requires
 ---
 
 # Skill: Review SQL
@@ -33,7 +33,7 @@ Review **SQL** and query-related code for **language and query conventions** onl
 
 1. ✅ **SQL-only scope**: Only SQL and query conventions are reviewed; no scope selection, full security, or architecture analysis performed
 2. ✅ **All seven SQL dimensions covered**: Injection/parameterization, indexing/execution plan, transactions/isolation, NULL/unique constraints, dialect/portability, large table/paging patterns, and sensitive columns/permissions are assessed where relevant
-3. ✅ **Findings format compliant**: Each finding includes Location, Category (`language-sql`), Severity, Title, Description, and optional Suggestion
+3. ✅ **Findings format compliant**: Every finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `language-sql`
 4. ✅ **Critical injection issues flagged**: SQL injection patterns (string concatenation, interpolation with user input) are marked as `critical` severity
 5. ✅ **Location-precise references**: All findings reference specific file:line or query identifier locations
 
@@ -93,7 +93,7 @@ Review **SQL** and query-related code for **language and query conventions** onl
 
 ### Tone and references
 
-- **Professional and technical**: Reference specific locations (file:line or query identifier). Emit findings with Location, Category, Severity, Title, Description, Suggestion.
+- **Professional and technical**: Reference specific locations (file:line or query identifier). Emit findings carrying every element [findings-list](../../specs/findings-list.md) §5.1 requires.
 
 ---
 
@@ -141,7 +141,7 @@ Review **SQL** and query-related code for **language and query conventions** onl
 
 - [ ] **SQL-only scope**: Only SQL and query conventions are reviewed; no scope selection, full security, or architecture analysis performed
 - [ ] **All seven SQL dimensions covered**: Injection/parameterization, indexing/execution plan, transactions/isolation, NULL/unique constraints, dialect/portability, large table/paging patterns, and sensitive columns/permissions are assessed where relevant
-- [ ] **Findings format compliant**: Each finding includes Location, Category (`language-sql`), Severity, Title, Description, and optional Suggestion
+- [ ] **Findings format compliant**: Every finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `language-sql`
 - [ ] **Critical injection issues flagged**: SQL injection patterns (string concatenation, interpolation with user input) are marked as `critical` severity
 - [ ] **Location-precise references**: All findings reference specific file:line or query identifier locations
 
@@ -149,7 +149,7 @@ Review **SQL** and query-related code for **language and query conventions** onl
 
 - [ ] Was only the SQL/query dimension reviewed (no scope/architecture beyond query design)?
 - [ ] Are parameterization, indexing, transactions, NULL/constraints, and portability covered where relevant?
-- [ ] Is each finding emitted with Location, Category=language-sql, Severity, Title, Description, and optional Suggestion?
+- [ ] Does every finding carry every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category=language-sql?
 - [ ] Are issues referenced with file:line or query identifier?
 
 ### Acceptance Test

@@ -3,7 +3,7 @@ name: review-php
 description: "Review PHP code for language and runtime conventions: strict types, error handling, resource management, PSR standards, namespaces, null safety, generators, and testability. Language-only atomic skill; output is a findings list."
 description_zh: 按 PHP 语言与运行时规范审查代码：strict types、错误处理、资源管理、PSR、命名空间、null 安全、生成器、可测性。
 tags: [code-review, language]
-version: 1.0.2
+version: 1.0.3
 license: MIT
 recommended_scope: project
 metadata:
@@ -14,7 +14,7 @@ input_schema:
   description: Source files or directories to review
 output_schema:
   type: findings-list
-  description: Zero or more findings with location, category, severity, and suggestion
+  description: Zero or more findings, each carrying every element the findings-list Spec requires
 ---
 
 # Skill: Review PHP
@@ -33,7 +33,7 @@ Review code in **PHP** for **language and runtime conventions** only. Do not def
 
 1. ✅ **PHP-only scope**: Only PHP language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
 2. ✅ **All nine PHP dimensions covered**: Strict types, error handling, resource management, PSR standards, namespaces/autoloading, null safety, generators/iterables, PHP version compatibility, and testability are assessed where relevant
-3. ✅ **Findings format compliant**: Each finding includes Location, Category (`language-php`), Severity, Title, Description, and optional Suggestion
+3. ✅ **Findings format compliant**: Every finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `language-php`
 4. ✅ **File:line references**: All findings reference specific file locations with line numbers
 5. ✅ **Non-PHP code excluded**: Non-PHP files are not analyzed for PHP-specific rules unless explicitly in scope
 
@@ -98,7 +98,7 @@ Review code in **PHP** for **language and runtime conventions** only. Do not def
 
 ### Tone and references
 
-- **Professional and technical**: Reference specific locations (file:line). Emit findings with Location, Category, Severity, Title, Description, Suggestion.
+- **Professional and technical**: Reference specific locations (file:line). Emit findings carrying every element [findings-list](../../specs/findings-list.md) §5.1 requires.
 
 ---
 
@@ -146,7 +146,7 @@ Review code in **PHP** for **language and runtime conventions** only. Do not def
 
 - [ ] **PHP-only scope**: Only PHP language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
 - [ ] **All nine PHP dimensions covered**: Strict types, error handling, resource management, PSR standards, namespaces/autoloading, null safety, generators/iterables, PHP version compatibility, and testability are assessed where relevant
-- [ ] **Findings format compliant**: Each finding includes Location, Category (`language-php`), Severity, Title, Description, and optional Suggestion
+- [ ] **Findings format compliant**: Every finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `language-php`
 - [ ] **File:line references**: All findings reference specific file locations with line numbers
 - [ ] **Non-PHP code excluded**: Non-PHP files are not analyzed for PHP-specific rules unless explicitly in scope
 
@@ -154,7 +154,7 @@ Review code in **PHP** for **language and runtime conventions** only. Do not def
 
 - [ ] Was only the PHP language/runtime dimension reviewed (no scope/security/architecture)?
 - [ ] Are strict types, error handling, resources, PSR, namespaces, null safety, generators, version compatibility, and testability covered where relevant?
-- [ ] Is each finding emitted with Location, Category=language-php, Severity, Title, Description, and optional Suggestion?
+- [ ] Does every finding carry every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category=language-php?
 - [ ] Are issues referenced with file:line?
 
 ### Acceptance Test
