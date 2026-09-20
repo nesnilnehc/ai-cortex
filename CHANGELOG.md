@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+### Removed
+
+- The inbound proposal channel: its vendored contract, its version lock, and the receive-side half of `.cortex/nats.yaml`.
+
+  The channel let another project publish a proposed change to an asset here and have it wait until someone drained the queue. It ran for four months, accumulated 12 messages and acknowledged none. Nothing reached this repository through it: the batch sent 2026-05-14 landed the next day by another route, and the one proposal adopted out of the queue — the design-time obligation now carried by `TDES-028` — was read out by a read-only peek and applied by hand, so the acknowledge step was never exercised at all.
+
+  Three things it needed were never supplied. Its contract was inferred by a Bootstrap peek at 5 samples from a single publisher and no owner ever confirmed it, so no message could be acknowledged safely; as written it also condemned two valid proposals, having hard-coded one publisher's name into a field it marked required. The durable consumer's name cannot be read back with the tools available here. Nobody owns the subject domain's broker resources.
+
+  `.cortex/nats.yaml` keeps the two shared fields and gains the producer-side stream and contract directory, which it had never carried although this repository publishes `cortex.updates.requirement-intake-triage` under an accepted contract. The `CORTEX` stream itself stays, since it carries that outbound channel too; retiring the inbound half is not a reason to drop it.
+
+  Reopening the channel would have to answer the three questions the retired contract recorded: a subject carrying a per-proposal slug, which no exact contract match can ever resolve; unverified header presence, where the sampling tool cannot distinguish absent from not displayed; and a field name that varies by publisher. They are in the git history of `.cortex/vendor/contracts/proposals-contract.md`.
+
 ### Added
 
 - `scripts/check-asset-versions.py` blocks a merge when an asset the range edits kept its version, and runs in CI.
