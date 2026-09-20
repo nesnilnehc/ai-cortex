@@ -3,7 +3,7 @@ name: review-react
 description: Review React code for component design, hooks correctness, state management, rendering performance, and accessibility. Framework-only atomic skill; output is a findings list.
 description_zh: 审查 React 代码：组件设计、hooks 正确性、状态管理、渲染性能与可访问性；框架级原子技能。
 tags: [code-review, framework]
-version: 1.0.2
+version: 1.0.3
 license: MIT
 recommended_scope: project
 metadata:
@@ -14,7 +14,7 @@ input_schema:
   description: Source files or directories to review
 output_schema:
   type: findings-list
-  description: Zero or more findings with location, category, severity, and suggestion
+  description: Zero or more findings, each carrying every element the findings-list Spec requires
 ---
 
 # Skill: Review React
@@ -33,7 +33,7 @@ Review **React** code for **framework conventions** only. Do not define scope (d
 
 1. ✅ **React framework scope only**: reviews React framework conventions only; performs no scope selection, security, or architecture analysis
 2. ✅ **All seven React dimensions covered**: component design, hooks correctness, state management, rendering performance, side effects/data fetching, routing/code splitting, and accessibility are assessed where relevant
-3. ✅ **Findings format compliant**: each finding carries location, category (`framework-react`), severity, title, description, and an optional suggestion
+3. ✅ **Findings format compliant**: each finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `framework-react`
 4. ✅ **Component/file references**: every finding cites a specific file:line or component name
 5. ✅ **Non-React code excluded**: non-React files are not analyzed against React-specific rules unless they are explicitly in scope
 
@@ -94,7 +94,7 @@ Review **React** code for **framework conventions** only. Do not define scope (d
 
 ### Tone and references
 
-- **Professional and technical**: cite the exact location (file:line or component name). Emit findings carrying location, category, severity, title, description, and suggestion.
+- **Professional and technical**: cite the exact location (file:line or component name). Emit findings carrying every element [findings-list](../../specs/findings-list.md) §5.1 requires.
 
 ---
 
@@ -141,7 +141,7 @@ Review **React** code for **framework conventions** only. Do not define scope (d
 
 - [ ] **React framework scope only**: reviews React framework conventions only; performs no scope selection, security, or architecture analysis
 - [ ] **All seven React dimensions covered**: component design, hooks correctness, state management, rendering performance, side effects/data fetching, routing/code splitting, and accessibility are assessed where relevant
-- [ ] **Findings format compliant**: each finding carries location, category (`framework-react`), severity, title, description, and an optional suggestion
+- [ ] **Findings format compliant**: each finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `framework-react`
 - [ ] **Component/file references**: every finding cites a specific file:line or component name
 - [ ] **Non-React code excluded**: non-React files are not analyzed against React-specific rules unless they are explicitly in scope
 
@@ -149,7 +149,7 @@ Review **React** code for **framework conventions** only. Do not define scope (d
 
 - [ ] Were only React framework dimensions reviewed (no scope/security/architecture)?
 - [ ] Were component design, hooks, state, performance, side effects, routing, and accessibility covered where relevant?
-- [ ] Does every finding carry location, category = framework-react, severity, title, description, and an optional suggestion?
+- [ ] Does every finding carry every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category = framework-react?
 - [ ] Is each issue tied to a file:line or a component?
 
 ### Acceptance test

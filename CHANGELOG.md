@@ -4,6 +4,14 @@
 
 ### Added
 
+- `scripts/check-findings-contract.py`, which reports a Skill that restates the finding element list instead of citing the Spec, and its paired test.
+
+  `specs/findings-list.md` owns what a finding carries, but twelve of the twenty-seven findings-emitting Skills had copied that list into their own prose. Adding the `Maturity` element reached the fifteen that cite the Spec and silently missed the twelve that do not — a change landing in one place while half its consumers never hear about it. This is the same shape as the two defects found alongside it: an obligation written in one place, executed somewhere else, with nothing binding the two.
+
+  All twelve now cite the Spec, at fifty-six sites. Four of those sites were found by the checker rather than by the migration that preceded it — `category = framework-react` with spaces around the equals, and a run ending `description, and suggestion` with no "optional" — which is the argument for the checker existing rather than trusting one careful pass.
+
+  The check is deliberately narrow: it reports a run of four or more element names joined by commas, which is a copy of the table and nothing else. Prose naming one or two elements — "cite a concrete location", "sorts by severity, then by location" — is legitimate and left alone, per `workflow-rule-governance` §9, which makes a noisy check a defect in the check. Its test pins both halves: four restatement shapes that must report, and four legitimate uses that must not.
+
 - `rules/literal-and-copy-quality.md` (`LIT`), seven criteria for a value that exists in more than one place.
 
   No rule set here covered the defect shape "a value was written down twice and the copies drifted". Its signature is that nothing fails: the code compiles, the existing tests stay green, nothing is logged, and the product serves a screen that contradicts itself — one record showing two different times, a link that resolves on one platform and not another. Only a reader notices, and usually a reader who has already lost some trust by the time they do.

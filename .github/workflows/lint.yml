@@ -130,6 +130,15 @@ jobs:
         # fixture pair, plus eight perturbations in mutation-check.py.
         run: python3 scripts/test-validate-rules.py
 
+      - name: findings contract citation
+        # specs/findings-list.md owns what a finding carries. Twelve Skills had
+        # copied that list into their own prose, so a change to the Spec reached
+        # 15 consumers and silently missed 12.
+        run: python3 scripts/check-findings-contract.py
+
+      - name: findings contract checker
+        run: python3 scripts/test-check-findings-contract.py
+
       - name: architecture Rule scenarios
         run: python3 scripts/test-rule-scenarios.py
 

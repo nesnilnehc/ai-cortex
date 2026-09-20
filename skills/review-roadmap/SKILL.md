@@ -3,7 +3,7 @@ name: review-roadmap
 description: "Review an existing roadmap document against roadmap-quality criteria: core model completeness, capacity baseline and allocation, metric triplets, outcome framing, dependency mapping, and change frequency. Evaluative atomic skill; output is a findings list."
 description_zh: 按 roadmap-quality 判据评估既有路线图文档：核心模型完整性、容量基线与分配、指标三元组、结果导向、依赖已映射、变更频率。评估型原子技能，产出 findings 列表。
 tags: [code-review, planning]
-version: 1.0.1
+version: 1.0.2
 license: MIT
 recommended_scope: both
 metadata:
@@ -15,7 +15,7 @@ input_schema:
   artifact_type: roadmap
 output_schema:
   type: findings-list
-  description: Zero or more findings with location, category, severity, and suggestion, covering all five roadmap quality dimensions
+  description: Zero or more findings, each carrying every element the findings-list Spec requires, covering all five roadmap quality dimensions
 ---
 
 # Skill: Review Roadmap

@@ -3,7 +3,7 @@ name: review-python
 description: "Review Python code for language and runtime conventions: type hints, exceptions, async/await, context managers, dependencies, and testability. Language-only atomic skill; output is a findings list."
 description_zh: 按 Python 规范审查代码：类型提示、异常、async/await、上下文管理器、依赖与可测性。
 tags: [code-review, language]
-version: 1.0.2
+version: 1.0.3
 license: MIT
 recommended_scope: project
 metadata:
@@ -14,7 +14,7 @@ input_schema:
   description: Source files or directories to review
 output_schema:
   type: findings-list
-  description: Zero or more findings with location, category, severity, and suggestion
+  description: Zero or more findings, each carrying every element the findings-list Spec requires
 ---
 
 # Skill: Review Python
@@ -33,7 +33,7 @@ Review code in **Python** for **language and runtime conventions** only. Do not 
 
 1. ✅ **Python-only scope**: Only Python language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
 2. ✅ **All eight Python dimensions covered**: Type hints, exception handling, async/await, context managers, dependency management, mutable defaults, naming conventions (PEP8), and testability are assessed where relevant
-3. ✅ **Findings format compliant**: Each finding includes Location, Category (`language-python`), Severity, Title, Description, and optional Suggestion
+3. ✅ **Findings format compliant**: Every finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `language-python`
 4. ✅ **File:line references**: All findings reference specific file locations with line numbers
 5. ✅ **Non-Python code excluded**: Non-Python files are not analyzed for Python-specific rules unless explicitly in scope
 
@@ -96,7 +96,7 @@ Review code in **Python** for **language and runtime conventions** only. Do not 
 
 ### Tone and references
 
-- **Professional and technical**: Reference specific locations (file:line). Emit findings with Location, Category, Severity, Title, Description, Suggestion.
+- **Professional and technical**: Reference specific locations (file:line). Emit findings carrying every element [findings-list](../../specs/findings-list.md) §5.1 requires.
 
 ---
 
@@ -144,7 +144,7 @@ Review code in **Python** for **language and runtime conventions** only. Do not 
 
 - [ ] **Python-only scope**: Only Python language and runtime conventions are reviewed; no scope selection, security, or architecture analysis performed
 - [ ] **All eight Python dimensions covered**: Type hints, exception handling, async/await, context managers, dependency management, mutable defaults, naming conventions (PEP8), and testability are assessed where relevant
-- [ ] **Findings format compliant**: Each finding includes Location, Category (`language-python`), Severity, Title, Description, and optional Suggestion
+- [ ] **Findings format compliant**: Every finding carries every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category `language-python`
 - [ ] **File:line references**: All findings reference specific file locations with line numbers
 - [ ] **Non-Python code excluded**: Non-Python files are not analyzed for Python-specific rules unless explicitly in scope
 
@@ -152,7 +152,7 @@ Review code in **Python** for **language and runtime conventions** only. Do not 
 
 - [ ] Was only the Python language/runtime dimension reviewed (no scope/security/architecture)?
 - [ ] Are type hints, exception handling, async patterns, context managers, and testability covered where relevant?
-- [ ] Is each finding emitted with Location, Category=language-python, Severity, Title, Description, and optional Suggestion?
+- [ ] Does every finding carry every element [findings-list](../../specs/findings-list.md) §5.1 requires, with category=language-python?
 - [ ] Are issues referenced with file:line?
 
 ### Acceptance Test
