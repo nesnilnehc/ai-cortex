@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: testing-quality
-version: 1.1.0
+version: 1.4.0
 model: RULE_MODEL_V1
 rule_prefix: TST
 scope: automated tests and the verification strategy for changed production behavior
@@ -44,6 +44,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Each changed outcome maps to a test with a discriminating assertion. |
 | Not applicable when | The change is documentation or non-executable metadata only. |
 | Remediation | Add the smallest behavior-level test that fails under the prior or broken implementation. |
+| Worked pass | A test asserting that a quote for an out-of-stock SKU returns 409. Removing the stock check turns it red. |
+| Worked failure | A test asserting that the quote endpoint returns 200 for a normal request, which it already did before the change. It passes whether or not the new behaviour exists. |
 
 ### TST-002 — Error and boundary paths are verified
 
@@ -58,6 +60,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every materially different terminal outcome is exercised and asserted. |
 | Not applicable when | No error or boundary path is changed. |
 | Remediation | Add focused negative and boundary tests with outcome assertions. |
+| Worked pass | Separate tests for quantity zero, quantity at the per-order limit, quantity one past it, a catalogue timeout and a catalogue outage, each asserting its own terminal outcome. |
+| Worked failure | One happy-path test, and a comment saying error handling is covered elsewhere. Every distinct failure outcome the change introduced is unexercised. |
 
 ### TST-003 — Integration behavior is tested at the assembly boundary
 
@@ -72,6 +76,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The test fails for a missing binding, field, route or migration and passes with the intended assembly. |
 | Not applicable when | The code has no integration boundary. |
 | Remediation | Add an integration or contract test using production composition and serialization. |
+| Tool limits | Test-setup inspection decides whether the test constructs production wiring or substitutes a double for it. It cannot decide whether the boundary assembled is the one whose integration carries the risk — a real wiring of the wrong two components passes. |
 
 ### TST-004 — Public contracts have compatibility tests
 
@@ -101,6 +106,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The oracle is independently traceable and catches omission of a required behavior. |
 | Not applicable when | No critical path is affected. |
 | Remediation | Reframe tests around external outcomes and add a traceability reference. |
+| Worked pass | The expected totals come from the pricing table in the requirement, so a test goes red when the implementation rounds the way the code happens to round rather than the way the requirement says. |
+| Worked failure | The expected totals were captured by running the implementation and pasting its output. The test now agrees with the code by construction and would ratify the same bug tomorrow. |
 
 ### TST-006 — Tests are deterministic and isolated
 
@@ -115,6 +122,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Reordering or repeating tests does not change outcomes under the supported environment. |
 | Not applicable when | The test is purely deterministic and local. |
 | Remediation | Inject controllable dependencies, isolate resources and remove order dependence. |
+| Tool limits | Repeat runs and setup inspection decide that a suite passed a given number of consecutive times and that a clock and seeds are injected. Neither disproves nondeterminism the runs did not meet: repeated passes bound flakiness, they do not establish its absence. |
 
 ### TST-007 — Doubles preserve the relevant contract
 
@@ -129,6 +137,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The double isolates an external dependency while the subject's real behavior and contract remain exercised. |
 | Not applicable when | No test double is used. |
 | Remediation | Move the double outside the subject, use a higher-fidelity fake or add a contract test. |
+| Worked pass | The catalogue HTTP client is replaced by a stub returning recorded responses, while the quoting logic under test runs for real. |
+| Worked failure | The quoter itself is mocked to return a fixed quote, and the test asserts that fixed quote. The subject of the test has been replaced by the answer. |
 
 ### TST-008 — Declared coverage policy has reproducible evidence
 
@@ -143,6 +153,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The configured threshold passes and no critical changed behavior is uncovered despite aggregate success. |
 | Not applicable when | No coverage policy is declared. |
 | Remediation | Run the configured tool, close critical gaps and record the reproducible result. |
+| Verification | `adopter`. This item decides a reviewed project's coverage policy against its own threshold, which this repository cannot supply for it. An adopting project returns the three shapes as fixtures in the format `scripts/test-rule-scenarios.py` reads, under `tests/fixtures/`, through the pull-request process in `CONTRIBUTING.md`. |
 
 ## Severity and gate policy
 

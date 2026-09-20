@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: implementation-alignment-quality
-version: 1.0.0
+version: 1.2.0
 model: RULE_MODEL_V1
 rule_prefix: ALN
 scope: implemented changes with one or more upstream requirements, designs or tasks
@@ -44,6 +44,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Each criterion has a reachable implementation location and a test or named manual verification that proves its outcome. |
 | Not applicable when | The criterion is explicitly out of the current change scope in the approved artifact. |
 | Remediation | Implement the omitted behavior and add evidence, or correct the approved scope before coding continues. |
+| Worked pass | AC-3 maps to `handler.ts:88` and to the test named "rejects a non-positive quantity", which goes red when that branch is removed. |
+| Worked failure | AC-3 is marked done and the evidence cited is that the feature was demonstrated in a meeting. Nothing is reachable afterwards and nothing would fail if the behaviour regressed. |
 
 ### ALN-002 — Delivered behavior stays within approved scope
 
@@ -58,6 +60,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every behavior change traces to an approved criterion, design decision or task. |
 | Not applicable when | The change is a behavior-preserving refactor authorized by the technical design or ADR. |
 | Remediation | Remove the scope addition or update and re-approve the upstream artifact. |
+| Worked pass | The handler now also emits a `quote.issued` event, and that traces to design decision D-2. |
+| Worked failure | The handler now also writes an audit row. Nothing upstream asked for it, so a behaviour reached production that no approved artifact accounts for. |
 
 ### ALN-003 — Design boundaries and tactics appear in production code
 
@@ -72,6 +76,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Each in-scope design element has a reachable production implementation with no contradictory shortcut. |
 | Not applicable when | No technical design element is assigned to the change. |
 | Remediation | Implement or wire the missing design element, or revise the design through review. |
+| Worked pass | The design's dependency direction holds in the composition root: quoting depends on catalogue, and no catalogue module imports quoting. |
+| Worked failure | Catalogue imports quoting's `Quote` type directly, described in review as "only for the type". The dependency the design set now runs both ways. |
 
 ### ALN-004 — Interface implementation matches the approved contract
 
@@ -86,6 +92,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Names, types, optionality, errors and authorization agree, with no field dropped across layers. |
 | Not applicable when | No public contract is in scope. |
 | Remediation | Correct the implementation or return the contract change to design and consumer review. |
+| Tool limits | A contract diff, the generated artifact and compatibility tests decide that the implementation's shape differs from the approved contract. None decides whether a given difference is a permitted extension or a breach, which follows from what the contract undertook. |
 
 ### ALN-005 — Persisted-state behavior matches the approved data design
 
@@ -100,6 +107,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | The executable migration and runtime model preserve every designed constraint and transition. |
 | Not applicable when | No persisted-state change exists. |
 | Remediation | Align migration and runtime schema, then rerun forward and rollback verification. |
+| Tool limits | Migration inspection and a dry run decide that the migration exists and applies cleanly. Neither decides whether the resulting state is what the data design intended, nor whether the rollback preserves rows written after the migration ran. |
 
 ### ALN-006 — Completed tasks have concrete evidence
 
@@ -114,6 +122,7 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Every completion claim resolves to the promised artifact and passing verification. |
 | Not applicable when | No task list exists or the task is not claimed complete. |
 | Remediation | Complete and verify the task or return its status to an unfinished state. |
+| Tool limits | Task status, changed paths and captured command output decide that a task is marked complete and that files changed. None decides whether the paths changed are the ones the task called for, nor whether the cited output came from this change rather than an earlier run. |
 
 ### ALN-007 — Tests trace to intent rather than implementation inventory
 
@@ -128,6 +137,8 @@ Provenance follows [rule-modeling](../specs/rule-modeling.md) §5.4: a project w
 | Pass condition | Verification derives from upstream intent and would fail when any required outcome is absent. |
 | Not applicable when | No approved artifact chain exists. |
 | Remediation | Derive tests from acceptance items and add missing negative or end-to-end assertions. |
+| Worked pass | The suite carries a red test for the out-of-stock outcome the implementation has not built yet, so the gap is visible rather than invisible. |
+| Worked failure | Every test mirrors a function that exists, so the one approved outcome nobody implemented is also the one nothing checks. |
 
 ## Severity and gate policy
 

@@ -90,6 +90,24 @@ def document(label: str, edit: Callable[[str], str], expect: str = "blocked", al
     return Perturbation(label, (VERIFIER, "HEAD", TRANSLATED), TRANSLATED, edit, expect, allow_unchanged)
 
 
+
+def set_version(value: str):
+    """Rewrite whatever version the document declares, whatever it currently is.
+
+    A literal `version: 2.0.0` anchor broke on every release of the document it
+    points at, and a broken anchor reports as a missing perturbation rather than
+    as the finding it was written to provoke — it goes quiet exactly when the
+    document is being changed, which is when it is needed.
+    """
+
+    def edit(text: str) -> str:
+        return re.sub(
+            r"^version: \d+\.\d+\.\d+$", f"version: {value}", text, count=1, flags=re.M
+        )
+
+    return edit
+
+
 PERTURBATIONS = [
     code(LINKS, LINKS_TEST, "stop stripping inline code spans",
      '        out.append((number, CODE_SPAN.sub("", line)))',
@@ -175,6 +193,36 @@ PERTURBATIONS = [
     code(SCENARIOS, SCENARIOS, "accept a removal point that passed with no action",
      '        elif marker.get("removal_point_passed") and not (\n            marker.get("removed") or marker.get("renewed")\n        ):\n            failed.add("ARC-011")\n',
      ""),
+    code(SCENARIOS, SCENARIOS, "stop deciding task-list frontmatter completeness",
+     '        failed.add("TASK-003")\n',
+     "        pass\n"),
+    code(SCENARIOS, SCENARIOS, "accept a dependency cell left undeclared",
+     '        failed.add("TASK-006")\n',
+     "        pass\n"),
+    code(SCENARIOS, SCENARIOS, "accept a task with neither owner nor execution hint",
+     '        failed.add("TASK-008")\n',
+     "        pass\n"),
+    code(SCENARIOS, SCENARIOS, "stop checking task id format and uniqueness",
+     '        failed.add("TASK-019")\n',
+     "        pass\n"),
+    code(SCENARIOS, SCENARIOS, "stop deciding design frontmatter completeness",
+     '        failed.add("TDES-002")\n',
+     "        pass\n"),
+    code(SCENARIOS, SCENARIOS, "accept a required section present but empty",
+     '        failed.add("TDES-006")\n',
+     "        pass\n"),
+    code(SCENARIOS, SCENARIOS, "stop requiring a referenced structured representation",
+     '        failed.add("TDES-016")\n',
+     "        pass\n"),
+    code(SCENARIOS, SCENARIOS, "accept unstated dependencies or risks",
+     '        failed.add("TDES-021")\n',
+     "        pass\n"),
+    code(SCENARIOS, SCENARIOS, "accept fewer than three acceptance criteria",
+     '        failed.add("TDES-024")\n',
+     "        pass\n"),
+    code(SCENARIOS, SCENARIOS, "accept a citation that does not resolve",
+     '        failed.add("TDES-025")\n',
+     "        pass\n"),
     code(COUNTS, COUNTS_TEST, "count skill documents instead of skill directories",
          '        return len([p for p in path.iterdir() if p.is_dir()])',
          '        return len(list(path.rglob("*.md")))'),
@@ -251,7 +299,7 @@ PERTURBATIONS = [
     document("alter a number",
              replace("[rule-modeling](../specs/rule-modeling.md) \u00a75.4",
                      "[rule-modeling](../specs/rule-modeling.md) \u00a79.4")),
-    document("alter a version", replace("version: 2.1.0", "version: 9.9.9")),
+    document("alter a version", set_version("9.9.9")),
     document("weaken modality",
              replace("Every task row **MUST** carry an id",
                      "Every task row should carry an id")),
