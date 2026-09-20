@@ -40,20 +40,30 @@ RESTATEMENT = re.compile(
 def restates_contract(line: str) -> bool:
     """Decide whether one line copies the finding element list.
 
-    A line that links or refers to the Spec is citing it, however it goes on to
-    phrase the elements, so it is never reported.
-
-    参数: line - one line of Skill prose
-    返回: True when the line restates the list rather than citing the Spec
+    A line that cites the Spec is citing it however it goes on to phrase the
+    elements, so it is never reported.
     """
     if "findings-list" in line:
         return False
     return RESTATEMENT.search(line) is not None
 
 
-def check(skills_dir: pathlib.Path) -> list[str]:
-    """Report every restatement under one skills directory, as file:line strings."""
+def check(
+    skills_dir: pathlib.Path, root: pathlib.Path | None = None
+) -> tuple[list[str], int]:
+    """Report every restatement under one skills directory, and how many Skills emit findings.
+
+    `root` is what a finding's path is made relative to, and defaults to the
+    repository. A caller pointing this at a fixture directory passes that
+    directory; without it the relative path raises, which is why this function
+    went untested while only `restates_contract` was covered.
+
+    The emitter count comes back with the findings rather than from a second
+    pass, so the file is read once.
+    """
+    root = ROOT if root is None else root
     findings: list[str] = []
+    emitters = 0
     for path in sorted(skills_dir.glob("*/SKILL.md")):
         text = path.read_text(encoding="utf-8")
         if "findings-list" not in text:
@@ -61,14 +71,15 @@ def check(skills_dir: pathlib.Path) -> list[str]:
             # business, and reading it as such is how a check earns false
             # positives.
             continue
+        emitters += 1
         for number, line in enumerate(text.split("\n"), start=1):
             if restates_contract(line):
-                findings.append(f"{path.relative_to(ROOT)}:{number}: {line.strip()}")
-    return findings
+                findings.append(f"{path.relative_to(root)}:{number}: {line.strip()}")
+    return findings, emitters
 
 
 def main() -> int:
-    findings = check(SKILLS_DIR)
+    findings, emitters = check(SKILLS_DIR)
     if findings:
         print(f"Skills restating the finding element list instead of citing {SPEC}:")
         for finding in findings:
@@ -78,11 +89,6 @@ def main() -> int:
             "requires\" — so a change to it reaches this Skill."
         )
         return 1
-    emitters = sum(
-        1
-        for path in SKILLS_DIR.glob("*/SKILL.md")
-        if "findings-list" in path.read_text(encoding="utf-8")
-    )
     print(
         f"Checked {emitters} findings-emitting Skills: every one cites "
         f"{SPEC} rather than restating its element list."

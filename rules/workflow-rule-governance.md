@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: workflow-rule-governance
-version: 2.0.0
+version: 2.0.1
 scope: modeled engineering Rule documents, profiles, project parameters and waivers
 recommended_scope: user
 status: active
@@ -42,7 +42,7 @@ Recent editing activity is **not** a trigger. Whether a document was revised say
    - A `tool-assisted` item is not fully decidable and is not fixture-tested. It owes the tool class that supplies its decidable evidence and, in its `Tool limits` row, what that class cannot decide, so that a clean tool run is never read as a passed item.
    - A `judgment` item cannot be decided by a fixture, and authored prose must not be presented as a test of it. It owes an authoritative source anchor, a stated evidence contract, a binary or explicitly bounded pass condition, and one worked pass and one worked failure in its `Worked pass` and `Worked failure` rows. The source anchor may be an approved ADR, architecture decision or incident record of the adopting organization; §13 governs it only where the obligation derives from a book. Its empirical calibration is collected from adopting projects; this repository must not manufacture it.
    - Where the producing repository structurally cannot host the population an item governs, its `Verification` row reads `adopter`. That is a located responsibility, not a waiver: the adopting project owes the same three shapes, in the same record format, returned to this repository. An item left at `adopter` with no return path is the bad pattern below, merely renamed.
-   - **Maturity is derived from those rows, never declared.** An item whose owed rows are all present is `ready`; otherwise it is `provisional`. A `provisional` item is not suppressed — it reports findings as usual, and its maturity travels with each finding per [findings-list](../specs/findings-list.md) §5.1, so a reader sees how well prepared the criterion is. Suppressing it would hide information rather than qualify it, and demoting its severity to express the same doubt would corrupt the one field that states consequence.
+   - **Maturity is derived from those rows, never declared**, by the rule [rule-modeling](../specs/rule-modeling.md) §5.2 states; this constraint does not restate it and owns only what follows. A `provisional` item is not suppressed — it reports findings as usual, and its maturity travels with each finding per [findings-list](../specs/findings-list.md) §5.1, so a reader sees how well prepared the criterion is. Suppressing it would hide information rather than qualify it, and demoting its severity to express the same doubt would corrupt the one field that states consequence.
    - This constraint says nothing about blocking. Nothing in this repository blocks a merge on a Rule item: the review Skills emit a findings list a person reads. A term naming a mechanism that does not exist cannot decide which items an obligation reaches, which is why activation is keyed on enforcement alone.
 9. A reported false positive is a Rule defect until shown otherwise. Where one item accounts for a disproportionate share of findings across adopting projects, narrow its applicability, sharpen its pass condition or lower its default severity — do not leave the criterion unchanged and absorb the noise. A zero-false-positive claim means nothing without the number of reviews it was measured over.
 10. Automated enforcement may strengthen a Rule item's evidence, but a tool result must not claim coverage beyond the checks the tool actually performs.

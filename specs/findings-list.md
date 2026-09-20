@@ -2,7 +2,7 @@
 id: FINDINGS_LIST_SPEC_V1
 name: Findings List Schema
 description: Spec defining findings, severity/category conventions, aggregation and optional Rule coverage metadata for evaluative Skills.
-version: 1.5.0
+version: 2.0.0
 status: active
 lifecycle: living
 created_at: 2026-09-10
