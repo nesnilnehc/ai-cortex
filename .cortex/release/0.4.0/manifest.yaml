@@ -1,0 +1,381 @@
+schema_version: RELEASE_PACKAGE_SPEC_V1
+project: ai-cortex
+decision: release
+version: 0.4.0
+release_channel: stable
+version_source: git tag
+commit: b236891f33af986c75f5bf18bfa6b654b799888a
+range: v0.3.0..b236891f
+status: ready
+
+decision_basis: >-
+  The range edits four of the five asset classes a consumer consumes: rules/ and
+  skills/, which bin/cortex installs into each IDE's directories; specs/, read
+  from the clone directly; and bin/cortex itself, which cortex install links at.
+  Per docs/guides/releasing.md that is a release rather than a documentation
+  range.
+
+  Not MINOR. The 0.3.0 basis recorded MINOR "because the additions are backward
+  compatible and no existing obligation was removed or tightened", and this range
+  fails that test three times: findings-list makes a previously absent element
+  required, workflow-rule-governance removes the term its activation constraint
+  was scaled by, and doc-health-criteria restates its link-graph criteria. A new
+  obligation on every technical design (TDES-028) tightens a fourth.
+
+  0.4.0 rather than 1.0.0 because the model changed breakingly in this very range
+  and one part of it is unexercised: four items read `Verification: adopter`, and
+  the return path documented for them has never been walked. Committing to
+  compatibility before that would be a promise made on unverified ground.
+
+version_domains:
+  product:
+    current: 0.3.0
+    source: git tag
+    action: bump-minor
+  rules:
+    current: per-file frontmatter
+    source: rules/*.md
+    action: >-
+      literal-and-copy-quality added at 1.2.0. Two majors: doc-health-criteria
+      1.0.0 -> 2.0.0, workflow-rule-governance 1.2.0 -> 2.0.1. Ten minors, each
+      for the activation rows its items gained: architecture 1.1.0 -> 1.4.0,
+      error-surfacing 1.0.0 -> 1.2.0, implementation-alignment 1.0.0 -> 1.2.0,
+      observability 1.0.0 -> 1.3.0, performance 1.0.1 -> 1.3.0, reliability
+      1.0.1 -> 1.3.0, security 1.0.0 -> 1.3.0, task 2.0.0 -> 2.4.0,
+      technical-design 2.0.0 -> 2.5.0, testing 1.0.1 -> 1.4.0. The other 18
+      preserve.
+  skills:
+    current: per-file frontmatter
+    source: skills/*/SKILL.md
+    action: >-
+      Twelve review Skills take a patch for citing the findings Spec rather than
+      restating its element list: dotnet, go, java, orm-usage, php, powershell,
+      python, react, roadmap, sql, typescript, vue. The other 56 preserve.
+  specs:
+    current: per-file frontmatter
+    source: specs/*.md
+    action: >-
+      findings-list 1.4.0 -> 2.0.0, a major because a previously absent element
+      became required. rule-modeling 1.0.0 -> 1.1.1 for the conditional
+      activation rows and the derivation, which are additive.
+  protocols:
+    current: per-file frontmatter
+    source: protocols/*.md
+    action: preserve — no protocol changed in this range
+  installer:
+    current: n/a — bin/cortex carries no version of its own
+    source: bin/cortex
+    action: >-
+      Behaviour changed: an option a command does not define is now rejected
+      rather than ignored. cortex update replaces the installed command, so this
+      reaches a consumer on their next update.
+
+change_items:
+  - id: CI-0400-01
+    category: changed
+    audience: customer
+    summary: >-
+      Rule activation keys on enforcement rather than on "blocking", a term the
+      governance constraint scaled its obligations by and nothing defined.
+    user_impact: >-
+      A citation of the old wording must name the enforcement class instead.
+      Nothing in this repository ever blocked a merge on a Rule item, so no gate
+      behaviour changes.
+    source: d42d49d
+  - id: CI-0400-02
+    category: changed
+    audience: customer
+    summary: >-
+      Every finding carries a maturity, `ready` or `provisional`, taken from the
+      Rule item that produced it. findings-list takes a major.
+    user_impact: >-
+      A reviewer emitting findings must add the element. A consumer reading them
+      gains a field and loses nothing. An immature criterion is annotated rather
+      than suppressed, so no finding disappears.
+    source: d42d49d, fc352a8
+  - id: CI-0400-03
+    category: changed
+    audience: customer
+    summary: >-
+      All 118 Rule items carry their activation evidence, where 16 did before —
+      47 tool-limit statements, 41 worked pass and failure pairs, 30 verification
+      records.
+    user_impact: >-
+      A cited item now states what its tools cannot decide, or shows a worked
+      pass and failure, or names the fixtures that forward-test it.
+    source: ef525f4, 6107c12, 4b442ff, 6dbe734
+  - id: CI-0400-04
+    category: added
+    audience: customer
+    summary: >-
+      literal-and-copy-quality, prefix LIT, seven items for a value written down
+      twice — one defining place per cross-runtime value, display formats from a
+      formatting API, whole copy entries, full language coverage, fallback copies
+      that agree with their source, no time-varying value in the display layer,
+      and a declared, bounded natural-language enum.
+    user_impact: >-
+      Seven items to cite, waive and count. None blocks a merge: the originating
+      proposal asked for five automated blocking items on evidence from one
+      project, which is short of the three representative shapes required.
+    source: 777018e
+  - id: CI-0400-05
+    category: added
+    audience: customer
+    summary: >-
+      TDES-028 asks a technical design to name the single place each shared value
+      is defined, how each runtime obtains it, and how an unreadable copy is
+      reconciled.
+    user_impact: >-
+      A new obligation on a design that introduces user-visible text or a value
+      more than one runtime reads. It refuses a location stated as intent rather
+      than a path.
+    source: 35f535c
+  - id: CI-0400-06
+    category: changed
+    audience: customer
+    summary: >-
+      Four items read `Verification: adopter` — they govern a population this
+      repository cannot host, and CONTRIBUTING documents how an adopting project
+      returns the evidence.
+    user_impact: >-
+      An adopting project with a running service, a benchmark suite, a declared
+      service level or a coverage report can promote these four by contributing
+      fixtures. Until then they report as usual and state that their evidence is
+      incomplete.
+    source: 4b442ff
+  - id: CI-0400-07
+    category: fixed
+    audience: customer
+    summary: >-
+      `cortex` rejects an option a command does not define, and its confirm-or-
+      `--yes` branches collapsed into one condition.
+    user_impact: >-
+      `cortex update` replaces the installed command, so a script passing an
+      unrecognised flag starts failing on the next update rather than having it
+      silently ignored.
+    source: 5421c2a, b7ef0bf
+  - id: CI-0400-08
+    category: changed
+    audience: customer
+    summary: doc-health-criteria restates its link-graph criteria to describe a healthy graph, taking a major.
+    user_impact: A project citing those criteria should re-read them; the obligations changed shape.
+    source: 2da5fae
+  - id: CI-0400-09
+    category: changed
+    audience: customer
+    summary: >-
+      Twelve review Skills cite the findings Spec for what a finding carries
+      rather than restating its element list.
+    user_impact: >-
+      None on invocation. It is what makes a change to the Spec reach them: the
+      maturity element reached the fifteen that cited it and missed these twelve.
+    source: f6bd153
+  - id: CI-0400-10
+    category: added
+    audience: operator
+    summary: >-
+      Three checkers join CI — a findings-contract citation check, an asset
+      version check that blocks a merge when an edited asset kept its version,
+      and shellcheck over bin/cortex.
+    user_impact: Relevant to a fork maintainer; no effect on an installed asset.
+    source: f6bd153, f10b96f, 7b92b95
+  - id: CI-0400-11
+    category: fixed
+    audience: operator
+    summary: >-
+      A Rule that means to be modeled no longer drops silently out of validation,
+      and a malformed fixture names its file.
+    user_impact: >-
+      A misspelt model field used to remove a document from the checked set while
+      the run stayed green.
+    source: 330ae4c, 923d919
+  - id: CI-0400-12
+    category: removed
+    audience: operator
+    summary: >-
+      The inbound proposal channel and its receive-side configuration are retired.
+    user_impact: >-
+      Proposals go through the contribution process. The channel ran four months,
+      took twelve messages and acknowledged none; nothing reached this repository
+      through it.
+    source: dbfc0f8
+  - id: CI-0400-13
+    category: internal
+    audience: internal
+    summary: >-
+      The maturity count gained an oracle. Forcing the derivation to report
+      `ready` had left every test green and the printed line identical.
+    user_impact: >-
+      None to an adopter. It is what makes the headline number falsifiable rather
+      than asserted.
+    source: 57602a3
+  - id: CI-0400-14
+    category: internal
+    audience: internal
+    summary: >-
+      Mutation coverage rose from 54 perturbations to 71, and the Rule validator
+      gained a 30-shape fixture test.
+    user_impact: None — it is what keeps the checkers able to fail.
+    source: 0e5f8c7, ddb5e88, 57602a3
+  - id: CI-0400-15
+    category: internal
+    audience: internal
+    summary: ADR 0014 records the activation and maturity decision with its three rejected alternatives.
+    user_impact: None — repository provenance.
+    source: 6c1985b
+
+artifacts:
+  changelog:
+    kind: changelog
+    audience: technical
+    path: CHANGELOG.md
+    required: true
+    status: present
+    source: change_items
+  release_notes:
+    kind: release_notes
+    audience: customer
+    path: .cortex/release/0.4.0/release-notes.md
+    required: true
+    status: present
+    source: change_items
+    note: >-
+      Beside the manifest rather than at the repository root, per
+      docs/guides/releasing.md — the root path is an orphaned document and NOTES
+      is on the process-record filename list.
+  manifest:
+    kind: manifest
+    audience: internal
+    path: .cortex/release/0.4.0/manifest.yaml
+    required: true
+    status: present
+    source: change_items
+  customer_notes:
+    kind: customer_notes
+    audience: customer
+    path: null
+    required: false
+    status: skipped
+    source: change_items
+    note: No customer portal or customer-documentation convention in this repository.
+  sbom:
+    kind: sbom
+    audience: internal
+    path: null
+    required: false
+    status: skipped
+    source: change_items
+    note: No supply-chain or compliance requirement; the repository ships no dependency manifest.
+  checksums:
+    kind: checksums
+    audience: customer
+    path: null
+    required: false
+    status: skipped
+    source: change_items
+    note: The repository ships no downloadable binary, archive or installer artifact.
+  build:
+    kind: build
+    audience: internal
+    path: null
+    required: false
+    status: skipped
+    source: change_items
+    note: This repository produces no build artifact.
+  video:
+    kind: video
+    audience: customer
+    path: null
+    required: false
+    status: skipped
+    source: change_items
+    note: >-
+      changelog-video is present in the local installation and was offered; not
+      selected for this release.
+
+checks:
+  - command: python3 scripts/check-markdown-links.py
+    status: pass
+    required: true
+  - command: python3 scripts/check-doc-hygiene.py
+    status: pass
+    required: true
+  - command: python3 scripts/check-asset-counts.py
+    status: pass
+    required: true
+  - command: python3 scripts/check-cortex-docs.py
+    status: pass
+    required: true
+  - command: python3 scripts/check-asset-versions.py
+    status: pass
+    required: true
+  - command: python3 scripts/validate-rules.py
+    status: pass
+    required: true
+    evidence: 11 modeled Rule documents, 118 items, 118 ready and 0 provisional.
+  - command: python3 scripts/test-validate-rules.py
+    status: pass
+    required: true
+    evidence: 30 defect shapes, plus the clean fixture's maturity distribution asserted in three directions.
+  - command: python3 scripts/test-rule-scenarios.py
+    status: pass
+    required: true
+    evidence: 10 representative shapes over three populations.
+  - command: python3 scripts/check-findings-contract.py
+    status: pass
+    required: true
+    evidence: 27 findings-emitting Skills, every one citing the Spec.
+  - command: python3 scripts/test-check-findings-contract.py
+    status: pass
+    required: true
+  - command: python3 scripts/sync-skills-index.py --check
+    status: pass
+    required: true
+  - command: shellcheck --shell=sh --severity=style --enable=add-default-case bin/cortex
+    status: pass
+    required: true
+  - command: markdownlint-cli2 "**/*.md" "#node_modules"
+    status: pass
+    required: true
+    evidence: 313 files, 0 errors.
+  - command: python3 scripts/mutation-check.py
+    status: pass
+    required: true
+    evidence: >-
+      71 perturbations, every one producing the expected verdict — task-quality 14,
+      check-asset-counts 6, check-asset-versions 6, check-cortex-docs 5,
+      check-doc-hygiene 14, check-markdown-links 7, test-rule-scenarios 17,
+      validate-rules 11, the invocation 1.
+  - command: orchestrate-repair-loop over 2303e5f..HEAD
+    status: pass
+    required: false
+    evidence: >-
+      Both sibling gates converged. The engineering gate ran all eight applicable
+      atomic reviewers and the functional gate ran implementation-alignment
+      against the approved rule-governance design plus the 21-step CI plan.
+      Twelve findings, three of them major — an under-versioned findings contract,
+      a maturity count with no oracle, and a model change with no approved
+      artifact — all repaired and each verified closed by injection rather than
+      by a green run. One coverage gap is recorded: no doc-health reviewer exists
+      for the chain to dispatch, so the duplicated-definition finding was reviewed
+      inline.
+
+publication:
+  tag: v0.4.0
+  provider: github
+  release_body_source: .cortex/release/0.4.0/release-notes.md
+  steps:
+    version_sync: not_started — the product version lives only in the git tag, so there is nothing to sync
+    release_commit: not_started
+    validation: complete
+    tag: not_started
+    build_package: not_started — this repository ships no build artifact
+    provider_publish: not_started
+  tag_offset: >-
+    Expect one commit. `commit` records the content this package was prepared
+    against; the release cut that adds this manifest lands after it, and the tag
+    points at the commit that finalises it.
+  rollback: >-
+    Before publication there is nothing to roll back — this package is files in
+    the working tree. After publication: `gh release delete v0.4.0 --yes`, then
+    `git push origin :refs/tags/v0.4.0` and `git tag -d v0.4.0`.

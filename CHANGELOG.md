@@ -2,7 +2,15 @@
 
 ## [Unreleased]
 
+## [0.4.0] — 2026-09-20
+
 ### Added
+
+- `TDES-028`, which asks a technical design where each shared value is defined before the code is written.
+
+  A design that introduces user-visible text, or a value more than one runtime reads, must name the single place that value is defined, how each runtime obtains it, and how a copy that cannot read that place is reconciled against it. The pass condition refuses a location stated as intent rather than a path, and refuses to let an undecided one pass silently to implementation.
+
+  It is the design-time half of `literal-and-copy-quality`: this item asks where a value lives, that Rule set checks afterwards that no second copy appeared. Both arrived from the same proposal, which reported the cost of settling it late — a value already copied across three runtimes and carried into user data by a sync protocol, where withdrawing it is a contract change with a migration rather than a refactor.
 
 - `scripts/check-findings-contract.py`, which reports a Skill that restates the finding element list instead of citing the Spec, and its paired test.
 
@@ -47,6 +55,18 @@
   `main()` was split into a `check(rules_dir, index_text, root)` returning a `Result`, matching the shape every other checker here already had and which is why this one was never tested. Proved behaviour-identical against the previous revision: the same output byte for byte on the clean tree and on four seeded defects, covering both report headings and the cross-document duplicate.
 
 ### Changed
+
+- The maturity count gained an oracle, and a review pass closed nine further defects.
+
+  Forcing the derivation to always report `ready` left every test green and the printed line identical, because the corpus genuinely is all-ready — so the number this change set is measured by was guarded by nothing. `test-validate-rules.py` now asserts the clean fixture's distribution, that completing an item's rows promotes exactly that item, and that a row present but empty does not, with three matching perturbations in `mutation-check.py`.
+
+  `findings-list` moved to 2.0.0. It had taken a MINOR for making a previously absent element required, which CONTRIBUTING names as a MAJOR in as many words, so a consumer reading the version would have skipped it and then emitted findings that no longer conform.
+
+  The maturity derivation had been stated in both `workflow-rule-governance` §8 and `rule-modeling` §5.2 with no link between them. The Spec now states how maturity is derived, the Rule states what follows from a provisional verdict, and each cites the other.
+
+  Six smaller ones: a mutable default shared across `Result` instances; two errors reported for one unreadable `Enforcement`, the second naming correct rows as unexpected; a checker whose directory walk could not be pointed at a fixture and so went untested; one new forward-test check that failed open while its siblings failed closed; a duplicated pass over 68 files; and a docstring convention borrowed from the shell standard.
+
+  [ADR 0014](docs/adr/0014-rule-activation-maturity.md) records the decision behind all of this, including the three alternatives that were rejected.
 
 - The last 14 `automated` items are activated, and the corpus reaches **118 ready, 0 provisional**.
 
