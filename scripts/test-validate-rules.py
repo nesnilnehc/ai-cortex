@@ -130,6 +130,19 @@ CASES = [
     # across documents
     ("an identifier is duplicated across two documents", OTHER,
      replace("### OTHR-001 —", "### DEMO-001 —"), "duplicate Rule ID DEMO-001"),
+    # activation materials and derived maturity
+    ("a Maturity field written by hand rather than derived", DEMO,
+     replace("| Enforcement | `automated` |\n",
+             "| Enforcement | `automated` |\n| Maturity | `ready` |\n"),
+     "Maturity is derived"),
+    ("an activation field is present but empty", DEMO,
+     replace("| Remediation | Renumber the duplicate. |\n",
+             "| Remediation | Renumber the duplicate. |\n| Worked pass | |\n"),
+     "empty activation fields"),
+    ("an activation field sits on the wrong enforcement class", DEMO,
+     replace("| Remediation | Restore the field the test removed. |\n",
+             "| Remediation | Restore the field the test removed. |\n| Worked pass | A passing shape. |\n"),
+     "does not take"),
 ]
 
 
