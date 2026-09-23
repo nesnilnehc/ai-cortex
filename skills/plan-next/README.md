@@ -1,6 +1,6 @@
-# Plan Next (read-only diagnosis)
+# Plan Next (governance diagnosis)
 
-Takes stock of the governance input sources and routes to the next skill — **never runs a downstream skill**.
+Takes stock of the governance input sources and routes to the next skill. It never runs a downstream skill; an explicit persistent skip or restore may update only `.ai-cortex/plan-next.yaml`.
 
 ## Three steps
 
@@ -10,23 +10,31 @@ Takes stock of the governance input sources and routes to the next skill — **n
 
 ## User report structure (fixed order)
 
-1. **Do now**: 1-3 complete routing cards
-   - Card header: action name + priority label (urgent / important / can wait / skippable / pending)
+1. **Skipped recommendations** (only when exclusions apply): the omitted action and its session or persistent duration
+2. **Do now**: up to 3 complete routing cards, or an explicit statement that no further eligible route exists
+
+   - Card header: action name + priority label (urgent / important / defer / minor / awaiting execution)
    - **TL;DR blockquote** (≤30 characters): what it does → the payoff you see immediately
    - **6 core fields**: governance context (a multi-line short chain, ≤25 characters per line) / recommended skill / rationale / done marker (the other 2 fields, theme and priority label, are carried in the card header)
    - **2 optional fields**: cost of deferring / barrier to entry (omitted when the information is thin; never invent them)
    - Several tasks starting in parallel → render several side-by-side cards (each focused on 1 task)
-2. **Also worth watching**: a short list of ≤5 entries (drift + hygiene + chains_to chain checks)
-3. **Basis for the diagnosis**: project situation, asset inventory, decision-logic table (4 columns: layer / node / status / inference); includes the internal traceability numbers
+
+3. **Also worth watching**: a short list of ≤5 entries (drift + hygiene + chains_to chain checks)
+
+4. **Basis for the diagnosis**: project situation, asset inventory, decision-logic table (4 columns: layer / node / status / inference); includes the internal traceability numbers
 
 ## Default behavior
 
-- **read-only**: never runs a downstream skill
-- The first two sections use natural language only; a project code (T\d+/M\d+/Goal \d+/BL-\d+/ADR-\d+) gets a natural-language subtitle attached on first appearance (dictionary sources: `.ai-cortex/glossary.yaml` → `docs/glossary.md` → the source artifact's frontmatter `title:` as fallback)
+- Ordinary diagnosis reads project state; only an explicit persistent skip or restore writes the preference file
+- User-facing sections use natural language only; a project code (T\d+/M\d+/Goal \d+/BL-\d+/ADR-\d+) gets a natural-language subtitle attached on first appearance (dictionary sources: `.ai-cortex/glossary.yaml` → `docs/glossary.md` → the source artifact's frontmatter `title:` as fallback)
 - A KPI or threshold carries the triplet on first appearance (current value / target value / frame of reference)
 - MoSCoW words and governance-process jargon (pre-gate / short-circuit / soft-blocked / sibling scan) must not appear in the user-facing sections
 - Internal numbering (G1-G4, P0-P3) appears only at the end of "Basis for the diagnosis", for traceability
-- stateless: every invocation rescans from scratch
+- Every run rescans from scratch and reads persistent route exclusions from `.ai-cortex/plan-next.yaml`, when present
+- A user may say “skip the first suggestion and continue” (or name a displayed action). If no duration is stated, ask whether the skip lasts for this conversation or until explicitly restored.
+- A skipped prerequisite does not unlock its dependents. If no independently eligible recommendation remains, the result says so plainly rather than suggesting an unsafe lower-level action.
+- A persistent skip suppresses only the exact route and target recorded in the project preference file ([format contract](../../specs/plan-next-preferences.md)); “recommend this again” removes the entry. The underlying work item keeps its status.
+- A request to cancel a task or defer a roadmap item changes governance state and follows the workflow that owns that record (`update-roadmap`, `promote-roadmap-items`, or the project's task-record workflow).
 - Completion is judged from the task `status = done` alone; git signals are not read
 - The parallelism decision comes with an unprompted suggestion (focus / parallelize / converge / start)
 - The downstream scan works off physical signals: resolved path_pattern glob + optional parent: + optional manifest
@@ -38,6 +46,12 @@ A single-dimension question can go straight to the dedicated skill:
 
 - A specific item is known to be missing → `define-*`
 - Document health checking → the AgentFabric runtime + linter / CI tooling (per `rules/doc-health-criteria.md`)
+
+## Skip or restore a recommendation
+
+After a result, use ordinary language such as “skip the first suggestion and continue”, “skip Establish the documentation norms foundation for this conversation”, or “never recommend this task again”. The selector refers to the latest displayed `Do now` list in this conversation; ambiguous references are clarified instead of guessed. If the duration is not explicit, `plan-next` asks you to choose session or persistent scope before proceeding.
+
+The response names each excluded action and its duration, then lists the next independently eligible route, if one exists. A session choice ends with this conversation; a persistent choice stays in `.ai-cortex/plan-next.yaml` until you say “recommend this again”. A restore can refer to the skipped-action list or an exact saved route; it clears that route from both scopes where active. If the suggestion changed while you chose a duration, it is not saved as a stale skip. Neither choice marks the underlying work complete or overrides prerequisites.
 
 ## Automation combinations
 

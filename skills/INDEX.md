@@ -68,8 +68,8 @@ here alone is overwritten and does not reach the skill.
   - tags: `automation`, `devops`, `optimization` · triggers: `repair`, `fix tests`, `delivery`, `stabilize`, `auto repair`, `auto fix`, `auto fix changes`
 - [orchestrate-roadmap-planning](./orchestrate-roadmap-planning/SKILL.md) — Orchestrator skill — run one roadmap planning pass by sequencing atomic skills from strategic goals through capture, scoring, dependency mapping, and promotion, satisfying each skill's halt conditions up front.
   - tags: `planning`, `orchestration` · triggers: `roadmap planning`, `plan the roadmap`, `roadmap ceremony`, `orchestrate roadmap`
-- [plan-next](./plan-next/SKILL.md) — Analyze governance state and suggest next actions from existing docs; read-only — never executes downstream skills.
-  - tags: `workflow`, `meta-skill`, `automation` · triggers: `plan next`, `next step`, `checkpoint`, `governance`, `iteration`, `task done`, `just finished`, `what's next`, `after completing`
+- [plan-next](./plan-next/SKILL.md) — Analyze governance state and suggest next actions; ask whether a skipped recommendation lasts for the session or until revoked.
+  - tags: `workflow`, `meta-skill`, `automation` · triggers: `plan next`, `next step`, `checkpoint`, `governance`, `iteration`, `task done`, `just finished`, `what's next`, `after completing`, `skip recommendation`, `skip and continue`, `permanently skip recommendation`, `restore recommendation`
 - [policy-research](./policy-research/SKILL.md) — Research a jurisdiction's policy or compliance question with official sources, effective dates, applicability, and product implications.
   - tags: `research`, `policy`, `regulation`, `compliance` · triggers: `policy research`, `regulation research`, `compliance impact`, `政策研究`, `法规调研`
   - type: `domain` · user-invocable: `true`

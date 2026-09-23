@@ -11,7 +11,7 @@ Reads the routing output of plan-next, runs the highest-priority action, and ret
 ```text
 /loop /orchestrate-governance-step 30m
   └─ orchestrate-governance-step        ← driver layer (this skill)
-       └─ /plan-next     ← diagnostic layer (read-only)
+       └─ /plan-next     ← diagnostic layer (reads saved recommendation exclusions)
 ```
 
 ## How to use
@@ -36,8 +36,8 @@ Every invocation emits one report containing:
 
 | Signal | Reason |
 | --- | --- |
-| `done` | The whole governance chain is ready |
-| `blocked` | A strategic or creative skill needs a human |
+| `done` | Acceptance is met and no unfinished route is hidden by an exclusion |
+| `blocked` | A strategic or creative skill needs a human, outside execution is pending, or exclusions leave no executable route |
 | `stalled` | The same routing card made no progress 2 times running |
 | `error` | A sub-skill failed to execute |
 

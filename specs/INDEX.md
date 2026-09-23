@@ -9,6 +9,7 @@
 - [technical-design-modeling.md](./technical-design-modeling.md) — field definitions and validation for a technical design document, from the engineering viewpoint: architecture, service decomposition, components, database, interface contracts, error handling, technology selection
 - [nats-messaging.md](./nats-messaging.md) — subject, headers, payload and version evolution contract for cross-project NATS messages; the NATS specialisation of cross-team-contract
 - [opportunity-package.md](./opportunity-package.md) — JSON contract for a reviewable product opportunity recommendation, lane status, and claim-to-source trace
+- [plan-next-preferences.md](./plan-next-preferences.md) — project-local YAML contract for exact plan-next recommendation exclusions that persist until restored
 - [research-evidence.md](./research-evidence.md) — JSON contract for sources, classified findings, conflicts, gaps, and research trace
 - [requirement-modeling.md](./requirement-modeling.md) — field definitions, format and validation for a requirement document
 - [rule-modeling.md](./rule-modeling.md) — the data contract for modeled Rule documents, stable item IDs, applicability profiles, project parameters and auditable waivers
