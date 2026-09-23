@@ -3,7 +3,7 @@ name: plan-next
 description: Analyze governance state and suggest next actions; ask whether a skipped recommendation lasts for the session or until revoked.
 description_zh: 分析治理状态并推荐下一步；跳过建议时询问仅本会话有效还是持续有效直至撤销。
 tags: [workflow, meta-skill, automation]
-version: 14.0.0
+version: 15.0.0
 license: MIT
 recommended_scope: project
 cognitive_mode: interpretive
@@ -12,23 +12,23 @@ metadata:
 triggers: [plan next, next step, checkpoint, governance, iteration, task done, just finished, what's next, after completing, skip recommendation, skip and continue, permanently skip recommendation, restore recommendation]
 input_schema:
   type: free-form
-  description: Governance docs sources, optional scope, optional threshold overrides, optional glossary_path override, and an explicit skip or restore directive. A skip without a stated duration requires a session-or-persistent choice.
+  description: Governance docs sources, optional scope and thresholds, plus a recommendation skip/restore directive. Missing project conventions may require clarification; a skip without a stated duration requires a session-or-persistent choice.
   defaults:
     thresholds:
       task_stuck_days: 7
     task_source: auto
-    roadmap_tier_source: docs/process-management/roadmap.md
-    artifact_norms_path: docs/ARTIFACT_NORMS.md
+    roadmap_tier_source: auto
+    artifact_norms_path: auto
     glossary_path: auto
 output_schema:
   type: chat
-  description: "Adaptive text suggestions + plain Diagnosis section (## heading, always present). Simple situations: 1-2 sentences of prose. Complex situations (≥2 parallel suggestions): structured cards each with TL;DR quote block, governance_context multi-line short-chain (≤25 words/line), recommended_skill, rationale, completion_marker, priority_label; 2 optional fields (deferral_cost / onboarding_threshold; omit when info insufficient). User-facing sections always jargon-free: no internal codes (L1-L5, G1-G4, P0-P3), no raw status values (pending/in-progress/done/blocked), no project codes without natural-language subtitle (T\\d+/M\\d+/Goal \\d+/BL-\\d+/ADR-\\d+), no MoSCoW words, no process slang. KPI/threshold first occurrence requires triplet (current/target/benchmark). Diagnosis section uses 4-column table and is a technical traceability zone where internal codes are allowed. A skip result reports its duration and whether the project preference was saved."
+  description: "Always report decision_state: actionable, needs_input, no_applicable_action, or complete, including for simple results. Separate evidence, route-specific blockers, candidates, and suppressed candidates. User-facing prose stays jargon-free; diagnostic traceability may use internal codes. A skip result reports its duration and whether the project preference was saved."
 ---
 
 # Skill: Plan Next
 
-> **Role**: governance entry-point advisor
-> **WHAT**: three steps — **Scan** (inventory the governance assets) → **Diagnose** (goal-tree traversal: depth-first per goal to the first unfinished node, combined with a parallelism verdict) → **Recommend** (suggest the next action)
+> **Role**: evidence-led governance router
+> **WHAT**: discover the project's own governance model → diagnose applicable routes and blockers → rank and recommend eligible actions
 > **HOW**: read-only diagnosis on ordinary runs; an explicit persistent skip or restore may update only the project preference file. For a single-dimension problem (only a known omission to check), recommend the dedicated skill directly (`define-*` and the like)
 > **Distinct from**: this skill never executes downstream skills or changes governance state; document health checks are run by the runtime / linter / CI tooling per `rules/doc-health-criteria.md`
 
@@ -54,7 +54,7 @@ Inventory the governance input sources and suggest the next action.
 
 ## Behavior
 
-**Overall rule**: each run rescans governance state from scratch: **Scan → Diagnose → Recommend**. It may read a project-local exclusion list and a conversation-local skip set. Neither source changes the diagnosed state. The only permitted write is an explicit, precisely scoped persistent exclusion or its removal in `.ai-cortex/plan-next.yaml`.
+**Overall rule**: each run rescans governance state from scratch: **Discover → Diagnose → Build candidates → Filter preferences → Recommend**. Keep observations, interpretations, route-specific blockers, and user preferences distinct. A preference changes only which eligible recommendation is shown; it never changes evidence, dependency state, or completion. The only permitted write is an explicit, precisely scoped persistent exclusion or its removal in `.ai-cortex/plan-next.yaml`.
 
 ### Skip a recommendation and continue
 
@@ -97,17 +97,19 @@ The pair `(route, target)` is the exact route key. Do not persist display titles
 
 #### Scope and continuation algorithm
 
-1. Scan and diagnose normally. The scan, priority rules, precondition checks, and dependency graph are unchanged.
-2. Build the complete ordered sequence of currently eligible recommendation candidates before applying the normal display limit. Assign each candidate its exact `(route, target)` key. A candidate is eligible only if its existing governance prerequisites and `depends_on:` predecessors are satisfied.
+1. Discover the project's declared governance conventions and diagnose normally. The scan, priority rules, prerequisites, and dependency graph remain authoritative.
+2. Build the complete ordered sequence of currently eligible recommendation candidates before applying preferences or the normal display limit. Assign each candidate its exact `(route, target)` key. A candidate is eligible only if its evidenced prerequisites and `depends_on:` predecessors are satisfied.
 3. Read `.ai-cortex/plan-next.yaml` when present; combine its exact route keys with the current conversation's skip set. After resolving the displayed action and duration, re-scan before changing either scope. If that exact candidate is no longer eligible or its route key changed, do not save a stale skip; explain the change and offer the current recommendations. For a restore, validate the file and remove the selected key from every active scope before recommending again.
 4. Continue through the ordered sequence, omitting only matching keys. Never treat an exclusion as a completion, a blocked node, or permission to traverse beneath it. A candidate that depends on unfinished work represented by an excluded route, an unfinished ancestor, or a global prerequisite remains ineligible.
 5. Render the first one to three remaining eligible candidates under the normal priority and parallelism rules. Report omitted actions and their durations separately. If every otherwise eligible route is excluded, report that fact distinctly from “all governance work is complete”.
 
-**Precondition and dependency protection**: skipping a global foundation route (for example, establishing documentation norms) does not unlock goal-tree traversal. Skipping a route with unfinished dependents does not make its dependents eligible. If all other routes are protected this way or have already been excluded, report that there is no further applicable recommendation; never invent a lower-level alternative just to fill the slot.
+**Prerequisite and dependency protection**: skipping a route never unlocks its dependents. A true global prerequisite blocks every route it governs; a route-scoped prerequisite blocks only its dependents; an uncertain relationship is not silently promoted to a global blocker—ask for clarification if it changes which action is safe. Continue evaluating independent candidates. Never invent a lower-level alternative just to fill the slot.
 
-### Step 0: resolve the norms
+### Step 0: discover the project's governance model
 
-`cache` is used for the `path_pattern` resolution in step 2.1.
+Resolve canonical artifact types and locations from the strongest project-local evidence available, in this order: explicit project configuration or agent entry point; the project's own artifact norms/indexes; existing linked governance artifacts and repository structure; AI Cortex defaults only when the project declares or clearly adopts them. Record the source and confidence. Existing artifacts in a coherent project-native structure are evidence of a valid local convention, not an omission merely because a conventional directory is absent.
+
+If sources conflict, prefer the higher-authority project declaration and report the conflict. If the project has no declared map and repository evidence cannot resolve a route's target or its applicability, mark that decision `needs_input`; ask a focused question rather than manufacturing a directory requirement. The optional cache may speed up path resolution but is not authority and never substitutes for inspecting current evidence.
 
 ### Step 1: Scan — asset inventory
 
@@ -115,15 +117,15 @@ The pair `(route, target)` is the exact route key. Do not persist display titles
 
 | Abstraction layer | Subject | Where to scan | Refinement fields |
 | --- | --- | --- | --- |
-| Intent | **Why** | `docs/project-overview/{mission,vision,north-star,strategic-goals,strategic-pillars}.md` | — |
-| Intent | **What/When** | `docs/process-management/{roadmap,backlog/}.md`, `docs/requirements/`, `docs/tasks/` | roadmap → node status; tasks/ → `status` |
-| Intent | **How** | `docs/adr/`, `docs/designs/` | `status` |
+| Intent | **Why** | Project-declared locations for mission, vision, goals, and success measures (common default: `docs/project-overview/`) | — |
+| Intent | **What/When** | Project-declared roadmap, backlog, requirements, and task locations (common defaults: `docs/process-management/`, `docs/requirements/`, `docs/tasks/`) | roadmap → node status; tasks → `status` |
+| Intent | **How** | Project-declared design and decision-record locations (common defaults: `docs/adr/`, `docs/designs/`) | `status` |
 | Implementation | **Is** | the repository code | — |
-| Meta-rule | **Rules** | `docs/ARTIFACT_NORMS.md`, `specs/`, `protocols/`, `rules/` | — |
+| Meta-rule | **Rules** | Project-declared locations for norms, specs, protocols, and rules; common defaults are examples, not required names | — |
 
 The abstraction layers are mutually exclusive; the refinement fields are auxiliary dimensions of the same subject, **not a separate scan**, and are consumed by §2.1.
 
-**How to scan** — record 2 fields for each asset:
+**How to scan** — resolve paths using Step 0, then record 2 fields for each expected asset:
 
 | Field | Criterion |
 | --- | --- |
@@ -148,16 +150,31 @@ Strategic goal
 
 | Sub-step | What it does | Output |
 | --- | --- | --- |
-| 2.0 Precondition gate | Is the Rules layer in place? | Otherwise short-circuit |
+| 2.0 Applicability and prerequisite assessment | Which declared prerequisites govern which routes? | Classify each as satisfied, route-blocking, globally blocking, or uncertain; do not short-circuit unrelated routes |
 | 2.1 Goal-tree traversal | Traverse each goal depth-first, locate the first gap + the parallelism verdict | Each goal's current position + routing suggestions |
 | 2.2 Drift sweep | Artifact updated_at vs the time the aligned goal changed; past the threshold, route to a dedicated skill | A list of drift entries |
 | 2.3 Hygiene sweep | Archiving finished milestones, ADR status, repository structure, changes in the skills layer, and so on | A list of hygiene issues |
 
 The G1-G4 gap types are used as sub-labels in the diagnostic-basis section.
 
-#### 2.0 Precondition gate: check for a missing Rules layer
+#### 2.0 Applicability and prerequisite assessment
 
-If `ARTIFACT_NORMS.md` is missing or `specs/` is empty, trigger a **short-circuit**: skip the goal-tree traversal and produce a single P0 candidate (establish the norms + re-run plan-next). Apply the exclusion filter only after this diagnosis; excluding the candidate never clears the gate.
+Do not treat the presence/absence of a conventional path (including `docs/ARTIFACT_NORMS.md` or `specs/`) as a universal prerequisite by itself. First determine whether the project's declared model requires it and which artifact types/routes it governs. A missing required norms artifact may create a high-priority candidate, but it blocks only routes whose applicability or safe evaluation genuinely depends on it. Scan and report independent routes regardless. If an applicable artifact location cannot be determined from project evidence, ask for the missing convention; do not guess a directory.
+
+For every prerequisite, record: `evidence`, `scope` (`global` / named route or artifact types), and `effect` (`satisfied` / `blocks route` / `blocks all governed routes` / `uncertain`). An excluded recommendation stays unfinished and its prerequisites retain their original effect.
+
+#### 2.0.1 Decision state
+
+Set exactly one top-level result state after considering the complete candidate sequence and all evidence:
+
+| State | Use when | Required user-facing behavior |
+| --- | --- | --- |
+| `actionable` | At least one candidate passes its prerequisites, dependencies, and safety checks after preferences are applied | Recommend the highest-priority eligible action(s); report independent blockers separately |
+| `needs_input` | Missing or conflicting evidence could materially change route applicability, target, or safe next action | Ask one focused question; do not imply that no work exists or that the project is complete |
+| `no_applicable_action` | Diagnosis is sufficient but no action can proceed now (waiting, dependency-protected, or all eligible routes excluded) | State the specific cause, excluded work, and any owner/wait condition; explicitly say this is not completion |
+| `complete` | All project-declared goals and acceptance conditions are met; no unfinished, excluded, waiting, or evidence-limited route remains | State the evidence supporting completion; do not infer this merely from an empty candidate list |
+
+When independent candidates remain alongside a blocked route, use `actionable` and retain the blocker as a separate finding. When applicability is genuinely unknown and changes whether those candidates are safe, use `needs_input`.
 
 #### 2.1 Goal-tree traversal
 
@@ -326,16 +343,16 @@ Check for slowly accumulating governance debt and output a list of hygiene issue
 
 ### Step 3: Recommend — routing generation and tiering
 
-**Source**: consumes the output of step 2 (see "Outputs of the Diagnose step").
+**Source**: consumes the output of step 2 (see "Outputs of the Diagnose step"). Keep the candidate sequence separate from its visible projection: diagnosis first; preference filtering only after eligibility and ranking.
 
 #### 3.1 Tiering decision
 
-Consume the per-goal traversal results from §2.1 into a complete ordered candidate sequence, then route the first 1-3 eligible, non-excluded entries into "Do now":
+Consume the traversal and independent drift/hygiene results into a complete ordered candidate sequence, then route the first 1-3 eligible, non-excluded entries into "Do now":
 
-- The **main-chain route** (the first gap under the highest-priority goal) is considered first and goes into "Do now" unless its exact route key is excluded
+- The **main-chain route** (the first gap under the highest-priority goal) is considered first when its actual prerequisites pass; if blocked, record why and continue to independent candidates
 - A **parallel route** (an independent node opened up by a blocked one) also goes into "Do now" when it can start immediately
 - When a displayed route is excluded for the session or persistently, omit it and continue through the candidate sequence. A dependent or lower-level route still cannot displace it.
-- Beyond 3 rendered entries, truncate by priority; candidate lists are recomputed on each run. Only exact persistent route keys are stored.
+- Beyond 3 rendered entries, truncate by priority; candidate lists are recomputed on each run. Only exact persistent route keys are stored. Blocked candidates are never promoted to executable candidates by ordering, exclusion, or display truncation.
 
 **Parallel routing**: when the parallelism verdict is "parallel" or "converge", state the reason for parallelism or the convergence target explicitly in the routing evidence; when it is "focus", route only the current node.
 
@@ -353,7 +370,7 @@ For tasks that become ready tomorrow or later in the week, use the `defer` label
 
 #### 3.2 Priority (governance urgency)
 
-- **Now (P0)**: a foundational problem blocking all other governance progress (the Rules layer is missing, or L1 has no goal)
+- **Now (P0)**: a foundational problem with evidence that it blocks all governed routes (or L1 has no goal and the project has no higher-authority alternative)
 - **Next (P1)**: the L2 roadmap is missing or not aligned to a goal
 - **Later (P2)**: a gap at any of L3-L5
 - **Ignorable (P3)**: the remaining secondary findings
@@ -491,6 +508,8 @@ Violating this table = the "Do now" output is unacceptable; the offending fields
 ````markdown
 # Next-step suggestions
 
+> **Decision state**: `actionable` | `needs_input` | `no_applicable_action` | `complete`
+
 > **Situation**: [objective status summary, ≤25 words. Example: the M5 must-deliver items are clear, three expected-deliver items not started]
 > **Core tension**: [the sticking point this cycle, ≤30 words. Example: the adoption-rate pipeline is live but the sample has not reached 100, so acceptance cannot be judged yet]
 
@@ -525,11 +544,7 @@ Violating this table = the "Do now" output is unacceptable; the offending fields
 
 ...(same format as above, at most 3; several tasks starting in parallel render as several side-by-side cards, see the multi-task multi-card rendering rule in §3.1)
 
-When exclusions remove the last eligible candidate:
-
-```text
-No further applicable "Do now" recommendation. [Excluded action] remains unfinished; the remaining main routes are excluded or are not independently eligible under the existing prerequisites and dependencies. This is not an all-work-complete verdict. Independent secondary findings, if any, remain under "Also worth noting".
-```
+When no candidate remains, use the appropriate state-specific behavior from §2.0.1. State the blocker or completion evidence plainly; an empty list alone is never a completion claim.
 
 ---
 
@@ -553,6 +568,8 @@ No further applicable "Do now" recommendation. [Excluded action] remains unfinis
 - **Project situation**: [one-sentence summary]
 - **Asset inventory**: [list only the assets whose status changed]
 - **Excluded routes**: [action name, exact route key, evidence path, and session/persistent duration; write "none" when empty]
+- **Route blockers**: [candidate/action, blocker evidence, scope, and whether independent candidates remain; write "none" when empty]
+- **Open decision** (when `needs_input`): [the one fact needed and how its answer changes routing]
 
 **Decision logic**:
 
@@ -621,7 +638,7 @@ Goal 1:
 **On responsibility boundaries**:
 
 - ❌ Calling any downstream skill or editing a governance artifact
-- ❌ Hiding the reason for a skip (a short-circuit must be stated explicitly)
+- ❌ Hiding the reason for a skip or treating a route-level blocker as global
 - ❌ Mixing in downstream execution detail (no writing ADRs, no fixing code, no tidying structure)
 - ❌ Treating a skipped recommendation as `done`, `blocked`, `cancelled`, a date change, or any other persisted governance state
 - ❌ Choosing session or persistent scope when the user did not specify one
@@ -687,9 +704,10 @@ Goal 1:
 
 **Scan**:
 
-- [ ] The cache is loaded, or "no norms found" is stated explicitly
+- [ ] Project governance sources were discovered in precedence order; unresolved conventions are reported rather than replaced with assumed directories
 - [ ] The 2 asset fields are present (path + status)
 - [ ] Whether the roadmap is tiered has been decided; where it is not, `promote-roadmap-items` has been routed
+- [ ] The project-declared artifact conventions and evidence source for each path mapping were identified; no conventional directory was assumed mandatory
 
 **Diagnose**:
 
@@ -705,6 +723,7 @@ Goal 1:
 - [ ] The "finished" verdict rests on the status field alone, with no git signals introduced
 - [ ] The drift sweep (step 2.2) was run; artifacts past the threshold are in the drift entry list
 - [ ] The hygiene sweep (step 2.3) was run; finished-but-unarchived milestones, ADR status problems and repository structure problems were all scanned
+- [ ] Prerequisites were scoped to the routes they actually govern; uncertain applicability was surfaced as `needs_input`, not inflated into a global blocker
 
 **Recommend**:
 
@@ -726,6 +745,7 @@ Goal 1:
 - [ ] **(When the project changed during a duration choice)** The displayed route was revalidated before any skip was saved; a stale suggestion was not persisted
 - [ ] **(When a skip directive is present)** The complete eligible candidate sequence was considered before the display limit; every remaining route still passed its normal preconditions and dependencies
 - [ ] **(When an exclusion is active)** The omitted action and its duration are reported, and a no-candidate result says so plainly rather than exposing a dependent route
+- [ ] A `no_applicable_action` result is not called complete; `complete` requires all declared acceptance conditions met and no unfinished, excluded, or evidence-limited work
 
 **Output**:
 
@@ -789,16 +809,17 @@ Goal 1:
 - **Drift sweep result**: none
 - **Hygiene sweep result**: none
 
-### Example 2: a new project starting up (the short-circuit case)
+### Example 2: a new project with an explicit global documentation prerequisite
 
-**Scenario**: a new project; `docs/ARTIFACT_NORMS.md` does not exist and `specs/` is empty.
+**Scenario**: a new project explicitly declares that all governance artifacts must follow its artifact norms, but the norms are absent and no alternate path map or linked governance artifacts exist. `specs/` is also absent, but that absence is not itself the prerequisite.
 
 **Output** (example):
 
 #### Next-step suggestions
 
 > **Situation**: a new project, the documentation norms file is missing
-> **Core tension**: with no shared norms, every governance document that follows has no standard to work from, so the goal-tree traversal is skipped
+> **Core tension**: the project makes its artifact norms a prerequisite, and no existing evidence can safely resolve governance targets before that convention is recorded
+> **Decision state**: `actionable`
 
 ---
 
@@ -809,24 +830,24 @@ Goal 1:
 > Establish the documentation norms first, so every governance file that follows has a standard to work from.
 
 - Governance context:
-  - Strategic goal: not yet reachable (stopped early because the norms file is missing)
+  - Strategic goal: not yet established
   - Current KPI: data missing (the governance norms are not established)
   - Roadmap: not yet evaluated (re-run once the norms file is ready)
-  - Current position: the norms file is missing, the goal-tree traversal is skipped
+  - Current position: the declared global documentation prerequisite is missing
 - Recommended skill: `/define-docs-norms generate docs/ARTIFACT_NORMS.md from the project structure`
-- Evidence: `docs/ARTIFACT_NORMS.md` is missing, `specs/` is empty
-- Completion marker: re-run plan-next once ARTIFACT_NORMS.md lands
+- Evidence: project configuration requires artifact norms; the declared norms file is missing and no alternative path map exists
+- Completion marker: the project records its artifact conventions; re-run plan-next to resolve any remaining independent foundation work
 
 ##### Diagnostic basis
 
-- **Project situation**: the norms layer is absent, the goal-tree traversal is skipped
+- **Project situation**: a project-declared global prerequisite is missing; the route was scoped globally by that declaration, not by a default path heuristic
 
 **Decision logic**:
 
 | Level | Node | Status | Inference |
 | --- | --- | --- | --- |
-| Norms layer | ARTIFACT_NORMS.md | missing | the absent norms trigger an early stop, the goal-tree traversal is skipped |
-| Strategic goal | — | not evaluated | re-run plan-next once the norms are ready |
+| Norms layer | ARTIFACT_NORMS.md | missing | candidate to establish local conventions; no global stop is inferred from the path alone |
+| Strategic goal | project-declared target | not evaluated | target selection depends on the explicit project-wide artifact-norms prerequisite; re-run after it is satisfied |
 
 - **Drift sweep result**: none
 - **Hygiene sweep result**: none
@@ -1036,48 +1057,28 @@ Goal 1:
 - **Drift sweep result**: none
 - **Hygiene sweep result**: none
 
-### Example 7: choose a duration for a foundation recommendation (Wright situation)
+### Example 7: skip an initially suggested but unsubstantiated route (Wright situation)
 
-**Scenario**: Wright has project-specific requirement, design, and integration-contract directories, but no general `specs/` directory. The initial scan therefore recommends establishing documentation norms before traversing the project further. The user says: “skip the first suggestion and continue recommending.”
+**Scenario**: an earlier `plan-next` result recommends creating a general `specs/` directory because that conventional path is absent. Wright already has its own requirements, designs, and integration-contract directories, and its artifact norms document exists. The user says: “skip the first suggestion for this conversation and continue.”
 
 **Required handling**:
 
-1. Resolve “first suggestion” to the displayed documentation-norms recommendation in the immediately preceding result.
-2. Ask whether the user means this conversation or a persistent project preference. Do not apply the skip until the user chooses. Suppose the user answers “keep skipping it until I restore it”.
-3. If the displayed route's resolved target is `docs/ARTIFACT_NORMS.md`, add `(define-docs-norms, docs/ARTIFACT_NORMS.md)` to Wright's `.ai-cortex/plan-next.yaml`; otherwise use its actual resolved artifact path. Keep Wright's task status, roadmap, existing directories, and norms document unchanged.
-4. Re-evaluate the remaining candidates. The missing foundation is still a global precondition, so deeper requirement, design, or contract routes are not independently eligible.
-5. Report the persistent skip and the absence of a safe follow-up. The example does not declare any Wright directory convention as a general AI Cortex rule.
+1. Resolve “first suggestion” against the latest displayed list. “For this conversation” explicitly selects the session scope, so do not write `.ai-cortex/plan-next.yaml`.
+2. Revalidate the route against current project evidence before recording the session skip. The stated reason for creating general norms is contradicted by the existing norms document; absence of `specs/` alone does not establish a gap. Do not store a stale route key as a skip; explain that the route did not survive revalidation and leave it out of this fresh result.
+3. Re-run candidate diagnosis using the project's own declared conventions and linked artifacts. Keep dependencies and genuine prerequisites intact; surface independent eligible work, or state `needs_input` if a specific mapping cannot be established.
+4. Report that the suggestion was set aside for this conversation, explain why it did not survive revalidation, and give the next applicable recommendation. Do not modify tasks, roadmap, norms, or other governance documents.
+
+This example uses Wright only to demonstrate revalidation and session-scoped skipping. Its directory structure is project evidence, not an AI Cortex convention.
 
 **Output** (example):
 
-#### Next-step suggestions
-
-> **Situation**: the documentation-norms recommendation is excluded until restored; the scan still finds no general `specs/` directory
-> **Core tension**: the remaining work cannot be evaluated safely while the documentation precondition remains unmet
-
----
-
-##### Skipped recommendations
-
-- **1. Establish the documentation norms foundation** — excluded until the user restores it; preference saved in `.ai-cortex/plan-next.yaml`; no governance artifact or status changed.
-
----
-
-##### Do now
-
-No further applicable "Do now" recommendation. Establishing the documentation norms foundation remains unfinished; the remaining main routes are not independently eligible under the existing prerequisites and dependencies. This does not mean all governance work is complete.
-
-##### Diagnostic basis
-
-- **Project situation**: the user persistently excluded the documentation-norms recommendation; the scan still found no general `specs/` directory
-- **Excluded routes**: `define-docs-norms` + `docs/ARTIFACT_NORMS.md`; evidence: the absent general `specs/` directory; persistent until restored
-
-**Decision logic**:
-
-| Level | Node | Status | Inference |
-| --- | --- | --- | --- |
-| Norms layer | `specs/` | missing | user excluded the documentation-norms recommendation; the global precondition still prevents deeper routing |
-| Requirement / design / contract | project-specific directories | not evaluated | their presence does not override the general precondition or establish a portable directory rule |
+> **Decision state**: `actionable`
+>
+> **Skipped recommendation**: establish a general `specs/` directory — omitted from this fresh result at your request. No session key was stored because revalidation found that the route itself is not applicable: the project has an artifact norms document and uses its own linked requirements, designs, and integration contracts. Absence of `specs/` alone is not a gap.
+>
+> **Do now**: [the highest-priority independent eligible action supported by the fresh scan]. Its prerequisites and dependencies were checked normally; no governance state was changed.
+>
+> **Diagnostic basis**: the former directory-based recommendation was not retained as an unfinished prerequisite. Wright's local directory names are project evidence only, not portable rules.
 
 - **Drift sweep result**: none
 - **Hygiene sweep result**: none
