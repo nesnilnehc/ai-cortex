@@ -3,7 +3,7 @@ name: orchestrate-governance-step
 description: Single-step governance executor — reads plan-next routing output, executes the highest-priority action, and emits a continuation signal for /loop-driven autopilot.
 description_zh: 单步治理执行器——读取 plan-next 路由输出，执行最高优先级动作，发出继续信号以支持 /loop 全自动推进。
 tags: [automation, workflow, meta-skill]
-version: 2.2.2
+version: 2.3.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -24,7 +24,7 @@ output_schema:
 > **Role**: single-step governance executor — the execution half that pairs with plan-next
 > **WHAT**: each invocation carries out 1 plan-next routing suggestion and emits a `continuation_signal` for `/loop` to drive the next iteration
 > **HOW**: call plan-next internally → take the highest-priority card → apply the human gate → run the sub-skill → verify afterwards → emit the report
-> **Distinct from**: `plan-next` (read-only diagnosis, no execution); `/loop` (scheduling only, no business logic); `orchestrate-repair-loop` (repairs code defects, does not advance the governance layer)
+> **Distinct from**: `plan-next` (diagnosis and user-directed recommendation preferences, no downstream execution); `/loop` (scheduling only, no business logic); `orchestrate-repair-loop` (repairs code defects, does not advance the governance layer)
 
 ---
 
@@ -32,13 +32,13 @@ output_schema:
 
 Turn a plan-next routing suggestion into one executable governance action, which is what makes a fully automatic autopilot (`/loop /orchestrate-governance-step`) possible.
 
-plan-next can only diagnose and suggest; the user has to run each suggestion by hand. orchestrate-governance-step fills that execution gap and, together with `/loop`, gives three orthogonal layers of automation:
+plan-next diagnoses and suggests; the user has to run each suggestion by hand. orchestrate-governance-step fills that execution gap and, together with `/loop`, gives three orthogonal layers of automation:
 
 | Layer | Skill | Responsibility |
 | --- | --- | --- |
 | Scheduling | `/loop` | Fires once every N minutes |
 | **Driving** | **orchestrate-governance-step** | Read the routing → run 1 step → report |
-| Diagnosis | `plan-next` | Inventory + gap identification + routing suggestions (read-only) |
+| Diagnosis | `plan-next` | Inventory + gap identification + routing suggestions; reads saved exclusions |
 
 ---
 
@@ -77,6 +77,7 @@ plan-next can only diagnose and suggest; the user has to run each suggestion by 
 - Loop scheduling → `/loop` (built into Claude Code)
 - The code-defect repair loop → `orchestrate-repair-loop`
 - The content of strategic and creative decisions (mission, vision, strategic goals) → a human is needed
+- Persisting a human-gate skip → this skill's skip-list remains session-only and never writes a plan-next preference
 
 **Handoff points**:
 
@@ -120,21 +121,22 @@ Sort "Do now" by priority (`urgent` → `important` → `defer` → `awaiting ex
 
 - An executable card is found → go to step 5
 - Every card was skipped (the skip-list covers all of "Do now") → `continuation_signal: blocked`, and the report lists every skipped card with its blocking reason
-- "Do now" is itself empty → apply the three-state decision below
+- "Do now" is itself empty → apply the decision table below
 
-**Three-state decision** (do not mistake "awaiting execution" for "finished"):
+**Decision table** (do not mistake "awaiting execution" for "finished"):
 
 | plan-next output | continuation_signal | Meaning |
 | --- | --- | --- |
 | Routing cards present (urgent / important / defer) | Continue at step 3 | Governance has a gap; a sub-skill can run |
 | Only "awaiting execution" cards (tasks already broken down, waiting on development) | `blocked` | Governance is ready, waiting on outside work |
-| Completely empty (every goal has status=done and the L1 KPI is met) | `done` | Governance and acceptance are both met |
+| Empty because recommendations are excluded for the session or persistently | `blocked` | Work remains; report the excluded routes and their durations |
+| Completely empty, with no excluded unfinished route, every goal status=done and the L1 KPI met | `done` | Governance and acceptance are both met |
 
 **Key constraints**:
 
-- An empty "Do now" ≠ done. It must first be confirmed that plan-next reached that verdict after the L1 acceptance-KPI check and the L5 awaiting-execution branch
-- If the plan-next output carries no L1 acceptance-KPI status field → treat the plan-next call as non-compliant, emit `error`, and prompt for a plan-next upgrade
-- A strategic goal with `status = approved` whose acceptance is not met → plan-next necessarily returns routing (establish the KPI, or an awaiting-execution card), so the result should not be empty
+- An empty "Do now" ≠ done. It must first be confirmed that plan-next reached that verdict after the L1 acceptance-KPI check and the L5 awaiting-execution branch, and that no excluded unfinished route accounts for the empty list
+- Resolve a known excluded unfinished route first: an empty visible list caused by exclusions means `blocked`, even when a precondition stopped L1 traversal. Otherwise, if the plan-next output carries no L1 acceptance-KPI status field → treat it as non-compliant, emit `error`, and prompt for a plan-next upgrade
+- A strategic goal with `status = approved` whose acceptance is not met may produce an empty visible list only because routes were excluded; emit `blocked`, never `done`
 
 ### Step 3: stall detection
 
@@ -153,6 +155,8 @@ In the following cases the current card counts as **blocked**: add its fingerpri
 - **The first routing item is to establish the L1 acceptance-KPI data source** and the recommended skill is a design or architecture one: the monitoring approach needs human confirmation and is not run automatically
 
 **Only once the skip-list covers every card in "Do now"** is `continuation_signal: blocked` emitted, with the IterationStepReport listing every skipped item and its blocking reason and asking the user to step in.
+
+The human gate's skip-list is separate from the user-controlled exclusions in `plan-next`. Never write the project's `.ai-cortex/plan-next.yaml` from a human-gate decision.
 
 **Why skip by default instead of stopping immediately**: the value of /loop lies in advancing everything that can be automated; stopping at the first creative card would pointlessly block the N non-creative cards behind it. Skipping keeps the non-blocked work flowing and collects the parts that need a human into one report.
 
@@ -202,8 +206,10 @@ The only legitimate source of a `done` signal is this step's verification result
 
 | Result | Action |
 | --- | --- |
+| The target card is merely excluded rather than resolved by execution | `continuation_signal: error`; disappearance does not prove progress |
 | The card is gone, "Do now" still has entries | `continuation_signal: advance` |
-| The card is gone, "Do now" is empty | `continuation_signal: done` |
+| The card is gone, "Do now" is empty, no excluded unfinished route remains, and the L1 KPI is met | `continuation_signal: done` |
+| The card is gone, "Do now" is empty because other routes are excluded | `continuation_signal: blocked`; report the exclusions |
 | The card is still there | Update the stall counter; when the count reaches 2 → `continuation_signal: stalled` |
 
 ### Step 7: emit the IterationStepReport
@@ -257,8 +263,8 @@ The only legitimate source of a `done` signal is this step's verification result
 | Value | Meaning | /loop behavior |
 | --- | --- | --- |
 | `advance` | The action finished and governance still has work | Fire again |
-| `done` | "Do now" was empty when plan-next was re-run in step 6; **emitting this value from the model's own inference is forbidden** | Stop the loop |
-| `blocked` | Every card in "Do now" either hit the human gate or is "awaiting execution" (nothing executable was left after trying and skipping each one) | Stop the loop and wait for the user |
+| `done` | Step 6 confirmed that "Do now" is empty, no unfinished route is excluded, and the L1 KPI is met; **emitting this value from the model's own inference is forbidden** | Stop the loop |
+| `blocked` | Every visible card hit the human gate or awaits outside execution, or an excluded unfinished route leaves no executable card | Stop the loop and wait for the user |
 | `stalled` | The same routing card made no progress for 2 rounds in a row | Stop the loop and report the stall |
 | `error` | The sub-skill failed with no recovery path | Stop the loop and report the error |
 
@@ -285,12 +291,12 @@ The only legitimate source of a `done` signal is this step's verification result
 
 **Rule 4**: the `done` signal MUST come from the step 6 plan-next re-run, and MUST NOT come from the model's own inference
 
-- Verification: the IterationStepReport notes carry no self-assessment language such as "the whole governance layer is ready" or "everything currently executable has been created"; `done` is emitted only after step 6 confirms that "Do now" is empty
+- Verification: the IterationStepReport notes carry no self-assessment language such as "the whole governance layer is ready" or "everything currently executable has been created"; `done` is emitted only after step 6 confirms that "Do now" is empty, the KPI is met, and no excluded unfinished route remains
 - Consequence: REJECT (the model took the routing judgment away from plan-next, breaking the responsibility boundaries of the three-layer model)
 
-**Rule 5**: `done` MUST satisfy all three at once — the plan-next output declares "the L1 acceptance KPI is met" AND "Do now is empty" AND "there is no awaiting-execution card"
+**Rule 5**: `done` MUST satisfy all four at once — the plan-next output declares "the L1 acceptance KPI is met" AND "Do now is empty" AND "there is no awaiting-execution card" AND "there is no excluded unfinished route"
 
-- Verification: when emitting `done`, the IterationStepReport quotes the KPI status field from the plan-next governance context (such as "citation visibility 85% ≥ 80% (met)"); as long as the KPI is unmet, its data is missing, or an "awaiting execution" card is present, `done` must never be emitted
+- Verification: when emitting `done`, the IterationStepReport quotes the KPI status field from the plan-next governance context (such as "citation visibility 85% ≥ 80% (met)") and confirms no excluded unfinished route remains; an unmet or unmeasured KPI, an "awaiting execution" card, or a suppressed unfinished route forbids `done`
 - Consequence: REJECT (mistaking "strategic goal status=approved" for acceptance being met makes /loop stop at the wrong time)
 
 **Rule 6**: a card labeled "awaiting execution" MUST go on the skip-list with the next one tried, and MUST NOT be executed or turned straight into done; `blocked` is emitted only once every card has been skipped
@@ -415,7 +421,7 @@ The only legitimate source of a `done` signal is this step's verification result
 3. continuation_signal: done is emitted directly, with no plan-next re-run
 ```
 
-**What goes wrong**: the model has taken over the "governance layer vs developer execution layer" judgment — that is plan-next's job, not orchestrate-governance-step's. A blocked node (T48/T52 depending on T47/T49, say) is for plan-next to route and to trigger a `blocked` signal, not for the model to declare "governance finished" on its own. `done` has exactly one legitimate source: "Do now" is empty when plan-next is re-run in step 6.
+**What goes wrong**: the model has taken over the "governance layer vs developer execution layer" judgment — that is plan-next's job, not orchestrate-governance-step's. A blocked node (T48/T52 depending on T47/T49, say) is for plan-next to route and to trigger a `blocked` signal, not for the model to declare "governance finished" on its own. `done` requires the step 6 plan-next re-run to show acceptance met, an empty "Do now", and no excluded unfinished route.
 
 ---
 
@@ -554,6 +560,14 @@ The only legitimate source of a `done` signal is this step's verification result
 
 ---
 
+### Example 2c: a persistent exclusion leaves no visible action
+
+**Scenario**: plan-next finds an unfinished documentation-norms route, but the user has excluded its exact route key in `.ai-cortex/plan-next.yaml`. The precondition still blocks deeper traversal, so "Do now" is empty and "Skipped recommendations" names that route.
+
+**Result**: emit `continuation_signal: blocked` and report the excluded route. Do not emit `done`, even though no card is visible and no L1 KPI was evaluated after the precondition stopped traversal. The human gate does not add or remove a persistent preference.
+
+---
+
 ### Example 3 (edge case): stall detection — the sub-skill made no progress
 
 **Scenario**: after the last `/capture-work-items` run, the requirement document was never written; this time plan-next routes the same card.
@@ -618,9 +632,10 @@ The only legitimate source of a `done` signal is this step's verification result
 - **How to spot it**: the `Next` field carries self-assessment language such as "the whole governance layer is ready", "everything currently executable has been created", or "this belongs to the developer execution layer", with no record of a step 6 plan-next re-run
 - **How to correct it**:
   1. Re-run `/plan-next`
-  2. If "Do now" is empty → `done` was right, and the report needs no change
-  3. If "Do now" holds only blocked entries → correct the internal continuation signal to `blocked` and explain the blocking reason in `Next`
-  4. If "Do now" still has executable entries → correct the internal continuation signal to `advance` and carry on
+  2. If "Do now" is empty, acceptance is met, and no unfinished route is excluded → `done` was right, and the report needs no change
+  3. If exclusions account for the empty list → correct the signal to `blocked` and name the excluded routes
+  4. If "Do now" holds only blocked entries → correct the internal continuation signal to `blocked` and explain the blocking reason in `Next`
+  5. If "Do now" still has executable entries → correct the internal continuation signal to `advance` and carry on
 
 ---
 
@@ -788,7 +803,8 @@ additionalProperties: false
 - [ ] Human gate: a strategic or creative skill and an "awaiting execution" card go on the skip-list by default and the next card is tried; blocked is emitted only once every card in "Do now" has been skipped
 - [ ] A valid continuation_signal is emitted every time (advance / done / blocked / stalled / error)
 - [ ] **Does the "governance context" in the plan-next output carry the current L1 acceptance-KPI status**? If not, treat plan-next as non-compliant, emit error, and prompt for an upgrade
-- [ ] **The `done` signal satisfies all three conditions**: the plan-next output has "Do now" empty + the KPI met + no "awaiting execution" card
+- [ ] **The `done` signal satisfies all four conditions**: the plan-next output has "Do now" empty + the KPI met + no "awaiting execution" card + no excluded unfinished route
+- [ ] The human gate did not write `.ai-cortex/plan-next.yaml`; an empty list caused by exclusions emitted `blocked`
 - [ ] **In cron mode (fixed interval), the first report carries the suggestion to switch to a dynamic /loop**
 - [ ] **The 2nd consecutive `stalled` carries the "CronDelete `<job-id>` immediately" prompt**
 

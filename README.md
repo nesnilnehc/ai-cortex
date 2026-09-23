@@ -10,7 +10,7 @@ When an agent works inside this repository, [AGENTS.md](AGENTS.md) is authoritat
 
 ## 🧭 What's inside
 
-**68 skills** ([index](skills/INDEX.md)), **31 rules** ([index](rules/INDEX.md)), **19 specs** ([index](specs/INDEX.md)) and **1 protocol** ([index](protocols/INDEX.md)).
+**68 skills** ([index](skills/INDEX.md)), **31 rules** ([index](rules/INDEX.md)), **20 specs** ([index](specs/INDEX.md)) and **1 protocol** ([index](protocols/INDEX.md)).
 
 | Area | Count | Representative skills |
 | :--- | ---: | :--- |

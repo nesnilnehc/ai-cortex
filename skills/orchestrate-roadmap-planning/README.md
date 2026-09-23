@@ -29,7 +29,7 @@ One aggregated report: the result of each step, which steps were skipped and why
 
 | Skill | Coverage | Relationship |
 | :--- | :--- | :--- |
-| `plan-next` | Cross-layer, read-only | This skill does not reimplement its goal-tree walk |
+| `plan-next` | Cross-layer diagnosis | This skill does not reimplement its goal-tree walk |
 | `orchestrate-governance-step` | Cross-layer, executes 1 suggestion | It can call this skill as one executable action |
 | This skill | The roadmap vertical slice only | Must not call back into either of the two above |
 

@@ -3,7 +3,7 @@ name: orchestrate-roadmap-planning
 description: Orchestrator skill — run one roadmap planning pass by sequencing atomic skills from strategic goals through capture, scoring, dependency mapping, and promotion, satisfying each skill's halt conditions up front.
 description_zh: 编排技能——按固定顺序串联从战略目标到晋升的原子技能，跑完一轮 roadmap planning；核心价值是提前满足各原子技能的 halt 条件。
 tags: [planning, orchestration]
-version: 1.0.0
+version: 1.0.1
 license: MIT
 recommended_scope: project
 metadata:
@@ -139,7 +139,7 @@ A single report, containing:
 
 | Skill | Coverage | Behavior | Relationship |
 | --- | --- | --- | --- |
-| `plan-next` | Cross-layer, read-only | Traverses the goal tree into a routing suggestion | This skill must not reimplement the traversal; it may read that state |
+| `plan-next` | Cross-layer diagnosis | Traverses the goal tree into a routing suggestion; explicit preference changes affect only its exclusion file | This skill must not reimplement the traversal; it may read that state |
 | `orchestrate-governance-step` | Cross-layer, executes 1 suggestion | Generic single-step executor | May call this skill as one executable action |
 | `orchestrate-roadmap-planning` | The roadmap vertical slice only | Runs the fixed sequence end to end | Must not call either of the two above in reverse |
 

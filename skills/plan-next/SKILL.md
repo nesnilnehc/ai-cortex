@@ -1,18 +1,18 @@
 ---
 name: plan-next
-description: Analyze governance state and suggest next actions from existing docs; read-only — never executes downstream skills.
-description_zh: 基于现有治理文档分析状态并给出下一步行动建议；只读——不执行下游技能。
+description: Analyze governance state and suggest next actions; ask whether a skipped recommendation lasts for the session or until revoked.
+description_zh: 分析治理状态并推荐下一步；跳过建议时询问仅本会话有效还是持续有效直至撤销。
 tags: [workflow, meta-skill, automation]
-version: 13.3.2
+version: 14.0.0
 license: MIT
 recommended_scope: project
 cognitive_mode: interpretive
 metadata:
   author: ai-cortex
-triggers: [plan next, next step, checkpoint, governance, iteration, task done, just finished, what's next, after completing]
+triggers: [plan next, next step, checkpoint, governance, iteration, task done, just finished, what's next, after completing, skip recommendation, skip and continue, permanently skip recommendation, restore recommendation]
 input_schema:
   type: free-form
-  description: Governance docs sources, optional scope, optional threshold overrides, optional glossary_path override.
+  description: Governance docs sources, optional scope, optional threshold overrides, optional glossary_path override, and an explicit skip or restore directive. A skip without a stated duration requires a session-or-persistent choice.
   defaults:
     thresholds:
       task_stuck_days: 7
@@ -22,15 +22,15 @@ input_schema:
     glossary_path: auto
 output_schema:
   type: chat
-  description: "Adaptive text suggestions + plain Diagnosis section (## heading, always present). Simple situations: 1-2 sentences of prose. Complex situations (≥2 parallel suggestions): structured cards each with TL;DR quote block, governance_context multi-line short-chain (≤25 words/line), recommended_skill, rationale, completion_marker, priority_label; 2 optional fields (deferral_cost / onboarding_threshold; omit when info insufficient). User-facing sections always jargon-free: no internal codes (L1-L5, G1-G4, P0-P3), no raw status values (pending/in-progress/done/blocked), no project codes without natural-language subtitle (T\\d+/M\\d+/Goal \\d+/BL-\\d+/ADR-\\d+), no MoSCoW words, no process slang. KPI/threshold first occurrence requires triplet (current/target/benchmark). Diagnosis section uses 4-column table and is a technical traceability zone where internal codes are allowed."
+  description: "Adaptive text suggestions + plain Diagnosis section (## heading, always present). Simple situations: 1-2 sentences of prose. Complex situations (≥2 parallel suggestions): structured cards each with TL;DR quote block, governance_context multi-line short-chain (≤25 words/line), recommended_skill, rationale, completion_marker, priority_label; 2 optional fields (deferral_cost / onboarding_threshold; omit when info insufficient). User-facing sections always jargon-free: no internal codes (L1-L5, G1-G4, P0-P3), no raw status values (pending/in-progress/done/blocked), no project codes without natural-language subtitle (T\\d+/M\\d+/Goal \\d+/BL-\\d+/ADR-\\d+), no MoSCoW words, no process slang. KPI/threshold first occurrence requires triplet (current/target/benchmark). Diagnosis section uses 4-column table and is a technical traceability zone where internal codes are allowed. A skip result reports its duration and whether the project preference was saved."
 ---
 
 # Skill: Plan Next
 
 > **Role**: governance entry-point advisor
 > **WHAT**: three steps — **Scan** (inventory the governance assets) → **Diagnose** (goal-tree traversal: depth-first per goal to the first unfinished node, combined with a parallelism verdict) → **Recommend** (suggest the next action)
-> **HOW**: read-only diagnosis; for a single-dimension problem (only a known omission to check), recommend the dedicated skill directly (`define-*` and the like)
-> **Distinct from**: this skill only makes suggestions and runs nothing downstream; document health checks are run by the runtime / linter / CI tooling per `rules/doc-health-criteria.md`
+> **HOW**: read-only diagnosis on ordinary runs; an explicit persistent skip or restore may update only the project preference file. For a single-dimension problem (only a known omission to check), recommend the dedicated skill directly (`define-*` and the like)
+> **Distinct from**: this skill never executes downstream skills or changes governance state; document health checks are run by the runtime / linter / CI tooling per `rules/doc-health-criteria.md`
 
 ---
 
@@ -45,13 +45,65 @@ Inventory the governance input sources and suggest the next action.
 | Dimension | Does | Does not |
 | --- | --- | --- |
 | Suggestions | Suggests the next action (prose or structured cards) | Is not a task-status API; does not maintain or assign a task list; keeps no task history and does not answer time-series questions such as "how many were promoted this week" |
-| Execution | Read-only — the suggestions go to the user or to an outer orchestrator to decide on | Does not advance anything downstream on its own; is not an automation engine — automation comes from an outer orchestrator combined with `loop` |
+| Execution | Reads project state and suggests actions; an explicit persistent preference may write only `.ai-cortex/plan-next.yaml` | Does not advance anything downstream or act as an automation engine — automation comes from an outer orchestrator combined with `loop` |
+| Skip choice | Omits a precisely identified recommendation for the chosen duration: this conversation or until revoked | Does not change a task, roadmap item, dependency, norm, or any other governance artifact |
+
+**Skipping a recommendation is distinct from changing the work item**. “Never recommend this action again” records a routing preference. “Cancel the task”, “move it to Later”, or “defer the roadmap item indefinitely” requests a governance change; use `update-roadmap` for a status or date change within a tier, `promote-roadmap-items` for a tier change, and the project's task-record workflow for a task lifecycle change. Do not infer either intent from the other.
 
 ---
 
 ## Behavior
 
-**Overall rule**: **stateless** — every run rescans from scratch and depends on no previous result. Three steps: **Scan → Diagnose → Recommend**.
+**Overall rule**: each run rescans governance state from scratch: **Scan → Diagnose → Recommend**. It may read a project-local exclusion list and a conversation-local skip set. Neither source changes the diagnosed state. The only permitted write is an explicit, precisely scoped persistent exclusion or its removal in `.ai-cortex/plan-next.yaml`.
+
+### Skip a recommendation and continue
+
+Use this when a user wants to set aside a displayed suggestion without claiming that its underlying work is complete, cancelled, or blocked. Examples include “skip the first suggestion and continue”, “skip **Establish the documentation norms foundation** for this conversation”, and “never recommend this task again”.
+
+#### Selector resolution
+
+For a new skip, resolve the user's explicit selector against the most recently rendered `plan-next` result in this conversation:
+
+| User reference | Resolution |
+| --- | --- |
+| “first”, “second”, or “suggestion 2” | The displayed order in that result's **Do now** list. A single prose suggestion counts as position 1. |
+| An action name, a unique project-code subtitle, or a quoted recommendation | The one displayed recommendation that matches it. |
+| “this” or “the current suggestion” | The sole displayed recommendation; otherwise ask the user to name or number one. |
+
+If no preceding `plan-next` result exists in the conversation, the selector is ambiguous, or it matches several displayed actions, do not guess. Ask the user for the displayed number or action name and make no exclusion.
+
+For a restore, resolve against the most recent **Skipped recommendations** list, the conversation's skip set, and the exact entries in `.ai-cortex/plan-next.yaml`. In a new conversation, scan current candidates to map a user's action name to an exact excluded key; an exact `(route, target)` reference also works. “Show this again” selects the sole active exclusion only; if several match or the named action no longer maps to one exact key, ask which route and target to restore. A restored route is recommended only if it is still eligible after a fresh scan.
+
+#### Duration choice
+
+After resolving the target, ask: “Skip this recommendation only for this conversation, or keep it excluded in this project until you restore it?” Ask whenever the user's wording does not specify the duration; “for now” alone does not decide it. Do not apply an exclusion before the answer. “This conversation” selects the session scope; “always”, “permanently”, “never recommend it again”, or an equivalent explicit duration selects the persistent scope. An explicit duration needs no second confirmation.
+
+For a session skip, keep the route key only in the current conversation's skip set. Later `plan-next` runs in that conversation honor it; a new conversation starts with an empty session set. The user may say “show this again” to remove it early. Session skips are never written to disk. If the same key is already persistently excluded, a session-only choice cannot make it session-only: explain the existing persistent preference and ask whether to restore that preference or leave it unchanged.
+
+For a persistent skip, add the route key to the project-local preference file defined in [plan-next-preferences](../../specs/plan-next-preferences.md). Every later run in that same project reads the file, even in a new conversation, until the user explicitly restores the route or removes its entry. “Persistent” means until revoked, not a change to task status or a waiver of governance checks. Report the file path and exact route in the response. A missing file means no persistent exclusions; a malformed file or failed write stops the preference change and must be reported rather than treated as success.
+
+#### Persistent preference file
+
+Use the target project's `.ai-cortex/plan-next.yaml` under the [plan-next-preferences](../../specs/plan-next-preferences.md) contract. Preserve other entries when adding or removing one. The file is project-local and may be version-controlled so collaborators see the same preference; `plan-next` does not commit it.
+
+```yaml
+schema_version: 1
+exclusions:
+  - route: define-docs-norms
+    target: docs/ARTIFACT_NORMS.md
+```
+
+The pair `(route, target)` is the exact route key. Do not persist display titles, ordinals, wildcards, or whole categories. If several displayed actions would share a key, identify a narrower target before persisting; if that is impossible, ask the user to choose a concrete artifact or item. Adding a key already present in the selected scope is a no-op, reported as already excluded. “Recommend this again” removes the selected key from both scopes where it is active, so a session skip cannot silently keep it hidden after a persistent restoration. When both scopes contain it, update the validated file first and clear the session set only after that write succeeds; on failure, report that neither exclusion was restored. Do not edit the underlying governance artifact. Validate the file against its Spec before a read or write; if it is malformed, stop the run and name the problem.
+
+#### Scope and continuation algorithm
+
+1. Scan and diagnose normally. The scan, priority rules, precondition checks, and dependency graph are unchanged.
+2. Build the complete ordered sequence of currently eligible recommendation candidates before applying the normal display limit. Assign each candidate its exact `(route, target)` key. A candidate is eligible only if its existing governance prerequisites and `depends_on:` predecessors are satisfied.
+3. Read `.ai-cortex/plan-next.yaml` when present; combine its exact route keys with the current conversation's skip set. After resolving the displayed action and duration, re-scan before changing either scope. If that exact candidate is no longer eligible or its route key changed, do not save a stale skip; explain the change and offer the current recommendations. For a restore, validate the file and remove the selected key from every active scope before recommending again.
+4. Continue through the ordered sequence, omitting only matching keys. Never treat an exclusion as a completion, a blocked node, or permission to traverse beneath it. A candidate that depends on unfinished work represented by an excluded route, an unfinished ancestor, or a global prerequisite remains ineligible.
+5. Render the first one to three remaining eligible candidates under the normal priority and parallelism rules. Report omitted actions and their durations separately. If every otherwise eligible route is excluded, report that fact distinctly from “all governance work is complete”.
+
+**Precondition and dependency protection**: skipping a global foundation route (for example, establishing documentation norms) does not unlock goal-tree traversal. Skipping a route with unfinished dependents does not make its dependents eligible. If all other routes are protected this way or have already been excluded, report that there is no further applicable recommendation; never invent a lower-level alternative just to fill the slot.
 
 ### Step 0: resolve the norms
 
@@ -105,7 +157,7 @@ The G1-G4 gap types are used as sub-labels in the diagnostic-basis section.
 
 #### 2.0 Precondition gate: check for a missing Rules layer
 
-If `ARTIFACT_NORMS.md` is missing or `specs/` is empty, trigger a **short-circuit**: skip the goal-tree traversal, and let "Do now" list a single P0 route (establish the norms + re-run plan-next).
+If `ARTIFACT_NORMS.md` is missing or `specs/` is empty, trigger a **short-circuit**: skip the goal-tree traversal and produce a single P0 candidate (establish the norms + re-run plan-next). Apply the exclusion filter only after this diagnosis; excluding the candidate never clears the gate.
 
 #### 2.1 Goal-tree traversal
 
@@ -278,11 +330,12 @@ Check for slowly accumulating governance debt and output a list of hygiene issue
 
 #### 3.1 Tiering decision
 
-Consume the per-goal traversal results from §2.1 and route them all into "Do now" (1-3 entries):
+Consume the per-goal traversal results from §2.1 into a complete ordered candidate sequence, then route the first 1-3 eligible, non-excluded entries into "Do now":
 
-- The **main-chain route** (the first gap under the highest-priority goal) always goes into "Do now"
+- The **main-chain route** (the first gap under the highest-priority goal) is considered first and goes into "Do now" unless its exact route key is excluded
 - A **parallel route** (an independent node opened up by a blocked one) also goes into "Do now" when it can start immediately
-- Beyond 3 entries, truncate by priority; the secondary gaps of the other goals are not shown
+- When a displayed route is excluded for the session or persistently, omit it and continue through the candidate sequence. A dependent or lower-level route still cannot displace it.
+- Beyond 3 rendered entries, truncate by priority; candidate lists are recomputed on each run. Only exact persistent route keys are stored.
 
 **Parallel routing**: when the parallelism verdict is "parallel" or "converge", state the reason for parallelism or the convergence target explicitly in the routing evidence; when it is "focus", route only the current node.
 
@@ -433,13 +486,19 @@ Violating this table = the "Do now" output is unacceptable; the offending fields
 
 #### 3.4 User output structure
 
-> **Format choice**: a single suggestion may use prose instead of the cards below. The structured template below applies where there are ≥2 parallel suggestions.
+> **Format choice**: a single suggestion may use prose instead of the cards below. The structured template below applies where there are ≥2 parallel suggestions. When any route is excluded, render `Skipped recommendations` before `Do now`, even when the remaining recommendation uses prose.
 
 ````markdown
 # Next-step suggestions
 
 > **Situation**: [objective status summary, ≤25 words. Example: the M5 must-deliver items are clear, three expected-deliver items not started]
 > **Core tension**: [the sticking point this cycle, ≤30 words. Example: the adoption-rate pipeline is live but the sample has not reached 100, so acceptance cannot be judged yet]
+
+---
+
+## Skipped recommendations
+
+- **[action name; displayed position when known]** — [this conversation / persistently until restored from `.ai-cortex/plan-next.yaml` / both, when both scopes contain the key]; no governance artifact or status changed.
 
 ---
 
@@ -466,6 +525,12 @@ Violating this table = the "Do now" output is unacceptable; the offending fields
 
 ...(same format as above, at most 3; several tasks starting in parallel render as several side-by-side cards, see the multi-task multi-card rendering rule in §3.1)
 
+When exclusions remove the last eligible candidate:
+
+```text
+No further applicable "Do now" recommendation. [Excluded action] remains unfinished; the remaining main routes are excluded or are not independently eligible under the existing prerequisites and dependencies. This is not an all-work-complete verdict. Independent secondary findings, if any, remain under "Also worth noting".
+```
+
 ---
 
 ## Also worth noting
@@ -487,6 +552,7 @@ Violating this table = the "Do now" output is unacceptable; the offending fields
 
 - **Project situation**: [one-sentence summary]
 - **Asset inventory**: [list only the assets whose status changed]
+- **Excluded routes**: [action name, exact route key, evidence path, and session/persistent duration; write "none" when empty]
 
 **Decision logic**:
 
@@ -554,9 +620,14 @@ Goal 1:
 
 **On responsibility boundaries**:
 
-- ❌ Calling any downstream skill (the read-only hard boundary)
+- ❌ Calling any downstream skill or editing a governance artifact
 - ❌ Hiding the reason for a skip (a short-circuit must be stated explicitly)
 - ❌ Mixing in downstream execution detail (no writing ADRs, no fixing code, no tidying structure)
+- ❌ Treating a skipped recommendation as `done`, `blocked`, `cancelled`, a date change, or any other persisted governance state
+- ❌ Choosing session or persistent scope when the user did not specify one
+- ❌ Carrying a session skip into another conversation, or silently dropping a persistent preference on a later run
+- ❌ Reporting a saved preference when `.ai-cortex/plan-next.yaml` was not written successfully
+- ❌ Guessing which recommendation an ambiguous ordinal or title means
 
 **On the routing itself**:
 
@@ -577,13 +648,15 @@ Goal 1:
 - ❌ Merging routes for several goals without naming each goal's source in the evidence
 - ❌ Evaluating downstream while the roadmap is untiered, skipping `promote-roadmap-items`
 - ❌ Ignoring the `depends_on:` field and suggesting parallelism anyway — a dependency forces sequence
+- ❌ Using a skipped precondition or unfinished ancestor as permission to route to its children
+- ❌ Replacing an excluded recommendation with a dependent route merely to ensure that "Do now" is non-empty
 
 **On tree traversal and scanning**:
 
 - ❌ Reporting a gap on a done node in the main "Do now" routing (the hygiene sweep's checks on done nodes are the exception, and go to "Also worth noting")
 - ❌ Reporting gaps at several levels of the same node at once (it violates depth-first)
-- ❌ Introducing a mode enum or a config field (read the physical signals directly)
-- ❌ Taking on manifest maintenance (plan-next is read-only; a difference is emitted as a G3 diagnostic entry, not repaired)
+- ❌ Introducing a mode enum or configuration override for the governance scan (read the physical signals directly)
+- ❌ Taking on manifest maintenance (a difference is emitted as a G3 diagnostic entry, not repaired)
 
 **On internal terminology leaking**:
 
@@ -646,6 +719,13 @@ Goal 1:
 - [ ] **(When using structured cards)** The priority label is mapped correctly (urgent / important / defer / minor / awaiting execution)
 - [ ] **(When using structured cards)** An all-pending L5 with several tasks (≥2 independently startable) renders as several side-by-side cards, not merged
 - [ ] **(When using structured cards)** The cost-of-deferral / onboarding-threshold fields are omitted where information is short, not filled with placeholder text
+- [ ] **(When a skip directive is present)** The selector was resolved against the conversation's displayed recommendation and its exact route key, or clarification was requested without excluding anything
+- [ ] **(When duration is unspecified)** The user chose session or persistent scope before any exclusion was applied
+- [ ] **(When persistent scope is chosen)** The preference file was validated and updated once, with unrelated entries preserved; a failed write was reported as a failure
+- [ ] **(When a restore directive is present)** The selected active exclusion was identified exactly and cleared from every scope where it was active, or clarification was requested without a partial change
+- [ ] **(When the project changed during a duration choice)** The displayed route was revalidated before any skip was saved; a stale suggestion was not persisted
+- [ ] **(When a skip directive is present)** The complete eligible candidate sequence was considered before the display limit; every remaining route still passed its normal preconditions and dependencies
+- [ ] **(When an exclusion is active)** The omitted action and its duration are reported, and a no-candidate result says so plainly rather than exposing a dependent route
 
 **Output**:
 
@@ -659,8 +739,9 @@ Goal 1:
 - [ ] **The "Do now" section carries no governance process jargon** (precondition gate / short-circuit / soft-blocked / sibling scan / focus node / all-pending branch / inference from children)
 - [ ] **A code missing from the dictionary is marked in the diagnostic-basis section**, not forced into a user-facing section
 - [ ] **The diagnostic-basis decision logic uses a table** (4 columns: level / node / status / inference), not prose
-- [ ] Read-only was respected
+- [ ] Ordinary diagnosis made no writes; an explicit persistent skip or restore touched only `.ai-cortex/plan-next.yaml`
 - [ ] The diagnostic basis names each goal's traversal position and the blocked nodes
+- [ ] No session skip was written to disk; no persistent skip was treated as completion
 
 ---
 
@@ -954,3 +1035,57 @@ Goal 1:
 
 - **Drift sweep result**: none
 - **Hygiene sweep result**: none
+
+### Example 7: choose a duration for a foundation recommendation (Wright situation)
+
+**Scenario**: Wright has project-specific requirement, design, and integration-contract directories, but no general `specs/` directory. The initial scan therefore recommends establishing documentation norms before traversing the project further. The user says: “skip the first suggestion and continue recommending.”
+
+**Required handling**:
+
+1. Resolve “first suggestion” to the displayed documentation-norms recommendation in the immediately preceding result.
+2. Ask whether the user means this conversation or a persistent project preference. Do not apply the skip until the user chooses. Suppose the user answers “keep skipping it until I restore it”.
+3. If the displayed route's resolved target is `docs/ARTIFACT_NORMS.md`, add `(define-docs-norms, docs/ARTIFACT_NORMS.md)` to Wright's `.ai-cortex/plan-next.yaml`; otherwise use its actual resolved artifact path. Keep Wright's task status, roadmap, existing directories, and norms document unchanged.
+4. Re-evaluate the remaining candidates. The missing foundation is still a global precondition, so deeper requirement, design, or contract routes are not independently eligible.
+5. Report the persistent skip and the absence of a safe follow-up. The example does not declare any Wright directory convention as a general AI Cortex rule.
+
+**Output** (example):
+
+#### Next-step suggestions
+
+> **Situation**: the documentation-norms recommendation is excluded until restored; the scan still finds no general `specs/` directory
+> **Core tension**: the remaining work cannot be evaluated safely while the documentation precondition remains unmet
+
+---
+
+##### Skipped recommendations
+
+- **1. Establish the documentation norms foundation** — excluded until the user restores it; preference saved in `.ai-cortex/plan-next.yaml`; no governance artifact or status changed.
+
+---
+
+##### Do now
+
+No further applicable "Do now" recommendation. Establishing the documentation norms foundation remains unfinished; the remaining main routes are not independently eligible under the existing prerequisites and dependencies. This does not mean all governance work is complete.
+
+##### Diagnostic basis
+
+- **Project situation**: the user persistently excluded the documentation-norms recommendation; the scan still found no general `specs/` directory
+- **Excluded routes**: `define-docs-norms` + `docs/ARTIFACT_NORMS.md`; evidence: the absent general `specs/` directory; persistent until restored
+
+**Decision logic**:
+
+| Level | Node | Status | Inference |
+| --- | --- | --- | --- |
+| Norms layer | `specs/` | missing | user excluded the documentation-norms recommendation; the global precondition still prevents deeper routing |
+| Requirement / design / contract | project-specific directories | not evaluated | their presence does not override the general precondition or establish a portable directory rule |
+
+- **Drift sweep result**: none
+- **Hygiene sweep result**: none
+
+### Example 8: skip one independent action, then restore it
+
+**Scenario**: the latest result shows two independently startable tasks, “Prepare the coverage dashboard” and “Add the audit log”. The user says “skip the dashboard for this conversation and show the next recommendation”.
+
+**Result**: omit only the dashboard task's exact route key from this conversation. The audit-log task remains eligible and becomes the next recommendation, with its original priority and completion marker. Report that the dashboard was skipped for this conversation. A new conversation recommends it again if it remains unfinished.
+
+**Restore**: if the user instead had selected persistent scope, the file would contain the dashboard task's exact `(execute-task, task-file-path#task-ID)` key. “Recommend the dashboard task again” resolves it from the skipped list or the saved key and removes that key from every active scope; the next scan may then show the task if it is still eligible. If the task completed while the user was choosing a skip duration, do not save the stale skip and report the changed recommendation instead.
