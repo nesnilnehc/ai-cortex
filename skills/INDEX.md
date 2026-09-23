@@ -62,7 +62,7 @@ here alone is overwritten and does not reach the skill.
   - type: `domain` · user-invocable: `true`
 - [orchestrate-code-review](./orchestrate-code-review/SKILL.md) — Orchestrator skill — sequence atomic review-* skills into the post-coding engineering gate and aggregate their findings; functional alignment and acceptance verification remain separate.
   - tags: `code-review`, `orchestration` · triggers: `review code`, `code review`, `pr review`, `orchestrate code review`
-- [orchestrate-governance-step](./orchestrate-governance-step/SKILL.md) — Single-step governance executor — reads plan-next routing output, executes the highest-priority action, and emits a continuation signal for /loop-driven autopilot.
+- [orchestrate-governance-step](./orchestrate-governance-step/SKILL.md) — Safely advances one governance action from plan-next, re-diagnoses stale or conflicting routes, and reports whether to continue, ask, wait, or stop.
   - tags: `automation`, `workflow`, `meta-skill` · triggers: `auto iterate`, `iterate governance`, `autopilot`, `governance loop`, `auto-advance`
 - [orchestrate-repair-loop](./orchestrate-repair-loop/SKILL.md) — Iteratively converge the sibling engineering and functional gates, apply targeted fixes, then re-review and re-verify until both pass or a stop condition is reached.
   - tags: `automation`, `devops`, `optimization` · triggers: `repair`, `fix tests`, `delivery`, `stabilize`, `auto repair`, `auto fix`, `auto fix changes`

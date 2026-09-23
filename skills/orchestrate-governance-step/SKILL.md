@@ -1,9 +1,9 @@
 ---
 name: orchestrate-governance-step
-description: Single-step governance executor — reads plan-next routing output, executes the highest-priority action, and emits a continuation signal for /loop-driven autopilot.
-description_zh: 单步治理执行器——读取 plan-next 路由输出，执行最高优先级动作，发出继续信号以支持 /loop 全自动推进。
+description: Safely advances one governance action from plan-next, re-diagnoses stale or conflicting routes, and reports whether to continue, ask, wait, or stop.
+description_zh: 根据 plan-next 安全推进一项治理工作；遇到过时或冲突路由时重新诊断，并明确报告继续、询问、等待或停止。
 tags: [automation, workflow, meta-skill]
-version: 2.3.0
+version: 3.0.0
 license: MIT
 recommended_scope: project
 metadata:
@@ -16,14 +16,14 @@ input_schema:
     docs_root: auto
 output_schema:
   type: diagnostic-report
-  description: "IterationStepReport: action taken, skill invoked, outcome, continuation_signal (advance | done | blocked | stalled | error)."
+  description: "IterationStepReport: decision_state (actionable | needs_input | no_applicable_action | complete), evidence and blockers, optional action/skill/plan trace, outcome, continuation_signal (advance | done | blocked | stalled | error)."
 ---
 
 # Skill: Auto-iterate (orchestrate-governance-step)
 
-> **Role**: single-step governance executor — the execution half that pairs with plan-next
-> **WHAT**: each invocation carries out 1 plan-next routing suggestion and emits a `continuation_signal` for `/loop` to drive the next iteration
-> **HOW**: call plan-next internally → take the highest-priority card → apply the human gate → run the sub-skill → verify afterwards → emit the report
+> **Role**: evidence-led governance driver — advances one safe, eligible action from plan-next
+> **WHAT**: each invocation validates current evidence, takes at most one action, verifies the result, and reports the next safe transition
+> **HOW**: diagnose → validate recommendation and dependencies → act or ask/wait → re-diagnose after changes → emit the report
 > **Distinct from**: `plan-next` (diagnosis and user-directed recommendation preferences, no downstream execution); `/loop` (scheduling only, no business logic); `orchestrate-repair-loop` (repairs code defects, does not advance the governance layer)
 
 ---
@@ -44,14 +44,14 @@ plan-next diagnoses and suggests; the user has to run each suggestion by hand. o
 
 ## Core Objective
 
-**Primary goal**: each invocation carries out exactly 1 governance action and states, through the IterationStepReport, what the result was and whether to continue.
+**Primary goal**: each invocation either carries out at most 1 governance action or makes no change and names the exact reason it cannot safely proceed. The report copies plan-next's latest `decision_state`; executor gates affect the continuation signal, not the diagnosis.
 
 **Success criteria** (all must be met):
 
-1. ✅ **Single step**: each invocation runs exactly 1 routing action, and no more
+1. ✅ **Bounded step**: each invocation runs at most 1 governance action; no-op outcomes are first-class
 2. ✅ **Stall detection**: when the same routing-card fingerprint appears 2 times in a row within a session and the target has not advanced, the `stalled` signal fires
-3. ✅ **Post-execution verification**: after the sub-skill runs, plan-next is re-run to confirm whether the target card has disappeared
-4. ✅ **Human gate**: a strategic or creative skill (define-mission, design-strategic-goals, and the like) must pause and tell the user before it runs
+3. ✅ **Post-execution verification**: after a modifying action, plan-next is re-run to verify intended evidence and updated decision state
+4. ✅ **Decision ownership**: human-owned strategic choices pause for the user; routine, reversible, evidence-based governance work can proceed within its skill boundary
 5. ✅ **Explicit continuation signal**: every invocation must emit one of the five `continuation_signal` values in the IterationStepReport
 
 **Acceptance test**: after execution, does the IterationStepReport state clearly what was done, how it turned out, and whether the next step is to continue or to bring in a human?
@@ -63,10 +63,10 @@ plan-next diagnoses and suggests; the user has to run each suggestion by hand. o
 **This skill covers**:
 
 - Calling plan-next internally to get the routing
-- Taking the highest-priority card from "Do now" (`urgent` > `important` > `defer`)
+- Validating plan-next's decision state, evidence, prerequisites, dependencies, and current target before selecting the highest-priority eligible card
 - Stall detection (fingerprint comparison within the session)
-- The human gate (skip a blocked card by default and try the next one; emit blocked only once every card has been skipped)
-- Drafting an execution plan + a self-review loop (3 rounds maximum)
+- Ownership and safety checks; defer human-owned/external work without persisting a recommendation exclusion
+- Choosing a proportional execution guard: direct bounded invocation for routine reversible work; a concrete plan and explicit review for high-impact, multi-artifact, irreversible, or ambiguous work
 - Running 1 sub-skill (once the plan passes)
 - Light post-execution verification
 - Emitting the IterationStepReport
@@ -77,12 +77,13 @@ plan-next diagnoses and suggests; the user has to run each suggestion by hand. o
 - Loop scheduling → `/loop` (built into Claude Code)
 - The code-defect repair loop → `orchestrate-repair-loop`
 - The content of strategic and creative decisions (mission, vision, strategic goals) → a human is needed
-- Persisting a human-gate skip → this skill's skip-list remains session-only and never writes a plan-next preference
+- Persisting an executor deferral → per-invocation deferrals are reported, never written as plan-next preferences
 
 **Handoff points**:
 
-- `continuation_signal: done` → governance is ready; tell the user and stop
-- `continuation_signal: blocked | stalled | error` → a human is needed; stop and explain why
+- `continuation_signal: done` → plan-next explicitly reports `complete`; stop
+- `continuation_signal: blocked` → preserve plan-next's `decision_state` and explain whether the stop is due to `needs_input`, `no_applicable_action`, human ownership, or external execution
+- `continuation_signal: stalled | error` → stop and explain the execution failure or repeated lack of progress
 
 ---
 
@@ -105,112 +106,94 @@ Read the governance documentation path (by default the same `docs_root` as plan-
 
 Call `/plan-next` internally and capture the routing output. If the caller supplied `pre_run_output`, use that and skip this step.
 
-Record the **target card fingerprint** (used for stall detection):
-
-```text
-fingerprint = subject field + "||" + governance context field
-```
+Do not assign a stall fingerprint yet; first determine which candidate, if any, passes the ownership and safety gate.
 
 ### Step 2: parse the routing
 
-Sort "Do now" by priority (`urgent` → `important` → `defer` → `awaiting execution`) and **try the cards one by one** until you reach the first that is not on the session skip-list and passes the step 4 human gate.
+First validate the report's `decision_state`, evidence, candidate eligibility, prerequisites, and exact target. Do not infer a state from the presence or absence of cards alone.
 
-**Skip-list mechanism**: the session keeps a skip-list (a set of fingerprints); when step 4 triggers a skip, the current card's fingerprint is added to it. This step skips any card on the skip-list as it iterates.
+If a routing claim conflicts with repository evidence, the target is stale, or its prerequisite/dependency status is unclear, do not execute it. Re-run plan-next once against current evidence. If the fresh diagnosis still needs a project fact or decision, stop and ask; do not repeatedly re-plan within the same invocation. Never use a skipped recommendation to unlock a dependent route.
 
 **End states of the iteration**:
 
-- An executable card is found → go to step 5
-- Every card was skipped (the skip-list covers all of "Do now") → `continuation_signal: blocked`, and the report lists every skipped card with its blocking reason
-- "Do now" is itself empty → apply the decision table below
+- `actionable` and at least one eligible, non-human-owned action exists → select the highest-priority eligible card and continue
+- `needs_input` → make no change; ask the focused question named by plan-next; `continuation_signal: blocked`
+- `no_applicable_action` → make no change; explain whether work is excluded, externally owned, dependency-blocked, or not yet eligible; `continuation_signal: blocked`
+- `complete` → confirm the evidence in plan-next and emit `done`; an empty list alone never qualifies
+- No eligible action remains after human-owned items are set aside → report those items and wait; `continuation_signal: blocked`
 
-**Decision table** (do not mistake "awaiting execution" for "finished"):
+**Decision table** (decision state is authoritative; verify its supporting evidence):
 
 | plan-next output | continuation_signal | Meaning |
 | --- | --- | --- |
-| Routing cards present (urgent / important / defer) | Continue at step 3 | Governance has a gap; a sub-skill can run |
-| Only "awaiting execution" cards (tasks already broken down, waiting on development) | `blocked` | Governance is ready, waiting on outside work |
-| Empty because recommendations are excluded for the session or persistently | `blocked` | Work remains; report the excluded routes and their durations |
-| Completely empty, with no excluded unfinished route, every goal status=done and the L1 KPI met | `done` | Governance and acceptance are both met |
+| `actionable`, with one or more currently eligible cards | Continue at step 3 | Choose by priority, then apply ownership and safety gates |
+| `needs_input` | `blocked` | Diagnosis cannot safely choose without the user's fact or decision |
+| `no_applicable_action` | `blocked` | No eligible governance action now; distinguish external work, dependency blockers, and exclusions |
+| `complete`, with acceptance evidence and no unfinished/excluded route | `done` | Governance and acceptance are met |
 
 **Key constraints**:
 
-- An empty "Do now" ≠ done. It must first be confirmed that plan-next reached that verdict after the L1 acceptance-KPI check and the L5 awaiting-execution branch, and that no excluded unfinished route accounts for the empty list
-- Resolve a known excluded unfinished route first: an empty visible list caused by exclusions means `blocked`, even when a precondition stopped L1 traversal. Otherwise, if the plan-next output carries no L1 acceptance-KPI status field → treat it as non-compliant, emit `error`, and prompt for a plan-next upgrade
-- A strategic goal with `status = approved` whose acceptance is not met may produce an empty visible list only because routes were excluded; emit `blocked`, never `done`
+- Empty output is never enough to prove `complete`; require explicit plan-next `complete` plus evidence that every declared acceptance condition is met
+- Excluded unfinished work, awaiting execution, missing KPI data, or unresolved route applicability forbids `done`
+- Treat an absent or malformed decision state as an incompatible plan-next output: emit `error`, name the contract mismatch, and ask for the skill to be updated; do not guess
 
-### Step 3: stall detection
+### Step 3: ownership and safety gate
 
-Compare this fingerprint with the **fingerprint of the previous execution** in the session:
+Do not automate decisions that belong to the user. Defer the current card for this invocation and consider the next independently eligible card only when plan-next already surfaced it; do not change recommendation preferences or governance state to do so.
 
-- **Same** → `continuation_signal: stalled`, stating "the target card did not advance after the last execution", and stop
-- **Different (or first invocation)** → continue
+Consider eligible cards in priority order (`urgent` → `important` → `defer` → `minor`). If a card is human-owned or externally owned, report the deferral and continue only to the next already-surfaced candidate whose dependencies are independently satisfied. `awaiting execution` is never an executable governance action.
 
-### Step 4: human gate (skip by default, do not abort)
-
-In the following cases the current card counts as **blocked**: add its fingerprint to the session skip-list and **go back to step 2 to try the next one**, rather than terminating /loop right away:
+Human decision is required when:
 
 - The recommended skill is a creative or strategic one: `define-mission`, `design-strategic-goals`, `define-vision`, `define-north-star`, `define-strategic-pillars`
-- The card's completion marker contains "return to plan-next for re-evaluation if blocked", and that has already fired
-- **The card's label is `awaiting execution`**: governance is ready and outside development has to run it, so there is no governance skill to call
-- **The first routing item is to establish the L1 acceptance-KPI data source** and the recommended skill is a design or architecture one: the monitoring approach needs human confirmation and is not run automatically
+- An action would choose among materially different business outcomes or accept an unstated trade-off
+- The target, authority, or prerequisite is ambiguous after the one permitted re-diagnosis
+- The card is `awaiting execution`: governance is ready and outside development has to run it
+- A route's completion marker says to return to plan-next after a blocker, and that blocker has occurred
 
-**Only once the skip-list covers every card in "Do now"** is `continuation_signal: blocked` emitted, with the IterationStepReport listing every skipped item and its blocking reason and asking the user to step in.
+If every surfaced candidate is human-owned, externally owned, or blocked, emit `blocked` and list each item with its owner/reason. Do not manufacture more candidates or claim governance is finished.
 
-The human gate's skip-list is separate from the user-controlled exclusions in `plan-next`. Never write the project's `.ai-cortex/plan-next.yaml` from a human-gate decision.
+Any per-invocation deferral is not a `plan-next` exclusion and is not persisted. Never write `.ai-cortex/plan-next.yaml` from this gate.
 
-**Why skip by default instead of stopping immediately**: the value of /loop lies in advancing everything that can be automated; stopping at the first creative card would pointlessly block the N non-creative cards behind it. Skipping keeps the non-blocked work flowing and collects the parts that need a human into one report.
+This gate preserves automation for independent routine actions without turning one human-owned choice into a permanent suppression or bypassing dependencies.
 
-### Step 5: plan-first execution (draft → self-review loop → run once it passes)
+### Step 4: stall detection
 
-Once an executable card is located, **the recommended skill must not be called directly**. The execution plan must be drafted and pass self-review first; only then leave plan mode and run it.
+After Step 3 selects a specific executable card, compute its fingerprint and compare it with the **fingerprint of the previous executed action** in this session:
 
-#### 5.1 Draft the plan (EnterPlanMode)
+```text
+fingerprint = resolved route + "||" + exact target + "||" + relevant evidence key
+```
 
-Enter plan mode and produce an execution plan for that card, containing:
+- Same fingerprint and no evidence of target progress → `continuation_signal: stalled`, state that the action failed to advance, and stop.
+- Different fingerprint, first execution, or evidence of progress → continue.
+- Do not fingerprint a per-invocation deferral, an `awaiting execution` card, or a no-op outcome; those are not failed executions.
 
-- **Goal**: quote the routing card's subject + completion marker, word for word
-- **The sub-skill command to be called**: the complete `/skill-name [focus]`
-- **Where the focus comes from**: the sentence in the routing card it was derived from (this prevents overreach)
-- **Expected output**: the file paths to be created or modified, and the key fields
-- **Scope red lines**: the files and scope this step MUST NOT touch (this prevents casual expansion)
-- **Rollback points**: the recovery path when execution fails (which files are new and can simply be deleted, which are modifications needing git restore)
+### Step 5: proportional execution
 
-#### 5.2 Plan self-review loop (3 rounds maximum)
+For routine, reversible, single-artifact governance work with an unambiguous target and an applicable skill, call that skill directly with the narrow focus from the card. Let the called skill's own required planning and confirmation policy govern its work.
 
-Each round checks the plan against the list below; on any defect, revise it and review again:
+Before execution, prepare an explicit plan and review it when the change is high-impact, irreversible, spans multiple artifacts, has material external effects, or the called skill requires plan mode. Include the intended result, exact scope, red lines, and recovery path. If evidence changes or the plan reveals a new dependency, stop and re-diagnose rather than widening scope.
 
-| Check | What counts as a defect |
-| --- | --- |
-| The goal matches the routing card | The plan's goal diverges from, or drops part of, the card's subject or completion marker |
-| Single-step semantics | The plan implicitly runs ≥ 2 sub-skills or covers ≥ 2 cards |
-| The focus is traceable | The focus has no support in the card's own text |
-| Scope red lines are explicit | The "MUST NOT touch" paragraph is missing or written too broadly ("do not break other files" does not count as explicit) |
-| Expected output is verifiable | File paths and fields are not made concrete, leaving the step 6 plan-next re-run nothing to compare against |
-| Rollback points exist | A modifying operation declares no git restore anchor |
+When using a plan, review it once against the card's evidence, exact targets, dependencies, and scope. Correct any defect before execution; if it remains materially ambiguous, ask the user instead of looping on self-review.
 
-Passing verdict: **one review round with 0 defects**.
+Then invoke the selected skill at most once. Execution failure or a newly discovered blocker stops the action; do not widen the scope.
 
-**Cap reached**: still defective after 3 consecutive rounds → `continuation_signal: error`, the IterationStepReport lists the defects left after the final round, and execution stops; **do not** push ahead with a known defect.
-
-#### 5.3 Execution (after ExitPlanMode)
-
-Once the self-review passes, leave plan mode and call `/skill-name [focus]` as planned.
-
-- The plan turns out to diverge from reality during execution (the file already exists, a dependency is missing) → **do not** widen the scope on the spot; abort execution, emit `continuation_signal: error`, and record the divergence in the report
-- Execution fails with no recovery path → `continuation_signal: error`, emit the report, stop
+- The plan or action diverges from reality (target already exists, prerequisite is missing, or evidence conflicts) → stop and re-run plan-next once; if unresolved, report `needs_input` or `no_applicable_action` with `continuation_signal: blocked`
+- Execution fails with no safe recovery path → `continuation_signal: error`, emit the report, stop
 
 ### Step 6: post-execution verification
 
-**Re-running** `/plan-next` **is mandatory** (it cannot be skipped): check whether the target card has disappeared from "Do now".
-The only legitimate source of a `done` signal is this step's verification result — substituting the model's own inference is forbidden.
+**Re-running** `/plan-next` **is mandatory** after a modifying action. Compare evidence and decision state, not just whether the original card disappeared. A changed or missing card alone is not proof that the action succeeded.
+The only legitimate source of `done` is an explicit `complete` state from this fresh plan-next diagnosis, supported by acceptance evidence; the executor must not infer it.
 
 | Result | Action |
 | --- | --- |
-| The target card is merely excluded rather than resolved by execution | `continuation_signal: error`; disappearance does not prove progress |
-| The card is gone, "Do now" still has entries | `continuation_signal: advance` |
-| The card is gone, "Do now" is empty, no excluded unfinished route remains, and the L1 KPI is met | `continuation_signal: done` |
-| The card is gone, "Do now" is empty because other routes are excluded | `continuation_signal: blocked`; report the exclusions |
-| The card is still there | Update the stall counter; when the count reaches 2 → `continuation_signal: stalled` |
+| The intended change is verified and plan-next says `actionable` | `continuation_signal: advance` |
+| The intended change is verified and plan-next says `complete` with acceptance evidence | `continuation_signal: done` |
+| Fresh plan-next says `needs_input` or `no_applicable_action` | `continuation_signal: blocked`; preserve that decision state and explain why |
+| The card disappears only because it is excluded, renamed, or no longer visible, without evidence of resolution | `continuation_signal: blocked` or `error` according to whether the cause needs a user or indicates a contract/runtime failure; never claim progress |
+| The card remains eligible and unchanged after the action | Update the stall counter; when the count reaches 2 → `continuation_signal: stalled` |
 
 ### Step 7: emit the IterationStepReport
 
@@ -248,7 +231,9 @@ The only legitimate source of a `done` signal is this step's verification result
 ```markdown
 ## What this automatic step did
 
-- **What was done**: [describe it with file names or feature names; words such as "routing card" or "governance layer" are banned]
+- **What was done**: [describe the action or why no action was safe/applicable]
+- **Decision state**: [copy the latest plan-next state exactly; do not rewrite it based on the human-ownership gate]
+- **Evidence and blockers**: [the evidence that supports the state; name blocker scope and any independent route that remains]
 - **Why it needed fixing**: [the concrete problem found; omit when creating a file for the first time]
 - **What changed** (when files changed):
   - Before: ...
@@ -263,8 +248,8 @@ The only legitimate source of a `done` signal is this step's verification result
 | Value | Meaning | /loop behavior |
 | --- | --- | --- |
 | `advance` | The action finished and governance still has work | Fire again |
-| `done` | Step 6 confirmed that "Do now" is empty, no unfinished route is excluded, and the L1 KPI is met; **emitting this value from the model's own inference is forbidden** | Stop the loop |
-| `blocked` | Every visible card hit the human gate or awaits outside execution, or an excluded unfinished route leaves no executable card | Stop the loop and wait for the user |
+| `done` | Fresh plan-next explicitly reports `complete` and supplies acceptance evidence; **emitting this value from the model's own inference is forbidden** | Stop the loop |
+| `blocked` | No safe action can proceed now; report `needs_input` (user fact/decision needed) or `no_applicable_action` (waiting, excluded, or dependency-protected) distinctly | Stop the loop and ask or wait |
 | `stalled` | The same routing card made no progress for 2 rounds in a row | Stop the loop and report the stall |
 | `error` | The sub-skill failed with no recovery path | Stop the loop and report the error |
 
@@ -274,14 +259,14 @@ The only legitimate source of a `done` signal is this step's verification result
 
 ### Hard Boundaries
 
-**Rule 1**: an invocation MUST NOT run more than 1 action
+**Rule 1**: an invocation MUST run at most 1 action and MUST represent no-op outcomes explicitly
 
-- Verification: the IterationStepReport has exactly 1 entry in the `skill called` field
+- Verification: the IterationStepReport names zero or one invoked skill and gives a supported decision state
 - Consequence: REJECT (it breaks the single-step semantics of the three-layer model)
 
-**Rule 2**: a strategic or creative skill MUST trigger the human gate and must not be run directly
+**Rule 2**: a material strategic or creative decision MUST remain with the user
 
-- Verification: when the recommended skill is define-mission or similar, that card goes on the session skip-list and the next one is tried; if every card is skipped, the report shows `blocked` and lists every blocked item
+- Verification: when a card requires user-owned judgment, no skill is run for that decision; independent eligible routine work may proceed and deferred items are reported without persistent suppression
 - Consequence: REJECT (strategic decisions are not there to be automated)
 
 **Rule 3**: every invocation MUST emit a valid `continuation_signal`
@@ -289,30 +274,30 @@ The only legitimate source of a `done` signal is this step's verification result
 - Verification: the IterationStepReport carries the `continuation signal` field and its value is one of the five in the enum
 - Consequence: REJECT (/loop depends on this signal to decide whether to continue)
 
-**Rule 4**: the `done` signal MUST come from the step 6 plan-next re-run, and MUST NOT come from the model's own inference
+**Rule 4**: the `done` signal MUST come from a fresh plan-next `complete` result, and MUST NOT come from the model's own inference
 
-- Verification: the IterationStepReport notes carry no self-assessment language such as "the whole governance layer is ready" or "everything currently executable has been created"; `done` is emitted only after step 6 confirms that "Do now" is empty, the KPI is met, and no excluded unfinished route remains
+- Verification: the IterationStepReport quotes or summarizes explicit completion and acceptance evidence from the fresh diagnosis; an empty list alone never qualifies
 - Consequence: REJECT (the model took the routing judgment away from plan-next, breaking the responsibility boundaries of the three-layer model)
 
-**Rule 5**: `done` MUST satisfy all four at once — the plan-next output declares "the L1 acceptance KPI is met" AND "Do now is empty" AND "there is no awaiting-execution card" AND "there is no excluded unfinished route"
+**Rule 5**: `done` MUST satisfy all at once — plan-next declares `complete`, every declared acceptance condition is met, and there is no unfinished, excluded, awaiting-execution, or evidence-limited route
 
-- Verification: when emitting `done`, the IterationStepReport quotes the KPI status field from the plan-next governance context (such as "citation visibility 85% ≥ 80% (met)") and confirms no excluded unfinished route remains; an unmet or unmeasured KPI, an "awaiting execution" card, or a suppressed unfinished route forbids `done`
+- Verification: when emitting `done`, the IterationStepReport gives the relevant acceptance evidence and confirms no excluded unfinished route remains; an unmet or unmeasured KPI, an "awaiting execution" card, or a suppressed unfinished route forbids `done`
 - Consequence: REJECT (mistaking "strategic goal status=approved" for acceptance being met makes /loop stop at the wrong time)
 
-**Rule 6**: a card labeled "awaiting execution" MUST go on the skip-list with the next one tried, and MUST NOT be executed or turned straight into done; `blocked` is emitted only once every card has been skipped
+**Rule 6**: an `awaiting execution` card MUST NOT be executed by this governance executor or treated as `complete`
 
-- Verification: selected_skill is left unfilled on an "awaiting execution" card; if the end state is blocked, next_step carries the words "governance is ready, waiting on outside execution" and lists every skipped item
+- Verification: selected_skill is absent for that card; preserve plan-next's decision state and have `next_step` name the external owner or wait condition when no independent action remains
 - Consequence: REJECT
 
-**Rule 7**: MUST enter plan mode, draft the plan, and pass the self-review loop before executing; MUST NOT call the recommended skill directly
+**Rule 7**: execution safeguards MUST be proportional to impact and ambiguity; the selected skill's contract MUST be followed
 
-- Verification: the IterationStepReport carries a `plan_reviewed_rounds` field (≥1) and the final round leaves no defect; a divergence found in a failed execution must not be used as grounds for "expanding the plan's scope"
-- Consequence: REJECT (skipping the plan stage lets the single-step semantics and the scope red lines get out of hand, and leaves downstream auditing with nothing to go on)
+- Verification: routine reversible work has a bounded focus; high-impact, irreversible, multi-artifact or ambiguous work has an explicit reviewed plan; evidence divergence stops execution and returns to diagnosis
+- Consequence: REJECT (both unbounded planning overhead and under-planning material changes undermine safe execution)
 
-**Rule 8**: plan self-review MUST NOT exceed 3 rounds; beyond that, emit error — a defective plan must not be forced through
+**Rule 8**: a stale or contradictory route MUST trigger at most one fresh plan-next diagnosis per invocation; unresolved conflicts MUST stop for input, not execution
 
-- Verification: `plan_reviewed_rounds ≤ 3`; beyond it, `continuation_signal: error` and next_step carries the list of remaining defects
-- Consequence: REJECT (unbounded self-review either loops forever or rationalizes the defect away)
+- Verification: `replan_count ≤ 1`; any remaining route ambiguity yields `decision_state: needs_input` and `continuation_signal: blocked`
+- Consequence: REJECT (blind execution and repeated re-planning both hide the actual decision needed)
 
 ### Skill Boundaries
 
@@ -338,7 +323,7 @@ The only legitimate source of a `done` signal is this step's verification result
 6. Report continuation_signal: advance
 ```
 
-**Why it is correct**: single-step execution keeps the three layers orthogonal; the post-check confirms real progress; /loop drives the next step naturally.
+**Why it is correct**: one bounded action keeps the three layers orthogonal; the post-check confirms real progress; /loop drives the next step naturally.
 
 ---
 
@@ -372,32 +357,31 @@ The only legitimate source of a `done` signal is this step's verification result
 3. The two non-blocked cards behind it could have advanced automatically, but are left hanging for nothing
 ```
 
-**What goes wrong**: it violates the skip-by-default constraint. /loop exists to advance everything automatable and to hand the blocked items to the user together at the end. The right move: put that card on the session skip-list and go back to step 2 for the next one; only when every card has been skipped does it become `blocked`.
+**What goes wrong**: it conflates user-owned decisions with blocked work. Report the human-owned choice and proceed only to another independently eligible candidate already surfaced by plan-next; do not persist a skip or alter dependencies.
 
 ---
 
-### ❌ Wrong: skipping plan mode and calling the recommended skill directly
+### ❌ Wrong: using the same planning ceremony for every action
 
 ```text
-1. Step 2 finds the capture-work-items card
-2. Call /capture-work-items … directly
-3. The skill "completes" 3 seemingly related fields along the way, beyond the card's scope
+1. Step 2 finds a routine, reversible, single-artifact capture-work-items card
+2. Enter plan mode and perform repeated self-reviews despite the clear bounded workflow
+3. In another case, directly run a high-impact multi-artifact change without identifying scope or recovery
 ```
 
-**What goes wrong**: it violates Rule 7. Without a plan stage writing down "focus / scope red lines / rollback points", a sub-skill very easily expands its reach along the way, and a downstream audit cannot work out "why X was changed". The right move: EnterPlanMode and draft the plan, pass the self-review, then ExitPlanMode and execute.
+**What goes wrong**: both extremes ignore proportionality. Follow the called skill's contract for routine work; add an explicit reviewed plan when impact, ambiguity, irreversibility, or scope warrants it.
 
 ---
 
-### ❌ Wrong: forcing a defective plan through after 5 review rounds
+### ❌ Wrong: endlessly re-planning a contradictory route
 
 ```text
-1. Draft the plan → review 1: the focus has no traceable source → revise
-2. Review 2: the scope red lines are missing → revise
-3. Review 3: the rollback points are still not filled in
-4. The model decides "what is left is minor" and forces execution
+1. The recommendation says a required norms file is missing
+2. Current project evidence shows that file exists and the project declares another artifact map
+3. The executor calls plan-next repeatedly until one result happens to look actionable
 ```
 
-**What goes wrong**: it violates Rule 8. The 3-round self-review cap is a hard constraint; going past it means the plan drafting itself has a structural problem (an unclear card, a mismatched recommended skill), and the answer is to emit error and hand it back to a human rather than rationalizing "the self-review failed" into "a minor problem".
+**What goes wrong**: repetition does not resolve conflicting evidence. Re-run plan-next once; if applicability remains unclear, stop with `needs_input` and ask the smallest question that changes the route.
 
 ---
 
@@ -409,7 +393,7 @@ The only legitimate source of a `done` signal is this step's verification result
 3. In reality the file was never written
 ```
 
-**What goes wrong**: without the post-check, advance is false; the next plan-next produces the same routing and triggers stalled.
+**What goes wrong**: without checking the intended evidence, advance is unsupported; the next plan-next may correctly produce the same routing and trigger stalled.
 
 ---
 
@@ -421,7 +405,7 @@ The only legitimate source of a `done` signal is this step's verification result
 3. continuation_signal: done is emitted directly, with no plan-next re-run
 ```
 
-**What goes wrong**: the model has taken over the "governance layer vs developer execution layer" judgment — that is plan-next's job, not orchestrate-governance-step's. A blocked node (T48/T52 depending on T47/T49, say) is for plan-next to route and to trigger a `blocked` signal, not for the model to declare "governance finished" on its own. `done` requires the step 6 plan-next re-run to show acceptance met, an empty "Do now", and no excluded unfinished route.
+**What goes wrong**: the model has taken over the "governance layer vs developer execution layer" judgment — that is plan-next's job, not orchestrate-governance-step's. An empty list is not completion. `done` requires the fresh plan-next diagnosis to state `complete` with acceptance met and no excluded unfinished route.
 
 ---
 
@@ -434,7 +418,7 @@ The only legitimate source of a `done` signal is this step's verification result
 4. G1 is in fact nowhere near met; the next wake-up check falls into a stalled loop
 ```
 
-**What goes wrong**: it violates Rule 5 — the plan-next output must first be confirmed to carry the L1 acceptance-KPI status field with the KPI met; otherwise done is wrong even when "Do now" is empty. `approved` only means the decision was approved; while acceptance is unmet the work carries on, and the output belongs as blocked (waiting on execution + waiting on KPI data).
+**What goes wrong**: `approved` only means the decision was approved; while acceptance is unmet, plan-next must continue routing or report missing evidence as `needs_input`. An empty list does not change that.
 
 ---
 
@@ -474,16 +458,16 @@ The only legitimate source of a `done` signal is this step's verification result
 1. Call plan-next internally → subject: "register the 3 backlog entries added in stage M5", recommended skill: `/capture-work-items`, priority: defer
 2. Stall detection: first invocation, no fingerprint history → continue
 3. Human gate: `capture-work-items` is not a creative skill → pass
-4. **Enter plan mode and draft the plan**:
+4. The action creates three files, so prepare and review an explicit plan:
    - Goal: register the 3 M5-stage backlog entries (quoting the card subject)
    - Sub-skill command: `/capture-work-items register the 3 requirements newly found in M5 into the backlog`
    - Focus traceability: the card says "the M5 sweep found 3 requirements scattered through discussions"
    - Expected output: 3 new markdown files under `backlog/`, with frontmatter
    - Scope red lines: MUST NOT modify existing backlog entries; MUST NOT touch `roadmap/` or `requirements/`
    - Rollback points: the new files can be removed with `git clean -f backlog/<new-files>`
-5. **Self-review loop**: round 1 passes all 6 checks → `plan_reviewed_rounds = 1`, leave plan mode
+5. One review finds no scope or dependency defect → `plan_reviewed_rounds = 1`
 6. Run `/capture-work-items register the 3 requirements newly found in M5 into the backlog`
-7. Post-execution check: re-run plan-next → that card is gone, "Do now" still has 1 entry → advance
+7. Post-execution check: re-run plan-next → verify the three entries exist and the route is resolved; another eligible route remains → advance
 
 **IterationStepReport**:
 
@@ -497,6 +481,8 @@ The only legitimate source of a `done` signal is this step's verification result
   - After: 3 new backlog entry files, with frontmatter and a summary
 - **Result**: Success ✅
 - **Next**: keep going automatically (1 item still pending)
+- **Decision state**: actionable
+- **Evidence and blockers**: three registered entries verified; another eligible route remains
 - _(internal) continuation signal: advance; plan_reviewed_rounds: 1_
 ```
 
@@ -504,20 +490,17 @@ The only legitimate source of a `done` signal is this step's verification result
 
 ### Example 2: the human gate skips a card → the next non-creative card is taken
 
-**Scenario**: plan-next routes two cards: `design-strategic-goals` (important, strategic/creative) + `capture-work-items` (defer, registration).
+**Scenario**: plan-next reports `actionable` with two cards: `design-strategic-goals` (important, strategic/creative) + `capture-work-items` (defer, registration).
 
 **Execution**:
 
 1. Call plan-next internally → two routing cards
 2. Stall detection: first invocation → continue
 3. Step 2 takes the highest priority: `design-strategic-goals`
-4. Step 4 human gate: it is strategic/creative → add to the skip-list, back to step 2
-5. Step 2 takes the next one: `capture-work-items` is not on the skip-list
-6. Step 4 human gate: not creative → pass
-7. Step 5.1 enter plan mode and draft the plan (the same six-part structure as example 1, omitted here)
-8. Step 5.2 self-review: passes in 1 round → `plan_reviewed_rounds = 1`
-9. Step 5.3 leave plan mode and run `/capture-work-items …`
-10. Step 6 re-run plan-next: the `capture-work-items` card is gone → `advance`
+4. The strategy decision is reported as human-owned; continue only because plan-next independently surfaced the capture route
+5. Verify the capture route's target, prerequisites, and scope; the work is routine and reversible
+6. Run `/capture-work-items …` with that bounded focus
+7. Step 6 re-run plan-next; verify the intended artifacts/evidence changed, then emit `advance`
 
 **IterationStepReport**:
 
@@ -528,21 +511,22 @@ The only legitimate source of a `done` signal is this step's verification result
 - **Why it needed fixing**: the strategic-goal card needs human judgment and was skipped; the same batch held another card that could run automatically
 - **Result**: Success ✅
 - **Next**: keep going automatically (skipped, awaiting a human: 1 — `design-strategic-goals`)
-- _(internal) continuation signal: advance; plan_reviewed_rounds: 1; skipped this time: [design-strategic-goals]_
+- **Decision state**: actionable
+- **Evidence and blockers**: strategy decision awaits the user; capture route is independent and eligible
+- _(internal) continuation signal: advance; plan_reviewed_rounds: 0; per-invocation deferral: [design-strategic-goals]_
 ```
 
 ---
 
-### Example 2b: every routing card is skipped → blocked
+### Example 2b: no candidate is eligible for automatic execution → blocked
 
 **Scenario**: plan-next routes two cards, both either strategic/creative or "awaiting execution".
 
 **Execution**:
 
 1. plan-next → `define-mission` (important) + one `awaiting execution` card
-2. Step 2 takes `define-mission` → step 4 adds it to the skip-list → back to step 2
-3. Step 2 takes the "awaiting execution" card → step 4 adds it to the skip-list → back to step 2
-4. Every entry in "Do now" is on the skip-list → emit `blocked`
+2. Both are identified as human-owned or externally owned; no governance action is run
+3. Emit `blocked` while preserving `decision_state: actionable`, listing the owner and next handoff for each
 
 **IterationStepReport**:
 
@@ -556,15 +540,17 @@ The only legitimate source of a `done` signal is this step's verification result
   1. `define-mission`: a strategic skill that needs human judgment; running it by hand is recommended
   2. The "awaiting execution" card: governance is ready, waiting on outside development
 - _(internal) continuation signal: blocked_
+- **Decision state**: actionable
+- **Evidence and blockers**: plan-next surfaced two candidates; both require a human decision or outside execution, so the executor ran neither
 ```
 
 ---
 
 ### Example 2c: a persistent exclusion leaves no visible action
 
-**Scenario**: plan-next finds an unfinished documentation-norms route, but the user has excluded its exact route key in `.ai-cortex/plan-next.yaml`. The precondition still blocks deeper traversal, so "Do now" is empty and "Skipped recommendations" names that route.
+**Scenario**: plan-next finds an unfinished route, but the user has excluded its exact route key in `.ai-cortex/plan-next.yaml`. Fresh diagnosis finds no independent eligible route, so `decision_state` is `no_applicable_action` and "Skipped recommendations" names the route.
 
-**Result**: emit `continuation_signal: blocked` and report the excluded route. Do not emit `done`, even though no card is visible and no L1 KPI was evaluated after the precondition stopped traversal. The human gate does not add or remove a persistent preference.
+**Result**: emit `continuation_signal: blocked` and report the excluded route. Do not emit `done`; the executor does not add, remove, or convert the persistent preference.
 
 ---
 
@@ -609,8 +595,9 @@ The only legitimate source of a `done` signal is this step's verification result
 - **How to correct it**:
   1. Check the execution result and fill it in by this logic:
      - Sub-skill succeeded + routing remains → `advance`
-     - Sub-skill succeeded + no routing → `done`
-     - The human gate fired → `blocked`
+     - Sub-skill succeeded + fresh plan-next says `complete` with acceptance evidence → `done`
+     - Fresh plan-next says `needs_input` or `no_applicable_action` → `blocked`
+     - Only human-owned/external candidates remain → `blocked`, preserving plan-next's state and naming the owner
      - The fingerprint repeated → `stalled`
      - The sub-skill failed → `error`
   2. Explain why in the `Next` field
@@ -619,11 +606,11 @@ The only legitimate source of a `done` signal is this step's verification result
 
 ### Problem 3: reporting advance while skipping the post-execution check
 
-- **How to spot it**: the report says `advance` but plan-next was never re-run to confirm
+- **How to spot it**: the report says `advance` but plan-next was never re-run to verify the intended change
 - **How to correct it**:
-  1. Re-run `/plan-next` and check whether the target card is gone
-  2. If it is gone → `advance` is confirmed correct
-  3. If it is still there → update the stall count; on the 2nd occurrence → correct it to `stalled`
+  1. Re-run `/plan-next` and check whether the intended evidence and decision state changed
+  2. If the intended evidence is present and plan-next says `actionable` → `advance` is confirmed
+  3. If the same eligible action remains unchanged → update the stall count; on the 2nd occurrence → `stalled`
 
 ---
 
@@ -632,10 +619,9 @@ The only legitimate source of a `done` signal is this step's verification result
 - **How to spot it**: the `Next` field carries self-assessment language such as "the whole governance layer is ready", "everything currently executable has been created", or "this belongs to the developer execution layer", with no record of a step 6 plan-next re-run
 - **How to correct it**:
   1. Re-run `/plan-next`
-  2. If "Do now" is empty, acceptance is met, and no unfinished route is excluded → `done` was right, and the report needs no change
-  3. If exclusions account for the empty list → correct the signal to `blocked` and name the excluded routes
-  4. If "Do now" holds only blocked entries → correct the internal continuation signal to `blocked` and explain the blocking reason in `Next`
-  5. If "Do now" still has executable entries → correct the internal continuation signal to `advance` and carry on
+  2. If plan-next explicitly says `complete` and provides acceptance evidence → `done` is valid
+  3. If it says `needs_input` or `no_applicable_action` → `blocked`, preserving that state and the reason
+  4. If it says `actionable` with an eligible route → `advance` only after the action and post-check
 
 ---
 
@@ -645,8 +631,8 @@ The only legitimate source of a `done` signal is this step's verification result
 
 ```yaml
 type: object
-# execution_trace is required only when continuation_signal ∈ {advance, done};
-# the blocked / stalled / error paths run no sub-skill and do not require the field.
+# execution_trace is required for advance when a governance action ran;
+# no-op states do not claim an execution trace.
 required:
   - report_title
   - action_taken
@@ -679,23 +665,26 @@ properties:
   next_step:
     type: string
     minLength: 1
+  decision_state:
+    type: string
+    enum: [actionable, needs_input, no_applicable_action, complete]
   continuation_signal:
     type: string
     enum: [advance, done, blocked, stalled, error]
   execution_trace:
     type: object
-    required: [selected_skill, plan_reviewed_rounds, post_check_plan_next_rerun]
+    required: [selected_skill, plan_reviewed_rounds]
     properties:
       selected_skill:
         type: string
         pattern: "^/[a-z0-9-]+"
       plan_reviewed_rounds:
         type: integer
-        minimum: 1
+        minimum: 0
         maximum: 3
       post_check_plan_next_rerun:
         type: boolean
-        const: true
+        description: Required and true after a modifying action; omit for no-op or read-only checks.
 additionalProperties: false
 ```
 
@@ -711,13 +700,14 @@ additionalProperties: false
     "action_taken",
     "result",
     "next_step",
+    "decision_state",
     "continuation_signal"
   ],
   "allOf": [
     {
       "if": {
         "properties": {
-          "continuation_signal": { "enum": ["advance", "done"] }
+          "continuation_signal": { "enum": ["advance"] }
         },
         "required": ["continuation_signal"]
       },
@@ -754,13 +744,17 @@ additionalProperties: false
       "type": "string",
       "minLength": 1
     },
+    "decision_state": {
+      "type": "string",
+      "enum": ["actionable", "needs_input", "no_applicable_action", "complete"]
+    },
     "continuation_signal": {
       "type": "string",
       "enum": ["advance", "done", "blocked", "stalled", "error"]
     },
     "execution_trace": {
       "type": "object",
-      "required": ["selected_skill", "plan_reviewed_rounds", "post_check_plan_next_rerun"],
+      "required": ["selected_skill", "plan_reviewed_rounds"],
       "properties": {
         "selected_skill": {
           "type": "string",
@@ -768,13 +762,13 @@ additionalProperties: false
         },
         "plan_reviewed_rounds": {
           "type": "integer",
-          "minimum": 1,
+          "minimum": 0,
           "maximum": 3,
-          "description": "number of plan self-review rounds; execution is allowed only when the final round has 0 defects"
+          "description": "0 for direct routine work; otherwise number of explicit plan reviews"
         },
         "post_check_plan_next_rerun": {
           "type": "boolean",
-          "const": true
+          "description": "true after a modifying action; omit for no-op or read-only checks"
         }
       },
       "additionalProperties": false
@@ -795,16 +789,16 @@ additionalProperties: false
 
 ### Core success criteria
 
-- [ ] Each invocation runs exactly 1 action, and no more
+- [ ] Each invocation runs at most 1 action; no-op outcomes identify why no action was safe/applicable
 - [ ] Stall detection: a fingerprint repeated 2 times within a session fires stalled
-- [ ] Plan before execution: enter plan mode and draft the plan; the self-review loop is ≤ 3 rounds and execution is allowed only once the final round has 0 defects
-- [ ] Post-execution check: re-run plan-next and confirm that the target card is gone
-- [ ] Was the step 6 plan-next re-run actually carried out? ("inferring governance completion internally" is not accepted as a substitute; the notes carry no self-assessment language)
-- [ ] Human gate: a strategic or creative skill and an "awaiting execution" card go on the skip-list by default and the next card is tried; blocked is emitted only once every card in "Do now" has been skipped
+- [ ] Execution safeguards match impact and ambiguity; any required plan was reviewed once before action
+- [ ] After a modifying action, re-run plan-next and verify evidence/decision state, not merely card disappearance
+- [ ] `actionable`, `needs_input`, `no_applicable_action`, and `complete` are represented distinctly
+- [ ] Human-owned and external work is reported as deferred/waiting, not persisted as a recommendation skip
 - [ ] A valid continuation_signal is emitted every time (advance / done / blocked / stalled / error)
-- [ ] **Does the "governance context" in the plan-next output carry the current L1 acceptance-KPI status**? If not, treat plan-next as non-compliant, emit error, and prompt for an upgrade
-- [ ] **The `done` signal satisfies all four conditions**: the plan-next output has "Do now" empty + the KPI met + no "awaiting execution" card + no excluded unfinished route
-- [ ] The human gate did not write `.ai-cortex/plan-next.yaml`; an empty list caused by exclusions emitted `blocked`
+- [ ] **The `done` signal requires a fresh plan-next `complete` state with acceptance evidence**, not an empty list
+- [ ] Missing or conflicting route evidence triggers at most one re-diagnosis; unresolved applicability asks the user
+- [ ] No human-gate decision wrote `.ai-cortex/plan-next.yaml`; an unfinished exclusion never satisfied a dependency
 - [ ] **In cron mode (fixed interval), the first report carries the suggestion to switch to a dynamic /loop**
 - [ ] **The 2nd consecutive `stalled` carries the "CronDelete `<job-id>` immediately" prompt**
 
