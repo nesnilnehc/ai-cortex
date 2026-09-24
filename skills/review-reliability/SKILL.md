@@ -1,20 +1,10 @@
 ---
 name: review-reliability
 description: "Review failure behavior against the canonical reliability quality Rule set, including timeouts, retries, idempotency, partial failure, isolation, dead letters, fault tests and release objectives."
-description_zh: 依据权威可靠性规则审查超时、重试、幂等、部分失败、隔离、死信、故障测试与发布目标。
-tags: [code-review, cognitive, reliability]
-version: 1.0.1
+version: 1.0.2
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [review reliability, reliability review, resilience review]
-input_schema:
-  type: code-scope
-  description: Source, configuration and tests selected by the caller
 output_schema:
   type: findings-list
-  description: Zero or more reliability findings traceable to canonical Rule IDs
 ---
 
 # Skill: Review Reliability

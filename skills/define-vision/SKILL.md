@@ -1,23 +1,8 @@
 ---
 name: define-vision
 description: Define the long-term future the project aims to create. Answers what future we are building; produces a vision statement aligned with mission, persisted to docs.
-description_zh: 定义项目旨在创造的长远未来；回答我们在构建什么未来；产出 vision 陈述并持久化到 docs。
-tags: [documentation, workflow]
-version: 1.3.1
+version: 1.3.2
 license: MIT
-recommended_scope: both
-metadata:
-  author: ai-cortex
-triggers: [define vision, vision, what future]
-input_schema:
-  type: free-form
-  description: Mission (statement or path); project/product context; optional existing vision draft
-output_schema:
-  type: document-artifact
-  description: Vision statement written to docs/project-overview/vision.md (or project norms)
-  artifact_type: vision
-  path_pattern: docs/project-overview/vision.md
-  lifecycle: living
 ---
 
 # Skill: Define Vision

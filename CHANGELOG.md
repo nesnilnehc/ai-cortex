@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Simplified Skill discovery to descriptions, removing unused `tags`, `triggers`, Skill `recommended_scope`, and other inactive frontmatter; retained `findings-list` output schemas because their shared Spec consumes the type. Moved operational defaults into instructions and kept vendored provenance in its canonical source registry.
+
+  A request sample exposed substring misroutes: `review governance rules` matched `review-go`, and `why is the build blocked?` matched `update-roadmap`. The index now exposes descriptions without a brittle trigger ranking.
+- Clarified in `refine-skill-design` that Agent Skills requirements, repository contracts, and size guidance have different force. Moved detailed examples and contracts from long Skills into local references. Removed redundant confirmation gates from authorized local writes and reviews while retaining gates for missing decisions, destructive work, and remote actions.
+- Removed `description_zh` from all 68 Skills, retained English `description` for discovery, and updated the language policy and vendored version registry.
+- Refined `refine-skill-design` to use the actual Agent Skills format, audit collections without forcing a body template, preserve authorized actions, and verify local asset boundaries and tool adaptation.
+- Added worked normal and difficult cases to the research skills and `changelog-video`; `deep-research` now handles unavailable source-reading tools explicitly.
+- Corrected `archive-milestone` frontmatter metadata and made `publish-nats-message` discover NATS tool capabilities before sending, preserve QoS when a tool is missing, and report a checked receipt.
+- Synchronized the vendored source registry with the current `commit-work` version.
+
 ## [0.4.0] — 2026-09-20
 
 ### Added

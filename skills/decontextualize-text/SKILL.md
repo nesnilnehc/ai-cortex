@@ -1,20 +1,8 @@
 ---
 name: decontextualize-text
 description: Convert text with private context or internal dependencies into generic, unbiased expressions that are standalone and reusable. Core goal - produce decontextualized text that preserves logic while removing organizational identifiers. Use for project handoff, open-source prep, methodology abstraction, cross-team sharing.
-description_zh: 将含私有上下文或内部依赖的文本转为通用、无偏向的表述，保留逻辑、移除组织标识，便于交接、开源或跨团队共享。
-tags: [writing, security, privacy, generalization]
-version: 1.3.1
+version: 1.3.2
 license: MIT
-recommended_scope: user
-metadata:
-  author: ai-cortex
-triggers: [decontextualize, remove context]
-input_schema:
-  type: free-form
-  description: Text containing private context, internal dependencies, or organizational identifiers
-output_schema:
-  type: document-artifact
-  description: Decontextualized text that preserves logic while removing organizational identifiers
 ---
 
 # Skill: Decontextualize Text

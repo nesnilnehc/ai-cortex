@@ -1,22 +1,11 @@
 ---
 name: market-research
 description: Define a market and examine customers, demand, segments, trends, and defensible size estimates with transparent evidence.
-description_zh: 明确市场边界，分析客户、需求、细分、趋势及有方法支撑的规模区间。
-tags: [research, market, demand, sizing]
-version: 1.0.0
+version: 1.1.0
 license: MIT
-recommended_scope: project
 metadata:
-  author: ai-cortex
   ai_cortex_type: domain
   ai_cortex_user_invocable: "true"
-triggers: [market research, market demand, market size, 市场调研, 市场规模]
-input_schema:
-  type: free-form
-  description: Market or category, geography, target segment, period, and intended decision
-output_schema:
-  type: document-artifact
-  description: Market narrative and JSON Research Report with definition, demand, trends, and supported sizing or a gap
 ---
 
 # Skill: Market Research
@@ -36,3 +25,13 @@ Study a defined market without assuming that a popular category or vendor estima
 ## Self-check
 
 The reader can reproduce the market boundary and any estimate. Vendor claims remain attributed; trend and demand evidence are dated. Missing customer signals and unsupported sizing appear as gaps.
+
+## Examples
+
+### Reproducible estimate
+
+**Input:** estimate annual spending for a defined buyer segment in one country. **Output:** show the segment boundary, source-backed buyer count and spend assumptions, formula, dated range, and finding IDs for each input.
+
+### Incompatible estimates
+
+**Input:** two sources use different definitions of the market, and neither discloses a denominator. **Output:** keep the figures separate as attributed claims, mark sizing unsupported, and name the missing inputs needed for a defensible estimate.

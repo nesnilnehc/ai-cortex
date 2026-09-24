@@ -356,10 +356,9 @@ def main():
                   "was translated. An omitted file passes every invariant "
                   "trivially; this check is what makes it visible.")
             continue
-        # Count residual Chinese in the body only. Frontmatter carries
-        # `description_zh`, a deliberately Chinese field that every SKILL.md
-        # has and that the migration must not touch; counting it would make
-        # every skill look partly untranslated.
+        # Count residual Chinese in the body only. Frontmatter is
+        # machine-consumed metadata, and historical baselines may contain
+        # translated fields that are irrelevant to prose verification.
         old_cjk = len(CJK.findall(FRONTMATTER.sub("", old_text, count=1)))
         new_cjk = len(CJK.findall(FRONTMATTER.sub("", new_text, count=1)))
         residual_waiver = waivers.get(f"{path}::residual_chinese")

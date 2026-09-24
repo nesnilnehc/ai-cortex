@@ -1,20 +1,8 @@
 ---
 name: publish-nats-message
 description: Publish a NATS message conforming to a cross-team contract, using NATS MCP tools. Authors the contract on first use if missing. Reads project-level cache (.cortex/nats.yaml) to avoid re-prompting basics across sessions.
-description_zh: 通过 NATS MCP 工具按跨团队契约发布消息；首次缺契约时引导起草。读取项目级缓存 .cortex/nats.yaml，避免跨会话重复询问。
-tags: [nats, messaging, cross-team, producer, mcp]
-version: 1.0.1
+version: 1.1.0
 license: MIT
-recommended_scope: both
-metadata:
-  author: ai-cortex
-triggers: [publish nats, send nats message, nats publish]
-input_schema:
-  type: free-form
-  description: Event description (domain + type); payload data; consumer name (first time only); optional QoS hint; optional explicit contract path
-output_schema:
-  type: side-effect
-  description: NATS message published via MCP; ack/result reported; contract file created (first time) or reused (subsequent)
 ---
 
 # Skill: Publish NATS Message
@@ -62,7 +50,7 @@ Let collaborating projects "produce messages correctly" — publish one message 
 
 ## Preconditions
 
-- A NATS MCP server is connected (offering tools such as `mcp__nats__publish` / `mcp__nats__jetstream_publish` / `mcp__nats__request`; the exact tool names come from the connected server)
+- A target NATS connection is identified. Discover its actual tools and signatures in Stage 5; stop there if no suitable publish capability is connected. The example names below are capability hints, not a required interface.
 - The current working directory is the producer repo (for reading `.cortex/nats.yaml` and the contract file)
 - The user can authorize publish permission on the broker
 
@@ -107,7 +95,7 @@ Generate the contract file:
 Afterwards:
 
 - Prompt the user to review and commit the contract file
-- **Wait for the user to confirm** the contract is fine before entering Stage 4 and sending for real (this avoids polluting the stream with a message sent against an unconfirmed contract)
+- Present a newly drafted contract for review and wait for the contract owner's acceptance before sending against it. A request for this specific publish already authorizes the send once the contract is accepted; do not ask for publish permission a second time. Ask only for missing material choices. A request for a preview stops before sending.
 
 ### Stage 4: build the message
 
@@ -128,7 +116,11 @@ Validation fails → report the offending fields and **send nothing**.
 
 ### Stage 5: send through the MCP NATS tools
 
-Pick the tool by QoS:
+1. List the connected NATS MCP tools. Map the contract's QoS to a capability that accepts a subject, payload and headers; for JetStream, require an acknowledgement-bearing publish operation. Inspect the actual argument names and response shape before calling it.
+2. If the required capability is absent, stop without sending, name the missing operation and preserve the validated message for a later retry. Do not substitute a Core NATS publish for JetStream.
+3. Call the mapped tool once with the validated subject, headers and payload. On an uncertain result, retry only under the contract's policy with the same message ID.
+
+Example tool names by QoS:
 
 | Case | MCP tool | Note |
 | --- | --- | --- |
@@ -136,7 +128,7 @@ Pick the tool by QoS:
 | at-least-once (the cross-team default) | `mcp__nats__jetstream_publish` | must wait for the ack; triggers `duplicate_window` deduplication |
 | synchronous request-response (< 5s) | `mcp__nats__request` | carries a reply subject + `X-Correlation-Id` |
 
-The exact tool names come from the connected NATS MCP server; when a tool signature differs, the Skill maps onto it adaptively (the headers argument / the subject argument).
+The connected server's actual names and signatures control execution. A request-response tool is applicable only when the contract and user request call for a reply.
 
 ### Stage 6: self-check and receipt
 
@@ -154,7 +146,8 @@ The exact tool names come from the connected NATS MCP server; when a tool signat
 
 | Situation | Handling |
 | --- | --- |
-| The MCP NATS server is not connected | prompt the user to check the MCP configuration, and list the expected tool names |
+| The MCP NATS server is not connected | stop without sending, report the missing connection and required publish capability |
+| A required publish operation is absent or cannot carry contract headers | stop without sending and report the missing capability; do not downgrade QoS or drop headers |
 | `.cortex/nats.yaml` does not exist | enter the cache initialization subflow (Stage 1) |
 | The contract does not exist | enter the contract drafting subflow (Stage 3) |
 | Payload field validation fails | list the offending fields and ask for a correction before resending |
@@ -171,6 +164,26 @@ The exact tool names come from the connected NATS MCP server; when a tool signat
 - ❌ Stuffing metadata into the payload JSON envelope (`id` / `source` / `time` and the like) — it must go in the Headers
 - ❌ Asking again for basics such as `broker_url` / `service_source` without reading the cache
 - ❌ Sending with no contract in place — it must be drafted first, with a prompt to commit
+
+---
+
+## Self-Check
+
+- [ ] The cache and the correct event contract were read or created, a newly drafted contract was accepted, and all required fields were validated.
+- [ ] The selected tool supports the contract's QoS, subject, headers and payload; no fallback weakened delivery.
+- [ ] The publish was explicitly requested, and a preview request did not send.
+- [ ] Retries reused the original Nats-Msg-Id, and JetStream success includes an actual acknowledgement.
+- [ ] The receipt reports the outcome and redacts sensitive header values.
+
+## Examples
+
+### Existing contract, JetStream
+
+**Input:** a user requests one orders.created event with a payload matching an existing at-least-once contract. **Action:** read the cache and contract, discover an acknowledgement-bearing JetStream publish tool, validate the message and send it. **Output:** report the actual ack, subject and redacted headers.
+
+### Missing publish capability
+
+**Input:** the contract requires JetStream, but the connected server exposes only Core NATS publish. **Action:** preserve the validated message and stop before sending. **Output:** report that an acknowledgement-bearing JetStream publish capability is required; do not downgrade QoS.
 
 ---
 

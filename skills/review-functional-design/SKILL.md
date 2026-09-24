@@ -1,21 +1,10 @@
 ---
 name: review-functional-design
 description: "Review an existing functional design against its modeling Spec and canonical quality Rule before technical design begins. Evaluative atomic skill; outputs findings without rewriting."
-description_zh: 在技术设计开始前依据功能设计规范和权威质量规则审查既有功能设计，只输出 findings，不改写。
-tags: [review, functional-design, pre-coding]
-version: 1.0.1
+version: 1.0.2
 license: MIT
-recommended_scope: both
-metadata:
-  author: ai-cortex
-triggers: [review functional design, functional design review, validate functional design]
-input_schema:
-  type: document-artifact
-  description: Existing functional-design document path or content
-  artifact_type: functional-design
 output_schema:
   type: findings-list
-  description: Zero or more functional-design-quality findings
 ---
 
 # Skill: Review Functional Design

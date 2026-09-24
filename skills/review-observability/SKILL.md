@@ -1,20 +1,10 @@
 ---
 name: review-observability
 description: "Review production telemetry against the canonical observability quality Rule set, including structured outcomes, correlation, SLIs, tracing, data safety, error ownership and background-work visibility."
-description_zh: 依据权威可观测性规则审查结构化结果、关联上下文、SLI、追踪、数据安全、错误归属与后台任务可见性。
-tags: [code-review, cognitive, observability]
-version: 1.0.1
+version: 1.0.2
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [review observability, observability review]
-input_schema:
-  type: code-scope
-  description: Source, configuration and telemetry definitions selected by the caller
 output_schema:
   type: findings-list
-  description: Zero or more observability findings traceable to canonical Rule IDs
 ---
 
 # Skill: Review Observability

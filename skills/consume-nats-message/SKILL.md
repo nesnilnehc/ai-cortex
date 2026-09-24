@@ -1,20 +1,8 @@
 ---
 name: consume-nats-message
 description: Drain pending NATS messages from a producer contract via NATS MCP tools. Discovers the available NATS tool capabilities, selects exact-subject or wildcard mode from .cortex/nats.yaml, applies Tolerant Reader semantics, executes ack/nak/term decisions, and returns aggregated stats.
-description_zh: 通过 NATS MCP 工具批量拉取 producer 契约下的待处理消息。先发现并映射可用 NATS 工具能力，再根据 .cortex/nats.yaml 选择精确 subject 或 wildcard 模式，按 Tolerant Reader 处理并执行 ack/nak/term，最终返回聚合统计。
-tags: [nats, messaging, cross-team, consumer, mcp]
-version: 1.4.1
+version: 1.4.2
 license: MIT
-recommended_scope: both
-metadata:
-  author: ai-cortex
-triggers: [consume nats, subscribe nats, drain nats, nats consume]
-input_schema:
-  type: free-form
-  description: Producer name + event type or subject; optional contract path with @version; optional consume override max_messages / batch_size / fetch_timeout / idle_threshold
-output_schema:
-  type: side-effect
-  description: Pending messages drained via MCP; each message acked/naked/termed or isolated for contract confirmation; aggregated counts, failures, awaiting_confirmation, and exit reason reported
 ---
 
 # Skill: Consume NATS Message
@@ -340,22 +328,7 @@ backlog_hint: |
 
 ## Anti-patterns
 
-- Letting one message's failure throw and break the whole batch.
-- Failing as soon as an unknown field is decoded; a Tolerant Reader must ignore unknown fields.
-- Not acking after the business logic succeeds.
-- Using nak for an unrecoverable failure, causing endless redelivery.
-- A DLQ copy without the original subject, the failure reason, and the timestamp.
-- Creating broker resources such as a stream or a durable while the Skill runs.
-- Going straight to a real ack when the contract is missing.
-- Acking / naking / terming during the Bootstrap peek phase.
-- Acking a message with an unknown or draft contract outright in wildcard mode.
-- Treating a self-produced message (`X-Source == service_source`) or a DLQ-loop message carrying `X-DLQ-Original-Subject` as an unknown contract in wildcard mode, triggering Bootstrap to generate a surplus draft.
-- Judging a DLQ loop by a bare `.dlq` suffix string match, swallowing a genuine business subject that ends in `.dlq`.
-- Treating a missing `X-Source` header as equal to `service_source` and silently acking it as a self-produced message.
-- Enabling `consume_pattern` and `consume_subjects` at the same time.
-- Fetching an external HTTP/HTTPS contract or a raw URL by default.
-
----
+Consult [anti-patterns](references/anti-patterns.md) when choosing subjects, acknowledging messages, or handling failures.
 
 ## Self-check
 
@@ -375,37 +348,4 @@ backlog_hint: |
 
 ## Examples
 
-### Example 1: an exact-subject drain
-
-Input:
-
-```text
-consume nats producer=agentfabric event=clarification.session.requested max_messages=100
-```
-
-Expected:
-
-1. Read `.cortex/nats.yaml`.
-2. Map the NATS MCP fetch / ack / nak / term / publish capabilities.
-3. Locate `clarification-session-requested-contract.md`.
-4. Reuse `<durable_name_prefix>-clarification-session-requested`.
-5. Drain to `drained` or `cap_reached`.
-6. Return the aggregated receipt.
-
-### Example 2: wildcard meets a new subject
-
-Configuration:
-
-```yaml
-consume_pattern: zentao.omnireview.>
-consume_subjects:
-  - zentao.omnireview.task.updated.v1
-```
-
-Expected:
-
-1. Ignore `consume_subjects` and use `<durable_name_prefix>-wildcard` alone.
-2. Receive `zentao.omnireview.some_new_event.v1`.
-3. No active contract matches locally, so generate an N=1 draft with field requiredness marked `to be confirmed`.
-4. `term + DLQ` the current message, with the reason starting with `awaiting contract confirmation`.
-5. Carry on with the other messages in the batch, and finally list that subject under `awaiting_confirmation`.
+Consult [worked examples](references/examples.md) when contract discovery or drain behavior is ambiguous.

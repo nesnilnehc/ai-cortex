@@ -1,23 +1,8 @@
 ---
 name: define-north-star
 description: Define the single most important metric representing the core value delivered to users. Produces North Star Metric with rationale, optional supporting metrics, and anti-pattern examples; persisted to docs.
-description_zh: 定义代表向用户交付核心价值的单一最重要指标；产出 North Star Metric 及理由、辅助指标与反例。
-tags: [documentation, workflow]
-version: 1.2.1
+version: 1.2.2
 license: MIT
-recommended_scope: both
-metadata:
-  author: ai-cortex
-triggers: [north star, define north star, North Star Metric, NSM, define NSM]
-input_schema:
-  type: free-form
-  description: Project/product description; target users; core value proposition; optional mission/vision or paths
-output_schema:
-  type: document-artifact
-  description: North Star document with NSM, rationale, optional supporting metrics, anti-examples; optional measurement constraints section when metric has known limits
-  artifact_type: north-star
-  path_pattern: docs/project-overview/north-star.md
-  lifecycle: living
 ---
 
 # Skill: Define North Star

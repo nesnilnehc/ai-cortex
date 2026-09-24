@@ -1,20 +1,10 @@
 ---
 name: review-codebase
 description: "Review given file/dir/repo for current-state code organization: module boundaries, design patterns, cross-module dependencies, tech debt, and interface stability. Scope-only atomic skill; output is a findings list."
-description_zh: 对给定路径（文件 / 目录 / 仓库）做 scope-only 原子审查，覆盖模块边界、模式一致性、跨模块依赖、技术债与接口稳定性。
-tags: [code-review, scope-only]
-version: 1.1.0
+version: 1.2.0
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [review codebase, codebase review]
-input_schema:
-  type: code-scope
-  description: Files, directories, or repository path to review for current-state structure
 output_schema:
   type: findings-list
-  description: Findings on module boundaries, patterns, dependencies, tech debt, and interface stability
 ---
 
 # Skill: Review Codebase
@@ -33,7 +23,7 @@ Run a scope-only atomic review of the **current state** of a **given path** (a s
 
 **Success criteria** (all of them must hold):
 
-1. ✅ **Scope confirmed**: confirm the user's path or directory before analysis
+1. ✅ **Scope resolved**: use the user's path or directory, or the repository root when no narrower scope is named
 2. ✅ **5 dimensions covered**: findings are emitted for module boundaries, pattern consistency, cross-module dependencies, tech debt and interface stability
 3. ✅ **Precise locations**: every finding carries a `file:line` reference
 4. ✅ **Format conformant**: findings carry location / category=`scope` / severity / title / description / suggestion, per [specs/findings-list.md](../../specs/findings-list.md)
@@ -76,14 +66,14 @@ Run a scope-only atomic review of the **current state** of a **given path** (a s
 - **The input defines the scope**: a single file / a directory / the repository root / several paths, named by the user
 - **No dependence on a diff**: analyze the current file content; a diff the user supplies is context only, not a requirement
 
-### Defaults and pre-run confirmation
+### Scope defaults
 
 | Item | Default | How the user departs from it |
 | --- | --- | --- |
 | **Path** | Repository root | Choose: [repository root] / [the current file's directory] / [list the top-level directories and pick] |
 | **Large-scope handling** | Emit by layer (module / directory) | Choose a priority subset (from the top-level directory list) |
 
-Two things must be confirmed before the run: (1) the review path; (2) for a large scope, by-layer vs priority subset.
+Use the named path without a confirmation prompt. For a repository-wide review, work by layer unless the user names a subset; ask only if the requested scope cannot be identified.
 
 ### The 5 dimensions
 
@@ -149,7 +139,7 @@ Two tech-debt observations are worth calling out because this Skill is usually t
 
 ## Self-Check
 
-- [ ] The scope was confirmed with the user
+- [ ] The review scope was resolved from the request or the documented default
 - [ ] A large scope was emitted by layer, or a priority subset was settled
 - [ ] All 5 dimensions are covered (module boundaries / patterns / dependencies / tech debt / interfaces)
 - [ ] Every finding carries a file:line reference

@@ -1,20 +1,10 @@
 ---
 name: review-powershell
 description: "Review PowerShell code for language and runtime conventions: advanced functions, parameter design, error handling, object pipeline behavior, compatibility, and testability. Language-only atomic skill; output is a findings list."
-description_zh: 按 PowerShell 规范审查代码：高级函数、参数设计、错误处理、对象管道、兼容性与可测性。
-tags: [code-review, language]
-version: 1.0.3
+version: 1.0.4
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [review powershell]
-input_schema:
-  type: code-scope
-  description: Source files or directories to review
 output_schema:
   type: findings-list
-  description: Zero or more findings, each carrying every element the findings-list Spec requires
 ---
 
 # Skill: Review PowerShell

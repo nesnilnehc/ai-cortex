@@ -27,16 +27,14 @@ Generated from each skill's own `SKILL.md` frontmatter by
 here alone is overwritten and does not reach the skill.
 
 - [alpha-skill](./alpha-skill/SKILL.md) — Do the alpha thing.
-  - tags: `alpha`, `demo` · triggers: `do alpha`, `alpha thing`
 - [beta-skill](./beta-skill/SKILL.md) — Do the beta thing.
-  - tags: `beta` · triggers: `do beta`
 """
 
 # Rejections the generator must make, as fixture directory -> expected message
 # fragment. Each one is a way the registry could otherwise go silently wrong.
 REJECTIONS = {
     "name-mismatch": "does not match directory",
-    "block-list": "must be a flow list",
+    "missing-description": "frontmatter is missing `description`",
     "no-skill-md": "has no SKILL.md",
     "no-frontmatter": "no frontmatter block",
 }
@@ -60,10 +58,8 @@ def check_clean(sync, errors: list[str]) -> None:
         return
 
     fields = dict(skills)["alpha-skill"]
-    if fields["tags"] != ["alpha", "demo"]:
-        errors.append(f"clean: tags parsed as {fields['tags']}")
-    if fields["triggers"] != ["do alpha", "alpha thing"]:
-        errors.append(f"clean: triggers parsed as {fields['triggers']}")
+    if fields["description"] != "Do the alpha thing.":
+        errors.append(f"clean: description parsed as {fields['description']}")
 
     rendered = sync.render(skills)
     if rendered != EXPECTED_CLEAN:

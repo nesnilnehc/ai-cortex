@@ -1,20 +1,10 @@
 ---
 name: review-dotnet
 description: "Review .NET (C#/F#) code for language and runtime conventions: async/await, nullable, API versioning, IDisposable, LINQ, and testability. Language-only atomic skill; output is a findings list."
-description_zh: 按 .NET (C#/F#) 语言与运行时规范审查代码：async/await、nullable、API 版本、IDisposable、LINQ、可测性。
-tags: [code-review, language]
-version: 1.0.4
+version: 1.0.5
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [review dotnet, review csharp]
-input_schema:
-  type: code-scope
-  description: Source files or directories to review
 output_schema:
   type: findings-list
-  description: Zero or more findings, each carrying every element the findings-list Spec requires
 ---
 
 # Skill: Review .NET

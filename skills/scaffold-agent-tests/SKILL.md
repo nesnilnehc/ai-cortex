@@ -1,23 +1,9 @@
 ---
 name: scaffold-agent-tests
 description: Generate an LLM agent test suite (golden cases, mock-LLM unit tests, evaluator harness) from an agent implementation and its agent-test contract. Use when an agent has no tests, or a contract exists but the test code is missing.
-description_zh: 从 agent 实现与测试契约生成测试套件（golden cases、mock LLM 单测、evaluator）；用于 agent 缺测试或契约已有但测试代码缺失时。
-tags: [testing, automation]
-version: 1.0.0
+version: 1.0.1
 license: MIT
-recommended_scope: both
-metadata:
-  author: ai-cortex
-triggers: [scaffold agent tests, generate agent tests, author agent tests, agent test suite]
 compatibility: Requires the agent implementation source and a test contract (specs/agent-test-modeling.md instance); a shell and the repo's test toolchain.
-input_schema:
-  type: code-scope
-  description: Path to an agent implementation plus its agent-test contract document
-  defaults:
-    scope: file
-output_schema:
-  type: code-artifact
-  description: Generated test files (mock-LLM unit tests, golden dataset, evaluator harness) traceable to the contract
 ---
 
 # Skill: Scaffold Agent Tests
@@ -67,6 +53,7 @@ Read an LLM agent's implementation and its test contract (an instance of [specs/
 
 ## Preconditions
 
+- Default to the named implementation file when the user does not request a wider scope.
 - The agent implementation source is readable
 - A test contract following [specs/agent-test-modeling.md](../../specs/agent-test-modeling.md) exists; **when it is missing**, prompt the user to write one per that spec rather than inventing capability boundaries
 

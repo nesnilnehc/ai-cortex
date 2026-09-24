@@ -1,21 +1,8 @@
 ---
 name: update-roadmap
 description: Day-to-day roadmap maintenance — change item status, shift dates with downstream impact analysis, and produce a what-changed summary. Does not move items between Now/Next/Later tiers.
-description_zh: 路线图日常运维——改条目状态、挪期并计算下游影响、产出本次变更摘要；不改变条目所在的 Now/Next/Later 层级。
-tags: [workflow, planning, maintenance]
-version: 1.0.1
+version: 1.1.0
 license: MIT
-recommended_scope: project
-cognitive_mode: interpretive
-metadata:
-  author: ai-cortex
-triggers: [update roadmap, change status, at risk, blocked, shift dates, roadmap maintenance]
-input_schema:
-  type: free-form
-  description: Current roadmap plus the intended status change or date shift; optional blocker details
-output_schema:
-  type: chat
-  description: Updated roadmap.md and item frontmatter, downstream impact list, and a what-changed summary
 ---
 
 # Skill: Update Roadmap
@@ -82,7 +69,7 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 
 - **Default**: read roadmap.md and the related item files from the paths the project norms define
 - **Must ask**: on a change to `at risk` / `blocked`, the blocking reason and the mitigation are both indispensable; if either is missing, nothing is written
-- **Write after confirmation**: present the change list and the downstream impact first, and persist only after the user confirms
+- **Write the requested change**: analyze downstream impact before persisting. Ask only when the target, intended state, or a hard-deadline decision remains unclear.
 
 ### Execution
 
@@ -98,7 +85,7 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
    - **Compute the downstream impact**: read each item's `depends_on`, find the items that carry this one as a prerequisite, and list their affected dates one by one
    - **Flag hard-deadline breaches**: items that cross a compliance, commitment, external-constraint or similar hard deadline after the shift are marked in red on their own
    - With the dependency data missing (`map-item-dependencies` was never run), state outright "downstream impact not computed, dependency data missing"; do not pretend the analysis happened
-5. **Present the change list**: changed items + reasons + downstream impact + deadline breaches, then ask the user to confirm.
+5. **Review the change list**: changed items + reasons + downstream impact + deadline breaches. Resolve any ambiguity or hard-deadline decision with the user before applying it.
 6. **Persist to both places**: roadmap.md and the item frontmatter are updated together, leaving nothing one-sided.
 7. **Output the change summary**: see the template below.
 
@@ -173,7 +160,7 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 - [ ] Items marked done had their success metric checked
 - [ ] Date shifts had their downstream impact computed; where dependency data was missing, the omission was stated explicitly
 - [ ] Hard-deadline breaches were flagged on their own
-- [ ] The change list was persisted only after the user confirmed it
+- [ ] The requested change and downstream impact were reviewed before persistence; any unresolved decision was clarified
 - [ ] roadmap.md and the item frontmatter were both written
 - [ ] The what-changed summary was output
 - [ ] No item's tier was touched
@@ -192,7 +179,7 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 2. Ask the two questions: what it is stuck on (the third-party sandbox is not open yet) and what the plan is (ticket filed, 3 working days expected; a local stand-in is being prepared for parallel development).
 3. Read `depends_on` and find that #51 advanced reporting carries #42 as a prerequisite → downstream impact: #51's start date moves out.
 4. No hard-deadline breach.
-5. The user confirms → roadmap.md and #42's frontmatter are both written.
+5. The target and impact are clear → roadmap.md and #42's frontmatter are both written.
 6. Output the change summary.
 
 **Result**: the blocker is on record with a mitigation, and #51's slip surfaces early rather than at the moment it was due to start.

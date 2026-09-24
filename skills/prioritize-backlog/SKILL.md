@@ -1,21 +1,8 @@
 ---
 name: prioritize-backlog
 description: Force a clean re-score of every backlog item with four frameworks (RICE, WSJF, MoSCoW, ICE) in parallel — ignores any existing priority, auto-detects multi-file or single-file backlog layouts, surfaces framework disagreements, and captures the user's final decision with rationale.
-description_zh: 对全部 backlog 条目强制重评（忽略原 priority），并行跑 RICE / WSJF / MoSCoW / ICE 四框架；自动适配多文件目录或单文件 backlog 形态，呈现分歧并捕获用户决策依据。
-tags: [workflow, automation, meta-skill]
-version: 2.2.0
+version: 2.2.1
 license: MIT
-recommended_scope: project
-cognitive_mode: interpretive
-metadata:
-  author: ai-cortex
-triggers: [prioritize backlog, score backlog, backlog ranking, planning prep, re-score backlog]
-input_schema:
-  type: free-form
-  description: Backlog items in any priority state, located either as one-file-per-item under a backlog directory or as a single backlog.md (yaml-list / H2+yaml / table); plus strategic-goals.md and optional project-specific thresholds
-output_schema:
-  type: chat
-  description: Per-item scoring table across 4 frameworks + disagreement call-outs + detected backlog mode + user's priority_decision (with previous-value field) written back to each item in its native format
 ---
 
 # Skill: Prioritize Backlog
@@ -276,7 +263,7 @@ The report body:
 
 ## Input & Output
 
-**Input**: see the frontmatter `input_schema` — the backlog directory, strategic-goals.md, and optional threshold overrides.
+**Input**: the backlog directory, strategic-goals.md, and optional threshold overrides.
 
 **Output**: the batch scoring table in conversation, plus updated frontmatter in every backlog file — the `priority` and `priority_decision` fields.
 

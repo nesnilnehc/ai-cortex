@@ -1,20 +1,10 @@
 ---
 name: review-orm-usage
 description: Review ORM usage patterns for N+1 queries, connection management, migration safety, transaction handling, and query efficiency. Library-level atomic skill; output is a findings list.
-description_zh: 审查 ORM 使用：N+1 查询、连接管理、迁移安全、事务与查询效率；库级原子技能。
-tags: [code-review, library, optimization]
-version: 1.0.2
+version: 1.0.3
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [review orm, orm review]
-input_schema:
-  type: code-scope
-  description: Source files or directories to review
 output_schema:
   type: findings-list
-  description: Zero or more findings, each carrying every element the findings-list Spec requires
 ---
 
 # Skill: Review ORM Usage

@@ -1,23 +1,8 @@
 ---
 name: capture-work-items
 description: Capture requirements, bugs, or issues from free-form input into structured, persistent artifacts. Use when user wants to record a work item quickly without deep validation.
-description_zh: 将自由形式输入快速捕获为结构化、可持久的需求、缺陷或问题制品；无需深度验证。
-tags: [writing, documentation, workflow]
-version: 2.0.2
+version: 2.1.0
 license: MIT
-recommended_scope: both
-metadata:
-  author: ai-cortex
-triggers: [capture, quick capture, record bug]
-input_schema:
-  type: free-form
-  description: Raw description of requirement, bug, or issue from user; optional upstream_ref (parent roadmap/requirement path for colocation/parent-pointer modes); optional artifact_norms_path override
-output_schema:
-  type: document-artifact
-  description: Structured work item(s) written per path detection
-  artifact_type: backlog-item
-  path_pattern: docs/process-management/project-board/backlog/YYYY-MM-DD-{slug}.md (canonical) or docs/backlog/YYYY-MM-DD-{slug}.md (fallback)
-  lifecycle: living
 ---
 
 # Skill: Capture Work Items
@@ -35,14 +20,13 @@ Capture a requirement, bug, or issue from free-form input and turn it into a str
 **Success criteria** (all must be met):
 
 1. ✅ **Type identified**: the work item is classified as a requirement, a bug, or an issue
-2. ✅ **Required fields complete**: every required field for that type is filled in (no inference; ask the user when one is missing)
+2. ✅ **Required fields complete**: every required field for that type is filled in from the user's input or grounded project evidence; ask when a field cannot be established
 3. ✅ **Status set**: the front-matter starts at `status: captured`
 4. ✅ **strategic_goal_id tagged**: `strategic_goal_id` is required on every work item and maps to one of the goals in the project's strategic-goals. Promotion pools capacity by goal, and with nothing to attribute it to there is no way to compute the capacity already used
 5. ✅ **priority marked unset**: a new work item's frontmatter carries `priority: unset`, waiting for `prioritize-backlog` to score the batch
 6. ✅ **Path detected**: the output path is chosen from the project's documentation structure (see Path Detection)
 7. ✅ **Artifact persisted**: the work item is written to the chosen path
-8. ✅ **User confirmation**: the user explicitly confirms the write, or delegates it
-9. ✅ **Priority scoring suggested after a bulk capture**: at the end of a bulk capture, count the unscored backlog entries and suggest running `prioritize-backlog` (**never automatically**)
+8. ✅ **Priority scoring suggested after a bulk capture**: at the end of a bulk capture, count the unscored backlog entries and suggest running `prioritize-backlog` (**never automatically**)
 
 **Acceptance test**: can a person or a downstream system read the artifact, understand the whole work item, and act on it without asking a clarifying question?
 
@@ -53,7 +37,7 @@ Capture a requirement, bug, or issue from free-form input and turn it into a str
 **This skill does**:
 
 - Free-form input → a structured work item
-- Single or bulk capture (bulk: confirmed per item or per batch)
+- Single or bulk capture
 - Output local Markdown under the path agreed for the project
 - The status lifecycle: the initial "captured" only (downstream updates it to "triaged", "in progress", "done", "blocked", "cancelled")
 
@@ -63,7 +47,7 @@ Capture a requirement, bug, or issue from free-form input and turn it into a str
 - Design or architecture → carried by the runtime; the artifact shapes are [specs/functional-design-modeling.md](../../specs/functional-design-modeling.md) and [specs/technical-design-modeling.md](../../specs/technical-design-modeling.md)
 - Direct API calls to Zentao/GitHub to create issues (an extension point; not needed for v1)
 
-**Handoff point**: once the artifact is persisted and the user has confirmed it, hand off to `review-requirements` where the item needs deeper validation, or to `prioritize-backlog` and `promote-roadmap-items` for planning.
+**Handoff point**: once the artifact is persisted and its location is reported, hand off to `review-requirements` where the item needs deeper validation, or to `prioritize-backlog` and `promote-roadmap-items` for planning.
 
 ---
 
@@ -81,8 +65,8 @@ Capture a requirement, bug, or issue from free-form input and turn it into a str
 ### Interaction Policy
 
 - **Default**: the path from the project norms or from the spec / artifact contract; the type comes from the input
-- **Choice options**: one question per missing field at a time; offer choices where they apply
-- **Confirm**: the target path whenever it differs from the default; the user confirms before the write
+- **Choice options**: gather missing decisions together where practical; offer choices when project evidence does not settle them
+- **Path**: use project norms when present; ask only when competing target paths remain or an existing file would be replaced without clear intent
 
 1. Resolve the project norms in the §8.2 discovery order → determine the `path_pattern` for `backlog-item` (default: `docs/process-management/project-board/backlog/YYYY-MM-DD-{slug}.md`, or the fallback `docs/backlog/YYYY-MM-DD-{slug}.md`; a project can override it with an aggregated form)
 2. Substitute using the §8.3 placeholder syntax; for a placeholder that does not resolve, follow §8.6 and ask the user
@@ -124,25 +108,25 @@ Extract the available fields from the input. Required fields by type:
 
 **Notes on strategic_goal_id**:
 
-- Read `docs/project-overview/strategic-goals.md` and present the list of selectable goals to the user
-- The user picks which strategic goal this work item mainly serves
+- Read `docs/project-overview/strategic-goals.md`; use a goal explicitly named by the user or uniquely supported by the work item and project evidence
+- When several goals plausibly own the item, present the candidates and ask the user to choose
 - If strategic-goals.md does not exist → **halt**, and suggest running `design-strategic-goals` first
 - A bug or tech-debt work item usually maps to the "engineering / governance health" goal — with no strategic sponsor, work of that kind never wins capacity in the competition for value
 
 ### Phase 2: Prompt — fill in the missing required fields
 
-For any missing required field, ask the user **one question at a time**. Do not infer or guess.
+Fill required fields from explicit input and reliable project evidence. Label any grounded inference in the artifact. Ask for the remaining missing decisions together when possible; do not invent facts or leave required fields blank.
 
 ### Phase 3: Persist — write the artifact
 
 1. Run "resolve the project norms", then "path detection" (above)
-2. If the target path differs from the default, confirm with the user
+2. Use the project-declared path; ask only if the destination is ambiguous or would overwrite unrelated content
 3. Write the Markdown with YAML front-matter from the appropriate template (see the output templates)
 4. Set `status: captured` in the front-matter
 
-### Phase 4: Confirm
+### Phase 4: Report
 
-Confirm with the user that the artifact is written and complete. Do not commit to version control unless the user explicitly asks.
+Report the written artifact's path and any remaining uncertainty. Do not commit to version control unless the user explicitly asks.
 
 ### Phase 5: Suggest batch scoring (never automatic)
 
@@ -258,11 +242,11 @@ This skill only sets "status: captured". Downstream processes (milestones, promo
 
 ### Hard Boundaries
 
-- **Do not skip a required field**: where a required field cannot be inferred, ask the user. Do not leave it blank.
-- **Do not skip strategic_goal_id**: when `strategic-goals.md` does not exist, halt and suggest running `design-strategic-goals` first; it must not be left blank or inferred.
+- **Do not skip a required field**: where a required field cannot be grounded, ask the user. Do not leave it blank.
+- **Do not skip strategic_goal_id**: when `strategic-goals.md` does not exist, halt and suggest running `design-strategic-goals` first; it must not be left blank or invented.
 - **Do not invoke prioritize-backlog automatically**: at the end of a capture, only suggest it and let the user decide when to score the batch (the rhythms differ, and scoring one item at a time distorts the result).
 - **No diagnostic flow**: Do not run diagnostic states (RA0–RA5). Where the input is very vague, the suggestion is to capture first, then go deeper on clarification once the intent is confirmed.
-- **Confirm the path before writing**: avoid overwriting an existing file; confirm whenever the target path is unclear.
+- **Resolve the path before writing**: avoid overwriting unrelated content; ask when the target remains unclear.
 - **Paths follow the project structure**: use the path detection rules; do not hard-code a single path.
 
 ### Skill Boundaries (avoid overlap)
@@ -277,7 +261,7 @@ This skill only sets "status: captured". Downstream processes (milestones, promo
 
 - The user says "this needs more analysis" → hand off to `review-requirements`
 - The user says "design this" → hand off to the runtime's design workflow
-- The artifact is persisted and confirmed → the handoff is complete
+- The artifact is persisted and reported → the handoff is complete
 
 ---
 
@@ -286,18 +270,17 @@ This skill only sets "status: captured". Downstream processes (milestones, promo
 ### Core Success Criteria (all must be met)
 
 - [ ] **Type identified**: the work item is a requirement, a bug, or an issue
-- [ ] **Required fields filled in**: every required field is filled in (no inference)
+- [ ] **Required fields filled in**: every required field is explicit or grounded in project evidence
 - [ ] **strategic_goal_id tagged**: mapped to a specific goal in strategic-goals
 - [ ] **priority is unset**: the frontmatter carries `priority: unset`
 - [ ] **Status set**: "status: captured" sits in the front-matter
 - [ ] **Path detected**: the output path follows the path detection rules
 - [ ] **Artifact persisted**: the file is written to the chosen path
-- [ ] **User confirmation**: the user confirmed the write, or delegated it
 - [ ] **Batch scoring suggested**: in a bulk scenario, running `prioritize-backlog` was put to the user (and not run automatically)
 
 ### Process Quality Checks
 
-- [ ] **One question at a time**: the user was not swamped with questions about several missing fields at once
+- [ ] **Questions kept focused**: only decisions that evidence could not resolve were put to the user
 - [ ] **No solution language in the requirement**: the problem/need describes the problem, not the implementation
 - [ ] **Path created**: the `backlog/` subdirectory was created where it was needed
 - [ ] **Filename convention**: YYYY-MM-DD-{slug}.md is used

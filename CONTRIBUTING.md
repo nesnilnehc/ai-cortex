@@ -19,12 +19,14 @@ If you are converting existing Chinese content, read §6 of that document first.
 
 Skills follow the [agentskills.io](https://agentskills.io) standard format. Draft new skills against this section and the existing directory layout; do not install an external skill generator as part of the contribution flow.
 
-1. **Draft**: write `skills/<skill-name>/SKILL.md`. The YAML frontmatter must contain `name`, `description`, `tags`, `triggers`, `version` and `license`.
+1. **Draft**: write `skills/<skill-name>/SKILL.md`. Agent Skills requires `name` and `description` in YAML frontmatter. This repository also tracks `version` and `license` for maintenance.
 2. **Optional**: add a `README.md` as a quick reference.
 3. **Register**: run `python3 scripts/sync-skills-index.py`. That regenerates `skills/INDEX.md` from the frontmatter; do not edit the registry by hand, because CI rejects one that disagrees with the skills it registers.
 4. **Open a PR.**
 
-`description` and `triggers` must be English — skills.sh and agentskills.io parse them, and skill matching depends on them.
+`description` must be English and make the skill's purpose and usage clear. It is the discovery field used by Agent Skills and this repository.
+
+Keep optional frontmatter only when a consumer uses it. `output_schema.type: findings-list` selects the shared [findings-list](specs/findings-list.md) contract; other typed handoffs may declare a schema when an actual consumer needs one. Place operational defaults and prerequisites in the instructions when no machine reads an input schema. Agent Skills recommends a main `SKILL.md` under 500 lines and instructions under about 5,000 tokens; these are review signals, not validity limits. Put optional examples and detailed references in linked local files.
 
 Research Skills use optional `metadata.ai_cortex_type` (`foundation`, `domain`, or `orchestrator`) and `metadata.ai_cortex_user_invocable` (`"true"` or `"false"`). Declare both together; the index generator validates and displays them. The flag is a repository routing contract, not a guarantee that every host hides an internal Skill. Use explicit local artifact handoffs between Skills and preserve the [Research Evidence](specs/research-evidence.md) and [Opportunity Package](specs/opportunity-package.md) contracts. The five public research names are a narrow [naming exception](docs/adr/0013-research-skill-entry-names.md).
 
@@ -70,7 +72,7 @@ This project follows [Semantic Versioning](https://semver.org/). When you modify
 - **MINOR** (1.0.0 → 1.1.0): new steps, improved examples, interaction policy changes
 - **MAJOR** (1.0.0 → 2.0.0): breaking structural changes, including making a previously optional output format mandatory
 
-After bumping `version` in the SKILL.md frontmatter, run `python3 scripts/sync-skills-index.py` so any description, tag or trigger change reaches `skills/INDEX.md`.
+After bumping `version` in the SKILL.md frontmatter, run `python3 scripts/sync-skills-index.py` so any description change reaches `skills/INDEX.md`.
 
 ## Checks
 

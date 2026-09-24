@@ -1,20 +1,8 @@
 ---
 name: publish-release
 description: Validate a ready Release Package and execute the repository's publication steps—tag, build, package, and provider release—with explicit mutation gates.
-description_zh: 校验 ready 状态的 Release Package，并按仓库约定执行 tag、构建、打包和发布；所有外部写入均有明确闸门。
-tags: [release, publish, tag, build, package]
-version: 1.2.0
+version: 1.2.1
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [publish release, ship release, tag and publish, release artifact]
-input_schema:
-  type: free-form
-  description: Ready Release Package path or preparation result; optional provider and dry-run preference
-output_schema:
-  type: side-effect
-  description: Publication result with tag, build/package evidence, provider receipt, rollback path, and updated Release Package status
 ---
 
 # Skill: Publish Release

@@ -1,22 +1,11 @@
 ---
 name: policy-research
 description: Research a jurisdiction's policy or compliance question with official sources, effective dates, applicability, and product implications.
-description_zh: 核对特定法域的政策、法规及其生效和适用边界，形成可追溯的产品影响分析。
-tags: [research, policy, regulation, compliance]
-version: 1.0.0
+version: 1.1.0
 license: MIT
-recommended_scope: project
 metadata:
-  author: ai-cortex
   ai_cortex_type: domain
   ai_cortex_user_invocable: "true"
-triggers: [policy research, regulation research, compliance impact, 政策研究, 法规调研]
-input_schema:
-  type: free-form
-  description: Policy question, jurisdiction, regulated actors, period or as-of date, and product context when relevant
-output_schema:
-  type: document-artifact
-  description: Policy-focused narrative and JSON Research Report with applicability and product implications
 ---
 
 # Skill: Policy Research
@@ -37,3 +26,13 @@ Answer a bounded policy question for a named jurisdiction and date. This Skill a
 ## Self-check
 
 Every obligation has an official locator, effective date and affected actor. Every product implication traces to source-backed findings. An unresolved interpretation stays unresolved, and no compliance verdict is asserted from incomplete evidence.
+
+## Examples
+
+### Effective-date check
+
+**Input:** assess how a named regulation affects a product in one jurisdiction. **Output:** cite the official instrument and clause, distinguish promulgation from effective date, identify affected actors, and trace each possible product change to a finding.
+
+### Jurisdiction omitted
+
+**Input:** “Does this feature comply with privacy law?” with no jurisdiction or regulated actor. **Output:** ask for the boundary when it changes applicability; do not generalize one country's rule or issue a compliance verdict.

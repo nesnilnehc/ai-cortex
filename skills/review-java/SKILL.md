@@ -1,20 +1,10 @@
 ---
 name: review-java
 description: "Review Java code for language and runtime conventions: concurrency, exceptions, try-with-resources, API versioning, collections and Streams, NIO, and testability. Language-only atomic skill; output is a findings list."
-description_zh: 按 Java 语言与运行时规范审查代码：并发、异常、try-with-resources、API 版本、集合与 Stream、NIO、可测性。
-tags: [code-review, language]
-version: 1.0.3
+version: 1.0.4
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [review java]
-input_schema:
-  type: code-scope
-  description: Source files or directories to review
 output_schema:
   type: findings-list
-  description: Zero or more findings, each carrying every element the findings-list Spec requires
 ---
 
 # Skill: Review Java

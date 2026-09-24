@@ -1,20 +1,8 @@
 ---
 name: prepare-release
 description: Build and validate a Release Package from repository history, version policy, quality gates, and optional release artifacts; does not publish or announce.
-description_zh: 基于仓库历史、版本策略、质量门禁和可选发布材料构造并校验 Release Package；不负责发布或公告。
-tags: [release, versioning, changelog, release-package, orchestration]
-version: 1.4.1
+version: 1.4.2
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [prepare release, release package, release readiness, cut release]
-input_schema:
-  type: free-form
-  description: Repository path; optional target version/channel, previous tag, artifact preferences, and dry-run preference
-output_schema:
-  type: document-artifact
-  description: Release decision and Package manifest with version domains, change items, artifacts, checks, and readiness; no commit, tag, push, upload, or announcement
 ---
 
 # Skill: Prepare Release

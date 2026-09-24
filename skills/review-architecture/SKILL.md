@@ -1,20 +1,10 @@
 ---
 name: review-architecture
 description: "Review code against the canonical architecture quality Rule set, including boundaries, dependency direction, cohesion, cycles, contract stability, coupling, composition, change surface, unreachable code and deprecation discipline. Cognitive-only atomic skill; output is a findings list."
-description_zh: 依据权威架构质量规则审查边界、依赖方向、内聚性、循环、契约稳定性、耦合、装配、变更面、无人调用的代码与废弃标记纪律。
-tags: [code-review, cognitive, architecture]
-version: 2.1.1
+version: 2.1.2
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [review architecture, architecture review]
-input_schema:
-  type: code-scope
-  description: Source files, directories or a diff selected by the caller
 output_schema:
   type: findings-list
-  description: Zero or more architecture findings traceable to canonical Rule IDs
 ---
 
 # Skill: Review Architecture

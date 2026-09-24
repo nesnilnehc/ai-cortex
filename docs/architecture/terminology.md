@@ -58,7 +58,7 @@ status: active
 | ---- | ---- |
 | Spec | "the contract describing a thing" — nowhere else may redefine that structure |
 | Protocol | "the byte-level or message-level sequence coordinating several parties" — nowhere else may prescribe the interaction steps |
-| Skill | "an objective-driven capability an agent can be routed to" — nowhere else may declare an invocable capability matchable by description or tags |
+| Skill | "an objective-driven capability an agent can be routed to" — nowhere else may declare an invocable capability matchable by description |
 | Rule | "an atomic, checkable constraint" — nowhere else may say "X is forbidden" or "Y is required" without supplying the means to verify it |
 
 ### Reference direction between layers

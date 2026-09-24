@@ -1,23 +1,8 @@
 ---
 name: design-strategic-goals
 description: Define 3–5 long-term strategic goals that move the project toward the vision and North Star. Produces a goals document aligned with mission, vision, and NSM; persisted to docs.
-description_zh: 定义 3–5 个推动项目走向 vision 与 North Star 的长期战略目标；产出 goals 文档。
-tags: [documentation, workflow]
-version: 1.3.2
+version: 1.3.3
 license: MIT
-recommended_scope: both
-metadata:
-  author: ai-cortex
-triggers: [strategic goals, design goals, define goals]
-input_schema:
-  type: free-form
-  description: Vision; North Star (or paths); project context; optional mission; existing goals or priorities
-output_schema:
-  type: document-artifact
-  description: Strategic goals document with 3–5 goals; written to docs/project-overview/strategic-goals.md (or project norms)
-  artifact_type: strategic-goals
-  path_pattern: docs/project-overview/strategic-goals.md
-  lifecycle: living
 ---
 
 # Skill: Design Strategic Goals

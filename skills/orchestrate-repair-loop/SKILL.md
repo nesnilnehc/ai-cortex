@@ -1,24 +1,9 @@
 ---
 name: orchestrate-repair-loop
 description: Iteratively converge the sibling engineering and functional gates, apply targeted fixes, then re-review and re-verify until both pass or a stop condition is reached.
-description_zh: 迭代收敛工程门禁与功能门禁，实施定向修复并重新审查、验证，直至两者通过或满足停止条件。
-tags: [automation, devops, optimization]
-version: 1.3.0
+version: 1.4.0
 license: MIT
-recommended_scope: both
-metadata:
-  author: ai-cortex
-triggers: [repair, fix tests, delivery, stabilize, auto repair, auto fix, auto fix changes]
-aliases: [run-repair-loop]
 compatibility: Requires a shell and the repo's toolchains to run tests (language-dependent). May require git for diff-based review.
-input_schema:
-  type: code-scope
-  description: Repository path and scope (diff or codebase) to converge to clean state
-  defaults:
-    scope: diff
-output_schema:
-  type: diagnostic-report
-  description: Repair loop report with iterations, commands, patches, and final state (persist only if explicitly requested)
 ---
 
 # Skill: Run the repair loop (engineering gate + functional gate + fix)
@@ -42,7 +27,7 @@ The gates are logically peers. They may run in either order or in parallel when 
 
 **Success criteria** (all must be met):
 
-1. ✅ **Definition of done resolved**: the preflight choices (scope, test mode, max iterations, allowed actions) are confirmed before the loop starts
+1. ✅ **Definition of done resolved**: scope, test mode, loop bound and allowed actions come from the request, repository evidence or stated defaults before the loop starts
 2. ✅ **Both gates evidenced**: engineering findings and functional alignment/acceptance evidence are reported separately
 3. ✅ **Affected gates re-run after a fix**: every repair is followed by the narrowest functional and engineering checks it can invalidate
 4. ✅ **Bounded loop**: the loop terminates on convergence or on an explicit stop condition - no unbounded retrying
@@ -66,7 +51,7 @@ The gates are logically peers. They may run in either order or in parallel when 
 
 **This skill does not cover**:
 
-- Installing dependencies, using the network, or starting Docker/services without explicit confirmation
+- Installing dependencies, making authenticated or state-changing remote requests, or starting Docker/services without authorization
 - Large refactors without explicit user approval
 - Modifying unrelated sibling repositories
 - Disabling tests, weakening assertions, or deleting coverage without explicit user approval
@@ -90,7 +75,7 @@ The gates are logically peers. They may run in either order or in parallel when 
 
 If `CLAUDE.md` or `.ai-cortex/config.yaml` exists, read `test_command` and the rest from there first; otherwise fall back to discovery. See [docs/guides/project-config.md](../../docs/guides/project-config.md).
 
-Confirm or default the following:
+Resolve the following from the request and repository evidence. Apply stated defaults where the choice is routine; ask only when a necessary decision remains ambiguous.
 
 - **Target**: repository path (default `.`) and scope:
   - `diff` (default): focus on the current changes, preferring `review-diff`.
@@ -99,14 +84,14 @@ Confirm or default the following:
   - Engineering: no `critical`/`major` findings remain from `orchestrate-code-review`.
   - Functional alignment: no `critical`/`major` ALN findings remain when an approved artifact chain exists.
   - Functional execution: the selected test and acceptance plan passes.
-  - If only "minor"/"suggestion" findings remain, list them and ask whether to address them.
+  - If only "minor"/"suggestion" findings remain, list them as non-blocking unless the user requested further polish.
 - **Loop bounds**:
   - `max_iterations` default: `5`.
   - `time_budget` default: "best effort"; if the user gives a time limit, honor it strictly.
 - **Allowed actions** (ask when unclear; default to the safer choice):
   - Modify repository files: **yes** (this skill exists to repair), but keep the change minimal.
   - Install dependencies: **confirm before running** (a reasonable action, but outside the implicit authorization of "change the code").
-  - Network access: **confirm before running** (only where test execution needs it; not initiated while idle).
+  - Network access: public read-only sources follow AGENTS.md; authenticated requests, remote writes and downloads that would become runtime dependencies require the user's authorization and the repository's source policy.
   - Docker/services (DB/Redis/etc.): **confirm before running** (start on demand, stop once the tests finish).
   - Large refactors: **no**, not without confirmation.
 
@@ -227,7 +212,7 @@ By default, do not write a standalone report file. If the user explicitly asks f
 
 ### Hard Boundaries
 
-- An action beyond modifying code (installing a dependency, a network request, starting Docker/services) needs explicit confirmation before it runs — these are reasonable repair actions, but they need the user's informed consent; do not carry them out quietly.
+- Installing a dependency, starting Docker/services, or making an authenticated or state-changing remote request needs authorization before it runs. Public read-only source checks follow AGENTS.md; do not turn downloaded content into a runtime dependency without its pinned-source requirements.
 - Do not ask the user to paste credentials into the conversation. Prefer a local env file or the documented development workflow.
 - Do not "fix" by disabling tests, weakening assertions, or deleting coverage, unless the user explicitly approves and the trade-off is recorded.
 - Avoid large refactors by default; prefer the smallest patch that unblocks correctness.
@@ -256,7 +241,7 @@ By default, do not write a standalone report file. If the user explicitly asks f
 
 ### Core success criteria
 
-- [ ] **Definition of done resolved**: the preflight choices (scope, test mode, max iterations, allowed actions) are confirmed before the loop starts
+- [ ] **Definition of done resolved**: preflight choices were resolved from the request, evidence or defaults, with clarification only for a missing decision
 - [ ] **Both gates evidenced**: engineering findings and functional alignment/acceptance results are reported separately
 - [ ] **Coverage preserved**: the engineering report retains Rule coverage by emitting Skill, including waived, not-applicable and evidence-limited IDs
 - [ ] **A green test run is not convergence**: the complete engineering gate and applicable alignment review ran before completion

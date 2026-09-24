@@ -1,35 +1,8 @@
 ---
 name: archive-milestone
 description: Archive a completed milestone by generating a snapshot summary, folding the roadmap stage, and removing the stale tasks directory.
-description_zh: 将已完成里程碑转为快照摘要，折叠路线图历史阶段，移除历史任务目录，减少 AI 上下文污染。
-tags: [governance, lifecycle, archive, milestone]
-version: 1.1.2
+version: 1.1.3
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-  triggers_after: [plan-next]
-triggers: [archive milestone, completed milestone cleanup, milestone summary]
-input_schema:
-  type: structured
-  fields:
-    milestone_slug:
-      type: string
-      required: true
-      description: Milestone directory name (e.g. "m3")
-    apply:
-      type: bool
-      required: false
-      default: false
-      description: false = dry-run (preview only), true = write changes to disk
-  defaults:
-    apply: false
-output_schema:
-  type: document-artifact
-  description: Milestone snapshot summary + roadmap fold preview + reference update list
-  artifact_type: milestone-summary
-  path_pattern: docs/process-management/milestones/_archive/{slug}-summary.md
-  lifecycle: snapshot
 ---
 
 # Skill: Archive Milestone
@@ -72,6 +45,8 @@ When maturity is not reached, emit the diagnostic `Milestone {slug} does not yet
 ---
 
 ## Behavior
+
+Input is the completed milestone's directory slug (for example, `m3`). `apply` defaults to `false`: preview without changing files unless the user explicitly requests application.
 
 ### Stage 1: maturity check
 

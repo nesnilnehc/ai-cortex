@@ -1,20 +1,8 @@
 ---
 name: manage-secret
 description: Store, look up, rotate, or delete a personal credential — passwords, API keys, tokens, certificate passphrases — in the macOS Keychain under a project-env-kind naming scheme. Use it even when the user does not say "Keychain". Not for team vaults, CI secret injection, or cross-machine sync.
-description_zh: 在 macOS Keychain 中按 project-env-kind 三段式命名规范存取/删除个人凭据（服务器 SSH 密码、数据库密码、网站登录、API Key/Token、证书口令），并可选在当前项目的 Claude Code 记忆中记一条指针（绝不含密钥本身）。当用户要求保存、记住、查询、轮换或删除密码/API Key/Token/SSH 凭据/数据库凭据时始终使用本技能——即便对方没有明说"Keychain"或"security"，例如"把这个数据库密码存一下""记一条密钥""这台服务器的密码帮我记下来""staging 的 postgres 密码是什么来着""把旧的 GitHub token 从 keychain 删了"。团队共享密钥库、CI/CD 密钥注入、跨机器同步需求不适用本技能，那需要真正的密钥管理服务。
-tags: [security, secrets, keychain, macos, credentials, memory]
-version: 1.1.2
+version: 1.1.3
 license: MIT
-recommended_scope: both
-metadata:
-  author: ai-cortex
-triggers: [store keychain secret, save api key, save password, save credential, look up password, rotate secret, delete keychain entry]
-input_schema:
-  type: free-form
-  description: A natural-language request naming a credential to store, look up, or delete, plus (for store) the secret value itself.
-output_schema:
-  type: side-effect
-  description: A macOS Keychain generic-password entry created, updated, or deleted via the `security` CLI. Optionally a `reference`-type memory file created under the current project's memory directory plus an updated MEMORY.md index. The confirmation message never echoes the secret value.
 ---
 
 # Skill: Manage Secret

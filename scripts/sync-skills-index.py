@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 """Render skills/INDEX.md from the SKILL.md frontmatter of every skill.
 
-AGENTS.md §4 resolves a skill by ranking `triggers`, then `tags`, then
-`description` — all three read from skills/INDEX.md. The registry therefore has
-to carry those three fields and has to agree with the skills it registers, so it
-is derived here rather than maintained by hand.
+AGENTS.md §4 discovers skills through their descriptions. The registry is
+derived here so its entries agree with the skills they register.
 """
 
 from __future__ import annotations
@@ -29,10 +27,8 @@ Generated from each skill's own `SKILL.md` frontmatter by
 here alone is overwritten and does not reach the skill.
 """
 
-REGISTRY_FIELDS = ("name", "description", "tags", "triggers")
-LIST_FIELDS = ("tags", "triggers")
+REGISTRY_FIELDS = ("name", "description")
 SCALAR = re.compile(r"^(name|description):\s*(.+?)\s*$", re.M)
-FLOW_LIST = re.compile(r"^(tags|triggers):\s*\[(.*?)\]\s*$", re.M)
 RESEARCH_METADATA = re.compile(r"^  (ai_cortex_type|ai_cortex_user_invocable):\s*(.+?)\s*$", re.M)
 SKILL_TYPES = {"foundation", "domain", "orchestrator"}
 
@@ -45,9 +41,8 @@ def read_frontmatter(skill_md: pathlib.Path) -> dict[str, object]:
     """Return the registry fields declared by one SKILL.md.
 
     skill_md: path to a skill's SKILL.md
-    Returns: dict with `name` and `description` as str, `tags` and `triggers`
-        as list[str]
-    Raises: SkillError when a field is absent or not written as a flow list
+    Returns: dict with `name` and `description` as strings
+    Raises: SkillError when a required field is absent
     """
     text = skill_md.read_text(encoding="utf-8")
     if not text.startswith("---"):
@@ -57,14 +52,9 @@ def read_frontmatter(skill_md: pathlib.Path) -> dict[str, object]:
     fields: dict[str, object] = {
         key: value.strip("\"'") for key, value in SCALAR.findall(block)
     }
-    for key, raw in FLOW_LIST.findall(block):
-        fields[key] = [
-            item.strip().strip("\"'") for item in raw.split(",") if item.strip()
-        ]
-
     for key in REGISTRY_FIELDS:
         if not fields.get(key):
-            raise SkillError(f"{relative(skill_md)}: {absence_reason(key, block)}")
+            raise SkillError(f"{relative(skill_md)}: frontmatter is missing `{key}`")
     metadata = re.search(r"^metadata:\s*\n((?:[ \t]+[^\n]*\n?)*)", block, re.M)
     if metadata:
         research = {key: value.strip("\"'") for key, value in RESEARCH_METADATA.findall(metadata.group(1))}
@@ -75,21 +65,6 @@ def read_frontmatter(skill_md: pathlib.Path) -> dict[str, object]:
                 raise SkillError(f"{relative(skill_md)}: invalid `ai_cortex_user_invocable`")
             fields.update(research)
     return fields
-
-
-def absence_reason(key: str, block: str) -> str:
-    """Explain why a required field did not parse.
-
-    A list written in block form parses as absent, and reporting it as missing
-    sends the author looking for a field that is already there.
-    """
-    declared = re.search(rf"^{key}:", block, re.M)
-    if key in LIST_FIELDS and declared:
-        return (
-            f"`{key}` must be a flow list on one line, "
-            f"for example `{key}: [first, second]`"
-        )
-    return f"frontmatter is missing `{key}`"
 
 
 def collect(skills_dir: pathlib.Path) -> list[tuple[str, dict[str, object]]]:
@@ -120,21 +95,12 @@ def render(skills: list[tuple[str, dict[str, object]]]) -> str:
     lines = [HEADER]
     for name, fields in skills:
         lines.append(f"- [{name}](./{name}/SKILL.md) — {fields['description']}")
-        lines.append(
-            f"  - tags: {code_list(fields['tags'])}"
-            f" · triggers: {code_list(fields['triggers'])}"
-        )
         if "ai_cortex_type" in fields:
             lines.append(
                 f"  - type: `{fields['ai_cortex_type']}`"
                 f" · user-invocable: `{fields['ai_cortex_user_invocable']}`"
             )
     return "\n".join(lines) + "\n"
-
-
-def code_list(values: list[str]) -> str:
-    """Render a list as backticked, comma-separated values."""
-    return ", ".join(f"`{value}`" for value in values)
 
 
 def relative(path: pathlib.Path) -> str:

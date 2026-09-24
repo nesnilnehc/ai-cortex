@@ -42,7 +42,7 @@ When you know exactly what you want, naming a single skill is faster.
 | Something is stuck, or the dates have to move | [`update-roadmap`](../../skills/update-roadmap/SKILL.md) |
 | A milestone is finished and needs archiving | [`archive-milestone`](../../skills/archive-milestone/SKILL.md) |
 
-Plain description matches too — the matching rules are in [AGENTS.md](../../AGENTS.md) §4, and each skill's `triggers` field exists for exactly this.
+The skill descriptions in [skills/INDEX.md](../../skills/INDEX.md) support discovery; [AGENTS.md](../../AGENTS.md) §4 describes matching.
 
 ---
 

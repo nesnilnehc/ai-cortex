@@ -1,21 +1,8 @@
 ---
 name: promote-roadmap-items
 description: Promote prioritized backlog items into the roadmap's Now/Next/Later tiers based on strategic_goal capacity allocation and priority scores. Event-driven (not calendar-driven).
-description_zh: 把已评分的 backlog 条目按 strategic_goal 容量分配晋升进 roadmap 的 Now/Next/Later 槽位；事件驱动，不绑定固定周期。
-tags: [workflow, automation, meta-skill]
-version: 1.2.1
+version: 1.2.2
 license: MIT
-recommended_scope: project
-cognitive_mode: interpretive
-metadata:
-  author: ai-cortex
-triggers: [promote roadmap, roadmap planning, pull items, release planning]
-input_schema:
-  type: free-form
-  description: Priority-scored backlog items, current roadmap, strategic_goal capacity allocation
-output_schema:
-  type: chat
-  description: Promotion/demotion decisions for Now/Next/Later tiers + capacity usage report + updated roadmap.md
 ---
 
 # Skill: Promote Roadmap Items
