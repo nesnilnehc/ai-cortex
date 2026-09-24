@@ -1,20 +1,10 @@
 ---
 name: review-go
 description: "Review Go code for language and runtime conventions: concurrency, context usage, error handling, resource management, API stability, type semantics, and testability. Language-only atomic skill; output is a findings list."
-description_zh: 按 Go 语言与运行时规范审查代码：并发、context、错误处理、资源管理、API 稳定性、类型语义、可测性。
-tags: [code-review, language]
-version: 1.0.3
+version: 1.0.4
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [review go]
-input_schema:
-  type: code-scope
-  description: Source files or directories to review
 output_schema:
   type: findings-list
-  description: Zero or more findings, each carrying every element the findings-list Spec requires
 ---
 
 # Skill: Review Go

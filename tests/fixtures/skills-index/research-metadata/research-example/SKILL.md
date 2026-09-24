@@ -1,8 +1,6 @@
 ---
 name: research-example
 description: Research example.
-tags: [research]
-triggers: [research example]
 metadata:
   author: ai-cortex
   ai_cortex_type: foundation

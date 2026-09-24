@@ -1,20 +1,10 @@
 ---
 name: review-error-surfacing
 description: "Review code against the canonical error surfacing quality Rule set, covering boundary decisions on untrusted input, stopping on a broken invariant, detection layer, and messages a person or a program can act on. Cognitive-only atomic skill; output is a findings list."
-description_zh: 依据权威的错误暴露质量规则审查边界输入判定、不变量破坏时的停止、检测层次，以及人或程序能据以行动的失败消息。
-tags: [code-review, cognitive, error-handling]
-version: 1.2.0
+version: 1.2.1
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [review error handling, error surfacing review, error message review]
-input_schema:
-  type: code-scope
-  description: Source files, directories or a diff selected by the caller
 output_schema:
   type: findings-list
-  description: Zero or more error-surfacing findings traceable to canonical Rule IDs
 ---
 
 # Skill: Review Error Surfacing

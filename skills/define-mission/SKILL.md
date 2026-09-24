@@ -1,23 +1,8 @@
 ---
 name: define-mission
 description: Define the fundamental purpose of a project or organization. Answers why the project exists; produces a single mission statement persisted to docs.
-description_zh: 定义项目或组织的根本目的；回答项目为何存在；产出 mission 陈述并持久化到 docs。
-tags: [documentation, workflow]
-version: 1.4.0
+version: 1.4.1
 license: MIT
-recommended_scope: both
-metadata:
-  author: ai-cortex
-triggers: [define mission, mission, why we exist]
-input_schema:
-  type: free-form
-  description: Project or product identifier; current understanding of purpose from docs, README, or user
-output_schema:
-  type: document-artifact
-  description: Mission statement written to docs/project-overview/mission.md (or project norms)
-  artifact_type: mission
-  path_pattern: docs/project-overview/mission.md
-  lifecycle: living
 ---
 
 # Skill: Define Mission
@@ -78,7 +63,7 @@ Define and record the mission: the lasting reason a project or organization exis
 
 **Input**: the project identifier; the existing understanding of the purpose (from README, docs or the user).
 
-**Output**: the mission statement as a Markdown document; the path is given by the frontmatter `output_schema.path_pattern`; lifecycle living.
+**Output**: the mission statement as a living Markdown document at the path agreed with the user or specified by project norms (commonly `docs/project-overview/mission.md`).
 
 ## Limits
 

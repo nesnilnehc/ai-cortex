@@ -1,22 +1,8 @@
 ---
 name: commit-work
 description: Create high-quality git commits with clear messages and logical scope. Core goal - produce reviewable commits following Conventional Commits format with pre-commit quality checks.
-description_zh: 创建高质量 git 提交：清晰消息与合理范围；遵循 Conventional Commits，含 pre-commit 质量检查。
-tags: [git, workflow, automation]
-version: 2.0.3
+version: 2.1.0
 license: MIT
-recommended_scope: both
-metadata:
-  author: ai-cortex
-  origin: vendored-derived
-  source-registry: ../SOURCES.yaml
-triggers: [commit, commit work]
-input_schema:
-  type: free-form
-  description: Staged and unstaged changes in the working tree to commit
-output_schema:
-  type: side-effect
-  description: One or more git commits with Conventional Commits messages
 ---
 
 # Skill: Commit Work
@@ -146,10 +132,9 @@ If `CLAUDE.md` or `.ai-cortex/config.yaml` exists, prefer the `test_command` rec
 
 ### Interaction policy
 
-- Ask the user whether they want one commit or several (default: several small commits for unrelated changes)
-- Confirm the commit style requirement (this skill expects Conventional Commits)
-- Ask about project-specific rules: maximum subject length, required scopes, and so on.
-- For AI Cortex projects: confirm whether the corresponding INDEX.md is synced
+- Use several small commits for unrelated changes unless the user specifies another grouping.
+- Use Conventional Commits and read any project-specific subject or scope rules from local guidance; ask only when a required rule cannot be resolved.
+- For AI Cortex projects, check and synchronize the corresponding INDEX.md rather than asking whether it is current.
 
 ## Input & Output
 

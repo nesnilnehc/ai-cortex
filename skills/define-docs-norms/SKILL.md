@@ -1,23 +1,8 @@
 ---
 name: define-docs-norms
 description: Create or update docs/ARTIFACT_NORMS.md from an approved proposal and establish project docs norms as canonical rules.
-description_zh: 基于已确认提案创建或更新 docs/ARTIFACT_NORMS.md，建立项目文档规范的单一权威来源。
-tags: [documentation, workflow]
-version: 3.0.0
+version: 3.0.1
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [define docs norms, create docs norms, apply norms]
-input_schema:
-  type: free-form
-  description: Approved norms proposal, optional existing ARTIFACT_NORMS.md, optional merge strategy
-output_schema:
-  type: document-artifact
-  description: Canonical docs norms file
-  artifact_type: governance
-  path_pattern: docs/ARTIFACT_NORMS.md
-  lifecycle: living
 ---
 
 # Skill: Define Docs Norms

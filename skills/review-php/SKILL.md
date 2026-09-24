@@ -1,20 +1,10 @@
 ---
 name: review-php
 description: "Review PHP code for language and runtime conventions: strict types, error handling, resource management, PSR standards, namespaces, null safety, generators, and testability. Language-only atomic skill; output is a findings list."
-description_zh: 按 PHP 语言与运行时规范审查代码：strict types、错误处理、资源管理、PSR、命名空间、null 安全、生成器、可测性。
-tags: [code-review, language]
-version: 1.0.3
+version: 1.0.4
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [review php]
-input_schema:
-  type: code-scope
-  description: Source files or directories to review
 output_schema:
   type: findings-list
-  description: Zero or more findings, each carrying every element the findings-list Spec requires
 ---
 
 # Skill: Review PHP

@@ -42,7 +42,7 @@ These were always English and are unaffected by this scheme:
 
 | Field | Where |
 | :--- | :--- |
-| `name`, `tags`, `triggers`, `description` | SKILL frontmatter |
+| `name`, `description` | SKILL frontmatter |
 | File and directory names | kebab-case, no exceptions |
 | `skills/INDEX.md`, `rules/INDEX.md`, `specs/INDEX.md` | Registries |
 
@@ -50,16 +50,16 @@ These were always English and are unaffected by this scheme:
 
 ---
 
-## 4. `description_zh`
+## 4. Skill descriptions
 
-An optional SKILL frontmatter field carrying a Chinese translation of `description`. It is a convenience for Chinese-reading users, never the source of truth. Adding it is optional; omitting it is not a defect.
+Skill frontmatter carries one English `description`. Do not add a parallel translated description field; skill discovery uses the English field.
 
 ---
 
 ## 5. Writing standards
 
 - **English prose**: plain, direct, active voice. State the conclusion first, then the reasoning. Define a term the first time it appears.
-- **Chinese prose** (the exceptions in §2, and `description_zh`): follows [rules/writing-chinese-technical.md](../rules/writing-chinese-technical.md) — spacing between Chinese and Latin characters, full-width punctuation, consistent terminology.
+- **Chinese prose** (the immutable records in §2): follows [rules/writing-chinese-technical.md](../rules/writing-chinese-technical.md) — spacing between Chinese and Latin characters, full-width punctuation, consistent terminology.
 - **Terminology**: the four asset types are Skill, Spec, Protocol and Rule. Defined in [docs/architecture/terminology.md](architecture/terminology.md).
 
 ---

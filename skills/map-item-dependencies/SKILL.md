@@ -1,21 +1,8 @@
 ---
 name: map-item-dependencies
 description: Identify dependencies among backlog and roadmap items across five categories, record them in each item's depends_on field, and produce a dependency graph with need-by dates and reduction options. Runs before promotion so blocked items are not pulled into Now.
-description_zh: 识别 backlog 与 roadmap 条目间的五类依赖，写入条目 depends_on 字段，产出依赖图、需解决时点与削减建议；在晋升前运行，避免被阻塞条目被拉进 Now。
-tags: [workflow, planning, dependencies]
-version: 1.0.0
+version: 1.0.1
 license: MIT
-recommended_scope: project
-cognitive_mode: interpretive
-metadata:
-  author: ai-cortex
-triggers: [map dependencies, dependency graph, item dependencies, blocked by, sequencing]
-input_schema:
-  type: free-form
-  description: Backlog items (any priority state) and current roadmap; optional scope limited to promotion candidates
-output_schema:
-  type: chat
-  description: Dependency graph + need-by table + reduction options; depends_on written back to each item's frontmatter
 ---
 
 # Skill: Map Item Dependencies

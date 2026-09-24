@@ -7,7 +7,7 @@ policy:
 skills:
   commit-work:
     local_path: skills/commit-work
-    local_version: 2.0.1
+    local_version: 2.1.0
     origin: vendored-derived
     upstream:
       repository: https://github.com/softaworks/agent-toolkit.git
@@ -25,7 +25,7 @@ skills:
 
   changelog-video:
     local_path: skills/changelog-video
-    local_version: 1.0.1
+    local_version: 1.1.0
     origin: vendored-derived
     upstream:
       repository: https://github.com/heygen-com/hyperframes.git
@@ -41,3 +41,4 @@ skills:
       - Removed HyperFrames branding, bundled media, fonts, voice, and repository-specific paths
       - Removed sibling-skill dependencies and runtime skill installation
       - Added renderer discovery, user-confirmed defaults, and Release Package artifact output
+      - Added local render and missing-renderer examples

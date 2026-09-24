@@ -1,20 +1,8 @@
 ---
 name: generate-standard-readme
 description: Generate lean, high-density README. Sections pruned by value threshold — not fixed count. Primary goal — reader knows what the project is, where to look, and how to use it within 30 seconds.
-description_zh: 生成高信息密度 README。章节按价值门槛裁剪，非固定数量。首要目标：读者 30 秒内知道项目是啥、去哪看、怎么用。
-tags: [documentation, devops, writing]
-version: 2.1.1
+version: 2.2.0
 license: MIT
-recommended_scope: user
-metadata:
-  author: ai-cortex
-triggers: [generate readme, readme]
-input_schema:
-  type: code-scope
-  description: Repository or project path to generate README for
-output_schema:
-  type: document-artifact
-  description: Lean README.md written to the project root; section count varies by project type and available content
 ---
 
 # Skill: Generate Lean README
@@ -67,7 +55,7 @@ The one core goal: within 30 seconds the reader knows —
 | Project type known | Generate directly, no questions |
 | Project type unclear | Inspect the repository structure first (is there a `package.json` / `pyproject.toml` / `Dockerfile` / `INDEX.md`, and so on) to infer the type; when the inference is solid, generate directly and state what it rests on; when it is not, ask the user |
 | User gave no description | Infer the most conservative description from the repository name and file structure, mark it `TBD`, invent nothing |
-| Before writing the file | By default write `README.md` directly; if the repository already has a README, warn that it will be overwritten and wait for confirmation |
+| Before writing the file | By default create or update `README.md` as requested; preserve useful existing content and ask only if the user's intended replacement scope is unclear |
 
 ### Default Skeleton
 
@@ -204,7 +192,7 @@ The following are forbidden:
 - **Never keep a hollow section**: every section kept carries at least one actionable piece of information; an empty one is omitted
 - **Hard limit on doc type**: a doc type repository gets no installation or quick-start section; if the user asks for one anyway, explain the reason
 - **License cannot be dropped**: always include a License section; when none is given use `TBD` rather than omitting it
-- **An existing README must be confirmed**: if the target directory already holds a README.md, the user must be prompted before it is overwritten
+- **Preserve useful existing content**: when updating a README, inspect it first and keep accurate project information; ask only when the desired replacement scope is unclear
 
 ---
 

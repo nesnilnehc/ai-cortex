@@ -1,20 +1,10 @@
 ---
 name: review-performance
 description: "Review code against the canonical performance quality Rule set, covering bounded work, I/O amplification, complexity, memory, concurrency, caching, budgets and resource ownership."
-description_zh: 依据权威性能质量规则审查工作边界、I/O 放大、复杂度、内存、并发、缓存、预算与资源生命周期。
-tags: [code-review, cognitive, optimization]
-version: 2.0.1
+version: 2.0.2
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [review performance, performance review]
-input_schema:
-  type: code-scope
-  description: Source files, directories or a diff selected by the caller
 output_schema:
   type: findings-list
-  description: Zero or more performance findings traceable to canonical Rule IDs
 ---
 
 # Skill: Review Performance

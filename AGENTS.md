@@ -57,12 +57,7 @@ Inside this repository, an agent `MUST`:
 | SHOULD | `docs/architecture/terminology.md` | Continue, but state that it is missing; `STOP`/`ASK` if a critical decision depends on it |
 | ON DEMAND | `skills/INDEX.md`, `protocols/INDEX.md`, `rules/INDEX.md` | `STOP` + `ASK` when discovery is triggered |
 
-**Skill matching** is deterministic — never random. Match the task against each skill's `description`, `tags` and `triggers` in `skills/INDEX.md`, ranked by:
-
-1. Exact substring match on `triggers`
-2. Then number of overlapping `tags` (string equality only; no synonym inference)
-3. Then semantic fit of `description`
-4. On an exact tie, ascending lexicographic order of `skill_path`
+**Skill matching**: use the task's intent and each skill's `description` in `skills/INDEX.md`. Prefer the most specific relevant capability; use an orchestrator when the request spans its listed component skills. When several candidates remain plausible, read their boundaries before choosing. Do not treat a word overlap as evidence that a skill fits.
 
 **Injection**: load the selected skill's full Markdown as system or context input.
 **Protocols and rules**: enumerate from their INDEX.md and inject as process baseline or long-lived background context.
@@ -79,7 +74,7 @@ Inside this repository, an agent `MUST`:
 
 ## 6. Language
 
-Repository artifacts and code comments `MUST` be written in English. The exceptions — existing ADRs, released changelog entries and design snapshots, all of which are immutable records — are listed in [docs/LANGUAGE_SCHEME.md](docs/LANGUAGE_SCHEME.md). Machine-consumed fields (YAML frontmatter, commands, IDs, tags) `MUST` remain in English.
+Repository artifacts and code comments `MUST` be written in English. The exceptions — existing ADRs, released changelog entries and design snapshots, all of which are immutable records — are listed in [docs/LANGUAGE_SCHEME.md](docs/LANGUAGE_SCHEME.md). Machine-consumed fields (YAML frontmatter, commands, IDs) `MUST` remain in English.
 
 Conversational responses `MUST` follow the user's language or explicit language request. This communication rule does not change the language of a repository artifact unless the user explicitly requests an artifact-language exception.
 

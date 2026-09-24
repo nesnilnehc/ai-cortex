@@ -23,17 +23,16 @@ The root of the current repository, the root of the repository this file lives i
 ## 2. The discovery flow
 
 1. Read `skills/INDEX.md` for the list of capabilities and their paths.
-2. Match a skill against the task semantically, using the SKILL's `description`, `tags` and `triggers`.
+2. Match a skill against the task semantically, using its `description` and scope.
 3. Pass context through explicit artifacts — a requirement, a design, a report and the like — rather than implicitly; when chaining calls, follow the Handoff Point and Scope Boundaries each skill states in its prose.
 
 Research Skills optionally declare `metadata.ai_cortex_type` (`foundation`, `domain`, or `orchestrator`) and `metadata.ai_cortex_user_invocable` (`"true"` or `"false"`). The generated index displays these fields for opted-in Skills. They guide repository routing; an agent host may still display an internal Skill if it does not support hiding by metadata. The five public research entries and their handoffs are in the [research usage guide](./research-skills-usage.md).
 
 ---
 
-## 3. Match priority, when several sources apply at once
+## 3. Match priority, when several skills apply at once
 
-1. An exact match on the SKILL's frontmatter `triggers`
-2. A semantic match on `description` or `tags`
+Prefer the capability whose description and boundaries best fit the user's intent. Use an orchestrator for a request that spans its component capabilities. Read candidate skills when the index alone does not resolve an overlap.
 
 ---
 
@@ -43,7 +42,7 @@ Research Skills optionally declare `metadata.ai_cortex_type` (`foundation`, `dom
 - A request for a product opportunity selects `product-opportunity-analysis` as the primary Skill. It intentionally calls relevant policy, market and competitive Skills and passes their compatible Research Reports to the internal assessment Skill. A direct domain request ends at that domain's report.
 - Escalation: when several intents are live within one cycle, escalate the orchestration to `plan-next`.
 - Artifact handoff: pass context through explicit artifacts — a requirement, a design, an alignment report, a doc-readiness report and the like — rather than implicitly.
-- Defaults: where `input_schema.defaults` exists and the user supplied nothing explicit, use that default.
+- Defaults: use the selected skill's stated defaults when the user supplied nothing explicit.
 
 ---
 

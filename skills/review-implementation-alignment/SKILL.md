@@ -1,20 +1,10 @@
 ---
 name: review-implementation-alignment
 description: "Compare an implemented change and its verification evidence with approved requirements, designs and tasks. Post-coding atomic functional-alignment review; outputs findings without repairing."
-description_zh: 对比已实现变更及验证证据与已批准的需求、设计和任务；编码后原子对齐审查，只输出 findings。
-tags: [review, implementation, alignment, post-coding]
-version: 1.1.1
+version: 1.1.2
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [review implementation alignment, implementation alignment, verify implementation against design]
-input_schema:
-  type: free-form
-  description: Approved artifact paths, implementation diff/scope and available verification evidence
 output_schema:
   type: findings-list
-  description: Zero or more implementation-alignment findings
 ---
 
 # Skill: Review Implementation Alignment

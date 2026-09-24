@@ -1,20 +1,10 @@
 ---
 name: review-sql
 description: Review SQL and query code for injection risk, parameterization, indexing and performance, transactions, NULL and constraints, and dialect portability. Language-only atomic skill; output is a findings list.
-description_zh: 审查 SQL 与查询代码：注入风险、参数化、索引与性能、事务、NULL 与约束、方言可移植性。
-tags: [code-review, language]
-version: 1.0.5
+version: 1.0.6
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [review sql]
-input_schema:
-  type: code-scope
-  description: Source files or directories to review
 output_schema:
   type: findings-list
-  description: Zero or more findings, each carrying every element the findings-list Spec requires
 ---
 
 # Skill: Review SQL

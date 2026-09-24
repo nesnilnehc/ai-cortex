@@ -1,20 +1,8 @@
 ---
 name: announce-release
 description: Create and optionally deliver grounded release announcements from a published Release Package across available channels; never owns changelog generation.
-description_zh: 基于已发布的 Release Package 生成并可选投递多渠道发布公告；不负责 changelog 生成。
-tags: [release, announcement, communication, notification]
-version: 1.1.1
+version: 1.1.2
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [announce release, release announcement, release communication, notify release]
-input_schema:
-  type: free-form
-  description: Published Release Package; target audiences/channels; optional delivery request
-output_schema:
-  type: document-artifact
-  description: Grounded announcement drafts and, when authorized and supported, delivery receipts linked to the Release Package
 ---
 
 # Skill: Announce Release

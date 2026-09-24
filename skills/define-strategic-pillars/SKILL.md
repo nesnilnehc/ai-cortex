@@ -1,23 +1,8 @@
 ---
 name: define-strategic-pillars
 description: Derive 3–5 strategic pillars (high-level themes) from vision and North Star that structure and guide strategic goals and roadmap. Produces a strategic pillars document; persisted to docs.
-description_zh: 从 vision 与 North Star 推导 3–5 个战略支柱（高层次主题），指导战略目标与路线图。
-tags: [documentation, workflow]
-version: 1.1.2
+version: 1.1.3
 license: MIT
-recommended_scope: both
-metadata:
-  author: ai-cortex
-triggers: [strategic pillars, define pillars, strategy pillars]
-input_schema:
-  type: free-form
-  description: Vision; North Star (or paths); project context; optional mission; existing goals or pillars
-output_schema:
-  type: document-artifact
-  description: Strategic pillars document with 3–5 pillars; written to docs/project-overview/strategic-pillars.md (or project norms)
-  artifact_type: strategic-pillars
-  path_pattern: docs/project-overview/strategic-pillars.md
-  lifecycle: living
 ---
 
 # Skill: Define Strategic Pillars

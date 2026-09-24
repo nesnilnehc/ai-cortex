@@ -1,23 +1,10 @@
 ---
 name: orchestrate-code-review
 description: Orchestrator skill — sequence atomic review-* skills into the post-coding engineering gate and aggregate their findings; functional alignment and acceptance verification remain separate.
-description_zh: 编排技能——按 scope → language → framework → library → cognitive 顺序串联原子 review-* 技能，聚合 findings 为统一报告。
-tags: [code-review, orchestration]
-version: 1.3.0
+version: 1.4.0
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [review code, code review, pr review, orchestrate code review]
-input_schema:
-  type: code-scope
-  description: Diff or codebase path(s) to review, plus optional language/framework hint
-  defaults:
-    scope: diff
-    untracked: include
 output_schema:
   type: findings-list
-  description: Aggregated findings, duplicate-group annotations and risk signals from all executed atomic skills
 ---
 
 # Orchestrator Skill: Orchestrate Code Review
@@ -59,7 +46,7 @@ A step with no match is skipped; the final report names which steps were skipped
 
 ### Step 1: Detect context
 
-- Confirm the scope: when the user has not said, have them pick between `diff` and `codebase`
+- Resolve scope from the request and repository state. With current changes and no specified scope, use `diff`; ask only when neither a change set nor a target path can be identified.
 - diff mode includes untracked files by default
 - codebase mode defaults to the repository root; a path may be given
 - Language / framework inference: infer from the file extensions in scope and from dependency files (package.json, pyproject.toml and the like); when it is unclear, have the user choose from the candidate list
@@ -127,7 +114,7 @@ One aggregated report:
 
 - [ ] Only the 4 things get done: detect context / chain the calls / halt-on-failure / aggregate output
 - [ ] No domain detection logic was implemented inside this skill
-- [ ] The scope was confirmed with the user
+- [ ] The scope was resolved from the request and repository state; any genuine ambiguity was clarified
 - [ ] The execution order is fixed (scope → language → framework → library → cognitive)
 - [ ] Skipped steps are noted in the report
 - [ ] Every atomic finding was preserved unchanged; findings were grouped by location only, and exact duplicates were annotated rather than merged

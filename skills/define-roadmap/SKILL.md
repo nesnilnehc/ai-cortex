@@ -1,24 +1,8 @@
 ---
 name: define-roadmap
 description: Derive a strategic roadmap from goals using milestone checkpoints, strategic bets, success metrics, and promotion criteria. Produces a decision-grade roadmap document.
-description_zh: 从战略目标推导路线图，包含里程碑、关键举措、成功指标与推进条件，产出可用于决策的路线图文档。
-tags: [documentation, strategy, workflow]
-version: 4.0.0
+version: 4.0.1
 license: MIT
-recommended_scope: both
-metadata:
-  author: ai-cortex
-triggers: [define roadmap, roadmap, milestones, strategic roadmap, phase planning]
-input_schema:
-  type: free-form
-  description: Strategic goals (document or path); project context; optional vision/NSM; time horizon or phase preference
-output_schema:
-  type: document-artifact
-  description: Decision-grade roadmap document with milestones, strategic bets, success metrics, and promotion criteria
-  artifact_type: roadmap
-  path_pattern: docs/process-management/roadmap.md
-  path_alt: docs/process-management/milestones.md
-  lifecycle: living
 ---
 
 # Skill: Define Roadmap

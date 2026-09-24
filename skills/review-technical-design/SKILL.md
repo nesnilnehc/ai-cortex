@@ -1,21 +1,10 @@
 ---
 name: review-technical-design
 description: "Review an existing technical design against its modeling Spec, canonical quality Rule and applicable engineering Rule profiles before tasks or coding begin."
-description_zh: 在任务拆分或编码前依据技术设计规范、权威质量规则及适用工程规则画像审查既有技术设计。
-tags: [review, technical-design, pre-coding]
-version: 1.0.1
+version: 1.0.2
 license: MIT
-recommended_scope: both
-metadata:
-  author: ai-cortex
-triggers: [review technical design, technical design review, validate technical design]
-input_schema:
-  type: document-artifact
-  description: Existing technical-design document path or content
-  artifact_type: technical-design
 output_schema:
   type: findings-list
-  description: Zero or more technical-design-quality findings
 ---
 
 # Skill: Review Technical Design

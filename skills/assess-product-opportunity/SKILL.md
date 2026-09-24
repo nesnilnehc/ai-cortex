@@ -1,23 +1,12 @@
 ---
 name: assess-product-opportunity
 description: Assess a product opportunity from existing research reports and user signals, producing a restrained, traceable decision layer.
-description_zh: 根据已有研究报告和用户信号判断产品机会，形成可追溯且审慎的建议。
-tags: [research, opportunity, assessment, internal]
-version: 1.0.0
+version: 1.1.0
 license: MIT
-recommended_scope: project
 user-invocable: false
 metadata:
-  author: ai-cortex
   ai_cortex_type: domain
   ai_cortex_user_invocable: "false"
-triggers: [internal opportunity assessment]
-input_schema:
-  type: document-artifact
-  description: Scoped product question, compatible Research Reports, lane statuses, and authorized user signals
-output_schema:
-  type: document-artifact
-  description: Decision claims, analysis, and recommendation fields conforming to specs/opportunity-package.md
 ---
 
 # Skill: Assess Product Opportunity
@@ -38,3 +27,13 @@ Internal assessment step called by [product-opportunity-analysis](../product-opp
 ## Self-check
 
 Every decisive sentence has a claim ID. Every claim traces through a finding to a source locator or ends in an explicit Unknown. Conflicts and opposing evidence are present. The recommendation's confidence fits lane completeness and source independence.
+
+## Examples
+
+### Supported exploration
+
+**Input:** current market and competitor reports agree on an unmet workflow, but there are no authorized user interviews. **Output:** cite the supporting and contrary finding IDs, mark user signals missing, and recommend explore with validation steps rather than a confident pursue.
+
+### Conflicting scopes
+
+**Input:** one report covers a paid enterprise edition in one region; another covers a free edition elsewhere. **Output:** keep the scopes separate, mark the affected claims Unknown or limited, and request evidence for the intended market before a decisive recommendation.

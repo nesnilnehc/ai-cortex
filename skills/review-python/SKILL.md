@@ -1,20 +1,10 @@
 ---
 name: review-python
 description: "Review Python code for language and runtime conventions: type hints, exceptions, async/await, context managers, dependencies, and testability. Language-only atomic skill; output is a findings list."
-description_zh: 按 Python 规范审查代码：类型提示、异常、async/await、上下文管理器、依赖与可测性。
-tags: [code-review, language]
-version: 1.0.3
+version: 1.0.4
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [review python]
-input_schema:
-  type: code-scope
-  description: Source files or directories to review
 output_schema:
   type: findings-list
-  description: Zero or more findings, each carrying every element the findings-list Spec requires
 ---
 
 # Skill: Review Python

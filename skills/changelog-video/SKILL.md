@@ -1,23 +1,9 @@
 ---
 name: changelog-video
 description: Generate and validate an optional release video from confirmed Release Package change items using repository-local media tooling; never installs tools or decides or publishes the release.
-description_zh: 使用仓库本地媒体工具，从已确认的 Release Package change items 生成并校验可选发布视频；不安装工具，也不决定或发布版本。
-tags: [release, changelog, video, release-package]
-version: 1.0.1
+version: 1.1.0
 license: Apache-2.0
 compatibility: Requires a video renderer already available through the target repository or runtime; never downloads one.
-recommended_scope: project
-metadata:
-  author: ai-cortex
-  origin: vendored-derived
-  source-registry: ../SOURCES.yaml
-triggers: [changelog video, release video, generate release video]
-input_schema:
-  type: free-form
-  description: Confirmed Release Package identity and customer-facing change items; output directory; optional audience, language, duration, aspect ratio, narration, captions, media, and renderer preferences
-output_schema:
-  type: document-artifact
-  description: A validated video artifact entry and check evidence, or an explicit unavailable/failed result; never a release decision or publication receipt
 ---
 
 # Skill: Changelog Video
@@ -105,7 +91,7 @@ artifact:
   source: [<change-item-id>]
   producer:
     skill: changelog-video
-    version: 1.0.1
+    version: 1.1.0
     origin: vendored-derived
     source_registry: skills/SOURCES.yaml
 checks:
@@ -136,3 +122,13 @@ The ideas behind this Skill — "picture the experience, cap the spoken items, k
 - [ ] Every scene traces back to a change item, and no internal content leaked.
 - [ ] The video, audio, captions and sampled frames were validated against the choices made.
 - [ ] The output holds the artifact/check result alone; no tag, publication or announcement was created.
+
+## Examples
+
+### Confirmed local render
+
+**Input:** a Release Package contains three confirmed customer-facing changes, approved media assets, an output directory, and a locally available renderer. **Output:** present the storyboard and format choices, render after confirmation, inspect sampled frames and audio, then return a present video artifact tied to the three change-item IDs.
+
+### Renderer unavailable
+
+**Input:** the same package requests an optional video, but no usable local renderer exists. **Output:** return status unavailable with the missing capability and no fabricated MP4 or validation receipt. If the package marks the video required, return a blocking result to prepare-release.

@@ -1,20 +1,8 @@
 ---
 name: orchestrate-roadmap-planning
 description: Orchestrator skill — run one roadmap planning pass by sequencing atomic skills from strategic goals through capture, scoring, dependency mapping, and promotion, satisfying each skill's halt conditions up front.
-description_zh: 编排技能——按固定顺序串联从战略目标到晋升的原子技能，跑完一轮 roadmap planning；核心价值是提前满足各原子技能的 halt 条件。
-tags: [planning, orchestration]
-version: 1.0.1
+version: 1.0.2
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [roadmap planning, plan the roadmap, roadmap ceremony, orchestrate roadmap]
-input_schema:
-  type: free-form
-  description: Optional scope hint and any unregistered raw input; auto-discovers governance docs from project norms
-output_schema:
-  type: chat
-  description: Aggregated report — steps executed, steps skipped with reasons, roadmap changes, capacity usage, and next actions
 ---
 
 # Orchestrator Skill: Roadmap Planning

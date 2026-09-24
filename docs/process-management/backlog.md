@@ -29,6 +29,6 @@ Individual pieces of work captured through `capture-work-items` or an equivalent
 
 ## Where the skill catalogue lives
 
-- **skills/INDEX.md** — the canonical list of skills, their tags and their versions
+- **skills/INDEX.md** — the canonical list of skills and their discovery descriptions
 
 A new skill follows the standard format at [agentskills.io](https://agentskills.io); the naming convention is in [docs/architecture/asset-naming.md](../architecture/asset-naming.md).

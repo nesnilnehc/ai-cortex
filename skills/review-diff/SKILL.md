@@ -1,20 +1,10 @@
 ---
 name: review-diff
 description: Review only git diff for impact, regression, correctness, compatibility, and side effects. Scope-only atomic skill; output is a findings list for aggregation.
-description_zh: 仅审查 git diff（含未跟踪文件）的影响、回归、正确性、兼容性与副作用；scope-only 原子技能，输出 findings 列表。
-tags: [code-review, scope-only]
-version: 1.0.1
+version: 1.0.2
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [review diff, diff review]
-input_schema:
-  type: code-scope
-  description: Git diff (staged + unstaged, optional untracked) to review
 output_schema:
   type: findings-list
-  description: Scope-only findings for impact, regression, correctness, compatibility, and side effects
 ---
 
 # Skill: Review Diff

@@ -1,22 +1,11 @@
 ---
 name: competitive-research
 description: Compare a dated competitor set by capabilities, positioning, pricing, and evidence quality without treating undocumented features as absent.
-description_zh: 按时间和证据比较竞品能力、定位与价格，明确未经证实的空白项。
-tags: [research, competitors, products, comparison]
-version: 1.0.0
+version: 1.1.0
 license: MIT
-recommended_scope: project
 metadata:
-  author: ai-cortex
   ai_cortex_type: domain
   ai_cortex_user_invocable: "true"
-triggers: [competitive research, competitor comparison, feature matrix, 竞品调研, 竞品对比]
-input_schema:
-  type: free-form
-  description: Product category, competitor set, comparison criteria, geography, edition, and as-of date
-output_schema:
-  type: document-artifact
-  description: Dated comparison narrative and JSON Research Report with cited or Unknown matrix cells
 ---
 
 # Skill: Competitive Research
@@ -36,3 +25,13 @@ Compare products using consistent criteria and dated evidence. Apply [deep-resea
 ## Self-check
 
 Every non-Unknown matrix cell has an exact source locator and date. Contradictory capability claims remain visible. An empty source search never becomes a negative feature claim.
+
+## Examples
+
+### Comparable editions
+
+**Input:** compare the current paid plans of two products in one region. **Output:** produce a dated capability and pricing matrix whose supported cells cite exact official plan pages and finding IDs.
+
+### Undocumented feature
+
+**Input:** one vendor has no public document about an export feature. **Output:** mark that cell Unknown, record the search gap, and avoid claiming the feature is absent. If a review claims it exists, retain the conflict and its date.

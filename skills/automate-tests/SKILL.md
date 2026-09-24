@@ -1,23 +1,9 @@
 ---
 name: automate-tests
 description: Discover and execute repository test commands safely with evidence-based command selection and safety guardrails.
-description_zh: 安全发现并执行仓库测试命令；基于证据选择命令并设安全护栏。
-tags: [automation, devops]
-version: 1.0.2
+version: 1.0.3
 license: MIT
-recommended_scope: both
-metadata:
-  author: ai-cortex
-triggers: [run tests, automated tests, auto test, autotest]
 compatibility: Requires git (optional), a shell, and the repo's language toolchain(s) (e.g., node, python, go, dotnet, java).
-input_schema:
-  type: code-scope
-  description: Repository path containing test configuration and source code
-  defaults:
-    scope: repo
-output_schema:
-  type: diagnostic-report
-  description: Test plan summary with commands run, results, and failure diagnostics
 ---
 
 # Skill: Run Automated Tests

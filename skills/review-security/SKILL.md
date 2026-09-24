@@ -1,20 +1,10 @@
 ---
 name: review-security
 description: "Review code and configuration against the canonical security quality Rule set. Resolves trust-boundary profiles, gathers tool-assisted evidence and emits findings traceable to stable Rule IDs."
-description_zh: 依据权威安全质量规则审查代码与配置，解析信任边界配置并输出可追溯 findings。
-tags: [code-review, cognitive, security]
-version: 2.0.1
+version: 2.0.2
 license: MIT
-recommended_scope: project
-metadata:
-  author: ai-cortex
-triggers: [review security, security review]
-input_schema:
-  type: code-scope
-  description: Source files, configuration, manifests or a diff selected by the caller
 output_schema:
   type: findings-list
-  description: Zero or more security findings traceable to canonical Rule IDs
 ---
 
 # Skill: Review Security

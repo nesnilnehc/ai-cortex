@@ -1,22 +1,11 @@
 ---
 name: product-opportunity-analysis
 description: Coordinate relevant research lenses and deliver a traceable Opportunity Package for a product or feature decision.
-description_zh: 组合相关研究视角，形成含证据、风险、验证步骤和建议的产品机会包。
-tags: [research, product, opportunity, orchestration]
-version: 1.0.0
+version: 1.1.0
 license: MIT
-recommended_scope: project
 metadata:
-  author: ai-cortex
   ai_cortex_type: orchestrator
   ai_cortex_user_invocable: "true"
-triggers: [product opportunity analysis, should we build, feature opportunity, 产品机会分析, 功能是否值得做]
-input_schema:
-  type: free-form
-  description: Product or feature question, target users, geography, time, intended decision, and available research or user evidence
-output_schema:
-  type: document-artifact
-  description: Concise decision summary and JSON Opportunity Package conforming to specs/opportunity-package.md
 ---
 
 # Skill: Product Opportunity Analysis
@@ -42,3 +31,13 @@ Natural-language requests for an open question belong to `deep-research`. A dire
 ## Self-check
 
 All four lane statuses and reasons are present; every decision-critical claim traces to a source-backed finding or Unknown; conflicts and missing user signals affect confidence; recommendation and status follow the Spec; the narrative introduces no untraced decisive assertion.
+
+## Examples
+
+### Evidence-ready decision
+
+**Input:** a feature question has current market, competitor and user-signal reports; policy is not applicable. **Output:** record all four lane statuses and reasons, invoke the internal assessment on compatible reports, and return a traceable package and concise recommendation.
+
+### Missing demand lane
+
+**Input:** market and competitor information exist, but no authorized customer or usage evidence or decision owner is available. **Output:** mark user signals missing, keep the package in draft because readiness requires a named decision owner, and recommend exploration or deferral with a concrete validation step. Do not invent demand evidence.

@@ -1,21 +1,10 @@
 ---
 name: review-requirements
 description: "Review an existing requirement document against its modeling Spec and canonical quality Rule before design begins. Evaluative atomic skill; outputs findings without rewriting."
-description_zh: 在设计开始前依据需求建模规范和权威质量规则审查既有需求文档，只输出 findings，不改写。
-tags: [review, requirements, pre-coding]
-version: 2.0.1
+version: 2.0.2
 license: MIT
-recommended_scope: both
-metadata:
-  author: ai-cortex
-triggers: [review requirements, requirements review, requirements quality, check requirements, validate requirements doc]
-input_schema:
-  type: document-artifact
-  description: Existing requirement document path or content
-  artifact_type: requirements
 output_schema:
   type: findings-list
-  description: Zero or more requirement-quality findings
 ---
 
 # Skill: Review Requirements
