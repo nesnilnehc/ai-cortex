@@ -165,6 +165,22 @@
     .stage b { display: block; font-size: 16px; color: var(--muted); letter-spacing: .08em; }
     .stage strong { display: block; margin: 10px 0; font-size: 28px; }
     .stage span { color: var(--muted); font-size: 18px; }
+    .proof-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .proof-step { padding: 26px 20px; border-radius: 25px; background: var(--paper); border: 1px solid var(--line); text-align: center; box-shadow: var(--shadow); }
+    .proof-step:nth-child(1) { background: var(--blue-soft); }
+    .proof-step:nth-child(2) { background: var(--orange-soft); }
+    .proof-step:nth-child(3) { background: var(--green-soft); }
+    .proof-step svg { width: 110px; height: 110px; }
+    .proof-step strong { display: block; margin: 8px 0 3px; font-size: 27px; }
+    .proof-step span { display: block; font-size: 18px; color: var(--muted); }
+    .example-line { margin: 19px 0 0; padding: 18px 22px; border-radius: 18px; background: #fffdf7; border: 1px solid var(--line); font-size: 20px; text-align: center; }
+    .example-line b { color: var(--green); }
+    .level-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .level-card { display: flex; align-items: center; gap: 19px; padding: 22px; border-radius: 24px; background: var(--paper); border: 1px solid var(--line); box-shadow: var(--shadow); }
+    .level-card svg { width: 100px; height: 100px; flex: 0 0 100px; }
+    .level-card b { display: block; font-size: 16px; color: var(--green); letter-spacing: .08em; }
+    .level-card strong { display: block; font-size: 24px; }
+    .level-card span { color: var(--muted); font-size: 17px; }
     .status { margin: 24px 0 45px; border-radius: 22px; padding: 20px 24px; color: var(--muted); font-size: 16px; }
     .status strong { color: var(--ink); }
     .action { margin: 22px 0 0; }
@@ -178,7 +194,7 @@
       .journey { grid-template-columns: 1fr; gap: 9px; }
       .journey-item { min-height: 165px; }
       .arrow { transform: rotate(90deg); line-height: 36px; }
-      .grid, .role-row, .stages { grid-template-columns: 1fr; }
+      .grid, .role-row, .stages, .proof-flow, .level-pair { grid-template-columns: 1fr; }
       .panel { min-height: 260px; }
       .bridge-visual { flex-wrap: wrap; }
       .scene { padding: 23px; }
@@ -201,7 +217,7 @@
     @media print {
       body { background: white; }
       .page { width: 100%; }
-      .scene, .panel, .strip, .stage, .status { box-shadow: none; break-inside: avoid; }
+      .scene, .panel, .strip, .stage, .status, .proof-step, .level-card { box-shadow: none; break-inside: avoid; }
       .section-heading { margin-top: 35px; }
       header { padding-top: 5px; }
     }
@@ -331,8 +347,23 @@
     <div class="stages">
       <div class="stage"><b>L1</b><strong>SDLC + agent</strong><span>The agent helps within today's documents and gates.</span></div>
       <div class="stage"><b>L2</b><strong>Adjust as you go</strong><span>Keep the goal; update the route, design, and tasks as needed.</span></div>
-      <div class="stage"><b>L3</b><strong>Work from the core</strong><span>Use goals, decisions, and evidence; generate official documents when needed.</span></div>
+      <div class="stage"><b>L3</b><strong>Work from the core</strong><span>Let the goal, decisions, proof, and verdict lead the work.</span></div>
     </div>
+
+    <h2 class="section-heading">How do we know it is done?</h2>
+    <div class="proof-flow">
+      <div class="proof-step"><svg aria-hidden="true"><use href="#flag"/></svg><strong>Promise</strong><span>What must be true?</span></div>
+      <div class="proof-step"><svg aria-hidden="true"><use href="#receipt"/></svg><strong>Proof</strong><span>What really happened?</span></div>
+      <div class="proof-step"><svg aria-hidden="true"><use href="#magnify"/></svg><strong>Verdict</strong><span>Does the proof match the promise?</span></div>
+    </div>
+    <p class="example-line">“Old login key stops working” → test result → <b>Pass, fail, or not proven yet.</b></p>
+
+    <h2 class="section-heading">What changes at L3?</h2>
+    <div class="level-pair">
+      <div class="level-card"><svg aria-hidden="true"><use href="#paper"/></svg><div><b>L2</b><strong>Documents lead</strong><span>Requirements and tasks stay the main record.</span></div></div>
+      <div class="level-card"><svg aria-hidden="true"><use href="#book"/></svg><div><b>L3</b><strong>Change record leads</strong><span>Promise, decisions, proof, and verdict form the main record.</span></div></div>
+    </div>
+    <p class="example-line">A code review is <b>one check</b>. L3 keeps the whole story together.</p>
     <p class="action"><a href="../guides/agent-native-engineering-adoption.md">Start with L2 →</a></p>
 
     <aside class="status" aria-label="Current status">
