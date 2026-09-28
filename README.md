@@ -27,6 +27,8 @@ For open research, focused policy/market/competitive studies and product opportu
 
 For project adoption of requirement/design/task constraints and the post-coding engineering + functional repair loop, see [engineering quality governance](docs/guides/engineering-quality-governance.md).
 
+For an optional path from existing SDLC artifacts to adaptive agent execution, see [Start using adaptive engineering](docs/guides/agent-native-engineering-adoption.md).
+
 ### How this differs from similar libraries
 
 - **Four separated asset layers** — Skill (what an agent can do) / Spec (what a thing looks like) / Protocol (how parties coordinate) / Rule (what must not happen), with explicit boundaries. See [terminology](docs/architecture/terminology.md).

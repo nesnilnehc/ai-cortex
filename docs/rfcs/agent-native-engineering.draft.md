@@ -9,7 +9,7 @@ description: A cross-project architecture proposal for adaptive agent execution 
 
 # Agent-Native Engineering: From SDLC Workflow to Adaptive Engineering
 
-This RFC proposes an engineering model that AI Cortex can define and adopting execution and evaluation systems can use. It defines architectural direction without changing existing asset contracts or requiring an adopter's implementation. [ADR 0015](../adr/0015-agent-engineering-governance-model.md) records AI Cortex's accepted governance boundary; the cross-system model here remains proposed. The [illustrated guide](agent-native-engineering-explained.html) gives a short, non-normative explanation.
+This RFC proposes an engineering model that AI Cortex can define and adopting execution and evaluation systems can use. It defines architectural direction without changing existing asset contracts or requiring an adopter's implementation. [ADR 0015](../adr/0015-agent-engineering-governance-model.md) records AI Cortex's accepted governance boundary; the cross-system model here remains proposed. The [illustrated guide](agent-native-engineering-explained.html) explains the idea, and the [adoption guide](../guides/agent-native-engineering-adoption.md) shows how a project can start with existing assets.
 
 ## Context
 
