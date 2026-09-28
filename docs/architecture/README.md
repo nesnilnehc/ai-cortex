@@ -19,11 +19,15 @@ AI Cortex is an asset library for agents, organised into four governance layers:
 
 ## ADR
 
-Past architecture decisions are under [adrs/](../adr/).
+Architecture decisions and proposals are indexed under [docs/adr/](../adr/).
+
+## RFC proposals
+
+The [Agent-Native Engineering RFC](../rfcs/agent-native-engineering.draft.md) is a proposed cross-project direction. Current asset contracts and artifact norms remain authoritative while it is reviewed.
 
 ## When to add an ADR
 
-Add an ADR (`adrs/NNN-{slug}.md`) in these situations:
+Add an ADR (`docs/adr/NNNN-{slug}.md`) in these situations:
 
 - A significant design decision whose rationale has to be stated explicitly
 - An approved architectural choice worth keeping on record (the field contracts for design documents are in [specs/functional-design-modeling.md](../../specs/functional-design-modeling.md) and [specs/technical-design-modeling.md](../../specs/technical-design-modeling.md))
