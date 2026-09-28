@@ -1,4 +1,4 @@
-# Agent Entry Point
+# AI Cortex — Agent Entry Point
 
 This root file is the execution entry for agents working in AI Cortex. It identifies the project, its authoritative sources and the behaviour expected of agents; `llms.txt` is an outward-facing discovery pointer.
 
