@@ -175,9 +175,9 @@
     .proof-step span { display: block; font-size: 18px; color: var(--muted); }
     .example-line { margin: 19px 0 0; padding: 18px 22px; border-radius: 18px; background: #fffdf7; border: 1px solid var(--line); font-size: 20px; text-align: center; }
     .example-line b { color: var(--green); }
-    .level-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-    .level-card { display: flex; align-items: center; gap: 19px; padding: 22px; border-radius: 24px; background: var(--paper); border: 1px solid var(--line); box-shadow: var(--shadow); }
-    .level-card svg { width: 100px; height: 100px; flex: 0 0 100px; }
+    .level-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .level-card { display: flex; flex-direction: column; align-items: center; gap: 12px; min-height: 255px; padding: 22px; border-radius: 24px; background: var(--paper); border: 1px solid var(--line); box-shadow: var(--shadow); text-align: center; }
+    .level-card svg { width: 88px; height: 88px; flex: 0 0 88px; }
     .level-card b { display: block; font-size: 16px; color: var(--green); letter-spacing: .08em; }
     .level-card strong { display: block; font-size: 24px; }
     .level-card span { color: var(--muted); font-size: 17px; }
@@ -194,7 +194,8 @@
       .journey { grid-template-columns: 1fr; gap: 9px; }
       .journey-item { min-height: 165px; }
       .arrow { transform: rotate(90deg); line-height: 36px; }
-      .grid, .role-row, .stages, .proof-flow, .level-pair { grid-template-columns: 1fr; }
+      .grid, .role-row, .stages, .proof-flow, .level-row { grid-template-columns: 1fr; }
+      .level-card { flex-direction: row; min-height: 0; text-align: left; }
       .panel { min-height: 260px; }
       .bridge-visual { flex-wrap: wrap; }
       .scene { padding: 23px; }
@@ -358,9 +359,10 @@
     </div>
     <p class="example-line">“Old login key stops working” → test result → <b>Pass, fail, or not proven yet.</b></p>
 
-    <h2 class="section-heading">What changes at L3?</h2>
-    <div class="level-pair">
-      <div class="level-card"><svg aria-hidden="true"><use href="#paper"/></svg><div><b>L2</b><strong>Documents lead</strong><span>Requirements and tasks stay the main record.</span></div></div>
+    <h2 class="section-heading">What leads at each level?</h2>
+    <div class="level-row">
+      <div class="level-card"><svg aria-hidden="true"><use href="#shield"/></svg><div><b>L1</b><strong>SDLC process leads</strong><span>The agent helps within today's steps and gates.</span></div></div>
+      <div class="level-card"><svg aria-hidden="true"><use href="#paper"/></svg><div><b>L2</b><strong>Documents lead</strong><span>The agent adjusts its route; current documents stay official.</span></div></div>
       <div class="level-card"><svg aria-hidden="true"><use href="#book"/></svg><div><b>L3</b><strong>Change record leads</strong><span>Promise, decisions, proof, and verdict form the main record.</span></div></div>
     </div>
     <p class="example-line">A code review is <b>one check</b>. L3 keeps the whole story together.</p>
