@@ -26,7 +26,7 @@ This guide explains how an AI agent, Claude Code included, **discovers, loads an
 
 ### 1.1 Discovery through the registry
 
-At startup the agent should read `protocols/INDEX.md` from the canonical clone to find every available protocol. There is no manifest to fetch and no install step: [AGENTS.md](../../AGENTS.md) §2 places the assets at a fixed path, and §4 lists the three registries an agent reads on demand.
+At startup the agent should read `protocols/INDEX.md` from the canonical clone to find every available protocol. There is no manifest to fetch and no install step: [AGENTS.md](../../AGENTS.md) §4 gives the asset path and lists the registries an agent reads on demand.
 
 ```text
 ${CORTEX_HOME:-${XDG_DATA_HOME:-$HOME/.local/share}/ai-cortex}/
