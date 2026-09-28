@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Give the Agent a Map | Agent-Native Engineering</title>
+  <style>
+    :root {
+      --ink: #18302c;
+      --muted: #556862;
+      --paper: #fffdf7;
+      --cream: #f5f1e7;
+      --line: #d7ded5;
+      --green: #157d68;
+      --green-soft: #d9f1e6;
+      --blue: #496ab2;
+      --blue-soft: #e1e9fb;
+      --orange: #e58d42;
+      --orange-soft: #ffead2;
+      --red: #be5449;
+      --red-soft: #fce4df;
+      --shadow: 0 16px 44px rgba(32, 58, 47, .08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 92% 2%, #dff2e9 0, transparent 29rem),
+        radial-gradient(circle at 1% 35%, #fff0d9 0, transparent 25rem),
+        var(--cream);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      line-height: 1.5;
+    }
+    .page { width: min(1140px, calc(100% - 40px)); margin: auto; }
+    header { padding: 42px 0 24px; }
+    .eyebrow {
+      display: inline-block;
+      padding: 7px 13px;
+      border-radius: 99px;
+      background: var(--ink);
+      color: white;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+    h1 {
+      max-width: 950px;
+      margin: 19px 0 12px;
+      font-size: clamp(38px, 6.5vw, 74px);
+      line-height: 1.12;
+      letter-spacing: -.055em;
+    }
+    .lead { margin: 0; font-size: clamp(20px, 2.5vw, 28px); color: var(--muted); }
+    .scene, .panel, .strip, .status {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .scene { position: relative; overflow: hidden; border-radius: 30px; padding: 38px; }
+    .scene::after {
+      content: "";
+      position: absolute;
+      width: 340px; height: 340px;
+      border-radius: 50%;
+      background: #e4f4eb;
+      top: -190px; right: -100px;
+      z-index: 0;
+    }
+    .scene-title { position: relative; z-index: 1; margin: 0 0 25px; font-size: 19px; color: var(--muted); font-weight: 800; }
+    .journey { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 68px 1.4fr 68px 1fr; align-items: center; gap: 8px; }
+    .journey-item {
+      min-height: 240px;
+      padding: 24px 16px;
+      border-radius: 23px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .journey-item.owner { background: var(--blue-soft); }
+    .journey-item.agent { background: var(--green-soft); }
+    .journey-item.proof { background: var(--orange-soft); }
+    .icon-large { width: 112px; height: 112px; display: block; }
+    .icon-medium { width: 76px; height: 76px; display: block; }
+    .journey-item strong { display: block; margin-top: 9px; font-size: 25px; }
+    .journey-item span { font-size: 17px; color: var(--muted); }
+    .arrow { text-align: center; font-size: 46px; color: var(--green); font-weight: 900; }
+    .rail {
+      position: relative; z-index: 1;
+      display: flex; justify-content: center; align-items: center; gap: 12px;
+      margin-top: 20px; padding: 11px 16px;
+      border: 2px dashed var(--red);
+      border-radius: 16px;
+      background: #fff6f2;
+      color: #823c34;
+      font-weight: 800;
+      font-size: 18px;
+    }
+    .rail svg { width: 30px; height: 30px; }
+    .section-heading { margin: 70px 0 22px; font-size: clamp(28px, 4vw, 43px); letter-spacing: -.04em; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    .panel { border-radius: 26px; padding: 28px; min-height: 290px; }
+    .panel h3 { margin: 0 0 8px; font-size: 29px; letter-spacing: -.03em; }
+    .panel p { margin: 0; color: var(--muted); font-size: 19px; }
+    .panel .picture { height: 160px; display: flex; align-items: center; justify-content: center; gap: 16px; }
+    .bubble {
+      min-width: 104px; min-height: 106px;
+      border-radius: 22px;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      padding: 12px;
+      font-weight: 800; font-size: 18px;
+      text-align: center;
+    }
+    .bubble svg { width: 56px; height: 56px; }
+    .bubble.blue { background: var(--blue-soft); }
+    .bubble.green { background: var(--green-soft); }
+    .bubble.orange { background: var(--orange-soft); }
+    .bubble.red { background: var(--red-soft); }
+    .small-arrow { font-size: 32px; color: var(--green); font-weight: 900; }
+    .loop { display: flex; align-items: center; justify-content: center; gap: 7px; flex-wrap: wrap; width: 100%; }
+    .loop .bubble { min-width: 79px; min-height: 92px; font-size: 17px; }
+    .loop .bubble svg { width: 46px; height: 46px; }
+    .loop .small-arrow { font-size: 24px; }
+    .loop-back { text-align: center; color: var(--green); font-size: 27px; font-weight: 900; margin-top: -2px; }
+    .panel-alert { background: #fffaf7; }
+    .panel-bridge { background: #f9fbff; }
+    .bridge-visual { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; }
+    .bridge-visual .bubble { min-width: 110px; }
+    .bridge-mark { align-self: center; padding: 9px 12px; border-radius: 99px; background: #eef0ec; font-size: 16px; font-weight: 800; white-space: nowrap; }
+    .strip { border-radius: 30px; padding: 30px; }
+    .strip h3 { margin: 0 0 17px; font-size: 29px; }
+    .role-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .role {
+      display: flex; flex-direction: column; align-items: center;
+      min-height: 206px; padding: 20px 12px 15px;
+      border-radius: 20px;
+      text-align: center;
+      background: #f4f6f1;
+    }
+    .role:nth-child(2) { background: #e7f3ec; }
+    .role:nth-child(3) { background: #fff0df; }
+    .role svg { width: 72px; height: 72px; }
+    .role strong { margin-top: 8px; font-size: 23px; }
+    .role span { color: var(--muted); font-size: 17px; }
+    .note {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      color: #205345;
+      background: var(--green-soft);
+      font-size: 17px;
+      font-weight: 750;
+    }
+    .stages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+    .stage { position: relative; min-height: 185px; padding: 23px; border-radius: 23px; background: var(--paper); border: 1px solid var(--line); }
+    .stage::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 8px; border-radius: 23px 23px 0 0; background: var(--blue); }
+    .stage:nth-child(2)::before { background: var(--green); }
+    .stage:nth-child(3)::before { background: var(--orange); }
+    .stage b { display: block; font-size: 16px; color: var(--muted); letter-spacing: .08em; }
+    .stage strong { display: block; margin: 10px 0; font-size: 28px; }
+    .stage span { color: var(--muted); font-size: 18px; }
+    .status { margin: 24px 0 45px; border-radius: 22px; padding: 20px 24px; color: var(--muted); font-size: 16px; }
+    .status strong { color: var(--ink); }
+    footer { padding: 0 0 42px; color: var(--muted); font-size: 14px; }
+    footer a { color: var(--green); font-weight: 700; }
+    svg { fill: none; stroke: currentColor; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    svg text { fill: currentColor; stroke: none; }
+    @media (max-width: 800px) {
+      .journey { grid-template-columns: 1fr; gap: 9px; }
+      .journey-item { min-height: 165px; }
+      .arrow { transform: rotate(90deg); line-height: 36px; }
+      .grid, .role-row, .stages { grid-template-columns: 1fr; }
+      .panel { min-height: 260px; }
+      .bridge-visual { flex-wrap: wrap; }
+      .scene { padding: 23px; }
+    }
+    @media (max-width: 480px) {
+      .page { width: min(100% - 22px, 1140px); }
+      .scene, .panel, .strip { border-radius: 22px; padding: 20px; }
+      .bubble { min-width: 86px; }
+      .grid .panel:nth-child(2) .picture { height: 195px; }
+      .loop { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+      .loop .bubble { min-width: 0; min-height: 69px; flex-direction: row; gap: 6px; padding: 7px; }
+      .loop .bubble svg { width: 34px; height: 34px; }
+      .loop .small-arrow { display: none; }
+      .loop-back { font-size: 20px; }
+      .bridge-visual { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 5px; }
+      .bridge-visual .bubble { min-width: 0; width: 100%; font-size: 14px; padding: 6px; }
+      .bridge-visual .bubble svg { width: 46px; height: 46px; }
+      .bridge-mark { font-size: 12px; padding: 6px; }
+    }
+    @media print {
+      body { background: white; }
+      .page { width: 100%; }
+      .scene, .panel, .strip, .stage, .status { box-shadow: none; break-inside: avoid; }
+      .section-heading { margin-top: 35px; }
+      header { padding-top: 5px; }
+    }
+  </style>
+</head>
+<body>
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute">
+    <symbol id="person" viewBox="0 0 100 100"><circle cx="50" cy="25" r="14"/><path d="M23 83c0-18 12-29 27-29s27 11 27 29"/><path d="M20 83h60"/></symbol>
+    <symbol id="robot" viewBox="0 0 100 100"><rect x="17" y="28" width="66" height="55" rx="16"/><path d="M50 28V16m-10 0h20"/><circle cx="37" cy="51" r="3"/><circle cx="63" cy="51" r="3"/><path d="M37 68c7 7 19 7 26 0"/></symbol>
+    <symbol id="flag" viewBox="0 0 100 100"><path d="M24 88V17m0 4c19-10 33 12 55 0v39c-22 12-36-10-55 0"/><path d="M16 89h34"/></symbol>
+    <symbol id="shield" viewBox="0 0 100 100"><path d="M50 12 81 24v25c0 21-13 32-31 41-18-9-31-20-31-41V24z"/><path d="m37 51 9 9 19-21"/></symbol>
+    <symbol id="receipt" viewBox="0 0 100 100"><path d="M24 12h52v74l-9-7-9 7-8-7-9 7-8-7-9 7z"/><path d="M36 34h28M36 49h28M36 64h15"/><path d="m58 65 6 6 11-14"/></symbol>
+    <symbol id="eye" viewBox="0 0 100 100"><path d="M12 50c11-17 25-26 38-26s27 9 38 26C77 67 63 76 50 76S23 67 12 50z"/><circle cx="50" cy="50" r="11"/></symbol>
+    <symbol id="choose" viewBox="0 0 100 100"><path d="M27 16v29c0 12 9 18 22 18h26M27 45c0 12-8 19-18 19"/><path d="m66 54 10 9-10 9M17 54l-9 10 9 9"/></symbol>
+    <symbol id="tool" viewBox="0 0 100 100"><path d="M69 14a22 22 0 0 0-26 28L17 68a11 11 0 1 0 15 15l26-26a22 22 0 0 0 28-26L72 45 58 42 55 28z"/></symbol>
+    <symbol id="check" viewBox="0 0 100 100"><circle cx="50" cy="50" r="35"/><path d="m31 51 13 13 27-29"/></symbol>
+    <symbol id="paper" viewBox="0 0 100 100"><path d="M23 11h38l16 17v60H23z"/><path d="M61 11v18h16M34 47h32M34 61h32M34 75h22"/></symbol>
+    <symbol id="book" viewBox="0 0 100 100"><path d="M50 21c-14-9-28-9-40-3v59c13-6 27-5 40 3 13-8 27-9 40-3V18c-12-6-26-6-40 3z"/><path d="M50 21v59M20 35c8-2 16-1 22 3M60 38c7-4 14-5 21-3"/></symbol>
+    <symbol id="magnify" viewBox="0 0 100 100"><circle cx="43" cy="42" r="25"/><path d="m62 61 25 25"/><path d="m32 42 8 8 14-17"/></symbol>
+    <symbol id="stop" viewBox="0 0 100 100"><path d="m31 10 38 0 21 21v38L69 90H31L10 69V31z"/><path d="M50 29v29M50 72h0"/></symbol>
+  </svg>
+
+  <main class="page">
+    <header>
+      <span class="eyebrow">THE RFC IN PICTURES · 3 MINUTES</span>
+      <h1>Give the agent a map.<br>Let it adjust the route.</h1>
+      <p class="lead">People set the goal and guardrails. The agent works, checks, and adjusts.</p>
+    </header>
+
+    <section class="scene" aria-labelledby="scene-title">
+      <h2 class="scene-title" id="scene-title">The whole idea in one picture</h2>
+      <div class="journey">
+        <div class="journey-item owner">
+          <svg class="icon-large" aria-hidden="true"><use href="#person"/></svg>
+          <strong>Person</strong><span>Sets the goal</span>
+        </div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="journey-item agent">
+          <svg class="icon-large" aria-hidden="true"><use href="#robot"/></svg>
+          <strong>Agent</strong><span>Works · checks · adjusts</span>
+        </div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="journey-item proof">
+          <svg class="icon-large" aria-hidden="true"><use href="#receipt"/></svg>
+          <strong>Evidence</strong><span>Shows what happened</span>
+        </div>
+      </div>
+      <div class="rail"><svg aria-hidden="true"><use href="#shield"/></svg> Guardrails stay in place: no silent change of goal or limits.</div>
+    </section>
+
+    <h2 class="section-heading">What is on the map?</h2>
+    <div class="grid">
+      <section class="panel">
+        <div class="picture">
+          <div class="bubble blue"><svg aria-hidden="true"><use href="#flag"/></svg>Goal</div>
+          <span class="small-arrow" aria-hidden="true">+</span>
+          <div class="bubble red"><svg aria-hidden="true"><use href="#shield"/></svg>Limits</div>
+        </div>
+        <h3>Agree on the destination</h3>
+        <p>State the goal, what counts as done, and the boundaries.</p>
+      </section>
+
+      <section class="panel">
+        <div class="picture" style="flex-direction:column; gap:0">
+          <div class="loop">
+            <div class="bubble blue"><svg aria-hidden="true"><use href="#eye"/></svg>Look</div>
+            <span class="small-arrow" aria-hidden="true">→</span>
+            <div class="bubble green"><svg aria-hidden="true"><use href="#choose"/></svg>Choose</div>
+            <span class="small-arrow" aria-hidden="true">→</span>
+            <div class="bubble orange"><svg aria-hidden="true"><use href="#tool"/></svg>Do</div>
+            <span class="small-arrow" aria-hidden="true">→</span>
+            <div class="bubble green"><svg aria-hidden="true"><use href="#check"/></svg>Check</div>
+          </div>
+          <div class="loop-back" aria-hidden="true">↶ Repeat</div>
+        </div>
+        <h3>Adjust the route</h3>
+        <p>New facts can change the next step. A new goal needs a new agreement.</p>
+      </section>
+
+      <section class="panel panel-alert">
+        <div class="picture">
+          <div class="bubble red"><svg aria-hidden="true"><use href="#stop"/></svg>Pause</div>
+          <span class="small-arrow" aria-hidden="true">→</span>
+          <div class="bubble blue"><svg aria-hidden="true"><use href="#person"/></svg>Ask</div>
+        </div>
+        <h3>When does a person decide?</h3>
+        <p>When the goal changes, risk is high, or success cannot be proved.</p>
+      </section>
+
+      <section class="panel panel-bridge">
+        <div class="picture">
+          <div class="bridge-visual">
+            <div class="bubble blue"><svg aria-hidden="true"><use href="#paper"/></svg>SDLC docs</div>
+            <span class="bridge-mark">Bridge</span>
+            <div class="bubble green"><svg aria-hidden="true"><use href="#robot"/></svg>Agent work</div>
+          </div>
+        </div>
+        <h3>Keep the old workflow connected</h3>
+        <p>Requirements, designs, and tasks still work. They can also be generated when needed.</p>
+      </section>
+    </div>
+
+    <h2 class="section-heading">Who decides what?</h2>
+    <section class="strip">
+      <h3>One source of truth, clear roles</h3>
+      <div class="role-row">
+        <div class="role">
+          <svg aria-hidden="true"><use href="#book"/></svg>
+          <strong>AI Cortex</strong>
+          <span>Shares reusable models, rules, and skills</span>
+        </div>
+        <div class="role">
+          <svg aria-hidden="true"><use href="#tool"/></svg>
+          <strong>Adopting project</strong>
+          <span>Chooses its format and official documents; does the work</span>
+        </div>
+        <div class="role">
+          <svg aria-hidden="true"><use href="#magnify"/></svg>
+          <strong>Independent reviewer</strong>
+          <span>Checks the evidence and judges the result</span>
+        </div>
+      </div>
+      <div class="note">Projects manage routine changes themselves. AI Cortex does not approve each one.</div>
+    </section>
+
+    <h2 class="section-heading">Move one step at a time</h2>
+    <div class="stages">
+      <div class="stage"><b>L1</b><strong>SDLC + agent</strong><span>The agent helps within today's documents and gates.</span></div>
+      <div class="stage"><b>L2</b><strong>Adjust as you go</strong><span>Keep the goal; update the route, design, and tasks as needed.</span></div>
+      <div class="stage"><b>L3</b><strong>Work from the core</strong><span>Use goals, decisions, and evidence; generate official documents when needed.</span></div>
+    </div>
+
+    <aside class="status" aria-label="Current status">
+      <strong>Current status:</strong> AI Cortex's role is accepted. The cross-system model is still a proposal. Its benefits remain to be seen in use.
+    </aside>
+    <footer>This picture guide helps explain the idea. The <a href="agent-native-engineering.draft.md">Agent-Native Engineering RFC</a> and current AI Cortex repository rules remain authoritative.</footer>
+  </main>
+</body>
+</html>
