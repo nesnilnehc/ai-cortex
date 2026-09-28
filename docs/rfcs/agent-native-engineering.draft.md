@@ -9,7 +9,7 @@ description: A cross-project architecture proposal for adaptive agent execution 
 
 # Agent-Native Engineering: From SDLC Workflow to Adaptive Engineering
 
-This RFC proposes an engineering model that AI Cortex can define and adopting execution and evaluation systems can use. It defines architectural direction and questions to test; it does not change any existing asset contract or authorize an adopter's implementation. The [AI Cortex governance proposal](../adr/0015-agent-engineering-governance-model.md) records the narrower decision proposed for this repository.
+This RFC proposes an engineering model that AI Cortex can define and adopting execution and evaluation systems can use. It defines architectural direction without changing existing asset contracts or requiring an adopter's implementation. [ADR 0015](../adr/0015-agent-engineering-governance-model.md) records AI Cortex's accepted governance boundary; the cross-system model here remains proposed.
 
 ## Context
 
@@ -31,7 +31,7 @@ Governance should increasingly state the permitted outcome and operating boundar
 | Proposed architectural decision | Use a Change Contract as the stable reference for a bounded change, with linked constraints, decisions, execution state, evidence, and evaluation. | Proposed here; schemas are not defined |
 | Proposed architectural decision | Keep an SDLC Compatibility Layer so current organizational artifacts and agent execution can coexist. | Proposed here; current SDLC sources remain authoritative |
 | Proposed architectural decision | Separate governance definitions, execution, and independent evaluation across participating systems. | Proposed integration boundary, subject to each adopter's own decision process |
-| Hypothesis | For suitable changes, adaptive execution with risk-triggered design will reduce rework or review burden without lowering acceptance or quality. | Requires the PoC below |
+| Hypothesis | For suitable changes, adaptive execution with risk-triggered design will reduce rework or review burden without lowering acceptance or quality. | Assess through adoption experience; not an established outcome |
 | Hypothesis | Some SDLC artifacts can eventually be generated as projections of a shared change model. | Requires mapping, ownership, and audit validation; not current policy |
 
 ## Durable Artifacts
@@ -135,22 +135,12 @@ The levels describe modes of adoption, not mandated versions or dates. A team ca
 | **L2 — Adaptive SDLC** | The organization keeps SDLC artifacts; the agent executes from a Change Contract and creates or updates design and tasks when their triggers arise. Evidence and material decisions are linked to acceptance. | Demonstrate reliable provenance, risk-triggered escalation, independent evaluation, and usable SDLC handoffs. |
 | **L3 — Agent-native Engineering** | Intent, constraints, decisions, execution, evidence, and evaluation form the working core; SDLC artifacts are produced when organizational consumers need them. | No automatic promotion. Adopt only after the organization accepts the authority, audit, and synchronization model. |
 
-L2 is the immediate experiment target. L3 remains a hypothesis. No level removes an approval or artifact that a project currently requires.
+L2 is the near-term adoption path. L3 remains a hypothesis. No level removes an approval or artifact that a project currently requires.
 
-## PoC Recommendation
+## Adoption and Revision
 
-Choose one real, bounded bug fix or small feature in an adopting project. Before starting, record the acceptance conditions, applicable constraints, owner, expected escalation triggers, and the existing SDLC artifacts. Keep the current delivery and review gates.
+Adopting systems may apply this proposal through their own architecture and delivery decisions. They can retain existing SDLC interfaces while introducing the Change Contract, adaptive execution, and evidence links incrementally.
 
-Run two parallel **records of the same change**: the current requirement/design/task/test trail and a Change Contract/decision/execution/evidence trail. Do not implement the change twice. Map each acceptance condition to evidence and ask an evaluator independent of execution to assess the final result.
+When adoption reveals a material mismatch, update this RFC with the observed constraint, the revised proposal, and its compatibility impact. Project-specific implementation choices remain local. Shared Specs, Protocols, or Rules should be added only when a reusable contract or constraint becomes clear.
 
-Compare recorded preparation and maintenance time, human decision count and quality, rework caused by invalid assumptions, acceptance and quality findings, evidence coverage, and the usefulness of generated or mapped SDLC views to their consumers. Define how each measure is counted before the run. Record missing data and exceptions rather than inventing scores.
-
-The PoC should answer three questions: Can the agent replan without contract drift? Can reviewers make a defensible completion decision from the evidence? Can the organization still use its required SDLC artifacts? If any answer is no, revise the model before defining schemas or changing an adopter's implementation.
-
-## Open Decisions
-
-- Which Change Contract fields and amendment rules are common enough to standardize across projects?
-- Which escalation triggers belong in shared Rules, and which depend on project-specific authority or risk thresholds?
-- What evidence identifiers and provenance are needed for an independent evaluator to reproduce a conclusion?
-- Which SDLC artifacts may become projections, and who is authorized to promote, edit, or approve them?
-- What versioning and compatibility policy will govern the shared semantic contract?
+This RFC does not yet define shared schema fields, escalation thresholds, evidence identifiers, projection authority, or contract versioning. These details are settled when an adopting system encounters a concrete need; a change to AI Cortex's canonical artifacts still follows the relevant repository rules.
