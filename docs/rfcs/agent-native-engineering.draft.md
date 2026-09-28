@@ -28,15 +28,17 @@ Governance should increasingly state the permitted outcome and operating boundar
 | Classification | Statement | Status in this repository |
 | --- | --- | --- |
 | Existing authority | AI Cortex owns reusable Spec, Protocol, Skill, and Rule assets; its current artifact paths and canonical sources remain governed by [Artifact norms](../ARTIFACT_NORMS.md) and [core terminology](../architecture/terminology.md). | In force |
-| Proposed architectural decision | Use a Change Contract as the stable reference for a bounded change, with linked constraints, decisions, execution state, evidence, and evaluation. | Proposed here; schemas are not defined |
-| Proposed architectural decision | Keep an SDLC Compatibility Layer so current organizational artifacts and agent execution can coexist. | Proposed here; current SDLC sources remain authoritative |
+| Proposed architectural decision | Use a Change Contract as the stable reference for a bounded change, with linked constraints, decisions, execution state, evidence, and evaluation. An adopter may make its concrete schema authoritative for its own changes. | Proposed here; no universal schema is imposed |
+| Proposed architectural decision | Keep an SDLC Compatibility Layer so current organizational artifacts and agent execution can coexist. An adopter may designate a document projection as the authoritative artifact for a defined purpose. | Proposed here; each adopter declares its own authority and transition rules |
 | Proposed architectural decision | Separate governance definitions, execution, and independent evaluation across participating systems. | Proposed integration boundary, subject to each adopter's own decision process |
+| Proposed architectural decision | Keep routine schema, projection, and execution changes under the adopting project's delegated authority; share only semantics needed for interoperability. | Proposed here; AI Cortex is not a central approval gate |
 | Hypothesis | For suitable changes, adaptive execution with risk-triggered design will reduce rework or review burden without lowering acceptance or quality. | Assess through adoption experience; not an established outcome |
-| Hypothesis | Some SDLC artifacts can eventually be generated as projections of a shared change model. | Requires mapping, ownership, and audit validation; not current policy |
+
+The architecture permits concrete schemas and authoritative projections. It does not require every adopter to use one schema or wait for AI Cortex to approve each local revision. A shared Spec is warranted when multiple systems need a stable exchange contract; project-specific fields, thresholds, and document mappings remain with the adopting project. Compatibility changes at a shared boundary require coordination with affected consumers, not blanket approval of unrelated work.
 
 ## Durable Artifacts
 
-The following are conceptual information categories, not new schemas or directories. Existing AI Cortex [asset types](../architecture/terminology.md) remain the owners of any normative definitions adopted later.
+The following categories describe information that must survive replanning. They do not create new AI Cortex directories or a universal schema. An adopting project can define a concrete schema as its authoritative Change Contract definition; reusable cross-project definitions, when needed, belong to existing AI Cortex [asset types](../architecture/terminology.md).
 
 | Category | Minimum durable meaning | Why it persists |
 | --- | --- | --- |
@@ -46,7 +48,7 @@ The following are conceptual information categories, not new schemas or director
 | Evidence | A trace from each acceptance or constraint claim to a change, test, inspection, runtime observation, or acknowledged gap, including result and provenance | Lets a reviewer distinguish verified outcomes from agent assertions |
 | Evaluation | Findings and disposition against the contract and constraints, referencing the evidence inspected | Supports an independent completion judgment |
 
-Execution state holds current hypotheses, discovered context, next actions, completed actions, and blockers. It can be revised frequently; a task list is not automatically a permanent artifact. A durable decision or evidence link must survive those revisions. The exact fields, storage locations, identifiers, and lifecycle rules remain open design work.
+Execution state holds current hypotheses, discovered context, next actions, completed actions, and blockers. It can be revised frequently; a task list is not automatically a permanent artifact. A durable decision or evidence link must survive those revisions. Each adopter can define fields, storage, identifiers, and lifecycle rules to fit its own implementation, while preserving any shared interface it has explicitly adopted.
 
 The Change Contract is stable **within an approved scope**, not immutable. A change to intent, acceptance, or a protected constraint requires an explicit amendment and, where applicable, renewed human authorization. This prevents replanning from silently changing the requested outcome.
 
@@ -76,12 +78,12 @@ Completion requires a current evaluation of the final change and its evidence. A
 
 ## Human Escalation
 
-The agent may choose local, reversible implementation steps when they fit the approved contract and constraints. It must stop the affected action and present a decision when authority, intent, or consequences exceed that scope. The table describes candidate policy triggers; precise thresholds and approvers must be defined by the adopting project or organization.
+The agent may choose local, reversible implementation steps when they fit the approved contract and constraints. Routine local schema and projection changes within delegated authority do not trigger escalation merely because they change a document or data shape. The agent must stop the affected action and present a decision when authority, intent, or consequences exceed that scope. The table describes candidate policy triggers; precise thresholds and approvers must be defined by the adopting project or organization.
 
 | Trigger | Proposed response |
 | --- | --- |
 | Ambiguous intent or conflicting acceptance conditions | Clarify with the request owner before choosing an interpretation |
-| Material change to architecture, service boundary, shared data model, or permission model | Present options, impact, and recommendation to the designated decision owner |
+| Material change to architecture, service boundary, agreed shared interface, protected data model, or permission model | Present options, impact, and recommendation to the designated decision owner |
 | Breaking external interface, destructive data action, or hard-to-reverse operation | Obtain explicit authorization before the affected action |
 | Security or compliance boundary without a clear applicable rule | Stop the affected action and escalate to the accountable owner |
 | Evidence cannot establish an acceptance condition or a required quality gate | Report the gap; do not claim verified completion |
@@ -111,16 +113,18 @@ flowchart TB
     evidence --> evaluation
 ```
 
-**SDLC Mode** preserves the artifacts, approvals, and handoffs an organization needs today. **Agent-native Mode** works from intent and constraints, replans execution, and supplies evidence for evaluation. The compatibility layer translates between them while preserving source provenance and the authority of the originating artifact.
+**SDLC Mode** preserves the artifacts, approvals, and handoffs an organization needs today. **Agent-native Mode** works from intent and constraints, replans execution, and supplies evidence for evaluation. The compatibility layer translates between them while preserving provenance and the authority declared by the adopting project.
 
-At first, a one-way mapping from an existing requirement, design, or task to the corresponding change information is sufficient. Automatic reverse generation and two-way synchronization are hypotheses, not prerequisites. A generated view must identify its source, version, omissions, and any human-authored additions. It must not quietly overwrite an authoritative SDLC document. Promoting a view to a canonical source would require a separate change to [Artifact norms](../ARTIFACT_NORMS.md) and the affected asset contracts.
+An adopter can begin with a one-way mapping from an existing requirement, design, or task to change information, then generate document projections where useful. It can also designate a generated requirement, design, or task view as the authoritative artifact for a defined audience and scope. The adopter must declare which record is authoritative for each kind of information, how the projection is produced and versioned, and how omissions, human edits, and conflicts are handled. A projection must carry enough provenance for a reader to trace its governing contract and decisions. These safeguards prevent two independently maintained sources from making competing claims without requiring central approval for every projection change.
+
+This is a target architecture, not a change to AI Cortex's current document authority. Within AI Cortex, [Artifact norms](../ARTIFACT_NORMS.md) continue to govern canonical paths and sources until changed through this repository's normal rules. Another project makes the equivalent declaration in its own governance; it does not need AI Cortex to approve each project-local schema or projection.
 
 ## Project Boundaries
 
 | Role | Proposed responsibility | Boundary |
 | --- | --- | --- |
-| AI Cortex | Define reusable governance semantics through its existing Specs, Protocols, Rules, and Skills: contract structures, constraint and escalation rules, evaluation vocabulary, and capability guidance | Does not own another project's execution state, review runs, or every instance of evidence |
-| Adopting execution system | Execute a bounded change, maintain adaptive runtime state, collect evidence, invoke escalation and evaluation, and assemble release output | Consumes governance definitions; does not make itself the sole judge of its own success |
+| AI Cortex | Define reusable governance semantics through its existing Specs, Protocols, Rules, and Skills when a shared interface or constraint is needed | Does not own another project's schema revisions, document authority, execution state, review runs, or instance evidence |
+| Adopting execution system | Define its local Change Contract schema and projection authority; execute a bounded change, maintain adaptive runtime state, collect evidence, invoke escalation and evaluation, and assemble release output | Consumes any shared interface it adopts; does not make itself the sole judge of its own success |
 | Independent evaluation system | Evaluate a change against intent, constraints, decisions, and evidence, returning findings and an evaluation result | Does not own the execution loop or redefine the governing contract |
 
 These boundaries are recommendations for future adoption, not claims that any implementation already exposes these interfaces. A shared semantic contract should avoid dependencies on one system's runtime representation.
@@ -133,14 +137,14 @@ The levels describe modes of adoption, not mandated versions or dates. A team ca
 | --- | --- | --- |
 | **L1 — SDLC Assisted** | Requirements, designs, tasks, review, and release remain the working structure; agents assist within existing gates. | Select a bounded change and establish an explicit contract, escalation owner, and acceptance evidence. |
 | **L2 — Adaptive SDLC** | The organization keeps SDLC artifacts; the agent executes from a Change Contract and creates or updates design and tasks when their triggers arise. Evidence and material decisions are linked to acceptance. | Demonstrate reliable provenance, risk-triggered escalation, independent evaluation, and usable SDLC handoffs. |
-| **L3 — Agent-native Engineering** | Intent, constraints, decisions, execution, evidence, and evaluation form the working core; SDLC artifacts are produced when organizational consumers need them. | No automatic promotion. Adopt only after the organization accepts the authority, audit, and synchronization model. |
+| **L3 — Agent-native Engineering** | Intent, constraints, decisions, execution, evidence, and evaluation form the working core; SDLC artifacts are projected when organizational consumers need them and may be authoritative under the adopter's declared policy. | Adopt when the project has a clear authority, provenance, audit, and conflict-resolution model. |
 
-L2 is the near-term adoption path. L3 remains a hypothesis. No level removes an approval or artifact that a project currently requires.
+L2 is the near-term adoption path. L3 is a proposed operating model whose effectiveness remains unproven. No level removes an approval or artifact that a project currently requires without that project's own decision.
 
 ## Adoption and Revision
 
 Adopting systems may apply this proposal through their own architecture and delivery decisions. They can retain existing SDLC interfaces while introducing the Change Contract, adaptive execution, and evidence links incrementally.
 
-When adoption reveals a material mismatch, update this RFC with the observed constraint, the revised proposal, and its compatibility impact. Project-specific implementation choices remain local. Shared Specs, Protocols, or Rules should be added only when a reusable contract or constraint becomes clear.
+When adoption reveals a material mismatch, update this RFC with the observed constraint, the revised proposal, and its compatibility impact. Project-specific schemas, projections, and approval thresholds remain local. Add a shared Spec, Protocol, or Rule only when a reusable contract or constraint becomes clear; do not make publication here a prerequisite for routine project work.
 
-This RFC does not yet define shared schema fields, escalation thresholds, evidence identifiers, projection authority, or contract versioning. These details are settled when an adopting system encounters a concrete need; a change to AI Cortex's canonical artifacts still follows the relevant repository rules.
+This RFC does not mandate shared schema fields, escalation thresholds, evidence identifiers, or contract versioning. Adopters settle these details as concrete needs arise, record local authority for any canonical projection, and coordinate only changes that affect an agreed shared interface. A change to AI Cortex's own canonical artifacts still follows the relevant repository rules.
