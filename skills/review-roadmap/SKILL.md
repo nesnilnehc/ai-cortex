@@ -1,7 +1,7 @@
 ---
 name: review-roadmap
-description: "Review an existing roadmap document against roadmap-quality criteria: core model completeness, capacity baseline and allocation, metric triplets, outcome framing, dependency mapping, and change frequency. Evaluative atomic skill; output is a findings list."
-version: 1.0.3
+description: "Review an existing roadmap document against roadmap-quality criteria: core model completeness, priority ordering, metric triplets, outcome framing, dependency mapping, and change frequency. Evaluative atomic skill; output is a findings list."
+version: 2.0.0
 license: MIT
 output_schema:
   type: findings-list
@@ -55,7 +55,7 @@ Evaluate an **existing roadmap document** against the established quality criter
 
 ## Use Cases
 
-- **Gate before promotion**: when the capacity and dependency criteria do not hold, promotion cannot compute a correct result
+- **Gate before promotion**: when priority ordering or dependency criteria do not hold, promotion needs correction
 - **Taking over someone else's roadmap**: see quickly what this roadmap is missing
 - **Periodic checkup**: a roadmap is a living document and drifts over time
 - **Entry point of the orchestration chain**: as step 0 of `orchestrate-roadmap-planning`, supplying the conditions the later steps are judged against
@@ -73,15 +73,16 @@ Evaluate an **existing roadmap document** against the established quality criter
 ### Procedure
 
 1. **Load the criteria**: read [rules/roadmap-quality.md](../../rules/roadmap-quality.md). **A missing file means halt** — without criteria there is no yardstick, and scoring from impressions yields conclusions that look authoritative and rest on nothing.
-2. **Load the roadmap and its evidence sources**: read the target document. Three of the criteria draw on data that is not in roadmap.md; that data must be read as well, or those dimensions cannot be evaluated:
+2. **Load the roadmap and its evidence sources**: read the target document. Four of the criteria draw on data that is not in roadmap.md; that data must be read as well, or those dimensions cannot be evaluated:
 
    | Criterion | Where the data lives |
    | --- | --- |
    | A Now-tier item traces to its strategic_goal | The item frontmatter's `strategic_goal_id`, cross-checked against `docs/project-overview/strategic-goals.md` |
    | A Now-tier item has no unresolved prerequisite | The item frontmatter's `depends_on` |
+   | Concrete items follow priority order | The item frontmatter's `priority`, the roadmap order, and any recorded ordering exception |
    | Priority was not set by a single source | The item frontmatter's `priority_decision` (including `strategic_override`) |
 
-   **When it is missing**: if the backlog items cannot be read, or roadmap.md's Now tier references no concrete items, mark these three criteria `cannot evaluate — <reason>`. **A criterion must not be recorded as passing because it could not be read** — that hollows the criterion out.
+   **When it is missing**: if the backlog items cannot be read, or roadmap.md's Now tier references no concrete items, mark the affected criteria `cannot evaluate — <reason>`. **A criterion must not be recorded as passing because it could not be read** — that hollows the criterion out.
 3. **Scan dimension by dimension**: work through the rule's five-dimension checklist item by item; each item that fails produces one finding.
 4. **Tool adaptation for the change-frequency dimension**: this dimension needs git log to count structural changes to roadmap.md.
    - **Discover**: confirm the current directory is a git repository and that roadmap.md has commit history
@@ -94,8 +95,8 @@ Evaluate an **existing roadmap document** against the established quality criter
 
 | Severity | Trigger |
 | --- | --- |
-| `critical` | No total capacity baseline or no capacity allocation; a missing piece of the four-part core model; a Now-tier item with an unresolved prerequisite |
-| `major` | A success metric that is not a triplet; a milestone or strategic bet not written in the prescribed form; capacity percentages that do not sum to 100%; an engineering-health goal at 0% |
+| `critical` | A missing piece of the four-part core model; a Now-tier item with an unresolved prerequisite |
+| `major` | A success metric that is not a triplet; a milestone or strategic bet not written in the prescribed form; unexplained priority ordering; effort, staffing, quota, or item-count gates imposed on roadmap placement |
 | `minor` | No "explicitly not doing this round" section; no last-updated date; change frequency close to the threshold but not over it |
 
 ### Findings Format
@@ -115,7 +116,7 @@ Evaluate an **existing roadmap document** against the established quality criter
 
 **Input**: the existing roadmap document (path or content); `rules/roadmap-quality.md`; the evidence sources `strategic-goals.md` and the backlog items referenced by the Now tier.
 
-**Output**: a findings list (zero or more) plus a note on any dimension that could not be evaluated. With zero findings, state plainly that the roadmap passes every criterion.
+**Output**: a findings list (zero or more) plus a note on any dimension that could not be evaluated. With zero findings and no evidence limitations, state plainly that the roadmap passes every criterion. If any criterion cannot be evaluated, report zero findings in the evaluated scope and name the unchecked criteria; do not claim a complete pass.
 
 ---
 
@@ -156,31 +157,31 @@ Evaluate an **existing roadmap document** against the established quality criter
 - [ ] Every finding carries all six fields
 - [ ] Severity taken mechanically from the mapping table
 - [ ] The change-frequency dimension went through "discover → run → handle the gap"; where it cannot be evaluated, the reason is written out
-- [ ] The three criteria that depend on backlog item frontmatter had their evidence sources read; where they could not be read, they are marked "cannot evaluate" rather than recorded as passing
+- [ ] The four criteria that depend on backlog item frontmatter had their evidence sources read; where they could not be read, they are marked "cannot evaluate" rather than recorded as passing
 - [ ] The roadmap document was not rewritten
 - [ ] No mode or other orchestration-layer field was emitted
-- [ ] With zero findings, the pass was stated plainly
+- [ ] With zero findings, a full pass was stated only when no criterion remained unevaluated
 
 ---
 
 ## Examples
 
-### Example 1: Missing capacity baseline (mainstream case)
+### Example 1: Unexplained priority ordering (mainstream case)
 
-**Input**: a roadmap with a complete Now / Next / Later structure and a capacity allocation percentage table, but no total capacity baseline in the table header.
+**Input**: a roadmap lists a ready P2 item before a ready P0 item, with no recorded reason. Both have scored priorities and checked dependencies.
 
 **Output** (excerpt):
 
 ```yaml
-- location: "## Capacity allocation (current cycle)"
+- location: "## Now"
   category: executability
-  severity: critical
-  title: No total capacity baseline, so the downstream capacity guardrail cannot compute
-  description: The capacity allocation gives only percentages and declares no total capacity baseline. The promote-roadmap-items formula is "percentage × total capacity baseline"; with no baseline there is no denominator, and the allocated capacity per goal cannot be computed. Measured against rules/roadmap-quality.md §2.
-  suggestion: Add a total capacity baseline line to the capacity allocation header, in the form "<N> person-weeks (<headcount> people × <cycle length> − overhead, discounted to <60–70>% effective hours)". Step 8 of define-roadmap can be re-run to collect it.
+  severity: major
+  title: A lower-priority item precedes a higher-priority eligible item without explanation
+  description: The P2 item precedes the P0 item and no override reason is recorded. Measured against rules/roadmap-quality.md §2.
+  suggestion: Put the P0 item first, or record the explicit reason for the different order.
 ```
 
-**Result**: the author learns that the roadmap looks complete but will jam at the promotion step.
+**Result**: the author can correct the order without supplying staffing data or effort estimates.
 
 ### Example 2: Not a git repository (edge case)
 

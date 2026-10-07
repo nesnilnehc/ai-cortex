@@ -50,14 +50,11 @@ The skill descriptions in [skills/INDEX.md](../../skills/INDEX.md) support disco
 
 Both are by design, not a fault.
 
-### 3.1 Promotion says the capacity allocation is missing
+### 3.1 Promotion says priorities are missing
 
-`promote-roadmap-items` computes capacity as "that goal's percentage × the total capacity baseline". With neither number present, it stops and sends you to `define-roadmap` first.
+`promote-roadmap-items` reads scored priorities rather than staffing or effort estimates. If every backlog item is `priority: unset`, it stops and sends you to `prioritize-backlog` first. If only some are unset, it skips those entries and continues with the scored ones.
 
-**Why it does not fill them in for you**: a capacity allocation is a commitment of resources, and a skill is not allowed to infer one on your behalf. `define-roadmap` asks you two things:
-
-1. **The total capacity baseline**: engineer count × cycle length − known overhead (meetings, oncall, holidays), discounted to 60–70% effective hours. The buffer for unplanned work is given up at this step, so the percentages that follow are relative to effective capacity, not calendar capacity.
-2. **The percentage per strategic goal**: they must sum to 100%, and an engineering-health goal must not be 0% — that kind of work has no advocate in the strategy, and never wins capacity in a contest of value.
+Candidates are compared across strategic goals in priority order. P0/P1 default to Now, P2 to Next, and P3 to Later, subject to prerequisite readiness and stage promotion criteria. An explicit user decision can change a proposed tier with its reason recorded. Goal mapping preserves traceability; it does not create resource quotas or separate promotion queues.
 
 ### 3.2 With the governance documents empty, it does not interrogate you from scratch
 
@@ -73,7 +70,7 @@ The reason is blunt: a goal reasoned back out of evidence reads smoothly and han
 
 Putting `map-item-dependencies` ahead of `promote-roadmap-items` is the most important ordering decision on the whole chain.
 
-High priority does not mean it can be pulled now. Promote a P0 item whose prerequisite is still sitting in the backlog and it occupies capacity in Now while producing nothing — and the capacity report shows full. So entry to Now has two conditions: it ranks near the top, **and** it has no unresolved prerequisite.
+High priority does not mean it can be pulled now. Promote a P0 item whose prerequisite is still sitting in the backlog and it sits in Now while unable to progress. So entry to Now has two conditions: it ranks near the top, **and** it has no unresolved prerequisite.
 
 Where an item has no dependencies recorded, `promote-roadmap-items` does not wave it through silently: it tells you to record dependencies first, and if you press on regardless, the candidate table marks it "dependencies not checked".
 

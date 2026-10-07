@@ -1,7 +1,7 @@
 ---
 name: update-roadmap
 description: Day-to-day roadmap maintenance — change item status, shift dates with downstream impact analysis, and produce a what-changed summary. Does not move items between Now/Next/Later tiers.
-version: 1.1.0
+version: 1.1.1
 license: MIT
 ---
 
@@ -45,7 +45,7 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 **This skill does not own**:
 
 - Cross-tier promotion / demotion (`promote-roadmap-items`)
-- Structural roadmap changes: new milestones, capacity allocation edits, strategic bet edits (`define-roadmap`)
+- Structural roadmap changes: new milestones, stage promotion criteria edits, strategic bet edits (`define-roadmap`)
 - Creating items (`capture-work-items`)
 - Re-scoring (`prioritize-backlog`)
 - Dependency identification (`map-item-dependencies`)
@@ -127,7 +127,7 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 ### Hard Boundaries
 
 - **Do not change the tier**: an item must not be moved between Now / Next / Later; that is `promote-roadmap-items`'s job
-- **Do not change the structure**: no new milestones, no touching the capacity allocation, no editing the strategic bets
+- **Do not change the structure**: no new milestones, no changing stage promotion criteria, no editing the strategic bets
 - **A blocker must have a follow-up**: `at risk` / `blocked` is not written while the blocking reason or the mitigation is missing
 - **No one-sided update**: roadmap.md and the item frontmatter must stay in sync
 - **With the dependency data missing, must not pretend the downstream impact was analyzed** — the fact that it was not computed, and why, must be stated explicitly
@@ -145,7 +145,7 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 | Action | Owner |
 | --- | --- |
 | Cross-tier promotion / demotion | `promote-roadmap-items` |
-| New milestone / capacity edit | `define-roadmap` |
+| New milestone / stage criteria edit | `define-roadmap` |
 | Creating items | `capture-work-items` |
 | Re-scoring | `prioritize-backlog` |
 | Dependency identification | `map-item-dependencies` |
@@ -193,7 +193,7 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 1. Identified as a date shift; the reason asked for → "design never gets scheduled".
 2. Check the history: this item has already shifted twice within this cycle.
 3. **Tell the user**: an item that shifts over and over in the Now tier does not currently meet the conditions for being pulled into Now — shifting it again only leaves the Now tier looking full while nothing moves.
-4. Suggest switching to `promote-roadmap-items` and demoting it to Next, freeing capacity for items that can move.
+4. Suggest switching to `promote-roadmap-items` and demoting it to Next, keeping the Now tier focused on items that can move.
 5. The user agrees → **this skill stops** and hands off to promote.
 
 **Result**: a third shift did not paper over the problem; the tier adjustment went back to the skill it belongs to.

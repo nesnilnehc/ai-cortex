@@ -4,11 +4,11 @@ Evaluates an existing roadmap document against `rules/roadmap-quality.md` and pr
 
 ## Purpose
 
-Reviews roadmap quality across five dimensions: completeness (the four parts of the core model, the capacity baseline and its allocation), executability (whether the denominator exists, the WIP limit, goal ownership), clarity (metric triplets, outcome phrasing and hypothesis phrasing), soundness (outcome-driven items, mapped dependencies, change frequency), and traceability (goal mapping, the explicit not-doing list). **The criteria are not embedded in the skill** — every one of them is cited from the rule, so when a criterion changes, that rule changes and the skill does not.
+Reviews roadmap quality across five dimensions: completeness (the four parts of the core model), executability (priority ordering, prerequisite readiness, goal ownership), clarity (metric triplets, outcome phrasing and hypothesis phrasing), soundness (outcome-driven items, mapped dependencies, change frequency), and traceability (goal mapping, the explicit not-doing list). **The criteria are not embedded in the skill** — every one of them is cited from the rule, so when a criterion changes, that rule changes and the skill does not.
 
 ## When to use
 
-- **Gate before promotion**: when the capacity and dependency criteria do not hold, promotion cannot compute a correct result
+- **Gate before promotion**: when priority ordering or dependency criteria do not hold, promotion needs correction
 - **Taking over someone else's roadmap**: see quickly what this roadmap is missing
 - **Periodic health check**: a roadmap is a living document and drifts over time
 - **Entry point of the orchestration chain**: step 0 of `orchestrate-roadmap-planning`
@@ -23,7 +23,7 @@ Reviews roadmap quality across five dimensions: completeness (the four parts of 
 
 - A findings list (location / category / severity / title / description / suggestion)
 - An explicit statement of any dimension that could not be evaluated, with the reason
-- When there are zero findings, an explicit statement that every criterion passed
+- When there are zero findings, an explicit pass only if every criterion was evaluated; otherwise list the unchecked criteria
 
 ## Boundaries
 

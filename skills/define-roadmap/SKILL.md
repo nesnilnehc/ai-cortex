@@ -1,7 +1,7 @@
 ---
 name: define-roadmap
 description: Derive a strategic roadmap from goals using milestone checkpoints, strategic bets, success metrics, and promotion criteria. Produces a decision-grade roadmap document.
-version: 4.0.1
+version: 5.0.0
 license: MIT
 ---
 
@@ -25,7 +25,7 @@ Derive a "decision-driving roadmap" from the strategic goals, not a task list. A
 4. ✅ **No false precision**: the Later stage states direction only and **carries no specific dates**.
 5. ✅ **Goal traceability and constraint**: a goal mapping exists, and the constraint is stated explicitly: "the backlog must map to the roadmap; a requirement outside the roadmap is not done by default".
 6. ✅ **User confirmation and persistence**: the user explicitly approves, and the document is written to the agreed path (default `docs/process-management/roadmap.md`, or `milestones.md` per project norms).
-7. ✅ **Capacity allocated by strategic_goal**: the roadmap must declare the **total capacity baseline** for the current cycle, plus each strategic_goal's percentage of that baseline; the percentages must sum to 100%. The percentages are settled by the user and must not be inferred by this skill — for the capacity guardrail to control by strategic goal, there has to be a denominator that is attributable and that the user owns.
+7. ✅ **Priority-based ordering**: stage placement follows documented priorities and promotion criteria; strategic goals provide traceability, not resource quotas.
 
 **Acceptance test**: can a reader see the evolution path at a glance, promotion criteria included? Can the stage outcome be verified through the success metrics rather than by checking a task list?
 
@@ -74,19 +74,9 @@ Derive a "decision-driving roadmap" from the strategic goals, not a task list. A
 5. **Define the success metrics**: set the verification standard for the stage outcome, each written as a triplet — current value / target value / frame of reference. The frame of reference is an industry benchmark, a project historical value, or an empirical threshold; where there is none, write "project-defined (no external benchmark)". This format shares one set of criteria with the `plan-next` diagnostic self-check; see [rules/roadmap-quality.md](../../rules/roadmap-quality.md).
 6. **Define the promotion criteria**: state the precondition for entering the next stage (such as the switch condition for Next → Now).
 7. **Build the goal mapping**: make sure the stage goals and the backlog can map to the strategy.
-8. **Settle the total capacity baseline**: ask for the capacity available in the current cycle. It is the denominator of the downstream `promote-roadmap-items` capacity formula, and without it the whole guardrail computes nothing.
-   - Collection basis: engineer headcount × cycle length − known overheads (meetings, oncall, interviews, holidays)
-   - Discount to 60–70% effective working hours; prefer the user's measured value where one exists
-   - Write the result, in person-weeks, into the header of the "Capacity Allocation" section
-   - **The buffer is deducted here**: the percentages that follow are relative to this effective capacity, not to calendar capacity. Room for unplanned work (urgent issues, quick wins, requests from other teams) was already given up in the discount, and gets no separate slot
-9. **Settle the capacity allocation**: ask the user for each strategic_goal's percentage of the total capacity baseline for the current cycle.
-   - Present the strategic-goals list and ask item by item, or ask the user for the whole allocation in one go
-   - Check that the percentages sum to 100%; where they do not, halt and prompt for a correction
-   - A default split is suggested (example: user value 60% / market expansion 20% / engineering health 20%), but the user settles it
-   - The ratio can be tuned to the project stage: a new product leans to features, a mature product to tech debt, the aftermath of an incident to reliability, a fast-growth period to scalability
-   - **The engineering-health goal must not be 0%** — with no capacity, governance / tech-debt / documentation work never gets in during the competition for value
-10. **Generate the roadmap document**: draft the document from the output structure template (including the "Capacity Allocation" section).
-11. **Confirm and persist**: once the user confirms, write it out and note the last-updated date.
+8. **Order by priority**: use the existing backlog priorities or the user's explicit strategic ordering to explain what comes first. Record the ordering rationale; hand off unscored backlog items to `prioritize-backlog`.
+9. **Generate the roadmap document**: draft the route overview and stage details from the output structure template.
+10. **Confirm and persist**: once the user confirms, write it out and note the last-updated date.
 
 ### Output Structure Template (embedded contract)
 
@@ -97,22 +87,16 @@ Derive a "decision-driving roadmap" from the strategic goals, not a task list. A
 
 Now / Next / Later (with a brief note on promotion criteria)
 
-## Capacity Allocation (current cycle)
+## Priority Rationale
 
-**Total capacity baseline**: <N> person-weeks (<headcount> people × <cycle> − overheads, discounted to <60–70>% effective working hours; the buffer for unplanned work is already deducted in the discount)
-
-| Strategic Goal | Percentage | Capacity | Note |
-| Goal 1 (user value) | 60% | 6 person-weeks | Core delivery |
-| Goal 2 (market expansion) | 20% | 2 person-weeks | Adjacent expansion |
-| Goal 3 (engineering health) | 20% | 2 person-weeks | Governance and tech debt, must not be 0 |
-
-> This allocation is consumed by the `promote-roadmap-items` skill inside its capacity guardrail: allocated capacity = percentage × total capacity baseline.
-> The percentages must sum to 100%; the engineering-health goal must not be 0%.
-> A strategy refresh or a capacity change must rerun this skill.
+Explain why the Now / Next / Later order follows the documented priorities and promotion criteria.
 
 ---
 
 ## Now
+
+### Promotion Criteria
+- <verifiable conditions for entering or continuing this stage>
 
 ### Milestone
 - Let [segment] be able to [achieve something], so that [business impact]
@@ -136,11 +120,26 @@ Now / Next / Later (with a brief note on promotion criteria)
 ### Strategic Bets
 - ...
 
+### Success Metrics
+- <metric name>: current <value> / target <value> / frame of reference <reference>
+
 ---
 
 ## Later
 
-Direction only, no dates
+Direction only, no dates. Keep the core model at a directional level and label any metric values that are not yet established.
+
+### Promotion Criteria
+- <verifiable prerequisite for exploring this direction>
+
+### Milestone
+- Let [segment] be able to [achieve a long-term outcome], so that [business impact]
+
+### Strategic Bets
+- We believe [exploring X] brings [result] for [audience], because [assumption]
+
+### Success Metrics
+- <metric name>: current <value or not established> / target <value or not established> / frame of reference <reference or project-defined (no external benchmark)>
 
 ---
 
@@ -182,9 +181,7 @@ Direction only, no dates
 
 - **Roadmap mapping constraint**: state explicitly that "the backlog must map to the roadmap; a requirement outside the roadmap is not done by default".
 - **Structure enforced**: every stage must carry the core model (milestone, strategic bets, success metrics, promotion criteria); not one of them may be missing.
-- **The total capacity baseline must not be omitted**: with no baseline the downstream capacity formula has no denominator, and the guardrail is decorative.
-- **The capacity allocation must not be omitted**: every strategic_goal must have a percentage, summing to 100%; the engineering-health goal must not be 0%.
-- **The capacity allocation must not be inferred by this skill**: the user must settle it; a suggestion can be offered, but nothing is written automatically.
+- **Priority-based planning**: do not require effort estimates, resource quotas, or a maximum item count for roadmap placement. Keep goal mapping and dependency readiness separate from priority scoring.
 - **No overwrite**: do not overwrite an existing roadmap file without the user's explicit confirmation.
 
 ### Anti-Patterns (avoid)
@@ -219,8 +216,7 @@ Direction only, no dates
 - [ ] **Metric triplet**: every success metric carries current value / target value / frame of reference; where there is no frame of reference, "project-defined (no external benchmark)" is marked.
 - [ ] **No false precision**: the Later stage carries no specific dates, only direction.
 - [ ] **Goal traceability and constraint**: the mapping from roadmap to strategic goals is shown, and the backlog is constrained.
-- [ ] **Total capacity baseline declared**: with the person-week count and the discount basis.
-- [ ] **Capacity allocation complete**: every strategic_goal has a percentage, they sum to 100%, and engineering health is ≠ 0%.
+- [ ] **Priority rationale recorded**: the stage order follows documented priorities and promotion criteria, without resource quotas or item-count limits.
 - [ ] **User confirmation and persistence**: the user approved it, and it is written to the agreed path.
 
 ### Acceptance Test
@@ -244,7 +240,7 @@ Can a reader see the evolution path at a glance, promotion criteria included? Ca
 3. Define the "promotion criteria" for the Next stage (e.g. "start the Next stage when core architecture validation reaches 10k QPS").
 4. List the long-range exploration themes in Later (no dates).
 5. Present the draft, and write to `docs/process-management/roadmap.md` once it is approved.
-**Result**: the roadmap is persisted and drives the next round of resource allocation and decisions.
+**Result**: the roadmap is persisted and drives the next round of priority and stage decisions.
 
 ### Example 2: Correcting the task-list anti-pattern
 
@@ -257,19 +253,14 @@ Can a reader see the evolution path at a glance, promotion criteria included? Ca
 4. Offer the draft and confirm it with the user.
 **Result**: the requirement list is converted into a production-grade decision roadmap.
 
-### Example 3: Capacity allocation is required (edge case)
+### Example 3: Priority-based planning without effort estimates (edge case)
 
-**Context**: the user drafts a roadmap but skips the capacity allocation section and asks to persist it as is.
+**Context**: strategic goals and scored backlog items exist, but no staffing or effort estimates have been recorded.
 **Process**:
 
-1. Detect that the roadmap has no "capacity allocation".
-2. halt and explain: "capacity allocation is what promote-roadmap-items uses as its guardrail; without it, promotion cannot be controlled by strategic goal."
-3. Present the strategic-goals list:
-   - Goal 1 (user value): ? %
-   - Goal 2 (market expansion): ? %
-   - Goal 3 (engineering health): ? %
-4. Fill in the total capacity baseline first: 4 people × 6 weeks × 65% ≈ 10 person-weeks.
-5. The user gives 70/20/10.
-6. Check the sum = 100 ✓; engineering health at 10% is not 0 ✓; that converts to 7 / 2 / 1 person-weeks.
-7. Write the "Capacity Allocation" section and persist.
-**Result**: the roadmap carries a capacity allocation that promote-roadmap-items can consume, and the loop closes.
+1. Read the goals and existing priorities.
+2. Put the highest-priority outcomes in Now, subject to their promotion criteria and prerequisite readiness.
+3. Explain the priority rationale for Next and Later while retaining goal traceability.
+4. Present the draft and persist it after confirmation.
+
+**Result**: the roadmap can drive priority-based promotion without staffing data or effort estimates.

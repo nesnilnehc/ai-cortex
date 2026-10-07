@@ -4,7 +4,7 @@ Identifies the dependencies among backlog and roadmap items, writes them into ea
 
 ## Purpose
 
-Walks the dependencies between items in five categories (technical / team / external / knowledge / sequencing), records "needed by when" and who owns it, gives reduction options for the high-risk ones, and emits a blocked list that `promote-roadmap-items` can consume directly. Dependencies are the highest-risk factor on a roadmap — they appear neither in the priority nor in the capacity, yet they leave a high-priority item stuck in place once it enters Now.
+Walks the dependencies between items in five categories (technical / team / external / knowledge / sequencing), records "needed by when" and who owns it, gives reduction options for the high-risk ones, and emits a blocked list that `promote-roadmap-items` can consume directly. Dependencies are the highest-risk factor on a roadmap — priority alone does not show prerequisite readiness, yet they leave a high-priority item stuck in place once it enters Now.
 
 ## When to use
 

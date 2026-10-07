@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: roadmap-quality
-version: 1.0.1
+version: 2.0.0
 scope: reviewing or self-checking a roadmap document
 recommended_scope: user
 status: active
@@ -22,21 +22,19 @@ status: active
 ### 1. Completeness — is the structure all there?
 
 - [ ] Every stage carries the four parts of the core model: milestone / strategic bets / metrics / promotion criteria
-- [ ] A "capacity allocation" section is present and declares the **total capacity baseline** — person-weeks plus how it was derived
-- [ ] Every strategic_goal has a percentage, and the percentages sum to 100%
 - [ ] Each stage has 2–5 strategic bets, and none is empty
 
 ### 2. Executability — can the downstream consume it directly?
 
-- [ ] The total capacity baseline exists. Without it, `promote-roadmap-items` has no denominator for "percentage × baseline" and the capacity guardrail cannot produce a result
-- [ ] The engineering-health goal's capacity ≠ 0%
+- [ ] Concrete items are ordered by documented priority (P0 > P1 > P2 > P3); departures from that order carry an explicit reason
+- [ ] Roadmap placement requires no effort estimate, staffing baseline, resource quota, or item-count limit
+
 - [ ] Promotion criteria are decidable — they state which condition lets a stage enter the next one — rather than "it depends"
-- [ ] The Now tier holds no more items than the WIP limit, 3–5 by default and overridable per project
 - [ ] Every Now-tier item traces to the strategic_goal it belongs to
 
 ### 3. Clarity — is it unambiguous?
 
-- [ ] **Metrics are triplets**: current value / target value / reference point. The reference is an industry benchmark, the project's own history, or an empirical threshold; where there is none, write "project-defined (no external benchmark)"
+- [ ] **Metrics are triplets**: current value / target value / reference point. The reference is an industry benchmark, the project's own history, or an empirical threshold; where there is none, write "project-defined (no external benchmark)"; directional Later metrics may mark current or target values "not established" rather than inventing numbers
 - [ ] Milestones use the outcome form (`let [segment] be able to [achieve something], so that [business impact]`) rather than the name of a deliverable
 - [ ] Strategic bets use the falsifiable hypothesis form (`We believe [doing X] brings [result] for [audience], because [assumption]`) rather than a noun phrase
 - [ ] The Later tier states direction only, with no specific dates
@@ -64,12 +62,12 @@ Each corresponds to the failure mode of one dimension above, in the same order. 
 
 **§1 completeness failures**
 
-- ❌ **Missing denominator**: percentages per goal with no total capacity baseline. The downstream "percentage × baseline" cannot be computed and the capacity guardrail becomes decorative
+- ❌ **Incomplete stage model**: a stage lacks its milestone, strategic bets, metrics, or promotion criteria
 
 **§2 executability failures**
 
-- ❌ **No capacity for governance**: the engineering-health goal allocated 0%. Technical debt and documentation have no capacity to draw on, so they always lose against competing value
-- ❌ **Now tier piling up**: pulling in far more items than the WIP limit. It looks fully loaded while every item is waiting
+- ❌ **Unexplained ordering**: a lower-priority item appears ahead of a higher-priority eligible item without a recorded reason
+- ❌ **Resource estimates gate roadmap placement**: an item is held only because staffing data or effort estimates are absent, or a quota or item-count limit is reached
 - ❌ **Vague promotion criteria**: "it depends" instead of a decidable condition, which turns stage transitions into guesswork
 
 **§3 clarity failures**
@@ -81,7 +79,7 @@ Each corresponds to the failure mode of one dimension above, in the same order. 
 **§4 soundness failures**
 
 - ❌ **A feature list posing as a roadmap**: feature names throughout, with no sense of why they are being built or what counts as success
-- ❌ **Ordering without checking dependencies**: sorting by priority and capacity alone, so a blocked item enters Now and occupies capacity without producing anything
+- ❌ **Ordering without checking dependencies**: sorting by priority alone without checking prerequisites, so a blocked item enters Now and cannot progress
 - ❌ **Priority with nothing behind it**: neither a score nor a recorded strategic-override reason, so nobody can reconstruct afterwards why the order was what it was
 - ❌ **Reordering mistaken for responsiveness**: restructuring on every new piece of information, past the change-frequency threshold, without pausing to reflect
 
@@ -89,10 +87,6 @@ Each corresponds to the failure mode of one dimension above, in the same order. 
 
 - ❌ **Broken goal mapping**: a roadmap item that maps to no strategic goal, leaving "which goal does this serve?" unanswerable
 - ❌ **Exclusions left unwritten**: relying on the implicit rule "anything not on the roadmap is not done", so every excluded stakeholder comes to ask individually
-
-**Cross-cutting failure**
-
-- ❌ **Capacity allocated to the last drop**: percentages taken against calendar capacity rather than effective capacity, so one urgent problem derails everything
 
 ---
 
@@ -112,5 +106,5 @@ The dimensions and failure modes above are derived from this rule's own five-dim
 
 ## Related assets
 
-- **Companion capabilities**, resolved through `skills/INDEX.md`: `define-roadmap` constructs the roadmap against this checklist, `review-roadmap` produces findings against it, `promote-roadmap-items` consumes the capacity and WIP criteria
+- **Companion capabilities**, resolved through `skills/INDEX.md`: `define-roadmap` constructs the roadmap against this checklist, `review-roadmap` produces findings against it, `promote-roadmap-items` consumes the priority-ordering and dependency criteria
 - **Sibling review rules**: [requirement-quality](./requirement-quality.md) / [functional-design-quality](./functional-design-quality.md) / [technical-design-quality](./technical-design-quality.md) / [task-quality](./task-quality.md)

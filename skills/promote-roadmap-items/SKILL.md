@@ -1,7 +1,7 @@
 ---
 name: promote-roadmap-items
-description: Promote prioritized backlog items into the roadmap's Now/Next/Later tiers based on strategic_goal capacity allocation and priority scores. Event-driven (not calendar-driven).
-version: 1.2.2
+description: Promote prioritized backlog items into the roadmap's Now/Next/Later tiers based on priority scores and dependency readiness. Event-driven (not calendar-driven).
+version: 2.0.0
 license: MIT
 ---
 
@@ -9,22 +9,22 @@ license: MIT
 
 ## Purpose
 
-Promote scored backlog items into the roadmap's Now / Next / Later slots according to the strategic-goal capacity allocation. This is the supporting skill for the **roadmap planning ceremony**, and it is event-driven.
+Promote scored backlog items into the roadmap's Now / Next / Later slots in priority order, with strategic-goal traceability and prerequisite checks. This is the supporting skill for the **roadmap planning ceremony**, and it is event-driven.
 
 ---
 
 ## Core Objective
 
-**Primary goal**: decide which items are promoted / demoted / held, based on the current strategic-goal capacity allocation and the backlog priorities, and update roadmap.md.
+**Primary goal**: decide which items are promoted / demoted / held, based on backlog priorities and prerequisite readiness, and update roadmap.md.
 
 **Success criteria** (all of them must hold):
 
 1. ✅ Backlog items with a priority set were read (unset ones skipped)
-2. ✅ The capacity used and remaining in each roadmap tier (Now/Next/Later) was computed
-3. ✅ Promotion candidates were presented against the strategic_goal capacity allocation (from roadmap.md or the strategy setup)
+2. ✅ Current items and eligible backlog items were compared in priority order
+3. ✅ Promotion candidates carry priority, strategic_goal, dependency readiness, and a reason for their proposed tier
 4. ✅ The user confirmed every promotion / demotion decision
 5. ✅ roadmap.md and the status field of each promoted item were updated
-6. ✅ A capacity usage report was emitted (used / total / remaining per goal)
+6. ✅ A priority-ordered tier report was emitted with reasons for held or deferred items
 
 **Acceptance test**: after promotion, can a reader see straight from roadmap.md which strategic_goal each Now item came from and what its priority is?
 
@@ -35,7 +35,7 @@ Promote scored backlog items into the roadmap's Now / Next / Later slots accordi
 **This skill owns**:
 
 - Backlog → Roadmap promotion / demotion decisions
-- Holding to the strategic_goal capacity guardrail
+- Ordering candidates by priority and checking prerequisite readiness
 - Updating roadmap.md and the status of the promoted items
 
 **This skill does not own**:
@@ -52,7 +52,7 @@ Promote scored backlog items into the roadmap's Now / Next / Later slots accordi
 
 ## Use Cases
 
-- **Capacity freed**: the previous batch of Now-tier items finished, capacity came free, and new items need pulling in
+- **Items completed**: previous Now-tier items finished and the next priorities need reassessing
 - **Strategy refresh**: after the strategic goals shift, re-assess whether the Now-tier items still fit
 - **Filling a large gap**: a large gap reported by `plan-next` reaches the promotion decision after capture + prioritize
 - **Planning on demand**: the user starts roadmap planning themselves, tied to no fixed cycle
@@ -66,65 +66,45 @@ Promote scored backlog items into the roadmap's Now / Next / Later slots accordi
 1. Read `docs/process-management/roadmap.md` (the current Now / Next / Later state)
 2. Read the backlog directory and select the items whose `priority` is set (not unset) **and whose `status` is not `declined`** — `declined` is the terminal state for never doing it, written by `prioritize-backlog`, and it takes no part in promotion
 3. Read `docs/project-overview/strategic-goals.md` (the list of strategic goals)
-4. Read the strategic-goal capacity allocation declared in roadmap.md (see Stage 1)
+4. Read each item's current tier, priority rationale, and prerequisite state
 
 **halt conditions**:
 
 - roadmap.md does not exist → suggest running `define-roadmap` first
 - strategic-goals.md does not exist → suggest running `design-strategic-goals` first
 - every backlog item is `priority: unset` → suggest running `prioritize-backlog` first
-- roadmap.md carries no capacity allocation, or no total capacity baseline → halt, and prompt for a `define-roadmap` run to settle the capacity
 
-### Stage 1: compute the current capacity state
+### Stage 1: compare the current priority order
 
-The **total capacity baseline** comes from the header of the "Capacity allocation" section in roadmap.md, gathered and written by step 8 of `define-roadmap` (headcount × cycle − overhead, converted into effective working hours). When the baseline is missing, halt and prompt for a rerun of `define-roadmap` — with no denominator, no goal's allocated capacity can be worked out.
+Combine current roadmap items with eligible backlog items and compare them across all strategic goals by `priority` (P0 > P1 > P2 > P3). Goal mapping provides traceability, not a separate promotion queue or quota.
 
-For each strategic_goal:
-
-| Field | Meaning |
-| --- | --- |
-| Allocated capacity | that goal's percentage in roadmap.md × the **total capacity baseline** |
-| Used capacity | the sum of effort across the current Now-tier items belonging to that goal |
-| Remaining capacity | allocated - used |
-
-Emit the capacity table:
-
-```markdown
-## Current capacity usage
-
-| Strategic Goal | Allocated | Used | Remaining | Share |
-| Goal 1 (user value) | 6 person-weeks | 4 person-weeks | 2 person-weeks | 67% |
-| Goal 2 (market expansion) | 2 person-weeks | 1 person-week | 1 person-week | 50% |
-| Goal 3 (engineering health) | 2 person-weeks | 0 person-weeks | 2 person-weeks | 0% |
-```
+For equal priorities, preserve the existing order unless a documented strategic override justifies changing it. For new tied items, use their stable ID or path for a reproducible presentation order; this tie-break is not a new priority score.
 
 ### Stage 2: generate promotion candidates
 
-**Now-tier admission rule**: the 3–5 top-ranked items that carry no unresolved prerequisite. Both conditions hold.
+**Now-tier admission rule**: propose P0/P1 items for Now, P2 for Next, and P3 for Later. These are defaults; an explicit user decision may change the proposed tier, with its reason recorded. Prerequisite checks still apply to every Now candidate. There is no item-count limit or effort prerequisite.
 
 The dependency check reads each item's frontmatter `depends_on` (registered by `map-item-dependencies`):
 
 | `depends_on` state | Handling |
 | --- | --- |
 | `—` (checked, no dependency) | may enter Now |
-| has dependencies, and every prerequisite is already in Now or finished | may enter Now |
+| has dependencies, and every prerequisite is finished or its required deliverable is verified available | may enter Now |
+| a prerequisite is in Now but its required deliverable is not available | **must not enter Now**; keep the dependent item in Next until the prerequisite is satisfied |
 | has dependencies with an unresolved prerequisite | **must not enter Now**; Next is as far as it goes, and the candidate table names which one blocks it |
 | field missing (never checked) | do not wave it through silently. Prompt for a `map-item-dependencies` run first; when the user insists on continuing, mark it "dependencies unchecked" in the candidate table and leave the risk with the user |
 
-For each strategic_goal:
+Generate candidates across goals in priority order. Apply the default tier mapping, prerequisite checks, and the roadmap's declared stage promotion criteria. Keep a blocked P0/P1 item in Next and explain its blocker; do not lower its priority to justify the deferral.
 
-1. Select the backlog items belonging to that goal
-2. Sort by `priority` (P0 > P1 > P2 > P3)
-3. Pull from the highest priority downward against the remaining capacity, until that goal's capacity is full or no items are left
-
-Emit the promotion candidate table:
+Emit the candidate table:
 
 ```markdown
-## Promotion candidates (Now tier)
+## Promotion candidates
 
-| Goal | Item | Priority | Effort | Action |
-| Goal 1 | #42 payment optimization | P0 | 2w | promote Later → Now |
-| Goal 3 | #17 tech debt: auth refactor | P1 | 2w | promote Backlog → Now |
+| Goal | Item | Priority | Dependencies | Action | Reason |
+| --- | --- | --- | --- | --- | --- |
+| Goal 1 | #42 payment optimization | P0 | Checked, none | Later → Now | Highest priority, ready |
+| Goal 3 | #17 auth refactor | P1 | Blocked by #12 | Backlog → Next | Prerequisite unresolved |
 ```
 
 ### Stage 3: demotion / deferral decisions
@@ -132,7 +112,7 @@ Emit the promotion candidate table:
 Check the current Now-tier items:
 
 - if the priority has dropped (a re-score after a strategy change, say) → suggest demoting it to Next or Later
-- if a strategic_goal is over its capacity → suggest demoting the lowest-priority item
+- if a prerequisite is unresolved or the stage promotion criteria no longer hold → suggest deferring the item to Next and name the blocker
 
 Emit the demotion suggestions.
 
@@ -145,7 +125,7 @@ Present the merged list (promotions + demotions) and have the user confirm item 
 
 [ ] #42 promote Later → Now?
 [ ] #17 promote Backlog → Now?
-[ ] #8 demote Now → Next? (over capacity + low priority)
+[ ] #8 demote Now → Next? (priority dropped)
 [ ] ...
 ```
 
@@ -160,14 +140,14 @@ For each confirmed decision:
 ### Stage 6: emit the final report
 
 - Counts promoted / demoted / held
-- Capacity usage after the update
+- Priority-ordered items by tier, with reasons for held or deferred items
 - The suggested next step (`capture-work-items` for the newly promoted Now items, for example)
 
 ---
 
 ## Input and Output
 
-**Input**: roadmap.md + the backlog (priority set) + strategic-goals.md + the capacity allocation.
+**Input**: roadmap.md + the backlog (priority set) + strategic-goals.md.
 
 **Output**: the decision table in chat + the roadmap.md update + the item frontmatter update (status + promoted_at / demoted_at).
 
@@ -179,10 +159,9 @@ For each confirmed decision:
 
 - Do not promote a `priority: unset` item (go through `prioritize-backlog` first)
 - Do not promote a `status: declined` item — that terminal state means never doing it, and taking it back in needs the user to lift the terminal state explicitly
-- Do not exceed a strategic_goal's capacity allocation (when it is over capacity, something must be demoted before anything is promoted)
 - Do not promote a P3 item into Now automatically (P3 goes to Later by default)
 - Do not promote an item with an unresolved prerequisite into Now (clear the prerequisite first, or promote only as far as Next)
-- Do not change the roadmap's strategic_goal capacity allocation automatically (that is `define-roadmap`'s job)
+- Do not require staffing data, effort estimates, resource quotas, or an item-count limit to make promotion decisions
 
 ### Skill boundaries
 
@@ -192,7 +171,7 @@ For each confirmed decision:
 | --- | --- |
 | Creating backlog items | `capture-work-items` |
 | Scoring the backlog | `prioritize-backlog` |
-| Defining roadmap structure and capacity | `define-roadmap` |
+| Defining roadmap structure | `define-roadmap` |
 | Breaking a Now item into tasks | AgentFabric runtime (outside AI Cortex) |
 | Detailed requirement capture | `capture-work-items` |
 
@@ -200,11 +179,10 @@ For each confirmed decision:
 
 ## Anti-Patterns
 
-- ❌ **Do not tie it to a fixed cycle** ("run it every Monday") — this skill is **event-driven** (capacity freed / strategy change / on demand)
-- ❌ **Do not ignore the capacity guardrail** — one goal holding a high-priority item is no licence to overrun and take another goal's capacity
-- ❌ **Do not promote too much at once** — the Now tier caps at **3–5 items** by default (a project can override it in roadmap.md), and stacking past that cap breaks the pull-based flow
+- ❌ **Do not tie it to a fixed cycle** ("run it every Monday") — this skill is **event-driven** (items completed / priority or strategy change / on demand)
+- ❌ **Do not partition priority by goal quotas** — compare candidates across goals in priority order
 - ❌ **Do not act on priority-unset items** — score them first
-- ❌ **Do not skip the dependency check** — high priority does not mean it can be pulled now; a blocked item in Now just holds capacity and produces nothing
+- ❌ **Do not skip the dependency check** — high priority does not mean it can be pulled now; a blocked item in Now cannot progress
 - ❌ **Do not change the roadmap structure** (adding a milestone, say) — that is `define-roadmap`'s business
 
 ---
@@ -212,49 +190,43 @@ For each confirmed decision:
 ## Self-Check
 
 - [ ] roadmap.md, the backlog and strategic-goals.md were read successfully
-- [ ] The capacity allocation exists; where it does not, the run halted and suggested `define-roadmap`
 - [ ] Only backlog items with `priority` set and `status` other than `declined` were handled
-- [ ] Capacity usage was computed for every strategic_goal
-- [ ] Promotion candidates were generated by priority order plus the capacity constraint
+- [ ] Current and candidate items were compared across goals in priority order
+- [ ] Promotion candidates were generated by priority order, stage criteria, and dependency readiness
 - [ ] Now-tier candidates passed the dependency check; items missing `depends_on` were told to run `map-item-dependencies` first, not waved through silently
-- [ ] The Now-tier item count stays within the WIP cap (3–5 by default)
-- [ ] The demotion suggestions weigh priority and over-capacity
+- [ ] No staffing, effort, quota, or item-count prerequisite was imposed
+- [ ] The demotion suggestions weigh priority changes and prerequisite readiness
 - [ ] The user confirmed item by item; nothing was auto-approved
 - [ ] roadmap.md was updated and the item frontmatter was updated
-- [ ] The final capacity usage report was emitted
+- [ ] The final priority-ordered tier report was emitted
 
 ---
 
 ## Examples
 
-### Example 1: freed capacity triggers a promotion (the mainstream case)
+### Example 1: priorities determine promotion (mainstream case)
 
-**Context**: 3 Now items finished during the cycle, freeing 4 person-weeks of capacity. Strategic goals: Goal 1 (60%), Goal 2 (20%), Goal 3 engineering health (20%).
-
-**Flow**:
-
-1. Compute capacity — Goal 3 has 2 weeks free, Goal 1 has 2 weeks free
-2. Generate candidates:
-   - Goal 1: #42 payment optimization (P0, 2w) → promote Later → Now
-   - Goal 3: #17 auth refactor (P1, 2w) → promote Backlog → Now
-3. The user confirms item by item (all yes)
-4. Update roadmap.md and set the item status to active
-5. Capacity report: Goal 1 6/6, Goal 2 1/2, Goal 3 2/2
-
-**Result**: 2 items promoted into Now; the handoff suggests running `capture-work-items` for the new Now items.
-
-### Example 2: a strategy refresh forces a broad re-assessment (edge case)
-
-**Context**: after the quarterly strategy refresh, a new strategic goal 4 joins and Goal 3's capacity moves from 20% to 10%.
+**Context**: previous Now items have finished. #42 belongs to Goal 1 and is P0; #17 belongs to Goal 3 and is P1. Both have checked dependencies and are ready. Staffing and effort estimates are absent.
 
 **Flow**:
 
-1. halt and check — the capacity allocation in roadmap.md does not reflect the new strategy
-2. Prompt: "the strategic goals or the capacity have changed, and this skill cannot handle a structural change. Run `define-roadmap` first to settle the capacity allocation again."
-3. The user runs `define-roadmap`, then starts over
-4. Re-enter promote-roadmap-items: Goal 3 turns out to be over capacity (2w in Now, new capacity 1w), so suggest demoting #17 to Next
-5. The user confirms → update
+1. Compare both items across goals in priority order: #42 before #17.
+2. Propose both for Now, explaining their priorities and readiness.
+3. The user confirms each decision.
+4. Update roadmap.md and the item status to active.
+5. Report the resulting priority order and confirmed changes.
 
-**Result**: the roadmap lines up with the strategy again; #17 is demoted but not lost.
+**Result**: both items enter Now without resource estimates or goal quotas.
 
----
+### Example 2: a priority change causes demotion (edge case)
+
+**Context**: after a strategy refresh, `prioritize-backlog` changes #17 from P1 to P3. A new P0 item #60 depends on an unresolved prerequisite #12.
+
+**Flow**:
+
+1. Read the updated priorities and dependency evidence.
+2. Propose demoting #17 from Now to Later because its priority dropped.
+3. Propose #60 for Next until #12 is resolved; retain its P0 priority and name the blocker.
+4. The user confirms the proposals and the files are updated.
+
+**Result**: tier placement reflects priorities and readiness; neither item is lost.

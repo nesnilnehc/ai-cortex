@@ -4,7 +4,7 @@ Chains the atomic skills from strategic goals through promotion in a fixed 9 ste
 
 ## Purpose
 
-**It exists to satisfy the downstream halt conditions up front.** The most common waste in manual invocation: you get all the way to `promote-roadmap-items` before finding that the roadmap has no capacity allocation, halt, go back and run `define-roadmap`, and start the whole thing over. This skill checks and fills preconditions like that before the call.
+**It exists to satisfy the downstream halt conditions up front.** A missing roadmap or strategic-goals document stops promotion; finding that only at the final step forces a backtrack. This skill checks and fills preconditions like that before the call.
 
 Every step carries one of three grades — **required** (runs as soon as its condition matches, cannot be skipped), **default** (can be skipped explicitly), **recommended** (prompts only, never runs on its own). The grade is a mechanical mapping of each atomic skill's existing constraints, not a judgement made by the orchestration layer.
 
@@ -23,7 +23,7 @@ For a single-step operation, call the matching atomic skill directly — `promot
 
 ## Outputs
 
-One aggregated report: the result of each step, which steps were skipped and why, the roadmap change list, the capacity usage report, unresolved findings, and next-step suggestions.
+One aggregated report: the result of each step, which steps were skipped and why, the roadmap change list, the priority-ordered tier report, unresolved findings, and next-step suggestions.
 
 ## Boundary with the existing orchestration layers
 
