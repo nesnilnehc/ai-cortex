@@ -4,7 +4,7 @@ Defines 3–5 long-term strategic goals that move the project toward the vision 
 
 ## Purpose
 
-Produces a strategic goals document holding 3–5 outcome-oriented goals consistent with the vision and the North Star. **A long-term project (planning horizon > 6 months) must include one "engineering / governance health" goal**, which gives governance, tech-debt, and documentation work a strategic sponsor — without one, that kind of work never wins capacity in the competition for value. This skill does not define the mission, vision, North Star, or milestones. Output goes by default to `docs/project-overview/strategic-goals.md` (or the path set by the project norm).
+Produces a strategic goals document holding 3–5 outcome-oriented goals consistent with the vision and the North Star. **A long-term project (planning horizon > 6 months) must include one "engineering / governance health" goal**, which gives governance, tech-debt, and documentation work a strategic sponsor — without one, its long-term value can be overlooked during prioritization. This skill does not define the mission, vision, North Star, or milestones. Output goes by default to `docs/project-overview/strategic-goals.md` (or the path set by the project norm).
 
 ## When to use
 

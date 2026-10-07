@@ -1,7 +1,7 @@
 ---
 name: design-strategic-goals
 description: Define 3–5 long-term strategic goals that move the project toward the vision and North Star. Produces a goals document aligned with mission, vision, and NSM; persisted to docs.
-version: 1.3.3
+version: 1.3.4
 license: MIT
 ---
 
@@ -25,7 +25,7 @@ Define **3-5 long-term strategic goals** that move the project toward the vision
 4. ✅ **North Star link**: at least one goal explicitly supports or moves the North Star metric; optional: a short note per goal on "how this supports the vision/NSM".
 5. ✅ **User confirmation**: the user explicitly approves (e.g. "approved", "looks good", "go ahead", or equivalent).
 6. ✅ **Document persisted**: written to the agreed path (default `docs/project-overview/strategic-goals.md`, or per project norms).
-7. ✅ **Engineering-health goal included**: a long-term project (planning horizon > 6 months) must include a goal of the "sustainable engineering / governance health" kind; a short-term or experimental project may take an explicit exemption and record the reason in the document. Rationale: without a strategic sponsor, governance / tech-debt / documentation work never wins capacity in the competition for value.
+7. ✅ **Engineering-health goal included**: a long-term project (planning horizon > 6 months) must include a goal of the "sustainable engineering / governance health" kind; a short-term or experimental project may take an explicit exemption and record the reason in the document. Rationale: without a strategic sponsor, the long-term value of governance / tech-debt / documentation work can be overlooked during prioritization.
 
 **Acceptance test**: can a reader see how each of the 3-5 goals advances the vision and the North Star, with no dates or stages (those belong to milestones)? Does a long-term project carry one goal that speaks for governance / engineering health?
 
@@ -133,7 +133,7 @@ governance mechanisms evolving, so the other strategic goals stay achievable lon
 - Production incident MTTR ≤ Y hours
 ```
 
-This goal **supports the long-term achievability of all the other strategic goals**; it is not a standalone product goal. Its existence guarantees that governance / tech-debt / documentation groundwork holds a legitimate strategic position in the competition for value — the capacity guardrail allocates by strategic_goal, and without this goal such work has no capacity to belong to.
+This goal **supports the long-term achievability of all the other strategic goals**; it is not a standalone product goal. Its existence guarantees that governance / tech-debt / documentation groundwork holds a legitimate strategic position in the competition for value — goal mapping makes its long-term value explicit when items are prioritized alongside product work.
 
 ---
 
@@ -256,9 +256,9 @@ If yes: the strategic goals are done. Move to the handoff or stop.
 **Process**:
 
 1. Detect that none of the 4 goals touches engineering / governance health.
-2. Tell the user: "This is a long-term project; an engineering-health goal is recommended here, otherwise tech-debt and governance work has no strategic sponsor over the long run and the capacity guardrail has nothing to attach to."
+2. Tell the user: "This is a long-term project; an engineering-health goal is recommended here, otherwise tech-debt and governance work has no strategic sponsor over the long run and its long-term value may be overlooked during prioritization."
 3. Show the default template; the user tunes the key results (e.g. "tech-debt backlog item count ≤ 20" becomes "≤ 30", based on team size).
 4. The user confirms it as goal 5.
 5. Persist the 5 goals.
 
-**Result**: the document holds 5 strategic goals, goal 5 being "sustainable engineering and governance health". The capacity guardrail then has a legitimate slot when it allocates by strategic_goal_id.
+**Result**: the document holds 5 strategic goals, goal 5 being "sustainable engineering and governance health". Governance work can then trace its value to this goal during prioritization.

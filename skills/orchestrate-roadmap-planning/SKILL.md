@@ -1,7 +1,7 @@
 ---
 name: orchestrate-roadmap-planning
 description: Orchestrator skill — run one roadmap planning pass by sequencing atomic skills from strategic goals through capture, scoring, dependency mapping, and promotion, satisfying each skill's halt conditions up front.
-version: 1.0.2
+version: 2.0.0
 license: MIT
 ---
 
@@ -11,7 +11,7 @@ license: MIT
 
 Chain the roadmap-related atomic skills in a fixed order to complete one roadmap planning ceremony. This skill orchestrates only; it performs no domain analysis. For a single step, call the corresponding atomic skill directly (`promote-roadmap-items` for promotion alone, `review-roadmap` for a health check alone).
 
-**Its reason to exist is satisfying the downstream halt conditions up front.** The most common waste in calling by hand: you get all the way to `promote-roadmap-items` before finding the roadmap has no capacity allocation, halt, go back and run `define-roadmap`, and start over — a backtrack that example 2 of promote writes up as the normal flow. This skill checks and fills preconditions like that before the call.
+**Its reason to exist is satisfying the downstream halt conditions up front.** A missing roadmap or strategic-goals document stops promotion; discovering that only at the final step forces a backtrack. This skill checks and fills preconditions like that before the call.
 
 ---
 
@@ -24,7 +24,7 @@ By the naming convention, an orchestrator skill **does exactly 4 things**:
 3. **halt-on-failure**: the tier decides the failure semantics (see below)
 4. **Aggregate the output**: merge every step's output into a single report
 
-**Forbidden**: assessing roadmap quality, computing capacity, deciding dependencies, setting priorities, or reimplementing the logic of any atomic skill inside this skill.
+**Forbidden**: assessing roadmap quality, deciding dependencies, setting priorities, or reimplementing the logic of any atomic skill inside this skill.
 
 ---
 
@@ -36,11 +36,11 @@ Every step carries a tier — a **mandatory** step runs when its condition is hi
 | --- | --- | --- | --- | --- |
 | 0 | Health check | `review-roadmap` | mandatory | Always runs. Read-only, no side effects; its findings are the input to every condition below |
 | 1 | Upstream | `design-strategic-goals` | mandatory | `strategic-goals.md` does not exist |
-| 2 | Structure | `define-roadmap` | mandatory | No roadmap.md / no total capacity baseline / no capacity allocation / percentages do not sum to 100% |
+| 2 | Structure | `define-roadmap` | mandatory | No roadmap.md / incomplete stage model / strategic goals out of step with the roadmap |
 | 3 | Intake | `capture-work-items` | default | Unregistered raw input exists |
 | 4 | Scoring | `prioritize-backlog` | mandatory when all are unset; default when only some are | Items with `priority: unset` exist |
 | 5 | Dependencies | `map-item-dependencies` | default | Promotion candidates ≥ 2 |
-| 6 | Promotion | `promote-roadmap-items` | mandatory | Always runs; with no candidates it still emits the capacity usage report |
+| 6 | Promotion | `promote-roadmap-items` | mandatory | Always runs; with no candidates it still emits the priority-ordered tier report |
 | 7 | Maintenance | `update-roadmap` | recommended | The user has an explicit status change / date shift in mind |
 | 8 | Archiving | `archive-milestone` | recommended | A completed milestone that has matured enough exists |
 
@@ -48,12 +48,12 @@ A step whose condition does not match is skipped; the final report names which s
 
 **The tiers are not adjustable at will**. The three tiers are a mechanical mapping of constraints the atomic skills already carry, not a domain judgement made here:
 
-- Steps 1 and 2 are mandatory because a missing `strategic-goals.md`, a missing roadmap.md, and a missing capacity allocation are all halt conditions `promote-roadmap-items` states outright; leave them unfilled and the chain never reaches the end
+- Steps 1 and 2 are mandatory because a missing `strategic-goals.md` and a missing roadmap.md are all halt conditions `promote-roadmap-items` states outright; leave them unfilled and the chain never reaches the end
 - The double tier on step 4 mirrors promote's two behaviors: it halts on "all unset" and merely skips those items on "some unset"
 - Step 5 is default rather than mandatory because dependency analysis is meaningless with candidates < 2
 - Step 8 is recommended because `archive-milestone` removes a directory — a destructive operation — and its own `apply` defaults to `false` (dry-run)
 
-**Step 5 must come before step 6**, one of the core reasons this orchestration exists: promote's Now-tier admission reads `depends_on`, and promoting before the dependencies are registered pulls blocked items into Now, where they hold capacity and produce nothing.
+**Step 5 must come before step 6**, one of the core reasons this orchestration exists: promote's Now-tier admission reads `depends_on`, and promoting before the dependencies are registered pulls blocked items into Now, where they cannot progress.
 
 ---
 
@@ -66,9 +66,9 @@ Run `review-roadmap` for its findings and map them mechanically to a mode with t
 | mode | findings signature | Effect |
 | --- | --- | --- |
 | `bootstrap` | roadmap.md or strategic-goals.md missing | Steps 1 and 2 will run |
-| `refresh` | No capacity baseline / no capacity allocation / percentages do not sum to 100% / strategic goals out of step with the roadmap | Step 2 will run; step 6 deals with the over-allocation first |
-| `intake` | Scored items not yet promoted, with capacity left | Main path 3→4→5→6 |
-| `maintain` | No capacity gap, but at-risk / blocked / overdue items exist | Step 7 rises from recommended to a default prompt |
+| `refresh` | Incomplete stage model / strategic goals out of step with the roadmap | Step 2 will run; step 6 re-evaluates tier placement by priority and readiness |
+| `intake` | Scored items not yet promoted | Main path 3→4→5→6 |
+| `maintain` | No unpromoted scored items, but at-risk / blocked / overdue items exist | Step 7 rises from recommended to a default prompt |
 | `healthy` | None of the findings above | Emit the health-check report and end normally; no write operation runs |
 
 `review-roadmap` does not emit a mode itself — it emits findings only, and the mapping happens at this layer.
@@ -98,7 +98,7 @@ A single report, containing:
 - A summary of each step's result
 - The skipped steps and the reason for each
 - The roadmap change list (added / promoted / demoted / status changed)
-- The capacity usage report (from step 6)
+- The priority-ordered tier report (from step 6)
 - Unresolved findings (those from step 0 that this round did not handle)
 - Suggestions for the next step
 
@@ -116,7 +116,7 @@ A single report, containing:
 
 ### Hard Boundaries
 
-- Do not assess roadmap quality, compute capacity, decide dependencies, or set priorities inside this skill
+- Do not assess roadmap quality, decide dependencies, or set priorities inside this skill
 - Do not change the execution order; above all, step 5 must not be placed after step 6
 - Do not adjust the tiers; they follow from constraints the atomic skills already carry
 - Do not confirm on the user's behalf: the item-by-item confirmation each atomic skill asks for goes ahead as usual, and the orchestration layer does not approve in bulk
@@ -148,19 +148,19 @@ In one line: `plan-next` answers "what the whole project does next", this skill 
 - [ ] Skipped steps carry their reason in the report
 - [ ] Failure semantics follow the tier; when a default step fails, the report states whether the downstream guardrail is void
 - [ ] `milestone_slug` for step 8 has a definite source and was not guessed
-- [ ] The report carries capacity usage and unresolved findings
+- [ ] The report carries priority order and unresolved findings
 
 ---
 
 ## Examples
 
-### Example 1: pulling in new items after capacity frees up (mainstream case)
+### Example 1: pulling in newly prioritized items (mainstream case)
 
-- **Context**: `review-roadmap` findings show a complete structure with full capacity allocation, but 3 scored items are unpromoted and the Now tier has capacity left → mode = `intake`
+- **Context**: `review-roadmap` findings show a complete structure, but 3 scored items are unpromoted → mode = `intake`
 - **Schedule**: step 0 → skip 1 and 2 (governance documents complete) → skip 3 (no unregistered input) → skip 4 (no unset items) → step 5 (3 candidates ≥ 2) → step 6 → skip 7 and 8
 - **Step 5 output**: 1 candidate has an unresolved prerequisite and is marked as not admissible to Now
 - **Step 6**: the other 2 are promoted to Now; the blocked one goes to Next
-- **Aggregation**: capacity report + change list + a suggestion to run `capture-work-items` on the newly promoted Now items
+- **Aggregation**: priority-ordered tier report + change list + a suggestion to run `capture-work-items` on the newly promoted Now items
 
 ### Example 2: cold start on a new project (edge case)
 

@@ -1,7 +1,7 @@
 ---
 name: capture-work-items
 description: Capture requirements, bugs, or issues from free-form input into structured, persistent artifacts. Use when user wants to record a work item quickly without deep validation.
-version: 2.1.0
+version: 2.1.1
 license: MIT
 ---
 
@@ -22,7 +22,7 @@ Capture a requirement, bug, or issue from free-form input and turn it into a str
 1. ✅ **Type identified**: the work item is classified as a requirement, a bug, or an issue
 2. ✅ **Required fields complete**: every required field for that type is filled in from the user's input or grounded project evidence; ask when a field cannot be established
 3. ✅ **Status set**: the front-matter starts at `status: captured`
-4. ✅ **strategic_goal_id tagged**: `strategic_goal_id` is required on every work item and maps to one of the goals in the project's strategic-goals. Promotion pools capacity by goal, and with nothing to attribute it to there is no way to compute the capacity already used
+4. ✅ **strategic_goal_id tagged**: `strategic_goal_id` is required on every work item and maps to one of the goals in the project's strategic-goals. Promotion preserves goal traceability while comparing items across goals in priority order
 5. ✅ **priority marked unset**: a new work item's frontmatter carries `priority: unset`, waiting for `prioritize-backlog` to score the batch
 6. ✅ **Path detected**: the output path is chosen from the project's documentation structure (see Path Detection)
 7. ✅ **Artifact persisted**: the work item is written to the chosen path
@@ -111,7 +111,7 @@ Extract the available fields from the input. Required fields by type:
 - Read `docs/project-overview/strategic-goals.md`; use a goal explicitly named by the user or uniquely supported by the work item and project evidence
 - When several goals plausibly own the item, present the candidates and ask the user to choose
 - If strategic-goals.md does not exist → **halt**, and suggest running `design-strategic-goals` first
-- A bug or tech-debt work item usually maps to the "engineering / governance health" goal — with no strategic sponsor, work of that kind never wins capacity in the competition for value
+- A bug or tech-debt work item usually maps to the "engineering / governance health" goal — this makes the strategic value of such work visible during prioritization
 
 ### Phase 2: Prompt — fill in the missing required fields
 

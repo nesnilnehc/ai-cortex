@@ -2,7 +2,7 @@
 id: FINDINGS_LIST_SPEC_V1
 name: Findings List Schema
 description: Spec defining findings, severity/category conventions, aggregation and optional Rule coverage metadata for evaluative Skills.
-version: 2.0.0
+version: 2.0.1
 status: active
 lifecycle: living
 created_at: 2026-09-10
@@ -155,16 +155,17 @@ Every list is present even when empty. Coverage metadata is not a finding and is
 - **Suggestion**: Take `items=None` and initialise with `if items is None: items = []`.
 ```
 
-### 7.2 A finding with no obvious fix
+### 7.2 A roadmap priority-ordering finding
 
-The suggestion is omitted rather than padded.
+The suggestion states the concrete ordering correction or the evidence needed to justify an exception.
 
 ```markdown
 - **Location**: `docs/process-management/roadmap.md#now`
 - **Category**: roadmap-quality
-- **Severity**: critical
-- **Title**: Capacity allocation has no total baseline
-- **Description**: The percentages per strategic goal are present, but the total capacity baseline they multiply is absent, so `promote-roadmap-items` cannot compute a capacity for any goal.
+- **Severity**: major
+- **Title**: Priority order has no recorded rationale
+- **Description**: A ready P2 item precedes a ready P0 item, but no strategic-override reason is recorded, so the promotion order cannot be justified.
+- **Suggestion**: Put the ready P0 item first, or record the explicit strategic reason for retaining this order.
 ```
 
 ---

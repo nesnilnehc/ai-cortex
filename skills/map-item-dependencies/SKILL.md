@@ -1,7 +1,7 @@
 ---
 name: map-item-dependencies
 description: Identify dependencies among backlog and roadmap items across five categories, record them in each item's depends_on field, and produce a dependency graph with need-by dates and reduction options. Runs before promotion so blocked items are not pulled into Now.
-version: 1.0.1
+version: 1.0.2
 license: MIT
 ---
 
@@ -11,7 +11,7 @@ license: MIT
 
 Find the dependencies between backlog and roadmap items, register them on the items, and let the promotion decision see which items cannot be pulled in right now.
 
-Dependencies are the highest-risk factor on a roadmap: they show up neither in the priority nor in the capacity, yet they leave a high-priority item stuck in place once it enters Now.
+Dependencies are the highest-risk factor on a roadmap: priority alone does not show prerequisite readiness, yet they leave a high-priority item stuck in place once it enters Now.
 
 ---
 

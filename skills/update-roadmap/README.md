@@ -38,7 +38,7 @@ Handled centrally by the canonical AI Cortex install; see the repository root [R
 - `promote-roadmap-items` — adjacent boundary: cross-tier adjustments hand off to it
 - `map-item-dependencies` — upstream: supplies `depends_on` for the downstream impact calculation
 - `review-roadmap` — signal source: the status problems a health check turns up are handled here
-- `define-roadmap` — adjacent boundary: structural changes (milestones / capacity) belong to it
+- `define-roadmap` — adjacent boundary: structural changes (milestones / stage criteria) belong to it
 
 ## Full definition
 
