@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: roadmap-quality
-version: 2.0.0
+version: 3.0.0
 scope: reviewing or self-checking a roadmap document
 recommended_scope: user
 status: active
@@ -9,102 +9,50 @@ status: active
 
 # Rule: Roadmap Quality
 
-> A review checklist for a roadmap artifact. Every item is independently verifiable.
->
-> Applies to the roadmap document stored at `docs/process-management/roadmap.md`, or at the project's conventional path.
->
-> **This rule is the single authoritative source for roadmap criteria.** The producing side (`define-roadmap`), the diagnosing side (`plan-next`) and the reviewing side (`review-roadmap`) all cite this file rather than each maintaining its own wording.
+The single source of quality criteria for roadmap generation, diagnosis and review.
+A roadmap arranges requirements and defects in Now / Next / Later. Tasks belong
+in source task lists, not in roadmap rows. Existing project decisions take precedence.
 
----
+## 1. Completeness
 
-## 5-dimension review
+- [ ] Every row identifies a requirement or defect by stable ID, meaningful name and source link; no task, task group or implementation step is an independent row.
+- [ ] Rows carry an expected outcome, priority, tier and a concise current status or key blocker.
+- [ ] Now / Next / Later are visible; an empty tier may say that no items are planned.
+- [ ] The opening states the evolution direction in one sentence; ordering rationale is recoverable without reading task lists.
 
-### 1. Completeness — is the structure all there?
+## 2. Executability
 
-- [ ] Every stage carries the four parts of the core model: milestone / strategic bets / metrics / promotion criteria
-- [ ] Each stage has 2–5 strategic bets, and none is empty
+- [ ] Eligible items follow documented priority; departures carry a reason. Priority and readiness remain separate.
+- [ ] Now items have checked prerequisites and a verifiable completion condition, stated briefly or linked to source acceptance criteria.
+- [ ] Next items identify material start conditions; Later items identify a re-evaluation trigger without invented dates or detailed commitments.
+- [ ] Missing approval, a pause or an unresolved prerequisite is visible; a blocked high-priority item retains its priority and is not automatically treated as a distant direction.
+- [ ] No effort, staffing, quota or item-count gate is invented. Explicit project capacity decisions are preserved and summarized only where they affect the plan.
 
-### 2. Executability — can the downstream consume it directly?
+## 3. Clarity
 
-- [ ] Concrete items are ordered by documented priority (P0 > P1 > P2 > P3); departures from that order carry an explicit reason
-- [ ] Roadmap placement requires no effort estimate, staffing baseline, resource quota, or item-count limit
+- [ ] A reader can identify current priorities, subsequent work and key blockers from the main view in about one minute; check by summarizing those three things using the main view alone.
+- [ ] Requirement outcomes describe the capability or result; defect outcomes describe the expected behavior to restore. Useful feature and defect names are allowed.
+- [ ] No task IDs, implementation steps, test counts, detailed acceptance procedures or historical reconciliation are copied into rows. Link to sources instead.
+- [ ] Metrics, strategic hypotheses and evidence appear only where they change a planning decision; they may be linked and are not mandatory sections per tier.
+- [ ] When a numeric success threshold is used, its current value, target and reference point are recoverable in the text or linked source. Unknown values are labeled, not invented.
 
-- [ ] Promotion criteria are decidable — they state which condition lets a stage enter the next one — rather than "it depends"
-- [ ] Every Now-tier item traces to the strategic_goal it belongs to
+## 4. Soundness
 
-### 3. Clarity — is it unambiguous?
+- [ ] Roadmap summaries agree with source requirement and defect records; placement does not grant approval, execution or release authorization.
+- [ ] Dependency and priority decisions have traceable evidence or an explicit strategic rationale; no scoring framework is mandatory merely to display an item.
+- [ ] Detailed progress and acceptance evidence have one source of truth; task counts are not used as proof that a requirement or defect is complete.
+- [ ] Reordering follows a material change in priority, readiness or strategy. If the project declares a change-frequency window and threshold, evaluate them from history; without a defined window, do not invent a frequency verdict.
 
-- [ ] **Metrics are triplets**: current value / target value / reference point. The reference is an industry benchmark, the project's own history, or an empirical threshold; where there is none, write "project-defined (no external benchmark)"; directional Later metrics may mark current or target values "not established" rather than inventing numbers
-- [ ] Milestones use the outcome form (`let [segment] be able to [achieve something], so that [business impact]`) rather than the name of a deliverable
-- [ ] Strategic bets use the falsifiable hypothesis form (`We believe [doing X] brings [result] for [audience], because [assumption]`) rather than a noun phrase
-- [ ] The Later tier states direction only, with no specific dates
+## 5. Traceability
 
-### 4. Soundness — does this roadmap hold up?
-
-- [ ] No feature list: items describe outcomes, not feature names. A bare feature name such as "dark mode" or "SSO" fails this item
-- [ ] No TODOs mixed in: no execution-level tasks
-- [ ] Dependencies are mapped: no Now-tier item has an unresolved prerequisite, and cross-item dependencies are recorded in each item's `depends_on`
-- [ ] Priorities do not come from a single voice: each item's priority has a traceable score behind it, or an explicitly recorded strategic-override reason
-- [ ] Change frequency is within the threshold: the roadmap has not been reordered repeatedly over a short period. The default threshold is at most 2 structural changes within one cycle, overridable per project
-
-### 5. Traceability — can the impact of a change be located?
-
-- [ ] Each stage goal maps to a goal in `docs/project-overview/strategic-goals.md`
-- [ ] The constraint "the backlog must map onto the roadmap; anything not on the roadmap is not done by default" is stated explicitly
-- [ ] The document records its last-updated date
-- [ ] Stakeholder requests that were excluded, if any, are listed with their reasons in the "not doing this round" section
-
----
-
-## Anti-patterns
-
-Each corresponds to the failure mode of one dimension above, in the same order. On detecting one, go back to that dimension's checklist.
-
-**§1 completeness failures**
-
-- ❌ **Incomplete stage model**: a stage lacks its milestone, strategic bets, metrics, or promotion criteria
-
-**§2 executability failures**
-
-- ❌ **Unexplained ordering**: a lower-priority item appears ahead of a higher-priority eligible item without a recorded reason
-- ❌ **Resource estimates gate roadmap placement**: an item is held only because staffing data or effort estimates are absent, or a quota or item-count limit is reached
-- ❌ **Vague promotion criteria**: "it depends" instead of a decidable condition, which turns stage transitions into guesswork
-
-**§3 clarity failures**
-
-- ❌ **Metric with no reference point**: a target value alone, leaving the reader unable to tell whether it is ambitious or timid
-- ❌ **A deliverable posing as an outcome**: a milestone written as "ship module X" rather than "let someone be able to do something"
-- ❌ **A bet degraded into a noun**: a strategic bet with a name but no falsifiable hypothesis, so afterwards nobody can say whether the bet paid off
-
-**§4 soundness failures**
-
-- ❌ **A feature list posing as a roadmap**: feature names throughout, with no sense of why they are being built or what counts as success
-- ❌ **Ordering without checking dependencies**: sorting by priority alone without checking prerequisites, so a blocked item enters Now and cannot progress
-- ❌ **Priority with nothing behind it**: neither a score nor a recorded strategic-override reason, so nobody can reconstruct afterwards why the order was what it was
-- ❌ **Reordering mistaken for responsiveness**: restructuring on every new piece of information, past the change-frequency threshold, without pausing to reflect
-
-**§5 traceability failures**
-
-- ❌ **Broken goal mapping**: a roadmap item that maps to no strategic goal, leaving "which goal does this serve?" unanswerable
-- ❌ **Exclusions left unwritten**: relying on the implicit rule "anything not on the roadmap is not done", so every excluded stakeholder comes to ask individually
-
----
-
-## Basis for the criteria
-
-The dimensions and failure modes above are derived from this rule's own five-dimension structure. Where a general product-management concept is involved, the primary source is a published work, listed here for traceability and further reading:
-
-| Concept | Primary source |
-| :--- | :--- |
-| Now / Next / Later tiers; a roadmap is a plan, not a commitment | McCarthy, Lombardo, Ryan, Connors, *Product Roadmaps Relaunched* (2017) |
-| The RICE scoring scale and confidence anchors | Intercom, "RICE: Simple prioritization for product managers" (2016) |
-| The falsifiable hypothesis form | Gothelf & Seiden, *Lean UX* |
-| Outcomes over feature lists — the cost of the feature factory | Melissa Perri, *Escaping the Build Trap* |
-| Avoiding priority set by individual opinion (HiPPO) | Avinash Kaushik, *Web Analytics: An Hour a Day* |
-
----
+- [ ] Requirements and defects trace to project goals in their sources or a concise mapping; links supply detail without repeating it.
+- [ ] The roadmap states that backlog requirements and defects map to the roadmap and that items outside it are not done by default.
+- [ ] The last-updated date is recorded.
+- [ ] Paused or excluded items affecting current decisions have a brief reason and restart or re-evaluation condition; exhaustive coverage may link to a source index.
 
 ## Related assets
 
-- **Companion capabilities**, resolved through `skills/INDEX.md`: `define-roadmap` constructs the roadmap against this checklist, `review-roadmap` produces findings against it, `promote-roadmap-items` consumes the priority-ordering and dependency criteria
-- **Sibling review rules**: [requirement-quality](./requirement-quality.md) / [functional-design-quality](./functional-design-quality.md) / [technical-design-quality](./technical-design-quality.md) / [task-quality](./task-quality.md)
+Consumers, resolved through the Skills registry: `define-roadmap`, `review-roadmap`,
+`promote-roadmap-items`, `update-roadmap` and `plan-next`.
+The presentation template is bundled with `define-roadmap`; this rule judges
+substance rather than requiring a fixed number of sections or rows.

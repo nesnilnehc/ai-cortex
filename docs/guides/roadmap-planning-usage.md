@@ -90,3 +90,13 @@ Both tell you what to do next, but they cover different ground:
 - `orchestrate-roadmap-planning` answers "take the roadmap line from strategy through to promotion in one pass". It covers only that vertical slice, and it does execute.
 
 When you are unsure where governance goes next, run `plan-next` first; when you have decided to move the roadmap forward, use `orchestrate-roadmap-planning`.
+
+## Concise roadmap presentation
+
+Roadmap entries are requirements and defects, never tasks or task groups. Use the
+[template](../../skills/define-roadmap/assets/roadmap-template.md) and
+[completed example](../../skills/define-roadmap/references/roadmap-example.md).
+Now / Next / Later express arrangement. Keep source links, outcomes, priorities and
+status or key conditions in the main view; keep execution and acceptance detail in
+source records. Explicit project capacity decisions remain in force. A concise view
+need not reproduce hypotheses or metrics per tier to pass review.

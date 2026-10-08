@@ -1,7 +1,7 @@
 ---
 name: plan-next
 description: Analyze governance state and suggest next actions; ask whether a skipped recommendation lasts for the session or until revoked.
-version: 15.0.1
+version: 15.1.0
 license: MIT
 ---
 

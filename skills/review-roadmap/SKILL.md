@@ -1,7 +1,7 @@
 ---
 name: review-roadmap
-description: "Review an existing roadmap document against roadmap-quality criteria: core model completeness, priority ordering, metric triplets, outcome framing, dependency mapping, and change frequency. Evaluative atomic skill; output is a findings list."
-version: 2.0.0
+description: Review a concise requirement-and-defect roadmap for entry granularity, priority, readiness, readability and source traceability; emit findings without rewriting.
+version: 3.0.0
 license: MIT
 output_schema:
   type: findings-list
@@ -11,208 +11,48 @@ output_schema:
 
 ## Purpose
 
-Evaluate an **existing roadmap document** against the established quality criteria. Neither generate nor rewrite the roadmap — that is the job of `define-roadmap` and `update-roadmap`. Produce a **findings list** the author can act on before anything downstream consumes it.
+Evaluate an existing roadmap against [roadmap-quality](../../rules/roadmap-quality.md).
+Emit findings under [findings-list](../../specs/findings-list.md); do not rewrite,
+change placement or invent additional criteria. Use category `roadmap-quality`.
 
-**The criteria do not live in this skill**: every item is defined in [rules/roadmap-quality.md](../../rules/roadmap-quality.md); this skill only runs the evaluation and organizes the output. Change the criteria in that rule, not in this file.
+## Procedure
 
----
+1. Load the quality rule; halt if it is missing. Read the roadmap at the project path
+   (default `docs/process-management/roadmap.md`) and project norms.
+2. Read linked requirement and defect records, goals, acceptance criteria, priorities
+   and dependencies. Verify that every entry is a requirement or defect, not a task
+   or task group. Check duplicates against stable parent IDs.
+3. Evaluate all five dimensions in the rule: completeness, executability, clarity,
+   soundness and traceability. Missing four-part stage dossiers, fixed hypothesis
+   sentences or inline metric tables are not defects. Linked evidence is valid.
+4. Test readability by summarizing current priorities, subsequent work and key blockers
+   from the main view alone. Locate detail that obstructs those answers or duplicates
+   source task lists and evidence. Report concrete locations, not a subjective score.
+5. Verify source agreement, approval boundaries and prerequisite readiness. If sources
+   are unavailable, mark the affected criteria `cannot evaluate` with the reason;
+   never infer a pass. Missing evidence becomes a finding or limitation, not a question.
+6. For change frequency, discover the project's window and threshold and inspect git
+   history if available. Without a defined window or sufficient history, report that
+   frequency cannot be evaluated; do not invent a cycle or threshold.
+7. Emit actionable findings, citing the deriving rule section, plus evidence limitations.
+   Assign severity under the findings Spec: misleading completion or authorization
+   with correctness or safety consequences may be critical; task entries, missing
+   source identity, unreadable planning or unexplained ordering are normally major;
+   cosmetic omissions are normally minor. Do not invent a local findings schema.
 
-## Core Objective
+## Output and handoff
 
-**Primary goal**: Produce a roadmap findings list covering all five quality dimensions, so the author can close the gaps before a promotion decision depends on them.
-
-**Success criteria** (all must be met):
-
-1. ✅ All five dimensions scanned: completeness / executability / clarity / soundness / traceability
-2. ✅ Every finding carries location / category=`roadmap-quality` / severity / title / description / suggestion, per [specs/findings-list.md](../../specs/findings-list.md)
-3. ✅ Every criterion is cited from `rules/roadmap-quality.md`; this skill invents none of its own
-4. ✅ A dimension that cannot be evaluated is explicitly marked "cannot evaluate" with the reason, and is not skipped silently
-5. ✅ The roadmap is not rewritten; only findings and suggestions are emitted
-
-**Acceptance test**: From the findings list alone, can the author tell which parts to change and what to change them into?
-
-**Handoff point**: The findings go to the author; structural gaps hand off to `define-roadmap`, and status or timing gaps hand off to `update-roadmap`.
-
----
-
-## Scope Boundaries
-
-**This skill handles**:
-
-- Evaluating an existing roadmap dimension by dimension against `rules/roadmap-quality.md`
-- Producing a findings list carrying location, severity, and suggestion
-- Marking the dimensions that cannot be evaluated, with the reason
-
-**This skill does NOT handle**:
-
-- Generating or rewriting the roadmap (`define-roadmap` / `update-roadmap`)
-- Deciding the orchestration mode — that is the orchestration layer's "detect the context" job; this skill only emits findings
-- Promotion decisions (`promote-roadmap-items`)
-- Dependency identification (`map-item-dependencies`)
-- Maintaining the criteria themselves (`rules/roadmap-quality.md`)
-
----
-
-## Use Cases
-
-- **Gate before promotion**: when priority ordering or dependency criteria do not hold, promotion needs correction
-- **Taking over someone else's roadmap**: see quickly what this roadmap is missing
-- **Periodic checkup**: a roadmap is a living document and drifts over time
-- **Entry point of the orchestration chain**: as step 0 of `orchestrate-roadmap-planning`, supplying the conditions the later steps are judged against
-
----
-
-## Behavior
-
-### Interaction Policy
-
-- **Default**: read `docs/process-management/roadmap.md` or the path set by project norms; the user may name a path or paste the content directly
-- **Read-only**: no file is modified at any point
-- **No follow-up questions**: this is a one-shot evaluation; missing information becomes a finding or a "cannot evaluate" mark, with no clarification round-trip with the user
-
-### Procedure
-
-1. **Load the criteria**: read [rules/roadmap-quality.md](../../rules/roadmap-quality.md). **A missing file means halt** — without criteria there is no yardstick, and scoring from impressions yields conclusions that look authoritative and rest on nothing.
-2. **Load the roadmap and its evidence sources**: read the target document. Four of the criteria draw on data that is not in roadmap.md; that data must be read as well, or those dimensions cannot be evaluated:
-
-   | Criterion | Where the data lives |
-   | --- | --- |
-   | A Now-tier item traces to its strategic_goal | The item frontmatter's `strategic_goal_id`, cross-checked against `docs/project-overview/strategic-goals.md` |
-   | A Now-tier item has no unresolved prerequisite | The item frontmatter's `depends_on` |
-   | Concrete items follow priority order | The item frontmatter's `priority`, the roadmap order, and any recorded ordering exception |
-   | Priority was not set by a single source | The item frontmatter's `priority_decision` (including `strategic_override`) |
-
-   **When it is missing**: if the backlog items cannot be read, or roadmap.md's Now tier references no concrete items, mark the affected criteria `cannot evaluate — <reason>`. **A criterion must not be recorded as passing because it could not be read** — that hollows the criterion out.
-3. **Scan dimension by dimension**: work through the rule's five-dimension checklist item by item; each item that fails produces one finding.
-4. **Tool adaptation for the change-frequency dimension**: this dimension needs git log to count structural changes to roadmap.md.
-   - **Discover**: confirm the current directory is a git repository and that roadmap.md has commit history
-   - **Run**: count the file's structural changes inside the configured window and compare against the threshold in the rule
-   - **When it is missing**: for a non-git directory, a shallow clone with incomplete history, or a file with no commit history, mark this dimension `cannot evaluate — <the specific reason>`. **It must not be skipped silently, and it must not be inferred to pass on that basis**
-5. **Set severity**: map mechanically from the table below, with no subjective weighting.
-6. **Emit the findings list**.
-
-### Severity Mapping
-
-| Severity | Trigger |
-| --- | --- |
-| `critical` | A missing piece of the four-part core model; a Now-tier item with an unresolved prerequisite |
-| `major` | A success metric that is not a triplet; a milestone or strategic bet not written in the prescribed form; unexplained priority ordering; effort, staffing, quota, or item-count gates imposed on roadmap placement |
-| `minor` | No "explicitly not doing this round" section; no last-updated date; change frequency close to the threshold but not over it |
-
-### Findings Format
-
-```yaml
-- location: <section or line in the document>
-  category: completeness | executability | clarity | soundness | traceability
-  severity: critical | major | minor
-  title: <one-line conclusion>
-  description: <what fails, and which criterion it is measured against>
-  suggestion: <what to change it to, ready to apply>
-```
-
----
-
-## Input & Output
-
-**Input**: the existing roadmap document (path or content); `rules/roadmap-quality.md`; the evidence sources `strategic-goals.md` and the backlog items referenced by the Now tier.
-
-**Output**: a findings list (zero or more) plus a note on any dimension that could not be evaluated. With zero findings and no evidence limitations, state plainly that the roadmap passes every criterion. If any criterion cannot be evaluated, report zero findings in the evaluated scope and name the unchecked criteria; do not claim a complete pass.
-
----
-
-## Restrictions
-
-### Hard Boundaries
-
-- **No rewriting**: do not generate new roadmap text, milestones, or metrics. Emit findings and suggestions only; the writing is left to the author or to `define-roadmap`
-- **No embedded criteria**: every criterion is cited from `rules/roadmap-quality.md`; a new criterion goes into that rule, not into this skill
-- **A missing rule means halt**: with no yardstick, evaluation from impressions must not happen
-- **No mode output**: the orchestration layer does its own context detection; this skill emits findings only
-- **"Cannot evaluate" must be marked explicitly**: a dimension must not be recorded as passing because a tool was unavailable or an evidence source could not be read
-
-### Anti-Patterns (Avoid)
-
-- ❌ **Copying the criteria into the skill**: criteria maintained in two places inevitably drift, which is exactly what this skill is built to sidestep
-- ❌ **Silently skipping the git-dependent dimension**: if the history cannot be read, say so; do not leave the reader thinking it was evaluated
-- ❌ **Weighting severity subjectively**: severity comes mechanically from the mapping table, not from "this one feels more important"
-- ❌ **Fixing the problem along the way**: evaluation mixed with rewriting leaves the author unable to see what the original problem was
-
-### Skill Boundaries (Avoid Overlap)
-
-| Action | Owner |
-| --- | --- |
-| Generate / rewrite the roadmap | `define-roadmap` |
-| Change status / shift dates | `update-roadmap` |
-| Promote / demote | `promote-roadmap-items` |
-| Dependency identification | `map-item-dependencies` |
-| Criteria maintenance | `rules/roadmap-quality.md` |
-| Cross-layer governance diagnosis | `plan-next` |
-
----
+A findings list and explicit unchecked criteria. A full pass is allowed only when
+all applicable criteria were evaluated. Structural findings go to `define-roadmap`,
+placement to `promote-roadmap-items`, status or timing to `update-roadmap`.
+The orchestrator determines its mode; this skill emits no mode.
 
 ## Self-Check
 
-- [ ] `rules/roadmap-quality.md` loaded; halted when it was missing
-- [ ] All five dimensions scanned
-- [ ] Every finding carries all six fields
-- [ ] Severity taken mechanically from the mapping table
-- [ ] The change-frequency dimension went through "discover → run → handle the gap"; where it cannot be evaluated, the reason is written out
-- [ ] The four criteria that depend on backlog item frontmatter had their evidence sources read; where they could not be read, they are marked "cannot evaluate" rather than recorded as passing
-- [ ] The roadmap document was not rewritten
-- [ ] No mode or other orchestration-layer field was emitted
-- [ ] With zero findings, a full pass was stated only when no criterion remained unevaluated
-
----
-
-## Examples
-
-### Example 1: Unexplained priority ordering (mainstream case)
-
-**Input**: a roadmap lists a ready P2 item before a ready P0 item, with no recorded reason. Both have scored priorities and checked dependencies.
-
-**Output** (excerpt):
-
-```yaml
-- location: "## Now"
-  category: executability
-  severity: major
-  title: A lower-priority item precedes a higher-priority eligible item without explanation
-  description: The P2 item precedes the P0 item and no override reason is recorded. Measured against rules/roadmap-quality.md §2.
-  suggestion: Put the P0 item first, or record the explicit reason for the different order.
-```
-
-**Result**: the author can correct the order without supplying staffing data or effort estimates.
-
-### Example 2: Not a git repository (edge case)
-
-**Input**: the roadmap content is pasted directly by the user and lives in no git repository.
-
-**Process**:
-
-1. The first four dimensions scan normally.
-2. Change-frequency dimension: the discover step establishes there is no git repository → the history cannot be read.
-3. Mark the dimension "cannot evaluate — the input is pasted content, with no git commit history to count change frequency from".
-4. **Do not infer from this that the dimension passes**, and do not invent a change-frequency finding either.
-
-**Output** (excerpt):
-
-```text
-Dimensions that could not be evaluated:
-- Soundness / change frequency: the input is pasted content, with no git commit history.
-  To evaluate this dimension, supply the path to a roadmap.md inside a repository.
-```
-
-**Result**: the reader knows exactly which part went unchecked and will not assume every dimension passed.
-
-### Example 3: Criteria file missing (edge case)
-
-**Input**: a roadmap, in a project where `rules/roadmap-quality.md` is not installed.
-
-**Process**:
-
-1. Step 1, loading the criteria, fails.
-2. **halt**; the scan is not entered.
-3. State the reason: evaluating with no yardstick produces a list that looks authoritative and rests on nothing — more harmful than not evaluating at all.
-4. Give the way out: install `rules/roadmap-quality.md` from AI Cortex, or name another criteria file explicitly.
-
-**Result**: the skill refuses to produce conclusions with no yardstick, rather than assembling one from impressions.
+- [ ] The quality rule and project norms were loaded.
+- [ ] All five dimensions and source-dependent criteria were examined.
+- [ ] Requirement/defect granularity, parent consolidation and readability were checked.
+- [ ] No missing strategic dossier was treated as a mandatory-format failure.
+- [ ] Evidence and history limitations are explicit and not reported as passes.
+- [ ] Findings follow the shared Spec and cite rule sections.
+- [ ] No file or placement was changed; a full pass has no unchecked applicable criteria.

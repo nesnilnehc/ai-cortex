@@ -1,10 +1,10 @@
 # Promote Roadmap Items
 
-Promotes scored backlog items into the roadmap's Now / Next / Later slots in priority order, with goal traceability and dependency readiness. Event-driven, not tied to a fixed cycle.
+Promotes scored requirements and defects into the roadmap's Now / Next / Later slots in priority order, with goal traceability and dependency readiness. Event-driven, not tied to a fixed cycle.
 
 ## Purpose
 
-The skill behind a roadmap planning ceremony: it reads the prioritized backlog, the current roadmap, and the strategic goals, produces promotion and demotion candidates, and — once the user confirms each one — updates the roadmap and the item status.
+The skill behind a roadmap planning ceremony: it reads the prioritized backlog, the current roadmap, and the strategic goals, produces promotion and demotion candidates, and — once the user confirms each one — updates the roadmap and supported planning fields while preserving approval status.
 
 ## When to use
 
@@ -23,7 +23,7 @@ The skill behind a roadmap planning ceremony: it reads the prioritized backlog, 
 
 - A decision table in the conversation (promotions plus demotions)
 - An updated `roadmap.md`
-- Updated item frontmatter (`status`, `promoted_at` / `demoted_at`, `strategic_goal_id`, and so on)
+- Updated project-defined planning fields, where supported; source approval status stays unchanged
 
 ## Install
 
@@ -40,3 +40,6 @@ Handled centrally by the canonical AI Cortex install; see the repository root [R
 ## Full definition
 
 See [SKILL.md](./SKILL.md).
+
+Roadmap rows contain requirements and defects only. Task-only changes stay in source
+task lists unless they change the parent outcome, status or key blocker.

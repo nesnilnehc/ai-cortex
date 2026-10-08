@@ -43,3 +43,6 @@ Handled centrally by the canonical AI Cortex install; see the repository root [R
 ## Full definition
 
 See [SKILL.md](./SKILL.md).
+
+Roadmap rows contain requirements and defects only. Task-only changes stay in source
+task lists unless they change the parent outcome, status or key blocker.
