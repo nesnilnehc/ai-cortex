@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: standards-test-code
-version: 1.0.0
+version: 1.1.0
 created_by: ai-cortex
 lifecycle: living
 created_at: 2026-05-26
@@ -25,9 +25,14 @@ QA business test cases, which are Markdown artifacts, are out of scope here and 
 
 ### 1. Structure (Arrange-Act-Assert)
 
-- Each test function is organised strictly into the three AAA parts, separated by blank lines where that helps
-- **Act is 1 line**: the behaviour under test is invoked once. Several invocations mean the case has more than one responsibility
-- **Assertions focus on what that Act produced**: do not mix in extra assertions about other side effects in the same case
+- **One case verifies one explicit objective**: judge responsibility by the behavior being proved, not by line count, invocation count or assertion count. Name the objective and the condition that makes it meaningful
+- Keep Arrange, Act and Assert identifiable with blank lines or comments. A multi-step case may interleave actions and intermediate assertions when they establish the same objective; AAA does not require all actions to precede all assertions
+- Unit tests usually invoke the behavior once. Necessary repeated invocations are allowed to verify idempotency, retry counts or state transitions; control time and failures explicitly
+- Integration and end-to-end tests may perform multiple operations and intermediate assertions when they jointly prove one explicit objective, such as a confirmed operation remaining idempotent after a lost reply and retry
+- Assertions must provide evidence for that objective, including relevant outputs, state transitions and externally observable side effects. Several assertions about the same contract are allowed
+- Split unrelated objectives and independent scenarios into separate cases. Sharing setup, a subject or a broad name such as "user lifecycle" does not make independent checks one objective
+- Do not wrap several operations in a helper merely to make Act look like one call. Helpers may express readable domain steps, but the operations and evidence needed for the objective must remain visible in the case
+- Do not replace a causal sequence under verification with pre-seeded state. Fixtures may prepare unrelated preconditions; if the objective concerns how execution, failure and retry interact, exercise that sequence through the actual behavior under test
 
 ### 2. Naming
 
@@ -98,10 +103,62 @@ QA business test cases, which are Markdown artifacts, are out of scope here and 
 
 ---
 
+## Good Patterns
+
+These are illustrative pytest-style cases; fixture and API names represent a project's public contract. Fixtures isolate resources and replace external services with local stand-ins, while the production behavior under test runs for real. `Covers:` IDs stand for the corresponding approved acceptance criteria.
+
+```python
+def test_retry_policy_stops_when_attempt_limit_reached(retry_policy, dependency):
+    """Covers: RETRY-REQ-01#AC1."""
+    # Arrange: a controllable external dependency always fails.
+    retry_policy.set_attempt_limit(3)  # fixture uses a controlled clock
+    dependency.fail_with(TemporaryUnavailable)
+
+    # Act: one public operation triggers the real retry policy.
+    with pytest.raises(RetryExhausted):
+        retry_policy.run(dependency.request)
+
+    # Assert: attempts at the external boundary are part of the retry contract.
+    assert dependency.request_count == 3
+```
+
+```python
+def test_confirmed_write_occurs_once_when_reply_is_lost_and_request_retried(
+    client, external_store, reply_transport
+):
+    """Covers: WRITE-REQ-01#AC2."""
+    # Arrange: isolated storage and deterministic loss after a committed write.
+    request = WriteRequest(key="operation-42", value="hello")
+    assert external_store.committed_write_count(request.key) == 0
+
+    # Act / Assert: confirmation is the real prerequisite for execution.
+    confirmation = client.confirm(request)
+    assert confirmation.status == "confirmed"
+
+    # Act / Assert: execute for real, then lose the reply after the write commits.
+    reply_transport.drop_next_reply_after_commit()
+    with pytest.raises(ReplyLost):
+        client.execute(confirmation.id, request)
+    assert external_store.committed_write_count(request.key) == 1
+
+    # Act: retry the same confirmed operation with the same idempotency key.
+    result = client.execute(confirmation.id, request)
+
+    # Assert: recovery returns the result without another external write.
+    assert result.status == "completed"
+    assert external_store.read(request.key) == "hello"
+    assert external_store.committed_write_count(request.key) == 1
+```
+
+The second case has one objective: retrying a confirmed operation after reply loss causes exactly one committed external write. Confirmation and the intermediate assertion establish the causal path. The local store records committed write events, not only the final row count: two overwrites of one row would fail the count assertion. The transport loses the reply only after actual execution commits; it does not fake the execution result. Removing deduplication must make the final write-count assertion fail.
+
+A unit case may likewise call a public operation twice to prove idempotency, or drive a required sequence of state transitions to prove one transition contract. Repetition is evidence when removing a necessary step would stop the case from proving its stated objective.
+
 ## Bad Patterns
 
 ```python
-# ❌ the name is missing the three elements, and one function tests several things
+# ❌ independent creation, deactivation and deletion checks share only a subject;
+# no assertion proves a contract connecting these steps
 def test_user():
     user = create_user("alice")
     assert user.name == "alice"
@@ -144,11 +201,35 @@ def test_overdraft_blocked():
         account.withdraw(100)
 ```
 
+The following shortcuts do not prove the causal objective above:
+
+```python
+# ❌ hiding the sequence does not make it a single Act or expose its evidence
+def test_confirmed_write_occurs_once_when_reply_is_lost_and_request_retried():
+    result = confirm_execute_lose_reply_and_retry()
+    assert result.status == "completed"  # no evidence of external write count
+```
+
+```python
+# ❌ seeding a completed operation bypasses the execution / reply-loss sequence
+# This setup can test replay of an existing result, but cannot prove recovery
+# after the real first execution commits and its reply is lost.
+def test_confirmed_write_occurs_once_when_reply_is_lost_and_request_retried(
+    client, external_store, operation_repository
+):
+    operation_repository.seed_completed(key="operation-42", value="hello")
+    result = client.execute("seeded-confirmation", WriteRequest(
+        key="operation-42", value="hello"
+    ))
+    assert result.status == "completed"
+    assert external_store.committed_write_count("operation-42") == 0
+```
+
 ---
 
 ## Remediation
 
-1. **Split into AAA**: give each test function three clear parts; one line of Act; split multiple Acts into multiple tests
+1. **Identify the objective and expose AAA**: name the single behavior being proved; make setup, actions and assertions identifiable. Keep necessary repeated calls, causal steps and intermediate assertions together; split independent objectives. Expose operations hidden only to satisfy a line count, and replace seeded state with real execution when that causal path is the objective
 2. **Add the three naming elements**: rename to `test_<subject>_<expected>_when_<condition>`
 3. **Inject the clock and the randomness**: turn `time.time()` and `random()` into injectable parameters and pass fixed values in tests
 4. **Replace the mocked DB**: use SQLite, a test container, or a transaction-rollback fixture
