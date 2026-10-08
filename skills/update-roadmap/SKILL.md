@@ -1,7 +1,7 @@
 ---
 name: update-roadmap
-description: Day-to-day roadmap maintenance — change item status, shift dates with downstream impact analysis, and produce a what-changed summary. Does not move items between Now/Next/Later tiers.
-version: 1.1.1
+description: Maintain requirement-and-defect roadmap summaries — change item status, shift dates with downstream impact analysis, and produce a what-changed summary. Does not move items between Now/Next/Later tiers.
+version: 2.0.0
 license: MIT
 ---
 
@@ -21,7 +21,7 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 
 **Success criteria** (all must hold):
 
-1. ✅ A status change lands in both roadmap.md and the item frontmatter, leaving no one-sided update
+1. ✅ A requirement or defect status change agrees with its source and roadmap summary; task-only changes stay in the task list unless they affect the parent outcome or key blocker
 2. ✅ A change to `at risk` or `blocked` must record the blocking reason and the mitigation; with either one missing, nothing is written
 3. ✅ A date shift must compute the downstream impact: list the items this shift affects
 4. ✅ Items that cross a hard deadline after the shift are flagged explicitly
@@ -73,20 +73,23 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 
 ### Execution
 
-1. **Read the current state**: load roadmap.md and the frontmatter of the items involved.
+1. **Read the current state**: load roadmap.md and source requirement or defect records.
+   Resolve task-level input to its parent. Update task details in their source; only
+   refresh the parent roadmap summary if its outcome, status, timing or key blocker changes.
+   Never add a task or task group as a roadmap row.
 2. **Identify the change type**: status change / date shift / both.
    - If what the user actually wants is a move across tiers → **stop**, explain that this falls to `promote-roadmap-items`, and hand off.
 3. **Handling a status change**:
-   - The target status comes from: not started / in progress / at risk / blocked / done
+   - Resolve execution state using the project source contract. Labels such as not started / in progress / at risk / blocked / done are summaries, not replacements for approval or lifecycle fields.
    - On a change to **at risk** or **blocked**, ask two things: what it is stuck on (the blocking reason) and what the plan is (the mitigation). Write only once both are in hand
-   - On a change to **done**, check whether the item's success metric was met; when it was not and the item is marked done anyway, ask the user to explain
+   - On a change to **done**, verify the linked requirement or defect acceptance criteria. Use a metric only when those criteria define one; task counts and approval alone never prove completion. Resolve an unsupported completion claim before writing it.
 4. **Handling a date shift**:
    - Ask for the reason for the shift (scope change / dependency slip / resource change / other)
    - **Compute the downstream impact**: read each item's `depends_on`, find the items that carry this one as a prerequisite, and list their affected dates one by one
    - **Flag hard-deadline breaches**: items that cross a compliance, commitment, external-constraint or similar hard deadline after the shift are marked in red on their own
    - With the dependency data missing (`map-item-dependencies` was never run), state outright "downstream impact not computed, dependency data missing"; do not pretend the analysis happened
 5. **Review the change list**: changed items + reasons + downstream impact + deadline breaches. Resolve any ambiguity or hard-deadline decision with the user before applying it.
-6. **Persist to both places**: roadmap.md and the item frontmatter are updated together, leaving nothing one-sided.
+6. **Persist source and summary**: update the authoritative source and, when the parent planning summary changes, its roadmap row. Keep test counts, task IDs and detailed evidence in source records; link them instead.
 7. **Output the change summary**: see the template below.
 
 ### Change summary template
@@ -118,7 +121,7 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 
 **Input**: the current roadmap.md, the intended change, and optional blocker details.
 
-**Output**: updated roadmap.md and item frontmatter + the downstream impact list + the what-changed summary.
+**Output**: updated authoritative source and, where parent planning changed, its roadmap summary; downstream impact and change summary.
 
 ---
 
@@ -129,7 +132,7 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 - **Do not change the tier**: an item must not be moved between Now / Next / Later; that is `promote-roadmap-items`'s job
 - **Do not change the structure**: no new milestones, no changing stage promotion criteria, no editing the strategic bets
 - **A blocker must have a follow-up**: `at risk` / `blocked` is not written while the blocking reason or the mitigation is missing
-- **No one-sided update**: roadmap.md and the item frontmatter must stay in sync
+- **Source agreement**: requirement and defect summaries agree with their source; task-only progress need not change the roadmap
 - **With the dependency data missing, must not pretend the downstream impact was analyzed** — the fact that it was not computed, and why, must be stated explicitly
 
 ### Anti-patterns (avoid)
@@ -137,7 +140,7 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 - ❌ **Changing status silently**: change it without saying why, and next time nobody remembers what happened
 - ❌ **Shifting a date without looking downstream**: pushing one item back looks harmless and drags a whole chain with it
 - ❌ **Using a date shift in place of demotion**: an item shifted over and over does not belong in Now; the route is demotion via `promote-roadmap-items`, not one more push
-- ❌ **Marking done without checking the metric**: marking an item done while its success metric is unmet makes the metric decorative
+- ❌ **Marking done without acceptance evidence**: task progress or approval does not prove the requirement or defect outcome
 - ❌ **Changing a pile of things with no summary**: the change summary is what stakeholders read, and a batch of changes needs it more, not less
 
 ### Skill Boundaries (avoid overlap)
@@ -157,11 +160,11 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 
 - [ ] The change type was identified; anything that is a cross-tier move went to `promote-roadmap-items`
 - [ ] Every `at risk` / `blocked` change recorded the blocking reason and the mitigation
-- [ ] Items marked done had their success metric checked
+- [ ] Items marked done have source acceptance evidence; no mandatory metric or approval-state conversion was invented
 - [ ] Date shifts had their downstream impact computed; where dependency data was missing, the omission was stated explicitly
 - [ ] Hard-deadline breaches were flagged on their own
 - [ ] The requested change and downstream impact were reviewed before persistence; any unresolved decision was clarified
-- [ ] roadmap.md and the item frontmatter were both written
+- [ ] Source and parent summary agree; task-only changes did not add roadmap entries or duplicate details
 - [ ] The what-changed summary was output
 - [ ] No item's tier was touched
 

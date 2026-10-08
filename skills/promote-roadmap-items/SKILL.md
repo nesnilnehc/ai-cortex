@@ -1,7 +1,7 @@
 ---
 name: promote-roadmap-items
-description: Promote prioritized backlog items into the roadmap's Now/Next/Later tiers based on priority scores and dependency readiness. Event-driven (not calendar-driven).
-version: 2.0.0
+description: Promote prioritized requirements and defects into the roadmap's Now/Next/Later tiers based on priority scores and dependency readiness. Event-driven (not calendar-driven).
+version: 3.0.0
 license: MIT
 ---
 
@@ -23,7 +23,7 @@ Promote scored backlog items into the roadmap's Now / Next / Later slots in prio
 2. ✅ Current items and eligible backlog items were compared in priority order
 3. ✅ Promotion candidates carry priority, strategic_goal, dependency readiness, and a reason for their proposed tier
 4. ✅ The user confirmed every promotion / demotion decision
-5. ✅ roadmap.md and the status field of each promoted item were updated
+5. ✅ roadmap.md and each item's project-defined planning fields were updated without changing approval status
 6. ✅ A priority-ordered tier report was emitted with reasons for held or deferred items
 
 **Acceptance test**: after promotion, can a reader see straight from roadmap.md which strategic_goal each Now item came from and what its priority is?
@@ -36,7 +36,7 @@ Promote scored backlog items into the roadmap's Now / Next / Later slots in prio
 
 - Backlog → Roadmap promotion / demotion decisions
 - Ordering candidates by priority and checking prerequisite readiness
-- Updating roadmap.md and the status of the promoted items
+- Updating roadmap.md and project-defined planning fields of promoted requirements and defects
 
 **This skill does not own**:
 
@@ -64,7 +64,7 @@ Promote scored backlog items into the roadmap's Now / Next / Later slots in prio
 ### Stage 0: read the inputs
 
 1. Read `docs/process-management/roadmap.md` (the current Now / Next / Later state)
-2. Read the backlog directory and select the items whose `priority` is set (not unset) **and whose `status` is not `declined`** — `declined` is the terminal state for never doing it, written by `prioritize-backlog`, and it takes no part in promotion
+2. Read requirement and defect records in the backlog and select the items whose `priority` is set (not unset) **and whose `status` is not `declined`** — `declined` is the terminal state for never doing it, written by `prioritize-backlog`, and it takes no part in promotion
 3. Read `docs/project-overview/strategic-goals.md` (the list of strategic goals)
 4. Read each item's current tier, priority rationale, and prerequisite state
 
@@ -72,7 +72,13 @@ Promote scored backlog items into the roadmap's Now / Next / Later slots in prio
 
 - roadmap.md does not exist → suggest running `define-roadmap` first
 - strategic-goals.md does not exist → suggest running `design-strategic-goals` first
-- every backlog item is `priority: unset` → suggest running `prioritize-backlog` first
+- eligible records exist but every one is `priority: unset` → suggest running `prioritize-backlog` first
+- no eligible records exist → emit an empty candidate report; do not request scoring or fabricate items
+
+Only requirements and defects are candidates. Resolve task-only inputs to their parent
+record and consolidate them; never promote task IDs or task groups as rows. Missing
+parent registration is handed to `capture-work-items`. Preserve explicit project
+capacity, approval and pause decisions; no default quota is introduced.
 
 ### Stage 1: compare the current priority order
 
@@ -82,7 +88,7 @@ For equal priorities, preserve the existing order unless a documented strategic 
 
 ### Stage 2: generate promotion candidates
 
-**Now-tier admission rule**: propose P0/P1 items for Now, P2 for Next, and P3 for Later. These are defaults; an explicit user decision may change the proposed tier, with its reason recorded. Prerequisite checks still apply to every Now candidate. There is no item-count limit or effort prerequisite.
+**Now-tier admission rule**: propose P0/P1 items for Now, P2 for Next, and P3 for Later. These are defaults; an explicit user decision may change the proposed tier, with its reason recorded. Prerequisite checks still apply to every Now candidate. There is no default item-count limit or effort prerequisite; explicit project decisions apply.
 
 The dependency check reads each item's frontmatter `depends_on` (registered by `map-item-dependencies`):
 
@@ -133,9 +139,9 @@ Present the merged list (promotions + demotions) and have the user confirm item 
 
 For each confirmed decision:
 
-1. Update the item's frontmatter `status` (`captured` → `active` on entering Now; `active` → `deferred` on demotion)
-2. Update roadmap.md, adding / removing the matching item reference
-3. Write the `promoted_at` / `demoted_at` timestamp into the item's frontmatter
+1. Update only the project-defined planning tier or execution field when its contract permits it. Preserve approval/lifecycle `status` such as `draft` or `approved`. If the source has no planning field, roadmap placement alone records the decision; do not invent a new field or convert approval into execution.
+2. Update roadmap.md with a concise requirement or defect row: source link, outcome, priority and status/key condition. Keep task progress and acceptance evidence in the source.
+3. Record the update date in the roadmap; write `promoted_at` / `demoted_at` only when supported by the project source contract.
 
 ### Stage 6: emit the final report
 
@@ -149,7 +155,7 @@ For each confirmed decision:
 
 **Input**: roadmap.md + the backlog (priority set) + strategic-goals.md.
 
-**Output**: the decision table in chat + the roadmap.md update + the item frontmatter update (status + promoted_at / demoted_at).
+**Output**: the decision table in chat + the roadmap.md update + the item frontmatter update (project-defined planning fields, if supported; approval status preserved).
 
 ---
 
@@ -161,7 +167,7 @@ For each confirmed decision:
 - Do not promote a `status: declined` item — that terminal state means never doing it, and taking it back in needs the user to lift the terminal state explicitly
 - Do not promote a P3 item into Now automatically (P3 goes to Later by default)
 - Do not promote an item with an unresolved prerequisite into Now (clear the prerequisite first, or promote only as far as Next)
-- Do not require staffing data, effort estimates, resource quotas, or an item-count limit to make promotion decisions
+- Do not introduce staffing, effort, quota or item-count gates; preserve explicit project constraints
 
 ### Skill boundaries
 
@@ -194,10 +200,11 @@ For each confirmed decision:
 - [ ] Current and candidate items were compared across goals in priority order
 - [ ] Promotion candidates were generated by priority order, stage criteria, and dependency readiness
 - [ ] Now-tier candidates passed the dependency check; items missing `depends_on` were told to run `map-item-dependencies` first, not waved through silently
-- [ ] No staffing, effort, quota, or item-count prerequisite was imposed
+- [ ] No default resource gate was imposed; explicit project decisions were preserved
+- [ ] Only requirement and defect rows were persisted, with no task groups or copied execution detail
 - [ ] The demotion suggestions weigh priority changes and prerequisite readiness
 - [ ] The user confirmed item by item; nothing was auto-approved
-- [ ] roadmap.md was updated and the item frontmatter was updated
+- [ ] roadmap.md and supported planning fields agree; approval states were not changed by placement
 - [ ] The final priority-ordered tier report was emitted
 
 ---
@@ -213,7 +220,7 @@ For each confirmed decision:
 1. Compare both items across goals in priority order: #42 before #17.
 2. Propose both for Now, explaining their priorities and readiness.
 3. The user confirms each decision.
-4. Update roadmap.md and the item status to active.
+4. Update roadmap.md and supported planning fields; preserve the source approval state.
 5. Report the resulting priority order and confirmed changes.
 
 **Result**: both items enter Now without resource estimates or goal quotas.

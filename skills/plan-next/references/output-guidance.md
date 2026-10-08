@@ -67,7 +67,7 @@ Any KPI or threshold must carry the triplet on first appearance:
 
 **The benchmark** is one of: an industry baseline, the project's own historical value, or an empirical threshold. With no benchmark available, write "project-defined (no external benchmark)" to put the reader on guard. On a metric's second appearance within the same card, the benchmark may be omitted.
 
-> The authoritative definition of the triplet format is [rules/roadmap-quality.md](../../../rules/roadmap-quality.md) §3; the roadmap's success metrics are produced by `define-roadmap` in the same format, and the wording at both ends must stay consistent.
+> The authoritative definition of the triplet format is [rules/roadmap-quality.md](../../../rules/roadmap-quality.md) §3; numeric roadmap thresholds may be stated briefly or linked to source criteria; this does not require a metric table or strategic dossier in each tier.
 
 **Writing the recommended skill**: a slash command + a completion prompt, in the format:
 

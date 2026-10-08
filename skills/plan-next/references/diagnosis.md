@@ -46,6 +46,21 @@ When independent candidates remain alongside a blocked route, use `actionable` a
 
 ### 2.1 Goal-tree traversal
 
+#### Requirement-and-defect roadmap adapter
+
+When roadmap rows directly reference requirements or defects, L2 is a planning view
+of the L3 source record, not an extra artifact with mandatory children. Resolve each
+row by its stable source ID, visit that source once, and continue to its existing
+designs and tasks. Do not call `capture-work-items` merely because the row has no
+nested requirement. Defects use their project's record and repair-evidence contracts;
+no new requirement or design document is required solely to fit this tree.
+
+Read approval/lifecycle and execution states separately according to project norms.
+`draft`, `approved` and tier placement do not prove completion. An execution summary
+must agree with source acceptance evidence; unknown evidence stays unknown. Apply
+this adapter before the legacy milestone-node traversal below. The legacy form is
+readable for existing projects; new roadmap rows are requirements or defects only.
+
 #### Node status resolution
 
 The status of every artifact node (roadmap node / requirement / design / task) is resolved by these rules:

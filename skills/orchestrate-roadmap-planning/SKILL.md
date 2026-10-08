@@ -1,7 +1,7 @@
 ---
 name: orchestrate-roadmap-planning
 description: Orchestrator skill — run one roadmap planning pass by sequencing atomic skills from strategic goals through capture, scoring, dependency mapping, and promotion, satisfying each skill's halt conditions up front.
-version: 2.0.0
+version: 2.1.0
 license: MIT
 ---
 
@@ -36,7 +36,7 @@ Every step carries a tier — a **mandatory** step runs when its condition is hi
 | --- | --- | --- | --- | --- |
 | 0 | Health check | `review-roadmap` | mandatory | Always runs. Read-only, no side effects; its findings are the input to every condition below |
 | 1 | Upstream | `design-strategic-goals` | mandatory | `strategic-goals.md` does not exist |
-| 2 | Structure | `define-roadmap` | mandatory | No roadmap.md / incomplete stage model / strategic goals out of step with the roadmap |
+| 2 | Structure | `define-roadmap` | mandatory | No roadmap.md / invalid requirement/defect entry structure / strategic goals out of step with the roadmap |
 | 3 | Intake | `capture-work-items` | default | Unregistered raw input exists |
 | 4 | Scoring | `prioritize-backlog` | mandatory when all are unset; default when only some are | Items with `priority: unset` exist |
 | 5 | Dependencies | `map-item-dependencies` | default | Promotion candidates ≥ 2 |
@@ -66,12 +66,16 @@ Run `review-roadmap` for its findings and map them mechanically to a mode with t
 | mode | findings signature | Effect |
 | --- | --- | --- |
 | `bootstrap` | roadmap.md or strategic-goals.md missing | Steps 1 and 2 will run |
-| `refresh` | Incomplete stage model / strategic goals out of step with the roadmap | Step 2 will run; step 6 re-evaluates tier placement by priority and readiness |
+| `refresh` | Invalid requirement/defect entry structure / strategic goals out of step with the roadmap | Step 2 will run; step 6 re-evaluates tier placement by priority and readiness |
 | `intake` | Scored items not yet promoted | Main path 3→4→5→6 |
 | `maintain` | No unpromoted scored items, but at-risk / blocked / overdue items exist | Step 7 rises from recommended to a default prompt |
 | `healthy` | None of the findings above | Emit the health-check report and end normally; no write operation runs |
 
 `review-roadmap` does not emit a mode itself — it emits findings only, and the mapping happens at this layer.
+
+A concise roadmap is not incomplete merely because it omits stage hypotheses or
+metric tables. Only requirements and defects enter promotion; task-level input resolves
+to its parent. Keep aggregated evidence in the report, not in roadmap rows.
 
 ### Step 2: chain the calls
 
