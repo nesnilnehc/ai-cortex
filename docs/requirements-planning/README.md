@@ -24,6 +24,11 @@ Add a structured requirement document, such as `docs/requirements-planning/<PROJ
 
 Write a requirement document to the field spec in [specs/requirement-modeling.md](../../specs/requirement-modeling.md), and self-check it against [rules/requirement-quality.md](../../rules/requirement-quality.md) before submitting. The workflow for writing requirements is carried by a runtime platform such as AgentFabric; AI Cortex supplies only the field contract and the quality rules.
 
+Start from the [formal requirement template](templates/requirement-template.md).
+It is an authoring aid; the Spec and Rule remain authoritative. Replace placeholders
+with grounded facts and apply conditional section triggers. The lightweight
+`capture-work-items` template records a backlog item rather than a formal requirement.
+
 ## Current requirements
 
 - [AIC-REQ-01: research skills for product opportunity decisions](./AIC-REQ-01.md)

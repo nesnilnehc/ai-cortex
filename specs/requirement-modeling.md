@@ -2,7 +2,7 @@
 id: REQUIREMENT_MODELING_SPEC_V4
 name: Requirement Modeling Schema
 description: Spec defining requirement document fields, validation and conditionally required quality-attribute scenarios in addition to the 6 mandatory body sections.
-version: 5.1.0
+version: 6.0.0
 status: active
 lifecycle: living
 created_at: 2026-03-25
@@ -110,7 +110,7 @@ implemented_at: YYYY-MM-DD             # required when status: implemented
 
 ### 5.1 Required sections (6)
 
-Every requirement document must contain the following 6 body sections (the H1 title is not counted).
+Every requirement document must contain the following 6 body sections (the H1 title is not counted). The table enumerates required sections; the combined ordering contract in §5.2.1 governs their placement among conditional and optional sections.
 
 **H1 title**: `# Requirement: [type] one-line description`
 
@@ -136,9 +136,40 @@ Add them as the situation requires:
 | Scope | Multi-system integration, ambiguity across a boundary, or estimated effort > 5 days (any one of these makes the section **required**) |
 | Business Rules | The rule set is itself the deliverable (pricing / eligibility / tax / risk scoring), a single rule is cited by ≥ 2 acceptance criteria, the rules form a state machine or decision table, or the rules must serve as the authoritative source (SSOT) for a downstream compliance audit (any one of these makes the section **required**) |
 | Quality Attribute Scenarios | A quality target can shape architecture or block release — for example security, performance, reliability, observability, maintainability or extensibility — or the requirement is non-functional (either makes the section **required**) |
-| Open Questions | Items left unresolved in review; classified as "blocking" or "non-blocking", with an owner and a plan for resolving each |
+| Open Questions | Items left unresolved in review; classified as "blocking" or "non-blocking", with an owner and a plan for resolving each; non-blocking classification includes the impact rationale. Recording an item does not establish review readiness; see requirement-quality |
 | Definition of Done | Process and quality gates (test coverage, documentation updates, deployment gates), distinct from the acceptance criteria (acceptance = the feature is complete; DoD = it is releasable) |
 | Timeline | The scheduling window plus the estimated effort (for example "Phase 2, weeks 3-4 / 4 person-days") |
+
+### 5.2.1 Expression order
+
+After frontmatter and the H1 title, body sections MUST appear in this order:
+
+1. Background & Value
+2. Objective
+3. Scope
+4. Business Rules
+5. Acceptance Criteria
+6. Quality Attribute Scenarios
+7. Dependencies & Prerequisites
+8. Risks, Constraints & Assumptions
+9. Open Questions
+10. Source
+11. Definition of Done
+12. Timeline
+
+Omit optional sections that are unused and conditional sections whose triggers
+are false; retained sections MUST preserve their relative order. This sequence
+moves from the problem and desired outcome through boundaries and business rules
+to acceptance, quality scenarios, prerequisites and supporting context.
+Subsections remain within their owning section; their internal order is not
+prescribed here. Project-specific supplementary sections may follow the standard
+sections without changing their relative order.
+
+When adopting this contract, reorder editable drafts without changing their
+meaning, stable IDs or references. Re-check relative links and section anchors
+after moving content. Approved, implemented and superseded snapshots remain
+frozen: report ordering findings against this contract and use the project's
+successor process for an authorized revision rather than rewriting the snapshot.
 
 ### 5.3 Format details
 
@@ -232,10 +263,6 @@ parent: ../roadmap/2026-q2.md#open-integration
 
 # Requirement: [Functional] Semantic search API for knowledge base retrieval
 
-## Objective
-
-The cost for an integrator to adopt knowledge base retrieval drops from reinventing the wheel to near zero, and the official semantic search API becomes the single authoritative retrieval entry point.
-
 ## Background & Value
 
 As a systems integrator
@@ -243,6 +270,21 @@ I want an API that runs semantic search over the stored specifications
 so that external systems can retrieve relevant documents efficiently from context
 
 The knowledge base currently supports keyword search only, so an external agent has to build its own embedding and vector recall — reinventing the wheel.
+
+## Objective
+
+The cost for an integrator to adopt knowledge base retrieval drops from reinventing the wheel to near zero, and the official semantic search API becomes the single authoritative retrieval entry point.
+
+## Scope
+
+In Scope:
+- The REST API implementation, vector database integration, API key authentication, OpenAPI documentation
+- Server-side caching (Redis)
+
+Out of Scope:
+- OAuth authorization (a later requirement)
+- The search results UI (a front-end project)
+- Real-time vector updates (handled in Phase 3)
 
 ## Acceptance Criteria
 
@@ -293,17 +335,6 @@ Assumptions (to be verified):
 - **Source type**: business objective
 - **Source link**: the 2026 Q2 OKR — "open up third-party integration with the knowledge base"
 - **Decision context**: the developer community reports that adoption costs are high (community survey report §3); in 2026 Q1, 3 integrators independently built their own embedding pipeline, about 40 person-days of duplicated work
-
-## Scope
-
-In Scope:
-- The REST API implementation, vector database integration, API key authentication, OpenAPI documentation
-- Server-side caching (Redis)
-
-Out of Scope:
-- OAuth authorization (a later requirement)
-- The search results UI (a front-end project)
-- Real-time vector updates (handled in Phase 3)
 
 ## Timeline
 

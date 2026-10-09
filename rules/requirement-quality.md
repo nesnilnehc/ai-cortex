@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: requirement-quality
-version: 2.2.0
+version: 2.4.0
 created_by: ai-cortex
 lifecycle: living
 created_at: 2026-05-09
@@ -21,6 +21,11 @@ status: active
 
 Authors self-check against this list before submitting for review. The checkpoints map one to one onto the 5 review dimensions: completeness, executability, clarity, soundness, traceability.
 
+Apply the same content-quality criteria regardless of the requirement's lifecycle
+status. A `draft` label does not excuse missing decisions, and an `approved` label
+does not establish that the content passes. Status-dependent metadata is checked
+against the Spec separately; it does not relax these criteria.
+
 ### 1. Completeness — is the information all there?
 
 - [ ] All 8 required fields are filled in (ID, title, background, objective, acceptance, source, dependencies, risks)
@@ -36,9 +41,13 @@ Authors self-check against this list before submitting for review. The checkpoin
 - [ ] Every acceptance criterion is automatically verifiable or plainly testable
 - [ ] Every quality attribute scenario has a stable ID, stimulus, environment, affected artifact, response and measurable threshold; related acceptance criteria cite its ID
 - [ ] Either a scope definition exists or the "simple requirement" exemption applies — and either way the boundary is clear
-- [ ] The open questions list is complete, and blocking questions have a resolution
+- [ ] No unresolved decision or missing fact prevents the requirement's objective, scope, business rules, dependencies, constraints or acceptance outcome from being determined; check the whole document, not only Open Questions
+- [ ] Each retained non-blocking question has an evidence-grounded explanation of why it cannot change the requirement's meaning or acceptance result, plus an established owner and resolution plan; its label alone is insufficient
+- [ ] Deferred design choices are genuinely implementation choices within established requirement constraints; they do not conceal missing business behavior or acceptance targets
 
 ### 3. Clarity — is it easy to read and unambiguous?
+
+- [ ] Retained body sections follow the relative order in requirement-modeling §5.2.1; omitting inapplicable sections does not create an ordering defect
 
 - [ ] The title is concise — ideally ≤ 15 words, and ≤ 80 characters
 - [ ] The title states the subject of the requirement (a capability, a problem, a task), not the expected outcome; outcomes belong in the objective section
@@ -67,6 +76,10 @@ Authors self-check against this list before submitting for review. The checkpoin
 - [ ] Version history is clear; where the requirement has iterated, each change record states its reason
 
 ---
+
+An isolated section-order violation is normally `minor`. Missing sections or
+indeterminate business behavior are evaluated independently by their actual
+impact; reordering does not resolve those defects.
 
 ## Protocol compliance
 
@@ -103,7 +116,7 @@ Use this list to verify that a requirement document conforms to the protocol:
 - [ ] **Optional fields**: where used, complete and valid
   - [ ] Scope definition (required when the conditions above hold)
   - [ ] Business rules (required when the conditions above hold; declarative or decision-table form)
-  - [ ] Open questions (marked blocking or non-blocking)
+  - [ ] Open questions (classified by actual impact under Executability; recording a question or assigning an owner does not resolve it)
   - [ ] Related documents (links working)
   - [ ] Priority and schedule (P0 / P1 / P2, timing realistic)
   - [ ] Definition of done (checklist complete)
