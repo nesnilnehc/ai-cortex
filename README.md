@@ -10,12 +10,12 @@ When an agent works inside this repository, [AGENTS.md](AGENTS.md) is authoritat
 
 ## 🧭 What's inside
 
-**68 skills** ([index](skills/INDEX.md)), **32 rules** ([index](rules/INDEX.md)), **20 specs** ([index](specs/INDEX.md)) and **1 protocol** ([index](protocols/INDEX.md)).
+**69 skills** ([index](skills/INDEX.md)), **32 rules** ([index](rules/INDEX.md)), **20 specs** ([index](specs/INDEX.md)) and **1 protocol** ([index](protocols/INDEX.md)).
 
 | Area | Count | Representative skills |
 | :--- | ---: | :--- |
 | **Governance & planning** | 17 | Deriving mission → vision → North Star → strategic goals → roadmap layer by layer; backlog scoring, dependency mapping, promotion and archival; `plan-next` diagnoses what to do next |
-| **Code review** | 27 | Pre-coding artifact reviews, post-coding implementation alignment, and `orchestrate-code-review` across 8 languages, frameworks, libraries and seven engineering concerns |
+| **Code review** | 28 | Pre-coding artifact reviews and requirements repair loops, post-coding implementation alignment, and `orchestrate-code-review` across 8 languages, frameworks, libraries and seven engineering concerns |
 | **Delivery & release** | 9 | Commits, worktree delivery and integration, release package build and publication, announcements, test execution, local redeployment |
 | **Docs & assets** | 5 | Generating README, AGENTS.md and GitHub Actions; refining skill design; decontextualizing text |
 | **Integration & ops** | 4 | NATS cross-team messaging, macOS Keychain credential management, agent test scaffolding |

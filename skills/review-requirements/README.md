@@ -1,35 +1,38 @@
 # Review Requirements
 
-**Status**: Validated
+Review one formal requirement before design begins. The skill loads the
+[requirement-modeling Spec](../../specs/requirement-modeling.md) and
+[requirement-quality Rule](../../rules/requirement-quality.md), checks the document
+contract and applies the quality criteria. It reports findings without editing.
 
-## Purpose
+## Authoring and review
 
-Reviews an existing requirements document for quality across six dimensions: clarity of the problem statement, testability of the requirements (acceptance criteria + R-NN IDs), completeness of the constraint inventory, scope boundedness (the V1 boundary), requirement ID format and uniqueness, and open questions with a plan to resolve them. Emits a findings list in the standard format so the author can close the gaps before the document is handed to the design stage.
+The [formal requirement template](../../docs/requirements-planning/templates/requirement-template.md)
+is an authoring starting point. Review checks the authoritative Spec and Rule:
+required metadata, six mandatory sections and conditionally required Scope,
+Business Rules and Quality Attribute Scenarios. Matching headings is insufficient;
+content, evidence and traceability must also pass. Retained body sections are
+checked against the relative order in Spec §5.2.1; inapplicable optional or
+conditional sections may be omitted.
 
-## When to use
+The lightweight requirement template in `capture-work-items` creates a
+`backlog-item`. Convert it into a formal requirement before using this review.
 
-- Pre-design gate: validate the requirements document before it is handed to the design stage.
-- Collaborative review: a team member writes the requirements; a second party assesses the quality independently.
-- Imported requirements: requirements come from an external tool (Confluence, Notion, Jira) and need a quality assessment before they are used in this workflow.
-- Post-authoring validation: an independent check that every success criterion is met.
+The same content criteria apply regardless of lifecycle status. Review examines
+unresolved decisions throughout the document and verifies a non-blocking label
+against actual impact under the Rule. Deferred implementation choices within
+established constraints do not themselves constitute requirement gaps.
 
-## Inputs
+## Input and output
 
-- A requirements document (a path, for example `docs/requirements-planning/<topic>.md`, or the raw content).
-- Optional project background, or what consumes the document downstream (for example "this feeds a technical design").
+Input is one requirement path or full content. Output follows the shared
+[findings-list contract](../../specs/findings-list.md), with category
+`requirement-quality`. Zero findings indicates readiness for the next design layer;
+the skill does not create that design or decide open business questions.
 
-## Outputs
-
-- Findings list: location (a section heading or an R-NN ID), category=`requirement-quality`, severity, title, description, optional suggestion.
-- Zero findings → confirmation that the document is ready for the design stage.
-
-## Ecosystem
-
-| Field | Value |
-| :------------------------------------ | :-------------------------------------------------------- |
-| overlaps_with (owner/repo:skill-name) | — |
-| market_position | differentiated |
+For review with iterative repair, use
+[orchestrate-repair-requirements-loop](../orchestrate-repair-requirements-loop/SKILL.md).
 
 ## Full definition
 
-See [SKILL.md](./SKILL.md) for the checklist, the limits, and the output contract.
+See [SKILL.md](SKILL.md) for execution, boundaries and Self-Check.
