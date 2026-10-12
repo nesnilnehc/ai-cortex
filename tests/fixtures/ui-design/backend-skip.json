@@ -1,0 +1,12 @@
+{
+  "name": "Backend change skips UI decisions",
+  "covers": [
+    "functional-design-modeling \u00a75.2/\u00a75.3.4",
+    "functional-design-quality conditional UI sections"
+  ],
+  "changes": [
+    "backend-only"
+  ],
+  "expected_failed_rules": [],
+  "skip_reason": "Queue retention changes with no interface impact."
+}

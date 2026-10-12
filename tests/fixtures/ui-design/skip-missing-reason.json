@@ -1,0 +1,12 @@
+{
+  "name": "Skipped UI decisions require a reason",
+  "covers": [
+    "functional-design-modeling \u00a75.3.4"
+  ],
+  "changes": [
+    "backend-only"
+  ],
+  "expected_failed_rules": [
+    "UI applicability"
+  ]
+}

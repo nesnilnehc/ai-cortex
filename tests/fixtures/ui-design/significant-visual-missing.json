@@ -1,0 +1,12 @@
+{
+  "name": "significant-visual requires UI decisions",
+  "covers": [
+    "functional-design-modeling \u00a75.2/\u00a75.3.4"
+  ],
+  "changes": [
+    "significant-visual"
+  ],
+  "expected_failed_rules": [
+    "UI decision section"
+  ]
+}

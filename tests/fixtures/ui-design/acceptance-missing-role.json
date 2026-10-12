@@ -1,0 +1,35 @@
+{
+  "name": "UI acceptance handoff requires role",
+  "covers": [
+    "functional-design-modeling \u00a75.2/\u00a75.3.4",
+    "functional-design-quality conditional UI sections"
+  ],
+  "changes": [
+    "new-interface"
+  ],
+  "expected_failed_rules": [
+    "UI decision content"
+  ],
+  "decision": {
+    "user_tasks": [
+      "Account owner saves notification preferences through Settings and returns to their workspace."
+    ],
+    "key_states": [
+      "Loading while fetching preferences; editable; saving; saved; error with preserved input and retry."
+    ],
+    "rationale": "Reuse the existing settings form; a wizard adds unnecessary navigation for one short task.",
+    "reuse_constraints": [
+      "Keep the current frontend stack, Form component and spacing/color tokens."
+    ],
+    "ui_assets": "Existing settings design-system revision 4; no separate pixel mockup needed for unchanged layout.",
+    "acceptance": {
+      "criteria": [
+        "AC1: save completes and confirms; AC2: failure preserves input and exposes retry."
+      ],
+      "method": "Browser interaction tests and manual comparison to settings revision 4.",
+      "responsive": "Check at 360px and 1280px with no clipped actions.",
+      "keyboard_accessibility": "Tab reaches fields and Save; error is announced and focus stays usable."
+    },
+    "references": []
+  }
+}

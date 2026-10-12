@@ -39,6 +39,8 @@ Keep the project entry file short. A project normally needs only:
 
 Then add `.ai-cortex/config.yaml` with only profiles and parameters that are true for the project. A small library should not claim service, distributed-workflow or SLO profiles. A public service should not omit them merely to reduce findings. The installer leaves these project-scoped Rule sets in the canonical clone; the matched review Skill loads the applicable set in full instead of forcing every concern into every session.
 
+For interface work, explicitly adopt the [UI design decisions loading entry](./ui-design-decisions.md#consumer-project-loading). AI Cortex's root `AGENTS.md` governs its own repository; installation does not inject that entry into consumer projects.
+
 ## 3. Before coding
 
 The artifact chain carries quality intent without duplicating policy:

@@ -1,0 +1,13 @@
+{
+  "name": "New interface lacks a UI decision section",
+  "covers": [
+    "functional-design-modeling \u00a75.2/\u00a75.3.4",
+    "functional-design-quality conditional UI sections"
+  ],
+  "changes": [
+    "new-interface"
+  ],
+  "expected_failed_rules": [
+    "UI decision section"
+  ]
+}

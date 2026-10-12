@@ -1,7 +1,7 @@
 ---
 name: review-technical-design
 description: "Review an existing technical design against its modeling Spec, canonical quality Rule and applicable engineering Rule profiles before tasks or coding begin."
-version: 1.0.2
+version: 1.1.0
 license: MIT
 output_schema:
   type: findings-list
@@ -29,8 +29,8 @@ This Skill reviews the design artifact and cited local context. It does not auth
 
 ## Behavior
 
-1. Load [technical-design-quality](../../rules/technical-design-quality.md) in full and record its version, then load each engineering Rule set the design references.
-2. Resolve applicability per [rule-modeling](../../specs/rule-modeling.md): whether the design triggers a quality attribute, a data change or an interface change, plus the project's profiles, parameters and valid waivers from `.ai-cortex/config.yaml` when present.
+1. Load [technical-design-modeling](../../specs/technical-design-modeling.md) and [technical-design-quality](../../rules/technical-design-quality.md) in full and record their versions, then load each engineering Rule set the design references.
+2. Resolve applicability per [rule-modeling](../../specs/rule-modeling.md): whether the design triggers a quality attribute, a data change or an interface change, plus the project's profiles, parameters and valid waivers from `.ai-cortex/config.yaml` when present. For applicable UI changes, check decision traceability in the existing component, test and acceptance sections against the modeling Spec.
 3. Evaluate each applicable item independently, gathering only the evidence that item declares. An unresolved project value makes its item evidence-limited unless the design already records that absence as a blocking open question.
 4. For each triggered engineering concern, verify the design names Rule IDs, a system-specific tactic, its trade-off and a verification method; do not perform the future code review.
 5. Emit one finding per failed obligation, with category `technical-design-quality`, an exact section location, and the failed Rule ID in the description, for example `technical-design-quality@<active-version>/TDES-007`.
@@ -51,7 +51,7 @@ Input is one technical-design artifact plus its local parent and project configu
 
 - [ ] The modeling Spec, quality Rule and referenced engineering Rules were loaded.
 - [ ] Applicable profiles and parameters were resolved.
-- [ ] Conditional quality-attribute design was checked when triggered.
+- [ ] Conditional quality-attribute design and applicable UI decision traceability were checked.
 - [ ] Findings are precise, category-compliant and each cites one failed Rule ID.
 - [ ] Every applicable Rule ID received a pass, a finding, a valid waiver or an explicit evidence limitation.
 - [ ] The coverage footer distinguishes passed, waived, not applicable and evidence limited.

@@ -64,6 +64,8 @@ Inside this repository, an agent `MUST`:
 - **Conflicting specifications**: resolve by the precedence order in §2 and ignore the lower-precedence source.
 - **Required resource missing**: `STOP` and `ASK` the user. Do not continue inferring before the answer arrives.
 
+**Design work in this repository**: before designing a new interface or a significant interaction, navigation or visual change, an agent `MUST` load [functional design](specs/functional-design-modeling.md), [technical design](specs/technical-design-modeling.md), [functional design quality](rules/functional-design-quality.md) and the [UI design decisions guide](docs/guides/ui-design-decisions.md). The Specs define applicability and skipping. This entry governs AI Cortex itself; consumer projects must adopt their own loading entry as described in the guide.
+
 ## 5. Language and communication
 
 Repository artifacts and code comments `MUST` be written in English. The exceptions — existing ADRs, released changelog entries and design snapshots, all of which are immutable records — are listed in [docs/LANGUAGE_SCHEME.md](docs/LANGUAGE_SCHEME.md). Machine-consumed fields (YAML frontmatter, commands, IDs) `MUST` remain in English.
