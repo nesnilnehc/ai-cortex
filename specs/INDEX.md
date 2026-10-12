@@ -5,8 +5,8 @@
 - [cross-team-contract.md](./cross-team-contract.md) — naming suffix, `contract_version`, CHANGELOG, flat layout and version references for a cross-team contract document
 - [claude-md-modeling.md](./claude-md-modeling.md) — section structure, form requirements and per-level responsibilities of CLAUDE.md, the three-level long-term AI memory file
 - [findings-list.md](./findings-list.md) — the six elements, severity enum and category convention of a finding; the output contract every evaluative skill emits and every orchestrator aggregates
-- [functional-design-modeling.md](./functional-design-modeling.md) — field definitions and validation for a functional design document, from the business and product viewpoint: functional modules, business workflow, role permissions, business object states, exception scenarios
-- [technical-design-modeling.md](./technical-design-modeling.md) — field definitions and validation for a technical design document, from the engineering viewpoint: architecture, service decomposition, components, database, interface contracts, error handling, technology selection
+- [functional-design-modeling.md](./functional-design-modeling.md) — field definitions and validation for a functional design document: functional modules, business workflow, permissions, states, exceptions and conditional UI interaction decisions
+- [technical-design-modeling.md](./technical-design-modeling.md) — field definitions and validation for a technical design document: architecture, components, database, interfaces, error handling, technology selection and applicable UI implementation traceability
 - [nats-messaging.md](./nats-messaging.md) — subject, headers, payload and version evolution contract for cross-project NATS messages; the NATS specialisation of cross-team-contract
 - [opportunity-package.md](./opportunity-package.md) — JSON contract for a reviewable product opportunity recommendation, lane status, and claim-to-source trace
 - [plan-next-preferences.md](./plan-next-preferences.md) — project-local YAML contract for exact plan-next recommendation exclusions that persist until restored

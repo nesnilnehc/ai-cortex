@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: functional-design-quality
-version: 1.0.0
+version: 2.0.0
 scope: reviewing or self-checking a functional design document
 recommended_scope: user
 status: active
@@ -58,6 +58,11 @@ status: active
 
 - [ ] When a business object has ≥ 3 states and transitions are driven by business rules, a separate business object state section is present (state diagram or state table, covering terminal and exception states)
 - [ ] When ≥ 2 roles are involved, or menu, operation or data permissions differ by role, a separate role and permission matrix is present (rows = roles, columns = the three permission kinds)
+- [ ] UI applicability is assessed against [functional-design-modeling §5.2–§5.3.4](../specs/functional-design-modeling.md#534-ui-and-interaction-decisions-once-required); a triggered change has a UI and interaction flow section, and a skipped change has a reason in its existing handoff
+- [ ] A triggered UI section carries user tasks, key states and interactions, selection rationale, reuse constraints, independent UI asset links or a reason none is needed, and acceptance handoff
+- [ ] Existing stack, components and design tokens are preferred; reuse is justified and does not require external references
+- [ ] External reference sources and their effect on selection are traceable; consequential technical or licensing claims are verified against original documentation. Visual inspiration needs no technical research record; unavailable sources have an explicit limitation and fallback, with no fabricated evidence or authorization, quality or license claims
+- [ ] UI acceptance names observable outcomes, responsive and keyboard/accessibility checks, verification methods and responsible roles; code review is not presented as visual acceptance
 
 ---
 
@@ -79,6 +84,7 @@ status: active
 - ❌ Contains technical implementation detail — architecture, database, API
 - ❌ Restates a business rule here instead of citing the upstream requirement
 - ❌ Meets the condition that makes a section required, yet lacks the state diagram or permission matrix
+- ❌ A new interface or significant experience change lacks UI decisions, or a backend/copy/pattern-preserving repair is forced through external research
 - ❌ Trade-off analysis mixed with technology-selection trade-offs
 - ❌ No `parent` frontmatter — an orphaned design
 
@@ -87,3 +93,4 @@ status: active
 ## Related assets
 
 - **Diagram selection**: [diagram-selection](./diagram-selection.md) — choosing between a workflow and a state diagram, picking a tool, and steering clear of rendering pitfalls all defer to those criteria
+- **UI decision workflow**: [UI design decisions](../docs/guides/ui-design-decisions.md) — reference selection, source limitations and implementation/acceptance handoff

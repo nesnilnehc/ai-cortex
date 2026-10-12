@@ -1,7 +1,7 @@
 ---
 name: generate-agent-entry
-description: Write or revise AGENTS.md per embedded output contract to establish project identity, authoritative sources, and behavioral expectations. Use when creating Agent entry for new projects, auditing existing AGENTS.md, or adopting the AI Cortex entry format.
-version: 1.1.0
+description: Write or revise AGENTS.md with project identity, authoritative sources, behavioral expectations and verified loading entries for adopted workflows. Use when creating, auditing or revising a project's agent entry, including AI Cortex adoption.
+version: 1.2.0
 license: MIT
 ---
 
@@ -62,8 +62,8 @@ Write or revise **AGENTS.md** at the repository root according to the "Output Co
 ## Behavior
 
 1. **Read the contract first**: before acting, read this file's "Output Contract" section and treat it as the single source of truth; do not invent sections or drop recommended elements.
-2. **Gather verified inputs**: read the repository's README, asset registries and language policy for the one-line positioning, asset types and directories, usage path, and primary description language. Check whether a raw URL is available from the repository remote. Do not infer commands, paths or policies from names alone; ask only when a required fact cannot be established locally.
-3. **Generate section by section**: produce or revise AGENTS.md in the order of the contract's §3: opening → project identity → authoritative sources → behavioural expectations → discovery and loading (summary) → language and communication → reference table. Section titles can be adjusted, but keep the order: identity → authority → behaviour → operations summary → language → reference.
+2. **Gather verified inputs**: read the repository's README, existing agent instructions, asset registries and language policy for the one-line positioning, asset types and directories, usage path, and primary description language. Identify workflows already adopted by the project or requested by the user; installation alone does not establish adoption. Check whether a raw URL is available from the repository remote. Do not infer commands, paths or policies from names alone; ask only when a required fact cannot be established locally.
+3. **Generate section by section**: produce or revise AGENTS.md in the order of the contract's §3: opening → project identity → authoritative sources → behavioural expectations → discovery and loading (summary) → language and communication → reference table. For adopted workflows, add a short conditional loading entry under behaviour or discovery, referencing canonical requirements and skip conditions. For AI Cortex UI design, follow the [consumer loading guide](../../docs/guides/ui-design-decisions.md#consumer-project-loading); verify paths from the target project's asset root, replace placeholders and report missing sources as unresolved. Section titles can be adjusted, but keep the order: identity → authority → behaviour → operations summary → language → reference.
 4. **Actionable behaviour**: use "must", "should", "must not" (or equivalents) so that every expectation is actionable; each item can cite a spec or a document. Do not paste whole specs or documents into AGENTS.md; index and summarise only.
 5. **Complete reference table**: include the AGENTS.md format source, this entry's raw URL (where applicable), the project-specific entry contract (where one exists), usage and installation, and the entry index; use relative paths or resolvable URLs. Mark an unavailable project-specific source `N/A` with a reason instead of inventing it.
 6. **Verify item by item**: give each applicable requirement in the Output Contract's §3–§6 its own `PASS`, `FAIL` or `N/A` row with the exact AGENTS.md line or section that supports the verdict. Check substance as well as headings: project identity, authoritative links, actionable expectations, section order, language, and every reference-table row. Explain each `N/A`; do not mark a missing item as passed from an overall impression. Check local relative links against the filesystem and run available repository documentation checks. If a check cannot run, report which item remains unverified.
@@ -135,6 +135,7 @@ Write or revise **AGENTS.md** at the repository root according to the "Output Co
 - [ ] **Reference table**: did I include every required element (format source, raw URL where applicable, entry contract, usage/installation, index)?
 - [ ] **Links and checks**: did I resolve local relative links and run relevant repository documentation checks, or report which check was unavailable?
 - [ ] **Cross-references after edits**: did I inspect the diff and repair stale references to changed AGENTS.md section numbers or headings in living documents?
+- [ ] **Workflow loading**: do entries match project adoption, use verified target-project paths and reference canonical trigger/skip conditions, with missing sources reported as unresolved?
 
 ### Acceptance Test
 
@@ -159,6 +160,14 @@ If yes: in authoring mode, commit and hand off; in audit mode, return the verifi
 **Input**: the existing AGENTS.md holds only "this project is XX" and "read INDEX" — no authoritative sources, no behaviour, no reference table. The project has docs/ and a README, no skills. Complete it per the output contract.
 
 **Expected**: keep the existing "project identity"; add authoritative sources (where the definitions and directories live), behavioural expectations (at least 2-3 actionable items, e.g. "follow the README and the docs", "when listing capabilities, read the index then enumerate"), discovery and loading (summary), language and communication, and the reference table. Do not delete correct user wording; where the project has no INDEX, the reference table can say "N/A" or list README/docs. Output the full revised text or a diff, and state which sections were added.
+
+### Example 3: frontend project adopting UI design decisions
+
+The project uses AI Cortex UI design decisions and existing components/tokens. Include the guide's conditional entry with verified local paths. A new screen can reuse its existing pattern without external references; a backend-only change skips UI decisions while the project entry remains.
+
+### Example 4: backend project with an installed library
+
+A backend-only library has not adopted UI governance, although AI Cortex Skills are installed. Generate its applicable project entries without a UI workflow, external research requirement or additional tool configuration.
 
 ---
 

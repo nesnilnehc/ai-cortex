@@ -1,8 +1,8 @@
 ---
 id: FUNCTIONAL_DESIGN_MODELING_SPEC_V1
 name: Functional Design Modeling Schema
-description: Spec defining functional design document fields, formats, and validation rules. Business/product-facing layer. Covers frontmatter contract, 6 mandatory body sections (Goal/Modules/Workflow/Exceptions/Acceptance/Trade-offs), and conditionally-mandatory sections (State Diagram, Permission Matrix).
-version: 1.0.1
+description: Spec defining functional design document fields, formats, and validation rules. Business/product-facing layer. Covers 6 mandatory body sections and conditionally required states, permissions and UI interaction decisions.
+version: 2.0.0
 status: active
 lifecycle: living
 created_at: 2026-05-29
@@ -35,6 +35,7 @@ In scope:
 - **New capability**: user-visible functional modules and business workflow
 - **Workflow change**: adjustments to how an approval, order or document flows
 - **Permission change**: adjustments to the role model, or to menu, operation and data permissions
+- **Experience change**: a new interface or a significant interaction, navigation or visual change
 
 Out of scope:
 
@@ -116,7 +117,7 @@ Added as the situation requires. A conditionally required section **becomes requ
 | Business object states | Conditionally required | A business object — an order, task, approval or document — has ≥ 3 states and its transitions are driven by business rules. It then becomes required, declared as a state diagram or state table |
 | Roles and permission matrix | Conditionally required | ≥ 2 roles are involved, or menu, operation or data permissions differ by role. It then becomes required, declared as a role-by-permission matrix |
 | Scope | Optional | It spans systems or teams and the business boundary is easily misread |
-| UI and interaction flow | Optional | There is user-facing interface interaction to describe |
+| UI and interaction flow | Conditionally required | A new interface or a significant interaction, navigation or visual change is introduced. Declare decisions per §5.3.4 |
 | References | Optional | It cites an upstream requirement, a regulation or a business process standard |
 
 ### 5.3 Format detail
@@ -136,6 +137,23 @@ Added as the situation requires. A conditionally required section **becomes requ
 
 Business rules are declared in the upstream requirement. In its workflow and exception sections, a functional design cites the rule id back as `Covers R<n>` rather than restating it, so the same rule is not maintained across requirement, functional design and technical design.
 
+#### 5.3.4 UI and interaction decisions, once required
+
+Assess the change against §5.2. Pure backend work, small copy edits and repairs that preserve an existing interaction and visual pattern do not trigger this section; record the skip reason in the change's existing design or handoff, without creating an empty functional design. Reusing an existing design for a new interface still triggers a decision record, but requires no external reference.
+
+The section **MUST** carry:
+
+| Content | Validation |
+| --- | --- |
+| User tasks and entry/exit paths | Identify the actor, intended outcome, navigation and completion path; cite upstream requirements rather than restating business rules |
+| Key states and interactions | Describe applicable default, loading, empty, error, success and disabled states, feedback, recovery and key transitions; explain any omitted state |
+| Selected approach and rationale | Explain how the choice supports the tasks and the cost of relevant rejected options; when an existing pattern suffices, name it and explain its fit |
+| Reuse constraints | Identify the existing stack, components, design tokens and accessibility constraints to preserve; justify any departure |
+| Independent UI assets | Link the applicable mockup, prototype or design-system asset with its version or revision; when no asset is needed, state why. Pixel-level mockups remain separate assets |
+| Acceptance handoff | Link to numbered acceptance criteria covering observable task completion, state recovery, responsive behavior and keyboard/accessibility expectations; name the verification method and responsible role |
+
+External references are optional design-stage inputs used only when local assets leave a gap. Record the source URL, access date and how it informs the choice. Visual inspiration needs no technical research record; verify consequential technical or licensing claims against original documentation before relying on them. If unavailable, record that limitation and the fallback; do not invent inspected evidence. Reference material grants neither authorization nor quality or licensing assurance. Do not upload customer or confidential information. See the [UI design decisions guide](../docs/guides/ui-design-decisions.md) for selection and handoff.
+
 ---
 
 ## 6. Anti-patterns
@@ -147,6 +165,8 @@ Business rules are declared in the upstream requirement. In its workflow and exc
 - ❌ Fewer than 2 exception or edge scenarios, or listing the exception without the expected business behaviour
 - ❌ A business object with ≥ 3 states and no state diagram — the trigger is met but the section is missing
 - ❌ Several roles involved and no permission matrix — the trigger is met but the section is missing
+- ❌ A triggered UI change has no decision record, or a reference image substitutes for tasks, states, rationale and acceptance
+- ❌ Requiring external research despite a sufficient existing design, or claiming code review proves visual acceptance
 - ❌ Restating a business rule here instead of citing the upstream requirement as `Covers R<n>`
 - ❌ Fewer than 3 acceptance criteria, or criteria that cannot be traced to the upstream requirement
 - ❌ Trade-off analysis mixed with technology-selection trade-offs, which belong to the technical design
@@ -208,6 +228,12 @@ The refund state machine: `awaiting approval` ->(approved) `in progress` ->(refu
 |---|---|---|---|
 | Support agent | Yes | No | Own submissions only |
 | Supervisor | No | Yes | Yes |
+
+## UI and interaction flow
+
+Support agents open the refund form from an order; supervisors enter from the approval queue. Reuse the existing form and queue patterns, stack, components and design tokens: a separate wizard would add navigation without improving this short task. Describe loading, empty queue, invalid input, submitting, success, rejection and retryable failure; cite the permission rules rather than restating them.
+
+Independent UI asset: link the project's form and approval queue asset revisions here. Acceptance handoff: verify submission, approval and failure recovery at the target mobile/desktop viewports, including keyboard focus and announced feedback. The frontend owner executes browser checks and compares the implementation to those assets; external references are unnecessary when these patterns suffice.
 
 ## Acceptance criteria
 

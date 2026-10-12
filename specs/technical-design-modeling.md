@@ -1,8 +1,8 @@
 ---
 id: TECHNICAL_DESIGN_MODELING_SPEC_V1
 name: Technical Design Modeling Schema
-description: Spec defining technical design fields, 9 mandatory sections and conditionally required quality-attribute design mapped to canonical engineering Rules.
-version: 2.1.0
+description: Spec defining technical design fields, 9 mandatory sections including UI implementation traceability when applicable, and conditionally required quality-attribute design mapped to canonical engineering Rules.
+version: 2.2.0
 status: active
 lifecycle: living
 created_at: 2026-05-29
@@ -153,6 +153,15 @@ Once the trigger holds, use one row per upstream Quality Attribute Scenario or n
 
 The section cites Rule IDs and adds system-specific decisions. It must not copy Rule text. If a profile or required project parameter cannot yet be resolved, record it as a blocking open question rather than silently treating the concern as not applicable.
 
+#### 5.3.4 UI decisions in existing sections
+
+When the [functional UI trigger](./functional-design-modeling.md#534-ui-and-interaction-decisions-once-required) holds, cite those decisions and independent asset revisions in the existing sections:
+
+- **Components and detailed design**: map tasks, interactions and states to component boundaries, dependencies and local/shared/server state ownership. Reuse the existing stack, components and design tokens; describe responsive behavior, keyboard/focus handling and accessible feedback.
+- **Test strategy and Acceptance criteria**: trace the UI decisions to checks with target viewports/input modes, expected outcomes and responsible roles. Code review does not establish visual or real interaction acceptance.
+
+Reference upstream business rules rather than repeating them. Record decisions missing for implementation as blocking open questions. No additional UI section is required; apply the functional Spec's skip conditions when there is no UI impact.
+
 ---
 
 ## 6. Anti-patterns
@@ -172,6 +181,7 @@ The section cites Rule IDs and adds system-specific decisions. It must not copy 
 - ❌ No `parent` frontmatter — an orphaned design with no traceability
 - ❌ A `superseded` status with no `superseded_by`
 - ❌ A triggered Quality attribute design section is absent, copies generic Rule text, or names a tactic without trade-off and verification evidence
+- ❌ An applicable UI change lacks implementation traceability or responsive, keyboard and accessibility verification in the existing sections
 
 ---
 
@@ -214,6 +224,8 @@ External dependency: the Payment Gateway (its refund API). Internal dependencies
 - **RefundService**: `initiate(orderId, amount, reason)` / `approve(refundId, approverId)` / `reject(refundId, reason)`. Responsible for state transitions and concurrency control.
 - **RefundExecutor**: `execute(refundId)` calls the Payment Gateway and retries on failure. Responsible for idempotent refunds.
 
+UI: reuse the existing form and queue components and tokens; the form owns input/validation state, the queue owns loading/error state, and refund status remains server-owned. Cite the functional UI decisions and asset revisions for navigation and recovery behavior.
+
 ## Database design
 
 ```
@@ -254,6 +266,7 @@ Refund execution: approve -> write status=in_progress -> RefundExecutor calls th
 - Unit: state transitions, amount validation, idempotent execution
 - Integration: the full raise / approve / refund path with a mocked Payment Gateway
 - How it is verified: CI runs unit plus integration automatically
+- UI: the frontend owner verifies submission/retry and approval at 360px and 1280px through browser tests, keyboard/focus checks, accessible feedback inspection and manual asset comparison, traced to functional UI acceptance items.
 
 ## Quality attribute design
 

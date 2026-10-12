@@ -172,6 +172,12 @@ def evaluate_task_list(case: dict[str, object]) -> set[str]:
     return failed
 
 
+def ui_change_triggered(case: dict[str, object]) -> bool:
+    """Covers: functional-design-modeling §5.2 UI applicability."""
+    triggers = {"new-interface", "significant-interaction", "significant-navigation", "significant-visual"}
+    return bool(triggers & set(case.get("changes", [])))
+
+
 def evaluate_technical_design(case: dict[str, object]) -> set[str]:
     """Decide the automated blocking items of technical-design-quality over one design shape."""
     failed: set[str] = set()
@@ -219,12 +225,50 @@ def evaluate_technical_design(case: dict[str, object]) -> set[str]:
     return failed
 
 
+def evaluate_ui_design(case: dict[str, object]) -> set[str]:
+    """Covers: functional-design-modeling §5.2/§5.3.4 and functional-design-quality.
+
+    Decide only synthetic applicability and evidence structure. The result labels
+    name checklist obligations, not modeled Rule IDs or judgments of UI quality.
+    """
+    triggered = ui_change_triggered(case)
+    decision = case.get("decision")
+    if not triggered:
+        return set() if case.get("skip_reason") else {"UI applicability"}
+    if not decision:
+        return {"UI decision section"}
+
+    failed: set[str] = set()
+    required = ("user_tasks", "key_states", "rationale", "reuse_constraints", "ui_assets", "acceptance")
+    if not all(decision.get(field) for field in required):
+        failed.add("UI decision content")
+
+    acceptance = decision.get("acceptance")
+    acceptance_fields = ("criteria", "method", "role", "responsive", "keyboard_accessibility")
+    if not isinstance(acceptance, dict) or not all(acceptance.get(field) for field in acceptance_fields):
+        failed.add("UI decision content")
+
+    # Local reuse owes a rationale, but never an external reference. An unavailable
+    # source cannot carry inspected content or a claim marked verified.
+    for source in decision.get("references", []):
+        if not all(source.get(field) for field in ("url", "access_date", "claim", "access_status")):
+            failed.add("UI reference evidence")
+        status = source.get("access_status")
+        if status == "unavailable":
+            if source.get("verified") or source.get("original_documentation") or not source.get("fallback"):
+                failed.add("UI reference evidence")
+        elif status != "inspected" or (source.get("technical_claim") and not source.get("original_documentation")):
+            failed.add("UI reference evidence")
+    return failed
+
+
 # Each Rule set is forward-tested over three representative shapes of the population
 # it governs, per rules/workflow-rule-governance.md constraint 8.
 POPULATIONS = (
     ("rule-governance", "engineering concerns", evaluate_code),
     ("task-list", "task-quality", evaluate_task_list),
     ("technical-design", "technical-design-quality", evaluate_technical_design),
+    ("ui-design", "UI decision checklist structure", evaluate_ui_design),
 )
 
 
@@ -250,6 +294,9 @@ def load_case(path: pathlib.Path) -> dict | str:
 
 def main() -> int:
     errors: list[str] = []
+    functional = (ROOT / "specs/functional-design-modeling.md").read_text(encoding="utf-8")
+    if "| UI and interaction flow | Conditionally required |" not in functional:
+        errors.append("functional-design-modeling: UI decision trigger must be conditionally required")
     total = 0
     for directory, label, evaluator in POPULATIONS:
         cases = sorted((FIXTURES / directory).glob("*.json"))
@@ -274,7 +321,7 @@ def main() -> int:
         for error in errors:
             print(f"- {error}")
         return 1
-    print(f"Validated automated Rule applicability on {total} representative shapes.")
+    print(f"Validated Rule applicability and UI checklist structure on {total} synthetic shapes; no visual or real interaction acceptance was evaluated.")
     return 0
 
 

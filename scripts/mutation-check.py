@@ -109,6 +109,22 @@ def set_version(value: str):
 
 
 PERTURBATIONS = [
+    code(SCENARIOS, SCENARIOS, "stop requiring decisions for a new interface",
+         '"new-interface", "significant-interaction"', '"significant-interaction"'),
+    code(SCENARIOS, SCENARIOS, "accept missing UI decision content",
+         '    if not all(decision.get(field) for field in required):', '    if False:'),
+    code(SCENARIOS, SCENARIOS, "accept an incomplete UI acceptance handoff",
+         '    if not isinstance(acceptance, dict) or not all(acceptance.get(field) for field in acceptance_fields):',
+         '    if False:'),
+    code(SCENARIOS, SCENARIOS, "require external references even for local reuse",
+         '    for source in decision.get("references", []):',
+         '    if not decision.get("references"):\n        failed.add("UI reference evidence")\n    for source in decision.get("references", []):'),
+    code(SCENARIOS, SCENARIOS, "force backend changes through UI decisions",
+         '    triggered = ui_change_triggered(case)', '    triggered = True'),
+    code(SCENARIOS, SCENARIOS, "accept verified claims from an unavailable source",
+         'source.get("verified") or source.get("original_documentation")', 'source.get("original_documentation")'),
+    code("specs/functional-design-modeling.md", SCENARIOS, "make UI decisions optional in the contract",
+         '| UI and interaction flow | Conditionally required |', '| UI and interaction flow | Optional |'),
     code(LINKS, LINKS_TEST, "stop stripping inline code spans",
      '        out.append((number, CODE_SPAN.sub("", line)))',
      '        out.append((number, line))'),

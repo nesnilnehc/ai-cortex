@@ -1,7 +1,7 @@
 ---
 name: review-functional-design
 description: "Review an existing functional design against its modeling Spec and canonical quality Rule before technical design begins. Evaluative atomic skill; outputs findings without rewriting."
-version: 1.0.2
+version: 1.1.0
 license: MIT
 output_schema:
   type: findings-list
@@ -30,7 +30,7 @@ This Skill reviews one functional-design artifact and its requirement references
 ## Behavior
 
 1. Load the active modeling Spec and quality Rule.
-2. Verify artifact identity, approved parent, required sections and conditional state/permission sections.
+2. Verify artifact identity, approved parent, required sections and all conditional sections, including UI and interaction flow, against the loaded Spec and Rule. A sufficient existing design needs no external reference. Use the [UI design decisions guide](../../docs/guides/ui-design-decisions.md) for reference evidence and handoff context.
 3. Check workflow closure, exception behavior, business boundaries and acceptance traceability without introducing technical implementation detail.
 4. Emit one finding per violation with category `functional-design-quality` and a precise section or flow/state location.
 5. Report zero findings as ready for technical design, without invoking it.
@@ -48,7 +48,7 @@ Input is one existing functional-design path or full content. Output follows [fi
 ## Self-Check
 
 - [ ] Both canonical assets were loaded.
-- [ ] Conditional state and permission sections were evaluated.
+- [ ] Conditional state, permission and UI sections were evaluated, including legitimate UI skip reasons.
 - [ ] Every finding is grounded and uses category `functional-design-quality`.
 - [ ] No technical-design criterion was introduced.
 
