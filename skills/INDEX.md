@@ -42,6 +42,7 @@ here alone is overwritten and does not reach the skill.
 - [plan-next](./plan-next/SKILL.md) — Analyze governance state and suggest next actions; ask whether a skipped recommendation lasts for the session or until revoked.
 - [policy-research](./policy-research/SKILL.md) — Research a jurisdiction's policy or compliance question with official sources, effective dates, applicability, and product implications.
   - type: `domain` · user-invocable: `true`
+- [prepare-presales-response](./prepare-presales-response/SKILL.md) — Prepare evidence-backed presales questionnaire answers and supporting materials, maintain reusable product knowledge, and separate customer-specific terms from product facts. Use for capability, operations, service and procurement inquiries before delivery.
 - [prepare-release](./prepare-release/SKILL.md) — Build and validate a Release Package from repository history, version policy, quality gates, and optional release artifacts; does not publish or announce.
 - [prioritize-backlog](./prioritize-backlog/SKILL.md) — Force a clean re-score of every backlog item with four frameworks (RICE, WSJF, MoSCoW, ICE) in parallel — ignores any existing priority, auto-detects multi-file or single-file backlog layouts, surfaces framework disagreements, and captures the user's final decision with rationale.
 - [product-opportunity-analysis](./product-opportunity-analysis/SKILL.md) — Coordinate relevant research lenses and deliver a traceable Opportunity Package for a product or feature decision.
