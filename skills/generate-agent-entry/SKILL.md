@@ -1,7 +1,7 @@
 ---
 name: generate-agent-entry
 description: Write or revise AGENTS.md with project identity, authoritative sources, behavioral expectations and verified loading entries for adopted workflows. Use when creating, auditing or revising a project's agent entry, including AI Cortex adoption.
-version: 1.2.0
+version: 1.3.0
 license: MIT
 ---
 
@@ -64,7 +64,7 @@ Write or revise **AGENTS.md** at the repository root according to the "Output Co
 1. **Read the contract first**: before acting, read this file's "Output Contract" section and treat it as the single source of truth; do not invent sections or drop recommended elements.
 2. **Gather verified inputs**: read the repository's README, existing agent instructions, asset registries and language policy for the one-line positioning, asset types and directories, usage path, and primary description language. Identify workflows already adopted by the project or requested by the user; installation alone does not establish adoption. Check whether a raw URL is available from the repository remote. Do not infer commands, paths or policies from names alone; ask only when a required fact cannot be established locally.
 3. **Generate section by section**: produce or revise AGENTS.md in the order of the contract's §3: opening → project identity → authoritative sources → behavioural expectations → discovery and loading (summary) → language and communication → reference table. For adopted workflows, add a short conditional loading entry under behaviour or discovery, referencing canonical requirements and skip conditions. For AI Cortex UI design, follow the [consumer loading guide](../../docs/guides/ui-design-decisions.md#consumer-project-loading); verify paths from the target project's asset root, replace placeholders and report missing sources as unresolved. Section titles can be adjusted, but keep the order: identity → authority → behaviour → operations summary → language → reference.
-4. **Actionable behaviour**: use "must", "should", "must not" (or equivalents) so that every expectation is actionable; each item can cite a spec or a document. Do not paste whole specs or documents into AGENTS.md; index and summarise only.
+4. **Actionable behaviour**: use "must", "should", "must not" (or equivalents) so that every expectation is actionable; each item can cite a spec or a document. Do not paste whole specs or documents into AGENTS.md; index and summarise only. Check current rules, guides and accepted decisions for important constraints a newcomer might reasonably mistake for a defect and undo. If one exists, add a brief explanation and a link to its defining source in the existing authority or behaviour section. Verify it remains in force, following a superseding source where necessary; do not turn an outdated decision into a current obligation. When none exists, add no empty section. This does not require creating an ADR or copying its rationale into the entry.
 5. **Complete reference table**: include the AGENTS.md format source, this entry's raw URL (where applicable), the project-specific entry contract (where one exists), usage and installation, and the entry index; use relative paths or resolvable URLs. Mark an unavailable project-specific source `N/A` with a reason instead of inventing it.
 6. **Verify item by item**: give each applicable requirement in the Output Contract's §3–§6 its own `PASS`, `FAIL` or `N/A` row with the exact AGENTS.md line or section that supports the verdict. Check substance as well as headings: project identity, authoritative links, actionable expectations, section order, language, and every reference-table row. Explain each `N/A`; do not mark a missing item as passed from an overall impression. Check local relative links against the filesystem and run available repository documentation checks. If a check cannot run, report which item remains unverified.
 7. **Check change impact and finish**: when editing, inspect the diff and search living repository documents for references to changed AGENTS.md section numbers or headings, including text that mentions `AGENTS.md` with `§` or a heading anchor; update stale references, leaving immutable records intact. Re-run the item-by-item check after repairs. For an audit-only request, return the evidence matrix and revision suggestions without editing. For authoring, commit only after every applicable item and check passes.
@@ -136,6 +136,7 @@ Write or revise **AGENTS.md** at the repository root according to the "Output Co
 - [ ] **Links and checks**: did I resolve local relative links and run relevant repository documentation checks, or report which check was unavailable?
 - [ ] **Cross-references after edits**: did I inspect the diff and repair stale references to changed AGENTS.md section numbers or headings in living documents?
 - [ ] **Workflow loading**: do entries match project adoption, use verified target-project paths and reference canonical trigger/skip conditions, with missing sources reported as unresolved?
+- [ ] **Easy-to-misread constraints**: applicable current constraints have a brief explanation and a defining-source link in an existing section; superseded decisions are not presented as current obligations, and no empty section or unnecessary ADR was created
 
 ### Acceptance Test
 
@@ -168,6 +169,10 @@ The project uses AI Cortex UI design decisions and existing components/tokens. I
 ### Example 4: backend project with an installed library
 
 A backend-only library has not adopted UI governance, although AI Cortex Skills are installed. Generate its applicable project entries without a UI workflow, external research requirement or additional tool configuration.
+
+### Example 5: a constraint that looks like a defect
+
+The current data guide requires persisting edits before synchronization to protect offline work. Put a short explanation and a link to that guide in the existing behaviour section so an agent does not replace it with network-first saving. If a cited decision is superseded, inspect its successor before describing the current constraint. A project with no such constraint gains neither a special section nor an ADR requirement.
 
 ---
 

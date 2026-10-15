@@ -1,7 +1,7 @@
 ---
 name: orchestrate-repair-loop
 description: Iteratively converge the sibling engineering and functional gates, apply targeted fixes, then re-review and re-verify until both pass or a stop condition is reached.
-version: 1.4.0
+version: 1.5.0
 license: MIT
 compatibility: Requires a shell and the repo's toolchains to run tests (language-dependent). May require git for diff-based review.
 ---
@@ -77,6 +77,8 @@ If `CLAUDE.md` or `.ai-cortex/config.yaml` exists, read `test_command` and the r
 
 Resolve the following from the request and repository evidence. Apply stated defaults where the choice is routine; ask only when a necessary decision remains ambiguous.
 
+When the input is a defect report or support ticket, inspect the supplied description, attachments, logs and reproduction steps together. Establish expected behavior from current project sources and compare it with observed behavior before selecting a fix. Treat the title as a lead, not a diagnosis. Record missing or conflicting evidence; if it prevents a justified repair, report what would resolve it rather than guessing. A report that matches intended behavior, concerns another system, or requests new behavior is handed back with its basis or routed to the project's existing intake process when needed.
+
 - **Target**: repository path (default `.`) and scope:
   - `diff` (default): focus on the current changes, preferring `review-diff`.
   - `codebase`: review the given set of paths, preferring `review-codebase` / the language skills through `orchestrate-code-review`.
@@ -123,6 +125,7 @@ For `i = 1..max_iterations`:
    - Capture:
      - The first failing command and its exit code
      - The most relevant error excerpt (do not dump large logs unless asked)
+   - For a repair affecting a UI, execute the project's declared acceptance checks for the affected path using the existing [UI acceptance guidance](../../docs/guides/ui-design-decisions.md#hand-off-to-implementation-and-acceptance). Report visual and interaction evidence separately; screenshots alone do not establish working interactions. Identify checks blocked by the environment and leave those acceptance items unverified. Follow the guidance's trigger/skip conditions: a small repair preserving the existing interaction and visual pattern does not require a new UI design record; a new interface or significant interaction, navigation or visual change still requires applicable design decisions even when reusing existing components. A backend-only repair adds no UI checks.
 
 3. **Synthesize the fix plan (smallest correct patch)**
    - Pick the **one** primary problem to address first:
@@ -134,6 +137,7 @@ For `i = 1..max_iterations`:
      - Adds or adjusts a test when fixing a bug (where feasible)
 
 4. **Apply the fix**
+   - For a reported defect, first reproduce it with a failing regression test and confirm the expected failure, then implement the smallest repair. If this is blocked by the environment or cannot be automated, state the limitation and retain the smallest runnable reproduction or acceptance check available; do not claim unexecuted verification.
    - Implement the patch.
    - Avoid unrelated formatting or churn.
    - If the fix requires a risky change (architecture migration, authentication change, broad refactor), pause and ask.
@@ -205,6 +209,7 @@ By default, do not write a standalone report file. If the user explicitly asks f
   - Final state:
     - Engineering gate: pass or remaining blocking findings
     - Functional gate: alignment state plus passing commands, or remaining failures
+    - For a defect report/ticket: its identifier or supplied reference, the root cause (or unresolved diagnosis), repair locations, evidence addressing the original reproduction, and any blocker; distinguish visual and interaction results when applicable
 
 ---
 
@@ -247,6 +252,8 @@ By default, do not write a standalone report file. If the user explicitly asks f
 - [ ] **A green test run is not convergence**: the complete engineering gate and applicable alignment review ran before completion
 - [ ] **Prefer the existing review skills**: try to invoke one before reviewing inline; when switching to inline, say so in the report
 - [ ] **Tests re-run after a fix**: once the fix is applied within an iteration, the failing test command (or a targeted subset) is always re-run
+- [ ] **Reported defect addressed**: when applicable, the original evidence informed the diagnosis and the report links the repair and verification back to the reproduction, or explains the unresolved diagnosis
+- [ ] **UI acceptance evidenced**: UI repairs have applicable visual and interaction results or explicit unverified checks, following the existing guidance
 - [ ] **Bounded loop**: the loop terminates on convergence or on an explicit stop condition - no unbounded retrying
 - [ ] **Structured final report**: the output includes a repair-loop report (appendix: output contract) covering the commands run, the failures, the patches, and the remaining risk
 
@@ -288,3 +295,7 @@ Agent:
    - Run only the `fast` unit tests locally, or
    - Allow Docker and provide a non-chat secrets workflow, or
    - Run only the failing CI job steps that do not need secrets.
+
+### Example 3: repair a defect reported with a screenshot
+
+A ticket says a save button does nothing. Compare its screenshot, steps and logs with the expected save behavior; do not infer the cause from the title. Reproduce the defect with a failing regression test, repair it, and rerun the affected gates. Exercise saving in the running UI and inspect its resulting state under the project's acceptance plan. Return the ticket reference, root cause, repair locations and test, visual and interaction evidence. If the app cannot run locally, record the blocked interaction check and do not claim the original user path is verified.
