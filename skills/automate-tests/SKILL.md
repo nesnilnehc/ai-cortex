@@ -1,7 +1,7 @@
 ---
 name: automate-tests
 description: Discover and execute repository test commands safely with evidence-based command selection and safety guardrails.
-version: 1.0.3
+version: 1.1.0
 license: MIT
 compatibility: Requires git (optional), a shell, and the repo's language toolchain(s) (e.g., node, python, go, dotnet, java).
 ---
@@ -87,6 +87,10 @@ Work out how the target repository expects automated tests to be run (commands, 
 4. **Execute with guardrails**
    - Always print the exact command you are about to run, before running it.
    - Use a working directory rooted at the target repository (default `.`).
+   - Read the execution log or framework report before deciding whether the selected scope passed; exit code zero alone is insufficient.
+   - Report passed, failed, and skipped case counts when the framework supplies them. For check scripts without case counts, retain output identifying the checks actually performed and their outcomes; do not invent counts or require a new report format.
+   - A selected test scope with zero executed cases or all cases skipped is not a pass. If the output does not establish what executed or whether it succeeded, report it as unverified and identify the missing evidence.
+   - Distinguish a build or environment failure from a test assertion failure; both prevent claiming the selected scope passed.
    - Capture and summarize failures:
      - The first failing command and its exit code
      - The most relevant error excerpt
@@ -110,6 +114,7 @@ Work out how the target repository expects automated tests to be run (commands, 
   - The selected commands (in order)
   - Assumptions and prerequisites
   - What was executed and what was skipped (and why)
+  - Execution evidence: available case counts or check outcomes, with the log/report location; explicitly identify zero execution, all-skipped, or unverified results
 - Enough of the command log to debug a failure (do not dump extremely long logs unless asked).
 
 ## Restrictions
@@ -154,6 +159,7 @@ Work out how the target repository expects automated tests to be run (commands, 
 - [ ] **Safety guardrails applied**: did I ask for confirmation before installing dependencies, using the network, starting Docker/services, or any state-changing action?
 - [ ] **Commands printed**: did I print the exact command before running it?
 - [ ] **Failures diagnosed**: when tests failed, did I give the first failing command, the exit code, and a likely root-cause category?
+- [ ] **Execution evidenced**: the result uses the log/report, including available counts or check outcomes; zero execution, all-skipped, and unverified results were not presented as a pass
 - [ ] **No destructive operations**: did I avoid running destructive commands (`rm -rf`, `git clean`, `docker system prune`, database drops) without explicit approval?
 - [ ] **No secret leakage**: did I avoid asking for sensitive credentials in the conversation, using a `.env` file or the documented local development flow instead?
 
@@ -204,3 +210,7 @@ Agent:
    - Service health/port conflicts
    - Missing environment variables
    - How the CI configuration differs from the local one
+
+### Example 3: successful command without a verified test pass
+
+`npm test` exits zero but reports twelve skipped tests and none executed. Report the scope as skipped, retain the output, and investigate the selection or prerequisites before claiming a pass. If the log is incomplete and execution cannot be established, report unverified instead. A repository check script that identifies three completed checks and their successful outcomes can supply execution evidence without test-case counts.

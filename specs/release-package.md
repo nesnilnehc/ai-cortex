@@ -2,7 +2,7 @@
 id: RELEASE_PACKAGE_SPEC_V1
 name: Release Package Schema
 description: Structural contract for release decisions, version domains, change evidence, artifacts, and stage results shared across release workflows.
-version: 1.2.1
+version: 1.2.2
 status: active
 lifecycle: living
 created_at: 2026-08-26
@@ -71,7 +71,9 @@ Every change carries at least a stable `id`, a `kind` (`feature` / `improvement`
 
 ### 5.5 Check entry
 
-Every check carries at least `name`, `status` (`passed` / `failed` / `skipped`), `evidence` and `required`. The package must not become `ready` while a required check has failed or lacks evidence. When `decision=none`, the status must be `not_required` and a publication result must not be created.
+Every check carries at least `name`, `status` (`passed` / `failed` / `skipped`), `evidence` and `required`. The package may become `ready` only when every required check has `status=passed` and evidence establishing that its declared scope executed successfully. A skipped required check blocks readiness even when its skip reason is recorded.
+
+For tests, a successful command exit alone does not establish execution; zero executed cases, all-skipped cases, or unverified execution cannot be recorded as `passed`. Evidence may use framework counts or output identifying completed checks and their outcomes; no additional report format is required. When execution cannot be verified and no failure is established, record the check as `skipped` with the missing evidence; retain `failed` when a build, environment or test failure is established. An unverified required check keeps the package at `draft`; an optional check does not block readiness, but its actual outcome and evidence gap remain visible. When `decision=none`, the status must be `not_required` and a publication result must not be created.
 
 ### 5.6 Publication entry
 
@@ -88,6 +90,7 @@ Every check carries at least `name`, `status` (`passed` / `failed` / `skipped`),
 - ❌ Bumping independent version domains such as API, build or prompt in lockstep just to keep the numbers aligned
 - ❌ Using `published` to mean a local tag was created and nothing more
 - ❌ Treating the optional `video` material as a release blocker by default
+- ❌ Marking a package `ready` with a skipped required check, or declaring tests passed from exit code zero without evidence that the selected scope executed successfully
 - ❌ Omitting the commit SHA or the git range, leaving the contents untraceable
 - ❌ Stuffing a channel's proprietary message block straight into the Release Package
 
@@ -120,7 +123,7 @@ artifacts:
   release_notes: {kind: release_notes, audience: customer, path: RELEASE_NOTES.md, required: true, status: present, source: change_items}
   video: {kind: video, audience: customer, path: null, required: false, status: skipped, source: change_items, producer: {skill: changelog-video, version: 1.0.1, origin: vendored-derived, source_registry: skills/SOURCES.yaml}}
 checks:
-  - {name: tests, status: passed, evidence: "pytest", required: true}
+  - {name: tests, status: passed, evidence: "artifacts/pytest.log: 24 passed, 0 failed, 0 skipped", required: true}
 ```
 
 ### 7.2 No new version warranted
