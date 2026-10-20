@@ -57,13 +57,36 @@ no new requirement or design document is required solely to fit this tree.
 
 Read approval/lifecycle and execution states separately according to project norms.
 `draft`, `approved` and tier placement do not prove completion. An execution summary
-must agree with source acceptance evidence; unknown evidence stays unknown. Apply
+must follow [roadmap-quality](../../../rules/roadmap-quality.md), with separate
+approval, execution and key conditions. Verify the declared closure criterion and
+source acceptance/release evidence before treating a row as finished; development
+complete, acceptance passed and production release are not interchangeable.
+For traversal only, Not started maps to pending, In progress to in-progress,
+Completed to done only after closure verification, and Blocked to blocked.
+Awaiting acceptance and Awaiting release remain unfinished: recommend the applicable
+existing acceptance/release action or report its waiting condition; do not infer done
+from finished tasks or route back to development solely because they are unfinished.
+Paused retains its resume condition and is not recommended for execution without
+an explicit resume decision. These are diagnostic mappings, not replacement roadmap
+labels or new authorization. Missing/conflicting execution evidence stays unknown;
+report a limitation rather than defaulting to pending or inferring completion.
+Apply
 this adapter before the legacy milestone-node traversal below. The legacy form is
-readable for existing projects; new roadmap rows are requirements or defects only.
+readable for existing projects; new requirement-view rows are requirements or defects.
+Load [roadmap modeling](../../../specs/roadmap-modeling.md) for selected views.
+Version groups reference entry IDs; phases reference entry/version scope; milestone
+events have their own IDs and relate to entries, versions or phases (or are global).
+Do not create duplicate governance-tree requirements for them. Event occurrence
+requires evidence, never child-status inference; do not demand design/tasks for an
+event itself. Legacy milestone directories are work-package containers. Check scope/time agreement across enabled
+views, and route version-scope/date problems to `update-roadmap`, structure problems
+to `define-roadmap`. Missing unselected views are not governance defects.
+Priority policy application and explicit reassessment are separate intents; stale
+assessment history may justify suggesting reassessment, never running it implicitly.
 
 #### Node status resolution
 
-The status of every artifact node (roadmap node / requirement / design / task) is resolved by these rules:
+For requirement-and-defect roadmap rows and their source completion, the adapter above takes precedence over the legacy rules below, including child inference. Other artifact nodes use their project contract; the following is the legacy fallback:
 
 1. **Explicit first**: read the `status:` field in the artifact file's frontmatter
    - Valid values: `pending` (default) | `in-progress` | `done` | `blocked`
@@ -210,14 +233,14 @@ Check for slowly accumulating governance debt and output a list of hygiene issue
 
 | Parameter | Default | Meaning |
 | --- | --- | --- |
-| `milestone_archive_age_days` | 60 | A milestone finished more than this many days ago is mature enough to archive |
-| `milestone_archive_lookback` | 2 | A gap of ≥ N between the current in-progress milestone index and the slug counts as archivable |
+| `milestone_archive_age_days` | 60 | A legacy work package finished more than this many days ago meets the age condition |
+| `milestone_archive_lookback` | 2 | A gap of ≥ N between the active legacy work-package index and target slug meets the index condition |
 
 **Checks**:
 
 | Check | Condition | Recommended skill |
 | --- | --- | --- |
-| A finished milestone is not archived | `milestones/{slug}/tasks.md` all done, and any one of the maturity conditions holds | `/archive-milestone {slug}` |
+| A finished legacy work package is not archived | `milestones/{slug}/tasks.md` all done, and any one of the maturity conditions holds | `/archive-milestone {slug}` |
 | ADR status loop violated | superseded / conflicting / no accepted conclusion | `/review-architecture` |
 | Repository structure drift | `_templates/` entries missing / file naming violations | detected by the runtime / CI per `rules/repo-structure-hygiene.md` |
 | Document health checks backed up | The health report has not been updated for > `doc_health_staleness_days` days | have the runtime / CI run one full `rules/doc-health-criteria.md` check |

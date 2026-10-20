@@ -1,7 +1,7 @@
 ---
 name: plan-next
 description: Analyze governance state and suggest next actions; ask whether a skipped recommendation lasts for the session or until revoked.
-version: 15.1.0
+version: 15.4.0
 license: MIT
 ---
 
@@ -167,3 +167,14 @@ Before reporting completion, run the [full self-check](references/self-check.md)
 ## Examples
 
 Consult [worked examples](references/examples.md) when a routing case is ambiguous.
+
+## Phase and milestone contract
+
+Read the [Roadmap Spec](../../specs/roadmap-modeling.md) when diagnosing roadmap nodes.
+A milestone is an event, so do not recursively require requirements, design and
+tasks for that event itself. Diagnose underlying work through its related source
+records. Route pending approval through the project's existing approval process;
+a planned milestone introduces no universal gate. Treat legacy milestone task
+directories as work packages and preserve their established archive route.
+
+Self-check: concepts, selected views and linked evidence agree with the source records.

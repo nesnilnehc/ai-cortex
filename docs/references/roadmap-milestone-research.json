@@ -1,0 +1,317 @@
+{
+  "schema_version": "1.0",
+  "report_id": "roadmap-milestone-research-2026-10-20",
+  "question": "How do professional primary sources distinguish roadmaps, releases, phases and milestones, and where does the current AI Cortex model differ?",
+  "scope": {
+    "geography": null,
+    "jurisdiction": null,
+    "period": "Inspected vendor guidance plus explicitly dated historical scheduling definition",
+    "as_of": "2026-10-20"
+  },
+  "subquestions": [
+    {
+      "id": "Q1",
+      "question": "What does milestone mean, independent of its rendering?"
+    },
+    {
+      "id": "Q2",
+      "question": "How do roadmaps and release plans select granularity and relate phases to milestones?"
+    },
+    {
+      "id": "Q3",
+      "question": "Which definitions have tool-specific exceptions?"
+    },
+    {
+      "id": "Q4",
+      "question": "Which local contract limitations matter for a follow-up design?"
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "S1",
+      "title": "Practice Standard for Scheduling, Second Edition",
+      "publisher": "PMI",
+      "source_type": "official-standard",
+      "uri": "https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/practice-standard-scheduling.pdf?rev=eed9ee4249bf49df8b40fc2c54bb8000&v=c7ca2721-8c26-4e07-ba47-069d0987bc0c",
+      "published_at": null,
+      "effective_at": null,
+      "accessed_at": "2026-10-20",
+      "provenance_family": "pmi",
+      "limitations": [
+        "Copyright 2011; latest edition and continuing applicability were not established."
+      ]
+    },
+    {
+      "source_id": "S2",
+      "title": "Agile roadmaps: Build, share, use, and evolve",
+      "publisher": "Atlassian",
+      "source_type": "official-product",
+      "uri": "https://www.atlassian.com/agile/product-management/roadmaps",
+      "published_at": null,
+      "effective_at": null,
+      "accessed_at": "2026-10-20",
+      "provenance_family": "atlassian",
+      "limitations": [
+        "Vendor guidance, not a mandatory industry standard; publication date unavailable."
+      ]
+    },
+    {
+      "source_id": "S3",
+      "title": "What are roadmap milestones?",
+      "publisher": "Aha!",
+      "source_type": "official-product",
+      "uri": "https://www.aha.io/roadmapping/guide/roadmap/roadmap-milestones",
+      "published_at": null,
+      "effective_at": null,
+      "accessed_at": "2026-10-20",
+      "provenance_family": "aha",
+      "limitations": [
+        "Vendor guidance; no adoption or effectiveness study inspected."
+      ]
+    },
+    {
+      "source_id": "S4",
+      "title": "Product Roadmaps: How To Create One Step-by-Step",
+      "publisher": "Aha!",
+      "source_type": "official-product",
+      "uri": "https://www.aha.io/roadmapping/guide/product-roadmap",
+      "published_at": null,
+      "effective_at": null,
+      "accessed_at": "2026-10-20",
+      "provenance_family": "aha",
+      "limitations": [
+        "Same provenance family as S3; not independent corroboration."
+      ]
+    },
+    {
+      "source_id": "S5",
+      "title": "Milestone (task field)",
+      "publisher": "Microsoft",
+      "source_type": "official-product",
+      "uri": "https://support.microsoft.com/en-us/project/milestone-task-field",
+      "published_at": null,
+      "effective_at": null,
+      "accessed_at": "2026-10-20",
+      "provenance_family": "microsoft",
+      "limitations": [
+        "Documents a software field; does not redefine the abstract scheduling concept."
+      ]
+    },
+    {
+      "source_id": "S6",
+      "title": "AI Cortex Roadmap Modeling Schema 1.0.0",
+      "publisher": "AI Cortex",
+      "source_type": "local-spec",
+      "uri": "../../specs/roadmap-modeling.md",
+      "published_at": null,
+      "effective_at": null,
+      "accessed_at": "2026-10-20",
+      "provenance_family": "ai-cortex",
+      "limitations": [
+        "Working-tree contract, not industry evidence.",
+        "Observed pre-migration working-tree version 1.0.0: refs were entry/version IDs and each ref occurred once. Later versions may differ."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F1",
+      "statement": "PMI defines a milestone as a significant point or event in a project.",
+      "classification": "Fact",
+      "scope": "PMI Second Edition, copyright 2011",
+      "as_of": "2026-10-20",
+      "confidence": "high",
+      "confidence_rationale": "Directly inspected source content; assertion limited to the named document and version.",
+      "evidence": [
+        {
+          "source_id": "S1",
+          "relationship": "supports",
+          "locator": "Glossary, Milestone, printed p.122 (PDF p.134)"
+        }
+      ],
+      "derived_from": [],
+      "gaps": []
+    },
+    {
+      "finding_id": "F2",
+      "statement": "PMI models schedule milestones with zero duration and distinguishes them from activities with duration.",
+      "classification": "Fact",
+      "scope": "PMI Second Edition scheduling model",
+      "as_of": "2026-10-20",
+      "confidence": "high",
+      "confidence_rationale": "Directly inspected source content; assertion limited to the named document and version.",
+      "evidence": [
+        {
+          "source_id": "S1",
+          "relationship": "supports",
+          "locator": "3.2.1.1 Define Milestones, printed p.27 (PDF p.39); Glossary Schedule Milestone (PDF p.143)"
+        }
+      ],
+      "derived_from": [],
+      "gaps": []
+    },
+    {
+      "finding_id": "F3",
+      "statement": "Aha documents milestone categories covering achievements, approvals, deadlines, events and key meetings, with different detail for different audiences.",
+      "classification": "Fact",
+      "scope": "Aha guide as inspected",
+      "as_of": "2026-10-20",
+      "confidence": "high",
+      "confidence_rationale": "Directly inspected source content; assertion limited to the named document and version.",
+      "evidence": [
+        {
+          "source_id": "S3",
+          "relationship": "supports",
+          "locator": "Types of roadmap milestones; How to identify roadmap milestones"
+        }
+      ],
+      "derived_from": [],
+      "gaps": []
+    },
+    {
+      "finding_id": "F4",
+      "statement": "Atlassian presents roadmaps as evolving product plans, recommends broader time horizons, and offers Now/Next/Later initiative mapping.",
+      "classification": "Fact",
+      "scope": "Atlassian Agile Coach guidance as inspected",
+      "as_of": "2026-10-20",
+      "confidence": "high",
+      "confidence_rationale": "Directly inspected source content; assertion limited to the named document and version.",
+      "evidence": [
+        {
+          "source_id": "S2",
+          "relationship": "supports",
+          "locator": "What is an agile product roadmap?; Building the roadmap"
+        }
+      ],
+      "derived_from": [],
+      "gaps": []
+    },
+    {
+      "finding_id": "F5",
+      "statement": "Aha distinguishes strategy, feature and release roadmaps; release plans group features, and release roadmaps may show phases and milestones.",
+      "classification": "Fact",
+      "scope": "Aha product-roadmap guide as inspected",
+      "as_of": "2026-10-20",
+      "confidence": "high",
+      "confidence_rationale": "Directly inspected source content; assertion limited to the named document and version.",
+      "evidence": [
+        {
+          "source_id": "S4",
+          "relationship": "supports",
+          "locator": "Types of product roadmaps; Product release roadmap template; Components of a product roadmap"
+        }
+      ],
+      "derived_from": [],
+      "gaps": []
+    },
+    {
+      "finding_id": "F6",
+      "statement": "Microsoft Project automatically marks zero-duration tasks as milestones but allows a one-day review meeting to be manually marked as a milestone.",
+      "classification": "Fact",
+      "scope": "Microsoft Project versions named on the inspected support page",
+      "as_of": "2026-10-20",
+      "confidence": "high",
+      "confidence_rationale": "Directly inspected source content; assertion limited to the named document and version.",
+      "evidence": [
+        {
+          "source_id": "S5",
+          "relationship": "supports",
+          "locator": "How Calculated; Best Uses; Example"
+        }
+      ],
+      "derived_from": [],
+      "gaps": []
+    },
+    {
+      "finding_id": "F7",
+      "statement": "The current local generator contract restricts milestone refs to entry/version IDs and permits each ref only once, so it does not represent a distinct event alongside the same record span.",
+      "classification": "Fact",
+      "scope": "AI Cortex working-tree Spec 1.0.0",
+      "as_of": "2026-10-20",
+      "confidence": "high",
+      "confidence_rationale": "Directly inspected source content; assertion limited to the named document and version.",
+      "evidence": [
+        {
+          "source_id": "S6",
+          "relationship": "supports",
+          "locator": "5.3 Optional local generator interface, schedule item ref/kind and unique-ref paragraphs"
+        }
+      ],
+      "derived_from": [],
+      "gaps": []
+    },
+    {
+      "finding_id": "F8",
+      "statement": "The inspected sources do not justify one mandatory roadmap hierarchy or requirement-only presentation for every project; audience and planning depth matter.",
+      "classification": "Inference",
+      "scope": "Interpretation for possible AI Cortex design work",
+      "as_of": "2026-10-20",
+      "confidence": "medium",
+      "confidence_rationale": "Synthesis of inspected definitions and local contract; this is an interpretation, not a mandatory industry policy or adoption decision.",
+      "evidence": [],
+      "derived_from": [
+        "F4",
+        "F5"
+      ],
+      "gaps": []
+    },
+    {
+      "finding_id": "F9",
+      "statement": "Separating milestone meaning, timeline rendering, release grouping and archival container semantics would address the local ambiguity without equating all four concepts.",
+      "classification": "Inference",
+      "scope": "Interpretation for possible AI Cortex design work",
+      "as_of": "2026-10-20",
+      "confidence": "medium",
+      "confidence_rationale": "Synthesis of inspected definitions and local contract; this is an interpretation, not a mandatory industry policy or adoption decision.",
+      "evidence": [],
+      "derived_from": [
+        "F1",
+        "F2",
+        "F3",
+        "F5",
+        "F7"
+      ],
+      "gaps": []
+    },
+    {
+      "finding_id": "F10",
+      "statement": "The appropriate milestone object fields and legacy archive migration policy for AI Cortex remain undecided.",
+      "classification": "Unknown",
+      "scope": "AI Cortex implementation",
+      "as_of": "2026-10-20",
+      "confidence": "low",
+      "confidence_rationale": "External documentation cannot decide the project-specific compatibility trade-off.",
+      "evidence": [],
+      "derived_from": [],
+      "gaps": [
+        "Project-specific design and legacy-consumer inspection are required."
+      ]
+    }
+  ],
+  "conflicts": [
+    {
+      "conflict_id": "C1",
+      "finding_ids": [
+        "F2",
+        "F6"
+      ],
+      "dimension": "Abstract schedule model versus tool-field compatibility",
+      "impact": "The zero-duration convention must not be described as a restriction enforced by all professional software; the scopes explain the apparent discrepancy."
+    }
+  ],
+  "gaps": [
+    {
+      "gap_id": "G1",
+      "question": "What does the latest PMI edition require?",
+      "reason": "Only the official 2011 second-edition PDF was inspected.",
+      "validation_step": "Verify a current authorized edition if formal current-standard conformance becomes a requirement."
+    },
+    {
+      "gap_id": "G2",
+      "question": "Which milestone schema and legacy archive compatibility should AI Cortex adopt?",
+      "reason": "Requires project design and consumer analysis, not a vendor-derived automatic policy.",
+      "validation_step": "Inspect milestone-directory consumers and design explicit event identity, relationships and evidence before implementation."
+    }
+  ],
+  "summary": "Primary sources distinguish significant events from duration-bearing work and allow several roadmap views. Aha guidance includes non-completion events; Microsoft exposes a duration-bearing milestone flag. Local milestone identity and archive semantics need a separate design decision. No normative repository assets were changed by this research."
+}

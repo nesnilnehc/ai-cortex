@@ -135,6 +135,12 @@ jobs:
         # 15 consumers and silently missed 12.
         run: python3 scripts/check-findings-contract.py
 
+      - name: offline roadmap renderer
+        run: python3 scripts/test-roadmap-renderer.py
+
+      - name: roadmap example deliverables
+        run: python3 scripts/test-roadmap-examples.py
+
       - name: findings contract checker
         run: python3 scripts/test-check-findings-contract.py
 

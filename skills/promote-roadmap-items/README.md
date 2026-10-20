@@ -43,3 +43,7 @@ See [SKILL.md](./SKILL.md).
 
 Roadmap rows contain requirements and defects only. Task-only changes stay in source
 task lists unless they change the parent outcome, status or key blocker.
+
+## Finished example
+
+[Filled placement decisions](../define-roadmap/references/service-desk/placement-decisions.md).

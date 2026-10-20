@@ -1,7 +1,7 @@
 ---
 name: orchestrate-roadmap-planning
 description: Orchestrator skill — run one roadmap planning pass by sequencing atomic skills from strategic goals through capture, scoring, dependency mapping, and promotion, satisfying each skill's halt conditions up front.
-version: 2.1.0
+version: 2.3.1
 license: MIT
 ---
 
@@ -36,13 +36,13 @@ Every step carries a tier — a **mandatory** step runs when its condition is hi
 | --- | --- | --- | --- | --- |
 | 0 | Health check | `review-roadmap` | mandatory | Always runs. Read-only, no side effects; its findings are the input to every condition below |
 | 1 | Upstream | `design-strategic-goals` | mandatory | `strategic-goals.md` does not exist |
-| 2 | Structure | `define-roadmap` | mandatory | No roadmap.md / invalid requirement/defect entry structure / strategic goals out of step with the roadmap |
+| 2 | Structure | `define-roadmap` | mandatory | No roadmap.md / invalid requirement, phase or milestone structure / strategic goals out of step with the roadmap |
 | 3 | Intake | `capture-work-items` | default | Unregistered raw input exists |
-| 4 | Scoring | `prioritize-backlog` | mandatory when all are unset; default when only some are | Items with `priority: unset` exist |
+| 4 | Priority decisions | `prioritize-backlog` | mandatory when all are unset or reassessment is explicitly requested; default when only some are | Items with `priority: unset` exist or explicit full reassessment is requested; use policy application or offered framework assessment, never implicit full reassessment |
 | 5 | Dependencies | `map-item-dependencies` | default | Promotion candidates ≥ 2 |
 | 6 | Promotion | `promote-roadmap-items` | mandatory | Always runs; with no candidates it still emits the priority-ordered tier report |
-| 7 | Maintenance | `update-roadmap` | recommended | The user has an explicit status change / date shift in mind |
-| 8 | Archiving | `archive-milestone` | recommended | A completed milestone that has matured enough exists |
+| 7 | Maintenance | `update-roadmap` | recommended | The user has an explicit status, date or existing-version scope change in mind |
+| 8 | Archiving | `archive-milestone` | recommended | A legacy work package meets its maturity conditions, or a phase/version/period snapshot is eligible under project archive policy or explicit target selection |
 
 A step whose condition does not match is skipped; the final report names which steps were skipped and why.
 
@@ -66,22 +66,37 @@ Run `review-roadmap` for its findings and map them mechanically to a mode with t
 | mode | findings signature | Effect |
 | --- | --- | --- |
 | `bootstrap` | roadmap.md or strategic-goals.md missing | Steps 1 and 2 will run |
-| `refresh` | Invalid requirement/defect entry structure / strategic goals out of step with the roadmap | Step 2 will run; step 6 re-evaluates tier placement by priority and readiness |
-| `intake` | Scored items not yet promoted | Main path 3→4→5→6 |
-| `maintain` | No unpromoted scored items, but at-risk / blocked / overdue items exist | Step 7 rises from recommended to a default prompt |
-| `healthy` | None of the findings above | Emit the health-check report and end normally; no write operation runs |
+| `refresh` | Invalid requirement/defect entry structure, phase scope/exit condition or milestone identity/relations/criterion / strategic goals out of step with the roadmap | Step 2 will run; step 6 re-evaluates tier placement by priority and readiness |
+| `intake` | Priority-set items not yet promoted or explicit priority reassessment intent | Main path 3→4→5→6 |
+| `maintain` | No unpromoted priority-set items, but at-risk / blocked / overdue items, phase/event timing conflicts, unsupported event states or explicit maintenance intent exist | Step 7 rises from recommended to a default prompt |
+| `healthy` | No unresolved roadmap findings and no explicit reassessment or maintenance intent | Emit the health-check report and end normally; no write operation runs |
 
 `review-roadmap` does not emit a mode itself — it emits findings only, and the mapping happens at this layer.
 
 A concise roadmap is not incomplete merely because it omits stage hypotheses or
 metric tables. Only requirements and defects enter promotion; task-level input resolves
 to its parent. Keep aggregated evidence in the report, not in roadmap rows.
+Version groups and schedule milestones are valid selected views, not invalid
+requirement rows. Route scope/date changes to maintenance and view-structure changes
+to definition. Preserve selected views and destination; an unchanged destination
+does not need repeated confirmation. An explicit full-reassessment request routes
+to `prioritize-backlog` even when no priorities are unset; pass that intent through.
+
+Unresolved phase/event findings cannot fall through to `healthy`. Structural
+findings choose `refresh`; existing timing/state/evidence discrepancies choose
+`maintain`. Missing occurrence evidence blocks claiming an event reached; maintenance
+must obtain evidence or retain/report the unresolved state, never invent a receipt.
+If review reports another finding not mapped above, report it as unresolved and
+stop for diagnosis rather than declare the roadmap healthy.
 
 ### Step 2: chain the calls
 
 Call in the order of the table above, collecting each step's output. Before a call, go through that step's preconditions and fill what can be filled, to avoid a downstream halt and a backtrack.
 
-**`milestone_slug` for step 8**: `archive-milestone` takes structured input in which `milestone_slug` is required, and this layer must supply it. The value comes from scanning the directories under `docs/process-management/milestones/` other than `_archive/` and comparing them with the completed stages in roadmap.md. With several candidates, prompt for them one at a time, never in bulk; when it cannot be determined, skip the step and say so in the report — **do not guess the slug**.
+**Archive target for step 8**: for legacy directory-backed work packages resolve `milestone_slug`
+from project records, never guess it. For a phase/version/period snapshot pass the selected
+phase/version/period identity and its existing source references. With several candidates,
+obtain the user's selection; unavailable identity means skip and report the limitation.
 
 ### Step 3: halt-on-failure
 
@@ -151,7 +166,7 @@ In one line: `plan-next` answers "what the whole project does next", this skill 
 - [ ] The execution order is fixed, with step 5 ahead of step 6
 - [ ] Skipped steps carry their reason in the report
 - [ ] Failure semantics follow the tier; when a default step fails, the report states whether the downstream guardrail is void
-- [ ] `milestone_slug` for step 8 has a definite source and was not guessed
+- [ ] The archive target for step 8 has a definite source and was not guessed
 - [ ] The report carries priority order and unresolved findings
 
 ---
@@ -180,3 +195,14 @@ In one line: `plan-next` answers "what the whole project does next", this skill 
 - **Handling**: step 5 sits at the **default** tier, so the orchestration is not terminated; record the failure and carry on
 - **Step 6 downgraded**: promote's Now-tier dependency guardrail cannot take effect without `depends_on` data, so the step drops from mandatory to recommended, and the user is told plainly before it runs: "the dependency guardrail is void this round; items promoted to Now have not been dependency-checked"
 - **Aggregated report**: lists outright "step 5 failed: dependency cycle `#12 → #19 → #25 → #12`; step 6's dependency guardrail did not take effect", with the suggestion to break the cycle before re-running
+
+## Phase and milestone contract
+
+Apply the [Roadmap Spec](../../specs/roadmap-modeling.md) across component outputs.
+Creation of phase/event objects belongs to define-roadmap; existing dates and
+source-backed event states belong to update-roadmap; structural/evidence findings
+belong to review-roadmap. Scoring and promotion operate on requirements/defects.
+Archive completed work packages or snapshots without deleting event evidence;
+legacy milestone directories do not define a mandatory roadmap hierarchy.
+
+Self-check: concepts, selected views and linked evidence agree with the source records.

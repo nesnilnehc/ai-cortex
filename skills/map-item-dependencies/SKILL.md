@@ -1,7 +1,7 @@
 ---
 name: map-item-dependencies
 description: Identify dependencies among backlog and roadmap items across five categories, record them in each item's depends_on field, and produce a dependency graph with need-by dates and reduction options. Runs before promotion so blocked items are not pulled into Now.
-version: 1.0.2
+version: 1.1.0
 license: MIT
 ---
 
@@ -209,3 +209,8 @@ With no dependency, write `depends_on: —`, never blank — a blank cannot sepa
 4. Suggest the user flesh out the item description and re-run, or confirm manually at promotion time.
 
 **Result**: nothing is fabricated where there is no evidence, and "this could not be checked" is stated to the user outright rather than silently recorded as no dependency.
+
+## Filled deliverable example
+
+[Filled dependency register, graph and blocked list](../define-roadmap/references/service-desk/dependencies.md). This is a fictional completed output, not a template
+or authorization to change the adopting project.

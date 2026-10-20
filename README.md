@@ -10,7 +10,7 @@ When an agent works inside this repository, [AGENTS.md](AGENTS.md) is authoritat
 
 ## 🧭 What's inside
 
-**70 skills** ([index](skills/INDEX.md)), **33 rules** ([index](rules/INDEX.md)), **20 specs** ([index](specs/INDEX.md)) and **1 protocol** ([index](protocols/INDEX.md)).
+**70 skills** ([index](skills/INDEX.md)), **33 rules** ([index](rules/INDEX.md)), **21 specs** ([index](specs/INDEX.md)) and **1 protocol** ([index](protocols/INDEX.md)).
 
 | Area | Count | Representative skills |
 | :--- | ---: | :--- |
@@ -21,7 +21,7 @@ When an agent works inside this repository, [AGENTS.md](AGENTS.md) is authoritat
 | **Integration & ops** | 4 | NATS cross-team messaging, macOS Keychain credential management, agent test scaffolding |
 | **Research & opportunity** | 6 | Open, policy, market and competitive research; internal opportunity assessment; product opportunity package |
 
-Skills are callable from Claude Code, Cursor, Codex and 20+ other agents. For a worked end-to-end flow, see the [roadmap planning guide](docs/guides/roadmap-planning-usage.md); to find an entry point by collaboration stage, see the [stage-to-skill table](docs/guides/proactive-suggestions.md).
+Skills are callable from Claude Code, Cursor, Codex and 20+ other agents. For roadmap capabilities, presentation forms and a worked flow, see the [roadmap planning guide](docs/guides/roadmap-planning-usage.md); to find an entry point by collaboration stage, see the [stage-to-skill table](docs/guides/proactive-suggestions.md).
 
 For open research, focused policy/market/competitive studies and product opportunity decisions, see the [research Skills usage guide](docs/guides/research-skills-usage.md).
 

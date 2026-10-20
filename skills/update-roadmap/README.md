@@ -4,7 +4,11 @@ The day-to-day maintenance entry point once a roadmap is in place: change status
 
 ## Purpose
 
-`define-roadmap` builds a roadmap from nothing and `promote-roadmap-items` handles promotion and demotion across tiers; between the two sits a large body of day-to-day movement — an item has started, an item is stuck, an item slips by two weeks — and this skill owns that part. Moving an item to "at risk" or "blocked" writes nothing unless both the blocking reason and the mitigation are given; a date shift must compute the downstream impact and flag the items that cross a hard deadline.
+`define-roadmap` builds a roadmap from nothing and `promote-roadmap-items` handles promotion and demotion across tiers; between the two sits a large body of day-to-day movement — an item has started, an item is stuck, an item slips by two weeks — and this skill owns that part. Escalating a source risk or moving an item to "Blocked" writes nothing unless both the blocking reason and the mitigation are given; a date shift must compute the downstream impact and flag the items that cross a hard deadline.
+
+Execution labels, separate approval and key conditions, and source-backed closure
+follow [roadmap-quality](../../rules/roadmap-quality.md). Risk is a source annotation,
+not an execution label; development completion does not establish acceptance or release.
 
 ## When to use
 
@@ -16,7 +20,7 @@ The day-to-day maintenance entry point once a roadmap is in place: change status
 ## Inputs
 
 - `docs/process-management/roadmap.md` and the frontmatter of the items involved
-- The intended change (status change / date shift)
+- The intended change (status change / date shift / existing-version scope change)
 - Optional: the blocking details
 
 ## Outputs
@@ -44,5 +48,13 @@ Handled centrally by the canonical AI Cortex install; see the repository root [R
 
 See [SKILL.md](./SKILL.md).
 
-Roadmap rows contain requirements and defects only. Task-only changes stay in source
+Requirement-view rows contain requirements and defects only. Version groups and
+schedule milestones reference them. Existing-version membership changes preserve
+tier and refresh all selected views; new versions go to `define-roadmap`. Task-only changes stay in source
 task lists unless they change the parent outcome, status or key blocker.
+
+## Finished example
+
+[Filled change record and adjusted views](../define-roadmap/references/service-desk/change-record.md).
+
+Phase spans and milestone events follow the [Roadmap Spec](../../specs/roadmap-modeling.md); legacy formats remain compatible.

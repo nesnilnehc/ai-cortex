@@ -6,6 +6,7 @@
 
 - [ ] Project governance sources were discovered in precedence order; unresolved conventions are reported rather than replaced with assumed directories
 - [ ] The 2 asset fields are present (path + status)
+- [ ] Roadmap approval and execution were distinguished; waiting and paused items stayed unfinished, and closure was verified from sources rather than child task counts.
 - [ ] Whether the roadmap is tiered has been decided; where it is not, `promote-roadmap-items` has been routed
 - [ ] The project-declared artifact conventions and evidence source for each path mapping were identified; no conventional directory was assumed mandatory
 
@@ -64,3 +65,7 @@
 - [ ] No session skip was written to disk; no persistent skip was treated as completion
 
 ---
+
+- [ ] Selected version/schedule views were checked without creating duplicate requirements; unselected views were not treated as missing.
+
+- [ ] Independent phase/event records are not treated as requirement nodes; event occurrence is evidence-backed and legacy archive thresholds stay local to work packages.

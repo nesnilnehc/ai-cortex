@@ -1,0 +1,247 @@
+{
+  "schema_version": "1.1",
+  "project": "Service Desk",
+  "updated": "2026-10-20",
+  "direction": "Make request handling dependable, then reduce repeated work.",
+  "ordering": "Fix duplicate submission before search; export depends on accepted search. Reminders wait for demand.",
+  "closure": "Acceptance passed and accepted change released to production; see ../sources.md#project-policy.",
+  "priority_policy": "Customer data-integrity blockers P0; confirmed capability needs P1; unvalidated convenience P2. See ../sources.md#project-policy.",
+  "views": [
+    "requirements",
+    "versions",
+    "schedule"
+  ],
+  "entries": [
+    {
+      "id": "BUG1",
+      "name": "Duplicate submission",
+      "source": "../sources.md#bug1",
+      "outcome": "Refresh and retry create one external request",
+      "priority": "P0",
+      "tier": "Now",
+      "approval": "Approved",
+      "execution": "Completed",
+      "conditions": "Closure verified: acceptance and V1 release"
+    },
+    {
+      "id": "R1",
+      "name": "Search",
+      "source": "../sources.md#r1",
+      "outcome": "Find a request by reference",
+      "priority": "P1",
+      "tier": "Next",
+      "approval": "Approved",
+      "execution": "Completed",
+      "conditions": "Closure verified: acceptance and V2 release"
+    },
+    {
+      "id": "R2",
+      "name": "Export",
+      "source": "../sources.md#r2",
+      "outcome": "Export authorized search results",
+      "priority": "P1",
+      "tier": "Next",
+      "approval": "Approved",
+      "execution": "Not started",
+      "conditions": "Wait for accepted search contract"
+    },
+    {
+      "id": "R3",
+      "name": "Reminders",
+      "source": "../sources.md#r3",
+      "outcome": "Remember requests needing follow-up",
+      "priority": "P2",
+      "tier": "Later",
+      "approval": "Draft",
+      "execution": "Not started",
+      "conditions": "Re-evaluate after three users demonstrate missed follow-ups"
+    }
+  ],
+  "versions": [
+    {
+      "id": "V1",
+      "name": "Dependable submission",
+      "members": [
+        "BUG1"
+      ],
+      "outcome": "Refresh and retry create one external request",
+      "owner": "Delivery owner",
+      "window": "W1\u2013W3 (actual)"
+    },
+    {
+      "id": "V2",
+      "name": "Search delivery",
+      "members": [
+        "R1"
+      ],
+      "outcome": "Find a request by reference",
+      "owner": "Delivery owner",
+      "window": "W4\u2013W5 (actual)"
+    },
+    {
+      "id": "V3",
+      "name": "Export delivery",
+      "members": [
+        "R2"
+      ],
+      "outcome": "Export authorized search results",
+      "owner": "Delivery owner",
+      "window": "W6\u2013W7 (committed)"
+    }
+  ],
+  "schedule": {
+    "mode": "weeks",
+    "origin": "W1 begins at project start; calendar start unknown. End-of-W5 observation.",
+    "calendar": "calendar-days",
+    "items": [
+      {
+        "ref": "V1",
+        "kind": "span",
+        "basis": "actual",
+        "start": 1,
+        "end": 4,
+        "depends_on": []
+      },
+      {
+        "ref": "V2",
+        "kind": "span",
+        "basis": "actual",
+        "start": 4,
+        "end": 6,
+        "depends_on": [
+          "V1"
+        ]
+      },
+      {
+        "ref": "V3",
+        "kind": "span",
+        "basis": "committed",
+        "start": 6,
+        "end": 8,
+        "depends_on": [
+          "V2"
+        ]
+      },
+      {
+        "ref": "R3",
+        "kind": "span",
+        "basis": "target",
+        "start": null,
+        "end": null,
+        "depends_on": []
+      },
+      {
+        "ref": "PSEARCH",
+        "kind": "span",
+        "basis": "actual",
+        "start": 4,
+        "end": 6,
+        "depends_on": [
+          "M1"
+        ]
+      },
+      {
+        "ref": "M0",
+        "kind": "milestone",
+        "basis": "actual",
+        "start": 1,
+        "end": 1,
+        "depends_on": []
+      },
+      {
+        "ref": "M1",
+        "kind": "milestone",
+        "basis": "actual",
+        "start": 4,
+        "end": 4,
+        "depends_on": []
+      },
+      {
+        "ref": "M2",
+        "kind": "milestone",
+        "basis": "actual",
+        "start": 6,
+        "end": 6,
+        "depends_on": [
+          "PSEARCH"
+        ]
+      },
+      {
+        "ref": "M3",
+        "kind": "milestone",
+        "basis": "actual",
+        "start": 6,
+        "end": 6,
+        "depends_on": [
+          "M2"
+        ]
+      }
+    ]
+  },
+  "phases": [
+    {
+      "id": "PSEARCH",
+      "name": "Search delivery phase",
+      "source": "../sources.md#psearch",
+      "owner": "Search owner",
+      "scope": [
+        "R1"
+      ],
+      "exit_condition": "Search accepted and released"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "M0",
+      "name": "Project kickoff",
+      "source": "../sources.md#m0",
+      "owner": "Product owner",
+      "related": [],
+      "category": "start",
+      "criterion": "Product owner starts the project",
+      "state": "reached",
+      "evidence": "../sources.md#m0"
+    },
+    {
+      "id": "M1",
+      "name": "Repair acceptance",
+      "source": "../sources.md#m1",
+      "owner": "Reviewer",
+      "related": [
+        "BUG1"
+      ],
+      "category": "approval",
+      "criterion": "Reviewer approves BUG1 acceptance",
+      "state": "reached",
+      "evidence": "../sources.md#m1"
+    },
+    {
+      "id": "M2",
+      "name": "Search acceptance",
+      "source": "../sources.md#m2",
+      "owner": "Reviewer",
+      "related": [
+        "R1",
+        "PSEARCH"
+      ],
+      "category": "approval",
+      "criterion": "Reviewer approves R1 acceptance",
+      "state": "reached",
+      "evidence": "../sources.md#m2"
+    },
+    {
+      "id": "M3",
+      "name": "Search production release",
+      "source": "../sources.md#m3",
+      "owner": "Release owner",
+      "related": [
+        "R1",
+        "V2"
+      ],
+      "category": "achievement",
+      "criterion": "Production deployment evidence for R1 recorded",
+      "state": "reached",
+      "evidence": "../sources.md#m3"
+    }
+  ]
+}

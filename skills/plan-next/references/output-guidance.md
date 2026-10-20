@@ -278,7 +278,7 @@ Goal 1:
 - ❌ Mixing several gap types into one route
 - ❌ Assigning priority by the number of gaps
 - ❌ Skipping a level in the tree-traversal report (reporting an L3 route while L2 is missing) — it violates "first gap first"
-- ❌ Judging "finished" from git signals — completion at L2-L5 is judged by the `status` field; **L1 completion must additionally pass the acceptance-KPI check**
+- ❌ Judging "finished" from git signals — requirement-and-defect roadmap completion follows the source closure criterion under the diagnosis adapter; other L2-L5 nodes follow their project status contract; **L1 completion must additionally pass the acceptance-KPI check**
 - ❌ Ignoring an explicit `status:` field and relying only on inference from children — explicit wins
 - ❌ **Treating `status = approved` as the criterion for L1 done** — approved = the decision was approved ≠ acceptance met; confusing them skips the whole L1 subtree
 - ❌ **Bypassing L1 and reporting a middle layer (M5/tasks) directly** — answer "is the L1 acceptance KPI met" first, then drill down

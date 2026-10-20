@@ -1,7 +1,7 @@
 ---
 name: capture-work-items
 description: Capture requirements, bugs, or issues from free-form input into structured, persistent artifacts. Use when user wants to record a work item quickly without deep validation.
-version: 2.1.1
+version: 2.2.0
 license: MIT
 ---
 
@@ -23,7 +23,7 @@ Capture a requirement, bug, or issue from free-form input and turn it into a str
 2. ✅ **Required fields complete**: every required field for that type is filled in from the user's input or grounded project evidence; ask when a field cannot be established
 3. ✅ **Status set**: the front-matter starts at `status: captured`
 4. ✅ **strategic_goal_id tagged**: `strategic_goal_id` is required on every work item and maps to one of the goals in the project's strategic-goals. Promotion preserves goal traceability while comparing items across goals in priority order
-5. ✅ **priority marked unset**: a new work item's frontmatter carries `priority: unset`, waiting for `prioritize-backlog` to score the batch
+5. ✅ **priority marked unset**: a new work item's frontmatter carries `priority: unset`, waiting for `prioritize-backlog` to apply project policy or assess priorities
 6. ✅ **Path detected**: the output path is chosen from the project's documentation structure (see Path Detection)
 7. ✅ **Artifact persisted**: the work item is written to the chosen path
 8. ✅ **Priority scoring suggested after a bulk capture**: at the end of a bulk capture, count the unscored backlog entries and suggest running `prioritize-backlog` (**never automatically**)
@@ -134,8 +134,8 @@ At the end of a capture (single or bulk), run the following **suggest action**:
 
 1. Scan the backlog directory and count the entries at `priority: unset`
 2. If that count is ≥ the threshold (default ≥ 3), or this bulk capture held ≥ 2 items, emit the suggestion:
-   > "The backlog currently holds N entries with no priority set. Running `prioritize-backlog` for a batch scoring before the next planning session is recommended. This skill does not invoke it automatically — the timing is the user's call (batch scoring comes out better when there is a comparison group)."
-3. **Never invoke** `prioritize-backlog` automatically (rationale in ADR 2, decision 3.7.1: the two skills run on different rhythms, and forcing them into a chain wrecks the scoring quality)
+   > "The backlog currently holds N entries with no priority set. Running `prioritize-backlog` to settle them under project policy or assessment is recommended. This skill does not invoke it automatically — the timing is the user's call (full reassessment is a separate explicit request)."
+3. **Never invoke** `prioritize-backlog` automatically (capture records the need; priority decisions run on their own planning rhythm)
 
 ---
 
@@ -244,7 +244,7 @@ This skill only sets "status: captured". Downstream processes (milestones, promo
 
 - **Do not skip a required field**: where a required field cannot be grounded, ask the user. Do not leave it blank.
 - **Do not skip strategic_goal_id**: when `strategic-goals.md` does not exist, halt and suggest running `design-strategic-goals` first; it must not be left blank or invented.
-- **Do not invoke prioritize-backlog automatically**: at the end of a capture, only suggest it and let the user decide when to score the batch (the rhythms differ, and scoring one item at a time distorts the result).
+- **Do not invoke prioritize-backlog automatically**: at the end of a capture, only suggest it and let the user decide when to score the batch (policy application can handle a single item; framework assessment benefits from comparison).
 - **No diagnostic flow**: Do not run diagnostic states (RA0–RA5). Where the input is very vague, the suggestion is to capture first, then go deeper on clarification once the intent is confirmed.
 - **Resolve the path before writing**: avoid overwriting unrelated content; ask when the target remains unclear.
 - **Paths follow the project structure**: use the path detection rules; do not hard-code a single path.

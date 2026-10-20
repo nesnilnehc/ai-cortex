@@ -5,7 +5,7 @@ Generated from each skill's own `SKILL.md` frontmatter by
 here alone is overwritten and does not reach the skill.
 
 - [announce-release](./announce-release/SKILL.md) — Create and optionally deliver grounded release announcements from a published Release Package across available channels; never owns changelog generation.
-- [archive-milestone](./archive-milestone/SKILL.md) — Archive a completed milestone by generating a snapshot summary, folding the roadmap stage, and removing the stale tasks directory.
+- [archive-milestone](./archive-milestone/SKILL.md) — Archive completed roadmap work packages or phase/version/period snapshots while preserving milestone event evidence and unfinished work.
 - [assess-product-opportunity](./assess-product-opportunity/SKILL.md) — Assess a product opportunity from existing research reports and user signals, producing a restrained, traceable decision layer.
   - type: `domain` · user-invocable: `false`
 - [automate-tests](./automate-tests/SKILL.md) — Discover and execute repository test commands safely with evidence-based command selection and safety guardrails.
@@ -21,7 +21,7 @@ here alone is overwritten and does not reach the skill.
 - [define-docs-norms](./define-docs-norms/SKILL.md) — Create or update docs/ARTIFACT_NORMS.md from an approved proposal and establish project docs norms as canonical rules.
 - [define-mission](./define-mission/SKILL.md) — Define the fundamental purpose of a project or organization. Answers why the project exists; produces a single mission statement persisted to docs.
 - [define-north-star](./define-north-star/SKILL.md) — Define the single most important metric representing the core value delivered to users. Produces North Star Metric with rationale, optional supporting metrics, and anti-pattern examples; persisted to docs.
-- [define-roadmap](./define-roadmap/SKILL.md) — Create a concise Now/Next/Later roadmap containing only requirements and defects, using a bundled template and source links for task and acceptance details.
+- [define-roadmap](./define-roadmap/SKILL.md) — Create a source-backed roadmap with user-selected requirement, version and schedule views, using an offline Markdown, SVG and dated Mermaid generator when useful.
 - [define-strategic-pillars](./define-strategic-pillars/SKILL.md) — Derive 3–5 strategic pillars (high-level themes) from vision and North Star that structure and guide strategic goals and roadmap. Produces a strategic pillars document; persisted to docs.
 - [define-vision](./define-vision/SKILL.md) — Define the long-term future the project aims to create. Answers what future we are building; produces a vision statement aligned with mission, persisted to docs.
 - [deliver-feature](./deliver-feature/SKILL.md) — From inside a linked worktree, deliver the current feature branch into main — merge with --no-ff, push, and optionally clean up the worktree, all without leaving CWD.
@@ -44,10 +44,10 @@ here alone is overwritten and does not reach the skill.
   - type: `domain` · user-invocable: `true`
 - [prepare-presales-response](./prepare-presales-response/SKILL.md) — Prepare evidence-backed presales questionnaire answers and supporting materials, maintain reusable product knowledge, and separate customer-specific terms from product facts. Use for capability, operations, service and procurement inquiries before delivery.
 - [prepare-release](./prepare-release/SKILL.md) — Build and validate a Release Package from repository history, version policy, quality gates, and optional release artifacts; does not publish or announce.
-- [prioritize-backlog](./prioritize-backlog/SKILL.md) — Force a clean re-score of every backlog item with four frameworks (RICE, WSJF, MoSCoW, ICE) in parallel — ignores any existing priority, auto-detects multi-file or single-file backlog layouts, surfaces framework disagreements, and captures the user's final decision with rationale.
+- [prioritize-backlog](./prioritize-backlog/SKILL.md) — Apply a project's priority policy to unresolved backlog items, or explicitly reassess a batch using RICE, WSJF, MoSCoW and ICE; preserve settled decisions unless replacement is requested.
 - [product-opportunity-analysis](./product-opportunity-analysis/SKILL.md) — Coordinate relevant research lenses and deliver a traceable Opportunity Package for a product or feature decision.
   - type: `orchestrator` · user-invocable: `true`
-- [promote-roadmap-items](./promote-roadmap-items/SKILL.md) — Promote prioritized requirements and defects into the roadmap's Now/Next/Later tiers based on priority scores and dependency readiness. Event-driven (not calendar-driven).
+- [promote-roadmap-items](./promote-roadmap-items/SKILL.md) — Promote prioritized requirements and defects into Now/Next/Later using settled project priorities and dependency readiness; preserve version membership and timing commitments.
 - [publish-nats-message](./publish-nats-message/SKILL.md) — Publish a NATS message conforming to a cross-team contract, using NATS MCP tools. Authors the contract on first use if missing. Reads project-level cache (.cortex/nats.yaml) to avoid re-prompting basics across sessions.
 - [publish-release](./publish-release/SKILL.md) — Validate a ready Release Package and execute the repository's publication steps—tag, build, package, and provider release—with explicit mutation gates.
 - [redeploy-local](./redeploy-local/SKILL.md) — After code changes, auto-detect the project's build system and local deployment method for a given directory, then build the project and restart its locally-deployed environment (Docker Compose / systemd / process manager). Never assumes — asks only when detection is ambiguous. Caches detected commands per project in .cortex/redeploy-local.yaml; re-invocations on the same project skip re-scanning until signal files change, the cache expires (30 days), or the skill version bumps.

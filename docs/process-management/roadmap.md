@@ -12,6 +12,13 @@ status: active
 
 The path of evolution derived from the [strategic goals](../project-overview/strategic-goals.md). A roadmap is mostly about the **road** — the themes, the initiatives, the direction; a **milestone** is only a significant point along it. The concrete work is in the [backlog](backlog.md).
 
+The [Roadmap Spec](../../specs/roadmap-modeling.md) distinguishes delivery versions,
+work phases and event milestones. M5–M7 below name outcome checkpoints; the
+initiatives are their associated work, not the milestones themselves. Now/Next/
+Later are planning tiers, not mandatory phases or versions. This existing strategic
+view does not yet declare phase spans, release groups or verified occurrence dates;
+none is inferred here.
+
 ## The road at a glance
 
 - **Now**: widen intent coverage and reach more channels in the ecosystem.
@@ -26,7 +33,7 @@ The path of evolution derived from the [strategic goals](../project-overview/str
 
 **What success looks like**: once the Now milestones are met, core delivery and governance intents are 80% covered.
 
-### Milestones
+### Milestone checkpoints
 
 - **M5, core intent coverage**: full coverage of the core delivery and governance intents, enough for most everyday software engineering situations.
 - **M6, ecosystem multi-channel verification**: verify integration across platforms in the ecosystem, lowering adoption friction further.
@@ -52,7 +59,7 @@ The path of evolution derived from the [strategic goals](../project-overview/str
 - **The foundation is ready**: the Now stage's intent coverage and channel verification have hit their targets, meaning the M5 and M6 success metrics are met.
 - **Pulled by demand**: a clear cross-project reuse pain, or a call for chained automated orchestration, has surfaced in the team.
 
-### Milestones
+### Milestone checkpoints
 
 - **M7, complex orchestration and a closed workflow loop**: semi-automated orchestration of complex governance and delivery chains, with the compositions verified.
 

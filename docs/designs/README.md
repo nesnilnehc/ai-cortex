@@ -16,6 +16,8 @@ Two of the snapshots below are written in Chinese. They predate the English-firs
 | 2026-09-17 | [Research skill user journeys](./2026-09-17-research-skills-functional-design.md) | functional-design | [AIC-REQ-01](../requirements-planning/AIC-REQ-01.md) |
 | 2026-09-17 | [Composable research skills](./2026-09-17-research-skills-technical-design.md) | technical-design | [the functional design](./2026-09-17-research-skills-functional-design.md) |
 | 2026-09-17 | [Implement composable research skills](./research-skills-tasks.md) | tasks | [the technical design](./2026-09-17-research-skills-technical-design.md) |
+| 2026-10-20 | [Local roadmap generation](./2026-10-20-roadmap-generation-technical-design.md) | technical-design | [Roadmap capability work](../process-management/backlog/2026-10-20-roadmap-capabilities.md) |
+| 2026-10-20 | [Roadmap phases and milestone events](./2026-10-20-roadmap-events-technical-design.md) | technical-design | [Roadmap capability work](../process-management/backlog/2026-10-20-roadmap-capabilities.md) |
 
 ## Adding one
 

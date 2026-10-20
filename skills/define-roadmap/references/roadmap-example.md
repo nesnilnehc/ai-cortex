@@ -1,38 +1,25 @@
-# Example: Service Desk Roadmap
+# Service Desk examples and execution-status reference
 
-This fictional example demonstrates entry granularity, not approved project work.
-IDs below stand for source links in an adopting project's roadmap; no source files
-are created merely to complete the example.
+The [complete casebook](service-desk/README.md) contains filled deliverables from
+priority decisions through archival, using the same four source IDs throughout.
+Start with the [initial three-view roadmap](service-desk/initial/roadmap.md) and
+compare its [adjusted](service-desk/adjusted/roadmap.md) and
+[after-delivery](service-desk/after-delivery/roadmap.md) snapshots. All facts are
+fictional; unknown real project facts must not be inferred from these examples.
 
-Updated: 2026-10-08
+## Status examples and counterexamples
 
-Make request handling trustworthy first, then reduce repeated entry, and expand
-external collaboration when real users and permissions are available.
+| Source facts | Correct execution cell | Key condition / source detail | Incorrect expression |
+| --- | --- | --- | --- |
+| Approved; execution has not begun | Not started | Start after the source prerequisite | Approved or Now as execution status |
+| Development complete; acceptance pending | Awaiting acceptance | Acceptance session pending; evidence linked | Completed; 128 tests passed; commit abc123 |
+| Acceptance passed; required production release pending | Awaiting release | Production release pending; acceptance linked | Completed because acceptance passed |
+| An explicit decision suspends work, with a blocker also recorded | Paused | Resume decision required; blocker remains linked | Paused / Blocked |
+| Release cannot proceed without a required credential | Blocked | Restore release credential; blocker linked | Awaiting release despite a confirmed impediment |
+| A delivery risk exists but work continues | In progress | Link the next delivery condition and source risk | At risk |
+| Project closure evidence is verified | Completed | —; detailed evidence stays in source | Completed plus a chronology of tests and commits |
 
-## Roadmap
-
-| Tier | Requirement / defect | Expected outcome | Priority | Status / key condition |
-| --- | --- | --- | --- | --- |
-| Now | BUG-17 · Duplicate submission after refresh | Refresh and retry preserve one external request | P0 | In progress; source acceptance verifies one external effect |
-| Now | REQ-12 · Explain request outcomes | Users distinguish confirmed success, failure and unknown results | P1 | Approved; complete when source acceptance passes |
-| Next | REQ-21 · Confirm related requests together | Users confirm several requests with isolated failure handling | P1 | Draft; needs approval and the existing audit contract |
-| Later | REQ-30 · Collaborate through an external workspace | Authorized users handle requests in their existing workspace | P2 | Re-evaluate when a real adopter and write permissions exist |
-
-## Why this order
-
-Prevent duplicate external effects before making submission faster. Batch confirmation
-reuses the audit contract. External collaboration waits for a demonstrated use case.
-
-## Current boundaries
-
-Mobile delivery is paused until the user explicitly resumes it. Batch confirmation
-on desktop may proceed independently. Approval and release remain separate decisions.
-
-Backlog requirements and defects must map to the roadmap; items outside it are not
-done by default.
-
-## Detail stays in sources
-
-A real roadmap links the four source records and existing work-item and evidence
-indexes. Database migrations, API handlers, browser tests and task completion counts
-belong there. A missing prerequisite is shown as a blocker, not as a lower priority.
+Missing or conflicting evidence is reported as unverified outside the execution
+cell. Do not guess Completed, or force Not started as a fallback. For work whose
+existing closure criterion does not require production release, verified acceptance
+may establish Completed; do not add a release requirement from this example.

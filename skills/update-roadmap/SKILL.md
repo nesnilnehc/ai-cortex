@@ -1,7 +1,7 @@
 ---
 name: update-roadmap
 description: Maintain requirement-and-defect roadmap summaries — change item status, shift dates with downstream impact analysis, and produce a what-changed summary. Does not move items between Now/Next/Later tiers.
-version: 2.0.0
+version: 3.3.0
 license: MIT
 ---
 
@@ -22,7 +22,7 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 **Success criteria** (all must hold):
 
 1. ✅ A requirement or defect status change agrees with its source and roadmap summary; task-only changes stay in the task list unless they affect the parent outcome or key blocker
-2. ✅ A change to `at risk` or `blocked` must record the blocking reason and the mitigation; with either one missing, nothing is written
+2. ✅ A risk escalation or a change to `Blocked` must record the blocking reason and the mitigation; with either one missing, nothing is written
 3. ✅ A date shift must compute the downstream impact: list the items this shift affects
 4. ✅ Items that cross a hard deadline after the shift are flagged explicitly
 5. ✅ A "what changed this round" summary is output, covering the changed items, the reasons, and the blast radius
@@ -38,8 +38,9 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 
 **This skill owns**:
 
-- Item status changes (not started / in progress / at risk / blocked / done)
+- Execution status changes using the fixed vocabulary in [roadmap-quality](../../rules/roadmap-quality.md#execution-status-vocabulary); risk remains a separate source annotation
 - Date and timing adjustments, and the downstream impact analysis that goes with them
+- Moving requirements/defects into or out of existing versions, preserving tier
 - The what-changed summary for this round
 
 **This skill does not own**:
@@ -68,28 +69,38 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 ### Interaction policy
 
 - **Default**: read roadmap.md and the related item files from the paths the project norms define
-- **Must ask**: on a change to `at risk` / `blocked`, the blocking reason and the mitigation are both indispensable; if either is missing, nothing is written
+- **Must ask**: on a risk escalation or a change to `Blocked`, the blocking reason and the mitigation are both indispensable; if either is missing, nothing is written
 - **Write the requested change**: analyze downstream impact before persisting. Ask only when the target, intended state, or a hard-deadline decision remains unclear.
 
 ### Execution
 
-1. **Read the current state**: load roadmap.md and source requirement or defect records.
+1. **Read the current state**: load roadmap.md, [roadmap-quality](../../rules/roadmap-quality.md), project closure criteria and source requirement or defect records.
    Resolve task-level input to its parent. Update task details in their source; only
    refresh the parent roadmap summary if its outcome, status, timing or key blocker changes.
    Never add a task or task group as a roadmap row.
-2. **Identify the change type**: status change / date shift / both.
+2. **Identify the change type**: status change / date shift / existing-version scope change / combination.
    - If what the user actually wants is a move across tiers → **stop**, explain that this falls to `promote-roadmap-items`, and hand off.
 3. **Handling a status change**:
-   - Resolve execution state using the project source contract. Labels such as not started / in progress / at risk / blocked / done are summaries, not replacements for approval or lifecycle fields.
-   - On a change to **at risk** or **blocked**, ask two things: what it is stuck on (the blocking reason) and what the plan is (the mitigation). Write only once both are in hand
-   - On a change to **done**, verify the linked requirement or defect acceptance criteria. Use a metric only when those criteria define one; task counts and approval alone never prove completion. Resolve an unsupported completion claim before writing it.
+   - Map the project's source execution evidence to exactly one label from the quality rule. Keep approval, execution and key conditions in separate columns. Risk alone does not replace an execution label.
+   - For a risk escalation or Blocked change, obtain the reason and mitigation from sources first; ask only for missing facts. Preserve the existing requirement to have both before writing. Keep details in the source and only the short next-step condition and link in the roadmap.
+   - Verify the source basis for every transition, including pause, resume and reopening. Development complete maps to Awaiting acceptance while required acceptance is pending; passed acceptance maps to Awaiting release only if release remains required for closure. A recorded pause or blocker takes precedence while applicable.
+   - Before Completed, verify the project's declared closure criterion and linked acceptance and production-release evidence where required. Do not invent or waive gates. If closure or the mapping is undefined, or sources conflict, report the limitation outside the status cell and leave the transition unresolved.
+   - Task counts, test totals, commits and approval alone never prove completion; use metrics only when source criteria define them.
 4. **Handling a date shift**:
    - Ask for the reason for the shift (scope change / dependency slip / resource change / other)
    - **Compute the downstream impact**: read each item's `depends_on`, find the items that carry this one as a prerequisite, and list their affected dates one by one
    - **Flag hard-deadline breaches**: items that cross a compliance, commitment, external-constraint or similar hard deadline after the shift are marked in red on their own
    - With the dependency data missing (`map-item-dependencies` was never run), state outright "downstream impact not computed, dependency data missing"; do not pretend the analysis happened
 5. **Review the change list**: changed items + reasons + downstream impact + deadline breaches. Resolve any ambiguity or hard-deadline decision with the user before applying it.
-6. **Persist source and summary**: update the authoritative source and, when the parent planning summary changes, its roadmap row. Keep test counts, task IDs and detailed evidence in source records; link them instead.
+6. **Persist source and summary**: load [roadmap modeling](../../specs/roadmap-modeling.md).
+   For a move between existing versions, record old/new membership and the effect on
+   both delivery windows, dependencies and commitments; leave tier unchanged. New
+   versions or structural changes go to `define-roadmap`. Refresh all selected views
+   in the established destination using that skill's generator procedure when useful;
+   confirm only a changed destination, not the same authorized location again.
+   Update the authoritative source and, when the parent planning summary changes,
+   its roadmap row. Keep test counts, task IDs and detailed evidence in source records;
+   link them instead. Source/summary/diagram disagreement remains unresolved until repaired.
 7. **Output the change summary**: see the template below.
 
 ### Change summary template
@@ -100,7 +111,8 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 **Changed at**: <ISO date>
 
 | Item | Change | Reason |
-| #42 payment optimization | in progress → blocked | waiting on the third-party sandbox |
+| --- | --- | --- |
+| #42 payment optimization | In progress → Blocked | waiting on the third-party sandbox |
 | #63 mobile workflow | date +2 weeks | design delivery slipped |
 
 **Blocked items and mitigations**
@@ -131,7 +143,7 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 
 - **Do not change the tier**: an item must not be moved between Now / Next / Later; that is `promote-roadmap-items`'s job
 - **Do not change the structure**: no new milestones, no changing stage promotion criteria, no editing the strategic bets
-- **A blocker must have a follow-up**: `at risk` / `blocked` is not written while the blocking reason or the mitigation is missing
+- **A blocker must have a follow-up**: a risk escalation / `Blocked` change is not written while the blocking reason or the mitigation is missing
 - **Source agreement**: requirement and defect summaries agree with their source; task-only progress need not change the roadmap
 - **With the dependency data missing, must not pretend the downstream impact was analyzed** — the fact that it was not computed, and why, must be stated explicitly
 
@@ -159,14 +171,16 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 ## Self-Check
 
 - [ ] The change type was identified; anything that is a cross-tier move went to `promote-roadmap-items`
-- [ ] Every `at risk` / `blocked` change recorded the blocking reason and the mitigation
-- [ ] Items marked done have source acceptance evidence; no mandatory metric or approval-state conversion was invented
+- [ ] Every risk escalation / `Blocked` change recorded the blocking reason and the mitigation
+- [ ] Every transition has source evidence; Completed meets declared closure including acceptance/release where required; no gates were invented
 - [ ] Date shifts had their downstream impact computed; where dependency data was missing, the omission was stated explicitly
 - [ ] Hard-deadline breaches were flagged on their own
 - [ ] The requested change and downstream impact were reviewed before persistence; any unresolved decision was clarified
+- [ ] Separate approval, execution and key conditions columns follow the quality rule; each execution cell contains one fixed label, without risk labels or evidence
 - [ ] Source and parent summary agree; task-only changes did not add roadmap entries or duplicate details
 - [ ] The what-changed summary was output
 - [ ] No item's tier was touched
+- [ ] Existing-version scope changes preserve tier and report both versions' impact; all selected views agree.
 
 ---
 
@@ -178,7 +192,7 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 
 **Flow**:
 
-1. Identified as a status change: in progress → blocked.
+1. Identified as a status change: In progress → Blocked.
 2. Ask the two questions: what it is stuck on (the third-party sandbox is not open yet) and what the plan is (ticket filed, 3 working days expected; a local stand-in is being prepared for parallel development).
 3. Read `depends_on` and find that #51 advanced reporting carries #42 as a prerequisite → downstream impact: #51's start date moves out.
 4. No hard-deadline breach.
@@ -214,3 +228,19 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 5. The user chooses to shift now and fill in the dependencies later → persist as decided, keeping the not-computed statement in the summary.
 
 **Result**: the change goes ahead, but "downstream was not computed this time" is written out in the open rather than leaving a reader to assume it was assessed.
+
+## Filled deliverable example
+
+[Filled change record and adjusted views](../define-roadmap/references/service-desk/change-record.md). This is a fictional completed output, not a template
+or authorization to change the adopting project.
+
+## Phase and milestone contract
+
+Maintain existing phase timing and milestone timing/state from linked source evidence.
+Apply the [Roadmap Spec](../../specs/roadmap-modeling.md): actual event timing requires
+reached state; non-planned states require evidence. Date passage, member completion
+and scope changes do not automatically reach a milestone or approve related work.
+Report affected version windows, phase spans and event targets separately. Route
+new phase/event structure to define-roadmap; do not silently upgrade legacy inputs.
+
+Self-check: concepts, selected views and linked evidence agree with the source records.

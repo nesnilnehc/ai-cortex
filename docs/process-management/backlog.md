@@ -23,6 +23,7 @@ Individual pieces of work captured through `capture-work-items` or an equivalent
 
 | Date | Item | Status | Path |
 | :--- | :--- | :--- | :--- |
+| 2026-10-20 | Make roadmap capabilities understandable and usable | done | [Work and acceptance checklist](backlog/2026-10-20-roadmap-capabilities.md) |
 | 2026-03-23 | The AGENTS.md refactor plan | completed | [backlog/2026-03-23-agents-md-refactor-plan.md](backlog/2026-03-23-agents-md-refactor-plan.md) |
 
 ---

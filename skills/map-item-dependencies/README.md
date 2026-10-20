@@ -38,3 +38,7 @@ Handled centrally by the canonical AI Cortex install; see the repository root [R
 ## Full definition
 
 See [SKILL.md](./SKILL.md).
+
+## Finished example
+
+[Filled dependency register, graph and blocked list](../define-roadmap/references/service-desk/dependencies.md).

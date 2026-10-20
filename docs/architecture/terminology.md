@@ -152,3 +152,9 @@ reported as dependency cycles.
 - [skills/INDEX.md](../../skills/INDEX.md) — the Skill catalogue
 
 Skills themselves follow the standard format at [agentskills.io](https://agentskills.io).
+
+## Roadmap domain terms
+
+Roadmap, version, phase and milestone are planning domain concepts, not new asset
+layers. Their definitions, relationships and compatibility contract are owned by
+the [Roadmap Modeling Spec](../../specs/roadmap-modeling.md#3-roadmap-version-phase-and-milestone).

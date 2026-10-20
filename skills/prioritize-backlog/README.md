@@ -1,40 +1,22 @@
 # Prioritize Backlog
 
-Re-scores every backlog item with four frameworks (RICE + WSJF + MoSCoW + ICE) in parallel, **forcing a fresh score** and ignoring the existing priority. Adapts on its own to a multi-file directory or a single-file backlog, surfaces where the frameworks disagree, and leaves the final priority decision to the user.
+Apply project policy to unresolved priorities, or explicitly reassess a batch using
+RICE, WSJF, MoSCoW and ICE. Normal planning preserves settled priorities; a complete
+reassessment must be requested. A single item can receive a policy-based priority.
 
-## Purpose
+## Inputs and outputs
 
-Re-scores backlog items in bulk (detecting the single-file or multi-file layout on its own, and overwriting the old assessment): runs all four frameworks on each item, surfaces the disagreements between them, captures the user's decision, and writes it back in whichever layout is in use. **It does not aggregate to a single score** — keeping the disagreement signal is the core of the design: aggregation hides the conflicts in judgement between frameworks, and those conflicts are exactly what a human has to decide.
+Read project goals, priority policy and backlog records in their declared layout.
+Produce the decision table and updated source priority records, preserving previous
+values, policy/assessment rationale and approval/execution status. Missing evidence
+remains unresolved; no tier or version changes occur here.
 
-## When to use
+## Entry and handoff
 
-- A suggested trigger after a bulk capture by `capture-work-items`
-- A clean full re-score of the backlog before a planning ceremony
-- A direct re-run at any point after a strategy refresh (no extra switch needed)
-- Scoring the large gaps reported by `plan-next` once they have been captured
-- Single-file backlog projects (only a `backlog.md`) are handled directly too
+Use after `capture-work-items` when priorities need settling. `promote-roadmap-items`
+consumes the result; it is not invoked automatically. See the
+[capability guide](../../docs/guides/roadmap-planning-usage.md) and [SKILL.md](./SKILL.md).
 
-## Inputs
+## Finished example
 
-- Backlog items in any priority state (either a multi-file directory or a single backlog.md)
-- `docs/project-overview/strategic-goals.md`
-- Optional: project-specific threshold overrides
-
-## Outputs
-
-- A bulk scoring table in the conversation (four framework results + disagreement markers + decision suggestions + a statement of the layout + overwrite statistics)
-- Every backlog item updated in its own layout: `priority` + `priority_decision` (including a `previous` snapshot of the old value)
-
-## Install
-
-Handled centrally by the canonical AI Cortex install; see the repository root [README](../../README.md#-install-and-use).
-
-## Related skills
-
-- `capture-work-items` — upstream: produces items with `priority: unset`
-- `promote-roadmap-items` — downstream: promotes in bulk from the scoring results
-- `design-strategic-goals` — upstream dependency: supplies the strategic goals that MoSCoW judges against
-
-## Full definition
-
-See [SKILL.md](./SKILL.md).
+[Filled policy decisions](../define-roadmap/references/service-desk/priority-decisions.md).

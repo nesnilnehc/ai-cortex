@@ -2,7 +2,7 @@
 id: REQUIREMENT_MODELING_SPEC_V4
 name: Requirement Modeling Schema
 description: Spec defining requirement document fields, validation and conditionally required quality-attribute scenarios in addition to the 6 mandatory body sections.
-version: 6.0.0
+version: 6.1.0
 status: active
 lifecycle: living
 created_at: 2026-03-25
@@ -73,7 +73,7 @@ artifact_type: requirement
 lifecycle: snapshot
 created_at: YYYY-MM-DD
 status: draft | approved | implemented | superseded
-priority: P0 | P1 | P2
+priority: P0 | P1 | P2 | P3
 parent: <upstream goal / roadmap node path>
 # conditional fields
 superseded_by: <new-requirement-id>   # required when status: superseded
@@ -90,7 +90,7 @@ implemented_at: YYYY-MM-DD             # required when status: implemented
 | `lifecycle` | enum | Yes | Fixed as `snapshot` (a requirement freezes once approved; a change creates a new requirement) |
 | `created_at` | date | Yes | The date the requirement was written down |
 | `status` | enum | Yes | `draft` / `approved` / `implemented` / `superseded` (semantics in §4.2) |
-| `priority` | enum | Optional | `P0` (blocking path) / `P1` (critical path) / `P2` (non-critical) |
+| `priority` | enum | Optional | `P0` / `P1` / `P2` / `P3`, highest to lowest under the project priority policy; see [roadmap modeling](./roadmap-modeling.md#52-priority-vocabulary). Existing P0–P2 meanings are preserved unless the project explicitly remaps them |
 | `parent` | path | Optional | Path to the upstream objective or roadmap node |
 | `superseded_by` | string | Conditional | Required when `status: superseded`; points at the successor requirement id |
 | `implemented_at` | date | Conditional | Required when `status: implemented`; records the date implementation completed |

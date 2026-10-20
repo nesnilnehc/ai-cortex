@@ -1,160 +1,109 @@
 ---
 name: archive-milestone
-description: Archive a completed milestone by generating a snapshot summary, folding the roadmap stage, and removing the stale tasks directory.
-version: 1.1.3
+description: Archive completed roadmap work packages or phase/version/period snapshots while preserving milestone event evidence and unfinished work.
+version: 1.5.0
 license: MIT
 ---
 
-# Skill: Archive Milestone
+# Archive Roadmap History
 
-## Purpose
+## Purpose and boundaries
 
-Move the historical execution detail of a completed milestone out of the active paths and produce a lean snapshot summary, so old documents stop clouding the AI's read of the project's current state.
+Produce a lean, source-backed snapshot and fold historical roadmap detail. The
+historical invocation name remains `archive-milestone`. Under the
+[Roadmap Spec](../../specs/roadmap-modeling.md), a milestone is an event, a phase is
+a work span and a version groups delivery scope. Archiving history does not change
+those meanings or establish completion.
 
----
+Use the general snapshot route for a phase, version, year/period or a milestone's
+associated work. Use the legacy route only for an existing
+`milestones/{slug}/tasks.md` work package. Do not invent or migrate directories.
+Both routes load [roadmap-quality](../../rules/roadmap-quality.md) and project norms.
+Preserve event identity, criterion, state, timing and evidence. An approval/release
+point is not a task group to delete; task completion is not acceptance or release.
 
-## Core Objective
+## Inputs
 
-**Primary goal**: produce a snapshot summary for a completed milestone, fold the historical roadmap section, and move the original tasks directory into `_archive/`.
+- Named phase, version, period or legacy work-package slug.
+- Existing source records, closure evidence, project archive location and policy.
+- `apply`, default `false`: preview without writes. Respect explicit existing user
+  authorization to apply; do not ask for the same authorization again.
 
-**Success criteria** (with apply=true, all of them must hold):
+## General snapshot route
 
-1. ✅ The snapshot summary was produced at `milestones/_archive/{slug}-summary.md`
-2. ✅ The summary carries: completion date / key deliverables (≤5 items) / leftover gaps (pointing at later milestones) / key ADR references
-3. ✅ The matching stage in `roadmap.md` was folded into a reference of ≤ 3 lines
-4. ✅ Every repository-wide grep hit on the old tasks.md path was redirected to the summary
-5. ✅ The `milestones/{slug}/` directory was removed (its key information is held in the summary)
+1. Resolve target, selected roadmap views and project archive policy. Report an
+   undefined eligibility policy rather than inventing numeric thresholds. An
+   explicit request to archive a named period can establish selection/eligibility,
+   but cannot establish completion of unfinished work.
+2. Read authoritative scope, acceptance and release evidence. Preserve separate
+   approval and execution states. A reached, missed or cancelled event needs its
+   evidence; do not infer occurrence from dates or completed tasks.
+3. Draft a dated snapshot: scope, planned versus actual timing, outcomes (at most
+   five key deliverables), linked evidence, decisions/ADRs, retained events and
+   unresolved work with continuing destinations. Freeze snapshot facts; ongoing
+   records remain authoritative. Do not mark unfinished year-end work completed.
+4. Preview exact file changes, roadmap folding, incoming links and carryover.
+   With `apply=false`, change no files. With authorized `apply=true`, create the
+   snapshot and update active-view references while preserving source evidence.
+   No directory removal occurs on this route.
+5. Verify snapshot/source agreement, incoming/outgoing links and visibility of all
+   unfinished work. Report changes and unverified evidence.
 
-**Acceptance test**: afterwards, an AI reading `milestones/_archive/m3-summary.md` understands the key outcomes of m3 accurately, without reading the original tasks.md.
+## Legacy work-package route
 
----
+This compatibility route preserves the established maturity and cleanup behavior;
+its `milestones/` name does not define the domain model.
 
-## Maturity Test
+1. Read `milestones/{slug}/tasks.md`. Every task must be done (the project's
+   `status=done` or completed-checkmark convention). In addition, at least one
+   maturity condition must hold:
+   - At least 60 days since the source `completed_at` date.
+   - The current in-progress **legacy work-package** numeric index is at least
+     the target slug's index plus two.
+   If neither holds, report the specific reason and stop without changes. These
+   thresholds do not apply to independent events or the general snapshot route.
+2. Check source closure criteria and acceptance/release evidence before folding
+   anything as completed. All tasks done is only an archive prerequisite. If closure
+   evidence is missing, leave the completion claim unresolved and report the gap.
+3. Produce `milestones/_archive/{slug}-summary.md` containing completion date,
+   at most five deliverables, evidence, decisions/ADRs, event history and gaps with
+   continuing destinations. Retain key source facts needed after task cleanup.
+4. Find every incoming task-path reference and the historical roadmap section.
+   Preview the summary, a folded reference of at most three lines, each reference
+   update and exact directory cleanup. `apply=false` changes nothing.
+5. Before authorized `apply=true`, require a clean Git worktree under the legacy
+   contract. Do not commit unrelated work to satisfy this check. Preserve required
+   evidence outside the directory before cleanup; an incomplete summary or dangling
+   reference blocks removal. Update references before removing the stale directory.
+6. Verify the summary exists, roadmap folding agrees, old task-path references
+   are gone, the selected stale directory is removed, and event evidence plus
+   unfinished-item destinations still resolve.
 
-**Any one of the following is enough to archive**; when none of them holds, the skill refuses to run and explains why:
+## Anti-patterns
 
-| Condition | Basis for the decision |
-| --- | --- |
-| ≥ 60 days since the completion date | the `completed_at` field in the tasks.md frontmatter |
-| The in-progress milestone index is ≥ slug + 2 | the numeric suffix of the `in-progress` milestone in roadmap.md |
-
-For both conditions, "every task is status=done or ✅" is also required.
-
-When maturity is not reached, emit the diagnostic `Milestone {slug} does not yet meet the archiving conditions: {specific reason}`.
-
----
-
-## Behavior
-
-Input is the completed milestone's directory slug (for example, `m3`). `apply` defaults to `false`: preview without changing files unless the user explicitly requests application.
-
-### Stage 1: maturity check
-
-Read `milestones/{slug}/tasks.md` and verify the maturity conditions. Stop when no condition is met.
-
-### Stage 2: summary generation (always runs)
-
-Extract from `tasks.md`:
-
-- **Completion date**: the frontmatter `completed_at`, or the completion date of the last task
-- **Key deliverables**: every `status=done` task, grouped by acceptance evidence, distilled into ≤ 5 items
-- **Leftover gaps**: any entry marked "deferred" or "next iteration", or left unfinished, together with its target milestone
-- **Key ADR references**: the ADR numbers mentioned in tasks.md
-
-### Stage 3: impact analysis (always runs)
-
-Detect:
-
-- The stage sections in `roadmap.md` that need folding
-- Every file in the repository that references `milestones/{slug}/tasks.md`
-
-### Stage 4: output (dry-run vs apply)
-
-**dry-run (apply=false, the default)**:
-
-Emit a preview report, changing no file:
-
-```text
-=== dry-run preview ===
-
-Will create:
-  docs/process-management/milestones/_archive/{slug}-summary.md
-  (draft summary below)
-
-Will modify:
-  roadmap.md lines N-M folded into:
-    ### {stage name} (completed {date}) → see [milestones/_archive/{slug}-summary.md]
-
-Will delete:
-  docs/process-management/milestones/{slug}/ ({N} files)
-
-Reference updates ({K} sites):
-  {file path}:{line} → old path → new summary path
-
-=== no file was modified ===
-```
-
-**apply=true**:
-
-Perform every operation as previewed, then emit the operation log.
-
----
-
-## Anti-Patterns
-
-- ❌ Running straight through without the maturity check
-- ❌ Modifying any file while apply=false
-- ❌ Running apply=true while the git working tree holds uncommitted changes (commit first to preserve the state)
-- ❌ A summary that omits the leftover gaps (the debt of a past decision must carry over into later milestones)
-- ❌ Producing the summary without folding roadmap.md (the two must stay in step)
-- ❌ Deleting the tasks directory before the repository-wide reference update is finished
-
----
+- Treating a milestone event as a phase or a release group.
+- Applying legacy maturity thresholds or directory deletion to every event.
+- Inferring production release or approval from completed tasks or a target date.
+- Removing source evidence with stale task files.
+- Dropping deferred work or retaining a false completion claim in an archive.
+- Writing files during preview or requiring duplicate authorization.
 
 ## Self-Check
 
-**Before running**:
-
-- [ ] At least one maturity condition holds
-- [ ] The git working tree is clean (when apply=true)
-- [ ] The summary template fields are complete (completion date / deliverables / gaps / ADR)
-
-**After running (apply=true)**:
-
-- [ ] `_archive/{slug}-summary.md` exists and its content is complete
-- [ ] The roadmap.md stage section was folded into ≤ 3 lines
-- [ ] A repository-wide grep for `milestones/{slug}/tasks.md` returns nothing
-- [ ] The `milestones/{slug}/` directory does not exist
-
----
+- [ ] Target and route match the actual project structure; required resources loaded.
+- [ ] General eligibility or legacy maturity/task checks pass as applicable.
+- [ ] Completion and event states agree with source evidence; unknowns remain explicit.
+- [ ] Summary retains scope, timing, deliverables, evidence, ADRs, event history and gaps.
+- [ ] Every unfinished item has a visible continuing destination.
+- [ ] Preview/apply scope and the legacy clean-worktree requirement are respected.
+- [ ] Applied changes preserve links/evidence and satisfy the selected route's cleanup checks.
 
 ## Examples
 
-### Example 1: the normal case — archiving after M3 completes
-
-**Input**:
-
-- `docs/process-management/milestones/m3/` holds a tasks.md completed 60 days ago (all status=completed)
-- The M3 stage in `roadmap.md` is marked ✅
-- The next milestone, M4, has started
-
-**Execution** (dry-run by default):
-
-1. Maturity check: M3 completed ≥ 60 days ago ✓ — one condition is enough, so the index condition (in-progress ≥ M5, currently M4) does not also have to hold
-2. Produce the snapshot `milestones/_archive/m3-summary.md`: completion date, 5 key deliverables, key ADR references
-3. Give the impact analysis: the roadmap M3 section will fold into 3 lines; the current path `milestones/m3/` will be deleted
-4. Emit the dry-run report and wait for the user to confirm
-
-**After apply**: the roadmap.md M3 section is folded, `milestones/_archive/m3-summary.md` is produced, and `milestones/m3/` is removed.
-
-### Example 2: edge case — the milestone just completed and is not mature enough
-
-**Input**: M5 completed only 14 days ago, and the in-progress milestone is still M5, so neither condition holds.
-
-**Execution**:
-
-1. Maturity check: completion is < 60 days ago and the later milestone index differs by 0
-2. Refuse to run: emit "the milestone is not mature yet (14 days < the 60-day threshold; no later milestone has started); suggest archiving after ≥60 days, or once M6 starts"
-3. Produce no snapshot and change no roadmap
-
-**Result**: M5 stays as it is; the user can rerun once the conditions are met.
+- `/archive-milestone m3`: preview an existing legacy work package. If all tasks
+  are done and it completed 60 days ago, maturity passes even if only m4 is active.
+- A legacy m5 completed 14 days ago with m5 active fails maturity; retry after
+  60 days or when m7 is active. Do not create a snapshot or change the roadmap.
+- Archive V1 after search moves to V2: retain V1's actual scope and continuing
+  assignments, including its acceptance/release events. See the
+  [filled version archive](../define-roadmap/references/service-desk/version-archive.md).
