@@ -23,6 +23,11 @@ Closure criterion: {Existing source definition, or explicit unresolved notice.}
 {Fold completed requirements separately or link their retained archive. Preserve
 source tiers/statuses. State empty tiers and unknown status mappings explicitly.}
 
+<!-- Localize all display prose under the selected language; keep machine IDs and
+source references unchanged. Remove this guidance from filled outputs. -->
+
+Deliverable language / basis: {Locale; user/project/existing/context; rationale and decision link.}
+
 ## Planning approach
 
 Scenario / primary perspective: {Selected recipe or custom combination.}

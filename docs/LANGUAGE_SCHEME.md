@@ -22,7 +22,7 @@ AI Cortex is consumed by AI agents and by developers worldwide. Its skills are i
 
 ## 2. Exceptions
 
-Three categories stay in Chinese. All of them are **immutable records**, not living documentation.
+Three historical categories stay in Chinese. All of them are **immutable records**, not living documentation.
 
 | Category | Why it is not translated |
 | :--- | :--- |
@@ -31,6 +31,15 @@ Three categories stay in Chinese. All of them are **immutable records**, not liv
 | `docs/designs/*.md` (snapshots) | `lifecycle: snapshot` artifacts record a design as it stood. |
 
 **New** ADRs, changelog entries and design documents are written in English.
+
+Localized roadmap display catalogs and the paired example fixtures under
+`skills/define-roadmap/references/languages/` may contain Simplified Chinese to
+exercise the supported output locale. These are an explicit localization exception,
+not permission to translate asset instructions. Quoted display mappings in the
+Roadmap Spec document this interface.
+
+This scheme governs AI Cortex repository assets. Deliverables produced in a consuming
+project follow that project and the user under the [roadmap language contract](../specs/roadmap-modeling.md#57-deliverable-language-schema-15); an English skill template does not require English consumer documents.
 
 Everything else — README, AGENTS.md, CONTRIBUTING, `docs/`, `specs/`, `protocols/`, `rules/`, and every `SKILL.md` and skill `README.md` — is English.
 

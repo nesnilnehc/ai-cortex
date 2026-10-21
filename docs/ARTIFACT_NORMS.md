@@ -10,7 +10,7 @@ status: active
 
 **Source**: applies across the AI Cortex project
 
-Language: the project's language rules are in [docs/LANGUAGE_SCHEME.md](LANGUAGE_SCHEME.md).
+Language: the project's language rules are in [docs/LANGUAGE_SCHEME.md](LANGUAGE_SCHEME.md). Consumer roadmap outputs resolve and retain their own language under the [Roadmap Spec](../specs/roadmap-modeling.md#57-deliverable-language-schema-15), using existing norms or planning decisions rather than a mandatory new configuration file.
 
 This document defines the single authoritative path for each generated artifact. Unless the user explicitly asks for a snapshot, a skill should overwrite the canonical file at the path below.
 

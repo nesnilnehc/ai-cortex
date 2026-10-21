@@ -1,0 +1,155 @@
+{
+  "schema_version": "1.5",
+  "project": "Request Search",
+  "updated": "2026-10-21",
+  "direction": "Make requests findable.",
+  "ordering": "Validate search before expanding scope.",
+  "closure": "Acceptance and production deployment are required.",
+  "priority_policy": "Confirmed customer outcomes have P1 priority.",
+  "views": [
+    "requirements",
+    "iterations",
+    "versions",
+    "phases",
+    "milestones",
+    "schedule"
+  ],
+  "entries": [
+    {
+      "id": "R1",
+      "name": "Search requests",
+      "outcome": "Find requests by reference",
+      "tier": "Now",
+      "priority": "P1",
+      "approval": "Approved",
+      "execution": "In progress",
+      "conditions": "Validate search with pilot users",
+      "source": "../sources.md#r1"
+    }
+  ],
+  "revisions": [
+    {
+      "id": "REV1",
+      "date": "2026-10-21",
+      "change": "Search: unallocated → I1",
+      "reason": "The team approved a near-term validation goal.",
+      "impact": "V1 scope and target date are unchanged.",
+      "source": "../sources.md#rev1"
+    }
+  ],
+  "language": {
+    "locale": "en",
+    "basis": "user",
+    "source": "../sources.md#language",
+    "rationale": "The user requested aligned English and Chinese editions."
+  },
+  "selection": {
+    "scenario": "iterations",
+    "primary": "iterations",
+    "layout": "split",
+    "rationale": "Use iteration goals, a delivery batch and an acceptance phase.",
+    "source": "../sources.md#selection",
+    "context": {
+      "work_mode": "iterations",
+      "delivery": "versioned",
+      "audience": "Product team and pilot customer",
+      "constraints": "Two-week planning; no hard external deadline",
+      "source": "../sources.md#context"
+    }
+  },
+  "versions": [
+    {
+      "id": "V1",
+      "name": "Search delivery",
+      "members": [
+        "R1"
+      ],
+      "outcome": "Search is usable",
+      "owner": "Release coordinator",
+      "window": "Target: 2026-11-02 to 2026-11-16 (end exclusive)"
+    }
+  ],
+  "iterations": [
+    {
+      "id": "I1",
+      "name": "Validate search",
+      "goal": "Validate request lookup",
+      "owner": "Product team",
+      "members": [
+        "R1"
+      ],
+      "source": "../sources.md#i1",
+      "board": "../sources.md#board"
+    }
+  ],
+  "cadence": "Two-week iterations",
+  "phases": [
+    {
+      "id": "PH1",
+      "name": "Pilot validation",
+      "scope": [
+        "V1"
+      ],
+      "owner": "Acceptance owner",
+      "exit_condition": "Pilot acceptance is signed",
+      "source": "../sources.md#ph1"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "MS1",
+      "name": "Accept pilot outcome",
+      "related": [
+        "V1",
+        "PH1"
+      ],
+      "category": "approval",
+      "owner": "Acceptance owner",
+      "criterion": "Acceptance receipt is recorded",
+      "state": "planned",
+      "evidence": null,
+      "source": "../sources.md#ms1"
+    }
+  ],
+  "schedule": {
+    "mode": "dates",
+    "calendar": "calendar-days",
+    "origin": "ISO dates; elapsed calendar days; span end is exclusive.",
+    "items": [
+      {
+        "ref": "V1",
+        "kind": "span",
+        "basis": "target",
+        "start": "2026-11-02",
+        "end": "2026-11-16",
+        "depends_on": []
+      },
+      {
+        "ref": "I1",
+        "kind": "span",
+        "basis": "target",
+        "start": "2026-11-02",
+        "end": "2026-11-16",
+        "depends_on": []
+      },
+      {
+        "ref": "PH1",
+        "kind": "span",
+        "basis": "target",
+        "start": "2026-11-02",
+        "end": "2026-11-16",
+        "depends_on": []
+      },
+      {
+        "ref": "MS1",
+        "kind": "milestone",
+        "basis": "target",
+        "start": "2026-11-16",
+        "end": "2026-11-16",
+        "depends_on": [
+          "PH1"
+        ]
+      }
+    ]
+  }
+}

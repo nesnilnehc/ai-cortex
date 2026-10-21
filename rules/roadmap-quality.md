@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: roadmap-quality
-version: 4.5.0
+version: 4.6.0
 scope: reviewing or self-checking a roadmap document
 recommended_scope: user
 status: active
@@ -24,7 +24,8 @@ schedule milestones are valid presentation units. Existing project decisions tak
 
 ### Execution status vocabulary
 
-Each execution status cell contains exactly one of the following English labels,
+Each execution status cell contains exactly one of the following canonical labels
+or its one-to-one display translation under the selected deliverable language,
 with no badges, qualifiers, evidence or combined states. This is a presentation
 vocabulary; map project source fields explicitly rather than replacing their schema.
 
@@ -147,3 +148,11 @@ substance rather than requiring a fixed number of sections or rows.
   or explicit unknowns. No default WIP number, invented cycle or fake iteration appears.
 - [ ] Schema 1.4 explicitly controls phase/event/flow registers and retained layout;
   custom choices are evaluated for consistency, not conformity to a recipe.
+
+## 7. Deliverable language
+
+- [ ] Language follows the [resolution order](../specs/roadmap-modeling.md#57-deliverable-language-schema-15): user instruction, consuming-project policy, retained artifact, then supported audience/document context. Only unresolved or conflicting winning evidence requires a question; conversation language alone is insufficient.
+- [ ] The choice and its basis are recoverable from existing norms or planning decisions and survive handoffs and ordinary maintenance. New options do not reset it; higher-priority explicit changes are applied within authorization.
+- [ ] Main/detail documents and diagrams use consistent headings, headers, statuses, summaries, legends and accessible descriptions. Free text is checked separately from generated labels; generator success alone proves no prose-language consistency.
+- [ ] Localized execution labels preserve the canonical state meanings and source mapping. IDs, references, machine fields and enums are unchanged; translated approval labels do not create new approval states.
+- [ ] Historical originals and source evidence remain intact. Parallel language editions, when requested, agree on scope, dates, priorities, states, membership and commitments. Unknown language or inaccessible evidence is reported as a limitation, not an inferred pass. Legacy metadata absence alone is not a defect.

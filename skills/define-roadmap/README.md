@@ -45,3 +45,14 @@ Start from the [four template recipes](assets/scenarios/README.md) and
 [complete scenario outputs](references/scenarios/README.md). The read-only
 `--recommend` mode reports questions/proposals or retained choices; schema 1.4
 generation reuses saved layout and independently selects flow/phase/event views.
+
+## Deliverable language
+
+Resolve user instruction, consuming-project policy, existing artifact language and
+then consistent reader/document evidence. Ask only unresolved gaps or conflicts and
+retain the choice across later maintenance. Conversation language alone does not
+change artifact language. Schema 1.5 supports `en` and `zh-CN`; the optional
+`--resolve-language` mode reports advice without writing files. Legacy schemas retain
+English output. The skill prepares project prose; the generator localizes built-in
+labels. See the [workflow](references/deliverable-language.md) and
+[paired complete examples](references/languages/README.md).

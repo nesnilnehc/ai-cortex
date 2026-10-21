@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 from datetime import date
+from functools import cache
 from html import escape
 import json
 from pathlib import Path
@@ -72,6 +73,7 @@ def validate(data: dict) -> dict:
     validate_revisions(data)
     validate_iterations(data)
     validate_selection(data)
+    validate_language(data)
     validate_entries(entries)
     validate_versions(versions, entries)
     if 'schedule' in views:
@@ -81,7 +83,7 @@ def validate(data: dict) -> dict:
 
 def records(data):
     keys = ('entries', 'versions', 'phases', 'milestones')
-    if data['schema_version'] in {'1.3', '1.4'}:
+    if data['schema_version'] in {'1.3', '1.4', '1.5'}:
         keys += ('iterations',)
     return [r for key in keys
             for r in array(data.get(key, []), key)]
@@ -124,7 +126,7 @@ def validate_events(data):
 
 
 def validate_revisions(data):
-    if data['schema_version'] not in {'1.2', '1.3', '1.4'}:
+    if data['schema_version'] not in {'1.2', '1.3', '1.4', '1.5'}:
         return
     revisions = array(data.get('revisions'), 'revisions')
     if len(revisions) > 200:
@@ -153,7 +155,7 @@ def validate_revisions(data):
 
 
 def validate_iterations(data):
-    if data['schema_version'] not in {'1.3', '1.4'}:
+    if data['schema_version'] not in {'1.3', '1.4', '1.5'}:
         return
     if 'iterations' in data['views']:
         text(data.get('cadence'), 'cadence')
@@ -208,7 +210,7 @@ def validate_choice(data):
 
 
 def validate_selection(data):
-    if data['schema_version'] != '1.4':
+    if data['schema_version'] not in {'1.4', '1.5'}:
         return
     validate_choice(data)
     for view in ('phases', 'milestones'):
@@ -222,10 +224,10 @@ def validate_selection(data):
             text(flow.get(field), 'flow.' + field)
 
 
-def recommend(data):
+def recommend_views(data):
     obj(data, 'recommendation input')
     if 'schema_version' in data:
-        choice(data['schema_version'], {'1.0', '1.1', '1.2', '1.3', '1.4'}, 'schema_version')
+        choice(data['schema_version'], {'1.0', '1.1', '1.2', '1.3', '1.4', '1.5'}, 'schema_version')
     if data.get('schema_version') in {'1.0', '1.1', '1.2', '1.3'}:
         validate(data)
         return dict(status='retained', views=list(data['views']), primary=None, layout=None,
@@ -261,6 +263,111 @@ def recommend(data):
                 notice='Recommendation only; retain a source-backed team choice before generating.')
 
 
+def recommend(data):
+    result = recommend_views(data)
+    if data.get('schema_version') == '1.5' or 'language_context' in data:
+        result['language'] = resolve_language(data)
+    return result
+
+
+def validate_language(data):
+    if data.get('schema_version') != '1.5':
+        return
+    saved = language_record(data.get('language'))
+    if 'language_context' in data:
+        resolved = resolve_language(data)
+        if resolved['status'] == 'needs-input' or resolved['locale'] != saved['locale']:
+            raise ValueError('language evidence is unresolved or differs; update the source decision before generation')
+
+
+def language_record(value):
+    value = obj(value, 'language')
+    choice(value.get('locale'), {'en', 'zh-CN'}, 'language.locale')
+    choice(value.get('basis'), {'user', 'project', 'existing', 'context'}, 'language.basis')
+    reference(value.get('source'), 'language.source')
+    text(value.get('rationale'), 'language.rationale')
+    return value
+
+
+def language_candidates(context):
+    context = obj(context, 'language_context')
+    levels = ('user', 'project', 'existing', 'audience', 'documents')
+    if any(key not in levels for key in context):
+        raise ValueError('language_context: unsupported evidence level')
+    candidates = {}
+    for level in levels:
+        candidates[level] = array(context.get(level, []), 'language_context.' + level)
+        if len(candidates[level]) > 20:
+            raise ValueError('language_context: at most 20 records per level')
+        for evidence in candidates[level]:
+            obj(evidence, 'language evidence')
+            choice(evidence.get('locale'), {'en', 'zh-CN'}, 'language evidence.locale')
+            reference(evidence.get('source'), 'language evidence.source')
+    return candidates
+
+
+def resolve_language(data):
+    obj(data, 'language resolution input')
+    existing = language_record(data['language']) if data.get('schema_version') == '1.5' and 'language' in data else None
+    if existing and 'language_context' not in data:
+        return dict(existing, status='retained', questions=[])
+    candidates = language_candidates(data.get('language_context', {}))
+    # An existing artifact is evidence at its own priority, never a new default.
+    if existing and not candidates['existing']:
+        candidates['existing'] = [dict(locale=existing['locale'], source=existing['source'])]
+    for basis in ('user', 'project', 'existing', 'context'):
+        evidence = candidates['audience'] + candidates['documents'] if basis == 'context' else candidates[basis]
+        if not evidence:
+            continue
+        if len({item['locale'] for item in evidence}) != 1:
+            return language_question(existing, 'Conflicting language evidence at ' + basis)
+        locale = evidence[0]['locale']
+        status = 'resolved'
+        if existing:
+            status = 'retained' if locale == existing['locale'] else 'change-proposed'
+        return dict(status=status, locale=locale, basis=basis, source=evidence[0]['source'],
+                    rationale='Language selected from ' + basis + ' evidence.', questions=[],
+                    retained_locale=existing['locale'] if existing else None)
+    return language_question(existing, 'No supported language evidence supplied')
+
+
+def language_question(existing, reason):
+    return dict(status='needs-input', locale=None, reason=reason,
+                retained_locale=existing['locale'] if existing else None,
+                questions=['Which deliverable language should be used: English or Simplified Chinese? / 交付物使用英文还是简体中文？'])
+
+
+
+@cache
+def localized_catalog():
+    path = Path(__file__).with_name('roadmap-zh-CN.json')
+    try:
+        catalog = obj(json.loads(path.read_text(encoding='utf-8')), 'localization catalog')
+        if any(not isinstance(value, str) for value in catalog.values()):
+            raise ValueError('catalog values must be strings')
+        return catalog
+    except (OSError, ValueError) as exc:
+        raise ValueError(f'Cannot load localization catalog at {path}; '
+                         'restore the bundled roadmap-zh-CN.json from this skill version') from exc
+
+
+def ui(data, message):
+    locale = data['language']['locale'] if data and data.get('schema_version') == '1.5' else 'en'
+    if locale == 'en':
+        return message.removeprefix('value:')
+    if locale != 'zh-CN':
+        raise ValueError('unsupported language.locale: ' + str(locale))
+    catalog = localized_catalog()
+    if message not in catalog:
+        raise ValueError('missing localized message: ' + message)
+    return catalog[message]
+
+
+def display(data, value):
+    return ui(data, 'value:' + value)
+
+
+
 def context_questions(fields):
     prompts = {'work_mode': 'How does work progress: iterations, flow, stages or discovery?',
                'delivery': 'How is value delivered: continuously, versioned or through acceptance?',
@@ -271,7 +378,7 @@ def context_questions(fields):
 
 
 def enabled(data, view):
-    return data['schema_version'] != '1.4' or view in data['views']
+    return data['schema_version'] not in {'1.4', '1.5'} or view in data['views']
 
 
 
@@ -293,7 +400,7 @@ def validate_schedule_types(data, items):
 
 def validate_header(data: dict) -> tuple:
     obj(data, 'input')
-    choice(data.get('schema_version'), {'1.0', '1.1', '1.2', '1.3', '1.4'}, 'schema_version')
+    choice(data.get('schema_version'), {'1.0', '1.1', '1.2', '1.3', '1.4', '1.5'}, 'schema_version')
     if data['schema_version'] == '1.0' and any(k in data for k in ('phases', 'milestones')):
         raise ValueError('phases/milestones require schema_version 1.1 or later')
     for field in ('project', 'updated', 'direction', 'ordering', 'closure', 'priority_policy'):
@@ -301,9 +408,9 @@ def validate_header(data: dict) -> tuple:
     iso(data['updated'], 'updated')
     views = array(data.get('views'), 'views')
     options = {'requirements', 'versions', 'schedule'}
-    if data['schema_version'] in {'1.3', '1.4'}:
+    if data['schema_version'] in {'1.3', '1.4', '1.5'}:
         options.add('iterations')
-    if data['schema_version'] == '1.4':
+    if data['schema_version'] in {'1.4', '1.5'}:
         options.update({'phases', 'milestones', 'flow'})
     for view in views:
         choice(view, options, 'views')
@@ -447,64 +554,75 @@ def table(headers, rows):
     return '\n'.join(lines)
 
 
-def timing(item, mode):
+def timing(item, mode, data=None):
     if item['start'] is None:
-        return 'Unscheduled'
+        return ui(data, 'Unscheduled')
     if item['kind'] == 'milestone':
         return f'W{item["start"]}' if mode == 'weeks' else item['start']
     if mode == 'weeks':
         return f'W{item["start"]}–W{item["end"] - 1}'
-    return f'{item["start"]} to {item["end"]} (end exclusive)'
+    return str(item['start']) + ui(data, ' to ') + str(item['end']) + ui(data, ' (end exclusive)')
 
 
 def markdown(data: dict) -> str:
     """Render selected views of validated facts as one Markdown roadmap."""
-    if data['schema_version'] in {'1.3', '1.4'}:
+    if data['schema_version'] in {'1.3', '1.4', '1.5'}:
         return main_markdown(data)
-    lines = [f'# {md(data["project"])} Roadmap', '', f'Updated: {data["updated"]}', '',
-             md(data['direction']), '', 'Ordering rationale: ' + md(data['ordering']), '',
-             f'Priority policy: {md(data["priority_policy"])}', '', '## Requirements', '']
+    lines = [f'# {md(data["project"])}{ui(data, " Roadmap")}', '', ui(data, 'Updated: ') + data["updated"], '',
+             md(data['direction']), '', ui(data, 'Ordering rationale: ') + md(data['ordering']), '',
+             ui(data, 'Priority policy: ') + md(data["priority_policy"]), '', ui(data, '## Requirements'), '']
     lines.extend(requirement_markdown(data))
-    lines.extend(['', 'Closure criterion: ' + md(data['closure']), ''])
+    lines.extend(['', ui(data, 'Closure criterion: ') + md(data['closure']), ''])
     if 'versions' in data['views']:
         lines.extend(version_markdown(data))
     lines.extend(event_markdown(data))
     if 'schedule' in data['views']:
         lines.extend(schedule_markdown(data))
     lines.extend(revision_markdown(data))
-    lines.extend(['', 'Backlog requirements and defects map to this roadmap; items outside it are not done by default.',
-                  'Placement grants no implementation or release approval.', ''])
+    lines.extend(['', ui(data, 'Backlog requirements and defects map to this roadmap; items outside it are not done by default.'),
+                  ui(data, 'Placement grants no implementation or release approval.'), ''])
     return '\n'.join(lines)
 
 
 def plan_header(data):
-    lines = [f'# {md(data["project"])} Roadmap', '', f'Updated: {data["updated"]}', '',
-             '## Overview', '', md(data['direction']), '',
-             'Ordering rationale: ' + md(data['ordering']), '',
-             'Priority policy: ' + md(data['priority_policy']), '',
-             'Closure criterion: ' + md(data['closure']), '']
-    if data['schema_version'] == '1.4':
+    lines = [f'# {md(data["project"])}{ui(data, " Roadmap")}', '', ui(data, 'Updated: ') + data["updated"], '',
+             ui(data, '## Overview'), '', md(data['direction']), '',
+             ui(data, 'Ordering rationale: ') + md(data['ordering']), '',
+             ui(data, 'Priority policy: ') + md(data['priority_policy']), '',
+             ui(data, 'Closure criterion: ') + md(data['closure']), '']
+    if data['schema_version'] in {'1.4', '1.5'}:
         lines += selection_markdown(data)
-    return lines + ['## Priority arrangement', '']
+    if data['schema_version'] == '1.5':
+        lines += language_markdown(data)
+    return lines + [ui(data, '## Priority arrangement'), '']
+
+
+
+def language_markdown(data):
+    language = data['language']
+    return [ui(data, 'Deliverable language: ') + display(data, language['locale']) +
+            ' · ' + display(data, language['basis']), '',
+            md(language['rationale']) + ui(data, ' [Language source](') +
+            quote(language['source'], safe='/:#?=&%+~.-_') + ')' + ui(data, '.'), '']
 
 
 def selection_markdown(data):
     selected = data['selection']
-    return ['## Planning approach', '',
-            'Scenario: ' + md(selected['scenario']) + ' · Primary: ' + md(selected['primary']) +
-            ' · Layout: ' + selected['layout'], '',
-            'Enabled views: ' + ', '.join(data['views']) + '.', '',
-            md(selected['rationale']) + ' [Selection source](' +
-            quote(selected['source'], safe='/:#?=&%+~.-_') + ').', '']
+    return [ui(data, '## Planning approach'), '',
+            ui(data, 'Scenario: ') + display(data, selected['scenario']) + ui(data, ' · Primary: ') + display(data, selected['primary']) +
+            ui(data, ' · Layout: ') + display(data, selected['layout']), '',
+            ui(data, 'Enabled views: ') + ui(data, ', ').join(display(data, view) for view in data['views']) + ui(data, '.'), '',
+            md(selected['rationale']) + ui(data, ' [Selection source](') +
+            quote(selected['source'], safe='/:#?=&%+~.-_') + ')' + ui(data, '.'), '']
 
 
 def flow_markdown(data):
     flow = data['flow']
-    return ['## Flow', '', 'Workflow policy: ' + md(flow['policy']), '',
-            'Service expectation: ' + md(flow['expectation']), '',
-            'Flow metrics: ' + md(flow['metrics']), '',
-            '[Workflow source](' + quote(flow['source'], safe='/:#?=&%+~.-_') + ') · ' +
-            '[Execution board](' + quote(flow['board'], safe='/:#?=&%+~.-_') + ')', '']
+    return [ui(data, '## Flow'), '', ui(data, 'Workflow policy: ') + md(flow['policy']), '',
+            ui(data, 'Service expectation: ') + md(flow['expectation']), '',
+            ui(data, 'Flow metrics: ') + md(flow['metrics']), '',
+            ui(data, '[Workflow source](') + quote(flow['source'], safe='/:#?=&%+~.-_') + ') · ' +
+            ui(data, '[Execution board](') + quote(flow['board'], safe='/:#?=&%+~.-_') + ')', '']
 
 
 
@@ -513,7 +631,7 @@ def priority_markdown(data):
     completed = [e for e in data['entries'] if e['execution'] == 'Completed']
     lines = requirement_markdown(dict(data, entries=active))
     if completed:
-        lines += ['', '<details>', f'<summary>Completed requirements and defects ({len(completed)})</summary>', '']
+        lines += ['', '<details>', '<summary>' + ui(data, 'Completed requirements and defects') + f' ({len(completed)})</summary>', '']
         lines += requirement_markdown(dict(data, entries=completed))
         lines += ['', '</details>']
     return lines
@@ -528,17 +646,17 @@ def delivery_markdown(data):
     if 'versions' in data['views']:
         lines += [''] + version_markdown(data)
     lines += event_markdown(data)
-    if data['schema_version'] == '1.4':
-        lines = primary_first(lines, data['selection']['primary'])
+    if data['schema_version'] in {'1.4', '1.5'}:
+        lines = primary_first(lines, data['selection']['primary'], data)
     if lines:
-        lines = ['', '## Delivery plan', ''] + [
+        lines = ['', ui(data, '## Delivery plan'), ''] + [
             '#' + line if line.startswith('## ') else line for line in lines]
     if 'schedule' in data['views']:
         lines += timeline_markdown(data)
     return lines
 
 
-def primary_first(lines, primary):
+def primary_first(lines, primary, data=None):
     chunks, current = [], []
     for line in lines:
         if line.startswith('## ') and current:
@@ -547,21 +665,20 @@ def primary_first(lines, primary):
         current.append(line)
     if current:
         chunks.append(current)
-    heading = '## ' + primary.capitalize()
+    heading = ui(data, '## ' + primary.capitalize())
     chunks.sort(key=lambda chunk: 0 if heading in chunk else 1)
     return [line for chunk in chunks for line in chunk]
 
 
 
 def timeline_markdown(data):
-    lines = schedule_markdown(data)
-    timing_table = next(line for line in lines if line.startswith('| Reference |'))
-    image = '![Roadmap schedule](roadmap.svg)'
+    lines = schedule_markdown(data, heading='## Timeline')
+    timing_table = next(line for line in lines if line.startswith(ui(data, '| Reference |')))
+    image = ui(data, '![Roadmap schedule](roadmap.svg)')
     lines.remove(timing_table)
     lines.remove(image)
-    lines = [line.replace('## Schedule', '## Timeline') for line in lines]
     # Keep the primary diagram visible and the duplicate tabular encoding optional.
-    lines[7:7] = [image, '', '<details>', '<summary>Timing details</summary>', '',
+    lines[7:7] = [image, '', '<details>', ui(data, '<summary>Timing details</summary>'), '',
                   timing_table, '', '</details>', '']
     return lines
 
@@ -570,53 +687,53 @@ def iteration_window(data, key):
     schedule = data.get('schedule', {}) if 'schedule' in data['views'] else {}
     item = next((i for i in schedule.get('items', []) if i['ref'] == key), None)
     if item is None or item['start'] is None:
-        return 'Unscheduled'
-    return item['basis'] + ' · ' + timing(item, schedule['mode'])
+        return ui(data, 'Unscheduled')
+    return display(data, item['basis']) + ' · ' + timing(item, schedule['mode'], data)
 
 
 def iteration_versions(data, iteration):
     return ', '.join(v['id'] for v in data.get('versions', [])
-                     if set(v['members']) & set(iteration['members'])) or 'Unassigned'
+                     if set(v['members']) & set(iteration['members'])) or ui(data, 'Unassigned')
 
 
 def iteration_markdown(data):
     rows = [[i['id'] + ' · ' + md(i['name']), md(i['goal']), iteration_window(data, i['id']),
-             ', '.join(i['members']) or 'None', iteration_versions(data, i), md(i['owner']),
-             '[Source](' + quote(i['source'], safe='/:#?=&%+~.-_') + ')',
-             '[Board](' + quote(i['board'], safe='/:#?=&%+~.-_') + ')'
+             ', '.join(i['members']) or ui(data, 'None'), iteration_versions(data, i), display(data, 'Unknown') if i['owner'] == 'Unknown' else md(i['owner']),
+             ui(data, '[Source](') + quote(i['source'], safe='/:#?=&%+~.-_') + ')',
+             ui(data, '[Board](') + quote(i['board'], safe='/:#?=&%+~.-_') + ')'
              if i.get('board') else '—'] for i in data['iterations']]
-    lines = ['## Iterations', '', 'Cadence: ' + md(data['cadence']), '', table(
-        ['Iteration', 'Goal', 'Timebox / basis', 'Members', 'Versions touched', 'Owner', 'Source', 'Execution detail'], rows)]
+    lines = [ui(data, '## Iterations'), '', ui(data, 'Cadence: ') + md(data['cadence']), '', table(
+        [ui(data, 'Iteration'), ui(data, 'Goal'), ui(data, 'Timebox / basis'), ui(data, 'Members'), ui(data, 'Versions touched'), ui(data, 'Owner'), ui(data, 'Source'), ui(data, 'Execution detail')], rows)]
     if not rows:
-        lines += ['', 'No iterations planned.']
+        lines += ['', ui(data, 'No iterations planned.')]
     assigned = {member for i in data['iterations'] for member in i['members']}
     unassigned = [e['id'] for e in data['entries'] if e['id'] not in assigned]
     if unassigned:
-        lines += ['', 'Not allocated to an iteration: ' + ', '.join(unassigned) + '.']
-    return lines + ['', 'Iteration boundaries do not prove completion, reach milestones or authorize release.']
+        lines += ['', ui(data, 'Not allocated to an iteration: ') + ', '.join(unassigned) + '.']
+    return lines + ['', ui(data, 'Iteration boundaries do not prove completion, reach milestones or authorize release.')]
 
 
 def delivery_summary(data):
-    lines = ['', '## Delivery outlook', '']
+    lines = ['', ui(data, '## Delivery outlook'), '']
     if 'flow' in data['views']:
-        lines += ['Workflow policy: ' + md(data['flow']['policy']), '',
-                  'Service expectation: ' + md(data['flow']['expectation']), '']
-    if data['schema_version'] == '1.4' and data.get('phases') and enabled(data, 'phases'):
-        lines += [table(['Phase', 'Scope', 'Exit condition'], [
+        lines += [ui(data, 'Workflow policy: ') + md(data['flow']['policy']), '',
+                  ui(data, 'Service expectation: ') + md(data['flow']['expectation']), '']
+    if data['schema_version'] in {'1.4', '1.5'} and data.get('phases') and enabled(data, 'phases'):
+        lines += [table([ui(data, 'Phase'), ui(data, 'Scope'), ui(data, 'Exit condition')], [
             [p['id'] + ' · ' + md(p['name']), ', '.join(p['scope']), md(p['exit_condition'])]
             for p in data['phases']]), '']
     if 'iterations' in data['views']:
-        lines += ['Cadence: ' + md(data['cadence']), '', table(['Iteration / goal', 'Timebox / basis'], [
+        lines += [ui(data, 'Cadence: ') + md(data['cadence']), '', table([ui(data, 'Iteration / goal'), ui(data, 'Timebox / basis')], [
             [i['id'] + ' · ' + md(i['goal']), iteration_window(data, i['id'])] for i in data['iterations']])]
     if 'versions' in data['views']:
-        lines += ['', table(['Version / outcome', 'Members', 'Delivery window'], [
-            [v['id'] + ' · ' + md(v['outcome']), ', '.join(v['members']) or 'None', md(v['window'])]
+        lines += ['', table([ui(data, 'Version / outcome'), ui(data, 'Members'), ui(data, 'Delivery window')], [
+            [v['id'] + ' · ' + md(v['outcome']), ', '.join(v['members']) or ui(data, 'None'), display(data, 'Unknown') if v['window'] == 'Unknown' else md(v['window'])]
             for v in data['versions']])]
     if data.get('milestones') and enabled(data, 'milestones'):
-        lines += ['', table(['Key event', 'State', 'Timing / basis'], [
-            [m['id'] + ' · ' + md(m['name']), m['state'], iteration_window(data, m['id'])]
+        lines += ['', table([ui(data, 'Key event'), ui(data, 'State'), ui(data, 'Timing / basis')], [
+            [m['id'] + ' · ' + md(m['name']), display(data, m['state']), iteration_window(data, m['id'])]
             for m in data['milestones']])]
-    return lines + ['', '[Delivery details and timeline](roadmap-delivery.md).']
+    return lines + ['', ui(data, '[Delivery details and timeline](roadmap-delivery.md).')]
 
 
 def main_markdown(data, split=False):
@@ -624,10 +741,10 @@ def main_markdown(data, split=False):
     detail = delivery_markdown(data)
     lines += delivery_summary(data) if split and detail else detail
     lines += revision_markdown(data)
-    if split and data.get('revisions') and data['schema_version'] in {'1.2', '1.3', '1.4'}:
-        lines += ['', '[Supplied revision details](roadmap-history.md).']
-    lines += ['', 'Backlog requirements and defects map to this roadmap; items outside it are not done by default.',
-              'Placement grants no implementation or release approval.', '']
+    if split and data.get('revisions') and data['schema_version'] in {'1.2', '1.3', '1.4', '1.5'}:
+        lines += ['', ui(data, '[Supplied revision details](roadmap-history.md).')]
+    lines += ['', ui(data, 'Backlog requirements and defects map to this roadmap; items outside it are not done by default.'),
+              ui(data, 'Placement grants no implementation or release approval.'), '']
     return clean_markdown(lines)
 
 
@@ -636,7 +753,7 @@ def clean_markdown(lines):
 
 
 def documents(data, layout=None):
-    retained = data['selection']['layout'] if data['schema_version'] == '1.4' else None
+    retained = data['selection']['layout'] if data['schema_version'] in {'1.4', '1.5'} else None
     if layout is not None and retained is not None and layout != retained:
         raise ValueError('layout conflicts with retained selection; update its source decision first')
     layout = layout or retained or 'single'
@@ -646,12 +763,12 @@ def documents(data, layout=None):
         detail = delivery_markdown(data)
         if detail:
             outputs['roadmap-delivery.md'] = clean_markdown([
-                '# ' + md(data['project']) + ' Delivery Details', '', '[Main roadmap](roadmap.md)',
-                '', 'Updated: ' + data['updated'], '', 'Generated view; maintain linked source records.', *detail, ''])
-        if data['schema_version'] in {'1.2', '1.3', '1.4'} and data['revisions']:
+                '# ' + md(data['project']) + ui(data, ' Delivery Details'), '', ui(data, '[Main roadmap](roadmap.md)'),
+                '', ui(data, 'Updated: ') + data['updated'], '', ui(data, 'Generated view; maintain linked source records.'), *detail, ''])
+        if data['schema_version'] in {'1.2', '1.3', '1.4', '1.5'} and data['revisions']:
             outputs['roadmap-history.md'] = clean_markdown([
-                '# ' + md(data['project']) + ' Revision Details', '', '[Main roadmap](roadmap.md)',
-                '', 'Updated: ' + data['updated'], '', 'Supplied decisions; linked history may contain earlier records.',
+                '# ' + md(data['project']) + ui(data, ' Revision Details'), '', ui(data, '[Main roadmap](roadmap.md)'),
+                '', ui(data, 'Updated: ') + data['updated'], '', ui(data, 'Supplied decisions; linked history may contain earlier records.'),
                 *revision_markdown(data, None), ''])
     if 'schedule' in data['views']:
         outputs['roadmap.svg'] = svg(data)
@@ -661,22 +778,22 @@ def documents(data, layout=None):
 
 
 def revision_markdown(data, limit=5):
-    if data['schema_version'] not in {'1.2', '1.3', '1.4'}:
+    if data['schema_version'] not in {'1.2', '1.3', '1.4', '1.5'}:
         return []
     revisions = data['revisions']
-    lines = ['', '## Revision history', '']
+    lines = ['', ui(data, '## Revision history'), '']
     if not revisions:
-        lines.append('No material revisions recorded; earlier history is not certified by this input.')
+        lines.append(ui(data, 'No material revisions recorded; earlier history is not certified by this input.'))
     else:
         rows = [[r['date'] + ' · ' + r['id'], md(r['change']), md(r['reason']),
-                 md(r['impact']), '[Details](' + quote(r['source'], safe='/:#?=&%+~.-_') + ')']
+                 md(r['impact']), ui(data, '[Details](') + quote(r['source'], safe='/:#?=&%+~.-_') + ')']
                 for r in (revisions if limit is None else revisions[:limit])]
-        lines.append(table(['Date / revision', 'Change', 'Reason', 'Impact', 'Details'], rows))
+        lines.append(table([ui(data, 'Date / revision'), ui(data, 'Change'), ui(data, 'Reason'), ui(data, 'Impact'), ui(data, 'Details')], rows))
     if data.get('revision_history'):
         link = quote(data['revision_history'], safe='/:#?=&%+~.-_')
-        lines.extend(['', '[Full revision history](' + link + ').'])
+        lines.extend(['', ui(data, '[Full revision history](') + link + ').'])
     if limit is not None and len(revisions) > limit:
-        lines.extend(['', f'{len(revisions) - limit} older revisions retained in the linked history; omitted here.'])
+        lines.extend(['', str(len(revisions) - limit) + ' ' + ui(data, 'older revisions retained in the linked history; omitted here.')])
     return lines
 
 
@@ -685,75 +802,75 @@ def requirement_markdown(data: dict) -> list:
     rows = []
     for entry in data['entries']:
         link = quote(entry['source'], safe='/:#?=&%+~.-_')
-        rows.append([entry['tier'], f'[{entry["id"]} · {md(entry["name"])}]({link})',
+        rows.append([display(data, entry['tier']), f'[{entry["id"]} · {md(entry["name"])}]({link})',
                      md(entry['outcome']), entry['priority'], md(entry['approval']),
-                     entry['execution'] or '—', f'[{md(entry["conditions"])}]({link})'])
-    lines.append(table(['Tier', 'Requirement / defect', 'Expected outcome', 'Priority',
-                        'Approval status', 'Execution status', 'Key conditions'], rows))
+                     display(data, entry['execution']) if entry['execution'] else '—', f'[{md(entry["conditions"])}]({link})'])
+    lines.append(table([ui(data, 'Tier'), ui(data, 'Requirement / defect'), ui(data, 'Expected outcome'), ui(data, 'Priority'),
+                        ui(data, 'Approval status'), ui(data, 'Execution status'), ui(data, 'Key conditions')], rows))
     empty = [tier for tier in ('Now', 'Next', 'Later') if not any(e['tier'] == tier for e in data['entries'])]
     if empty:
-        lines.extend(['', 'No items planned: ' + ', '.join(empty) + '.'])
+        lines.extend(['', ui(data, 'No items planned: ') + ui(data, ', ').join(display(data, tier) for tier in empty) + '.'])
     unknown = [e['id'] for e in data['entries'] if e['execution'] is None]
     if unknown:
-        lines.extend(['', 'Unverified execution mappings: ' + ', '.join(unknown) + '.'])
+        lines.extend(['', ui(data, 'Unverified execution mappings: ') + ', '.join(unknown) + '.'])
     return lines
 
 
 def version_markdown(data: dict) -> list:
     lines = []
-    rows = [[v['id'] + ' · ' + md(v['name']), ', '.join(v['members']) or 'None',
-             md(v['outcome']), md(v['owner']), md(v['window'])] for v in data['versions']]
-    lines.extend(['## Versions', '', table(['Version', 'Members', 'Core outcome', 'Owner', 'Delivery window'], rows)])
+    rows = [[v['id'] + ' · ' + md(v['name']), ', '.join(v['members']) or ui(data, 'None'),
+             md(v['outcome']), display(data, 'Unknown') if v['owner'] == 'Unknown' else md(v['owner']), display(data, 'Unknown') if v['window'] == 'Unknown' else md(v['window'])] for v in data['versions']]
+    lines.extend([ui(data, '## Versions'), '', table([ui(data, 'Version'), ui(data, 'Members'), ui(data, 'Core outcome'), ui(data, 'Owner'), ui(data, 'Delivery window')], rows)])
     assigned = {ref for v in data['versions'] for ref in v['members']}
     unassigned = [e['id'] for e in data['entries'] if e['id'] not in assigned]
     if unassigned:
-        lines.extend(['', 'Unassigned: ' + ', '.join(unassigned) + '.'])
+        lines.extend(['', ui(data, 'Unassigned: ') + ', '.join(unassigned) + '.'])
     return lines
 
 
 def event_markdown(data):
     lines = []
     if data.get('phases') and enabled(data, 'phases'):
-        rows = [[p['id'] + ' · ' + md(p['name']), ', '.join(p['scope']), md(p['owner']),
+        rows = [[p['id'] + ' · ' + md(p['name']), ', '.join(p['scope']), display(data, 'Unknown') if p['owner'] == 'Unknown' else md(p['owner']),
                  md(p['exit_condition']), '[' + p['id'] + '](' +
                  quote(p['source'], safe='/:#?=&%+~.-_') + ')'] for p in data['phases']]
-        lines.extend(['', '## Phases', '', table(
-            ['Phase', 'Scope', 'Owner', 'Exit condition', 'Source'], rows)])
+        lines.extend(['', ui(data, '## Phases'), '', table(
+            [ui(data, 'Phase'), ui(data, 'Scope'), ui(data, 'Owner'), ui(data, 'Exit condition'), ui(data, 'Source')], rows)])
     if data.get('milestones') and enabled(data, 'milestones'):
-        rows = [[m['id'] + ' · ' + md(m['name']), m['category'], ', '.join(m['related']) or 'Global',
-                 md(m['owner']), m['state'], md(m['criterion']),
-                 '[Source](' + quote(m['source'], safe='/:#?=&%+~.-_') + ')',
-                 '[Evidence](' + quote(m['evidence'], safe='/:#?=&%+~.-_') + ')'
+        rows = [[m['id'] + ' · ' + md(m['name']), display(data, m['category']), ', '.join(m['related']) or ui(data, 'Global'),
+                 display(data, 'Unknown') if m['owner'] == 'Unknown' else md(m['owner']), display(data, m['state']), md(m['criterion']),
+                 ui(data, '[Source](') + quote(m['source'], safe='/:#?=&%+~.-_') + ')',
+                 ui(data, '[Evidence](') + quote(m['evidence'], safe='/:#?=&%+~.-_') + ')'
                  if m.get('evidence') else '—'] for m in data['milestones']]
-        lines.extend(['', '## Milestones', '', table(
-            ['Milestone', 'Category', 'Related', 'Owner', 'State', 'Occurrence criterion', 'Source', 'Evidence'], rows),
-            '', 'Milestones are events; dates and related work do not prove occurrence or grant approval.'])
+        lines.extend(['', ui(data, '## Milestones'), '', table(
+            [ui(data, 'Milestone'), ui(data, 'Category'), ui(data, 'Related'), ui(data, 'Owner'), ui(data, 'State'), ui(data, 'Occurrence criterion'), ui(data, 'Source'), ui(data, 'Evidence')], rows),
+            '', ui(data, 'Milestones are events; dates and related work do not prove occurrence or grant approval.')])
     return lines
 
 
-def schedule_markdown(data: dict) -> list:
+def schedule_markdown(data: dict, heading='## Schedule') -> list:
     lines = []
     schedule = data['schedule']
-    rows = [[i['ref'], i['kind'], i['basis'], timing(i, schedule['mode']),
-             ', '.join(i['depends_on']) or 'None'] for i in schedule['items']]
-    lines.extend(['', '## Schedule', '', md(schedule['origin']), '',
-                  'Elapsed calendar days / whole weeks; spans have exclusive ends.', '',
-                  table(['Reference', 'Kind', 'Timing basis', 'Window', 'Depends on'], rows), '',
-                  '![Roadmap schedule](roadmap.svg)'])
+    rows = [[i['ref'], display(data, i['kind']), display(data, i['basis']), timing(i, schedule['mode'], data),
+             ', '.join(i['depends_on']) or ui(data, 'None')] for i in schedule['items']]
+    lines.extend(['', ui(data, heading), '', md(schedule['origin']), '',
+                  ui(data, 'Elapsed calendar days / whole weeks; spans have exclusive ends.'), '',
+                  table([ui(data, 'Reference'), ui(data, 'Kind'), ui(data, 'Timing basis'), ui(data, 'Window'), ui(data, 'Depends on')], rows), '',
+                  ui(data, '![Roadmap schedule](roadmap.svg)')])
     covered = {i['ref'] for i in schedule['items']}
     covered.update(ref for v in data.get('versions', []) if v['id'] in covered for ref in v['members'])
     missing = [e['id'] for e in data['entries'] + data.get('phases', []) +
-               data.get('milestones', []) + (data.get('iterations', []) if data['schema_version'] in {'1.3', '1.4'} else [])
+               data.get('milestones', []) + (data.get('iterations', []) if data['schema_version'] in {'1.3', '1.4', '1.5'} else [])
                if e['id'] not in covered]
     if missing:
-        lines.extend(['', 'No schedule assigned: ' + ', '.join(missing) + '.'])
+        lines.extend(['', ui(data, 'No schedule assigned: ') + ', '.join(missing) + '.'])
     unknown = [i['ref'] for i in schedule['items'] if i['start'] is None]
     if unknown:
-        lines.extend(['', 'Unscheduled: ' + ', '.join(unknown) + '.'])
+        lines.extend(['', ui(data, 'Unscheduled: ') + ', '.join(unknown) + '.'])
     unverified = [f'{dep} → {i["ref"]}' for i in schedule['items'] for dep in i['depends_on']
                   if dep in unknown or i['ref'] in unknown]
     if unverified:
-        lines.extend(['', 'Unverified dependency timing: ' + ', '.join(unverified) + '.'])
+        lines.extend(['', ui(data, 'Unverified dependency timing: ') + ', '.join(unverified) + '.'])
     if schedule['mode'] == 'dates':
         lines.extend(['', '```mermaid', mermaid(data).rstrip(), '```'])
     return lines
@@ -763,7 +880,7 @@ def mermaid(data: dict) -> str:
     if data['schedule']['mode'] != 'dates':
         raise ValueError('Mermaid Gantt output requires dates; relative weeks use SVG')
     names = {r['id']: r['name'] for r in records(data)}
-    names.update({m['id']: m['name'] + ' [' + m['state'] + ']'
+    names.update({m['id']: m['name'] + ' [' + display(data, m['state']) + ']'
                   for m in data.get('milestones', [])})
     lines = ['gantt', '    dateFormat YYYY-MM-DD', '    axisFormat %m-%d', '    todayMarker off']
     for item in data['schedule']['items']:
@@ -772,7 +889,7 @@ def mermaid(data: dict) -> str:
         # Labels cannot introduce Mermaid directives or metadata delimiters.
         label = re.sub(r'[^\w .()/-]', ' ', names[item['ref']], flags=re.UNICODE)
         label = ' '.join(label.split()) or item['ref']
-        label = f'{item["ref"]} {label} ({item["basis"]})'
+        label = f'{item["ref"]} {label} ({display(data, item["basis"])})'
         prefix = 'milestone, ' if item['kind'] == 'milestone' else ''
         duration = iso(item['end'], 'end') - iso(item['start'], 'start')
         lines.append(f'    {label} :{prefix}{item["ref"]}, {item["start"]}, {duration}d')
@@ -801,14 +918,14 @@ def svg(data: dict) -> str:
         return 350 + (value - low) / (high - low) * 560
 
     svg_heading(root, data, schedule)
-    svg_axes(root, low, high, schedule['mode'], len(items), xpos)
+    svg_axes(root, low, high, schedule['mode'], len(items), xpos, data)
     positions = {i['ref']: 136 + index * 84 + 20 for index, i in enumerate(items)}
     for item in items:
-        svg_row(root, item, coords, positions, names, schedule['mode'], xpos, states)
+        svg_row(root, item, coords, positions, names, schedule['mode'], xpos, states, data)
     if not items:
-        svg_label(root, 20, 156, 'No items scheduled')
+        svg_label(root, 20, 156, ui(data, 'No items scheduled'))
     svg_label(root, 20, 136 + max(1, len(items)) * 84 + 25,
-              'Bars show elapsed time, not completion percentage.')
+              ui(data, 'Bars show elapsed time, not completion percentage.'))
     return ET.tostring(root, encoding='unicode') + '\n'
 
 
@@ -818,8 +935,10 @@ def svg_root(data, schedule, count):
                       height=str(top + max(1, count) * row_height + 48),
                       viewBox=f'0 0 {width} {top + max(1, count) * row_height + 48}',
                       role='img', **{'aria-labelledby': 'title description'})
-    ET.SubElement(root, 'title', id='title').text = data['project'] + ' schedule'
-    ET.SubElement(root, 'desc', id='description').text = schedule['origin'] + '; target, committed and actual timing are labeled; exclusive ends.'
+    if data['schema_version'] == '1.5':
+        root.set('{http://www.w3.org/XML/1998/namespace}lang', data['language']['locale'])
+    ET.SubElement(root, 'title', id='title').text = data['project'] + ui(data, ' schedule')
+    ET.SubElement(root, 'desc', id='description').text = schedule['origin'] + ui(data, '; target, committed and actual timing are labeled; exclusive ends.')
     ET.SubElement(root, 'style').text = (
         'text{font:14px sans-serif;fill:#172b4d} .grid{stroke:#d9e2ec;stroke-width:1}'
         '.span{fill:#3579ad}.milestone{fill:#3579ad}.dependency{fill:none;stroke:#526777;stroke-width:1.5}'
@@ -852,11 +971,11 @@ def svg_heading(root, data, schedule):
     origin_chunks = wrap_label(schedule['origin'], 112)
     for number, line in enumerate(origin_chunks[:2]):
         svg_label(root, 20, 51 + number * 17, line + ('…' if number == 1 and len(origin_chunks) > 2 else ''))
-    svg_label(root, 20, 100, 'Reference / timing basis')
-    svg_label(root, 350, 100, 'Relative weeks' if schedule['mode'] == 'weeks' else 'Calendar dates (end exclusive)')
+    svg_label(root, 20, 100, ui(data, 'Reference / timing basis'))
+    svg_label(root, 350, 100, ui(data, 'Relative weeks') if schedule['mode'] == 'weeks' else ui(data, 'Calendar dates (end exclusive)'))
 
 
-def svg_axes(root, low, high, mode, count, xpos):
+def svg_axes(root, low, high, mode, count, xpos, data=None):
     ticks = sorted({low + round((high - low) * n / 4) for n in range(5)})
     for tick in ticks:
         x = xpos(tick)
@@ -866,17 +985,17 @@ def svg_axes(root, low, high, mode, count, xpos):
         svg_label(root, x, 121, value, **{'text-anchor': 'middle'})
 
 
-def svg_row(root, item, coords, positions, names, mode, xpos, states):
+def svg_row(root, item, coords, positions, names, mode, xpos, states, data=None):
     ref, y = item['ref'], positions[item['ref']]
     # Full accessible labels remain available even when visual wrapping is abbreviated.
     full = f'{ref} · {names[ref]}'
     chunks = wrap_label(full)
     for n, chunk in enumerate(chunks[:2]):
         svg_label(root, 20, y + n * 17, chunk + ('…' if n == 1 and len(chunks) > 2 else ''))
-    state = ' · ' + states[ref] if ref in states else ''
-    svg_label(root, 20, y + 42, item['basis'] + ' · ' + timing(item, mode) + state)
+    state = ' · ' + display(data, states[ref]) if ref in states else ''
+    svg_label(root, 20, y + 42, display(data, item['basis']) + ' · ' + timing(item, mode, data) + state)
     if ref not in coords:
-        svg_label(root, 362, y + 12, 'Unscheduled')
+        svg_label(root, 362, y + 12, ui(data, 'Unscheduled'))
         return
     start, end = coords[ref]
     x1, x2 = xpos(start), xpos(end)
@@ -885,7 +1004,7 @@ def svg_row(root, item, coords, positions, names, mode, xpos, states):
                               **{'class': 'milestone'})
     else:
         shape = ET.SubElement(root, 'rect', x=str(x1), y=str(y), width=str(x2 - x1), height='18', **{'class': 'span'})
-    ET.SubElement(shape, 'title').text = full + ' · ' + timing(item, mode)
+    ET.SubElement(shape, 'title').text = full + ' · ' + timing(item, mode, data)
     for dep in item['depends_on']:
         if dep not in coords:
             continue
@@ -920,15 +1039,16 @@ def main():
     parser.add_argument('--overwrite', action='store_true')
     parser.add_argument('--layout', choices=('single', 'split'))
     parser.add_argument('--recommend', action='store_true')
+    parser.add_argument('--resolve-language', action='store_true')
     args = parser.parse_args()
     try:
         if args.input.stat().st_size > 1_048_576:
             raise ValueError('input exceeds 1 MiB')
         data = json.loads(args.input.read_text(encoding='utf-8'))
-        if args.recommend:
-            if args.check or args.output_dir is not None or args.overwrite or args.layout is not None:
-                raise ValueError('--recommend cannot be combined with generation/check flags')
-            print(json.dumps(recommend(data), ensure_ascii=False, indent=2))
+        if args.recommend or args.resolve_language:
+            if (args.recommend and args.resolve_language) or args.check or args.output_dir is not None or args.overwrite or args.layout is not None:
+                raise ValueError('read-only recommendation/resolution cannot combine with other modes or output flags')
+            print(json.dumps(resolve_language(data) if args.resolve_language else recommend(data), ensure_ascii=False, indent=2))
             return 0
         data = validate(data)
         if args.check:

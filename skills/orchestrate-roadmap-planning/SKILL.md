@@ -1,7 +1,7 @@
 ---
 name: orchestrate-roadmap-planning
 description: Orchestrator skill — run one roadmap planning pass by sequencing atomic skills from strategic goals through capture, scoring, dependency mapping, and promotion, satisfying each skill's halt conditions up front.
-version: 2.6.0
+version: 2.7.0
 license: MIT
 ---
 
@@ -243,3 +243,22 @@ A recipe mismatch alone is not a finding and new features do not force migration
 
 Self-check: selection evidence survives every handoff and no proposed default silently
 replaces a team choice; unmapped findings remain explicit.
+
+## Deliverable language
+
+Before writing roadmap-chain deliverables, apply the [language contract](../../specs/roadmap-modeling.md#57-deliverable-language-schema-15).
+Read the user instruction, consuming-project policy and existing artifact first;
+retain a settled choice across handoffs. For a new artifact infer only from consistent
+reader/document evidence; ask only unresolved gaps or winning-level conflicts.
+Conversation language and English templates alone do not select artifact language.
+Record the choice and source in existing norms/planning decisions; no new mandatory
+configuration. Localize all new prose and display labels consistently while preserving
+IDs, machine fields, canonical enums, source links and historical originals.
+
+Pass locale, basis and source to every atomic step alongside view choices. Delegate
+resolution to the writing skill; run no duplicate interview here. Unresolved language
+findings cannot fall through to healthy; report or route them to the appropriate
+writer without translating source evidence in the orchestrator.
+
+Self-check: language evidence and retained choice are explicit; all new display prose
+is consistent, machine contracts are unchanged, and unavailable checks are reported.

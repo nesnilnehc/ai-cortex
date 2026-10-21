@@ -377,5 +377,81 @@ class ExampleTests(unittest.TestCase):
         self.assertIn('hard deadline', change)
 
 
+
+class LanguageExampleTests(unittest.TestCase):
+    BASE = ROOT / 'skills/define-roadmap/references/languages'
+
+    def editions(self):
+        return [json.loads((self.BASE / locale / 'input.json').read_text())
+                for locale in ['en', 'zh-CN']]
+
+    def test_paired_editions_reproduce_all_outputs_without_input_changes(self):
+        """Covers: roadmap-capabilities#AC26."""
+        for data in self.editions():
+            before = copy.deepcopy(data)
+            folder = self.BASE / data['language']['locale']
+            for name, content in renderer.documents(renderer.validate(data)).items():
+                self.assertEqual(content, (folder / name).read_text(), name)
+            self.assertEqual(data, before)
+
+    def test_cli_reproduces_paired_editions_when_run_from_another_directory(self):
+        """Covers: roadmap-capabilities#AC26; exercise the actual entry point and local catalog."""
+        script = ROOT / 'skills/define-roadmap/scripts/render-roadmap.py'
+        for locale in ['en', 'zh-CN']:
+            with self.subTest(locale=locale), tempfile.TemporaryDirectory() as tmp:
+                folder = self.BASE / locale
+                out = Path(tmp) / 'generated'
+
+                result = subprocess.run([sys.executable, str(script), str(folder / 'input.json'),
+                                         '--output-dir', str(out)], cwd=tmp, capture_output=True, text=True)
+
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual({path.name for path in out.iterdir()},
+                                 {'roadmap.md', 'roadmap-delivery.md', 'roadmap-history.md',
+                                  'roadmap.svg', 'roadmap.mmd'})
+                for path in out.iterdir():
+                    self.assertEqual(path.read_text(), (folder / path.name).read_text(), path.name)
+
+    def test_language_editions_preserve_source_planning_facts(self):
+        """Covers: roadmap-capabilities#AC26."""
+        english, chinese = self.editions()
+        self.assertEqual(english['views'], chinese['views'])
+        self.assertEqual(english['schedule']['items'], chinese['schedule']['items'])
+        for field, keys in [('entries', ['id', 'tier', 'priority', 'execution', 'source']),
+                            ('versions', ['id', 'members']),
+                            ('iterations', ['id', 'members', 'source', 'board']),
+                            ('phases', ['id', 'scope', 'source']),
+                            ('milestones', ['id', 'related', 'category', 'state', 'evidence', 'source']),
+                            ('revisions', ['id', 'date', 'source'])]:
+            project = lambda data: [{key: record[key] for key in keys} for record in data[field]]
+            self.assertEqual(project(english), project(chinese), field)
+        source = (self.BASE / 'sources.md').read_text()
+        self.assertIn('2026-11-02 to 2026-11-16', source)
+        self.assertIn('state planned, evidence absent', source)
+        self.assertIn('In progress / 进行中', source)
+        self.assertIn('Search unallocated → I1', source)
+        self.assertEqual(english['entries'][0]['execution'], 'In progress')
+        self.assertEqual(english['milestones'][0]['state'], 'planned')
+
+    def test_all_editions_link_the_language_decision_and_localized_views(self):
+        """Covers: roadmap-capabilities#AC26."""
+        for locale, heading, status in [('en', '## Priority arrangement', 'In progress'),
+                                        ('zh-CN', '## 优先安排', '进行中')]:
+            folder = self.BASE / locale
+            main = (folder / 'roadmap.md').read_text()
+            self.assertIn(heading, main)
+            self.assertIn(status, main)
+            self.assertIn('../sources.md#language', main)
+            self.assertIn('roadmap-delivery.md', main)
+            self.assertIn('roadmap-history.md', main)
+            detail = (folder / 'roadmap-delivery.md').read_text()
+            self.assertIn('roadmap.svg', detail)
+            self.assertIn((folder / 'roadmap.mmd').read_text().strip(), detail)
+            self.assertIn('roadmap.md', detail)
+        zh = (self.BASE / 'zh-CN/roadmap-delivery.md').read_text()
+        for english in ['## Delivery plan', 'Awaiting acceptance', 'target ·', 'planned', 'Approval']:
+            self.assertNotIn(english, zh)
+
+
 if __name__ == '__main__':
     unittest.main()

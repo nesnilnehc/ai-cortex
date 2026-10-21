@@ -22,6 +22,8 @@ Two of the snapshots below are written in Chinese. They predate the English-firs
 | 2026-10-21 | [Roadmap reading structure and iteration views](./2026-10-21-roadmap-document-layout-technical-design.md) | technical-design | [Roadmap capability work](../process-management/backlog/2026-10-20-roadmap-capabilities.md) |
 | 2026-10-21 | [Roadmap scenario selection](./2026-10-21-roadmap-scenarios-technical-design.md) | technical-design | [Roadmap capability work](../process-management/backlog/2026-10-20-roadmap-capabilities.md) |
 
+| 2026-10-21 | [Roadmap deliverable language](./2026-10-21-roadmap-language-technical-design.md) | technical-design | [Roadmap capability work](../process-management/backlog/2026-10-20-roadmap-capabilities.md) |
+
 ## Adding one
 
 Name the file `YYYY-MM-DD-{topic}-{functional,technical}-design.md`, fill in the frontmatter its Spec requires including `parent`, and append a row here. A design nothing links to cannot be found by a reader, and CI reports it as an orphan.

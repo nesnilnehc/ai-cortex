@@ -1,7 +1,7 @@
 ---
 name: define-roadmap
 description: Create a source-backed roadmap using context-sensitive scenario recommendations, retained view choices and single or split documents, retaining revision history and using an offline Markdown, SVG and dated Mermaid generator when useful.
-version: 7.6.1
+version: 7.7.0
 license: MIT
 ---
 
@@ -211,3 +211,22 @@ decision first. Revision/history and destination safeguards remain in force.
 
 Self-check: known facts were read first; missing questions were focused; recommendation
 and settled choice are distinct; existing choices were reused and source-backed.
+
+## Deliverable language
+
+Before writing roadmap-chain deliverables, apply the [language contract](../../specs/roadmap-modeling.md#57-deliverable-language-schema-15).
+Read the user instruction, consuming-project policy and existing artifact first;
+retain a settled choice across handoffs. For a new artifact infer only from consistent
+reader/document evidence; ask only unresolved gaps or winning-level conflicts.
+Conversation language and English templates alone do not select artifact language.
+Record the choice and source in existing norms/planning decisions; no new mandatory
+configuration. Localize all new prose and display labels consistently while preserving
+IDs, machine fields, canonical enums, source links and historical originals.
+
+Prepare free-text names, goals, conditions, approval labels and revision summaries in
+the chosen language before rendering. Use schema 1.5 for English/Chinese localization;
+`--resolve-language` is read-only advice, not an automatic translator or interactive
+interview. See the [workflow and paired examples](references/deliverable-language.md).
+
+Self-check: language evidence and retained choice are explicit; all new display prose
+is consistent, machine contracts are unchanged, and unavailable checks are reported.

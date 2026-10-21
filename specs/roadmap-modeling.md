@@ -2,7 +2,7 @@
 id: ROADMAP_MODELING_SPEC_V1
 name: Roadmap Modeling Schema
 description: Roadmap views, source authority, priority vocabulary and local generation input contract.
-version: 1.4.0
+version: 1.5.0
 status: active
 lifecycle: living
 created_at: 2026-10-20
@@ -69,7 +69,7 @@ The zero-duration event model is a deliberate project choice; tools permitting
 nonzero-duration milestone tasks must map their event separately from the work span.
 Existing single-view Markdown and JSON 1.0 inputs remain valid. A legacy 1.0 marker
 references an entry/version directly; do not silently convert it or infer occurrence.
-New independent phase/event records use 1.1–1.4. Revision summaries use 1.2–1.4. Their registers appear only when
+New independent phase/event records use 1.1–1.5. Revision summaries use 1.2–1.5. Their registers appear only when
 records exist; no additional view or lifecycle gate is compulsory.
 
 ## 5. Body structure contract
@@ -147,17 +147,17 @@ infer missing priorities, owners, dates or dependencies.
 
 | Field | Type | Requirement |
 | --- | --- | --- |
-| `schema_version` | string | `1.0` (legacy), `1.1`, `1.2`, `1.3` or `1.4` |
+| `schema_version` | string | `1.0` (legacy), `1.1`, `1.2`, `1.3`, `1.4` or `1.5` |
 | `project`, `updated`, `direction`, `ordering`, `closure`, `priority_policy` | string | Required, nonempty; updated is an ISO date; direction states the goal served and ordering explains the sequence |
-| `views` | array | Unique subset of `requirements`, `versions`, `schedule`, plus `iterations` in 1.3+ and `phases`, `milestones`, `flow` in 1.4; requirements always included |
+| `views` | array | Unique subset of `requirements`, `versions`, `schedule`, plus `iterations` in 1.3+ and `phases`, `milestones`, `flow` in 1.4+; requirements always included |
 | `entries` | array | Requirement/defect records; may be empty |
 | `versions` | array | Required when versions view selected |
 | `schedule` | object | Required when schedule view selected |
 | `iterations`, `cadence` | array, string | In 1.3+, required when iterations view selected; records may be empty; cadence is nonempty source-backed text |
-| `revisions` | array | Required in 1.2–1.4, including an explicit empty array for an adopted baseline; not modeled in earlier schemas |
-| `selection` | object | Required in 1.4; source-backed scenario, primary perspective, layout, rationale and context; top-level views are the only enabled-view list |
-| `flow` | object | In 1.4, required only when flow selected; workflow policy, expectation, metrics and source/board links |
-| `revision_history` | string or null | Optional full-history reference in 1.2–1.4; required when more than five revision records are supplied |
+| `revisions` | array | Required in 1.2–1.5, including an explicit empty array for an adopted baseline; not modeled in earlier schemas |
+| `selection` | object | Required in 1.4+; source-backed scenario, primary perspective, layout, rationale and context; top-level views are the only enabled-view list |
+| `flow` | object | In 1.4+, required only when flow selected; workflow policy, expectation, metrics and source/board links |
+| `revision_history` | string or null | Optional full-history reference in 1.2–1.5; required when more than five revision records are supplied |
 
 Unmodeled keys may be retained as input metadata but do not affect generated
 views. In particular, only milestone records own the modeled event `state`;
@@ -195,7 +195,7 @@ use the same reference syntax as entry sources. Owners and criteria are nonempty
 Dates alone never change state. A past target can remain planned pending evidence.
 Actual milestone timing requires reached state and therefore evidence.
 
-In 1.1–1.4, schedule kind `span` references entries, versions, phases or 1.3+ iterations; kind `milestone`
+In 1.1–1.5, schedule kind `span` references entries, versions, phases or 1.3+ iterations; kind `milestone`
 references only milestone IDs. Each record has at most one schedule item, while
 multiple event IDs may reference the same version and share its boundary date.
 Unsupplied phase/event timing is reported as missing when schedule is selected.
@@ -210,7 +210,7 @@ Schedule item fields: `ref` (record ID), `kind` (span/milestone),
 Each ref occurs once. Dates use ISO YYYY-MM-DD; weeks use positive integers.
 Spans use an exclusive end: W1 to W3 covers W1–W2. Milestones have equal start/end.
 Unscheduled items have both endpoints null. In 1.0 they must have kind span;
-in 1.1–1.4 unscheduled milestones retain kind milestone and have no plotted marker. One missing endpoint,
+in 1.1–1.5 unscheduled milestones retain kind milestone and have no plotted marker. One missing endpoint,
 an inverted span, mixed time modes, duplicate dependencies and cycles are invalid.
 Finish-to-start dependencies must not overlap; unknown endpoints leave timing
 unverified and are reported. This is validation, not resource scheduling.
@@ -231,7 +231,7 @@ Split mode does not move or edit authoritative source documents.
 
 Selected schedules produce `roadmap.svg`; dated schedules also produce `roadmap.mmd`.
 Relative weeks produce SVG and a timing table, never fictitious calendar dates.
-Schema 1.3/1.4 single output uses the reading order above; legacy single outputs retain
+Schema 1.3–1.5 single output uses the reading order above; legacy single outputs retain
 their established structure. Explicit split rendering may reorganize older input.
 
 All five fixed sibling filenames are reserved generated views. Source references
@@ -271,7 +271,7 @@ history. Do not reconstruct unknown decisions, dates or owners from a current
 snapshot. Earlier unverified history remains explicitly unknown. Existing single-view
 plans and older generator schemas remain valid without automatic migration.
 
-JSON 1.2–1.4 revision fields: `id`, `date`, `change`, `reason`, `impact`, `source`.
+JSON 1.2–1.5 revision fields: `id`, `date`, `change`, `reason`, `impact`, `source`.
 All are required strings. IDs use the entry identifier syntax, unique within revision
 history, independent of current planning IDs. Date is ISO YYYY-MM-DD and must not
 exceed the roadmap `updated` date. Records are newest first; equal dates preserve
@@ -347,7 +347,7 @@ or team/delivery needs materially change, retain current choices while presentin
 a focused reconsideration proposal. Do not overwrite them from a fresh default.
 A material selection/cadence/scope change uses one revision with its source decision.
 
-For 1.4, `selection` has `scenario` (iterations/flow/staged/discovery/custom), `primary`
+For 1.4+, `selection` has `scenario` (iterations/flow/staged/discovery/custom), `primary`
 (requirements/iterations/versions/phases/flow), `layout` (single/split), `rationale`,
 `source` and `context`. Context contains `work_mode` (iterations/flow/staged/discovery),
 `delivery` (continuous/versioned/acceptance), `audience`, `constraints`, `source`.
@@ -357,7 +357,7 @@ appropriate. Sources must support the decision and facts, not merely link a guid
 hybrid choice can differ from its context's default recommendation with a rationale.
 Destination stays the caller's established path/tool choice, not a duplicate JSON field.
 
-In 1.4, phases and milestones render only when independently selected in `views`;
+In 1.4+, phases and milestones render only when independently selected in `views`;
 selected arrays must be present (empty is allowed). Unselected record metadata may
 remain for traceability but does not enable a register. A selected schedule may
 still plot supplied phase/event timing independently of its detail register.
@@ -387,7 +387,7 @@ results are advice, not plan approval. `--recommend` cannot combine with `--chec
 output, overwrite or layout flags. Missing information is a valid diagnostic result
 (exit 0); malformed input exits nonzero. All normal input-size bounds apply.
 
-Generation of 1.4 requires settled context/selection and renders its source and
+Generation of 1.4+ requires settled context/selection and renders its source and
 rationale. Layout defaults to the saved choice; a conflicting explicit `--layout`
 fails before writes. Update the source selection first for an authorized layout
 change. For old schemas omitted layout still means single. Schemas 1.0–1.3 remain
@@ -397,6 +397,75 @@ for new context; primary/layout are null with an instruction to inspect the exis
 roadmap. Legacy selection metadata remains ignored.
 No recommendation reads project files beyond its input; calling skills perform
 source discovery, ask questions and verify authorization.
+
+### 5.7 Deliverable language (schema 1.5)
+
+This contract governs roadmap deliverables in consuming projects, not the language
+of AI Cortex's own asset instructions. Resolve language before writing new prose:
+
+1. Follow an explicit artifact-language instruction from the user.
+2. Otherwise follow the consuming project's applicable language policy.
+3. Otherwise retain the existing artifact's language during maintenance.
+4. For a new artifact, infer from intended readers and comparable project documents
+   only when the evidence supports one language. Conversation language alone is not
+   an artifact-language decision.
+5. Ask a focused question when the winning level is conflicting or evidence is
+   insufficient. Do independent work while waiting; do not guess or overwrite prose.
+
+Lower-priority evidence cannot overturn a settled higher-priority instruction.
+An explicit new user instruction needs no second confirmation. Show a proposed
+change when new evidence differs from a retained choice; update its source decision
+before regeneration. Store the locale, basis, rationale and evidence link in existing
+norms or the roadmap's planning decision. No separate configuration file is required.
+Pass that choice across planning skills; do not repeat the interview at every step.
+Legacy documents without metadata remain valid: inspect their actual language.
+
+Use one selected language for headings, table headers, summaries, free-text outcomes,
+conditions, approval display labels, revisions, diagram labels, legends and accessible
+descriptions across main/detail documents. Preserve original evidence and immutable
+historical records; translate summaries without altering meaning, status or authority.
+A separately requested bilingual edition uses two aligned outputs, not accidental
+mixed labels. IDs, paths, URLs, commands, field names, enums and Mermaid directives
+remain stable English machine values. Proper names and quoted source text may remain
+in their original language. Execution display labels have the same seven meanings
+as the Rule: Not started → 未开始; In progress → 进行中; Awaiting acceptance → 待验收;
+Awaiting release → 待发布; Paused → 已暂停; Blocked → 受阻; Completed → 已完成.
+
+Schema 1.5 inherits 1.4 and requires `language`:
+
+| Field | Contract |
+| --- | --- |
+| `locale` | `en` or `zh-CN`; unsupported locales fail explicitly |
+| `basis` | `user`, `project`, `existing` or `context` |
+| `source` | Resolving relative reference, fragment or HTTP(S) URL under the common reference rules |
+| `rationale` | Nonempty explanation in the selected deliverable language |
+
+Optional `language_context` contains evidence arrays `user`, `project`, `existing`,
+`audience`, `documents`, each at most 20 records with `locale` and `source`.
+Unknown levels and malformed records fail explicitly. The last two levels combine
+as contextual evidence. At the first populated priority level, differing locales
+produce `needs-input`; a unanimous locale resolves the choice. A saved language is
+retained when no new context is supplied and otherwise supplies existing-artifact
+evidence when that level is empty. Diagnostic results are proposals, never mutations.
+
+`--resolve-language` accepts partial evidence or a saved choice and prints JSON only:
+`status` is `resolved`, `retained`, `change-proposed` or `needs-input`; results carry
+locale, basis, source, rationale and questions as applicable. It reads only the supplied
+input, asks no interactive questions and writes no files. It cannot combine with
+`--recommend`, `--check`, output, layout or overwrite flags. `--recommend` includes a
+nested language result only for schema 1.5 or explicit language context. Calling
+skills discover evidence, ask gaps and retain the decision. Generation rejects
+unresolved context or context whose resolved locale differs from the saved choice,
+before writing files. Keep the saved basis and source current when accepting advice.
+
+The renderer localizes only its own display strings through the bundled catalog.
+It neither translates arbitrary source text nor proves that supplied prose is in
+the selected language. The calling skill prepares that prose; review checks meaning
+and consistency. Missing catalog entries fail instead of silently mixing English.
+CLI diagnostics and machine JSON keys remain English. Schemas 1.0–1.4 retain their
+English rendering and do not acquire mandatory interviews or metadata. Adopt 1.5
+explicitly for localized generation; ordinary maintenance needs no schema migration.
+The define-roadmap capability provides the language workflow and paired examples.
 
 ## 6. Anti-patterns
 

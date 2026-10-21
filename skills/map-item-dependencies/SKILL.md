@@ -1,7 +1,7 @@
 ---
 name: map-item-dependencies
 description: Identify dependencies among backlog and roadmap items across five categories, record them in each item's depends_on field, and produce a dependency graph with need-by dates and reduction options. Runs before promotion so blocked items are not pulled into Now.
-version: 1.1.0
+version: 1.2.0
 license: MIT
 ---
 
@@ -214,3 +214,21 @@ With no dependency, write `depends_on: —`, never blank — a blank cannot sepa
 
 [Filled dependency register, graph and blocked list](../define-roadmap/references/service-desk/dependencies.md). This is a fictional completed output, not a template
 or authorization to change the adopting project.
+
+## Deliverable language
+
+Before writing roadmap-chain deliverables, apply the [language contract](../../specs/roadmap-modeling.md#57-deliverable-language-schema-15).
+Read the user instruction, consuming-project policy and existing artifact first;
+retain a settled choice across handoffs. For a new artifact infer only from consistent
+reader/document evidence; ask only unresolved gaps or winning-level conflicts.
+Conversation language and English templates alone do not select artifact language.
+Record the choice and source in existing norms/planning decisions; no new mandatory
+configuration. Localize all new prose and display labels consistently while preserving
+IDs, machine fields, canonical enums, source links and historical originals.
+
+Apply the retained choice to new reports, rationale, tables and diagram labels as
+well as refreshed roadmap projections. Preserve existing source-record policies;
+this workflow does not authorize bulk translation of unrelated documents.
+
+Self-check: language evidence and retained choice are explicit; all new display prose
+is consistent, machine contracts are unchanged, and unavailable checks are reported.

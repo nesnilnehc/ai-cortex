@@ -91,3 +91,9 @@ layout stay null and must be read from the existing roadmap. New 1.4 generation
 uses saved layout; a conflicting explicit layout fails. Change its source decision
 before regenerating an authorized layout change. Keep the same destination unless
 the user requests another; no remote writes occur through recommendation.
+
+## Language is a separate retained choice
+
+Resolve [deliverable language](deliverable-language.md) during the read-first intake,
+alongside readers and norms. Reuse it when maintaining an existing combination.
+A missing language decision does not require reconsidering views, cadence or layout.

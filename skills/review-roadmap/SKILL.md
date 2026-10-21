@@ -1,7 +1,7 @@
 ---
 name: review-roadmap
 description: Review a concise requirement-and-defect roadmap for entry granularity, priority, readiness, readability, iteration views, document layering, revision history and source traceability; emit findings without rewriting.
-version: 3.7.0
+version: 3.8.0
 license: MIT
 output_schema:
   type: findings-list
@@ -126,3 +126,22 @@ interview was verified merely because a generated selection table exists.
 
 Self-check: recommendations are distinguished from settled choices; recipe adherence
 and new-schema adoption were not imposed as quality gates.
+
+## Deliverable language
+
+Before writing roadmap-chain deliverables, apply the [language contract](../../specs/roadmap-modeling.md#57-deliverable-language-schema-15).
+Read the user instruction, consuming-project policy and existing artifact first;
+retain a settled choice across handoffs. For a new artifact infer only from consistent
+reader/document evidence; ask only unresolved gaps or winning-level conflicts.
+Conversation language and English templates alone do not select artifact language.
+Record the choice and source in existing norms/planning decisions; no new mandatory
+configuration. Localize all new prose and display labels consistently while preserving
+IDs, machine fields, canonical enums, source links and historical originals.
+
+Review without rewriting or prompting for missing evidence. Report unresolved language
+basis as cannot evaluate where appropriate; flag actual inconsistency against the
+Rule. Findings prose follows the established report language; findings keys and
+severity/category values retain the findings-list contract.
+
+Self-check: language evidence and retained choice are explicit; all new display prose
+is consistent, machine contracts are unchanged, and unavailable checks are reported.

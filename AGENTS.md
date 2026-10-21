@@ -68,7 +68,7 @@ Inside this repository, an agent `MUST`:
 
 ## 5. Language and communication
 
-Repository artifacts and code comments `MUST` be written in English. The exceptions — existing ADRs, released changelog entries and design snapshots, all of which are immutable records — are listed in [docs/LANGUAGE_SCHEME.md](docs/LANGUAGE_SCHEME.md). Machine-consumed fields (YAML frontmatter, commands, IDs) `MUST` remain in English.
+Repository artifacts and code comments `MUST` be written in English. The exceptions — immutable historical records and explicitly scoped localization catalogs/examples — are listed in [docs/LANGUAGE_SCHEME.md](docs/LANGUAGE_SCHEME.md). Machine-consumed fields (YAML frontmatter, commands, IDs) `MUST` remain in English.
 
 Conversational responses `MUST` follow the user's language or explicit language request. This communication rule does not change the language of a repository artifact unless the user explicitly requests an artifact-language exception.
 

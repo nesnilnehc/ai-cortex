@@ -406,3 +406,20 @@ legacy default output. No existing project is automatically migrated.
 Some destinations do not preserve Markdown disclosure elements. Verify rendering;
 expand folded content or use linked detail pages when unsupported. Local preview
 is not proof of Yuque/Git host rendering or successful remote delivery.
+
+## Deliverable language follows the consuming project
+
+The English used in these asset instructions is not a default imposed on every
+team's roadmap. Follow explicit artifact-language instructions, then project policy,
+then the existing artifact. For a new roadmap, consistent reader and sibling-document
+evidence can settle the choice; ask only when it cannot. Conversation language alone
+is insufficient. Retain the decision with the planning choice and pass it across
+skills so ordinary updates do not repeat the language interview.
+
+The [language workflow](../../skills/define-roadmap/references/deliverable-language.md)
+explains read-only resolution and schema 1.5. The [paired complete examples](../../skills/define-roadmap/references/languages/README.md)
+show English and Simplified Chinese main/detail/history documents, SVG and dated
+Mermaid from the same planning facts. One language per edition covers headings,
+status labels, free prose and chart descriptions; IDs, URLs and canonical machine
+states remain unchanged. The generator localizes built-in labels; the skill prepares
+project prose and review checks its meaning. Legacy schemas retain English output.

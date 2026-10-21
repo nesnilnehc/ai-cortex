@@ -1,7 +1,7 @@
 ---
 name: plan-next
 description: Analyze governance state and suggest next actions; ask whether a skipped recommendation lasts for the session or until revoked.
-version: 15.7.0
+version: 15.8.0
 license: MIT
 ---
 
@@ -213,3 +213,21 @@ four context dimensions, alter view choices or execute recommendation tools as a
 
 Self-check: source-backed custom/legacy choices remain valid and new recipe availability
 alone creates no governance work.
+
+## Deliverable language
+
+Before writing roadmap-chain deliverables, apply the [language contract](../../specs/roadmap-modeling.md#57-deliverable-language-schema-15).
+Read the user instruction, consuming-project policy and existing artifact first;
+retain a settled choice across handoffs. For a new artifact infer only from consistent
+reader/document evidence; ask only unresolved gaps or winning-level conflicts.
+Conversation language and English templates alone do not select artifact language.
+Record the choice and source in existing norms/planning decisions; no new mandatory
+configuration. Localize all new prose and display labels consistently while preserving
+IDs, machine fields, canonical enums, source links and historical originals.
+
+Diagnose language drift from source evidence without rewriting the roadmap. Preserve
+the established artifact choice in suggested handoffs; conversational suggestions
+follow the user language. Missing optional legacy metadata alone triggers no repair.
+
+Self-check: language evidence and retained choice are explicit; all new display prose
+is consistent, machine contracts are unchanged, and unavailable checks are reported.

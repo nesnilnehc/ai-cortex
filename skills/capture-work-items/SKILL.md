@@ -1,7 +1,7 @@
 ---
 name: capture-work-items
 description: Capture requirements, bugs, or issues from free-form input into structured, persistent artifacts. Use when user wants to record a work item quickly without deep validation.
-version: 2.2.0
+version: 2.3.0
 license: MIT
 ---
 
@@ -364,3 +364,21 @@ User: "Capture only, for now."
 **Item 2** — type: issue (task). Title: "add CONTRIBUTING.md". Description: from the context. Persisted as "2026-03-06-add-contributing.md".
 
 **Confirm**: "Both items are captured. Review and adjust them if you need to."
+
+## Deliverable language
+
+Before writing roadmap-chain deliverables, apply the [language contract](../../specs/roadmap-modeling.md#57-deliverable-language-schema-15).
+Read the user instruction, consuming-project policy and existing artifact first;
+retain a settled choice across handoffs. For a new artifact infer only from consistent
+reader/document evidence; ask only unresolved gaps or winning-level conflicts.
+Conversation language and English templates alone do not select artifact language.
+Record the choice and source in existing norms/planning decisions; no new mandatory
+configuration. Localize all new prose and display labels consistently while preserving
+IDs, machine fields, canonical enums, source links and historical originals.
+
+For roadmap intake, carry this choice into new work-item prose; preserve the
+requirement schema and frontmatter lifecycle values. Existing source records retain
+their own applicable policy and are not translated merely for a roadmap refresh.
+
+Self-check: language evidence and retained choice are explicit; all new display prose
+is consistent, machine contracts are unchanged, and unavailable checks are reported.

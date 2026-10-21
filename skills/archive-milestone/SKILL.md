@@ -1,7 +1,7 @@
 ---
 name: archive-milestone
 description: Archive completed roadmap work packages or iteration/phase/version/period snapshots while preserving milestone event evidence and unfinished work.
-version: 1.8.0
+version: 1.9.0
 license: MIT
 ---
 
@@ -141,3 +141,21 @@ flow policy/measurement evidence when archiving a flow period; do not infer comp
 work from the calendar or impose legacy milestone maturity on a flow period.
 
 Self-check: selection evidence, continuing work and navigation survive archival.
+
+## Deliverable language
+
+Before writing roadmap-chain deliverables, apply the [language contract](../../specs/roadmap-modeling.md#57-deliverable-language-schema-15).
+Read the user instruction, consuming-project policy and existing artifact first;
+retain a settled choice across handoffs. For a new artifact infer only from consistent
+reader/document evidence; ask only unresolved gaps or winning-level conflicts.
+Conversation language and English templates alone do not select artifact language.
+Record the choice and source in existing norms/planning decisions; no new mandatory
+configuration. Localize all new prose and display labels consistently while preserving
+IDs, machine fields, canonical enums, source links and historical originals.
+
+Keep archived originals in their historical language. Apply the retained language
+to newly written archive summaries, disposition reports and navigation; a translation
+is an aligned summary, never a replacement for original evidence.
+
+Self-check: language evidence and retained choice are explicit; all new display prose
+is consistent, machine contracts are unchanged, and unavailable checks are reported.

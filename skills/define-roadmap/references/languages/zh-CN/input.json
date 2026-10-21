@@ -1,0 +1,155 @@
+{
+  "schema_version": "1.5",
+  "project": "请求检索",
+  "updated": "2026-10-21",
+  "direction": "让请求便于查找。",
+  "ordering": "先验证检索能力，再扩大范围。",
+  "closure": "完成须有验收和生产部署凭据。",
+  "priority_policy": "已确认的客户成果优先级为 P1。",
+  "views": [
+    "requirements",
+    "iterations",
+    "versions",
+    "phases",
+    "milestones",
+    "schedule"
+  ],
+  "entries": [
+    {
+      "id": "R1",
+      "name": "检索请求",
+      "outcome": "按编号查找请求",
+      "tier": "Now",
+      "priority": "P1",
+      "approval": "已批准",
+      "execution": "In progress",
+      "conditions": "与试点用户验证检索能力",
+      "source": "../sources.md#r1"
+    }
+  ],
+  "revisions": [
+    {
+      "id": "REV1",
+      "date": "2026-10-21",
+      "change": "检索：未分配 → I1",
+      "reason": "团队已批准近期验证目标。",
+      "impact": "V1 的范围和目标日期不变。",
+      "source": "../sources.md#rev1"
+    }
+  ],
+  "language": {
+    "locale": "zh-CN",
+    "basis": "user",
+    "source": "../sources.md#language",
+    "rationale": "用户要求提供内容一致的中英文版本。"
+  },
+  "selection": {
+    "scenario": "iterations",
+    "primary": "iterations",
+    "layout": "split",
+    "rationale": "采用迭代目标、交付批次和验收阶段。",
+    "source": "../sources.md#selection",
+    "context": {
+      "work_mode": "iterations",
+      "delivery": "versioned",
+      "audience": "产品团队和试点客户",
+      "constraints": "每两周规划；没有外部硬性截止日期",
+      "source": "../sources.md#context"
+    }
+  },
+  "versions": [
+    {
+      "id": "V1",
+      "name": "检索交付",
+      "members": [
+        "R1"
+      ],
+      "outcome": "检索能力可用",
+      "owner": "发布协调人",
+      "window": "目标：2026-11-02 至 2026-11-16（结束日期不含在内）"
+    }
+  ],
+  "iterations": [
+    {
+      "id": "I1",
+      "name": "验证检索",
+      "goal": "验证请求查找能力",
+      "owner": "产品团队",
+      "members": [
+        "R1"
+      ],
+      "source": "../sources.md#i1",
+      "board": "../sources.md#board"
+    }
+  ],
+  "cadence": "每两周一次迭代",
+  "phases": [
+    {
+      "id": "PH1",
+      "name": "试点验证",
+      "scope": [
+        "V1"
+      ],
+      "owner": "验收负责人",
+      "exit_condition": "试点验收已签署",
+      "source": "../sources.md#ph1"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "MS1",
+      "name": "验收试点成果",
+      "related": [
+        "V1",
+        "PH1"
+      ],
+      "category": "approval",
+      "owner": "验收负责人",
+      "criterion": "已记录验收凭据",
+      "state": "planned",
+      "evidence": null,
+      "source": "../sources.md#ms1"
+    }
+  ],
+  "schedule": {
+    "mode": "dates",
+    "calendar": "calendar-days",
+    "origin": "日期采用 ISO 格式，按日历天计算；区间不含结束日期。",
+    "items": [
+      {
+        "ref": "V1",
+        "kind": "span",
+        "basis": "target",
+        "start": "2026-11-02",
+        "end": "2026-11-16",
+        "depends_on": []
+      },
+      {
+        "ref": "I1",
+        "kind": "span",
+        "basis": "target",
+        "start": "2026-11-02",
+        "end": "2026-11-16",
+        "depends_on": []
+      },
+      {
+        "ref": "PH1",
+        "kind": "span",
+        "basis": "target",
+        "start": "2026-11-02",
+        "end": "2026-11-16",
+        "depends_on": []
+      },
+      {
+        "ref": "MS1",
+        "kind": "milestone",
+        "basis": "target",
+        "start": "2026-11-16",
+        "end": "2026-11-16",
+        "depends_on": [
+          "PH1"
+        ]
+      }
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 ---
 name: update-roadmap
 description: Maintain requirement-and-defect roadmap summaries — change item status, shift dates with downstream impact analysis, and retain source-backed revision history. Does not move items between Now/Next/Later tiers.
-version: 3.6.0
+version: 3.7.0
 license: MIT
 ---
 
@@ -287,3 +287,21 @@ combination; do not apply a fresh recommendation during status/date maintenance.
 
 Self-check: the update preserves the selection or links the authorized new decision;
 changed context and unavailable evidence are explicit.
+
+## Deliverable language
+
+Before writing roadmap-chain deliverables, apply the [language contract](../../specs/roadmap-modeling.md#57-deliverable-language-schema-15).
+Read the user instruction, consuming-project policy and existing artifact first;
+retain a settled choice across handoffs. For a new artifact infer only from consistent
+reader/document evidence; ask only unresolved gaps or winning-level conflicts.
+Conversation language and English templates alone do not select artifact language.
+Record the choice and source in existing norms/planning decisions; no new mandatory
+configuration. Localize all new prose and display labels consistently while preserving
+IDs, machine fields, canonical enums, source links and historical originals.
+
+Apply the retained choice to new reports, rationale, tables and diagram labels as
+well as refreshed roadmap projections. Preserve existing source-record policies;
+this workflow does not authorize bulk translation of unrelated documents.
+
+Self-check: language evidence and retained choice are explicit; all new display prose
+is consistent, machine contracts are unchanged, and unavailable checks are reported.

@@ -319,3 +319,82 @@ regression first failed; the boundary now rejects supplied invalid versions thro
 the existing ValueError diagnostic. Context-only recommendation remains supported.
 Define-roadmap receives patch 7.6.1 for this erratum. Final renderer count is 63;
 14 example checks remain unchanged. No new planning behavior or source choice is added.
+
+## Deliverable language adoption
+
+Scope: [language design](../../designs/2026-10-21-roadmap-language-technical-design.md).
+Resolve user > project > existing artifact > supported reader/document context;
+ask only unresolved gaps/conflicts and retain the choice across planning steps.
+
+| Work unit | Story points | Status |
+| --- | --- | --- |
+| Language contract, quality criteria and skill handoffs | 3 | Implemented |
+| Schema 1.5 resolution and localized rendering with TDD | 5 | Implemented |
+| Paired source-backed examples and workflow guidance | 3 | Implemented |
+| Regression, repository checks and visual inspection | 2 | Verified |
+
+Acceptance additions:
+
+- AC23: all roadmap-chain skills follow the same language priority, focused-question
+  and retention contract, with no mandatory new configuration or legacy migration.
+- AC24: English/Chinese headings, headers, states, summaries and diagram descriptions
+  agree with selected language while preserving IDs, references and planning facts.
+- AC25: conflicts and unsupported locales are explicit; read-only advice changes no
+  files, unresolved generation writes nothing, and legacy English outputs remain stable.
+- AC26: paired complete examples are independently source-backed, reproducible and
+  checked for shared facts; arbitrary prose remains a skill/reviewer responsibility.
+
+Changed skills receive additive minor versions: define-roadmap 7.7.0,
+update-roadmap 3.7.0, review-roadmap 3.8.0, orchestrate-roadmap-planning 2.7.0,
+plan-next 15.8.0, promote-roadmap-items 3.8.0, archive-milestone 1.9.0,
+prioritize-backlog 3.3.0, map-item-dependencies 1.2.0 and capture-work-items 2.3.0.
+Each adds language resolution/retention and output verification without changing its
+existing domain scope. Definition prepares localized prose; maintenance/promotion
+retain choices; review/diagnosis report drift without rewriting; orchestration
+passes evidence; archive preserves historical originals; intake/priority/dependencies
+apply the choice to new chain records and reports. Source versions, frontmatter,
+links, boundaries, tool fallback and Self-Checks are checked under refine-skill-design.
+
+### Language verification evidence
+
+The AGENTS language clause now links the scoped localization exception without
+changing section order or other loading/authority rules. Entry-profile verification:
+
+| Requirement | Result | Entry evidence |
+| --- | --- | --- |
+| Opening role | PASS | Opening paragraph |
+| Project identity and asset table | PASS | Section 1 |
+| Authoritative sources | PASS | Section 2 |
+| Actionable behavior | PASS | Section 3 numbered MUSTs and external-resource constraints |
+| Discovery/loading | PASS | Section 4 canonical path, tiers and matching/injection |
+| Language and terminology | PASS | Section 5; terminology pointer in section 2 |
+| Section order | PASS | Opening, sections 1–5, Reference |
+| Concise pointers rather than copied contracts | PASS | Source tables and linked assets |
+| Stable local references | PASS | Repository link check |
+| Title and primary language | PASS | Title and English entry body |
+| Tables | PASS | Identity, authority and Reference tables |
+| Format reference | PASS | Reference: agents.md |
+| Raw entry URL | PASS | Reference: raw.githubusercontent.com URL |
+| Project-specific profile | PASS | Reference: generate-agent-entry |
+| Usage and installation | PASS | Reference: README and bin/cortex |
+| Asset indexes | PASS | Reference: Skills, Specs, Protocols, Rules |
+
+No heading/section numbers changed, so existing section references remain valid.
+The change is supplied as a reviewable working-tree diff; closeout is a separate step.
+
+Final language checks: 78 renderer tests and 18 example tests pass. All legacy
+fixtures remain reproducible. Link, hygiene, findings-contract, asset-count, CLI-doc,
+index, modeled-Rule, Markdown-lint and whitespace checks pass; 12 changed versioned
+assets have increased versions. Renderer functions remain within 50 lines.
+Local installed-Marked/browser inspection confirms readable Chinese tables and
+main-to-detail navigation; English and Chinese SVG timelines preserve the same
+endpoints and display localized legends. Mermaid syntax/labels are tested as text;
+hosted Mermaid/Yuque rendering and an actual agent-led interview were not exercised.
+Unrelated working-tree changes were preserved. No local installation update, commit,
+push or remote skill publication was performed for this change.
+
+Timeline headings are selected at construction; source prose mentioning a schedule
+heading is preserved in both languages. Missing/malformed bundled localization data
+fails with a recovery instruction before output creation. Regressions exercise both
+conditions; paired editions are also reproduced through the real CLI from a different
+working directory. Existing example outputs remain unchanged by these repairs.

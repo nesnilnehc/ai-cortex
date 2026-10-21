@@ -6,6 +6,7 @@ import importlib.util
 import json
 from pathlib import Path
 import subprocess
+from shutil import copyfile
 import sys
 import tempfile
 import unittest
@@ -87,7 +88,248 @@ def selection_sample(work_mode='iterations', delivery='versioned'):
     return data
 
 
+def language_sample(locale='zh-CN', mode='weeks'):
+    data = selection_sample()
+    data['schema_version'] = '1.5'
+    data['language'] = dict(locale=locale, basis='project', source='policy.md#language',
+                            rationale='Project documentation policy')
+    if mode == 'dates':
+        dates = event_sample('dates')['schedule']
+        data['schedule'] = dates
+        data['schedule']['items'].append(dict(ref='I1', kind='span', basis='target',
+            start='2026-11-02', end='2026-11-16', depends_on=[]))
+    return data
+
+
+def language_evidence(locale, source='policy.md'):
+    return dict(locale=locale, source=source)
+
+
 class RendererTests(unittest.TestCase):
+    def test_localized_catalog_covers_scenarios_states_and_missing_values(self):
+        """Covers: roadmap-capabilities#AC24."""
+        for path in sorted((SCRIPT.parent.parent / 'references/scenarios').glob('*/input.json')):
+            data = json.loads(path.read_text())
+            data.update(schema_version='1.5', language=language_sample()['language'])
+            outputs = renderer.documents(renderer.validate(data))
+            self.assertIn('交付物语言：', outputs['roadmap.md'])
+        for state in sorted(renderer.EXECUTION) + [None]:
+            data = language_sample()
+            data['entries'][0]['execution'] = state
+            outputs = renderer.documents(renderer.validate(data))
+            self.assertNotIn('| None |', outputs['roadmap.md'])
+        data = language_sample()
+        for item in data['schedule']['items']:
+            item['start'] = item['end'] = None
+        outputs = renderer.documents(renderer.validate(data))
+        self.assertIn('未排期', outputs['roadmap.svg'])
+        for basis in ['user', 'project', 'existing', 'context']:
+            data['language']['basis'] = basis
+            self.assertIn('交付物语言：', renderer.markdown(data))
+
+    def test_missing_catalog_message_fails_instead_of_mixing_languages(self):
+        """Covers: roadmap-capabilities#AC24."""
+        with self.assertRaisesRegex(ValueError, 'missing localized message'):
+            renderer.ui(language_sample(), 'New untranslated heading')
+
+    def test_chinese_display_lists_and_unknown_event_owner_are_localized(self):
+        """Covers: roadmap-capabilities#AC24."""
+        data = language_sample()
+        data['milestones'][0]['owner'] = 'Unknown'
+        output = renderer.markdown(renderer.validate(data))
+        self.assertIn('需求安排、迭代', output)
+        self.assertNotIn('Unknown', output)
+        self.assertIn('选择依据](decisions.md#selection)。', output)
+
+    def test_timeline_preserves_source_text_when_it_mentions_a_schedule_heading(self):
+        """Covers: roadmap-capabilities#AC24; source prose is never globally replaced."""
+        for locale, origin in [('en', 'Source mentions ## Schedule as a section name.'),
+                               ('zh-CN', '源说明引用 ## 日程 作为章节名称。')]:
+            with self.subTest(locale=locale):
+                data = language_sample(locale)
+                data['schedule']['origin'] = origin
+
+                output = renderer.documents(renderer.validate(data))['roadmap-delivery.md']
+
+                self.assertIn(origin, output)
+                heading = '## Timeline' if locale == 'en' else '## 时间线'
+                self.assertIn(heading, output)
+
+    def test_localized_cli_reports_recovery_when_bundled_catalog_is_damaged(self):
+        """Covers: roadmap-capabilities#AC25; a damaged bundle fails before writing."""
+        for content in [None, '{', '[]', '{"label": null}']:
+            with self.subTest(catalog=content), tempfile.TemporaryDirectory() as tmp:
+                script = Path(tmp) / 'render-roadmap.py'
+                copyfile(SCRIPT, script)
+                source, out = Path(tmp) / 'input.json', Path(tmp) / 'out'
+                source.write_text(json.dumps(language_sample()))
+                if content is not None:
+                    (Path(tmp) / 'roadmap-zh-CN.json').write_text(content)
+
+                result = subprocess.run([sys.executable, str(script), str(source), '--output-dir', str(out)],
+                                        capture_output=True, text=True)
+
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn('restore the bundled roadmap-zh-CN.json', result.stderr)
+                self.assertNotIn('Traceback', result.stderr)
+                self.assertFalse(out.exists())
+
+    def test_language_decision_is_visible_and_source_linked(self):
+        """Covers: roadmap-capabilities#AC23."""
+        for locale, label in [('en', 'Deliverable language: '), ('zh-CN', '交付物语言：')]:
+            data = language_sample(locale)
+            output = renderer.markdown(renderer.validate(data))
+            self.assertIn(label, output)
+            self.assertIn('policy.md#language', output)
+            self.assertIn(data['language']['rationale'], output)
+
+    def test_language_resolution_precedence_and_consensus(self):
+        """Covers: roadmap-capabilities#AC23."""
+        levels = ['user', 'project', 'existing']
+        for level in levels:
+            context = {key: [language_evidence('en')] for key in ['user', 'project', 'existing', 'audience', 'documents']}
+            for higher in levels[:levels.index(level)]:
+                context.pop(higher)
+            context[level] = [language_evidence('zh-CN')]
+            result = renderer.resolve_language({'language_context': context})
+            self.assertEqual(result['status'], 'resolved')
+            self.assertEqual(result['locale'], 'zh-CN')
+            self.assertEqual(result['basis'], level)
+        result = renderer.resolve_language({'language_context': {'audience': [language_evidence('zh-CN')],
+            'documents': [language_evidence('zh-CN', 'existing.md')]}})
+        self.assertEqual(result['locale'], 'zh-CN')
+        self.assertEqual(result['basis'], 'context')
+
+    def test_language_conflicts_and_missing_evidence_ask_without_guessing(self):
+        """Covers: roadmap-capabilities#AC23."""
+        cases = [{}, {'documents': [language_evidence('en'), language_evidence('zh-CN')]},
+                 {'project': [language_evidence('en'), language_evidence('zh-CN')],
+                  'existing': [language_evidence('en')]}]
+        for context in cases:
+            result = renderer.resolve_language({'language_context': context})
+            self.assertEqual(result['status'], 'needs-input')
+            self.assertIsNone(result['locale'])
+            self.assertTrue(result['questions'])
+
+    def test_language_choice_is_retained_and_changes_are_only_proposals(self):
+        """Covers: roadmap-capabilities#AC23."""
+        data = language_sample()
+        before = copy.deepcopy(data)
+        result = renderer.resolve_language(data)
+        self.assertEqual(result['status'], 'retained')
+        self.assertEqual(result['locale'], 'zh-CN')
+        data['language_context'] = {'user': [language_evidence('en', 'request.md')]}
+        result = renderer.resolve_language(data)
+        self.assertEqual(result['status'], 'change-proposed')
+        self.assertEqual(result['retained_locale'], 'zh-CN')
+        self.assertEqual(result['locale'], 'en')
+        data.pop('language_context')
+        self.assertEqual(data, before)
+        self.assertEqual(renderer.recommend(data)['language']['status'], 'retained')
+
+    def test_generation_does_not_override_or_ignore_new_language_evidence(self):
+        """Covers: roadmap-capabilities#AC25."""
+        data = language_sample()
+        data['language_context'] = {'user': [language_evidence('en', 'request.md')]}
+        with self.assertRaisesRegex(ValueError, 'language'):
+            renderer.validate(data)
+        data['language_context'] = {'project': [language_evidence('en'), language_evidence('zh-CN')]}
+        with self.assertRaisesRegex(ValueError, 'language'):
+            renderer.validate(data)
+
+    def test_unresolved_language_generation_creates_no_output_directory(self):
+        """Covers: roadmap-capabilities#AC25."""
+        data = language_sample()
+        data['language_context'] = {'user': [language_evidence('en'), language_evidence('zh-CN')]}
+        with tempfile.TemporaryDirectory() as tmp:
+            source, out = Path(tmp) / 'input.json', Path(tmp) / 'out'
+            source.write_text(json.dumps(data))
+            result = subprocess.run([sys.executable, str(SCRIPT), str(source), '--output-dir', str(out)],
+                                    capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn('language evidence is unresolved', result.stderr)
+            self.assertFalse(out.exists())
+            self.assertEqual(json.loads(source.read_text()), data)
+
+    def test_language_validation_is_strict_and_legacy_metadata_is_ignored(self):
+        """Covers: roadmap-capabilities#AC25."""
+        for locale in ('fr', '', None, {}, ['en']):
+            data = language_sample(locale)
+            with self.subTest(locale=locale), self.assertRaises(ValueError):
+                renderer.validate(data)
+        for field in ('basis', 'source', 'rationale'):
+            data = language_sample()
+            data['language'].pop(field)
+            with self.assertRaises(ValueError):
+                renderer.validate(data)
+        data = selection_sample()
+        original = renderer.markdown(data)
+        data['language'] = {'locale': 'zh-CN'}
+        self.assertEqual(renderer.markdown(renderer.validate(data)), original)
+        with self.assertRaises(ValueError):
+            renderer.resolve_language({'language_context': {'project': [language_evidence('fr')]}})
+        with self.assertRaises(ValueError):
+            renderer.resolve_language({'language_context': {'documents': [language_evidence('en')] * 21}})
+
+    def test_chinese_presentation_keeps_source_text_and_machine_identity(self):
+        """Covers: roadmap-capabilities#AC24."""
+        data = language_sample()
+        data['entries'][0].update(name='Overview / target <研发>', execution='In progress')
+        before = copy.deepcopy(data)
+        result = renderer.documents(renderer.validate(data))
+        main = result['roadmap.md']
+        detail = result['roadmap-delivery.md']
+        self.assertIn('## 概览', main)
+        self.assertIn('执行状态', main)
+        self.assertIn('进行中', main)
+        self.assertIn('Overview / target &lt;研发&gt;', main)
+        self.assertIn('(requirements/search.md#acceptance)', main)
+        self.assertIn('### 迭代', detail)
+        self.assertIn('### 阶段', detail)
+        self.assertIn('### 里程碑', detail)
+        self.assertIn('计划中', detail)
+        self.assertNotIn('target ·', detail)
+        self.assertEqual(data, before)
+        svg = result['roadmap.svg']
+        self.assertIn('相对周次', svg)
+        self.assertIn('目标', svg)
+        self.assertNotIn('Bars show elapsed', svg)
+        self.assertIn('zh-CN', svg)
+        self.assertEqual(renderer.documents(data), result)
+
+    def test_dated_mermaid_uses_localized_labels_but_retains_syntax_and_ids(self):
+        """Covers: roadmap-capabilities#AC24."""
+        data = renderer.validate(language_sample(mode='dates'))
+        value = renderer.mermaid(data)
+        self.assertIn('gantt', value)
+        self.assertIn('dateFormat YYYY-MM-DD', value)
+        self.assertIn('目标', value)
+        self.assertIn('计划中', value)
+        self.assertIn(':milestone, M1,', value)
+        self.assertNotIn('(target)', value)
+        english = renderer.documents(renderer.validate(language_sample('en')))
+        self.assertIn('## Overview', english['roadmap.md'])
+        self.assertIn('In progress', english['roadmap.md'])
+
+    def test_cli_language_resolution_is_read_only_and_saved_language_generates(self):
+        """Covers: roadmap-capabilities#AC25."""
+        with tempfile.TemporaryDirectory() as tmp:
+            source, out = Path(tmp) / 'input.json', Path(tmp) / 'out'
+            source.write_text(json.dumps({'language_context': {'documents': [language_evidence('zh-CN')]}}))
+            command = [sys.executable, str(SCRIPT), str(source)]
+            result = subprocess.run(command + ['--resolve-language'], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(json.loads(result.stdout)['locale'], 'zh-CN')
+            self.assertEqual(list(Path(tmp).iterdir()), [source])
+            result = subprocess.run(command + ['--resolve-language', '--output-dir', str(out)], capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertFalse(out.exists())
+            source.write_text(json.dumps(language_sample()))
+            result = subprocess.run(command + ['--output-dir', str(out)], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn('## 概览', (out / 'roadmap.md').read_text())
+            self.assertEqual(json.loads(source.read_text())['language']['locale'], 'zh-CN')
+
     def test_recommendation_recipes_are_context_sensitive_and_not_applied(self):
         expected = {'iterations': ('iterations', ['requirements', 'iterations', 'versions', 'milestones']),
                     'flow': ('flow', ['requirements', 'flow', 'versions', 'milestones']),
@@ -225,7 +467,7 @@ class RendererTests(unittest.TestCase):
         self.assertEqual(result['views'], ['requirements', 'iterations'])
 
     def test_recommendation_rejects_unknown_or_malformed_schema_versions(self):
-        for value in ('1.5', {}, [], 1, False, None):
+        for value in ('1.6', {}, [], 1, False, None):
             data = selection_sample()
             data['schema_version'] = value
             with self.subTest(schema=value), self.assertRaisesRegex(ValueError, 'schema_version'):
