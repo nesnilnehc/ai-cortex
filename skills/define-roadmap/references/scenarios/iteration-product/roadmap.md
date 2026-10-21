@@ -4,21 +4,9 @@ Updated: 2026-10-21
 
 ## Overview
 
-Make requests findable before adding reuse through export.
+Direction: Make requests findable before adding reuse through export.
 
-Ordering rationale: Search is prerequisite to reliable export; reminders wait for validated demand.
-
-Priority policy: Customer blockers P0; confirmed outcomes P1; unvalidated convenience P2. Source policy applies.
-
-Closure criterion: Accepted search/export functionality is deployed to production with release evidence.
-
-## Planning approach
-
-Scenario: iterations · Primary: iterations · Layout: split
-
-Enabled views: requirements, iterations, versions, milestones, schedule.
-
-Use two-week iteration goals, named delivery batches and release events; omit phases because no distinct stage boundary exists. [Selection source](selection.md#decision).
+Current arrangement: Search is prerequisite to reliable export; reminders wait for validated demand.
 
 ## Priority arrangement
 
@@ -50,6 +38,20 @@ Cadence: Two-week iterations
 ## Revision history
 
 No material revisions recorded; earlier history is not certified by this input.
+
+## Planning basis and sources
+
+[Priority policy](sources.md#planning-basis)
+
+Closure criterion: Accepted search/export functionality is deployed to production with release evidence.
+
+### Planning approach
+
+Scenario: iterations · Primary: iterations · Layout: split
+
+Enabled views: requirements, iterations, versions, milestones, schedule.
+
+Use two-week iteration goals, named delivery batches and release events; omit phases because no distinct stage boundary exists. [Selection source](selection.md#decision).
 
 Backlog requirements and defects map to this roadmap; items outside it are not done by default.
 Placement grants no implementation or release approval.

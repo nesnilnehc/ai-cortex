@@ -405,6 +405,8 @@ def validate_header(data: dict) -> tuple:
         raise ValueError('phases/milestones require schema_version 1.1 or later')
     for field in ('project', 'updated', 'direction', 'ordering', 'closure', 'priority_policy'):
         text(data.get(field), field)
+    if data['schema_version'] in {'1.3', '1.4', '1.5'} and policy_is_reference(data['priority_policy']):
+        reference(data['priority_policy'], 'priority_policy')
     iso(data['updated'], 'updated')
     views = array(data.get('views'), 'views')
     options = {'requirements', 'versions', 'schedule'}
@@ -586,15 +588,37 @@ def markdown(data: dict) -> str:
 
 def plan_header(data):
     lines = [f'# {md(data["project"])}{ui(data, " Roadmap")}', '', ui(data, 'Updated: ') + data["updated"], '',
-             ui(data, '## Overview'), '', md(data['direction']), '',
-             ui(data, 'Ordering rationale: ') + md(data['ordering']), '',
-             ui(data, 'Priority policy: ') + md(data['priority_policy']), '',
+             ui(data, '## Overview'), '', ui(data, 'Direction: ') + md(data['direction']), '',
+             ui(data, 'Current arrangement: ') + md(data['ordering']), '']
+    lines += execution_warning(data)
+    return lines + [ui(data, '## Priority arrangement'), '']
+
+
+def policy_is_reference(value: str) -> bool:
+    return value.startswith(('http://', 'https://', '#', './', '../')) or bool(
+        re.fullmatch(r'[^\s]+\.md(?:#[^\s]*)?', value))
+
+
+def planning_basis(data: dict) -> list[str]:
+    policy = data['priority_policy']
+    if policy_is_reference(policy):
+        reference(policy, 'priority_policy')
+        policy = '[' + ui(data, 'Priority policy') + '](' + quote(policy, safe='/:#?=&%+~.-_') + ')'
+    else:
+        policy = ui(data, 'Priority policy: ') + md(policy)
+    lines = ['', ui(data, '## Planning basis and sources'), '', policy, '',
              ui(data, 'Closure criterion: ') + md(data['closure']), '']
     if data['schema_version'] in {'1.4', '1.5'}:
-        lines += selection_markdown(data)
+        lines += ['#' + line if line.startswith('## ') else line
+                  for line in selection_markdown(data)]
     if data['schema_version'] == '1.5':
         lines += language_markdown(data)
-    return lines + [ui(data, '## Priority arrangement'), '']
+    return lines
+
+
+def execution_warning(data: dict) -> list[str]:
+    unknown = [e['id'] for e in data['entries'] if e['execution'] is None]
+    return [ui(data, 'Unverified execution mappings: ') + ', '.join(unknown) + '.', ''] if unknown else []
 
 
 
@@ -629,10 +653,10 @@ def flow_markdown(data):
 def priority_markdown(data):
     active = [e for e in data['entries'] if e['execution'] != 'Completed']
     completed = [e for e in data['entries'] if e['execution'] == 'Completed']
-    lines = requirement_markdown(dict(data, entries=active))
+    lines = requirement_markdown(dict(data, entries=active), include_warning=False)
     if completed:
         lines += ['', '<details>', '<summary>' + ui(data, 'Completed requirements and defects') + f' ({len(completed)})</summary>', '']
-        lines += requirement_markdown(dict(data, entries=completed))
+        lines += requirement_markdown(dict(data, entries=completed), include_warning=False)
         lines += ['', '</details>']
     return lines
 
@@ -743,6 +767,7 @@ def main_markdown(data, split=False):
     lines += revision_markdown(data)
     if split and data.get('revisions') and data['schema_version'] in {'1.2', '1.3', '1.4', '1.5'}:
         lines += ['', ui(data, '[Supplied revision details](roadmap-history.md).')]
+    lines += planning_basis(data)
     lines += ['', ui(data, 'Backlog requirements and defects map to this roadmap; items outside it are not done by default.'),
               ui(data, 'Placement grants no implementation or release approval.'), '']
     return clean_markdown(lines)
@@ -797,7 +822,7 @@ def revision_markdown(data, limit=5):
     return lines
 
 
-def requirement_markdown(data: dict) -> list:
+def requirement_markdown(data: dict, include_warning: bool = True) -> list:
     lines = []
     rows = []
     for entry in data['entries']:
@@ -810,9 +835,10 @@ def requirement_markdown(data: dict) -> list:
     empty = [tier for tier in ('Now', 'Next', 'Later') if not any(e['tier'] == tier for e in data['entries'])]
     if empty:
         lines.extend(['', ui(data, 'No items planned: ') + ui(data, ', ').join(display(data, tier) for tier in empty) + '.'])
-    unknown = [e['id'] for e in data['entries'] if e['execution'] is None]
-    if unknown:
-        lines.extend(['', ui(data, 'Unverified execution mappings: ') + ', '.join(unknown) + '.'])
+    if include_warning:
+        unknown = [e['id'] for e in data['entries'] if e['execution'] is None]
+        if unknown:
+            lines.extend(['', ui(data, 'Unverified execution mappings: ') + ', '.join(unknown) + '.'])
     return lines
 
 

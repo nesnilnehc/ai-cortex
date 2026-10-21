@@ -5,7 +5,7 @@
   "direction": "Make requests findable.",
   "ordering": "Validate search before expanding scope.",
   "closure": "Acceptance and production deployment are required.",
-  "priority_policy": "Confirmed customer outcomes have P1 priority.",
+  "priority_policy": "../sources.md#context",
   "views": [
     "requirements",
     "iterations",

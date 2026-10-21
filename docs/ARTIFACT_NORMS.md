@@ -102,6 +102,11 @@ preserves textual history; it does not replace reasons and planning impacts.
 
 ## Roadmap document family
 
+First alignment follows the Spec's
+[existing-project boundary](../specs/roadmap-modeling.md#first-alignment-of-an-existing-project).
+Preserve established locations/anchors and business decisions; the default paths
+below do not authorize migrating a consuming project or rerunning its planning.
+
 Follow [Roadmap Modeling](../specs/roadmap-modeling.md#reading-order-and-document-boundaries).
 The established main roadmap remains the entry point. Single-document delivery is
 valid; split by reader, ownership, update cadence or volume when useful. Optional
@@ -114,6 +119,18 @@ Declare each fact's editable authority and refresh linked/generated summaries af
 changes. The bundled renderer uses same-directory roadmap-delivery.md and
 roadmap-history.md; hand-maintained projects may use their established paths.
 No automatic migration of legacy milestone work-package directories is required.
+
+Use the Spec's [document-family naming advice](../specs/roadmap-modeling.md#document-family-naming)
+when a new supporting document is useful. It distinguishes priority policy,
+planning basis, delivery and revision history without requiring a file for every
+role. Existing project paths and knowledge-base URLs remain valid; a display-title
+improvement does not require a URL change. In this repository, living canonical
+documents keep the timestamp policy above; snapshots and drafts remain explicit.
+
+The main roadmap leads with direction, current arrangement and material unknowns.
+Policy/closure definitions and view/layout/language evidence remain linked in its
+later planning basis. Reference an independent policy with a useful summary or bare
+link, never a second editable rule set or current item inventory.
 
 ### Roadmap selection evidence
 

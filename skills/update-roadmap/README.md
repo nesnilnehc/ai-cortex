@@ -1,5 +1,10 @@
 # Update Roadmap
 
+First alignment of a nonconforming existing plan uses define-roadmap with review
+before/after and preservation of decisions/links. This skill handles separately
+authorized state/time maintenance, not compliance-driven replanning; see the
+[alignment contract](../../specs/roadmap-modeling.md#first-alignment-of-an-existing-project).
+
 The day-to-day maintenance entry point once a roadmap is in place: change status, shift dates and compute the downstream impact, and produce a "what changed this time" summary. It does not change which tier an item sits in.
 
 ## Purpose

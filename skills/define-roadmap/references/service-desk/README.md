@@ -11,6 +11,7 @@ example's editorial date, not a claim that future work has happened.
 | Step | Finished deliverable | What it demonstrates |
 | --- | --- | --- |
 | 1 | [Source records](sources.md) | Four stable work IDs, project policy, stage facts and delivery evidence |
+| Policy | [Requirement Priority Policy](priority-policy.md) | One reusable rule source; current results link to records rather than a duplicated inventory |
 | 2 | [Priority decisions](priority-decisions.md) | Apply policy without replacing settled priorities |
 | 3 | [Dependencies and blocked list](dependencies.md) | Preserve importance while exposing start conditions |
 | 4 | [Initial roadmap](initial/roadmap.md) · [Gantt chart](initial/roadmap.svg) · [input](initial/input.json) | Requirement, version and schedule views agree |
@@ -50,6 +51,12 @@ generated roadmaps independently of their input and source evidence.
 
 The former `assets/roadmap-input-example.json` path remains a relative symlink to
 `initial/input.json`; it is an alias, not an independently maintained input.
+
+The modern iteration outputs lead with the plan and place policy, closure and
+maintenance evidence after revisions. Their policy link points to the independent
+policy above. Old single-view snapshots keep their compatible presentation; the
+linked source policy anchor remains valid. Titles follow document roles without
+renaming established snapshot folders or requiring a separate planning-basis file.
 
 ## Phase and event interpretation
 

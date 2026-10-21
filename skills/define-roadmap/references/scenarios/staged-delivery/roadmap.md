@@ -4,21 +4,9 @@ Updated: 2026-10-21
 
 ## Overview
 
-Establish correct mappings before pilot acceptance and broader rollout.
+Direction: Establish correct mappings before pilot acceptance and broader rollout.
 
-Ordering rationale: Accepted mappings enable the pilot; broader rollout waits for pilot evidence.
-
-Priority policy: Customer blockers P0; confirmed outcomes P1; unvalidated convenience P2. Source policy applies.
-
-Closure criterion: Customer signs acceptance of the agreed deliverable.
-
-## Planning approach
-
-Scenario: staged · Primary: phases · Layout: split
-
-Enabled views: requirements, phases, milestones, schedule.
-
-Use phase exit conditions and customer acceptance events; no team iteration cadence or software release batch has been established. [Selection source](selection.md#decision).
+Current arrangement: Accepted mappings enable the pilot; broader rollout waits for pilot evidence.
 
 ## Priority arrangement
 
@@ -45,6 +33,20 @@ Use phase exit conditions and customer acceptance events; no team iteration cade
 ## Revision history
 
 No material revisions recorded; earlier history is not certified by this input.
+
+## Planning basis and sources
+
+[Priority policy](sources.md#planning-basis)
+
+Closure criterion: Customer signs acceptance of the agreed deliverable.
+
+### Planning approach
+
+Scenario: staged · Primary: phases · Layout: split
+
+Enabled views: requirements, phases, milestones, schedule.
+
+Use phase exit conditions and customer acceptance events; no team iteration cadence or software release batch has been established. [Selection source](selection.md#decision).
 
 Backlog requirements and defects map to this roadmap; items outside it are not done by default.
 Placement grants no implementation or release approval.

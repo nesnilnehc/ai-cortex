@@ -106,6 +106,93 @@ def language_evidence(locale, source='policy.md'):
 
 
 class RendererTests(unittest.TestCase):
+    def test_main_prioritizes_plan_over_basis_when_using_modern_layouts(self):
+        """Covers: roadmap-reading#RC2; preserve facts while changing reading order."""
+        for factory in (iteration_sample, selection_sample, lambda: language_sample('en')):
+            for layout in ('single', 'split'):
+                with self.subTest(schema=factory()['schema_version'], layout=layout):
+                    data = factory()
+                    if 'selection' in data:
+                        data['selection']['layout'] = layout
+                    before = copy.deepcopy(data)
+                    main = renderer.documents(renderer.validate(data), layout)['roadmap.md']
+                    headings = ['## Overview', 'Current arrangement:', '## Priority arrangement',
+                                '## Delivery', '## Revision history', '## Planning basis and sources']
+                    positions = [main.index(value) for value in headings]
+                    self.assertEqual(positions, sorted(positions))
+                    basis = main.split('## Planning basis and sources', 1)[1]
+                    self.assertIn(data['priority_policy'], basis)
+                    self.assertIn(data['closure'], basis)
+                    if 'selection' in data:
+                        self.assertIn(data['selection']['rationale'], basis)
+                    if 'language' in data:
+                        self.assertIn(data['language']['rationale'], basis)
+                    self.assertEqual(data, before)
+
+    def test_execution_unknown_is_visible_before_rows_when_main_uses_modern_layout(self):
+        """Covers: roadmap-reading#RC2; an empty status must not look like no work."""
+        data = iteration_sample()
+        data['entries'][0]['execution'] = None
+        main = renderer.markdown(renderer.validate(data))
+        warning = 'Unverified execution mappings: R1'
+        self.assertEqual(main.count(warning), 1)
+        self.assertLess(main.index(warning), main.index('## Priority arrangement'))
+        self.assertNotIn('Not started', main)
+
+    def test_policy_is_linked_safely_when_modern_input_supplies_only_reference(self):
+        """Covers: roadmap-reading#RC3; references work without a new schema field."""
+        for link in ('../policy.md#priority', 'policy.md', '#policy',
+                     'https://example.com/policy?x=1&y=2'):
+            data = iteration_sample()
+            data['priority_policy'] = link
+            main = renderer.markdown(renderer.validate(data))
+            with self.subTest(link=link):
+                self.assertIn(f'[Priority policy]({link})', main)
+        data = iteration_sample()
+        data['priority_policy'] = '<script>alert(1)</script>'
+        main = renderer.markdown(renderer.validate(data))
+        self.assertNotIn('<script>', main)
+        self.assertIn('&lt;script&gt;', main)
+        data['priority_policy'] = '../policy\\bad.md'
+        with self.assertRaisesRegex(ValueError, 'priority_policy'):
+            renderer.validate(data)
+
+    def test_basis_labels_are_localized_when_language_is_chinese(self):
+        """Covers: roadmap-reading#RC2; moving metadata does not lose localization."""
+        data = language_sample()
+        data['priority_policy'] = '../policy.md#priority'
+        main = renderer.documents(renderer.validate(data))['roadmap.md']
+        self.assertLess(main.index('当前安排：'), main.index('## 优先安排'))
+        self.assertLess(main.index('## 修订记录'), main.index('## 规划依据与来源'))
+        self.assertIn('[优先级规则](../policy.md#priority)', main)
+        self.assertIn('### 规划方式', main)
+        self.assertNotIn('Current arrangement:', main)
+        self.assertNotIn('Planning basis and sources', main)
+
+    def test_legacy_single_keeps_layout_while_explicit_split_exposes_unknown_once(self):
+        """Covers: roadmap-reading#RC3; legacy adoption needs no schema upgrade."""
+        for version in ('1.0', '1.1', '1.2'):
+            data = revision_sample() if version == '1.2' else sample()
+            data['schema_version'] = version
+            data['entries'][0]['execution'] = None
+            before = copy.deepcopy(data)
+            single = renderer.documents(renderer.validate(data))['roadmap.md']
+            split = renderer.documents(data, 'split')['roadmap.md']
+            self.assertIn('Ordering rationale: Search enables export', single)
+            self.assertNotIn('## Planning basis and sources', single)
+            self.assertEqual(split.count('Unverified execution mappings: R1'), 1)
+            self.assertLess(split.index('Unverified execution mappings: R1'),
+                            split.index('## Priority arrangement'))
+            self.assertEqual(data, before)
+
+    def test_legacy_split_rejects_invalid_policy_reference_before_rendering(self):
+        """Covers: roadmap-reading#RC3; explicit split links obey common validation."""
+        data = sample()
+        data['priority_policy'] = '../policy\\bad.md'
+        renderer.validate(data)  # Legacy single output still treats this as escaped text.
+        with self.assertRaisesRegex(ValueError, 'priority_policy'):
+            renderer.documents(data, 'split')
+
     def test_localized_catalog_covers_scenarios_states_and_missing_values(self):
         """Covers: roadmap-capabilities#AC24."""
         for path in sorted((SCRIPT.parent.parent / 'references/scenarios').glob('*/input.json')):

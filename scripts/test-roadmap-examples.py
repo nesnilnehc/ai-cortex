@@ -89,6 +89,86 @@ def event_findings(data, stage):
 
 
 SCENARIOS = ROOT / 'skills/define-roadmap/references/scenarios'
+ADOPTION = ROOT / 'skills/define-roadmap/references/existing-project'
+
+
+def alignment_findings(before, after):
+    """Check protected facts in the manually aligned teaching plan, not agent behavior."""
+    def records(content):
+        lines = [line for line in content.splitlines() if line.startswith('|')]
+        cells = [[cell.strip() for cell in line.strip('|').split('|')] for line in lines]
+        return [dict(zip(cells[0], values)) for values in cells[2:]] if cells else []
+
+    def anchors(content):
+        explicit = set(re.findall(r'<a id="([^"]+)"', content))
+        return explicit | {h.lower().replace(' ', '-')
+                           for h in re.findall(r'^#+ (.+)$', content, re.M)}
+
+    findings = []
+    original, proposed = records(before), records(after)
+    if [r.get('ID') for r in original] != [r.get('ID') for r in proposed]:
+        findings.append('order/scope')
+    by_id = {r['ID']: r for r in proposed}
+    for row in original:
+        if any(by_id.get(row['ID'], {}).get(key) != value for key, value in row.items()):
+            findings.append('decision')
+    for prefix in ('Delivery:', 'Closure:'):
+        known = [line for line in before.splitlines() if line.startswith(prefix)]
+        if any(line not in after.splitlines() for line in known):
+            findings.append('delivery')
+    if not set(re.findall(r'\]\(([^)]+)\)', before)) <= set(re.findall(r'\]\(([^)]+)\)', after)):
+        findings.append('source link')
+    if not anchors(before) <= anchors(after):
+        findings.append('anchor')
+    return findings
+
+
+class AlignmentExampleTests(unittest.TestCase):
+    def test_alignment_preserves_existing_decisions_links_and_unknown_execution(self):
+        """Covers: existing-project alignment; independent before/after oracle."""
+        before = (ADOPTION / 'before/plan.md').read_text()
+        after = (ADOPTION / 'after/plan.md').read_text()
+        self.assertEqual(alignment_findings(before, after), [])
+        self.assertIn('| R1 | Request lookup | Retrieve an existing service request | P0 | Next |', after)
+        self.assertIn('| R2 | Interface repair | Restore the interface needed for retrieval | P1 | Now | Draft | — |', after)
+        self.assertLess(after.index('R2 execution remains unverified'), after.index('## Priority arrangement'))
+        self.assertIn('First alignment: 2026-10-21', after)
+        self.assertIn('Earlier history is unknown', after)
+        self.assertFalse((ADOPTION / 'after/roadmap.md').exists())
+
+    def test_alignment_check_detects_business_and_link_drift(self):
+        """Covers: existing-project alignment; a clean snapshot alone proves no guard."""
+        before = (ADOPTION / 'before/plan.md').read_text()
+        after = (ADOPTION / 'after/plan.md').read_text()
+        def swap_rows(content):
+            lines = content.splitlines()
+            first, second = [i for i, line in enumerate(lines) if line.startswith(('| R1 |', '| R2 |'))]
+            lines[first], lines[second] = lines[second], lines[first]
+            return '\n'.join(lines) + '\n'
+
+        mutations = [
+            ('decision', lambda s: s.replace('| P0 | Next |', '| P0 | Now |')),
+            ('decision', lambda s: s.replace('| P1 | Now | Draft | — |', '| P1 | Now | Draft | Not started |')),
+            ('delivery', lambda s: s.replace('committed 2026-12-15', 'target 2027-01-15')),
+            ('source link', lambda s: s.replace('../sources.md#r1', '../sources.md#renamed')),
+            ('anchor', lambda s: s.replace('<a id="work"></a>', '')),
+            ('order/scope', lambda s: s.replace('| R1 | Request lookup |', '| R9 | Request lookup |')),
+            ('order/scope', swap_rows),
+        ]
+        for expected, mutate in mutations:
+            with self.subTest(expected=expected):
+                changed = mutate(after)
+                self.assertNotEqual(changed, after)
+                self.assertIn(expected, alignment_findings(before, changed))
+
+    def test_alignment_repair_does_not_require_generating_missing_planning_authorities(self):
+        """Covers: existing-project alignment; optional generator still needs complete facts."""
+        for name in ('strategic-goals.md', 'priority-policy.md', 'roadmap.md'):
+            self.assertFalse((ADOPTION / 'after' / name).exists())
+        after = (ADOPTION / 'after/plan.md').read_text()
+        self.assertIn('Priority policy and strategic-goal evidence remain unavailable', after)
+        self.assertIn('no reconstructed decision', after)
+        self.assertEqual(alignment_findings(after, after), [])
 
 
 def scenario_findings(data, folder):

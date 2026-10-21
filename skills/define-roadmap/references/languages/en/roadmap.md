@@ -4,25 +4,9 @@ Updated: 2026-10-21
 
 ## Overview
 
-Make requests findable.
+Direction: Make requests findable.
 
-Ordering rationale: Validate search before expanding scope.
-
-Priority policy: Confirmed customer outcomes have P1 priority.
-
-Closure criterion: Acceptance and production deployment are required.
-
-## Planning approach
-
-Scenario: iterations · Primary: iterations · Layout: split
-
-Enabled views: requirements, iterations, versions, phases, milestones, schedule.
-
-Use iteration goals, a delivery batch and an acceptance phase. [Selection source](../sources.md#selection).
-
-Deliverable language: en · user
-
-The user requested aligned English and Chinese editions. [Language source](../sources.md#language).
+Current arrangement: Validate search before expanding scope.
 
 ## Priority arrangement
 
@@ -61,6 +45,24 @@ Cadence: Two-week iterations
 | 2026-10-21 · REV1 | Search: unallocated → I1 | The team approved a near-term validation goal. | V1 scope and target date are unchanged. | [Details](../sources.md#rev1) |
 
 [Supplied revision details](roadmap-history.md).
+
+## Planning basis and sources
+
+[Priority policy](../sources.md#context)
+
+Closure criterion: Acceptance and production deployment are required.
+
+### Planning approach
+
+Scenario: iterations · Primary: iterations · Layout: split
+
+Enabled views: requirements, iterations, versions, phases, milestones, schedule.
+
+Use iteration goals, a delivery batch and an acceptance phase. [Selection source](../sources.md#selection).
+
+Deliverable language: en · user
+
+The user requested aligned English and Chinese editions. [Language source](../sources.md#language).
 
 Backlog requirements and defects map to this roadmap; items outside it are not done by default.
 Placement grants no implementation or release approval.

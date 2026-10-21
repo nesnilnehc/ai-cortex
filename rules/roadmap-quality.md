@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: roadmap-quality
-version: 4.6.0
+version: 4.8.0
 scope: reviewing or self-checking a roadmap document
 recommended_scope: user
 status: active
@@ -47,7 +47,7 @@ vocabulary; map project source fields explicitly rather than replacing their sch
 ## 2. Executability
 
 - [ ] Eligible items follow documented priority; departures carry a reason. Priority and readiness remain separate.
-- [ ] Now items have checked prerequisites and a verifiable completion condition, stated briefly or linked to source acceptance criteria.
+- [ ] Now items have checked prerequisites for the next intended step and a verifiable completion condition, stated briefly or linked to source acceptance criteria. Later-needed dependencies permit grounded parallel work with a visible need-by condition; an entire prerequisite requirement need not be complete. Unknown evidence is not a readiness pass.
 - [ ] Next items identify material start conditions; Later items identify a re-evaluation trigger without invented dates or detailed commitments.
 - [ ] Missing approval, a pause or an unresolved prerequisite is visible; a blocked high-priority item retains its priority and is not automatically treated as a distant direction.
 - [ ] No effort, staffing, quota or item-count gate is invented. Explicit project capacity decisions are preserved and summarized only where they affect the plan.
@@ -65,6 +65,8 @@ vocabulary; map project source fields explicitly rather than replacing their sch
 - [ ] Each status transition is backed by the authoritative source record and its applicable acceptance/release evidence. Development complete, acceptance passed and production released are distinct facts; none substitutes for another. A failed acceptance returns to In progress only when rework has actually started. Paused or Blocked overrides the underlying stage only while its recorded decision or impediment applies. If both apply, show Paused for an explicit suspension decision and retain the blocker in key conditions; resume from current evidence, not automatically from the previous label.
 - [ ] Roadmap summaries agree with source requirement and defect records; placement does not grant approval, execution or release authorization.
 - [ ] Dependency and priority decisions have traceable evidence or an explicit strategic rationale; no scoring framework is mandatory merely to display an item.
+- [ ] Priority policy is the reusable rule; arrangement rationale explains its current application and verified conditions, not a second scoring scheme. Existing decision links are valid. Stable presentation order is not falsely claimed as business precedence.
+- [ ] An independent policy is linked with only a useful summary, not copied as another editable authority. Current policy results link to item/roadmap decisions; historical application snapshots are identified as such.
 - [ ] Detailed progress and acceptance evidence have one source of truth; task counts are not used as proof that a requirement or defect is complete.
 - [ ] Reordering follows a material change in priority, readiness or strategy. If the project declares a change-frequency window and threshold, evaluate them from history; without a defined window, do not invent a frequency verdict.
 
@@ -120,6 +122,8 @@ substance rather than requiring a fixed number of sections or rows.
 
 - [ ] The main roadmap alone explains direction, ordering, active priorities, blockers,
   near-term delivery and key events where known. Split output is not a link-only index.
+- [ ] The overview emphasizes the plan and material unknowns; unverified execution is visible before rows. Policy/closure definitions and view/layout/language evidence remain recoverable but do not displace the plan. Detailed dependencies do not overload one arrangement paragraph.
+- [ ] Document names distinguish policy, plan, basis and history under the Spec's naming advice. Existing project paths/URLs are respected; missing optional child documents or nondefault titles alone are not defects.
 - [ ] Delivery objects are grouped under selected delivery views; completed work is
   folded or linked separately without rewriting tiers/statuses. Empty optional
   chapters and repeated priority inventories do not obscure the current plan.
@@ -156,3 +160,10 @@ substance rather than requiring a fixed number of sections or rows.
 - [ ] Main/detail documents and diagrams use consistent headings, headers, statuses, summaries, legends and accessible descriptions. Free text is checked separately from generated labels; generator success alone proves no prose-language consistency.
 - [ ] Localized execution labels preserve the canonical state meanings and source mapping. IDs, references, machine fields and enums are unchanged; translated approval labels do not create new approval states.
 - [ ] Historical originals and source evidence remain intact. Parallel language editions, when requested, agree on scope, dates, priorities, states, membership and commitments. Unknown language or inaccessible evidence is reported as a limitation, not an inferred pass. Legacy metadata absence alone is not a defect.
+
+## Existing-project alignment
+
+- [ ] First alignment follows the Spec's preservation boundary: review distinguishes structural repairs, evidence gaps and business changes; before/after known facts and stable IDs/URLs/anchors agree unless a separate authorized decision changed them.
+- [ ] A missing conventional filename is not mistaken for no roadmap. Existing views, source-label meanings, language and destination are retained; generator limitations do not force migration or invented fields.
+- [ ] Alignment alone does not trigger scoring, promotion, strategy creation, new delivery commitments or archive deletion. Missing sources remain explicit and are routed without silently executing those actions.
+- [ ] Adoption records the actual baseline and unknown prior history. Re-review reports remaining limitations, and repeated no-op alignment adds no duplicate document or revision.

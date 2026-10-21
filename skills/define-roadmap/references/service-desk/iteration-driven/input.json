@@ -5,7 +5,7 @@
   "direction": "Make request handling dependable, then reduce repeated work.",
   "ordering": "Fix duplicate submission before search; export depends on accepted search. Reminders wait for demand.",
   "closure": "Acceptance passed and accepted change released to production; see ../sources.md#project-policy.",
-  "priority_policy": "Customer data-integrity blockers P0; confirmed capability needs P1; unvalidated convenience P2. See ../sources.md#project-policy.",
+  "priority_policy": "../priority-policy.md",
   "views": [
     "requirements",
     "iterations",
@@ -67,7 +67,7 @@
       ],
       "outcome": "Refresh and retry create one external request",
       "owner": "Delivery owner",
-      "window": "W1\u2013W3 (target)"
+      "window": "W1–W3 (target)"
     },
     {
       "id": "V2",
@@ -77,7 +77,7 @@
       ],
       "outcome": "Find a request by reference",
       "owner": "Delivery owner",
-      "window": "W4\u2013W5 (target)"
+      "window": "W4–W5 (target)"
     },
     {
       "id": "V3",
@@ -87,7 +87,7 @@
       ],
       "outcome": "Export authorized search results",
       "owner": "Delivery owner",
-      "window": "W6\u2013W7 (committed)"
+      "window": "W6–W7 (committed)"
     }
   ],
   "schedule": {
@@ -273,7 +273,7 @@
     {
       "id": "REV3",
       "date": "2026-10-21",
-      "change": "No iteration allocation \u2192 I1\u2013I3 goal/scope/timeboxes",
+      "change": "No iteration allocation → I1–I3 goal/scope/timeboxes",
       "reason": "Team plans in two-week cycles",
       "impact": "Version windows, tiers and event targets unchanged; R2/R3 remain unallocated",
       "source": "../iterations.md#adoption-decision"
@@ -281,7 +281,7 @@
     {
       "id": "REV1",
       "date": "2026-10-20",
-      "change": "R1: V1 \u2192 V2; R2: V2 \u2192 V3; M1: W2 \u2192 W4; M2/M3: W3 \u2192 W6",
+      "change": "R1: V1 → V2; R2: V2 → V3; M1: W2 → W4; M2/M3: W3 → W6",
       "reason": "Required repair acceptance sandbox unavailable; search and export depend on accepted upstream work",
       "impact": "Export +3 weeks; original hard deadline breached; priorities and tiers unchanged",
       "source": "../change-record.md#w1-plan-change"

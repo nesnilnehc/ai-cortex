@@ -4,13 +4,9 @@ Updated: 2026-10-21
 
 ## Overview
 
-Make request handling dependable, then reduce repeated work.
+Direction: Make request handling dependable, then reduce repeated work.
 
-Ordering rationale: Fix duplicate submission before search; export depends on accepted search. Reminders wait for demand.
-
-Priority policy: Customer data-integrity blockers P0; confirmed capability needs P1; unvalidated convenience P2. See ../sources.md#project-policy.
-
-Closure criterion: Acceptance passed and accepted change released to production; see ../sources.md#project-policy.
+Current arrangement: Fix duplicate submission before search; export depends on accepted search. Reminders wait for demand.
 
 ## Priority arrangement
 
@@ -56,6 +52,12 @@ Cadence: Two-week iterations
 [Full revision history](../change-record.md#revision-register).
 
 [Supplied revision details](roadmap-history.md).
+
+## Planning basis and sources
+
+[Priority policy](../priority-policy.md)
+
+Closure criterion: Acceptance passed and accepted change released to production; see ../sources.md#project-policy.
 
 Backlog requirements and defects map to this roadmap; items outside it are not done by default.
 Placement grants no implementation or release approval.

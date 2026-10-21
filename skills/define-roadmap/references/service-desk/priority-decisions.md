@@ -1,7 +1,7 @@
 # Service Desk priority decisions
 
 Finished output of policy application at W0. The authority is the
-[project policy](sources.md#project-policy). No four-framework reassessment is
+[project policy](priority-policy.md). No four-framework reassessment is
 requested, so settled decisions remain in place. The fictional product owner
 authorizes deterministic application of that policy.
 
@@ -25,7 +25,7 @@ priority_decision:
   final: P0
   previous: unset
   mode: policy-application
-  policy_ref: sources.md#project-policy
+  policy_ref: priority-policy.md
   rationale: Active-customer duplicate submission threatens data integrity.
   decided_by: auto
   decided_at: 2026-10-20

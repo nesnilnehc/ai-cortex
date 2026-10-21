@@ -7,9 +7,8 @@ counts, commits or illustrated bars are treated as acceptance evidence.
 ## Project policy
 
 Goal: make request handling dependable, then reduce repeated work.
-Priority: active-customer data-integrity blockers are P0; capability improvements
-with a confirmed user are P1; unvalidated convenience requests are P2; explicit
-long-term ideas are P3. Promotion still checks readiness independently.
+Priority rules have one authority: [Requirement Priority Policy](priority-policy.md).
+This section retains its stable anchor for older snapshot references.
 The product owner approves this policy and the initial placement at W0.
 Closure requires the item's acceptance criteria to pass and its accepted change
 to be released to production. Version membership grants neither approval.

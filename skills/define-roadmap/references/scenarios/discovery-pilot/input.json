@@ -5,7 +5,7 @@
   "direction": "Learn whether assisted triage reduces user confusion before considering rollout.",
   "ordering": "Pilot evidence must justify further investment; rollout remains directional.",
   "closure": "Pilot findings are retained and the sponsor records continue, adjust or stop; rollout is a separate decision.",
-  "priority_policy": "Customer blockers P0; confirmed outcomes P1; unvalidated convenience P2. Source policy applies.",
+  "priority_policy": "sources.md#planning-basis",
   "views": [
     "requirements",
     "phases",

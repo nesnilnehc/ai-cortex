@@ -1,7 +1,7 @@
 ---
 name: review-roadmap
 description: Review a concise requirement-and-defect roadmap for entry granularity, priority, readiness, readability, iteration views, document layering, revision history and source traceability; emit findings without rewriting.
-version: 3.8.0
+version: 3.10.0
 license: MIT
 output_schema:
   type: findings-list
@@ -14,6 +14,13 @@ output_schema:
 Evaluate an existing roadmap against [roadmap-quality](../../rules/roadmap-quality.md).
 Emit findings under [findings-list](../../specs/findings-list.md); do not rewrite,
 change placement or invent additional criteria. Use category `roadmap-quality`.
+
+For first alignment, discover the actual plan/source locations before checking
+conventional paths. Classify findings as structural repair, evidence unavailable/
+conflicting, or a separately proposed business decision in the findings description
+and handoff, using the existing findings schema. A format gap is not evidence of
+wrong priority, stalled execution or absent strategy. Preserve known facts and stable
+links as the baseline for re-review; missing evidence cannot become a full pass.
 
 ## Procedure
 
@@ -30,6 +37,12 @@ change placement or invent additional criteria. Use category `roadmap-quality`.
 4. Test readability by summarizing current priorities, subsequent work and key blockers
    from the main view alone. Locate detail that obstructs those answers or duplicates
    source task lists and evidence. Report concrete locations, not a subjective score.
+   Check that policy is the reusable rule and arrangement rationale explains its
+   application, not another scoring policy. A useful summary plus authority link,
+   or a sufficient bare link, is valid. Do not require a separate rationale file,
+   precise rank for genuine ties or migration to the Spec's suggested filenames.
+   In the revised reading hierarchy, plan/unknowns precede maintenance metadata;
+   policy, closure, selection and language evidence remain recoverable later.
 5. Verify source agreement, approval boundaries and prerequisite readiness. Check
    separate approval, execution and key conditions columns; one fixed execution
    label per row; short linked next-step conditions; and no evidence in status cells.

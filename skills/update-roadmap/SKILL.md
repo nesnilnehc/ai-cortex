@@ -1,7 +1,7 @@
 ---
 name: update-roadmap
 description: Maintain requirement-and-defect roadmap summaries — change item status, shift dates with downstream impact analysis, and retain source-backed revision history. Does not move items between Now/Next/Later tiers.
-version: 3.7.0
+version: 3.9.0
 license: MIT
 ---
 
@@ -12,6 +12,14 @@ license: MIT
 The entry point for day-to-day maintenance once the roadmap is in place: change status, shift dates, say plainly what this round changed.
 
 `define-roadmap` covers building from scratch, `promote-roadmap-items` covers promotion and demotion across tiers, and between them sits a large block of day-to-day movement — an item started, an item got stuck, an item slips by two weeks — which is what this skill covers.
+
+First alignment of an existing project's nonconforming structure goes to
+`define-roadmap` under the Spec's
+[preservation contract](../../specs/roadmap-modeling.md#first-alignment-of-an-existing-project).
+If the existing structure is adequate, use this skill only for separately authorized
+source-backed maintenance; alignment is not permission to change dates, membership
+or execution. Mixed requests separate structural repair from the stated business
+change, retain one source/revision identity where applicable, and re-review the result.
 
 ---
 
@@ -93,6 +101,11 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
    - With the dependency data missing (`map-item-dependencies` was never run), state outright "downstream impact not computed, dependency data missing"; do not pretend the analysis happened
 5. **Review the change list**: changed items + reasons + downstream impact + deadline breaches. Resolve any ambiguity or hard-deadline decision with the user before applying it.
 6. **Persist source and summary**: load [roadmap modeling](../../specs/roadmap-modeling.md).
+   Retain the single policy authority and refresh the current arrangement explanation
+   only from settled decisions; maintenance does not introduce another priority rule.
+   Preserve the reader hierarchy with material unknowns early and policy/closure/
+   selection/language evidence later. Do not create or rename related pages merely
+   to adopt suggested document-family names; existing titles/paths/URLs remain valid.
    For a move between existing versions, record old/new membership and the effect on
    both delivery windows, dependencies and commitments; leave tier unchanged. New
    versions/iterations, layout changes or structural changes go to `define-roadmap`. Refresh all selected views

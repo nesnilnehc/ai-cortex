@@ -1,6 +1,8 @@
 # Map Item Dependencies
 
-Identifies the dependencies among backlog and roadmap items, writes them into each item's `depends_on`, and produces a dependency graph and a blocked list. Runs before promotion, so blocked items do not get pulled into Now.
+Identifies dependencies, records `depends_on` and required-deliverable evidence,
+and reports next-step readiness before promotion. Later-needed deliverables do not
+automatically block independently verified work now.
 
 ## Purpose
 
@@ -8,7 +10,7 @@ Walks the dependencies between items in five categories (technical / team / exte
 
 ## When to use
 
-- **Before promotion**: run it first once there are ≥ 2 candidate items, so no blocked item gets pulled into Now
+- **Before promotion**: check missing, stale or changed dependency evidence, including a single candidate depending on existing work, a team or an external service
 - **Schedule review**: you need to see which items must run in series and which can run in parallel
 - **Post-mortem on a stall**: a Now-tier item has not moved in a long while, so check for an unrecorded prerequisite
 
@@ -21,7 +23,7 @@ Walks the dependencies between items in five categories (technical / team / exte
 ## Outputs
 
 - An in-conversation dependency graph + a need-by table + reduction options
-- A blocked list (which items cannot enter Now as things stand)
+- A readiness report separating next-step blockers, verified parallel work with later conditions, and unchecked evidence
 - The `depends_on` field in each item's frontmatter is updated
 
 ## Install

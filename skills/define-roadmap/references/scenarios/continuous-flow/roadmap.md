@@ -4,21 +4,9 @@ Updated: 2026-10-21
 
 ## Overview
 
-Restore reliable request handling and then reduce support friction.
+Direction: Restore reliable request handling and then reduce support friction.
 
-Ordering rationale: A customer-impacting retry defect precedes a convenience improvement.
-
-Priority policy: Customer blockers P0; confirmed outcomes P1; unvalidated convenience P2. Source policy applies.
-
-Closure criterion: Service owner verifies accepted behavior in production; task counts do not prove closure.
-
-## Planning approach
-
-Scenario: flow · Primary: flow · Layout: single
-
-Enabled views: requirements, flow.
-
-Retain the existing flow view and single document; no new sprint, version batch, phase or event is needed for the current horizon. [Selection source](selection.md#decision).
+Current arrangement: A customer-impacting retry defect precedes a convenience improvement.
 
 ## Priority arrangement
 
@@ -44,6 +32,20 @@ Flow metrics: Track WIP, throughput, work-item age and cycle time; measured base
 ## Revision history
 
 No material revisions recorded; earlier history is not certified by this input.
+
+## Planning basis and sources
+
+[Priority policy](sources.md#planning-basis)
+
+Closure criterion: Service owner verifies accepted behavior in production; task counts do not prove closure.
+
+### Planning approach
+
+Scenario: flow · Primary: flow · Layout: single
+
+Enabled views: requirements, flow.
+
+Retain the existing flow view and single document; no new sprint, version batch, phase or event is needed for the current horizon. [Selection source](selection.md#decision).
 
 Backlog requirements and defects map to this roadmap; items outside it are not done by default.
 Placement grants no implementation or release approval.

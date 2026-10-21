@@ -1,7 +1,7 @@
 ---
 name: prioritize-backlog
 description: Apply a project's priority policy to unresolved backlog items, or explicitly reassess a batch using RICE, WSJF, MoSCoW and ICE; preserve settled decisions unless replacement is requested.
-version: 3.3.0
+version: 3.4.0
 license: MIT
 ---
 
@@ -13,6 +13,13 @@ Set source-backed priorities without confusing normal planning with a complete
 reassessment. Load [roadmap modeling](../../specs/roadmap-modeling.md#52-priority-vocabulary)
 and the project's policy. This skill owns priority decisions, not roadmap placement,
 dependency registration, requirement creation or task decomposition.
+
+Policy is the reusable decision rule; priority and any source-backed same-level
+precedence are its results. Arrangement rationale explains the applied decision,
+not a second scoring system. Reuse existing records and pass settled precedence
+to promotion; do not invent a rank field, force an order for genuine ties or maintain
+the current item inventory in both the policy and backlog. See the Spec's
+[policy/decision contract](../../specs/roadmap-modeling.md#policy-decisions-and-arrangement-rationale).
 
 | Intent and evidence | Mode | Scope |
 | --- | --- | --- |

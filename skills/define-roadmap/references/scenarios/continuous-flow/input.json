@@ -5,7 +5,7 @@
   "direction": "Restore reliable request handling and then reduce support friction.",
   "ordering": "A customer-impacting retry defect precedes a convenience improvement.",
   "closure": "Service owner verifies accepted behavior in production; task counts do not prove closure.",
-  "priority_policy": "Customer blockers P0; confirmed outcomes P1; unvalidated convenience P2. Source policy applies.",
+  "priority_policy": "sources.md#planning-basis",
   "views": [
     "requirements",
     "flow"

@@ -1,7 +1,7 @@
 ---
 name: map-item-dependencies
-description: Identify dependencies among backlog and roadmap items across five categories, record them in each item's depends_on field, and produce a dependency graph with need-by dates and reduction options. Runs before promotion so blocked items are not pulled into Now.
-version: 1.2.0
+description: Identify dependencies among backlog and roadmap items across five categories, record depends_on and required-deliverable evidence, and assess next-step readiness with need-by dates and reduction options before promotion.
+version: 1.3.0
 license: MIT
 ---
 
@@ -11,7 +11,10 @@ license: MIT
 
 Find the dependencies between backlog and roadmap items, register them on the items, and let the promotion decision see which items cannot be pulled in right now.
 
-Dependencies are the highest-risk factor on a roadmap: priority alone does not show prerequisite readiness, yet they leave a high-priority item stuck in place once it enters Now.
+Priority alone does not establish next-step readiness. Apply the
+[Roadmap Spec](../../specs/roadmap-modeling.md#prerequisite-readiness): distinguish
+deliverables needed now, later conditions and evidence not yet verified. A supplier's
+whole requirement need not finish when its needed deliverable is already available.
 
 ---
 
@@ -21,7 +24,7 @@ Dependencies are the highest-risk factor on a roadmap: priority alone does not s
 
 **Success criteria** (all must hold):
 
-1. ✅ Every item's dependencies are checked one by one against the five categories (technical / team / external / knowledge / sequential), with `—` recorded explicitly where there are none
+1. ✅ Every item's dependencies are checked against all five categories (technical / team / external / knowledge / sequential); confirmed absence is `—`, while insufficient evidence remains explicitly unchecked
 2. ✅ The dependency graph is acyclic; on finding a cycle, halt and name the cycle path instead of breaking it here
 3. ✅ Each dependency is annotated with "resolve by when" and its owner
 4. ✅ `depends_on` is written back into the item frontmatter, with cross-document dependencies marked by a path prefix
@@ -55,7 +58,7 @@ Dependencies are the highest-risk factor on a roadmap: priority alone does not s
 
 ## Use Cases
 
-- **Before promotion**: with candidate items ≥ 2, run this skill first to avoid pulling blocked items into Now
+- **Before promotion**: run when candidates have missing, stale or changed dependency evidence, even for one candidate depending on existing work, another team or an external service
 - **Scheduling review**: when it matters which items must run in series and which can run in parallel
 - **Retrospective when stuck**: a Now-tier item is not moving, so check for an unregistered prerequisite
 
@@ -84,14 +87,14 @@ Dependencies are the highest-risk factor on a roadmap: priority alone does not s
 1. **Fix the scope**: the promotion candidates by default; the user can name the full set or a subset.
 2. **Check category by category**: for every item in scope, ask about each of the five categories in the table above, skipping none. A category with no dependency is recorded as none, never left blank.
 3. **Build the graph and look for cycles**: assemble the dependencies into a directed graph and test it for cycles. **A cycle halts the run immediately**: output the cycle path and ask the user which edge to cut — this skill does not break a cycle itself.
-4. **Annotate the resolve-by date and the owner**: record "who resolves it" and "by when it needs resolving" for each dependency. A dependency with no owner counts as high risk and is called out on its own.
+4. **Annotate required deliverable, need-by point and owner**: identify the next intended step and the specific result it requires from source evidence. Record whether the result is available now or needed later, who supplies it, and when. Keep these details in existing item/dependency evidence; the `depends_on` shape below does not acquire mandatory fields. An unknown owner is high risk. Missing availability or step evidence stays unchecked, never guessed as none/blocked/ready.
 5. **Give reduction suggestions**: for each high-risk dependency, ask four questions —
    - Can a simplified version route around this dependency?
    - Can an interface contract or a stand-in let the work proceed in parallel?
    - Can the order change so the dependency is resolved earlier?
    - Can this piece of work be absorbed into our own team, removing the cross-team coordination?
 6. **Write back after confirmation**: present the dependency list, and once the user confirms, write it into the `depends_on` in each item's frontmatter.
-7. **Output the blocked list**: list the items with an unresolved prerequisite, for `promote-roadmap-items` to use as the Now-tier admission criterion.
+7. **Output next-step readiness**: separate items whose next step lacks a required deliverable, those with verified independent work and a later dependency, and unchecked items. Include the required result, evidence and owner/need-by condition for promotion. A future dependency is not automatically a present blocker.
 
 ### The `depends_on` field
 
@@ -126,7 +129,7 @@ With no dependency, write `depends_on: —`, never blank — a blank cannot sepa
 - On finding a dependency cycle, must halt; must not pick an edge and break it here
 - An inferred dependency must not be written back without the user's confirmation
 - Do not change an item's `priority` / `status` / tier
-- Do not invent a dependency because "there ought to be one"; with no evidence, record none
+- Do not invent a dependency because "there ought to be one"; record none only after checking. Insufficient evidence remains unchecked and is not written as `—`.
 - A dependency with no owner must be flagged explicitly as high risk; it must not be passed over in silence
 
 ### Anti-patterns (avoid)
@@ -157,6 +160,7 @@ With no dependency, write `depends_on: —`, never blank — a blank cannot sepa
 - [ ] Each high-risk dependency went through the four reduction suggestion questions
 - [ ] `depends_on` was written back only after the user confirmed the dependency list
 - [ ] The blocked list was output and can be consumed directly by `promote-roadmap-items`
+- [ ] Required-deliverable and next-step evidence distinguishes present blockers, later conditions and unchecked items, including a single candidate with external dependencies
 - [ ] No item's priority / status / tier was changed
 
 ---
@@ -174,11 +178,11 @@ With no dependency, write `depends_on: —`, never blank — a blank cannot sepa
    - #42 payment optimization → no dependency
    - #51 advanced reporting → technical dependency on #38 data pipeline upgrade (in the backlog, not promoted)
    - #17 auth refactor → no dependency
-   - #63 mobile workflow → team dependency: waiting on the design team's deliverable, need_by the midpoint of this stage, owner the design team
+   - #63 mobile workflow → team dependency: design is needed at the stage midpoint. Source scope confirms independently specified backend work can begin now; the design team owns the later deliverable
 3. The graph has no cycle.
 4. Reduction suggestion: could #51 ship read-only reporting first and route around the pipeline upgrade → the user judges it workable, recorded as the fallback plan.
 5. `depends_on` is written back once the user confirms.
-6. Blocked list: **#51 cannot enter Now at present** (its prerequisite #38 is still in the backlog); #63 can enter, but the design deliverable needs watching.
+6. Readiness: **#51 cannot enter Now for reporting** (the required data contract from #38 is unavailable, not merely because #38 remains in backlog). #63 may enter Now for verified backend work; its later design condition remains visible. Without independent-step evidence, #63 would remain unchecked instead of passing.
 
 **Result**: at promotion #51 went to Next instead, which avoided an item that would have stalled inside Now.
 
@@ -205,7 +209,7 @@ With no dependency, write `depends_on: —`, never blank — a blank cannot sepa
 
 1. All five categories are checked; none of them produces a usable signal.
 2. **No invented dependency** — nothing is added out of thin air because "search usually depends on an index".
-3. Record `depends_on: —`, and note in the report: "this item's description is too thin for the dependency check to have evidence".
+3. Leave dependency registration unresolved instead of writing `depends_on: —`; report "this item's description is too thin to verify dependencies". Existing verified records are preserved, with any evidence gap called out.
 4. Suggest the user flesh out the item description and re-run, or confirm manually at promotion time.
 
 **Result**: nothing is fabricated where there is no evidence, and "this could not be checked" is stated to the user outright rather than silently recorded as no dependency.

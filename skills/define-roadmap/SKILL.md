@@ -1,7 +1,7 @@
 ---
 name: define-roadmap
-description: Create a source-backed roadmap using context-sensitive scenario recommendations, retained view choices and single or split documents, retaining revision history and using an offline Markdown, SVG and dated Mermaid generator when useful.
-version: 7.7.0
+description: Create or restructure a source-backed roadmap, or first-align an existing project without replanning; preserve settled decisions and stable links, retain useful views/history, and optionally generate local Markdown/SVG/Mermaid.
+version: 7.9.0
 license: MIT
 ---
 
@@ -29,6 +29,30 @@ material boundaries and links to detail. Load [roadmap modeling](../../specs/roa
 for view structure and generator input; the quality rule owns evaluation criteria.
 
 ## Procedure
+
+### Existing-project first alignment
+
+When the request is adoption/compliance alignment of an existing plan, use the
+Spec's [alignment contract](../../specs/roadmap-modeling.md#first-alignment-of-an-existing-project)
+before the creation procedure below. Read review findings, the actual plan and
+source records; do not assume missing `roadmap.md` means no plan. Inventory known
+business facts and stable IDs/URLs/anchors, classify structural fixes versus evidence
+gaps and decision changes, and apply only authorized repairs. Preserve existing
+scope/order/tiers/priorities, commitments and views; do not rerun initial selection,
+default tier advice or strategy creation. Existing authorization is sufficient for
+reversible structural repair; ask only for missing facts or separate business choices.
+
+Repair in place and preserve anchor compatibility. Where requirements are missing,
+report registration gaps and route to capture; do not turn tasks into invented
+requirements or declare the whole requirement chain compliant. Keep unmappable states
+or absent planning fields explicit. Use manual Markdown/platform editing when the
+generator cannot preserve the original path, anchors or unknown fields. Compare
+before/after protected facts and links, then re-run review. Report repaired gaps,
+unchanged decisions, remaining evidence limitations and separately proposed actions.
+With no new gap, leave the plan unchanged. See the
+[complete adoption example](references/existing-project/README.md).
+
+### Creation and authorized restructuring
 
 1. Read project norms, existing choices and linked planning/execution/release records,
    protecting concurrent edits. Use the [scenario selection guide](references/scenario-selection.md)
@@ -65,8 +89,15 @@ for view structure and generator input; the quality rule owns evaluation criteri
    For Now, expose completion conditions;
    for Next, material start conditions; for Later, re-evaluation triggers. Link to
    source acceptance criteria rather than reproducing them. Empty tiers are valid.
-5. Explain the evolution direction in one sentence and the ordering in a short paragraph.
-   Include only boundaries affecting planning. Link exhaustive inventories, task lists
+5. Explain the direction and current arrangement concisely in the overview. Ordering
+   rationale applies the existing priority policy and verified conditions; it does
+   not create another policy or reassess settled priorities. Link an existing decision
+   when sufficient. Surface material unknowns, especially unverified execution, before
+   the rows. Include known near-term outcomes without repeating the inventory.
+   Put policy/closure definitions and selection/language evidence in the later
+   planning-basis section, using a useful summary plus the authority link, or a bare
+   link when enough. Follow the Spec's document-family naming advice without creating
+   mandatory children or renaming established URLs. Link exhaustive inventories, task lists
    and evidence. Add metrics or hypotheses only when they affect a real decision;
    do not fill sections or invent numbers to satisfy a template.
 6. For selected iteration views, collect cadence, goals, entry scope, owners,
@@ -102,13 +133,15 @@ for view structure and generator input; the quality rule owns evaluation criteri
 - [ ] Priority, approval, pauses, prerequisites and authorized capacity are preserved.
 - [ ] Tier precision is appropriate and completion or start conditions are recoverable.
 - [ ] The main view explains priorities, subsequent work and blockers without task detail.
+- [ ] Arrangement rationale explains policy application; policy is linked once, and plan/unknowns precede maintenance metadata under the Spec's reading hierarchy.
 - [ ] Approval and execution columns are separate; every execution cell has one fixed label.
 - [ ] Key conditions are brief and linked; closure criteria and source-backed status mappings were checked.
 - [ ] Detailed progress and evidence remain in their source documents.
-- [ ] The quality rule passes; unverified facts and missing sources are reported.
+- [ ] Applicable quality criteria were checked; alignment with unresolved source facts reports limitations rather than a full pass, and no unverified fact was invented.
 - [ ] The requested change is persisted with its update date and authorization scope respected.
 - [ ] Selected views and destination are grounded in user choice; all selected views agree.
 - [ ] Tool validation, SVG inspection and destination receipts or limitations are reported.
+- [ ] First alignment preserved known business facts and stable links, repaired only authorized structure, and was re-reviewed without automatically running planning steps.
 
 ## Local generation and delivery
 
@@ -171,7 +204,9 @@ Self-check: material changes are traceable, retained links resolve, and repeated
 
 Apply the [reading and ownership contract](../../specs/roadmap-modeling.md#reading-order-and-document-boundaries).
 Keep overview and priority arrangement in the main roadmap; group selected delivery
-views, phases and events under a delivery plan, followed by timeline and revisions.
+views, phases and events under a delivery plan, followed by timeline, revisions and
+planning basis/sources. Policy, closure, view selection and language evidence remain
+recoverable there rather than occupying the first screen.
 Fold completed rows separately without changing their tier. Remove author guidance
 and repeated inventories from filled documents.
 

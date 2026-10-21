@@ -5,7 +5,7 @@
   "direction": "Establish correct mappings before pilot acceptance and broader rollout.",
   "ordering": "Accepted mappings enable the pilot; broader rollout waits for pilot evidence.",
   "closure": "Customer signs acceptance of the agreed deliverable.",
-  "priority_policy": "Customer blockers P0; confirmed outcomes P1; unvalidated convenience P2. Source policy applies.",
+  "priority_policy": "sources.md#planning-basis",
   "views": [
     "requirements",
     "phases",

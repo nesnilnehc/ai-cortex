@@ -2,7 +2,7 @@
 id: ROADMAP_MODELING_SPEC_V1
 name: Roadmap Modeling Schema
 description: Roadmap views, source authority, priority vocabulary and local generation input contract.
-version: 1.5.0
+version: 1.7.0
 status: active
 lifecycle: living
 created_at: 2026-10-20
@@ -74,6 +74,46 @@ records exist; no additional view or lifecycle gate is compulsory.
 
 ## 5. Body structure contract
 
+### First alignment of an existing project
+
+An explicit request to align an existing project's requirements/roadmap to this
+contract authorizes structural and presentation repair, not replanning. Discover
+the actual plan and source locations before treating a missing default filename
+as a missing artifact. First review records structure gaps separately from missing
+facts, conflicting sources and proposed business changes.
+
+Preserve settled priorities and relative order, tiers, approval/execution facts,
+scope, ownership, dependencies, delivery groups, dates and commitment basis, pauses,
+closure criteria, selected views, destination and language. Retain stable item IDs,
+page URLs, source links and inbound heading/explicit anchors. Do not infer a source
+fact from a template, rename an item to manufacture compliance, apply tier defaults
+again, create delivery objects or reconstruct unknown history. Preserve established
+source-label meanings until any required mapping is supported. Unknown tier/priority
+or execution mapping remains explicit; it is not assigned a default to fill a row.
+
+The define capability repairs needed structure in place; maintenance handles only
+separately authorized source-backed state/time corrections. Missing source requirement
+registration goes to intake under its own authorization; reconciliation of conflicting
+facts, priority reassessment and placement changes remain separate decisions. Missing
+strategy or policy is reported as an evidence gap rather than automatically authored
+to satisfy a later planning step. Adequate existing decisions need no new approval.
+
+Existing requirement-body alignment follows the Requirement Spec's lifecycle rules:
+review it through the requirement reviewer, repair authorized drafts through the
+requirements repair loop, and leave frozen approved/implemented/superseded originals
+intact. Alignment alone does not authorize a successor revision, new identity or
+automatic approval. Do not recapture an existing requirement as a new unset item.
+
+Compare known facts and protected links before and after the proposed repair. Retain
+the actual adoption date and unknown earlier history; formatting-only repair is not
+falsely recorded as a business planning change. Re-review after repair and report
+remaining limitations; an aligned presentation with unresolved facts is not a full
+governance pass. A repeat run with no new gaps makes no change. The JSON generator
+remains optional: if it cannot preserve a nonstandard filename/anchor or unknown
+planning field, repair the existing document manually instead of migrating it or
+inventing facts. Established safe links are not rejected merely because this optional
+rendering interface uses a narrower reference grammar.
+
 ### 5.1 Human-readable roadmap
 
 Required: project direction, update date, requirement arrangement, ordering basis,
@@ -99,13 +139,25 @@ release evidence is linked rather than duplicated in the roadmap.
 
 Use this reading order rather than a separate top-level chapter per data type:
 
-1. Overview: direction, update date, ordering rationale, policy and closure basis.
+1. Overview: direction, update date and a concise explanation of the current
+   arrangement. Summarize known near-term outcomes and material unknowns when they
+   change how the plan should be read; do not repeat the item inventory.
 2. Priority arrangement: requirements/defects and their material conditions.
 3. Delivery plan, when selected: iteration and/or version planning, with relevant
    phases and milestone events grouped beneath it.
 4. Timeline, when selected: primary diagram, unknowns and timing exceptions;
    a detailed timing table may be folded or linked.
-5. Latest revisions and source/detail links.
+5. Latest revisions.
+6. Planning basis and sources: priority policy, closure basis, retained view/layout
+   and language evidence, and source/detail links. Use short summaries and links;
+   maintenance metadata does not take precedence over the plan.
+
+The overview is a reader summary, not a mandatory form of additional fields. Put
+unverified execution evidence before the requirement table so placement is not
+mistaken for actual progress. Summarize immediate decisions/unknowns there only
+when supported; detailed dependency chains remain in the rows and linked sources.
+The policy and closure basis remain recoverable from the main document even when
+their full definitions live elsewhere. Existing plans need no automatic rewrite.
 
 Keep completed work separate from active priorities (folded or linked archive),
 without changing its source status or tier. Do not replicate a priority table in
@@ -139,6 +191,54 @@ Nonstandard source labels require an explicit mapping before comparison. Existin
 P0–P2 records remain valid; do not silently reinterpret their historical meaning.
 Tier placement is a separate decision based on readiness and project priorities.
 
+### Policy, decisions and arrangement rationale
+
+The priority policy is the reusable rule for relative treatment precedence, not
+merely an importance label. It may consider value, urgency, dependencies and cost
+as the project decides. Priority levels and any necessary same-level order are
+decisions under that policy. An arrangement rationale explains how those decisions
+and verified conditions produced the current sequence or tier placement; it is not
+a second scoring policy or a requirement to reassess settled priorities.
+
+Keep one editable policy source. The roadmap links it with only the summary needed
+to understand the plan; a bare link is valid when sufficient. Reuse an existing
+priority/placement decision instead of requiring another rationale document. A
+policy's current application links to item/roadmap records rather than maintaining
+a second live inventory. A retained decision snapshot is identified as historical.
+Same-level items may be explicitly tied. Stable ID/path display order alone is not
+a business decision about which item must start first. Existing tier defaults remain
+overridable advice; this distinction removes neither levels nor planning tiers.
+
+### Prerequisite readiness
+
+For a proposed start or next step, identify the required deliverable and when it is
+needed from source evidence. That deliverable must be available before the step;
+the entire supplying requirement need not be complete. A dependency needed only at
+a later step permits parallel work when sources establish that the current step
+can proceed and expose the later condition. An unchecked dependency is unknown,
+not evidence of either readiness or blockage. Neither mapping nor placement changes
+execution status or automatically raises a prerequisite's priority.
+
+### Document-family naming
+
+These are default role-based names, not mandatory separate documents:
+
+| Role | Suggested title | Suggested local name |
+| --- | --- | --- |
+| Current plan and entry point | Roadmap | `roadmap.md` |
+| Reusable priority rules | Requirement Priority Policy | `priority-policy.md` |
+| Planning facts and selection decisions | Roadmap Planning Basis | `roadmap-planning-basis.md` |
+| Detailed delivery and timing | Delivery Plan and Timeline | `roadmap-delivery.md` |
+| Retained changes and decisions | Roadmap Revision History | `roadmap-history.md` |
+
+Names MUST distinguish policy, current plan, supporting evidence and history.
+Combine small topics or link existing authorities; do not create a document just
+to fill this table. Living titles/paths SHOULD be stable without date suffixes;
+identify snapshots/drafts explicitly under project conventions. Page display titles,
+URLs and local filenames are different surfaces. Preserve established titles/URLs
+and inbound links; naming advice never authorizes a migration. The renderer's
+reserved sibling filenames below remain a tool contract, not a platform title rule.
+
 ### 5.3 Optional local generator interface
 
 The JSON input is a transient rendering interface, not a required project file or
@@ -163,6 +263,15 @@ Unmodeled keys may be retained as input metadata but do not affect generated
 views. In particular, only milestone records own the modeled event `state`;
 a similarly named field on a version, phase or entry is not an event status.
 The explicit 1.0 prohibition on `phases`/`milestones` still applies.
+
+The existing `ordering` field supplies the current arrangement explanation, not a
+second priority rule. In modern main output (1.3–1.5 and explicit split layout),
+policy/closure/selection/language evidence follows revisions. A source-only
+`priority_policy` string renders as a link; recognized forms are HTTP(S), fragments,
+explicit `./` or `../` paths and bare `.md` paths with optional fragments. These
+references follow the common reference contract. Other values remain escaped prose.
+Legacy 1.0–1.2 single output retains its existing presentation. No new input field,
+mandatory policy file or schema migration is introduced.
 
 Entry fields: `id`, `name`, `source`, `outcome`, `priority` (P0–P3 or unset),
 `tier` (Now/Next/Later), `approval`, `execution`, `conditions`.

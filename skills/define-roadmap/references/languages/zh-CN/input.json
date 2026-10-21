@@ -5,7 +5,7 @@
   "direction": "让请求便于查找。",
   "ordering": "先验证检索能力，再扩大范围。",
   "closure": "完成须有验收和生产部署凭据。",
-  "priority_policy": "已确认的客户成果优先级为 P1。",
+  "priority_policy": "../sources.md#context",
   "views": [
     "requirements",
     "iterations",

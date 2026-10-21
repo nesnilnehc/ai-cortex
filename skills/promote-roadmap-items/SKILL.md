@@ -1,7 +1,7 @@
 ---
 name: promote-roadmap-items
 description: Promote prioritized requirements and defects into Now/Next/Later using settled project priorities and dependency readiness; preserve version membership and timing commitments.
-version: 3.8.0
+version: 3.9.0
 license: MIT
 ---
 
@@ -84,7 +84,11 @@ capacity, approval and pause decisions; no default quota is introduced.
 
 Combine current roadmap items with eligible backlog items and compare them across all strategic goals by `priority` (P0 > P1 > P2 > P3). Goal mapping provides traceability, not a separate promotion queue or quota.
 
-For equal priorities, preserve the existing order unless a documented strategic override justifies changing it. For new tied items, use their stable ID or path for a reproducible presentation order; this tie-break is not a new priority score.
+For equal priorities, consume settled source-backed precedence under the project
+policy. Preserve existing order when no such decision changes it. Genuine ties may
+remain tied; new tied items use stable ID/path presentation order, never claimed as
+business precedence. Missing business precedence matters only when a concrete choice
+requires it: obtain that decision under the policy, not a second scoring scheme.
 
 ### Stage 2: generate promotion candidates
 
@@ -95,12 +99,17 @@ The dependency check reads each item's frontmatter `depends_on` (registered by `
 | `depends_on` state | Handling |
 | --- | --- |
 | `—` (checked, no dependency) | may enter Now |
-| has dependencies, and every prerequisite is finished or its required deliverable is verified available | may enter Now |
-| a prerequisite is in Now but its required deliverable is not available | **must not enter Now**; keep the dependent item in Next until the prerequisite is satisfied |
-| has dependencies with an unresolved prerequisite | **must not enter Now**; Next is as far as it goes, and the candidate table names which one blocks it |
+| required deliverables for the next intended step are verified available | may enter Now; supplying requirements need not be complete |
+| a deliverable required for that step is unavailable, even if its supplier is in Now | **must not enter Now** for that step; keep in Next and name the condition |
+| a dependency is needed only later and sources establish independent work now | may enter Now for that work; record the later need-by condition without claiming it resolved |
 | field missing (never checked) | do not wave it through silently. Prompt for a `map-item-dependencies` run first; when the user insists on continuing, mark it "dependencies unchecked" in the candidate table and leave the risk with the user |
 
-Generate candidates across goals in priority order. Apply the default tier mapping, prerequisite checks, and the roadmap's declared stage promotion criteria. Keep a blocked P0/P1 item in Next and explain its blocker; do not lower its priority to justify the deferral.
+Generate candidates across goals in priority order. Apply the default tier mapping,
+next-step prerequisite checks under the [Spec](../../specs/roadmap-modeling.md#prerequisite-readiness),
+and declared project criteria. Keep a P0/P1 item whose next step cannot start in
+Next and explain the condition; do not lower its priority to justify the deferral.
+Unknown evidence remains unchecked, never assumed blocked or ready. Retain existing
+execution facts; a proposed deferral is a placement decision, not proof work stopped.
 
 Emit the candidate table:
 
@@ -118,7 +127,7 @@ Emit the candidate table:
 Check the current Now-tier items:
 
 - if the priority has dropped (a re-score after a strategy change, say) → suggest demoting it to Next or Later
-- if a prerequisite is unresolved or the stage promotion criteria no longer hold → suggest deferring the item to Next and name the blocker
+- if a deliverable required for the next intended step is unavailable or project criteria no longer hold → suggest deferring to Next and name the condition. A later dependency alone does not justify deferring source-backed independent work
 
 Emit the demotion suggestions.
 
@@ -171,7 +180,7 @@ For each confirmed decision:
 - Do not promote a `priority: unset` item (go through `prioritize-backlog` first)
 - Do not promote a `status: declined` item — that terminal state means never doing it, and taking it back in needs the user to lift the terminal state explicitly
 - Do not promote a P3 item into Now automatically (P3 goes to Later by default)
-- Do not promote an item with an unresolved prerequisite into Now (clear the prerequisite first, or promote only as far as Next)
+- Do not promote an item whose next intended step lacks a required deliverable into Now. Grounded parallel work with a later dependency follows the Spec; unknown evidence is not a pass.
 - Do not introduce staffing, effort, quota or item-count gates; preserve explicit project constraints
 
 ### Skill boundaries
@@ -193,7 +202,7 @@ For each confirmed decision:
 - ❌ **Do not tie it to a fixed cycle** ("run it every Monday") — this skill is **event-driven** (items completed / priority or strategy change / on demand)
 - ❌ **Do not partition priority by goal quotas** — compare candidates across goals in priority order
 - ❌ **Do not act on priority-unset items** — settle them under project policy or assessment first
-- ❌ **Do not skip the dependency check** — high priority does not mean it can be pulled now; a blocked item in Now cannot progress
+- ❌ **Do not skip the next-step dependency check** — high priority alone is no readiness evidence, and a later need is not automatically a present blocker
 - ❌ **Do not change the roadmap structure** (adding a milestone, say) — that is `define-roadmap`'s business
 
 ---
@@ -205,6 +214,7 @@ For each confirmed decision:
 - [ ] Current and candidate items were compared across goals in priority order
 - [ ] Promotion candidates were generated by priority order, stage criteria, and dependency readiness
 - [ ] Now-tier candidates passed the dependency check; items missing `depends_on` were told to run `map-item-dependencies` first, not waved through silently
+- [ ] Readiness distinguishes available next-step deliverables, verified parallel work with later conditions and unchecked evidence; same-level precedence follows policy decisions, not a new score
 - [ ] No default resource gate was imposed; explicit project decisions were preserved
 - [ ] Only requirement and defect rows were persisted, with separate approval, execution and key conditions; fixed execution labels agree with sources and were not advanced by tier changes
 - [ ] The demotion suggestions weigh priority changes and prerequisite readiness
@@ -242,6 +252,22 @@ For each confirmed decision:
 4. The user confirms the proposals and the files are updated.
 
 **Result**: tier placement reflects priorities and readiness; neither item is lost.
+
+### Example 3: the required result, not the supplier's whole status
+
+Four fictional P1 candidates share a supplying platform requirement that remains
+In progress. Compare their source evidence, without changing the platform's priority:
+
+| Candidate evidence | Proposal |
+| --- | --- |
+| Its needed interface contract is verified available | Now is eligible even though the platform requirement is unfinished |
+| Its next step requires an unavailable test environment | Keep Next; name environment availability as the start condition |
+| Source scope permits independent backend work now; design is needed at the midpoint | Now is eligible for that work; keep the later design owner/need-by condition visible |
+| The description does not establish what it needs or what can start | Dependencies unchecked; obtain evidence before claiming readiness |
+
+One candidate would receive the same check: dependencies can be outside the current
+candidate set. Eligibility changes neither approval nor execution; retain the
+user's placement authority and the existing tier defaults.
 
 ## Filled deliverable example
 

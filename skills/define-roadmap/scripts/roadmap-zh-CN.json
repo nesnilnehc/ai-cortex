@@ -160,5 +160,9 @@
   "value:existing": "沿用既有交付物",
   "value:context": "读者与同类文档",
   ", ": "、",
-  ".": "。"
+  ".": "。",
+  "Direction: ": "方向：",
+  "Current arrangement: ": "当前安排：",
+  "## Planning basis and sources": "## 规划依据与来源",
+  "Priority policy": "优先级规则"
 }

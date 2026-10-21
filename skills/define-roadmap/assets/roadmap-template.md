@@ -4,13 +4,14 @@ Updated: {YYYY-MM-DD}
 
 ## Overview
 
-{One sentence: direction and goal served.}
+Direction: {One sentence: direction and goal served.}
 
-Ordering rationale: {Brief priority/readiness rationale and exceptions.}
+Current arrangement: {Explain this plan's application of the priority policy,
+material conditions and exceptions; link an existing decision when sufficient.}
 
-Priority policy: {Project policy link; unresolved priority is not low priority.}
-
-Closure criterion: {Existing source definition, or explicit unresolved notice.}
+{Known near-term delivery focus and material unknowns only where they change the
+reader's interpretation. Do not repeat the item inventory or invent commitments.
+Expose unverified execution evidence here before the rows, not as Not started.}
 
 ## Priority arrangement
 
@@ -22,19 +23,6 @@ Closure criterion: {Existing source definition, or explicit unresolved notice.}
 
 {Fold completed requirements separately or link their retained archive. Preserve
 source tiers/statuses. State empty tiers and unknown status mappings explicitly.}
-
-<!-- Localize all display prose under the selected language; keep machine IDs and
-source references unchanged. Remove this guidance from filled outputs. -->
-
-Deliverable language / basis: {Locale; user/project/existing/context; rationale and decision link.}
-
-## Planning approach
-
-Scenario / primary perspective: {Selected recipe or custom combination.}
-
-Enabled views / layout: {Settled choices; single or main-plus-detail.}
-
-Rationale / source: {Why this combination serves this team and its readers; decision link.}
 
 ## Delivery plan
 
@@ -55,10 +43,31 @@ Each detail page links back. Remove instructions and unused headings. -->
 {Latest five only. Link complete retained history before shortening summaries.
 Initial/legacy baselines disclose adoption and unknown earlier history; invent no rows.}
 
-## Sources and detail
+## Planning basis and sources
+
+Priority policy: {Link the authoritative policy; add a short summary only when it
+helps interpret this plan. Do not copy its full rules or current item inventory.}
+
+Closure criterion: {Existing source definition or link, or explicit unresolved notice.}
+
+### Planning approach
+
+Scenario / primary perspective: {Selected recipe or custom combination.}
+
+Enabled views / layout: {Settled choices; single or main-plus-detail.}
+
+Rationale / source: {Why this combination serves this team and its readers; decision link.}
+
+Deliverable language / basis: {Locale; user/project/existing/context; rationale and decision link.}
+
+<!-- Localize all display prose under the selected language; keep machine IDs and
+source references unchanged. Remove this guidance from filled outputs. -->
 
 {Requirement/defect index; selected iteration/version plans or execution boards;
 retained history. Detail documents link back here; each fact has one editable source.}
+
+{Use the Spec's role-based naming suggestions only when creating useful documents;
+preserve existing titles/paths/URLs and do not create a page for every role.}
 
 Backlog requirements and defects map to the roadmap; items outside it are not done
 by default. Placement grants no implementation or release approval. Iteration end

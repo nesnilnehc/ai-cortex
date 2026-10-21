@@ -137,6 +137,73 @@ maintenance. Deliver once to that destination; there is no synchronization servi
 or second editable plan. Priority definitions explain the ordering and are linked
 from the plan rather than repeated in every view.
 
+### Policy, decisions and their explanation
+
+Use one priority policy for relative treatment precedence. It may consider value,
+urgency, dependencies and cost under the project's choices. P0–P3 and any necessary
+same-level precedence are decisions made under that policy. The roadmap's current
+arrangement explanation states how those decisions and verified conditions produced
+this plan; it is not another scoring policy. Reuse a decision link when it already
+explains the choice. Stable ID display order does not decide which tied item starts.
+
+When a policy already has a document, link it with only the summary readers need;
+a bare link is sufficient when clear. Keep the full rule and system-label mapping
+there, current results in item/roadmap records, and historical application snapshots
+explicitly dated. Do not maintain the current priority inventory in both places.
+
+### Read the plan before its maintenance evidence
+
+The overview highlights direction, current arrangement, known near-term delivery
+focus and material unknowns. It is not a fixed questionnaire or a second item list.
+Show unverified execution before rows; placement and draft approval do not prove
+whether work started. Requirements, selected delivery/timeline views and revisions
+follow. The later planning basis keeps priority/closure references and retained
+view/layout/language evidence inspectable without occupying the first screen.
+
+New supporting documents use the Spec's
+[role-based naming advice](../../specs/roadmap-modeling.md#document-family-naming):
+Roadmap, Requirement Priority Policy, Roadmap Planning Basis, Delivery Plan and
+Timeline, and Roadmap Revision History. These are optional roles, not a required
+five-document set. A local `priority-policy.md` or `roadmap-planning-basis.md` is a
+suggested name, while the renderer's generated sibling names are fixed. Preserve
+existing project conventions and URLs; readable page titles need no slug migration.
+For a worked refinement and its compatibility boundaries, see the
+[reading design](../designs/2026-10-21-roadmap-reading-technical-design.md).
+
+### First alignment of an existing project
+
+Say: "Align this existing project's requirements and roadmap to AI Cortex. Repair
+necessary structure, preserve settled business decisions and stable links, and list
+missing facts separately; do not replan." The orchestrator selects `align-existing`
+before normal planning routes. Review first, use define-roadmap for structural
+repair, and review again. Use update-roadmap only for a separately requested,
+source-backed state/time correction when the structure is already adequate.
+
+Preserve source priorities/order/tiers, scope, ownership, dates/commitments, approval,
+execution, dependencies, pauses and closure criteria, plus views, language, IDs,
+paths, URLs and anchors. Missing goals, unset priorities, unregistered requirements
+or unpromoted items are gaps to report, not permission to create strategy, run
+assessment, move tiers or archive. Request those follow-ups separately when needed.
+Existing adequate decisions need no repeat approval. Mixed requests identify exactly
+which business changes are additionally authorized.
+
+If requirement bodies are also in scope, use review-requirements and then the
+existing requirements repair loop for authorized draft repairs. Do not recapture
+an existing requirement or reset its priority. Approved/implemented/superseded
+originals remain frozen under the Requirement Spec; a successor revision requires
+its own authorized destination and identity. Missing decisions are not invented
+to fill mandatory sections, and structural roadmap repair alone proves no full
+requirement-quality pass.
+
+Repair at the established location. Use manual editing when the optional generator
+cannot preserve a legacy filename/anchor or unknown field; no schema upgrade or
+five-document family is required. Record an actual adoption baseline without
+inventing earlier history. Remaining source gaps prevent a full governance pass;
+repeating alignment with no new gap produces no changes. See the
+[complete existing-project example](../../skills/define-roadmap/references/existing-project/README.md).
+The [alignment design](../designs/2026-10-21-roadmap-alignment-technical-design.md)
+records implementation and test boundaries.
+
 ### What is available, and what is conditional?
 
 | Capability | Support |
@@ -234,7 +301,12 @@ The reason is blunt: a goal reasoned back out of evidence reads smoothly and han
 
 Putting `map-item-dependencies` ahead of `promote-roadmap-items` is the most important ordering decision on the whole chain.
 
-High priority does not mean it can be pulled now. Promote a P0 item whose prerequisite is still sitting in the backlog and it sits in Now while unable to progress. So entry to Now has two conditions: it ranks near the top, **and** it has no unresolved prerequisite.
+High priority alone does not establish next-step readiness. Check the specific
+deliverable required for the next intended step, not the supplying item's tier or
+whole-item completion. A later dependency permits source-backed independent work
+now with a visible need-by condition; missing evidence remains unchecked. Run mapping
+when evidence is missing, stale or changed, even for one candidate depending on
+existing work or an external provider. Reuse sufficient current evidence.
 
 Where an item has no dependencies recorded, `promote-roadmap-items` does not wave it through silently: it tells you to record dependencies first, and if you press on regardless, the candidate table marks it "dependencies not checked".
 

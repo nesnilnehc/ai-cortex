@@ -5,7 +5,7 @@
   "direction": "Make requests findable before adding reuse through export.",
   "ordering": "Search is prerequisite to reliable export; reminders wait for validated demand.",
   "closure": "Accepted search/export functionality is deployed to production with release evidence.",
-  "priority_policy": "Customer blockers P0; confirmed outcomes P1; unvalidated convenience P2. Source policy applies.",
+  "priority_policy": "sources.md#planning-basis",
   "views": [
     "requirements",
     "iterations",
@@ -73,7 +73,7 @@
       ],
       "outcome": "Find and reuse requests",
       "owner": "Release coordinator",
-      "window": "W1\u2013W4 target"
+      "window": "W1–W4 target"
     }
   ],
   "milestones": [

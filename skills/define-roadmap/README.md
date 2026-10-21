@@ -11,7 +11,16 @@ Use the bundled [template](assets/roadmap-template.md) and
 [roadmap-quality](../../rules/roadmap-quality.md).
 
 Default output: `docs/process-management/roadmap.md`, respecting project norms.
+For first alignment of an existing project, review and repair necessary structure
+in place while preserving business decisions and stable links; this is not initial
+planning. See the [adoption example](references/existing-project/README.md).
 See [SKILL.md](SKILL.md) for the procedure and Self-Check.
+
+Lead with direction, current arrangement and material unknowns. Keep policy/closure
+references and planning/language metadata in the later planning basis. A policy is
+the reusable rule; arrangement rationale explains its application, not another
+priority scheme. Link existing policy and decision authorities rather than copying
+them. Suggested supporting-document names never require new pages or URL migrations.
 
 ## Offline generation
 

@@ -4,21 +4,9 @@ Updated: 2026-10-21
 
 ## Overview
 
-Learn whether assisted triage reduces user confusion before considering rollout.
+Direction: Learn whether assisted triage reduces user confusion before considering rollout.
 
-Ordering rationale: Pilot evidence must justify further investment; rollout remains directional.
-
-Priority policy: Customer blockers P0; confirmed outcomes P1; unvalidated convenience P2. Source policy applies.
-
-Closure criterion: Pilot findings are retained and the sponsor records continue, adjust or stop; rollout is a separate decision.
-
-## Planning approach
-
-Scenario: discovery · Primary: phases · Layout: single
-
-Enabled views: requirements, phases, milestones, schedule.
-
-Use a bounded learning phase and evidence-review event; omit speculative versions and iterations because neither is a settled delivery practice. [Selection source](selection.md#decision).
+Current arrangement: Pilot evidence must justify further investment; rollout remains directional.
 
 ## Priority arrangement
 
@@ -68,6 +56,20 @@ No schedule assigned: R1, R2.
 ## Revision history
 
 No material revisions recorded; earlier history is not certified by this input.
+
+## Planning basis and sources
+
+[Priority policy](sources.md#planning-basis)
+
+Closure criterion: Pilot findings are retained and the sponsor records continue, adjust or stop; rollout is a separate decision.
+
+### Planning approach
+
+Scenario: discovery · Primary: phases · Layout: single
+
+Enabled views: requirements, phases, milestones, schedule.
+
+Use a bounded learning phase and evidence-review event; omit speculative versions and iterations because neither is a settled delivery practice. [Selection source](selection.md#decision).
 
 Backlog requirements and defects map to this roadmap; items outside it are not done by default.
 Placement grants no implementation or release approval.

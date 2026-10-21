@@ -6,6 +6,11 @@ Promotes scored requirements and defects into the roadmap's Now / Next / Later s
 
 The skill behind a roadmap planning ceremony: it reads the prioritized backlog, the current roadmap, and the strategic goals, produces promotion and demotion candidates, and — once the user confirms each one — updates the roadmap and supported planning fields while preserving approval status.
 
+Compare under the existing policy and settled same-level decisions, not another
+scoring scheme. Check the deliverable needed for the next step; verified independent
+work may proceed before a later dependency is available. Missing evidence is not a
+readiness pass. Default tier advice and explicit project constraints remain intact.
+
 ## When to use
 
 - **Items completed**: after the previous batch of Now-tier items is done

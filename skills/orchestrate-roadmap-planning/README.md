@@ -10,6 +10,8 @@ Every step carries one of three grades — **required** (runs as soon as its con
 
 ## When to use
 
+- **Existing-project first alignment**: choose `align-existing`: review → necessary structure repair → re-review. Retain decisions and links; do not run strategy/intake/scoring/promotion/archiving merely to satisfy planning preconditions. Source gaps remain explicit.
+
 - **Full planning**: you need one complete pass from strategy to promotion, not a single-point operation
 - **Unsure where it is stuck**: when it is unclear which skill to run now, the health-check step decides
 - **Cold start on a new project**: governance documents are missing wholesale and need filling in order
