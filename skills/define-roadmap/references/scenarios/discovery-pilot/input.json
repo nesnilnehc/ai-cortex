@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.4",
+  "project": "Assisted Triage Pilot",
+  "updated": "2026-10-21",
+  "direction": "Learn whether assisted triage reduces user confusion before considering rollout.",
+  "ordering": "Pilot evidence must justify further investment; rollout remains directional.",
+  "closure": "Pilot findings are retained and the sponsor records continue, adjust or stop; rollout is a separate decision.",
+  "priority_policy": "Customer blockers P0; confirmed outcomes P1; unvalidated convenience P2. Source policy applies.",
+  "views": [
+    "requirements",
+    "phases",
+    "milestones",
+    "schedule"
+  ],
+  "entries": [
+    {
+      "id": "R1",
+      "name": "Validate assisted triage",
+      "outcome": "Determine whether users understand triage suggestions",
+      "tier": "Now",
+      "priority": "P1",
+      "approval": "Approved",
+      "execution": "In progress",
+      "conditions": "Retain findings from five pilot participants",
+      "source": "sources.md#r1"
+    },
+    {
+      "id": "R2",
+      "name": "Expand triage rollout",
+      "outcome": "Extend useful assistance",
+      "tier": "Later",
+      "priority": "P2",
+      "approval": "Draft",
+      "execution": "Not started",
+      "conditions": "Sponsor decides from pilot evidence",
+      "source": "sources.md#r2"
+    }
+  ],
+  "revisions": [],
+  "selection": {
+    "scenario": "discovery",
+    "primary": "phases",
+    "layout": "single",
+    "rationale": "Use a bounded learning phase and evidence-review event; omit speculative versions and iterations because neither is a settled delivery practice.",
+    "source": "selection.md#decision",
+    "context": {
+      "work_mode": "discovery",
+      "delivery": "acceptance",
+      "audience": "Research team and investment sponsor",
+      "constraints": "Review after five pilot participants; no committed product release or rollout date",
+      "source": "sources.md#context"
+    }
+  },
+  "phases": [
+    {
+      "id": "PH1",
+      "name": "Learning pilot",
+      "scope": [
+        "R1"
+      ],
+      "owner": "Project lead",
+      "exit_condition": "Findings retained and sponsor records continue, adjust or stop decision",
+      "source": "sources.md#ph1"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "MS1",
+      "name": "Pilot evidence reviewed",
+      "related": [
+        "R1",
+        "PH1"
+      ],
+      "category": "approval",
+      "owner": "Acceptance owner",
+      "criterion": "Sponsor reviews findings and records continue, adjust or stop decision",
+      "state": "planned",
+      "evidence": null,
+      "source": "sources.md#ms1"
+    }
+  ],
+  "schedule": {
+    "mode": "weeks",
+    "calendar": "calendar-days",
+    "origin": "W1 begins at this fictional project start; calendar start unknown.",
+    "items": [
+      {
+        "ref": "PH1",
+        "kind": "span",
+        "basis": "target",
+        "start": 1,
+        "end": 3,
+        "depends_on": []
+      },
+      {
+        "ref": "MS1",
+        "kind": "milestone",
+        "basis": "target",
+        "start": 3,
+        "end": 3,
+        "depends_on": [
+          "PH1"
+        ]
+      }
+    ]
+  }
+}

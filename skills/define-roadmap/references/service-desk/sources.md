@@ -147,3 +147,12 @@ after delivery deployment evidence confirms occurrence at W6. It follows M2.
 | after-delivery | M3 | R1, V2 | 6 | actual | reached | ../sources.md#m3 |
 
 Week numbers on event points identify boundaries: W6 is the boundary after the complete W5 interval. The after-delivery observation at the end of W5 includes that boundary, rather than asserting an event later in W6.
+
+## Delivery observation
+
+REV2 records the source receipts already described under BUG1 and R1 and the
+actual milestones M1/M2/M3. The product owner confirms acceptance and the release
+operator confirms production deployment at the recorded observation boundaries.
+The outcome changes the source execution summaries to Completed and event states
+to reached; V1/V2 timing is now actual. R2 remains unstarted in V3. The prior REV1
+scope and deadline decision remains unchanged, linked from the revision register.

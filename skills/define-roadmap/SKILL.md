@@ -1,7 +1,7 @@
 ---
 name: define-roadmap
-description: Create a source-backed roadmap with user-selected requirement, version and schedule views, using an offline Markdown, SVG and dated Mermaid generator when useful.
-version: 7.3.1
+description: Create a source-backed roadmap using context-sensitive scenario recommendations, retained view choices and single or split documents, retaining revision history and using an offline Markdown, SVG and dated Mermaid generator when useful.
+version: 7.6.1
 license: MIT
 ---
 
@@ -24,20 +24,28 @@ and `update-roadmap` for status and timing maintenance.
 Read project norms, goals, the existing roadmap and source requirement and defect
 records. Default output is `docs/process-management/roadmap.md`; preserve a project's
 established path. The output is a living roadmap with a dated summary, a compact
-Now/Next/Later view, optional version and schedule views, ordering rationale,
+Now/Next/Later view, optional iteration/version and schedule views, ordering rationale,
 material boundaries and links to detail. Load [roadmap modeling](../../specs/roadmap-modeling.md)
 for view structure and generator input; the quality rule owns evaluation criteria.
 
 ## Procedure
 
-1. Read project norms and existing decisions, protecting concurrent edits. At first
-   creation recommend requirement, version and schedule views and let the user choose.
-   Confirm the new destination (repository path, local folder or knowledge-base document);
-   an already explicit user destination counts as confirmation. Preserve existing view
-   and destination choices during maintenance. Load
-   [roadmap-quality](../../rules/roadmap-quality.md), the
-   [template](assets/roadmap-template.md) and the
-   [completed example](references/roadmap-example.md).
+1. Read project norms, existing choices and linked planning/execution/release records,
+   protecting concurrent edits. Use the [scenario selection guide](references/scenario-selection.md)
+   and [template combinations](assets/scenarios/README.md). Extract work mode/cadence,
+   delivery mode, readers and constraints from evidence; bundle only unanswered
+   questions that affect the recommendation. Do not ask known facts again.
+   Propose a primary perspective, supporting/omitted views, single/split layout,
+   rationale, source basis, uncertainty and maintenance cost. Recipes are starting
+   advice, not mandatory framework rules. Honor an explicit choice or existing
+   authorization; ask only unresolved product trade-offs. Retain the combination
+   in existing norms/roadmap sources. Reuse established views/layout/destination
+   during maintenance; new options alone trigger no interview or schema migration.
+   When context conflicts or materially changes, retain current choices and present
+   a focused reconsideration proposal rather than applying fresh defaults.
+   Confirm a new destination only when not already explicit. Load
+   [roadmap-quality](../../rules/roadmap-quality.md), the [base template](assets/roadmap-template.md),
+   and the closest [complete scenario](references/scenarios/README.md).
 2. Inventory requirements and defects with IDs, source paths, outcomes, priorities,
    approval states, execution evidence, project closure criteria and dependencies. Extract from existing sources before asking.
    If an input is only a task or task group, resolve its parent requirement or defect.
@@ -61,7 +69,10 @@ for view structure and generator input; the quality rule owns evaluation criteri
    Include only boundaries affecting planning. Link exhaustive inventories, task lists
    and evidence. Add metrics or hypotheses only when they affect a real decision;
    do not fill sections or invent numbers to satisfy a template.
-6. For selected version views, group source IDs by the existing delivery decision;
+6. For selected iteration views, collect cadence, goals, entry scope, owners,
+   timeboxes and source/board links; derive version mapping from entry membership.
+   Keep far-future work directional and unallocated when not decided. For selected
+   version views, group source IDs by the existing delivery decision;
    retain unassigned work and unknown owners/windows visibly. For selected schedules,
    gather known spans, milestones, timing basis and dependencies; use relative weeks
    when the start date is unknown. Do not invent dates, auto-schedule resources or
@@ -102,7 +113,8 @@ for view structure and generator input; the quality rule owns evaluation criteri
 ## Local generation and delivery
 
 Use `python3 <skill-dir>/scripts/render-roadmap.py INPUT.json --check` to validate
-temporary facts under the Spec, then pass `--output-dir DIR` for the selected local
+temporary facts under the Spec, then pass `--output-dir DIR` and optionally
+`--layout split` (legacy default `single`; schema 1.4 reuses its saved layout) for the selected local
 destination. Use `--overwrite` only for confirmed replacement of reserved generated
 filenames. Never overwrite authoritative evidence or treat the temporary JSON as
 a second project plan. The generator emits Markdown and, when selected, SVG and
@@ -117,7 +129,9 @@ project records. Copying a roadmap to a new directory requires rebasing relative
 For a knowledge-base destination, discover available document read/write and image
 upload tools, map them to the selected operation, read the latest target before
 editing and preserve unrelated content. Verify Mermaid support with a small preview
-before relying on it. If native rendering is unavailable, use supported image upload
+before relying on it. Check disclosure-element support as well; if unavailable,
+expand folded content or use authorized linked detail pages without hiding facts.
+If native rendering is unavailable, use supported image upload
 and retain source access. If upload/write is unavailable, report undelivered views
 and the local output location; do not silently switch destination or claim publication.
 External writes require the user's explicit destination/publication authorization.
@@ -134,8 +148,66 @@ Resolve roadmap concepts from the [Roadmap Spec](../../specs/roadmap-modeling.md
 A version groups deliverables; a phase spans work; a milestone marks an event.
 Collect phase scope, owner and exit condition, and milestone category, related IDs,
 owner, occurrence criterion, state and evidence when these views are useful.
-Do not insert events as fake requirements. Use JSON 1.1 for independent records;
+Do not insert events as fake requirements. Use JSON 1.1 or later for independent records;
 retain 1.0 and single-view compatibility. Give version spans and approval/release
 points separate IDs. Missing event dates remain unknown, never inferred.
 
 Self-check: concepts, selected views and linked evidence agree with the source records.
+
+## Revision history maintenance
+
+At initial creation or structural refresh, apply the [revision contract](../../specs/roadmap-modeling.md#54-revision-records).
+Resolve existing decision/history sources before writing. Keep the latest five
+summaries with before/after, reason, impact and details links; preserve older history
+at a resolving source before shortening the main view. An initial baseline may have
+no revisions. For a legacy roadmap, disclose adoption and unknown earlier history;
+do not fabricate old decisions. Use schema 1.2 or later when generating revision summaries.
+Read existing history before overwrite and carry retained records forward. The
+renderer presents supplied decisions; it does not discover or append them.
+
+Self-check: material changes are traceable, retained links resolve, and repeated execution adds no duplicate revision.
+
+## Document layout and iterations
+
+Apply the [reading and ownership contract](../../specs/roadmap-modeling.md#reading-order-and-document-boundaries).
+Keep overview and priority arrangement in the main roadmap; group selected delivery
+views, phases and events under a delivery plan, followed by timeline and revisions.
+Fold completed rows separately without changing their tier. Remove author guidance
+and repeated inventories from filled documents.
+
+Default to one document for small plans. Split when readers, owners, update cadence
+or volume justify it; keep the main independently useful, with near-term delivery,
+key events/blockers and latest five revisions. Detail pages link back. Declare one
+editable authority per fact and generate/link summaries. Do not create mandatory
+iteration/version documents or a separate Gantt authority.
+
+Use schema 1.3 or later for optional iteration views. Iteration goals/timeboxes organize work;
+versions group delivery. Carry-over is valid, and iteration end proves no acceptance
+or release. Keep tasks/daily assignments on linked execution boards. Single and
+split generation use the same facts; the latter reserves roadmap-delivery.md and
+roadmap-history.md alongside existing outputs. Read source history before replacement;
+verify all navigation/source links and stale-output cleanup within overwrite scope.
+For manually split iteration/version plans, respect established paths and ownership.
+
+Self-check: the main alone explains priorities, blockers and delivery; selected
+iterations and child views agree, navigation resolves, and each fact has one authority.
+
+## Scenario selection and generation
+
+Follow the [selection contract](../../specs/roadmap-modeling.md#56-context-recommendations-and-retained-selection-schema-14).
+Use the shared base plus selected modules instead of copying four complete templates.
+The four recipes cover iteration products, continuous flow, staged delivery and
+learning pilots; custom combinations remain valid. For flow, link project workflow,
+board, WIP policy, service expectation and metrics; invent no numeric defaults.
+
+The optional `--recommend` command consumes partial planning_context or an existing
+choice and prints advice/questions only. It does not inspect project files, ask the
+user interactively or apply a choice. Source discovery and tailoring remain this
+skill's work. Do not convert a proposal into approval. Legacy inputs retain their
+views without forced context backfill. Generate 1.4 only after a settled selection
+is sourced; its primary perspective and phase/event/flow views are explicit, and
+its saved layout is reused. A conflicting CLI layout requires updating the source
+decision first. Revision/history and destination safeguards remain in force.
+
+Self-check: known facts were read first; missing questions were focused; recommendation
+and settled choice are distinct; existing choices were reused and source-backed.

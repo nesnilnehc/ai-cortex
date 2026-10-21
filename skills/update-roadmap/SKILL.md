@@ -1,7 +1,7 @@
 ---
 name: update-roadmap
-description: Maintain requirement-and-defect roadmap summaries — change item status, shift dates with downstream impact analysis, and produce a what-changed summary. Does not move items between Now/Next/Later tiers.
-version: 3.3.0
+description: Maintain requirement-and-defect roadmap summaries — change item status, shift dates with downstream impact analysis, and retain source-backed revision history. Does not move items between Now/Next/Later tiers.
+version: 3.6.0
 license: MIT
 ---
 
@@ -78,7 +78,7 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
    Resolve task-level input to its parent. Update task details in their source; only
    refresh the parent roadmap summary if its outcome, status, timing or key blocker changes.
    Never add a task or task group as a roadmap row.
-2. **Identify the change type**: status change / date shift / existing-version scope change / combination.
+2. **Identify the change type**: status change / date shift / existing-version scope change / existing-iteration goal, scope or cadence change / combination.
    - If what the user actually wants is a move across tiers → **stop**, explain that this falls to `promote-roadmap-items`, and hand off.
 3. **Handling a status change**:
    - Map the project's source execution evidence to exactly one label from the quality rule. Keep approval, execution and key conditions in separate columns. Risk alone does not replace an execution label.
@@ -95,7 +95,7 @@ The entry point for day-to-day maintenance once the roadmap is in place: change 
 6. **Persist source and summary**: load [roadmap modeling](../../specs/roadmap-modeling.md).
    For a move between existing versions, record old/new membership and the effect on
    both delivery windows, dependencies and commitments; leave tier unchanged. New
-   versions or structural changes go to `define-roadmap`. Refresh all selected views
+   versions/iterations, layout changes or structural changes go to `define-roadmap`. Refresh all selected views
    in the established destination using that skill's generator procedure when useful;
    confirm only a changed destination, not the same authorized location again.
    Update the authoritative source and, when the parent planning summary changes,
@@ -244,3 +244,46 @@ Report affected version windows, phase spans and event targets separately. Route
 new phase/event structure to define-roadmap; do not silently upgrade legacy inputs.
 
 Self-check: concepts, selected views and linked evidence agree with the source records.
+
+## Revision history maintenance
+
+Before a material planning change, read the current roadmap and durable history.
+Apply the [revision contract](../../specs/roadmap-modeling.md#54-revision-records):
+append one source-backed decision with a stable ID, date, before/after, reason,
+impact and details link. Refresh settled priorities from their authoritative source
+without making priority decisions here. Record priority/tier handoffs, membership,
+phase, timing/commitment, exclusion and milestone-state changes where applicable.
+The conversational change summary is also retained in the project history source;
+it is not the only copy. Keep the latest five in the roadmap and verify the full
+history link before shortening it. Re-rendering or retrying the same decision
+reuses its ID; a correction appends a linked revision. Formatting-only edits can
+remain in Git. Missing decision evidence stays unresolved, never invented.
+
+Self-check: material changes are traceable, retained links resolve, and repeated execution adds no duplicate revision.
+
+## Iteration and document maintenance
+
+Read linked delivery/history pages and declared authoritative records before edits.
+Maintain existing iteration goals, scope, cadence and timeboxes only from authorized
+source decisions. Analyze affected versions, dependencies and commitments; carry-over
+alone changes no tier, closure state or release evidence. New iteration structure or
+layout routes to define-roadmap. Keep execution-board tasks in their source.
+Refresh all affected main/detail/chart summaries together, reusing the same revision
+ID. Preserve source-relative links and selected single/split layout. Report any
+projection that could not be updated; do not claim a consistent plan while it differs.
+
+Self-check: iteration changes have source/revision evidence; every affected main,
+detail and time view agrees, with no duplicate editable scope or dates.
+
+## Retained scenario selection
+
+Read the existing selection source and reuse primary perspective, views, layout and
+destination. Missing new metadata in legacy plans is not a reason to re-interview or
+migrate. Update flow summaries from linked policy/board evidence when applicable;
+no fabricated cadence, WIP number or service target. If needs materially change,
+report the difference and route a structural reconsideration to define-roadmap while
+preserving current choices. Refresh every affected projection only within the settled
+combination; do not apply a fresh recommendation during status/date maintenance.
+
+Self-check: the update preserves the selection or links the authorized new decision;
+changed context and unavailable evidence are explicit.

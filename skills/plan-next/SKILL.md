@@ -1,7 +1,7 @@
 ---
 name: plan-next
 description: Analyze governance state and suggest next actions; ask whether a skipped recommendation lasts for the session or until revoked.
-version: 15.4.0
+version: 15.7.0
 license: MIT
 ---
 
@@ -178,3 +178,38 @@ a planned milestone introduces no universal gate. Treat legacy milestone task
 directories as work packages and preserve their established archive route.
 
 Self-check: concepts, selected views and linked evidence agree with the source records.
+
+## Revision history maintenance
+
+When diagnosing roadmap maintenance, inspect the [revision contract](../../specs/roadmap-modeling.md#54-revision-records)
+and existing source decisions. A known material change after adoption without a
+revision or a broken retained-history link recommends update-roadmap. Do not infer
+missing earlier decisions from the current snapshot or treat history rows as
+unfinished requirements, phases or milestone work. Dates in revision history do
+not grant execution approval or define current item status.
+
+Self-check: material changes are traceable, retained links resolve, and repeated execution adds no duplicate revision.
+
+## Roadmap document family
+
+Discover the main roadmap and linked delivery/iteration/version/history views from
+project norms. They are one plan's projections, not duplicate requirement nodes.
+Apply the Roadmap Spec and quality Rule through the diagnosis procedure. Route
+structural/layout defects to define-roadmap, existing iteration/scope/date drift to
+update-roadmap and tier decisions to promote-roadmap-items. Unselected iterations
+or absent optional child documents are not gaps. Do not infer completion from an
+iteration boundary or traverse revision history as current work.
+
+Self-check: linked planning views and their source authority were checked without
+creating duplicate work nodes or mandatory iteration artifacts.
+
+## Scenario selection diagnosis
+
+Read an existing roadmap combination and decision source as project evidence. Missing
+new selection metadata in a legacy plan is not a gap. Invalid primary/view/layout
+consistency routes to define-roadmap; changed needs suggest focused reconsideration,
+not an automatic reset. Diagnosis recommends; it does not interview the user for all
+four context dimensions, alter view choices or execute recommendation tools as approval.
+
+Self-check: source-backed custom/legacy choices remain valid and new recipe availability
+alone creates no governance work.

@@ -1,7 +1,7 @@
 ---
 name: review-roadmap
-description: Review a concise requirement-and-defect roadmap for entry granularity, priority, readiness, readability and source traceability; emit findings without rewriting.
-version: 3.4.0
+description: Review a concise requirement-and-defect roadmap for entry granularity, priority, readiness, readability, iteration views, document layering, revision history and source traceability; emit findings without rewriting.
+version: 3.7.0
 license: MIT
 output_schema:
   type: findings-list
@@ -86,3 +86,43 @@ for one version are valid. Legacy 1.0 markers and single-view plans remain valid
 do not demand new registers or impose a new gate.
 
 Self-check: concepts, selected views and linked evidence agree with the source records.
+
+## Revision history maintenance
+
+Check the [revision contract](../../specs/roadmap-modeling.md#54-revision-records)
+against available source decisions and preceding retained snapshots. Identify known
+material changes absent from history, unsupported before/after claims, dropped or
+duplicated records, unreadable history links and missing reasons/impacts. Check
+latest-five display separately from durable retention. Do not treat a removed
+historical object as an invalid current reference. Legacy adoption does not require
+fabricated backfill; report unknown prior history as a limitation, not a failure.
+
+Self-check: material changes are traceable, retained links resolve, and repeated execution adds no duplicate revision.
+
+## Layered and iteration views
+
+Check the Rule's reading/iteration criteria. Read main plus selected children and
+source records: main alone must explain priorities, blockers and near-term delivery;
+children must link back. Check facts and dates against their declared editable source,
+not against another generated copy. Inspect selected iteration cadence/goals/scope,
+timeboxes, unallocated work, version mapping and board links. Carry-over is valid;
+iteration end is no evidence of release, completion or event occurrence. Do not demand
+iterations or child documents from a single-view plan. Structure/layout defects route
+to define-roadmap; existing goal/scope/cadence/timebox drift routes to update-roadmap.
+
+Self-check: all selected documents were examined; main readability, iteration
+semantics, ownership and link limitations are reported without mandatory expansion.
+
+## Scenario and selection review
+
+Evaluate the Rule's scenario/intake criteria against existing source decisions.
+Check primary/supporting views, rationale, layout and source facts; custom choices
+need consistency, not conformity to a recipe. Missing optional metadata in legacy
+plans is not a defect or demand for migration. Detect changed context or unexplained
+choice resets and source/projection disagreement. Read selected flow policies and
+metrics evidence; unknown baselines are valid, invented numeric defaults are not.
+Report intake history as cannot evaluate when unavailable; never claim a real user
+interview was verified merely because a generated selection table exists.
+
+Self-check: recommendations are distinguished from settled choices; recipe adherence
+and new-schema adoption were not imposed as quality gates.

@@ -8,94 +8,70 @@ status: active
 
 # Roadmap
 
-**Last updated**: 2026-03-22
+**Last updated**: 2026-10-21
 
-The path of evolution derived from the [strategic goals](../project-overview/strategic-goals.md). A roadmap is mostly about the **road** — the themes, the initiatives, the direction; a **milestone** is only a significant point along it. The concrete work is in the [backlog](backlog.md).
+## Overview
 
-The [Roadmap Spec](../../specs/roadmap-modeling.md) distinguishes delivery versions,
-work phases and event milestones. M5–M7 below name outcome checkpoints; the
-initiatives are their associated work, not the milestones themselves. Now/Next/
-Later are planning tiers, not mandatory phases or versions. This existing strategic
-view does not yet declare phase spans, release groups or verified occurrence dates;
-none is inferred here.
+Broaden delivery/governance intent coverage and verified adoption channels, then
+strengthen cross-project reuse and orchestration, guided by the
+[strategic goals](../project-overview/strategic-goals.md).
 
-## The road at a glance
+Ordering rationale: the existing plan puts core capability/channel readiness ahead
+of deeper composition. [Checkpoint definitions and conflicting thresholds](roadmap-strategy.md#checkpoint-definitions)
+need reconciliation before they can establish readiness or completion.
 
-- **Now**: widen intent coverage and reach more channels in the ecosystem.
-- **Next**: deeper reuse and richer orchestration. (Entry condition: intent coverage hits its target and the new channels are verified.)
-- **Later**: standardisation across the ecosystem, and measuring usage.
+This is the project's retained strategic view. It does not yet have a source-backed
+requirement/defect arrangement, verified current coverage, iteration cadence,
+version groups or dated delivery commitments. Those facts remain unresolved;
+this presentation cleanup does not certify progress or create missing decisions.
+Detailed work remains in the [backlog](backlog.md). The
+[Roadmap Spec](../../specs/roadmap-modeling.md) governs new requirement-based views.
 
----
+## Priority arrangement
 
-## Now
+### Now
 
-**Strategic goals it serves**: [Goal 1, delivery-chain capabilities are available](../project-overview/strategic-goals.md#goal-1-delivery-chain-capabilities-are-available) and [Goal 2, governance-chain capabilities are available](../project-overview/strategic-goals.md#goal-2-governance-chain-capabilities-are-available)
+Grow core delivery/governance capabilities and verify more ecosystem channels.
+M5 and M6 are the associated outcome checkpoints. Key condition: resolve their
+metric definitions and verify source evidence before asserting the targets are met.
 
-**What success looks like**: once the Now milestones are met, core delivery and governance intents are 80% covered.
+### Next
 
-### Milestone checkpoints
+Deepen cross-project reuse and end-to-end orchestration (M7). Existing entry
+conditions are verified M5/M6 readiness and demonstrated team demand for reuse or
+chained automation; these conditions are not asserted met here.
 
-- **M5, core intent coverage**: full coverage of the core delivery and governance intents, enough for most everyday software engineering situations.
-- **M6, ecosystem multi-channel verification**: verify integration across platforms in the ecosystem, lowering adoption friction further.
+### Later
 
-### Key initiatives
+Explore privacy-respecting usage observability and broader community adoption of
+AI Cortex's capability/contract system. No dates or iteration assignments are set.
 
-- **Grow the core skill library**: design and build more finely divided delivery and governance skills on top of `intent-routing`, closing the capability gaps.
-- **Verify cross-platform fit**: beyond Cursor, verify and adapt skill discovery, installation and invocation on more mainstream agent platforms and IDEs, Trae among them.
+## Delivery outlook
 
-### Success metrics
+| Checkpoint | Intended outcome | Timing / evidence |
+| --- | --- | --- |
+| M5 | Core intent coverage | Target definitions conflict; occurrence unverified |
+| M6 | Verified ecosystem channels | Target definitions conflict; occurrence unverified |
+| M7 | Complex orchestration and a closed workflow loop | Workflow threshold conflicts; occurrence unverified |
 
-- **Intent support**: coverage of the high-frequency delivery and governance intents reaches 80% or more. (Serves Goal 1 and Goal 2.)
-- **Channel compatibility**: the existing skills verified and running smoothly on at least 2 new platforms. (Serves Goal 4.)
+[Delivery direction, initiatives and checkpoint definitions](roadmap-strategy.md)
+are maintained once in the detail document. It links back here. These checkpoints
+are events/outcomes, not version containers or iteration timeboxes. No dates,
+iteration cadence, phase spans or release groups are inferred.
 
----
+## Boundaries
 
-## Next
+- A backlog item maps to the existing Now or Next direction before work is pulled.
+- A requirement outside the roadmap direction is not worked on by default until
+  the roadmap changes; exclusion never means completion.
+- Placement grants no implementation or release approval. Closure evidence and
+  current measurements remain in source work records.
 
-**Strategic goal it serves**: [Goal 3, capabilities can be reused and orchestrated across projects](../project-overview/strategic-goals.md#goal-3-capabilities-can-be-reused-and-orchestrated-across-projects)
+## Revision history
 
-### Entry conditions
-
-- **The foundation is ready**: the Now stage's intent coverage and channel verification have hit their targets, meaning the M5 and M6 success metrics are met.
-- **Pulled by demand**: a clear cross-project reuse pain, or a call for chained automated orchestration, has surfaced in the team.
-
-### Milestone checkpoints
-
-- **M7, complex orchestration and a closed workflow loop**: semi-automated orchestration of complex governance and delivery chains, with the compositions verified.
-
-### Key initiatives
-
-- **Design meta-skills**: design and build higher-order orchestration workflows — running from requirement analysis through to task breakdown in one continuous pass — composing the atomic skills into end-to-end solutions.
-- **Deepen the data-passing spec**: upgrade and promote the I/O contract spec to support more flexible input and output parameter mapping and shared context, so composition meets less resistance.
-
-### Success metrics
-
-- **Chained scenarios in production**: at least 3 high-value end-to-end orchestration scenarios built and verified. (Serves Goal 3.)
-- **Reuse verified**: the correctness of composed skill reuse verified in no fewer than 2 different kinds of project.
-
----
-
-## Later
-
-Direction only, with no dates attached:
-
-- **Build observability**: explore a standardised, privacy-respecting way to collect usage telemetry, so the North Star metric — monthly skill usage — can actually be measured.
-- **A community-level standard**: take AI Cortex's skill spec system and contract mechanism to the wider open-source community, so it becomes the de facto standard.
-
----
-
-## Milestone detail (appendix)
-
-| Milestone | Scope | Metrics | Goals |
-| :--- | :--- | :--- | :--- |
-| M1-M4 (completed) | Discoverability, reuse, governance, establishing the channels | (archived) | (the stage goals were met) |
-| M5, core intent coverage | Enriching and completing the delivery and governance skills | >80% of high-frequency everyday intents covered | Goal 1, Goal 2 |
-| M6, ecosystem multi-channel verification | Adapting to and verifying different IDE and agent platforms | Running smoothly on >2 new platforms | Goal 4 |
-| M7, complex orchestration and a closed workflow loop | End-to-end chained execution, and an upgraded I/O spec | >3 chained workflows in production | Goal 3 |
-
----
-
-## Constraints
-
-- **Mapping**: a backlog item must map to the roadmap's Now or Next stage.
-- **Out of scope**: a requirement that does not fit a roadmap direction is not worked on by default, until the roadmap changes.
+Revision tracking adopted on 2026-10-21 under the
+[revision contract](../../specs/roadmap-modeling.md#54-revision-records). This is the
+adopted baseline; no material planning revision is asserted by the documentation
+change. Earlier planning decisions are not reconstructed here and remain unverified;
+consult this file's Git history and linked project sources for available evidence.
+Future material changes retain dated summaries and source-backed reasons/impacts.

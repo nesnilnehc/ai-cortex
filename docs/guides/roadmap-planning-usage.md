@@ -12,6 +12,60 @@ For users: this is the capability map for roadmap planning. It shows what the
 tools do, which assets govern them, what they produce and which presentation
 forms are available. The roadmap is a plan; the skills are tools for maintaining it.
 
+## Start from your team's delivery practice
+
+Choose a [template combination](../../skills/define-roadmap/assets/scenarios/README.md)
+and inspect the [four complete scenario examples](../../skills/define-roadmap/references/scenarios/README.md).
+They share a base; optional modules provide iteration/version/phase/event/flow and
+timeline views. These are supported combinations, not mandatory lifecycle layers.
+
+| Your context | Recommended anchor | Supporting views |
+| --- | --- | --- |
+| Fixed-cycle product team | Iteration goals and requirements | Versions for real batches; significant release/acceptance events |
+| Continuous arrivals / service work | Workflow, pull policy and flow evidence | Actual release groups or external events only when useful |
+| Contract or implementation delivery | Phase deliverables and exit conditions | Significant customer acceptance points; useful timing |
+| Exploration or pilot | Learning goals and evidence/exit decisions | Evidence-review events; near-term windows, not speculative rollout commitments |
+
+The skill first reads existing norms, roadmap, boards and release records. It asks
+only gaps about cadence/work mode, delivery, readers and constraints, then proposes
+a primary perspective, supporting/omitted views and layout with reasons. Explicit
+choices already made need no repeated confirmation. Routine updates reuse views,
+layout and destination; new options alone trigger no migration or interview.
+Changed context gets a focused reconsideration while current choices remain intact.
+
+The [selection guide](../../skills/define-roadmap/references/scenario-selection.md#practice-basis)
+records primary-source Scrum/Kanban/PMI principles and distinguishes our contextual
+recommendations. Existing single-view and custom plans are valid. Do not invent
+iterations, phase boundaries, release numbers, WIP limits or service expectations.
+
+### Read-only recommendation
+
+For a new proposal, prepare a partial context document from project evidence:
+
+```json
+{
+  "planning_context": {
+    "work_mode": "iterations",
+    "delivery": "versioned",
+    "audience": "Product team and customer",
+    "constraints": "Two-week planning; monthly releases; no hard external deadline",
+    "source": "planning-decisions.md#team-context"
+  }
+}
+```
+
+```sh
+python3 skills/define-roadmap/scripts/render-roadmap.py context.json --recommend
+```
+
+This command prints a proposal or focused missing-information questions, writes no
+files and makes no team decision. For a retained input, it returns existing choices;
+changed context yields retained-review-needed. It performs no repository discovery
+or live interview; the skill does that work. Legacy inputs retain views without new
+metadata. New schema 1.4 generation validates a settled selection and reuses saved
+layout. An explicit conflicting layout fails: update the authorized source choice
+first. Recommendations are project advice, not proof of framework compliance.
+
 ## Roadmap capability map
 
 For finished outputs rather than templates, open the
@@ -25,11 +79,11 @@ after-delivery evidence and a version archive. Every snapshot uses the same IDs.
 | User need | Create, inspect, prioritize, check dependencies, arrange, maintain and archive a roadmap |
 | Tools | The atomic skills listed below; the planning orchestrator connects them |
 | Instructions | [Roadmap modeling](../../specs/roadmap-modeling.md) defines structure; [roadmap quality](../../rules/roadmap-quality.md) judges it; templates and examples show usable presentations |
-| Deliverables | Roadmap views, findings, priority decisions, dependency graph, placement decisions, change summaries and archive snapshots |
+| Deliverables | Roadmap views, findings, priority decisions, dependency graph, placement decisions, retained revision summaries, change details and archive snapshots |
 | Rendering | A bundled offline Python utility produces Markdown, SVG and dated Mermaid from verified facts |
 | Boundary | Inclusion does not authorize implementation or release; views do not replace detailed source records |
 
-### One plan, three ways to look at it
+### One plan, selected views
 
 These fictional examples describe the same work. Their weeks are illustrative,
 not project commitments. Select the useful views; an existing single-view plan
@@ -76,7 +130,8 @@ not percentage complete. Target, committed and actual timing are labeled separat
 | Format: how the view is encoded | Markdown table, Mermaid source, SVG; PNG only through an available exporter |
 | Destination: where it is delivered | Repository path, local folder, or authorized knowledge-base document |
 
-Recommend all three views at first creation and let the user choose. Confirm the
+Discuss team cadence and select useful requirement, iteration/version and schedule
+views at creation. Preserve established choices. Confirm the
 destination before initial delivery or changing it; reuse that selection during
 maintenance. Deliver once to that destination; there is no synchronization service
 or second editable plan. Priority definitions explain the ordering and are linked
@@ -87,7 +142,7 @@ from the plan rather than repeated in every view.
 | Capability | Support |
 | --- | --- |
 | Requirement/defect arrangement, fixed status labels, evidence and source links | Provided by the roadmap skill chain |
-| Optional version groups and date/relative-week schedules | Defined by the shared Spec and applied by creation/maintenance skills |
+| Optional iteration/version groups and date/relative-week schedules | Defined by the shared Spec and applied by creation/maintenance skills |
 | Markdown, standalone SVG and dated Mermaid generation | Bundled standard-library Python tool; validated by its behavioral suite |
 | Relative weeks without inventing calendar dates | SVG and schedule table; no dated Mermaid export |
 | Knowledge-base delivery | Depends on the runtime's authorized document/image tools; verify rendering and read back writes |
@@ -108,7 +163,8 @@ python3 skills/define-roadmap/scripts/render-roadmap.py input.json --output-dir 
 
 Installed users substitute the resolved skill directory for the relative skill
 path above. Explicit replacement uses `--overwrite` and reserves `roadmap.md`,
-`roadmap.svg` and `roadmap.mmd` for generated views. Keep authoritative evidence
+`roadmap.svg`, `roadmap.mmd`, `roadmap-delivery.md` and `roadmap-history.md`
+for generated views. Keep authoritative evidence
 elsewhere; rebase relative source links for the selected output directory.
 The input is not a new ongoing planning database. Inspect the generated SVG before
 claiming visual delivery. A tool exit does not verify a remote upload or platform
@@ -246,3 +302,107 @@ work-package conventions; no directory migration is required.
 
 The [research record](../references/roadmap-milestone-research.json) records the
 primary-source basis and compatibility choices.
+
+## Keep a readable revision history
+
+A roadmap changes. Readers need to see what changed, why and what it affects after
+the discussion ends. [The revision contract](../../specs/roadmap-modeling.md#54-revision-records)
+provides two linked levels:
+
+| Level | Content | Where it stays |
+| --- | --- | --- |
+| Main roadmap | Latest five dated summaries: ID, before/after, reason, impact and details link | Revision history section, newest first |
+| Durable history | Complete decisions, actors, evidence and older revisions | Existing change/decision records or retained archive snapshots |
+
+Record changes to priorities/tiers, version scope, phases, dates/commitments,
+material exclusions and milestone cancellation, missed or reached states. Routine
+wording, formatting and link corrections can stay in Git. Git retains text changes;
+it does not replace the business rationale. No-op rendering adds no decision.
+
+The [adjusted example](../../skills/define-roadmap/references/service-desk/adjusted/roadmap.md)
+retains REV1: search/export change versions, event targets move and export breaches
+its original deadline by three weeks. The
+[after-delivery example](../../skills/define-roadmap/references/service-desk/after-delivery/roadmap.md)
+adds REV2 for source-backed acceptance/release observations and retains REV1 unchanged.
+Its [full register](../../skills/define-roadmap/references/service-desk/change-record.md#revision-register)
+keeps both decisions and their details.
+
+`define-roadmap` establishes or adopts the baseline; `update-roadmap` retains
+material maintenance decisions; promotion records confirmed tier decisions.
+Priority assessment hands its source decision to roadmap maintenance when the
+roadmap changes. Review checks traceability; archiving preserves decisions and
+links. One decision shared across these steps uses one ID. A correction adds a
+linked revision rather than erasing an inconvenient deadline or earlier commitment.
+
+Generator schema 1.2 renders supplied revision records. It never reconstructs
+history, appends decisions automatically or edits linked evidence. More than five
+supplied records require a full-history reference; only the main display is shortened.
+Carry retained records forward when regenerating. Schemas 1.0/1.1 and existing
+single-view roadmaps remain compatible. Adopt a legacy baseline explicitly and
+mark unknown earlier history rather than manufacturing dates or decisions.
+
+## One main roadmap, detail when useful
+
+Start with one document. Keep it understandable on its own; split when different
+readers, owners, update rhythms or content volume justify separate maintenance.
+Splitting is not an obligation to produce more files.
+
+| Document | Reader question | Content |
+| --- | --- | --- |
+| Main roadmap | Where are we going and what matters next? | Direction, ordering, active priorities, blockers, near-term delivery, key events, latest five revisions |
+| Optional delivery detail | How is delivery arranged? | Iteration goals/timeboxes, version membership, relevant phases/events and timeline |
+| Optional history detail | Why did the plan change? | Supplied revision records and links to complete decisions/evidence |
+| Existing execution board | What does each person do? | Tasks, daily progress, assignments and detailed results |
+
+Reading order is overview → priorities → selected delivery plan → timeline →
+revisions/sources. Completed work can be folded separately without changing its
+tier. Phases and milestones normally stay with their delivery plan; Gantt is a
+view of its timing. Author instructions and conceptual definitions stay in guides.
+
+Each fact has one editable source. The main may contain a generated summary of
+iteration/version dates; it does not become a second independently maintained
+schedule. A change refreshes all affected views under one revision ID. Detail pages
+link back. Hand-maintained projects can separate iteration and version documents
+when their ownership/cadence differs; existing paths remain valid.
+
+### Teams working in iterations
+
+An iteration answers “what goal do we pursue in this timebox?” A version answers
+“what ships together?” Neither is a mandatory parent of the other. A version can
+cross iterations; an iteration can touch several versions or publish none. A phase
+may cross either boundary, and a milestone remains an independent event.
+
+Include source-backed cadence (such as two to four weeks), near-term iteration
+goals, requirement/defect IDs, timeboxes/basis, owner and execution-board links.
+Keep distant work broad and unallocated until decided. Now/Next/Later express
+priority/readiness, not iteration numbers. Carry-over does not duplicate the
+requirement or change its tier, and iteration end proves no acceptance or release.
+
+The [single-document iteration example](../../skills/define-roadmap/references/service-desk/iteration-driven/roadmap.md)
+and [split main roadmap](../../skills/define-roadmap/references/service-desk/iteration-driven-split/roadmap.md)
+render the same [source iteration decisions](../../skills/define-roadmap/references/service-desk/iterations.md).
+BUG1 contributes to I1 and I2 while staying in V1. I2 touches both V1 and V2;
+R1 contributes across I2/I3 while staying in V2. R2/R3 remain unallocated, and
+milestone acceptance/release criteria remain independent of timebox ends.
+
+### Generate either layout
+
+```sh
+python3 skills/define-roadmap/scripts/render-roadmap.py input.json --output-dir chosen-directory
+python3 skills/define-roadmap/scripts/render-roadmap.py input.json --layout split --output-dir chosen-directory --overwrite
+```
+
+Use schema 1.3 for optional iterations and the grouped reading structure. The
+first command defaults to single output. Split mode adds delivery/history sibling
+pages only when content exists; both layouts share SVG/Mermaid schedule facts.
+The main retains delivery/event summaries and latest-five revisions. History detail
+contains supplied records and links retained sources; it does not reconstruct history.
+All five fixed filenames are reserved. Explicit overwrite removes stale generated
+children when returning to single mode and leaves unrelated source files alone.
+Source links are relative to the output folder; moving the entire bundle elsewhere
+requires rebasing or preserving its relative source layout. Schemas 1.0–1.2 keep
+legacy default output. No existing project is automatically migrated.
+
+Some destinations do not preserve Markdown disclosure elements. Verify rendering;
+expand folded content or use linked detail pages when unsupported. Local preview
+is not proof of Yuque/Git host rendering or successful remote delivery.

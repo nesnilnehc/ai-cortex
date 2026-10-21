@@ -25,7 +25,7 @@ The definition and canonical source of each artifact type are fixed below. Any o
 | Artifact type | Canonical source | Strength | Rule |
 | :--- | :--- | :--- | :--- |
 | strategic-goals | `docs/project-overview/strategic-goals.md` | ★★★ | The one authoritative definition of the strategic goals; other documents cite it with a link plus a summary |
-| roadmap (milestones included) | `docs/process-management/roadmap.md` | ★★★ | The one authoritative definition of the roadmap and its milestones; no other document redefines them |
+| roadmap (views, milestones and revision summary included) | `docs/process-management/roadmap.md` | ★★★ | The active roadmap and latest revision summaries; detailed decisions and retained history are linked, not competing plans |
 | requirements | `docs/requirements-planning/<PROJECT>-REQ-<nn>.md` | ★★★ | The canonical source for the requirements on each topic |
 | backlog-item (index) | `docs/process-management/backlog.md` | ★★ | The index and navigation for backlog work items |
 | backlog-item (detail) | `docs/process-management/backlog/YYYY-MM-DD-*.md` | ★★ | The detailed definition of a work item |
@@ -90,3 +90,36 @@ A timestamp in a filename, in YYYY-MM-DD or YYYYMMDD form, should follow the rul
 - **Sequence-numbered artifacts** (the ADR) → FORBIDDEN: a 4-digit `NNNN-{slug}` supports spoken reference, and the timestamp lives in the frontmatter `created_at`
 - **Point-in-time artifacts** (designs, work items) → REQUIRED: the timestamp records the moment of the snapshot
 - **ID-named snapshots and living artifacts** (requirements; roadmaps, goals and reports) → FORBIDDEN: a stable ID or canonical path identifies the current artifact without a filename timestamp
+
+## Roadmap revision retention
+
+Apply [the Roadmap Spec](../specs/roadmap-modeling.md#54-revision-records). Keep the
+latest five material planning summaries in the canonical roadmap. Full decisions
+and older revisions stay in existing source records or archive snapshots; no new
+artifact type or mandatory parallel log is introduced. Verify retention and links
+before shortening summaries or removing legacy work-package directories. Git
+preserves textual history; it does not replace reasons and planning impacts.
+
+## Roadmap document family
+
+Follow [Roadmap Modeling](../specs/roadmap-modeling.md#reading-order-and-document-boundaries).
+The established main roadmap remains the entry point. Single-document delivery is
+valid; split by reader, ownership, update cadence or volume when useful. Optional
+iteration/version plans and history are supporting views, not new artifact types.
+Keep direction, priorities, key blockers/delivery expectations/events and the latest
+five revisions in the main document. Place phases/events with the related delivery
+plan and link detailed tasks to execution boards. Detail pages link back.
+
+Declare each fact's editable authority and refresh linked/generated summaries after
+changes. The bundled renderer uses same-directory roadmap-delivery.md and
+roadmap-history.md; hand-maintained projects may use their established paths.
+No automatic migration of legacy milestone work-package directories is required.
+
+### Roadmap selection evidence
+
+Retain work/delivery context, intended readers, constraints, chosen primary/view
+combination, layout and rationale in existing roadmap/norm/decision sources under
+the [selection contract](../specs/roadmap-modeling.md#56-context-recommendations-and-retained-selection-schema-14).
+Do not introduce a mandatory interview file or second configuration store. Source
+facts are read before questions; existing choices and destinations survive routine
+maintenance. Schema 1.4 renders this evidence, while legacy/custom plans remain valid.

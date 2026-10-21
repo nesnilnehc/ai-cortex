@@ -18,6 +18,9 @@ Two of the snapshots below are written in Chinese. They predate the English-firs
 | 2026-09-17 | [Implement composable research skills](./research-skills-tasks.md) | tasks | [the technical design](./2026-09-17-research-skills-technical-design.md) |
 | 2026-10-20 | [Local roadmap generation](./2026-10-20-roadmap-generation-technical-design.md) | technical-design | [Roadmap capability work](../process-management/backlog/2026-10-20-roadmap-capabilities.md) |
 | 2026-10-20 | [Roadmap phases and milestone events](./2026-10-20-roadmap-events-technical-design.md) | technical-design | [Roadmap capability work](../process-management/backlog/2026-10-20-roadmap-capabilities.md) |
+| 2026-10-21 | [Roadmap revision history](./2026-10-21-roadmap-revisions-technical-design.md) | technical-design | [Roadmap capability work](../process-management/backlog/2026-10-20-roadmap-capabilities.md) |
+| 2026-10-21 | [Roadmap reading structure and iteration views](./2026-10-21-roadmap-document-layout-technical-design.md) | technical-design | [Roadmap capability work](../process-management/backlog/2026-10-20-roadmap-capabilities.md) |
+| 2026-10-21 | [Roadmap scenario selection](./2026-10-21-roadmap-scenarios-technical-design.md) | technical-design | [Roadmap capability work](../process-management/backlog/2026-10-20-roadmap-capabilities.md) |
 
 ## Adding one
 

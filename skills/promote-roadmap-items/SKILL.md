@@ -1,7 +1,7 @@
 ---
 name: promote-roadmap-items
 description: Promote prioritized requirements and defects into Now/Next/Later using settled project priorities and dependency readiness; preserve version membership and timing commitments.
-version: 3.4.0
+version: 3.7.0
 license: MIT
 ---
 
@@ -256,3 +256,32 @@ scope and milestone relations are separate dimensions under the
 move its date, approve work or create a phase; report related impacts for maintenance.
 
 Self-check: concepts, selected views and linked evidence agree with the source records.
+
+## Revision history maintenance
+
+When an authorized tier decision is applied, retain a revision under the
+[revision contract](../../specs/roadmap-modeling.md#54-revision-records). Record the
+before/after tier, priority/readiness rationale and affected scope or commitments;
+link the confirmed placement decision. Reuse one ID for one batch decision and
+preserve existing history when refreshing the roadmap. No-op comparison reports
+and repeated renders do not add revisions. Keep unchanged version/time facts.
+
+Self-check: material changes are traceable, retained links resolve, and repeated execution adds no duplicate revision.
+
+## Iteration and document projections
+
+Tier movement does not assign an iteration or change its goal, cadence, scope or
+timebox. Refresh affected main/detail tier summaries under their declared source
+ownership and reuse the confirmed decision's revision ID. Iteration boundaries are
+not promotion criteria by themselves; preserve explicit project readiness decisions.
+
+Self-check: tier projections agree; iteration and version assignments remain unchanged.
+
+## Preserve the chosen combination
+
+Reuse the source-backed primary perspective, enabled views, layout and destination
+when refreshing tier summaries. Promotion does not select a new scenario or run an
+intake interview. If context suggests another combination, hand the suggestion to
+define-roadmap without changing the retained choice or assigning extra delivery scope.
+
+Self-check: tier decisions leave scenario selection and delivery commitments intact.

@@ -1,7 +1,7 @@
 ---
 name: orchestrate-roadmap-planning
 description: Orchestrator skill — run one roadmap planning pass by sequencing atomic skills from strategic goals through capture, scoring, dependency mapping, and promotion, satisfying each skill's halt conditions up front.
-version: 2.3.1
+version: 2.6.0
 license: MIT
 ---
 
@@ -36,7 +36,7 @@ Every step carries a tier — a **mandatory** step runs when its condition is hi
 | --- | --- | --- | --- | --- |
 | 0 | Health check | `review-roadmap` | mandatory | Always runs. Read-only, no side effects; its findings are the input to every condition below |
 | 1 | Upstream | `design-strategic-goals` | mandatory | `strategic-goals.md` does not exist |
-| 2 | Structure | `define-roadmap` | mandatory | No roadmap.md / invalid requirement, phase or milestone structure / strategic goals out of step with the roadmap |
+| 2 | Structure | `define-roadmap` | mandatory | No roadmap.md / invalid requirement, iteration, phase or milestone structure, selection consistency or document layout / strategic goals out of step with the roadmap |
 | 3 | Intake | `capture-work-items` | default | Unregistered raw input exists |
 | 4 | Priority decisions | `prioritize-backlog` | mandatory when all are unset or reassessment is explicitly requested; default when only some are | Items with `priority: unset` exist or explicit full reassessment is requested; use policy application or offered framework assessment, never implicit full reassessment |
 | 5 | Dependencies | `map-item-dependencies` | default | Promotion candidates ≥ 2 |
@@ -66,9 +66,9 @@ Run `review-roadmap` for its findings and map them mechanically to a mode with t
 | mode | findings signature | Effect |
 | --- | --- | --- |
 | `bootstrap` | roadmap.md or strategic-goals.md missing | Steps 1 and 2 will run |
-| `refresh` | Invalid requirement/defect entry structure, phase scope/exit condition or milestone identity/relations/criterion / strategic goals out of step with the roadmap | Step 2 will run; step 6 re-evaluates tier placement by priority and readiness |
+| `refresh` | Invalid requirement/defect entry structure, iteration/document layout or selection consistency, phase scope/exit condition or milestone identity/relations/criterion / strategic goals out of step with the roadmap | Step 2 will run; step 6 re-evaluates tier placement by priority and readiness |
 | `intake` | Priority-set items not yet promoted or explicit priority reassessment intent | Main path 3→4→5→6 |
-| `maintain` | No unpromoted priority-set items, but at-risk / blocked / overdue items, phase/event timing conflicts, unsupported event states or explicit maintenance intent exist | Step 7 rises from recommended to a default prompt |
+| `maintain` | No unpromoted priority-set items, but at-risk / blocked / overdue items, iteration goal/scope/cadence drift, main/detail inconsistency, phase/event timing conflicts, unsupported event states, missing post-adoption revision evidence/broken history links or explicit maintenance intent exist | Step 7 rises from recommended to a default prompt |
 | `healthy` | No unresolved roadmap findings and no explicit reassessment or maintenance intent | Emit the health-check report and end normally; no write operation runs |
 
 `review-roadmap` does not emit a mode itself — it emits findings only, and the mapping happens at this layer.
@@ -206,3 +206,40 @@ Archive completed work packages or snapshots without deleting event evidence;
 legacy milestone directories do not define a mandatory roadmap hierarchy.
 
 Self-check: concepts, selected views and linked evidence agree with the source records.
+
+## Revision history maintenance
+
+Carry the selected durable history source and decision identity across definition,
+promotion and maintenance under the [revision contract](../../specs/roadmap-modeling.md#54-revision-records).
+A known post-adoption material change with missing/dropped revision evidence routes
+to maintain; an unknown pre-adoption history does not force reconstruction. Do not
+let unresolved history findings fall through to healthy. One coherent decision
+shared across component skills is recorded once, not once per step. Archive
+verification includes retained history links.
+
+Self-check: material changes are traceable, retained links resolve, and repeated execution adds no duplicate revision.
+
+## Iteration and layout routing
+
+Pass established cadence, selected views, single/split layout, source ownership and
+related document paths to atomic skills. Review findings about iteration identity,
+missing structural fields or unreadable main/detail layout select refresh; existing
+iteration scope/timebox/cadence and projection drift select maintain. Unmapped findings
+remain unresolved. The orchestrator does not design iterations, expand layout or infer
+release from an iteration boundary. Period archives retain carry-over through step 8.
+
+Self-check: atomic findings determine layout/iteration routing and no unresolved
+cross-document drift falls through to healthy.
+
+## Scenario handoff
+
+Pass known context, selection source, primary perspective, enabled views, layout and
+destination to atomic skills. Bootstrap/refresh delegates information gathering and
+recommendation to define-roadmap; do not run another interview here. Existing choices
+win during ordinary maintenance. Route review findings about invalid choice structure
+or primary/view conflicts to refresh; changed context with a consistent existing
+choice is an unresolved reconsideration suggestion, never automatic replacement.
+A recipe mismatch alone is not a finding and new features do not force migration.
+
+Self-check: selection evidence survives every handoff and no proposed default silently
+replaces a team choice; unmapped findings remain explicit.

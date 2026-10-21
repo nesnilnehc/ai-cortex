@@ -25,3 +25,8 @@ MD036: false
 # matches the roughly 200 tables already written that way.
 MD060:
   style: compact
+
+# Roadmap views fold completed rows and duplicate timing tables using native
+# Markdown-host disclosure elements; other raw HTML remains disallowed.
+MD033:
+  allowed_elements: [details, summary]

@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.3",
+  "project": "Service Desk",
+  "updated": "2026-10-21",
+  "direction": "Make request handling dependable, then reduce repeated work.",
+  "ordering": "Fix duplicate submission before search; export depends on accepted search. Reminders wait for demand.",
+  "closure": "Acceptance passed and accepted change released to production; see ../sources.md#project-policy.",
+  "priority_policy": "Customer data-integrity blockers P0; confirmed capability needs P1; unvalidated convenience P2. See ../sources.md#project-policy.",
+  "views": [
+    "requirements",
+    "iterations",
+    "versions",
+    "schedule"
+  ],
+  "entries": [
+    {
+      "id": "BUG1",
+      "name": "Duplicate submission",
+      "source": "../sources.md#bug1",
+      "outcome": "Refresh and retry create one external request",
+      "priority": "P0",
+      "tier": "Now",
+      "approval": "Approved",
+      "execution": "Blocked",
+      "conditions": "Restore sandbox by W3; local fixture cannot waive acceptance"
+    },
+    {
+      "id": "R1",
+      "name": "Search",
+      "source": "../sources.md#r1",
+      "outcome": "Find a request by reference",
+      "priority": "P1",
+      "tier": "Next",
+      "approval": "Approved",
+      "execution": "Not started",
+      "conditions": "Wait for accepted retry behavior"
+    },
+    {
+      "id": "R2",
+      "name": "Export",
+      "source": "../sources.md#r2",
+      "outcome": "Export authorized search results",
+      "priority": "P1",
+      "tier": "Next",
+      "approval": "Approved",
+      "execution": "Not started",
+      "conditions": "Wait for accepted search contract"
+    },
+    {
+      "id": "R3",
+      "name": "Reminders",
+      "source": "../sources.md#r3",
+      "outcome": "Remember requests needing follow-up",
+      "priority": "P2",
+      "tier": "Later",
+      "approval": "Draft",
+      "execution": "Not started",
+      "conditions": "Re-evaluate after three users demonstrate missed follow-ups"
+    }
+  ],
+  "versions": [
+    {
+      "id": "V1",
+      "name": "Dependable submission",
+      "members": [
+        "BUG1"
+      ],
+      "outcome": "Refresh and retry create one external request",
+      "owner": "Delivery owner",
+      "window": "W1\u2013W3 (target)"
+    },
+    {
+      "id": "V2",
+      "name": "Search delivery",
+      "members": [
+        "R1"
+      ],
+      "outcome": "Find a request by reference",
+      "owner": "Delivery owner",
+      "window": "W4\u2013W5 (target)"
+    },
+    {
+      "id": "V3",
+      "name": "Export delivery",
+      "members": [
+        "R2"
+      ],
+      "outcome": "Export authorized search results",
+      "owner": "Delivery owner",
+      "window": "W6\u2013W7 (committed)"
+    }
+  ],
+  "schedule": {
+    "mode": "weeks",
+    "origin": "W1 begins at project start; calendar start unknown. W1 revised planning snapshot.",
+    "calendar": "calendar-days",
+    "items": [
+      {
+        "ref": "V1",
+        "kind": "span",
+        "basis": "target",
+        "start": 1,
+        "end": 4,
+        "depends_on": []
+      },
+      {
+        "ref": "V2",
+        "kind": "span",
+        "basis": "target",
+        "start": 4,
+        "end": 6,
+        "depends_on": [
+          "V1"
+        ]
+      },
+      {
+        "ref": "V3",
+        "kind": "span",
+        "basis": "committed",
+        "start": 6,
+        "end": 8,
+        "depends_on": [
+          "V2"
+        ]
+      },
+      {
+        "ref": "R3",
+        "kind": "span",
+        "basis": "target",
+        "start": null,
+        "end": null,
+        "depends_on": []
+      },
+      {
+        "ref": "PSEARCH",
+        "kind": "span",
+        "basis": "target",
+        "start": 4,
+        "end": 6,
+        "depends_on": [
+          "M1"
+        ]
+      },
+      {
+        "ref": "M0",
+        "kind": "milestone",
+        "basis": "actual",
+        "start": 1,
+        "end": 1,
+        "depends_on": []
+      },
+      {
+        "ref": "M1",
+        "kind": "milestone",
+        "basis": "target",
+        "start": 4,
+        "end": 4,
+        "depends_on": []
+      },
+      {
+        "ref": "M2",
+        "kind": "milestone",
+        "basis": "target",
+        "start": 6,
+        "end": 6,
+        "depends_on": [
+          "PSEARCH"
+        ]
+      },
+      {
+        "ref": "M3",
+        "kind": "milestone",
+        "basis": "target",
+        "start": 6,
+        "end": 6,
+        "depends_on": [
+          "M2"
+        ]
+      },
+      {
+        "ref": "I1",
+        "kind": "span",
+        "basis": "target",
+        "start": 1,
+        "end": 3,
+        "depends_on": []
+      },
+      {
+        "ref": "I2",
+        "kind": "span",
+        "basis": "target",
+        "start": 3,
+        "end": 5,
+        "depends_on": []
+      },
+      {
+        "ref": "I3",
+        "kind": "span",
+        "basis": "target",
+        "start": 5,
+        "end": 7,
+        "depends_on": []
+      }
+    ]
+  },
+  "phases": [
+    {
+      "id": "PSEARCH",
+      "name": "Search delivery phase",
+      "source": "../sources.md#psearch",
+      "owner": "Search owner",
+      "scope": [
+        "R1"
+      ],
+      "exit_condition": "Search accepted and released"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "M0",
+      "name": "Project kickoff",
+      "source": "../sources.md#m0",
+      "owner": "Product owner",
+      "related": [],
+      "category": "start",
+      "criterion": "Product owner starts the project",
+      "state": "reached",
+      "evidence": "../sources.md#m0"
+    },
+    {
+      "id": "M1",
+      "name": "Repair acceptance",
+      "source": "../sources.md#m1",
+      "owner": "Reviewer",
+      "related": [
+        "BUG1"
+      ],
+      "category": "approval",
+      "criterion": "Reviewer approves BUG1 acceptance",
+      "state": "planned",
+      "evidence": null
+    },
+    {
+      "id": "M2",
+      "name": "Search acceptance",
+      "source": "../sources.md#m2",
+      "owner": "Reviewer",
+      "related": [
+        "R1",
+        "PSEARCH"
+      ],
+      "category": "approval",
+      "criterion": "Reviewer approves R1 acceptance",
+      "state": "planned",
+      "evidence": null
+    },
+    {
+      "id": "M3",
+      "name": "Search production release",
+      "source": "../sources.md#m3",
+      "owner": "Release owner",
+      "related": [
+        "R1",
+        "V2"
+      ],
+      "category": "achievement",
+      "criterion": "Production deployment evidence for R1 recorded",
+      "state": "planned",
+      "evidence": null
+    }
+  ],
+  "revisions": [
+    {
+      "id": "REV3",
+      "date": "2026-10-21",
+      "change": "No iteration allocation \u2192 I1\u2013I3 goal/scope/timeboxes",
+      "reason": "Team plans in two-week cycles",
+      "impact": "Version windows, tiers and event targets unchanged; R2/R3 remain unallocated",
+      "source": "../iterations.md#adoption-decision"
+    },
+    {
+      "id": "REV1",
+      "date": "2026-10-20",
+      "change": "R1: V1 \u2192 V2; R2: V2 \u2192 V3; M1: W2 \u2192 W4; M2/M3: W3 \u2192 W6",
+      "reason": "Required repair acceptance sandbox unavailable; search and export depend on accepted upstream work",
+      "impact": "Export +3 weeks; original hard deadline breached; priorities and tiers unchanged",
+      "source": "../change-record.md#w1-plan-change"
+    }
+  ],
+  "revision_history": "../change-record.md#revision-register",
+  "cadence": "Two-week iterations",
+  "iterations": [
+    {
+      "id": "I1",
+      "name": "Repair foundation",
+      "goal": "Diagnose and validate the duplicate-submission repair",
+      "members": [
+        "BUG1"
+      ],
+      "owner": "Desk team",
+      "source": "../iterations.md#i1",
+      "board": "../sources.md#bug1"
+    },
+    {
+      "id": "I2",
+      "name": "Repair closure and search start",
+      "goal": "Close the repair and start search validation",
+      "members": [
+        "BUG1",
+        "R1"
+      ],
+      "owner": "Desk team",
+      "source": "../iterations.md#i2",
+      "board": "../sources.md#r1"
+    },
+    {
+      "id": "I3",
+      "name": "Search closure",
+      "goal": "Complete search acceptance and release checks",
+      "members": [
+        "R1"
+      ],
+      "owner": "Desk team",
+      "source": "../iterations.md#i3",
+      "board": "../sources.md#r1"
+    }
+  ]
+}

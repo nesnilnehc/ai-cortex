@@ -81,6 +81,10 @@ requires evidence, never child-status inference; do not demand design/tasks for 
 event itself. Legacy milestone directories are work-package containers. Check scope/time agreement across enabled
 views, and route version-scope/date problems to `update-roadmap`, structure problems
 to `define-roadmap`. Missing unselected views are not governance defects.
+Known post-adoption material changes without revision evidence, dropped decision
+records or broken retained-history links route to `update-roadmap`. Unknown prior
+history is disclosed rather than reconstructed. Revision rows are history, not
+new requirement nodes or evidence that current work is complete.
 Priority policy application and explicit reassessment are separate intents; stale
 assessment history may justify suggesting reassessment, never running it implicitly.
 
@@ -246,3 +250,17 @@ Check for slowly accumulating governance debt and output a list of hygiene issue
 | Document health checks backed up | The health report has not been updated for > `doc_health_staleness_days` days | have the runtime / CI run one full `rules/doc-health-criteria.md` check |
 
 **Constraint**: a hygiene item must go into the "Also worth noting" section and must not take one of the first two slots in "Do now".
+
+### Roadmap family diagnosis
+
+Load linked delivery/iteration/version/history views under the main roadmap as
+projections, not extra goal-tree nodes. Check the Roadmap Spec reading/ownership
+contract and selected iteration view against the quality Rule. Structure/layout
+findings suggest define-roadmap; existing iteration goals/scope/cadence/timeboxes
+or source/projection disagreement suggest update-roadmap. Missing optional views
+are not defects. Iteration boundaries prove neither completion nor release.
+
+Scenario choices are project evidence, not a checklist requiring all views. Preserve
+custom and legacy combinations; missing 1.4 metadata alone is no gap. Source/view/
+primary conflicts suggest define-roadmap; changed needs suggest reconsideration
+without replacing existing choices. Do not count recommendation output as approval.

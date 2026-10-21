@@ -11,7 +11,7 @@
 - [opportunity-package.md](./opportunity-package.md) — JSON contract for a reviewable product opportunity recommendation, lane status, and claim-to-source trace
 - [plan-next-preferences.md](./plan-next-preferences.md) — project-local YAML contract for exact plan-next recommendation exclusions that persist until restored
 - [research-evidence.md](./research-evidence.md) — JSON contract for sources, classified findings, conflicts, gaps, and research trace
-- [roadmap-modeling.md](./roadmap-modeling.md) — requirement, version and schedule views, priority vocabulary and offline generator input
+- [roadmap-modeling.md](./roadmap-modeling.md) — scenario selection, requirement/iteration/version/flow views, main/detail ownership, priority vocabulary, retained revision history and offline generator input
 - [requirement-modeling.md](./requirement-modeling.md) — field definitions, format and validation for a requirement document
 - [rule-modeling.md](./rule-modeling.md) — the data contract for modeled Rule documents, stable item IDs, applicability profiles, project parameters and auditable waivers
 - [release-package.md](./release-package.md) — version identity, release materials, quality evidence and stage status contract for a Release Package

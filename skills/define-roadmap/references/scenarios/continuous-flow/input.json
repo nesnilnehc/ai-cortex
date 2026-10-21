@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.4",
+  "project": "Service Reliability Flow",
+  "updated": "2026-10-21",
+  "direction": "Restore reliable request handling and then reduce support friction.",
+  "ordering": "A customer-impacting retry defect precedes a convenience improvement.",
+  "closure": "Service owner verifies accepted behavior in production; task counts do not prove closure.",
+  "priority_policy": "Customer blockers P0; confirmed outcomes P1; unvalidated convenience P2. Source policy applies.",
+  "views": [
+    "requirements",
+    "flow"
+  ],
+  "entries": [
+    {
+      "id": "BUG1",
+      "name": "Retry creates duplicate requests",
+      "outcome": "Retry produces one request",
+      "tier": "Now",
+      "priority": "P0",
+      "approval": "Approved",
+      "execution": "In progress",
+      "conditions": "Verify repair in production",
+      "source": "sources.md#bug1"
+    },
+    {
+      "id": "R1",
+      "name": "Explain request status",
+      "outcome": "Reduce support clarification",
+      "tier": "Next",
+      "priority": "P1",
+      "approval": "Approved",
+      "execution": "Not started",
+      "conditions": "Restore dependable retry first",
+      "source": "sources.md#r1"
+    }
+  ],
+  "revisions": [],
+  "selection": {
+    "scenario": "flow",
+    "primary": "flow",
+    "layout": "single",
+    "rationale": "Retain the existing flow view and single document; no new sprint, version batch, phase or event is needed for the current horizon.",
+    "source": "selection.md#decision",
+    "context": {
+      "work_mode": "flow",
+      "delivery": "continuous",
+      "audience": "Service team and service owner",
+      "constraints": "Continuous arrivals; no release batch or fixed iteration; policy limits active work to two items",
+      "source": "sources.md#context"
+    }
+  },
+  "flow": {
+    "source": "sources.md#workflow",
+    "board": "sources.md#execution-board",
+    "policy": "Pull when active WIP is below the team limit of two; start at In progress and finish after verified production delivery.",
+    "expectation": "Unknown: insufficient historical cycle-time samples; no service-level commitment established.",
+    "metrics": "Track WIP, throughput, work-item age and cycle time; measured baselines are not yet available."
+  }
+}

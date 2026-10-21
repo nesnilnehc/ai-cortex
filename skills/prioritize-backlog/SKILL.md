@@ -1,7 +1,7 @@
 ---
 name: prioritize-backlog
 description: Apply a project's priority policy to unresolved backlog items, or explicitly reassess a batch using RICE, WSJF, MoSCoW and ICE; preserve settled decisions unless replacement is requested.
-version: 3.1.0
+version: 3.2.0
 license: MIT
 ---
 
@@ -100,3 +100,15 @@ membership or date changes are made. Missing source facts are explicit limitatio
 
 [Filled policy decisions](../define-roadmap/references/service-desk/priority-decisions.md). This is a fictional completed output, not a template
 or authorization to change the adopting project.
+
+## Revision history maintenance
+
+Retain the source priority decision and its previous value as already required.
+When a settled priority change alters a published roadmap, hand the confirmed
+before/after decision and policy/assessment basis to update-roadmap for a revision
+under the [revision contract](../../specs/roadmap-modeling.md#54-revision-records).
+Do not write tier/version/date changes here or create a competing roadmap history.
+An unresolved assessment or priority-only source edit not yet reflected in a
+roadmap is not falsely reported as an applied roadmap revision.
+
+Self-check: material changes are traceable, retained links resolve, and repeated execution adds no duplicate revision.

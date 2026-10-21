@@ -1,0 +1,161 @@
+{
+  "schema_version": "1.4",
+  "project": "Request Search Product",
+  "updated": "2026-10-21",
+  "direction": "Make requests findable before adding reuse through export.",
+  "ordering": "Search is prerequisite to reliable export; reminders wait for validated demand.",
+  "closure": "Accepted search/export functionality is deployed to production with release evidence.",
+  "priority_policy": "Customer blockers P0; confirmed outcomes P1; unvalidated convenience P2. Source policy applies.",
+  "views": [
+    "requirements",
+    "iterations",
+    "versions",
+    "milestones",
+    "schedule"
+  ],
+  "entries": [
+    {
+      "id": "R1",
+      "name": "Search requests",
+      "outcome": "Find requests by reference",
+      "tier": "Now",
+      "priority": "P1",
+      "approval": "Approved",
+      "execution": "In progress",
+      "conditions": "Validate search acceptance with pilot users",
+      "source": "sources.md#r1"
+    },
+    {
+      "id": "R2",
+      "name": "Export search results",
+      "outcome": "Reuse authorized results",
+      "tier": "Next",
+      "priority": "P1",
+      "approval": "Approved",
+      "execution": "Not started",
+      "conditions": "Accepted search contract available",
+      "source": "sources.md#r2"
+    },
+    {
+      "id": "R3",
+      "name": "Reminders",
+      "outcome": "Reduce missed follow-ups",
+      "tier": "Later",
+      "priority": "P2",
+      "approval": "Draft",
+      "execution": "Not started",
+      "conditions": "Re-evaluate after observed missed follow-ups",
+      "source": "sources.md#r3"
+    }
+  ],
+  "revisions": [],
+  "selection": {
+    "scenario": "iterations",
+    "primary": "iterations",
+    "layout": "split",
+    "rationale": "Use two-week iteration goals, named delivery batches and release events; omit phases because no distinct stage boundary exists.",
+    "source": "selection.md#decision",
+    "context": {
+      "work_mode": "iterations",
+      "delivery": "versioned",
+      "audience": "Product team, release coordinator and pilot customer",
+      "constraints": "Two-week planning; monthly named releases; no external hard deadline",
+      "source": "sources.md#context"
+    }
+  },
+  "versions": [
+    {
+      "id": "V1",
+      "name": "Search and export delivery",
+      "members": [
+        "R1",
+        "R2"
+      ],
+      "outcome": "Find and reuse requests",
+      "owner": "Release coordinator",
+      "window": "W1\u2013W4 target"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "MS1",
+      "name": "Release accepted batch",
+      "related": [
+        "V1"
+      ],
+      "category": "approval",
+      "owner": "Acceptance owner",
+      "criterion": "Acceptance and production deployment receipts recorded",
+      "state": "planned",
+      "evidence": null,
+      "source": "sources.md#ms1"
+    }
+  ],
+  "iterations": [
+    {
+      "id": "I1",
+      "name": "Validate search",
+      "goal": "Validate request lookup",
+      "owner": "Product team",
+      "members": [
+        "R1"
+      ],
+      "source": "sources.md#i1",
+      "board": "sources.md#execution-board"
+    },
+    {
+      "id": "I2",
+      "name": "Prepare export",
+      "goal": "Finish search and validate export",
+      "owner": "Product team",
+      "members": [
+        "R1",
+        "R2"
+      ],
+      "source": "sources.md#i2",
+      "board": "sources.md#execution-board"
+    }
+  ],
+  "cadence": "Two-week iterations",
+  "schedule": {
+    "mode": "weeks",
+    "calendar": "calendar-days",
+    "origin": "W1 begins at this fictional project start; calendar start unknown.",
+    "items": [
+      {
+        "ref": "V1",
+        "kind": "span",
+        "basis": "target",
+        "start": 1,
+        "end": 5,
+        "depends_on": []
+      },
+      {
+        "ref": "I1",
+        "kind": "span",
+        "basis": "target",
+        "start": 1,
+        "end": 3,
+        "depends_on": []
+      },
+      {
+        "ref": "I2",
+        "kind": "span",
+        "basis": "target",
+        "start": 3,
+        "end": 5,
+        "depends_on": []
+      },
+      {
+        "ref": "MS1",
+        "kind": "milestone",
+        "basis": "target",
+        "start": 5,
+        "end": 5,
+        "depends_on": [
+          "V1"
+        ]
+      }
+    ]
+  }
+}

@@ -30,3 +30,15 @@ General snapshots do not remove directories. See the
 ## Finished example
 
 [Version archive with retained events and unfinished-item destinations](../define-roadmap/references/service-desk/version-archive.md).
+
+Material planning changes retain the latest five revision summaries and a durable history link under the [revision contract](../../specs/roadmap-modeling.md#54-revision-records). Regeneration and archive cleanup preserve earlier decisions.
+
+Optional iteration views and one-main-plus-detail layouts follow the
+[Roadmap Spec](../../specs/roadmap-modeling.md#reading-order-and-document-boundaries).
+Iteration boundaries do not prove acceptance or release; linked/generated summaries
+retain one editable source per fact. See the skill for maintenance/review ownership.
+
+Scenario-based intake and retention follow the
+[selection contract](../../specs/roadmap-modeling.md#56-context-recommendations-and-retained-selection-schema-14):
+read evidence first, ask only material gaps, recommend with reasons and reuse the
+settled combination during maintenance. Legacy and custom choices remain valid.

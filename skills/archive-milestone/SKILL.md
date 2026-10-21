@@ -1,7 +1,7 @@
 ---
 name: archive-milestone
-description: Archive completed roadmap work packages or phase/version/period snapshots while preserving milestone event evidence and unfinished work.
-version: 1.5.0
+description: Archive completed roadmap work packages or iteration/phase/version/period snapshots while preserving milestone event evidence and unfinished work.
+version: 1.8.0
 license: MIT
 ---
 
@@ -107,3 +107,37 @@ its `milestones/` name does not define the domain model.
 - Archive V1 after search moves to V2: retain V1's actual scope and continuing
   assignments, including its acceptance/release events. See the
   [filled version archive](../define-roadmap/references/service-desk/version-archive.md).
+
+## Revision history maintenance
+
+Both archive routes preserve revision IDs, dates, reasons, impacts and linked
+source evidence under the [revision contract](../../specs/roadmap-modeling.md#54-revision-records).
+Include the relevant history or a resolving retained-history link in the snapshot.
+Update incoming/outgoing history links before legacy directory cleanup. A broken
+history destination blocks cleanup. If archival changes active scope or commitments,
+record that planning decision once; moving historical files alone need not create
+another planning revision. Never silently prune older decisions or backfill unknowns.
+
+Self-check: material changes are traceable, retained links resolve, and repeated execution adds no duplicate revision.
+
+## Iteration snapshots and document navigation
+
+An iteration uses the general period-snapshot route, never the legacy maturity
+thresholds. A finished timebox may contain unfinished requirements: retain goals,
+source-backed results or unknowns, actual observations and explicit carry-over
+links without claiming completion or release. Keep the active main roadmap useful;
+refresh main/detail/back links and preserve full revision evidence before folding
+history. Archiving a generated view never deletes its source board or decisions.
+
+Self-check: iteration closure is separate from requirement/version closure; carry-over,
+source evidence and main/detail navigation survive archival.
+
+## Preserve scenario evidence
+
+Retain the chosen combination, rationale and source context in snapshots or a
+resolving decision link. Reuse active views/layout/destination when folding history;
+archival does not select a new recipe or require a new intake interview. Preserve
+flow policy/measurement evidence when archiving a flow period; do not infer completed
+work from the calendar or impose legacy milestone maturity on a flow period.
+
+Self-check: selection evidence, continuing work and navigation survive archival.

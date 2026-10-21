@@ -66,5 +66,9 @@ Schedule rendering withheld: dependency timing conflict; see [review findings](.
 
 Unscheduled: R3.
 
+## Revision history
+
+No material revisions recorded; earlier history is not certified by this input.
+
 Backlog requirements and defects map to this roadmap; items outside it are not done by default.
 Placement grants no implementation or release approval.

@@ -69,3 +69,9 @@
 - [ ] Selected version/schedule views were checked without creating duplicate requirements; unselected views were not treated as missing.
 
 - [ ] Independent phase/event records are not treated as requirement nodes; event occurrence is evidence-backed and legacy archive thresholds stay local to work packages.
+
+- [ ] Known post-adoption material changes retain revision evidence; unknown pre-adoption history was not reconstructed and history rows were not traversed as work.
+
+- [ ] Main/detail planning views and optional iterations were checked as projections, not duplicate work nodes; layout and drift route to the appropriate owner.
+
+- [ ] Scenario/source choices were retained; recipe mismatch and missing new metadata alone were not treated as defects or migration work.

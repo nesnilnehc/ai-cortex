@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "project": "Service Desk",
   "updated": "2026-10-20",
   "direction": "Make request handling dependable, then reduce repeated work.",
@@ -224,5 +224,6 @@
       "state": "planned",
       "evidence": null
     }
-  ]
+  ],
+  "revisions": []
 }

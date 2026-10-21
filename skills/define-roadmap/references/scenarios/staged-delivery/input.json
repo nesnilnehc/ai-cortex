@@ -1,0 +1,162 @@
+{
+  "schema_version": "1.4",
+  "project": "Customer Data Onboarding",
+  "updated": "2026-10-21",
+  "direction": "Establish correct mappings before pilot acceptance and broader rollout.",
+  "ordering": "Accepted mappings enable the pilot; broader rollout waits for pilot evidence.",
+  "closure": "Customer signs acceptance of the agreed deliverable.",
+  "priority_policy": "Customer blockers P0; confirmed outcomes P1; unvalidated convenience P2. Source policy applies.",
+  "views": [
+    "requirements",
+    "phases",
+    "milestones",
+    "schedule"
+  ],
+  "entries": [
+    {
+      "id": "R1",
+      "name": "Map source data",
+      "outcome": "Map customer records correctly",
+      "tier": "Now",
+      "priority": "P1",
+      "approval": "Approved",
+      "execution": "In progress",
+      "conditions": "Customer validates representative records",
+      "source": "sources.md#r1"
+    },
+    {
+      "id": "R2",
+      "name": "Pilot onboarding",
+      "outcome": "Prove the onboarding path",
+      "tier": "Next",
+      "priority": "P1",
+      "approval": "Approved",
+      "execution": "Not started",
+      "conditions": "Mapping acceptance available",
+      "source": "sources.md#r2"
+    },
+    {
+      "id": "R3",
+      "name": "Broader rollout",
+      "outcome": "Extend onboarding beyond pilot",
+      "tier": "Later",
+      "priority": "P2",
+      "approval": "Draft",
+      "execution": "Not started",
+      "conditions": "Re-evaluate after pilot acceptance",
+      "source": "sources.md#r3"
+    }
+  ],
+  "revisions": [],
+  "selection": {
+    "scenario": "staged",
+    "primary": "phases",
+    "layout": "split",
+    "rationale": "Use phase exit conditions and customer acceptance events; no team iteration cadence or software release batch has been established.",
+    "source": "selection.md#decision",
+    "context": {
+      "work_mode": "staged",
+      "delivery": "acceptance",
+      "audience": "Implementation team, customer acceptance owner and steering group",
+      "constraints": "Customer pilot acceptance is committed at W5; scope changes require impact review",
+      "source": "sources.md#context"
+    }
+  },
+  "phases": [
+    {
+      "id": "PH1",
+      "name": "Mapping foundation",
+      "scope": [
+        "R1"
+      ],
+      "owner": "Project lead",
+      "exit_condition": "Customer approves representative mapped records",
+      "source": "sources.md#ph1"
+    },
+    {
+      "id": "PH2",
+      "name": "Customer pilot",
+      "scope": [
+        "R2"
+      ],
+      "owner": "Project lead",
+      "exit_condition": "Customer signs pilot acceptance",
+      "source": "sources.md#ph2"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "MS1",
+      "name": "Mapping accepted",
+      "related": [
+        "R1",
+        "PH1"
+      ],
+      "category": "approval",
+      "owner": "Acceptance owner",
+      "criterion": "Signed mapping acceptance recorded",
+      "state": "planned",
+      "evidence": null,
+      "source": "sources.md#ms1"
+    },
+    {
+      "id": "MS2",
+      "name": "Pilot accepted",
+      "related": [
+        "R2",
+        "PH2"
+      ],
+      "category": "approval",
+      "owner": "Acceptance owner",
+      "criterion": "Customer signs pilot acceptance",
+      "state": "planned",
+      "evidence": null,
+      "source": "sources.md#ms2"
+    }
+  ],
+  "schedule": {
+    "mode": "weeks",
+    "calendar": "calendar-days",
+    "origin": "W1 begins at this fictional project start; calendar start unknown.",
+    "items": [
+      {
+        "ref": "PH1",
+        "kind": "span",
+        "basis": "target",
+        "start": 1,
+        "end": 3,
+        "depends_on": []
+      },
+      {
+        "ref": "MS1",
+        "kind": "milestone",
+        "basis": "target",
+        "start": 3,
+        "end": 3,
+        "depends_on": [
+          "PH1"
+        ]
+      },
+      {
+        "ref": "PH2",
+        "kind": "span",
+        "basis": "target",
+        "start": 3,
+        "end": 5,
+        "depends_on": [
+          "MS1"
+        ]
+      },
+      {
+        "ref": "MS2",
+        "kind": "milestone",
+        "basis": "committed",
+        "start": 5,
+        "end": 5,
+        "depends_on": [
+          "PH2"
+        ]
+      }
+    ]
+  }
+}

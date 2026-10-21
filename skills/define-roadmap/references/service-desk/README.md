@@ -54,3 +54,31 @@ The former `assets/roadmap-input-example.json` path remains a relative symlink t
 ## Phase and event interpretation
 
 The 1.1 inputs also show PSEARCH as a work span, M0 as global kickoff, M1/M2 as acceptance events and M3 as production release. V1 initially carries search, then V2 carries it; distinct event IDs preserve the version span and both W6 events. See the source phase/event tables for timing and evidence.
+
+## Retained revisions
+
+Revision history is introduced with schema 1.2: initial is the adopted baseline, adjusted retains REV1, and after-delivery shows REV2 then REV1. The [revision register](change-record.md#revision-register) preserves reasons, impacts and evidence; rerendering never appends another decision.
+
+## Iteration and layout examples
+
+Read the [iteration decisions](iterations.md) first, then compare the
+[single document](iteration-driven/roadmap.md) with the
+[split main](iteration-driven-split/roadmap.md),
+[delivery detail](iteration-driven-split/roadmap-delivery.md) and
+[revision detail](iteration-driven-split/roadmap-history.md).
+They render the same schema 1.3 [input](iteration-driven/input.json). There is no
+second editable input in the split folder. Both output directories are siblings,
+so their relative source links resolve identically. This is an alternate view of
+the adjusted plan, not a new later delivery claim or a replacement for old snapshots.
+
+BUG1 spans I1/I2 but remains in V1; I2 touches V1/V2; R1 spans I2/I3 and remains
+in V2. R2/R3 stay unallocated. Near-term iteration goals do not grant release
+permission or move priorities. REV3 records cadence/allocation adoption, preserving
+REV1 and its original deadline impact.
+
+Reproduce from the repository root:
+
+```sh
+python3 skills/define-roadmap/scripts/render-roadmap.py skills/define-roadmap/references/service-desk/iteration-driven/input.json --output-dir skills/define-roadmap/references/service-desk/iteration-driven --overwrite
+python3 skills/define-roadmap/scripts/render-roadmap.py skills/define-roadmap/references/service-desk/iteration-driven/input.json --layout split --output-dir skills/define-roadmap/references/service-desk/iteration-driven-split --overwrite
+```

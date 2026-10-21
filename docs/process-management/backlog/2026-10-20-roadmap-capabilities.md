@@ -51,7 +51,7 @@ governance-capability direction without rewriting unrelated milestones.
 
 ## Implementation boundaries
 
-Recommend all three views at first creation and let the user choose. Confirm a new
+Discuss team cadence and select useful requirement, iteration/version and schedule views at creation. Confirm a new
 destination; reuse an established selection during maintenance. Temporary JSON is
 a generation interface, not a second planning authority. Use relative weeks when
 the start date is unknown. Do not copy private reference content into examples.
@@ -170,3 +170,152 @@ Design and research: [implementation design](../../designs/2026-10-20-roadmap-ev
 
 These are additive model/route clarifications with explicit legacy compatibility.
 The earlier verification and version tables above retain their historical scope.
+
+## Revision history implementation
+
+Design: [revision mechanism](../../designs/2026-10-21-roadmap-revisions-technical-design.md).
+User-authorized on 2026-10-21. Existing phase/event delivery evidence above remains historical.
+
+| Step | Work | Points | Progress |
+| --- | --- | --- | --- |
+| 1 | Define material changes, retention, evidence and compatibility | 3 | Done |
+| 2 | Extend the generator with tested 1.2 revision summaries | 5 | Done |
+| 3 | Align maintenance, review, promotion, priority and archive ownership | 3 | Done |
+| 4 | Verify baseline, adjusted/delivered examples and repository checks | 3 | Done |
+
+- [x] AC11: Material-change triggers and ownership agree across norms and skills.
+- [x] AC12: Latest-five summaries link retained history; schedule facts remain unchanged.
+- [x] AC13: Invalid evidence/date/order/limits fail; old schemas remain compatible without invented history.
+- [x] AC14: Filled examples preserve earlier decisions through version moves and milestone observations.
+
+### Revision mechanism verification
+
+- 41 renderer tests and 9 casebook tests pass. The new 1.2 tests first failed
+  against the prior generator, then passed after validation/rendering implementation.
+- Coverage includes complete summaries, latest-five compaction with retained links,
+  duplicate IDs, invalid/future/out-of-order dates, missing evidence, record limits,
+  escaping, no-op repeatability, legacy ignored metadata and real CLI output/failure.
+- Source-backed examples show an empty initial baseline, REV1 after plan adjustment,
+  and REV2 plus unchanged REV1 after delivery. Full history links resolve. Existing
+  SVG outputs remain byte-for-byte identical to the generated scheduling facts.
+- Spec 1.2.0 and Rule 4.3.0 own the revision mechanism. Eight related skills receive
+  minor bumps for new maintenance/review/handoff steps; their purposes remain intact.
+- Markdown lint, links, hygiene, findings, asset counts, CLI documentation, index,
+  modeled Rule validation, changed-asset versions and whitespace checks pass.
+- The active project roadmap adopts an explicit 2026-10-21 baseline without invented
+  earlier planning records. No live-model, remote-publication or platform-rendering
+  verification is claimed for this documentation/generator extension.
+
+## Reading structure and iteration implementation
+
+Design: [document layout and iterations](../../designs/2026-10-21-roadmap-document-layout-technical-design.md).
+User-authorized on 2026-10-21; preserves earlier revision implementation and snapshots.
+
+| Step | Work | Points | Progress |
+| --- | --- | --- | --- |
+| 1 | Define main/detail reading order and fact ownership | 3 | Done |
+| 2 | Add optional 1.3 iteration validation and views with TDD | 5 | Done |
+| 3 | Add safe single/split output and navigation with TDD | 5 | Done |
+| 4 | Align skills, template, guide and source-backed examples | 3 | Done |
+| 5 | Verify compatibility, layout, navigation and repository checks | 3 | Done |
+
+- [x] AC15: Main/detail responsibilities and one-source ownership agree across assets.
+- [x] AC16: Optional iterations map goal/scope/timebox to versions without implicit release or tier movement.
+- [x] AC17: Single/split output shares facts, navigation and history; safe overwrite and legacy compatibility pass.
+- [x] AC18: Filled single/split iteration examples reproduce source decisions and all relevant checks pass.
+
+### Layout and iteration verification
+
+- 53 renderer tests and 11 casebook tests pass. New iteration/layout cases first
+  failed against the prior implementation; the output-alias regression likewise
+  failed before the bounded preflight repair, then passed.
+- The 1.3 iteration example and both layouts reproduce one input and independently
+  recorded allocations. They preserve adjusted requirements, versions, events,
+  original deadline impact and REV1. REV3 records only iteration-view adoption.
+- Coverage includes carry-over, unallocated/empty/unknown scope, version mapping,
+  invalid sources/members/IDs, shared limits, dated exports, full supplied history,
+  navigation, source-relative links, no mutation, deterministic output and legacy
+  1.0–1.2 split/default compatibility. Reserved-path hazards fail before writes;
+  explicit layout switches remove only stale generated siblings.
+- Local browser inspection with the installed Marked renderer confirms readable
+  priority/delivery views, working main-to-detail navigation and expandable timing
+  details. SVG inspection confirms separate version/event/iteration lanes and
+  target/committed/actual labels. This is local preview evidence, not Yuque or Git
+  host rendering verification; target support must be checked at delivery.
+- The project's own main roadmap is shorter and links its retained strategic
+  definitions in roadmap-strategy.md. Conflicting metric thresholds are explicit;
+  no new target, cadence, date, requirement status or milestone occurrence is inferred.
+- Spec 1.3.0 and Rule 4.4.0 own the additive contract; seven skills receive minor
+  increments for layout/iteration selection, maintenance, review, routing and archive
+  steps. The earlier priority/revision changes retain their own scope.
+- No commit, push, local installation update or remote publication was performed
+  during this implementation. Unrelated worktree changes remain outside its scope.
+
+## Scenario combinations and retained choices
+
+Design: [scenario selection](../../designs/2026-10-21-roadmap-scenarios-technical-design.md).
+User-authorized on 2026-10-21. Existing revision/layout work remains intact.
+
+| Step | Work | Points | Progress |
+| --- | --- | --- | --- |
+| 1 | Define sourced recipe advice and intake/retention contract | 3 | Done |
+| 2 | Implement read-only recommendation and explicit 1.4 selection with TDD | 5 | Done |
+| 3 | Add shared modules, four recipes and complete source-backed examples | 5 | Done |
+| 4 | Align skills, norms, guide and review/diagnosis routes | 3 | Done |
+| 5 | Verify CLI, compatibility, examples and document checks | 3 | Done |
+
+- [x] AC19: Four template combinations share a base/modules with sourced advice and tailoring boundaries.
+- [x] AC20: Intake reads known facts, asks material gaps, recommends with reasons and retains existing choices.
+- [x] AC21: Generator validates selection, supports independent/flow views and never applies recommendation output.
+- [x] AC22: Four complete examples reproduce source choices and all relevant checks pass.
+
+### Scenario verification and delivery evidence
+
+- 62 renderer tests and 14 example checks pass. New recommendation/selection cases,
+  legacy metadata reuse and continuous-iteration tailoring first failed against
+  the prior behavior, then passed after targeted implementation. Legacy 1.0–1.3
+  outputs remain reproducible; no new selection metadata is required for them.
+- Four scenarios include independent source tables, intake/selection records,
+  transient input and generated output. Checks compare context, scope, status,
+  delivery/event facts, timing, flow policy and selected views with those sources;
+  deliberate context/choice/membership/evidence/scope/timing mutations are detected.
+- Real CLI runs retain each choice and its saved layout, reproduce every output
+  and preserve the input. Recommendation needs-input is diagnostic (exit 0), invalid
+  choices fail, and neither advice path writes files. New generation rejects a
+  conflicting layout rather than changing the source decision.
+- The shared template has six optional modules and four recipes; examples distinguish
+  actual flow policy from unknown measurements, significant acceptance events from
+  releases, and learning evidence from speculative rollout commitments. WIP limits
+  and participant counts in examples are fictional source facts, not defaults.
+- Local installed-Marked/browser inspection confirms distinct flow and phase views,
+  readable planning choice/source, and working main-to-detail navigation. This does
+  not prove hosted Markdown/Yuque rendering or an actual agent-led user interview.
+- Links, document hygiene, Markdown lint, findings contract, asset counts, CLI docs,
+  generated index, modeled Rules, changed asset versions and whitespace checks pass.
+  Generator functions remain at most 50 lines; no dependencies were installed.
+- No commit/push, installation update, remote publication or unrelated-file edits
+  were performed in this step. Earlier revision/layout work remains uncommitted.
+
+| Skill | Sections / reason for change | Version |
+| --- | --- | --- |
+| define-roadmap | Read-first intake, scenario/template selection, explicit recommendation vs retained choice, generation handoff | 7.6.0 |
+| update-roadmap | Reuse selection during status/date/flow maintenance; route changed needs without resetting choices | 3.6.0 |
+| review-roadmap | Judge source/choice consistency and evidence limits; no recipe conformity gate | 3.7.0 |
+| orchestrate-roadmap-planning | Carry selection/context across atomic handoffs; delegate intake and reconsideration | 2.6.0 |
+| plan-next | Diagnose selection conflicts without treating legacy/custom choices as gaps | 15.7.0 |
+| promote-roadmap-items | Preserve scenario/layout while refreshing tier projections | 3.7.0 |
+| archive-milestone | Retain choice/context and flow evidence in history | 1.8.0 |
+
+These are additive minor increments with unchanged capability ownership. Spec 1.4.0
+owns the new explicit interface; Rule 4.5.0 owns intake/choice evaluation. Skill
+frontmatter, source links, inputs/decisions/outputs, tool fallback and Self-Checks
+were inspected under refine-skill-design; sources/provenance remain unchanged.
+
+### Closeout input-boundary repair
+
+Pre-commit scope review reproduced an unhandled TypeError for object/array schema
+versions in recommendation input, and acceptance of unsupported versions. A new
+regression first failed; the boundary now rejects supplied invalid versions through
+the existing ValueError diagnostic. Context-only recommendation remains supported.
+Define-roadmap receives patch 7.6.1 for this erratum. Final renderer count is 63;
+14 example checks remain unchanged. No new planning behavior or source choice is added.

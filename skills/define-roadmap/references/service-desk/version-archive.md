@@ -44,3 +44,7 @@ the real AI Cortex project. No live project files or remote records are deleted.
 ## Phase and event interpretation
 
 The snapshot retains PSEARCH actual W4–W5, M0 kickoff at W1, M1 acceptance at W4, and M2 acceptance plus M3 release at W6 with links to occurrence evidence. Archived delivery scope and event history are distinct; no event record or source evidence is deleted.
+
+## Retained revisions
+
+Revision history is retained at the [revision register](change-record.md#revision-register). REV1 preserves the scope/date decision and original deadline breach; REV2 preserves the later closure observation. Archiving V1 does not delete those decisions or convert unfinished V3 work into completed scope.

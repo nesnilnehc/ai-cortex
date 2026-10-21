@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: roadmap-quality
-version: 4.2.0
+version: 4.5.0
 scope: reviewing or self-checking a roadmap document
 recommended_scope: user
 status: active
@@ -11,7 +11,7 @@ status: active
 
 The single source of quality criteria for roadmap generation, diagnosis and review.
 A roadmap arranges requirements and defects in Now / Next / Later, optionally
-adding version and schedule views under [roadmap modeling](../specs/roadmap-modeling.md).
+adding iteration/version and schedule views under [roadmap modeling](../specs/roadmap-modeling.md).
 Tasks belong in source task lists, not in requirement rows. Version groups and
 schedule milestones are valid presentation units. Existing project decisions take precedence.
 
@@ -76,7 +76,7 @@ vocabulary; map project source fields explicitly rather than replacing their sch
 
 ## 6. Selected views and delivery
 
-- [ ] View selection is explicit; recommend requirement, version and schedule views at first creation and retain the user's choice. An existing single-view roadmap is valid without mandatory expansion.
+- [ ] View selection is explicit; discuss cadence and appropriate delivery/schedule views at first creation and retain the user's choice. An existing single-view roadmap is valid without mandatory expansion.
 - [ ] A new or changed destination is confirmed by the user; established destination choices are reused during maintenance. No synchronization or competing editable source is introduced.
 - [ ] Selected version views show member references, core outcome, owner and target window; unknowns and unassigned entries are explicit. Version membership does not imply approval or a complete release.
 - [ ] Selected schedules distinguish target, committed and actual timing, state their calendar/origin, show unknown timing as unscheduled, and agree with member/version scope. Relative weeks do not masquerade as real dates.
@@ -101,3 +101,49 @@ substance rather than requiring a fixed number of sections or rows.
   approval. An actual event time MUST correspond to a reached event.
 - Multiple events for one version MUST NOT overwrite its span or each other's IDs.
   Unknown timing MUST remain unknown. Legacy 1.0 and single-view plans remain valid.
+
+## Revision traceability
+
+- [ ] Material priority/tier, scope, phase, timing/commitment, exclusion and milestone
+  state changes have a dated before/after summary, reason, impact and source link
+  under [the revision contract](../specs/roadmap-modeling.md#54-revision-records).
+- [ ] The main roadmap shows the latest five summaries; older records remain in a
+  resolving history source. Regeneration, correction and archiving preserve history.
+- [ ] Repeated generation does not create duplicate decisions. Revision IDs and dates
+  agree across selected views and source records; history is not current scope.
+- [ ] Legacy adoption discloses the baseline and any unknown earlier history. Missing
+  reconstructed history is not a defect; a known material change after adoption
+  without a record is. Formatting-only changes need no planning revision.
+
+## Reading structure and iteration integrity
+
+- [ ] The main roadmap alone explains direction, ordering, active priorities, blockers,
+  near-term delivery and key events where known. Split output is not a link-only index.
+- [ ] Delivery objects are grouped under selected delivery views; completed work is
+  folded or linked separately without rewriting tiers/statuses. Empty optional
+  chapters and repeated priority inventories do not obscure the current plan.
+- [ ] Splitting follows reader, owner, update cadence or volume needs. Detail pages
+  link back; each scope/date/status fact has one editable source. Every affected
+  projection is refreshed for the same decision and revision ID.
+- [ ] Selected iteration views show cadence, goals, source-backed scope, owner,
+  timeboxes or explicit unknowns, version mapping and execution-detail links when
+  available. Unallocated work remains visible; far-future timeboxes are not invented.
+- [ ] Iteration carry-over is distinct from version scope change, tier movement and
+  completion. Iteration end does not prove phase exit, event occurrence or release.
+- [ ] Iteration goal/scope/cadence/timebox changes retain material revision evidence.
+  Generated detail/history files do not replace their authoritative source records.
+
+## Scenario choice and intake
+
+- [ ] New planning reads existing choices and source facts before asking questions;
+  questions target only missing cadence, delivery, audience or constraint evidence.
+- [ ] The recommendation names a primary perspective, supporting/omitted views,
+  layout, rationale and source basis; recipe advice is not a mandatory framework.
+- [ ] The chosen combination has one retained source. Maintenance reuses views,
+  layout, primary perspective and destination without repeating settled questions.
+- [ ] Conflicting or changed context is surfaced for reconsideration while existing
+  choices remain intact; a default recommendation never replaces a team decision.
+- [ ] Selected flow policies, service expectations and metrics have project evidence
+  or explicit unknowns. No default WIP number, invented cycle or fake iteration appears.
+- [ ] Schema 1.4 explicitly controls phase/event/flow registers and retained layout;
+  custom choices are evaluated for consistency, not conformity to a recipe.

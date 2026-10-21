@@ -50,3 +50,38 @@ acceptance; no automatic Completed transition or publication authorization is gr
 ## Phase and event interpretation
 
 PSEARCH shifts from W2–W2 to W4–W5. M1 target moves W2 → W4; M2 and M3 move W3 → W6. M3 relates to V1 → V2 with R1. Kickoff M0 is confirmed at W1 during the adjusted review. After delivery M1/M2/M3 have actual occurrence evidence; moving targets alone did not change their states.
+
+## W1 plan change
+
+REV1 records the W1 product-owner decision detailed above. Before: search in V1
+and export in V2. After: search in V2, export in new V3; acceptance/release targets
+shift with their work. The source blocker and original deadline breach remain visible.
+
+## Revision register
+
+This is the durable fictional decision history used by generated snapshots. Dates
+are illustrative record dates; they do not map W0/W1/W5 to real calendar weeks.
+Same-day records are ordered by the explicit decision sequence, newest first.
+Revision IDs are independent of current version or milestone IDs. Initial adoption
+has no material revision; subsequent snapshots retain earlier decisions unchanged.
+REV3 belongs to the alternate iteration view of the adjusted plan, not the
+after-delivery branch that records REV2.
+
+| ID | Date | Change | Reason | Impact | Source |
+| --- | --- | --- | --- | --- | --- |
+| REV3 | 2026-10-21 | No iteration allocation → I1–I3 goal/scope/timeboxes | Team plans in two-week cycles | Version windows, tiers and event targets unchanged; R2/R3 remain unallocated | [Details](iterations.md#adoption-decision) |
+| REV2 | 2026-10-20 | BUG1/R1: Completed; M1/M2/M3: planned → reached; V1/V2: target → actual | Product owner and release operator record acceptance and production deployment receipts | Repair/search closure confirmed; export remains unstarted in V3 and retains its revised commitment | [Details](sources.md#delivery-observation) |
+| REV1 | 2026-10-20 | R1: V1 → V2; R2: V2 → V3; M1: W2 → W4; M2/M3: W3 → W6 | Required repair acceptance sandbox unavailable; search and export depend on accepted upstream work | Export +3 weeks; original hard deadline breached; priorities and tiers unchanged | [Details](#w1-plan-change) |
+
+The generated main view shows up to five rows. If history grows beyond five,
+keep this register complete, carry the history link forward and omit older rows
+only from the main view. A no-op render adds no row; a correction adds a linked
+new decision. Git keeps textual differences but does not replace this rationale.
+
+## Iteration-view adoption
+
+The optional iteration-driven examples adopt cadence and allocations through
+[REV3 and its evidence](iterations.md#adoption-decision). They reuse the adjusted
+version plan and retain REV1 unchanged. This is an alternate planning snapshot;
+it does not overwrite after-delivery observations in REV2. This register and the
+linked adoption record together retain all supplied decisions.

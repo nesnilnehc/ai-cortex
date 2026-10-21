@@ -5,7 +5,7 @@ Generated from each skill's own `SKILL.md` frontmatter by
 here alone is overwritten and does not reach the skill.
 
 - [announce-release](./announce-release/SKILL.md) — Create and optionally deliver grounded release announcements from a published Release Package across available channels; never owns changelog generation.
-- [archive-milestone](./archive-milestone/SKILL.md) — Archive completed roadmap work packages or phase/version/period snapshots while preserving milestone event evidence and unfinished work.
+- [archive-milestone](./archive-milestone/SKILL.md) — Archive completed roadmap work packages or iteration/phase/version/period snapshots while preserving milestone event evidence and unfinished work.
 - [assess-product-opportunity](./assess-product-opportunity/SKILL.md) — Assess a product opportunity from existing research reports and user signals, producing a restrained, traceable decision layer.
   - type: `domain` · user-invocable: `false`
 - [automate-tests](./automate-tests/SKILL.md) — Discover and execute repository test commands safely with evidence-based command selection and safety guardrails.
@@ -21,7 +21,7 @@ here alone is overwritten and does not reach the skill.
 - [define-docs-norms](./define-docs-norms/SKILL.md) — Create or update docs/ARTIFACT_NORMS.md from an approved proposal and establish project docs norms as canonical rules.
 - [define-mission](./define-mission/SKILL.md) — Define the fundamental purpose of a project or organization. Answers why the project exists; produces a single mission statement persisted to docs.
 - [define-north-star](./define-north-star/SKILL.md) — Define the single most important metric representing the core value delivered to users. Produces North Star Metric with rationale, optional supporting metrics, and anti-pattern examples; persisted to docs.
-- [define-roadmap](./define-roadmap/SKILL.md) — Create a source-backed roadmap with user-selected requirement, version and schedule views, using an offline Markdown, SVG and dated Mermaid generator when useful.
+- [define-roadmap](./define-roadmap/SKILL.md) — Create a source-backed roadmap using context-sensitive scenario recommendations, retained view choices and single or split documents, retaining revision history and using an offline Markdown, SVG and dated Mermaid generator when useful.
 - [define-strategic-pillars](./define-strategic-pillars/SKILL.md) — Derive 3–5 strategic pillars (high-level themes) from vision and North Star that structure and guide strategic goals and roadmap. Produces a strategic pillars document; persisted to docs.
 - [define-vision](./define-vision/SKILL.md) — Define the long-term future the project aims to create. Answers what future we are building; produces a vision statement aligned with mission, persisted to docs.
 - [deliver-feature](./deliver-feature/SKILL.md) — From inside a linked worktree, deliver the current feature branch into main — merge with --no-ff, push, and optionally clean up the worktree, all without leaving CWD.
@@ -70,7 +70,7 @@ here alone is overwritten and does not reach the skill.
 - [review-react](./review-react/SKILL.md) — Review React code for component design, hooks correctness, state management, rendering performance, and accessibility. Framework-only atomic skill; output is a findings list.
 - [review-reliability](./review-reliability/SKILL.md) — Review failure behavior against the canonical reliability quality Rule set, including timeouts, retries, idempotency, partial failure, isolation, dead letters, fault tests and release objectives.
 - [review-requirements](./review-requirements/SKILL.md) — Review an existing requirement document against its modeling Spec and canonical quality Rule before design begins. Evaluative atomic skill; outputs findings without rewriting.
-- [review-roadmap](./review-roadmap/SKILL.md) — Review a concise requirement-and-defect roadmap for entry granularity, priority, readiness, readability and source traceability; emit findings without rewriting.
+- [review-roadmap](./review-roadmap/SKILL.md) — Review a concise requirement-and-defect roadmap for entry granularity, priority, readiness, readability, iteration views, document layering, revision history and source traceability; emit findings without rewriting.
 - [review-security](./review-security/SKILL.md) — Review code and configuration against the canonical security quality Rule set. Resolves trust-boundary profiles, gathers tool-assisted evidence and emits findings traceable to stable Rule IDs.
 - [review-sql](./review-sql/SKILL.md) — Review SQL and query code for injection risk, parameterization, indexing and performance, transactions, NULL and constraints, and dialect portability. Language-only atomic skill; output is a findings list.
 - [review-tasks](./review-tasks/SKILL.md) — Review an existing task list against its modeling Spec and canonical quality Rule before assignment or coding, including design coverage, affected scope, Rule references and verification evidence.
@@ -79,4 +79,4 @@ here alone is overwritten and does not reach the skill.
 - [review-typescript](./review-typescript/SKILL.md) — Review TypeScript/JavaScript code for type safety, async patterns, error handling, and module design. Atomic skill; output is a findings list.
 - [review-vue](./review-vue/SKILL.md) — Review Vue 3 code for Composition API, reactivity, components, state (Pinia), routing, and performance. Framework-only atomic skill; output is a findings list.
 - [scaffold-agent-tests](./scaffold-agent-tests/SKILL.md) — Generate an LLM agent test suite (golden cases, mock-LLM unit tests, evaluator harness) from an agent implementation and its agent-test contract. Use when an agent has no tests, or a contract exists but the test code is missing.
-- [update-roadmap](./update-roadmap/SKILL.md) — Maintain requirement-and-defect roadmap summaries — change item status, shift dates with downstream impact analysis, and produce a what-changed summary. Does not move items between Now/Next/Later tiers.
+- [update-roadmap](./update-roadmap/SKILL.md) — Maintain requirement-and-defect roadmap summaries — change item status, shift dates with downstream impact analysis, and retain source-backed revision history. Does not move items between Now/Next/Later tiers.
