@@ -1,7 +1,7 @@
 ---
 name: define-roadmap
-description: Create or restructure a source-backed roadmap, or first-align an existing project without replanning; preserve settled decisions and stable links, retain useful views/history, and optionally generate local Markdown/SVG/Mermaid.
-version: 7.9.0
+description: Design roadmap structure, populate source-backed content on a settled layout, or complete both stages; first-align existing plans while preserving business decisions and stable links, with optional local generation.
+version: 7.12.0
 license: MIT
 ---
 
@@ -30,6 +30,29 @@ for view structure and generator input; the quality rule owns evaluation criteri
 
 ## Procedure
 
+### Select the stage entry
+
+Resolve the [stage contract](../../specs/roadmap-modeling.md#stage-entries-authorization-and-acceptance)
+from the current request and prior authorization before reading business systems
+or writing content. Keep this inside the existing skill:
+
+- **Structure only:** run structure design and structural Self-Check, return the
+  inspectable draft and stop. On an existing populated plan, repair only authorized
+  organization and preserve facts; do not reset it to blank without a reset request.
+- **Content on settled structure:** resume at source inventory and content planning
+  below. Reuse the confirmed roles, fields, navigation and destination; do not ask
+  layout questions again. Verify relevant facts, distinguish them from unresolved
+  business choices, and present options before replacing settled decisions.
+- **Continuous structure and content:** perform and validate structure design, then
+  continue into authorized content planning without another confirmation. Stop only
+  at a user-reserved boundary or a material unresolved choice; complete independent
+  authorized work while that choice is pending.
+
+Report structure acceptance separately from content acceptance using the Spec's
+criteria. Empty fields are valid in structure review. Unknown facts or undecided
+commitments in a content draft are gaps, never evidence of full content approval.
+Keep stage reports in the response/review record rather than the reader artifact.
+
 ### Existing-project first alignment
 
 When the request is adoption/compliance alignment of an existing plan, use the
@@ -51,6 +74,33 @@ before/after protected facts and links, then re-run review. Report repaired gaps
 unchanged decisions, remaining evidence limitations and separately proposed actions.
 With no new gap, leave the plan unchanged. See the
 [complete adoption example](references/existing-project/README.md).
+
+### Settle structure before population
+
+Apply the Spec's [structure-first contract](../../specs/roadmap-modeling.md#structure-before-content)
+before creation or authorized redesign. Identify readers, entry point, enabled and
+omitted views, file responsibilities, headings, columns and navigation; use an
+existing choice when sufficient. Resolve material layout choices before drafting
+business content, without another approval ritual for already authorized choices.
+Do not translate “independent content” into a file for every field or object.
+
+For a structure-only request, use the [clean topic-split templates](assets/structure-first/roadmap.md)
+and [authoring guide and paired example](references/structure-first.md) as an optional
+starting combination. Keep placeholders/empty tables; do not import prior business
+material, assign sample IDs, infer cadence or invent history. Retain the user's
+selected layout and omit unselected views. Generate the six-role blank combination
+with `python3 <skill-dir>/scripts/render-roadmap.py --blank --output-dir DIR`
+and optional `--locale en|zh-CN`; no business JSON is accepted. `--blank --check`
+checks the bundled structure without writes. For another layout, author it manually
+rather than inventing a tool option.
+Run structure/link/format review, report only that scope, and stop before population
+when the user requested confirmation. Subsequent business work resumes from the
+settled structure rather than reopening it.
+
+For populated outputs, keep authoring instructions in the guide and source-backed
+reader explanations in the artifact. Existing template modules are composition
+instructions, not text to copy into deliverables. Name the reference and disclose
+differences whenever claiming template or example fidelity.
 
 ### Creation and authorized restructuring
 
@@ -128,7 +178,14 @@ With no new gap, leave the plan unchanged. See the
 
 ## Self-Check
 
-- [ ] Project norms, goals, source records, quality rule, template and example were read.
+Apply these checks to the requested stage. For a structure-only scope, source-dependent
+business, execution, schedule and publication checks are not evaluated; passing the
+structural subset does not claim the populated-plan checks passed.
+
+- [ ] Stage entry, existing authorization and stage-specific acceptance were resolved; continuous work did not add an unnecessary confirmation, and content work reused settled structure.
+- [ ] Structure was settled before population; an explicit structure-only request retained empty business fields and stopped at its requested boundary.
+- [ ] Review scope and example differences are explicit; no author guidance leaked into the artifact and no unnecessary files were introduced.
+- [ ] For a populated plan, project norms, goals, source records, quality rule, template and example were read.
 - [ ] Every entry is a linked requirement or defect; parent references are consolidated.
 - [ ] Priority, approval, pauses, prerequisites and authorized capacity are preserved.
 - [ ] Tier precision is appropriate and completion or start conditions are recoverable.
@@ -259,9 +316,24 @@ configuration. Localize all new prose and display labels consistently while pres
 IDs, machine fields, canonical enums, source links and historical originals.
 
 Prepare free-text names, goals, conditions, approval labels and revision summaries in
-the chosen language before rendering. Use schema 1.5 for English/Chinese localization;
+the chosen language before rendering. Use schema 1.5 or later for English/Chinese localization;
 `--resolve-language` is read-only advice, not an automatic translator or interactive
 interview. See the [workflow and paired examples](references/deliverable-language.md).
 
 Self-check: language evidence and retained choice are explicit; all new display prose
 is consistent, machine contracts are unchanged, and unavailable checks are reported.
+
+## Executable topic layout and conversation regression
+
+Use schema 1.6 with the retained `selection.layout: topic-split` for populated
+main-plus-five output. Keep its established language record. The renderer fills
+the selected blank scaffold without changing headings or table columns. Inspect
+all six documents and schedule assets; do not treat a successful render as source
+verification. Follow the Spec's ownership manifest and overwrite boundaries before
+resetting or replacing generated output.
+
+The [regression guide](references/structure-first.md#executable-generation-and-regression)
+separates deterministic scripted multi-turn replay from explicit live-model eval.
+Replay invokes the real renderer but does not prove model intent recognition.
+Only `--eval` records live decisions; failed/timeout/provider runs are failures,
+not skipped success. Neither test mode may publish or alter business sources.

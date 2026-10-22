@@ -533,5 +533,79 @@ class LanguageExampleTests(unittest.TestCase):
             self.assertNotIn(english, zh)
 
 
+class StructureFirstExamples(unittest.TestCase):
+    """Pin the empty-to-populated handoff, not an agent's unobserved behavior."""
+
+    NAMES = {'roadmap.md', 'iterations.md', 'versions.md', 'milestones.md',
+             'roadmap-planning-basis.md', 'roadmap-history.md'}
+    EMPTY = ROOT / 'skills/define-roadmap/assets/structure-first'
+    FILLED = CASE / 'topic-split'
+
+    def test_blank_structure_has_six_clean_linked_documents_without_sample_facts(self):
+        self.assertEqual({p.name for p in self.EMPTY.glob('*.md')}, self.NAMES)
+        for name in self.NAMES:
+            text = (self.EMPTY / name).read_text()
+            self.assertEqual(len(re.findall(r'^# ', text, re.M)), 1, name)
+            for block in text.strip().split('\n\n'):
+                self.assertTrue(block.startswith(('#', '|', '**', '[')), (name, block))
+            for line in text.splitlines():
+                if line.startswith('**'):
+                    self.assertRegex(line, r'^\*\*[^*]+:\*\* \{Pending\}$')
+            for table in re.findall(r'(?:^\|.*\|\n)+', text, re.M):
+                self.assertEqual(len(table.strip().splitlines()), 2, name)
+            for target in re.findall(r'\]\(([^)]+)\)', text):
+                self.assertIn(target.split('#')[0], self.NAMES, (name, target))
+            self.assertNotRegex(text, r'BUG1|R1|V1|M1|I1|<!--|<details>|Fill in|Instructions:')
+
+    def test_populated_pair_preserves_selected_headings_and_all_source_members(self):
+        self.assertEqual({p.name for p in self.FILLED.glob('*.md')}, self.NAMES)
+        for name in self.NAMES:
+            empty = (self.EMPTY / name).read_text()
+            filled = (self.FILLED / name).read_text()
+            self.assertEqual(re.findall(r'^## .+$', empty, re.M),
+                             re.findall(r'^## .+$', filled, re.M), name)
+            self.assertNotIn('{Pending}', filled)
+            if name != 'roadmap.md':
+                self.assertIn('[Main roadmap](roadmap.md)', filled)
+        data = json.loads((CASE / 'iteration-driven/input.json').read_text())
+        main_rows = rows(self.FILLED / 'roadmap.md', 'Priority arrangement')
+        self.assertEqual(len(main_rows), len(data['entries']))
+        for entry, row in zip(data['entries'], main_rows):
+            self.assertEqual(row['Tier'], entry['tier'])
+            self.assertEqual(row['Priority'], entry['priority'])
+            self.assertEqual(row['Approval status'], entry['approval'])
+            self.assertEqual(row['Execution status'], entry['execution'])
+            self.assertIn(entry['id'] + ' · ' + entry['name'], row['Requirement / defect'])
+        detail = (self.FILLED / 'iterations.md').read_text()
+        for iteration in data['iterations']:
+            self.assertIn(iteration['id'], detail)
+        for version in data['versions']:
+            line = next(line for line in (self.FILLED / 'versions.md').read_text().splitlines()
+                        if line.startswith('| ' + version['id'] + ' ·'))
+            self.assertIn(', '.join(version['members']), line)
+        for event in data['milestones']:
+            line = next(line for line in (self.FILLED / 'milestones.md').read_text().splitlines()
+                        if line.startswith('| ' + event['id'] + ' ·'))
+            self.assertIn(event['state'], line)
+
+    def test_topic_fixture_is_reproducible_by_the_production_renderer(self):
+        data = json.loads((self.FILLED / 'input.json').read_text())
+        outputs = renderer.documents(renderer.validate(data))
+        for name, generated in outputs.items():
+            self.assertEqual((self.FILLED / name).read_text(), generated, name)
+
+    def test_one_reader_entry_reaches_every_detail_and_the_details_link_back(self):
+        for folder in [self.EMPTY, self.FILLED]:
+            main = (folder / 'roadmap.md').read_text()
+            main_targets = {target.split('#')[0] for target in re.findall(r'\]\(([^)]+)\)', main)}
+            self.assertTrue(self.NAMES - {'roadmap.md'} <= main_targets)
+            for name in self.NAMES - {'roadmap.md'}:
+                self.assertIn('[Main roadmap](roadmap.md)', (folder / name).read_text())
+        populated = (self.FILLED / 'roadmap.md').read_text()
+        for claim in ['Fix duplicate submission before search', 'Restore sandbox by W3',
+                      'I1', 'I2', 'I3', 'V1', 'V2', 'V3', 'M1', 'M2', 'M3']:
+            self.assertIn(claim, populated)
+
+
 if __name__ == '__main__':
     unittest.main()

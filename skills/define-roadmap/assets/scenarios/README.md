@@ -15,3 +15,9 @@ Add [timeline](../modules/timeline.md) only when useful timing facts exist. Sing
 is a starting layout, not a forced choice; preserve existing split layouts. Hybrid
 teams can combine modules with a source-backed rationale. See the
 [selection guide](../../references/scenario-selection.md) for intake and practice evidence.
+
+## Structure confirmation before population
+
+For a clean empty document family and a paired populated case, use the
+[structure-first guide](../../references/structure-first.md). It provides an optional
+main-plus-five-topic combination; existing single/split generator layouts remain valid.

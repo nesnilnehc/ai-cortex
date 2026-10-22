@@ -2,7 +2,7 @@
 id: ROADMAP_MODELING_SPEC_V1
 name: Roadmap Modeling Schema
 description: Roadmap views, source authority, priority vocabulary and local generation input contract.
-version: 1.7.0
+version: 1.10.1
 status: active
 lifecycle: living
 created_at: 2026-10-20
@@ -69,10 +69,79 @@ The zero-duration event model is a deliberate project choice; tools permitting
 nonzero-duration milestone tasks must map their event separately from the work span.
 Existing single-view Markdown and JSON 1.0 inputs remain valid. A legacy 1.0 marker
 references an entry/version directly; do not silently convert it or infer occurrence.
-New independent phase/event records use 1.1–1.5. Revision summaries use 1.2–1.5. Their registers appear only when
+New independent phase/event records use 1.1–1.6. Revision summaries use 1.2–1.6. Their registers appear only when
 records exist; no additional view or lifecycle gate is compulsory.
 
 ## 5. Body structure contract
+
+### Structure before content
+
+For new roadmaps and authorized structural redesigns, settle the reader entry,
+selected/omitted views, document responsibilities, titles, fields and navigation
+before populating business content. Reuse an established structure during routine
+maintenance. Existing user choices or authorization can settle this step; do not
+add a mandatory approval ceremony. If the user requests structure confirmation
+first, deliver that inspectable structure and stop before business population.
+
+A **structure draft** contains headings, consistently styled standalone field labels
+(bold under the default Markdown style), placeholders, empty table headers and
+necessary navigation. It has no invented
+planning objects, source facts, commitments or historical revisions. Required
+fields remain visible even when unknown. No fixed number of iterations, versions,
+milestones or files is implied. Structure-first is sequencing, not an interview
+that asks the user to fill each field.
+
+A **populated plan** uses the settled structure and source-backed decisions.
+Structure review checks roles, field coverage, naming, navigation, formatting and
+absence of author guidance. Business completeness, readiness and source-dependent
+claims are not evaluated on an intentionally empty draft. State the review scope;
+a structure-only pass is not a complete roadmap pass.
+
+Keep the settled structure during population. A material layout change requires
+explaining its reader benefit and affected links, and resolving any new choice
+before applying it; existing authorization remains sufficient for routine repair.
+
+Conformance to this Spec, use of a template, and exact replication of a named
+example are distinct claims. Identify the reference and disclose differences;
+custom compatible layouts are not exact replicas. A repeated review with no new
+finding or evidence leaves the artifact unchanged.
+
+### Stage entries, authorization and acceptance
+
+Structure design and content planning are stages of the existing roadmap capability,
+not separate Skills or document statuses. Select the entry from the current request
+and retained decisions, independently of whether the files already contain facts.
+
+| Entry | Inputs and permitted work | Boundary and acceptance |
+| --- | --- | --- |
+| Structure only | Readers, existing layout or authorized layout choice, template and destination; settle roles, titles, fields, navigation and presentation | Deliver an inspectable empty structure for a new draft, or preserve business facts during structural repair of an existing plan. Validate all selected files and links; content is not evaluated. Stop before content work. |
+| Content on settled structure | Retained structure, source records, existing business decisions and authorization to plan or populate | Reuse the layout and fill or maintain source-backed content. Check completeness, readiness, cross-view consistency and traceability; expose unknown facts and unresolved choices. Do not reopen layout without a material new issue. |
+| Continuous structure and content | Authorization for both stages and sufficient evidence or already settled layout | Settle structure first, validate it, then populate and review content in the same request. No intermediate confirmation is required unless the user reserved it or an unresolved material choice blocks continuation. Report the two stage results separately. |
+
+Review has an independent scope: structure, content, or both. A structure-only
+review of a populated plan checks organization without erasing facts, fetching
+business evidence or claiming content approval. Content review includes the
+structural consistency needed to interpret facts but does not reopen settled
+presentation choices. Read-only review never repairs files or initiates planning. If content review is
+explicitly requested on an empty draft, retain that scope: report the missing
+business basis and applicable checks as cannot evaluate, without population,
+a full content pass or silently substituting a structural-only review.
+
+Structure confirmation, source availability, a template example or an earlier
+structure pass alone grants no content-planning authorization. Content work grants
+no authority to replace settled priorities, tiers, version membership, cadence or
+delivery commitments, implement work, or publish externally. Present unresolved
+business changes as options with evidence and impacts; wait for the relevant
+choice while completing independent authorized work. Read-only fact verification
+can continue where needed for authorized content work. Separate unknown facts to
+verify from decisions the user must make; neither is invented to finish a table.
+
+Report scope, applicable checks, result, evidence limitations and the next boundary
+in the response or existing review record, never as agent instructions inside the
+roadmap. A structural pass does not certify content. An incomplete content plan can
+be delivered with explicit gaps but cannot receive a full applicable-criteria pass.
+Reuse confirmed structure on resumption; do not require a new interview, mandatory
+configuration file, extra artifact or approval ritual for these stage entries.
 
 ### First alignment of an existing project
 
@@ -172,8 +241,12 @@ five revision summaries. It MUST NOT become a link-only index.
 
 Optional detail documents hold iteration plans, version scope, schedule detail or
 retained history. Separate iteration and version documents only when useful; phases
-and events normally stay with the related delivery plan. Gantt is a derived view,
-not an additional planning authority. Every detail page links back to the main plan.
+and events normally stay with the related delivery plan. A topic-split combination
+may instead use a main roadmap plus iteration, version, milestone, planning-basis
+and revision-detail documents, with the timeline in the main. This is an optional
+reader-oriented combination, not six mandatory files. Do not split every field,
+empty section or individual object into a file without a reader/ownership need.
+Gantt is a derived view, not an additional planning authority. Every detail page links back to the main plan.
 
 For each fact, declare one editable source (requirement, iteration board, version
 plan or decision record). Main/detail summaries are linked or generated projections.
@@ -247,17 +320,17 @@ infer missing priorities, owners, dates or dependencies.
 
 | Field | Type | Requirement |
 | --- | --- | --- |
-| `schema_version` | string | `1.0` (legacy), `1.1`, `1.2`, `1.3`, `1.4` or `1.5` |
+| `schema_version` | string | `1.0` (legacy), `1.1`, `1.2`, `1.3`, `1.4`, `1.5` or `1.6` |
 | `project`, `updated`, `direction`, `ordering`, `closure`, `priority_policy` | string | Required, nonempty; updated is an ISO date; direction states the goal served and ordering explains the sequence |
 | `views` | array | Unique subset of `requirements`, `versions`, `schedule`, plus `iterations` in 1.3+ and `phases`, `milestones`, `flow` in 1.4+; requirements always included |
 | `entries` | array | Requirement/defect records; may be empty |
 | `versions` | array | Required when versions view selected |
 | `schedule` | object | Required when schedule view selected |
 | `iterations`, `cadence` | array, string | In 1.3+, required when iterations view selected; records may be empty; cadence is nonempty source-backed text |
-| `revisions` | array | Required in 1.2–1.5, including an explicit empty array for an adopted baseline; not modeled in earlier schemas |
+| `revisions` | array | Required in 1.2–1.6, including an explicit empty array for an adopted baseline; not modeled in earlier schemas |
 | `selection` | object | Required in 1.4+; source-backed scenario, primary perspective, layout, rationale and context; top-level views are the only enabled-view list |
 | `flow` | object | In 1.4+, required only when flow selected; workflow policy, expectation, metrics and source/board links |
-| `revision_history` | string or null | Optional full-history reference in 1.2–1.5; required when more than five revision records are supplied |
+| `revision_history` | string or null | Optional full-history reference in 1.2–1.6; required when more than five revision records are supplied |
 
 Unmodeled keys may be retained as input metadata but do not affect generated
 views. In particular, only milestone records own the modeled event `state`;
@@ -265,7 +338,7 @@ a similarly named field on a version, phase or entry is not an event status.
 The explicit 1.0 prohibition on `phases`/`milestones` still applies.
 
 The existing `ordering` field supplies the current arrangement explanation, not a
-second priority rule. In modern main output (1.3–1.5 and explicit split layout),
+second priority rule. In modern main output (1.3–1.6 and explicit split layout),
 policy/closure/selection/language evidence follows revisions. A source-only
 `priority_policy` string renders as a link; recognized forms are HTTP(S), fragments,
 explicit `./` or `../` paths and bare `.md` paths with optional fragments. These
@@ -304,7 +377,7 @@ use the same reference syntax as entry sources. Owners and criteria are nonempty
 Dates alone never change state. A past target can remain planned pending evidence.
 Actual milestone timing requires reached state and therefore evidence.
 
-In 1.1–1.5, schedule kind `span` references entries, versions, phases or 1.3+ iterations; kind `milestone`
+In 1.1–1.6, schedule kind `span` references entries, versions, phases or 1.3+ iterations; kind `milestone`
 references only milestone IDs. Each record has at most one schedule item, while
 multiple event IDs may reference the same version and share its boundary date.
 Unsupplied phase/event timing is reported as missing when schedule is selected.
@@ -319,7 +392,7 @@ Schedule item fields: `ref` (record ID), `kind` (span/milestone),
 Each ref occurs once. Dates use ISO YYYY-MM-DD; weeks use positive integers.
 Spans use an exclusive end: W1 to W3 covers W1–W2. Milestones have equal start/end.
 Unscheduled items have both endpoints null. In 1.0 they must have kind span;
-in 1.1–1.5 unscheduled milestones retain kind milestone and have no plotted marker. One missing endpoint,
+in 1.1–1.6 unscheduled milestones retain kind milestone and have no plotted marker. One missing endpoint,
 an inverted span, mixed time modes, duplicate dependencies and cycles are invalid.
 Finish-to-start dependencies must not overlap; unknown endpoints leave timing
 unverified and are reported. This is validation, not resource scheduling.
@@ -328,7 +401,8 @@ Input is capped at 1 MiB, 200 total planning objects (including 1.3+ iterations)
 200 characters per text field. Larger roadmaps must be split. Schedule horizon
 is capped at 366 calendar days or 104 weeks to preserve readable output.
 
-The CLI selects `--layout single` (default) or `--layout split`. Single mode writes
+The original layouts are `--layout single` (default) and `--layout split`; schema 1.6
+also supports the topic layout defined in §5.8. Single mode writes
 `roadmap.md`; split mode writes that main document plus `roadmap-delivery.md` when
 selected delivery/schedule content exists and `roadmap-history.md` when revision
 records exist. Delivery detail groups iterations/versions, phases/events and the
@@ -340,7 +414,7 @@ Split mode does not move or edit authoritative source documents.
 
 Selected schedules produce `roadmap.svg`; dated schedules also produce `roadmap.mmd`.
 Relative weeks produce SVG and a timing table, never fictitious calendar dates.
-Schema 1.3–1.5 single output uses the reading order above; legacy single outputs retain
+Schema 1.3–1.6 single output uses the reading order above; legacy single outputs retain
 their established structure. Explicit split rendering may reorganize older input.
 
 All five fixed sibling filenames are reserved generated views. Source references
@@ -380,7 +454,7 @@ history. Do not reconstruct unknown decisions, dates or owners from a current
 snapshot. Earlier unverified history remains explicitly unknown. Existing single-view
 plans and older generator schemas remain valid without automatic migration.
 
-JSON 1.2–1.5 revision fields: `id`, `date`, `change`, `reason`, `impact`, `source`.
+JSON 1.2–1.6 revision fields: `id`, `date`, `change`, `reason`, `impact`, `source`.
 All are required strings. IDs use the entry identifier syntax, unique within revision
 history, independent of current planning IDs. Date is ISO YYYY-MM-DD and must not
 exceed the roadmap `updated` date. Records are newest first; equal dates preserve
@@ -457,7 +531,7 @@ a focused reconsideration proposal. Do not overwrite them from a fresh default.
 A material selection/cadence/scope change uses one revision with its source decision.
 
 For 1.4+, `selection` has `scenario` (iterations/flow/staged/discovery/custom), `primary`
-(requirements/iterations/versions/phases/flow), `layout` (single/split), `rationale`,
+(requirements/iterations/versions/phases/flow), `layout` (single/split; 1.6 also permits topic-split), `rationale`,
 `source` and `context`. Context contains `work_mode` (iterations/flow/staged/discovery),
 `delivery` (continuous/versioned/acceptance), `audience`, `constraints`, `source`.
 Text/reference bounds are unchanged. Use explicit no-constraint statements when
@@ -562,7 +636,7 @@ evidence when that level is empty. Diagnostic results are proposals, never mutat
 locale, basis, source, rationale and questions as applicable. It reads only the supplied
 input, asks no interactive questions and writes no files. It cannot combine with
 `--recommend`, `--check`, output, layout or overwrite flags. `--recommend` includes a
-nested language result only for schema 1.5 or explicit language context. Calling
+nested language result only for schema 1.5 or later, or explicit language context. Calling
 skills discover evidence, ask gaps and retain the decision. Generation rejects
 unresolved context or context whose resolved locale differs from the saved choice,
 before writing files. Keep the saved basis and source current when accepting advice.
@@ -575,6 +649,43 @@ CLI diagnostics and machine JSON keys remain English. Schemas 1.0–1.4 retain t
 English rendering and do not acquire mandatory interviews or metadata. Adopt 1.5
 explicitly for localized generation; ordinary maintenance needs no schema migration.
 The define-roadmap capability provides the language workflow and paired examples.
+
+### 5.8 Blank structures and topic layout (schema 1.6)
+
+Schema 1.6 inherits 1.5, including language evidence, and adds `topic-split` to
+`selection.layout`. Schemas 1.0–1.5 retain their original single/split contract;
+passing a conflicting CLI layout still fails rather than replacing a saved choice.
+The topic layout writes exactly six Markdown roles: `roadmap.md`, `iterations.md`,
+`versions.md`, `milestones.md`, `roadmap-planning-basis.md`, `roadmap-history.md`.
+The main carries requirement arrangement, delivery summaries, timeline and latest
+five revisions. Details retain the complete supplied revisions and source links.
+Selected phase/flow records remain in planning-basis source context, not silently
+lost or expanded into additional files. A selected schedule also produces SVG and,
+for calendar dates, Mermaid. Blank and populated topic output preserve the same
+second-level headings and table columns; population does not redesign the structure.
+
+`--blank [--locale en|zh-CN] [--layout topic-split] --output-dir DIR` needs no JSON
+input and accepts no business input. It copies/localizes the clean blank topic
+assets without creating IDs, dates, owners or business records. Only this layout is
+supported for blank generation. `--blank --check` writes nothing and reports only
+structure validity by checking emitted titles, field syntax, empty table shape and
+internal navigation; reading template files alone is insufficient. Recommendation/
+resolution modes cannot combine with blank mode.
+For populated output, language comes from the retained input rather than `--locale`.
+
+Blank and topic output use `.roadmap-outputs.json` as generated-file ownership
+metadata, not another plan. Preflight checks all reserved topic files, graphics and
+the manifest before writing; symlinks, non-files, hardlink aliases and input/output
+aliases fail. Existing reserved output requires explicit `--overwrite`. Identical
+writes preserve modification times. On reset, only intact stale files listed in
+the manifest are removed. Unrelated files are left alone; modified stale outputs
+cause failure before mutation. An invalid manifest fails closed. Without ownership metadata, legacy cleanup retains its original reserved scope;
+only manifest-proven topic files can be removed during an owned layout transition.
+When ownership metadata exists, transitions back to single/split use the same
+intact-owned-file rule; they do not leave stale topic detail files behind. Unowned
+reserved files outside the requested output set cause a pre-write refusal rather
+than being deleted or silently left as a competing business draft.
+I/O errors remain nonzero with a partial-output warning; atomic rollback is not promised.
 
 ## 6. Anti-patterns
 

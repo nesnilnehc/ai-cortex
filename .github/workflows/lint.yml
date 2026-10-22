@@ -138,6 +138,12 @@ jobs:
       - name: offline roadmap renderer
         run: python3 scripts/test-roadmap-renderer.py
 
+      - name: roadmap multi-turn regression (offline replay)
+        run: python3 scripts/test-roadmap-conversations.py
+
+      - name: roadmap evaluation evidence export
+        run: python3 scripts/test-roadmap-eval-evidence.py
+
       - name: roadmap example deliverables
         run: python3 scripts/test-roadmap-examples.py
 

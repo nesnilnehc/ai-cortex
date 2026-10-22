@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: roadmap-quality
-version: 4.8.0
+version: 4.10.1
 scope: reviewing or self-checking a roadmap document
 recommended_scope: user
 status: active
@@ -14,6 +14,18 @@ A roadmap arranges requirements and defects in Now / Next / Later, optionally
 adding iteration/version and schedule views under [roadmap modeling](../specs/roadmap-modeling.md).
 Tasks belong in source task lists, not in requirement rows. Version groups and
 schedule milestones are valid presentation units. Existing project decisions take precedence.
+
+## Review scope and structure drafts
+
+- [ ] Identify the requested stage entry and review scope under the [stage contract](../specs/roadmap-modeling.md#stage-entries-authorization-and-acceptance); artifact population alone does not select scope. Structure and content results are distinct, including in a continuous request.
+- [ ] Verify authorization at the stage boundary: structure confirmation or available source facts alone never authorizes population; already authorized continuous work does not require another confirmation. Planning does not replace settled business decisions or authorize implementation/publication.
+- [ ] A structure-only review or repair of a populated plan preserves its business facts. Content planning reuses settled structure; unknown facts and unresolved business choices remain explicit, with no full pass for unevaluated applicable criteria.
+- [ ] Identify whether the artifact is an intentionally blank structure or a populated plan, using the request and artifact rather than guessing from empty cells.
+- [ ] For a structure draft, check the selected document roles, required columns/fields, main-to-detail navigation, one clear entry, consistent headings/field-label style/placeholders and empty tables. Do not demand business rows, dates, owners, versions or evidence the user explicitly deferred.
+- [ ] Check the [reader-facing content boundary](workflow-documentation.md#structure-and-reader-facing-content): no field-filling instructions, enum tutorials, agent work orders or discussion residue in blank templates or completed reader deliverables. Necessary business rationale and actual constraints are not author guidance.
+- [ ] A structure-scoped review reports structural findings and business criteria as not evaluated; it MUST NOT claim full roadmap approval. For content-scoped or combined review apply all applicable criteria below, reporting unavailable evidence separately.
+- [ ] If content review is requested on an empty draft, preserve the requested scope and report its missing business basis/cannot-evaluate criteria; do not populate, substitute a structure-only review or certify content.
+- [ ] Compare against the retained layout, not an arbitrary document count. Distinguish Spec conformance, template organization and exact named-example replication; disclose actual differences. Re-review with no new finding or evidence does not demand a rewrite.
 
 ## 1. Completeness
 

@@ -89,3 +89,9 @@ Reproduce from the repository root:
 python3 skills/define-roadmap/scripts/render-roadmap.py skills/define-roadmap/references/service-desk/iteration-driven/input.json --output-dir skills/define-roadmap/references/service-desk/iteration-driven --overwrite
 python3 skills/define-roadmap/scripts/render-roadmap.py skills/define-roadmap/references/service-desk/iteration-driven/input.json --layout split --output-dir skills/define-roadmap/references/service-desk/iteration-driven-split --overwrite
 ```
+
+## Structure-first topic split
+
+The [paired structure and populated example](../structure-first.md) preserves this
+case while separating iteration, version, milestone, planning-basis and revision
+details. It demonstrates reader roles and review stages without making six files mandatory.

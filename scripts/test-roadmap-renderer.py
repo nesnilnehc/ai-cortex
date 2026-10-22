@@ -4,6 +4,7 @@
 import copy
 import importlib.util
 import json
+import re
 from pathlib import Path
 import subprocess
 from shutil import copyfile
@@ -554,7 +555,7 @@ class RendererTests(unittest.TestCase):
         self.assertEqual(result['views'], ['requirements', 'iterations'])
 
     def test_recommendation_rejects_unknown_or_malformed_schema_versions(self):
-        for value in ('1.6', {}, [], 1, False, None):
+        for value in ('1.7', {}, [], 1, False, None):
             data = selection_sample()
             data['schema_version'] = value
             with self.subTest(schema=value), self.assertRaisesRegex(ValueError, 'schema_version'):
@@ -1197,6 +1198,264 @@ class RendererTests(unittest.TestCase):
             self.assertEqual(subprocess.run(command + ['--overwrite'], capture_output=True).returncode, 0)
             self.assertFalse((out / 'roadmap.svg').exists())
             self.assertFalse((out / 'roadmap.mmd').exists())
+
+
+class StructureGenerationTests(unittest.TestCase):
+    """Covers: roadmap-generation-workflow#G1–G4."""
+
+    TOPICS = {'roadmap.md', 'iterations.md', 'versions.md', 'milestones.md',
+              'roadmap-planning-basis.md', 'roadmap-history.md'}
+
+    def test_blank_generation_needs_no_business_input_and_is_clean_in_both_locales(self):
+        for locale in ['en', 'zh-CN']:
+            with self.subTest(locale=locale), tempfile.TemporaryDirectory() as temp:
+                result = subprocess.run([sys.executable, str(SCRIPT), '--blank', '--locale', locale,
+                                         '--output-dir', temp], capture_output=True, text=True)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                files = list(Path(temp).glob('*.md'))
+                self.assertEqual({p.name for p in files}, self.TOPICS)
+                for path in files:
+                    text = path.read_text()
+                    self.assertNotRegex(text, r'BUG1|R1|V1|I1|<!--|<details>|Instructions:')
+                    for block in text.strip().split('\n\n'):
+                        self.assertTrue(block.startswith(('#', '**', '|', '[')), block)
+                    for block in re.findall(r'(?:^\|.*\|\n)+', text, re.M):
+                        self.assertEqual(len(block.strip().splitlines()), 2)
+                self.assertIn('{待填写}' if locale == 'zh-CN' else '{Pending}',
+                              (Path(temp) / 'roadmap.md').read_text())
+
+    def test_blank_rejects_business_input_and_incompatible_modes_without_writes(self):
+        with tempfile.TemporaryDirectory() as temp:
+            source = Path(temp) / 'input.json'
+            source.write_text(json.dumps(sample()))
+            for extra in [[str(source)], ['--recommend'], ['--layout', 'split']]:
+                output = Path(temp) / 'out'
+                result = subprocess.run([sys.executable, str(SCRIPT), '--blank', *extra,
+                                         '--output-dir', str(output)], capture_output=True, text=True)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertFalse(output.exists())
+
+    def test_blank_check_does_not_create_destination(self):
+        with tempfile.TemporaryDirectory() as temp:
+            out = Path(temp) / 'out'
+            result = subprocess.run([sys.executable, str(SCRIPT), '--blank', '--check',
+                                     '--output-dir', str(out)], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertFalse(out.exists())
+
+    def test_topic_layout_preserves_source_facts_and_six_markdown_roles(self):
+        for locale in ['en', 'zh-CN']:
+            data = language_sample(locale)
+            data['schema_version'] = '1.6'
+            data['selection']['layout'] = 'topic-split'
+            outputs = renderer.documents(renderer.validate(data))
+            self.assertEqual({n for n in outputs if n.endswith('.md')}, self.TOPICS)
+            self.assertNotIn('roadmap-delivery.md', '\n'.join(outputs.values()))
+            self.assertIn('R1', outputs['roadmap.md'])
+            self.assertIn('I1', outputs['iterations.md'])
+            self.assertIn('V1', outputs['versions.md'])
+            self.assertIn('M1', outputs['milestones.md'])
+            self.assertIn('PH1', outputs['roadmap-planning-basis.md'])
+            self.assertNotIn('<details>', '\n'.join(outputs.values()))
+            self.assertIn('roadmap.svg', outputs)
+
+    def test_population_keeps_the_confirmed_blank_headings_and_column_shapes(self):
+        for locale in ['en', 'zh-CN']:
+            data = language_sample(locale)
+            data['schema_version'] = '1.6'
+            data['selection']['layout'] = 'topic-split'
+            empty = renderer.blank_documents(locale)
+            filled = renderer.documents(renderer.validate(data))
+            for name in self.TOPICS:
+                self.assertEqual(re.findall(r'^## .+$', empty[name], re.M),
+                                 re.findall(r'^## .+$', filled[name], re.M), name)
+                headers = lambda value: [b.splitlines()[0] for b in re.findall(r'(?:^\|.*\|\n)+', value, re.M)]
+                self.assertEqual(headers(empty[name]), headers(filled[name]), name)
+                self.assertNotRegex(filled[name], r'\{Pending\}|\{待填写\}')
+
+    def test_completed_records_are_retained_without_html_or_active_priority_rows(self):
+        data = language_sample('en')
+        data['schema_version'] = '1.6'
+        data['selection']['layout'] = 'topic-split'
+        data['entries'][0]['execution'] = 'Completed'
+        output = renderer.documents(renderer.validate(data))
+        self.assertNotIn('<details>', output['roadmap.md'])
+        self.assertNotIn('| [R1 ·', output['roadmap.md'])
+        self.assertIn('R1', output['roadmap-history.md'])
+
+    def test_topic_flow_retains_policy_without_inventing_iterations(self):
+        data = json.loads((ROOT / 'skills/define-roadmap/references/scenarios/continuous-flow/input.json').read_text())
+        data['schema_version'] = '1.6'
+        data['selection']['layout'] = 'topic-split'
+        data['language'] = dict(locale='en', basis='user', source='policy.md', rationale='Test locale')
+        output = renderer.documents(renderer.validate(data))
+        self.assertIn(data['flow']['policy'], output['roadmap-planning-basis.md'])
+        self.assertNotIn('| I1', output['iterations.md'])
+
+    def test_topic_preserves_history_link_and_supporting_view_contracts(self):
+        data = language_sample('en')
+        data['schema_version'] = '1.6'
+        data['selection']['layout'] = 'topic-split'
+        data['revision_history'] = 'history.md#all-decisions'
+        outputs = renderer.documents(renderer.validate(data))
+        self.assertIn('history.md#all-decisions', outputs['roadmap-history.md'])
+        self.assertIn(data['phases'][0]['owner'], outputs['roadmap-planning-basis.md'])
+        self.assertIn('exclusive', outputs['roadmap.md'])
+        flow = json.loads((ROOT / 'skills/define-roadmap/references/scenarios/continuous-flow/input.json').read_text())
+        flow.update(schema_version='1.6', language=data['language'])
+        flow['selection']['layout'] = 'topic-split'
+        result = renderer.documents(renderer.validate(flow))
+        self.assertIn(flow['flow']['board'], result['roadmap-planning-basis.md'])
+
+    def test_blank_check_rejects_broken_bundled_templates_before_writing(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            bundle = root / 'skill'
+            (bundle / 'scripts').mkdir(parents=True)
+            assets = bundle / 'assets/structure-first'
+            assets.mkdir(parents=True)
+            copyfile(SCRIPT, bundle / 'scripts/render-roadmap.py')
+            for source in (SCRIPT.parents[1] / 'assets/structure-first').glob('*.md'):
+                copyfile(source, assets / source.name)
+            main = assets / 'roadmap.md'
+            main.write_text(main.read_text() + '\nInstructions: invent dates to fill this table.\n')
+            output = root / 'out'
+            result = subprocess.run([sys.executable, str(bundle / 'scripts/render-roadmap.py'),
+                '--blank', '--check', '--output-dir', str(output)], capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn('blank structure', result.stderr)
+            self.assertFalse(output.exists())
+
+    def test_owned_topic_to_single_transition_removes_only_generated_details(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source, out = root / 'input.json', root / 'out'
+            data = language_sample('en')
+            data['schema_version'] = '1.6'
+            data['selection']['layout'] = 'topic-split'
+            source.write_text(json.dumps(data))
+            cmd = [sys.executable, str(SCRIPT), str(source), '--output-dir', str(out), '--overwrite']
+            subprocess.run(cmd, check=True, capture_output=True)
+            (out / 'team-notes.md').write_text('Keep')
+            data['selection']['layout'] = 'single'
+            source.write_text(json.dumps(data))
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual({p.name for p in out.glob('*.md')}, {'roadmap.md', 'team-notes.md'})
+            self.assertEqual((out / 'team-notes.md').read_text(), 'Keep')
+
+    def test_unowned_old_delivery_file_blocks_reset_without_partial_writes(self):
+        with tempfile.TemporaryDirectory() as temp:
+            out = Path(temp)
+            (out / 'roadmap-delivery.md').write_text('Unowned business evidence')
+            result = subprocess.run([sys.executable, str(SCRIPT), '--blank', '--overwrite',
+                '--output-dir', temp], capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertEqual({p.name for p in out.iterdir()}, {'roadmap-delivery.md'})
+
+    def test_unknown_supporting_phase_owner_uses_the_selected_locale(self):
+        data = language_sample('zh-CN')
+        data['schema_version'] = '1.6'
+        data['selection']['layout'] = 'topic-split'
+        data['phases'][0]['owner'] = 'Unknown'
+        outputs = renderer.documents(renderer.validate(data))
+        self.assertIn('负责人： 未知', outputs['roadmap-planning-basis.md'])
+
+    def test_check_mode_rejects_conflicting_retained_layout(self):
+        with tempfile.TemporaryDirectory() as temp:
+            source = Path(temp) / 'input.json'
+            data = language_sample('en')
+            source.write_text(json.dumps(data))
+            result = subprocess.run([sys.executable, str(SCRIPT), str(source), '--check',
+                '--layout', 'single'], capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn('conflicts', result.stderr)
+
+    def test_retained_topic_selection_cannot_be_overridden_by_cli(self):
+        data = language_sample('en')
+        data['schema_version'] = '1.6'
+        data['selection']['layout'] = 'topic-split'
+        renderer.validate(data)
+        with self.assertRaisesRegex(ValueError, 'conflicts'):
+            renderer.documents(data, 'split')
+
+    def test_topic_is_not_silently_added_to_older_selection_contracts(self):
+        data = language_sample('en')
+        data['selection']['layout'] = 'topic-split'
+        with self.assertRaises(ValueError):
+            renderer.validate(data)
+
+    def test_blank_overwrite_is_idempotent_and_preserves_unrelated_files(self):
+        with tempfile.TemporaryDirectory() as temp:
+            out = Path(temp)
+            cmd = [sys.executable, str(SCRIPT), '--blank', '--output-dir', temp]
+            first = subprocess.run(cmd, capture_output=True, text=True)
+            self.assertEqual(first.returncode, 0, first.stderr)
+            before = {p.name: (p.read_bytes(), p.stat().st_mtime_ns) for p in out.iterdir()}
+            refused = subprocess.run(cmd, capture_output=True, text=True)
+            self.assertNotEqual(refused.returncode, 0)
+            unrelated = out / 'team-notes.md'
+            unrelated.write_text('Keep this file.\n')
+            rerun = subprocess.run(cmd + ['--overwrite'], capture_output=True, text=True)
+            self.assertEqual(rerun.returncode, 0, rerun.stderr)
+            for name, value in before.items():
+                path = out / name
+                self.assertEqual((path.read_bytes(), path.stat().st_mtime_ns), value)
+            self.assertEqual(unrelated.read_text(), 'Keep this file.\n')
+
+    def test_reset_removes_only_intact_owned_graphics_and_retains_unrelated_work(self):
+        for mode in ['weeks', 'dates']:
+            with tempfile.TemporaryDirectory() as temp:
+                root = Path(temp)
+                out = root / 'out'
+                source = root / 'input.json'
+                data = language_sample('en', mode)
+                data['schema_version'] = '1.6'
+                data['selection']['layout'] = 'topic-split'
+                source.write_text(json.dumps(data))
+                subprocess.run([sys.executable, str(SCRIPT), str(source), '--output-dir', str(out)], check=True, capture_output=True)
+                self.assertTrue((out / 'roadmap.svg').exists())
+                self.assertEqual((out / 'roadmap.mmd').exists(), mode == 'dates')
+                (out / 'team-notes.md').write_text('Keep')
+                reset = [sys.executable, str(SCRIPT), '--blank', '--overwrite', '--output-dir', str(out)]
+                subprocess.run(reset, check=True, capture_output=True)
+                self.assertFalse((out / 'roadmap.svg').exists())
+                self.assertFalse((out / 'roadmap.mmd').exists())
+                self.assertEqual((out / 'team-notes.md').read_text(), 'Keep')
+                self.assertNotIn('R1', (out / 'roadmap.md').read_text())
+
+
+    def test_modified_stale_graphic_is_not_deleted_or_partially_reset(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            out = root / 'out'
+            source = root / 'input.json'
+            data = language_sample('en')
+            data['schema_version'] = '1.6'
+            data['selection']['layout'] = 'topic-split'
+            source.write_text(json.dumps(data))
+            subprocess.run([sys.executable, str(SCRIPT), str(source), '--output-dir', str(out)], check=True, capture_output=True)
+            (out / 'roadmap.svg').write_text('User edited graphic')
+            before = {p.name: p.read_bytes() for p in out.iterdir()}
+            result = subprocess.run([sys.executable, str(SCRIPT), '--blank', '--overwrite', '--output-dir', str(out)], capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn('stale generated output was edited', result.stderr)
+            self.assertEqual(before, {p.name: p.read_bytes() for p in out.iterdir()})
+
+    def test_blank_refuses_symlink_outputs_and_does_not_write_partial_files(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            target = root / 'outside.md'
+            target.write_text('Keep')
+            out = root / 'out'
+            out.mkdir()
+            (out / 'iterations.md').symlink_to(target)
+            result = subprocess.run([sys.executable, str(SCRIPT), '--blank', '--overwrite',
+                                     '--output-dir', str(out)], capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn('regular file', result.stderr)
+            self.assertEqual(target.read_text(), 'Keep')
+            self.assertFalse((out / 'roadmap.md').exists())
 
 
 if __name__ == '__main__':

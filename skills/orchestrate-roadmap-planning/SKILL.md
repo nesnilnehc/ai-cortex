@@ -1,7 +1,7 @@
 ---
 name: orchestrate-roadmap-planning
-description: Orchestrate roadmap planning or first alignment of an existing project; route review findings to structural repair or authorized maintenance, preserve settled decisions and links during alignment, and run planning steps only within the requested scope.
-version: 2.9.0
+description: Route roadmap structure-only, content-on-settled-structure, continuous planning or existing-project alignment through scoped atomic skills; preserve decisions, links and authorization boundaries.
+version: 2.11.1
 license: MIT
 ---
 
@@ -9,17 +9,46 @@ license: MIT
 
 ## Purpose
 
-Chain the roadmap-related atomic skills in a fixed order to complete one roadmap planning ceremony. This skill orchestrates only; it performs no domain analysis. For a single step, call the corresponding atomic skill directly (`promote-roadmap-items` for promotion alone, `review-roadmap` for a health check alone).
+Chain the roadmap-related atomic skills in the applicable route to complete the requested roadmap work. The fixed full-planning sequence applies only when business planning is authorized; structure-only work uses the bounded route below. This skill orchestrates only; it performs no domain analysis. For a single step, call the corresponding atomic skill directly (`promote-roadmap-items` for promotion alone, `review-roadmap` for a health check alone).
 
 **Its reason to exist is satisfying the downstream halt conditions up front.** A missing roadmap or strategic-goals document stops promotion; discovering that only at the final step forces a backtrack. This skill checks and fills preconditions like that before the call.
 
 ---
 
+## Structure-only routing
+
+For a new blank structure-only entry under the [stage contract](../../specs/roadmap-modeling.md#stage-entries-authorization-and-acceptance), route directly to
+`define-roadmap` for the selected empty layout and then to `review-roadmap` for
+structure-only review. Do not run strategy creation, intake, prioritization,
+dependency analysis, promotion, population or external publication. Return the
+inspectable structure for the requested confirmation. This route uses the
+[Spec's stage boundary](../../specs/roadmap-modeling.md#structure-before-content),
+not a new planning gate. Reuse previously settled structure during later population.
+For populated-plan structural repair, preserve facts rather than generating blanks.
+
+## Content and continuous routing
+
+For **content on settled structure**, call `define-roadmap` with the retained
+structure and authorized source-backed content scope, then `review-roadmap` for
+content acceptance. Do not run layout selection or the full planning chain merely
+to fill known facts. Route new prioritization, dependency, promotion or maintenance
+work through its existing atomic skill only when requested or necessary within
+already authorized scope; unresolved business choices remain proposals.
+
+For **continuous structure and content**, chain structural definition and scoped
+review before content definition and content review. If structure is already
+settled, reuse it. Continue without an intermediate confirmation when both stages
+are authorized; stop at a reserved boundary or unresolved material choice. Aggregate
+separate stage results, source gaps, business options and skipped-step reasons.
+A review-only request calls `review-roadmap` directly with its requested scope and
+never invokes mutating planning steps. Existing-project alignment remains bounded
+by its preservation contract; these entries do not force a full replanning chain.
+
 ## Orchestrator Role
 
 By the naming convention, an orchestrator skill **does exactly 4 things**:
 
-1. **Detect the context**: call step 0 for its findings, then derive the mode and each step's run condition mechanically from them
+1. **Detect the context**: select the requested stage entry or review-only scope before the full chain; otherwise call step 0 and derive the mode and each step's run condition mechanically from its findings
 2. **Chain the calls**: run the atomic skills in a fixed order
 3. **halt-on-failure**: the tier decides the failure semantics (see below)
 4. **Aggregate the output**: merge every step's output into a single report
@@ -32,7 +61,7 @@ By the naming convention, an orchestrator skill **does exactly 4 things**:
 
 Resolve intent before applying this planning table. An existing-project alignment
 request selects the bounded `align-existing` branch below; the table's mandatory
-strategy/promotion steps apply to planning, not to that branch. Preserve relative
+strategy/promotion steps apply to the full-planning route, not to alignment or the bounded stage entries above. Preserve relative
 order for any steps actually selected. Alignment is not implicit planning intent.
 
 Every step carries a tier — a **mandatory** step runs when its condition is hit and cannot be skipped, a **default** step runs when its condition is hit but the user can skip it explicitly, a **recommended** step is only surfaced and never runs on its own.
@@ -178,7 +207,7 @@ A single report, containing:
 ### Hard Boundaries
 
 - Do not assess roadmap quality, decide dependencies, or set priorities inside this skill
-- Do not change the execution order; above all, step 5 must not be placed after step 6
+- Preserve the execution order within the selected route. The explicit structure-only and alignment routes skip unauthorized planning steps; in the full chain, step 5 must not be placed after step 6
 - Do not adjust grades within a branch; alignment skips out-of-scope planning steps by the explicit intent contract, not by waiving their preconditions
 - Do not confirm on the user's behalf: the item-by-item confirmation each atomic skill asks for goes ahead as usual, and the orchestration layer does not approve in bulk
 - Do not call `plan-next` or `orchestrate-governance-step` in reverse, to avoid a call cycle
@@ -202,14 +231,18 @@ In one line: `plan-next` answers "what the whole project does next", this skill 
 
 ## Self-Check
 
+Apply business priority, archive and downstream-planning checks only when those
+steps ran. A structure-only result reports its two atomic steps and excluded
+business work; it does not fabricate priority order or source evidence.
+
 - [ ] Does only the 4 things: "detect the context / chain the calls / halt-on-failure / aggregate the output"
 - [ ] No domain judgement logic was implemented inside this skill
-- [ ] Intent selects alignment versus planning first; within that branch, review findings determine actions without independent roadmap assessment
+- [ ] Intent selects structure-only, content-on-settled-structure, continuous, review-only, alignment or planning first; within that branch, review findings determine actions without independent roadmap assessment
 - [ ] Selected planning steps retain order, with step 5 ahead of step 6; alignment additionally re-runs read-only review after repair
 - [ ] Skipped steps carry their reason in the report
 - [ ] Failure semantics follow the tier; when a default step fails, the report states whether the downstream guardrail is void
 - [ ] The archive target for step 8 has a definite source and was not guessed
-- [ ] The report carries priority order and unresolved findings
+- [ ] The report carries separate applicable stage results and unresolved findings; priority order appears only when promotion ran
 - [ ] Alignment intent was resolved before normal planning routes; no skipped strategy/intake/scoring/promotion/archive action ran implicitly, and post-repair review checked preservation
 
 ---

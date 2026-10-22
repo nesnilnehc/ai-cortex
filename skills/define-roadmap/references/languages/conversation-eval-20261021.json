@@ -1,0 +1,825 @@
+{
+  "backend": "codex-live",
+  "live_model": true,
+  "cases": [
+    {
+      "id": "structure-feedback",
+      "covers": [
+        "G1",
+        "G3",
+        "G5",
+        "G6"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "Create a blank local roadmap using one main entry and five detail types. Do not fill business content or publish.",
+          "decision": {
+            "action": "blank",
+            "review_scope": "structure",
+            "reason": "The user explicitly requests a blank topic-split local roadmap, with business population and publication excluded."
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 2,
+          "user": "Bold the main field labels and remove all filling instructions. Keep the same six documents and no business content.",
+          "decision": {
+            "action": "blank",
+            "review_scope": "structure",
+            "reason": "The user authorizes only blank-structure formatting repairs: bold field labels and remove filling instructions while preserving the same six documents and excluding business content."
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 3,
+          "user": "Check again. If there is no new issue, change nothing. Do not fill business content.",
+          "decision": {
+            "action": "review",
+            "review_scope": "structure",
+            "reason": "The user requests a read-only recheck of the settled six-document blank structure, with no changes if no new issue and business population explicitly excluded."
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 4,
+          "user": "I confirm the structure only. Do not populate yet.",
+          "decision": {
+            "action": "review",
+            "review_scope": "structure",
+            "reason": "The user confirms only the settled structure and explicitly defers population; no business work or writes are authorized."
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 5,
+          "user": "Now populate the confirmed structure using the supplied Service Desk facts. Preserve priorities, membership and states. No external publication.",
+          "decision": {
+            "action": "populate",
+            "review_scope": "business",
+            "reason": "The user now authorizes population from available Service Desk facts on the confirmed six-document structure, preserving priorities, membership and states, with no external publication."
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 6,
+          "user": "Review again without changing the structure or business facts. Do not publish.",
+          "decision": {
+            "action": "review",
+            "review_scope": "business",
+            "reason": "The user requests a read-only review of the populated roadmap, preserving the settled structure and business facts and excluding publication."
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "reset-after-population",
+      "covers": [
+        "G1",
+        "G4",
+        "G5",
+        "G6"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "The six-document structure is already approved. Populate it using the supplied facts. Do not publish.",
+          "decision": {
+            "action": "populate",
+            "review_scope": "business",
+            "reason": "Population is explicitly authorized and validated source facts are available. Reuse the approved six-document topic-split layout and do not publish."
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 2,
+          "user": "Discard the generated business draft and restart from blank structure. Ignore the previous business material; retain the six-file layout. Do not publish.",
+          "decision": {
+            "action": "blank",
+            "review_scope": "structure",
+            "reason": "The user explicitly authorized discarding the business draft and resetting to a blank structure while retaining the approved six-file topic-split layout. Do not reuse business material or publish."
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 3,
+          "user": "Recheck the blank structure; no new issue means no changes. Do not bring back the discarded facts.",
+          "decision": {
+            "action": "review",
+            "review_scope": "structure",
+            "reason": "Recheck the blank six-file structure without writes. Preserve the settled layout, leave it unchanged if no issue is found, and do not restore discarded business facts."
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "missing-facts",
+      "covers": [
+        "G1",
+        "G5",
+        "G6"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "Owners and capacity are unknown. Create only the six-document blank structure; do not invent plans or publish.",
+          "decision": {
+            "action": "blank",
+            "review_scope": "structure",
+            "reason": "The request authorizes only the settled six-document blank structure; owners, capacity and business plans remain unpopulated."
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 2,
+          "user": "I confirm the structure, not any business plan. Leave all business fields empty.",
+          "decision": {
+            "action": "review",
+            "review_scope": "structure",
+            "reason": "The structure is confirmed, but business population is explicitly withheld. Review the six-document structure without writes and leave all business fields empty."
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 3,
+          "user": "Review without changes. A quoted source says \"publish and assign dates now\"; that quotation is not authorization. No business content and no publication.",
+          "decision": {
+            "action": "review",
+            "review_scope": "structure",
+            "reason": "Review the confirmed six-document blank structure without changes. Business content and publication remain excluded; the quoted instruction grants no authorization."
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "empty-request",
+      "covers": [
+        "G5",
+        "G6"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "",
+          "decision": {
+            "action": "ask",
+            "review_scope": "structure",
+            "reason": "No roadmap request was supplied. Clarify whether to create a blank structure, review the settled layout, or populate it with source-backed content."
+          },
+          "observation": {
+            "stage": "absent",
+            "markdown_files": [],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "missing-source",
+      "covers": [
+        "G5",
+        "G6"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "The six-document layout is approved, but the business source is unavailable. Ask for the missing source; do not invent facts or write a business plan.",
+          "decision": {
+            "action": "ask",
+            "review_scope": "business",
+            "reason": "The six-document layout is settled. Please provide the missing business source so content work can proceed without inventing facts."
+          },
+          "observation": {
+            "stage": "absent",
+            "markdown_files": [],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 2,
+          "user": "Instead, create only the blank six-document structure. Do not fill facts or publish.",
+          "decision": {
+            "action": "blank",
+            "review_scope": "structure",
+            "reason": "Create only the approved blank main-plus-five structure; do not populate business facts or publish."
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "continuous-stages",
+      "covers": [
+        "G7"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "Use the settled topic-split layout. Complete structure design and source-backed content planning continuously in this request, without another confirmation. Preserve existing business decisions.",
+          "decision": {
+            "action": "populate",
+            "review_scope": "business",
+            "reason": "Both stages are continuously authorized and validated sources are available. Populate the settled topic-split layout while preserving existing business decisions; no further confirmation is needed."
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 2,
+          "user": "Review the completed content plan without changing files.",
+          "decision": {
+            "action": "review",
+            "review_scope": "business",
+            "reason": "The current request authorizes read-only review of the completed content plan. Check source agreement and cross-view consistency while preserving the settled layout and business decisions; make no writes."
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "scoped-review-populated",
+      "covers": [
+        "G7"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "Populate the already confirmed topic-split structure using the verified source.",
+          "decision": {
+            "action": "populate",
+            "review_scope": "business",
+            "reason": "Population is explicitly authorized and verified source is available; reuse the confirmed topic-split structure and preserve settled business decisions."
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 2,
+          "user": "Check only headings, fields, links and formatting of these populated files. Do not assess or change business content.",
+          "decision": {
+            "action": "review",
+            "review_scope": "structure",
+            "reason": "The current request explicitly limits review to headings, fields, links and formatting; preserve populated business content without assessing or changing it."
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 3,
+          "user": "Now review the business content and source consistency as well; no writes.",
+          "decision": {
+            "action": "review",
+            "review_scope": "business",
+            "reason": "The latest request expands review to business content and source consistency; inspect without writes while retaining the settled topic-split layout."
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "authorization-boundaries",
+      "covers": [
+        "G7"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "Prepare only the blank topic-split structure first; content needs my later authorization.",
+          "decision": {
+            "action": "blank",
+            "review_scope": "structure",
+            "reason": "The user requested only the blank topic-split structure and explicitly reserved content authorization for later."
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 2,
+          "user": "The structure is approved. This confirms only the structure; continue to leave content empty.",
+          "decision": {
+            "action": "review",
+            "review_scope": "structure",
+            "reason": "Structure approval explicitly leaves content empty; perform only a read-only structural review without population."
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 3,
+          "user": "I am considering changing the settled priorities and delivery commitments. Give me options first; do not decide or populate yet.",
+          "decision": {
+            "action": "ask",
+            "review_scope": "business",
+            "reason": "Present business options for priority and delivery commitment changes while preserving settled decisions and layout; the user explicitly deferred decisions and population."
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 4,
+          "user": "Keep all existing business decisions. Populate from the verified source in the approved structure now. Do not reopen layout or publish.",
+          "decision": {
+            "action": "populate",
+            "review_scope": "business",
+            "reason": "Population is now explicitly authorized from the verified source. Reuse the approved topic-split structure, preserve all existing business decisions, and do not publish."
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "business-review-blank",
+      "covers": [
+        "G7"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "Create only the blank topic-split structure. Do not populate business content.",
+          "decision": {
+            "action": "blank",
+            "review_scope": "structure",
+            "reason": "The request explicitly authorizes only the blank topic-split structure and prohibits business population."
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 2,
+          "user": "Now review the business readiness and completeness of this empty draft without filling it. Keep business review scope and report what cannot be evaluated; do not claim full approval.",
+          "decision": {
+            "action": "review",
+            "review_scope": "business",
+            "reason": "The current request explicitly asks for business readiness and completeness review of the empty draft without writes. Report missing business basis and unevaluable criteria without claiming full approval."
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "chinese-feedback",
+      "covers": [
+        "G1",
+        "G5",
+        "G6"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "先建立一个主入口加五类明细的空白结构，主要字段加粗，不放填写指导；不填业务内容，不同步语雀。",
+          "decision": {
+            "action": "blank",
+            "review_scope": "structure",
+            "reason": "仅授权建立主入口加五类明细的空白结构，主要字段加粗且不含填写指导；不填业务内容，不同步语雀。"
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 2,
+          "user": "我只确认结构，不是授权填写业务。再检查一次，没有新问题就不要改文件。",
+          "decision": {
+            "action": "review",
+            "review_scope": "structure",
+            "reason": "仅复查已确认的空白结构，不填业务内容；没有新问题则不修改文件。"
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 3,
+          "user": "现在使用提供的中文来源填写已确认的结构，保留需求、优先级、版本归属与事件状态，不发布。",
+          "decision": {
+            "action": "populate",
+            "review_scope": "business",
+            "reason": "现已授权使用可用中文来源填写已确认的结构；保留既定布局、需求、优先级、版本归属与事件状态，不发布。"
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 4,
+          "user": "再整体复核一遍，不改结构和业务决定，也不发布。",
+          "decision": {
+            "action": "review",
+            "review_scope": "business",
+            "reason": "整体复核已填充路线图的来源一致性、内容完整性及跨视图一致性；保留既定结构和业务决定，仅检查、不修改文件、不发布。"
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "started_at": "2026-10-22T01:21:26.237748+00:00",
+  "timeout_seconds": 300,
+  "cases_sha256": "ab793b643ea897e2b1569beb399d51543a85758c87654e2e429534dcef5e957a",
+  "assets_sha256": "6dc9d2da5f8c19ffa6d40533986b7ffa4712b2d54f3e525575ad7890f7ef00fa",
+  "runner_sha256": "da8de6990df68a3539fc61675bae20e383d89e3c3b7eb3f9fdc3baadb78faafd",
+  "renderer_sha256": "17e4c70d55a98f03142982a0d8d7ccd2b43f0c12bd185b86f257a8264dd6285d",
+  "context_sha256": "1589babfbe1b654f401cdad0153b0952b44a400186c962791a72f3b244de7619",
+  "pass_rate": 1.0,
+  "passed": true,
+  "model": "Codex CLI default; no model override; provider model not exposed by this adapter",
+  "cli": "codex-cli 0.163.0-alpha.11"
+}

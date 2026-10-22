@@ -1,7 +1,7 @@
 ---
 name: review-roadmap
-description: Review a concise requirement-and-defect roadmap for entry granularity, priority, readiness, readability, iteration views, document layering, revision history and source traceability; emit findings without rewriting.
-version: 3.10.0
+description: Review roadmap structure, business content or both with separate scoped conclusions; check source-backed planning and selected views without rewriting or expanding authorization.
+version: 3.12.1
 license: MIT
 output_schema:
   type: findings-list
@@ -27,14 +27,29 @@ links as the baseline for re-review; missing evidence cannot become a full pass.
 1. Load the quality rule and [roadmap modeling](../../specs/roadmap-modeling.md);
    halt if a required resource is missing. Read the roadmap at the project path
    (default `docs/process-management/roadmap.md`) and project norms.
-2. Read linked requirement and defect records, goals, acceptance criteria, priorities
+2. Resolve requested structure/content/both review scope independently of file
+   population under the Spec's [stage contract](../../specs/roadmap-modeling.md#stage-entries-authorization-and-acceptance).
+   A structure-only review of a populated plan preserves facts and checks organization
+   without business-source collection. It does not reset files, authorize population
+   or certify content. Content review checks its necessary structural consistency
+   without reopening settled layout. When both are requested, give separate results.
+   Establish the stage under the Rule's [review scope](../../rules/roadmap-quality.md#review-scope-and-structure-drafts).
+   For a structure-only scope, read all selected files and check document roles,
+   fields, clean content, formatting and links against the retained layout/template.
+   Report business checks as not evaluated, not missing-business defects; do not
+   fetch or populate business sources. State any difference between Spec conformance,
+   template use and exact named-example replication. Emit findings and stop here;
+   a structural pass is not a full roadmap pass. For content/both scope continue
+   below, including on an empty draft: report the missing business basis and checks
+   that cannot be evaluated. Do not downgrade the requested scope or populate files.
+3. Read linked requirement and defect records, goals, acceptance criteria, priorities
    and dependencies. Verify that every requirement-view entry is a requirement or
    defect, not a task or task group. Version groups and schedule milestones are
    valid additional views. Check duplicates against stable parent IDs.
-3. Evaluate all five dimensions in the rule: completeness, executability, clarity,
+4. Evaluate all five dimensions in the rule: completeness, executability, clarity,
    soundness and traceability. Missing four-part stage dossiers, fixed hypothesis
    sentences or inline metric tables are not defects. Linked evidence is valid.
-4. Test readability by summarizing current priorities, subsequent work and key blockers
+5. Test readability by summarizing current priorities, subsequent work and key blockers
    from the main view alone. Locate detail that obstructs those answers or duplicates
    source task lists and evidence. Report concrete locations, not a subjective score.
    Check that policy is the reusable rule and arrangement rationale explains its
@@ -43,7 +58,7 @@ links as the baseline for re-review; missing evidence cannot become a full pass.
    precise rank for genuine ties or migration to the Spec's suggested filenames.
    In the revised reading hierarchy, plan/unknowns precede maintenance metadata;
    policy, closure, selection and language evidence remain recoverable later.
-5. Verify source agreement, approval boundaries and prerequisite readiness. Check
+6. Verify source agreement, approval boundaries and prerequisite readiness. Check
    separate approval, execution and key conditions columns; one fixed execution
    label per row; short linked next-step conditions; and no evidence in status cells.
    Compare every claimed transition with source records and the declared closure
@@ -52,10 +67,10 @@ links as the baseline for re-review; missing evidence cannot become a full pass.
    priority and tier are not execution labels. If sources
    are unavailable, mark the affected criteria `cannot evaluate` with the reason;
    never infer a pass. Missing evidence becomes a finding or limitation, not a question.
-6. For change frequency, discover the project's window and threshold and inspect git
+7. For change frequency, discover the project's window and threshold and inspect git
    history if available. Without a defined window or sufficient history, report that
    frequency cannot be evaluated; do not invent a cycle or threshold.
-7. Check selected-view and destination criteria in quality rule §6. Compare version
+8. Check selected-view and destination criteria in quality rule §6. Compare version
    membership, requirement scope, timing basis, calendars, dependencies and delivery
    evidence. Do not demand a version or schedule view that the user did not select,
    or treat generation as proof of publication. Mark unavailable source/platform
@@ -68,12 +83,19 @@ links as the baseline for re-review; missing evidence cannot become a full pass.
 ## Output and handoff
 
 A findings list and explicit unchecked criteria. A full pass is allowed only when
-all applicable criteria were evaluated. Structural findings go to `define-roadmap`,
+all applicable criteria were evaluated on a populated plan. Structure-only review
+reports its narrower result. Repeating a review without new evidence or findings
+produces no invented repair or expanded structure. Structural findings go to `define-roadmap`,
 placement to `promote-roadmap-items`, status or timing to `update-roadmap`.
 The orchestrator determines its mode; this skill emits no mode.
 
 ## Self-Check
 
+Apply these checks to the requested stage. For a structure-only scope, source-dependent
+business, execution, schedule and publication checks are not evaluated; passing the
+structural subset does not claim the populated-plan checks passed.
+
+- [ ] Requested review scope was resolved independently of population, with separate structure/content conclusions and no mutation or expanded authorization.
 - [ ] The quality rule and project norms were loaded.
 - [ ] All five dimensions and source-dependent criteria were examined.
 - [ ] Requirement/defect granularity, parent consolidation and readability were checked.

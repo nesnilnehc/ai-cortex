@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: workflow-documentation
-version: 1.1.1
+version: 1.2.0
 scope: creating or maintaining any .md document
 recommended_scope: user
 status: active
@@ -24,6 +24,32 @@ Every act of creating, naming or maintaining a Markdown document (`.md`), coveri
 5. **Change records go where they belong**: version changes into `CHANGELOG.md`, improvement notes into an issue or PR. Do not open a new document for them.
 
 ---
+
+## Structure and reader-facing content
+
+For a new document family or an authorized redesign, establish the reader entry,
+document responsibilities, navigation and field structure before populating it.
+Reuse settled structures for maintenance; an explicit structure-only request ends
+with the blank structure, without importing business facts. Honor existing choices
+without repeatedly asking for approval.
+
+Reader-facing deliverables MUST NOT contain instructions to the author or agent,
+field-filling rules, template directives, chat authorization or discussion process.
+These belong in authoring guides, Skills and Rules. Relevant rationale, definitions,
+actual timing/acceptance boundaries, limitations and unknown facts remain legitimate
+reader content; do not delete them merely because they explain a decision.
+
+Blank consumer templates contain headings, field placeholders, tables and necessary
+navigation. Keep authoring instructions in a separately linked guide. Under the
+default Markdown style, bold standalone field labels (including their colon), use
+one placeholder form, and keep heading levels, blank lines and table syntax
+consistent. Table headers need no additional bold. Retain explicit project/platform
+styles instead of forcing a formatting migration.
+
+Before delivery, inspect the rendered/readable artifact and check for leaked author
+guidance as well as discussion residue. Checking a clean blank structure does not
+certify its future business content. If a recheck finds no defect, do not add fields
+or explanatory prose merely to produce a change.
 
 ## Identifying a temporary document (any one of these)
 

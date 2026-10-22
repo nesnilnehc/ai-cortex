@@ -1,0 +1,70 @@
+[
+  {
+    "id": "chinese-feedback",
+    "version": 1,
+    "covers": [
+      "G1",
+      "G5",
+      "G6"
+    ],
+    "locale": "zh-CN",
+    "turns": [
+      {
+        "user": "先建立一个主入口加五类明细的空白结构，主要字段加粗，不放填写指导；不填业务内容，不同步语雀。",
+        "replay": {
+          "action": "blank",
+          "review_scope": "structure",
+          "reason": "Scripted golden decision; not a live recording."
+        },
+        "expected": {
+          "action": "blank",
+          "scope": "structure",
+          "stage": "blank",
+          "no_write": false
+        }
+      },
+      {
+        "user": "我只确认结构，不是授权填写业务。再检查一次，没有新问题就不要改文件。",
+        "replay": {
+          "action": "review",
+          "review_scope": "structure",
+          "reason": "Scripted golden decision; not a live recording."
+        },
+        "expected": {
+          "action": "review",
+          "scope": "structure",
+          "stage": "blank",
+          "no_write": true
+        }
+      },
+      {
+        "user": "现在使用提供的中文来源填写已确认的结构，保留需求、优先级、版本归属与事件状态，不发布。",
+        "replay": {
+          "action": "populate",
+          "review_scope": "business",
+          "reason": "Scripted golden decision; not a live recording."
+        },
+        "expected": {
+          "action": "populate",
+          "scope": "business",
+          "stage": "populated",
+          "no_write": false
+        }
+      },
+      {
+        "user": "再整体复核一遍，不改结构和业务决定，也不发布。",
+        "replay": {
+          "action": "review",
+          "review_scope": "business",
+          "reason": "Scripted golden decision; not a live recording."
+        },
+        "expected": {
+          "action": "review",
+          "scope": "business",
+          "stage": "populated",
+          "no_write": true
+        }
+      }
+    ]
+  }
+]

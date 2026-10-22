@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: agentic-artifact-paradigm
-version: 1.0.0
+version: 1.1.0
 scope: an agent capability that turns input into a spec-conforming artifact
 recommended_scope: user
 lifecycle: living
@@ -32,7 +32,13 @@ Any agent capability that **turns messy input into an artifact conforming to a s
 
 ## 2. Core proposition
 
-> **An artifact's quality framework — a spec's sections, a review's dimensions — is scaffolding and a presentation form, not the agenda for the interaction or the generation. The agent leads with substance and structure follows; the framework fills in quietly through extraction and inference, and appears only in the product. It is never a checklist for interrogating field by field or scoring dimension by dimension. The quality rule is the convergence oracle — and the oracle itself must be substance-driven, never reduced to filling in a form.**
+> **An artifact's quality framework — a spec's sections, a review's dimensions — is scaffolding and a presentation form, not the agenda for the interaction or the generation. The reader-facing structure is settled before population; content work then follows substantive evidence rather than a field-by-field agenda. The framework fills quietly through extraction and inference, and appears in the product. It is never a checklist for interrogating field by field or scoring dimension by dimension. The quality rule is the convergence oracle — and the oracle itself must be substance-driven, never reduced to filling in a form.**
+
+Structure-before-content in an authorized document design is compatible with this
+principle: settle the reader-facing scaffold first, then gather substantive facts.
+An explicitly requested blank structure is itself the deliverable for that stage;
+do not populate it under the extract-first rule. Reusing a settled scaffold is not
+a reason to restart an interview. See [documentation management](workflow-documentation.md#structure-and-reader-facing-content).
 
 Two opposites, in one line each:
 

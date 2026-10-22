@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 from datetime import date
 from functools import cache
 from html import escape
@@ -83,7 +84,7 @@ def validate(data: dict) -> dict:
 
 def records(data):
     keys = ('entries', 'versions', 'phases', 'milestones')
-    if data['schema_version'] in {'1.3', '1.4', '1.5'}:
+    if data['schema_version'] in {'1.3', '1.4', '1.5', '1.6'}:
         keys += ('iterations',)
     return [r for key in keys
             for r in array(data.get(key, []), key)]
@@ -126,7 +127,7 @@ def validate_events(data):
 
 
 def validate_revisions(data):
-    if data['schema_version'] not in {'1.2', '1.3', '1.4', '1.5'}:
+    if data['schema_version'] not in {'1.2', '1.3', '1.4', '1.5', '1.6'}:
         return
     revisions = array(data.get('revisions'), 'revisions')
     if len(revisions) > 200:
@@ -155,7 +156,7 @@ def validate_revisions(data):
 
 
 def validate_iterations(data):
-    if data['schema_version'] not in {'1.3', '1.4', '1.5'}:
+    if data['schema_version'] not in {'1.3', '1.4', '1.5', '1.6'}:
         return
     if 'iterations' in data['views']:
         text(data.get('cadence'), 'cadence')
@@ -196,7 +197,7 @@ def validate_choice(data):
     selection = obj(data.get('selection'), 'selection')
     choice(selection.get('scenario'), {'iterations', 'flow', 'staged', 'discovery', 'custom'}, 'scenario')
     choice(selection.get('primary'), {'requirements', 'iterations', 'versions', 'phases', 'flow'}, 'primary')
-    choice(selection.get('layout'), {'single', 'split'}, 'selection.layout')
+    choice(selection.get('layout'), {'single', 'split', 'topic-split'} if data['schema_version'] == '1.6' else {'single', 'split'}, 'selection.layout')
     views = array(data.get('views'), 'views')
     options = {'requirements', 'iterations', 'versions', 'phases', 'milestones', 'flow', 'schedule'}
     for view in views:
@@ -210,7 +211,7 @@ def validate_choice(data):
 
 
 def validate_selection(data):
-    if data['schema_version'] not in {'1.4', '1.5'}:
+    if data['schema_version'] not in {'1.4', '1.5', '1.6'}:
         return
     validate_choice(data)
     for view in ('phases', 'milestones'):
@@ -227,7 +228,7 @@ def validate_selection(data):
 def recommend_views(data):
     obj(data, 'recommendation input')
     if 'schema_version' in data:
-        choice(data['schema_version'], {'1.0', '1.1', '1.2', '1.3', '1.4', '1.5'}, 'schema_version')
+        choice(data['schema_version'], {'1.0', '1.1', '1.2', '1.3', '1.4', '1.5', '1.6'}, 'schema_version')
     if data.get('schema_version') in {'1.0', '1.1', '1.2', '1.3'}:
         validate(data)
         return dict(status='retained', views=list(data['views']), primary=None, layout=None,
@@ -265,13 +266,13 @@ def recommend_views(data):
 
 def recommend(data):
     result = recommend_views(data)
-    if data.get('schema_version') == '1.5' or 'language_context' in data:
+    if data.get('schema_version') in {'1.5', '1.6'} or 'language_context' in data:
         result['language'] = resolve_language(data)
     return result
 
 
 def validate_language(data):
-    if data.get('schema_version') != '1.5':
+    if data.get('schema_version') not in {'1.5', '1.6'}:
         return
     saved = language_record(data.get('language'))
     if 'language_context' in data:
@@ -308,7 +309,7 @@ def language_candidates(context):
 
 def resolve_language(data):
     obj(data, 'language resolution input')
-    existing = language_record(data['language']) if data.get('schema_version') == '1.5' and 'language' in data else None
+    existing = language_record(data['language']) if data.get('schema_version') in {'1.5', '1.6'} and 'language' in data else None
     if existing and 'language_context' not in data:
         return dict(existing, status='retained', questions=[])
     candidates = language_candidates(data.get('language_context', {}))
@@ -352,7 +353,7 @@ def localized_catalog():
 
 
 def ui(data, message):
-    locale = data['language']['locale'] if data and data.get('schema_version') == '1.5' else 'en'
+    locale = data['language']['locale'] if data and data.get('schema_version') in {'1.5', '1.6'} else 'en'
     if locale == 'en':
         return message.removeprefix('value:')
     if locale != 'zh-CN':
@@ -378,7 +379,7 @@ def context_questions(fields):
 
 
 def enabled(data, view):
-    return data['schema_version'] not in {'1.4', '1.5'} or view in data['views']
+    return data['schema_version'] not in {'1.4', '1.5', '1.6'} or view in data['views']
 
 
 
@@ -400,19 +401,19 @@ def validate_schedule_types(data, items):
 
 def validate_header(data: dict) -> tuple:
     obj(data, 'input')
-    choice(data.get('schema_version'), {'1.0', '1.1', '1.2', '1.3', '1.4', '1.5'}, 'schema_version')
+    choice(data.get('schema_version'), {'1.0', '1.1', '1.2', '1.3', '1.4', '1.5', '1.6'}, 'schema_version')
     if data['schema_version'] == '1.0' and any(k in data for k in ('phases', 'milestones')):
         raise ValueError('phases/milestones require schema_version 1.1 or later')
     for field in ('project', 'updated', 'direction', 'ordering', 'closure', 'priority_policy'):
         text(data.get(field), field)
-    if data['schema_version'] in {'1.3', '1.4', '1.5'} and policy_is_reference(data['priority_policy']):
+    if data['schema_version'] in {'1.3', '1.4', '1.5', '1.6'} and policy_is_reference(data['priority_policy']):
         reference(data['priority_policy'], 'priority_policy')
     iso(data['updated'], 'updated')
     views = array(data.get('views'), 'views')
     options = {'requirements', 'versions', 'schedule'}
-    if data['schema_version'] in {'1.3', '1.4', '1.5'}:
+    if data['schema_version'] in {'1.3', '1.4', '1.5', '1.6'}:
         options.add('iterations')
-    if data['schema_version'] in {'1.4', '1.5'}:
+    if data['schema_version'] in {'1.4', '1.5', '1.6'}:
         options.update({'phases', 'milestones', 'flow'})
     for view in views:
         choice(view, options, 'views')
@@ -568,7 +569,7 @@ def timing(item, mode, data=None):
 
 def markdown(data: dict) -> str:
     """Render selected views of validated facts as one Markdown roadmap."""
-    if data['schema_version'] in {'1.3', '1.4', '1.5'}:
+    if data['schema_version'] in {'1.3', '1.4', '1.5', '1.6'}:
         return main_markdown(data)
     lines = [f'# {md(data["project"])}{ui(data, " Roadmap")}', '', ui(data, 'Updated: ') + data["updated"], '',
              md(data['direction']), '', ui(data, 'Ordering rationale: ') + md(data['ordering']), '',
@@ -608,10 +609,10 @@ def planning_basis(data: dict) -> list[str]:
         policy = ui(data, 'Priority policy: ') + md(policy)
     lines = ['', ui(data, '## Planning basis and sources'), '', policy, '',
              ui(data, 'Closure criterion: ') + md(data['closure']), '']
-    if data['schema_version'] in {'1.4', '1.5'}:
+    if data['schema_version'] in {'1.4', '1.5', '1.6'}:
         lines += ['#' + line if line.startswith('## ') else line
                   for line in selection_markdown(data)]
-    if data['schema_version'] == '1.5':
+    if data['schema_version'] in {'1.5', '1.6'}:
         lines += language_markdown(data)
     return lines
 
@@ -670,7 +671,7 @@ def delivery_markdown(data):
     if 'versions' in data['views']:
         lines += [''] + version_markdown(data)
     lines += event_markdown(data)
-    if data['schema_version'] in {'1.4', '1.5'}:
+    if data['schema_version'] in {'1.4', '1.5', '1.6'}:
         lines = primary_first(lines, data['selection']['primary'], data)
     if lines:
         lines = ['', ui(data, '## Delivery plan'), ''] + [
@@ -742,7 +743,7 @@ def delivery_summary(data):
     if 'flow' in data['views']:
         lines += [ui(data, 'Workflow policy: ') + md(data['flow']['policy']), '',
                   ui(data, 'Service expectation: ') + md(data['flow']['expectation']), '']
-    if data['schema_version'] in {'1.4', '1.5'} and data.get('phases') and enabled(data, 'phases'):
+    if data['schema_version'] in {'1.4', '1.5', '1.6'} and data.get('phases') and enabled(data, 'phases'):
         lines += [table([ui(data, 'Phase'), ui(data, 'Scope'), ui(data, 'Exit condition')], [
             [p['id'] + ' · ' + md(p['name']), ', '.join(p['scope']), md(p['exit_condition'])]
             for p in data['phases']]), '']
@@ -765,7 +766,7 @@ def main_markdown(data, split=False):
     detail = delivery_markdown(data)
     lines += delivery_summary(data) if split and detail else detail
     lines += revision_markdown(data)
-    if split and data.get('revisions') and data['schema_version'] in {'1.2', '1.3', '1.4', '1.5'}:
+    if split and data.get('revisions') and data['schema_version'] in {'1.2', '1.3', '1.4', '1.5', '1.6'}:
         lines += ['', ui(data, '[Supplied revision details](roadmap-history.md).')]
     lines += planning_basis(data)
     lines += ['', ui(data, 'Backlog requirements and defects map to this roadmap; items outside it are not done by default.'),
@@ -777,12 +778,22 @@ def clean_markdown(lines):
     return re.sub(r'\n{3,}', '\n\n', '\n'.join(lines)).rstrip() + '\n'
 
 
-def documents(data, layout=None):
-    retained = data['selection']['layout'] if data['schema_version'] in {'1.4', '1.5'} else None
+def selected_layout(data, layout=None):
+    retained = data['selection']['layout'] if data['schema_version'] in {'1.4', '1.5', '1.6'} else None
     if layout is not None and retained is not None and layout != retained:
         raise ValueError('layout conflicts with retained selection; update its source decision first')
     layout = layout or retained or 'single'
-    choice(layout, {'single', 'split'}, 'layout')
+    choice(layout, {'single', 'split', 'topic-split'}, 'layout')
+    if layout == 'topic-split':
+        if data['schema_version'] != '1.6':
+            raise ValueError('topic-split requires schema_version 1.6')
+    return layout
+
+
+def documents(data, layout=None):
+    layout = selected_layout(data, layout)
+    if layout == 'topic-split':
+        return topic_documents(data)
     outputs = {'roadmap.md': markdown(data) if layout == 'single' else main_markdown(data, True)}
     if layout == 'split':
         detail = delivery_markdown(data)
@@ -790,7 +801,7 @@ def documents(data, layout=None):
             outputs['roadmap-delivery.md'] = clean_markdown([
                 '# ' + md(data['project']) + ui(data, ' Delivery Details'), '', ui(data, '[Main roadmap](roadmap.md)'),
                 '', ui(data, 'Updated: ') + data['updated'], '', ui(data, 'Generated view; maintain linked source records.'), *detail, ''])
-        if data['schema_version'] in {'1.2', '1.3', '1.4', '1.5'} and data['revisions']:
+        if data['schema_version'] in {'1.2', '1.3', '1.4', '1.5', '1.6'} and data['revisions']:
             outputs['roadmap-history.md'] = clean_markdown([
                 '# ' + md(data['project']) + ui(data, ' Revision Details'), '', ui(data, '[Main roadmap](roadmap.md)'),
                 '', ui(data, 'Updated: ') + data['updated'], '', ui(data, 'Supplied decisions; linked history may contain earlier records.'),
@@ -803,7 +814,7 @@ def documents(data, layout=None):
 
 
 def revision_markdown(data, limit=5):
-    if data['schema_version'] not in {'1.2', '1.3', '1.4', '1.5'}:
+    if data['schema_version'] not in {'1.2', '1.3', '1.4', '1.5', '1.6'}:
         return []
     revisions = data['revisions']
     lines = ['', ui(data, '## Revision history'), '']
@@ -886,7 +897,7 @@ def schedule_markdown(data: dict, heading='## Schedule') -> list:
     covered = {i['ref'] for i in schedule['items']}
     covered.update(ref for v in data.get('versions', []) if v['id'] in covered for ref in v['members'])
     missing = [e['id'] for e in data['entries'] + data.get('phases', []) +
-               data.get('milestones', []) + (data.get('iterations', []) if data['schema_version'] in {'1.3', '1.4', '1.5'} else [])
+               data.get('milestones', []) + (data.get('iterations', []) if data['schema_version'] in {'1.3', '1.4', '1.5', '1.6'} else [])
                if e['id'] not in covered]
     if missing:
         lines.extend(['', ui(data, 'No schedule assigned: ') + ', '.join(missing) + '.'])
@@ -961,7 +972,7 @@ def svg_root(data, schedule, count):
                       height=str(top + max(1, count) * row_height + 48),
                       viewBox=f'0 0 {width} {top + max(1, count) * row_height + 48}',
                       role='img', **{'aria-labelledby': 'title description'})
-    if data['schema_version'] == '1.5':
+    if data['schema_version'] in {'1.5', '1.6'}:
         root.set('{http://www.w3.org/XML/1998/namespace}lang', data['language']['locale'])
     ET.SubElement(root, 'title', id='title').text = data['project'] + ui(data, ' schedule')
     ET.SubElement(root, 'desc', id='description').text = schedule['origin'] + ui(data, '; target, committed and actual timing are labeled; exclusive ends.')
@@ -1040,15 +1051,247 @@ def svg_row(root, item, coords, positions, names, mode, xpos, states, data=None)
         ET.SubElement(root, 'polygon', points=f'{x1},{y} {x1-4},{y-6} {x1+4},{y-6}', fill='#526777')
 
 
-def preflight_outputs(source, destination, overwrite):
+TOPIC_DOCUMENTS = ('roadmap.md', 'iterations.md', 'versions.md', 'milestones.md',
+                   'roadmap-planning-basis.md', 'roadmap-history.md')
+TOPIC_OUTPUTS = TOPIC_DOCUMENTS + ('roadmap.svg', 'roadmap.mmd')
+MANIFEST = '.roadmap-outputs.json'
+
+
+def heading_slug(value):
+    return re.sub(r'[^\w\- ]', '', value.lower()).replace(' ', '-')
+
+
+def validate_blank_documents(outputs):
+    """Check the emitted structure, rather than claiming validity after a read."""
+    if set(outputs) != set(TOPIC_DOCUMENTS):
+        raise ValueError('blank structure: expected exactly six topic documents')
+    headings = {name: {heading_slug(h) for h in re.findall(r'^#+ (.+)$', value, re.M)}
+                for name, value in outputs.items()}
+    for name, value in outputs.items():
+        if len(re.findall(r'^# ', value, re.M)) != 1 or re.search(r'</?[A-Za-z][^>]*>', value):
+            raise ValueError('blank structure: invalid title or HTML in ' + name)
+        for block in value.strip().split('\n\n'):
+            if re.fullmatch(r'#{1,2} [^\n]+', block):
+                continue
+            if re.fullmatch(r'\*\*[^*\n]+[:：]\*\* \{(?:Pending|待填写)\}', block):
+                continue
+            if re.fullmatch(r'\[[^]]+\]\([^)]+\)(?: · \[[^]]+\]\([^)]+\))*', block):
+                continue
+            if block.startswith('|'):
+                rows = block.splitlines()
+                if (len(rows) == 2 and len(rows[0].split('|')) == len(rows[1].split('|')) and
+                        all(cell.strip() == '---' for cell in rows[1].strip('|').split('|'))):
+                    continue
+            raise ValueError('blank structure: author guidance or malformed field/table in ' + name)
+        for target in re.findall(r'\]\(([^)]+)\)', value):
+            path, separator, anchor = target.partition('#')
+            if path not in outputs or (separator and anchor not in headings[path]):
+                raise ValueError('blank structure: broken navigation in ' + name + ': ' + target)
+
+
+def blank_documents(locale='en'):
+    """Render clean scaffold assets without accepting or reading business facts."""
+    choice(locale, {'en', 'zh-CN'}, 'locale')
+    data = dict(schema_version='1.6', language=dict(locale=locale))
+    outputs = {}
+    for name in TOPIC_DOCUMENTS:
+        source = Path(__file__).resolve().parents[1] / 'assets/structure-first' / name
+        value = source.read_text(encoding='utf-8')
+        if locale == 'zh-CN':
+            translated = []
+            for line in value.splitlines():
+                if line.startswith('#'):
+                    prefix, label = line.split(' ', 1)
+                    line = prefix + ' ' + ui(data, label)
+                elif line.startswith('**'):
+                    label = line.split(':**', 1)[0][2:]
+                    line = '**' + ui(data, label) + '：** {待填写}'
+                elif line.startswith('|') and '---' not in line:
+                    line = '| ' + ' | '.join(ui(data, cell.strip()) for cell in line.strip('|').split('|')) + ' |'
+                elif line.startswith('['):
+                    def translate_link(match):
+                        label, target = match.groups()
+                        path, separator, anchor = target.partition('#')
+                        if separator:
+                            headings = {'completed-and-closed-items': 'Completed and closed items',
+                                        'pending-decisions': 'Pending decisions', 'unknown-facts': 'Unknown facts',
+                                        'timeline': 'Timeline'}
+                            anchor = heading_slug(ui(data, headings[anchor]))
+                        return '[' + ui(data, label) + '](' + path + (separator + anchor if separator else '') + ')'
+                    line = re.sub(r'\[([^]]+)\]\(([^)]+)\)', translate_link, line)
+                translated.append(line)
+            value = '\n'.join(translated) + '\n'
+        outputs[name] = value
+    validate_blank_documents(outputs)
+    return outputs
+
+
+def topic_documents(data):
+    """Populate the confirmed scaffold without changing its headings or columns."""
+    outputs = blank_documents(data['language']['locale'])
+    pending = '{Pending}' if data['language']['locale'] == 'en' else '{待填写}'
+    colon = ':' if data['language']['locale'] == 'en' else '：'
+
+    def field(name, label, value):
+        key = '**' + ui(data, label) + colon + '** ' + pending
+        outputs[name] = outputs[name].replace(key, key.replace(pending, value))
+
+    def fill_tables(name, rows):
+        index = 0
+        def populate(match):
+            nonlocal index
+            header = match.group(0).splitlines()[0]
+            columns = [cell.strip() for cell in header.strip('|').split('|')]
+            value = table(columns, rows[index]) + '\n'
+            index += 1
+            return value
+        outputs[name] = re.sub(r'(?:^\|.*\|\n)+', populate, outputs[name], flags=re.M)
+
+    def link(label, source):
+        return '[' + md(label) + '](' + quote(source, safe='/:#?=&%+~.-_') + ')'
+
+    def refs(values):
+        return ', '.join(values) or ui(data, 'None')
+
+    unknown = ui(data, 'Unknown')
+    policy = link(ui(data, 'Priority policy'), data['priority_policy']) if policy_is_reference(data['priority_policy']) else md(data['priority_policy'])
+    for name in TOPIC_DOCUMENTS:
+        field(name, 'Updated', data['updated'])
+        if name != 'roadmap.md':
+            outputs[name] = outputs[name].replace('# ', '# ' + md(data['project']) + ' ', 1)
+    outputs['roadmap.md'] = outputs['roadmap.md'].replace(ui(data, '{Project} Roadmap'),
+        md(data['project']) + ui(data, ' Roadmap'), 1)
+    field('roadmap.md', 'Direction and goal', md(data['direction']))
+    field('roadmap.md', 'Current arrangement and rationale', md(data['ordering']))
+    field('roadmap.md', 'Subsequent work and key conditions', ui(data, 'See delivery outlook and linked conditions.'))
+    unverified = [e['id'] for e in data['entries'] if e['execution'] is None]
+    unknown_records = unverified + [r['id'] for r in records(data) if r.get('owner') == 'Unknown' or r.get('window') == 'Unknown']
+    field('roadmap.md', 'Material unknowns', refs(dict.fromkeys(unknown_records)) if unknown_records else ui(data, 'No additional unknowns supplied.'))
+    active = [e for e in data['entries'] if e['execution'] != 'Completed']
+    field('roadmap.md', 'Tier summary', '; '.join(display(data, tier) + ': ' + refs(e['id'] for e in active if e['tier'] == tier)
+                                                for tier in ('Now', 'Next', 'Later')))
+    field('roadmap.md', 'Execution evidence and mapping', ui(data, 'Source records: ') + ', '.join(link(e['id'], e['source']) for e in data['entries']))
+    field('roadmap.md', 'Cadence and basis', md(data.get('cadence', unknown)))
+    field('roadmap.md', 'Priority policy', policy)
+    field('roadmap.md', 'Closure criterion', md(data['closure']))
+    requirement_rows = [[display(data, e['tier']), link(e['id'] + ' · ' + e['name'], e['source']), md(e['outcome']),
+                         e['priority'], md(e['approval']), display(data, e['execution']) if e['execution'] else '—',
+                         link(e['conditions'], e['source'])] for e in active]
+    iterations = data['iterations'] if 'iterations' in data['views'] else []
+    versions = data['versions'] if 'versions' in data['views'] else []
+    events = data.get('milestones', []) if enabled(data, 'milestones') else []
+    revision_rows = [[r['date'] + ' · ' + r['id'], md(r['change']), md(r['reason']), md(r['impact']),
+                      link(ui(data, 'Details'), r['source'])] for r in data['revisions']]
+    schedule_rows = []
+    field('roadmap.md', 'Origin, calendar and exclusive end', (md(data['schedule']['origin']) + ' · ' + ui(data, 'Elapsed calendar days / whole weeks; spans have exclusive ends.')) if 'schedule' in data['views'] else unknown)
+    if 'schedule' in data['views']:
+        schedule = data['schedule']
+        schedule_rows = [[i['ref'], display(data, i['kind']), display(data, i['basis']), timing(i, schedule['mode'], data),
+                          refs(i['depends_on'])] for i in schedule['items']]
+        unknown_times = [i['ref'] for i in schedule['items'] if i['start'] is None]
+        scheduled = {i['ref'] for i in schedule['items']}
+        covered = scheduled | {ref for v in data.get('versions', []) if v['id'] in scheduled for ref in v['members']}
+        unknown_times += [r['id'] for r in records(data) if r['id'] not in covered]
+        field('roadmap.md', 'Unscheduled work and timing exceptions', refs(dict.fromkeys(unknown_times)))
+        diagram_key = '**' + ui(data, 'Schedule diagram') + colon + '** ' + pending
+        outputs['roadmap.md'] = outputs['roadmap.md'].replace(diagram_key, ui(data, '![Roadmap schedule](roadmap.svg)'))
+    else:
+        field('roadmap.md', 'Unscheduled work and timing exceptions', refs(r['id'] for r in records(data)))
+        field('roadmap.md', 'Schedule diagram', unknown)
+    fill_tables('roadmap.md', [requirement_rows,
+        [[i['id'] + ' · ' + md(i['goal']), iteration_window(data, i['id'])] for i in iterations],
+        [[v['id'] + ' · ' + md(v['outcome']), refs(v['members']), unknown if v['window'] == 'Unknown' else md(v['window'])] for v in versions],
+        [[m['id'] + ' · ' + md(m['name']), display(data, m['state']), iteration_window(data, m['id'])] for m in events],
+        schedule_rows, revision_rows[:5]])
+    field('iterations.md', 'Cadence and basis', md(data.get('cadence', unknown)))
+    allocated = {ref for i in iterations for ref in i['members']}
+    field('iterations.md', 'Unallocated work', refs(e['id'] for e in data['entries'] if e['id'] not in allocated))
+    field('iterations.md', 'Carry-over record', ', '.join(link(i['id'], i['source']) for i in iterations) or unknown)
+    fill_tables('iterations.md', [[[i['id'] + ' · ' + md(i['name']), md(i['goal']), iteration_window(data, i['id']), refs(i['members']),
+        iteration_versions(data, i), unknown if i['owner'] == 'Unknown' else md(i['owner']),
+        link(ui(data, 'Source'), i['source']) + (' · ' + link(ui(data, 'Board'), i['board']) if i.get('board') else '')] for i in iterations]])
+    assigned = {ref for v in versions for ref in v['members']}
+    field('versions.md', 'Unassigned work', refs(e['id'] for e in data['entries'] if e['id'] not in assigned))
+    fill_tables('versions.md', [[[v['id'] + ' · ' + md(v['name']), refs(v['members']), md(v['outcome']),
+        unknown if v['owner'] == 'Unknown' else md(v['owner']), unknown if v['window'] == 'Unknown' else md(v['window'])] for v in versions]])
+    fill_tables('milestones.md', [[[m['id'] + ' · ' + md(m['name']), display(data, m['category']), refs(m['related']) if m['related'] else ui(data, 'Global'),
+        unknown if m['owner'] == 'Unknown' else md(m['owner']), display(data, m['state']), md(m['criterion']),
+        link(ui(data, 'Source'), m['source']), link(ui(data, 'Evidence'), m['evidence']) if m.get('evidence') else '—'] for m in events]])
+    archive = [[link(e['id'] + ' · ' + e['name'], e['source']), display(data, e['tier']), display(data, e['execution']), unknown,
+                link(ui(data, 'Source'), e['source']), unknown] for e in data['entries'] if e['execution'] == 'Completed']
+    fill_tables('roadmap-history.md', [revision_rows, archive])
+    if data.get('revision_history'):
+        outputs['roadmap-history.md'] += '\n' + link(ui(data, 'Full revision history'), data['revision_history']) + '\n'
+    selection = data['selection']
+    field('roadmap-planning-basis.md', 'Scenario / primary perspective', display(data, selection['scenario']) + ' / ' + display(data, selection['primary']))
+    field('roadmap-planning-basis.md', 'Enabled and omitted views', ', '.join(data['views']) + ' · ' + ui(data, 'Omitted views: ') + refs(sorted({'requirements', 'iterations', 'versions', 'milestones', 'phases', 'flow', 'schedule'} - set(data['views']))))
+    field('roadmap-planning-basis.md', 'Layout and selection basis', display(data, selection['layout']) + ' · ' + md(selection['rationale']) + ' · ' + link(ui(data, 'Source'), selection['source']))
+    field('roadmap-planning-basis.md', 'Deliverable language and source', data['language']['locale'] + ' · ' + link(ui(data, 'Source'), data['language']['source']))
+    field('roadmap-planning-basis.md', 'Priority policy authority', policy)
+    field('roadmap-planning-basis.md', 'Closure criterion authority', md(data['closure']))
+    field('roadmap-planning-basis.md', 'Existing decisions', link(ui(data, 'Source'), selection['source']))
+    source_rows = [[r['id'], md(r['name']), link(ui(data, 'Source'), r['source']), unknown]
+                   for r in records(data) if r.get('source')]
+    for phase in data.get('phases', []):
+        if enabled(data, 'phases'):
+            source_rows = [row for row in source_rows if row[0] != phase['id']]
+            source_rows.append([phase['id'], md(phase['name']) + ' · ' + ui(data, 'Scope') + colon + ' ' + refs(phase['scope']) + ' · ' + ui(data, 'Owner') + colon + ' ' + (unknown if phase['owner'] == 'Unknown' else md(phase['owner'])) + ' · ' + ui(data, 'Exit condition') + colon + ' ' + md(phase['exit_condition']),
+                                link(ui(data, 'Source'), phase['source']), unknown])
+    if 'flow' in data['views']:
+        flow = data['flow']
+        source_rows.append([ui(data, 'Workflow policy'), ui(data, 'Workflow policy: ') + md(flow['policy']) + ' · ' + ui(data, 'Service expectation: ') + md(flow['expectation']) + ' · ' + ui(data, 'Flow metrics: ') + md(flow['metrics']),
+                            link(ui(data, 'Source'), flow['source']) + ' · ' + link(ui(data, 'Board'), flow['board']), unknown])
+    unknown_rows = [[ref, ui(data, 'Source records'), unknown, ui(data, 'Execution not verified'), ui(data, 'Obtain source evidence')]
+                    for ref in unverified]
+    fill_tables('roadmap-planning-basis.md', [source_rows, [], unknown_rows])
+    if 'schedule' in data['views']:
+        outputs['roadmap.svg'] = svg(data)
+        if data['schedule']['mode'] == 'dates':
+            outputs['roadmap.mmd'] = mermaid(data)
+    return outputs
+
+
+def write_topic_outputs(source, destination, outputs, overwrite):
+    """Preflight every reserved path; remove only intact, owned stale outputs."""
+    preflight_outputs(source, destination, overwrite, tuple(dict.fromkeys(TOPIC_OUTPUTS + OUTPUTS)) + (MANIFEST,))
+    manifest = destination / MANIFEST
+    owned = {}
+    if manifest.exists():
+        owned = json.loads(manifest.read_text(encoding='utf-8'))
+        if (not isinstance(owned, dict) or set(owned) - (set(TOPIC_OUTPUTS) | set(OUTPUTS)) or
+                any(not isinstance(digest, str) for digest in owned.values())):
+            raise ValueError('invalid output ownership manifest')
+    unowned_stale = {name for name in set(TOPIC_OUTPUTS) | set(OUTPUTS)
+                     if (destination / name).exists()} - outputs.keys() - owned.keys()
+    if unowned_stale:
+        raise ValueError('unowned reserved outputs would remain; use a separate destination or preserve them explicitly: ' + ', '.join(sorted(unowned_stale)))
+    stale = set(owned) - outputs.keys()
+    for name in stale:
+        path = destination / name
+        if path.exists() and hashlib.sha256(path.read_bytes()).hexdigest() != owned[name]:
+            raise ValueError('stale generated output was edited; preserve it before changing layout: ' + name)
+    destination.mkdir(parents=True, exist_ok=True)
+    for name, value in outputs.items():
+        path = destination / name
+        if not path.exists() or path.read_text(encoding='utf-8') != value:
+            path.write_text(value, encoding='utf-8')
+    for name in stale:
+        (destination / name).unlink(missing_ok=True)
+    hashes = {name: hashlib.sha256(value.encode('utf-8')).hexdigest() for name, value in outputs.items()}
+    encoded = json.dumps(hashes, sort_keys=True, indent=2) + '\n'
+    if not manifest.exists() or manifest.read_text(encoding='utf-8') != encoded:
+        manifest.write_text(encoded, encoding='utf-8')
+
+
+def preflight_outputs(source, destination, overwrite, names=OUTPUTS):
     seen = set()
-    for name in OUTPUTS:
+    for name in names:
         path = destination / name
         if path.is_symlink() or (path.exists() and not path.is_file()):
             raise ValueError(f'output must be a regular file: {path}')
         if path.exists() and not overwrite:
             raise ValueError(f'output exists: {path}; explicit --overwrite required')
-        if path.exists() and source.samefile(path):
+        if source is not None and path.exists() and source.samefile(path):
             raise ValueError('input must not be an output file')
         if path.exists():
             identity = (path.stat().st_dev, path.stat().st_ino)
@@ -1059,15 +1302,33 @@ def preflight_outputs(source, destination, overwrite):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('input', type=Path)
+    parser.add_argument('input', type=Path, nargs='?')
     parser.add_argument('--output-dir', type=Path)
     parser.add_argument('--check', action='store_true')
     parser.add_argument('--overwrite', action='store_true')
-    parser.add_argument('--layout', choices=('single', 'split'))
+    parser.add_argument('--layout', choices=('single', 'split', 'topic-split'))
+    parser.add_argument('--blank', action='store_true')
+    parser.add_argument('--locale', choices=('en', 'zh-CN'))
     parser.add_argument('--recommend', action='store_true')
     parser.add_argument('--resolve-language', action='store_true')
     args = parser.parse_args()
     try:
+        if args.blank:
+            if args.input is not None or args.recommend or args.resolve_language or args.layout not in {None, 'topic-split'}:
+                raise ValueError('--blank accepts no business input or recommendation and requires topic-split layout')
+            outputs = blank_documents(args.locale or 'en')
+            if args.check:
+                print('Blank roadmap structure valid; business criteria not evaluated; no files written.')
+                return 0
+            if args.output_dir is None:
+                raise ValueError('--output-dir required unless --check is used')
+            write_topic_outputs(None, args.output_dir, outputs, args.overwrite)
+            print('Blank roadmap structure written; business criteria not evaluated.')
+            return 0
+        if args.locale is not None:
+            raise ValueError('--locale is only for --blank; populated inputs retain their language record')
+        if args.input is None:
+            raise ValueError('business input required unless --blank is used')
         if args.input.stat().st_size > 1_048_576:
             raise ValueError('input exceeds 1 MiB')
         data = json.loads(args.input.read_text(encoding='utf-8'))
@@ -1077,12 +1338,17 @@ def main():
             print(json.dumps(resolve_language(data) if args.resolve_language else recommend(data), ensure_ascii=False, indent=2))
             return 0
         data = validate(data)
+        selected_layout(data, args.layout)
         if args.check:
             print('Roadmap input valid; no files written.')
             return 0
         if args.output_dir is None:
             raise ValueError('--output-dir required unless --check is used')
         outputs = documents(data, args.layout)
+        if 'iterations.md' in outputs or (args.output_dir / MANIFEST).exists() or (args.output_dir / MANIFEST).is_symlink():
+            write_topic_outputs(args.input, args.output_dir, outputs, args.overwrite)
+            print('Owned roadmap outputs written.')
+            return 0
         preflight_outputs(args.input, args.output_dir, args.overwrite)
         args.output_dir.mkdir(parents=True, exist_ok=True)
         for name, content in outputs.items():

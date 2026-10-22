@@ -1,0 +1,771 @@
+{
+  "backend": "codex-live",
+  "live_model": true,
+  "cases": [
+    {
+      "id": "structure-feedback",
+      "covers": [
+        "G1",
+        "G3",
+        "G5",
+        "G6"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "decision": {
+            "action": "blank",
+            "review_scope": "structure"
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 2,
+          "decision": {
+            "action": "blank",
+            "review_scope": "structure"
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 3,
+          "decision": {
+            "action": "review",
+            "review_scope": "structure"
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 4,
+          "decision": {
+            "action": "review",
+            "review_scope": "structure"
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 5,
+          "decision": {
+            "action": "populate",
+            "review_scope": "business"
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 6,
+          "decision": {
+            "action": "review",
+            "review_scope": "business"
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "reset-after-population",
+      "covers": [
+        "G1",
+        "G4",
+        "G5",
+        "G6"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "decision": {
+            "action": "populate",
+            "review_scope": "business"
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 2,
+          "decision": {
+            "action": "blank",
+            "review_scope": "structure"
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 3,
+          "decision": {
+            "action": "review",
+            "review_scope": "structure"
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "missing-facts",
+      "covers": [
+        "G1",
+        "G5",
+        "G6"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "decision": {
+            "action": "blank",
+            "review_scope": "structure"
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 2,
+          "decision": {
+            "action": "review",
+            "review_scope": "structure"
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 3,
+          "decision": {
+            "action": "review",
+            "review_scope": "structure"
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "empty-request",
+      "covers": [
+        "G5",
+        "G6"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "decision": {
+            "action": "ask",
+            "review_scope": "structure"
+          },
+          "observation": {
+            "stage": "absent",
+            "markdown_files": [],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "missing-source",
+      "covers": [
+        "G5",
+        "G6"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "decision": {
+            "action": "ask",
+            "review_scope": "business"
+          },
+          "observation": {
+            "stage": "absent",
+            "markdown_files": [],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 2,
+          "decision": {
+            "action": "blank",
+            "review_scope": "structure"
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "continuous-stages",
+      "covers": [
+        "G7"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "decision": {
+            "action": "populate",
+            "review_scope": "business"
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 2,
+          "decision": {
+            "action": "review",
+            "review_scope": "business"
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "scoped-review-populated",
+      "covers": [
+        "G7"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "decision": {
+            "action": "populate",
+            "review_scope": "business"
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 2,
+          "decision": {
+            "action": "review",
+            "review_scope": "structure"
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 3,
+          "decision": {
+            "action": "review",
+            "review_scope": "business"
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "authorization-boundaries",
+      "covers": [
+        "G7"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "decision": {
+            "action": "blank",
+            "review_scope": "structure"
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 2,
+          "decision": {
+            "action": "review",
+            "review_scope": "structure"
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 3,
+          "decision": {
+            "action": "ask",
+            "review_scope": "business"
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 4,
+          "decision": {
+            "action": "populate",
+            "review_scope": "business"
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "business-review-blank",
+      "covers": [
+        "G7"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "decision": {
+            "action": "blank",
+            "review_scope": "structure"
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 2,
+          "decision": {
+            "action": "review",
+            "review_scope": "business"
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "chinese-feedback",
+      "covers": [
+        "G1",
+        "G5",
+        "G6"
+      ],
+      "passed": true,
+      "turns": [
+        {
+          "turn": 1,
+          "decision": {
+            "action": "blank",
+            "review_scope": "structure"
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 2,
+          "decision": {
+            "action": "review",
+            "review_scope": "structure"
+          },
+          "observation": {
+            "stage": "blank",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 3,
+          "decision": {
+            "action": "populate",
+            "review_scope": "business"
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": true
+          },
+          "renderer_executed": true,
+          "violations": [],
+          "passed": true
+        },
+        {
+          "turn": 4,
+          "decision": {
+            "action": "review",
+            "review_scope": "business"
+          },
+          "observation": {
+            "stage": "populated",
+            "markdown_files": [
+              "iterations.md",
+              "milestones.md",
+              "roadmap-history.md",
+              "roadmap-planning-basis.md",
+              "roadmap.md",
+              "versions.md"
+            ],
+            "renderer_executed": false
+          },
+          "renderer_executed": false,
+          "violations": [],
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "started_at": "2026-10-22T01:21:26.237748+00:00",
+  "timeout_seconds": 300,
+  "cases_sha256": "ab793b643ea897e2b1569beb399d51543a85758c87654e2e429534dcef5e957a",
+  "assets_sha256": "6dc9d2da5f8c19ffa6d40533986b7ffa4712b2d54f3e525575ad7890f7ef00fa",
+  "runner_sha256": "da8de6990df68a3539fc61675bae20e383d89e3c3b7eb3f9fdc3baadb78faafd",
+  "renderer_sha256": "17e4c70d55a98f03142982a0d8d7ccd2b43f0c12bd185b86f257a8264dd6285d",
+  "context_sha256": "1589babfbe1b654f401cdad0153b0952b44a400186c962791a72f3b244de7619",
+  "pass_rate": 1.0,
+  "passed": true,
+  "model": "Codex CLI default; no model override; provider model not exposed by this adapter",
+  "cli": "codex-cli 0.163.0-alpha.11",
+  "details": "../../skills/define-roadmap/references/languages/conversation-eval-20261021.json",
+  "details_sha256": "18a5a9d33efc85d434bb29896e2807f2e9e15f843d73f58bbf8e504d090fd4d2",
+  "limitations": [
+    "Bounded JSON decision adapter and real local renderer; not arbitrary shell editing or external integration testing.",
+    "The provider model ID is not exposed by the CLI adapter."
+  ]
+}

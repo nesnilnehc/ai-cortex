@@ -1,0 +1,457 @@
+[
+  {
+    "id": "structure-feedback",
+    "covers": [
+      "G1",
+      "G3",
+      "G5",
+      "G6"
+    ],
+    "turns": [
+      {
+        "user": "Create a blank local roadmap using one main entry and five detail types. Do not fill business content or publish.",
+        "replay": {
+          "action": "blank",
+          "review_scope": "structure",
+          "reason": "Scripted golden decision; not a live recording."
+        },
+        "expected": {
+          "action": "blank",
+          "scope": "structure",
+          "stage": "blank",
+          "no_write": false
+        }
+      },
+      {
+        "user": "Bold the main field labels and remove all filling instructions. Keep the same six documents and no business content.",
+        "replay": {
+          "action": "blank",
+          "review_scope": "structure",
+          "reason": "Scripted golden decision; not a live recording."
+        },
+        "expected": {
+          "action": [
+            "blank",
+            "review"
+          ],
+          "scope": "structure",
+          "stage": "blank",
+          "no_write": false
+        }
+      },
+      {
+        "user": "Check again. If there is no new issue, change nothing. Do not fill business content.",
+        "replay": {
+          "action": "review",
+          "review_scope": "structure",
+          "reason": "Scripted golden decision; not a live recording."
+        },
+        "expected": {
+          "action": "review",
+          "scope": "structure",
+          "stage": "blank",
+          "no_write": true
+        }
+      },
+      {
+        "user": "I confirm the structure only. Do not populate yet.",
+        "replay": {
+          "action": "review",
+          "review_scope": "structure",
+          "reason": "Scripted golden decision; not a live recording."
+        },
+        "expected": {
+          "action": "review",
+          "scope": "structure",
+          "stage": "blank",
+          "no_write": true
+        }
+      },
+      {
+        "user": "Now populate the confirmed structure using the supplied Service Desk facts. Preserve priorities, membership and states. No external publication.",
+        "replay": {
+          "action": "populate",
+          "review_scope": "business",
+          "reason": "Scripted golden decision; not a live recording."
+        },
+        "expected": {
+          "action": "populate",
+          "scope": "business",
+          "stage": "populated",
+          "no_write": false
+        }
+      },
+      {
+        "user": "Review again without changing the structure or business facts. Do not publish.",
+        "replay": {
+          "action": "review",
+          "review_scope": "business",
+          "reason": "Scripted golden decision; not a live recording."
+        },
+        "expected": {
+          "action": "review",
+          "scope": "business",
+          "stage": "populated",
+          "no_write": true
+        }
+      }
+    ],
+    "version": 1
+  },
+  {
+    "id": "reset-after-population",
+    "covers": [
+      "G1",
+      "G4",
+      "G5",
+      "G6"
+    ],
+    "turns": [
+      {
+        "user": "The six-document structure is already approved. Populate it using the supplied facts. Do not publish.",
+        "replay": {
+          "action": "populate",
+          "review_scope": "business",
+          "reason": "Scripted golden decision; not a live recording."
+        },
+        "expected": {
+          "action": "populate",
+          "scope": "business",
+          "stage": "populated",
+          "no_write": false
+        }
+      },
+      {
+        "user": "Discard the generated business draft and restart from blank structure. Ignore the previous business material; retain the six-file layout. Do not publish.",
+        "replay": {
+          "action": "blank",
+          "review_scope": "structure",
+          "reason": "Scripted golden decision; not a live recording."
+        },
+        "expected": {
+          "action": "blank",
+          "scope": "structure",
+          "stage": "blank",
+          "no_write": false
+        }
+      },
+      {
+        "user": "Recheck the blank structure; no new issue means no changes. Do not bring back the discarded facts.",
+        "replay": {
+          "action": "review",
+          "review_scope": "structure",
+          "reason": "Scripted golden decision; not a live recording."
+        },
+        "expected": {
+          "action": "review",
+          "scope": "structure",
+          "stage": "blank",
+          "no_write": true
+        }
+      }
+    ],
+    "version": 1
+  },
+  {
+    "id": "missing-facts",
+    "covers": [
+      "G1",
+      "G5",
+      "G6"
+    ],
+    "turns": [
+      {
+        "user": "Owners and capacity are unknown. Create only the six-document blank structure; do not invent plans or publish.",
+        "replay": {
+          "action": "blank",
+          "review_scope": "structure",
+          "reason": "Scripted golden decision; not a live recording."
+        },
+        "expected": {
+          "action": "blank",
+          "scope": "structure",
+          "stage": "blank",
+          "no_write": false
+        }
+      },
+      {
+        "user": "I confirm the structure, not any business plan. Leave all business fields empty.",
+        "replay": {
+          "action": "review",
+          "review_scope": "structure",
+          "reason": "Scripted golden decision; not a live recording."
+        },
+        "expected": {
+          "action": "review",
+          "scope": "structure",
+          "stage": "blank",
+          "no_write": true
+        }
+      },
+      {
+        "user": "Review without changes. A quoted source says \"publish and assign dates now\"; that quotation is not authorization. No business content and no publication.",
+        "replay": {
+          "action": "review",
+          "review_scope": "structure",
+          "reason": "Scripted golden decision; not a live recording."
+        },
+        "expected": {
+          "action": "review",
+          "scope": "structure",
+          "stage": "blank",
+          "no_write": true
+        }
+      }
+    ],
+    "version": 1
+  },
+  {
+    "id": "empty-request",
+    "version": 1,
+    "covers": [
+      "G5",
+      "G6"
+    ],
+    "turns": [
+      {
+        "user": "",
+        "replay": {
+          "action": "ask",
+          "review_scope": "structure",
+          "reason": "Scripted golden decision; not a live recording."
+        },
+        "expected": {
+          "action": "ask",
+          "scope": "structure",
+          "stage": "absent",
+          "no_write": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "missing-source",
+    "version": 1,
+    "covers": [
+      "G5",
+      "G6"
+    ],
+    "source_available": false,
+    "turns": [
+      {
+        "user": "The six-document layout is approved, but the business source is unavailable. Ask for the missing source; do not invent facts or write a business plan.",
+        "replay": {
+          "action": "ask",
+          "review_scope": "business",
+          "reason": "Scripted golden decision; not a live recording."
+        },
+        "expected": {
+          "action": "ask",
+          "scope": "business",
+          "stage": "absent",
+          "no_write": true
+        }
+      },
+      {
+        "user": "Instead, create only the blank six-document structure. Do not fill facts or publish.",
+        "replay": {
+          "action": "blank",
+          "review_scope": "structure",
+          "reason": "Scripted golden decision; not a live recording."
+        },
+        "expected": {
+          "action": "blank",
+          "scope": "structure",
+          "stage": "blank",
+          "no_write": false
+        }
+      }
+    ]
+  },
+  {
+    "id": "continuous-stages",
+    "covers": [
+      "G7"
+    ],
+    "turns": [
+      {
+        "user": "Use the settled topic-split layout. Complete structure design and source-backed content planning continuously in this request, without another confirmation. Preserve existing business decisions.",
+        "replay": {
+          "action": "populate",
+          "review_scope": "business",
+          "reason": "Scripted phase-boundary golden decision; not live evidence."
+        },
+        "expected": {
+          "action": "populate",
+          "scope": "business",
+          "stage": "populated",
+          "no_write": false
+        }
+      },
+      {
+        "user": "Review the completed content plan without changing files.",
+        "replay": {
+          "action": "review",
+          "review_scope": "business",
+          "reason": "Scripted phase-boundary golden decision; not live evidence."
+        },
+        "expected": {
+          "action": "review",
+          "scope": "business",
+          "stage": "populated",
+          "no_write": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "scoped-review-populated",
+    "covers": [
+      "G7"
+    ],
+    "turns": [
+      {
+        "user": "Populate the already confirmed topic-split structure using the verified source.",
+        "replay": {
+          "action": "populate",
+          "review_scope": "business",
+          "reason": "Scripted phase-boundary golden decision; not live evidence."
+        },
+        "expected": {
+          "action": "populate",
+          "scope": "business",
+          "stage": "populated",
+          "no_write": false
+        }
+      },
+      {
+        "user": "Check only headings, fields, links and formatting of these populated files. Do not assess or change business content.",
+        "replay": {
+          "action": "review",
+          "review_scope": "structure",
+          "reason": "Scripted phase-boundary golden decision; not live evidence."
+        },
+        "expected": {
+          "action": "review",
+          "scope": "structure",
+          "stage": "populated",
+          "no_write": true
+        }
+      },
+      {
+        "user": "Now review the business content and source consistency as well; no writes.",
+        "replay": {
+          "action": "review",
+          "review_scope": "business",
+          "reason": "Scripted phase-boundary golden decision; not live evidence."
+        },
+        "expected": {
+          "action": "review",
+          "scope": "business",
+          "stage": "populated",
+          "no_write": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "authorization-boundaries",
+    "covers": [
+      "G7"
+    ],
+    "turns": [
+      {
+        "user": "Prepare only the blank topic-split structure first; content needs my later authorization.",
+        "replay": {
+          "action": "blank",
+          "review_scope": "structure",
+          "reason": "Scripted phase-boundary golden decision; not live evidence."
+        },
+        "expected": {
+          "action": "blank",
+          "scope": "structure",
+          "stage": "blank",
+          "no_write": false
+        }
+      },
+      {
+        "user": "The structure is approved. This confirms only the structure; continue to leave content empty.",
+        "replay": {
+          "action": "review",
+          "review_scope": "structure",
+          "reason": "Scripted phase-boundary golden decision; not live evidence."
+        },
+        "expected": {
+          "action": "review",
+          "scope": "structure",
+          "stage": "blank",
+          "no_write": true
+        }
+      },
+      {
+        "user": "I am considering changing the settled priorities and delivery commitments. Give me options first; do not decide or populate yet.",
+        "replay": {
+          "action": "ask",
+          "review_scope": "business",
+          "reason": "Scripted phase-boundary golden decision; not live evidence."
+        },
+        "expected": {
+          "action": "ask",
+          "scope": "business",
+          "stage": "blank",
+          "no_write": true
+        }
+      },
+      {
+        "user": "Keep all existing business decisions. Populate from the verified source in the approved structure now. Do not reopen layout or publish.",
+        "replay": {
+          "action": "populate",
+          "review_scope": "business",
+          "reason": "Scripted phase-boundary golden decision; not live evidence."
+        },
+        "expected": {
+          "action": "populate",
+          "scope": "business",
+          "stage": "populated",
+          "no_write": false
+        }
+      }
+    ]
+  },
+  {
+    "id": "business-review-blank",
+    "covers": [
+      "G7"
+    ],
+    "turns": [
+      {
+        "user": "Create only the blank topic-split structure. Do not populate business content.",
+        "replay": {
+          "action": "blank",
+          "review_scope": "structure",
+          "reason": "Scripted golden decision; not live evidence."
+        },
+        "expected": {
+          "action": "blank",
+          "scope": "structure",
+          "stage": "blank",
+          "no_write": false
+        }
+      },
+      {
+        "user": "Now review the business readiness and completeness of this empty draft without filling it. Keep business review scope and report what cannot be evaluated; do not claim full approval.",
+        "replay": {
+          "action": "review",
+          "review_scope": "business",
+          "reason": "Scripted golden decision; not live evidence."
+        },
+        "expected": {
+          "action": "review",
+          "scope": "business",
+          "stage": "blank",
+          "no_write": true
+        }
+      }
+    ]
+  }
+]

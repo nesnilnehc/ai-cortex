@@ -12,6 +12,31 @@ For users: this is the capability map for roadmap planning. It shows what the
 tools do, which assets govern them, what they produce and which presentation
 forms are available. The roadmap is a plan; the skills are tools for maintaining it.
 
+## Settle structure before content
+
+For a new roadmap or authorized redesign, first settle the reader entry, views,
+document roles, fields and navigation. Reuse existing choices during maintenance.
+If structure confirmation is requested, deliver the clean empty files and stop
+before business population. The [structure-first guide](../../skills/define-roadmap/references/structure-first.md)
+connects blank templates, a populated case and stage-specific review evidence.
+A structure-only pass does not certify a complete plan. Reader deliverables exclude
+author guidance while retaining useful business explanations and actual constraints.
+
+### Three entries, one capability
+
+| Request | Existing skill route | Result |
+| --- | --- | --- |
+| Design structure first; wait before filling | define-roadmap → structure-scoped review-roadmap | Inspectable structure; business checks not evaluated |
+| Fill the confirmed structure from verified sources | define-roadmap content stage → content-scoped review-roadmap | Source-backed plan using the retained layout; gaps and choices visible |
+| Complete structure and content in this request | Structure stage/review → content stage/review | Separate acceptance results without a redundant confirmation |
+
+`orchestrate-roadmap-planning` selects the route; no new standalone skill or stage
+configuration is needed. Structure approval alone does not authorize content work.
+Content authorization does not replace existing business decisions or permit
+publication. An explicit structure-only review is also valid on populated files;
+it preserves their facts and makes no content approval claim. See the
+[stage contract](../../specs/roadmap-modeling.md#stage-entries-authorization-and-acceptance).
+
 ## Start from your team's delivery practice
 
 Choose a [template combination](../../skills/define-roadmap/assets/scenarios/README.md)
