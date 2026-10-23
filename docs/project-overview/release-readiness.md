@@ -11,7 +11,7 @@ Assessment baseline: `1ef7026a27cc52ab7e7cb606144e8e8dc740be1e`, following 0.5.1
 
 ## Decision
 
-Do not release 1.0 yet. Core definitions, versioned assets and reproducible release preparation exist. The three reproduced installer ownership/rollback defects are resolved in 0.5.1, with permanent regression tests and Linux/macOS CI. The stable scope, experimental boundary, compatibility/deprecation rules and latest-stable security strategy are now approved and documented. A bounded historical/current reference-consumer suite now covers Findings, Release Package and Rule coverage. Remaining gaps include actual personal-project consumers, other core dependencies and deprecation migration cases, host/environment acceptance and applicable adopter evidence. The stable upgrade entry shipped in 0.6.0; primary-host acceptance remains open. The patch closes the installation findings; it does not establish the broader 1.x guarantee.
+Do not release 1.0 yet. Core definitions, versioned assets and reproducible release preparation exist. The three reproduced installer ownership/rollback defects are resolved in 0.5.1, with permanent regression tests and Linux/macOS CI. The stable scope, experimental boundary, compatibility/deprecation rules and latest-stable security strategy are now approved and documented. A bounded historical/current reference-consumer suite now covers Findings, Release Package and Rule coverage. Remaining gaps include actual personal-project consumers, other core dependencies, full host configuration loading and real future deprecation migrations, host/environment acceptance and applicable adopter evidence. The stable upgrade entry shipped in 0.6.0; primary-host acceptance remains open. The patch closes the installation findings; it does not establish the broader 1.x guarantee.
 
 A personal tool can legitimately reach 1.0. On 2026-10-23 the maintainer confirmed that use is primarily personal and no consuming-project acceptance records are available. Do not equate this with no real use, nor with independently verified cross-team production adoption. The selected core covers project adoption, review/repair and commit/release; validate those workflows before broadening the promise.
 
@@ -22,7 +22,7 @@ A personal tool can legitimately reach 1.0. On 2026-10-23 the maintainer confirm
 | Dimension | Satisfied or verified | Remaining gap | Assessment |
 | --- | --- | --- | --- |
 | Core definitions | [AGENTS](../../AGENTS.md), [terminology](../architecture/terminology.md) and registries distinguish Skills, Specs, Protocols and Rules; installation/loading authority is explicit | [Stable-core inventory](stable-core.md#stable-contract-and-inventory) selects entry Skills, conditional reviewers and shared dependencies; reference-consumer fixtures cover selected protected contracts; remaining dependencies and actual consumers still need acceptance | Scope decision resolved; partial compatibility evidence |
-| Version discipline | Product tags and independent asset versions are separate. The 0.5.0 package verifies 85 edited versioned assets moved their versions | [Compatibility and deprecation](stable-core.md#compatibility-and-deprecation) and independent/product version rules are adopted; old/current reference fixtures now cover Findings, Release Package and coverage; migration and other dependency cases remain missing | Policy resolved; bounded evidence present |
+| Version discipline | Product tags and independent asset versions are separate. The 0.5.0 package verifies 85 edited versioned assets moved their versions | [Compatibility and deprecation](stable-core.md#compatibility-and-deprecation) and independent/product version rules are adopted; old/current reference fixtures now cover Findings, Release Package and coverage; bounded configuration, parameter/waiver and synthetic deprecation cases now supplement those fixtures; real-host/remaining dependency cases remain missing | Policy resolved; bounded evidence present |
 | Behavioral evidence | Existing live roadmap trace passes the canonical freshness/completeness validator: 10 cases and 30 turns | Bounded JSON decision adapter plus real local renderer; not unrestricted agent editing, a production project acceptance or a live external adapter acceptance. Provider model ID is not exposed | Real but narrow evidence |
 | Actual use | Maintainer confirms personal use. The 0.5.0 and 0.5.1 Release Packages and GitHub receipts establish this repository's own preparation/publication flow was used | No supplied consuming-project requirement-to-acceptance trace; no independently verified multi-project or multi-agent acceptance matrix | Personal use and self-hosting; broader evidence absent |
 | Rule activation | [Rule modeling](../../specs/rule-modeling.md#52-rule-item-contract) derives 118 ready items from nonempty activation rows; recorded release validation passes | OBS-003, PERF-007, REL-008 and TST-008 still use `Verification: adopter`. Required return fixtures are not substituted by the ready count | Activation materials complete; adopter evidence still owed |
@@ -124,7 +124,7 @@ schedule those same defects again without new failing evidence.
 | --- | --- | --- | ---: |
 | Complete | Select stable scope and compatibility/support strategy | Approved policy, explicit dependency inventory, security transition and experimental boundaries documented; admission evidence remains separate | — |
 | 1 (partial) | Stable-release upgrade entry released; supported-host acceptance remains | Local integration verifies stable-tag selection, explicit pins, refusal paths, cleanup and update continuity. 0.6.0 publication and isolated public-origin selection/rollback are complete; record primary host versions and real discovery/invocation before closing this item | 5 |
-| 2 (partial) | Expand reference coverage to actual consumers, other dependencies and deprecation migrations | Findings, Release Package and Rule coverage have pinned historical/current cases; actual project consumers and remaining contracts must meet the selected claim | 5 |
+| 2 (partial) | Expand reference coverage to actual consumers and remaining dependencies | Findings, Release Package, configuration and Rule parameter/waiver reference cases pass; synthetic deprecation and actual 0.x legacy installation migration are covered. Full host loaders and any future real stable entry migration still require evidence | 5 |
 | 3 | Record acceptance in actual personal projects | Auditable adoption, review/repair and commit/release chains retain versions, environment, inputs, findings, interventions and outcomes; optional planning/remote chains remain outside stable admission | 5 |
 | 4 | Resolve adopter evidence and strategic thresholds within that scope | Representative Rule return fixtures or an explicit exclusion from stable evidence claims; reconcile M5/M6/M7 definitions if they are used for admission | 3 |
 | 5 | Rehearse a bounded 1.0 candidate | Approved core passes installer, consumer and project gates; supported environments and upgrade/recovery are exercised; prepare-release determines readiness before an authorized publication | 3 |
@@ -194,3 +194,29 @@ passed the full-history registry job containing both consumer commands, plus
 links, Markdown, shell and Linux/macOS installer jobs on implementation commit
 `c7c40759874e0cddc755f08386e5fb21f93a0034`. The PR-only translation job was skipped as configured. This does not complete the
 full consumer matrix or authorize 1.0. No Skill/Spec/Rule/Protocol contract changed.
+
+## Configuration, Rule and migration compatibility extension
+
+The [compatibility guide](../guides/consumer-compatibility.md#configuration-rule-and-migration-extension)
+records twelve additional historical/current reference test methods and a pinned
+0.6.0 registry: 29 profiles, 18 parameter provenances and required profile/waiver
+fields. Configuration wins over inference; conflicting explicit sources are
+reported without inventing source precedence. Baseline snapshots remain unchanged;
+missing declared values stay evidence-limited. Invalid waivers cannot suppress
+findings, while valid ones retain waived status.
+
+The configuration loader is limited to JSON-compatible YAML and a fixed CLAUDE
+fixture representation. Waiver scope uses an explicit path population and test
+approval identities. Deprecation uses test-only entry names and evidence flags;
+it does not add aliases or announce a real deprecation. Two real installer cases
+exercise preview/explicit migration from old aggregate directories to canonical
+entries while preserving unrelated user directories. They pass on the existing
+installer; its suite now contains 31 methods.
+
+Local reference, historical provenance and installer checks pass. CI executes the
+new reference commands in the existing full-history registry job and the expanded
+installer suite on Linux/macOS; remote results are recorded after execution.
+This closes the selected bounded reference cases, not actual host/project
+acceptance, full YAML/Markdown interpretation, real waiver authority verification,
+or the complete stable dependency matrix. Applicable adopter evidence remains
+open. No production asset contract or user configuration was changed.

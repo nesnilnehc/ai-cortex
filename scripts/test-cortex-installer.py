@@ -180,6 +180,35 @@ class InstallerTests(unittest.TestCase):
         self.assertIn('required file', result.stdout)
         self.assertEqual(self.git('rev-parse', 'HEAD'), head)
 
+    def test_legacy_entry_dry_run_preserves_old_and_personal_entries(self):
+        legacy = self.home / '.claude/skills/ai-cortex'
+        legacy.mkdir()
+        (legacy / 'manifest.json').write_text('{"legacy":true}')
+        personal = self.home / '.claude/skills/personal'
+        personal.mkdir()
+        (personal / 'notes').write_text('Keep')
+        self.cli('clean', '--dry-run')
+        self.assertEqual((legacy / 'manifest.json').read_text(), '{"legacy":true}')
+        self.assertEqual((personal / 'notes').read_text(), 'Keep')
+
+    def test_legacy_entry_migration_installs_canonical_skills_and_is_repeatable(self):
+        for ide in ['.claude', '.cursor']:
+            legacy = self.home / ide / 'skills/ai-cortex'
+            legacy.mkdir()
+            (legacy / 'manifest.json').write_text('{"legacy":true}')
+            personal = self.home / ide / 'skills/personal'
+            personal.mkdir()
+            (personal / 'notes').write_text('Keep')
+        self.cli('clean', '--yes')
+        self.cli('install')
+        self.cli('clean', '--dry-run')
+        self.cli('install')
+        for ide in ['.claude', '.cursor']:
+            self.assertFalse((self.home / ide / 'skills/ai-cortex').exists())
+            self.assert_link_target(self.home / ide / 'skills/kept', self.source / 'skills/kept')
+            self.assertEqual((self.home / ide / 'skills/personal/notes').read_text(), 'Keep')
+        self.assertTrue((self.source / 'AGENTS.md').is_file())
+
     def test_rule_link_is_preserved_when_target_is_foreign(self):
         """Covers: README ownership contract; same-name rule regression."""
         foreign = self.root / 'personal-rule.md'

@@ -112,6 +112,8 @@ jobs:
         run: |
           python3 scripts/check-stable-consumers.py
           python3 scripts/test-stable-consumers.py
+          python3 scripts/check-stable-governance-consumers.py
+          python3 scripts/test-stable-governance-consumers.py
 
       - name: the prose about bin/cortex matches the script
         # Semantics are a reader's job, but a named subcommand or flag either
