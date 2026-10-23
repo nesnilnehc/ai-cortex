@@ -7,7 +7,7 @@ release_channel: stable
 version_source: git tag
 commit: e80c7a704bd685592d9119de3d5f6ccb8e76ba89
 range: d06ac50d114f6a335323a73cbfce7879cba32d53..e80c7a704bd685592d9119de3d5f6ccb8e76ba89
-status: ready
+status: published
 decision_basis: The range changes installed Skills and Rules and directly consumed
   Specs. Breaking discovery, routing, requirement and UI contracts rule out a patch.
   As in 0.4.0, a pre-1.0 minor carries compatibility changes; 1.0 would assert stability
@@ -831,6 +831,55 @@ publication_plan:
   - create GitHub Release from release-notes.md
   - verify provider receipt
   - commit and push receipt
+  rollback: Do not automatically delete or retarget a published tag. If rollback is
+    authorized, delete the GitHub Release and its remote/local v0.5.0 tag; already-fetched
+    tags remain in other clones. Revert release-only documentation commits with new
+    commits if required. No consuming-project document rollback is automatic.
+publication:
+  target_commit: bbeb7de302d1067755325e664048d90971e49953
+  tag: v0.5.0
+  tag_object: 9df5ec01ae10c20568384a71f1f13ff5cb1e15c8
+  tag_sha: bbeb7de302d1067755325e664048d90971e49953
+  tag_offset: One release-artifact commit past the tested content commit; only the
+    three authorized release files differ.
+  provider: github
+  release_id: 421563332
+  release_url: https://github.com/nesnilnehc/ai-cortex/releases/tag/v0.5.0
+  release_body_source: ".cortex/release/0.5.0/release-notes.md"
+  published_at: '2026-10-23T07:36:54Z'
+  latest: true
+  draft: false
+  prerelease: false
+  steps:
+    version_sync:
+      status: complete
+      evidence: Product version exists solely in the v0.5.0 git tag; independent asset
+        versions preserved.
+    release_commit:
+      status: complete
+      evidence: bbeb7de302d1067755325e664048d90971e49953
+    validation:
+      status: complete
+      evidence: All required package checks passed. On the release commit, links,
+        hygiene, explicit-baseline asset versions, Markdown lint and package scope/history
+        assertions passed. Tested product content unchanged.
+    tag:
+      status: complete
+      evidence: 9df5ec01ae10c20568384a71f1f13ff5cb1e15c8
+    push:
+      status: complete
+      evidence: main and refs/tags/v0.5.0 pushed atomically and remote targets verified.
+    build_package:
+      status: not_started
+      evidence: 'Not selected: source asset library with no configured binary build
+        or upload.'
+    provider_publish:
+      status: complete
+      evidence: GitHub HTTP 201, followed by authenticated GET verification of latest
+        stable state, note body and annotated tag target.
+  post_publish_verification: Provider draft=false and prerelease=false; latest=v0.5.0;
+    release body matches source apart from optional trailing newline. Tagged changelog
+    cut and previous released sections verified. No announcement was sent.
   rollback: Do not automatically delete or retarget a published tag. If rollback is
     authorized, delete the GitHub Release and its remote/local v0.5.0 tag; already-fetched
     tags remain in other clones. Revert release-only documentation commits with new
