@@ -1,7 +1,7 @@
 ---
 name: review-go
 description: "Review Go code for language and runtime conventions: concurrency, context usage, error handling, resource management, API stability, type semantics, and testability. Language-only atomic skill; output is a findings list."
-version: 1.0.4
+version: 1.0.5
 license: MIT
 output_schema:
   type: findings-list
@@ -106,7 +106,7 @@ Review code in **Go** for **language and runtime conventions** only. Do not defi
 ### Hard Boundaries
 
 - **Do not** perform security, architecture, or scope selection. Stay within Go language and runtime conventions.
-- **Do not** give conclusions without specific locations or actionable suggestions.
+- **Do not** emit a finding without a precise location. When a suggestion is included, it must be actionable; follow the canonical Findings Spec for required elements.
 - **Do not** review non-Go code for Go-specific rules unless the user explicitly includes it (e.g. embedded code snippets).
 
 ### Skill Boundaries

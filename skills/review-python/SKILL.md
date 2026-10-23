@@ -1,7 +1,7 @@
 ---
 name: review-python
 description: "Review Python code for language and runtime conventions: type hints, exceptions, async/await, context managers, dependencies, and testability. Language-only atomic skill; output is a findings list."
-version: 1.0.4
+version: 1.0.5
 license: MIT
 output_schema:
   type: findings-list
@@ -108,7 +108,7 @@ Review code in **Python** for **language and runtime conventions** only. Do not 
 ### Hard Boundaries
 
 - **Do not** perform security, architecture, or scope selection. Stay within Python language and runtime conventions.
-- **Do not** give conclusions without specific locations or actionable suggestions.
+- **Do not** emit a finding without a precise location. When a suggestion is included, it must be actionable; follow the canonical Findings Spec for required elements.
 - **Do not** review non-Python code for Python-specific rules unless the user explicitly includes it (e.g. embedded code snippets).
 
 ### Skill Boundaries

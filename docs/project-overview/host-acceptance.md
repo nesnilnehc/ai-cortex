@@ -256,3 +256,40 @@ The evidence parser also required correction for the host's Node spec reporter
 rather than the operator's TAP reporter; strict 5/5/0/0 counters were retained.
 These are retained acceptance-tool limitations, not installer failures. The
 canonical recovery procedure remains in the [recovery guide](../guides/installer-recovery.md).
+
+## Findings alignment and nonempty Codex output
+
+The [case record](../../tests/fixtures/host-acceptance/nonempty-findings-2026-10-23.json)
+resolves the previously recorded wording defect in development. review-diff,
+review-codebase and orchestrate-code-review now cite Findings §5.1 instead of
+copying its field inventory. Ten language/framework reviewers and
+review-requirements also no longer make an optional suggestion mandatory.
+All fourteen modified Skills receive independent PATCH errata versions; the
+canonical Spec and protected output requirements are unchanged. The Skill index
+was regenerated with no description/inventory change.
+
+TDD exposed five missed forms before repair: slash-separated inventories, their
+Markdown variants, duplicated inventories beside a citation and numeric/spelled
+obsolete totals. The repaired checker passes seventeen positive/negative text
+shapes plus the existing three-shape directory walk and scans all 28 emitters.
+Six required fields plus an optional suggestion remains valid prose. Two new
+mutation cases prove both detection branches can fail; the complete mutation
+suite passes. Existing CI already runs the checker, its tests and mutation suite.
+
+An actual Codex CLI 0.163.0-alpha.11.2 execution loaded the revised development
+review-diff 1.0.3 and canonical Findings 2.0.1, inspected an isolated Git diff and
+reproduced the changed function's failures for empty and multi-item inputs. Its
+nonempty JSON finding has concrete location, category scope, severity major,
+meaningful title/description, maturity ready and an actionable suggestion. Output
+was independently parsed and validated; command outcomes and hashes are retained.
+The fixture deliberately replaces sum(prices) with prices[0]; this is controlled
+negative acceptance, not a naturally discovered production bug. The host did not
+repair it. Raw logs remain in the case's local evidence directory.
+
+The run used ephemeral/read-only/ignored-user-config mode with requested model
+gpt-6.1-sol; backend identity and sandbox enforcement remain unattested. Global
+installation and personal projects were not changed. The host loaded development
+assets directly, so this does not certify installed distribution, every emitter,
+provisional-Rule findings or full ordinary host configuration. No live model call
+was added to CI. The prior observation remains historical evidence; its wording
+alignment and one real nonempty output are now resolved within this scope.

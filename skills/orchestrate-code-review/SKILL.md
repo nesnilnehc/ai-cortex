@@ -1,7 +1,7 @@
 ---
 name: orchestrate-code-review
 description: Orchestrator skill — sequence atomic review-* skills into the post-coding engineering gate and aggregate their findings; functional alignment and acceptance verification remain separate.
-version: 1.4.0
+version: 1.4.1
 license: MIT
 output_schema:
   type: findings-list
@@ -53,7 +53,7 @@ A step with no match is skipped; the final report names which steps were skipped
 
 ### Step 2: Chain the calls
 
-Call the atomic skills in the order of the table above, collecting findings at each step (standard format: location / category / severity / title / description / suggestion).
+Call the atomic skills in the order of the table above, collecting findings conforming to [Findings Spec §5.1](../../specs/findings-list.md#51-the-seven-elements) at each step.
 
 ### Step 3: halt-on-failure
 

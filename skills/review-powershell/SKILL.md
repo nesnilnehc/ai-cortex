@@ -1,7 +1,7 @@
 ---
 name: review-powershell
 description: "Review PowerShell code for language and runtime conventions: advanced functions, parameter design, error handling, object pipeline behavior, compatibility, and testability. Language-only atomic skill; output is a findings list."
-version: 1.0.4
+version: 1.0.5
 license: MIT
 output_schema:
   type: findings-list
@@ -105,7 +105,7 @@ Review code in **PowerShell** for **language and runtime conventions** only. Do 
 ### Hard Boundaries
 
 - **Do not** perform security, architecture, or scope selection. Stay within PowerShell language and runtime conventions.
-- **Do not** give conclusions without specific locations or actionable suggestions.
+- **Do not** emit a finding without a precise location. When a suggestion is included, it must be actionable; follow the canonical Findings Spec for required elements.
 - **Do not** review non-PowerShell code for PowerShell-specific rules unless explicitly in scope.
 
 ### Skill Boundaries

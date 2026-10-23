@@ -1,7 +1,7 @@
 ---
 name: review-dotnet
 description: "Review .NET (C#/F#) code for language and runtime conventions: async/await, nullable, API versioning, IDisposable, LINQ, and testability. Language-only atomic skill; output is a findings list."
-version: 1.0.5
+version: 1.0.6
 license: MIT
 output_schema:
   type: findings-list
@@ -105,7 +105,7 @@ Review only the **language and runtime conventions** of code in the **.NET** eco
 ### Hard Boundaries
 
 - **Do not** perform security, architecture or scope selection. Stay inside .NET language and runtime conventions.
-- **Do not** land a conclusion without a concrete location or an actionable suggestion.
+- **Do not** emit a finding without a precise location. When a suggestion is included, it must be actionable; follow the canonical Findings Spec for required elements.
 - **Do not** check .NET-specific rules in non-.NET code unless the user explicitly includes it (an embedded script, for example).
 
 ### Skill Boundaries

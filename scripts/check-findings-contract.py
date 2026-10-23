@@ -6,12 +6,12 @@ that list into their own prose, so adding the `Maturity` element reached the 15
 Skills that cite the Spec and silently missed the 12 that did not — a change
 lands in one place and half its consumers never hear about it.
 
-The check is deliberately narrow. It reports a run of four or more element
-names joined by commas, which is a copy of the table and nothing else; prose
-naming one or two elements ("cite a concrete location", "sorts by severity,
-then by location") is legitimate and is left alone. Per
-rules/workflow-rule-governance.md §9, a check whose findings are mostly
-legitimate use is a defect in the check.
+The check detects copied comma/slash inventories, obsolete total-field assertions
+and explicit mandatory-suggestion wording. Naming one or two elements, describing
+six required fields plus an optional suggestion, or constraining a suggestion
+only when included remains legitimate. This is a narrow prose guard, not a full
+natural-language or output validator. Actual outputs still need Spec validation.
+
 """
 
 from __future__ import annotations
@@ -29,7 +29,7 @@ _ELEMENT = r"(?:location|category|severity|title|description|suggestion|maturity
 # parenthesised or `=`-suffixed category counts as the same element, since
 # `Category (\`language-go\`)` is how the copies spell it.
 _QUALIFIER = r"(?:\s*(?:\([^)]*\)|=[\w.-]+))?"
-_JOINER = r"(?:\s*,\s*|\s*,?\s+and\s+)"
+_JOINER = r"(?:\s*[,/]\s*|\s*,?\s+and\s+)"
 _LEAD = r"(?:(?:an?|the|optional|optionally)\s+)*"
 RESTATEMENT = re.compile(
     rf"\b{_ELEMENT}\b{_QUALIFIER}(?:{_JOINER}{_LEAD}\b{_ELEMENT}\b{_QUALIFIER}){{3,}}",
@@ -40,12 +40,15 @@ RESTATEMENT = re.compile(
 def restates_contract(line: str) -> bool:
     """Decide whether one line copies the finding element list.
 
-    A line that cites the Spec is citing it however it goes on to phrase the
-    elements, so it is never reported.
+    Citations do not excuse copied field inventories. Count only obsolete total
+    assertions; six required fields plus an optional suggestion is valid.
     """
-    if "findings-list" in line:
-        return False
-    return RESTATEMENT.search(line) is not None
+    normalized = line.replace("`", "")
+    return (RESTATEMENT.search(normalized) is not None or
+            re.search(r"\ball\s+(?:6|six)\s+fields\b", normalized, re.I) is not None or
+            re.search(r"every finding (?:must carry|carries) an actionable suggestion", normalized, re.I) is not None or
+            re.search(r"without[^.]*\bor an? actionable suggestions?", normalized, re.I) is not None)
+
 
 
 def check(
@@ -81,7 +84,7 @@ def check(
 def main() -> int:
     findings, emitters = check(SKILLS_DIR)
     if findings:
-        print(f"Skills restating the finding element list instead of citing {SPEC}:")
+        print(f"Skills with stale finding contract wording; authority: {SPEC}:")
         for finding in findings:
             print(f"- {finding}")
         print(
@@ -91,7 +94,7 @@ def main() -> int:
         return 1
     print(
         f"Checked {emitters} findings-emitting Skills: every one cites "
-        f"{SPEC} rather than restating its element list."
+        f"{SPEC} without detected stale field inventories, totals or mandatory-suggestion wording."
     )
     return 0
 

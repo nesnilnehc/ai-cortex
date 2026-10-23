@@ -1,7 +1,7 @@
 ---
 name: review-vue
 description: Review Vue 3 code for Composition API, reactivity, components, state (Pinia), routing, and performance. Framework-only atomic skill; output is a findings list.
-version: 1.0.5
+version: 1.0.6
 license: MIT
 output_schema:
   type: findings-list
@@ -106,7 +106,7 @@ Review only the **framework conventions** of **Vue 3** code. Do not define the s
 ### Hard Boundaries
 
 - **Do not** perform scope selection, security or architecture review. Stay inside Vue 3 framework conventions.
-- **Do not** land a conclusion without a concrete location or an actionable suggestion.
+- **Do not** emit a finding without a precise location. When a suggestion is included, it must be actionable; follow the canonical Findings Spec for required elements.
 - **Do not** apply Vue-specific rules to non-Vue code unless it is explicitly in scope.
 
 ### Skill Boundaries

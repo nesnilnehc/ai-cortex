@@ -1,7 +1,7 @@
 ---
 name: review-php
 description: "Review PHP code for language and runtime conventions: strict types, error handling, resource management, PSR standards, namespaces, null safety, generators, and testability. Language-only atomic skill; output is a findings list."
-version: 1.0.4
+version: 1.0.5
 license: MIT
 output_schema:
   type: findings-list
@@ -110,7 +110,7 @@ Review code in **PHP** for **language and runtime conventions** only. Do not def
 ### Hard Boundaries
 
 - **Do not** perform security, architecture, or scope selection. Stay within PHP language and runtime conventions.
-- **Do not** give conclusions without specific locations or actionable suggestions.
+- **Do not** emit a finding without a precise location. When a suggestion is included, it must be actionable; follow the canonical Findings Spec for required elements.
 - **Do not** review non-PHP code for PHP-specific rules unless explicitly in scope.
 
 ### Skill Boundaries

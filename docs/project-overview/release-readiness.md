@@ -125,7 +125,7 @@ schedule those same defects again without new failing evidence.
 | --- | --- | --- | ---: |
 | Complete | Select stable scope and compatibility/support strategy | Approved policy, explicit dependency inventory, security transition and experimental boundaries documented; admission evidence remains separate | — |
 | Complete (primary Mac CLI) | Stable upgrade, rollback and recovery on canonical installation | Verified backup, actual 0.6.0 → 0.5.1 → 0.6.0 switches, three live adopted-project CLI runs, independent project/browser checks and exact original installation restoration; broader desktop/configuration claims remain separate | — |
-| 2 (partial) | Expand reference coverage to actual consumers and remaining dependencies | Findings, Release Package, configuration and Rule parameter/waiver reference cases pass; synthetic deprecation and actual 0.x legacy installation migration are covered. Align the observed review-diff field wording with Findings and verify a nonempty host finding; full host loaders and any future real stable entry migration still require evidence | 5 |
+| 2 (partial) | Expand reference coverage to actual consumers and remaining dependencies | Findings, Release Package, configuration and Rule parameter/waiver reference cases pass; synthetic deprecation and actual 0.x legacy installation migration are covered. Field wording and one controlled real nonempty host finding are now verified; full host loaders and any future real stable entry migration still require evidence | 5 |
 | 3 (partial) | Expand actual personal-project acceptance | Shijian controlled trace plus permanent personal-site adoption and real delivery closeout are recorded with versions, review, repairs, tests and scoped commit/push; broader product-code and full commit/release chains remain open | 5 |
 | 4 | Resolve adopter evidence and strategic thresholds within that scope | Representative Rule return fixtures or an explicit exclusion from stable evidence claims; reconcile M5/M6/M7 definitions if they are used for admission | 3 |
 | 5 | Rehearse a bounded 1.0 candidate | Approved core passes installer, consumer and project gates; supported environments and upgrade/recovery are exercised; prepare-release determines readiness before an authorized publication | 3 |
@@ -261,8 +261,8 @@ product feature, a naturally discovered product-code bug, an autonomous full-cha
 CLI repair or a Release Package acceptance. Browser checks are local; ordinary
 user-config/desktop behavior, remaining core and
 adopter evidence still need acceptance. Keep the overall decision **not ready**;
-next resolve the inherited review-diff/Findings wording mismatch and verify a real
-nonempty finding, then accept an actual behavior change when one arises and the
+the inherited review-diff/Findings wording mismatch and one nonempty host output
+are resolved below; next accept an actual behavior change when one arises and the
 remaining stable-chain evidence. Wider host claims require their own scope.
 
 ## Canonical stable upgrade, rollback and recovery acceptance
@@ -290,6 +290,24 @@ The host also exposed inherited six-field wording in review-diff 1.0.2 that need
 alignment with the seven-element Findings Spec, followed by nonempty-output
 verification. This was an observation during an empty-diff loading/test run; it
 did not fail the operational cycle and must not be silently treated as repaired.
-Overall 1.0 remains **not ready**. Prioritize that bounded core alignment and
-nonempty real review evidence, actual product-behavior delivery when available,
+The subsequent alignment below resolves that bounded core wording and nonempty
+output gap. Overall 1.0 remains **not ready**. Prioritize actual product-behavior delivery when available,
 remaining core dependencies/adopter evidence, then a bounded candidate rehearsal.
+
+## Resolved Findings wording and nonempty output gap
+
+[Host evidence](host-acceptance.md#findings-alignment-and-nonempty-codex-output)
+now records development errata across fourteen Skills, a TDD repair of the existing
+CI contract checker, seventeen text regression shapes and two mutation guards.
+The checker rejects copied slash/Markdown inventories even beside a citation and
+obsolete total counts and explicit mandatory-suggestion forms while allowing the correct required/optional distinction.
+A real Codex run read the revised asset and Spec, reproduced a deliberately
+isolated defect and returned one independently validated nonempty finding with
+maturity and an actionable suggestion. No canonical contract was changed.
+
+Mark the observed six-field wording gap and this bounded nonempty-output acceptance
+resolved. The global installation and released tags remain unchanged; this was
+direct development-asset invocation, not installed-distribution acceptance. It
+does not establish natural product-code delivery, every emitter/provisional Rule
+or full host configuration. Remaining core dependencies, applicable adopter
+returns and a bounded candidate rehearsal still prevent 1.0 readiness.

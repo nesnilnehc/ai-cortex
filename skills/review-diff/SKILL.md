@@ -1,7 +1,7 @@
 ---
 name: review-diff
 description: Review only git diff for impact, regression, correctness, compatibility, and side effects. Scope-only atomic skill; output is a findings list for aggregation.
-version: 1.0.2
+version: 1.0.3
 license: MIT
 output_schema:
   type: findings-list
@@ -25,7 +25,7 @@ No architecture / security / language / framework-specific analysis — those be
 
 1. ✅ **Diff scope only**: review the change set alone; do not open repository-level / architecture / security / language-specific checks
 2. ✅ **All 5 dimensions covered**: intent / impact, regression / correctness, breaking change / compatibility, side effects / idempotency, observability
-3. ✅ **Format conformant**: every finding carries location / category=`scope` / severity / title / description / suggestion, per [specs/findings-list.md](../../specs/findings-list.md)
+3. ✅ **Format conformant**: every finding conforms to [Findings Spec §5.1](../../specs/findings-list.md#51-the-seven-elements); category is `scope`.
 4. ✅ **Precise locations**: every finding cites a concrete `file:line` or `@@` hunk
 5. ✅ **Bug fix verified**: a bug-fix diff must have its fix verified for correctness, with any leftover or partial problem flagged
 
@@ -92,9 +92,9 @@ For each changed file, produce findings on these dimensions:
 
 ### Output
 
-- **Findings list**: the standard format (`location` / `category=scope` / `severity` / `title` / `description` / `suggestion`)
+- **Findings list**: conforms to [Findings Spec §5.1](../../specs/findings-list.md#51-the-seven-elements); category is `scope`.
 - Every finding must carry a file:line or @@ hunk reference
-- Every finding must carry an actionable suggestion (the direction of the fix + the exact location)
+- When a suggestion is included, it gives an actionable direction and location; do not pad an obvious fix
 
 ---
 
@@ -123,9 +123,9 @@ For each changed file, produce findings on these dimensions:
 
 - [ ] Only the change set was reviewed (the diff plus the untracked files included)
 - [ ] All 5 dimensions are covered
-- [ ] Every finding conforms to the format (all 6 fields)
+- [ ] Every finding conforms to [Findings Spec §5.1](../../specs/findings-list.md#51-the-seven-elements)
 - [ ] Every finding carries a file:line or @@ hunk reference
-- [ ] Every finding carries an actionable suggestion
+- [ ] Suggestions, when included, are actionable
 - [ ] The fix in a bug-fix diff was verified for correctness
 
 ---

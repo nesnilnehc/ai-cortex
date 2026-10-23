@@ -1,7 +1,7 @@
 ---
 name: review-sql
 description: Review SQL and query code for injection risk, parameterization, indexing and performance, transactions, NULL and constraints, and dialect portability. Language-only atomic skill; output is a findings list.
-version: 1.0.6
+version: 1.0.7
 license: MIT
 output_schema:
   type: findings-list
@@ -105,7 +105,7 @@ Review **SQL** and query-related code for **language and query conventions** onl
 ### Hard Boundaries
 
 - **Do not** perform scope selection or full security/architecture review. Stay within SQL and query conventions.
-- **Do not** give conclusions without specific locations or actionable suggestions.
+- **Do not** emit a finding without a precise location. When a suggestion is included, it must be actionable; follow the canonical Findings Spec for required elements.
 - **Do not** assume a specific database vendor unless stated; note dialect when relevant.
 
 ### Skill Boundaries

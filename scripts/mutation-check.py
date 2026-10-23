@@ -321,6 +321,14 @@ PERTURBATIONS = [
          'DISPATCH = re.compile(r"^case \\"\\$_cmd\\" in$(.*?)^esac$", re.MULTILINE | re.DOTALL)',
          'DISPATCH = re.compile(r"^case \\"\\$_cmd\\" in$(.*?)^esac$", re.MULTILINE)'),
 
+    code("scripts/check-findings-contract.py", "scripts/test-check-findings-contract.py",
+         "stop detecting copied finding inventories",
+         "RESTATEMENT.search(normalized) is not None", "False"),
+    code("scripts/check-findings-contract.py", "scripts/test-check-findings-contract.py",
+         "stop detecting obsolete finding totals",
+         're.search(r"\\ball\\s+(?:6|six)\\s+fields\\b", normalized, re.I) is not None',
+         "False"),
+
     # Structural edits the translation verifier must block. The anchors quote
     # rules/task-quality.md, so an edit to that document lands here as a stale
     # perturbation rather than a silent loss of coverage.

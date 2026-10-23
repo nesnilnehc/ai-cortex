@@ -18,6 +18,15 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 # text, must it be reported, why this shape is in the set
 CASES = [
+    ("Every finding must carry an actionable suggestion", True, "suggestion made mandatory"),
+    ("Do not emit a finding without a precise location or an actionable suggestion", True, "implicit mandatory suggestion"),
+    ("When included, a suggestion must be actionable", False, "optional suggestion quality"),
+    ("standard format: location / category / severity / title / description / suggestion", True, "slash-separated stale copy"),
+    ("standard format: `location` / `category=scope` / `severity` / `title` / `description` / `suggestion`", True, "Markdown slash copy"),
+    ("location / category=`scope` / severity / title / description / suggestion, per [specs/findings-list.md](../../specs/findings-list.md)", True, "citation cannot excuse a duplicated list"),
+    ("Every finding conforms to the format (all 6 fields)", True, "obsolete total"),
+    ("Every finding conforms to all six fields per findings-list", True, "obsolete spelled total"),
+    ("The Spec has six required fields and an optional suggestion", False, "required count is not total count"),
     ("Each finding includes Location, Category, Severity, Title, Description, and optional Suggestion",
      True, "the plain restatement the checker was built for"),
     ("every finding carries location, category (`language-go`), severity, title, description, and an optional suggestion",

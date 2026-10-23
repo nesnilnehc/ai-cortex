@@ -1,7 +1,7 @@
 ---
 name: review-typescript
 description: Review TypeScript/JavaScript code for type safety, async patterns, error handling, and module design. Atomic skill; output is a findings list.
-version: 1.0.4
+version: 1.0.5
 license: MIT
 output_schema:
   type: findings-list
@@ -106,7 +106,7 @@ Review **TypeScript and JavaScript** code for **language and runtime conventions
 ### Hard Boundaries
 
 - **Do not** perform scope selection, security, or architecture review. Stay inside TypeScript/JavaScript language and runtime conventions.
-- **Do not** state a finding without a concrete location or an actionable suggestion.
+- **Do not** emit a finding without a precise location. When a suggestion is included, it must be actionable; follow the canonical Findings Spec for required elements.
 - **Do not** review non-TS/JS code against TS/JS-specific rules unless it is explicitly in scope.
 
 ### Skill Boundaries

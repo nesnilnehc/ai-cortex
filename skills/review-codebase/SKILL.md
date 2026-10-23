@@ -1,7 +1,7 @@
 ---
 name: review-codebase
 description: "Review given file/dir/repo for current-state code organization: module boundaries, design patterns, cross-module dependencies, tech debt, and interface stability. Scope-only atomic skill; output is a findings list."
-version: 1.2.0
+version: 1.2.1
 license: MIT
 output_schema:
   type: findings-list
@@ -26,7 +26,7 @@ Run a scope-only atomic review of the **current state** of a **given path** (a s
 1. ✅ **Scope resolved**: use the user's path or directory, or the repository root when no narrower scope is named
 2. ✅ **5 dimensions covered**: findings are emitted for module boundaries, pattern consistency, cross-module dependencies, tech debt and interface stability
 3. ✅ **Precise locations**: every finding carries a `file:line` reference
-4. ✅ **Format conformant**: findings carry location / category=`scope` / severity / title / description / suggestion, per [specs/findings-list.md](../../specs/findings-list.md)
+4. ✅ **Format conformant**: every finding conforms to [Findings Spec §5.1](../../specs/findings-list.md#51-the-seven-elements); category is `scope`.
 5. ✅ **Large scopes handled**: for a repository-level scope, emit by layer (module / directory), or settle a priority subset with the user
 6. ✅ **No overreach**: no security / performance / architecture / language / framework cognitive findings are emitted (they are flagged, pointing at the matching atomic skill)
 
@@ -110,7 +110,7 @@ Two tech-debt observations are worth calling out because this Skill is usually t
 
 ### Output
 
-- **Findings list**: the standard format (location / category=scope / severity / title / description / suggestion), grouped by file or by module
+- **Findings list**: conforms to [Findings Spec §5.1](../../specs/findings-list.md#51-the-seven-elements); category is `scope`.
 - **Large-scope summary**: when organized by layer, emit the findings count and severity distribution for each layer
 
 ---
@@ -144,7 +144,7 @@ Two tech-debt observations are worth calling out because this Skill is usually t
 - [ ] All 5 dimensions are covered (module boundaries / patterns / dependencies / tech debt / interfaces)
 - [ ] Every finding carries a file:line reference
 - [ ] No cognitive / language / framework dimension finding was emitted (they are flagged only, pointing at the matching atomic skill)
-- [ ] The output format conforms (location / category / severity / title / description / suggestion)
+- [ ] The output conforms to [Findings Spec §5.1](../../specs/findings-list.md#51-the-seven-elements).
 
 ---
 

@@ -1,0 +1,71 @@
+{
+  "case_id": "nonempty-findings-2026-10-23",
+  "kind": "controlled-negative-fixture",
+  "development_baseline": "e812bd8a0be24fbd12606584d2163de82a792647",
+  "requested_model": "gpt-6.1-sol",
+  "cli": "0.163.0-alpha.11.2",
+  "sandbox_requested": "read-only",
+  "ignore_user_config": true,
+  "backend_and_sandbox_not_independently_attested": true,
+  "input": "Read /Users/nesnilnehc/github.com/ai-cortex/skills/review-diff/SKILL.md in full and its canonical Findings Spec. Review only the totals.py diff here. Requirement: total([]) is zero and total([2,3]) is five. This is an intentionally defective isolated acceptance fixture, not an organic production bug. Reproduce the defect locally with Python. Do not edit, commit, use network tools or delegate. Return ONLY a JSON object with findings as a nonempty array. Each finding must conform to the Skill and authoritative Spec, using their actual field requirements, category and maturity. Include an actionable suggestion where useful. Do not merely echo the requested schema: load the actual asset files and inspect the real diff. The experiment validates a nonempty host output, not autonomous repair or every core chain.\n",
+  "asset_sha256": {
+    "skills/review-diff/SKILL.md": "f8cb44c20f4bd95608a6fdec43c28b28dcfeff157a0b6582cca831418622b1f2",
+    "specs/findings-list.md": "23210c190914238f7d794b78ff400e79856c9e6a6f96f14f6bd994403e304a86"
+  },
+  "fixture": {
+    "before": "def total(prices):\n    return sum(prices)\n",
+    "after": "def total(prices):\n    return prices[0]\n",
+    "expected_empty": 0,
+    "expected_two_three": 5
+  },
+  "host_commands": [
+    {
+      "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/skills/review-diff/SKILL.md'",
+      "exit_code": 0,
+      "output": "(omitted; raw trace retained locally)"
+    },
+    {
+      "command": "/bin/zsh -lc 'git status --short && git diff -- totals.py'",
+      "exit_code": 0,
+      "output": "(omitted; raw trace retained locally)"
+    },
+    {
+      "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/specs/findings-list.md'",
+      "exit_code": 0,
+      "output": "(omitted; raw trace retained locally)"
+    },
+    {
+      "command": "/bin/zsh -lc \"python3 -B -c 'from totals import total\nfor values, expected in [([], 0), ([2, 3], 5)]:\n    try:\n        actual = total(values)\n        print(f\\\"total({values\"'!r}): actual={actual!r}, expected={expected!r}, passed={actual == expected}\")\n    except Exception as exc:\n        print(f\"total({values!r}): raised={type(exc).__name__}: {exc}, expected={expected!r}, passed=False\")'\"'\"",
+      "exit_code": 0,
+      "output": "total([]): raised=IndexError: list index out of range, expected=0, passed=False\ntotal([2, 3]): actual=2, expected=5, passed=False\n"
+    }
+  ],
+  "output": {
+    "findings": [
+      {
+        "location": "totals.py:2",
+        "category": "scope",
+        "severity": "major",
+        "title": "Returning the first element violates both required totals",
+        "description": "The diff replaces sum(prices) with prices[0]. Local Python reproduction confirms total([]) raises IndexError instead of returning 0, and total([2, 3]) returns 2 instead of 5; both requirements fail in this isolated acceptance fixture.",
+        "maturity": "ready",
+        "suggestion": "Restore return sum(prices) at totals.py:2 to satisfy both required cases."
+      }
+    ]
+  },
+  "validation": "Nonempty JSON; required elements, category, severity, maturity and concrete location verified; optional suggestion present and actionable.",
+  "tdd": {
+    "red": "Five newly added checker shapes failed before repair. Two mandatory-suggestion shapes also failed before the second repair.",
+    "green": "17 text shapes and three directory-walk shapes pass; 28 emitter scan passes.",
+    "mutation": "Disabling inventory detection or obsolete-total detection makes the permanent checker tests fail; full mutation suite passes."
+  },
+  "raw_local_directory": "~/.local/state/ai-cortex/acceptance/2026-10-23-nonempty-findings",
+  "trace_sha256": "dd18f3a0cb76f74eafcb65e866c2cdb99cc85c8e7b815164f00320eb0d97f94d",
+  "report_sha256": "20aae4b90f296dfb8d462f4d4ddc72349c66964ccfe133189b3517ac1dcc7b59",
+  "limits": [
+    "Deliberately defective isolated fixture, not an organic production bug or autonomous repair.",
+    "Host loaded modified development assets directly; canonical installation remained unchanged.",
+    "No model calls added to CI; existing CI executes the checker and permanent regression suite.",
+    "Does not verify every emitter, provisional Rule finding or every ordinary host configuration."
+  ]
+}

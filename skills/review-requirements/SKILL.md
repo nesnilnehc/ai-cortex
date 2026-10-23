@@ -1,7 +1,7 @@
 ---
 name: review-requirements
 description: "Review an existing requirement document against its modeling Spec and canonical quality Rule before design begins. Evaluative atomic skill; outputs findings without rewriting."
-version: 2.2.0
+version: 2.2.1
 license: MIT
 output_schema:
   type: findings-list
@@ -33,7 +33,7 @@ This Skill reviews one requirement artifact. It does not elicit needs, design a 
 2. Verify the artifact type, frontmatter contract and required/conditional sections against the Spec. Check retained body sections against the relative order in Spec §5.2.1, allowing omission only according to section applicability. Check status-dependent metadata as structural compliance, not as a content-quality exemption.
 3. Apply every quality criterion to the document and its cited local parent where traceability requires it.
 4. Apply the Rule's unresolved-decision criteria across the whole document, including placeholders, assumptions and deferred acceptance targets. Verify the actual effect of each open item rather than trusting its blocking/non-blocking label. Distinguish missing requirement decisions from design choices that remain within established constraints.
-5. Emit one finding per violation with category `requirement-quality`, precise section/criterion location and actionable suggestion.
+5. Emit one finding per violation with category `requirement-quality`, precise section/criterion location and, when useful, an actionable suggestion.
 6. If no findings remain, state that the artifact is ready for the next design layer; do not create that design.
 
 ## Input and output

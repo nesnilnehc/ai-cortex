@@ -1,7 +1,7 @@
 ---
 name: review-java
 description: "Review Java code for language and runtime conventions: concurrency, exceptions, try-with-resources, API versioning, collections and Streams, NIO, and testability. Language-only atomic skill; output is a findings list."
-version: 1.0.4
+version: 1.0.5
 license: MIT
 output_schema:
   type: findings-list
@@ -104,7 +104,7 @@ Review only the **language and runtime conventions** of **Java** code. Do not de
 ### Hard Boundaries
 
 - **Do not** perform security, architecture or scope selection. Stay inside Java language and runtime conventions.
-- **Do not** land a conclusion without a concrete location or an actionable suggestion.
+- **Do not** emit a finding without a precise location. When a suggestion is included, it must be actionable; follow the canonical Findings Spec for required elements.
 - **Do not** check Java-specific rules in non-Java code unless it is explicitly in scope.
 
 ### Skill Boundaries
