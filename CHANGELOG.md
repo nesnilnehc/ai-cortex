@@ -2,6 +2,26 @@
 
 ## [Unreleased]
 
+## [0.6.0] — 2026-10-23
+
+### Added
+
+- Select the highest stable origin tag with `cortex upgrade`, or choose an explicit
+  version with `cortex upgrade [version]`, without changing `update` semantics.
+- Validate clean state, release format and required files before switching;
+  preserve local tags and refuse changed previously fetched release tags.
+
+### Fixed
+
+- Fall back to main when update cannot resolve the local origin HEAD reference.
+
+### Documentation and verification
+
+- Define the approved 1.0 core, dependencies, experimental boundary, compatibility,
+  deprecation and future support strategy without declaring 1.0 ready.
+- Expand installer integration coverage from 22 to 29 cases in Linux/macOS CI and
+  document bootstrap from older installers and retained-manager rollback.
+
 ## [0.5.1] — 2026-10-23
 
 ### Fixed
