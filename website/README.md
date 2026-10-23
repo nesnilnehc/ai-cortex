@@ -13,8 +13,7 @@ python3 -m http.server 4173 --bind 127.0.0.1 --directory website
 
 Open [the local preview](http://127.0.0.1:4173). Stop the server with Ctrl+C.
 Native navigation and disclosures work without JavaScript. The optional module
-adds command copying and a System/Light/Dark theme selector. Theme preferences are
-session-only and are not stored. Language choices are saved locally as described below. With scripts disabled, theme follows the system.
+adds command copying and a System/Light/Dark theme selector. Theme and language choices are saved locally as described below. With scripts disabled, theme follows the system.
 
 ## Content and design
 
@@ -75,11 +74,11 @@ published asset bundle if the host supports an explicit include list.
 
 ### Published deployment (2026-10-23)
 
-Sites version 4 is public at [the custom domain](https://ai-cortex.nesnilnehc.top/)
+Sites version 5 is public at [the custom domain](https://ai-cortex.nesnilnehc.top/)
 and [the hosted origin](https://ai-cortex.mystic-loon-2462.chatgpt.site).
 The [hosting identity](.openai/hosting.json) and
 [deployment record](.openai/deployment.json) retain the exact project, version,
-source commit and domain status. Only the nine runtime files listed in that
+source commit and domain status. Only the ten runtime files listed in that
 record were packaged; repository documentation and unrelated local changes were
 not uploaded.
 
@@ -177,3 +176,44 @@ retained `#start`, Chinese override and reload persistence.
 Production version 4 passed the same preference navigation and reload checks on
 the custom domain. Both HTML editions and all seven resources returned final
 HTTP 200 over validated HTTPS; all seven non-HTML resources matched local bytes.
+
+## Theme preference and capability atlas
+
+System is the default theme. CSS `prefers-color-scheme` follows system appearance
+changes while System is selected. Manual Light/Dark overrides remain fixed; the
+`ai-cortex.theme` localStorage key saves the selected `system`, `light` or `dark`
+value across visits and language changes. Storage denial leaves current-page
+selection usable. Clearing browser site data resets the preference.
+
+The capability section is now a native, responsive atlas: six task domains contain
+all 70 registered Skills, while three foundation branches contain all 21 Specs,
+33 Rules and one Protocol. These counts describe the 2026-10-23 registry state,
+not a permanent product claim. Each asset has an on-site purpose summary and an
+optional source reference. The grouping expresses membership, not dependencies
+or a required execution order. Native disclosures work without JavaScript.
+
+When registries change, update both editions' atlas entries and counts;
+`tests/website/test_map.py` checks complete membership, uniqueness and branch counts.
+The English registry descriptions and reviewed Chinese display summaries remain
+subordinate to the defining assets. No external graph runtime is loaded.
+
+- [Functional design](../docs/designs/2026-10-23-theme-and-capability-map-functional-design.md)
+- [Technical design](../docs/designs/2026-10-23-theme-and-capability-map-technical-design.md)
+
+Theme and atlas tests were observed failing before implementation. The full suite
+now has 17 Node behavior tests and 12 Python content/registry tests. Native Chrome
+inspection verified on-site branch content, keyboard disclosure operation, dark
+theme restoration after reload, and dark appearance across language changes.
+Rendered fixed-size iframe previews verified the Chinese atlas at 360px and the
+English atlas at 1280px. Browser automation transport was unavailable, so these
+were inspected through native Chrome rather than DOM viewport measurements.
+System-following behavior is implemented by CSS media queries and source-reviewed;
+an actual OS appearance change has not been exercised.
+
+Production version 5 returned validated HTTPS HTTP 200 for both editions and all
+eight resources, with source-preserving HTML and byte-identical non-HTML assets.
+Native Chrome verified the custom-domain atlas and dark-theme restoration after
+reload. The public verification record contains the response types and hashes.
+
+The production selector also returned from Dark to System successfully. This mode
+was retained as the final browser state; OS appearance itself was not changed.

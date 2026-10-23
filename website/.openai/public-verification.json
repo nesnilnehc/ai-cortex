@@ -1,5 +1,5 @@
 {
-  "verified_at": "2026-10-23T06:22:56.000129+00:00",
+  "verified_at": "2026-10-23T06:42:04.293632+00:00",
   "resources": [
     {
       "file": "index.html",
@@ -10,7 +10,7 @@
       "content_type": "text/html",
       "source_preserved": true,
       "byte_identical": false,
-      "sha256": "407f1248315b91ef1927980f6064b4fa29ffe1067b255c8919ea5fec03a7f99f"
+      "sha256": "f26ebd6a285fc78d46fd631394b3bce2c2f2fa62d3f6ae0b32801ba466cb929a"
     },
     {
       "file": "zh.html",
@@ -21,29 +21,29 @@
       "content_type": "text/html",
       "source_preserved": true,
       "byte_identical": false,
-      "sha256": "0d2c1a926b9fba70292949c73db99bbd124c6ea17d4ef949c0c1b06ffdb0c789"
+      "sha256": "97ba694705e2da8170a1848b2e49071301269d5189e1e6418704486fb8fd2c01"
     },
     {
       "file": "styles.css",
-      "url": "https://ai-cortex.nesnilnehc.top/styles.css?v=20261023-preference",
-      "effective_url": "https://ai-cortex.nesnilnehc.top/styles.css?v=20261023-preference",
+      "url": "https://ai-cortex.nesnilnehc.top/styles.css?v=20261023-atlas",
+      "effective_url": "https://ai-cortex.nesnilnehc.top/styles.css?v=20261023-atlas",
       "http_status": 200,
       "tls_verify_result": 0,
       "content_type": "text/css",
       "source_preserved": true,
       "byte_identical": true,
-      "sha256": "6accf7140756285cca3150e940bd6e972e137706620c324a38981e4540b68f2f"
+      "sha256": "c57c4525602e640ff05a498501e3013c86e88eb87c012960c6019434421855cd"
     },
     {
       "file": "main.mjs",
-      "url": "https://ai-cortex.nesnilnehc.top/main.mjs?v=20261023-preference",
-      "effective_url": "https://ai-cortex.nesnilnehc.top/main.mjs?v=20261023-preference",
+      "url": "https://ai-cortex.nesnilnehc.top/main.mjs?v=20261023-atlas",
+      "effective_url": "https://ai-cortex.nesnilnehc.top/main.mjs?v=20261023-atlas",
       "http_status": 200,
       "tls_verify_result": 0,
       "content_type": "text/javascript",
       "source_preserved": true,
       "byte_identical": true,
-      "sha256": "7563cfbc0ee5d3ddbf03b31efbf34927461c8da2f30c7fe52da0eeef7aea2ceb"
+      "sha256": "7ac1e430ec61512c6d8c9249fbc136b717ccd9e1c9c3357cbe173a184c4c9618"
     },
     {
       "file": "copy.mjs",
@@ -66,6 +66,17 @@
       "source_preserved": true,
       "byte_identical": true,
       "sha256": "8da4c61d053ce97fe4a07a05a61b263346600a1d28e95cc40b9bdb0f45b6bd85"
+    },
+    {
+      "file": "theme.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/theme.mjs?v=20261023-atlas",
+      "effective_url": "https://ai-cortex.nesnilnehc.top/theme.mjs?v=20261023-atlas",
+      "http_status": 200,
+      "tls_verify_result": 0,
+      "content_type": "text/javascript",
+      "source_preserved": true,
+      "byte_identical": true,
+      "sha256": "df9b28f7c343ff4ea9f7ec83446b62692e0bd6ba47157fa78af5a7ca478f653f"
     },
     {
       "file": "favicon.svg",

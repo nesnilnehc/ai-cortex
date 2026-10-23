@@ -1,11 +1,10 @@
+import { initializeTheme } from './theme.mjs?v=20261023-atlas';
 import { initializeLanguage } from './language.mjs?v=20261023-preference';
 import { bindCopyButton } from './copy.mjs?v=20261023-i18n';
 
 initializeLanguage(window, document.documentElement.lang === 'zh-CN' ? 'zh' : 'en');
 
-const theme = document.querySelector('#theme');
-theme.addEventListener('change', () => { document.documentElement.dataset.theme = theme.value; });
-theme.closest('label').hidden = false;
+initializeTheme(window, document.documentElement, document.querySelector('#theme'));
 
 bindCopyButton(
   document.querySelector('#copy-commands'),

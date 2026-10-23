@@ -1,16 +1,16 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_c581a77751348191b89af6d55ecada9b",
-  "version_number": 4,
-  "deployment_id": "appgdep_6adafcff4f748191a97c5cc3c7f7ba8f",
-  "source_commit": "974aacaba333db1391100199d1d7fc681093bc50",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_7ca23d50cd088191b5bb7408dc520dbd",
+  "version_number": 5,
+  "deployment_id": "appgdep_6adb01488cc88191a7c9973e2ec62876",
+  "source_commit": "75a7c7895656b6b7975203fe1484422370ac4916",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.mystic-loon-2462.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-10-23T06:21:58.182636+00:00",
+  "updated_at": "2026-10-23T06:40:16.795694+00:00",
   "published_files": [
     "index.html",
     "zh.html",
@@ -18,6 +18,7 @@
     "main.mjs",
     "copy.mjs",
     "language.mjs",
+    "theme.mjs",
     "favicon.svg",
     "robots.txt",
     "sitemap.xml"
@@ -47,16 +48,15 @@
   "public_url": "https://ai-cortex.nesnilnehc.top/",
   "public_verification_file": "public-verification.json",
   "browser_checks": [
-    "manual English selection persisted when opening Chinese URL",
-    "automatic navigation preserved #start",
-    "manual Chinese choice overrode English preference",
-    "root revisit and reload retained Chinese",
-    "native language links and active edition rendered"
+    "native Chrome rendered complete atlas at custom hostname",
+    "dark theme retained after reload",
+    "native on-site skill branch disclosure",
+    "360px Chinese and 1280px English rendered iframe previews inspected"
   ],
   "public_verification": {
     "http_status": 200,
     "tls_verify_result": 0,
-    "static_assets_byte_identical": 7,
+    "static_assets_byte_identical": 8,
     "html_editions_source_preserved": 2
   }
 }
