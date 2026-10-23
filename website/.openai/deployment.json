@@ -1,18 +1,19 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_2bf1b17450b4819180627f332666eb05",
-  "version_number": 1,
-  "deployment_id": "appgdep_6adad15e61448191991a37e8bfa93cbe",
-  "source_commit": "ae9cc652fcf990cdad7255cf892bb060cb368f26",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_918d09f24fd88191a415e38463c403bb",
+  "version_number": 3,
+  "deployment_id": "appgdep_6adafa37ca988191ab2961c7cd7c770c",
+  "source_commit": "dde6a12462ed964d1767388f59b4fa892aa8eaa8",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.mystic-loon-2462.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-10-23T05:51:55.244638+00:00",
+  "updated_at": "2026-10-23T06:10:11.385479+00:00",
   "published_files": [
     "index.html",
+    "zh.html",
     "styles.css",
     "main.mjs",
     "copy.mjs",
@@ -52,10 +53,10 @@
   "public_url": "https://ai-cortex.nesnilnehc.top/",
   "public_verification_file": "public-verification.json",
   "browser_checks": [
-    "page rendered at custom hostname",
-    "installation anchor navigation",
-    "clipboard success feedback",
-    "keyboard FAQ disclosure",
-    "no document overflow at 1280px"
+    "English and Chinese editions rendered at custom hostname",
+    "native language links including keyboard activation",
+    "localized clipboard success feedback",
+    "no document overflow at 360px and 1280px",
+    "Chinese light and dark layouts inspected"
   ]
 }

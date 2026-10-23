@@ -75,3 +75,23 @@ test('empty commands never create a successful clipboard operation', async () =>
   assert.equal(ui.feedback.textContent, 'Commands unavailable. Open the installation guide below.');
   assert.equal(ui.button.disabled, false);
 });
+
+test('uses the supplied language for pending, success and recovery', async () => {
+  const messages = { copying: '正在复制', success: '已复制', unavailable: '请手动复制', empty: '命令不可用' };
+  let click;
+  let finish;
+  const button = { addEventListener: (_, handler) => { click = handler; } };
+  const feedback = { textContent: '' };
+  bindCopyButton(button, { textContent: commands }, feedback, { writeText: () => new Promise(resolve => { finish = resolve; }) }, messages);
+  const pending = click();
+  assert.equal(feedback.textContent, messages.copying);
+  finish();
+  await pending;
+  assert.equal(feedback.textContent, messages.success);
+  bindCopyButton(button, { textContent: commands }, feedback, undefined, messages);
+  await click();
+  assert.equal(feedback.textContent, messages.unavailable);
+  bindCopyButton(button, { textContent: '' }, feedback, undefined, messages);
+  await click();
+  assert.equal(feedback.textContent, messages.empty);
+});

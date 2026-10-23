@@ -1,83 +1,87 @@
 {
-  "url": "https://ai-cortex.nesnilnehc.top/",
-  "verified_at": "2026-10-23T05:48:23.931718+00:00",
-  "checks": [
+  "verified_at": "2026-10-23T06:10:36.220034+00:00",
+  "resources": [
     {
       "file": "index.html",
+      "url": "https://ai-cortex.nesnilnehc.top/",
       "http_status": 200,
-      "content_type": "text/html",
       "tls_verify_result": 0,
-      "bytes": 17934,
-      "sha256": "e800b66b6d35c41570120101e342b996f1164be94c9b9dbe1bf9566e36862f2d",
+      "content_type": "text/html",
       "byte_identical": false,
       "source_preserved": true,
-      "cloudflare_edge_script": true
+      "sha256": "8925439316452e15faa09071ebfb88d37d399b2d6af8f3ec745ed0048d9f0742"
+    },
+    {
+      "file": "zh.html",
+      "url": "https://ai-cortex.nesnilnehc.top/zh.html",
+      "http_status": 200,
+      "tls_verify_result": 0,
+      "content_type": "text/html",
+      "byte_identical": false,
+      "source_preserved": true,
+      "sha256": "ba9cc7b210d08bcc22b21a145a8151295608abab57fc58fa7d9a6aab5745f7ea",
+      "redirect_status": 307,
+      "effective_url": "https://ai-cortex.nesnilnehc.top/zh"
     },
     {
       "file": "styles.css",
+      "url": "https://ai-cortex.nesnilnehc.top/styles.css?v=20261023-i18n",
       "http_status": 200,
-      "content_type": "text/css",
       "tls_verify_result": 0,
-      "bytes": 14416,
-      "sha256": "f6fc2882b99ff182f45b77cffe622bae7692894a8d1df598728075ec87f157ce",
+      "content_type": "text/css",
       "byte_identical": true,
       "source_preserved": true,
-      "cloudflare_edge_script": false
+      "sha256": "6accf7140756285cca3150e940bd6e972e137706620c324a38981e4540b68f2f"
     },
     {
       "file": "main.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/main.mjs?v=20261023-i18n",
       "http_status": 200,
-      "content_type": "text/javascript",
       "tls_verify_result": 0,
-      "bytes": 410,
-      "sha256": "11723b5569e552265882350a2c04120a7cf650b15d03ee42f5b5a9a5c80d5fef",
+      "content_type": "text/javascript",
       "byte_identical": true,
       "source_preserved": true,
-      "cloudflare_edge_script": false
+      "sha256": "0e087f65b11b8a883e56b8b4facf243ec4a28078be9a44848770d4c2a475262d"
     },
     {
       "file": "copy.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/copy.mjs?v=20261023-i18n",
       "http_status": 200,
-      "content_type": "text/javascript",
       "tls_verify_result": 0,
-      "bytes": 727,
-      "sha256": "6028f3d43716f22040991e7d19f43604c051d46d559f0eb05a7ec746197bdb6a",
+      "content_type": "text/javascript",
       "byte_identical": true,
       "source_preserved": true,
-      "cloudflare_edge_script": false
+      "sha256": "98066e27493b23ca013c617303fb09cf44f6a1f6c056e5fa043cf6969ff54b4d"
     },
     {
       "file": "favicon.svg",
+      "url": "https://ai-cortex.nesnilnehc.top/favicon.svg",
       "http_status": 200,
-      "content_type": "image/svg+xml",
       "tls_verify_result": 0,
-      "bytes": 307,
-      "sha256": "c417f9f4718db6a4b125f1d0ad3f8d6a2c6552ffd9d770e6013c2afe1c6c768c",
+      "content_type": "image/svg+xml",
       "byte_identical": true,
       "source_preserved": true,
-      "cloudflare_edge_script": false
+      "sha256": "c417f9f4718db6a4b125f1d0ad3f8d6a2c6552ffd9d770e6013c2afe1c6c768c"
     },
     {
       "file": "robots.txt",
+      "url": "https://ai-cortex.nesnilnehc.top/robots.txt",
       "http_status": 200,
-      "content_type": "text/plain",
       "tls_verify_result": 0,
-      "bytes": 78,
-      "sha256": "2c3f391f9674a75b97ddc2e2142e18fd9d17d2755c9dfa261884aea06b995cc9",
+      "content_type": "text/plain",
       "byte_identical": true,
       "source_preserved": true,
-      "cloudflare_edge_script": false
+      "sha256": "2c3f391f9674a75b97ddc2e2142e18fd9d17d2755c9dfa261884aea06b995cc9"
     },
     {
       "file": "sitemap.xml",
+      "url": "https://ai-cortex.nesnilnehc.top/sitemap.xml",
       "http_status": 200,
-      "content_type": "text/xml",
       "tls_verify_result": 0,
-      "bytes": 168,
-      "sha256": "57724f04321742eb05c551481fbd2856e0e72112baa39df354f8de32c3059956",
+      "content_type": "text/xml",
       "byte_identical": true,
       "source_preserved": true,
-      "cloudflare_edge_script": false
+      "sha256": "1f0245151e10eaca6d2e888a8fdc61a150b76346b8d958e74cf01a2ca8b93038"
     }
   ]
 }

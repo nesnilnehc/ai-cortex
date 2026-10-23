@@ -9,6 +9,11 @@
   <title>AI Cortex | A shared way for agents to work</title>
   <meta name="description" content="An open library of skills, specs, protocols and rules for AI agents. Bring reusable delivery capabilities and explicit governance to your engineering workflow.">
   <link rel="canonical" href="https://ai-cortex.nesnilnehc.top/">
+  <link rel="alternate" hreflang="en" href="https://ai-cortex.nesnilnehc.top/">
+  <link rel="alternate" hreflang="zh-CN" href="https://ai-cortex.nesnilnehc.top/zh.html">
+  <link rel="alternate" hreflang="x-default" href="https://ai-cortex.nesnilnehc.top/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="zh_CN">
   <meta property="og:type" content="website">
   <meta property="og:title" content="AI Cortex | A shared way for agents to work">
   <meta property="og:description" content="Reusable skills. Explicit contracts. Reviewable outcomes. Explore an open library for agent-led engineering.">
@@ -16,8 +21,8 @@
   <meta name="twitter:card" content="summary">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./styles.css">
-  <script type="module" src="./main.mjs"></script>
+  <link rel="stylesheet" href="./styles.css?v=20261023-i18n">
+  <script type="module" src="./main.mjs?v=20261023-i18n"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -27,6 +32,7 @@
       <a href="#capabilities">Capabilities</a>
       <a href="#foundation">The foundation</a>
       <a href="https://github.com/nesnilnehc/ai-cortex">GitHub <span aria-hidden="true">↗</span></a>
+      <span class="language-links" aria-label="Language"><a href="./" lang="en" hreflang="en" aria-current="page">English</a><a href="./zh.html" lang="zh-CN" hreflang="zh-CN">中文</a></span>
     </nav>
     <label class="theme-control" hidden>Theme <select id="theme" aria-label="Color theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
     <a class="button button-small" href="#start">Get started <span aria-hidden="true">↗</span></a>
@@ -155,7 +161,7 @@
       </div>
       <div class="install-panel">
         <div class="install-heading"><span class="mono">Install AI Cortex</span><button class="copy-button" id="copy-commands" type="button" hidden>Copy commands <span aria-hidden="true">↗</span></button></div>
-        <p class="copy-feedback" id="copy-feedback" role="status" aria-live="polite" aria-atomic="true"></p>
+        <p class="copy-feedback" id="copy-feedback" data-copying="Copying commands…" data-success="Commands copied. Paste them into your terminal." data-unavailable="Copy unavailable. Select and copy the commands below." data-empty="Commands unavailable. Open the installation guide below." role="status" aria-live="polite" aria-atomic="true"></p>
         <pre tabindex="0" aria-label="Installation commands"><code id="install-commands">mkdir -p ~/.local/share
 git clone --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.local/share/ai-cortex
 ~/.local/share/ai-cortex/bin/cortex install</code></pre>

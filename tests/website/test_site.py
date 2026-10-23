@@ -81,15 +81,15 @@ class SiteContracts(unittest.TestCase):
                 continue  # Canonical metadata, not a fetched dependency.
             with self.subTest(resource=resource):
                 self.assertFalse(urlsplit(resource).netloc)
-                self.assertTrue((SITE / resource).is_file())
-        self.assertIn("from './copy.mjs'", (SITE / "main.mjs").read_text())
+                self.assertTrue((SITE / urlsplit(resource).path).is_file())
+        self.assertRegex((SITE / "main.mjs").read_text(), r"from '\./copy\.mjs(?:\?[^']*)?'")
         self.assertTrue((SITE / "copy.mjs").is_file())
 
     def test_search_metadata_uses_intended_domain(self):
         self.assertIn('rel="canonical" href="https://ai-cortex.nesnilnehc.top/"', self.html)
         sitemap = ET.parse(SITE / "sitemap.xml")
         locations = [element.text for element in sitemap.iter() if element.tag.endswith("}loc")]
-        self.assertEqual(locations, ["https://ai-cortex.nesnilnehc.top/"])
+        self.assertEqual(locations, ["https://ai-cortex.nesnilnehc.top/", "https://ai-cortex.nesnilnehc.top/zh.html"])
         self.assertIn("https://ai-cortex.nesnilnehc.top/sitemap.xml", (SITE / "robots.txt").read_text())
 
 

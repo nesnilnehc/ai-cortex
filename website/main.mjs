@@ -1,4 +1,4 @@
-import { bindCopyButton } from './copy.mjs';
+import { bindCopyButton } from './copy.mjs?v=20261023-i18n';
 
 const theme = document.querySelector('#theme');
 theme.addEventListener('change', () => { document.documentElement.dataset.theme = theme.value; });
@@ -9,4 +9,5 @@ bindCopyButton(
   document.querySelector('#install-commands'),
   document.querySelector('#copy-feedback'),
   navigator.clipboard,
+  document.querySelector('#copy-feedback').dataset,
 );

@@ -41,6 +41,11 @@ Roadmap Spec document this interface.
 This scheme governs AI Cortex repository assets. Deliverables produced in a consuming
 project follow that project and the user under the [roadmap language contract](../specs/roadmap-modeling.md#57-deliverable-language-schema-15); an English skill template does not require English consumer documents.
 
+The promotional website may include localized display editions (`website/zh.html`)
+and localized clipboard messages and their test fixtures, as explicitly requested
+by the user on 2026-10-23. Asset names, commands and linked source instructions
+remain unchanged; this exception does not translate governance assets.
+
 Everything else — README, AGENTS.md, CONTRIBUTING, `docs/`, `specs/`, `protocols/`, `rules/`, and every `SKILL.md` and skill `README.md` — is English.
 
 ---

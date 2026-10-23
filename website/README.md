@@ -1,6 +1,6 @@
 # AI Cortex promotional website
 
-A standalone, English-language static introduction to AI Cortex. Serve this
+A standalone static introduction to AI Cortex in English and Simplified Chinese. Serve this
 directory directly; there is no package installation or build step.
 
 ## Preview
@@ -34,7 +34,7 @@ There are no runtime services, analytics, cookies or visitor data submissions.
 
 ```bash
 node --test tests/website/copy.test.mjs
-python3 tests/website/test_site.py
+python3 -m unittest discover -s tests/website -p 'test_*.py'
 ```
 
 Run from the repository root. Node's built-in test runner verifies clipboard
@@ -75,11 +75,11 @@ published asset bundle if the host supports an explicit include list.
 
 ### Published deployment (2026-10-23)
 
-Sites version 1 is public at [the custom domain](https://ai-cortex.nesnilnehc.top/)
+Sites version 3 is public at [the custom domain](https://ai-cortex.nesnilnehc.top/)
 and [the hosted origin](https://ai-cortex.mystic-loon-2462.chatgpt.site).
 The [hosting identity](.openai/hosting.json) and
 [deployment record](.openai/deployment.json) retain the exact project, version,
-source commit and domain status. Only the seven runtime files listed in that
+source commit and domain status. Only the eight runtime files listed in that
 record were packaged; repository documentation and unrelated local changes were
 not uploaded.
 
@@ -119,3 +119,33 @@ The document width equaled the 1280px viewport. Detailed response types, hashes
 and timestamps are retained in the [public verification record](.openai/public-verification.json).
 Some recursive DNS caches returned earlier negative answers during propagation;
 no DNSSEC or certificate verification protections were disabled.
+
+## Language editions
+
+English keeps the root URL; [Simplified Chinese](https://ai-cortex.nesnilnehc.top/zh.html)
+uses `zh.html`. Header links work without JavaScript. Selection opens the other
+edition at the top and is not persisted or inferred from browser preferences.
+Both editions share CSS and modules, while copy feedback comes from the page's
+`data-*` messages. Each page has its own language, canonical URL and alternate
+language metadata. Repository sources and commands remain unchanged.
+
+When editing content, update both HTML editions and check their equivalent meaning.
+Localization tests compare IDs, destinations, metadata and feedback fields. Add a
+new edition only with reviewed copy, native language links, metadata and sitemap
+coverage; do not introduce automatic translation. See the
+[functional design](../docs/designs/2026-10-23-website-localization-functional-design.md)
+and [technical design](../docs/designs/2026-10-23-website-localization-technical-design.md).
+
+Localization verification on 2026-10-23: six clipboard tests and ten static
+contracts passed, including equivalent commands, section IDs, links and all four
+feedback messages. Localization and localized-feedback tests were observed failing
+before implementation. Browser checks covered both languages at 360px and 1280px,
+Chinese light/dark layouts, keyboard language navigation and Chinese copy success.
+Public verification covered both HTML pages and all six resources over validated
+HTTPS. Shared CSS/modules use a release query identifier to avoid stale edge or
+browser resources after publication. No automatic browser-language detection or
+persistent locale preference is implemented.
+
+Sites redirects `/zh.html` to its clean URL `/zh` (HTTP 307); following the
+redirect returns HTTP 200 with validated TLS and the complete Chinese edition.
+The source preview serves `zh.html` directly.
