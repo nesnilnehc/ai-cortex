@@ -1,7 +1,7 @@
 ---
 name: update-roadmap
 description: Maintain requirement-and-defect roadmap summaries — change item status, shift dates with downstream impact analysis, and retain source-backed revision history. Does not move items between Now/Next/Later tiers.
-version: 3.9.0
+version: 3.10.1
 license: MIT
 ---
 
@@ -82,7 +82,7 @@ change, retain one source/revision identity where applicable, and re-review the 
 
 ### Execution
 
-1. **Read the current state**: load roadmap.md, [roadmap-quality](../../rules/roadmap-quality.md), project closure criteria and source requirement or defect records.
+1. **Read the current state**: discover the established local or remote authority from project norms; load its latest roadmap and affected details, [roadmap-quality](../../rules/roadmap-quality.md), project closure criteria and source requirement or defect records. Do not revive a retired local draft when the remote page is authoritative.
    Resolve task-level input to its parent. Update task details in their source; only
    refresh the parent roadmap summary if its outcome, status, timing or key blocker changes.
    Never add a task or task group as a roadmap row.
@@ -115,6 +115,18 @@ change, retain one source/revision identity where applicable, and re-review the 
    its roadmap row. Keep test counts, task IDs and detailed evidence in source records;
    link them instead. Source/summary/diagram disagreement remains unresolved until repaired.
 7. **Output the change summary**: see the template below.
+
+For a remote destination, follow the [platform delivery guide](../define-roadmap/references/platform-delivery.md)
+and its destination-specific adapter. Re-read before writing and reconcile concurrent
+edits. Refresh affected summaries/charts from their declared authority, then verify
+read-back, protected links/anchors/cards/history and affected reader behavior. Reuse
+still-valid evidence for unaffected content/assets; a metadata-only edit must preserve
+the exact rich body. Source/diagram changes require fresh affected checks and cannot
+hide behind that narrower scope. A formatting-only
+change needs no fabricated business revision; use remote revision history where Git
+does not own the document. Clean obsolete publication wording only in living text.
+Report partial delivery and unverified source facts without claiming an automatic
+quality guarantee or changing the source system outside authorization.
 
 ### Change summary template
 
@@ -269,8 +281,9 @@ phase, timing/commitment, exclusion and milestone-state changes where applicable
 The conversational change summary is also retained in the project history source;
 it is not the only copy. Keep the latest five in the roadmap and verify the full
 history link before shortening it. Re-rendering or retrying the same decision
-reuses its ID; a correction appends a linked revision. Formatting-only edits can
-remain in Git. Missing decision evidence stays unresolved, never invented.
+reuses its ID; a correction appends a linked revision. Formatting-only edits use
+the owning platform's revision history (Git for repository documents). Missing
+decision evidence stays unresolved, never invented.
 
 Self-check: material changes are traceable, retained links resolve, and repeated execution adds no duplicate revision.
 

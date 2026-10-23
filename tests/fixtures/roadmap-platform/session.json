@@ -1,0 +1,308 @@
+{
+  "kind": "fictional-offline-platform-session",
+  "baseline": [
+    {
+      "id": "plan",
+      "url": "https://example.org/book/plan",
+      "title": "Service roadmap",
+      "lake": "<p><span id=\"old-overview\" data-lake-id=\"old-overview\">&#8203;</span></p><h2 id=\"outlook\">Outlook</h2><p>V2 and I2 deliver the same batch; other batch unknown. Q9 excluded. MS1 planned. Target 2027-02-15.</p><a href=\"https://example.org/book/versions#scope\">Scope</a><card name=\"image\" value=\"data:%7B%22id%22%3A%22chart-card%22%2C%22src%22%3A%22https%3A//example.org/assets/timeline.svg%22%7D\"></card>",
+      "updated_at": "2027-02-01T08:00:00Z",
+      "rendered_ids": [
+        "old-overview",
+        "outlook"
+      ],
+      "images": [
+        {
+          "src": "https://example.org/assets/timeline.svg",
+          "natural_width": 1200
+        }
+      ],
+      "visual_checks": {
+        "type_colors": true,
+        "chart_dates": true,
+        "readability": true
+      }
+    },
+    {
+      "id": "versions",
+      "url": "https://example.org/book/versions",
+      "title": "Service version plan",
+      "lake": "<h2 id=\"scope\">Scope</h2><p>V2: Q1 batch result; Q2 batch rules. Q9 conditional, not a member.</p><a href=\"https://example.org/book/plan#outlook\">Roadmap</a>",
+      "updated_at": "2027-02-01T08:00:00Z",
+      "rendered_ids": [
+        "scope"
+      ],
+      "images": [],
+      "visual_checks": {}
+    },
+    {
+      "id": "milestones",
+      "url": "https://example.org/book/milestones",
+      "title": "Service milestones",
+      "lake": "<h2 id=\"MS1\">MS1</h2><p>MS1 planned; two independently accepted batches. Target 2027-02-15. Other batch unknown.</p>",
+      "updated_at": "2027-02-01T08:00:00Z",
+      "rendered_ids": [
+        "MS1"
+      ],
+      "images": [],
+      "visual_checks": {}
+    },
+    {
+      "id": "history",
+      "url": "https://example.org/book/history",
+      "title": "Service history",
+      "lake": "<h2 id=\"decision-1\">Decision</h2><p>2024-02-01: Q0 closed. No new delivery claimed.</p>",
+      "updated_at": "2027-02-01T08:00:00Z",
+      "rendered_ids": [
+        "decision-1"
+      ],
+      "images": [],
+      "visual_checks": {}
+    }
+  ],
+  "turns": [
+    {
+      "name": "Rename display titles without changing identity",
+      "readback": [
+        {
+          "id": "plan",
+          "url": "https://example.org/book/plan",
+          "title": "Roadmap",
+          "lake": "<p><span id=\"old-overview\" data-lake-id=\"old-overview\">&#8203;</span></p><h2 id=\"outlook\">Outlook</h2><p>V2 and I2 deliver the same batch; other batch unknown. Q9 excluded. MS1 planned. Target 2027-02-15.</p><a href=\"https://example.org/book/versions#scope\">Scope</a><card name=\"image\" value=\"data:%7B%22id%22%3A%22chart-card%22%2C%22src%22%3A%22https%3A//example.org/assets/timeline.svg%22%7D\"></card>",
+          "updated_at": "2027-02-01T08:00:00Z",
+          "rendered_ids": [
+            "old-overview",
+            "outlook"
+          ],
+          "images": [
+            {
+              "src": "https://example.org/assets/timeline.svg",
+              "natural_width": 1200
+            }
+          ],
+          "visual_checks": {
+            "type_colors": true,
+            "chart_dates": true,
+            "readability": true
+          }
+        },
+        {
+          "id": "versions",
+          "url": "https://example.org/book/versions",
+          "title": "Version plan",
+          "lake": "<h2 id=\"scope\">Scope</h2><p>V2: Q1 batch result; Q2 batch rules. Q9 conditional, not a member.</p><a href=\"https://example.org/book/plan#outlook\">Roadmap</a>",
+          "updated_at": "2027-02-01T08:00:00Z",
+          "rendered_ids": [
+            "scope"
+          ],
+          "images": [],
+          "visual_checks": {}
+        },
+        {
+          "id": "milestones",
+          "url": "https://example.org/book/milestones",
+          "title": "Milestones",
+          "lake": "<h2 id=\"MS1\">MS1</h2><p>MS1 planned; two independently accepted batches. Target 2027-02-15. Other batch unknown.</p>",
+          "updated_at": "2027-02-01T08:00:00Z",
+          "rendered_ids": [
+            "MS1"
+          ],
+          "images": [],
+          "visual_checks": {}
+        },
+        {
+          "id": "history",
+          "url": "https://example.org/book/history",
+          "title": "Revision history",
+          "lake": "<h2 id=\"decision-1\">Decision</h2><p>2024-02-01: Q0 closed. No new delivery claimed.</p>",
+          "updated_at": "2027-02-01T08:00:00Z",
+          "rendered_ids": [
+            "decision-1"
+          ],
+          "images": [],
+          "visual_checks": {}
+        }
+      ],
+      "contract": {
+        "documents": [
+          {
+            "id": "plan",
+            "title": "Roadmap",
+            "required_text": [
+              "same batch",
+              "other batch unknown",
+              "Q9 excluded",
+              "MS1 planned",
+              "2027-02-15"
+            ],
+            "forbidden_text": [
+              "MS1 reached",
+              "Q9 included"
+            ],
+            "visual_checks": [
+              "type_colors",
+              "chart_dates",
+              "readability"
+            ],
+            "required_links": [
+              "https://example.org/book/versions#scope"
+            ]
+          },
+          {
+            "id": "versions",
+            "title": "Version plan",
+            "required_text": [
+              "Q1 batch result",
+              "Q2 batch rules",
+              "Q9 conditional, not a member."
+            ],
+            "required_links": [
+              "https://example.org/book/plan#outlook"
+            ]
+          },
+          {
+            "id": "milestones",
+            "title": "Milestones",
+            "required_text": [
+              "MS1 planned",
+              "2027-02-15",
+              "Other batch unknown."
+            ]
+          },
+          {
+            "id": "history",
+            "title": "Revision history"
+          }
+        ],
+        "immutable_docs": [
+          "history"
+        ],
+        "changed_cards": {}
+      }
+    },
+    {
+      "name": "Approved target shift with matching source and chart",
+      "readback": [
+        {
+          "id": "plan",
+          "url": "https://example.org/book/plan",
+          "title": "Roadmap",
+          "lake": "<p><span id=\"old-overview\" data-lake-id=\"old-overview\">&#8203;</span></p><h2 id=\"outlook\">Outlook</h2><p>V2 and I2 deliver the same batch; other batch unknown. Q9 excluded. MS1 planned. Target 2027-02-22.</p><a href=\"https://example.org/book/versions#scope\">Scope</a><card name=\"image\" value=\"data:%7B%22id%22%3A%22chart-card%22%2C%22src%22%3A%22https%3A//example.org/assets/timeline-v2.svg%22%7D\"></card>",
+          "updated_at": "2027-02-01T08:00:00Z",
+          "rendered_ids": [
+            "old-overview",
+            "outlook"
+          ],
+          "images": [
+            {
+              "src": "https://example.org/assets/timeline-v2.svg",
+              "natural_width": 1200
+            }
+          ],
+          "visual_checks": {
+            "type_colors": true,
+            "chart_dates": true,
+            "readability": true
+          }
+        },
+        {
+          "id": "versions",
+          "url": "https://example.org/book/versions",
+          "title": "Version plan",
+          "lake": "<h2 id=\"scope\">Scope</h2><p>V2: Q1 batch result; Q2 batch rules. Q9 conditional, not a member.</p><a href=\"https://example.org/book/plan#outlook\">Roadmap</a>",
+          "updated_at": "2027-02-01T08:00:00Z",
+          "rendered_ids": [
+            "scope"
+          ],
+          "images": [],
+          "visual_checks": {}
+        },
+        {
+          "id": "milestones",
+          "url": "https://example.org/book/milestones",
+          "title": "Milestones",
+          "lake": "<h2 id=\"MS1\">MS1</h2><p>MS1 planned; two independently accepted batches. Target 2027-02-22. Other batch unknown.</p>",
+          "updated_at": "2027-02-01T08:00:00Z",
+          "rendered_ids": [
+            "MS1"
+          ],
+          "images": [],
+          "visual_checks": {}
+        },
+        {
+          "id": "history",
+          "url": "https://example.org/book/history",
+          "title": "Revision history",
+          "lake": "<h2 id=\"decision-1\">Decision</h2><p>2024-02-01: Q0 closed. No new delivery claimed.</p>",
+          "updated_at": "2027-02-01T08:00:00Z",
+          "rendered_ids": [
+            "decision-1"
+          ],
+          "images": [],
+          "visual_checks": {}
+        }
+      ],
+      "contract": {
+        "documents": [
+          {
+            "id": "plan",
+            "title": "Roadmap",
+            "required_text": [
+              "same batch",
+              "other batch unknown",
+              "Q9 excluded",
+              "MS1 planned",
+              "2027-02-22"
+            ],
+            "forbidden_text": [
+              "MS1 reached",
+              "Q9 included"
+            ],
+            "visual_checks": [
+              "type_colors",
+              "chart_dates",
+              "readability"
+            ],
+            "required_links": [
+              "https://example.org/book/versions#scope"
+            ]
+          },
+          {
+            "id": "versions",
+            "title": "Version plan",
+            "required_text": [
+              "Q1 batch result",
+              "Q2 batch rules",
+              "Q9 conditional, not a member."
+            ],
+            "required_links": [
+              "https://example.org/book/plan#outlook"
+            ]
+          },
+          {
+            "id": "milestones",
+            "title": "Milestones",
+            "required_text": [
+              "MS1 planned",
+              "2027-02-22",
+              "Other batch unknown."
+            ]
+          },
+          {
+            "id": "history",
+            "title": "Revision history",
+            "required_text": []
+          }
+        ],
+        "immutable_docs": [
+          "history"
+        ],
+        "changed_cards": {
+          "plan": [
+            "chart-card"
+          ]
+        }
+      }
+    }
+  ]
+}

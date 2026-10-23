@@ -2,7 +2,7 @@
 id: ROADMAP_MODELING_SPEC_V1
 name: Roadmap Modeling Schema
 description: Roadmap views, source authority, priority vocabulary and local generation input contract.
-version: 1.10.1
+version: 1.11.1
 status: active
 lifecycle: living
 created_at: 2026-10-20
@@ -256,6 +256,81 @@ iteration tasks, daily progress and individual assignments remain on execution
 boards; the roadmap carries goals, scope and links. Sources are resolved relative
 to their containing output document, not the temporary input file.
 
+### Remote authority and delivery evidence
+
+A roadmap family can live entirely in a knowledge base. Its established remote
+pages are then the editable planning authority; repository pointers, exports and
+temporary renderer input are not competing plans. Requirement/execution systems
+retain authority over their own facts. Declare ownership per fact, including
+iteration timeboxes, version members and milestone targets, in the existing planning
+basis or project entry. Summaries and charts are projections refreshed for the
+same authorized change, whether by an agent or an explicitly installed automation.
+One publication or refresh never implies continuous synchronization or monitoring.
+
+Remote acceptance has three distinct evidence levels: source agreement, stored
+read-back integrity and rendered usability. A successful write is not evidence of
+the latter two. Compare protected identities, links, anchors, rich cards, retained
+history and unrelated content against the pre-edit snapshot; verify source-backed
+scope/date/state assertions in every affected projection. A short display title may
+change independently of its URL. Keep project names out of titles when book context
+already identifies the product, unless needed to distinguish pages. Reader dates
+use actual intended dates; serialization boundaries, timezone mechanics and author
+instructions stay out of the reader document unless materially relevant.
+
+Capture a fresh target immediately before writing. If its body, title or revision
+differs from the read used to prepare the edit, re-read and reconcile rather than
+overwrite it. Use conditional writes when supported; a read/compare fallback is not
+an atomic lock. Report residual races or partial multi-page delivery and re-read
+affected pages. Do not blindly retry an unknown write outcome. Retain unresolved
+business decisions; do not infer completion from historic closures or expired dates.
+
+Scope verification to affected properties. For a metadata-only title change, exact
+read-back equality of the rich body can reuse unaffected body/chart evidence;
+verify the new title and directory instead of rewriting content or rerunning every
+renderer probe. Changes to content, assets or rendering support need corresponding
+fresh observations. Reuse still-valid capability evidence; do not perform test writes
+as part of a read-only review or outside authorized probe/publication scope.
+
+Captured acceptance evidence distinguishes these records; concrete platform payloads
+belong to the selected adapter, not the roadmap business schema:
+
+| Record | Fields and meaning |
+| --- | --- |
+| Document snapshot | Stable document identity/URL, display title, rich body and revision; rendered source when needed to discover legacy anchors |
+| Rendering observation | Meaningful section/compatibility anchors, loaded assets, and observed navigation/chart/readability results for affected content |
+| Acceptance contract | Expected titles, protected source/navigation links and anchors, source-derived content assertions, historical originals and intended rich-object changes |
+
+These are transient verification inputs, not a new persistent planning schema or
+mandatory project file. The checker must reject missing/duplicate document sets,
+lost protected stored/rendered anchors or required links, duplicate anchor IDs,
+broken in-scope section links, unintended card/history changes and absent required
+observations. Do not turn transient editor-generated block/text IDs into permanent
+public anchors. Known inbound fragments and declared compatibility aliases remain
+protected. Out-of-scope links are reported separately.
+Text assertions supplement semantic review; they cannot establish source truth,
+detect every unsupported conclusion or authenticate a screenshot/DOM observation.
+Fixtures and captured evidence do not themselves establish a live integration pass.
+
+### Migration closeout
+
+Removing a superseded local plan requires explicit cleanup authorization and a
+reviewed inventory of exactly the files being retired. Before removal, account for
+all unique decisions, unknowns, exclusions, source references, complete revision
+history and reproducible diagram sources at the chosen destination. Classify
+differences as preserved, linked, corrected or unresolved; do not use raw byte
+equality to reject valid platform presentation, or treat unexplained omissions as
+migrated. Read back the destination and inspect affected page/chart behavior.
+Unresolved migration gaps block removal of the affected files, not independent work.
+
+Check inbound repository links and consumers, including README and agent entries.
+Keep a verified recoverable snapshot when normal version history cannot restore
+the originals, especially for untracked files. A recovery archive is a dated backup,
+not an editable plan. Remove only inventoried artifacts; unrelated files remain.
+Update existing pointers and remove stale pending-publication/local-draft wording
+from living content. Preserve historical originals and legitimate local-deployment
+facts. Verify no dangling retired-path references remain. Publication alone does
+not authorize deletion, commits, source-system changes or installation.
+
 ### 5.2 Priority vocabulary
 
 Default planning vocabulary: P0 (highest), P1, P2, P3 (lowest); `unset` is unresolved,
@@ -305,6 +380,8 @@ These are default role-based names, not mandatory separate documents:
 | Retained changes and decisions | Roadmap Revision History | `roadmap-history.md` |
 
 Names MUST distinguish policy, current plan, supporting evidence and history.
+Prefer concise role names when the surrounding project/book supplies context;
+rename an authorized display title without changing a stable page URL or source ID.
 Combine small topics or link existing authorities; do not create a document just
 to fill this table. Living titles/paths SHOULD be stable without date suffixes;
 identify snapshots/drafts explicitly under project conventions. Page display titles,

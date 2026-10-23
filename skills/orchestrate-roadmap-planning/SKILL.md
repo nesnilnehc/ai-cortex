@@ -1,7 +1,7 @@
 ---
 name: orchestrate-roadmap-planning
 description: Route roadmap structure-only, content-on-settled-structure, continuous planning or existing-project alignment through scoped atomic skills; preserve decisions, links and authorization boundaries.
-version: 2.11.1
+version: 2.12.0
 license: MIT
 ---
 
@@ -45,6 +45,13 @@ never invokes mutating planning steps. Existing-project alignment remains bounde
 by its preservation contract; these entries do not force a full replanning chain.
 
 ## Orchestrator Role
+
+For remote publication/authority migration, route delivery and authorized cleanup to
+`define-roadmap`, existing-plan changes to `update-roadmap`, and post-write review
+to `review-roadmap`. Carry the retained destination and source-system write exclusions
+through each call. A missing local file after migration is not a bootstrap signal.
+Aggregate source, read-back, rendering and cleanup results separately; unresolved
+delivery or recovery findings cannot become `healthy` or an automatic deletion.
 
 By the naming convention, an orchestrator skill **does exactly 4 things**:
 

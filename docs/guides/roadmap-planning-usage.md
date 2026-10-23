@@ -8,6 +8,13 @@ status: active
 
 # Using the roadmap planning chain
 
+For a knowledge-base authority, follow the [remote delivery guide](../../skills/define-roadmap/references/platform-delivery.md)
+and its selected platform adapter. Remote pages remain authoritative; local exports
+are disposable verification inputs. Verify source agreement, stored preservation
+and actual reader/chart behavior separately. After an authorized migration, reconcile
+unique facts/history/diagram sources and recovery before deleting local predecessors.
+Agent-triggered refresh and offline regression do not imply continuous monitoring.
+
 For users: this is the capability map for roadmap planning. It shows what the
 tools do, which assets govern them, what they produce and which presentation
 forms are available. The roadmap is a plan; the skills are tools for maintaining it.

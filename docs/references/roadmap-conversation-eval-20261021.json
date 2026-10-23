@@ -751,19 +751,19 @@
       ]
     }
   ],
-  "started_at": "2026-10-22T01:21:26.237748+00:00",
+  "started_at": "2026-10-23T01:42:38.540488+00:00",
   "timeout_seconds": 300,
   "cases_sha256": "ab793b643ea897e2b1569beb399d51543a85758c87654e2e429534dcef5e957a",
   "assets_sha256": "6dc9d2da5f8c19ffa6d40533986b7ffa4712b2d54f3e525575ad7890f7ef00fa",
   "runner_sha256": "da8de6990df68a3539fc61675bae20e383d89e3c3b7eb3f9fdc3baadb78faafd",
   "renderer_sha256": "17e4c70d55a98f03142982a0d8d7ccd2b43f0c12bd185b86f257a8264dd6285d",
-  "context_sha256": "1589babfbe1b654f401cdad0153b0952b44a400186c962791a72f3b244de7619",
+  "context_sha256": "7d55bb949c61387029fc391962ddf86ef932677c9a8f13d43ceb724a48ab06d8",
   "pass_rate": 1.0,
   "passed": true,
   "model": "Codex CLI default; no model override; provider model not exposed by this adapter",
-  "cli": "codex-cli 0.163.0-alpha.11",
+  "cli": "codex-cli 0.163.0-alpha.11.1",
   "details": "../../skills/define-roadmap/references/languages/conversation-eval-20261021.json",
-  "details_sha256": "18a5a9d33efc85d434bb29896e2807f2e9e15f843d73f58bbf8e504d090fd4d2",
+  "details_sha256": "933c34a1749877fe3019f818c064eac60cf16af4790d1138435f30b02a6e1fa0",
   "limitations": [
     "Bounded JSON decision adapter and real local renderer; not arbitrary shell editing or external integration testing.",
     "The provider model ID is not exposed by the CLI adapter."

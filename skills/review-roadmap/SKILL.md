@@ -1,7 +1,7 @@
 ---
 name: review-roadmap
 description: Review roadmap structure, business content or both with separate scoped conclusions; check source-backed planning and selected views without rewriting or expanding authorization.
-version: 3.12.1
+version: 3.13.0
 license: MIT
 output_schema:
   type: findings-list
@@ -81,6 +81,14 @@ links as the baseline for re-review; missing evidence cannot become a full pass.
    cosmetic omissions are normally minor. Do not invent a local findings schema.
 
 ## Output and handoff
+
+When reviewing remote authority, use the [platform delivery guide](../define-roadmap/references/platform-delivery.md)
+and selected adapter for read-only evidence checks. Inspect latest remote content,
+not a retired local export. Separate source agreement, stored integrity and rendered
+usability; assess obsolete live claims, dated inventory baselines and historical
+versus current commitments. If cleanup is requested, review migration completeness,
+recovery and inbound references under the Spec before handing removal to definition.
+This review still emits findings only; it does not edit or delete documents.
 
 A findings list and explicit unchecked criteria. A full pass is allowed only when
 all applicable criteria were evaluated on a populated plan. Structure-only review

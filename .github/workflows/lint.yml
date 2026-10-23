@@ -141,6 +141,9 @@ jobs:
       - name: roadmap multi-turn regression (offline replay)
         run: python3 scripts/test-roadmap-conversations.py
 
+      - name: remote roadmap integrity regression (offline snapshots)
+        run: python3 scripts/test-roadmap-platform.py
+
       - name: roadmap evaluation evidence export
         run: python3 scripts/test-roadmap-eval-evidence.py
 

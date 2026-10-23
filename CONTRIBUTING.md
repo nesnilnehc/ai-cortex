@@ -91,6 +91,7 @@ CI runs these on every pull request and they all block a merge, so run the ones 
 | `python3 scripts/test-roadmap-renderer.py` | The bundled roadmap renderer, its input contract or examples changed |
 | `python3 scripts/test-roadmap-eval-evidence.py` | Roadmap live evidence export or provenance handling changed; no model calls |
 | `python3 scripts/test-roadmap-conversations.py` | Roadmap structure/population workflow, conversation fixtures or its evaluator changed; offline replay only |
+| `python3 scripts/test-roadmap-platform.py` | Remote roadmap integrity, platform adapter, authority migration or captured-delivery fixtures changed; offline checks only |
 | `python3 scripts/test-roadmap-examples.py` | Roadmap example source facts, decisions, snapshots or generated illustrations changed |
 | `python3 scripts/test-rule-scenarios.py` | A modeled Rule item changed, or its fixtures did |
 | `python3 scripts/test-skills-index.py`, `python3 scripts/test-research-artifacts.py`, `python3 scripts/test-markdown-links.py`, `python3 scripts/test-doc-hygiene.py`, `python3 scripts/test-asset-counts.py`, `python3 scripts/test-cortex-docs.py`, `python3 scripts/test-asset-versions.py`, `python3 scripts/test-validate-rules.py` | The generator or checker they cover changed |

@@ -1,7 +1,7 @@
 ---
 name: define-roadmap
 description: Design roadmap structure, populate source-backed content on a settled layout, or complete both stages; first-align existing plans while preserving business decisions and stable links, with optional local generation.
-version: 7.12.0
+version: 7.13.1
 license: MIT
 ---
 
@@ -226,6 +226,17 @@ and retain source access. If upload/write is unavailable, report undelivered vie
 and the local output location; do not silently switch destination or claim publication.
 External writes require the user's explicit destination/publication authorization.
 This capability performs one delivery, never continuous or bidirectional sync.
+
+For remote authority or migration, apply the Spec's
+[remote delivery and closeout](../../specs/roadmap-modeling.md#remote-authority-and-delivery-evidence).
+Read the [platform delivery guide](references/platform-delivery.md); for Yuque load
+its linked adapter only when that destination is selected. Preserve rich markup,
+fresh-read conflict checks and separate stored versus rendered acceptance, scoped
+to affected properties rather than every editor-generated ID. Reuse unaffected
+body/chart evidence for metadata-only edits and still-valid platform probe results. After
+publication, account for unique local facts/history and diagram sources before any
+authorized cleanup. Check recovery and inbound references; do not delete unrelated
+files or create another editable local plan. Report incomplete views and evidence.
 
 ## Filled deliverable example
 

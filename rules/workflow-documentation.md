@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: workflow-documentation
-version: 1.2.0
+version: 1.3.0
 scope: creating or maintaining any .md document
 recommended_scope: user
 status: active
@@ -50,6 +50,15 @@ Before delivery, inspect the rendered/readable artifact and check for leaked aut
 guidance as well as discussion residue. Checking a clean blank structure does not
 certify its future business content. If a recheck finds no defect, do not add fields
 or explanatory prose merely to produce a change.
+
+Use concise role-based page titles when the containing project or book already
+identifies the product. Display-title simplification does not authorize changing
+stable URLs, file identities or inbound anchors. Keep one editable authority;
+label dated exports/recovery archives as backups, not synchronized working copies.
+After an authorized authority migration, remove obsolete pending-publication and
+local-copy instructions from living content and entry points. Preserve historical
+records and domain facts such as local deployment; literal word replacement is not
+evidence that stale conclusions were removed. Verify links and the reader view.
 
 ## Identifying a temporary document (any one of these)
 

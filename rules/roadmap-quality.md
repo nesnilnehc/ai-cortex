@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: roadmap-quality
-version: 4.10.1
+version: 4.11.1
 scope: reviewing or self-checking a roadmap document
 recommended_scope: user
 status: active
@@ -98,6 +98,10 @@ vocabulary; map project source fields explicitly rather than replacing their sch
 - [ ] Dependencies and known timing agree; cycles, finish-to-start overlaps, unresolved timing and missing scope are reported rather than silently repaired. Resource availability is not inferred from date arithmetic.
 - [ ] Every status, scope or time change checks all selected views in the chosen destination. Detailed tasks and evidence retain one authoritative source.
 - [ ] Platform delivery claims have receipts or read-back evidence. A generated SVG is not proof of a successful remote upload; unavailable rendering or connector operations are explicit limitations.
+- [ ] Remote maintenance follows the Spec's [authority and evidence contract](../specs/roadmap-modeling.md#remote-authority-and-delivery-evidence): fresh-read conflict handling, protected identities/links/anchors/cards/history, source/projection agreement and affected reader/chart checks. Transient editor IDs impose no compatibility obligation. Unchanged body evidence may be reused for metadata-only edits; missing applicable checks remain limitations, not a full pass.
+- [ ] Titles are concise within the project context; reader-facing content omits obsolete publication/local-copy claims and platform implementation mechanics, while dated source baselines and material timing boundaries remain clear. Historical originals are not rewritten as current promises.
+- [ ] Retired local files meet the Spec's [migration closeout](../specs/roadmap-modeling.md#migration-closeout): complete retained facts/history/diagram sources, resolving pointers, explicit cleanup authorization and a verified recovery route; no other files are removed.
+- [ ] Reported automation matches installed capability. Agent-triggered refresh, offline regression and live platform evidence are distinguished; none is described as continuous protection without an operating mechanism.
 
 ## Related assets
 
