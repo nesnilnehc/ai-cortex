@@ -1,0 +1,165 @@
+{
+  "case_id": "codex-shijian-empty-draft-2026-10-23",
+  "recorded_at": "2026-10-23T21:18:07.940653+08:00",
+  "classification": "live Codex CLI with controlled fault injection in a scoped real-project snapshot; not an organic production defect",
+  "result": "passed-scoped-rehearsal",
+  "project": {
+    "name": "shijian",
+    "commit": "1329fd8d4f4f41ab7a07de799a156e182b2cec8d",
+    "origin": "https://github.com/nesnilnehc/shijian.git",
+    "source_sha256": {
+      "AGENTS.md": "982e089c260ac4ff184b0edf9a84c2443798a58060abf884d1e10ce810fee6de",
+      "README.md": "9d7a6a0e6af8db95999fe579801ee3ca1010dc022d3fc2afa02f71b050213df7",
+      "package.json": "1f9a170be6e1f845f9d088de9593b0992281e9b1632d519a906b4ab8ed9b5034",
+      "Makefile": "ce778b034aaec7119c7d3f4e23882bd2c3c8ae665cc1c76f31f0b385ff7de7e1",
+      ".nvmrc": "75053fb82fe4512318dd99556daf58b862fb81c96cf1153249b75f8116edf440",
+      "src/checkin-drafts.js": "e6bbce8175b2cc64d39a93eb9e8754ba8dff42d0a6570caa1fafb0d772e02be2",
+      "tests/checkin-draft.test.mjs": "2bf4358f75846f22000310370e362b69a315fbc88442d040f3c07324575526fe"
+    },
+    "original_workspace_modified": false
+  },
+  "host": {
+    "codex_version": "codex-cli 0.163.0-alpha.11.2",
+    "model_requested": "gpt-6.1-sol",
+    "provider_model_identity_verified": false,
+    "os_version": "27.0.1",
+    "architecture": "arm64",
+    "git_version": "git version 2.51.0",
+    "node_version": "v20.20.2",
+    "shell": "/bin/zsh -lc",
+    "sandbox_requested": "workspace-write",
+    "user_config_loaded": false,
+    "ephemeral": true
+  },
+  "assets": {
+    "release_comparison": "v0.6.0",
+    "installed_clone_commit": "dfad16371b7d658d678ba66b94956180d763379a",
+    "selected_files_byte_identical_to_release": true,
+    "sha256": {
+      "skills/review-diff/SKILL.md": "9c4c437de9ffba45b736effb566bb1d4c834facf1e67019a89907ccb3363bd2d",
+      "skills/automate-tests/SKILL.md": "7cbc1484999dc68f2702451071886d7d8b2327d29103bed3003c9086bed19e76",
+      "specs/findings-list.md": "23210c190914238f7d794b78ff400e79856c9e6a6f96f14f6bd994403e304a86"
+    }
+  },
+  "input": "This is a controlled host acceptance test in a scoped committed snapshot of my personal project Shijian. Read AGENTS.md. The selected scope is src/checkin-drafts.js and tests/checkin-draft.test.mjs only; do not claim the whole project gates passed. Read the installed Skills ~/.agents/skills/review-diff/SKILL.md and ~/.agents/skills/automate-tests/SKILL.md, and the installed Findings Spec at ~/.local/share/ai-cortex/specs/findings-list.md. Read .ai-cortex/config.yaml; its test_command is the scoped acceptance command. Requirement: an intentionally empty unsaved check-in draft must remain empty when reopened, even when saved text exists. Experiment/check-in isolation and other existing behavior must remain. A controlled regression was injected; do not claim it is a real production issue. First run the test and record failure. Review the diff using review-diff and return the finding with maturity before applying a minimal repair. Then change only src/checkin-drafts.js to repair it; do not weaken or delete tests. Use automate-tests to run the scoped command and report executed/pass/fail/skipped counts. Do not install dependencies, call network/MCP services, inspect credentials, delegate, commit or push. No files outside this workspace may be modified. Your final English report must identify exact Skill paths and versions, the requirement, initial failed command/result, review finding, repair location, final test command/counts, and that this was a controlled scoped rehearsal rather than full project/IDE/production acceptance.",
+  "test_config": "test_command: node --test tests/checkin-draft.test.mjs\nbase_branch: main\n",
+  "additional_regression": "\ntest('an intentionally empty unsaved draft remains empty on reopen', () => {\n const drafts = createCheckInDrafts();\n drafts.set('a', 'one', '');\n assert.equal(drafts.get('a', 'one', 'saved text'), '');\n});\n",
+  "injected_change": {
+    "path": "src/checkin-drafts.js",
+    "before": "?? original",
+    "after": "|| original"
+  },
+  "results": {
+    "original_baseline": {
+      "executed": 2,
+      "passed": 2,
+      "failed": 0
+    },
+    "new_test_before_injection": {
+      "executed": 3,
+      "passed": 3,
+      "failed": 0
+    },
+    "host_initial": {
+      "exit": 1,
+      "executed": 3,
+      "passed": 2,
+      "failed": 1,
+      "skipped": 0
+    },
+    "host_after_repair": {
+      "exit": 0,
+      "executed": 3,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    "independent_after_repair": {
+      "exit": 0,
+      "executed": 3,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    "source_restored_byte_identical": true,
+    "tests_unchanged_by_host": true
+  },
+  "events": [
+    {
+      "order": 2,
+      "type": "agent_message",
+      "text": "I’ll read the requested instructions, run the scoped test to capture the failure, then report the review finding and maturity before making a minimal repair in `src/checkin-drafts.js`.\n\n"
+    },
+    {
+      "order": 4,
+      "type": "command_execution",
+      "command": "/bin/zsh -lc 'pwd; git status --short; git branch --show-current; cat AGENTS.md; cat .ai-cortex/config.yaml; cat ~/.agents/skills/review-diff/SKILL.md; cat ~/.agents/skills/automate-tests/SKILL.md; cat ~/.local/share/ai-cortex/specs/findings-list.md'",
+      "exit_code": 0
+    },
+    {
+      "order": 5,
+      "type": "agent_message",
+      "text": "I’m using `~/.agents/skills/review-diff/SKILL.md` v1.0.2 and `~/.agents/skills/automate-tests/SKILL.md` v1.1.0, with Findings Spec v2.0.1. The config selects `node --test tests/checkin-draft.test.mjs`; I’ll run that command now to capture the initial result.\n\n"
+    },
+    {
+      "order": 7,
+      "type": "command_execution",
+      "command": "/bin/zsh -lc 'node --test tests/checkin-draft.test.mjs'",
+      "exit_code": 1,
+      "output": "✔ unsaved drafts survive reopening and stay isolated by experiment and check-in (2.742208ms)\n✔ deleting an experiment and resetting clear only the matching drafts (0.164625ms)\n✖ an intentionally empty unsaved draft remains empty on reopen (1.249917ms)\nℹ tests 3\nℹ suites 0\nℹ pass 2\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 238.708083\n\n✖ failing tests:\n\ntest at tests/checkin-draft.test.mjs:24:1\n✖ an intentionally empty unsaved draft remains empty on reopen (1.249917ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  'saved text' !== ''\n  \n      at TestContext.<anonymous> (file://<workspace>/tests/checkin-draft.test.mjs:27:9)\n      at Test.runInAsyncScope (node:async_hooks:226:14)\n      at Test.run (node:internal/test_runner/test:1118:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:787:18)\n      at Test.postRun (node:internal/test_runner/test:1247:19)\n      at Test.run (node:internal/test_runner/test:1175:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:787:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 'saved text',\n    expected: '',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+    },
+    {
+      "order": 9,
+      "type": "command_execution",
+      "command": "/bin/zsh -lc 'git diff HEAD -- src/checkin-drafts.js tests/checkin-draft.test.mjs; nl -ba src/checkin-drafts.js; cat tests/checkin-draft.test.mjs'",
+      "exit_code": 0
+    },
+    {
+      "order": 10,
+      "type": "agent_message",
+      "text": "The initial command exited 1: 3 tests executed, 2 passed, 1 failed, 0 skipped. The empty-draft assertion returned `'saved text'` instead of `''`.\n\nReview finding, before repair:\n\n- **Location:** `src/checkin-drafts.js:6`\n- **Category:** `scope`\n- **Severity:** `major`\n- **Title:** Empty draft is replaced by saved text\n- **Description:** The injected `||` fallback treats an intentionally empty string as absent, violating the reopen requirement. This is a reproduced regression in the controlled snapshot.\n- **Maturity:** `ready` (no deriving Rule item)\n- **Suggestion:** Restore `??` on line 6 so an empty string is preserved.\n\nI reviewed both selected diffs across the skill’s five dimensions; no additional findings arose. I’ll now apply the one-line repair, leaving the tests unchanged.\n\n"
+    },
+    {
+      "order": 12,
+      "type": "file_change",
+      "paths": [
+        "<workspace>/src/checkin-drafts.js"
+      ]
+    },
+    {
+      "order": 13,
+      "type": "agent_message",
+      "text": "The repair restores the nullish fallback at `src/checkin-drafts.js:6`. I’ll rerun `node --test tests/checkin-draft.test.mjs` to verify the scoped behavior.\n\n"
+    },
+    {
+      "order": 15,
+      "type": "command_execution",
+      "command": "/bin/zsh -lc 'node --test tests/checkin-draft.test.mjs'",
+      "exit_code": 0,
+      "output": "✔ unsaved drafts survive reopening and stay isolated by experiment and check-in (0.9745ms)\n✔ deleting an experiment and resetting clear only the matching drafts (0.118042ms)\n✔ an intentionally empty unsaved draft remains empty on reopen (0.073709ms)\nℹ tests 3\nℹ suites 0\nℹ pass 3\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 137.980042\n"
+    },
+    {
+      "order": 17,
+      "type": "command_execution",
+      "command": "/bin/zsh -lc 'git diff HEAD -- src/checkin-drafts.js tests/checkin-draft.test.mjs; git status --short'",
+      "exit_code": 0
+    },
+    {
+      "order": 18,
+      "type": "agent_message",
+      "text": "Repaired only `src/checkin-drafts.js:6`, restoring `??` in place of `||`. Tests were unchanged.\n\n- **Requirement:** An intentionally empty unsaved draft must reopen empty despite saved text, while preserving experiment/check-in isolation and existing behavior.\n- **Instructions read:** `AGENTS.md`; `~/.agents/skills/review-diff/SKILL.md` **v1.0.2**; `~/.agents/skills/automate-tests/SKILL.md` **v1.1.0**; `~/.local/share/ai-cortex/specs/findings-list.md` **v2.0.1**.\n- **Review finding, reported before repair:** `src/checkin-drafts.js:6`; category **scope**, severity **major**, maturity **ready**. “Empty draft is replaced by saved text”: `||` treats `''` as absent. Suggested repair: restore `??`.\n- **Command:** `node --test tests/checkin-draft.test.mjs`, selected from `.ai-cortex/config.yaml`.\n\n| Run | Exit | Executed | Passed | Failed | Skipped |\n|---|---:|---:|---:|---:|---:|\n| Initial | 1 | 3 | 2 | 1 | 0 |\n| After repair | 0 | 3 | 3 | 0 | 0 |\n\nThe initial assertion received `'saved text'` instead of `''`. After repair, all three scoped tests passed, including existing isolation and cleanup checks.\n\nThis was a **controlled scoped rehearsal** of an injected regression, not a production issue or full project/IDE/production acceptance. No dependencies, network/MCP services, credentials, delegation, commits, or pushes were used; no files outside the workspace were modified."
+    }
+  ],
+  "host_report": "Repaired only `src/checkin-drafts.js:6`, restoring `??` in place of `||`. Tests were unchanged.\n\n- **Requirement:** An intentionally empty unsaved draft must reopen empty despite saved text, while preserving experiment/check-in isolation and existing behavior.\n- **Instructions read:** `AGENTS.md`; `~/.agents/skills/review-diff/SKILL.md` **v1.0.2**; `~/.agents/skills/automate-tests/SKILL.md` **v1.1.0**; `~/.local/share/ai-cortex/specs/findings-list.md` **v2.0.1**.\n- **Review finding, reported before repair:** `src/checkin-drafts.js:6`; category **scope**, severity **major**, maturity **ready**. “Empty draft is replaced by saved text”: `||` treats `''` as absent. Suggested repair: restore `??`.\n- **Command:** `node --test tests/checkin-draft.test.mjs`, selected from `.ai-cortex/config.yaml`.\n\n| Run | Exit | Executed | Passed | Failed | Skipped |\n|---|---:|---:|---:|---:|---:|\n| Initial | 1 | 3 | 2 | 1 | 0 |\n| After repair | 0 | 3 | 3 | 0 | 0 |\n\nThe initial assertion received `'saved text'` instead of `''`. After repair, all three scoped tests passed, including existing isolation and cleanup checks.\n\nThis was a **controlled scoped rehearsal** of an injected regression, not a production issue or full project/IDE/production acceptance. No dependencies, network/MCP services, credentials, delegation, commits, or pushes were used; no files outside the workspace were modified.",
+  "raw_trace_sha256": "fca8074e218ad3255abb6dc59f8752a32d6d2c3f91aa17c1b512c8b7b81244f2",
+  "raw_evidence_local_archive": "~/.local/state/ai-cortex/acceptance/2026-10-23-codex-shijian",
+  "limitations": [
+    "Explicit Skill paths, not automatic routing acceptance.",
+    "CLI sandbox/model requested; provider identity and sandbox isolation not independently attested.",
+    "User config intentionally ignored to avoid unrelated MCP services.",
+    "Only selected module/tests exported; full project, desktop UI and release gates not run.",
+    "No organic production issue, adopter Rule population, project push or deployment.",
+    "Canonical install remains on its original development commit.",
+    "Local state-database fallback warnings occurred; run completed with exit 0."
+  ]
+}
