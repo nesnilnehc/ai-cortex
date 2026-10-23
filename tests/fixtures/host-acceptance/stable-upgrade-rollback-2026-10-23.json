@@ -1,0 +1,435 @@
+{
+  "case_id": "stable-host-upgrade-rollback-2026-10-23",
+  "date": "2026-10-23",
+  "purpose": "Exercise the real canonical installation upgrade, 0.5.1 rollback, 0.6.0 recovery and restoration of the initial branch/commit, using the adopted personal site and actual Codex CLI.",
+  "initial_install": {
+    "head": "dfad16371b7d658d678ba66b94956180d763379a",
+    "branch": "main",
+    "clean": true,
+    "origin": "https://github.com/nesnilnehc/ai-cortex.git",
+    "overrides_unset": true
+  },
+  "development_baseline": "9902e25ff24a6ae107b47506aef6c6cf5549a197",
+  "personal_project": {
+    "repository": "nesnilnehc/nesnilnehc.github.io",
+    "head": "2e8f856f3d41d449a7d70c82af3f93f1851b8e2f",
+    "unchanged": true
+  },
+  "backup": {
+    "local_directory": "~/.local/state/ai-cortex/acceptance/2026-10-23-stable-host",
+    "archive": "installation-before.tar.gz",
+    "sha256": "478552f6f7b3b5682691e15805a53c3dc755f66fcf48a17bc5ba754fc4ea91e8",
+    "scope": [
+      "canonical clone including Git metadata",
+      "generic/Claude/Cursor skill directories",
+      "Claude/Cursor rule directories",
+      "local Cortex command link"
+    ],
+    "verified": "Archive source-manager bytes and representative symlink metadata checked before mutation; final full installation-target inventory/file+directory modes compared to archive. This was not an emergency archive extraction rehearsal.",
+    "retained_manager_sha256": "e2ee00fd5491f9451c48e75cc052d6878923bd3a59ce7bb2ce3c59e92c2a51ff",
+    "retained_manager_source": "9902e25ff24a6ae107b47506aef6c6cf5549a197:bin/cortex"
+  },
+  "environment": {
+    "os": "macOS 27.0.1 (26A434)",
+    "architecture": "arm64",
+    "operator_zsh": "5.9",
+    "manager_shell": "/bin/sh, GNU bash 3.2.57(1)-release",
+    "operator_git": "2.51.0",
+    "codex_cli": "0.163.0-alpha.11.2",
+    "requested_model": "gpt-6.1-sol",
+    "backend_model_attested": false,
+    "sandbox_requested": "read-only",
+    "sandbox_enforcement_attested": false,
+    "ignore_user_config": true,
+    "ephemeral": true,
+    "pinned_project_node": "20.20.2",
+    "pinned_project_ruby": "3.3.6",
+    "cli_node_version": "not independently sampled in these three executions"
+  },
+  "operations": [
+    {
+      "command": "CORTEX_HOME=<canonical> sh <retained-manager> upgrade",
+      "exit_code": 0,
+      "selected": "v0.6.0"
+    },
+    {
+      "command": "CORTEX_HOME=<canonical> sh <retained-manager> upgrade v0.5.1",
+      "exit_code": 0,
+      "selected": "v0.5.1"
+    },
+    {
+      "command": "CORTEX_HOME=<canonical> <0.5.1-native-manager> upgrade v0.6.0",
+      "exit_code": 1,
+      "expected": "pre-0.6 installer lacks upgrade",
+      "head_unchanged": true
+    },
+    {
+      "command": "CORTEX_HOME=<canonical> sh <retained-manager> upgrade v0.6.0",
+      "exit_code": 0,
+      "selected": "v0.6.0"
+    },
+    {
+      "command": "git checkout main in clean canonical clone; CORTEX_HOME=<canonical> sh <retained-manager> install",
+      "exit_code": 0,
+      "selected": "dfad16371b7d658d678ba66b94956180d763379a"
+    }
+  ],
+  "input": "Verify this real adopted personal project after a Cortex installation version switch. Read the repository AGENTS.md and .ai-cortex/config.yaml. Resolve its installed asset root through that entry; read skills/INDEX.md then the complete review-diff, automate-tests and commit-work Skills and Findings Spec. Report the exact installed Git commit and individual asset versions. Inspect git status/diff read-only; do not invent changes or findings. Run the declared test command and report actual executed/passed/failed/skipped counts. Report whether project entry/configuration still loads correctly and any genuine incompatibility. Do not edit files, install dependencies, start services, delegate, use network tools, commit, push or deploy. Do not invoke Cortex install/update/upgrade or change the global installation yourself. This is a host upgrade/rollback acceptance run, not permission for a new product release. Separate fast-test evidence from unexecuted browser/build checks.\n",
+  "stages": [
+    {
+      "stage": "upgraded",
+      "head": "a62a8e5238b1f3f54b50da8528248e6e9315639a",
+      "clean_install": true,
+      "membership": {
+        ".agents/skills": 70,
+        ".claude/skills": 70,
+        ".cursor/skills": 70,
+        ".claude/rules": 20,
+        ".cursor/rules": 20
+      },
+      "assets": [
+        {
+          "path": "skills/review-diff/SKILL.md",
+          "version": "1.0.2",
+          "sha256": "9c4c437de9ffba45b736effb566bb1d4c834facf1e67019a89907ccb3363bd2d"
+        },
+        {
+          "path": "skills/automate-tests/SKILL.md",
+          "version": "1.1.0",
+          "sha256": "7cbc1484999dc68f2702451071886d7d8b2327d29103bed3003c9086bed19e76"
+        },
+        {
+          "path": "skills/commit-work/SKILL.md",
+          "version": "2.1.0",
+          "sha256": "6540b95591014573caac1a5b7c302f4f0ad5637fef7f7324aa201aa744cfa8ce"
+        },
+        {
+          "path": "specs/findings-list.md",
+          "version": "2.0.1",
+          "sha256": "23210c190914238f7d794b78ff400e79856c9e6a6f96f14f6bd994403e304a86"
+        }
+      ],
+      "cli_exit_code": 0,
+      "host_commands": [
+        {
+          "command": "/bin/zsh -lc 'pwd && git status --short --branch && git diff --stat && cat AGENTS.md && cat .ai-cortex/config.yaml'",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc 'printenv CORTEX_HOME XDG_DATA_HOME'",
+          "exit_code": 1
+        },
+        {
+          "command": "/bin/zsh -lc 'cat ~/.local/share/ai-cortex/skills/INDEX.md'",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc 'cat ~/.local/share/ai-cortex/skills/review-diff/SKILL.md ~/.local/share/ai-cortex/skills/automate-tests/SKILL.md ~/.local/share/ai-cortex/skills/commit-work/SKILL.md ~/.local/share/ai-cortex/specs/findings-list.md'",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc \"git -C ~/.local/share/ai-cortex rev-parse --show-toplevel HEAD && git -C ~/.local/share/ai-cortex status --short --branch && cat Makefile && rg -n 'test|\u6d4f\u89c8\u5668|playwright' README.md && git diff && git diff --cached && git diff main...HEAD\"",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc 'cat ~/.local/share/ai-cortex/skills/commit-work/SKILL.md'",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc \"cat ~/.local/share/ai-cortex/docs/guides/project-config.md && sed -n '45,70p' README.md && cat script/like-count.test.cjs\"",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc 'make test'",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc 'git status --short --branch && git diff --exit-code && git diff --cached --exit-code && git -C ~/.local/share/ai-cortex status --short --branch && git -C ~/.local/share/ai-cortex describe --tags --always --exact-match'",
+          "exit_code": 128
+        }
+      ],
+      "fast_tests": {
+        "executed": 5,
+        "passed": 5,
+        "failed": 0,
+        "skipped": 0
+      },
+      "operator_pinned_project_gate": {
+        "fast_tests_passed": 5,
+        "content_posts_validated": 6,
+        "jekyll_build": "passed"
+      },
+      "trace_sha256": "a7f664b6fbc62e2579052cba0692a4efa37df298e0d4261520581f3bef33fff9",
+      "report_sha256": "ddb6a38a7cfe4dad1caaf8f779e179ddcd850060ef6fb05be19723d4e2682de7",
+      "stderr_sha256": "5a2564a52470cbf050860717bc506e63c3c61d0e0f04e36d67cb956d09d6cc88"
+    },
+    {
+      "stage": "rolled-back",
+      "head": "95a1e001afb49e04368a7d12dd1aace92c583ff9",
+      "clean_install": true,
+      "membership": {
+        ".agents/skills": 70,
+        ".claude/skills": 70,
+        ".cursor/skills": 70,
+        ".claude/rules": 20,
+        ".cursor/rules": 20
+      },
+      "assets": [
+        {
+          "path": "skills/review-diff/SKILL.md",
+          "version": "1.0.2",
+          "sha256": "9c4c437de9ffba45b736effb566bb1d4c834facf1e67019a89907ccb3363bd2d"
+        },
+        {
+          "path": "skills/automate-tests/SKILL.md",
+          "version": "1.1.0",
+          "sha256": "7cbc1484999dc68f2702451071886d7d8b2327d29103bed3003c9086bed19e76"
+        },
+        {
+          "path": "skills/commit-work/SKILL.md",
+          "version": "2.1.0",
+          "sha256": "6540b95591014573caac1a5b7c302f4f0ad5637fef7f7324aa201aa744cfa8ce"
+        },
+        {
+          "path": "specs/findings-list.md",
+          "version": "2.0.1",
+          "sha256": "23210c190914238f7d794b78ff400e79856c9e6a6f96f14f6bd994403e304a86"
+        }
+      ],
+      "cli_exit_code": 0,
+      "host_commands": [
+        {
+          "command": "/bin/zsh -lc 'pwd && git status --short --branch && git diff --stat && git diff --cached --stat && cat AGENTS.md && cat .ai-cortex/config.yaml'",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc 'printenv CORTEX_HOME XDG_DATA_HOME'",
+          "exit_code": 1
+        },
+        {
+          "command": "/bin/zsh -lc 'cat ~/.local/share/ai-cortex/skills/INDEX.md'",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc 'cat ~/.local/share/ai-cortex/skills/review-diff/SKILL.md ~/.local/share/ai-cortex/skills/automate-tests/SKILL.md ~/.local/share/ai-cortex/skills/commit-work/SKILL.md ~/.local/share/ai-cortex/specs/findings-list.md'",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc \"git -C ~/.local/share/ai-cortex rev-parse HEAD && git -C ~/.local/share/ai-cortex status --short && ls -ld ~/.local/share/ai-cortex && cat Makefile && rg -n 'test|browser|playwright' README.md\"",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc 'cat ~/.local/share/ai-cortex/skills/commit-work/SKILL.md'",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc \"git diff && git diff --cached && git diff main...HEAD && git ls-files --others --exclude-standard && sed -n '45,72p' README.md && cat ~/.local/share/ai-cortex/docs/guides/project-config.md\"",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc 'make test'",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc \"git status --short --branch && git -C ~/.local/share/ai-cortex status --short && rg -n '\"'^version:|six|6 fields|maturity|Suggestion.*no'\"' ~/.local/share/ai-cortex/skills/review-diff/SKILL.md ~/.local/share/ai-cortex/skills/automate-tests/SKILL.md ~/.local/share/ai-cortex/skills/commit-work/SKILL.md ~/.local/share/ai-cortex/specs/findings-list.md && git rev-parse HEAD\"",
+          "exit_code": 0
+        }
+      ],
+      "fast_tests": {
+        "executed": 5,
+        "passed": 5,
+        "failed": 0,
+        "skipped": 0
+      },
+      "operator_pinned_project_gate": {
+        "fast_tests_passed": 5,
+        "content_posts_validated": 6,
+        "jekyll_build": "passed"
+      },
+      "trace_sha256": "3ed6a9ca6d6483cd8c4d2eda124f225917bb2240fe8073472b6355b1ef7fc13b",
+      "report_sha256": "018304cd7a47fad82d1616aed3cc400bb4ed12e5ef8b9b976782740018d8b5c5",
+      "stderr_sha256": "5bc2c27ac80d9a9d2d4935ff11b4e86a1bccd50e6a187d3582e082f04928a717"
+    },
+    {
+      "stage": "recovered",
+      "head": "a62a8e5238b1f3f54b50da8528248e6e9315639a",
+      "clean_install": true,
+      "membership": {
+        ".agents/skills": 70,
+        ".claude/skills": 70,
+        ".cursor/skills": 70,
+        ".claude/rules": 20,
+        ".cursor/rules": 20
+      },
+      "assets": [
+        {
+          "path": "skills/review-diff/SKILL.md",
+          "version": "1.0.2",
+          "sha256": "9c4c437de9ffba45b736effb566bb1d4c834facf1e67019a89907ccb3363bd2d"
+        },
+        {
+          "path": "skills/automate-tests/SKILL.md",
+          "version": "1.1.0",
+          "sha256": "7cbc1484999dc68f2702451071886d7d8b2327d29103bed3003c9086bed19e76"
+        },
+        {
+          "path": "skills/commit-work/SKILL.md",
+          "version": "2.1.0",
+          "sha256": "6540b95591014573caac1a5b7c302f4f0ad5637fef7f7324aa201aa744cfa8ce"
+        },
+        {
+          "path": "specs/findings-list.md",
+          "version": "2.0.1",
+          "sha256": "23210c190914238f7d794b78ff400e79856c9e6a6f96f14f6bd994403e304a86"
+        }
+      ],
+      "cli_exit_code": 0,
+      "host_commands": [
+        {
+          "command": "/bin/zsh -lc 'pwd; git status --short; git branch --show-current; cat AGENTS.md; cat .ai-cortex/config.yaml'",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc 'printenv CORTEX_HOME XDG_DATA_HOME'",
+          "exit_code": 1
+        },
+        {
+          "command": "/bin/zsh -lc 'cat ~/.local/share/ai-cortex/skills/INDEX.md'",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc 'cat ~/.local/share/ai-cortex/skills/review-diff/SKILL.md ~/.local/share/ai-cortex/skills/automate-tests/SKILL.md ~/.local/share/ai-cortex/skills/commit-work/SKILL.md ~/.local/share/ai-cortex/specs/findings-list.md'",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc \"git -C ~/.local/share/ai-cortex rev-parse HEAD; git -C ~/.local/share/ai-cortex status --short; git diff; git diff --cached; git diff main...HEAD; cat Makefile; rg -n 'test|browser|playwright' README.md; ls -ld ~/.local/share/ai-cortex\"",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc 'cat ~/.local/share/ai-cortex/skills/commit-work/SKILL.md'",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc \"cat ~/.local/share/ai-cortex/docs/guides/project-config.md; cat script/like-count.test.cjs; sed -n '40,75p' README.md\"",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc 'make test'",
+          "exit_code": 0
+        },
+        {
+          "command": "/bin/zsh -lc \"git status --porcelain=v1 --untracked-files=all; git diff --exit-code; git diff --cached --exit-code; git -C ~/.local/share/ai-cortex diff --exit-code HEAD -- skills/INDEX.md skills/review-diff/SKILL.md skills/automate-tests/SKILL.md skills/commit-work/SKILL.md specs/findings-list.md; rg -n '\"'^version:'\"' ~/.local/share/ai-cortex/skills/review-diff/SKILL.md ~/.local/share/ai-cortex/skills/automate-tests/SKILL.md ~/.local/share/ai-cortex/skills/commit-work/SKILL.md ~/.local/share/ai-cortex/specs/findings-list.md\"",
+          "exit_code": 0
+        }
+      ],
+      "fast_tests": {
+        "executed": 5,
+        "passed": 5,
+        "failed": 0,
+        "skipped": 0
+      },
+      "operator_pinned_project_gate": {
+        "fast_tests_passed": 5,
+        "content_posts_validated": 6,
+        "jekyll_build": "passed"
+      },
+      "trace_sha256": "0a02ce23474a8dfae370a1531dedfe82d82a9663b5a2f2494f09e83a99e05397",
+      "report_sha256": "57eda1aa72885e4ce3060c2b909f98034a83723367628b17b2b120be987aa28c",
+      "stderr_sha256": "1c8bc546996003feb2ff53eb4fb61a4d4b1b6440233166da2ada67a431d45165"
+    }
+  ],
+  "browser_acceptance": {
+    "stage": "recovered",
+    "playwright": "1.62.1",
+    "engine": "Chromium",
+    "executed": 5,
+    "passed": 5,
+    "failed": 0,
+    "skipped": 0,
+    "viewports": [
+      1440,
+      390,
+      320
+    ],
+    "visual_inspection": "320px music analytics screenshot checked",
+    "log_sha256": "0ff5ed275581729517d96decadba036ba481da7b134bcc3f3d43362cfee0415f"
+  },
+  "restoration": {
+    "initial_inventory_entries": 1255,
+    "foreign_entries": 1004,
+    "foreign_unchanged_at_all_stages": true,
+    "original_inventory_restored": true,
+    "original_branch_commit_restored": true,
+    "site_head_unchanged": true,
+    "site_worktree_clean": true,
+    "final_project_exit_code": 0,
+    "private_release_refs_retained": [
+      "refs/cortex/releases/v0.5.1 673f0f38e2352f539e905d6ea6360b94a165ff1f",
+      "refs/cortex/releases/v0.6.0 57177a8d730705f1c84b9d166082e9c0c0f88853"
+    ],
+    "file_and_directory_modes_match_archive": true
+  },
+  "host_observation": {
+    "location": "skills/review-diff/SKILL.md:126",
+    "severity": "minor",
+    "description": "Installed review-diff 1.0.2 still describes six fields, whereas Findings Spec 2.0.1 requires maturity among seven elements and makes suggestion optional. The higher-authority Spec governs. Empty diffs did not exercise a nonempty Findings output.",
+    "provenance": "Unprompted observation in rollback CLI report, independently checked against current and released asset text.",
+    "status": "Recorded as remaining stable-core documentation alignment gap; no published tag or product asset changed."
+  },
+  "interventions": [
+    {
+      "issue": "Initial read-only inventory assertion treated the trailing slash in existing directory symlinks as unequal",
+      "resolution": "Normalized the representation for membership audit; preserved the pre-mutation archive inventory and compared final link strings exactly. Upgrade had already proceeded in the same command batch; all subsequent stage transitions required passed audit/CLI results. This was an operator-check limitation, not an installer failure."
+    },
+    {
+      "issue": "Pre-0.6 native installer lacks upgrade",
+      "resolution": "Expected nonzero refusal verified with unchanged HEAD; recovery used retained manager."
+    },
+    {
+      "issue": "CLI reported macOS tooling cache/event warnings under read-only execution",
+      "resolution": "Retained raw stderr/tool output; test commands executed and passed. No broader sandbox guarantee inferred."
+    },
+    {
+      "issue": "Initial evidence parser expected TAP counters but the CLI used the Node spec reporter",
+      "resolution": "Read actual command output and accept the observed reporter marker while keeping strict executed/passed/failed/skipped assertions at 5/5/0/0."
+    }
+  ],
+  "evidence_boundary": [
+    "No production code/asset contract was modified; TDD repair cycle not applicable to this operational acceptance.",
+    "Four selected core asset files are byte-identical across 0.5.1 and 0.6.0; counts remain 70 Skills/20 global Rules. This does not prove compatibility for changed contracts or churned populations.",
+    "Live CLI runs explicitly read the adopted entry; automatic desktop preload and full normal-user configuration are not attested.",
+    "Operator performs version mutation, backup, independent build/browser checks and restoration; CLI itself performs read-only loading and fast tests.",
+    "No Windows, physical device, other browser, injected filesystem/network failures, concurrent writer, signature, archive extraction recovery or every historical release acceptance.",
+    "Fetched private release refs/objects intentionally remain as manager evidence; original checkout branch/content and installed filesystem state were restored.",
+    "No user-owned project edits, global install update to development main, product release or SkillHub publication."
+  ],
+  "raw_logs_sha256": {
+    "rolled-back-stderr.log": "5bc2c27ac80d9a9d2d4935ff11b4e86a1bccd50e6a187d3582e082f04928a717",
+    "rolled-back-project.log": "94c6e615c595dd9daf5b0cb7692ebe0353feed082f3d5fe2ae0d492463397f33",
+    "upgrade.log": "83a9631935dabc75269569f2ee73209814900885369706d98370c0d94a748b3d",
+    "original-restored-project.log": "c6090dec798b009797f71c4ec92d57c242e98f49937ffc835f486cd7ad077bbc",
+    "upgraded-project.log": "1137437845cb3ebed75c5b1b5e98c5dab90dc969d4190421bc2a7b74702404de",
+    "old-native-upgrade.log": "dd3c3da02cbedf44f50103666ae56f93df02beaf07e2cf003d66e654509f99de",
+    "restore-install.log": "7734a10bd02245531a5b9dc354410c36924962bc4c0d1408e4ff6e6c2e20dca7",
+    "recovered-browser.log": "0ff5ed275581729517d96decadba036ba481da7b134bcc3f3d43362cfee0415f",
+    "upgraded-stderr.log": "5a2564a52470cbf050860717bc506e63c3c61d0e0f04e36d67cb956d09d6cc88",
+    "rollback.log": "f08e0f4d3e3a0ee8fe4f3ebdd4cb1e60a4cd6c2cbc32a455193d4a473fe8a105",
+    "recovered-stderr.log": "1c8bc546996003feb2ff53eb4fb61a4d4b1b6440233166da2ada67a431d45165",
+    "recovered-project.log": "80071f73b6b6086e30611dc7e9492bb77e94d814defce5986413fceb78915b0c",
+    "recovery.log": "f10af502e5f04c062add0e42a428b78a3570d053d19007644419c1ee15808a72",
+    "upgraded-status.log": "b67906cfda6ab9509a0ec4b3d86da386893c5f97f866ad8bcad3a5910bf1bd16",
+    "restore-checkout.log": "79480a4aeb28725d91e26de7af0525625387a44a8b7f72958f1d2144bee91142"
+  },
+  "nonzero_diagnostics": [
+    {
+      "command": "printenv CORTEX_HOME XDG_DATA_HOME",
+      "exit_code": 1,
+      "interpretation": "Both overrides absent, default-root selection expected; not a test failure."
+    },
+    {
+      "command": "git describe --tags --always --exact-match in upgraded install",
+      "exit_code": 128,
+      "interpretation": "No matching local tag name; upgrade fetches the configured-origin tag into private release refs. The selected commit and annotated tag object were independently verified, and the failure is retained rather than counted as a passed command."
+    }
+  ]
+}

@@ -7,8 +7,8 @@ status: complete
 
 # Host and personal-project acceptance
 
-A live Codex CLI rehearsal on a Shijian snapshot and a subsequent real personal-site
-delivery closeout passed on 2026-10-23. The personal site now has committed Cortex
+A live Codex CLI rehearsal, personal-site delivery closeout and canonical-install
+stable upgrade/rollback/recovery cycle passed on 2026-10-23. The personal site now has committed Cortex
 adoption, real gap repairs and scoped delivery evidence. These establish bounded
 installed-asset invocation and organic closeout, not full autonomous development,
 desktop GUI or production-wide acceptance. The [readiness assessment](release-readiness.md)
@@ -171,3 +171,88 @@ markup; the served model script matched local source bytes. This HTTP check is
 not a substitute for the independently executed local browser interaction suite.
 The subsequent documentation receipt preserves that run and corrects the install
 link without changing product behavior.
+
+## Canonical installation stable upgrade and recovery
+
+The [versioned case](../../tests/fixtures/host-acceptance/stable-upgrade-rollback-2026-10-23.json)
+records actual mutation of `~/.local/share/ai-cortex`, rather than a temporary-home
+installer simulation. The initial clone was clean on
+`main@dfad16371b7d658d678ba66b94956180d763379a`; the adopted personal site was clean
+at `2e8f856f3d41d449a7d70c82af3f93f1851b8e2f`. Both root overrides were unset.
+
+Before mutation, a local archive captured the canonical clone including Git
+metadata, generic/Claude/Cursor skill directories, Claude/Cursor rule directories
+and command link. Source-manager bytes and representative symlink metadata were
+checked against the archive. A manager from development baseline
+`9902e25ff24a6ae107b47506aef6c6cf5549a197` was retained outside the switched clone.
+Archive, inventory, manager, raw host events/reports, checks and screenshots remain
+under `~/.local/state/ai-cortex/acceptance/2026-10-23-stable-host`; only hashes and
+curated evidence are committed. Backup restoration by emergency archive extraction
+was not rehearsed; normal checkout/resynchronization restored the initial state.
+
+| Stage | Selected commit | Observed result |
+| --- | --- | --- |
+| Latest stable `upgrade` | `a62a8e5238b1f3f54b50da8528248e6e9315639a` (0.6.0) | Origin stable selection, exact installed membership and CLI loading/tests passed |
+| Explicit rollback `upgrade v0.5.1` | `95a1e001afb49e04368a7d12dd1aace92c583ff9` | Retained manager selected old assets; membership and CLI loading/tests passed |
+| Old native manager `upgrade v0.6.0` | Unchanged 0.5.1 | Expected nonzero unknown-command refusal: old manager lacks the entry |
+| Retained manager `upgrade v0.6.0` | 0.6.0 commit above | Stable recovery, membership and CLI loading/tests passed |
+| Restore original `main`, retained manager `install` | Initial `dfad163` commit | Branch/content restored; complete installed-target inventory matches backup |
+
+Each selected release had 70 Skills linked into each of generic, Claude and Cursor
+paths, 20 Claude global Rule links and 20 generated Cursor Rules, matching the
+selected source inventory with no broken managed links. Three separate actual
+Codex CLI runs read the personal site's AGENTS/config, resolved the default root,
+loaded index plus complete review/test/commit assets and Findings, then executed
+`make test`: each ran 5 cases, all passed, none skipped. Diffs were empty; these
+were loading/test acceptances, not nonempty review-output or new product repairs.
+Four selected core asset files are byte-identical across 0.5.1 and 0.6.0 and those
+population counts stay constant. Do not infer changed-contract compatibility or
+all historical pruning cases from this cycle.
+
+Independently, at upgrade, rollback, stable recovery and original restoration,
+Node 20.20.2 / Ruby 3.3.6 passed the site's 5 model tests, six-post content validation
+and Jekyll build. After stable recovery, five Playwright 1.62.1/Chromium groups
+passed with no skips, covering both collections, keyboard/no-JS, filters/selection
+and 1440/390/320 px layouts; the 320 px music screenshot was visually checked.
+No personal-site commit, source or adoption configuration changed.
+
+Final comparison to the verified archive found all 1,255 installed-target entries,
+file contents, symlink strings and file/directory modes restored. The 1,004
+non-managed entries were unchanged at every audited version. Two existing Vercel
+legacy links were retained. The final clone is clean on its original main commit;
+new private release refs and fetched Git objects deliberately remain as manager
+selection evidence. No force update, old-history merge or development-main update
+was used. This final state is the initial development snapshot, not a retained
+stable pin or a new supported security version.
+
+Measured environment: macOS 27.0.1 build 26A434, arm64, zsh 5.9, manager `/bin/sh`
+(GNU bash 3.2.57), operator Git 2.51.0 and Codex CLI 0.163.0-alpha.11.2. CLI runs
+used ephemeral/read-only/ignored-user-config execution with requested
+`gpt-6.1-sol`; backend model identity, sandbox enforcement and the CLI's exact Node
+version were not independently attested. Operator pinned-tool tests are distinct
+from CLI fast tests. Cache/event-stream warnings were retained alongside actual
+successful test counts. An exact local-tag lookup returned 128 because the upgrade
+uses private release refs; selected commit/tag-object identity was separately verified.
+Unset-root environment probes returned 1 as expected. Automatic native preload, ordinary desktop/user config,
+other operating systems, filesystem/network faults and concurrent writers remain
+outside this measured claim. Operator-only version changes and independent checks
+must not be presented as autonomous agent recovery.
+
+### Observation and remaining core gap
+
+The rollback host identified an inherited wording mismatch in review-diff 1.0.2:
+its self-check says six fields, while Findings Spec 2.0.1 requires `maturity` among
+seven elements and makes `suggestion` optional. Current and released text confirm
+this observation. The higher-authority Spec governs; loading/tests passed, but
+empty diffs did not exercise a nonempty Findings output. Record this as a minor
+stable-core documentation alignment gap to repair and then verify with an actual
+finding; this acceptance does not change published tags or production assets.
+
+The operator inventory check initially rejected trailing slashes in existing
+symlink targets. The archive was already captured; the upgrade proceeded in that
+same command batch. Subsequent membership checks normalized that representation,
+then final restoration compared exact original link strings and all target modes.
+The evidence parser also required correction for the host's Node spec reporter
+rather than the operator's TAP reporter; strict 5/5/0/0 counters were retained.
+These are retained acceptance-tool limitations, not installer failures. The
+canonical recovery procedure remains in the [recovery guide](../guides/installer-recovery.md).

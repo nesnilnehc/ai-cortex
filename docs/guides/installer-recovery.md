@@ -114,3 +114,12 @@ and rerun the retained manager's `install`. A previously fetched tag whose objec
 changes is rejected; investigate the upstream change instead of deleting the
 private `refs/cortex/releases/` evidence to bypass the check. This is not a
 concurrent-writer or transactional installation guarantee.
+
+## Recorded canonical-host acceptance
+
+The [2026-10-23 host record](../project-overview/host-acceptance.md#canonical-installation-stable-upgrade-and-recovery)
+exercises this procedure on the maintainer's real macOS installation: verified
+backup, 0.6.0 selection, 0.5.1 rollback, retained-manager recovery and restoration
+of the original checkout/installed targets. Three actual Codex CLI loading/test
+runs and independent personal-site checks passed. Its exact versions and limits
+are evidence for that cycle, not a guarantee for all hosts or old release managers.

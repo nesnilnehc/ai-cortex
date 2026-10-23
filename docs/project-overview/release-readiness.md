@@ -11,7 +11,7 @@ Assessment baseline: `1ef7026a27cc52ab7e7cb606144e8e8dc740be1e`, following 0.5.1
 
 ## Decision
 
-Do not release 1.0 yet. Core definitions, versioned assets and reproducible release preparation exist. The three reproduced installer ownership/rollback defects are resolved in 0.5.1, with permanent regression tests and Linux/macOS CI. The stable scope, experimental boundary, compatibility/deprecation rules and latest-stable security strategy are now approved and documented. A bounded historical/current reference-consumer suite now covers Findings, Release Package and Rule coverage. A live Codex CLI rehearsal on a scoped Shijian committed snapshot now verifies explicit installed-asset review/repair invocation. A real personal-site closeout now records permanent adoption, CI/documentation repairs, browser acceptance and a scoped commit/push. Remaining gaps include broader product-code delivery, other core dependencies, wider host configuration and real future deprecation migrations, host/environment acceptance and applicable adopter evidence. The stable upgrade entry shipped in 0.6.0; primary-host acceptance remains open. The patch closes the installation findings; it does not establish the broader 1.x guarantee.
+Do not release 1.0 yet. Core definitions, versioned assets and reproducible release preparation exist. The three reproduced installer ownership/rollback defects are resolved in 0.5.1, with permanent regression tests and Linux/macOS CI. The stable scope, experimental boundary, compatibility/deprecation rules and latest-stable security strategy are now approved and documented. A bounded historical/current reference-consumer suite now covers Findings, Release Package and Rule coverage. A live Codex CLI rehearsal on a scoped Shijian committed snapshot now verifies explicit installed-asset review/repair invocation. A real personal-site closeout now records permanent adoption, CI/documentation repairs, browser acceptance and a scoped commit/push. Remaining gaps include broader product-code delivery, other core dependencies, wider host configuration and real future deprecation migrations, host/environment acceptance and applicable adopter evidence. The stable upgrade entry shipped in 0.6.0; the canonical macOS/Codex CLI upgrade, 0.5.1 rollback and stable recovery cycle now passes with original-state restoration. The patch closes the installation findings; it does not establish the broader 1.x guarantee.
 
 A personal tool can legitimately reach 1.0. On 2026-10-23 the maintainer confirmed that use is primarily personal and no consuming-project acceptance records are available. Do not equate this with no real use, nor with independently verified cross-team production adoption. The selected core covers project adoption, review/repair and commit/release; validate those workflows before broadening the promise.
 
@@ -26,9 +26,9 @@ A personal tool can legitimately reach 1.0. On 2026-10-23 the maintainer confirm
 | Behavioral evidence | Existing live roadmap trace passes the canonical freshness/completeness validator: 10 cases and 30 turns | Bounded JSON decision adapter plus real local renderer; not unrestricted agent editing, a production project acceptance or a live external adapter acceptance. Provider model ID is not exposed | Real but narrow evidence |
 | Actual use | Maintainer confirms personal use. The 0.5.0 and 0.5.1 Release Packages and GitHub receipts establish this repository's own preparation/publication flow was used | [Live host record](host-acceptance.md) adds a controlled requirement-to-review/repair/test trace on real project code; a subsequent permanent personal-site adoption and real CI/documentation closeout is now recorded; wider product-code chains and independent contexts remain unverified | Personal use, self-hosting, live rehearsal and one organic closeout |
 | Rule activation | [Rule modeling](../../specs/rule-modeling.md#52-rule-item-contract) derives 118 ready items from nonempty activation rows; recorded release validation passes | OBS-003, PERF-007, REL-008 and TST-008 still use `Verification: adopter`. Required return fixtures are not substituted by the ready count | Activation materials complete; adopter evidence still owed |
-| Installation/update | 0.5.1 fixes ownership and cleanup; 22 permanent integration tests pass locally and on Linux/macOS CI, including foreign links, markers, repeated install, rollback and dirty-update refusal | macOS/Linux POSIX installer target selected; record exact accepted OS/shell/Git and host versions. IDE runtime discovery and Windows were not verified. Filesystem fault injection and concurrent writers are outside current evidence | Three findings resolved; bounded installer evidence present |
+| Installation/update | 0.5.1 fixes ownership and cleanup; 22 permanent integration tests pass locally and on Linux/macOS CI, including foreign links, markers, repeated install, rollback and dirty-update refusal | macOS/Linux POSIX installer target selected; exact macOS/shell/Git/CLI versions and canonical installation recovery are now recorded. Automatic desktop discovery, normal user configuration and Windows were not verified. Filesystem fault injection and concurrent writers are outside current evidence | Three findings resolved; bounded installer evidence present |
 | Release and recovery | 0.5.1 has a verified annotated tag, notes, changelog and publication receipt; actual 0.5.0 → 0.4.0 asset rollback with a retained fixed manager verifies exact membership and no broken managed links | Older tags retain older installers: the fixed manager must remain outside the clone and be used explicitly while pinned. Consuming-project edits require separate recovery | Reported stale-asset defect resolved; recovery procedure bounded and verified |
-| Support | [SECURITY](../../SECURITY.md) retains current 0.x main support and adopts latest-stable support starting at 1.0; no older-pin backport or LTS promise; response timelines retained | Upgrade entry shipped in 0.6.0 with regression tests and public-origin selection/recovery recorded in its manifest; host acceptance remains pending | Strategy and upgrade delivery resolved; host evidence pending |
+| Support | [SECURITY](../../SECURITY.md) retains current 0.x main support and adopts latest-stable support starting at 1.0; no older-pin backport or LTS promise; response timelines retained | Upgrade entry shipped in 0.6.0; canonical Mac CLI selection/rollback/recovery now verified. Additional host/configuration claims require their own evidence | Strategy, upgrade delivery and bounded primary-host cycle verified |
 
 ## Resolved installation findings
 
@@ -91,9 +91,10 @@ on 2026-10-23. It is the canonical membership/dependency and versioning source;
 Selection of the core is complete. No asset was promoted on a test count alone.
 
 Admission work remains: supported old/new consumer fixtures for protected shared
-contracts, actual personal-project acceptance for the selected chains, exact
-OS/shell/Git/host acceptance records, and host acceptance of the stable-release upgrade
-entry shipped in 0.6.0. `cortex update` still follows the remote default branch and can discard
+contracts, actual personal-project acceptance for the selected chains, wider
+host/configuration records and remaining core acceptance. The canonical macOS/CLI
+upgrade entry shipped in 0.6.0 now has a recorded stable selection, rollback and
+recovery cycle below with exact environment versions. `cortex update` still follows the remote default branch and can discard
 clean local-only commits; it does not preserve a release pin. The scope policy itself
 changes no installer behavior and does not imply those gaps have closed.
 
@@ -123,8 +124,8 @@ schedule those same defects again without new failing evidence.
 | Order | Remaining proposed work | Completion evidence | Indicative story points |
 | --- | --- | --- | ---: |
 | Complete | Select stable scope and compatibility/support strategy | Approved policy, explicit dependency inventory, security transition and experimental boundaries documented; admission evidence remains separate | — |
-| 1 (partial) | Stable-release upgrade entry released; supported-host acceptance remains | Local integration verifies stable-tag selection, explicit pins, refusal paths, cleanup and update continuity. 0.6.0 publication and isolated public-origin selection/rollback are complete; record broader primary-host upgrade/configuration acceptance before closing this item; one explicit CLI review/repair invocation is now recorded | 5 |
-| 2 (partial) | Expand reference coverage to actual consumers and remaining dependencies | Findings, Release Package, configuration and Rule parameter/waiver reference cases pass; synthetic deprecation and actual 0.x legacy installation migration are covered. Full host loaders and any future real stable entry migration still require evidence | 5 |
+| Complete (primary Mac CLI) | Stable upgrade, rollback and recovery on canonical installation | Verified backup, actual 0.6.0 → 0.5.1 → 0.6.0 switches, three live adopted-project CLI runs, independent project/browser checks and exact original installation restoration; broader desktop/configuration claims remain separate | — |
+| 2 (partial) | Expand reference coverage to actual consumers and remaining dependencies | Findings, Release Package, configuration and Rule parameter/waiver reference cases pass; synthetic deprecation and actual 0.x legacy installation migration are covered. Align the observed review-diff field wording with Findings and verify a nonempty host finding; full host loaders and any future real stable entry migration still require evidence | 5 |
 | 3 (partial) | Expand actual personal-project acceptance | Shijian controlled trace plus permanent personal-site adoption and real delivery closeout are recorded with versions, review, repairs, tests and scoped commit/push; broader product-code and full commit/release chains remain open | 5 |
 | 4 | Resolve adopter evidence and strategic thresholds within that scope | Representative Rule return fixtures or an explicit exclusion from stable evidence claims; reconcile M5/M6/M7 definitions if they are used for admission | 3 |
 | 5 | Rehearse a bounded 1.0 candidate | Approved core passes installer, consumer and project gates; supported environments and upgrade/recovery are exercised; prepare-release determines readiness before an authorized publication | 3 |
@@ -150,8 +151,8 @@ configuration, release manifest and recovery instructions against that baseline.
 It reuses the recorded successful local and Linux/macOS runs and actual tagged
 asset recovery; it does not claim a new execution of those behavioral tests or a
 new live-model/project/IDE acceptance run. The subsequent policy update resolves the scope and support decisions through
-explicit maintainer approval. Consumer, adopter and host evidence and upgrade
-host acceptance remain open. No roadmap promotion or 1.0 release is authorized by this
+explicit maintainer approval. Consumer, adopter and broader host evidence remain
+open; the subsequent canonical Mac CLI upgrade acceptance is recorded below. No roadmap promotion or 1.0 release is authorized by this
 document. Documentation links, hygiene and Markdown formatting
 are checked for this update.
 
@@ -258,7 +259,37 @@ This resolves absence of persistent adoption for that project and supplies one
 organic configuration/documentation delivery record. It is not a newly developed
 product feature, a naturally discovered product-code bug, an autonomous full-chain
 CLI repair or a Release Package acceptance. Browser checks are local; ordinary
-user-config/desktop behavior, stable upgrade host recovery, remaining core and
+user-config/desktop behavior, remaining core and
 adopter evidence still need acceptance. Keep the overall decision **not ready**;
-next prioritize a real behavior change in this adopted project when one arises,
-then wider supported-host upgrade/recovery and remaining stable-chain evidence.
+next resolve the inherited review-diff/Findings wording mismatch and verify a real
+nonempty finding, then accept an actual behavior change when one arises and the
+remaining stable-chain evidence. Wider host claims require their own scope.
+
+## Canonical stable upgrade, rollback and recovery acceptance
+
+[Host acceptance](host-acceptance.md#canonical-installation-stable-upgrade-and-recovery)
+and its versioned case now close the selected primary macOS/CLI operational cycle.
+A verified local backup preceded changes to the real installation. Latest stable
+selected 0.6.0, the retained manager rolled assets back to 0.5.1 and recovered
+0.6.0, and the initial clean `main@dfad163` was restored. The old native manager's
+missing `upgrade` entry produced the expected refusal without changing HEAD.
+Each of three actual CLI runs loaded the adopted site's entry/config/assets and
+passed 5 fast tests. Independent pinned tests/content/build passed at all four
+states; stable recovery also passed all five local browser groups.
+
+All 1,255 installed-target entries and their contents/link strings/modes match the
+backup after restoration; 1,004 non-managed entries were unchanged at every audited
+stage. The personal-site source and commit remain unchanged. Private fetched
+release refs/objects stay as selection evidence. This verifies normal
+checkout/resynchronization recovery, not emergency archive extraction. Four loaded
+core asset files and population counts are identical across the selected releases;
+changed-contract compatibility, automatic desktop discovery, normal user config,
+other hosts, concurrent writers and fault handling are not added to the claim.
+
+The host also exposed inherited six-field wording in review-diff 1.0.2 that needs
+alignment with the seven-element Findings Spec, followed by nonempty-output
+verification. This was an observation during an empty-diff loading/test run; it
+did not fail the operational cycle and must not be silently treated as repaired.
+Overall 1.0 remains **not ready**. Prioritize that bounded core alignment and
+nonempty real review evidence, actual product-behavior delivery when available,
+remaining core dependencies/adopter evidence, then a bounded candidate rehearsal.
