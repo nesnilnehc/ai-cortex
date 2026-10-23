@@ -66,10 +66,19 @@ An item is not promoted on a claim that the evidence exists elsewhere; it is pro
 
 ## Versioning
 
-This project follows [Semantic Versioning](https://semver.org/). When you modify a skill:
+The [stable-core policy](docs/project-overview/stable-core.md) owns the product
+compatibility boundary and stable dependency inventory. Review that inventory
+when a change adds a dependency or changes a globally loaded Rule. Stable contract
+breakage requires a product MAJOR; an independent asset version cannot waive it.
+The 1.x guarantee begins at 1.0 and does not retroactively apply to 0.x tags.
+
+This project follows [Semantic Versioning](https://semver.org/). For independent
+asset versions, classify the actual behavior before using the examples below.
+A new required step, changed permission or incompatible output is MAJOR even if
+implemented as prose. When you modify a skill:
 
 - **PATCH** (1.0.0 → 1.0.1): errata, metadata adjustments, reference updates
-- **MINOR** (1.0.0 → 1.1.0): new steps, improved examples, interaction policy changes
+- **MINOR** (1.0.0 → 1.1.0): backward-compatible optional steps, improved examples without changed obligations, compatible interaction additions
 - **MAJOR** (1.0.0 → 2.0.0): breaking structural changes, including making a previously optional output format mandatory
 
 After bumping `version` in the SKILL.md frontmatter, run `python3 scripts/sync-skills-index.py` so any description change reaches `skills/INDEX.md`.

@@ -55,3 +55,16 @@ Then check the cut: the released section must be byte-identical to `git show <ta
 ## Afterwards
 
 The Release Package records what happened. `status` becomes `published` only once the provider returned a receipt; a local commit and tag alone are not a publication, and the `publication` block carries the rollback path for when one is needed.
+
+## 1.0 readiness assessment
+
+The [current readiness assessment](../project-overview/release-readiness.md)
+separates verified contracts, use evidence, installer behavior and compatibility
+policy gaps. It is an assessment, not an approved release scope or a new release gate.
+
+## Stable scope and compatibility
+
+The approved [stable-core policy](../project-overview/stable-core.md) defines the
+1.0 target, dependency inventory, experimental boundary and product compatibility
+rules. Apply it alongside independent asset versions when preparing 1.x releases.
+Scope approval does not replace the readiness evidence or authorize publication.

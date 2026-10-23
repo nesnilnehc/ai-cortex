@@ -132,3 +132,11 @@ Original AI Cortex content is [MIT](LICENSE). Vendored externally derived skills
 
 - [Contributors](https://github.com/nesnilnehc/ai-cortex/graphs/contributors)
 - Pinned sources and local modifications for externally derived skills are listed in [ATTRIBUTIONS.md](docs/references/ATTRIBUTIONS.md) and [skills/SOURCES.yaml](skills/SOURCES.yaml)
+
+## Stability and support
+
+AI Cortex is preparing a bounded 1.0 stable core. The approved
+[scope and dependency inventory](docs/project-overview/stable-core.md) separates
+protected contracts from experimental capabilities; approval is not a 1.0 release.
+See the [readiness assessment](docs/project-overview/release-readiness.md) for
+remaining evidence and [SECURITY](SECURITY.md) for current and planned support.

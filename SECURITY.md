@@ -9,7 +9,22 @@ AI Cortex is a library of Markdown assets — skills, specs, protocols and rules
 
 ## Supported versions
 
-This is a rolling-release repository. Security fixes are provided for the latest commit on the default branch, `main`.
+During the current 0.x preparation period, security fixes continue to target the
+latest `main`, and release-worthy fixes go through the normal release process.
+
+Starting with 1.0, security fixes target the latest stable Release. Older release
+pins and previous major versions have no automatic backport or LTS commitment;
+upgrade to the latest stable release for fixes. `main` is the development and
+early-validation channel, not a substitute for the stable release guarantee.
+
+The [stable-core policy](docs/project-overview/stable-core.md) defines the
+compatibility boundary. Prefer compatible remediation; security impact does not
+justify silently changing that contract. Announce affected versions, mitigation,
+upgrade requirements and any necessary incompatible change. Published versions
+are not rewritten. Experimental assets remain in security reporting scope.
+
+The response timelines below cover acknowledgement and initial assessment, not a
+guaranteed fix deadline. Scope approval does not assert that 1.0 has shipped.
 
 ## Reporting a vulnerability
 
