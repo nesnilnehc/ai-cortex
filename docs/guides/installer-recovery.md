@@ -79,3 +79,38 @@ It covers user-owned files/links, prefix and traversal boundaries, generated-fil
 markers, repeated installation, source-revision rollback, pruning and dirty-update
 refusal. CI executes it on Linux and macOS without fetching release tags or using
 an external network. These are installer integration tests, not IDE invocation tests.
+
+## Stable release selection
+
+`cortex upgrade` selects the highest numeric stable `vMAJOR.MINOR.PATCH` tag
+advertised by origin. `cortex upgrade v0.5.1` explicitly selects that tag. Both
+require an existing clean clone and leave a detached checkout. A stable tag is
+not proof of host acceptance or a GitHub Release receipt. Origin is the trusted
+source; no signature verification or independent provider lookup is performed.
+
+Keep the manager outside the checkout when selecting a release whose installer
+predates this entry. Starting from this development version:
+
+```sh
+cortex_checkout="$HOME/.local/share/ai-cortex"
+cortex_manager_dir=$(mktemp -d "$HOME/.local/share/cortex-manager.XXXXXX")
+cp "$cortex_checkout/bin/cortex" "$cortex_manager_dir/cortex"
+CORTEX_HOME="$cortex_checkout" sh "$cortex_manager_dir/cortex" upgrade
+# Or select a specific release:
+CORTEX_HOME="$cortex_checkout" sh "$cortex_manager_dir/cortex" upgrade v0.5.1
+```
+
+Subsequent invocations without a version choose the newest stable tag rather than
+retaining an explicit selection. `update` still selects the remote default branch.
+The command link continues to point at the selected clone's installer; the retained
+manager is necessary if that old installer lacks `upgrade` or the ownership fixes.
+No channel preference file or automatic background update is written.
+
+Dirty state, invalid/missing releases, origin lookup/fetch failure and missing
+required asset files stop before checkout. Fetched objects/private release refs
+may remain after failure. Once checkout succeeds, a synchronization failure is
+not rolled back automatically; preserve the error, resolve filesystem conflicts
+and rerun the retained manager's `install`. A previously fetched tag whose object
+changes is rejected; investigate the upstream change instead of deleting the
+private `refs/cortex/releases/` evidence to bypass the check. This is not a
+concurrent-writer or transactional installation guarantee.

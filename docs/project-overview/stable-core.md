@@ -167,7 +167,7 @@ repository promises to create. Configuration keys consumed by the core, includin
 meaning; research-only configuration remains outside this scope.
 
 The public installer surface is [bin/cortex](../../bin/cortex): `install`,
-`update`, `status`, `uninstall`, their documented options, root resolution through
+`upgrade`, `update`, `status`, `uninstall`, their documented options, root resolution through
 `CORTEX_HOME`/`XDG_DATA_HOME`, installed locations and ownership boundaries.
 `status` is human-readable, not a machine-output schema. `update` follows the
 remote default branch; it does not preserve a release pin. Unknown flags and
@@ -245,9 +245,11 @@ maintenance. `main` is the development and early-validation channel, not evidenc
 that a development snapshot satisfies release compatibility. Pre-release tags
 are candidates, not stable releases. Security support is defined in SECURITY.
 
-Before 1.0, deliver and test a clear stable-release upgrade entry while retaining
-the existing `update` semantics. No new command or flag is claimed here. Today,
-release selection is manual checkout/reinstall; rollback to older installers
+The development checkout now provides `cortex upgrade [version]` for stable
+origin-tag selection, with isolated regression coverage and existing `update`
+semantics retained. This entry is not retroactively present in released tags.
+Primary-host discovery/invocation acceptance remains required before 1.0.
+Rollback to older installers
 requires the retained fixed manager in the [recovery guide](../guides/installer-recovery.md).
 Protect local work, disclose that installation is nontransactional, and do not
 promise source rollback restores project documents or external state.
@@ -263,6 +265,6 @@ after their own acceptance. Do not infer Claude, Cursor or Codex runtime support
 from symlink creation alone. Model quality has no universal guarantee.
 
 Scope approval is complete; consumer compatibility fixtures, personal-project
-acceptance, environment records, applicable adopter evidence and the stable
-upgrade entry remain admission work. A candidate rehearsal must verify those
+acceptance, environment records and applicable adopter evidence remain admission work;
+the implemented upgrade entry still needs release and primary-host acceptance. A candidate rehearsal must verify those
 against this bounded scope before the normal release preparation/publication.

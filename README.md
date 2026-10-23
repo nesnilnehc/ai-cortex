@@ -75,6 +75,28 @@ Fetches `origin` and **hard-resets the canonical clone onto it**, then re-syncs,
 
 Upstream updates to externally derived skills are reviewed by maintainers before entering AI Cortex; they are not upgraded independently at the user's runtime.
 
+### Stable version selection and upgrade
+
+```sh
+cortex upgrade          # Select the highest stable vMAJOR.MINOR.PATCH tag on origin
+cortex upgrade 0.5.1    # Select an explicit stable version (v prefix is optional)
+```
+
+Requires an existing clean canonical Git clone with an `origin` remote. Selection
+uses remote stable tags in numeric version order, excluding prerelease/build labels
+and local-only tags; it does not query GitHub's latest Release API. The command
+fetches and validates the target, checks out its commit detached, and prunes and
+resynchronizes assets with the running manager. It never force-resets local edits
+or overwrites local tags. Previously fetched release tags that change on origin
+are rejected. Explicit selection may move backwards; branches/local commits are
+retained, but the active checkout changes. Installation is not transactional.
+
+The entry is available in this development checkout, not retroactively in older
+tags. To select an older release that lacks it, retain this manager outside the
+clone first and use it explicitly afterward; see
+[installer recovery](docs/guides/installer-recovery.md#stable-release-selection).
+`cortex update` continues to follow the remote default branch and leaves a pin.
+
 ### Pinning and rollback
 
 A release pin is a detached checkout; `cortex update` follows the remote default

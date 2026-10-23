@@ -92,9 +92,9 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: installer ownership and rollback integration tests
+      - name: installer ownership, stable upgrade and rollback integration tests
         # The real POSIX entry point runs in isolated homes with small assets
-        # and local Git origins; these tests do not need tags or network access.
+        # and local Git origins/tags; these tests need no network access.
         run: python3 scripts/test-cortex-installer.py
 
   registry:

@@ -89,6 +89,97 @@ class InstallerTests(unittest.TestCase):
         self.git('commit', '-m', 'Old asset set')
         return self.git('rev-parse', 'HEAD')
 
+    def release_origin(self):
+        old = self.init_source()
+        self.git('tag', '-a', 'v1.2.0', '-m', 'Stable old')
+        self.add_skill('released')
+        self.git('add', '.')
+        self.git('commit', '-m', 'Stable new')
+        stable = self.git('rev-parse', 'HEAD')
+        self.git('tag', 'v1.10.0')
+        self.add_skill('development')
+        self.git('add', '.')
+        self.git('commit', '-m', 'Development')
+        self.git('tag', 'v2.0.0-rc.1')
+        self.git('tag', 'v01.99.0')
+        origin = self.root / 'origin.git'
+        self.git('clone', '--bare', str(self.source), str(origin))
+        self.git('remote', 'add', 'origin', str(origin))
+        return old, stable
+
+    def test_upgrade_selects_highest_remote_stable_and_resyncs(self):
+        _, stable = self.release_origin()
+        self.git('tag', 'v99.0.0')  # Local-only tags must not affect selection.
+        self.cli('install')
+        self.cli('upgrade')
+        self.assertEqual(self.git('rev-parse', 'HEAD'), stable)
+        self.assertEqual(self.git('branch', '--show-current'), '')
+        self.assertTrue((self.home / '.agents/skills/released').is_symlink())
+        self.assertFalse((self.home / '.agents/skills/development').is_symlink())
+        self.cli('upgrade')  # Repeat selection is safe.
+        self.assertEqual(self.git('rev-parse', 'HEAD'), stable)
+
+    def test_upgrade_selects_explicit_version_and_update_still_follows_main(self):
+        old, _ = self.release_origin()
+        main = self.git('rev-parse', 'HEAD')
+        self.cli('upgrade', '1.2.0')
+        self.assertEqual(self.git('rev-parse', 'HEAD'), old)
+        self.cli('upgrade', 'v1.2.0')
+        self.assertEqual(self.git('rev-parse', 'HEAD'), old)
+        self.cli('update')
+        self.assertEqual(self.git('rev-parse', 'HEAD'), main)
+
+    def test_upgrade_refuses_dirty_checkout_without_switching(self):
+        self.release_origin()
+        head = self.git('rev-parse', 'HEAD')
+        (self.source / 'untracked').write_text('keep')
+        result = self.cli('upgrade', success=False)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('dirty', result.stdout.lower())
+        self.assertEqual(self.git('rev-parse', 'HEAD'), head)
+        self.assertEqual((self.source / 'untracked').read_text(), 'keep')
+
+    def test_upgrade_rejects_invalid_missing_or_unavailable_versions(self):
+        self.release_origin()
+        head = self.git('rev-parse', 'HEAD')
+        for args in [('v2.0.0-rc.1',), ('01.2.0',), ('--force',),
+                     ('1.2',), ('1.2.0', 'extra'), ('9.0.0',)]:
+            with self.subTest(args=args):
+                self.assertNotEqual(self.cli('upgrade', *args, success=False).returncode, 0)
+                self.assertEqual(self.git('rev-parse', 'HEAD'), head)
+        self.git('remote', 'set-url', 'origin', str(self.root / 'missing.git'))
+        self.assertNotEqual(self.cli('upgrade', success=False).returncode, 0)
+        self.assertEqual(self.git('rev-parse', 'HEAD'), head)
+
+    def test_upgrade_does_not_use_local_tags_when_origin_has_no_stable_tag(self):
+        self.release_origin()
+        self.git('push', 'origin', ':refs/tags/v1.2.0', ':refs/tags/v1.10.0')
+        head = self.git('rev-parse', 'HEAD')
+        self.assertNotEqual(self.cli('upgrade', success=False).returncode, 0)
+        self.assertEqual(self.git('rev-parse', 'HEAD'), head)
+
+    def test_upgrade_rejects_moved_release_tag(self):
+        _, stable = self.release_origin()
+        self.cli('upgrade')
+        self.git('tag', '-f', 'v1.10.0', 'main')
+        self.git('push', '--force', 'origin', 'refs/tags/v1.10.0')
+        result = self.cli('upgrade', success=False)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('changed', result.stdout)
+        self.assertEqual(self.git('rev-parse', 'HEAD'), stable)
+
+    def test_upgrade_rejects_release_without_required_assets(self):
+        self.release_origin()
+        self.git('rm', 'skills/INDEX.md')
+        self.git('commit', '-m', 'Invalid release')
+        head = self.git('rev-parse', 'HEAD')
+        self.git('tag', 'v3.0.0')
+        self.git('push', 'origin', 'refs/tags/v3.0.0')
+        result = self.cli('upgrade', success=False)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('required file', result.stdout)
+        self.assertEqual(self.git('rev-parse', 'HEAD'), head)
+
     def test_rule_link_is_preserved_when_target_is_foreign(self):
         """Covers: README ownership contract; same-name rule regression."""
         foreign = self.root / 'personal-rule.md'
