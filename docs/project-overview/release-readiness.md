@@ -162,9 +162,11 @@ not GitHub Release metadata; `update` retains default-branch semantics. The
 [permanent installer suite](../../scripts/test-cortex-installer.py) now executes
 29 cases, including seven upgrade regressions for latest/explicit selection,
 dirty state, invalid/missing/unavailable versions, empty stable catalogs, moved
-tags and incomplete release trees. All 29 passed locally on macOS. CI's existing
-Linux/macOS matrix executes the expanded suite; this update does not claim a
-remote result before that run completes.
+tags and incomplete release trees. All 29 passed locally on macOS.
+[CI run 39930582778](https://github.com/nesnilnehc/ai-cortex/actions/runs/39930582778)
+passed both Linux/macOS installer jobs, shell, Markdown, links and registry checks
+on implementation commit `a461bcdf5b44f46b6282d0b3e6b1309a629df9fa`.
+The PR-only translation job was skipped as configured, not counted as passed.
 
 TDD first reproduced the absent entry, then exposed an empty default-branch
 fallback in update and a forward-moved cached release tag. Each was corrected
