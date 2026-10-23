@@ -2,6 +2,23 @@
 
 ## [Unreleased]
 
+## [0.5.1] — 2026-10-23
+
+### Fixed
+
+- Preserve foreign skill and rule symlinks during install and uninstall, including
+  broken links, similar prefixes and traversal paths.
+- Recognize generated Cursor rules only by their exact first line, and preserve
+  symlinks instead of following them during generated-file writes.
+- Prune obsolete managed assets during reinstall as well as update, enabling
+  complete resynchronization after selecting an older asset revision.
+
+### Verification and recovery
+
+- Add 22 permanent installer integration tests and Linux/macOS CI execution.
+- Document rollback with a retained fixed installer, since checking out an older
+  tag also restores its older installer. Asset contracts and versions are unchanged.
+
 ## [0.5.0] — 2026-10-23
 
 ### Added
