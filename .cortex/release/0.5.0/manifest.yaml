@@ -1,0 +1,837 @@
+---
+schema_version: 1.2.2
+project: ai-cortex
+decision: release
+version: 0.5.0
+release_channel: stable
+version_source: git tag
+commit: e80c7a704bd685592d9119de3d5f6ccb8e76ba89
+range: d06ac50d114f6a335323a73cbfce7879cba32d53..e80c7a704bd685592d9119de3d5f6ccb8e76ba89
+status: ready
+decision_basis: The range changes installed Skills and Rules and directly consumed
+  Specs. Breaking discovery, routing, requirement and UI contracts rule out a patch.
+  As in 0.4.0, a pre-1.0 minor carries compatibility changes; 1.0 would assert stability
+  this release does not promise.
+version_domains:
+  product:
+    current: 0.4.0
+    source: git tag
+    action: bump
+    target: 0.5.0
+  skills:
+    current: per-file frontmatter
+    source: skills/*/SKILL.md
+    action: preserve
+    note: Keep the independently versioned asset values already committed; no synchronized
+      release-time bump.
+  rules:
+    current: per-file frontmatter
+    source: rules/*.md
+    action: preserve
+    note: Keep the independently versioned asset values already committed; no synchronized
+      release-time bump.
+  specs:
+    current: per-file frontmatter
+    source: specs/*.md
+    action: preserve
+    note: Keep the independently versioned asset values already committed; no synchronized
+      release-time bump.
+  protocols:
+    current: per-file frontmatter
+    source: protocols/*.md
+    action: preserve
+    note: Keep the independently versioned asset values already committed; no synchronized
+      release-time bump.
+  installer:
+    current: unversioned
+    source: bin/cortex
+    action: preserve
+    note: No installer content change since 0.4.0.
+baseline:
+  previous_tag: v0.4.0
+  original_commit: 504b1a6059a4f50dc73645971d093db475b2e464
+  rewritten_commit: d06ac50d114f6a335323a73cbfce7879cba32d53
+  identical_tree: 73e7f0e757d50e355aeced807c44afe1da2045a0
+  ancestry_verified: true
+  tag_preserved: true
+  range_commit_count: 36
+  history_policy: Count rewritten main descendants only. Do not use tag..HEAD for
+    commit enumeration across disconnected rewritten histories.
+asset_versions:
+- path: rules/agentic-artifact-paradigm.md
+  status: M
+  before: 1.0.0
+  after: 1.1.0
+- path: rules/functional-design-quality.md
+  status: M
+  before: 1.0.0
+  after: 2.0.0
+- path: rules/requirement-quality.md
+  status: M
+  before: 2.2.0
+  after: 2.4.0
+- path: rules/roadmap-quality.md
+  status: M
+  before: 1.0.1
+  after: 4.11.1
+- path: rules/standards-jenkins-job-naming.md
+  status: A
+  before:
+  after: 1.0.0
+- path: rules/standards-test-code.md
+  status: M
+  before: 1.0.0
+  after: 1.1.0
+- path: rules/workflow-documentation.md
+  status: M
+  before: 1.1.1
+  after: 1.3.0
+- path: rules/writing-presales-response.md
+  status: A
+  before:
+  after: 1.0.0
+- path: skills/announce-release/SKILL.md
+  status: M
+  before: 1.1.1
+  after: 1.1.2
+- path: skills/archive-milestone/SKILL.md
+  status: M
+  before: 1.1.2
+  after: 1.9.0
+- path: skills/assess-product-opportunity/SKILL.md
+  status: M
+  before: 1.0.0
+  after: 1.1.0
+- path: skills/automate-tests/SKILL.md
+  status: M
+  before: 1.0.2
+  after: 1.1.0
+- path: skills/capture-work-items/SKILL.md
+  status: M
+  before: 2.0.2
+  after: 2.3.0
+- path: skills/changelog-video/SKILL.md
+  status: M
+  before: 1.0.1
+  after: 1.1.0
+- path: skills/commit-work/SKILL.md
+  status: M
+  before: 2.0.3
+  after: 2.1.0
+- path: skills/competitive-research/SKILL.md
+  status: M
+  before: 1.0.0
+  after: 1.1.0
+- path: skills/consume-nats-message/SKILL.md
+  status: M
+  before: 1.4.1
+  after: 1.4.2
+- path: skills/decontextualize-text/SKILL.md
+  status: M
+  before: 1.3.1
+  after: 1.3.2
+- path: skills/deep-research/SKILL.md
+  status: M
+  before: 1.0.0
+  after: 1.1.0
+- path: skills/define-docs-norms/SKILL.md
+  status: M
+  before: 3.0.0
+  after: 3.0.1
+- path: skills/define-mission/SKILL.md
+  status: M
+  before: 1.4.0
+  after: 1.4.1
+- path: skills/define-north-star/SKILL.md
+  status: M
+  before: 1.2.1
+  after: 1.2.2
+- path: skills/define-roadmap/SKILL.md
+  status: M
+  before: 4.0.0
+  after: 7.13.2
+- path: skills/define-strategic-pillars/SKILL.md
+  status: M
+  before: 1.1.2
+  after: 1.1.3
+- path: skills/define-vision/SKILL.md
+  status: M
+  before: 1.3.1
+  after: 1.3.2
+- path: skills/deliver-feature/SKILL.md
+  status: M
+  before: 1.1.1
+  after: 1.1.2
+- path: skills/design-strategic-goals/SKILL.md
+  status: M
+  before: 1.3.2
+  after: 1.3.4
+- path: skills/generate-agent-entry/SKILL.md
+  status: M
+  before: 1.0.2
+  after: 1.3.0
+- path: skills/generate-github-workflow/SKILL.md
+  status: M
+  before: 1.1.1
+  after: 1.2.0
+- path: skills/generate-standard-readme/SKILL.md
+  status: M
+  before: 2.1.1
+  after: 2.2.0
+- path: skills/integrate-branches/SKILL.md
+  status: M
+  before: 2.0.0
+  after: 2.1.0
+- path: skills/manage-secret/SKILL.md
+  status: M
+  before: 1.1.2
+  after: 1.1.3
+- path: skills/map-item-dependencies/SKILL.md
+  status: M
+  before: 1.0.0
+  after: 1.3.0
+- path: skills/market-research/SKILL.md
+  status: M
+  before: 1.0.0
+  after: 1.1.0
+- path: skills/orchestrate-code-review/SKILL.md
+  status: M
+  before: 1.3.0
+  after: 1.4.0
+- path: skills/orchestrate-governance-step/SKILL.md
+  status: M
+  before: 2.2.2
+  after: 3.0.1
+- path: skills/orchestrate-repair-loop/SKILL.md
+  status: M
+  before: 1.3.0
+  after: 1.5.0
+- path: skills/orchestrate-repair-requirements-loop/SKILL.md
+  status: A
+  before:
+  after: 1.0.0
+- path: skills/orchestrate-roadmap-planning/SKILL.md
+  status: M
+  before: 1.0.0
+  after: 2.12.0
+- path: skills/plan-next/SKILL.md
+  status: M
+  before: 13.3.2
+  after: 15.8.0
+- path: skills/policy-research/SKILL.md
+  status: M
+  before: 1.0.0
+  after: 1.1.0
+- path: skills/prepare-presales-response/SKILL.md
+  status: A
+  before:
+  after: 1.0.0
+- path: skills/prepare-release/SKILL.md
+  status: M
+  before: 1.4.1
+  after: 1.4.2
+- path: skills/prioritize-backlog/SKILL.md
+  status: M
+  before: 2.2.0
+  after: 3.4.0
+- path: skills/product-opportunity-analysis/SKILL.md
+  status: M
+  before: 1.0.0
+  after: 1.1.0
+- path: skills/promote-roadmap-items/SKILL.md
+  status: M
+  before: 1.2.1
+  after: 3.9.0
+- path: skills/publish-nats-message/SKILL.md
+  status: M
+  before: 1.0.1
+  after: 1.1.0
+- path: skills/publish-release/SKILL.md
+  status: M
+  before: 1.2.0
+  after: 1.2.1
+- path: skills/redeploy-local/SKILL.md
+  status: M
+  before: 3.2.1
+  after: 3.3.0
+- path: skills/refine-skill-design/SKILL.md
+  status: M
+  before: 1.6.3
+  after: 1.8.0
+- path: skills/review-architecture/SKILL.md
+  status: M
+  before: 2.1.1
+  after: 2.1.2
+- path: skills/review-codebase/SKILL.md
+  status: M
+  before: 1.1.0
+  after: 1.2.0
+- path: skills/review-diff/SKILL.md
+  status: M
+  before: 1.0.1
+  after: 1.0.2
+- path: skills/review-dotnet/SKILL.md
+  status: M
+  before: 1.0.4
+  after: 1.0.5
+- path: skills/review-error-surfacing/SKILL.md
+  status: M
+  before: 1.2.0
+  after: 1.2.1
+- path: skills/review-functional-design/SKILL.md
+  status: M
+  before: 1.0.1
+  after: 1.1.0
+- path: skills/review-go/SKILL.md
+  status: M
+  before: 1.0.3
+  after: 1.0.4
+- path: skills/review-implementation-alignment/SKILL.md
+  status: M
+  before: 1.1.1
+  after: 1.1.2
+- path: skills/review-java/SKILL.md
+  status: M
+  before: 1.0.3
+  after: 1.0.4
+- path: skills/review-observability/SKILL.md
+  status: M
+  before: 1.0.1
+  after: 1.0.2
+- path: skills/review-orm-usage/SKILL.md
+  status: M
+  before: 1.0.2
+  after: 1.0.3
+- path: skills/review-performance/SKILL.md
+  status: M
+  before: 2.0.1
+  after: 2.0.2
+- path: skills/review-php/SKILL.md
+  status: M
+  before: 1.0.3
+  after: 1.0.4
+- path: skills/review-powershell/SKILL.md
+  status: M
+  before: 1.0.3
+  after: 1.0.4
+- path: skills/review-python/SKILL.md
+  status: M
+  before: 1.0.3
+  after: 1.0.4
+- path: skills/review-react/SKILL.md
+  status: M
+  before: 1.0.3
+  after: 1.0.4
+- path: skills/review-reliability/SKILL.md
+  status: M
+  before: 1.0.1
+  after: 1.0.2
+- path: skills/review-requirements/SKILL.md
+  status: M
+  before: 2.0.1
+  after: 2.2.0
+- path: skills/review-roadmap/SKILL.md
+  status: M
+  before: 1.0.2
+  after: 3.13.0
+- path: skills/review-security/SKILL.md
+  status: M
+  before: 2.0.1
+  after: 2.0.2
+- path: skills/review-sql/SKILL.md
+  status: M
+  before: 1.0.5
+  after: 1.0.6
+- path: skills/review-tasks/SKILL.md
+  status: M
+  before: 1.0.1
+  after: 1.0.2
+- path: skills/review-technical-design/SKILL.md
+  status: M
+  before: 1.0.1
+  after: 1.1.0
+- path: skills/review-testing/SKILL.md
+  status: M
+  before: 2.0.1
+  after: 2.0.2
+- path: skills/review-typescript/SKILL.md
+  status: M
+  before: 1.0.3
+  after: 1.0.4
+- path: skills/review-vue/SKILL.md
+  status: M
+  before: 1.0.4
+  after: 1.0.5
+- path: skills/scaffold-agent-tests/SKILL.md
+  status: M
+  before: 1.0.0
+  after: 1.0.1
+- path: skills/update-roadmap/SKILL.md
+  status: M
+  before: 1.0.1
+  after: 3.10.1
+- path: specs/findings-list.md
+  status: M
+  before: 2.0.0
+  after: 2.0.1
+- path: specs/functional-design-modeling.md
+  status: M
+  before: 1.0.1
+  after: 2.0.0
+- path: specs/plan-next-preferences.md
+  status: A
+  before:
+  after: 1.0.0
+- path: specs/release-package.md
+  status: M
+  before: 1.2.1
+  after: 1.2.2
+- path: specs/requirement-modeling.md
+  status: M
+  before: 5.1.0
+  after: 6.1.0
+- path: specs/roadmap-modeling.md
+  status: A
+  before:
+  after: 1.11.1
+- path: specs/technical-design-modeling.md
+  status: M
+  before: 2.1.0
+  after: 2.2.0
+change_items:
+- id: CI-0500-roadmap
+  kind: breaking
+  summary: Plan requirements and defects by priority and readiness with optional delivery
+    views.
+  user_impact: Consumers re-read roadmap obligations and preserve existing decisions
+    when adopting views.
+  sources:
+  - d5c67ba2987639dbbf901dc6af44230c7dd45029
+  - 7c34aa350239d855e257e759a3260dd09e386b77
+  - 887258c7b543932c976443cb1b528c2224e0edb0
+  - b0f55966bd6473a9dc1edf7f15b8e72fb4c31266
+  audiences:
+  - technical
+  - customer
+  migration: 'See release-notes.md: Upgrade notes'
+- id: CI-0500-roadmap-stages
+  kind: feature
+  summary: Separate structure and content planning; align existing projects in place.
+  user_impact: Teams can inspect a blank structure before business population without
+    forced migrations.
+  sources:
+  - d6c725d1cdbcd5dd04076ce42158a80cbd891a24
+  - f5f6d6b38384736c164a1acc1f4e1436198c9e36
+  audiences:
+  - technical
+  - customer
+  migration:
+- id: CI-0500-roadmap-language
+  kind: feature
+  summary: Resolve deliverable language from project evidence and support en/zh-CN
+    catalogs.
+  user_impact: Roadmap maintenance retains language; legacy generator inputs keep
+    English output.
+  sources:
+  - 9203170353c9a63710a1a5060ca061456ad506a3
+  audiences:
+  - technical
+  - customer
+  migration:
+- id: CI-0500-roadmap-platform
+  kind: feature
+  summary: Define remote roadmap authority and integrity/recovery/migration checks.
+  user_impact: Knowledge-base delivery preserves facts and distinguishes stored data
+    from reader verification.
+  sources:
+  - b5fddd8e240df1565ffddc55ff30889f459ca8e8
+  audiences:
+  - technical
+  - customer
+  migration:
+- id: CI-0500-roadmap-output-safety
+  kind: fix
+  summary: Reject hardlinked outputs and validate captured HTML anchors.
+  user_impact: Generation cannot silently mutate a hardlinked destination and source
+    checks understand HTML anchors.
+  sources:
+  - 6493819c0729ecdb7997eccc8c070b23e0423dfe
+  audiences:
+  - technical
+  - customer
+  migration:
+- id: CI-0500-governance-routing
+  kind: breaking
+  summary: Use explicit decision states, route-scoped prerequisites and exact recommendation
+    exclusions.
+  user_impact: Routing consumers must distinguish non-actionable states from completion
+    and executor continuation.
+  sources:
+  - 6849920a25a6a36396ab83e7f543af0673bc1003
+  - 218aad429712d9632c0bbfd097a6a494d392c309
+  audiences:
+  - technical
+  - customer
+  migration: 'See release-notes.md: Upgrade notes'
+- id: CI-0500-skill-discovery
+  kind: breaking
+  summary: Remove inactive discovery metadata and use English descriptions plus local
+    references.
+  user_impact: Custom integrations must stop depending on removed fields or substring
+    trigger ranking.
+  sources:
+  - b1e3e16422b787cd91f5deeb75a69930344a4ea2
+  audiences:
+  - technical
+  - customer
+  migration: 'See release-notes.md: Upgrade notes'
+- id: CI-0500-requirements
+  kind: breaking
+  summary: Define requirement section order, readiness and a bounded review/repair
+    loop.
+  user_impact: Editable drafts follow the new contract; frozen snapshots retain history
+    and use successor revisions.
+  sources:
+  - b0b32d0231263f0cb24fea8e3f611c1ab214da8b
+  audiences:
+  - technical
+  - customer
+  migration: 'See release-notes.md: Upgrade notes'
+- id: CI-0500-ui-decisions
+  kind: breaking
+  summary: Require UI decision records for new interfaces and significant experience
+    changes.
+  user_impact: Adopters add their own loading entry and verify responsive, keyboard
+    and real interaction outcomes.
+  sources:
+  - eee2e408e989a60507ecf17fa724c1a8ed461839
+  - 03d469008906cf6baf4b968f137355f2a63b3f7a
+  audiences:
+  - technical
+  - customer
+  migration: 'See release-notes.md: Upgrade notes'
+- id: CI-0500-presales
+  kind: feature
+  summary: Add grounded presales response preparation with product/customer evidence
+    boundaries.
+  user_impact: Users prepare answers and chosen customer files without implied sending
+    or contract authority.
+  sources:
+  - be1c2b91ff306f028fead4f60562083d7f3fae8c
+  audiences:
+  - technical
+  - customer
+  migration:
+- id: CI-0500-verification
+  kind: improvement
+  summary: Require actual execution evidence and refine test-objective and documentation
+    criteria.
+  user_impact: Empty, all-skipped or unverified required checks block release readiness.
+  sources:
+  - 5435884aefb799c2039c210f027e7853d060226a
+  - e4ed7e522a5093fa471fc362d1cf09afeac76a38
+  audiences:
+  - technical
+  - customer
+  migration:
+- id: CI-0500-local-asset-guidance
+  kind: improvement
+  summary: Refine asset boundaries, research examples and tool-capability-aware NATS
+    publication.
+  user_impact: Skills preserve local provenance, preserve QoS and report missing capabilities.
+  sources:
+  - b1e3e16422b787cd91f5deeb75a69930344a4ea2
+  audiences:
+  - technical
+  - customer
+  migration:
+- id: CI-0500-website-brand
+  kind: feature
+  summary: Publish a bilingual capability atlas and shared Cortex core mark.
+  user_impact: Visitors explore assets on site and retain language/theme preferences.
+  sources:
+  - 9d849610860ebbc5b5320da1e3bcfa185e79099e
+  - bcc57a2af9fddd897265fff0f4a8a4e852516a0d
+  - 983ddedc731ab43e5d2f4bdacded0e2029a1130f
+  - 0cecbc8201414065a33f5115ad1e85ae952f6767
+  - d1f0ed5ef000a2056ae5565c1dbc7a10685b6167
+  - e80c7a704bd685592d9119de3d5f6ccb8e76ba89
+  audiences:
+  - technical
+  - customer
+  migration:
+artifacts:
+  changelog:
+    path: CHANGELOG.md
+    kind: changelog
+    audience: technical
+    required: true
+    status: present
+    source: change_items
+    producer:
+      skill: prepare-release
+      version: 1.4.2
+      origin: native
+  release_notes:
+    path: ".cortex/release/0.5.0/release-notes.md"
+    kind: release_notes
+    audience: customer
+    required: true
+    status: present
+    source: change_items
+    producer:
+      skill: prepare-release
+      version: 1.4.2
+      origin: native
+  manifest:
+    path: ".cortex/release/0.5.0/manifest.yaml"
+    kind: manifest
+    audience: operator
+    required: true
+    status: present
+    source: change_items
+    producer:
+      skill: prepare-release
+      version: 1.4.2
+      origin: native
+checks:
+- name: python3 scripts/check-markdown-links.py
+  status: passed
+  required: true
+  evidence: |-
+    broken relative links: 0
+    governance assets linking into skills/: 0
+- name: python3 scripts/check-doc-hygiene.py
+  status: passed
+  required: true
+  evidence: 'Checked 380 documents: no orphans, no temporary filenames, no unlabelled
+    temporary documents.'
+- name: python3 scripts/check-cortex-docs.py
+  status: passed
+  required: true
+  evidence: Every documented cortex command and flag exists, and every command is
+    documented.
+- name: python3 scripts/check-asset-counts.py
+  status: passed
+  required: true
+  evidence: README asset counts match the repository, and the capability table sums
+    to the total.
+- name: python3 scripts/check-findings-contract.py
+  status: passed
+  required: true
+  evidence: 'Checked 28 findings-emitting Skills: every one cites specs/findings-list.md
+    rather than restating its element list.'
+- name: python3 scripts/validate-rules.py
+  status: passed
+  required: true
+  evidence: |-
+    Validated 11 modeled Rule documents and 118 Rule items.
+    Activation materials: 118 ready, 0 provisional.
+- name: python3 scripts/test-skills-index.py
+  status: passed
+  required: true
+  evidence: Validated the skills registry generator on 1 clean tree, 1 metadata fixture
+    and 4 malformed ones.
+- name: python3 scripts/test-research-artifacts.py
+  status: passed
+  required: true
+  evidence: Validated 10 positive fixtures, 26 negative cases, a compatible minor
+    version and a long trace.
+- name: python3 scripts/test-validate-rules.py
+  status: passed
+  required: true
+  evidence: Validated the Rule validator over 30 defect shapes and one clean fixture;
+    every shape produced its finding.
+- name: python3 scripts/test-check-findings-contract.py
+  status: passed
+  required: true
+  evidence: 'Validated the findings-contract checker over 8 shapes: 4 restatements
+    reported, 4 legitimate uses left alone, and the directory walk over three Skill
+    shapes.'
+- name: python3 scripts/test-markdown-links.py
+  status: passed
+  required: true
+  evidence: 'Validated the markdown link checker: 1 broken link and 1 downward link
+    found, with demonstrations, anchors, absolute links and non-governance prose correctly
+    ignored.'
+- name: python3 scripts/test-doc-hygiene.py
+  status: passed
+  required: true
+  evidence: 'Validated document hygiene over 19 shapes: 7 findings asserted, every
+    other shape correctly silent.'
+- name: python3 scripts/test-asset-counts.py
+  status: passed
+  required: true
+  evidence: 'Validated the README asset-count check: a clean tree is silent and a
+    drifted one reports all 3 kinds of drift.'
+- name: python3 scripts/test-cortex-docs.py
+  status: passed
+  required: true
+  evidence: 'Validated the cortex documentation check: a clean tree is silent and
+    a drifted one reports all 3 kinds of drift.'
+- name: python3 scripts/test-asset-versions.py
+  status: passed
+  required: true
+  evidence: Validated the asset-version decision on 13 change shapes, 12 membership
+    cases and one multi-change range.
+- name: python3 scripts/sync-skills-index.py --check
+  status: passed
+  required: true
+  evidence: skills/INDEX.md is in sync (70 skills)
+- name: python3 scripts/check-asset-versions.py d06ac50d114f6a335323a73cbfce7879cba32d53..HEAD
+  status: passed
+  required: true
+  evidence: Checked 85 versioned asset change(s) in d06ac50d114f6a335323a73cbfce7879cba32d53..HEAD;
+    every edited asset moved its version.
+- name: shellcheck --shell=sh --severity=style --enable=add-default-case bin/cortex
+  status: passed
+  required: true
+  evidence: ShellCheck completed the declared POSIX-sh/style/add-default-case scope
+    over bin/cortex with exit 0 and no diagnostics.
+- name: python3 scripts/test-roadmap-renderer.py
+  status: passed
+  required: true
+  evidence: |-
+    ........................................................................................................
+    ----------------------------------------------------------------------
+    Ran 104 tests in 7.459s
+
+    OK
+- name: python3 scripts/test-roadmap-conversations.py
+  status: passed
+  required: true
+  evidence: |-
+    ............
+    ----------------------------------------------------------------------
+    Ran 12 tests in 9.679s
+
+    OK
+- name: python3 scripts/test-roadmap-platform.py
+  status: passed
+  required: true
+  evidence: |-
+    ...................
+    ----------------------------------------------------------------------
+    Ran 19 tests in 0.173s
+
+    OK
+- name: python3 scripts/test-roadmap-eval-evidence.py
+  status: passed
+  required: true
+  evidence: |-
+    ...
+    ----------------------------------------------------------------------
+    Ran 3 tests in 0.928s
+
+    OK
+- name: python3 scripts/test-roadmap-examples.py
+  status: passed
+  required: true
+  evidence: |-
+    .........................
+    ----------------------------------------------------------------------
+    Ran 25 tests in 1.060s
+
+    OK
+- name: python3 scripts/test-rule-scenarios.py
+  status: passed
+  required: true
+  evidence: Validated Rule applicability and UI checklist structure on 29 synthetic
+    shapes; no visual or real interaction acceptance was evaluated.
+- name: node --test tests/website/copy.test.mjs tests/website/language.test.mjs tests/website/theme.test.mjs
+  status: passed
+  required: true
+  evidence: |-
+    ✔ copies the complete rendered commands and reports completed success (0.960125ms)
+    ✔ a denied clipboard write gives recovery and permits a successful retry (0.265375ms)
+    ✔ an unavailable clipboard keeps manual recovery available (0.092625ms)
+    ✔ pending writes do not report success or start duplicate writes (0.133833ms)
+    ✔ empty commands never create a successful clipboard operation (0.073333ms)
+    ✔ uses the supplied language for pending, success and recovery (0.128542ms)
+    ✔ first visit chooses the first supported browser language, defaulting to English (2.411291ms)
+    ✔ stored manual preference wins over browser language in either direction (0.165292ms)
+    ✔ explicit language choice replaces the stored preference without redirecting back (0.27625ms)
+    ✔ blocked storage still honors a manual choice and browser detection (0.164375ms)
+    ✔ redirect preserves query and fragment and settles on its destination (0.126042ms)
+    ✔ invalid preferences cannot produce unsupported destinations (0.107042ms)
+    ✔ theme defaults to system without persisting an inferred choice (2.020708ms)
+    ✔ restores each supported manual theme (0.109542ms)
+    ✔ manual selection changes appearance and persists, including return to system (0.165959ms)
+    ✔ storage denial does not disable the selector (0.083333ms)
+    ✔ invalid stored values fall back to system and invalid input is ignored (0.066875ms)
+    ℹ tests 17
+    ℹ suites 0
+    ℹ pass 17
+    ℹ fail 0
+    ℹ cancelled 0
+    ℹ skipped 0
+    ℹ todo 0
+    ℹ duration_ms 137.592459
+- name: python3 -m unittest discover -s tests/website -p test_*.py
+  status: passed
+  required: true
+  evidence: |-
+    ............
+    ----------------------------------------------------------------------
+    Ran 12 tests in 0.070s
+
+    OK
+- name: python3 scripts/mutation-check.py
+  status: passed
+  required: true
+  evidence: 'Every perturbation produced the expected verdict (task-quality.md: 14,
+    check-asset-counts.py: 6, check-asset-versions.py: 6, check-cortex-docs.py: 5,
+    check-doc-hygiene.py: 14, check-markdown-links.py: 7, test-rule-scenarios.py:
+    24, validate-rules.py: 11, functional-design-modeling.md: 1, the invocation: 1).'
+- name: history rewrite baseline and released changelog preservation
+  status: passed
+  required: true
+  evidence: v0.4.0 old target 504b1a6 maps to d06ac50; tree 73e7f0e is identical and
+    d06ac50 is an ancestor of HEAD. All previously released changelog sections remain
+    byte-identical to v0.4.0.
+- name: markdownlint-cli2 **/*.md !.cortex/vendor/** !tests/fixtures/**
+  status: passed
+  required: true
+  evidence: 386 Markdown files checked, 0 errors including the 0.5.0 release notes.
+- name: review-diff over release artifacts
+  status: passed
+  required: true
+  evidence: Reviewed changelog and complete new manifest/release notes for scope,
+    accuracy, compatibility, side effects and evidence. Release artifacts only; no
+    product source edits. No blocking finding; historical release prose preserved.
+artifact_selection:
+  confirmed: true
+  not_selected:
+  - customer_notes
+  - sbom
+  - checksums
+  - build
+  - video
+  basis: Three project-standard source artifacts confirmed by the user; no binary
+    distribution or requested video.
+publication_plan:
+  provider: github
+  repository: nesnilnehc/ai-cortex
+  tag: v0.5.0
+  annotated: true
+  prerelease: false
+  make_latest: true
+  expected_paths:
+  - CHANGELOG.md
+  - ".cortex/release/0.5.0/release-notes.md"
+  - ".cortex/release/0.5.0/manifest.yaml"
+  pre_push_main: e80c7a704bd685592d9119de3d5f6ccb8e76ba89
+  authorization: User explicitly authorized preparation, commits, tag, push and GitHub
+    publication; artifact selection confirmed separately.
+  order:
+  - commit release package
+  - validate committed release package
+  - create annotated tag
+  - push main and tag atomically
+  - create GitHub Release from release-notes.md
+  - verify provider receipt
+  - commit and push receipt
+  rollback: Do not automatically delete or retarget a published tag. If rollback is
+    authorized, delete the GitHub Release and its remote/local v0.5.0 tag; already-fetched
+    tags remain in other clones. Revert release-only documentation commits with new
+    commits if required. No consuming-project document rollback is automatic.

@@ -2,17 +2,41 @@
 
 ## [Unreleased]
 
+## [0.5.0] — 2026-10-23
+
+### Added
+
+- A roadmap modeling contract and offline renderer for requirement arrangement, optional delivery/iteration/schedule views, SVG and dated Mermaid. Four scenario recipes and a complete Service Desk casebook demonstrate selection, review, maintenance and archival.
+- English and Simplified Chinese roadmap display catalogs, read-only language resolution and paired examples. The workflow retains project-selected language and preserves IDs, machine fields and historical source text.
+- Structure-only, content-on-settled-structure and combined roadmap planning routes, with separate acceptance scopes and existing-project alignment that preserves business decisions and stable links.
+- Remote roadmap delivery and verification guidance, a Yuque adapter, offline integrity/recovery checks and migration closeout boundaries. Remote authority is explicit; refresh does not imply monitoring.
+- `orchestrate-repair-requirements-loop` for bounded requirement review and repair, plus an editable requirement template.
+- `prepare-presales-response` and its quality Rule for source-backed answers, reusable product knowledge and customer-specific conditions.
+- A project-local preference Spec for exact `plan-next` recommendation exclusions and a Jenkins job naming standard.
+- A bilingual promotional website with an on-page capability atlas, persisted manual language/theme choices and the shared Cortex core SVG mark.
+
 ### Changed
 
-- Simplified Skill discovery to descriptions, removing unused `tags`, `triggers`, Skill `recommended_scope`, and other inactive frontmatter; retained `findings-list` output schemas because their shared Spec consumes the type. Moved operational defaults into instructions and kept vendored provenance in its canonical source registry.
+- Roadmap planning now orders requirements and defects by project priority and dependency readiness instead of mandatory capacity percentages per strategic goal. Approval, execution, readiness, timing and actual delivery evidence are distinct. Phase spans and milestone events carry different meanings.
+- Roadmap views retain material revision summaries and durable history links; optional split layouts keep one defining source per fact. Legacy and custom plans remain valid and are not automatically migrated.
+- Governance diagnosis uses explicit result states and route-scoped prerequisites. The executor preserves diagnosis while reporting its own continuation signal; excluded or waiting work cannot be mistaken for completion.
+- Skill discovery uses English descriptions. Unused tags, triggers, Skill scope metadata, translated descriptions and inactive fields were removed; consumed `findings-list` output schemas remain. Long examples and contracts moved into local references, and authorized routine work no longer acquires redundant confirmation gates.
+- Requirement Modeling 6.1.0 defines section ordering, adds P3 under project policy and clarifies unresolved-question readiness. Editable drafts can be reordered; frozen snapshots remain unchanged.
+- Functional Design Modeling 2.0.0 requires UI decisions for new interfaces and significant experience changes. Technical-design and review guidance connect decisions to responsive, keyboard/accessibility and real interaction acceptance.
+- Release and automated-test guidance require evidence of actual execution; skipped, empty or unverified required scopes cannot produce a ready package.
+- Test-structure criteria now judge one explicit objective. Research skills and release-video guidance gained worked normal/difficult cases; unavailable source-reading tools are reported explicitly.
+- Agent entry and documentation guidance were aligned with the current discovery model. `refine-skill-design` distinguishes upstream format requirements, repository contracts and size guidance.
 
-  A request sample exposed substring misroutes: `review governance rules` matched `review-go`, and `why is the build blocked?` matched `update-roadmap`. The index now exposes descriptions without a brittle trigger ranking.
-- Clarified in `refine-skill-design` that Agent Skills requirements, repository contracts, and size guidance have different force. Moved detailed examples and contracts from long Skills into local references. Removed redundant confirmation gates from authorized local writes and reviews while retaining gates for missing decisions, destructive work, and remote actions.
-- Removed `description_zh` from all 68 Skills, retained English `description` for discovery, and updated the language policy and vendored version registry.
-- Refined `refine-skill-design` to use the actual Agent Skills format, audit collections without forcing a body template, preserve authorized actions, and verify local asset boundaries and tool adaptation.
-- Added worked normal and difficult cases to the research skills and `changelog-video`; `deep-research` now handles unavailable source-reading tools explicitly.
-- Corrected `archive-milestone` frontmatter metadata and made `publish-nats-message` discover NATS tool capabilities before sending, preserve QoS when a tool is missing, and report a checked receipt.
-- Synchronized the vendored source registry with the current `commit-work` version.
+### Fixed
+
+- Roadmap output rejects hardlinked destinations before mutation and validates captured HTML anchors while preserving rendered-evidence checks.
+- NATS publication discovers tool capabilities before sending, preserves QoS when a required tool is missing and reports verified receipts.
+- Vendored provenance and Skill versions were synchronized; archive metadata was corrected.
+
+### Upgrade and repository history
+
+- Main history was rewritten only to remove Claude and Cursor Agent coauthor trailers. Old release tags remain unchanged. The old 0.4.0 tree equals the mapped main-history baseline; release accounting excludes rewritten historical duplicates.
+- Review the [0.5.0 upgrade and rollback notes](.cortex/release/0.5.0/release-notes.md#upgrade-notes) before updating custom discovery/routing integrations, editable requirements or project UI governance.
 
 ## [0.4.0] — 2026-09-20
 
