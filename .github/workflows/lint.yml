@@ -81,6 +81,22 @@ jobs:
           shellcheck --version
           shellcheck --shell=sh --severity=style --enable=add-default-case bin/cortex
 
+  installer:
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: installer ownership and rollback integration tests
+        # The real POSIX entry point runs in isolated homes with small assets
+        # and local Git origins; these tests do not need tags or network access.
+        run: python3 scripts/test-cortex-installer.py
+
   registry:
     runs-on: ubuntu-latest
     steps:

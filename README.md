@@ -59,6 +59,12 @@ git clone --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.local/share/a
 
 It symlinks every skill — including reviewed local copies of externally derived ones — into `~/.agents/skills/<skill>`, where Codex and other agents reading that path discover them in a new session. It also detects installed IDEs (Claude Code, Cursor) and syncs their skill paths. User-scoped Rules are symlinked for Claude Code and converted to `.mdc` for Cursor; project-scoped engineering Rule sets stay in the canonical clone and are loaded on demand by their review Skills, avoiding permanent context inflation. `specs/` and `protocols/` need no installation — agents read them from the canonical path. Nothing is ever installed from skills.sh or GitHub at runtime.
 
+Existing user-owned skill directories, command files and foreign rule links are preserved.
+Cursor rules are rewritten only when they are regular files beginning with the
+Cortex generation marker; files without that marker and symbolic links are kept.
+Install and update remove obsolete managed links and generated rules before syncing.
+A target in an adjacent checkout is not owned merely because its path has a similar prefix.
+
 ### Upgrade
 
 ```bash
@@ -68,6 +74,14 @@ cortex update
 Fetches `origin` and **hard-resets the canonical clone onto it**, then re-syncs, pruning orphaned links for deleted skills and rules. It refuses to run on a dirty working tree; `cortex update --force` overrides that and discards whatever was uncommitted. Local commits on the tracked branch are discarded either way, so keep your own changes on a branch or a fork rather than in the canonical clone.
 
 Upstream updates to externally derived skills are reviewed by maintainers before entering AI Cortex; they are not upgraded independently at the user's runtime.
+
+### Pinning and rollback
+
+A release pin is a detached checkout; `cortex update` follows the remote default
+branch and does not retain that pin. Before returning to an older release, keep a
+0.5.1-or-newer installer outside the checkout and use it to resynchronize the selected
+asset set. Running the older release's own installer restores its older behavior.
+See [installer recovery](docs/guides/installer-recovery.md) for the complete procedure.
 
 ### Status
 

@@ -24,6 +24,10 @@ _resolve_home() {
 }
 
 CORTEX_HOME=$(_resolve_home)
+# Keep one spelling for managed targets when an override ends in separators.
+while [ "$CORTEX_HOME" != "/" ] && [ "${CORTEX_HOME%/}" != "$CORTEX_HOME" ]; do
+  CORTEX_HOME=${CORTEX_HOME%/}
+done
 
 # ---------------------------------------------------------------------------
 # helpers
@@ -87,6 +91,30 @@ _has_cursor() { [ -d "$HOME/.cursor" ]; }
 # ---------------------------------------------------------------------------
 # symlink helpers
 # ---------------------------------------------------------------------------
+# Only direct asset targets created by cortex establish ownership. Match literal
+# path components, not substrings or regular expressions; reject traversal paths.
+_is_cortex_target() {
+  _owned_root=${CORTEX_HOME%/}
+  _owned_target=${1%/}
+  case "$_owned_target" in
+    "$_owned_root"/skills/*) _owned_name=${_owned_target#"$_owned_root"/skills/} ;;
+    "$_owned_root"/rules/*)  _owned_name=${_owned_target#"$_owned_root"/rules/} ;;
+    *) return 1 ;;
+  esac
+  case "$_owned_name" in
+    ""|.|..|*/*) return 1 ;;
+    *) return 0 ;;
+  esac
+}
+
+# Generated Cursor rules are regular files with the marker on the first line.
+# A symlink never grants authority to rewrite or remove its foreign target.
+_is_generated_rule() {
+  if [ -L "$1" ] || [ ! -f "$1" ]; then return 1; fi
+  IFS= read -r _generated_header < "$1" || return 1
+  [ "$_generated_header" = "$MARKER" ]
+}
+
 _link_skill() {
   _src="$1"; _dst="$2"; _skill=$(basename "$_src")
   if [ -e "$_dst" ] && [ ! -L "$_dst" ]; then
@@ -95,8 +123,8 @@ _link_skill() {
   fi
   if [ -L "$_dst" ]; then
     _cur=$(readlink "$_dst" 2>/dev/null || true)
-    if [ "$_cur" != "$_src" ] && ! echo "$_cur" | grep -q "$CORTEX_HOME"; then
-      _warn "skip $_skill: non-cortex symlink at $_dst -> $_cur"
+    if [ "$_cur" != "$_src" ] && ! _is_cortex_target "$_cur"; then
+      _warn "skip $_skill: non-cortex symlink at $_dst -> $_cur; keep it or move it before reinstalling"
       return 0
     fi
   fi
@@ -109,6 +137,13 @@ _link_rule_md() {
   if [ -e "$_dst" ] && [ ! -L "$_dst" ]; then
     _warn "skip rule $_base: real file at $_dst"
     return 0
+  fi
+  if [ -L "$_dst" ]; then
+    _cur=$(readlink "$_dst" 2>/dev/null || true)
+    if ! _is_cortex_target "$_cur"; then
+      _warn "skip rule $_base: non-cortex symlink at $_dst -> $_cur; keep it or move it before reinstalling"
+      return 0
+    fi
   fi
   ln -sfn "$_src" "$_dst"
   _ok "linked rule $_base"
@@ -131,11 +166,11 @@ _remove_on_demand_rule_install() {
   _dst="$1"
   if [ -L "$_dst" ]; then
     _target=$(readlink "$_dst" 2>/dev/null || true)
-    if echo "$_target" | grep -Fq "$CORTEX_HOME"; then
+    if _is_cortex_target "$_target"; then
       rm "$_dst"
       _ok "removed global link for on-demand rule $(basename "$_dst")"
     fi
-  elif [ -f "$_dst" ] && grep -Fq "$MARKER" "$_dst" 2>/dev/null; then
+  elif _is_generated_rule "$_dst"; then
     rm "$_dst"
     _ok "removed global translation for on-demand rule $(basename "$_dst")"
   fi
@@ -147,6 +182,11 @@ _remove_on_demand_rule_install() {
 _translate_rule() {
   _src="$1"; _dst="$2"
   _base=$(basename "$_src")
+
+  if [ -L "$_dst" ] || { [ -e "$_dst" ] && ! _is_generated_rule "$_dst"; }; then
+    _warn "skip rule $_base: user-owned Cursor rule at $_dst; keep it or move it before reinstalling"
+    return 0
+  fi
 
   _scope=$(_frontmatter_field "$_src" "recommended_scope")
   _desc=$(_frontmatter_field "$_src" "description")
@@ -240,7 +280,7 @@ _sync() {
 }
 
 # ---------------------------------------------------------------------------
-# prune cortex-owned broken symlinks after update
+# prune cortex-owned obsolete links and generated rules during resync
 # ---------------------------------------------------------------------------
 _prune_stale() {
   for _ide_skills in "$HOME/.agents/skills" "$HOME/.claude/skills" "$HOME/.cursor/skills"; do
@@ -248,7 +288,7 @@ _prune_stale() {
     for _link in "$_ide_skills"/*; do
       if [ -L "$_link" ] && [ ! -e "$_link" ]; then
         _target=$(readlink "$_link" 2>/dev/null || true)
-        if echo "$_target" | grep -q "$CORTEX_HOME"; then
+        if _is_cortex_target "$_target"; then
           rm "$_link"
           _ok "pruned stale symlink $(basename "$_link")"
         fi
@@ -261,7 +301,7 @@ _prune_stale() {
     for _link in "$_ide_rules"/*; do
       if [ -L "$_link" ] && [ ! -e "$_link" ]; then
         _target=$(readlink "$_link" 2>/dev/null || true)
-        if echo "$_target" | grep -q "$CORTEX_HOME"; then
+        if _is_cortex_target "$_target"; then
           rm "$_link"
           _ok "pruned stale symlink $(basename "$_link")"
         fi
@@ -273,7 +313,7 @@ _prune_stale() {
   if [ -d "$_cursor_rules" ]; then
     for _mdc in "$_cursor_rules"/*.mdc; do
       if [ ! -e "$_mdc" ]; then continue; fi
-      if grep -q "$MARKER" "$_mdc" 2>/dev/null; then
+      if _is_generated_rule "$_mdc"; then
         _stem=$(basename "$_mdc" .mdc)
         if [ ! -f "$CORTEX_HOME/rules/${_stem}.md" ]; then
           rm "$_mdc"
@@ -394,6 +434,7 @@ cmd_install() {
     _info "CORTEX_HOME already exists: $CORTEX_HOME"
   fi
 
+  _prune_stale
   _sync
 
   # register the canonical command without overwriting user-owned files
@@ -700,7 +741,7 @@ cmd_status() {
     for _r in "$CORTEX_HOME/rules"/*.md; do
       if [ -e "$_r" ] && [ "$(basename "$_r")" != "INDEX.md" ]; then
         _mdc="$HOME/.cursor/rules/$(basename "$_r" .md).mdc"
-        if [ -f "$_mdc" ] && grep -q "$MARKER" "$_mdc" 2>/dev/null; then
+        if _is_generated_rule "$_mdc"; then
           _synced=$((_synced + 1))
         fi
       fi
@@ -745,7 +786,7 @@ cmd_uninstall() {
     for _link in "$_dir"/*; do
       if [ -L "$_link" ]; then
         _t=$(readlink "$_link" 2>/dev/null || true)
-        if echo "$_t" | grep -q "$CORTEX_HOME"; then
+        if _is_cortex_target "$_t"; then
           rm "$_link"
           _ok "Removed symlink $(basename "$_link") from $(basename "$_dir")"
         fi
@@ -759,7 +800,7 @@ cmd_uninstall() {
     for _link in "$_dir"/*.md; do
       if [ -L "$_link" ]; then
         _t=$(readlink "$_link" 2>/dev/null || true)
-        if echo "$_t" | grep -q "$CORTEX_HOME"; then
+        if _is_cortex_target "$_t"; then
           rm "$_link"
           _ok "Removed rule symlink $(basename "$_link")"
         fi
@@ -771,7 +812,7 @@ cmd_uninstall() {
   if [ -d "$HOME/.cursor/rules" ]; then
     for _mdc in "$HOME/.cursor/rules"/*.mdc; do
       if [ ! -e "$_mdc" ]; then continue; fi
-      if grep -q "$MARKER" "$_mdc" 2>/dev/null; then
+      if _is_generated_rule "$_mdc"; then
         rm "$_mdc"
         _ok "Removed generated $(basename "$_mdc")"
       fi
