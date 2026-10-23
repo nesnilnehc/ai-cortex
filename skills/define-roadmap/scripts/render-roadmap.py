@@ -1298,6 +1298,8 @@ def preflight_outputs(source, destination, overwrite, names=OUTPUTS):
             if identity in seen:
                 raise ValueError('reserved output files must not alias each other')
             seen.add(identity)
+            if path.stat().st_nlink > 1:
+                raise ValueError(f'output must not have hardlink aliases: {path}')
 
 
 def main():

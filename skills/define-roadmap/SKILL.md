@@ -1,7 +1,7 @@
 ---
 name: define-roadmap
 description: Design roadmap structure, populate source-backed content on a settled layout, or complete both stages; first-align existing plans while preserving business decisions and stable links, with optional local generation.
-version: 7.13.1
+version: 7.13.2
 license: MIT
 ---
 

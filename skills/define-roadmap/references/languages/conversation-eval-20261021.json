@@ -18,7 +18,7 @@
           "decision": {
             "action": "blank",
             "review_scope": "structure",
-            "reason": "Create the authorized blank topic-split layout with one main entry and five detail documents; stop before business population or publication."
+            "reason": "Create the requested empty topic-split layout with one main and five details; business population and publication are excluded."
           },
           "observation": {
             "stage": "blank",
@@ -42,7 +42,7 @@
           "decision": {
             "action": "blank",
             "review_scope": "structure",
-            "reason": "Apply the requested field-label formatting and remove filling instructions in the blank structure, preserving the same six documents without business content or publication."
+            "reason": "Apply the requested field-label formatting and remove filling instructions while preserving the six-document topic-split layout and empty business fields."
           },
           "observation": {
             "stage": "blank",
@@ -66,7 +66,7 @@
           "decision": {
             "action": "review",
             "review_scope": "structure",
-            "reason": "Recheck the six-document blank structure without writes; report any new structural issues and leave it unchanged if none are found. Business population remains unauthorized."
+            "reason": "Recheck the six-document blank structure without writes; report structural findings and leave it unchanged if no new issue exists. Business population remains excluded."
           },
           "observation": {
             "stage": "blank",
@@ -90,7 +90,7 @@
           "decision": {
             "action": "review",
             "review_scope": "structure",
-            "reason": "Structure confirmation is recorded. Preserve the settled six-document layout without writes; population remains explicitly deferred."
+            "reason": "Record the structure-only confirmation without writes. Population remains explicitly deferred; no further confirmation or business work is needed."
           },
           "observation": {
             "stage": "blank",
@@ -114,7 +114,7 @@
           "decision": {
             "action": "populate",
             "review_scope": "business",
-            "reason": "Populate the confirmed topic-split structure using the supplied Service Desk facts, preserving priorities, membership and states. Retain the six-document layout and do not publish externally."
+            "reason": "Populate the confirmed topic-split structure from the available validated Service Desk source, preserving priorities, membership and states. External publication remains excluded."
           },
           "observation": {
             "stage": "populated",
@@ -138,7 +138,7 @@
           "decision": {
             "action": "review",
             "review_scope": "business",
-            "reason": "Review the populated roadmap against the supplied Service Desk sources without writes, preserving the settled six-document structure and business facts. Do not publish."
+            "reason": "Review the populated roadmap against the supplied source without writes, preserving the settled structure and business facts. Do not publish."
           },
           "observation": {
             "stage": "populated",
@@ -174,7 +174,7 @@
           "decision": {
             "action": "populate",
             "review_scope": "business",
-            "reason": "Population is authorized and source facts are available. Reuse the approved six-document topic-split layout without publishing."
+            "reason": "Population is explicitly authorized and validated source facts are available. Reuse the approved six-document topic-split layout and do not publish."
           },
           "observation": {
             "stage": "populated",
@@ -198,7 +198,7 @@
           "decision": {
             "action": "blank",
             "review_scope": "structure",
-            "reason": "The user explicitly authorized discarding the generated business draft and resetting to blank structure. Retain the approved six-file topic-split layout, omit previous business material, and do not publish."
+            "reason": "The current request explicitly authorizes discarding the generated business draft and resetting to a blank structure. Retain the approved six-file topic-split layout, omit previous business material, and do not publish."
           },
           "observation": {
             "stage": "blank",
@@ -222,7 +222,7 @@
           "decision": {
             "action": "review",
             "review_scope": "structure",
-            "reason": "Recheck the blank six-file layout without writes. If no new issue is found, leave it unchanged and do not restore discarded business facts."
+            "reason": "Recheck the retained six-file blank structure without writes. If no new issue is found, leave it unchanged; do not restore discarded business facts or publish."
           },
           "observation": {
             "stage": "blank",
@@ -257,7 +257,7 @@
           "decision": {
             "action": "blank",
             "review_scope": "structure",
-            "reason": "The user explicitly requests only the six-document blank structure; unknown owners and capacity must remain empty, with no population or publication."
+            "reason": "The request explicitly authorizes only the settled six-document blank structure; owners and capacity remain unknown, with no population or publication authorized."
           },
           "observation": {
             "stage": "blank",
@@ -281,7 +281,7 @@
           "decision": {
             "action": "review",
             "review_scope": "structure",
-            "reason": "Structure confirmation explicitly excludes business planning and requires empty fields. Review the six-document structure without population or writes."
+            "reason": "The structure is confirmed, but business population is explicitly withheld. Review the six-document structure without writes and leave all business fields empty."
           },
           "observation": {
             "stage": "blank",
@@ -305,7 +305,7 @@
           "decision": {
             "action": "review",
             "review_scope": "structure",
-            "reason": "Review the settled six-document blank structure without changes. Business content and publication remain explicitly excluded; the quoted source grants no authorization."
+            "reason": "Review the confirmed six-document blank structure without changes. Business content and publication remain explicitly excluded; the quoted source grants no authorization."
           },
           "observation": {
             "stage": "blank",
@@ -339,7 +339,7 @@
           "decision": {
             "action": "ask",
             "review_scope": "structure",
-            "reason": "Please specify whether you want a blank structure, a review, or source-backed population of the settled layout."
+            "reason": "No roadmap request was provided. Clarify whether to create a blank structure, populate the settled layout, or review it."
           },
           "observation": {
             "stage": "absent",
@@ -366,7 +366,7 @@
           "decision": {
             "action": "ask",
             "review_scope": "business",
-            "reason": "The six-document layout is settled. Please provide the missing business source so content planning can proceed without inventing facts."
+            "reason": "The six-document layout is settled. Request the missing business source before population; do not invent facts or write the plan."
           },
           "observation": {
             "stage": "absent",
@@ -383,7 +383,7 @@
           "decision": {
             "action": "blank",
             "review_scope": "structure",
-            "reason": "The latest request authorizes only the blank six-document structure using the settled layout, without business facts or publication."
+            "reason": "The latest request authorizes only the blank six-document structure using the settled layout, with no business facts or publication."
           },
           "observation": {
             "stage": "blank",
@@ -416,7 +416,7 @@
           "decision": {
             "action": "populate",
             "review_scope": "business",
-            "reason": "Both stages are continuously authorized, the topic-split layout is settled, and validated sources are available. Populate while preserving existing business decisions, without another confirmation."
+            "reason": "Both stages are authorized continuously, the topic-split layout is settled, and validated business sources are available. Populate source-backed content while preserving existing business decisions."
           },
           "observation": {
             "stage": "populated",
@@ -440,7 +440,7 @@
           "decision": {
             "action": "review",
             "review_scope": "business",
-            "reason": "The current request explicitly asks for read-only review of the completed content plan. Evaluate source-backed content and necessary structural consistency without changing files or reopening the settled layout."
+            "reason": "The current request authorizes read-only review of the completed content plan. Evaluate content and necessary structural consistency without changing files or reopening the settled layout."
           },
           "observation": {
             "stage": "populated",
@@ -473,7 +473,7 @@
           "decision": {
             "action": "populate",
             "review_scope": "business",
-            "reason": "Population is explicitly authorized and verified source is available; reuse the confirmed topic-split layout."
+            "reason": "Population is authorized and verified source is available; reuse the confirmed topic-split structure."
           },
           "observation": {
             "stage": "populated",
@@ -497,7 +497,7 @@
           "decision": {
             "action": "review",
             "review_scope": "structure",
-            "reason": "The current request explicitly limits review to headings, fields, links and formatting; preserve populated business content without assessing or changing it."
+            "reason": "Review only headings, fields, links and formatting of the populated files; preserve business content and do not assess it."
           },
           "observation": {
             "stage": "populated",
@@ -521,7 +521,7 @@
           "decision": {
             "action": "review",
             "review_scope": "business",
-            "reason": "The current request adds business-content and source-consistency review; inspect the populated plan against verified sources without writes or reopening the settled layout."
+            "reason": "The current request authorizes read-only review of business content and source consistency using the settled topic-split layout."
           },
           "observation": {
             "stage": "populated",
@@ -554,7 +554,7 @@
           "decision": {
             "action": "blank",
             "review_scope": "structure",
-            "reason": "The user authorized only the blank topic-split structure and reserved content population for later authorization."
+            "reason": "Create the blank main-plus-five topic-split structure and validate structure only; content requires later authorization."
           },
           "observation": {
             "stage": "blank",
@@ -578,7 +578,7 @@
           "decision": {
             "action": "review",
             "review_scope": "structure",
-            "reason": "Structure approval explicitly preserves empty content and does not authorize population; only structural review is permitted."
+            "reason": "Structure approval explicitly leaves content empty; inspect the settled topic-split structure without population or writes."
           },
           "observation": {
             "stage": "blank",
@@ -602,7 +602,7 @@
           "decision": {
             "action": "ask",
             "review_scope": "business",
-            "reason": "Present options for priority and delivery commitment changes for the user's decision, preserving settled choices and leaving content empty as explicitly requested."
+            "reason": "Present options for priority and delivery-commitment changes while preserving settled decisions and layout; the user explicitly deferred decisions and population."
           },
           "observation": {
             "stage": "blank",
@@ -659,7 +659,7 @@
           "decision": {
             "action": "blank",
             "review_scope": "structure",
-            "reason": "The request authorizes only the blank topic-split structure and explicitly excludes business population."
+            "reason": "The user explicitly requests only the blank topic-split structure and prohibits business population."
           },
           "observation": {
             "stage": "blank",
@@ -683,7 +683,7 @@
           "decision": {
             "action": "review",
             "review_scope": "business",
-            "reason": "The current request explicitly authorizes read-only business readiness and completeness review of the empty draft. Report missing business basis and criteria that cannot be evaluated, without population or full approval."
+            "reason": "The current request explicitly requires read-only business readiness and completeness review of the empty draft. Report missing business basis and criteria that cannot be evaluated without populating or claiming full approval."
           },
           "observation": {
             "stage": "blank",
@@ -718,7 +718,7 @@
           "decision": {
             "action": "blank",
             "review_scope": "structure",
-            "reason": "用户明确要求一主入口加五类明细的空白结构，主要字段加粗且无填写指导；未授权业务填充或语雀同步。"
+            "reason": "用户仅授权建立主入口加五类明细的空白结构，主要字段加粗且不含填写指导；明确不填业务内容、不同步语雀。"
           },
           "observation": {
             "stage": "blank",
@@ -742,7 +742,7 @@
           "decision": {
             "action": "review",
             "review_scope": "structure",
-            "reason": "用户仅确认结构并要求再次检查；按结构范围只读评审，无新问题则保持文件不变，不填充业务内容。"
+            "reason": "用户仅确认结构并要求再次检查，未授权填写业务；执行只读结构评审，无新问题不改文件。"
           },
           "observation": {
             "stage": "blank",
@@ -766,7 +766,7 @@
           "decision": {
             "action": "populate",
             "review_scope": "business",
-            "reason": "用户已明确授权使用中文来源填充已确认结构；复用一主加五类明细布局，保留来源中的需求、优先级、版本归属与事件状态，不发布。"
+            "reason": "用户现已授权使用中文来源填充已确认的结构；来源可用，沿用主入口加五类明细布局，保留既有需求、优先级、版本归属和事件状态，不发布。"
           },
           "observation": {
             "stage": "populated",
@@ -790,7 +790,7 @@
           "decision": {
             "action": "review",
             "review_scope": "business",
-            "reason": "用户要求对已填充路线图整体只读复核；检查内容与来源、跨视图一致性及必要结构一致性，保留既定结构和业务决定，不修改文件或发布。"
+            "reason": "用户要求整体复核已填充路线图，执行只读内容评审，检查来源一致性、跨视图一致性与必要结构一致性；保留既定结构和业务决定，不修改文件、不发布。"
           },
           "observation": {
             "stage": "populated",
@@ -811,13 +811,13 @@
       ]
     }
   ],
-  "started_at": "2026-10-23T01:42:38.540488+00:00",
-  "timeout_seconds": 300,
+  "started_at": "2026-10-23T02:15:05.890008+00:00",
+  "timeout_seconds": 180,
   "cases_sha256": "ab793b643ea897e2b1569beb399d51543a85758c87654e2e429534dcef5e957a",
   "assets_sha256": "6dc9d2da5f8c19ffa6d40533986b7ffa4712b2d54f3e525575ad7890f7ef00fa",
   "runner_sha256": "da8de6990df68a3539fc61675bae20e383d89e3c3b7eb3f9fdc3baadb78faafd",
-  "renderer_sha256": "17e4c70d55a98f03142982a0d8d7ccd2b43f0c12bd185b86f257a8264dd6285d",
-  "context_sha256": "7d55bb949c61387029fc391962ddf86ef932677c9a8f13d43ceb724a48ab06d8",
+  "renderer_sha256": "d2c7e4f33d4778a9761e712e409fcae2e089f00793387120d0e7ea03454ffcc7",
+  "context_sha256": "1b3991a637d27490b9b8e10ba8e08b8cd5607b6ebbcbde261fb1058237923179",
   "pass_rate": 1.0,
   "passed": true,
   "model": "Codex CLI default; no model override; provider model not exposed by this adapter",

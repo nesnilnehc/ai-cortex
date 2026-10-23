@@ -1135,6 +1135,24 @@ class RendererTests(unittest.TestCase):
             self.assertIn('input must not be an output file', result.stderr)
             self.assertFalse((out / 'roadmap.svg').exists())
 
+    def test_cli_preserves_external_hardlinked_files_before_any_write(self):
+        for name in ('roadmap.md', '.roadmap-outputs.json'):
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                out = root / 'out'
+                out.mkdir()
+                original = root / 'original.md'
+                original.write_text('{}' if name.endswith('.json') else 'Preserve external source')
+                before = original.read_bytes()
+                (out / name).hardlink_to(original)
+                result = subprocess.run([sys.executable, str(SCRIPT), '--blank',
+                                         '--overwrite', '--output-dir', str(out)],
+                                        capture_output=True, text=True)
+                self.assertEqual(result.returncode, 1, result.stderr)
+                self.assertIn('hardlink', result.stderr)
+                self.assertEqual(original.read_bytes(), before)
+                self.assertEqual({p.name for p in out.iterdir()}, {name})
+
     def test_cli_will_not_replace_an_output_symlink(self):
         with tempfile.TemporaryDirectory() as tmp:
             base = Path(tmp)

@@ -144,6 +144,27 @@ class PlatformDeliveryTests(unittest.TestCase):
         turn['readback'][0]['lake'] = turn['readback'][0]['lake'].replace('#scope', '#%73cope')
         self.assertTrue(self.adapter.verify(self.case['baseline'], turn['readback'], turn['contract'])['passed'])
 
+    def test_internal_links_accept_html_targets_but_require_rendered_evidence(self):
+        for cross_document in (False, True):
+            with self.subTest(cross_document=cross_document):
+                turn = copy.deepcopy(self.case['turns'][0])
+                pages = turn['readback']
+                target = pages[1] if cross_document else pages[0]
+                href = (target['url'] if cross_document else '') + '#html-only'
+                pages[0]['lake'] += '<a href="' + href + '">Rendered heading</a>'
+                target['html'] = '<h2 id="html-only">Rendered heading</h2>'
+                target['rendered_ids'].append('html-only')
+                result = self.adapter.verify(self.case['baseline'], pages, turn['contract'])
+                self.assertTrue(result['passed'], result['findings'])
+                target['rendered_ids'].remove('html-only')
+                result = self.adapter.verify(self.case['baseline'], pages, turn['contract'])
+                self.assertFalse(result['passed'])
+                self.assertTrue(any('rendered anchors' in f for f in result['findings']))
+                target['rendered_ids'].append('html-only')
+                target['html'] = '<h2>Removed heading</h2>'
+                result = self.adapter.verify(self.case['baseline'], pages, turn['contract'])
+                self.assertTrue(any('broken internal link' in f for f in result['findings']))
+
     def test_duplicate_anchor_ids_are_not_valid_navigation_evidence(self):
         turn = copy.deepcopy(self.case['turns'][0])
         turn['readback'][0]['lake'] += '<h2 id="outlook">Another section</h2>'

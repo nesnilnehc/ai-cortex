@@ -144,6 +144,8 @@ def verify(baseline, readback, contract):
                 or any(not isinstance(v, list) or not all(isinstance(k, str) for k in v) for v in changed.values())):
             raise ValueError('invalid history/card preservation scope')
         parsed = {key: Document(p['lake']) for key, p in after.items()}
+        stored_ids = {key: page.ids | (Document(after[key]['html']).ids if after[key].get('html') else set())
+                      for key, page in parsed.items()}
         urls = {p['url']: key for key, p in after.items()}
         referenced = {key: set() for key in after}
         for pages in (before, after):
@@ -172,7 +174,7 @@ def verify(baseline, readback, contract):
             retained = old.anchors | referenced[key] | set(protected)
             if before[key].get('html'):
                 retained |= Document(before[key]['html']).anchors
-            stored = new.ids | (Document(page['html']).ids if page.get('html') else set())
+            stored = stored_ids[key]
             if not retained <= stored:
                 findings.append(key + ': stored anchors lost')
             observed = page.get('rendered_ids')
@@ -218,8 +220,7 @@ def verify(baseline, readback, contract):
                 parts = urlsplit(absolute)
                 target = urlunsplit((parts.scheme, parts.netloc, parts.path, parts.query, ''))
                 if target in urls:
-                    destination = parsed[urls[target]]
-                    if parts.fragment and unquote(parts.fragment) not in destination.ids:
+                    if parts.fragment and unquote(parts.fragment) not in stored_ids[urls[target]]:
                         findings.append(key + ': broken internal link: ' + href)
                 else:
                     unchecked.add(absolute)
