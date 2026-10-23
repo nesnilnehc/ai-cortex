@@ -39,7 +39,7 @@ version_domains:
 version: 0.6.0
 commit: 1b7412ee261008e73de4c886234c2315d92fab40
 range: v0.5.1..1b7412ee261008e73de4c886234c2315d92fab40
-status: ready
+status: published
 decision_basis: MINOR adds an optional stable-tag selection/upgrade command without
   removing update or changing asset contracts. 1.0 admission evidence remains incomplete.
 change_items:
@@ -166,3 +166,52 @@ publication_plan:
     manager; project document changes are not reversed automatically.
   dirty_policy: Baseline clean. Stage only confirmed release paths and preserve any
     unrelated changes.
+publication:
+  target_commit: a62a8e5238b1f3f54b50da8528248e6e9315639a
+  tag: v0.6.0
+  tag_sha: a62a8e5238b1f3f54b50da8528248e6e9315639a
+  tag_object: 57177a8d730705f1c84b9d166082e9c0c0f88853
+  provider: github
+  release_id: 421652438
+  release_url: https://github.com/nesnilnehc/ai-cortex/releases/tag/v0.6.0
+  published_at: '2026-10-23T09:20:04Z'
+  latest: true
+  draft: false
+  prerelease: false
+  tag_offset: One release-artifact commit after the tested content SHA; only the three
+    confirmed release files differ.
+  steps:
+    version_sync:
+      status: complete
+      evidence: Product version solely in annotated v0.6.0 tag; independent asset
+        versions preserved.
+    release_commit:
+      status: complete
+      evidence: a62a8e5238b1f3f54b50da8528248e6e9315639a
+    validation:
+      status: complete
+      evidence: 29 local tests, baseline Linux/macOS CI and all required package checks
+        passed; exact committed package links, hygiene, commands, Markdown, scope
+        and prior changelog validated before tag.
+    tag:
+      status: complete
+      evidence: 57177a8d730705f1c84b9d166082e9c0c0f88853
+    push:
+      status: complete
+      evidence: main and v0.6.0 pushed atomically.
+    provider_publish:
+      status: complete
+      evidence: GitHub HTTP 201; authenticated GET verified latest stable, exact note
+        body and annotated tag target.
+    build_package:
+      status: not_started
+      evidence: 'Not selected: source library without binary build or upload.'
+  rollback: Do not automatically delete or retarget published tags or releases. Removal
+    requires separate authorization; fetched tags remain in other clones. Revert release
+    documentation using new commits if needed. Roll back assets with a retained fixed
+    manager; project document changes are not reversed automatically.
+  post_publish_verification: 'Isolated clone with public GitHub origin: retained 0.6.0
+    manager selected latest stable v0.6.0 from a v0.5.1 checkout, then explicitly
+    rolled back to v0.5.1. Exact target commits, exact 70-skill membership per generic/Claude/Cursor
+    directory and no broken skill links verified. Real user installation untouched;
+    this is CLI/file evidence, not IDE invocation. No announcement sent.'
