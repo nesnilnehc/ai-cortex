@@ -11,7 +11,7 @@ Assessment baseline: `1ef7026a27cc52ab7e7cb606144e8e8dc740be1e`, following 0.5.1
 
 ## Decision
 
-Do not release 1.0 yet. Core definitions, versioned assets and reproducible release preparation exist. The three reproduced installer ownership/rollback defects are resolved in 0.5.1, with permanent regression tests and Linux/macOS CI. The stable scope, experimental boundary, compatibility/deprecation rules and latest-stable security strategy are now approved and documented. Remaining gaps are supported-consumer fixtures, actual personal-project acceptance, host/environment acceptance, applicable adopter evidence and primary-host acceptance of the implemented stable-release upgrade entry. The patch closes the installation findings; it does not establish the broader 1.x guarantee.
+Do not release 1.0 yet. Core definitions, versioned assets and reproducible release preparation exist. The three reproduced installer ownership/rollback defects are resolved in 0.5.1, with permanent regression tests and Linux/macOS CI. The stable scope, experimental boundary, compatibility/deprecation rules and latest-stable security strategy are now approved and documented. A bounded historical/current reference-consumer suite now covers Findings, Release Package and Rule coverage. Remaining gaps include actual personal-project consumers, other core dependencies and deprecation migration cases, host/environment acceptance and applicable adopter evidence. The stable upgrade entry shipped in 0.6.0; primary-host acceptance remains open. The patch closes the installation findings; it does not establish the broader 1.x guarantee.
 
 A personal tool can legitimately reach 1.0. On 2026-10-23 the maintainer confirmed that use is primarily personal and no consuming-project acceptance records are available. Do not equate this with no real use, nor with independently verified cross-team production adoption. The selected core covers project adoption, review/repair and commit/release; validate those workflows before broadening the promise.
 
@@ -21,14 +21,14 @@ A personal tool can legitimately reach 1.0. On 2026-10-23 the maintainer confirm
 
 | Dimension | Satisfied or verified | Remaining gap | Assessment |
 | --- | --- | --- | --- |
-| Core definitions | [AGENTS](../../AGENTS.md), [terminology](../architecture/terminology.md) and registries distinguish Skills, Specs, Protocols and Rules; installation/loading authority is explicit | [Stable-core inventory](stable-core.md#stable-contract-and-inventory) selects entry Skills, conditional reviewers and shared dependencies; consumer fixtures must prove protected contracts | Scope decision resolved; verification pending |
-| Version discipline | Product tags and independent asset versions are separate. The 0.5.0 package verifies 85 edited versioned assets moved their versions | [Compatibility and deprecation](stable-core.md#compatibility-and-deprecation) and independent/product version rules are adopted; old/new consumer fixtures remain missing | Policy resolved; compatibility evidence pending |
+| Core definitions | [AGENTS](../../AGENTS.md), [terminology](../architecture/terminology.md) and registries distinguish Skills, Specs, Protocols and Rules; installation/loading authority is explicit | [Stable-core inventory](stable-core.md#stable-contract-and-inventory) selects entry Skills, conditional reviewers and shared dependencies; reference-consumer fixtures cover selected protected contracts; remaining dependencies and actual consumers still need acceptance | Scope decision resolved; partial compatibility evidence |
+| Version discipline | Product tags and independent asset versions are separate. The 0.5.0 package verifies 85 edited versioned assets moved their versions | [Compatibility and deprecation](stable-core.md#compatibility-and-deprecation) and independent/product version rules are adopted; old/current reference fixtures now cover Findings, Release Package and coverage; migration and other dependency cases remain missing | Policy resolved; bounded evidence present |
 | Behavioral evidence | Existing live roadmap trace passes the canonical freshness/completeness validator: 10 cases and 30 turns | Bounded JSON decision adapter plus real local renderer; not unrestricted agent editing, a production project acceptance or a live external adapter acceptance. Provider model ID is not exposed | Real but narrow evidence |
 | Actual use | Maintainer confirms personal use. The 0.5.0 and 0.5.1 Release Packages and GitHub receipts establish this repository's own preparation/publication flow was used | No supplied consuming-project requirement-to-acceptance trace; no independently verified multi-project or multi-agent acceptance matrix | Personal use and self-hosting; broader evidence absent |
 | Rule activation | [Rule modeling](../../specs/rule-modeling.md#52-rule-item-contract) derives 118 ready items from nonempty activation rows; recorded release validation passes | OBS-003, PERF-007, REL-008 and TST-008 still use `Verification: adopter`. Required return fixtures are not substituted by the ready count | Activation materials complete; adopter evidence still owed |
 | Installation/update | 0.5.1 fixes ownership and cleanup; 22 permanent integration tests pass locally and on Linux/macOS CI, including foreign links, markers, repeated install, rollback and dirty-update refusal | macOS/Linux POSIX installer target selected; record exact accepted OS/shell/Git and host versions. IDE runtime discovery and Windows were not verified. Filesystem fault injection and concurrent writers are outside current evidence | Three findings resolved; bounded installer evidence present |
 | Release and recovery | 0.5.1 has a verified annotated tag, notes, changelog and publication receipt; actual 0.5.0 → 0.4.0 asset rollback with a retained fixed manager verifies exact membership and no broken managed links | Older tags retain older installers: the fixed manager must remain outside the clone and be used explicitly while pinned. Consuming-project edits require separate recovery | Reported stale-asset defect resolved; recovery procedure bounded and verified |
-| Support | [SECURITY](../../SECURITY.md) retains current 0.x main support and adopts latest-stable support starting at 1.0; no older-pin backport or LTS promise; response timelines retained | Development upgrade entry and local regression tests implemented; release availability and host acceptance remain pending | Strategy decision resolved; upgrade delivery pending |
+| Support | [SECURITY](../../SECURITY.md) retains current 0.x main support and adopts latest-stable support starting at 1.0; no older-pin backport or LTS promise; response timelines retained | Upgrade entry shipped in 0.6.0 with regression tests and public-origin selection/recovery recorded in its manifest; host acceptance remains pending | Strategy and upgrade delivery resolved; host evidence pending |
 
 ## Resolved installation findings
 
@@ -92,8 +92,8 @@ Selection of the core is complete. No asset was promoted on a test count alone.
 
 Admission work remains: supported old/new consumer fixtures for protected shared
 contracts, actual personal-project acceptance for the selected chains, exact
-OS/shell/Git/host acceptance records, and release/host acceptance of the implemented stable-release upgrade
-entry. `cortex update` still follows the remote default branch and can discard
+OS/shell/Git/host acceptance records, and host acceptance of the stable-release upgrade
+entry shipped in 0.6.0. `cortex update` still follows the remote default branch and can discard
 clean local-only commits; it does not preserve a release pin. The scope policy itself
 changes no installer behavior and does not imply those gaps have closed.
 
@@ -123,8 +123,8 @@ schedule those same defects again without new failing evidence.
 | Order | Remaining proposed work | Completion evidence | Indicative story points |
 | --- | --- | --- | ---: |
 | Complete | Select stable scope and compatibility/support strategy | Approved policy, explicit dependency inventory, security transition and experimental boundaries documented; admission evidence remains separate | — |
-| 1 (partial) | Stable-release upgrade entry implemented; release and supported-host acceptance remain | Local integration verifies stable-tag selection, explicit pins, refusal paths, cleanup and update continuity. Publish the entry through normal release preparation; record primary host versions and real discovery/invocation before closing this item | 5 |
-| 2 | Add supported-consumer compatibility cases for the selected core | Versioned old/new consumer fixtures verify promised output contracts, enum semantics, adopted schemas and upgrade behavior; unsupported cases are explicitly bounded | 5 |
+| 1 (partial) | Stable-release upgrade entry released; supported-host acceptance remains | Local integration verifies stable-tag selection, explicit pins, refusal paths, cleanup and update continuity. 0.6.0 publication and isolated public-origin selection/rollback are complete; record primary host versions and real discovery/invocation before closing this item | 5 |
+| 2 (partial) | Expand reference coverage to actual consumers, other dependencies and deprecation migrations | Findings, Release Package and Rule coverage have pinned historical/current cases; actual project consumers and remaining contracts must meet the selected claim | 5 |
 | 3 | Record acceptance in actual personal projects | Auditable adoption, review/repair and commit/release chains retain versions, environment, inputs, findings, interventions and outcomes; optional planning/remote chains remain outside stable admission | 5 |
 | 4 | Resolve adopter evidence and strategic thresholds within that scope | Representative Rule return fixtures or an explicit exclusion from stable evidence claims; reconcile M5/M6/M7 definitions if they are used for admission | 3 |
 | 5 | Rehearse a bounded 1.0 candidate | Approved core passes installer, consumer and project gates; supported environments and upgrade/recovery are exercised; prepare-release determines readiness before an authorized publication | 3 |
@@ -151,7 +151,7 @@ It reuses the recorded successful local and Linux/macOS runs and actual tagged
 asset recovery; it does not claim a new execution of those behavioral tests or a
 new live-model/project/IDE acceptance run. The subsequent policy update resolves the scope and support decisions through
 explicit maintainer approval. Consumer, adopter and host evidence and upgrade
-release/host acceptance remain open. No roadmap promotion or 1.0 release is authorized by this
+host acceptance remain open. No roadmap promotion or 1.0 release is authorized by this
 document. Documentation links, hygiene and Markdown formatting
 are checked for this update.
 
@@ -174,3 +174,20 @@ without weakening its expectation. Existing 22 ownership/recovery cases remain.
 This is fixture-based real CLI/Git integration, not a new real-host IDE invocation
 or an acceptance of every historical installer. Older releases still require a
 retained manager as documented in the recovery guide.
+
+## Bounded consumer compatibility evidence
+
+The [compatibility guide](../guides/consumer-compatibility.md) defines the evidence
+boundary. Two historical contract descriptors pin 0.5.1/0.6.0 commits and source
+digests. Actual published Release Package exports and an authored review fixture
+have independent expected projections. Four historical release-reader pairs and
+two review-reader pairs pass; current-reader and negative regressions pass in
+12 test methods with subtests. These are reference readers of Markdown contracts,
+not independent IDE adapters or captured end-to-end agent executions.
+
+TDD first ran 9 methods against placeholder consumers: 36 assertion failures and
+no test errors. A later preservation test batch exposed four failures before
+original Findings and per-emitter coverage were retained. The final local suite
+and checker pass. CI now runs both commands in the existing full-history registry
+job; remote success is recorded only after execution. This does not complete the
+full consumer matrix or authorize 1.0. No Skill/Spec/Rule/Protocol contract changed.

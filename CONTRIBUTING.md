@@ -92,6 +92,7 @@ CI runs these on every pull request and they all block a merge, so run the ones 
 | `python3 scripts/check-markdown-links.py` | Any markdown change — relative links must resolve, and a Spec, Protocol or Rule must not link into `skills/` |
 | `python3 scripts/check-doc-hygiene.py` | Any markdown change — orphaned documents, temporary filenames, and a temporary document that is not labelled as one |
 | `python3 scripts/test-cortex-installer.py` | `bin/cortex` or its installer integration tests changed — executes real shell commands in isolated homes with local Git origins and release tags, including stable upgrades; CI runs on Linux and macOS |
+| `python3 scripts/check-stable-consumers.py`, `python3 scripts/test-stable-consumers.py` | Findings, Release Package, Rule coverage or consumer fixtures changed — pinned historical descriptors and old/current reference readers; requires full Git history |
 | `python3 scripts/check-cortex-docs.py` | `bin/cortex` gained or lost a subcommand or flag, or a document changed how it tells someone to invoke it |
 | `python3 scripts/check-asset-counts.py` | A skill, rule, spec or protocol was added or removed — the README states the counts in a sentence and again in the capability table |
 | `python3 scripts/sync-skills-index.py --check` | A skill's frontmatter changed; regenerate with the same script without `--check` |

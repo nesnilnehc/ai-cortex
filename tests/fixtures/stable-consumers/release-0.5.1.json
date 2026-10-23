@@ -1,0 +1,251 @@
+{
+  "source_path": ".cortex/release/0.5.1/manifest.yaml",
+  "source_sha256": "eb702d65278f11002b69a74678f67159a7473164e1887623a7e274dfbb20853d",
+  "package": {
+    "schema_version": "1.2.2",
+    "project": "ai-cortex",
+    "decision": "release",
+    "version": "0.5.1",
+    "release_channel": "stable",
+    "version_source": "git tag",
+    "commit": "485d787561427d10ed0208ffef566427b4100811",
+    "range": "v0.5.0..485d787561427d10ed0208ffef566427b4100811",
+    "status": "published",
+    "decision_basis": "Patch fixes executable installation ownership and rollback behavior; no asset contract change or 1.0 stability commitment.",
+    "version_domains": {
+      "product": {
+        "current": "0.5.0",
+        "source": "git tag",
+        "action": "bump",
+        "target": "0.5.1"
+      },
+      "skills": {
+        "current": "per-file frontmatter",
+        "source": "skills/*/SKILL.md",
+        "action": "preserve",
+        "note": "No asset changes or synchronized version bump."
+      },
+      "rules": {
+        "current": "per-file frontmatter",
+        "source": "rules/*.md",
+        "action": "preserve",
+        "note": "No asset changes or synchronized version bump."
+      },
+      "specs": {
+        "current": "per-file frontmatter",
+        "source": "specs/*.md",
+        "action": "preserve",
+        "note": "No asset changes or synchronized version bump."
+      },
+      "protocols": {
+        "current": "per-file frontmatter",
+        "source": "protocols/*.md",
+        "action": "preserve",
+        "note": "No asset changes or synchronized version bump."
+      },
+      "installer": {
+        "current": "unversioned",
+        "source": "bin/cortex",
+        "action": "preserve",
+        "note": "Installer behavior fixed without introducing an independent version."
+      }
+    },
+    "change_items": [
+      {
+        "id": "CI-051-ownership",
+        "kind": "fix",
+        "summary": "Use literal direct-child ownership for managed links.",
+        "user_impact": "Preserve foreign valid and broken skill and rule links.",
+        "sources": [
+          "485d787561427d10ed0208ffef566427b4100811"
+        ],
+        "audiences": [
+          "technical",
+          "customer"
+        ],
+        "migration": "See release-notes.md: Upgrade and Rollback"
+      },
+      {
+        "id": "CI-051-cursor-marker",
+        "kind": "fix",
+        "summary": "Require an exact first-line marker on regular generated files.",
+        "user_impact": "Preserve foreign Cursor links and user files during generation and removal.",
+        "sources": [
+          "485d787561427d10ed0208ffef566427b4100811"
+        ],
+        "audiences": [
+          "technical",
+          "customer"
+        ],
+        "migration": "See release-notes.md: Upgrade and Rollback"
+      },
+      {
+        "id": "CI-051-rollback",
+        "kind": "fix",
+        "summary": "Prune stale managed assets before reinstalling.",
+        "user_impact": "Restore the selected asset set using a retained fixed installer when rolling back.",
+        "sources": [
+          "485d787561427d10ed0208ffef566427b4100811"
+        ],
+        "audiences": [
+          "technical",
+          "customer"
+        ],
+        "migration": "See release-notes.md: Upgrade and Rollback"
+      }
+    ],
+    "artifacts": {
+      "changelog": {
+        "path": "CHANGELOG.md",
+        "kind": "changelog",
+        "audience": "technical",
+        "required": true,
+        "status": "present",
+        "source": "change_items",
+        "producer": {
+          "skill": "prepare-release",
+          "version": "1.4.2",
+          "origin": "native"
+        }
+      },
+      "release_notes": {
+        "path": ".cortex/release/0.5.1/release-notes.md",
+        "kind": "release_notes",
+        "audience": "customer",
+        "required": true,
+        "status": "present",
+        "source": "change_items",
+        "producer": {
+          "skill": "prepare-release",
+          "version": "1.4.2",
+          "origin": "native"
+        }
+      },
+      "manifest": {
+        "path": ".cortex/release/0.5.1/manifest.yaml",
+        "kind": "manifest",
+        "audience": "operator",
+        "required": true,
+        "status": "present",
+        "source": "change_items",
+        "producer": {
+          "skill": "prepare-release",
+          "version": "1.4.2",
+          "origin": "native"
+        }
+      }
+    },
+    "checks": [
+      {
+        "name": "installer integration tests",
+        "status": "passed",
+        "required": true,
+        "evidence": "22 tests passed locally; original implementation failed 12 of the first 17 cases, with separate trailing-slash and status regressions reproduced before fixes."
+      },
+      {
+        "name": "real tagged-asset rollback",
+        "status": "passed",
+        "required": true,
+        "evidence": "Retained fixed bootstrap: v0.5.0 (70 skills per IDE) to v0.4.0 (68); exact skill/global-rule sets and no broken managed links across three IDE directories."
+      },
+      {
+        "name": "GitHub Actions on tested content",
+        "status": "passed",
+        "required": true,
+        "evidence": "https://github.com/nesnilnehc/ai-cortex/actions/runs/39923150165 \u2014 links, shell, markdown, registry, installer (ubuntu-latest), installer (macos-latest) succeeded."
+      },
+      {
+        "name": "translation-invariants push job",
+        "status": "skipped",
+        "required": false,
+        "evidence": "PR-only job skipped as configured on push; no asset translation changed."
+      },
+      {
+        "name": "engineering and acceptance review",
+        "status": "passed",
+        "required": true,
+        "evidence": "No actionable findings after diff, Python, security, reliability, errors, performance, architecture, observability, testing and alignment review. Filesystem fault injection, concurrent writers, large-home benchmarks and IDE invocation were not verified; installation is documented as nontransactional."
+      },
+      {
+        "name": "release package validation",
+        "status": "passed",
+        "required": true,
+        "evidence": "Package scope, prior changelog preservation, required artifact schema, Markdown lint, links and document hygiene validated before tagging on the committed package."
+      }
+    ],
+    "publication_plan": {
+      "provider": "github",
+      "tag": "v0.5.1",
+      "draft": false,
+      "prerelease": false,
+      "make_latest": true,
+      "expected_paths": [
+        "CHANGELOG.md",
+        ".cortex/release/0.5.1/release-notes.md",
+        ".cortex/release/0.5.1/manifest.yaml"
+      ],
+      "pre_push_main": "485d787561427d10ed0208ffef566427b4100811",
+      "authorization": "User authorized scoped commits, tag, push and formal GitHub publication, and confirmed the three required artifacts.",
+      "dirty_policy": "Preserve and exclude existing docs/guides/releasing.md edits and untracked docs/project-overview/release-readiness.md; their byte hashes are checked before and after publication.",
+      "order": [
+        "commit release package",
+        "validate committed package",
+        "create annotated tag",
+        "push main and tag atomically",
+        "create and verify GitHub Release",
+        "commit and push publication receipt"
+      ],
+      "rollback": "Do not automatically delete or retarget published tags or releases. Removal requires separate authorization; fetched tags remain in other clones. Revert release documentation using new commits if needed. Roll back assets with a retained fixed manager; project document changes are not reversed automatically."
+    },
+    "publication": {
+      "target_commit": "95a1e001afb49e04368a7d12dd1aace92c583ff9",
+      "tag": "v0.5.1",
+      "tag_object": "673f0f38e2352f539e905d6ea6360b94a165ff1f",
+      "provider": "github",
+      "release_id": 421621854,
+      "release_url": "https://github.com/nesnilnehc/ai-cortex/releases/tag/v0.5.1",
+      "published_at": "2026-10-23T08:45:10Z",
+      "latest": true,
+      "draft": false,
+      "prerelease": false,
+      "tag_offset": "One release-artifact commit after the tested content SHA; only the three confirmed release files differ.",
+      "steps": {
+        "version_sync": {
+          "status": "complete",
+          "evidence": "Product version exists solely in the annotated v0.5.1 tag; independent asset versions preserved."
+        },
+        "release_commit": {
+          "status": "complete",
+          "evidence": "95a1e001afb49e04368a7d12dd1aace92c583ff9"
+        },
+        "validation": {
+          "status": "complete",
+          "evidence": "All required checks passed; committed package links, hygiene, command documentation, Markdown lint, scope and prior changelog preservation verified before tagging."
+        },
+        "tag": {
+          "status": "complete",
+          "evidence": "673f0f38e2352f539e905d6ea6360b94a165ff1f"
+        },
+        "push": {
+          "status": "complete",
+          "evidence": "main and v0.5.1 pushed atomically."
+        },
+        "provider_publish": {
+          "status": "complete",
+          "evidence": "GitHub Release creation succeeded; authenticated GET verified latest stable, exact note body and annotated tag target."
+        },
+        "build_package": {
+          "status": "not_started",
+          "evidence": "Not selected: source library without binary build or upload."
+        }
+      },
+      "rollback": "Do not automatically delete or retarget published tags or releases. Removal requires separate authorization; fetched tags remain in other clones. Revert release documentation using new commits if needed. Roll back assets with a retained fixed manager; project document changes are not reversed automatically."
+    }
+  },
+  "expected": {
+    "decision": "release",
+    "version": "0.5.1",
+    "tag": "v0.5.1",
+    "publishable": false
+  }
+}

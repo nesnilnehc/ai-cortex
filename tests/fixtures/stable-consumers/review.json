@@ -1,0 +1,115 @@
+{
+  "representation": "Test-owned JSON projection of prose/table contract; not a required Skill wire format.",
+  "findings": [
+    {
+      "location": "src/service.py:8",
+      "category": "cognitive-testing",
+      "severity": "minor",
+      "title": "Missing boundary case",
+      "description": "No test exercises the empty input.",
+      "maturity": "provisional"
+    },
+    {
+      "location": "src/service.py:8",
+      "category": "scope",
+      "severity": "major",
+      "title": "Wrong empty result",
+      "description": "Empty input returns a successful value.",
+      "maturity": "ready",
+      "suggestion": "Reject empty input."
+    },
+    {
+      "location": "src/service.py:8",
+      "category": "scope",
+      "severity": "major",
+      "title": "Wrong empty result",
+      "description": "Empty input returns a successful value.",
+      "maturity": "ready",
+      "suggestion": "Reject empty input."
+    }
+  ],
+  "coverage_by_emitter": {
+    "review-testing": {
+      "rule_set": "testing-quality",
+      "version": "1.4.0",
+      "passed": [
+        "TST-001"
+      ],
+      "waived": [],
+      "not_applicable": [],
+      "evidence_limited": [
+        {
+          "rule_id": "TST-008",
+          "missing": "adopter return fixtures"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "ordered_titles": [
+      "Wrong empty result",
+      "Wrong empty result",
+      "Missing boundary case"
+    ],
+    "severities": [
+      "major",
+      "major",
+      "minor"
+    ],
+    "maturities": [
+      "ready",
+      "ready",
+      "provisional"
+    ],
+    "sites": 1,
+    "finding_count": 3,
+    "evidence_limited": [
+      "TST-008"
+    ],
+    "ordered_findings": [
+      {
+        "location": "src/service.py:8",
+        "category": "scope",
+        "severity": "major",
+        "title": "Wrong empty result",
+        "description": "Empty input returns a successful value.",
+        "maturity": "ready",
+        "suggestion": "Reject empty input."
+      },
+      {
+        "location": "src/service.py:8",
+        "category": "scope",
+        "severity": "major",
+        "title": "Wrong empty result",
+        "description": "Empty input returns a successful value.",
+        "maturity": "ready",
+        "suggestion": "Reject empty input."
+      },
+      {
+        "location": "src/service.py:8",
+        "category": "cognitive-testing",
+        "severity": "minor",
+        "title": "Missing boundary case",
+        "description": "No test exercises the empty input.",
+        "maturity": "provisional"
+      }
+    ],
+    "coverage_by_emitter": {
+      "review-testing": {
+        "rule_set": "testing-quality",
+        "version": "1.4.0",
+        "passed": [
+          "TST-001"
+        ],
+        "waived": [],
+        "not_applicable": [],
+        "evidence_limited": [
+          {
+            "rule_id": "TST-008",
+            "missing": "adopter return fixtures"
+          }
+        ]
+      }
+    }
+  }
+}

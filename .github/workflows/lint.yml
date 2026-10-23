@@ -106,6 +106,13 @@ jobs:
           # and a shallow checkout fetches none.
           fetch-depth: 0
 
+      - name: stable core historical consumer contracts
+        # Pinned Git objects establish provenance; checkout above retains history.
+        # JSON is a test projection, not an additional runtime format.
+        run: |
+          python3 scripts/check-stable-consumers.py
+          python3 scripts/test-stable-consumers.py
+
       - name: the prose about bin/cortex matches the script
         # Semantics are a reader's job, but a named subcommand or flag either
         # exists or it does not — and a command nobody documented ships unseen.

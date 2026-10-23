@@ -245,9 +245,9 @@ maintenance. `main` is the development and early-validation channel, not evidenc
 that a development snapshot satisfies release compatibility. Pre-release tags
 are candidates, not stable releases. Security support is defined in SECURITY.
 
-The development checkout now provides `cortex upgrade [version]` for stable
+Release 0.6.0 provides `cortex upgrade [version]` for stable
 origin-tag selection, with isolated regression coverage and existing `update`
-semantics retained. This entry is not retroactively present in released tags.
+semantics retained. This entry is not retroactively present in older tags.
 Primary-host discovery/invocation acceptance remains required before 1.0.
 Rollback to older installers
 requires the retained fixed manager in the [recovery guide](../guides/installer-recovery.md).
@@ -266,5 +266,12 @@ from symlink creation alone. Model quality has no universal guarantee.
 
 Scope approval is complete; consumer compatibility fixtures, personal-project
 acceptance, environment records and applicable adopter evidence remain admission work;
-the implemented upgrade entry still needs release and primary-host acceptance. A candidate rehearsal must verify those
+the upgrade entry shipped in 0.6.0 and still needs primary-host acceptance. A candidate rehearsal must verify those
 against this bounded scope before the normal release preparation/publication.
+
+## Consumer compatibility evidence
+
+The [consumer compatibility guide](../guides/consumer-compatibility.md) records
+pinned historical/current reference-reader coverage and its limits. This is a
+partial evidence matrix; reference fixtures do not substitute for actual
+personal-project or host acceptance and do not promote experimental capabilities.

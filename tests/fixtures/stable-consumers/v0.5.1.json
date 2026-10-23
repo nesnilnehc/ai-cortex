@@ -1,0 +1,80 @@
+{
+  "source_tag": "v0.5.1",
+  "source_commit": "95a1e001afb49e04368a7d12dd1aace92c583ff9",
+  "sources": {
+    "specs/findings-list.md": {
+      "sha256": "23210c190914238f7d794b78ff400e79856c9e6a6f96f14f6bd994403e304a86",
+      "version": "2.0.1"
+    },
+    "specs/release-package.md": {
+      "sha256": "1e104181d051fe09fb9999d3ed52828db2e1b8030b282ed7c8d477ad9c898eb0",
+      "version": "1.2.2"
+    },
+    "specs/rule-modeling.md": {
+      "sha256": "96e2004f4bbb440909f7e789750d855f799e566079990da5e700e7622b4dbc17",
+      "version": "1.1.1"
+    }
+  },
+  "contract": {
+    "findings_required": [
+      "location",
+      "category",
+      "severity",
+      "title",
+      "description",
+      "maturity"
+    ],
+    "severities": [
+      "critical",
+      "major",
+      "minor",
+      "suggestion"
+    ],
+    "maturities": [
+      "ready",
+      "provisional"
+    ],
+    "coverage_required": [
+      "rule_set",
+      "version",
+      "passed",
+      "waived",
+      "not_applicable",
+      "evidence_limited"
+    ],
+    "release_required": [
+      "schema_version",
+      "project",
+      "decision",
+      "version_domains",
+      "commit",
+      "range",
+      "status",
+      "artifacts",
+      "checks"
+    ],
+    "release_conditional": [
+      "version",
+      "release_channel",
+      "version_source",
+      "change_items"
+    ],
+    "release_statuses": [
+      "draft",
+      "not_required",
+      "ready",
+      "published",
+      "announced"
+    ],
+    "check_statuses": [
+      "passed",
+      "failed",
+      "skipped"
+    ],
+    "domain_actions": [
+      "bump",
+      "preserve",
+      "derive"
+    ]
+  }
+}

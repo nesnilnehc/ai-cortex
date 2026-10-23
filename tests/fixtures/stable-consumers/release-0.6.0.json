@@ -1,0 +1,247 @@
+{
+  "source_path": ".cortex/release/0.6.0/manifest.yaml",
+  "source_sha256": "81a27189e736aee5bc0b480ec1858dfc66ba66204d1d1e38dbcc33136775173f",
+  "package": {
+    "schema_version": "1.2.2",
+    "project": "ai-cortex",
+    "decision": "release",
+    "release_channel": "stable",
+    "version_source": "git tag",
+    "version_domains": {
+      "product": {
+        "current": "0.5.1",
+        "source": "git tag",
+        "action": "bump",
+        "target": "0.6.0"
+      },
+      "skills": {
+        "current": "per-file frontmatter",
+        "source": "skills/*/SKILL.md",
+        "action": "preserve",
+        "note": "No asset changes or synchronized version bump."
+      },
+      "rules": {
+        "current": "per-file frontmatter",
+        "source": "rules/*.md",
+        "action": "preserve",
+        "note": "No asset changes or synchronized version bump."
+      },
+      "specs": {
+        "current": "per-file frontmatter",
+        "source": "specs/*.md",
+        "action": "preserve",
+        "note": "No asset changes or synchronized version bump."
+      },
+      "protocols": {
+        "current": "per-file frontmatter",
+        "source": "protocols/*.md",
+        "action": "preserve",
+        "note": "No asset changes or synchronized version bump."
+      },
+      "installer": {
+        "current": "unversioned",
+        "source": "bin/cortex",
+        "action": "preserve",
+        "note": "New upgrade command and empty-default-branch fallback fix; no independent installer version."
+      }
+    },
+    "version": "0.6.0",
+    "commit": "1b7412ee261008e73de4c886234c2315d92fab40",
+    "range": "v0.5.1..1b7412ee261008e73de4c886234c2315d92fab40",
+    "status": "published",
+    "decision_basis": "MINOR adds an optional stable-tag selection/upgrade command without removing update or changing asset contracts. 1.0 admission evidence remains incomplete.",
+    "change_items": [
+      {
+        "id": "CI-060-upgrade",
+        "kind": "feature",
+        "summary": "Select stable origin tags and resynchronize installed assets.",
+        "user_impact": "Users can select an explicit release or the highest stable tag without following main.",
+        "sources": [
+          "a461bcdf5b44f46b6282d0b3e6b1309a629df9fa"
+        ],
+        "audiences": [
+          "technical",
+          "customer"
+        ],
+        "migration": "See release-notes.md: Upgrade from 0.5.1 or an older installation; Rollback and recovery"
+      },
+      {
+        "id": "CI-060-update-fallback",
+        "kind": "fix",
+        "summary": "Restore main fallback when local origin HEAD is absent.",
+        "user_impact": "Existing update remains usable after release selection with missing local default-branch metadata.",
+        "sources": [
+          "a461bcdf5b44f46b6282d0b3e6b1309a629df9fa"
+        ],
+        "audiences": [
+          "technical",
+          "customer"
+        ],
+        "migration": "See release-notes.md: Upgrade from 0.5.1 or an older installation; Rollback and recovery"
+      },
+      {
+        "id": "CI-060-scope-policy",
+        "kind": "improvement",
+        "summary": "Document the approved 1.0 preparation scope and support transition.",
+        "user_impact": "Users can distinguish experimental capabilities from the intended stable core; current 0.x support remains unchanged.",
+        "sources": [
+          "9fd664a5ac66ff31079cc9038b36e49da5d5487f"
+        ],
+        "audiences": [
+          "technical",
+          "customer"
+        ],
+        "migration": "See release-notes.md: Upgrade from 0.5.1 or an older installation; Rollback and recovery"
+      }
+    ],
+    "artifacts": {
+      "changelog": {
+        "path": "CHANGELOG.md",
+        "kind": "changelog",
+        "audience": "technical",
+        "required": true,
+        "status": "present",
+        "source": "change_items",
+        "producer": {
+          "skill": "prepare-release",
+          "version": "1.4.2",
+          "origin": "native"
+        }
+      },
+      "release_notes": {
+        "path": ".cortex/release/0.6.0/release-notes.md",
+        "kind": "release_notes",
+        "audience": "customer",
+        "required": true,
+        "status": "present",
+        "source": "change_items",
+        "producer": {
+          "skill": "prepare-release",
+          "version": "1.4.2",
+          "origin": "native"
+        }
+      },
+      "manifest": {
+        "path": ".cortex/release/0.6.0/manifest.yaml",
+        "kind": "manifest",
+        "audience": "operator",
+        "required": true,
+        "status": "present",
+        "source": "change_items",
+        "producer": {
+          "skill": "prepare-release",
+          "version": "1.4.2",
+          "origin": "native"
+        }
+      }
+    },
+    "checks": [
+      {
+        "name": "installer integration tests",
+        "status": "passed",
+        "required": true,
+        "evidence": "python3 scripts/test-cortex-installer.py: 29 tests passed locally on the release content; initial missing-command and moved-tag failures were reproduced before fixes."
+      },
+      {
+        "name": "implementation CI",
+        "status": "passed",
+        "required": true,
+        "evidence": "https://github.com/nesnilnehc/ai-cortex/actions/runs/39930708295 passed Linux/macOS installer, shell, links, Markdown and registry jobs on the exact release-content baseline 1b7412ee261008e73de4c886234c2315d92fab40."
+      },
+      {
+        "name": "translation-invariants push job",
+        "status": "skipped",
+        "required": false,
+        "evidence": "PR-only job, skipped as configured; no versioned asset content changed."
+      },
+      {
+        "name": "ShellCheck and command contracts",
+        "status": "passed",
+        "required": true,
+        "evidence": "POSIX ShellCheck style/add-default-case, command documentation and explicit v0.5.1 asset-version range checks pass."
+      },
+      {
+        "name": "release package validation",
+        "status": "passed",
+        "required": true,
+        "evidence": "Links, document hygiene, Markdown lint, prior released changelog preservation, required fields, scope and committed content validated before tagging."
+      }
+    ],
+    "publication_plan": {
+      "provider": "github",
+      "tag": "v0.6.0",
+      "draft": false,
+      "prerelease": false,
+      "make_latest": true,
+      "pre_push_main": "1b7412ee261008e73de4c886234c2315d92fab40",
+      "expected_paths": [
+        "CHANGELOG.md",
+        ".cortex/release/0.6.0/release-notes.md",
+        ".cortex/release/0.6.0/manifest.yaml"
+      ],
+      "authorization": "User authorized commit/tag/push and formal publication, and confirmed 0.6.0 plus the three required artifacts.",
+      "order": [
+        "commit release package",
+        "validate committed package",
+        "create annotated tag",
+        "push main and tag atomically",
+        "create and verify GitHub Release",
+        "commit and push publication receipt"
+      ],
+      "rollback": "Do not automatically delete or retarget published tags or releases. Removal requires separate authorization; fetched tags remain in other clones. Revert release documentation using new commits if needed. Roll back assets with a retained fixed manager; project document changes are not reversed automatically.",
+      "dirty_policy": "Baseline clean. Stage only confirmed release paths and preserve any unrelated changes."
+    },
+    "publication": {
+      "target_commit": "a62a8e5238b1f3f54b50da8528248e6e9315639a",
+      "tag": "v0.6.0",
+      "tag_sha": "a62a8e5238b1f3f54b50da8528248e6e9315639a",
+      "tag_object": "57177a8d730705f1c84b9d166082e9c0c0f88853",
+      "provider": "github",
+      "release_id": 421652438,
+      "release_url": "https://github.com/nesnilnehc/ai-cortex/releases/tag/v0.6.0",
+      "published_at": "2026-10-23T09:20:04Z",
+      "latest": true,
+      "draft": false,
+      "prerelease": false,
+      "tag_offset": "One release-artifact commit after the tested content SHA; only the three confirmed release files differ.",
+      "steps": {
+        "version_sync": {
+          "status": "complete",
+          "evidence": "Product version solely in annotated v0.6.0 tag; independent asset versions preserved."
+        },
+        "release_commit": {
+          "status": "complete",
+          "evidence": "a62a8e5238b1f3f54b50da8528248e6e9315639a"
+        },
+        "validation": {
+          "status": "complete",
+          "evidence": "29 local tests, baseline Linux/macOS CI and all required package checks passed; exact committed package links, hygiene, commands, Markdown, scope and prior changelog validated before tag."
+        },
+        "tag": {
+          "status": "complete",
+          "evidence": "57177a8d730705f1c84b9d166082e9c0c0f88853"
+        },
+        "push": {
+          "status": "complete",
+          "evidence": "main and v0.6.0 pushed atomically."
+        },
+        "provider_publish": {
+          "status": "complete",
+          "evidence": "GitHub HTTP 201; authenticated GET verified latest stable, exact note body and annotated tag target."
+        },
+        "build_package": {
+          "status": "not_started",
+          "evidence": "Not selected: source library without binary build or upload."
+        }
+      },
+      "rollback": "Do not automatically delete or retarget published tags or releases. Removal requires separate authorization; fetched tags remain in other clones. Revert release documentation using new commits if needed. Roll back assets with a retained fixed manager; project document changes are not reversed automatically.",
+      "post_publish_verification": "Isolated clone with public GitHub origin: retained 0.6.0 manager selected latest stable v0.6.0 from a v0.5.1 checkout, then explicitly rolled back to v0.5.1. Exact target commits, exact 70-skill membership per generic/Claude/Cursor directory and no broken skill links verified. Real user installation untouched; this is CLI/file evidence, not IDE invocation. No announcement sent."
+    }
+  },
+  "expected": {
+    "decision": "release",
+    "version": "0.6.0",
+    "tag": "v0.6.0",
+    "publishable": false
+  }
+}
