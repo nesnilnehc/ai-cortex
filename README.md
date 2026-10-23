@@ -1,5 +1,7 @@
 # AI Cortex
 
+![AI Cortex mark](website/favicon.svg)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 > A governance and delivery asset library for AI agents — skills, specs, protocols and rules. See [mission](docs/project-overview/mission.md) and [vision](docs/project-overview/vision.md).
@@ -10,6 +12,8 @@ Visit the [AI Cortex website](https://ai-cortex.nesnilnehc.top/) for an overview
 usage examples and installation instructions, in English or
 [Simplified Chinese](https://ai-cortex.nesnilnehc.top/zh.html). The standalone static site lives in
 `website/`; see its [source and preview guide](website/README.md).
+The website and this README share the [same SVG mark](website/favicon.svg);
+see the [brand usage guide](docs/brand/README.md).
 
 ---
 

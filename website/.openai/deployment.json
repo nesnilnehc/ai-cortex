@@ -1,16 +1,16 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_7ca23d50cd088191b5bb7408dc520dbd",
-  "version_number": 5,
-  "deployment_id": "appgdep_6adb01488cc88191a7c9973e2ec62876",
-  "source_commit": "75a7c7895656b6b7975203fe1484422370ac4916",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_c0bf07c9c78c8191ac2ef5dbcbe94dbd",
+  "version_number": 6,
+  "deployment_id": "appgdep_6adb03e5c2e88191a0d50ca01d1c3166",
+  "source_commit": "8d91f8c3652e8a44590b1838ad2fa01e79dfac87",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.mystic-loon-2462.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-10-23T06:40:16.795694+00:00",
+  "updated_at": "2026-10-23T06:51:26.462675+00:00",
   "published_files": [
     "index.html",
     "zh.html",
@@ -48,15 +48,21 @@
   "public_url": "https://ai-cortex.nesnilnehc.top/",
   "public_verification_file": "public-verification.json",
   "browser_checks": [
-    "native Chrome rendered complete atlas at custom hostname",
-    "dark theme retained after reload",
-    "native on-site skill branch disclosure",
-    "360px Chinese and 1280px English rendered iframe previews inspected"
+    "native Chrome inspected shared SVG in Chinese dark header",
+    "README and both edition source references resolve to the same SVG",
+    "former CSS mark removed"
   ],
   "public_verification": {
     "http_status": 200,
     "tls_verify_result": 0,
     "static_assets_byte_identical": 8,
     "html_editions_source_preserved": 2
-  }
+  },
+  "brand_asset": "favicon.svg",
+  "brand_consumers": [
+    "repository README",
+    "website header",
+    "website footer",
+    "browser icon"
+  ]
 }

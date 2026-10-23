@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 48 48" role="img" aria-labelledby="brand-title">
+  <title id="brand-title">AI Cortex mark</title>
   <rect width="48" height="48" rx="6" fill="#ae4524"/>
   <g fill="#fffaf5" transform="translate(10 11) skewY(-15)">
     <rect width="28" height="5"/>

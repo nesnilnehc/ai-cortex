@@ -1,5 +1,5 @@
 {
-  "verified_at": "2026-10-23T06:42:04.293632+00:00",
+  "verified_at": "2026-10-23T06:52:11.976978+00:00",
   "resources": [
     {
       "file": "index.html",
@@ -10,7 +10,7 @@
       "content_type": "text/html",
       "source_preserved": true,
       "byte_identical": false,
-      "sha256": "f26ebd6a285fc78d46fd631394b3bce2c2f2fa62d3f6ae0b32801ba466cb929a"
+      "sha256": "fc92865c2b97c241d8adcb61713072c7007bb8a1b844227a3c09d96f65453a2f"
     },
     {
       "file": "zh.html",
@@ -21,18 +21,18 @@
       "content_type": "text/html",
       "source_preserved": true,
       "byte_identical": false,
-      "sha256": "97ba694705e2da8170a1848b2e49071301269d5189e1e6418704486fb8fd2c01"
+      "sha256": "67be243ff5607c3eeb616dbb962e956d53eb873943317ac6033779e917b052ac"
     },
     {
       "file": "styles.css",
-      "url": "https://ai-cortex.nesnilnehc.top/styles.css?v=20261023-atlas",
-      "effective_url": "https://ai-cortex.nesnilnehc.top/styles.css?v=20261023-atlas",
+      "url": "https://ai-cortex.nesnilnehc.top/styles.css?v=20261023-brand",
+      "effective_url": "https://ai-cortex.nesnilnehc.top/styles.css?v=20261023-brand",
       "http_status": 200,
       "tls_verify_result": 0,
       "content_type": "text/css",
       "source_preserved": true,
       "byte_identical": true,
-      "sha256": "c57c4525602e640ff05a498501e3013c86e88eb87c012960c6019434421855cd"
+      "sha256": "0aff1dabd1dc7afd80f5ef3f2dcdfb67011f4b5e5cd9117d89ab0334f62c81ee"
     },
     {
       "file": "main.mjs",
@@ -80,14 +80,14 @@
     },
     {
       "file": "favicon.svg",
-      "url": "https://ai-cortex.nesnilnehc.top/favicon.svg",
-      "effective_url": "https://ai-cortex.nesnilnehc.top/favicon.svg",
+      "url": "https://ai-cortex.nesnilnehc.top/favicon.svg?v=20261023-brand",
+      "effective_url": "https://ai-cortex.nesnilnehc.top/favicon.svg?v=20261023-brand",
       "http_status": 200,
       "tls_verify_result": 0,
       "content_type": "image/svg+xml",
       "source_preserved": true,
       "byte_identical": true,
-      "sha256": "c417f9f4718db6a4b125f1d0ad3f8d6a2c6552ffd9d770e6013c2afe1c6c768c"
+      "sha256": "1d6ed2d0bdb9f7da699e6e326c7c53fb445a95318fc6a5beae6fb2cdd521784a"
     },
     {
       "file": "robots.txt",

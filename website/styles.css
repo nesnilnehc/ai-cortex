@@ -65,10 +65,7 @@ section, dl > div { scroll-margin-top: 2rem; }
 /* Layer 1: header; layer 2: keyboard skip link. No overlays are used. */
 .site-header { display: flex; align-items: center; gap: 32px; min-height: 100px; border-bottom: 1px solid var(--line); }
 .wordmark { display: inline-flex; align-items: center; gap: 11px; font-family: var(--mono); font-weight: 700; font-size: 1.05rem; letter-spacing: -.04em; text-decoration: none; white-space: nowrap; }
-.brand-mark { display: grid; gap: 3px; width: 23px; transform: skewY(-20deg); }
-.brand-mark i { height: 4px; background: var(--accent); }
-.brand-mark i:nth-child(2) { width: 17px; }
-.brand-mark i:nth-child(3) { width: 11px; }
+.brand-mark { display: block; width: 28px; height: 28px; flex-shrink: 0; }
 .site-header nav { display: flex; gap: 30px; margin-left: auto; font-size: .8rem; }
 .theme-control { display: flex; align-items: center; gap: 6px; font-size: .7rem; color: var(--muted); }
 .theme-control select { font: inherit; background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius); padding: 7px 3px; min-height: 40px; }

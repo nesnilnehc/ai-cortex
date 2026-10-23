@@ -74,7 +74,7 @@ published asset bundle if the host supports an explicit include list.
 
 ### Published deployment (2026-10-23)
 
-Sites version 5 is public at [the custom domain](https://ai-cortex.nesnilnehc.top/)
+Sites version 6 is public at [the custom domain](https://ai-cortex.nesnilnehc.top/)
 and [the hosted origin](https://ai-cortex.mystic-loon-2462.chatgpt.site).
 The [hosting identity](.openai/hosting.json) and
 [deployment record](.openai/deployment.json) retain the exact project, version,
@@ -217,3 +217,17 @@ reload. The public verification record contains the response types and hashes.
 
 The production selector also returned from Dark to System successfully. This mode
 was retained as the final browser state; OS appearance itself was not changed.
+
+## Shared brand asset
+
+The header, footer, favicon and root repository README reference the same
+[`favicon.svg`](favicon.svg). The former CSS-drawn header symbol has been removed.
+Keep the SVG self-contained and preserve its fixed colors in both themes; see
+the [brand usage guide](../docs/brand/README.md) for palette, sizing and clear space.
+This is a pattern-preserving consolidation with no interaction changes.
+
+Production version 6 publishes the shared brand asset. Both HTML editions and all
+eight resources passed validated HTTPS checks. The deployed SVG matches the
+repository bytes used by the README. Header rendering was inspected in native
+Chrome in Chinese dark mode; further browser inspection was interrupted by user
+control, so this change does not claim a new full viewport/theme visual audit.
