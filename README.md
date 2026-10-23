@@ -1,19 +1,17 @@
 # AI Cortex
 
-![AI Cortex mark](website/favicon.svg)
+A governance and delivery asset library for AI agents: reusable **skills**, **specs**,
+**protocols** and **rules** for software delivery and project governance.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[Website](https://ai-cortex.nesnilnehc.top/) · [中文介绍](https://ai-cortex.nesnilnehc.top/zh) · [Quick start](#quick-start) · [MIT license](LICENSE)
 
-> A governance and delivery asset library for AI agents — skills, specs, protocols and rules. See [mission](docs/project-overview/mission.md) and [vision](docs/project-overview/vision.md).
+Use the website to explore the capability map and examples, or start below to
+install the library. Read the [mission](docs/project-overview/mission.md) and
+[vision](docs/project-overview/vision.md) for the project's direction.
 
-When an agent works inside this repository, [AGENTS.md](AGENTS.md) is authoritative for the execution contract, the four asset layers, precedence, discovery and skill matching. Terminology is defined in [docs/architecture/terminology.md](docs/architecture/terminology.md).
-
-Visit the [AI Cortex website](https://ai-cortex.nesnilnehc.top/) for an overview,
-usage examples and installation instructions, in English or
-[Simplified Chinese](https://ai-cortex.nesnilnehc.top/zh.html). The standalone static site lives in
-`website/`; see its [source and preview guide](website/README.md).
-The website and this README share the [same SVG mark](website/favicon.svg);
-see the [brand usage guide](docs/brand/README.md).
+For agents working in this repository, [AGENTS.md](AGENTS.md) defines the execution
+contract, asset precedence and discovery. See [terminology](docs/architecture/terminology.md)
+for the four asset layers and the [website guide](website/README.md) for site maintenance.
 
 ---
 

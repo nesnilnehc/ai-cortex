@@ -1,16 +1,16 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_c0bf07c9c78c8191ac2ef5dbcbe94dbd",
-  "version_number": 6,
-  "deployment_id": "appgdep_6adb03e5c2e88191a0d50ca01d1c3166",
-  "source_commit": "8d91f8c3652e8a44590b1838ad2fa01e79dfac87",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_ad106f4e8194819194699ca35f33e608",
+  "version_number": 7,
+  "deployment_id": "appgdep_6adb08b1ad708191aede4645b3691583",
+  "source_commit": "f71e2cdc04a3f2dffce77cc20d53eb99c37c44f9",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.mystic-loon-2462.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-10-23T06:51:26.462675+00:00",
+  "updated_at": "2026-10-23T07:12:35.798057+00:00",
   "published_files": [
     "index.html",
     "zh.html",
@@ -48,9 +48,7 @@
   "public_url": "https://ai-cortex.nesnilnehc.top/",
   "public_verification_file": "public-verification.json",
   "browser_checks": [
-    "native Chrome inspected shared SVG in Chinese dark header",
-    "README and both edition source references resolve to the same SVG",
-    "former CSS mark removed"
+    "native Chrome inspected the core mark at 16, 28, 48 and 64px against light and dark backgrounds"
   ],
   "public_verification": {
     "http_status": 200,
@@ -60,9 +58,9 @@
   },
   "brand_asset": "favicon.svg",
   "brand_consumers": [
-    "repository README",
     "website header",
     "website footer",
-    "browser icon"
+    "browser icon",
+    "personal site project entry"
   ]
 }

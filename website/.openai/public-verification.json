@@ -1,5 +1,5 @@
 {
-  "verified_at": "2026-10-23T06:52:11.976978+00:00",
+  "verified_at": "2026-10-23T07:12:15.521267+00:00",
   "resources": [
     {
       "file": "index.html",
@@ -10,7 +10,7 @@
       "content_type": "text/html",
       "source_preserved": true,
       "byte_identical": false,
-      "sha256": "fc92865c2b97c241d8adcb61713072c7007bb8a1b844227a3c09d96f65453a2f"
+      "sha256": "59da3298e94ccd337963fa517d78673f91a9214ef4d25226081214233c6d2c1e"
     },
     {
       "file": "zh.html",
@@ -21,7 +21,7 @@
       "content_type": "text/html",
       "source_preserved": true,
       "byte_identical": false,
-      "sha256": "67be243ff5607c3eeb616dbb962e956d53eb873943317ac6033779e917b052ac"
+      "sha256": "814d9ee24baf95547ba99c9ad6fa9d2e162c090ff37d30571006e190cff43039"
     },
     {
       "file": "styles.css",
@@ -80,14 +80,14 @@
     },
     {
       "file": "favicon.svg",
-      "url": "https://ai-cortex.nesnilnehc.top/favicon.svg?v=20261023-brand",
-      "effective_url": "https://ai-cortex.nesnilnehc.top/favicon.svg?v=20261023-brand",
+      "url": "https://ai-cortex.nesnilnehc.top/favicon.svg?v=20261023-core",
+      "effective_url": "https://ai-cortex.nesnilnehc.top/favicon.svg?v=20261023-core",
       "http_status": 200,
       "tls_verify_result": 0,
       "content_type": "image/svg+xml",
       "source_preserved": true,
       "byte_identical": true,
-      "sha256": "1d6ed2d0bdb9f7da699e6e326c7c53fb445a95318fc6a5beae6fb2cdd521784a"
+      "sha256": "e3f057d1c807354a40e1c98fd390638666a8a244e4b8e81562e348efa147c02f"
     },
     {
       "file": "robots.txt",
