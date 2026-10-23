@@ -293,3 +293,70 @@ assets directly, so this does not certify installed distribution, every emitter,
 provisional-Rule findings or full ordinary host configuration. No live model call
 was added to CI. The prior observation remains historical evidence; its wording
 alignment and one real nonempty output are now resolved within this scope.
+
+## Remaining core gates on a real project behavior repair
+
+The [versioned case](../../tests/fixtures/host-acceptance/core-gates-personal-site-2026-10-23.json)
+adds a real source repair in the permanently adopted personal site. The analytics
+backlog was already done; review of its approved invalid-count boundary found
+that collection sorting silently converted missing values to zero and could show
+a NaN count heading. Current personal collection records were valid. The defect
+was in existing production code and exercised with abnormal DOM input data; no
+source regression was injected and no prior organic user incident is claimed.
+
+[Site repair 7a8fe5f](https://github.com/nesnilnehc/nesnilnehc.github.io/commit/7a8fe5f)
+reuses the strict count parser, distinguishes invalid records from valid zero,
+places invalid records last and orders model loading before collection wiring.
+The new permanent browser regression covers music and films. An actual original
+page failed the music assertion before repair (1 failed, 5 unselected); complete
+post-repair browser execution passes 6 groups with no failures/skips. The operator
+also passed 5 model tests, six-post content validation and Jekyll build. This is
+an existing-design repair, not a new interface; browser behavior and a 320 px music
+screenshot were still inspected. Browser tests remain a local gate, not current CI.
+
+| Stable entry | Version | New bounded evidence |
+| --- | --- | --- |
+| review-implementation-alignment | 1.1.2 | Seven approved acceptance items mapped to production wiring and evidence; ALN coverage kept separate and refreshed after runtime execution |
+| orchestrate-code-review | 1.4.1 | Codebase scope, JavaScript language and all seven cognitive reviewers in fixed order; absent framework/ORM skipped explicitly; original per-emitter findings and coverage preserved |
+| orchestrate-repair-loop | 1.5.0 | Operator-coordinated TDD repair, engineering/alignment review, minor follow-up repair, independent acceptance and affected-gate refresh within a five-stage bound |
+
+The actual Codex CLI first discovery exceeded its 360-second command bound while
+the operator added a regression and repaired the workspace. It has no final report
+and is not a passed initial gate. The next run reviewed a frozen scope: no
+critical/major findings, one minor missing Covers comment, model tests passing,
+and browser evidence still operator-only. After the comment repair, a third run
+retained unchanged engineering coverage, refreshed testing/alignment and read the
+actual red/green/build logs. It independently ran 6/6 browser groups and 5/5 model
+tests, inspected the narrow-screen screenshot with an image tool and reported
+scoped convergence with evidence limitations. No source assertions were weakened.
+
+The first two runs requested read-only sandboxes. The runtime acceptance run
+explicitly allowed existing local browser execution and screenshots and requested
+danger-full-access mode; it started no service and performed no source/Git/install
+or network-tool writes. The operator had started the local preview and performs
+source repairs and authorized delivery. Requested model was gpt-6.1-sol with
+Codex CLI 0.163.0-alpha.11.2, ephemeral and ignored-user-config execution; backend
+identity and sandbox enforcement remain unattested. The canonical installation
+remained on dfad163; these are direct development-asset invocations, not installed
+or autonomous full-chain acceptance. Raw reports, commands, test logs, hashes and
+screenshots stay under the case's local evidence directory.
+
+Every modeled Rule ID in the reported coverage is checked for complete, disjoint
+classification against its canonical inventory; cognitive judgments remain
+agent-reported. No missing evidence is promoted to passed. Retained limits include
+unrun secret scanning, undeclared SLO/performance/coverage/observability targets,
+missing architecture baselines, absent separate technical-design/task artifacts,
+and wider browser repeatability. Refreshed ALN-001/002/007 and TST-001/002/003/005
+pass within scope; ALN-003/006 and TST-006/008 remain evidence-limited. Full original
+finding wording and coverage reasons are preserved in private report hashes; the
+case exports classifications and a curated English scope account.
+
+This covers one real behavior repair and the three entries' cooperation. It does
+not admit every dependency, language, provisional Rule population, ordinary host
+configuration or consuming-project Release Package chain. The overall 1.0 decision
+remains not ready; use this evidence rather than scheduling the same missing
+three-entry exercise again without identifying a materially different gap.
+
+[Site CI 39973504547](https://github.com/nesnilnehc/nesnilnehc.github.io/actions/runs/39973504547)
+passed validation/build and Pages deployment for the repair commit. The public
+site script returned HTTP 200 and matched the delivered local source bytes.

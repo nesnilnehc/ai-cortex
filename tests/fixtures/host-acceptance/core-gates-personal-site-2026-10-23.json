@@ -1,0 +1,746 @@
+{
+  "case_id": "core-gates-personal-site-2026-10-23",
+  "project": "nesnilnehc/nesnilnehc.github.io",
+  "site_baseline": "2e8f856f3d41d449a7d70c82af3f93f1851b8e2f",
+  "site_delivery": "7a8fe5f902075d7ac65fffb3703aaea2b3af3a68",
+  "cortex_baseline": "8fff49ecb1d8f55790f576ca00bdb73cbf1864be",
+  "assets": {
+    "skills/orchestrate-repair-loop/SKILL.md": {
+      "version": "1.5.0",
+      "sha256": "24d5cc8aa356d1b6ea9ceadf33c5fd42ed738ff908899322c7bf5a7e84884b4d"
+    },
+    "skills/orchestrate-code-review/SKILL.md": {
+      "version": "1.4.1",
+      "sha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2"
+    },
+    "skills/review-implementation-alignment/SKILL.md": {
+      "version": "1.1.2",
+      "sha256": "3de9f63a743f0bbb4dbb3d546a65b4d4c6da33015ab38f7199232ad7579b7bb0"
+    },
+    "skills/review-codebase/SKILL.md": {
+      "version": "1.2.1",
+      "sha256": "66bea73e403f582a802585fbf1b71bc20f7dea14fd1ebfa04633fada71781eb5"
+    },
+    "skills/review-typescript/SKILL.md": {
+      "version": "1.0.5",
+      "sha256": "dd0467b9ef887062c60173456588b2e1bbc28ff7a98effc28cb2cb751f95c4a1"
+    },
+    "skills/review-security/SKILL.md": {
+      "version": "2.0.2",
+      "sha256": "3b4eb80e77b7ec31ff38675fe4e18b48782fb02230a40e5805147bd4ce736453"
+    },
+    "skills/review-reliability/SKILL.md": {
+      "version": "1.0.2",
+      "sha256": "cd395af0f493a6f1feaf9f4ec8d67081e98a27de723db896fb38d3d597d2020c"
+    },
+    "skills/review-error-surfacing/SKILL.md": {
+      "version": "1.2.1",
+      "sha256": "49648026a540800cb067e7806549dcaf2fbfe2a2928e8bb9574bc6078284fdd8"
+    },
+    "skills/review-performance/SKILL.md": {
+      "version": "2.0.2",
+      "sha256": "a0b6eed10b04cec5eb061fc10a7026533ec9a1fbc06f1ad11ef9420ee055c23f"
+    },
+    "skills/review-architecture/SKILL.md": {
+      "version": "2.1.2",
+      "sha256": "b5afa818e10159f55dadfb81b9253302b05f6995be409c4d1684a8ffbe8dbb50"
+    },
+    "skills/review-observability/SKILL.md": {
+      "version": "1.0.2",
+      "sha256": "bccf32300fc696115da19b85e0975a9d42199650b4f9f10848362626ea426b5b"
+    },
+    "skills/review-testing/SKILL.md": {
+      "version": "2.0.2",
+      "sha256": "0b8b708b9aaf24753784c690a7545280ef571b379f66fe71bbbba3b67da29095"
+    },
+    "skills/automate-tests/SKILL.md": {
+      "version": "1.1.0",
+      "sha256": "7cbc1484999dc68f2702451071886d7d8b2327d29103bed3003c9086bed19e76"
+    }
+  },
+  "selection": "Existing analytics backlog already done; code review/reproduction found an actual invalid-count sorting defect under its approved abnormal-data acceptance boundary. Current personal collection data was valid. No production source defect was injected and no organic incident is claimed.",
+  "requirement_authority": [
+    "docs/backlog/2026-10-23-like-count-analytics.md, AC6",
+    "docs/design/like-count-analytics.md, invalid counts"
+  ],
+  "repair": "Reuse strict model count parsing in music/movie sorting; distinguish invalid from valid zero; place invalid last; load model before site script. Add both-page browser regression and Covers traceability.",
+  "definition_of_done": {
+    "scope": "Existing analytics and collection production wiring, scoped repair diff",
+    "max_iterations": 5,
+    "engineering": "No critical/major findings; per-emitter coverage retained with limitations",
+    "functional": "Approved intent traced; no blocking alignment findings; selected runtime checks pass",
+    "permissions": "Operator edits/tests/commits/pushes; review CLI read-only until explicitly authorized existing browser execution and screenshots; no new dependencies or service started by CLI"
+  },
+  "stages": [
+    {
+      "stage": 1,
+      "exit_code": 124,
+      "state": "Incomplete discovery, NOT a passed gate",
+      "limitations": "360s timeout; operator added TDD test and repaired workspace while discovery ran; retained trace covers both states, not a frozen pre-repair verdict."
+    },
+    {
+      "stage": 2,
+      "exit_code": 0,
+      "state": "Complete frozen engineering gate and alignment; 0 critical/major, 1 minor Covers gap; runtime evidence initially operator-only",
+      "full_sequence": [
+        "review-codebase",
+        "review-typescript",
+        "review-security",
+        "review-reliability",
+        "review-error-surfacing",
+        "review-performance",
+        "review-architecture",
+        "review-observability",
+        "review-testing"
+      ],
+      "skipped": [
+        "framework: native DOM, no React/Vue",
+        "library: no ORM"
+      ],
+      "risk_signals": [],
+      "minor_original_reference": "final-report.txt#/engineering_gate/per_skill_findings/review-testing/0; raw wording preserved locally",
+      "repair": "Operator added Covers comment without changing tested behavior."
+    },
+    {
+      "stage": 3,
+      "exit_code": 0,
+      "state": "scoped_convergence_with_evidence_limitations",
+      "refreshed_emitters": [
+        "review-testing",
+        "review-implementation-alignment"
+      ],
+      "reused_emitters": [
+        "review-codebase",
+        "review-typescript",
+        "review-security",
+        "review-reliability",
+        "review-error-surfacing",
+        "review-performance",
+        "review-architecture",
+        "review-observability"
+      ],
+      "engineering_findings": [],
+      "alignment_findings": [],
+      "independent_browser": {
+        "passed": 6,
+        "failed": 0,
+        "skipped": 0
+      },
+      "independent_model": {
+        "passed": 5,
+        "failed": 0,
+        "skipped": 0
+      },
+      "visual": "Host used image tool on music-320 screenshot; remaining engine/device limits retained."
+    }
+  ],
+  "rule_coverage_by_emitter": {
+    "review-codebase": {
+      "rule_set": null,
+      "version": null,
+      "passed": [],
+      "waived": [],
+      "not_applicable": [],
+      "evidence_limited": []
+    },
+    "review-typescript": {
+      "rule_set": null,
+      "version": null,
+      "passed": [],
+      "waived": [],
+      "not_applicable": [],
+      "evidence_limited": []
+    },
+    "review-security": {
+      "rule_set": "security-quality",
+      "version": "1.3.0",
+      "passed": [],
+      "waived": [],
+      "not_applicable": [
+        {
+          "ids": [
+            "SEC-001",
+            "SEC-002",
+            "SEC-004",
+            "SEC-005",
+            "SEC-006",
+            "SEC-007",
+            "SEC-008"
+          ],
+          "reason_reference": "Preserved original report for this emitting Skill; translated scope summary in host-acceptance.md."
+        }
+      ],
+      "evidence_limited": [
+        {
+          "ids": [
+            "SEC-003"
+          ],
+          "reason_reference": "Preserved original report for this emitting Skill; translated scope summary in host-acceptance.md."
+        }
+      ]
+    },
+    "review-reliability": {
+      "rule_set": "reliability-quality",
+      "version": "1.3.0",
+      "passed": [],
+      "waived": [],
+      "not_applicable": [
+        {
+          "ids": [
+            "REL-001",
+            "REL-002",
+            "REL-003",
+            "REL-004",
+            "REL-005",
+            "REL-006",
+            "REL-007"
+          ],
+          "reason_reference": "Preserved original report for this emitting Skill; translated scope summary in host-acceptance.md."
+        }
+      ],
+      "evidence_limited": [
+        {
+          "ids": [
+            "REL-008"
+          ],
+          "reason_reference": "Preserved original report for this emitting Skill; translated scope summary in host-acceptance.md."
+        }
+      ]
+    },
+    "review-error-surfacing": {
+      "rule_set": "error-surfacing-quality",
+      "version": "1.2.0",
+      "passed": [
+        "ERR-001",
+        "ERR-005"
+      ],
+      "waived": [],
+      "not_applicable": [
+        {
+          "ids": [
+            "ERR-002",
+            "ERR-004"
+          ],
+          "reason_reference": "Preserved original report for this emitting Skill; translated scope summary in host-acceptance.md."
+        }
+      ],
+      "evidence_limited": [
+        {
+          "ids": [
+            "ERR-003",
+            "ERR-006"
+          ],
+          "reason_reference": "Preserved original report for this emitting Skill; translated scope summary in host-acceptance.md."
+        }
+      ]
+    },
+    "review-performance": {
+      "rule_set": "performance-quality",
+      "version": "1.3.0",
+      "passed": [
+        "PERF-008"
+      ],
+      "waived": [],
+      "not_applicable": [
+        {
+          "ids": [
+            "PERF-002",
+            "PERF-004",
+            "PERF-005",
+            "PERF-006"
+          ],
+          "reason_reference": "Preserved original report for this emitting Skill; translated scope summary in host-acceptance.md."
+        }
+      ],
+      "evidence_limited": [
+        {
+          "ids": [
+            "PERF-001",
+            "PERF-003",
+            "PERF-007"
+          ],
+          "reason_reference": "Preserved original report for this emitting Skill; translated scope summary in host-acceptance.md."
+        }
+      ]
+    },
+    "review-architecture": {
+      "rule_set": "architecture-quality",
+      "version": "1.4.0",
+      "passed": [
+        "ARC-001",
+        "ARC-004",
+        "ARC-006"
+      ],
+      "waived": [],
+      "not_applicable": [
+        {
+          "ids": [
+            "ARC-005",
+            "ARC-007",
+            "ARC-008",
+            "ARC-011"
+          ],
+          "reason_reference": "Preserved original report for this emitting Skill; translated scope summary in host-acceptance.md."
+        }
+      ],
+      "evidence_limited": [
+        {
+          "ids": [
+            "ARC-002",
+            "ARC-009"
+          ],
+          "reason_reference": "Preserved original report for this emitting Skill; translated scope summary in host-acceptance.md."
+        },
+        {
+          "ids": [
+            "ARC-003",
+            "ARC-010"
+          ],
+          "reason_reference": "Preserved original report for this emitting Skill; translated scope summary in host-acceptance.md."
+        }
+      ]
+    },
+    "review-observability": {
+      "rule_set": "observability-quality",
+      "version": "1.3.0",
+      "passed": [],
+      "waived": [],
+      "not_applicable": [
+        {
+          "ids": [
+            "OBS-002",
+            "OBS-004",
+            "OBS-005",
+            "OBS-006",
+            "OBS-007",
+            "OBS-008"
+          ],
+          "reason_reference": "Preserved original report for this emitting Skill; translated scope summary in host-acceptance.md."
+        }
+      ],
+      "evidence_limited": [
+        {
+          "ids": [
+            "OBS-001",
+            "OBS-003"
+          ],
+          "reason_reference": "Preserved original report for this emitting Skill; translated scope summary in host-acceptance.md."
+        }
+      ]
+    },
+    "review-testing": {
+      "rule_set": "testing-quality",
+      "version": "1.4.0",
+      "passed": [
+        "TST-001",
+        "TST-002",
+        "TST-003",
+        "TST-005"
+      ],
+      "waived": [],
+      "not_applicable": [
+        {
+          "ids": [
+            "TST-004",
+            "TST-007"
+          ],
+          "reason_reference": "Preserved original report for this emitting Skill; translated scope summary in host-acceptance.md."
+        }
+      ],
+      "evidence_limited": [
+        {
+          "ids": [
+            "TST-006"
+          ],
+          "reason_reference": "Preserved original report for this emitting Skill; translated scope summary in host-acceptance.md."
+        },
+        {
+          "ids": [
+            "TST-008"
+          ],
+          "reason_reference": "Preserved original report for this emitting Skill; translated scope summary in host-acceptance.md."
+        }
+      ]
+    },
+    "review-implementation-alignment": {
+      "rule_set": "implementation-alignment-quality",
+      "version": "1.2.0",
+      "passed": [
+        "ALN-001",
+        "ALN-002",
+        "ALN-007"
+      ],
+      "waived": [],
+      "not_applicable": [
+        {
+          "ids": [
+            "ALN-004",
+            "ALN-005"
+          ],
+          "reason_reference": "Preserved original report for this emitting Skill; translated scope summary in host-acceptance.md."
+        }
+      ],
+      "evidence_limited": [
+        {
+          "ids": [
+            "ALN-003",
+            "ALN-006"
+          ],
+          "reason_reference": "Preserved original report for this emitting Skill; translated scope summary in host-acceptance.md."
+        }
+      ]
+    }
+  },
+  "alignment_traceability": {
+    "authority": [
+      "docs/backlog/2026-10-23-like-count-analytics.md: done",
+      "docs/design/like-count-analytics.md: approved"
+    ],
+    "matrix": "Seven approved acceptance items mapped in preserved baseline report; refreshed runtime evidence in acceptance-report.txt.",
+    "AC1_AC3_AC5": "Real music/movie browser tests verify charts, collection separation, metrics, filtering, sorting and temporary-selection behavior.",
+    "AC2_AC4": "Model tests verify snapshot totals, denominators and ties independent of release dates.",
+    "AC6": "Boundary model/DOM tests and both-collection sorting regression verify invalid, zero, empty and uniform states.",
+    "AC7": "Browser tests exercise keyboard controls, tables and 1440/390/320 layouts; one narrow-screen screenshot visually inspected."
+  },
+  "operator_tdd": {
+    "red": "Existing original page code failed the missing-state browser assertion: 1 fail, 5 unselected.",
+    "green": "Both collection variants pass in full 6-group browser suite, 0 fails/skips; 5 model tests, 6-post content validation and Jekyll build passed.",
+    "scope_delta": "Initial red covered music; green extended the same regression to films as well.",
+    "source_recovery": "No source tests removed or weakened; original main project source was repaired, not an isolated source snapshot."
+  },
+  "commands_by_stage": {
+    "initial": [
+      {
+        "command": "/bin/zsh -lc 'pwd; git status --short; git branch --show-current; cat AGENTS.md .ai-cortex/config.yaml; cat ~/github.com/ai-cortex/skills/orchestrate-repair-loop/SKILL.md ~/github.com/ai-cortex/skills/orchestrate-code-review/SKILL.md ~/github.com/ai-cortex/skills/review-implementation-alignment/SKILL.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/skills/INDEX.md ~/github.com/ai-cortex/specs/findings-list.md ~/github.com/ai-cortex/skills/review-codebase/SKILL.md ~/github.com/ai-cortex/skills/review-typescript/SKILL.md ~/github.com/ai-cortex/skills/review-security/SKILL.md ~/github.com/ai-cortex/skills/review-reliability/SKILL.md ~/github.com/ai-cortex/skills/review-error-surfacing/SKILL.md ~/github.com/ai-cortex/skills/review-performance/SKILL.md ~/github.com/ai-cortex/skills/review-architecture/SKILL.md ~/github.com/ai-cortex/skills/review-observability/SKILL.md ~/github.com/ai-cortex/skills/review-testing/SKILL.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/skills/review-codebase/SKILL.md\ncat ~/github.com/ai-cortex/skills/review-typescript/SKILL.md\ncat ~/github.com/ai-cortex/skills/review-security/SKILL.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/skills/review-reliability/SKILL.md\ncat ~/github.com/ai-cortex/skills/review-error-surfacing/SKILL.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/skills/review-diff/SKILL.md\ncat ~/github.com/ai-cortex/skills/automate-tests/SKILL.md\ncat ~/github.com/ai-cortex/skills/commit-work/SKILL.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"cat docs/backlog/2026-10-23-like-count-analytics.md docs/design/like-count-analytics.md; cat assets/js/collection-analytics.js assets/js/like-count.js; rg -n 'analytics|LikeCount|likeCount|like-count|CollectionAnalytics' assets/js/site.js; cat Makefile; rg --files | rg 'test|spec|package.json'; cat README.md\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/rules/security-quality.md ~/github.com/ai-cortex/rules/reliability-quality.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/rules/error-surfacing-quality.md ~/github.com/ai-cortex/rules/performance-quality.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/rules/architecture-quality.md ~/github.com/ai-cortex/rules/observability-quality.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/rules/testing-quality.md ~/github.com/ai-cortex/rules/standards-test-code.md ~/github.com/ai-cortex/rules/implementation-alignment-quality.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/skills/review-security/SKILL.md ~/github.com/ai-cortex/skills/review-reliability/SKILL.md ~/github.com/ai-cortex/skills/review-error-surfacing/SKILL.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/specs/findings-list.md ~/github.com/ai-cortex/specs/rule-modeling.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"cat script/like-count.test.cjs script/analytics-browser.test.cjs; rg -n 'collection-filter|collection-visibility|apply.*Filter|Count|count' assets/js/site.js; rg -n 'like-count|collection-analytics|site.js|analytics' _includes/* _layouts/* _pages/music.md _pages/movies.md; cat CLAUDE.md .github/workflows/ci.yml\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat assets/js/site.js; cat ~/github.com/ai-cortex/skills/automate-tests/SKILL.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/skills/review-performance/SKILL.md ~/github.com/ai-cortex/skills/review-architecture/SKILL.md ~/github.com/ai-cortex/skills/review-observability/SKILL.md ~/github.com/ai-cortex/skills/review-testing/SKILL.md ~/github.com/ai-cortex/docs/guides/project-config.md ~/github.com/ai-cortex/docs/guides/ui-design-decisions.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'make test'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"node -e 'const assert=require(\\\"node:assert/strict\\\"); const {parseCount,analyze}=require(\\\"./assets/js/like-count.js\\\"); for(const value of [\\\"1\\\\n\\\",\\\"1\\\\r\\\",\\\"1\\\\r\\\\n\\\"]) console.log(JSON.stringify({input:value,parsed:parseCount(value)})); const items=[{count:Number.MAX_SAFE_INTEGER},{count:2}]; const result=analyze(items); const expected=items.reduce((sum,item)=>sum+BigInt(item.count),0n); console.log(JSON.stringify({accepted:items.map(x=>parseCount(x.count)),actual:String(result.total),expected:String(expected),safe:Number.isSafeInteger(result.total)})); assert.equal(BigInt(result.total),expected,\\\"approved total must match sum of valid raw counts\\\");'\"",
+        "exit_code": 1
+      },
+      {
+        "command": "/bin/zsh -lc 'nl -ba assets/js/like-count.js; nl -ba assets/js/collection-analytics.js; rg --files docs | sort; git status --porcelain; git rev-parse HEAD; git -C ~/github.com/ai-cortex rev-parse HEAD; git -C ~/github.com/ai-cortex status --short; cat ~/.codex/preferences/communication.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'git diff -- script/analytics-browser.test.cjs; cat ~/github.com/ai-cortex/skills/review-diff/SKILL.md; cat ~/github.com/ai-cortex/rules/standards-coding.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"node -e 'const fs=require(\\\"node:fs\\\"), vm=require(\\\"node:vm\\\"), assert=require(\\\"node:assert/strict\\\"); const source=fs.readFileSync(\\\"assets/js/site.js\\\",\\\"utf8\\\"); const fragment=source.slice(source.indexOf(\\\"  function compareCollectionEntries(\\\"),source.indexOf(\\\"  function createGroupHeading(\\\")); const api=vm.runInNewContext(fragment+\\\"; ({compareCollectionEntries,groupLabel})\\\"); for(const prefix of [\\\"music\\\",\\\"movie\\\"]){ const entry=count=>({dataset:{[prefix+\\\"Count\\\"]:count,[prefix+\\\"Date\\\"]:\\\"2026-01-01\\\",[prefix+\\\"Order\\\"]:\\\"0\\\"}}); console.log(JSON.stringify({prefix,missing:api.groupLabel(entry(\\\"\\\"),prefix,\\\"count\\\"),invalid:api.groupLabel(entry(\\\"NaN\\\"),prefix,\\\"count\\\"),zero:api.groupLabel(entry(\\\"0\\\"),prefix,\\\"count\\\"),invalidComparator:String(api.compareCollectionEntries(entry(\\\"NaN\\\"),entry(\\\"2\\\"),prefix,\\\"count\\\"))})); } const e=count=>({dataset:{musicCount:count}}); assert.notEqual(api.groupLabel(e(\\\"\\\"),\\\"music\\\",\\\"count\\\"),api.groupLabel(e(\\\"0\\\"),\\\"music\\\",\\\"count\\\"),\\\"missing counts must remain distinguishable from valid zero\\\");'\"",
+        "exit_code": 1
+      },
+      {
+        "command": "/bin/zsh -lc \"rg -n 'count|default' _pages/music.md _pages/movies.md; rg -n 'LikeCount|parseCount|uniform|collection-filter|collection-visibility|deprecated|deprecat|fetch|innerHTML|eval\\\\(|token|password|secret|import|require' assets/js/collection-analytics.js assets/js/like-count.js assets/js/site.js script/like-count.test.cjs script/analytics-browser.test.cjs; cat _includes/collection-analytics.html; cat ~/.codex/preferences/implementation-and-verification.md\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"git status --short; git diff -- assets/js/site.js _layouts/default.html script/analytics-browser.test.cjs; sed -n '48,100p' assets/js/site.js; sed -n '26,40p' _layouts/default.html; cat ~/github.com/ai-cortex/skills/review-typescript/SKILL.md\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"node -e 'const cp=require(\\\"node:child_process\\\"),vm=require(\\\"node:vm\\\"),assert=require(\\\"node:assert/strict\\\"); const revision=\\\"2e8f856f3d41d449a7d70c82af3f93f1851b8e2f\\\"; const source=cp.execFileSync(\\\"git\\\",[\\\"show\\\",revision+\\\":assets/js/site.js\\\"],{encoding:\\\"utf8\\\"}); const fragment=source.slice(source.indexOf(\\\"  function compareCollectionEntries(\\\"),source.indexOf(\\\"  function createGroupHeading(\\\")); const api=vm.runInNewContext(fragment+\\\"; ({compareCollectionEntries,groupLabel})\\\"); for(const prefix of [\\\"music\\\",\\\"movie\\\"]){ const entry=count=>({dataset:{[prefix+\\\"Count\\\"]:count,[prefix+\\\"Date\\\"]:\\\"2026-01-01\\\",[prefix+\\\"Order\\\"]:\\\"0\\\"}}); console.log(JSON.stringify({revision,prefix,missing:api.groupLabel(entry(\\\"\\\"),prefix,\\\"count\\\"),invalid:api.groupLabel(entry(\\\"NaN\\\"),prefix,\\\"count\\\"),zero:api.groupLabel(entry(\\\"0\\\"),prefix,\\\"count\\\"),invalidComparator:String(api.compareCollectionEntries(entry(\\\"NaN\\\"),entry(\\\"2\\\"),prefix,\\\"count\\\"))})); } const e=count=>({dataset:{musicCount:count}}); assert.notEqual(api.groupLabel(e(\\\"\\\"),\\\"music\\\",\\\"count\\\"),api.groupLabel(e(\\\"0\\\"),\\\"music\\\",\\\"count\\\"),\\\"missing counts must remain distinguishable from valid zero\\\");'\"",
+        "exit_code": 1
+      },
+      {
+        "command": "/bin/zsh -lc \"ruby -r yaml -r date -r json -e 'ARGV.each { |path| data=YAML.load_file(path, permitted_classes: [Date]); rows=data.is_a?(Array) ? data : data.values.flatten; values=rows.map { |row| row[\\\"count\\\"] }; valid=values.select { |value| value.is_a?(Integer) && value>=0 }; puts JSON.generate({path:path,items:rows.size,valid:valid.size,total:valid.sum,repeated:valid.count { |value| value>=2 },distribution:valid.tally.sort.to_h}) }' _data/music.yml _data/movies.yml\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"git status --short; git rev-parse HEAD; git diff --stat; git -C ~/github.com/ai-cortex status --short; node --version; git show HEAD:script/analytics-browser.test.cjs | nl -ba | sed -n '90,125p'; git show HEAD:assets/js/site.js | nl -ba | sed -n '54,80p'; rg --files -g 'AGENTS.md' -g '*design*' -g '*task*' -g '*package*' docs assets script .ai-cortex\"",
+        "exit_code": 1
+      }
+    ],
+    "final": [
+      {
+        "command": "/bin/zsh -lc 'pwd && git status --short && git branch --show-current && git diff --stat'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat AGENTS.md .ai-cortex/config.yaml ~/github.com/ai-cortex/skills/orchestrate-repair-loop/SKILL.md ~/github.com/ai-cortex/skills/orchestrate-code-review/SKILL.md ~/github.com/ai-cortex/skills/review-implementation-alignment/SKILL.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/skills/INDEX.md ~/github.com/ai-cortex/specs/findings-list.md ~/github.com/ai-cortex/skills/review-codebase/SKILL.md ~/github.com/ai-cortex/skills/review-typescript/SKILL.md ~/github.com/ai-cortex/skills/review-security/SKILL.md ~/github.com/ai-cortex/skills/review-reliability/SKILL.md ~/github.com/ai-cortex/skills/review-error-surfacing/SKILL.md ~/github.com/ai-cortex/skills/review-performance/SKILL.md ~/github.com/ai-cortex/skills/review-architecture/SKILL.md ~/github.com/ai-cortex/skills/review-observability/SKILL.md ~/github.com/ai-cortex/skills/review-testing/SKILL.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat docs/backlog/2026-10-23-like-count-analytics.md docs/design/like-count-analytics.md docs/ai-cortex-acceptance.md assets/js/collection-analytics.js assets/js/like-count.js'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/skills/review-codebase/SKILL.md ~/github.com/ai-cortex/skills/review-typescript/SKILL.md ~/github.com/ai-cortex/skills/review-security/SKILL.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/skills/review-reliability/SKILL.md ~/github.com/ai-cortex/skills/review-error-surfacing/SKILL.md ~/github.com/ai-cortex/skills/review-performance/SKILL.md ~/github.com/ai-cortex/skills/review-architecture/SKILL.md ~/github.com/ai-cortex/skills/review-observability/SKILL.md ~/github.com/ai-cortex/skills/review-testing/SKILL.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat docs/backlog/2026-10-23-like-count-analytics.md docs/design/like-count-analytics.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/rules/security-quality.md ~/github.com/ai-cortex/rules/reliability-quality.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/rules/error-surfacing-quality.md ~/github.com/ai-cortex/rules/performance-quality.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/rules/architecture-quality.md ~/github.com/ai-cortex/rules/observability-quality.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/rules/testing-quality.md ~/github.com/ai-cortex/rules/standards-test-code.md ~/github.com/ai-cortex/rules/implementation-alignment-quality.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'git diff -- assets/js/site.js _layouts/default.html script/analytics-browser.test.cjs docs/ai-cortex-acceptance.md && cat script/like-count.test.cjs Makefile'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat script/analytics-browser.test.cjs'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat assets/js/site.js'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/skills/review-architecture/SKILL.md ~/github.com/ai-cortex/skills/review-diff/SKILL.md ~/github.com/ai-cortex/skills/automate-tests/SKILL.md ~/github.com/ai-cortex/skills/commit-work/SKILL.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/skills/automate-tests/SKILL.md ~/github.com/ai-cortex/skills/review-diff/SKILL.md ~/github.com/ai-cortex/skills/review-architecture/SKILL.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/specs/findings-list.md ~/github.com/ai-cortex/specs/rule-modeling.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/docs/guides/ui-design-decisions.md ~/github.com/ai-cortex/docs/guides/project-config.md ~/github.com/ai-cortex/rules/standards-coding.md README.md _includes/collection-analytics.html'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'make test'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"git diff --check && node --version && git status --short && rg -n 'collection_analytics|collection-analytics|data-(music|movie)-count|analytics-toggle' _pages/music.md _pages/movies.md _layouts/default.html && rg -n 'collection-analytics|like-ranking|like-distribution' assets/css && rg --files docs/design docs/backlog script .github/workflows\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"sed -n '100,202p' assets/css/style.scss && cat .github/workflows/ci.yml && rg -n 'Covers:|deprecated|uniform' assets/js/collection-analytics.js assets/js/like-count.js assets/js/site.js script/like-count.test.cjs script/analytics-browser.test.cjs\"",
+        "exit_code": 0
+      }
+    ],
+    "acceptance": [
+      {
+        "command": "/bin/zsh -lc 'pwd && git status --short && cat ~/.local/state/ai-cortex/acceptance/2026-10-23-core-gates/final-report.txt'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/skills/orchestrate-repair-loop/SKILL.md ~/github.com/ai-cortex/skills/orchestrate-code-review/SKILL.md ~/github.com/ai-cortex/skills/review-implementation-alignment/SKILL.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/skills/orchestrate-repair-loop/SKILL.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/skills/review-testing/SKILL.md ~/github.com/ai-cortex/rules/testing-quality.md ~/github.com/ai-cortex/rules/implementation-alignment-quality.md ~/github.com/ai-cortex/rules/standards-test-code.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'rg --files ~/.local/state/ai-cortex/acceptance/2026-10-23-core-gates && cat .ai-cortex/config.yaml && git branch --show-current && git diff -- script/analytics-browser.test.cjs && cat docs/backlog/2026-10-23-like-count-analytics.md docs/design/like-count-analytics.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/skills/review-testing/SKILL.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/rules/testing-quality.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/rules/implementation-alignment-quality.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/.local/state/ai-cortex/acceptance/2026-10-23-core-gates/red-browser.log ~/.local/state/ai-cortex/acceptance/2026-10-23-core-gates/green-browser.log ~/.local/state/ai-cortex/acceptance/2026-10-23-core-gates/green-project.log'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'NODE_PATH=~/.npm/_npx/e41f203b7505f1fb/node_modules TEST_URL=http://127.0.0.1:4173 SCREENSHOT_DIR=/tmp/cortex-core-gates-host-browser make test-browser'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'make test'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/.local/state/ai-cortex/acceptance/2026-10-23-core-gates/frozen.json && shasum -a 256 ~/.local/state/ai-cortex/acceptance/2026-10-23-core-gates/final-report.txt && cat script/analytics-browser.test.cjs'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/.local/share/ai-cortex/skills/INDEX.md ~/.local/share/ai-cortex/skills/review-diff/SKILL.md ~/.local/share/ai-cortex/skills/automate-tests/SKILL.md ~/.local/share/ai-cortex/skills/commit-work/SKILL.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/rules/standards-test-code.md ~/github.com/ai-cortex/specs/findings-list.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/.local/share/ai-cortex/skills/review-diff/SKILL.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/.local/share/ai-cortex/skills/automate-tests/SKILL.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/rules/standards-test-code.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat ~/github.com/ai-cortex/specs/findings-list.md'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"python3 - <<'PY'\nimport pathlib,hashlib,json,subprocess\nroot=pathlib.Path('.')\ne=pathlib.Path('~/.local/state/ai-cortex/acceptance/2026-10-23-core-gates')\nf=json.loads((e/'frozen.json').read_text())\nfor p,h in f['files'].items():\n b=(root/p).read_bytes()\n print(p, 'matches_frozen=',hashlib.sha256(b).hexdigest()==h)\n if p.endswith('.cjs'):\n  stripped=b.replace(b'// Covers: docs/backlog/2026-10-23-like-count-analytics.md, acceptance criterion 6;\\\\n// docs/design/like-count-analytics.md, invalid counts must not silently become zero.\\\\n',b'')\n  print('without_Covers_matches_frozen=',hashlib.sha256(stripped).hexdigest()==h)\nprint('head=',subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip())\nPY\n\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'git status --short && rg --files /tmp/cortex-core-gates-host-browser && cat Makefile'",
+        "exit_code": 0
+      }
+    ]
+  },
+  "host": {
+    "cli": "0.163.0-alpha.11.2",
+    "requested_model": "gpt-6.1-sol",
+    "backend_identity_attested": false,
+    "ignore_user_config": true,
+    "ephemeral": true,
+    "first_two_sandboxes_requested": "read-only",
+    "runtime_stage_sandbox_requested": "danger-full-access",
+    "sandbox_enforcement_not_attested": true,
+    "runtime_write_scope_observed": "Screenshots under /tmp/cortex-core-gates-host-browser; no source, Git, installation or network tool mutation observed."
+  },
+  "canonical_installation": "Unchanged main@dfad16371b7d658d678ba66b94956180d763379a; development assets were loaded directly.",
+  "limitations": [
+    "Operator-coordinated repair loop, not autonomous source editing by Codex.",
+    "No initial frozen failure verdict: discovery timed out while operator repaired; actual TDD red log and original Git source remain verifiable.",
+    "Coverage is agent-reported; ID completeness/disjointness checked against canonical Rule inventories, not independent proof of every cognitive judgment.",
+    "Missing scanner execution, declared targets, topology baselines, separate technical design/tasks and wider test repeatability remain evidence-limited.",
+    "Browser regression persists in the existing local suite, not executed by current CI.",
+    "No universal stable-core guarantee, ordinary desktop-config, all language reviewers, provisional Rule population or remaining release-chain acceptance.",
+    "CLI internal state/telemetry and Chromium cache writes outside the selected agent tool/source checks were not independently audited."
+  ],
+  "raw_local_directory": "~/.local/state/ai-cortex/acceptance/2026-10-23-core-gates",
+  "raw_sha256": {
+    "green-project.log": "410dc7ce3d9bde73f5136171ef38e3b2ce997defecfc7629af1fd52fbbfefe59",
+    "acceptance-events.jsonl": "630e1d5dde66c8381c1979bd0f9da22aa347e74da6464cdf43f45c1f6a541e29",
+    "acceptance-input.txt": "2be91fcef30b7f7e5090b336f7ba0a5ce61ac651e2c1824414645de5d87adeab",
+    "initial-input.txt": "18e3cf6f4992f5d6c1a4836b1b682f3185b5ce85167fb6417aee3d08781f4e85",
+    "red-browser.log": "66752eff11daa3a8c64701217bb4070e44b179f8dea7417cb958ac7e27a2b6d0",
+    "acceptance-stderr.log": "9b0a3f074bb758a5ab5c21e7d890d4a6f4b62d250c0ad471b648ff4f8ae290b2",
+    "initial-stderr.log": "edd9cc7c26a95157cb3bb821b80a99a3eae06f96f707135eecef1cf736b558a8",
+    "green-browser.log": "1cb197930ddb927fda310c028d91f458e85bb471a555d1c0dc1f4a8ab196a7bd",
+    "final-report.txt": "29c3ea50a39a4f66ca0de63dd8ecb3925fdb21e1a5842c03fc2e2a38d3e7dc6c",
+    "acceptance-report.txt": "1539e13f683fdb7c8bd756a23c563b21409909fc18754896c19e8b13d5c23db6",
+    "initial-events.jsonl": "2581014b40dd5b43d1a378f8cbece7bd8e804a50c9e3749c701430853e0851d4",
+    "final-stderr.log": "bf95f5d2cbad6a301d2f90988a609c4bded0a75d9592e25398b7263fc6b127eb",
+    "final-input.txt": "0b744d0e5d5157f50478f850949bd54b7e23cb4e7788dd675c9041c575e3dbed",
+    "final-events.jsonl": "2db14c085fdded4a2ef3944b46878a7d5ada0846745491245df653bbbc5127d2"
+  },
+  "site_ci": {
+    "run": {
+      "id": 39973504547,
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/nesnilnehc/nesnilnehc.github.io/actions/runs/39973504547",
+      "head_sha": "7a8fe5f902075d7ac65fffb3703aaea2b3af3a68"
+    },
+    "jobs": [
+      {
+        "name": "Validate and build",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Deploy Pages",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "public_script_verification": {
+    "http_status": 200,
+    "matches_delivered_source": true
+  }
+}

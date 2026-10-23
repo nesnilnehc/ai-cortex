@@ -11,7 +11,7 @@ Assessment baseline: `1ef7026a27cc52ab7e7cb606144e8e8dc740be1e`, following 0.5.1
 
 ## Decision
 
-Do not release 1.0 yet. Core definitions, versioned assets and reproducible release preparation exist. The three reproduced installer ownership/rollback defects are resolved in 0.5.1, with permanent regression tests and Linux/macOS CI. The stable scope, experimental boundary, compatibility/deprecation rules and latest-stable security strategy are now approved and documented. A bounded historical/current reference-consumer suite now covers Findings, Release Package and Rule coverage. A live Codex CLI rehearsal on a scoped Shijian committed snapshot now verifies explicit installed-asset review/repair invocation. A real personal-site closeout now records permanent adoption, CI/documentation repairs, browser acceptance and a scoped commit/push. Remaining gaps include broader product-code delivery, other core dependencies, wider host configuration and real future deprecation migrations, host/environment acceptance and applicable adopter evidence. The stable upgrade entry shipped in 0.6.0; the canonical macOS/Codex CLI upgrade, 0.5.1 rollback and stable recovery cycle now passes with original-state restoration. The patch closes the installation findings; it does not establish the broader 1.x guarantee.
+Do not release 1.0 yet. Core definitions, versioned assets and reproducible release preparation exist. The three reproduced installer ownership/rollback defects are resolved in 0.5.1, with permanent regression tests and Linux/macOS CI. The stable scope, experimental boundary, compatibility/deprecation rules and latest-stable security strategy are now approved and documented. A bounded historical/current reference-consumer suite now covers Findings, Release Package and Rule coverage. A live Codex CLI rehearsal on a scoped Shijian committed snapshot now verifies explicit installed-asset review/repair invocation. A real personal-site closeout now records permanent adoption, CI/documentation repairs, browser acceptance and a scoped commit/push. A real personal-site invalid-count sorting repair now exercises the engineering/alignment/repair-loop entries with independent browser acceptance. Remaining gaps include other core dependencies, wider host configuration and real future deprecation migrations, host/environment acceptance and applicable adopter evidence. The stable upgrade entry shipped in 0.6.0; the canonical macOS/Codex CLI upgrade, 0.5.1 rollback and stable recovery cycle now passes with original-state restoration. The patch closes the installation findings; it does not establish the broader 1.x guarantee.
 
 A personal tool can legitimately reach 1.0. On 2026-10-23 the maintainer confirmed that use is primarily personal and no consuming-project acceptance records are available. Do not equate this with no real use, nor with independently verified cross-team production adoption. The selected core covers project adoption, review/repair and commit/release; validate those workflows before broadening the promise.
 
@@ -24,7 +24,7 @@ A personal tool can legitimately reach 1.0. On 2026-10-23 the maintainer confirm
 | Core definitions | [AGENTS](../../AGENTS.md), [terminology](../architecture/terminology.md) and registries distinguish Skills, Specs, Protocols and Rules; installation/loading authority is explicit | [Stable-core inventory](stable-core.md#stable-contract-and-inventory) selects entry Skills, conditional reviewers and shared dependencies; reference-consumer fixtures cover selected protected contracts; remaining dependencies and actual consumers still need acceptance | Scope decision resolved; partial compatibility evidence |
 | Version discipline | Product tags and independent asset versions are separate. The 0.5.0 package verifies 85 edited versioned assets moved their versions | [Compatibility and deprecation](stable-core.md#compatibility-and-deprecation) and independent/product version rules are adopted; old/current reference fixtures now cover Findings, Release Package and coverage; bounded configuration, parameter/waiver and synthetic deprecation cases now supplement those fixtures; real-host/remaining dependency cases remain missing | Policy resolved; bounded evidence present |
 | Behavioral evidence | Existing live roadmap trace passes the canonical freshness/completeness validator: 10 cases and 30 turns | Bounded JSON decision adapter plus real local renderer; not unrestricted agent editing, a production project acceptance or a live external adapter acceptance. Provider model ID is not exposed | Real but narrow evidence |
-| Actual use | Maintainer confirms personal use. The 0.5.0 and 0.5.1 Release Packages and GitHub receipts establish this repository's own preparation/publication flow was used | [Live host record](host-acceptance.md) adds a controlled requirement-to-review/repair/test trace on real project code; a subsequent permanent personal-site adoption and real CI/documentation closeout is now recorded; wider product-code chains and independent contexts remain unverified | Personal use, self-hosting, live rehearsal and one organic closeout |
+| Actual use | Maintainer confirms personal use. The 0.5.0 and 0.5.1 Release Packages and GitHub receipts establish this repository's own preparation/publication flow was used | [Live host record](host-acceptance.md) adds a controlled requirement-to-review/repair/test trace on real project code; a subsequent permanent personal-site adoption and real CI/documentation closeout is now recorded; a real behavior repair now exercises both sibling gates; broader core/release chains and independent contexts remain unverified | Personal use, self-hosting, live rehearsal, organic closeout and one real behavior repair |
 | Rule activation | [Rule modeling](../../specs/rule-modeling.md#52-rule-item-contract) derives 118 ready items from nonempty activation rows; recorded release validation passes | OBS-003, PERF-007, REL-008 and TST-008 still use `Verification: adopter`. Required return fixtures are not substituted by the ready count | Activation materials complete; adopter evidence still owed |
 | Installation/update | 0.5.1 fixes ownership and cleanup; 22 permanent integration tests pass locally and on Linux/macOS CI, including foreign links, markers, repeated install, rollback and dirty-update refusal | macOS/Linux POSIX installer target selected; exact macOS/shell/Git/CLI versions and canonical installation recovery are now recorded. Automatic desktop discovery, normal user configuration and Windows were not verified. Filesystem fault injection and concurrent writers are outside current evidence | Three findings resolved; bounded installer evidence present |
 | Release and recovery | 0.5.1 has a verified annotated tag, notes, changelog and publication receipt; actual 0.5.0 → 0.4.0 asset rollback with a retained fixed manager verifies exact membership and no broken managed links | Older tags retain older installers: the fixed manager must remain outside the clone and be used explicitly while pinned. Consuming-project edits require separate recovery | Reported stale-asset defect resolved; recovery procedure bounded and verified |
@@ -126,7 +126,7 @@ schedule those same defects again without new failing evidence.
 | Complete | Select stable scope and compatibility/support strategy | Approved policy, explicit dependency inventory, security transition and experimental boundaries documented; admission evidence remains separate | — |
 | Complete (primary Mac CLI) | Stable upgrade, rollback and recovery on canonical installation | Verified backup, actual 0.6.0 → 0.5.1 → 0.6.0 switches, three live adopted-project CLI runs, independent project/browser checks and exact original installation restoration; broader desktop/configuration claims remain separate | — |
 | 2 (partial) | Expand reference coverage to actual consumers and remaining dependencies | Findings, Release Package, configuration and Rule parameter/waiver reference cases pass; synthetic deprecation and actual 0.x legacy installation migration are covered. Field wording and one controlled real nonempty host finding are now verified; full host loaders and any future real stable entry migration still require evidence | 5 |
-| 3 (partial) | Expand actual personal-project acceptance | Shijian controlled trace plus permanent personal-site adoption and real delivery closeout are recorded with versions, review, repairs, tests and scoped commit/push; broader product-code and full commit/release chains remain open | 5 |
+| 3 (partial) | Expand actual personal-project acceptance | Shijian controlled trace plus permanent personal-site adoption and real delivery closeout are recorded with versions, review, repairs, tests and scoped commit/push; a real invalid-count sorting repair now exercises the three remaining gate entries; broader contexts and full consuming-project release chains remain open | 5 |
 | 4 | Resolve adopter evidence and strategic thresholds within that scope | Representative Rule return fixtures or an explicit exclusion from stable evidence claims; reconcile M5/M6/M7 definitions if they are used for admission | 3 |
 | 5 | Rehearse a bounded 1.0 candidate | Approved core passes installer, consumer and project gates; supported environments and upgrade/recovery are exercised; prepare-release determines readiness before an authorized publication | 3 |
 
@@ -308,6 +308,34 @@ maturity and an actionable suggestion. No canonical contract was changed.
 Mark the observed six-field wording gap and this bounded nonempty-output acceptance
 resolved. The global installation and released tags remain unchanged; this was
 direct development-asset invocation, not installed-distribution acceptance. It
-does not establish natural product-code delivery, every emitter/provisional Rule
-or full host configuration. Remaining core dependencies, applicable adopter
+does not establish every emitter/provisional Rule or full host configuration; the
+subsequent real behavior repair below adds a separate bounded project record. Remaining core dependencies, applicable adopter
 returns and a bounded candidate rehearsal still prevent 1.0 readiness.
+
+## Engineering, alignment and repair-loop project acceptance
+
+[Host evidence](host-acceptance.md#remaining-core-gates-on-a-real-project-behavior-repair)
+now records one actual personal-site source repair under approved analytics
+requirements: missing/invalid counts are distinguished from zero during sorting.
+The original code failed a permanent browser regression; repaired production wiring
+passes both collection variants in 6 browser groups, 5 model tests, content and
+build checks. This is an existing code defect exposed with abnormal input data,
+not a source-injected bug or a claim of a previously reported user incident.
+
+review-implementation-alignment 1.1.2, orchestrate-code-review 1.4.1 and
+orchestrate-repair-loop 1.5.0 were exercised through real Codex runs. The complete
+applicable engineering sequence and independent alignment matrix ran on frozen
+code. A minor Covers finding was repaired, then affected gates refreshed; Codex
+independently executed the existing browser/model suites and inspected a screenshot.
+Unchanged engineering coverage is explicitly reused. The first timeout and changing
+workspace are retained as incomplete discovery, not a passed gate. The bounded
+operator-coordinated loop converged with no blocking findings and retained limits.
+
+Mark this selected three-entry cooperation and real behavior-delivery exercise
+covered, rather than universally complete. Declared-target, baseline, scanner,
+technical-design/task and wider test evidence limitations remain visible. No
+production Cortex contract changed, global installation was not updated and no
+consumer Release Package was produced. Next address the remaining dependency and
+adopter decisions within the approved scope, consuming-project commit/release
+handoffs and any additional host/context claims, then rehearse a bounded candidate.
+Overall 1.0 remains **not ready**; this record does not authorize a release.
