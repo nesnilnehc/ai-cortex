@@ -11,7 +11,7 @@ Assessment baseline: `1ef7026a27cc52ab7e7cb606144e8e8dc740be1e`, following 0.5.1
 
 ## Decision
 
-Do not release 1.0 yet. Core definitions, versioned assets and reproducible release preparation exist. The three reproduced installer ownership/rollback defects are resolved in 0.5.1, with permanent regression tests and Linux/macOS CI. The stable scope, experimental boundary, compatibility/deprecation rules and latest-stable security strategy are now approved and documented. A bounded historical/current reference-consumer suite now covers Findings, Release Package and Rule coverage. A live Codex CLI rehearsal on a scoped Shijian committed snapshot now verifies explicit installed-asset review/repair invocation. Remaining gaps include organic personal-project delivery, permanent adoption, other core dependencies, wider host configuration and real future deprecation migrations, host/environment acceptance and applicable adopter evidence. The stable upgrade entry shipped in 0.6.0; primary-host acceptance remains open. The patch closes the installation findings; it does not establish the broader 1.x guarantee.
+Do not release 1.0 yet. Core definitions, versioned assets and reproducible release preparation exist. The three reproduced installer ownership/rollback defects are resolved in 0.5.1, with permanent regression tests and Linux/macOS CI. The stable scope, experimental boundary, compatibility/deprecation rules and latest-stable security strategy are now approved and documented. A bounded historical/current reference-consumer suite now covers Findings, Release Package and Rule coverage. A live Codex CLI rehearsal on a scoped Shijian committed snapshot now verifies explicit installed-asset review/repair invocation. A real personal-site closeout now records permanent adoption, CI/documentation repairs, browser acceptance and a scoped commit/push. Remaining gaps include broader product-code delivery, other core dependencies, wider host configuration and real future deprecation migrations, host/environment acceptance and applicable adopter evidence. The stable upgrade entry shipped in 0.6.0; primary-host acceptance remains open. The patch closes the installation findings; it does not establish the broader 1.x guarantee.
 
 A personal tool can legitimately reach 1.0. On 2026-10-23 the maintainer confirmed that use is primarily personal and no consuming-project acceptance records are available. Do not equate this with no real use, nor with independently verified cross-team production adoption. The selected core covers project adoption, review/repair and commit/release; validate those workflows before broadening the promise.
 
@@ -24,7 +24,7 @@ A personal tool can legitimately reach 1.0. On 2026-10-23 the maintainer confirm
 | Core definitions | [AGENTS](../../AGENTS.md), [terminology](../architecture/terminology.md) and registries distinguish Skills, Specs, Protocols and Rules; installation/loading authority is explicit | [Stable-core inventory](stable-core.md#stable-contract-and-inventory) selects entry Skills, conditional reviewers and shared dependencies; reference-consumer fixtures cover selected protected contracts; remaining dependencies and actual consumers still need acceptance | Scope decision resolved; partial compatibility evidence |
 | Version discipline | Product tags and independent asset versions are separate. The 0.5.0 package verifies 85 edited versioned assets moved their versions | [Compatibility and deprecation](stable-core.md#compatibility-and-deprecation) and independent/product version rules are adopted; old/current reference fixtures now cover Findings, Release Package and coverage; bounded configuration, parameter/waiver and synthetic deprecation cases now supplement those fixtures; real-host/remaining dependency cases remain missing | Policy resolved; bounded evidence present |
 | Behavioral evidence | Existing live roadmap trace passes the canonical freshness/completeness validator: 10 cases and 30 turns | Bounded JSON decision adapter plus real local renderer; not unrestricted agent editing, a production project acceptance or a live external adapter acceptance. Provider model ID is not exposed | Real but narrow evidence |
-| Actual use | Maintainer confirms personal use. The 0.5.0 and 0.5.1 Release Packages and GitHub receipts establish this repository's own preparation/publication flow was used | [Live host record](host-acceptance.md) adds a controlled requirement-to-review/repair/test trace on real project code; no organic delivery acceptance or independent multi-project/multi-agent matrix | Personal use, self-hosting and one scoped live rehearsal |
+| Actual use | Maintainer confirms personal use. The 0.5.0 and 0.5.1 Release Packages and GitHub receipts establish this repository's own preparation/publication flow was used | [Live host record](host-acceptance.md) adds a controlled requirement-to-review/repair/test trace on real project code; a subsequent permanent personal-site adoption and real CI/documentation closeout is now recorded; wider product-code chains and independent contexts remain unverified | Personal use, self-hosting, live rehearsal and one organic closeout |
 | Rule activation | [Rule modeling](../../specs/rule-modeling.md#52-rule-item-contract) derives 118 ready items from nonempty activation rows; recorded release validation passes | OBS-003, PERF-007, REL-008 and TST-008 still use `Verification: adopter`. Required return fixtures are not substituted by the ready count | Activation materials complete; adopter evidence still owed |
 | Installation/update | 0.5.1 fixes ownership and cleanup; 22 permanent integration tests pass locally and on Linux/macOS CI, including foreign links, markers, repeated install, rollback and dirty-update refusal | macOS/Linux POSIX installer target selected; record exact accepted OS/shell/Git and host versions. IDE runtime discovery and Windows were not verified. Filesystem fault injection and concurrent writers are outside current evidence | Three findings resolved; bounded installer evidence present |
 | Release and recovery | 0.5.1 has a verified annotated tag, notes, changelog and publication receipt; actual 0.5.0 → 0.4.0 asset rollback with a retained fixed manager verifies exact membership and no broken managed links | Older tags retain older installers: the fixed manager must remain outside the clone and be used explicitly while pinned. Consuming-project edits require separate recovery | Reported stale-asset defect resolved; recovery procedure bounded and verified |
@@ -125,7 +125,7 @@ schedule those same defects again without new failing evidence.
 | Complete | Select stable scope and compatibility/support strategy | Approved policy, explicit dependency inventory, security transition and experimental boundaries documented; admission evidence remains separate | — |
 | 1 (partial) | Stable-release upgrade entry released; supported-host acceptance remains | Local integration verifies stable-tag selection, explicit pins, refusal paths, cleanup and update continuity. 0.6.0 publication and isolated public-origin selection/rollback are complete; record broader primary-host upgrade/configuration acceptance before closing this item; one explicit CLI review/repair invocation is now recorded | 5 |
 | 2 (partial) | Expand reference coverage to actual consumers and remaining dependencies | Findings, Release Package, configuration and Rule parameter/waiver reference cases pass; synthetic deprecation and actual 0.x legacy installation migration are covered. Full host loaders and any future real stable entry migration still require evidence | 5 |
-| 3 | Record acceptance in actual personal projects | One controlled live Codex/Shijian snapshot trace is recorded with versions, input, finding, repair and tests; organic adoption and the full commit/release delivery chain remain open | 5 |
+| 3 (partial) | Expand actual personal-project acceptance | Shijian controlled trace plus permanent personal-site adoption and real delivery closeout are recorded with versions, review, repairs, tests and scoped commit/push; broader product-code and full commit/release chains remain open | 5 |
 | 4 | Resolve adopter evidence and strategic thresholds within that scope | Representative Rule return fixtures or an explicit exclusion from stable evidence claims; reconcile M5/M6/M7 definitions if they are used for admission | 3 |
 | 5 | Rehearse a bounded 1.0 candidate | Approved core passes installer, consumer and project gates; supported environments and upgrade/recovery are exercised; prepare-release determines readiness before an authorized publication | 3 |
 
@@ -237,7 +237,28 @@ This was a controlled committed snapshot of a real personal project, excluding
 its active working tree. It was not an organic defect, a source-project delivery,
 a full project gate, automatic Skill routing, desktop GUI acceptance or universal
 model behavior. The canonical installation remains on its existing development
-commit. Inspected project entry files had no explicit Cortex adoption reference;
-no permanent project onboarding occurred. Broader primary-host configuration,
-organic acceptance records, other core chains and adopter evidence remain open.
+commit. At that rehearsal, inspected project entry files had no explicit Cortex adoption reference.
+The subsequent personal-site adoption below changes that named project only. Broader
+primary-host configuration, product-code acceptance, other core chains and adopter
+evidence remain open.
 The overall 1.0 decision remains not ready.
+
+## Permanent adoption and natural delivery closeout
+
+[Host acceptance](host-acceptance.md#permanent-personal-site-adoption-and-organic-closeout)
+now records committed AGENTS/config adoption in the personal website and a real
+closeout of its already-implemented analytics requirement. Missing model-test CI
+and stale delivery statements were repaired; the operator committed/pushed the
+scoped changes. The actual CLI loaded the new project entry and configured assets,
+reviewed its adoption/configuration diff and passed 5 fast tests. Independent
+pinned-Node tests, six-post content validation, Jekyll build and five browser groups
+passed, including keyboard/no-JS and 1440/390/320 px layouts.
+
+This resolves absence of persistent adoption for that project and supplies one
+organic configuration/documentation delivery record. It is not a newly developed
+product feature, a naturally discovered product-code bug, an autonomous full-chain
+CLI repair or a Release Package acceptance. Browser checks are local; ordinary
+user-config/desktop behavior, stable upgrade host recovery, remaining core and
+adopter evidence still need acceptance. Keep the overall decision **not ready**;
+next prioritize a real behavior change in this adopted project when one arises,
+then wider supported-host upgrade/recovery and remaining stable-chain evidence.

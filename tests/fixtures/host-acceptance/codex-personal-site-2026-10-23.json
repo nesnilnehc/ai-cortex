@@ -1,0 +1,268 @@
+{
+  "case_id": "codex-personal-site-2026-10-23",
+  "kind": "organic-delivery-closeout",
+  "date": "2026-10-23",
+  "project": "nesnilnehc/nesnilnehc.github.io",
+  "project_baseline": "f64ee148bb48d9655037b3d968e43c9a7695db2c",
+  "delivered_commit": "4e0be4b0994410e95374fa80270b76d385b23f7b",
+  "original_implementation_commit": "3495001d278f00a255b9d389940ea551a11d5324",
+  "requirement": "Close out the existing music/film like-count analytics requirement: permanently adopt Cortex, review and repair real remaining delivery gaps, verify behavior and commit/push the scoped result. The requirement was already done; no new unimplemented backlog item or injected bug was manufactured.",
+  "user_authorization": "Permanent adoption, a real small task with review/repair/acceptance, evidence and scoped Git commits/pushes; preserve unrelated changes.",
+  "input": "Validate actual permanent AI Cortex adoption in this personal website repository. This is a real delivery closeout of the existing docs/backlog/2026-10-23-like-count-analytics.md requirement, already implemented in commit 3495001, not injected code. Read AGENTS.md as the project entry and follow its adopted loading instructions. Read .ai-cortex/config.yaml and load the matched review-diff and automate-tests assets from the resolved Cortex root, including the Findings schema. Review the current staged/unstaged/untracked change scope only, covering the five review-diff dimensions, and run the declared fast test command. Do not modify any files, install dependencies, start services, access network tools, delegate work, commit, push or deploy. Read local files and execute the existing local tests only. Return the exact root/config/asset versions you used, seven-field findings for real defects (or an explicit empty findings list), all test counts and scope/limitations. AGENTS is being newly adopted and the docs and CI closeout is still in progress. Do not claim browser or complete project acceptance from unit tests.\n",
+  "host": {
+    "cli_version": "0.163.0-alpha.11.2",
+    "os": "macOS 27.0.1",
+    "architecture": "arm64",
+    "requested_model": "gpt-6.1-sol",
+    "model_backend_attested": false,
+    "sandbox_requested": "read-only",
+    "sandbox_enforcement_attested": false,
+    "ignore_user_config": true,
+    "ephemeral": true,
+    "node_observed_in_cli": "25.6.1",
+    "operator_node": "20.20.2",
+    "ruby": "3.3.6",
+    "git": "2.54.0 (Apple Git-157)"
+  },
+  "cortex_install": "dfad16371b7d658d678ba66b94956180d763379a",
+  "installation_updated": false,
+  "assets": [
+    {
+      "path": "skills/generate-agent-entry/SKILL.md",
+      "version": "1.3.0",
+      "sha256": "a178512a73df151682189b6f752f7787febab099cf0b83ce3f5bbe03a02ec4cb",
+      "matches_v0_6_0": true
+    },
+    {
+      "path": "skills/review-diff/SKILL.md",
+      "version": "1.0.2",
+      "sha256": "9c4c437de9ffba45b736effb566bb1d4c834facf1e67019a89907ccb3363bd2d",
+      "matches_v0_6_0": true
+    },
+    {
+      "path": "skills/automate-tests/SKILL.md",
+      "version": "1.1.0",
+      "sha256": "7cbc1484999dc68f2702451071886d7d8b2327d29103bed3003c9086bed19e76",
+      "matches_v0_6_0": true
+    },
+    {
+      "path": "skills/commit-work/SKILL.md",
+      "version": "2.1.0",
+      "sha256": "6540b95591014573caac1a5b7c302f4f0ad5637fef7f7324aa201aa744cfa8ce",
+      "matches_v0_6_0": true
+    },
+    {
+      "path": "specs/findings-list.md",
+      "version": "2.0.1",
+      "sha256": "23210c190914238f7d794b78ff400e79856c9e6a6f96f14f6bd994403e304a86",
+      "matches_v0_6_0": true
+    }
+  ],
+  "project_config": {
+    "test_command": "make test",
+    "base_branch": "main",
+    "sha256": "09b3441a8e22c1aadf54886d2a26cfccaa2179f8b1d4525bf956092c83959f56"
+  },
+  "entry": {
+    "path": "AGENTS.md",
+    "sha256": "7e4131aefe52b74a9418714eda3b2531253bf1ecd764a4d09d09437ada7004e4",
+    "automatic_native_preloading_attested": false,
+    "observed": "CLI explicitly read project entry, resolved the default asset root, read index, configuration and full review/test/commit assets.",
+    "final_sha256": "cc369d1001fa2098504ffaf12827b00da4a8aa1879a9ed9313e6c911346e9c6b"
+  },
+  "ordered_completed_host_commands": [
+    {
+      "type": "command_execution",
+      "command": "/bin/zsh -lc 'pwd && git status --short && git branch --show-current && cat AGENTS.md && cat .ai-cortex/config.yaml'",
+      "exit_code": 0
+    },
+    {
+      "type": "command_execution",
+      "command": "/bin/zsh -lc 'printenv CORTEX_HOME XDG_DATA_HOME'",
+      "exit_code": 1
+    },
+    {
+      "type": "command_execution",
+      "command": "/bin/zsh -lc 'cat ~/.local/share/ai-cortex/skills/INDEX.md'",
+      "exit_code": 0
+    },
+    {
+      "type": "command_execution",
+      "command": "/bin/zsh -lc 'cat ~/.local/share/ai-cortex/skills/review-diff/SKILL.md ~/.local/share/ai-cortex/skills/automate-tests/SKILL.md ~/.local/share/ai-cortex/skills/commit-work/SKILL.md ~/.local/share/ai-cortex/specs/findings-list.md'",
+      "exit_code": 0
+    },
+    {
+      "type": "command_execution",
+      "command": "/bin/zsh -lc 'git diff --cached && git diff && git ls-files --others --exclude-standard && cat Makefile && cat docs/backlog/2026-10-23-like-count-analytics.md'",
+      "exit_code": 0
+    },
+    {
+      "type": "command_execution",
+      "command": "/bin/zsh -lc 'cat ~/.local/share/ai-cortex/skills/commit-work/SKILL.md'",
+      "exit_code": 0
+    },
+    {
+      "type": "command_execution",
+      "command": "/bin/zsh -lc \"cat .github/workflows/ci.yml && cat _config.yml && cat script/like-count.test.cjs && rg -n 'test|Node|node|\u6d4f\u89c8\u5668' README.md && git log -1 --format='%H %s' && git show --no-patch --format='%H %s' 3495001\"",
+      "exit_code": 0
+    },
+    {
+      "type": "command_execution",
+      "command": "/bin/zsh -lc 'git -C ~/.local/share/ai-cortex rev-parse HEAD && git -C ~/.local/share/ai-cortex status --short && shasum -a 256 .ai-cortex/config.yaml ~/.local/share/ai-cortex/skills/INDEX.md ~/.local/share/ai-cortex/skills/review-diff/SKILL.md ~/.local/share/ai-cortex/skills/automate-tests/SKILL.md ~/.local/share/ai-cortex/skills/commit-work/SKILL.md ~/.local/share/ai-cortex/specs/findings-list.md'",
+      "exit_code": 0
+    },
+    {
+      "type": "command_execution",
+      "command": "/bin/zsh -lc 'make test'",
+      "exit_code": 0
+    },
+    {
+      "type": "command_execution",
+      "command": "/bin/zsh -lc 'node --version && git status --short && cat ~/.local/share/ai-cortex/docs/guides/project-config.md'",
+      "exit_code": 0
+    }
+  ],
+  "host_review": {
+    "exit_code": 0,
+    "findings": [],
+    "scope": "Two modified configuration files and two new adoption files before later documentation closeout; not a re-review of the committed analytics implementation.",
+    "fast_tests": {
+      "executed": 5,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "operator_findings": [
+    {
+      "location": ".github/workflows/ci.yml:78",
+      "category": "scope",
+      "severity": "minor",
+      "title": "Existing collection regression tests are absent from CI",
+      "description": "The published analytics requirement has model tests, but the build job ran only content validation and Jekyll. A statistics regression could therefore pass that gate.",
+      "maturity": "ready",
+      "suggestion": "Run the existing make test before building and include Makefile changes in the trigger filter.",
+      "origin": "operator review of existing delivery",
+      "resolution": "Existing make test added before Ruby build; no test weakened."
+    },
+    {
+      "location": "docs/backlog/2026-10-23-like-count-analytics.md:35",
+      "category": "scope",
+      "severity": "minor",
+      "title": "Delivery status contradicts committed implementation",
+      "description": "The done requirement still claimed its implementation was uncommitted despite commit 3495001 being in main.",
+      "maturity": "ready",
+      "suggestion": "Reconcile the living requirement and design with actual implementation and the authorized closeout.",
+      "origin": "operator review of existing delivery",
+      "resolution": "Living documents reconciled and linked to acceptance record."
+    }
+  ],
+  "operator_acceptance": {
+    "fast_tests": {
+      "executed": 5,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0
+    },
+    "content_validation": {
+      "posts": 6,
+      "exit_code": 0
+    },
+    "jekyll_build_exit_code": 0,
+    "browser": {
+      "playwright": "1.62.1",
+      "executed": 5,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "viewports": [
+        1440,
+        390,
+        320
+      ],
+      "scope": "Music, films, filters, sort, temporary count selection, keyboard, no-JS, invalid/zero/empty fixtures, layout; 320px music screenshot visually inspected."
+    },
+    "build_excludes": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      ".ai-cortex/config.yaml"
+    ],
+    "local_links": "passed",
+    "diff_whitespace": "passed"
+  },
+  "tdd": "Not applicable to this bounded configuration/documentation closeout; no product behavior modified and no tests weakened or removed.",
+  "division_of_work": "CLI performed read-only loading, diff review and fast tests. Operator performed gap identification/repair, independent tests, browser acceptance, scoped staging/commit/push and remote verification. Not autonomous full-chain agent delivery.",
+  "initial_worktrees": "Both repositories clean; no stash/reset/clean operation used.",
+  "raw_evidence": {
+    "local_directory": "~/.local/state/ai-cortex/acceptance/2026-10-23-codex-personal-site",
+    "review_events_sha256": "b18b68194972591920645f270e4241fb4b1787c5d4499fcd6c5b49b5a95f0066",
+    "report_sha256": "0ed218e8be6b86f5e49451208d2647c4752bf06f7bb79acb412238fac9621d48",
+    "stderr_sha256": "aa9d72f52ff36ece0158643e3d679beb34d96b267bfa4b32c881d14585858d7a",
+    "operator_log_sha256": {
+      "final-build.log": "aac1f5f3b6699f363144b760f72b8b97a65b73c60b602002c389894da06f1287",
+      "tools.log": "6df10d93aa67b0fa26c5b4a8037b6b172270747cdcea861b3407489783e934d3",
+      "final-fast.log": "fc0f57acdb9afaebe5dbaf5b7e494b1e19f997aecc6dcc316dcd43bedadb35e0"
+    }
+  },
+  "limits": [
+    "Existing delivered requirement closeout, not a new product feature or discovered product-code bug",
+    "Browser suite remains local, not CI",
+    "Ignored user configuration; not full desktop GUI or normal host configuration acceptance",
+    "No stable upgrade/rollback host rehearsal, new release, adopter Rule population or complete stable dependency chain",
+    "Requested model identity and sandbox not independently attested"
+  ],
+  "adoption_commit": "4e0be4b0994410e95374fa80270b76d385b23f7b",
+  "documentation_receipt_commit": "2e8f856f3d41d449a7d70c82af3f93f1851b8e2f",
+  "site_ci": {
+    "run": {
+      "id": 39962057167,
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/nesnilnehc/nesnilnehc.github.io/actions/runs/39962057167",
+      "head_sha": "4e0be4b0994410e95374fa80270b76d385b23f7b"
+    },
+    "jobs": [
+      {
+        "name": "Validate and build",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Deploy Pages",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "public_http_checks": [
+    {
+      "path": "/music/",
+      "status": 200,
+      "analytics_marker_present": true
+    },
+    {
+      "path": "/movies/",
+      "status": 200,
+      "analytics_marker_present": true
+    },
+    {
+      "path": "/assets/js/like-count.js",
+      "status": 200,
+      "matches_local_source": true
+    }
+  ],
+  "operator_interventions": [
+    {
+      "issue": "Python HTTPS request initially lacked a trusted CA chain",
+      "resolution": "Retried with /etc/ssl/cert.pem; TLS verification stayed enabled; GitHub CI query then succeeded."
+    },
+    {
+      "issue": "Documentation lint found two extra blank lines",
+      "resolution": "Removed extra blanks and reran lint and documentation checks."
+    },
+    {
+      "issue": "Install URL used an unsupported README heading fragment",
+      "resolution": "Receipt commit uses the verified repository URL instead; final review checked the diff."
+    }
+  ]
+}
