@@ -213,9 +213,11 @@ exercise preview/explicit migration from old aggregate directories to canonical
 entries while preserving unrelated user directories. They pass on the existing
 installer; its suite now contains 31 methods.
 
-Local reference, historical provenance and installer checks pass. CI executes the
-new reference commands in the existing full-history registry job and the expanded
-installer suite on Linux/macOS; remote results are recorded after execution.
+Local reference, historical provenance and installer checks pass.
+[CI run 39936103143](https://github.com/nesnilnehc/ai-cortex/actions/runs/39936103143)
+passed registry (including the new reference commands), Linux/macOS installer,
+links, shell and Markdown jobs on implementation commit
+`abcf83bccd714789c059823b85778a767fb75b44`. The PR-only translation job was skipped as configured.
 This closes the selected bounded reference cases, not actual host/project
 acceptance, full YAML/Markdown interpretation, real waiver authority verification,
 or the complete stable dependency matrix. Applicable adopter evidence remains
