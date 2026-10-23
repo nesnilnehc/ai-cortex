@@ -188,6 +188,9 @@ not independent IDE adapters or captured end-to-end agent executions.
 TDD first ran 9 methods against placeholder consumers: 36 assertion failures and
 no test errors. A later preservation test batch exposed four failures before
 original Findings and per-emitter coverage were retained. The final local suite
-and checker pass. CI now runs both commands in the existing full-history registry
-job; remote success is recorded only after execution. This does not complete the
+and checker pass.
+[CI run 39932726458](https://github.com/nesnilnehc/ai-cortex/actions/runs/39932726458)
+passed the full-history registry job containing both consumer commands, plus
+links, Markdown, shell and Linux/macOS installer jobs on implementation commit
+`c7c40759874e0cddc755f08386e5fb21f93a0034`. The PR-only translation job was skipped as configured. This does not complete the
 full consumer matrix or authorize 1.0. No Skill/Spec/Rule/Protocol contract changed.
