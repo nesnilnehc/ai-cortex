@@ -32,3 +32,4 @@ with grounded facts and apply conditional section triggers. The lightweight
 ## Current requirements
 
 - [AIC-REQ-01: research skills for product opportunity decisions](./AIC-REQ-01.md)
+- [AIC-REQ-02: AI Cortex promotional website](./AIC-REQ-02.md)

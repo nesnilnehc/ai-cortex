@@ -120,6 +120,14 @@ jobs:
       - name: research artifact contracts
         run: python3 scripts/test-research-artifacts.py
 
+      - name: website clipboard behavior
+        run: |
+          node --version
+          node --test tests/website/copy.test.mjs
+
+      - name: website content and asset contracts
+        run: python3 tests/website/test_site.py
+
       - name: modeled Rule contracts
         run: python3 scripts/validate-rules.py
 

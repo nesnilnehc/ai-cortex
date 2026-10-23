@@ -1,0 +1,61 @@
+{
+  "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_2bf1b17450b4819180627f332666eb05",
+  "version_number": 1,
+  "deployment_id": "appgdep_6adad15e61448191991a37e8bfa93cbe",
+  "source_commit": "ae9cc652fcf990cdad7255cf892bb060cb368f26",
+  "deployment_status": "succeeded",
+  "access_mode": "public",
+  "origin_url": "https://ai-cortex.mystic-loon-2462.chatgpt.site",
+  "custom_hostname": "ai-cortex.nesnilnehc.top",
+  "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
+  "domain_status": "active",
+  "updated_at": "2026-10-23T05:51:55.244638+00:00",
+  "published_files": [
+    "index.html",
+    "styles.css",
+    "main.mjs",
+    "copy.mjs",
+    "favicon.svg",
+    "robots.txt",
+    "sitemap.xml"
+  ],
+  "dns_records": [
+    {
+      "type": "CNAME",
+      "name": "ai-cortex",
+      "value": "custom-domains.chatgpt.site."
+    },
+    {
+      "type": "TXT",
+      "name": "_openai-site-verification.ai-cortex",
+      "value": "openai-site-verification=3GJDbMTElqPCHX_8KPtDgVDph2wYkOFbYfUp8YjQfWQ"
+    },
+    {
+      "type": "TXT",
+      "name": "_cf-custom-hostname.ai-cortex",
+      "value": "ea3e95ec-3348-420e-8a7a-99240aeb6c62"
+    }
+  ],
+  "origin_verification": {
+    "http_status": 200,
+    "tls_verify_result": 0,
+    "static_assets_byte_identical": 6,
+    "html_source_preserved": true,
+    "edge_injection": "Cloudflare JavaScript detection script"
+  },
+  "dns_records_installed": true,
+  "dns_provider": "NameSilo",
+  "dns_ttl_seconds": 3600,
+  "ssl_status": "active",
+  "provider_status": "active",
+  "public_url": "https://ai-cortex.nesnilnehc.top/",
+  "public_verification_file": "public-verification.json",
+  "browser_checks": [
+    "page rendered at custom hostname",
+    "installation anchor navigation",
+    "clipboard success feedback",
+    "keyboard FAQ disclosure",
+    "no document overflow at 1280px"
+  ]
+}

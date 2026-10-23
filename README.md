@@ -6,6 +6,10 @@
 
 When an agent works inside this repository, [AGENTS.md](AGENTS.md) is authoritative for the execution contract, the four asset layers, precedence, discovery and skill matching. Terminology is defined in [docs/architecture/terminology.md](docs/architecture/terminology.md).
 
+Visit the [AI Cortex website](https://ai-cortex.nesnilnehc.top/) for an overview,
+usage examples and installation instructions. The standalone static site lives in
+`website/`; see its [source and preview guide](website/README.md).
+
 ---
 
 ## 🧭 What's inside
