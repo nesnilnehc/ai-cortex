@@ -13,8 +13,8 @@ python3 -m http.server 4173 --bind 127.0.0.1 --directory website
 
 Open [the local preview](http://127.0.0.1:4173). Stop the server with Ctrl+C.
 Native navigation and disclosures work without JavaScript. The optional module
-adds command copying and a System/Light/Dark theme selector. Preferences are
-session-only and are not stored. With scripts disabled, theme follows the system.
+adds command copying and a System/Light/Dark theme selector. Theme preferences are
+session-only and are not stored. Language choices are saved locally as described below. With scripts disabled, theme follows the system.
 
 ## Content and design
 
@@ -33,7 +33,7 @@ There are no runtime services, analytics, cookies or visitor data submissions.
 ## Checks
 
 ```bash
-node --test tests/website/copy.test.mjs
+node --test tests/website/*.test.mjs
 python3 -m unittest discover -s tests/website -p 'test_*.py'
 ```
 
@@ -75,11 +75,11 @@ published asset bundle if the host supports an explicit include list.
 
 ### Published deployment (2026-10-23)
 
-Sites version 3 is public at [the custom domain](https://ai-cortex.nesnilnehc.top/)
+Sites version 4 is public at [the custom domain](https://ai-cortex.nesnilnehc.top/)
 and [the hosted origin](https://ai-cortex.mystic-loon-2462.chatgpt.site).
 The [hosting identity](.openai/hosting.json) and
 [deployment record](.openai/deployment.json) retain the exact project, version,
-source commit and domain status. Only the eight runtime files listed in that
+source commit and domain status. Only the nine runtime files listed in that
 record were packaged; repository documentation and unrelated local changes were
 not uploaded.
 
@@ -124,7 +124,7 @@ no DNSSEC or certificate verification protections were disabled.
 
 English keeps the root URL; [Simplified Chinese](https://ai-cortex.nesnilnehc.top/zh.html)
 uses `zh.html`. Header links work without JavaScript. Selection opens the other
-edition at the top and is not persisted or inferred from browser preferences.
+edition at the top and saves an origin-local language preference.
 Both editions share CSS and modules, while copy feedback comes from the page's
 `data-*` messages. Each page has its own language, canonical URL and alternate
 language metadata. Repository sources and commands remain unchanged.
@@ -143,9 +143,37 @@ before implementation. Browser checks covered both languages at 360px and 1280px
 Chinese light/dark layouts, keyboard language navigation and Chinese copy success.
 Public verification covered both HTML pages and all six resources over validated
 HTTPS. Shared CSS/modules use a release query identifier to avoid stale edge or
-browser resources after publication. No automatic browser-language detection or
-persistent locale preference is implemented.
+browser resources after publication. The initial multilingual release used explicit selection only; the preference
+behavior below extends that release.
 
 Sites redirects `/zh.html` to its clean URL `/zh` (HTTP 307); following the
 redirect returns HTTP 200 with validated TLS and the complete Chinese edition.
 The source preview serves `zh.html` directly.
+
+## Automatic language selection and preference
+
+On either edition, selection follows this order: valid `lang=en|zh` URL choice,
+saved manual preference, first supported entry in the browser language list,
+English fallback. Regional Chinese tags select Simplified Chinese display copy.
+Browser-inferred language is not saved. Native language links carry a choice
+parameter so they can override a previous choice even if storage is unavailable.
+
+The optional `ai-cortex.language` localStorage key contains only `en` or `zh`.
+It persists across visits on the same origin until replaced or browser site data
+is cleared; it is not synced across devices or sent to an application service.
+Blocked storage falls back to browser detection on later visits. Without JavaScript,
+complete static editions and native language links remain available.
+Automatic navigation uses history replacement and retains query parameters and
+section fragments; an already matching edition does not redirect. A shared edition
+URL without an explicit choice follows the recipient's saved/browser preference.
+
+The [functional design](../docs/designs/2026-10-23-language-preference-functional-design.md)
+and [technical design](../docs/designs/2026-10-23-language-preference-technical-design.md)
+record this extension. Six locale tests were observed failing before implementation
+and now pass alongside the existing sixteen checks. Browser acceptance verified
+English keyboard selection, reopening a Chinese URL while English was preferred,
+retained `#start`, Chinese override and reload persistence.
+
+Production version 4 passed the same preference navigation and reload checks on
+the custom domain. Both HTML editions and all seven resources returned final
+HTTP 200 over validated HTTPS; all seven non-HTML resources matched local bytes.

@@ -123,7 +123,7 @@ jobs:
       - name: website clipboard behavior
         run: |
           node --version
-          node --test tests/website/copy.test.mjs
+          node --test tests/website/*.test.mjs
 
       - name: website content and asset contracts
         run: python3 -m unittest discover -s tests/website -p 'test_*.py'

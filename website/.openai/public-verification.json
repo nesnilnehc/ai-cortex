@@ -1,86 +1,103 @@
 {
-  "verified_at": "2026-10-23T06:10:36.220034+00:00",
+  "verified_at": "2026-10-23T06:22:56.000129+00:00",
   "resources": [
     {
       "file": "index.html",
       "url": "https://ai-cortex.nesnilnehc.top/",
+      "effective_url": "https://ai-cortex.nesnilnehc.top/",
       "http_status": 200,
       "tls_verify_result": 0,
       "content_type": "text/html",
-      "byte_identical": false,
       "source_preserved": true,
-      "sha256": "8925439316452e15faa09071ebfb88d37d399b2d6af8f3ec745ed0048d9f0742"
+      "byte_identical": false,
+      "sha256": "407f1248315b91ef1927980f6064b4fa29ffe1067b255c8919ea5fec03a7f99f"
     },
     {
       "file": "zh.html",
       "url": "https://ai-cortex.nesnilnehc.top/zh.html",
+      "effective_url": "https://ai-cortex.nesnilnehc.top/zh",
       "http_status": 200,
       "tls_verify_result": 0,
       "content_type": "text/html",
-      "byte_identical": false,
       "source_preserved": true,
-      "sha256": "ba9cc7b210d08bcc22b21a145a8151295608abab57fc58fa7d9a6aab5745f7ea",
-      "redirect_status": 307,
-      "effective_url": "https://ai-cortex.nesnilnehc.top/zh"
+      "byte_identical": false,
+      "sha256": "0d2c1a926b9fba70292949c73db99bbd124c6ea17d4ef949c0c1b06ffdb0c789"
     },
     {
       "file": "styles.css",
-      "url": "https://ai-cortex.nesnilnehc.top/styles.css?v=20261023-i18n",
+      "url": "https://ai-cortex.nesnilnehc.top/styles.css?v=20261023-preference",
+      "effective_url": "https://ai-cortex.nesnilnehc.top/styles.css?v=20261023-preference",
       "http_status": 200,
       "tls_verify_result": 0,
       "content_type": "text/css",
-      "byte_identical": true,
       "source_preserved": true,
+      "byte_identical": true,
       "sha256": "6accf7140756285cca3150e940bd6e972e137706620c324a38981e4540b68f2f"
     },
     {
       "file": "main.mjs",
-      "url": "https://ai-cortex.nesnilnehc.top/main.mjs?v=20261023-i18n",
+      "url": "https://ai-cortex.nesnilnehc.top/main.mjs?v=20261023-preference",
+      "effective_url": "https://ai-cortex.nesnilnehc.top/main.mjs?v=20261023-preference",
       "http_status": 200,
       "tls_verify_result": 0,
       "content_type": "text/javascript",
-      "byte_identical": true,
       "source_preserved": true,
-      "sha256": "0e087f65b11b8a883e56b8b4facf243ec4a28078be9a44848770d4c2a475262d"
+      "byte_identical": true,
+      "sha256": "7563cfbc0ee5d3ddbf03b31efbf34927461c8da2f30c7fe52da0eeef7aea2ceb"
     },
     {
       "file": "copy.mjs",
       "url": "https://ai-cortex.nesnilnehc.top/copy.mjs?v=20261023-i18n",
+      "effective_url": "https://ai-cortex.nesnilnehc.top/copy.mjs?v=20261023-i18n",
       "http_status": 200,
       "tls_verify_result": 0,
       "content_type": "text/javascript",
-      "byte_identical": true,
       "source_preserved": true,
+      "byte_identical": true,
       "sha256": "98066e27493b23ca013c617303fb09cf44f6a1f6c056e5fa043cf6969ff54b4d"
+    },
+    {
+      "file": "language.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/language.mjs?v=20261023-preference",
+      "effective_url": "https://ai-cortex.nesnilnehc.top/language.mjs?v=20261023-preference",
+      "http_status": 200,
+      "tls_verify_result": 0,
+      "content_type": "text/javascript",
+      "source_preserved": true,
+      "byte_identical": true,
+      "sha256": "8da4c61d053ce97fe4a07a05a61b263346600a1d28e95cc40b9bdb0f45b6bd85"
     },
     {
       "file": "favicon.svg",
       "url": "https://ai-cortex.nesnilnehc.top/favicon.svg",
+      "effective_url": "https://ai-cortex.nesnilnehc.top/favicon.svg",
       "http_status": 200,
       "tls_verify_result": 0,
       "content_type": "image/svg+xml",
-      "byte_identical": true,
       "source_preserved": true,
+      "byte_identical": true,
       "sha256": "c417f9f4718db6a4b125f1d0ad3f8d6a2c6552ffd9d770e6013c2afe1c6c768c"
     },
     {
       "file": "robots.txt",
       "url": "https://ai-cortex.nesnilnehc.top/robots.txt",
+      "effective_url": "https://ai-cortex.nesnilnehc.top/robots.txt",
       "http_status": 200,
       "tls_verify_result": 0,
       "content_type": "text/plain",
-      "byte_identical": true,
       "source_preserved": true,
+      "byte_identical": true,
       "sha256": "2c3f391f9674a75b97ddc2e2142e18fd9d17d2755c9dfa261884aea06b995cc9"
     },
     {
       "file": "sitemap.xml",
       "url": "https://ai-cortex.nesnilnehc.top/sitemap.xml",
+      "effective_url": "https://ai-cortex.nesnilnehc.top/sitemap.xml",
       "http_status": 200,
       "tls_verify_result": 0,
       "content_type": "text/xml",
-      "byte_identical": true,
       "source_preserved": true,
+      "byte_identical": true,
       "sha256": "1f0245151e10eaca6d2e888a8fdc61a150b76346b8d958e74cf01a2ca8b93038"
     }
   ]

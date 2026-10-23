@@ -1,22 +1,23 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_918d09f24fd88191a415e38463c403bb",
-  "version_number": 3,
-  "deployment_id": "appgdep_6adafa37ca988191ab2961c7cd7c770c",
-  "source_commit": "dde6a12462ed964d1767388f59b4fa892aa8eaa8",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_c581a77751348191b89af6d55ecada9b",
+  "version_number": 4,
+  "deployment_id": "appgdep_6adafcff4f748191a97c5cc3c7f7ba8f",
+  "source_commit": "974aacaba333db1391100199d1d7fc681093bc50",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.mystic-loon-2462.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-10-23T06:10:11.385479+00:00",
+  "updated_at": "2026-10-23T06:21:58.182636+00:00",
   "published_files": [
     "index.html",
     "zh.html",
     "styles.css",
     "main.mjs",
     "copy.mjs",
+    "language.mjs",
     "favicon.svg",
     "robots.txt",
     "sitemap.xml"
@@ -38,13 +39,6 @@
       "value": "ea3e95ec-3348-420e-8a7a-99240aeb6c62"
     }
   ],
-  "origin_verification": {
-    "http_status": 200,
-    "tls_verify_result": 0,
-    "static_assets_byte_identical": 6,
-    "html_source_preserved": true,
-    "edge_injection": "Cloudflare JavaScript detection script"
-  },
   "dns_records_installed": true,
   "dns_provider": "NameSilo",
   "dns_ttl_seconds": 3600,
@@ -53,10 +47,16 @@
   "public_url": "https://ai-cortex.nesnilnehc.top/",
   "public_verification_file": "public-verification.json",
   "browser_checks": [
-    "English and Chinese editions rendered at custom hostname",
-    "native language links including keyboard activation",
-    "localized clipboard success feedback",
-    "no document overflow at 360px and 1280px",
-    "Chinese light and dark layouts inspected"
-  ]
+    "manual English selection persisted when opening Chinese URL",
+    "automatic navigation preserved #start",
+    "manual Chinese choice overrode English preference",
+    "root revisit and reload retained Chinese",
+    "native language links and active edition rendered"
+  ],
+  "public_verification": {
+    "http_status": 200,
+    "tls_verify_result": 0,
+    "static_assets_byte_identical": 7,
+    "html_editions_source_preserved": 2
+  }
 }

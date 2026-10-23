@@ -33,8 +33,8 @@ class Localization(unittest.TestCase):
             with self.subTest(name=name):
                 page = Page((SITE / name).read_text())
                 links = [a for t, a in page.tags if t == 'a']
-                self.assertTrue(any(a.get('href') == './zh.html' and a.get('hreflang') == 'zh-CN' for a in links))
-                self.assertTrue(any(a.get('href') == './' and a.get('hreflang') == 'en' for a in links))
+                self.assertTrue(any(a.get('href') == './zh.html?lang=zh' and a.get('hreflang') == 'zh-CN' for a in links))
+                self.assertTrue(any(a.get('href') == './?lang=en' and a.get('hreflang') == 'en' for a in links))
                 self.assertTrue(any(t == 'link' and a.get('rel') == 'canonical' and a.get('href') == 'https://ai-cortex.nesnilnehc.top' + canonical for t, a in page.tags))
                 alternates = {a.get('hreflang') for t, a in page.tags if t == 'link' and a.get('rel') == 'alternate'}
                 self.assertEqual(alternates, {'en', 'zh-CN', 'x-default'})
