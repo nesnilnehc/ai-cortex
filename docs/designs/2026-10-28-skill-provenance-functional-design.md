@@ -147,3 +147,7 @@ References to upstream acceptance items below use their current list order in [A
 ## Approved display amendment — 2026-10-28
 
 Per the user amendment in [REQ 08](../requirements-planning/AIC-REQ-08.md#display-amendment--2026-10-28), only confirmed originals omit badges. Evidence actions remain separately focusable for all categories. Unknown or missing classifications still block delivery; they do not share the original display path. This amendment supersedes earlier references to three visible labels in this snapshot.
+
+## Website display amendment — 2026-10-29
+
+The approved requirement now omits audit-material links from every website surface, including generated static fallbacks and the asset directory. This supersedes earlier website evidence-navigation sections. Preserve third-party text badges, unbadged originals, Skill source navigation and repository evidence validation.

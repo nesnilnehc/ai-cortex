@@ -38,7 +38,7 @@ test('provenance requires full coverage, three categories and revision-bound saf
 });
 
 // Covers: AIC-REQ-08#AC6.
-test('evidence actions stay siblings of selection controls and carry accessible names',async()=>{
+test('third-party badge retains selection without exposing audit materials',async()=>{
  const {frameSkill}=await import('../../website/explore/provenance.mjs');
  const make=tag=>({tagName:tag,children:[],attrs:{},append(...items){this.children.push(...items);},setAttribute(key,value){this.attrs[key]=value;}});
  const doc={createElement:make},control=make('button'),revision='a'.repeat(40);
@@ -47,7 +47,7 @@ test('evidence actions stay siblings of selection controls and carry accessible 
  assert.equal(frame.children.includes(control),true);
  assert.equal(control.children.length,0);
  const badge=frame.children.find(n=>n.tagName==='span');assert.equal(badge.textContent,'Third-party adapted');
- const links=frame.children.find(n=>n.tagName==='nav');const anchor=links.children[0];assert.equal(anchor.target,'_blank');assert.match(anchor.attrs['aria-label'],/a/);assert.equal(anchor.rel,'noopener');
+ assert.equal(frame.children.some(n=>n.tagName==='nav'||n.tagName==='a'),false);
 });
 
 test('reviewed catalogue bootstrap validates before activating renderers',async()=>{
@@ -86,13 +86,13 @@ test('catalogue loading supplies a bounded cancellation signal',async()=>{
 });
 
 // Covers: AIC-REQ-08#AC1; approved original-badge omission.
-test('confirmed originals have evidence access without a badge',async()=>{
+test('confirmed originals expose neither badges nor audit links',async()=>{
  const {frameSkill}=await import('../../website/explore/provenance.mjs');
  const make=tag=>({tagName:tag,children:[],attrs:{},append(...items){this.children.push(...items);},setAttribute(key,value){this.attrs[key]=value;}});
  const revision='a'.repeat(40),data={schema_version:1,source_revision:revision,skills:{a:{classification:'native',evidence:[`https://github.com/nesnilnehc/ai-cortex/blob/${revision}/evidence/a.json`]}}};
  const frame=frameSkill(make('button'),'a',data,read('locales/en.json').provenance,{createElement:make});
  assert.equal(frame.children.some(n=>n.className==='provenance-badge'),false);
- assert.equal(frame.children.some(n=>n.tagName==='nav'),true);
+ assert.equal(frame.children.some(n=>n.tagName==='nav'||n.tagName==='a'),false);
  assert.throws(()=>frameSkill(make('button'),'missing',data,read('locales/en.json').provenance,{createElement:make}));
 });
 
@@ -128,7 +128,7 @@ finally:
  assert.equal(validateProjection(generated.projection,['alpha']).skills.alpha.classification,'native');
  assert.equal(generated.projection.skills.alpha.evidence.length,2);
  assert.ok(generated.index.includes('[evidence]'));assert.equal(generated.index.includes('**AI Cortex original**'),false);
- assert.ok(generated.page.includes('provenance-evidence'));assert.equal(generated.page.includes('data-provenance="native"'),false);
+ assert.equal(generated.page.includes('provenance-evidence'),false);assert.equal(generated.page.includes('data-provenance="native"'),false);
  const incomplete=structuredClone(generated.projection);delete incomplete.skills.alpha;
  assert.throws(()=>validateProjection(incomplete,['alpha']));
 });

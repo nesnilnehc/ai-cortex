@@ -2,7 +2,7 @@
 id: SKILL_SOURCE_MODELING_SPEC_V1
 name: Vendored Skill Source Registry Schema
 description: Defines external Skill source records and evidence-backed provenance presentation for the AI Cortex catalog.
-version: 2.0.0
+version: 2.0.1
 status: active
 lifecycle: living
 created_at: 2026-08-26
@@ -95,7 +95,7 @@ The distributed-file inventory includes Git-tracked and nonignored untracked fil
 | `third_party_original` | All distributed files match a pinned upstream Skill byte for byte, including any local metadata/notices. Full upstream file inventory, revision, license and human-reviewed comparison are required. |
 | `third_party_adapted` | Copied/modified Skill or independent writing informed by external methods, workflows or expression. Record actual sources and local adaptation, including non-Skill articles without an upstream repository. A verified unchanged distribution takes precedence over this category. |
 
-Confirmed `native` records omit the display badge; `third_party_original` and `third_party_adapted` retain visible text badges. All three retain evidence access. No unknown-source badge, hidden unresolved classification or inferred originality is accepted for delivery. Index and website use the same validated record. Individual Skill frontmatter does not repeat the display classification. Provenance is not a security or quality certification.
+Confirmed `native` records omit the display badge; `third_party_original` and `third_party_adapted` retain visible text badges. Evidence remains accessible in the repository index and maintenance records; the website displays no audit-material links. No unknown-source badge, hidden unresolved classification or inferred originality is accepted for delivery. Index and website use the same validated record. Individual Skill frontmatter does not repeat the display classification. Provenance is not a security or quality certification.
 
 | Record field | Contract |
 | --- | --- |

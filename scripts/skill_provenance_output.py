@@ -29,11 +29,10 @@ def fallback(root, projection, language, legacy=False):
             skill, record = copy['skills'][name], projection['skills'][name]
             label = copy['provenance']['labels'][record['classification']]
             source = f'https://github.com/nesnilnehc/ai-cortex/blob/{revision}/skills/{quote(name, safe="")}/SKILL.md'
-            links = ''.join(f'<a class="provenance-evidence" href="{escape(url, quote=True)}" target="_blank" rel="noopener" aria-label="{escape(copy["provenance"]["evidence"].replace("{0}", name), quote=True)}">↗</a>' for url in record['evidence'])
             badge = f'<span class="provenance-badge" data-provenance="{record["classification"]}">{escape(label)}</span>'
             if record['classification'] == 'native':
                 badge = ''
-            entries.append(f'<li class="provenance-entry">{badge}<nav class="provenance-links">{links}</nav><a class="classification-skill" data-class-skill="{escape(name, quote=True)}" href="{escape(source, quote=True)}"><span>{escape(skill["name"])}</span><code>{escape(name)}</code><small>{escape(skill["purpose"])}</small></a></li>')
+            entries.append(f'<li class="provenance-entry">{badge}<a class="classification-skill" data-class-skill="{escape(name, quote=True)}" href="{escape(source, quote=True)}"><span>{escape(skill["name"])}</span><code>{escape(name)}</code><small>{escape(skill["purpose"])}</small></a></li>')
         sections.append(f'<details class="classification-card" id="{escape(group["id"], quote=True)}"><summary><strong>{escape(title["name"])}</strong><small>{escape(title["purpose"])}</small><span>{len(entries)}</span></summary><div class="classification-body"><ul>{"".join(entries)}</ul></div></details>')
     body = ''.join(sections)
     return f'<div id="classification-view">{body}</div>' if not legacy else f'<section aria-label="Skill catalogue">{body}</section>'
@@ -57,10 +56,9 @@ def render_directory(root, projection, language):
     entries = []
     for name, record in sorted(projection['skills'].items()):
         label = copy['provenance']['labels'][record['classification']]
-        links = ''.join(f'<a class="provenance-evidence" href="{escape(url, quote=True)}" target="_blank" rel="noopener" aria-label="{escape(copy["provenance"]["evidence"].replace("{0}", name), quote=True)}">↗</a>' for url in record['evidence'])
         description = metadata[name].get('description', copy['skills'][name]['purpose'])
         badge = '' if record['classification'] == 'native' else f'<span class="provenance-badge" data-provenance="{record["classification"]}">{escape(label)}</span>'
-        entries.append(f'<li class="provenance-entry" data-asset="skills/{escape(name, quote=True)}">{badge}<nav class="provenance-links">{links}</nav><div><code>{escape(name)}</code><p>{escape(description)}</p></div><a class="atlas-source" href="https://github.com/nesnilnehc/ai-cortex/blob/{escape(revision, quote=True)}/skills/{quote(name, safe="")}/SKILL.md" aria-label="Inspect source: {escape(name, quote=True)}">↗</a></li>')
+        entries.append(f'<li class="provenance-entry" data-asset="skills/{escape(name, quote=True)}">{badge}<div><code>{escape(name)}</code><p>{escape(description)}</p></div><a class="atlas-source" href="https://github.com/nesnilnehc/ai-cortex/blob/{escape(revision, quote=True)}/skills/{quote(name, safe="")}/SKILL.md" aria-label="Inspect source: {escape(name, quote=True)}">↗</a></li>')
     return f'<details class="directory-type" id="skills"><summary>{escape(copy["provenance"]["directoryTitle"])} · {len(entries)}</summary><ul>{"".join(entries)}</ul></details>'
 
 

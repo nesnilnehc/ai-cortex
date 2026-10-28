@@ -434,7 +434,7 @@ class ProvenanceV2Tests(unittest.TestCase):
         self.assertIsNone(data['source_revision'])
         page = (destination/'website/index.html').read_text()
         self.assertNotIn('data-provenance="native"', page)
-        self.assertIn('provenance-evidence/confirmation.json', page)
+        self.assertNotIn('provenance-evidence/confirmation.json', page)
         self.assertTrue((destination/'website/provenance-evidence/confirmation.json').is_file())
         self.assertEqual(before, {str(p.relative_to(self.root)): p.read_bytes() for p in self.root.rglob('*') if p.is_file()})
         self.assertEqual(index.main(['--preview-dir', str(destination)]), 1)
@@ -537,7 +537,7 @@ class ProvenanceV2Tests(unittest.TestCase):
         self.assertNotIn('id="map-build" onclick=', html)
         self.assertIn('map-build&quot; onclick=&quot;injected', html)
 
-    def test_static_asset_directory_also_has_badges_and_evidence(self):
+    def test_static_asset_directory_omits_audit_links(self):
         # Covers: AIC-REQ-08#AC1.
         import skill_provenance_output as output
         self.setup_site()
@@ -545,7 +545,7 @@ class ProvenanceV2Tests(unittest.TestCase):
         html = output.render_directory(self.root, projection, 'en')
         self.assertIn('data-asset="skills/alpha"', html)
         self.assertNotIn('AI Cortex original', html)
-        self.assertIn('/provenance-evidence/confirmation.json', html)
+        self.assertNotIn('/provenance-evidence/confirmation.json', html)
         self.assertEqual(html.count('data-provenance='), 0)
         self.assertIn('id="skills"', html)
 

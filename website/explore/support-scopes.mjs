@@ -1,7 +1,7 @@
-import records from './support-scopes.json?v=aic08-provenance-1' with {type:'json'};
-import {dictionary,locale as currentLocale} from './locale.mjs?v=aic08-provenance-1';
-import en from './locales/en.json?v=aic08-provenance-1' with {type:'json'};
-import zh from './locales/zh.json?v=aic08-provenance-1' with {type:'json'};
+import records from './support-scopes.json?v=aic08-provenance-2' with {type:'json'};
+import {dictionary,locale as currentLocale} from './locale.mjs?v=aic08-provenance-2';
+import en from './locales/en.json?v=aic08-provenance-2' with {type:'json'};
+import zh from './locales/zh.json?v=aic08-provenance-2' with {type:'json'};
 export function validateSupportScopes(items){
  if(!Array.isArray(items)||items.length!==2||new Set(items.map(i=>i.providerTopicId)).size!==2)throw Error('Missing support providers');
  const seen=new Set(),topics=new Set(Object.keys(dictionary.topics));

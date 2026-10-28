@@ -27,12 +27,8 @@ export function getProvenance(data,id,copy){
 export function frameSkill(control,id,data,copy,doc=globalThis.document){
  const record=getProvenance(data,id,copy),frame=doc.createElement('div');frame.className='provenance-entry';
  const badge=doc.createElement('span');badge.className='provenance-badge';badge.setAttribute('data-provenance',record.classification);badge.textContent=record.label;
- const links=doc.createElement('nav');links.className='provenance-links';links.setAttribute('aria-label',copy.evidence.replace('{0}',id));
- for(const url of record.evidence){
-  const link=doc.createElement('a');link.className='provenance-evidence';link.href=url;link.target='_blank';link.rel='noopener';link.setAttribute('aria-label',copy.evidence.replace('{0}',id));link.textContent='↗';links.append(link);
- }
  if(record.classification!=='native')frame.append(badge);
- frame.append(links,control);return frame;
+ frame.append(control);return frame;
 }
 
 let activeProjection=null;
@@ -45,7 +41,7 @@ export async function initializeProvenance({manifest,ids,copy,fetcher=globalThis
  try{
   if(manifest.provenancePreview&&!previewHost)fail();
   stage='fetch';
-  const response=await fetcher(new URL('./skill-provenance.json?v=aic08-provenance-1',import.meta.url),{signal:signalFactory()});
+  const response=await fetcher(new URL('./skill-provenance.json?v=aic08-provenance-2',import.meta.url),{signal:signalFactory()});
   if(!response.ok)fail();
   stage='parse';
   const payload=await response.json();

@@ -69,13 +69,10 @@
  .capability-host #relations-view .relations-canvas{overflow-x:auto;overscroll-behavior-x:contain}
 }
 
-/* Source evidence is separate from the Skill selection action. */
+/* Only third-party classification badges appear above Skill controls. */
 .provenance-entry{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 8px;min-width:0;align-items:start}
 .provenance-entry>.classification-skill,.provenance-entry>.skill-node,.provenance-entry>.tool-entry,.provenance-entry>.relation-peer,.provenance-entry>.classification-reference,.provenance-entry>h3,.provenance-entry>h2{grid-column:1/-1;width:100%;min-width:0}
-.provenance-badge{grid-column:1;text-align:right;font:11px/1.5 var(--mono);color:var(--muted);overflow-wrap:anywhere}
-.provenance-links{grid-column:2;display:flex;gap:5px;flex-wrap:wrap}
-.provenance-evidence{font-size:13px;line-height:1.5;color:var(--accent);text-decoration:underline;text-underline-offset:3px}
-.provenance-evidence:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.provenance-badge{grid-column:1/-1;text-align:right;font:11px/1.5 var(--mono);color:var(--muted);overflow-wrap:anywhere}
 .provenance-entry+.call-children{margin-top:6px}
 
 .panel-heading>div:has(.provenance-entry){flex:1;min-width:0}
