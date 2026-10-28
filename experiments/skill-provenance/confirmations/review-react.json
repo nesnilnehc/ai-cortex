@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+  "confirmed_at": "2026-10-28",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/review-react.json"
+    }
+  ],
+  "subject_digest": "15524c0d5cb9e0c9be67f50078969e1c54a04fc68664000ba6c12e4e2f00d80e"
+}

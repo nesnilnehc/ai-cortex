@@ -1,0 +1,70 @@
+{
+  "fixtureSignature": true,
+  "categoriesConfirmed": true,
+  "cases": [
+    {
+      "lang": "zh",
+      "theme": "light",
+      "documentWidth": 360,
+      "nativeBadges": 0,
+      "overlaps": 0,
+      "width": 360
+    },
+    {
+      "lang": "zh",
+      "theme": "dark",
+      "documentWidth": 360,
+      "nativeBadges": 0,
+      "overlaps": 0,
+      "width": 360
+    },
+    {
+      "lang": "zh",
+      "theme": "light",
+      "documentWidth": 1280,
+      "nativeBadges": 0,
+      "overlaps": 0,
+      "width": 1280
+    },
+    {
+      "lang": "zh",
+      "theme": "dark",
+      "documentWidth": 1280,
+      "nativeBadges": 0,
+      "overlaps": 0,
+      "width": 1280
+    },
+    {
+      "lang": "en",
+      "theme": "light",
+      "documentWidth": 360,
+      "nativeBadges": 0,
+      "overlaps": 0,
+      "width": 360
+    },
+    {
+      "lang": "en",
+      "theme": "dark",
+      "documentWidth": 360,
+      "nativeBadges": 0,
+      "overlaps": 0,
+      "width": 360
+    },
+    {
+      "lang": "en",
+      "theme": "light",
+      "documentWidth": 1280,
+      "nativeBadges": 0,
+      "overlaps": 0,
+      "width": 1280
+    },
+    {
+      "lang": "en",
+      "theme": "dark",
+      "documentWidth": 1280,
+      "nativeBadges": 0,
+      "overlaps": 0,
+      "width": 1280
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "skill": "generate-github-workflow",
+  "version": "1.2.0",
+  "investigated_on": "2026-10-28",
+  "status": "investigation only; no maintainer decision",
+  "creation_commit": "36ded4d2bead85ee534cc41cabe5f50633709588",
+  "detected_external_urls": [
+    "https://docs.github.com/en/actions",
+    "https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions",
+    "https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions"
+  ],
+  "recorded_upstream": null,
+  "upstream_comparison": null,
+  "recommendation": "native",
+  "rationale": "Local creation record found; external creative influence remains a human fact to confirm.",
+  "confirmation_needed": "Confirm or correct the category and identify external creative influences. Tool/API/command-use lookup alone does not disqualify originality."
+}

@@ -1,0 +1,42 @@
+{
+  "categories_confirmed": true,
+  "real_decisions_validated": 72,
+  "classification": "68 native without badges, 4 third-party adapted with badges",
+  "responsive_matrix": "browser-evidence/full-layout-checks.json: EN/ZH, 360/1280, light/dark; zero overlap, zero native badges, document width equals viewport",
+  "keyboard_checks": [
+    "Classification summary and Skill selection",
+    "Detail badge plus separately focusable evidence",
+    "Static fallback evidence opens a new tab; original focus and expanded group retained",
+    "Search empty state, clear, eli5 and ponytail selection; query retained on reopen",
+    "Relationship expansion; original detail has no badge and has two evidence links",
+    "Corrupt projection shows visible alert and one diagnostic; restored projection plus keyboard Retry restores both view controls"
+  ],
+  "static_fallback": {
+    "method": "Generated HTML in an isolated harness with script elements excluded; browser-wide JavaScript setting was not changed.",
+    "skills_in_classification": 72,
+    "skills_in_directory": 72,
+    "native_badges": 0,
+    "adapted_badges": 8
+  },
+  "real_preview": "72 actual confirmed records; all local evidence files exist. Root URL is required by existing site navigation; nested harness URLs caused unrelated route diagnostics and were replaced for final verification.",
+  "screenshots": [
+    "browser-evidence/final-local-confirmed-zh.jpg",
+    "browser-evidence/final-relationships-en-360.jpg",
+    "browser-evidence/final-search-en-360.jpg",
+    "browser-evidence/full-static-zh.jpg",
+    "browser-evidence/final-legacy-static-zh-360.jpg",
+    "browser-evidence/final-canonical-zh.jpg"
+  ],
+  "limits": [
+    "Script-excluded fallback harness used; browser-wide JavaScript settings were not changed.",
+    "No main merge, release or deployment performed."
+  ],
+  "legacy_fallback_styles": {
+    "result": "Both legacy pages load all four shared local stylesheets. Script-excluded legacy harness at 360px has zero badge overlap and no horizontal overflow.",
+    "screenshot": "browser-evidence/final-legacy-static-zh-360.jpg"
+  },
+  "canonical_page": {
+    "result": "Fresh localhost origin initialized with actual fixed-revision public evidence; native badge count zero; selected adapted badge and evidence href verified.",
+    "screenshot": "browser-evidence/final-canonical-zh.jpg"
+  }
+}

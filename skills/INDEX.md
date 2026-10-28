@@ -1,82 +1,158 @@
 # Skills
 
-Generated from each skill's own `SKILL.md` frontmatter by
-`scripts/sync-skills-index.py`. Edit the skill, then regenerate — an edit made
-here alone is overwritten and does not reach the skill.
+Generated from Skill `SKILL.md` frontmatter and `skills/PROVENANCE.json` by
+`scripts/sync-skills-index.py`. Edit the sources, then regenerate — an edit
+made here alone is overwritten and does not reach the sources.
+
+Provenance markers come from [PROVENANCE.json](./PROVENANCE.json); confirmed AI Cortex originals omit the badge. An absent badge alone does not establish originality.
 
 - [announce-release](./announce-release/SKILL.md) — Create and optionally deliver grounded release announcements from a published Release Package across available channels; never owns changelog generation.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/announce-release.json) · [evidence](../experiments/skill-provenance/confirmations/announce-release.json)
 - [archive-milestone](./archive-milestone/SKILL.md) — Archive completed roadmap work packages or iteration/phase/version/period snapshots while preserving milestone event evidence and unfinished work.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/archive-milestone.json) · [evidence](../experiments/skill-provenance/confirmations/archive-milestone.json)
 - [assess-product-opportunity](./assess-product-opportunity/SKILL.md) — Assess a product opportunity from existing research reports and user signals, producing a restrained, traceable decision layer.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/assess-product-opportunity.json) · [evidence](../experiments/skill-provenance/confirmations/assess-product-opportunity.json)
   - type: `domain` · user-invocable: `false`
 - [automate-tests](./automate-tests/SKILL.md) — Discover and execute repository test commands safely with evidence-based command selection and safety guardrails.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/automate-tests.json) · [evidence](../experiments/skill-provenance/confirmations/automate-tests.json)
 - [capture-work-items](./capture-work-items/SKILL.md) — Capture requirements, bugs, or issues from free-form input into structured, persistent artifacts. Use when user wants to record a work item quickly without deep validation.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/capture-work-items.json) · [evidence](../experiments/skill-provenance/confirmations/capture-work-items.json)
 - [changelog-video](./changelog-video/SKILL.md) — Generate and validate an optional release video from confirmed Release Package change items using repository-local media tooling; never installs tools or decides or publishes the release.
+  - provenance: **Third-party adapted** · [evidence](../experiments/skill-provenance/evidence/changelog-video.json) · [evidence](./changelog-video/LICENSE.upstream) · [evidence](../experiments/skill-provenance/confirmations/changelog-video.json)
 - [commit-work](./commit-work/SKILL.md) — Create high-quality git commits with clear messages and logical scope. Core goal - produce reviewable commits following Conventional Commits format with pre-commit quality checks.
+  - provenance: **Third-party adapted** · [evidence](../experiments/skill-provenance/evidence/commit-work.json) · [evidence](../docs/references/THIRD_PARTY_NOTICES.md) · [evidence](../experiments/skill-provenance/confirmations/commit-work.json)
 - [competitive-research](./competitive-research/SKILL.md) — Compare a dated competitor set by capabilities, positioning, pricing, and evidence quality without treating undocumented features as absent.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/competitive-research.json) · [evidence](../experiments/skill-provenance/confirmations/competitive-research.json)
   - type: `domain` · user-invocable: `true`
 - [consume-nats-message](./consume-nats-message/SKILL.md) — Drain pending NATS messages from a producer contract via NATS MCP tools. Discovers the available NATS tool capabilities, selects exact-subject or wildcard mode from .cortex/nats.yaml, applies Tolerant Reader semantics, executes ack/nak/term decisions, and returns aggregated stats.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/consume-nats-message.json) · [evidence](../experiments/skill-provenance/confirmations/consume-nats-message.json)
 - [decontextualize-text](./decontextualize-text/SKILL.md) — Convert text with private context or internal dependencies into generic, unbiased expressions that are standalone and reusable. Core goal - produce decontextualized text that preserves logic while removing organizational identifiers. Use for project handoff, open-source prep, methodology abstraction, cross-team sharing.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/decontextualize-text.json) · [evidence](../experiments/skill-provenance/confirmations/decontextualize-text.json)
 - [deep-research](./deep-research/SKILL.md) — Investigate an open question through scoped decomposition, source selection, corroboration, and traceable findings without making a product decision.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/deep-research.json) · [evidence](../experiments/skill-provenance/confirmations/deep-research.json)
   - type: `foundation` · user-invocable: `true`
 - [define-docs-norms](./define-docs-norms/SKILL.md) — Create or update docs/ARTIFACT_NORMS.md from an approved proposal and establish project docs norms as canonical rules.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/define-docs-norms.json) · [evidence](../experiments/skill-provenance/confirmations/define-docs-norms.json)
 - [define-mission](./define-mission/SKILL.md) — Define the fundamental purpose of a project or organization. Answers why the project exists; produces a single mission statement persisted to docs.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/define-mission.json) · [evidence](../experiments/skill-provenance/confirmations/define-mission.json)
 - [define-north-star](./define-north-star/SKILL.md) — Define the single most important metric representing the core value delivered to users. Produces North Star Metric with rationale, optional supporting metrics, and anti-pattern examples; persisted to docs.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/define-north-star.json) · [evidence](../experiments/skill-provenance/confirmations/define-north-star.json)
 - [define-roadmap](./define-roadmap/SKILL.md) — Design roadmap structure, populate source-backed content on a settled layout, or complete both stages; first-align existing plans while preserving business decisions and stable links, with optional local generation.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/define-roadmap.json) · [evidence](../experiments/skill-provenance/confirmations/define-roadmap.json)
 - [define-strategic-pillars](./define-strategic-pillars/SKILL.md) — Derive 3–5 strategic pillars (high-level themes) from vision and North Star that structure and guide strategic goals and roadmap. Produces a strategic pillars document; persisted to docs.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/define-strategic-pillars.json) · [evidence](../experiments/skill-provenance/confirmations/define-strategic-pillars.json)
 - [define-vision](./define-vision/SKILL.md) — Define the long-term future the project aims to create. Answers what future we are building; produces a vision statement aligned with mission, persisted to docs.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/define-vision.json) · [evidence](../experiments/skill-provenance/confirmations/define-vision.json)
 - [deliver-feature](./deliver-feature/SKILL.md) — From inside a linked worktree, deliver the current feature branch into main — merge with --no-ff, push, and optionally clean up the worktree, all without leaving CWD.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/deliver-feature.json) · [evidence](../experiments/skill-provenance/confirmations/deliver-feature.json)
 - [design-strategic-goals](./design-strategic-goals/SKILL.md) — Define 3–5 long-term strategic goals that move the project toward the vision and North Star. Produces a goals document aligned with mission, vision, and NSM; persisted to docs.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/design-strategic-goals.json) · [evidence](../experiments/skill-provenance/confirmations/design-strategic-goals.json)
+- [eli5](./eli5/SKILL.md) — Explain a topic like I'm a 5 year old. Use when the user types /eli5 <topic> or asks for a dead-simple picture explainer of how something works.
+  - provenance: **Third-party adapted** · [evidence](../experiments/skill-provenance/evidence/eli5.json) · [evidence](./eli5/LICENSE.upstream) · [evidence](../experiments/skill-provenance/confirmations/eli5.json)
 - [generate-agent-entry](./generate-agent-entry/SKILL.md) — Write or revise AGENTS.md with project identity, authoritative sources, behavioral expectations and verified loading entries for adopted workflows. Use when creating, auditing or revising a project's agent entry, including AI Cortex adoption.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/generate-agent-entry.json) · [evidence](../experiments/skill-provenance/confirmations/generate-agent-entry.json)
 - [generate-github-workflow](./generate-github-workflow/SKILL.md) — GitHub Actions YAML with embedded output contract: security-first, minimal permissions, version pinning. For CI, release, PR checks. Differs from generic templates by spec compliance and auditability.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/generate-github-workflow.json) · [evidence](../experiments/skill-provenance/confirmations/generate-github-workflow.json)
 - [generate-standard-readme](./generate-standard-readme/SKILL.md) — Generate lean, high-density README. Sections pruned by value threshold — not fixed count. Primary goal — reader knows what the project is, where to look, and how to use it within 30 seconds.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/generate-standard-readme.json) · [evidence](../experiments/skill-provenance/confirmations/generate-standard-readme.json)
 - [integrate-branches](./integrate-branches/SKILL.md) — From the main repo on the main branch, scan all linked worktrees and local branches, let the user multi-select, then merge --no-ff + push them sequentially and clean up succeeded worktrees together.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/integrate-branches.json) · [evidence](../experiments/skill-provenance/confirmations/integrate-branches.json)
 - [manage-secret](./manage-secret/SKILL.md) — Store, look up, rotate, or delete a personal credential — passwords, API keys, tokens, certificate passphrases — in the macOS Keychain under a project-env-kind naming scheme. Use it even when the user does not say "Keychain". Not for team vaults, CI secret injection, or cross-machine sync.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/manage-secret.json) · [evidence](../experiments/skill-provenance/confirmations/manage-secret.json)
 - [map-item-dependencies](./map-item-dependencies/SKILL.md) — Identify dependencies among backlog and roadmap items across five categories, record depends_on and required-deliverable evidence, and assess next-step readiness with need-by dates and reduction options before promotion.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/map-item-dependencies.json) · [evidence](../experiments/skill-provenance/confirmations/map-item-dependencies.json)
 - [market-research](./market-research/SKILL.md) — Define a market and examine customers, demand, segments, trends, and defensible size estimates with transparent evidence.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/market-research.json) · [evidence](../experiments/skill-provenance/confirmations/market-research.json)
   - type: `domain` · user-invocable: `true`
 - [orchestrate-code-review](./orchestrate-code-review/SKILL.md) — Orchestrator skill — sequence atomic review-* skills into the post-coding engineering gate and aggregate their findings; functional alignment and acceptance verification remain separate.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/orchestrate-code-review.json) · [evidence](../experiments/skill-provenance/confirmations/orchestrate-code-review.json)
 - [orchestrate-governance-step](./orchestrate-governance-step/SKILL.md) — Safely advances one governance action from plan-next, re-diagnoses stale or conflicting routes, and reports whether to continue, ask, wait, or stop.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/orchestrate-governance-step.json) · [evidence](../experiments/skill-provenance/confirmations/orchestrate-governance-step.json)
 - [orchestrate-repair-loop](./orchestrate-repair-loop/SKILL.md) — Iteratively converge the sibling engineering and functional gates, apply targeted fixes, then re-review and re-verify until both pass or a stop condition is reached.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/orchestrate-repair-loop.json) · [evidence](../experiments/skill-provenance/confirmations/orchestrate-repair-loop.json)
 - [orchestrate-repair-requirements-loop](./orchestrate-repair-requirements-loop/SKILL.md) — Run a bounded requirements review, targeted repair and re-review loop until the requirement passes or needs a business decision. Use for repairing existing requirement documents from review findings, before design or implementation.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/orchestrate-repair-requirements-loop.json) · [evidence](../experiments/skill-provenance/confirmations/orchestrate-repair-requirements-loop.json)
 - [orchestrate-roadmap-planning](./orchestrate-roadmap-planning/SKILL.md) — Route roadmap structure-only, content-on-settled-structure, continuous planning or existing-project alignment through scoped atomic skills; preserve decisions, links and authorization boundaries.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/orchestrate-roadmap-planning.json) · [evidence](../experiments/skill-provenance/confirmations/orchestrate-roadmap-planning.json)
 - [plan-next](./plan-next/SKILL.md) — Analyze governance state and suggest next actions; ask whether a skipped recommendation lasts for the session or until revoked.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/plan-next.json) · [evidence](../experiments/skill-provenance/confirmations/plan-next.json)
 - [policy-research](./policy-research/SKILL.md) — Research a jurisdiction's policy or compliance question with official sources, effective dates, applicability, and product implications.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/policy-research.json) · [evidence](../experiments/skill-provenance/confirmations/policy-research.json)
   - type: `domain` · user-invocable: `true`
+- [ponytail](./ponytail/SKILL.md) — Lazy senior dev mode: the smallest change that fully solves the task, and a reply a busy human understands in one read. Use on any coding task (writing, fixing, refactoring, reviewing, choosing dependencies) and when the user says "ponytail", "be lazy", "simplest solution", "yagni", or complains about over-engineering or bloat. Levels: lite, full (default), ultra.
+  - provenance: **Third-party adapted** · [evidence](../experiments/skill-provenance/evidence/ponytail.json) · [evidence](./ponytail/LICENSE.upstream) · [evidence](../experiments/skill-provenance/confirmations/ponytail.json)
 - [prepare-presales-response](./prepare-presales-response/SKILL.md) — Prepare evidence-backed presales questionnaire answers and supporting materials, maintain reusable product knowledge, and separate customer-specific terms from product facts. Use for capability, operations, service and procurement inquiries before delivery.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/prepare-presales-response.json) · [evidence](../experiments/skill-provenance/confirmations/prepare-presales-response.json)
 - [prepare-release](./prepare-release/SKILL.md) — Build and validate a Release Package from repository history, version policy, quality gates, and optional release artifacts; does not publish or announce.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/prepare-release.json) · [evidence](../experiments/skill-provenance/confirmations/prepare-release.json)
 - [prioritize-backlog](./prioritize-backlog/SKILL.md) — Apply a project's priority policy to unresolved backlog items, or explicitly reassess a batch using RICE, WSJF, MoSCoW and ICE; preserve settled decisions unless replacement is requested.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/prioritize-backlog.json) · [evidence](../experiments/skill-provenance/confirmations/prioritize-backlog.json)
 - [product-opportunity-analysis](./product-opportunity-analysis/SKILL.md) — Coordinate relevant research lenses and deliver a traceable Opportunity Package for a product or feature decision.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/product-opportunity-analysis.json) · [evidence](../experiments/skill-provenance/confirmations/product-opportunity-analysis.json)
   - type: `orchestrator` · user-invocable: `true`
 - [promote-roadmap-items](./promote-roadmap-items/SKILL.md) — Promote prioritized requirements and defects into Now/Next/Later using settled project priorities and dependency readiness; preserve version membership and timing commitments.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/promote-roadmap-items.json) · [evidence](../experiments/skill-provenance/confirmations/promote-roadmap-items.json)
 - [publish-nats-message](./publish-nats-message/SKILL.md) — Publish a NATS message conforming to a cross-team contract, using NATS MCP tools. Authors the contract on first use if missing. Reads project-level cache (.cortex/nats.yaml) to avoid re-prompting basics across sessions.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/publish-nats-message.json) · [evidence](../experiments/skill-provenance/confirmations/publish-nats-message.json)
 - [publish-release](./publish-release/SKILL.md) — Validate a ready Release Package and execute the repository's publication steps—tag, build, package, and provider release—with explicit mutation gates.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/publish-release.json) · [evidence](../experiments/skill-provenance/confirmations/publish-release.json)
 - [redeploy-local](./redeploy-local/SKILL.md) — After code changes, auto-detect the project's build system and local deployment method for a given directory, then build the project and restart its locally-deployed environment (Docker Compose / systemd / process manager). Never assumes — asks only when detection is ambiguous. Caches detected commands per project in .cortex/redeploy-local.yaml; re-invocations on the same project skip re-scanning until signal files change, the cache expires (30 days), or the skill version bumps.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/redeploy-local.json) · [evidence](../experiments/skill-provenance/confirmations/redeploy-local.json)
 - [refine-skill-design](./refine-skill-design/SKILL.md) — Audit and refactor one or more existing SKILL.md files for Agent Skills format compliance, clear execution, local asset boundaries, and portable tool use. Use when a user asks to refine, audit, or repair skill design.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/refine-skill-design.json) · [evidence](../experiments/skill-provenance/confirmations/refine-skill-design.json)
 - [review-architecture](./review-architecture/SKILL.md) — Review code against the canonical architecture quality Rule set, including boundaries, dependency direction, cohesion, cycles, contract stability, coupling, composition, change surface, unreachable code and deprecation discipline. Cognitive-only atomic skill; output is a findings list.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-architecture.json) · [evidence](../experiments/skill-provenance/confirmations/review-architecture.json)
 - [review-codebase](./review-codebase/SKILL.md) — Review given file/dir/repo for current-state code organization: module boundaries, design patterns, cross-module dependencies, tech debt, and interface stability. Scope-only atomic skill; output is a findings list.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-codebase.json) · [evidence](../experiments/skill-provenance/confirmations/review-codebase.json)
 - [review-diff](./review-diff/SKILL.md) — Review only git diff for impact, regression, correctness, compatibility, and side effects. Scope-only atomic skill; output is a findings list for aggregation.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-diff.json) · [evidence](../experiments/skill-provenance/confirmations/review-diff.json)
 - [review-dotnet](./review-dotnet/SKILL.md) — Review .NET (C#/F#) code for language and runtime conventions: async/await, nullable, API versioning, IDisposable, LINQ, and testability. Language-only atomic skill; output is a findings list.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-dotnet.json) · [evidence](../experiments/skill-provenance/confirmations/review-dotnet.json)
 - [review-error-surfacing](./review-error-surfacing/SKILL.md) — Review code against the canonical error surfacing quality Rule set, covering boundary decisions on untrusted input, stopping on a broken invariant, detection layer, and messages a person or a program can act on. Cognitive-only atomic skill; output is a findings list.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-error-surfacing.json) · [evidence](../experiments/skill-provenance/confirmations/review-error-surfacing.json)
 - [review-functional-design](./review-functional-design/SKILL.md) — Review an existing functional design against its modeling Spec and canonical quality Rule before technical design begins. Evaluative atomic skill; outputs findings without rewriting.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-functional-design.json) · [evidence](../experiments/skill-provenance/confirmations/review-functional-design.json)
 - [review-go](./review-go/SKILL.md) — Review Go code for language and runtime conventions: concurrency, context usage, error handling, resource management, API stability, type semantics, and testability. Language-only atomic skill; output is a findings list.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-go.json) · [evidence](../experiments/skill-provenance/confirmations/review-go.json)
 - [review-implementation-alignment](./review-implementation-alignment/SKILL.md) — Compare an implemented change and its verification evidence with approved requirements, designs and tasks. Post-coding atomic functional-alignment review; outputs findings without repairing.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-implementation-alignment.json) · [evidence](../experiments/skill-provenance/confirmations/review-implementation-alignment.json)
 - [review-java](./review-java/SKILL.md) — Review Java code for language and runtime conventions: concurrency, exceptions, try-with-resources, API versioning, collections and Streams, NIO, and testability. Language-only atomic skill; output is a findings list.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-java.json) · [evidence](../experiments/skill-provenance/confirmations/review-java.json)
 - [review-observability](./review-observability/SKILL.md) — Review production telemetry against the canonical observability quality Rule set, including structured outcomes, correlation, SLIs, tracing, data safety, error ownership and background-work visibility.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-observability.json) · [evidence](../experiments/skill-provenance/confirmations/review-observability.json)
 - [review-orm-usage](./review-orm-usage/SKILL.md) — Review ORM usage patterns for N+1 queries, connection management, migration safety, transaction handling, and query efficiency. Library-level atomic skill; output is a findings list.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-orm-usage.json) · [evidence](../experiments/skill-provenance/confirmations/review-orm-usage.json)
 - [review-performance](./review-performance/SKILL.md) — Review code against the canonical performance quality Rule set, covering bounded work, I/O amplification, complexity, memory, concurrency, caching, budgets and resource ownership.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-performance.json) · [evidence](../experiments/skill-provenance/confirmations/review-performance.json)
 - [review-php](./review-php/SKILL.md) — Review PHP code for language and runtime conventions: strict types, error handling, resource management, PSR standards, namespaces, null safety, generators, and testability. Language-only atomic skill; output is a findings list.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-php.json) · [evidence](../experiments/skill-provenance/confirmations/review-php.json)
 - [review-powershell](./review-powershell/SKILL.md) — Review PowerShell code for language and runtime conventions: advanced functions, parameter design, error handling, object pipeline behavior, compatibility, and testability. Language-only atomic skill; output is a findings list.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-powershell.json) · [evidence](../experiments/skill-provenance/confirmations/review-powershell.json)
 - [review-python](./review-python/SKILL.md) — Review Python code for language and runtime conventions: type hints, exceptions, async/await, context managers, dependencies, and testability. Language-only atomic skill; output is a findings list.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-python.json) · [evidence](../experiments/skill-provenance/confirmations/review-python.json)
 - [review-react](./review-react/SKILL.md) — Review React code for component design, hooks correctness, state management, rendering performance, and accessibility. Framework-only atomic skill; output is a findings list.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-react.json) · [evidence](../experiments/skill-provenance/confirmations/review-react.json)
 - [review-reliability](./review-reliability/SKILL.md) — Review failure behavior against the canonical reliability quality Rule set, including timeouts, retries, idempotency, partial failure, isolation, dead letters, fault tests and release objectives.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-reliability.json) · [evidence](../experiments/skill-provenance/confirmations/review-reliability.json)
 - [review-requirements](./review-requirements/SKILL.md) — Review an existing requirement document against its modeling Spec and canonical quality Rule before design begins. Evaluative atomic skill; outputs findings without rewriting.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-requirements.json) · [evidence](../experiments/skill-provenance/confirmations/review-requirements.json)
 - [review-roadmap](./review-roadmap/SKILL.md) — Review roadmap structure, business content or both with separate scoped conclusions; check source-backed planning and selected views without rewriting or expanding authorization.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-roadmap.json) · [evidence](../experiments/skill-provenance/confirmations/review-roadmap.json)
 - [review-security](./review-security/SKILL.md) — Review code and configuration against the canonical security quality Rule set. Resolves trust-boundary profiles, gathers tool-assisted evidence and emits findings traceable to stable Rule IDs.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-security.json) · [evidence](../experiments/skill-provenance/confirmations/review-security.json)
 - [review-sql](./review-sql/SKILL.md) — Review SQL and query code for injection risk, parameterization, indexing and performance, transactions, NULL and constraints, and dialect portability. Language-only atomic skill; output is a findings list.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-sql.json) · [evidence](../experiments/skill-provenance/confirmations/review-sql.json)
 - [review-tasks](./review-tasks/SKILL.md) — Review an existing task list against its modeling Spec and canonical quality Rule before assignment or coding, including design coverage, affected scope, Rule references and verification evidence.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-tasks.json) · [evidence](../experiments/skill-provenance/confirmations/review-tasks.json)
 - [review-technical-design](./review-technical-design/SKILL.md) — Review an existing technical design against its modeling Spec, canonical quality Rule and applicable engineering Rule profiles before tasks or coding begin.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-technical-design.json) · [evidence](../experiments/skill-provenance/confirmations/review-technical-design.json)
 - [review-testing](./review-testing/SKILL.md) — Review changed behavior and tests against the canonical testing quality Rule set, including direct oracles, boundary paths, integration assembly, contracts, determinism, doubles and coverage evidence.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-testing.json) · [evidence](../experiments/skill-provenance/confirmations/review-testing.json)
 - [review-typescript](./review-typescript/SKILL.md) — Review TypeScript/JavaScript code for type safety, async patterns, error handling, and module design. Atomic skill; output is a findings list.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-typescript.json) · [evidence](../experiments/skill-provenance/confirmations/review-typescript.json)
 - [review-vue](./review-vue/SKILL.md) — Review Vue 3 code for Composition API, reactivity, components, state (Pinia), routing, and performance. Framework-only atomic skill; output is a findings list.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-vue.json) · [evidence](../experiments/skill-provenance/confirmations/review-vue.json)
 - [scaffold-agent-tests](./scaffold-agent-tests/SKILL.md) — Generate an LLM agent test suite (golden cases, mock-LLM unit tests, evaluator harness) from an agent implementation and its agent-test contract. Use when an agent has no tests, or a contract exists but the test code is missing.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/scaffold-agent-tests.json) · [evidence](../experiments/skill-provenance/confirmations/scaffold-agent-tests.json)
 - [update-roadmap](./update-roadmap/SKILL.md) — Maintain requirement-and-defect roadmap summaries — change item status, shift dates with downstream impact analysis, and retain source-backed revision history. Does not move items between Now/Next/Later tiers.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/update-roadmap.json) · [evidence](../experiments/skill-provenance/confirmations/update-roadmap.json)

@@ -1,0 +1,2817 @@
+{
+  "schema_version": 2,
+  "skills": {
+    "announce-release": {
+      "classification": "native",
+      "version": "1.1.2",
+      "reviewed_files": {
+        "README.md": "fba85768957745e541e88d6621a1b3fab12db4c75d0929484501139abd89dd29",
+        "SKILL.md": "7c2a83be512ea07798661a91e0ea203f73b04c5fb29bad96f6a674337ebec1a1"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/announce-release.json": "e8967fa32ca88b56cb507f781efb226f2e84ecf2397f325b2d7ddf8274446c6c"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/announce-release.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/announce-release.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "314186acabed013d7af29b6296dafc1807b6b46f"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/announce-release.json"
+          }
+        ],
+        "subject_digest": "289b76ea0174d349013b6fb27f9a980b2f5a650ebec45038460e6fee10597aa1"
+      }
+    },
+    "archive-milestone": {
+      "classification": "native",
+      "version": "1.9.0",
+      "reviewed_files": {
+        "README.md": "74168553f53f6b88593813a9f23ded7df9ddffc9aed93220df008af48e18de78",
+        "SKILL.md": "0963f68603969baef10dfa489b482b64abfc47162ada6ca267a8e0c9dd700411"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/archive-milestone.json": "f97fe466b9a4763eec0a8ccdd7d2241656c02758b1610b92214225105ef41ba7"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/archive-milestone.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/archive-milestone.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "c80dcb2cb150c33f0ad99f07b96739abf3316771"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/archive-milestone.json"
+          }
+        ],
+        "subject_digest": "a4b9000c6ffe12fc3455929cf0e0366b2572d1e2fac7dd4a90eb0cc5f5dabf6a"
+      }
+    },
+    "assess-product-opportunity": {
+      "classification": "native",
+      "version": "1.1.0",
+      "reviewed_files": {
+        "README.md": "4a098cfb04e7252368fb61f2d1924fda0026e2e912c5f78bddb0a237fc5bf162",
+        "SKILL.md": "710f40a4a3fcec3da9ef6fbc37f4beebcf698ce902f4788989a109610ba3c917"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/assess-product-opportunity.json": "d2b55e5864b2de9a77fdc8c9f5946142630cab6a7b40dfc8eed80099a78f535c"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/assess-product-opportunity.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/assess-product-opportunity.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "f2bc2c0865c2404e972349f260ae026af8227121"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/assess-product-opportunity.json"
+          }
+        ],
+        "subject_digest": "03d6237f0160e94bf30d0902bd22f6741d0fa2684cc2f87dd433a6c6d4ba29e1"
+      }
+    },
+    "automate-tests": {
+      "classification": "native",
+      "version": "1.1.0",
+      "reviewed_files": {
+        "README.md": "451429325bf78892dc6f82d8efa77f45d862424cc3289778b1df0e5cead65523",
+        "SKILL.md": "7cbc1484999dc68f2702451071886d7d8b2327d29103bed3003c9086bed19e76"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/automate-tests.json": "ec4657451fab24f3e065c9407971a99fdd5a72060093ee952bdd311ec510522c"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/automate-tests.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/automate-tests.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "904a4cc530bfd4e9557885add79a5d0fc0c3b590"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/automate-tests.json"
+          }
+        ],
+        "subject_digest": "c99f8591ba134c7e3dd00bedb8c8aa49efa228899c5634980ef8541b492bd899"
+      }
+    },
+    "capture-work-items": {
+      "classification": "native",
+      "version": "2.3.0",
+      "reviewed_files": {
+        "README.md": "dce4e58c92f54436b51de94fd186dbce36a4d696e3256a0d2b853afe085884e0",
+        "SKILL.md": "3d788097e9a8ce105763932e94152451d27beeccf90d08f8d54e9d3ef48c2918"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/capture-work-items.json": "7abb54340d2a4f97ce2613e018c127f21671a35fab4494a54df0b3b817620afe"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/capture-work-items.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/capture-work-items.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "7651b07dbb5ce0b3815ce70394915414f2af792e"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/capture-work-items.json"
+          }
+        ],
+        "subject_digest": "af5bd0b58b0475715de3c3cd22ed782706cf895acd1ce68b5c8ce90828bc89d2"
+      }
+    },
+    "changelog-video": {
+      "classification": "third_party_adapted",
+      "version": "1.1.0",
+      "reviewed_files": {
+        "LICENSE.upstream": "4259155fb06f127687ee7b0a8a3682d45132db0f2da26cbc0b7a2d1e796436b8",
+        "SKILL.md": "63e7a7ba4a90e4e5c66ab1c96f410edc874dcbd923215640ed345f2dd51fcc8d"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/changelog-video.json": "c372e70d1b35856717b898157dda2d7014df99151e9fdd3bef0b23f9002d13d1",
+        "skills/changelog-video/LICENSE.upstream": "4259155fb06f127687ee7b0a8a3682d45132db0f2da26cbc0b7a2d1e796436b8"
+      },
+      "sources": [
+        {
+          "id": "skill:changelog-video",
+          "role": "copied_upstream",
+          "adaptation": "Replaced the HyperFrames weekly digest input with the Release Package change-item contract; Removed HyperFrames branding, bundled media, fonts, voice, and repository-specific paths; Removed sibling-skill dependencies and runtime skill installation; Added renderer discovery, user-confirmed defaults, and Release Package artifact output; Added local render and missing-renderer examples"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/changelog-video.json"
+        },
+        {
+          "path": "skills/changelog-video/LICENSE.upstream"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/changelog-video.json"
+        }
+      ],
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "third_party_adapted",
+        "rationale": "The maintainer confirmed the recommended adapted classification and documented local changes to the pinned third-party source.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/changelog-video.json"
+          }
+        ],
+        "subject_digest": "b7bbc71fb4bdec43d3da4dc5932adee1b5ec731ac14e9af2e9e4183a65251b11"
+      }
+    },
+    "commit-work": {
+      "classification": "third_party_adapted",
+      "version": "2.1.0",
+      "reviewed_files": {
+        "README.md": "264ddf1b76828672e68804568e393491a66162826ef7871648025862405440c0",
+        "SKILL.md": "6540b95591014573caac1a5b7c302f4f0ad5637fef7f7324aa201aa744cfa8ce",
+        "references/commit-message-template.md": "cd883aff299e6ba4ab108a720198ac37820a3eb824ffb7613ef6a39459a5d875"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/commit-work.json": "93e7f69d9c50081722b47061064a18775d8e460de4bc558716765e03c9b812b8",
+        "docs/references/THIRD_PARTY_NOTICES.md": "6adbc8e73c0a3071991064636c43b153e0f556fb97e70ce5b263e441d5040209"
+      },
+      "sources": [
+        {
+          "id": "skill:commit-work",
+          "role": "copied_upstream",
+          "adaptation": "AI Cortex registry synchronization; review workflow integration; expanded validation and output contract"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/commit-work.json"
+        },
+        {
+          "path": "docs/references/THIRD_PARTY_NOTICES.md"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/commit-work.json"
+        }
+      ],
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "third_party_adapted",
+        "rationale": "The maintainer confirmed the recommended adapted classification and documented local changes to the pinned third-party source.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/commit-work.json"
+          }
+        ],
+        "subject_digest": "2890131ed65e4883f4b65beb0b43945fb86106b816cb605f325c712c160b203e"
+      }
+    },
+    "competitive-research": {
+      "classification": "native",
+      "version": "1.1.0",
+      "reviewed_files": {
+        "README.md": "87ed89790018e851e7ae1328ff1856f0d64ac400a07f6d1b4348384f26f7b44c",
+        "SKILL.md": "e0617a761b713ba976db393eaccd1284fc6bbf4253d9db1988c3f63a26b29c51"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/competitive-research.json": "f19ba46e0abd9f03151a1176edc6d5720e217367a1cf9ed3bcd226172ec3f16a"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/competitive-research.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/competitive-research.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "f2bc2c0865c2404e972349f260ae026af8227121"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/competitive-research.json"
+          }
+        ],
+        "subject_digest": "6426fb88910403be1e24a3ca4aa8fadf32947d11e28764418290cfa57ae59d24"
+      }
+    },
+    "consume-nats-message": {
+      "classification": "native",
+      "version": "1.4.2",
+      "reviewed_files": {
+        "SKILL.md": "3ee49c343298c44a17a3dcd19a34b5becbd7bfd6453ffac8620fff0658e3a5f2",
+        "references/anti-patterns.md": "ffd65b3489377f2d88f041fd6953e33d1f376d76f27e1ff12f93ad3f32b7f624",
+        "references/examples.md": "8784cecdfcb0331a740023d45ca672d1fd5f9984008ff2df18c73cfc1f077ad8"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/consume-nats-message.json": "cf01c133ecaae23c684f6feec75111c90993cea67a666aa48a813d19a3cc6cd1"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/consume-nats-message.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/consume-nats-message.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "dd109c3e90e7c9887d8348aa24f2b0ce7329db36"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/consume-nats-message.json"
+          }
+        ],
+        "subject_digest": "160e1f8812dcf5c8aa86111a9f35be3c9314dd6eabfd0d7ef1e51241a9a1ac44"
+      }
+    },
+    "decontextualize-text": {
+      "classification": "native",
+      "version": "1.3.2",
+      "reviewed_files": {
+        "README.md": "4d730205a0bdde411b0a2ba7e36183bbc60fd9c52c71de3ba6dd9fc1e9a6ffaa",
+        "SKILL.md": "74e7e00e84c2daba65033c76106a464edc9876e26f5c5522b03ce0f3f2b9a976"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/decontextualize-text.json": "1dac24aac448513408f3f14411881cdf4f82e49caf7c89e8683a8ad5cc7d8034"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/decontextualize-text.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/decontextualize-text.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "a91e6ef1417e40c04f4c67b2732f279cb213da6e"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/decontextualize-text.json"
+          }
+        ],
+        "subject_digest": "910f7f6f055189f0b13a63a5afd65e5070a7ec5e60bc3e5d8d1bb404b1483ef2"
+      }
+    },
+    "deep-research": {
+      "classification": "native",
+      "version": "1.1.0",
+      "reviewed_files": {
+        "README.md": "da6dae796c7176c3dc2cfcd1dcce7b48c60f43b789fb1bf3cef67ef496b4c6da",
+        "SKILL.md": "2027ba261c780361524ca34f62ee04c0d26e852da724fb78a4b0acbefadd0882"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/deep-research.json": "b9703fe99564c0c9206071bf3fe47d5247b8f002ea34b631bbab6fa1fc27e23e"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/deep-research.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/deep-research.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "f2bc2c0865c2404e972349f260ae026af8227121"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/deep-research.json"
+          }
+        ],
+        "subject_digest": "98df37840e8e334654fbf9463328203e72bfbb21a2402e9df07607ad7fb9ae0e"
+      }
+    },
+    "define-docs-norms": {
+      "classification": "native",
+      "version": "3.0.1",
+      "reviewed_files": {
+        "README.md": "ce8a5b974543aa30f9dfc145ecd64cce78fb7910081edd19ebd2d4a40a8a5533",
+        "SKILL.md": "ec67b1912219ae9a0a9b9f6aba00a42b2ede5dc742f0e5258a1efdeb229f96b5"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/define-docs-norms.json": "a190580a101f38bb4b504793948214924330690e4380f6b7d42c35d74e9ea2cb"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/define-docs-norms.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/define-docs-norms.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "c3d1c0af1df48b06b6fc907edcb2e2fdff6af09a"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/define-docs-norms.json"
+          }
+        ],
+        "subject_digest": "6f84b192cd76c33fa7fc0a53ecdc2aee500764a5ae2a4dc62a6538e64e43b202"
+      }
+    },
+    "define-mission": {
+      "classification": "native",
+      "version": "1.4.1",
+      "reviewed_files": {
+        "README.md": "e245c9fedf22cddafafaf25506316c64045211a790508660a703931c612b4521",
+        "SKILL.md": "5a375e4e12b59894ec60edf57e5b13f8df05b6e011acfed068c85bf4d042f081"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/define-mission.json": "97a108c0ce1ac8601075ced110fdc822f3e5addf8173bf08cacbe9ae7ce077b4"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/define-mission.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/define-mission.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "904a4cc530bfd4e9557885add79a5d0fc0c3b590"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/define-mission.json"
+          }
+        ],
+        "subject_digest": "3abf035314ca84d104f77556310459d9e2b6ca57c0b0bec2e14582d981b4d69f"
+      }
+    },
+    "define-north-star": {
+      "classification": "native",
+      "version": "1.2.2",
+      "reviewed_files": {
+        "README.md": "cc98ef4285259692a8d1365403f5892a275634e0d3977eb35b48412b7b45ab16",
+        "SKILL.md": "f0112ce83a76b21c43a4ef81ce11f8b25777c5ad2dc21697df3d67f181ab225b"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/define-north-star.json": "d3437eacd9132134af5c251ac1a10d5a57fee4b071bb5a32efc47c7923a25e38"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/define-north-star.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/define-north-star.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "904a4cc530bfd4e9557885add79a5d0fc0c3b590"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/define-north-star.json"
+          }
+        ],
+        "subject_digest": "30dfa75fdeda9d9317824b0d97937c01232143651fe027c42869dbf978439a3d"
+      }
+    },
+    "define-roadmap": {
+      "classification": "native",
+      "version": "7.13.2",
+      "reviewed_files": {
+        "README.md": "da3520e07b22cc3446491b1ffc0185fb7098b2ec1996dd4951c717128fc4b1bc",
+        "SKILL.md": "1612c7cb468fd0bdf5753dce53bafe9bfc1ecb3d4293051170c13ad7f72848bf",
+        "assets/modules/flow.md": "307a7db9731700d565e56447402975b495507d3d50919f495303bc7dc33a7c2e",
+        "assets/modules/iterations.md": "1cf9c9ea00b4ed0f50ccc8285d305d798c046c8785825998053b0451c8a32aba",
+        "assets/modules/milestones.md": "cbb510bb6e8d9e37fc5d1c41e0961abb34c25cce7d9865f1e1a918e518f477ac",
+        "assets/modules/phases.md": "5c72a72e9cd6e337737cdffed3d708d67b168c4c718f0ee2f1bed8346fe1024e",
+        "assets/modules/timeline.md": "729feba1450575fddb1fbde2e429c4ce0ac471da0dfa0676a5135814013f1999",
+        "assets/modules/versions.md": "c095663982eb452931fa69edb9bfc1ec872855313a18bc156c336f5e57293fc7",
+        "assets/roadmap-input-example.json": "3f408d85bc93dd992186187101fff23c47c9722f98ad5d06044c18cf1974a29a",
+        "assets/roadmap-template.md": "1f7f8f4d65d642627c232f27d3acfb1c67273ee7e4d9c2b4d21a2ee30edcb459",
+        "assets/scenarios/README.md": "dad84c988eae9e9d6b140e41afe4d9df11d74c5b68b1161aef7afd63be2da04c",
+        "assets/scenarios/continuous-flow.md": "412b75f5a867d5b7a90b0f83154ed3a6612eef08ffa349bc8613dd131c7472bc",
+        "assets/scenarios/discovery-pilot.md": "3fe284fab2160ab9df52504a293f699e5c912baa50861dc36172129e207c62fe",
+        "assets/scenarios/iteration-product.md": "f383a70df07f5245184971d50be2146ac491f15c95fc895e6886122fe30b8e1a",
+        "assets/scenarios/staged-delivery.md": "be55d90c361a537514d7c67aa07bc4218ead9a6ddb705b248dd19225b8d72082",
+        "assets/structure-first/iterations.md": "03fd06441d7c44e44ea2c4c8c3fd52665c6c0ce03f7a8f85eed291f7904b786d",
+        "assets/structure-first/milestones.md": "cb3f7e4da0e92f9bf1291bbb0f56d7fd13351a7cd92608d6c2cefd7fa6a71ebb",
+        "assets/structure-first/roadmap-history.md": "87c8e41e7fddd3f5a58c845291e442f578fefe8f3b76915c9095f06f3f94c383",
+        "assets/structure-first/roadmap-planning-basis.md": "fb024aa61b07557938faa9b177890729b414bce0b31859d79316b007a3d7ca63",
+        "assets/structure-first/roadmap.md": "8a36ae71ef8ea8679d521feac6dfad369009e334b68eae8489f69e6a1174970d",
+        "assets/structure-first/versions.md": "b4b8e7dae71822eb1597fdb2c0ada2d6de4c182d911de27cc6f2384bd8b5c729",
+        "references/deliverable-language.md": "880b3d98057bf2826cbef60746be5d0e6a1925d546c825d9d36d176f7eeec0c0",
+        "references/existing-project/README.md": "901c5fcaa7575c32bc509d955120c3620a85acf6a7e2c0f591e1fc438619461f",
+        "references/existing-project/after/plan.md": "1e7bbfa9e629e2d50fea9f7651cb0f4fb44133b27e749d88afd0f0d5ee683dab",
+        "references/existing-project/before/plan.md": "03287598733968848712203ac81a5cce0359ecf2407d4033416648574893ac72",
+        "references/existing-project/sources.md": "64a09ff4fe7e043579d38f5ef51f7245e8da13935576ff60686bf5fafadcf58e",
+        "references/languages/README.md": "e5305acb429b255fa31e218653754608292a4e19017203d1bebee0affe0d617f",
+        "references/languages/conversation-eval-20261021.json": "9fc48bfddc18e130ea4db94533331630e824d1abbacdd3842202331618c64c8e",
+        "references/languages/conversations-zh-CN.json": "d46c3b6d74c84b9e94c309fc351e8ee63863ed0668f79085ce80ee366841be62",
+        "references/languages/en/input.json": "02fdcc8a7b0377883e75eab9a9c792be474d5d407f1f550d90206b7b679dc906",
+        "references/languages/en/roadmap-delivery.md": "04adc73d2920b078b203a7b31a81adb195c81e13f4ffab2b80bbfe7a37b2853f",
+        "references/languages/en/roadmap-history.md": "3782674e6ec3453b0016e415fc58528530b532d8f75447e3b6fb25f6c94b4763",
+        "references/languages/en/roadmap.md": "deddbb54070ddecca8e407224858815b6f4d097d83dce869b58df70b5575074a",
+        "references/languages/en/roadmap.mmd": "0fc70fbbf5cb23f871bee14b0c0eafca0c112f38ce2c38d13afef10fbd67aa89",
+        "references/languages/en/roadmap.svg": "28da0627cdb751f3cf2cbd90aa0132848de6677b44f6f7b64078a678fa505026",
+        "references/languages/sources.md": "a63d0e2b056fac98f533efd63e0d10fd2147f88699d025662fef832650c8222e",
+        "references/languages/zh-CN/input.json": "210a0bb2a46ec8aa788dfe3c02d90a49a46f9c1ed1cce01855411c0cbe3249f8",
+        "references/languages/zh-CN/roadmap-delivery.md": "5ba067f5b3203128cdb5f2f66c5b3e3df3232d4e4bfb90877f370d1d651337fe",
+        "references/languages/zh-CN/roadmap-history.md": "83816ec7da8ed9ebc48c6105383fc18d9d6852c00234fec094abcc5a24016081",
+        "references/languages/zh-CN/roadmap.md": "2cff987194240d62c747629b45a150aba6cbbfebd62659e056e05fc3d555d1d0",
+        "references/languages/zh-CN/roadmap.mmd": "3709d98db86e61638e29a694e1190a833af8486a6e9465c1a70d7678c3396e4a",
+        "references/languages/zh-CN/roadmap.svg": "e4cf41641ed92b13611de0092771ff951cb26b68759c41c89fd1de2c15a7ef9b",
+        "references/platform-delivery.md": "39e8678b4d9db156a5c4937d5b3963d6568494a7cf065a8f02196376deeb61eb",
+        "references/platforms/yuque.md": "ff5fffceb87056b1ddf19f2714dc710a3c55bb40eba8550e8ed7cca5aafbf455",
+        "references/roadmap-example.md": "0ea4332aec32279a4cd661727478e9e2f01edc43130a659304e117f428fe76b5",
+        "references/scenario-selection.md": "23a8190c0c49a618d4463573eccfab98dd6718cd73b44a1d5f493be339aa08d8",
+        "references/scenarios/README.md": "4e128b963e017be57894a3af9d05a022a5561a9bac1e533c97ecc99ddc0555cc",
+        "references/scenarios/continuous-flow/input.json": "22b9ffa0b382e24b653ffeccf2d2fbea24000eb2e08412e1acce618a35128ad9",
+        "references/scenarios/continuous-flow/roadmap.md": "c325a585d25f4aba45f50e1a88a1095b061d4240fe805c23b39abff8e32ccd83",
+        "references/scenarios/continuous-flow/selection.md": "2346b60b2561d321f32aa601cc5d45e0773edd9dd8ce72d77dfed0d7f314ddd6",
+        "references/scenarios/continuous-flow/sources.md": "93072ffcba8006210311885a40acaf8aaa38ce96f6f6040b00c2090bf2c18cbe",
+        "references/scenarios/discovery-pilot/input.json": "14d9b12a503dfca772499597bb3d3b8b3276ad8eae8e67212b262f4e45b0ca27",
+        "references/scenarios/discovery-pilot/roadmap.md": "4e13074854372e69fff923e394dfe38ef1b7c32ced464d095c49cd4af8172e97",
+        "references/scenarios/discovery-pilot/roadmap.svg": "15bd2d06efddf2d5dd56803ab94f60f78c5806e8d6793209987ea608549c1546",
+        "references/scenarios/discovery-pilot/selection.md": "89a06d10bd4bbc77e30c8339321ecfaeb9b0ab3b40283c5ca80ac2d736cf0d75",
+        "references/scenarios/discovery-pilot/sources.md": "3cbe20015a9c5ff7c800c8005148e8c6b78cb02bdb0ee477e0854d44b649388b",
+        "references/scenarios/iteration-product/input.json": "04f3282736997e6a9d907d48e4a500243211bff8fdd2eb63bca0a68453f80566",
+        "references/scenarios/iteration-product/roadmap-delivery.md": "19acb1846444bf4e88f24a487e439e7483e6be4943d1dc3aa895eaa37832aa81",
+        "references/scenarios/iteration-product/roadmap.md": "f7a9029509eb0e61df98f02e8a71da7169b3168870c11413fdb2c38997d8e868",
+        "references/scenarios/iteration-product/roadmap.svg": "4abb3a514ae86be132e12b1b060b6d67a1358a352c36b403d074e9022da60235",
+        "references/scenarios/iteration-product/selection.md": "721e103c6706772c2ea79f0d92fca48f5fba6a51fb2d9f65339aa39da054536c",
+        "references/scenarios/iteration-product/sources.md": "3a9f0c3f043559079727e84dd240d2be9dad077f29297b4a78f4721a2473f60b",
+        "references/scenarios/staged-delivery/input.json": "d76f3c6b06d05d3099fe8d6a6db763c56c8ec167ed7d9ccd853b9fc62bb1eef3",
+        "references/scenarios/staged-delivery/roadmap-delivery.md": "14a48b0e3bd1fa1c2458c7e1ea26779f583a950266b532eab143191b9d201d63",
+        "references/scenarios/staged-delivery/roadmap.md": "15cabc66dfdf5ceda73fc15cb295361696ff74c87ef36bc1209312b096af4a9e",
+        "references/scenarios/staged-delivery/roadmap.svg": "39fdea6fa4a7d390e43bd5d900eec939d351e2d445252f8d4e727148e2231517",
+        "references/scenarios/staged-delivery/selection.md": "335fc1a5bfbbec5b30e20afd08b2fcbd034d9e5e4e678b4b7dbf8b2164c85c56",
+        "references/scenarios/staged-delivery/sources.md": "998e8b8ccde64dfc44fec2733bbe2408d794d958bdb8615cb22c0b53dcda564d",
+        "references/service-desk/README.md": "2072b232cb8a91788b57beae322950dea04aab3242155b2cef614ba73205ffc3",
+        "references/service-desk/adjusted/input.json": "c26e6e0d527f62d8be606fb548ce99ba7d92bdc187b1f3195ca0750960642a32",
+        "references/service-desk/adjusted/roadmap.md": "3ad85d1fd5d5348cd130becb852f4e641523ab6e03e3a90579d37aec39d51fb6",
+        "references/service-desk/adjusted/roadmap.svg": "19d2d6cc8c01741b3dd81d0a7a031806713490ba62e02a25542df03d1c15ba31",
+        "references/service-desk/after-delivery/input.json": "7c9b710d86cd9451312dce592813513091cf3a5a650c251ffcaa632fa629bda9",
+        "references/service-desk/after-delivery/roadmap.md": "8aa9460b3fabce3a4f2a3ba7e2a9a9b24b7abe34233e2353df5236b6fa6264c4",
+        "references/service-desk/after-delivery/roadmap.svg": "beca6950b7193b1dd9b07ebc4c3c6b74ebe6c8b8eee4b3923700e062270dcc38",
+        "references/service-desk/change-record.md": "7a8f319c3cf9c3140cc06297ffe4c398cd09940ca21a2f8c99688d1b486d6b0d",
+        "references/service-desk/dependencies.md": "0c1594a511492e1051c7101d6f580c4ba747fa4bff1786953ddd57435f0014d1",
+        "references/service-desk/initial/input.json": "978aec8bf91fb5b5fe01eff2fe5f2b740819703255b9829524be1831ae7f6688",
+        "references/service-desk/initial/roadmap.md": "16e21546fe583681eea40da3e5092cf028b85d44014360b78f985af26fdf9b1a",
+        "references/service-desk/initial/roadmap.svg": "7df95dc8abbb0616524fb500692fb0ea63d2f00185423b814e55d73165a983fb",
+        "references/service-desk/iteration-driven-split/roadmap-delivery.md": "93b9780fb2258c9fb9d60577996a8a9bb113e1e837f889d6710b17af73a395a2",
+        "references/service-desk/iteration-driven-split/roadmap-history.md": "6ce89d9cc015628c37940d88922621cfa5a8ab4ab0da73ebf636a2a7ef45cf77",
+        "references/service-desk/iteration-driven-split/roadmap.md": "36f0ff673a1f6c75799d568e95b54095d171fa5f4ba1019d2a1548dcd682564e",
+        "references/service-desk/iteration-driven-split/roadmap.svg": "458e7bbee0454c2ef6c96cb55e5be58248602e5f996c682a9752ac7e63f41f04",
+        "references/service-desk/iteration-driven/input.json": "5ae78d01e9ddc1d46856f61709e22ad5ee8089a6471d39a2b954239024498b68",
+        "references/service-desk/iteration-driven/roadmap.md": "5a97b6dab56df1f3d24a1777d7f5b9237ebdb8e1c7feb7e4bf09e8b2245e0f5d",
+        "references/service-desk/iteration-driven/roadmap.svg": "458e7bbee0454c2ef6c96cb55e5be58248602e5f996c682a9752ac7e63f41f04",
+        "references/service-desk/iterations.md": "b541cd1b140cfb68370dc208ebf77439399550cafa218420c73f281e821cc268",
+        "references/service-desk/placement-decisions.md": "c5d0cb5a6b0e19073b810cf70e4d33313400efda1e229942613f08e1248f77cc",
+        "references/service-desk/priority-decisions.md": "79ad14cb2164e6bca86b5880568f0ea972c23d328ba6435eb9783dd83fcebb99",
+        "references/service-desk/priority-policy.md": "94b844be5e9fe3773f1aee08e7ac7a99ecd0ee2d2070f0f740a0be5bb1832fd0",
+        "references/service-desk/problematic/input.json": "853a1175d55f27f3215ba845accd62b981243494da068392e226129ac6e92cc6",
+        "references/service-desk/problematic/roadmap.md": "b6b15e4f8a1e350c2fd655dfe7b9b0f6b185790ab8481f6adcfe107408375e3b",
+        "references/service-desk/review-findings.md": "b2e387a2b0113dac2d1f540557cb1e9459ee5fae25655ee0aad6c00d9d22ab53",
+        "references/service-desk/sources.md": "7bc10b43facdd04822a24e89e9830c17e349ab25aea811e5c78e5efe1b6fb3e1",
+        "references/service-desk/topic-split/.roadmap-outputs.json": "504b6b2fbc080916c1f709ef41cf910ba8ca40ee695f4ffb3c5974a06b38d641",
+        "references/service-desk/topic-split/input.json": "0d17c976f9ce38dedd1b7ef5e0b1a3b99c907caef2578106dc78148ad150a8f2",
+        "references/service-desk/topic-split/iterations.md": "dff8d8b2f49215249c4e36f5c7545611d850b87b628a1f524e6499f2c6695ac5",
+        "references/service-desk/topic-split/milestones.md": "3ee0706eeb8fc7c0e4f4bbe7d6d70ccbaba2a7a1140b267778fdafcec8e4e2d0",
+        "references/service-desk/topic-split/roadmap-history.md": "72f7c913109a42a1faf69293a46b45c2c2bc8b1d3aca3829485737b6165dd0a2",
+        "references/service-desk/topic-split/roadmap-planning-basis.md": "b82a3c531b44c7ea21afef9c7354c72742e916babaf3fcdbf4e4f31ea5db6da2",
+        "references/service-desk/topic-split/roadmap.md": "e6c9e87030b25f2c175913fc7b59f0c1a1913e82d64ae2801e72672936bf34ab",
+        "references/service-desk/topic-split/roadmap.svg": "b69f19ebbc8636ce6614398092ca57036c67b4332888559e8ad6902eaec5eebc",
+        "references/service-desk/topic-split/versions.md": "8b550291fc0a0adb86607f6bfb31a70a59899e583f2892ef2b808d78a839320a",
+        "references/service-desk/version-archive.md": "832f899776342ef96156d2b5ca297dd0fea2234cafbf0ee25e263047ac75a1a7",
+        "references/structure-first.md": "fc12c9591318096c7770a72148191eab700685de79eddd5aa959ca0a356af4e2",
+        "scripts/check-platform-delivery.py": "8fbd8fa7119785dd2c9d4beb3b2760bdf22c3ec54d31fe30138b037f1ce96263",
+        "scripts/render-roadmap.py": "d2c7e4f33d4778a9761e712e409fcae2e089f00793387120d0e7ea03454ffcc7",
+        "scripts/roadmap-zh-CN.json": "9793c0fb6199626c7300cef39fe5d55a7f6ba91246441cce0c6531f7bddd4e27"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/define-roadmap.json": "764324db2f3558723529c423b8927fb3e287d1c840f00bee4fc539ae3419029a"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/define-roadmap.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/define-roadmap.json"
+        }
+      ],
+      "reviewed_links": {
+        "assets/roadmap-input-example.json": "../references/service-desk/initial/input.json"
+      },
+      "creation": {
+        "kind": "commit",
+        "revision": "904a4cc530bfd4e9557885add79a5d0fc0c3b590"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/define-roadmap.json"
+          }
+        ],
+        "subject_digest": "76f05c01d4730ee0b3eee7f26d7929c325cf2347b89a06decdc4f758b21b628d"
+      }
+    },
+    "define-strategic-pillars": {
+      "classification": "native",
+      "version": "1.1.3",
+      "reviewed_files": {
+        "README.md": "fdd56dc27c29cce7ab090519271e0e0f9b55c59dfeff23293aafbb1e183c5a54",
+        "SKILL.md": "1dd2766b9bddf24b2cc9692b75631b3660a49dd8b5fe82649c73b5d6a76f9741"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/define-strategic-pillars.json": "294c26e29716d34bda9dad2c0f6b63902ee1937fd07777ad61cc42a0afc90429"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/define-strategic-pillars.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/define-strategic-pillars.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "904a4cc530bfd4e9557885add79a5d0fc0c3b590"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/define-strategic-pillars.json"
+          }
+        ],
+        "subject_digest": "2c48ec38a1d17ff870ef8fc39b19a75c61de442c2ecd096258c33f107b6a0960"
+      }
+    },
+    "define-vision": {
+      "classification": "native",
+      "version": "1.3.2",
+      "reviewed_files": {
+        "README.md": "a07bafd3863ea7dbc2f7a5524e504ec4ec860df38cd83abe2c3c731530501c88",
+        "SKILL.md": "086e0f0a41786de0511da752a83a7c7b4e58099e475c9bb62831dac7af1642cf"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/define-vision.json": "9a4105e6f5c173de3c2f3e85fe78ff742b2fcdc56579de1c67494f05e45d266b"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/define-vision.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/define-vision.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "904a4cc530bfd4e9557885add79a5d0fc0c3b590"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/define-vision.json"
+          }
+        ],
+        "subject_digest": "3ed7cdc4b83abd2752b5a0bf40b1663b29cd2634ae6688177dbae4b4281c7eaf"
+      }
+    },
+    "deliver-feature": {
+      "classification": "native",
+      "version": "1.1.2",
+      "reviewed_files": {
+        "README.md": "7b8766e58883bc8daa079fedb2af1bc595d403d8666de8a2e9c75428871ab717",
+        "SKILL.md": "e504d011753a6991ccd638bc03424cbf262f068b7c0a1c5be95e0386e0433d1f"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/deliver-feature.json": "05cf43eb647397bc89aa621ef294cda186179202fe8416a88a45b70d7584c2fa"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/deliver-feature.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/deliver-feature.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "9f988aa0a180ce132654a680dfe39dc3b7eae94b"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/deliver-feature.json"
+          }
+        ],
+        "subject_digest": "a02237c6fcb3b6d3b6a9c0f5a44b6456dd9f3bef97abdb08bcf13aa91359c8ef"
+      }
+    },
+    "design-strategic-goals": {
+      "classification": "native",
+      "version": "1.3.4",
+      "reviewed_files": {
+        "README.md": "7302bd0c8fbd087f9973a5dab9c676f852423b146a2f58117da8b208d7ee468a",
+        "SKILL.md": "c49ac98d36757e2fe4c2f56cd9c03ae727a3fb1d4260db9415ab96c073a18897"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/design-strategic-goals.json": "e58cb6a687427970d84258c4d03a821a7b3a008e5e43eae0ba7036bbc853d6cd"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/design-strategic-goals.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/design-strategic-goals.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "904a4cc530bfd4e9557885add79a5d0fc0c3b590"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/design-strategic-goals.json"
+          }
+        ],
+        "subject_digest": "d57f4c3cd95dcd7570a7be04e215d1015d0142b60896011925aad7d62ce2be2d"
+      }
+    },
+    "eli5": {
+      "classification": "third_party_adapted",
+      "version": "1.0.0",
+      "reviewed_files": {
+        "LICENSE.upstream": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "SKILL.md": "6c8bf68dfaf76fa1dce70ef694288b8964189462712967db3dfffd3e3e466921"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/eli5.json": "53c19907695f50ab0119aee442259847c7d274999933fc6837ce94c7a1bb9c63",
+        "skills/eli5/LICENSE.upstream": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "sources": [
+        {
+          "id": "skill:eli5",
+          "role": "copied_upstream",
+          "adaptation": "Added local version metadata and retained upstream license locally; Replaced host-specific argument substitution with conversation-based topic selection"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/eli5.json"
+        },
+        {
+          "path": "skills/eli5/LICENSE.upstream"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/eli5.json"
+        }
+      ],
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "third_party_adapted",
+        "rationale": "The maintainer confirmed the recommended adapted classification and documented local changes to the pinned third-party source.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/eli5.json"
+          }
+        ],
+        "subject_digest": "3c9fc2f88e45332ea97070477fae698b08469fb1cb66297bcad26a41d4a686aa"
+      }
+    },
+    "generate-agent-entry": {
+      "classification": "native",
+      "version": "1.3.0",
+      "reviewed_files": {
+        "README.md": "1b25e9dcb09af8ab9d9e4812e454e0cf52dfd15099cc724c678226d590a5d4d5",
+        "SKILL.md": "a178512a73df151682189b6f752f7787febab099cf0b83ce3f5bbe03a02ec4cb"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/generate-agent-entry.json": "4ee10f28dbab9722f29500becf5144507d5b2c463115b323854ecd2e015bcd16"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/generate-agent-entry.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/generate-agent-entry.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "904a4cc530bfd4e9557885add79a5d0fc0c3b590"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/generate-agent-entry.json"
+          }
+        ],
+        "subject_digest": "90941b504a7d4597ada022a89b8d21e6e5db472f29f4de118791f9fbae521516"
+      }
+    },
+    "generate-github-workflow": {
+      "classification": "native",
+      "version": "1.2.0",
+      "reviewed_files": {
+        "README.md": "3146ccbcf96242415b6272ed54357aaef88ce84749b3c76d9ff7468708a339b0",
+        "SKILL.md": "a335943546455d7d6c7dd3776c4776f4d90af41320cf6e6c94c2a849aafc74f6",
+        "references/examples.md": "491000460d5b2b1fae8c8e5b835f5e0a1162d9edaef7fc2ae1f87d6eba5b78e7",
+        "references/goreleaser-example.md": "ae27bfebd4087aadf6315ed27c170efe3df14c4d3c2fbd253f9e6be2303334e2"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/generate-github-workflow.json": "62c152a725a25e2410267165c82d96b6bf788465ec7cdaace111962d54f3c65d"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/generate-github-workflow.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/generate-github-workflow.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "36ded4d2bead85ee534cc41cabe5f50633709588"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/generate-github-workflow.json"
+          }
+        ],
+        "subject_digest": "f15c603af57879bbd1a128bf1572a3e98870a40ff3c10b000a4809b5df7b76e7"
+      }
+    },
+    "generate-standard-readme": {
+      "classification": "native",
+      "version": "2.2.0",
+      "reviewed_files": {
+        "README.md": "35da91896c1a30172b3531d9ba54fe0d566a36ca9d677b6f924e8a92d19f789f",
+        "SKILL.md": "e07fea9ec1b62cfdc5485b68f49374a6e948ffeba50b2ede23a35c49bca53557"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/generate-standard-readme.json": "e22f8e473227187f024e86da92796d7625e7df797926a71f620f47b15b89352f"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/generate-standard-readme.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/generate-standard-readme.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "a91e6ef1417e40c04f4c67b2732f279cb213da6e"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/generate-standard-readme.json"
+          }
+        ],
+        "subject_digest": "9650614da9b01f5ff147456ba483dadad9a5b8e42ee4e58928efdf7d5d9e9d96"
+      }
+    },
+    "integrate-branches": {
+      "classification": "native",
+      "version": "2.1.0",
+      "reviewed_files": {
+        "README.md": "de70ee529a98fb381b36cc0b6a50dc4d6d289eb499c9add223d216685d4917a7",
+        "SKILL.md": "2e490cff9b53831e1a36c182c49fd5c7318f9cebd394ca4d77360922ca85a98e",
+        "references/examples.md": "c6145df897b54e61d608eb656431ad6a58a9b78273cd4d8ca666f9c3b7d5232b"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/integrate-branches.json": "4dbf286fb157b7fe70d04cac20db796e4da32af149ea295052343e723202a110"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/integrate-branches.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/integrate-branches.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "a0efd067bfd5201dc8defc83d10a22a0863e69e8"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/integrate-branches.json"
+          }
+        ],
+        "subject_digest": "fd2ff681e620165fbce62fe783cba43b5a4dd8a22ae58c89b0fb8112a16ed467"
+      }
+    },
+    "manage-secret": {
+      "classification": "native",
+      "version": "1.1.3",
+      "reviewed_files": {
+        "SKILL.md": "419c3a63f40ee428d43a1c9171581ec3ea5ac4101b109238a3ce457820a6c02a"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/manage-secret.json": "84e08f6adb5a03d23dd748d9c20b44ea30186dedd020e4bff1831200da511f68"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/manage-secret.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/manage-secret.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "f2176c2b77736f77a0397ac88b61f0e72f1d29a0"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/manage-secret.json"
+          }
+        ],
+        "subject_digest": "004081c0f66f4fb5b3cfe6a72f589a07937554a1c86ff3d06895f21cce8f57fa"
+      }
+    },
+    "map-item-dependencies": {
+      "classification": "native",
+      "version": "1.3.0",
+      "reviewed_files": {
+        "README.md": "5dc565ac4929669dd2521ea75554c96868c72420392ef603ba3083d1887847d6",
+        "SKILL.md": "48acf45ebbd786b608d38c929169861544f49c797d81799df311b64e67cb7316"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/map-item-dependencies.json": "28d5d66e151d8d5b18d63072fce91c5b1389faf26540a4b1a0f2b3e3eba4ef84"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/map-item-dependencies.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/map-item-dependencies.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "63d9b12f94ef0ce8f3c3d20fe91ffb1990522b9e"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/map-item-dependencies.json"
+          }
+        ],
+        "subject_digest": "7976bbae2e2d3f2a4a566901c0bcbc627198e830ba91da07686721f8592a3c2f"
+      }
+    },
+    "market-research": {
+      "classification": "native",
+      "version": "1.1.0",
+      "reviewed_files": {
+        "README.md": "405f49cefedeeca4865027fd0a185f74007eeea2fce5bf4f0431891e886e12c2",
+        "SKILL.md": "4bbd6c017efbd2988b28cb9f89859618a523f4208c529c8f86c69ef6cac96c59"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/market-research.json": "2e4262fa8f62db8b274cefc91996d0ade3eff37dac6afd02a1c0d5542490ff86"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/market-research.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/market-research.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "f2bc2c0865c2404e972349f260ae026af8227121"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/market-research.json"
+          }
+        ],
+        "subject_digest": "b1e12a99501edb348221e9511bab43628e4a3633630ac47dc30bb979e57137fb"
+      }
+    },
+    "orchestrate-code-review": {
+      "classification": "native",
+      "version": "1.4.1",
+      "reviewed_files": {
+        "README.md": "a9e5dc29060cb3f5c34d008244edf8a04feb2ebbca9a088b7fcec4fb51095bf4",
+        "SKILL.md": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/orchestrate-code-review.json": "172b266dd79e7605bd27ca44dfdf65109cf817573d49724cb3914bbcddc36c35"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/orchestrate-code-review.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/orchestrate-code-review.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "83867bc28c2639c2246155535a2da804580cb9b4"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/orchestrate-code-review.json"
+          }
+        ],
+        "subject_digest": "0ebdcdf2e6c8378d1133ab6f77971f4e943396aa5140711224575e944d631a01"
+      }
+    },
+    "orchestrate-governance-step": {
+      "classification": "native",
+      "version": "3.0.1",
+      "reviewed_files": {
+        "README.md": "bb300632d8643cb37c798a9251706abb8d2e72f933a2778a88b23157b2f2094d",
+        "SKILL.md": "33e1f2b90a1187b5a61a954847f8d71cffaed45aeaee21b2291fa9813e8f79be",
+        "references/anti-patterns.md": "5e98ceee1c49f990f4a69c8ef3de9229ce6c460d266cef4a654dd72dafbff95a",
+        "references/examples.md": "447a1b8c801c1c060bbb94dd66e1aa573b74352a24e04e0cab64e1d31fb0beaf",
+        "references/loop-integration.md": "8481e432a160fd02461f6da883e72675b6bf79695417a4e65319348c1fd8a697",
+        "references/output-contract.md": "82a12be7b68f43ac8868cbbfa346db7bdad3be35a4ca95f5f0f13bc8b1828452",
+        "references/repair-instructions.md": "a684aa2192949d7e2f98be1b492702b3bc5f47c2332cab03023629104d0e9dac",
+        "references/report-format.md": "47f251bf0c86328c376e2d7f4954aa1897fd93713b3c593c4a8b11a78e0ee04f"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/orchestrate-governance-step.json": "410701885bac6a2245758cba4eefbce907f3f1ad46cb775a0a6e14e258d1057d"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/orchestrate-governance-step.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/orchestrate-governance-step.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "83867bc28c2639c2246155535a2da804580cb9b4"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/orchestrate-governance-step.json"
+          }
+        ],
+        "subject_digest": "cd5245440c7aca202dbf59f908f53b565785323a52b9afc906bc8b94d5b0df88"
+      }
+    },
+    "orchestrate-repair-loop": {
+      "classification": "native",
+      "version": "1.5.0",
+      "reviewed_files": {
+        "README.md": "45e3ae715662b659f35b404762a3cc0e305163ddcc6ac4f3d5803b22541d77f2",
+        "SKILL.md": "24d5cc8aa356d1b6ea9ceadf33c5fd42ed738ff908899322c7bf5a7e84884b4d"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/orchestrate-repair-loop.json": "b29d4989a0fe54de96ca742ee7fed793dd17f5c44832757e9bf7cee803ed4eb2"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/orchestrate-repair-loop.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/orchestrate-repair-loop.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "83867bc28c2639c2246155535a2da804580cb9b4"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/orchestrate-repair-loop.json"
+          }
+        ],
+        "subject_digest": "9a847decb7855b79683248e59ce0a018d43e3a82c20e4e02f3349b1092dadaea"
+      }
+    },
+    "orchestrate-repair-requirements-loop": {
+      "classification": "native",
+      "version": "1.0.0",
+      "reviewed_files": {
+        "SKILL.md": "ed73c845ca15de560b74e9e345a7e776065986c1e82cfda37d44812dbe22c25f"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/orchestrate-repair-requirements-loop.json": "54aae23c3ad41f9307ab2093284ec54072da705b74d2686dde181e7fd6eec51f"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/orchestrate-repair-requirements-loop.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/orchestrate-repair-requirements-loop.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "b0b32d0231263f0cb24fea8e3f611c1ab214da8b"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/orchestrate-repair-requirements-loop.json"
+          }
+        ],
+        "subject_digest": "be826ad44b108ced63e2cbd5df9c060801b517047795b7f84c0af4ae7c94695f"
+      }
+    },
+    "orchestrate-roadmap-planning": {
+      "classification": "native",
+      "version": "2.12.0",
+      "reviewed_files": {
+        "README.md": "7f4c2ca9ebfe6bece256e277969747a8c25c26ad85c873c7f80cfdde9c3d697f",
+        "SKILL.md": "2c37126e96b514ed11995079c8e81a5e86f9f6a26f9a41f8cce7179fc58e2c83"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/orchestrate-roadmap-planning.json": "2ceb9090ca2b7a85f30d5aa363be6f4ab70ed365387d5b35e7acdf506cf2d135"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/orchestrate-roadmap-planning.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/orchestrate-roadmap-planning.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "63d9b12f94ef0ce8f3c3d20fe91ffb1990522b9e"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/orchestrate-roadmap-planning.json"
+          }
+        ],
+        "subject_digest": "01abc0a7ac141475fe3b7c19332ffc2f3afa858ac5182722f38e899ad2aa3ff5"
+      }
+    },
+    "plan-next": {
+      "classification": "native",
+      "version": "15.8.0",
+      "reviewed_files": {
+        "README.md": "2b157b83345b2d3872c24eaf570ea5b37793b2a90205108ce70bfbff409df92d",
+        "SKILL.md": "cbc4277aca3dca1daf952acd4433a10e32309970b4590562bb2cf5d115636ef4",
+        "references/diagnosis.md": "279ae7a313055a3604cae474b97af8934f2bba2e9ac7ce5f40dfe9805021badb",
+        "references/examples.md": "955e5d4e79e1cbe9e02053179579a42954734eebdb6f1a02e53c5ac550f1cb5f",
+        "references/output-guidance.md": "a1c9368662176139cd47711bbb96e5af01c307d49568b923ed536fa0014dfed2",
+        "references/self-check.md": "d6ede705e0040a1f0a5f62fdde5d04c2473d7e0f816f38d4aef89fb6d9ca7b59"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/plan-next.json": "69f9af99a5bd37be757d2c5d5d12d82b29b76fd36564cb64ea5938cae5026f0e"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/plan-next.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/plan-next.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "904a4cc530bfd4e9557885add79a5d0fc0c3b590"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/plan-next.json"
+          }
+        ],
+        "subject_digest": "64ad5004c499a9291367ffc7f6822a08f92b1a375825d64e6c55f293913888fd"
+      }
+    },
+    "policy-research": {
+      "classification": "native",
+      "version": "1.1.0",
+      "reviewed_files": {
+        "README.md": "81abe362a1f49eee5e8031ce475ff2852b887819764c37b8dd63c1ace64f0ee3",
+        "SKILL.md": "e6731a71036746db137a990d31bef5670e22bde9671e7a3e308aafe2bf6e09bf"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/policy-research.json": "6f0039f8ec7bdc0b4dc7d41b37b241809e93d8f05f0f0d344aae2455508324c9"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/policy-research.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/policy-research.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "f2bc2c0865c2404e972349f260ae026af8227121"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/policy-research.json"
+          }
+        ],
+        "subject_digest": "7094d9fb22b218c3cab7a4224b61e3d52255f01ce4a863b15be8fd8760c742c0"
+      }
+    },
+    "ponytail": {
+      "classification": "third_party_adapted",
+      "version": "1.0.0",
+      "reviewed_files": {
+        "LICENSE.upstream": "fb1bc6909ac3ef82d5c22106e32ef682b0cff66788fa915fb9b53b15c9d2f3ab",
+        "SKILL.md": "8fcf775f1c5b5172196b7318a5df84a2f28b263405973f2a10145e60f6e026b6"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/ponytail.json": "eb51b8d82e5859c58272a4452428134b8139638e9305af35220107085592a61f",
+        "skills/ponytail/LICENSE.upstream": "fb1bc6909ac3ef82d5c22106e32ef682b0cff66788fa915fb9b53b15c9d2f3ab"
+      },
+      "sources": [
+        {
+          "id": "skill:ponytail",
+          "role": "copied_upstream",
+          "adaptation": "Added local version metadata and retained upstream license locally; Scoped activation to explicit invocation and clarified host precedence and standalone distribution"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/ponytail.json"
+        },
+        {
+          "path": "skills/ponytail/LICENSE.upstream"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/ponytail.json"
+        }
+      ],
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "third_party_adapted",
+        "rationale": "The maintainer confirmed the recommended adapted classification and documented local changes to the pinned third-party source.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/ponytail.json"
+          }
+        ],
+        "subject_digest": "21aac907438fa50aab7a3952e872f26e1c365eccb3e359966d065d3063c0daa4"
+      }
+    },
+    "prepare-presales-response": {
+      "classification": "native",
+      "version": "1.0.0",
+      "reviewed_files": {
+        "SKILL.md": "0c56e53d2828e029dc3a4fb7611e46e57b6a6ff7977d31af44bdfc13b9ace445",
+        "references/integration-and-scenarios.md": "a4bec884992d275f3070a80c4faf318f29d8a82ded674f81ec8ee2b8f43465ac",
+        "references/working-layouts.md": "1aad0ed739fb014025b05bcc2a81116884250809667fa430d98aa5bfb8cc21e3"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/prepare-presales-response.json": "54435ff332388c71ba4a6fd385ca37f96b10d888596007055e663de6e73c7ef2"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/prepare-presales-response.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/prepare-presales-response.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "be1c2b91ff306f028fead4f60562083d7f3fae8c"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/prepare-presales-response.json"
+          }
+        ],
+        "subject_digest": "56384c9e0c3fc1745eff9dc239ec64a54db29bd5000349b6944918e808ab3262"
+      }
+    },
+    "prepare-release": {
+      "classification": "native",
+      "version": "1.4.2",
+      "reviewed_files": {
+        "README.md": "22edca0c6dfa55ef32fc341f7cdbd301175b6b1d86ca54d2fe61269b2d9ab7e9",
+        "SKILL.md": "c1a98c128cba7a4f0dfc61112e443795d29187ab19bbe6b059baf58e558153f1"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/prepare-release.json": "ceec20f041de67323e0ccaeec2ea4d02916d0ffb3befb6ef5757b1f54d8d0e6c"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/prepare-release.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/prepare-release.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "314186acabed013d7af29b6296dafc1807b6b46f"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/prepare-release.json"
+          }
+        ],
+        "subject_digest": "890b010ee1a50b26e9dbbbdd165a6a0b982b6d8942f348a44eee815b1de09454"
+      }
+    },
+    "prioritize-backlog": {
+      "classification": "native",
+      "version": "3.4.0",
+      "reviewed_files": {
+        "README.md": "2bc123c7da7033273fcccb6ff3cffccdd03f0e9de6ca160509e0246880fee8c5",
+        "SKILL.md": "2cd87e65e1c0cca3dc4549933ea61842c7bd0bcdb0925f3dda7f612fe322475c",
+        "references/four-frameworks.md": "0037e9118cbafb1abb8f7545af1583cf8a77ddb3dabe2ffbeeae7ef2509eca66"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/prioritize-backlog.json": "f221f826e0c85b0750ac4d083e452256bbddaae731d2c170c3299efe3cda3b8c"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/prioritize-backlog.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/prioritize-backlog.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "369aabc6458a2f2729d47b0a522c9bafa1e7fd56"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/prioritize-backlog.json"
+          }
+        ],
+        "subject_digest": "25c55610769ddd823e56e5ee4067dde668daba35413f95480177f76bd8a7a7a3"
+      }
+    },
+    "product-opportunity-analysis": {
+      "classification": "native",
+      "version": "1.1.0",
+      "reviewed_files": {
+        "README.md": "e89032de744b853d3463436f60eb43dbded83da6b9b640abb545e52e860ce5fd",
+        "SKILL.md": "2ec44b8c16d1638f35426dac8b79075685db783802033e569ae8cd3cee3310c4"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/product-opportunity-analysis.json": "d1c32f1c17d6459bcefc6ff66db593d66d925d94534536d0c666c90faa273de9"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/product-opportunity-analysis.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/product-opportunity-analysis.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "f2bc2c0865c2404e972349f260ae026af8227121"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/product-opportunity-analysis.json"
+          }
+        ],
+        "subject_digest": "d55eb3d98adef904d7079d7994268291f8a8e14062c468f6496539b132d2a1ab"
+      }
+    },
+    "promote-roadmap-items": {
+      "classification": "native",
+      "version": "3.9.0",
+      "reviewed_files": {
+        "README.md": "4128cfeaab397a10a62b2f96dfbf573b8ce76a8d1efc7aa3ed2a5b31b729307a",
+        "SKILL.md": "c219f651e51cf69960a6488a8ebe9aae5acdfe11009ef2afc708566490afc856"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/promote-roadmap-items.json": "b3951a8780ead87a606bcad8179dc8d51d672bc88cd0aeda4239eb16185db7a1"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/promote-roadmap-items.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/promote-roadmap-items.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "369aabc6458a2f2729d47b0a522c9bafa1e7fd56"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/promote-roadmap-items.json"
+          }
+        ],
+        "subject_digest": "d814cdc99abaf7f695c0c848df1db95c3c00de6ba9a0f23ea3a3e18172e2ee4d"
+      }
+    },
+    "publish-nats-message": {
+      "classification": "native",
+      "version": "1.1.0",
+      "reviewed_files": {
+        "SKILL.md": "496b48e1d908344f654c8b6a594c3fa27e23a5542ffad7cf29da0b8b6efce29c"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/publish-nats-message.json": "29029404d7e9807f305423efa37c9641ac1182e02d2822cf57360cf1cce950a3"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/publish-nats-message.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/publish-nats-message.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "dd109c3e90e7c9887d8348aa24f2b0ce7329db36"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/publish-nats-message.json"
+          }
+        ],
+        "subject_digest": "a6f501802a6047705c5808789ccdb16e6d827ccad035d2e674bf0dae3632bf8d"
+      }
+    },
+    "publish-release": {
+      "classification": "native",
+      "version": "1.2.1",
+      "reviewed_files": {
+        "README.md": "215c0e7467e0d41082332278e2ec40f9b329e7a307acea70123c585d7c453d96",
+        "SKILL.md": "7a14a0876850419d9c5e17ad0478a094c3fc90de0acd8902a0627de6ff500ac9"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/publish-release.json": "1b2ed9c57a1f5114aeccdb63e6ec56f68905dfdc1caa0e7bed35e14fe73a91a7"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/publish-release.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/publish-release.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "314186acabed013d7af29b6296dafc1807b6b46f"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/publish-release.json"
+          }
+        ],
+        "subject_digest": "7645989acd1ca676cfe5a57cae0460950a7db7fc1540a85f542dad2f4c062551"
+      }
+    },
+    "redeploy-local": {
+      "classification": "native",
+      "version": "3.3.0",
+      "reviewed_files": {
+        "SKILL.md": "5ce190e6a0b7c99b9044aa88ca9cb7a852201ef80b3db160e47ec301cda51964",
+        "references/detection.md": "b2f8255d4e4da6ac477b503c29d9ba158e68852e8fbbc4e5266aa8fa355b0919",
+        "references/examples.md": "4d448fe60b6f8ba4a9a366143132e3e8ddd92832b491b8b5f702dc799c559901"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/redeploy-local.json": "97e3c62173b27d64b91f84b52ae623b016c38d477dc7bf7412b36e91fedc4c99"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/redeploy-local.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/redeploy-local.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "1153c1ddf6e996098026889df96afafda5803cd4"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/redeploy-local.json"
+          }
+        ],
+        "subject_digest": "f7df471ff828e32b1b27196578b0849d49a774003fda4b504f537deb99f5d8fa"
+      }
+    },
+    "refine-skill-design": {
+      "classification": "native",
+      "version": "1.8.0",
+      "reviewed_files": {
+        "README.md": "6e41785e0b8dfe38c4e22f54a896b5f912c73cb377ff57638a5e2f8b10cb89ff",
+        "SKILL.md": "368a6969d13cab93becc473595a37ff2bdd5db766dae28db408ad408150e2491"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/refine-skill-design.json": "a5e1ab8a1f8a442b95ddbb21f312db727745da3fa047e134fbfabc2de7de377f"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/refine-skill-design.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/refine-skill-design.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "a91e6ef1417e40c04f4c67b2732f279cb213da6e"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/refine-skill-design.json"
+          }
+        ],
+        "subject_digest": "eddab5538ebc303ef4520994accdd8a33ae90f7d86720c762b0a2934dd6d09ef"
+      }
+    },
+    "review-architecture": {
+      "classification": "native",
+      "version": "2.1.2",
+      "reviewed_files": {
+        "README.md": "85f5b936a9d82d0d7e82890e6e19af718553ee78c5347106ae28aeb2e9d5ed1b",
+        "SKILL.md": "b5afa818e10159f55dadfb81b9253302b05f6995be409c4d1684a8ffbe8dbb50"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-architecture.json": "162ddd696a048a117c1d3f9bb084d09a89154a32bbe9c7570fc00061e6f24730"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-architecture.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-architecture.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "4579bfdffa7fed40556dfdb1482bf95db925722e"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-architecture.json"
+          }
+        ],
+        "subject_digest": "26f21a00436fdf87265fd4faf975acd3314e376a32892f7cabc1b9ed22341303"
+      }
+    },
+    "review-codebase": {
+      "classification": "native",
+      "version": "1.2.1",
+      "reviewed_files": {
+        "README.md": "9e4f1604de1dfe17c23cda8e5a5469299f33673c84194e0caa33a43968ca094d",
+        "SKILL.md": "66bea73e403f582a802585fbf1b71bc20f7dea14fd1ebfa04633fada71781eb5"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-codebase.json": "5091b1793d4386a9100b74df0fd533b00970ce9f52d001f5980128ed68238447"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-codebase.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-codebase.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "5c09eaefc4e6834570cfec097041c0312f370bc2"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-codebase.json"
+          }
+        ],
+        "subject_digest": "f820ede69715af4d08f280cf8b6cd625e8abce09626307ed142215a2bd56558a"
+      }
+    },
+    "review-diff": {
+      "classification": "native",
+      "version": "1.0.3",
+      "reviewed_files": {
+        "README.md": "7b30dd3ca5fd3dfdcfc3169d5d0d8ba0d4c3862a93dcbc6155d8933f5d804296",
+        "SKILL.md": "f8cb44c20f4bd95608a6fdec43c28b28dcfeff157a0b6582cca831418622b1f2"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-diff.json": "017a1b472ae90cd2ba063442b4f38638620d38f09657c05ea5473bbebc62f635"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-diff.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-diff.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "4579bfdffa7fed40556dfdb1482bf95db925722e"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-diff.json"
+          }
+        ],
+        "subject_digest": "2978919d72160609da7e310c82a7c6cfb60815aba34f2d93d5df0d030bd17562"
+      }
+    },
+    "review-dotnet": {
+      "classification": "native",
+      "version": "1.0.6",
+      "reviewed_files": {
+        "README.md": "6594d7733f2cc01a9bd0cba3cfc20280c0ad1a9d83e542995ed52b1ca056fde2",
+        "SKILL.md": "8714c5db087b668bcb04f4a623bafdce7ce286850c76cd91d6f1a78abe51440a"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-dotnet.json": "ae2a313a5f206e0e77e80620b2a1893801d9b7d7a2fc7c94cd818e4181a574d8"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-dotnet.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-dotnet.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "4579bfdffa7fed40556dfdb1482bf95db925722e"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-dotnet.json"
+          }
+        ],
+        "subject_digest": "2a5e20f6afa2c67dc7e4bf5d7f4e6a50597e0465dec2f67d972449afb0760954"
+      }
+    },
+    "review-error-surfacing": {
+      "classification": "native",
+      "version": "1.2.1",
+      "reviewed_files": {
+        "README.md": "b70cd6a33db1a06ddaa728c35942a07587c762b1946daa92f20311df14d79e51",
+        "SKILL.md": "49648026a540800cb067e7806549dcaf2fbfe2a2928e8bb9574bc6078284fdd8"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-error-surfacing.json": "e4d57bb2f6c393d0f0b01f1b017a037e66d5c2fab9bd01f9b2cd6d752a82b791"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-error-surfacing.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-error-surfacing.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "b76445a19db84817e47f553606d9fbc21df8147c"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-error-surfacing.json"
+          }
+        ],
+        "subject_digest": "930e9f90613f00dbab97f4bf9390bd8def75d0e4525b53542de618c0247ce1e6"
+      }
+    },
+    "review-functional-design": {
+      "classification": "native",
+      "version": "1.1.0",
+      "reviewed_files": {
+        "README.md": "00d06a8a4af4bc7bdec8ca4f4b2cd2e4c61755ec7a7033f119e624a707f2fcc5",
+        "SKILL.md": "ab359ce0b85f4454f1ad6551e41a4994882f6064296041989e0a66154d93cd85"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-functional-design.json": "54b2578c248fbd2c314613fd75596279f81e953be76a6264378253fbb07c1194"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-functional-design.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-functional-design.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "dad612d0f3232646267f037de03a6017e4f1e9ce"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-functional-design.json"
+          }
+        ],
+        "subject_digest": "9e3ed142efe2bd5515e0b42e6bf9a412042a0f16b63938e9e033f275f4ddb5cc"
+      }
+    },
+    "review-go": {
+      "classification": "native",
+      "version": "1.0.5",
+      "reviewed_files": {
+        "README.md": "cb4261b7888563b1128d0cf1d65d67f3168ff3f2c08e38932a24989c2482cd37",
+        "SKILL.md": "c5fbae3f8a1a09bbde3c0b0076fe63fd327e9a02250e76a22ce12e6973b3b9eb"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-go.json": "a7a8ae6b4b11bbb65ee8dba6acd7a45b02fae75bd8a65bd529deae6b85b849b9"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-go.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-go.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "47e4833eddfce3e66817d89c4fe797f21239812f"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-go.json"
+          }
+        ],
+        "subject_digest": "69fa0a1f7e8de33953415b2abe185eb55099ec274e14384668f45baf6d31993e"
+      }
+    },
+    "review-implementation-alignment": {
+      "classification": "native",
+      "version": "1.1.2",
+      "reviewed_files": {
+        "README.md": "3d953d28d049b07dae1b570b8139a399b0218880203800ec78f2f5e88f659be0",
+        "SKILL.md": "3de9f63a743f0bbb4dbb3d546a65b4d4c6da33015ab38f7199232ad7579b7bb0"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-implementation-alignment.json": "6ee1d3c20986a1edb6b8c6e2cf91481688ce03d2e904b50432bab6fb87b7c770"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-implementation-alignment.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-implementation-alignment.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "dad612d0f3232646267f037de03a6017e4f1e9ce"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-implementation-alignment.json"
+          }
+        ],
+        "subject_digest": "b9fcf43b1b384c97f87aa5cd5c166480756a8fa47131986ad02c7bca415b0314"
+      }
+    },
+    "review-java": {
+      "classification": "native",
+      "version": "1.0.5",
+      "reviewed_files": {
+        "README.md": "ca7191a9e62a26fc20d0c4cdc271197bb9ead2e215ab214e49bca58079bf4f69",
+        "SKILL.md": "ab0c08fc37405a2e045a54b7710293c00057c78fac6eb2730ea7f4744cfd5618"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-java.json": "ef5d2ddc70e3f458895e30d07b0944322a9b403e18cead4ca9448bf6a25c0490"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-java.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-java.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "4579bfdffa7fed40556dfdb1482bf95db925722e"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-java.json"
+          }
+        ],
+        "subject_digest": "198ba5836b111edd633d65b5ff6e07a9c08aa541582a266b312fc35793279022"
+      }
+    },
+    "review-observability": {
+      "classification": "native",
+      "version": "1.0.2",
+      "reviewed_files": {
+        "README.md": "6301c286287713ae35ffdadf89d3f5821aad26b638c59946d9b8e4f2a33353a8",
+        "SKILL.md": "bccf32300fc696115da19b85e0975a9d42199650b4f9f10848362626ea426b5b"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-observability.json": "d362a97e8c1e8e9f7e48aa5e58c56258cf19e609bd03947f31de9f18248795e1"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-observability.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-observability.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "dad612d0f3232646267f037de03a6017e4f1e9ce"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-observability.json"
+          }
+        ],
+        "subject_digest": "1be6a3faf30f2d1f5ef395245a70a9a5ed102b24e053a64decbef7542cb44c15"
+      }
+    },
+    "review-orm-usage": {
+      "classification": "native",
+      "version": "1.0.3",
+      "reviewed_files": {
+        "README.md": "4451e16d74d1f5dbf229b9a59348f557c867e33f47e7613a2fefe1ea63cfef48",
+        "SKILL.md": "9dd2aaf522040ea98fb27893deec4216e6bcf81ff66ede56fb37cd4a9934bc47"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-orm-usage.json": "2bec456f57b89d7f2b0d5c4113d2ab5d0df8f963ee55e08e7cac6c8424515b8d"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-orm-usage.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-orm-usage.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "bace99d5d619b752bc414f3c3120dd33e41a553e"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-orm-usage.json"
+          }
+        ],
+        "subject_digest": "51084b0c651d9057e393f5e7f42919ac6516cd91c1e5fddf74852374b952af24"
+      }
+    },
+    "review-performance": {
+      "classification": "native",
+      "version": "2.0.2",
+      "reviewed_files": {
+        "README.md": "29a3fe2af611c75923b5e0255e09072dfd0a88cf950f33e2f39a646c90870a06",
+        "SKILL.md": "a0b6eed10b04cec5eb061fc10a7026533ec9a1fbc06f1ad11ef9420ee055c23f"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-performance.json": "2c27ddca0df61a24f0f76540f91a7f5e8cb24bc6140bd05ebd6f5c343383dc2f"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-performance.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-performance.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "a82105cca58c3e9717d71c2437ecee60e1a3755f"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-performance.json"
+          }
+        ],
+        "subject_digest": "fb8d407c1b56968ea517606efebd4e19920884f82ebc36f78aa6c30b3d80817e"
+      }
+    },
+    "review-php": {
+      "classification": "native",
+      "version": "1.0.5",
+      "reviewed_files": {
+        "README.md": "2d1a6517c13808dfc601e59d40b97a32adc012fe6519d85d9df78df08c27da15",
+        "SKILL.md": "91665058b087fa7c4923a8198e44d1d5686ff37d3225a1830c93adbea67fe411"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-php.json": "9376b470d8071919b5636f1a094aec1a49a7f451bd6c52eff82938c41d5c231f"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-php.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-php.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "5179ac8588d2ccec7f8cba190e4eb729607066b0"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-php.json"
+          }
+        ],
+        "subject_digest": "dfbcd143c6682cd214e860871446ac1e2a170b96032de8fbbe7d20d016b25974"
+      }
+    },
+    "review-powershell": {
+      "classification": "native",
+      "version": "1.0.5",
+      "reviewed_files": {
+        "README.md": "9a32a622cec8876eac36c4d1e36609d34061997a0355284f5b538ec531763169",
+        "SKILL.md": "88a8b2f88a804180af9a16088b5913d54f1e1600d43db221331a99cbf9eb8eb8"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-powershell.json": "c6ca3a675c7ce002293e9648a67be80deca70eac1084634ec0f95927165ff12d"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-powershell.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-powershell.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "25b6e714dd4ab7e312cfa58363671733b2cbd81b"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-powershell.json"
+          }
+        ],
+        "subject_digest": "1645c77f4da193be31a484be7189af428ddd1c0118ed3156df514a3b6ad8ae00"
+      }
+    },
+    "review-python": {
+      "classification": "native",
+      "version": "1.0.5",
+      "reviewed_files": {
+        "README.md": "89658e6aa41124aa2b52b19b36b6d982b213993151c21651a7e74dfb0c101532",
+        "SKILL.md": "9dcbc28e0e920aad4d5f4a9625935a3c7e621833280794fc499e38f753bce7af"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-python.json": "a84db3f237b464db4288ef658b85f3263c4b5e0a39079c0448488bc00382f7b4"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-python.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-python.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "aebc23d850973bf93044ff92fff607adf1fc33f3"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-python.json"
+          }
+        ],
+        "subject_digest": "9b2d914f3d22a8adfcfea8dddf40ad2ea3dc1f29f4e7c11ec0122f07ebbf6044"
+      }
+    },
+    "review-react": {
+      "classification": "native",
+      "version": "1.0.5",
+      "reviewed_files": {
+        "README.md": "d39e8052ae4396b908ae3184fe0c58a1a1b19f438a5ccc890805719ae4691643",
+        "SKILL.md": "8b52d7facd3696fa7162435cb84f5f35b0e851859d2f00798d4a2946c5b05fba"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-react.json": "6b26c287003856accd43e02fe11c14ca1bae042fca663f268cfefed682768eee"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-react.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-react.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "bace99d5d619b752bc414f3c3120dd33e41a553e"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-react.json"
+          }
+        ],
+        "subject_digest": "15524c0d5cb9e0c9be67f50078969e1c54a04fc68664000ba6c12e4e2f00d80e"
+      }
+    },
+    "review-reliability": {
+      "classification": "native",
+      "version": "1.0.2",
+      "reviewed_files": {
+        "README.md": "ba71c873c77c4340b05d845e1f7e7c438b5b351947e17fdf937b64b73b3fb37d",
+        "SKILL.md": "cd395af0f493a6f1feaf9f4ec8d67081e98a27de723db896fb38d3d597d2020c"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-reliability.json": "0fe1f2d4b7080090a9060e90170e3765855ae5b949f05e6d6109333acdbc6ca5"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-reliability.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-reliability.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "dad612d0f3232646267f037de03a6017e4f1e9ce"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-reliability.json"
+          }
+        ],
+        "subject_digest": "e3bced3ab6250dd7aa0f8e346ce5408f0b2bb4223f0171aed1e03f421c30495b"
+      }
+    },
+    "review-requirements": {
+      "classification": "native",
+      "version": "2.2.1",
+      "reviewed_files": {
+        "README.md": "2db1c0c5eeae9a88bf27344acac0d0fad1348da73efb5d98225678b64c672f06",
+        "SKILL.md": "0e0c0f4e5c13750dc87431f288077020085aa7a3cb29cb44c6b0a6aa9600ffdb"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-requirements.json": "a7115b4092871473926a0b2ff6a9612123cbda6547b26f74f7ea02e5a3acd4a5"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-requirements.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-requirements.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "adc595737fc65c05898d80482370efd1607d5ae1"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-requirements.json"
+          }
+        ],
+        "subject_digest": "fedbd8a67bf3bffc622c1569634b346d1672ee0641b527a655934a329fa82478"
+      }
+    },
+    "review-roadmap": {
+      "classification": "native",
+      "version": "3.13.0",
+      "reviewed_files": {
+        "README.md": "238e1c542d4714bff143afdbfeddc299e6048ca92f9eefa88faaf6161deceee3",
+        "SKILL.md": "2e8c6f9a7821337fb3c731986de23ec6865cd1fd6177273ae6eb89d4c94ed28f"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-roadmap.json": "1cd0e71a6e2f99a7308ef7b91af7aaa9c292e4dc485d6c7c0077759a20fa2682"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-roadmap.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-roadmap.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "63d9b12f94ef0ce8f3c3d20fe91ffb1990522b9e"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-roadmap.json"
+          }
+        ],
+        "subject_digest": "50958b32074490c56a39fe80b6d0fd0bdfd5a383e91badddb7d147e248d29a79"
+      }
+    },
+    "review-security": {
+      "classification": "native",
+      "version": "2.0.2",
+      "reviewed_files": {
+        "README.md": "7290330ae75545743f22bce06d2774871013d191daee5bcd6f9988f18c6ce747",
+        "SKILL.md": "3b4eb80e77b7ec31ff38675fe4e18b48782fb02230a40e5805147bd4ce736453"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-security.json": "53fe3c0fa589384e6906e3de7689ca6a992845fb3feffd40ec143a9e692631fc"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-security.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-security.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "4579bfdffa7fed40556dfdb1482bf95db925722e"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-security.json"
+          }
+        ],
+        "subject_digest": "3a819bbc457c6ddd72b3aaab9785bef517f18f38054f3d73516febf10a7830d3"
+      }
+    },
+    "review-sql": {
+      "classification": "native",
+      "version": "1.0.7",
+      "reviewed_files": {
+        "README.md": "ab2c44869d99f9ba18b71b8f488f41ba5deff26f9c0103061d2d2ed79690a1ba",
+        "SKILL.md": "69c9bc335cc88139defbb94123bfd676bc6632851b00c30284f9c530e5fb972b"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-sql.json": "aedbe33e2fec12631c10b0a69f9296266ef063bf8760abbacdceca3ab9924e05"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-sql.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-sql.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "4579bfdffa7fed40556dfdb1482bf95db925722e"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-sql.json"
+          }
+        ],
+        "subject_digest": "639a475c19aca9a736348cb5c7f53516733e37c1a475896be3ca03c9c8d7fb67"
+      }
+    },
+    "review-tasks": {
+      "classification": "native",
+      "version": "1.0.2",
+      "reviewed_files": {
+        "README.md": "b41ea7e34f9af8af4d0b131ae3c20c5e43429816fcd9e0f78786d14224ab3736",
+        "SKILL.md": "cab99a76d844b99a66004981a046f2e12bbca3cd7817225bb41120c87a34054c"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-tasks.json": "4ee211f2f9774e7a744477f3356dd03b9ca6a8312ef024104b58a56b2d9a513a"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-tasks.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-tasks.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "dad612d0f3232646267f037de03a6017e4f1e9ce"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-tasks.json"
+          }
+        ],
+        "subject_digest": "af8225f74ed175c785d3d541763bfa7567cc898cc7180d27503a9fe9907cb14a"
+      }
+    },
+    "review-technical-design": {
+      "classification": "native",
+      "version": "1.1.0",
+      "reviewed_files": {
+        "README.md": "c9feb9477f0e687ac2902596e4cbd866103e9a4539bfde99364262056bbc3377",
+        "SKILL.md": "b0c22658e60cd5e0ac05cc7d927a5141ae010a1e790d1f9c3b84d4b9faaaabbb"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-technical-design.json": "150f07608eee777a2bf408888d7d3dff4c6fe04b03eef2e7049b0c45463fcb8c"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-technical-design.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-technical-design.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "dad612d0f3232646267f037de03a6017e4f1e9ce"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-technical-design.json"
+          }
+        ],
+        "subject_digest": "51b774289e6add0e391d81cf621828fe1503999cc75dc96610f2ac1aa69cdf5a"
+      }
+    },
+    "review-testing": {
+      "classification": "native",
+      "version": "2.0.2",
+      "reviewed_files": {
+        "README.md": "78183818fd8eaadfb24be242541107e8101aec71d9ac3db522a7d3850d623c63",
+        "SKILL.md": "0b8b708b9aaf24753784c690a7545280ef571b379f66fe71bbbba3b67da29095"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-testing.json": "7d23497768bed4601abe080b916eecced5fcc469e2b08d9f4aafcb8e60a3b4c6"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-testing.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-testing.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "c9d7308f794d2f56ef842467024dbc292dcb77c2"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-testing.json"
+          }
+        ],
+        "subject_digest": "b0d1ff62dd8d5640b296e7f177cc7c2b77b35df777eeb39d9f7d5baa2305950e"
+      }
+    },
+    "review-typescript": {
+      "classification": "native",
+      "version": "1.0.5",
+      "reviewed_files": {
+        "README.md": "dc0373c47581a1f16be5c287da873a43444065c95fa4aefed82b8efae255bfc0",
+        "SKILL.md": "dd0467b9ef887062c60173456588b2e1bbc28ff7a98effc28cb2cb751f95c4a1"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-typescript.json": "12d75f680174b4c41fc680ca9a15b11458644dfef82e10f5cf11384832fbe736"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-typescript.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-typescript.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "bace99d5d619b752bc414f3c3120dd33e41a553e"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-typescript.json"
+          }
+        ],
+        "subject_digest": "623171ce2a42f917443fd61604a560124b9c32a0c1a1508cd5777891fb04fc3a"
+      }
+    },
+    "review-vue": {
+      "classification": "native",
+      "version": "1.0.6",
+      "reviewed_files": {
+        "README.md": "a74fb1969071d607613bf767ad4b89c31d3ef808d8e98cc1d9a70c461232586b",
+        "SKILL.md": "56a2efbb36543401bc17d66cf9bfa65fec7cc1598bed2fcda379a3da75041c7e"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/review-vue.json": "aab8eead19fcf32a3398e9f36b0f481f2624bbae8519fd18b847f856e4e659cd"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/review-vue.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/review-vue.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "4579bfdffa7fed40556dfdb1482bf95db925722e"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/review-vue.json"
+          }
+        ],
+        "subject_digest": "a60d06456878f2eb633d91abbf7c3d8bcf8f71bd0a89e1c0bfc957cbfa389ac2"
+      }
+    },
+    "scaffold-agent-tests": {
+      "classification": "native",
+      "version": "1.0.1",
+      "reviewed_files": {
+        "SKILL.md": "ecc02a2af29c633472e81ab27f404172cfb57a81634661b7003e7ee11370760d"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/scaffold-agent-tests.json": "76c3e1cf14694bbc0ba6f2482c6bb46c0fd128277142743b878b52eb9bf896d6"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/scaffold-agent-tests.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/scaffold-agent-tests.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "06f9660336f1c0a47e6560e2b78f9d1bcc7826b3"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/scaffold-agent-tests.json"
+          }
+        ],
+        "subject_digest": "28d553f9adc6fcc42c636f7bcafdf48a2c0e21f5dcbbda9aeff38607768364f3"
+      }
+    },
+    "update-roadmap": {
+      "classification": "native",
+      "version": "3.10.1",
+      "reviewed_files": {
+        "README.md": "124ed7b360eab1ec368ac343d651c062d09f35ba98e39fac5560b6ab444ee9ae",
+        "SKILL.md": "e0305ad253d8ebc60b4e962f48b44f0e8857622e4b423d81056ddcfeee575666"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/update-roadmap.json": "bc936bddd7b10b79340929c5474276086c8992be54f620ea878fd0f3fb4e6b69"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/update-roadmap.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/update-roadmap.json"
+        }
+      ],
+      "creation": {
+        "kind": "commit",
+        "revision": "63d9b12f94ef0ce8f3c3d20fe91ffb1990522b9e"
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+        "confirmed_at": "2026-10-28",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/update-roadmap.json"
+          }
+        ],
+        "subject_digest": "58e09877e414c3a85348d984ea14dc8578ebc1b3e9daf293e94686f64e3bd5b1"
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+  "confirmed_at": "2026-10-28",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/review-error-surfacing.json"
+    }
+  ],
+  "subject_digest": "930e9f90613f00dbab97f4bf9390bd8def75d0e4525b53542de618c0247ce1e6"
+}

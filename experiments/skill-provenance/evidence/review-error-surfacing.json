@@ -1,0 +1,13 @@
+{
+  "skill": "review-error-surfacing",
+  "version": "1.2.1",
+  "investigated_on": "2026-10-28",
+  "status": "investigation only; no maintainer decision",
+  "creation_commit": "b76445a19db84817e47f553606d9fbc21df8147c",
+  "detected_external_urls": [],
+  "recorded_upstream": null,
+  "upstream_comparison": null,
+  "recommendation": "native",
+  "rationale": "Local creation record found; external creative influence remains a human fact to confirm.",
+  "confirmation_needed": "Confirm or correct the category and identify external creative influences. Tool/API/command-use lookup alone does not disqualify originality."
+}

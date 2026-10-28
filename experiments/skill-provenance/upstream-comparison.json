@@ -1,0 +1,46 @@
+{
+  "compared_on": "2026-10-28",
+  "scope": "SKILL.md bytes at the registered upstream revision; not a full-distribution certification.",
+  "comparisons": [
+    {
+      "skill": "commit-work",
+      "upstream_revision": "06825f04669d4364a16abc267650c86cf153d349",
+      "upstream_sha256": "888588ea81b0b2c672e625ad9c49f6f3c69b4c2081962a9d7640a1ef24e105d8",
+      "local_sha256": "6540b95591014573caac1a5b7c302f4f0ad5637fef7f7324aa201aa744cfa8ce",
+      "skill_file_identical": false,
+      "differences": "Added catalogue synchronization, pre-commit review guidance and expanded workflow.",
+      "recommended_classification": "third_party_adapted",
+      "maintainer_confirmation": null
+    },
+    {
+      "skill": "changelog-video",
+      "upstream_revision": "4f00336c92f6418aab82c060853da604dd832197",
+      "upstream_sha256": "7473e3165c7b1f7649a9fcc49e1ab76c5b3b72b696966d6abe772dda4dc0a032",
+      "local_sha256": "63e7a7ba4a90e4e5c66ab1c96f410edc874dcbd923215640ed345f2dd51fcc8d",
+      "skill_file_identical": false,
+      "differences": "Replaced branded HyperFrames input, assets, voice and tool-specific steps with Release Package and renderer discovery.",
+      "recommended_classification": "third_party_adapted",
+      "maintainer_confirmation": null
+    },
+    {
+      "skill": "eli5",
+      "upstream_revision": "06ec7b6a0a82bdc4bec44bd82d4368c42f20d7c1",
+      "upstream_sha256": "3bb95cd13852051c5a1862e8b94da1de7cfba7415d418ab0ca4d762527d1b9a5",
+      "local_sha256": "6c8bf68dfaf76fa1dce70ef694288b8964189462712967db3dfffd3e3e466921",
+      "skill_file_identical": false,
+      "differences": "Added version/license and replaced $ARGUMENTS with invocation/conversation topic handling.",
+      "recommended_classification": "third_party_adapted",
+      "maintainer_confirmation": null
+    },
+    {
+      "skill": "ponytail",
+      "upstream_revision": "09c434ab73ca43761c5d8b0c5d341926c2fba710",
+      "upstream_sha256": "9badd22a32e19cb884e46dfa8d3aae82bb81dfa5484105b8b4f0262df823a509",
+      "local_sha256": "8fcf775f1c5b5172196b7318a5df84a2f28b263405973f2a10145e60f6e026b6",
+      "skill_file_identical": false,
+      "differences": "Added version and Host integration instructions limiting activation to explicit invocation.",
+      "recommended_classification": "third_party_adapted",
+      "maintainer_confirmation": null
+    }
+  ]
+}

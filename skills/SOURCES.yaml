@@ -42,3 +42,37 @@ skills:
       - Removed sibling-skill dependencies and runtime skill installation
       - Added renderer discovery, user-confirmed defaults, and Release Package artifact output
       - Added local render and missing-renderer examples
+
+  eli5:
+    local_path: skills/eli5
+    local_version: 1.0.0
+    origin: vendored-derived
+    upstream:
+      repository: https://github.com/anthropics/claude-plugins-community.git
+      path: eli5/skills/eli5
+      ref: 06ec7b6a0a82bdc4bec44bd82d4368c42f20d7c1
+      tree: sha1:d16165120b7658216c79601b0ee568f42e540961
+      skill_digest: sha256:3bb95cd13852051c5a1862e8b94da1de7cfba7415d418ab0ca4d762527d1b9a5
+    license: Apache-2.0
+    notice: skills/eli5/LICENSE.upstream
+    update_policy: reviewed-port
+    modifications:
+      - Added local version metadata and retained upstream license locally
+      - Replaced host-specific argument substitution with conversation-based topic selection
+
+  ponytail:
+    local_path: skills/ponytail
+    local_version: 1.0.0
+    origin: vendored-derived
+    upstream:
+      repository: https://github.com/dietrichgebert/ponytail.git
+      path: skills/ponytail
+      ref: 09c434ab73ca43761c5d8b0c5d341926c2fba710
+      tree: sha1:e8d3fa76e7ff9223a784dbd4bcfc9ff46b3fa55d
+      skill_digest: sha256:9badd22a32e19cb884e46dfa8d3aae82bb81dfa5484105b8b4f0262df823a509
+    license: MIT
+    notice: skills/ponytail/LICENSE.upstream
+    update_policy: reviewed-port
+    modifications:
+      - Added local version metadata and retained upstream license locally
+      - Scoped activation to explicit invocation and clarified host precedence and standalone distribution

@@ -48,7 +48,7 @@
     "c217cfe7db1": "System",
     "caa0819dfc4": "Light",
     "ca6b75d0680": "Dark",
-    "ca39d237326": "See how topics connect. Expand them to explore 70 skills.",
+    "ca39d237326": "See how topics connect. Expand them to explore {0} skills.",
     "cd6222527e3": "See how work fits together: revisit decisions and check each operation's conditions.",
     "c405b58f03f": "↔ Check and revise in both directions",
     "cc2dd0cb05a": "┄→ Check prerequisites first",
@@ -659,6 +659,22 @@
       "use": "Use update-roadmap to update status/dates from these facts, explaining downstream effects and preserving evidence.",
       "result": "Updated source records and required roadmap summaries. It does not change Now/Next/Later tiers or use task counts as completion proof.",
       "name": "update-roadmap"
+    },
+    "eli5": {
+      "name": "eli5",
+      "purpose": "Explain an unfamiliar topic with pictures and plain words",
+      "when": "A topic needs a simple visual explanation for someone new to it.",
+      "provide": "The topic or question; the current conversation can provide context.",
+      "use": "Ask /eli5 followed by the topic, or request a simple picture explanation.",
+      "result": "An HTML explanation with large pictures and few words."
+    },
+    "ponytail": {
+      "name": "ponytail",
+      "purpose": "Apply a focused coding style that avoids unnecessary complexity",
+      "when": "You explicitly want the smallest change that completely solves a coding task.",
+      "provide": "The coding task and optional lite, full or ultra level.",
+      "use": "Invoke ponytail explicitly; it remains active until you request normal mode. Repository instructions and required validation still apply.",
+      "result": "A complete, focused change with a concise account of checks and remaining risks."
     }
   },
   "topics": {
@@ -1380,7 +1396,9 @@
         "prepare-presales-response",
         "decontextualize-text",
         "publish-nats-message",
-        "consume-nats-message"
+        "consume-nats-message",
+        "eli5",
+        "ponytail"
       ],
       "recommended": [
         "prepare-presales-response",
@@ -1907,12 +1925,14 @@
       },
       {
         "id": "collaboration",
-        "title": "Exchange information",
+        "title": "Communication and collaboration",
         "skills": [
           "consume-nats-message",
           "decontextualize-text",
           "prepare-presales-response",
-          "publish-nats-message"
+          "publish-nats-message",
+          "eli5",
+          "ponytail"
         ]
       }
     ],
@@ -1966,5 +1986,16 @@
     "invalidView": "Unknown view; showing Classification.",
     "native": "Interactive switching needs JavaScript. Browse the classification and directory below, or read the canonical skill catalogue.",
     "categoryContext": "Category context retained; showing work relationships"
+  },
+  "provenance": {
+    "labels": {
+      "native": "AI Cortex original",
+      "third_party_original": "Third-party original",
+      "third_party_adapted": "Third-party adapted"
+    },
+    "evidence": "View source evidence for {0}",
+    "unavailable": "The provenance catalogue could not be loaded. Use the validated source catalogue or retry.",
+    "directoryTitle": "Skills",
+    "retry": "Retry"
   }
 }

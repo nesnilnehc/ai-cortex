@@ -182,7 +182,7 @@
     },
     "define-strategic-pillars": {
       "id": "define-strategic-pillars",
-      "description": "Derive 3\u20135 strategic pillars (high-level themes) from vision and North Star that structure and guide strategic goals and roadmap. Produces a strategic pillars document; persisted to docs.",
+      "description": "Derive 3–5 strategic pillars (high-level themes) from vision and North Star that structure and guide strategic goals and roadmap. Produces a strategic pillars document; persisted to docs.",
       "owner": "direction",
       "sourcePaths": [
         "skills/define-strategic-pillars/SKILL.md"
@@ -206,7 +206,7 @@
     },
     "deliver-feature": {
       "id": "deliver-feature",
-      "description": "From inside a linked worktree, deliver the current feature branch into main \u2014 merge with --no-ff, push, and optionally clean up the worktree, all without leaving CWD.",
+      "description": "From inside a linked worktree, deliver the current feature branch into main — merge with --no-ff, push, and optionally clean up the worktree, all without leaving CWD.",
       "owner": "commit",
       "sourcePaths": [
         "skills/deliver-feature/SKILL.md"
@@ -218,7 +218,7 @@
     },
     "design-strategic-goals": {
       "id": "design-strategic-goals",
-      "description": "Define 3\u20135 long-term strategic goals that move the project toward the vision and North Star. Produces a goals document aligned with mission, vision, and NSM; persisted to docs.",
+      "description": "Define 3–5 long-term strategic goals that move the project toward the vision and North Star. Produces a goals document aligned with mission, vision, and NSM; persisted to docs.",
       "owner": "direction",
       "sourcePaths": [
         "skills/design-strategic-goals/SKILL.md"
@@ -254,7 +254,7 @@
     },
     "generate-standard-readme": {
       "id": "generate-standard-readme",
-      "description": "Generate lean, high-density README. Sections pruned by value threshold \u2014 not fixed count. Primary goal \u2014 reader knows what the project is, where to look, and how to use it within 30 seconds.",
+      "description": "Generate lean, high-density README. Sections pruned by value threshold — not fixed count. Primary goal — reader knows what the project is, where to look, and how to use it within 30 seconds.",
       "owner": "foundation",
       "sourcePaths": [
         "skills/generate-standard-readme/SKILL.md"
@@ -278,7 +278,7 @@
     },
     "manage-secret": {
       "id": "manage-secret",
-      "description": "Store, look up, rotate, or delete a personal credential \u2014 passwords, API keys, tokens, certificate passphrases \u2014 in the macOS Keychain under a project-env-kind naming scheme. Use it even when the user does not say \"Keychain\". Not for team vaults, CI secret injection, or cross-machine sync.",
+      "description": "Store, look up, rotate, or delete a personal credential — passwords, API keys, tokens, certificate passphrases — in the macOS Keychain under a project-env-kind naming scheme. Use it even when the user does not say \"Keychain\". Not for team vaults, CI secret injection, or cross-machine sync.",
       "owner": "foundation",
       "sourcePaths": [
         "skills/manage-secret/SKILL.md"
@@ -314,7 +314,7 @@
     },
     "orchestrate-code-review": {
       "id": "orchestrate-code-review",
-      "description": "Orchestrator skill \u2014 sequence atomic review-* skills into the post-coding engineering gate and aggregate their findings; functional alignment and acceptance verification remain separate.",
+      "description": "Orchestrator skill — sequence atomic review-* skills into the post-coding engineering gate and aggregate their findings; functional alignment and acceptance verification remain separate.",
       "owner": "quality",
       "sourcePaths": [
         "skills/orchestrate-code-review/SKILL.md"
@@ -470,7 +470,7 @@
     },
     "publish-release": {
       "id": "publish-release",
-      "description": "Validate a ready Release Package and execute the repository's publication steps\u2014tag, build, package, and provider release\u2014with explicit mutation gates.",
+      "description": "Validate a ready Release Package and execute the repository's publication steps—tag, build, package, and provider release—with explicit mutation gates.",
       "owner": "release",
       "sourcePaths": [
         "skills/publish-release/SKILL.md"
@@ -482,7 +482,7 @@
     },
     "redeploy-local": {
       "id": "redeploy-local",
-      "description": "After code changes, auto-detect the project's build system and local deployment method for a given directory, then build the project and restart its locally-deployed environment (Docker Compose / systemd / process manager). Never assumes \u2014 asks only when detection is ambiguous. Caches detected commands per project in .cortex/redeploy-local.yaml; re-invocations on the same project skip re-scanning until signal files change, the cache expires (30 days), or the skill version bumps.",
+      "description": "After code changes, auto-detect the project's build system and local deployment method for a given directory, then build the project and restart its locally-deployed environment (Docker Compose / systemd / process manager). Never assumes — asks only when detection is ambiguous. Caches detected commands per project in .cortex/redeploy-local.yaml; re-invocations on the same project skip re-scanning until signal files change, the cache expires (30 days), or the skill version bumps.",
       "owner": "build",
       "sourcePaths": [
         "skills/redeploy-local/SKILL.md"
@@ -830,13 +830,37 @@
     },
     "update-roadmap": {
       "id": "update-roadmap",
-      "description": "Maintain requirement-and-defect roadmap summaries \u2014 change item status, shift dates with downstream impact analysis, and retain source-backed revision history. Does not move items between Now/Next/Later tiers.",
+      "description": "Maintain requirement-and-defect roadmap summaries — change item status, shift dates with downstream impact analysis, and retain source-backed revision history. Does not move items between Now/Next/Later tiers.",
       "owner": "planning",
       "sourcePaths": [
         "skills/update-roadmap/SKILL.md"
       ],
       "sourceHashes": {
         "skills/update-roadmap/SKILL.md": "e0305ad253d8ebc60b4e962f48b44f0e8857622e4b423d81056ddcfeee575666"
+      },
+      "entry": "public"
+    },
+    "eli5": {
+      "id": "eli5",
+      "description": "Explain a topic like I'm a 5 year old. Use when the user types /eli5 <topic> or asks for a dead-simple picture explainer of how something works.",
+      "owner": "collaboration",
+      "sourcePaths": [
+        "skills/eli5/SKILL.md"
+      ],
+      "sourceHashes": {
+        "skills/eli5/SKILL.md": "6c8bf68dfaf76fa1dce70ef694288b8964189462712967db3dfffd3e3e466921"
+      },
+      "entry": "public"
+    },
+    "ponytail": {
+      "id": "ponytail",
+      "description": "Lazy senior dev mode: the smallest change that fully solves the task, and a reply a busy human understands in one read. Use on any coding task (writing, fixing, refactoring, reviewing, choosing dependencies) and when the user says \"ponytail\", \"be lazy\", \"simplest solution\", \"yagni\", or complains about over-engineering or bloat. Levels: lite, full (default), ultra.",
+      "owner": "collaboration",
+      "sourcePaths": [
+        "skills/ponytail/SKILL.md"
+      ],
+      "sourceHashes": {
+        "skills/ponytail/SKILL.md": "8fcf775f1c5b5172196b7318a5df84a2f28b263405973f2a10145e60f6e026b6"
       },
       "entry": "public"
     }

@@ -47,6 +47,10 @@ test('all four native headers mirror shared routes and keep utilities outside pr
 test('native classification cards mirror locale-owned names and purposes',()=>{
  for(const [file,lang] of [['index.html','en'],['zh.html','zh']]){
   const html=readFileSync(new URL('../../website/'+file,import.meta.url),'utf8');
-  for(const record of Object.values(read('explore/locales/'+lang+'.json').classification)){assert.ok(html.includes(record.name));assert.ok(html.includes(record.purpose));}
+  const escaped=value=>value.replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#x27;'}[char]));
+  for(const record of Object.values(read('explore/locales/'+lang+'.json').classification)){
+   assert.ok(html.includes(`<strong>${escaped(record.name)}</strong>`),`missing encoded classification name: ${record.name}`);
+   assert.ok(html.includes(`<small>${escaped(record.purpose)}</small>`),`missing encoded classification purpose: ${record.purpose}`);
+  }
  }
 });

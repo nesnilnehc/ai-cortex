@@ -21,7 +21,7 @@ Skills follow the [agentskills.io](https://agentskills.io) standard format. Draf
 
 1. **Draft**: write `skills/<skill-name>/SKILL.md`. Agent Skills requires `name` and `description` in YAML frontmatter. This repository also tracks `version` and `license` for maintenance.
 2. **Optional**: add a `README.md` as a quick reference.
-3. **Register**: run `python3 scripts/sync-skills-index.py`. That regenerates `skills/INDEX.md` from the frontmatter; do not edit the registry by hand, because CI rejects one that disagrees with the skills it registers.
+3. **Register**: document verified provenance in `skills/PROVENANCE.json` under the [source contract](specs/skill-source-modeling.md#54-provenance-presentation), then run `python3 scripts/sync-skills-index.py`. The generated `skills/INDEX.md` uses Skill frontmatter and provenance records; do not edit the index by hand. Unresolved provenance blocks registration; it never defaults to original or becomes a fourth public category. Confirmed originals omit the display badge.
 4. **Open a PR.**
 
 `description` must be English and make the skill's purpose and usage clear. It is the discovery field used by Agent Skills and this repository.
@@ -39,7 +39,7 @@ AI Cortex distributes vendored copies only. We do not accept a skill that requir
 When you copy, adapt or fork an external skill you must:
 
 1. Place a complete, callable copy under `skills/<skill-name>/`, removing any dependency on sibling skills that are not distributed with this repository.
-2. Pin the upstream in `skills/SOURCES.yaml`: repository, path, full commit, tree, `SKILL.md` SHA-256, license, local modifications and update policy.
+2. Pin the upstream in `skills/SOURCES.yaml`: repository, path, full commit, tree, `SKILL.md` SHA-256, license, local modifications and update policy. Record the verified classification in `skills/PROVENANCE.json`; an unchanged copy requires an empty modifications list and a matching full distributed file set with upstream SHA-256 values.
 3. Preserve license and copyright notices, and update `docs/references/ATTRIBUTIONS.md` and `THIRD_PARTY_NOTICES.md`.
 4. Review scripts, assets and licensing. Do not copy fonts, music, images or binaries that are not explicitly licensed for redistribution.
 5. Verify the skill passes validation and that `bin/cortex install` / `update` distributes it alongside the other local skills.

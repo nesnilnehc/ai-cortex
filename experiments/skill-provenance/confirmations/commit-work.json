@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+  "confirmed_at": "2026-10-28",
+  "action": "confirmed",
+  "classification": "third_party_adapted",
+  "rationale": "The maintainer confirmed the recommended adapted classification and documented local changes to the pinned third-party source.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/commit-work.json"
+    }
+  ],
+  "subject_digest": "2890131ed65e4883f4b65beb0b43945fb86106b816cb605f325c712c160b203e"
+}

@@ -1,0 +1,15 @@
+{
+  "skill": "publish-nats-message",
+  "version": "1.1.0",
+  "investigated_on": "2026-10-28",
+  "status": "investigation only; no maintainer decision",
+  "creation_commit": "dd109c3e90e7c9887d8348aa24f2b0ce7329db36",
+  "detected_external_urls": [
+    "https://docs.nats.io"
+  ],
+  "recorded_upstream": null,
+  "upstream_comparison": null,
+  "recommendation": "native",
+  "rationale": "Local creation record found; external creative influence remains a human fact to confirm.",
+  "confirmation_needed": "Confirm or correct the category and identify external creative influences. Tool/API/command-use lookup alone does not disqualify originality."
+}

@@ -87,7 +87,9 @@
         "publish-nats-message",
         "consume-nats-message",
         "decontextualize-text",
-        "manage-secret"
+        "manage-secret",
+        "eli5",
+        "ponytail"
       ]
     },
     {

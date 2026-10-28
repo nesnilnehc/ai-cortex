@@ -1,3 +1,4 @@
+import {decorateSkill} from './provenance.mjs?v=aic08-provenance-1';
 // DOM adapter: graph rendering/routing remains native and is wired by the shared host.
 export function mountRelationships(container,{getExpanded,revealSkill,revealWork,onRestore}){
  return {capture(){return {expandedTopicId:getExpanded(),scrollByRegion:Object.fromEntries([...container.querySelectorAll('[data-context]')].map(n=>[n.dataset.context,n.querySelector('.local-skill-scroll')?.scrollTop??0])),pan:{x:container.querySelector('.relations-canvas').scrollLeft,y:container.scrollTop}};},restore(saved){onRestore(saved);container.querySelector('.relations-canvas').scrollLeft=saved.pan.x;container.scrollTop=saved.pan.y;for(const n of container.querySelectorAll('[data-context]')){const port=n.querySelector('.local-skill-scroll');if(port)port.scrollTop=saved.scrollByRegion[n.dataset.context]??0;}},reveal(target){if(target.kind==='skill')return revealSkill(target.id);if(target.kind==='work'||target.kind==='support')return revealWork(target.id);}};
@@ -49,7 +50,7 @@ function renderMap(){
    const skill=node.skill,button=document.createElement('button');button.type='button';button.className='skill-node';button.dataset.skill=skill.id;button.dataset.branchLabel=node.via?`${dictionary.dual[node.via.callMode]} · ${node.via.label}`:'';button.dataset.coordinator=String(node.coordinator);button.setAttribute('aria-pressed','false');button.setAttribute('aria-controls','detail-panel');
    const purpose=document.createElement('strong'),code=document.createElement('code'),badge=document.createElement('small');purpose.textContent=skill.purpose;code.textContent=skill.id;
    const count=getSkillNeighborhood(skill.id).related.length;button.dataset.relationCount=String(count);button.title=skill.id;badge.textContent=button.dataset.branchLabel||(count?t('ccef6f94950',[node.coordinator?t('ce21265bf25'):'',count]):'');const name=document.createElement('span');name.className='skill-display-name';name.textContent=skill.name;if(skill.name!==skill.id)button.append(name);button.append(code,purpose,badge);
-   button.addEventListener('click',()=>openNode(group.id,button,skill.id));tree.append(button);
+   button.addEventListener('click',()=>openNode(group.id,button,skill.id));tree.append(decorateSkill(button,skill.id,dictionary.provenance));
    if(node.children.length){const children=document.createElement('div');children.className='skill-children';children.append(...[...node.children].sort((a,b)=>Number(Boolean(a.children.length))-Number(Boolean(b.children.length))).map(createTree));tree.append(children);}return tree;
   }
   const forest=forests.get(group.id),branched=forest.roots.filter(node=>node.children.length),standalone=forest.roots.filter(node=>!node.children.length);

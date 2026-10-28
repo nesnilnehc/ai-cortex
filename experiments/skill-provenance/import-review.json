@@ -1,0 +1,111 @@
+{
+  "scope": "Static local website imports and provenance Python modules; dynamic index-loader edge explicitly included. JSON/data files are leaves. No claim about external consumers.",
+  "graph": {
+    "website/copy.mjs": [],
+    "website/explore/classification-view.mjs": [
+      "website/explore/locale.mjs",
+      "website/explore/provenance.mjs",
+      "website/explore/relationship-model.mjs",
+      "website/explore/support-scopes.mjs",
+      "website/explore/workflow.mjs"
+    ],
+    "website/explore/explorer-host.mjs": [
+      "website/explore/classification-view.mjs",
+      "website/explore/explorer-state.mjs",
+      "website/explore/global-topic-graph.mjs",
+      "website/explore/locale.mjs",
+      "website/explore/panel-model.mjs",
+      "website/explore/provenance.mjs",
+      "website/explore/relations.mjs",
+      "website/explore/relationship-model.mjs",
+      "website/explore/relationship-view.mjs",
+      "website/explore/request-state.mjs",
+      "website/explore/site-contract.mjs",
+      "website/explore/skill-graph.mjs",
+      "website/explore/skill-guidance.mjs",
+      "website/explore/source-links.mjs",
+      "website/explore/story-model.mjs",
+      "website/explore/support-scopes.mjs",
+      "website/explore/topic-map.mjs",
+      "website/explore/work-map.mjs",
+      "website/explore/workflow.mjs"
+    ],
+    "website/explore/explorer-state.mjs": [
+      "website/explore/global-topic-graph.mjs",
+      "website/explore/relationship-model.mjs"
+    ],
+    "website/explore/global-topic-graph.mjs": [
+      "website/explore/locale.mjs",
+      "website/explore/topic-map.mjs"
+    ],
+    "website/explore/legacy.mjs": [],
+    "website/explore/locale.mjs": [],
+    "website/explore/panel-model.mjs": [
+      "website/explore/locale.mjs",
+      "website/explore/workflow.mjs"
+    ],
+    "website/explore/provenance.mjs": [],
+    "website/explore/relations.mjs": [
+      "website/explore/locale.mjs"
+    ],
+    "website/explore/relationship-model.mjs": [
+      "website/explore/locale.mjs"
+    ],
+    "website/explore/relationship-view.mjs": [
+      "website/explore/provenance.mjs"
+    ],
+    "website/explore/request-state.mjs": [],
+    "website/explore/site-contract.mjs": [
+      "website/site-navigation.mjs"
+    ],
+    "website/explore/skill-graph.mjs": [
+      "website/explore/locale.mjs",
+      "website/explore/panel-model.mjs",
+      "website/explore/relationship-model.mjs",
+      "website/explore/workflow.mjs"
+    ],
+    "website/explore/skill-guidance.mjs": [
+      "website/explore/locale.mjs"
+    ],
+    "website/explore/source-links.mjs": [],
+    "website/explore/story-model.mjs": [
+      "website/explore/locale.mjs",
+      "website/explore/workflow.mjs"
+    ],
+    "website/explore/support-scopes.mjs": [
+      "website/explore/locale.mjs"
+    ],
+    "website/explore/topic-map.mjs": [
+      "website/explore/locale.mjs"
+    ],
+    "website/explore/work-map.mjs": [
+      "website/explore/locale.mjs"
+    ],
+    "website/explore/workflow.mjs": [
+      "website/explore/locale.mjs"
+    ],
+    "website/language.mjs": [],
+    "website/main.mjs": [
+      "website/copy.mjs",
+      "website/explore/explorer-host.mjs",
+      "website/language.mjs",
+      "website/site-navigation.mjs",
+      "website/theme.mjs"
+    ],
+    "website/site-navigation.mjs": [],
+    "website/theme.mjs": [],
+    "scripts/sync-skills-index.py": [
+      "scripts/skill_provenance_output.py",
+      "scripts/skill_provenance_v2.py",
+      "scripts/skill-provenance.py"
+    ],
+    "scripts/skill-provenance.py": [
+      "scripts/skill_provenance_v2.py"
+    ],
+    "scripts/skill_provenance_v2.py": [],
+    "scripts/skill_provenance_output.py": [
+      "scripts/skill_provenance_v2.py"
+    ]
+  },
+  "cycles": []
+}

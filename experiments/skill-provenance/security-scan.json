@@ -1,0 +1,7 @@
+{
+  "scope": "Changed and untracked text files reported by Git; read-only scan includes concurrent changes without claiming ownership.",
+  "file_count": 84,
+  "patterns": "AWS access-key identifiers, PEM private-key headers, GitHub token prefixes",
+  "matching_files": [],
+  "limits": "Pattern scan does not detect every secret type. Source and error serialization paths were also inspected; no live service or credential access was performed."
+}
