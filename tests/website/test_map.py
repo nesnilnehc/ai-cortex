@@ -23,11 +23,12 @@ class CapabilityMap(unittest.TestCase):
     def test_branch_counts_match_the_assets_they_reveal(self):
         for edition in ('index.html', 'zh.html'):
             source = (ROOT / 'website' / edition).read_text()
-            branches = re.findall(r'<details class="atlas-branch"[^>]*>(.*?)</details>', source, re.S)
-            self.assertEqual(len(branches), 9)
+            branches = re.findall(r'<details class="directory-type"[^>]*>(.*?)</details>', source, re.S)
+            self.assertEqual(len(branches), 4)
             for branch in branches:
-                declared = int(re.search(r'class="atlas-count">(\d+)', branch).group(1))
+                declared = int(re.search(r'<summary>[^<]* · (\d+)</summary>', branch).group(1))
                 self.assertEqual(declared, branch.count('data-asset='))
+            self.assertEqual(source.count('class="classification-card"'), 6)
 
     def test_map_contains_each_registered_asset_once_in_both_languages(self):
         expected = set()
@@ -48,7 +49,8 @@ class CapabilityMap(unittest.TestCase):
                 self.assertIn('map-specs', page.ids)
                 self.assertIn('map-rules', page.ids)
                 self.assertIn('map-protocols', page.ids)
-                self.assertIn('class="atlas-grid"', source)
+                self.assertIn('id="classification-view"', source)
+                self.assertIn('id="relations-view"', source)
                 self.assertIn('<details', source)
 
 if __name__ == '__main__':

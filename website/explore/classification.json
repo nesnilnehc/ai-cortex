@@ -1,0 +1,104 @@
+{
+  "groups": [
+    {
+      "id": "map-research",
+      "skillIds": [
+        "deep-research",
+        "competitive-research",
+        "market-research",
+        "policy-research",
+        "assess-product-opportunity",
+        "product-opportunity-analysis"
+      ]
+    },
+    {
+      "id": "map-planning",
+      "skillIds": [
+        "define-mission",
+        "define-vision",
+        "define-north-star",
+        "define-strategic-pillars",
+        "design-strategic-goals",
+        "capture-work-items",
+        "prioritize-backlog",
+        "map-item-dependencies",
+        "define-roadmap",
+        "promote-roadmap-items",
+        "update-roadmap",
+        "archive-milestone",
+        "plan-next",
+        "orchestrate-governance-step",
+        "orchestrate-roadmap-planning",
+        "orchestrate-repair-requirements-loop"
+      ]
+    },
+    {
+      "id": "map-quality",
+      "skillIds": [
+        "review-architecture",
+        "review-codebase",
+        "review-diff",
+        "review-dotnet",
+        "review-error-surfacing",
+        "review-functional-design",
+        "review-go",
+        "review-implementation-alignment",
+        "review-java",
+        "review-observability",
+        "review-orm-usage",
+        "review-performance",
+        "review-php",
+        "review-powershell",
+        "review-python",
+        "review-react",
+        "review-reliability",
+        "review-requirements",
+        "review-roadmap",
+        "review-security",
+        "review-sql",
+        "review-tasks",
+        "review-technical-design",
+        "review-testing",
+        "review-typescript",
+        "review-vue",
+        "orchestrate-code-review",
+        "orchestrate-repair-loop",
+        "automate-tests",
+        "scaffold-agent-tests"
+      ]
+    },
+    {
+      "id": "map-delivery",
+      "skillIds": [
+        "commit-work",
+        "deliver-feature",
+        "integrate-branches",
+        "prepare-release",
+        "publish-release",
+        "announce-release",
+        "changelog-video",
+        "redeploy-local"
+      ]
+    },
+    {
+      "id": "map-collaboration",
+      "skillIds": [
+        "prepare-presales-response",
+        "publish-nats-message",
+        "consume-nats-message",
+        "decontextualize-text",
+        "manage-secret"
+      ]
+    },
+    {
+      "id": "map-library",
+      "skillIds": [
+        "define-docs-norms",
+        "generate-agent-entry",
+        "generate-standard-readme",
+        "generate-github-workflow",
+        "refine-skill-design"
+      ]
+    }
+  ]
+}

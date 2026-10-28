@@ -1,0 +1,13 @@
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+'false' !== 'true'
+
+    at switchTo (/Users/nesnilnehc/github.com/ai-cortex/tests/website/dual-browser.cjs:7:138)
+    at async /Users/nesnilnehc/github.com/ai-cortex/tests/website/dual-browser.cjs:17:3 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'false',
+  expected: 'true',
+  operator: 'strictEqual',
+  diff: 'simple'
+}

@@ -1,0 +1,3 @@
+# Captured failing-test output preserves spaces in assertion diff markers as data.
+experiments/direction-planning/audit/*-red.txt whitespace=-blank-at-eol
+tests/website/evidence/**/*-red.txt whitespace=-blank-at-eol

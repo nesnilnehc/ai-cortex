@@ -1,0 +1,628 @@
+{
+  "date": "2026-10-27T08:14:47.451Z",
+  "browser": "151.0.7922.34",
+  "matrix": [
+    {
+      "width": 360,
+      "height": 667,
+      "theme": "light",
+      "lens": "work",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 667,
+      "theme": "light",
+      "lens": "evidence",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 667,
+      "theme": "dark",
+      "lens": "work",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 667,
+      "theme": "dark",
+      "lens": "evidence",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "lens": "work",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "lens": "evidence",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "lens": "work",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "lens": "evidence",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "lens": "work",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "lens": "evidence",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "dark",
+      "lens": "work",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "dark",
+      "lens": "evidence",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "theme": "light",
+      "lens": "work",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "theme": "light",
+      "lens": "evidence",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "theme": "dark",
+      "lens": "work",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "theme": "dark",
+      "lens": "evidence",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "lens": "work",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "lens": "evidence",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "lens": "work",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "lens": "evidence",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    }
+  ],
+  "skills": [
+    {
+      "id": "define-mission",
+      "node": "direction",
+      "fourFields": true
+    },
+    {
+      "id": "define-north-star",
+      "node": "direction",
+      "fourFields": true
+    },
+    {
+      "id": "design-strategic-goals",
+      "node": "direction",
+      "fourFields": true
+    },
+    {
+      "id": "define-vision",
+      "node": "direction",
+      "fourFields": true
+    },
+    {
+      "id": "define-strategic-pillars",
+      "node": "direction",
+      "fourFields": true
+    },
+    {
+      "id": "orchestrate-roadmap-planning",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "prioritize-backlog",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "map-item-dependencies",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "capture-work-items",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "orchestrate-repair-requirements-loop",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "define-roadmap",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "promote-roadmap-items",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "update-roadmap",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "archive-milestone",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "plan-next",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "orchestrate-governance-step",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "review-requirements",
+      "node": "design",
+      "fourFields": true
+    },
+    {
+      "id": "review-functional-design",
+      "node": "design",
+      "fourFields": true
+    },
+    {
+      "id": "review-technical-design",
+      "node": "design",
+      "fourFields": true
+    },
+    {
+      "id": "review-roadmap",
+      "node": "design",
+      "fourFields": true
+    },
+    {
+      "id": "review-tasks",
+      "node": "design",
+      "fourFields": true
+    },
+    {
+      "id": "automate-tests",
+      "node": "build",
+      "fourFields": true
+    },
+    {
+      "id": "scaffold-agent-tests",
+      "node": "build",
+      "fourFields": true
+    },
+    {
+      "id": "redeploy-local",
+      "node": "build",
+      "fourFields": true
+    },
+    {
+      "id": "orchestrate-code-review",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-implementation-alignment",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "orchestrate-repair-loop",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-architecture",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-codebase",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-diff",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-dotnet",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-error-surfacing",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-go",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-java",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-observability",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-orm-usage",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-performance",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-php",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-powershell",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-python",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-react",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-reliability",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-security",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-sql",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-testing",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-typescript",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-vue",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "commit-work",
+      "node": "commit",
+      "fourFields": true
+    },
+    {
+      "id": "deliver-feature",
+      "node": "commit",
+      "fourFields": true
+    },
+    {
+      "id": "integrate-branches",
+      "node": "commit",
+      "fourFields": true
+    },
+    {
+      "id": "prepare-release",
+      "node": "release",
+      "fourFields": true
+    },
+    {
+      "id": "publish-release",
+      "node": "release",
+      "fourFields": true
+    },
+    {
+      "id": "announce-release",
+      "node": "release",
+      "fourFields": true
+    },
+    {
+      "id": "changelog-video",
+      "node": "release",
+      "fourFields": true
+    },
+    {
+      "id": "deep-research",
+      "node": "research",
+      "fourFields": true
+    },
+    {
+      "id": "market-research",
+      "node": "research",
+      "fourFields": true
+    },
+    {
+      "id": "competitive-research",
+      "node": "research",
+      "fourFields": true
+    },
+    {
+      "id": "policy-research",
+      "node": "research",
+      "fourFields": true
+    },
+    {
+      "id": "assess-product-opportunity",
+      "node": "research",
+      "fourFields": true
+    },
+    {
+      "id": "product-opportunity-analysis",
+      "node": "research",
+      "fourFields": true
+    },
+    {
+      "id": "define-docs-norms",
+      "node": "foundation",
+      "fourFields": true
+    },
+    {
+      "id": "generate-agent-entry",
+      "node": "foundation",
+      "fourFields": true
+    },
+    {
+      "id": "generate-standard-readme",
+      "node": "foundation",
+      "fourFields": true
+    },
+    {
+      "id": "generate-github-workflow",
+      "node": "foundation",
+      "fourFields": true
+    },
+    {
+      "id": "refine-skill-design",
+      "node": "foundation",
+      "fourFields": true
+    },
+    {
+      "id": "manage-secret",
+      "node": "foundation",
+      "fourFields": true
+    },
+    {
+      "id": "prepare-presales-response",
+      "node": "collaboration",
+      "fourFields": true
+    },
+    {
+      "id": "decontextualize-text",
+      "node": "collaboration",
+      "fourFields": true
+    },
+    {
+      "id": "publish-nats-message",
+      "node": "collaboration",
+      "fourFields": true
+    },
+    {
+      "id": "consume-nats-message",
+      "node": "collaboration",
+      "fourFields": true
+    }
+  ],
+  "errors": [],
+  "status": "passed",
+  "sourceHashes": {
+    "index.html": "fbdd90361a38152de1a67b012ca9fbb242adecc8cc990d241bc18babc71dacb5",
+    "story.mjs": "3a8d105e9040a886fb1931b7aafa91c87a9a1734c8765bdae6d5c975a5f58905",
+    "panel-model.mjs": "065a133452e0ad876b82c70ae61a21e5d43b197b6837cb456f0054d3c8b241fc",
+    "workspace.css": "1e2f4743a6ab2d819c423b952b3e5220aa6a2a68e23764e4f3faff2f6cac3496",
+    "skill-guidance.json": "88dd5712af035e42a517b220f8242d9d3e6fca36ed74f834aec5e828e3931d30",
+    "audit/verify-asset-entry.cjs": "8883251e21c819b1b5d800eb9399b0aa41d1f3e3eba18d650909e9a173f6ef08"
+  }
+}

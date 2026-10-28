@@ -1,0 +1,238 @@
+[
+  {
+    "id": "goal-basis",
+    "from": "direction",
+    "to": "planning",
+    "kind": "input",
+    "label": "目标作依据",
+    "condition": "规划使用已有战略目标比较候选工作；不是每次规划都要重新定义目标。",
+    "basis": "artifact-input",
+    "sources": [
+      {
+        "path": "../../skills/promote-roadmap-items/SKILL.md",
+        "quote": "3. Read `docs/project-overview/strategic-goals.md` (the list of strategic goals)"
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "planning-design",
+    "from": "planning",
+    "to": "design",
+    "kind": "input",
+    "label": "规划事项细化",
+    "condition": "需要细化已纳入规划的事项时，交接到需求、设计和任务。进入 Now 不等于资料已批准，也不要求每次重做已有设计。",
+    "basis": "artifact-handoff",
+    "sources": [
+      {
+        "path": "../../skills/promote-roadmap-items/SKILL.md",
+        "quote": "**Handoff point**: promoted Now-tier items go into `capture-work-items` as needed, and the AgentFabric runtime then carries out design / task breakdown / execution."
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "design-build",
+    "from": "design",
+    "to": "build",
+    "kind": "input",
+    "label": "批准任务依据",
+    "condition": "批准的技术设计可拆成实现任务；这里表示资料交接，不表示审查技能负责写全部代码。",
+    "basis": "artifact-handoff",
+    "sources": [
+      {
+        "path": "../../specs/task-modeling.md",
+        "quote": "A task list is the set of implementation work items derived from a technical design."
+      },
+      {
+        "path": "../../specs/task-modeling.md",
+        "quote": "a task list's `parent` points at a technical design document in `approved` status"
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "design-quality",
+    "from": "design",
+    "to": "quality",
+    "kind": "input",
+    "label": "批准意图对照",
+    "condition": "有批准需求、设计和任务时，将其与实现和验证证据对照。缺少批准资料时披露限制，不把草稿当成完成依据。",
+    "basis": "artifact-input",
+    "sources": [
+      {
+        "path": "../../skills/review-implementation-alignment/SKILL.md",
+        "quote": "Input is the approved artifact paths, implementation scope and evidence."
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "repair-feedback",
+    "from": "quality",
+    "to": "build",
+    "kind": "feedback",
+    "label": "修复后再验证",
+    "condition": "工程与功能检查发现问题后定向修复，再复核受影响检查；二者分别提供证据，达到停止条件就暂停。",
+    "basis": "repair-loop",
+    "sources": [
+      {
+        "path": "../../skills/orchestrate-repair-loop/SKILL.md",
+        "quote": "2. **Functional gate** — `review-implementation-alignment` compares approved intent with implementation, while `automate-tests` or the acceptance harness executes correctness evidence."
+      },
+      {
+        "path": "../../skills/orchestrate-repair-loop/SKILL.md",
+        "quote": "4. **Repeat** — rerun every gate affected by the repair until both pass or a stop condition is reached."
+      }
+    ],
+    "bidirectional": true
+  },
+  {
+    "id": "quality-planning",
+    "from": "quality",
+    "to": "planning",
+    "kind": "feedback",
+    "label": "新需求回待办",
+    "condition": "若报告实际要求新行为，或应交回既有受理流程，就带着依据返回待办判断；不会在修复中擅自扩大范围或自动更改优先级。",
+    "basis": "conditional-feedback",
+    "sources": [
+      {
+        "path": "../../skills/orchestrate-repair-loop/SKILL.md",
+        "quote": "A report that matches intended behavior, concerns another system, or requests new behavior is handed back with its basis or routed to the project's existing intake process when needed."
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "checks-release",
+    "from": "quality",
+    "to": "release",
+    "kind": "input",
+    "label": "发布检查依据",
+    "condition": "准备发布时复用并记录适用测试、构建和审查结果；不表示所有审查每次都必须运行。检查通过也不等于获准发布。",
+    "basis": "quality-evidence",
+    "sources": [
+      {
+        "path": "../../skills/prepare-release/SKILL.md",
+        "quote": "Run the smallest relevant tests, lint, build, or security checks the project declares; the discovery logic of `automate-tests` can be reused."
+      },
+      {
+        "path": "../../skills/prepare-release/SKILL.md",
+        "quote": "Where a review signal is needed, use the existing `review-diff` / `orchestrate-code-review` rather than rewriting review capability here."
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "history-release",
+    "from": "commit",
+    "to": "release",
+    "kind": "input",
+    "label": "变更记录依据",
+    "condition": "准备发布使用已有仓库历史、目标提交和变更范围；不要求先重新执行一次 commit-work。",
+    "basis": "artifact-input",
+    "sources": [
+      {
+        "path": "../../skills/prepare-release/SKILL.md",
+        "quote": "Build an auditable [Release Package](../../specs/release-package.md): fix the version and the commit range, generate or collect release artifacts, run the necessary gates, and state `ready`, the blockers, and any gaps in optional artifacts."
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "conditional-commit",
+    "from": "release",
+    "to": "commit",
+    "kind": "call",
+    "label": "未自行提交时调用",
+    "condition": "仅在发布工具没有自行提交时调用提交技能；这条返回线不是每次发布都要重复提交。提交也不等于已经发布。",
+    "basis": "conditional-call",
+    "sources": [
+      {
+        "path": "../../skills/publish-release/SKILL.md",
+        "quote": "5. **Version and commit**: execute only the product version-sync plan the package has confirmed; an independent version domain set to `preserve` must not be changed along with it. Reuse the project's release tool when it commits on its own; otherwise call the locally vendored AI Cortex `commit-work` for precise staging and commit, with this Skill owning the ordering and the receipt. When that Skill is absent, stop the commit phase; do not install it from an external registry and do not substitute an inline simplified flow."
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "norms-planning",
+    "from": "foundation",
+    "to": "planning",
+    "kind": "support",
+    "label": "约定支持规划",
+    "condition": "规划读取已有项目约定来确定位置、视图和维护方式；需要建立或修订约定时再使用对应能力，不强制重新初始化。",
+    "basis": "adopted-convention",
+    "sources": [
+      {
+        "path": "../../skills/define-docs-norms/SKILL.md",
+        "quote": "Fix a reviewed norms proposal into `docs/ARTIFACT_NORMS.md` and make it the canonical rule set for the project's documentation governance."
+      },
+      {
+        "path": "../../skills/define-roadmap/SKILL.md",
+        "quote": "1. Read project norms, existing choices and linked planning/execution/release records,"
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "norms-collaboration",
+    "from": "foundation",
+    "to": "collaboration",
+    "kind": "support",
+    "label": "沟通沿用约定",
+    "condition": "准备答复材料时遵循项目已采用的权威和维护约定；保持产品事实与客户条件各归其位，不必另建一套文档规则。",
+    "basis": "adopted-convention",
+    "sources": [
+      {
+        "path": "../../skills/define-docs-norms/SKILL.md",
+        "quote": "Fix a reviewed norms proposal into `docs/ARTIFACT_NORMS.md` and make it the canonical rule set for the project's documentation governance."
+      },
+      {
+        "path": "../../skills/prepare-presales-response/SKILL.md",
+        "quote": "Follow the adopting project's authority and maintenance conventions."
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "research-collaboration",
+    "from": "research",
+    "to": "collaboration",
+    "kind": "support",
+    "label": "调查补齐答复",
+    "condition": "沟通中遇到实质研究问题时可请求调查，再把有依据的结果用于答复；普通 FAQ 查找不需要生成研究报告。这里双向表示请求和结果交接，不是强制阶段。",
+    "basis": "research-support",
+    "sources": [
+      {
+        "path": "../../skills/prepare-presales-response/SKILL.md",
+        "quote": "For a substantive research subtask, use the available `deep-research` capability and its [Research Evidence](../../specs/research-evidence.md) handoff; use focused policy research for jurisdiction-dependent questions."
+      },
+      {
+        "path": "../../skills/prepare-presales-response/SKILL.md",
+        "quote": "A normal FAQ lookup does not require a Research Report."
+      }
+    ],
+    "bidirectional": true
+  },
+  {
+    "id": "research-planning",
+    "from": "research",
+    "to": "planning",
+    "kind": "support",
+    "label": "研究支持取舍",
+    "condition": "研究形成的机会建议可供负责人评估候选事项；是否纳入计划仍需单独决定，不会自动创建需求或批准路线图。这是成果用途的主题表达，不代表研究技能调用规划技能。",
+    "basis": "decision-support",
+    "sources": [
+      {
+        "path": "../../specs/opportunity-package.md",
+        "quote": "The package is the output of `product-opportunity-analysis`. It preserves research reports and adds a decision layer."
+      },
+      {
+        "path": "../../specs/opportunity-package.md",
+        "quote": "Treating `ready_for_decision` as a funding or roadmap approval."
+      }
+    ],
+    "bidirectional": false
+  }
+]

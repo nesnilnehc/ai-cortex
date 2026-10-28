@@ -1,0 +1,4 @@
+markdownlint-cli2 v0.17.2 (markdownlint v0.37.4)
+Finding: docs/requirements-planning/AIC-REQ-04.md docs/requirements-planning/README.md docs/designs/2026-10-27-help-discovery-functional-design.md docs/designs/2026-10-27-help-discovery-technical-design.md docs/designs/help-discovery-tasks.md docs/calibration/audit-docs.md docs/process-management/backlog/2026-10-27-work-relationship-explorer.md website/README.md tests/website/evidence/release/README.md
+Linting: 9 file(s)
+Summary: 0 error(s)

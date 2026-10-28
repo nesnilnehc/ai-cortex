@@ -1,0 +1,22 @@
+✔ view transitions preserve explicit target, detail mode and independent layout (9.922334ms)
+✔ both groupings cover skills once; only actual calls become parents and sequence is scenario scoped (1.768708ms)
+✔ relationship data rejects missing call mode, unknown endpoints and invalid sequence (0.254125ms)
+✔ invalid local layouts cannot mutate state; close and work-only selection never fabricate a skill (0.210917ms)
+✖ classification rejects omitted, foreign and duplicate primary entries (0.245917ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 128.11525
+
+✖ failing tests:
+
+test at tests/website/dual-view.test.mjs:21:1
+✖ classification rejects omitted, foreign and duplicate primary entries (0.245917ms)
+  TypeError: validateClassification is not a function
+      at TestContext.<anonymous> (file:///Users/nesnilnehc/github.com/ai-cortex/tests/website/dual-view.test.mjs:22:165)
+      at async Test.run (node:internal/test_runner/test:1125:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:787:7)

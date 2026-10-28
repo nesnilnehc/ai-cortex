@@ -1,0 +1,66 @@
+✖ global destinations retain directory/install bookmarks and language families (1.578958ms)
+✖ localized names remain different from purposes and true identities stay guarded (8.632834ms)
+✖ support scopes have per-target evidence and exclude invented endpoints (0.357875ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 121.89025
+
+✖ failing tests:
+
+test at tests/website/site-revision.test.mjs:6:1
+✖ global destinations retain directory/install bookmarks and language families (1.578958ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/nesnilnehc/github.com/ai-cortex/website/site-navigation.mjs' imported from /Users/nesnilnehc/github.com/ai-cortex/tests/website/site-revision.test.mjs
+      at finalizeResolution (node:internal/modules/esm/resolve:275:11)
+      at moduleResolve (node:internal/modules/esm/resolve:865:10)
+      at defaultResolve (node:internal/modules/esm/resolve:991:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:713:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:730:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:759:52)
+      at #resolve (node:internal/modules/esm/loader:695:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:615:35)
+      at onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:32)
+      at TracingChannel.tracePromise (node:diagnostics_channel:350:14) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///Users/nesnilnehc/github.com/ai-cortex/website/site-navigation.mjs'
+  }
+
+test at tests/website/site-revision.test.mjs:16:1
+✖ localized names remain different from purposes and true identities stay guarded (8.632834ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - '审查需求'
+  
+      at TestContext.<anonymous> (file:///Users/nesnilnehc/github.com/ai-cortex/tests/website/site-revision.test.mjs:19:9)
+      at async Test.run (node:internal/test_runner/test:1125:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:787:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: '审查需求',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/website/site-revision.test.mjs:25:1
+✖ support scopes have per-target evidence and exclude invented endpoints (0.357875ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/nesnilnehc/github.com/ai-cortex/website/explore/support-scopes.mjs' imported from /Users/nesnilnehc/github.com/ai-cortex/tests/website/site-revision.test.mjs
+      at finalizeResolution (node:internal/modules/esm/resolve:275:11)
+      at moduleResolve (node:internal/modules/esm/resolve:865:10)
+      at defaultResolve (node:internal/modules/esm/resolve:991:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:713:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:730:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:759:52)
+      at #resolve (node:internal/modules/esm/loader:695:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:615:35)
+      at onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:32)
+      at TracingChannel.tracePromise (node:diagnostics_channel:350:14) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///Users/nesnilnehc/github.com/ai-cortex/website/explore/support-scopes.mjs'
+  }

@@ -1,0 +1,489 @@
+{
+  "date": "2026-10-27T08:18:08.673Z",
+  "browser": "151.0.7922.34",
+  "matrix": [
+    {
+      "width": 360,
+      "height": 667,
+      "theme": "light",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 667,
+      "theme": "dark",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "dark",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "theme": "light",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "theme": "dark",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "allNodes": true,
+      "entryWithoutScroll": true,
+      "pickerPinned": true,
+      "keyboardModeSwitchAndClose": true,
+      "nativePopupSelection": "separate IAB check",
+      "selectionPreserved": true,
+      "overflow": false
+    }
+  ],
+  "skills": [
+    {
+      "id": "define-mission",
+      "node": "direction",
+      "fourFields": true
+    },
+    {
+      "id": "define-north-star",
+      "node": "direction",
+      "fourFields": true
+    },
+    {
+      "id": "design-strategic-goals",
+      "node": "direction",
+      "fourFields": true
+    },
+    {
+      "id": "define-vision",
+      "node": "direction",
+      "fourFields": true
+    },
+    {
+      "id": "define-strategic-pillars",
+      "node": "direction",
+      "fourFields": true
+    },
+    {
+      "id": "orchestrate-roadmap-planning",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "prioritize-backlog",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "map-item-dependencies",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "capture-work-items",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "orchestrate-repair-requirements-loop",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "define-roadmap",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "promote-roadmap-items",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "update-roadmap",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "archive-milestone",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "plan-next",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "orchestrate-governance-step",
+      "node": "planning",
+      "fourFields": true
+    },
+    {
+      "id": "review-requirements",
+      "node": "design",
+      "fourFields": true
+    },
+    {
+      "id": "review-functional-design",
+      "node": "design",
+      "fourFields": true
+    },
+    {
+      "id": "review-technical-design",
+      "node": "design",
+      "fourFields": true
+    },
+    {
+      "id": "review-roadmap",
+      "node": "design",
+      "fourFields": true
+    },
+    {
+      "id": "review-tasks",
+      "node": "design",
+      "fourFields": true
+    },
+    {
+      "id": "automate-tests",
+      "node": "build",
+      "fourFields": true
+    },
+    {
+      "id": "scaffold-agent-tests",
+      "node": "build",
+      "fourFields": true
+    },
+    {
+      "id": "redeploy-local",
+      "node": "build",
+      "fourFields": true
+    },
+    {
+      "id": "orchestrate-code-review",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-implementation-alignment",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "orchestrate-repair-loop",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-architecture",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-codebase",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-diff",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-dotnet",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-error-surfacing",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-go",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-java",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-observability",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-orm-usage",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-performance",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-php",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-powershell",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-python",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-react",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-reliability",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-security",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-sql",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-testing",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-typescript",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "review-vue",
+      "node": "quality",
+      "fourFields": true
+    },
+    {
+      "id": "commit-work",
+      "node": "commit",
+      "fourFields": true
+    },
+    {
+      "id": "deliver-feature",
+      "node": "commit",
+      "fourFields": true
+    },
+    {
+      "id": "integrate-branches",
+      "node": "commit",
+      "fourFields": true
+    },
+    {
+      "id": "prepare-release",
+      "node": "release",
+      "fourFields": true
+    },
+    {
+      "id": "publish-release",
+      "node": "release",
+      "fourFields": true
+    },
+    {
+      "id": "announce-release",
+      "node": "release",
+      "fourFields": true
+    },
+    {
+      "id": "changelog-video",
+      "node": "release",
+      "fourFields": true
+    },
+    {
+      "id": "deep-research",
+      "node": "research",
+      "fourFields": true
+    },
+    {
+      "id": "market-research",
+      "node": "research",
+      "fourFields": true
+    },
+    {
+      "id": "competitive-research",
+      "node": "research",
+      "fourFields": true
+    },
+    {
+      "id": "policy-research",
+      "node": "research",
+      "fourFields": true
+    },
+    {
+      "id": "assess-product-opportunity",
+      "node": "research",
+      "fourFields": true
+    },
+    {
+      "id": "product-opportunity-analysis",
+      "node": "research",
+      "fourFields": true
+    },
+    {
+      "id": "define-docs-norms",
+      "node": "foundation",
+      "fourFields": true
+    },
+    {
+      "id": "generate-agent-entry",
+      "node": "foundation",
+      "fourFields": true
+    },
+    {
+      "id": "generate-standard-readme",
+      "node": "foundation",
+      "fourFields": true
+    },
+    {
+      "id": "generate-github-workflow",
+      "node": "foundation",
+      "fourFields": true
+    },
+    {
+      "id": "refine-skill-design",
+      "node": "foundation",
+      "fourFields": true
+    },
+    {
+      "id": "manage-secret",
+      "node": "foundation",
+      "fourFields": true
+    },
+    {
+      "id": "prepare-presales-response",
+      "node": "collaboration",
+      "fourFields": true
+    },
+    {
+      "id": "decontextualize-text",
+      "node": "collaboration",
+      "fourFields": true
+    },
+    {
+      "id": "publish-nats-message",
+      "node": "collaboration",
+      "fourFields": true
+    },
+    {
+      "id": "consume-nats-message",
+      "node": "collaboration",
+      "fourFields": true
+    }
+  ],
+  "errors": [],
+  "status": "passed",
+  "sourceHashes": {
+    "index.html": "4de5fdc644c82cdd5481cda3d4c44d3b440108f662861376cc8b77bb0d3b8cfa",
+    "story.mjs": "97781cc8e9a61a2848c1c5c16f23d527c7bcb1b04947718f9b9dc2bc4322697b",
+    "panel-model.mjs": "072bc969ad87a91a6fc64a743ce3c73b9921e940136f914a8bb5d3e68e333949",
+    "work-map.mjs": "f698e417a24aea2c2fe63b56e82c86de4cbb1b5e29c0da8247890af29c624235",
+    "workspace.css": "7d26b82c67b36a3cd7b676c26c2182a000d0afb406532c6cb49e65a3938f82a1",
+    "skill-guidance.json": "88dd5712af035e42a517b220f8242d9d3e6fca36ed74f834aec5e828e3931d30",
+    "audit/verify-single-map.cjs": "106d1f966561f02534bbc0116f1fa04c60b46a042fe2a9d4421af07d3d20400c"
+  }
+}

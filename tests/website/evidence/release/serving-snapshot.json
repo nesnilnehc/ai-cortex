@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-28",
+  "site": {
+    "id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
+    "latest_version_number": 8,
+    "status": "active",
+    "access_mode": "public",
+    "current_live_url": "https://ai-cortex.nesnilnehc.top",
+    "updated_at": "2026-10-28T05:04:11.432261+00:00"
+  },
+  "domains": [
+    {
+      "id": "appgdom_6adad17692148191acdece762d855fe7",
+      "hostname": "ai-cortex.nesnilnehc.top",
+      "status": "active",
+      "provider_status": "active",
+      "ssl_status": "active"
+    }
+  ]
+}

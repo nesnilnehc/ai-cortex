@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-28T03:17:43.431Z",
+  "browser": "151.0.7922.34",
+  "localOnly": true,
+  "matrix": [
+    {
+      "locale": "zh",
+      "width": 360,
+      "height": 667,
+      "theme": "light",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "zh",
+      "width": 360,
+      "height": 667,
+      "theme": "dark",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "zh",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "zh",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    }
+  ],
+  "skills": [],
+  "errors": [],
+  "status": "failed",
+  "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-class-relation=\"define-mission__define-vision\"]')\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" class=\"classification-reference\" data-class-relation=\"define-mission__define-vision\">使命作为依据 → 定义愿景</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <aside tabindex=\"-1\" data-open=\"true\" id=\"detail-panel\" class=\"detail-panel\" aria-labelledby=\"detail-title\">…</aside> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is visible, enabled and stable\u001b[22m\n\u001b[2m    - scrolling into view if needed\u001b[22m\n\u001b[2m    - done scrolling\u001b[22m\n\u001b[2m    - <aside tabindex=\"-1\" data-open=\"true\" id=\"detail-panel\" class=\"detail-panel\" aria-labelledby=\"detail-title\">…</aside> intercepts pointer events\u001b[22m\n\u001b[2m  2 × retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m      - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div role=\"group\" aria-label=\"展示方式\" class=\"view-switch\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m  14 × retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\u001b[2m       - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <aside tabindex=\"-1\" data-open=\"true\" id=\"detail-panel\" class=\"detail-panel\" aria-labelledby=\"detail-title\">…</aside> intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\u001b[2m       - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <aside tabindex=\"-1\" data-open=\"true\" id=\"detail-panel\" class=\"detail-panel\" aria-labelledby=\"detail-title\">…</aside> intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\u001b[2m       - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div role=\"group\" aria-label=\"展示方式\" class=\"view-switch\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\u001b[2m       - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div role=\"group\" aria-label=\"展示方式\" class=\"view-switch\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is visible, enabled and stable\u001b[22m\n\u001b[2m    - scrolling into view if needed\u001b[22m\n\u001b[2m    - done scrolling\u001b[22m\n\u001b[2m    - <aside tabindex=\"-1\" data-open=\"true\" id=\"detail-panel\" class=\"detail-panel\" aria-labelledby=\"detail-title\">…</aside> intercepts pointer events\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting 500ms\u001b[22m\n\n    at /Users/nesnilnehc/github.com/ai-cortex/tests/website/dual-browser.cjs:18:311"
+}

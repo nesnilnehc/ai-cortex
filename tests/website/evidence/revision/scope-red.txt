@@ -1,0 +1,28 @@
+✔ global destinations retain directory/install bookmarks and language families (2.066208ms)
+✔ localized names remain different from purposes and true identities stay guarded (11.6445ms)
+✖ support scopes have per-target evidence and exclude invented endpoints (3.714583ms)
+✔ all four native headers mirror shared routes and keep utilities outside primary navigation (1.189416ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 126.176583
+
+✖ failing tests:
+
+test at tests/website/site-revision.test.mjs:25:1
+✖ support scopes have per-target evidence and exclude invented endpoints (3.714583ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///Users/nesnilnehc/github.com/ai-cortex/tests/website/site-revision.test.mjs:28:59)
+      at async Test.run (node:internal/test_runner/test:1125:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:787:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }

@@ -1,0 +1,28 @@
+✔ direction and backlog nodes have distinct explanations and skill scopes (1.163416ms)
+✔ every registered skill resolves to a selectable node with its own request (6.471666ms)
+✔ only relevant examples appear inside each node detail (2.696ms)
+✔ publication and announcement prerequisites stay separate in the same panel (0.444958ms)
+✔ planning explains definition, priority, promotion and maintenance as separate work (0.229667ms)
+✔ catalog parity rejects missing, unknown and duplicate entries without mutating fixtures (3.443083ms)
+✖ work context distinguishes ordinary agent help from optional Cortex assets (0.4605ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 138.213333
+
+✖ failing tests:
+
+test at experiments/direction-planning/panel-model.test.mjs:59:1
+✖ work context distinguishes ordinary agent help from optional Cortex assets (0.4605ms)
+  TypeError: Cannot read properties of undefined (reading 'ordinary')
+      at TestContext.<anonymous> (file:///Users/nesnilnehc/github.com/ai-cortex/experiments/direction-planning/panel-model.test.mjs:61:28)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1118:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:787:18)
+      at Test.postRun (node:internal/test_runner/test:1247:19)
+      at Test.run (node:internal/test_runner/test:1175:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:787:7)

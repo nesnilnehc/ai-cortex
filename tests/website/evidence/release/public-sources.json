@@ -1,0 +1,1103 @@
+{
+  "date": "2026-10-28",
+  "assetsRevision": "e5d862101d3110c5a3ee44c4e8cec042b058c061",
+  "resources": [
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/announce-release/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "7c2a83be512ea07798661a91e0ea203f73b04c5fb29bad96f6a674337ebec1a1",
+      "sha256": "7c2a83be512ea07798661a91e0ea203f73b04c5fb29bad96f6a674337ebec1a1",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/archive-milestone/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "0963f68603969baef10dfa489b482b64abfc47162ada6ca267a8e0c9dd700411",
+      "sha256": "0963f68603969baef10dfa489b482b64abfc47162ada6ca267a8e0c9dd700411",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/assess-product-opportunity/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "710f40a4a3fcec3da9ef6fbc37f4beebcf698ce902f4788989a109610ba3c917",
+      "sha256": "710f40a4a3fcec3da9ef6fbc37f4beebcf698ce902f4788989a109610ba3c917",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/automate-tests/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "7cbc1484999dc68f2702451071886d7d8b2327d29103bed3003c9086bed19e76",
+      "sha256": "7cbc1484999dc68f2702451071886d7d8b2327d29103bed3003c9086bed19e76",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/capture-work-items/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "3d788097e9a8ce105763932e94152451d27beeccf90d08f8d54e9d3ef48c2918",
+      "sha256": "3d788097e9a8ce105763932e94152451d27beeccf90d08f8d54e9d3ef48c2918",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/changelog-video/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "63e7a7ba4a90e4e5c66ab1c96f410edc874dcbd923215640ed345f2dd51fcc8d",
+      "sha256": "63e7a7ba4a90e4e5c66ab1c96f410edc874dcbd923215640ed345f2dd51fcc8d",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/commit-work/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "6540b95591014573caac1a5b7c302f4f0ad5637fef7f7324aa201aa744cfa8ce",
+      "sha256": "6540b95591014573caac1a5b7c302f4f0ad5637fef7f7324aa201aa744cfa8ce",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/competitive-research/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "e0617a761b713ba976db393eaccd1284fc6bbf4253d9db1988c3f63a26b29c51",
+      "sha256": "e0617a761b713ba976db393eaccd1284fc6bbf4253d9db1988c3f63a26b29c51",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/consume-nats-message/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "3ee49c343298c44a17a3dcd19a34b5becbd7bfd6453ffac8620fff0658e3a5f2",
+      "sha256": "3ee49c343298c44a17a3dcd19a34b5becbd7bfd6453ffac8620fff0658e3a5f2",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/decontextualize-text/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "74e7e00e84c2daba65033c76106a464edc9876e26f5c5522b03ce0f3f2b9a976",
+      "sha256": "74e7e00e84c2daba65033c76106a464edc9876e26f5c5522b03ce0f3f2b9a976",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/deep-research/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "2027ba261c780361524ca34f62ee04c0d26e852da724fb78a4b0acbefadd0882",
+      "sha256": "2027ba261c780361524ca34f62ee04c0d26e852da724fb78a4b0acbefadd0882",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/define-docs-norms/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "ec67b1912219ae9a0a9b9f6aba00a42b2ede5dc742f0e5258a1efdeb229f96b5",
+      "sha256": "ec67b1912219ae9a0a9b9f6aba00a42b2ede5dc742f0e5258a1efdeb229f96b5",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/define-mission/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "5a375e4e12b59894ec60edf57e5b13f8df05b6e011acfed068c85bf4d042f081",
+      "sha256": "5a375e4e12b59894ec60edf57e5b13f8df05b6e011acfed068c85bf4d042f081",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/define-north-star/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "f0112ce83a76b21c43a4ef81ce11f8b25777c5ad2dc21697df3d67f181ab225b",
+      "sha256": "f0112ce83a76b21c43a4ef81ce11f8b25777c5ad2dc21697df3d67f181ab225b",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/define-roadmap/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "1612c7cb468fd0bdf5753dce53bafe9bfc1ecb3d4293051170c13ad7f72848bf",
+      "sha256": "1612c7cb468fd0bdf5753dce53bafe9bfc1ecb3d4293051170c13ad7f72848bf",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/define-strategic-pillars/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "1dd2766b9bddf24b2cc9692b75631b3660a49dd8b5fe82649c73b5d6a76f9741",
+      "sha256": "1dd2766b9bddf24b2cc9692b75631b3660a49dd8b5fe82649c73b5d6a76f9741",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/define-vision/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "086e0f0a41786de0511da752a83a7c7b4e58099e475c9bb62831dac7af1642cf",
+      "sha256": "086e0f0a41786de0511da752a83a7c7b4e58099e475c9bb62831dac7af1642cf",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/deliver-feature/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "e504d011753a6991ccd638bc03424cbf262f068b7c0a1c5be95e0386e0433d1f",
+      "sha256": "e504d011753a6991ccd638bc03424cbf262f068b7c0a1c5be95e0386e0433d1f",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/design-strategic-goals/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "c49ac98d36757e2fe4c2f56cd9c03ae727a3fb1d4260db9415ab96c073a18897",
+      "sha256": "c49ac98d36757e2fe4c2f56cd9c03ae727a3fb1d4260db9415ab96c073a18897",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/generate-agent-entry/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "a178512a73df151682189b6f752f7787febab099cf0b83ce3f5bbe03a02ec4cb",
+      "sha256": "a178512a73df151682189b6f752f7787febab099cf0b83ce3f5bbe03a02ec4cb",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/generate-github-workflow/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "a335943546455d7d6c7dd3776c4776f4d90af41320cf6e6c94c2a849aafc74f6",
+      "sha256": "a335943546455d7d6c7dd3776c4776f4d90af41320cf6e6c94c2a849aafc74f6",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/generate-standard-readme/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "e07fea9ec1b62cfdc5485b68f49374a6e948ffeba50b2ede23a35c49bca53557",
+      "sha256": "e07fea9ec1b62cfdc5485b68f49374a6e948ffeba50b2ede23a35c49bca53557",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/integrate-branches/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "2e490cff9b53831e1a36c182c49fd5c7318f9cebd394ca4d77360922ca85a98e",
+      "sha256": "2e490cff9b53831e1a36c182c49fd5c7318f9cebd394ca4d77360922ca85a98e",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/manage-secret/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "419c3a63f40ee428d43a1c9171581ec3ea5ac4101b109238a3ce457820a6c02a",
+      "sha256": "419c3a63f40ee428d43a1c9171581ec3ea5ac4101b109238a3ce457820a6c02a",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/map-item-dependencies/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "48acf45ebbd786b608d38c929169861544f49c797d81799df311b64e67cb7316",
+      "sha256": "48acf45ebbd786b608d38c929169861544f49c797d81799df311b64e67cb7316",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/market-research/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "4bbd6c017efbd2988b28cb9f89859618a523f4208c529c8f86c69ef6cac96c59",
+      "sha256": "4bbd6c017efbd2988b28cb9f89859618a523f4208c529c8f86c69ef6cac96c59",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/orchestrate-code-review/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "sha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/orchestrate-governance-step/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "33e1f2b90a1187b5a61a954847f8d71cffaed45aeaee21b2291fa9813e8f79be",
+      "sha256": "33e1f2b90a1187b5a61a954847f8d71cffaed45aeaee21b2291fa9813e8f79be",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/orchestrate-repair-loop/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "24d5cc8aa356d1b6ea9ceadf33c5fd42ed738ff908899322c7bf5a7e84884b4d",
+      "sha256": "24d5cc8aa356d1b6ea9ceadf33c5fd42ed738ff908899322c7bf5a7e84884b4d",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/orchestrate-repair-requirements-loop/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "ed73c845ca15de560b74e9e345a7e776065986c1e82cfda37d44812dbe22c25f",
+      "sha256": "ed73c845ca15de560b74e9e345a7e776065986c1e82cfda37d44812dbe22c25f",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/orchestrate-roadmap-planning/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "2c37126e96b514ed11995079c8e81a5e86f9f6a26f9a41f8cce7179fc58e2c83",
+      "sha256": "2c37126e96b514ed11995079c8e81a5e86f9f6a26f9a41f8cce7179fc58e2c83",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/plan-next/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "cbc4277aca3dca1daf952acd4433a10e32309970b4590562bb2cf5d115636ef4",
+      "sha256": "cbc4277aca3dca1daf952acd4433a10e32309970b4590562bb2cf5d115636ef4",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/policy-research/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "e6731a71036746db137a990d31bef5670e22bde9671e7a3e308aafe2bf6e09bf",
+      "sha256": "e6731a71036746db137a990d31bef5670e22bde9671e7a3e308aafe2bf6e09bf",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/prepare-presales-response/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "0c56e53d2828e029dc3a4fb7611e46e57b6a6ff7977d31af44bdfc13b9ace445",
+      "sha256": "0c56e53d2828e029dc3a4fb7611e46e57b6a6ff7977d31af44bdfc13b9ace445",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/prepare-release/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "c1a98c128cba7a4f0dfc61112e443795d29187ab19bbe6b059baf58e558153f1",
+      "sha256": "c1a98c128cba7a4f0dfc61112e443795d29187ab19bbe6b059baf58e558153f1",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/prioritize-backlog/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "2cd87e65e1c0cca3dc4549933ea61842c7bd0bcdb0925f3dda7f612fe322475c",
+      "sha256": "2cd87e65e1c0cca3dc4549933ea61842c7bd0bcdb0925f3dda7f612fe322475c",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/product-opportunity-analysis/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "2ec44b8c16d1638f35426dac8b79075685db783802033e569ae8cd3cee3310c4",
+      "sha256": "2ec44b8c16d1638f35426dac8b79075685db783802033e569ae8cd3cee3310c4",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/promote-roadmap-items/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "c219f651e51cf69960a6488a8ebe9aae5acdfe11009ef2afc708566490afc856",
+      "sha256": "c219f651e51cf69960a6488a8ebe9aae5acdfe11009ef2afc708566490afc856",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/publish-nats-message/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "496b48e1d908344f654c8b6a594c3fa27e23a5542ffad7cf29da0b8b6efce29c",
+      "sha256": "496b48e1d908344f654c8b6a594c3fa27e23a5542ffad7cf29da0b8b6efce29c",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/publish-release/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "7a14a0876850419d9c5e17ad0478a094c3fc90de0acd8902a0627de6ff500ac9",
+      "sha256": "7a14a0876850419d9c5e17ad0478a094c3fc90de0acd8902a0627de6ff500ac9",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/redeploy-local/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "5ce190e6a0b7c99b9044aa88ca9cb7a852201ef80b3db160e47ec301cda51964",
+      "sha256": "5ce190e6a0b7c99b9044aa88ca9cb7a852201ef80b3db160e47ec301cda51964",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/refine-skill-design/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "368a6969d13cab93becc473595a37ff2bdd5db766dae28db408ad408150e2491",
+      "sha256": "368a6969d13cab93becc473595a37ff2bdd5db766dae28db408ad408150e2491",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-architecture/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "b5afa818e10159f55dadfb81b9253302b05f6995be409c4d1684a8ffbe8dbb50",
+      "sha256": "b5afa818e10159f55dadfb81b9253302b05f6995be409c4d1684a8ffbe8dbb50",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-codebase/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "66bea73e403f582a802585fbf1b71bc20f7dea14fd1ebfa04633fada71781eb5",
+      "sha256": "66bea73e403f582a802585fbf1b71bc20f7dea14fd1ebfa04633fada71781eb5",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-diff/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "f8cb44c20f4bd95608a6fdec43c28b28dcfeff157a0b6582cca831418622b1f2",
+      "sha256": "f8cb44c20f4bd95608a6fdec43c28b28dcfeff157a0b6582cca831418622b1f2",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-dotnet/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "8714c5db087b668bcb04f4a623bafdce7ce286850c76cd91d6f1a78abe51440a",
+      "sha256": "8714c5db087b668bcb04f4a623bafdce7ce286850c76cd91d6f1a78abe51440a",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-error-surfacing/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "49648026a540800cb067e7806549dcaf2fbfe2a2928e8bb9574bc6078284fdd8",
+      "sha256": "49648026a540800cb067e7806549dcaf2fbfe2a2928e8bb9574bc6078284fdd8",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-functional-design/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "ab359ce0b85f4454f1ad6551e41a4994882f6064296041989e0a66154d93cd85",
+      "sha256": "ab359ce0b85f4454f1ad6551e41a4994882f6064296041989e0a66154d93cd85",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-go/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "c5fbae3f8a1a09bbde3c0b0076fe63fd327e9a02250e76a22ce12e6973b3b9eb",
+      "sha256": "c5fbae3f8a1a09bbde3c0b0076fe63fd327e9a02250e76a22ce12e6973b3b9eb",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-implementation-alignment/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "3de9f63a743f0bbb4dbb3d546a65b4d4c6da33015ab38f7199232ad7579b7bb0",
+      "sha256": "3de9f63a743f0bbb4dbb3d546a65b4d4c6da33015ab38f7199232ad7579b7bb0",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-java/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "ab0c08fc37405a2e045a54b7710293c00057c78fac6eb2730ea7f4744cfd5618",
+      "sha256": "ab0c08fc37405a2e045a54b7710293c00057c78fac6eb2730ea7f4744cfd5618",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-observability/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "bccf32300fc696115da19b85e0975a9d42199650b4f9f10848362626ea426b5b",
+      "sha256": "bccf32300fc696115da19b85e0975a9d42199650b4f9f10848362626ea426b5b",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-orm-usage/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "9dd2aaf522040ea98fb27893deec4216e6bcf81ff66ede56fb37cd4a9934bc47",
+      "sha256": "9dd2aaf522040ea98fb27893deec4216e6bcf81ff66ede56fb37cd4a9934bc47",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-performance/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "a0b6eed10b04cec5eb061fc10a7026533ec9a1fbc06f1ad11ef9420ee055c23f",
+      "sha256": "a0b6eed10b04cec5eb061fc10a7026533ec9a1fbc06f1ad11ef9420ee055c23f",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-php/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "91665058b087fa7c4923a8198e44d1d5686ff37d3225a1830c93adbea67fe411",
+      "sha256": "91665058b087fa7c4923a8198e44d1d5686ff37d3225a1830c93adbea67fe411",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-powershell/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "88a8b2f88a804180af9a16088b5913d54f1e1600d43db221331a99cbf9eb8eb8",
+      "sha256": "88a8b2f88a804180af9a16088b5913d54f1e1600d43db221331a99cbf9eb8eb8",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-python/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "9dcbc28e0e920aad4d5f4a9625935a3c7e621833280794fc499e38f753bce7af",
+      "sha256": "9dcbc28e0e920aad4d5f4a9625935a3c7e621833280794fc499e38f753bce7af",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-react/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "8b52d7facd3696fa7162435cb84f5f35b0e851859d2f00798d4a2946c5b05fba",
+      "sha256": "8b52d7facd3696fa7162435cb84f5f35b0e851859d2f00798d4a2946c5b05fba",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-reliability/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "cd395af0f493a6f1feaf9f4ec8d67081e98a27de723db896fb38d3d597d2020c",
+      "sha256": "cd395af0f493a6f1feaf9f4ec8d67081e98a27de723db896fb38d3d597d2020c",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-requirements/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "0e0c0f4e5c13750dc87431f288077020085aa7a3cb29cb44c6b0a6aa9600ffdb",
+      "sha256": "0e0c0f4e5c13750dc87431f288077020085aa7a3cb29cb44c6b0a6aa9600ffdb",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-roadmap/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "2e8c6f9a7821337fb3c731986de23ec6865cd1fd6177273ae6eb89d4c94ed28f",
+      "sha256": "2e8c6f9a7821337fb3c731986de23ec6865cd1fd6177273ae6eb89d4c94ed28f",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-security/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "3b4eb80e77b7ec31ff38675fe4e18b48782fb02230a40e5805147bd4ce736453",
+      "sha256": "3b4eb80e77b7ec31ff38675fe4e18b48782fb02230a40e5805147bd4ce736453",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-sql/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "69c9bc335cc88139defbb94123bfd676bc6632851b00c30284f9c530e5fb972b",
+      "sha256": "69c9bc335cc88139defbb94123bfd676bc6632851b00c30284f9c530e5fb972b",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-tasks/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "cab99a76d844b99a66004981a046f2e12bbca3cd7817225bb41120c87a34054c",
+      "sha256": "cab99a76d844b99a66004981a046f2e12bbca3cd7817225bb41120c87a34054c",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-technical-design/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "b0c22658e60cd5e0ac05cc7d927a5141ae010a1e790d1f9c3b84d4b9faaaabbb",
+      "sha256": "b0c22658e60cd5e0ac05cc7d927a5141ae010a1e790d1f9c3b84d4b9faaaabbb",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-testing/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "0b8b708b9aaf24753784c690a7545280ef571b379f66fe71bbbba3b67da29095",
+      "sha256": "0b8b708b9aaf24753784c690a7545280ef571b379f66fe71bbbba3b67da29095",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-typescript/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "dd0467b9ef887062c60173456588b2e1bbc28ff7a98effc28cb2cb751f95c4a1",
+      "sha256": "dd0467b9ef887062c60173456588b2e1bbc28ff7a98effc28cb2cb751f95c4a1",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/review-vue/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "56a2efbb36543401bc17d66cf9bfa65fec7cc1598bed2fcda379a3da75041c7e",
+      "sha256": "56a2efbb36543401bc17d66cf9bfa65fec7cc1598bed2fcda379a3da75041c7e",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/scaffold-agent-tests/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "ecc02a2af29c633472e81ab27f404172cfb57a81634661b7003e7ee11370760d",
+      "sha256": "ecc02a2af29c633472e81ab27f404172cfb57a81634661b7003e7ee11370760d",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/update-roadmap/SKILL.md",
+      "httpsVerified": true,
+      "expectedSha256": "e0305ad253d8ebc60b4e962f48b44f0e8857622e4b423d81056ddcfeee575666",
+      "sha256": "e0305ad253d8ebc60b4e962f48b44f0e8857622e4b423d81056ddcfeee575666",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/skills/INDEX.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "51b73a0d1eabf1c9462c7814ba3c912ac690f1ea3e0f7a8e306064d9ac5ecc4c",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/agent-test-modeling.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "5a41f421dd9688db65b3ec51487089f2195babd2ada6ad636a2641e54e1d02af",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/adr-modeling.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "0dd9183a5179a01277f6d5f637eacde25902214b8341c809a14dab1027b51d65",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/cross-team-contract.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "379525ddccc5d140d7cf560ccfbddfc51416879e5011956bbce360526f6133df",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/claude-md-modeling.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "54d9e411f8d827ca65473be3a20d434a6594b565eba68da2b5bafa7d972e3499",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/findings-list.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "23210c190914238f7d794b78ff400e79856c9e6a6f96f14f6bd994403e304a86",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/functional-design-modeling.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "64d69363797971de446fe6e56e592e32e31978391fc022e71f2b70678fded1d5",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/technical-design-modeling.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "fa9f5ad338fa3c2db7ae958f4fe2161a37464d9dd87b9e94c893f993a02e55e2",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/nats-messaging.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "eaa3b0dcd18751a9399c3bd5ec06fdfd56fb3a6a217f8486708fd2b45d883a76",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/opportunity-package.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "68648517866f55661ae4645f9bf78d3ee6084cce9600b459401fe6e735a413d1",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/plan-next-preferences.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "4703e918d334031c971b3b7321697d1ca97f67a292d6a6034e2fb863bc45478e",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/research-evidence.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "428a68c861bf18edee460bdc8bcf2a358d942dbdde7dbf5e9b5127c7eeac89ea",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/roadmap-modeling.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "bd502491cc5f61766c65ece7d9b0f675a409fafdb5c2de3ac775bb6532b0c3f2",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/requirement-modeling.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "a9822e9d0a3112a446ea066d0931c64eb559dcfcc994e5d97de85c97dcd86b20",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/rule-modeling.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "96e2004f4bbb440909f7e789750d855f799e566079990da5e700e7622b4dbc17",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/release-package.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "1e104181d051fe09fb9999d3ed52828db2e1b8030b282ed7c8d477ad9c898eb0",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/spec-modeling.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "f4d3acf99c79a6da088ad7471c70401fb0a6d409e45a63f76e5ffef6052e87a4",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/skill-source-modeling.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "e121672fee613fe914d1779c4b449321232a35eb94949e48ce94d0e9284e0ebc",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/task-modeling.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "b117f004a273919f023cf9459dc09434676c0f5ff80fee97d194cd86d332be6c",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/test-case-modeling.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "b588d94215ce827c7250b036983a6afa6d2edd82a9d37cfa66e0266e19b32948",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/test-coverage-modeling.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "59295e3de407437a5d82a4ef6904146069a8ea453ac717de5d6cc9ff4a83f1f1",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/universal-notification.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "f40918f501f917b6cf8a40f5483e35d1b338a1ffbef54071d146998c35040661",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/im-notification-delivery.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "be6014b8ab9ed971d7ba8c55f1014e735e7bdc56c5e2df0019d3a5ac6fcea687",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/agentic-artifact-paradigm.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "39c513a7b17a0e62215b4e0b2793797ca165c66ea977f711640937044de39460",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/architecture-quality.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "05c6c7625653b576e62051a7db1ed79d65ed2f49f4ac1c9d76f6c3adab7c2551",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/security-quality.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "e3352ba8fb1322d01e8abfcf71c89707c2e00c947c334e09b53c19e3ae0e926c",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/reliability-quality.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "1cbfd21d22279016ab9e953f97f26dac0174c71de2f85654bae02a06a60dcda0",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/performance-quality.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "a1729196507d76a14518c761468526ba9c623355aa1be54b466419d9f9994b9f",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/error-surfacing-quality.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "db0403bb570ce6a03155165e80f771e6d4768508b23edf0627997d1316cb7e8c",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/literal-and-copy-quality.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "17b5c03238c9376e1cdda4dc74b183d02556c40319cd1813850350610e903096",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/observability-quality.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "c5463363860492ad1992075c5fa29aa8bd92a5efb8e84ceee78cc41231e90b64",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/testing-quality.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "71a2532292961b5d88c97aacb1b791c3035248cbacf86091311fd0b2b5d76295",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/implementation-alignment-quality.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "6dbb78ab285e0d786e26df2438a3cc31374e19329381dbcbf7961b5d0867f014",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/writing-chinese-technical.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "25c5f0f1895a1f708133a16de2b85b1ec061a8a9968368e0e5edef2af253204e",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/writing-presales-response.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "5c63dd94abf0e1289cb48d862a396bc95f013cf98df44c48ebd853f0bf4c971d",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/standards-import.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "0c19506213c200523683e474c498be41f5558b12d4436a10d7ef166a7416741c",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/standards-jenkins-job-naming.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "29327a9d031dfaa917edae19d8d0c6063a00bfa8df15ef2cc164f903393924cd",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/workflow-documentation.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "337889a2113c21b4f8e1e8893e1177cd359f65f8e877a86ee52747c074670a08",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/workflow-rule-governance.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "e90cf4fda8bbd109aad71348f9a43357a5ec0461d7a023790fc6255c34c1055b",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/standards-coding.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "3d68d7a762eca4784bb50d29fc4488683d27933e4c3a90e656564fb9ffd47126",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/standards-shell.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "252c6323b01742df82ea0655ce657681ee3e50d9a457d70ebd0221afc2bf1889",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/standards-test-code.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "4b8b4a0b1e469ca3056d84d65eff6e2e9fb4a40bcd400fbf3305011b149e7770",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/standards-agent-testing.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "cffa5deb9332870b5f2e705397e4699aab15363b0d0bd444cc59bdc46ea396b9",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/requirement-quality.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "9f2ac397e92ca1b1797622c1b694375615f478e55009a4a37acbef11fccd7a16",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/requirement-intake-triage.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "626e285e1a9539ca7f7045435814669a11c10bc5eb9642450c61e40ff10c7578",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/functional-design-quality.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "02d4e2ca40686a2065cfdae19479f77ca110542429fa2937eaff13b3af55a388",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/technical-design-quality.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "9f9d0abd346e93fc9e5691fa91d4ad044d24229a4b2bc3f7d3924de4cac3d0e0",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/task-quality.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "b8eeb2bee05294f8d5b19781ec4d5061d269ace57290d753e68264328c7b746a",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/roadmap-quality.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "da7979557a18b6c3a0b6bcb4f0b6c4d2e4705e806c3c3efcd82ae2adc8231597",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/test-case-quality.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "90475b7d425b03d60fbe44e7867f980afa29087a0c702971a35c8e067343b01c",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/test-coverage-quality.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "569021f33033b47b1865e0dbbaf252b0da7dacfd593e593a25713b1efbb13f8f",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/doc-health-criteria.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "9477224edc3c234c74892f30688fbb8ef31e7c6235bee3e1112f0b16837d8a75",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/repo-structure-hygiene.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "1618e8a7b5e8d50e9628741e51fd1bf3f709b5504f8a6abae9407056cf82e17b",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/adr-management.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "fd462c4915b3c9274b77137f556d5c30b0339235ec1e474e694b3218a5568041",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/claude-md-management.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "ec196f61bf7e12840b65c7db815a65ff545b1eb1190ae0ceb806a3678e19f8a6",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/diagram-selection.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "65b2d3f1afa5f3f5ff18ddbd41b881a3a5f0ccf3c4b51a79fe7c70c7d7737348",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/skills/INDEX.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "51b73a0d1eabf1c9462c7814ba3c912ac690f1ea3e0f7a8e306064d9ac5ecc4c",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/specs/INDEX.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "a3b15258101e72ebc0da243446f7a78e37cbdd5956f089ebc25f78953632a323",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/protocols/INDEX.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "704ee0dbe86b5874ab164b8de4801415e672b3f4dafa0d926c74419598d3c9a5",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/rules/INDEX.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "fe4289a14e351cae9e71f32069c516e76b8ce24d4729bbd826f8cbe3688a5b4b",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/docs/guides/engineering-quality-governance.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "a08a8b2592ebf47b6c3d8f012e2e899623fc80ef4910303304926317aecd26f4",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/docs/guides/project-config.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "0ed381994018f83c346f3e8cd835e12a4ebb1af96673b598755f3ed388d624c1",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/CONTRIBUTING.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "39ee1ce49bf1c8a30d904c1105753fd77bd6dc36954a004d2a246bf6927684c1",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/main/LICENSE",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "12cc7c1ea3b40575403f95dbee8a6413ce30afc98a09264dac967720cd6f8a7f",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/specs/INDEX.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "a3b15258101e72ebc0da243446f7a78e37cbdd5956f089ebc25f78953632a323",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/rules/INDEX.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "fe4289a14e351cae9e71f32069c516e76b8ce24d4729bbd826f8cbe3688a5b4b",
+      "passed": true,
+      "error": null
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/e5d862101d3110c5a3ee44c4e8cec042b058c061/protocols/INDEX.md",
+      "httpsVerified": true,
+      "expectedSha256": null,
+      "sha256": "704ee0dbe86b5874ab164b8de4801415e672b3f4dafa0d926c74419598d3c9a5",
+      "passed": true,
+      "error": null
+    }
+  ],
+  "passed": true
+}

@@ -1,0 +1,33 @@
+✔ explorer language selection stays in the explorer family and preserves context (1.149375ms)
+✔ language route maps reject unsafe or incomplete destinations before navigation (0.345834ms)
+✔ source URLs use canonical asset revision and reject path escape (2.119333ms)
+✔ both locale dictionaries cover every skill with meaningful usage, no language fallback (10.489541ms)
+✔ both static editions provide sources without scripting and no experiment dependencies (0.84525ms)
+✖ home and install navigation keeps an explicit locale when storage is blocked (1.653833ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 130.044666
+
+✖ failing tests:
+
+test at tests/website/explorer.test.mjs:45:1
+✖ home and install navigation keeps an explicit locale when storage is blocked (1.653833ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '/' !== '/?lang=en'
+  
+      at TestContext.<anonymous> (file:///Users/nesnilnehc/github.com/ai-cortex/tests/website/explorer.test.mjs:47:9)
+      at async Test.run (node:internal/test_runner/test:1125:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:787:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '/',
+    expected: '/?lang=en',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

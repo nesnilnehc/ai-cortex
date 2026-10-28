@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-27",
+  "files": {
+    "app.mjs": "54f36e6e426580e8e0a2a36a404502936b633c01382e4c976a1cce7d151555b3",
+    "catalog.json": "81f817412d3fa0ecff089b504cc07c9e7b3a63d9a21ce5503e9c236293cf34ae",
+    "context-copy.mjs": "012a562467ea7ffc8afee99e5cd25bf4c2f9358af5b0d14b0f2da999a249975a",
+    "detailed.html": "b909433e081d521f108fa3a16d3b1d3b546a299c2b284e95bf874072a917dd08",
+    "global.css": "41ebe4f1f9daa3840a508c8c67e0c81db276cff9829088573d4cc9b0e778d5b1",
+    "global.mjs": "ffeffc42874851b63f4d40d09f76bc3873cccd16ec1caa7f96621942eb82c091",
+    "index.html": "de4ab4d4734da8e665cb30af63f8c96dc4b209ca428578ac89a2ce217200eae7",
+    "model.mjs": "7f3b5c2f1e29ce0a4cd3cd7ffd508024ce67bb644e969d5a363ddcd918a11121",
+    "model.test.mjs": "e42f8415fa6a712e2508da0d3901ffe92d08daf6cab5b01f090ff8d33ed37e7a",
+    "panel-layout.test.mjs": "e968cda7a031f1a23e650abfe023e3da6927e5d48a6ff28200c3e58328b1710d",
+    "panel-model.mjs": "8a544198f63b531ffbde1850a1ad1c4b92612bc50045e3819e874b5e0ff48e5c",
+    "panel-model.test.mjs": "f770f750dd8c0f4004a79b4c9bdef95fb7e016116d9e8373453a2306cbe84557",
+    "prototype.css": "0511bf6e73b81cdfaabde785b0ff388641be1a21688b210ecc4ebc47c6a1a2d7",
+    "relations.mjs": "be058aff16b0d768759aab091c72bfff846aa5e6fe840cc6952afdd6e81b1e92",
+    "relations.test.mjs": "8c0a66b921dc3d2d6983a0638940c9d4a66a57215dd03e19cd734fe27f5d13e1",
+    "relationship.mjs": "7ca5ca7409177862d5b118cdfdf51fe9af6d26304bf7c92c2e00bf1fbbd6281a",
+    "relationship.test.mjs": "8a39520745fc3f6e82adce124177b18b2e3a0ff3065d26c049342dc15222aeca",
+    "request-state.mjs": "23f3c205ce4d62c482eb22a10780eae879ea50666f3d97aff2c4be7fe4f2e177",
+    "request-state.test.mjs": "eb465c5ad8d4215c0b77767b6923262db8db8414a03337be759ed1aefd232adf",
+    "responsive-check.html": "3f677e37a0bae26e89277e35af8bcc131af5f60056c6f7cc1a6e1e1764752094",
+    "story-model.mjs": "cbddb1b227080c5dd192294eebeb590a2e185acd99d28e01d300ece6b66a0880",
+    "story-model.test.mjs": "47d7c94616a2af3e1fbcdc0acc54c69e34e7a165522761a6dc2c6ad101ef3d87",
+    "story.css": "556c5041d307c5ece99c402fe9bc851721f466d9cffca8a18a0a2b4ae685052b",
+    "story.mjs": "e91dfe79ab07e4d035bcdd7209c20aa3175fba54001fd62beb18fd2f0174b0c5",
+    "walkthrough.html": "176e96d7cdeed6f628635b91de9dacb04b98234ae5df187a7f3af1c02b66b7ac",
+    "workflow.mjs": "9941524ed84d57867f3ade557e1a3b00fa274613afcb70df7774bdc98b1d6e60",
+    "workflow.test.mjs": "8bfd613e192602978d83230e3fa3ad2d830772bb8f77670d159985f8f8439990",
+    "workspace.css": "1b24b02e72a4153c65ff970901fa8c8f47f740b0aca5c511e4d3987e7390476f"
+  }
+}

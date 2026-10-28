@@ -1,0 +1,30 @@
+[
+  {
+    "theme": "light",
+    "perspective": "work",
+    "minRatio": 4.952336539080604,
+    "samples": 137,
+    "failures": []
+  },
+  {
+    "theme": "light",
+    "perspective": "evidence",
+    "minRatio": 4.952336539080604,
+    "samples": 135,
+    "failures": []
+  },
+  {
+    "theme": "dark",
+    "perspective": "work",
+    "minRatio": 6.2906944760299845,
+    "samples": 137,
+    "failures": []
+  },
+  {
+    "theme": "dark",
+    "perspective": "evidence",
+    "minRatio": 6.2906944760299845,
+    "samples": 135,
+    "failures": []
+  }
+]

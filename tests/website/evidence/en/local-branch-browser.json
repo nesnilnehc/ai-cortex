@@ -1,0 +1,598 @@
+{
+  "date": "2026-10-27T15:09:14.573Z",
+  "browser": "151.0.7922.34",
+  "matrix": [
+    {
+      "width": 360,
+      "height": 667,
+      "theme": "light",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 111.875,
+      "routesClear": true
+    },
+    {
+      "width": 360,
+      "height": 667,
+      "theme": "dark",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 111.875,
+      "routesClear": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 111.875,
+      "routesClear": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 111.875,
+      "routesClear": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 79.234375,
+      "routesClear": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "dark",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 79.234375,
+      "routesClear": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "theme": "light",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 96.03125,
+      "routesClear": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "theme": "dark",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 96.03125,
+      "routesClear": true
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 79.234375,
+      "routesClear": true
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 79.234375,
+      "routesClear": true
+    }
+  ],
+  "skills": [
+    {
+      "id": "announce-release",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "archive-milestone",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "assess-product-opportunity",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "automate-tests",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "capture-work-items",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 3
+    },
+    {
+      "id": "changelog-video",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "commit-work",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "competitive-research",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "consume-nats-message",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "decontextualize-text",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "deep-research",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 3
+    },
+    {
+      "id": "define-docs-norms",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "define-mission",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "define-north-star",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "define-roadmap",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "define-strategic-pillars",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "define-vision",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 3
+    },
+    {
+      "id": "deliver-feature",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "design-strategic-goals",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 4
+    },
+    {
+      "id": "generate-agent-entry",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "generate-github-workflow",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "generate-standard-readme",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "integrate-branches",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "manage-secret",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "map-item-dependencies",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "market-research",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "orchestrate-code-review",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 21
+    },
+    {
+      "id": "orchestrate-governance-step",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "orchestrate-repair-loop",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 3
+    },
+    {
+      "id": "orchestrate-repair-requirements-loop",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "orchestrate-roadmap-planning",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 8
+    },
+    {
+      "id": "plan-next",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "policy-research",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "prepare-presales-response",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "prepare-release",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "prioritize-backlog",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 3
+    },
+    {
+      "id": "product-opportunity-analysis",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 4
+    },
+    {
+      "id": "promote-roadmap-items",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 4
+    },
+    {
+      "id": "publish-nats-message",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "publish-release",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 3
+    },
+    {
+      "id": "redeploy-local",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "refine-skill-design",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "review-architecture",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-codebase",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-diff",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-dotnet",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-error-surfacing",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-functional-design",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "review-go",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-implementation-alignment",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-java",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-observability",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-orm-usage",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-performance",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-php",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-powershell",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-python",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-react",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-reliability",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-requirements",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-roadmap",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-security",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-sql",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-tasks",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "review-technical-design",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "review-testing",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-typescript",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-vue",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "scaffold-agent-tests",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "update-roadmap",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    }
+  ],
+  "errors": [],
+  "status": "passed",
+  "sourceHashes": {
+    "global-topic-graph.mjs": "b4878af0110db92260aea483aeb2a2ba99d166583c3908d0bda0bcb9b3343bd4",
+    "index.html": "546820a5ed97d495b662b76cfb6a41ba41511438560733c8d67c3747a2bd98f5",
+    "locale.mjs": "5e1366cc4991747e276b8027dff495de1f38527e99adf3e99021ce4b2f90a323",
+    "panel-model.mjs": "041d481c4420a85995e1cc62d274b5103bb1b0088a4a455cda55c2093b143e60",
+    "relations.mjs": "4b28c965e2fd18a8ee7e987ff606d6bc406e094ab2eef45c6af96e5bb10f0a97",
+    "request-state.mjs": "23f3c205ce4d62c482eb22a10780eae879ea50666f3d97aff2c4be7fe4f2e177",
+    "site-contract.mjs": "4599a47171aa4cbd85c0ea1d065323e459814016bdc0cd8da63cfb66b4a2bdaa",
+    "skill-edges.json": "848a70b4c09e0511829fdec9eb66e4d31b5a76746119ac18d754a4703cfcf630",
+    "skill-graph.mjs": "dd81a8d864e31d84919815edb6dadce14b3fd6eadc4e8efe81b8cfacd156aa78",
+    "skill-guidance.mjs": "bb2183011885b297f61162a576e03b2dee15e4f2d13334fb565c93fc6cca5377",
+    "skill-metadata.json": "160083ccc612a877bae9bed0943dd239e210f49bd92ed5e3c9d4c8d36f3bca39",
+    "source-links.mjs": "a392b009edf834af26c88f509d41a4bfeb8f280a131a1d93afbbb931f9cdbe05",
+    "source-manifest.json": "96f9d746dd5128e24fabed32e383a5ef33d756c74ec625bb5776b807958581db",
+    "story-model.mjs": "87ec244250b2dc422ee5a8bbec09d6c45e1eb31d6d85a6138ec6a0abc7c70051",
+    "story.css": "ee5ddb7415cb2eeba6310f661c319f4b5a460b24004e4caa7f53df2f03f31458",
+    "story.mjs": "1b36de6073d754830009ce46e75bc08f5522af44a997d098fe0f5d0da13b5028",
+    "topic-edges.json": "b74e07e0c080bd3f5a74f9272ad2e66ea5376bb845647bc6c4c7d37ea76c09b6",
+    "topic-map.json": "400113b9c4e81bdc26783421afb409da9529c357a9032f245fe4916cc5fd33bc",
+    "topic-map.mjs": "c5103cb6947eb2d2dbeb6ec0edd2bce49624526178f2450607ea04172ab9bf77",
+    "work-map.mjs": "7a5dec0aca81aec24a4c3d415f15248328b7406be09f825b57e1b486daa31ffa",
+    "workflow.mjs": "d018798e0190db3adbd71b311dd3112099824285ce811af2faef0fe017d9bc06",
+    "workspace.css": "03215665aeb8de305ff04275a77efef55b42554415e9713b0bf44aacc21a6d04",
+    "zh.html": "7bdd54549a16617dd00ffeab2695db284dea324e4d8f4c2184b6b0b5c14e357e",
+    "assets/work-stories.png": "1d155d745670022aee28542d2f638620a29a9b3c5398237f71f065848dc090f6",
+    "locales/en.json": "5529c390c9e61945ff11ba6d946eabd33bcf964216ccdfa639b17b250d772992",
+    "locales/zh.json": "871507bf83aaa97557ea5f4504e668a0f4a564ccdb02517474303037adb1b331"
+  }
+}

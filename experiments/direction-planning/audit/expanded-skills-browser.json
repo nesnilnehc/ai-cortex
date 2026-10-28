@@ -1,0 +1,543 @@
+{
+  "date": "2026-10-27T09:02:16.698Z",
+  "browser": "151.0.7922.34",
+  "matrix": [
+    {
+      "width": 360,
+      "height": 667,
+      "theme": "light",
+      "allSkillsDisplayed": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true
+    },
+    {
+      "width": 360,
+      "height": 667,
+      "theme": "dark",
+      "allSkillsDisplayed": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "allSkillsDisplayed": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "allSkillsDisplayed": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "allSkillsDisplayed": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "dark",
+      "allSkillsDisplayed": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "theme": "light",
+      "allSkillsDisplayed": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "theme": "dark",
+      "allSkillsDisplayed": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "allSkillsDisplayed": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "allSkillsDisplayed": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true
+    }
+  ],
+  "skills": [
+    {
+      "id": "announce-release",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "archive-milestone",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "assess-product-opportunity",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "automate-tests",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "capture-work-items",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 3
+    },
+    {
+      "id": "changelog-video",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "commit-work",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "competitive-research",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "consume-nats-message",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "decontextualize-text",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "deep-research",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 3
+    },
+    {
+      "id": "define-docs-norms",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "define-mission",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "define-north-star",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "define-roadmap",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "define-strategic-pillars",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "define-vision",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 3
+    },
+    {
+      "id": "deliver-feature",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "design-strategic-goals",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 4
+    },
+    {
+      "id": "generate-agent-entry",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "generate-github-workflow",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "generate-standard-readme",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "integrate-branches",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "manage-secret",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "map-item-dependencies",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "market-research",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "orchestrate-code-review",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 21
+    },
+    {
+      "id": "orchestrate-governance-step",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "orchestrate-repair-loop",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 3
+    },
+    {
+      "id": "orchestrate-repair-requirements-loop",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "orchestrate-roadmap-planning",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 8
+    },
+    {
+      "id": "plan-next",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "policy-research",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "prepare-presales-response",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "prepare-release",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "prioritize-backlog",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 3
+    },
+    {
+      "id": "product-opportunity-analysis",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 4
+    },
+    {
+      "id": "promote-roadmap-items",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 4
+    },
+    {
+      "id": "publish-nats-message",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "publish-release",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 3
+    },
+    {
+      "id": "redeploy-local",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "refine-skill-design",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "review-architecture",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-codebase",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-diff",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-dotnet",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-error-surfacing",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-functional-design",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "review-go",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-implementation-alignment",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-java",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-observability",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-orm-usage",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-performance",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-php",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-powershell",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-python",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-react",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-reliability",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-requirements",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-roadmap",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-security",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-sql",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-tasks",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "review-technical-design",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "review-testing",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-typescript",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-vue",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "scaffold-agent-tests",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "update-roadmap",
+      "visibleByDefault": true,
+      "guide": true,
+      "relations": 1
+    }
+  ],
+  "errors": [],
+  "status": "passed",
+  "sourceHashes": {
+    "index.html": "282fd871fea214175872a3f2ae78b10db3cf6ce84b98b9c3fe7aef0b3df98bcd",
+    "story.mjs": "ca6ae3cdea07c3b4d4f0bb9d8627ac80dfb78b9a23c3bd18b807c761cc7ca5b2",
+    "workspace.css": "00114ecda15d3bb00890d2ac11990fab52ac91ebd657b6494fd302006e1b4bd2",
+    "skill-graph.mjs": "cc50b396bbfcdd304faa7fcf11d869d6f02c23c2321f5cf06203ddad7a91cb1b",
+    "panel-model.mjs": "8028dc85f164f0764098768fd645907188ffe7b8408428427ff1d80ddaf45d31",
+    "workflow.mjs": "22714fbf667d991b9e5f2454240ad025e0b7fd95d2241b5d61156779e8ccdaf4",
+    "relations.mjs": "587b75fb968ed4969679332f8e29f5a5ffeae0d5e65f80b502e4b7e05b313d67",
+    "story-model.mjs": "775239463edccefaef3e92afbc6688cad2ecb545437865e28fb2c9592bfe9601",
+    "skill-guidance.json": "88dd5712af035e42a517b220f8242d9d3e6fca36ed74f834aec5e828e3931d30",
+    "skill-edges.json": "03800450c136416c8d2340d4dbd447dbbb6006de358b2556ad77d3a14e8c16ad",
+    "audit/verify-expanded-skills.cjs": "b52ca03e7804d4d421a159a45023058ef3301839ca5c4b98b542a5b6427a1ac3"
+  }
+}

@@ -1,0 +1,9 @@
+AssertionError [ERR_ASSERTION]: short work panel retains usable body
+    at /Users/nesnilnehc/github.com/ai-cortex/tests/website/explorer-controls.cjs:11:11 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

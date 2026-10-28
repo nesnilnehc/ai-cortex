@@ -1,0 +1,1672 @@
+{
+  "date": "2026-10-28T03:24:52.976Z",
+  "browser": "151.0.7922.34",
+  "localOnly": true,
+  "matrix": [
+    {
+      "locale": "zh",
+      "width": 360,
+      "height": 667,
+      "theme": "light",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "zh",
+      "width": 360,
+      "height": 667,
+      "theme": "dark",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "zh",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "zh",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "zh",
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "zh",
+      "width": 1024,
+      "height": 768,
+      "theme": "dark",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "zh",
+      "width": 1280,
+      "height": 800,
+      "theme": "light",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "zh",
+      "width": 1280,
+      "height": 800,
+      "theme": "dark",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "zh",
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "zh",
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "en",
+      "width": 360,
+      "height": 667,
+      "theme": "light",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "en",
+      "width": 360,
+      "height": 667,
+      "theme": "dark",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "en",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "en",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "en",
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "en",
+      "width": 1024,
+      "height": 768,
+      "theme": "dark",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "en",
+      "width": 1280,
+      "height": 800,
+      "theme": "light",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "en",
+      "width": 1280,
+      "height": 800,
+      "theme": "dark",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "en",
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    },
+    {
+      "locale": "en",
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "pendingCopy": true,
+      "editedText": true,
+      "targetContinuity": true,
+      "modalHistoryFocus": true,
+      "collapse": true,
+      "samePageNavigation": true,
+      "noOverflow": true
+    }
+  ],
+  "skills": [
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "announce-release"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "archive-milestone"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "assess-product-opportunity"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "automate-tests"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "capture-work-items"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "changelog-video"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "commit-work"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "competitive-research"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "consume-nats-message"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "decontextualize-text"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "deep-research"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "define-docs-norms"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "define-mission"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "define-north-star"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "define-roadmap"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "define-strategic-pillars"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "define-vision"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "deliver-feature"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "design-strategic-goals"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "generate-agent-entry"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "generate-github-workflow"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "generate-standard-readme"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "integrate-branches"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "manage-secret"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "map-item-dependencies"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "market-research"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "orchestrate-code-review"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "orchestrate-governance-step"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "orchestrate-repair-loop"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "orchestrate-repair-requirements-loop"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "orchestrate-roadmap-planning"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "plan-next"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "policy-research"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "prepare-presales-response"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "prepare-release"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "prioritize-backlog"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "product-opportunity-analysis"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "promote-roadmap-items"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "publish-nats-message"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "publish-release"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "redeploy-local"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "refine-skill-design"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-architecture"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-codebase"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-diff"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-dotnet"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-error-surfacing"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-functional-design"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-go"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-implementation-alignment"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-java"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-observability"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-orm-usage"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-performance"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-php"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-powershell"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-python"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-react"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-reliability"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-requirements"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-roadmap"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-security"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-sql"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-tasks"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-technical-design"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-testing"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-typescript"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "review-vue"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "scaffold-agent-tests"
+    },
+    {
+      "locale": "zh",
+      "view": "classification",
+      "id": "update-roadmap"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "announce-release"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "archive-milestone"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "assess-product-opportunity"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "automate-tests"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "capture-work-items"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "changelog-video"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "commit-work"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "competitive-research"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "consume-nats-message"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "decontextualize-text"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "deep-research"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "define-docs-norms"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "define-mission"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "define-north-star"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "define-roadmap"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "define-strategic-pillars"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "define-vision"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "deliver-feature"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "design-strategic-goals"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "generate-agent-entry"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "generate-github-workflow"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "generate-standard-readme"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "integrate-branches"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "manage-secret"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "map-item-dependencies"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "market-research"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "orchestrate-code-review"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "orchestrate-governance-step"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "orchestrate-repair-loop"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "orchestrate-repair-requirements-loop"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "orchestrate-roadmap-planning"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "plan-next"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "policy-research"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "prepare-presales-response"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "prepare-release"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "prioritize-backlog"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "product-opportunity-analysis"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "promote-roadmap-items"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "publish-nats-message"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "publish-release"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "redeploy-local"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "refine-skill-design"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-architecture"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-codebase"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-diff"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-dotnet"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-error-surfacing"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-functional-design"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-go"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-implementation-alignment"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-java"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-observability"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-orm-usage"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-performance"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-php"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-powershell"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-python"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-react"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-reliability"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-requirements"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-roadmap"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-security"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-sql"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-tasks"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-technical-design"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-testing"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-typescript"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "review-vue"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "scaffold-agent-tests"
+    },
+    {
+      "locale": "zh",
+      "view": "relations",
+      "id": "update-roadmap"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "announce-release"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "archive-milestone"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "assess-product-opportunity"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "automate-tests"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "capture-work-items"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "changelog-video"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "commit-work"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "competitive-research"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "consume-nats-message"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "decontextualize-text"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "deep-research"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "define-docs-norms"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "define-mission"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "define-north-star"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "define-roadmap"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "define-strategic-pillars"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "define-vision"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "deliver-feature"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "design-strategic-goals"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "generate-agent-entry"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "generate-github-workflow"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "generate-standard-readme"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "integrate-branches"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "manage-secret"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "map-item-dependencies"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "market-research"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "orchestrate-code-review"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "orchestrate-governance-step"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "orchestrate-repair-loop"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "orchestrate-repair-requirements-loop"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "orchestrate-roadmap-planning"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "plan-next"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "policy-research"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "prepare-presales-response"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "prepare-release"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "prioritize-backlog"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "product-opportunity-analysis"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "promote-roadmap-items"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "publish-nats-message"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "publish-release"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "redeploy-local"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "refine-skill-design"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-architecture"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-codebase"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-diff"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-dotnet"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-error-surfacing"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-functional-design"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-go"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-implementation-alignment"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-java"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-observability"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-orm-usage"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-performance"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-php"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-powershell"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-python"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-react"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-reliability"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-requirements"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-roadmap"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-security"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-sql"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-tasks"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-technical-design"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-testing"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-typescript"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "review-vue"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "scaffold-agent-tests"
+    },
+    {
+      "locale": "en",
+      "view": "classification",
+      "id": "update-roadmap"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "announce-release"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "archive-milestone"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "assess-product-opportunity"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "automate-tests"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "capture-work-items"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "changelog-video"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "commit-work"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "competitive-research"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "consume-nats-message"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "decontextualize-text"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "deep-research"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "define-docs-norms"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "define-mission"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "define-north-star"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "define-roadmap"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "define-strategic-pillars"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "define-vision"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "deliver-feature"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "design-strategic-goals"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "generate-agent-entry"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "generate-github-workflow"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "generate-standard-readme"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "integrate-branches"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "manage-secret"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "map-item-dependencies"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "market-research"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "orchestrate-code-review"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "orchestrate-governance-step"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "orchestrate-repair-loop"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "orchestrate-repair-requirements-loop"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "orchestrate-roadmap-planning"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "plan-next"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "policy-research"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "prepare-presales-response"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "prepare-release"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "prioritize-backlog"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "product-opportunity-analysis"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "promote-roadmap-items"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "publish-nats-message"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "publish-release"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "redeploy-local"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "refine-skill-design"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-architecture"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-codebase"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-diff"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-dotnet"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-error-surfacing"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-functional-design"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-go"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-implementation-alignment"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-java"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-observability"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-orm-usage"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-performance"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-php"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-powershell"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-python"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-react"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-reliability"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-requirements"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-roadmap"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-security"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-sql"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-tasks"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-technical-design"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-testing"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-typescript"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "review-vue"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "scaffold-agent-tests"
+    },
+    {
+      "locale": "en",
+      "view": "relations",
+      "id": "update-roadmap"
+    }
+  ],
+  "errors": [],
+  "status": "passed",
+  "runtimeRevision": "sha256:dff7c2c888c7970d9cd5e7b9691843d522f2161aae41c9bb7b023921bd3886db"
+}

@@ -1,0 +1,210 @@
+{
+  "date": "2026-10-27",
+  "scope": "Explicitly authorized local T7/T8 repair: prototype HTML/CSS only, unchanged graph scheme and controller/data behavior, no publication",
+  "versions": {
+    "requirement-modeling": "6.1.0",
+    "functional-design-modeling": "2.0.0",
+    "technical-design-modeling": "2.2.0",
+    "task-modeling": "2.2.0",
+    "findings-list": "2.0.1",
+    "rule-modeling": "1.1.1"
+  },
+  "checklist_reviews": [
+    {
+      "skill": "review-requirements",
+      "rule_set": "requirement-quality",
+      "version": "2.4.0",
+      "dimensions": [
+        "completeness",
+        "executability",
+        "clarity",
+        "soundness",
+        "traceability"
+      ],
+      "content_result": "passed",
+      "notes": "Retained scheme remains determined; T7/T8 locally verified, owner review not completed."
+    },
+    {
+      "skill": "review-functional-design",
+      "rule_set": "functional-design-quality",
+      "version": "2.0.0",
+      "dimensions": [
+        "completeness",
+        "executability",
+        "clarity",
+        "soundness",
+        "traceability"
+      ],
+      "content_result": "passed except formal parent approval",
+      "notes": "Single visitor/read-only scope: no role matrix or business-object lifecycle trigger; UI decisions and current assets are explicit."
+    }
+  ],
+  "findings": [
+    {
+      "location": "docs/designs/2026-10-27-help-discovery-functional-design.md:5",
+      "category": "functional-design-quality",
+      "severity": "major",
+      "title": "Parent requirement remains draft",
+      "description": "The formal parent-approval obligation is not met. Retaining the local scheme is not approval of the rewritten requirement.",
+      "maturity": "ready",
+      "suggestion": "Keep this as a draft reconciliation until actual parent approval is recorded."
+    },
+    {
+      "location": "docs/designs/2026-10-27-help-discovery-technical-design.md:5",
+      "category": "technical-design-quality",
+      "severity": "major",
+      "title": "Parent functional design remains draft",
+      "description": "technical-design-quality@2.5.0/TDES-022 requires an approved upstream; the current functional design is draft.",
+      "maturity": "ready",
+      "suggestion": "Do not advertise a passed formal handoff until the upstream approval exists."
+    }
+  ],
+  "coverage": [
+    {
+      "skill": "review-technical-design",
+      "rule_set": "technical-design-quality",
+      "version": "2.5.0",
+      "passed": [
+        "TDES-001",
+        "TDES-002",
+        "TDES-003",
+        "TDES-004",
+        "TDES-005",
+        "TDES-006",
+        "TDES-007",
+        "TDES-008",
+        "TDES-009",
+        "TDES-011",
+        "TDES-013",
+        "TDES-014",
+        "TDES-015",
+        "TDES-016",
+        "TDES-017",
+        "TDES-018",
+        "TDES-019",
+        "TDES-020",
+        "TDES-021",
+        "TDES-023",
+        "TDES-024",
+        "TDES-025",
+        "TDES-028"
+      ],
+      "waived": [],
+      "not_applicable": [
+        {
+          "rule_id": "TDES-010",
+          "reason": "No referenced concern requires an unresolved declared project parameter."
+        },
+        {
+          "rule_id": "TDES-012",
+          "reason": "No persisted schema change."
+        },
+        {
+          "rule_id": "TDES-026",
+          "reason": "No decision constrains future structure beyond this reversible experiment."
+        },
+        {
+          "rule_id": "TDES-027",
+          "reason": "No breaking data change/backfill/irreversible operation."
+        }
+      ],
+      "evidence_limited": []
+    },
+    {
+      "skill": "review-tasks",
+      "rule_set": "task-quality",
+      "version": "2.4.0",
+      "passed": [
+        "TASK-001",
+        "TASK-003",
+        "TASK-004",
+        "TASK-005",
+        "TASK-006",
+        "TASK-007",
+        "TASK-008",
+        "TASK-009",
+        "TASK-010",
+        "TASK-011",
+        "TASK-012",
+        "TASK-013",
+        "TASK-014",
+        "TASK-015",
+        "TASK-016",
+        "TASK-017",
+        "TASK-019"
+      ],
+      "waived": [],
+      "not_applicable": [
+        {
+          "rule_id": "TASK-002",
+          "reason": "Local progress record after explicit T7/T8 assignment, not a formal execution handoff."
+        },
+        {
+          "rule_id": "TASK-018",
+          "reason": "No waiver is cited."
+        }
+      ],
+      "evidence_limited": [],
+      "readiness_note": "Technical-design parent remains draft; scoped user authorization permits local T7/T8 work, not a formal approved-parent handoff."
+    },
+    {
+      "skill": "review-implementation-alignment",
+      "rule_set": "implementation-alignment-quality",
+      "version": "1.2.0",
+      "passed": [
+        "ALN-006"
+      ],
+      "waived": [],
+      "not_applicable": [
+        {
+          "rule_id": "ALN-004",
+          "reason": "No public contract in scope."
+        },
+        {
+          "rule_id": "ALN-005",
+          "reason": "No persisted-state change."
+        },
+        {
+          "rule_id": "ALN-007",
+          "reason": "No approved artifact chain exists; observational intent-to-test mapping is provided separately."
+        }
+      ],
+      "evidence_limited": [
+        {
+          "rule_id": "ALN-001",
+          "reason": "The current artifact chain is draft, so formal completion authority is unavailable. Read-only consistency mapping is recorded in the canonical audit."
+        },
+        {
+          "rule_id": "ALN-002",
+          "reason": "The current artifact chain is draft, so formal completion authority is unavailable. Read-only consistency mapping is recorded in the canonical audit."
+        },
+        {
+          "rule_id": "ALN-003",
+          "reason": "The current artifact chain is draft, so formal completion authority is unavailable. Read-only consistency mapping is recorded in the canonical audit."
+        }
+      ],
+      "scoped_note": "ALN-006 checks concrete evidence for locally authorized T7/T8 Done states only; formal chain authority remains limited."
+    }
+  ],
+  "prototype_observations": [
+    {
+      "id": "P1",
+      "criterion": "A8/QAS-01, F7, TD6",
+      "result": "resolved",
+      "task": "T7",
+      "evidence": "t7-t8-browser.json",
+      "detail": "Both loop labels exceed 11:1 in light/dark; all sampled enabled text exceeds 4.5:1.",
+      "historical_evidence": "doc-alignment-browser.json"
+    },
+    {
+      "id": "P2",
+      "criterion": "A10, F8, TD6",
+      "result": "resolved",
+      "task": "T8",
+      "evidence": "t7-t8-browser.json",
+      "detail": "Static catalogue recovery is visible without JavaScript and with a blocked entry; keyboard navigation reaches the source with HTTP 200.",
+      "historical_evidence": "doc-alignment-browser.json"
+    }
+  ],
+  "result": "Retained scheme unchanged; T7/T8 locally fixed and verified. Formal approval and owner acceptance remain pending; no publication."
+}

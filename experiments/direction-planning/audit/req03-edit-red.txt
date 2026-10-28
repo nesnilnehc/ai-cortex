@@ -1,0 +1,24 @@
+✔ same node selection retains the edited request; different selection invalidates copies (0.846291ms)
+✔ close and reopen invalidate a late copy of the same node (0.079708ms)
+✖ editing the same context invalidates a pending copy without changing selection (0.151208ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 102.260959
+
+✖ failing tests:
+
+test at experiments/direction-planning/request-state.test.mjs:17:1
+✖ editing the same context invalidates a pending copy without changing selection (0.151208ms)
+  TypeError: state.edit is not a function
+      at TestContext.<anonymous> (file:///Users/nesnilnehc/github.com/ai-cortex/experiments/direction-planning/request-state.test.mjs:19:8)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1118:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:787:18)
+      at Test.postRun (node:internal/test_runner/test:1247:19)
+      at Test.run (node:internal/test_runner/test:1175:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:787:7)

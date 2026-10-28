@@ -1,0 +1,201 @@
+{
+  "date": "2026-10-28T03:28:36.230Z",
+  "browser": "151.0.7922.34",
+  "localOnly": true,
+  "locales": [
+    {
+      "locale": "en",
+      "contrast": [
+        {
+          "width": 390,
+          "theme": "light",
+          "state": "overview",
+          "samples": 54,
+          "minRatio": 5.311961464015038
+        },
+        {
+          "width": 390,
+          "theme": "light",
+          "state": "selected",
+          "samples": 111,
+          "minRatio": 5.311961464015038
+        },
+        {
+          "width": 390,
+          "theme": "dark",
+          "state": "overview",
+          "samples": 54,
+          "minRatio": 7.714034183479775
+        },
+        {
+          "width": 390,
+          "theme": "dark",
+          "state": "selected",
+          "samples": 111,
+          "minRatio": 7.714034183479775
+        },
+        {
+          "width": 1440,
+          "theme": "light",
+          "state": "overview",
+          "samples": 54,
+          "minRatio": 5.311961464015038
+        },
+        {
+          "width": 1440,
+          "theme": "light",
+          "state": "selected",
+          "samples": 111,
+          "minRatio": 5.311961464015038
+        },
+        {
+          "width": 1440,
+          "theme": "dark",
+          "state": "overview",
+          "samples": 54,
+          "minRatio": 7.714034183479775
+        },
+        {
+          "width": 1440,
+          "theme": "dark",
+          "state": "selected",
+          "samples": 111,
+          "minRatio": 7.714034183479775
+        }
+      ],
+      "clipboard": [
+        {
+          "mode": "absent",
+          "manualRecovery": true
+        },
+        {
+          "mode": "rejected",
+          "manualRecovery": true
+        },
+        {
+          "mode": "late-edit",
+          "staleSuppressed": true
+        },
+        {
+          "mode": "late-close",
+          "staleSuppressed": true
+        }
+      ],
+      "fallback": [
+        {
+          "mode": "no-js",
+          "sourceVisible": true
+        },
+        {
+          "mode": "blocked-entry",
+          "sourceVisible": true,
+          "keyboardFocusable": true,
+          "remoteAvailability": "not checked; publication gate"
+        }
+      ],
+      "preferences": {
+        "themeReload": true,
+        "languageFamily": true,
+        "themeAcrossLanguages": true
+      }
+    },
+    {
+      "locale": "zh",
+      "contrast": [
+        {
+          "width": 390,
+          "theme": "light",
+          "state": "overview",
+          "samples": 54,
+          "minRatio": 5.311961464015038
+        },
+        {
+          "width": 390,
+          "theme": "light",
+          "state": "selected",
+          "samples": 134,
+          "minRatio": 4.952336539080604
+        },
+        {
+          "width": 390,
+          "theme": "dark",
+          "state": "overview",
+          "samples": 54,
+          "minRatio": 7.714034183479775
+        },
+        {
+          "width": 390,
+          "theme": "dark",
+          "state": "selected",
+          "samples": 134,
+          "minRatio": 6.2906944760299845
+        },
+        {
+          "width": 1440,
+          "theme": "light",
+          "state": "overview",
+          "samples": 54,
+          "minRatio": 5.311961464015038
+        },
+        {
+          "width": 1440,
+          "theme": "light",
+          "state": "selected",
+          "samples": 134,
+          "minRatio": 4.952336539080604
+        },
+        {
+          "width": 1440,
+          "theme": "dark",
+          "state": "overview",
+          "samples": 54,
+          "minRatio": 7.714034183479775
+        },
+        {
+          "width": 1440,
+          "theme": "dark",
+          "state": "selected",
+          "samples": 134,
+          "minRatio": 6.2906944760299845
+        }
+      ],
+      "clipboard": [
+        {
+          "mode": "absent",
+          "manualRecovery": true
+        },
+        {
+          "mode": "rejected",
+          "manualRecovery": true
+        },
+        {
+          "mode": "late-edit",
+          "staleSuppressed": true
+        },
+        {
+          "mode": "late-close",
+          "staleSuppressed": true
+        }
+      ],
+      "fallback": [
+        {
+          "mode": "no-js",
+          "sourceVisible": true
+        },
+        {
+          "mode": "blocked-entry",
+          "sourceVisible": true,
+          "keyboardFocusable": true,
+          "remoteAvailability": "not checked; publication gate"
+        }
+      ],
+      "preferences": {
+        "themeReload": true,
+        "languageFamily": true,
+        "themeAcrossLanguages": true
+      }
+    }
+  ],
+  "status": "passed",
+  "runtimeRevision": "sha256:dff7c2c888c7970d9cd5e7b9691843d522f2161aae41c9bb7b023921bd3886db"
+}

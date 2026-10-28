@@ -1,0 +1,11 @@
+AssertionError [ERR_ASSERTION]: canonical skill IDs have a readable secondary type size
+    at /Users/nesnilnehc/github.com/ai-cortex/tests/website/taste-browser.cjs:7:9
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at process.processImmediate (node:internal/timers:472:9) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

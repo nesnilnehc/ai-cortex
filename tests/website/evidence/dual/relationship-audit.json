@@ -1,0 +1,596 @@
+{
+  "assetsRevision": "e5d862101d3110c5a3ee44c4e8cec042b058c061",
+  "records": [
+    {
+      "id": "define-mission__define-vision",
+      "kind": "input",
+      "callMode": null,
+      "scenarioId": null,
+      "source": "skills/define-vision/SKILL.md",
+      "sourceSha256": "086e0f0a41786de0511da752a83a7c7b4e58099e475c9bb62831dac7af1642cf",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "define-vision__define-strategic-pillars",
+      "kind": "input",
+      "callMode": null,
+      "scenarioId": null,
+      "source": "skills/define-strategic-pillars/SKILL.md",
+      "sourceSha256": "1dd2766b9bddf24b2cc9692b75631b3660a49dd8b5fe82649c73b5d6a76f9741",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "define-north-star__define-strategic-pillars",
+      "kind": "input",
+      "callMode": null,
+      "scenarioId": null,
+      "source": "skills/define-strategic-pillars/SKILL.md",
+      "sourceSha256": "1dd2766b9bddf24b2cc9692b75631b3660a49dd8b5fe82649c73b5d6a76f9741",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "define-vision__design-strategic-goals",
+      "kind": "input",
+      "callMode": null,
+      "scenarioId": null,
+      "source": "skills/design-strategic-goals/SKILL.md",
+      "sourceSha256": "c49ac98d36757e2fe4c2f56cd9c03ae727a3fb1d4260db9415ab96c073a18897",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "define-north-star__design-strategic-goals",
+      "kind": "input",
+      "callMode": null,
+      "scenarioId": null,
+      "source": "skills/design-strategic-goals/SKILL.md",
+      "sourceSha256": "c49ac98d36757e2fe4c2f56cd9c03ae727a3fb1d4260db9415ab96c073a18897",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "orchestrate-roadmap-planning__define-roadmap",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-roadmap-planning/SKILL.md",
+      "sourceSha256": "2c37126e96b514ed11995079c8e81a5e86f9f6a26f9a41f8cce7179fc58e2c83",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-roadmap-planning__review-roadmap",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-roadmap-planning/SKILL.md",
+      "sourceSha256": "2c37126e96b514ed11995079c8e81a5e86f9f6a26f9a41f8cce7179fc58e2c83",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-roadmap-planning__capture-work-items",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-roadmap-planning/SKILL.md",
+      "sourceSha256": "2c37126e96b514ed11995079c8e81a5e86f9f6a26f9a41f8cce7179fc58e2c83",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-roadmap-planning__prioritize-backlog",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-roadmap-planning/SKILL.md",
+      "sourceSha256": "2c37126e96b514ed11995079c8e81a5e86f9f6a26f9a41f8cce7179fc58e2c83",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-roadmap-planning__map-item-dependencies",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-roadmap-planning/SKILL.md",
+      "sourceSha256": "2c37126e96b514ed11995079c8e81a5e86f9f6a26f9a41f8cce7179fc58e2c83",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-roadmap-planning__promote-roadmap-items",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-roadmap-planning/SKILL.md",
+      "sourceSha256": "2c37126e96b514ed11995079c8e81a5e86f9f6a26f9a41f8cce7179fc58e2c83",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-roadmap-planning__update-roadmap",
+      "kind": "suggest",
+      "callMode": null,
+      "scenarioId": null,
+      "source": "skills/orchestrate-roadmap-planning/SKILL.md",
+      "sourceSha256": "2c37126e96b514ed11995079c8e81a5e86f9f6a26f9a41f8cce7179fc58e2c83",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "orchestrate-roadmap-planning__archive-milestone",
+      "kind": "suggest",
+      "callMode": null,
+      "scenarioId": null,
+      "source": "skills/orchestrate-roadmap-planning/SKILL.md",
+      "sourceSha256": "2c37126e96b514ed11995079c8e81a5e86f9f6a26f9a41f8cce7179fc58e2c83",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "product-opportunity-analysis__policy-research",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/product-opportunity-analysis/SKILL.md",
+      "sourceSha256": "2ec44b8c16d1638f35426dac8b79075685db783802033e569ae8cd3cee3310c4",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "policy-research__deep-research",
+      "kind": "method",
+      "callMode": null,
+      "scenarioId": null,
+      "source": "skills/policy-research/SKILL.md",
+      "sourceSha256": "e6731a71036746db137a990d31bef5670e22bde9671e7a3e308aafe2bf6e09bf",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "product-opportunity-analysis__market-research",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/product-opportunity-analysis/SKILL.md",
+      "sourceSha256": "2ec44b8c16d1638f35426dac8b79075685db783802033e569ae8cd3cee3310c4",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "market-research__deep-research",
+      "kind": "method",
+      "callMode": null,
+      "scenarioId": null,
+      "source": "skills/market-research/SKILL.md",
+      "sourceSha256": "4bbd6c017efbd2988b28cb9f89859618a523f4208c529c8f86c69ef6cac96c59",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "product-opportunity-analysis__competitive-research",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/product-opportunity-analysis/SKILL.md",
+      "sourceSha256": "2ec44b8c16d1638f35426dac8b79075685db783802033e569ae8cd3cee3310c4",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "competitive-research__deep-research",
+      "kind": "method",
+      "callMode": null,
+      "scenarioId": null,
+      "source": "skills/competitive-research/SKILL.md",
+      "sourceSha256": "e0617a761b713ba976db393eaccd1284fc6bbf4253d9db1988c3f63a26b29c51",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "product-opportunity-analysis__assess-product-opportunity",
+      "kind": "call",
+      "callMode": "required",
+      "scenarioId": null,
+      "source": "skills/product-opportunity-analysis/SKILL.md",
+      "sourceSha256": "2ec44b8c16d1638f35426dac8b79075685db783802033e569ae8cd3cee3310c4",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-repair-loop__orchestrate-code-review",
+      "kind": "call",
+      "callMode": "required",
+      "scenarioId": null,
+      "source": "skills/orchestrate-repair-loop/SKILL.md",
+      "sourceSha256": "24d5cc8aa356d1b6ea9ceadf33c5fd42ed738ff908899322c7bf5a7e84884b4d",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-repair-loop__review-implementation-alignment",
+      "kind": "call",
+      "callMode": "required",
+      "scenarioId": null,
+      "source": "skills/orchestrate-repair-loop/SKILL.md",
+      "sourceSha256": "24d5cc8aa356d1b6ea9ceadf33c5fd42ed738ff908899322c7bf5a7e84884b4d",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-repair-loop__automate-tests",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-repair-loop/SKILL.md",
+      "sourceSha256": "24d5cc8aa356d1b6ea9ceadf33c5fd42ed738ff908899322c7bf5a7e84884b4d",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-repair-requirements-loop__review-requirements",
+      "kind": "call",
+      "callMode": "required",
+      "scenarioId": null,
+      "source": "skills/orchestrate-repair-requirements-loop/SKILL.md",
+      "sourceSha256": "ed73c845ca15de560b74e9e345a7e776065986c1e82cfda37d44812dbe22c25f",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-diff",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-codebase",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-typescript",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-python",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-go",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-java",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-php",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-powershell",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-dotnet",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-sql",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-react",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-vue",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-orm-usage",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-security",
+      "kind": "call",
+      "callMode": "required",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-reliability",
+      "kind": "call",
+      "callMode": "required",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-error-surfacing",
+      "kind": "call",
+      "callMode": "required",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-performance",
+      "kind": "call",
+      "callMode": "required",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-architecture",
+      "kind": "call",
+      "callMode": "required",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-observability",
+      "kind": "call",
+      "callMode": "required",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "orchestrate-code-review__review-testing",
+      "kind": "call",
+      "callMode": "required",
+      "scenarioId": null,
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "prepare-release__changelog-video",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/prepare-release/SKILL.md",
+      "sourceSha256": "c1a98c128cba7a4f0dfc61112e443795d29187ab19bbe6b059baf58e558153f1",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "prepare-release__publish-release",
+      "kind": "input",
+      "callMode": null,
+      "scenarioId": null,
+      "source": "skills/publish-release/SKILL.md",
+      "sourceSha256": "7a14a0876850419d9c5e17ad0478a094c3fc90de0acd8902a0627de6ff500ac9",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "publish-release__announce-release",
+      "kind": "input",
+      "callMode": null,
+      "scenarioId": null,
+      "source": "skills/announce-release/SKILL.md",
+      "sourceSha256": "7c2a83be512ea07798661a91e0ea203f73b04c5fb29bad96f6a674337ebec1a1",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "publish-release__commit-work",
+      "kind": "call",
+      "callMode": "conditional",
+      "scenarioId": null,
+      "source": "skills/publish-release/SKILL.md",
+      "sourceSha256": "7a14a0876850419d9c5e17ad0478a094c3fc90de0acd8902a0627de6ff500ac9",
+      "quoteMatches": true,
+      "parentOnlyIfCall": true
+    },
+    {
+      "id": "design-strategic-goals__capture-work-items",
+      "kind": "input",
+      "callMode": null,
+      "scenarioId": null,
+      "source": "skills/capture-work-items/SKILL.md",
+      "sourceSha256": "3d788097e9a8ce105763932e94152451d27beeccf90d08f8d54e9d3ef48c2918",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "design-strategic-goals__promote-roadmap-items",
+      "kind": "input",
+      "callMode": null,
+      "scenarioId": null,
+      "source": "skills/promote-roadmap-items/SKILL.md",
+      "sourceSha256": "c219f651e51cf69960a6488a8ebe9aae5acdfe11009ef2afc708566490afc856",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "prioritize-backlog__promote-roadmap-items",
+      "kind": "input",
+      "callMode": null,
+      "scenarioId": null,
+      "source": "skills/promote-roadmap-items/SKILL.md",
+      "sourceSha256": "c219f651e51cf69960a6488a8ebe9aae5acdfe11009ef2afc708566490afc856",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "map-item-dependencies__promote-roadmap-items",
+      "kind": "input",
+      "callMode": null,
+      "scenarioId": null,
+      "source": "skills/promote-roadmap-items/SKILL.md",
+      "sourceSha256": "c219f651e51cf69960a6488a8ebe9aae5acdfe11009ef2afc708566490afc856",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "capture-work-items__prioritize-backlog",
+      "kind": "input",
+      "callMode": null,
+      "scenarioId": null,
+      "source": "skills/prioritize-backlog/SKILL.md",
+      "sourceSha256": "2cd87e65e1c0cca3dc4549933ea61842c7bd0bcdb0925f3dda7f612fe322475c",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "order__review-security__review-reliability",
+      "kind": "sequence",
+      "callMode": null,
+      "scenarioId": "engineering-gate",
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "order__review-reliability__review-error-surfacing",
+      "kind": "sequence",
+      "callMode": null,
+      "scenarioId": "engineering-gate",
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "order__review-error-surfacing__review-performance",
+      "kind": "sequence",
+      "callMode": null,
+      "scenarioId": "engineering-gate",
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "order__review-performance__review-architecture",
+      "kind": "sequence",
+      "callMode": null,
+      "scenarioId": "engineering-gate",
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "order__review-architecture__review-observability",
+      "kind": "sequence",
+      "callMode": null,
+      "scenarioId": "engineering-gate",
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    },
+    {
+      "id": "order__review-observability__review-testing",
+      "kind": "sequence",
+      "callMode": null,
+      "scenarioId": "engineering-gate",
+      "source": "skills/orchestrate-code-review/SKILL.md",
+      "sourceSha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "quoteMatches": true,
+      "parentOnlyIfCall": false
+    }
+  ],
+  "scope": "All 53 baseline relations retained; 36 calls labeled relative to parent scope; six fixed engineering-gate sequence edges added; no input/method/suggest edge becomes a child. Missing sequence evidence remains unspecified."
+}

@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-27",
+  "url": "http://127.0.0.1:8765/experiments/direction-planning/",
+  "method": "Chrome DevTools performance trace, auto-stop navigation",
+  "cache": "bypassed",
+  "cpu_throttling": "1x",
+  "network_throttling": "none",
+  "lcp_ms": 266,
+  "cls": 0.02,
+  "inp_ms": null,
+  "limitations": [
+    "Local desktop navigation measurement only; no field data.",
+    "INP was not measured by the navigation-only trace.",
+    "The raw generated illustration atlas is 2.2 MB; delivery-size optimization remains for production adoption."
+  ],
+  "light_visible_text_min_contrast": 5.31,
+  "dark_visible_text_min_contrast": 7.71
+}

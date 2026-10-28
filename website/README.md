@@ -229,3 +229,85 @@ for sizing, clear space and the personal-site mirror contract.
 Production version 7 replaces the former stacked-bar mark. Both HTML editions
 use a new icon cache identifier. This changes the shared vector asset within the
 existing layout; language, theme and navigation behavior remain unchanged.
+
+## Current published version, 2026-10-28
+
+Sites version 8 is public at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+The owner accepted the integrated dual views and approved the clean-URL repair.
+The [deployment](.openai/deployment.json), [public verification](.openai/public-verification.json)
+and [accepted runtime manifest](.openai/runtime-manifest.json) identify the exact
+published source and owner conclusion. All 47 public resources and eight real
+public browser cases pass; both no-JS/blocked-entry fallback locales pass.
+The public domain/audience are unchanged. Only the isolated Sites source checkout
+was committed/pushed; the AI Cortex repository was not. Version 7 remains the
+known-good recovery target; no rollback was performed.
+
+The sections below describe implementation and dated local-stage evidence.
+Their former authorization limits are historical; the current publication receipt
+and verification are in [the release evidence](../tests/website/evidence/release/README.md).
+
+## Same-page capability discovery: approved local integration
+
+The homepage capability section (`/#capabilities` and `/zh.html#capabilities`)
+provides Classification (default, original six cards) and Relationships (the
+retained ten-topic graph). They share canonical skill IDs, localized names,
+purposes, four-field usage guidance, lookup, one detail panel and one editable
+request/copy controller. Switching preserves selection, the active explanation,
+mode and edited/pending-copy identity, plus each view's disclosure/list/pan state.
+Only evidence-backed calls create children; required calls are relative to the
+applicable parent route. Scenario order is partial; layout never prescribes a
+universal workflow. Other references remain explicitly typed.
+
+Global navigation is Home / Capability overview / Asset directory, with Get
+started as the adoption action and language/theme as utilities. Overview and the
+compact four-type `#asset-directory` are sections of this same page. Old type,
+category and installation anchors remain meaningful. `/explore/` and its HTML
+editions are compatibility stubs linking/redirecting to the matching homepage
+relationship view, not separate interactive pages. Native classification cards
+and the complete directory remain usable with JavaScript disabled.
+
+`site-navigation.json` and `site-navigation.mjs` own routes, section identity,
+validated no-reload section navigation and same-language view/fragment mapping.
+`explore/explorer-host.mjs` is the shared composition owner; `explorer-state.mjs`
+owns semantic/view state. `classification-view.mjs` and `relationship-view.mjs`
+render the two representations. `relationship-model.mjs`, `classification.json`
+and the existing skill/topic/support records provide shared source-backed data.
+The replaced `story.mjs` composition was removed. No framework or installation
+step is required; serve only `website/` as the isolated static root.
+
+`explore/locales/` owns reader copy; `skill-metadata.json` owns canonical identity
+and source hashes. `source-manifest.json` pins asset links independently of the
+runtime revision. Changed transitive modules/data share `aic04-host-1`. Changing
+runtime bytes requires refreshing affected verification and the working
+`.openai/runtime-manifest.json`; its owner conclusion stays null until actual
+T9/T12 feedback. It is not an accepted release manifest.
+
+[Dual-view evidence](../tests/website/evidence/dual/README.md) records repeatable
+checks, visual review, source audit, candidate identity and limits. Existing
+hosting/public-verification receipts describe the earlier public site. T13,
+commit, push, upload and publication were not authorized or performed.
+
+### Preserve-mode typography follow-up
+
+The owner's `design-taste-frontend` invocation prompted a local audit and targeted
+readability repair. Topic titles/counts now use separate rows and natural word
+wrapping; classification IDs, purposes and call captions have distinct type sizes.
+The tablet classification list is bounded above the detail sheet, so larger
+captions remain reachable. Classification controls/content use the existing 4px
+radius family; the mobile sheet retains its documented 8px overlay exception.
+No new images, dependencies, navigation, data model or workflow were introduced.
+See [current refinement evidence](../tests/website/evidence/taste/README.md) for
+verification and preflight applicability/limits. This is the current local candidate;
+owner acceptance and publication remain separate.
+
+### Authorized publication preflight
+
+The owner accepted T12 and authorized T13 on 2026-10-28. Before changing public
+serving, the provider's `.html` to clean-URL redirects exposed a navigation-path
+compatibility defect. Known `/zh`, `/index`, `/explore/zh` and `/explore/index`
+aliases now resolve to the existing page families; arbitrary unknown paths do not.
+This repair preserves content and interactions but changes runtime identity, so
+targeted owner confirmation remains pending under the task record's changed-byte
+gate. The isolated local archive is prepared; version 7 remains serving and no
+new version/source push/deployment was performed. See the
+[publication preflight record](../tests/website/evidence/release/README.md).

@@ -1,0 +1,575 @@
+[
+  {
+    "id": "define-mission__define-vision",
+    "to": "define-vision",
+    "kind": "input",
+    "source": "skills/define-vision/SKILL.md",
+    "quote": "- **Required**: the mission (the statement itself, or the path to the mission document); project/product context.",
+    "overview": true,
+    "from": "define-mission"
+  },
+  {
+    "id": "define-vision__define-strategic-pillars",
+    "to": "define-strategic-pillars",
+    "kind": "input",
+    "source": "skills/define-strategic-pillars/SKILL.md",
+    "quote": "- **Required**: Vision; North Star (or paths); project context.",
+    "overview": false,
+    "from": "define-vision"
+  },
+  {
+    "id": "define-north-star__define-strategic-pillars",
+    "to": "define-strategic-pillars",
+    "kind": "input",
+    "source": "skills/define-strategic-pillars/SKILL.md",
+    "quote": "- **Required**: Vision; North Star (or paths); project context.",
+    "overview": false,
+    "from": "define-north-star"
+  },
+  {
+    "id": "define-vision__design-strategic-goals",
+    "to": "design-strategic-goals",
+    "kind": "input",
+    "source": "skills/design-strategic-goals/SKILL.md",
+    "quote": "- **Required on the normal path**: the vision; the North Star (or paths to the vision/North Star documents). When both are missing, switch to cold-start fallback mode and infer from repository evidence.",
+    "overview": false,
+    "from": "define-vision"
+  },
+  {
+    "id": "define-north-star__design-strategic-goals",
+    "to": "design-strategic-goals",
+    "kind": "input",
+    "source": "skills/design-strategic-goals/SKILL.md",
+    "quote": "- **Required on the normal path**: the vision; the North Star (or paths to the vision/North Star documents). When both are missing, switch to cold-start fallback mode and infer from repository evidence.",
+    "overview": false,
+    "from": "define-north-star"
+  },
+  {
+    "id": "orchestrate-roadmap-planning__define-roadmap",
+    "to": "define-roadmap",
+    "kind": "call",
+    "source": "skills/orchestrate-roadmap-planning/SKILL.md",
+    "quote": "`define-roadmap` for the selected empty layout and then to `review-roadmap` for",
+    "overview": false,
+    "from": "orchestrate-roadmap-planning",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-roadmap-planning__review-roadmap",
+    "to": "review-roadmap",
+    "kind": "call",
+    "source": "skills/orchestrate-roadmap-planning/SKILL.md",
+    "quote": "Chain the roadmap-related atomic skills in the applicable route to complete the requested roadmap work. The fixed full-planning sequence applies only when business planning is authorized; structure-only work uses the bounded route below. This skill orchestrates only; it performs no domain analysis. For a single step, call the corresponding atomic skill directly (`promote-roadmap-items` for promotion alone, `review-roadmap` for a health check alone).",
+    "overview": false,
+    "from": "orchestrate-roadmap-planning",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-roadmap-planning__capture-work-items",
+    "to": "capture-work-items",
+    "kind": "call",
+    "source": "skills/orchestrate-roadmap-planning/SKILL.md",
+    "quote": "| 3 | Intake | `capture-work-items` | default | Unregistered raw input exists |",
+    "overview": false,
+    "from": "orchestrate-roadmap-planning",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-roadmap-planning__prioritize-backlog",
+    "to": "prioritize-backlog",
+    "kind": "call",
+    "source": "skills/orchestrate-roadmap-planning/SKILL.md",
+    "quote": "| 4 | Priority decisions | `prioritize-backlog` | mandatory when all are unset or reassessment is explicitly requested; default when only some are | Items with `priority: unset` exist or explicit full reassessment is requested; use policy application or offered framework assessment, never implicit full reassessment |",
+    "overview": false,
+    "from": "orchestrate-roadmap-planning",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-roadmap-planning__map-item-dependencies",
+    "to": "map-item-dependencies",
+    "kind": "call",
+    "source": "skills/orchestrate-roadmap-planning/SKILL.md",
+    "quote": "| 5 | Dependencies | `map-item-dependencies` | default | Any candidate has missing/stale dependency or required-deliverable evidence, or a relevant dependency changed; even one candidate may need checking |",
+    "overview": false,
+    "from": "orchestrate-roadmap-planning",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-roadmap-planning__promote-roadmap-items",
+    "to": "promote-roadmap-items",
+    "kind": "call",
+    "source": "skills/orchestrate-roadmap-planning/SKILL.md",
+    "quote": "Chain the roadmap-related atomic skills in the applicable route to complete the requested roadmap work. The fixed full-planning sequence applies only when business planning is authorized; structure-only work uses the bounded route below. This skill orchestrates only; it performs no domain analysis. For a single step, call the corresponding atomic skill directly (`promote-roadmap-items` for promotion alone, `review-roadmap` for a health check alone).",
+    "overview": false,
+    "from": "orchestrate-roadmap-planning",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-roadmap-planning__update-roadmap",
+    "to": "update-roadmap",
+    "kind": "suggest",
+    "source": "skills/orchestrate-roadmap-planning/SKILL.md",
+    "quote": "| 7 | Maintenance | `update-roadmap` | recommended | The user has an explicit status, date or existing-version scope change in mind |",
+    "overview": false,
+    "from": "orchestrate-roadmap-planning"
+  },
+  {
+    "id": "orchestrate-roadmap-planning__archive-milestone",
+    "to": "archive-milestone",
+    "kind": "suggest",
+    "source": "skills/orchestrate-roadmap-planning/SKILL.md",
+    "quote": "| 8 | Archiving | `archive-milestone` | recommended | A legacy work package meets its maturity conditions, or a phase/version/period snapshot is eligible under project archive policy or explicit target selection |",
+    "overview": false,
+    "from": "orchestrate-roadmap-planning"
+  },
+  {
+    "id": "product-opportunity-analysis__policy-research",
+    "to": "policy-research",
+    "kind": "call",
+    "source": "skills/product-opportunity-analysis/SKILL.md",
+    "quote": "3. Select only relevant lanes: policy, market, competitive and user signals. Mark each `complete`, `limited`, `not_applicable` or `missing` with a reason. Invoke local [policy-research](../policy-research/SKILL.md), [market-research](../market-research/SKILL.md), or [competitive-research](../competitive-research/SKILL.md) for needed lanes; each applies [deep-research](../deep-research/SKILL.md). For user signals, investigate only authorized supplied interviews, usage or feedback with the shared evidence method; vendor claims alone are not user signals.",
+    "overview": false,
+    "from": "product-opportunity-analysis",
+    "callMode": "conditional"
+  },
+  {
+    "id": "policy-research__deep-research",
+    "to": "deep-research",
+    "kind": "method",
+    "source": "skills/policy-research/SKILL.md",
+    "quote": "Answer a bounded policy question for a named jurisdiction and date. This Skill applies the method in [deep-research](../deep-research/SKILL.md) and emits the shared [Research Report](../../specs/research-evidence.md). It explains potential product implications; it does not issue a legal opinion or certify compliance.",
+    "overview": false,
+    "from": "policy-research"
+  },
+  {
+    "id": "product-opportunity-analysis__market-research",
+    "to": "market-research",
+    "kind": "call",
+    "source": "skills/product-opportunity-analysis/SKILL.md",
+    "quote": "3. Select only relevant lanes: policy, market, competitive and user signals. Mark each `complete`, `limited`, `not_applicable` or `missing` with a reason. Invoke local [policy-research](../policy-research/SKILL.md), [market-research](../market-research/SKILL.md), or [competitive-research](../competitive-research/SKILL.md) for needed lanes; each applies [deep-research](../deep-research/SKILL.md). For user signals, investigate only authorized supplied interviews, usage or feedback with the shared evidence method; vendor claims alone are not user signals.",
+    "overview": false,
+    "from": "product-opportunity-analysis",
+    "callMode": "conditional"
+  },
+  {
+    "id": "market-research__deep-research",
+    "to": "deep-research",
+    "kind": "method",
+    "source": "skills/market-research/SKILL.md",
+    "quote": "Study a defined market without assuming that a popular category or vendor estimate is a real demand signal. Apply [deep-research](../deep-research/SKILL.md) and preserve its [Research Report](../../specs/research-evidence.md) as the evidence core.",
+    "overview": false,
+    "from": "market-research"
+  },
+  {
+    "id": "product-opportunity-analysis__competitive-research",
+    "to": "competitive-research",
+    "kind": "call",
+    "source": "skills/product-opportunity-analysis/SKILL.md",
+    "quote": "3. Select only relevant lanes: policy, market, competitive and user signals. Mark each `complete`, `limited`, `not_applicable` or `missing` with a reason. Invoke local [policy-research](../policy-research/SKILL.md), [market-research](../market-research/SKILL.md), or [competitive-research](../competitive-research/SKILL.md) for needed lanes; each applies [deep-research](../deep-research/SKILL.md). For user signals, investigate only authorized supplied interviews, usage or feedback with the shared evidence method; vendor claims alone are not user signals.",
+    "overview": false,
+    "from": "product-opportunity-analysis",
+    "callMode": "conditional"
+  },
+  {
+    "id": "competitive-research__deep-research",
+    "to": "deep-research",
+    "kind": "method",
+    "source": "skills/competitive-research/SKILL.md",
+    "quote": "Compare products using consistent criteria and dated evidence. Apply [deep-research](../deep-research/SKILL.md) and preserve the [Research Report](../../specs/research-evidence.md) as the evidence core. This Skill can identify strategic implications, but it does not decide whether to build a product.",
+    "overview": false,
+    "from": "competitive-research"
+  },
+  {
+    "id": "product-opportunity-analysis__assess-product-opportunity",
+    "to": "assess-product-opportunity",
+    "kind": "call",
+    "source": "skills/product-opportunity-analysis/SKILL.md",
+    "quote": "5. Pass compatible reports, lane statuses and the scoped question to [assess-product-opportunity](../assess-product-opportunity/SKILL.md). Preserve its claim IDs and recommendation. If its judgment is inconsistent with evidence, return it for correction rather than editing a factual finding during assembly.",
+    "overview": true,
+    "from": "product-opportunity-analysis",
+    "callMode": "required"
+  },
+  {
+    "id": "orchestrate-repair-loop__orchestrate-code-review",
+    "to": "orchestrate-code-review",
+    "kind": "call",
+    "source": "skills/orchestrate-repair-loop/SKILL.md",
+    "quote": "1. **Engineering gate** \u2014 `orchestrate-code-review` evaluates intrinsic code quality.",
+    "overview": false,
+    "from": "orchestrate-repair-loop",
+    "callMode": "required"
+  },
+  {
+    "id": "orchestrate-repair-loop__review-implementation-alignment",
+    "to": "review-implementation-alignment",
+    "kind": "call",
+    "source": "skills/orchestrate-repair-loop/SKILL.md",
+    "quote": "2. **Functional gate** \u2014 `review-implementation-alignment` compares approved intent with implementation, while `automate-tests` or the acceptance harness executes correctness evidence.",
+    "overview": false,
+    "from": "orchestrate-repair-loop",
+    "callMode": "required"
+  },
+  {
+    "id": "orchestrate-repair-loop__automate-tests",
+    "to": "automate-tests",
+    "kind": "call",
+    "source": "skills/orchestrate-repair-loop/SKILL.md",
+    "quote": "2. **Functional gate** \u2014 `review-implementation-alignment` compares approved intent with implementation, while `automate-tests` or the acceptance harness executes correctness evidence.",
+    "overview": false,
+    "from": "orchestrate-repair-loop",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-repair-requirements-loop__review-requirements",
+    "to": "review-requirements",
+    "kind": "call",
+    "source": "skills/orchestrate-repair-requirements-loop/SKILL.md",
+    "quote": "Run `review-requirements` against the current target. Keep review execution",
+    "overview": false,
+    "from": "orchestrate-repair-requirements-loop",
+    "callMode": "required"
+  },
+  {
+    "id": "orchestrate-code-review__review-diff",
+    "to": "review-diff",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 1 | scope | `review-diff` or `review-codebase` | Pick one, by user intent (diff = the current changes; codebase = the given path) |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-code-review__review-codebase",
+    "to": "review-codebase",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 1 | scope | `review-diff` or `review-codebase` | Pick one, by user intent (diff = the current changes; codebase = the given path) |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-code-review__review-typescript",
+    "to": "review-typescript",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 2 | language | `review-typescript` / `review-python` / `review-go` / `review-java` / `review-php` / `review-powershell` / `review-dotnet` / `review-sql` | 0 or 1, inferred from the dominant language in scope |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-code-review__review-python",
+    "to": "review-python",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 2 | language | `review-typescript` / `review-python` / `review-go` / `review-java` / `review-php` / `review-powershell` / `review-dotnet` / `review-sql` | 0 or 1, inferred from the dominant language in scope |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-code-review__review-go",
+    "to": "review-go",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 2 | language | `review-typescript` / `review-python` / `review-go` / `review-java` / `review-php` / `review-powershell` / `review-dotnet` / `review-sql` | 0 or 1, inferred from the dominant language in scope |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-code-review__review-java",
+    "to": "review-java",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 2 | language | `review-typescript` / `review-python` / `review-go` / `review-java` / `review-php` / `review-powershell` / `review-dotnet` / `review-sql` | 0 or 1, inferred from the dominant language in scope |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-code-review__review-php",
+    "to": "review-php",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 2 | language | `review-typescript` / `review-python` / `review-go` / `review-java` / `review-php` / `review-powershell` / `review-dotnet` / `review-sql` | 0 or 1, inferred from the dominant language in scope |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-code-review__review-powershell",
+    "to": "review-powershell",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 2 | language | `review-typescript` / `review-python` / `review-go` / `review-java` / `review-php` / `review-powershell` / `review-dotnet` / `review-sql` | 0 or 1, inferred from the dominant language in scope |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-code-review__review-dotnet",
+    "to": "review-dotnet",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 2 | language | `review-typescript` / `review-python` / `review-go` / `review-java` / `review-php` / `review-powershell` / `review-dotnet` / `review-sql` | 0 or 1, inferred from the dominant language in scope |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-code-review__review-sql",
+    "to": "review-sql",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 2 | language | `review-typescript` / `review-python` / `review-go` / `review-java` / `review-php` / `review-powershell` / `review-dotnet` / `review-sql` | 0 or 1, inferred from the dominant language in scope |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-code-review__review-react",
+    "to": "review-react",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 3 | framework | `review-react` / `review-vue` | 0 or 1, inferred from the framework in scope |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-code-review__review-vue",
+    "to": "review-vue",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 3 | framework | `review-react` / `review-vue` | 0 or 1, inferred from the framework in scope |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-code-review__review-orm-usage",
+    "to": "review-orm-usage",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 4 | library | `review-orm-usage` | 0 or 1, inferred from ORM usage in scope |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "conditional"
+  },
+  {
+    "id": "orchestrate-code-review__review-security",
+    "to": "review-security",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 5 | cognitive | `review-security` \u2192 `review-reliability` \u2192 `review-error-surfacing` \u2192 `review-performance` \u2192 `review-architecture` \u2192 `review-observability` \u2192 `review-testing` | All of them, in order; each atomic Skill resolves whether its profiles apply |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "required"
+  },
+  {
+    "id": "orchestrate-code-review__review-reliability",
+    "to": "review-reliability",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 5 | cognitive | `review-security` \u2192 `review-reliability` \u2192 `review-error-surfacing` \u2192 `review-performance` \u2192 `review-architecture` \u2192 `review-observability` \u2192 `review-testing` | All of them, in order; each atomic Skill resolves whether its profiles apply |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "required"
+  },
+  {
+    "id": "orchestrate-code-review__review-error-surfacing",
+    "to": "review-error-surfacing",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 5 | cognitive | `review-security` \u2192 `review-reliability` \u2192 `review-error-surfacing` \u2192 `review-performance` \u2192 `review-architecture` \u2192 `review-observability` \u2192 `review-testing` | All of them, in order; each atomic Skill resolves whether its profiles apply |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "required"
+  },
+  {
+    "id": "orchestrate-code-review__review-performance",
+    "to": "review-performance",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 5 | cognitive | `review-security` \u2192 `review-reliability` \u2192 `review-error-surfacing` \u2192 `review-performance` \u2192 `review-architecture` \u2192 `review-observability` \u2192 `review-testing` | All of them, in order; each atomic Skill resolves whether its profiles apply |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "required"
+  },
+  {
+    "id": "orchestrate-code-review__review-architecture",
+    "to": "review-architecture",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 5 | cognitive | `review-security` \u2192 `review-reliability` \u2192 `review-error-surfacing` \u2192 `review-performance` \u2192 `review-architecture` \u2192 `review-observability` \u2192 `review-testing` | All of them, in order; each atomic Skill resolves whether its profiles apply |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "required"
+  },
+  {
+    "id": "orchestrate-code-review__review-observability",
+    "to": "review-observability",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 5 | cognitive | `review-security` \u2192 `review-reliability` \u2192 `review-error-surfacing` \u2192 `review-performance` \u2192 `review-architecture` \u2192 `review-observability` \u2192 `review-testing` | All of them, in order; each atomic Skill resolves whether its profiles apply |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "required"
+  },
+  {
+    "id": "orchestrate-code-review__review-testing",
+    "to": "review-testing",
+    "kind": "call",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 5 | cognitive | `review-security` \u2192 `review-reliability` \u2192 `review-error-surfacing` \u2192 `review-performance` \u2192 `review-architecture` \u2192 `review-observability` \u2192 `review-testing` | All of them, in order; each atomic Skill resolves whether its profiles apply |",
+    "overview": false,
+    "from": "orchestrate-code-review",
+    "callMode": "required"
+  },
+  {
+    "id": "prepare-release__changelog-video",
+    "to": "changelog-video",
+    "kind": "call",
+    "source": "skills/prepare-release/SKILL.md",
+    "quote": "`changelog-video` is a local, optional release-artifact Skill shipped with AI Cortex, not an implementation built into this Skill. Invoke it only after the user selects `video`; pass `decision=release`, the project identifier, version and channel, git range, the confirmed customer-facing change items, available media references, output directory, required status, and the confirmed preferences, then consume its `kind: video` artifact entry and check results. You must not ask it to re-parse git or long Markdown, and must not let it decide the version, edit the changelog, create a tag, or send an announcement.",
+    "overview": true,
+    "from": "prepare-release",
+    "callMode": "conditional"
+  },
+  {
+    "id": "prepare-release__publish-release",
+    "to": "publish-release",
+    "kind": "input",
+    "source": "skills/publish-release/SKILL.md",
+    "quote": "Input is a `ready` Release Package path or a preparation result, plus an optional provider and `dry_run` (default `true`). Output is the publication receipt, the actual tag/artifact information, the provider receipt, the rollback path, and the package status updated per the Spec.",
+    "overview": true,
+    "from": "prepare-release"
+  },
+  {
+    "id": "publish-release__announce-release",
+    "to": "announce-release",
+    "kind": "input",
+    "source": "skills/announce-release/SKILL.md",
+    "quote": "Input is a `published` Release Package, the target audiences/channels and an optional delivery request. Output is announcement drafts separated by audience; once confirmed and channel-capable, it also carries a per-channel delivery receipt and records the communication result per the Spec.",
+    "overview": true,
+    "from": "publish-release"
+  },
+  {
+    "id": "publish-release__commit-work",
+    "from": "publish-release",
+    "to": "commit-work",
+    "kind": "call",
+    "source": "skills/publish-release/SKILL.md",
+    "quote": "5. **Version and commit**: execute only the product version-sync plan the package has confirmed; an independent version domain set to `preserve` must not be changed along with it. Reuse the project's release tool when it commits on its own; otherwise call the locally vendored AI Cortex `commit-work` for precise staging and commit, with this Skill owning the ordering and the receipt. When that Skill is absent, stop the commit phase; do not install it from an external registry and do not substitute an inline simplified flow.",
+    "overview": false,
+    "callMode": "conditional"
+  },
+  {
+    "id": "design-strategic-goals__capture-work-items",
+    "from": "design-strategic-goals",
+    "to": "capture-work-items",
+    "kind": "input",
+    "source": "skills/capture-work-items/SKILL.md",
+    "quote": "- **Do not skip strategic_goal_id**: when `strategic-goals.md` does not exist, halt and suggest running `design-strategic-goals` first; it must not be left blank or invented.",
+    "overview": false
+  },
+  {
+    "id": "design-strategic-goals__promote-roadmap-items",
+    "from": "design-strategic-goals",
+    "to": "promote-roadmap-items",
+    "kind": "input",
+    "source": "skills/promote-roadmap-items/SKILL.md",
+    "quote": "3. Read `docs/project-overview/strategic-goals.md` (the list of strategic goals)",
+    "overview": false
+  },
+  {
+    "id": "prioritize-backlog__promote-roadmap-items",
+    "from": "prioritize-backlog",
+    "to": "promote-roadmap-items",
+    "kind": "input",
+    "source": "skills/promote-roadmap-items/SKILL.md",
+    "quote": "- eligible records exist but every one is `priority: unset` \u2192 suggest running `prioritize-backlog` first",
+    "overview": false
+  },
+  {
+    "id": "map-item-dependencies__promote-roadmap-items",
+    "from": "map-item-dependencies",
+    "to": "promote-roadmap-items",
+    "kind": "input",
+    "source": "skills/promote-roadmap-items/SKILL.md",
+    "quote": "The dependency check reads each item's frontmatter `depends_on` (registered by `map-item-dependencies`):",
+    "overview": false
+  },
+  {
+    "id": "capture-work-items__prioritize-backlog",
+    "from": "capture-work-items",
+    "to": "prioritize-backlog",
+    "kind": "input",
+    "source": "skills/prioritize-backlog/SKILL.md",
+    "quote": "3. Inventory every item and retain current priority and decision as audit evidence.",
+    "overview": false
+  },
+  {
+    "id": "order__review-security__review-reliability",
+    "from": "review-security",
+    "to": "review-reliability",
+    "kind": "sequence",
+    "scenarioId": "engineering-gate",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 5 | cognitive | `review-security` \u2192 `review-reliability` \u2192 `review-error-surfacing` \u2192 `review-performance` \u2192 `review-architecture` \u2192 `review-observability` \u2192 `review-testing` | All of them, in order; each atomic Skill resolves whether its profiles apply |",
+    "overview": false
+  },
+  {
+    "id": "order__review-reliability__review-error-surfacing",
+    "from": "review-reliability",
+    "to": "review-error-surfacing",
+    "kind": "sequence",
+    "scenarioId": "engineering-gate",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 5 | cognitive | `review-security` \u2192 `review-reliability` \u2192 `review-error-surfacing` \u2192 `review-performance` \u2192 `review-architecture` \u2192 `review-observability` \u2192 `review-testing` | All of them, in order; each atomic Skill resolves whether its profiles apply |",
+    "overview": false
+  },
+  {
+    "id": "order__review-error-surfacing__review-performance",
+    "from": "review-error-surfacing",
+    "to": "review-performance",
+    "kind": "sequence",
+    "scenarioId": "engineering-gate",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 5 | cognitive | `review-security` \u2192 `review-reliability` \u2192 `review-error-surfacing` \u2192 `review-performance` \u2192 `review-architecture` \u2192 `review-observability` \u2192 `review-testing` | All of them, in order; each atomic Skill resolves whether its profiles apply |",
+    "overview": false
+  },
+  {
+    "id": "order__review-performance__review-architecture",
+    "from": "review-performance",
+    "to": "review-architecture",
+    "kind": "sequence",
+    "scenarioId": "engineering-gate",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 5 | cognitive | `review-security` \u2192 `review-reliability` \u2192 `review-error-surfacing` \u2192 `review-performance` \u2192 `review-architecture` \u2192 `review-observability` \u2192 `review-testing` | All of them, in order; each atomic Skill resolves whether its profiles apply |",
+    "overview": false
+  },
+  {
+    "id": "order__review-architecture__review-observability",
+    "from": "review-architecture",
+    "to": "review-observability",
+    "kind": "sequence",
+    "scenarioId": "engineering-gate",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 5 | cognitive | `review-security` \u2192 `review-reliability` \u2192 `review-error-surfacing` \u2192 `review-performance` \u2192 `review-architecture` \u2192 `review-observability` \u2192 `review-testing` | All of them, in order; each atomic Skill resolves whether its profiles apply |",
+    "overview": false
+  },
+  {
+    "id": "order__review-observability__review-testing",
+    "from": "review-observability",
+    "to": "review-testing",
+    "kind": "sequence",
+    "scenarioId": "engineering-gate",
+    "source": "skills/orchestrate-code-review/SKILL.md",
+    "quote": "| 5 | cognitive | `review-security` \u2192 `review-reliability` \u2192 `review-error-surfacing` \u2192 `review-performance` \u2192 `review-architecture` \u2192 `review-observability` \u2192 `review-testing` | All of them, in order; each atomic Skill resolves whether its profiles apply |",
+    "overview": false
+  }
+]

@@ -1,0 +1,19 @@
+AssertionError [ERR_ASSERTION]: define-mission: route occlusion
++ actual - expected
+
++ [
++   {
++     edge: 'define-mission__define-vision',
++     node: 'define-north-star'
++   }
++ ]
+- []
+
+    at /Users/nesnilnehc/github.com/ai-cortex/tests/website/explorer-browser.cjs:25:31 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: [Array],
+  expected: [],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}

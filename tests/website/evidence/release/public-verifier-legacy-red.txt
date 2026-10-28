@@ -1,0 +1,14 @@
+.F..
+======================================================================
+FAIL: test_legacy_stub_allows_only_a_known_script_after_its_exact_source (__main__.ResourceChecks.test_legacy_stub_allows_only_a_known_script_after_its_exact_source)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/nesnilnehc/github.com/ai-cortex/tests/website/verify-public.py", line 51, in test_legacy_stub_allows_only_a_known_script_after_its_exact_source
+    self.assertTrue(preserved_html(source, source + script))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+FAILED (failures=1)

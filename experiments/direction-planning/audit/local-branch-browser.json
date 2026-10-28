@@ -1,0 +1,586 @@
+{
+  "date": "2026-10-27T15:31:04.970Z",
+  "browser": "151.0.7922.34",
+  "matrix": [
+    {
+      "width": 360,
+      "height": 667,
+      "theme": "light",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 78.28125,
+      "routesClear": true
+    },
+    {
+      "width": 360,
+      "height": 667,
+      "theme": "dark",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 78.28125,
+      "routesClear": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 78.28125,
+      "routesClear": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 78.28125,
+      "routesClear": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 62.4375,
+      "routesClear": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "dark",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 62.4375,
+      "routesClear": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "theme": "light",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 62.4375,
+      "routesClear": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "theme": "dark",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 62.4375,
+      "routesClear": true
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 62.4375,
+      "routesClear": true
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "allSkillsRetained": true,
+      "oneLocalBranch": true,
+      "allTenTopicsExpandedAndSelected": true,
+      "oneGraph": true,
+      "overflow": false,
+      "keyboardSelection": true,
+      "focusReturned": true,
+      "maxNodeHeight": 62.4375,
+      "routesClear": true
+    }
+  ],
+  "skills": [
+    {
+      "id": "announce-release",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "archive-milestone",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "assess-product-opportunity",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "automate-tests",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "capture-work-items",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 3
+    },
+    {
+      "id": "changelog-video",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "commit-work",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "competitive-research",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "consume-nats-message",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "decontextualize-text",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "deep-research",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 3
+    },
+    {
+      "id": "define-docs-norms",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "define-mission",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "define-north-star",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "define-roadmap",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "define-strategic-pillars",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "define-vision",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 3
+    },
+    {
+      "id": "deliver-feature",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "design-strategic-goals",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 4
+    },
+    {
+      "id": "generate-agent-entry",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "generate-github-workflow",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "generate-standard-readme",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "integrate-branches",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "manage-secret",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "map-item-dependencies",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "market-research",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "orchestrate-code-review",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 21
+    },
+    {
+      "id": "orchestrate-governance-step",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "orchestrate-repair-loop",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 3
+    },
+    {
+      "id": "orchestrate-repair-requirements-loop",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "orchestrate-roadmap-planning",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 8
+    },
+    {
+      "id": "plan-next",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "policy-research",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "prepare-presales-response",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "prepare-release",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 2
+    },
+    {
+      "id": "prioritize-backlog",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 3
+    },
+    {
+      "id": "product-opportunity-analysis",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 4
+    },
+    {
+      "id": "promote-roadmap-items",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 4
+    },
+    {
+      "id": "publish-nats-message",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "publish-release",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 3
+    },
+    {
+      "id": "redeploy-local",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "refine-skill-design",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "review-architecture",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-codebase",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-diff",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-dotnet",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-error-surfacing",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-functional-design",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "review-go",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-implementation-alignment",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-java",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-observability",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-orm-usage",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-performance",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-php",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-powershell",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-python",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-react",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-reliability",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-requirements",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-roadmap",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-security",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-sql",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-tasks",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "review-technical-design",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "review-testing",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-typescript",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "review-vue",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    },
+    {
+      "id": "scaffold-agent-tests",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 0
+    },
+    {
+      "id": "update-roadmap",
+      "visibleAfterExpansion": true,
+      "guide": true,
+      "relations": 1
+    }
+  ],
+  "errors": [],
+  "status": "passed",
+  "sourceHashes": {
+    "index.html": "952559840f6227a615e6217ae3b6c9367b5e65a45eab87a5faed0ac2a7e279e5",
+    "story.mjs": "333b87af04a65c75deb98b01fba41369dbe2f84ab977c8ad2a778748b19158dc",
+    "workspace.css": "92453fe0fc4e6db55f0c5e4185fbee0717dde44d28049286128283e15a5efe22",
+    "skill-graph.mjs": "cdabe6df58ea95652d0921d2b8c4bd15005a95de1894367984b4a1e177cea7bc",
+    "panel-model.mjs": "4a799ce4ffe22a0bce2e6739387b7fd6878037977d60500b2b0630f6bb56e7c7",
+    "workflow.mjs": "22714fbf667d991b9e5f2454240ad025e0b7fd95d2241b5d61156779e8ccdaf4",
+    "relations.mjs": "ae8f8400eebf54c4d203e6788f882b337733caea8683ede705392cbe0c2294a6",
+    "story-model.mjs": "cb087277cb58dd902ae43d9c168d6fab0c20215b200557f9301667dfd20f6ffc",
+    "skill-guidance.json": "88dd5712af035e42a517b220f8242d9d3e6fca36ed74f834aec5e828e3931d30",
+    "skill-edges.json": "03800450c136416c8d2340d4dbd447dbbb6006de358b2556ad77d3a14e8c16ad",
+    "topic-map.mjs": "bcb9c40b01cb75caf1d60842c7a18f52c4347ee26e3fa289171e366a213bea9a",
+    "global-topic-graph.mjs": "1bf290c2174952daca910a18556d71c4c71792faecfcbdb5ac79c93a4fa7558b",
+    "topic-edges.json": "2ce83f800b6b6cf0c0a693fddbebb99ac6e2491037276b6a192843a444796576",
+    "audit/verify-local-branch.cjs": "60ba2f54b47c8ca1280ad9f4dd21fa336b82a8d2d0210ec79ae1c3c8b26d187c"
+  }
+}

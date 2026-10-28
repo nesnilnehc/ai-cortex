@@ -1,0 +1,31 @@
+✔ explorer language selection stays in the explorer family and preserves context (1.085292ms)
+✔ language route maps reject unsafe or incomplete destinations before navigation (0.286709ms)
+✔ source URLs use canonical asset revision and reject path escape (2.492792ms)
+✔ both locale dictionaries cover every skill with meaningful usage, no language fallback (11.287334ms)
+✔ both static editions provide sources without scripting and no experiment dependencies (0.87625ms)
+✔ home and install navigation keeps an explicit locale when storage is blocked (0.678667ms)
+✖ locale validation cannot translate identities or change typed state (3.817667ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 126.713
+
+✖ failing tests:
+
+test at tests/website/explorer.test.mjs:52:1
+✖ locale validation cannot translate identities or change typed state (3.817667ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///Users/nesnilnehc/github.com/ai-cortex/tests/website/explorer.test.mjs:56:9)
+      at async Test.run (node:internal/test_runner/test:1125:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:787:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /identity|locale/i,
+    operator: 'throws',
+    diff: 'simple'
+  }

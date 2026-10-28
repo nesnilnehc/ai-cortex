@@ -1,0 +1,203 @@
+{
+  "date": "2026-10-27T15:31:20.612Z",
+  "browser": "151.0.7922.34",
+  "sourceHashes": {
+    "index.html": "952559840f6227a615e6217ae3b6c9367b5e65a45eab87a5faed0ac2a7e279e5",
+    "story.mjs": "333b87af04a65c75deb98b01fba41369dbe2f84ab977c8ad2a778748b19158dc",
+    "workspace.css": "92453fe0fc4e6db55f0c5e4185fbee0717dde44d28049286128283e15a5efe22",
+    "skill-graph.mjs": "cdabe6df58ea95652d0921d2b8c4bd15005a95de1894367984b4a1e177cea7bc",
+    "panel-model.mjs": "4a799ce4ffe22a0bce2e6739387b7fd6878037977d60500b2b0630f6bb56e7c7",
+    "workflow.mjs": "22714fbf667d991b9e5f2454240ad025e0b7fd95d2241b5d61156779e8ccdaf4",
+    "relations.mjs": "ae8f8400eebf54c4d203e6788f882b337733caea8683ede705392cbe0c2294a6",
+    "story-model.mjs": "cb087277cb58dd902ae43d9c168d6fab0c20215b200557f9301667dfd20f6ffc",
+    "skill-guidance.json": "88dd5712af035e42a517b220f8242d9d3e6fca36ed74f834aec5e828e3931d30",
+    "skill-edges.json": "03800450c136416c8d2340d4dbd447dbbb6006de358b2556ad77d3a14e8c16ad",
+    "topic-map.mjs": "bcb9c40b01cb75caf1d60842c7a18f52c4347ee26e3fa289171e366a213bea9a",
+    "global-topic-graph.mjs": "1bf290c2174952daca910a18556d71c4c71792faecfcbdb5ac79c93a4fa7558b",
+    "topic-edges.json": "2ce83f800b6b6cf0c0a693fddbebb99ac6e2491037276b6a192843a444796576"
+  },
+  "unchangedDataAndBehavior": true,
+  "contrast": [
+    {
+      "width": 390,
+      "theme": "light",
+      "state": "overview",
+      "samples": 46,
+      "loopLabels": [
+        {
+          "text": "↶ 审查 → 修订 → 再审查",
+          "ratio": 11.472413118561946
+        },
+        {
+          "text": "↶ 检查 → 定向修复 → 重新检查",
+          "ratio": 11.472413118561946
+        }
+      ],
+      "minRatio": 5.311961464015038,
+      "failures": []
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "state": "selected",
+      "samples": 102,
+      "loopLabels": [
+        {
+          "text": "↶ 审查 → 修订 → 再审查",
+          "ratio": 11.472413118561946
+        },
+        {
+          "text": "↶ 检查 → 定向修复 → 重新检查",
+          "ratio": 11.472413118561946
+        }
+      ],
+      "minRatio": 5.311961464015038,
+      "failures": []
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "state": "overview",
+      "samples": 46,
+      "loopLabels": [
+        {
+          "text": "↶ 审查 → 修订 → 再审查",
+          "ratio": 11.115983783419564
+        },
+        {
+          "text": "↶ 检查 → 定向修复 → 重新检查",
+          "ratio": 11.115983783419564
+        }
+      ],
+      "minRatio": 7.714034183479775,
+      "failures": []
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "state": "selected",
+      "samples": 102,
+      "loopLabels": [
+        {
+          "text": "↶ 审查 → 修订 → 再审查",
+          "ratio": 11.115983783419564
+        },
+        {
+          "text": "↶ 检查 → 定向修复 → 重新检查",
+          "ratio": 11.115983783419564
+        }
+      ],
+      "minRatio": 7.714034183479775,
+      "failures": []
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "state": "overview",
+      "samples": 46,
+      "loopLabels": [
+        {
+          "text": "↶ 审查 → 修订 → 再审查",
+          "ratio": 11.472413118561946
+        },
+        {
+          "text": "↶ 检查 → 定向修复 → 重新检查",
+          "ratio": 11.472413118561946
+        }
+      ],
+      "minRatio": 5.311961464015038,
+      "failures": []
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "state": "selected",
+      "samples": 103,
+      "loopLabels": [
+        {
+          "text": "↶ 审查 → 修订 → 再审查",
+          "ratio": 11.472413118561946
+        },
+        {
+          "text": "↶ 检查 → 定向修复 → 重新检查",
+          "ratio": 11.472413118561946
+        }
+      ],
+      "minRatio": 5.311961464015038,
+      "failures": []
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "state": "overview",
+      "samples": 46,
+      "loopLabels": [
+        {
+          "text": "↶ 审查 → 修订 → 再审查",
+          "ratio": 11.115983783419564
+        },
+        {
+          "text": "↶ 检查 → 定向修复 → 重新检查",
+          "ratio": 11.115983783419564
+        }
+      ],
+      "minRatio": 7.714034183479775,
+      "failures": []
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "state": "selected",
+      "samples": 103,
+      "loopLabels": [
+        {
+          "text": "↶ 审查 → 修订 → 再审查",
+          "ratio": 11.115983783419564
+        },
+        {
+          "text": "↶ 检查 → 定向修复 → 重新检查",
+          "ratio": 11.115983783419564
+        }
+      ],
+      "minRatio": 7.714034183479775,
+      "failures": []
+    }
+  ],
+  "clipboard": [
+    {
+      "case": "absent",
+      "manualRecovery": true
+    },
+    {
+      "case": "rejected",
+      "manualRecovery": true
+    },
+    {
+      "case": "late-after-edit",
+      "staleSuccessSuppressed": true
+    },
+    {
+      "case": "late-after-close",
+      "closedContextUntouched": true
+    }
+  ],
+  "observations": [
+    {
+      "case": "javascript-disabled",
+      "catalogueFallback": true,
+      "topicNodes": 0
+    },
+    {
+      "case": "entry-module-blocked",
+      "topicNodes": 0,
+      "visibleCatalogueFallback": true
+    },
+    {
+      "case": "fallback-navigation",
+      "keyboardFocusable": true,
+      "sourceResponse": 200
+    }
+  ],
+  "topicTitlesConsistent": true,
+  "status": "passed"
+}

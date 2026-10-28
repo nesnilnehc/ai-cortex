@@ -1,0 +1,17 @@
+{
+  "relativeLinks": "passed; zero broken links/downward governance links",
+  "hygiene": "passed; 414 documents",
+  "scopedMarkdown": "passed; 10 files, zero errors",
+  "wholeRepositoryMarkdown": {
+    "result": "failed outside current scope",
+    "files": [
+      "docs/requirements-planning/AIC-REQ-05.md:70",
+      "docs/requirements-planning/AIC-REQ-05.md:74",
+      "docs/requirements-planning/AIC-REQ-05.md:79"
+    ],
+    "rule": "MD032",
+    "action": "Existing unrelated uncommitted content preserved; not repaired under AIC-REQ-04"
+  },
+  "gitDiffCheck": "passed",
+  "workingRuntimeHashes": "47/47 match; ownerConclusion null; publicationAuthorized false"
+}

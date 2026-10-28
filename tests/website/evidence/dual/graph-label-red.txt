@@ -1,0 +1,9 @@
+AssertionError [ERR_ASSERTION]: 1024/quality: complete selected label fits inside its local list
+    at /Users/nesnilnehc/github.com/ai-cortex/tests/website/explorer-browser.cjs:65:240 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

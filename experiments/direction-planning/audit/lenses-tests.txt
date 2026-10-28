@@ -1,0 +1,48 @@
+✔ two interpretations define point, relationship and shared context without assigning skill levels (1.657458ms)
+✔ the same selected work exposes different help under each interpretation (0.51025ms)
+✔ all rendered contexts have concrete help in both interpretations; snapshots stay isolated (0.167041ms)
+✔ a blocker delays search without reducing its priority (1.025ms)
+✔ urgent work displaces repair but preserves every existing item (0.150541ms)
+✔ completion records evidence without claiming a release (0.090333ms)
+✔ scenarios have distinct requests and unknown selections reject (0.203666ms)
+✔ plan snapshots do not share mutable items (0.082292ms)
+✔ one map and one contextual panel own the only request editor and copy action (1.965167ms)
+✔ the nodes actually rendered in the map collectively expose all registered skills (2.892542ms)
+✔ direction and backlog nodes have distinct explanations and skill scopes (1.196417ms)
+✔ every registered skill resolves to a selectable node with its own request (3.498583ms)
+✔ only relevant examples appear inside each node detail (0.962708ms)
+✔ publication and announcement prerequisites stay separate in the same panel (0.094625ms)
+✔ planning explains definition, priority, promotion and maintenance as separate work (0.210291ms)
+✔ catalog parity rejects missing, unknown and duplicate entries without mutating fixtures (1.529166ms)
+✔ work context distinguishes ordinary agent help from optional Cortex assets (0.397958ms)
+✔ the map separates guidance, loops, prerequisites, feedback and anytime support (1.646916ms)
+✔ publication and announcement each have their own prerequisites (0.1665ms)
+✔ examples highlight relevant relationships without inventing a completed stage (0.369459ms)
+✔ all registered skills still have an entry, without depending on a linear order (0.163541ms)
+✔ the entry has no previous/next sequence controls or automatic review-to-commit action (3.112791ms)
+✔ coverage matches the actual planning category, including supporting capabilities (3.782875ms)
+✔ trace preserves goal to backlog to roadmap identity under delay (0.613458ms)
+✔ new urgent work traces to reliability without hiding the old work (0.171542ms)
+✔ node details explain inputs outputs and boundaries; unknown keys reject (0.265875ms)
+✔ returned data is isolated (0.082625ms)
+✔ same node selection retains the edited request; different selection invalidates copies (0.881042ms)
+✔ close and reopen invalidate a late copy of the same node (0.0875ms)
+✔ editing the same context invalidates a pending copy without changing selection (0.075541ms)
+✔ plain-language topics remain selectable without defining a next stage (1.977458ms)
+✔ quality evidence is distinct from permission to commit or publish (0.41475ms)
+✔ all 70 tools remain available in grouped disclosure and search (1.367666ms)
+✔ every registered skill is represented exactly once in the global stages (7.48975ms)
+✔ commit, integration and publication have separate boundaries (0.252667ms)
+✔ review path keeps engineering, functional and execution evidence separate (0.218458ms)
+✔ search is case insensitive and supports Chinese purposes across stages (2.33575ms)
+✔ stages and catalog are snapshots, not shared mutable state (0.100542ms)
+✔ catalog purposes and definitions remain grounded in source snapshots (27.10525ms)
+✔ roadmap definition purpose permits structure-only and content-only requests (0.178541ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 202.905375

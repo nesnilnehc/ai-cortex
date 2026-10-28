@@ -1,0 +1,212 @@
+[
+  {
+    "id": "goal-basis",
+    "from": "direction",
+    "to": "planning",
+    "kind": "input",
+    "basis": "artifact-input",
+    "sources": [
+      {
+        "path": "skills/promote-roadmap-items/SKILL.md",
+        "quote": "3. Read `docs/project-overview/strategic-goals.md` (the list of strategic goals)"
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "planning-design",
+    "from": "planning",
+    "to": "design",
+    "kind": "input",
+    "basis": "artifact-handoff",
+    "sources": [
+      {
+        "path": "skills/promote-roadmap-items/SKILL.md",
+        "quote": "**Handoff point**: promoted Now-tier items go into `capture-work-items` as needed, and the AgentFabric runtime then carries out design / task breakdown / execution."
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "design-build",
+    "from": "design",
+    "to": "build",
+    "kind": "input",
+    "basis": "artifact-handoff",
+    "sources": [
+      {
+        "path": "specs/task-modeling.md",
+        "quote": "A task list is the set of implementation work items derived from a technical design."
+      },
+      {
+        "path": "specs/task-modeling.md",
+        "quote": "a task list's `parent` points at a technical design document in `approved` status"
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "design-quality",
+    "from": "design",
+    "to": "quality",
+    "kind": "input",
+    "basis": "artifact-input",
+    "sources": [
+      {
+        "path": "skills/review-implementation-alignment/SKILL.md",
+        "quote": "Input is the approved artifact paths, implementation scope and evidence."
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "repair-feedback",
+    "from": "quality",
+    "to": "build",
+    "kind": "feedback",
+    "basis": "repair-loop",
+    "sources": [
+      {
+        "path": "skills/orchestrate-repair-loop/SKILL.md",
+        "quote": "2. **Functional gate** — `review-implementation-alignment` compares approved intent with implementation, while `automate-tests` or the acceptance harness executes correctness evidence."
+      },
+      {
+        "path": "skills/orchestrate-repair-loop/SKILL.md",
+        "quote": "4. **Repeat** — rerun every gate affected by the repair until both pass or a stop condition is reached."
+      }
+    ],
+    "bidirectional": true
+  },
+  {
+    "id": "quality-planning",
+    "from": "quality",
+    "to": "planning",
+    "kind": "feedback",
+    "basis": "conditional-feedback",
+    "sources": [
+      {
+        "path": "skills/orchestrate-repair-loop/SKILL.md",
+        "quote": "A report that matches intended behavior, concerns another system, or requests new behavior is handed back with its basis or routed to the project's existing intake process when needed."
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "checks-release",
+    "from": "quality",
+    "to": "release",
+    "kind": "input",
+    "basis": "quality-evidence",
+    "sources": [
+      {
+        "path": "skills/prepare-release/SKILL.md",
+        "quote": "Run the smallest relevant tests, lint, build, or security checks the project declares; the discovery logic of `automate-tests` can be reused."
+      },
+      {
+        "path": "skills/prepare-release/SKILL.md",
+        "quote": "Where a review signal is needed, use the existing `review-diff` / `orchestrate-code-review` rather than rewriting review capability here."
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "history-release",
+    "from": "commit",
+    "to": "release",
+    "kind": "input",
+    "basis": "artifact-input",
+    "sources": [
+      {
+        "path": "skills/prepare-release/SKILL.md",
+        "quote": "Build an auditable [Release Package](../../specs/release-package.md): fix the version and the commit range, generate or collect release artifacts, run the necessary gates, and state `ready`, the blockers, and any gaps in optional artifacts."
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "conditional-commit",
+    "from": "release",
+    "to": "commit",
+    "kind": "call",
+    "basis": "conditional-call",
+    "sources": [
+      {
+        "path": "skills/publish-release/SKILL.md",
+        "quote": "5. **Version and commit**: execute only the product version-sync plan the package has confirmed; an independent version domain set to `preserve` must not be changed along with it. Reuse the project's release tool when it commits on its own; otherwise call the locally vendored AI Cortex `commit-work` for precise staging and commit, with this Skill owning the ordering and the receipt. When that Skill is absent, stop the commit phase; do not install it from an external registry and do not substitute an inline simplified flow."
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "norms-planning",
+    "from": "foundation",
+    "to": "planning",
+    "kind": "support",
+    "basis": "adopted-convention",
+    "sources": [
+      {
+        "path": "skills/define-docs-norms/SKILL.md",
+        "quote": "Fix a reviewed norms proposal into `docs/ARTIFACT_NORMS.md` and make it the canonical rule set for the project's documentation governance."
+      },
+      {
+        "path": "skills/define-roadmap/SKILL.md",
+        "quote": "1. Read project norms, existing choices and linked planning/execution/release records,"
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "norms-collaboration",
+    "from": "foundation",
+    "to": "collaboration",
+    "kind": "support",
+    "basis": "adopted-convention",
+    "sources": [
+      {
+        "path": "skills/define-docs-norms/SKILL.md",
+        "quote": "Fix a reviewed norms proposal into `docs/ARTIFACT_NORMS.md` and make it the canonical rule set for the project's documentation governance."
+      },
+      {
+        "path": "skills/prepare-presales-response/SKILL.md",
+        "quote": "Follow the adopting project's authority and maintenance conventions."
+      }
+    ],
+    "bidirectional": false
+  },
+  {
+    "id": "research-collaboration",
+    "from": "research",
+    "to": "collaboration",
+    "kind": "support",
+    "basis": "research-support",
+    "sources": [
+      {
+        "path": "skills/prepare-presales-response/SKILL.md",
+        "quote": "For a substantive research subtask, use the available `deep-research` capability and its [Research Evidence](../../specs/research-evidence.md) handoff; use focused policy research for jurisdiction-dependent questions."
+      },
+      {
+        "path": "skills/prepare-presales-response/SKILL.md",
+        "quote": "A normal FAQ lookup does not require a Research Report."
+      }
+    ],
+    "bidirectional": true
+  },
+  {
+    "id": "research-planning",
+    "from": "research",
+    "to": "planning",
+    "kind": "support",
+    "basis": "decision-support",
+    "sources": [
+      {
+        "path": "specs/opportunity-package.md",
+        "quote": "The package is the output of `product-opportunity-analysis`. It preserves research reports and adds a decision layer."
+      },
+      {
+        "path": "specs/opportunity-package.md",
+        "quote": "Treating `ready_for_decision` as a funding or roadmap approval."
+      }
+    ],
+    "bidirectional": false
+  }
+]

@@ -23,6 +23,10 @@ Two of the snapshots below are written in Chinese. They predate the English-firs
 | 2026-10-21 | [Roadmap scenario selection](./2026-10-21-roadmap-scenarios-technical-design.md) | technical-design | [Roadmap capability work](../process-management/backlog/2026-10-20-roadmap-capabilities.md) |
 
 | 2026-10-21 | [Roadmap deliverable language](./2026-10-21-roadmap-language-technical-design.md) | technical-design | [Roadmap capability work](../process-management/backlog/2026-10-20-roadmap-capabilities.md) |
+| 2026-10-27 | [Same-page dual-view capability discovery (approved dual-view revision)](./2026-10-27-help-discovery-functional-design.md) | functional-design | [AIC-REQ-04](../requirements-planning/AIC-REQ-04.md) |
+| 2026-10-27 | [Shared dual-view state and skill relationships (approved dual-view revision)](./2026-10-27-help-discovery-technical-design.md) | technical-design | [the approved functional revision](./2026-10-27-help-discovery-functional-design.md) |
+
+| 2026-10-27 | [Help discovery local record and website delivery plan](./help-discovery-tasks.md) | tasks | [the approved technical revision](./2026-10-27-help-discovery-technical-design.md) |
 
 ## Adding one
 

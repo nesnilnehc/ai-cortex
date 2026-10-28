@@ -1,0 +1,319 @@
+{
+  "skill": "design-taste-frontend",
+  "mode": "redesign-preserve",
+  "scope": "AIC-REQ-04 capability discovery typography; not a whole-site marketing redesign",
+  "runtimeRevision": "sha256:dff7c2c888c7970d9cd5e7b9691843d522f2161aae41c9bb7b023921bd3886db",
+  "checks": [
+    {
+      "item": "**Brief inference** declared (Section 0.B one-liner)?",
+      "result": "passed",
+      "evidence": "Developer capability discovery; preserve-mode typography repair."
+    },
+    {
+      "item": "**Dial values** explicit and reasoned from the brief, not silently using baseline?",
+      "result": "passed",
+      "evidence": "DESIGN_VARIANCE 3, MOTION_INTENSITY 2, VISUAL_DENSITY 5; information reading over marketing motion."
+    },
+    {
+      "item": "**Design system** chosen from Section 2 if applicable, or aesthetic labeled honestly?",
+      "result": "passed",
+      "evidence": "Existing native HTML/ESM/CSS and brand tokens preserved; no claim of using an official external design system."
+    },
+    {
+      "item": "**Redesign mode** detected and audit performed (if applicable, Section 11)?",
+      "result": "passed",
+      "evidence": "Audit of brand/tokens, IA, copy, existing selected screenshots and current DOM completed before changing CSS."
+    },
+    {
+      "item": "**ZERO em-dashes (`\u2014`) anywhere on the page.** Headlines, eyebrows, pills, body, quotes, attribution, captions, buttons, alt text. Zero. (Section 9.G - non-negotiable.)",
+      "result": "evidence_limited",
+      "evidence": "Canonical source-quoted catalog descriptions and existing guidance punctuation are preserved; no whole-page zero-dash compliance claimed. No new UI copy/dashes introduced."
+    },
+    {
+      "item": "**Page Theme Lock**: ONE theme (light, dark, or auto) for the whole page. No section flips to inverted mode mid-page (Section 4.11)?",
+      "result": "passed",
+      "evidence": "Global theme retained, tested in both modes."
+    },
+    {
+      "item": "**Color Consistency Lock**: one accent color used identically across all sections (Section 4.2)?",
+      "result": "passed",
+      "evidence": "One rust action accent; existing green denotes a different semantic support relationship and is deliberately retained."
+    },
+    {
+      "item": "**Shape Consistency Lock**: one corner-radius system applied consistently (Section 4.4)?",
+      "result": "passed",
+      "evidence": "4px content/control radius; documented existing 8px mobile sheet exception."
+    },
+    {
+      "item": "**Button Contrast Check**: every CTA text is readable against its background (no white-on-white, WCAG AA 4.5:1)?",
+      "result": "passed",
+      "evidence": "Existing palette unchanged; measured light/dark button/text contrast recovery cases pass."
+    },
+    {
+      "item": "**CTA Button Wrap**: no CTA label wraps to 2+ lines at desktop?",
+      "result": "passed",
+      "evidence": "View/lookup controls and desktop navigation fit; multiline skill information buttons are content, not CTA slogans."
+    },
+    {
+      "item": "**Form Contrast Check**: form inputs, placeholders, focus rings, labels all pass WCAG AA against the section background?",
+      "result": "not_applicable",
+      "evidence": "No input/form styling or flow changed; existing clipboard/manual recovery retained."
+    },
+    {
+      "item": "**Serif discipline**: if a serif is used, it is NOT Fraunces or Instrument_Serif (or it is, with explicit brand justification)? Different serif from your previous project?",
+      "result": "not_applicable",
+      "evidence": "Existing native system sans stack retained."
+    },
+    {
+      "item": "**Premium-consumer palette check**: if the brief is premium-consumer (cookware / wellness / artisan / luxury), the palette is NOT the AI-default beige+brass+oxblood+espresso family? Different family from your previous premium-consumer project?",
+      "result": "not_applicable",
+      "evidence": "Developer capability discovery, not premium consumer."
+    },
+    {
+      "item": "**Italic descender clearance**: every italic word with `y g j p q` has `leading-[1.1]` min + `pb-1` reserve?",
+      "result": "not_applicable",
+      "evidence": "No italic display type introduced."
+    },
+    {
+      "item": "**Hero fits the viewport**: headline \u2264 2 lines, subtext \u2264 20 words AND \u2264 4 lines, CTA visible without scroll, font scale planned around image?",
+      "result": "not_applicable",
+      "evidence": "Homepage hero outside this bounded repair."
+    },
+    {
+      "item": "**Hero top padding**: max `pt-24` at desktop, hero content does not float halfway down the viewport?",
+      "result": "not_applicable",
+      "evidence": "Homepage hero outside this bounded repair."
+    },
+    {
+      "item": "**Hero stack discipline**: max 4 text elements in hero (eyebrow OR brand strip, headline, subtext, CTAs)? No tiny tagline below CTAs, no trust micro-strip in hero?",
+      "result": "not_applicable",
+      "evidence": "Homepage hero outside this bounded repair."
+    },
+    {
+      "item": "**EYEBROW COUNT (mechanical)**: count instances of `uppercase tracking` micro-labels above section headlines across all components. Count \u2264 ceil(sectionCount / 3)? Hero counts as 1.",
+      "result": "passed",
+      "evidence": "No new eyebrows; capability heading remains plain."
+    },
+    {
+      "item": "**Split-Header Ban**: no \"left big headline + right small explainer paragraph\" pattern as a section header (vertical stack instead)?",
+      "result": "passed",
+      "evidence": "Heading and explainer remain stacked."
+    },
+    {
+      "item": "**Zigzag Alternation Cap**: no 3+ consecutive sections with the same image+text-split layout?",
+      "result": "not_applicable",
+      "evidence": "No new image/text or zigzag sections."
+    },
+    {
+      "item": "**No Duplicate CTA Intent**: no two CTAs with the same intent (\"Get in touch\" + \"Let's talk\" both on page = Fail)?",
+      "result": "passed",
+      "evidence": "One view-switch group and one shared lookup; no new duplicate marketing CTA introduced."
+    },
+    {
+      "item": "**Logo wall = logo only**: no industry / category labels printed below logos?",
+      "result": "not_applicable",
+      "evidence": "No logo wall changes."
+    },
+    {
+      "item": "**Bento Background Diversity**: at least 2-3 bento cells have real visual variation (image, gradient, pattern), not all white-on-white text cards?",
+      "result": "not_applicable",
+      "evidence": "Six functional classification disclosures are owner-approved, not marketing bento."
+    },
+    {
+      "item": "**\"Used by / Trusted by\" logo wall** lives UNDER the hero, not inside it, uses REAL SVG logos (Simple Icons / devicon) or generated SVG marks, NOT plain text wordmarks?",
+      "result": "not_applicable",
+      "evidence": "No social-proof changes."
+    },
+    {
+      "item": "**Copy Self-Audit**: every visible string re-read, no grammatically-broken or AI-hallucinated phrases (\"free on its past\" type) shipped?",
+      "result": "passed",
+      "evidence": "Names/IDs/purposes/call captions remain separate; canonical source wording retained with no speculative copy rewrite."
+    },
+    {
+      "item": "**Motion motivated**: every animation can be justified in one sentence (hierarchy / storytelling / feedback / state transition), no GSAP-for-show?",
+      "result": "passed",
+      "evidence": "No new animation; static state/active feedback only."
+    },
+    {
+      "item": "**Marquee max-one-per-page**: no two horizontal marquees on the same page?",
+      "result": "not_applicable",
+      "evidence": "No marquee introduced."
+    },
+    {
+      "item": "**Navigation on ONE line** at desktop, height \u2264 80px?",
+      "result": "passed",
+      "evidence": "16 typography cases include desktop navigation at 1024/1280/1440; one row and <=80px."
+    },
+    {
+      "item": "**Section-Layout-Repetition** check: no two sections share the same layout family (at least 4 different families across 8 sections)?",
+      "result": "not_applicable",
+      "evidence": "No section-family or whole-site redesign."
+    },
+    {
+      "item": "**Bento has rhythm AND exact cell count** (N items \u2192 N cells, no empty cells in middle or at end)?",
+      "result": "not_applicable",
+      "evidence": "No marketing bento; exact existing six functional groups retained."
+    },
+    {
+      "item": "**Long lists use the right UI component** (not default `<ul>` with `divide-y` for > 5 items - see Section 4.9 alternatives)?",
+      "result": "passed",
+      "evidence": "Existing grouped native disclosure/local list plus lookup retained."
+    },
+    {
+      "item": "**Real images used** (gen-tool first, then Picsum-seed, then explicit placeholder slots) - NO div-based fake screenshots, NO hand-rolled decorative SVGs, NO pure-text minimalism?",
+      "result": "not_applicable",
+      "evidence": "No new visual/media section; existing generated work illustration reused."
+    },
+    {
+      "item": "**No pills/labels overlaid on images** (no `Plate \u00b7 Brand`, no `Field notes - journal`)?",
+      "result": "passed",
+      "evidence": "No image overlays introduced."
+    },
+    {
+      "item": "**No photo-credit captions as decoration** (`Field study no. 12 \u00b7 Ines Caetano`)?",
+      "result": "passed",
+      "evidence": "No decorative credits added."
+    },
+    {
+      "item": "**No version footers** (`v1.4.2`, `Build 0048`) on marketing pages?",
+      "result": "passed",
+      "evidence": "No visible build/version footer introduced."
+    },
+    {
+      "item": "**No micro-meta-sentences** under eyebrows (\"Each of these is a feature we ship today...\")?",
+      "result": "passed",
+      "evidence": "No new editorial micro-meta copy."
+    },
+    {
+      "item": "**No decoration text strip at hero bottom** (`BRAND. MOTION. SPATIAL.`)?",
+      "result": "not_applicable",
+      "evidence": "No hero changes."
+    },
+    {
+      "item": "**No floating top-right sub-text** in section headings?",
+      "result": "passed",
+      "evidence": "No floating corner explainer."
+    },
+    {
+      "item": "**No scoring/progress bars with filled background tracks** as comparison visuals?",
+      "result": "passed",
+      "evidence": "No scoring bars introduced."
+    },
+    {
+      "item": "**No locale / city-name / time / weather strips** unless brief is genuinely globally-distributed or place-focused?",
+      "result": "passed",
+      "evidence": "Only existing language preference utility; no city/time/weather decoration."
+    },
+    {
+      "item": "**No scroll cues** (`Scroll`, `\u2193 scroll`, `Scroll to explore`)?",
+      "result": "not_applicable",
+      "evidence": "No scroll cue introduced; existing homepage outside repair."
+    },
+    {
+      "item": "**No version labels in hero** (V0.6, BETA, INVITE-ONLY) unless the brief is a launch?",
+      "result": "not_applicable",
+      "evidence": "No hero changes."
+    },
+    {
+      "item": "**No section-numbering eyebrows** (`00 / INDEX`, `001 \u00b7 Capabilities`, `06 \u00b7 how it works`)?",
+      "result": "passed",
+      "evidence": "No numbered eyebrows introduced."
+    },
+    {
+      "item": "**No decorative dots** (zero by default, only for real semantic state)?",
+      "result": "passed",
+      "evidence": "No decorative status dots introduced."
+    },
+    {
+      "item": "**No `border-t` + `border-b` on every row** of long lists / spec tables?",
+      "result": "passed",
+      "evidence": "No new table/list separator pattern; category disclosure has one meaningful body separator."
+    },
+    {
+      "item": "**Content density** sane: no 20-row data tables, no fake-precise specs without justification, \u2264 25-word sub-paragraphs by default?",
+      "result": "passed",
+      "evidence": "Model-backed 70 skills retained; names/IDs/purposes structured and locally scrollable, no invented metrics."
+    },
+    {
+      "item": "**Quotes \u2264 3 lines** of body, attribution clean (no em-dash)?",
+      "result": "not_applicable",
+      "evidence": "No testimonial/quote component changed."
+    },
+    {
+      "item": "**Motion claimed = motion shown**: if `MOTION_INTENSITY > 4`, page actually animates, not just claimed?",
+      "result": "passed",
+      "evidence": "Dial 2; intentionally static, no unfulfilled high-motion claim."
+    },
+    {
+      "item": "**GSAP sticky-stack / horizontal-pan** implemented per Section 5.A / 5.B canonical skeleton (`start: \"top top\"`, `pin: true`, correct scrub)?",
+      "result": "not_applicable",
+      "evidence": "No GSAP/scroll stack."
+    },
+    {
+      "item": "**No `window.addEventListener('scroll')`** - using Motion `useScroll()` / ScrollTrigger / IntersectionObserver / CSS scroll-driven animations only?",
+      "result": "passed",
+      "evidence": "No new scroll event handler; native CSS scroll margins reserve sticky/overlay space."
+    },
+    {
+      "item": "**Reduced motion** wrapped for everything `MOTION_INTENSITY > 3`?",
+      "result": "not_applicable",
+      "evidence": "No added animation; dial 2 and existing static interactions retained."
+    },
+    {
+      "item": "**Dark mode** tokens defined and tested in both modes?",
+      "result": "passed",
+      "evidence": "Both theme matrices, contrast and inspected actual screenshots."
+    },
+    {
+      "item": "**Mobile collapse** explicit (`w-full`, `px-4`, `max-w-7xl mx-auto`) for high-variance layouts?",
+      "result": "passed",
+      "evidence": "Original single-column mobile categories and bounded/pannable graph retained; full geometry checks pass."
+    },
+    {
+      "item": "**Viewport stability**: `min-h-[100dvh]`, never `h-screen`?",
+      "result": "passed",
+      "evidence": "Existing dynamic-viewport sheet and native page retained; no h-screen introduced."
+    },
+    {
+      "item": "**`useEffect` animations** have strict cleanup functions?",
+      "result": "not_applicable",
+      "evidence": "Native ESM/CSS; no React effect."
+    },
+    {
+      "item": "**Empty / loading / error** states provided?",
+      "result": "passed",
+      "evidence": "Native/source fallback, no-match lookup and clipboard denied/absent/stale checks retained."
+    },
+    {
+      "item": "**Cards omitted** in favor of spacing where possible?",
+      "result": "passed",
+      "evidence": "Owner-approved functional category/skill hierarchy retained; removing it would change the chosen scheme."
+    },
+    {
+      "item": "**Icons** from an allowed library only (Phosphor / HugeIcons / Radix / Tabler), no hand-rolled SVG paths?",
+      "result": "not_applicable",
+      "evidence": "No icon changes or new drawn SVG; existing graph is real relationship data, not decorative illustration."
+    },
+    {
+      "item": "**Motion** isolated in client-leaf components with `'use client'` at the top, memoized?",
+      "result": "not_applicable",
+      "evidence": "No animation framework/client component introduced."
+    },
+    {
+      "item": "**No AI Tells** from Section 9 (Inter as default, AI-purple, three-equal cards, Jane Doe, Acme, \"Quietly in use at\")?",
+      "result": "passed",
+      "evidence": "No gradients/glass/novel icons/template marketing additions; source-backed six functional groups are explicit context exception."
+    },
+    {
+      "item": "**Core Web Vitals** plausibly hit (LCP < 2.5s, INP < 200ms, CLS < 0.1)?",
+      "result": "evidence_limited",
+      "evidence": "Local Lighthouse module unavailable. No download/execution or Lighthouse/Core Web Vitals pass claimed."
+    },
+    {
+      "item": "**One design system** per project (no Material + shadcn mixed)?",
+      "result": "passed",
+      "evidence": "One existing native token family; no package/style-system mixing."
+    }
+  ],
+  "completeWholeSkillComplianceClaim": false
+}

@@ -1,0 +1,97 @@
+{
+  "date": "2026-10-28T03:57:11.394Z",
+  "scope": "Local runtime route fulfillment under the provider-observed clean URLs; not deployed public smoke",
+  "matrix": [
+    {
+      "locale": "zh",
+      "width": 360,
+      "height": 667,
+      "theme": "light",
+      "directCleanUrl": true,
+      "legacyCleanUrl": true,
+      "activeNavigation": true,
+      "stateContinuity": true,
+      "languageViewContinuity": true
+    },
+    {
+      "locale": "zh",
+      "width": 360,
+      "height": 667,
+      "theme": "dark",
+      "directCleanUrl": true,
+      "legacyCleanUrl": true,
+      "activeNavigation": true,
+      "stateContinuity": true,
+      "languageViewContinuity": true
+    },
+    {
+      "locale": "zh",
+      "width": 1280,
+      "height": 800,
+      "theme": "light",
+      "directCleanUrl": true,
+      "legacyCleanUrl": true,
+      "activeNavigation": true,
+      "stateContinuity": true,
+      "languageViewContinuity": true
+    },
+    {
+      "locale": "zh",
+      "width": 1280,
+      "height": 800,
+      "theme": "dark",
+      "directCleanUrl": true,
+      "legacyCleanUrl": true,
+      "activeNavigation": true,
+      "stateContinuity": true,
+      "languageViewContinuity": true
+    },
+    {
+      "locale": "en",
+      "width": 360,
+      "height": 667,
+      "theme": "light",
+      "directCleanUrl": true,
+      "legacyCleanUrl": true,
+      "activeNavigation": true,
+      "stateContinuity": true,
+      "languageViewContinuity": true
+    },
+    {
+      "locale": "en",
+      "width": 360,
+      "height": 667,
+      "theme": "dark",
+      "directCleanUrl": true,
+      "legacyCleanUrl": true,
+      "activeNavigation": true,
+      "stateContinuity": true,
+      "languageViewContinuity": true
+    },
+    {
+      "locale": "en",
+      "width": 1280,
+      "height": 800,
+      "theme": "light",
+      "directCleanUrl": true,
+      "legacyCleanUrl": true,
+      "activeNavigation": true,
+      "stateContinuity": true,
+      "languageViewContinuity": true
+    },
+    {
+      "locale": "en",
+      "width": 1280,
+      "height": 800,
+      "theme": "dark",
+      "directCleanUrl": true,
+      "legacyCleanUrl": true,
+      "activeNavigation": true,
+      "stateContinuity": true,
+      "languageViewContinuity": true
+    }
+  ],
+  "errors": [],
+  "status": "passed",
+  "runtimeRevision": "sha256:1424a8bb40733a4a06ce41cbd4b63e9c411d4bb35ff941aad5b9eebb115d57ca"
+}

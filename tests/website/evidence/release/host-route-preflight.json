@@ -1,0 +1,7 @@
+{
+  "scope": "Accepted runtime served at the provider-observed /zh canonical URL; local route fulfillment, not a deployment",
+  "actualProviderRedirect": "/zh.html -> /zh observed over verified HTTPS",
+  "errors": [
+    "Unknown site path"
+  ]
+}

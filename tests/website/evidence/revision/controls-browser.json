@@ -1,0 +1,227 @@
+{
+  "date": "2026-10-28T01:40:26.224Z",
+  "localOnly": true,
+  "matrix": [
+    {
+      "locale": "zh",
+      "width": 360,
+      "height": 667,
+      "theme": "light",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    },
+    {
+      "locale": "zh",
+      "width": 360,
+      "height": 667,
+      "theme": "dark",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    },
+    {
+      "locale": "zh",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    },
+    {
+      "locale": "zh",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    },
+    {
+      "locale": "zh",
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    },
+    {
+      "locale": "zh",
+      "width": 1024,
+      "height": 768,
+      "theme": "dark",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    },
+    {
+      "locale": "zh",
+      "width": 1280,
+      "height": 800,
+      "theme": "light",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    },
+    {
+      "locale": "zh",
+      "width": 1280,
+      "height": 800,
+      "theme": "dark",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    },
+    {
+      "locale": "zh",
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    },
+    {
+      "locale": "zh",
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    },
+    {
+      "locale": "en",
+      "width": 360,
+      "height": 667,
+      "theme": "light",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    },
+    {
+      "locale": "en",
+      "width": 360,
+      "height": 667,
+      "theme": "dark",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    },
+    {
+      "locale": "en",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    },
+    {
+      "locale": "en",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    },
+    {
+      "locale": "en",
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    },
+    {
+      "locale": "en",
+      "width": 1024,
+      "height": 768,
+      "theme": "dark",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    },
+    {
+      "locale": "en",
+      "width": 1280,
+      "height": 800,
+      "theme": "light",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    },
+    {
+      "locale": "en",
+      "width": 1280,
+      "height": 800,
+      "theme": "dark",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    },
+    {
+      "locale": "en",
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    },
+    {
+      "locale": "en",
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "workBoundaries": true,
+      "exampleToggle": true,
+      "illustrativeGates": true,
+      "searchRecovery": true,
+      "focusRestored": true
+    }
+  ],
+  "status": "passed"
+}

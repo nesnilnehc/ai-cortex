@@ -1,0 +1,14 @@
+[
+  {
+    "theme": "light",
+    "minRatio": 4.952336539080604,
+    "samples": 129,
+    "failures": []
+  },
+  {
+    "theme": "dark",
+    "minRatio": 6.2906944760299845,
+    "samples": 129,
+    "failures": []
+  }
+]

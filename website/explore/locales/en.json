@@ -1,0 +1,1970 @@
+{
+  "ui": {
+    "c7bddfe7b8e": "When to use it",
+    "c0bcca5d6e4": "What to provide",
+    "cd5ca9e5562": "How to use it",
+    "c2f7bc20732": "Expected result",
+    "c9aaf81b68d": "This is an internal assessment step in product opportunity analysis. Ask for product-opportunity-analysis and let your agent coordinate it. This page runs no skills.",
+    "ce325a8409f": "Make the request below in an agent with AI Cortex installed. If the skill is not recognized, ask it to read the local file ",
+    "c101fa19abd": ". If you have not connected AI Cortex yet, see the ",
+    "c8ee8142e28": "installation guide",
+    "cb8c19dd611": ". This page explains the method; it does not run the skill.",
+    "cdaa1554f98": "Read {0} source (English, optional)",
+    "c43eaf707af": "Before saving a commit",
+    "ca363b74ba5": "Before publishing",
+    "c63261419fb": "Before announcing",
+    "c50333ae4c1": "Which skills work with this one?",
+    "cb5d22c41ac": "View: {0}",
+    "ca31cbf421c": "Relationship source",
+    "c11fbdf42ea": "This map records no direct call or input relationship for this skill. Sharing a topic does not mean skills must run in order.",
+    "ccef6f94950": "{0}Connections: {1}",
+    "c8aa3366c49": "{0}. Direct relations: {1}. Lines explain recorded relationships; they do not run skills.",
+    "c4fc6828042": "Skills open inside their topic. Long lists scroll within that topic.",
+    "ce0a244d87b": "{0}{1} skills",
+    "c13611c1d54": "Expand {0} skills",
+    "cb68a20e391": "Complete topic relationship map",
+    "c52c3548da1": "Skills in {0}",
+    "cc06e6abec6": "Skill list for {0}",
+    "c0106763057": "{0} {1} {2}: {3}. Read the conditions and sources.",
+    "c251a5b1b9d": "Collapse all skills",
+    "ce983002e67": "Orange dashed: use an existing artifact",
+    "c578ddb44d7": "Orange solid: conditional call or returned issue",
+    "c45c99a67bb": "Green dashed: support when needed; two arrows: work in both directions",
+    "ceb5e906633": "Select a relationship for its conditions. Expand a topic, then select a skill for its usage guide.",
+    "c7eaca64fc4": "{0} {1} skills",
+    "c0d3ff8f53d": "Illustration for {0}",
+    "cc7ecc18347": "Example: a code issue",
+    "c07f643c0bc": "Example: an unclear requirement",
+    "c6354c2b9c6": "Example: preparing a release",
+    "cdd5bca44d5": "For: {0}",
+    "c7799e90aa1": "Work context changed. The default request was updated; edit it before copying.",
+    "c0d9fb61e09": "Found {0} of {1} skills.",
+    "c86736613b4": "Request edited. You can copy the current text.",
+    "c318dfff552": "Copying this request…",
+    "c1d6543525d": "Copied. Paste it into your agent.",
+    "c86b482c898": "This request could not be copied automatically. Press ⌘C or Ctrl+C to copy the selected text, or try again.",
+    "c63d19e319a": "All {0} skills. Select one to inspect it beside the map.",
+    "c5d2ed78146": "Find a skill",
+    "c217cfe7db1": "System",
+    "caa0819dfc4": "Light",
+    "ca6b75d0680": "Dark",
+    "ca39d237326": "See how topics connect. Expand them to explore 70 skills.",
+    "cd6222527e3": "See how work fits together: revisit decisions and check each operation's conditions.",
+    "c405b58f03f": "↔ Check and revise in both directions",
+    "cc2dd0cb05a": "┄→ Check prerequisites first",
+    "ca04627e7ed": "↶ Feedback can change goals and work",
+    "ca472582a70": "On small screens, pan the map sideways. Skills open inside their topic.",
+    "c0245e92a13": "Topics show inputs, repair loops and support when needed. Expand a topic to see its skills.",
+    "cb3494d5f73": "Read the map as text",
+    "cadf3dc3c86": "A box of tools to choose from when needed.",
+    "ce1100db3f1": "See how work fits together",
+    "c76e517d59c": "Select a line for its conditions and sources. Expand a topic and choose a skill to learn when and how to use it.",
+    "ce4c7a7d40c": "Inspect this work, its connections and shared foundations.",
+    "ced4747a480": "Work explanation illustration",
+    "c340b222686": "Current focus",
+    "c9667e2fa91": "Close explanation",
+    "c63e8a4f9b3": "Explanation content",
+    "c9fe7ee9705": "How to use",
+    "c838d1aa1ce": "Skill relations ",
+    "c6cc3db2929": "Work context",
+    "c835d7c3580": "Direct relationships for the current skill",
+    "c2a4c6a074d": "Usage guide for the selected skill",
+    "c356c21297a": "Selected skill · purpose and use",
+    "c0f63e7d37a": "What does AI Cortex help with here?",
+    "c61a37160d1": "How does this relate to other work?",
+    "c7bdce9e1c7": "What does this operation need first?",
+    "c0b0b33b684": "Try a set of check results",
+    "cff520de6ae": "Issues found",
+    "c5fc31c3b39": "Evidence missing",
+    "cb5aeebc281": "Checks passed",
+    "c8315defa58": "Does this situation need a skill?",
+    "cb209f2ab17": "What are these methods and standards?",
+    "c08bc63548a": "Edit the request",
+    "c9f87d8f842": "You can edit this request",
+    "cdec7efb1ce": "Changing work updates the default request.",
+    "cc9ecf0ae40": "Responsibility boundaries",
+    "cfd932a489a": "This page explains methods. It does not review, commit or publish anything.",
+    "ca2d6e3a90f": "Copy work request",
+    "ccff61b723e": "Paste into an agent with AI Cortex installed.",
+    "c2a6f6c839e": "Complete skill catalogue. Choose a skill to inspect it beside the map.",
+    "cab008ef18d": "Close search",
+    "c3815d3e981": "What do you want to do?",
+    "ceff9251acd": "For example: review, commit, Python",
+    "cee32f25f70": "Clear search",
+    "c3bf2f88e99": "No matching tool yet.",
+    "cf89635f972": "Try different words, or clear the search.",
+    "c6d31f0c3cc": "Map unavailable? Read the skill catalogue",
+    "cb85f99d2f2": "Support · ",
+    "ce21265bf25": "Coordinator · ",
+    "cafd4b78353": "Collapse",
+    "c00bd3960fe": "Expand"
+  },
+  "skills": {
+    "announce-release": {
+      "purpose": "Prepare release announcements from release evidence",
+      "when": "A version has actually been published and users or teammates need to know what changed.",
+      "provide": "The published Release Package, actual release outcome, audience and channels; delivery also needs authorization.",
+      "use": "Use announce-release to draft an announcement for the named audience from the published result. Show me the draft first.",
+      "result": "Audience-specific drafts. A delivery receipt exists only after authorized sending through an available tool; a draft is not a sent announcement.",
+      "name": "announce-release"
+    },
+    "archive-milestone": {
+      "purpose": "Archive completed milestones and preserve evidence",
+      "when": "A phase, version or time period needs archiving, or the roadmap history has become too long.",
+      "provide": "The archive scope, original records, completion evidence and project archiving conventions.",
+      "use": "Use archive-milestone to preview an archive plan for this scope, preserving unfinished work and existing links.",
+      "result": "A source-backed archive snapshot or preview. Archiving does not mark unfinished work complete; writes stay within authorization.",
+      "name": "archive-milestone"
+    },
+    "assess-product-opportunity": {
+      "purpose": "Assess product opportunities from research",
+      "when": "Product opportunity analysis already has research evidence and needs an internal assessment of whether to continue.",
+      "provide": "Research reports, user signals, opportunity scope and constraints, including missing evidence.",
+      "use": "Use product-opportunity-analysis to assess this opportunity from the research. Let it coordinate assess-product-opportunity instead of invoking that internal step directly.",
+      "result": "Evidence-backed advice to proceed, explore, defer or stop. It neither grants business approval nor rewrites the research.",
+      "name": "assess-product-opportunity"
+    },
+    "automate-tests": {
+      "purpose": "Discover and run project tests",
+      "when": "You want to run existing project tests but do not know the correct commands or environment limits.",
+      "provide": "Repository path, quick or full test scope, and permission boundaries for dependencies, network and services.",
+      "use": "Use automate-tests to find test commands in project documentation/configuration, run the permitted tests and report results.",
+      "result": "Actual commands, pass/fail records, skipped checks and logs. It does not write tests or repair failures.",
+      "name": "automate-tests"
+    },
+    "capture-work-items": {
+      "purpose": "Capture requirements and issues as work items",
+      "when": "You have a requirement, defect or issue to record formally before deeper work.",
+      "provide": "The original description, project, related strategic goal and document location; missing information can be clarified.",
+      "use": "Use capture-work-items to record this description as a structured work item, checking missing required information first.",
+      "result": "A local work-item document and path. Capture does not automatically set priority or replace full requirements review.",
+      "name": "capture-work-items"
+    },
+    "changelog-video": {
+      "purpose": "Make a changelog video from confirmed release material",
+      "when": "A release has been decided and its confirmed changes need a short video.",
+      "provide": "Confirmed changes, project/version, channel, scope, output directory and whether video is mandatory; optionally audience and assets.",
+      "use": "Use changelog-video to make a release video from these confirmed changes, first checking assets and local rendering tools.",
+      "result": "Video files and verification, or an explicit unavailable reason. It does not choose versions, create tags or publish videos.",
+      "name": "changelog-video"
+    },
+    "commit-work": {
+      "purpose": "Create clear, reviewable commits",
+      "when": "Local changes are ready and should become logically scoped Git commits.",
+      "provide": "Uncommitted repository changes, the intended scope and project check requirements.",
+      "use": "Use commit-work to check these changes and commit logical scopes after reviewing staged diffs and applicable checks.",
+      "result": "Local commits, messages and check results. It does not automatically push or create a pull request.",
+      "name": "commit-work"
+    },
+    "competitive-research": {
+      "purpose": "Compare competitors using traceable evidence",
+      "when": "You need to compare competitors or alternatives without relying on marketing claims alone.",
+      "provide": "Competitor set, comparison dimensions, region, versions/plans and an as-of date.",
+      "use": "Use competitive-research to compare these competitors' capabilities, positioning and prices, separating verified facts from unknowns.",
+      "result": "A dated, sourced comparison and research report. Undocumented does not mean a feature is absent.",
+      "name": "competitive-research"
+    },
+    "consume-nats-message": {
+      "purpose": "Consume and handle NATS messages by contract",
+      "when": "A consumer project needs to drain pending NATS messages.",
+      "provide": "Consumer repository, message contract, producer or subject, batch size, available NATS tools and processing authorization.",
+      "use": "Use consume-nats-message to process pending messages on the named subject under the project contract and summarize outcomes.",
+      "result": "Acknowledgment, retry and termination statistics with error reasons; the report does not dump full message bodies.",
+      "name": "consume-nats-message"
+    },
+    "decontextualize-text": {
+      "purpose": "Remove private context for standalone reuse",
+      "when": "Text relies on internal company knowledge and must be reusable outside or by another team.",
+      "provide": "Original text, readers, internal names to remove and meanings that must remain.",
+      "use": "Use decontextualize-text to make this text understandable without internal background while preserving its logic.",
+      "result": "Standalone text without internal dependencies, retaining structure, logic and capability boundaries.",
+      "name": "decontextualize-text"
+    },
+    "deep-research": {
+      "purpose": "Investigate questions and verify sources",
+      "when": "An open question needs investigation, with evidence and uncertainty made clear.",
+      "provide": "Research question, purpose, scope, as-of date and permitted sources.",
+      "use": "Use deep-research to investigate this question and cross-check sources, separating facts, claims, inferences and unknowns.",
+      "result": "Cited findings and a structured research record. It does not make the product decision for you.",
+      "name": "deep-research"
+    },
+    "define-docs-norms": {
+      "purpose": "Establish project documentation norms",
+      "when": "A reviewed documentation proposal needs to become the project's formal conventions.",
+      "provide": "The approved proposal, existing norms file and the scope to create, merge or replace.",
+      "use": "Use define-docs-norms to update documentation conventions from the reviewed proposal, preserving unrelated content.",
+      "result": "The project's docs/ARTIFACT_NORMS.md and change explanation. It does not decide every convention from scratch.",
+      "name": "define-docs-norms"
+    },
+    "define-mission": {
+      "purpose": "Explain why the project exists",
+      "when": "The project's reason for existing is unclear and the team needs a shared purpose.",
+      "provide": "What the project does, whom it serves, the problem it solves and existing introductions.",
+      "use": "Use define-mission to clarify why this project exists and save the mission in the agreed location.",
+      "result": "A concise mission statement and document: why we do this, rather than a replacement for vision or roadmap.",
+      "name": "define-mission"
+    },
+    "define-north-star": {
+      "purpose": "Define a metric for core user value",
+      "when": "Many metrics exist, but it is unclear which best represents the value users receive.",
+      "provide": "Product, target users, core value, mission or vision; optionally existing metrics.",
+      "use": "Use define-north-star to derive one North Star Metric for core user value, explaining its definition and limitations.",
+      "result": "One primary metric definition, rationale and necessary supporting metrics. It does not invent actual measurements.",
+      "name": "define-north-star"
+    },
+    "define-roadmap": {
+      "purpose": "Design roadmap structure or populate a settled layout",
+      "when": "You need roadmap structure, content on an agreed structure, or alignment of an existing plan.",
+      "provide": "Whether scope is structure, content or both; project conventions, existing plans and goals. Content planning also needs requirement/defect sources.",
+      "use": "Use define-roadmap within the requested scope, preserving existing decisions, timing commitments and links.",
+      "result": "The scoped structure or source-backed plan. Structure-only work does not invent business scheduling.",
+      "name": "define-roadmap"
+    },
+    "define-strategic-pillars": {
+      "purpose": "Turn vision into a few strategic themes",
+      "when": "Vision and a core metric exist, but focused themes are needed to guide later goals.",
+      "provide": "Vision, North Star Metric and project context; optionally existing pillars and organizational constraints.",
+      "use": "Use define-strategic-pillars to derive strategic pillars from vision and the North Star Metric, explaining how they support direction.",
+      "result": "Three to five strategic themes with short explanations, rather than a detailed task list.",
+      "name": "define-strategic-pillars"
+    },
+    "define-vision": {
+      "purpose": "Describe the future the project aims to create",
+      "when": "The purpose is clear and you need a long-term picture of the future to create.",
+      "provide": "Mission and project context; optionally existing vision, readers and time horizon.",
+      "use": "Use define-vision to define a long-term vision aligned with the mission and save it in the agreed location.",
+      "result": "A one-to-three-sentence vision with necessary explanation. It describes a future state rather than scheduling development.",
+      "name": "define-vision"
+    },
+    "deliver-feature": {
+      "purpose": "Deliver a feature branch into the main branch",
+      "when": "One feature branch is complete in a linked worktree and needs merging into main and pushing.",
+      "provide": "A clean linked worktree, a non-main branch, target main branch, push authorization and cleanup choice.",
+      "use": "Use deliver-feature to merge the current feature branch into main, push it and handle the worktree according to my choice.",
+      "result": "Merge commit, push result and optional cleanup result. This does not establish that the product was released.",
+      "name": "deliver-feature"
+    },
+    "design-strategic-goals": {
+      "purpose": "Design long-term goals that advance the vision",
+      "when": "Direction is agreed and you need to define the changes to achieve over the long term.",
+      "provide": "Project context, vision and North Star Metric; optionally existing goals, time horizon and constraints.",
+      "use": "Use design-strategic-goals to create goals aligned with vision and the North Star Metric, preserving settled direction.",
+      "result": "A document with three to five long-term goals; missing upstream material is identified through repository-grounded assumptions.",
+      "name": "design-strategic-goals"
+    },
+    "generate-agent-entry": {
+      "purpose": "Write the agent's project entry instructions",
+      "when": "Agents entering the project need to know what it is and what to read first.",
+      "provide": "Project identity, asset directories, authoritative material, adopted workflows and existing AGENTS.md.",
+      "use": "Use generate-agent-entry to write or revise this project's AGENTS.md and verify every loading entry.",
+      "result": "An agent entry file, checklist and verification results. Review-only scope reports issues without changing files.",
+      "name": "generate-agent-entry"
+    },
+    "generate-github-workflow": {
+      "purpose": "Generate restrained, version-pinned GitHub workflows",
+      "when": "Tests, builds or release checks need to run through GitHub Actions.",
+      "provide": "Purpose, language versions, package manager, actual build/test commands, triggers and output path.",
+      "use": "Use generate-github-workflow with the project's real commands, explaining permissions, pinned versions and remaining configuration.",
+      "result": "Workflow YAML and setup notes. Generated files do not prove a remote workflow has run.",
+      "name": "generate-github-workflow"
+    },
+    "generate-standard-readme": {
+      "purpose": "Create a concise, useful project README",
+      "when": "Repository visitors cannot tell what it is or where to begin.",
+      "provide": "Project name, one-line explanation, real usage/entry points, license and existing docs.",
+      "use": "Use generate-standard-readme to organize a concise README explaining the project's purpose and starting point.",
+      "result": "A root README and valid entry links, keeping only sections useful to readers.",
+      "name": "generate-standard-readme"
+    },
+    "integrate-branches": {
+      "purpose": "Integrate selected branches and clean worktrees",
+      "when": "Several branches or linked worktrees need integrating into main one by one.",
+      "provide": "The primary repository on main, candidate branches/worktrees, selected scope and push authorization.",
+      "use": "Use integrate-branches to list candidates for my selection, then merge/push them in order and clean successfully integrated worktrees.",
+      "result": "Per-branch merge, push and cleanup outcomes. Failures remain explicit; partial success is not reported as full completion.",
+      "name": "integrate-branches"
+    },
+    "manage-secret": {
+      "purpose": "Manage personal credentials in the local Keychain",
+      "when": "A credential on your personal Mac needs storing, lookup, rotation or deletion.",
+      "provide": "Project, environment, credential type, account and operation. Never put real secrets in this page or ordinary examples; use controlled input for storage.",
+      "use": "Use manage-secret to manage the named credential in this Mac's Keychain, checking the entry first and hiding secret values in feedback.",
+      "result": "A local Keychain entry and operation result. Secrets are not echoed; team vaults and cross-machine sync are outside scope.",
+      "name": "manage-secret"
+    },
+    "map-item-dependencies": {
+      "purpose": "Map work-item dependencies and readiness",
+      "when": "Work is prioritized but its prerequisites or start conditions are unclear.",
+      "provide": "Backlog, current roadmap, required deliverables and need-by dates; optionally a bounded scope.",
+      "use": "Use map-item-dependencies to identify these items' dependencies, readiness conditions and ways to reduce blockers.",
+      "result": "Dependency map, need-by schedule, blockers and item records. It does not replace priority decisions.",
+      "name": "map-item-dependencies"
+    },
+    "market-research": {
+      "purpose": "Research markets, demand, customers and size",
+      "when": "You need evidence about a market's customers, demand, changes or size.",
+      "provide": "Region, users and buyers, included/excluded products, period and currency.",
+      "use": "Use market-research to investigate this market's demand and size, explaining estimates and evidence gaps.",
+      "result": "Sourced market research and reproducible estimates. Insufficient evidence is explicitly reported rather than supporting a size claim.",
+      "name": "market-research"
+    },
+    "orchestrate-code-review": {
+      "purpose": "Coordinate engineering reviews and findings",
+      "when": "A change set needs a combined review from applicable engineering perspectives.",
+      "provide": "Diff or directory scope, project languages/frameworks and relevant conventions; optionally specific concerns.",
+      "use": "Use orchestrate-code-review to select applicable engineering reviews for these changes and aggregate findings, explaining skipped steps.",
+      "result": "Engineering findings, risks and coverage grouped by location. This does not establish requirements alignment or actual acceptance.",
+      "name": "orchestrate-code-review"
+    },
+    "orchestrate-governance-step": {
+      "purpose": "Execute one selected governance action",
+      "when": "The next governance action has been diagnosed and should advance safely one step.",
+      "provide": "Project governance document location; optionally the latest plan-next recommendation and existing authorization.",
+      "use": "Use orchestrate-governance-step to recheck current governance state, advance only one eligible action and report whether to continue.",
+      "result": "One action's outcome or a reason to wait, ask or stop. It does not unconditionally run an entire project workflow.",
+      "name": "orchestrate-governance-step"
+    },
+    "orchestrate-repair-loop": {
+      "purpose": "Repair implementation and recheck both quality gates",
+      "when": "Implementation has review findings or failing tests and needs targeted repair and repeated verification.",
+      "provide": "Implementation scope, approved requirements/designs, findings, test methods, environment limits and iteration cap.",
+      "use": "Use orchestrate-repair-loop to repair these issues and recheck engineering quality, functional alignment and actual verification.",
+      "result": "Per-round repair/review records, remaining issues or stop reasons. Missing business decisions are not invented.",
+      "name": "orchestrate-repair-loop"
+    },
+    "orchestrate-repair-requirements-loop": {
+      "purpose": "Repair and re-review an existing requirement",
+      "when": "An existing requirement has issues that need evidence-grounded repair and re-review.",
+      "provide": "Requirement document, authoritative business material and findings; optionally repair scope and stop conditions.",
+      "use": "Use orchestrate-repair-requirements-loop to review and repair this requirement, then re-review it; stop and explain unresolved business trade-offs.",
+      "result": "A revised requirement and round-by-round review records, rather than jumping straight to design or implementation.",
+      "name": "orchestrate-repair-requirements-loop"
+    },
+    "orchestrate-roadmap-planning": {
+      "purpose": "Coordinate roadmap structure, content and alignment",
+      "when": "You are unsure which capabilities this round of roadmap work needs.",
+      "provide": "The goal: structure, content, continuous planning or existing-plan alignment; current documents and decisions.",
+      "use": "Use orchestrate-roadmap-planning to coordinate applicable roadmap capabilities for this goal, retaining settled priorities, commitments and links.",
+      "result": "A summary of applicable steps and roadmap changes. It does not rerun everything; update-roadmap can handle status/date maintenance.",
+      "name": "orchestrate-roadmap-planning"
+    },
+    "plan-next": {
+      "purpose": "Diagnose governance state and suggest the next step",
+      "when": "You want to know the most useful governance action to advance now.",
+      "provide": "Governance document location and current evidence; optionally which recommendation to skip and for how long.",
+      "use": "Use plan-next to read the current project state and recommend the next action with its reason and completion signal.",
+      "result": "Evidence-backed recommendations and blockers. It does not execute them by default or replace task-state tracking.",
+      "name": "plan-next"
+    },
+    "policy-research": {
+      "purpose": "Research policy applicability and product impact",
+      "when": "A jurisdiction's policy may affect the product and its official text and timing need checking.",
+      "provide": "Jurisdiction, affected activities/entities, question, relevant period and as-of date.",
+      "use": "Use policy-research to verify official policy text, effective dates and applicability, explaining possible product implications.",
+      "result": "An official-source research report and unresolved items, not a legal conclusion or compliance certification.",
+      "name": "policy-research"
+    },
+    "prepare-presales-response": {
+      "purpose": "Prepare evidence-backed presales answers",
+      "when": "A presales questionnaire or customer inquiry needs grounded, reusable answers.",
+      "provide": "Original questions, audience, product scope, available evidence, earlier confirmations and delivery format.",
+      "use": "Use prepare-presales-response to draft answers from verifiable product material, separating missing evidence and customer-specific terms.",
+      "result": "Evidence-backed drafts, supporting material and reusable product knowledge. Unknown capabilities are not turned into promises.",
+      "name": "prepare-presales-response"
+    },
+    "prepare-release": {
+      "purpose": "Build and validate a Release Package",
+      "when": "You want to decide whether this work merits a release and prepare complete release material.",
+      "provide": "Repository, comparison baseline, version policy, channel, candidate artifacts and project check requirements.",
+      "use": "Use prepare-release to inspect changes and prepare a Release Package, first confirming the release decision and required artifacts.",
+      "result": "A release/no-release decision record, change list and readiness checks. It does not publish or send announcements.",
+      "name": "prepare-release"
+    },
+    "prioritize-backlog": {
+      "purpose": "Prioritize backlog items under project policy",
+      "when": "A large backlog contains items whose priorities have not been settled.",
+      "provide": "Work items and project priority policy; reassessment needs explicit scope/evidence and impact/cost facts.",
+      "use": "Use prioritize-backlog to prioritize unsettled items under project policy, preserving settled decisions.",
+      "result": "A priority comparison and source-record updates. It does not schedule items on the roadmap or change dates.",
+      "name": "prioritize-backlog"
+    },
+    "product-opportunity-analysis": {
+      "purpose": "Coordinate research into a product opportunity package",
+      "when": "A product or feature opportunity needs several research perspectives and decision material.",
+      "provide": "Opportunity question, target users, region/time scope, existing material and allowed research scope.",
+      "use": "Use product-opportunity-analysis to coordinate relevant research, connecting evidence, counterevidence and a validation plan.",
+      "result": "A traceable Opportunity Package and recommendation. Producing material is not business approval.",
+      "name": "product-opportunity-analysis"
+    },
+    "promote-roadmap-items": {
+      "purpose": "Promote prioritized, ready work into the roadmap",
+      "when": "Prioritized work needs a decision about near-term or later placement.",
+      "provide": "Current roadmap, settled work-item priorities, strategic goals, dependencies and readiness evidence.",
+      "use": "Use promote-roadmap-items to place these items into Now, Next or Later using settled priorities and readiness.",
+      "result": "Placement/tier-change decisions and roadmap updates, preserving existing version scope and timing commitments without rescoring.",
+      "name": "promote-roadmap-items"
+    },
+    "publish-nats-message": {
+      "purpose": "Publish NATS messages under a cross-team contract",
+      "when": "A producer project needs to send another team a contract-compliant NATS message.",
+      "provide": "Producer repository, event/subject, payload, contract and broker publish authorization; connected tools must be available.",
+      "use": "Use publish-nats-message to verify this event's contract, publish this message and record the actual receipt.",
+      "result": "A verified publication result. A missing contract is drafted and confirmed first; drafts are not sent messages.",
+      "name": "publish-nats-message"
+    },
+    "publish-release": {
+      "purpose": "Validate a ready package and publish a release",
+      "when": "The Release Package is ready and an actual release is now required.",
+      "provide": "Ready Release Package, channel/provider, required check results and authorization for this release.",
+      "use": "Use publish-release to preview and validate this package, then perform publication only with authorization for this release.",
+      "result": "Actual tags, artifacts and provider receipts or failure details. Default preview is never reported as publication.",
+      "name": "publish-release"
+    },
+    "redeploy-local": {
+      "purpose": "Detect build/deployment setup and update local runtime",
+      "when": "Code changed and the project already running on this machine needs updating.",
+      "provide": "Project directory, existing build/deployment configuration and authorization to run the services and commands.",
+      "use": "Use redeploy-local to identify build/deployment from project evidence, update the local runtime and check health.",
+      "result": "Actual build, restart and health outcomes. Ambiguity is reported before acting rather than guessing commands.",
+      "name": "redeploy-local"
+    },
+    "refine-skill-design": {
+      "purpose": "Review and improve skill design and organization",
+      "when": "Existing skills are hard to execute or poorly organized and need review or improvement.",
+      "provide": "Explicit skill files/set, review/change scope and whether to edit in place or save a draft.",
+      "use": "Use refine-skill-design to review and improve these skills' boundaries, instructions and local resources.",
+      "result": "Skill revisions or drafts, reasons and version advice. Already-compliant skills remain unchanged.",
+      "name": "refine-skill-design"
+    },
+    "review-architecture": {
+      "purpose": "Review module ownership, dependencies and contracts",
+      "when": "Structural changes may complicate module boundaries, dependency direction or contracts.",
+      "provide": "Selected files, directories or diff and relevant architecture conventions.",
+      "use": "Use review-architecture to check boundaries, dependency direction, coupling and contract stability; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-architecture"
+    },
+    "review-codebase": {
+      "purpose": "Review code organization and technical debt",
+      "when": "You need to understand organization problems and technical debt in existing code.",
+      "provide": "One or more directories/files; optionally important modules and specific concerns.",
+      "use": "Use review-codebase to check organization, cross-module dependencies and interface stability; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-codebase"
+    },
+    "review-diff": {
+      "purpose": "Review this diff's correctness and impact",
+      "when": "You want to know whether these changes introduce defects or regressions.",
+      "provide": "Current branch staged/unstaged diffs and untracked files within scope.",
+      "use": "Use review-diff to check correctness, compatibility and side effects; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-diff"
+    },
+    "review-dotnet": {
+      "purpose": "Review .NET language and runtime conventions",
+      "when": "Selected C# or F# code needs a language/runtime usage review.",
+      "provide": "Selected code/diff, .NET version and project conventions.",
+      "use": "Use review-dotnet to check async, nullability, disposal, API versioning and testability; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-dotnet"
+    },
+    "review-error-surfacing": {
+      "purpose": "Review error detection and actionable messages",
+      "when": "Failures are swallowed, detected too late or reported without an actionable message.",
+      "provide": "Selected code and its input boundaries; optionally detection-layer and false-positive policies.",
+      "use": "Use review-error-surfacing to check untrusted input, failure detection boundaries and actionable messages; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-error-surfacing"
+    },
+    "review-functional-design": {
+      "purpose": "Review functional design completeness and executability",
+      "when": "A functional design exists and needs checking before technical design begins.",
+      "provide": "Functional design, upstream requirement and relevant local conventions.",
+      "use": "Use review-functional-design to review this design against its Spec and quality Rule; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-functional-design"
+    },
+    "review-go": {
+      "purpose": "Review Go concurrency, errors and resources",
+      "when": "Selected Go code needs concurrency, error-handling or resource review.",
+      "provide": "Selected Go files/diff, Go version and relevant project conventions.",
+      "use": "Use review-go to check concurrency, context, errors, resource lifetimes and type semantics; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-go"
+    },
+    "review-implementation-alignment": {
+      "purpose": "Compare implementation with approved intent and evidence",
+      "when": "Code is implemented and needs checking against approved requirements and designs.",
+      "provide": "Approved requirements, designs/tasks, actual implementation scope and verification evidence.",
+      "use": "Use review-implementation-alignment to compare implementation/evidence with approved intent and identify omissions or drift; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-implementation-alignment"
+    },
+    "review-java": {
+      "purpose": "Review Java language and runtime conventions",
+      "when": "Selected Java code needs a language/runtime conventions review.",
+      "provide": "Selected Java code/diff, version and project conventions.",
+      "use": "Use review-java to check concurrency, exceptions, resource closing, collections and API compatibility; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-java"
+    },
+    "review-observability": {
+      "purpose": "Review logs, metrics, traces and diagnosability",
+      "when": "You need to know whether production issues can be detected and diagnosed through telemetry.",
+      "provide": "Selected source, configuration and existing telemetry definitions, plus service-metric conventions.",
+      "use": "Use review-observability to check outcome logs, correlation, metrics, tracing and background-work visibility; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-observability"
+    },
+    "review-orm-usage": {
+      "purpose": "Review ORM queries, connections and transactions",
+      "when": "Data access uses an ORM and needs performance/transaction review.",
+      "provide": "Relevant models, queries, migrations and database configuration; optionally actual generated queries.",
+      "use": "Use review-orm-usage to check repeated queries, connections, transactions, migration safety and efficiency; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-orm-usage"
+    },
+    "review-performance": {
+      "purpose": "Review compute, memory, I/O and concurrency costs",
+      "when": "Changes may increase latency, memory or I/O and need workload/complexity review.",
+      "provide": "Selected code, call volumes and known performance budgets or resource constraints.",
+      "use": "Use review-performance to check bounded work, repeated I/O, complexity, caching and resource use; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-performance"
+    },
+    "review-php": {
+      "purpose": "Review PHP types, exceptions and modules",
+      "when": "Selected PHP code needs type, exception or resource-use review.",
+      "provide": "Selected PHP code/diff, PHP version and project conventions.",
+      "use": "Use review-php to check strict types, nulls, exceptions, resources and namespaces; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-php"
+    },
+    "review-powershell": {
+      "purpose": "Review PowerShell parameters, pipelines and errors",
+      "when": "PowerShell scripts need error-handling and cross-version behavior review.",
+      "provide": "Selected scripts/diff, PowerShell version and execution environment.",
+      "use": "Use review-powershell to check parameters, object pipelines, errors, compatibility and testability; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-powershell"
+    },
+    "review-python": {
+      "purpose": "Review Python typing, exceptions and async",
+      "when": "Selected Python code needs async, type or resource-use review.",
+      "provide": "Selected Python files/diff, Python version and project conventions.",
+      "use": "Use review-python to check type hints, exceptions, async, context managers and dependency use; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-python"
+    },
+    "review-react": {
+      "purpose": "Review React components, state, Hooks and accessibility",
+      "when": "React changes may affect state, rendering or accessible operation.",
+      "provide": "Selected components, related hooks/state code and React version.",
+      "use": "Use review-react to check component ownership, hooks, state, rendering efficiency and accessibility; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-react"
+    },
+    "review-reliability": {
+      "purpose": "Review timeouts, retries, idempotency and isolation",
+      "when": "Failures, retries or partial success may leave system state uncontrolled.",
+      "provide": "Selected source, configuration/tests, timeout/retry policies and release objectives.",
+      "use": "Use review-reliability to check timeouts, retries, idempotency, isolation, partial failure and recovery; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-reliability"
+    },
+    "review-requirements": {
+      "purpose": "Review requirement clarity, completeness and testability",
+      "when": "A requirement exists and needs omission, ambiguity and acceptance checks before design.",
+      "provide": "Requirement document/full content, authoritative business material and project conventions.",
+      "use": "Use review-requirements to check this requirement against its Spec and quality Rule, identifying business decisions; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-requirements"
+    },
+    "review-roadmap": {
+      "purpose": "Review roadmap structure and planning content",
+      "when": "Roadmap structure, business content or both need a trustworthiness review.",
+      "provide": "Current authoritative roadmap and review scope; content review also needs business sources.",
+      "use": "Use review-roadmap within the named scope, reporting structure and content conclusions separately; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-roadmap"
+    },
+    "review-security": {
+      "purpose": "Review trust boundaries, permissions and sensitive data",
+      "when": "Code/configuration crosses trust boundaries and needs security/authorization review.",
+      "provide": "Selected code/configuration, entry points, identity/permission conventions and existing security configuration.",
+      "use": "Use review-security to check trust boundaries, permissions, input and sensitive-data handling; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-security"
+    },
+    "review-sql": {
+      "purpose": "Review SQL safety, efficiency and transactions",
+      "when": "SQL or embedded queries need safety, transaction and efficiency review.",
+      "provide": "Selected SQL, calling code or ORM-generated queries, database dialect and schema.",
+      "use": "Use review-sql to check injection, indexes, transactions, nulls and dialect compatibility; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-sql"
+    },
+    "review-tasks": {
+      "purpose": "Review task coverage, dependencies and readiness",
+      "when": "A task list exists and needs checking for complete design/verification support.",
+      "provide": "Task list, technical-design parent and relevant project conventions.",
+      "use": "Use review-tasks to check design coverage, affected scope, dependencies, Rule references and evidence; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-tasks"
+    },
+    "review-technical-design": {
+      "purpose": "Review architecture, interfaces and technical choices",
+      "when": "A technical proposal exists and needs review before task decomposition.",
+      "provide": "Technical design, upstream design/requirement, project configuration and applicable engineering Rules.",
+      "use": "Use review-technical-design to check architecture, components, interfaces, errors, trade-offs and verification plan; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-technical-design"
+    },
+    "review-testing": {
+      "purpose": "Review whether tests prove real behavior",
+      "when": "Implementation and tests exist and you need to know whether the tests prove the intended behavior.",
+      "provide": "Selected implementation, corresponding tests and expected behavior or acceptance authority.",
+      "use": "Use review-testing to check assertion oracles, boundary paths, assembly, doubles and coverage evidence; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-testing"
+    },
+    "review-typescript": {
+      "purpose": "Review TypeScript/JavaScript types and async logic",
+      "when": "TypeScript or JavaScript changes need language/runtime review.",
+      "provide": "Selected code/diff, runtime, type configuration and project conventions.",
+      "use": "Use review-typescript to check types, async, exceptions, module boundaries and runtime correctness; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-typescript"
+    },
+    "review-vue": {
+      "purpose": "Review Vue components, reactivity and rendering",
+      "when": "Vue 3 components and reactive state need review.",
+      "provide": "Selected Vue components, related state/router code and version information.",
+      "use": "Use review-vue to check Composition API, reactivity, component contracts, state and rendering; report findings and unreviewed scope only.",
+      "result": "Findings with locations, evidence and impact, or explicit no-findings and coverage notes. It does not repair/rewrite or imply other checks passed.",
+      "name": "review-vue"
+    },
+    "scaffold-agent-tests": {
+      "purpose": "Generate tests from an agent-test contract",
+      "when": "An agent implementation and test contract exist but a runnable test suite is missing.",
+      "provide": "Agent implementation, test contract and project test environment. Establish a missing contract first.",
+      "use": "Use scaffold-agent-tests to generate a suite from this contract, replacing only nondeterministic model output.",
+      "result": "Mock-model unit tests, golden cases and an evaluator entry. It does not define capability scope or run/repair tests.",
+      "name": "scaffold-agent-tests"
+    },
+    "update-roadmap": {
+      "purpose": "Maintain item status, dates and change evidence",
+      "when": "Work status, dates or existing version scope changed and planning summaries need updating.",
+      "provide": "Authoritative roadmap, source items and change facts; delays need reasons/downstream dependencies, blockers need follow-up options.",
+      "use": "Use update-roadmap to update status/dates from these facts, explaining downstream effects and preserving evidence.",
+      "result": "Updated source records and required roadmap summaries. It does not change Now/Next/Later tiers or use task counts as completion proof.",
+      "name": "update-roadmap"
+    }
+  },
+  "topics": {
+    "direction": {
+      "name": "Direction & goals",
+      "purpose": "Define a goal and the change it should bring.",
+      "note": "",
+      "hint": "Why do this?"
+    },
+    "planning": {
+      "name": "Backlog & plans",
+      "purpose": "Assess candidate priorities and conditions for moving forward.",
+      "note": "",
+      "hint": "What and when?"
+    },
+    "research": {
+      "name": "Research",
+      "purpose": "Verify sources for a question, or assess opportunities supported by existing research.",
+      "note": "",
+      "hint": "Questions & opportunities"
+    },
+    "design": {
+      "name": "Clarify the work",
+      "purpose": "Review an existing requirement for gaps that affect implementation.",
+      "note": "",
+      "hint": "Describe the intended result"
+    },
+    "quality": {
+      "name": "Check & repair",
+      "purpose": "Run applicable engineering or implementation-alignment reviews on the current changes.",
+      "note": "Check engineering quality, approved intent and actual runtime results separately.",
+      "hint": "Review, align & repair"
+    },
+    "build": {
+      "name": "Build & run",
+      "purpose": "Run applicable tests; add agent tests or update the local environment when needed.",
+      "note": "",
+      "hint": "Implementation & runtime evidence"
+    },
+    "commit": {
+      "name": "Save & integrate",
+      "purpose": "Save clearly scoped changes as reviewable commits.",
+      "note": "Saving, integrating and publishing are different operations; choose what this work needs.",
+      "hint": "Save & integrate changes"
+    },
+    "release": {
+      "name": "Release to users",
+      "purpose": "Prepare and validate the current Release Package; publish or announce within authorization.",
+      "note": "Check material, quality evidence and authorization before release. Announcements use actual published results.",
+      "hint": "Prepare & deliver"
+    },
+    "foundation": {
+      "name": "Project foundations",
+      "purpose": "Fill current gaps in documentation, conventions, automation or credential support.",
+      "note": "",
+      "hint": "Project docs & conventions"
+    },
+    "collaboration": {
+      "name": "Communication",
+      "purpose": "Verify product facts, sharing scope or a message contract for this communication.",
+      "note": "",
+      "hint": "Answers, communication & handoff"
+    }
+  },
+  "contexts": {
+    "direction": {
+      "help": {
+        "line": "Connect goals with candidate work; bring new evidence back to those goals.",
+        "plane": "Give related work a shared basis for trade-offs without redefining direction every time."
+      },
+      "usage": {
+        "ordinary": "You can explain a goal or ask what should change through ordinary conversation.",
+        "cortex": "Use the relevant methods/conventions when you need reusable direction, metric and goal evidence.",
+        "adopted": "Already-adopted project Specs and Rules still apply; they need not be manually invoked in every conversation.",
+        "assets": [
+          {
+            "kind": "Skill",
+            "purpose": "A method for a concrete task, such as reviewing an existing requirement.",
+            "href": "skills/review-requirements/SKILL.md"
+          },
+          {
+            "kind": "Spec",
+            "purpose": "What an artifact must contain, such as a requirement's objective and acceptance criteria.",
+            "href": "specs/requirement-modeling.md"
+          },
+          {
+            "kind": "Rule",
+            "purpose": "Individually checkable quality constraints, such as acceptance criteria being verifiable.",
+            "href": "rules/requirement-quality.md"
+          },
+          {
+            "kind": "Protocol",
+            "purpose": "How participants cooperate and hand work over; consult it when collaboration requires it.",
+            "href": "protocols/INDEX.md"
+          }
+        ]
+      },
+      "relationships": [
+        {
+          "title": "Why we exist and where we are heading",
+          "body": "Mission explains why the project exists; vision describes its intended future. Existing direction can be reused rather than redefined each time."
+        },
+        {
+          "title": "How to tell whether it helps",
+          "body": "The North Star Metric reflects core user value. Strategic pillars group the direction into themes; goals describe the intended change."
+        },
+        {
+          "title": "Goals help select work",
+          "body": "A goal can relate to several requirements or defects. Capturing them in the backlog does not place all of them on the roadmap or authorize implementation."
+        },
+        {
+          "title": "New evidence can come back",
+          "body": "Research and user feedback can change goals, or just one work item or plan. Revisit only the affected part."
+        }
+      ],
+      "id": "direction",
+      "stage": "planning",
+      "summary": "Direction explains why; goals describe the change we want. They help judge worthwhile work and can be revisited with new evidence.",
+      "skills": [
+        "define-mission",
+        "define-vision",
+        "define-north-star",
+        "define-strategic-pillars",
+        "design-strategic-goals"
+      ],
+      "recommended": [
+        "define-mission",
+        "define-north-star",
+        "design-strategic-goals"
+      ],
+      "boundary": "Reuse existing material. Roadmap placement, execution approval, acceptance and publication are distinct. Diagnosis/orchestration selects appropriate steps rather than restarting the whole chain.",
+      "prompt": "Use existing project material to identify users, core problems and current goals. Separate facts from inferences; draft goals and measures, preserve settled direction and list trade-offs I must decide.",
+      "examples": [],
+      "prerequisites": []
+    },
+    "planning": {
+      "help": {
+        "line": "Connect goals, backlog, dependencies and roadmap; update only affected plans when things change.",
+        "plane": "Preserve settled decisions and commitments as the shared basis for planning."
+      },
+      "usage": {
+        "ordinary": "Discussing which of two items comes first or adding a known date can be handled directly.",
+        "cortex": "Use applicable planning/maintenance methods when project policy, dependencies and existing commitments need systematic checking.",
+        "adopted": "Already-adopted project Specs and Rules still apply; they need not be manually invoked in every conversation.",
+        "assets": [
+          {
+            "kind": "Skill",
+            "purpose": "A method for a concrete task, such as reviewing an existing requirement.",
+            "href": "skills/review-requirements/SKILL.md"
+          },
+          {
+            "kind": "Spec",
+            "purpose": "What an artifact must contain, such as a requirement's objective and acceptance criteria.",
+            "href": "specs/requirement-modeling.md"
+          },
+          {
+            "kind": "Rule",
+            "purpose": "Individually checkable quality constraints, such as acceptance criteria being verifiable.",
+            "href": "rules/requirement-quality.md"
+          },
+          {
+            "kind": "Protocol",
+            "purpose": "How participants cooperate and hand work over; consult it when collaboration requires it.",
+            "href": "protocols/INDEX.md"
+          }
+        ]
+      },
+      "relationships": [
+        {
+          "title": "Capture candidate work first",
+          "body": "A backlog holds requirements and defects, including unscheduled work. Goals explain why an item merits consideration."
+        },
+        {
+          "title": "Important does not mean ready",
+          "body": "Priority answers what matters more; dependencies identify missing conditions. Reuse decisions, fill gaps or perform explicitly requested reassessment."
+        },
+        {
+          "title": "Place work on the roadmap",
+          "body": "Promotion uses priority and dependency readiness to choose Now/Next/Later. Roadmap placement does not approve implementation."
+        },
+        {
+          "title": "Definition and maintenance have different jobs",
+          "body": "Roadmap definition owns structure and source-backed content. Maintenance updates existing status, dates and scope; it does not promote between Now/Next/Later."
+        },
+        {
+          "title": "Orchestration chooses a route as needed",
+          "body": "Orchestration need not reprioritize the backlog or call maintenance. Structure-only work, content population, continuous planning and maintenance are different requests."
+        }
+      ],
+      "id": "planning",
+      "stage": "planning",
+      "summary": "The goal is finding past requests. Search and reminders are both candidates; this example selects search because its conditions are ready.",
+      "skills": [
+        "capture-work-items",
+        "prioritize-backlog",
+        "map-item-dependencies",
+        "define-roadmap",
+        "promote-roadmap-items",
+        "update-roadmap",
+        "archive-milestone",
+        "plan-next",
+        "orchestrate-governance-step",
+        "orchestrate-roadmap-planning",
+        "review-roadmap"
+      ],
+      "recommended": [
+        "orchestrate-roadmap-planning",
+        "prioritize-backlog",
+        "map-item-dependencies"
+      ],
+      "boundary": "Reuse existing material. Roadmap placement, execution approval, acceptance and publication are distinct. Diagnosis/orchestration selects appropriate steps rather than restarting the whole chain.",
+      "prompt": "Plan a source-backed roadmap round from current direction, goals, requirements and defects. Preserve settled decisions/commitments and list trade-offs I must decide.",
+      "examples": [
+        "requirements"
+      ],
+      "prerequisites": []
+    },
+    "research": {
+      "help": {
+        "line": "Research informs opportunities, goals and candidate work.",
+        "plane": "Separate facts, inferences and gaps to support evidence-grounded trade-offs."
+      },
+      "usage": {
+        "ordinary": "Explaining a concept or clarifying a question can be ordinary conversation.",
+        "cortex": "Use research methods when conclusions need sources, dates, evidence limitations or opportunity assessment.",
+        "adopted": "Already-adopted project Specs and Rules still apply; they need not be manually invoked in every conversation.",
+        "assets": [
+          {
+            "kind": "Skill",
+            "purpose": "A method for a concrete task, such as reviewing an existing requirement.",
+            "href": "skills/review-requirements/SKILL.md"
+          },
+          {
+            "kind": "Spec",
+            "purpose": "What an artifact must contain, such as a requirement's objective and acceptance criteria.",
+            "href": "specs/requirement-modeling.md"
+          },
+          {
+            "kind": "Rule",
+            "purpose": "Individually checkable quality constraints, such as acceptance criteria being verifiable.",
+            "href": "rules/requirement-quality.md"
+          },
+          {
+            "kind": "Protocol",
+            "purpose": "How participants cooperate and hand work over; consult it when collaboration requires it.",
+            "href": "protocols/INDEX.md"
+          }
+        ]
+      },
+      "relationships": [],
+      "id": "research",
+      "stage": "research",
+      "summary": "A user says: “I cannot find my earlier requests.” Understand the difficulty first, then decide whether a change merits investment.",
+      "skills": [
+        "deep-research",
+        "market-research",
+        "competitive-research",
+        "policy-research",
+        "assess-product-opportunity",
+        "product-opportunity-analysis"
+      ],
+      "recommended": [
+        "deep-research",
+        "market-research",
+        "competitive-research"
+      ],
+      "boundary": "Research supplies facts and opportunity assessment interprets them; unverified assumptions do not become product decisions.",
+      "prompt": "Investigate this question from existing material, separate facts/inferences/gaps and advise whether further investment makes sense. Do not decide unresolved product trade-offs for me.",
+      "examples": [],
+      "prerequisites": []
+    },
+    "design": {
+      "help": {
+        "line": "Check requirements, designs and tasks against each other; return to the affected artifact when something is missing.",
+        "plane": "Give related work shared document structures and quality expectations."
+      },
+      "usage": {
+        "ordinary": "“What should search include?” can be clarified directly; the agent can then update the existing requirement itself.",
+        "cortex": "Consult a Spec, Rule or requirements-review Skill when you need a consistent document contract or systematic omission review.",
+        "adopted": "Already-adopted project Specs and Rules still apply; they need not be manually invoked in every conversation.",
+        "assets": [
+          {
+            "kind": "Skill",
+            "purpose": "A method for a concrete task, such as reviewing an existing requirement.",
+            "href": "skills/review-requirements/SKILL.md"
+          },
+          {
+            "kind": "Spec",
+            "purpose": "What an artifact must contain, such as a requirement's objective and acceptance criteria.",
+            "href": "specs/requirement-modeling.md"
+          },
+          {
+            "kind": "Rule",
+            "purpose": "Individually checkable quality constraints, such as acceptance criteria being verifiable.",
+            "href": "rules/requirement-quality.md"
+          },
+          {
+            "kind": "Protocol",
+            "purpose": "How participants cooperate and hand work over; consult it when collaboration requires it.",
+            "href": "protocols/INDEX.md"
+          }
+        ],
+        "request": "First ask directly about unclear parts of the existing requirement and update them, leaving business trade-offs for me. Follow adopted conventions; use relevant AI Cortex Specs, Rules or Skills when structure/review warrants them, without forcing a workflow on every conversation."
+      },
+      "relationships": [
+        {
+          "title": "Writing an explanation differs from reviewing it",
+          "body": "Project work produces requirements, designs and tasks. These review skills inspect existing material; they cannot invent missing business decisions."
+        },
+        {
+          "title": "Return to the unclear part",
+          "body": "Fill requirement gaps in requirements, design issues in designs and missing tasks in tasks. Then recheck affected explanations and implementation."
+        }
+      ],
+      "id": "design",
+      "stage": "design",
+      "summary": "What does search include? What happens with no matches? Clarify those questions before coding, then check for omissions.",
+      "skills": [
+        "orchestrate-repair-requirements-loop",
+        "review-requirements",
+        "review-functional-design",
+        "review-technical-design",
+        "review-tasks"
+      ],
+      "recommended": [
+        "review-requirements",
+        "review-functional-design",
+        "review-technical-design"
+      ],
+      "boundary": "These skills review existing artifacts; they do not automatically produce every design. Project workflows create the artifacts; findings return to the relevant material for repair and re-review.",
+      "prompt": "First ask directly about unclear parts of the existing requirement and update them, leaving business trade-offs for me. Follow adopted conventions; use relevant AI Cortex Specs, Rules or Skills when structure/review warrants them, without forcing a workflow on every conversation.",
+      "examples": [
+        "requirements"
+      ],
+      "prerequisites": []
+    },
+    "quality": {
+      "help": {
+        "line": "Repair identified issues, then recheck affected checks.",
+        "plane": "Engineering quality, approved intent and actual acceptance each need their own evidence; none substitutes for another."
+      },
+      "usage": {
+        "ordinary": "Pointing out an error or discussing a correction can happen directly.",
+        "cortex": "Use review methods and quality constraints when systematic engineering review, alignment and traceable rechecks are needed.",
+        "adopted": "Already-adopted project Specs and Rules still apply; they need not be manually invoked in every conversation.",
+        "assets": [
+          {
+            "kind": "Skill",
+            "purpose": "A method for a concrete task, such as reviewing an existing requirement.",
+            "href": "skills/review-requirements/SKILL.md"
+          },
+          {
+            "kind": "Spec",
+            "purpose": "What an artifact must contain, such as a requirement's objective and acceptance criteria.",
+            "href": "specs/requirement-modeling.md"
+          },
+          {
+            "kind": "Rule",
+            "purpose": "Individually checkable quality constraints, such as acceptance criteria being verifiable.",
+            "href": "rules/requirement-quality.md"
+          },
+          {
+            "kind": "Protocol",
+            "purpose": "How participants cooperate and hand work over; consult it when collaboration requires it.",
+            "href": "protocols/INDEX.md"
+          }
+        ]
+      },
+      "relationships": [
+        {
+          "title": "Engineering review",
+          "body": "Check correctness, structure and applicable quality constraints of the code itself. Finding no code issues does not prove the intended user need was met."
+        },
+        {
+          "title": "Alignment with intent",
+          "body": "Compare implementation with approved requirements, designs and tasks to detect drift."
+        },
+        {
+          "title": "Actual acceptance",
+          "body": "Run real user paths and compare outcomes with expectations. Repair identified issues and repeat affected review and verification."
+        }
+      ],
+      "id": "quality",
+      "stage": "quality",
+      "summary": "Is the code sound? Does it do what was intended? Does it work in use? Check all three.",
+      "skills": [
+        "review-architecture",
+        "review-codebase",
+        "review-diff",
+        "review-dotnet",
+        "review-error-surfacing",
+        "review-go",
+        "review-implementation-alignment",
+        "review-java",
+        "review-observability",
+        "review-orm-usage",
+        "review-performance",
+        "review-php",
+        "review-powershell",
+        "review-python",
+        "review-react",
+        "review-reliability",
+        "review-security",
+        "review-sql",
+        "review-testing",
+        "review-typescript",
+        "review-vue",
+        "orchestrate-code-review",
+        "orchestrate-repair-loop"
+      ],
+      "recommended": [
+        "orchestrate-code-review",
+        "review-implementation-alignment",
+        "orchestrate-repair-loop"
+      ],
+      "boundary": "Engineering and functional checks are parallel gates; neither replaces the other. Select language/framework/quality lenses by the diff; review does not replace running acceptance paths.",
+      "prompt": "Run applicable engineering review, separately check alignment with approved intent and execute necessary tests/acceptance. Repair blocking findings, recheck affected gates and report remaining limits.",
+      "examples": [
+        "bug"
+      ],
+      "prerequisites": []
+    },
+    "build": {
+      "help": {
+        "line": "Connect authorized tasks, code changes and actual runtime outcomes.",
+        "plane": "Reuse project test/run conventions to reduce repeated guesses during handoff."
+      },
+      "usage": {
+        "ordinary": "The current agent can explain code, implement changes or discuss errors directly.",
+        "cortex": "Use the relevant skills/conventions to discover tests, scaffold agent tests from an existing contract or update the local environment.",
+        "adopted": "Already-adopted project Specs and Rules still apply; they need not be manually invoked in every conversation.",
+        "assets": [
+          {
+            "kind": "Skill",
+            "purpose": "A method for a concrete task, such as reviewing an existing requirement.",
+            "href": "skills/review-requirements/SKILL.md"
+          },
+          {
+            "kind": "Spec",
+            "purpose": "What an artifact must contain, such as a requirement's objective and acceptance criteria.",
+            "href": "specs/requirement-modeling.md"
+          },
+          {
+            "kind": "Rule",
+            "purpose": "Individually checkable quality constraints, such as acceptance criteria being verifiable.",
+            "href": "rules/requirement-quality.md"
+          },
+          {
+            "kind": "Protocol",
+            "purpose": "How participants cooperate and hand work over; consult it when collaboration requires it.",
+            "href": "protocols/INDEX.md"
+          }
+        ]
+      },
+      "relationships": [],
+      "id": "build",
+      "stage": "build",
+      "summary": "Write code and tests in the project, then run it to check whether the desired requests can be found.",
+      "skills": [
+        "automate-tests",
+        "scaffold-agent-tests",
+        "redeploy-local"
+      ],
+      "recommended": [
+        "automate-tests",
+        "scaffold-agent-tests",
+        "redeploy-local"
+      ],
+      "boundary": "The current agent/project workflow writes code. These skills support testing and local runtime work; generating tests, passing tests and production acceptance are different outcomes.",
+      "prompt": "Implement and verify approved tasks, writing relevant tests first under project requirements. Run applicable checks and report outcomes; detect local redeployment methods from evidence and identify unexecuted checks.",
+      "examples": [
+        "bug"
+      ],
+      "prerequisites": []
+    },
+    "commit": {
+      "help": {
+        "line": "Integrate branches as needed, checking diffs, verification and the current operation's conditions.",
+        "plane": "Make multi-person/branch handoff clear. A commit is not a release."
+      },
+      "usage": {
+        "ordinary": "Discussing scope or drafting a commit message can happen directly.",
+        "cortex": "When actually saving or integrating changes, use the applicable commit/branch methods and project verification/authorization conventions.",
+        "adopted": "Already-adopted project Specs and Rules still apply; they need not be manually invoked in every conversation.",
+        "assets": [
+          {
+            "kind": "Skill",
+            "purpose": "A method for a concrete task, such as reviewing an existing requirement.",
+            "href": "skills/review-requirements/SKILL.md"
+          },
+          {
+            "kind": "Spec",
+            "purpose": "What an artifact must contain, such as a requirement's objective and acceptance criteria.",
+            "href": "specs/requirement-modeling.md"
+          },
+          {
+            "kind": "Rule",
+            "purpose": "Individually checkable quality constraints, such as acceptance criteria being verifiable.",
+            "href": "rules/requirement-quality.md"
+          },
+          {
+            "kind": "Protocol",
+            "purpose": "How participants cooperate and hand work over; consult it when collaboration requires it.",
+            "href": "protocols/INDEX.md"
+          }
+        ]
+      },
+      "relationships": [
+        {
+          "title": "A commit saves one version",
+          "body": "Check scope, staged diff and applicable checks, then leave a clear commit. Work may be saved more than once."
+        },
+        {
+          "title": "Integration is a separate action",
+          "body": "Merge and push under project branch, verification and authorization conventions. Neither saving nor merging proves users received a release."
+        }
+      ],
+      "id": "commit",
+      "stage": "commit",
+      "summary": "Save only related changes and explain what changed and why. Integrate the branch into main when needed.",
+      "skills": [
+        "commit-work",
+        "deliver-feature",
+        "integrate-branches"
+      ],
+      "recommended": [
+        "commit-work",
+        "deliver-feature",
+        "integrate-branches"
+      ],
+      "boundary": "Committing differs from pushing; integration differs from release. Single-branch delivery and multi-branch integration are alternative entries, not mandatory consecutive steps. Writes/pushes follow current authorization.",
+      "prompt": "Check these changes and verification results, prepare logically scoped commits and perform only authorized commit operations after staged review. Explain branch/integration options when needed; do not present commits as a published release.",
+      "examples": [],
+      "prerequisites": [
+        {
+          "operation": "commit",
+          "items": [
+            "Scope is clear",
+            "Staged diff reviewed",
+            "Applicable checks satisfied"
+          ]
+        }
+      ]
+    },
+    "release": {
+      "help": {
+        "line": "Check preparation, publication and announcement prerequisites separately; feedback can return to relevant work.",
+        "plane": "Keep version, actual delivery facts and public explanations consistent."
+      },
+      "usage": {
+        "ordinary": "Explaining release content or drafting a short note can be ordinary conversation.",
+        "cortex": "Use the corresponding methods for a verifiable package, actual publication or announcement delivery; real operations still need prerequisites and authorization.",
+        "adopted": "Already-adopted project Specs and Rules still apply; they need not be manually invoked in every conversation.",
+        "assets": [
+          {
+            "kind": "Skill",
+            "purpose": "A method for a concrete task, such as reviewing an existing requirement.",
+            "href": "skills/review-requirements/SKILL.md"
+          },
+          {
+            "kind": "Spec",
+            "purpose": "What an artifact must contain, such as a requirement's objective and acceptance criteria.",
+            "href": "specs/requirement-modeling.md"
+          },
+          {
+            "kind": "Rule",
+            "purpose": "Individually checkable quality constraints, such as acceptance criteria being verifiable.",
+            "href": "rules/requirement-quality.md"
+          },
+          {
+            "kind": "Protocol",
+            "purpose": "How participants cooperate and hand work over; consult it when collaboration requires it.",
+            "href": "protocols/INDEX.md"
+          }
+        ]
+      },
+      "relationships": [
+        {
+          "title": "Prepare the material",
+          "body": "Prepare version, scope and necessary quality evidence. Video is optional; prepared material does not mean publication occurred."
+        },
+        {
+          "title": "Release to users",
+          "body": "A ready package, passing required checks and authorization for this release are needed to produce an actual release result."
+        },
+        {
+          "title": "Communicate actual facts",
+          "body": "Announcements follow real release results; sending also needs communication scope and authorization. Feedback may return to goals or work."
+        }
+      ],
+      "id": "release",
+      "stage": "release",
+      "summary": "Prepare release material, publish under project conventions and explain the changes. Then listen for feedback: is finding requests easier now?",
+      "skills": [
+        "prepare-release",
+        "publish-release",
+        "announce-release",
+        "changelog-video"
+      ],
+      "recommended": [
+        "prepare-release",
+        "publish-release",
+        "announce-release"
+      ],
+      "boundary": "Preparation, publication and announcement have separate owners. Video is optional, not mandatory; without an actual receipt, do not claim publication.",
+      "prompt": "First prepare release material under project conventions, checking version, scope, verification and optional artifacts. Report readiness. Publication and sending follow existing authorization; do not fabricate success before release.",
+      "examples": [
+        "release"
+      ],
+      "prerequisites": [
+        {
+          "operation": "publish",
+          "items": [
+            "Release Package ready",
+            "Required checks passed",
+            "This publication is authorized"
+          ]
+        },
+        {
+          "operation": "announce",
+          "items": [
+            "Actual release result",
+            "Communication scope and sending authorization are clear"
+          ]
+        }
+      ]
+    },
+    "foundation": {
+      "help": {
+        "line": "Help people and agents find and reuse existing evidence.",
+        "plane": "Create maintainable project foundations, filling current gaps rather than enforcing an initialization checklist."
+      },
+      "usage": {
+        "ordinary": "Explaining a convention or fixing explicit document content can happen directly.",
+        "cortex": "Use the corresponding skills/conventions to establish or maintain reusable entry points, norms and automation.",
+        "adopted": "Already-adopted project Specs and Rules still apply; they need not be manually invoked in every conversation.",
+        "assets": [
+          {
+            "kind": "Skill",
+            "purpose": "A method for a concrete task, such as reviewing an existing requirement.",
+            "href": "skills/review-requirements/SKILL.md"
+          },
+          {
+            "kind": "Spec",
+            "purpose": "What an artifact must contain, such as a requirement's objective and acceptance criteria.",
+            "href": "specs/requirement-modeling.md"
+          },
+          {
+            "kind": "Rule",
+            "purpose": "Individually checkable quality constraints, such as acceptance criteria being verifiable.",
+            "href": "rules/requirement-quality.md"
+          },
+          {
+            "kind": "Protocol",
+            "purpose": "How participants cooperate and hand work over; consult it when collaboration requires it.",
+            "href": "protocols/INDEX.md"
+          }
+        ]
+      },
+      "relationships": [],
+      "id": "foundation",
+      "stage": "foundation",
+      "summary": "Fill documentation, working-convention, automation or personal-credential support gaps so people and agents share a basis for work.",
+      "skills": [
+        "define-docs-norms",
+        "generate-agent-entry",
+        "generate-standard-readme",
+        "generate-github-workflow",
+        "refine-skill-design",
+        "manage-secret"
+      ],
+      "recommended": [
+        "define-docs-norms",
+        "generate-agent-entry",
+        "generate-standard-readme"
+      ],
+      "boundary": "These capabilities support work at any stage, selected by need. They are not a mandatory startup checklist. This explorer does not collect or display real credentials.",
+      "prompt": "Inspect existing project conventions/entry points and fill only documentation, norm or automation gaps affecting current work. Preserve authoritative sources and settled choices.",
+      "examples": [],
+      "prerequisites": []
+    },
+    "collaboration": {
+      "help": {
+        "line": "Help documents, participants and message systems hand work over under specific agreements.",
+        "plane": "Preserve fact and authorization boundaries; one communication does not become a universal promise."
+      },
+      "usage": {
+        "ordinary": "Rewording a sentence or drafting an ordinary explanation can happen directly.",
+        "cortex": "Use corresponding methods to verify product facts, remove private context or process messages by contract. External sending follows actual authorization.",
+        "adopted": "Already-adopted project Specs and Rules still apply; they need not be manually invoked in every conversation.",
+        "assets": [
+          {
+            "kind": "Skill",
+            "purpose": "A method for a concrete task, such as reviewing an existing requirement.",
+            "href": "skills/review-requirements/SKILL.md"
+          },
+          {
+            "kind": "Spec",
+            "purpose": "What an artifact must contain, such as a requirement's objective and acceptance criteria.",
+            "href": "specs/requirement-modeling.md"
+          },
+          {
+            "kind": "Rule",
+            "purpose": "Individually checkable quality constraints, such as acceptance criteria being verifiable.",
+            "href": "rules/requirement-quality.md"
+          },
+          {
+            "kind": "Protocol",
+            "purpose": "How participants cooperate and hand work over; consult it when collaboration requires it.",
+            "href": "protocols/INDEX.md"
+          }
+        ]
+      },
+      "relationships": [],
+      "id": "collaboration",
+      "stage": "collaboration",
+      "summary": "Verify product facts, prepare standalone explanations or exchange contract-compliant messages as needed.",
+      "skills": [
+        "prepare-presales-response",
+        "decontextualize-text",
+        "publish-nats-message",
+        "consume-nats-message"
+      ],
+      "recommended": [
+        "prepare-presales-response",
+        "decontextualize-text",
+        "publish-nats-message"
+      ],
+      "boundary": "These are independent work entries, not messages that must follow every release. External sending/writes follow actual authorization; this explorer does not connect to messaging systems.",
+      "prompt": "Prepare this communication from existing product facts or message contracts, distinguishing reusable facts from case-specific terms and preserving sources. Send or write externally only under explicit authorization for this work.",
+      "examples": [],
+      "prerequisites": []
+    }
+  },
+  "topicEdges": {
+    "goal-basis": {
+      "label": "Goal basis",
+      "condition": "Planning compares candidates against existing strategic goals; it does not require redefining goals each time."
+    },
+    "planning-design": {
+      "label": "Plan detail",
+      "condition": "When planned work needs elaboration, hand it to requirements, design and tasks. Now placement does not approve artifacts or require rewriting existing designs."
+    },
+    "design-build": {
+      "label": "Task basis",
+      "condition": "Approved technical design can be decomposed into implementation tasks. This line describes artifact handoff, not review skills writing all code."
+    },
+    "design-quality": {
+      "label": "Intent check",
+      "condition": "Compare approved requirements/designs/tasks with implementation and evidence. Disclose missing approvals; drafts are not completion authority."
+    },
+    "repair-feedback": {
+      "label": "Repair & retest",
+      "condition": "Repair engineering/functional findings, then recheck affected gates. Each supplies separate evidence; pause at the stop conditions."
+    },
+    "quality-planning": {
+      "label": "New work back",
+      "condition": "If a report actually requests new behavior or belongs to existing intake, return it with evidence to the backlog. Repair does not silently expand scope or change priority."
+    },
+    "checks-release": {
+      "label": "Release checks",
+      "condition": "Reuse and record applicable test/build/review results during release preparation. Not every review runs every time, and passing checks does not authorize release."
+    },
+    "history-release": {
+      "label": "Change evidence",
+      "condition": "Release preparation uses repository history, target commits and scope; it does not require rerunning commit-work first."
+    },
+    "conditional-commit": {
+      "label": "Commit if needed",
+      "condition": "Call commit-work only when the release tool does not commit itself. This return line is not a mandatory repeated commit; a commit is not publication."
+    },
+    "norms-planning": {
+      "label": "Project norms",
+      "condition": "Planning reads existing norms to choose locations, views and maintenance methods. Use norm-maintenance capabilities only when conventions need creating/changing; no forced reinitialization."
+    },
+    "norms-collaboration": {
+      "label": "Shared norms",
+      "condition": "Prepare responses using adopted authority/maintenance conventions. Keep product facts and customer terms separate without creating duplicate rules."
+    },
+    "research-collaboration": {
+      "label": "Research support",
+      "condition": "Request research when communication raises a substantive investigation, then use its evidence in the response. Ordinary FAQ lookup does not need a research report. Two arrows mean request/result handoff, not a mandatory stage."
+    },
+    "research-planning": {
+      "label": "Research input",
+      "condition": "Opportunity recommendations inform the owner's assessment of candidate work. Planning inclusion remains a separate decision; research does not automatically create requirements or approve a roadmap. This is artifact use, not research skills calling planning skills."
+    }
+  },
+  "skillEdges": {
+    "define-mission__define-vision": {
+      "label": "Mission input",
+      "condition": "Mission content is needed; an existing mission can be reused without rerunning the skill."
+    },
+    "define-vision__define-strategic-pillars": {
+      "label": "Vision input",
+      "condition": "Strategic pillars use vision and the North Star Metric; existing artifacts can be reused."
+    },
+    "define-north-star__define-strategic-pillars": {
+      "label": "Metric input",
+      "condition": "Use the core-value metric without necessarily redefining it."
+    },
+    "define-vision__design-strategic-goals": {
+      "label": "Vision input",
+      "condition": "Normally read the existing vision; if missing, the skill handles that from repository evidence."
+    },
+    "define-north-star__design-strategic-goals": {
+      "label": "Metric input",
+      "condition": "Goals align with the existing core-value metric; upstream skills need not rerun."
+    },
+    "orchestrate-roadmap-planning__define-roadmap": {
+      "label": "Coordinate scope",
+      "condition": "Choose by requested scope and existing material. Structure, content and full planning are not one mandatory workflow."
+    },
+    "orchestrate-roadmap-planning__review-roadmap": {
+      "label": "Coordinate scope",
+      "condition": "Choose by requested scope and existing material. Structure, content and full planning are not one mandatory workflow."
+    },
+    "orchestrate-roadmap-planning__capture-work-items": {
+      "label": "Coordinate scope",
+      "condition": "Choose by requested scope and existing material. Structure, content and full planning are not one mandatory workflow."
+    },
+    "orchestrate-roadmap-planning__prioritize-backlog": {
+      "label": "Coordinate scope",
+      "condition": "Choose by requested scope and existing material. Structure, content and full planning are not one mandatory workflow."
+    },
+    "orchestrate-roadmap-planning__map-item-dependencies": {
+      "label": "Coordinate scope",
+      "condition": "Choose by requested scope and existing material. Structure, content and full planning are not one mandatory workflow."
+    },
+    "orchestrate-roadmap-planning__promote-roadmap-items": {
+      "label": "Coordinate scope",
+      "condition": "Choose by requested scope and existing material. Structure, content and full planning are not one mandatory workflow."
+    },
+    "orchestrate-roadmap-planning__update-roadmap": {
+      "label": "Optional recommendation",
+      "condition": "This is a recommendation; planning alone does not trigger it automatically."
+    },
+    "orchestrate-roadmap-planning__archive-milestone": {
+      "label": "Optional recommendation",
+      "condition": "This is a recommendation; planning alone does not trigger it automatically."
+    },
+    "product-opportunity-analysis__policy-research": {
+      "label": "Select research",
+      "condition": "Choose only research relevant to the opportunity where evidence is missing. Suitable existing reports can be reused."
+    },
+    "policy-research__deep-research": {
+      "label": "Reuse research method",
+      "condition": "Reuse investigation methods without treating research findings as product approval."
+    },
+    "product-opportunity-analysis__market-research": {
+      "label": "Select research",
+      "condition": "Choose only research relevant to the opportunity where evidence is missing. Suitable existing reports can be reused."
+    },
+    "market-research__deep-research": {
+      "label": "Reuse research method",
+      "condition": "Reuse investigation methods without treating research findings as product approval."
+    },
+    "product-opportunity-analysis__competitive-research": {
+      "label": "Select research",
+      "condition": "Choose only research relevant to the opportunity where evidence is missing. Suitable existing reports can be reused."
+    },
+    "competitive-research__deep-research": {
+      "label": "Reuse research method",
+      "condition": "Reuse investigation methods without treating research findings as product approval."
+    },
+    "product-opportunity-analysis__assess-product-opportunity": {
+      "label": "Internal assessment",
+      "condition": "Pass compatible research reports to internal assessment; this is not a separate user invocation entry."
+    },
+    "orchestrate-repair-loop__orchestrate-code-review": {
+      "label": "Recheck repairs",
+      "condition": "Engineering review, approved-intent alignment and runtime verification are separate. Perform alignment only with approved authority."
+    },
+    "orchestrate-repair-loop__review-implementation-alignment": {
+      "label": "Recheck repairs",
+      "condition": "Engineering review, approved-intent alignment and runtime verification are separate. Perform alignment only with approved authority."
+    },
+    "orchestrate-repair-loop__automate-tests": {
+      "label": "Recheck repairs",
+      "condition": "Engineering review, approved-intent alignment and runtime verification are separate. Perform alignment only with approved authority."
+    },
+    "orchestrate-repair-requirements-loop__review-requirements": {
+      "label": "Review revisions",
+      "condition": "Repair only evidence-supported gaps; leave business trade-offs to the user."
+    },
+    "orchestrate-code-review__review-diff": {
+      "label": "Select applicable reviews",
+      "condition": "Choose diff or codebase review by intent; both are not mandatory together."
+    },
+    "orchestrate-code-review__review-codebase": {
+      "label": "Select applicable reviews",
+      "condition": "Choose diff or codebase review by intent; both are not mandatory together."
+    },
+    "orchestrate-code-review__review-typescript": {
+      "label": "Select applicable reviews",
+      "condition": "Select by the main language or skip; do not review every language indiscriminately."
+    },
+    "orchestrate-code-review__review-python": {
+      "label": "Select applicable reviews",
+      "condition": "Select by the main language or skip; do not review every language indiscriminately."
+    },
+    "orchestrate-code-review__review-go": {
+      "label": "Select applicable reviews",
+      "condition": "Select by the main language or skip; do not review every language indiscriminately."
+    },
+    "orchestrate-code-review__review-java": {
+      "label": "Select applicable reviews",
+      "condition": "Select by the main language or skip; do not review every language indiscriminately."
+    },
+    "orchestrate-code-review__review-php": {
+      "label": "Select applicable reviews",
+      "condition": "Select by the main language or skip; do not review every language indiscriminately."
+    },
+    "orchestrate-code-review__review-powershell": {
+      "label": "Select applicable reviews",
+      "condition": "Select by the main language or skip; do not review every language indiscriminately."
+    },
+    "orchestrate-code-review__review-dotnet": {
+      "label": "Select applicable reviews",
+      "condition": "Select by the main language or skip; do not review every language indiscriminately."
+    },
+    "orchestrate-code-review__review-sql": {
+      "label": "Select applicable reviews",
+      "condition": "Select by the main language or skip; do not review every language indiscriminately."
+    },
+    "orchestrate-code-review__review-react": {
+      "label": "Select applicable reviews",
+      "condition": "Select by framework or skip; React and Vue reviews are not both mandatory."
+    },
+    "orchestrate-code-review__review-vue": {
+      "label": "Select applicable reviews",
+      "condition": "Select by framework or skip; React and Vue reviews are not both mandatory."
+    },
+    "orchestrate-code-review__review-orm-usage": {
+      "label": "Select applicable reviews",
+      "condition": "Select the ORM-specific review when an ORM is used."
+    },
+    "orchestrate-code-review__review-security": {
+      "label": "Select applicable reviews",
+      "condition": "Quality lenses apply their own applicability rules; they do not replace functional alignment or actual acceptance."
+    },
+    "orchestrate-code-review__review-reliability": {
+      "label": "Select applicable reviews",
+      "condition": "Quality lenses apply their own applicability rules; they do not replace functional alignment or actual acceptance."
+    },
+    "orchestrate-code-review__review-error-surfacing": {
+      "label": "Select applicable reviews",
+      "condition": "Quality lenses apply their own applicability rules; they do not replace functional alignment or actual acceptance."
+    },
+    "orchestrate-code-review__review-performance": {
+      "label": "Select applicable reviews",
+      "condition": "Quality lenses apply their own applicability rules; they do not replace functional alignment or actual acceptance."
+    },
+    "orchestrate-code-review__review-architecture": {
+      "label": "Select applicable reviews",
+      "condition": "Quality lenses apply their own applicability rules; they do not replace functional alignment or actual acceptance."
+    },
+    "orchestrate-code-review__review-observability": {
+      "label": "Select applicable reviews",
+      "condition": "Quality lenses apply their own applicability rules; they do not replace functional alignment or actual acceptance."
+    },
+    "orchestrate-code-review__review-testing": {
+      "label": "Select applicable reviews",
+      "condition": "Quality lenses apply their own applicability rules; they do not replace functional alignment or actual acceptance."
+    },
+    "prepare-release__changelog-video": {
+      "label": "Video only if selected",
+      "condition": "Call it only when a video artifact is selected; video is not mandatory for a release."
+    },
+    "prepare-release__publish-release": {
+      "label": "Ready package",
+      "condition": "Preparation must meet release prerequisites, with separate authorization for actual publication. Prepared is not published."
+    },
+    "publish-release__announce-release": {
+      "label": "Actual release result",
+      "condition": "Announcements use published facts and still need sending authorization; publication does not trigger automatic broadcast."
+    },
+    "publish-release__commit-work": {
+      "label": "Commit by project method",
+      "condition": "Call the commit skill only when the release tool does not commit itself; do not repeat a commit for every release."
+    },
+    "design-strategic-goals__capture-work-items": {
+      "label": "Link to goals",
+      "condition": "Link work items to existing strategic goals; recording an item does not require redefining goals."
+    },
+    "design-strategic-goals__promote-roadmap-items": {
+      "label": "Goals inform choices",
+      "condition": "Compare candidates across goals. A goal link does not give each goal a fixed allocation."
+    },
+    "prioritize-backlog__promote-roadmap-items": {
+      "label": "Priority input",
+      "condition": "Promotion reads settled priorities; assess only unsettled items or explicit reassessment requests."
+    },
+    "map-item-dependencies__promote-roadmap-items": {
+      "label": "Dependency input",
+      "condition": "Promotion checks existing dependencies/readiness evidence; add analysis only when missing or stale."
+    },
+    "capture-work-items__prioritize-backlog": {
+      "label": "Work-item input",
+      "condition": "Prioritize existing work items. Capturing an item does not score it automatically; settled priorities are not automatically reassessed."
+    },
+    "order__review-security__review-reliability": {
+      "label": "Engineering review order",
+      "condition": "Within the selected code-review engineering gate, evaluate in the fixed order; record inapplicable checks. This is not a mandatory workflow for every task."
+    },
+    "order__review-reliability__review-error-surfacing": {
+      "label": "Engineering review order",
+      "condition": "Within the selected code-review engineering gate, evaluate in the fixed order; record inapplicable checks. This is not a mandatory workflow for every task."
+    },
+    "order__review-error-surfacing__review-performance": {
+      "label": "Engineering review order",
+      "condition": "Within the selected code-review engineering gate, evaluate in the fixed order; record inapplicable checks. This is not a mandatory workflow for every task."
+    },
+    "order__review-performance__review-architecture": {
+      "label": "Engineering review order",
+      "condition": "Within the selected code-review engineering gate, evaluate in the fixed order; record inapplicable checks. This is not a mandatory workflow for every task."
+    },
+    "order__review-architecture__review-observability": {
+      "label": "Engineering review order",
+      "condition": "Within the selected code-review engineering gate, evaluate in the fixed order; record inapplicable checks. This is not a mandatory workflow for every task."
+    },
+    "order__review-observability__review-testing": {
+      "label": "Engineering review order",
+      "condition": "Within the selected code-review engineering gate, evaluate in the fixed order; record inapplicable checks. This is not a mandatory workflow for every task."
+    }
+  },
+  "loops": {
+    "requirement-loop": {
+      "label": "Review → revise → re-review",
+      "condition": "Repair one existing requirement from findings and re-review it. This does not require every design skill to run in turn."
+    },
+    "quality-loop": {
+      "label": "Check → repair → recheck",
+      "condition": "Repeat only checks affected by the repair, until convergence or a stop condition."
+    }
+  },
+  "examples": {
+    "bug": {
+      "focus": "quality",
+      "edges": [
+        "build-quality"
+      ],
+      "title": "A check finds a code issue.",
+      "body": "Return to implementation, repair it and recheck affected gates. Verification and clear commits can happen repeatedly during development."
+    },
+    "requirements": {
+      "focus": "design",
+      "edges": [
+        "planning-design",
+        "design-build"
+      ],
+      "title": "An existing requirement omits search scope.",
+      "body": "The agent can ask directly and update the requirement. Consult Specs, Rules or review skills when consistency/systematic checking is needed; do not restart every work item."
+    },
+    "release": {
+      "focus": "release",
+      "edges": [
+        "release-ready",
+        "published-announcement"
+      ],
+      "title": "Preparing to deliver changes to users.",
+      "body": "Check the package, required quality evidence and authorization first. Prepare announcements from actual release results; a commit does not replace that evidence."
+    }
+  },
+  "extras": {
+    "labels": {
+      "label": "Work and cooperation",
+      "point": "This work",
+      "line": "How it connects",
+      "plane": "Shared foundations"
+    },
+    "projection": {
+      "nodes": {
+        "direction": {
+          "subtitle": "Why we do this and what should change"
+        },
+        "planning": {
+          "subtitle": "Requirements, defects and roadmap"
+        },
+        "design": {
+          "subtitle": "Requirements, design and tasks"
+        },
+        "build": {
+          "subtitle": "Build, test and revise when needed"
+        },
+        "quality": {
+          "subtitle": "Code, intent and actual results"
+        },
+        "commit": {
+          "subtitle": "Save repeatedly without implying release"
+        },
+        "release": {
+          "subtitle": "Check release and announcement separately"
+        },
+        "research": {},
+        "foundation": {},
+        "collaboration": {}
+      }
+    },
+    "gates": {
+      "pass": {
+        "title": "This set of checks passed.",
+        "body": "This example only assumes applicable checks completed. Saving, integration and release each still need their own scope/prerequisite checks.",
+        "checksComplete": true,
+        "checks": [
+          "No blocking findings",
+          "Aligned with approved intent",
+          "Required checks passed"
+        ]
+      },
+      "fail": {
+        "title": "An issue needs repair.",
+        "body": "Repair identified issues and recheck affected areas. Do not ignore failures to hand work over.",
+        "checksComplete": false,
+        "checks": [
+          "Blocking findings remain",
+          "Recheck after repair",
+          "Relevant checks failed"
+        ]
+      },
+      "missing": {
+        "title": "An actual check is still missing.",
+        "body": "Code that looks sound does not prove users can find their records. Gather actual verification evidence first.",
+        "checksComplete": false,
+        "checks": [
+          "No blocking findings",
+          "Alignment not yet checked",
+          "Acceptance evidence missing"
+        ]
+      }
+    },
+    "lookup": [
+      {
+        "id": "research",
+        "title": "Understand the question",
+        "skills": [
+          "assess-product-opportunity",
+          "competitive-research",
+          "deep-research",
+          "market-research",
+          "policy-research",
+          "product-opportunity-analysis"
+        ]
+      },
+      {
+        "id": "planning",
+        "title": "Direction, goals and plans",
+        "skills": [
+          "archive-milestone",
+          "capture-work-items",
+          "define-mission",
+          "define-north-star",
+          "define-roadmap",
+          "define-strategic-pillars",
+          "define-vision",
+          "design-strategic-goals",
+          "map-item-dependencies",
+          "orchestrate-governance-step",
+          "orchestrate-roadmap-planning",
+          "plan-next",
+          "prioritize-backlog",
+          "promote-roadmap-items",
+          "review-roadmap",
+          "update-roadmap"
+        ]
+      },
+      {
+        "id": "design",
+        "title": "Review existing explanations",
+        "skills": [
+          "orchestrate-repair-requirements-loop",
+          "review-functional-design",
+          "review-requirements",
+          "review-tasks",
+          "review-technical-design"
+        ]
+      },
+      {
+        "id": "build",
+        "title": "Tests and local runtime",
+        "skills": [
+          "automate-tests",
+          "redeploy-local",
+          "scaffold-agent-tests"
+        ]
+      },
+      {
+        "id": "quality",
+        "title": "Code review and repair",
+        "skills": [
+          "orchestrate-code-review",
+          "orchestrate-repair-loop",
+          "review-architecture",
+          "review-codebase",
+          "review-diff",
+          "review-dotnet",
+          "review-error-surfacing",
+          "review-go",
+          "review-implementation-alignment",
+          "review-java",
+          "review-observability",
+          "review-orm-usage",
+          "review-performance",
+          "review-php",
+          "review-powershell",
+          "review-python",
+          "review-react",
+          "review-reliability",
+          "review-security",
+          "review-sql",
+          "review-testing",
+          "review-typescript",
+          "review-vue"
+        ]
+      },
+      {
+        "id": "commit",
+        "title": "Commits and branch integration",
+        "skills": [
+          "commit-work",
+          "deliver-feature",
+          "integrate-branches"
+        ]
+      },
+      {
+        "id": "release",
+        "title": "Releases and announcements",
+        "skills": [
+          "announce-release",
+          "changelog-video",
+          "prepare-release",
+          "publish-release"
+        ]
+      },
+      {
+        "id": "foundation",
+        "title": "Project collaboration foundations",
+        "skills": [
+          "define-docs-norms",
+          "generate-agent-entry",
+          "generate-github-workflow",
+          "generate-standard-readme",
+          "manage-secret",
+          "refine-skill-design"
+        ]
+      },
+      {
+        "id": "collaboration",
+        "title": "Exchange information",
+        "skills": [
+          "consume-nats-message",
+          "decontextualize-text",
+          "prepare-presales-response",
+          "publish-nats-message"
+        ]
+      }
+    ],
+    "topicMap": {}
+  },
+  "supportScopes": {
+    "foundation": {
+      "label": "Across topics: docs & conventions",
+      "condition": "Apply the adopted project entry, authoritative sources and working agreements. Existing documentation norms constrain relevant artifacts; no rerun is implied."
+    },
+    "collaboration": {
+      "label": "Across topics: communication & handoff",
+      "condition": "When handing material to another reader or team, make it understandable without private context. This is optional support, not a required step for every task."
+    }
+  },
+  "classification": {
+    "map-research": {
+      "name": "Research & opportunity",
+      "purpose": "Understand a problem before committing."
+    },
+    "map-planning": {
+      "name": "Direction & planning",
+      "purpose": "Connect everyday work to a project purpose."
+    },
+    "map-quality": {
+      "name": "Design & verification",
+      "purpose": "Inspect intent, implementation and evidence."
+    },
+    "map-delivery": {
+      "name": "Delivery & release",
+      "purpose": "Move reviewed work into a usable release."
+    },
+    "map-collaboration": {
+      "name": "Communication & integration",
+      "purpose": "Exchange information with explicit boundaries."
+    },
+    "map-library": {
+      "name": "Project & asset maintenance",
+      "purpose": "Keep reusable knowledge discoverable and usable."
+    }
+  },
+  "dual": {
+    "classification": "Classification",
+    "relations": "Relationships",
+    "browse": "Browse by category; position is not execution order.",
+    "required": "Required within the applicable parent",
+    "conditional": "Conditional call",
+    "reference": "Related reference",
+    "sequence": "Evidenced order",
+    "unknown": "Execution order unspecified",
+    "invalidView": "Unknown view; showing Classification.",
+    "native": "Interactive switching needs JavaScript. Browse the classification and directory below, or read the canonical skill catalogue.",
+    "categoryContext": "Category context retained; showing work relationships"
+  }
+}

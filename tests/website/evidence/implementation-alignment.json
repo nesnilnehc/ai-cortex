@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-27",
+  "skill": "review-implementation-alignment",
+  "runtimeRevision": "sha256:be0f32a1d5e529127662de812406441a5f46f0e0fc4b9ca18f63ea431730989d",
+  "parents": "Approved AIC-REQ-04 / functional design / technical design / tasks",
+  "result": "machine alignment passed; owner acceptance pending",
+  "findings": [],
+  "coverage": {
+    "ALN-001": "evidence_limited: A9 and final A11 owner conclusion pending; T9 Todo, T12 In Progress",
+    "ALN-002": "pass: retained scope and 70-skill coverage",
+    "ALN-003": "pass: local runtime and source/locale boundaries",
+    "ALN-004": "pass: one-map disclosure, locale routes, panel and static recovery match approved interface contract",
+    "ALN-005": "not_applicable: no persisted business schema or migration",
+    "ALN-006": "pass: source-bound checks and working manifest",
+    "ALN-007": "pass: Covers markers and direct intent assertions trace controls, source safety, locale identities, recovery and geometry to approved acceptance"
+  },
+  "acceptance": {
+    "A1-A8": "machine passed",
+    "A9": "owner unverified",
+    "A10": "machine passed",
+    "A11": "machine passed; owner unverified",
+    "A12": "out of current authorization"
+  },
+  "evidence": [
+    "zh/local-branch-browser.json",
+    "en/local-branch-browser.json",
+    "controls-browser.json",
+    "recovery-browser.json",
+    "node-tests.txt",
+    "python-tests.txt",
+    "engineering-review.json"
+  ],
+  "limits": [
+    "Canonical asset hashes checked locally at pinned revision; public availability deferred to T13.",
+    "No owner acceptance, public deployment, provider recovery or publication inferred."
+  ]
+}

@@ -1,0 +1,23 @@
+✔ direction and backlog nodes have distinct explanations and skill scopes (1.071208ms)
+✔ every registered skill resolves to a selectable node with its own request (3.493ms)
+✔ only relevant examples appear inside each node detail (0.923875ms)
+✔ publication and announcement prerequisites stay separate in the same panel (0.087541ms)
+✔ planning explains definition, priority, promotion and maintenance as separate work (0.194292ms)
+✖ catalog parity rejects missing, unknown and duplicate entries without mutating fixtures (1.800084ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 140.596917
+
+✖ failing tests:
+
+test at experiments/direction-planning/panel-model.test.mjs:45:1
+✖ catalog parity rejects missing, unknown and duplicate entries without mutating fixtures (1.800084ms)
+  TypeError: validateCatalog is not a function
+      at TestContext.<anonymous> (file:///Users/nesnilnehc/github.com/ai-cortex/experiments/direction-planning/panel-model.test.mjs:50:15)
+      at async Test.run (node:internal/test_runner/test:1125:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:787:7)

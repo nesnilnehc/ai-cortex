@@ -45,6 +45,11 @@ The promotional website may include localized display editions (`website/zh.html
 and localized clipboard messages and their test fixtures, as explicitly requested
 by the user on 2026-10-23. Asset names, commands and linked source instructions
 remain unchanged; this exception does not translate governance assets.
+The owner-approved AIC-REQ-04 website integration (2026-10-27) extends this display
+exception to `website/explore/zh.html`, `website/explore/locales/zh.json` and their
+localized browser/content test fixtures. The English explorer edition and shared
+code/comments remain English; formal IDs, source quotes and invocation names are
+not translated.
 
 Everything else — README, AGENTS.md, CONTRIBUTING, `docs/`, `specs/`, `protocols/`, `rules/`, and every `SKILL.md` and skill `README.md` — is English.
 

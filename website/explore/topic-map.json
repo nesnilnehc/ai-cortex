@@ -1,0 +1,26 @@
+[
+  {
+    "id": "requirement-loop",
+    "from": "design",
+    "to": "design",
+    "kind": "loop",
+    "sources": [
+      {
+        "path": "skills/orchestrate-repair-requirements-loop/SKILL.md",
+        "quote": "Converge one existing requirement through review, evidence-grounded repair and"
+      }
+    ]
+  },
+  {
+    "id": "quality-loop",
+    "from": "quality",
+    "to": "quality",
+    "kind": "loop",
+    "sources": [
+      {
+        "path": "skills/orchestrate-repair-loop/SKILL.md",
+        "quote": "4. **Repeat** \u2014 rerun every gate affected by the repair until both pass or a stop condition is reached."
+      }
+    ]
+  }
+]

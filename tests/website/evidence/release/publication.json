@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-28",
+  "projectId": "appgprj_6adad0ee0f4881918acd4d3754f500af",
+  "state": "published-verified",
+  "acceptedRuntimeRevision": "sha256:dff7c2c888c7970d9cd5e7b9691843d522f2161aae41c9bb7b023921bd3886db",
+  "repairedRuntimeRevision": "sha256:1424a8bb40733a4a06ce41cbd4b63e9c411d4bb35ff941aad5b9eebb115d57ca",
+  "ownerInstruction": "T12 accepted and T13 publication authorized for the accepted runtime in the current chat.",
+  "preSwitchFinding": "Provider redirects /zh.html to /zh. Accepted navigation rejected /zh with Unknown site path.",
+  "repair": "Normalize only observed/static-host home and legacy aliases; preserve sections, state, language, brand and interaction semantics. Full transitive cache key refreshed.",
+  "verification": {
+    "nodeTestsPassed": 46,
+    "pythonTestsPassed": 18,
+    "routeBrowserCasesPassed": 8,
+    "publicSourcesPassed": 137,
+    "knownGoodServingFilesPassed": 10,
+    "publicResourcesPassed": 47,
+    "nonHtmlBytesIdentical": 43,
+    "htmlSourcePreserved": 4,
+    "publicBrowserCasesPassed": 8,
+    "fallbackLocalesPassed": 2,
+    "publicPageErrors": 0
+  },
+  "archive": {
+    "path": "/tmp/aic-t13-publish-20261028.tar",
+    "sha256": "b4adddc731759f4db7a7ddab04bd876e19d4309df2be29e39979ce16aed66ddb",
+    "entries": 106,
+    "runtimeFiles": 47,
+    "sourcePush": "completed in isolated Sites source repository",
+    "saveVersion": "completed: version 8",
+    "deployment": "succeeded; public verification passed"
+  },
+  "knownGood": {
+    "versionNumber": 7,
+    "versionId": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_ad106f4e8194819194699ca35f33e608",
+    "sourceCommit": "f71e2cdc04a3f2dffce77cc20d53eb99c37c44f9",
+    "sourceCheckout": "/private/tmp/aic-t13-source-20261028",
+    "sourceBackup": "/tmp/aic-t13-known-good-v7",
+    "currentUrl": "https://ai-cortex.nesnilnehc.top/"
+  },
+  "nextAction": "None required for T13; retain source and public receipts. Further changes need their own scoped verification.",
+  "recovery": {
+    "outcome": "not_required",
+    "reason": "Known-good version 7 was verified before switching; version 8 passed actual public verification without a product failure.",
+    "knownGoodVersionId": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_ad106f4e8194819194699ca35f33e608",
+    "path": "If a later regression is confirmed, first inspect serving identity and then deploy the retained version through the same Sites project. No rollback was executed or claimed as a test."
+  },
+  "supplementalOwnerApproval": {
+    "date": "2026-10-28",
+    "runtimeRevision": "sha256:1424a8bb40733a4a06ce41cbd4b63e9c411d4bb35ff941aad5b9eebb115d57ca",
+    "instruction": "Approve the address compatibility repair; continue T13 publication, verify public delivery, and synchronize tasks/records."
+  },
+  "source": {
+    "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
+    "checkout_path": "/private/tmp/aic-t13-source-20261028",
+    "commit_sha": "f9762c952eb9c3847524dbdd2d52376c4224a19d",
+    "archive": "/tmp/aic-t13-publish-20261028.tar"
+  },
+  "savedVersion": {
+    "id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_84cf5ae9f2f08191b807714f228882e4",
+    "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
+    "version_number": 8,
+    "source": {
+      "commit_sha": "f9762c952eb9c3847524dbdd2d52376c4224a19d"
+    },
+    "archive_storage": {
+      "archive_format": "tar",
+      "sediment_file_id": "file_000000004abc8206b5cb0dadfc41b520",
+      "content_hash": "sha256:76818ace2b3084e49e181a41452c283b708416f54e15bfffdffed94b94929925",
+      "size_bytes": 3051520,
+      "file_count": 48
+    },
+    "screenshot_url": null,
+    "deployment_id": null
+  },
+  "acceptedRepairedRuntimeRevision": "sha256:1424a8bb40733a4a06ce41cbd4b63e9c411d4bb35ff941aad5b9eebb115d57ca",
+  "deployment": {
+    "id": "appgdep_6ae181e21bbc81919009450c9496f0af",
+    "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
+    "title": "AI Cortex",
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_84cf5ae9f2f08191b807714f228882e4",
+    "type": "publish",
+    "status": "succeeded",
+    "url": "https://ai-cortex.mystic-loon-2462.chatgpt.site",
+    "has_mcp": false,
+    "screenshot_asset_pointer": null,
+    "provider_deployment_id": "site---6adad0ee0f4881918acd4d3754f500af",
+    "failure_message": null,
+    "env_set_revision": 0,
+    "updated_at": "2026-10-28T05:02:42.309141+00:00"
+  },
+  "publicUrl": "https://ai-cortex.nesnilnehc.top/",
+  "providerArchive": {
+    "archive_format": "tar",
+    "sediment_file_id": "file_000000004abc8206b5cb0dadfc41b520",
+    "content_hash": "sha256:76818ace2b3084e49e181a41452c283b708416f54e15bfffdffed94b94929925",
+    "size_bytes": 3051520,
+    "file_count": 48
+  },
+  "archiveIdentityNote": "Local compressed-upload and provider-stored archive digests are recorded independently; no binary-container equality is claimed. The saved source commit and all 47 accepted public logical files match their expected identities."
+}

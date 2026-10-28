@@ -1,0 +1,17 @@
+...F.
+======================================================================
+FAIL: test_explorer_home_links_preserve_the_selected_edition (test_explorer.ExplorerContracts.test_explorer_home_links_preserve_the_selected_edition)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/nesnilnehc/github.com/ai-cortex/tests/website/test_explorer.py", line 33, in test_explorer_home_links_preserve_the_selected_edition
+    self.assertEqual(wordmark['href'], home)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '../zh.html' != '../?lang=en'
+- ../zh.html
++ ../?lang=en
+
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.043s
+
+FAILED (failures=1)

@@ -1,0 +1,75 @@
+{
+  "acyclic": true,
+  "modules": {
+    "language.mjs": [],
+    "copy.mjs": [],
+    "main.mjs": [
+      "site-navigation.mjs",
+      "theme.mjs",
+      "language.mjs",
+      "copy.mjs"
+    ],
+    "site-navigation.mjs": [],
+    "theme.mjs": [],
+    "explore/skill-guidance.mjs": [
+      "explore/locale.mjs"
+    ],
+    "explore/topic-map.mjs": [
+      "explore/locale.mjs"
+    ],
+    "explore/work-map.mjs": [
+      "explore/locale.mjs"
+    ],
+    "explore/request-state.mjs": [],
+    "explore/locale.mjs": [],
+    "explore/story.mjs": [
+      "explore/support-scopes.mjs",
+      "site-navigation.mjs",
+      "explore/locale.mjs",
+      "explore/source-links.mjs",
+      "language.mjs",
+      "explore/site-contract.mjs",
+      "explore/global-topic-graph.mjs",
+      "explore/topic-map.mjs",
+      "explore/skill-graph.mjs",
+      "explore/work-map.mjs",
+      "explore/request-state.mjs",
+      "theme.mjs",
+      "explore/workflow.mjs",
+      "explore/skill-guidance.mjs",
+      "explore/story-model.mjs",
+      "explore/relations.mjs",
+      "explore/panel-model.mjs"
+    ],
+    "explore/skill-graph.mjs": [
+      "explore/workflow.mjs",
+      "explore/panel-model.mjs",
+      "explore/locale.mjs"
+    ],
+    "explore/workflow.mjs": [
+      "explore/locale.mjs"
+    ],
+    "explore/relations.mjs": [
+      "explore/locale.mjs"
+    ],
+    "explore/source-links.mjs": [],
+    "explore/panel-model.mjs": [
+      "explore/locale.mjs",
+      "explore/workflow.mjs"
+    ],
+    "explore/global-topic-graph.mjs": [
+      "explore/locale.mjs",
+      "explore/topic-map.mjs"
+    ],
+    "explore/support-scopes.mjs": [
+      "explore/locale.mjs"
+    ],
+    "explore/story-model.mjs": [
+      "explore/locale.mjs",
+      "explore/workflow.mjs"
+    ],
+    "explore/site-contract.mjs": [
+      "site-navigation.mjs"
+    ]
+  }
+}

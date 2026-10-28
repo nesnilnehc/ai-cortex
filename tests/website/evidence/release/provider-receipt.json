@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-28",
+  "source": {
+    "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
+    "checkout_path": "/private/tmp/aic-t13-source-20261028",
+    "commit_sha": "f9762c952eb9c3847524dbdd2d52376c4224a19d",
+    "archive": "/tmp/aic-t13-publish-20261028.tar"
+  },
+  "saved": {
+    "id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_84cf5ae9f2f08191b807714f228882e4",
+    "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
+    "version_number": 8,
+    "source": {
+      "commit_sha": "f9762c952eb9c3847524dbdd2d52376c4224a19d"
+    },
+    "archive_storage": {
+      "archive_format": "tar",
+      "sediment_file_id": "file_000000004abc8206b5cb0dadfc41b520",
+      "content_hash": "sha256:76818ace2b3084e49e181a41452c283b708416f54e15bfffdffed94b94929925",
+      "size_bytes": 3051520,
+      "file_count": 48
+    },
+    "screenshot_url": null,
+    "deployment_id": null
+  },
+  "deployment": {
+    "id": "appgdep_6ae181e21bbc81919009450c9496f0af",
+    "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
+    "title": "AI Cortex",
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_84cf5ae9f2f08191b807714f228882e4",
+    "type": "publish",
+    "status": "succeeded",
+    "url": "https://ai-cortex.mystic-loon-2462.chatgpt.site",
+    "has_mcp": false,
+    "screenshot_asset_pointer": null,
+    "provider_deployment_id": "site---6adad0ee0f4881918acd4d3754f500af",
+    "failure_message": null,
+    "env_set_revision": 0,
+    "updated_at": "2026-10-28T05:02:42.309141+00:00"
+  }
+}

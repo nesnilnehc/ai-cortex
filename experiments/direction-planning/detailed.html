@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>从方向到交付 · AI Cortex 全技能原型</title><link rel="icon" href="../../website/favicon.svg"><link rel="stylesheet" href="../../website/styles.css"><link rel="stylesheet" href="prototype.css"><link rel="stylesheet" href="global.css"></head>
+<body><a class="skip-link" href="#main">跳到内容</a>
+<header class="wrap top"><a class="wordmark" href="../../website/zh.html"><img class="brand-mark" src="../../website/favicon.svg" alt="">AI CORTEX</a><label class="theme-control" hidden>外观 <select id="theme" aria-label="外观"><option value="system">跟随系统</option><option value="light">浅色</option><option value="dark">深色</option></select></label><span class="prototype-label">交互原型 <span>· 仅本地预览</span></span></header>
+<main id="main" class="wrap">
+<section class="intro"><div><p class="eyebrow">AI CORTEX / HOW WORK MOVES</p><h1>方向、目标与工作，<br>怎样联系<span class="accent">？</span></h1></div><p class="intro-note">选择你正在做的工作，<br>看它从哪里来、交付什么、如何衔接。<br>70 项技能，都能在这里找到。</p></section>
+<section id="planning-explorer" aria-label="方向与规划交互案例"><section class="relationship-section" aria-labelledby="relationship-title">
+<div class="relationship-heading"><div><p class="eyebrow">先看全局 / THE BIG PICTURE</p><h2 id="relationship-title">从为什么做，到下一步做什么。</h2><p>箭头表示成果如何相互支撑；已有资料可直接复用，无须每次从头走完。</p></div><div class="view-switch" role="group" aria-label="图解方式"><button data-view="relation" aria-pressed="true">整体关系图</button><button data-view="sequence" aria-pressed="false">你与智能体如何配合</button></div></div>
+<div id="relation-view">
+<div class="trace-controls" role="group" aria-label="选择追踪的示例目标"><span>追踪一个目标</span><button data-goal="all" aria-pressed="true">全部工作</button><button data-goal="reliable" aria-pressed="false">G1 可靠提交</button><button data-goal="find" aria-pressed="false">G2 找到记录</button><button data-goal="reuse" aria-pressed="false">G3 复用结果</button></div>
+<div class="flowchart" aria-label="项目方向指导目标，目标关联待办，待办经过取舍形成路线图，实际反馈用于调整目标与待办">
+<div class="inbound">用户反馈、需求与缺陷<span aria-hidden="true">↓</span></div>
+<div class="flow-row">
+<button class="flow-node" data-node="direction" aria-pressed="false"><span class="node-kicker">为什么做</span><strong>项目方向</strong><small>使命 · 愿景 · 北极星指标</small><span class="node-example" id="example-direction">让每个服务请求都可追踪</span><span class="edge-label" aria-hidden="true">指导 →</span></button>
+<button class="flow-node" data-node="goals" aria-pressed="false"><span class="node-kicker">要取得什么结果</span><strong>目标</strong><small>战略主题组织长期投入</small><span class="node-example" id="example-goals">可靠提交 · 找到记录 · 复用结果</span><span class="edge-label" aria-hidden="true">关联 →</span></button>
+<button class="flow-node" data-node="backlog" aria-pressed="true"><span class="node-kicker">有哪些工作值得考虑</span><strong>待办池</strong><small>需求与缺陷 · Backlog</small><span class="node-example" id="example-backlog">BUG1 · R1 · R2 · R3</span><span class="edge-label" aria-hidden="true">比较 →</span></button>
+<button class="flow-node" data-node="choices" aria-pressed="false"><span class="node-kicker">什么重要，条件如何</span><strong>取舍</strong><small>优先级 · 依赖 · 容量</small><span class="node-example" id="example-choices">重要程度与就绪分别判断</span><span class="edge-label" aria-hidden="true">安排 →</span></button>
+<button class="flow-node" data-node="roadmap" aria-pressed="false"><span class="node-kicker">先推进什么，如何交付</span><strong>路线图</strong><small>安排 · 迭代 · 版本 · 时间线</small><span class="node-example" id="example-roadmap">Now 2 · Next 1 · Later 1</span><span class="edge-label" aria-hidden="true">核对 →</span></button>
+<button class="flow-node" data-node="feedback" aria-pressed="false"><span class="node-kicker">结果如何，哪里变了</span><strong>反馈与调整</strong><small>进展 · 价值验证 · 变更记录</small><span class="node-example" id="example-feedback">交付反馈，重新检查目标与工作</span></button>
+</div>
+<div class="feedback-loop"><span aria-hidden="true">↑</span><p><span class="loop-long">反馈不只更新状态：也可能让我们重新审视目标，或把新问题带回待办池。</span><span class="loop-short">反馈 → 复核目标与待办</span></p><span aria-hidden="true">↵</span></div>
+</div>
+<div class="trace-summary" aria-live="polite"><div><span class="eyebrow">目标 / OUTCOME</span><p id="trace-goal"></p></div><div><span class="eyebrow">关联待办 / BACKLOG</span><p id="trace-backlog"></p></div><div><span class="eyebrow">当前安排 / ROADMAP</span><p id="trace-plan"></p></div><p class="trace-metric" id="trace-metric"></p></div>
+</div>
+<div id="sequence-view" hidden>
+<p class="sequence-intro">以“把现有需求整理成路线图”为例。重点是你要提供什么、智能体做什么，以及何时需要你判断。</p>
+<div class="sequence-chart"><div class="actor">你<span>提出目标 · 决定取舍</span></div><div class="actor">智能体<span>核对依据 · 形成提案</span></div><div class="actor">项目资料与计划<span>保留事实 · 记录变化</span></div>
+<div class="message user-to-agent"><span>① 说明想解决的问题和本次范围</span><b aria-hidden="true">→</b></div>
+<div class="message agent-to-record"><span>② 查已有方向、目标、需求和承诺</span><b aria-hidden="true">→</b></div>
+<div class="message record-to-agent"><b aria-hidden="true">←</b><span>③ 沿用已定事实，标明缺口与冲突</span></div>
+<div class="message agent-to-user"><b aria-hidden="true">←</b><span>④ 给出安排提案、原因和影响</span></div>
+<div class="sequence-decision">需要新的业务取舍？由你决定。已有授权与确定规则直接沿用；缺少事实时先补依据。</div>
+<div class="message user-to-agent"><span>⑤ 确定尚未解决的取舍与承诺</span><b aria-hidden="true">→</b></div>
+<div class="message agent-to-record"><span>⑥ 在授权范围更新，并核对结果</span><b aria-hidden="true">→</b></div>
+<div class="message agent-to-user"><b aria-hidden="true">←</b><span>⑦ 返回计划、变更原因和剩余缺口</span></div>
+</div><p class="sequence-note">这是一次协作的说明，并非要求每次都新增确认。后续真实反馈再进入下一轮规划。</p>
+</div>
+<div class="node-detail" aria-labelledby="node-title"><div class="node-detail-main"><p class="eyebrow">点击图中节点 / 看它与上下游的关系</p><h3 id="node-title"></h3><p class="node-question" id="node-question"></p><dl><div><dt>来自哪里</dt><dd id="node-input"></dd></div><div><dt>形成什么</dt><dd id="node-output"></dd></div></dl></div><div class="node-detail-example"><span class="eyebrow">同一个服务台案例</span><p id="node-example"></p><p class="node-boundary" id="node-boundary"></p><details id="node-skills-disclosure"><summary>查看这一环节的技能</summary><ul id="node-skills"></ul></details></div></div>
+<div class="map-support"><button data-node="help" aria-pressed="false">不知道从哪里开始？查看诊断与规划入口 ↗</button><span>覆盖本分类 16 项技能 · 按需使用</span></div>
+</section>
+<div class="detail-divider"><span class="eyebrow">继续体验 / ZOOM IN</span><h2>把这条关系，放进一次真实的取舍。</h2><p>下面的场景和事件会同步更新上方的目标追踪与路线图摘要。</p></div>
+<div class="workspace">
+<aside class="entry"><p class="eyebrow">01 / 从哪里开始</p><h2>你现在想解决什么？</h2><div class="scenario-buttons" role="group" aria-label="选择规划场景">
+<button data-scenario="direction" aria-pressed="false"><span>01</span><div><strong>想法很多，方向不清</strong><small>明确目标与衡量依据</small></div><b aria-hidden="true">↗</b></button>
+<button data-scenario="backlog" aria-pressed="true"><span>02</span><div><strong>需求堆积，难以取舍</strong><small>决定重要程度与近期安排</small></div><b aria-hidden="true">↗</b></button>
+<button data-scenario="existing" aria-pressed="false"><span>03</span><div><strong>已有计划，想整理清楚</strong><small>保留决定，发现结构与依据缺口</small></div><b aria-hidden="true">↗</b></button>
+<button data-scenario="change" aria-pressed="false"><span>04</span><div><strong>情况变了，需要调整</strong><small>核对变化与受影响的工作</small></div><b aria-hidden="true">↗</b></button>
+</div><p class="entry-note">可以从任意一处进入。<br>不必先认识每一个技能。</p><div class="outcome"><span class="eyebrow">你会得到</span><h3 id="artifact"></h3><p id="detail"></p></div></aside>
+<section class="canvas" aria-labelledby="scenario-title"><div class="canvas-heading"><div><p class="eyebrow">02 / 看一次实际规划</p><h2 id="scenario-title"></h2><p id="scenario-intro"></p></div><span class="sample-tag">虚构案例 · 服务台</span></div>
+
+<div class="case-goal"><span class="eyebrow">共同目标</span><strong>让请求可靠提交，让用户更快找到处理记录。</strong><span>目标 → 工作 → 安排 → 反馈</span></div>
+<div id="scenario-insight" class="insight"></div>
+<div class="board-heading"><div><h3>一份会随事实变化的计划</h3><p>切换事件，对比安排、条件和原因。</p></div><button id="reset" class="quiet">恢复基线 ↺</button></div>
+<div class="event-buttons" role="group" aria-label="模拟计划事件"><button data-event="base" aria-pressed="true">基线计划</button><button data-event="urgent" aria-pressed="false">＋ 紧急故障</button><button data-event="delay" aria-pressed="false">依赖延期</button><button data-event="complete" aria-pressed="false">验收完成</button></div>
+<div id="plan" class="board" aria-label="Now Next Later 工作安排"></div>
+<div class="explanation" aria-live="polite"><div><span class="eyebrow">为什么这样安排</span><p id="reason"></p></div><div><span class="eyebrow">相对基线的变化</span><ul id="changes"></ul></div></div>
+<p class="demo-note">演示按预设案例切换，不连接真实项目。层级调整为待确认提案；日期、容量和发布须有各自依据。</p>
+</section></div>
+<section class="takeaway" aria-labelledby="takeaway-title"><div><p class="eyebrow">03 / 用到你的项目</p><h2 id="takeaway-title">带着你的问题，开始。</h2><p>编辑这段请求，复制到已安装 AI Cortex 的智能体中。</p><details><summary>查看背后使用的技能</summary><ul id="skills"></ul><p>这些是对应能力说明，并不表示本页执行了技能。</p></details></div><div class="request"><label for="prompt">给智能体的请求 <span>可直接编辑</span></label><textarea id="prompt" rows="5"></textarea><div class="copy-row"><span id="copy-status" role="status">切换场景会更新默认请求。</span><button id="copy" class="button">复制请求 ↗</button></div></div></section>
+</section></main><footer class="wrap bottom"><span>AI CORTEX / EXPLORATORY PROTOTYPE</span><span>示例用于理解工作流程，未发布到网站。</span></footer><script type="module" src="app.mjs"></script><script type="module">import {initializeTheme} from '../../website/theme.mjs'; initializeTheme(window,document.documentElement,document.querySelector('#theme'));</script></body></html>

@@ -1,0 +1,117 @@
+{
+  "date": "2026-10-27T06:33:43.809Z",
+  "matrix": [
+    {
+      "width": 360,
+      "theme": "light",
+      "bothLenses": true,
+      "requestPreserved": true,
+      "skillScopePreserved": true,
+      "oneMap": true,
+      "overflow": false,
+      "copyVisible": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "bothLenses": true,
+      "requestPreserved": true,
+      "skillScopePreserved": true,
+      "oneMap": true,
+      "overflow": false,
+      "copyVisible": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "bothLenses": true,
+      "requestPreserved": true,
+      "skillScopePreserved": true,
+      "oneMap": true,
+      "overflow": false,
+      "copyVisible": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "bothLenses": true,
+      "requestPreserved": true,
+      "skillScopePreserved": true,
+      "oneMap": true,
+      "overflow": false,
+      "copyVisible": true
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "bothLenses": true,
+      "requestPreserved": true,
+      "skillScopePreserved": true,
+      "oneMap": true,
+      "overflow": false,
+      "copyVisible": true
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "bothLenses": true,
+      "requestPreserved": true,
+      "skillScopePreserved": true,
+      "oneMap": true,
+      "overflow": false,
+      "copyVisible": true
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "bothLenses": true,
+      "requestPreserved": true,
+      "skillScopePreserved": true,
+      "oneMap": true,
+      "overflow": false,
+      "copyVisible": true
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "bothLenses": true,
+      "requestPreserved": true,
+      "skillScopePreserved": true,
+      "oneMap": true,
+      "overflow": false,
+      "copyVisible": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "bothLenses": true,
+      "requestPreserved": true,
+      "skillScopePreserved": true,
+      "oneMap": true,
+      "overflow": false,
+      "copyVisible": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "bothLenses": true,
+      "requestPreserved": true,
+      "skillScopePreserved": true,
+      "oneMap": true,
+      "overflow": false,
+      "copyVisible": true
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Native select popup arrow-key selection could not be exercised by this headless runtime; no native-popup keyboard pass claimed."
+  ],
+  "status": "passed",
+  "extra": [
+    "Empty selection keeps the map unselected",
+    "Perspective selector exposes its label and accepts focus",
+    "Scenario boundary and four asset types remain disclosed",
+    "Changing perspective preserves the in-flight copy and request context",
+    "Perspective persists across work selection"
+  ]
+}

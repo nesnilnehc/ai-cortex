@@ -1,0 +1,37 @@
+✔ the single map owns each current skill once and preserves nonlinear topic semantics (6.266625ms)
+✔ canonical membership rejects omissions, duplicates and unknown skills (0.481666ms)
+✔ topic disclosure retains at most one owner and rejects invalid identifiers (1.247542ms)
+✔ local forests are placement aids and retain canonical edge identities (7.574791ms)
+✔ topic routing remains clear with every possible expanded topic (16.222625ms)
+✖ topic names and purpose have one locale owner across map and panel (0.862792ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 151.683708
+
+✖ failing tests:
+
+test at tests/website/explorer-model.test.mjs:49:1
+✖ topic names and purpose have one locale owner across map and panel (0.862792ms)
+  AssertionError [ERR_ASSERTION]: Duplicate editable topic name
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///Users/nesnilnehc/github.com/ai-cortex/tests/website/explorer-model.test.mjs:51:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1118:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:787:18)
+      at Test.postRun (node:internal/test_runner/test:1247:19)
+      at Test.run (node:internal/test_runner/test:1175:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:787:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

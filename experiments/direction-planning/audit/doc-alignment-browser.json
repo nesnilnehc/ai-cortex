@@ -1,0 +1,154 @@
+{
+  "date": "2026-10-27T12:58:50.141Z",
+  "browser": "151.0.7922.34",
+  "sourceHashes": {
+    "index.html": "67928566fc10fe52d0c41c4979deec302da6be6c3846e5109a0d988397201f41",
+    "story.mjs": "f729a36bf361d02ed05132944eaae02dfd6c65d87a2ba1fbcdc316c5304a0b9f",
+    "workspace.css": "e42a757553863b48e39716a8144c92cebf52130b5d99bdc4e6f57ff25f3cb999",
+    "skill-graph.mjs": "cdabe6df58ea95652d0921d2b8c4bd15005a95de1894367984b4a1e177cea7bc",
+    "panel-model.mjs": "4a799ce4ffe22a0bce2e6739387b7fd6878037977d60500b2b0630f6bb56e7c7",
+    "workflow.mjs": "22714fbf667d991b9e5f2454240ad025e0b7fd95d2241b5d61156779e8ccdaf4",
+    "relations.mjs": "ae8f8400eebf54c4d203e6788f882b337733caea8683ede705392cbe0c2294a6",
+    "story-model.mjs": "cb087277cb58dd902ae43d9c168d6fab0c20215b200557f9301667dfd20f6ffc",
+    "skill-guidance.json": "88dd5712af035e42a517b220f8242d9d3e6fca36ed74f834aec5e828e3931d30",
+    "skill-edges.json": "03800450c136416c8d2340d4dbd447dbbb6006de358b2556ad77d3a14e8c16ad",
+    "topic-map.mjs": "bcb9c40b01cb75caf1d60842c7a18f52c4347ee26e3fa289171e366a213bea9a",
+    "global-topic-graph.mjs": "1bf290c2174952daca910a18556d71c4c71792faecfcbdb5ac79c93a4fa7558b",
+    "topic-edges.json": "2ce83f800b6b6cf0c0a693fddbebb99ac6e2491037276b6a192843a444796576"
+  },
+  "sourceUnchanged": true,
+  "contrast": [
+    {
+      "width": 390,
+      "theme": "light",
+      "state": "overview",
+      "samples": 45,
+      "minRatio": 4.377635687729373,
+      "failures": [
+        {
+          "text": "↶ 审查 → 修订 → 再审查",
+          "ratio": 4.377635687729373
+        },
+        {
+          "text": "↶ 检查 → 定向修复 → 重新检查",
+          "ratio": 4.377635687729373
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "state": "selected",
+      "samples": 101,
+      "minRatio": 4.377635687729373,
+      "failures": [
+        {
+          "text": "↶ 审查 → 修订 → 再审查",
+          "ratio": 4.377635687729373
+        },
+        {
+          "text": "↶ 检查 → 定向修复 → 重新检查",
+          "ratio": 4.377635687729373
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "state": "overview",
+      "samples": 45,
+      "minRatio": 5.844756026367148,
+      "failures": []
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "state": "selected",
+      "samples": 101,
+      "minRatio": 5.844756026367148,
+      "failures": []
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "state": "overview",
+      "samples": 45,
+      "minRatio": 4.377635687729373,
+      "failures": [
+        {
+          "text": "↶ 审查 → 修订 → 再审查",
+          "ratio": 4.377635687729373
+        },
+        {
+          "text": "↶ 检查 → 定向修复 → 重新检查",
+          "ratio": 4.377635687729373
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "state": "selected",
+      "samples": 102,
+      "minRatio": 4.377635687729373,
+      "failures": [
+        {
+          "text": "↶ 审查 → 修订 → 再审查",
+          "ratio": 4.377635687729373
+        },
+        {
+          "text": "↶ 检查 → 定向修复 → 重新检查",
+          "ratio": 4.377635687729373
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "state": "overview",
+      "samples": 45,
+      "minRatio": 5.844756026367148,
+      "failures": []
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "state": "selected",
+      "samples": 102,
+      "minRatio": 5.844756026367148,
+      "failures": []
+    }
+  ],
+  "clipboard": [
+    {
+      "case": "absent",
+      "manualRecovery": true
+    },
+    {
+      "case": "rejected",
+      "manualRecovery": true
+    },
+    {
+      "case": "late-after-edit",
+      "staleSuccessSuppressed": true
+    },
+    {
+      "case": "late-after-close",
+      "closedContextUntouched": true
+    }
+  ],
+  "observations": [
+    {
+      "case": "javascript-disabled",
+      "catalogueFallback": true,
+      "topicNodes": 0
+    },
+    {
+      "case": "entry-module-blocked",
+      "topicNodes": 0,
+      "visibleCatalogueFallback": false
+    }
+  ],
+  "topicTitlesConsistent": true,
+  "status": "completed"
+}

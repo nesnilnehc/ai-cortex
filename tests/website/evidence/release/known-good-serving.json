@@ -1,0 +1,88 @@
+{
+  "date": "2026-10-28",
+  "version": 7,
+  "sourceCommit": "f71e2cdc04a3f2dffce77cc20d53eb99c37c44f9",
+  "resources": [
+    {
+      "path": "copy.mjs",
+      "tlsAndHttpPassed": true,
+      "sha256": "98066e27493b23ca013c617303fb09cf44f6a1f6c056e5fa043cf6969ff54b4d",
+      "byteIdentical": true,
+      "htmlSourcePreserved": null,
+      "passed": true
+    },
+    {
+      "path": "favicon.svg",
+      "tlsAndHttpPassed": true,
+      "sha256": "e3f057d1c807354a40e1c98fd390638666a8a244e4b8e81562e348efa147c02f",
+      "byteIdentical": true,
+      "htmlSourcePreserved": null,
+      "passed": true
+    },
+    {
+      "path": "index.html",
+      "tlsAndHttpPassed": true,
+      "sha256": "7e386406cff67d90ddec0c8919e1fc05478dfb77db817512b921595223bdc449",
+      "byteIdentical": false,
+      "htmlSourcePreserved": true,
+      "passed": true
+    },
+    {
+      "path": "language.mjs",
+      "tlsAndHttpPassed": true,
+      "sha256": "8da4c61d053ce97fe4a07a05a61b263346600a1d28e95cc40b9bdb0f45b6bd85",
+      "byteIdentical": true,
+      "htmlSourcePreserved": null,
+      "passed": true
+    },
+    {
+      "path": "main.mjs",
+      "tlsAndHttpPassed": true,
+      "sha256": "7ac1e430ec61512c6d8c9249fbc136b717ccd9e1c9c3357cbe173a184c4c9618",
+      "byteIdentical": true,
+      "htmlSourcePreserved": null,
+      "passed": true
+    },
+    {
+      "path": "robots.txt",
+      "tlsAndHttpPassed": true,
+      "sha256": "2c3f391f9674a75b97ddc2e2142e18fd9d17d2755c9dfa261884aea06b995cc9",
+      "byteIdentical": true,
+      "htmlSourcePreserved": null,
+      "passed": true
+    },
+    {
+      "path": "sitemap.xml",
+      "tlsAndHttpPassed": true,
+      "sha256": "1f0245151e10eaca6d2e888a8fdc61a150b76346b8d958e74cf01a2ca8b93038",
+      "byteIdentical": true,
+      "htmlSourcePreserved": null,
+      "passed": true
+    },
+    {
+      "path": "styles.css",
+      "tlsAndHttpPassed": true,
+      "sha256": "0aff1dabd1dc7afd80f5ef3f2dcdfb67011f4b5e5cd9117d89ab0334f62c81ee",
+      "byteIdentical": true,
+      "htmlSourcePreserved": null,
+      "passed": true
+    },
+    {
+      "path": "theme.mjs",
+      "tlsAndHttpPassed": true,
+      "sha256": "df9b28f7c343ff4ea9f7ec83446b62692e0bd6ba47157fa78af5a7ca478f653f",
+      "byteIdentical": true,
+      "htmlSourcePreserved": null,
+      "passed": true
+    },
+    {
+      "path": "zh.html",
+      "tlsAndHttpPassed": true,
+      "sha256": "dc4c5c727e6d311a14978e70586060d7ec55dde57d8065205ac33f4d378bf45a",
+      "byteIdentical": false,
+      "htmlSourcePreserved": true,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

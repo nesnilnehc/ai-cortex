@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-27T05:11:06.619Z",
+  "browser": "151.0.7922.34",
+  "matrix": [
+    {
+      "width": 360,
+      "theme": "light",
+      "overflow": false,
+      "allNodes": true,
+      "copyAndCloseVisible": true,
+      "searchEmptyResultEscape": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "overflow": false,
+      "allNodes": true,
+      "copyAndCloseVisible": true,
+      "searchEmptyResultEscape": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "overflow": false,
+      "allNodes": true,
+      "copyAndCloseVisible": true,
+      "searchEmptyResultEscape": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "overflow": false,
+      "allNodes": true,
+      "copyAndCloseVisible": true,
+      "searchEmptyResultEscape": true
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "overflow": false,
+      "allNodes": true,
+      "copyAndCloseVisible": true,
+      "searchEmptyResultEscape": true
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "overflow": false,
+      "allNodes": true,
+      "copyAndCloseVisible": true,
+      "searchEmptyResultEscape": true
+    }
+  ],
+  "checks": [],
+  "consoleErrors": [],
+  "remoteRequests": [],
+  "status": "failed",
+  "error": "AssertionError [ERR_ASSERTION]: 1280/light: copy outside viewport\n    at /Users/nesnilnehc/github.com/ai-cortex/experiments/direction-planning/audit/verify-req03.cjs:22:10"
+}

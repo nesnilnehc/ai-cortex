@@ -1,0 +1,36 @@
+✔ global destinations retain directory/install bookmarks and language families (3.51425ms)
+✔ localized names remain different from purposes and true identities stay guarded (15.513292ms)
+✔ support scopes have per-target evidence and exclude invented endpoints (4.98225ms)
+✔ all four native headers mirror shared routes and keep utilities outside primary navigation (4.130584ms)
+✖ overview context is owned by the locale and mirrored in native HTML (8.120375ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 183.431291
+
+✖ failing tests:
+
+test at tests/website/site-revision.test.mjs:47:1
+✖ overview context is owned by the locale and mirrored in native HTML (8.120375ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(read('explore/locales/'+lang+'.json').overview?.contextHtml)
+  
+      at TestContext.<anonymous> (file:///Users/nesnilnehc/github.com/ai-cortex/tests/website/site-revision.test.mjs:50:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1118:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:787:18)
+      at Test.postRun (node:internal/test_runner/test:1247:19)
+      at Test.run (node:internal/test_runner/test:1175:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:787:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

@@ -1,0 +1,40 @@
+✔ every registered skill is represented exactly once in the global stages (2.836458ms)
+✔ commit, integration and publication have separate boundaries (0.245375ms)
+✔ review path keeps engineering, functional and execution evidence separate (0.200875ms)
+✔ search is case insensitive and supports Chinese purposes across stages (0.980375ms)
+✔ stages and catalog are snapshots, not shared mutable state (0.080917ms)
+✔ catalog purposes and definitions remain grounded in source snapshots (1.700791ms)
+✖ roadmap definition purpose permits structure-only and content-only requests (0.953542ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 111.9695
+
+✖ failing tests:
+
+test at experiments/direction-planning/workflow.test.mjs:48:1
+✖ roadmap definition purpose permits structure-only and content-only requests (0.953542ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '先设计路线图结构，再填充有依据的计划'
+  - '设计路线图结构，或在既定结构中填充计划'
+  
+      at TestContext.<anonymous> (file:///Users/nesnilnehc/github.com/ai-cortex/experiments/direction-planning/workflow.test.mjs:50:9)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1118:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:787:18)
+      at Test.postRun (node:internal/test_runner/test:1247:19)
+      at Test.run (node:internal/test_runner/test:1175:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:787:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '先设计路线图结构，再填充有依据的计划',
+    expected: '设计路线图结构，或在既定结构中填充计划',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

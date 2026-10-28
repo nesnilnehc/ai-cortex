@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-27",
+  "url": "http://127.0.0.1:8765/experiments/direction-planning/",
+  "method": "Chrome DevTools cold-cache navigation trace",
+  "cpu_throttling": "1x",
+  "network_throttling": "none",
+  "lcp_ms": 248,
+  "cls": 0.0,
+  "inp_ms": null,
+  "limitations": [
+    "Local desktop observation, no field data.",
+    "INP not measured.",
+    "Source illustration atlas remains unoptimized for production."
+  ]
+}

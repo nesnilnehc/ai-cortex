@@ -1,0 +1,46 @@
+✔ copies the complete rendered commands and reports completed success (0.899709ms)
+✔ a denied clipboard write gives recovery and permits a successful retry (0.238291ms)
+✔ an unavailable clipboard keeps manual recovery available (0.094875ms)
+✔ pending writes do not report success or start duplicate writes (0.133833ms)
+✔ empty commands never create a successful clipboard operation (0.072959ms)
+✔ uses the supplied language for pending, success and recovery (0.125916ms)
+✔ the single map owns each current skill once and preserves nonlinear topic semantics (7.659958ms)
+✔ canonical membership rejects omissions, duplicates and unknown skills (0.434958ms)
+✔ topic disclosure retains at most one owner and rejects invalid identifiers (0.93075ms)
+✔ local forests are placement aids and retain canonical edge identities (8.794333ms)
+✔ topic routing remains clear with every possible expanded topic (18.599166ms)
+✔ topic names and purpose have one locale owner across map and panel (0.498708ms)
+✔ same node selection retains the edited request; different selection invalidates copies (0.840083ms)
+✔ close and reopen invalidate a late copy of the same node (0.127167ms)
+✔ editing the same context invalidates a pending copy without changing selection (0.078333ms)
+✔ explorer language selection stays in the explorer family and preserves context (1.179167ms)
+✔ language route maps reject unsafe or incomplete destinations before navigation (0.299292ms)
+✔ source URLs use canonical asset revision and reject path escape (1.106417ms)
+✔ both locale dictionaries cover every skill with meaningful usage, no language fallback (16.027583ms)
+✔ both static editions provide sources without scripting and no experiment dependencies (0.486584ms)
+✔ home and install navigation keeps an explicit locale when storage is blocked (0.893375ms)
+✔ locale validation cannot translate identities or change typed state (5.848042ms)
+✔ first visit chooses the first supported browser language, defaulting to English (1.983542ms)
+✔ stored manual preference wins over browser language in either direction (0.140542ms)
+✔ explicit language choice replaces the stored preference without redirecting back (0.217625ms)
+✔ blocked storage still honors a manual choice and browser detection (0.136542ms)
+✔ redirect preserves query and fragment and settles on its destination (0.107125ms)
+✔ invalid preferences cannot produce unsupported destinations (0.087084ms)
+✔ global destinations retain directory/install bookmarks and language families (2.459875ms)
+✔ localized names remain different from purposes and true identities stay guarded (11.231416ms)
+✔ support scopes have per-target evidence and exclude invented endpoints (4.2405ms)
+✔ all four native headers mirror shared routes and keep utilities outside primary navigation (1.256916ms)
+✔ overview context is owned by the locale and mirrored in native HTML (1.404417ms)
+✔ theme defaults to system without persisting an inferred choice (1.599541ms)
+✔ restores each supported manual theme (0.09125ms)
+✔ manual selection changes appearance and persists, including return to system (0.152792ms)
+✔ storage denial does not disable the selector (0.07575ms)
+✔ invalid stored values fall back to system and invalid input is ignored (0.068667ms)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 38
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 179.848333

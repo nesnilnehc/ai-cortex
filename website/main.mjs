@@ -1,6 +1,7 @@
-import { initializeTheme } from './theme.mjs?v=20261023-atlas';
-import { initializeLanguage } from './language.mjs?v=20261023-preference';
-import { bindCopyButton } from './copy.mjs?v=20261023-i18n';
+import {initializeNavigation} from './site-navigation.mjs?v=aic04-host-1';
+import { initializeTheme } from './theme.mjs?v=aic04-host-1';
+import { initializeLanguage } from './language.mjs?v=aic04-host-1';
+import { bindCopyButton } from './copy.mjs?v=aic04-host-1';
 
 initializeLanguage(window, document.documentElement.lang === 'zh-CN' ? 'zh' : 'en');
 
@@ -13,3 +14,7 @@ bindCopyButton(
   navigator.clipboard,
   document.querySelector('#copy-feedback').dataset,
 );
+
+initializeNavigation(window,document);
+
+import './explore/explorer-host.mjs?v=aic04-host-1';

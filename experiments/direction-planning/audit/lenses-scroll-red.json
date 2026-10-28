@@ -1,0 +1,7 @@
+{
+  "date": "2026-10-27T06:19:10.742Z",
+  "matrix": [],
+  "errors": [],
+  "status": "failed",
+  "error": "AssertionError [ERR_ASSERTION]: Changed explanation must be visible\n\n694 !== 0\n\n    at /Users/nesnilnehc/github.com/ai-cortex/experiments/direction-planning/audit/verify-lenses.cjs:10:10"
+}

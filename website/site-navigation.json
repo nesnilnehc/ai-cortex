@@ -1,0 +1,74 @@
+{
+  "destinations": {
+    "home": {
+      "labels": {
+        "en": "Home",
+        "zh": "首页"
+      },
+      "routes": {
+        "en": "/?lang=en",
+        "zh": "/zh.html?lang=zh"
+      }
+    },
+    "overview": {
+      "labels": {
+        "en": "Capability overview",
+        "zh": "能力全景"
+      },
+      "routes": {
+        "en": "/?lang=en#capabilities",
+        "zh": "/zh.html?lang=zh#capabilities"
+      }
+    },
+    "directory": {
+      "labels": {
+        "en": "Asset directory",
+        "zh": "资产目录"
+      },
+      "routes": {
+        "en": "/?lang=en#asset-directory",
+        "zh": "/zh.html?lang=zh#asset-directory"
+      }
+    },
+    "start": {
+      "labels": {
+        "en": "Get started",
+        "zh": "开始使用"
+      },
+      "routes": {
+        "en": "/?lang=en#start",
+        "zh": "/zh.html?lang=zh#start"
+      }
+    }
+  },
+  "sectionOwners": {
+    "theme": "home",
+    "main": "home",
+    "hero-title": "home",
+    "capabilities": "overview",
+    "capabilities-title": "home",
+    "map-research": "overview",
+    "map-planning": "overview",
+    "map-quality": "overview",
+    "map-delivery": "overview",
+    "map-collaboration": "overview",
+    "map-library": "overview",
+    "map-specs": "home",
+    "map-rules": "home",
+    "map-protocols": "home",
+    "foundation": "home",
+    "foundation-title": "home",
+    "skills": "directory",
+    "specs": "directory",
+    "protocols": "directory",
+    "rules": "directory",
+    "practice-title": "home",
+    "start": "start",
+    "start-title": "home",
+    "copy-commands": "home",
+    "copy-feedback": "home",
+    "install-commands": "home",
+    "faq-title": "home",
+    "asset-directory": "directory"
+  }
+}

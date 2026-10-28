@@ -1,0 +1,123 @@
+{
+  "date": "2026-10-27T06:30:10.864Z",
+  "browser": "151.0.7922.34",
+  "matrix": [
+    {
+      "width": 360,
+      "theme": "light",
+      "overflow": false,
+      "allNodesPointerAndKeyboard": true,
+      "examplesToggle": true,
+      "copyRoundTrip": true,
+      "copyAndCloseVisible": true,
+      "searchEmptyResultEscape": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "overflow": false,
+      "allNodesPointerAndKeyboard": true,
+      "examplesToggle": true,
+      "copyRoundTrip": true,
+      "copyAndCloseVisible": true,
+      "searchEmptyResultEscape": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "overflow": false,
+      "allNodesPointerAndKeyboard": true,
+      "examplesToggle": true,
+      "copyRoundTrip": true,
+      "copyAndCloseVisible": true,
+      "searchEmptyResultEscape": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "overflow": false,
+      "allNodesPointerAndKeyboard": true,
+      "examplesToggle": true,
+      "copyRoundTrip": true,
+      "copyAndCloseVisible": true,
+      "searchEmptyResultEscape": true
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "overflow": false,
+      "allNodesPointerAndKeyboard": true,
+      "examplesToggle": true,
+      "copyRoundTrip": true,
+      "copyAndCloseVisible": true,
+      "searchEmptyResultEscape": true
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "overflow": false,
+      "allNodesPointerAndKeyboard": true,
+      "examplesToggle": true,
+      "copyRoundTrip": true,
+      "copyAndCloseVisible": true,
+      "searchEmptyResultEscape": true
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "overflow": false,
+      "allNodesPointerAndKeyboard": true,
+      "examplesToggle": true,
+      "copyRoundTrip": true,
+      "copyAndCloseVisible": true,
+      "searchEmptyResultEscape": true
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "overflow": false,
+      "allNodesPointerAndKeyboard": true,
+      "examplesToggle": true,
+      "copyRoundTrip": true,
+      "copyAndCloseVisible": true,
+      "searchEmptyResultEscape": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "overflow": false,
+      "allNodesPointerAndKeyboard": true,
+      "examplesToggle": true,
+      "copyRoundTrip": true,
+      "copyAndCloseVisible": true,
+      "searchEmptyResultEscape": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "overflow": false,
+      "allNodesPointerAndKeyboard": true,
+      "examplesToggle": true,
+      "copyRoundTrip": true,
+      "copyAndCloseVisible": true,
+      "searchEmptyResultEscape": true
+    }
+  ],
+  "checks": [
+    "same-node preserves edited text; different-node replacement announces context",
+    "clipboard absent: recovery / selection isolation passed",
+    "clipboard reject: recovery / selection isolation passed",
+    "clipboard deferred: recovery / selection isolation passed",
+    "real Chromium clipboard write/read success",
+    "keyboard Enter/Escape, selected focus outline, reduced motion; 200% desktop zoom-equivalent 720x500 CSS viewport (not native browser zoom)",
+    "script-free readable labels and canonical catalogue fallback",
+    "missing illustration retains selectable labels and contextual explanation"
+  ],
+  "consoleErrors": [],
+  "remoteRequests": [],
+  "limitations": [
+    "Safari native automation and real mobile hardware not exercised",
+    "Screen-reader spoken output and human comprehension require owner/reviewer participation; no pass claimed"
+  ],
+  "status": "passed"
+}

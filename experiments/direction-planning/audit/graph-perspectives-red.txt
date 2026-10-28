@@ -1,0 +1,21 @@
+✔ two interpretations define point, relationship and shared context without assigning skill levels (1.524333ms)
+✔ the same selected work exposes different help under each interpretation (0.41425ms)
+✔ all rendered contexts have concrete help in both interpretations; snapshots stay isolated (0.157958ms)
+✖ graph projections change concrete nodes, relation meanings and shared context without imposing a sequence (0.657417ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 105.48075
+
+✖ failing tests:
+
+test at experiments/direction-planning/help-lenses.test.mjs:27:1
+✖ graph projections change concrete nodes, relation meanings and shared context without imposing a sequence (0.657417ms)
+  TypeError: getMapProjection is not a function
+      at TestContext.<anonymous> (file:///Users/nesnilnehc/github.com/ai-cortex/experiments/direction-planning/help-lenses.test.mjs:29:13)
+      at async Test.run (node:internal/test_runner/test:1125:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:787:7)

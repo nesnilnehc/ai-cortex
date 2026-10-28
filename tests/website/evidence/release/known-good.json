@@ -1,0 +1,71 @@
+{
+  "version": {
+    "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_ad106f4e8194819194699ca35f33e608",
+    "version_number": 7,
+    "deployment_id": "appgdep_6adb08b1ad708191aede4645b3691583",
+    "source_commit": "f71e2cdc04a3f2dffce77cc20d53eb99c37c44f9",
+    "deployment_status": "succeeded",
+    "access_mode": "public",
+    "origin_url": "https://ai-cortex.mystic-loon-2462.chatgpt.site",
+    "custom_hostname": "ai-cortex.nesnilnehc.top",
+    "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
+    "domain_status": "active",
+    "updated_at": "2026-10-23T07:12:35.798057+00:00",
+    "published_files": [
+      "index.html",
+      "zh.html",
+      "styles.css",
+      "main.mjs",
+      "copy.mjs",
+      "language.mjs",
+      "theme.mjs",
+      "favicon.svg",
+      "robots.txt",
+      "sitemap.xml"
+    ],
+    "dns_records": [
+      {
+        "type": "CNAME",
+        "name": "ai-cortex",
+        "value": "custom-domains.chatgpt.site."
+      },
+      {
+        "type": "TXT",
+        "name": "_openai-site-verification.ai-cortex",
+        "value": "openai-site-verification=3GJDbMTElqPCHX_8KPtDgVDph2wYkOFbYfUp8YjQfWQ"
+      },
+      {
+        "type": "TXT",
+        "name": "_cf-custom-hostname.ai-cortex",
+        "value": "ea3e95ec-3348-420e-8a7a-99240aeb6c62"
+      }
+    ],
+    "dns_records_installed": true,
+    "dns_provider": "NameSilo",
+    "dns_ttl_seconds": 3600,
+    "ssl_status": "active",
+    "provider_status": "active",
+    "public_url": "https://ai-cortex.nesnilnehc.top/",
+    "public_verification_file": "public-verification.json",
+    "browser_checks": [
+      "native Chrome inspected the core mark at 16, 28, 48 and 64px against light and dark backgrounds"
+    ],
+    "public_verification": {
+      "http_status": 200,
+      "tls_verify_result": 0,
+      "static_assets_byte_identical": 8,
+      "html_editions_source_preserved": 2
+    },
+    "brand_asset": "favicon.svg",
+    "brand_consumers": [
+      "website header",
+      "website footer",
+      "browser icon",
+      "personal site project entry"
+    ]
+  },
+  "servingConfirmed": "Sites get_site and get_deployment_status agree that version 7 deployment succeeded and remains current, 2026-10-28.",
+  "recovery": "Redeploy this exact saved version with the existing Sites deploy_site_version if the attempted replacement switches and fails, after confirming current serving identity.",
+  "expectedCustomUrl": "https://ai-cortex.nesnilnehc.top/"
+}

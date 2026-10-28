@@ -1,0 +1,70 @@
+/* Two local representations, one shared explanation surface. */
+.capability-host{scroll-margin-top:20px}.capability-host .explain-heading{padding:0 0 18px}.capability-host #page-title{font-size:32px;letter-spacing:-.04em}
+.view-switch{display:flex;align-items:center;gap:6px;margin:12px 0}.view-switch button{font:inherit;font-size:14px;background:none;color:var(--muted);padding:9px 18px;border:1px solid var(--line);border-radius:var(--radius)}.view-switch button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}.view-switch button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}#view-notice{font-size:12px;color:var(--muted)}
+.capability-host .graph-toolbar{margin:0;height:auto;padding:0 0 12px;position:static;pointer-events:auto}.capability-host .map-region{min-width:0}
+#classification-view{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:start}
+#classification-view[hidden],#relations-view[hidden]{display:none!important}
+.classification-card{min-width:0;border:1px solid var(--line);border-radius:var(--radius);padding:18px;background:var(--surface)}.classification-card>summary{padding:0 26px 0 0;list-style:none;cursor:pointer;position:relative;min-height:90px}.classification-card>summary:after{content:'+';position:absolute;right:0;top:0;color:var(--accent)}.classification-card[open]>summary:after{content:'−'}.classification-card>summary strong{display:block;font-size:18px;line-height:1.5}.classification-card>summary small{display:block;margin-top:12px;font-size:13px;line-height:1.7;color:var(--muted)}.classification-card>summary>span{display:block;font:11px var(--mono);color:var(--accent);margin-top:10px}
+.classification-body{max-height:min(510px,60dvh);overflow:auto;padding:8px 4px 2px 0;scrollbar-width:thin}.classification-body ul{list-style:none;padding:0;margin:0}.classification-body li{min-width:0;margin:9px 0}.classification-body ul.call-children{padding-left:10px;border-left:1px solid var(--accent);margin-left:5px}
+.classification-skill{display:block;width:100%;font:inherit;text-align:left;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:3px;padding:8px;text-decoration:none;overflow-wrap:anywhere}.classification-skill span{font-size:14px;font-weight:650;display:block}.classification-skill code{display:block;font:11px var(--mono);margin-top:4px;overflow-wrap:anywhere}.classification-skill small{display:block;font-size:13px;line-height:1.7;margin-top:6px;color:var(--muted)}.classification-skill[aria-pressed=true]{border-color:var(--accent);background:var(--accent-tint)}.classification-skill:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.call-condition,.classification-reference{font:inherit;font-size:12px;text-align:left;line-height:1.6;color:var(--accent);border:0;background:none;display:block;padding:3px 0;overflow-wrap:anywhere}.browse-note,.classification-body details{font-size:12px;line-height:1.7;color:var(--muted)}.classification-body details>summary{padding:4px 0}
+.capability-host .map-workspace:has(.detail-panel[data-open=true]){grid-template-columns:minmax(0,1fr) 320px;gap:24px}.capability-host .map-workspace:has(.detail-panel[data-open=true]) #classification-view{grid-template-columns:repeat(2,minmax(0,1fr))}
+.compact-directory{border-top:1px solid var(--line)}.compact-directory>p{font-size:14px;color:var(--muted);margin:12px 0 20px}.directory-type{border-bottom:1px solid var(--line);padding:12px 0}.directory-type>summary{font-size:17px;cursor:pointer}.directory-type ul{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 18px;list-style:none;margin:18px 0}.directory-type li{display:flex;justify-content:space-between;gap:8px;min-width:0;padding:10px 0;border-top:1px solid var(--line)}.directory-type code{font:11px var(--mono);overflow-wrap:anywhere}.directory-type p{font-size:12px;line-height:1.7;color:var(--muted);margin-top:4px}.directory-type a{font-size:12px}.source-recovery{font-size:12px;padding-block:16px}
+#request-copy-feedback{font-size:11px;color:var(--muted);line-height:1.6;margin-top:6px}.capability-host .panel-heading h2{font-size:17px;overflow-wrap:anywhere}
+@media(max-width:1199px){.capability-host .map-workspace:has(.detail-panel[data-open=true]){display:block}.capability-host .map-workspace:has(.detail-panel[data-open=true]) #classification-view{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:767px){#classification-view,.capability-host .map-workspace:has(.detail-panel[data-open=true]) #classification-view{grid-template-columns:1fr}.classification-card>summary{min-height:0}.classification-card{padding:16px}.classification-body{max-height:45dvh}.capability-host:has(.detail-panel[data-open=true]) .classification-body{max-height:27dvh}.directory-type ul{grid-template-columns:1fr}.capability-host #page-title{font-size:27px}.view-switch{flex-wrap:wrap}}
+.capability-host .view-switch{position:sticky;top:0;z-index:15;background:var(--bg);padding-block:7px}
+.classification-support{grid-column:1/-1;display:flex;gap:12px;flex-wrap:wrap}.classification-support button{font:inherit;font-size:12px;line-height:1.7;border:0;border-left:2px dashed var(--support-color);background:var(--surface);color:var(--ink);padding:7px 10px;text-align:left}
+.capability-host .view-switch #find-tools{margin-left:auto;font-size:12px;border:1px solid var(--line);border-radius:var(--radius);padding:7px 10px;background:var(--bg);color:var(--ink);white-space:nowrap}
+.capability-host .graph-toolbar[hidden]{display:none}
+/* A single local column keeps call indentation readable and routes in the reserved gutter. */
+#relations-view .expanded-skill-branch .standalone-roots{display:flex;flex-direction:column;gap:10px}
+#relations-view .expanded-skill-branch .skill-node{display:block}
+#relations-view .expanded-skill-branch .skill-node small{max-width:none;display:block;margin-top:4px;font-size:10px;line-height:1.4}
+#relations-view .expanded-skill-branch .skill-node-list{padding-right:40px}
+@media(min-width:768px) and (max-width:1199px){body[data-panel-open=true] #relations-view .local-skill-scroll{max-height:220px}.capability-host .detail-panel[data-open=true]{max-height:50dvh}.capability-host #panel-content{height:calc(50dvh - 44px)}}
+@media(max-width:767px){body[data-panel-open=true] #relations-view .local-skill-scroll{max-height:200px}}
+.capability-host:not([data-ready=true]) .view-switch{display:none}
+
+#relations-view .expanded-skill-branch .skill-tree{display:block}
+#relations-view .expanded-skill-branch .skill-children{margin-top:8px;padding-left:0}
+#relations-view .expanded-skill-branch .skill-node small{font-size:10px;line-height:1.4}
+@media(max-width:767px){body[data-panel-open=true] #relations-view .local-skill-scroll{max-height:150px}}
+
+@media(max-width:767px){#relations-view .global-topic-board{min-width:560px}body[data-panel-open=true] #relations-view .local-skill-scroll{max-height:170px}}
+
+/* Preserve-mode type hierarchy; functional groups retain the approved six-card layout.
+   Radius scale: 4px controls/content, 8px mobile sheet, inherited native dialog.
+   Existing layers: sticky view toolbar 15, detail sheet 20, native dialog top layer. */
+.capability-host{--radius:4px}
+.classification-card>summary strong{font-weight:650;letter-spacing:-.015em}
+.classification-card[open]>.classification-body{border-top:1px solid var(--line);margin-top:14px;padding-top:12px}
+.classification-skill{border-radius:var(--radius);padding:10px;line-height:1.5}
+.classification-skill code{line-height:1.5;color:var(--muted)}
+.classification-skill small{margin-top:5px}
+.classification-skill:hover{border-color:var(--accent)}
+.call-condition{padding-block:5px;font-weight:550}
+.classification-reference{padding-block:5px}
+.call-condition:focus-visible,.classification-reference:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#relations-view .skill-group-heading{display:block;text-align:left}
+#relations-view .skill-group-heading strong{display:block;font-size:15px;line-height:1.45;overflow-wrap:normal;word-break:normal;hyphens:none}
+#relations-view .skill-group-heading span{display:block;max-width:none;white-space:normal;text-align:left;font-size:11px;line-height:1.5;margin-top:5px}
+#relations-view .expanded-skill-branch .skill-node .skill-display-name+code{font-size:11px;line-height:1.4}
+#relations-view .map-key{font-size:12px;line-height:1.6}
+#relations-view .map-view-note{font-size:13px}
+@media(max-width:767px){#relations-view .skill-group-heading strong{font-size:14px}#relations-view .skill-group-heading span{font-size:10px;margin-top:3px}}
+
+/* Keep every locally scrolled reference reachable above the tablet detail sheet. */
+@media(min-width:768px) and (max-width:1199px){.capability-host:has(.detail-panel[data-open=true]) .classification-body{max-height:max(100px,min(220px,calc(50dvh - 240px)))}}
+/* Native focus/scroll reveal reserves the sticky toolbar and responsive sheet. */
+@media(max-width:1199px){
+ html:has(.capability-host .detail-panel[data-open=true]){scroll-padding-top:72px;scroll-padding-bottom:52dvh}
+ .capability-host:has(.detail-panel[data-open=true]) .classification-skill,
+ .capability-host:has(.detail-panel[data-open=true]) .classification-reference,
+ .capability-host:has(.detail-panel[data-open=true]) .call-condition{scroll-margin-top:72px;scroll-margin-bottom:52dvh}
+}
+/* Opening the inspector must not squeeze whole topic words into narrow columns. */
+@media(min-width:1200px){
+ .capability-host:has(.detail-panel[data-open=true]) #relations-view .global-topic-board{min-width:1040px}
+ .capability-host #relations-view .relations-canvas{overflow-x:auto;overscroll-behavior-x:contain}
+}

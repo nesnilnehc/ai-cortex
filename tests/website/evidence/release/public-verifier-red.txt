@@ -1,0 +1,14 @@
+..F
+======================================================================
+FAIL: test_provider_marker_does_not_allow_other_inserted_html (__main__.ResourceChecks.test_provider_marker_does_not_allow_other_inserted_html)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/nesnilnehc/github.com/ai-cortex/tests/website/verify-public.py", line 45, in test_provider_marker_does_not_allow_other_inserted_html
+    self.assertFalse(preserved_html(source, source.replace(b'</body>', injected + b'</body>')))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+FAILED (failures=1)

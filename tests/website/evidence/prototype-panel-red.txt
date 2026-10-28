@@ -1,0 +1,2 @@
+{"case":"prototype-short-work-panel","height":4,"minimum":44}
+Work explanation must leave room for an operable control

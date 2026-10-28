@@ -1,27 +1,64 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_ad106f4e8194819194699ca35f33e608",
-  "version_number": 7,
-  "deployment_id": "appgdep_6adb08b1ad708191aede4645b3691583",
-  "source_commit": "f71e2cdc04a3f2dffce77cc20d53eb99c37c44f9",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_84cf5ae9f2f08191b807714f228882e4",
+  "version_number": 8,
+  "deployment_id": "appgdep_6ae181e21bbc81919009450c9496f0af",
+  "source_commit": "f9762c952eb9c3847524dbdd2d52376c4224a19d",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.mystic-loon-2462.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-10-23T07:12:35.798057+00:00",
+  "updated_at": "2026-10-28T05:02:42.309141+00:00",
   "published_files": [
-    "index.html",
-    "zh.html",
-    "styles.css",
-    "main.mjs",
     "copy.mjs",
-    "language.mjs",
-    "theme.mjs",
+    "explore/assets/work-stories.png",
+    "explore/classification-view.mjs",
+    "explore/classification.json",
+    "explore/dual.css",
+    "explore/explorer-host.mjs",
+    "explore/explorer-state.mjs",
+    "explore/global-topic-graph.mjs",
+    "explore/index.html",
+    "explore/legacy.mjs",
+    "explore/locale.mjs",
+    "explore/locales/en.json",
+    "explore/locales/zh.json",
+    "explore/panel-model.mjs",
+    "explore/relations.mjs",
+    "explore/relationship-model.mjs",
+    "explore/relationship-view.mjs",
+    "explore/request-state.mjs",
+    "explore/site-contract.mjs",
+    "explore/skill-edges.json",
+    "explore/skill-graph.mjs",
+    "explore/skill-guidance.mjs",
+    "explore/skill-metadata.json",
+    "explore/source-links.mjs",
+    "explore/source-manifest.json",
+    "explore/story-model.mjs",
+    "explore/story.css",
+    "explore/support-scopes.json",
+    "explore/support-scopes.mjs",
+    "explore/topic-edges.json",
+    "explore/topic-map.json",
+    "explore/topic-map.mjs",
+    "explore/work-map.mjs",
+    "explore/workflow.mjs",
+    "explore/workspace.css",
+    "explore/zh.html",
     "favicon.svg",
+    "index.html",
+    "language.mjs",
+    "main.mjs",
     "robots.txt",
-    "sitemap.xml"
+    "site-navigation.json",
+    "site-navigation.mjs",
+    "sitemap.xml",
+    "styles.css",
+    "theme.mjs",
+    "zh.html"
   ],
   "dns_records": [
     {
@@ -48,13 +85,16 @@
   "public_url": "https://ai-cortex.nesnilnehc.top/",
   "public_verification_file": "public-verification.json",
   "browser_checks": [
-    "native Chrome inspected the core mark at 16, 28, 48 and 64px against light and dark backgrounds"
+    "Actual public Chinese/English editions at 360px and 1280px in light/dark themes: both view entries, coordinator hierarchy and call condition, scenario order, selected guidance/request continuity, keyboard close/focus, support scope, complete directory/type/install/history navigation, language/theme and legacy routes.",
+    "Actual public no-JavaScript and blocked-entry fallback in both locales."
   ],
   "public_verification": {
-    "http_status": 200,
-    "tls_verify_result": 0,
-    "static_assets_byte_identical": 8,
-    "html_editions_source_preserved": 2
+    "status": "passed",
+    "https_mime_source_files": 47,
+    "static_assets_byte_identical": 43,
+    "html_editions_source_preserved": 4,
+    "public_browser_cases": 8,
+    "fallback_locales": 2
   },
   "brand_asset": "favicon.svg",
   "brand_consumers": [
@@ -62,5 +102,13 @@
     "website footer",
     "browser icon",
     "personal site project entry"
-  ]
+  ],
+  "runtime_revision": "sha256:1424a8bb40733a4a06ce41cbd4b63e9c411d4bb35ff941aad5b9eebb115d57ca",
+  "accepted_manifest": "runtime-manifest.json",
+  "provider_receipt": "../../tests/website/evidence/release/provider-receipt.json",
+  "known_good_version": {
+    "version_number": 7,
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_ad106f4e8194819194699ca35f33e608",
+    "source_commit": "f71e2cdc04a3f2dffce77cc20d53eb99c37c44f9"
+  }
 }

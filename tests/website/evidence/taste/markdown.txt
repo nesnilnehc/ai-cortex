@@ -1,0 +1,4 @@
+markdownlint-cli2 v0.17.2 (markdownlint v0.37.4)
+Finding: docs/designs/2026-10-27-help-discovery-functional-design.md docs/designs/help-discovery-tasks.md docs/calibration/audit-docs.md website/README.md tests/website/evidence/taste/README.md
+Linting: 5 file(s)
+Summary: 0 error(s)

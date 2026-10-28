@@ -1,0 +1,11 @@
+✔ view transitions preserve explicit target, detail mode and independent layout (40.118959ms)
+✔ both groupings cover skills once; only actual calls become parents and sequence is scenario scoped (3.765708ms)
+✔ relationship data rejects missing call mode, unknown endpoints and invalid sequence (0.892334ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 181.520625

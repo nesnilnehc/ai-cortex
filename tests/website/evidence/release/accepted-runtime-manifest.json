@@ -1,0 +1,431 @@
+{
+  "status": "accepted-awaiting-publication",
+  "localOnly": true,
+  "runtimeRevision": "sha256:dff7c2c888c7970d9cd5e7b9691843d522f2161aae41c9bb7b023921bd3886db",
+  "assetsRevision": "e5d862101d3110c5a3ee44c4e8cec042b058c061",
+  "files": [
+    {
+      "path": "copy.mjs",
+      "sha256": "98066e27493b23ca013c617303fb09cf44f6a1f6c056e5fa043cf6969ff54b4d"
+    },
+    {
+      "path": "explore/assets/work-stories.png",
+      "sha256": "1d155d745670022aee28542d2f638620a29a9b3c5398237f71f065848dc090f6"
+    },
+    {
+      "path": "explore/classification-view.mjs",
+      "sha256": "756b75055fc6f98c5487eddf97e9e324084bb994803b0d4f0248507f6e0a5a29"
+    },
+    {
+      "path": "explore/classification.json",
+      "sha256": "7e19b1305f07cee858a6bdbda9ecb69377334c59d84410d92b08ae00bba32151"
+    },
+    {
+      "path": "explore/dual.css",
+      "sha256": "393617dc2210cbe39aa8970af01bf58d189be5ce19828d3ca0e87a1eb3edb0cd"
+    },
+    {
+      "path": "explore/explorer-host.mjs",
+      "sha256": "a9ccbb47a532dcd1711c162aa01f9878415a3c482f3e3e7eeebb90bb943e6877"
+    },
+    {
+      "path": "explore/explorer-state.mjs",
+      "sha256": "f8b401c61286be3ebee5497b575fd59d26bdedac050823b92bd5679c968949b6"
+    },
+    {
+      "path": "explore/global-topic-graph.mjs",
+      "sha256": "b14ec1822901e2fc00d7c094442bff40610bdf4760786c20bccb312a4e07b481"
+    },
+    {
+      "path": "explore/index.html",
+      "sha256": "e68948c2c959dd7ae153b8dafd826877d3abf2f098bc9368aa622e7ce3c96e43"
+    },
+    {
+      "path": "explore/legacy.mjs",
+      "sha256": "75911c2f37e6eceaa41fc6f5252e6cdad51fd50def5ce7db4a5d228ddc9ab7c5"
+    },
+    {
+      "path": "explore/locale.mjs",
+      "sha256": "073f1e62e18bdb55a32c1015750f441dd1af7575b492a4a2b58416187b400a57"
+    },
+    {
+      "path": "explore/locales/en.json",
+      "sha256": "74be7436146c5d8ca4a0165b34523404c2c9708306b284589342a43869fdeeef"
+    },
+    {
+      "path": "explore/locales/zh.json",
+      "sha256": "05afd7450b711b1b7321557253e7ce194b1a27660ce7afef1b4a0b8292646fd7"
+    },
+    {
+      "path": "explore/panel-model.mjs",
+      "sha256": "ebe93293144716115b3110b5c476046fb7f6136f489e2dd2212b21c04b12d58e"
+    },
+    {
+      "path": "explore/relations.mjs",
+      "sha256": "e4b394989282012a636b6d5dcc05cf90b745c355054e42d82a7c1a544c2342c3"
+    },
+    {
+      "path": "explore/relationship-model.mjs",
+      "sha256": "29aac9d304b9b5179ae02cc6d65af68fef2010ce30f28724b63bbc0879340995"
+    },
+    {
+      "path": "explore/relationship-view.mjs",
+      "sha256": "6a2d9b110fb41fd461cd49af93493f12deedee38471b26e4db478d680cf381a7"
+    },
+    {
+      "path": "explore/request-state.mjs",
+      "sha256": "23f3c205ce4d62c482eb22a10780eae879ea50666f3d97aff2c4be7fe4f2e177"
+    },
+    {
+      "path": "explore/site-contract.mjs",
+      "sha256": "2ab316b7fe7cd031fa917d2ba8895b99efc2ca44f3d5ec03ecc2f733d87342a7"
+    },
+    {
+      "path": "explore/skill-edges.json",
+      "sha256": "d9aa92d0f0bc9048c6bd85db0b8066a7c6aeadcc61f27240479dac05b8e5c0fb"
+    },
+    {
+      "path": "explore/skill-graph.mjs",
+      "sha256": "0f59844b9cf76d88784f43f735dbc76a3d4826a4d6f10816fd195e5799602ce2"
+    },
+    {
+      "path": "explore/skill-guidance.mjs",
+      "sha256": "1007d701499d1325301089c9c8ad5a59442f17c4531364667ebab24d7ca0f05e"
+    },
+    {
+      "path": "explore/skill-metadata.json",
+      "sha256": "160083ccc612a877bae9bed0943dd239e210f49bd92ed5e3c9d4c8d36f3bca39"
+    },
+    {
+      "path": "explore/source-links.mjs",
+      "sha256": "438e498abe9188e3fd005c2be4d4a7a4313395439057e3f16ab28aaea02a11bd"
+    },
+    {
+      "path": "explore/source-manifest.json",
+      "sha256": "19398e529052c63848a38a1f38862dc32c47db810606ffa82ff80d05d1ca130b"
+    },
+    {
+      "path": "explore/story-model.mjs",
+      "sha256": "ab7d72849b5276571f2db1947ea03a1afb5cb01ebe1f9a6431319c3dd66ea8c3"
+    },
+    {
+      "path": "explore/story.css",
+      "sha256": "f4bae625ecf837686e51f4c1d138bc018ac117c94c2fd40ede385dbd127a68ab"
+    },
+    {
+      "path": "explore/support-scopes.json",
+      "sha256": "7ec7a3356522620fee58d1d992cef222ac4e373a99cb0fe59d6420d0be5685d7"
+    },
+    {
+      "path": "explore/support-scopes.mjs",
+      "sha256": "82cf264ca2189548e30e8ccad629701b5be31c709c889bdfb0d4bfb34b4445ac"
+    },
+    {
+      "path": "explore/topic-edges.json",
+      "sha256": "b74e07e0c080bd3f5a74f9272ad2e66ea5376bb845647bc6c4c7d37ea76c09b6"
+    },
+    {
+      "path": "explore/topic-map.json",
+      "sha256": "400113b9c4e81bdc26783421afb409da9529c357a9032f245fe4916cc5fd33bc"
+    },
+    {
+      "path": "explore/topic-map.mjs",
+      "sha256": "84200c7e3837412900ff1c12a74d7b0d63992b2597b9f47373c175cd3c747f22"
+    },
+    {
+      "path": "explore/work-map.mjs",
+      "sha256": "7e438d915ad3a3d785c1861e4adcfe38fc8994906f4b721142d24c42d794f66d"
+    },
+    {
+      "path": "explore/workflow.mjs",
+      "sha256": "dac3da220798eedab145c7deb0d4f3510290fe2f85d846a9bc8261beddac8bc3"
+    },
+    {
+      "path": "explore/workspace.css",
+      "sha256": "d4175e2a71c4707eb53ef7af08c9f86670020cc874ce4dab663556fec5ef8d2a"
+    },
+    {
+      "path": "explore/zh.html",
+      "sha256": "fde79710f8c92d1ad4d3b1bffd5e5712c0d917898b16872b71316c7aa4e4ea4a"
+    },
+    {
+      "path": "favicon.svg",
+      "sha256": "e3f057d1c807354a40e1c98fd390638666a8a244e4b8e81562e348efa147c02f"
+    },
+    {
+      "path": "index.html",
+      "sha256": "0bd0cddc6d050257faf02fa161672f1b575bd9bec9fc8ad40f1b561aee0a1c12"
+    },
+    {
+      "path": "language.mjs",
+      "sha256": "f7bb46226f1703e103d45cc90c5c5a8c7565a359a38c4563a6fb13d0907c5102"
+    },
+    {
+      "path": "main.mjs",
+      "sha256": "fa4c45d20f55da04b330cf17a60930d81a8c01dcedcf98dc3d0f127a3fc7bd2a"
+    },
+    {
+      "path": "robots.txt",
+      "sha256": "2c3f391f9674a75b97ddc2e2142e18fd9d17d2755c9dfa261884aea06b995cc9"
+    },
+    {
+      "path": "site-navigation.json",
+      "sha256": "684d0c2e2dc44e4c47d070e27d60eeba9916e731e7ad7b1a4c1c963279e842a6"
+    },
+    {
+      "path": "site-navigation.mjs",
+      "sha256": "d8419921c74b747d8d004ad51b92f24da20cc936080e48ef1a79ac51d68fcdbb"
+    },
+    {
+      "path": "sitemap.xml",
+      "sha256": "1f0245151e10eaca6d2e888a8fdc61a150b76346b8d958e74cf01a2ca8b93038"
+    },
+    {
+      "path": "styles.css",
+      "sha256": "78dc21fe4b5f649aacb99c812b3e2dee0a7617f9e11d8e8016d715dc447d90f3"
+    },
+    {
+      "path": "theme.mjs",
+      "sha256": "df9b28f7c343ff4ea9f7ec83446b62692e0bd6ba47157fa78af5a7ca478f653f"
+    },
+    {
+      "path": "zh.html",
+      "sha256": "390c0c9c6c3506a04b2101b9ef8acf8d02e20ab4587ff11f7cdb7963dccbffeb"
+    }
+  ],
+  "checks": {
+    "A1": {
+      "result": "pass",
+      "evidence": [
+        "tests/website/evidence/taste/node-tests.txt",
+        "tests/website/evidence/taste/python-tests.txt",
+        "tests/website/evidence/taste/dual-browser.json",
+        "tests/website/evidence/taste/zh/local-branch-browser.json",
+        "tests/website/evidence/taste/en/local-branch-browser.json",
+        "tests/website/evidence/taste/controls-browser.json",
+        "tests/website/evidence/taste/recovery-browser.json",
+        "tests/website/evidence/dual/relationship-audit.json",
+        "tests/website/evidence/taste/review.json"
+      ]
+    },
+    "A2": {
+      "result": "pass",
+      "evidence": [
+        "tests/website/evidence/taste/node-tests.txt",
+        "tests/website/evidence/taste/python-tests.txt",
+        "tests/website/evidence/taste/dual-browser.json",
+        "tests/website/evidence/taste/zh/local-branch-browser.json",
+        "tests/website/evidence/taste/en/local-branch-browser.json",
+        "tests/website/evidence/taste/controls-browser.json",
+        "tests/website/evidence/taste/recovery-browser.json",
+        "tests/website/evidence/dual/relationship-audit.json",
+        "tests/website/evidence/taste/review.json"
+      ]
+    },
+    "A3": {
+      "result": "pass",
+      "evidence": [
+        "tests/website/evidence/taste/node-tests.txt",
+        "tests/website/evidence/taste/python-tests.txt",
+        "tests/website/evidence/taste/dual-browser.json",
+        "tests/website/evidence/taste/zh/local-branch-browser.json",
+        "tests/website/evidence/taste/en/local-branch-browser.json",
+        "tests/website/evidence/taste/controls-browser.json",
+        "tests/website/evidence/taste/recovery-browser.json",
+        "tests/website/evidence/dual/relationship-audit.json",
+        "tests/website/evidence/taste/review.json"
+      ]
+    },
+    "A4": {
+      "result": "pass",
+      "evidence": [
+        "tests/website/evidence/taste/node-tests.txt",
+        "tests/website/evidence/taste/python-tests.txt",
+        "tests/website/evidence/taste/dual-browser.json",
+        "tests/website/evidence/taste/zh/local-branch-browser.json",
+        "tests/website/evidence/taste/en/local-branch-browser.json",
+        "tests/website/evidence/taste/controls-browser.json",
+        "tests/website/evidence/taste/recovery-browser.json",
+        "tests/website/evidence/dual/relationship-audit.json",
+        "tests/website/evidence/taste/review.json"
+      ]
+    },
+    "A5": {
+      "result": "pass",
+      "evidence": [
+        "tests/website/evidence/taste/node-tests.txt",
+        "tests/website/evidence/taste/python-tests.txt",
+        "tests/website/evidence/taste/dual-browser.json",
+        "tests/website/evidence/taste/zh/local-branch-browser.json",
+        "tests/website/evidence/taste/en/local-branch-browser.json",
+        "tests/website/evidence/taste/controls-browser.json",
+        "tests/website/evidence/taste/recovery-browser.json",
+        "tests/website/evidence/dual/relationship-audit.json",
+        "tests/website/evidence/taste/review.json"
+      ]
+    },
+    "A6": {
+      "result": "pass",
+      "evidence": [
+        "tests/website/evidence/taste/node-tests.txt",
+        "tests/website/evidence/taste/python-tests.txt",
+        "tests/website/evidence/taste/dual-browser.json",
+        "tests/website/evidence/taste/zh/local-branch-browser.json",
+        "tests/website/evidence/taste/en/local-branch-browser.json",
+        "tests/website/evidence/taste/controls-browser.json",
+        "tests/website/evidence/taste/recovery-browser.json",
+        "tests/website/evidence/dual/relationship-audit.json",
+        "tests/website/evidence/taste/review.json"
+      ]
+    },
+    "A7": {
+      "result": "pass",
+      "evidence": [
+        "tests/website/evidence/taste/node-tests.txt",
+        "tests/website/evidence/taste/python-tests.txt",
+        "tests/website/evidence/taste/dual-browser.json",
+        "tests/website/evidence/taste/zh/local-branch-browser.json",
+        "tests/website/evidence/taste/en/local-branch-browser.json",
+        "tests/website/evidence/taste/controls-browser.json",
+        "tests/website/evidence/taste/recovery-browser.json",
+        "tests/website/evidence/dual/relationship-audit.json",
+        "tests/website/evidence/taste/review.json"
+      ]
+    },
+    "A8": {
+      "result": "pass",
+      "evidence": [
+        "tests/website/evidence/taste/node-tests.txt",
+        "tests/website/evidence/taste/python-tests.txt",
+        "tests/website/evidence/taste/dual-browser.json",
+        "tests/website/evidence/taste/zh/local-branch-browser.json",
+        "tests/website/evidence/taste/en/local-branch-browser.json",
+        "tests/website/evidence/taste/controls-browser.json",
+        "tests/website/evidence/taste/recovery-browser.json",
+        "tests/website/evidence/dual/relationship-audit.json",
+        "tests/website/evidence/taste/review.json"
+      ]
+    },
+    "A10": {
+      "result": "pass",
+      "evidence": [
+        "tests/website/evidence/taste/node-tests.txt",
+        "tests/website/evidence/taste/python-tests.txt",
+        "tests/website/evidence/taste/dual-browser.json",
+        "tests/website/evidence/taste/zh/local-branch-browser.json",
+        "tests/website/evidence/taste/en/local-branch-browser.json",
+        "tests/website/evidence/taste/controls-browser.json",
+        "tests/website/evidence/taste/recovery-browser.json",
+        "tests/website/evidence/dual/relationship-audit.json",
+        "tests/website/evidence/taste/review.json"
+      ]
+    },
+    "A13": {
+      "result": "pass",
+      "evidence": [
+        "tests/website/evidence/taste/node-tests.txt",
+        "tests/website/evidence/taste/python-tests.txt",
+        "tests/website/evidence/taste/dual-browser.json",
+        "tests/website/evidence/taste/zh/local-branch-browser.json",
+        "tests/website/evidence/taste/en/local-branch-browser.json",
+        "tests/website/evidence/taste/controls-browser.json",
+        "tests/website/evidence/taste/recovery-browser.json",
+        "tests/website/evidence/dual/relationship-audit.json",
+        "tests/website/evidence/taste/review.json"
+      ]
+    },
+    "A14": {
+      "result": "pass",
+      "evidence": [
+        "tests/website/evidence/taste/node-tests.txt",
+        "tests/website/evidence/taste/python-tests.txt",
+        "tests/website/evidence/taste/dual-browser.json",
+        "tests/website/evidence/taste/zh/local-branch-browser.json",
+        "tests/website/evidence/taste/en/local-branch-browser.json",
+        "tests/website/evidence/taste/controls-browser.json",
+        "tests/website/evidence/taste/recovery-browser.json",
+        "tests/website/evidence/dual/relationship-audit.json",
+        "tests/website/evidence/taste/review.json"
+      ]
+    },
+    "A15": {
+      "result": "pass",
+      "evidence": [
+        "tests/website/evidence/taste/node-tests.txt",
+        "tests/website/evidence/taste/python-tests.txt",
+        "tests/website/evidence/taste/dual-browser.json",
+        "tests/website/evidence/taste/zh/local-branch-browser.json",
+        "tests/website/evidence/taste/en/local-branch-browser.json",
+        "tests/website/evidence/taste/controls-browser.json",
+        "tests/website/evidence/taste/recovery-browser.json",
+        "tests/website/evidence/dual/relationship-audit.json",
+        "tests/website/evidence/taste/review.json"
+      ]
+    },
+    "A9": {
+      "result": "pass",
+      "evidence": [
+        "Explicit owner T12 acceptance covers the integrated walkthrough, 2026-10-28."
+      ]
+    },
+    "A11": {
+      "result": "pass",
+      "evidence": [
+        "Actual owner conclusion pending.",
+        "Explicit owner T12 acceptance, 2026-10-28."
+      ],
+      "machineResult": "pass"
+    },
+    "A12": {
+      "result": "unverified",
+      "evidence": [
+        "Publication unauthorized; T13 not executed."
+      ]
+    },
+    "A16": {
+      "result": "pass",
+      "evidence": [
+        "tests/website/evidence/taste/node-tests.txt",
+        "tests/website/evidence/taste/python-tests.txt",
+        "tests/website/evidence/taste/dual-browser.json",
+        "tests/website/evidence/taste/zh/local-branch-browser.json",
+        "tests/website/evidence/taste/en/local-branch-browser.json",
+        "tests/website/evidence/taste/controls-browser.json",
+        "tests/website/evidence/taste/recovery-browser.json",
+        "tests/website/evidence/dual/relationship-audit.json",
+        "tests/website/evidence/taste/review.json"
+      ]
+    },
+    "A17": {
+      "result": "pass",
+      "evidence": [
+        "tests/website/evidence/taste/node-tests.txt",
+        "tests/website/evidence/taste/python-tests.txt",
+        "tests/website/evidence/taste/dual-browser.json",
+        "tests/website/evidence/taste/zh/local-branch-browser.json",
+        "tests/website/evidence/taste/en/local-branch-browser.json",
+        "tests/website/evidence/taste/controls-browser.json",
+        "tests/website/evidence/taste/recovery-browser.json",
+        "tests/website/evidence/dual/relationship-audit.json",
+        "tests/website/evidence/taste/review.json"
+      ]
+    }
+  },
+  "ownerConclusion": {
+    "date": "2026-10-28",
+    "source": "Explicit owner instruction in the current chat: T12 accepted; publish the current version under T13 and synchronize records.",
+    "result": "accepted",
+    "criteria": {
+      "coverage": "accepted",
+      "relationships": "accepted",
+      "purposeAndUse": "accepted",
+      "siteStructure": "accepted",
+      "supportScope": "accepted",
+      "localizedNames": "accepted",
+      "switchContinuity": "accepted"
+    },
+    "runtimeRevision": "sha256:dff7c2c888c7970d9cd5e7b9691843d522f2161aae41c9bb7b023921bd3886db"
+  },
+  "publicationAuthorized": true,
+  "note": "Owner accepted the exact current runtime and separately authorized T13 publication on 2026-10-28. Publication completion still requires provider receipt and public verification."
+}

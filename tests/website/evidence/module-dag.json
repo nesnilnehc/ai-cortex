@@ -1,0 +1,76 @@
+{
+  "acyclic": true,
+  "modules": {
+    "explore/skill-guidance.mjs": [
+      "explore/locale.mjs"
+    ],
+    "explore/topic-map.mjs": [
+      "explore/locale.mjs"
+    ],
+    "explore/work-map.mjs": [
+      "explore/locale.mjs"
+    ],
+    "explore/request-state.mjs": [],
+    "explore/locale.mjs": [],
+    "explore/story.mjs": [
+      "explore/locale.mjs",
+      "explore/source-links.mjs",
+      "language.mjs",
+      "explore/site-contract.mjs",
+      "explore/global-topic-graph.mjs",
+      "explore/topic-map.mjs",
+      "explore/skill-graph.mjs",
+      "explore/work-map.mjs",
+      "explore/request-state.mjs",
+      "theme.mjs",
+      "explore/workflow.mjs",
+      "explore/skill-guidance.mjs",
+      "explore/story-model.mjs",
+      "explore/relations.mjs",
+      "explore/panel-model.mjs"
+    ],
+    "explore/skill-graph.mjs": [
+      "explore/workflow.mjs",
+      "explore/panel-model.mjs",
+      "explore/locale.mjs"
+    ],
+    "explore/workflow.mjs": [
+      "explore/locale.mjs"
+    ],
+    "explore/relations.mjs": [
+      "explore/locale.mjs"
+    ],
+    "explore/source-links.mjs": [],
+    "explore/panel-model.mjs": [
+      "explore/locale.mjs",
+      "explore/workflow.mjs"
+    ],
+    "explore/global-topic-graph.mjs": [
+      "explore/locale.mjs",
+      "explore/topic-map.mjs"
+    ],
+    "explore/story-model.mjs": [
+      "explore/locale.mjs",
+      "explore/workflow.mjs"
+    ],
+    "explore/site-contract.mjs": []
+  },
+  "order": [
+    "explore/locale.mjs",
+    "explore/request-state.mjs",
+    "explore/source-links.mjs",
+    "language.mjs",
+    "explore/site-contract.mjs",
+    "theme.mjs",
+    "explore/skill-guidance.mjs",
+    "explore/topic-map.mjs",
+    "explore/work-map.mjs",
+    "explore/workflow.mjs",
+    "explore/relations.mjs",
+    "explore/global-topic-graph.mjs",
+    "explore/panel-model.mjs",
+    "explore/story-model.mjs",
+    "explore/skill-graph.mjs",
+    "explore/story.mjs"
+  ]
+}

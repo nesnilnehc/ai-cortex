@@ -1,6 +1,7 @@
 """Contracts for the published language editions."""
 from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import urlsplit, parse_qs
 import unittest
 import xml.etree.ElementTree as ET
 
@@ -25,7 +26,17 @@ class Localization(unittest.TestCase):
         chinese = Page(source)
         for key in ('id', 'href', 'src'):
             def values(page):
-                return [a[key] for t, a in page.tags if key in a and not (t == 'link' and a.get('rel') == 'canonical')]
+                result=[]
+                for t,a in page.tags:
+                    if key not in a or (t=='link' and a.get('rel')=='canonical'): continue
+                    value=a[key]
+                    if key=='href' and not urlsplit(value).netloc and parse_qs(urlsplit(value).query).get('lang'):
+                        parts=urlsplit(value); path=parts.path
+                        if path in ('/','/zh.html','./','./zh.html'): path='home-family'
+                        if path in ('/explore/','/explore/zh.html','./explore/','./explore/zh.html'): path='overview-family'
+                        value=path+'#'+parts.fragment
+                    result.append(value)
+                return result
             self.assertEqual(values(english), values(chinese))
 
     def test_language_links_and_metadata(self):
@@ -33,8 +44,10 @@ class Localization(unittest.TestCase):
             with self.subTest(name=name):
                 page = Page((SITE / name).read_text())
                 links = [a for t, a in page.tags if t == 'a']
-                self.assertTrue(any(a.get('href') == './zh.html?lang=zh' and a.get('hreflang') == 'zh-CN' for a in links))
-                self.assertTrue(any(a.get('href') == './?lang=en' and a.get('hreflang') == 'en' for a in links))
+                alternates = [a for a in links if 'data-alternate-language' in a]
+                self.assertEqual(len(alternates),1)
+                self.assertEqual(alternates[0]['data-alternate-language'], 'zh' if locale=='en' else 'en')
+                self.assertEqual(alternates[0]['href'], '/zh.html?lang=zh' if locale=='en' else '/?lang=en')
                 self.assertTrue(any(t == 'link' and a.get('rel') == 'canonical' and a.get('href') == 'https://ai-cortex.nesnilnehc.top' + canonical for t, a in page.tags))
                 alternates = {a.get('hreflang') for t, a in page.tags if t == 'link' and a.get('rel') == 'alternate'}
                 self.assertEqual(alternates, {'en', 'zh-CN', 'x-default'})
@@ -52,8 +65,7 @@ class Localization(unittest.TestCase):
                 if name == 'zh.html':
                     self.assertTrue(any('\u4e00' <= c <= '\u9fff' for c in feedback['data-' + key]))
             active = [a for _, a in page.tags if a.get('aria-current') == 'page']
-            self.assertEqual(len(active), 1)
-            self.assertEqual(active[0]['hreflang'], 'en' if name == 'index.html' else 'zh-CN')
+            self.assertEqual(active, [])  # Native homepage has no misleading current-section marker.
 
     def test_localized_pages_request_current_resource_versions(self):
         for name in ('index.html', 'zh.html'):
