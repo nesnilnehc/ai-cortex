@@ -1,0 +1,41 @@
+{
+  "skill": "commit-work",
+  "version": "2.1.0",
+  "investigated_on": "2026-10-28",
+  "status": "investigation only; no maintainer decision",
+  "creation_commit": "e153b1952aaff727750af09da2feac8822cb5b67",
+  "detected_external_urls": [],
+  "recorded_upstream": {
+    "local_path": "skills/commit-work",
+    "local_version": "2.1.0",
+    "origin": "vendored-derived",
+    "upstream": {
+      "repository": "https://github.com/softaworks/agent-toolkit.git",
+      "path": "skills/commit-work",
+      "ref": "06825f04669d4364a16abc267650c86cf153d349",
+      "tree": "sha1:ac7c2ea0f24eb668f5b80e4f237efa4a90f12312",
+      "skill_digest": "sha256:888588ea81b0b2c672e625ad9c49f6f3c69b4c2081962a9d7640a1ef24e105d8"
+    },
+    "license": "MIT",
+    "notice": "docs/references/THIRD_PARTY_NOTICES.md",
+    "update_policy": "reviewed-merge",
+    "modifications": [
+      "AI Cortex registry synchronization",
+      "review workflow integration",
+      "expanded validation and output contract"
+    ]
+  },
+  "upstream_comparison": {
+    "skill": "commit-work",
+    "upstream_revision": "06825f04669d4364a16abc267650c86cf153d349",
+    "upstream_sha256": "888588ea81b0b2c672e625ad9c49f6f3c69b4c2081962a9d7640a1ef24e105d8",
+    "local_sha256": "6540b95591014573caac1a5b7c302f4f0ad5637fef7f7324aa201aa744cfa8ce",
+    "skill_file_identical": false,
+    "differences": "Added catalogue synchronization, pre-commit review guidance and expanded workflow.",
+    "recommended_classification": "third_party_adapted",
+    "maintainer_confirmation": null
+  },
+  "recommendation": "third_party_adapted",
+  "rationale": "Pinned external copy with documented local modifications.",
+  "confirmation_needed": "Confirm or correct the category and identify external creative influences. Tool/API/command-use lookup alone does not disqualify originality."
+}

@@ -1,24 +1,28 @@
-import {createExplorerState} from './explorer-state.mjs?v=aic04-host-1';
-import {mountClassification} from './classification-view.mjs?v=aic04-host-1';
-import {mountRelationships,createRelationshipRenderer} from './relationship-view.mjs?v=aic04-host-1';
-import {dictionary} from './locale.mjs?v=aic04-host-1';
-import {relationships,classification} from './relationship-model.mjs?v=aic04-host-1';
-import {getSupportScopes} from './support-scopes.mjs?v=aic04-host-1';
-import {locale,t} from './locale.mjs?v=aic04-host-1';
-import {sourceUrl} from './source-links.mjs?v=aic04-host-1';
-import {getExplorerRoutes,explorerLanguageRoutes} from './site-contract.mjs?v=aic04-host-1';
-import {getGlobalTopicGraph,routeTopicRelationship} from './global-topic-graph.mjs?v=aic04-host-1';
-import {getTopicMap,createTopicState} from './topic-map.mjs?v=aic04-host-1';
-import {getSkillGraph,getSkillNeighborhood,getSkillForest,routeSkillConnection} from './skill-graph.mjs?v=aic04-host-1';
-import {getHelpLabels,getMapProjection} from './work-map.mjs?v=aic04-host-1';
-import {createRequestState} from './request-state.mjs?v=aic04-host-1';
-import {catalog} from './workflow.mjs?v=aic04-host-1';
-import {getSkillGuidance} from './skill-guidance.mjs?v=aic04-host-1';
-import {getSimpleGate,getToolGroups} from './story-model.mjs?v=aic04-host-1';
-import {getExample} from './relations.mjs?v=aic04-host-1';
-import {getNodeDetails,getNodeForSkill,getNodeSkillSelection} from './panel-model.mjs?v=aic04-host-1';
+import {createExplorerState} from './explorer-state.mjs?v=aic08-provenance-1';
+import {mountClassification} from './classification-view.mjs?v=aic08-provenance-1';
+import {mountRelationships,createRelationshipRenderer} from './relationship-view.mjs?v=aic08-provenance-1';
+import {dictionary} from './locale.mjs?v=aic08-provenance-1';
+import {relationships,classification} from './relationship-model.mjs?v=aic08-provenance-1';
+import {getSupportScopes} from './support-scopes.mjs?v=aic08-provenance-1';
+import {locale,t} from './locale.mjs?v=aic08-provenance-1';
+import {sourceUrl} from './source-links.mjs?v=aic08-provenance-1';
+import {getExplorerRoutes,explorerLanguageRoutes} from './site-contract.mjs?v=aic08-provenance-1';
+import {getGlobalTopicGraph,routeTopicRelationship} from './global-topic-graph.mjs?v=aic08-provenance-1';
+import {getTopicMap,createTopicState} from './topic-map.mjs?v=aic08-provenance-1';
+import {getSkillGraph,getSkillNeighborhood,getSkillForest,routeSkillConnection} from './skill-graph.mjs?v=aic08-provenance-1';
+import {getHelpLabels,getMapProjection} from './work-map.mjs?v=aic08-provenance-1';
+import {createRequestState} from './request-state.mjs?v=aic08-provenance-1';
+import {catalog} from './workflow.mjs?v=aic08-provenance-1';
+import {getSkillGuidance} from './skill-guidance.mjs?v=aic08-provenance-1';
+import {getSimpleGate,getToolGroups} from './story-model.mjs?v=aic08-provenance-1';
+import {getExample} from './relations.mjs?v=aic08-provenance-1';
+import {getNodeDetails,getNodeForSkill,getNodeSkillSelection} from './panel-model.mjs?v=aic08-provenance-1';
+import sourceManifest from './source-manifest.json?v=aic08-provenance-1' with {type:'json'};
+import {initializeProvenance,decorateSkill} from './provenance.mjs?v=aic08-provenance-1';
+if(await initializeProvenance({manifest:sourceManifest,ids:catalog.map(s=>s.id),copy:dictionary.provenance,previewHost:['localhost','127.0.0.1','[::1]'].includes(globalThis.location?.hostname),reportError:(message,diagnostic)=>{console.error(diagnostic);const note=document.createElement('p');note.className='provenance-load-error';note.textContent=message;note.setAttribute('role','alert');const retry=document.createElement('button');retry.type='button';retry.className='secondary';retry.textContent=dictionary.provenance.retry;retry.addEventListener('click',()=>location.reload());note.append(' ',retry);document.querySelector('.explain-heading').append(note);document.querySelector('.view-switch').hidden=true;document.querySelector('#find-tools').hidden=true;}})){
 const $=selector=>document.querySelector(selector);
 $('.view-switch').append($('#find-tools'));$('.graph-toolbar').hidden=true;
+$('#catalogue-summary').textContent=t('ca39d237326',[catalog.length]);
 const library=$('#tools');
 const explorerState=createExplorerState();let activeView='classification',classificationAdapter,relationshipAdapter,generation=0;
 const viewPorts={classification:$('#classification-view'),relations:$('#relations-view')};
@@ -56,9 +60,11 @@ function setPanelMode(mode,reveal=false){
  const selectedButton=selectedSkill&&document.querySelector(`.skill-node[data-skill="${selectedSkill}"]`);
  if(selectedButton?.checkVisibility()){alignLocalSkill(selectedSkill);ensureTopicVisible(getNodeForSkill(selectedSkill));drawSkillEdges();}
 }
+function clearDetailProvenance(){const title=$('#detail-title');if(title.parentElement.classList.contains('provenance-entry'))title.parentElement.replaceWith(title);}
 function renderSelectedSkill(skill){
  selectedSkill=skill.id;highlightSkill(skill.id);renderSkillRelations(skill.id);
  $('#detail-title').textContent=skill.name===skill.id?skill.id:`${skill.name} · ${skill.id}`;$('#selected-tool-purpose').textContent=skill.purpose;$('#selected-tool-guide').replaceChildren(usageFields(skill.id),usageAccess(skill.id));
+ clearDetailProvenance();const title=$('#detail-title'),host=title.parentElement,next=title.nextSibling;const frame=decorateSkill(title,skill.id,dictionary.provenance);if(frame!==title)host.insertBefore(frame,next);
  $('#selected-tool-link').textContent=t('cdaa1554f98',[skill.id]);$('#selected-tool-link').href=sourceUrl(`skills/${skill.id}/SKILL.md`);
 }
 $('#panel-assets-button').addEventListener('click',()=>setPanelMode('assets',true));
@@ -100,7 +106,7 @@ function renderSkillRelations(id){
   const peer=edge.from===id?to:from,button=document.createElement('button');button.type='button';button.className='relation-peer';button.dataset.peer=peer.id;button.textContent=t('cb5d22c41ac',[peer.purpose]);
   button.addEventListener('click',()=>openGraphSkill(peer.id));
   const source=document.createElement('a');source.href=sourceUrl(edge.source);source.target='_blank';source.rel='noopener';source.textContent=t('ca31cbf421c');
-  section.append(label,p,note,button,source);return section;
+  section.append(label,p,note,decorateSkill(button,peer.id,dictionary.provenance),source);return section;
  });
  if(!edges.length){const p=document.createElement('p');p.textContent=t('c11fbdf42ea');entries.push(p);}
  $('#skill-relations').replaceChildren(heading,...entries);
@@ -125,6 +131,7 @@ function showTopicRelation(edge){
 }
 function sourceLink(path){const a=document.createElement('a');a.href=sourceUrl(path);a.target='_blank';a.rel='noopener';a.textContent=path;return a;}
 function openExplanation(title){
+ clearDetailProvenance();
  $('.panel-navigation').hidden=true;$('#panel-placeholder').hidden=true;$('#panel-content').hidden=false;$('#detail-panel').dataset.open='true';document.body.dataset.panelOpen='true';$('#detail-panel').setAttribute('aria-labelledby','detail-title');$('#detail-title').textContent=title;$('#selected-tool').hidden=true;$('#work-explanation').hidden=true;$('.panel-copy-action').hidden=true;$('#skill-relations').hidden=false;$('#skill-relations').setAttribute('aria-label',title);$('#detail-panel').focus({preventScroll:true});
 }
 function showSupport(id,opener){
@@ -134,6 +141,7 @@ function showSupport(id,opener){
 }
 
 function openNode(id,opener,skillId=null){
+ clearDetailProvenance();
  $('.panel-navigation').hidden=false;
  if(skillId&&activeView==='relations')revealTopic(id);
  if(skillId)explorerState.selectSkill(skillId);else explorerState.selectWork(id);
@@ -162,6 +170,7 @@ function openNode(id,opener,skillId=null){
  if(skillId){alignLocalSkill(skillId);ensureTopicVisible(id);drawSkillEdges();}
 }
 function closePanel(){
+ clearDetailProvenance();
  const previous=explorerState.snapshot(),opener=activeOpener(previous);
  explorerState.clearSelection();classificationAdapter?.highlight(null);
  document.querySelectorAll('.skill-group').forEach(group=>group.dataset.topicRelated='false');
@@ -183,7 +192,7 @@ function renderDirectory(){
   list.append(...group.skills.map(skill=>{
    const button=document.createElement('button');button.type='button';button.className='tool-entry';button.dataset.tool=skill.id;
    const purpose=document.createElement('strong'),code=document.createElement('code');purpose.textContent=skill.purpose;code.textContent=skill.id;const name=document.createElement('span');name.className='skill-display-name';name.textContent=skill.name;if(skill.name!==skill.id)button.append(name);button.append(purpose,code);
-   button.addEventListener('click',()=>{library.close();openGraphSkill(skill.id);});return button;
+   button.addEventListener('click',()=>{library.close();openGraphSkill(skill.id);});return decorateSkill(button,skill.id,dictionary.provenance);
   }));details.append(summary,list);return details;
  }));
 }
@@ -237,7 +246,7 @@ function renderSupportScopes(id){
 function showSkillRelation(id,opener){
  const edge=relationships.find(e=>e.id===id);if(!edge)throw Error('Unknown relationship');
  explorerState.selectRelation(id);panelOpener=opener;openExplanation(edge.label);$('.panel-navigation').hidden=true;$('#panel-placeholder').hidden=true;$('#panel-content').hidden=false;$('#detail-panel').dataset.open='true';document.body.dataset.panelOpen='true';$('#detail-title').textContent=edge.label;$('#selected-tool').hidden=true;$('#work-explanation').hidden=true;$('.panel-copy-action').hidden=true;$('#skill-relations').hidden=false;
- const title=document.createElement('h3'),condition=document.createElement('p'),source=document.createElement('a'),peer=document.createElement('button');title.textContent=`${dictionary.skills[edge.from].name} → ${dictionary.skills[edge.to].name}`;condition.textContent=edge.condition;source.href=sourceUrl(edge.source);source.textContent=edge.source;source.target='_blank';source.rel='noopener';peer.type='button';peer.dataset.peer=edge.to;peer.textContent=dictionary.skills[edge.to].name;peer.addEventListener('click',()=>openGraphSkill(edge.to));$('#skill-relations').replaceChildren(title,condition,source,peer);$('#detail-panel').focus({preventScroll:true});
+ const title=document.createElement('h3'),condition=document.createElement('p'),source=document.createElement('a'),peer=document.createElement('button');title.textContent=`${dictionary.skills[edge.from].name} → ${dictionary.skills[edge.to].name}`;condition.textContent=edge.condition;source.href=sourceUrl(edge.source);source.textContent=edge.source;source.target='_blank';source.rel='noopener';peer.type='button';peer.dataset.peer=edge.to;peer.textContent=dictionary.skills[edge.to].name;peer.addEventListener('click',()=>openGraphSkill(edge.to));$('#skill-relations').replaceChildren(title,condition,source,decorateSkill(peer,edge.to,dictionary.provenance));$('#detail-panel').focus({preventScroll:true});
 }
 classificationAdapter=mountClassification(viewPorts.classification,{onSelectSkill:(id,opener)=>openNode(getNodeForSkill(id),opener,id),onSelectRelation:showSkillRelation,onSelectSupport:showSupport,onCollapse:(ids,opener)=>{if(activeView==='classification'&&ids.includes(selectedSkill)){closePanel();opener.focus();}},onViewStateChange:state=>explorerState.updateViewState('classification',state)});
 relationshipAdapter=mountRelationships(viewPorts.relations,{getExpanded:()=>topicState.expanded()[0]??null,revealSkill:id=>{revealTopic(getNodeForSkill(id));alignLocalSkill(id);ensureTopicVisible(getNodeForSkill(id));return document.querySelector(`.skill-node[data-skill="${id}"]`);},revealWork:id=>{ensureTopicVisible(id);return document.querySelector(`[data-node="${id}"]`);},onRestore:saved=>{topicState.collapseAll();if(saved.expandedTopicId)topicState.reveal(saved.expandedTopicId);syncTopics();}});
@@ -270,3 +279,5 @@ function activeOpener(state){
 }
 
 $("#capabilities").dataset.ready="true";
+
+}

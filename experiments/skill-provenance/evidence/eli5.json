@@ -1,0 +1,40 @@
+{
+  "skill": "eli5",
+  "version": "1.0.0",
+  "investigated_on": "2026-10-28",
+  "status": "investigation only; no maintainer decision",
+  "creation_commit": null,
+  "detected_external_urls": [],
+  "recorded_upstream": {
+    "local_path": "skills/eli5",
+    "local_version": "1.0.0",
+    "origin": "vendored-derived",
+    "upstream": {
+      "repository": "https://github.com/anthropics/claude-plugins-community.git",
+      "path": "eli5/skills/eli5",
+      "ref": "06ec7b6a0a82bdc4bec44bd82d4368c42f20d7c1",
+      "tree": "sha1:d16165120b7658216c79601b0ee568f42e540961",
+      "skill_digest": "sha256:3bb95cd13852051c5a1862e8b94da1de7cfba7415d418ab0ca4d762527d1b9a5"
+    },
+    "license": "Apache-2.0",
+    "notice": "skills/eli5/LICENSE.upstream",
+    "update_policy": "reviewed-port",
+    "modifications": [
+      "Added local version metadata and retained upstream license locally",
+      "Replaced host-specific argument substitution with conversation-based topic selection"
+    ]
+  },
+  "upstream_comparison": {
+    "skill": "eli5",
+    "upstream_revision": "06ec7b6a0a82bdc4bec44bd82d4368c42f20d7c1",
+    "upstream_sha256": "3bb95cd13852051c5a1862e8b94da1de7cfba7415d418ab0ca4d762527d1b9a5",
+    "local_sha256": "6c8bf68dfaf76fa1dce70ef694288b8964189462712967db3dfffd3e3e466921",
+    "skill_file_identical": false,
+    "differences": "Added version/license and replaced $ARGUMENTS with invocation/conversation topic handling.",
+    "recommended_classification": "third_party_adapted",
+    "maintainer_confirmation": null
+  },
+  "recommendation": "third_party_adapted",
+  "rationale": "Pinned external copy with documented local modifications.",
+  "confirmation_needed": "Confirm or correct the category and identify external creative influences. Tool/API/command-use lookup alone does not disqualify originality."
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render skills/INDEX.md from the SKILL.md frontmatter of every skill.
+"""Render the skill index from frontmatter and recorded provenance.
 
 AGENTS.md §4 discovers skills through their descriptions. The registry is
 derived here so its entries agree with the skills they register.
@@ -8,6 +8,8 @@ derived here so its entries agree with the skills they register.
 from __future__ import annotations
 
 import pathlib
+import json
+import importlib.util
 import re
 import sys
 
@@ -18,13 +20,14 @@ INDEX = SKILLS_DIR / "INDEX.md"
 
 USAGE = """usage:
   scripts/sync-skills-index.py            rewrite the registry
-  scripts/sync-skills-index.py --check    fail when it is out of date"""
+  scripts/sync-skills-index.py --check    fail when it is out of date
+  scripts/sync-skills-index.py --preview-dir PATH  isolated schema-2 preview"""
 
 HEADER = """# Skills
 
-Generated from each skill's own `SKILL.md` frontmatter by
-`scripts/sync-skills-index.py`. Edit the skill, then regenerate — an edit made
-here alone is overwritten and does not reach the skill.
+Generated from Skill `SKILL.md` frontmatter and `skills/PROVENANCE.json` by
+`scripts/sync-skills-index.py`. Edit the sources, then regenerate — an edit
+made here alone is overwritten and does not reach the sources.
 """
 
 REGISTRY_FIELDS = ("name", "description")
@@ -52,6 +55,10 @@ def read_frontmatter(skill_md: pathlib.Path) -> dict[str, object]:
     fields: dict[str, object] = {
         key: value.strip("\"'") for key, value in SCALAR.findall(block)
     }
+    # The catalogue is a single paragraph even when frontmatter uses a block scalar.
+    description = re.search(r"^description: [>|][+-]? *\n((?:[ \t]+[^\n]*(?:\n|$))*)", block, re.M)
+    if description:
+        fields['description'] = ' '.join(description.group(1).split())
     for key in REGISTRY_FIELDS:
         if not fields.get(key):
             raise SkillError(f"{relative(skill_md)}: frontmatter is missing `{key}`")
@@ -90,11 +97,28 @@ def collect(skills_dir: pathlib.Path) -> list[tuple[str, dict[str, object]]]:
     return skills
 
 
-def render(skills: list[tuple[str, dict[str, object]]]) -> str:
+def render(skills: list[tuple[str, dict[str, object]]], origins: dict | None = None) -> str:
     """Return the full INDEX.md text for the given skills."""
     lines = [HEADER]
+    if origins is not None:
+        lines.append('Provenance markers come from [PROVENANCE.json](./PROVENANCE.json); confirmed AI Cortex originals omit the badge. An absent badge alone does not establish originality.\n')
     for name, fields in skills:
         lines.append(f"- [{name}](./{name}/SKILL.md) — {fields['description']}")
+        if origins is not None and origins[name]['classification'] != 'unverified':
+            record = origins[name]
+            labels = json.loads((ROOT / 'website/explore/locales/en.json').read_text(encoding='utf-8'))['provenance']['labels']
+            marker = '  - provenance:' if record['classification'] == 'native' else f"  - provenance: **{labels[record['classification']]}**"
+            references = record.get('evidence', [])
+            if isinstance(references, str):
+                path, sep, anchor = references.partition('#')
+                references = [{'path': path, **({'anchor': anchor} if sep else {})}]
+            for reference in references:
+                path = reference['path']
+                target = ('./'+path[len('skills/'):]) if path.startswith('skills/') else ('../'+path)
+                if reference.get('anchor'):
+                    target += '#' + reference['anchor']
+                marker += f" · [evidence]({target})"
+            lines.append(marker)
         if "ai_cortex_type" in fields:
             lines.append(
                 f"  - type: `{fields['ai_cortex_type']}`"
@@ -111,15 +135,28 @@ def relative(path: pathlib.Path) -> str:
         return str(path)
 
 
+def generate_reviewed(skills, *, check=False, preview_dir=None):
+    from skill_provenance_output import generate
+    generate(ROOT, skills, render, check=check, preview_dir=preview_dir)
+
+
 def main(argv: list[str]) -> int:
     check_only = False
-    for argument in argv:
-        if argument == "--check":
+    preview_dir = None
+    arguments = iter(argv)
+    for argument in arguments:
+        if argument == '--check':
             check_only = True
-            continue
-        # Falling through to the write branch on an unrecognised argument would
-        # turn the CI gate into a silent no-op that still reports success.
-        print(f"error: unknown argument `{argument}`\n{USAGE}", file=sys.stderr)
+        elif argument == '--preview-dir':
+            preview_dir = next(arguments, None)
+            if not preview_dir:
+                print(USAGE, file=sys.stderr)
+                return 2
+        else:
+            print(f"error: unknown argument `{argument}`\n{USAGE}", file=sys.stderr)
+            return 2
+    if check_only and preview_dir is not None:
+        print('error: --check cannot be combined with --preview-dir', file=sys.stderr)
         return 2
 
     try:
@@ -128,7 +165,28 @@ def main(argv: list[str]) -> int:
         print(f"error: {error}", file=sys.stderr)
         return 1
 
-    rendered = render(skills)
+    from skill_provenance_v2 import ProvenanceError as ReviewedError, read_json, require
+    try:
+        manifest = read_json(SKILLS_DIR / 'PROVENANCE.json')
+        require(isinstance(manifest, dict), 'expected provenance object')
+        schema = manifest.get('schema_version')
+        if schema == 2 or preview_dir is not None:
+            generate_reviewed(skills, check=check_only, preview_dir=preview_dir)
+            print(f"{'Checked' if check_only else 'Generated'} reviewed provenance for {len(skills)} skills" + (' in isolated preview' if preview_dir else ''))
+            return 0
+    except (ReviewedError, OSError) as error:
+        print(f'error: {error}', file=sys.stderr)
+        return 1
+
+    module_spec = importlib.util.spec_from_file_location('skill_provenance', ROOT / 'scripts/skill-provenance.py')
+    module = importlib.util.module_from_spec(module_spec)
+    module_spec.loader.exec_module(module)
+    try:
+        origins = module.load(ROOT, SKILLS_DIR)
+    except module.ProvenanceError as error:
+        print(f'error: {error}', file=sys.stderr)
+        return 1
+    rendered = render(skills, origins)
     if check_only:
         if INDEX.read_text(encoding="utf-8") != rendered:
             print(

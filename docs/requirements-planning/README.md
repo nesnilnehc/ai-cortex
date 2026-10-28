@@ -34,3 +34,4 @@ with grounded facts and apply conditional section triggers. The lightweight
 - [AIC-REQ-01: research skills for product opportunity decisions](./AIC-REQ-01.md)
 - [AIC-REQ-02: AI Cortex promotional website](./AIC-REQ-02.md)
 - [AIC-REQ-04: work relationships and contextual asset use](./AIC-REQ-04.md) — implemented and published as Sites version 8; one homepage capability section offers Classification and Relationships with source-backed order/parent semantics and preserved state. Actual owner acceptance and public delivery checks are recorded in the task and publication evidence.
+- [AIC-REQ-08: Skill provenance presentation](./AIC-REQ-08.md) — approved; implementation and source evidence validated, delivery closeout in progress.

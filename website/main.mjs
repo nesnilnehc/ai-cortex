@@ -1,7 +1,7 @@
-import {initializeNavigation} from './site-navigation.mjs?v=aic04-host-1';
-import { initializeTheme } from './theme.mjs?v=aic04-host-1';
-import { initializeLanguage } from './language.mjs?v=aic04-host-1';
-import { bindCopyButton } from './copy.mjs?v=aic04-host-1';
+import {initializeNavigation} from './site-navigation.mjs?v=aic08-provenance-1';
+import { initializeTheme } from './theme.mjs?v=aic08-provenance-1';
+import { initializeLanguage } from './language.mjs?v=aic08-provenance-1';
+import { bindCopyButton } from './copy.mjs?v=aic08-provenance-1';
 
 initializeLanguage(window, document.documentElement.lang === 'zh-CN' ? 'zh' : 'en');
 
@@ -17,4 +17,4 @@ bindCopyButton(
 
 initializeNavigation(window,document);
 
-import './explore/explorer-host.mjs?v=aic04-host-1';
+import './explore/explorer-host.mjs?v=aic08-provenance-1';

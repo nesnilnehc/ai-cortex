@@ -1,0 +1,234 @@
+{
+  "date": "2026-10-28",
+  "scope": "REQ-08 provenance change; current shared checkout. Full delivery gate remains incomplete.",
+  "profiles": {
+    "security": [
+      "public-entrypoint"
+    ],
+    "reliability": [
+      "remote-dependency",
+      "durable-workflow: generated-file replacement and recovery only"
+    ],
+    "errors": [
+      "human-facing",
+      "machine-consumer"
+    ],
+    "architecture": [
+      "public-api: versioned local provenance format",
+      "dependency-injection: explicit browser bootstrap and generator dispatch"
+    ],
+    "testing": [
+      "public-contract",
+      "integration-boundary",
+      "critical-path: provenance integrity"
+    ]
+  },
+  "coverage_by_skill": {
+    "review-security": {
+      "rule": "security-quality@1.3.0",
+      "passed": [
+        "security-quality@1.3.0/SEC-001",
+        "security-quality@1.3.0/SEC-003",
+        "security-quality@1.3.0/SEC-005",
+        "security-quality@1.3.0/SEC-007",
+        "security-quality@1.3.0/SEC-008"
+      ],
+      "waived": [],
+      "not_applicable": [
+        {
+          "rule_id": "security-quality@1.3.0/SEC-002",
+          "reason": "Public static catalogue and local contributor tools have no authenticated operation."
+        },
+        {
+          "rule_id": "security-quality@1.3.0/SEC-004",
+          "reason": "Current records contain no live protected personal/credential data; maintainer decisions are still absent."
+        },
+        {
+          "rule_id": "security-quality@1.3.0/SEC-006",
+          "reason": "No executable package, lockfile, build action or downloaded binary is added; pinned upstream Markdown comparisons are audit data."
+        }
+      ],
+      "evidence_limited": []
+    },
+    "review-reliability": {
+      "rule": "reliability-quality@1.3.0",
+      "passed": [
+        "reliability-quality@1.3.0/REL-001",
+        "reliability-quality@1.3.0/REL-003",
+        "reliability-quality@1.3.0/REL-004",
+        "reliability-quality@1.3.0/REL-007"
+      ],
+      "waived": [],
+      "not_applicable": [
+        {
+          "rule_id": "reliability-quality@1.3.0/REL-002",
+          "reason": "No automatic retries; recovery is an explicit rerun."
+        },
+        {
+          "rule_id": "reliability-quality@1.3.0/REL-005",
+          "reason": "No critical-service pool or unrelated service capacity."
+        },
+        {
+          "rule_id": "reliability-quality@1.3.0/REL-006",
+          "reason": "No durable background messages or jobs."
+        },
+        {
+          "rule_id": "reliability-quality@1.3.0/REL-008",
+          "reason": "No declared service SLO; static library/tool project."
+        }
+      ],
+      "evidence_limited": []
+    },
+    "review-error-surfacing": {
+      "rule": "error-surfacing-quality@1.2.0",
+      "passed": [
+        "error-surfacing-quality@1.2.0/ERR-001",
+        "error-surfacing-quality@1.2.0/ERR-002",
+        "error-surfacing-quality@1.2.0/ERR-004",
+        "error-surfacing-quality@1.2.0/ERR-005"
+      ],
+      "waived": [],
+      "not_applicable": [
+        {
+          "rule_id": "error-surfacing-quality@1.2.0/ERR-003",
+          "reason": "No declared error.detection_layers."
+        },
+        {
+          "rule_id": "error-surfacing-quality@1.2.0/ERR-006",
+          "reason": "No declared error.false_positive_threshold."
+        }
+      ],
+      "evidence_limited": []
+    },
+    "review-performance": {
+      "rule": "performance-quality@1.3.0",
+      "passed": [
+        "performance-quality@1.3.0/PERF-001",
+        "performance-quality@1.3.0/PERF-002",
+        "performance-quality@1.3.0/PERF-006",
+        "performance-quality@1.3.0/PERF-008"
+      ],
+      "waived": [],
+      "not_applicable": [
+        {
+          "rule_id": "performance-quality@1.3.0/PERF-003",
+          "reason": "Current repository catalogue is a finite local input; no high-volume load model applies."
+        },
+        {
+          "rule_id": "performance-quality@1.3.0/PERF-004",
+          "reason": "Reviewed local source/evidence files and static catalogue do not form an unbounded service payload."
+        },
+        {
+          "rule_id": "performance-quality@1.3.0/PERF-005",
+          "reason": "Synchronous contributor CLI and one browser bootstrap fetch create no worker/task fan-out."
+        },
+        {
+          "rule_id": "performance-quality@1.3.0/PERF-007",
+          "reason": "No declared performance budget; no invented benchmark threshold."
+        }
+      ],
+      "evidence_limited": []
+    },
+    "review-architecture": {
+      "rule": "architecture-quality@1.4.0",
+      "passed": [
+        "architecture-quality@1.4.0/ARC-001",
+        "architecture-quality@1.4.0/ARC-003",
+        "architecture-quality@1.4.0/ARC-004",
+        "architecture-quality@1.4.0/ARC-005",
+        "architecture-quality@1.4.0/ARC-006",
+        "architecture-quality@1.4.0/ARC-007",
+        "architecture-quality@1.4.0/ARC-008"
+      ],
+      "waived": [],
+      "not_applicable": [
+        {
+          "rule_id": "architecture-quality@1.4.0/ARC-002",
+          "reason": "No project allowed-edge topology is declared."
+        },
+        {
+          "rule_id": "architecture-quality@1.4.0/ARC-009",
+          "reason": "No change budget is declared."
+        },
+        {
+          "rule_id": "architecture-quality@1.4.0/ARC-010",
+          "reason": "No symbol in scope is reported unreached: migration reader has the live schema-1 caller; schema-2 path has a production dispatch condition and real integration fixture."
+        },
+        {
+          "rule_id": "architecture-quality@1.4.0/ARC-011",
+          "reason": "No new deprecation marker; migration removal is tied to the approved full-catalogue switch."
+        }
+      ],
+      "evidence_limited": []
+    },
+    "review-observability": {
+      "rule": "observability-quality@1.3.0",
+      "passed": [
+        "observability-quality@1.3.0/OBS-005",
+        "observability-quality@1.3.0/OBS-008"
+      ],
+      "waived": [],
+      "not_applicable": [
+        {
+          "rule_id": "observability-quality@1.3.0/OBS-001",
+          "reason": "No declared critical operational event contract."
+        },
+        {
+          "rule_id": "observability-quality@1.3.0/OBS-002",
+          "reason": "No distributed service/workflow; Git is a local read-only child process."
+        },
+        {
+          "rule_id": "observability-quality@1.3.0/OBS-003",
+          "reason": "No declared service-level indicator."
+        },
+        {
+          "rule_id": "observability-quality@1.3.0/OBS-004",
+          "reason": "No distributed tracing runtime or service boundary."
+        },
+        {
+          "rule_id": "observability-quality@1.3.0/OBS-006",
+          "reason": "Failures are handled locally at the CLI/UI boundary; no independently operated request-serving service."
+        },
+        {
+          "rule_id": "observability-quality@1.3.0/OBS-007",
+          "reason": "No durable background processing."
+        }
+      ],
+      "evidence_limited": []
+    },
+    "review-testing": {
+      "rule": "testing-quality@1.4.0",
+      "passed": [
+        "testing-quality@1.4.0/TST-001",
+        "testing-quality@1.4.0/TST-002",
+        "testing-quality@1.4.0/TST-004",
+        "testing-quality@1.4.0/TST-005",
+        "testing-quality@1.4.0/TST-006",
+        "testing-quality@1.4.0/TST-007"
+      ],
+      "waived": [],
+      "not_applicable": [
+        {
+          "rule_id": "testing-quality@1.4.0/TST-008",
+          "reason": "No declared coverage percentage or mutation threshold."
+        }
+      ],
+      "evidence_limited": [
+        {
+          "rule_id": "testing-quality@1.4.0/TST-003",
+          "missing_evidence": "All 72 actual decision records and the real local preview validate. Final canonical assembly/check and public evidence-link readiness await the separately authorized source/evidence commit and revision pins."
+        }
+      ]
+    }
+  },
+  "evidence": {
+    "tests": "31 reviewed Python cases; 56 website Node cases; 18 website Python cases; skills registry fixture runner passes. Full 72-Skill isolated generation/rollback/regeneration also passed.",
+    "security": "security-scan.json: 84 changed/untracked text files, no matches for the documented credential patterns; source/sink review and negative path/URL/HTML tests.",
+    "architecture": "import-review.json: 30 local modules; no cycles, with the dynamic index-loader edge explicitly included.",
+    "reliability": "Bounded subprocess and fetch signals, preflight output plan, no-write invalid inputs, interruption detection and deterministic rerun recovery.",
+    "performance": "All work is scoped to the local distribution and exact catalogue ID set; file identity reads are necessary integrity checks, not upstream fetches. activeProjection holds one current dataset and resets at each initialization; browser resource key versions invalidate static module data. Scoped temp files use finally cleanup.",
+    "observability": "CLI errors retain code/Skill/field/next action. Browser reports one stable stage-specific diagnostic at the host and one visible alert/retry action; raw exception/payload is excluded."
+  },
+  "risk_signals": [],
+  "remaining": "Final full-catalogue classification, migration/rollback, real-data browser acceptance, functional alignment, and separately authorized pin/public-readiness steps."
+}

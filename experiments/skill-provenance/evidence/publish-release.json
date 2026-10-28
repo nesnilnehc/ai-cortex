@@ -1,0 +1,13 @@
+{
+  "skill": "publish-release",
+  "version": "1.2.1",
+  "investigated_on": "2026-10-28",
+  "status": "investigation only; no maintainer decision",
+  "creation_commit": "314186acabed013d7af29b6296dafc1807b6b46f",
+  "detected_external_urls": [],
+  "recorded_upstream": null,
+  "upstream_comparison": null,
+  "recommendation": "native",
+  "rationale": "Local creation record found; external creative influence remains a human fact to confirm.",
+  "confirmation_needed": "Confirm or correct the category and identify external creative influences. Tool/API/command-use lookup alone does not disqualify originality."
+}

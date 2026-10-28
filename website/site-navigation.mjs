@@ -1,4 +1,4 @@
-import navigation from './site-navigation.json?v=aic04-host-1' with {type:'json'};
+import navigation from './site-navigation.json?v=aic08-provenance-1' with {type:'json'};
 const languages=['en','zh'];
 // Static hosting may canonicalize .html URLs before the document executes.
 const pathAliases=new Map([['/zh','/zh.html'],['/index','/index.html'],['/explore/zh','/explore/zh.html'],['/explore/index','/explore/index.html']]);

@@ -15,6 +15,7 @@ import io
 import pathlib
 import sys
 import tempfile
+import subprocess
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -22,9 +23,9 @@ FIXTURES = ROOT / "tests" / "fixtures" / "skills-index"
 
 EXPECTED_CLEAN = """# Skills
 
-Generated from each skill's own `SKILL.md` frontmatter by
-`scripts/sync-skills-index.py`. Edit the skill, then regenerate — an edit made
-here alone is overwritten and does not reach the skill.
+Generated from Skill `SKILL.md` frontmatter and `skills/PROVENANCE.json` by
+`scripts/sync-skills-index.py`. Edit the sources, then regenerate — an edit
+made here alone is overwritten and does not reach the sources.
 
 - [alpha-skill](./alpha-skill/SKILL.md) — Do the alpha thing.
 - [beta-skill](./beta-skill/SKILL.md) — Do the beta thing.
@@ -122,13 +123,33 @@ def check_research_metadata(sync, errors: list[str]) -> None:
                 errors.append(f"research metadata: accepted {bad}")
 
 
+def check_folded_description(sync, errors: list[str]) -> None:
+    """Folded frontmatter must preserve the actual discovery description."""
+    with tempfile.TemporaryDirectory() as tmp:
+        skill = pathlib.Path(tmp) / 'SKILL.md'
+        for indicator in ('>', '>-', '|', '|-'):
+            skill.write_text(f'---\nname: example\ndescription: {indicator}\n  First line: explain the task.\n  Second line with "quotes".\nversion: 1.0.0\n---\n', encoding='utf-8')
+            fields = sync.read_frontmatter(skill)
+            expected = 'First line: explain the task. Second line with "quotes".'
+            if fields['description'] != expected:
+                errors.append(f'block description {indicator}: expected {expected!r}, got {fields["description"]!r}')
+
+
 def main() -> int:
     sync = load_generator()
     errors: list[str] = []
     check_clean(sync, errors)
+    check_folded_description(sync, errors)
     check_rejections(sync, errors)
     check_unknown_argument(sync, errors)
     check_research_metadata(sync, errors)
+    result = subprocess.run([sys.executable, str(ROOT / 'scripts/test-skill-provenance.py')], capture_output=True, text=True)
+    if result.returncode:
+        errors.append(f'provenance tests failed:\n{result.stdout}{result.stderr}')
+
+    reviewed = subprocess.run([sys.executable, str(ROOT / 'scripts/test-skill-provenance-v2.py')], capture_output=True, text=True)
+    if reviewed.returncode:
+        errors.append(f'reviewed provenance tests failed:\n{reviewed.stdout}{reviewed.stderr}')
 
     if errors:
         print("skills registry generator tests failed:")

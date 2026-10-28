@@ -1,0 +1,43 @@
+{
+  "skill": "changelog-video",
+  "version": "1.1.0",
+  "investigated_on": "2026-10-28",
+  "status": "investigation only; no maintainer decision",
+  "creation_commit": "314186acabed013d7af29b6296dafc1807b6b46f",
+  "detected_external_urls": [],
+  "recorded_upstream": {
+    "local_path": "skills/changelog-video",
+    "local_version": "1.1.0",
+    "origin": "vendored-derived",
+    "upstream": {
+      "repository": "https://github.com/heygen-com/hyperframes.git",
+      "path": ".agents/skills/changelog-video",
+      "ref": "4f00336c92f6418aab82c060853da604dd832197",
+      "tree": "sha1:2a319e65255aab42b4b2c98ed905874e26823245",
+      "skill_digest": "sha256:7473e3165c7b1f7649a9fcc49e1ab76c5b3b72b696966d6abe772dda4dc0a032"
+    },
+    "license": "Apache-2.0",
+    "notice": "skills/changelog-video/LICENSE.upstream",
+    "update_policy": "reviewed-port",
+    "modifications": [
+      "Replaced the HyperFrames weekly digest input with the Release Package change-item contract",
+      "Removed HyperFrames branding, bundled media, fonts, voice, and repository-specific paths",
+      "Removed sibling-skill dependencies and runtime skill installation",
+      "Added renderer discovery, user-confirmed defaults, and Release Package artifact output",
+      "Added local render and missing-renderer examples"
+    ]
+  },
+  "upstream_comparison": {
+    "skill": "changelog-video",
+    "upstream_revision": "4f00336c92f6418aab82c060853da604dd832197",
+    "upstream_sha256": "7473e3165c7b1f7649a9fcc49e1ab76c5b3b72b696966d6abe772dda4dc0a032",
+    "local_sha256": "63e7a7ba4a90e4e5c66ab1c96f410edc874dcbd923215640ed345f2dd51fcc8d",
+    "skill_file_identical": false,
+    "differences": "Replaced branded HyperFrames input, assets, voice and tool-specific steps with Release Package and renderer discovery.",
+    "recommended_classification": "third_party_adapted",
+    "maintainer_confirmation": null
+  },
+  "recommendation": "third_party_adapted",
+  "rationale": "Pinned external copy with documented local modifications.",
+  "confirmation_needed": "Confirm or correct the category and identify external creative influences. Tool/API/command-use lookup alone does not disqualify originality."
+}

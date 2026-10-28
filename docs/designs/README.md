@@ -28,6 +28,12 @@ Two of the snapshots below are written in Chinese. They predate the English-firs
 
 | 2026-10-27 | [Help discovery local record and website delivery plan](./help-discovery-tasks.md) | tasks | [the approved technical revision](./2026-10-27-help-discovery-technical-design.md) |
 
+| 2026-10-28 | [Skill provenance presentation](./2026-10-28-skill-provenance-functional-design.md) | functional-design | [AIC-REQ-08](../requirements-planning/AIC-REQ-08.md) |
+
+| 2026-10-28 | [Skill provenance validation and static presentation](./2026-10-28-skill-provenance-technical-design.md) | technical-design | [Approved functional design](./2026-10-28-skill-provenance-functional-design.md) |
+
+| 2026-10-28 | [Skill provenance delivery tasks](./skill-provenance-tasks.md) | tasks | [Approved technical design](./2026-10-28-skill-provenance-technical-design.md) |
+
 ## Adding one
 
 Name the file `YYYY-MM-DD-{topic}-{functional,technical}-design.md`, fill in the frontmatter its Spec requires including `parent`, and append a row here. A design nothing links to cannot be found by a reader, and CI reports it as an orphan.

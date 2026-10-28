@@ -1,7 +1,8 @@
-import {getSupportScopes} from './support-scopes.mjs?v=aic04-host-1';
-import {classification,getCallHierarchy,getSkillOrder,relationships} from './relationship-model.mjs?v=aic04-host-1';
-import {catalog} from './workflow.mjs?v=aic04-host-1';
-import {dictionary} from './locale.mjs?v=aic04-host-1';
+import {decorateSkill} from './provenance.mjs?v=aic08-provenance-1';
+import {getSupportScopes} from './support-scopes.mjs?v=aic08-provenance-1';
+import {classification,getCallHierarchy,getSkillOrder,relationships} from './relationship-model.mjs?v=aic08-provenance-1';
+import {catalog} from './workflow.mjs?v=aic08-provenance-1';
+import {dictionary} from './locale.mjs?v=aic08-provenance-1';
 export function mountClassification(container,{onSelectSkill,onSelectRelation,onSelectSupport,onCollapse,onViewStateChange}){
  const support=document.createElement('div');support.className='classification-support';for(const id of ['foundation','collaboration']){const scope=getSupportScopes(id)[0],button=document.createElement('button');button.type='button';button.dataset.classSupport=id;button.textContent=scope.label;button.addEventListener('click',()=>onSelectSupport(id,button));support.append(button);}container.prepend(support);
  const find=id=>container.querySelector(`[data-class-skill="${id}"]`);
@@ -9,11 +10,11 @@ export function mountClassification(container,{onSelectSkill,onSelectRelation,on
   let userToggle=false;const card=container.querySelector(`[id="${group.id}"]`),body=card.querySelector('.classification-body'),tree=getCallHierarchy({view:'classification',groupId:group.id}),list=document.createElement('ul');
   function node(id){const skill=catalog.find(s=>s.id===id),li=document.createElement('li'),a=document.createElement('button');a.type='button';a.className='classification-skill';a.dataset.classSkill=id;a.setAttribute('aria-pressed','false');
    for(const [tag,text]of[['span',skill.name],['code',skill.id],['small',skill.purpose]]){if(tag==='span'&&skill.name===skill.id)continue;const child=document.createElement(tag);child.textContent=text;a.append(child);}
-   a.addEventListener('click',()=>onSelectSkill(id,a));li.append(a);
+   a.addEventListener('click',()=>onSelectSkill(id,a));li.append(decorateSkill(a,id,dictionary.provenance));
    const parent=tree.children.find(e=>e.to===id);if(parent){const label=document.createElement('button');label.type='button';label.className='call-condition';label.dataset.callMode=parent.callMode;label.textContent=dictionary.dual[parent.callMode];label.addEventListener('click',()=>onSelectRelation(parent.id,label));li.prepend(label);}
    const children=tree.children.filter(e=>e.from===id);if(children.length){const ul=document.createElement('ul');ul.className='call-children';ul.append(...children.map(e=>node(e.to)));li.append(ul);}
    const related=relationships.filter(e=>e.from===id&&!tree.children.some(c=>c.id===e.id));
-   if(related.length){const refs=document.createElement('details'),summary=document.createElement('summary');summary.textContent=`${dictionary.dual.reference} · ${related.length}`;refs.append(summary);for(const edge of related){const b=document.createElement('button');b.type='button';b.className='classification-reference';b.dataset.classRelation=edge.id;b.textContent=`${edge.kind==='sequence'?dictionary.dual.sequence:edge.kind==='call'?dictionary.dual[edge.callMode]:edge.label} → ${catalog.find(s=>s.id===edge.to).name}`;b.addEventListener('click',()=>onSelectRelation(edge.id,b));refs.append(b);}li.append(refs);}
+   if(related.length){const refs=document.createElement('details'),summary=document.createElement('summary');summary.textContent=`${dictionary.dual.reference} · ${related.length}`;refs.append(summary);for(const edge of related){const b=document.createElement('button');b.type='button';b.className='classification-reference';b.dataset.classRelation=edge.id;b.textContent=`${edge.kind==='sequence'?dictionary.dual.sequence:edge.kind==='call'?dictionary.dual[edge.callMode]:edge.label} → ${catalog.find(s=>s.id===edge.to).name}`;b.addEventListener('click',()=>onSelectRelation(edge.id,b));refs.append(decorateSkill(b,edge.to,dictionary.provenance));}li.append(refs);}
    return li;
   }
   list.append(...tree.roots.map(node));const note=document.createElement('p');note.className='browse-note';note.textContent=dictionary.dual.browse;body.replaceChildren(note,list);

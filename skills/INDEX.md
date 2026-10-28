@@ -1,22 +1,29 @@
 # Skills
 
-Generated from each skill's own `SKILL.md` frontmatter by
-`scripts/sync-skills-index.py`. Edit the skill, then regenerate — an edit made
-here alone is overwritten and does not reach the skill.
+Generated from Skill `SKILL.md` frontmatter and `skills/PROVENANCE.json` by
+`scripts/sync-skills-index.py`. Edit the sources, then regenerate — an edit
+made here alone is overwritten and does not reach the sources.
+
+Provenance markers come from [PROVENANCE.json](./PROVENANCE.json); confirmed AI Cortex originals omit the badge. An absent badge alone does not establish originality.
 
 - [announce-release](./announce-release/SKILL.md) — Create and optionally deliver grounded release announcements from a published Release Package across available channels; never owns changelog generation.
 - [archive-milestone](./archive-milestone/SKILL.md) — Archive completed roadmap work packages or iteration/phase/version/period snapshots while preserving milestone event evidence and unfinished work.
 - [assess-product-opportunity](./assess-product-opportunity/SKILL.md) — Assess a product opportunity from existing research reports and user signals, producing a restrained, traceable decision layer.
+  - provenance: · [evidence](../CONTRIBUTING.md)
   - type: `domain` · user-invocable: `false`
 - [automate-tests](./automate-tests/SKILL.md) — Discover and execute repository test commands safely with evidence-based command selection and safety guardrails.
 - [capture-work-items](./capture-work-items/SKILL.md) — Capture requirements, bugs, or issues from free-form input into structured, persistent artifacts. Use when user wants to record a work item quickly without deep validation.
 - [changelog-video](./changelog-video/SKILL.md) — Generate and validate an optional release video from confirmed Release Package change items using repository-local media tooling; never installs tools or decides or publishes the release.
+  - provenance: **Third-party adapted** · [evidence](./SOURCES.yaml#changelog-video)
 - [commit-work](./commit-work/SKILL.md) — Create high-quality git commits with clear messages and logical scope. Core goal - produce reviewable commits following Conventional Commits format with pre-commit quality checks.
+  - provenance: **Third-party adapted** · [evidence](./SOURCES.yaml#commit-work)
 - [competitive-research](./competitive-research/SKILL.md) — Compare a dated competitor set by capabilities, positioning, pricing, and evidence quality without treating undocumented features as absent.
+  - provenance: · [evidence](../CONTRIBUTING.md)
   - type: `domain` · user-invocable: `true`
 - [consume-nats-message](./consume-nats-message/SKILL.md) — Drain pending NATS messages from a producer contract via NATS MCP tools. Discovers the available NATS tool capabilities, selects exact-subject or wildcard mode from .cortex/nats.yaml, applies Tolerant Reader semantics, executes ack/nak/term decisions, and returns aggregated stats.
 - [decontextualize-text](./decontextualize-text/SKILL.md) — Convert text with private context or internal dependencies into generic, unbiased expressions that are standalone and reusable. Core goal - produce decontextualized text that preserves logic while removing organizational identifiers. Use for project handoff, open-source prep, methodology abstraction, cross-team sharing.
 - [deep-research](./deep-research/SKILL.md) — Investigate an open question through scoped decomposition, source selection, corroboration, and traceable findings without making a product decision.
+  - provenance: · [evidence](../CONTRIBUTING.md)
   - type: `foundation` · user-invocable: `true`
 - [define-docs-norms](./define-docs-norms/SKILL.md) — Create or update docs/ARTIFACT_NORMS.md from an approved proposal and establish project docs norms as canonical rules.
 - [define-mission](./define-mission/SKILL.md) — Define the fundamental purpose of a project or organization. Answers why the project exists; produces a single mission statement persisted to docs.
@@ -26,6 +33,8 @@ here alone is overwritten and does not reach the skill.
 - [define-vision](./define-vision/SKILL.md) — Define the long-term future the project aims to create. Answers what future we are building; produces a vision statement aligned with mission, persisted to docs.
 - [deliver-feature](./deliver-feature/SKILL.md) — From inside a linked worktree, deliver the current feature branch into main — merge with --no-ff, push, and optionally clean up the worktree, all without leaving CWD.
 - [design-strategic-goals](./design-strategic-goals/SKILL.md) — Define 3–5 long-term strategic goals that move the project toward the vision and North Star. Produces a goals document aligned with mission, vision, and NSM; persisted to docs.
+- [eli5](./eli5/SKILL.md) — Explain a topic like I'm a 5 year old. Use when the user types /eli5 <topic> or asks for a dead-simple picture explainer of how something works.
+  - provenance: **Third-party adapted** · [evidence](./SOURCES.yaml#eli5)
 - [generate-agent-entry](./generate-agent-entry/SKILL.md) — Write or revise AGENTS.md with project identity, authoritative sources, behavioral expectations and verified loading entries for adopted workflows. Use when creating, auditing or revising a project's agent entry, including AI Cortex adoption.
 - [generate-github-workflow](./generate-github-workflow/SKILL.md) — GitHub Actions YAML with embedded output contract: security-first, minimal permissions, version pinning. For CI, release, PR checks. Differs from generic templates by spec compliance and auditability.
 - [generate-standard-readme](./generate-standard-readme/SKILL.md) — Generate lean, high-density README. Sections pruned by value threshold — not fixed count. Primary goal — reader knows what the project is, where to look, and how to use it within 30 seconds.
@@ -33,6 +42,7 @@ here alone is overwritten and does not reach the skill.
 - [manage-secret](./manage-secret/SKILL.md) — Store, look up, rotate, or delete a personal credential — passwords, API keys, tokens, certificate passphrases — in the macOS Keychain under a project-env-kind naming scheme. Use it even when the user does not say "Keychain". Not for team vaults, CI secret injection, or cross-machine sync.
 - [map-item-dependencies](./map-item-dependencies/SKILL.md) — Identify dependencies among backlog and roadmap items across five categories, record depends_on and required-deliverable evidence, and assess next-step readiness with need-by dates and reduction options before promotion.
 - [market-research](./market-research/SKILL.md) — Define a market and examine customers, demand, segments, trends, and defensible size estimates with transparent evidence.
+  - provenance: · [evidence](../CONTRIBUTING.md)
   - type: `domain` · user-invocable: `true`
 - [orchestrate-code-review](./orchestrate-code-review/SKILL.md) — Orchestrator skill — sequence atomic review-* skills into the post-coding engineering gate and aggregate their findings; functional alignment and acceptance verification remain separate.
 - [orchestrate-governance-step](./orchestrate-governance-step/SKILL.md) — Safely advances one governance action from plan-next, re-diagnoses stale or conflicting routes, and reports whether to continue, ask, wait, or stop.
@@ -41,11 +51,15 @@ here alone is overwritten and does not reach the skill.
 - [orchestrate-roadmap-planning](./orchestrate-roadmap-planning/SKILL.md) — Route roadmap structure-only, content-on-settled-structure, continuous planning or existing-project alignment through scoped atomic skills; preserve decisions, links and authorization boundaries.
 - [plan-next](./plan-next/SKILL.md) — Analyze governance state and suggest next actions; ask whether a skipped recommendation lasts for the session or until revoked.
 - [policy-research](./policy-research/SKILL.md) — Research a jurisdiction's policy or compliance question with official sources, effective dates, applicability, and product implications.
+  - provenance: · [evidence](../CONTRIBUTING.md)
   - type: `domain` · user-invocable: `true`
+- [ponytail](./ponytail/SKILL.md) — Lazy senior dev mode: the smallest change that fully solves the task, and a reply a busy human understands in one read. Use on any coding task (writing, fixing, refactoring, reviewing, choosing dependencies) and when the user says "ponytail", "be lazy", "simplest solution", "yagni", or complains about over-engineering or bloat. Levels: lite, full (default), ultra.
+  - provenance: **Third-party adapted** · [evidence](./SOURCES.yaml#ponytail)
 - [prepare-presales-response](./prepare-presales-response/SKILL.md) — Prepare evidence-backed presales questionnaire answers and supporting materials, maintain reusable product knowledge, and separate customer-specific terms from product facts. Use for capability, operations, service and procurement inquiries before delivery.
 - [prepare-release](./prepare-release/SKILL.md) — Build and validate a Release Package from repository history, version policy, quality gates, and optional release artifacts; does not publish or announce.
 - [prioritize-backlog](./prioritize-backlog/SKILL.md) — Apply a project's priority policy to unresolved backlog items, or explicitly reassess a batch using RICE, WSJF, MoSCoW and ICE; preserve settled decisions unless replacement is requested.
 - [product-opportunity-analysis](./product-opportunity-analysis/SKILL.md) — Coordinate relevant research lenses and deliver a traceable Opportunity Package for a product or feature decision.
+  - provenance: · [evidence](../CONTRIBUTING.md)
   - type: `orchestrator` · user-invocable: `true`
 - [promote-roadmap-items](./promote-roadmap-items/SKILL.md) — Promote prioritized requirements and defects into Now/Next/Later using settled project priorities and dependency readiness; preserve version membership and timing commitments.
 - [publish-nats-message](./publish-nats-message/SKILL.md) — Publish a NATS message conforming to a cross-team contract, using NATS MCP tools. Authors the contract on first use if missing. Reads project-level cache (.cortex/nats.yaml) to avoid re-prompting basics across sessions.

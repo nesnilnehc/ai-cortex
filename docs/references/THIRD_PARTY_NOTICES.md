@@ -41,3 +41,17 @@ SOFTWARE.
 ## heygen-com/hyperframes — changelog-video
 
 The editing and verification method in the local `skills/changelog-video` derives from HyperFrames' `changelog-video`. AI Cortex copied no upstream brand assets, fonts, music, fixed voices or sibling skills. The upstream project is under the Apache License 2.0; the full license is kept alongside the local skill at [`LICENSE.upstream`](../../skills/changelog-video/LICENSE.upstream).
+
+## eli5
+
+Source: https://github.com/anthropics/claude-plugins-community/tree/06ec7b6a0a82bdc4bec44bd82d4368c42f20d7c1/eli5/skills/eli5
+
+License: Apache-2.0; the complete upstream license is retained at [LICENSE.upstream](../../skills/eli5/LICENSE.upstream). This distribution changes metadata and host integration.
+
+## ponytail
+
+Source: https://github.com/dietrichgebert/ponytail/tree/09c434ab73ca43761c5d8b0c5d341926c2fba710/skills/ponytail
+
+License: MIT; the complete upstream license is retained at [LICENSE.upstream](../../skills/ponytail/LICENSE.upstream). This distribution changes metadata and host integration.
+
+Copyright (c) 2026 DietrichGebert

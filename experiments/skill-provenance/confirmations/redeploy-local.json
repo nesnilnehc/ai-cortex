@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+  "confirmed_at": "2026-10-28",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/redeploy-local.json"
+    }
+  ],
+  "subject_digest": "f7df471ff828e32b1b27196578b0849d49a774003fda4b504f537deb99f5d8fa"
+}

@@ -1,0 +1,11 @@
+{
+  "fixture_only": true,
+  "root": "/var/folders/2q/866sl80j43v9wfrb262t3wwh0000gn/T/aic08-full-migration-pjxa6wk1",
+  "skills": 72,
+  "native": 68,
+  "third_party_adapted": 4,
+  "source_revision": "529eb042f60810e42893a995a2b8e703dc4cb193",
+  "generation_check": "passed",
+  "rollback": "all prior generated outputs restored byte-for-byte; reviewed inputs retained; regeneration passes",
+  "workspace_mutated_by_fixture": false
+}

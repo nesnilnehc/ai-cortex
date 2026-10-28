@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+  "confirmed_at": "2026-10-28",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/review-functional-design.json"
+    }
+  ],
+  "subject_digest": "9e3ed142efe2bd5515e0b42e6bf9a412042a0f16b63938e9e033f275f4ddb5cc"
+}

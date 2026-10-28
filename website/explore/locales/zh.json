@@ -48,7 +48,7 @@
     "c217cfe7db1": "跟随系统",
     "caa0819dfc4": "浅色",
     "ca6b75d0680": "深色",
-    "ca39d237326": "看主题怎样配合，展开查看 70 项技能。",
+    "ca39d237326": "看主题怎样配合，展开查看 {0} 项技能。",
     "cd6222527e3": "看工作怎样配合：可以往返核对，每次操作各有前提。",
     "c405b58f03f": "↔ 来回核对和修改",
     "cc2dd0cb05a": "┄→ 先核对前提",
@@ -659,6 +659,22 @@
       "use": "请用 update-roadmap 依据这些事实更新路线图状态和日期，说明下游影响并保留依据。",
       "result": "更新后的源记录和必要的路线图摘要；不调整 Now、Next、Later 层级，不把任务数当完成证明。",
       "name": "更新路线图"
+    },
+    "eli5": {
+      "name": "图解讲明白",
+      "purpose": "用大图和简单文字解释陌生话题",
+      "when": "需要向刚接触这个话题的人作简单直观的解释。",
+      "provide": "要解释的话题或问题；也可以沿用当前对话上下文。",
+      "use": "输入 /eli5 和话题，或要求用简单图片解释。",
+      "result": "以大图和少量文字说明话题的 HTML 内容。"
+    },
+    "ponytail": {
+      "name": "简洁开发模式",
+      "purpose": "用满足任务的最小改动完成开发",
+      "when": "明确希望减少不必要的复杂度，同时完整解决编码任务。",
+      "provide": "编码任务，以及可选的 lite、full 或 ultra 级别。",
+      "use": "显式调用 ponytail；直到要求恢复正常模式前持续生效，仍遵循仓库约定和必要验证。",
+      "result": "范围明确、完成任务的改动，以及简洁的验证和风险说明。"
     }
   },
   "topics": {
@@ -1380,7 +1396,9 @@
         "prepare-presales-response",
         "decontextualize-text",
         "publish-nats-message",
-        "consume-nats-message"
+        "consume-nats-message",
+        "eli5",
+        "ponytail"
       ],
       "recommended": [
         "prepare-presales-response",
@@ -1907,12 +1925,14 @@
       },
       {
         "id": "collaboration",
-        "title": "与别人交换信息",
+        "title": "沟通与协作",
         "skills": [
           "consume-nats-message",
           "decontextualize-text",
           "prepare-presales-response",
-          "publish-nats-message"
+          "publish-nats-message",
+          "eli5",
+          "ponytail"
         ]
       }
     ],
@@ -1966,5 +1986,16 @@
     "invalidView": "未识别的视图，已显示分类。",
     "native": "交互切换需要 JavaScript；仍可展开分类和资产目录，或查看完整技能目录。",
     "categoryContext": "分类入口已保留；当前显示工作关系"
+  },
+  "provenance": {
+    "labels": {
+      "native": "AI Cortex 原创",
+      "third_party_original": "第三方原版",
+      "third_party_adapted": "第三方改编"
+    },
+    "evidence": "查看 {0} 的来源证据",
+    "unavailable": "来源目录暂时无法加载，请查看已校验的源目录或重试。",
+    "directoryTitle": "技能",
+    "retry": "重试"
   }
 }

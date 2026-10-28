@@ -1,0 +1,105 @@
+{
+  "fixtureOnly": true,
+  "cases": [
+    {
+      "language": "en",
+      "theme": "light",
+      "documentWidth": 360,
+      "labels": [
+        "Third-party original",
+        "Third-party adapted",
+        "AI Cortex original",
+        "Third-party original",
+        "Third-party adapted",
+        "Third-party original",
+        "Third-party original",
+        "Third-party original",
+        "Third-party adapted"
+      ],
+      "overlaps": false,
+      "width": 360
+    },
+    {
+      "language": "en",
+      "theme": "dark",
+      "documentWidth": 360,
+      "labels": [
+        "Third-party original",
+        "Third-party adapted",
+        "AI Cortex original",
+        "Third-party original",
+        "Third-party adapted",
+        "Third-party original",
+        "Third-party original",
+        "Third-party original",
+        "Third-party adapted"
+      ],
+      "overlaps": false,
+      "width": 360
+    },
+    {
+      "language": "en",
+      "theme": "light",
+      "documentWidth": 1280,
+      "labels": [
+        "Third-party original",
+        "Third-party adapted",
+        "AI Cortex original",
+        "Third-party original",
+        "Third-party adapted",
+        "Third-party original",
+        "Third-party original",
+        "Third-party original",
+        "Third-party adapted"
+      ],
+      "overlaps": false,
+      "width": 1280
+    },
+    {
+      "language": "en",
+      "theme": "dark",
+      "documentWidth": 1280,
+      "labels": [
+        "Third-party original",
+        "Third-party adapted",
+        "AI Cortex original",
+        "Third-party original",
+        "Third-party adapted",
+        "Third-party original",
+        "Third-party original",
+        "Third-party original",
+        "Third-party adapted"
+      ],
+      "overlaps": false,
+      "width": 1280
+    },
+    {
+      "language": "zh",
+      "theme": "light",
+      "documentWidth": 360,
+      "overlaps": false,
+      "width": 360
+    },
+    {
+      "language": "zh",
+      "theme": "dark",
+      "documentWidth": 360,
+      "overlaps": false,
+      "width": 360
+    },
+    {
+      "language": "zh",
+      "theme": "light",
+      "documentWidth": 1280,
+      "overlaps": false,
+      "width": 1280
+    },
+    {
+      "language": "zh",
+      "theme": "dark",
+      "documentWidth": 1280,
+      "overlaps": false,
+      "width": 1280
+    }
+  ]
+}

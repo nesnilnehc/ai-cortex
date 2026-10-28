@@ -1,0 +1,40 @@
+{
+  "skill": "ponytail",
+  "version": "1.0.0",
+  "investigated_on": "2026-10-28",
+  "status": "investigation only; no maintainer decision",
+  "creation_commit": null,
+  "detected_external_urls": [],
+  "recorded_upstream": {
+    "local_path": "skills/ponytail",
+    "local_version": "1.0.0",
+    "origin": "vendored-derived",
+    "upstream": {
+      "repository": "https://github.com/dietrichgebert/ponytail.git",
+      "path": "skills/ponytail",
+      "ref": "09c434ab73ca43761c5d8b0c5d341926c2fba710",
+      "tree": "sha1:e8d3fa76e7ff9223a784dbd4bcfc9ff46b3fa55d",
+      "skill_digest": "sha256:9badd22a32e19cb884e46dfa8d3aae82bb81dfa5484105b8b4f0262df823a509"
+    },
+    "license": "MIT",
+    "notice": "skills/ponytail/LICENSE.upstream",
+    "update_policy": "reviewed-port",
+    "modifications": [
+      "Added local version metadata and retained upstream license locally",
+      "Scoped activation to explicit invocation and clarified host precedence and standalone distribution"
+    ]
+  },
+  "upstream_comparison": {
+    "skill": "ponytail",
+    "upstream_revision": "09c434ab73ca43761c5d8b0c5d341926c2fba710",
+    "upstream_sha256": "9badd22a32e19cb884e46dfa8d3aae82bb81dfa5484105b8b4f0262df823a509",
+    "local_sha256": "8fcf775f1c5b5172196b7318a5df84a2f28b263405973f2a10145e60f6e026b6",
+    "skill_file_identical": false,
+    "differences": "Added version and Host integration instructions limiting activation to explicit invocation.",
+    "recommended_classification": "third_party_adapted",
+    "maintainer_confirmation": null
+  },
+  "recommendation": "third_party_adapted",
+  "rationale": "Pinned external copy with documented local modifications.",
+  "confirmation_needed": "Confirm or correct the category and identify external creative influences. Tool/API/command-use lookup alone does not disqualify originality."
+}

@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
+  "confirmed_at": "2026-10-28",
+  "action": "confirmed",
+  "classification": "third_party_adapted",
+  "rationale": "The maintainer confirmed the recommended adapted classification and documented local changes to the pinned third-party source.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/ponytail.json"
+    }
+  ],
+  "subject_digest": "21aac907438fa50aab7a3952e872f26e1c365eccb3e359966d065d3063c0daa4"
+}
