@@ -1,6 +1,6 @@
 {
   "date": "2026-10-28",
-  "scope": "REQ-08 provenance change; current shared checkout. Full delivery gate remains incomplete.",
+  "scope": "Complete REQ-08 feature-branch implementation and canonical bundle; unrelated work excluded.",
   "profiles": {
     "security": [
       "public-entrypoint"
@@ -201,6 +201,7 @@
       "passed": [
         "testing-quality@1.4.0/TST-001",
         "testing-quality@1.4.0/TST-002",
+        "testing-quality@1.4.0/TST-003",
         "testing-quality@1.4.0/TST-004",
         "testing-quality@1.4.0/TST-005",
         "testing-quality@1.4.0/TST-006",
@@ -213,16 +214,11 @@
           "reason": "No declared coverage percentage or mutation threshold."
         }
       ],
-      "evidence_limited": [
-        {
-          "rule_id": "testing-quality@1.4.0/TST-003",
-          "missing_evidence": "All 72 actual decision records and the real local preview validate. Final canonical assembly/check and public evidence-link readiness await the separately authorized source/evidence commit and revision pins."
-        }
-      ]
+      "evidence_limited": []
     }
   },
   "evidence": {
-    "tests": "31 reviewed Python cases; 56 website Node cases; 18 website Python cases; skills registry fixture runner passes. Full 72-Skill isolated generation/rollback/regeneration also passed.",
+    "tests": "34 reviewed Python cases, 57 website Node cases, 18 website Python cases, registry fixtures and the complete committed-tree canonical check. Confirmed/corrected/withdrawn and post-cutover legacy-write rejection are tested.",
     "security": "security-scan.json: 84 changed/untracked text files, no matches for the documented credential patterns; source/sink review and negative path/URL/HTML tests.",
     "architecture": "import-review.json: 30 local modules; no cycles, with the dynamic index-loader edge explicitly included.",
     "reliability": "Bounded subprocess and fetch signals, preflight output plan, no-write invalid inputs, interruption detection and deterministic rerun recovery.",
@@ -230,5 +226,5 @@
     "observability": "CLI errors retain code/Skill/field/next action. Browser reports one stable stage-specific diagnostic at the host and one visible alert/retry action; raw exception/payload is excluded."
   },
   "risk_signals": [],
-  "remaining": "Final full-catalogue classification, migration/rollback, real-data browser acceptance, functional alignment, and separately authorized pin/public-readiness steps."
+  "remaining": "No unresolved engineering gate finding for the delivered scope. Main merge, release and deployment are excluded."
 }

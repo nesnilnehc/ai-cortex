@@ -23,7 +23,7 @@ Individual pieces of work captured through `capture-work-items` or an equivalent
 
 | Date | Item | Status | Path |
 | :--- | :--- | :--- | :--- |
-| 2026-10-28 | Skill provenance presentation | captured | [AIC-REQ-08 intake](backlog/2026-10-28-skill-provenance-presentation.md) |
+| 2026-10-28 | Skill provenance presentation | done | [AIC-REQ-08 intake](backlog/2026-10-28-skill-provenance-presentation.md) |
 | 2026-10-27 | Discover and use AI Cortex through work relationships | done | [Requirement intake](backlog/2026-10-27-work-relationship-explorer.md) |
 | 2026-10-23 | Create an AI Cortex promotional website | done | [Requirement](backlog/2026-10-23-ai-cortex-promotional-website.md) |
 | 2026-10-20 | Make roadmap capabilities understandable and usable | done | [Work and acceptance checklist](backlog/2026-10-20-roadmap-capabilities.md) |

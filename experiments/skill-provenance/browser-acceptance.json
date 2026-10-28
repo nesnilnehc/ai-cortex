@@ -23,10 +23,20 @@
     "browser-evidence/final-local-confirmed-zh.jpg",
     "browser-evidence/final-relationships-en-360.jpg",
     "browser-evidence/final-search-en-360.jpg",
-    "browser-evidence/full-static-zh.jpg"
+    "browser-evidence/full-static-zh.jpg",
+    "browser-evidence/final-legacy-static-zh-360.jpg",
+    "browser-evidence/final-canonical-zh.jpg"
   ],
   "limits": [
-    "Public source/evidence revision and canonical generated output check remain pending separately authorized commits.",
-    "No remote branch push, merge, release or deployment performed."
-  ]
+    "Script-excluded fallback harness used; browser-wide JavaScript settings were not changed.",
+    "No main merge, release or deployment performed."
+  ],
+  "legacy_fallback_styles": {
+    "result": "Both legacy pages load all four shared local stylesheets. Script-excluded legacy harness at 360px has zero badge overlap and no horizontal overflow.",
+    "screenshot": "browser-evidence/final-legacy-static-zh-360.jpg"
+  },
+  "canonical_page": {
+    "result": "Fresh localhost origin initialized with actual fixed-revision public evidence; native badge count zero; selected adapted badge and evidence href verified.",
+    "screenshot": "browser-evidence/final-canonical-zh.jpg"
+  }
 }

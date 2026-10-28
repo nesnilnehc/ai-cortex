@@ -149,6 +149,33 @@ class ProvenanceV2Tests(unittest.TestCase):
         with self.assertRaisesRegex(provenance.ProvenanceError, 'digest'):
             self.validate()
 
+    def test_corrected_decision_binds_changed_category_and_keeps_review_identity(self):
+        # Covers: AIC-REQ-08#AC4.
+        self.article()
+        self.record['classification'] = 'third_party_adapted'
+        self.record.pop('creation')
+        self.record['reviewed_evidence'].pop('creation.md')
+        self.record['evidence'] = [{'path': 'article.md'}, {'path': 'confirmation.json'}]
+        self.record['sources'][0]['adaptation'] = 'Maintainer disclosed the article-informed workflow.'
+        with self.assertRaises(provenance.ProvenanceError):
+            self.validate()
+        self.confirm()
+        self.record['decision'].update(action='corrected', rationale='Correct the original claim after identifying the creative reference.')
+        (self.root / 'confirmation.json').write_text(json.dumps(self.record['decision']))
+        result = self.validate()
+        self.assertEqual(result['classification'], 'third_party_adapted')
+        self.assertEqual(result['decision']['action'], 'corrected')
+        self.assertEqual(result['decision']['maintainer'], 'Synthetic test maintainer')
+        self.assertEqual(result['decision']['confirmed_at'], '2026-10-28')
+        self.assertEqual(result['decision']['subject_digest'], provenance.subject_digest('alpha', self.record, self.registry))
+
+    def test_withdrawn_decision_cannot_make_a_record_ready(self):
+        # Covers: AIC-REQ-08#AC4.
+        self.record['decision']['action'] = 'withdrawn'
+        (self.root / 'confirmation.json').write_text(json.dumps(self.record['decision']))
+        with self.assertRaisesRegex(provenance.ProvenanceError, 'confirmation decision'):
+            self.validate()
+
     def test_tool_documentation_only_does_not_disqualify_native(self):
         # Covers: AIC-REQ-08#AC2.
         self.article('tool_lookup')
@@ -421,6 +448,22 @@ class ProvenanceV2Tests(unittest.TestCase):
         revision = self.git('rev-parse', 'HEAD')
         (self.root / 'website/explore/source-manifest.json').write_text(json.dumps({'assetsRevision': revision, 'provenanceRevision': revision}))
         return index
+
+    def test_canonical_generation_rejects_legacy_schema_without_writing(self):
+        # Covers: AIC-REQ-08#AC1, AIC-REQ-08#AC7.
+        import contextlib
+        import io
+        import shutil
+        index = self.setup_site()
+        (self.skills / 'INDEX.md').write_text('previous reviewed catalogue')
+        (self.skills / 'PROVENANCE.json').write_text(json.dumps({'schema_version': 1, 'skills': {}}))
+        (self.root / 'scripts').mkdir()
+        shutil.copy(Path(__file__).with_name('skill-provenance.py'), self.root / 'scripts/skill-provenance.py')
+        error = io.StringIO()
+        with contextlib.redirect_stderr(error):
+            self.assertEqual(index.main([]), 1)
+        self.assertIn('MIGRATION_REQUIRED', error.getvalue())
+        self.assertEqual((self.skills / 'INDEX.md').read_text(), 'previous reviewed catalogue')
 
     def test_canonical_generation_checks_all_outputs_and_rejects_dirty_evidence(self):
         # Covers: AIC-REQ-08#AC1.

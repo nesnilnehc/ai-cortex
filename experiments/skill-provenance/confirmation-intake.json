@@ -81,5 +81,5 @@
     "scaffold-agent-tests": "28d553f9adc6fcc42c636f7bcafdf48a2c0e21f5dcbbda9aeff38607768364f3",
     "update-roadmap": "58e09877e414c3a85348d984ea14dc8578ebc1b3e9daf293e94686f64e3bd5b1"
   },
-  "delivery_ready": false
+  "delivery_ready": true
 }

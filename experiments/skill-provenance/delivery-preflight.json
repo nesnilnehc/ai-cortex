@@ -4,9 +4,21 @@
     "native": 68,
     "third_party_adapted": 4
   },
+  "source_revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
   "subject_and_coverage_validation": "passed",
-  "canonical_check": "expected prerequisite failure: source/evidence commit and asset pin have not been authorized/prepared",
-  "exit_code": 1,
-  "diagnostic": "error: STALE_ASSET_PIN: eli5: asset does not match committed content Next: Pin the asset source commit containing the reviewed Skill bytes when authorized.",
-  "outputs_unchanged": true
+  "canonical_check": "passed after authorized source/evidence commit and coordinated generation",
+  "public_objects_verified": 221,
+  "public_evidence_files_verified": 148,
+  "prior_prerequisite_failure": {
+    "real_records": 72,
+    "classifications": {
+      "native": 68,
+      "third_party_adapted": 4
+    },
+    "subject_and_coverage_validation": "passed",
+    "canonical_check": "expected prerequisite failure: source/evidence commit and asset pin have not been authorized/prepared",
+    "exit_code": 1,
+    "diagnostic": "error: STALE_ASSET_PIN: eli5: asset does not match committed content Next: Pin the asset source commit containing the reviewed Skill bytes when authorized.",
+    "outputs_unchanged": true
+  }
 }

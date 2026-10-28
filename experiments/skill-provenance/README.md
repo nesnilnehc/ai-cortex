@@ -16,3 +16,7 @@
 
 - [Browser acceptance evidence](browser-acceptance.json) — responsive, keyboard and static-fallback checks with explicit limits.
 - Investigation notes under `evidence/` preserve the pre-confirmation facts that were reviewed. Effective decisions are separate in `confirmations/` and `skills/PROVENANCE.json`; changing a reviewed note requires fresh confirmation.
+
+- [Completed delivery](delivery-closeout.md) — canonical generation, acceptance, public evidence and scoped branch delivery.
+
+- [Public evidence verification](public-readiness.json) — 221 immutable objects and representative GitHub pages verified.

@@ -1,6 +1,6 @@
 # REQ 08 engineering review record
 
-Date: 2026-10-28. Scope: provenance-related changed and untracked files in the shared main checkout. Unrelated release/backlog work is excluded. This is an incremental review record; the complete engineering gate has not passed.
+Date: 2026-10-28. Scope: provenance-related changed and untracked files in the shared main checkout. Unrelated release/backlog work is excluded. This record preserves review checkpoints and repaired findings; the complete feature-branch engineering gate passes at closeout.
 
 ## Findings and repair evidence
 
@@ -36,3 +36,11 @@ The cumulative repaired findings are one critical, three major and three minor f
 - `python3 scripts/sync-skills-index.py --check`: full 72-Skill migration index must match generated sources.
 
 The live provenance manifest still uses migration schema 1. The user has confirmed all 72 proposed classifications and the stated originality facts. The actual confirming maintainer is now identified by task and all 72 effective schema-2 decisions have been written and validated; synthetic tests do not replace that remaining field.
+
+## Final cutover and delivery
+
+The final cutover exposed one additional major scope finding at `scripts/sync-skills-index.py#main`: the migration-only schema-1 write fallback could regenerate an unresolved catalogue after schema 2 became authoritative. An observed failing regression showed exit 0 and an overwritten index; formal generation now requires schema 2 and returns `MIGRATION_REQUIRED` without writing. The legacy maintenance review remains read-only. The corresponding contract text is explicit.
+
+The eight previously recorded production findings are repaired: one critical, four major and three minor. A separate committed-tree test-oracle correction now checks HTML-encoded names and purposes rather than requiring raw ampersands. Final Rule coverage has no unresolved evidence limitation for the delivered scope; the complete real bundle and public links are verified in [delivery closeout](delivery-closeout.md). Historical review-progress statements above describe their earlier checkpoints.
+
+Legacy fallback presentation was also reconciled in both `website/explore/index.html` and `zh.html`: shared local stylesheets were absent. The new style-parity assertion failed before the links were added and passes afterwards. The 360px script-excluded legacy page now has four stylesheets, zero badge overlap and zero horizontal overflow; the final canonical homepage uses the public fixed-revision evidence.

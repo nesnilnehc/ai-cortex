@@ -4,8 +4,8 @@ Date: 2026-10-28. Scope: REQ 08 in the shared main checkout. This record disting
 
 ## Verified units
 
-- `python3 scripts/test-skill-provenance-v2.py`: 31 cases pass. Observed red/green repairs cover original evidence, copied/article adaptation, full inventories, source/evidence mutation, strict grammar, symlink parents, HTML attribute escaping, actionable malformed-input errors, bounded Git calls, output interruption and isolated previews.
-- `node --test tests/website/*.test.mjs`: 56 cases pass, zero skipped. Includes real Python-generator output consumed by the browser contract, three categories, safe evidence URLs, missing-ID rejection, original-badge omission and a safe failure diagnostic.
+- `python3 scripts/test-skill-provenance-v2.py`: 34 cases pass. Observed red/green repairs cover original evidence, copied/article adaptation, full inventories, source/evidence mutation, strict grammar, symlink parents, HTML attribute escaping, actionable malformed-input errors, bounded Git calls, output interruption and isolated previews.
+- `node --test tests/website/*.test.mjs`: 57 cases pass, zero skipped. Includes real Python-generator output consumed by the browser contract, three categories, safe evidence URLs, missing-ID rejection, original-badge omission and a safe failure diagnostic.
 - `python3 -m unittest discover -s tests/website -p 'test_*.py'`: 18 cases pass.
 - `python3 scripts/test-skills-index.py`: clean, metadata, malformed-tree and folded-description fixtures pass, with both provenance suites.
 - Asset counts, 14 changed asset versions, Markdown links and document hygiene checks pass. No tests were removed or assertions weakened.
@@ -24,8 +24,12 @@ The [full 72-Skill migration fixture](full-migration-check.json) passes generati
 
 ## Engineering and alignment
 
-[Engineering review](engineering-review.md), [Rule coverage](engineering-coverage.json), [static import graph](import-review.json) and [targeted credential scan](security-scan.json) record scope and limits. Seven discovered findings were repaired with failing regressions followed by passing checks. The scan is not a universal secret or vulnerability detector.
+[Engineering review](engineering-review.md), [Rule coverage](engineering-coverage.json), [static import graph](import-review.json) and [targeted credential scan](security-scan.json) record scope and limits. Eight discovered findings were repaired with failing regressions followed by passing checks. The scan is not a universal secret or vulnerability detector.
 
 ## Delivery prerequisite
 
 Canonical generation requires committed source/evidence bytes and separate asset/evidence revision pins. The current canonical `--check` is expected to fail that prerequisite before authorization; the [delivery preflight](delivery-preflight.json) records the failure and confirms existing outputs were untouched. A complete real-data local preview has been generated outside the repository. The separate T21 commit/push request is pending; no workspace commit, remote branch push, main merge, release or deployment was performed.
+
+## Completed delivery
+
+The user authorized scoped commits and the feature-branch push. Canonical generation/check and public readiness now pass; the earlier prerequisite failure was resolved. [Delivery closeout](delivery-closeout.md) records the current complete result and boundaries. All 221 public objects, including the 148 evidence files, match local hashes. No main merge, release or deployment was performed.

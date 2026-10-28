@@ -132,3 +132,14 @@ finally:
  const incomplete=structuredClone(generated.projection);delete incomplete.skills.alpha;
  assert.throws(()=>validateProjection(incomplete,['alpha']));
 });
+
+// Covers: AIC-REQ-08#AC6. Legacy no-script catalogues use the same badge layout.
+test('legacy fallback pages load the shared local catalogue styles',()=>{
+ for(const name of ['index.html','zh.html']){
+  const html=readFileSync(new URL('../../website/explore/'+name,import.meta.url),'utf8');
+  for(const path of ['../styles.css','./story.css','./workspace.css','./dual.css']){
+   assert.ok(html.includes(`rel="stylesheet" href="${path}?`),`${name} is missing ${path}`);
+   assert.ok(readFileSync(new URL('../../website/explore/'+path,import.meta.url),'utf8').length>0);
+  }
+ }
+});

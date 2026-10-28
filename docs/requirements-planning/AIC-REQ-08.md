@@ -35,13 +35,13 @@ Index and website provenance presentation, recorded source evidence, consistent 
 
 ## Acceptance Criteria
 
-- [ ] Examples for all three evidenced categories render consistently in the index and website: confirmed originals have no badge, while both third-party categories have visible text badges. Every Skill in the delivery scope has a reviewed, evidenced classification and accessible evidence; missing or unresolved classification fails validation. No fourth provenance category or unresolved unlabeled fallback is accepted. Covers R1 and R4.
-- [ ] An original-classification case includes a creation commit or related requirement record and an explicit maintainer confirmation that no external creative reference was used. A Git-history-only case fails the evidence check; consulting tool documentation solely for API parameters or command usage does not disqualify original status. Covers R5.
-- [ ] Cases for a copied-and-modified Skill and an independent rewrite informed by an external article, method or workflow are classified as third-party adapted, with actual source references and local adaptation recorded, including a source without an upstream Skill repository or comparable file version. Covers R6.
-- [ ] A maintainer confirmation request includes every review point in R7 and a reasoned recommendation. Confirmation and correction cases preserve the maintainer identity, date, final decision, rationale and evidence references; an unanswered request or recommendation alone cannot satisfy acceptance. Covers R7.
-- [ ] A complete copy whose distributed files all match the pinned upstream version is classified as third-party original, not third-party adapted. Changing, adding or removing a distributed upstream file invalidates the unchanged classification until the record is corrected. Covers R2 and R6.
-- [ ] At 360px and 1280px in light/dark themes, provenance text is readable and does not overlap the Skill name or purpose; evidence is reachable by keyboard. Covers R3 and QAS-01.
-- [ ] Registry conflicts fail validation; presentation changes do not fetch upstream or alter Skill execution behavior. Covers R4.
+- [x] Examples for all three evidenced categories render consistently in the index and website: confirmed originals have no badge, while both third-party categories have visible text badges. Every Skill in the delivery scope has a reviewed, evidenced classification and accessible evidence; missing or unresolved classification fails validation. No fourth provenance category or unresolved unlabeled fallback is accepted. Covers R1 and R4.
+- [x] An original-classification case includes a creation commit or related requirement record and an explicit maintainer confirmation that no external creative reference was used. A Git-history-only case fails the evidence check; consulting tool documentation solely for API parameters or command usage does not disqualify original status. Covers R5.
+- [x] Cases for a copied-and-modified Skill and an independent rewrite informed by an external article, method or workflow are classified as third-party adapted, with actual source references and local adaptation recorded, including a source without an upstream Skill repository or comparable file version. Covers R6.
+- [x] A maintainer confirmation request includes every review point in R7 and a reasoned recommendation. Confirmation and correction cases preserve the maintainer identity, date, final decision, rationale and evidence references; an unanswered request or recommendation alone cannot satisfy acceptance. Covers R7.
+- [x] A complete copy whose distributed files all match the pinned upstream version is classified as third-party original, not third-party adapted. Changing, adding or removing a distributed upstream file invalidates the unchanged classification until the record is corrected. Covers R2 and R6.
+- [x] At 360px and 1280px in light/dark themes, provenance text is readable and does not overlap the Skill name or purpose; evidence is reachable by keyboard. Covers R3 and QAS-01.
+- [x] Registry conflicts fail validation; presentation changes do not fetch upstream or alter Skill execution behavior. Covers R4.
 
 ## Quality Attribute Scenarios
 
@@ -76,3 +76,5 @@ The user approved this requirement after the final review correction: an upstrea
 ### Display amendment — 2026-10-28
 
 The user subsequently requested that originals omit redundant badges. This supersedes the earlier all-Skill visible-badge decision above. Classification, evidence and maintainer confirmation remain mandatory for every Skill; only confirmed `native` records omit the display badge. Third-party original and adapted badges remain visible. An absent badge alone does not prove originality.
+
+Implementation and acceptance evidence: [REQ 08 delivery closeout](../../experiments/skill-provenance/delivery-closeout.md).

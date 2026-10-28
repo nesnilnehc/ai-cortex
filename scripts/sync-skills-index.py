@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import pathlib
 import json
-import importlib.util
 import re
 import sys
 
@@ -169,38 +168,15 @@ def main(argv: list[str]) -> int:
     try:
         manifest = read_json(SKILLS_DIR / 'PROVENANCE.json')
         require(isinstance(manifest, dict), 'expected provenance object')
-        schema = manifest.get('schema_version')
-        if schema == 2 or preview_dir is not None:
-            generate_reviewed(skills, check=check_only, preview_dir=preview_dir)
-            print(f"{'Checked' if check_only else 'Generated'} reviewed provenance for {len(skills)} skills" + (' in isolated preview' if preview_dir else ''))
-            return 0
+        require(type(manifest.get('schema_version')) is int and manifest['schema_version'] == 2,
+                'canonical generation requires reviewed schema 2; use --review to inspect legacy records',
+                code='MIGRATION_REQUIRED', next_action='Collect complete schema-2 decisions before generating the catalogue.')
+        generate_reviewed(skills, check=check_only, preview_dir=preview_dir)
+        print(f"{'Checked' if check_only else 'Generated'} reviewed provenance for {len(skills)} skills" + (' in isolated preview' if preview_dir else ''))
+        return 0
     except (ReviewedError, OSError) as error:
         print(f'error: {error}', file=sys.stderr)
         return 1
-
-    module_spec = importlib.util.spec_from_file_location('skill_provenance', ROOT / 'scripts/skill-provenance.py')
-    module = importlib.util.module_from_spec(module_spec)
-    module_spec.loader.exec_module(module)
-    try:
-        origins = module.load(ROOT, SKILLS_DIR)
-    except module.ProvenanceError as error:
-        print(f'error: {error}', file=sys.stderr)
-        return 1
-    rendered = render(skills, origins)
-    if check_only:
-        if INDEX.read_text(encoding="utf-8") != rendered:
-            print(
-                "error: skills/INDEX.md is out of date — run "
-                "`python3 scripts/sync-skills-index.py`",
-                file=sys.stderr,
-            )
-            return 1
-        print(f"skills/INDEX.md is in sync ({len(skills)} skills)")
-        return 0
-
-    INDEX.write_text(rendered, encoding="utf-8")
-    print(f"wrote skills/INDEX.md ({len(skills)} skills)")
-    return 0
 
 
 if __name__ == "__main__":

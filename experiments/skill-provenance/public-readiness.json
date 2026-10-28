@@ -1,0 +1,2022 @@
+{
+  "checked_on": "2026-10-28",
+  "branch": "codex/req08-provenance",
+  "source_revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+  "objects_checked": 221,
+  "verified": 221,
+  "evidence_files": 148,
+  "method": "Read each immutable public raw GitHub object and compare SHA-256 with its validated local file; no downloaded content is executed.",
+  "results": [
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "docs/references/THIRD_PARTY_NOTICES.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/docs/references/THIRD_PARTY_NOTICES.md",
+      "local_sha256": "6adbc8e73c0a3071991064636c43b153e0f556fb97e70ce5b263e441d5040209",
+      "remote_sha256": "6adbc8e73c0a3071991064636c43b153e0f556fb97e70ce5b263e441d5040209",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/announce-release.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/announce-release.json",
+      "local_sha256": "4c8d0a4023a2b452ccc51d82fdfaa1f6345e1ff8383f97edb6bdcd8ed73cef61",
+      "remote_sha256": "4c8d0a4023a2b452ccc51d82fdfaa1f6345e1ff8383f97edb6bdcd8ed73cef61",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/archive-milestone.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/archive-milestone.json",
+      "local_sha256": "f655dada096793b608928d68f63386857d6c639e412c34ce62697711b78771bb",
+      "remote_sha256": "f655dada096793b608928d68f63386857d6c639e412c34ce62697711b78771bb",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/assess-product-opportunity.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/assess-product-opportunity.json",
+      "local_sha256": "0721c96c28e148c006676911c5f8d08143d2de59d27fe1987886de02ba369e4c",
+      "remote_sha256": "0721c96c28e148c006676911c5f8d08143d2de59d27fe1987886de02ba369e4c",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/automate-tests.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/automate-tests.json",
+      "local_sha256": "5149b8e5055109a187a482552f2b68725238f7d5026ae3e0e53dc2294e2bf1d5",
+      "remote_sha256": "5149b8e5055109a187a482552f2b68725238f7d5026ae3e0e53dc2294e2bf1d5",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/capture-work-items.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/capture-work-items.json",
+      "local_sha256": "8e048b694af6b56c1de5315141f9c574d0b59439457f83f7f84804c375ce40c5",
+      "remote_sha256": "8e048b694af6b56c1de5315141f9c574d0b59439457f83f7f84804c375ce40c5",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/changelog-video.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/changelog-video.json",
+      "local_sha256": "1251af17fe9703f4345efe238d9210907b0d50e64742b8ca2ce01127e835b9fd",
+      "remote_sha256": "1251af17fe9703f4345efe238d9210907b0d50e64742b8ca2ce01127e835b9fd",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/commit-work.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/commit-work.json",
+      "local_sha256": "c34b84ecd5109ccae0b820e19cb70130320863eb2a8f8f321fa7a1dbcb08d8ee",
+      "remote_sha256": "c34b84ecd5109ccae0b820e19cb70130320863eb2a8f8f321fa7a1dbcb08d8ee",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/competitive-research.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/competitive-research.json",
+      "local_sha256": "4b4fcc9e6d6532d730f96489a47563faa7e3b05f5df1733f4a837514071a1f91",
+      "remote_sha256": "4b4fcc9e6d6532d730f96489a47563faa7e3b05f5df1733f4a837514071a1f91",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/consume-nats-message.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/consume-nats-message.json",
+      "local_sha256": "f24ff0d84dd79c79c5f13678a2df6f00679a02c3db1a7878a1748b25646df319",
+      "remote_sha256": "f24ff0d84dd79c79c5f13678a2df6f00679a02c3db1a7878a1748b25646df319",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/decontextualize-text.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/decontextualize-text.json",
+      "local_sha256": "7debd88dfe1ad020ec98c3d1ea608ed6205fcc4a9032b3b12e99223f5e4668ee",
+      "remote_sha256": "7debd88dfe1ad020ec98c3d1ea608ed6205fcc4a9032b3b12e99223f5e4668ee",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/deep-research.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/deep-research.json",
+      "local_sha256": "7f4998a29522aba7fa7c3b12ab7cf1d832091579b1df0e2ecef7a0548411ed5c",
+      "remote_sha256": "7f4998a29522aba7fa7c3b12ab7cf1d832091579b1df0e2ecef7a0548411ed5c",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/define-docs-norms.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/define-docs-norms.json",
+      "local_sha256": "0368752c762cb27b609b4828d50028f507d12fbe7a8237cbcd6af0d26ca17583",
+      "remote_sha256": "0368752c762cb27b609b4828d50028f507d12fbe7a8237cbcd6af0d26ca17583",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/define-mission.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/define-mission.json",
+      "local_sha256": "fec42c85530885ae53936bbc71e142d57d2995c512c93f3ea7f3dbeca540987a",
+      "remote_sha256": "fec42c85530885ae53936bbc71e142d57d2995c512c93f3ea7f3dbeca540987a",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/define-north-star.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/define-north-star.json",
+      "local_sha256": "59f3c79bfc2a5646a11949e090aa27637b71aeec2fd9a22f289ae5666d3792e2",
+      "remote_sha256": "59f3c79bfc2a5646a11949e090aa27637b71aeec2fd9a22f289ae5666d3792e2",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/define-roadmap.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/define-roadmap.json",
+      "local_sha256": "b2a0ff579b7f320546c95d06ebe3ab77a94b473e60ae18bbd6f7a97c831ebff1",
+      "remote_sha256": "b2a0ff579b7f320546c95d06ebe3ab77a94b473e60ae18bbd6f7a97c831ebff1",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/define-strategic-pillars.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/define-strategic-pillars.json",
+      "local_sha256": "16a0d7e37d2b5c3c254936b193d5d8292e1c619aa11eb07f1d741f78c04103b7",
+      "remote_sha256": "16a0d7e37d2b5c3c254936b193d5d8292e1c619aa11eb07f1d741f78c04103b7",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/define-vision.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/define-vision.json",
+      "local_sha256": "b34a683d0966ff436c212f4150815dc264f101db6d6d9f06aed7c95297625004",
+      "remote_sha256": "b34a683d0966ff436c212f4150815dc264f101db6d6d9f06aed7c95297625004",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/deliver-feature.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/deliver-feature.json",
+      "local_sha256": "5d2b8f5be9c29de64a180743303bb9f30adb171f4c7df2cdb589d116d3175426",
+      "remote_sha256": "5d2b8f5be9c29de64a180743303bb9f30adb171f4c7df2cdb589d116d3175426",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/design-strategic-goals.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/design-strategic-goals.json",
+      "local_sha256": "f8af5596cadbc1222d108e86d7dd79a624807094980d76d056d47c2fde9b1b8a",
+      "remote_sha256": "f8af5596cadbc1222d108e86d7dd79a624807094980d76d056d47c2fde9b1b8a",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/eli5.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/eli5.json",
+      "local_sha256": "888c2c539604f9272d6fc7da9ec365a197015b66725d133242a9ba7da971b468",
+      "remote_sha256": "888c2c539604f9272d6fc7da9ec365a197015b66725d133242a9ba7da971b468",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/generate-agent-entry.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/generate-agent-entry.json",
+      "local_sha256": "2b3ee55644e5a8eadcc5f7684c0d10d8fd2bd47f14b06652c9f35b163fdb1d4d",
+      "remote_sha256": "2b3ee55644e5a8eadcc5f7684c0d10d8fd2bd47f14b06652c9f35b163fdb1d4d",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/generate-github-workflow.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/generate-github-workflow.json",
+      "local_sha256": "bf0fc97e0ef7b881ee5bb3ebf775a971da3290747c739afdea9327599abb00ed",
+      "remote_sha256": "bf0fc97e0ef7b881ee5bb3ebf775a971da3290747c739afdea9327599abb00ed",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/generate-standard-readme.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/generate-standard-readme.json",
+      "local_sha256": "6131c934122c82d98192b2250c6b5ee9345b0712403f22c7e623ddf8b289a86d",
+      "remote_sha256": "6131c934122c82d98192b2250c6b5ee9345b0712403f22c7e623ddf8b289a86d",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/integrate-branches.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/integrate-branches.json",
+      "local_sha256": "dda19dc0faf512e0c6d763cf9f8abcd955b619955941a499cbeb1a96e7329c81",
+      "remote_sha256": "dda19dc0faf512e0c6d763cf9f8abcd955b619955941a499cbeb1a96e7329c81",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/manage-secret.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/manage-secret.json",
+      "local_sha256": "d24c9086d8d6e87ef21fedf8dd7bd415a8f73108e5ec3f764d95f4308a2d0e10",
+      "remote_sha256": "d24c9086d8d6e87ef21fedf8dd7bd415a8f73108e5ec3f764d95f4308a2d0e10",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/map-item-dependencies.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/map-item-dependencies.json",
+      "local_sha256": "f6bab50d36ab6a13c495ad72cb90b10fcf641c6555012bf081c0da5e82573cf5",
+      "remote_sha256": "f6bab50d36ab6a13c495ad72cb90b10fcf641c6555012bf081c0da5e82573cf5",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/market-research.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/market-research.json",
+      "local_sha256": "c32f575efc9ac2b5ed300e3d06670972fb71430b014c4909f6ee19294d1a1efb",
+      "remote_sha256": "c32f575efc9ac2b5ed300e3d06670972fb71430b014c4909f6ee19294d1a1efb",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/orchestrate-code-review.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/orchestrate-code-review.json",
+      "local_sha256": "b173a7a5e6e82b6870a9cde19db9ae319315de8921d460cb070f9eb916f9c545",
+      "remote_sha256": "b173a7a5e6e82b6870a9cde19db9ae319315de8921d460cb070f9eb916f9c545",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/orchestrate-governance-step.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/orchestrate-governance-step.json",
+      "local_sha256": "6813e7d14c2526bb30caf433a45f267afc5612771bba5a699685ef7c185b093b",
+      "remote_sha256": "6813e7d14c2526bb30caf433a45f267afc5612771bba5a699685ef7c185b093b",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/orchestrate-repair-loop.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/orchestrate-repair-loop.json",
+      "local_sha256": "0623bb68eab80112438506f42ffa08b6770d9ecfd7218d6a1dd117b1c50fa4bc",
+      "remote_sha256": "0623bb68eab80112438506f42ffa08b6770d9ecfd7218d6a1dd117b1c50fa4bc",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/orchestrate-repair-requirements-loop.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/orchestrate-repair-requirements-loop.json",
+      "local_sha256": "0d823e32ced19143762856ffa3f435958a591aeced79d4a5122a193612c1ee38",
+      "remote_sha256": "0d823e32ced19143762856ffa3f435958a591aeced79d4a5122a193612c1ee38",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/orchestrate-roadmap-planning.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/orchestrate-roadmap-planning.json",
+      "local_sha256": "363929740f7a5906d262d26426e84265a0f3f773205837042cd6c73431985ae1",
+      "remote_sha256": "363929740f7a5906d262d26426e84265a0f3f773205837042cd6c73431985ae1",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/plan-next.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/plan-next.json",
+      "local_sha256": "9a9ec8ab59b81059a0d52c4ef182ee010ef414fe2db52b71e76a4b165c4da5f7",
+      "remote_sha256": "9a9ec8ab59b81059a0d52c4ef182ee010ef414fe2db52b71e76a4b165c4da5f7",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/policy-research.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/policy-research.json",
+      "local_sha256": "ff90efcd4a98e67afde7e8fbd2e4f8c32673bc6a9f6d5431cd126f1dcbd4effb",
+      "remote_sha256": "ff90efcd4a98e67afde7e8fbd2e4f8c32673bc6a9f6d5431cd126f1dcbd4effb",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/ponytail.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/ponytail.json",
+      "local_sha256": "9d00ae95410899bed05f8c104cc476bc387980a98de8f4b18d374379533fc018",
+      "remote_sha256": "9d00ae95410899bed05f8c104cc476bc387980a98de8f4b18d374379533fc018",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/prepare-presales-response.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/prepare-presales-response.json",
+      "local_sha256": "718fd7f403010e9bc018ac3398ec9664d825eb77e0d9e0e9f6e68c70714ef74d",
+      "remote_sha256": "718fd7f403010e9bc018ac3398ec9664d825eb77e0d9e0e9f6e68c70714ef74d",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/prepare-release.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/prepare-release.json",
+      "local_sha256": "cfb1a6cebf2311c19245804e215fb899fa24490a7df512ac5c9e08030e98fcc2",
+      "remote_sha256": "cfb1a6cebf2311c19245804e215fb899fa24490a7df512ac5c9e08030e98fcc2",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/prioritize-backlog.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/prioritize-backlog.json",
+      "local_sha256": "5adbb8674e5465ef3d553d82f96723285d39d4b27ceac68af8e297a672d93178",
+      "remote_sha256": "5adbb8674e5465ef3d553d82f96723285d39d4b27ceac68af8e297a672d93178",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/product-opportunity-analysis.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/product-opportunity-analysis.json",
+      "local_sha256": "fd7afe7694e44a9f31d9def44a380a44b71dc6a6012cacb9fded2fb95b66c0e3",
+      "remote_sha256": "fd7afe7694e44a9f31d9def44a380a44b71dc6a6012cacb9fded2fb95b66c0e3",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/promote-roadmap-items.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/promote-roadmap-items.json",
+      "local_sha256": "26d9575482a6215ac3dc3523e2c6d9f970964f58d87efaa1beb513be8ed2722c",
+      "remote_sha256": "26d9575482a6215ac3dc3523e2c6d9f970964f58d87efaa1beb513be8ed2722c",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/publish-nats-message.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/publish-nats-message.json",
+      "local_sha256": "c896018a1bfbd9cf2e5c7cf3847fd60988da62196b155c50c0699763581bb7d4",
+      "remote_sha256": "c896018a1bfbd9cf2e5c7cf3847fd60988da62196b155c50c0699763581bb7d4",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/publish-release.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/publish-release.json",
+      "local_sha256": "8db40b3f6878c74a58bf9fd71c02f73c6f9779cbba3f530fe3980b2d5104ed61",
+      "remote_sha256": "8db40b3f6878c74a58bf9fd71c02f73c6f9779cbba3f530fe3980b2d5104ed61",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/redeploy-local.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/redeploy-local.json",
+      "local_sha256": "f74d296390c808d092b635a9c0e25316ac35bf3b6c8608b80d88fc2cbee10c11",
+      "remote_sha256": "f74d296390c808d092b635a9c0e25316ac35bf3b6c8608b80d88fc2cbee10c11",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/refine-skill-design.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/refine-skill-design.json",
+      "local_sha256": "9d026812812a108a67c7c022b734838acd90cd4c52348d174e9d7e43ff4bb008",
+      "remote_sha256": "9d026812812a108a67c7c022b734838acd90cd4c52348d174e9d7e43ff4bb008",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-architecture.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-architecture.json",
+      "local_sha256": "3fc68cdd7cd882e45b7c6d5a9c962c35080904ed7d75f79c2454391bcdc4aa30",
+      "remote_sha256": "3fc68cdd7cd882e45b7c6d5a9c962c35080904ed7d75f79c2454391bcdc4aa30",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-codebase.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-codebase.json",
+      "local_sha256": "97b90e1737ba6c1764624cf2ab088736ed5ffa7de9a061b41593cb6594a1697b",
+      "remote_sha256": "97b90e1737ba6c1764624cf2ab088736ed5ffa7de9a061b41593cb6594a1697b",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-diff.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-diff.json",
+      "local_sha256": "24a30a75fd6ecfdb55f7247a840e85ee5b4c68ba56d05392da7f4ff66ef9075d",
+      "remote_sha256": "24a30a75fd6ecfdb55f7247a840e85ee5b4c68ba56d05392da7f4ff66ef9075d",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-dotnet.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-dotnet.json",
+      "local_sha256": "b5e43404b108d59ffa35ad7f166860494b0a54aa679ea4a0ab05d42fe581acac",
+      "remote_sha256": "b5e43404b108d59ffa35ad7f166860494b0a54aa679ea4a0ab05d42fe581acac",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-error-surfacing.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-error-surfacing.json",
+      "local_sha256": "a31ddf121dfd0d3c3317be4a18c3cfea84bf1ed9167e387d616e3dec8232e786",
+      "remote_sha256": "a31ddf121dfd0d3c3317be4a18c3cfea84bf1ed9167e387d616e3dec8232e786",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-functional-design.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-functional-design.json",
+      "local_sha256": "8a8eb0c21160897b1ef72f31db28f1d49fbc91c5e4823a316ba3b6aa1c69ccc9",
+      "remote_sha256": "8a8eb0c21160897b1ef72f31db28f1d49fbc91c5e4823a316ba3b6aa1c69ccc9",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-go.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-go.json",
+      "local_sha256": "2b08b10b47a91c718b0dd9f2fb44ef056d71d13ec863e246032d2d0d99fb8db0",
+      "remote_sha256": "2b08b10b47a91c718b0dd9f2fb44ef056d71d13ec863e246032d2d0d99fb8db0",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-implementation-alignment.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-implementation-alignment.json",
+      "local_sha256": "5b4c1af965e8873cfcfe2b08c694668204302d5bd4fdb30857a009cc38f9fdbd",
+      "remote_sha256": "5b4c1af965e8873cfcfe2b08c694668204302d5bd4fdb30857a009cc38f9fdbd",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-java.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-java.json",
+      "local_sha256": "1f9492df14c783a0d01db2447a665c408fbff7f4c16ab4ca01fa6ce3bb4234ba",
+      "remote_sha256": "1f9492df14c783a0d01db2447a665c408fbff7f4c16ab4ca01fa6ce3bb4234ba",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-observability.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-observability.json",
+      "local_sha256": "bbb154b75eb7e68a72c0f2fc5b7026149cfb7cb3c59362d7f40fc3f2edbfff74",
+      "remote_sha256": "bbb154b75eb7e68a72c0f2fc5b7026149cfb7cb3c59362d7f40fc3f2edbfff74",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-orm-usage.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-orm-usage.json",
+      "local_sha256": "8e049845a22216aa251e5894c12e616f20b42db2c72624410647a61895de1ec0",
+      "remote_sha256": "8e049845a22216aa251e5894c12e616f20b42db2c72624410647a61895de1ec0",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-performance.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-performance.json",
+      "local_sha256": "0c4b25f8da247ec371db402b8d895d5e4338e166cfc2d67f999878ca81d3c0bb",
+      "remote_sha256": "0c4b25f8da247ec371db402b8d895d5e4338e166cfc2d67f999878ca81d3c0bb",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-php.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-php.json",
+      "local_sha256": "966712f21ead83f3f3249f21ebd164ee71aa10a2e34826f97a49e4a83bc7db02",
+      "remote_sha256": "966712f21ead83f3f3249f21ebd164ee71aa10a2e34826f97a49e4a83bc7db02",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-powershell.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-powershell.json",
+      "local_sha256": "4203fcb5f65a45f869b993c938aeddb99510bb01e8db1d8eb2502a6ab59b6d0b",
+      "remote_sha256": "4203fcb5f65a45f869b993c938aeddb99510bb01e8db1d8eb2502a6ab59b6d0b",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-python.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-python.json",
+      "local_sha256": "fbd6de27b2f408b19be1ace58526473b7339720271300a0786c1584be8d592f0",
+      "remote_sha256": "fbd6de27b2f408b19be1ace58526473b7339720271300a0786c1584be8d592f0",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-react.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-react.json",
+      "local_sha256": "b36ede64940c8129e47a2894ba34557e8d62abaddb9ab3c606f1c00cf8bb1157",
+      "remote_sha256": "b36ede64940c8129e47a2894ba34557e8d62abaddb9ab3c606f1c00cf8bb1157",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-reliability.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-reliability.json",
+      "local_sha256": "f19d1e31bdb51b4e6c1fb81d2252f19244fbfac22c02debdfa3e6556b218fde9",
+      "remote_sha256": "f19d1e31bdb51b4e6c1fb81d2252f19244fbfac22c02debdfa3e6556b218fde9",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-requirements.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-requirements.json",
+      "local_sha256": "2507a0a04d306db74dbc75e1c552e8ce103ce7fc99f5a86f3370d10a97f90197",
+      "remote_sha256": "2507a0a04d306db74dbc75e1c552e8ce103ce7fc99f5a86f3370d10a97f90197",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-roadmap.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-roadmap.json",
+      "local_sha256": "a9ce84fc68b1a8f0c2057ad211f4b7f0605b8caa260221f6be6dda9f890ff87c",
+      "remote_sha256": "a9ce84fc68b1a8f0c2057ad211f4b7f0605b8caa260221f6be6dda9f890ff87c",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-security.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-security.json",
+      "local_sha256": "5512953fc521e6431798ad33ac195745e6300de1ad288c45667a30dfa64e528b",
+      "remote_sha256": "5512953fc521e6431798ad33ac195745e6300de1ad288c45667a30dfa64e528b",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-sql.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-sql.json",
+      "local_sha256": "45990d764f78fc3d16b695461ae67efffa049057940e587c26a7cf392700456f",
+      "remote_sha256": "45990d764f78fc3d16b695461ae67efffa049057940e587c26a7cf392700456f",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-tasks.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-tasks.json",
+      "local_sha256": "09a225d4b46cfaabe0d60dc3a95810517c391e0ec3aed807eb9da985ff9344db",
+      "remote_sha256": "09a225d4b46cfaabe0d60dc3a95810517c391e0ec3aed807eb9da985ff9344db",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-technical-design.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-technical-design.json",
+      "local_sha256": "c2f19264e0a80ed3f8e42060b0cf33fc040e8960f02e917a8c6e102755dbc370",
+      "remote_sha256": "c2f19264e0a80ed3f8e42060b0cf33fc040e8960f02e917a8c6e102755dbc370",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-testing.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-testing.json",
+      "local_sha256": "1b3bad96725eb4905ee9f7b8000762f95b70dbc7668a26f2f1d83f37c3edbf24",
+      "remote_sha256": "1b3bad96725eb4905ee9f7b8000762f95b70dbc7668a26f2f1d83f37c3edbf24",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-typescript.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-typescript.json",
+      "local_sha256": "3c1256f5c862cce1240a7d4fc9897cc6b67603c9d109fb5e5d1326ccb0862808",
+      "remote_sha256": "3c1256f5c862cce1240a7d4fc9897cc6b67603c9d109fb5e5d1326ccb0862808",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/review-vue.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-vue.json",
+      "local_sha256": "92360521b4fb0a234ed15b464e0b3fd651946e13023c0f4527da3d1c56a022aa",
+      "remote_sha256": "92360521b4fb0a234ed15b464e0b3fd651946e13023c0f4527da3d1c56a022aa",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/scaffold-agent-tests.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/scaffold-agent-tests.json",
+      "local_sha256": "c88c0f7257a21028d9ddd1a52d29f2e1beeaeeb76c4f851ec79a4236d8c6771f",
+      "remote_sha256": "c88c0f7257a21028d9ddd1a52d29f2e1beeaeeb76c4f851ec79a4236d8c6771f",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/confirmations/update-roadmap.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/update-roadmap.json",
+      "local_sha256": "282468579910d127cddf18e89b2f434312df23efb1cac87e89ad29f8a1834905",
+      "remote_sha256": "282468579910d127cddf18e89b2f434312df23efb1cac87e89ad29f8a1834905",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/announce-release.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/announce-release.json",
+      "local_sha256": "e8967fa32ca88b56cb507f781efb226f2e84ecf2397f325b2d7ddf8274446c6c",
+      "remote_sha256": "e8967fa32ca88b56cb507f781efb226f2e84ecf2397f325b2d7ddf8274446c6c",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/archive-milestone.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/archive-milestone.json",
+      "local_sha256": "f97fe466b9a4763eec0a8ccdd7d2241656c02758b1610b92214225105ef41ba7",
+      "remote_sha256": "f97fe466b9a4763eec0a8ccdd7d2241656c02758b1610b92214225105ef41ba7",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/assess-product-opportunity.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/assess-product-opportunity.json",
+      "local_sha256": "d2b55e5864b2de9a77fdc8c9f5946142630cab6a7b40dfc8eed80099a78f535c",
+      "remote_sha256": "d2b55e5864b2de9a77fdc8c9f5946142630cab6a7b40dfc8eed80099a78f535c",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/automate-tests.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/automate-tests.json",
+      "local_sha256": "ec4657451fab24f3e065c9407971a99fdd5a72060093ee952bdd311ec510522c",
+      "remote_sha256": "ec4657451fab24f3e065c9407971a99fdd5a72060093ee952bdd311ec510522c",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/capture-work-items.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/capture-work-items.json",
+      "local_sha256": "7abb54340d2a4f97ce2613e018c127f21671a35fab4494a54df0b3b817620afe",
+      "remote_sha256": "7abb54340d2a4f97ce2613e018c127f21671a35fab4494a54df0b3b817620afe",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/changelog-video.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/changelog-video.json",
+      "local_sha256": "c372e70d1b35856717b898157dda2d7014df99151e9fdd3bef0b23f9002d13d1",
+      "remote_sha256": "c372e70d1b35856717b898157dda2d7014df99151e9fdd3bef0b23f9002d13d1",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/commit-work.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/commit-work.json",
+      "local_sha256": "93e7f69d9c50081722b47061064a18775d8e460de4bc558716765e03c9b812b8",
+      "remote_sha256": "93e7f69d9c50081722b47061064a18775d8e460de4bc558716765e03c9b812b8",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/competitive-research.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/competitive-research.json",
+      "local_sha256": "f19ba46e0abd9f03151a1176edc6d5720e217367a1cf9ed3bcd226172ec3f16a",
+      "remote_sha256": "f19ba46e0abd9f03151a1176edc6d5720e217367a1cf9ed3bcd226172ec3f16a",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/consume-nats-message.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/consume-nats-message.json",
+      "local_sha256": "cf01c133ecaae23c684f6feec75111c90993cea67a666aa48a813d19a3cc6cd1",
+      "remote_sha256": "cf01c133ecaae23c684f6feec75111c90993cea67a666aa48a813d19a3cc6cd1",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/decontextualize-text.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/decontextualize-text.json",
+      "local_sha256": "1dac24aac448513408f3f14411881cdf4f82e49caf7c89e8683a8ad5cc7d8034",
+      "remote_sha256": "1dac24aac448513408f3f14411881cdf4f82e49caf7c89e8683a8ad5cc7d8034",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/deep-research.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/deep-research.json",
+      "local_sha256": "b9703fe99564c0c9206071bf3fe47d5247b8f002ea34b631bbab6fa1fc27e23e",
+      "remote_sha256": "b9703fe99564c0c9206071bf3fe47d5247b8f002ea34b631bbab6fa1fc27e23e",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/define-docs-norms.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/define-docs-norms.json",
+      "local_sha256": "a190580a101f38bb4b504793948214924330690e4380f6b7d42c35d74e9ea2cb",
+      "remote_sha256": "a190580a101f38bb4b504793948214924330690e4380f6b7d42c35d74e9ea2cb",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/define-mission.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/define-mission.json",
+      "local_sha256": "97a108c0ce1ac8601075ced110fdc822f3e5addf8173bf08cacbe9ae7ce077b4",
+      "remote_sha256": "97a108c0ce1ac8601075ced110fdc822f3e5addf8173bf08cacbe9ae7ce077b4",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/define-north-star.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/define-north-star.json",
+      "local_sha256": "d3437eacd9132134af5c251ac1a10d5a57fee4b071bb5a32efc47c7923a25e38",
+      "remote_sha256": "d3437eacd9132134af5c251ac1a10d5a57fee4b071bb5a32efc47c7923a25e38",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/define-roadmap.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/define-roadmap.json",
+      "local_sha256": "764324db2f3558723529c423b8927fb3e287d1c840f00bee4fc539ae3419029a",
+      "remote_sha256": "764324db2f3558723529c423b8927fb3e287d1c840f00bee4fc539ae3419029a",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/define-strategic-pillars.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/define-strategic-pillars.json",
+      "local_sha256": "294c26e29716d34bda9dad2c0f6b63902ee1937fd07777ad61cc42a0afc90429",
+      "remote_sha256": "294c26e29716d34bda9dad2c0f6b63902ee1937fd07777ad61cc42a0afc90429",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/define-vision.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/define-vision.json",
+      "local_sha256": "9a4105e6f5c173de3c2f3e85fe78ff742b2fcdc56579de1c67494f05e45d266b",
+      "remote_sha256": "9a4105e6f5c173de3c2f3e85fe78ff742b2fcdc56579de1c67494f05e45d266b",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/deliver-feature.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/deliver-feature.json",
+      "local_sha256": "05cf43eb647397bc89aa621ef294cda186179202fe8416a88a45b70d7584c2fa",
+      "remote_sha256": "05cf43eb647397bc89aa621ef294cda186179202fe8416a88a45b70d7584c2fa",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/design-strategic-goals.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/design-strategic-goals.json",
+      "local_sha256": "e58cb6a687427970d84258c4d03a821a7b3a008e5e43eae0ba7036bbc853d6cd",
+      "remote_sha256": "e58cb6a687427970d84258c4d03a821a7b3a008e5e43eae0ba7036bbc853d6cd",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/eli5.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/eli5.json",
+      "local_sha256": "53c19907695f50ab0119aee442259847c7d274999933fc6837ce94c7a1bb9c63",
+      "remote_sha256": "53c19907695f50ab0119aee442259847c7d274999933fc6837ce94c7a1bb9c63",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/generate-agent-entry.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/generate-agent-entry.json",
+      "local_sha256": "4ee10f28dbab9722f29500becf5144507d5b2c463115b323854ecd2e015bcd16",
+      "remote_sha256": "4ee10f28dbab9722f29500becf5144507d5b2c463115b323854ecd2e015bcd16",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/generate-github-workflow.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/generate-github-workflow.json",
+      "local_sha256": "62c152a725a25e2410267165c82d96b6bf788465ec7cdaace111962d54f3c65d",
+      "remote_sha256": "62c152a725a25e2410267165c82d96b6bf788465ec7cdaace111962d54f3c65d",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/generate-standard-readme.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/generate-standard-readme.json",
+      "local_sha256": "e22f8e473227187f024e86da92796d7625e7df797926a71f620f47b15b89352f",
+      "remote_sha256": "e22f8e473227187f024e86da92796d7625e7df797926a71f620f47b15b89352f",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/integrate-branches.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/integrate-branches.json",
+      "local_sha256": "4dbf286fb157b7fe70d04cac20db796e4da32af149ea295052343e723202a110",
+      "remote_sha256": "4dbf286fb157b7fe70d04cac20db796e4da32af149ea295052343e723202a110",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/manage-secret.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/manage-secret.json",
+      "local_sha256": "84e08f6adb5a03d23dd748d9c20b44ea30186dedd020e4bff1831200da511f68",
+      "remote_sha256": "84e08f6adb5a03d23dd748d9c20b44ea30186dedd020e4bff1831200da511f68",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/map-item-dependencies.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/map-item-dependencies.json",
+      "local_sha256": "28d5d66e151d8d5b18d63072fce91c5b1389faf26540a4b1a0f2b3e3eba4ef84",
+      "remote_sha256": "28d5d66e151d8d5b18d63072fce91c5b1389faf26540a4b1a0f2b3e3eba4ef84",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/market-research.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/market-research.json",
+      "local_sha256": "2e4262fa8f62db8b274cefc91996d0ade3eff37dac6afd02a1c0d5542490ff86",
+      "remote_sha256": "2e4262fa8f62db8b274cefc91996d0ade3eff37dac6afd02a1c0d5542490ff86",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/orchestrate-code-review.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/orchestrate-code-review.json",
+      "local_sha256": "172b266dd79e7605bd27ca44dfdf65109cf817573d49724cb3914bbcddc36c35",
+      "remote_sha256": "172b266dd79e7605bd27ca44dfdf65109cf817573d49724cb3914bbcddc36c35",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/orchestrate-governance-step.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/orchestrate-governance-step.json",
+      "local_sha256": "410701885bac6a2245758cba4eefbce907f3f1ad46cb775a0a6e14e258d1057d",
+      "remote_sha256": "410701885bac6a2245758cba4eefbce907f3f1ad46cb775a0a6e14e258d1057d",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/orchestrate-repair-loop.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/orchestrate-repair-loop.json",
+      "local_sha256": "b29d4989a0fe54de96ca742ee7fed793dd17f5c44832757e9bf7cee803ed4eb2",
+      "remote_sha256": "b29d4989a0fe54de96ca742ee7fed793dd17f5c44832757e9bf7cee803ed4eb2",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/orchestrate-repair-requirements-loop.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/orchestrate-repair-requirements-loop.json",
+      "local_sha256": "54aae23c3ad41f9307ab2093284ec54072da705b74d2686dde181e7fd6eec51f",
+      "remote_sha256": "54aae23c3ad41f9307ab2093284ec54072da705b74d2686dde181e7fd6eec51f",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/orchestrate-roadmap-planning.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/orchestrate-roadmap-planning.json",
+      "local_sha256": "2ceb9090ca2b7a85f30d5aa363be6f4ab70ed365387d5b35e7acdf506cf2d135",
+      "remote_sha256": "2ceb9090ca2b7a85f30d5aa363be6f4ab70ed365387d5b35e7acdf506cf2d135",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/plan-next.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/plan-next.json",
+      "local_sha256": "69f9af99a5bd37be757d2c5d5d12d82b29b76fd36564cb64ea5938cae5026f0e",
+      "remote_sha256": "69f9af99a5bd37be757d2c5d5d12d82b29b76fd36564cb64ea5938cae5026f0e",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/policy-research.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/policy-research.json",
+      "local_sha256": "6f0039f8ec7bdc0b4dc7d41b37b241809e93d8f05f0f0d344aae2455508324c9",
+      "remote_sha256": "6f0039f8ec7bdc0b4dc7d41b37b241809e93d8f05f0f0d344aae2455508324c9",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/ponytail.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/ponytail.json",
+      "local_sha256": "eb51b8d82e5859c58272a4452428134b8139638e9305af35220107085592a61f",
+      "remote_sha256": "eb51b8d82e5859c58272a4452428134b8139638e9305af35220107085592a61f",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/prepare-presales-response.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/prepare-presales-response.json",
+      "local_sha256": "54435ff332388c71ba4a6fd385ca37f96b10d888596007055e663de6e73c7ef2",
+      "remote_sha256": "54435ff332388c71ba4a6fd385ca37f96b10d888596007055e663de6e73c7ef2",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/prepare-release.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/prepare-release.json",
+      "local_sha256": "ceec20f041de67323e0ccaeec2ea4d02916d0ffb3befb6ef5757b1f54d8d0e6c",
+      "remote_sha256": "ceec20f041de67323e0ccaeec2ea4d02916d0ffb3befb6ef5757b1f54d8d0e6c",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/prioritize-backlog.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/prioritize-backlog.json",
+      "local_sha256": "f221f826e0c85b0750ac4d083e452256bbddaae731d2c170c3299efe3cda3b8c",
+      "remote_sha256": "f221f826e0c85b0750ac4d083e452256bbddaae731d2c170c3299efe3cda3b8c",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/product-opportunity-analysis.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/product-opportunity-analysis.json",
+      "local_sha256": "d1c32f1c17d6459bcefc6ff66db593d66d925d94534536d0c666c90faa273de9",
+      "remote_sha256": "d1c32f1c17d6459bcefc6ff66db593d66d925d94534536d0c666c90faa273de9",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/promote-roadmap-items.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/promote-roadmap-items.json",
+      "local_sha256": "b3951a8780ead87a606bcad8179dc8d51d672bc88cd0aeda4239eb16185db7a1",
+      "remote_sha256": "b3951a8780ead87a606bcad8179dc8d51d672bc88cd0aeda4239eb16185db7a1",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/publish-nats-message.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/publish-nats-message.json",
+      "local_sha256": "29029404d7e9807f305423efa37c9641ac1182e02d2822cf57360cf1cce950a3",
+      "remote_sha256": "29029404d7e9807f305423efa37c9641ac1182e02d2822cf57360cf1cce950a3",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/publish-release.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/publish-release.json",
+      "local_sha256": "1b2ed9c57a1f5114aeccdb63e6ec56f68905dfdc1caa0e7bed35e14fe73a91a7",
+      "remote_sha256": "1b2ed9c57a1f5114aeccdb63e6ec56f68905dfdc1caa0e7bed35e14fe73a91a7",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/redeploy-local.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/redeploy-local.json",
+      "local_sha256": "97e3c62173b27d64b91f84b52ae623b016c38d477dc7bf7412b36e91fedc4c99",
+      "remote_sha256": "97e3c62173b27d64b91f84b52ae623b016c38d477dc7bf7412b36e91fedc4c99",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/refine-skill-design.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/refine-skill-design.json",
+      "local_sha256": "a5e1ab8a1f8a442b95ddbb21f312db727745da3fa047e134fbfabc2de7de377f",
+      "remote_sha256": "a5e1ab8a1f8a442b95ddbb21f312db727745da3fa047e134fbfabc2de7de377f",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-architecture.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-architecture.json",
+      "local_sha256": "162ddd696a048a117c1d3f9bb084d09a89154a32bbe9c7570fc00061e6f24730",
+      "remote_sha256": "162ddd696a048a117c1d3f9bb084d09a89154a32bbe9c7570fc00061e6f24730",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-codebase.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-codebase.json",
+      "local_sha256": "5091b1793d4386a9100b74df0fd533b00970ce9f52d001f5980128ed68238447",
+      "remote_sha256": "5091b1793d4386a9100b74df0fd533b00970ce9f52d001f5980128ed68238447",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-diff.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-diff.json",
+      "local_sha256": "017a1b472ae90cd2ba063442b4f38638620d38f09657c05ea5473bbebc62f635",
+      "remote_sha256": "017a1b472ae90cd2ba063442b4f38638620d38f09657c05ea5473bbebc62f635",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-dotnet.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-dotnet.json",
+      "local_sha256": "ae2a313a5f206e0e77e80620b2a1893801d9b7d7a2fc7c94cd818e4181a574d8",
+      "remote_sha256": "ae2a313a5f206e0e77e80620b2a1893801d9b7d7a2fc7c94cd818e4181a574d8",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-error-surfacing.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-error-surfacing.json",
+      "local_sha256": "e4d57bb2f6c393d0f0b01f1b017a037e66d5c2fab9bd01f9b2cd6d752a82b791",
+      "remote_sha256": "e4d57bb2f6c393d0f0b01f1b017a037e66d5c2fab9bd01f9b2cd6d752a82b791",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-functional-design.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-functional-design.json",
+      "local_sha256": "54b2578c248fbd2c314613fd75596279f81e953be76a6264378253fbb07c1194",
+      "remote_sha256": "54b2578c248fbd2c314613fd75596279f81e953be76a6264378253fbb07c1194",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-go.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-go.json",
+      "local_sha256": "a7a8ae6b4b11bbb65ee8dba6acd7a45b02fae75bd8a65bd529deae6b85b849b9",
+      "remote_sha256": "a7a8ae6b4b11bbb65ee8dba6acd7a45b02fae75bd8a65bd529deae6b85b849b9",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-implementation-alignment.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-implementation-alignment.json",
+      "local_sha256": "6ee1d3c20986a1edb6b8c6e2cf91481688ce03d2e904b50432bab6fb87b7c770",
+      "remote_sha256": "6ee1d3c20986a1edb6b8c6e2cf91481688ce03d2e904b50432bab6fb87b7c770",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-java.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-java.json",
+      "local_sha256": "ef5d2ddc70e3f458895e30d07b0944322a9b403e18cead4ca9448bf6a25c0490",
+      "remote_sha256": "ef5d2ddc70e3f458895e30d07b0944322a9b403e18cead4ca9448bf6a25c0490",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-observability.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-observability.json",
+      "local_sha256": "d362a97e8c1e8e9f7e48aa5e58c56258cf19e609bd03947f31de9f18248795e1",
+      "remote_sha256": "d362a97e8c1e8e9f7e48aa5e58c56258cf19e609bd03947f31de9f18248795e1",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-orm-usage.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-orm-usage.json",
+      "local_sha256": "2bec456f57b89d7f2b0d5c4113d2ab5d0df8f963ee55e08e7cac6c8424515b8d",
+      "remote_sha256": "2bec456f57b89d7f2b0d5c4113d2ab5d0df8f963ee55e08e7cac6c8424515b8d",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-performance.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-performance.json",
+      "local_sha256": "2c27ddca0df61a24f0f76540f91a7f5e8cb24bc6140bd05ebd6f5c343383dc2f",
+      "remote_sha256": "2c27ddca0df61a24f0f76540f91a7f5e8cb24bc6140bd05ebd6f5c343383dc2f",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-php.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-php.json",
+      "local_sha256": "9376b470d8071919b5636f1a094aec1a49a7f451bd6c52eff82938c41d5c231f",
+      "remote_sha256": "9376b470d8071919b5636f1a094aec1a49a7f451bd6c52eff82938c41d5c231f",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-powershell.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-powershell.json",
+      "local_sha256": "c6ca3a675c7ce002293e9648a67be80deca70eac1084634ec0f95927165ff12d",
+      "remote_sha256": "c6ca3a675c7ce002293e9648a67be80deca70eac1084634ec0f95927165ff12d",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-python.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-python.json",
+      "local_sha256": "a84db3f237b464db4288ef658b85f3263c4b5e0a39079c0448488bc00382f7b4",
+      "remote_sha256": "a84db3f237b464db4288ef658b85f3263c4b5e0a39079c0448488bc00382f7b4",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-react.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-react.json",
+      "local_sha256": "6b26c287003856accd43e02fe11c14ca1bae042fca663f268cfefed682768eee",
+      "remote_sha256": "6b26c287003856accd43e02fe11c14ca1bae042fca663f268cfefed682768eee",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-reliability.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-reliability.json",
+      "local_sha256": "0fe1f2d4b7080090a9060e90170e3765855ae5b949f05e6d6109333acdbc6ca5",
+      "remote_sha256": "0fe1f2d4b7080090a9060e90170e3765855ae5b949f05e6d6109333acdbc6ca5",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-requirements.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-requirements.json",
+      "local_sha256": "a7115b4092871473926a0b2ff6a9612123cbda6547b26f74f7ea02e5a3acd4a5",
+      "remote_sha256": "a7115b4092871473926a0b2ff6a9612123cbda6547b26f74f7ea02e5a3acd4a5",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-roadmap.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-roadmap.json",
+      "local_sha256": "1cd0e71a6e2f99a7308ef7b91af7aaa9c292e4dc485d6c7c0077759a20fa2682",
+      "remote_sha256": "1cd0e71a6e2f99a7308ef7b91af7aaa9c292e4dc485d6c7c0077759a20fa2682",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-security.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-security.json",
+      "local_sha256": "53fe3c0fa589384e6906e3de7689ca6a992845fb3feffd40ec143a9e692631fc",
+      "remote_sha256": "53fe3c0fa589384e6906e3de7689ca6a992845fb3feffd40ec143a9e692631fc",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-sql.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-sql.json",
+      "local_sha256": "aedbe33e2fec12631c10b0a69f9296266ef063bf8760abbacdceca3ab9924e05",
+      "remote_sha256": "aedbe33e2fec12631c10b0a69f9296266ef063bf8760abbacdceca3ab9924e05",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-tasks.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-tasks.json",
+      "local_sha256": "4ee211f2f9774e7a744477f3356dd03b9ca6a8312ef024104b58a56b2d9a513a",
+      "remote_sha256": "4ee211f2f9774e7a744477f3356dd03b9ca6a8312ef024104b58a56b2d9a513a",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-technical-design.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-technical-design.json",
+      "local_sha256": "150f07608eee777a2bf408888d7d3dff4c6fe04b03eef2e7049b0c45463fcb8c",
+      "remote_sha256": "150f07608eee777a2bf408888d7d3dff4c6fe04b03eef2e7049b0c45463fcb8c",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-testing.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-testing.json",
+      "local_sha256": "7d23497768bed4601abe080b916eecced5fcc469e2b08d9f4aafcb8e60a3b4c6",
+      "remote_sha256": "7d23497768bed4601abe080b916eecced5fcc469e2b08d9f4aafcb8e60a3b4c6",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-typescript.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-typescript.json",
+      "local_sha256": "12d75f680174b4c41fc680ca9a15b11458644dfef82e10f5cf11384832fbe736",
+      "remote_sha256": "12d75f680174b4c41fc680ca9a15b11458644dfef82e10f5cf11384832fbe736",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/review-vue.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-vue.json",
+      "local_sha256": "aab8eead19fcf32a3398e9f36b0f481f2624bbae8519fd18b847f856e4e659cd",
+      "remote_sha256": "aab8eead19fcf32a3398e9f36b0f481f2624bbae8519fd18b847f856e4e659cd",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/scaffold-agent-tests.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/scaffold-agent-tests.json",
+      "local_sha256": "76c3e1cf14694bbc0ba6f2482c6bb46c0fd128277142743b878b52eb9bf896d6",
+      "remote_sha256": "76c3e1cf14694bbc0ba6f2482c6bb46c0fd128277142743b878b52eb9bf896d6",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "experiments/skill-provenance/evidence/update-roadmap.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/update-roadmap.json",
+      "local_sha256": "bc936bddd7b10b79340929c5474276086c8992be54f620ea878fd0f3fb4e6b69",
+      "remote_sha256": "bc936bddd7b10b79340929c5474276086c8992be54f620ea878fd0f3fb4e6b69",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/announce-release/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/announce-release/SKILL.md",
+      "local_sha256": "7c2a83be512ea07798661a91e0ea203f73b04c5fb29bad96f6a674337ebec1a1",
+      "remote_sha256": "7c2a83be512ea07798661a91e0ea203f73b04c5fb29bad96f6a674337ebec1a1",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/archive-milestone/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/archive-milestone/SKILL.md",
+      "local_sha256": "0963f68603969baef10dfa489b482b64abfc47162ada6ca267a8e0c9dd700411",
+      "remote_sha256": "0963f68603969baef10dfa489b482b64abfc47162ada6ca267a8e0c9dd700411",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/assess-product-opportunity/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/assess-product-opportunity/SKILL.md",
+      "local_sha256": "710f40a4a3fcec3da9ef6fbc37f4beebcf698ce902f4788989a109610ba3c917",
+      "remote_sha256": "710f40a4a3fcec3da9ef6fbc37f4beebcf698ce902f4788989a109610ba3c917",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/automate-tests/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/automate-tests/SKILL.md",
+      "local_sha256": "7cbc1484999dc68f2702451071886d7d8b2327d29103bed3003c9086bed19e76",
+      "remote_sha256": "7cbc1484999dc68f2702451071886d7d8b2327d29103bed3003c9086bed19e76",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/capture-work-items/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/capture-work-items/SKILL.md",
+      "local_sha256": "3d788097e9a8ce105763932e94152451d27beeccf90d08f8d54e9d3ef48c2918",
+      "remote_sha256": "3d788097e9a8ce105763932e94152451d27beeccf90d08f8d54e9d3ef48c2918",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/changelog-video/LICENSE.upstream",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/changelog-video/LICENSE.upstream",
+      "local_sha256": "4259155fb06f127687ee7b0a8a3682d45132db0f2da26cbc0b7a2d1e796436b8",
+      "remote_sha256": "4259155fb06f127687ee7b0a8a3682d45132db0f2da26cbc0b7a2d1e796436b8",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/changelog-video/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/changelog-video/SKILL.md",
+      "local_sha256": "63e7a7ba4a90e4e5c66ab1c96f410edc874dcbd923215640ed345f2dd51fcc8d",
+      "remote_sha256": "63e7a7ba4a90e4e5c66ab1c96f410edc874dcbd923215640ed345f2dd51fcc8d",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/commit-work/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/commit-work/SKILL.md",
+      "local_sha256": "6540b95591014573caac1a5b7c302f4f0ad5637fef7f7324aa201aa744cfa8ce",
+      "remote_sha256": "6540b95591014573caac1a5b7c302f4f0ad5637fef7f7324aa201aa744cfa8ce",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/competitive-research/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/competitive-research/SKILL.md",
+      "local_sha256": "e0617a761b713ba976db393eaccd1284fc6bbf4253d9db1988c3f63a26b29c51",
+      "remote_sha256": "e0617a761b713ba976db393eaccd1284fc6bbf4253d9db1988c3f63a26b29c51",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/consume-nats-message/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/consume-nats-message/SKILL.md",
+      "local_sha256": "3ee49c343298c44a17a3dcd19a34b5becbd7bfd6453ffac8620fff0658e3a5f2",
+      "remote_sha256": "3ee49c343298c44a17a3dcd19a34b5becbd7bfd6453ffac8620fff0658e3a5f2",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/decontextualize-text/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/decontextualize-text/SKILL.md",
+      "local_sha256": "74e7e00e84c2daba65033c76106a464edc9876e26f5c5522b03ce0f3f2b9a976",
+      "remote_sha256": "74e7e00e84c2daba65033c76106a464edc9876e26f5c5522b03ce0f3f2b9a976",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/deep-research/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/deep-research/SKILL.md",
+      "local_sha256": "2027ba261c780361524ca34f62ee04c0d26e852da724fb78a4b0acbefadd0882",
+      "remote_sha256": "2027ba261c780361524ca34f62ee04c0d26e852da724fb78a4b0acbefadd0882",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/define-docs-norms/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/define-docs-norms/SKILL.md",
+      "local_sha256": "ec67b1912219ae9a0a9b9f6aba00a42b2ede5dc742f0e5258a1efdeb229f96b5",
+      "remote_sha256": "ec67b1912219ae9a0a9b9f6aba00a42b2ede5dc742f0e5258a1efdeb229f96b5",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/define-mission/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/define-mission/SKILL.md",
+      "local_sha256": "5a375e4e12b59894ec60edf57e5b13f8df05b6e011acfed068c85bf4d042f081",
+      "remote_sha256": "5a375e4e12b59894ec60edf57e5b13f8df05b6e011acfed068c85bf4d042f081",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/define-north-star/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/define-north-star/SKILL.md",
+      "local_sha256": "f0112ce83a76b21c43a4ef81ce11f8b25777c5ad2dc21697df3d67f181ab225b",
+      "remote_sha256": "f0112ce83a76b21c43a4ef81ce11f8b25777c5ad2dc21697df3d67f181ab225b",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/define-roadmap/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/define-roadmap/SKILL.md",
+      "local_sha256": "1612c7cb468fd0bdf5753dce53bafe9bfc1ecb3d4293051170c13ad7f72848bf",
+      "remote_sha256": "1612c7cb468fd0bdf5753dce53bafe9bfc1ecb3d4293051170c13ad7f72848bf",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/define-strategic-pillars/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/define-strategic-pillars/SKILL.md",
+      "local_sha256": "1dd2766b9bddf24b2cc9692b75631b3660a49dd8b5fe82649c73b5d6a76f9741",
+      "remote_sha256": "1dd2766b9bddf24b2cc9692b75631b3660a49dd8b5fe82649c73b5d6a76f9741",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/define-vision/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/define-vision/SKILL.md",
+      "local_sha256": "086e0f0a41786de0511da752a83a7c7b4e58099e475c9bb62831dac7af1642cf",
+      "remote_sha256": "086e0f0a41786de0511da752a83a7c7b4e58099e475c9bb62831dac7af1642cf",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/deliver-feature/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/deliver-feature/SKILL.md",
+      "local_sha256": "e504d011753a6991ccd638bc03424cbf262f068b7c0a1c5be95e0386e0433d1f",
+      "remote_sha256": "e504d011753a6991ccd638bc03424cbf262f068b7c0a1c5be95e0386e0433d1f",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/design-strategic-goals/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/design-strategic-goals/SKILL.md",
+      "local_sha256": "c49ac98d36757e2fe4c2f56cd9c03ae727a3fb1d4260db9415ab96c073a18897",
+      "remote_sha256": "c49ac98d36757e2fe4c2f56cd9c03ae727a3fb1d4260db9415ab96c073a18897",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/eli5/LICENSE.upstream",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/eli5/LICENSE.upstream",
+      "local_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "remote_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/eli5/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/eli5/SKILL.md",
+      "local_sha256": "6c8bf68dfaf76fa1dce70ef694288b8964189462712967db3dfffd3e3e466921",
+      "remote_sha256": "6c8bf68dfaf76fa1dce70ef694288b8964189462712967db3dfffd3e3e466921",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/generate-agent-entry/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/generate-agent-entry/SKILL.md",
+      "local_sha256": "a178512a73df151682189b6f752f7787febab099cf0b83ce3f5bbe03a02ec4cb",
+      "remote_sha256": "a178512a73df151682189b6f752f7787febab099cf0b83ce3f5bbe03a02ec4cb",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/generate-github-workflow/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/generate-github-workflow/SKILL.md",
+      "local_sha256": "a335943546455d7d6c7dd3776c4776f4d90af41320cf6e6c94c2a849aafc74f6",
+      "remote_sha256": "a335943546455d7d6c7dd3776c4776f4d90af41320cf6e6c94c2a849aafc74f6",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/generate-standard-readme/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/generate-standard-readme/SKILL.md",
+      "local_sha256": "e07fea9ec1b62cfdc5485b68f49374a6e948ffeba50b2ede23a35c49bca53557",
+      "remote_sha256": "e07fea9ec1b62cfdc5485b68f49374a6e948ffeba50b2ede23a35c49bca53557",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/integrate-branches/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/integrate-branches/SKILL.md",
+      "local_sha256": "2e490cff9b53831e1a36c182c49fd5c7318f9cebd394ca4d77360922ca85a98e",
+      "remote_sha256": "2e490cff9b53831e1a36c182c49fd5c7318f9cebd394ca4d77360922ca85a98e",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/manage-secret/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/manage-secret/SKILL.md",
+      "local_sha256": "419c3a63f40ee428d43a1c9171581ec3ea5ac4101b109238a3ce457820a6c02a",
+      "remote_sha256": "419c3a63f40ee428d43a1c9171581ec3ea5ac4101b109238a3ce457820a6c02a",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/map-item-dependencies/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/map-item-dependencies/SKILL.md",
+      "local_sha256": "48acf45ebbd786b608d38c929169861544f49c797d81799df311b64e67cb7316",
+      "remote_sha256": "48acf45ebbd786b608d38c929169861544f49c797d81799df311b64e67cb7316",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/market-research/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/market-research/SKILL.md",
+      "local_sha256": "4bbd6c017efbd2988b28cb9f89859618a523f4208c529c8f86c69ef6cac96c59",
+      "remote_sha256": "4bbd6c017efbd2988b28cb9f89859618a523f4208c529c8f86c69ef6cac96c59",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/orchestrate-code-review/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/orchestrate-code-review/SKILL.md",
+      "local_sha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "remote_sha256": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/orchestrate-governance-step/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/orchestrate-governance-step/SKILL.md",
+      "local_sha256": "33e1f2b90a1187b5a61a954847f8d71cffaed45aeaee21b2291fa9813e8f79be",
+      "remote_sha256": "33e1f2b90a1187b5a61a954847f8d71cffaed45aeaee21b2291fa9813e8f79be",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/orchestrate-repair-loop/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/orchestrate-repair-loop/SKILL.md",
+      "local_sha256": "24d5cc8aa356d1b6ea9ceadf33c5fd42ed738ff908899322c7bf5a7e84884b4d",
+      "remote_sha256": "24d5cc8aa356d1b6ea9ceadf33c5fd42ed738ff908899322c7bf5a7e84884b4d",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/orchestrate-repair-requirements-loop/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/orchestrate-repair-requirements-loop/SKILL.md",
+      "local_sha256": "ed73c845ca15de560b74e9e345a7e776065986c1e82cfda37d44812dbe22c25f",
+      "remote_sha256": "ed73c845ca15de560b74e9e345a7e776065986c1e82cfda37d44812dbe22c25f",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/orchestrate-roadmap-planning/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/orchestrate-roadmap-planning/SKILL.md",
+      "local_sha256": "2c37126e96b514ed11995079c8e81a5e86f9f6a26f9a41f8cce7179fc58e2c83",
+      "remote_sha256": "2c37126e96b514ed11995079c8e81a5e86f9f6a26f9a41f8cce7179fc58e2c83",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/plan-next/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/plan-next/SKILL.md",
+      "local_sha256": "cbc4277aca3dca1daf952acd4433a10e32309970b4590562bb2cf5d115636ef4",
+      "remote_sha256": "cbc4277aca3dca1daf952acd4433a10e32309970b4590562bb2cf5d115636ef4",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/policy-research/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/policy-research/SKILL.md",
+      "local_sha256": "e6731a71036746db137a990d31bef5670e22bde9671e7a3e308aafe2bf6e09bf",
+      "remote_sha256": "e6731a71036746db137a990d31bef5670e22bde9671e7a3e308aafe2bf6e09bf",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/ponytail/LICENSE.upstream",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/ponytail/LICENSE.upstream",
+      "local_sha256": "fb1bc6909ac3ef82d5c22106e32ef682b0cff66788fa915fb9b53b15c9d2f3ab",
+      "remote_sha256": "fb1bc6909ac3ef82d5c22106e32ef682b0cff66788fa915fb9b53b15c9d2f3ab",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/ponytail/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/ponytail/SKILL.md",
+      "local_sha256": "8fcf775f1c5b5172196b7318a5df84a2f28b263405973f2a10145e60f6e026b6",
+      "remote_sha256": "8fcf775f1c5b5172196b7318a5df84a2f28b263405973f2a10145e60f6e026b6",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/prepare-presales-response/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/prepare-presales-response/SKILL.md",
+      "local_sha256": "0c56e53d2828e029dc3a4fb7611e46e57b6a6ff7977d31af44bdfc13b9ace445",
+      "remote_sha256": "0c56e53d2828e029dc3a4fb7611e46e57b6a6ff7977d31af44bdfc13b9ace445",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/prepare-release/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/prepare-release/SKILL.md",
+      "local_sha256": "c1a98c128cba7a4f0dfc61112e443795d29187ab19bbe6b059baf58e558153f1",
+      "remote_sha256": "c1a98c128cba7a4f0dfc61112e443795d29187ab19bbe6b059baf58e558153f1",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/prioritize-backlog/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/prioritize-backlog/SKILL.md",
+      "local_sha256": "2cd87e65e1c0cca3dc4549933ea61842c7bd0bcdb0925f3dda7f612fe322475c",
+      "remote_sha256": "2cd87e65e1c0cca3dc4549933ea61842c7bd0bcdb0925f3dda7f612fe322475c",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/product-opportunity-analysis/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/product-opportunity-analysis/SKILL.md",
+      "local_sha256": "2ec44b8c16d1638f35426dac8b79075685db783802033e569ae8cd3cee3310c4",
+      "remote_sha256": "2ec44b8c16d1638f35426dac8b79075685db783802033e569ae8cd3cee3310c4",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/promote-roadmap-items/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/promote-roadmap-items/SKILL.md",
+      "local_sha256": "c219f651e51cf69960a6488a8ebe9aae5acdfe11009ef2afc708566490afc856",
+      "remote_sha256": "c219f651e51cf69960a6488a8ebe9aae5acdfe11009ef2afc708566490afc856",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/publish-nats-message/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/publish-nats-message/SKILL.md",
+      "local_sha256": "496b48e1d908344f654c8b6a594c3fa27e23a5542ffad7cf29da0b8b6efce29c",
+      "remote_sha256": "496b48e1d908344f654c8b6a594c3fa27e23a5542ffad7cf29da0b8b6efce29c",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/publish-release/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/publish-release/SKILL.md",
+      "local_sha256": "7a14a0876850419d9c5e17ad0478a094c3fc90de0acd8902a0627de6ff500ac9",
+      "remote_sha256": "7a14a0876850419d9c5e17ad0478a094c3fc90de0acd8902a0627de6ff500ac9",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/redeploy-local/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/redeploy-local/SKILL.md",
+      "local_sha256": "5ce190e6a0b7c99b9044aa88ca9cb7a852201ef80b3db160e47ec301cda51964",
+      "remote_sha256": "5ce190e6a0b7c99b9044aa88ca9cb7a852201ef80b3db160e47ec301cda51964",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/refine-skill-design/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/refine-skill-design/SKILL.md",
+      "local_sha256": "368a6969d13cab93becc473595a37ff2bdd5db766dae28db408ad408150e2491",
+      "remote_sha256": "368a6969d13cab93becc473595a37ff2bdd5db766dae28db408ad408150e2491",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-architecture/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-architecture/SKILL.md",
+      "local_sha256": "b5afa818e10159f55dadfb81b9253302b05f6995be409c4d1684a8ffbe8dbb50",
+      "remote_sha256": "b5afa818e10159f55dadfb81b9253302b05f6995be409c4d1684a8ffbe8dbb50",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-codebase/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-codebase/SKILL.md",
+      "local_sha256": "66bea73e403f582a802585fbf1b71bc20f7dea14fd1ebfa04633fada71781eb5",
+      "remote_sha256": "66bea73e403f582a802585fbf1b71bc20f7dea14fd1ebfa04633fada71781eb5",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-diff/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-diff/SKILL.md",
+      "local_sha256": "f8cb44c20f4bd95608a6fdec43c28b28dcfeff157a0b6582cca831418622b1f2",
+      "remote_sha256": "f8cb44c20f4bd95608a6fdec43c28b28dcfeff157a0b6582cca831418622b1f2",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-dotnet/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-dotnet/SKILL.md",
+      "local_sha256": "8714c5db087b668bcb04f4a623bafdce7ce286850c76cd91d6f1a78abe51440a",
+      "remote_sha256": "8714c5db087b668bcb04f4a623bafdce7ce286850c76cd91d6f1a78abe51440a",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-error-surfacing/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-error-surfacing/SKILL.md",
+      "local_sha256": "49648026a540800cb067e7806549dcaf2fbfe2a2928e8bb9574bc6078284fdd8",
+      "remote_sha256": "49648026a540800cb067e7806549dcaf2fbfe2a2928e8bb9574bc6078284fdd8",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-functional-design/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-functional-design/SKILL.md",
+      "local_sha256": "ab359ce0b85f4454f1ad6551e41a4994882f6064296041989e0a66154d93cd85",
+      "remote_sha256": "ab359ce0b85f4454f1ad6551e41a4994882f6064296041989e0a66154d93cd85",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-go/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-go/SKILL.md",
+      "local_sha256": "c5fbae3f8a1a09bbde3c0b0076fe63fd327e9a02250e76a22ce12e6973b3b9eb",
+      "remote_sha256": "c5fbae3f8a1a09bbde3c0b0076fe63fd327e9a02250e76a22ce12e6973b3b9eb",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-implementation-alignment/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-implementation-alignment/SKILL.md",
+      "local_sha256": "3de9f63a743f0bbb4dbb3d546a65b4d4c6da33015ab38f7199232ad7579b7bb0",
+      "remote_sha256": "3de9f63a743f0bbb4dbb3d546a65b4d4c6da33015ab38f7199232ad7579b7bb0",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-java/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-java/SKILL.md",
+      "local_sha256": "ab0c08fc37405a2e045a54b7710293c00057c78fac6eb2730ea7f4744cfd5618",
+      "remote_sha256": "ab0c08fc37405a2e045a54b7710293c00057c78fac6eb2730ea7f4744cfd5618",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-observability/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-observability/SKILL.md",
+      "local_sha256": "bccf32300fc696115da19b85e0975a9d42199650b4f9f10848362626ea426b5b",
+      "remote_sha256": "bccf32300fc696115da19b85e0975a9d42199650b4f9f10848362626ea426b5b",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-orm-usage/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-orm-usage/SKILL.md",
+      "local_sha256": "9dd2aaf522040ea98fb27893deec4216e6bcf81ff66ede56fb37cd4a9934bc47",
+      "remote_sha256": "9dd2aaf522040ea98fb27893deec4216e6bcf81ff66ede56fb37cd4a9934bc47",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-performance/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-performance/SKILL.md",
+      "local_sha256": "a0b6eed10b04cec5eb061fc10a7026533ec9a1fbc06f1ad11ef9420ee055c23f",
+      "remote_sha256": "a0b6eed10b04cec5eb061fc10a7026533ec9a1fbc06f1ad11ef9420ee055c23f",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-php/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-php/SKILL.md",
+      "local_sha256": "91665058b087fa7c4923a8198e44d1d5686ff37d3225a1830c93adbea67fe411",
+      "remote_sha256": "91665058b087fa7c4923a8198e44d1d5686ff37d3225a1830c93adbea67fe411",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-powershell/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-powershell/SKILL.md",
+      "local_sha256": "88a8b2f88a804180af9a16088b5913d54f1e1600d43db221331a99cbf9eb8eb8",
+      "remote_sha256": "88a8b2f88a804180af9a16088b5913d54f1e1600d43db221331a99cbf9eb8eb8",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-python/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-python/SKILL.md",
+      "local_sha256": "9dcbc28e0e920aad4d5f4a9625935a3c7e621833280794fc499e38f753bce7af",
+      "remote_sha256": "9dcbc28e0e920aad4d5f4a9625935a3c7e621833280794fc499e38f753bce7af",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-react/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-react/SKILL.md",
+      "local_sha256": "8b52d7facd3696fa7162435cb84f5f35b0e851859d2f00798d4a2946c5b05fba",
+      "remote_sha256": "8b52d7facd3696fa7162435cb84f5f35b0e851859d2f00798d4a2946c5b05fba",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-reliability/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-reliability/SKILL.md",
+      "local_sha256": "cd395af0f493a6f1feaf9f4ec8d67081e98a27de723db896fb38d3d597d2020c",
+      "remote_sha256": "cd395af0f493a6f1feaf9f4ec8d67081e98a27de723db896fb38d3d597d2020c",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-requirements/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-requirements/SKILL.md",
+      "local_sha256": "0e0c0f4e5c13750dc87431f288077020085aa7a3cb29cb44c6b0a6aa9600ffdb",
+      "remote_sha256": "0e0c0f4e5c13750dc87431f288077020085aa7a3cb29cb44c6b0a6aa9600ffdb",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-roadmap/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-roadmap/SKILL.md",
+      "local_sha256": "2e8c6f9a7821337fb3c731986de23ec6865cd1fd6177273ae6eb89d4c94ed28f",
+      "remote_sha256": "2e8c6f9a7821337fb3c731986de23ec6865cd1fd6177273ae6eb89d4c94ed28f",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-security/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-security/SKILL.md",
+      "local_sha256": "3b4eb80e77b7ec31ff38675fe4e18b48782fb02230a40e5805147bd4ce736453",
+      "remote_sha256": "3b4eb80e77b7ec31ff38675fe4e18b48782fb02230a40e5805147bd4ce736453",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-sql/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-sql/SKILL.md",
+      "local_sha256": "69c9bc335cc88139defbb94123bfd676bc6632851b00c30284f9c530e5fb972b",
+      "remote_sha256": "69c9bc335cc88139defbb94123bfd676bc6632851b00c30284f9c530e5fb972b",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-tasks/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-tasks/SKILL.md",
+      "local_sha256": "cab99a76d844b99a66004981a046f2e12bbca3cd7817225bb41120c87a34054c",
+      "remote_sha256": "cab99a76d844b99a66004981a046f2e12bbca3cd7817225bb41120c87a34054c",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-technical-design/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-technical-design/SKILL.md",
+      "local_sha256": "b0c22658e60cd5e0ac05cc7d927a5141ae010a1e790d1f9c3b84d4b9faaaabbb",
+      "remote_sha256": "b0c22658e60cd5e0ac05cc7d927a5141ae010a1e790d1f9c3b84d4b9faaaabbb",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-testing/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-testing/SKILL.md",
+      "local_sha256": "0b8b708b9aaf24753784c690a7545280ef571b379f66fe71bbbba3b67da29095",
+      "remote_sha256": "0b8b708b9aaf24753784c690a7545280ef571b379f66fe71bbbba3b67da29095",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-typescript/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-typescript/SKILL.md",
+      "local_sha256": "dd0467b9ef887062c60173456588b2e1bbc28ff7a98effc28cb2cb751f95c4a1",
+      "remote_sha256": "dd0467b9ef887062c60173456588b2e1bbc28ff7a98effc28cb2cb751f95c4a1",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/review-vue/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/review-vue/SKILL.md",
+      "local_sha256": "56a2efbb36543401bc17d66cf9bfa65fec7cc1598bed2fcda379a3da75041c7e",
+      "remote_sha256": "56a2efbb36543401bc17d66cf9bfa65fec7cc1598bed2fcda379a3da75041c7e",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/scaffold-agent-tests/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/scaffold-agent-tests/SKILL.md",
+      "local_sha256": "ecc02a2af29c633472e81ab27f404172cfb57a81634661b7003e7ee11370760d",
+      "remote_sha256": "ecc02a2af29c633472e81ab27f404172cfb57a81634661b7003e7ee11370760d",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
+      "path": "skills/update-roadmap/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/update-roadmap/SKILL.md",
+      "local_sha256": "e0305ad253d8ebc60b4e962f48b44f0e8857622e4b423d81056ddcfeee575666",
+      "remote_sha256": "e0305ad253d8ebc60b4e962f48b44f0e8857622e4b423d81056ddcfeee575666",
+      "verified": true,
+      "error": ""
+    },
+    {
+      "revision": "fd1db614dc342f14863e7e59140756f7a838388f",
+      "path": "skills/INDEX.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/fd1db614dc342f14863e7e59140756f7a838388f/skills/INDEX.md",
+      "local_sha256": "a886895e6c18c0708ae75950b5822d5b9fcf593fc0d49111b1cfe08baa11c452",
+      "remote_sha256": "a886895e6c18c0708ae75950b5822d5b9fcf593fc0d49111b1cfe08baa11c452",
+      "verified": true,
+      "error": ""
+    }
+  ],
+  "page_checks": [
+    {
+      "url": "https://github.com/nesnilnehc/ai-cortex/tree/codex/req08-provenance",
+      "http_status": "200",
+      "ok": true
+    },
+    {
+      "url": "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/PROVENANCE.json",
+      "http_status": "200",
+      "ok": true
+    },
+    {
+      "url": "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/eli5.json",
+      "http_status": "200",
+      "ok": true
+    },
+    {
+      "url": "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/ponytail.json",
+      "http_status": "200",
+      "ok": true
+    }
+  ]
+}

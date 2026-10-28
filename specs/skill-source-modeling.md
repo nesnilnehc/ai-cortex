@@ -128,7 +128,7 @@ The offline registry reader accepts two-space-indented mappings with unquoted al
 
 ### 5.6 Generation and migration boundary
 
-Schema 1 is a migration-only reader for the existing working catalogue until all schema-2 decisions are collected. Its generic declarations/dates must not be converted into human attestations. The schema-2 validator and tests can run on isolated fixtures before that cutover. A review packet may accept incomplete candidates; it never writes a decision or makes an unresolved catalogue ready.
+Schema 1 is a migration-only reader for the existing working catalogue until all schema-2 decisions are collected. Its generic declarations/dates must not be converted into human attestations. The schema-2 validator and tests can run on isolated fixtures before that cutover. After cutover, canonical generation rejects schema 1; the maintenance review command may still inspect legacy or incomplete candidates without writing a decision or making an unresolved catalogue ready.
 
 Formal generation validates the complete manifest, website coverage and fixed evidence commit before replacing index, public projection and managed static regions. Local preview is isolated, marked not delivery-ready, and cannot replace canonical outputs. Fixed public URLs are an export projection, not a second editable provenance authority. Maintenance validates upstream/source truth; offline generation does not fetch upstream or claim remote evidence availability.
 
