@@ -1,0 +1,510 @@
+{
+  "date": "2026-10-29",
+  "repository_merge": "710ad98c9199a6ce746df65fe00877ec09d11cbf",
+  "sites_source": "617b7bd90f8b8d624cbaadde92b09a4e563dfd89",
+  "sites_version": 10,
+  "deployment_id": "appgdep_6ae2816bcce48191bb7fe4b711407703",
+  "url": "https://ai-cortex.nesnilnehc.top/",
+  "status": "passed",
+  "resources": [
+    {
+      "path": "copy.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "98066e27493b23ca013c617303fb09cf44f6a1f6c056e5fa043cf6969ff54b4d"
+    },
+    {
+      "path": "explore/assets/work-stories.png",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "1d155d745670022aee28542d2f638620a29a9b3c5398237f71f065848dc090f6"
+    },
+    {
+      "path": "explore/classification-view.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "160cef580a03b9f3c9492ed1182950ac698e04966f8524d2d73d913d5e77397d"
+    },
+    {
+      "path": "explore/classification.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "aa232accd46ef5bc43b74e877c317ee3544138bf1d63b7c33c412e37a7c25e52"
+    },
+    {
+      "path": "explore/dual.css",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "27941849861dd8355f2d0b47d2fcdb83330adce0eeb6bb5af05c0436be897e1c"
+    },
+    {
+      "path": "explore/explorer-host.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "c381a738465084f7f2356e7c0c5a6ede0288da574a7a88e0fb1de817e9d81992"
+    },
+    {
+      "path": "explore/explorer-state.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "c70577f498e68966717dfed2d37a341cc905d0cc7347dfb0abab4d287e3524b4"
+    },
+    {
+      "path": "explore/global-topic-graph.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "cbfa3d96d31ee6f9dcc742bfbba7e46f25aada5df0652bdd690274132dd7991a"
+    },
+    {
+      "path": "explore/index.html",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": false,
+      "sha256": "fba0a2f2827518d4e2461953a5fb5330a725890ff8e1af6c97b5aeb76b07a245"
+    },
+    {
+      "path": "explore/legacy.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "75911c2f37e6eceaa41fc6f5252e6cdad51fd50def5ce7db4a5d228ddc9ab7c5"
+    },
+    {
+      "path": "explore/locale.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "23ad2ebe643cb22fa096487e47d5588aa500442d6b6f501e2fed63cfa9016787"
+    },
+    {
+      "path": "explore/locales/en.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "45fcca3ba25b3ae3cda1f07e6f65c8c4201fbfcb3f270c971152c25b32e2cc19"
+    },
+    {
+      "path": "explore/locales/zh.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "dfad17ae3bb8e30cd6db25d42bf9c691c5eecb7290f1cfa7cf537cb1c0e8b92a"
+    },
+    {
+      "path": "explore/panel-model.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "e73b2c59757b33621cf3ba258322352b0de828991e4085ec8c145159df67850d"
+    },
+    {
+      "path": "explore/provenance.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "5165c6680c24538fe9af0505f10d3797abdf612abb2094f1607c6f4094d50b6d"
+    },
+    {
+      "path": "explore/relations.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "7e83f5dea290df60d1b7744e87ca7a91a9733c3e76ceff75015598a10c6301c4"
+    },
+    {
+      "path": "explore/relationship-model.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "9a1bdcf71a4e110f6faa92ce17f70d8275f71b025ea98ce0218421cda89338bf"
+    },
+    {
+      "path": "explore/relationship-view.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "92f16ce4c4b245973ac7c62f43f51f98d5a4c48840680b70dab68e49d436f191"
+    },
+    {
+      "path": "explore/request-state.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "23f3c205ce4d62c482eb22a10780eae879ea50666f3d97aff2c4be7fe4f2e177"
+    },
+    {
+      "path": "explore/site-contract.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "136b8be116fdef652e2e5ac29c5b9377791870657b907533552fac48f935a742"
+    },
+    {
+      "path": "explore/skill-edges.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "d9aa92d0f0bc9048c6bd85db0b8066a7c6aeadcc61f27240479dac05b8e5c0fb"
+    },
+    {
+      "path": "explore/skill-graph.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "dc0e593f84533128dc192562200dd812e7ac9a66158c5becda416792998b4eb6"
+    },
+    {
+      "path": "explore/skill-guidance.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "e812f4ab92ed7570bdb30bd9b96e40a68a2252aa876b2e3a1054d923f018f3de"
+    },
+    {
+      "path": "explore/skill-metadata.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "340cab3a96a1ed296fbd5ad51744c173c877f6a6f0f4fd49463cfdd19c60792b"
+    },
+    {
+      "path": "explore/skill-provenance.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "d34c17780d8853511406772ed85a1438af0b52b3914d6236029495401608098d"
+    },
+    {
+      "path": "explore/source-links.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "002764f3eb4b93c25aff8792266c5e764479a3a0ce0f4d1a2c8c9f3a479b17f0"
+    },
+    {
+      "path": "explore/source-manifest.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "2801e4a1590dea2776412cfb1524db7af2f624dd0cec52537a3f2fd2f6dc3daf"
+    },
+    {
+      "path": "explore/story-model.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "916f3e240978bd5d6761ab686f457df06be330adf769aa801dd804c60fb9bc6f"
+    },
+    {
+      "path": "explore/story.css",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "5eda0ca3955b1bcf725d1ad9de194ebcb6c97f051481a6960bf8b33cec4f5eea"
+    },
+    {
+      "path": "explore/support-scopes.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "7ec7a3356522620fee58d1d992cef222ac4e373a99cb0fe59d6420d0be5685d7"
+    },
+    {
+      "path": "explore/support-scopes.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "5e7bab22d0cf8bbb303fa48974cd4362222b18ea0a0dd4be84914e182c9a9436"
+    },
+    {
+      "path": "explore/topic-edges.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "b74e07e0c080bd3f5a74f9272ad2e66ea5376bb845647bc6c4c7d37ea76c09b6"
+    },
+    {
+      "path": "explore/topic-map.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "400113b9c4e81bdc26783421afb409da9529c357a9032f245fe4916cc5fd33bc"
+    },
+    {
+      "path": "explore/topic-map.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "ada99eb1e1b5225c7492ae85f1bf84502eda2ff645ad7e31bf0174d12b4d19f2"
+    },
+    {
+      "path": "explore/work-map.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "5617256b4b101f258cf75cd253b2021f6292bd2152470fef82b89b603fdebe7b"
+    },
+    {
+      "path": "explore/workflow.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "90a1b9dc58995af3e01fbc32a1b47280937996d81cd5a21c3f351b3a1ac96f19"
+    },
+    {
+      "path": "explore/workspace.css",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "d4175e2a71c4707eb53ef7af08c9f86670020cc874ce4dab663556fec5ef8d2a"
+    },
+    {
+      "path": "explore/zh.html",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": false,
+      "sha256": "488ee9c5807f50e1323c8221f77bf745a7a8b8eeaf73528c7689ee3c4070f347"
+    },
+    {
+      "path": "favicon.svg",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "e3f057d1c807354a40e1c98fd390638666a8a244e4b8e81562e348efa147c02f"
+    },
+    {
+      "path": "index.html",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": false,
+      "sha256": "422116332c653e96a4505da91ff1ea9f2423fa82350239bf4d730096707c1f04"
+    },
+    {
+      "path": "language.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "f7bb46226f1703e103d45cc90c5c5a8c7565a359a38c4563a6fb13d0907c5102"
+    },
+    {
+      "path": "main.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "04d0603b402c282082a15724dc272eb36276f29be9d0d7bac268d9532d7ad570"
+    },
+    {
+      "path": "robots.txt",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "2c3f391f9674a75b97ddc2e2142e18fd9d17d2755c9dfa261884aea06b995cc9"
+    },
+    {
+      "path": "site-navigation.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "684d0c2e2dc44e4c47d070e27d60eeba9916e731e7ad7b1a4c1c963279e842a6"
+    },
+    {
+      "path": "site-navigation.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "6e250b8468cb2874a0755c0951cfd8d0c7beb40d12a13af8758d9c4b5065005e"
+    },
+    {
+      "path": "sitemap.xml",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "1f0245151e10eaca6d2e888a8fdc61a150b76346b8d958e74cf01a2ca8b93038"
+    },
+    {
+      "path": "styles.css",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "78dc21fe4b5f649aacb99c812b3e2dee0a7617f9e11d8e8016d715dc447d90f3"
+    },
+    {
+      "path": "theme.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "df9b28f7c343ff4ea9f7ec83446b62692e0bd6ba47157fa78af5a7ca478f653f"
+    },
+    {
+      "path": "zh.html",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": false,
+      "sha256": "335b9388e047b47574ecfcbee0850751c25fd86cacd64e0966aaa3d7bcec42c5"
+    }
+  ],
+  "browser_checks": [
+    "Local 1280px and 360px: zero audit links, no horizontal overflow, adapted badges preserved.",
+    "Production Chinese extensionless route: expanded research group, zero audit-material links and no horizontal overflow."
+  ],
+  "tests": {
+    "website_node": 57,
+    "provenance_python": 34,
+    "website_python": 18
+  }
+}

@@ -1,16 +1,16 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_f0d0f4fe65f4819196404fb73489fd2e",
-  "version_number": 9,
-  "deployment_id": "appgdep_6ae278b748148191a9fb204696b11679",
-  "source_commit": "32004a55568a1527fd4936518ff59620248469c4",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_a2adc15554e88191af264092bb3117fe",
+  "version_number": 10,
+  "deployment_id": "appgdep_6ae2816bcce48191bb7fe4b711407703",
+  "source_commit": "617b7bd90f8b8d624cbaadde92b09a4e563dfd89",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.mystic-loon-2462.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-10-28T22:35:51.142698+00:00",
+  "updated_at": "2026-10-28T23:12:56.632803+00:00",
   "published_files": [
     "copy.mjs",
     "explore/assets/work-stories.png",
@@ -85,16 +85,17 @@
   "ssl_status": "active",
   "provider_status": "active",
   "public_url": "https://ai-cortex.nesnilnehc.top/",
-  "public_verification_file": "../../experiments/skill-provenance/website-publication.json",
+  "public_verification_file": "../../experiments/skill-provenance/website-publication-v10.json",
   "browser_checks": [
-    "No new production browser interaction run; pre-publication browser acceptance is recorded in experiments/skill-provenance/browser-acceptance.json."
+    "Local 1280px and 360px: zero audit links, no horizontal overflow, adapted badges preserved.",
+    "Production Chinese extensionless route: expanded research group, zero audit-material links and no horizontal overflow."
   ],
   "public_verification": {
     "status": "passed",
     "https_mime_source_files": 49,
     "static_assets_byte_identical": 45,
     "html_editions_source_preserved": 4,
-    "public_browser_cases": 0
+    "public_browser_cases": 1
   },
   "brand_asset": "favicon.svg",
   "brand_consumers": [
@@ -104,9 +105,9 @@
     "personal site project entry"
   ],
   "known_good_version": {
-    "version_number": 8,
-    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_84cf5ae9f2f08191b807714f228882e4",
-    "source_commit": "f9762c952eb9c3847524dbdd2d52376c4224a19d"
+    "version_number": 9,
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_f0d0f4fe65f4819196404fb73489fd2e",
+    "source_commit": "32004a55568a1527fd4936518ff59620248469c4"
   },
-  "repository_merge": "4542a8ee1229747cf5de925fd353d4c5fbd4d01a"
+  "repository_merge": "710ad98c9199a6ce746df65fe00877ec09d11cbf"
 }
