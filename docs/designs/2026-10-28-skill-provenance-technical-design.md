@@ -188,3 +188,7 @@ Rule references resolve to the existing architecture, testing, reliability and s
 ## Approved display amendment — 2026-10-28
 
 The [REQ 08 display amendment](../requirements-planning/AIC-REQ-08.md#display-amendment--2026-10-28) changes rendering only: `native` suppresses the badge after complete record validation; both third-party categories retain badges. Index, static fallbacks, directory rows and dynamic renderers retain evidence access for all three categories. No projection record or validation requirement is removed.
+
+## Website display amendment — 2026-10-29
+
+The approved requirement now omits audit-material links from every website surface, including generated static fallbacks and the asset directory. This supersedes earlier website evidence-navigation sections. Preserve third-party text badges, unbadged originals, Skill source navigation and repository evidence validation.

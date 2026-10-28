@@ -1,6 +1,6 @@
-import metadata from './skill-metadata.json?v=aic08-provenance-1' with {type:'json'};
-import {classification,relationships} from './relationship-model.mjs?v=aic08-provenance-1';
-import {getGlobalTopicGraph} from './global-topic-graph.mjs?v=aic08-provenance-1';
+import metadata from './skill-metadata.json?v=aic08-provenance-2' with {type:'json'};
+import {classification,relationships} from './relationship-model.mjs?v=aic08-provenance-2';
+import {getGlobalTopicGraph} from './global-topic-graph.mjs?v=aic08-provenance-2';
 const relationIds=new Set([...relationships,...getGlobalTopicGraph().edges,...getGlobalTopicGraph().loops].map(e=>e.id));
 export function createExplorerState(initial={}){
  const state={view:'classification',selectedSkillId:null,selectedWorkId:null,selectedRelationId:null,detail:{open:false,target:null,mode:'usage'},lookup:{open:false,query:''},viewState:{classification:{expandedCategoryIds:[],scrollByRegion:{}},relations:{expandedTopicId:null,scrollByRegion:{},pan:{x:0,y:0}}}};
