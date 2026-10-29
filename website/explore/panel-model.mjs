@@ -1,6 +1,6 @@
-import {dictionary} from './locale.mjs?v=aic08-provenance-2';
-import {catalog} from './workflow.mjs?v=aic08-provenance-2';
-import metadata from './skill-metadata.json?v=aic08-provenance-2' with {type:'json'};
+import {dictionary} from './locale.mjs?v=aic08-provenance-3';
+import {catalog} from './workflow.mjs?v=aic08-provenance-3';
+import metadata from './skill-metadata.json?v=aic08-provenance-3' with {type:'json'};
 export function getNodeDetails(id){
  if(!Object.hasOwn(dictionary.contexts,id))throw Error('Unknown node');
  const detail=structuredClone(dictionary.contexts[id]);

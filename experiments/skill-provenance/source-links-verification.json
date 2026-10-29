@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-29",
+  "scope": "Third-party original-source badge navigation, including static fallbacks and directory",
+  "review": {
+    "skill": "review-diff",
+    "dimensions": [
+      "intent and impact",
+      "regression and correctness",
+      "breaking change and compatibility",
+      "side effects and idempotency",
+      "observability"
+    ],
+    "findings": [],
+    "notes": [
+      "Schema 2 deployed atomically with a new module cache key.",
+      "No Skill bodies, registry entries, maintainer decisions or review subjects changed.",
+      "Shared bootstrap retains actionable safe failure handling."
+    ]
+  },
+  "tests": {
+    "website_node": 58,
+    "provenance_python": 36,
+    "website_python": 18,
+    "generator_check": "passed",
+    "markdown_links": "passed",
+    "doc_hygiene": "passed"
+  },
+  "browser": [
+    "Local Chinese 1280px dark and 360px light: original-source links present, no audit links/native badges/horizontal overflow.",
+    "Enter on a third-party badge opens the expected upstream in a new tab and retains catalogue context.",
+    "Synthetic multiple-source static fixture: Enter expands, Tab reaches the first titled source."
+  ],
+  "upstream_checks": [
+    {
+      "url": "https://github.com/heygen-com/hyperframes/tree/4f00336c92f6418aab82c060853da604dd832197/.agents/skills/changelog-video",
+      "status": "200",
+      "exit": 0
+    },
+    {
+      "url": "https://github.com/softaworks/agent-toolkit/tree/06825f04669d4364a16abc267650c86cf153d349/skills/commit-work",
+      "status": "200",
+      "exit": 0
+    },
+    {
+      "url": "https://github.com/anthropics/claude-plugins-community/tree/06ec7b6a0a82bdc4bec44bd82d4368c42f20d7c1/eli5/skills/eli5",
+      "status": "200",
+      "exit": 0
+    },
+    {
+      "url": "https://github.com/dietrichgebert/ponytail/tree/09c434ab73ca43761c5d8b0c5d341926c2fba710/skills/ponytail",
+      "status": "200",
+      "exit": 0
+    }
+  ],
+  "limits": [
+    "Current catalogue has no third-party-original or multiple-source records; those cases use executable synthetic fixtures.",
+    "No external write occurs on opening upstream source links."
+  ]
+}

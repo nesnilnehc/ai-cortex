@@ -25,14 +25,14 @@ test('eli5 and ponytail are present exactly once in catalogue and both locales',
 test('provenance requires full coverage, three categories and revision-bound safe evidence',async()=>{
  const {validateProjection,getProvenance}=await import('../../website/explore/provenance.mjs');
  const revision='a'.repeat(40),evidence=`https://github.com/nesnilnehc/ai-cortex/blob/${revision}/evidence/a.json`;
- const data={schema_version:1,source_revision:revision,skills:{a:{classification:'native',evidence:[evidence]},b:{classification:'third_party_original',evidence:[evidence]},c:{classification:'third_party_adapted',evidence:[evidence]}}};
+ const data={schema_version:2,source_revision:revision,skills:{a:{classification:'native',sources:[],evidence:[evidence]},b:{classification:'third_party_original',sources:[{title:'Original',url:'https://example.org/original'}],evidence:[evidence]},c:{classification:'third_party_adapted',sources:[{title:'Original',url:'https://example.org/original'}],evidence:[evidence]}}};
  assert.equal(validateProjection(data,['a','b','c']),data);
  assert.equal(getProvenance(data,'a',read('locales/en.json').provenance).label,'AI Cortex original');
  assert.equal(getProvenance(data,'c',read('locales/zh.json').provenance).label,'第三方改编');
  for(const alter of [d=>delete d.skills.a,d=>d.skills.a.classification='unverified',d=>d.skills.a.evidence=['javascript:alert(1)'],d=>d.skills.a.evidence=[evidence.replace(revision,'b'.repeat(40))],d=>d.skills.a.evidence=[evidence.replace('/evidence/a.json','/%2e%2e/private')],d=>d.skills.a.evidence=[],d=>d.skills.a.extra='private']){
   const bad=structuredClone(data);alter(bad);assert.throws(()=>validateProjection(bad,['a','b','c']));
  }
- const preview={schema_version:1,source_revision:null,delivery_ready:false,skills:{a:{classification:'native',evidence:['/provenance-evidence/a.json']}}};
+ const preview={schema_version:2,source_revision:null,delivery_ready:false,skills:{a:{classification:'native',sources:[],evidence:['/provenance-evidence/a.json']}}};
  assert.throws(()=>validateProjection(preview,['a']));assert.equal(validateProjection(preview,['a'],{allowPreview:true}),preview);
  assert.throws(()=>getProvenance(data,'missing',read('locales/en.json').provenance));
 });
@@ -42,17 +42,17 @@ test('third-party badge retains selection without exposing audit materials',asyn
  const {frameSkill}=await import('../../website/explore/provenance.mjs');
  const make=tag=>({tagName:tag,children:[],attrs:{},append(...items){this.children.push(...items);},setAttribute(key,value){this.attrs[key]=value;}});
  const doc={createElement:make},control=make('button'),revision='a'.repeat(40);
- const data={schema_version:1,source_revision:revision,skills:{a:{classification:'third_party_adapted',evidence:[`https://github.com/nesnilnehc/ai-cortex/blob/${revision}/evidence/a.json`]}}};
+ const data={schema_version:2,source_revision:revision,skills:{a:{classification:'third_party_adapted',sources:[{title:'Original',url:'https://example.org/original'}],evidence:[`https://github.com/nesnilnehc/ai-cortex/blob/${revision}/evidence/a.json`]}}};
  const frame=frameSkill(control,'a',data,read('locales/en.json').provenance,doc);
  assert.equal(frame.children.includes(control),true);
  assert.equal(control.children.length,0);
- const badge=frame.children.find(n=>n.tagName==='span');assert.equal(badge.textContent,'Third-party adapted');
- assert.equal(frame.children.some(n=>n.tagName==='nav'||n.tagName==='a'),false);
+ const badge=frame.children.find(n=>n.tagName==='a');assert.equal(badge.textContent,'Third-party adapted');
+ assert.equal(badge.href,'https://example.org/original');assert.equal(frame.children.some(n=>n.tagName==='nav'),false);
 });
 
 test('reviewed catalogue bootstrap validates before activating renderers',async()=>{
  const {initializeProvenance,decorateSkill}=await import('../../website/explore/provenance.mjs');
- const revision='a'.repeat(40),data={schema_version:1,source_revision:revision,skills:{a:{classification:'native',evidence:[`https://github.com/nesnilnehc/ai-cortex/blob/${revision}/evidence/a.json`]}}};
+ const revision='a'.repeat(40),data={schema_version:2,source_revision:revision,skills:{a:{classification:'native',sources:[],evidence:[`https://github.com/nesnilnehc/ai-cortex/blob/${revision}/evidence/a.json`]}}};
  const copy=read('locales/en.json').provenance,control={};
  assert.equal(await initializeProvenance({manifest:{},ids:['a'],copy}),true);
  assert.equal(decorateSkill(control,'a',copy),control);
@@ -89,7 +89,7 @@ test('catalogue loading supplies a bounded cancellation signal',async()=>{
 test('confirmed originals expose neither badges nor audit links',async()=>{
  const {frameSkill}=await import('../../website/explore/provenance.mjs');
  const make=tag=>({tagName:tag,children:[],attrs:{},append(...items){this.children.push(...items);},setAttribute(key,value){this.attrs[key]=value;}});
- const revision='a'.repeat(40),data={schema_version:1,source_revision:revision,skills:{a:{classification:'native',evidence:[`https://github.com/nesnilnehc/ai-cortex/blob/${revision}/evidence/a.json`]}}};
+ const revision='a'.repeat(40),data={schema_version:2,source_revision:revision,skills:{a:{classification:'native',sources:[],evidence:[`https://github.com/nesnilnehc/ai-cortex/blob/${revision}/evidence/a.json`]}}};
  const frame=frameSkill(make('button'),'a',data,read('locales/en.json').provenance,{createElement:make});
  assert.equal(frame.children.some(n=>n.className==='provenance-badge'),false);
  assert.equal(frame.children.some(n=>n.tagName==='nav'||n.tagName==='a'),false);
@@ -141,5 +141,25 @@ test('legacy fallback pages load the shared local catalogue styles',()=>{
    assert.ok(html.includes(`rel="stylesheet" href="${path}?`),`${name} is missing ${path}`);
    assert.ok(readFileSync(new URL('../../website/explore/'+path,import.meta.url),'utf8').length>0);
   }
+ }
+});
+
+// Third-party navigation points at originals, never maintenance evidence.
+test('third-party badges open original sources and multiple sources expand',async()=>{
+ const {frameSkill,validateProjection}=await import('../../website/explore/provenance.mjs');
+ const make=tag=>({tagName:tag,children:[],attrs:{},append(...items){this.children.push(...items);},setAttribute(k,v){this.attrs[k]=v;}});
+ const revision='a'.repeat(40),source={title:'Original Skill',url:'https://github.com/example/upstream/tree/'+revision+'/skills/a'};
+ for(const classification of ['third_party_original','third_party_adapted']){
+  const data={schema_version:2,source_revision:revision,skills:{a:{classification,evidence:[`https://github.com/nesnilnehc/ai-cortex/blob/${revision}/evidence/a.json`],sources:[source]}}};
+  validateProjection(data,['a']);const control=make('button');
+  const frame=frameSkill(control,'a',data,read('locales/en.json').provenance,{createElement:make});
+  const badge=frame.children[0];assert.equal(badge.tagName,'a');assert.equal(badge.href,source.url);assert.equal(badge.target,'_blank');assert.equal(badge.rel,'noopener');assert.equal(frame.children[1],control);
+  data.skills.a.sources.push({title:'Reference article',url:'https://example.org/article'});
+  const multiple=frameSkill(control,'a',data,read('locales/en.json').provenance,{createElement:make}).children[0];
+  assert.equal(multiple.tagName,'details');assert.equal(multiple.children[0].tagName,'summary');assert.equal(multiple.children[1].children.length,2);
+  for(const url of ['javascript:alert(1)','http://example.org','https://user:secret@example.org','https://example.org/\\evil']){
+   const bad=structuredClone(data);bad.skills.a.sources[0].url=url;assert.throws(()=>validateProjection(bad,['a']));
+  }
+  const missing=structuredClone(data);missing.skills.a.sources=[];assert.throws(()=>validateProjection(missing,['a']));
  }
 });

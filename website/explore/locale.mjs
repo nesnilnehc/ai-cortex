@@ -1,6 +1,6 @@
-import en from './locales/en.json?v=aic08-provenance-2' with {type:'json'};
-import zh from './locales/zh.json?v=aic08-provenance-2' with {type:'json'};
-import metadata from './skill-metadata.json?v=aic08-provenance-2' with {type:'json'};
+import en from './locales/en.json?v=aic08-provenance-3' with {type:'json'};
+import zh from './locales/zh.json?v=aic08-provenance-3' with {type:'json'};
+import metadata from './skill-metadata.json?v=aic08-provenance-3' with {type:'json'};
 const dictionaries={en,zh};
 export const locale=globalThis.document?.documentElement.lang==='en'?'en':'zh';
 function select(language){if(!Object.hasOwn(dictionaries,language))throw Error(`Unknown locale: ${language}`);return dictionaries[language];}

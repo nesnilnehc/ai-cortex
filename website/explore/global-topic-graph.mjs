@@ -1,7 +1,7 @@
-import sourceEdges from './topic-edges.json?v=aic08-provenance-2' with {type:'json'};
-import {dictionary} from './locale.mjs?v=aic08-provenance-2';
+import sourceEdges from './topic-edges.json?v=aic08-provenance-3' with {type:'json'};
+import {dictionary} from './locale.mjs?v=aic08-provenance-3';
 const edges=sourceEdges.map(edge=>({...edge,...dictionary.topicEdges[edge.id]}));
-import {getTopicMap} from './topic-map.mjs?v=aic08-provenance-2';
+import {getTopicMap} from './topic-map.mjs?v=aic08-provenance-3';
 const nodes=[
  {id:'direction',row:1,column:1,hint:''},
  {id:'planning',row:1,column:2,hint:''},

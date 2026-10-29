@@ -10,24 +10,39 @@ function safeEvidence(value,revision,preview){
  if(!path||path.includes('?'))return false;
  try{return path.split('/').every(part=>{const decoded=decodeURIComponent(part);return decoded&&decoded!=='.'&&decoded!=='..'&&!/[\/\\\u0000-\u001f]/u.test(decoded);});}catch{return false;}
 }
+function validSources(record){
+ if(!Array.isArray(record.sources)||(record.classification==='native'?record.sources.length!==0:record.sources.length===0))return false;
+ return record.sources.every(source=>{
+  if(!keys(source,['title','url'])||typeof source.title!=='string'||!source.title.trim()||typeof source.url!=='string'||/[\\\u0000-\u0020]/u.test(source.url))return false;
+  try{const url=new URL(source.url);return url.protocol==='https:'&&!url.username&&!url.password;}catch{return false;}
+ });
+}
 export function validateProjection(data,ids,{allowPreview=false}={}){
  const preview=allowPreview&&data?.delivery_ready===false&&data?.source_revision===null;
- if(!keys(data,preview?['schema_version','source_revision','delivery_ready','skills']:['schema_version','source_revision','skills'])||data.schema_version!==1||(!preview&&(typeof data.source_revision!=='string'||!/^[a-f0-9]{40}$/.test(data.source_revision))))fail();
+ if(!keys(data,preview?['schema_version','source_revision','delivery_ready','skills']:['schema_version','source_revision','skills'])||data.schema_version!==2||(!preview&&(typeof data.source_revision!=='string'||!/^[a-f0-9]{40}$/.test(data.source_revision))))fail();
  if(!keys(data.skills,ids)||new Set(ids).size!==ids.length)fail();
  for(const record of Object.values(data.skills)){
-  if(!keys(record,['classification','evidence'])||!categories.has(record.classification)||!Array.isArray(record.evidence)||!record.evidence.length||!record.evidence.every(url=>safeEvidence(url,data.source_revision,preview)))fail();
+  if(!keys(record,['classification','evidence','sources'])||!categories.has(record.classification)||!validSources(record)||!Array.isArray(record.evidence)||!record.evidence.length||!record.evidence.every(url=>safeEvidence(url,data.source_revision,preview)))fail();
  }
  return data;
 }
 export function getProvenance(data,id,copy){
  const record=Object.hasOwn(data.skills,id)&&data.skills[id];
- if(!record||!categories.has(record.classification)||typeof copy.labels?.[record.classification]!=='string'||!Array.isArray(record.evidence)||!record.evidence.length||!record.evidence.every(url=>safeEvidence(url,data.source_revision,data.delivery_ready===false&&data.source_revision===null)))fail();
- return {classification:record.classification,label:copy.labels[record.classification],evidence:[...record.evidence]};
+ if(!record||!categories.has(record.classification)||!validSources(record)||typeof copy.labels?.[record.classification]!=='string'||!Array.isArray(record.evidence)||!record.evidence.length||!record.evidence.every(url=>safeEvidence(url,data.source_revision,data.delivery_ready===false&&data.source_revision===null)))fail();
+ return {classification:record.classification,label:copy.labels[record.classification],evidence:[...record.evidence],sources:record.sources.map(source=>({...source}))};
 }
 export function frameSkill(control,id,data,copy,doc=globalThis.document){
  const record=getProvenance(data,id,copy),frame=doc.createElement('div');frame.className='provenance-entry';
- const badge=doc.createElement('span');badge.className='provenance-badge';badge.setAttribute('data-provenance',record.classification);badge.textContent=record.label;
- if(record.classification!=='native')frame.append(badge);
+ if(record.classification!=='native'){
+  const link=(source,text)=>{const node=doc.createElement('a');node.href=source.url;node.target='_blank';node.rel='noopener';node.textContent=text;return node;};
+  let badge;
+  if(record.sources.length===1)badge=link(record.sources[0],record.label);
+  else{
+   badge=doc.createElement('details');const summary=doc.createElement('summary');summary.textContent=record.label;
+   const list=doc.createElement('ul');for(const source of record.sources){const item=doc.createElement('li');item.append(link(source,source.title));list.append(item);}badge.append(summary,list);
+  }
+  badge.className='provenance-badge';badge.setAttribute('data-provenance',record.classification);frame.append(badge);
+ }
  frame.append(control);return frame;
 }
 
@@ -41,7 +56,7 @@ export async function initializeProvenance({manifest,ids,copy,fetcher=globalThis
  try{
   if(manifest.provenancePreview&&!previewHost)fail();
   stage='fetch';
-  const response=await fetcher(new URL('./skill-provenance.json?v=aic08-provenance-2',import.meta.url),{signal:signalFactory()});
+  const response=await fetcher(new URL('./skill-provenance.json?v=aic08-provenance-3',import.meta.url),{signal:signalFactory()});
   if(!response.ok)fail();
   stage='parse';
   const payload=await response.json();

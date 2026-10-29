@@ -1,7 +1,7 @@
-import classificationData from './classification.json?v=aic08-provenance-2' with {type:'json'};
-import rawEdges from './skill-edges.json?v=aic08-provenance-2' with {type:'json'};
-import metadata from './skill-metadata.json?v=aic08-provenance-2' with {type:'json'};
-import {dictionary} from './locale.mjs?v=aic08-provenance-2';
+import classificationData from './classification.json?v=aic08-provenance-3' with {type:'json'};
+import rawEdges from './skill-edges.json?v=aic08-provenance-3' with {type:'json'};
+import metadata from './skill-metadata.json?v=aic08-provenance-3' with {type:'json'};
+import {dictionary} from './locale.mjs?v=aic08-provenance-3';
 export const classification=structuredClone(classificationData);
 export const relationships=rawEdges.map(e=>({...e,...dictionary.skillEdges[e.id]}));
 export function validateSequences(edges){

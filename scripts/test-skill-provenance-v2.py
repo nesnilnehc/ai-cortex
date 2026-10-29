@@ -533,15 +533,38 @@ class ProvenanceV2Tests(unittest.TestCase):
         locale = json.loads((base / 'locales/en.json').read_text())
         locale['classification'][unsafe] = locale['classification'].pop('map-build')
         (base / 'locales/en.json').write_text(json.dumps(locale))
-        html = output.fallback(self.root, output.preview_projection({'alpha': self.record}), 'en')
+        html = output.fallback(self.root, output.preview_projection({'alpha': self.record}, self.root), 'en')
         self.assertNotIn('id="map-build" onclick=', html)
         self.assertIn('map-build&quot; onclick=&quot;injected', html)
+
+    def test_public_sources_resolve_creative_references_and_exclude_tool_lookups(self):
+        (self.skills / 'SOURCES.yaml').write_text('skills: {}\nreferences:\n  article:\n    title: Original article\n    url: https://example.org/article\n  duplicate:\n    title: Same article\n    url: https://example.org/article\n  tool:\n    title: Tool manual\n    url: https://example.org/manual\n')
+        sources = [{'id': 'reference:article', 'role': 'creative_reference'}, {'id': 'reference:duplicate', 'role': 'creative_reference'}, {'id': 'reference:tool', 'role': 'tool_lookup'}]
+        record = {'classification': 'third_party_adapted', 'sources': sources}
+        self.assertEqual(provenance.public_sources(self.root, record), [{'title': 'Original article', 'url': 'https://example.org/article'}])
+        self.assertEqual(provenance.public_sources(self.root, {'classification': 'native', 'sources': [sources[-1]]}), [])
+
+    def test_static_third_party_badges_link_to_sources(self):
+        import skill_provenance_output as output
+        for classification in ('third_party_original', 'third_party_adapted'):
+            record = {'classification': classification, 'sources': [{'title': 'Original', 'url': 'https://example.org/original'}]}
+            html = output.render_badge(record, 'Third-party')
+            self.assertIn('href="https://example.org/original"', html)
+            self.assertIn('target="_blank" rel="noopener"', html)
+            self.assertNotIn('provenance-evidence', html)
+            record['sources'].append({'title': '<Article>', 'url': 'https://example.org/?a=1&b=2'})
+            html = output.render_badge(record, 'Third-party')
+            self.assertIn('<details', html)
+            self.assertIn('<summary>Third-party</summary>', html)
+            self.assertIn('&lt;Article&gt;', html)
+            self.assertIn('?a=1&amp;b=2', html)
+            self.assertEqual(html.count('<li>'), 2)
 
     def test_static_asset_directory_omits_audit_links(self):
         # Covers: AIC-REQ-08#AC1.
         import skill_provenance_output as output
         self.setup_site()
-        projection = output.preview_projection({'alpha': self.record})
+        projection = output.preview_projection({'alpha': self.record}, self.root)
         html = output.render_directory(self.root, projection, 'en')
         self.assertIn('data-asset="skills/alpha"', html)
         self.assertNotIn('AI Cortex original', html)

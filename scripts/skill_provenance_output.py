@@ -15,6 +15,18 @@ END = '<!-- provenance:end -->'
 PAGES = ('website/index.html', 'website/zh.html', 'website/explore/index.html', 'website/explore/zh.html')
 
 
+def render_badge(record, label):
+    if record['classification'] == 'native':
+        return ''
+    def link(source, text, attributes=''):
+        return f'<a {attributes}href="{escape(source["url"], quote=True)}" target="_blank" rel="noopener">{escape(text)}</a>'
+    attributes = f'class="provenance-badge" data-provenance="{record["classification"]}" '
+    if len(record['sources']) == 1:
+        return link(record['sources'][0], label, attributes)
+    links = ''.join(f'<li>{link(source, source["title"])}</li>' for source in record['sources'])
+    return f'<details {attributes}><summary>{escape(label)}</summary><ul>{links}</ul></details>'
+
+
 def fallback(root, projection, language, legacy=False):
     base = root / 'website/explore'
     copy = provenance.read_json(base / 'locales' / f'{language}.json')
@@ -29,9 +41,7 @@ def fallback(root, projection, language, legacy=False):
             skill, record = copy['skills'][name], projection['skills'][name]
             label = copy['provenance']['labels'][record['classification']]
             source = f'https://github.com/nesnilnehc/ai-cortex/blob/{revision}/skills/{quote(name, safe="")}/SKILL.md'
-            badge = f'<span class="provenance-badge" data-provenance="{record["classification"]}">{escape(label)}</span>'
-            if record['classification'] == 'native':
-                badge = ''
+            badge = render_badge(record, label)
             entries.append(f'<li class="provenance-entry">{badge}<a class="classification-skill" data-class-skill="{escape(name, quote=True)}" href="{escape(source, quote=True)}"><span>{escape(skill["name"])}</span><code>{escape(name)}</code><small>{escape(skill["purpose"])}</small></a></li>')
         sections.append(f'<details class="classification-card" id="{escape(group["id"], quote=True)}"><summary><strong>{escape(title["name"])}</strong><small>{escape(title["purpose"])}</small><span>{len(entries)}</span></summary><div class="classification-body"><ul>{"".join(entries)}</ul></div></details>')
     body = ''.join(sections)
@@ -57,14 +67,15 @@ def render_directory(root, projection, language):
     for name, record in sorted(projection['skills'].items()):
         label = copy['provenance']['labels'][record['classification']]
         description = metadata[name].get('description', copy['skills'][name]['purpose'])
-        badge = '' if record['classification'] == 'native' else f'<span class="provenance-badge" data-provenance="{record["classification"]}">{escape(label)}</span>'
+        badge = render_badge(record, label)
         entries.append(f'<li class="provenance-entry" data-asset="skills/{escape(name, quote=True)}">{badge}<div><code>{escape(name)}</code><p>{escape(description)}</p></div><a class="atlas-source" href="https://github.com/nesnilnehc/ai-cortex/blob/{escape(revision, quote=True)}/skills/{quote(name, safe="")}/SKILL.md" aria-label="Inspect source: {escape(name, quote=True)}">↗</a></li>')
     return f'<details class="directory-type" id="skills"><summary>{escape(copy["provenance"]["directoryTitle"])} · {len(entries)}</summary><ul>{"".join(entries)}</ul></details>'
 
 
-def preview_projection(records):
-    return {'schema_version': 1, 'source_revision': None, 'delivery_ready': False,
+def preview_projection(records, root):
+    return {'schema_version': 2, 'source_revision': None, 'delivery_ready': False,
             'skills': {name: {'classification': rec['classification'],
+                             'sources': provenance.public_sources(root, rec),
                              'evidence': ['/provenance-evidence/' + quote(r['path'], safe='/') + ('#' + quote(r['anchor'], safe='') if r.get('anchor') else '') for r in rec['evidence']]}
                        for name, rec in sorted(records.items())}}
 
@@ -75,7 +86,7 @@ def generate(root, skills, render_index, *, check=False, preview_dir=None):
     if preview_dir is not None:
         destination = Path(preview_dir).resolve()
         provenance.require(not destination.is_relative_to(root.resolve()) and not destination.exists(), 'preview destination must be new and outside repository')
-        projection = preview_projection(records)
+        projection = preview_projection(records, root)
     else:
         provenance.verify_asset_revision(root)
         manifest = provenance.read_json(root / 'website/explore/source-manifest.json')
