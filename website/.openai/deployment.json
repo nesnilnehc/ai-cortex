@@ -1,16 +1,16 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_c29c382236b481919d4e0661135a9277",
-  "version_number": 11,
-  "deployment_id": "appgdep_6ae29d44491081919a68a9ab2e6b777c",
-  "source_commit": "f7bbccd6048ecae194548314296b66ed4826a86d",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_c95510ecd1688191987574e54f59cddf",
+  "version_number": 13,
+  "deployment_id": "appgdep_6ae2fac26fe08191b215f89f611a3db1",
+  "source_commit": "b42d2b6f8c4dc5bfa238113a6de267a7877fe0a0",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.mystic-loon-2462.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-10-29T01:11:46.573914+00:00",
+  "updated_at": "2026-10-29T07:50:39.735067+00:00",
   "published_files": [
     "copy.mjs",
     "explore/assets/work-stories.png",
@@ -85,17 +85,10 @@
   "ssl_status": "active",
   "provider_status": "active",
   "public_url": "https://ai-cortex.nesnilnehc.top/",
-  "public_verification_file": "../../experiments/skill-provenance/website-publication-v11.json",
+  "public_verification_file": "../../experiments/release-workflow/website-publication-v13.json",
   "browser_checks": [
-    "Production Chinese extensionless route: third-party badges link to actual pinned upstreams; zero audit-material links and no horizontal overflow."
+    "Public Chinese build-project detail and conditional callers verified. Local English and 390px mobile detail checked."
   ],
-  "public_verification": {
-    "status": "passed",
-    "https_mime_source_files": 49,
-    "static_assets_byte_identical": 45,
-    "html_editions_source_preserved": 4,
-    "public_browser_cases": 1
-  },
   "brand_asset": "favicon.svg",
   "brand_consumers": [
     "website header",
@@ -104,9 +97,14 @@
     "personal site project entry"
   ],
   "known_good_version": {
-    "version_number": 10,
-    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_a2adc15554e88191af264092bb3117fe",
-    "source_commit": "617b7bd90f8b8d624cbaadde92b09a4e563dfd89"
+    "version_number": 11,
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_c29c382236b481919d4e0661135a9277",
+    "source_commit": "f7bbccd6048ecae194548314296b66ed4826a86d"
   },
-  "repository_merge": "515b8c82a6115960cef25e85ce72aad4e6ffb885"
+  "repository_merge": "ada6794",
+  "public_verification": {
+    "status": "passed",
+    "runtime_files": 49,
+    "record": "../../experiments/release-workflow/website-publication-v13.json"
+  }
 }
