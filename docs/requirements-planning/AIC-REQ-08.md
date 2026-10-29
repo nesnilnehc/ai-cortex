@@ -82,3 +82,7 @@ Implementation and acceptance evidence: [REQ 08 delivery closeout](../../experim
 ### Website display amendment — 2026-10-29
 
 The user removed audit-material links from the website. This supersedes earlier website evidence-navigation requirements. Third-party text badges remain; originals remain unbadged. Evidence validation and repository maintenance records are unchanged.
+
+### Original-source navigation amendment — 2026-10-29
+
+The user approved linking both third-party classification badges to their actual original sources. A single source opens in a new tab; multiple sources expand a titled link list. This applies to all website Skill surfaces and static fallbacks. Audit-material links remain hidden, originals remain unbadged, and classification confirmation is unchanged. Covers R3 and AC6.

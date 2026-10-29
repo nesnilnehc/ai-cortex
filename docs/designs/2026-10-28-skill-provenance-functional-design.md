@@ -151,3 +151,9 @@ Per the user amendment in [REQ 08](../requirements-planning/AIC-REQ-08.md#displa
 ## Website display amendment — 2026-10-29
 
 The approved requirement now omits audit-material links from every website surface, including generated static fallbacks and the asset directory. This supersedes earlier website evidence-navigation sections. Preserve third-party text badges, unbadged originals, Skill source navigation and repository evidence validation.
+
+## Original-source navigation — 2026-10-29
+
+Covers R3 and AC6 as amended. Readers open a third-party badge to inspect its actual original source, then return to the unchanged catalogue. A single source uses the existing external-link pattern and opens a new tab. Multiple sources use native details/summary to expand a titled list; Enter/Space toggles it and Tab reaches each link. Closed is the initial state; reopening preserves Skill selection. Originals have neither badge nor source control. Missing/unsafe source data fails the existing catalogue gate and retains the static fallback; an unavailable external page leaves the catalogue intact. No new loading state or role is introduced.
+
+Reuse current badge placement, text, color tokens, selection controls and responsive layout. Reject separate arrow buttons because they duplicate the entry. No independent mockup is needed for this localized change to existing controls. Acceptance: the frontend owner verifies single-source destinations, multiple-source keyboard behavior, preserved selection, no audit links and no overlap at 360px/1280px in both locales. No unresolved business decisions.

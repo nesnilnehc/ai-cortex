@@ -3,6 +3,7 @@
 from html.parser import HTMLParser
 from pathlib import Path
 import unittest
+import sys
 from urllib.parse import urlsplit, unquote
 import xml.etree.ElementTree as ET
 
@@ -61,12 +62,22 @@ class SiteContracts(unittest.TestCase):
 
     def test_repository_destinations_exist_in_this_checkout(self):
         prefix = "/nesnilnehc/ai-cortex/"
+        sys.path.insert(0, str(ROOT / "scripts"))
+        from skill_provenance_v2 import parse_registry
+        registry = parse_registry((ROOT / "skills/SOURCES.yaml").read_text())
+        upstream_links = {
+            entry["upstream"]["repository"].removesuffix(".git") + "/tree/" + entry["upstream"]["ref"] + "/" + entry["upstream"]["path"]
+            for entry in registry["skills"].values()
+        }
         for link in self.page.links:
             url = urlsplit(link)
             if url.netloc != "github.com":
                 continue
             path = unquote(url.path)
             with self.subTest(link=link):
+                if not (path.startswith(prefix) or path == prefix.rstrip("/")):
+                    self.assertIn(link, upstream_links)
+                    continue
                 self.assertTrue(path.startswith(prefix) or path == prefix.rstrip("/"))
                 for kind in ("blob/main/", "tree/main/"):
                     if path.startswith(prefix + kind):

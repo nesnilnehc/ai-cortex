@@ -192,3 +192,9 @@ The [REQ 08 display amendment](../requirements-planning/AIC-REQ-08.md#display-am
 ## Website display amendment — 2026-10-29
 
 The approved requirement now omits audit-material links from every website surface, including generated static fallbacks and the asset directory. This supersedes earlier website evidence-navigation sections. Preserve third-party text badges, unbadged originals, Skill source navigation and repository evidence validation.
+
+## Original-source implementation — 2026-10-29
+
+The public projection moves to schema 2, retaining fixed audit references for validation and adding `sources: [{title, url}]` per Skill. Resolve only creative/copy sources from the validated registry; exclude tool lookups, deduplicate URLs and keep native sources empty. Upstream copies link to their pinned revision and Skill path; independent creative references retain their registered title and HTTPS URL. This export does not edit review subjects or require renewed authorship confirmation.
+
+The shared browser decorator and Python static renderer use an anchor for one source and native details/summary plus a titled list for multiple sources. Badge controls remain siblings of Skill selection controls. Reject unsafe/non-HTTPS URLs, credentials, malformed source records and third-party records without sources. Reuse current failure handling, focus styling and static fallback. Increment all website module cache keys together for the schema change. TDD covers both third-party categories, multiple sources, unsafe URLs, native omission and actual Python-to-browser projection; browser acceptance covers keyboard, destinations, selection and responsive layout. No new dependencies or service state.

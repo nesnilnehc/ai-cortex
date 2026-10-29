@@ -548,6 +548,29 @@ def verify_revision(root, records, revision):
     return True
 
 
+def public_sources(root, record):
+    """Resolve reviewed creative sources without exporting audit materials."""
+    from urllib.parse import quote
+    registry = parse_registry((root / 'skills/SOURCES.yaml').read_text(encoding='utf-8'))
+    entries = resolved_sources(record, registry)
+    result = []
+    for source in record['sources']:
+        if source['role'] == 'tool_lookup':
+            continue
+        entry = entries[source['id']]
+        if source['id'].startswith('skill:'):
+            upstream = entry['upstream']
+            repository = upstream['repository'].removesuffix('.git')
+            url = repository + '/tree/' + upstream['ref'] + '/' + quote(upstream['path'], safe='/')
+            title = repository.rsplit('/', 1)[-1] + ' / ' + upstream['path']
+        else:
+            url, title = entry['url'], entry['title']
+        if not any(item['url'] == url for item in result):
+            result.append({'title': title, 'url': url})
+    require(record['classification'] == 'native' or result, 'third-party record requires original sources')
+    return result
+
+
 def export_public(root, records, source_revision):
     """Export only public evidence links; never expose raw maintainer packets."""
     from urllib.parse import quote
@@ -556,8 +579,8 @@ def export_public(root, records, source_revision):
         evidence_path(root, reference)
         return ('https://github.com/nesnilnehc/ai-cortex/blob/' + source_revision + '/' + quote(reference['path'], safe='/')
                 + ('#' + quote(reference['anchor'], safe='') if 'anchor' in reference else ''))
-    return {'schema_version': 1, 'source_revision': source_revision,
-            'skills': {name: {'classification': rec['classification'], 'evidence': [url(r) for r in rec['evidence']]}
+    return {'schema_version': 2, 'source_revision': source_revision,
+            'skills': {name: {'classification': rec['classification'], 'evidence': [url(r) for r in rec['evidence']], 'sources': public_sources(root, rec)}
                        for name, rec in sorted(records.items())}}
 
 

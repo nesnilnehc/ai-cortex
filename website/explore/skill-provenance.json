@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "source_revision": "374a82e6eae07bb48e430949a3e90bc44425c1ab",
   "skills": {
     "announce-release": {
@@ -7,35 +7,40 @@
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/announce-release.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/announce-release.json"
-      ]
+      ],
+      "sources": []
     },
     "archive-milestone": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/archive-milestone.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/archive-milestone.json"
-      ]
+      ],
+      "sources": []
     },
     "assess-product-opportunity": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/assess-product-opportunity.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/assess-product-opportunity.json"
-      ]
+      ],
+      "sources": []
     },
     "automate-tests": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/automate-tests.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/automate-tests.json"
-      ]
+      ],
+      "sources": []
     },
     "capture-work-items": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/capture-work-items.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/capture-work-items.json"
-      ]
+      ],
+      "sources": []
     },
     "changelog-video": {
       "classification": "third_party_adapted",
@@ -43,6 +48,12 @@
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/changelog-video.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/changelog-video/LICENSE.upstream",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/changelog-video.json"
+      ],
+      "sources": [
+        {
+          "title": "hyperframes / .agents/skills/changelog-video",
+          "url": "https://github.com/heygen-com/hyperframes/tree/4f00336c92f6418aab82c060853da604dd832197/.agents/skills/changelog-video"
+        }
       ]
     },
     "commit-work": {
@@ -51,6 +62,12 @@
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/commit-work.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/docs/references/THIRD_PARTY_NOTICES.md",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/commit-work.json"
+      ],
+      "sources": [
+        {
+          "title": "agent-toolkit / skills/commit-work",
+          "url": "https://github.com/softaworks/agent-toolkit/tree/06825f04669d4364a16abc267650c86cf153d349/skills/commit-work"
+        }
       ]
     },
     "competitive-research": {
@@ -58,84 +75,96 @@
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/competitive-research.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/competitive-research.json"
-      ]
+      ],
+      "sources": []
     },
     "consume-nats-message": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/consume-nats-message.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/consume-nats-message.json"
-      ]
+      ],
+      "sources": []
     },
     "decontextualize-text": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/decontextualize-text.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/decontextualize-text.json"
-      ]
+      ],
+      "sources": []
     },
     "deep-research": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/deep-research.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/deep-research.json"
-      ]
+      ],
+      "sources": []
     },
     "define-docs-norms": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/define-docs-norms.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/define-docs-norms.json"
-      ]
+      ],
+      "sources": []
     },
     "define-mission": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/define-mission.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/define-mission.json"
-      ]
+      ],
+      "sources": []
     },
     "define-north-star": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/define-north-star.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/define-north-star.json"
-      ]
+      ],
+      "sources": []
     },
     "define-roadmap": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/define-roadmap.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/define-roadmap.json"
-      ]
+      ],
+      "sources": []
     },
     "define-strategic-pillars": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/define-strategic-pillars.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/define-strategic-pillars.json"
-      ]
+      ],
+      "sources": []
     },
     "define-vision": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/define-vision.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/define-vision.json"
-      ]
+      ],
+      "sources": []
     },
     "deliver-feature": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/deliver-feature.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/deliver-feature.json"
-      ]
+      ],
+      "sources": []
     },
     "design-strategic-goals": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/design-strategic-goals.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/design-strategic-goals.json"
-      ]
+      ],
+      "sources": []
     },
     "eli5": {
       "classification": "third_party_adapted",
@@ -143,6 +172,12 @@
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/eli5.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/eli5/LICENSE.upstream",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/eli5.json"
+      ],
+      "sources": [
+        {
+          "title": "claude-plugins-community / eli5/skills/eli5",
+          "url": "https://github.com/anthropics/claude-plugins-community/tree/06ec7b6a0a82bdc4bec44bd82d4368c42f20d7c1/eli5/skills/eli5"
+        }
       ]
     },
     "generate-agent-entry": {
@@ -150,98 +185,112 @@
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/generate-agent-entry.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/generate-agent-entry.json"
-      ]
+      ],
+      "sources": []
     },
     "generate-github-workflow": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/generate-github-workflow.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/generate-github-workflow.json"
-      ]
+      ],
+      "sources": []
     },
     "generate-standard-readme": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/generate-standard-readme.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/generate-standard-readme.json"
-      ]
+      ],
+      "sources": []
     },
     "integrate-branches": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/integrate-branches.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/integrate-branches.json"
-      ]
+      ],
+      "sources": []
     },
     "manage-secret": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/manage-secret.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/manage-secret.json"
-      ]
+      ],
+      "sources": []
     },
     "map-item-dependencies": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/map-item-dependencies.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/map-item-dependencies.json"
-      ]
+      ],
+      "sources": []
     },
     "market-research": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/market-research.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/market-research.json"
-      ]
+      ],
+      "sources": []
     },
     "orchestrate-code-review": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/orchestrate-code-review.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/orchestrate-code-review.json"
-      ]
+      ],
+      "sources": []
     },
     "orchestrate-governance-step": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/orchestrate-governance-step.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/orchestrate-governance-step.json"
-      ]
+      ],
+      "sources": []
     },
     "orchestrate-repair-loop": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/orchestrate-repair-loop.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/orchestrate-repair-loop.json"
-      ]
+      ],
+      "sources": []
     },
     "orchestrate-repair-requirements-loop": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/orchestrate-repair-requirements-loop.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/orchestrate-repair-requirements-loop.json"
-      ]
+      ],
+      "sources": []
     },
     "orchestrate-roadmap-planning": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/orchestrate-roadmap-planning.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/orchestrate-roadmap-planning.json"
-      ]
+      ],
+      "sources": []
     },
     "plan-next": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/plan-next.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/plan-next.json"
-      ]
+      ],
+      "sources": []
     },
     "policy-research": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/policy-research.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/policy-research.json"
-      ]
+      ],
+      "sources": []
     },
     "ponytail": {
       "classification": "third_party_adapted",
@@ -249,6 +298,12 @@
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/ponytail.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/skills/ponytail/LICENSE.upstream",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/ponytail.json"
+      ],
+      "sources": [
+        {
+          "title": "ponytail / skills/ponytail",
+          "url": "https://github.com/dietrichgebert/ponytail/tree/09c434ab73ca43761c5d8b0c5d341926c2fba710/skills/ponytail"
+        }
       ]
     },
     "prepare-presales-response": {
@@ -256,259 +311,296 @@
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/prepare-presales-response.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/prepare-presales-response.json"
-      ]
+      ],
+      "sources": []
     },
     "prepare-release": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/prepare-release.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/prepare-release.json"
-      ]
+      ],
+      "sources": []
     },
     "prioritize-backlog": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/prioritize-backlog.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/prioritize-backlog.json"
-      ]
+      ],
+      "sources": []
     },
     "product-opportunity-analysis": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/product-opportunity-analysis.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/product-opportunity-analysis.json"
-      ]
+      ],
+      "sources": []
     },
     "promote-roadmap-items": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/promote-roadmap-items.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/promote-roadmap-items.json"
-      ]
+      ],
+      "sources": []
     },
     "publish-nats-message": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/publish-nats-message.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/publish-nats-message.json"
-      ]
+      ],
+      "sources": []
     },
     "publish-release": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/publish-release.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/publish-release.json"
-      ]
+      ],
+      "sources": []
     },
     "redeploy-local": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/redeploy-local.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/redeploy-local.json"
-      ]
+      ],
+      "sources": []
     },
     "refine-skill-design": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/refine-skill-design.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/refine-skill-design.json"
-      ]
+      ],
+      "sources": []
     },
     "review-architecture": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-architecture.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-architecture.json"
-      ]
+      ],
+      "sources": []
     },
     "review-codebase": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-codebase.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-codebase.json"
-      ]
+      ],
+      "sources": []
     },
     "review-diff": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-diff.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-diff.json"
-      ]
+      ],
+      "sources": []
     },
     "review-dotnet": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-dotnet.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-dotnet.json"
-      ]
+      ],
+      "sources": []
     },
     "review-error-surfacing": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-error-surfacing.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-error-surfacing.json"
-      ]
+      ],
+      "sources": []
     },
     "review-functional-design": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-functional-design.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-functional-design.json"
-      ]
+      ],
+      "sources": []
     },
     "review-go": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-go.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-go.json"
-      ]
+      ],
+      "sources": []
     },
     "review-implementation-alignment": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-implementation-alignment.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-implementation-alignment.json"
-      ]
+      ],
+      "sources": []
     },
     "review-java": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-java.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-java.json"
-      ]
+      ],
+      "sources": []
     },
     "review-observability": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-observability.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-observability.json"
-      ]
+      ],
+      "sources": []
     },
     "review-orm-usage": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-orm-usage.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-orm-usage.json"
-      ]
+      ],
+      "sources": []
     },
     "review-performance": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-performance.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-performance.json"
-      ]
+      ],
+      "sources": []
     },
     "review-php": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-php.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-php.json"
-      ]
+      ],
+      "sources": []
     },
     "review-powershell": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-powershell.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-powershell.json"
-      ]
+      ],
+      "sources": []
     },
     "review-python": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-python.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-python.json"
-      ]
+      ],
+      "sources": []
     },
     "review-react": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-react.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-react.json"
-      ]
+      ],
+      "sources": []
     },
     "review-reliability": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-reliability.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-reliability.json"
-      ]
+      ],
+      "sources": []
     },
     "review-requirements": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-requirements.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-requirements.json"
-      ]
+      ],
+      "sources": []
     },
     "review-roadmap": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-roadmap.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-roadmap.json"
-      ]
+      ],
+      "sources": []
     },
     "review-security": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-security.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-security.json"
-      ]
+      ],
+      "sources": []
     },
     "review-sql": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-sql.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-sql.json"
-      ]
+      ],
+      "sources": []
     },
     "review-tasks": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-tasks.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-tasks.json"
-      ]
+      ],
+      "sources": []
     },
     "review-technical-design": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-technical-design.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-technical-design.json"
-      ]
+      ],
+      "sources": []
     },
     "review-testing": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-testing.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-testing.json"
-      ]
+      ],
+      "sources": []
     },
     "review-typescript": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-typescript.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-typescript.json"
-      ]
+      ],
+      "sources": []
     },
     "review-vue": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/review-vue.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/review-vue.json"
-      ]
+      ],
+      "sources": []
     },
     "scaffold-agent-tests": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/scaffold-agent-tests.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/scaffold-agent-tests.json"
-      ]
+      ],
+      "sources": []
     },
     "update-roadmap": {
       "classification": "native",
       "evidence": [
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/evidence/update-roadmap.json",
         "https://github.com/nesnilnehc/ai-cortex/blob/374a82e6eae07bb48e430949a3e90bc44425c1ab/experiments/skill-provenance/confirmations/update-roadmap.json"
-      ]
+      ],
+      "sources": []
     }
   }
 }
