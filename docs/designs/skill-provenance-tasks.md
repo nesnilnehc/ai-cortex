@@ -231,3 +231,7 @@ Proposed test-group names below are implementation obligations inside the existi
 | AC6: migration, preview, pins and rollback | T5–T7, T9, T12, T17, T18, T21, T22 |
 
 During execution, record actual red/green checks, commands and evidence next to each task before marking it Done. An addition to the Skill catalogue requires its own new stable task ID and dependencies in T17; never reuse removed task IDs. If confirmation changes content, rerun its dependent validation. T21/T22 remain unstarted until their explicit authorization conditions are satisfied; a lack of permission becomes a documented Blocked state when reached, not an inferred approval.
+
+## Requirement closure — 2026-10-29
+
+All 94 task rows are Done. The owner accepted the completion review and authorized closure of [REQ 08](../requirements-planning/AIC-REQ-08.md). The requirement is implemented, merged into `main` and published as Sites version 11; see the [closure record](../../experiments/skill-provenance/delivery-closeout.md#closure--2026-10-29). The file-level `active` status follows the task-list lifecycle; completion is represented by the task rows rather than a new file-level status.

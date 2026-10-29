@@ -3,11 +3,14 @@ id: AIC-REQ-08
 artifact_type: requirement
 lifecycle: snapshot
 created_at: 2026-10-28
-status: approved
+status: implemented
+implemented_at: 2026-10-29
 parent: ../project-overview/strategic-goals.md#goal-4-adoption-friction-is-low
 ---
 
 # Requirement: [Functional] Skill provenance presentation
+
+Closed on 2026-10-29 after the owner accepted the completion review and requested closure. All seven acceptance criteria are met, all 94 implementation tasks are Done, and the implementation is merged into `main`. Sites version 11 is published and verified. See the [closure record](../../experiments/skill-provenance/delivery-closeout.md#closure--2026-10-29), [final source-navigation verification](../../experiments/skill-provenance/source-links-verification.json) and [production verification](../../experiments/skill-provenance/website-publication-v11.json).
 
 ## Background & Value
 

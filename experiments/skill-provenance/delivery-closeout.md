@@ -23,3 +23,13 @@ Asset and provenance inputs are pinned to `374a82e6eae07bb48e430949a3e90bc44425c
 The scoped changes are committed to the authorized feature branch. REQ 05–07 and Apple-release work remain outside these commits, with their file bytes preserved. No local installation, main merge, release, tag or deployment is part of this delivery.
 
 [Engineering findings and repairs](engineering-review.md), [Rule coverage](engineering-coverage.json) and [functional alignment](alignment-review.md) retain their evidence and limitations. Green fixture tests were not used as a substitute for the real manifest, committed generation or public evidence checks.
+
+## Closure — 2026-10-29
+
+The owner accepted the completion review and explicitly requested closing REQ 08, updating related states and pushing them to `main`. The requirement transitions from `approved` to `implemented`, with `implemented_at: 2026-10-29`; its intake transitions from `captured` to `done`. The backlog summary already records `done`. No roadmap tier, timing, priority, milestone or other requirement changes.
+
+The closing baseline is `b3210d53cff6ad92da4b219cbb03013178f158fe`. All seven acceptance criteria are met and all 94 implementation tasks are Done. The 72 confirmed records comprise 68 originals and four adaptations. Originals have no badge; third-party badges link to actual original sources, multiple sources expand a list, and website audit-material links remain hidden.
+
+The completion review reran canonical generation checks, 36 provenance tests and 12 focused website tests successfully. Fresh HTTPS, MIME and content verification matched all 49 production resources to `main`. Earlier verification of the complete site passed 58 Node and 18 Python tests. [Final source-navigation review](source-links-verification.json) and [Sites version 11 publication](website-publication-v11.json) contain the implementation and production evidence. There are no blocking findings or waivers. Third-party-original and multiple-source cases use synthetic fixtures; the complete browser matrix was not repeated during closure review.
+
+The requirement index, intake detail and task record link to this closure. Historical investigation and pre-publication reports retain their original dates and scope; the current closure conclusion supersedes their pending-delivery statements.

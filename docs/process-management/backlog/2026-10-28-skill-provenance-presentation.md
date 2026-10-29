@@ -4,7 +4,7 @@ created_by: capture-work-items
 lifecycle: living
 type: requirement
 date: 2026-10-28
-status: captured
+status: done
 priority: unset
 strategic_goal_id: goal-4
 source: user
@@ -23,4 +23,4 @@ Canonical scope and acceptance: [AIC-REQ-08](../../requirements-planning/AIC-REQ
 
 ## Notes
 
-Captured from the authorized requirement split; not approved or prioritized. Goal mapping follows the existing strategic-goal definitions.
+Closed on 2026-10-29 following owner acceptance and explicit closure authorization. The canonical requirement is implemented; all acceptance criteria and tasks are complete. The change is merged into `main` and published as Sites version 11. See the [closure and verification record](../../../experiments/skill-provenance/delivery-closeout.md#closure--2026-10-29). Goal mapping is unchanged.
