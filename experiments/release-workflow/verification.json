@@ -3,7 +3,7 @@
   "scope": "offline synthetic fixtures and bounded reference consumers only",
   "staged_test_methods": 37,
   "historical_test_methods": 12,
-  "hosted_ci_run_verified": false,
+  "hosted_ci_run_verified": true,
   "real_skill_host_acceptance": false,
   "real_channel_acceptance": false,
   "runs": [
@@ -67,5 +67,16 @@
     "tests/fixtures/release-workflow/build_tool.py": "1fc475af98b482ad7d89c01d00ee58ab4da801dadc14fe871905831bbd11cf93",
     "tests/fixtures/release-workflow/local_workflow.py": "c428f9db369149a74411c39ac1556d9a4aa429486c5bc48381c477acf471eedc",
     "tests/fixtures/release-workflow/package.json": "f777d852b466803651fa1d2b9b804c702d8769420ed3354db3b7d18b6d1417ce"
+  },
+  "hosted_ci": {
+    "run_id": 40843537956,
+    "head_sha": "ae70da378e94f751303f92dfdf1aebb2cac68639",
+    "status": "completed",
+    "conclusion": "failure",
+    "url": "https://github.com/nesnilnehc/ai-cortex/actions/runs/40843537956",
+    "registry_job": "success",
+    "staged_release_step": "success",
+    "markdown_job": "failure",
+    "preexisting_markdown_findings": 5
   }
 }

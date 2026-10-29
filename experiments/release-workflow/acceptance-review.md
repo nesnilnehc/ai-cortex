@@ -74,8 +74,15 @@ contracts, 13 local execution/recovery cases and 3 consumer cases). The historic
 suite retains its 12 methods and fixed descriptors. Counts include unrelated
 Findings compatibility tests in that historical suite; they are not 12 new release
 acceptance cases. The `registry` job in `.github/workflows/lint.yml` now runs all
-four staged suites alongside the existing historical checks. Local results do not
-claim a hosted CI run. Final command results are in
+four staged suites alongside the existing historical checks. Hosted
+[run 40843537956](https://github.com/nesnilnehc/ai-cortex/actions/runs/40843537956)
+verified the new step and the full `registry` job successfully at commit
+`ae70da378e94f751303f92dfdf1aebb2cac68639`. The overall workflow failed on five
+pre-existing Markdown findings in unchanged files: two bare URLs in third-party
+notices, consecutive blank lines in requirements 06 and 08, and an inline HTML
+token in the generated Skill index. All four affected files were byte-identical
+to the previous commit. They were not changed as part of this scoped verification.
+The overall workflow is not reported as passing. Final command results are in
 [verification.json](verification.json).
 
 ## TDD evidence
