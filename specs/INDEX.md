@@ -14,7 +14,7 @@
 - [roadmap-modeling.md](./roadmap-modeling.md) — structure-before-content stages, scenario selection, requirement/iteration/version/flow views, main/detail ownership, priority vocabulary, retained revision history and offline generator input
 - [requirement-modeling.md](./requirement-modeling.md) — field definitions, format and validation for a requirement document
 - [rule-modeling.md](./rule-modeling.md) — the data contract for modeled Rule documents, stable item IDs, applicability profiles, project parameters and auditable waivers
-- [release-package.md](./release-package.md) — version identity, release materials, quality evidence and stage status contract for a Release Package
+- [release-package.md](./release-package.md) — version identity, candidate artifacts, quality evidence and publication-stage contracts for Release Packages
 - [spec-modeling.md](./spec-modeling.md) — the spec for specs: the section skeleton, frontmatter contract and three-state classification every spec document follows
 - [skill-source-modeling.md](./skill-source-modeling.md) — external Skill source, licensing and update records, plus evidence-backed catalog provenance markers and original-source navigation
 - [task-modeling.md](./task-modeling.md) — fields, status enum and dependency semantics of a task list

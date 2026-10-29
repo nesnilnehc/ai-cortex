@@ -1,4 +1,4 @@
-import {decorateSkill} from './provenance.mjs?v=aic08-provenance-3';
+import {decorateSkill} from './provenance.mjs?v=aic06-build-release-1';
 // DOM adapter: graph rendering/routing remains native and is wired by the shared host.
 export function mountRelationships(container,{getExpanded,revealSkill,revealWork,onRestore}){
  return {capture(){return {expandedTopicId:getExpanded(),scrollByRegion:Object.fromEntries([...container.querySelectorAll('[data-context]')].map(n=>[n.dataset.context,n.querySelector('.local-skill-scroll')?.scrollTop??0])),pan:{x:container.querySelector('.relations-canvas').scrollLeft,y:container.scrollTop}};},restore(saved){onRestore(saved);container.querySelector('.relations-canvas').scrollLeft=saved.pan.x;container.scrollTop=saved.pan.y;for(const n of container.querySelectorAll('[data-context]')){const port=n.querySelector('.local-skill-scroll');if(port)port.scrollTop=saved.scrollByRegion[n.dataset.context]??0;}},reveal(target){if(target.kind==='skill')return revealSkill(target.id);if(target.kind==='work'||target.kind==='support')return revealWork(target.id);}};

@@ -101,7 +101,7 @@
   },
   "skills": {
     "announce-release": {
-      "purpose": "根据发布材料准备发布公告",
+      "purpose": "依据已验证的发布目标准备公告",
       "when": "版本已实际发布，需要向用户或团队介绍变化。",
       "provide": "已发布的发布材料包、实际发布结果、受众和渠道；发送时还需授权。",
       "use": "请用 announce-release 根据已发布结果为指定受众起草公告，先给我审阅。",
@@ -373,7 +373,7 @@
       "name": "准备售前答复"
     },
     "prepare-release": {
-      "purpose": "构建并验证发布材料包",
+      "purpose": "准备发布候选与验证依据",
       "when": "想判断本轮是否值得发布，并准备完整发布材料。",
       "provide": "仓库、对比起点、版本策略、渠道、候选产物和项目检查要求。",
       "use": "请用 prepare-release 检查本轮变化并准备发布材料包，先确认发布决定与所需产物。",
@@ -413,7 +413,7 @@
       "name": "发送协作消息"
     },
     "publish-release": {
-      "purpose": "验证就绪的发布包并执行正式发布",
+      "purpose": "核对依据并发布选定的候选制品",
       "when": "发布材料包已就绪，现在需要真正执行发布。",
       "provide": "就绪的发布材料包、渠道或提供方、必要检查结果和本次发布授权。",
       "use": "请用 publish-release 先预演核对这份发布包，获得本次授权后再执行正式发布。",
@@ -675,6 +675,14 @@
       "provide": "编码任务，以及可选的 lite、full 或 ultra 级别。",
       "use": "显式调用 ponytail；直到要求恢复正常模式前持续生效，仍遵循仓库约定和必要验证。",
       "result": "范围明确、完成任务的改动，以及简洁的验证和风险说明。"
+    },
+    "build-project": {
+      "name": "构建项目",
+      "purpose": "构建项目而不执行发布",
+      "when": "需要构建项目或生成候选制品，但不进行发布。",
+      "provide": "项目、源码版本、组件和构建配置。",
+      "use": "使用 build-project 执行项目支持的仅构建命令。",
+      "result": "构建结果、源码身份和实际制品；不执行发布。"
     }
   },
   "topics": {
@@ -1258,7 +1266,7 @@
         },
         {
           "title": "发布给用户",
-          "body": "发布包就绪、必要检查通过，并在本次授权范围内执行，才能产生真实发布结果。"
+          "body": "发布时核对选定候选、适用检查与授权；渠道后续检查完成前保持待处理。"
         },
         {
           "title": "再依据事实沟通",
@@ -1269,6 +1277,7 @@
       "stage": "release",
       "summary": "准备发布材料，按项目约定发布，再告诉用户哪里变了。发布后还要听听：现在好找了吗？",
       "skills": [
+        "build-project",
         "prepare-release",
         "publish-release",
         "announce-release",
@@ -1647,8 +1656,8 @@
       "condition": "只有选择视频材料后才调用；视频不是发布的必选步骤。"
     },
     "prepare-release__publish-release": {
-      "label": "就绪发布包",
-      "condition": "准备结果满足发布前提，且实际发布另有授权；准备不等于已发布。"
+      "label": "准备好的发布依据",
+      "condition": "发布时核对支持的契约和适用阶段的检查；准备不等于已发布。"
     },
     "publish-release__announce-release": {
       "label": "实际发布结果",
@@ -1701,6 +1710,14 @@
     "order__review-observability__review-testing": {
       "label": "工程审查顺序",
       "condition": "在已选择的代码审查工程门内，按固定顺序评估；不适用的检查记录原因，不代表所有工作都要执行此链。"
+    },
+    "prepare-release__build-project": {
+      "label": "需要时构建",
+      "condition": "仅在项目支持独立构建时调用；已有符合条件的候选时优先复用。"
+    },
+    "publish-release__build-project": {
+      "label": "需要时构建",
+      "condition": "仅在项目支持独立构建时调用；已有符合条件的候选时优先复用。"
     }
   },
   "loops": {
@@ -1905,6 +1922,7 @@
         "id": "release",
         "title": "发布与公告",
         "skills": [
+          "build-project",
           "announce-release",
           "changelog-video",
           "prepare-release",

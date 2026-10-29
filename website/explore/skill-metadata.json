@@ -2,13 +2,13 @@
   "skills": {
     "announce-release": {
       "id": "announce-release",
-      "description": "Create and optionally deliver grounded release announcements from a published Release Package across available channels; never owns changelog generation.",
+      "description": "Create and optionally deliver announcements from verified published release targets; never owns changelog generation.",
       "owner": "release",
       "sourcePaths": [
         "skills/announce-release/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/announce-release/SKILL.md": "7c2a83be512ea07798661a91e0ea203f73b04c5fb29bad96f6a674337ebec1a1"
+        "skills/announce-release/SKILL.md": "7e135a492f4e5b3f3ab57089c289c11562fc31466b4e114a8f5c13114891b8ec"
       },
       "entry": "public"
     },
@@ -416,7 +416,7 @@
         "skills/prepare-release/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/prepare-release/SKILL.md": "c1a98c128cba7a4f0dfc61112e443795d29187ab19bbe6b059baf58e558153f1"
+        "skills/prepare-release/SKILL.md": "9f2aad7a8f162d3b3391e8942f03c18adfb1c92c05d6b280d1afe894c7942d91"
       },
       "entry": "public"
     },
@@ -470,13 +470,13 @@
     },
     "publish-release": {
       "id": "publish-release",
-      "description": "Validate a ready Release Package and execute the repository's publication steps—tag, build, package, and provider release—with explicit mutation gates.",
+      "description": "Execute authorized publication from a supported Release Package, preserving candidate, target and recovery evidence.",
       "owner": "release",
       "sourcePaths": [
         "skills/publish-release/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/publish-release/SKILL.md": "7a14a0876850419d9c5e17ad0478a094c3fc90de0acd8902a0627de6ff500ac9"
+        "skills/publish-release/SKILL.md": "6dc4c909dbcbb94c2e4d95b1f156886ff4d9d6fe22ec164bdd347a994e63ca3e"
       },
       "entry": "public"
     },
@@ -863,6 +863,18 @@
         "skills/ponytail/SKILL.md": "8fcf775f1c5b5172196b7318a5df84a2f28b263405973f2a10145e60f6e026b6"
       },
       "entry": "public"
+    },
+    "build-project": {
+      "id": "build-project",
+      "owner": "release",
+      "entry": "public",
+      "sourcePaths": [
+        "skills/build-project/SKILL.md"
+      ],
+      "description": "Build a project or selected component using its own tools without publishing; use independently or for a release candidate.",
+      "sourceHashes": {
+        "skills/build-project/SKILL.md": "cd01d62a871818bb5a86bcfd5decc2df3bf8def10402a415fd349b0d33ec94fe"
+      }
     }
   },
   "groupOrder": [

@@ -3,7 +3,7 @@ artifact_type: adr
 created_by: decision-record
 lifecycle: snapshot
 created_at: 2026-10-29
-status: proposed
+status: accepted
 description: Separate build capability and version staged release evidence while preserving legacy consumers.
 ---
 

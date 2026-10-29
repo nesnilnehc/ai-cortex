@@ -101,7 +101,7 @@
   },
   "skills": {
     "announce-release": {
-      "purpose": "Prepare release announcements from release evidence",
+      "purpose": "Announce verified published targets",
       "when": "A version has actually been published and users or teammates need to know what changed.",
       "provide": "The published Release Package, actual release outcome, audience and channels; delivery also needs authorization.",
       "use": "Use announce-release to draft an announcement for the named audience from the published result. Show me the draft first.",
@@ -373,7 +373,7 @@
       "name": "prepare-presales-response"
     },
     "prepare-release": {
-      "purpose": "Build and validate a Release Package",
+      "purpose": "Prepare release candidates and evidence",
       "when": "You want to decide whether this work merits a release and prepare complete release material.",
       "provide": "Repository, comparison baseline, version policy, channel, candidate artifacts and project check requirements.",
       "use": "Use prepare-release to inspect changes and prepare a Release Package, first confirming the release decision and required artifacts.",
@@ -413,7 +413,7 @@
       "name": "publish-nats-message"
     },
     "publish-release": {
-      "purpose": "Validate a ready package and publish a release",
+      "purpose": "Publish selected candidates with verified evidence",
       "when": "The Release Package is ready and an actual release is now required.",
       "provide": "Ready Release Package, channel/provider, required check results and authorization for this release.",
       "use": "Use publish-release to preview and validate this package, then perform publication only with authorization for this release.",
@@ -675,6 +675,14 @@
       "provide": "The coding task and optional lite, full or ultra level.",
       "use": "Invoke ponytail explicitly; it remains active until you request normal mode. Repository instructions and required validation still apply.",
       "result": "A complete, focused change with a concise account of checks and remaining risks."
+    },
+    "build-project": {
+      "name": "build-project",
+      "purpose": "Build a project without publishing",
+      "when": "You need a project build or a release candidate without publication.",
+      "provide": "Project, source revision, component and build configuration.",
+      "use": "Use build-project to run a project-supported build-only command.",
+      "result": "Build outcome, source identity and actual artifacts; no publication."
     }
   },
   "topics": {
@@ -1258,7 +1266,7 @@
         },
         {
           "title": "Release to users",
-          "body": "A ready package, passing required checks and authorization for this release are needed to produce an actual release result."
+          "body": "Publication uses the selected candidate, applicable checks and authorization; later provider checks stay pending until verified."
         },
         {
           "title": "Communicate actual facts",
@@ -1269,6 +1277,7 @@
       "stage": "release",
       "summary": "Prepare release material, publish under project conventions and explain the changes. Then listen for feedback: is finding requests easier now?",
       "skills": [
+        "build-project",
         "prepare-release",
         "publish-release",
         "announce-release",
@@ -1647,8 +1656,8 @@
       "condition": "Call it only when a video artifact is selected; video is not mandatory for a release."
     },
     "prepare-release__publish-release": {
-      "label": "Ready package",
-      "condition": "Preparation must meet release prerequisites, with separate authorization for actual publication. Prepared is not published."
+      "label": "Prepared release evidence",
+      "condition": "Publication checks the supported contract and applicable stage gates; preparation is not publication."
     },
     "publish-release__announce-release": {
       "label": "Actual release result",
@@ -1701,6 +1710,14 @@
     "order__review-observability__review-testing": {
       "label": "Engineering review order",
       "condition": "Within the selected code-review engineering gate, evaluate in the fixed order; record inapplicable checks. This is not a mandatory workflow for every task."
+    },
+    "prepare-release__build-project": {
+      "label": "Build when needed",
+      "condition": "Only when a build-only project capability is available; reuse a verified candidate when possible."
+    },
+    "publish-release__build-project": {
+      "label": "Build when needed",
+      "condition": "Only when a build-only project capability is available; reuse a verified candidate when possible."
     }
   },
   "loops": {
@@ -1905,6 +1922,7 @@
         "id": "release",
         "title": "Releases and announcements",
         "skills": [
+          "build-project",
           "announce-release",
           "changelog-video",
           "prepare-release",

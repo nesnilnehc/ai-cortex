@@ -38,7 +38,7 @@ test('topic disclosure retains at most one owner and rejects invalid identifiers
 test('local forests are placement aids and retain canonical edge identities',()=>{
  const graph=getSkillGraph(),edges=new Set(graph.edges.map(e=>e.id));
  for(const group of graph.groups){const forest=getSkillForest(group.id);assert.equal(forest.connections.every(e=>edges.has(e.id)),true);assert.equal(forest.connections.every(e=>group.skills.some(s=>s.id===e.from)&&group.skills.some(s=>s.id===e.to)),true);}
- assert.equal(getSkillNeighborhood('prepare-release').edges.length,2);
+ assert.deepEqual(new Set(getSkillNeighborhood('prepare-release').edges.map(e=>e.id)),new Set(['prepare-release__build-project','prepare-release__changelog-video','prepare-release__publish-release']));
  for(const id of canonical)assert.ok(dictionary.skills[id].purpose);
 });
 // Covers: AIC-REQ-04#A11; related A3/A5/A6.
