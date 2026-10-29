@@ -1,7 +1,7 @@
 ---
 name: prepare-release
 description: Build and validate a Release Package from repository history, version policy, quality gates, and optional release artifacts; does not publish or announce.
-version: 1.4.2
+version: 1.5.0
 license: MIT
 ---
 
@@ -13,7 +13,31 @@ Build an auditable [Release Package](../../specs/release-package.md): fix the ve
 
 ## Core goal
 
-On success, emit an evidence-backed release decision: when a release is warranted, give the SemVer, channel, version domains, target SHA, git range, structured changes, artifacts, and readiness; when there is no product, compatibility, security, distribution, or operations significance to releasing, emit `decision=none` / `status=not_required` explicitly and manufacture no empty release.
+On success, emit an evidence-backed release decision and traceable project version, source, changes, artifacts and checks. The 1.x contract requires SemVer and a range; 2.x follows the project version scheme. When there is no release significance, do not manufacture an empty release.
+
+## Version 2 staged preparation
+
+When the caller explicitly selects the 2.x contract in the [Release Package
+Spec](../../specs/release-package.md#58-version-2-staged-release-contract), use
+this section instead of the 1.x workflow below. Establish project-sourced release
+identity and changes, targets, required checks and authorized scope. Record unknown
+values without inventing a version, tag or build identity. Accept independently
+built candidates only after checking their source and artifact evidence; when a new
+build is needed, invoke [build-project](../build-project/SKILL.md). Keep each
+candidate and its checks distinct. Mark future checks pending and preserve them for
+their actual stage. Do not upload or publish. Return the 2.x package and explicit
+gaps; do not create a 1.x `ready` projection. The existing steps and self-check
+below apply to 1.x only.
+
+For optional video, invoke `changelog-video` only when the user selected it and
+its existing required inputs can be supplied truthfully from project evidence:
+decision, project, version, channel, range and change items. Do not fabricate a
+tag, range, version or 1.x package for it. If an input is unknown, record the
+video as unavailable and keep its required or optional effect explicit.
+
+For 2.x, self-check: candidate identities and sources are traceable; pending checks
+remain pending; only build-only actions were run; unsupported or missing capabilities
+are reported; no 1.x meaning was changed.
 
 ## Behavior
 

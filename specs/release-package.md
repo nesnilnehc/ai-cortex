@@ -2,7 +2,7 @@
 id: RELEASE_PACKAGE_SPEC_V1
 name: Release Package Schema
 description: Structural contract for release decisions, version domains, change evidence, artifacts, and stage results shared across release workflows.
-version: 1.2.2
+version: 1.3.0
 status: active
 lifecycle: living
 created_at: 2026-08-26
@@ -82,6 +82,67 @@ For tests, a successful command exit alone does not establish execution; zero ex
 ### 5.7 Communication entry
 
 `communication` carries at least the target audience, a required/optional marker per channel, the delivery status and the receipt. The top-level status moves from `published` to `announced` only when at least one channel succeeded and every required channel succeeded. A failed optional channel must be retained, but does not block that transition.
+
+### 5.8 Version 2 staged release contract
+
+Sections 5.1–5.7 define the existing 1.x contract and retain their meanings. A
+2.0.0 package is a separate, explicitly selected contract; never represent it as
+an executable 1.x `ready` package with an optional sidecar. Consumers MUST
+validate the supported schema before any mutation. If a legacy consumer's
+rejection cannot be verified, do not send it a 2.x package or enable that path.
+
+A 2.x package records one release and its authoritative history. It carries:
+
+| Field | Required content |
+| --- | --- |
+| `schema_version`, `project`, `release_id` | Explicit schema and stable project/release identities |
+| `release_version` | Project-sourced version and scheme, or an explicitly unknown planned value; do not derive it from build numbering |
+| `change_items` | Changes with their sources and audiences, as in 5.4 |
+| `candidates` | Candidate IDs, source revisions, build identities, artifact identities and locations, and observed evidence; unknown values remain unknown |
+| `targets` | Each target's required/optional status, selected candidate/artifacts, per-stage outcomes, actual delivered identities and publication evidence |
+| `checks` | Candidate, target, stage, check, required status, actual outcome and evidence; checks are not inherited by another candidate or target |
+| `exceptions` | Approver, candidate, target, check, scope, rationale and evidence for a project-permitted internal check; never overwrite its actual outcome |
+| `attempts` | Intended action, authorization scope, operation identity, observed outcome and receipts, including unknown and partial outcomes |
+| `communication` | Per-destination results and receipts, independent of product delivery |
+
+The 2.0.0 serialization uses JSON-compatible objects and arrays. Every top-level
+field above is present, including empty arrays when no observations exist. Each
+record below has the listed fields; identifiers are nonempty strings unique in
+their collection, and evidence is a nonempty reference when an outcome is claimed.
+
+| Record | Fields and validation |
+| --- | --- |
+| `release_version` | Object with `value`, `scheme`, `source`; a planned unknown value is null and is never reported as observed. |
+| Candidate | `id`, `source_revision`, `build_identity`, `artifacts`; each artifact has `id`, `location`, `identity` and `evidence`. Unknown build/output values remain null; an actual artifact requires identity and evidence. |
+| Target | `id`, `required` boolean, `candidate_id`, `artifact_ids`, `status`, `delivered_artifacts`, `evidence`; status is `pending`, `complete`, `failed` or `unknown`. A complete target requires selected identities, actual delivered identities and supporting evidence. |
+| Check | `id`, `candidate_id`, `target_id`, `stage`, `required` boolean, `origin`, `status`, `evidence`; stage identifies the action or completion it gates. Status is `pending`, `passed`, `failed` or `unexecuted`; a pass requires execution evidence. |
+| Exception | `candidate_id`, `target_id`, `check_id`, `scope`, `approver`, `rationale`, `evidence`; all fields are required and must match the specific check and action. |
+| Attempt | `id`, `target_id`, `action`, `authorization_scope`, `outcome`, `operation_id`, `evidence`; outcome is `intent`, `complete`, `failed`, `partial` or `unknown`. An intent exists before a remote action and an observed completion requires evidence. |
+| Delivered artifact | `candidate_artifact_id`, `identity`, `relationship`, `evidence`; relationship is `unchanged` or `transformed` and is backed by evidence. Unknown or contradictory relations cannot complete the target. |
+
+Candidate, target, check, exception and artifact references MUST resolve to the
+same release, candidate and target scope. A status or reference not described by
+the selected schema is rejected before mutation. The project determines which
+checks gate each operation and what verification a transformation requires.
+Absence of a policy for a failed check never implies that it can be waived.
+
+Preparation records prerequisites and planned later checks separately. Upload
+may occur when its applicable earlier prerequisites are met and authorized; it
+does not make a later required check pass. The selected candidate must satisfy
+its applicable checks or a valid scoped exception. Missing authorization,
+unverified or mismatched identity and provider-enforced blockers cannot be
+waived. If the delivered output differs, preserve its relation to the candidate
+and verify it under the applicable project and provider rules.
+
+A target is complete only with its applicable delivery evidence. Overall
+publication requires at least one completed target and every required target to
+complete; optional failures remain visible. Announcement eligibility is scoped
+to verified published targets. Before a repeat write, reconcile complete
+relevant provider state: reuse a confirmed result, retry a confirmed absent
+action only under its existing authorization, and stop on unknown or conflict.
+Persist attempt intent before remote mutation, and prevent conflicting writers
+using a verified single-writer or compare-and-swap boundary; otherwise stop.
+No credentials belong in the package.
 
 ## 6. Anti-patterns
 

@@ -1,7 +1,7 @@
 ---
 name: publish-release
-description: Validate a ready Release Package and execute the repository's publication steps—tag, build, package, and provider release—with explicit mutation gates.
-version: 1.2.1
+description: Execute authorized publication from a supported Release Package, preserving candidate, target and recovery evidence.
+version: 1.3.0
 license: MIT
 ---
 
@@ -9,11 +9,21 @@ license: MIT
 
 ## Purpose
 
-Consume the `ready` Release Package produced by `prepare-release`, execute the publication actions the project has already configured, and write the actual result back into the package. Does not regenerate the changelog, does not write announcement copy, and does not silently assume a target platform.
+Consume a supported Release Package produced by `prepare-release`, execute the publication actions the project has already configured, and write the actual result back into the package. The existing 1.x path requires `ready`; the staged 2.x path evaluates applicable gates separately. Does not regenerate the changelog, write announcement copy or silently assume a target platform.
 
 ## Core Goal
 
 Complete a traceable publication only after the Release Package's required gates and materials are satisfied and the user has confirmed the external writes, then return a real receipt or an explicit failure state.
+
+## Version 2 staged publication
+
+When the package explicitly declares 2.x, validate the [2.x contract](../../specs/release-package.md#58-version-2-staged-release-contract) before any mutation and use this section instead of the 1.x workflow below. Reject unknown schemas. Select and verify candidates and target-specific prerequisites; reuse a matching existing candidate. If a build-only action is needed, invoke [build-project](../build-project/SKILL.md). Never describe a combined build-and-upload operation as build-only: before invoking it, verify its full effects and authorization.
+
+Record intent and authorization scope before each external write. Reconcile complete provider state before repeating an uncertain action: reuse confirmed completion, retry confirmed absence only with authorization, and stop on unknown, inaccessible or conflicting state. Require a verified single-writer or compare-and-swap boundary; otherwise stop conflicting mutations. Preserve actual partial outcomes. Evaluate each check at its applicable stage; retain candidate-scoped policy-permitted exceptions and their original check result. Do not waive authorization, identity or provider-enforced blockers.
+
+Record each target's selected and delivered identity, transformation relationship and required evidence. Complete the aggregate only when at least one target succeeds and all required targets complete. Optional failures stay visible. Return partial or unknown results honestly. The legacy steps and self-check below apply to 1.x only.
+
+For 2.x, self-check: schema, candidate, authorization and stage gates were verified before each mutation; completed operations were not repeated; per-target and aggregate results match observed evidence.
 
 ## Behavior
 

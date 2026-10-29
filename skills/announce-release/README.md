@@ -4,7 +4,7 @@
 
 ## Purpose
 
-Generates multi-audience announcements from a published Release Package; delivers them when the channel capability is available and the user confirms.
+Generates multi-audience announcements from verified publication facts; 2.x can cover a completed target subset. Delivery needs a usable channel and authorization.
 
 ## Full definition
 

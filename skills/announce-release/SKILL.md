@@ -1,7 +1,7 @@
 ---
 name: announce-release
-description: Create and optionally deliver grounded release announcements from a published Release Package across available channels; never owns changelog generation.
-version: 1.1.2
+description: Create and optionally deliver announcements from verified published release targets; never owns changelog generation.
+version: 1.2.0
 license: MIT
 ---
 
@@ -9,11 +9,17 @@ license: MIT
 
 ## Purpose
 
-Turn the facts of a published Release Package into announcements aimed at different audiences, and deliver them when the user explicitly asks and the runtime has the channel capability. Material generation belongs to `prepare-release`; version publication belongs to `publish-release`.
+Turn verified publication facts into announcements aimed at different audiences, and deliver them when the user explicitly asks and the runtime has the channel capability. Existing 1.x requires an overall published package; 2.x may use a verified published target subset. Material generation belongs to `prepare-release`; version publication belongs to `publish-release`.
 
 ## Core Goal
 
 Produce announcements consistent with the facts of the published version; deliver them channel by channel once channel, permission and user confirmation are all satisfied, and keep an auditable delivery receipt.
+
+## Version 2 target-scoped announcements
+
+For a 2.x [Release Package](../../specs/release-package.md#58-version-2-staged-release-contract), validate the schema and identify the requested targets. Each covered target must have verified completed publication; an announcement may cover a completed subset while other targets remain pending, but must not claim those other targets are published. Use the project's grouping and matching rules. Before repeating a write, reconcile the existing document and required index entries; ambiguous results remain unresolved. Record each delivery receipt independently and do not build, upload or publish product artifacts during announcement recovery. The 1.x behavior and self-check below remain unchanged for 1.x inputs.
+
+For 2.x, self-check: every covered target has publication evidence, claims are scoped to that evidence, authorization was respected, and completed announcement writes were not duplicated.
 
 ## Behavior
 

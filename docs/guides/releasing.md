@@ -68,3 +68,5 @@ The approved [stable-core policy](../project-overview/stable-core.md) defines th
 1.0 target, dependency inventory, experimental boundary and product compatibility
 rules. Apply it alongside independent asset versions when preparing 1.x releases.
 Scope approval does not replace the readiness evidence or authorize publication.
+
+For independent builds and staged multi-target releases, see the [build and release workflow](release-workflow-usage.md). The 1.x instructions above remain applicable to existing 1.x packages.

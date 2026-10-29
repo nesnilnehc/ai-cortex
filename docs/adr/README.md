@@ -37,3 +37,4 @@ A good decision record answers four questions: **What** was decided / **Why** / 
 | [0013](./0013-research-skill-entry-names.md) | Research Skill entry names and requirement paths | accepted |
 | [0014](./0014-rule-activation-maturity.md) | Rule activation keys on enforcement, and maturity travels with the finding | accepted |
 | [0015](./0015-agent-engineering-governance-model.md) | Agent Engineering Governance Model | accepted |
+| [0016](./0016-staged-release-evidence.md) | Staged release evidence and build boundaries | proposed |

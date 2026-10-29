@@ -3,13 +3,14 @@
   "skills": {
     "announce-release": {
       "classification": "native",
-      "version": "1.1.2",
+      "version": "1.2.0",
       "reviewed_files": {
-        "README.md": "fba85768957745e541e88d6621a1b3fab12db4c75d0929484501139abd89dd29",
-        "SKILL.md": "7c2a83be512ea07798661a91e0ea203f73b04c5fb29bad96f6a674337ebec1a1"
+        "README.md": "1ce6c84a29c69e927462c345b8090caec2a47a8bb771af5c873716b4ea634335",
+        "SKILL.md": "7e135a492f4e5b3f3ab57089c289c11562fc31466b4e114a8f5c13114891b8ec"
       },
       "reviewed_evidence": {
-        "experiments/skill-provenance/evidence/announce-release.json": "e8967fa32ca88b56cb507f781efb226f2e84ecf2397f325b2d7ddf8274446c6c"
+        "experiments/skill-provenance/evidence/announce-release.json": "e8967fa32ca88b56cb507f781efb226f2e84ecf2397f325b2d7ddf8274446c6c",
+        "experiments/skill-provenance/confirmations/announce-release.json": "4c8d0a4023a2b452ccc51d82fdfaa1f6345e1ff8383f97edb6bdcd8ed73cef61"
       },
       "sources": [],
       "evidence": [
@@ -18,6 +19,9 @@
         },
         {
           "path": "experiments/skill-provenance/confirmations/announce-release.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/announce-release-2026-10-29-release-workflow.json"
         }
       ],
       "creation": {
@@ -25,17 +29,17 @@
         "revision": "314186acabed013d7af29b6296dafc1807b6b46f"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer, confirmed in current task",
+        "confirmed_at": "2026-10-29",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "rationale": "The maintainer confirmed that the current Skill remains repository-authored without third-party creative material.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/announce-release.json"
+            "path": "experiments/skill-provenance/confirmations/announce-release-2026-10-29-release-workflow.json"
           }
         ],
-        "subject_digest": "289b76ea0174d349013b6fb27f9a980b2f5a650ebec45038460e6fee10597aa1"
+        "subject_digest": "619349a81695becec2e7444fd4ef98ca0cee86cf7db40dfa9dbb10dbe21f7aa5"
       }
     },
     "archive-milestone": {
@@ -1483,13 +1487,14 @@
     },
     "prepare-release": {
       "classification": "native",
-      "version": "1.4.2",
+      "version": "1.5.0",
       "reviewed_files": {
-        "README.md": "22edca0c6dfa55ef32fc341f7cdbd301175b6b1d86ca54d2fe61269b2d9ab7e9",
-        "SKILL.md": "c1a98c128cba7a4f0dfc61112e443795d29187ab19bbe6b059baf58e558153f1"
+        "README.md": "eb05dee5c83cada23135e2fef471209ae1d55dba5540e9e8080326e152d7a266",
+        "SKILL.md": "9f2aad7a8f162d3b3391e8942f03c18adfb1c92c05d6b280d1afe894c7942d91"
       },
       "reviewed_evidence": {
-        "experiments/skill-provenance/evidence/prepare-release.json": "ceec20f041de67323e0ccaeec2ea4d02916d0ffb3befb6ef5757b1f54d8d0e6c"
+        "experiments/skill-provenance/evidence/prepare-release.json": "ceec20f041de67323e0ccaeec2ea4d02916d0ffb3befb6ef5757b1f54d8d0e6c",
+        "experiments/skill-provenance/confirmations/prepare-release.json": "cfb1a6cebf2311c19245804e215fb899fa24490a7df512ac5c9e08030e98fcc2"
       },
       "sources": [],
       "evidence": [
@@ -1498,6 +1503,9 @@
         },
         {
           "path": "experiments/skill-provenance/confirmations/prepare-release.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/prepare-release-2026-10-29-release-workflow.json"
         }
       ],
       "creation": {
@@ -1505,17 +1513,17 @@
         "revision": "314186acabed013d7af29b6296dafc1807b6b46f"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer, confirmed in current task",
+        "confirmed_at": "2026-10-29",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "rationale": "The maintainer confirmed that the current Skill remains repository-authored without third-party creative material.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/prepare-release.json"
+            "path": "experiments/skill-provenance/confirmations/prepare-release-2026-10-29-release-workflow.json"
           }
         ],
-        "subject_digest": "890b010ee1a50b26e9dbbbdd165a6a0b982b6d8942f348a44eee815b1de09454"
+        "subject_digest": "eb8f7a4f5abb8dcd880e2ff91e4e50d5eb7fafa99e7be72e7ea145c283fdbb09"
       }
     },
     "prioritize-backlog": {
@@ -1668,13 +1676,14 @@
     },
     "publish-release": {
       "classification": "native",
-      "version": "1.2.1",
+      "version": "1.3.0",
       "reviewed_files": {
-        "README.md": "215c0e7467e0d41082332278e2ec40f9b329e7a307acea70123c585d7c453d96",
-        "SKILL.md": "7a14a0876850419d9c5e17ad0478a094c3fc90de0acd8902a0627de6ff500ac9"
+        "README.md": "a59650594ef59fd611f085db859ff187b97fdf39fe77c7eceee0661a4f8531c0",
+        "SKILL.md": "6dc4c909dbcbb94c2e4d95b1f156886ff4d9d6fe22ec164bdd347a994e63ca3e"
       },
       "reviewed_evidence": {
-        "experiments/skill-provenance/evidence/publish-release.json": "1b2ed9c57a1f5114aeccdb63e6ec56f68905dfdc1caa0e7bed35e14fe73a91a7"
+        "experiments/skill-provenance/evidence/publish-release.json": "1b2ed9c57a1f5114aeccdb63e6ec56f68905dfdc1caa0e7bed35e14fe73a91a7",
+        "experiments/skill-provenance/confirmations/publish-release.json": "8db40b3f6878c74a58bf9fd71c02f73c6f9779cbba3f530fe3980b2d5104ed61"
       },
       "sources": [],
       "evidence": [
@@ -1683,6 +1692,9 @@
         },
         {
           "path": "experiments/skill-provenance/confirmations/publish-release.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/publish-release-2026-10-29-release-workflow.json"
         }
       ],
       "creation": {
@@ -1690,17 +1702,17 @@
         "revision": "314186acabed013d7af29b6296dafc1807b6b46f"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer, confirmed in current task",
+        "confirmed_at": "2026-10-29",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "rationale": "The maintainer confirmed that the current Skill remains repository-authored without third-party creative material.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/publish-release.json"
+            "path": "experiments/skill-provenance/confirmations/publish-release-2026-10-29-release-workflow.json"
           }
         ],
-        "subject_digest": "7645989acd1ca676cfe5a57cae0460950a7db7fc1540a85f542dad2f4c062551"
+        "subject_digest": "2efa2c2ce4aa36c6f9957f0ae76ae80e54031541f2c5e865458205490c05cd43"
       }
     },
     "redeploy-local": {
@@ -2811,6 +2823,44 @@
           }
         ],
         "subject_digest": "58e09877e414c3a85348d984ea14dc8578ebc1b3e9daf293e94686f64e3bd5b1"
+      }
+    },
+    "build-project": {
+      "classification": "native",
+      "version": "1.0.0",
+      "reviewed_files": {
+        "SKILL.md": "cd01d62a871818bb5a86bcfd5decc2df3bf8def10402a415fd349b0d33ec94fe"
+      },
+      "reviewed_evidence": {
+        "docs/requirements-planning/AIC-REQ-06.md": "03fb011bc5105c19a7f259c79e8dc856f06d976809a70a230c8f0df8f54d2943"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "docs/requirements-planning/AIC-REQ-06.md"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/build-project-2026-10-29-release-workflow.json"
+        }
+      ],
+      "creation": {
+        "kind": "requirement",
+        "evidence": {
+          "path": "docs/requirements-planning/AIC-REQ-06.md"
+        }
+      },
+      "decision": {
+        "maintainer": "Repository maintainer, confirmed in current task",
+        "confirmed_at": "2026-10-29",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed that the current Skill remains repository-authored without third-party creative material.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/build-project-2026-10-29-release-workflow.json"
+          }
+        ],
+        "subject_digest": "c8931c68a9a2b97f848a120b85e26497c939ddb4cb3533d6ee17aa5a40515323"
       }
     }
   }
