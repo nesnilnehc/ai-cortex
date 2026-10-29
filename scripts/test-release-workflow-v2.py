@@ -25,9 +25,13 @@ class ReleaseWorkflowTests(unittest.TestCase):
         self.assertFalse(decide('a', 'linux', 'complete', checks, [], True, True))
 
     def test_required_targets_and_empty_success(self):
-        self.assertFalse(aggregate([{'required': True, 'status': 'complete'}, {'required': True, 'status': 'pending'}]))
-        self.assertTrue(aggregate([{'required': True, 'status': 'complete'}, {'required': False, 'status': 'failed'}]))
+        complete = {'required': True, 'status': 'complete', 'candidate_id': 'a', 'artifact_ids': ['a-bin'],
+                    'delivered_artifacts': [{'identity': 'a', 'relationship': 'unchanged', 'evidence': 'verified'}], 'evidence': 'receipt'}
+        self.assertFalse(aggregate([complete, {'required': True, 'status': 'pending'}]))
+        self.assertTrue(aggregate([complete, {'required': False, 'status': 'failed'}]))
         self.assertFalse(aggregate([{'required': False, 'status': 'pending'}]))
+        self.assertFalse(aggregate([{'required': True, 'status': 'complete'}]))
+        self.assertFalse(aggregate([complete, {'status': 'pending'}]))
 
     def test_retry_only_if_absence_is_proven(self):
         self.assertEqual(retry_action('complete', True), 'reuse')
@@ -62,11 +66,12 @@ class ReleaseWorkflowTests(unittest.TestCase):
             self.assertFalse(admit_schema(value))
 
     def test_delivery_requires_linked_verified_actual_identity(self):
-        self.assertTrue(delivery_verified('candidate-a', 'candidate-a', 'verified', 'passed'))
-        self.assertTrue(delivery_verified('candidate-a', 'signed-output', 'verified', 'passed'))
-        for relationship, check in [('unknown', 'passed'), ('conflict', 'passed'), ('verified', 'pending')]:
+        self.assertTrue(delivery_verified('candidate-a', 'candidate-a', 'unchanged', 'passed'))
+        self.assertTrue(delivery_verified('candidate-a', 'signed-output', 'transformed', 'passed'))
+        self.assertFalse(delivery_verified('candidate-a', 'signed-output', 'unchanged', 'passed'))
+        for relationship, check in [('unknown', 'passed'), ('conflict', 'passed'), ('transformed', 'pending')]:
             self.assertFalse(delivery_verified('candidate-a', 'signed-output', relationship, check))
-        self.assertFalse(delivery_verified('candidate-a', '', 'verified', 'passed'))
+        self.assertFalse(delivery_verified('candidate-a', '', 'unchanged', 'passed'))
 
 if __name__ == '__main__':
     unittest.main()

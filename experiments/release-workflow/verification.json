@@ -1,0 +1,71 @@
+{
+  "verified_date": "2026-10-29",
+  "scope": "offline synthetic fixtures and bounded reference consumers only",
+  "staged_test_methods": 37,
+  "historical_test_methods": 12,
+  "hosted_ci_run_verified": false,
+  "real_skill_host_acceptance": false,
+  "real_channel_acceptance": false,
+  "runs": [
+    {
+      "command": "python3 -B scripts/test-release-workflow-v2.py",
+      "exit_code": 0,
+      "output": "...........\n----------------------------------------------------------------------\nRan 11 tests in 0.000s\n\nOK\n"
+    },
+    {
+      "command": "python3 -B scripts/test-release-contract-v2.py",
+      "exit_code": 0,
+      "output": "..........\n----------------------------------------------------------------------\nRan 10 tests in 0.007s\n\nOK\n"
+    },
+    {
+      "command": "python3 -B scripts/test-release-execution-v2.py",
+      "exit_code": 0,
+      "output": ".............\n----------------------------------------------------------------------\nRan 13 tests in 0.180s\n\nOK\n"
+    },
+    {
+      "command": "python3 -B scripts/test-release-consumers-v2.py",
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.003s\n\nOK\n"
+    },
+    {
+      "command": "python3 -B scripts/check-stable-consumers.py",
+      "exit_code": 0,
+      "output": "2 pinned historical contracts, 4 historical release-reader pairs and 2 review-reader pairs passed.\n"
+    },
+    {
+      "command": "python3 -B scripts/test-stable-consumers.py",
+      "exit_code": 0,
+      "output": "test_compatible_schema_minor_and_unknown_major (__main__.ConsumerTests.test_compatible_schema_minor_and_unknown_major) ... ok\ntest_contract_drift_is_detected_independently_of_reader (__main__.ConsumerTests.test_contract_drift_is_detected_independently_of_reader) ... ok\ntest_coverage_is_not_silently_dropped_or_promoted (__main__.ConsumerTests.test_coverage_is_not_silently_dropped_or_promoted) ... ok\ntest_findings_reject_missing_required_fields_and_unknown_enums (__main__.ConsumerTests.test_findings_reject_missing_required_fields_and_unknown_enums) ... ok\ntest_no_release_and_draft_cannot_pass_publish_gate (__main__.ConsumerTests.test_no_release_and_draft_cannot_pass_publish_gate) ... ok\ntest_old_and_current_consumers_preserve_review_meanings (__main__.ConsumerTests.test_old_and_current_consumers_preserve_review_meanings) ... ok\ntest_only_ready_can_enter_publish_release (__main__.ConsumerTests.test_only_ready_can_enter_publish_release) ... ok\ntest_real_release_packages_consumed_by_old_and_current_readers (__main__.ConsumerTests.test_real_release_packages_consumed_by_old_and_current_readers) ... ok\ntest_report_preserves_emitter_coverage_and_original_findings (__main__.ConsumerTests.test_report_preserves_emitter_coverage_and_original_findings) ... ok\ntest_required_artifact_and_publication_receipt_are_enforced (__main__.ConsumerTests.test_required_artifact_and_publication_receipt_are_enforced) ... ok\ntest_required_skip_failure_and_empty_evidence_block_publication (__main__.ConsumerTests.test_required_skip_failure_and_empty_evidence_block_publication) ... ok\ntest_unknown_release_enums_and_version_actions_are_rejected (__main__.ConsumerTests.test_unknown_release_enums_and_version_actions_are_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 0.053s\n\nOK\n"
+    },
+    {
+      "command": "python3 -B scripts/check-markdown-links.py",
+      "exit_code": 0,
+      "output": "broken relative links: 0\ngovernance assets linking into skills/: 0\n"
+    },
+    {
+      "command": "python3 -B scripts/check-doc-hygiene.py",
+      "exit_code": 0,
+      "output": "Checked 446 documents: no orphans, no temporary filenames, no unlabelled temporary documents.\n"
+    },
+    {
+      "command": "python3 -B scripts/check-cortex-docs.py",
+      "exit_code": 0,
+      "output": "Every documented cortex command and flag exists, and every command is documented.\n"
+    }
+  ],
+  "source_sha256": {
+    ".github/workflows/lint.yml": "c7bc2c7e9d65bbf0e75d4a2db256c3a77247ae9fadb10c248404c8a18698d39b",
+    "scripts/release_contract_v2.py": "8cc78cc043a6932db89b15f82784d5237ac7cb7fb0ff2ddff70acc84d5e69d70",
+    "scripts/release_workflow_v2.py": "7e446a26b96b250066720283124162ac6123c6951a987172fb166220e513c246",
+    "scripts/test-release-consumers-v2.py": "cf518d770a5bd11017080bf072e908daa9d087e4435d897985123045987b9ae3",
+    "scripts/test-release-contract-v2.py": "69666acce7b92f86835c2fcfe7737bbf7434ea550d9e64e2d02d3de63755d270",
+    "scripts/test-release-execution-v2.py": "daf5995de1cd7c2900e1475e44f17383ff0710239c4ad91794c02de1b25064f7",
+    "scripts/test-release-workflow-v2.py": "d3072716254e9ac239062f37420715c2845178e524ab3c6dfe56d3270a3d0819",
+    "tests/fixtures/release-workflow/README.md": "b84bf382610e52cfe20b13bf5c5cd7c8ce2fcc514cae28349bb3c3e33908147a",
+    "tests/fixtures/release-workflow/a.txt": "f0120a17f59fe64affff4a4ab0b385ec827f1d825b1092f8b947f1d410199116",
+    "tests/fixtures/release-workflow/b.txt": "95473cc58ebf772d540e6e79fdffeee7248c3cadbe1f2f7b3369a0c09f065810",
+    "tests/fixtures/release-workflow/build_tool.py": "1fc475af98b482ad7d89c01d00ee58ab4da801dadc14fe871905831bbd11cf93",
+    "tests/fixtures/release-workflow/local_workflow.py": "c428f9db369149a74411c39ac1556d9a4aa429486c5bc48381c477acf471eedc",
+    "tests/fixtures/release-workflow/package.json": "f777d852b466803651fa1d2b9b804c702d8769420ed3354db3b7d18b6d1417ce"
+  }
+}

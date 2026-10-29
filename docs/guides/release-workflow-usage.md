@@ -28,3 +28,7 @@ target facts. It may announce a completed subset when the applicable contract al
 it; announcement recovery does not rerun builds or publication. The
 [Release Package Spec](../../specs/release-package.md) owns the record contract;
 individual Skills own their behavior. Existing 1.x semantics remain unchanged.
+
+See the [acceptance coverage assessment](../../experiments/release-workflow/acceptance-review.md)
+for offline contract/execution scenarios, reproduction commands and the remaining
+independent-Agent and real-channel verification limits.

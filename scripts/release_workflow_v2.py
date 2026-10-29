@@ -1,4 +1,9 @@
-"""Pure admission helpers for the staged-release examples; no I/O or provider calls."""
+"""Historical reduced projections; use release_contract_v2 for complete packages.
+
+These helpers do not validate a serialized package or attest external evidence.
+"""
+
+from release_contract_v2 import text
 
 _STAGES = {'select': 0, 'upload': 1, 'complete': 2}
 
@@ -9,7 +14,8 @@ def admit_schema(version):
 
 
 def delivery_verified(candidate, delivered, relationship, check):
-    return all(isinstance(value, str) and value.strip() for value in (candidate, delivered)) and relationship == 'verified' and check == 'passed'
+    return (text(candidate) and text(delivered) and check == 'passed'
+            and (relationship == 'transformed' or relationship == 'unchanged' and candidate == delivered))
 
 
 def decide(candidate, target, stage, checks, waivers, authorized, identity_verified, scope='release'):
@@ -38,6 +44,15 @@ def decide(candidate, target, stage, checks, waivers, authorized, identity_verif
 
 
 def aggregate(targets):
+    if any(type(t.get('required')) is not bool or t.get('status') not in {'pending', 'complete', 'failed', 'unknown'} for t in targets):
+        return False
+    for target in targets:
+        if target['status'] == 'complete' and (not text(target.get('candidate_id'))
+                or not target.get('artifact_ids') or not text(target.get('evidence'))
+                or not target.get('delivered_artifacts') or any(
+                    not text(d.get('identity')) or not text(d.get('evidence'))
+                    or d.get('relationship') not in {'unchanged', 'transformed'} for d in target['delivered_artifacts'])):
+            return False
     return bool(targets) and any(t.get('status') == 'complete' for t in targets) and all(
         not t.get('required') or t.get('status') == 'complete' for t in targets)
 

@@ -115,6 +115,14 @@ jobs:
           python3 scripts/check-stable-governance-consumers.py
           python3 scripts/test-stable-governance-consumers.py
 
+      - name: offline staged release contracts and recovery
+        # Uses temporary artifacts and a local receipt journal, never product providers.
+        run: |
+          python3 -B scripts/test-release-workflow-v2.py
+          python3 -B scripts/test-release-contract-v2.py
+          python3 -B scripts/test-release-execution-v2.py
+          python3 -B scripts/test-release-consumers-v2.py
+
       - name: the prose about bin/cortex matches the script
         # Semantics are a reader's job, but a named subcommand or flag either
         # exists or it does not — and a command nobody documented ships unseen.

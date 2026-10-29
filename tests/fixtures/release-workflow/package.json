@@ -1,0 +1,108 @@
+{
+  "schema_version": "2.0.0",
+  "project": "fixture-project",
+  "release_id": "planned-autumn",
+  "release_version": {
+    "value": "2026.10",
+    "scheme": "calendar-example",
+    "source": "fixture:explicit-policy"
+  },
+  "change_items": [],
+  "candidates": [
+    {
+      "id": "a",
+      "source_revision": "1111111111111111111111111111111111111111",
+      "build_identity": "101",
+      "artifacts": [
+        {
+          "id": "a-bin",
+          "location": "a.txt",
+          "identity": "sha256:f0120a17f59fe64affff4a4ab0b385ec827f1d825b1092f8b947f1d410199116",
+          "evidence": "fixture:build-a"
+        }
+      ]
+    },
+    {
+      "id": "b",
+      "source_revision": "2222222222222222222222222222222222222222",
+      "build_identity": "102",
+      "artifacts": [
+        {
+          "id": "b-bin",
+          "location": "b.txt",
+          "identity": "sha256:95473cc58ebf772d540e6e79fdffeee7248c3cadbe1f2f7b3369a0c09f065810",
+          "evidence": "fixture:build-b"
+        }
+      ]
+    }
+  ],
+  "targets": [
+    {
+      "id": "desktop",
+      "required": true,
+      "candidate_id": "b",
+      "artifact_ids": [
+        "b-bin"
+      ],
+      "status": "pending",
+      "delivered_artifacts": [],
+      "evidence": null
+    },
+    {
+      "id": "apple",
+      "required": true,
+      "candidate_id": "b",
+      "artifact_ids": [
+        "b-bin"
+      ],
+      "status": "pending",
+      "delivered_artifacts": [],
+      "evidence": null
+    }
+  ],
+  "checks": [
+    {
+      "id": "a-selection",
+      "candidate_id": "a",
+      "target_id": "desktop",
+      "stage": "select",
+      "required": true,
+      "origin": "internal",
+      "status": "failed",
+      "evidence": "fixture:check-a-selection"
+    },
+    {
+      "id": "b-selection",
+      "candidate_id": "b",
+      "target_id": "desktop",
+      "stage": "select",
+      "required": true,
+      "origin": "internal",
+      "status": "passed",
+      "evidence": "fixture:check-b-selection"
+    },
+    {
+      "id": "apple-selection",
+      "candidate_id": "b",
+      "target_id": "apple",
+      "stage": "select",
+      "required": true,
+      "origin": "internal",
+      "status": "passed",
+      "evidence": "fixture:check-apple-selection"
+    },
+    {
+      "id": "server",
+      "candidate_id": "b",
+      "target_id": "apple",
+      "stage": "complete",
+      "required": true,
+      "origin": "provider",
+      "status": "pending",
+      "evidence": null
+    }
+  ],
+  "exceptions": [],
+  "attempts": [],
+  "communication": []
+}
