@@ -1,0 +1,505 @@
+{
+  "date": "2026-10-29",
+  "repository_merge": "515b8c82a6115960cef25e85ce72aad4e6ffb885",
+  "sites_source": "f7bbccd6048ecae194548314296b66ed4826a86d",
+  "sites_version": 11,
+  "deployment_id": "appgdep_6ae29d44491081919a68a9ab2e6b777c",
+  "url": "https://ai-cortex.nesnilnehc.top/",
+  "status": "passed",
+  "resources": [
+    {
+      "path": "copy.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "98066e27493b23ca013c617303fb09cf44f6a1f6c056e5fa043cf6969ff54b4d"
+    },
+    {
+      "path": "explore/assets/work-stories.png",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "1d155d745670022aee28542d2f638620a29a9b3c5398237f71f065848dc090f6"
+    },
+    {
+      "path": "explore/classification-view.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "a1b27085adf206142047a379ee9bef0d4ef991bbb4183e8af0e6afab2fcea1c9"
+    },
+    {
+      "path": "explore/classification.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "aa232accd46ef5bc43b74e877c317ee3544138bf1d63b7c33c412e37a7c25e52"
+    },
+    {
+      "path": "explore/dual.css",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "e05daa97343318e9f2ca4930b34a0ab499bfaf7146252668ce37b0f5b4f0eb3b"
+    },
+    {
+      "path": "explore/explorer-host.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "f22025c9590b80ef65fd96423c1b5b3055ce06c6e4231168390260c43c031201"
+    },
+    {
+      "path": "explore/explorer-state.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "726dec4170daeea3900ce243924f61e2c8807cf3f01880b1b634f2623714e280"
+    },
+    {
+      "path": "explore/global-topic-graph.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "196b91d531c5d4b89633ea4dc4337a638f517697bb8c0b6b23de9ec50e04f268"
+    },
+    {
+      "path": "explore/index.html",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": false,
+      "sha256": "5f12e76fd71e102538c8c752f333dd6c002d3fea5811b158cb9879e18b386e7d"
+    },
+    {
+      "path": "explore/legacy.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "75911c2f37e6eceaa41fc6f5252e6cdad51fd50def5ce7db4a5d228ddc9ab7c5"
+    },
+    {
+      "path": "explore/locale.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "02dcb73788b276365e09bd276dd9efed354c31a682d758e861616bf81b0f5952"
+    },
+    {
+      "path": "explore/locales/en.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "45fcca3ba25b3ae3cda1f07e6f65c8c4201fbfcb3f270c971152c25b32e2cc19"
+    },
+    {
+      "path": "explore/locales/zh.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "dfad17ae3bb8e30cd6db25d42bf9c691c5eecb7290f1cfa7cf537cb1c0e8b92a"
+    },
+    {
+      "path": "explore/panel-model.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "e7634ae62523947fd62c31446c62edfcbbd7167fc0f0167c27e3cc6c7650a2d2"
+    },
+    {
+      "path": "explore/provenance.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "d6b7397f34b50a1b435f98a0de4f8ae4f31013ece073412f9ddb106121756df0"
+    },
+    {
+      "path": "explore/relations.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "33c2d18d6b8f5945efdc836a2cbb199c18363cc31fe9355aa51f623c37ff1e5a"
+    },
+    {
+      "path": "explore/relationship-model.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "747c3b49123337902b66e437cfa923c7c2824a7f4d069d640541b330444a3a4f"
+    },
+    {
+      "path": "explore/relationship-view.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "c310e6d1fca3c52b16a94c3b7e89a32afcef12d036b06e075c411b114a0d6317"
+    },
+    {
+      "path": "explore/request-state.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "23f3c205ce4d62c482eb22a10780eae879ea50666f3d97aff2c4be7fe4f2e177"
+    },
+    {
+      "path": "explore/site-contract.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "ac4dbf67adfeba2b2cb9d62850974dd0cf213ab02dbe4aa935adf6920c525bbb"
+    },
+    {
+      "path": "explore/skill-edges.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "d9aa92d0f0bc9048c6bd85db0b8066a7c6aeadcc61f27240479dac05b8e5c0fb"
+    },
+    {
+      "path": "explore/skill-graph.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "e024282320b920c26e9d0879529311fcaa38a2ce82f1dc9c95b993ee902ef988"
+    },
+    {
+      "path": "explore/skill-guidance.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "45344db436df06a0676ed02e8f3ae3e7413d6e4528d15d7413e5a0f705c4f3e7"
+    },
+    {
+      "path": "explore/skill-metadata.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "340cab3a96a1ed296fbd5ad51744c173c877f6a6f0f4fd49463cfdd19c60792b"
+    },
+    {
+      "path": "explore/skill-provenance.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "28dd6a6867f3af565f554e3fb9e9345d2e75909d2c67cbbca6f1a1886e56a8e8"
+    },
+    {
+      "path": "explore/source-links.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "f7b948348ff49a0a26b6cfc04c071996c1a15c374fd23e40f66cf458a37e743f"
+    },
+    {
+      "path": "explore/source-manifest.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "4634412227129ce547be0cb5e7da2b970068acc4db2e4e8629d549429bfb339b"
+    },
+    {
+      "path": "explore/story-model.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "933aac2aef875a65428ceabb99f071a6fb64d9cb0286f6e08756d9edfed6291b"
+    },
+    {
+      "path": "explore/story.css",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "5eda0ca3955b1bcf725d1ad9de194ebcb6c97f051481a6960bf8b33cec4f5eea"
+    },
+    {
+      "path": "explore/support-scopes.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "7ec7a3356522620fee58d1d992cef222ac4e373a99cb0fe59d6420d0be5685d7"
+    },
+    {
+      "path": "explore/support-scopes.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "38b2f755bbcbc8703ce7be9695271e20c2da19d88c9d740a92fc1f4fa5f8a590"
+    },
+    {
+      "path": "explore/topic-edges.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "b74e07e0c080bd3f5a74f9272ad2e66ea5376bb845647bc6c4c7d37ea76c09b6"
+    },
+    {
+      "path": "explore/topic-map.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "400113b9c4e81bdc26783421afb409da9529c357a9032f245fe4916cc5fd33bc"
+    },
+    {
+      "path": "explore/topic-map.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "f3ce526bc246463e1e0df11aaa56b1647c288af6a718af850c1940415b472e87"
+    },
+    {
+      "path": "explore/work-map.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "4e07481b86884cfea096d00cbbcf098161eb32bc9a050576307aaf12a1be48f6"
+    },
+    {
+      "path": "explore/workflow.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "f44c8ae0302356d44301e44efec8e3c641af13fcd4a6b4e429941a4e41015e04"
+    },
+    {
+      "path": "explore/workspace.css",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "d4175e2a71c4707eb53ef7af08c9f86670020cc874ce4dab663556fec5ef8d2a"
+    },
+    {
+      "path": "explore/zh.html",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": false,
+      "sha256": "780dd7f6db12dcd45a8a24ef3734a9ccf77922af2b3c4849e6a3850c798b1867"
+    },
+    {
+      "path": "favicon.svg",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "e3f057d1c807354a40e1c98fd390638666a8a244e4b8e81562e348efa147c02f"
+    },
+    {
+      "path": "index.html",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": false,
+      "sha256": "2c9d355f0751de9e2cd3d0e82e851c57cb44c01c7586901843373ddd9855a763"
+    },
+    {
+      "path": "language.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "f7bb46226f1703e103d45cc90c5c5a8c7565a359a38c4563a6fb13d0907c5102"
+    },
+    {
+      "path": "main.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "0ed3ac1e0a0d66d89c3fd32bbac668eb4f6165c50ff582d52119dfa35aa40d9f"
+    },
+    {
+      "path": "robots.txt",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "2c3f391f9674a75b97ddc2e2142e18fd9d17d2755c9dfa261884aea06b995cc9"
+    },
+    {
+      "path": "site-navigation.json",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "684d0c2e2dc44e4c47d070e27d60eeba9916e731e7ad7b1a4c1c963279e842a6"
+    },
+    {
+      "path": "site-navigation.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "3979060a961bca3ef1e4e7a7ba5a08b2dc71c0c710cdd57ddf42a285a980c0f4"
+    },
+    {
+      "path": "sitemap.xml",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "1f0245151e10eaca6d2e888a8fdc61a150b76346b8d958e74cf01a2ca8b93038"
+    },
+    {
+      "path": "styles.css",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "78dc21fe4b5f649aacb99c812b3e2dee0a7617f9e11d8e8016d715dc447d90f3"
+    },
+    {
+      "path": "theme.mjs",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": true,
+      "sha256": "df9b28f7c343ff4ea9f7ec83446b62692e0bd6ba47157fa78af5a7ca478f653f"
+    },
+    {
+      "path": "zh.html",
+      "passed": true,
+      "httpPassed": true,
+      "tlsPassed": true,
+      "mimePassed": true,
+      "sourcePreserved": true,
+      "byteIdentical": false,
+      "sha256": "9571f10845aebe6a770f4200d23ef2118cfc69b9e5ce974ef19211477b11bc13"
+    }
+  ],
+  "browser_checks": [
+    "Production Chinese extensionless route: third-party badges link to actual pinned upstreams; zero audit-material links and no horizontal overflow."
+  ],
+  "verification": "source-links-verification.json"
+}
