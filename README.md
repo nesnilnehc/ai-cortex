@@ -17,7 +17,7 @@ for the four asset layers and the [website guide](website/README.md) for site ma
 
 ## 🧭 What's inside
 
-**73 skills** ([index](skills/INDEX.md)), **33 rules** ([index](rules/INDEX.md)), **21 specs** ([index](specs/INDEX.md)) and **1 protocol** ([index](protocols/INDEX.md)).
+**73 skills** ([index](skills/INDEX.md)), **34 rules** ([index](rules/INDEX.md)), **21 specs** ([index](specs/INDEX.md)) and **1 protocol** ([index](protocols/INDEX.md)).
 
 | Area | Count | Representative skills |
 | :--- | ---: | :--- |
@@ -58,6 +58,19 @@ git clone --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.local/share/a
 `cortex install` also puts the command itself at `~/.local/bin/cortex`, which is where the short `cortex` used below comes from; it warns if `~/.local/bin` is not on your `PATH`, and until it is, call the script by its full path.
 
 It symlinks every skill — including reviewed local copies of externally derived ones — into `~/.agents/skills/<skill>`, where Codex and other agents reading that path discover them in a new session. It also detects installed IDEs (Claude Code, Cursor) and syncs their skill paths. User-scoped Rules are symlinked for Claude Code and converted to `.mdc` for Cursor; project-scoped engineering Rule sets stay in the canonical clone and are loaded on demand by their review Skills, avoiding permanent context inflation. `specs/` and `protocols/` need no installation — agents read them from the canonical path. Nothing is ever installed from skills.sh or GitHub at runtime.
+
+Codex Rule loading needs an explicit instruction entry; the installer does not
+edit `~/.codex/AGENTS.md` or load arbitrary Markdown from `~/.codex/rules/`.
+For cross-project ZenTao authoring, add a trigger to the existing global
+`~/.codex/AGENTS.md`, preserving other instructions: before creating, updating or
+reviewing a ZenTao requirement, defect or task (including drafting its text), read
+`~/.local/share/ai-cortex/rules/writing-zentao-work-items.md`. Use the actual
+canonical path if installation is overridden. The
+[rule](rules/writing-zentao-work-items.md) owns the constraints; the entry only
+routes loading. Verify the installed file and trigger, then check the instruction
+chain in a new session; an existing chat is not evidence that new global
+instructions were automatically reloaded. See the
+[official AGENTS.md guide](https://learn.chatgpt.com/docs/agent-configuration/agents-md).
 
 Existing user-owned skill directories, command files and foreign rule links are preserved.
 Cursor rules are rewritten only when they are regular files beginning with the

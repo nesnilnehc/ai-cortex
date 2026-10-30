@@ -60,6 +60,10 @@ Inside this repository, an agent `MUST`:
 **Injection**: load the selected skill's full Markdown as system or context input.
 **Protocols and rules**: enumerate from their INDEX.md and inject as process baseline or long-lived background context.
 
+**ZenTao work items**: before creating, updating or reviewing a requirement,
+defect or task, including drafting its text, an agent MUST read
+[ZenTao work item writing](rules/writing-zentao-work-items.md).
+
 - **No skill matched**: output `no skill matched` explicitly and fall back to general reasoning. You `MUST NOT` claim to have injected a skill that you did not.
 - **Conflicting specifications**: resolve by the precedence order in §2 and ignore the lower-precedence source.
 - **Required resource missing**: `STOP` and `ASK` the user. Do not continue inferring before the answer arrives.
