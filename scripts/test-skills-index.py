@@ -138,6 +138,10 @@ def check_folded_description(sync, errors: list[str]) -> None:
 def main() -> int:
     sync = load_generator()
     errors: list[str] = []
+    # Covers: generated Markdown must render a literal placeholder, never raw HTML.
+    literal = sync.render([('example', {'description': 'Explain <topic> safely.'})])
+    if 'Explain &lt;topic&gt; safely.' not in literal:
+        errors.append('description placeholder: expected escaped angle brackets')
     check_clean(sync, errors)
     check_folded_description(sync, errors)
     check_rejections(sync, errors)

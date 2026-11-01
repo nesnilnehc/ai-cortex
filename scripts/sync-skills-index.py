@@ -102,7 +102,8 @@ def render(skills: list[tuple[str, dict[str, object]]], origins: dict | None = N
     if origins is not None:
         lines.append('Provenance markers come from [PROVENANCE.json](./PROVENANCE.json); confirmed AI Cortex originals omit the badge. An absent badge alone does not establish originality.\n')
     for name, fields in skills:
-        lines.append(f"- [{name}](./{name}/SKILL.md) — {fields['description']}")
+        description = fields['description'].replace('<', '&lt;').replace('>', '&gt;')
+        lines.append(f"- [{name}](./{name}/SKILL.md) — {description}")
         if origins is not None and origins[name]['classification'] != 'unverified':
             record = origins[name]
             labels = json.loads((ROOT / 'website/explore/locales/en.json').read_text(encoding='utf-8'))['provenance']['labels']
