@@ -10,8 +10,8 @@ status: active
 The [requirement](../../docs/requirements-planning/AIC-REQ-06.md#acceptance-criteria)
 is accepted through contract and asset review. Its business rules R1–R11 remain
 unchanged. Agent evaluations, real product builds and provider execution are not
-library acceptance gates. Final source confirmation and catalogue generation passed. The cleanup CI passed;
-the final delivery commit must pass hosted checks before this chat is archived.
+library acceptance gates. Final source confirmation, catalogue generation and hosted CI all passed.
+All five closeout tasks are complete; the chat can be archived.
 
 ## Contract review, 2026-11-01
 
@@ -40,7 +40,7 @@ contract/instruction review, not an Agent execution claim.
 | C2 | Review contracts and instructions against AC1–AC6 | 3 | C1 | Done | Criterion-by-criterion named review above |
 | C3 | Remove simulation from acceptance and CI dependencies | 2 | C1 | Done | Retired the duplicate gate models, build tool, journal runner and their tests; CI retains the static example check and independent historical consumer checks |
 | C4 | Reconcile final provenance and generated assets | 2 | C2 | Done | Final native confirmation binds the requirement completion markers; evidence revision `96997540db698eb9b5ffa0915d80612dad4b55b7` and generated catalogue checks pass |
-| C5 | Run applicable checks and deliver scoped changes | 2 | C2, C3, C4 | Final CI pending | Cleanup commit `eecd7e3` passed hosted CI; final generated evidence and closure record are being delivered |
+| C5 | Run applicable checks and deliver scoped changes | 2 | C2, C3, C4 | Done | Cleanup and final source/catalogue commits passed hosted CI; scoped changes are committed and pushed, with evidence below |
 
 The new static example check retains the existing field-to-Spec comparison and
 checks actual artifact hashes. It does not implement selection, policy exceptions,
@@ -69,3 +69,7 @@ channel verification or Skill framework is a closeout prerequisite.
 - Tracked Markdown: 502 files checked, zero errors.
 - [Cleanup CI](https://github.com/nesnilnehc/ai-cortex/actions/runs/41269382925): success for `eecd7e3a15d1e5f5566338ca29e77cfeedccb893`. The previous REQ 08 blank-line failure is fixed.
 - Other chats: 20 pre-existing working files are preserved byte for byte and excluded from the closeout commits. No product operation or website redeployment was performed.
+- [Final source/catalogue CI](https://github.com/nesnilnehc/ai-cortex/actions/runs/41269540684): success for `2166181e9bdc9ad8f75f79b3e2c42b3d0843df6e`. This run includes the completed requirement, final confirmed provenance, static example checks, historical consumers and generated catalogue.
+
+No requirement acceptance item or closeout task remains open. Other chats'
+uncommitted roadmap, design and integration work is outside this closeout.
