@@ -6,8 +6,6 @@ made here alone is overwritten and does not reach the sources.
 
 Provenance markers come from [PROVENANCE.json](./PROVENANCE.json); confirmed AI Cortex originals omit the badge. An absent badge alone does not establish originality.
 
-- [announce-release](./announce-release/SKILL.md) — Create and optionally deliver announcements from verified published release targets; never owns changelog generation.
-  - provenance: · [evidence](../experiments/skill-provenance/evidence/announce-release.json) · [evidence](../experiments/skill-provenance/confirmations/announce-release.json) · [evidence](../experiments/skill-provenance/confirmations/announce-release-2026-10-29-release-workflow.json)
 - [archive-milestone](./archive-milestone/SKILL.md) — Archive completed roadmap work packages or iteration/phase/version/period snapshots while preserving milestone event evidence and unfinished work.
   - provenance: · [evidence](../experiments/skill-provenance/evidence/archive-milestone.json) · [evidence](../experiments/skill-provenance/confirmations/archive-milestone.json)
 - [assess-product-opportunity](./assess-product-opportunity/SKILL.md) — Assess a product opportunity from existing research reports and user signals, producing a restrained, traceable decision layer.
@@ -15,14 +13,10 @@ Provenance markers come from [PROVENANCE.json](./PROVENANCE.json); confirmed AI 
   - type: `domain` · user-invocable: `false`
 - [automate-tests](./automate-tests/SKILL.md) — Discover and execute repository test commands safely with evidence-based command selection and safety guardrails.
   - provenance: · [evidence](../experiments/skill-provenance/evidence/automate-tests.json) · [evidence](../experiments/skill-provenance/confirmations/automate-tests.json)
-- [build-artifacts](./build-artifacts/SKILL.md) — Build a project or selected component using its own tools without publishing; use independently or for a release candidate.
-  - provenance: · [evidence](../docs/requirements-planning/AIC-REQ-06.md) · [evidence](../experiments/skill-provenance/confirmations/build-artifacts-2026-11-01-acceptance.json)
 - [capture-work-items](./capture-work-items/SKILL.md) — Capture requirements, bugs, or issues from free-form input into structured, persistent artifacts. Use when user wants to record a work item quickly without deep validation.
   - provenance: · [evidence](../experiments/skill-provenance/evidence/capture-work-items.json) · [evidence](../experiments/skill-provenance/confirmations/capture-work-items.json)
-- [changelog-video](./changelog-video/SKILL.md) — Generate and validate an optional release video from confirmed Release Package change items using repository-local media tooling; never installs tools or decides or publishes the release.
-  - provenance: **Third-party adapted** · [evidence](../experiments/skill-provenance/evidence/changelog-video.json) · [evidence](./changelog-video/LICENSE.upstream) · [evidence](../experiments/skill-provenance/confirmations/changelog-video.json)
 - [commit-work](./commit-work/SKILL.md) — Create high-quality git commits with clear messages and logical scope. Core goal - produce reviewable commits following Conventional Commits format with pre-commit quality checks.
-  - provenance: **Third-party adapted** · [evidence](../experiments/skill-provenance/evidence/commit-work.json) · [evidence](../docs/references/THIRD_PARTY_NOTICES.md) · [evidence](../experiments/skill-provenance/confirmations/commit-work-2026-11-01-refinement.json)
+  - provenance: **Third-party adapted** · [evidence](../experiments/skill-provenance/evidence/commit-work.json) · [evidence](../docs/references/THIRD_PARTY_NOTICES.md) · [evidence](../experiments/skill-provenance/confirmations/commit-work-2026-11-01-retirement-cleanup.json)
 - [competitive-research](./competitive-research/SKILL.md) — Compare a dated competitor set by capabilities, positioning, pricing, and evidence quality without treating undocumented features as absent.
   - provenance: · [evidence](../experiments/skill-provenance/evidence/competitive-research.json) · [evidence](../experiments/skill-provenance/confirmations/competitive-research.json)
   - type: `domain` · user-invocable: `true`
@@ -84,9 +78,7 @@ Provenance markers come from [PROVENANCE.json](./PROVENANCE.json); confirmed AI 
 - [ponytail](./ponytail/SKILL.md) — Lazy senior dev mode: the smallest change that fully solves the task, and a reply a busy human understands in one read. Use on any coding task (writing, fixing, refactoring, reviewing, choosing dependencies) and when the user says "ponytail", "be lazy", "simplest solution", "yagni", or complains about over-engineering or bloat. Levels: lite, full (default), ultra.
   - provenance: **Third-party adapted** · [evidence](../experiments/skill-provenance/evidence/ponytail.json) · [evidence](./ponytail/LICENSE.upstream) · [evidence](../experiments/skill-provenance/confirmations/ponytail.json)
 - [prepare-presales-response](./prepare-presales-response/SKILL.md) — Prepare evidence-backed presales questionnaire answers and supporting materials, maintain reusable product knowledge, and separate customer-specific terms from product facts. Use for capability, operations, service and procurement inquiries before delivery.
-  - provenance: · [evidence](../experiments/skill-provenance/evidence/prepare-presales-response.json) · [evidence](../experiments/skill-provenance/confirmations/prepare-presales-response.json)
-- [prepare-release](./prepare-release/SKILL.md) — Build and validate a Release Package from repository history, version policy, quality gates, and optional release artifacts; does not publish or announce.
-  - provenance: · [evidence](../experiments/skill-provenance/evidence/prepare-release.json) · [evidence](../experiments/skill-provenance/confirmations/prepare-release.json) · [evidence](../experiments/skill-provenance/confirmations/prepare-release-2026-11-01-rename.json)
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/prepare-presales-response.json) · [evidence](../experiments/skill-provenance/confirmations/prepare-presales-response-2026-11-01-retirement-cleanup.json)
 - [prioritize-backlog](./prioritize-backlog/SKILL.md) — Apply a project's priority policy to unresolved backlog items, or explicitly reassess a batch using RICE, WSJF, MoSCoW and ICE; preserve settled decisions unless replacement is requested.
   - provenance: · [evidence](../experiments/skill-provenance/evidence/prioritize-backlog.json) · [evidence](../experiments/skill-provenance/confirmations/prioritize-backlog.json)
 - [product-opportunity-analysis](./product-opportunity-analysis/SKILL.md) — Coordinate relevant research lenses and deliver a traceable Opportunity Package for a product or feature decision.
@@ -96,8 +88,6 @@ Provenance markers come from [PROVENANCE.json](./PROVENANCE.json); confirmed AI 
   - provenance: · [evidence](../experiments/skill-provenance/evidence/promote-roadmap-items.json) · [evidence](../experiments/skill-provenance/confirmations/promote-roadmap-items.json)
 - [publish-nats-message](./publish-nats-message/SKILL.md) — Publish a NATS message conforming to a cross-team contract, using NATS MCP tools. Authors the contract on first use if missing. Reads project-level cache (.cortex/nats.yaml) to avoid re-prompting basics across sessions.
   - provenance: · [evidence](../experiments/skill-provenance/evidence/publish-nats-message.json) · [evidence](../experiments/skill-provenance/confirmations/publish-nats-message.json)
-- [publish-release](./publish-release/SKILL.md) — Execute authorized publication from a supported Release Package, preserving candidate, target and recovery evidence.
-  - provenance: · [evidence](../experiments/skill-provenance/evidence/publish-release.json) · [evidence](../experiments/skill-provenance/confirmations/publish-release.json) · [evidence](../experiments/skill-provenance/confirmations/publish-release-2026-11-01-rename.json)
 - [redeploy-local](./redeploy-local/SKILL.md) — After code changes, auto-detect the project's build system and local deployment method for a given directory, then build the project and restart its locally-deployed environment (Docker Compose / systemd / process manager). Never assumes — asks only when detection is ambiguous. Caches detected commands per project in .cortex/redeploy-local.yaml; re-invocations on the same project skip re-scanning until signal files change, the cache expires (30 days), or the skill version bumps.
   - provenance: · [evidence](../experiments/skill-provenance/evidence/redeploy-local.json) · [evidence](../experiments/skill-provenance/confirmations/redeploy-local.json)
 - [refine-skill-design](./refine-skill-design/SKILL.md) — Audit and refactor one or more existing SKILL.md files for Agent Skills format compliance, clear execution, local asset boundaries, and portable tool use. Use when a user asks to refine, audit, or repair skill design.
