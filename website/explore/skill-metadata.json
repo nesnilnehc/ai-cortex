@@ -416,7 +416,7 @@
         "skills/prepare-release/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/prepare-release/SKILL.md": "9f2aad7a8f162d3b3391e8942f03c18adfb1c92c05d6b280d1afe894c7942d91"
+        "skills/prepare-release/SKILL.md": "704905d4f002df99ce00b7c65e11b57daf08f6feebfdda78914e142b27710a88"
       },
       "entry": "public"
     },
@@ -476,7 +476,7 @@
         "skills/publish-release/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/publish-release/SKILL.md": "6dc4c909dbcbb94c2e4d95b1f156886ff4d9d6fe22ec164bdd347a994e63ca3e"
+        "skills/publish-release/SKILL.md": "2413715f731b1877d36dd84171d6e896c404c3bd7630e3670a526e77c49a123c"
       },
       "entry": "public"
     },
@@ -864,16 +864,16 @@
       },
       "entry": "public"
     },
-    "build-project": {
-      "id": "build-project",
+    "build-artifacts": {
+      "id": "build-artifacts",
       "owner": "release",
       "entry": "public",
       "sourcePaths": [
-        "skills/build-project/SKILL.md"
+        "skills/build-artifacts/SKILL.md"
       ],
       "description": "Build a project or selected component using its own tools without publishing; use independently or for a release candidate.",
       "sourceHashes": {
-        "skills/build-project/SKILL.md": "cd01d62a871818bb5a86bcfd5decc2df3bf8def10402a415fd349b0d33ec94fe"
+        "skills/build-artifacts/SKILL.md": "de5d4885c2defd4428755387646bfaeda113b66f8feae5ae384448ca66dbf60e"
       }
     }
   },

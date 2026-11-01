@@ -73,7 +73,7 @@
         "commit-work",
         "deliver-feature",
         "integrate-branches",
-        "build-project",
+        "build-artifacts",
         "prepare-release",
         "publish-release",
         "announce-release",

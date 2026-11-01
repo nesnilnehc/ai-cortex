@@ -573,22 +573,22 @@
     "overview": false
   },
   {
-    "id": "prepare-release__build-project",
+    "id": "prepare-release__build-artifacts",
     "from": "prepare-release",
-    "to": "build-project",
+    "to": "build-artifacts",
     "kind": "call",
     "source": "skills/prepare-release/SKILL.md",
-    "quote": "when a new\nbuild is needed, invoke [build-project](../build-project/SKILL.md)",
+    "quote": "when a new\nbuild is needed, invoke [build-artifacts](../build-artifacts/SKILL.md)",
     "overview": true,
     "callMode": "conditional"
   },
   {
-    "id": "publish-release__build-project",
+    "id": "publish-release__build-artifacts",
     "from": "publish-release",
-    "to": "build-project",
+    "to": "build-artifacts",
     "kind": "call",
     "source": "skills/publish-release/SKILL.md",
-    "quote": "If a build-only action is needed, invoke [build-project](../build-project/SKILL.md).",
+    "quote": "If a build-only action is needed, invoke [build-artifacts](../build-artifacts/SKILL.md).",
     "overview": true,
     "callMode": "conditional"
   }

@@ -676,12 +676,12 @@
       "use": "显式调用 ponytail；直到要求恢复正常模式前持续生效，仍遵循仓库约定和必要验证。",
       "result": "范围明确、完成任务的改动，以及简洁的验证和风险说明。"
     },
-    "build-project": {
-      "name": "构建项目",
-      "purpose": "构建项目而不执行发布",
+    "build-artifacts": {
+      "name": "构建制品",
+      "purpose": "使用项目工具构建制品，不执行发布",
       "when": "需要构建项目或生成候选制品，但不进行发布。",
       "provide": "项目、源码版本、组件和构建配置。",
-      "use": "使用 build-project 执行项目支持的仅构建命令。",
+      "use": "使用 build-artifacts 执行项目支持的仅构建命令。",
       "result": "构建结果、源码身份和实际制品；不执行发布。"
     }
   },
@@ -1277,7 +1277,7 @@
       "stage": "release",
       "summary": "准备发布材料，按项目约定发布，再告诉用户哪里变了。发布后还要听听：现在好找了吗？",
       "skills": [
-        "build-project",
+        "build-artifacts",
         "prepare-release",
         "publish-release",
         "announce-release",
@@ -1711,11 +1711,11 @@
       "label": "工程审查顺序",
       "condition": "在已选择的代码审查工程门内，按固定顺序评估；不适用的检查记录原因，不代表所有工作都要执行此链。"
     },
-    "prepare-release__build-project": {
+    "prepare-release__build-artifacts": {
       "label": "需要时构建",
       "condition": "仅在项目支持独立构建时调用；已有符合条件的候选时优先复用。"
     },
-    "publish-release__build-project": {
+    "publish-release__build-artifacts": {
       "label": "需要时构建",
       "condition": "仅在项目支持独立构建时调用；已有符合条件的候选时优先复用。"
     }
@@ -1922,7 +1922,7 @@
         "id": "release",
         "title": "发布与公告",
         "skills": [
-          "build-project",
+          "build-artifacts",
           "announce-release",
           "changelog-video",
           "prepare-release",

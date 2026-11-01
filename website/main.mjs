@@ -1,7 +1,7 @@
-import {initializeNavigation} from './site-navigation.mjs?v=aic06-build-release-1';
-import { initializeTheme } from './theme.mjs?v=aic06-build-release-1';
-import { initializeLanguage } from './language.mjs?v=aic06-build-release-1';
-import { bindCopyButton } from './copy.mjs?v=aic06-build-release-1';
+import {initializeNavigation} from './site-navigation.mjs?v=build-artifacts-20261101';
+import { initializeTheme } from './theme.mjs?v=build-artifacts-20261101';
+import { initializeLanguage } from './language.mjs?v=build-artifacts-20261101';
+import { bindCopyButton } from './copy.mjs?v=build-artifacts-20261101';
 
 initializeLanguage(window, document.documentElement.lang === 'zh-CN' ? 'zh' : 'en');
 
@@ -17,4 +17,4 @@ bindCopyButton(
 
 initializeNavigation(window,document);
 
-import './explore/explorer-host.mjs?v=aic06-build-release-1';
+import './explore/explorer-host.mjs?v=build-artifacts-20261101';

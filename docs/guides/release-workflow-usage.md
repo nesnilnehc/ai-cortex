@@ -7,10 +7,14 @@ status: active
 
 # Build and release workflow
 
-Use [build-project](../../skills/build-project/SKILL.md) to build a project or
+Use [build-artifacts](../../skills/build-artifacts/SKILL.md) to build a project or
 component without making a release. Its source revision, artifact identities and
 actual result can be passed to [prepare-release](../../skills/prepare-release/SKILL.md).
 Preparation may invoke the build Skill when an additional build is needed.
+
+The build Skill was renamed from `build-project` to `build-artifacts` in version
+2.0.0. Update saved invocations and project instructions to the new name; the old
+entry is removed without an alias. Responsibilities and inputs/outputs are unchanged.
 
 A release can have several candidate builds. For example, candidate A can fail a
 project test and candidate B can pass; their results remain separate. The Release

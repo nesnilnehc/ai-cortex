@@ -1,5 +1,10 @@
 # AI Cortex promotional website
 
+The current repository catalogue uses `build-artifacts` for the independent build
+capability. Saved invocations must use that name; no old-name alias is provided.
+The publication receipt below describes the existing hosted version and does not
+claim that this repository change has been deployed.
+
 ## Current publication: staged build and release workflow, 2026-10-29
 
 Sites version 13 is public at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
