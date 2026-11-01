@@ -10,8 +10,8 @@ from pathlib import Path
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-SUMMARY = Path('docs/references/roadmap-conversation-eval-20261021.json')
-DETAILS = Path('skills/define-roadmap/references/languages/conversation-eval-20261021.json')
+SUMMARY = Path('docs/references/roadmap-conversation-eval.json')
+DETAILS = Path('skills/define-roadmap/references/languages/conversation-eval.json')
 
 
 def digest(data):

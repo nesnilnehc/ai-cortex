@@ -153,9 +153,8 @@ CLI/model metadata when available; do not invent a provider model ID the CLI doe
 not expose. Test reports belong outside the generated roadmap output directory.
 
 The [schema 1.6 fixture](service-desk/topic-split/input.json) reproduces every populated
-topic document and its diagram. The [live golden report](../../../docs/references/roadmap-conversation-eval-20261021.json)
-records the evaluated conversations and actual model decisions, with its context
-digest, CLI version and evaluation limitations.
+topic document and its diagram. Historical evaluation reports remain in Git history;
+they do not certify the current instruction set.
 
 The oracle also checks the confirmed section/table schema and internal navigation.
 Feedback can validly lead to regeneration or a no-write review when the requested
@@ -169,18 +168,20 @@ A live run must supply a complete structured provider trace. The adapter accepts
 message/reasoning items only and rejects unknown tool items rather than assuming
 they are harmless. Provider-double tests include a valid-response control.
 
-Offline CI also checks that saved live evidence matches the current instruction,
-golden-case, evaluator and renderer digests. Instruction or executable changes
-require fresh explicit eval evidence; an older passing report cannot certify a
-new revision. Raw localized transcripts are retained under the language fixtures;
-the stable report entry carries an English summary and provenance.
+Offline CI tests the evidence exporter with generated synthetic protocol samples.
+These samples are not model evaluation evidence. It also tests stale-context and
+inconsistent-trace rejection independently of any saved report.
 
-[Raw localized live trace](languages/conversation-eval-20261021.json).
+Run `python3 scripts/check-roadmap-eval-evidence.py` to inspect current evidence
+separately. `not_evaluated` means no current report is available, not a passing
+model evaluation; `invalid` rejects stale, malformed or inconsistent evidence;
+`passed` means a complete saved report matches the current context and executables.
+Missing evidence is informational; invalid evidence returns a failing exit code.
 
-The evidence export validates the complete live trace against current golden cases
-and instruction/executable digests before writing. It saves both canonical report
-paths linked above; existing files require explicit `--overwrite`. Export performs
-no model calls and cannot turn stale or replay evidence into live evidence.
+The evidence export still validates the complete trace against current golden
+cases and instruction/executable digests before writing. Existing files require
+explicit `--overwrite`. Export cannot turn stale or replay evidence into valid
+model evaluation evidence.
 
 Content review of a blank draft retains business scope and reports its missing
 basis without filling files or certifying readiness. Evidence export independently

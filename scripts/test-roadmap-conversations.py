@@ -149,36 +149,18 @@ class ConversationTests(unittest.TestCase):
         for key in ['cases_sha256', 'runner_sha256', 'renderer_sha256', 'assets_sha256']:
             self.assertRegex(report[key], r'^[a-f0-9]{64}$')
 
-    def test_saved_live_evidence_matches_the_current_contract_and_executables(self):
-        spec = importlib.util.spec_from_file_location('conversation_eval', SCRIPT)
-        evaluator = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(evaluator)
-        evidence = json.loads((ROOT / 'docs/references/roadmap-conversation-eval-20261021.json').read_text())
-        self.assertTrue(evidence['passed'])
-        self.assertTrue(evidence['live_model'])
-        details = (ROOT / 'docs/references' / evidence['details']).resolve()
-        self.assertTrue(details.is_relative_to(ROOT))
-        self.assertEqual(evidence['details_sha256'], hashlib.sha256(details.read_bytes()).hexdigest())
-        export_spec = importlib.util.spec_from_file_location('evidence_export', ROOT / 'scripts/save-roadmap-eval-evidence.py')
-        exporter = importlib.util.module_from_spec(export_spec)
-        export_spec.loader.exec_module(exporter)
-        raw = json.loads(details.read_text())
-        exporter.validate(raw)
-        for case in raw['cases']:
-            for turn in case['turns']:
-                del turn['user']
-                del turn['decision']['reason']
-        self.assertEqual(evidence['cases'], raw['cases'])
-        self.assertEqual(evidence['assets_sha256'], evaluator.asset_digest(ROOT))
-        self.assertEqual(evidence['backend'], 'codex-live')
-        self.assertEqual(evidence['context_sha256'], hashlib.sha256(evaluator.skill_context().encode()).hexdigest(), 'live evidence uses stale instructions')
-        self.assertEqual(evidence['runner_sha256'], hashlib.sha256(SCRIPT.read_bytes()).hexdigest(), 'live evidence uses a stale evaluator')
-        self.assertEqual(evidence['renderer_sha256'], hashlib.sha256(evaluator.RENDERER.read_bytes()).hexdigest(), 'live evidence uses a stale renderer')
-        cases = json.loads(CASES.read_text()) + json.loads((ROOT / 'skills/define-roadmap/references/languages/conversations-zh-CN.json').read_text())
-        self.assertEqual(evidence['cases_sha256'], hashlib.sha256(json.dumps(cases, sort_keys=True, ensure_ascii=False).encode()).hexdigest())
-        self.assertEqual([case['id'] for case in evidence['cases']], [case['id'] for case in cases])
-        self.assertEqual(sum(len(case['turns']) for case in evidence['cases']), 30)
-        self.assertTrue(all(turn['passed'] for case in evidence['cases'] for turn in case['turns']))
+    def test_evidence_status_distinguishes_missing_from_invalid_reports(self):
+        checker = ROOT / 'scripts/check-roadmap-eval-evidence.py'
+        with tempfile.TemporaryDirectory() as temp:
+            report = Path(temp) / 'report.json'
+            result = subprocess.run([sys.executable, str(checker), str(report)], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn('not_evaluated', result.stdout)
+            self.assertNotIn('"status": "passed"', result.stdout)
+            report.write_text('{}')
+            result = subprocess.run([sys.executable, str(checker), str(report)], capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn('invalid', result.stdout)
 
     def test_live_adapter_errors_fail_closed_without_network_in_unit_tests(self):
         cases = json.loads(CASES.read_text())

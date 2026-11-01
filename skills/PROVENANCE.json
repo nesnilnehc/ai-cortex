@@ -455,10 +455,10 @@
     },
     "define-roadmap": {
       "classification": "native",
-      "version": "7.13.2",
+      "version": "7.13.3",
       "reviewed_files": {
         "README.md": "da3520e07b22cc3446491b1ffc0185fb7098b2ec1996dd4951c717128fc4b1bc",
-        "SKILL.md": "1612c7cb468fd0bdf5753dce53bafe9bfc1ecb3d4293051170c13ad7f72848bf",
+        "SKILL.md": "cecec3453859663779779e6a49252e4ece39dd9871bc65949ba584e5ec59379c",
         "assets/modules/flow.md": "307a7db9731700d565e56447402975b495507d3d50919f495303bc7dc33a7c2e",
         "assets/modules/iterations.md": "1cf9c9ea00b4ed0f50ccc8285d305d798c046c8785825998053b0451c8a32aba",
         "assets/modules/milestones.md": "cbb510bb6e8d9e37fc5d1c41e0961abb34c25cce7d9865f1e1a918e518f477ac",
@@ -484,7 +484,6 @@
         "references/existing-project/before/plan.md": "03287598733968848712203ac81a5cce0359ecf2407d4033416648574893ac72",
         "references/existing-project/sources.md": "64a09ff4fe7e043579d38f5ef51f7245e8da13935576ff60686bf5fafadcf58e",
         "references/languages/README.md": "e5305acb429b255fa31e218653754608292a4e19017203d1bebee0affe0d617f",
-        "references/languages/conversation-eval-20261021.json": "9fc48bfddc18e130ea4db94533331630e824d1abbacdd3842202331618c64c8e",
         "references/languages/conversations-zh-CN.json": "d46c3b6d74c84b9e94c309fc351e8ee63863ed0668f79085ce80ee366841be62",
         "references/languages/en/input.json": "02fdcc8a7b0377883e75eab9a9c792be474d5d407f1f550d90206b7b679dc906",
         "references/languages/en/roadmap-delivery.md": "04adc73d2920b078b203a7b31a81adb195c81e13f4ffab2b80bbfe7a37b2853f",
@@ -562,7 +561,7 @@
         "references/service-desk/topic-split/roadmap.svg": "b69f19ebbc8636ce6614398092ca57036c67b4332888559e8ad6902eaec5eebc",
         "references/service-desk/topic-split/versions.md": "8b550291fc0a0adb86607f6bfb31a70a59899e583f2892ef2b808d78a839320a",
         "references/service-desk/version-archive.md": "832f899776342ef96156d2b5ca297dd0fea2234cafbf0ee25e263047ac75a1a7",
-        "references/structure-first.md": "fc12c9591318096c7770a72148191eab700685de79eddd5aa959ca0a356af4e2",
+        "references/structure-first.md": "da1b2c9a9958b9b41ac4bc20cc816f03c2d850ecb95e629044cf64f4a9ed198b",
         "scripts/check-platform-delivery.py": "8fbd8fa7119785dd2c9d4beb3b2760bdf22c3ec54d31fe30138b037f1ce96263",
         "scripts/render-roadmap.py": "d2c7e4f33d4778a9761e712e409fcae2e089f00793387120d0e7ea03454ffcc7",
         "scripts/roadmap-zh-CN.json": "9793c0fb6199626c7300cef39fe5d55a7f6ba91246441cce0c6531f7bddd4e27"
@@ -576,7 +575,7 @@
           "path": "experiments/skill-provenance/evidence/define-roadmap.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/define-roadmap.json"
+          "path": "experiments/skill-provenance/confirmations/define-roadmap-2026-11-01-evidence-separation.json"
         }
       ],
       "reviewed_links": {
@@ -587,17 +586,17 @@
         "revision": "904a4cc530bfd4e9557885add79a5d0fc0c3b590"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer, explicit reply in chat 01a1803e-9883-7aa0-b887-8861238d233f",
+        "confirmed_at": "2026-11-01",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "rationale": "The maintainer explicitly confirmed define-roadmap 7.13.3 remains native after removing the obsolete evaluation report and revising the regression guide; no external creative reference was introduced.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/define-roadmap.json"
+            "path": "experiments/skill-provenance/confirmations/define-roadmap-2026-11-01-evidence-separation.json"
           }
         ],
-        "subject_digest": "76f05c01d4730ee0b3eee7f26d7929c325cf2347b89a06decdc4f758b21b628d"
+        "subject_digest": "13d4cd9bf862f32e66a55b77c792c06789f232bd0c5d245f010aefa3b97aed0e"
       }
     },
     "define-strategic-pillars": {
