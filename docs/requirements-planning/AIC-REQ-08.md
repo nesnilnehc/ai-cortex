@@ -56,7 +56,6 @@ Index and website provenance presentation, recorded source evidence, consistent 
 
 No requirement dependencies. Existing provenance implementation and eli5/Ponytail intake are starting evidence, not final acceptance. Before acceptance, maintainers must complete the provenance review for every Skill in scope; verify this by checking full catalogue coverage and the evidence supporting each classification.
 
-
 ## Risks, Constraints & Assumptions
 
 - Incorrect completion or provenance claim: probability medium, impact high, priority high. Mitigation: preserve source evidence and verify the negative cases in acceptance fixtures.

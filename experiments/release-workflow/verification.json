@@ -78,5 +78,7 @@
     "staged_release_step": "success",
     "markdown_job": "failure",
     "preexisting_markdown_findings": 5
-  }
+  },
+  "acceptance_authority": "docs/requirements-planning/AIC-REQ-06.md#acceptance-criteria",
+  "acceptance_use": "Historical engineering evidence only; superseded by contract and asset review in acceptance-review.md. Retired runner paths are historical references, not current acceptance commands."
 }

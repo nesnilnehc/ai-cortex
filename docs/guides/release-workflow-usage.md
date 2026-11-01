@@ -34,5 +34,5 @@ it; announcement recovery does not rerun builds or publication. The
 individual Skills own their behavior. Existing 1.x semantics remain unchanged.
 
 See the [acceptance coverage assessment](../../experiments/release-workflow/acceptance-review.md)
-for offline contract/execution scenarios, reproduction commands and the remaining
-independent-Agent and real-channel verification limits.
+for the contract-and-asset acceptance boundary and remaining closeout tasks.
+Real Agent, consumer-project and provider execution are not library acceptance gates.

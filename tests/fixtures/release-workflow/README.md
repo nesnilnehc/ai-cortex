@@ -1,39 +1,23 @@
-# Offline staged-release fixtures
+# Static staged-release example
 
-These fixtures support the [AIC-REQ-06 coverage assessment](../../../experiments/release-workflow/acceptance-review.md).
-They are synthetic public examples. No product repository, credential, network
-service, Apple toolchain, upload endpoint or announcement channel is used.
+These public example files illustrate the
+[Release Package 2.0.0 contract](../../../specs/release-package.md#58-version-2-staged-release-contract).
+They do not execute a Skill, product build, upload or announcement.
 
-`package.json` uses the actual [Release Package 2.0.0 field names](../../../specs/release-package.md#58-version-2-staged-release-contract).
-Its explicit example policy assigns release `2026.10` independently of builds
-`101` and `102`; neither numbering scheme is a recommendation for a consumer.
-Candidate A fails selection; candidate B passes. Both identities and observations
-remain in the package. Desktop and Apple-style targets are independently selected.
-The Apple-style provider check is pending until after upload.
+`package.json` assigns the illustrative release identity `2026.10` independently
+of build identities `101` and `102`; this is not a recommended project version
+policy. Candidate A has a failed selection check, while candidate B has its own
+passed checks and is selected for two targets. The Apple-style target's provider
+check remains pending until the required evidence is available. Selection does
+not establish delivery, and both target outcomes remain pending.
 
-`a.txt` and `b.txt` are the candidate bytes with SHA-256 identities in the package.
-`build_tool.py` is a harmless fixture project tool that writes a ZIP containing a
-client, plugin and configuration in a temporary working directory. The harness
-invokes this existing tool for both standalone and combined scenarios; it does not
-run commands discovered in a real product checkout. A combined build creates a
-new candidate and its own output check, preserving the previous candidates.
+`a.txt` and `b.txt` are the example artifact bytes. Their SHA-256 identities and
+the package's declared fields are checked by
+[the static example check](../../../scripts/test-release-package-example.py).
+The check neither decides release eligibility nor verifies external evidence.
 
-`local_workflow.py` is test-owned reference execution, **not the Markdown Skill
-runtime**. A JSONL receipt journal replaces the provider. Each write has persisted
-intent and an exclusive file lock. Tests lose the reply only after a real local
-journal append, reload package state, reconcile the journal and verify that the
-write count does not increase. Announcement recovery also checks product bytes
-and the action journal. Candidate changes and modified delivered bytes block reuse.
-
-`release_contract_v2.py` is a bounded offline reader, not a universal validator.
-The fixture stages (`select`, `upload`, `complete`), origin values and supplied
-policy dictionaries are test parameters, not a new required project format.
-Nonempty evidence references are structurally checked; their external truth and
-human authority are not attested. Additional consumer stages or policy mechanisms
-need their own verified mapping before use. The tests do not prove the Skills will
-follow their instructions in an independent Agent host.
-
-The legacy import example preserves known version/source facts, leaves unknown
-build identities and artifacts unknown, and keeps delivery pending. It neither
-upgrades a real package nor converts a historical publication claim into new
-candidate verification. The historical source bytes remain unchanged.
+The former test-owned gate models, local build tool and receipt-journal simulator
+were retired during requirement closeout. Their earlier results remain historical
+engineering records, not Skill acceptance evidence. Historical consumer checks
+remain independent under `scripts/check-stable-consumers.py` and
+`scripts/test-stable-consumers.py`.
