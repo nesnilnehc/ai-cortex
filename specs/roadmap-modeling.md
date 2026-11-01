@@ -2,7 +2,7 @@
 id: ROADMAP_MODELING_SPEC_V1
 name: Roadmap Modeling Schema
 description: Roadmap views, source authority, priority vocabulary and local generation input contract.
-version: 1.11.1
+version: 1.11.2
 status: active
 lifecycle: living
 created_at: 2026-10-20
@@ -11,7 +11,6 @@ scope: |
   Does not define task execution, automatic scheduling or release authorization.
 related:
   - ./requirement-modeling.md
-  - ./release-package.md
   - ../rules/roadmap-quality.md
 ---
 

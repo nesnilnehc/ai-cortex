@@ -115,9 +115,8 @@ jobs:
           python3 scripts/check-stable-governance-consumers.py
           python3 scripts/test-stable-governance-consumers.py
 
-      - name: static staged release example
-        # Checks Spec fields and artifact hashes; does not simulate Skill execution.
-        run: python3 -B scripts/test-release-package-example.py
+      - name: project-owned release boundary
+        run: python3 scripts/test-release-retirement.py
 
       - name: the prose about bin/cortex matches the script
         # Semantics are a reader's job, but a named subcommand or flag either

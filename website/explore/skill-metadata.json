@@ -1,17 +1,5 @@
 {
   "skills": {
-    "announce-release": {
-      "id": "announce-release",
-      "description": "Create and optionally deliver announcements from verified published release targets; never owns changelog generation.",
-      "owner": "release",
-      "sourcePaths": [
-        "skills/announce-release/SKILL.md"
-      ],
-      "sourceHashes": {
-        "skills/announce-release/SKILL.md": "7e135a492f4e5b3f3ab57089c289c11562fc31466b4e114a8f5c13114891b8ec"
-      },
-      "entry": "public"
-    },
     "archive-milestone": {
       "id": "archive-milestone",
       "description": "Archive completed roadmap work packages or iteration/phase/version/period snapshots while preserving milestone event evidence and unfinished work.",
@@ -57,18 +45,6 @@
       ],
       "sourceHashes": {
         "skills/capture-work-items/SKILL.md": "3d788097e9a8ce105763932e94152451d27beeccf90d08f8d54e9d3ef48c2918"
-      },
-      "entry": "public"
-    },
-    "changelog-video": {
-      "id": "changelog-video",
-      "description": "Generate and validate an optional release video from confirmed Release Package change items using repository-local media tooling; never installs tools or decides or publishes the release.",
-      "owner": "release",
-      "sourcePaths": [
-        "skills/changelog-video/SKILL.md"
-      ],
-      "sourceHashes": {
-        "skills/changelog-video/SKILL.md": "63e7a7ba4a90e4e5c66ab1c96f410edc874dcbd923215640ed345f2dd51fcc8d"
       },
       "entry": "public"
     },
@@ -404,19 +380,7 @@
         "skills/prepare-presales-response/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/prepare-presales-response/SKILL.md": "0c56e53d2828e029dc3a4fb7611e46e57b6a6ff7977d31af44bdfc13b9ace445"
-      },
-      "entry": "public"
-    },
-    "prepare-release": {
-      "id": "prepare-release",
-      "description": "Build and validate a Release Package from repository history, version policy, quality gates, and optional release artifacts; does not publish or announce.",
-      "owner": "release",
-      "sourcePaths": [
-        "skills/prepare-release/SKILL.md"
-      ],
-      "sourceHashes": {
-        "skills/prepare-release/SKILL.md": "704905d4f002df99ce00b7c65e11b57daf08f6feebfdda78914e142b27710a88"
+        "skills/prepare-presales-response/SKILL.md": "817a71fcc164958b189a4b9d91221b58444a46dc8e6cda3fedfccc9ac3f95644"
       },
       "entry": "public"
     },
@@ -465,18 +429,6 @@
       ],
       "sourceHashes": {
         "skills/publish-nats-message/SKILL.md": "496b48e1d908344f654c8b6a594c3fa27e23a5542ffad7cf29da0b8b6efce29c"
-      },
-      "entry": "public"
-    },
-    "publish-release": {
-      "id": "publish-release",
-      "description": "Execute authorized publication from a supported Release Package, preserving candidate, target and recovery evidence.",
-      "owner": "release",
-      "sourcePaths": [
-        "skills/publish-release/SKILL.md"
-      ],
-      "sourceHashes": {
-        "skills/publish-release/SKILL.md": "2413715f731b1877d36dd84171d6e896c404c3bd7630e3670a526e77c49a123c"
       },
       "entry": "public"
     },
@@ -863,18 +815,6 @@
         "skills/ponytail/SKILL.md": "8fcf775f1c5b5172196b7318a5df84a2f28b263405973f2a10145e60f6e026b6"
       },
       "entry": "public"
-    },
-    "build-artifacts": {
-      "id": "build-artifacts",
-      "owner": "release",
-      "entry": "public",
-      "sourcePaths": [
-        "skills/build-artifacts/SKILL.md"
-      ],
-      "description": "Build a project or selected component using its own tools without publishing; use independently or for a release candidate.",
-      "sourceHashes": {
-        "skills/build-artifacts/SKILL.md": "de5d4885c2defd4428755387646bfaeda113b66f8feae5ae384448ca66dbf60e"
-      }
     }
   },
   "groupOrder": [
@@ -885,7 +825,6 @@
     "quality",
     "build",
     "commit",
-    "release",
     "foundation",
     "collaboration"
   ]

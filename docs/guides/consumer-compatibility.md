@@ -31,16 +31,9 @@ of consumer decisions, not two independently deployed applications.
 | --- | --- | --- |
 | Findings | Required fields; severity and maturity enums; optional suggestion; severity/location order; unchanged finding content, duplicates and count | Category semantics, sentence quality and all location normalization shapes are not validated |
 | Rule coverage dependency | All coverage fields present, list types, evidence-limited items retained, metadata preserved separately per emitter | Does not implement runtime Rule applicability or maturity derivation; bounded parameter/waiver evidence is recorded below |
-| Release Package | Historical identity projection; required identity fields; status/action enums; compatible 1.x schema selection; required artifacts; blocked required checks; publication receipt presence | Does not execute publication, verify receipt URLs, interpret arbitrary prose evidence or validate every nested Spec field |
 | Optional extensions | Historical readers retain decisions; original extended Findings remain intact | Accepting an optional field does not prove new mandatory fields or enum values are compatible |
 
-12 permanent regression methods exercise old/current readers, malformed and
-missing data, absence of optional suggestion, unknown enums/schema major,
-optional extension, empty/zero/all-skipped execution evidence, preservation,
-missing artifacts/receipt, ready-only publication admission, and an injected required-field drift in the current
-Spec. These methods use subtests; the method count is not a supported-project or
-model-run count. Text evidence is checked for emptiness and explicit zero/all-
-skipped reports; nonempty prose alone cannot prove execution.
+The current regression suite protects Findings and Rule coverage. Release-only readers and fixtures were removed with the project-owned release decision; frozen tag descriptors retain their historical source identities.
 
 ## Run and maintain
 
@@ -54,7 +47,7 @@ python3 scripts/test-stable-governance-consumers.py
 Use a complete Git checkout containing the pinned historical objects. CI's
 registry job already uses full history; no model, network service or third-party
 Python/YAML dependency is needed. The checker reports two historical descriptors,
-four historical release-reader pairs and two historical review-reader pairs;
+two historical review-reader pairs;
 the regression suite additionally exercises current readers and negative cases.
 
 Do not regenerate historical descriptors or expected outcomes just to make a

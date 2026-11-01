@@ -13,11 +13,11 @@ test('the single map owns each current skill once and preserves nonlinear topic 
  const graph=getSkillGraph(),global=getGlobalTopicGraph();
  assert.deepEqual(graph.groups.flatMap(g=>g.skills.map(s=>s.id)).sort(),canonical);
  assert.equal(new Set(graph.groups.flatMap(g=>g.skills.map(s=>s.id))).size,canonical.length);
- assert.equal(global.nodes.length,10);assert.equal(global.edges.length,13);assert.equal(global.loops.length,2);
+ assert.equal(global.nodes.length,9);assert.equal(global.edges.length,10);assert.equal(global.loops.length,2);
  assert.equal(global.hub,undefined);assert.equal(global.edges.some(e=>e.kind==='feedback'&&e.from==='quality'&&e.to==='planning'),true);
  assert.equal(global.edges.some(e=>e.kind==='support'&&e.from==='foundation'&&e.to==='planning'),true);
  for(const group of graph.groups)for(const skill of group.skills){assert.equal(getNodeForSkill(skill.id),group.id);assert.deepEqual(getNodeDetails(group.id).skills.map(s=>s.id).sort(),group.skills.map(s=>s.id).sort());}
- const copy=getGlobalTopicGraph();copy.edges.length=0;assert.equal(getGlobalTopicGraph().edges.length,13);
+ const copy=getGlobalTopicGraph();copy.edges.length=0;assert.equal(getGlobalTopicGraph().edges.length,10);
 });
 // Covers: AIC-REQ-04#A11; related A3/A5/A6.
 test('canonical membership rejects omissions, duplicates and unknown skills',()=>{
@@ -38,8 +38,7 @@ test('topic disclosure retains at most one owner and rejects invalid identifiers
 test('local forests are placement aids and retain canonical edge identities',()=>{
  const graph=getSkillGraph(),edges=new Set(graph.edges.map(e=>e.id));
  for(const group of graph.groups){const forest=getSkillForest(group.id);assert.equal(forest.connections.every(e=>edges.has(e.id)),true);assert.equal(forest.connections.every(e=>group.skills.some(s=>s.id===e.from)&&group.skills.some(s=>s.id===e.to)),true);}
- assert.deepEqual(new Set(getSkillNeighborhood('prepare-release').edges.map(e=>e.id)),new Set(['prepare-release__build-artifacts','prepare-release__changelog-video','prepare-release__publish-release']));
- assert.ok(canonical.includes('build-artifacts'));assert.equal(canonical.includes('build-project'),false);
+ for(const id of ['build-artifacts','prepare-release','publish-release','announce-release','changelog-video']){assert.equal(canonical.includes(id),false);assert.throws(()=>getSkillNeighborhood(id),/Unknown/);}
  assert.throws(()=>getSkillNeighborhood('build-project'),/Unknown/);
  for(const id of canonical)assert.ok(dictionary.skills[id].purpose);
 });
@@ -60,5 +59,13 @@ test('topic names and purpose have one locale owner across map and panel',()=>{
   assert.equal(Object.hasOwn(dictionary.contexts[id].help,'point'),false,'Duplicate editable topic purpose');
   assert.equal(getNodeDetails(id).title,topic.name);
   assert.equal(getNodeDetails(id).help.point,topic.purpose);
+ }
+});
+
+// Covers: ADR-0017; retired release actions must not retain a callable route.
+test('retired release relationships reject routing when no release topic exists',()=>{
+ const rects=new Map(getGlobalTopicGraph().nodes.map(node=>[node.id,{left:20,right:220,top:20,bottom:120,width:200,height:100}]));
+ for(const id of ['checks-release','history-release','conditional-commit']){
+  assert.throws(()=>routeTopicRelationship({id,from:'quality',to:'commit'},rects,{left:0,right:1200,top:0,bottom:900},true),/Unknown topic relationship/);
  }
 });

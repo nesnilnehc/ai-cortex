@@ -55,16 +55,6 @@
         ]
       },
       {
-        "topicId": "release",
-        "conditionKey": "foundation",
-        "sources": [
-          {
-            "path": "skills/generate-agent-entry/SKILL.md",
-            "quote": "Write or revise AGENTS.md with project identity, authoritative sources, behavioral expectations and verified loading entries for adopted workflows. Use when creating, auditing or revising a project's agent entry, including AI Cortex adoption."
-          }
-        ]
-      },
-      {
         "topicId": "commit",
         "conditionKey": "foundation",
         "sources": [
@@ -133,16 +123,6 @@
       },
       {
         "topicId": "build",
-        "conditionKey": "collaboration",
-        "sources": [
-          {
-            "path": "skills/decontextualize-text/SKILL.md",
-            "quote": "Convert text with private context or internal dependencies into generic, unbiased expressions that are standalone and reusable. Core goal - produce decontextualized text that preserves logic while removing organizational identifiers. Use for project handoff, open-source prep, methodology abstraction, cross-team sharing."
-          }
-        ]
-      },
-      {
-        "topicId": "release",
         "conditionKey": "collaboration",
         "sources": [
           {

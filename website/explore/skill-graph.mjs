@@ -1,11 +1,11 @@
-import {getCallHierarchy} from './relationship-model.mjs?v=build-artifacts-20261101';
-import {catalog} from './workflow.mjs?v=build-artifacts-20261101';
-import {getNodeDetails,getNodeSkillSelection} from './panel-model.mjs?v=build-artifacts-20261101';
-import rawEdges from './skill-edges.json?v=build-artifacts-20261101' with {type:'json'};
-import metadata from './skill-metadata.json?v=build-artifacts-20261101' with {type:'json'};
-import {dictionary} from './locale.mjs?v=build-artifacts-20261101';
+import {getCallHierarchy} from './relationship-model.mjs?v=project-owned-release-20261101';
+import {catalog} from './workflow.mjs?v=project-owned-release-20261101';
+import {getNodeDetails,getNodeSkillSelection} from './panel-model.mjs?v=project-owned-release-20261101';
+import rawEdges from './skill-edges.json?v=project-owned-release-20261101' with {type:'json'};
+import metadata from './skill-metadata.json?v=project-owned-release-20261101' with {type:'json'};
+import {dictionary} from './locale.mjs?v=project-owned-release-20261101';
 const sourceEdges=rawEdges.map(edge=>({...edge,...dictionary.skillEdges[edge.id]}));
-const order=['direction','planning','research','design','quality','build','commit','release','foundation','collaboration'];
+const order=['direction','planning','research','design','quality','build','commit','foundation','collaboration'];
 const ids=new Set(catalog.map(skill=>skill.id));
 export function getSkillGraph(){return structuredClone({groups:metadata.groupOrder.map(id=>{const detail=getNodeDetails(id);return {id,title:detail.title,summary:detail.help.point,availability:['research','foundation','collaboration'].includes(id)?'anytime':'on-demand',note:dictionary.topics[id].note,skills:getNodeSkillSelection(id).skills};}),edges:sourceEdges});}
 export function getSkillNeighborhood(id){

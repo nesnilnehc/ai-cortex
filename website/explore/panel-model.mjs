@@ -1,6 +1,6 @@
-import {dictionary} from './locale.mjs?v=build-artifacts-20261101';
-import {catalog} from './workflow.mjs?v=build-artifacts-20261101';
-import metadata from './skill-metadata.json?v=build-artifacts-20261101' with {type:'json'};
+import {dictionary} from './locale.mjs?v=project-owned-release-20261101';
+import {catalog} from './workflow.mjs?v=project-owned-release-20261101';
+import metadata from './skill-metadata.json?v=project-owned-release-20261101' with {type:'json'};
 export function getNodeDetails(id){
  if(!Object.hasOwn(dictionary.contexts,id))throw Error('Unknown node');
  const detail=structuredClone(dictionary.contexts[id]);

@@ -17,16 +17,18 @@ for the four asset layers and the [website guide](website/README.md) for site ma
 
 ## 🧭 What's inside
 
-**73 skills** ([index](skills/INDEX.md)), **34 rules** ([index](rules/INDEX.md)), **21 specs** ([index](specs/INDEX.md)) and **1 protocol** ([index](protocols/INDEX.md)).
+**68 skills** ([index](skills/INDEX.md)), **34 rules** ([index](rules/INDEX.md)), **20 specs** ([index](specs/INDEX.md)) and **1 protocol** ([index](protocols/INDEX.md)).
 
 | Area | Count | Representative skills |
 | :--- | ---: | :--- |
 | **Governance & planning** | 17 | Deriving mission → vision → North Star → strategic goals → roadmap layer by layer; backlog scoring, dependency mapping, promotion and archival; `plan-next` diagnoses what to do next |
 | **Code review** | 28 | Pre-coding artifact reviews and requirements repair loops, post-coding implementation alignment, and `orchestrate-code-review` across 8 languages, frameworks, libraries and seven engineering concerns |
-| **Delivery & release** | 11 | Commits, worktree delivery and integration, independent project builds, release preparation and publication, announcements, test execution, local redeployment; `ponytail` for minimal complete coding changes |
+| **Engineering operations** | 6 | Commits, worktree delivery and integration, test execution and local redeployment; `ponytail` for minimal complete coding changes |
 | **Docs & assets** | 7 | Generating README, AGENTS.md and GitHub Actions; refining skill design; decontextualizing text; preparing presales responses; `eli5` visual explainers |
 | **Integration & ops** | 4 | NATS cross-team messaging, macOS Keychain credential management, agent test scaffolding |
 | **Research & opportunity** | 6 | Open, policy, market and competitive research; internal opportunity assessment; product opportunity package |
+
+Builds, artifact distribution, store submissions and release announcements are implemented by consuming projects. AI Cortex does not require a shared release workflow or Release Package; see the [scope decision](docs/adr/0017-project-owned-releases.md).
 
 Skills are callable from Claude Code, Cursor, Codex and 20+ other agents. For roadmap capabilities, presentation forms and a worked flow, see the [roadmap planning guide](docs/guides/roadmap-planning-usage.md); to find an entry point by collaboration stage, see the [stage-to-skill table](docs/guides/proactive-suggestions.md).
 

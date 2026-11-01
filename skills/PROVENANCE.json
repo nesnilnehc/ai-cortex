@@ -1,47 +1,6 @@
 {
   "schema_version": 2,
   "skills": {
-    "announce-release": {
-      "classification": "native",
-      "version": "1.2.0",
-      "reviewed_files": {
-        "README.md": "1ce6c84a29c69e927462c345b8090caec2a47a8bb771af5c873716b4ea634335",
-        "SKILL.md": "7e135a492f4e5b3f3ab57089c289c11562fc31466b4e114a8f5c13114891b8ec"
-      },
-      "reviewed_evidence": {
-        "experiments/skill-provenance/evidence/announce-release.json": "e8967fa32ca88b56cb507f781efb226f2e84ecf2397f325b2d7ddf8274446c6c",
-        "experiments/skill-provenance/confirmations/announce-release.json": "4c8d0a4023a2b452ccc51d82fdfaa1f6345e1ff8383f97edb6bdcd8ed73cef61"
-      },
-      "sources": [],
-      "evidence": [
-        {
-          "path": "experiments/skill-provenance/evidence/announce-release.json"
-        },
-        {
-          "path": "experiments/skill-provenance/confirmations/announce-release.json"
-        },
-        {
-          "path": "experiments/skill-provenance/confirmations/announce-release-2026-10-29-release-workflow.json"
-        }
-      ],
-      "creation": {
-        "kind": "commit",
-        "revision": "314186acabed013d7af29b6296dafc1807b6b46f"
-      },
-      "decision": {
-        "maintainer": "Repository maintainer, confirmed in current task",
-        "confirmed_at": "2026-10-29",
-        "action": "confirmed",
-        "classification": "native",
-        "rationale": "The maintainer confirmed that the current Skill remains repository-authored without third-party creative material.",
-        "evidence": [
-          {
-            "path": "experiments/skill-provenance/confirmations/announce-release-2026-10-29-release-workflow.json"
-          }
-        ],
-        "subject_digest": "619349a81695becec2e7444fd4ef98ca0cee86cf7db40dfa9dbb10dbe21f7aa5"
-      }
-    },
     "archive-milestone": {
       "classification": "native",
       "version": "1.9.0",
@@ -190,49 +149,6 @@
         "subject_digest": "af5bd0b58b0475715de3c3cd22ed782706cf895acd1ce68b5c8ce90828bc89d2"
       }
     },
-    "changelog-video": {
-      "classification": "third_party_adapted",
-      "version": "1.1.0",
-      "reviewed_files": {
-        "LICENSE.upstream": "4259155fb06f127687ee7b0a8a3682d45132db0f2da26cbc0b7a2d1e796436b8",
-        "SKILL.md": "63e7a7ba4a90e4e5c66ab1c96f410edc874dcbd923215640ed345f2dd51fcc8d"
-      },
-      "reviewed_evidence": {
-        "experiments/skill-provenance/evidence/changelog-video.json": "c372e70d1b35856717b898157dda2d7014df99151e9fdd3bef0b23f9002d13d1",
-        "skills/changelog-video/LICENSE.upstream": "4259155fb06f127687ee7b0a8a3682d45132db0f2da26cbc0b7a2d1e796436b8"
-      },
-      "sources": [
-        {
-          "id": "skill:changelog-video",
-          "role": "copied_upstream",
-          "adaptation": "Replaced the HyperFrames weekly digest input with the Release Package change-item contract; Removed HyperFrames branding, bundled media, fonts, voice, and repository-specific paths; Removed sibling-skill dependencies and runtime skill installation; Added renderer discovery, user-confirmed defaults, and Release Package artifact output; Added local render and missing-renderer examples"
-        }
-      ],
-      "evidence": [
-        {
-          "path": "experiments/skill-provenance/evidence/changelog-video.json"
-        },
-        {
-          "path": "skills/changelog-video/LICENSE.upstream"
-        },
-        {
-          "path": "experiments/skill-provenance/confirmations/changelog-video.json"
-        }
-      ],
-      "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
-        "action": "confirmed",
-        "classification": "third_party_adapted",
-        "rationale": "The maintainer confirmed the recommended adapted classification and documented local changes to the pinned third-party source.",
-        "evidence": [
-          {
-            "path": "experiments/skill-provenance/confirmations/changelog-video.json"
-          }
-        ],
-        "subject_digest": "b7bbc71fb4bdec43d3da4dc5932adee1b5ec731ac14e9af2e9e4183a65251b11"
-      }
-    },
     "commit-work": {
       "classification": "third_party_adapted",
       "version": "2.2.0",
@@ -243,7 +159,7 @@
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/commit-work.json": "93e7f69d9c50081722b47061064a18775d8e460de4bc558716765e03c9b812b8",
-        "docs/references/THIRD_PARTY_NOTICES.md": "3af09cd603ba67f643285487dcc135118d5e781c79271536078e1dfa8ac481a4"
+        "docs/references/THIRD_PARTY_NOTICES.md": "3538ed60a33d583a5095feece6d83485dc97d02b817f48e797193e0b8c59bad3"
       },
       "sources": [
         {
@@ -260,21 +176,21 @@
           "path": "docs/references/THIRD_PARTY_NOTICES.md"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/commit-work-2026-11-01-refinement.json"
+          "path": "experiments/skill-provenance/confirmations/commit-work-2026-11-01-retirement-cleanup.json"
         }
       ],
       "decision": {
-        "maintainer": "Repository maintainer, explicitly confirmed in current task",
+        "maintainer": "Repository maintainer, explicit reply in chat 01a1803e-9883-7aa0-b887-8861238d233f",
         "confirmed_at": "2026-11-01",
         "action": "confirmed",
         "classification": "third_party_adapted",
-        "rationale": "The maintainer confirmed that commit-work 2.2.0 remains a third-party adaptation of the pinned upstream after scoped simplification.",
+        "rationale": "The maintainer explicitly confirmed both source-evidence updates: commit-work retains third-party-adapted classification after removing the retired notice paragraph; prepare-presales-response 1.0.1 retains native classification after removing retired release references. No commit, push or deployment was authorized.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/commit-work-2026-11-01-refinement.json"
+            "path": "experiments/skill-provenance/confirmations/commit-work-2026-11-01-retirement-cleanup.json"
           }
         ],
-        "subject_digest": "1e3c25cc91a7550d1ca37ea52d4cce283ff5d8db5cb909685fd2f03fa5c77535"
+        "subject_digest": "3f9853b26b8ed023b7799d3bdcf2d98baffe7ffa812c525568006ebbe66d8116"
       }
     },
     "competitive-research": {
@@ -1449,10 +1365,10 @@
     },
     "prepare-presales-response": {
       "classification": "native",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "reviewed_files": {
-        "SKILL.md": "0c56e53d2828e029dc3a4fb7611e46e57b6a6ff7977d31af44bdfc13b9ace445",
-        "references/integration-and-scenarios.md": "a4bec884992d275f3070a80c4faf318f29d8a82ded674f81ec8ee2b8f43465ac",
+        "SKILL.md": "817a71fcc164958b189a4b9d91221b58444a46dc8e6cda3fedfccc9ac3f95644",
+        "references/integration-and-scenarios.md": "c42230eece94bebd683b42b0fcd90ecf501ddf2ed5ceda6d5d1f66c473090a13",
         "references/working-layouts.md": "1aad0ed739fb014025b05bcc2a81116884250809667fa430d98aa5bfb8cc21e3"
       },
       "reviewed_evidence": {
@@ -1464,7 +1380,7 @@
           "path": "experiments/skill-provenance/evidence/prepare-presales-response.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/prepare-presales-response.json"
+          "path": "experiments/skill-provenance/confirmations/prepare-presales-response-2026-11-01-retirement-cleanup.json"
         }
       ],
       "creation": {
@@ -1472,58 +1388,17 @@
         "revision": "be1c2b91ff306f028fead4f60562083d7f3fae8c"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
-        "action": "confirmed",
-        "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
-        "evidence": [
-          {
-            "path": "experiments/skill-provenance/confirmations/prepare-presales-response.json"
-          }
-        ],
-        "subject_digest": "56384c9e0c3fc1745eff9dc239ec64a54db29bd5000349b6944918e808ab3262"
-      }
-    },
-    "prepare-release": {
-      "classification": "native",
-      "version": "1.5.1",
-      "reviewed_files": {
-        "README.md": "bf3045428982d67c2bb407a6c5053b598905a6b3ca7291972f6be7641c82fdc2",
-        "SKILL.md": "704905d4f002df99ce00b7c65e11b57daf08f6feebfdda78914e142b27710a88"
-      },
-      "reviewed_evidence": {
-        "experiments/skill-provenance/evidence/prepare-release.json": "ceec20f041de67323e0ccaeec2ea4d02916d0ffb3befb6ef5757b1f54d8d0e6c",
-        "experiments/skill-provenance/confirmations/prepare-release.json": "cfb1a6cebf2311c19245804e215fb899fa24490a7df512ac5c9e08030e98fcc2"
-      },
-      "sources": [],
-      "evidence": [
-        {
-          "path": "experiments/skill-provenance/evidence/prepare-release.json"
-        },
-        {
-          "path": "experiments/skill-provenance/confirmations/prepare-release.json"
-        },
-        {
-          "path": "experiments/skill-provenance/confirmations/prepare-release-2026-11-01-rename.json"
-        }
-      ],
-      "creation": {
-        "kind": "commit",
-        "revision": "314186acabed013d7af29b6296dafc1807b6b46f"
-      },
-      "decision": {
-        "maintainer": "Repository maintainer, explicitly confirmed in current task",
+        "maintainer": "Repository maintainer, explicit reply in chat 01a1803e-9883-7aa0-b887-8861238d233f",
         "confirmed_at": "2026-11-01",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that prepare-release 1.5.1 remains repository-authored after the build capability rename and associated reference maintenance; responsibilities, inputs and outputs are unchanged.",
+        "rationale": "The maintainer explicitly confirmed both source-evidence updates: commit-work retains third-party-adapted classification after removing the retired notice paragraph; prepare-presales-response 1.0.1 retains native classification after removing retired release references. No commit, push or deployment was authorized.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/prepare-release-2026-11-01-rename.json"
+            "path": "experiments/skill-provenance/confirmations/prepare-presales-response-2026-11-01-retirement-cleanup.json"
           }
         ],
-        "subject_digest": "3a5052c1d4a5fbe1f5ab4d0efb606df719d3f0bc66729b4c8aab8147e9b83e51"
+        "subject_digest": "78ca8c339008f3391ff2bfa67810f9590df7c9d62822a4bf0cfd8393e229aa3e"
       }
     },
     "prioritize-backlog": {
@@ -1672,47 +1547,6 @@
           }
         ],
         "subject_digest": "a6f501802a6047705c5808789ccdb16e6d827ccad035d2e674bf0dae3632bf8d"
-      }
-    },
-    "publish-release": {
-      "classification": "native",
-      "version": "1.3.1",
-      "reviewed_files": {
-        "README.md": "a59650594ef59fd611f085db859ff187b97fdf39fe77c7eceee0661a4f8531c0",
-        "SKILL.md": "2413715f731b1877d36dd84171d6e896c404c3bd7630e3670a526e77c49a123c"
-      },
-      "reviewed_evidence": {
-        "experiments/skill-provenance/evidence/publish-release.json": "1b2ed9c57a1f5114aeccdb63e6ec56f68905dfdc1caa0e7bed35e14fe73a91a7",
-        "experiments/skill-provenance/confirmations/publish-release.json": "8db40b3f6878c74a58bf9fd71c02f73c6f9779cbba3f530fe3980b2d5104ed61"
-      },
-      "sources": [],
-      "evidence": [
-        {
-          "path": "experiments/skill-provenance/evidence/publish-release.json"
-        },
-        {
-          "path": "experiments/skill-provenance/confirmations/publish-release.json"
-        },
-        {
-          "path": "experiments/skill-provenance/confirmations/publish-release-2026-11-01-rename.json"
-        }
-      ],
-      "creation": {
-        "kind": "commit",
-        "revision": "314186acabed013d7af29b6296dafc1807b6b46f"
-      },
-      "decision": {
-        "maintainer": "Repository maintainer, explicitly confirmed in current task",
-        "confirmed_at": "2026-11-01",
-        "action": "confirmed",
-        "classification": "native",
-        "rationale": "The maintainer confirmed that publish-release 1.3.1 remains repository-authored after the build capability rename and associated reference maintenance; responsibilities, inputs and outputs are unchanged.",
-        "evidence": [
-          {
-            "path": "experiments/skill-provenance/confirmations/publish-release-2026-11-01-rename.json"
-          }
-        ],
-        "subject_digest": "846536f79964c2da441f47663aa7f2214cee7e3708cafca313af717848684c79"
       }
     },
     "redeploy-local": {
@@ -2823,44 +2657,6 @@
           }
         ],
         "subject_digest": "58e09877e414c3a85348d984ea14dc8578ebc1b3e9daf293e94686f64e3bd5b1"
-      }
-    },
-    "build-artifacts": {
-      "classification": "native",
-      "version": "2.0.0",
-      "reviewed_files": {
-        "SKILL.md": "de5d4885c2defd4428755387646bfaeda113b66f8feae5ae384448ca66dbf60e"
-      },
-      "reviewed_evidence": {
-        "docs/requirements-planning/AIC-REQ-06.md": "e024c38c88855311128d3bdd85d166b3bf0bcc9f2a0e8d8aace214d6b5f5bfe2"
-      },
-      "sources": [],
-      "evidence": [
-        {
-          "path": "docs/requirements-planning/AIC-REQ-06.md"
-        },
-        {
-          "path": "experiments/skill-provenance/confirmations/build-artifacts-2026-11-01-acceptance.json"
-        }
-      ],
-      "creation": {
-        "kind": "requirement",
-        "evidence": {
-          "path": "docs/requirements-planning/AIC-REQ-06.md"
-        }
-      },
-      "decision": {
-        "maintainer": "Repository maintainer, explicitly confirmed in current task",
-        "confirmed_at": "2026-11-01",
-        "action": "confirmed",
-        "classification": "native",
-        "rationale": "The maintainer confirmed that build-artifacts 2.0.0 remains repository-authored and approved binding the unchanged Skill to the final AIC-REQ-06 completion status, completion date and acceptance checkmarks.",
-        "evidence": [
-          {
-            "path": "experiments/skill-provenance/confirmations/build-artifacts-2026-11-01-acceptance.json"
-          }
-        ],
-        "subject_digest": "36eb94776237fd081d19960640fd01103c2e0a19a2bc940be6ba98a7757475ed"
       }
     }
   }

@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicit reply in chat 01a1803e-9883-7aa0-b887-8861238d233f",
+  "confirmed_at": "2026-11-01",
+  "action": "confirmed",
+  "classification": "third_party_adapted",
+  "rationale": "The maintainer explicitly confirmed both source-evidence updates: commit-work retains third-party-adapted classification after removing the retired notice paragraph; prepare-presales-response 1.0.1 retains native classification after removing retired release references. No commit, push or deployment was authorized.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/commit-work-2026-11-01-retirement-cleanup.json"
+    }
+  ],
+  "subject_digest": "3f9853b26b8ed023b7799d3bdcf2d98baffe7ffa812c525568006ebbe66d8116"
+}

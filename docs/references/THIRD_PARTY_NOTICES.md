@@ -38,10 +38,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-## heygen-com/hyperframes — changelog-video
-
-The editing and verification method in the local `skills/changelog-video` derives from HyperFrames' `changelog-video`. AI Cortex copied no upstream brand assets, fonts, music, fixed voices or sibling skills. The upstream project is under the Apache License 2.0; the full license is kept alongside the local skill at [`LICENSE.upstream`](../../skills/changelog-video/LICENSE.upstream).
-
 ## eli5
 
 Source: <https://github.com/anthropics/claude-plugins-community/tree/06ec7b6a0a82bdc4bec44bd82d4368c42f20d7c1/eli5/skills/eli5>

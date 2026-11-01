@@ -34,8 +34,6 @@ authorization boundaries are protected:
 - [skills/orchestrate-code-review/SKILL.md](../../skills/orchestrate-code-review/SKILL.md)
 - [skills/orchestrate-repair-loop/SKILL.md](../../skills/orchestrate-repair-loop/SKILL.md)
 - [skills/commit-work/SKILL.md](../../skills/commit-work/SKILL.md)
-- [skills/prepare-release/SKILL.md](../../skills/prepare-release/SKILL.md)
-- [skills/publish-release/SKILL.md](../../skills/publish-release/SKILL.md)
 
 ### Conditional execution dependencies
 
@@ -64,12 +62,9 @@ listing them is not evidence that every stack has passed host acceptance:
 - [skills/review-observability/SKILL.md](../../skills/review-observability/SKILL.md)
 - [skills/review-testing/SKILL.md](../../skills/review-testing/SKILL.md)
 
-`prepare-release` optionally dispatches `changelog-video`, and publication or
-review may use project tooling. Those extensions remain experimental or external.
-Their existing selection, authorization, missing-capability and failure reporting
-contracts are stable; success of the extension is not implied by the core.
-External tool versions and project test commands belong to the host acceptance
-matrix, not a promise to support every provider indefinitely.
+Builds, artifact delivery, store submission and announcements are project-owned.
+The maintainer withdrew the generic release assets on 2026-11-01, before the
+1.0 stable boundary. See [the scope decision](../adr/0017-project-owned-releases.md).
 
 ### Shared contracts, constraints and references
 
@@ -128,7 +123,6 @@ automatic generation or governance of those artifacts remains experimental.
 - [specs/findings-list.md](../../specs/findings-list.md)
 - [specs/functional-design-modeling.md](../../specs/functional-design-modeling.md)
 - [specs/opportunity-package.md](../../specs/opportunity-package.md)
-- [specs/release-package.md](../../specs/release-package.md)
 - [specs/requirement-modeling.md](../../specs/requirement-modeling.md)
 - [specs/research-evidence.md](../../specs/research-evidence.md)
 - [specs/roadmap-modeling.md](../../specs/roadmap-modeling.md)

@@ -19,7 +19,6 @@ This file is the human-readable index of [`skills/SOURCES.yaml`](../../skills/SO
 | Repository | Upstream path | Pinned commit | License | Local skill | What was changed locally |
 | --- | --- | --- | --- | --- | --- |
 | [softaworks/agent-toolkit](https://github.com/softaworks/agent-toolkit) | `skills/commit-work` | `06825f04669d4364a16abc267650c86cf153d349` | MIT | `commit-work` | Kept the commit workflow; integrated AI Cortex review, the INDEX and the output contract |
-| [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) | `.agents/skills/changelog-video` | `4f00336c92f6418aab82c060853da604dd832197` | Apache-2.0 | `changelog-video` | Switched the input to a Release Package; removed the brand assets, fixed voices, repository paths and sibling-skill dependencies |
 
 ---
 

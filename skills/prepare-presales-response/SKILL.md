@@ -1,7 +1,7 @@
 ---
 name: prepare-presales-response
 description: Prepare evidence-backed presales questionnaire answers and supporting materials, maintain reusable product knowledge, and separate customer-specific terms from product facts. Use for capability, operations, service and procurement inquiries before delivery.
-version: 1.0.0
+version: 1.0.1
 license: MIT
 ---
 

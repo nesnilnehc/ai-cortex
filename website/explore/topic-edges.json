@@ -92,52 +92,6 @@
     "bidirectional": false
   },
   {
-    "id": "checks-release",
-    "from": "quality",
-    "to": "release",
-    "kind": "input",
-    "basis": "quality-evidence",
-    "sources": [
-      {
-        "path": "skills/prepare-release/SKILL.md",
-        "quote": "Run the smallest relevant tests, lint, build, or security checks the project declares; the discovery logic of `automate-tests` can be reused."
-      },
-      {
-        "path": "skills/prepare-release/SKILL.md",
-        "quote": "Where a review signal is needed, use the existing `review-diff` / `orchestrate-code-review` rather than rewriting review capability here."
-      }
-    ],
-    "bidirectional": false
-  },
-  {
-    "id": "history-release",
-    "from": "commit",
-    "to": "release",
-    "kind": "input",
-    "basis": "artifact-input",
-    "sources": [
-      {
-        "path": "skills/prepare-release/SKILL.md",
-        "quote": "Build an auditable [Release Package](../../specs/release-package.md): fix the version and the commit range, generate or collect release artifacts, run the necessary gates, and state `ready`, the blockers, and any gaps in optional artifacts."
-      }
-    ],
-    "bidirectional": false
-  },
-  {
-    "id": "conditional-commit",
-    "from": "release",
-    "to": "commit",
-    "kind": "call",
-    "basis": "conditional-call",
-    "sources": [
-      {
-        "path": "skills/publish-release/SKILL.md",
-        "quote": "5. **Version and commit**: execute only the product version-sync plan the package has confirmed; an independent version domain set to `preserve` must not be changed along with it. Reuse the project's release tool when it commits on its own; otherwise call the locally vendored AI Cortex `commit-work` for precise staging and commit, with this Skill owning the ordering and the receipt. When that Skill is absent, stop the commit phase; do not install it from an external registry and do not substitute an inline simplified flow."
-      }
-    ],
-    "bidirectional": false
-  },
-  {
     "id": "norms-planning",
     "from": "foundation",
     "to": "planning",

@@ -1,6 +1,6 @@
-import metadata from './skill-metadata.json?v=build-artifacts-20261101' with {type:'json'};
-import {classification,relationships} from './relationship-model.mjs?v=build-artifacts-20261101';
-import {getGlobalTopicGraph} from './global-topic-graph.mjs?v=build-artifacts-20261101';
+import metadata from './skill-metadata.json?v=project-owned-release-20261101' with {type:'json'};
+import {classification,relationships} from './relationship-model.mjs?v=project-owned-release-20261101';
+import {getGlobalTopicGraph} from './global-topic-graph.mjs?v=project-owned-release-20261101';
 const relationIds=new Set([...relationships,...getGlobalTopicGraph().edges,...getGlobalTopicGraph().loops].map(e=>e.id));
 export function createExplorerState(initial={}){
  const state={view:'classification',selectedSkillId:null,selectedWorkId:null,selectedRelationId:null,detail:{open:false,target:null,mode:'usage'},lookup:{open:false,query:''},viewState:{classification:{expandedCategoryIds:[],scrollByRegion:{}},relations:{expandedTopicId:null,scrollByRegion:{},pan:{x:0,y:0}}}};

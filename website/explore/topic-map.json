@@ -19,7 +19,7 @@
     "sources": [
       {
         "path": "skills/orchestrate-repair-loop/SKILL.md",
-        "quote": "4. **Repeat** \u2014 rerun every gate affected by the repair until both pass or a stop condition is reached."
+        "quote": "4. **Repeat** — rerun every gate affected by the repair until both pass or a stop condition is reached."
       }
     ]
   }

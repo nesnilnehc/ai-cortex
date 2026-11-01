@@ -73,11 +73,6 @@
         "commit-work",
         "deliver-feature",
         "integrate-branches",
-        "build-artifacts",
-        "prepare-release",
-        "publish-release",
-        "announce-release",
-        "changelog-video",
         "redeploy-local"
       ]
     },

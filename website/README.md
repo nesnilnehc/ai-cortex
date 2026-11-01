@@ -1,6 +1,10 @@
 # AI Cortex promotional website
 
-## Current publication: build-artifacts rename, 2026-11-01
+## Local retirement change, 2026-11-01
+
+The working tree removes generic build/release assets and their catalogue entries. This local change has not been deployed. The records below describe the prior public version, not the current source catalogue.
+
+## Prior publication: build-artifacts rename, 2026-11-01
 
 Sites version 14 is public at [AI Cortex](https://ai-cortex.nesnilnehc.top/), with
 its existing public audience preserved. Both languages use `build-artifacts` for
@@ -10,9 +14,7 @@ build calls; saved invocations must use the new name without an old-name alias.
 Asset links pin `bb6b238c26e3a89ec4fabf5defe9893d34daafc1`. Website runtime files
 come from public repository commit `ff5002aefc68a495f57e53fe744f4c2907b6e3af`;
 the Sites source commit is `43ff245082b9f2f81c9bcd75ebb90bd7c5d6f73b`.
-The [deployment receipt](.openai/deployment.json) and
-[verification record](../experiments/release-workflow/website-publication-v14.json)
-record this publication. Version 13 and earlier records remain historical.
+The [deployment receipt](.openai/deployment.json) records this publication. Version 13 and earlier records remain historical.
 
 All 49 live runtime files were checked against the published source: 45 are
 byte-identical and four HTML files differ only by Cloudflare's security script.

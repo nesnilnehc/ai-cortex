@@ -35,7 +35,6 @@
     "c0d3ff8f53d": "Illustration for {0}",
     "cc7ecc18347": "Example: a code issue",
     "c07f643c0bc": "Example: an unclear requirement",
-    "c6354c2b9c6": "Example: preparing a release",
     "cdd5bca44d5": "For: {0}",
     "c7799e90aa1": "Work context changed. The default request was updated; edit it before copying.",
     "c0d9fb61e09": "Found {0} of {1} skills.",
@@ -100,14 +99,6 @@
     "c00bd3960fe": "Expand"
   },
   "skills": {
-    "announce-release": {
-      "purpose": "Announce verified published targets",
-      "when": "A version has actually been published and users or teammates need to know what changed.",
-      "provide": "The published Release Package, actual release outcome, audience and channels; delivery also needs authorization.",
-      "use": "Use announce-release to draft an announcement for the named audience from the published result. Show me the draft first.",
-      "result": "Audience-specific drafts. A delivery receipt exists only after authorized sending through an available tool; a draft is not a sent announcement.",
-      "name": "announce-release"
-    },
     "archive-milestone": {
       "purpose": "Archive completed milestones and preserve evidence",
       "when": "A phase, version or time period needs archiving, or the roadmap history has become too long.",
@@ -139,14 +130,6 @@
       "use": "Use capture-work-items to record this description as a structured work item, checking missing required information first.",
       "result": "A local work-item document and path. Capture does not automatically set priority or replace full requirements review.",
       "name": "capture-work-items"
-    },
-    "changelog-video": {
-      "purpose": "Make a changelog video from confirmed release material",
-      "when": "A release has been decided and its confirmed changes need a short video.",
-      "provide": "Confirmed changes, project/version, channel, scope, output directory and whether video is mandatory; optionally audience and assets.",
-      "use": "Use changelog-video to make a release video from these confirmed changes, first checking assets and local rendering tools.",
-      "result": "Video files and verification, or an explicit unavailable reason. It does not choose versions, create tags or publish videos.",
-      "name": "changelog-video"
     },
     "commit-work": {
       "purpose": "Create clear, reviewable commits",
@@ -372,14 +355,6 @@
       "result": "Evidence-backed drafts, supporting material and reusable product knowledge. Unknown capabilities are not turned into promises.",
       "name": "prepare-presales-response"
     },
-    "prepare-release": {
-      "purpose": "Prepare release candidates and evidence",
-      "when": "You want to decide whether this work merits a release and prepare complete release material.",
-      "provide": "Repository, comparison baseline, version policy, channel, candidate artifacts and project check requirements.",
-      "use": "Use prepare-release to inspect changes and prepare a Release Package, first confirming the release decision and required artifacts.",
-      "result": "A release/no-release decision record, change list and readiness checks. It does not publish or send announcements.",
-      "name": "prepare-release"
-    },
     "prioritize-backlog": {
       "purpose": "Prioritize backlog items under project policy",
       "when": "A large backlog contains items whose priorities have not been settled.",
@@ -411,14 +386,6 @@
       "use": "Use publish-nats-message to verify this event's contract, publish this message and record the actual receipt.",
       "result": "A verified publication result. A missing contract is drafted and confirmed first; drafts are not sent messages.",
       "name": "publish-nats-message"
-    },
-    "publish-release": {
-      "purpose": "Publish selected candidates with verified evidence",
-      "when": "The Release Package is ready and an actual release is now required.",
-      "provide": "Ready Release Package, channel/provider, required check results and authorization for this release.",
-      "use": "Use publish-release to preview and validate this package, then perform publication only with authorization for this release.",
-      "result": "Actual tags, artifacts and provider receipts or failure details. Default preview is never reported as publication.",
-      "name": "publish-release"
     },
     "redeploy-local": {
       "purpose": "Detect build/deployment setup and update local runtime",
@@ -675,14 +642,6 @@
       "provide": "The coding task and optional lite, full or ultra level.",
       "use": "Invoke ponytail explicitly; it remains active until you request normal mode. Repository instructions and required validation still apply.",
       "result": "A complete, focused change with a concise account of checks and remaining risks."
-    },
-    "build-artifacts": {
-      "name": "build-artifacts",
-      "purpose": "Build artifacts using project tools without publishing",
-      "when": "You need a project build or a release candidate without publication.",
-      "provide": "Project, source revision, component and build configuration.",
-      "use": "Use build-artifacts to run a project-supported build-only command.",
-      "result": "Build outcome, source identity and actual artifacts; no publication."
     }
   },
   "topics": {
@@ -727,12 +686,6 @@
       "purpose": "Save clearly scoped changes as reviewable commits.",
       "note": "Saving, integrating and publishing are different operations; choose what this work needs.",
       "hint": "Save & integrate changes"
-    },
-    "release": {
-      "name": "Release to users",
-      "purpose": "Prepare and validate the current Release Package; publish or announce within authorization.",
-      "note": "Check material, quality evidence and authorization before release. Announcements use actual published results.",
-      "hint": "Prepare & deliver"
     },
     "foundation": {
       "name": "Project foundations",
@@ -1227,90 +1180,6 @@
         }
       ]
     },
-    "release": {
-      "help": {
-        "line": "Check preparation, publication and announcement prerequisites separately; feedback can return to relevant work.",
-        "plane": "Keep version, actual delivery facts and public explanations consistent."
-      },
-      "usage": {
-        "ordinary": "Explaining release content or drafting a short note can be ordinary conversation.",
-        "cortex": "Use the corresponding methods for a verifiable package, actual publication or announcement delivery; real operations still need prerequisites and authorization.",
-        "adopted": "Already-adopted project Specs and Rules still apply; they need not be manually invoked in every conversation.",
-        "assets": [
-          {
-            "kind": "Skill",
-            "purpose": "A method for a concrete task, such as reviewing an existing requirement.",
-            "href": "skills/review-requirements/SKILL.md"
-          },
-          {
-            "kind": "Spec",
-            "purpose": "What an artifact must contain, such as a requirement's objective and acceptance criteria.",
-            "href": "specs/requirement-modeling.md"
-          },
-          {
-            "kind": "Rule",
-            "purpose": "Individually checkable quality constraints, such as acceptance criteria being verifiable.",
-            "href": "rules/requirement-quality.md"
-          },
-          {
-            "kind": "Protocol",
-            "purpose": "How participants cooperate and hand work over; consult it when collaboration requires it.",
-            "href": "protocols/INDEX.md"
-          }
-        ]
-      },
-      "relationships": [
-        {
-          "title": "Prepare the material",
-          "body": "Prepare version, scope and necessary quality evidence. Video is optional; prepared material does not mean publication occurred."
-        },
-        {
-          "title": "Release to users",
-          "body": "Publication uses the selected candidate, applicable checks and authorization; later provider checks stay pending until verified."
-        },
-        {
-          "title": "Communicate actual facts",
-          "body": "Announcements follow real release results; sending also needs communication scope and authorization. Feedback may return to goals or work."
-        }
-      ],
-      "id": "release",
-      "stage": "release",
-      "summary": "Prepare release material, publish under project conventions and explain the changes. Then listen for feedback: is finding requests easier now?",
-      "skills": [
-        "build-artifacts",
-        "prepare-release",
-        "publish-release",
-        "announce-release",
-        "changelog-video"
-      ],
-      "recommended": [
-        "prepare-release",
-        "publish-release",
-        "announce-release"
-      ],
-      "boundary": "Preparation, publication and announcement have separate owners. Video is optional, not mandatory; without an actual receipt, do not claim publication.",
-      "prompt": "First prepare release material under project conventions, checking version, scope, verification and optional artifacts. Report readiness. Publication and sending follow existing authorization; do not fabricate success before release.",
-      "examples": [
-        "release"
-      ],
-      "prerequisites": [
-        {
-          "operation": "publish",
-          "items": [
-            "Release Package ready",
-            "Required checks passed",
-            "This publication is authorized"
-          ]
-        },
-        {
-          "operation": "announce",
-          "items": [
-            "Actual release result",
-            "Communication scope and sending authorization are clear"
-          ]
-        }
-      ]
-    },
     "foundation": {
       "help": {
         "line": "Help people and agents find and reuse existing evidence.",
@@ -1444,18 +1313,6 @@
     "quality-planning": {
       "label": "New work back",
       "condition": "If a report actually requests new behavior or belongs to existing intake, return it with evidence to the backlog. Repair does not silently expand scope or change priority."
-    },
-    "checks-release": {
-      "label": "Release checks",
-      "condition": "Reuse and record applicable test/build/review results during release preparation. Not every review runs every time, and passing checks does not authorize release."
-    },
-    "history-release": {
-      "label": "Change evidence",
-      "condition": "Release preparation uses repository history, target commits and scope; it does not require rerunning commit-work first."
-    },
-    "conditional-commit": {
-      "label": "Commit if needed",
-      "condition": "Call commit-work only when the release tool does not commit itself. This return line is not a mandatory repeated commit; a commit is not publication."
     },
     "norms-planning": {
       "label": "Project norms",
@@ -1651,22 +1508,6 @@
       "label": "Select applicable reviews",
       "condition": "Quality lenses apply their own applicability rules; they do not replace functional alignment or actual acceptance."
     },
-    "prepare-release__changelog-video": {
-      "label": "Video only if selected",
-      "condition": "Call it only when a video artifact is selected; video is not mandatory for a release."
-    },
-    "prepare-release__publish-release": {
-      "label": "Prepared release evidence",
-      "condition": "Publication checks the supported contract and applicable stage gates; preparation is not publication."
-    },
-    "publish-release__announce-release": {
-      "label": "Actual release result",
-      "condition": "Announcements use published facts and still need sending authorization; publication does not trigger automatic broadcast."
-    },
-    "publish-release__commit-work": {
-      "label": "Commit by project method",
-      "condition": "Call the commit skill only when the release tool does not commit itself; do not repeat a commit for every release."
-    },
     "design-strategic-goals__capture-work-items": {
       "label": "Link to goals",
       "condition": "Link work items to existing strategic goals; recording an item does not require redefining goals."
@@ -1710,14 +1551,6 @@
     "order__review-observability__review-testing": {
       "label": "Engineering review order",
       "condition": "Within the selected code-review engineering gate, evaluate in the fixed order; record inapplicable checks. This is not a mandatory workflow for every task."
-    },
-    "prepare-release__build-artifacts": {
-      "label": "Build when needed",
-      "condition": "Only when a build-only project capability is available; reuse a verified candidate when possible."
-    },
-    "publish-release__build-artifacts": {
-      "label": "Build when needed",
-      "condition": "Only when a build-only project capability is available; reuse a verified candidate when possible."
     }
   },
   "loops": {
@@ -1747,15 +1580,6 @@
       ],
       "title": "An existing requirement omits search scope.",
       "body": "The agent can ask directly and update the requirement. Consult Specs, Rules or review skills when consistency/systematic checking is needed; do not restart every work item."
-    },
-    "release": {
-      "focus": "release",
-      "edges": [
-        "release-ready",
-        "published-announcement"
-      ],
-      "title": "Preparing to deliver changes to users.",
-      "body": "Check the package, required quality evidence and authorization first. Prepare announcements from actual release results; a commit does not replace that evidence."
     }
   },
   "extras": {
@@ -1784,9 +1608,6 @@
         },
         "commit": {
           "subtitle": "Save repeatedly without implying release"
-        },
-        "release": {
-          "subtitle": "Check release and announcement separately"
         },
         "research": {},
         "foundation": {},
@@ -1921,13 +1742,7 @@
       {
         "id": "release",
         "title": "Releases and announcements",
-        "skills": [
-          "build-artifacts",
-          "announce-release",
-          "changelog-video",
-          "prepare-release",
-          "publish-release"
-        ]
+        "skills": []
       },
       {
         "id": "foundation",

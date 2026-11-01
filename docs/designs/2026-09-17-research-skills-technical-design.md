@@ -31,7 +31,7 @@ A separate internal `assess-product-opportunity` Skill owns the judgment rubric.
 | Data Specs | `specs/research-evidence.md`, `specs/opportunity-package.md` | Canonical research finding/source/trace and package structures |
 | Registry and configuration | `skills/INDEX.md`, `scripts/sync-skills-index.py`, optional `.ai-cortex/config.yaml` in a consuming project | Discovery and project-specific defaults |
 
-`prepare-release` and [Release Package](../../specs/release-package.md) supply the pattern of a package shared across stages: one manifest, status, evidence, producer attribution, and downstream handoff. Release fields such as SemVer, SHA, or publication states are not reused.
+`prepare-release` and [Release Package](https://github.com/nesnilnehc/ai-cortex/blob/a2c4573be54ddb76ba141467763d326f9a3d12a4/specs/release-package.md) supply the pattern of a package shared across stages: one manifest, status, evidence, producer attribution, and downstream handoff. Release fields such as SemVer, SHA, or publication states are not reused.
 
 `Opportunity question → product-opportunity-analysis → {policy-research, market-research, competitive-research, user-provided signals} → each uses deep-research → assess-product-opportunity → Opportunity Package`
 
