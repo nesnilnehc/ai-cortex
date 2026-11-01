@@ -1,344 +1,44 @@
 ---
 name: commit-work
 description: Create high-quality git commits with clear messages and logical scope. Core goal - produce reviewable commits following Conventional Commits format with pre-commit quality checks.
-version: 2.1.0
+version: 2.2.0
 license: MIT
 ---
 
 # Skill: Commit Work
 
-## Purpose
+Produce reviewable git commits containing only the authorized work, with logical boundaries, relevant verification, and messages explaining what changed and why.
 
-Produce git commits that are easy to review and safe to ship: only the intended changes, sensible commit granularity, and a message that says what was done and why. This skill is wired into the AI Cortex INDEX synchronization constraint — when a commit touches the `skills/` directory it checks that INDEX.md was updated.
+The pinned upstream, license, and local adaptations are recorded in [SOURCES.yaml](../SOURCES.yaml). Use the installed local copy; do not download or replace it at runtime.
 
-The local copy is installed and updated by AI Cortex; the verifiable upstream, pinned commit, license, and local enhancements are recorded in [`../SOURCES.yaml`](../SOURCES.yaml). At runtime this skill must not be downloaded or replaced from an external registry.
+## Inputs and Output
 
----
+**Input:** a git repository and the work to commit. Infer scope from the user's request and current task; ask only when ownership or intended scope remains ambiguous. Honor a request limited to staging or drafting a message without creating a commit.
 
-## Core Objective
+**Output:** commit hashes and messages, a short explanation per commit, staging/review and verification commands with results, and any authorized work left uncommitted or blocked. For staging or message-only requests, report that result instead.
 
-**Primary goal**: produce one or more git commits with a clear message, logical scope, and verified quality, ready to push.
+## Workflow
 
-**Success criteria** (all must hold):
+1. **Inspect scope and state.** Read project commit guidance and run `git status`, `git diff`, and `git diff --cached`; use `git diff --stat` for an overview when useful. Inspect relevant untracked files separately. Preserve unrelated changes, including changes already staged by another task. If staged ownership cannot be resolved, ask before altering or committing it.
+2. **Use relevant review evidence.** Reuse existing findings for the current changes and follow the project's review requirements. Obtain a required review before committing; do not add a generic pause asking the user to run another skill and return. If no review is required and no unresolved concern warrants one, continue.
+3. **Choose logical commit boundaries.** Keep a behavior change and its directly supporting tests together. Split independent fixes, refactors, formatting, or dependency updates when they can be reviewed separately. For mixed files, use patch staging such as `git add -p`; otherwise stage explicit paths. Unstage only changes owned by this task, using `git restore --staged -p` or `git restore --staged <path>` when needed.
+4. **Prepare and verify.** Synchronize any generated assets required by project guidance before the final check. In AI Cortex, synchronize the matching Skill, Rule, Spec, or Protocol index using its repository procedure. Select the smallest meaningful verification from project guidance and configuration; see [project configuration](../../docs/guides/project-config.md) when applicable. Reuse passing results that still cover the staged content. If verification fails or a required check is unavailable, report the cause and resolve it before committing; do not claim an unrun check passed.
+5. **Review the exact staged content.** Run `git diff --cached` before every commit, including after generated changes. Check for secrets, accidental debug code, unrelated edits, and changes outside the authorized scope. Describe the staged change in one or two sentences; if its purpose is unclear, revisit the boundaries.
+6. **Write the message and commit.** Use Conventional Commits and the project's scope conventions. Keep the subject imperative and specific, explain what and why in the body, and mark breaking changes with `!` or `BREAKING CHANGE:`. Use the [message template](references/commit-message-template.md) when useful. Prefer an editor or a message file for multiline text. Create the commit, then inspect its hash, summary, and remaining working-tree state.
+7. **Finish the authorized scope.** Repeat for the remaining authorized commits. Completion does not require a clean working tree: leave other tasks' changes intact and report relevant remaining work.
 
-1. ✅ **Changes reviewed**: `git diff` before staging, `git diff --cached` before every commit
-2. ✅ **Logical scope**: each commit contains related changes only; unrelated changes go into separate commits
-3. ✅ **Conventional Commits format**: every commit message follows the `type(scope): summary` format, with a clear body
-4. ✅ **Quality verified**: the appropriate test, lint, or build command was run and every check passed
-5. ✅ **No sensitive data**: no secrets, tokens, debug code, or accidental changes are included
-6. ✅ **INDEX synced** (AI Cortex projects): the matching INDEX.md is updated whenever a skill / rule / spec / protocol changes
+## Boundaries
 
-**Acceptance** test: can a reviewer tell what changed and why from the commit message alone, without reading the diff?
-
----
-
-## Scope Boundaries
-
-**This skill owns**:
-
-- Reviewing uncommitted changes
-- Splitting mixed changes into logical commits
-- Staging changes with patch mode when needed
-- Writing Conventional Commits messages
-- Running pre-commit quality checks
-- Syncing the AI Cortex registries (INDEX.md)
-
-**This skill does not own**:
-
-- Code review of existing commits (use the `review-diff` skill)
-- Rewriting git history or rebasing (use the git rebase commands)
-- Resolving merge conflicts (use the git merge/rebase workflow)
-- Creating pull requests or pushing to a remote (a separate workflow)
-
-**Handoff point**: once every change is committed and verified, hand off to the push/PR workflow or to the next development task.
-
-## Use Cases
-
-- The user asks to commit work, stage changes, or craft a commit message
-- Mixed changes need splitting into logical, reviewable commits
-- Creating commits that follow the Conventional Commits format
-- Making sure commits meet the project's quality bar before pushing
-- Working in an AI Cortex project, keeping skills/INDEX.md / rules/INDEX.md / specs/INDEX.md / protocols/INDEX.md in step with the corresponding assets
-
-## Behavior
-
-### Workflow (checklist)
-
-If `CLAUDE.md` or `.ai-cortex/config.yaml` exists, prefer the `test_command` recorded there for quality verification; otherwise infer it from the project build configuration. See [docs/guides/project-config.md](../../docs/guides/project-config.md).
-
-1) **Inspect the working tree before staging**
-   - Run `git status`
-   - Run `git diff` (unstaged changes)
-   - With many changes: `git diff --stat` for an overview
-
-2) **Suggest a pre-commit review (halt-and-suggest)**
-   - Tell the user to run `/review-diff` (or `/orchestrate-code-review`) first; this skill does not call other skills itself
-   - Resume staging once the user comes back with the findings
-   - If the user skips this step: go straight to the next one (no blocking)
-
-3) **Decide the commit boundaries (split if needed)**
-   - Divide by logical concern:
-     - Feature vs refactor
-     - Backend vs frontend
-     - Formatting vs logic
-     - Tests vs production code
-     - Dependency bumps vs behavior changes
-   - If the changes are mixed inside one file, plan for patch staging
-
-4) **Stage only what belongs in the next commit**
-   - For mixed changes, prefer hunk staging: `git add -p`
-   - To unstage a hunk/file: `git restore --staged -p` or `git restore --staged <path>`
-   - Stage related changes together
-
-5) **Review what will actually be committed**
-   - Run `git diff --cached`
-   - Sanity checks:
-     - No secrets or tokens
-     - No stray debug logging
-     - No unrelated formatting changes
-     - No commented-out code blocks
-
-6) **Describe the staged change in 1-2 sentences**
-   - Answer: "what changed?" + "why?"
-   - If you cannot describe it clearly, the commit is too large or mixed; go back to step 3
-
-7) **Write the commit message**
-   - Use Conventional Commits (required):
-
-     ```text
-     type(scope): short summary
-     
-     body (what/why, not implementation diary)
-     
-     footer (BREAKING CHANGE) if needed
-     ```
-
-   - For a multi-line message, prefer the editor: `git commit -v`
-   - Use the [commit message template](references/commit-message-template.md) if helpful
-   - Keep the summary imperative and specific ("add", "fix", "remove", "refactor")
-
-8) **Run the minimum relevant verification**
-   - Run the repository's fastest meaningful check before moving on (unit tests, lint, or build)
-   - Make sure the commit does not break existing functionality
-
-9) **Sync INDEX.md (AI Cortex projects only)**
-   - If the commit touches the `skills/` directory:
-     - Check that `skills/INDEX.md` was updated for the added / modified / removed skill
-     - Check that the INDEX entry matches the description in the target SKILL.md
-   - If the commit touches the `rules/` / `specs/` / `protocols/` directories:
-     - Sync the corresponding `INDEX.md`
-
-10) **Repeat for the next commit until the working tree is clean**
-
-### Interaction policy
-
-- Use several small commits for unrelated changes unless the user specifies another grouping.
-- Use Conventional Commits and read any project-specific subject or scope rules from local guidance; ask only when a required rule cannot be resolved.
-- For AI Cortex projects, check and synchronize the corresponding INDEX.md rather than asking whether it is current.
-
-## Input & Output
-
-### Input requirements
-
-- A git repository with uncommitted changes
-- User intent: which work goes into the commit
-- Optional: commit style preferences, scope rules
-
-### Output contract
-
-Deliver:
-
-- The final commit message, with type, scope, and a clear description
-- A short summary per commit explaining what changed and why
-- The commands used for staging and review (at minimum: `git diff --cached`)
-- Any test or verification command that was run
-- For AI Cortex projects: confirmation that the corresponding INDEX.md is synced
-
-## Restrictions
-
-### Hard Boundaries
-
-- Do not commit without reviewing the staged changes (`git diff --cached`)
-- Do not mix unrelated changes into one commit
-- Do not write vague commit messages ("fix stuff", "update", "WIP")
-- Do not skip the verification step when tests or a linter are available
-- Do not commit secrets, tokens, or sensitive data
-- For AI Cortex projects: do not commit an asset change without syncing the corresponding INDEX.md
-
-### Skill Boundaries (avoid overlap)
-
-**Do not do these (other skills handle them)**:
-
-- **Code review of existing commits**: reviewing a committed diff → use the `review-diff` skill
-- **Git history rewriting**: rebase, squash, amend old commits → use the git rebase/amend commands directly
-- **Merge conflict resolution**: resolving conflicts during a merge/rebase → use the git merge/rebase workflow
-- **Pull request creation**: creating a PR, requesting review, running the PR workflow → use the platform-specific PR tooling
-- **Code implementation**: writing the code changes being committed → use the development/implementation skills
-
-**When to stop and hand off**:
-
-- The user asks "can you review this commit?" → use the `review-diff` skill on the existing commit
-- The user asks "can you push this?" → committing is done; hand off to the push / PR workflow
-- The user asks "can you rebase these commits?" → committing is done; hand off to the git rebase workflow
-- Every change committed and verified → the skill is done, ready to push or move to the next task
+This skill prepares and creates commits. Implementation, history rewriting, conflict resolution, push, and pull requests belong to their respective workflows and require their own task authorization. Do not treat a commit request as authorization for those actions.
 
 ## Self-Check
 
-### Core success criteria (all must hold)
+- [ ] Each commit contains only authorized changes; unrelated staged and unstaged work is preserved.
+- [ ] Commit boundaries keep related behavior and verification together, and the staged diff was reviewed before each commit.
+- [ ] Messages explain what and why, follow Conventional Commits, and identify breaking changes.
+- [ ] Relevant checks and required generated assets are current; failures or unavailable checks are reported accurately.
+- [ ] The result includes commit identities, commands and outcomes, and remaining work within scope.
 
-- [ ] **Changes reviewed**: `git diff` before staging, `git diff --cached` before every commit
-- [ ] **Logical scope**: each commit contains related changes only; unrelated changes go into separate commits
-- [ ] **Conventional Commits format**: every commit message follows the "type(scope): summary" format, with a clear body
-- [ ] **Quality verified**: the appropriate test, lint, or build command was run and every check passed
-- [ ] **No sensitive data**: no secrets, tokens, debug code, or accidental changes are included
-- [ ] **INDEX synced** (AI Cortex projects): the matching INDEX.md is updated whenever a skill / rule / spec / protocol changes
+## Example: Mixed work
 
-### Process quality checks
-
-- [ ] **Pre-commit review**: ran the `review-diff` skill for AI Cortex projects, checking for unintended changes, security issues, or breaking changes
-- [ ] **Patch staging used**: `git add -p` used when changes are mixed inside a single file
-- [ ] **Commit boundaries clear**: the purpose of each commit can be stated in 1-2 sentences
-- [ ] **Message quality**: the summary is imperative and specific; the body explains what and why (not implementation detail)
-- [ ] **Breaking changes marked**: Used `!` or `BREAKING CHANGE:` footer if applicable
-- [ ] **Commands recorded**: the commands used for staging, review, and verification are listed
-
-### Acceptance test
-
-**Can a reviewer tell what changed and why from the commit message alone, without reading the diff?**
-
-If no: the commit message is unclear. Revise it to explain what and why.
-
-If yes: the commit is ready to push.
-
-## Examples
-
-### Example 1: a simple feature addition
-
-**Scenario**: add a new function to utils.js
-
-**Commands**:
-
-```bash
-
-git status
-git diff
-
-# Review shows only the new function, no other changes
-
-git add utils.js
-git diff --cached
-
-# Verify staged changes are correct
-
-npm test
-git commit -m "feat(utils): add formatDate helper function
-
-Add formatDate to handle ISO 8601 date formatting consistently
-across the application. Returns formatted string or null for
-invalid inputs."
-
-```
-
-**Output**:
-
-- Commit: `feat(utils): add formatDate helper function`
-- Summary: added a date formatting utility to centralize date handling logic
-- Commands: `git diff`, `git diff --cached`, `npm test`
-
-### Example 2: mixed changes that need splitting (edge case)
-
-**Scenario**: auth.js was changed with a bug fix and a refactor, and the tests were updated
-
-**Commands**:
-
-```bash
-
-git status
-git diff --stat
-
-# Shows auth.js and auth.test.js changed
-
-# Run review-diff first (AI Cortex)
-
-# [review-diff identifies: bug fix in line 45, refactor in lines 100-150]
-
-# Split into logical commits
-
-# Commit 1: Bug fix only
-
-git add -p auth.js
-
-# Select only the bug fix hunk
-
-git diff --cached
-npm test
-git commit -m "fix(auth): prevent null pointer in token validation
-
-Check for null token before accessing properties to avoid
-runtime errors when token is missing."
-
-# Commit 2: Refactor
-
-git add -p auth.js
-
-# Select refactor hunks
-
-git diff --cached
-npm test
-git commit -m "refactor(auth): extract token parsing to separate function
-
-Move token parsing logic into parseAuthToken() for better
-testability and reuse across auth module."
-
-# Commit 3: Tests
-
-git add auth.test.js
-git diff --cached
-npm test
-git commit -m "test(auth): add tests for token validation edge cases
-
-Cover null token, malformed token, and expired token scenarios."
-
-```
-
-**Output**:
-
-- Commit 1: "fix(auth): prevent null pointer in token validation" - fixes the crash when the token is null
-- Commit 2: "refactor(auth): extract token parsing to separate function" - better code organization
-- Commit 3: "test(auth): add tests for token validation edge cases" - more test coverage
-- Commands: `git add -p`, `git diff --cached` (×3), `npm test` (×3)
-
-### Example 3: adding a skill to AI Cortex (with INDEX sync)
-
-**Scenario**: add the `analyze-logs` skill to an AI Cortex project
-
-**Commands**:
-
-```bash
-
-git status
-
-# Shows: skills/analyze-logs/SKILL.md (new), skills/INDEX.md (modified)
-
-git diff skills/INDEX.md
-
-# Confirm the INDEX line was added and matches the SKILL.md description
-
-git add skills/analyze-logs/ skills/INDEX.md
-git diff --cached
-
-git commit -m "feat(skills): add analyze-logs for log parsing
-
-Add the analyze-logs skill: parses application logs by pattern matching and extracts errors.
-Includes 3 examples covering common log formats.
-
-Sync skills/INDEX.md."
-
-```
-
-**Output**:
-
-- Commit: `feat(skills): add analyze-logs for log parsing`
-- Summary: new log analysis skill + INDEX sync
-- Commands: `git status`, `git diff --cached`
-- INDEX sync: ✓ skills/INDEX.md contains the new line
+A repository contains an authorized authentication fix and its tests, an independent authorized refactor in the same file, and another task's documentation edits. Patch-stage the fix with its tests, verify and commit it, then stage and commit the refactor separately. Leave the documentation edits intact. Report both commits and the remaining unrelated changes.

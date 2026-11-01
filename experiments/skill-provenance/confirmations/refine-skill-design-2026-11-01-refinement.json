@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicitly confirmed in current task",
+  "confirmed_at": "2026-11-01",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed that refine-skill-design 1.9.0 remains repository-authored after the focused contract and asset acceptance clarification.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/refine-skill-design-2026-11-01-refinement.json"
+    }
+  ],
+  "subject_digest": "c896d9a56f969b404bccb34f6d8301646ab34b086a7a503a6296bf8c44468dac"
+}

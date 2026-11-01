@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicitly confirmed in current task",
+  "confirmed_at": "2026-11-01",
+  "action": "confirmed",
+  "classification": "third_party_adapted",
+  "rationale": "The maintainer confirmed that commit-work 2.2.0 remains a third-party adaptation of the pinned upstream after scoped simplification.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/commit-work-2026-11-01-refinement.json"
+    }
+  ],
+  "subject_digest": "1e3c25cc91a7550d1ca37ea52d4cce283ff5d8db5cb909685fd2f03fa5c77535"
+}

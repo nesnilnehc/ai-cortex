@@ -1,35 +1,14 @@
 # Refine Skill Design
 
-**Status**: Validated
+Audit and improve an existing Skill while preserving its purpose and supported cases. Review format, executable instructions, asset ownership, tool portability, and unnecessary interaction overhead.
 
-## Purpose
+- **Current version**: 1.9.0
+- **License**: MIT
 
-Reviews and refactors an existing skill. Applies a meta-audit model: intent, logic, constraints, examples. Brings the skill into spec compliance and improves its robustness and scenario coverage. For drafts and quality fixes; not for creating a new skill from scratch.
+## Use
 
-## When to use
+Provide a Skill path, name, or an explicitly scoped collection. The default output updates the source and reports substantive changes with a version rationale. A requested draft is written to `SKILL.refined.md`; a requested dated copy uses `SKILL.refined.YYYYMMDD.md`. Those modes preserve the source.
 
-- New skill onboarding: expert review after a draft is generated
-- Quality fix: adjust the logic when the behaviour is inconsistent
-- Consistency review: match the tags and naming in INDEX.md
-- Upgrade: turn plain formatting into a full agent capability
+In AI Cortex, acceptance covers the contract and distributed assets, including relevant checks for changed executable resources. It does not require a consuming product run, external channel execution, Agent evaluation, or a parallel simulation framework.
 
-## Inputs
-
-- A SKILL Markdown document or draft
-
-## Outputs
-
-- A refined SKILL (written to a fixed temporary "SKILL.refined.md", or to a new "SKILL.refined.YYYYMMDD.md" per run; the original file is never overwritten)
-- A diff summary (what changed and why)
-- A version suggestion (SemVer)
-
-## Ecosystem
-
-| Field | Value |
-| :------------------------------------ | :------------------------------------------------------------------------------------ |
-| overlaps_with (owner/repo:skill-name) | — |
-| market_position | differentiated |
-
-## Full definition
-
-See [SKILL.md](./SKILL.md) for the full behaviour, the limits, and the examples.
+See [SKILL.md](SKILL.md) for the complete behavior, boundaries, Self-Check, and examples. This capability refines existing Skills; it does not create a new one from scratch.

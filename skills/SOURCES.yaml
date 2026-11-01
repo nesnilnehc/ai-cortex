@@ -7,7 +7,7 @@ policy:
 skills:
   commit-work:
     local_path: skills/commit-work
-    local_version: 2.1.0
+    local_version: 2.2.0
     origin: vendored-derived
     upstream:
       repository: https://github.com/softaworks/agent-toolkit.git

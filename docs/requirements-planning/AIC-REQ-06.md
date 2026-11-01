@@ -19,7 +19,19 @@ A maintainer can prepare, execute and resume a project release while preserving 
 
 ## Scope
 
-Build and generic release capabilities, candidate artifact selection and verification, and their shared handoffs, with a generic combined pipeline and Apple as validation scenarios. A candidate artifact is a specific build output being considered for release; the Release Package is the release evidence record, not necessarily the artifact itself. Whether a separate build Skill is needed remains under review. Excludes provider-specific implementation, a mandatory project configuration framework and any predetermined schema-major choice.
+Deliver the independent `build-project` Skill, the prepare/publish/announce handoffs,
+and the versioned Release Package contract, with their guides, registries and
+bilingual website descriptions. A candidate artifact is a particular build output;
+the Release Package records release evidence and is not the binary package itself.
+Generic combined-pipeline and Apple examples explain the contract without executing
+those systems or prescribing a consumer project's version policy.
+
+Acceptance is limited to contracts and repository assets. Independent Agent behavior
+evaluations, real consumer-project builds, provider integration, uploads, announcements
+and channel publication are not acceptance gates for this requirement. Do not create
+a second implementation of the workflow merely to simulate Skill compliance. Existing
+executable assets still require their applicable code-quality checks; their results
+must not be described as evidence that an Agent followed a Markdown Skill.
 
 ## Business Rules
 
@@ -39,40 +51,38 @@ Build and generic release capabilities, candidate artifact selection and verific
 
 ## Acceptance Criteria
 
-- [ ] A build-only fixture invokes an available project build capability and records its result and produced artifacts without release preparation, a release decision, a formal release or publication. When only a combined build-and-publication operation is available, a build-only request reports that limitation without invoking it. Covers R6.
-- [ ] A release fixture records two candidate builds and explicitly associates the selected build with the formal release. The other build remains identifiable, and neither its existence nor a change in build version silently creates a release. Covers R1 and R7.
-- [ ] A generic fixture uses an explicitly supplied example policy to record release identity, selected build identity, source revision and evidence without inferring release identity from the build value. The example does not prescribe a project policy. Covers R1 and R7.
-- [ ] A multi-target fixture records the selected build and publication evidence separately for each target. A build association or successful build alone does not mark its target published; missing or unknown delivery evidence remains visible. Covers R1 and R7.
-- [ ] Two candidate artifacts have separate build/source identities and check outcomes. With no applicable exception, the first fails a project-required selection check and is not treated as eligible; after the second passes that check, it can be selected. Neither the first candidate's failure nor the second's success is overwritten or inherited by the other. Covers R7 and R9.
-- [ ] A project-permitted internal check with an explicitly authorized exception permits its applicable next action or completion gate, records approver, candidate, target, check, scope, rationale and evidence, and leaves the failed or unexecuted result unchanged. A different candidate or scope does not inherit it. Covers R9 and R11.
-- [ ] An exception does not permit progress past missing action authorization, unverified or mismatched candidate/artifact identity, a channel-enforced blocker, or a check that project policy does not permit waiving. With absent or unclear policy, the check is not treated as waivable. Covers R11.
-- [ ] For a target that can deliver the verified candidate unchanged, a fixture identifies that candidate as the delivered result. For a channel that transforms it, a fixture records the relationship and required verification of the actual result; missing or contradictory relationship evidence prevents a completion claim, as does missing required verification without an applicable exception. Covers R10 and QAS-02.
-- [ ] A fixture whose required server verification is only available after upload allows the authorized upload once its applicable earlier prerequisites are satisfied, retains the later verification as pending, and prevents target completion until that check passes or an applicable project-permitted exception is authorized. Covers R2, R9 and R10.
-- [ ] A preparation fixture with all execution prerequisites satisfied and a required future artifact can complete preparation; the same artifact absent or failing acceptance prevents completion of the target that requires it. Covers R2 and R8.
-- [ ] With two required targets, one successful and the other pending, failed or unknown, overall publication remains incomplete; it completes after both are complete. An optional pending or failed target remains visible without blocking an otherwise complete release. With no successful target, overall publication remains incomplete even if none is required. Covers R8.
-- [ ] A combined-pipeline fixture reuses project instructions and existing execution tools without requiring three project Skills or a new configuration format. Covers R3.
-- [ ] Unknown-trigger and announcement-only recovery fixtures cause zero duplicate completed writes. Covers R4 and QAS-01.
-- [ ] Historical and current supported consumer fixtures exercise the affected Release Package and release Skill contracts under the [stable-core compatibility policy](../project-overview/stable-core.md#compatibility-and-deprecation). Unsupported incompatible execution inputs are rejected before mutation; an unverified consumer boundary remains unresolved. Covers R5.
+Only contract and asset evidence is required. Review the defining Skill/Spec text,
+its static examples and repository checks; no product or channel operation is needed.
+
+- [ ] **AC1 — Responsibilities and handoffs.** The four Skills clearly define triggers, inputs, outputs, completion and failure reporting. Build-only use is independent; preparation, publication and announcement responsibilities are distinct. Conditional calls and project-tool reuse agree across the Skills and guide. Covers R3, R4 and R6.
+- [ ] **AC2 — Release and candidate identity.** The Spec and public examples distinguish release, build, source and artifact identities, preserve multiple candidates and their individual checks, and identify selected artifacts per target. The example version policy is explicitly illustrative. Covers R1, R7 and R9.
+- [ ] **AC3 — Stages and delivery evidence.** The contract and instructions distinguish preparation prerequisites from later acceptance, preserve pending checks and future required artifacts, and define evidence for unchanged and transformed delivery. Selection or build success alone cannot mean published. Covers R2, R9 and R10.
+- [ ] **AC4 — Outcomes and recovery.** The contract and instructions retain target outcomes, require at least one successful target and all required targets to complete, and preserve optional failures. Recovery instructions require reconciliation of uncertain actions and reuse of completed results; announcement recovery cannot rebuild or upload. Covers R4 and R8.
+- [ ] **AC5 — Risk exceptions.** The Spec and Skills consistently state the required approval, candidate/target/check/scope/rationale/evidence fields, preservation of the original check result, project-policy restrictions and non-waivable authorization, identity and provider blockers. Covers R9 and R11.
+- [ ] **AC6 — Compatibility boundary.** Existing 1.x meanings are preserved; 2.x is explicitly versioned with declared admission and migration boundaries. Existing supported contract checks pass. No asset claims that a reference reader proves actual deployed-consumer behavior; unknown integrations remain disabled when used. Covers R5.
+- [ ] **AC7 — Asset integrity and delivery consistency.** Changed assets have valid metadata, local references, provenance/license records and versions. Registries, guides, related Skill handoffs and both website editions agree. Applicable repository format, link, index, asset-version and compatibility checks pass. No private project identifiers or unnecessary workflow-simulation framework is required for acceptance.
 
 ## Quality Attribute Scenarios
 
+These scenarios describe obligations expressed by the assets. Their acceptance
+method is contract/instruction/example review, not execution against a provider.
+
 | id | quality | source/stimulus | environment | affected artifact | response | measure | rule_refs |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| QAS-01 | reliability | Maintainer resumes after an uncertain trigger or an interrupted announcement | Trigger outcome unknown, or artifact publication completed before announcement interruption | Release workflow | Reconcile actual state before repeating writes; keep an ambiguous result unresolved and do not repeat completed publication during announcement recovery | Zero duplicate completed writes in both fixtures; an ambiguous trigger is not retried | Resolve applicable engineering Rule IDs during design |
-| QAS-02 | traceability | Maintainer inspects the result of delivery | Representative unchanged and transformed candidate fixtures | Candidate-to-delivery evidence | Identify the selected candidate and actual delivered result and retain their verification and relationship evidence | Both identities and their relationship are recoverable; an unverified or contradictory relationship does not result in a completed target | Resolve applicable engineering Rule IDs during design |
+| QAS-01 | reliability | A release action has an uncertain result or announcement is resumed | Skill and Spec review | Publication and announcement instructions | Define reconciliation before retry and prohibit repeating completed product actions during announcement recovery | AC4 review finds explicit unknown/conflict stop paths and completed-result reuse; no contradictory instruction | Applicable reliability obligations are reviewed at the asset boundary |
+| QAS-02 | traceability | A selected candidate is delivered unchanged or transformed | Spec and static example review | Candidate-to-delivery contract | Preserve selected and delivered identities, relationship and applicable verification evidence | AC2/AC3 review can locate every required identity and relation, including missing-evidence blockers | Applicable contract/alignment obligations are reviewed at the asset boundary |
 
 ## Dependencies & Prerequisites
 
 Dependent requirements: none. AIC-REQ-05 and AIC-REQ-07 refer to this requirement where shared contract changes are needed; their dependency status remains subject to their own review.
 
-Preconditions: confirm the project release identity policy and applicable execution prerequisites from project evidence before applying them; verify each prerequisite against its stated evidence. A combined build and upload operation is not build-only and its upload is not implicitly authorized.
+Acceptance prerequisites: the defining assets, local references and existing repository validation tools are available. When a consumer later uses these Skills, project identity policy, execution prerequisites and authorization must be established at that time; those execution conditions do not require a real consumer run for this library requirement.
 
-External dependencies: project-specific build, publication and announcement services are needed only for a release that uses them; availability and authorization must be verified before the corresponding action.
-
+External services are not needed for this requirement acceptance. Project-specific build, publication and announcement services belong to later consumer use and require their own availability and authorization checks.
 
 ## Risks, Constraints & Assumptions
 
-- Incorrect completion or provenance claim: probability medium, impact high, priority high. Mitigation: preserve source evidence and verify the negative cases in acceptance fixtures.
+- Incorrect completion or provenance claim: probability medium, impact high, priority high. Mitigation: preserve source evidence, review contradictory or missing-evidence examples, and keep contract-validation results separate from claims about Agent or provider execution.
 Confirmed constraints:
 
 - Current experimental documents are proposals, not approved contracts.
@@ -94,3 +104,5 @@ Confirmed constraints:
 - Revision 2026-10-29: checked bounded old/current consumer evidence and inventoried locally available project branch snapshots; recorded their coverage limits without treating reference models or script presence as proof of actual execution.
 - Industry evidence inspected 2026-10-29: [Google Cloud's CI/CD guidance](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/best-practices-continuous-integration-delivery-kubernetes) recommends promoting the tested container image rather than rebuilding it; [Cloud Deploy](https://docs.cloud.google.com/deploy/docs/overview) distinguishes a release from its target-specific rollouts. [App Engine](https://docs.cloud.google.com/appengine/docs/standard/testing-and-deploying-your-app) also documents a deployment workflow that builds during deployment. These sources support traceable build and delivery identities but do not mandate a separate Skill or a single build for every release.
 - Revision 2026-10-29: the user accepted the requirement and authorized implementation with a public, de-identified delivery.
+
+- Revision 2026-10-30: the user limited Skill acceptance to contracts and assets. Replaced the former 14 execution-oriented criteria with AC1–AC7 above. Business rules R1–R11 remain unchanged. Agent evaluation, real-project/channel execution and a parallel simulated workflow are not required to close this library requirement. The [acceptance and closeout record](../../experiments/release-workflow/acceptance-review.md) uses the revised criteria.

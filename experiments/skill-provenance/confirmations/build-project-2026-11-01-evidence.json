@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicitly confirmed in current task",
+  "confirmed_at": "2026-11-01",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed that build-project remains repository-authored and explicitly approved binding the unchanged Skill to the revised AIC-REQ-06 contract and asset acceptance evidence.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/build-project-2026-11-01-evidence.json"
+    }
+  ],
+  "subject_digest": "0df3693f47eb33cdcce4d7e632f983e87a07b7e0bed57e9851073bfab0c78179"
+}

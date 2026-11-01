@@ -235,15 +235,15 @@
     },
     "commit-work": {
       "classification": "third_party_adapted",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "reviewed_files": {
-        "README.md": "264ddf1b76828672e68804568e393491a66162826ef7871648025862405440c0",
-        "SKILL.md": "6540b95591014573caac1a5b7c302f4f0ad5637fef7f7324aa201aa744cfa8ce",
+        "README.md": "84e370002e7f5352418b0bf773317391fe6467af041f0062311902cb0587b996",
+        "SKILL.md": "5105b93c4b41e220f9c4c1fa0331e46db6062ac93f948967944585ed286d4c82",
         "references/commit-message-template.md": "cd883aff299e6ba4ab108a720198ac37820a3eb824ffb7613ef6a39459a5d875"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/commit-work.json": "93e7f69d9c50081722b47061064a18775d8e460de4bc558716765e03c9b812b8",
-        "docs/references/THIRD_PARTY_NOTICES.md": "6adbc8e73c0a3071991064636c43b153e0f556fb97e70ce5b263e441d5040209"
+        "docs/references/THIRD_PARTY_NOTICES.md": "3af09cd603ba67f643285487dcc135118d5e781c79271536078e1dfa8ac481a4"
       },
       "sources": [
         {
@@ -260,21 +260,21 @@
           "path": "docs/references/THIRD_PARTY_NOTICES.md"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/commit-work.json"
+          "path": "experiments/skill-provenance/confirmations/commit-work-2026-11-01-refinement.json"
         }
       ],
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer, explicitly confirmed in current task",
+        "confirmed_at": "2026-11-01",
         "action": "confirmed",
         "classification": "third_party_adapted",
-        "rationale": "The maintainer confirmed the recommended adapted classification and documented local changes to the pinned third-party source.",
+        "rationale": "The maintainer confirmed that commit-work 2.2.0 remains a third-party adaptation of the pinned upstream after scoped simplification.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/commit-work.json"
+            "path": "experiments/skill-provenance/confirmations/commit-work-2026-11-01-refinement.json"
           }
         ],
-        "subject_digest": "2890131ed65e4883f4b65beb0b43945fb86106b816cb605f325c712c160b203e"
+        "subject_digest": "1e3c25cc91a7550d1ca37ea52d4cce283ff5d8db5cb909685fd2f03fa5c77535"
       }
     },
     "competitive-research": {
@@ -1755,10 +1755,10 @@
     },
     "refine-skill-design": {
       "classification": "native",
-      "version": "1.8.0",
+      "version": "1.9.0",
       "reviewed_files": {
-        "README.md": "6e41785e0b8dfe38c4e22f54a896b5f912c73cb377ff57638a5e2f8b10cb89ff",
-        "SKILL.md": "368a6969d13cab93becc473595a37ff2bdd5db766dae28db408ad408150e2491"
+        "README.md": "5aed4d6701ed25ff20d9f7ff2ab51d52976cd814ab28cd5299d17bdd722843a3",
+        "SKILL.md": "96dd19879502226e6c885e9a5052dc825fe0b2d6f0a023f6bef7fd009cdfa7bb"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/refine-skill-design.json": "a5e1ab8a1f8a442b95ddbb21f312db727745da3fa047e134fbfabc2de7de377f"
@@ -1769,7 +1769,7 @@
           "path": "experiments/skill-provenance/evidence/refine-skill-design.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/refine-skill-design.json"
+          "path": "experiments/skill-provenance/confirmations/refine-skill-design-2026-11-01-refinement.json"
         }
       ],
       "creation": {
@@ -1777,17 +1777,17 @@
         "revision": "a91e6ef1417e40c04f4c67b2732f279cb213da6e"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer, explicitly confirmed in current task",
+        "confirmed_at": "2026-11-01",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "rationale": "The maintainer confirmed that refine-skill-design 1.9.0 remains repository-authored after the focused contract and asset acceptance clarification.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/refine-skill-design.json"
+            "path": "experiments/skill-provenance/confirmations/refine-skill-design-2026-11-01-refinement.json"
           }
         ],
-        "subject_digest": "eddab5538ebc303ef4520994accdd8a33ae90f7d86720c762b0a2934dd6d09ef"
+        "subject_digest": "c896d9a56f969b404bccb34f6d8301646ab34b086a7a503a6296bf8c44468dac"
       }
     },
     "review-architecture": {
@@ -2832,7 +2832,7 @@
         "SKILL.md": "cd01d62a871818bb5a86bcfd5decc2df3bf8def10402a415fd349b0d33ec94fe"
       },
       "reviewed_evidence": {
-        "docs/requirements-planning/AIC-REQ-06.md": "03fb011bc5105c19a7f259c79e8dc856f06d976809a70a230c8f0df8f54d2943"
+        "docs/requirements-planning/AIC-REQ-06.md": "b2397700ec78b978ba3f42554dbac9a428db2f77723845b322685accb51f0e4a"
       },
       "sources": [],
       "evidence": [
@@ -2840,7 +2840,7 @@
           "path": "docs/requirements-planning/AIC-REQ-06.md"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/build-project-2026-10-29-release-workflow.json"
+          "path": "experiments/skill-provenance/confirmations/build-project-2026-11-01-evidence.json"
         }
       ],
       "creation": {
@@ -2850,17 +2850,17 @@
         }
       },
       "decision": {
-        "maintainer": "Repository maintainer, confirmed in current task",
-        "confirmed_at": "2026-10-29",
+        "maintainer": "Repository maintainer, explicitly confirmed in current task",
+        "confirmed_at": "2026-11-01",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that the current Skill remains repository-authored without third-party creative material.",
+        "rationale": "The maintainer confirmed that build-project remains repository-authored and explicitly approved binding the unchanged Skill to the revised AIC-REQ-06 contract and asset acceptance evidence.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/build-project-2026-10-29-release-workflow.json"
+            "path": "experiments/skill-provenance/confirmations/build-project-2026-11-01-evidence.json"
           }
         ],
-        "subject_digest": "c8931c68a9a2b97f848a120b85e26497c939ddb4cb3533d6ee17aa5a40515323"
+        "subject_digest": "0df3693f47eb33cdcce4d7e632f983e87a07b7e0bed57e9851073bfab0c78179"
       }
     }
   }
