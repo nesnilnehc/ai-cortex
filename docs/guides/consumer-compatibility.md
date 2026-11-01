@@ -17,9 +17,9 @@ claim that all stable dependencies have passed acceptance.
 [Historical descriptors](../../tests/fixtures/stable-consumers/) pin the exact
 0.5.1 and 0.6.0 tag targets and SHA-256 of Findings, Release Package and Rule
 modeling sources. They intentionally preserve the same contracted shapes where
-those releases made no schema change. Historical package fixtures are JSON
-exports of the published manifest records, with source paths and byte digests.
-The review fixture is authored from the contract, not a captured model run.
+those releases made no schema change. Release Package identities remain in those frozen descriptors as historical metadata;
+release readers and package fixtures are no longer part of the current suite.
+The retained review fixture is authored from the contract, not a captured model run.
 
 The test-owned JSON review envelope represents fields recoverable from prose,
 lists or tables. It does not require Skills to emit JSON. The reference consumer

@@ -2,7 +2,7 @@
 id: SKILL_SOURCE_MODELING_SPEC_V1
 name: Vendored Skill Source Registry Schema
 description: Defines external Skill source records and evidence-backed provenance presentation for the AI Cortex catalog.
-version: 2.1.0
+version: 2.1.1
 status: active
 lifecycle: living
 created_at: 2026-08-26
@@ -165,4 +165,4 @@ skills:
 - [ADR 0011](../docs/adr/0011-vendor-external-skills.md) decided on the vendored-only distribution strategy.
 - The [license policy](../docs/references/LICENSE_POLICY.md) governs license verification and notice retention.
 - [Sources and attributions](../docs/references/ATTRIBUTIONS.md) is the human-readable view.
-- A Release Package's SPDX artifact can be generated from this registry and the repository contents, but SPDX plays no part in runtime skill discovery.
+- An SPDX license inventory can be generated from this registry and the repository contents, but SPDX plays no part in runtime skill discovery.
