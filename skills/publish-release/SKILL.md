@@ -1,7 +1,7 @@
 ---
 name: publish-release
 description: Execute authorized publication from a supported Release Package, preserving candidate, target and recovery evidence.
-version: 1.3.0
+version: 1.3.1
 license: MIT
 ---
 
@@ -17,7 +17,7 @@ Complete a traceable publication only after the Release Package's required gates
 
 ## Version 2 staged publication
 
-When the package explicitly declares 2.x, validate the [2.x contract](../../specs/release-package.md#58-version-2-staged-release-contract) before any mutation and use this section instead of the 1.x workflow below. Reject unknown schemas. Select and verify candidates and target-specific prerequisites; reuse a matching existing candidate. If a build-only action is needed, invoke [build-project](../build-project/SKILL.md). Never describe a combined build-and-upload operation as build-only: before invoking it, verify its full effects and authorization.
+When the package explicitly declares 2.x, validate the [2.x contract](../../specs/release-package.md#58-version-2-staged-release-contract) before any mutation and use this section instead of the 1.x workflow below. Reject unknown schemas. Select and verify candidates and target-specific prerequisites; reuse a matching existing candidate. If a build-only action is needed, invoke [build-artifacts](../build-artifacts/SKILL.md). Never describe a combined build-and-upload operation as build-only: before invoking it, verify its full effects and authorization.
 
 Record intent and authorization scope before each external write. Reconcile complete provider state before repeating an uncertain action: reuse confirmed completion, retry confirmed absence only with authorization, and stop on unknown, inaccessible or conflicting state. Require a verified single-writer or compare-and-swap boundary; otherwise stop conflicting mutations. Preserve actual partial outcomes. Evaluate each check at its applicable stage; retain candidate-scoped policy-permitted exceptions and their original check result. Do not waive authorization, identity or provider-enforced blockers.
 

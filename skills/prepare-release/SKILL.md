@@ -1,7 +1,7 @@
 ---
 name: prepare-release
 description: Build and validate a Release Package from repository history, version policy, quality gates, and optional release artifacts; does not publish or announce.
-version: 1.5.0
+version: 1.5.1
 license: MIT
 ---
 
@@ -23,7 +23,7 @@ this section instead of the 1.x workflow below. Establish project-sourced releas
 identity and changes, targets, required checks and authorized scope. Record unknown
 values without inventing a version, tag or build identity. Accept independently
 built candidates only after checking their source and artifact evidence; when a new
-build is needed, invoke [build-project](../build-project/SKILL.md). Keep each
+build is needed, invoke [build-artifacts](../build-artifacts/SKILL.md). Keep each
 candidate and its checks distinct. Mark future checks pending and preserve them for
 their actual stage. Do not upload or publish. Return the 2.x package and explicit
 gaps; do not create a 1.x `ready` projection. The existing steps and self-check

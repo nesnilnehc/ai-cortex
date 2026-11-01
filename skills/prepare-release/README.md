@@ -8,7 +8,7 @@ Prepares release identity, scope, candidate evidence and materials. The 1.x path
 
 ## Niche
 
-Pairs with `publish-release` and `announce-release`; it may call `build-project` and the optional locally vendored `changelog-video`. Video generation is not built in, and no external skill is installed at runtime.
+Pairs with `publish-release` and `announce-release`; it may call `build-artifacts` and the optional locally vendored `changelog-video`. Video generation is not built in, and no external skill is installed at runtime.
 
 ## Full definition
 

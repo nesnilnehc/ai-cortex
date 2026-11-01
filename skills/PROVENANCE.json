@@ -1487,10 +1487,10 @@
     },
     "prepare-release": {
       "classification": "native",
-      "version": "1.5.0",
+      "version": "1.5.1",
       "reviewed_files": {
-        "README.md": "eb05dee5c83cada23135e2fef471209ae1d55dba5540e9e8080326e152d7a266",
-        "SKILL.md": "9f2aad7a8f162d3b3391e8942f03c18adfb1c92c05d6b280d1afe894c7942d91"
+        "README.md": "bf3045428982d67c2bb407a6c5053b598905a6b3ca7291972f6be7641c82fdc2",
+        "SKILL.md": "704905d4f002df99ce00b7c65e11b57daf08f6feebfdda78914e142b27710a88"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/prepare-release.json": "ceec20f041de67323e0ccaeec2ea4d02916d0ffb3befb6ef5757b1f54d8d0e6c",
@@ -1505,7 +1505,7 @@
           "path": "experiments/skill-provenance/confirmations/prepare-release.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/prepare-release-2026-10-29-release-workflow.json"
+          "path": "experiments/skill-provenance/confirmations/prepare-release-2026-11-01-rename.json"
         }
       ],
       "creation": {
@@ -1513,17 +1513,17 @@
         "revision": "314186acabed013d7af29b6296dafc1807b6b46f"
       },
       "decision": {
-        "maintainer": "Repository maintainer, confirmed in current task",
-        "confirmed_at": "2026-10-29",
+        "maintainer": "Repository maintainer, explicitly confirmed in current task",
+        "confirmed_at": "2026-11-01",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that the current Skill remains repository-authored without third-party creative material.",
+        "rationale": "The maintainer confirmed that prepare-release 1.5.1 remains repository-authored after the build capability rename and associated reference maintenance; responsibilities, inputs and outputs are unchanged.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/prepare-release-2026-10-29-release-workflow.json"
+            "path": "experiments/skill-provenance/confirmations/prepare-release-2026-11-01-rename.json"
           }
         ],
-        "subject_digest": "eb8f7a4f5abb8dcd880e2ff91e4e50d5eb7fafa99e7be72e7ea145c283fdbb09"
+        "subject_digest": "3a5052c1d4a5fbe1f5ab4d0efb606df719d3f0bc66729b4c8aab8147e9b83e51"
       }
     },
     "prioritize-backlog": {
@@ -1676,10 +1676,10 @@
     },
     "publish-release": {
       "classification": "native",
-      "version": "1.3.0",
+      "version": "1.3.1",
       "reviewed_files": {
         "README.md": "a59650594ef59fd611f085db859ff187b97fdf39fe77c7eceee0661a4f8531c0",
-        "SKILL.md": "6dc4c909dbcbb94c2e4d95b1f156886ff4d9d6fe22ec164bdd347a994e63ca3e"
+        "SKILL.md": "2413715f731b1877d36dd84171d6e896c404c3bd7630e3670a526e77c49a123c"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/publish-release.json": "1b2ed9c57a1f5114aeccdb63e6ec56f68905dfdc1caa0e7bed35e14fe73a91a7",
@@ -1694,7 +1694,7 @@
           "path": "experiments/skill-provenance/confirmations/publish-release.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/publish-release-2026-10-29-release-workflow.json"
+          "path": "experiments/skill-provenance/confirmations/publish-release-2026-11-01-rename.json"
         }
       ],
       "creation": {
@@ -1702,17 +1702,17 @@
         "revision": "314186acabed013d7af29b6296dafc1807b6b46f"
       },
       "decision": {
-        "maintainer": "Repository maintainer, confirmed in current task",
-        "confirmed_at": "2026-10-29",
+        "maintainer": "Repository maintainer, explicitly confirmed in current task",
+        "confirmed_at": "2026-11-01",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that the current Skill remains repository-authored without third-party creative material.",
+        "rationale": "The maintainer confirmed that publish-release 1.3.1 remains repository-authored after the build capability rename and associated reference maintenance; responsibilities, inputs and outputs are unchanged.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/publish-release-2026-10-29-release-workflow.json"
+            "path": "experiments/skill-provenance/confirmations/publish-release-2026-11-01-rename.json"
           }
         ],
-        "subject_digest": "2efa2c2ce4aa36c6f9957f0ae76ae80e54031541f2c5e865458205490c05cd43"
+        "subject_digest": "846536f79964c2da441f47663aa7f2214cee7e3708cafca313af717848684c79"
       }
     },
     "redeploy-local": {
@@ -2825,14 +2825,14 @@
         "subject_digest": "58e09877e414c3a85348d984ea14dc8578ebc1b3e9daf293e94686f64e3bd5b1"
       }
     },
-    "build-project": {
+    "build-artifacts": {
       "classification": "native",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "reviewed_files": {
-        "SKILL.md": "cd01d62a871818bb5a86bcfd5decc2df3bf8def10402a415fd349b0d33ec94fe"
+        "SKILL.md": "de5d4885c2defd4428755387646bfaeda113b66f8feae5ae384448ca66dbf60e"
       },
       "reviewed_evidence": {
-        "docs/requirements-planning/AIC-REQ-06.md": "b2397700ec78b978ba3f42554dbac9a428db2f77723845b322685accb51f0e4a"
+        "docs/requirements-planning/AIC-REQ-06.md": "c9122534826534451b07b50900d9e7573d3734842f2bdea18f850ee5d6dcc33e"
       },
       "sources": [],
       "evidence": [
@@ -2840,7 +2840,7 @@
           "path": "docs/requirements-planning/AIC-REQ-06.md"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/build-project-2026-11-01-evidence.json"
+          "path": "experiments/skill-provenance/confirmations/build-artifacts-2026-11-01-rename.json"
         }
       ],
       "creation": {
@@ -2854,13 +2854,13 @@
         "confirmed_at": "2026-11-01",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that build-project remains repository-authored and explicitly approved binding the unchanged Skill to the revised AIC-REQ-06 contract and asset acceptance evidence.",
+        "rationale": "The maintainer confirmed that build-artifacts 2.0.0 remains repository-authored after the build capability rename and associated reference maintenance; responsibilities, inputs and outputs are unchanged.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/build-project-2026-11-01-evidence.json"
+            "path": "experiments/skill-provenance/confirmations/build-artifacts-2026-11-01-rename.json"
           }
         ],
-        "subject_digest": "0df3693f47eb33cdcce4d7e632f983e87a07b7e0bed57e9851073bfab0c78179"
+        "subject_digest": "e4b9269fa373fe973cce0b2aff2972795b73e0e5e93c056b13bcd77bfba7e328"
       }
     }
   }

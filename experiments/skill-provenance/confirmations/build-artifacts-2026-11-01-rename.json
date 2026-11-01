@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicitly confirmed in current task",
+  "confirmed_at": "2026-11-01",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed that build-artifacts 2.0.0 remains repository-authored after the build capability rename and associated reference maintenance; responsibilities, inputs and outputs are unchanged.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/build-artifacts-2026-11-01-rename.json"
+    }
+  ],
+  "subject_digest": "e4b9269fa373fe973cce0b2aff2972795b73e0e5e93c056b13bcd77bfba7e328"
+}

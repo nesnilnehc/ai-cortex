@@ -1,11 +1,11 @@
 ---
-name: build-project
+name: build-artifacts
 description: Build a project or selected component using its own tools without publishing; use independently or for a release candidate.
-version: 1.0.0
+version: 2.0.0
 license: MIT
 ---
 
-# Build Project
+# Build Artifacts
 
 ## Purpose
 

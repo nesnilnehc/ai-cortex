@@ -19,7 +19,7 @@ A maintainer can prepare, execute and resume a project release while preserving 
 
 ## Scope
 
-Deliver the independent `build-project` Skill, the prepare/publish/announce handoffs,
+Deliver the independent `build-artifacts` Skill, the prepare/publish/announce handoffs,
 and the versioned Release Package contract, with their guides, registries and
 bilingual website descriptions. A candidate artifact is a particular build output;
 the Release Package records release evidence and is not the binary package itself.
