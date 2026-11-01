@@ -3,7 +3,8 @@ id: AIC-REQ-06
 artifact_type: requirement
 lifecycle: snapshot
 created_at: 2026-10-28
-status: approved
+status: implemented
+implemented_at: 2026-11-01
 parent: ../project-overview/strategic-goals.md#goal-1-delivery-chain-capabilities-are-available
 ---
 
@@ -54,13 +55,13 @@ must not be described as evidence that an Agent followed a Markdown Skill.
 Only contract and asset evidence is required. Review the defining Skill/Spec text,
 its static examples and repository checks; no product or channel operation is needed.
 
-- [ ] **AC1 — Responsibilities and handoffs.** The four Skills clearly define triggers, inputs, outputs, completion and failure reporting. Build-only use is independent; preparation, publication and announcement responsibilities are distinct. Conditional calls and project-tool reuse agree across the Skills and guide. Covers R3, R4 and R6.
-- [ ] **AC2 — Release and candidate identity.** The Spec and public examples distinguish release, build, source and artifact identities, preserve multiple candidates and their individual checks, and identify selected artifacts per target. The example version policy is explicitly illustrative. Covers R1, R7 and R9.
-- [ ] **AC3 — Stages and delivery evidence.** The contract and instructions distinguish preparation prerequisites from later acceptance, preserve pending checks and future required artifacts, and define evidence for unchanged and transformed delivery. Selection or build success alone cannot mean published. Covers R2, R9 and R10.
-- [ ] **AC4 — Outcomes and recovery.** The contract and instructions retain target outcomes, require at least one successful target and all required targets to complete, and preserve optional failures. Recovery instructions require reconciliation of uncertain actions and reuse of completed results; announcement recovery cannot rebuild or upload. Covers R4 and R8.
-- [ ] **AC5 — Risk exceptions.** The Spec and Skills consistently state the required approval, candidate/target/check/scope/rationale/evidence fields, preservation of the original check result, project-policy restrictions and non-waivable authorization, identity and provider blockers. Covers R9 and R11.
-- [ ] **AC6 — Compatibility boundary.** Existing 1.x meanings are preserved; 2.x is explicitly versioned with declared admission and migration boundaries. Existing supported contract checks pass. No asset claims that a reference reader proves actual deployed-consumer behavior; unknown integrations remain disabled when used. Covers R5.
-- [ ] **AC7 — Asset integrity and delivery consistency.** Changed assets have valid metadata, local references, provenance/license records and versions. Registries, guides, related Skill handoffs and both website editions agree. Applicable repository format, link, index, asset-version and compatibility checks pass. No private project identifiers or unnecessary workflow-simulation framework is required for acceptance.
+- [x] **AC1 — Responsibilities and handoffs.** The four Skills clearly define triggers, inputs, outputs, completion and failure reporting. Build-only use is independent; preparation, publication and announcement responsibilities are distinct. Conditional calls and project-tool reuse agree across the Skills and guide. Covers R3, R4 and R6.
+- [x] **AC2 — Release and candidate identity.** The Spec and public examples distinguish release, build, source and artifact identities, preserve multiple candidates and their individual checks, and identify selected artifacts per target. The example version policy is explicitly illustrative. Covers R1, R7 and R9.
+- [x] **AC3 — Stages and delivery evidence.** The contract and instructions distinguish preparation prerequisites from later acceptance, preserve pending checks and future required artifacts, and define evidence for unchanged and transformed delivery. Selection or build success alone cannot mean published. Covers R2, R9 and R10.
+- [x] **AC4 — Outcomes and recovery.** The contract and instructions retain target outcomes, require at least one successful target and all required targets to complete, and preserve optional failures. Recovery instructions require reconciliation of uncertain actions and reuse of completed results; announcement recovery cannot rebuild or upload. Covers R4 and R8.
+- [x] **AC5 — Risk exceptions.** The Spec and Skills consistently state the required approval, candidate/target/check/scope/rationale/evidence fields, preservation of the original check result, project-policy restrictions and non-waivable authorization, identity and provider blockers. Covers R9 and R11.
+- [x] **AC6 — Compatibility boundary.** Existing 1.x meanings are preserved; 2.x is explicitly versioned with declared admission and migration boundaries. Existing supported contract checks pass. No asset claims that a reference reader proves actual deployed-consumer behavior; unknown integrations remain disabled when used. Covers R5.
+- [x] **AC7 — Asset integrity and delivery consistency.** Changed assets have valid metadata, local references, provenance/license records and versions. Registries, guides, related Skill handoffs and both website editions agree. Applicable repository format, link, index, asset-version and compatibility checks pass. No private project identifiers or unnecessary workflow-simulation framework is required for acceptance.
 
 ## Quality Attribute Scenarios
 

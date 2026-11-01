@@ -2832,7 +2832,7 @@
         "SKILL.md": "de5d4885c2defd4428755387646bfaeda113b66f8feae5ae384448ca66dbf60e"
       },
       "reviewed_evidence": {
-        "docs/requirements-planning/AIC-REQ-06.md": "c9122534826534451b07b50900d9e7573d3734842f2bdea18f850ee5d6dcc33e"
+        "docs/requirements-planning/AIC-REQ-06.md": "e024c38c88855311128d3bdd85d166b3bf0bcc9f2a0e8d8aace214d6b5f5bfe2"
       },
       "sources": [],
       "evidence": [
@@ -2840,7 +2840,7 @@
           "path": "docs/requirements-planning/AIC-REQ-06.md"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/build-artifacts-2026-11-01-rename.json"
+          "path": "experiments/skill-provenance/confirmations/build-artifacts-2026-11-01-acceptance.json"
         }
       ],
       "creation": {
@@ -2854,13 +2854,13 @@
         "confirmed_at": "2026-11-01",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that build-artifacts 2.0.0 remains repository-authored after the build capability rename and associated reference maintenance; responsibilities, inputs and outputs are unchanged.",
+        "rationale": "The maintainer confirmed that build-artifacts 2.0.0 remains repository-authored and approved binding the unchanged Skill to the final AIC-REQ-06 completion status, completion date and acceptance checkmarks.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/build-artifacts-2026-11-01-rename.json"
+            "path": "experiments/skill-provenance/confirmations/build-artifacts-2026-11-01-acceptance.json"
           }
         ],
-        "subject_digest": "e4b9269fa373fe973cce0b2aff2972795b73e0e5e93c056b13bcd77bfba7e328"
+        "subject_digest": "36eb94776237fd081d19960640fd01103c2e0a19a2bc940be6ba98a7757475ed"
       }
     }
   }
