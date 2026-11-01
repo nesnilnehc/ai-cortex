@@ -1,27 +1,26 @@
 # AI Cortex promotional website
 
-The current repository catalogue uses `build-artifacts` for the independent build
-capability. Saved invocations must use that name; no old-name alias is provided.
-The publication receipt below describes the existing hosted version and does not
-claim that this repository change has been deployed.
+## Current publication: build-artifacts rename, 2026-11-01
 
-## Current publication: staged build and release workflow, 2026-10-29
+Sites version 14 is public at [AI Cortex](https://ai-cortex.nesnilnehc.top/), with
+its existing public audience preserved. Both languages use `build-artifacts` for
+the independent build capability. Preparation and publication retain conditional
+build calls; saved invocations must use the new name without an old-name alias.
 
-Sites version 13 is public at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
-The bilingual catalogue includes `build-project`, conditional calls from preparation
-and publication, and updated candidate/evidence guidance. Asset links pin
-`24d299289312ceb1e5853c777082bf725ca129db`; the deployment source commit is
-`b42d2b6f8c4dc5bfa238113a6de267a7877fe0a0`.
+Asset links pin `bb6b238c26e3a89ec4fabf5defe9893d34daafc1`. Website runtime files
+come from public repository commit `ff5002aefc68a495f57e53fe744f4c2907b6e3af`;
+the Sites source commit is `43ff245082b9f2f81c9bcd75ebb90bd7c5d6f73b`.
 The [deployment receipt](.openai/deployment.json) and
-[verification record](../experiments/release-workflow/website-publication-v13.json)
-supersede older publication claims below. The existing runtime-manifest records
-the earlier accepted version 8 and remains historical evidence.
+[verification record](../experiments/release-workflow/website-publication-v14.json)
+record this publication. Version 13 and earlier records remain historical.
 
-Validation passed 58 Node website tests, 18 Python website tests, 11 staged
-admission-model tests and 12 historical-consumer reference tests. Public Chinese
-relationships and source links, local English guidance and the 390px mobile detail
-were inspected. Reference models do not establish real consumer/parser or channel
-compatibility. No other product build, upload or publication was performed.
+All 49 live runtime files were checked against the published source: 45 are
+byte-identical and four HTML files differ only by Cloudflare's security script.
+Both live language editions were inspected for the new name, conditional calls,
+usage instructions and fixed source links. Pre-publication checks passed 58 Node
+website tests, 18 Python website tests and the source/index checks. Other sessions'
+28 pre-existing working files remained byte-identical and were excluded from the
+website package. No other product build, upload or publication was performed.
 
 A standalone static introduction to AI Cortex in English and Simplified Chinese. Serve this
 directory directly; there is no package installation or build step.
