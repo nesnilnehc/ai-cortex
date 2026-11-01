@@ -172,11 +172,8 @@ Offline CI tests the evidence exporter with generated synthetic protocol samples
 These samples are not model evaluation evidence. It also tests stale-context and
 inconsistent-trace rejection independently of any saved report.
 
-Run `python3 scripts/check-roadmap-eval-evidence.py` to inspect current evidence
-separately. `not_evaluated` means no current report is available, not a passing
-model evaluation; `invalid` rejects stale, malformed or inconsistent evidence;
-`passed` means a complete saved report matches the current context and executables.
-Missing evidence is informational; invalid evidence returns a failing exit code.
+Saved model evaluation reports and their availability status are not required
+repository checks or release gates.
 
 The evidence export still validates the complete trace against current golden
 cases and instruction/executable digests before writing. Existing files require

@@ -180,9 +180,6 @@ jobs:
       - name: remote roadmap integrity regression (offline snapshots)
         run: python3 scripts/test-roadmap-platform.py
 
-      - name: roadmap evaluation evidence status
-        run: python3 scripts/check-roadmap-eval-evidence.py
-
       - name: roadmap evaluation evidence export (synthetic unit samples)
         run: python3 scripts/test-roadmap-eval-evidence.py
 

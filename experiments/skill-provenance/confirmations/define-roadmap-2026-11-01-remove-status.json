@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicit reply in chat 01a1803e-9883-7aa0-b887-8861238d233f",
+  "confirmed_at": "2026-11-01",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer explicitly confirmed define-roadmap 7.13.4 remains native after removing evaluation availability status from its guide; no external creative reference was introduced.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/define-roadmap-2026-11-01-remove-status.json"
+    }
+  ],
+  "subject_digest": "1234b049c604aa4438c3201f5c2a3a5eb0aa8d2afffb0938bd1182820732feef"
+}

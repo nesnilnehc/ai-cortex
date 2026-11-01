@@ -149,19 +149,6 @@ class ConversationTests(unittest.TestCase):
         for key in ['cases_sha256', 'runner_sha256', 'renderer_sha256', 'assets_sha256']:
             self.assertRegex(report[key], r'^[a-f0-9]{64}$')
 
-    def test_evidence_status_distinguishes_missing_from_invalid_reports(self):
-        checker = ROOT / 'scripts/check-roadmap-eval-evidence.py'
-        with tempfile.TemporaryDirectory() as temp:
-            report = Path(temp) / 'report.json'
-            result = subprocess.run([sys.executable, str(checker), str(report)], capture_output=True, text=True)
-            self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertIn('not_evaluated', result.stdout)
-            self.assertNotIn('"status": "passed"', result.stdout)
-            report.write_text('{}')
-            result = subprocess.run([sys.executable, str(checker), str(report)], capture_output=True, text=True)
-            self.assertNotEqual(result.returncode, 0)
-            self.assertIn('invalid', result.stdout)
-
     def test_live_adapter_errors_fail_closed_without_network_in_unit_tests(self):
         cases = json.loads(CASES.read_text())
         selected = next(case for case in cases if case['id'] == 'empty-request')
