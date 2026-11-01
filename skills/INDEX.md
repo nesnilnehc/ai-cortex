@@ -16,7 +16,7 @@ Provenance markers come from [PROVENANCE.json](./PROVENANCE.json); confirmed AI 
 - [automate-tests](./automate-tests/SKILL.md) — Discover and execute repository test commands safely with evidence-based command selection and safety guardrails.
   - provenance: · [evidence](../experiments/skill-provenance/evidence/automate-tests.json) · [evidence](../experiments/skill-provenance/confirmations/automate-tests.json)
 - [build-artifacts](./build-artifacts/SKILL.md) — Build a project or selected component using its own tools without publishing; use independently or for a release candidate.
-  - provenance: · [evidence](../docs/requirements-planning/AIC-REQ-06.md) · [evidence](../experiments/skill-provenance/confirmations/build-artifacts-2026-11-01-rename.json)
+  - provenance: · [evidence](../docs/requirements-planning/AIC-REQ-06.md) · [evidence](../experiments/skill-provenance/confirmations/build-artifacts-2026-11-01-acceptance.json)
 - [capture-work-items](./capture-work-items/SKILL.md) — Capture requirements, bugs, or issues from free-form input into structured, persistent artifacts. Use when user wants to record a work item quickly without deep validation.
   - provenance: · [evidence](../experiments/skill-provenance/evidence/capture-work-items.json) · [evidence](../experiments/skill-provenance/confirmations/capture-work-items.json)
 - [changelog-video](./changelog-video/SKILL.md) — Generate and validate an optional release video from confirmed Release Package change items using repository-local media tooling; never installs tools or decides or publishes the release.

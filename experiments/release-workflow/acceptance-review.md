@@ -10,8 +10,8 @@ status: active
 The [requirement](../../docs/requirements-planning/AIC-REQ-06.md#acceptance-criteria)
 is accepted through contract and asset review. Its business rules R1–R11 remain
 unchanged. Agent evaluations, real product builds and provider execution are not
-library acceptance gates. Final source confirmation and hosted checks are pending;
-this record does not yet claim complete delivery.
+library acceptance gates. Final source confirmation and catalogue generation passed. The cleanup CI passed;
+the final delivery commit must pass hosted checks before this chat is archived.
 
 ## Contract review, 2026-11-01
 
@@ -23,7 +23,7 @@ this record does not yet claim complete delivery.
 | AC4: outcomes and recovery | Spec 5.8 aggregate and repeat-write paragraphs; publication/announcement sections above. Reviewed required-target pending/failed/unknown cases, optional failure, no successful targets, unknown provider state and announcement-only recovery. | Pass: at least one success and all required completions are necessary; optional failures remain visible; uncertain actions stop for reconciliation and completed results are reused. |
 | AC5: risk exceptions | Spec 5.8 Exception fields and non-waivable conditions; publication policy restrictions. Compared all approver/candidate/target/check/scope/rationale/evidence fields and considered missing policy, another candidate and provider-enforced failure. | Pass: exceptions are scoped, preserve actual outcomes, require project policy and authority, and cannot waive authorization, identity or provider blockers. |
 | AC6: compatibility | Preserved Spec 5.1–5.7, explicit 2.x admission boundary, publication's unknown-schema rejection, announcement's separate 1.x/2.x paths, and [historical consumer checks](../../scripts/check-stable-consumers.py). Reviewed the video handoff's refusal to invent legacy inputs. | Pass: 1.x meanings remain intact; unverified consumers are not enabled for 2.x; the bounded historical checks pass and do not establish deployed-parser or Agent behavior. |
-| AC7: asset integrity and delivery | Source records, generated index, local links, asset versions, bilingual website data and [version 14 publication receipt](website-publication-v14.json). | Source and website delivery were verified; final closeout checks and requirement-evidence confirmation remain pending. |
+| AC7: asset integrity and delivery | Source records, generated index, local links, asset versions, bilingual website data and [version 14 publication receipt](website-publication-v14.json). | Pass: final source evidence is confirmed, all 73 source records and generated outputs validate, and scoped link/format/version/compatibility checks pass. Website version 14 remains the verified deployment. |
 
 Both quality scenarios are covered by the named AC4 and AC2/AC3 reviews. No
 unresolved contract contradiction was found. Alignment coverage is
@@ -39,8 +39,8 @@ contract/instruction review, not an Agent execution claim.
 | C1 | Replace execution acceptance and update scope/quality scenarios | 1 | — | Done | Requirement AC1–AC7 use the owner-approved contract-and-asset boundary |
 | C2 | Review contracts and instructions against AC1–AC6 | 3 | C1 | Done | Criterion-by-criterion named review above |
 | C3 | Remove simulation from acceptance and CI dependencies | 2 | C1 | Done | Retired the duplicate gate models, build tool, journal runner and their tests; CI retains the static example check and independent historical consumer checks |
-| C4 | Reconcile final provenance and generated assets | 2 | C2 | Pending final evidence update | Skill authorship and rename decisions are confirmed; the requirement completion markers need their final source-evidence binding |
-| C5 | Run applicable checks and deliver scoped changes | 2 | C2, C3, C4 | In progress | Local checks and final hosted CI must be recorded before closure |
+| C4 | Reconcile final provenance and generated assets | 2 | C2 | Done | Final native confirmation binds the requirement completion markers; evidence revision `96997540db698eb9b5ffa0915d80612dad4b55b7` and generated catalogue checks pass |
+| C5 | Run applicable checks and deliver scoped changes | 2 | C2, C3, C4 | Final CI pending | Cleanup commit `eecd7e3` passed hosted CI; final generated evidence and closure record are being delivered |
 
 The new static example check retains the existing field-to-Spec comparison and
 checks actual artifact hashes. It does not implement selection, policy exceptions,
@@ -59,3 +59,13 @@ is needed for this closeout. The earlier version 13 receipt remains historical.
 The committed `commit-work` and `refine-skill-design` refinements are complete and
 remain separate from requirement acceptance. No additional product execution,
 channel verification or Skill framework is a closeout prerequisite.
+
+## Verification and delivery
+
+- Contract review: AC1–AC6 and both quality scenarios passed the named reviews above.
+- Static example checks: two passed, covering declared fields and actual artifact bytes.
+- Historical consumer checks: 12 tests passed; pinned reference descriptors remain unchanged.
+- Asset checks: all 73 source records and generated outputs validated; links, document hygiene, CLI documentation, asset counts and asset versions passed.
+- Tracked Markdown: 502 files checked, zero errors.
+- [Cleanup CI](https://github.com/nesnilnehc/ai-cortex/actions/runs/41269382925): success for `eecd7e3a15d1e5f5566338ca29e77cfeedccb893`. The previous REQ 08 blank-line failure is fixed.
+- Other chats: 20 pre-existing working files are preserved byte for byte and excluded from the closeout commits. No product operation or website redeployment was performed.
