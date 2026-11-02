@@ -1,0 +1,39 @@
+{
+  "version_number": 16,
+  "public_url": "https://ai-cortex.nesnilnehc.top/",
+  "source_commit": "f1bff1e5c3d7919add053607074196314d6f9497",
+  "assets_revision": "cf6bdd396f87f81be72b9e0d7dfaea69aeaeddd7",
+  "cache_key": "presales-sync-20261102",
+  "checks": [
+    {
+      "path": "explore/source-manifest.json",
+      "status": 200,
+      "verification": "byte-identical"
+    },
+    {
+      "path": "explore/skill-metadata.json",
+      "status": 200,
+      "verification": "byte-identical"
+    },
+    {
+      "path": "explore/skill-provenance.json",
+      "status": 200,
+      "verification": "byte-identical"
+    },
+    {
+      "path": "index.html",
+      "status": 200,
+      "verification": "current source revision and cache identity present"
+    },
+    {
+      "path": "zh.html",
+      "status": 200,
+      "verification": "current source revision and cache identity present"
+    }
+  ],
+  "tests": {
+    "python": 18,
+    "node": 59
+  },
+  "verification_limit": "No new browser visual check. urllib requests were rejected with HTTP 403; browser user-agent curl requests succeeded."
+}

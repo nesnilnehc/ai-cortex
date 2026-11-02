@@ -1,6 +1,22 @@
 # AI Cortex promotional website
 
-## Current publication: asset synchronization, 2026-11-02
+## Current publication: presales evidence update, 2026-11-02
+
+Sites version 16 is public at [AI Cortex](https://ai-cortex.nesnilnehc.top/),
+with the existing domain and public audience preserved. The catalogue and source
+links now pin `cf6bdd396f87f81be72b9e0d7dfaea69aeaeddd7`, including the reviewed
+prepare-presales-response 1.1.0 and its native provenance confirmation. Runtime
+references use `presales-sync-20261102`; layout and displayed copy are unchanged.
+Only the existing 49 runtime files and hosting manifest were packaged, from
+Sites source commit `f1bff1e5c3d7919add053607074196314d6f9497`.
+
+Validation passed 18 Python website tests and 59 Node tests. Public HTTPS checks
+confirmed byte-identical source manifest, skill metadata and provenance JSON,
+and the current source/cache identity in both homepage editions. No new browser
+visual check is claimed. The [deployment receipt](.openai/deployment.json) and
+[publication checks](.openai/publication-20261102-presales.json) record this update.
+
+## Prior publication: asset synchronization, 2026-11-02
 
 Sites version 15 is public at [AI Cortex](https://ai-cortex.nesnilnehc.top/),
 preserving the existing domain and public audience. Both editions contain 68
