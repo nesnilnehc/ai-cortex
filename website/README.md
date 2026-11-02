@@ -1,8 +1,29 @@
 # AI Cortex promotional website
 
-## Local retirement change, 2026-11-01
+## Current publication: asset synchronization, 2026-11-02
 
-The working tree removes generic build/release assets and their catalogue entries. This local change has not been deployed. The records below describe the prior public version, not the current source catalogue.
+Sites version 15 is public at [AI Cortex](https://ai-cortex.nesnilnehc.top/),
+preserving the existing domain and public audience. Both editions contain 68
+Skills, 20 Specs, 34 Rules and one Protocol, including the build/release asset
+retirement. Asset and provenance links pin `c22d8e5b30ad26a859b71cb39bddfdac1e8991d5`.
+All versioned runtime references use `assets-sync-20261102`, including the legacy
+entries, styles, icons and illustration. Static fallback source links use the
+same asset revision as the interactive catalogue.
+
+Validation passed 59 Node tests, 18 Python website tests, the generated index
+check and the asset count check. Regression assertions first failed on the stale
+cache and source references, then passed after repair. All 49 public runtime
+files passed HTTPS, MIME and source checks: 45 matched byte for byte; four HTML
+files differed only by the recognized provider security script. Browser checks
+covered Chinese search and details, removal of `build-artifacts`, and the English
+legacy entry's redirect into the working Relationships view. The isolated Sites
+source commit is `dc1cbf8121bef8deb8e57e305c056bccdbbcc137`.
+
+The [deployment receipt](.openai/deployment.json) and
+[publication verification](.openai/publication-20261102.json) identify this release.
+Only the 49 runtime files and hosting manifest were packaged. The sections below
+retain prior publication and design evidence; they do not describe the current
+catalogue unless explicitly stated.
 
 ## Prior publication: build-artifacts rename, 2026-11-01
 

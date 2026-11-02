@@ -1,7 +1,7 @@
-import {initializeNavigation} from './site-navigation.mjs?v=project-owned-release-20261101';
-import { initializeTheme } from './theme.mjs?v=project-owned-release-20261101';
-import { initializeLanguage } from './language.mjs?v=project-owned-release-20261101';
-import { bindCopyButton } from './copy.mjs?v=project-owned-release-20261101';
+import {initializeNavigation} from './site-navigation.mjs?v=assets-sync-20261102';
+import { initializeTheme } from './theme.mjs?v=assets-sync-20261102';
+import { initializeLanguage } from './language.mjs?v=assets-sync-20261102';
+import { bindCopyButton } from './copy.mjs?v=assets-sync-20261102';
 
 initializeLanguage(window, document.documentElement.lang === 'zh-CN' ? 'zh' : 'en');
 
@@ -17,4 +17,4 @@ bindCopyButton(
 
 initializeNavigation(window,document);
 
-import './explore/explorer-host.mjs?v=project-owned-release-20261101';
+import './explore/explorer-host.mjs?v=assets-sync-20261102';

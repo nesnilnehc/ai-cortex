@@ -1,7 +1,7 @@
-import sourceEdges from './topic-edges.json?v=project-owned-release-20261101' with {type:'json'};
-import {dictionary} from './locale.mjs?v=project-owned-release-20261101';
+import sourceEdges from './topic-edges.json?v=assets-sync-20261102' with {type:'json'};
+import {dictionary} from './locale.mjs?v=assets-sync-20261102';
 const edges=sourceEdges.map(edge=>({...edge,...dictionary.topicEdges[edge.id]}));
-import {getTopicMap} from './topic-map.mjs?v=project-owned-release-20261101';
+import {getTopicMap} from './topic-map.mjs?v=assets-sync-20261102';
 const nodes=[
  {id:'direction',row:1,column:1,hint:''},
  {id:'planning',row:1,column:2,hint:''},

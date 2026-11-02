@@ -62,7 +62,7 @@ class ExplorerContracts(unittest.TestCase):
                 self.assertNotIn('experiments/', ref)
                 target = (file.parent / unquote(urlsplit(ref).path)).resolve()
                 queue.append(target)
-                if target.suffix in ('.mjs', '.json'):
+                if target.suffix in ('.mjs', '.json', '.css', '.svg', '.png'):
                     self.assertEqual(parse_qs(urlsplit(ref).query).get('v'), [json.loads((EXPLORER / 'source-manifest.json').read_text())['cacheKey']], f'Inconsistent transitive cache identity: {ref}')
         self.assertGreater(len(seen), 20)
 
@@ -79,6 +79,11 @@ class ExplorerContracts(unittest.TestCase):
 
     def test_canonical_sources_and_registry_match_the_verified_local_definitions(self):
         """Covers: AIC-REQ-04#A11; source/usage checks also cover A3/A5/A7/A10."""
+        revision = json.loads((EXPLORER / 'source-manifest.json').read_text())['assetsRevision']
+        for page in (SITE / 'index.html', SITE / 'zh.html', EXPLORER / 'index.html', EXPLORER / 'zh.html'):
+            references = re.findall(r'https://github\.com/nesnilnehc/ai-cortex/(?:blob|tree)/([a-f0-9]{40})/', page.read_text())
+            self.assertTrue(references, page)
+            self.assertEqual(set(references), {revision}, f'Stale source revision: {page}')
         skills = json.loads((EXPLORER / 'skill-metadata.json').read_text())['skills']
         canonical = set(re.findall(r'\]\(\./([^/]+)/SKILL.md\)', (ROOT / 'skills/INDEX.md').read_text()))
         self.assertEqual(set(skills), canonical)
