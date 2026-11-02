@@ -1,7 +1,7 @@
-import {initializeNavigation} from './site-navigation.mjs?v=assets-sync-20261102';
-import { initializeTheme } from './theme.mjs?v=assets-sync-20261102';
-import { initializeLanguage } from './language.mjs?v=assets-sync-20261102';
-import { bindCopyButton } from './copy.mjs?v=assets-sync-20261102';
+import {initializeNavigation} from './site-navigation.mjs?v=presales-sync-20261102';
+import { initializeTheme } from './theme.mjs?v=presales-sync-20261102';
+import { initializeLanguage } from './language.mjs?v=presales-sync-20261102';
+import { bindCopyButton } from './copy.mjs?v=presales-sync-20261102';
 
 initializeLanguage(window, document.documentElement.lang === 'zh-CN' ? 'zh' : 'en');
 
@@ -17,4 +17,4 @@ bindCopyButton(
 
 initializeNavigation(window,document);
 
-import './explore/explorer-host.mjs?v=assets-sync-20261102';
+import './explore/explorer-host.mjs?v=presales-sync-20261102';

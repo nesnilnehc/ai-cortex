@@ -1,9 +1,9 @@
-import {getCallHierarchy} from './relationship-model.mjs?v=assets-sync-20261102';
-import {catalog} from './workflow.mjs?v=assets-sync-20261102';
-import {getNodeDetails,getNodeSkillSelection} from './panel-model.mjs?v=assets-sync-20261102';
-import rawEdges from './skill-edges.json?v=assets-sync-20261102' with {type:'json'};
-import metadata from './skill-metadata.json?v=assets-sync-20261102' with {type:'json'};
-import {dictionary} from './locale.mjs?v=assets-sync-20261102';
+import {getCallHierarchy} from './relationship-model.mjs?v=presales-sync-20261102';
+import {catalog} from './workflow.mjs?v=presales-sync-20261102';
+import {getNodeDetails,getNodeSkillSelection} from './panel-model.mjs?v=presales-sync-20261102';
+import rawEdges from './skill-edges.json?v=presales-sync-20261102' with {type:'json'};
+import metadata from './skill-metadata.json?v=presales-sync-20261102' with {type:'json'};
+import {dictionary} from './locale.mjs?v=presales-sync-20261102';
 const sourceEdges=rawEdges.map(edge=>({...edge,...dictionary.skillEdges[edge.id]}));
 const order=['direction','planning','research','design','quality','build','commit','foundation','collaboration'];
 const ids=new Set(catalog.map(skill=>skill.id));
