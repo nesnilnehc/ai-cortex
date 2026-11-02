@@ -1364,10 +1364,10 @@
     },
     "prepare-presales-response": {
       "classification": "native",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "reviewed_files": {
-        "SKILL.md": "817a71fcc164958b189a4b9d91221b58444a46dc8e6cda3fedfccc9ac3f95644",
-        "references/integration-and-scenarios.md": "c42230eece94bebd683b42b0fcd90ecf501ddf2ed5ceda6d5d1f66c473090a13",
+        "SKILL.md": "ef71a624416d3573c9453f408733d75505f72c03cfe0fbfac2aab5f3055006d2",
+        "references/integration-and-scenarios.md": "71f2171f414a3c2b3e8ead2491be86d1899f883162fe59ab8146f1d71c4c89ea",
         "references/working-layouts.md": "1aad0ed739fb014025b05bcc2a81116884250809667fa430d98aa5bfb8cc21e3"
       },
       "reviewed_evidence": {
@@ -1379,7 +1379,7 @@
           "path": "experiments/skill-provenance/evidence/prepare-presales-response.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/prepare-presales-response-2026-11-01-retirement-cleanup.json"
+          "path": "experiments/skill-provenance/confirmations/prepare-presales-response-2026-11-02-presales-evidence.json"
         }
       ],
       "creation": {
@@ -1387,17 +1387,17 @@
         "revision": "be1c2b91ff306f028fead4f60562083d7f3fae8c"
       },
       "decision": {
-        "maintainer": "Repository maintainer, explicit reply in chat 01a1803e-9883-7aa0-b887-8861238d233f",
-        "confirmed_at": "2026-11-01",
+        "maintainer": "Repository maintainer, explicit reply in the AI Cortex revision chat",
+        "confirmed_at": "2026-11-02",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer explicitly confirmed both source-evidence updates: commit-work retains third-party-adapted classification after removing the retired notice paragraph; prepare-presales-response 1.0.1 retains native classification after removing retired release references. No commit, push or deployment was authorized.",
+        "rationale": "The maintainer explicitly confirmed that prepare-presales-response 1.1.0 remains native with no external creative reference. The reviewed revision clarifies evidence recovery, attributed support/validation/certification claims and bounded delivery proposals, with generic evaluation scenarios.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/prepare-presales-response-2026-11-01-retirement-cleanup.json"
+            "path": "experiments/skill-provenance/confirmations/prepare-presales-response-2026-11-02-presales-evidence.json"
           }
         ],
-        "subject_digest": "78ca8c339008f3391ff2bfa67810f9590df7c9d62822a4bf0cfd8393e229aa3e"
+        "subject_digest": "bef847afd80db4f5c7c0002be141106b7548d2172e385889125475cdb8916a3d"
       }
     },
     "prioritize-backlog": {

@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicit reply in the AI Cortex revision chat",
+  "confirmed_at": "2026-11-02",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer explicitly confirmed that prepare-presales-response 1.1.0 remains native with no external creative reference. The reviewed revision clarifies evidence recovery, attributed support/validation/certification claims and bounded delivery proposals, with generic evaluation scenarios.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/prepare-presales-response-2026-11-02-presales-evidence.json"
+    }
+  ],
+  "subject_digest": "bef847afd80db4f5c7c0002be141106b7548d2172e385889125475cdb8916a3d"
+}
