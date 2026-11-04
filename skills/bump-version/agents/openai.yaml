@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bump Version"
+  short_description: "Apply a chosen version and verify project references"
+  default_prompt: "Use $bump-version to apply the specified target version or increment using this project's existing version mechanism, then verify the local edits."

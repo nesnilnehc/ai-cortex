@@ -112,6 +112,49 @@
         "subject_digest": "c99f8591ba134c7e3dd00bedb8c8aa49efa228899c5634980ef8541b492bd899"
       }
     },
+    "bump-version": {
+      "classification": "native",
+      "version": "0.1.1",
+      "reviewed_files": {
+        "SKILL.md": "e819a3ae651baf6f64d7323612a4f186e9b8ec9c047db169c76c685b127e78cd",
+        "agents/openai.yaml": "f8a7c5393a726db175a10d191f649a5c577615f058b8475a6ce93076885de8ac"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/bump-version-transfer.json": "e84b2f60e48fda5baeac1974140158c9017a8e2e0701ea4200660cb84e45b5db",
+        "experiments/skill-provenance/evidence/bump-version-guards.json": "2363de8fdb04e4805bbb29907487ce590ced70906cbd72bd81d7b9ae09dad096"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/bump-version-transfer.json"
+        },
+        {
+          "path": "experiments/skill-provenance/evidence/bump-version-guards.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/bump-version-guards.json"
+        }
+      ],
+      "creation": {
+        "kind": "requirement",
+        "evidence": {
+          "path": "experiments/skill-provenance/evidence/bump-version-transfer.json"
+        }
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in the bump-version intake chat",
+        "confirmed_at": "2026-11-04",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer explicitly authorized both described guard clarifications after their explanation; the previously confirmed native authorship and MIT distribution authority remain applicable.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/bump-version-guards.json"
+          }
+        ],
+        "subject_digest": "a0eba55d61cfb622bca71b6c89e358d342863dad1dece0539b5f4482bfc07672"
+      }
+    },
     "capture-work-items": {
       "classification": "native",
       "version": "2.3.0",
@@ -788,6 +831,84 @@
           }
         ],
         "subject_digest": "3c9fc2f88e45332ea97070477fae698b08469fb1cb66297bcad26a41d4a686aa"
+      }
+    },
+    "establish-delivery-workflow": {
+      "classification": "native",
+      "version": "1.0.0",
+      "reviewed_files": {
+        "SKILL.md": "08ecd45059ef1c53be0393a17187f82aa595377ea61a4b1da4db68ee58afebcb",
+        "agents/openai.yaml": "ecfd2d8528dcbe3e8c4356a1bf89e839f3e2d668cfb2ab2670d9abd29e4c3ea3"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/establish-delivery-workflow-transfer.json": "ec3e663d5899b912a5abca8bc69e2c97777e24683e5c2883ab629082e22fc408"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/establish-delivery-workflow-transfer.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/establish-delivery-workflow-revision.json"
+        }
+      ],
+      "creation": {
+        "kind": "requirement",
+        "evidence": {
+          "path": "experiments/skill-provenance/evidence/establish-delivery-workflow-transfer.json"
+        }
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in the consolidated version and delivery intake chat",
+        "confirmed_at": "2026-11-04",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer authorized proceeding with the reviewed revisions and their source confirmation after consolidation: pre-upload validated-payload verification and alternative destination identity/read-back evidence. Original authorship, absence of third-party creative reference and MIT distribution authority were explicitly confirmed in the original intake chat.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/establish-delivery-workflow-revision.json"
+          }
+        ],
+        "subject_digest": "6fe741abbb395d6351bc75051889b3070d0d817941f56f50191088a74a156e19"
+      }
+    },
+    "execute-delivery-workflow": {
+      "classification": "native",
+      "version": "1.0.0",
+      "reviewed_files": {
+        "SKILL.md": "a47afb3b1cba00c2accc32a3a48a935164197ddc4a1cfa931646c0583856ec02",
+        "agents/openai.yaml": "6973f1fa1c3f2526667f0ff91d2f2bddac57c4d73a4a33f07f80e15270e19c4e"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/execute-delivery-workflow-transfer.json": "252ebb8ea406162fb49d0e8f82484a4031b0d736eec5d5d5debcd268db637881"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/execute-delivery-workflow-transfer.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/execute-delivery-workflow-revision.json"
+        }
+      ],
+      "creation": {
+        "kind": "requirement",
+        "evidence": {
+          "path": "experiments/skill-provenance/evidence/execute-delivery-workflow-transfer.json"
+        }
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in the consolidated version and delivery intake chat",
+        "confirmed_at": "2026-11-04",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer authorized proceeding with the reviewed revisions and their source confirmation after consolidation: pre-upload validated-payload verification and alternative destination identity/read-back evidence. Original authorship, absence of third-party creative reference and MIT distribution authority were explicitly confirmed in the original intake chat.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/execute-delivery-workflow-revision.json"
+          }
+        ],
+        "subject_digest": "5b613ecad7f4124fbef507a0426cde0250168e59f591d98f04505ae5e1b0f208"
       }
     },
     "generate-agent-entry": {

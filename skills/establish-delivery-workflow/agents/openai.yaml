@@ -1,0 +1,4 @@
+interface:
+  display_name: "Establish Delivery Workflow"
+  short_description: "Establish project-owned artifact delivery workflows"
+  default_prompt: "Use $establish-delivery-workflow to assess this project's existing delivery capabilities, fill the agreed gaps, and provide a verified execution handoff."

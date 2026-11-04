@@ -1,0 +1,12 @@
+{
+  "skill": "bump-version",
+  "version": "0.1.1",
+  "date": "2026-11-04",
+  "request": "The maintainer explicitly requested implementing the two explained safeguards: inspect verification-command side effects and retain exact targets across partial updates and retries.",
+  "changes": [
+    "Clarify the existing side-effect boundary for all project commands, with direct reference comparison as verification fallback.",
+    "Clarify the existing retry boundary by fixing per-domain baselines, targets and synchronization mappings before editing; add a partial-update example."
+  ],
+  "version_rationale": "Patch clarification of existing no-publication and same-target retry requirements; no new capability or output contract.",
+  "provenance": "Original-transfer authorship and MIT authority remain as confirmed in bump-version-transfer.json."
+}

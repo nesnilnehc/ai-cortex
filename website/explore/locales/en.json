@@ -650,6 +650,30 @@
       "provide": "Artifact identity/type, repository instance or endpoint, optional existing account/profile and version/tag/digest; use project configuration when unambiguous.",
       "use": "Use inspect-artifact-state for protocol-specific read-only inspection through bound repository access. Attempt to collect artifact-provided source repositories and commits; for later comparison, report full commits, artifact identity/digest and association evidence or gaps.",
       "result": "A natural-prose artifact brief with evidence and limits. Source claims remain distinct from verified provenance; the Skill does not select a release baseline, compare Git history or infer deployment."
+    },
+    "establish-delivery-workflow": {
+      "name": "establish-delivery-workflow",
+      "purpose": "Establish a project-owned artifact delivery workflow",
+      "when": "A delivery workflow is missing, incomplete, or needs repair.",
+      "provide": "Project, components, delivery intent, known constraints and authorized scope.",
+      "use": "Use establish-delivery-workflow to assess existing scripts and pipelines, resolve decisions, fill agreed gaps and document a durable handoff.",
+      "result": "A target-specific readiness assessment, workflow entry point, verification evidence and remaining gaps."
+    },
+    "execute-delivery-workflow": {
+      "name": "execute-delivery-workflow",
+      "purpose": "Deliver an artifact through an existing project workflow",
+      "when": "A specified source and component must be delivered to an authorized destination.",
+      "provide": "Project, component, source state, version and destination or channel.",
+      "use": "Use execute-delivery-workflow to run the project workflow, track the validated artifact and read it back at the destination.",
+      "result": "A delivery outcome with artifact identity, verification evidence, destination and any unresolved stages."
+    },
+    "bump-version": {
+      "name": "bump-version",
+      "purpose": "Apply a chosen project version",
+      "when": "A project or version domain needs an explicitly chosen target or increment applied.",
+      "provide": "Project or component, version domain when needed, and the exact target or increment.",
+      "use": "Use bump-version to apply the target through the existing safe project mechanism and verify required references.",
+      "result": "Verified local version edits, an explained no-op, or a blocker; release decisions and publishing remain separate."
     }
   },
   "topics": {
@@ -1106,7 +1130,10 @@
         "automate-tests",
         "scaffold-agent-tests",
         "redeploy-local",
-        "inspect-artifact-state"
+        "inspect-artifact-state",
+        "establish-delivery-workflow",
+        "execute-delivery-workflow",
+        "bump-version"
       ],
       "recommended": [
         "automate-tests",
@@ -1708,7 +1735,10 @@
           "automate-tests",
           "redeploy-local",
           "scaffold-agent-tests",
-          "inspect-artifact-state"
+          "inspect-artifact-state",
+          "establish-delivery-workflow",
+          "execute-delivery-workflow",
+          "bump-version"
         ]
       },
       {

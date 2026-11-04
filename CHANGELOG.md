@@ -4,6 +4,13 @@
 
 ### Added
 
+- Add `bump-version` 0.1.1 for mechanical local version edits using an explicit
+  target or increment, with independent version domains, command side-effect
+  checks and retained targets across interrupted updates.
+- Add `establish-delivery-workflow` 1.0.0 and `execute-delivery-workflow` 1.0.0
+  to establish project-owned artifact delivery workflows and run them with
+  validated-payload identity, destination read-back and bounded retry behavior.
+  These capabilities do not restore a shared release framework or Release Package.
 - Add `inspect-artifact-state` 1.0.0 for read-only npm, Maven, NuGet, Python,
   OCI and artifact-directory inspection, with artifact-only evidence and
   reader-oriented reports. Bind each artifact to its repository instance,
