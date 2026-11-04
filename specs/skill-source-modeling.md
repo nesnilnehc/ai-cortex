@@ -2,7 +2,7 @@
 id: SKILL_SOURCE_MODELING_SPEC_V1
 name: Vendored Skill Source Registry Schema
 description: Defines external Skill source records and evidence-backed provenance presentation for the AI Cortex catalog.
-version: 2.1.1
+version: 2.2.0
 status: active
 lifecycle: living
 created_at: 2026-08-26
@@ -22,7 +22,7 @@ related:
 
 ## 1. Position and scope
 
-`skills/SOURCES.yaml` is the machine-readable source registry for AI Cortex's externally derived skills. Every local directory that copies, adapts, forks or substantially borrows an external skill's workflow and continues to be distributed as an AI Cortex skill must be registered. Ordinary tool dependencies and deleted historical Skills are not registered as vendored copies. Creative-reference and tool-lookup sources used in provenance decisions are recorded separately under `references`; they do not assert copying or distribution rights.
+`skills/SOURCES.yaml` is the machine-readable source registry for AI Cortex's third-party-derived skills. Every local directory that copies, adapts, forks or substantially borrows a third-party skill's workflow and continues to be distributed as an AI Cortex skill must be registered. Maintainer-owned original Skills transferred from another project follow §5.4.1 instead. Ordinary tool dependencies and deleted historical Skills are not registered as vendored copies. Creative-reference and tool-lookup sources used in provenance decisions are recorded separately under `references`; they do not assert copying or distribution rights.
 
 At runtime only the local copies under `skills/` are loaded. The registry exists for maintenance, audit, license compliance and SPDX generation. It is not a dependency resolver, and it does not authorise an agent to install anything over the network.
 
@@ -91,7 +91,7 @@ The distributed-file inventory includes Git-tracked and nonignored untracked fil
 
 | Identifier | Meaning and evidence |
 | --- | --- |
-| `native` | Built from scratch in this repository without external creative reference. Creation commit or related requirement plus explicit maintainer confirmation are required; Git history alone is insufficient. Tool documentation consulted only for parameters or command usage does not disqualify originality. |
+| `native` | Built from scratch without third-party creative reference, either in this repository or transferred as a maintainer-owned original under §5.4.1. Creation commit or related requirement plus explicit maintainer confirmation are required; Git history alone is insufficient. Tool documentation consulted only for parameters or command usage does not disqualify originality. |
 | `third_party_original` | All distributed files match a pinned upstream Skill byte for byte, including any local metadata/notices. Full upstream file inventory, revision, license and human-reviewed comparison are required. |
 | `third_party_adapted` | Copied/modified Skill or independent writing informed by external methods, workflows or expression. Record actual sources and local adaptation, including non-Skill articles without an upstream repository. A verified unchanged distribution takes precedence over this category. |
 
@@ -119,6 +119,14 @@ The subject contains Skill ID, version, category, reviewed files, creation, orde
 Any change to the Skill files, category, creation reference, sources, adaptation descriptions or non-confirmation evidence invalidates the old decision. Require a new packet and explicit confirmation; never auto-refresh a digest as a substitute for a person. Export revision changes alone do not change the subject.
 
 Existing contained file aliases are supported for native/adapted distributions: the link target must be relative, resolve to a regular file inside the same Skill, and contain no directory-link or link-chain traversal. Both the link text and the target file are inventoried. This preserves the existing define-roadmap example alias without duplicating maintained data. Link-type or target changes invalidate the decision. Evidence references and `SKILL.md` itself cannot be symlinks; unchanged-upstream claims continue rejecting symlink distributions pending an explicitly reviewed upstream link contract.
+
+#### 5.4.1 Maintainer-owned original transfers
+
+A maintainer-owned Skill may enter from another project, including an uncommitted working copy, as `native` when the maintainer explicitly confirms original authorship, absence of third-party creative reference, and authority to distribute all transferred files under the declared license. A different repository location alone does not establish third-party derivation. Third-party-informed or copied content still follows the existing adapted or unchanged-source process; ownership does not erase creative sources or license obligations.
+
+Record the transfer request and confirmed facts in public local evidence, using the existing `creation.kind: requirement` form. The evidence must identify the Skill, intake date, original relative file inventory with SHA-256 values, distribution license, and changes made during intake. Hash every distributed file in `reviewed_files`; bind the transfer evidence through `reviewed_evidence` and the usual content-bound maintainer decision. Recheck the input hashes before completing intake and preserve the source files. The source working copy need not be committed or published; do not substitute its repository HEAD for an uncommitted file's revision.
+
+Do not create a third-party entry in `skills/SOURCES.yaml` for an original transfer, add a fourth provenance category, or invent an upstream URL or commit. Public evidence must omit private filesystem roots, service addresses, account identifiers and credentials; a generic source description and relative file paths are sufficient. This route changes no schema fields or confirmation requirements and does not authorize commits, pushes, installation or publication.
 
 ### 5.5 Reference entries and supported registry syntax
 

@@ -903,6 +903,46 @@
         "subject_digest": "9650614da9b01f5ff147456ba483dadad9a5b8e42ee4e58928efdf7d5d9e9d96"
       }
     },
+    "inspect-artifact-state": {
+      "classification": "native",
+      "version": "0.1.0",
+      "reviewed_files": {
+        "SKILL.md": "2b361742b01eaa175916191a71beb86d6259798ffcddd6c5633afb38ed93109d",
+        "agents/openai.yaml": "6eab12897512d7365f0fd84b2cd494ed5fc804c4474cc5b69ce47a72bd4482ae",
+        "references/report-format.md": "42cecdcc6a8b1666f9b7e77c2ac22dcd185cfe19ffabd9d7b0cfa8b5455fbe5c"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/inspect-artifact-state-transfer.json": "2e3b9db348179f55ce763608aefca7f5fb37eccf991d39b4c311162d8ec80621"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/inspect-artifact-state-transfer.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/inspect-artifact-state-transfer.json"
+        }
+      ],
+      "creation": {
+        "kind": "requirement",
+        "evidence": {
+          "path": "experiments/skill-provenance/evidence/inspect-artifact-state-transfer.json"
+        }
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming in chat 01a1a54c-2a7d-7862-b0a1-6670b415dad1",
+        "confirmed_at": "2026-11-04",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed no third-party creative reference and MIT distribution authority, reviewed the intake changes, and explicitly authorized treating this Skill as a maintainer-owned original transferred across projects.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/inspect-artifact-state-transfer.json"
+          }
+        ],
+        "subject_digest": "1512655bcd8ebccf1163eec2ebe26fe2688c716e38c358bccaab7c9d9f87dbaf"
+      }
+    },
     "integrate-branches": {
       "classification": "native",
       "version": "2.1.0",
