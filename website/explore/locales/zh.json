@@ -650,6 +650,30 @@
       "provide": "制品标识和类型、制品仓库实例或入口，可选的现有账号或配置及版本、标签、摘要；明确的信息可从项目配置发现。",
       "use": "请用 inspect-artifact-state 按制品协议只读检查，并复用已绑定的制品仓库访问；尝试采集制品记录的源码仓库和提交哈希，供后续比较时明确说明完整提交、制品身份与摘要、关联证据或缺口。",
       "result": "以自然段说明制品现状、证据和限制，区分源码声明与已验证的来源关联；不选择发布基线、不比较 Git 历史，也不推断部署状态。"
+    },
+    "establish-delivery-workflow": {
+      "name": "建立交付流程",
+      "purpose": "建立项目自己的制品交付流程",
+      "when": "项目交付流程缺失、不完整或需要修复。",
+      "provide": "项目、组件、交付意图、已知约束和授权范围。",
+      "use": "检查现有脚本与流水线，解决必要决策，补齐约定的缺口并留下可持续使用的交接信息。",
+      "result": "按目标说明就绪状态、执行入口、源码与版本规则、变更说明前置条件、验证证据和剩余缺口。"
+    },
+    "execute-delivery-workflow": {
+      "name": "执行交付流程",
+      "purpose": "通过项目现有流程交付制品",
+      "when": "需要将指定源码和组件交付到已授权的目标。",
+      "provide": "项目、组件、源码状态、版本以及目标或渠道。",
+      "use": "核对源码与版本身份及目标所需前置条件，运行现有流程并从目标回读制品；上游源码修订另行处理。",
+      "result": "说明交付状态、制品身份、验证证据、目标及未完成的阶段。"
+    },
+    "bump-version": {
+      "name": "修改版本号",
+      "purpose": "应用已选定的项目版本",
+      "when": "需要为项目或版本域应用明确的目标版本或升级级别。",
+      "provide": "项目或组件、必要时指定版本域，以及目标版本或升级级别。",
+      "use": "通过项目现有的安全机制应用目标版本，并核对需要同步的引用。",
+      "result": "经过核对的本地版本修改、无需修改的说明，或阻碍完成的问题；发布决策和发布操作另行处理。"
     }
   },
   "topics": {
@@ -1106,7 +1130,10 @@
         "automate-tests",
         "scaffold-agent-tests",
         "redeploy-local",
-        "inspect-artifact-state"
+        "inspect-artifact-state",
+        "establish-delivery-workflow",
+        "execute-delivery-workflow",
+        "bump-version"
       ],
       "recommended": [
         "automate-tests",
@@ -1708,7 +1735,10 @@
           "automate-tests",
           "redeploy-local",
           "scaffold-agent-tests",
-          "inspect-artifact-state"
+          "inspect-artifact-state",
+          "establish-delivery-workflow",
+          "execute-delivery-workflow",
+          "bump-version"
         ]
       },
       {

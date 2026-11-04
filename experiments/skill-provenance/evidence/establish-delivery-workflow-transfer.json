@@ -1,0 +1,23 @@
+{
+  "skill": "establish-delivery-workflow",
+  "version": "1.0.0",
+  "intake_date": "2026-11-04",
+  "kind": "maintainer-owned-original-transfer",
+  "request": "Transfer the two project delivery workflow Skills into AI Cortex and prepare publication without pushing, tagging or publishing externally.",
+  "source": "Maintainer-owned project-local uncommitted working copy; private environment details intentionally omitted.",
+  "original_files": {
+    "SKILL.md": "997cb83f28c8d8045b3fdb2e794ac5a24c3339a9eaeb87b89fcd385407aed239",
+    "agents/openai.yaml": "ecfd2d8528dcbe3e8c4356a1bf89e839f3e2d668cfb2ab2670d9abd29e4c3ea3"
+  },
+  "license": "MIT",
+  "maintainer_confirmed_facts": [
+    "The Skill is a maintainer-owned original with no third-party creative reference.",
+    "The maintainer confirmed authority to distribute both transferred files under MIT."
+  ],
+  "intake_changes": [
+    "Add initial AI Cortex version 1.0.0 and MIT license metadata to SKILL.md.",
+    "Keep agents/openai.yaml unchanged; distribute the Skill directory directly for Claude Code instead of copying the project-specific command wrapper.",
+    "Refine the destination read-back criterion for targets without a comparable digest."
+  ],
+  "source_preservation": "Original input hashes rechecked; source files and sibling Skills left unchanged."
+}

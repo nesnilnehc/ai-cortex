@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer confirming in the bump-version intake chat",
+  "confirmed_at": "2026-11-04",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer explicitly authorized both described guard clarifications after their explanation; the previously confirmed native authorship and MIT distribution authority remain applicable.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/bump-version-guards.json"
+    }
+  ],
+  "subject_digest": "a0eba55d61cfb622bca71b6c89e358d342863dad1dece0539b5f4482bfc07672"
+}

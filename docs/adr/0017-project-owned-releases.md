@@ -15,7 +15,19 @@ The decision changes the pre-1.0 target inventory, not published history. Existi
 
 Skill provenance presentation, eli5, Ponytail, ordinary code delivery/review and messaging capabilities remain in scope. Source: maintainer confirmation in chat 01a1803e-9883-7aa0-b887-8861238d233f on 2026-11-01.
 
+## Local version edits
+
+On 2026-11-04 the maintainer authorized a bounded, generic version-editing capability. It applies an explicitly selected target or increment using a project's existing version mechanism and verifies the local result. It does not choose release scope or compatibility, analyze release baselines, create release materials, commit, tag, build, upload or publish. Projects retain ownership of those decisions and workflows. This addition does not restore the retired Skills, their IDs, or the Release Package.
+
 ## Verification and delivery boundary
+
+The maintainer's 2026-11-04 clarification separates version edits, description
+authoring, project verification, reviewed commits and delivery execution. Delivery
+consumes offline/project decisions and target-specific description prerequisites;
+it does not impose a universal release-note gate or edit tracked source by default.
+Branch inputs are allowed under project rules with exact source identity. The
+[description-authoring follow-up](../process-management/backlog/2026-11-04-version-change-descriptions.md)
+records an independent capability gap for assessment, not a restored release framework.
 
 The local catalogue has 68 Skills and 20 Specs. Retirement assertions, website model tests, installer integration, retained Findings/coverage consumers and document checks cover removal and unrelated capability preservation. The edited source records have explicit maintainer confirmation and pass local structural validation. Formal catalogue generation follows the local source commit and binds its asset/evidence revisions; the committed-revision gate remains in force. The maintainer authorized local commits and regeneration, not push or deployment. Consumer project repositories and their own release Skills are not modified.
 

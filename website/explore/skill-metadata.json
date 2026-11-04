@@ -827,6 +827,42 @@
         "skills/inspect-artifact-state/SKILL.md": "b178298bb1587537a152dcaf5d3c1004fa6e5e563ec7102238abec68e1cf2daf"
       },
       "entry": "public"
+    },
+    "establish-delivery-workflow": {
+      "id": "establish-delivery-workflow",
+      "description": "Establish or repair a project's artifact delivery workflow by reusing its build, verification, packaging, and upload capabilities and filling evidenced gaps. Use when delivery is missing, incomplete, or needs redesign; an existing delivery run belongs to execute-delivery-workflow.",
+      "owner": "build",
+      "sourcePaths": [
+        "skills/establish-delivery-workflow/SKILL.md"
+      ],
+      "sourceHashes": {
+        "skills/establish-delivery-workflow/SKILL.md": "dbd52aa636b800f46e6c1a887ae73c54df0025010e245198d751fee1cacd385b"
+      },
+      "entry": "public"
+    },
+    "execute-delivery-workflow": {
+      "id": "execute-delivery-workflow",
+      "description": "Run an existing project-owned artifact delivery workflow for a specified source and destination, verifying the resulting artifact at the target. Use for one build-and-deliver operation; missing or broken workflow design belongs to establish-delivery-workflow.",
+      "owner": "build",
+      "sourcePaths": [
+        "skills/execute-delivery-workflow/SKILL.md"
+      ],
+      "sourceHashes": {
+        "skills/execute-delivery-workflow/SKILL.md": "7001792a368a93d79e3be69aceebdca34c9add5fef59604a713ad00adc01ebd6"
+      },
+      "entry": "public"
+    },
+    "bump-version": {
+      "id": "bump-version",
+      "description": "Update a project's version references to an explicit target version or calculate the next version from a supplied increment, then verify consistency. Use for mechanical version changes; compatibility analysis, release scope, changelog authoring, and delivery are separate tasks.",
+      "owner": "build",
+      "sourcePaths": [
+        "skills/bump-version/SKILL.md"
+      ],
+      "sourceHashes": {
+        "skills/bump-version/SKILL.md": "de87df158946c070db2ad7001ce87bfb08f753e1822bebb428ec62fea67b41fd"
+      },
+      "entry": "public"
     }
   },
   "groupOrder": [

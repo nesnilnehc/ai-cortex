@@ -4,6 +4,13 @@
 
 ### Added
 
+- Add `bump-version` 0.1.2 for mechanical local version edits using an explicit
+  target or increment, with independent version domains, command side-effect
+  checks and retained targets across interrupted updates.
+- Add `establish-delivery-workflow` 2.0.0 and `execute-delivery-workflow` 2.0.0
+  to establish project-owned artifact delivery workflows and run them with
+  validated-payload identity, destination read-back and bounded retry behavior.
+  These capabilities do not restore a shared release framework or Release Package.
 - Add `inspect-artifact-state` 1.0.0 for read-only npm, Maven, NuGet, Python,
   OCI and artifact-directory inspection, with artifact-only evidence and
   reader-oriented reports. Bind each artifact to its repository instance,
@@ -13,6 +20,15 @@
   rights and explicit maintainer confirmation recorded locally.
 
 ### Changed
+
+- Delivery Skills 2.0.0 require project/target-specific change-description
+  prerequisites and explicit source/version identity. Execution preserves tracked
+  source by default and reports upstream gaps rather than editing inputs. Branch
+  builds remain supported; notes are not mandatory for every build. Consumers of
+  the 1.0.0 local drafts must provide the relevant target policy and keep upstream
+  version/description repairs separate from a delivery run.
+- `bump-version` 0.1.2 clarifies that offline/project version decisions are valid
+  inputs and description authoring can iterate independently without per-Skill commits.
 
 - `inspect-artifact-state` 1.0.0 requires a bounded attempt to collect
   artifact-provided source repositories and commits. Requests supporting later

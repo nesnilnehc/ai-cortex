@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer confirming in the bump-version intake chat",
+  "confirmed_at": "2026-11-04",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed original authorship without third-party creative reference, MIT distribution authority for the transferred files, and the content-bound intake subject.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/bump-version-transfer.json"
+    }
+  ],
+  "subject_digest": "56188d2dcc6376e00843602207e085800c20ef566cff61c7c59d1a0f38b9b20b"
+}

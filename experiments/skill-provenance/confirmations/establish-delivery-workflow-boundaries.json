@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer confirming the eight version and delivery boundaries in the originating chat",
+  "confirmed_at": "2026-11-04",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed the eight boundaries and requested applying the defined revisions in the consolidated intake. Original authorship, absence of third-party creative reference and MIT distribution authority remain as previously confirmed. This is a new content-bound decision, not reuse of an old digest.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/establish-delivery-workflow-boundaries.json"
+    }
+  ],
+  "subject_digest": "9e0afec58a0b82bca959c869726cce8f9c9658debbc3d52505d97de88f36ef2f"
+}

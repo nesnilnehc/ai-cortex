@@ -74,7 +74,10 @@
         "deliver-feature",
         "integrate-branches",
         "redeploy-local",
-        "inspect-artifact-state"
+        "inspect-artifact-state",
+        "establish-delivery-workflow",
+        "execute-delivery-workflow",
+        "bump-version"
       ]
     },
     {

@@ -112,6 +112,53 @@
         "subject_digest": "c99f8591ba134c7e3dd00bedb8c8aa49efa228899c5634980ef8541b492bd899"
       }
     },
+    "bump-version": {
+      "classification": "native",
+      "version": "0.1.2",
+      "reviewed_files": {
+        "SKILL.md": "de87df158946c070db2ad7001ce87bfb08f753e1822bebb428ec62fea67b41fd",
+        "agents/openai.yaml": "f8a7c5393a726db175a10d191f649a5c577615f058b8475a6ce93076885de8ac"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/bump-version-transfer.json": "e84b2f60e48fda5baeac1974140158c9017a8e2e0701ea4200660cb84e45b5db",
+        "experiments/skill-provenance/evidence/bump-version-guards.json": "2363de8fdb04e4805bbb29907487ce590ced70906cbd72bd81d7b9ae09dad096",
+        "experiments/skill-provenance/evidence/version-delivery-boundaries.json": "0691c82d2b417f938eea0f50e0579a0ee4005ced95e98330df9b735e56fec232"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/bump-version-transfer.json"
+        },
+        {
+          "path": "experiments/skill-provenance/evidence/bump-version-guards.json"
+        },
+        {
+          "path": "experiments/skill-provenance/evidence/version-delivery-boundaries.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/bump-version-boundaries.json"
+        }
+      ],
+      "creation": {
+        "kind": "requirement",
+        "evidence": {
+          "path": "experiments/skill-provenance/evidence/bump-version-transfer.json"
+        }
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming the eight version and delivery boundaries in the originating chat",
+        "confirmed_at": "2026-11-04",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed the eight boundaries and requested applying the defined revisions in the consolidated intake. Original authorship, absence of third-party creative reference and MIT distribution authority remain as previously confirmed. This is a new content-bound decision, not reuse of an old digest.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/bump-version-boundaries.json"
+          }
+        ],
+        "subject_digest": "67152621547eb13948a203da34379d115ee6d8409969b9020281169f1f190249"
+      }
+    },
     "capture-work-items": {
       "classification": "native",
       "version": "2.3.0",
@@ -788,6 +835,92 @@
           }
         ],
         "subject_digest": "3c9fc2f88e45332ea97070477fae698b08469fb1cb66297bcad26a41d4a686aa"
+      }
+    },
+    "establish-delivery-workflow": {
+      "classification": "native",
+      "version": "2.0.0",
+      "reviewed_files": {
+        "SKILL.md": "dbd52aa636b800f46e6c1a887ae73c54df0025010e245198d751fee1cacd385b",
+        "agents/openai.yaml": "ecfd2d8528dcbe3e8c4356a1bf89e839f3e2d668cfb2ab2670d9abd29e4c3ea3"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/establish-delivery-workflow-transfer.json": "ec3e663d5899b912a5abca8bc69e2c97777e24683e5c2883ab629082e22fc408",
+        "experiments/skill-provenance/evidence/version-delivery-boundaries.json": "0691c82d2b417f938eea0f50e0579a0ee4005ced95e98330df9b735e56fec232"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/establish-delivery-workflow-transfer.json"
+        },
+        {
+          "path": "experiments/skill-provenance/evidence/version-delivery-boundaries.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/establish-delivery-workflow-boundaries.json"
+        }
+      ],
+      "creation": {
+        "kind": "requirement",
+        "evidence": {
+          "path": "experiments/skill-provenance/evidence/establish-delivery-workflow-transfer.json"
+        }
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming the eight version and delivery boundaries in the originating chat",
+        "confirmed_at": "2026-11-04",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed the eight boundaries and requested applying the defined revisions in the consolidated intake. Original authorship, absence of third-party creative reference and MIT distribution authority remain as previously confirmed. This is a new content-bound decision, not reuse of an old digest.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/establish-delivery-workflow-boundaries.json"
+          }
+        ],
+        "subject_digest": "9e0afec58a0b82bca959c869726cce8f9c9658debbc3d52505d97de88f36ef2f"
+      }
+    },
+    "execute-delivery-workflow": {
+      "classification": "native",
+      "version": "2.0.0",
+      "reviewed_files": {
+        "SKILL.md": "7001792a368a93d79e3be69aceebdca34c9add5fef59604a713ad00adc01ebd6",
+        "agents/openai.yaml": "6973f1fa1c3f2526667f0ff91d2f2bddac57c4d73a4a33f07f80e15270e19c4e"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/execute-delivery-workflow-transfer.json": "252ebb8ea406162fb49d0e8f82484a4031b0d736eec5d5d5debcd268db637881",
+        "experiments/skill-provenance/evidence/version-delivery-boundaries.json": "0691c82d2b417f938eea0f50e0579a0ee4005ced95e98330df9b735e56fec232"
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/execute-delivery-workflow-transfer.json"
+        },
+        {
+          "path": "experiments/skill-provenance/evidence/version-delivery-boundaries.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/execute-delivery-workflow-boundaries.json"
+        }
+      ],
+      "creation": {
+        "kind": "requirement",
+        "evidence": {
+          "path": "experiments/skill-provenance/evidence/execute-delivery-workflow-transfer.json"
+        }
+      },
+      "decision": {
+        "maintainer": "Repository maintainer confirming the eight version and delivery boundaries in the originating chat",
+        "confirmed_at": "2026-11-04",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed the eight boundaries and requested applying the defined revisions in the consolidated intake. Original authorship, absence of third-party creative reference and MIT distribution authority remain as previously confirmed. This is a new content-bound decision, not reuse of an old digest.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/execute-delivery-workflow-boundaries.json"
+          }
+        ],
+        "subject_digest": "e3b86720672408a1e2d2bddfcda3f1a8b0668ed238e72a5c428dcf6f5d750890"
       }
     },
     "generate-agent-entry": {

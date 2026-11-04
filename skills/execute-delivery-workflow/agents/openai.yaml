@@ -1,0 +1,4 @@
+interface:
+  display_name: "Execute Delivery Workflow"
+  short_description: "Run a project workflow and verify artifact delivery"
+  default_prompt: "Use $execute-delivery-workflow to deliver the selected component through its existing workflow and verify the exact artifact at the requested destination."
