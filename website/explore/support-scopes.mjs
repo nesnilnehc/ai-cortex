@@ -1,7 +1,7 @@
-import records from './support-scopes.json?v=artifact-sources-20261104' with {type:'json'};
-import {dictionary,locale as currentLocale} from './locale.mjs?v=artifact-sources-20261104';
-import en from './locales/en.json?v=artifact-sources-20261104' with {type:'json'};
-import zh from './locales/zh.json?v=artifact-sources-20261104' with {type:'json'};
+import records from './support-scopes.json?v=version-delivery-20261104' with {type:'json'};
+import {dictionary,locale as currentLocale} from './locale.mjs?v=version-delivery-20261104';
+import en from './locales/en.json?v=version-delivery-20261104' with {type:'json'};
+import zh from './locales/zh.json?v=version-delivery-20261104' with {type:'json'};
 export function validateSupportScopes(items){
  if(!Array.isArray(items)||items.length!==2||new Set(items.map(i=>i.providerTopicId)).size!==2)throw Error('Missing support providers');
  const seen=new Set(),topics=new Set(Object.keys(dictionary.topics));

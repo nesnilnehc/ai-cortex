@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-04",
+  "status": "ready for local review; not published",
+  "branch": "feat/project-version-delivery-skills",
+  "source_commit": "b5f7b7280c13880896ea5c6eddb634aaef31cb9f",
+  "skills": {
+    "bump-version": "0.1.1",
+    "establish-delivery-workflow": "1.0.0",
+    "execute-delivery-workflow": "1.0.0"
+  },
+  "scope": "Consolidated local intake and release preparation; no remote writes.",
+  "checks": {
+    "canonical_generation": "72 Skills generated with committed asset and evidence revisions; check passed.",
+    "website_python": "18 passed",
+    "website_node": "59 passed",
+    "links": "No broken relative links or forbidden governance-to-Skill links.",
+    "hygiene": "430 documents checked; no orphans or temporary document findings.",
+    "asset_counts": "72 Skills; README total and category sum match.",
+    "asset_versions": "33 changed versioned assets since v0.6.0; check passed.",
+    "yaml": "All three Skill frontmatters and invocation metadata parsed with Ruby safe YAML.",
+    "markdownlint": "Five changed Markdown files passed before source commit.",
+    "browser": "Local formal output: Chinese desktop delivery category includes all three Skills; bump-version detail and pinned source link verified; screenshot inspected.",
+    "source_preservation": "All three original SKILL.md input hashes rechecked unchanged."
+  },
+  "limitations": [
+    "No real consuming-project version update or artifact delivery was executed.",
+    "No new host invocation acceptance or actual IDE installation was performed.",
+    "New pinned source URLs refer to a local commit; remote availability is unverified until authorized push.",
+    "Responsive/mobile behavior was not rechecked in this intake."
+  ],
+  "remaining_actions": [
+    "Review local source and catalog commits.",
+    "Obtain authorization for merge/push, tags, external SkillHub publication or website deployment as applicable."
+  ]
+}
