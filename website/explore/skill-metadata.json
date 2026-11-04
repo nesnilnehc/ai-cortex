@@ -818,13 +818,13 @@
     },
     "inspect-artifact-state": {
       "id": "inspect-artifact-state",
-      "description": "Inspect project artifacts in an npm registry or artifact directory, reporting artifact presence, versions, locations, channels, and integrity metadata. Use to check what artifacts exist and what is known about them.",
+      "description": "Inspect artifacts in npm, Maven, NuGet, Python package indexes, OCI registries, or artifact directories. Discover and bind the actual artifact type, repository instance, endpoint, and existing account access; report versions, locations, tags, and integrity metadata read-only.",
       "owner": "build",
       "sourcePaths": [
         "skills/inspect-artifact-state/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/inspect-artifact-state/SKILL.md": "2b361742b01eaa175916191a71beb86d6259798ffcddd6c5633afb38ed93109d"
+        "skills/inspect-artifact-state/SKILL.md": "f913909cb015ca0031d92cfb68a28a100bc01dace0e2f376744c54f74acaf229"
       },
       "entry": "public"
     }

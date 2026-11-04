@@ -1,0 +1,43 @@
+{
+  "skill": "inspect-artifact-state",
+  "version": "0.2.0",
+  "date": "2026-11-04",
+  "status": "complete for local review",
+  "branch": "feat/inspect-artifact-state-intake",
+  "source_input_commit": "cdae1e002ea940328e54913ea20e29951a6e942c",
+  "confirmed_subject_digest": "128c841f33a37ccdbe62b540b9a100739b11a5110c573abb03ca1e23f7335361",
+  "confirmation": "experiments/skill-provenance/confirmations/inspect-artifact-state-0.2-methods.json",
+  "changes": {
+    "method_selection": "Select by actual ecosystem/protocol: npm, Maven, NuGet, Python package index, OCI, directory/object store; unsupported operations remain unverified.",
+    "source_binding": "Resolve coordinates, instance/environment, endpoint role/path and existing account/profile as a coherent per-source binding; preserve explicit selections and report conflicts.",
+    "credentials": "Reuse existing connector/client/provider access for the exact target; no secret output, guessed OS account, account cycling, instance fallback, login/config write or machine-specific reference.",
+    "output": "Keep artifact-only facts and narrative briefs; preserve each ecosystem marker and observation/recorded-claim distinction.",
+    "discovery": "Refresh English Skill description, Codex prompt, registry index and bilingual website guidance.",
+    "version_rationale": "0.2.0 adds optional ecosystem coverage and clarifies existing discovery and authorization boundaries. Existing npm/directory inputs and narrative output remain supported; no mandatory new user field or persisted binding format.",
+    "provenance": "Native/MIT retained through explicit content-bound maintainer confirmation; official client/API parameter references registered as tool_lookup only."
+  },
+  "review": {
+    "refine_skill_design_self_check": "Passed all nine items: metadata, executable guidance, preserved supported scope, asset boundaries, tool discovery and absence paths, scoped references, contract/distributed-assets acceptance, version/index sync and substantive-change reporting.",
+    "protocol_contract_review": "Checked endpoint discovery, identifiers, version ordering, markers, pagination, metadata/payload distinction, mutable tags, timestamps and format-specific identity against linked official parameter documentation. This is document review, not live protocol execution.",
+    "binding_contract_review": "Checked unambiguous existing access, conflicting instance/address/profile, explicit endpoint override without credential transfer, multiple protocols/accounts on one manager, opaque token identity, unavailable providers, masked 404 and independent partial inspection. These are instruction-path reviews, not model execution results.",
+    "implementation_boundary": "No bundled executable adapter or checker code added. Prose/metadata changes use local format, provenance, link, installer and website checks; no parallel simulator or new Agent-evaluation gate."
+  },
+  "verification": {
+    "source_provenance": "36 regression tests passed; complete 69-Skill source records and website coverage validated.",
+    "generation": "Canonical index, projection and static catalogue generated against the committed source/evidence snapshot; --check passed.",
+    "website_python": "18 tests passed.",
+    "website_node": "59 tests passed.",
+    "markdown": "434 Markdown files passed repository-wide markdownlint.",
+    "links_hygiene_counts_versions": "Relative links, document hygiene, counts, changed-asset version check and diff whitespace passed.",
+    "metadata": "Ruby safe YAML parsing and Codex invocation reference validated.",
+    "installer": "Actual bin/cortex install in a temporary home: all five file hashes match through .agents, Claude Code and Cursor links; actual user installation untouched.",
+    "browser": "Existing local Chromium: English desktop 1280px and Chinese mobile 390px, light/dark search and detail display; screenshots inspected and no document overflow.",
+    "runtime_source_changes": "JavaScript/CSS changes only update the shared cache query; behavior unchanged."
+  },
+  "limits": [
+    "No authenticated live registry, directory service or credential store accessed during acceptance.",
+    "Per-protocol client/server integration, actual account identity and cross-project agent invocation remain unverified.",
+    "Local pinned commits and generated source URLs are not yet pushed or verified on the public host.",
+    "No package installation, artifact-code execution, tag, push, SkillHub publication or website deployment performed."
+  ]
+}

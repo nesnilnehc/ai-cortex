@@ -1,7 +1,7 @@
-import classificationData from './classification.json?v=artifact-inspection-20261104' with {type:'json'};
-import rawEdges from './skill-edges.json?v=artifact-inspection-20261104' with {type:'json'};
-import metadata from './skill-metadata.json?v=artifact-inspection-20261104' with {type:'json'};
-import {dictionary} from './locale.mjs?v=artifact-inspection-20261104';
+import classificationData from './classification.json?v=artifact-protocols-20261104' with {type:'json'};
+import rawEdges from './skill-edges.json?v=artifact-protocols-20261104' with {type:'json'};
+import metadata from './skill-metadata.json?v=artifact-protocols-20261104' with {type:'json'};
+import {dictionary} from './locale.mjs?v=artifact-protocols-20261104';
 export const classification=structuredClone(classificationData);
 export const relationships=rawEdges.map(e=>({...e,...dictionary.skillEdges[e.id]}));
 export function validateSequences(edges){

@@ -645,10 +645,10 @@
     },
     "inspect-artifact-state": {
       "name": "inspect-artifact-state",
-      "purpose": "Inspect existing artifacts, versions, channels and integrity metadata",
-      "when": "You want to know which artifacts exist in an npm registry or artifact directory and what the source actually records about them.",
-      "provide": "Project or artifact identity, registry or directory location, and optional exact version, channel or requested check.",
-      "use": "Use inspect-artifact-state for read-only discovery and inspection; project configuration may locate the source, while artifact-state facts come from the registry, directory, accompanying metadata or payload.",
+      "purpose": "Inspect artifacts by protocol using bound repository access",
+      "when": "You want to know which artifacts exist in a registry, package index or artifact directory and what that source actually records about them.",
+      "provide": "Artifact identity/type, repository instance or endpoint, optional existing account/profile and version/tag/digest; use project configuration when unambiguous.",
+      "use": "Use inspect-artifact-state to select npm, Maven, NuGet, Python, OCI or directory inspection and bind its instance, endpoint and existing authorized access. Keep operations read-only and stop affected reads on access ambiguity or failure.",
       "result": "A natural-prose brief with relevant evidence and limitations. It distinguishes channel pointers, version ordering and publication time; it does not infer tests, promotion or deployment."
     }
   },

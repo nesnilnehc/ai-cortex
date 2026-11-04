@@ -1,9 +1,9 @@
-import {getCallHierarchy} from './relationship-model.mjs?v=artifact-inspection-20261104';
-import {catalog} from './workflow.mjs?v=artifact-inspection-20261104';
-import {getNodeDetails,getNodeSkillSelection} from './panel-model.mjs?v=artifact-inspection-20261104';
-import rawEdges from './skill-edges.json?v=artifact-inspection-20261104' with {type:'json'};
-import metadata from './skill-metadata.json?v=artifact-inspection-20261104' with {type:'json'};
-import {dictionary} from './locale.mjs?v=artifact-inspection-20261104';
+import {getCallHierarchy} from './relationship-model.mjs?v=artifact-protocols-20261104';
+import {catalog} from './workflow.mjs?v=artifact-protocols-20261104';
+import {getNodeDetails,getNodeSkillSelection} from './panel-model.mjs?v=artifact-protocols-20261104';
+import rawEdges from './skill-edges.json?v=artifact-protocols-20261104' with {type:'json'};
+import metadata from './skill-metadata.json?v=artifact-protocols-20261104' with {type:'json'};
+import {dictionary} from './locale.mjs?v=artifact-protocols-20261104';
 const sourceEdges=rawEdges.map(edge=>({...edge,...dictionary.skillEdges[edge.id]}));
 const order=['direction','planning','research','design','quality','build','commit','foundation','collaboration'];
 const ids=new Set(catalog.map(skill=>skill.id));

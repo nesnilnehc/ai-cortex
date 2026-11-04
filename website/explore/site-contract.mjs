@@ -1,4 +1,4 @@
-import {getSiteDestination} from '../site-navigation.mjs?v=artifact-inspection-20261104';
+import {getSiteDestination} from '../site-navigation.mjs?v=artifact-protocols-20261104';
 export const explorerLanguageRoutes=Object.freeze(Object.fromEntries(['en','zh'].map(locale=>[locale,getSiteDestination('overview',locale).href.split('?')[0]])));
 export function getExplorerRoutes(locale){
  const home=getSiteDestination('home',locale).href,other=locale==='en'?'zh':'en';

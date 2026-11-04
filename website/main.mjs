@@ -1,7 +1,7 @@
-import {initializeNavigation} from './site-navigation.mjs?v=artifact-inspection-20261104';
-import { initializeTheme } from './theme.mjs?v=artifact-inspection-20261104';
-import { initializeLanguage } from './language.mjs?v=artifact-inspection-20261104';
-import { bindCopyButton } from './copy.mjs?v=artifact-inspection-20261104';
+import {initializeNavigation} from './site-navigation.mjs?v=artifact-protocols-20261104';
+import { initializeTheme } from './theme.mjs?v=artifact-protocols-20261104';
+import { initializeLanguage } from './language.mjs?v=artifact-protocols-20261104';
+import { bindCopyButton } from './copy.mjs?v=artifact-protocols-20261104';
 
 initializeLanguage(window, document.documentElement.lang === 'zh-CN' ? 'zh' : 'en');
 
@@ -17,4 +17,4 @@ bindCopyButton(
 
 initializeNavigation(window,document);
 
-import './explore/explorer-host.mjs?v=artifact-inspection-20261104';
+import './explore/explorer-host.mjs?v=artifact-protocols-20261104';
