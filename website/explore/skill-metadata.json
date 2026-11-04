@@ -836,7 +836,7 @@
         "skills/establish-delivery-workflow/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/establish-delivery-workflow/SKILL.md": "08ecd45059ef1c53be0393a17187f82aa595377ea61a4b1da4db68ee58afebcb"
+        "skills/establish-delivery-workflow/SKILL.md": "dbd52aa636b800f46e6c1a887ae73c54df0025010e245198d751fee1cacd385b"
       },
       "entry": "public"
     },
@@ -848,7 +848,7 @@
         "skills/execute-delivery-workflow/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/execute-delivery-workflow/SKILL.md": "a47afb3b1cba00c2accc32a3a48a935164197ddc4a1cfa931646c0583856ec02"
+        "skills/execute-delivery-workflow/SKILL.md": "7001792a368a93d79e3be69aceebdca34c9add5fef59604a713ad00adc01ebd6"
       },
       "entry": "public"
     },
@@ -860,7 +860,7 @@
         "skills/bump-version/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/bump-version/SKILL.md": "e819a3ae651baf6f64d7323612a4f186e9b8ec9c047db169c76c685b127e78cd"
+        "skills/bump-version/SKILL.md": "de87df158946c070db2ad7001ce87bfb08f753e1822bebb428ec62fea67b41fd"
       },
       "entry": "public"
     }

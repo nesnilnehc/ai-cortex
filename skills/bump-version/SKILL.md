@@ -1,7 +1,7 @@
 ---
 name: bump-version
 description: Update a project's version references to an explicit target version or calculate the next version from a supplied increment, then verify consistency. Use for mechanical version changes; compatibility analysis, release scope, changelog authoring, and delivery are separate tasks.
-version: 0.1.1
+version: 0.1.2
 license: MIT
 ---
 
@@ -12,6 +12,8 @@ Apply an already chosen version or increment through the project's version mecha
 ## Inputs
 
 Require a project/component and either an exact target version or an explicit increment supported by its version policy. The current checkout can supply project context. Discover current version and policy from authoritative project configuration and instructions.
+
+The version decision may come from the user, an offline decision or an existing project record; no version-planning skill is required. Version edits and separately prepared change descriptions may be revised in either order without forcing one capability to invoke the other. This skill verifies version references; description facts and scope, code/package verification, and reviewed commits belong to their respective project mechanisms. A version edit does not require an automatic commit.
 
 If neither target nor increment is available, ask for that specific input before editing. Do not inspect requirements, commit history, a release diff, or a registry's latest version to choose major/minor/patch. If the user asks which increment is warranted, explain the missing impact decision and leave that analysis to a separate task. An exact target fixes the intended value; if both target and increment are supplied and disagree, resolve the conflict rather than choosing one silently.
 

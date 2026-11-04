@@ -1,7 +1,7 @@
 ---
 name: establish-delivery-workflow
 description: Establish or repair a project's artifact delivery workflow by reusing its build, verification, packaging, and upload capabilities and filling evidenced gaps. Use when delivery is missing, incomplete, or needs redesign; an existing delivery run belongs to execute-delivery-workflow.
-version: 1.0.0
+version: 2.0.0
 license: MIT
 ---
 
@@ -14,6 +14,8 @@ Make the selected project capable of delivering an identified artifact to a defi
 Require a project/repository, selected component(s), and delivery intent, such as a candidate package for testing or an approved stable release. Discover existing configuration before asking for missing inputs. Accept explicit constraints on runtime, CI, artifact format, version/channel, storage, or changes allowed.
 
 Infer technical implementation from authoritative project evidence. Product decisions such as intended audience, test versus official channel, acceptance gates, or a new publication destination need an established policy or the user's decision. Do not invent them to complete a workflow. Ask only about unresolved choices and continue independent work meanwhile.
+
+Accept target version and delivery scope decided offline or recorded by the project. Do not require a version-planning skill. Preparation of version change descriptions is a separate capability; this workflow consumes the result only when the selected target requires it.
 
 ## Discover and assess
 
@@ -33,14 +35,20 @@ Resolve these execution requirements for each supported delivery target:
 | Requirement | Project-owned decision or evidence |
 | --- | --- |
 | Source and component | Which ref/commit/component is built; clean-checkout or working-tree policy; generated/untracked input treatment |
+| Source and version identity | Exact resolved commit SHA for permitted branch/tag inputs; consistency among tags, version files, build parameters and package version under project rules; isolated build-time injection and its recorded inputs |
 | Environment | Required tools and versions, dependency resolution, runner/container, and any platform constraints |
 | Build and verification | Actual entry points, required checks, explicit pass/fail criteria, and stop conditions |
+| Change description | Whether this target requires notes; existing changelog/release notes/list location, component/version, comparison purpose and baseline/source association, target source, identifiable note revision/digest and unresolved issues when needed |
 | Artifact | Format, exact identity/version source, output selection, storage/retention, and digest method |
 | Destination | Registry/directory and channel/stage mapping; credential reference without a secret value |
 | Success check | Read back the exact artifact at the destination and verify identity and digest where the format permits; otherwise document alternative identity evidence, the read-back method, and its limits |
 | Recovery | Retained artifact location, upload retry, conflict handling, and evidence needed to resume |
 
 Keep build, verification, packaging, upload, and read-back in one coherent invocation when appropriate. Reuse a verified package for upload and retry rather than rebuilding it implicitly. If acceptance and promotion are separate project stages, record the required artifact identity and gate; do not implement an unrequested approval service or assume a channel label proves acceptance. Snapshot/release semantics come from the project and repository format, not hardcoded names.
+
+Set change-description prerequisites per project and target, not for every build: ordinary branch/test builds may omit them; candidate/formal releases follow the project's requirements. Reuse existing documents without requiring a new JSON handoff. Version-reference checks, description fact/scope/target checks, project code/build/package verification, and reviewed commits remain separate responsibilities. The project may commit versions and descriptions together; do not require a commit after each capability.
+
+Support main, feature and defect branch inputs when project rules allow; do not require a tag. Establish execution modes that preserve tracked source, project configuration, version files and descriptions by default while allowing normal outputs, caches, temporary files and authorized upload. If existing scripts edit source, bump, commit, tag or deploy, document those effects and a supported scoped mode or the authorization stop. Build-time version injection may generate files in an isolated build directory; record source, parameters and final artifact identity without representing modified inputs as a pure commit snapshot. Promotion requiring the same artifact must preserve its bytes and version rather than rebuild or relabel it.
 
 For upload conflicts, preserve immutable release versions. Snapshot aliases or other mutable channels require an explicit project policy, distinguishable build identities, and recorded digest/history semantics; never silently overwrite an unrelated payload. Do not use a version label alone as evidence that two artifacts are equal.
 

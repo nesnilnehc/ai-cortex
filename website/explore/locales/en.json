@@ -657,14 +657,14 @@
       "when": "A delivery workflow is missing, incomplete, or needs repair.",
       "provide": "Project, components, delivery intent, known constraints and authorized scope.",
       "use": "Use establish-delivery-workflow to assess existing scripts and pipelines, resolve decisions, fill agreed gaps and document a durable handoff.",
-      "result": "A target-specific readiness assessment, workflow entry point, verification evidence and remaining gaps."
+      "result": "A target-specific readiness assessment, execution entry point, source/version policy, description prerequisites, verification evidence and remaining gaps."
     },
     "execute-delivery-workflow": {
       "name": "execute-delivery-workflow",
       "purpose": "Deliver an artifact through an existing project workflow",
       "when": "A specified source and component must be delivered to an authorized destination.",
       "provide": "Project, component, source state, version and destination or channel.",
-      "use": "Use execute-delivery-workflow to run the project workflow, track the validated artifact and read it back at the destination.",
+      "use": "Use execute-delivery-workflow to check source/version identity and target-specific prerequisites, run the existing workflow, and read back the artifact without repairing upstream source.",
       "result": "A delivery outcome with artifact identity, verification evidence, destination and any unresolved stages."
     },
     "bump-version": {

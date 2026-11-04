@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-04",
+  "kind": "maintainer-confirmed-boundary-revision",
+  "source": "Eight confirmed boundaries relayed from the originating version-workflow chat into the consolidated intake chat.",
+  "skills": {
+    "bump-version": "0.1.2",
+    "establish-delivery-workflow": "2.0.0",
+    "execute-delivery-workflow": "2.0.0"
+  },
+  "retained": [
+    "Explicit offline/project decisions; no mandatory planning skill.",
+    "Mechanical version edits, independent description authoring, project validation, reviewed commits and execution retain separate responsibilities.",
+    "Branch inputs are allowed with exact commit identity; promotion preserves the same artifact."
+  ],
+  "changes": [
+    "Clarify independent description/version iteration and no per-Skill commit.",
+    "Establish per-target notes policy and source/version/build-injection handoff.",
+    "Execute checks required descriptions and evidence, performs the actual workflow and does not repair upstream source by default.",
+    "Inspect implicit source edits before execution; isolate project-defined version injection and retain final source/parameter/artifact identity."
+  ],
+  "version_rationale": {
+    "bump-version": "Patch clarification without new capability or output obligations.",
+    "establish-delivery-workflow": "Major: required source/version and target-specific description handoff obligations.",
+    "execute-delivery-workflow": "Major: new prerequisite checks and explicit default source-edit boundary."
+  },
+  "independent_followup": "docs/process-management/backlog/2026-11-04-version-change-descriptions.md",
+  "scope": "No new authoring Skill, version planner, shared release framework or Release Package. No merge, push or actual publication authorized."
+}
