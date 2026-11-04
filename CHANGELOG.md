@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- Add `inspect-artifact-state` 0.1.0 for read-only npm registry and artifact
+  directory inspection, with artifact-only evidence and reader-oriented reports.
+- Accept maintainer-owned original Skills transferred across projects through
+  the existing native provenance schema, with original file hashes, distribution
+  rights and explicit maintainer confirmation recorded locally.
+
 ## [0.6.0] — 2026-10-23
 
 ### Added

@@ -1,0 +1,49 @@
+{
+  "skill": "inspect-artifact-state",
+  "version": "0.1.0",
+  "date": "2026-11-04",
+  "scope": "Local intake and release preparation only",
+  "status": "complete for local review",
+  "branch": "feat/inspect-artifact-state-intake",
+  "source_input_commit": "48d43981e949a048fb540d61a98fec5bcf3b9a79",
+  "provenance": {
+    "classification": "native",
+    "creation_kind": "requirement",
+    "evidence": "experiments/skill-provenance/evidence/inspect-artifact-state-transfer.json",
+    "confirmation": "experiments/skill-provenance/confirmations/inspect-artifact-state-transfer.json",
+    "source_contract_version": "2.2.0",
+    "schema_changed": false
+  },
+  "review": {
+    "skill_contract": "Passed refine-skill-design self-check: scope, inputs, discovery, failure handling, artifact-only evidence, narrative output, authorization boundaries, references, metadata, and distribution.",
+    "source_and_license": "Maintainer-confirmed original transfer under MIT; all three original file hashes rechecked unchanged.",
+    "privacy": "No private filesystem root, instance name, service address, account, Keychain reference or credential transferred into the Skill or public intake evidence.",
+    "claude_distribution": "Installer links the Skill directory; project command wrapper intentionally not transferred.",
+    "versions": "Initial Skill version 0.1.0; compatible source-contract extension 2.2.0; no product version tag selected."
+  },
+  "verification": {
+    "provenance_regression": "36 tests passed",
+    "canonical_generation": "69 Skills generated and checked with committed source/evidence pins",
+    "website_python": "18 tests passed",
+    "website_node": "59 tests passed",
+    "markdownlint": "All 432 Markdown files passed final repository-wide lint",
+    "relative_links": "No broken relative links or forbidden governance-to-Skill links",
+    "document_hygiene": "424 documents checked; no orphan or temporary document findings",
+    "asset_counts": "69 Skills; README total and category sum match",
+    "asset_versions": "Two changed versioned assets since intake baseline; version check passed",
+    "yaml": "Ruby safe YAML parsing of Skill frontmatter and Codex invocation metadata passed",
+    "distribution": "Real bin/cortex install in a temporary home linked all three files for .agents, Claude Code and Cursor; no changes to actual user IDE installation",
+    "browser": "Existing local Chromium: English desktop at 1280px and Chinese mobile at 390px; search and detail opening passed; screenshots inspected; no mobile document overflow",
+    "whitespace": "git diff --check passed"
+  },
+  "limits": [
+    "No real registry or artifact-source execution; cross-project runtime behavior remains untested.",
+    "Installer links establish distribution, not invocation acceptance in each host.",
+    "Local source commits and their generated public URLs have not been pushed or checked for remote availability.",
+    "No tag, push, SkillHub publication, website deployment or actual user installation performed."
+  ],
+  "remaining_release_actions": [
+    "Review the local branch and commits.",
+    "Obtain authorization before merging/pushing or publishing through a provider."
+  ]
+}

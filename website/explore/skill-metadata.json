@@ -815,6 +815,18 @@
         "skills/ponytail/SKILL.md": "8fcf775f1c5b5172196b7318a5df84a2f28b263405973f2a10145e60f6e026b6"
       },
       "entry": "public"
+    },
+    "inspect-artifact-state": {
+      "id": "inspect-artifact-state",
+      "description": "Inspect project artifacts in an npm registry or artifact directory, reporting artifact presence, versions, locations, channels, and integrity metadata. Use to check what artifacts exist and what is known about them.",
+      "owner": "build",
+      "sourcePaths": [
+        "skills/inspect-artifact-state/SKILL.md"
+      ],
+      "sourceHashes": {
+        "skills/inspect-artifact-state/SKILL.md": "2b361742b01eaa175916191a71beb86d6259798ffcddd6c5633afb38ed93109d"
+      },
+      "entry": "public"
     }
   },
   "groupOrder": [

@@ -1,5 +1,7 @@
 # Skill provenance experiment
 
+- [Artifact inspection Skill intake](inspect-artifact-state-intake.json) — completed local original-transfer preparation and verification; no remote publication.
+
 - [Provenance proposal](proposal.md)
 
 - [Current maintenance review](maintenance-review.md) — evidence packets awaiting explicit maintainer decisions.

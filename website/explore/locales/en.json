@@ -642,6 +642,14 @@
       "provide": "The coding task and optional lite, full or ultra level.",
       "use": "Invoke ponytail explicitly; it remains active until you request normal mode. Repository instructions and required validation still apply.",
       "result": "A complete, focused change with a concise account of checks and remaining risks."
+    },
+    "inspect-artifact-state": {
+      "name": "inspect-artifact-state",
+      "purpose": "Inspect existing artifacts, versions, channels and integrity metadata",
+      "when": "You want to know which artifacts exist in an npm registry or artifact directory and what the source actually records about them.",
+      "provide": "Project or artifact identity, registry or directory location, and optional exact version, channel or requested check.",
+      "use": "Use inspect-artifact-state for read-only discovery and inspection; project configuration may locate the source, while artifact-state facts come from the registry, directory, accompanying metadata or payload.",
+      "result": "A natural-prose brief with relevant evidence and limitations. It distinguishes channel pointers, version ordering and publication time; it does not infer tests, promotion or deployment."
     }
   },
   "topics": {
@@ -1097,7 +1105,8 @@
       "skills": [
         "automate-tests",
         "scaffold-agent-tests",
-        "redeploy-local"
+        "redeploy-local",
+        "inspect-artifact-state"
       ],
       "recommended": [
         "automate-tests",
@@ -1698,7 +1707,8 @@
         "skills": [
           "automate-tests",
           "redeploy-local",
-          "scaffold-agent-tests"
+          "scaffold-agent-tests",
+          "inspect-artifact-state"
         ]
       },
       {

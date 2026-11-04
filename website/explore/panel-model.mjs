@@ -1,6 +1,6 @@
-import {dictionary} from './locale.mjs?v=presales-sync-20261102';
-import {catalog} from './workflow.mjs?v=presales-sync-20261102';
-import metadata from './skill-metadata.json?v=presales-sync-20261102' with {type:'json'};
+import {dictionary} from './locale.mjs?v=artifact-inspection-20261104';
+import {catalog} from './workflow.mjs?v=artifact-inspection-20261104';
+import metadata from './skill-metadata.json?v=artifact-inspection-20261104' with {type:'json'};
 export function getNodeDetails(id){
  if(!Object.hasOwn(dictionary.contexts,id))throw Error('Unknown node');
  const detail=structuredClone(dictionary.contexts[id]);

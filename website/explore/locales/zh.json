@@ -642,6 +642,14 @@
       "provide": "编码任务，以及可选的 lite、full 或 ultra 级别。",
       "use": "显式调用 ponytail；直到要求恢复正常模式前持续生效，仍遵循仓库约定和必要验证。",
       "result": "范围明确、完成任务的改动，以及简洁的验证和风险说明。"
+    },
+    "inspect-artifact-state": {
+      "name": "检查制品现状",
+      "purpose": "检查已有制品、版本、渠道和完整性元数据",
+      "when": "想知道 npm 制品库或制品目录中有哪些制品，以及来源实际记录了哪些信息。",
+      "provide": "项目或制品标识、制品库或目录位置，可选的精确版本、渠道或检查范围。",
+      "use": "请用 inspect-artifact-state 只读发现并检查制品；项目配置仅用于定位，制品事实取自制品库、目录、附带元数据或制品本身。",
+      "result": "以自然段说明现有制品、相关证据和限制，区分渠道指向、版本排序和发布时间，不据此推断测试、晋级或部署结果。"
     }
   },
   "topics": {
@@ -1097,7 +1105,8 @@
       "skills": [
         "automate-tests",
         "scaffold-agent-tests",
-        "redeploy-local"
+        "redeploy-local",
+        "inspect-artifact-state"
       ],
       "recommended": [
         "automate-tests",
@@ -1698,7 +1707,8 @@
         "skills": [
           "automate-tests",
           "redeploy-local",
-          "scaffold-agent-tests"
+          "scaffold-agent-tests",
+          "inspect-artifact-state"
         ]
       },
       {
