@@ -5,7 +5,7 @@ lifecycle: living
 type: issue
 subtype: improvement
 date: 2026-11-04
-status: in-progress
+status: done
 priority: unset
 strategic_goal_id: goal-1
 source: user
@@ -57,8 +57,8 @@ reserved IDs, or the Release Package under
 
 The 3-point assessment is complete as recorded below. On 2026-11-04 the maintainer
 authorized creation of prepare-version-notes with this bounded responsibility.
-Implementation and catalogue intake are in progress; priority and roadmap
-promotion remain unset.
+Implementation and local catalogue intake are complete; priority and roadmap
+promotion remain unset. External publication is outside this creation request.
 
 ## Assessment result — 2026-11-04
 
@@ -103,6 +103,12 @@ authoring, explicit baseline purpose/source association, factual verification an
 a reusable handoff. It adds no executable release framework. Catalogue provenance,
 distribution and document checks complete intake; no live project release is
 required to validate this prose-only asset.
+
+Local acceptance is recorded in the
+[creation review](../../../experiments/skill-provenance/prepare-version-notes-intake.json).
+The Skill and its invocation metadata, native/MIT confirmation, index, website
+catalogue and source pins passed applicable local checks. This closes the
+asset-creation item, without claiming a live project release or host invocation.
 
 ## Review criteria for a later proposal
 

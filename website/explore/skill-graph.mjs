@@ -1,9 +1,9 @@
-import {getCallHierarchy} from './relationship-model.mjs?v=version-delivery-boundaries-20261104';
-import {catalog} from './workflow.mjs?v=version-delivery-boundaries-20261104';
-import {getNodeDetails,getNodeSkillSelection} from './panel-model.mjs?v=version-delivery-boundaries-20261104';
-import rawEdges from './skill-edges.json?v=version-delivery-boundaries-20261104' with {type:'json'};
-import metadata from './skill-metadata.json?v=version-delivery-boundaries-20261104' with {type:'json'};
-import {dictionary} from './locale.mjs?v=version-delivery-boundaries-20261104';
+import {getCallHierarchy} from './relationship-model.mjs?v=prepare-version-notes-20261104';
+import {catalog} from './workflow.mjs?v=prepare-version-notes-20261104';
+import {getNodeDetails,getNodeSkillSelection} from './panel-model.mjs?v=prepare-version-notes-20261104';
+import rawEdges from './skill-edges.json?v=prepare-version-notes-20261104' with {type:'json'};
+import metadata from './skill-metadata.json?v=prepare-version-notes-20261104' with {type:'json'};
+import {dictionary} from './locale.mjs?v=prepare-version-notes-20261104';
 const sourceEdges=rawEdges.map(edge=>({...edge,...dictionary.skillEdges[edge.id]}));
 const order=['direction','planning','research','design','quality','build','commit','foundation','collaboration'];
 const ids=new Set(catalog.map(skill=>skill.id));
