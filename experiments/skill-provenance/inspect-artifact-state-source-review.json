@@ -1,0 +1,123 @@
+{
+  "status": "explicitly confirmed by the maintainer",
+  "subject_digest": "5f6ca6fb9566bd4af095e924ec44b8b553d310e1eb881b77484cf54bca34e52f",
+  "candidate": {
+    "classification": "native",
+    "version": "1.0.0",
+    "reviewed_files": {
+      "SKILL.md": "b178298bb1587537a152dcaf5d3c1004fa6e5e563ec7102238abec68e1cf2daf",
+      "agents/openai.yaml": "fe110054749dfcb4c0d95b6a7fb6d37996b2e484baec3b39a17ccb1b3fde1735",
+      "references/inspection-methods.md": "5e9f5e59b3eaeb921e75a5cbd1f4ee18cd8129723a5051d1bb77331c1396f953",
+      "references/report-format.md": "edafb7b45dceda9e1848e2e0bc2fba93a92ac2d49bcb0fc844f59f49369dd6e8",
+      "references/source-binding.md": "762028fc6cbb55bd77f9d86e182fdf4657ced18faed423af326a4fce4325445f",
+      "references/source-revisions.md": "98678410082cf948cadad8c6ca9fde28e6fc170285567744401295b5852c7f60"
+    },
+    "reviewed_evidence": {
+      "experiments/skill-provenance/evidence/inspect-artifact-state-transfer.json": "2e3b9db348179f55ce763608aefca7f5fb37eccf991d39b4c311162d8ec80621",
+      "experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json": "52237ab320b1c6f5095b0ca3460557cfd29c36845f7e4adda640ac0be6670aec",
+      "experiments/skill-provenance/evidence/inspect-artifact-state-source-revisions.json": "d69a8be3e739534d5f1d1c4f49731ca1e9faeadfe0f190dd0c24bc576bf78721"
+    },
+    "sources": [
+      {
+        "id": "reference:artifact-state-npm-registry-config",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-maven-settings",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-maven-layout",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-maven-metadata",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-nuget-config",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-nuget-service-index",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-nuget-package-content",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-nuget-registration",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-python-simple-api",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-pip-authentication",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-distribution-http-api",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-docker-credential-store",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-npm-view",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-maven-pom-scm",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-nuget-nuspec-repository",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-oci-annotations",
+        "role": "tool_lookup"
+      }
+    ],
+    "evidence": [
+      {
+        "path": "experiments/skill-provenance/evidence/inspect-artifact-state-transfer.json"
+      },
+      {
+        "path": "experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json"
+      },
+      {
+        "path": "experiments/skill-provenance/evidence/inspect-artifact-state-source-revisions.json"
+      },
+      {
+        "path": "experiments/skill-provenance/confirmations/inspect-artifact-state-source-revisions.json"
+      }
+    ],
+    "creation": {
+      "kind": "requirement",
+      "evidence": {
+        "path": "experiments/skill-provenance/evidence/inspect-artifact-state-transfer.json"
+      }
+    },
+    "decision": {
+      "maintainer": "Repository maintainer confirming in chat 01a1a54c-2a7d-7862-b0a1-6670b415dad1",
+      "confirmed_at": "2026-11-04",
+      "action": "confirmed",
+      "classification": "native",
+      "rationale": "The maintainer explicitly confirmed the 1.0.0 draft and native/MIT registration for bounded source-association collection and comparison-oriented evidence/gap reporting. Added official documentation is parameter/field lookup only. The independent major version reflects new execution/output obligations, without selecting a release baseline or comparing Git history.",
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/confirmations/inspect-artifact-state-source-revisions.json"
+        }
+      ],
+      "subject_digest": "5f6ca6fb9566bd4af095e924ec44b8b553d310e1eb881b77484cf54bca34e52f"
+    }
+  },
+  "confirmation": {
+    "path": "experiments/skill-provenance/confirmations/inspect-artifact-state-source-revisions.json"
+  }
+}

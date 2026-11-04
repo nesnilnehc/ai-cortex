@@ -1,0 +1,50 @@
+{
+  "skill": "inspect-artifact-state",
+  "version": "1.0.0",
+  "reviewed_on": "2026-11-04",
+  "request": "By default attempt to collect artifact-provided source associations; expose repository, full commit, artifact binding evidence and gaps when preparing later version or release-scope comparison. Keep Git comparison and release membership outside this Skill.",
+  "changes": [
+    "Query npm exact-version gitHead/repository alongside artifact digest metadata.",
+    "Add ecosystem-specific source field discovery and a bounded default collection path, with no ordinary-inventory bulk payload download.",
+    "Keep artifact digest, source commit, repository, component/build scope and evidence together; distinguish claims, verified provenance bindings and incomplete/conflicting data.",
+    "Require explicit source-association handoff or missing fields for comparison/release-scope use, while keeping ordinary inventory narrative compact.",
+    "Forbid inferring published source from local HEAD, mutable source refs, CI or source history; baseline and target selection remain downstream."
+  ],
+  "version_rationale": "MAJOR under CONTRIBUTING: adds a required default collection attempt and conditional handoff output obligations that were optional in 0.2.0. This independent Skill version does not promote the product stable-core contract or certify runtime maturity.",
+  "migration": "Consumers invoking 0.2.0 must account for bounded source metadata reads and explicit association/gap reporting for comparison-oriented requests; no new mandatory user input, stored configuration or privilege is introduced.",
+  "tool_documentation": [
+    {
+      "id": "artifact-state-npm-view",
+      "title": "npm metadata field query parameters",
+      "url": "https://docs.npmjs.com/cli/v11/commands/npm-view/",
+      "accessed_at": "2026-11-04",
+      "role": "tool_lookup"
+    },
+    {
+      "id": "artifact-state-maven-pom-scm",
+      "title": "Maven POM SCM fields",
+      "url": "https://maven.apache.org/pom.html",
+      "accessed_at": "2026-11-04",
+      "role": "tool_lookup"
+    },
+    {
+      "id": "artifact-state-nuget-nuspec-repository",
+      "title": "NuGet nuspec repository attributes",
+      "url": "https://learn.microsoft.com/en-us/nuget/reference/nuspec",
+      "accessed_at": "2026-11-04",
+      "role": "tool_lookup"
+    },
+    {
+      "id": "artifact-state-oci-annotations",
+      "title": "OCI source and revision annotation fields",
+      "url": "https://github.com/opencontainers/image-spec/blob/main/annotations.md",
+      "accessed_at": "2026-11-04",
+      "role": "tool_lookup"
+    }
+  ],
+  "source_use": "Official field and CLI parameter lookup only; no external Skill or creative workflow copied.",
+  "scope_limits": [
+    "No real private service, credential-store access or artifact-code execution for acceptance.",
+    "No source Git traversal or actual release-scope derivation."
+  ]
+}

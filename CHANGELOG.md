@@ -4,13 +4,23 @@
 
 ### Added
 
-- Add `inspect-artifact-state` 0.2.0 for read-only npm, Maven, NuGet, Python,
+- Add `inspect-artifact-state` 1.0.0 for read-only npm, Maven, NuGet, Python,
   OCI and artifact-directory inspection, with artifact-only evidence and
   reader-oriented reports. Bind each artifact to its repository instance,
   effective endpoint and existing account access without machine-specific config.
 - Accept maintainer-owned original Skills transferred across projects through
   the existing native provenance schema, with original file hashes, distribution
   rights and explicit maintainer confirmation recorded locally.
+
+### Changed
+
+- `inspect-artifact-state` 1.0.0 requires a bounded attempt to collect
+  artifact-provided source repositories and commits. Requests supporting later
+  version or release-scope comparison must expose the artifact identity/digest,
+  full recorded source revision, association evidence and relevant gaps.
+  Consumers of 0.2.0 must account for these additional reads and conditional
+  output obligations. Recorded source claims remain distinct from verified
+  provenance; Git comparison and release-baseline selection stay outside the Skill.
 
 ## [0.6.0] — 2026-10-23
 

@@ -645,11 +645,11 @@
     },
     "inspect-artifact-state": {
       "name": "inspect-artifact-state",
-      "purpose": "Inspect artifacts by protocol using bound repository access",
-      "when": "You want to know which artifacts exist in a registry, package index or artifact directory and what that source actually records about them.",
+      "purpose": "Inspect artifacts and their recorded source revisions",
+      "when": "You want artifact inventory or source-association evidence to inform a later version or release-scope comparison.",
       "provide": "Artifact identity/type, repository instance or endpoint, optional existing account/profile and version/tag/digest; use project configuration when unambiguous.",
-      "use": "Use inspect-artifact-state to select npm, Maven, NuGet, Python, OCI or directory inspection and bind its instance, endpoint and existing authorized access. Keep operations read-only and stop affected reads on access ambiguity or failure.",
-      "result": "A natural-prose brief with relevant evidence and limitations. It distinguishes channel pointers, version ordering and publication time; it does not infer tests, promotion or deployment."
+      "use": "Use inspect-artifact-state for protocol-specific read-only inspection through bound repository access. Attempt to collect artifact-provided source repositories and commits; for later comparison, report full commits, artifact identity/digest and association evidence or gaps.",
+      "result": "A natural-prose artifact brief with evidence and limits. Source claims remain distinct from verified provenance; the Skill does not select a release baseline, compare Git history or infer deployment."
     }
   },
   "topics": {

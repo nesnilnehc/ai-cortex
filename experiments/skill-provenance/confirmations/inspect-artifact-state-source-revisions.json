@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer confirming in chat 01a1a54c-2a7d-7862-b0a1-6670b415dad1",
+  "confirmed_at": "2026-11-04",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer explicitly confirmed the 1.0.0 draft and native/MIT registration for bounded source-association collection and comparison-oriented evidence/gap reporting. Added official documentation is parameter/field lookup only. The independent major version reflects new execution/output obligations, without selecting a release baseline or comparing Git history.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/inspect-artifact-state-source-revisions.json"
+    }
+  ],
+  "subject_digest": "5f6ca6fb9566bd4af095e924ec44b8b553d310e1eb881b77484cf54bca34e52f"
+}

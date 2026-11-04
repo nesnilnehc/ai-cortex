@@ -905,17 +905,19 @@
     },
     "inspect-artifact-state": {
       "classification": "native",
-      "version": "0.2.0",
+      "version": "1.0.0",
       "reviewed_files": {
-        "SKILL.md": "f913909cb015ca0031d92cfb68a28a100bc01dace0e2f376744c54f74acaf229",
-        "agents/openai.yaml": "4b3496e235cb5792986a162b961a223329fadf09b1b6074c8bd02a6747fb504a",
-        "references/inspection-methods.md": "feebf197de609c4063bfd026925775b91f81f36ca856a9a3b6901fa462a81338",
-        "references/report-format.md": "8d9c304be0000c4d3b5903349080a8a9b1b2918672da51590dd09903c508de18",
-        "references/source-binding.md": "762028fc6cbb55bd77f9d86e182fdf4657ced18faed423af326a4fce4325445f"
+        "SKILL.md": "b178298bb1587537a152dcaf5d3c1004fa6e5e563ec7102238abec68e1cf2daf",
+        "agents/openai.yaml": "fe110054749dfcb4c0d95b6a7fb6d37996b2e484baec3b39a17ccb1b3fde1735",
+        "references/inspection-methods.md": "5e9f5e59b3eaeb921e75a5cbd1f4ee18cd8129723a5051d1bb77331c1396f953",
+        "references/report-format.md": "edafb7b45dceda9e1848e2e0bc2fba93a92ac2d49bcb0fc844f59f49369dd6e8",
+        "references/source-binding.md": "762028fc6cbb55bd77f9d86e182fdf4657ced18faed423af326a4fce4325445f",
+        "references/source-revisions.md": "98678410082cf948cadad8c6ca9fde28e6fc170285567744401295b5852c7f60"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/inspect-artifact-state-transfer.json": "2e3b9db348179f55ce763608aefca7f5fb37eccf991d39b4c311162d8ec80621",
-        "experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json": "52237ab320b1c6f5095b0ca3460557cfd29c36845f7e4adda640ac0be6670aec"
+        "experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json": "52237ab320b1c6f5095b0ca3460557cfd29c36845f7e4adda640ac0be6670aec",
+        "experiments/skill-provenance/evidence/inspect-artifact-state-source-revisions.json": "d69a8be3e739534d5f1d1c4f49731ca1e9faeadfe0f190dd0c24bc576bf78721"
       },
       "sources": [
         {
@@ -965,6 +967,22 @@
         {
           "id": "reference:artifact-state-docker-credential-store",
           "role": "tool_lookup"
+        },
+        {
+          "id": "reference:artifact-state-npm-view",
+          "role": "tool_lookup"
+        },
+        {
+          "id": "reference:artifact-state-maven-pom-scm",
+          "role": "tool_lookup"
+        },
+        {
+          "id": "reference:artifact-state-nuget-nuspec-repository",
+          "role": "tool_lookup"
+        },
+        {
+          "id": "reference:artifact-state-oci-annotations",
+          "role": "tool_lookup"
         }
       ],
       "evidence": [
@@ -975,7 +993,10 @@
           "path": "experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/inspect-artifact-state-0.2-methods.json"
+          "path": "experiments/skill-provenance/evidence/inspect-artifact-state-source-revisions.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/inspect-artifact-state-source-revisions.json"
         }
       ],
       "creation": {
@@ -989,13 +1010,13 @@
         "confirmed_at": "2026-11-04",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer explicitly confirmed this 0.2.0 content-bound draft and native/MIT source registration. Official documentation was used only to check configuration parameters and API fields; no third-party Skill or creative workflow was incorporated.",
+        "rationale": "The maintainer explicitly confirmed the 1.0.0 draft and native/MIT registration for bounded source-association collection and comparison-oriented evidence/gap reporting. Added official documentation is parameter/field lookup only. The independent major version reflects new execution/output obligations, without selecting a release baseline or comparing Git history.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/inspect-artifact-state-0.2-methods.json"
+            "path": "experiments/skill-provenance/confirmations/inspect-artifact-state-source-revisions.json"
           }
         ],
-        "subject_digest": "128c841f33a37ccdbe62b540b9a100739b11a5110c573abb03ca1e23f7335361"
+        "subject_digest": "5f6ca6fb9566bd4af095e924ec44b8b553d310e1eb881b77484cf54bca34e52f"
       }
     },
     "integrate-branches": {
