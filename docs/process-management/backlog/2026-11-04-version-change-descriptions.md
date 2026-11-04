@@ -55,9 +55,43 @@ public name require an explicit scope decision. Do not restore prepare-release,
 reserved IDs, or the Release Package under
 [ADR 0017](../../adr/0017-project-owned-releases.md).
 
-The next assessment is estimated at 3 story points: inspect existing mechanisms,
-settle the input/output boundary and propose its home. This does not authorize
-implementation, priority or roadmap promotion.
+The 3-point assessment is complete as recorded below. Implementation, priority
+and roadmap promotion remain unapproved.
+
+## Assessment result — 2026-11-04
+
+Read-only inspection of the originating project's current local files found:
+
+| Existing mechanism | Verified responsibility | Gap against this request |
+| --- | --- | --- |
+| update-version-files | Writes the existing changelog and updates package, lockfile and server versions | Couples authoring to mechanical version edits and a project-specific four-file workflow |
+| resolve-version-scope | Reads scope evidence and compares implementation with supplied decisions | Defaults to the last completed version update, which cannot establish the previous formal-channel delivery baseline |
+| verify-version | Checks version equality, changelog entry, tests and package contents | Combines project verification and description checks rather than owning description authoring |
+| commit-version | Reviews and commits the project's verified upgrade files | Commits existing work; does not provide independent authoring |
+
+The project already has a maintained changelog with versioned entries. Its package
+and pipeline define build/test/pack/publish behavior; no independent authoring
+entry was found in the inspected project-local Skill and command directories,
+package scripts or delivery documentation. This is a scoped local observation,
+not a claim that every project lacks such a mechanism. The inspected source
+working tree was left unchanged; no registry or live pipeline was queried.
+
+Recommendation: assess a narrow shared capability named **prepare-version-notes**.
+Its trigger would be a request to prepare or revise notes for an already selected
+component/version/scope and comparison purpose. Inputs are the selected source,
+scope and baseline evidence plus the project's existing note convention. Output
+is an updated existing description and a concise, source-associated handoff with
+unresolved gaps. It owns facts/scope/target consistency, not compatibility advice,
+requirement assignment, version edits, commits or artifact delivery. A previous
+formal-channel artifact's recorded source may be supplied by the user or an
+existing inspection result; no mandatory companion Skill is implied.
+
+The reusable responsibility is independent of the observed package manager and
+four-file layout, so a shared atomic capability is preferable to transferring
+the coupled project workflow unchanged. A project-owned adapter remains valid
+when its local convention already performs this responsibility. Before creating
+the shared Skill, the maintainer must approve the name and this bounded scope.
+That decision is separate from delivering the three already reviewed Skills.
 
 ## Review criteria for a later proposal
 
