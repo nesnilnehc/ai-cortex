@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer confirming in chat 01a1a54c-2a7d-7862-b0a1-6670b415dad1",
+  "confirmed_at": "2026-11-04",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer explicitly confirmed this 0.2.0 content-bound draft and native/MIT source registration. Official documentation was used only to check configuration parameters and API fields; no third-party Skill or creative workflow was incorporated.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/inspect-artifact-state-0.2-methods.json"
+    }
+  ],
+  "subject_digest": "128c841f33a37ccdbe62b540b9a100739b11a5110c573abb03ca1e23f7335361"
+}

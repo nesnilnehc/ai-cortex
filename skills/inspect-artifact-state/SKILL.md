@@ -1,13 +1,13 @@
 ---
 name: inspect-artifact-state
-version: 0.1.0
+version: 0.2.0
 license: MIT
-description: Inspect project artifacts in an npm registry or artifact directory, reporting artifact presence, versions, locations, channels, and integrity metadata. Use to check what artifacts exist and what is known about them.
+description: Inspect artifacts in npm, Maven, NuGet, Python package indexes, OCI registries, or artifact directories. Discover and bind the actual artifact type, repository instance, endpoint, and existing account access; report versions, locations, tags, and integrity metadata read-only.
 ---
 
 # Inspect Artifact State
 
-Produce a read-only inventory and status report for the selected project's artifacts. Supported sources are npm registries and local or remotely accessible artifact directories. A source checkout is optional when artifact identity and location are explicit. Directory inspection can list arbitrary file types and read manifests; npm tarballs have the package-identity inspection described below. Other registry protocols and format-specific payload validation require an appropriate available read-only capability; report unsupported coverage instead of applying npm semantics to them.
+Produce a read-only inventory and status report for the selected project's artifacts. Select the inspection method by the actual artifact ecosystem and source protocol, covering npm, Maven, NuGet, Python package indexes, OCI registries, and local or remotely accessible artifact directories. A source checkout is optional when identity and location are explicit. A repository manager can expose several protocols at different endpoints; its product name does not select a protocol. Unsupported formats or unavailable read-only capabilities remain explicitly unverified.
 
 Use the reader-oriented narrative brief in [references/report-format.md](references/report-format.md), including for partial or blocked inspections. The report describes artifact state; repository version comparison and release decisions belong to other workflows.
 
@@ -15,11 +15,19 @@ Use the reader-oriented narrative brief in [references/report-format.md](referen
 
 Accept the project or artifact identity, source type and location, and optional exact version, build identifier, channel, or requested checks. Resolve inputs in this order: explicit user values; authoritative project artifact/release configuration; package metadata and the applicable publishing pipeline. Record the source of each resolved value. For npm, read the package name from the selected package's `package.json.name` and registry from `publishConfig.registry`, applicable scope configuration, or actual pipeline settings. In a monorepo, select the requested package rather than assuming the root package is the artifact. Never dump credential-bearing configuration. A generic npm installation default does not by itself establish the project's publication target.
 
+Apply [source and account binding](references/source-binding.md) to the resolved target. Retain the instance, protocol-specific endpoint and role, artifact coordinates, and existing access profile as one binding for this inspection. Use the current project's conventions; no new configuration file or repeated account confirmation is required when an unambiguous authorized binding already exists. A package type, source alias or remembered credential alone does not establish the other fields.
+
 Pipeline configuration may be read only to locate the artifact source. Do not query CI jobs, build results, logs, or test/promotion history under this skill. Explicit user input takes precedence. Record the actual source used, observation time in the user's timezone, filters, and whether the source is a publication registry, aggregate installation endpoint, or file directory.
 
 Configured pipeline defaults identify a candidate source, not proof of where any particular build published. Verify artifact presence at the selected source directly. Do not expand into runtime build investigation to resolve a routine inventory request. If the target remains ambiguous, ask which location to inspect while reporting any unambiguous configuration already found. Do not invent a test directory or silently switch registries after failure. A directory containing tarballs is not automatically an npm registry endpoint.
 
-Use existing read-only access. Discover available registry or storage tools by their capabilities; prefer a sufficient connected tool, otherwise use npm CLI or local filesystem access. If required access is unavailable, report the inaccessible source and continue any independent inspection. Never print credentials, authentication configuration, or signed download URLs.
+Use existing authorized access for read-only operations. Discover available registry or storage tools by their capabilities; prefer a sufficient connected tool bound to the selected instance, otherwise use an existing protocol-aware client, read-only HTTP capability, or filesystem access. Follow [inspection methods](references/inspection-methods.md) for the selected ecosystem only. Do not install a client, restore dependencies, run a build tool or execute project configuration to discover artifacts. If required access or a safe method is unavailable, report the inaccessible source or unsupported operation and continue independent inspection. Never print credentials, authentication configuration, or signed download URLs.
+
+## Select the inspection method
+
+Match artifact coordinates and authoritative source configuration to the protocol: npm package name; Maven group/artifact/version plus classifier and extension; NuGet package ID/version; Python distribution/version and files; OCI repository plus tag or digest; or a selected directory/object prefix. Confirm the endpoint's advertised capability with authorized metadata access rather than guessing URL suffixes from a product homepage. Mixed projects can have several bindings, one per artifact/source; do not route every output through the first discovered registry.
+
+Use the corresponding section of [inspection methods](references/inspection-methods.md), including its limits on versions, timestamps, markers and payload identity. Never apply npm `latest` or SemVer semantics to every ecosystem. Other formats use a documented source-specific read-only API or the directory path with bounded manifest inspection. Where no trustworthy method is available, report the precise missing capability without substituting another registry or attempting installation.
 
 ## Inspect an npm registry
 

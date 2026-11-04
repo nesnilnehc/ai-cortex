@@ -23,11 +23,14 @@ Expand only when the user asks, an anomaly needs explanation, or multiple artifa
 
 Collected evidence should retain these fields so a follow-up can be answered accurately; collect deeper artifact evidence only as warranted by the requested inspection. All artifact-state facts must originate in the registry, artifact directory, accompanying metadata, or inspected payload. Repository changelogs, release notes, Git history, and CI records are not report sources:
 
-- **Scope:** project/component, artifact type, exact source, source-selection configuration, observation time/timezone, filters, access and traversal limits, pagination/truncation, and whether evidence was reused from an earlier observation.
+- **Scope:** project/component, actual ecosystem/protocol, artifact coordinates, instance/environment, effective endpoint and repository role, source-selection configuration, observation time/timezone, filters, access and traversal limits, pagination/truncation, and whether evidence was reused from an earlier observation. Retain the selected non-secret access-profile reference and whether the principal is known when relevant to coverage; do not expose credentials or insert account identifiers into the brief by default.
 - **Inventory:** name, version, immutable artifact/build identifier, location, channel/stage, and time with its meaning. Keep separate builds/locations separate even if versions match. For npm, distinguish default-channel version, highest stable, highest prerelease, and most recent publication. Full inventories state count, coverage, and omitted entries. Publication, build, and modification times are not interchangeable.
+
 - **Verification:** assess artifact presence/identity, location/version/channel, recorded stage, and integrity metadata. Source identifiers or test labels may be described only as metadata claims returned by the artifact source; do not investigate external process records here. Unknown or unperformed checks remain unverified; not every dimension needs its own row in the brief. Use the status vocabulary below in detailed tables.
 - **Findings:** expected versus observed state, affected artifacts, evidence, and practical consequence. Identify the expectation or policy before calling channel drift or missing metadata abnormal.
 - **Open questions:** missing evidence, why it matters, and a concrete next read-only check. Distinguish a decision blocker from an optional deeper check.
+
+Use ecosystem-specific markers in that inventory: Maven snapshot builds/classifiers, NuGet listed state, Python yanked files and wheel variants, OCI tags/digests/platforms, or directory/object versions. Do not invent a channel for an ecosystem that has none, equate OCI tags with ordered releases, or treat a proxy's visibility as proof of hosted storage. Missing access and unsupported protocol capabilities qualify the affected conclusion; they are not proof that the artifact is absent.
 
 Optional detail layouts:
 

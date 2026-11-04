@@ -1,4 +1,4 @@
 interface:
   display_name: "Inspect Artifact State"
-  short_description: "Inspect artifact availability, channels, and metadata"
-  default_prompt: "Use $inspect-artifact-state to inspect the selected project's artifacts and summarize the current artifact, its observed location or label, artifact-level issues, and next action; explain the situation in natural prose and expand evidence only as needed."
+  short_description: "Inspect artifacts through bound repository access"
+  default_prompt: "Use $inspect-artifact-state to select the actual artifact protocol and bind its repository instance, endpoint and existing account access. Inspect read-only, summarize current artifacts, observed labels, issues and useful next actions in natural prose, and expand evidence only as needed."
