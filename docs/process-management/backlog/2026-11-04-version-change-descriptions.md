@@ -5,7 +5,7 @@ lifecycle: living
 type: issue
 subtype: improvement
 date: 2026-11-04
-status: captured
+status: in-progress
 priority: unset
 strategic_goal_id: goal-1
 source: user
@@ -55,8 +55,10 @@ public name require an explicit scope decision. Do not restore prepare-release,
 reserved IDs, or the Release Package under
 [ADR 0017](../../adr/0017-project-owned-releases.md).
 
-The 3-point assessment is complete as recorded below. Implementation, priority
-and roadmap promotion remain unapproved.
+The 3-point assessment is complete as recorded below. On 2026-11-04 the maintainer
+authorized creation of prepare-version-notes with this bounded responsibility.
+Implementation and catalogue intake are in progress; priority and roadmap
+promotion remain unset.
 
 ## Assessment result — 2026-11-04
 
@@ -92,6 +94,15 @@ the coupled project workflow unchanged. A project-owned adapter remains valid
 when its local convention already performs this responsibility. Before creating
 the shared Skill, the maintainer must approve the name and this bounded scope.
 That decision is separate from delivering the three already reviewed Skills.
+
+## Implementation
+
+The maintainer subsequently approved creating the independent AI Cortex asset.
+The [Skill source](../../../skills/prepare-version-notes/SKILL.md) implements note
+authoring, explicit baseline purpose/source association, factual verification and
+a reusable handoff. It adds no executable release framework. Catalogue provenance,
+distribution and document checks complete intake; no live project release is
+required to validate this prose-only asset.
 
 ## Review criteria for a later proposal
 

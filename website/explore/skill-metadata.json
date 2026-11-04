@@ -863,6 +863,18 @@
         "skills/bump-version/SKILL.md": "de87df158946c070db2ad7001ce87bfb08f753e1822bebb428ec62fea67b41fd"
       },
       "entry": "public"
+    },
+    "prepare-version-notes": {
+      "id": "prepare-version-notes",
+      "description": "Prepare or revise version change descriptions for an already selected component, target version and scope, using project conventions and explicit source comparisons. Use for changelog entries, version notes or release lists; version selection, source edits and artifact delivery are separate tasks.",
+      "owner": "build",
+      "sourcePaths": [
+        "skills/prepare-version-notes/SKILL.md"
+      ],
+      "sourceHashes": {
+        "skills/prepare-version-notes/SKILL.md": "7a50caa42b291e0767213c505fd92397ce4afb1d64a2841e5a3f8dfc1b3ce06e"
+      },
+      "entry": "public"
     }
   },
   "groupOrder": [

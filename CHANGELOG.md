@@ -4,6 +4,9 @@
 
 ### Added
 
+- Add `prepare-version-notes` 0.1.0 for independent change-description authoring
+  using selected version/scope, explicit baseline/source associations and project
+  document conventions, without version edits, commits or delivery.
 - Add `bump-version` 0.1.2 for mechanical local version edits using an explicit
   target or increment, with independent version domains, command side-effect
   checks and retained targets across interrupted updates.

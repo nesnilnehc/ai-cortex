@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prepare Version Notes"
+  short_description: "Write version notes from selected scope and source evidence"
+  default_prompt: "Use $prepare-version-notes to prepare or revise this project's existing change description for the selected component, version and scope, with an explicit comparison purpose, source associations and verification."

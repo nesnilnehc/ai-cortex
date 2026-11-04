@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer confirming the new Skill and local intake in the prepare-version-notes creation chat",
+  "confirmed_at": "2026-11-04",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer explicitly confirmed this content-bound Skill as AI Cortex original without third-party creative reference, MIT licensing, and the local source/catalog commits needed for intake. The confirmation does not authorize push or external publication.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/prepare-version-notes-creation.json"
+    }
+  ],
+  "subject_digest": "b0459fd29442a20b2768436b11332cd230347faeae024f26cc32eb9a243f72df"
+}
