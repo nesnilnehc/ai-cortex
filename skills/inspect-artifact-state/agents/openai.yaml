@@ -1,4 +1,4 @@
 interface:
   display_name: "Inspect Artifact State"
-  short_description: "Inspect artifacts through bound repository access"
-  default_prompt: "Use $inspect-artifact-state to select the actual artifact protocol and bind its repository instance, endpoint and existing account access. Inspect read-only, summarize current artifacts, observed labels, issues and useful next actions in natural prose, and expand evidence only as needed."
+  short_description: "Inspect artifacts and recorded source revisions"
+  default_prompt: "Use $inspect-artifact-state to inspect artifacts read-only through their bound repository access and attempt to collect recorded source repositories and commits. Summarize in natural prose; when preparing a later version or release-scope comparison, explicitly include artifact identity/digest, full recorded source commits, association evidence and gaps without choosing a baseline or comparing Git history."

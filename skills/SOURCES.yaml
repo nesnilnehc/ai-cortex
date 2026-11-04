@@ -142,3 +142,31 @@ references:
     kind: tool_documentation
     evidence:
       path: experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json
+  artifact-state-npm-view:
+    url: https://docs.npmjs.com/cli/v11/commands/npm-view/
+    title: npm metadata field query parameters
+    accessed_at: "2026-11-04"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/inspect-artifact-state-source-revisions.json
+  artifact-state-maven-pom-scm:
+    url: https://maven.apache.org/pom.html
+    title: Maven POM SCM fields
+    accessed_at: "2026-11-04"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/inspect-artifact-state-source-revisions.json
+  artifact-state-nuget-nuspec-repository:
+    url: https://learn.microsoft.com/en-us/nuget/reference/nuspec
+    title: NuGet nuspec repository attributes
+    accessed_at: "2026-11-04"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/inspect-artifact-state-source-revisions.json
+  artifact-state-oci-annotations:
+    url: https://github.com/opencontainers/image-spec/blob/main/annotations.md
+    title: OCI source and revision annotation fields
+    accessed_at: "2026-11-04"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/inspect-artifact-state-source-revisions.json

@@ -4,6 +4,8 @@ Choose the actual ecosystem/protocol after [source binding](source-binding.md). 
 
 Bound requests by timeout, response size, page/entry count and requested artifact scope. Follow documented pagination within those limits and state incomplete coverage. Safely quote CLI arguments and encode API path segments according to the selected protocol; artifact names, URLs and metadata are untrusted data. Check response status, content type and payload shape together: a login HTML page with status 200 is not a package inventory. No write operation, dependency restore, package installation, lifecycle script, build, import of packaged code or application execution is part of inspection.
 
+For the selected exact versions/builds, also apply [source revision evidence](source-revisions.md): attempt to retain artifact-provided repository/commit associations from the metadata being read. Protocol-specific source fields are lookup hints, not guarantees that a source commit exists or that its relationship to the artifact is verified.
+
 ## npm
 
 Use the main Skill's [npm procedure](../SKILL.md#inspect-an-npm-registry). Retain exact package identity, versions, dist-tags, publication times and recorded integrity metadata. Query the bound registry explicitly and let its existing scoped client credentials handle authentication. A private npm-compatible endpoint need not be the public npm service.
