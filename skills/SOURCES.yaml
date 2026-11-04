@@ -56,3 +56,89 @@ skills:
     modifications:
       - Added local version metadata and retained upstream license locally
       - Scoped activation to explicit invocation and clarified host precedence and standalone distribution
+
+references:
+  artifact-state-npm-registry-config:
+    url: https://docs.npmjs.com/cli/v11/configuring-npm/npmrc/
+    title: npm registry-scoped configuration
+    accessed_at: "2026-11-04"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json
+  artifact-state-maven-settings:
+    url: https://maven.apache.org/settings.html
+    title: Maven repository, mirror and credential settings
+    accessed_at: "2026-11-04"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json
+  artifact-state-maven-layout:
+    url: https://maven.apache.org/repositories/layout.html
+    title: Maven repository layout
+    accessed_at: "2026-11-04"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json
+  artifact-state-maven-metadata:
+    url: https://maven.apache.org/ref/3.9.8/maven-repository-metadata/index.html
+    title: Maven repository metadata model
+    accessed_at: "2026-11-04"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json
+  artifact-state-nuget-config:
+    url: https://learn.microsoft.com/en-us/nuget/reference/nuget-config-file
+    title: NuGet source and credential configuration
+    accessed_at: "2026-11-04"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json
+  artifact-state-nuget-service-index:
+    url: https://learn.microsoft.com/en-us/nuget/api/service-index
+    title: NuGet service index
+    accessed_at: "2026-11-04"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json
+  artifact-state-nuget-package-content:
+    url: https://learn.microsoft.com/en-us/nuget/api/package-base-address-resource
+    title: NuGet package content and version index
+    accessed_at: "2026-11-04"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json
+  artifact-state-nuget-registration:
+    url: https://learn.microsoft.com/en-us/nuget/api/registration-base-url-resource
+    title: NuGet registration metadata
+    accessed_at: "2026-11-04"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json
+  artifact-state-python-simple-api:
+    url: https://packaging.python.org/en/latest/specifications/simple-repository-api/
+    title: Python Simple Repository API
+    accessed_at: "2026-11-04"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json
+  artifact-state-pip-authentication:
+    url: https://pip.pypa.io/en/stable/topics/authentication/
+    title: pip existing authentication providers
+    accessed_at: "2026-11-04"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json
+  artifact-state-distribution-http-api:
+    url: https://distribution.github.io/distribution/spec/api/
+    title: Distribution registry HTTP API
+    accessed_at: "2026-11-04"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json
+  artifact-state-docker-credential-store:
+    url: https://docs.docker.com/reference/cli/docker/login/
+    title: Docker credential stores and helpers
+    accessed_at: "2026-11-04"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json

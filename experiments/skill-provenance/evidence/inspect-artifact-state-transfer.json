@@ -1,0 +1,26 @@
+{
+  "skill": "inspect-artifact-state",
+  "version": "0.1.0",
+  "intake_date": "2026-11-04",
+  "kind": "maintainer-owned-original-transfer",
+  "request": "Transfer only inspect-artifact-state into AI Cortex, complete its provenance, index and validation, without push or publication.",
+  "source": "Maintainer-owned project-local uncommitted working copy; private environment details intentionally omitted.",
+  "original_files": {
+    "SKILL.md": "020ded82fdfc30edf83e460bd088377d1c6230804733ce942563e2be9907e94a",
+    "agents/openai.yaml": "6eab12897512d7365f0fd84b2cd494ed5fc804c4474cc5b69ce47a72bd4482ae",
+    "references/report-format.md": "d27bb659d3b87a16332a3131c3dc3dfaf00246f9bb27f501909d6e25796a792b"
+  },
+  "license": "MIT",
+  "maintainer_confirmed_facts": [
+    "The Skill is a maintainer-owned original with no third-party creative reference.",
+    "The maintainer authorizes MIT distribution of all three transferred files.",
+    "The maintainer explicitly selected the original cross-project transfer route after reviewing the intake changes."
+  ],
+  "intake_changes": [
+    "Add initial AI Cortex version 0.1.0 and confirmed MIT license metadata.",
+    "Remove an environment-specific instance name from the report example.",
+    "Describe versions as listed rather than implying download availability.",
+    "Keep agents/openai.yaml unchanged; distribute the Skill directory directly for Claude Code instead of copying the project-specific command wrapper."
+  ],
+  "source_preservation": "Original input hashes rechecked; no source files or sibling Skills modified."
+}

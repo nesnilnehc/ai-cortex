@@ -32,6 +32,18 @@ Research Skills use optional `metadata.ai_cortex_type` (`foundation`, `domain`, 
 
 The new research Skills are original AI Cortex content. Only copy an external Skill through the vendored-source process below; a link to an external prompt is not a local implementation. The [checks](#checks) below say what to run before opening a pull request.
 
+### Maintainer-owned original transfers
+
+An original Skill written in another maintainer-owned project may be transferred
+as `native`, including from an uncommitted working copy. Follow the
+[original-transfer contract](specs/skill-source-modeling.md#541-maintainer-owned-original-transfers):
+record the transfer request, original file hashes, intake changes, license and
+explicit maintainer confirmation in local public evidence. Use the existing
+requirement creation record and content-bound provenance decision. Preserve the
+source working copy and keep private environment details out of the evidence.
+No public upstream repository or source commit is required for this route;
+third-party creative references still require the third-party process below.
+
 ### Externally derived skills
 
 AI Cortex distributes vendored copies only. We do not accept a skill that requires an agent to run `npx skills add`, clone an external repository, or read a floating raw URL at runtime.

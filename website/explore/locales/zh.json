@@ -642,6 +642,14 @@
       "provide": "编码任务，以及可选的 lite、full 或 ultra 级别。",
       "use": "显式调用 ponytail；直到要求恢复正常模式前持续生效，仍遵循仓库约定和必要验证。",
       "result": "范围明确、完成任务的改动，以及简洁的验证和风险说明。"
+    },
+    "inspect-artifact-state": {
+      "name": "检查制品现状",
+      "purpose": "按制品类型检查现状并绑定制品仓库访问",
+      "when": "想知道制品仓库、包索引或制品目录中有哪些制品，以及来源实际记录了哪些信息。",
+      "provide": "制品标识和类型、制品仓库实例或入口，可选的现有账号或配置及版本、标签、摘要；明确的信息可从项目配置发现。",
+      "use": "请用 inspect-artifact-state 按 npm、Maven、NuGet、Python、OCI 或目录选择检查方式，绑定实例、入口及现有获准访问；只读检查，遇到访问歧义或失败时停止对应查询。",
+      "result": "以自然段说明现有制品、相关证据和限制，区分渠道指向、版本排序和发布时间，不据此推断测试、晋级或部署结果。"
     }
   },
   "topics": {
@@ -1097,7 +1105,8 @@
       "skills": [
         "automate-tests",
         "scaffold-agent-tests",
-        "redeploy-local"
+        "redeploy-local",
+        "inspect-artifact-state"
       ],
       "recommended": [
         "automate-tests",
@@ -1698,7 +1707,8 @@
         "skills": [
           "automate-tests",
           "redeploy-local",
-          "scaffold-agent-tests"
+          "scaffold-agent-tests",
+          "inspect-artifact-state"
         ]
       },
       {

@@ -1,5 +1,9 @@
 # Skill provenance experiment
 
+- [Artifact inspection 0.2.0 refinement](inspect-artifact-state-0.2-validation.json) — protocol selection, source/account binding, confirmed provenance and local verification.
+
+- [Artifact inspection Skill intake](inspect-artifact-state-intake.json) — completed local original-transfer preparation and verification; no remote publication.
+
 - [Provenance proposal](proposal.md)
 
 - [Current maintenance review](maintenance-review.md) — evidence packets awaiting explicit maintainer decisions.

@@ -1,6 +1,6 @@
-import metadata from './skill-metadata.json?v=presales-sync-20261102' with {type:'json'};
-import {classification,relationships} from './relationship-model.mjs?v=presales-sync-20261102';
-import {getGlobalTopicGraph} from './global-topic-graph.mjs?v=presales-sync-20261102';
+import metadata from './skill-metadata.json?v=artifact-protocols-20261104' with {type:'json'};
+import {classification,relationships} from './relationship-model.mjs?v=artifact-protocols-20261104';
+import {getGlobalTopicGraph} from './global-topic-graph.mjs?v=artifact-protocols-20261104';
 const relationIds=new Set([...relationships,...getGlobalTopicGraph().edges,...getGlobalTopicGraph().loops].map(e=>e.id));
 export function createExplorerState(initial={}){
  const state={view:'classification',selectedSkillId:null,selectedWorkId:null,selectedRelationId:null,detail:{open:false,target:null,mode:'usage'},lookup:{open:false,query:''},viewState:{classification:{expandedCategoryIds:[],scrollByRegion:{}},relations:{expandedTopicId:null,scrollByRegion:{},pan:{x:0,y:0}}}};

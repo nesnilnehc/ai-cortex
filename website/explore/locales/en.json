@@ -642,6 +642,14 @@
       "provide": "The coding task and optional lite, full or ultra level.",
       "use": "Invoke ponytail explicitly; it remains active until you request normal mode. Repository instructions and required validation still apply.",
       "result": "A complete, focused change with a concise account of checks and remaining risks."
+    },
+    "inspect-artifact-state": {
+      "name": "inspect-artifact-state",
+      "purpose": "Inspect artifacts by protocol using bound repository access",
+      "when": "You want to know which artifacts exist in a registry, package index or artifact directory and what that source actually records about them.",
+      "provide": "Artifact identity/type, repository instance or endpoint, optional existing account/profile and version/tag/digest; use project configuration when unambiguous.",
+      "use": "Use inspect-artifact-state to select npm, Maven, NuGet, Python, OCI or directory inspection and bind its instance, endpoint and existing authorized access. Keep operations read-only and stop affected reads on access ambiguity or failure.",
+      "result": "A natural-prose brief with relevant evidence and limitations. It distinguishes channel pointers, version ordering and publication time; it does not infer tests, promotion or deployment."
     }
   },
   "topics": {
@@ -1097,7 +1105,8 @@
       "skills": [
         "automate-tests",
         "scaffold-agent-tests",
-        "redeploy-local"
+        "redeploy-local",
+        "inspect-artifact-state"
       ],
       "recommended": [
         "automate-tests",
@@ -1698,7 +1707,8 @@
         "skills": [
           "automate-tests",
           "redeploy-local",
-          "scaffold-agent-tests"
+          "scaffold-agent-tests",
+          "inspect-artifact-state"
         ]
       },
       {

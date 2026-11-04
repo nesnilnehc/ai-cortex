@@ -1,7 +1,7 @@
-import sourceEdges from './topic-edges.json?v=presales-sync-20261102' with {type:'json'};
-import {dictionary} from './locale.mjs?v=presales-sync-20261102';
+import sourceEdges from './topic-edges.json?v=artifact-protocols-20261104' with {type:'json'};
+import {dictionary} from './locale.mjs?v=artifact-protocols-20261104';
 const edges=sourceEdges.map(edge=>({...edge,...dictionary.topicEdges[edge.id]}));
-import {getTopicMap} from './topic-map.mjs?v=presales-sync-20261102';
+import {getTopicMap} from './topic-map.mjs?v=artifact-protocols-20261104';
 const nodes=[
  {id:'direction',row:1,column:1,hint:''},
  {id:'planning',row:1,column:2,hint:''},

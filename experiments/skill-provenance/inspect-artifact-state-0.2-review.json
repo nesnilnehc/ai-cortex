@@ -1,0 +1,102 @@
+{
+  "status": "explicitly confirmed by the maintainer",
+  "subject_digest": "128c841f33a37ccdbe62b540b9a100739b11a5110c573abb03ca1e23f7335361",
+  "candidate": {
+    "classification": "native",
+    "version": "0.2.0",
+    "reviewed_files": {
+      "SKILL.md": "f913909cb015ca0031d92cfb68a28a100bc01dace0e2f376744c54f74acaf229",
+      "agents/openai.yaml": "4b3496e235cb5792986a162b961a223329fadf09b1b6074c8bd02a6747fb504a",
+      "references/inspection-methods.md": "feebf197de609c4063bfd026925775b91f81f36ca856a9a3b6901fa462a81338",
+      "references/report-format.md": "8d9c304be0000c4d3b5903349080a8a9b1b2918672da51590dd09903c508de18",
+      "references/source-binding.md": "762028fc6cbb55bd77f9d86e182fdf4657ced18faed423af326a4fce4325445f"
+    },
+    "reviewed_evidence": {
+      "experiments/skill-provenance/evidence/inspect-artifact-state-transfer.json": "2e3b9db348179f55ce763608aefca7f5fb37eccf991d39b4c311162d8ec80621",
+      "experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json": "52237ab320b1c6f5095b0ca3460557cfd29c36845f7e4adda640ac0be6670aec"
+    },
+    "sources": [
+      {
+        "id": "reference:artifact-state-npm-registry-config",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-maven-settings",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-maven-layout",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-maven-metadata",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-nuget-config",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-nuget-service-index",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-nuget-package-content",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-nuget-registration",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-python-simple-api",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-pip-authentication",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-distribution-http-api",
+        "role": "tool_lookup"
+      },
+      {
+        "id": "reference:artifact-state-docker-credential-store",
+        "role": "tool_lookup"
+      }
+    ],
+    "evidence": [
+      {
+        "path": "experiments/skill-provenance/evidence/inspect-artifact-state-transfer.json"
+      },
+      {
+        "path": "experiments/skill-provenance/evidence/inspect-artifact-state-0.2-methods.json"
+      },
+      {
+        "path": "experiments/skill-provenance/confirmations/inspect-artifact-state-0.2-methods.json"
+      }
+    ],
+    "creation": {
+      "kind": "requirement",
+      "evidence": {
+        "path": "experiments/skill-provenance/evidence/inspect-artifact-state-transfer.json"
+      }
+    },
+    "decision": {
+      "maintainer": "Repository maintainer confirming in chat 01a1a54c-2a7d-7862-b0a1-6670b415dad1",
+      "confirmed_at": "2026-11-04",
+      "action": "confirmed",
+      "classification": "native",
+      "rationale": "The maintainer explicitly confirmed this 0.2.0 content-bound draft and native/MIT source registration. Official documentation was used only to check configuration parameters and API fields; no third-party Skill or creative workflow was incorporated.",
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/confirmations/inspect-artifact-state-0.2-methods.json"
+        }
+      ],
+      "subject_digest": "128c841f33a37ccdbe62b540b9a100739b11a5110c573abb03ca1e23f7335361"
+    }
+  },
+  "confirmation": {
+    "path": "experiments/skill-provenance/confirmations/inspect-artifact-state-0.2-methods.json"
+  }
+}

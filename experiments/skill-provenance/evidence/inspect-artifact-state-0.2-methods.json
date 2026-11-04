@@ -1,0 +1,101 @@
+{
+  "skill": "inspect-artifact-state",
+  "version": "0.2.0",
+  "reviewed_on": "2026-11-04",
+  "request": "Extend artifact inspection by actual artifact protocol and bind repository instance, endpoint and existing account access without machine-specific configuration. Prepare locally without push or publication.",
+  "changes": [
+    "Add protocol-specific npm, Maven, NuGet, Python, OCI and directory/object inspection guidance.",
+    "Bind artifact coordinates, repository identity/environment, endpoint role and access profile; reuse current authorized client/provider credentials.",
+    "Handle mismatched/ambiguous targets, missing tools, partial inventory, masked not-found responses and failed access without account/instance fallback.",
+    "Keep artifact-only evidence, narrative reporting, read-only operations and original transfer provenance."
+  ],
+  "version_rationale": "Compatible ecosystem additions and detailed existing discovery/access boundaries; no new mandatory user input, configuration file, output format or access permission.",
+  "tool_documentation": [
+    {
+      "id": "artifact-state-npm-registry-config",
+      "title": "npm registry-scoped configuration",
+      "url": "https://docs.npmjs.com/cli/v11/configuring-npm/npmrc/",
+      "role": "tool_lookup",
+      "accessed_at": "2026-11-04"
+    },
+    {
+      "id": "artifact-state-maven-settings",
+      "title": "Maven repository, mirror and credential settings",
+      "url": "https://maven.apache.org/settings.html",
+      "role": "tool_lookup",
+      "accessed_at": "2026-11-04"
+    },
+    {
+      "id": "artifact-state-maven-layout",
+      "title": "Maven repository layout",
+      "url": "https://maven.apache.org/repositories/layout.html",
+      "role": "tool_lookup",
+      "accessed_at": "2026-11-04"
+    },
+    {
+      "id": "artifact-state-maven-metadata",
+      "title": "Maven repository metadata model",
+      "url": "https://maven.apache.org/ref/3.9.8/maven-repository-metadata/index.html",
+      "role": "tool_lookup",
+      "accessed_at": "2026-11-04"
+    },
+    {
+      "id": "artifact-state-nuget-config",
+      "title": "NuGet source and credential configuration",
+      "url": "https://learn.microsoft.com/en-us/nuget/reference/nuget-config-file",
+      "role": "tool_lookup",
+      "accessed_at": "2026-11-04"
+    },
+    {
+      "id": "artifact-state-nuget-service-index",
+      "title": "NuGet service index",
+      "url": "https://learn.microsoft.com/en-us/nuget/api/service-index",
+      "role": "tool_lookup",
+      "accessed_at": "2026-11-04"
+    },
+    {
+      "id": "artifact-state-nuget-package-content",
+      "title": "NuGet package content and version index",
+      "url": "https://learn.microsoft.com/en-us/nuget/api/package-base-address-resource",
+      "role": "tool_lookup",
+      "accessed_at": "2026-11-04"
+    },
+    {
+      "id": "artifact-state-nuget-registration",
+      "title": "NuGet registration metadata",
+      "url": "https://learn.microsoft.com/en-us/nuget/api/registration-base-url-resource",
+      "role": "tool_lookup",
+      "accessed_at": "2026-11-04"
+    },
+    {
+      "id": "artifact-state-python-simple-api",
+      "title": "Python Simple Repository API",
+      "url": "https://packaging.python.org/en/latest/specifications/simple-repository-api/",
+      "role": "tool_lookup",
+      "accessed_at": "2026-11-04"
+    },
+    {
+      "id": "artifact-state-pip-authentication",
+      "title": "pip existing authentication providers",
+      "url": "https://pip.pypa.io/en/stable/topics/authentication/",
+      "role": "tool_lookup",
+      "accessed_at": "2026-11-04"
+    },
+    {
+      "id": "artifact-state-distribution-http-api",
+      "title": "Distribution registry HTTP API",
+      "url": "https://distribution.github.io/distribution/spec/api/",
+      "role": "tool_lookup",
+      "accessed_at": "2026-11-04"
+    },
+    {
+      "id": "artifact-state-docker-credential-store",
+      "title": "Docker credential stores and helpers",
+      "url": "https://docs.docker.com/reference/cli/docker/login/",
+      "role": "tool_lookup",
+      "accessed_at": "2026-11-04"
+    }
+  ],
+  "source_use": "Official client parameters and API fields only; no third-party Skill or creative workflow copied. Runtime clients and real private artifact services were not accessed during this refinement.",
+  "authorization": "Current user request authorizes refinement and local validation; a fresh content-bound provenance decision is requested separately."
+}
