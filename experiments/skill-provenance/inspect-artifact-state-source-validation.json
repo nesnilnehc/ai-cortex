@@ -1,0 +1,45 @@
+{
+  "skill": "inspect-artifact-state",
+  "version": "1.0.0",
+  "date": "2026-11-04",
+  "status": "complete for local review",
+  "branch": "feat/artifact-source-revisions",
+  "baseline_commit": "ebbd985a802461480bb30ad488cd626312663325",
+  "source_input_commit": "8dad364d0e31951672390523fd74b9a4ff7b1a63",
+  "confirmed_subject_digest": "5f6ca6fb9566bd4af095e924ec44b8b553d310e1eb881b77484cf54bca34e52f",
+  "confirmation": "experiments/skill-provenance/confirmations/inspect-artifact-state-source-revisions.json",
+  "changes": [
+    "Default bounded collection of artifact-provided source repository/revision associations.",
+    "Exact-version npm query includes gitHead and repository alongside artifact digest metadata.",
+    "Six-ecosystem source field lookup with artifact, build/component/platform, repository, full revision and evidence kept together.",
+    "Explicit comparison-oriented handoff, including missing, unread, abbreviated, mutable or conflicting source declarations.",
+    "Recorded source claims remain distinct from verified trusted provenance bindings; no local HEAD substitution, Git history comparison, baseline selection or release-membership inference.",
+    "Narrative report, Codex invocation, index and bilingual discovery guidance synchronized."
+  ],
+  "version_rationale": "Independent MAJOR required by CONTRIBUTING for a new default collection step and conditional output obligations. Does not declare product 1.0 or promote stable-core/runtime acceptance.",
+  "review": {
+    "refine_skill_design": "All nine self-check items passed for the updated Skill and six distributed files.",
+    "contract_cases": "Reviewed full source claim, missing repository/commit, abbreviated or mutable ref, unread metadata, conflicting registry/payload claims, multi-source/platform/build scope, untrusted attestation, digest-only verification and inventory-versus-comparison output. These are instruction reviews, not model execution tests.",
+    "format_boundary": "Retained natural prose and optional detail tables; no mandatory four-field display or second JSON report added to the Skill.",
+    "privacy": "No private instance, account, local path, Keychain reference or chat ID in the distributed Skill. Official field documents are tool_lookup references.",
+    "implementation_boundary": "Prose and metadata only; no new executable behavior, scripts, adapters, model-evaluation harness or simulation framework. TDD exemption for documentation applies."
+  },
+  "verification": {
+    "provenance": "36 regression tests passed; exact confirmed subject, source records and complete 69-Skill website coverage validated.",
+    "canonical_generation": "Generated and checked 69-Skill index, public provenance projection and managed HTML regions against the committed source snapshot.",
+    "website": "18 Python and 59 Node tests passed.",
+    "markdown": "435 Markdown files passed full-repository lint before the final validation-index link; changed Markdown lint checked again for the final staged files.",
+    "links_hygiene_counts_versions": "Relative links, document hygiene, counts and changed-asset version checks passed.",
+    "yaml": "Ruby safe YAML parsing and matching Codex invocation passed.",
+    "cli_examples": "Both npm query blocks passed bash -n; neither was executed against a registry.",
+    "installer": "Actual installer in temporary home distributed all six reviewed file hashes through .agents, Claude Code and Cursor links without changing user installation.",
+    "browser": "In-app browser at 1280x720: English light and Chinese dark search/detail views inspected, detail-end scrolling verified, document width equals viewport width.",
+    "whitespace": "git diff --check passed."
+  },
+  "limits": [
+    "No live artifact service, source repository history, credential store, package execution or build accessed for acceptance.",
+    "Actual protocol/client behavior and source-provenance verification against real artifacts remain untested; browser checks only establish local catalogue presentation.",
+    "No mobile viewport check for this text revision.",
+    "Local source commits and generated URLs have not been pushed; no installation update or SkillHub publication performed in this refinement."
+  ]
+}

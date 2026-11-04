@@ -1,5 +1,8 @@
 # Skill provenance experiment
 
+- [Artifact source revision review](inspect-artifact-state-source-review.json) — content-bound review for default source metadata collection and comparison-oriented handoff.
+- [Artifact source revision validation](inspect-artifact-state-source-validation.json) — local checks, contract review and explicit runtime limits for the 1.0.0 refinement.
+
 - [Artifact inspection 0.2.0 refinement](inspect-artifact-state-0.2-validation.json) — protocol selection, source/account binding, confirmed provenance and local verification.
 
 - [Artifact inspection Skill intake](inspect-artifact-state-intake.json) — completed local original-transfer preparation and verification; no remote publication.
