@@ -1,6 +1,27 @@
 # AI Cortex promotional website
 
-## Current publication: presales evidence update, 2026-11-02
+## Current publication: version and delivery capabilities, 2026-11-05
+
+Sites version 17 is public at [AI Cortex](https://ai-cortex.nesnilnehc.top/),
+preserving the existing domain and public audience. The catalogue contains 73
+Skills, including prepare-version-notes 0.1.1 with the reviewed net-difference
+and completion clarifications. Source and provenance links pin
+`5f4e10ecb00603eec8b724be0e4a1e9024492efb`; runtime references use
+`version-notes-refinement-20261105`. The 49 runtime files and unchanged hosting
+manifest were packaged from Sites source commit
+`b604315d883f7732756ef9797cf9ee515372e94c`, matching repository runtime state
+merged and pushed as `b556f427b2bc21d5fb55edad2aa257d87213c064`.
+
+The unchanged local inputs retain passing 18 Python and 59 Node website tests.
+Post-publication HTTPS checks found byte-identical source manifest, Skill metadata
+and provenance JSON at the custom domain. The pinned public Skill source also
+matches local bytes and declares 0.1.1. A live Chinese desktop browser check
+confirmed the 73-Skill directory, delivery category and new Skill detail; no new
+mobile visual check is claimed. The [deployment receipt](.openai/deployment.json)
+and [publication checks](.openai/publication-20261105-version-notes.json) retain
+the provider result and verification scope.
+
+## Prior publication: presales evidence update, 2026-11-02
 
 Sites version 16 is public at [AI Cortex](https://ai-cortex.nesnilnehc.top/),
 with the existing domain and public audience preserved. The catalogue and source
