@@ -4,7 +4,7 @@
 
 ### Added
 
-- Add `prepare-version-notes` 0.1.0 for independent change-description authoring
+- Add `prepare-version-notes` 0.1.1 for independent change-description authoring
   using selected version/scope, explicit baseline/source associations and project
   document conventions, without version edits, commits or delivery.
 - Add `bump-version` 0.1.2 for mechanical local version edits using an explicit
@@ -23,6 +23,10 @@
   rights and explicit maintainer confirmation recorded locally.
 
 ### Changed
+
+- `prepare-version-notes` 0.1.1 clarifies net source differences as the factual
+  basis for notes and distinguishes description-consistency blockers from ordinary
+  disclosed known issues without imposing a new delivery gate.
 
 - Delivery Skills 2.0.0 require project/target-specific change-description
   prerequisites and explicit source/version identity. Execution preserves tracked

@@ -1651,13 +1651,14 @@
     },
     "prepare-version-notes": {
       "classification": "native",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "reviewed_files": {
-        "SKILL.md": "7a50caa42b291e0767213c505fd92397ce4afb1d64a2841e5a3f8dfc1b3ce06e",
+        "SKILL.md": "68216c22cf50f4d4895ef0c1a27a9960af680c18f80078ceb0db389fabcf27e6",
         "agents/openai.yaml": "7a387114fafea7a3439a4226372d5ba1814c41bc8cf65f059df2b777f1ace7a5"
       },
       "reviewed_evidence": {
-        "experiments/skill-provenance/evidence/prepare-version-notes-creation.json": "a8e7f7b29f9062f20b70fa894c75728f906ce89e5449cbace9dae054c22f2982"
+        "experiments/skill-provenance/evidence/prepare-version-notes-creation.json": "a8e7f7b29f9062f20b70fa894c75728f906ce89e5449cbace9dae054c22f2982",
+        "experiments/skill-provenance/evidence/prepare-version-notes-refinement-20261105.json": "5f36ac54ea858092d554e3c72e53ab4c47e2f459adda81d7462bdf27c9d22445"
       },
       "sources": [],
       "evidence": [
@@ -1665,7 +1666,10 @@
           "path": "experiments/skill-provenance/evidence/prepare-version-notes-creation.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/prepare-version-notes-creation.json"
+          "path": "experiments/skill-provenance/evidence/prepare-version-notes-refinement-20261105.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/prepare-version-notes-refinement-20261105.json"
         }
       ],
       "creation": {
@@ -1675,17 +1679,17 @@
         }
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming the new Skill and local intake in the prepare-version-notes creation chat",
-        "confirmed_at": "2026-11-04",
+        "maintainer": "Repository maintainer authorizing the two reviewed note refinements in the consolidated Skill intake chat",
+        "confirmed_at": "2026-11-05",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer explicitly confirmed this content-bound Skill as AI Cortex original without third-party creative reference, MIT licensing, and the local source/catalog commits needed for intake. The confirmation does not authorize push or external publication.",
+        "rationale": "The maintainer explicitly instructed implementing the two reviewed clarifications after their review. Previously confirmed native/MIT provenance is retained and this fresh decision binds the revised content; no push or publication is authorized.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/prepare-version-notes-creation.json"
+            "path": "experiments/skill-provenance/confirmations/prepare-version-notes-refinement-20261105.json"
           }
         ],
-        "subject_digest": "b0459fd29442a20b2768436b11332cd230347faeae024f26cc32eb9a243f72df"
+        "subject_digest": "49ba358640eabf582f09ee68b3cc1ec4cec9eaf1cc50d43a0ff9b7594476e39a"
       }
     },
     "prioritize-backlog": {

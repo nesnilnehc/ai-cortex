@@ -1,7 +1,7 @@
 ---
 name: prepare-version-notes
 description: Prepare or revise version change descriptions for an already selected component, target version and scope, using project conventions and explicit source comparisons. Use for changelog entries, version notes or release lists; version selection, source edits and artifact delivery are separate tasks.
-version: 0.1.0
+version: 0.1.1
 license: MIT
 ---
 
@@ -35,6 +35,8 @@ Inspect source relationships and actual changes. Where Git applies, check whethe
 
 Compare relevant commits and file changes with the supplied scope and authoritative project records. Commits in a range are discovery evidence, not automatic requirement membership or proof that a planned item shipped. Identify incomplete items, unrelated changes and missing associations. If excluded behavior remains in the target/package inputs, expose the mismatch: omitting it from notes does not remove it from the artifact. Do not cherry-pick, rewrite history or change implementation to reconcile the scope.
 
+For the resolved comparison, use the net source difference between the baseline and target to confirm what actually changed; use commit history to explain those changes. Account for reversions, merges and repeated cherry-picks so reverted or duplicate work is not described as a new delivered change. For an explicitly scoped first version, verify the selected target content instead of inventing a prior baseline.
+
 Write concise, reader-appropriate descriptions of evidenced changes using the project's language, sections and terminology. Include relevant behavior changes, fixes, migration instructions and known issues when supported by evidence. Do not infer compatibility promises, test success, publication, acceptance or deployment from version numbers, commit messages or planned scope. Consume established compatibility decisions; leave unresolved decisions explicit.
 
 Update the existing in-progress entry at the same target rather than adding duplicates or advancing the version. Preserve its established date unless project rules or the user require a change. Edit only owned content; resolve conflicting human edits before replacing them. Keep released entries frozen unless a historical correction is explicitly authorized. If the requested description already matches current evidence, report no change.
@@ -48,5 +50,7 @@ Return the description location and an identifiable revision or content digest, 
 Keep implementation-source identity distinct from the revision containing the note edit; do not invent the SHA of a future commit or embed a self-referential digest. A later commit containing notes may change the commit identity without changing implementation content. The project must preserve that association, and changed implementation/scope inputs require refreshing the affected description and checks before delivery consumes it.
 
 Report whether notes are prepared, already current, or awaiting specific evidence/decisions. On failure, preserve inspectable edits and the same target; resume only affected work without resetting or stashing unrelated changes. Reuse prior checks only while their relevant inputs still match.
+
+An unknown baseline identity, unresolved scope conflict or missing evidence for a material claim leaves notes awaiting the specific evidence/decision, even if an inspectable draft exists. Report prepared or already current only when those description-consistency blockers are resolved. Ordinary known issues can be disclosed accurately without blocking note preparation; any effect on delivery readiness follows project/target policy rather than a new gate imposed by this skill.
 
 This skill owns description facts, scope and target consistency. It does not decide the next version or compatibility impact, change requirement assignments, modify version files or source code, commit, tag, push, build, upload or publish. Notes are a delivery prerequisite only when project/target rules require them; ordinary branch/test builds gain no universal release-note gate. A project can review and commit version edits and notes together through its existing mechanism.
