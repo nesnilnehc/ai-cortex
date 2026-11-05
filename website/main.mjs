@@ -1,7 +1,7 @@
-import {initializeNavigation} from './site-navigation.mjs?v=version-delivery-boundaries-20261104';
-import { initializeTheme } from './theme.mjs?v=version-delivery-boundaries-20261104';
-import { initializeLanguage } from './language.mjs?v=version-delivery-boundaries-20261104';
-import { bindCopyButton } from './copy.mjs?v=version-delivery-boundaries-20261104';
+import {initializeNavigation} from './site-navigation.mjs?v=version-notes-refinement-20261105';
+import { initializeTheme } from './theme.mjs?v=version-notes-refinement-20261105';
+import { initializeLanguage } from './language.mjs?v=version-notes-refinement-20261105';
+import { bindCopyButton } from './copy.mjs?v=version-notes-refinement-20261105';
 
 initializeLanguage(window, document.documentElement.lang === 'zh-CN' ? 'zh' : 'en');
 
@@ -17,4 +17,4 @@ bindCopyButton(
 
 initializeNavigation(window,document);
 
-import './explore/explorer-host.mjs?v=version-delivery-boundaries-20261104';
+import './explore/explorer-host.mjs?v=version-notes-refinement-20261105';

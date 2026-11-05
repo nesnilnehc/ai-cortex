@@ -77,7 +77,8 @@
         "inspect-artifact-state",
         "establish-delivery-workflow",
         "execute-delivery-workflow",
-        "bump-version"
+        "bump-version",
+        "prepare-version-notes"
       ]
     },
     {

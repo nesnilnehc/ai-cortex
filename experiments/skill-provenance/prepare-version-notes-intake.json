@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-04",
+  "skill": "prepare-version-notes",
+  "version": "0.1.0",
+  "status": "local creation and catalogue intake complete; not published",
+  "source_commit": "5a9d9b4befa2c28e59bf50c3398c72e17a2b784e",
+  "branch": "feat/prepare-version-notes",
+  "review": {
+    "scope": "Independent project note authoring with selected version/scope and explicit comparison purpose; no release orchestration.",
+    "cases": "Reviewed formal-channel association, candidate and first-version comparisons, divergent/unknown sources, working-tree identities, exclusions still in package inputs, partial/repeated note edits, human edits and frozen history.",
+    "handoff": "Note revision/digest and implementation-source identity remain distinct; no future commit SHA or self-referential digest.",
+    "skills": "Skill Creator and Refine Skill Design checks cover instructions, metadata, tool discovery/fallback, provenance and distribution; no scripts or simulation framework introduced."
+  },
+  "checks": {
+    "canonical_catalogue": "73 Skills generated and checked against committed sources/evidence.",
+    "website_python": "18 passed",
+    "website_node": "59 passed",
+    "markdownlint": "Five changed source Markdown files and generated index passed.",
+    "yaml": "Frontmatter, name, version, description length and invocation metadata validated with Ruby safe YAML.",
+    "links": "No broken relative links or forbidden governance-to-Skill links.",
+    "hygiene": "432 documents checked; no orphans or temporary document findings.",
+    "counts": "73 Skills and README category sum match.",
+    "versions": "34 changed versioned assets since v0.6.0; version check passed.",
+    "browser": "Chinese desktop category, new Skill detail and pinned source link verified; screenshot inspected."
+  },
+  "limitations": [
+    "The bundled quick_validate.py rejects the repository-required top-level version field; repository and YAML checks pass without changing that validator or omitting the canonical version.",
+    "No consuming-project note authoring, delivery or host invocation acceptance executed.",
+    "No merge, push, external SkillHub publication, canonical-install update or website deployment performed for this new Skill.",
+    "New pinned source URLs point to a local source commit and are not remotely available yet."
+  ],
+  "remaining": "Review the local source and generated-output commits; separately authorize any delivery of the new Skill."
+}

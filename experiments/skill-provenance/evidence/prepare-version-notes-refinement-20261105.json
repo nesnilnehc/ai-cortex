@@ -1,0 +1,12 @@
+{
+  "skill": "prepare-version-notes",
+  "version": "0.1.1",
+  "date": "2026-11-05",
+  "request": "The maintainer explicitly requested implementing the two previously reviewed improvements for prepare-version-notes.",
+  "changes": [
+    "Confirm actual changes from the net baseline-to-target source difference; use commit history for explanation and account for reversions, merges and duplicate cherry-picks. Preserve explicit first-version handling.",
+    "Clarify completion: unknown baseline identity, scope conflicts or unsupported material claims leave notes awaiting evidence/decisions; ordinary disclosed known issues need not block note preparation and do not create a new delivery gate."
+  ],
+  "version_rationale": "Patch clarification of existing factual verification and truthful completion requirements; no new responsibility, output schema, tool or delivery prerequisite.",
+  "provenance": "Native authorship and MIT distribution authority were confirmed at creation; no external creative source introduced."
+}

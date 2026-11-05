@@ -674,6 +674,14 @@
       "provide": "Project or component, version domain when needed, and the exact target or increment.",
       "use": "Use bump-version to apply the target through the existing safe project mechanism and verify required references.",
       "result": "Verified local version edits, an explained no-op, or a blocker; release decisions and publishing remain separate."
+    },
+    "prepare-version-notes": {
+      "name": "prepare-version-notes",
+      "purpose": "Prepare version change descriptions independently",
+      "when": "You need to write or revise notes for a selected component, version and scope.",
+      "provide": "Component/target version, scope, comparison purpose, baseline/source evidence, target source and existing note conventions.",
+      "use": "Use prepare-version-notes to reuse the project document, compare explicit sources and verify the description without changing versions or delivering artifacts.",
+      "result": "Updated notes with source associations, an identifiable revision or digest, factual checks and unresolved evidence or scope issues."
     }
   },
   "topics": {
@@ -1133,7 +1141,8 @@
         "inspect-artifact-state",
         "establish-delivery-workflow",
         "execute-delivery-workflow",
-        "bump-version"
+        "bump-version",
+        "prepare-version-notes"
       ],
       "recommended": [
         "automate-tests",
@@ -1738,7 +1747,8 @@
           "inspect-artifact-state",
           "establish-delivery-workflow",
           "execute-delivery-workflow",
-          "bump-version"
+          "bump-version",
+          "prepare-version-notes"
         ]
       },
       {

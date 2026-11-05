@@ -1,0 +1,22 @@
+{
+  "skill": "prepare-version-notes",
+  "version": "0.1.0",
+  "date": "2026-11-04",
+  "kind": "repository-original-creation",
+  "request": "Create the independent prepare-version-notes Skill from the maintainer-confirmed version and delivery boundaries.",
+  "basis": "The maintainer's selected scope and eight boundaries, recorded in the existing backlog and ADR 0017. No source-project files are copied or distributed.",
+  "creation_scope": [
+    "Author or revise existing project descriptions for explicitly selected component/version/scope and comparison purpose.",
+    "Prefer selected formal-channel artifact/source associations for formal-delivery comparisons; preserve candidate and first-version comparison purposes.",
+    "Verify description facts and scope against source evidence, report gaps, and hand off note revision/digest with source associations.",
+    "Keep mechanical versions, compatibility decisions, requirement assignments, commits, builds and delivery separate."
+  ],
+  "distributed_files": [
+    "SKILL.md",
+    "agents/openai.yaml"
+  ],
+  "license": "MIT",
+  "proposed_classification": "native",
+  "authorship_basis": "New instructions authored in AI Cortex from the maintainer's request without third-party creative reference; requires explicit maintainer confirmation.",
+  "review": "Reviewed input/action/output, baseline ambiguity, divergence, dirty sources, partial edits, repeated invocation, frozen history, tool side effects and delivery prerequisites. No executable assets or live product operation are introduced."
+}

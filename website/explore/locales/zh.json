@@ -674,6 +674,14 @@
       "provide": "项目或组件、必要时指定版本域，以及目标版本或升级级别。",
       "use": "通过项目现有的安全机制应用目标版本，并核对需要同步的引用。",
       "result": "经过核对的本地版本修改、无需修改的说明，或阻碍完成的问题；发布决策和发布操作另行处理。"
+    },
+    "prepare-version-notes": {
+      "name": "编写版本变更说明",
+      "purpose": "独立编写和核对版本变更说明",
+      "when": "需要为已选定的组件、版本和范围编写或修订说明。",
+      "provide": "组件与目标版本、范围、比较目的、基线与源码关联证据、目标源码及现有说明约定。",
+      "use": "用 prepare-version-notes 复用项目文档，比较明确的源码并核对说明，不修改版本或交付制品。",
+      "result": "更新后的说明、源码关联、可识别修订或摘要，以及事实核对结果和未解决的证据或范围问题。"
     }
   },
   "topics": {
@@ -1133,7 +1141,8 @@
         "inspect-artifact-state",
         "establish-delivery-workflow",
         "execute-delivery-workflow",
-        "bump-version"
+        "bump-version",
+        "prepare-version-notes"
       ],
       "recommended": [
         "automate-tests",
@@ -1738,7 +1747,8 @@
           "inspect-artifact-state",
           "establish-delivery-workflow",
           "execute-delivery-workflow",
-          "bump-version"
+          "bump-version",
+          "prepare-version-notes"
         ]
       },
       {
