@@ -1,3 +1,3 @@
-export {getSkillGuidance} from './locale.mjs?v=prepare-version-notes-20261104';
-import metadata from './skill-metadata.json?v=prepare-version-notes-20261104' with {type:'json'};
+export {getSkillGuidance} from './locale.mjs?v=version-notes-refinement-20261105';
+import metadata from './skill-metadata.json?v=version-notes-refinement-20261105' with {type:'json'};
 export const guidanceIds=Object.freeze(Object.keys(metadata.skills));
