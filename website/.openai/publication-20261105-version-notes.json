@@ -1,0 +1,26 @@
+{
+  "version_number": 17,
+  "public_url": "https://ai-cortex.nesnilnehc.top/",
+  "source_commit": "b604315d883f7732756ef9797cf9ee515372e94c",
+  "repository_source_revision": "b556f427b2bc21d5fb55edad2aa257d87213c064",
+  "assets_revision": "5f4e10ecb00603eec8b724be0e4a1e9024492efb",
+  "cache_key": "version-notes-refinement-20261105",
+  "archive_sha256": "fa692b072b9eb8f17aa570c5693bddb65d6206c598dfd7daa8d3ee92e1fcf9b2",
+  "runtime_files": 49,
+  "checks": {
+    "source_manifest": "byte-identical",
+    "skill_metadata": "byte-identical; 73 Skills",
+    "skill_provenance": "byte-identical",
+    "pinned_prepare_version_notes_source": "byte-identical; 0.1.1",
+    "browser": "Chinese desktop category and note Skill detail verified; screenshot inspected."
+  },
+  "tests_reused": {
+    "python": 18,
+    "node": 59,
+    "basis": "Published runtime files match the previously tested local inputs."
+  },
+  "limits": [
+    "No new mobile visual check.",
+    "No SkillHub publication or canonical installation update requested in this website deployment."
+  ]
+}

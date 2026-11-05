@@ -1,16 +1,16 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_a330c89005b08191b0682efbc63f2148",
-  "version_number": 16,
-  "deployment_id": "appgdep_6ae8554e441c8191af8d48ccd893ef3a",
-  "source_commit": "f1bff1e5c3d7919add053607074196314d6f9497",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_a75e6e6075848191a4e263b86576b2e6",
+  "version_number": 17,
+  "deployment_id": "appgdep_6aebd89c9bc88191adf8ab0b2394cddc",
+  "source_commit": "b604315d883f7732756ef9797cf9ee515372e94c",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.nesnilnehc.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-11-02T09:18:13.975076+00:00",
+  "updated_at": "2026-11-05T01:15:24.624197+00:00",
   "published_files": [
     "copy.mjs",
     "explore/assets/work-stories.png",
@@ -85,8 +85,10 @@
   "ssl_status": "active",
   "provider_status": "active",
   "public_url": "https://ai-cortex.nesnilnehc.top/",
-  "public_verification_file": "publication-20261102-presales.json",
-  "browser_checks": [],
+  "public_verification_file": "publication-20261105-version-notes.json",
+  "browser_checks": [
+    "Chinese desktop: 73 Skills, delivery category and prepare-version-notes detail verified."
+  ],
   "brand_asset": "favicon.svg",
   "brand_consumers": [
     "website header",
@@ -95,16 +97,16 @@
     "personal site project entry"
   ],
   "known_good_version": {
-    "version_number": 15,
-    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_7f799d4c47d4819186c8b4833523c082",
-    "source_commit": "dc1cbf8121bef8deb8e57e305c056bccdbbcc137"
+    "version_number": 16,
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_a330c89005b08191b0682efbc63f2148",
+    "source_commit": "f1bff1e5c3d7919add053607074196314d6f9497"
   },
   "public_verification": {
     "status": "passed",
-    "checked_files": 5,
-    "record": "publication-20261102-presales.json"
+    "checked_files": 4,
+    "record": "publication-20261105-version-notes.json"
   },
-  "repository_source_revision": "5bf6eb2",
-  "assets_revision": "cf6bdd396f87f81be72b9e0d7dfaea69aeaeddd7",
-  "cache_key": "presales-sync-20261102"
+  "repository_source_revision": "b556f427b2bc21d5fb55edad2aa257d87213c064",
+  "assets_revision": "5f4e10ecb00603eec8b724be0e4a1e9024492efb",
+  "cache_key": "version-notes-refinement-20261105"
 }
