@@ -1,0 +1,12 @@
+{
+  "skill": "record-milestone-achievement",
+  "version": "0.1.0",
+  "request_date": "2026-11-06",
+  "request": "Implement a skill to verify milestone evidence, record confirmed achievement with references to independently stored evidence, and optionally render an SVG calendar of actual dates.",
+  "implementation_basis": [
+    "The maintainer's requested workflow and agreed milestone terminology.",
+    "The local Roadmap Modeling Spec and the bundled roadmap renderer's date validation, calendar axis and point markers."
+  ],
+  "proposed_classification": "native",
+  "status": "Creation evidence only. Maintainer confirmation is pending."
+}

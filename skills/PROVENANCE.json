@@ -1887,6 +1887,45 @@
         "subject_digest": "a6f501802a6047705c5808789ccdb16e6d827ccad035d2e674bf0dae3632bf8d"
       }
     },
+    "record-milestone-achievement": {
+      "classification": "native",
+      "version": "0.1.0",
+      "reviewed_files": {
+        "SKILL.md": "006af8bab158e16a3a005367851504f88652b15e3c3b8b4d3bbd636457c28589",
+        "scripts/render-achievements.py": "4dca42747361921a60fcfe03b28e17331c3e9bc6c697efbd90ef3b3b479870cb"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/record-milestone-achievement.json": "030ce73d8bf7bfd2e346bbad4fc09d808d13ee446d4b32a336f95c8c8291cb86"
+      },
+      "creation": {
+        "kind": "requirement",
+        "evidence": {
+          "path": "experiments/skill-provenance/evidence/record-milestone-achievement.json"
+        }
+      },
+      "sources": [],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/record-milestone-achievement.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/record-milestone-achievement-0-1-0-20261106.json"
+        }
+      ],
+      "decision": {
+        "maintainer": "Repository maintainer, explicit confirmation of the 0.1.0 review packet",
+        "confirmed_at": "2026-11-06",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed the reviewed version as an AI Cortex original. It implements the maintainer's request using the existing AI Cortex milestone contract and calendar rendering logic.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/record-milestone-achievement-0-1-0-20261106.json"
+          }
+        ],
+        "subject_digest": "a80bcc5030811e2960cf529900d2bb5c16b4b70f7ffd5eb5abd9e308f19eb75c"
+      }
+    },
     "redeploy-local": {
       "classification": "native",
       "version": "3.3.0",

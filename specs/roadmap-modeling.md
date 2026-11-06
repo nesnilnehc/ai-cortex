@@ -2,7 +2,7 @@
 id: ROADMAP_MODELING_SPEC_V1
 name: Roadmap Modeling Schema
 description: Roadmap views, source authority, priority vocabulary and local generation input contract.
-version: 1.12.1
+version: 1.13.0
 status: active
 lifecycle: living
 created_at: 2026-10-20
@@ -67,10 +67,9 @@ No directory migration is implied by this model.
   or committed date or window, when known, along with its decision source and
   applicable change history. A milestone schedule presents the planned timing.
   A window describes when the event may occur. The event itself is a point.
-- **Milestone achievement record**: A record that links a milestone ID and its
-  applicable criterion to evidence that the event occurred. When known, its
-  actual date is the date the criterion was met. The date of recording can be
-  tracked separately. A record may document an event outside the plan.
+- **Milestone achievement record**: The confirmed result that a milestone event
+  occurred. It references independently maintained evidence. See
+  [achievement records and publication](#milestone-achievement-records-and-publication).
 - **Planned-versus-actual milestone comparison**: A read-only analysis for a
   stated reporting date and plan version. It pairs plan and achievement records
   by milestone ID and checks that the criterion and scope are comparable. It
@@ -78,12 +77,39 @@ No directory migration is implied by this model.
   separately. Milestone variance analysis also explains causes and impacts
   where supported by evidence.
 
-Manage planning decisions and achievement evidence in their respective source
-records. Join them when a comparison is requested. A **target** expresses desired
-timing, a **commitment** is timing explicitly agreed by the responsible parties,
+Maintain plans, achievement records and evidence in their respective sources.
+Join plans and achievements when a comparison is requested. A **target** expresses
+desired timing, a **commitment** is timing explicitly agreed by the responsible parties,
 and a **forecast** estimates timing from current information. A **baseline** is a
 formally selected plan version used as a comparison reference. The generator's
 accepted timing fields and values are defined in [§5.3](#53-optional-local-generator-interface).
+
+### Milestone achievement records and publication
+
+An achievement record MUST contain the following information. Projects choose
+the storage location and field names.
+
+| Field | Required content |
+| --- | --- |
+| Milestone ID | The stable ID of the event. Reuse the plan's ID for the same event. Assign an ID to a significant event that occurred outside the plan. |
+| Event and scope | The event name and enough context to identify what was achieved, including the applicable version or audience when it matters. |
+| Occurrence criterion | The condition satisfied by the event, stated directly or referenced at the applicable version. |
+| Actual occurrence | When the criterion was met, at the precision supported by the evidence. Record the timing as unknown when it cannot be established. Record any confirmation, recording or publication time separately. |
+| Evidence references | One or more stable links or IDs that resolve to the supporting evidence. Include a revision or locator when needed to identify the exact material used. |
+
+Confirm achievement only when the evidence establishes that the criterion was
+met for the stated event and scope. Keep incomplete or conflicting observations
+pending verification. Treat elapsed target dates and related work status as
+context. Use the same evidence standard for planned and unplanned events.
+
+Keep evidence in its owning system or document. The achievement record stores the
+confirmed outcome and references to that evidence. Test results, acceptance
+records and deployment receipts retain their own identity and history.
+
+Each published achievement MUST reference a confirmed achievement record by its
+stable ID or link. One achievement may have several publications for different
+audiences or channels. Published achievements form a subset of confirmed
+achievements. The achievement record remains the authority for what occurred.
 
 ### Roadmap references and conflicts
 
@@ -137,6 +163,20 @@ and IDs. Apply these rules to a dedicated milestone plan SVG:
 - Retain the Markdown table or an equivalent readable plan for readers who cannot
   view the SVG. The SVG and any transient renderer input are projections. Keep
   the drawing reproducible for the same input and renderer version.
+
+### Milestone achievement SVG
+
+A project MAY include an SVG calendar alongside its readable achievement records.
+Use the same linear calendar scale and reproducibility rules as the
+[plan SVG](#milestone-plan-svg). Show one row per confirmed achievement and retain
+its milestone ID. Label the timing as actual. Plot a point when the evidence
+establishes the calendar day. Keep rows with unknown timing or coarser precision
+visible with their supported timing text and an empty plot. A view with no
+plottable dates carries no dated axis.
+
+The achievement SVG is a view of confirmed results. For a combined view, use the
+planned-versus-actual comparison and identify the applicable plan version and
+reporting date.
 
 Terminology references include the [PMI Lexicon, version 5.0](https://www.pmi.org/-/media/pmi/documents/registered/pdf/pmbok-standards/pmi-lexicon-pm-terms.pdf?rev=447328d841c249af985d14177ddd5f95),
 the [NASA software plan tracking guide](https://swehb.nasa.gov/spaces/SWEHBVD/pages/102695409/SWE-024%2B-%2BPlan%2BTracking)

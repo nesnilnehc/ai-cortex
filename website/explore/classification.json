@@ -24,6 +24,7 @@
         "map-item-dependencies",
         "define-roadmap",
         "plan-milestones",
+        "record-milestone-achievement",
         "promote-roadmap-items",
         "update-roadmap",
         "archive-milestone",

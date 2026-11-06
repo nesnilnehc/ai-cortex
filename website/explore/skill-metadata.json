@@ -887,6 +887,18 @@
         "skills/prepare-version-notes/SKILL.md": "68216c22cf50f4d4895ef0c1a27a9960af680c18f80078ceb0db389fabcf27e6"
       },
       "entry": "public"
+    },
+    "record-milestone-achievement": {
+      "id": "record-milestone-achievement",
+      "description": "Verify evidence of a project milestone event and record its confirmed achievement with references to independently stored evidence. Use for planned or unplanned events, with an optional SVG calendar of actual occurrence dates.",
+      "owner": "planning",
+      "sourcePaths": [
+        "skills/record-milestone-achievement/SKILL.md"
+      ],
+      "sourceHashes": {
+        "skills/record-milestone-achievement/SKILL.md": "006af8bab158e16a3a005367851504f88652b15e3c3b8b4d3bbd636457c28589"
+      },
+      "entry": "public"
     }
   },
   "groupOrder": [
