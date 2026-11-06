@@ -78,6 +78,8 @@ Provenance markers come from [PROVENANCE.json](./PROVENANCE.json); confirmed AI 
   - provenance: · [evidence](../experiments/skill-provenance/evidence/orchestrate-repair-requirements-loop.json) · [evidence](../experiments/skill-provenance/confirmations/orchestrate-repair-requirements-loop.json)
 - [orchestrate-roadmap-planning](./orchestrate-roadmap-planning/SKILL.md) — Route roadmap structure-only, content-on-settled-structure, continuous planning or existing-project alignment through scoped atomic skills; preserve decisions, links and authorization boundaries.
   - provenance: · [evidence](../experiments/skill-provenance/evidence/orchestrate-roadmap-planning.json) · [evidence](../experiments/skill-provenance/confirmations/orchestrate-roadmap-planning.json)
+- [plan-milestones](./plan-milestones/SKILL.md) — Create or revise a project milestone plan from delivery goals, commitments, review or acceptance criteria, and dependencies. Use for milestone planning or rescheduling, including projects without a roadmap. Produce a Markdown plan with an optional Mermaid timeline.
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/plan-milestones.json) · [evidence](../experiments/skill-provenance/confirmations/plan-milestones.json)
 - [plan-next](./plan-next/SKILL.md) — Analyze governance state and suggest next actions; ask whether a skipped recommendation lasts for the session or until revoked.
   - provenance: · [evidence](../experiments/skill-provenance/evidence/plan-next.json) · [evidence](../experiments/skill-provenance/confirmations/plan-next.json)
 - [policy-research](./policy-research/SKILL.md) — Research a jurisdiction's policy or compliance question with official sources, effective dates, applicability, and product implications.
