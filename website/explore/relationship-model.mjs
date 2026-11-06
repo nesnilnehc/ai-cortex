@@ -1,7 +1,7 @@
-import classificationData from './classification.json?v=milestone-planning-20261106' with {type:'json'};
-import rawEdges from './skill-edges.json?v=milestone-planning-20261106' with {type:'json'};
-import metadata from './skill-metadata.json?v=milestone-planning-20261106' with {type:'json'};
-import {dictionary} from './locale.mjs?v=milestone-planning-20261106';
+import classificationData from './classification.json?v=milestone-achievement-20261106' with {type:'json'};
+import rawEdges from './skill-edges.json?v=milestone-achievement-20261106' with {type:'json'};
+import metadata from './skill-metadata.json?v=milestone-achievement-20261106' with {type:'json'};
+import {dictionary} from './locale.mjs?v=milestone-achievement-20261106';
 export const classification=structuredClone(classificationData);
 export const relationships=rawEdges.map(e=>({...e,...dictionary.skillEdges[e.id]}));
 export function validateSequences(edges){
