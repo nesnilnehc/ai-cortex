@@ -1,8 +1,22 @@
 # AI Cortex promotional website
 
-## Current publication: version and delivery capabilities, 2026-11-05
+## Current publication
 
-Sites version 17 is public at [AI Cortex](https://ai-cortex.nesnilnehc.top/),
+Sites version 18 went live on 2026-11-06 at
+[AI Cortex](https://ai-cortex.nesnilnehc.top/). The catalogue contains 74 Skills,
+including plan-milestones 0.2.1 and define-roadmap 7.13.5. The bilingual Skill
+details explain milestone prerequisites and roadmap references. The 49 runtime
+files come from repository commit `a5e18e40ea0532aa6147395ac069fabcedb7e143`.
+
+All 77 website tests passed. HTTPS checks on the custom domain matched the
+published source manifest, provenance, Skill metadata and both locale files to
+the repository bytes. The pinned plan-milestones source matched version 0.2.1.
+The [deployment receipt](.openai/deployment.json) records the published source
+and verification scope.
+
+## Prior publication
+
+Sites version 17 went live on 2026-11-05 at [AI Cortex](https://ai-cortex.nesnilnehc.top/),
 preserving the existing domain and public audience. The catalogue contains 73
 Skills, including prepare-version-notes 0.1.1 with the reviewed net-difference
 and completion clarifications. Source and provenance links pin
@@ -16,9 +30,8 @@ The unchanged local inputs retain passing 18 Python and 59 Node website tests.
 Post-publication HTTPS checks found byte-identical source manifest, Skill metadata
 and provenance JSON at the custom domain. The pinned public Skill source also
 matches local bytes and declares 0.1.1. A live Chinese desktop browser check
-confirmed the 73-Skill directory, delivery category and new Skill detail; no new
-mobile visual check is claimed. The [deployment receipt](.openai/deployment.json)
-and [publication checks](.openai/publication-20261105-version-notes.json) retain
+confirmed the 73-Skill directory, delivery category and new Skill detail.
+The [publication checks](.openai/publication-20261105-version-notes.json) retain
 the provider result and verification scope.
 
 ## Prior publication: presales evidence update, 2026-11-02

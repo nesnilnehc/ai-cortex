@@ -1,16 +1,16 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_a75e6e6075848191a4e263b86576b2e6",
-  "version_number": 17,
-  "deployment_id": "appgdep_6aebd89c9bc88191adf8ab0b2394cddc",
-  "source_commit": "b604315d883f7732756ef9797cf9ee515372e94c",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_a0d3d59ed7548191b580b6c1fb806458",
+  "version_number": 18,
+  "deployment_id": "appgdep_6aed7be6ae148191959362a355835301",
+  "source_commit": "c4b19c164dc34873abd031e81e25819d8ae5c42c",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.nesnilnehc.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-11-05T01:15:24.624197+00:00",
+  "updated_at": "2026-11-06T07:04:20.474975+00:00",
   "published_files": [
     "copy.mjs",
     "explore/assets/work-stories.png",
@@ -85,10 +85,7 @@
   "ssl_status": "active",
   "provider_status": "active",
   "public_url": "https://ai-cortex.nesnilnehc.top/",
-  "public_verification_file": "publication-20261105-version-notes.json",
-  "browser_checks": [
-    "Chinese desktop: 73 Skills, delivery category and prepare-version-notes detail verified."
-  ],
+  "browser_checks": [],
   "brand_asset": "favicon.svg",
   "brand_consumers": [
     "website header",
@@ -97,16 +94,24 @@
     "personal site project entry"
   ],
   "known_good_version": {
-    "version_number": 16,
-    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_a330c89005b08191b0682efbc63f2148",
-    "source_commit": "f1bff1e5c3d7919add053607074196314d6f9497"
+    "version_number": 17,
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_a75e6e6075848191a4e263b86576b2e6",
+    "source_commit": "b604315d883f7732756ef9797cf9ee515372e94c"
   },
   "public_verification": {
     "status": "passed",
-    "checked_files": 4,
-    "record": "publication-20261105-version-notes.json"
+    "checked_files": 6,
+    "byte_identical": [
+      "explore/source-manifest.json",
+      "explore/skill-provenance.json",
+      "explore/skill-metadata.json",
+      "explore/locales/en.json",
+      "explore/locales/zh.json",
+      "Pinned plan-milestones SKILL.md (0.2.1)"
+    ]
   },
-  "repository_source_revision": "b556f427b2bc21d5fb55edad2aa257d87213c064",
-  "assets_revision": "5f4e10ecb00603eec8b724be0e4a1e9024492efb",
-  "cache_key": "version-notes-refinement-20261105"
+  "repository_source_revision": "a5e18e40ea0532aa6147395ac069fabcedb7e143",
+  "assets_revision": "f05b92280c98f3386c34738478b55b119e010a1a",
+  "cache_key": "milestone-planning-20261106",
+  "archive_sha256": "be63cb9f88a6c838985e5495fbe68211108e9c0d2b76b43a8beb1c7f14a1c324"
 }
