@@ -2,7 +2,7 @@
 id: ROADMAP_MODELING_SPEC_V1
 name: Roadmap Modeling Schema
 description: Roadmap views, source authority, priority vocabulary and local generation input contract.
-version: 1.11.2
+version: 1.11.3
 status: active
 lifecycle: living
 created_at: 2026-10-20
@@ -59,6 +59,42 @@ A version's planned delivery window is distinct from its actual release event.
 The legacy `milestones/{slug}/tasks.md` convention names historical work packages;
 its directory name does not redefine a milestone as a duration-bearing task group.
 No directory migration is implied by this model.
+
+### Milestone planning, achievement and comparison
+
+- **Milestone plan**: A record of intended milestones and their timing. A plan
+  entry references the event ID and occurrence criterion and records the target
+  or committed date or window, when known, along with its decision source and
+  applicable change history. A milestone schedule presents the planned timing.
+  A window describes when the event may occur. The event itself is a point.
+- **Milestone achievement record**: A record that links a milestone ID and its
+  applicable criterion to evidence that the event occurred. When known, its
+  actual date is the date the criterion was met. The date of recording can be
+  tracked separately. A record may document an event outside the plan.
+- **Planned-versus-actual milestone comparison**: A read-only analysis for a
+  stated reporting date and plan version. It pairs plan and achievement records
+  by milestone ID and checks that the criterion and scope are comparable. It
+  reports timing differences, missing evidence and unplanned achievements
+  separately. Milestone variance analysis also explains causes and impacts
+  where supported by evidence.
+
+Manage planning decisions and achievement evidence in their respective source
+records. Join them when a comparison is requested. A **target** expresses desired
+timing, a **commitment** is timing explicitly agreed by the responsible parties,
+and a **forecast** estimates timing from current information. A **baseline** is a
+formally selected plan version used as a comparison reference. The generator's
+accepted timing fields and values are defined in [§5.3](#53-optional-local-generator-interface).
+
+Use `plan-milestones` for requests scoped to creating or revising a milestone
+plan. The project chooses the plan's location and can create it independently of
+the roadmap. Roadmap workflows select and maintain their views from the declared
+planning source. A roadmap may itself own its milestone plan. When a separate
+source owns it, roadmap views reference or summarize that source and retain its
+event and revision IDs.
+
+Terminology references include the [PMI Lexicon, version 5.0](https://www.pmi.org/-/media/pmi/documents/registered/pdf/pmbok-standards/pmi-lexicon-pm-terms.pdf?rev=447328d841c249af985d14177ddd5f95),
+the [NASA software plan tracking guide](https://swehb.nasa.gov/spaces/SWEHBVD/pages/102695409/SWE-024%2B-%2BPlan%2BTracking)
+and the [GAO Schedule Assessment Guide, best practice 10](https://www.gao.gov/assets/gao-16-89g.pdf).
 
 ## 4. Evidence and compatibility
 

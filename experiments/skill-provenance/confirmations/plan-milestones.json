@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicit confirmation in the plan-milestones implementation chat",
+  "confirmed_at": "2026-11-06",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer explicitly confirmed the reviewed plan-milestones 0.1.0 as an AI Cortex original. Mermaid documentation was consulted for syntax only.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/plan-milestones.json"
+    }
+  ],
+  "subject_digest": "cb84f681c30cba44a3e5e60dd31b39d14673c19ddcc078a5c2bd4ee91367d5b5"
+}

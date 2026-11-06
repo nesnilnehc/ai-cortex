@@ -331,6 +331,14 @@
       "result": "A summary of applicable steps and roadmap changes. It does not rerun everything; update-roadmap can handle status/date maintenance.",
       "name": "orchestrate-roadmap-planning"
     },
+    "plan-milestones": {
+      "purpose": "Create or revise a milestone plan",
+      "when": "You need to define key checkpoints or change the planned timing of existing milestones.",
+      "provide": "Project goals, delivery constraints, existing milestones, timing decisions and known dependencies.",
+      "use": "Use plan-milestones to create or revise the project-owned plan and optionally derive a Mermaid timeline.",
+      "result": "A milestone plan with occurrence criteria, timing and sources, plus revision details when applicable.",
+      "name": "plan-milestones"
+    },
     "plan-next": {
       "purpose": "Diagnose governance state and suggest the next step",
       "when": "You want to know the most useful governance action to advance now.",
@@ -873,6 +881,7 @@
         "prioritize-backlog",
         "map-item-dependencies",
         "define-roadmap",
+        "plan-milestones",
         "promote-roadmap-items",
         "update-roadmap",
         "archive-milestone",
@@ -1719,6 +1728,7 @@
           "map-item-dependencies",
           "orchestrate-governance-step",
           "orchestrate-roadmap-planning",
+          "plan-milestones",
           "plan-next",
           "prioritize-backlog",
           "promote-roadmap-items",

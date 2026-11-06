@@ -331,6 +331,14 @@
       "result": "适用步骤的汇总和路线图变更；不会每次重跑所有步骤，状态或日期维护可交给 update-roadmap。",
       "name": "协调路线图规划"
     },
+    "plan-milestones": {
+      "purpose": "建立或修订里程碑计划",
+      "when": "你需要明确关键节点，或调整已有里程碑的计划时间。",
+      "provide": "项目目标、交付约束、已有里程碑、时间决定和已知依赖。",
+      "use": "用 plan-milestones 建立或修订项目的里程碑计划，并按需生成 Mermaid 时间线。",
+      "result": "包含达成条件、计划时间和来源的里程碑计划。涉及实质变更时，附修订记录。",
+      "name": "规划里程碑"
+    },
     "plan-next": {
       "purpose": "分析治理现状并建议下一步",
       "when": "想知道项目当前最值得推进的治理行动是什么。",
@@ -873,6 +881,7 @@
         "prioritize-backlog",
         "map-item-dependencies",
         "define-roadmap",
+        "plan-milestones",
         "promote-roadmap-items",
         "update-roadmap",
         "archive-milestone",
@@ -1719,6 +1728,7 @@
           "map-item-dependencies",
           "orchestrate-governance-step",
           "orchestrate-roadmap-planning",
+          "plan-milestones",
           "plan-next",
           "prioritize-backlog",
           "promote-roadmap-items",

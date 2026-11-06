@@ -170,3 +170,10 @@ references:
     kind: tool_documentation
     evidence:
       path: experiments/skill-provenance/evidence/inspect-artifact-state-source-revisions.json
+  plan-milestones-mermaid-timeline:
+    url: https://mermaid.js.org/syntax/timeline.html
+    title: Mermaid Timeline Diagram
+    accessed_at: "2026-11-06"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/plan-milestones.json

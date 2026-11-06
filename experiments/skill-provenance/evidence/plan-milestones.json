@@ -1,0 +1,19 @@
+{
+  "skill": "plan-milestones",
+  "version": "0.1.0",
+  "request_date": "2026-11-06",
+  "request": "Implement an independent skill for creating and revising milestone plans. Reuse the existing specification, clarify the boundary with roadmap skills, let projects choose the plan destination, and support Markdown and a visual presentation.",
+  "implementation_basis": [
+    "The maintainer's requested workflow and agreed terminology.",
+    "The repository's Roadmap Modeling Spec, roadmap quality rule and diagram selection rule."
+  ],
+  "tool_documentation": [
+    {
+      "title": "Mermaid Timeline Diagram",
+      "url": "https://mermaid.js.org/syntax/timeline.html",
+      "purpose": "Checked timeline syntax and ordering semantics."
+    }
+  ],
+  "proposed_classification": "native",
+  "status": "Creation evidence only. Maintainer confirmation is pending."
+}

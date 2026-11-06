@@ -1490,6 +1490,49 @@
         "subject_digest": "01abc0a7ac141475fe3b7c19332ffc2f3afa858ac5182722f38e899ad2aa3ff5"
       }
     },
+    "plan-milestones": {
+      "classification": "native",
+      "version": "0.1.0",
+      "reviewed_files": {
+        "SKILL.md": "f3e6c03ce162c73c3b3b7e840d87e40e92d224b500a193f3daa50db0137aa3b1"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/plan-milestones.json": "ee92a4e317c7df2c0ab91c02e6931f7e43a5736a11b2a4e31d7b80c56974df5f"
+      },
+      "creation": {
+        "kind": "requirement",
+        "evidence": {
+          "path": "experiments/skill-provenance/evidence/plan-milestones.json"
+        }
+      },
+      "sources": [
+        {
+          "id": "reference:plan-milestones-mermaid-timeline",
+          "role": "tool_lookup"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/plan-milestones.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/plan-milestones.json"
+        }
+      ],
+      "decision": {
+        "maintainer": "Repository maintainer, explicit confirmation in the plan-milestones implementation chat",
+        "confirmed_at": "2026-11-06",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer explicitly confirmed the reviewed plan-milestones 0.1.0 as an AI Cortex original. Mermaid documentation was consulted for syntax only.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/plan-milestones.json"
+          }
+        ],
+        "subject_digest": "cb84f681c30cba44a3e5e60dd31b39d14673c19ddcc078a5c2bd4ee91367d5b5"
+      }
+    },
     "plan-next": {
       "classification": "native",
       "version": "15.8.0",

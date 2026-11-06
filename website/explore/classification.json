@@ -23,6 +23,7 @@
         "prioritize-backlog",
         "map-item-dependencies",
         "define-roadmap",
+        "plan-milestones",
         "promote-roadmap-items",
         "update-roadmap",
         "archive-milestone",

@@ -294,6 +294,7 @@ When you know exactly what you want, naming a single skill is faster.
 | You want to know what is wrong with this roadmap | [`review-roadmap`](../../skills/review-roadmap/SKILL.md) |
 | There are no strategic goals yet | [`design-strategic-goals`](../../skills/design-strategic-goals/SKILL.md) |
 | You want to build a roadmap from the strategic goals | [`define-roadmap`](../../skills/define-roadmap/SKILL.md) |
+| You want to create or revise only a milestone plan | [`plan-milestones`](../../skills/plan-milestones/SKILL.md) |
 | You have a requirement or a defect to write down | [`capture-work-items`](../../skills/capture-work-items/SKILL.md) |
 | The backlog needs re-prioritising | [`prioritize-backlog`](../../skills/prioritize-backlog/SKILL.md) |
 | You want to see which items block which | [`map-item-dependencies`](../../skills/map-item-dependencies/SKILL.md) |
@@ -302,6 +303,12 @@ When you know exactly what you want, naming a single skill is faster.
 | A milestone is finished and needs archiving | [`archive-milestone`](../../skills/archive-milestone/SKILL.md) |
 
 The skill descriptions in [skills/INDEX.md](../../skills/INDEX.md) support discovery; [AGENTS.md](../../AGENTS.md) §4 describes matching.
+
+For milestone planning, use the project's chosen plan source and optionally
+derive a Mermaid timeline from it. The plan can live in the roadmap itself or
+elsewhere. For a broader roadmap change, use `define-roadmap` to select views or
+`update-roadmap` to refresh existing summaries from the declared source. See the
+[milestone planning contract](../../specs/roadmap-modeling.md#milestone-planning-achievement-and-comparison).
 
 ---
 

@@ -348,6 +348,18 @@
       },
       "entry": "public"
     },
+    "plan-milestones": {
+      "id": "plan-milestones",
+      "description": "Create or revise a project milestone plan from delivery goals, commitments, review or acceptance criteria, and dependencies. Use for milestone planning or rescheduling, including projects without a roadmap. Produce a Markdown plan with an optional Mermaid timeline.",
+      "owner": "planning",
+      "sourcePaths": [
+        "skills/plan-milestones/SKILL.md"
+      ],
+      "sourceHashes": {
+        "skills/plan-milestones/SKILL.md": "f3e6c03ce162c73c3b3b7e840d87e40e92d224b500a193f3daa50db0137aa3b1"
+      },
+      "entry": "public"
+    },
     "plan-next": {
       "id": "plan-next",
       "description": "Analyze governance state and suggest next actions; ask whether a skipped recommendation lasts for the session or until revoked.",
