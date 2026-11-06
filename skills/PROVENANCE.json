@@ -1496,10 +1496,10 @@
     },
     "plan-milestones": {
       "classification": "native",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "reviewed_files": {
-        "SKILL.md": "e47cafb64595299cda8da97676d67cc11f4eda3c69c519c52568d932ccf5df20",
-        "scripts/render-plan.py": "291e6d2a2be422fc0c90ec6d911dd42568a5f1c672690e098a337383057e4eed"
+        "SKILL.md": "6d570058aad35c36d0f355daa619bf366bdf64664577e30efb7e56ea99216ee3",
+        "scripts/render-plan.py": "0679b2468dcd0b9c8fd1bb99d70f0b6b92143fd66bcfe6715b460759ceca3db9"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/plan-milestones.json": "ee92a4e317c7df2c0ab91c02e6931f7e43a5736a11b2a4e31d7b80c56974df5f",
@@ -1520,21 +1520,21 @@
           "path": "experiments/skill-provenance/evidence/milestone-calendar-svg.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/plan-milestones-0-2-0-20261106.json"
+          "path": "experiments/skill-provenance/confirmations/plan-milestones-0-2-1-20261106.json"
         }
       ],
       "decision": {
-        "maintainer": "Repository maintainer, explicit confirmation in the milestone SVG implementation chat",
+        "maintainer": "Repository maintainer, explicit confirmation of the refined 0.2.1 review packet",
         "confirmed_at": "2026-11-06",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer explicitly confirmed the reviewed plan-milestones 0.2.0 continues as an AI Cortex original. The SVG work reuses local AI Cortex rendering logic.",
+        "rationale": "The maintainer explicitly confirmed the reviewed plan-milestones 0.2.1 as an AI Cortex original. The revision uses the existing local AI Cortex renderer and planning contracts.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/plan-milestones-0-2-0-20261106.json"
+            "path": "experiments/skill-provenance/confirmations/plan-milestones-0-2-1-20261106.json"
           }
         ],
-        "subject_digest": "47798bd3dc981b6a6a5e3bc9ffb067b8a8e1796bd5e6ca7aba9b3a6371482a3c"
+        "subject_digest": "36cc252b156576e8b3969c4bb456b8f7b0229cd64b0a0f824e15599e764cfe0e"
       }
     },
     "plan-next": {

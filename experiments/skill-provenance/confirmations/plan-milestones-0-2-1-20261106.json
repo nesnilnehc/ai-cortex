@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicit confirmation of the refined 0.2.1 review packet",
+  "confirmed_at": "2026-11-06",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer explicitly confirmed the reviewed plan-milestones 0.2.1 as an AI Cortex original. The revision uses the existing local AI Cortex renderer and planning contracts.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/plan-milestones-0-2-1-20261106.json"
+    }
+  ],
+  "subject_digest": "36cc252b156576e8b3969c4bb456b8f7b0229cd64b0a0f824e15599e764cfe0e"
+}

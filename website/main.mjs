@@ -1,7 +1,7 @@
-import {initializeNavigation} from './site-navigation.mjs?v=version-notes-refinement-20261105';
-import { initializeTheme } from './theme.mjs?v=version-notes-refinement-20261105';
-import { initializeLanguage } from './language.mjs?v=version-notes-refinement-20261105';
-import { bindCopyButton } from './copy.mjs?v=version-notes-refinement-20261105';
+import {initializeNavigation} from './site-navigation.mjs?v=milestone-planning-20261106';
+import { initializeTheme } from './theme.mjs?v=milestone-planning-20261106';
+import { initializeLanguage } from './language.mjs?v=milestone-planning-20261106';
+import { bindCopyButton } from './copy.mjs?v=milestone-planning-20261106';
 
 initializeLanguage(window, document.documentElement.lang === 'zh-CN' ? 'zh' : 'en');
 
@@ -17,4 +17,4 @@ bindCopyButton(
 
 initializeNavigation(window,document);
 
-import './explore/explorer-host.mjs?v=version-notes-refinement-20261105';
+import './explore/explorer-host.mjs?v=milestone-planning-20261106';

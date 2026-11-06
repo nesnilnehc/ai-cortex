@@ -15,7 +15,8 @@ ROADMAP_SCRIPT = Path(__file__).resolve().parents[2] / 'define-roadmap/scripts/r
 SPEC = importlib.util.spec_from_file_location('roadmap_renderer', ROADMAP_SCRIPT)
 roadmap = importlib.util.module_from_spec(SPEC)
 
-WIDTH, LEFT, RIGHT, ROW_HEIGHT = 1080, 512, 1032, 62
+WIDTH, ROW_HEIGHT = 1080, 62
+MILESTONE_X, TIMING_X, LEFT, RIGHT = 24, 305, 512, 1032
 LABELS = {
     'en': ('Milestone', 'Planned timing', 'Calendar', 'Target', 'Committed', 'Unscheduled',
            'A point marks a single date. A bar marks a window in which the event may occur.'),
@@ -83,12 +84,14 @@ def draw_row(root, index, row, captions, xpos):
     basis = captions[3 if timing.basis == 'target' else 4] if timing else captions[5]
     planned = f'{basis} · {timing.label}' if timing else basis
     ET.SubElement(group, 'title').text = f'{caption} · {planned}'
-    labels(group, 24, y + 25, caption, 32)
-    labels(group, 305, y + 25, planned, 25)
+    labels(group, MILESTONE_X, y + 25, caption, 32,
+           **{'class': 'row-label', 'clip-path': 'url(#milestone-label)'})
+    labels(group, TIMING_X, y + 25, planned, 22,
+           **{'class': 'row-label', 'clip-path': 'url(#timing-label)'})
     if timing and timing.dates:
         start, end = timing.dates
         roadmap.svg_marker(group, xpos(start), xpos(end), y + 20, start == end, planned)
-    ET.SubElement(root, 'line', x1='24', y1=str(y + ROW_HEIGHT), x2=str(RIGHT),
+    ET.SubElement(root, 'line', x1=str(MILESTONE_X), y1=str(y + ROW_HEIGHT), x2=str(RIGHT),
                   y2=str(y + ROW_HEIGHT), **{'class': 'rule'})
 
 
@@ -117,22 +120,31 @@ def render(data):
     height = 180 + len(rows) * ROW_HEIGHT
     root = ET.Element('svg', xmlns='http://www.w3.org/2000/svg', width=str(WIDTH), height=str(height),
                       viewBox=f'0 0 {WIDTH} {height}', role='img',
-                      attrib={'aria-labelledby': 'title description', 'xml:lang': locale})
+                      attrib={'aria-labelledby': 'title description', 'xml:lang': locale,
+                              'font-family': 'sans-serif', 'font-size': '14'})
     ET.SubElement(root, 'title', id='title').text = title
     ET.SubElement(root, 'desc', id='description').text = captions[6]
     ET.SubElement(root, 'style').text = (
-        'text{font:14px sans-serif;fill:#21394d}.grid,.rule{stroke:#dce5ec}'
+        'text{fill:#21394d}.grid,.rule{stroke:#dce5ec}'
         '.milestone{fill:#245c91}.span{fill:#d9ede7;stroke:#287562}'
         '.heading{font-size:24px;font-weight:700}.column{font-weight:700}'
+        '.row-label{font-family:monospace}text[text-anchor="middle"]{font-size:12px}'
     )
-    ET.SubElement(root, 'rect', width='100%', height='100%', fill='white')
-    labels(root, 24, 36, title, 65, line_height=27, **{'class': 'heading'})
+    defs = ET.SubElement(root, 'defs')
+    for name, start, end in (('heading-label', MILESTONE_X, WIDTH),
+                             ('milestone-label', MILESTONE_X, TIMING_X),
+                             ('timing-label', TIMING_X, LEFT)):
+        clip = ET.SubElement(defs, 'clipPath', id=name)
+        ET.SubElement(clip, 'rect', x=str(start), width=str(end - start - 12), height=str(height))
+    ET.SubElement(root, 'rect', width=str(WIDTH), height=str(height), fill='white')
+    labels(root, MILESTONE_X, 36, title, 42, line_height=27,
+           **{'class': 'heading', 'clip-path': 'url(#heading-label)'})
     xpos = draw_calendar(root, rows)
-    for x, value in zip((24, 305, LEFT), captions[:3]):
+    for x, value in zip((MILESTONE_X, TIMING_X, LEFT), captions[:3]):
         roadmap.svg_label(root, x, 93, value, **{'class': 'column'})
     for i, row in enumerate(rows):
         draw_row(root, i, row, captions, xpos)
-    roadmap.svg_label(root, 24, height - 16, captions[6])
+    roadmap.svg_label(root, MILESTONE_X, height - 16, captions[6])
     return ET.tostring(root, encoding='unicode') + '\n'
 
 
@@ -149,7 +161,7 @@ def main():
     except (OSError, ValueError, UnicodeError) as exc:
         print(f'error: {exc}', file=sys.stderr)
         return 1
-    sys.stdout.write(svg)
+    sys.stdout.buffer.write(svg.encode('utf-8'))
     return 0
 
 

@@ -335,8 +335,8 @@
       "purpose": "Create or revise a milestone plan",
       "when": "You need to define key checkpoints or change the planned timing of existing milestones.",
       "provide": "Project goals, delivery constraints, existing milestones, timing decisions and known dependencies.",
-      "use": "Use plan-milestones to create or revise the project-owned plan and optionally render a calendar-scale SVG.",
-      "result": "A milestone plan with occurrence criteria, timing and sources, plus revision details when applicable.",
+      "use": "Use plan-milestones to create or revise the project-owned plan. Link related requirements, versions or phases, and identify key prerequisites. The roadmap can reference entries in the plan.",
+      "result": "A Markdown milestone plan with occurrence criteria, timing and sources. Material changes include a revision record. A calendar-scale SVG is optional.",
       "name": "plan-milestones"
     },
     "plan-next": {

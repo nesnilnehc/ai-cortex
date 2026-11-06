@@ -2,6 +2,7 @@
 """Exercise the standalone milestone renderer through its command line."""
 
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -15,14 +16,14 @@ NS = {'svg': 'http://www.w3.org/2000/svg'}
 
 
 class MilestonePlanSvgTests(unittest.TestCase):
-    def run_cli(self, milestones, locale='en'):
+    def run_cli(self, milestones, locale='en', *, env=None, encoding='utf-8'):
         with tempfile.TemporaryDirectory() as folder:
             source = Path(folder) / 'plan.json'
             plan = json.dumps({'title': 'Launch & handoff', 'locale': locale,
                                'milestones': milestones})
             source.write_text(plan, encoding='utf-8')
             result = subprocess.run([sys.executable, '-B', SCRIPT, source],
-                                    capture_output=True, text=True, check=False)
+                                    capture_output=True, encoding=encoding, env=env, check=False)
             self.assertEqual(source.read_text(encoding='utf-8'), plan)
             return result
 
@@ -70,6 +71,32 @@ class MilestonePlanSvgTests(unittest.TestCase):
     def test_a_single_point_at_the_date_limit_is_visible(self):
         svg = self.render([dict(id='A', name='Review', timing=dict(basis='target', date='9999-12-31'))])
         self.assertIsNotNone(svg.find('.//svg:polygon', NS))
+
+    def test_redirected_svg_is_utf8_even_with_legacy_stdio_encoding(self):
+        result = self.run_cli([dict(id='A', name='Review', timing=None)],
+                              env={**os.environ, 'PYTHONIOENCODING': 'cp1252'}, encoding=None)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        svg = ET.fromstring(result.stdout)
+        self.assertIn('A · Review', ' '.join(svg.itertext()))
+
+    def test_long_row_labels_are_confined_to_their_columns(self):
+        name = 'W' * 90
+        timing = 'W' * 60
+        svg = self.render([dict(id='A', name=name, timing=dict(basis='committed', label=timing))])
+        row = svg.find('svg:g[@data-id="A"]', NS)
+        milestone_x, timing_x, calendar_x = (int(text.get('x')) for text in svg.findall(
+            'svg:text[@class="column"]', NS))
+        for start, boundary in ((milestone_x, timing_x), (timing_x, calendar_x)):
+            lines = row.findall(f'svg:text[@x="{start}"]', NS)
+            self.assertEqual(len(lines), 2)
+            self.assertTrue(lines[-1].text.endswith('…'))
+            for line in lines:
+                clip_id = line.get('clip-path', '').removeprefix('url(#').removesuffix(')')
+                clip = svg.find(f'svg:defs/svg:clipPath[@id="{clip_id}"]/svg:rect', NS)
+                self.assertIsNotNone(clip)
+                self.assertEqual(int(clip.get('x')), start)
+                self.assertLess(int(clip.get('x')) + int(clip.get('width')), boundary)
+        self.assertEqual(row.findtext('svg:title', namespaces=NS), f'A · {name} · Committed · {timing}')
 
     def test_reject_ambiguous_or_invalid_timing_and_duplicate_ids(self):
         for timing in (

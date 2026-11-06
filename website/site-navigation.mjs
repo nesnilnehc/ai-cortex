@@ -1,4 +1,4 @@
-import navigation from './site-navigation.json?v=version-notes-refinement-20261105' with {type:'json'};
+import navigation from './site-navigation.json?v=milestone-planning-20261106' with {type:'json'};
 const languages=['en','zh'];
 // Static hosting may canonicalize .html URLs before the document executes.
 const pathAliases=new Map([['/zh','/zh.html'],['/index','/index.html'],['/explore/zh','/explore/zh.html'],['/explore/index','/explore/index.html']]);

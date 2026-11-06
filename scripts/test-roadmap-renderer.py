@@ -918,6 +918,22 @@ class RendererTests(unittest.TestCase):
         data['schedule']['items'][-1].update(start=None, end=None)
         self.assertNotIn('milestone, M1', renderer.mermaid(renderer.validate(data)))
 
+    def test_roadmap_retains_linked_event_when_its_window_is_in_the_source_plan(self):
+        data = event_sample('dates')
+        data['milestones'][0]['source'] = 'milestone-plan.md#m1'
+        data['schedule']['items'].pop()
+
+        outputs = renderer.documents(renderer.validate(data))
+
+        roadmap = outputs['roadmap.md']
+        row = next(line for line in roadmap.splitlines() if line.startswith('| M1 · '))
+        self.assertIn('Reviewer signs acceptance', row)
+        self.assertIn('[Source](milestone-plan.md#m1)', row)
+        self.assertIn('No schedule assigned: M1.', roadmap)
+        self.assertNotIn('milestone, M1,', outputs['roadmap.mmd'])
+        svg = ET.fromstring(outputs['roadmap.svg'])
+        self.assertEqual(svg.findall('.//{http://www.w3.org/2000/svg}polygon[@class="milestone"]'), [])
+
     def test_mermaid_ignores_unmodeled_state_when_record_is_not_a_milestone(self):
         """Covers: roadmap-capabilities#AC8; only milestone objects own event state."""
         data = sample('dates')

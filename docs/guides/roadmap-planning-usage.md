@@ -300,15 +300,19 @@ When you know exactly what you want, naming a single skill is faster.
 | You want to see which items block which | [`map-item-dependencies`](../../skills/map-item-dependencies/SKILL.md) |
 | You want to pull items into Now | [`promote-roadmap-items`](../../skills/promote-roadmap-items/SKILL.md) |
 | Something is stuck, or the dates have to move | [`update-roadmap`](../../skills/update-roadmap/SKILL.md) |
-| A milestone is finished and needs archiving | [`archive-milestone`](../../skills/archive-milestone/SKILL.md) |
+| A completed phase, version, period or legacy work package needs archiving | [`archive-milestone`](../../skills/archive-milestone/SKILL.md) |
 
 The skill descriptions in [skills/INDEX.md](../../skills/INDEX.md) support discovery; [AGENTS.md](../../AGENTS.md) §4 describes matching.
 
 For milestone planning, use the project's chosen plan source and optionally
 derive a calendar-scale SVG from it. The plan can live in the roadmap itself or
 elsewhere. For a broader roadmap change, use `define-roadmap` to select views or
-`update-roadmap` to refresh existing summaries from the declared source. See the
-[milestone planning contract](../../specs/roadmap-modeling.md#milestone-planning-achievement-and-comparison).
+`update-roadmap` to refresh existing summaries from the declared source. Summarize
+planned windows with their timing basis and link the plan entry. The local roadmap
+generator can keep the linked event in the milestone view without a schedule
+marker. Keep pending timing explicit. When an event occurs, retain its milestone
+ID, occurrence criterion and supporting evidence in the project's achievement
+record. See the [milestone planning contract](../../specs/roadmap-modeling.md#milestone-planning-achievement-and-comparison).
 
 ---
 

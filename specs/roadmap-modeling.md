@@ -2,7 +2,7 @@
 id: ROADMAP_MODELING_SPEC_V1
 name: Roadmap Modeling Schema
 description: Roadmap views, source authority, priority vocabulary and local generation input contract.
-version: 1.12.0
+version: 1.12.1
 status: active
 lifecycle: living
 created_at: 2026-10-20
@@ -99,6 +99,12 @@ Use `define-roadmap` to select the roadmap views that need those facts and
 owns the milestone plan, edit the owning section in place. When another source
 owns it, link or summarize that source. Carry the same decision or revision ID
 through an authorized change and its affected views.
+
+When a roadmap summarizes a milestone window, carry its source precision and
+timing basis in text and link to the owning plan entry. Preserve any pending
+date or timing basis explicitly. A roadmap schedule may plot a milestone when
+its source supports a single point on the selected time scale. For the local
+generator's linked-event fallback, see [§5.3](#53-optional-local-generator-interface).
 
 - **Stale projection.** If two views report different values for the same fact
   under the same scope and plan version, verify its declared authority and refresh
@@ -548,6 +554,13 @@ in 1.1–1.6 unscheduled milestones retain kind milestone and have no plotted ma
 an inverted span, mixed time modes, duplicate dependencies and cycles are invalid.
 Finish-to-start dependencies must not overlap; unknown endpoints leave timing
 unverified and are reported. This is validation, not resource scheduling.
+
+For a milestone window or an unknown timing basis, keep the event in `milestones`
+with its `source` link and omit its schedule item. The milestone view retains the
+event and link, and the schedule reports that no item was assigned. The linked
+plan carries the window or pending timing details. When the basis is known and
+the date is pending, a schedule item with two null endpoints may show the event
+as unscheduled.
 
 Input is capped at 1 MiB, 200 total planning objects (including 1.3+ iterations), 200 schedule items and
 200 characters per text field. Larger roadmaps must be split. Schedule horizon
