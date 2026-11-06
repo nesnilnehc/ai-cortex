@@ -305,7 +305,7 @@ When you know exactly what you want, naming a single skill is faster.
 The skill descriptions in [skills/INDEX.md](../../skills/INDEX.md) support discovery; [AGENTS.md](../../AGENTS.md) §4 describes matching.
 
 For milestone planning, use the project's chosen plan source and optionally
-derive a Mermaid timeline from it. The plan can live in the roadmap itself or
+derive a calendar-scale SVG from it. The plan can live in the roadmap itself or
 elsewhere. For a broader roadmap change, use `define-roadmap` to select views or
 `update-roadmap` to refresh existing summaries from the declared source. See the
 [milestone planning contract](../../specs/roadmap-modeling.md#milestone-planning-achievement-and-comparison).

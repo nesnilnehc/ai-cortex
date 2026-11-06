@@ -502,10 +502,10 @@
     },
     "define-roadmap": {
       "classification": "native",
-      "version": "7.13.4",
+      "version": "7.13.5",
       "reviewed_files": {
         "README.md": "da3520e07b22cc3446491b1ffc0185fb7098b2ec1996dd4951c717128fc4b1bc",
-        "SKILL.md": "dca7c9504d2be4285dd6c77906dc8a0274868457de056ade9c23825e1fa293d4",
+        "SKILL.md": "3bd6ee7626a4d0dee87e431e701ef5560a075b65846cdd6bad34041f3e5a10c5",
         "assets/modules/flow.md": "307a7db9731700d565e56447402975b495507d3d50919f495303bc7dc33a7c2e",
         "assets/modules/iterations.md": "1cf9c9ea00b4ed0f50ccc8285d305d798c046c8785825998053b0451c8a32aba",
         "assets/modules/milestones.md": "cbb510bb6e8d9e37fc5d1c41e0961abb34c25cce7d9865f1e1a918e518f477ac",
@@ -610,11 +610,12 @@
         "references/service-desk/version-archive.md": "832f899776342ef96156d2b5ca297dd0fea2234cafbf0ee25e263047ac75a1a7",
         "references/structure-first.md": "d2408195be8d32ad9802ad3225766cbaf6a4a49e5f849522f4599ec18d1a832c",
         "scripts/check-platform-delivery.py": "8fbd8fa7119785dd2c9d4beb3b2760bdf22c3ec54d31fe30138b037f1ce96263",
-        "scripts/render-roadmap.py": "d2c7e4f33d4778a9761e712e409fcae2e089f00793387120d0e7ea03454ffcc7",
+        "scripts/render-roadmap.py": "25bb37f1ef92ec3b33c4b4a6dca1184e5d1afd2665a1ef478d3a4aa058f05e4b",
         "scripts/roadmap-zh-CN.json": "9793c0fb6199626c7300cef39fe5d55a7f6ba91246441cce0c6531f7bddd4e27"
       },
       "reviewed_evidence": {
-        "experiments/skill-provenance/evidence/define-roadmap.json": "764324db2f3558723529c423b8927fb3e287d1c840f00bee4fc539ae3419029a"
+        "experiments/skill-provenance/evidence/define-roadmap.json": "764324db2f3558723529c423b8927fb3e287d1c840f00bee4fc539ae3419029a",
+        "experiments/skill-provenance/evidence/milestone-calendar-svg.json": "8010f219891e8ec0698c55dee13adf3fb3afade02094fae8e8f5882e86029cf4"
       },
       "sources": [],
       "evidence": [
@@ -622,7 +623,10 @@
           "path": "experiments/skill-provenance/evidence/define-roadmap.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/define-roadmap-2026-11-01-remove-status.json"
+          "path": "experiments/skill-provenance/evidence/milestone-calendar-svg.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/define-roadmap-7-13-5-20261106.json"
         }
       ],
       "reviewed_links": {
@@ -633,17 +637,17 @@
         "revision": "904a4cc530bfd4e9557885add79a5d0fc0c3b590"
       },
       "decision": {
-        "maintainer": "Repository maintainer, explicit reply in chat 01a1803e-9883-7aa0-b887-8861238d233f",
-        "confirmed_at": "2026-11-01",
+        "maintainer": "Repository maintainer, explicit confirmation in the milestone SVG implementation chat",
+        "confirmed_at": "2026-11-06",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer explicitly confirmed define-roadmap 7.13.4 remains native after removing evaluation availability status from its guide; no external creative reference was introduced.",
+        "rationale": "The maintainer explicitly confirmed the reviewed define-roadmap 7.13.5 continues as an AI Cortex original. The SVG work reuses local AI Cortex rendering logic.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/define-roadmap-2026-11-01-remove-status.json"
+            "path": "experiments/skill-provenance/confirmations/define-roadmap-7-13-5-20261106.json"
           }
         ],
-        "subject_digest": "1234b049c604aa4438c3201f5c2a3a5eb0aa8d2afffb0938bd1182820732feef"
+        "subject_digest": "96cbfb8791599730eaab746cfb109538cd0674c6286c76c1f7651a6fb6187400"
       }
     },
     "define-strategic-pillars": {
@@ -1492,12 +1496,14 @@
     },
     "plan-milestones": {
       "classification": "native",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "reviewed_files": {
-        "SKILL.md": "f3e6c03ce162c73c3b3b7e840d87e40e92d224b500a193f3daa50db0137aa3b1"
+        "SKILL.md": "e47cafb64595299cda8da97676d67cc11f4eda3c69c519c52568d932ccf5df20",
+        "scripts/render-plan.py": "291e6d2a2be422fc0c90ec6d911dd42568a5f1c672690e098a337383057e4eed"
       },
       "reviewed_evidence": {
-        "experiments/skill-provenance/evidence/plan-milestones.json": "ee92a4e317c7df2c0ab91c02e6931f7e43a5736a11b2a4e31d7b80c56974df5f"
+        "experiments/skill-provenance/evidence/plan-milestones.json": "ee92a4e317c7df2c0ab91c02e6931f7e43a5736a11b2a4e31d7b80c56974df5f",
+        "experiments/skill-provenance/evidence/milestone-calendar-svg.json": "8010f219891e8ec0698c55dee13adf3fb3afade02094fae8e8f5882e86029cf4"
       },
       "creation": {
         "kind": "requirement",
@@ -1505,32 +1511,30 @@
           "path": "experiments/skill-provenance/evidence/plan-milestones.json"
         }
       },
-      "sources": [
-        {
-          "id": "reference:plan-milestones-mermaid-timeline",
-          "role": "tool_lookup"
-        }
-      ],
+      "sources": [],
       "evidence": [
         {
           "path": "experiments/skill-provenance/evidence/plan-milestones.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/plan-milestones.json"
+          "path": "experiments/skill-provenance/evidence/milestone-calendar-svg.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/plan-milestones-0-2-0-20261106.json"
         }
       ],
       "decision": {
-        "maintainer": "Repository maintainer, explicit confirmation in the plan-milestones implementation chat",
+        "maintainer": "Repository maintainer, explicit confirmation in the milestone SVG implementation chat",
         "confirmed_at": "2026-11-06",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer explicitly confirmed the reviewed plan-milestones 0.1.0 as an AI Cortex original. Mermaid documentation was consulted for syntax only.",
+        "rationale": "The maintainer explicitly confirmed the reviewed plan-milestones 0.2.0 continues as an AI Cortex original. The SVG work reuses local AI Cortex rendering logic.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/plan-milestones.json"
+            "path": "experiments/skill-provenance/confirmations/plan-milestones-0-2-0-20261106.json"
           }
         ],
-        "subject_digest": "cb84f681c30cba44a3e5e60dd31b39d14673c19ddcc078a5c2bd4ee91367d5b5"
+        "subject_digest": "47798bd3dc981b6a6a5e3bc9ffb067b8a8e1796bd5e6ca7aba9b3a6371482a3c"
       }
     },
     "plan-next": {

@@ -335,7 +335,7 @@
       "purpose": "Create or revise a milestone plan",
       "when": "You need to define key checkpoints or change the planned timing of existing milestones.",
       "provide": "Project goals, delivery constraints, existing milestones, timing decisions and known dependencies.",
-      "use": "Use plan-milestones to create or revise the project-owned plan and optionally derive a Mermaid timeline.",
+      "use": "Use plan-milestones to create or revise the project-owned plan and optionally render a calendar-scale SVG.",
       "result": "A milestone plan with occurrence criteria, timing and sources, plus revision details when applicable.",
       "name": "plan-milestones"
     },

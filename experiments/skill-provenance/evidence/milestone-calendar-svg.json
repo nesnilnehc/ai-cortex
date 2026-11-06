@@ -1,0 +1,19 @@
+{
+  "recorded_on": "2026-11-06",
+  "request": "Replace the Mermaid timeline in plan-milestones with a calendar-scale SVG. Keep one row per milestone, point dates, window intervals, textual targets and commitments, unplotted unknown dates, and the Markdown plan.",
+  "skills": {
+    "plan-milestones": {
+      "version": "0.2.0",
+      "changes": "Add a local SVG renderer and document its transient input. Reuse validation, calendar ticks and mark drawing from define-roadmap. Retire the Mermaid timeline option in this skill."
+    },
+    "define-roadmap": {
+      "version": "7.13.5",
+      "changes": "Expose the existing SVG mark drawing and allow the calendar grid to follow a caller's row height. Preserve existing roadmap rendering behavior."
+    }
+  },
+  "implementation_basis": [
+    "The project maintainer's requested presentation and the locally agreed milestone terminology.",
+    "Existing Python and SVG implementation in the AI Cortex roadmap renderer."
+  ],
+  "status": "Implementation evidence for source review. Maintainer provenance confirmation is pending for both revised skill inventories."
+}

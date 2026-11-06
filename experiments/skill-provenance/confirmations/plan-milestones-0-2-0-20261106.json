@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicit confirmation in the milestone SVG implementation chat",
+  "confirmed_at": "2026-11-06",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer explicitly confirmed the reviewed plan-milestones 0.2.0 continues as an AI Cortex original. The SVG work reuses local AI Cortex rendering logic.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/plan-milestones-0-2-0-20261106.json"
+    }
+  ],
+  "subject_digest": "47798bd3dc981b6a6a5e3bc9ffb067b8a8e1796bd5e6ca7aba9b3a6371482a3c"
+}

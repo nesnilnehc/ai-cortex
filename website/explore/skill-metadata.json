@@ -152,7 +152,7 @@
         "skills/define-roadmap/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/define-roadmap/SKILL.md": "dca7c9504d2be4285dd6c77906dc8a0274868457de056ade9c23825e1fa293d4"
+        "skills/define-roadmap/SKILL.md": "3bd6ee7626a4d0dee87e431e701ef5560a075b65846cdd6bad34041f3e5a10c5"
       },
       "entry": "public"
     },
@@ -350,13 +350,13 @@
     },
     "plan-milestones": {
       "id": "plan-milestones",
-      "description": "Create or revise a project milestone plan from delivery goals, commitments, review or acceptance criteria, and dependencies. Use for milestone planning or rescheduling, including projects without a roadmap. Produce a Markdown plan with an optional Mermaid timeline.",
+      "description": "Create or revise a project milestone plan from delivery goals, commitments, review or acceptance criteria, and dependencies. Use for milestone planning or rescheduling, including projects without a roadmap. Produce a Markdown plan with an optional calendar-scale SVG.",
       "owner": "planning",
       "sourcePaths": [
         "skills/plan-milestones/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/plan-milestones/SKILL.md": "f3e6c03ce162c73c3b3b7e840d87e40e92d224b500a193f3daa50db0137aa3b1"
+        "skills/plan-milestones/SKILL.md": "e47cafb64595299cda8da97676d67cc11f4eda3c69c519c52568d932ccf5df20"
       },
       "entry": "public"
     },

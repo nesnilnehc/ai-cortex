@@ -2,7 +2,7 @@
 id: ROADMAP_MODELING_SPEC_V1
 name: Roadmap Modeling Schema
 description: Roadmap views, source authority, priority vocabulary and local generation input contract.
-version: 1.11.3
+version: 1.12.0
 status: active
 lifecycle: living
 created_at: 2026-10-20
@@ -85,12 +85,52 @@ and a **forecast** estimates timing from current information. A **baseline** is 
 formally selected plan version used as a comparison reference. The generator's
 accepted timing fields and values are defined in [§5.3](#53-optional-local-generator-interface).
 
-Use `plan-milestones` for requests scoped to creating or revising a milestone
-plan. The project chooses the plan's location and can create it independently of
-the roadmap. Roadmap workflows select and maintain their views from the declared
-planning source. A roadmap may itself own its milestone plan. When a separate
-source owns it, roadmap views reference or summarize that source and retain its
-event and revision IDs.
+### Roadmap references and conflicts
+
+A roadmap organizes project direction, priorities and delivery. A milestone plan
+maintains the significant events and their planning decisions. A project may
+establish either first and maintain the milestone plan in the roadmap or in a
+separate source. Declare one editable authority for each milestone fact and use
+the same milestone ID and occurrence criterion in all views that reference it.
+
+Use `plan-milestones` to create or revise the milestone facts at that authority.
+Use `define-roadmap` to select the roadmap views that need those facts and
+`update-roadmap` to refresh affected summaries and schedules. When the roadmap
+owns the milestone plan, edit the owning section in place. When another source
+owns it, link or summarize that source. Carry the same decision or revision ID
+through an authorized change and its affected views.
+
+- **Stale projection.** If two views report different values for the same fact
+  under the same scope and plan version, verify its declared authority and refresh
+  the affected projection. If authority is unclear, record both values and their
+  sources and resolve ownership before overwriting either.
+- **Conflicting plans.** If a roadmap dependency, scope or delivery window makes
+  a milestone target or commitment infeasible, trace the conflict to its sources,
+  state the known impact and ask the decision owner to resolve it. Preserve the
+  confirmed commitment while the conflict is open. After a decision, update each
+  affected authority and refresh its projections under the
+  [revision contract](#54-revision-records).
+- **Different meanings.** A baseline commitment, current target, forecast and
+  actual occurrence can legitimately differ. Identify the applicable scope, plan
+  version and timing basis before treating different dates as a conflict.
+
+### Milestone plan SVG
+
+A project MAY include an SVG calendar view alongside the readable milestone plan.
+Generate the view from the same planning facts and preserve the plan's row order
+and IDs. Apply these rules to a dedicated milestone plan SVG:
+
+- Show one row per milestone. Position each known date on a linear calendar scale
+  in which equal distances represent equal numbers of calendar days. Use a point
+  for a single date and an interval for a window of possible occurrence. For
+  normalized day-level bounds, the start is inclusive and the end is exclusive.
+- Label target and committed timing in text for both points and windows. Preserve
+  the source precision of a window. Keep rows without defensible calendar bounds
+  visible with the source label or an explicit unknown and no plotted mark. A plan
+  with no plottable dates carries no dated axis.
+- Retain the Markdown table or an equivalent readable plan for readers who cannot
+  view the SVG. The SVG and any transient renderer input are projections. Keep
+  the drawing reproducible for the same input and renderer version.
 
 Terminology references include the [PMI Lexicon, version 5.0](https://www.pmi.org/-/media/pmi/documents/registered/pdf/pmbok-standards/pmi-lexicon-pm-terms.pdf?rev=447328d841c249af985d14177ddd5f95),
 the [NASA software plan tracking guide](https://swehb.nasa.gov/spaces/SWEHBVD/pages/102695409/SWE-024%2B-%2BPlan%2BTracking)

@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicit confirmation in the milestone SVG implementation chat",
+  "confirmed_at": "2026-11-06",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer explicitly confirmed the reviewed define-roadmap 7.13.5 continues as an AI Cortex original. The SVG work reuses local AI Cortex rendering logic.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/define-roadmap-7-13-5-20261106.json"
+    }
+  ],
+  "subject_digest": "96cbfb8791599730eaab746cfb109538cd0674c6286c76c1f7651a6fb6187400"
+}

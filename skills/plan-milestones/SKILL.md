@@ -1,7 +1,7 @@
 ---
 name: plan-milestones
-description: Create or revise a project milestone plan from delivery goals, commitments, review or acceptance criteria, and dependencies. Use for milestone planning or rescheduling, including projects without a roadmap. Produce a Markdown plan with an optional Mermaid timeline.
-version: 0.1.0
+description: Create or revise a project milestone plan from delivery goals, commitments, review or acceptance criteria, and dependencies. Use for milestone planning or rescheduling, including projects without a roadmap. Produce a Markdown plan with an optional calendar-scale SVG.
+version: 0.2.0
 license: MIT
 ---
 
@@ -48,22 +48,35 @@ basis, dependencies and source. Preserve established fields and links. Include
 the material revision or link to it. A formally selected baseline, when the
 project has one, remains identifiable in the source history.
 
-When requested or already selected for this plan, derive a **Mermaid timeline**
-from the same records. Label dated entries and windows with their source precision,
-event ID and target or commitment basis. Order entries by known timing and label
-the chart as a sequence with spacing independent of elapsed time. Keep overlapping
-windows explicit and retain undated events in the plan's text or table. If all
-timing is unknown, use the table. Use short plain-text labels and replace colons,
-line breaks and Mermaid control syntax in source text. Verify rendering where
-supported and keep the Markdown plan as the readable fallback. See
-[diagram selection](../../rules/diagram-selection.md).
+When requested or already selected, derive an **SVG calendar view** from the same
+records. It preserves plan order with one milestone per row. A point marks a
+single day and a bar shows a window. Text distinguishes targets from commitments.
+Rows with unknown dates remain visible with an empty plot.
 
-```mermaid
-timeline
-    title Planned milestones (spacing is not to scale)
-    2027-02-12 : M1 Pilot readiness accepted (target)
-    2027 Q2 : M2 Customer handoff signed (committed window)
+Project the plan into a temporary JSON file with a `title`, `locale` (`en` or
+`zh-CN`) and `milestones` array. Each row uses the plan's `id`, `name` and `timing`.
+Timing is `null` for an unknown date, or an object with `basis` (`target` or
+`committed`) and one of these shapes:
+
+- `date` for a single ISO date (`YYYY-MM-DD`).
+- `start` and `end` for ISO calendar bounds. `start` is inclusive and `end` is
+  exclusive. For a known quarter, use the first day of that quarter and the
+  first day of the next quarter. An optional `label` preserves the source wording.
+- `label` alone for a known target or commitment without defensible calendar
+  bounds. The row shows the label without a plotted mark.
+
+Run the [local SVG renderer](scripts/render-plan.py) with Python 3.10+ and redirect
+its standard output to a new SVG file or an authorized output path. The renderer
+uses the calendar axis and marks from the bundled roadmap renderer.
+
+```sh
+python3 /path/to/plan-milestones/scripts/render-plan.py milestone-preview.json > milestone-plan.svg
 ```
+
+Save the SVG at the selected destination and link it from the Markdown plan when
+the destination supports SVG. Keep the Markdown table as the text equivalent.
+When rendering is unavailable, deliver the table and report the limitation. See
+[diagram selection](../../rules/diagram-selection.md).
 
 ## Roadmap handoff
 
@@ -85,5 +98,5 @@ timeline
   source. Targets, commitments and unknowns retain their meaning.
 - The authorized plan source and any material revision are identifiable. A repeat
   of the same decision does not create another record or silently move dependent dates.
-- Any timeline agrees with the plan and preserves date precision. Unknown or
+- The SVG agrees with the plan and preserves date precision. Unknown or
   unsupported rendering is reported with the plan still available as text.

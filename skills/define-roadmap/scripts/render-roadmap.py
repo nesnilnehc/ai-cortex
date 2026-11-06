@@ -1012,14 +1012,23 @@ def svg_heading(root, data, schedule):
     svg_label(root, 350, 100, ui(data, 'Relative weeks') if schedule['mode'] == 'weeks' else ui(data, 'Calendar dates (end exclusive)'))
 
 
-def svg_axes(root, low, high, mode, count, xpos, data=None):
+def svg_axes(root, low, high, mode, count, xpos, data=None, *, row_height=84):
     ticks = sorted({low + round((high - low) * n / 4) for n in range(5)})
     for tick in ticks:
         x = xpos(tick)
         ET.SubElement(root, 'line', x1=str(x), y1='128', x2=str(x),
-                      y2=str(136 + count * 84), **{'class': 'grid'})
+                      y2=str(136 + count * row_height), **{'class': 'grid'})
         value = f'W{tick}' if mode == 'weeks' else date.fromordinal(tick).isoformat()
         svg_label(root, x, 121, value, **{'text-anchor': 'middle'})
+
+
+def svg_marker(root, x1, x2, y, is_point, label):
+    if is_point:
+        shape = ET.SubElement(root, 'polygon', points=f'{x1},{y} {x1+7},{y+9} {x1},{y+18} {x1-7},{y+9}',
+                              **{'class': 'milestone'})
+    else:
+        shape = ET.SubElement(root, 'rect', x=str(x1), y=str(y), width=str(x2 - x1), height='18', **{'class': 'span'})
+    ET.SubElement(shape, 'title').text = label
 
 
 def svg_row(root, item, coords, positions, names, mode, xpos, states, data=None):
@@ -1036,12 +1045,7 @@ def svg_row(root, item, coords, positions, names, mode, xpos, states, data=None)
         return
     start, end = coords[ref]
     x1, x2 = xpos(start), xpos(end)
-    if item['kind'] == 'milestone':
-        shape = ET.SubElement(root, 'polygon', points=f'{x1},{y} {x1+7},{y+9} {x1},{y+18} {x1-7},{y+9}',
-                              **{'class': 'milestone'})
-    else:
-        shape = ET.SubElement(root, 'rect', x=str(x1), y=str(y), width=str(x2 - x1), height='18', **{'class': 'span'})
-    ET.SubElement(shape, 'title').text = full + ' · ' + timing(item, mode, data)
+    svg_marker(root, x1, x2, y, item['kind'] == 'milestone', full + ' · ' + timing(item, mode, data))
     for dep in item['depends_on']:
         if dep not in coords:
             continue
