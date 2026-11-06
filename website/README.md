@@ -2,6 +2,20 @@
 
 ## Current publication
 
+Sites version 19 went live on 2026-11-06 at
+[AI Cortex](https://ai-cortex.nesnilnehc.top/). The catalogue contains 75 Skills,
+including record-milestone-achievement 0.1.0. The English and Chinese entries
+explain how to verify evidence and record confirmed achievements. The 49 runtime
+files come from repository commit `fc30df9499a0421c0b277e8446090bf3ea0b100d`.
+
+All 77 website tests passed. Public HTTPS checks matched the source manifest,
+provenance, Skill metadata and both locale files to the repository bytes. Both
+homepages showed the new catalogue entry, and the pinned Skill source matched
+version 0.1.0. The [deployment receipt](.openai/deployment.json) records the
+published source and verification scope.
+
+## Prior publication: milestone planning
+
 Sites version 18 went live on 2026-11-06 at
 [AI Cortex](https://ai-cortex.nesnilnehc.top/). The catalogue contains 74 Skills,
 including plan-milestones 0.2.1 and define-roadmap 7.13.5. The bilingual Skill
@@ -11,8 +25,6 @@ files come from repository commit `a5e18e40ea0532aa6147395ac069fabcedb7e143`.
 All 77 website tests passed. HTTPS checks on the custom domain matched the
 published source manifest, provenance, Skill metadata and both locale files to
 the repository bytes. The pinned plan-milestones source matched version 0.2.1.
-The [deployment receipt](.openai/deployment.json) records the published source
-and verification scope.
 
 ## Prior publication
 

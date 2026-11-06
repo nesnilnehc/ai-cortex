@@ -1,16 +1,16 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_a0d3d59ed7548191b580b6c1fb806458",
-  "version_number": 18,
-  "deployment_id": "appgdep_6aed7be6ae148191959362a355835301",
-  "source_commit": "c4b19c164dc34873abd031e81e25819d8ae5c42c",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_c4f8d0386cd88191a3e4136f9ab0bf31",
+  "version_number": 19,
+  "deployment_id": "appgdep_6aed9ab579fc81918e140e843603d6a1",
+  "source_commit": "68f0d10701fee3d821b74d1fe7ea064028db917b",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.nesnilnehc.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-11-06T07:04:20.474975+00:00",
+  "updated_at": "2026-11-06T09:15:47.430492+00:00",
   "published_files": [
     "copy.mjs",
     "explore/assets/work-stories.png",
@@ -94,24 +94,28 @@
     "personal site project entry"
   ],
   "known_good_version": {
-    "version_number": 17,
-    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_a75e6e6075848191a4e263b86576b2e6",
-    "source_commit": "b604315d883f7732756ef9797cf9ee515372e94c"
+    "version_number": 18,
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_a0d3d59ed7548191b580b6c1fb806458",
+    "source_commit": "c4b19c164dc34873abd031e81e25819d8ae5c42c"
   },
   "public_verification": {
     "status": "passed",
-    "checked_files": 6,
+    "checked_files": 8,
     "byte_identical": [
       "explore/source-manifest.json",
       "explore/skill-provenance.json",
       "explore/skill-metadata.json",
       "explore/locales/en.json",
       "explore/locales/zh.json",
-      "Pinned plan-milestones SKILL.md (0.2.1)"
+      "Pinned record-milestone-achievement SKILL.md (0.1.0)"
+    ],
+    "pages_containing_new_catalogue_entry": [
+      "/",
+      "/zh"
     ]
   },
-  "repository_source_revision": "a5e18e40ea0532aa6147395ac069fabcedb7e143",
-  "assets_revision": "f05b92280c98f3386c34738478b55b119e010a1a",
-  "cache_key": "milestone-planning-20261106",
-  "archive_sha256": "be63cb9f88a6c838985e5495fbe68211108e9c0d2b76b43a8beb1c7f14a1c324"
+  "repository_source_revision": "fc30df9499a0421c0b277e8446090bf3ea0b100d",
+  "assets_revision": "73982a7b0f825feef802db428adffe3314afae4b",
+  "cache_key": "milestone-achievement-20261106",
+  "archive_sha256": "57d18c7c3607b7bf9534d26ef8ef12d54bb3062a088f7ca3c08dc799bd106a25"
 }
