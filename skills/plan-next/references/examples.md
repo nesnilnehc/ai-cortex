@@ -2,9 +2,11 @@
 
 ## Examples
 
+Examples 1-6 illustrate project-wide diagnosis under the stated project conventions. Their expanded trace fields are illustrative; focused recommendations use only the context needed for the user's choice. Examples 10-12 cover the version 16 default and its evidence boundaries.
+
 ### Example 1: a half-built strategy (the normal path)
 
-**Scenario**: the project has mission / vision; no strategic-goals; a roadmap exists but cannot be traced back to a strategic goal.
+**Scenario**: the user requests a project-wide planning diagnosis. The project requires goal-backed roadmap decisions, has mission / vision but no strategic goals, and its roadmap has no other evidenced direction. Goal clarification is needed to choose among competing roadmap actions.
 
 **Output** (example):
 
@@ -138,7 +140,7 @@
 
 ### Example 4: the roadmap is not tiered
 
-**Scenario**: strategic goals exist; a roadmap exists but its nodes have no Now/Next/Later tiers — it is only a flat list.
+**Scenario**: the user asks which items to pull into the current plan. Project policy requires Now/Next/Later placement for that decision, but the roadmap is a flat list without tiers or another source-backed current selection. Independent work with settled scope is unaffected.
 
 **Output** (example):
 
@@ -229,11 +231,11 @@
 
 ### Example 6: a strategic goal with status=approved whose acceptance is not met (the easiest misjudgment)
 
-**Scenario**: in `strategic-goals.md`, goal G1 has frontmatter `status: approved`, its acceptance criterion is "citation visibility ≥ 80% across two consecutive iterations", and there is no monitoring data. Under stage M5 (the milestone carrying G1) all 17 tasks are `pending`, the task breakdown is complete, and the designs/ADRs are in place.
+**Scenario**: the user asks whether a finite goal can close. In `strategic-goals.md`, goal G1 has frontmatter `status: approved`, its acceptance criterion is "citation visibility ≥ 80% across two consecutive iterations", and there is no monitoring data. That missing measurement prevents the requested closure judgment. Under stage M5 (the milestone carrying G1) all 17 tasks are `pending`, the task breakdown is complete, and the designs/ADRs are in place. An independently authorized task can still be recommended separately.
 
 **Key verdicts**:
 
-- L1: G1 `status=approved` counts as `in-progress`; the acceptance KPI "citation visibility" has no data → the first route must establish the KPI data source
+- L1: G1 `status=approved` does not establish closure; the acceptance KPI "citation visibility" has no data → establish its data source because the current closure decision requires that evidence
 - L5: all tasks pending triggers the "awaiting execution" branch; the second route emits an "awaiting execution" card marking the focus task
 
 **Output** (example):
@@ -325,3 +327,39 @@ This example uses Wright only to demonstrate revalidation and session-scoped ski
 **Result**: omit only the dashboard task's exact route key from this conversation. The audit-log task remains eligible and becomes the next recommendation, with its original priority and completion marker. Report that the dashboard was skipped for this conversation. A new conversation recommends it again if it remains unfinished.
 
 **Restore**: if the user instead had selected persistent scope, the file would contain the dashboard task's exact `(execute-task, task-file-path#task-ID)` key. “Recommend the dashboard task again” resolves it from the skipped list or the saved key and removes that key from every active scope; the next scan may then show the task if it is still eligible. If the task completed while the user was choosing a skip duration, do not save the stale skip and report the changed recommendation instead.
+
+### Example 9: reorder the queue across replies
+
+The initial result recommends “Prepare the coverage dashboard” first and “Add the audit log” second. Both can start independently.
+
+| Reply | Updated result |
+| --- | --- |
+| “Put 2 first.” | Rescan. If both remain eligible, show the audit log first and the dashboard second. The preference lasts for this conversation. |
+| “Next.” | Skip the audit log, now in the first position, for this conversation. Show the dashboard first in the same reply. Report the dropped move and the new skip. |
+| “Show the audit log again.” | Rescan and remove the skip. If both are still eligible, the dashboard is first in the default order. |
+
+If the audit log becomes blocked before the first reply is processed, leave the move unapplied and explain the blocker. If the dashboard remains eligible, keep it in the updated result. A downstream action waiting on the audit log remains ineligible throughout.
+
+### Example 10: continue after a completed review and a paused follow-up
+
+**Input**: the conversation concerns feedback intake. The owner says the review is complete, pauses follow-up interviews, and invokes `plan-next` without another scope. The review's source record contains its accepted result. The interview record still says planned. An older roadmap has unresolved numeric thresholds unrelated to the available intake improvements.
+
+**Expected recommendation**: state that this run compares next actions after the accepted review and carries the owner's interview pause forward. Inspect the review outcomes, candidate records and their dependencies. Do not recommend interviews, assert their record was updated, or promote the unrelated threshold dispute. Explain the source discrepancy and suggest synchronization if it affects coordination. Recommend only an evidenced ready action, with the benefit it delivers now, relevant alternatives and its completion marker.
+
+If the owner reports review completion but no acceptance evidence exists, retain that report as unverified. A dependent action remains ineligible until the required evidence is found or obtained. An independent candidate can still proceed within existing authorization.
+
+### Example 11: accept a correction, compare tied choices and hand off
+
+**Input**: a result recommends resolving old roadmap thresholds. The owner replies, “That is not the main problem; I need people to find the right skill.” The skill-discovery records support both clarifying entry descriptions and revising public names, with no settled precedence between them. The request authorizes discussion only.
+
+**Expected response**: revise the question to skill discovery. Compare clearer descriptions, which preserve existing invocation names, with renaming, which also requires reference and compatibility decisions. Show genuine uncertainty rather than inventing an urgency score. A missing unrelated usage metric stays a limitation. If both choices are equally supported, source order and route key provide stable display only.
+
+When the owner selects “clarify the descriptions,” prepare a `refine-skill-design` handoff identifying the affected entries, their source paths, the discovery problem, retained names and discussion-only boundary. Its completion marker is an inspectable wording proposal distinguishing the intended use of each entry. Selection does not authorize source edits. A later explicit implementation instruction can authorize those edits through the normal workflow.
+
+### Example 12: distinguish scope exhaustion from project completion
+
+**Input**: the only remaining interview action is paused. Other eligible actions in this conversation were skipped. The owner asks for the next recommendation.
+
+**Expected response**: use `no_applicable_action`, report the pause and session exclusions, and offer either restoration or a broader project inspection. Keep the current scope until the user chooses. Do not recommend a dependent task or assert that the project is complete.
+
+If the owner instead asks for “the whole project's next actions,” perform project-wide diagnosis across all applicable goals and siblings. A source-backed global prerequisite still blocks its governed routes. Continuing strategic directions remain open under the project model; only verified project-wide closure supports `complete`.

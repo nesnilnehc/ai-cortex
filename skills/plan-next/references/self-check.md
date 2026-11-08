@@ -1,77 +1,45 @@
 # plan-next: self check
 
-## Self-Check
+## Scope and evidence
 
-**Scan**:
+- [ ] The current question, intended result, project, settled decisions, open choices and authorization were resolved from the request and relevant conversation.
+- [ ] A bare invocation continued identifiable current work; an explicit project-wide request or absent usable context selected project-wide diagnosis.
+- [ ] The response states the inspected scope and any uninspected areas. Project-wide diagnosis covers all applicable goals and siblings.
+- [ ] Source locations follow project authority. Inspected assets have a path and status; optional or conventionally named artifacts were not made universal prerequisites.
+- [ ] Current user decisions, verified project state and unknown evidence are distinct. Material conflicts and their effects are visible.
+- [ ] Reported completion was verified before changing dependency readiness or asserting closure. Approval, execution, acceptance and release were assessed under the project contract.
+- [ ] Declared finite-goal criteria were checked. Continuing strategic directions were not assigned invented completion states or KPIs.
+- [ ] A missing document, conflicting threshold or unknown measurement became the first action only with an evidenced effect on the current choice or safe progress.
 
-- [ ] Project governance sources were discovered in precedence order; unresolved conventions are reported rather than replaced with assumed directories
-- [ ] The 2 asset fields are present (path + status)
-- [ ] Roadmap approval and execution were distinguished; waiting and paused items stayed unfinished, and closure was verified from sources rather than child task counts.
-- [ ] Whether the roadmap is tiered has been decided; where it is not, `promote-roadmap-items` has been routed
-- [ ] The project-declared artifact conventions and evidence source for each path mapping were identified; no conventional directory was assumed mandatory
+## Diagnosis and recommendation
 
-**Diagnose**:
+- [ ] Prerequisites, pauses, dependencies and authorization were checked before ranking. An uncertain relationship did not silently become a global blocker.
+- [ ] The relevant goal/work links and source records were inspected. Legacy child inference was used only where the project allows it.
+- [ ] Relevant siblings were assessed before a focus, parallel, convergence or start recommendation. Project-wide scope included all applicable siblings.
+- [ ] Eligible actions resolving current blockers precede continuation of selected or active work, then other project-prioritized actions. The recommendation explains why now.
+- [ ] Genuine ties retain their benefits, costs or waiting conditions. Stable display order was not represented as a business decision.
+- [ ] Each suggestion has an action, reason, source evidence, observable completion marker and appropriate skill or existing workflow.
+- [ ] One recommendation is enough when clear; alternatives support a real choice or independent work. Each action keeps its own evidence and completion marker.
+- [ ] Drift and hygiene checks match the inspected scope. Uninspected areas were not reported as clean, and secondary findings did not displace current work without an evidenced effect.
+- [ ] An exhausted scope reports its conditions and offers broader inspection. It does not manufacture a dependent alternative or silently expand scope.
+- [ ] The existing decision-state values are preserved. `complete` requires project-wide closure evidence; focused completion is reported separately.
+- [ ] Relevant roadmap views, phase/event evidence and revisions were checked without duplicate requirements, optional-artifact mandates or invented historical decisions.
 
-- [ ] The strategic goals were read; with no goal, the L1 route fired
-- [ ] **The L1 acceptance-criteria KPIs were parsed**; each goal's current KPI state was decided (met / not met / data missing)
-- [ ] **L1 status=approved counts as in-progress**, and drilling down was not skipped
-- [ ] **Where the KPI data source is missing**, the first route establishes the data source rather than routing downstream
-- [ ] Every node's status was resolved by "explicit first > inference from children"
-- [ ] Every level's sibling nodes were scanned in full and classified (done / in-progress / blocked / pending)
-- [ ] The parallelism decision rules were applied; the suggestion (focus / parallel / converge / start) is stated
-- [ ] The L3-L5 physical scan is complete (glob + optional parent: + optional manifest)
-- [ ] The L3→L4 / L4→L5 G3 chain check was run; depth first (an upper-level G3 hit stops the lower-level report)
-- [ ] The "finished" verdict rests on the status field alone, with no git signals introduced
-- [ ] The drift sweep (step 2.2) was run; artifacts past the threshold are in the drift entry list
-- [ ] The hygiene sweep (step 2.3) was run; finished-but-unarchived milestones, ADR status problems and repository structure problems were all scanned
-- [ ] Prerequisites were scoped to the routes they actually govern; uncertain applicability was surfaced as `needs_input`, not inflated into a global blocker
+## Conversation preferences and handoff
 
-**Recommend**:
+- [ ] A selector was resolved against the latest displayed list or exact excluded key before rescanning; ambiguity prompted clarification without a guessed adjustment.
+- [ ] An ordinary skip with unspecified duration waited for the user's choice. “Next” selected the first displayed recommendation and conversation duration.
+- [ ] Session skips and order adjustments stayed in the conversation and project. Persistent changes used only the validated preference file and preserved unrelated entries.
+- [ ] A stale skip was not saved. Valid moves were replayed in conversation order, stale moves were dropped and reported, and no-op moves were not duplicated.
+- [ ] Restoring a key removed every active exclusion for it. When both scopes were active, the validated file write succeeded before the session exclusion was cleared.
+- [ ] Malformed preference files and failed writes were reported without pretending success or partially restoring scopes.
+- [ ] Exclusions and user-directed ordering did not change underlying priorities, statuses, dependencies or authorization. The response names the adjustment and duration.
+- [ ] A correction of the main problem triggered reconsideration of the question and rationale before rebuilding recommendations.
+- [ ] Selecting an action produced a focused handoff with objective, target, sources, retained decisions, authorization and completion marker. Downstream execution remained with its workflow or outer executor.
 
-- [ ] Every suggestion carries what to do, why, and an observable completion marker (prose or card alike)
-- [ ] **The format choice is right**: prose for a single suggestion; structured cards for ≥2 parallel suggestions
-- [ ] **A KPI or threshold carries the triplet on first appearance** (current value / target value / benchmark); with no benchmark, "project-defined (no external benchmark)" is noted
-- [ ] Depth first (only the first gap in the tree is reported per goal)
-- [ ] A parallel suggestion states the reason for parallelism in the text
-- [ ] Drift and hygiene entries are all in the "Also worth noting" section and have not crowded out the first two slots of "Do now"
-- [ ] **(When using structured cards)** The TL;DR quote block is ≤30 words and does not repeat the subject
-- [ ] **(When using structured cards)** The governance context is a multi-line short chain (≤25 words per line) carrying the current L1 acceptance-KPI state
-- [ ] **(When using structured cards)** The priority label is mapped correctly (urgent / important / defer / minor / awaiting execution)
-- [ ] **(When using structured cards)** An all-pending L5 with several tasks (≥2 independently startable) renders as several side-by-side cards, not merged
-- [ ] **(When using structured cards)** The cost-of-deferral / onboarding-threshold fields are omitted where information is short, not filled with placeholder text
-- [ ] **(When a skip directive is present)** The selector was resolved against the conversation's displayed recommendation and its exact route key, or clarification was requested without excluding anything
-- [ ] **(When duration is unspecified)** The user chose session or persistent scope before any exclusion was applied
-- [ ] **(When persistent scope is chosen)** The preference file was validated and updated once, with unrelated entries preserved; a failed write was reported as a failure
-- [ ] **(When a restore directive is present)** The selected active exclusion was identified exactly and cleared from every scope where it was active, or clarification was requested without a partial change
-- [ ] **(When the project changed during a duration choice)** The displayed route was revalidated before any skip was saved; a stale suggestion was not persisted
-- [ ] **(When a skip directive is present)** The complete eligible candidate sequence was considered before the display limit; every remaining route still passed its normal preconditions and dependencies
-- [ ] **(When an exclusion is active)** The omitted action and its duration are reported, and a no-candidate result says so plainly rather than exposing a dependent route
-- [ ] A `no_applicable_action` result is not called complete; `complete` requires all declared acceptance conditions met and no unfinished, excluded, or evidence-limited work
+## Output
 
-**Output**:
-
-- [ ] **The header summary (situation/core tension) is within the word limits**: situation ≤25 words, core tension ≤30 words; no bare project code (the same rule as the "Do now" section)
-- [ ] The "Do now" section carries no codes: L1-L5, G1-G4, P0-P3
-- [ ] The "Do now" section carries no natural-language equivalents of the codes: asset missing, incomplete content, truth drift, completion drift, traceability drift, misplacement
-- [ ] The "Do now" section carries no old priority labels: now/next time/later/ignorable; priorities are uniformly `urgent/important/defer/minor`
-- [ ] The "Do now" section carries no English status codes: pending, in-progress, done, blocked
-- [ ] **The "Do now" and "Also worth noting" sections carry no bare project code** (`T\d+` / `M\d+` / `Goal \d+` / `BL-\d+` / `ADR-\d+`) — every first appearance carries a natural-language subtitle
-- [ ] **The "Do now" section carries no MoSCoW words** (Must Have / Should Have / Could Have / Won't Have)
-- [ ] **The "Do now" section carries no governance process jargon** (precondition gate / short-circuit / soft-blocked / sibling scan / focus node / all-pending branch / inference from children)
-- [ ] **A code missing from the dictionary is marked in the diagnostic-basis section**, not forced into a user-facing section
-- [ ] **The diagnostic-basis decision logic uses a table** (4 columns: level / node / status / inference), not prose
-- [ ] Ordinary diagnosis made no writes; an explicit persistent skip or restore touched only `.ai-cortex/plan-next.yaml`
-- [ ] The diagnostic basis names each goal's traversal position and the blocked nodes
-- [ ] No session skip was written to disk; no persistent skip was treated as completion
-
----
-
-- [ ] Selected version/schedule views were checked without creating duplicate requirements; unselected views were not treated as missing.
-
-- [ ] Independent phase/event records are not treated as requirement nodes; event occurrence is evidence-backed and legacy archive thresholds stay local to work packages.
-
-- [ ] Known post-adoption material changes retain revision evidence; unknown pre-adoption history was not reconstructed and history rows were not traversed as work.
-
-- [ ] Main/detail planning views and optional iterations were checked as projections, not duplicate work nodes; layout and drift route to the appropriate owner.
-
-- [ ] Scenario/source choices were retained; recipe mismatch and missing new metadata alone were not treated as defects or migration work.
+- [ ] The recommendation uses the user's language, descriptive action names and explained project IDs, with no internal traversal jargon or empty template fields.
+- [ ] Relevant numeric criteria retain their source meaning and evidence limits. Missing values were not converted to zero or filled with invented benchmarks.
+- [ ] A complex diagnostic basis uses level / node / status / inference rows and records candidate keys, blockers, exclusions and limitations.
+- [ ] Ordinary diagnosis made no writes. An explicit persistent preference touched only `.ai-cortex/plan-next.yaml`.

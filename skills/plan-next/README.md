@@ -1,72 +1,47 @@
-# Plan Next (governance diagnosis)
+# Plan Next
 
-Takes stock of the governance input sources and routes to the next skill. It never runs a downstream skill; an explicit persistent skip or restore may update only `.ai-cortex/plan-next.yaml`.
+Recommend the next useful action from the user's current problem, settled decisions and project evidence. Compare choices and prepare a focused skill handoff.
 
-## Three steps
+## How it works
 
-1. **Scan**: an asset inventory across 3 abstraction layers × 5 themes (intent layer Why/What-When/How, implementation layer Is, meta-rule layer Rules)
-2. **Diagnose**: walk the goal chain — for each goal, descend from the L1 strategic goal to the first layer that is not ready (strategic goal → roadmap → requirement → design → task → done)
-3. **Route**: generate the routing by governance urgency, in the two tiers "do now / worth watching"
+1. Establish the current question and intended result from the request and conversation. A bare invocation continues identifiable current work. An explicit project-wide request, or no usable context, selects whole-project diagnosis.
+2. Check relevant records, decisions, dependencies and acceptance evidence, following the project's conventions. Broaden inspection only where the evidence affects the choice.
+3. Recommend eligible actions that resolve current blockers, then continue selected or active work, then follow recorded project priorities. Explain genuine ties and meaningful alternatives.
+4. When the user selects an action, prepare its skill or project-workflow handoff with the objective, target, evidence, retained decisions, authorization and completion marker.
 
-## User report structure (fixed order)
+A missing document or metric is a first action only when it affects the current decision or safe progress. Continuing strategic directions follow the project's own meaning and need no invented completion KPI. The response distinguishes current user decisions, verified project state and unresolved evidence, and states its inspected scope.
 
-1. **Skipped recommendations** (only when exclusions apply): the omitted action and its session or persistent duration
-2. **Do now**: up to 3 complete routing cards, or an explicit statement that no further eligible route exists
+## What the user gets
 
-   - Card header: action name + priority label (urgent / important / defer / minor / awaiting execution)
-   - **TL;DR blockquote** (≤30 characters): what it does → the payoff you see immediately
-   - **6 core fields**: governance context (a multi-line short chain, ≤25 characters per line) / recommended skill / rationale / done marker (the other 2 fields, theme and priority label, are carried in the card header)
-   - **2 optional fields**: cost of deferring / barrier to entry (omitted when the information is thin; never invent them)
-   - Several tasks starting in parallel → render several side-by-side cards (each focused on 1 task)
+One recommendation is enough when the next step is clear. Up to two alternatives may help a real choice or identify independent work. Each entry explains what to do, why now, its relevant trade-off, and what result and skill/workflow complete the step. Project-wide diagnosis remains available by asking for the whole project's next actions.
 
-3. **Also worth watching**: a short list of ≤5 entries (drift + hygiene + chains_to chain checks)
+A focused result does not establish whole-project completion. An exhausted scope reports waiting conditions or exclusions and offers broader inspection. Relevant document drift and hygiene findings remain secondary unless they block the current choice.
 
-4. **Basis for the diagnosis**: project situation, asset inventory, decision-logic table (4 columns: layer / node / status / inference); includes the internal traceability numbers
+## Adjust recommendations across replies
 
-## Default behavior
+- “Next” skips the first displayed recommendation for this conversation and returns the revised result.
+- “Put 2 first” changes the conversation's display order among eligible actions; underlying priorities and dependencies retain their meaning.
+- “Show the queue” shows additional eligible entries beyond the usual one-to-three display limit.
+- “Refresh” rechecks evidence. A reported completion is verified before advancing dependencies.
+- “That is not the main problem” revisits the question and ranking rationale before rebuilding the recommendations.
+- “Reset recommendation order” clears conversation moves while keeping skip choices.
 
-- Ordinary diagnosis reads project state; only an explicit persistent skip or restore writes the preference file
-- User-facing sections use natural language only; a project code (T\d+/M\d+/Goal \d+/BL-\d+/ADR-\d+) gets a natural-language subtitle attached on first appearance (dictionary sources: `.ai-cortex/glossary.yaml` → `docs/glossary.md` → the source artifact's frontmatter `title:` as fallback)
-- A KPI or threshold carries the triplet on first appearance (current value / target value / frame of reference)
-- MoSCoW words and governance-process jargon (pre-gate / short-circuit / soft-blocked / sibling scan) must not appear in the user-facing sections
-- Internal numbering (G1-G4, P0-P3) appears only at the end of "Basis for the diagnosis", for traceability
-- Every run rescans from scratch and reads persistent route exclusions from `.ai-cortex/plan-next.yaml`, when present
-- A user may say “skip the first suggestion and continue” (or name a displayed action). If no duration is stated, ask whether the skip lasts for this conversation or until explicitly restored.
-- A skipped prerequisite does not unlock its dependents. If no independently eligible recommendation remains, the result says so plainly rather than suggesting an unsafe lower-level action.
-- A persistent skip suppresses only the exact route and target recorded in the project preference file ([format contract](../../specs/plan-next-preferences.md)); “recommend this again” removes the entry. The underlying work item keeps its status.
-- A request to cancel a task or defer a roadmap item changes governance state and follows the workflow that owns that record (`update-roadmap`, `promote-roadmap-items`, or the project's task-record workflow).
-- Completion is judged from the task `status = done` alone; git signals are not read
-- The parallelism decision comes with an unprompted suggestion (focus / parallelize / converge / start)
-- The downstream scan works off physical signals: resolved path_pattern glob + optional parent: + optional manifest
-- When the roadmap has no tiers, it routes to `promote-roadmap-items` and does not assess downstream
+An ordinary skip without an explicit duration asks whether to omit it for this conversation or until restored in this project. Session choices stay in the conversation. An explicit persistent choice writes only the exact `(route, target)` exclusion to `.ai-cortex/plan-next.yaml` under the [preference Spec](../../specs/plan-next-preferences.md).
 
-## When to skip this skill
+“Recommend this again” removes the exact route from every active exclusion scope. Restoration does not make a blocked or paused action eligible. Invalid preference files, failed writes, stale selectors and dropped moves are reported. A new conversation starts with default display order and no session skips; persistent exclusions remain effective.
 
-A single-dimension question can go straight to the dedicated skill:
+## Boundaries and automation
 
-- A specific item is known to be missing → `define-*`
-- Document health checking → the AgentFabric runtime + linter / CI tooling (per `rules/doc-health-criteria.md`)
+Ordinary diagnosis is read-only. Persistent skip/restore may change only the preference file. Pausing a task, changing roadmap placement or revising project priorities follows the workflow owning that record. A conversation decision can guide recommendations before its source is synchronized; conflicts are made explicit.
 
-## Skip or restore a recommendation
+Plan Next prepares the selected handoff. The downstream skill or outer executor performs authorized work. Calling this skill grants no additional implementation or external-write permission.
 
-After a result, use ordinary language such as “skip the first suggestion and continue”, “skip Establish the documentation norms foundation for this conversation”, or “never recommend this task again”. The selector refers to the latest displayed `Do now` list in this conversation; ambiguous references are clarified instead of guessed. If the duration is not explicit, `plan-next` asks you to choose session or persistent scope before proceeding.
+- `/plan-next` diagnoses current work or the requested project scope.
+- `/loop /plan-next 30m` schedules repeated diagnosis where the host supports `/loop`.
+- `/loop /orchestrate-governance-step 30m` combines scheduling with the existing single-action executor. An internal invocation without current-work context uses project-wide diagnosis.
 
-The response names each excluded action and its duration, then lists the next independently eligible route, if one exists. A session choice ends with this conversation; a persistent choice stays in `.ai-cortex/plan-next.yaml` until you say “recommend this again”. A restore can refer to the skipped-action list or an exact saved route; it clears that route from both scopes where active. If the suggestion changed while you chose a duration, it is not saved as a stale skip. Neither choice marks the underlying work complete or overrides prerequisites.
+For a known single action, invoke its dedicated skill directly. Document-health checks remain with runtime/linter/CI tooling under `rules/doc-health-criteria.md`.
 
-## Automation combinations
+## Version 16 compatibility
 
-plan-next never runs anything downstream. Automated iteration is driven by an outer combination:
-
-- `/plan-next` — a one-off diagnosis
-- `/loop /plan-next 30m` — periodic diagnosis (continuous monitoring, human reaction)
-- `/loop /orchestrate-governance-step 30m` — fully automatic autopilot (driven by the outer orchestrator)
-
-## Typical routes
-
-- No goals: `define-mission` / `design-strategic-goals`
-- Roadmap has no tiers: `promote-roadmap-items`
-- Roadmap missing: `define-roadmap`
-- Requirements missing: `capture-work-items`
-- Design missing: emit a "pending" card (the design workflow is carried by the AgentFabric runtime)
-- Tasks not broken down: emit a "pending" card (task breakdown is carried by the AgentFabric runtime)
-- Norms missing: `define-docs-norms`
+Version 16 changes the default from an unconditional project scan to context-led recommendations, and replaces mandatory strategic-KPI-first routing with evidence relevant to the current choice. Explicit project-wide diagnosis, exact preference keys and existing decision-state values remain supported. A focused result uses `no_applicable_action` when locally exhausted; only verified project-wide closure can produce `complete`.

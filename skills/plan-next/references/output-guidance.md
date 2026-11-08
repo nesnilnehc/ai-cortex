@@ -1,215 +1,68 @@
 # plan-next: output guidance
 
-## 3.3 Output format selection
+## 3.3 Help the user choose
 
-The output format adapts to the situation:
+Begin with the current question, the inspected scope and the decisions being carried forward. Distinguish user decisions, verified source state and unresolved evidence. Name any conflict that changes which action is safe or worthwhile.
 
-| Situation | Recommended format |
-| --- | --- |
-| One suggestion, the situation is clear | **Prose**: 1-3 sentences saying what to do, why, and what counts as done |
-| ≥2 parallel suggestions, or a parallel / converge judgment is needed | **Structured cards** (format below) |
+Use prose for one clear recommendation. For several meaningful alternatives or independently startable actions, use separate numbered entries. Usually recommend one action with up to two alternatives. Explain a focus, parallel or convergence choice when applicable. Explicit queue inspection can show more eligible entries after the usual **Do now** list.
 
-**Prose format (simple situations)**: state it directly in natural language, covering what to do → why now → what counts as done. No fields, labels or card headers needed.
+Every recommendation answers four questions:
 
-**Structured card format (complex situations, ≥2 parallel suggestions)**:
+1. What action should the user take?
+2. Why is it worth doing now, based on current evidence?
+3. What benefit, cost or waiting condition distinguishes it from the other choices, when a comparison is relevant?
+4. What observable result completes this step, and which skill or existing project workflow produces it?
 
-```text
-**N. [action name]** · `priority label`
+Give each entry its own reason, evidence and completion marker. Separate actual parallel work from alternatives between which the user should choose. Do not manufacture alternatives, costs, rankings or empty fields. Genuine ties can be displayed in source order and then exact route-key order for stable browsing; describe the trade-off without implying a settled business priority.
 
-> [TL;DR card header: one sentence answering "what to do → the immediately visible benefit", ≤30 words]
+Explain only the upstream context needed to judge the action. Follow the project's declared goal and acceptance model. When a numeric criterion matters, use the threshold and evidence source under [roadmap quality](../../../rules/roadmap-quality.md); distinguish unknown from zero and identify a project-defined benchmark when no external one exists. A continuing strategic direction needs no invented completion KPI. An unrelated missing measurement does not displace an independently supported action.
 
-- Governance context: [multi-line short chain, ≤25 words per line; see "Writing the governance context" below]
-- Recommended skill: `/skill-name [focus ≤40 words]`
-- Evidence: [file path or observable signal ≤20 words]
-- Completion marker: [observable result, 1 sentence]
-- [optional] Cost of deferral: [the impact of not doing it ≤30 words]
-- [optional] Onboarding threshold: [prior knowledge / doc path ≤30 words]
-```
+Use the user's language and plain action names. Introduce a project ID with its descriptive name. Keep internal traversal codes and status values in the diagnostic basis. If urgency labels help, retain `urgent`, `important`, `defer`, `minor` and `awaiting execution`; these annotations alone do not determine recommendation order. Ready implementation work uses its existing project workflow or an awaiting-execution marker, without inventing a governance skill.
 
-**Shared constraints (prose and cards alike)**: whichever format is used, every suggestion must carry what to do, why, and an observable completion marker. A project code must carry a natural-language subtitle on first appearance (see §3.3.1 + §3.7).
+## 3.4 Continuation and handoff
 
-**Writing the TL;DR card header**:
+In an initial recommendation result, explain briefly that “next” skips its first entry for this conversation. With multiple entries, “put 2 first” may illustrate reordering. Ordinary skips with unspecified duration still require the user's duration choice. Resolve selectors against the latest displayed result before rescanning.
 
-A quote block (`> ...`), placed under the priority label and above the field list. It answers "what to do → the immediately visible benefit" in ≤30 words. It is the strongest visual anchor, so the reader sees the core action on the first screen.
+Report adjustments and their scope, then return the revised **Do now** list with fresh positions. Put active exclusions in **Skipped recommendations** before that list, including exact action names and durations. Explain reordered display as the user's conversation preference while retaining the actions' underlying rationale. Report stale moves that were dropped. An exhausted scope names the remaining blockers or exclusions and offers broader inspection; it does not silently manufacture more work.
 
-- ✅ Good: `> Let the PM see coverage progress live, filling the visibility gap in Goal 1's acceptance.`
-- ❌ Bad: `> Start parallel tasks to advance the milestone (repeats the subject field below, no new information).`
+A correction such as “that is not the main problem” revisits the question and ranking rationale before rebuilding candidates. A reported completion is revalidated against source closure criteria before it advances dependencies. Previously settled decisions and authorization remain effective unless superseded or conflicting evidence requires a specific clarification.
 
-**Writing the governance context**:
+When the user selects an action, provide a ready-to-use handoff naming the selected skill or project workflow, objective, concrete target, relevant source references, retained decisions, existing authorization and completion marker. Keep unresolved business choices explicit. Selection alone adds no permission. The selected workflow or outer executor handles subsequent execution.
 
-Show the trace chain from the strategic goal down to the current gap, **and it must carry the current state of the L1 acceptance KPI**. Use a multi-line short-chain format (≤25 words per line):
+## 3.5 Result and diagnostic basis
+
+Retain the existing top-level `decision_state` values for consumers. Use `actionable`, `needs_input`, `no_applicable_action` or `complete` as defined in [diagnosis](diagnosis.md#201-decision-state). A focused result states local completion separately and never emits project-wide `complete` from uninspected evidence.
+
+For a simple recommendation, keep the explanation and evidence compact. For a complex result, the following outline is available; include only applicable sections. The technical basis can be brief but must identify the inspected scope, material evidence and limitations. A project-wide result records every applicable goal and its current position.
 
 ```text
-- Governance context:
-  - Strategic goal: [the goal's natural-language name + its core KPI in one sentence]
-  - Current KPI: [current value / target value / benchmark; write "data missing" when there is none]
-  - Roadmap: [the milestone's natural-language name + its current stage]
-  - Current position: [the layer the blockage sits in + why, ≤15 words]
+Current question and inspected scope
+Decisions carried forward, source conflicts and evidence limits
+Decision state
+
+Skipped recommendations, when active
+
+Do now
+1. Action, why now, relevant comparison, evidence, skill/workflow and completion marker
+2. A meaningful alternative or independent action, when available
+
+Also worth noting, when relevant
+Findings outside the immediate choice and their evidenced effects
+
+Diagnostic basis
+Inspected source paths and status (present / placeholder / missing)
+Scope not inspected
+Exact candidate keys, exclusions and any user-directed order adjustments
+Route blockers, their scope and independent candidates
+Open decision and how its answer changes the recommendation, when needed
+
+Level | Node | Status | Inference
+Relevant decision rows only; project-wide scope covers every applicable goal
+
+Drift and hygiene findings, or not inspected when outside scope
 ```
 
-The ≤25-word limit per line is hard. Wrap onto the next line when it overflows; nest parentheses no more than 1 level deep.
-
-**Mandatory constraint**: every route must answer explicitly, "how does this action lead back to the strategic goal's acceptance?" If it cannot, route to the task of establishing the KPI data source instead; it must not route straight to downstream execution.
-
-**Three ways to express KPI state** (following the triplet; see the threshold annotation in §3.3):
-
-- Met: `citation visibility 85% / target ≥80% / industry 75-85% (met)`
-- Not met: `citation visibility 62% / target ≥80% / industry 75-85% (not met)` or `citation visibility not yet measured / target ≥80% (pending measurement)`
-- Data missing: `citation visibility data source missing / target ≥80% / no benchmark (data source to be built)`
-
-**The threshold annotation triplet**:
-
-Any KPI or threshold must carry the triplet on first appearance:
-
-> Format: `[metric name (plain-language gloss)]: current X / target Y / benchmark Z`
->
-> Example: `Adoption rate (share of recommendations users accept): current 42% / target ≥70% / 50-65% counts as good in the industry`
-
-**The benchmark** is one of: an industry baseline, the project's own historical value, or an empirical threshold. With no benchmark available, write "project-defined (no external benchmark)" to put the reader on guard. On a metric's second appearance within the same card, the benchmark may be omitted.
-
-> The authoritative definition of the triplet format is [rules/roadmap-quality.md](../../../rules/roadmap-quality.md) §3; numeric roadmap thresholds may be stated briefly or linked to source criteria; this does not require a metric table or strategic dossier in each tier.
-
-**Writing the recommended skill**: a slash command + a completion prompt, in the format:
-
-> `/skill-name [focus: what to do this time, the scope, the key asset path or task ID]`
-
-Prompt requirements: state the specific focus of this call, include the key asset path or task ID, ≤40 words, and make it directly copy-pasteable. When the all-pending L5 "awaiting execution" branch has no governance skill available, write "(no governance skill; hand to the development team to implement per `[path]`)".
-
-**Priority labels** (mapped from the internal priorities in §3.2; the "Do now" section uses only labels, never the codes):
-
-| Internal code | User-facing label |
-| --- | --- |
-| P0 | `urgent` |
-| P1 | `important` |
-| P2 | `defer` |
-| P3 | `minor` |
-| — | `awaiting execution` (special: governance is ready, waiting on execution; used only for the all-pending L5 branch) |
-
-**Completion marker**: an observable result, 1 sentence; where execution can be blocked (a strategic conflict, a dependency cycle), append "return to plan-next for re-evaluation if blocked". With several tasks, **each card owns its own completion marker**; they are not stacked at the outer level.
-
-**Cost of deferral (optional)**:
-
-Answers "what happens if this is not done", so the reader can judge "this one first vs something else first". ≤30 words.
-
-- ✅ Good: `Goal 1's acceptance has no visible route, so the PM cannot judge when to wrap up the deliverables`
-- ❌ Placeholder filler (forbidden): `to be added` / `see the task` / `affects the schedule` (the same as the vague-wording anti-pattern)
-
-When there is not enough information, **omit this field**; inventing one is not allowed.
-
-**Onboarding threshold (optional)**:
-
-Answers "who does this next, and do they need to read up first". ≤30 words. Attach the path when pointing at a specific document.
-
-- ✅ Good: `Requires knowing how to configure a Grafana data source; if unfamiliar, see docs/runbooks/grafana-setup.md`
-- ❌ Placeholder filler (forbidden): `needs relevant knowledge` / `see the docs`
-
-When there is not enough information, **omit this field**; inventing one is not allowed.
-
-### 3.3.1 Words banned from the "Do now" section
-
-In the "Do now" section the following are **banned outright** — the codes themselves and their natural-language equivalents alike:
-
-| Banned | Allowed instead |
-| --- | --- |
-| L1, L2, L3, L4, L5; goal layer, roadmap layer, requirement layer, design layer, task layer | Say "strategic goal", "roadmap", "requirement document", "design document", "task" directly |
-| G1, asset missing | Describe what is actually missing: "`xxx.md` does not exist" |
-| G2, incomplete content | Describe what content is missing: "missing field X / section X" |
-| G3, truth drift, completion drift, traceability drift | Describe the actual inconsistency: "the task status does not reflect the code progress" |
-| G4, misplacement | Describe the actual problem: "the file name does not follow the norms" |
-| P0, P1, P2, P3; now/next time/later/ignorable (as a priority annotation) | Use `urgent` / `important` / `defer` / `minor` |
-| pending, in-progress, done, blocked (verbatim in user-facing output) | Say "not started", "in progress", "finished", "blocked" |
-| Rules layer, Why layer, What layer, How layer, Is layer | Say "norms files", "strategy documents", "planning documents", "design documents", "code implementation" |
-| **A bare project code**: `T\d+` / `M\d+` / `Goal \d+` / `BL-\d+` / `ADR-\d+` / a commit hash and other internal IDs | In the header summary and the "Do now" and "Also worth noting" sections, the first appearance must carry a natural-language subtitle: `T51 (coverage dashboard)` / `M5 (hybrid-retrieval maturity milestone)`; later appearances within the same card may use the bare code; for a missing dictionary entry see the §3.7 fallback |
-| **MoSCoW framework words**: Must Have / Should Have / Could Have / Won't Have | Use "must-deliver / expected-deliver / optional / not for now" instead |
-| **Governance process jargon**: precondition gate / short-circuit / soft-blocked / sibling scan / focus node / all-pending branch / inference from children | Use a plain description: "the norms file is missing, establish it first" / "waiting on the developers" / "the scan result for the other nodes at this level" |
-| **A bare threshold with no benchmark**: `≥70%` / `P95 ≤30s` / `a 14-day continuous window` (a number with no benchmark) | Use the triplet: `[metric name (plain-language gloss)]: current X / target Y / benchmark Z` (see the threshold annotation in §3.3) |
-
-Violating this table = the "Do now" output is unacceptable; the offending fields must be rewritten and must not be kept.
-
-### 3.4 User output structure
-
-> **Format choice**: a single suggestion may use prose instead of the cards below. The structured template below applies where there are ≥2 parallel suggestions. When any route is excluded, render `Skipped recommendations` before `Do now`, even when the remaining recommendation uses prose.
-
-````markdown
-# Next-step suggestions
-
-> **Decision state**: `actionable` | `needs_input` | `no_applicable_action` | `complete`
-
-> **Situation**: [objective status summary, ≤25 words. Example: the M5 must-deliver items are clear, three expected-deliver items not started]
-> **Core tension**: [the sticking point this cycle, ≤30 words. Example: the adoption-rate pipeline is live but the sample has not reached 100, so acceptance cannot be judged yet]
-
----
-
-## Skipped recommendations
-
-- **[action name; displayed position when known]** — [this conversation / persistently until restored from `.ai-cortex/plan-next.yaml` / both, when both scopes contain the key]; no governance artifact or status changed.
-
----
-
-## Do now
-
-**1. [action name (project code with a natural-language subtitle)]** · `urgent / important / defer / awaiting execution`
-
-> [TL;DR card header: what to do → the immediately visible benefit, ≤30 words]
-
-- Governance context:
-  - Strategic goal: [the goal's natural-language name + its core KPI in one sentence]
-  - Current KPI: [current value / target value / benchmark; write "data missing" when there is none]
-  - Roadmap: [the milestone's natural-language name + its current stage]
-  - Current position: [the layer the blockage sits in + why, ≤15 words]
-- Recommended skill: `/skill-name [focus ≤40 words]`
-- Evidence: [file path or observable signal ≤20 words]
-- Completion marker: [observable result, 1 sentence]
-- [optional] Cost of deferral: [the impact of not doing it ≤30 words; omit when information is short, inventing one is not allowed]
-- [optional] Onboarding threshold: [prior knowledge / doc path ≤30 words; omit when information is short]
-
----
-
-**2. [action name]** · `priority label`
-
-...(same format as above, at most 3; several tasks starting in parallel render as several side-by-side cards, see the multi-task multi-card rendering rule in §3.1)
-
-When no candidate remains, use the appropriate state-specific behavior from §2.0.1. State the blocker or completion evidence plainly; an empty list alone is never a completion claim.
-
----
-
-## Also worth noting
-
-<!-- The drift sweep (step 2.2) and hygiene sweep (step 2.3) entries collect here, at most 5, truncated by priority -->
-
-**[drift/hygiene name]** · `defer / minor`
-
-[one sentence: what problem was found]
-
-- Evidence: [file path or observable signal]
-- Recommended skill: `/skill-name [focus]`
-
----
-
-## Diagnostic basis (technical traceability)
-
-<!-- This section is the internal traceability zone: L1-L5, G1-G4, P0-P3 and the status codes (pending/in-progress/done/blocked) are allowed here -->
-
-- **Project situation**: [one-sentence summary]
-- **Asset inventory**: [list only the assets whose status changed]
-- **Excluded routes**: [action name, exact route key, evidence path, and session/persistent duration; write "none" when empty]
-- **Route blockers**: [candidate/action, blocker evidence, scope, and whether independent candidates remain; write "none" when empty]
-- **Open decision** (when `needs_input`): [the one fact needed and how its answer changes routing]
-
-**Decision logic**:
-
-| Level | Node | Status | Inference |
-|---|---|---|---|
-| Strategic goal | [goal name] | [KPI state] | [keep drilling down / skip / route] |
-| Roadmap | [node name] | [pending/in-progress/done/blocked] | [sibling scan conclusion + focus node / the rule that fired] |
-| Requirement | [requirement name] | [status] | [verdict] |
-| Design | [design name] | [status] | [verdict] |
-| Task | [task name / set] | [status] | ["awaiting execution" branch / route downstream / completion verdict] |
-
-- **Drift sweep result**: [list of drift entries; write "none" when empty]
-- **Hygiene sweep result**: [list of hygiene issues; write "none" when empty]
-- **Missing dictionary notice** (if any): [the project codes not found in the dictionary, with a suggestion to add them to `docs/glossary.md`]
-````
+Use a four-column decision table for a complex diagnosis. Do not fill uninspected rows as passed or treat known historical records as current work. Drift and hygiene remain secondary unless their evidenced effect blocks the current choice. If no action remains, explain the waiting, evidence or preference condition and the available next decision.
 
 ### 3.7 Terminology dictionary lookup
 
@@ -260,67 +113,19 @@ Goal 1:
 
 ## Anti-Patterns
 
-**On responsibility boundaries**:
-
-- ❌ Calling any downstream skill or editing a governance artifact
-- ❌ Hiding the reason for a skip or treating a route-level blocker as global
-- ❌ Mixing in downstream execution detail (no writing ADRs, no fixing code, no tidying structure)
-- ❌ Treating a skipped recommendation as `done`, `blocked`, `cancelled`, a date change, or any other persisted governance state
-- ❌ Choosing session or persistent scope when the user did not specify one
-- ❌ Carrying a session skip into another conversation, or silently dropping a persistent preference on a later run
-- ❌ Reporting a saved preference when `.ai-cortex/plan-next.yaml` was not written successfully
-- ❌ Guessing which recommendation an ambiguous ordinal or title means
-
-**On the routing itself**:
-
-- ❌ Vague wording ("possibly / perhaps / could consider")
-- ❌ Omitting the completion marker
-- ❌ Mixing several gap types into one route
-- ❌ Assigning priority by the number of gaps
-- ❌ Skipping a level in the tree-traversal report (reporting an L3 route while L2 is missing) — it violates "first gap first"
-- ❌ Judging "finished" from git signals — requirement-and-defect roadmap completion follows the source closure criterion under the diagnosis adapter; other L2-L5 nodes follow their project status contract; **L1 completion must additionally pass the acceptance-KPI check**
-- ❌ Ignoring an explicit `status:` field and relying only on inference from children — explicit wins
-- ❌ **Treating `status = approved` as the criterion for L1 done** — approved = the decision was approved ≠ acceptance met; confusing them skips the whole L1 subtree
-- ❌ **Bypassing L1 and reporting a middle layer (M5/tasks) directly** — answer "is the L1 acceptance KPI met" first, then drill down
-- ❌ A governance-context field with no current L1 acceptance-KPI value — it violates the "a route must lead back to the strategic goal's acceptance" constraint
-- ❌ Routing straight to downstream execution while the L1 acceptance-KPI data source is missing — the first route should establish the KPI data source
-- ❌ Forcing a downstream skill in when L5 is all pending — with the tasks already there, no governance skill applies, and the output should be an "awaiting execution" card
-- ❌ Not considering a parallel start when a blocked node is present — blocked is a parallelism signal
-- ❌ Recommending yet more parallel expansion when several nodes are in-progress and none blocked — the suggestion is to converge
-- ❌ Merging routes for several goals without naming each goal's source in the evidence
-- ❌ Evaluating downstream while the roadmap is untiered, skipping `promote-roadmap-items`
-- ❌ Ignoring the `depends_on:` field and suggesting parallelism anyway — a dependency forces sequence
-- ❌ Using a skipped precondition or unfinished ancestor as permission to route to its children
-- ❌ Replacing an excluded recommendation with a dependent route merely to ensure that "Do now" is non-empty
-
-**On tree traversal and scanning**:
-
-- ❌ Reporting a gap on a done node in the main "Do now" routing (the hygiene sweep's checks on done nodes are the exception, and go to "Also worth noting")
-- ❌ Reporting gaps at several levels of the same node at once (it violates depth-first)
-- ❌ Introducing a mode enum or configuration override for the governance scan (read the physical signals directly)
-- ❌ Taking on manifest maintenance (a difference is emitted as a G3 diagnostic entry, not repaired)
-
-**On internal terminology leaking**:
-
-- ❌ A code appearing in the "Do now" section: any form of L1-L5, G1-G4, P0-P3
-- ❌ The natural-language equivalents of those codes appearing in "Do now": asset missing, incomplete content, truth drift, completion drift, traceability drift, misplacement, goal layer, roadmap layer, requirement layer, design layer, task layer, Rules layer, Why layer, What layer, How layer, Is layer
-- ❌ Priorities using the old labels "now/next time/later/ignorable" or the P0-P3 numbering (use `urgent/important/defer/minor`)
-- ❌ Verbatim status values in the "Do now" section: pending/in-progress/done/blocked (use: not started/in progress/finished/blocked)
-- ❌ Using a level number as the subject in the diagnostic basis (a parenthetical trace is allowed, a subject is not)
-- ❌ An example titled "L2→L3 advance" (use a natural-language description of the situation)
-
-**On jargon and judgment scaffolding**:
-
-- ❌ A bare project code (`T51` / `M5` / `Goal 1` / `BL-001` / `ADR-033`, and so on) with no natural-language subtitle on first appearance
-- ❌ MoSCoW framework words in a user-facing section (Must Have / Should Have / Could Have / Won't Have)
-- ❌ Governance process jargon in a user-facing section (precondition gate, short-circuit, soft-blocked, sibling scan, focus node, all-pending branch, inference from children)
-- ❌ A threshold with no benchmark (a bare `≥70%` / `P95 ≤30s` / `14-day continuous window`) — the triplet is mandatory: current value / target value / benchmark
-- ❌ Merging several tasks into one card subject with a comma, a plus sign, or "start in parallel" (`T51 + T-SG5-002` / `T51, T52 in parallel`) — several tasks render as several cards
-- ❌ Stacking several tasks' KPIs into one card's completion marker (`A reachable + B queryable + C usable`) — each card owns its own completion marker
-- ❌ A governance context nesting parentheses more than 1 level deep (`Goal X (acceptance: KPI A current 80% (met) / target ≥70% (stretch))`) — split it into a multi-line short chain
-- ❌ A governance context written as a single chain over 60 words — it must become a multi-line short chain of ≤25 words per line
-- ❌ Filling the cost-of-deferral / onboarding-threshold fields with placeholder text ("to be added" / "see the task" / "affects the schedule" / "needs relevant knowledge") — omit when information is short
-- ❌ A TL;DR card header that repeats the subject field ("start parallel tasks to advance the milestone" restates the subject) — it must answer "the immediately visible benefit"
-- ❌ Forcing a code missing from the dictionary into a user-facing section (mark it in the diagnostic basis, and use a generic description in the user-facing section)
-
----
+- Calling downstream skills, repairing governance records or adding authorization while preparing a recommendation.
+- Discarding a current decision because it is absent from disk, or treating a user's completion report as verified closure.
+- Inventing a central problem without evidence linking it to the user's intended result.
+- Promoting a missing document or metric merely because it is higher in the goal tree.
+- Turning a route-specific uncertainty into a global blocker or bypassing a verified dependency, focus constraint or pause.
+- Inferring parent completion solely from Git activity or child counts when the project requires independent closure evidence.
+- Treating approval as execution completion, waiting as done, or a continuing direction as a finite goal.
+- Substituting a dependent route for a skipped prerequisite or filling an empty list with invented work.
+- Persisting a skip without explicit duration, guessing an ambiguous selector, or reporting a failed preference write as successful. “Next” explicitly selects conversation scope.
+- Carrying session skips or moves into a new conversation, or silently dropping persistent preferences.
+- Treating a user-directed display order as a changed project priority.
+- Silently broadening an exhausted focused scope or claiming whole-project completion from local evidence.
+- Omitting a candidate's reason, evidence, completion marker or usable skill/workflow handoff.
+- Hiding genuine ties or uncertainty behind invented scores, costs or priority labels.
+- Showing unexplained project IDs, traversal jargon or empty template fields in the user-facing recommendation.
+- Duplicating requirements for linked roadmap views, treating history as unfinished work, or requiring optional artifacts to fill a template.

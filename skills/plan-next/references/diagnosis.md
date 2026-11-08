@@ -2,9 +2,9 @@
 
 ## Step 2: Diagnose — goal-tree traversal
 
-**Core question**: where is the goal chain stuck? Is the next step focus or parallelism?
+**Core question**: which evidenced action helps the user make progress on the current question? Is the next step focus or parallelism?
 
-**Model**: the governance artifacts form a tree; "the next step" = the first unfinished node found depth-first under the highest-priority goal, combined with the parallelism verdict, to give an execution suggestion.
+**Model**: use the selected question and scope from SKILL.md. The governance tree helps trace a candidate's purpose, prerequisites and unfinished work. For project-wide diagnosis, traverse all applicable goals in their recorded order. For focused diagnosis, inspect the current work and follow only the links needed to judge the choice. A higher-level omission is not automatically the next action.
 
 ```text
 Strategic goal
@@ -19,11 +19,11 @@ Strategic goal
 | Sub-step | What it does | Output |
 | --- | --- | --- |
 | 2.0 Applicability and prerequisite assessment | Which declared prerequisites govern which routes? | Classify each as satisfied, route-blocking, globally blocking, or uncertain; do not short-circuit unrelated routes |
-| 2.1 Goal-tree traversal | Traverse each goal depth-first, locate the first gap + the parallelism verdict | Each goal's current position + routing suggestions |
+| 2.1 Goal-tree traversal | Inspect relevant work and dependencies; in project-wide scope, traverse every applicable goal | Current positions, choices and the parallelism verdict |
 | 2.2 Drift sweep | Artifact updated_at vs the time the aligned goal changed; past the threshold, route to a dedicated skill | A list of drift entries |
 | 2.3 Hygiene sweep | Archiving finished milestones, ADR status, repository structure, changes in the skills layer, and so on | A list of hygiene issues |
 
-The G1-G4 gap types are used as sub-labels in the diagnostic-basis section.
+The G1-G4 gap types are used as sub-labels in the diagnostic-basis section. In a focused run, drift and hygiene checks cover relevant sources only. Report other areas as not inspected, not as having no findings.
 
 ### 2.0 Applicability and prerequisite assessment
 
@@ -33,7 +33,7 @@ For every prerequisite, record: `evidence`, `scope` (`global` / named route or a
 
 ### 2.0.1 Decision state
 
-Set exactly one top-level result state after considering the complete candidate sequence and all evidence:
+Set exactly one top-level result state after considering the complete candidate sequence within the declared scope and its evidence. Keep the existing state values for callers such as orchestrate-governance-step. An internal call without current-work context defaults to project-wide diagnosis. Caller-supplied scope and existing decisions are carried through unchanged unless conflicting evidence requires clarification.
 
 | State | Use when | Required user-facing behavior |
 | --- | --- | --- |
@@ -43,6 +43,8 @@ Set exactly one top-level result state after considering the complete candidate 
 | `complete` | All project-declared goals and acceptance conditions are met; no unfinished, excluded, waiting, or evidence-limited route remains | State the evidence supporting completion; do not infer this merely from an empty candidate list |
 
 When independent candidates remain alongside a blocked route, use `actionable` and retain the blocker as a separate finding. When applicability is genuinely unknown and changes whether those candidates are safe, use `needs_input`.
+
+A focused result never establishes project completion. If that work is finished and nothing else is eligible in scope, use `no_applicable_action`, report the verified local result, and offer broader inspection. Reserve `complete` for project-wide evidence meeting the table's criterion.
 
 ### 2.1 Goal-tree traversal
 
@@ -118,38 +120,42 @@ Where nodes carry an explicit `depends_on:` dependency → the depended-on node 
 
 | Level | Name | Existence criterion | Completion criterion |
 | --- | --- | --- | --- |
-| L1 | Strategic goal | `strategic-goals.md` is present, not a placeholder, and holds ≥1 identifiable goal item | **Both** hold: (a) the goal has `status = done`; (b) every observable KPI in the goal's "acceptance criteria" is met (the data is available and at target). `status = approved` counts as `in-progress`, and drilling down must continue |
+| L1 | Strategic goal | Resolve identifiable goals from project authority | Use the project's goal and closure contract. A finite goal needs its declared status and acceptance evidence. A declared continuing direction has no inferred terminal state. |
 | L2 | Roadmap node | The roadmap node exists and traces back to an L1 goal | The node has `status = done` (explicit or inferred) |
 | L3 | Requirement | The requirement file is present and not a placeholder | `status = done` (explicit or inferred) |
 | L4 | Design | The design/ADR file is present and not a placeholder | `status = done` (explicit or inferred) |
 | L5 | Task | The task record is present | `status = done` |
 
-#### Mandatory L1 acceptance-KPI check (critical)
+#### Acceptance evidence and measurement
 
-**Cannot be skipped**: every time an L1 goal is traversed, the "acceptance criteria" field must be parsed first, and the observable KPIs extracted from it (name + target threshold + data source). Then judge the current state of each KPI:
+For every inspected goal, read its project-defined meaning and applicable acceptance criteria. Extract declared observable KPIs with their target and data source. Retain unknown measurements explicitly. Continuing strategic directions do not acquire a mandatory completion KPI merely because the diagnostic template expects one.
 
 | KPI state | Meaning | L1 completion verdict |
 | --- | --- | --- |
-| Met (data ≥ threshold, the continuity condition holds) | Acceptance passes | L1 done (given status=done) |
-| Not met (data < threshold, or the continuity condition fails) | Acceptance fails | L1 in-progress, keep drilling down |
-| **Data missing** (no monitoring, no query path) | Acceptance cannot be verified | **L1 in-progress, and the first route must be to establish the KPI data source** (ahead of any downstream route) |
+| Met (the declared threshold and continuity condition hold) | Supports that acceptance criterion | Close only under the project's full closure contract |
+| Not met | That criterion remains unsatisfied | Inspect relevant unfinished work |
+| Data missing or conflicting | That criterion cannot be verified | Recommend measurement or clarification first only when the missing fact changes the current choice, readiness or closure verdict; otherwise report the limitation and continue independently supported work |
 
 **Key anti-pattern**: `status = approved` ≠ L1 finished. `approved` means the decision was approved and says only that the document has taken shape; `done` means acceptance is met. Confusing the two skips the downstream traversal of the whole L1 subtree, so scanning starts from a middle layer (M5/tasks) and the causal chain of "why this task matters" is lost.
 
-**No-goal cases**: `strategic-goals.md` missing and `mission.md` missing too → route `define-mission` (P0); `mission.md` present but with no strategic goal → route `design-strategic-goals` (P0).
+**No-goal cases**: when project-wide diagnosis has no higher-authority alternative and cannot identify purpose or direction, suggest `define-mission` if both mission and goals are absent, or `design-strategic-goals` if mission exists. Explain which planning choice needs that work. In a focused run, a safely bounded current task need not wait for unrelated strategy documentation.
 
-**Roadmap not tiered**: the roadmap exists but has no Now/Next/Later tiers → route `promote-roadmap-items` (P1), and evaluate nothing downstream.
+**Roadmap not tiered**: when the project requires tier placement and the current choice depends on it, suggest `promote-roadmap-items`. Otherwise retain the project's valid planning model and assess independent work. An absent default tier layout alone is not a global stop.
 
 #### Traversal algorithm
 
 ```text
-For each strategic goal G (in priority order, skipping any with status = done):
+Resolve the current question, scope, user decisions and project conventions.
+In focused scope, start at the selected work and inspect relevant dependencies.
+In project-wide scope, inspect each applicable goal in its recorded priority order.
+Apply the source-record adapter and project closure contract before legacy fallback.
+For each relevant goal G, finite or continuing, not verified complete:
 
-  [L1] Does the goal itself have status = done? → skip it, check the next goal
+  [L1] Is closure verified from status and declared acceptance? → check the next goal
 
   [L2] Take every roadmap node under G and apply the parallelism decision rules:
     No nodes → route: define-roadmap (P1); stop on this goal
-    All done → G is met; consider a new goal; stop
+    All done → verify G's own closure evidence; continuing directions remain open
     Take the set F of "current focus nodes" (per the parallelism decision)
 
   For each node N in F (in priority order):
@@ -174,7 +180,7 @@ For each strategic goal G (in priority order, skipping any with status = done):
           ★ All pending, none in-progress (tasks broken down but not started) →
              no governance sub-skill to route to (execution belongs to the developer layer, outside plan-next's scope);
              "Do now" emits an "awaiting execution" marker card (distinct from "nothing to show"), carrying:
-               - the focus task name + task ID + the strategic goal it serves + how that task affects the L1 acceptance KPI
+               - the focus task name + task ID + the intended result it serves + its relevant acceptance evidence
                - label: `awaiting execution` (a new priority label, distinct from urgent/important/defer/minor)
              This card tells orchestrate-governance-step: governance is ready, waiting on outside execution (the signal emitted is blocked, not done)
 ```
@@ -196,6 +202,8 @@ For each strategic goal G (in priority order, skipping any with status = done):
 ```
 
 The diagnostic basis has to name the combination of physical signals the scan relied on (for example: "slug + 2 manifests detected + no parent field").
+
+Use the fallback tree only for artifact types the project requires. Stop descending a branch whose prerequisite prevents safe evaluation, while continuing independent branches. Missing optional designs, task files or conventional directories create no work by themselves. Once candidates are eligible, apply SKILL.md's current-work ordering rather than ranking by the number or depth of omissions.
 
 ### Outputs of the Diagnose step
 
@@ -227,7 +235,7 @@ Compare the artifact's `updated_at` with the time of the change event at the mat
 | Architecture docs drifting from the code (the gap between an ADR's updated_at and the latest code commit exceeds the threshold) | `/review-architecture` |
 | Health signals such as document SSOT, code alignment, or link rot | detected by the runtime / linter / CI tooling per `rules/doc-health-criteria.md` |
 
-**Constraint**: a drift item must go into the "Also worth noting" section and must not take one of the first two slots in "Do now" (unless the main routing is idle and the drift priority reaches P1).
+**Constraint**: report drift in "Also worth noting" unless its evidenced effect blocks the current choice or safe progress. In that case recommend the relevant resolution with its causal rationale under SKILL.md's ordering rules.
 
 ### Step 2.3: hygiene sweep
 
@@ -249,7 +257,7 @@ Check for slowly accumulating governance debt and output a list of hygiene issue
 | Repository structure drift | `_templates/` entries missing / file naming violations | detected by the runtime / CI per `rules/repo-structure-hygiene.md` |
 | Document health checks backed up | The health report has not been updated for > `doc_health_staleness_days` days | have the runtime / CI run one full `rules/doc-health-criteria.md` check |
 
-**Constraint**: a hygiene item must go into the "Also worth noting" section and must not take one of the first two slots in "Do now".
+**Constraint**: report hygiene in "Also worth noting" unless a verified prerequisite makes its resolution necessary for the current choice or safe progress. A generic cleanup opportunity alone does not displace current work.
 
 ### Roadmap family diagnosis
 

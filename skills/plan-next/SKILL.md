@@ -1,14 +1,14 @@
 ---
 name: plan-next
-description: Analyze governance state and suggest next actions; ask whether a skipped recommendation lasts for the session or until revoked.
-version: 15.8.0
+description: Recommend next actions from the current problem, prior decisions and project evidence. Compare options, prepare a focused skill handoff, or diagnose the whole project when requested or no context exists.
+version: 16.0.0
 license: MIT
 ---
 
 # Skill: Plan Next
 
 > **Role**: evidence-led governance router
-> **WHAT**: discover the project's own governance model → diagnose applicable routes and blockers → rank and recommend eligible actions
+> **WHAT**: establish the current decision → inspect relevant project evidence → compare eligible actions → prepare the next skill handoff
 > **HOW**: read-only diagnosis on ordinary runs; an explicit persistent skip or restore may update only the project preference file. For a single-dimension problem (only a known omission to check), recommend the dedicated skill directly (`define-*` and the like)
 > **Distinct from**: this skill never executes downstream skills or changes governance state; document health checks are run by the runtime / linter / CI tooling per `rules/doc-health-criteria.md`
 
@@ -16,7 +16,7 @@ license: MIT
 
 ## Purpose and Boundaries
 
-Inventory the governance input sources and suggest the next action.
+Help the user choose and enter the next useful action. Carry forward their current problem, settled decisions and authorization, check relevant evidence, and explain the available choices. Use project-wide diagnosis when requested or when no current context exists.
 
 **When to use**: at any stage of a project; **running it after every completed task is recommended**, to confirm the next focus.
 
@@ -26,7 +26,7 @@ Inventory the governance input sources and suggest the next action.
 | --- | --- | --- |
 | Suggestions | Suggests the next action (prose or structured cards) | Is not a task-status API; does not maintain or assign a task list; keeps no task history and does not answer time-series questions such as "how many were promoted this week" |
 | Execution | Reads project state and suggests actions; an explicit persistent preference may write only `.ai-cortex/plan-next.yaml` | Does not advance anything downstream or act as an automation engine — automation comes from an outer orchestrator combined with `loop` |
-| Skip choice | Omits a precisely identified recommendation for the chosen duration: this conversation or until revoked | Does not change a task, roadmap item, dependency, norm, or any other governance artifact |
+| Queue preferences | Reorders eligible recommendations in this conversation and omits exact recommendations for this conversation or until restored | Does not change project priorities, task status, roadmap placement, or dependencies |
 
 **Skipping a recommendation is distinct from changing the work item**. “Never recommend this action again” records a routing preference. “Cancel the task”, “move it to Later”, or “defer the roadmap item indefinitely” requests a governance change; use `update-roadmap` for a status or date change within a tier, `promote-roadmap-items` for a tier change, and the project's task-record workflow for a task lifecycle change. Do not infer either intent from the other.
 
@@ -34,7 +34,38 @@ Inventory the governance input sources and suggest the next action.
 
 ## Behavior
 
-**Overall rule**: each run rescans governance state from scratch: **Discover → Diagnose → Build candidates → Filter preferences → Recommend**. Keep observations, interpretations, route-specific blockers, and user preferences distinct. A preference changes only which eligible recommendation is shown; it never changes evidence, dependency state, or completion. The only permitted write is an explicit, precisely scoped persistent exclusion or its removal in `.ai-cortex/plan-next.yaml`.
+**Overall rule**: establish the question and scope, check current evidence, build eligible candidates, apply recommendation preferences, and help the user choose. The only permitted write is an explicit, precisely scoped persistent exclusion or its removal in `.ai-cortex/plan-next.yaml`.
+
+### Establish the current decision
+
+Read the request and relevant conversation before selecting sources. Identify the project, current work, intended result, settled decisions, unresolved choices and existing authorization. A bare invocation continues identifiable current work. An explicit project-wide request overrides that default; absent usable context, diagnose the whole project. Ask only when an unresolved scope choice would materially change the recommendation.
+
+Start the response with the question being answered and the inspected scope. Inspect the current item's records, relevant decisions, dependencies and acceptance evidence first, then trace upstream or outward where those facts affect the choice. Project-wide diagnosis still inventories all applicable goals and siblings. Report uninspected areas rather than presenting a focused result as a whole-project assessment.
+
+Distinguish a user's decision from a verified project state. A decision to pause work governs recommendations in this conversation; it does not itself update the source record. Verify a reported completion before relying on it for dependency readiness or closure. If source evidence conflicts with a current user decision, retain both, explain the effect and suggest record alignment when needed. Never silently discard the decision or assert an unverified transition.
+
+Missing documents, conflicting thresholds and unmeasured metrics become first actions only when they materially affect the current choice or safe progress. State that causal link. Otherwise retain them as background findings. A verified prerequisite still blocks every route within its declared scope.
+
+### Adjust the recommendation queue
+
+After rendering suggestions in a user-facing conversation, accept relevant follow-up replies as part of `plan-next` without requiring another invocation. Interpret commands in the user's language. On each relevant reply, resolve any selector against the last result, rescan, apply the valid adjustment, and return the updated result in the same reply. Keep the latest result, skip set, and order adjustments scoped to this project in this conversation.
+
+| Reply | Effect |
+| --- | --- |
+| “Next recommendation” or “next” while reviewing the queue | Skip the first displayed recommendation for this conversation and return the revised queue. If none is displayed, refresh and report the result without recording a skip. |
+| “Skip 2 for this conversation” or “keep this recommendation hidden until I restore it” | Apply the existing skip rules below to the exact target and chosen duration. |
+| “Show the dashboard recommendation again” | Apply the existing restore rules and return the revised queue. |
+| “Put 2 first” or “move the audit log before the dashboard” | Move one eligible recommendation to the front or before another eligible recommendation for this conversation. |
+| “Reset recommendation order” | Clear the conversation's order adjustments and return to the current default order. Keep skip choices. |
+| “Show the queue” | Show the eligible recommendations beyond the usual display limit as well. |
+| “Refresh” or a report that an action was completed | Recheck current evidence and advance where it supports doing so. Use the project's normal completion criteria. |
+| “That is not the main problem” or a correction of the intended outcome | Revisit the current question and recommendation rationale, retain valid decisions, and rebuild candidates before proposing another action. |
+
+For a move, resolve both items, when applicable, to exact route keys before rescanning. Apply the move to the fresh queue after exclusions. Retain the order of the other entries. Record each valid move in conversation order and replay it on refresh. Drop a move whose target or reference is no longer eligible or has been excluded, and report which move was dropped. A move that already matches the requested order needs no additional entry. Ranking preferences apply only to eligible candidates and respect the existing focus and dependency rules. A new conversation starts with the default order.
+
+Use the latest **Do now** positions for unqualified numbers. When the user opens the queue, also accept a unique name from its extra entries. If a selector is ambiguous, ask only for the affected item. If the user chooses an action or ends queue review, conclude the recommendation interaction. Further scans happen in response to relevant user input or a fresh invocation.
+
+Explain a reordered list as the user's conversation preference and retain each action's underlying priority rationale. If the current scope is exhausted or all eligible actions are skipped, state the remaining conditions and offer to inspect a broader scope. Wait for that choice before broadening merely to fill the list. Selection produces a focused handoff naming the skill or existing project workflow, objective, target, source evidence and completion marker. Carry authorization and unresolved decisions through it; selecting a recommendation grants no additional implementation or external-write permission. Downstream execution belongs to the selected workflow or outer executor.
 
 ### Skip a recommendation and continue
 
@@ -42,7 +73,7 @@ Use this when a user wants to set aside a displayed suggestion without claiming 
 
 #### Selector resolution
 
-For a new skip, resolve the user's explicit selector against the most recently rendered `plan-next` result in this conversation:
+For a new skip, resolve the user's selector against the most recently rendered `plan-next` result in this conversation. The queue command “next” explicitly selects its first displayed recommendation and conversation scope:
 
 | User reference | Resolution |
 | --- | --- |
@@ -56,7 +87,7 @@ For a restore, resolve against the most recent **Skipped recommendations** list,
 
 #### Duration choice
 
-After resolving the target, ask: “Skip this recommendation only for this conversation, or keep it excluded in this project until you restore it?” Ask whenever the user's wording does not specify the duration; “for now” alone does not decide it. Do not apply an exclusion before the answer. “This conversation” selects the session scope; “always”, “permanently”, “never recommend it again”, or an equivalent explicit duration selects the persistent scope. An explicit duration needs no second confirmation.
+After resolving the target, ask: “Skip this recommendation only for this conversation, or keep it excluded in this project until you restore it?” Ask for an ordinary skip whose wording does not specify the duration. “For now” alone does not decide it. The queue command “next” already selects conversation scope. Do not apply an exclusion before the answer. “This conversation” selects the session scope; “always”, “permanently”, “never recommend it again”, or an equivalent explicit duration selects the persistent scope. An explicit duration needs no second confirmation.
 
 For a session skip, keep the route key only in the current conversation's skip set. Later `plan-next` runs in that conversation honor it; a new conversation starts with an empty session set. The user may say “show this again” to remove it early. Session skips are never written to disk. If the same key is already persistently excluded, a session-only choice cannot make it session-only: explain the existing persistent preference and ask whether to restore that preference or leave it unchanged.
 
@@ -77,11 +108,11 @@ The pair `(route, target)` is the exact route key. Do not persist display titles
 
 #### Scope and continuation algorithm
 
-1. Discover the project's declared governance conventions and diagnose normally. The scan, priority rules, prerequisites, and dependency graph remain authoritative.
+1. Establish the current question and scope, discover the project's declared governance conventions, and diagnose relevant evidence. The scan, priority rules, prerequisites, and dependency graph remain authoritative.
 2. Build the complete ordered sequence of currently eligible recommendation candidates before applying preferences or the normal display limit. Assign each candidate its exact `(route, target)` key. A candidate is eligible only if its evidenced prerequisites and `depends_on:` predecessors are satisfied.
 3. Read `.ai-cortex/plan-next.yaml` when present; combine its exact route keys with the current conversation's skip set. After resolving the displayed action and duration, re-scan before changing either scope. If that exact candidate is no longer eligible or its route key changed, do not save a stale skip; explain the change and offer the current recommendations. For a restore, validate the file and remove the selected key from every active scope before recommending again.
-4. Continue through the ordered sequence, omitting only matching keys. Never treat an exclusion as a completion, a blocked node, or permission to traverse beneath it. A candidate that depends on unfinished work represented by an excluded route, an unfinished ancestor, or a global prerequisite remains ineligible.
-5. Render the first one to three remaining eligible candidates under the normal priority and parallelism rules. Report omitted actions and their durations separately. If every otherwise eligible route is excluded, report that fact distinctly from “all governance work is complete”.
+4. Omit matching keys, then apply valid conversation order adjustments. Never treat an exclusion or move as a completion, a blocked node, or permission to traverse beneath it. A candidate that depends on unfinished work represented by an excluded route, an unfinished ancestor, or a global prerequisite remains ineligible.
+5. Recommend the first remaining eligible candidate, with up to two alternatives when they help a real choice or can start independently. Explicit queue inspection may show additional eligible candidates. Report exclusions and their durations separately. If every otherwise eligible route is excluded, report that fact and offer broader inspection.
 
 **Prerequisite and dependency protection**: skipping a route never unlocks its dependents. A true global prerequisite blocks every route it governs; a route-scoped prerequisite blocks only its dependents; an uncertain relationship is not silently promoted to a global blocker—ask for clarification if it changes which action is safe. Continue evaluating independent candidates. Never invent a lower-level alternative just to fill the slot.
 
@@ -90,6 +121,8 @@ The pair `(route, target)` is the exact route key. Do not persist display titles
 Unless the project sets another threshold, treat a task without progress for 7 days as stuck. Discover task, roadmap, artifact-norm, and glossary locations from project evidence; `auto` means no path is imposed in advance.
 
 Resolve canonical artifact types and locations from the strongest project-local evidence available, in this order: explicit project configuration or agent entry point; the project's own artifact norms/indexes; existing linked governance artifacts and repository structure; AI Cortex defaults only when the project declares or clearly adopts them. Record the source and confidence. Existing artifacts in a coherent project-native structure are evidence of a valid local convention, not an omission merely because a conventional directory is absent.
+
+Apply this discovery to the selected scope. The inventory dimensions below guide a project-wide scan; a focused run inspects only relevant records and the prerequisites needed to judge them.
 
 If sources conflict, prefer the higher-authority project declaration and report the conflict. If the project has no declared map and repository evidence cannot resolve a route's target or its applicability, mark that decision `needs_input`; ask a focused question rather than manufacturing a directory requirement. The optional cache may speed up path resolution but is not authority and never substitutes for inspecting current evidence.
 
@@ -126,18 +159,20 @@ Read the [diagnosis procedure](references/diagnosis.md) before assessing goal, r
 
 Consume the traversal and independent drift/hygiene results into a complete ordered candidate sequence, then route the first 1-3 eligible, non-excluded entries into "Do now":
 
-- The **main-chain route** (the first gap under the highest-priority goal) is considered first when its actual prerequisites pass; if blocked, record why and continue to independent candidates
+- Eliminate actions with unmet prerequisites or dependencies, paused work without a resume decision, and actions outside the authorized scope. A necessary human decision may itself be recommended with its options and owner.
+- Prefer eligible actions that resolve an evidenced blocker of the current work, then continue already selected or active work, then use the project's recorded priorities and precedence for other actions. Explain why the first action deserves attention now.
+- For project-wide diagnosis, use the highest-priority goal's first relevant unfinished route as the starting candidate; a gap alone does not outrank a current action without an evidenced effect on progress.
 - A **parallel route** (an independent node opened up by a blocked one) also goes into "Do now" when it can start immediately
 - When a displayed route is excluded for the session or persistently, omit it and continue through the candidate sequence. A dependent or lower-level route still cannot displace it.
-- Beyond 3 rendered entries, truncate by priority; candidate lists are recomputed on each run. Only exact persistent route keys are stored. Blocked candidates are never promoted to executable candidates by ordering, exclusion, or display truncation.
+- Use default priority to build the queue and apply any conversation order adjustments before the display limit. Candidate lists are recomputed on each run. Blocked candidates are never promoted to executable candidates by ordering, exclusion, or display truncation.
 
-**Parallel routing**: when the parallelism verdict is "parallel" or "converge", state the reason for parallelism or the convergence target explicitly in the routing evidence; when it is "focus", route only the current node.
+**Parallel routing**: when the parallelism verdict is "parallel" or "converge", state the reason for parallelism or the convergence target explicitly in the routing evidence; when it is "focus", route only the current node. For genuinely tied choices, explain their respective benefits, costs and waiting conditions. Use source order, then exact route key for stable display only; do not invent a business rank. Conversation moves can reorder eligible choices, including differing urgency labels, while retaining dependencies, focus constraints and the underlying rationale.
 
-**Sibling advance rule**: when a node finishes, advance automatically to the next sibling at the same level, with no re-run needed from the user; the traversal stops at the first gap of that next sibling.
+**Sibling advance rule**: when a scan verifies that a node finished, advance to the next sibling at the same level in that reply. The traversal stops at the first gap of that next sibling.
 
 **Multi-task, multi-card rendering rule**:
 
-When an all-pending L5 triggers the "awaiting execution" branch and there are ≥2 independently startable tasks, **render several cards side by side** rather than merging them into one. Each card covers 1 task. At most 3; beyond that, truncate by priority per §3.2.
+When several independently startable tasks help the current choice, render separate entries rather than merging them into one. Each entry covers one task with its own evidence and completion marker. Recommend one clear first action, adding up to two independent actions or meaningful alternatives under §3.1.
 
 - ✅ Correct: 3 cards side by side, one task each (action name, TL;DR and completion marker all independent)
 - ❌ Forbidden: merging several tasks into one card subject with a comma, a plus sign, or a verb like "start in parallel" (`T51 + T-SG5-002 start in parallel`)
@@ -145,7 +180,9 @@ When an all-pending L5 triggers the "awaiting execution" branch and there are �
 
 For tasks that become ready tomorrow or later in the week, use the `defer` label + a TL;DR noting when they are ready; do not tuck them into a footnote on the current card.
 
-#### 3.2 Priority (governance urgency)
+#### 3.2 Governance urgency annotations
+
+These annotations describe a finding's scope and severity. Apply the ordering rules above before rendering; artifact depth alone does not establish what the user should do first.
 
 - **Now (P0)**: a foundational problem with evidence that it blocks all governed routes (or L1 has no goal and the project has no higher-authority alternative)
 - **Next (P1)**: the L2 roadmap is missing or not aligned to a goal
@@ -160,7 +197,7 @@ Give each suggestion an action, reason, and observable completion marker. Use pr
 
 ## Self-Check
 
-Before reporting completion, run the [full self-check](references/self-check.md). Confirm that project paths came from evidence, every goal and applicable sibling was assessed, all blockers and exclusions are represented, and every recommendation has a completion marker.
+Before reporting completion, run the [full self-check](references/self-check.md). Confirm that the current question and inspected scope are explicit, project paths came from evidence, relevant goals and siblings were assessed, blockers and exclusions are represented, and every recommendation has a completion marker. Project-wide diagnosis covers all applicable goals.
 
 ---
 

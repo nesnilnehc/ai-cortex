@@ -1539,14 +1539,14 @@
     },
     "plan-next": {
       "classification": "native",
-      "version": "15.8.0",
+      "version": "16.0.0",
       "reviewed_files": {
-        "README.md": "2b157b83345b2d3872c24eaf570ea5b37793b2a90205108ce70bfbff409df92d",
-        "SKILL.md": "cbc4277aca3dca1daf952acd4433a10e32309970b4590562bb2cf5d115636ef4",
-        "references/diagnosis.md": "279ae7a313055a3604cae474b97af8934f2bba2e9ac7ce5f40dfe9805021badb",
-        "references/examples.md": "955e5d4e79e1cbe9e02053179579a42954734eebdb6f1a02e53c5ac550f1cb5f",
-        "references/output-guidance.md": "a1c9368662176139cd47711bbb96e5af01c307d49568b923ed536fa0014dfed2",
-        "references/self-check.md": "d6ede705e0040a1f0a5f62fdde5d04c2473d7e0f816f38d4aef89fb6d9ca7b59"
+        "README.md": "d83e8dedd3750125f24ae6eb812da89bb3fe6ab68af796438d1c32a48c2c6b0a",
+        "SKILL.md": "1de80ca18e3269ce7f4c35a180e12685570d4a0d6908f5a0c79cf50e454c05a9",
+        "references/diagnosis.md": "35b77f0eae48b06535d14faddd5039d2d2bf85c3bcf2726550551189f7a2db4e",
+        "references/examples.md": "3e478cc67b33ab102ea057434fd4e38839cf16941babd549d24291062dc32521",
+        "references/output-guidance.md": "dbdadd281427a9ed5041650623b6274500eda13534f365b8de4bbb186534d2dc",
+        "references/self-check.md": "045f6d70ca445e1aceb74216adbedca0c9eb696ccfb4e5bb8e59020f6f544c9a"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/plan-next.json": "69f9af99a5bd37be757d2c5d5d12d82b29b76fd36564cb64ea5938cae5026f0e"
@@ -1557,7 +1557,7 @@
           "path": "experiments/skill-provenance/evidence/plan-next.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/plan-next.json"
+          "path": "experiments/skill-provenance/confirmations/plan-next-16-0-0-20261108.json"
         }
       ],
       "creation": {
@@ -1565,17 +1565,17 @@
         "revision": "904a4cc530bfd4e9557885add79a5d0fc0c3b590"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer confirming the plan-next 16.0.0 revision",
+        "confirmed_at": "2026-11-08",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "rationale": "The maintainer explicitly confirmed that version 16.0.0 remains an AI Cortex original. This revision follows the maintainer-approved current-context recommendation design and existing repository assets without third-party creative reference.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/plan-next.json"
+            "path": "experiments/skill-provenance/confirmations/plan-next-16-0-0-20261108.json"
           }
         ],
-        "subject_digest": "64ad5004c499a9291367ffc7f6822a08f92b1a375825d64e6c55f293913888fd"
+        "subject_digest": "10846c254b0349bcbb16e0d1539d2e2c9124ea60d12ebf77ca3d1bf085352b14"
       }
     },
     "policy-research": {

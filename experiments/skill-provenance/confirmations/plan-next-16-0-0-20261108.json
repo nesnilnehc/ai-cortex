@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer confirming the plan-next 16.0.0 revision",
+  "confirmed_at": "2026-11-08",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer explicitly confirmed that version 16.0.0 remains an AI Cortex original. This revision follows the maintainer-approved current-context recommendation design and existing repository assets without third-party creative reference.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/plan-next-16-0-0-20261108.json"
+    }
+  ],
+  "subject_digest": "10846c254b0349bcbb16e0d1539d2e2c9124ea60d12ebf77ca3d1bf085352b14"
+}
