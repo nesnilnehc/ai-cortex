@@ -362,13 +362,13 @@
     },
     "plan-next": {
       "id": "plan-next",
-      "description": "Analyze governance state and suggest next actions; ask whether a skipped recommendation lasts for the session or until revoked.",
+      "description": "Recommend next actions from the current problem, prior decisions and project evidence. Compare options, prepare a focused skill handoff, or diagnose the whole project when requested or no context exists.",
       "owner": "planning",
       "sourcePaths": [
         "skills/plan-next/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/plan-next/SKILL.md": "cbc4277aca3dca1daf952acd4433a10e32309970b4590562bb2cf5d115636ef4"
+        "skills/plan-next/SKILL.md": "1de80ca18e3269ce7f4c35a180e12685570d4a0d6908f5a0c79cf50e454c05a9"
       },
       "entry": "public"
     },

@@ -1,6 +1,6 @@
-import metadata from './skill-metadata.json?v=milestone-achievement-20261106' with {type:'json'};
-import {classification,relationships} from './relationship-model.mjs?v=milestone-achievement-20261106';
-import {getGlobalTopicGraph} from './global-topic-graph.mjs?v=milestone-achievement-20261106';
+import metadata from './skill-metadata.json?v=plan-next-16-20261108' with {type:'json'};
+import {classification,relationships} from './relationship-model.mjs?v=plan-next-16-20261108';
+import {getGlobalTopicGraph} from './global-topic-graph.mjs?v=plan-next-16-20261108';
 const relationIds=new Set([...relationships,...getGlobalTopicGraph().edges,...getGlobalTopicGraph().loops].map(e=>e.id));
 export function createExplorerState(initial={}){
  const state={view:'classification',selectedSkillId:null,selectedWorkId:null,selectedRelationId:null,detail:{open:false,target:null,mode:'usage'},lookup:{open:false,query:''},viewState:{classification:{expandedCategoryIds:[],scrollByRegion:{}},relations:{expandedTopicId:null,scrollByRegion:{},pan:{x:0,y:0}}}};

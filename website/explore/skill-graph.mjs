@@ -1,9 +1,9 @@
-import {getCallHierarchy} from './relationship-model.mjs?v=milestone-achievement-20261106';
-import {catalog} from './workflow.mjs?v=milestone-achievement-20261106';
-import {getNodeDetails,getNodeSkillSelection} from './panel-model.mjs?v=milestone-achievement-20261106';
-import rawEdges from './skill-edges.json?v=milestone-achievement-20261106' with {type:'json'};
-import metadata from './skill-metadata.json?v=milestone-achievement-20261106' with {type:'json'};
-import {dictionary} from './locale.mjs?v=milestone-achievement-20261106';
+import {getCallHierarchy} from './relationship-model.mjs?v=plan-next-16-20261108';
+import {catalog} from './workflow.mjs?v=plan-next-16-20261108';
+import {getNodeDetails,getNodeSkillSelection} from './panel-model.mjs?v=plan-next-16-20261108';
+import rawEdges from './skill-edges.json?v=plan-next-16-20261108' with {type:'json'};
+import metadata from './skill-metadata.json?v=plan-next-16-20261108' with {type:'json'};
+import {dictionary} from './locale.mjs?v=plan-next-16-20261108';
 const sourceEdges=rawEdges.map(edge=>({...edge,...dictionary.skillEdges[edge.id]}));
 const order=['direction','planning','research','design','quality','build','commit','foundation','collaboration'];
 const ids=new Set(catalog.map(skill=>skill.id));
