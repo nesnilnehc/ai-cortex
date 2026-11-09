@@ -1,7 +1,7 @@
-import classificationData from './classification.json?v=plan-next-16-20261108' with {type:'json'};
-import rawEdges from './skill-edges.json?v=plan-next-16-20261108' with {type:'json'};
-import metadata from './skill-metadata.json?v=plan-next-16-20261108' with {type:'json'};
-import {dictionary} from './locale.mjs?v=plan-next-16-20261108';
+import classificationData from './classification.json?v=plan-next-17-20261109' with {type:'json'};
+import rawEdges from './skill-edges.json?v=plan-next-17-20261109' with {type:'json'};
+import metadata from './skill-metadata.json?v=plan-next-17-20261109' with {type:'json'};
+import {dictionary} from './locale.mjs?v=plan-next-17-20261109';
 export const classification=structuredClone(classificationData);
 export const relationships=rawEdges.map(e=>({...e,...dictionary.skillEdges[e.id]}));
 export function validateSequences(edges){

@@ -308,7 +308,7 @@
         "skills/orchestrate-governance-step/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/orchestrate-governance-step/SKILL.md": "33e1f2b90a1187b5a61a954847f8d71cffaed45aeaee21b2291fa9813e8f79be"
+        "skills/orchestrate-governance-step/SKILL.md": "2f6a7b3281b55546fc823e71516743bf4c70744ce0a1f4a06ebaf862d129b238"
       },
       "entry": "public"
     },
@@ -362,13 +362,13 @@
     },
     "plan-next": {
       "id": "plan-next",
-      "description": "Recommend next actions from the current problem, prior decisions and project evidence. Compare options, prepare a focused skill handoff, or diagnose the whole project when requested or no context exists.",
+      "description": "Recommend next actions from the current problem, prior decisions and project evidence. Compare options, prepare a focused skill handoff, and inspect independent project work when the current focus has no eligible action.",
       "owner": "planning",
       "sourcePaths": [
         "skills/plan-next/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/plan-next/SKILL.md": "1de80ca18e3269ce7f4c35a180e12685570d4a0d6908f5a0c79cf50e454c05a9"
+        "skills/plan-next/SKILL.md": "f36832a61b9fd50444ab13bdbbe7b36b49c034eb76090b81f41d51a64cf05aa2"
       },
       "entry": "public"
     },

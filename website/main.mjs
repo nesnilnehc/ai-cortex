@@ -1,7 +1,7 @@
-import {initializeNavigation} from './site-navigation.mjs?v=plan-next-16-20261108';
-import { initializeTheme } from './theme.mjs?v=plan-next-16-20261108';
-import { initializeLanguage } from './language.mjs?v=plan-next-16-20261108';
-import { bindCopyButton } from './copy.mjs?v=plan-next-16-20261108';
+import {initializeNavigation} from './site-navigation.mjs?v=plan-next-17-20261109';
+import { initializeTheme } from './theme.mjs?v=plan-next-17-20261109';
+import { initializeLanguage } from './language.mjs?v=plan-next-17-20261109';
+import { bindCopyButton } from './copy.mjs?v=plan-next-17-20261109';
 
 initializeLanguage(window, document.documentElement.lang === 'zh-CN' ? 'zh' : 'en');
 
@@ -17,4 +17,4 @@ bindCopyButton(
 
 initializeNavigation(window,document);
 
-import './explore/explorer-host.mjs?v=plan-next-16-20261108';
+import './explore/explorer-host.mjs?v=plan-next-17-20261109';
