@@ -1,16 +1,16 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_5f40fc0c298c8191b071ad72e9038fbc",
-  "version_number": 20,
-  "deployment_id": "appgdep_6af1206a8ce881919916d5d8c1d5ef35",
-  "source_commit": "dd3e4ac8449a62137d5073db9673b30333f3722f",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_ec09cb79c73c8191b9e2f97669a70d75",
+  "version_number": 21,
+  "deployment_id": "appgdep_6af18ae328008191a9484d6eb4846df7",
+  "source_commit": "64370d6f9c7a4cf4c4349fc9b186ff181f0d6eb4",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.nesnilnehc.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-11-09T01:23:03.421749+00:00",
+  "updated_at": "2026-11-09T08:57:19.315621+00:00",
   "published_files": [
     "copy.mjs",
     "explore/assets/work-stories.png",
@@ -94,30 +94,21 @@
     "personal site project entry"
   ],
   "known_good_version": {
-    "version_number": 19,
-    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_c4f8d0386cd88191a3e4136f9ab0bf31",
-    "source_commit": "68f0d10701fee3d821b74d1fe7ea064028db917b"
+    "version_number": 20,
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_5f40fc0c298c8191b071ad72e9038fbc",
+    "source_commit": "dd3e4ac8449a62137d5073db9673b30333f3722f"
   },
   "public_verification": {
     "status": "passed",
-    "checked_files": 9,
-    "byte_identical": [
-      "explore/source-manifest.json",
-      "explore/skill-metadata.json",
-      "explore/skill-provenance.json",
-      "explore/locales/en.json",
-      "explore/locales/zh.json",
-      "skills/plan-next/SKILL.md",
-      "skills/orchestrate-governance-step/SKILL.md"
-    ],
-    "content_preserved": [
+    "checked_files": 2,
+    "content_verified": [
       "index.html",
       "zh.html"
     ],
-    "evidence": "website/.openai/publication-20261109-plan-next.json"
+    "evidence": "website/.openai/publication-20261109-terminology.json"
   },
-  "repository_source_revision": "e1e1dc684e2dbfb429c20f335d386eef48fe7965",
+  "repository_source_revision": "81a44a2a1667c8737295175957da611b3fa2d503",
   "assets_revision": "1db04e5c81a2481d9f92c0dc9b7087df5216a646",
   "cache_key": "plan-next-17-20261109",
-  "archive_sha256": "463865fa4549fade1eb812a3b48820b52fe068bcdb6dfa85873c56fe75912f46"
+  "archive_sha256": "d07162436aa36fb7dea3dfd32bcf42cdee07b3a6d12bd7483865d1766770b38f"
 }

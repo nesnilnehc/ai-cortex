@@ -1,0 +1,22 @@
+{
+  "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_ec09cb79c73c8191b9e2f97669a70d75",
+  "version_number": 21,
+  "deployment_id": "appgdep_6af18ae328008191a9484d6eb4846df7",
+  "source_commit": "64370d6f9c7a4cf4c4349fc9b186ff181f0d6eb4",
+  "repository_source_revision": "81a44a2a1667c8737295175957da611b3fa2d503",
+  "deployment_status": "succeeded",
+  "public_url": "https://ai-cortex.nesnilnehc.top/",
+  "verified": [
+    "English and Chinese pages returned HTTPS success",
+    "Each page includes both terminology assets, draft labels, source links and updated counts"
+  ],
+  "not_verified": [
+    "Visual layout",
+    "Interactive behavior"
+  ],
+  "website_tests": {
+    "node_passed": 59,
+    "python_passed": 18
+  }
+}

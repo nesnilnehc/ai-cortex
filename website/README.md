@@ -2,6 +2,20 @@
 
 ## Current publication
 
+Sites version 21 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+The English and Chinese asset directories list the draft project terminology Spec
+and Rule, with counts of 21 Specs and 35 Rules. The deployed Site source is
+`64370d6f9c7a4cf4c4349fc9b186ff181f0d6eb4`; repository source is
+`81a44a2a1667c8737295175957da611b3fa2d503`.
+
+All 77 website tests passed. Custom-domain checks confirmed both directory
+entries, draft labels, source links and counts in both languages. Visual layout
+and interactions were not rechecked. The [deployment receipt](.openai/deployment.json)
+and [publication checks](.openai/publication-20261109-terminology.json) retain
+the verification scope.
+
+## Prior publication: Plan Next
+
 Sites version 20 went live on 2026-11-09 at
 [AI Cortex](https://ai-cortex.nesnilnehc.top/). The catalogue contains 75 Skills.
 Plan Next now inspects independent project work when an implicit focus has no
@@ -14,9 +28,8 @@ All 77 website tests passed before publication. Custom-domain HTTPS verification
 preserved both homepage contents and matched five catalogue JSON responses byte
 for byte. Both pinned Skill sources matched the repository: plan-next 17.0.0 and
 orchestrate-governance-step 3.0.2. No visual or interaction checks were rerun for
-this source-reference update. The [deployment receipt](.openai/deployment.json)
-and [publication checks](.openai/publication-20261109-plan-next.json) retain the
-published version, source and verification scope.
+this source-reference update. The [publication checks](.openai/publication-20261109-plan-next.json)
+retain the published version, source and verification scope.
 
 ## Prior publication: milestone achievement
 
