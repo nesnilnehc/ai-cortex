@@ -10,6 +10,7 @@
 - [nats-messaging.md](./nats-messaging.md) — subject, headers, payload and version evolution contract for cross-project NATS messages; the NATS specialisation of cross-team-contract
 - [opportunity-package.md](./opportunity-package.md) — JSON contract for a reviewable product opportunity recommendation, lane status, and claim-to-source trace
 - [plan-next-preferences.md](./plan-next-preferences.md) — project-local YAML contract for exact plan-next recommendation exclusions that persist until restored
+- [project-terminology-modeling.md](./project-terminology-modeling.md) — concept records, preferred and alternative terms, source authority, and validation for project glossaries
 - [research-evidence.md](./research-evidence.md) — JSON contract for sources, classified findings, conflicts, gaps, and research trace
 - [roadmap-modeling.md](./roadmap-modeling.md) — structure-before-content stages, scenario selection, requirement/iteration/version/flow views, main/detail ownership, priority vocabulary, retained revision history and offline generator input
 - [requirement-modeling.md](./requirement-modeling.md) — field definitions, format and validation for a requirement document

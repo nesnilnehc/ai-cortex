@@ -17,7 +17,7 @@ for the four asset layers and the [website guide](website/README.md) for site ma
 
 ## 🧭 What's inside
 
-**75 skills** ([index](skills/INDEX.md)), **34 rules** ([index](rules/INDEX.md)), **20 specs** ([index](specs/INDEX.md)) and **1 protocol** ([index](protocols/INDEX.md)).
+**75 skills** ([index](skills/INDEX.md)), **35 rules** ([index](rules/INDEX.md)), **21 specs** ([index](specs/INDEX.md)) and **1 protocol** ([index](protocols/INDEX.md)).
 
 | Area | Count | Representative skills |
 | :--- | ---: | :--- |
