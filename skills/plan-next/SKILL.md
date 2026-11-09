@@ -1,7 +1,7 @@
 ---
 name: plan-next
-description: Recommend next actions from the current problem, prior decisions and project evidence. Compare options, prepare a focused skill handoff, or diagnose the whole project when requested or no context exists.
-version: 16.0.0
+description: Recommend next actions from the current problem, prior decisions and project evidence. Compare options, prepare a focused skill handoff, and inspect independent project work when the current focus has no eligible action.
+version: 17.0.0
 license: MIT
 ---
 
@@ -16,7 +16,7 @@ license: MIT
 
 ## Purpose and Boundaries
 
-Help the user choose and enter the next useful action. Carry forward their current problem, settled decisions and authorization, check relevant evidence, and explain the available choices. Use project-wide diagnosis when requested or when no current context exists.
+Help the user choose and enter the next useful action. Carry forward their current problem, settled decisions and authorization, check relevant evidence, and explain the available choices. Use project-wide diagnosis when requested, when no current context exists, or when an implicit current focus has no eligible action.
 
 **When to use**: at any stage of a project; **running it after every completed task is recommended**, to confirm the next focus.
 
@@ -38,9 +38,15 @@ Help the user choose and enter the next useful action. Carry forward their curre
 
 ### Establish the current decision
 
-Read the request and relevant conversation before selecting sources. Identify the project, current work, intended result, settled decisions, unresolved choices and existing authorization. A bare invocation continues identifiable current work. An explicit project-wide request overrides that default; absent usable context, diagnose the whole project. Ask only when an unresolved scope choice would materially change the recommendation.
+Read the request and relevant conversation before selecting sources. Identify the project, current work, intended result, settled decisions, unresolved choices and existing authorization. A bare invocation starts with identifiable current work; this is an initial focus, not a user-imposed scope limit. An explicit project-wide request overrides that default; absent usable context, diagnose the whole project. Preserve an explicit scope limit from the user or caller, including a still-effective limit from earlier conversation. Ask only when the project or an explicit boundary is genuinely ambiguous.
 
 Start the response with the question being answered and the inspected scope. Inspect the current item's records, relevant decisions, dependencies and acceptance evidence first, then trace upstream or outward where those facts affect the choice. Project-wide diagnosis still inventories all applicable goals and siblings. Report uninspected areas rather than presenting a focused result as a whole-project assessment.
+
+**When the current focus has no eligible action**: after checking its evidence and preferences, if it is finished, externally waiting, blocked, or exhausted (including all eligible recommendations being excluded), continue read-only project-wide diagnosis in the same reply unless an explicit scope limit applies. Inspect the project's authoritative active-work sources, all applicable goals and siblings, and candidate source records. Look for independent work that can start now; do not ask permission merely to expand this read-only inspection. State the initial focus, why inspection expanded, actual coverage and limitations. A wait on one item is not a project-wide stop condition.
+
+Expansion grants no implementation, authenticated-access or external-write permission. Use only sources accessible under existing authorization; disclose unavailable sources. Preserve priorities, exclusions, unmet dependencies and applicable global gates. Never resume paused or cancelled work without an explicit decision. Uncertain independence stays uncertain. Do not invent actions to fill the list or repeatedly recommend commit, push, synchronization or cleanup after their completion; compare remaining delivery and product work under existing priorities. Recommend such closeout work only when evidence shows a remaining obligation or prerequisite.
+
+With an explicit limit, report local exhaustion and the remaining condition; offer broader inspection without performing it. Without one, report project-wide exhaustion only after sufficient project inspection. If evidence is insufficient, disclose coverage and use `needs_input` when the missing fact changes the safe next action. All-excluded or truly waiting projects retain their conditions under `no_applicable_action`; an empty list never proves completion.
 
 Distinguish a user's decision from a verified project state. A decision to pause work governs recommendations in this conversation; it does not itself update the source record. Verify a reported completion before relying on it for dependency readiness or closure. If source evidence conflicts with a current user decision, retain both, explain the effect and suggest record alignment when needed. Never silently discard the decision or assert an unverified transition.
 
@@ -65,7 +71,7 @@ For a move, resolve both items, when applicable, to exact route keys before resc
 
 Use the latest **Do now** positions for unqualified numbers. When the user opens the queue, also accept a unique name from its extra entries. If a selector is ambiguous, ask only for the affected item. If the user chooses an action or ends queue review, conclude the recommendation interaction. Further scans happen in response to relevant user input or a fresh invocation.
 
-Explain a reordered list as the user's conversation preference and retain each action's underlying priority rationale. If the current scope is exhausted or all eligible actions are skipped, state the remaining conditions and offer to inspect a broader scope. Wait for that choice before broadening merely to fill the list. Selection produces a focused handoff naming the skill or existing project workflow, objective, target, source evidence and completion marker. Carry authorization and unresolved decisions through it; selecting a recommendation grants no additional implementation or external-write permission. Downstream execution belongs to the selected workflow or outer executor.
+Explain a reordered list as the user's conversation preference and retain each action's underlying priority rationale. If the current scope is exhausted or all eligible actions are skipped, apply the scope-expansion rule above before returning the revised result. Preserve exclusions across the expanded scan. Only an explicit scope limit requires the user to choose broader inspection. Selection produces a focused handoff naming the skill or existing project workflow, objective, target, source evidence and completion marker. Carry authorization and unresolved decisions through it; selecting a recommendation grants no additional implementation or external-write permission. Downstream execution belongs to the selected workflow or outer executor.
 
 ### Skip a recommendation and continue
 
@@ -112,7 +118,7 @@ The pair `(route, target)` is the exact route key. Do not persist display titles
 2. Build the complete ordered sequence of currently eligible recommendation candidates before applying preferences or the normal display limit. Assign each candidate its exact `(route, target)` key. A candidate is eligible only if its evidenced prerequisites and `depends_on:` predecessors are satisfied.
 3. Read `.ai-cortex/plan-next.yaml` when present; combine its exact route keys with the current conversation's skip set. After resolving the displayed action and duration, re-scan before changing either scope. If that exact candidate is no longer eligible or its route key changed, do not save a stale skip; explain the change and offer the current recommendations. For a restore, validate the file and remove the selected key from every active scope before recommending again.
 4. Omit matching keys, then apply valid conversation order adjustments. Never treat an exclusion or move as a completion, a blocked node, or permission to traverse beneath it. A candidate that depends on unfinished work represented by an excluded route, an unfinished ancestor, or a global prerequisite remains ineligible.
-5. Recommend the first remaining eligible candidate, with up to two alternatives when they help a real choice or can start independently. Explicit queue inspection may show additional eligible candidates. Report exclusions and their durations separately. If every otherwise eligible route is excluded, report that fact and offer broader inspection.
+5. Recommend the first remaining eligible candidate, with up to two alternatives when they help a real choice or can start independently. Explicit queue inspection may show additional eligible candidates. Report exclusions and their durations separately. If no candidate remains, apply the scope-expansion rule before assigning the final state: expand an implicit focus read-only, or retain an explicit limit and offer broader inspection. Preserve exclusions throughout.
 
 **Prerequisite and dependency protection**: skipping a route never unlocks its dependents. A true global prerequisite blocks every route it governs; a route-scoped prerequisite blocks only its dependents; an uncertain relationship is not silently promoted to a global blocker—ask for clarification if it changes which action is safe. Continue evaluating independent candidates. Never invent a lower-level alternative just to fill the slot.
 
@@ -159,7 +165,7 @@ Read the [diagnosis procedure](references/diagnosis.md) before assessing goal, r
 
 Consume the traversal and independent drift/hygiene results into a complete ordered candidate sequence, then route the first 1-3 eligible, non-excluded entries into "Do now":
 
-- Eliminate actions with unmet prerequisites or dependencies, paused work without a resume decision, and actions outside the authorized scope. A necessary human decision may itself be recommended with its options and owner.
+- Eliminate actions with unmet prerequisites or dependencies, paused or cancelled work without an explicit resume decision, and actions outside an explicit diagnostic scope limit. Inspect evidence only within existing access authorization. Lack of implementation permission does not itself prevent a recommendation: state the action's owner and required authorization in its handoff; the executor checks that permission separately. A necessary human decision may itself be recommended with its options and owner.
 - Prefer eligible actions that resolve an evidenced blocker of the current work, then continue already selected or active work, then use the project's recorded priorities and precedence for other actions. Explain why the first action deserves attention now.
 - For project-wide diagnosis, use the highest-priority goal's first relevant unfinished route as the starting candidate; a gap alone does not outrank a current action without an evidenced effect on progress.
 - A **parallel route** (an independent node opened up by a blocked one) also goes into "Do now" when it can start immediately
@@ -168,7 +174,7 @@ Consume the traversal and independent drift/hygiene results into a complete orde
 
 **Parallel routing**: when the parallelism verdict is "parallel" or "converge", state the reason for parallelism or the convergence target explicitly in the routing evidence; when it is "focus", route only the current node. For genuinely tied choices, explain their respective benefits, costs and waiting conditions. Use source order, then exact route key for stable display only; do not invent a business rank. Conversation moves can reorder eligible choices, including differing urgency labels, while retaining dependencies, focus constraints and the underlying rationale.
 
-**Sibling advance rule**: when a scan verifies that a node finished, advance to the next sibling at the same level in that reply. The traversal stops at the first gap of that next sibling.
+**Sibling advance rule**: when a scan verifies that a node finished, advance to the next sibling at the same level in that reply. An unmet dependency or external wait at that gap does not stop inspection of other independent siblings or goals under the scope-expansion rule.
 
 **Multi-task, multi-card rendering rule**:
 
@@ -178,7 +184,7 @@ When several independently startable tasks help the current choice, render separ
 - ❌ Forbidden: merging several tasks into one card subject with a comma, a plus sign, or a verb like "start in parallel" (`T51 + T-SG5-002 start in parallel`)
 - ❌ Forbidden: stacking several tasks' KPIs into one card's completion marker (`T51 dashboard reachable + T52 logs queryable + T-SG5-002 admin usable`)
 
-For tasks that become ready tomorrow or later in the week, use the `defer` label + a TL;DR noting when they are ready; do not tuck them into a footnote on the current card.
+For tasks that become ready later, report them separately as waiting, with their readiness condition and exact time and timezone when known. Keep them out of **Do now** until ready, and continue checking independent work.
 
 #### 3.2 Governance urgency annotations
 

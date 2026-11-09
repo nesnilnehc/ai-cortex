@@ -1,7 +1,7 @@
 ---
 name: orchestrate-governance-step
 description: Safely advances one governance action from plan-next, re-diagnoses stale or conflicting routes, and reports whether to continue, ask, wait, or stop.
-version: 3.0.1
+version: 3.0.2
 license: MIT
 ---
 
@@ -91,6 +91,8 @@ Read the governance documentation path (by default the same `docs_root` as plan-
 ### Step 1: call plan-next
 
 Call `/plan-next` internally and capture the routing output. If the caller supplied `pre_run_output`, use that and skip this step.
+
+Carry explicit diagnostic scope limits into plan-next; an implicit current target is not such a limit. Apply plan-next's read-only expansion rule when that target has no eligible action, including during post-execution diagnosis. Expanded recommendations do not expand this executor's authorized action scope: apply the existing ownership and safety gates to each surfaced card. Preserve the diagnosed state even when no surfaced action is authorized for execution.
 
 Do not assign a stall fingerprint yet; first determine which candidate, if any, passes the ownership and safety gate.
 

@@ -1343,10 +1343,10 @@
     },
     "orchestrate-governance-step": {
       "classification": "native",
-      "version": "3.0.1",
+      "version": "3.0.2",
       "reviewed_files": {
         "README.md": "bb300632d8643cb37c798a9251706abb8d2e72f933a2778a88b23157b2f2094d",
-        "SKILL.md": "33e1f2b90a1187b5a61a954847f8d71cffaed45aeaee21b2291fa9813e8f79be",
+        "SKILL.md": "2f6a7b3281b55546fc823e71516743bf4c70744ce0a1f4a06ebaf862d129b238",
         "references/anti-patterns.md": "5e98ceee1c49f990f4a69c8ef3de9229ce6c460d266cef4a654dd72dafbff95a",
         "references/examples.md": "447a1b8c801c1c060bbb94dd66e1aa573b74352a24e04e0cab64e1d31fb0beaf",
         "references/loop-integration.md": "8481e432a160fd02461f6da883e72675b6bf79695417a4e65319348c1fd8a697",
@@ -1363,7 +1363,7 @@
           "path": "experiments/skill-provenance/evidence/orchestrate-governance-step.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/orchestrate-governance-step.json"
+          "path": "experiments/skill-provenance/confirmations/orchestrate-governance-step-3-0-2-20261109.json"
         }
       ],
       "creation": {
@@ -1371,17 +1371,17 @@
         "revision": "83867bc28c2639c2246155535a2da804580cb9b4"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer confirming the plan-next scope repair and caller guidance",
+        "confirmed_at": "2026-11-09",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "rationale": "The maintainer explicitly confirmed that orchestrate-governance-step 3.0.2 remains an AI Cortex original and introduces no third-party creative reference. The changes repair implicit-focus expansion and preserve diagnostic and execution authorization boundaries.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/orchestrate-governance-step.json"
+            "path": "experiments/skill-provenance/confirmations/orchestrate-governance-step-3-0-2-20261109.json"
           }
         ],
-        "subject_digest": "cd5245440c7aca202dbf59f908f53b565785323a52b9afc906bc8b94d5b0df88"
+        "subject_digest": "f5367bc8367492b85af701a202ddfeb8468bbbe73b1b41bfd407633fa18855af"
       }
     },
     "orchestrate-repair-loop": {
@@ -1539,14 +1539,14 @@
     },
     "plan-next": {
       "classification": "native",
-      "version": "16.0.0",
+      "version": "17.0.0",
       "reviewed_files": {
-        "README.md": "d83e8dedd3750125f24ae6eb812da89bb3fe6ab68af796438d1c32a48c2c6b0a",
-        "SKILL.md": "1de80ca18e3269ce7f4c35a180e12685570d4a0d6908f5a0c79cf50e454c05a9",
-        "references/diagnosis.md": "35b77f0eae48b06535d14faddd5039d2d2bf85c3bcf2726550551189f7a2db4e",
-        "references/examples.md": "3e478cc67b33ab102ea057434fd4e38839cf16941babd549d24291062dc32521",
-        "references/output-guidance.md": "dbdadd281427a9ed5041650623b6274500eda13534f365b8de4bbb186534d2dc",
-        "references/self-check.md": "045f6d70ca445e1aceb74216adbedca0c9eb696ccfb4e5bb8e59020f6f544c9a"
+        "README.md": "a01440e2c5897f0e011cc17d631767d30469bd1bb9e86fde1d20862c0fd59ade",
+        "SKILL.md": "f36832a61b9fd50444ab13bdbbe7b36b49c034eb76090b81f41d51a64cf05aa2",
+        "references/diagnosis.md": "cb7d95aa8654d3fa3b78340735f473cc44cb5dbbee329cb2c090c755674d9edc",
+        "references/examples.md": "6f66560599e504e377851090a8c6d5dbdd779a003eb141156619b6d9e8e435fe",
+        "references/output-guidance.md": "9619011d6d93869022569c1d0bd43182e05352861f1afce3e88db4e2eac60030",
+        "references/self-check.md": "63b9d22d556b68c4eeea0c3607934c5d62b68a59cf2dbd9d3ce433c2ed0ef0ee"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/plan-next.json": "69f9af99a5bd37be757d2c5d5d12d82b29b76fd36564cb64ea5938cae5026f0e"
@@ -1557,7 +1557,7 @@
           "path": "experiments/skill-provenance/evidence/plan-next.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/plan-next-16-0-0-20261108.json"
+          "path": "experiments/skill-provenance/confirmations/plan-next-17-0-0-20261109.json"
         }
       ],
       "creation": {
@@ -1565,17 +1565,17 @@
         "revision": "904a4cc530bfd4e9557885add79a5d0fc0c3b590"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming the plan-next 16.0.0 revision",
-        "confirmed_at": "2026-11-08",
+        "maintainer": "Repository maintainer confirming the plan-next scope repair and caller guidance",
+        "confirmed_at": "2026-11-09",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer explicitly confirmed that version 16.0.0 remains an AI Cortex original. This revision follows the maintainer-approved current-context recommendation design and existing repository assets without third-party creative reference.",
+        "rationale": "The maintainer explicitly confirmed that plan-next 17.0.0 remains an AI Cortex original and introduces no third-party creative reference. The changes repair implicit-focus expansion and preserve diagnostic and execution authorization boundaries.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/plan-next-16-0-0-20261108.json"
+            "path": "experiments/skill-provenance/confirmations/plan-next-17-0-0-20261109.json"
           }
         ],
-        "subject_digest": "10846c254b0349bcbb16e0d1539d2e2c9124ea60d12ebf77ca3d1bf085352b14"
+        "subject_digest": "3c8d0c8d1a08bcc7cef672568db14b44d0966be7e16084100c423e6e7a3eb0ea"
       }
     },
     "policy-research": {

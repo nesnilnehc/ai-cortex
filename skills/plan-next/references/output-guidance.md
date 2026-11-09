@@ -23,7 +23,7 @@ Use the user's language and plain action names. Introduce a project ID with its 
 
 In an initial recommendation result, explain briefly that “next” skips its first entry for this conversation. With multiple entries, “put 2 first” may illustrate reordering. Ordinary skips with unspecified duration still require the user's duration choice. Resolve selectors against the latest displayed result before rescanning.
 
-Report adjustments and their scope, then return the revised **Do now** list with fresh positions. Put active exclusions in **Skipped recommendations** before that list, including exact action names and durations. Explain reordered display as the user's conversation preference while retaining the actions' underlying rationale. Report stale moves that were dropped. An exhausted scope names the remaining blockers or exclusions and offers broader inspection; it does not silently manufacture more work.
+Report adjustments and their scope, then return the revised **Do now** list with fresh positions. Put active exclusions in **Skipped recommendations** before that list, including exact action names and durations. Explain reordered display as the user's conversation preference while retaining the actions' underlying rationale. Report stale moves that were dropped. An exhausted implicit focus triggers the read-only project scan in SKILL.md in the same reply. Name the original wait, blocker or exclusions separately from the resulting project recommendation, and state expanded coverage and limitations. An explicit scope limit instead retains local exhaustion and offers broader inspection. Neither path manufactures work.
 
 A correction such as “that is not the main problem” revisits the question and ranking rationale before rebuilding candidates. A reported completion is revalidated against source closure criteria before it advances dependencies. Previously settled decisions and authorization remain effective unless superseded or conflicting evidence requires a specific clarification.
 
@@ -124,7 +124,7 @@ Goal 1:
 - Persisting a skip without explicit duration, guessing an ambiguous selector, or reporting a failed preference write as successful. “Next” explicitly selects conversation scope.
 - Carrying session skips or moves into a new conversation, or silently dropping persistent preferences.
 - Treating a user-directed display order as a changed project priority.
-- Silently broadening an exhausted focused scope or claiming whole-project completion from local evidence.
+- Stopping at an exhausted implicit focus to ask permission for read-only project diagnosis, overriding an explicit scope limit, or claiming whole-project exhaustion/completion from local evidence.
 - Omitting a candidate's reason, evidence, completion marker or usable skill/workflow handoff.
 - Hiding genuine ties or uncertainty behind invented scores, costs or priority labels.
 - Showing unexplained project IDs, traversal jargon or empty template fields in the user-facing recommendation.

@@ -4,8 +4,8 @@ Recommend the next useful action from the user's current problem, settled decisi
 
 ## How it works
 
-1. Establish the current question and intended result from the request and conversation. A bare invocation continues identifiable current work. An explicit project-wide request, or no usable context, selects whole-project diagnosis.
-2. Check relevant records, decisions, dependencies and acceptance evidence, following the project's conventions. Broaden inspection only where the evidence affects the choice.
+1. Establish the current question and intended result from the request and conversation. A bare invocation starts with identifiable current work. An explicit project-wide request, or no usable context, selects whole-project diagnosis.
+2. Check relevant records, decisions, dependencies and acceptance evidence, following the project's conventions. If that implicit focus has no eligible action, continue read-only project-wide inspection in the same reply; retain explicit user or caller limits.
 3. Recommend eligible actions that resolve current blockers, then continue selected or active work, then follow recorded project priorities. Explain genuine ties and meaningful alternatives.
 4. When the user selects an action, prepare its skill or project-workflow handoff with the objective, target, evidence, retained decisions, authorization and completion marker.
 
@@ -15,7 +15,7 @@ A missing document or metric is a first action only when it affects the current 
 
 One recommendation is enough when the next step is clear. Up to two alternatives may help a real choice or identify independent work. Each entry explains what to do, why now, its relevant trade-off, and what result and skill/workflow complete the step. Project-wide diagnosis remains available by asking for the whole project's next actions.
 
-A focused result does not establish whole-project completion. An exhausted scope reports waiting conditions or exclusions and offers broader inspection. Relevant document drift and hygiene findings remain secondary unless they block the current choice.
+A focused result does not establish whole-project completion. An exhausted implicit focus triggers read-only inspection of other independent project work, retaining the original waiting conditions and exclusions. An explicit scope limit instead reports local exhaustion and offers broader inspection. Relevant document drift and hygiene findings remain secondary unless they block the current choice.
 
 ## Adjust recommendations across replies
 
@@ -42,6 +42,6 @@ Plan Next prepares the selected handoff. The downstream skill or outer executor 
 
 For a known single action, invoke its dedicated skill directly. Document-health checks remain with runtime/linter/CI tooling under `rules/doc-health-criteria.md`.
 
-## Version 16 compatibility
+## Version 17 compatibility
 
-Version 16 changes the default from an unconditional project scan to context-led recommendations, and replaces mandatory strategic-KPI-first routing with evidence relevant to the current choice. Explicit project-wide diagnosis, exact preference keys and existing decision-state values remain supported. A focused result uses `no_applicable_action` when locally exhausted; only verified project-wide closure can produce `complete`.
+Version 17 retains context-led recommendations and adds automatic read-only project inspection when an implicit focus has no eligible action. Explicit user/caller scope limits remain effective; diagnostic expansion adds no execution permission or priority change. Explicit project-wide diagnosis, exact preference keys and existing decision-state values remain supported. An explicitly limited focused result uses `no_applicable_action` when locally exhausted; only verified project-wide closure can produce `complete`.

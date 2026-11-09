@@ -3,7 +3,7 @@
 ## Scope and evidence
 
 - [ ] The current question, intended result, project, settled decisions, open choices and authorization were resolved from the request and relevant conversation.
-- [ ] A bare invocation continued identifiable current work; an explicit project-wide request or absent usable context selected project-wide diagnosis.
+- [ ] A bare invocation started with current work and expanded read-only project diagnosis when that implicit focus had no eligible action; explicit user/caller limits remained effective. An explicit project-wide request or absent usable context selected project-wide diagnosis.
 - [ ] The response states the inspected scope and any uninspected areas. Project-wide diagnosis covers all applicable goals and siblings.
 - [ ] Source locations follow project authority. Inspected assets have a path and status; optional or conventionally named artifacts were not made universal prerequisites.
 - [ ] Current user decisions, verified project state and unknown evidence are distinct. Material conflicts and their effects are visible.
@@ -21,7 +21,8 @@
 - [ ] Each suggestion has an action, reason, source evidence, observable completion marker and appropriate skill or existing workflow.
 - [ ] One recommendation is enough when clear; alternatives support a real choice or independent work. Each action keeps its own evidence and completion marker.
 - [ ] Drift and hygiene checks match the inspected scope. Uninspected areas were not reported as clean, and secondary findings did not displace current work without an evidenced effect.
-- [ ] An exhausted scope reports its conditions and offers broader inspection. It does not manufacture a dependent alternative or silently expand scope.
+- [ ] An exhausted implicit focus expanded inspection in the same reply, with its reason, coverage and limits stated. Only an explicit scope limit retained local exhaustion and offered broader inspection. No dependent alternative, paused/cancelled work or excluded route was made eligible.
+- [ ] Completed commit, push, synchronization and cleanup actions were not repeated to fill the queue; remaining product and delivery work was considered under recorded priorities. Future actions retain their time/timezone or readiness condition outside **Do now**.
 - [ ] The existing decision-state values are preserved. `complete` requires project-wide closure evidence; focused completion is reported separately.
 - [ ] Relevant roadmap views, phase/event evidence and revisions were checked without duplicate requirements, optional-artifact mandates or invented historical decisions.
 
@@ -33,7 +34,7 @@
 - [ ] A stale skip was not saved. Valid moves were replayed in conversation order, stale moves were dropped and reported, and no-op moves were not duplicated.
 - [ ] Restoring a key removed every active exclusion for it. When both scopes were active, the validated file write succeeded before the session exclusion was cleared.
 - [ ] Malformed preference files and failed writes were reported without pretending success or partially restoring scopes.
-- [ ] Exclusions and user-directed ordering did not change underlying priorities, statuses, dependencies or authorization. The response names the adjustment and duration.
+- [ ] Exclusions and user-directed ordering did not change underlying priorities, statuses, dependencies or authorization. Diagnostic access and implementation permission were assessed separately; a recommendation did not imply authorization to execute it. The response names the adjustment and duration.
 - [ ] A correction of the main problem triggered reconsideration of the question and rationale before rebuilding recommendations.
 - [ ] Selecting an action produced a focused handoff with objective, target, sources, retained decisions, authorization and completion marker. Downstream execution remained with its workflow or outer executor.
 

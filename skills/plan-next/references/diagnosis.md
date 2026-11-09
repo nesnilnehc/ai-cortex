@@ -33,7 +33,7 @@ For every prerequisite, record: `evidence`, `scope` (`global` / named route or a
 
 ### 2.0.1 Decision state
 
-Set exactly one top-level result state after considering the complete candidate sequence within the declared scope and its evidence. Keep the existing state values for callers such as orchestrate-governance-step. An internal call without current-work context defaults to project-wide diagnosis. Caller-supplied scope and existing decisions are carried through unchanged unless conflicting evidence requires clarification.
+Set exactly one top-level result state after considering the complete candidate sequence within the declared scope and its evidence. Keep the existing state values for callers such as orchestrate-governance-step. An internal call without current-work context defaults to project-wide diagnosis. Explicit caller scope limits and existing decisions are carried through unchanged unless conflicting evidence requires clarification. An implicit current focus follows SKILL.md's scope-expansion rule before the final state is assigned.
 
 | State | Use when | Required user-facing behavior |
 | --- | --- | --- |
@@ -44,7 +44,7 @@ Set exactly one top-level result state after considering the complete candidate 
 
 When independent candidates remain alongside a blocked route, use `actionable` and retain the blocker as a separate finding. When applicability is genuinely unknown and changes whether those candidates are safe, use `needs_input`.
 
-A focused result never establishes project completion. If that work is finished and nothing else is eligible in scope, use `no_applicable_action`, report the verified local result, and offer broader inspection. Reserve `complete` for project-wide evidence meeting the table's criterion.
+A focused result never establishes project completion. If no eligible action remains in an implicit focus, expand read-only diagnosis under SKILL.md before assigning the final state. An independent eligible project route yields `actionable` while the original wait remains a separate finding. With an explicit scope limit, use `no_applicable_action` for local exhaustion and offer broader inspection. Reserve `complete` for project-wide evidence meeting the table's criterion; unavailable evidence may require `needs_input`.
 
 ### 2.1 Goal-tree traversal
 
@@ -69,7 +69,8 @@ Awaiting acceptance and Awaiting release remain unfinished: recommend the applic
 existing acceptance/release action or report its waiting condition; do not infer done
 from finished tasks or route back to development solely because they are unfinished.
 Paused retains its resume condition and is not recommended for execution without
-an explicit resume decision. These are diagnostic mappings, not replacement roadmap
+an explicit resume decision. Cancelled work is also ineligible without an explicit
+reactivation decision; neither state maps to pending merely to fill the queue. These are diagnostic mappings, not replacement roadmap
 labels or new authorization. Missing/conflicting execution evidence stays unknown;
 report a limitation rather than defaulting to pending or inferring completion.
 Apply
@@ -109,7 +110,7 @@ At any level, after scanning every sibling node at that level, decide as follows
 | Sibling status at this level | Parallelism suggestion |
 | --- | --- |
 | Exactly 1 `in-progress`, the rest `pending` | **Focus**: finish the current one before starting the next |
-| 1+ `blocked`, with an independent `pending` | **Parallel**: leave the blocked one waiting and start the next independent node |
+| 1+ `blocked` or externally waiting, with an independent `pending` | **Parallel**: leave the blocked one waiting and start the next independent node |
 | Several `in-progress` (none blocked) | **Converge**: identify the one lagging most and push it to completion first |
 | All `done` | Advance the next sibling one level up |
 | All `pending`, none `in-progress` | **Start**: route to the highest-priority pending node |
@@ -147,6 +148,8 @@ For every inspected goal, read its project-defined meaning and applicable accept
 ```text
 Resolve the current question, scope, user decisions and project conventions.
 In focused scope, start at the selected work and inspect relevant dependencies.
+If no eligible action remains in an implicit focus, expand read-only project diagnosis
+before assigning the final decision state; preserve explicit scope limits.
 In project-wide scope, inspect each applicable goal in its recorded priority order.
 Apply the source-record adapter and project closure contract before legacy fallback.
 For each relevant goal G, finite or continuing, not verified complete:

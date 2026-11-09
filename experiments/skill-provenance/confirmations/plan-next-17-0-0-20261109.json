@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer confirming the plan-next scope repair and caller guidance",
+  "confirmed_at": "2026-11-09",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer explicitly confirmed that plan-next 17.0.0 remains an AI Cortex original and introduces no third-party creative reference. The changes repair implicit-focus expansion and preserve diagnostic and execution authorization boundaries.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/plan-next-17-0-0-20261109.json"
+    }
+  ],
+  "subject_digest": "3c8d0c8d1a08bcc7cef672568db14b44d0966be7e16084100c423e6e7a3eb0ea"
+}

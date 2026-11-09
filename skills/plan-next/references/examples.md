@@ -358,8 +358,39 @@ When the owner selects “clarify the descriptions,” prepare a `refine-skill-d
 
 ### Example 12: distinguish scope exhaustion from project completion
 
-**Input**: the only remaining interview action is paused. Other eligible actions in this conversation were skipped. The owner asks for the next recommendation.
+**Input**: the only remaining interview action is paused. Other eligible actions in this conversation were skipped. The owner asks for the next recommendation without an explicit scope limit.
 
-**Expected response**: use `no_applicable_action`, report the pause and session exclusions, and offer either restoration or a broader project inspection. Keep the current scope until the user chooses. Do not recommend a dependent task or assert that the project is complete.
+**Expected response**: retain the pause and exact exclusions, then inspect other independent project work in the same reply. If an eligible route exists, return `actionable` with that route's evidence and completion marker. Otherwise report the project-wide conditions under `no_applicable_action`, or `needs_input` if material evidence is unavailable. Do not restore exclusions or recommend a dependent task merely to fill the queue.
 
-If the owner instead asks for “the whole project's next actions,” perform project-wide diagnosis across all applicable goals and siblings. A source-backed global prerequisite still blocks its governed routes. Continuing strategic directions remain open under the project model; only verified project-wide closure supports `complete`.
+**Explicit limit variant**: the owner previously said “only inspect feedback intake” and has not revoked it. Keep that scope, report local `no_applicable_action` and offer broader inspection. Do not assert project completion. Only verified project-wide closure supports `complete`.
+
+### Example 13: release waiting while independent work is ready
+
+**Reported reproduction**: after review verification, external-test notification, roadmap synchronization, commit and push for release item 327, feedback closure must wait until 2026-11-11 14:54:35 Asia/Shanghai (UTC+08:00). The next bare invocation should not stop at that release scope and ask whether to inspect the project. The timestamp is a not-before condition, not evidence that closure succeeds at that instant.
+
+**Synthetic project evidence for review**: at 2026-11-08 10:00:00 Asia/Shanghai, the release source records the wait; the active roadmap also contains a higher-priority independent task A with approved prerequisites, an existing implementation workflow and a testable acceptance marker. Task B depends on feedback closure for 327. Task C is paused and task D is cancelled. The repository records the closeout operations as completed. These extra tasks are review fixtures, not claims about the actual consuming project's backlog.
+
+**Walkthrough**: start with 327 and verify its source closure condition. Retain its exact wait outside **Do now**. No eligible release action remains, so expand read-only diagnosis across the active roadmap and linked sources. A passes readiness and independence checks; B fails its dependency; C and D remain ineligible. Return `actionable`, recommend A with its source, workflow and acceptance marker, and explain the expanded coverage. Do not repeat commit, push or synchronization. An implementation handoff retains the existing authorization; a bare invocation performs no implementation.
+
+### Scope regression review cases
+
+Apply these variations to Example 13's evidence. Review the input → inspection → eligibility → result → permission path, not the presence of a template phrase. These are manual contract walkthroughs; they do not execute an agent or prove runtime behavior.
+
+| Case | Evidence or request variation | Expected inspection and result |
+| --- | --- | --- |
+| Waiting focus | Base fixture | Inspect independent project work in the same reply; `actionable` with A, retaining 327's exact wait. |
+| Finished focus | 327 has verified closure; A remains ready | Inspect beyond 327; `actionable` with A. No repeated closeout work. |
+| Explicit scope | “Only inspect release 327,” including an earlier unrevoked instruction | Inspect 327 only; local `no_applicable_action`, wait condition and optional offer to expand. |
+| Dependency not met | A also depends on 327 | Inspect the project, but neither A nor B is eligible; C/D remain inactive. `no_applicable_action` with dependency and wait conditions. |
+| Paused or cancelled | A is paused or cancelled | Do not reactivate A, C or D. B remains blocked. `no_applicable_action`. |
+| All excluded | A's exact route is session-skipped or persistently excluded | Follow the queue continuation algorithm through expansion, preserving that exclusion; `no_applicable_action` with exclusions and blockers, without a forced restore or permission request merely to inspect. |
+| Evidence missing | A's prerequisite/independence record is unavailable | Disclose unavailable sources and actual coverage; `needs_input` for the missing fact, not a claim of project-wide inactivity. |
+| Truly no action now | All unfinished routes are waiting or dependency-blocked; source inventory is sufficient | Project-wide `no_applicable_action`; name the remaining conditions. Waiting is not completion. |
+| Global gate | A verified prerequisite governs every route and is unmet | Expansion does not bypass it; recommend its evidenced resolution if eligible, otherwise report the global blocking condition. |
+| Caller execution limit | Caller permits execution only on 327, without limiting read-only diagnosis | Diagnosis may return `actionable` with A; executor retains that state but makes no unauthorized change and reports its execution boundary. |
+| Closeout competes | An optional cleanup remains beside higher-priority ready A | Compare the active backlog; recommend A under recorded priorities. Cleanup wins only with an evidenced priority or prerequisite effect. |
+| Project complete | All finite goals have closure evidence and no unfinished, excluded, waiting or evidence-limited route remains | Full project diagnosis may return `complete`; mere exhaustion of 327 cannot. |
+
+**Baseline review (16.0.0)**: SKILL.md's queue rule explicitly waits for a broader-scope choice after exhaustion; diagnosis returns local `no_applicable_action`; output guidance, self-check and the old Example 12 reinforce that stop. Thus the waiting-focus and finished-focus cases fail their required inspection path even when A is independently ready. Explicit scope and dependency safeguards already hold and must be retained.
+
+**Revised contract review (17.0.0)**: the same inputs follow the expansion rule before final decision-state assignment. The waiting/finished cases reach A; explicit scope prevents expansion; dependencies, pauses, cancellations, exclusions and global gates prevent ineligible substitutions. Output and self-check distinguish original-item waiting from the inspected project's result. Caller guidance retains execution gates. This review establishes instruction consistency only; no live replay against the consuming project or model evaluation was performed.
