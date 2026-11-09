@@ -1,16 +1,16 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_c4f8d0386cd88191a3e4136f9ab0bf31",
-  "version_number": 19,
-  "deployment_id": "appgdep_6aed9ab579fc81918e140e843603d6a1",
-  "source_commit": "68f0d10701fee3d821b74d1fe7ea064028db917b",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_5f40fc0c298c8191b071ad72e9038fbc",
+  "version_number": 20,
+  "deployment_id": "appgdep_6af1206a8ce881919916d5d8c1d5ef35",
+  "source_commit": "dd3e4ac8449a62137d5073db9673b30333f3722f",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.nesnilnehc.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-11-06T09:15:47.430492+00:00",
+  "updated_at": "2026-11-09T01:23:03.421749+00:00",
   "published_files": [
     "copy.mjs",
     "explore/assets/work-stories.png",
@@ -94,28 +94,30 @@
     "personal site project entry"
   ],
   "known_good_version": {
-    "version_number": 18,
-    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_a0d3d59ed7548191b580b6c1fb806458",
-    "source_commit": "c4b19c164dc34873abd031e81e25819d8ae5c42c"
+    "version_number": 19,
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_c4f8d0386cd88191a3e4136f9ab0bf31",
+    "source_commit": "68f0d10701fee3d821b74d1fe7ea064028db917b"
   },
   "public_verification": {
     "status": "passed",
-    "checked_files": 8,
+    "checked_files": 9,
     "byte_identical": [
       "explore/source-manifest.json",
-      "explore/skill-provenance.json",
       "explore/skill-metadata.json",
+      "explore/skill-provenance.json",
       "explore/locales/en.json",
       "explore/locales/zh.json",
-      "Pinned record-milestone-achievement SKILL.md (0.1.0)"
+      "skills/plan-next/SKILL.md",
+      "skills/orchestrate-governance-step/SKILL.md"
     ],
-    "pages_containing_new_catalogue_entry": [
-      "/",
-      "/zh"
-    ]
+    "content_preserved": [
+      "index.html",
+      "zh.html"
+    ],
+    "evidence": "website/.openai/publication-20261109-plan-next.json"
   },
-  "repository_source_revision": "fc30df9499a0421c0b277e8446090bf3ea0b100d",
-  "assets_revision": "73982a7b0f825feef802db428adffe3314afae4b",
-  "cache_key": "milestone-achievement-20261106",
-  "archive_sha256": "57d18c7c3607b7bf9534d26ef8ef12d54bb3062a088f7ca3c08dc799bd106a25"
+  "repository_source_revision": "e1e1dc684e2dbfb429c20f335d386eef48fe7965",
+  "assets_revision": "1db04e5c81a2481d9f92c0dc9b7087df5216a646",
+  "cache_key": "plan-next-17-20261109",
+  "archive_sha256": "463865fa4549fade1eb812a3b48820b52fe068bcdb6dfa85873c56fe75912f46"
 }

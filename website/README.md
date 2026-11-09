@@ -2,6 +2,24 @@
 
 ## Current publication
 
+Sites version 20 went live on 2026-11-09 at
+[AI Cortex](https://ai-cortex.nesnilnehc.top/). The catalogue contains 75 Skills.
+Plan Next now inspects independent project work when an implicit focus has no
+eligible action, while preserving explicit scope limits and execution permissions.
+The 49 runtime files come from repository commit
+`e1e1dc684e2dbfb429c20f335d386eef48fe7965`; asset and provenance references pin
+`1db04e5c81a2481d9f92c0dc9b7087df5216a646`.
+
+All 77 website tests passed before publication. Custom-domain HTTPS verification
+preserved both homepage contents and matched five catalogue JSON responses byte
+for byte. Both pinned Skill sources matched the repository: plan-next 17.0.0 and
+orchestrate-governance-step 3.0.2. No visual or interaction checks were rerun for
+this source-reference update. The [deployment receipt](.openai/deployment.json)
+and [publication checks](.openai/publication-20261109-plan-next.json) retain the
+published version, source and verification scope.
+
+## Prior publication: milestone achievement
+
 Sites version 19 went live on 2026-11-06 at
 [AI Cortex](https://ai-cortex.nesnilnehc.top/). The catalogue contains 75 Skills,
 including record-milestone-achievement 0.1.0. The English and Chinese entries

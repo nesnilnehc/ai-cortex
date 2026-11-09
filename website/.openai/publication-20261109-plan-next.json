@@ -1,0 +1,102 @@
+{
+  "checked_at": "2026-11-09",
+  "scope": "Custom-domain HTTPS content verification for plan-next 17.0.0 catalogue update",
+  "repository_source_revision": "e1e1dc684e2dbfb429c20f335d386eef48fe7965",
+  "assets_revision": "1db04e5c81a2481d9f92c0dc9b7087df5216a646",
+  "status": "passed",
+  "checks": [
+    {
+      "path": "index.html",
+      "url": "https://ai-cortex.nesnilnehc.top/?v=plan-next-17-20261109",
+      "status": 200,
+      "tls_verified": true,
+      "byte_identical": false,
+      "content_preserved": true,
+      "sha256": "20a426df6c20e8ec88e4ddb32b209e5cec0d7832ce85c43edaebf7c347388c01",
+      "passed": true
+    },
+    {
+      "path": "zh.html",
+      "url": "https://ai-cortex.nesnilnehc.top/zh.html?v=plan-next-17-20261109",
+      "status": 200,
+      "tls_verified": true,
+      "byte_identical": false,
+      "content_preserved": true,
+      "sha256": "6bcb840cf54216d85d8ace42a1bbb84e1979c0900b18e564307b4a6b78947a16",
+      "passed": true
+    },
+    {
+      "path": "explore/source-manifest.json",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/source-manifest.json?v=plan-next-17-20261109",
+      "status": 200,
+      "tls_verified": true,
+      "byte_identical": true,
+      "content_preserved": true,
+      "sha256": "25f3f729e2e30c90ebd3aa3a8794da611072c557c00b9ed0c6a800dbbf592a82",
+      "passed": true
+    },
+    {
+      "path": "explore/skill-metadata.json",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/skill-metadata.json?v=plan-next-17-20261109",
+      "status": 200,
+      "tls_verified": true,
+      "byte_identical": true,
+      "content_preserved": true,
+      "sha256": "defc8c682a2ae3394b7679969ccf935a53fb4e7c6c2689884d45e69af6e47cab",
+      "passed": true
+    },
+    {
+      "path": "explore/skill-provenance.json",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/skill-provenance.json?v=plan-next-17-20261109",
+      "status": 200,
+      "tls_verified": true,
+      "byte_identical": true,
+      "content_preserved": true,
+      "sha256": "99a9c6c05821d4b1d0e462c50c3f1e8f4938efadd0ca15e1fcb8d88a90ec7f05",
+      "passed": true
+    },
+    {
+      "path": "explore/locales/en.json",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/locales/en.json?v=plan-next-17-20261109",
+      "status": 200,
+      "tls_verified": true,
+      "byte_identical": true,
+      "content_preserved": true,
+      "sha256": "f53724ea8af48a4b8088fc15507f13054ea16e732917c62b7539fee517128436",
+      "passed": true
+    },
+    {
+      "path": "explore/locales/zh.json",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/locales/zh.json?v=plan-next-17-20261109",
+      "status": 200,
+      "tls_verified": true,
+      "byte_identical": true,
+      "content_preserved": true,
+      "sha256": "8dc968f19e1c3e90417e2f04b53ef517fee9de755f92e6cd6fed134b3a2c1d95",
+      "passed": true
+    },
+    {
+      "path": "skills/plan-next/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/1db04e5c81a2481d9f92c0dc9b7087df5216a646/skills/plan-next/SKILL.md",
+      "byte_identical": true,
+      "passed": true
+    },
+    {
+      "path": "skills/orchestrate-governance-step/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/1db04e5c81a2481d9f92c0dc9b7087df5216a646/skills/orchestrate-governance-step/SKILL.md",
+      "byte_identical": true,
+      "passed": true
+    }
+  ],
+  "visual_and_interaction_checks": "Not rerun; no layout or interaction changes in this publication.",
+  "deployment": {
+    "id": "appgdep_6af1206a8ce881919916d5d8c1d5ef35",
+    "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_5f40fc0c298c8191b071ad72e9038fbc",
+    "status": "succeeded",
+    "url": "https://ai-cortex.nesnilnehc.chatgpt.site",
+    "updated_at": "2026-11-09T01:23:03.421749+00:00"
+  },
+  "saved_version_number": 20,
+  "source_commit": "dd3e4ac8449a62137d5073db9673b30333f3722f"
+}
