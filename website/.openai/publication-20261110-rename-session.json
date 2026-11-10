@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-10",
+  "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_5fa5f4f27c2c8191aa24afb8a9738ab9",
+  "version_number": 22,
+  "deployment_id": "appgdep_6af2b172291481918be06a36ed393a50",
+  "deployment_status": "succeeded",
+  "public_url": "https://ai-cortex.nesnilnehc.top/",
+  "site_source_commit": "e9888abbe61c3a08d9b2b9ce29333311af0ee76a",
+  "repository_source_commit": "632a76cf75b5101cd2e60c2b2f53e72b639cd0e6",
+  "assets_revision": "81827c060c5beed916bd6910cbb7d8e8295c9da2",
+  "cache_key": "rename-session-20261110",
+  "archive_sha256": "8a6b629a15692458b7bfdcac96145bb92c339db1fda39ab57f3630109da7b5be",
+  "archive_verified_files": 50,
+  "public_checks": {
+    "byte_identical_files": [
+      {
+        "path": "explore/source-manifest.json",
+        "sha256": "578777a9f34024fd435f6b48365914efc0d5cc979a0479a94eb600e9772ecf7e"
+      },
+      {
+        "path": "explore/skill-metadata.json",
+        "sha256": "46cfdcd0658736fecb6d4e43805f6d06e5aaf6900332e601d94f86d9e58738e1"
+      },
+      {
+        "path": "explore/skill-provenance.json",
+        "sha256": "e13a0c56066a0d0222b344a845f2f53decb61a94380ba0029f628806ec65289a"
+      },
+      {
+        "path": "explore/classification.json",
+        "sha256": "fa1253afcbcd70aa6bcedf45ea754d8a3d552a8de6e1f5df0fbe0d9ffb526a51"
+      },
+      {
+        "path": "explore/locales/en.json",
+        "sha256": "84c62d5f2fabe4625f1b03b0dc72224cad0c9c9a153c823ddd1934dfa47e0fa0"
+      },
+      {
+        "path": "explore/locales/zh.json",
+        "sha256": "15858d868682665f33ee34b956449cbb989bca9f7eb8b8e054028b9f2c010075"
+      }
+    ],
+    "homepages": "English and Chinese responses include rename-session, the intended source revision and cache key.",
+    "pinned_skill": "Public pinned rename-session source matches repository bytes and version 0.1.0.",
+    "browser": "On the public Chinese desktop page, expanded the collaboration group, selected rename-session and inspected the detail layout."
+  },
+  "limits": [
+    "The browser check covers the Chinese desktop path only.",
+    "The Skill was not used to rename a live session."
+  ]
+}

@@ -1,16 +1,16 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_ec09cb79c73c8191b9e2f97669a70d75",
-  "version_number": 21,
-  "deployment_id": "appgdep_6af18ae328008191a9484d6eb4846df7",
-  "source_commit": "64370d6f9c7a4cf4c4349fc9b186ff181f0d6eb4",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_5fa5f4f27c2c8191aa24afb8a9738ab9",
+  "version_number": 22,
+  "deployment_id": "appgdep_6af2b172291481918be06a36ed393a50",
+  "source_commit": "e9888abbe61c3a08d9b2b9ce29333311af0ee76a",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.nesnilnehc.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-11-09T08:57:19.315621+00:00",
+  "updated_at": "2026-11-10T05:54:09.032077+00:00",
   "published_files": [
     "copy.mjs",
     "explore/assets/work-stories.png",
@@ -85,7 +85,9 @@
   "ssl_status": "active",
   "provider_status": "active",
   "public_url": "https://ai-cortex.nesnilnehc.top/",
-  "browser_checks": [],
+  "browser_checks": [
+    "Chinese desktop: expanded the collaboration group and opened the rename-session details; inspected the resulting layout."
+  ],
   "brand_asset": "favicon.svg",
   "brand_consumers": [
     "website header",
@@ -94,21 +96,27 @@
     "personal site project entry"
   ],
   "known_good_version": {
-    "version_number": 20,
-    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_5f40fc0c298c8191b071ad72e9038fbc",
-    "source_commit": "dd3e4ac8449a62137d5073db9673b30333f3722f"
+    "version_number": 21,
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_ec09cb79c73c8191b9e2f97669a70d75",
+    "source_commit": "64370d6f9c7a4cf4c4349fc9b186ff181f0d6eb4"
   },
   "public_verification": {
     "status": "passed",
-    "checked_files": 2,
+    "checked_files": 8,
     "content_verified": [
+      "explore/source-manifest.json",
+      "explore/skill-metadata.json",
+      "explore/skill-provenance.json",
+      "explore/classification.json",
+      "explore/locales/en.json",
+      "explore/locales/zh.json",
       "index.html",
       "zh.html"
     ],
-    "evidence": "website/.openai/publication-20261109-terminology.json"
+    "evidence": "website/.openai/publication-20261110-rename-session.json"
   },
-  "repository_source_revision": "81a44a2a1667c8737295175957da611b3fa2d503",
-  "assets_revision": "1db04e5c81a2481d9f92c0dc9b7087df5216a646",
-  "cache_key": "plan-next-17-20261109",
-  "archive_sha256": "d07162436aa36fb7dea3dfd32bcf42cdee07b3a6d12bd7483865d1766770b38f"
+  "repository_source_revision": "632a76cf75b5101cd2e60c2b2f53e72b639cd0e6",
+  "assets_revision": "81827c060c5beed916bd6910cbb7d8e8295c9da2",
+  "cache_key": "rename-session-20261110",
+  "archive_sha256": "8a6b629a15692458b7bfdcac96145bb92c339db1fda39ab57f3630109da7b5be"
 }

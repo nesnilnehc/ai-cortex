@@ -2,17 +2,24 @@
 
 ## Current publication
 
-Sites version 21 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
-The English and Chinese asset directories list the draft project terminology Spec
-and Rule, with counts of 21 Specs and 35 Rules. The deployed Site source is
-`64370d6f9c7a4cf4c4349fc9b186ff181f0d6eb4`; repository source is
-`81a44a2a1667c8737295175957da611b3fa2d503`.
+Sites version 22 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+The English and Chinese catalogues include `rename-session` 0.1.0 and its
+reviewed third-party sources. The Site source is
+`e9888abbe61c3a08d9b2b9ce29333311af0ee76a`; repository source is
+`632a76cf75b5101cd2e60c2b2f53e72b639cd0e6`.
 
-All 77 website tests passed. Custom-domain checks confirmed both directory
-entries, draft labels, source links and counts in both languages. Visual layout
-and interactions were not rechecked. The [deployment receipt](.openai/deployment.json)
-and [publication checks](.openai/publication-20261109-terminology.json) retain
+All 78 website tests passed. Custom-domain checks matched six catalogue data
+files and confirmed both homepage entries and the pinned Skill source. On the
+Chinese desktop page, the collaboration group and Skill details opened with the
+expected layout. The [deployment receipt](.openai/deployment.json) and
+[publication checks](.openai/publication-20261110-rename-session.json) retain
 the verification scope.
+
+## Prior publication: terminology
+
+Sites version 21 added the draft project terminology Spec and Rule to both
+asset directories. Its [publication checks](.openai/publication-20261109-terminology.json)
+retain the verification scope.
 
 ## Prior publication: Plan Next
 
