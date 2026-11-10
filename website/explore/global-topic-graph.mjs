@@ -1,7 +1,7 @@
-import sourceEdges from './topic-edges.json?v=plan-next-17-20261109' with {type:'json'};
-import {dictionary} from './locale.mjs?v=plan-next-17-20261109';
+import sourceEdges from './topic-edges.json?v=rename-session-20261110' with {type:'json'};
+import {dictionary} from './locale.mjs?v=rename-session-20261110';
 const edges=sourceEdges.map(edge=>({...edge,...dictionary.topicEdges[edge.id]}));
-import {getTopicMap} from './topic-map.mjs?v=plan-next-17-20261109';
+import {getTopicMap} from './topic-map.mjs?v=rename-session-20261110';
 const nodes=[
  {id:'direction',row:1,column:1,hint:''},
  {id:'planning',row:1,column:2,hint:''},

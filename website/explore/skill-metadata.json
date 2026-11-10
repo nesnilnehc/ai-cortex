@@ -899,6 +899,18 @@
         "skills/record-milestone-achievement/SKILL.md": "006af8bab158e16a3a005367851504f88652b15e3c3b8b4d3bbd636457c28589"
       },
       "entry": "public"
+    },
+    "rename-session": {
+      "id": "rename-session",
+      "description": "Suggest or change the current AI agent session title using its actual topic and the user's preferences. Use when asked to name or rename the current conversation; do not organize other sessions.",
+      "owner": "collaboration",
+      "sourcePaths": [
+        "skills/rename-session/SKILL.md"
+      ],
+      "sourceHashes": {
+        "skills/rename-session/SKILL.md": "457bdfd1f1ff9f32393d414cfe114929449d57f9e09820761ce256e9da548d8d"
+      },
+      "entry": "public"
     }
   },
   "groupOrder": [

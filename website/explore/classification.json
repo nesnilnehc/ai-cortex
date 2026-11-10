@@ -92,7 +92,8 @@
         "decontextualize-text",
         "manage-secret",
         "eli5",
-        "ponytail"
+        "ponytail",
+        "rename-session"
       ]
     },
     {

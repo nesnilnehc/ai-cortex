@@ -23,6 +23,7 @@ Individual pieces of work captured through `capture-work-items` or an equivalent
 
 | Date | Item | Status | Path |
 | :--- | :--- | :--- | :--- |
+| 2026-11-10 | Name the current AI agent session | captured | [Need and acceptance criteria](backlog/2026-11-10-agent-session-naming.md) |
 | 2026-11-04 | Prepare version change descriptions independently | done | [Scope, assessment and implementation](backlog/2026-11-04-version-change-descriptions.md) |
 | 2026-10-28 | Skill provenance presentation | done | [AIC-REQ-08 intake](backlog/2026-10-28-skill-provenance-presentation.md) |
 | 2026-10-27 | Discover and use AI Cortex through work relationships | done | [Requirement intake](backlog/2026-10-27-work-relationship-explorer.md) |

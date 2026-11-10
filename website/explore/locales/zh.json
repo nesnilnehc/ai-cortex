@@ -698,6 +698,14 @@
       "provide": "事件、范围、达成条件、证据引用和记录位置。",
       "use": "用 record-milestone-achievement 核对原始证据，记录已确认的达成结果并保留证据引用。",
       "result": "包含实际时间和证据引用的达成记录，可按需生成 SVG 日历图。"
+    },
+    "rename-session": {
+      "name": "重命名当前会话",
+      "purpose": "为当前智能体会话命名",
+      "when": "当前会话需要更清晰的标题或标题建议时。",
+      "provide": "可提供指定标题或命名偏好。",
+      "use": "请用 rename-session 为当前会话提出标题建议或重命名。",
+      "result": "标题建议或当前会话的改名结果；不会修改其他会话。"
     }
   },
   "topics": {
@@ -1339,7 +1347,8 @@
         "publish-nats-message",
         "consume-nats-message",
         "eli5",
-        "ponytail"
+        "ponytail",
+        "rename-session"
       ],
       "recommended": [
         "prepare-presales-response",
@@ -1835,7 +1844,8 @@
           "prepare-presales-response",
           "publish-nats-message",
           "eli5",
-          "ponytail"
+          "ponytail",
+          "rename-session"
         ]
       }
     ],

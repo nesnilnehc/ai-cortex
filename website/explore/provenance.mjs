@@ -56,7 +56,7 @@ export async function initializeProvenance({manifest,ids,copy,fetcher=globalThis
  try{
   if(manifest.provenancePreview&&!previewHost)fail();
   stage='fetch';
-  const response=await fetcher(new URL('./skill-provenance.json?v=plan-next-17-20261109',import.meta.url),{signal:signalFactory()});
+  const response=await fetcher(new URL('./skill-provenance.json?v=rename-session-20261110',import.meta.url),{signal:signalFactory()});
   if(!response.ok)fail();
   stage='parse';
   const payload=await response.json();

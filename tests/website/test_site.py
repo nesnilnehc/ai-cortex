@@ -63,11 +63,12 @@ class SiteContracts(unittest.TestCase):
     def test_repository_destinations_exist_in_this_checkout(self):
         prefix = "/nesnilnehc/ai-cortex/"
         sys.path.insert(0, str(ROOT / "scripts"))
-        from skill_provenance_v2 import parse_registry
-        registry = parse_registry((ROOT / "skills/SOURCES.yaml").read_text())
+        from skill_provenance_v2 import load, public_sources
+        records = load(ROOT, ROOT / "skills")
         upstream_links = {
-            entry["upstream"]["repository"].removesuffix(".git") + "/tree/" + entry["upstream"]["ref"] + "/" + entry["upstream"]["path"]
-            for entry in registry["skills"].values()
+            source["url"]
+            for record in records.values()
+            for source in public_sources(ROOT, record)
         }
         for link in self.page.links:
             url = urlsplit(link)

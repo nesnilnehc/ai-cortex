@@ -1,4 +1,4 @@
-import metadata from './skill-metadata.json?v=plan-next-17-20261109' with {type:'json'};
-import {dictionary} from './locale.mjs?v=plan-next-17-20261109';
+import metadata from './skill-metadata.json?v=rename-session-20261110' with {type:'json'};
+import {dictionary} from './locale.mjs?v=rename-session-20261110';
 export const catalog=Object.freeze(Object.values(metadata.skills).map(skill=>Object.freeze({id:skill.id,description:skill.description,name:dictionary.skills[skill.id].name,purpose:dictionary.skills[skill.id].purpose})));
 export function findSkills({query=''}={}){const term=query.trim().toLocaleLowerCase();return catalog.filter(skill=>`${skill.id} ${skill.name} ${skill.purpose} ${skill.description}`.toLocaleLowerCase().includes(term));}
