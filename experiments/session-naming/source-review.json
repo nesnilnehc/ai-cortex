@@ -1,0 +1,21 @@
+{
+  "skill": "rename-session",
+  "reviewed_on": "2026-11-10",
+  "scope": "Current session only; no copied code, third-party runtime dependencies, batch operations or internal-store writes.",
+  "sources": [
+    {
+      "id": "session-renamer-goal-arc",
+      "url": "https://github.com/RuntianLee/agent-session-renamer/blob/96ed0b86d9bcc5b4f82c09c6d7472e670084de63/SKILL.md",
+      "license": "MIT",
+      "adaptation": "Use the sustained goal and substantive pivots to choose a current-session title; omit batch collection and dated templates."
+    },
+    {
+      "id": "thread-status-host-fallback",
+      "url": "https://github.com/ishaqyusuf/thread-status/blob/c011489c1a6aa6088728bdc091f8247a3d89c3e2/README.md",
+      "license": "MIT",
+      "adaptation": "When a supported write is unavailable, provide the proposed title and a documented manual rename method if one is available; omit status tracking and adapters."
+    }
+  ],
+  "proposed_classification": "third_party_adapted",
+  "confirmation": "Pending explicit maintainer confirmation of the final content and source classification."
+}

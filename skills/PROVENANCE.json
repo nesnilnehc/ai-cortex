@@ -2001,6 +2001,53 @@
         "subject_digest": "c896d9a56f969b404bccb34f6d8301646ab34b086a7a503a6296bf8c44468dac"
       }
     },
+    "rename-session": {
+      "classification": "third_party_adapted",
+      "version": "0.1.0",
+      "reviewed_files": {
+        "SKILL.md": "457bdfd1f1ff9f32393d414cfe114929449d57f9e09820761ce256e9da548d8d"
+      },
+      "reviewed_evidence": {
+        "experiments/session-naming/source-review.json": "aefa00d1d6dfa20e390e77e297f8f084f6065d66755908a9cae61d9331c42984",
+        "docs/process-management/backlog/2026-11-10-agent-session-naming.md": "70213044ca8db038103903141ec56b53e2e0e74f82914b11da00f2c71ded83a0"
+      },
+      "evidence": [
+        {
+          "path": "experiments/session-naming/source-review.json"
+        },
+        {
+          "path": "docs/process-management/backlog/2026-11-10-agent-session-naming.md"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/rename-session-20261110.json"
+        }
+      ],
+      "sources": [
+        {
+          "id": "reference:session-renamer-goal-arc",
+          "role": "creative_reference",
+          "adaptation": "Adapt sustained goal and substantive pivot into current-session title selection without the batch workflow."
+        },
+        {
+          "id": "reference:thread-status-host-fallback",
+          "role": "creative_reference",
+          "adaptation": "Offer an available documented manual rename method when automatic rename is unavailable, without status tracking or host adapters."
+        }
+      ],
+      "decision": {
+        "maintainer": "Repository maintainer confirming the reviewed Skill and source classification in the creation chat",
+        "confirmed_at": "2026-11-10",
+        "action": "confirmed",
+        "classification": "third_party_adapted",
+        "rationale": "The maintainer explicitly confirmed the reviewed current-session Skill and third-party-adapted classification after reviewing the two identified creative references, and authorized committing this task's source materials. No third-party code or skill files are copied.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/rename-session-20261110.json"
+          }
+        ],
+        "subject_digest": "00f2279e82b2a20eef0008c3ef04972b3716de1bf4e1f01e733fc130cccb0094"
+      }
+    },
     "review-architecture": {
       "classification": "native",
       "version": "2.1.2",
