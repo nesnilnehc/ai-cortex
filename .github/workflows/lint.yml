@@ -198,6 +198,9 @@ jobs:
       - name: markdown link checker
         run: python3 scripts/test-markdown-links.py
 
+      - name: translation workflow paths
+        run: python3 scripts/test-translation-workflow.py
+
       - name: document hygiene checker
         run: python3 scripts/test-doc-hygiene.py
 
@@ -236,9 +239,9 @@ jobs:
 
       - name: language migration invariants
         run: |
+          set -o pipefail
           base="${{ github.event.pull_request.base.sha }}"
-          files=$(git diff --name-only "$base"...HEAD -- '*.md' | tr '\n' ' ')
-          if [ -z "$files" ]; then echo "no markdown changed"; exit 0; fi
           # Report mode: it does not block an ordinary PR, but it shows the
           # reviewer any structural difference
-          python3 scripts/verify-translation.py --mode=rewrite "$base" $files
+          git diff --name-only -z --diff-filter=ACMR "$base"...HEAD -- '*.md' |
+            xargs -0 -r python3 scripts/verify-translation.py --mode=rewrite "$base"
