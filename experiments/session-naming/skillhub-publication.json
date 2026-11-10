@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-10",
+  "registry": "https://skillhub.recloud.com.cn",
+  "namespace": "mbs-pdc",
+  "slug": "rename-session",
+  "version": "0.1.0",
+  "source_commit": "5f9ab529d00c61c07543ddc72a3eac9cbf5b3e41",
+  "skill_sha256": "457bdfd1f1ff9f32393d414cfe114929449d57f9e09820761ce256e9da548d8d",
+  "upload": {
+    "ok": true,
+    "visibility": "public",
+    "detail_url": "https://skillhub.recloud.com.cn/space/mbs-pdc/rename-session"
+  },
+  "availability": {
+    "search": "No matching result returned immediately after upload.",
+    "exact_version": "The preview command returned HTTP 400: Version is not published: 0.1.0.",
+    "status": "uploaded; availability not verified"
+  }
+}
