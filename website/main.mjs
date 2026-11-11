@@ -1,7 +1,7 @@
-import {initializeNavigation} from './site-navigation.mjs?v=rename-session-20261110';
-import { initializeTheme } from './theme.mjs?v=rename-session-20261110';
-import { initializeLanguage } from './language.mjs?v=rename-session-20261110';
-import { bindCopyButton } from './copy.mjs?v=rename-session-20261110';
+import {initializeNavigation} from './site-navigation.mjs?v=product-requirement-skills-20261111';
+import { initializeTheme } from './theme.mjs?v=product-requirement-skills-20261111';
+import { initializeLanguage } from './language.mjs?v=product-requirement-skills-20261111';
+import { bindCopyButton } from './copy.mjs?v=product-requirement-skills-20261111';
 
 initializeLanguage(window, document.documentElement.lang === 'zh-CN' ? 'zh' : 'en');
 
@@ -17,4 +17,4 @@ bindCopyButton(
 
 initializeNavigation(window,document);
 
-import './explore/explorer-host.mjs?v=rename-session-20261110';
+import './explore/explorer-host.mjs?v=product-requirement-skills-20261111';

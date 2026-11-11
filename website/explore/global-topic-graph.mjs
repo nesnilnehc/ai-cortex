@@ -1,7 +1,7 @@
-import sourceEdges from './topic-edges.json?v=rename-session-20261110' with {type:'json'};
-import {dictionary} from './locale.mjs?v=rename-session-20261110';
+import sourceEdges from './topic-edges.json?v=product-requirement-skills-20261111' with {type:'json'};
+import {dictionary} from './locale.mjs?v=product-requirement-skills-20261111';
 const edges=sourceEdges.map(edge=>({...edge,...dictionary.topicEdges[edge.id]}));
-import {getTopicMap} from './topic-map.mjs?v=rename-session-20261110';
+import {getTopicMap} from './topic-map.mjs?v=product-requirement-skills-20261111';
 const nodes=[
  {id:'direction',row:1,column:1,hint:''},
  {id:'planning',row:1,column:2,hint:''},

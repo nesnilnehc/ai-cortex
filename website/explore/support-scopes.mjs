@@ -1,7 +1,7 @@
-import records from './support-scopes.json?v=rename-session-20261110' with {type:'json'};
-import {dictionary,locale as currentLocale} from './locale.mjs?v=rename-session-20261110';
-import en from './locales/en.json?v=rename-session-20261110' with {type:'json'};
-import zh from './locales/zh.json?v=rename-session-20261110' with {type:'json'};
+import records from './support-scopes.json?v=product-requirement-skills-20261111' with {type:'json'};
+import {dictionary,locale as currentLocale} from './locale.mjs?v=product-requirement-skills-20261111';
+import en from './locales/en.json?v=product-requirement-skills-20261111' with {type:'json'};
+import zh from './locales/zh.json?v=product-requirement-skills-20261111' with {type:'json'};
 export function validateSupportScopes(items){
  if(!Array.isArray(items)||items.length!==2||new Set(items.map(i=>i.providerTopicId)).size!==2)throw Error('Missing support providers');
  const seen=new Set(),topics=new Set(Object.keys(dictionary.topics));

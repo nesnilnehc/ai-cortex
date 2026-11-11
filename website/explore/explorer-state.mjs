@@ -1,6 +1,6 @@
-import metadata from './skill-metadata.json?v=rename-session-20261110' with {type:'json'};
-import {classification,relationships} from './relationship-model.mjs?v=rename-session-20261110';
-import {getGlobalTopicGraph} from './global-topic-graph.mjs?v=rename-session-20261110';
+import metadata from './skill-metadata.json?v=product-requirement-skills-20261111' with {type:'json'};
+import {classification,relationships} from './relationship-model.mjs?v=product-requirement-skills-20261111';
+import {getGlobalTopicGraph} from './global-topic-graph.mjs?v=product-requirement-skills-20261111';
 const relationIds=new Set([...relationships,...getGlobalTopicGraph().edges,...getGlobalTopicGraph().loops].map(e=>e.id));
 export function createExplorerState(initial={}){
  const state={view:'classification',selectedSkillId:null,selectedWorkId:null,selectedRelationId:null,detail:{open:false,target:null,mode:'usage'},lookup:{open:false,query:''},viewState:{classification:{expandedCategoryIds:[],scrollByRegion:{}},relations:{expandedTopicId:null,scrollByRegion:{},pan:{x:0,y:0}}}};
