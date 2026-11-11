@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-11",
+  "status": "pending maintainer review",
+  "sources": {
+    "product-grilling-method": {
+      "url": "https://github.com/Dengk3Li/product-manager-skill/blob/main/skills/product-grilling/SKILL.md",
+      "locator": "Work the decision frontier",
+      "license_evidence": "https://github.com/Dengk3Li/product-manager-skill#license",
+      "license_observed": "The repository README states that it does not grant an open-source license.",
+      "contribution": "Order questions by dependencies among business choices."
+    },
+    "epic-breakdown-method": {
+      "url": "https://github.com/deanpeters/Product-Manager-Skills/blob/main/skills/epic-breakdown-advisor/SKILL.md",
+      "locator": "Purpose",
+      "license_evidence": "https://github.com/deanpeters/Product-Manager-Skills/blob/main/LICENSE",
+      "license_observed": "CC BY-NC-SA 4.0",
+      "contribution": "Split scope around independently verifiable user outcomes."
+    }
+  },
+  "distribution_review": {
+    "scope": "Review of the two local SKILL.md drafts at version 0.2.0.",
+    "basis": {
+      "project_license": "LICENSE",
+      "project_policy": "docs/references/LICENSE_POLICY.md",
+      "method_expression_distinction": "https://www.copyright.gov/circs/circ33.pdf",
+      "cc_license_terms": "https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.en"
+    },
+    "clarify-product-requirement": {
+      "local_license": "MIT",
+      "comparison": "The overlap is the method of ordering unresolved business choices by prerequisites. The draft expresses this as AI Cortex intake triage, a stop condition for material unknowns, and a requirement-authoring handoff. It contains no upstream file, template, worked example, or copied wording identified in the review.",
+      "license_basis": "MIT is proposed for the locally authored text under the project license. The upstream repository grants no open-source license, so no upstream grant is relied on."
+    },
+    "split-product-delivery": {
+      "local_license": "MIT",
+      "comparison": "The overlap is splitting around verifiable user outcomes. The draft uses its own approval example and AI Cortex scope, control, and roadmap handoffs. It includes neither the upstream nine-pattern sequence nor its flowchart, templates, examples, or copied wording identified in the review.",
+      "license_basis": "MIT is proposed for the locally authored text under the project license. The upstream CC BY-NC-SA 4.0 grant is not relied on to distribute protected upstream material."
+    },
+    "decision": "Recommend MIT for both reviewed local drafts and retain both creative references as third_party_adapted under the repository provenance contract. Maintainer confirmation applies to these exact drafts."
+  }
+}

@@ -19,6 +19,10 @@ For users: this is the capability map for roadmap planning. It shows what the
 tools do, which assets govern them, what they produce and which presentation
 forms are available. The roadmap is a plan; the skills are tools for maintaining it.
 
+If a proposed requirement is too broad to accept as one deliverable, use the
+[delivery splitting method](shape-product-requirements.md#split-delivery-by-product-outcome)
+to propose independently verifiable outcomes before planning their placement.
+
 ## Settle structure before content
 
 For a new roadmap or authorized redesign, first settle the reader entry, views,

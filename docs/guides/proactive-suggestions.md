@@ -22,6 +22,7 @@ It is a suggested mapping and does not replace semantic matching against the tas
 | Roadmap health check | `review-roadmap` | Evaluates an existing roadmap against the roadmap-quality criteria and produces findings |
 | Roadmap upkeep | `update-roadmap` | Changes an item's status, moves its dates, and computes the downstream impact |
 | Recording a requirement | `capture-work-items` | Turns free text into a structured item quickly |
+| Unresolved business choices or broad delivery scope | [Clarify and split product requirements](shape-product-requirements.md) | Use the relevant method before drafting requirements or planning independently accepted deliverables |
 | Prioritisation | `prioritize-backlog` | Re-scores the backlog through four frameworks in parallel and surfaces the disagreements for a person to decide |
 | Dependency mapping | `map-item-dependencies` | Records the dependencies between items before promotion, and blocks the ones that are stuck |
 | Requirement review | `review-requirements` | Runs the 5-dimension quality review over a requirement document |

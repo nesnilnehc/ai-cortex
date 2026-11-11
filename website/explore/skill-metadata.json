@@ -48,6 +48,30 @@
       },
       "entry": "public"
     },
+    "clarify-product-requirement": {
+      "id": "clarify-product-requirement",
+      "description": "Resolve business choices that materially affect a product requirement's objective, scope, rules, or acceptance. Use for ambiguous feature requests or drafts with unresolved product decisions.",
+      "owner": "planning",
+      "sourcePaths": [
+        "skills/clarify-product-requirement/SKILL.md"
+      ],
+      "sourceHashes": {
+        "skills/clarify-product-requirement/SKILL.md": "cd3bd73e2ff28ba43b50dfa147e61b47ea3586d26a08dfe5465181539ec22beb"
+      },
+      "entry": "public"
+    },
+    "split-product-delivery": {
+      "id": "split-product-delivery",
+      "description": "Split a broad product requirement into proposed increments with independently verifiable outcomes. Use when the objective is clear but the work is too large to deliver or accept together.",
+      "owner": "planning",
+      "sourcePaths": [
+        "skills/split-product-delivery/SKILL.md"
+      ],
+      "sourceHashes": {
+        "skills/split-product-delivery/SKILL.md": "6372841e8ac3cff9cdd89eab8aa98610b7eb2f569f0907d627f9c732b6aaf6f3"
+      },
+      "entry": "public"
+    },
     "commit-work": {
       "id": "commit-work",
       "description": "Create high-quality git commits with clear messages and logical scope. Core goal - produce reviewable commits following Conventional Commits format with pre-commit quality checks.",

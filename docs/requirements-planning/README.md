@@ -29,6 +29,11 @@ It is an authoring aid; the Spec and Rule remain authoritative. Replace placehol
 with grounded facts and apply conditional section triggers. The lightweight
 `capture-work-items` template records a backlog item rather than a formal requirement.
 
+When a material business choice is still open or the scope is too broad to
+accept together, use the optional
+[clarification and delivery splitting guide](../guides/shape-product-requirements.md)
+before drafting or revising the requirement.
+
 ## Current requirements
 
 - [AIC-REQ-01: research skills for product opportunity decisions](./AIC-REQ-01.md)

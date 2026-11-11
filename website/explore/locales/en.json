@@ -131,6 +131,22 @@
       "result": "A local work-item document and path. Capture does not automatically set priority or replace full requirements review.",
       "name": "capture-work-items"
     },
+    "clarify-product-requirement": {
+      "name": "clarify-product-requirement",
+      "purpose": "Resolve open product decisions",
+      "when": "A feature request still has a material business choice.",
+      "provide": "The request and relevant evidence.",
+      "use": "Use clarify-product-requirement to ask questions in dependency order.",
+      "result": "Confirmed scope and acceptance, plus any blocking questions."
+    },
+    "split-product-delivery": {
+      "name": "split-product-delivery",
+      "purpose": "Propose independently verifiable deliveries",
+      "when": "The product goal is clear but the scope is too broad.",
+      "provide": "The objective, scope, constraints and commitments.",
+      "use": "Use split-product-delivery to propose increments by user outcome.",
+      "result": "Verifiable delivery proposals or an explanation of what must ship together."
+    },
     "commit-work": {
       "purpose": "Create clear, reviewable commits",
       "when": "Local changes are ready and should become logically scoped Git commits.",
@@ -905,7 +921,9 @@
         "plan-next",
         "orchestrate-governance-step",
         "orchestrate-roadmap-planning",
-        "review-roadmap"
+        "review-roadmap",
+        "clarify-product-requirement",
+        "split-product-delivery"
       ],
       "recommended": [
         "orchestrate-roadmap-planning",
@@ -1752,7 +1770,9 @@
           "prioritize-backlog",
           "promote-roadmap-items",
           "review-roadmap",
-          "update-roadmap"
+          "update-roadmap",
+          "clarify-product-requirement",
+          "split-product-delivery"
         ]
       },
       {

@@ -31,7 +31,9 @@
         "plan-next",
         "orchestrate-governance-step",
         "orchestrate-roadmap-planning",
-        "orchestrate-repair-requirements-loop"
+        "orchestrate-repair-requirements-loop",
+        "clarify-product-requirement",
+        "split-product-delivery"
       ]
     },
     {

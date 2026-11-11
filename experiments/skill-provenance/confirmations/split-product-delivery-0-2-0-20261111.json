@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer (user confirmation in this conversation)",
+  "confirmed_at": "2026-11-11",
+  "action": "confirmed",
+  "classification": "third_party_adapted",
+  "rationale": "Confirmed the exact 0.2.0 draft, MIT distribution of the local text, and third_party_adapted classification for the recorded creative reference.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/split-product-delivery-0-2-0-20261111.json"
+    }
+  ],
+  "subject_digest": "d33203a611cc18a852381484d21b7d12704a527f671b85490db711a1bc687fc7"
+}

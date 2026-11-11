@@ -1,0 +1,77 @@
+{
+  "status": "pending maintainer review",
+  "proposed_registry_references": {
+    "product-grilling-method": {
+      "url": "https://github.com/Dengk3Li/product-manager-skill/blob/main/skills/product-grilling/SKILL.md",
+      "title": "Product Grilling",
+      "accessed_at": "2026-11-11",
+      "kind": "skill",
+      "evidence": {
+        "path": "experiments/product-requirement-skills/source-review.json"
+      }
+    },
+    "epic-breakdown-method": {
+      "url": "https://github.com/deanpeters/Product-Manager-Skills/blob/main/skills/epic-breakdown-advisor/SKILL.md",
+      "title": "Epic Breakdown Advisor",
+      "accessed_at": "2026-11-11",
+      "kind": "skill",
+      "evidence": {
+        "path": "experiments/product-requirement-skills/source-review.json"
+      }
+    }
+  },
+  "candidates": {
+    "clarify-product-requirement": {
+      "record": {
+        "classification": "third_party_adapted",
+        "version": "0.2.0",
+        "reviewed_files": {
+          "SKILL.md": "cd3bd73e2ff28ba43b50dfa147e61b47ea3586d26a08dfe5465181539ec22beb"
+        },
+        "reviewed_evidence": {
+          "experiments/product-requirement-skills/source-review.json": "6cad9178cd5bfca9878ed5a12db759e1d7edf47e3ca8f8ac5e60e5c826db76a0"
+        },
+        "evidence": [
+          {
+            "path": "experiments/product-requirement-skills/source-review.json"
+          }
+        ],
+        "sources": [
+          {
+            "id": "reference:product-grilling-method",
+            "role": "creative_reference",
+            "adaptation": "Use dependency-ordered business questions within AI Cortex intake triage and runtime requirement authoring."
+          }
+        ]
+      },
+      "subject_digest": "034b38976a79fec9f0d4800da0bb7ac965b41ff55372778c84a962327ce5d46d",
+      "proposed_local_license": "MIT"
+    },
+    "split-product-delivery": {
+      "record": {
+        "classification": "third_party_adapted",
+        "version": "0.2.0",
+        "reviewed_files": {
+          "SKILL.md": "6372841e8ac3cff9cdd89eab8aa98610b7eb2f569f0907d627f9c732b6aaf6f3"
+        },
+        "reviewed_evidence": {
+          "experiments/product-requirement-skills/source-review.json": "6cad9178cd5bfca9878ed5a12db759e1d7edf47e3ca8f8ac5e60e5c826db76a0"
+        },
+        "evidence": [
+          {
+            "path": "experiments/product-requirement-skills/source-review.json"
+          }
+        ],
+        "sources": [
+          {
+            "id": "reference:epic-breakdown-method",
+            "role": "creative_reference",
+            "adaptation": "Propose independently verifiable outcomes and hand off to existing requirement, dependency, and roadmap workflows."
+          }
+        ]
+      },
+      "subject_digest": "d33203a611cc18a852381484d21b7d12704a527f671b85490db711a1bc687fc7",
+      "proposed_local_license": "MIT"
+    }
+  }
+}

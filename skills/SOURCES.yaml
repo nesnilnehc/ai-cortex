@@ -58,6 +58,20 @@ skills:
       - Scoped activation to explicit invocation and clarified host precedence and standalone distribution
 
 references:
+  product-grilling-method:
+    url: https://github.com/Dengk3Li/product-manager-skill/blob/main/skills/product-grilling/SKILL.md
+    title: Product Grilling
+    accessed_at: "2026-11-11"
+    kind: skill
+    evidence:
+      path: experiments/product-requirement-skills/source-review.json
+  epic-breakdown-method:
+    url: https://github.com/deanpeters/Product-Manager-Skills/blob/main/skills/epic-breakdown-advisor/SKILL.md
+    title: Epic Breakdown Advisor
+    accessed_at: "2026-11-11"
+    kind: skill
+    evidence:
+      path: experiments/product-requirement-skills/source-review.json
   session-renamer-goal-arc:
     url: https://github.com/RuntianLee/agent-session-renamer/blob/96ed0b86d9bcc5b4f82c09c6d7472e670084de63/SKILL.md
     title: Agent Session Renamer naming approach

@@ -131,6 +131,22 @@
       "result": "本地工作项文档及路径；只做捕获，不自动评优先级或代替完整需求审查。",
       "name": "记录工作事项"
     },
+    "clarify-product-requirement": {
+      "name": "澄清产品需求",
+      "purpose": "解决待定的业务问题",
+      "when": "需求目标、范围或验收仍有待决定。",
+      "provide": "需求描述和已有依据。",
+      "use": "调用 clarify-product-requirement，按决策的先后关系提问。",
+      "result": "已确认的范围和验收条件，以及仍阻塞下一步的问题。"
+    },
+    "split-product-delivery": {
+      "name": "拆分产品交付",
+      "purpose": "提出可独立验收的交付项",
+      "when": "产品目标明确，但范围太大。",
+      "provide": "目标、范围、约束和已有承诺。",
+      "use": "调用 split-product-delivery，按用户能获得的结果拆分。",
+      "result": "可独立验收的交付方案，或必须一起交付的原因。"
+    },
     "commit-work": {
       "purpose": "创建范围清晰、便于审阅的提交",
       "when": "本地改动完成，想分成清楚、可审查的 Git 提交。",
@@ -905,7 +921,9 @@
         "plan-next",
         "orchestrate-governance-step",
         "orchestrate-roadmap-planning",
-        "review-roadmap"
+        "review-roadmap",
+        "clarify-product-requirement",
+        "split-product-delivery"
       ],
       "recommended": [
         "orchestrate-roadmap-planning",
@@ -1752,7 +1770,9 @@
           "prioritize-backlog",
           "promote-roadmap-items",
           "review-roadmap",
-          "update-roadmap"
+          "update-roadmap",
+          "clarify-product-requirement",
+          "split-product-delivery"
         ]
       },
       {
