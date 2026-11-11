@@ -2,7 +2,20 @@
 
 ## Current publication
 
-Sites version 22 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+Sites version 23 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+The English and Chinese catalogues include `clarify-product-requirement` and
+`split-product-delivery`, both at 0.2.0. The Site source is
+`b613f2612c6f4332e2379b7f2776ca5ec7ca200a`; repository source is
+`5cd9112d89c81b01507c222a981977b1703abe90`.
+
+All 78 website tests passed. Both custom-domain homepages listed the new Skills.
+The live source manifest, catalogue metadata and provenance matched the deployed
+files byte for byte. The [deployment receipt](.openai/deployment.json) records
+the Site version.
+
+## Prior publication: session naming
+
+Sites version 22 was published at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
 The English and Chinese catalogues include `rename-session` 0.1.0 and its
 reviewed third-party sources. The Site source is
 `e9888abbe61c3a08d9b2b9ce29333311af0ee76a`; repository source is
@@ -11,8 +24,7 @@ reviewed third-party sources. The Site source is
 All 78 website tests passed. Custom-domain checks matched six catalogue data
 files and confirmed both homepage entries and the pinned Skill source. On the
 Chinese desktop page, the collaboration group and Skill details opened with the
-expected layout. The [deployment receipt](.openai/deployment.json) and
-[publication checks](.openai/publication-20261110-rename-session.json) retain
+expected layout. The [publication checks](.openai/publication-20261110-rename-session.json) retain
 the verification scope.
 
 ## Prior publication: terminology
