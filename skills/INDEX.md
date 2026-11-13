@@ -7,7 +7,7 @@ made here alone is overwritten and does not reach the sources.
 Provenance markers come from [PROVENANCE.json](./PROVENANCE.json); confirmed AI Cortex originals omit the badge. An absent badge alone does not establish originality.
 
 - [archive-milestone](./archive-milestone/SKILL.md) — Archive completed roadmap work packages or iteration/phase/version/period snapshots while preserving milestone event evidence and unfinished work.
-  - provenance: · [evidence](../experiments/skill-provenance/evidence/archive-milestone.json) · [evidence](../experiments/skill-provenance/confirmations/archive-milestone.json)
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/archive-milestone.json) · [evidence](../experiments/skill-provenance/confirmations/archive-milestone-1-9-0-20261113.json)
 - [assess-product-opportunity](./assess-product-opportunity/SKILL.md) — Assess a product opportunity from existing research reports and user signals, producing a restrained, traceable decision layer.
   - provenance: · [evidence](../experiments/skill-provenance/evidence/assess-product-opportunity.json) · [evidence](../experiments/skill-provenance/confirmations/assess-product-opportunity.json)
   - type: `domain` · user-invocable: `false`
@@ -38,7 +38,7 @@ Provenance markers come from [PROVENANCE.json](./PROVENANCE.json); confirmed AI 
 - [define-north-star](./define-north-star/SKILL.md) — Define the single most important metric representing the core value delivered to users. Produces North Star Metric with rationale, optional supporting metrics, and anti-pattern examples; persisted to docs.
   - provenance: · [evidence](../experiments/skill-provenance/evidence/define-north-star.json) · [evidence](../experiments/skill-provenance/confirmations/define-north-star.json)
 - [define-roadmap](./define-roadmap/SKILL.md) — Design roadmap structure, populate source-backed content on a settled layout, or complete both stages; first-align existing plans while preserving business decisions and stable links, with optional local generation.
-  - provenance: · [evidence](../experiments/skill-provenance/evidence/define-roadmap.json) · [evidence](../experiments/skill-provenance/evidence/milestone-calendar-svg.json) · [evidence](../experiments/skill-provenance/confirmations/define-roadmap-7-13-5-20261106.json)
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/define-roadmap.json) · [evidence](../experiments/skill-provenance/evidence/milestone-calendar-svg.json) · [evidence](../experiments/skill-provenance/confirmations/define-roadmap-8-0-0-20261113.json)
 - [define-strategic-pillars](./define-strategic-pillars/SKILL.md) — Derive 3–5 strategic pillars (high-level themes) from vision and North Star that structure and guide strategic goals and roadmap. Produces a strategic pillars document; persisted to docs.
   - provenance: · [evidence](../experiments/skill-provenance/evidence/define-strategic-pillars.json) · [evidence](../experiments/skill-provenance/confirmations/define-strategic-pillars.json)
 - [define-vision](./define-vision/SKILL.md) — Define the long-term future the project aims to create. Answers what future we are building; produces a vision statement aligned with mission, persisted to docs.
@@ -99,7 +99,7 @@ Provenance markers come from [PROVENANCE.json](./PROVENANCE.json); confirmed AI 
   - provenance: · [evidence](../experiments/skill-provenance/evidence/product-opportunity-analysis.json) · [evidence](../experiments/skill-provenance/confirmations/product-opportunity-analysis.json)
   - type: `orchestrator` · user-invocable: `true`
 - [promote-roadmap-items](./promote-roadmap-items/SKILL.md) — Promote prioritized requirements and defects into Now/Next/Later using settled project priorities and dependency readiness; preserve version membership and timing commitments.
-  - provenance: · [evidence](../experiments/skill-provenance/evidence/promote-roadmap-items.json) · [evidence](../experiments/skill-provenance/confirmations/promote-roadmap-items.json)
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/promote-roadmap-items.json) · [evidence](../experiments/skill-provenance/confirmations/promote-roadmap-items-4-0-0-20261113.json)
 - [publish-nats-message](./publish-nats-message/SKILL.md) — Publish a NATS message conforming to a cross-team contract, using NATS MCP tools. Authors the contract on first use if missing. Reads project-level cache (.cortex/nats.yaml) to avoid re-prompting basics across sessions.
   - provenance: · [evidence](../experiments/skill-provenance/evidence/publish-nats-message.json) · [evidence](../experiments/skill-provenance/confirmations/publish-nats-message.json)
 - [record-milestone-achievement](./record-milestone-achievement/SKILL.md) — Verify evidence of a project milestone event and record its confirmed achievement with references to independently stored evidence. Use for planned or unplanned events, with an optional SVG calendar of actual occurrence dates.
@@ -147,7 +147,7 @@ Provenance markers come from [PROVENANCE.json](./PROVENANCE.json); confirmed AI 
 - [review-requirements](./review-requirements/SKILL.md) — Review an existing requirement document against its modeling Spec and canonical quality Rule before design begins. Evaluative atomic skill; outputs findings without rewriting.
   - provenance: · [evidence](../experiments/skill-provenance/evidence/review-requirements.json) · [evidence](../experiments/skill-provenance/confirmations/review-requirements.json)
 - [review-roadmap](./review-roadmap/SKILL.md) — Review roadmap structure, business content or both with separate scoped conclusions; check source-backed planning and selected views without rewriting or expanding authorization.
-  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-roadmap.json) · [evidence](../experiments/skill-provenance/confirmations/review-roadmap.json)
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/review-roadmap.json) · [evidence](../experiments/skill-provenance/confirmations/review-roadmap-4-0-0-20261113.json)
 - [review-security](./review-security/SKILL.md) — Review code and configuration against the canonical security quality Rule set. Resolves trust-boundary profiles, gathers tool-assisted evidence and emits findings traceable to stable Rule IDs.
   - provenance: · [evidence](../experiments/skill-provenance/evidence/review-security.json) · [evidence](../experiments/skill-provenance/confirmations/review-security.json)
 - [review-sql](./review-sql/SKILL.md) — Review SQL and query code for injection risk, parameterization, indexing and performance, transactions, NULL and constraints, and dialect portability. Language-only atomic skill; output is a findings list.
@@ -167,4 +167,4 @@ Provenance markers come from [PROVENANCE.json](./PROVENANCE.json); confirmed AI 
 - [split-product-delivery](./split-product-delivery/SKILL.md) — Split a broad product requirement into proposed increments with independently verifiable outcomes. Use when the objective is clear but the work is too large to deliver or accept together.
   - provenance: **Third-party adapted** · [evidence](../experiments/product-requirement-skills/source-review.json) · [evidence](../experiments/skill-provenance/confirmations/split-product-delivery-0-2-0-20261111.json)
 - [update-roadmap](./update-roadmap/SKILL.md) — Maintain requirement-and-defect roadmap summaries — change item status, shift dates with downstream impact analysis, and retain source-backed revision history. Does not move items between Now/Next/Later tiers.
-  - provenance: · [evidence](../experiments/skill-provenance/evidence/update-roadmap.json) · [evidence](../experiments/skill-provenance/confirmations/update-roadmap.json)
+  - provenance: · [evidence](../experiments/skill-provenance/evidence/update-roadmap.json) · [evidence](../experiments/skill-provenance/confirmations/update-roadmap-4-0-0-20261113.json)

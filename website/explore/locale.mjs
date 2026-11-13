@@ -1,6 +1,6 @@
-import en from './locales/en.json?v=product-requirement-skills-20261111' with {type:'json'};
-import zh from './locales/zh.json?v=product-requirement-skills-20261111' with {type:'json'};
-import metadata from './skill-metadata.json?v=product-requirement-skills-20261111' with {type:'json'};
+import en from './locales/en.json?v=roadmap-delivery-20261113' with {type:'json'};
+import zh from './locales/zh.json?v=roadmap-delivery-20261113' with {type:'json'};
+import metadata from './skill-metadata.json?v=roadmap-delivery-20261113' with {type:'json'};
 const dictionaries={en,zh};
 export const locale=globalThis.document?.documentElement.lang==='en'?'en':'zh';
 function select(language){if(!Object.hasOwn(dictionaries,language))throw Error(`Unknown locale: ${language}`);return dictionaries[language];}

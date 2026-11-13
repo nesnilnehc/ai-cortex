@@ -1,9 +1,9 @@
-import {getCallHierarchy} from './relationship-model.mjs?v=product-requirement-skills-20261111';
-import {catalog} from './workflow.mjs?v=product-requirement-skills-20261111';
-import {getNodeDetails,getNodeSkillSelection} from './panel-model.mjs?v=product-requirement-skills-20261111';
-import rawEdges from './skill-edges.json?v=product-requirement-skills-20261111' with {type:'json'};
-import metadata from './skill-metadata.json?v=product-requirement-skills-20261111' with {type:'json'};
-import {dictionary} from './locale.mjs?v=product-requirement-skills-20261111';
+import {getCallHierarchy} from './relationship-model.mjs?v=roadmap-delivery-20261113';
+import {catalog} from './workflow.mjs?v=roadmap-delivery-20261113';
+import {getNodeDetails,getNodeSkillSelection} from './panel-model.mjs?v=roadmap-delivery-20261113';
+import rawEdges from './skill-edges.json?v=roadmap-delivery-20261113' with {type:'json'};
+import metadata from './skill-metadata.json?v=roadmap-delivery-20261113' with {type:'json'};
+import {dictionary} from './locale.mjs?v=roadmap-delivery-20261113';
 const sourceEdges=rawEdges.map(edge=>({...edge,...dictionary.skillEdges[edge.id]}));
 const order=['direction','planning','research','design','quality','build','commit','foundation','collaboration'];
 const ids=new Set(catalog.map(skill=>skill.id));

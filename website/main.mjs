@@ -1,7 +1,7 @@
-import {initializeNavigation} from './site-navigation.mjs?v=product-requirement-skills-20261111';
-import { initializeTheme } from './theme.mjs?v=product-requirement-skills-20261111';
-import { initializeLanguage } from './language.mjs?v=product-requirement-skills-20261111';
-import { bindCopyButton } from './copy.mjs?v=product-requirement-skills-20261111';
+import {initializeNavigation} from './site-navigation.mjs?v=roadmap-delivery-20261113';
+import { initializeTheme } from './theme.mjs?v=roadmap-delivery-20261113';
+import { initializeLanguage } from './language.mjs?v=roadmap-delivery-20261113';
+import { bindCopyButton } from './copy.mjs?v=roadmap-delivery-20261113';
 
 initializeLanguage(window, document.documentElement.lang === 'zh-CN' ? 'zh' : 'en');
 
@@ -17,4 +17,4 @@ bindCopyButton(
 
 initializeNavigation(window,document);
 
-import './explore/explorer-host.mjs?v=product-requirement-skills-20261111';
+import './explore/explorer-host.mjs?v=roadmap-delivery-20261113';

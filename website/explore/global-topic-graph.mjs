@@ -1,7 +1,7 @@
-import sourceEdges from './topic-edges.json?v=product-requirement-skills-20261111' with {type:'json'};
-import {dictionary} from './locale.mjs?v=product-requirement-skills-20261111';
+import sourceEdges from './topic-edges.json?v=roadmap-delivery-20261113' with {type:'json'};
+import {dictionary} from './locale.mjs?v=roadmap-delivery-20261113';
 const edges=sourceEdges.map(edge=>({...edge,...dictionary.topicEdges[edge.id]}));
-import {getTopicMap} from './topic-map.mjs?v=product-requirement-skills-20261111';
+import {getTopicMap} from './topic-map.mjs?v=roadmap-delivery-20261113';
 const nodes=[
  {id:'direction',row:1,column:1,hint:''},
  {id:'planning',row:1,column:2,hint:''},
