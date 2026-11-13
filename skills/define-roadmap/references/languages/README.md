@@ -1,13 +1,15 @@
 # Paired English and Simplified Chinese outputs
 
 These fictional complete outputs exercise the same source facts, IDs, dates,
-canonical states, memberships, revision and split layout in two languages. The
+canonical states, memberships, revision and split layout in two languages. Each
+roadmap shows two versions and two milestones. Each independent iteration plan
+shows two timeboxes. The
 [source records](sources.md) are authoritative; input JSON is a rendering projection.
 
-| Edition | Input | Main | Delivery | History | Timeline |
-| --- | --- | --- | --- | --- | --- |
-| English | [JSON](en/input.json) | [Roadmap](en/roadmap.md) | [Detail](en/roadmap-delivery.md) | [History](en/roadmap-history.md) | [SVG](en/roadmap.svg), [Mermaid](en/roadmap.mmd) |
-| Simplified Chinese | [JSON](zh-CN/input.json) | [Roadmap](zh-CN/roadmap.md) | [Detail](zh-CN/roadmap-delivery.md) | [History](zh-CN/roadmap-history.md) | [SVG](zh-CN/roadmap.svg), [Mermaid](zh-CN/roadmap.mmd) |
+| Edition | Input | Main | Delivery | History | Timeline | Iteration plan |
+| --- | --- | --- | --- | --- | --- | --- |
+| English | [JSON](en/input.json) | [Roadmap](en/roadmap.md) | [Detail](en/roadmap-delivery.md) | [History](en/roadmap-history.md) | [SVG](en/roadmap.svg), [Mermaid](en/roadmap.mmd) | [Plan](en/iteration-plan.md) |
+| Simplified Chinese | [JSON](zh-CN/input.json) | [Roadmap](zh-CN/roadmap.md) | [Detail](zh-CN/roadmap-delivery.md) | [History](zh-CN/roadmap-history.md) | [SVG](zh-CN/roadmap.svg), [Mermaid](zh-CN/roadmap.mmd) | [Plan](zh-CN/iteration-plan.md) |
 
 Generate either input with the bundled renderer and `--output-dir` pointing to its
 edition directory; use `--overwrite` only for the existing generated files. Both

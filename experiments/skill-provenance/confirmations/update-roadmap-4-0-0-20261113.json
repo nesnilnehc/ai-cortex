@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicit confirmation in the roadmap closeout chat",
+  "confirmed_at": "2026-11-13",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed the current reviewed update-roadmap 4.0.0 remains an AI Cortex original.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/update-roadmap-4-0-0-20261113.json"
+    }
+  ],
+  "subject_digest": "e983071d4a51f0e3418ce6972581db3e499dcc2478e03edf6167bb2a5dd3c80c"
+}

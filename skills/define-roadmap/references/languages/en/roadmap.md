@@ -6,63 +6,36 @@ Updated: 2026-10-21
 
 Direction: Make requests findable.
 
-Current arrangement: Validate search before expanding scope.
-
 ## Priority arrangement
 
-| Tier | Requirement / defect | Expected outcome | Priority | Approval status | Execution status | Key conditions |
-| --- | --- | --- | --- | --- | --- | --- |
-| Now | [R1 · Search requests](../sources.md#r1) | Find requests by reference | P1 | Approved | In progress | [Validate search with pilot users](../sources.md#r1) |
+| Tier | Requirement / defect | Priority | Approval status | Execution status |
+| --- | --- | --- | --- | --- |
+| Now | [R1 · Find requests by reference](../sources.md#r1) | P1 | Approved | In progress |
+| Now | [R4 · Filter requests by status](../sources.md#r4) | P1 | Approved | Not started |
+| Now | [BUG1 · Prevent empty searches from clearing filters](../sources.md#bug1) | P1 | Approved | Blocked |
+| Next | [R2 · Find requests by customer name](../sources.md#r2) | P1 | Approved | Not started |
+| Later | [R3 · Save frequently used search filters](../sources.md#r3) | P2 | Draft | Not started |
 
-No items planned: Next, Later.
+**Delivery blockers**
+
+- [BUG1](../sources.md#bug1) · The team cannot isolate the filter defect without a reproducible pilot trace.
 
 ## Delivery outlook
 
-| Phase | Scope | Exit condition |
-| --- | --- | --- |
-| PH1 · Pilot validation | V1 | Pilot acceptance is signed |
-
-Cadence: Two-week iterations
-
-| Iteration / goal | Timebox / basis |
-| --- | --- |
-| I1 · Validate request lookup | target · 2026-11-02 to 2026-11-16 (end exclusive) |
-
 | Version / outcome | Members | Delivery window |
 | --- | --- | --- |
-| V1 · Search is usable | R1 | Target: 2026-11-02 to 2026-11-16 (end exclusive) |
+| V1 · Search is usable | [R1 · Find requests by reference](../sources.md#r1), [R4 · Filter requests by status](../sources.md#r4) | Target: 2026-11-02 to 2026-11-16 (end exclusive) |
+| V2 · Requests are findable by customer name | [R2 · Find requests by customer name](../sources.md#r2) | Target: 2026-11-16 to 2026-11-30 (end exclusive) |
 
-| Key event | State | Timing / basis |
+| Milestone | State | Timing / basis |
 | --- | --- | --- |
 | MS1 · Accept pilot outcome | planned | target · 2026-11-16 |
+| MS2 · Accept customer name search | planned | target · 2026-11-30 |
+
+## References
+
+[Planning basis](roadmap-planning-basis.md)
 
 [Delivery details and timeline](roadmap-delivery.md).
 
-## Revision history
-
-| Date / revision | Change | Reason | Impact | Details |
-| --- | --- | --- | --- | --- |
-| 2026-10-21 · REV1 | Search: unallocated → I1 | The team approved a near-term validation goal. | V1 scope and target date are unchanged. | [Details](../sources.md#rev1) |
-
 [Supplied revision details](roadmap-history.md).
-
-## Planning basis and sources
-
-[Priority policy](../sources.md#context)
-
-Closure criterion: Acceptance and production deployment are required.
-
-### Planning approach
-
-Scenario: iterations · Primary: iterations · Layout: split
-
-Enabled views: requirements, iterations, versions, phases, milestones, schedule.
-
-Use iteration goals, a delivery batch and an acceptance phase. [Selection source](../sources.md#selection).
-
-Deliverable language: en · user
-
-The user requested aligned English and Chinese editions. [Language source](../sources.md#language).
-
-Backlog requirements and defects map to this roadmap; items outside it are not done by default.
-Placement grants no implementation or release approval.

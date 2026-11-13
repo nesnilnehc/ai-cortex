@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: roadmap-quality
-version: 4.11.1
+version: 5.0.0
 scope: reviewing or self-checking a roadmap document
 recommended_scope: user
 status: active
@@ -11,7 +11,7 @@ status: active
 
 The single source of quality criteria for roadmap generation, diagnosis and review.
 A roadmap arranges requirements and defects in Now / Next / Later, optionally
-adding iteration/version and schedule views under [roadmap modeling](../specs/roadmap-modeling.md).
+adding version and schedule views under [roadmap modeling](../specs/roadmap-modeling.md).
 Tasks belong in source task lists, not in requirement rows. Version groups and
 schedule milestones are valid presentation units. Existing project decisions take precedence.
 
@@ -30,7 +30,7 @@ schedule milestones are valid presentation units. Existing project decisions tak
 ## 1. Completeness
 
 - [ ] Every requirement-view row identifies a requirement or defect by stable ID, meaningful name and source link; no task, task group or implementation step is an independent requirement row. Version groups reference those IDs rather than duplicating their records.
-- [ ] Rows carry an expected outcome, priority, tier, separate approval and execution status columns, and a separate key conditions column.
+- [ ] Rows carry priority, tier, and separate approval and execution status columns.
 - [ ] Now / Next / Later are visible; an empty tier may say that no items are planned.
 - [ ] The opening states the evolution direction in one sentence; ordering rationale is recoverable without reading task lists.
 
@@ -53,28 +53,28 @@ vocabulary; map project source fields explicitly rather than replacing their sch
 
 - [ ] Every execution status cell uses exactly one label above. If source evidence is missing or conflicting, report the mapping as unverified outside the cell; do not invent a status or certify a complete roadmap.
 - [ ] Approval is shown separately using the project's own labels (or explicitly unverified / not applicable). Now / Next / Later, priority and approval never substitute for execution status.
-- [ ] Key conditions contain only a short next-step prerequisite, blocker or completion condition with a source link; use `—` when none applies. Put mitigation detail, test counts, commit records, history and detailed evidence in linked sources, never in execution status cells.
+- [ ] Summarize blockers that affect current placement or delivery outside the table with a source link. Keep prerequisites, mitigation and acceptance evidence in linked sources.
 - [ ] The roadmap states or links the project's closure criterion: whether closure requires acceptance, production release, or another existing project-defined delivery condition. Do not invent a release gate for non-release work. If closure is undefined, report it as unresolved and do not mark the item Completed.
 
 ## 2. Executability
 
 - [ ] Eligible items follow documented priority; departures carry a reason. Priority and readiness remain separate.
 - [ ] Now items have checked prerequisites for the next intended step and a verifiable completion condition, stated briefly or linked to source acceptance criteria. Later-needed dependencies permit grounded parallel work with a visible need-by condition; an entire prerequisite requirement need not be complete. Unknown evidence is not a readiness pass.
-- [ ] Next items identify material start conditions; Later items identify a re-evaluation trigger without invented dates or detailed commitments.
+- [ ] Linked sources identify material start conditions for Next and re-evaluation triggers for Later.
 - [ ] Missing approval, a pause or an unresolved prerequisite is visible; a blocked high-priority item retains its priority and is not automatically treated as a distant direction.
 - [ ] No effort, staffing, quota or item-count gate is invented. Explicit project capacity decisions are preserved and summarized only where they affect the plan.
 
 ## 3. Clarity
 
 - [ ] A reader can identify current priorities, subsequent work and key blockers from the main view in about one minute; check by summarizing those three things using the main view alone.
-- [ ] Requirement outcomes describe the capability or result; defect outcomes describe the expected behavior to restore. Useful feature and defect names are allowed.
+- [ ] A requirement title names the capability to deliver. A defect title names the problem to fix or the behavior to restore. Keep additional outcome detail in the linked source.
 - [ ] No task IDs, implementation steps, test counts, detailed acceptance procedures or historical reconciliation are copied into rows. Link to sources instead.
 - [ ] Metrics, strategic hypotheses and evidence appear only where they change a planning decision; they may be linked and are not mandatory sections per tier.
 - [ ] When a numeric success threshold is used, its current value, target and reference point are recoverable in the text or linked source. Unknown values are labeled, not invented.
 
 ## 4. Soundness
 
-- [ ] Each status transition is backed by the authoritative source record and its applicable acceptance/release evidence. Development complete, acceptance passed and production released are distinct facts; none substitutes for another. A failed acceptance returns to In progress only when rework has actually started. Paused or Blocked overrides the underlying stage only while its recorded decision or impediment applies. If both apply, show Paused for an explicit suspension decision and retain the blocker in key conditions; resume from current evidence, not automatically from the previous label.
+- [ ] Each status transition is backed by the authoritative source record and its applicable acceptance/release evidence. Development complete, acceptance passed and production released are distinct facts; none substitutes for another. A failed acceptance returns to In progress only when rework has actually started. Paused or Blocked overrides the underlying stage only while its recorded decision or impediment applies. If both apply, show Paused for an explicit suspension decision and summarize a blocker that affects the plan outside the table; resume from current evidence, not automatically from the previous label.
 - [ ] Roadmap summaries agree with source requirement and defect records; placement does not grant approval, execution or release authorization.
 - [ ] Dependency and priority decisions have traceable evidence or an explicit strategic rationale; no scoring framework is mandatory merely to display an item.
 - [ ] Priority policy is the reusable rule; arrangement rationale explains its current application and verified conditions, not a second scoring scheme. Existing decision links are valid. Stable presentation order is not falsely claimed as business precedence.
@@ -91,9 +91,9 @@ vocabulary; map project source fields explicitly rather than replacing their sch
 
 ## 6. Selected views and delivery
 
-- [ ] View selection is explicit; discuss cadence and appropriate delivery/schedule views at first creation and retain the user's choice. An existing single-view roadmap is valid without mandatory expansion.
+- [ ] View selection is explicit; discuss appropriate delivery and schedule views at first creation and retain the user's choice. An existing single-view roadmap is valid without mandatory expansion.
 - [ ] A new or changed destination is confirmed by the user; established destination choices are reused during maintenance. No synchronization or competing editable source is introduced.
-- [ ] Selected version views show member references, core outcome, owner and target window; unknowns and unassigned entries are explicit. Version membership does not imply approval or a complete release.
+- [ ] Selected version views use the requirement table’s linked ID and title for each member and show core outcome, owner and target window; unknowns and unassigned entries are explicit. Version membership does not imply approval or a complete release.
 - [ ] Selected schedules distinguish target, committed and actual timing, state their calendar/origin, show unknown timing as unscheduled, and agree with member/version scope. Relative weeks do not masquerade as real dates.
 - [ ] Dependencies and known timing agree; cycles, finish-to-start overlaps, unresolved timing and missing scope are reported rather than silently repaired. Resource availability is not inferred from date arithmetic.
 - [ ] Every status, scope or time change checks all selected views in the chosen destination. Detailed tasks and evidence retain one authoritative source.
@@ -114,7 +114,8 @@ substance rather than requiring a fixed number of sections or rows.
 
 - A version groups delivery scope; a phase is work over time; a milestone is an event.
   Relationships need not form a strict tree. Use the [Roadmap Spec](../specs/roadmap-modeling.md).
-- Phase scope and exit conditions MUST be source-backed. Milestones MUST identify
+- The delivery outlook shows versions and milestones. Keep phase details in their
+  supporting sources and omit phase rows from delivery views and timelines. Milestones MUST identify
   an owner and occurrence criterion; non-planned states MUST link evidence.
 - Time passage or member completion MUST NOT automatically reach an event or grant
   approval. An actual event time MUST correspond to a reached event.
@@ -126,8 +127,9 @@ substance rather than requiring a fixed number of sections or rows.
 - [ ] Material priority/tier, scope, phase, timing/commitment, exclusion and milestone
   state changes have a dated before/after summary, reason, impact and source link
   under [the revision contract](../specs/roadmap-modeling.md#54-revision-records).
-- [ ] The main roadmap shows the latest five summaries; older records remain in a
-  resolving history source. Regeneration, correction and archiving preserve history.
+- [ ] Revision entries are kept in a separate document or directory with a resolving
+  link from the main roadmap’s References section. Regeneration, correction and
+  archiving preserve the complete history.
 - [ ] Repeated generation does not create duplicate decisions. Revision IDs and dates
   agree across selected views and source records; history is not current scope.
 - [ ] Legacy adoption discloses the baseline and any unknown earlier history. Missing
@@ -136,9 +138,10 @@ substance rather than requiring a fixed number of sections or rows.
 
 ## Reading structure and iteration integrity
 
-- [ ] The main roadmap alone explains direction, ordering, active priorities, blockers,
+- [ ] The main roadmap alone shows direction, current ordering, active priorities, blockers,
   near-term delivery and key events where known. Split output is not a link-only index.
-- [ ] The overview emphasizes the plan and material unknowns; unverified execution is visible before rows. Policy/closure definitions and view/layout/language evidence remain recoverable but do not displace the plan. Detailed dependencies do not overload one arrangement paragraph.
+- [ ] The overview shows the plan and material unknowns. Unverified execution is visible before rows.
+- [ ] References lead to the ordering rationale, priority/closure rules and retained view/layout/language decisions where applicable. Their explanations stay in supporting sources.
 - [ ] Document names distinguish policy, plan, basis and history under the Spec's naming advice. Existing project paths/URLs are respected; missing optional child documents or nondefault titles alone are not defects.
 - [ ] Delivery objects are grouped under selected delivery views; completed work is
   folded or linked separately without rewriting tiers/statuses. Empty optional
@@ -146,12 +149,12 @@ substance rather than requiring a fixed number of sections or rows.
 - [ ] Splitting follows reader, owner, update cadence or volume needs. Detail pages
   link back; each scope/date/status fact has one editable source. Every affected
   projection is refreshed for the same decision and revision ID.
-- [ ] Selected iteration views show cadence, goals, source-backed scope, owner,
+- [ ] Keep iteration plans outside the roadmap and its timeline. An independently reviewed iteration plan shows cadence, goals, source-backed scope, owner,
   timeboxes or explicit unknowns, version mapping and execution-detail links when
   available. Unallocated work remains visible; far-future timeboxes are not invented.
 - [ ] Iteration carry-over is distinct from version scope change, tier movement and
   completion. Iteration end does not prove phase exit, event occurrence or release.
-- [ ] Iteration goal/scope/cadence/timebox changes retain material revision evidence.
+- [ ] Track iteration changes in the iteration plan. Record a roadmap revision when a material roadmap fact changes.
   Generated detail/history files do not replace their authoritative source records.
 
 ## Scenario choice and intake
@@ -166,8 +169,8 @@ substance rather than requiring a fixed number of sections or rows.
   choices remain intact; a default recommendation never replaces a team decision.
 - [ ] Selected flow policies, service expectations and metrics have project evidence
   or explicit unknowns. No default WIP number, invented cycle or fake iteration appears.
-- [ ] Schema 1.4 explicitly controls phase/event/flow registers and retained layout;
-  custom choices are evaluated for consistency, not conformity to a recipe.
+- [ ] Schema 1.4 controls milestone and flow views and retained layout. Legacy phase inputs remain readable.
+  Evaluate custom choices for consistency with the source decisions.
 
 ## 7. Deliverable language
 

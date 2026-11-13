@@ -107,6 +107,68 @@ def language_evidence(locale, source='policy.md'):
 
 
 class RendererTests(unittest.TestCase):
+    def test_version_members_reuse_the_linked_requirement_titles(self):
+        for layout in ('single', 'split', 'topic-split'):
+            with self.subTest(layout=layout):
+                data = language_sample('en')
+                data['selection']['layout'] = layout
+                if layout == 'topic-split':
+                    data['schema_version'] = '1.6'
+                defect = dict(data['entries'][0], id='BUG1', name='Keep filters on retry',
+                              source='defects/filter (pilot).md#bug1')
+                data['entries'].append(defect)
+                data['versions'][0]['members'].append('BUG1')
+                outputs = renderer.documents(renderer.validate(data))
+                member_link = '[BUG1 · Keep filters on retry](defects/filter%20%28pilot%29.md#bug1)'
+                self.assertIn(member_link, outputs['roadmap.md'])
+                for name in ('roadmap.md', 'roadmap-delivery.md', 'versions.md'):
+                    if name in outputs:
+                        version_row = next(line for line in outputs[name].splitlines()
+                                           if line.startswith('| V1 · '))
+                        self.assertIn(member_link, version_row)
+                        self.assertIn('[R1 · ', version_row)
+
+    def test_requirement_titles_render_without_separate_outcomes(self):
+        for schema, layout in [('1.0', 'single'), ('1.5', 'split'), ('1.6', 'topic-split')]:
+            with self.subTest(schema=schema, layout=layout):
+                data = sample() if schema == '1.0' else language_sample('en')
+                data['schema_version'] = schema
+                if 'selection' in data:
+                    data['selection']['layout'] = layout
+                entry = data['entries'][0]
+                legacy_outcome = entry.pop('outcome')
+                main = renderer.documents(renderer.validate(data))['roadmap.md']
+                self.assertIn('Tier | Requirement / defect | Priority', main)
+                self.assertIn(renderer.md(entry['name']), main)
+                self.assertNotIn('Expected outcome', main)
+                entry['outcome'] = legacy_outcome
+                self.assertEqual(renderer.documents(renderer.validate(data))['roadmap.md'], main)
+
+    def test_roadmap_projects_legacy_phases_out_of_delivery_views(self):
+        for schema, layout in [('1.1', 'single'), ('1.5', 'split'), ('1.6', 'topic-split')]:
+            with self.subTest(schema=schema, layout=layout):
+                data = event_sample() if schema == '1.1' else language_sample('en')
+                data['schema_version'] = schema
+                if 'selection' in data:
+                    data['selection']['layout'] = layout
+                entry = data['entries'][0]
+                entry.pop('conditions')
+                entry.update(execution='Blocked', blocker='Waiting for pilot evidence')
+                entry['source'] = 'requests.md#r1'
+                outputs = renderer.documents(renderer.validate(data))
+                main = outputs['roadmap.md']
+                self.assertNotIn('Key conditions', main)
+                self.assertNotIn('Exit condition', main)
+                exit_condition = data['phases'][0]['exit_condition']
+                self.assertNotIn(exit_condition, main)
+                for name in ('roadmap.md', 'roadmap-delivery.md', 'milestones.md', 'roadmap.svg'):
+                    content = outputs.get(name, '')
+                    self.assertNotIn('PH1', content)
+                    self.assertNotIn('Validation phase', content)
+                self.assertIn('M1', main)
+                self.assertIn('[R1](requests.md#r1)', main)
+                self.assertEqual(main.count('Waiting for pilot evidence'), 1)
+
     def test_main_prioritizes_plan_over_basis_when_using_modern_layouts(self):
         """Covers: roadmap-reading#RC2; preserve facts while changing reading order."""
         for factory in (iteration_sample, selection_sample, lambda: language_sample('en')):
@@ -116,18 +178,20 @@ class RendererTests(unittest.TestCase):
                     if 'selection' in data:
                         data['selection']['layout'] = layout
                     before = copy.deepcopy(data)
-                    main = renderer.documents(renderer.validate(data), layout)['roadmap.md']
-                    headings = ['## Overview', 'Current arrangement:', '## Priority arrangement',
-                                '## Delivery', '## Revision history', '## Planning basis and sources']
+                    outputs = renderer.documents(renderer.validate(data), layout)
+                    main, basis = outputs['roadmap.md'], outputs['roadmap-planning-basis.md']
+                    headings = ['## Overview', '## Priority arrangement', '## Delivery', '## References']
                     positions = [main.index(value) for value in headings]
                     self.assertEqual(positions, sorted(positions))
-                    basis = main.split('## Planning basis and sources', 1)[1]
-                    self.assertIn(data['priority_policy'], basis)
-                    self.assertIn(data['closure'], basis)
-                    if 'selection' in data:
-                        self.assertIn(data['selection']['rationale'], basis)
-                    if 'language' in data:
-                        self.assertIn(data['language']['rationale'], basis)
+                    self.assertIn('(roadmap-planning-basis.md)', main.split('## References')[1])
+                    self.assertIn('(roadmap.md)', basis)
+                    for key in ('ordering', 'priority_policy', 'closure'):
+                        self.assertNotIn(data[key], main)
+                        self.assertIn(data[key], basis)
+                    for key in ('selection', 'language'):
+                        if key in data:
+                            self.assertNotIn(data[key]['rationale'], main)
+                            self.assertIn(data[key]['rationale'], basis)
                     self.assertEqual(data, before)
 
     def test_execution_unknown_is_visible_before_rows_when_main_uses_modern_layout(self):
@@ -146,53 +210,55 @@ class RendererTests(unittest.TestCase):
                      'https://example.com/policy?x=1&y=2'):
             data = iteration_sample()
             data['priority_policy'] = link
-            main = renderer.markdown(renderer.validate(data))
+            basis = renderer.documents(renderer.validate(data))['roadmap-planning-basis.md']
             with self.subTest(link=link):
-                self.assertIn(f'[Priority policy]({link})', main)
+                self.assertIn(f'[Priority policy]({link})', basis)
         data = iteration_sample()
         data['priority_policy'] = '<script>alert(1)</script>'
-        main = renderer.markdown(renderer.validate(data))
-        self.assertNotIn('<script>', main)
-        self.assertIn('&lt;script&gt;', main)
+        basis = renderer.documents(renderer.validate(data))['roadmap-planning-basis.md']
+        self.assertNotIn('<script>', basis)
+        self.assertIn('&lt;script&gt;', basis)
         data['priority_policy'] = '../policy\\bad.md'
         with self.assertRaisesRegex(ValueError, 'priority_policy'):
             renderer.validate(data)
 
     def test_basis_labels_are_localized_when_language_is_chinese(self):
-        """Covers: roadmap-reading#RC2; moving metadata does not lose localization."""
         data = language_sample()
         data['priority_policy'] = '../policy.md#priority'
-        main = renderer.documents(renderer.validate(data))['roadmap.md']
-        self.assertLess(main.index('当前安排：'), main.index('## 优先安排'))
-        self.assertLess(main.index('## 修订记录'), main.index('## 规划依据与来源'))
-        self.assertIn('[优先级规则](../policy.md#priority)', main)
-        self.assertIn('### 规划方式', main)
-        self.assertNotIn('Current arrangement:', main)
-        self.assertNotIn('Planning basis and sources', main)
+        data['revision_history'] = 'decisions.md#history'
+        outputs = renderer.documents(renderer.validate(data))
+        main, basis = outputs['roadmap.md'], outputs['roadmap-planning-basis.md']
+        self.assertIn('## 参考资料', main)
+        self.assertIn('[规划依据](roadmap-planning-basis.md)', main)
+        self.assertIn('[完整修订记录](decisions.md#history)', main)
+        self.assertIn('[优先级规则](../policy.md#priority)', basis)
+        self.assertIn('## 规划方式', basis)
 
-    def test_legacy_single_keeps_layout_while_explicit_split_exposes_unknown_once(self):
-        """Covers: roadmap-reading#RC3; legacy adoption needs no schema upgrade."""
+    def test_legacy_inputs_separate_planning_basis_without_schema_upgrade(self):
         for version in ('1.0', '1.1', '1.2'):
             data = revision_sample() if version == '1.2' else sample()
             data['schema_version'] = version
             data['entries'][0]['execution'] = None
             before = copy.deepcopy(data)
-            single = renderer.documents(renderer.validate(data))['roadmap.md']
-            split = renderer.documents(data, 'split')['roadmap.md']
-            self.assertIn('Ordering rationale: Search enables export', single)
-            self.assertNotIn('## Planning basis and sources', single)
-            self.assertEqual(split.count('Unverified execution mappings: R1'), 1)
-            self.assertLess(split.index('Unverified execution mappings: R1'),
-                            split.index('## Priority arrangement'))
+            for layout in ('single', 'split'):
+                outputs = renderer.documents(renderer.validate(data), layout)
+                main, basis = outputs['roadmap.md'], outputs['roadmap-planning-basis.md']
+                self.assertNotIn('Search enables export', main)
+                self.assertIn('Search enables export', basis)
+                self.assertIn('(roadmap-planning-basis.md)', main)
+                self.assertEqual(main.count('Unverified execution mappings: R1'), 1)
             self.assertEqual(data, before)
 
-    def test_legacy_split_rejects_invalid_policy_reference_before_rendering(self):
-        """Covers: roadmap-reading#RC3; explicit split links obey common validation."""
-        data = sample()
-        data['priority_policy'] = '../policy\\bad.md'
-        renderer.validate(data)  # Legacy single output still treats this as escaped text.
-        with self.assertRaisesRegex(ValueError, 'priority_policy'):
-            renderer.documents(data, 'split')
+    def test_legacy_check_rejects_an_invalid_policy_reference_before_rendering(self):
+        with tempfile.TemporaryDirectory() as temp:
+            source = Path(temp) / 'input.json'
+            data = sample()
+            data['priority_policy'] = '../policy\\bad.md'
+            source.write_text(json.dumps(data))
+            result = subprocess.run([sys.executable, str(SCRIPT), str(source), '--check'],
+                                    capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn('priority_policy', result.stderr)
 
     def test_localized_catalog_covers_scenarios_states_and_missing_values(self):
         """Covers: roadmap-capabilities#AC24."""
@@ -200,7 +266,7 @@ class RendererTests(unittest.TestCase):
             data = json.loads(path.read_text())
             data.update(schema_version='1.5', language=language_sample()['language'])
             outputs = renderer.documents(renderer.validate(data))
-            self.assertIn('交付物语言：', outputs['roadmap.md'])
+            self.assertIn('交付物语言：', outputs['roadmap-planning-basis.md'])
         for state in sorted(renderer.EXECUTION) + [None]:
             data = language_sample()
             data['entries'][0]['execution'] = state
@@ -213,7 +279,7 @@ class RendererTests(unittest.TestCase):
         self.assertIn('未排期', outputs['roadmap.svg'])
         for basis in ['user', 'project', 'existing', 'context']:
             data['language']['basis'] = basis
-            self.assertIn('交付物语言：', renderer.markdown(data))
+            self.assertIn('交付物语言：', renderer.documents(data)['roadmap-planning-basis.md'])
 
     def test_missing_catalog_message_fails_instead_of_mixing_languages(self):
         """Covers: roadmap-capabilities#AC24."""
@@ -225,9 +291,10 @@ class RendererTests(unittest.TestCase):
         data = language_sample()
         data['milestones'][0]['owner'] = 'Unknown'
         output = renderer.markdown(renderer.validate(data))
-        self.assertIn('需求安排、迭代', output)
         self.assertNotIn('Unknown', output)
-        self.assertIn('选择依据](decisions.md#selection)。', output)
+        basis = renderer.documents(data)['roadmap-planning-basis.md']
+        self.assertIn('需求安排、迭代', basis)
+        self.assertIn('选择依据](decisions.md#selection)。', basis)
 
     def test_timeline_preserves_source_text_when_it_mentions_a_schedule_heading(self):
         """Covers: roadmap-capabilities#AC24; source prose is never globally replaced."""
@@ -266,7 +333,7 @@ class RendererTests(unittest.TestCase):
         """Covers: roadmap-capabilities#AC23."""
         for locale, label in [('en', 'Deliverable language: '), ('zh-CN', '交付物语言：')]:
             data = language_sample(locale)
-            output = renderer.markdown(renderer.validate(data))
+            output = renderer.documents(renderer.validate(data))['roadmap-planning-basis.md']
             self.assertIn(label, output)
             self.assertIn('policy.md#language', output)
             self.assertIn(data['language']['rationale'], output)
@@ -372,8 +439,8 @@ class RendererTests(unittest.TestCase):
         self.assertIn('进行中', main)
         self.assertIn('Overview / target &lt;研发&gt;', main)
         self.assertIn('(requirements/search.md#acceptance)', main)
-        self.assertIn('### 迭代', detail)
-        self.assertIn('### 阶段', detail)
+        self.assertIn('## 迭代', result['iteration-plan.md'])
+        self.assertNotIn('### 阶段', detail)
         self.assertIn('### 里程碑', detail)
         self.assertIn('计划中', detail)
         self.assertNotIn('target ·', detail)
@@ -421,8 +488,8 @@ class RendererTests(unittest.TestCase):
     def test_recommendation_recipes_are_context_sensitive_and_not_applied(self):
         expected = {'iterations': ('iterations', ['requirements', 'iterations', 'versions', 'milestones']),
                     'flow': ('flow', ['requirements', 'flow', 'versions', 'milestones']),
-                    'staged': ('phases', ['requirements', 'phases', 'milestones', 'versions']),
-                    'discovery': ('phases', ['requirements', 'phases', 'milestones', 'versions'])}
+                    'staged': ('milestones', ['requirements', 'milestones', 'versions']),
+                    'discovery': ('milestones', ['requirements', 'milestones', 'versions'])}
         for mode, (primary, views) in expected.items():
             context = dict(selection_sample()['selection']['context'], work_mode=mode)
             data = {'planning_context': context}
@@ -466,8 +533,8 @@ class RendererTests(unittest.TestCase):
         self.assertNotIn('### Phases', output['roadmap-delivery.md'])
         self.assertNotIn('### Milestones', output['roadmap-delivery.md'])
         self.assertNotIn('Repair acceptance', output['roadmap.md'])
-        self.assertIn('Planning approach', output['roadmap.md'])
-        self.assertIn('(decisions.md#selection)', output['roadmap.md'])
+        self.assertIn('Planning approach', output['roadmap-planning-basis.md'])
+        self.assertIn('(decisions.md#selection)', output['roadmap-planning-basis.md'])
         with self.assertRaisesRegex(ValueError, 'layout'):
             renderer.documents(data, 'single')
 
@@ -490,8 +557,10 @@ class RendererTests(unittest.TestCase):
         data['selection'].update(primary='flow', layout='single')
         data['flow'] = dict(source='flow.md', board='board.md', policy='Pull only below explicit WIP limits',
                             expectation='No historical estimate yet', metrics='Cycle time, throughput, WIP and item age')
-        output = renderer.markdown(renderer.validate(data))
-        self.assertIn('### Flow', output)
+        outputs = renderer.documents(renderer.validate(data))
+        self.assertNotIn(data['flow']['policy'], outputs['roadmap.md'])
+        output = outputs['roadmap-planning-basis.md']
+        self.assertIn('## Flow', output)
         self.assertIn('No historical estimate yet', output)
         self.assertIn('(board.md)', output)
         self.assertNotIn('### Iterations', output)
@@ -518,7 +587,7 @@ class RendererTests(unittest.TestCase):
             result = subprocess.run(command + ['--output-dir', str(out)], capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertTrue((out / 'roadmap-delivery.md').exists())
-            self.assertIn('Planning approach', (out / 'roadmap.md').read_text())
+            self.assertIn('Planning approach', (out / 'roadmap-planning-basis.md').read_text())
 
     def test_legacy_recommendation_preserves_views_without_forcing_context_migration(self):
         data = sample()
@@ -561,29 +630,31 @@ class RendererTests(unittest.TestCase):
             with self.subTest(schema=value), self.assertRaisesRegex(ValueError, 'schema_version'):
                 renderer.recommend(data)
 
-    def test_iteration_view_derives_timebox_and_version_mapping(self):
-        data = iteration_sample()
-        before = copy.deepcopy(data)
-        output = renderer.markdown(renderer.validate(data))
-        self.assertIn('## Priority arrangement', output)
-        self.assertIn('## Delivery plan', output)
-        self.assertIn('### Iterations', output)
-        self.assertIn('Two-week iterations', output)
-        self.assertIn('Validate search behavior', output)
-        self.assertIn('target · W1–W2', output)
-        self.assertIn('V1', output)
-        self.assertIn('(iterations.md#i1)', output)
-        self.assertIn('(https://example.com/board)', output)
-        self.assertIn('### Phases', output)
-        self.assertIn('### Milestones', output)
-        self.assertEqual(data, before)
-        self.assertIn('I1', renderer.svg(data))
+    def test_iteration_plan_is_separate_from_roadmap_and_schedule(self):
+        for schema, layout in [('1.3', 'single'), ('1.5', 'split'), ('1.6', 'topic-split')]:
+            with self.subTest(schema=schema, layout=layout):
+                data = iteration_sample('dates') if schema == '1.3' else language_sample('en', mode='dates')
+                data['schema_version'] = schema
+                if 'selection' in data:
+                    data['selection']['layout'] = layout
+                before = copy.deepcopy(data)
+                outputs = renderer.documents(renderer.validate(data), layout)
+                iteration = outputs['iterations.md' if layout == 'topic-split' else 'iteration-plan.md']
+                self.assertIn('I1', iteration)
+                self.assertIn(data['cadence'], iteration)
+                self.assertIn(data['iterations'][0]['goal'], iteration)
+                self.assertIn('2026-11-02', iteration)
+                for name, content in outputs.items():
+                    if name in ('roadmap.md', 'roadmap-delivery.md', 'roadmap.svg', 'roadmap.mmd'):
+                        self.assertNotIn('I1', content)
+                        self.assertNotIn('iterations.md', content)
+                        self.assertNotIn('iteration-plan.md', content)
+                self.assertEqual(data, before)
 
     def test_iterations_allow_carry_over_without_releasing_or_reprioritizing(self):
         data = iteration_sample()
         data['iterations'].append(dict(data['iterations'][0], id='I2', name='Continue validation'))
-        renderer.validate(data)
-        output = renderer.markdown(data)
+        output = renderer.documents(renderer.validate(data))['iteration-plan.md']
         self.assertIn('I2', output)
         self.assertIn('Unscheduled', output)
         self.assertEqual(data['entries'][0]['tier'], 'Now')
@@ -616,7 +687,7 @@ class RendererTests(unittest.TestCase):
         data = iteration_sample()
         data['iterations'] = []
         data['schedule']['items'].pop()
-        output = renderer.markdown(renderer.validate(data))
+        output = renderer.documents(renderer.validate(data))['iteration-plan.md']
         self.assertIn('No iterations planned', output)
         self.assertIn('Not allocated to an iteration: R1', output)
 
@@ -636,17 +707,19 @@ class RendererTests(unittest.TestCase):
         output = renderer.documents(renderer.validate(data), 'split')
         main, delivery, history = (output[name] for name in (
             'roadmap.md', 'roadmap-delivery.md', 'roadmap-history.md'))
-        self.assertIn('Validate search behavior', main)
+        self.assertNotIn('Validate search behavior', main)
         self.assertIn('Acceptance approval', main)
         self.assertIn('roadmap-delivery.md', main)
         self.assertIn('roadmap-history.md', main)
+        self.assertNotIn('REV7', main)
         self.assertNotIn('REV2', main)
+        self.assertIn('REV7', history)
         self.assertIn('REV2', history)
         self.assertIn('(decisions.md#history)', history)
         self.assertIn('(roadmap.md)', delivery)
         self.assertIn('(roadmap.md)', history)
-        self.assertIn('### Iterations', delivery)
-        self.assertIn('(iterations.md#i1)', delivery)
+        self.assertNotIn('### Iterations', delivery)
+        self.assertIn('(iterations.md#i1)', output['iteration-plan.md'])
         self.assertNotIn('Occurrence criterion', main)
         self.assertIn('Occurrence criterion', delivery)
         self.assertEqual(output['roadmap.svg'], renderer.svg(data))
@@ -655,7 +728,7 @@ class RendererTests(unittest.TestCase):
         data = iteration_sample()
         data.update(views=['requirements'], entries=[], versions=[], phases=[], milestones=[], iterations=[])
         output = renderer.documents(renderer.validate(data), 'split')
-        self.assertEqual(set(output), {'roadmap.md'})
+        self.assertEqual(set(output), {'roadmap.md', 'roadmap-planning-basis.md'})
         self.assertNotIn('roadmap-delivery.md', output['roadmap.md'])
         self.assertNotIn('roadmap-history.md', output['roadmap.md'])
 
@@ -670,11 +743,18 @@ class RendererTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertTrue((out / 'roadmap-delivery.md').exists())
             self.assertTrue((out / 'roadmap-history.md').exists())
-            self.assertIn('I1', (out / 'roadmap.mmd').read_text())
+            self.assertNotIn('I1', (out / 'roadmap.mmd').read_text())
+            self.assertIn('I1', (out / 'iteration-plan.md').read_text())
             (out / 'notes.md').write_text('Keep this source')
             result = subprocess.run(command + ['--overwrite'], capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertFalse((out / 'roadmap-delivery.md').exists())
+            self.assertIn('REV1', (out / 'roadmap-history.md').read_text())
+            self.assertNotIn('REV1', (out / 'roadmap.md').read_text())
+            data['revisions'] = []
+            source.write_text(json.dumps(data))
+            result = subprocess.run(command + ['--overwrite'], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
             self.assertFalse((out / 'roadmap-history.md').exists())
             self.assertEqual((out / 'notes.md').read_text(), 'Keep this source')
 
@@ -716,10 +796,10 @@ class RendererTests(unittest.TestCase):
     def test_iteration_limits_unknowns_and_no_selected_schedule(self):
         data = iteration_sample()
         data['schedule']['items'][-1].update(start=None, end=None)
-        self.assertIn('Unscheduled', renderer.markdown(renderer.validate(data)))
+        self.assertIn('Unscheduled', renderer.documents(renderer.validate(data))['iteration-plan.md'])
         data['views'].remove('schedule')
         data['iterations'][0].update(members=[], owner='Unknown', board=None)
-        output = renderer.markdown(renderer.validate(data))
+        output = renderer.documents(renderer.validate(data))['iteration-plan.md']
         self.assertIn('Unassigned', output)
         self.assertNotIn('[Board]', output)
         data['iterations'] = [dict(data['iterations'][0], id=f'I{i}') for i in range(201)]
@@ -738,32 +818,25 @@ class RendererTests(unittest.TestCase):
             self.assertEqual(data, original)
             self.assertEqual(outputs, renderer.documents(data, 'split'))
 
-    def test_revision_summary_links_evidence_when_schema_1_2_is_used(self):
-        """Covers: roadmap-capabilities#AC11; summary retains why and impact."""
-        data = renderer.validate(revision_sample())
-        output = renderer.markdown(data)
-        self.assertIn('## Revision history', output)
-        self.assertIn('R1: V1 → V2', output)
-        self.assertIn('Export moves three weeks', output)
-        self.assertIn('(decisions.md#rev1)', output)
-
-    def test_revision_compaction_keeps_recent_five_when_history_is_linked(self):
-        """Covers: roadmap-capabilities#AC12; hiding rows does not erase history."""
+    def test_single_documents_keep_all_revisions_in_linked_history(self):
         data = revision_sample()
-        data['revisions'] = [dict(data['revisions'][0], id=f'REV{i}',
-                                  change=f'Change {i}') for i in range(7, 0, -1)]
-        data['revision_history'] = 'decisions.md#history'
+        data['revisions'] = [dict(data['revisions'][0], id=f'REV{i}')
+                             for i in range(7, 0, -1)]
         before = copy.deepcopy(data)
 
-        output = renderer.markdown(renderer.validate(data))
+        output = renderer.documents(renderer.validate(data))
 
-        self.assertIn('REV7', output)
-        self.assertIn('REV3', output)
-        self.assertNotIn('REV2', output)
-        self.assertIn('decisions.md#history', output)
-        self.assertIn('2 older revisions', output)
+        main, history = output['roadmap.md'], output['roadmap-history.md']
+        self.assertIn('(roadmap-history.md)', main)
+        self.assertIn('(roadmap.md)', history)
+        for revision in data['revisions']:
+            self.assertNotIn(revision['id'], main)
+            self.assertIn(revision['id'], history)
+        self.assertLess(history.index('REV7'), history.index('REV1'))
+        self.assertIn('R1: V1 → V2', history)
+        self.assertIn('Export moves three weeks', history)
+        self.assertIn('(decisions.md#rev1)', history)
         self.assertEqual(data, before)
-        self.assertEqual(renderer.markdown(data), output)
 
     def test_cli_delivers_revision_evidence_links_when_input_uses_schema_1_2(self):
         """Covers: roadmap-capabilities#AC12; verify real serialization and output."""
@@ -779,7 +852,10 @@ class RendererTests(unittest.TestCase):
                                      '--output-dir', str(out)], capture_output=True, text=True)
 
             self.assertEqual(result.returncode, 0, result.stderr)
-            output = (out / 'roadmap.md').read_text()
+            main = (out / 'roadmap.md').read_text()
+            self.assertIn('(roadmap-history.md)', main)
+            self.assertNotIn('REV1', main)
+            output = (out / 'roadmap-history.md').read_text()
             self.assertIn('2026-10-20 · REV1', output)
             self.assertIn('(../decisions.md#rev1)', output)
             self.assertEqual((out / '../decisions.md').resolve(), (base / 'decisions.md').resolve())
@@ -817,19 +893,11 @@ class RendererTests(unittest.TestCase):
             with self.subTest(error=error), self.assertRaisesRegex(ValueError, error):
                 renderer.validate(data)
 
-    def test_compacted_revision_input_requires_full_history_reference(self):
-        data = revision_sample()
-        data['revisions'] = [dict(data['revisions'][0], id=f'REV{i}') for i in range(6)]
-        with self.assertRaisesRegex(ValueError, 'revision_history'):
-            renderer.validate(data)
-
-    def test_revision_limit_accepts_200_records_with_retained_history(self):
+    def test_revision_limit_preserves_all_200_supplied_records(self):
         data = revision_sample()
         data['revisions'] = [dict(data['revisions'][0], id=f'REV{i}') for i in range(200)]
-        data['revision_history'] = 'decisions.md#history'
-        output = renderer.markdown(renderer.validate(data))
-        self.assertIn('195 older revisions', output)
-        self.assertNotIn('REV5', output)
+        output = renderer.documents(renderer.validate(data))
+        self.assertEqual(output['roadmap-history.md'].count(' · REV'), 200)
 
     def test_revision_dates_require_newest_first_order(self):
         data = revision_sample()
@@ -845,12 +913,16 @@ class RendererTests(unittest.TestCase):
             self.assertNotIn('## Revision history', renderer.markdown(renderer.validate(data)))
         data = revision_sample()
         data['revisions'] = []
-        self.assertIn('No material revisions recorded', renderer.markdown(renderer.validate(data)))
+        self.assertNotIn('## Revision history', renderer.markdown(renderer.validate(data)))
+        data['revision_history'] = 'decisions.md#history'
+        output = renderer.documents(renderer.validate(data))
+        self.assertIn('(decisions.md#history)', output['roadmap.md'])
+        self.assertNotIn('roadmap-history.md', output)
 
     def test_revision_display_escapes_text_and_bounds_record_count(self):
         data = revision_sample()
         data['revisions'][0]['change'] = '<script> | [link]'
-        output = renderer.markdown(renderer.validate(data))
+        output = renderer.documents(renderer.validate(data))['roadmap-history.md']
         self.assertIn('&lt;script&gt;', output)
         self.assertNotIn('<script>', output)
         data['revisions'] = [dict(data['revisions'][0], id=f'REV{i}') for i in range(201)]
@@ -860,7 +932,7 @@ class RendererTests(unittest.TestCase):
     def test_independent_phase_and_event_share_version_context(self):
         data = renderer.validate(event_sample())
         result = renderer.markdown(data)
-        self.assertIn('## Phases', result)
+        self.assertNotIn('## Phases', result)
         self.assertIn('## Milestones', result)
         self.assertIn('Reviewer signs acceptance', result)
         self.assertIn('planned', renderer.svg(data))
@@ -912,7 +984,7 @@ class RendererTests(unittest.TestCase):
         valid = renderer.validate(data)
         output = renderer.mermaid(valid)
         self.assertIn('V1, 2026-11-02, 14d', output)
-        self.assertIn('PH1, 2026-11-02, 14d', output)
+        self.assertNotIn('PH1', output)
         self.assertIn('milestone, M1, 2026-11-16, 0d', output)
         self.assertIn('planned', output)
         data['schedule']['items'][-1].update(start=None, end=None)
@@ -960,7 +1032,7 @@ class RendererTests(unittest.TestCase):
 
                 self.assertEqual(result.returncode, 0, result.stderr)
                 markdown = (out / 'roadmap.md').read_text(encoding='utf-8')
-                self.assertIn('## Phases', markdown)
+                self.assertNotIn('## Phases', markdown)
                 self.assertIn('Reviewer signs acceptance', markdown)
                 svg = ET.fromstring((out / 'roadmap.svg').read_text(encoding='utf-8'))
                 self.assertEqual(len(svg.findall(
@@ -995,7 +1067,7 @@ class RendererTests(unittest.TestCase):
         self.assertIn('R1', renderer.markdown(data))
         self.assertIn('W1–W2', renderer.markdown(data))
         self.assertIn('Make request handling dependable', renderer.markdown(data))
-        self.assertIn('Search enables export', renderer.markdown(data))
+        self.assertIn('Search enables export', renderer.documents(data)['roadmap-planning-basis.md'])
 
     def test_dated_mermaid_uses_real_dates_and_escaped_labels(self):
         data = sample('dates')
@@ -1091,9 +1163,10 @@ class RendererTests(unittest.TestCase):
         data['versions'][0]['members'] = []
         self.assertIn('Unassigned: R1', renderer.markdown(renderer.validate(data)))
 
-    def test_key_condition_links_to_its_source_evidence(self):
+    def test_legacy_conditions_are_omitted_and_entry_source_remains_linked(self):
         result = renderer.markdown(renderer.validate(sample()))
-        self.assertIn('[Review results](requirements/search.md#acceptance)', result)
+        self.assertNotIn('Review results', result)
+        self.assertIn('](requirements/search.md#acceptance)', result)
 
     def test_generation_is_deterministic_and_does_not_mutate_input(self):
         data = sample()
@@ -1183,6 +1256,39 @@ class RendererTests(unittest.TestCase):
                                      '--output-dir', str(out), '--overwrite'], capture_output=True)
             self.assertEqual(result.returncode, 1)
             self.assertEqual(evidence.read_text(), 'preserve source')
+
+    def test_cli_overwrite_preserves_unowned_new_sibling_documents(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / 'input.json'
+            out = root / 'output'
+            out.mkdir()
+            source.write_text(json.dumps(sample()))
+            manual_plan = out / 'iteration-plan.md'
+            manual_plan.write_text('An independently maintained iteration plan.')
+            result = subprocess.run([sys.executable, str(SCRIPT), str(source),
+                '--output-dir', str(out), '--overwrite'], capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn('unowned reserved outputs', result.stderr)
+            self.assertEqual(manual_plan.read_text(), 'An independently maintained iteration plan.')
+            self.assertFalse((out / 'roadmap.md').exists())
+
+    def test_cli_refuses_to_prune_a_modified_generated_iteration_plan(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / 'input.json'
+            out = root / 'output'
+            source.write_text(json.dumps(iteration_sample()))
+            command = [sys.executable, str(SCRIPT), str(source), '--output-dir', str(out)]
+            subprocess.run(command, check=True, capture_output=True)
+            plan = out / 'iteration-plan.md'
+            plan.write_text('Preserve the updated team plan.')
+            before = {path.name: path.read_bytes() for path in out.iterdir()}
+            source.write_text(json.dumps(sample()))
+            result = subprocess.run(command + ['--overwrite'], capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn('stale generated output was edited', result.stderr)
+            self.assertEqual(before, {path.name: path.read_bytes() for path in out.iterdir()})
 
     def test_cli_preflight_and_stale_output_removal(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -1314,7 +1420,9 @@ class StructureGenerationTests(unittest.TestCase):
         data['entries'][0]['execution'] = 'Completed'
         output = renderer.documents(renderer.validate(data))
         self.assertNotIn('<details>', output['roadmap.md'])
-        self.assertNotIn('| [R1 ·', output['roadmap.md'])
+        priorities = output['roadmap.md'].split('## Delivery outlook', 1)[0]
+        self.assertNotIn('| [R1 ·', priorities)
+        self.assertIn('| [R1 ·', output['roadmap.md'])
         self.assertIn('R1', output['roadmap-history.md'])
 
     def test_topic_flow_retains_policy_without_inventing_iterations(self):
@@ -1330,9 +1438,18 @@ class StructureGenerationTests(unittest.TestCase):
         data = language_sample('en')
         data['schema_version'] = '1.6'
         data['selection']['layout'] = 'topic-split'
+        data['revisions'] = revision_sample()['revisions']
         data['revision_history'] = 'history.md#all-decisions'
         outputs = renderer.documents(renderer.validate(data))
+        self.assertIn('(roadmap-history.md)', outputs['roadmap.md'])
+        self.assertNotIn('REV1', outputs['roadmap.md'])
+        self.assertIn('REV1', outputs['roadmap-history.md'])
         self.assertIn('history.md#all-decisions', outputs['roadmap-history.md'])
+        self.assertIn('## References', outputs['roadmap.md'])
+        for key in ('ordering', 'priority_policy', 'closure', 'cadence'):
+            self.assertNotIn(data[key], outputs['roadmap.md'])
+        self.assertIn(data['ordering'], outputs['roadmap-planning-basis.md'])
+        self.assertIn(data['cadence'], outputs['iterations.md'])
         self.assertIn(data['phases'][0]['owner'], outputs['roadmap-planning-basis.md'])
         self.assertIn('exclusive', outputs['roadmap.md'])
         flow = json.loads((ROOT / 'skills/define-roadmap/references/scenarios/continuous-flow/input.json').read_text())
@@ -1375,7 +1492,7 @@ class StructureGenerationTests(unittest.TestCase):
             source.write_text(json.dumps(data))
             result = subprocess.run(cmd, capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertEqual({p.name for p in out.glob('*.md')}, {'roadmap.md', 'team-notes.md'})
+            self.assertEqual({p.name for p in out.glob('*.md')}, {'roadmap.md', 'roadmap-planning-basis.md', 'iteration-plan.md', 'team-notes.md'})
             self.assertEqual((out / 'team-notes.md').read_text(), 'Keep')
 
     def test_unowned_old_delivery_file_blocks_reset_without_partial_writes(self):

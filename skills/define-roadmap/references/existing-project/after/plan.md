@@ -19,13 +19,13 @@ work has started. Missing strategic-goal and priority-policy evidence is unresol
 
 ## Priority arrangement
 
-| ID | Name | Outcome | Priority | Tier | Approval | Execution | Conditions | Source |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| R1 | Request lookup | Retrieve an existing service request | P0 | Next | Approved | Not started | Accepted interface available | [R1](../sources.md#r1) |
-| R2 | Interface repair | Restore the interface needed for retrieval | P1 | Now | Draft | — | Verify repair and acceptance | [R2](../sources.md#r2) |
+| ID | Name | Priority | Tier | Approval | Execution | Source |
+| --- | --- | --- | --- | --- | --- | --- |
+| R1 | Request lookup | P0 | Next | Approved | Not started | [R1](../sources.md#r1) |
+| R2 | Interface repair | P1 | Now | Draft | — | [R2](../sources.md#r2) |
 
 Later: no planned items. Row order remains the source order, not a new precedence
-decision. Stable source references retain detailed evidence.
+decision. [R1](../sources.md#r1) remains in Next while the accepted interface is unavailable.
 
 ## Delivery plan
 

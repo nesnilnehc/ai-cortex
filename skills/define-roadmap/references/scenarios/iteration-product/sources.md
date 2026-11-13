@@ -28,9 +28,9 @@ not universal defaults or real commitments. Planned work is not claimed complete
 
 | ID | Name | Outcome | Tier | Priority | Approval | Execution | Conditions |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| R1 | Search requests | Find requests by reference | Now | P1 | Approved | In progress | Validate search acceptance with pilot users |
+| R1 | Find requests by reference | Find requests by reference | Now | P1 | Approved | In progress | Validate search acceptance with pilot users |
 | R2 | Export search results | Reuse authorized results | Next | P1 | Approved | Not started | Accepted search contract available |
-| R3 | Reminders | Reduce missed follow-ups | Later | P2 | Draft | Not started | Re-evaluate after observed missed follow-ups |
+| R3 | Remind users to follow up | Reduce missed follow-ups | Later | P2 | Draft | Not started | Re-evaluate after observed missed follow-ups |
 
 ## R1
 

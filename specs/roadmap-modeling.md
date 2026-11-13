@@ -2,7 +2,7 @@
 id: ROADMAP_MODELING_SPEC_V1
 name: Roadmap Modeling Schema
 description: Roadmap views, source authority, priority vocabulary and local generation input contract.
-version: 1.13.0
+version: 2.0.0
 status: active
 lifecycle: living
 created_at: 2026-10-20
@@ -16,7 +16,7 @@ related:
 
 # Roadmap Modeling Schema
 
-> **Data contract**: defines consistent requirement, iteration/version and schedule views.
+> **Data contract**: defines consistent roadmap and delivery views and a compatible iteration plan export.
 
 ## 1. Position and scope
 
@@ -29,9 +29,8 @@ roadmaps remain valid. Optional views do not create additional planning authorit
 | View | Question | Unit |
 | --- | --- | --- |
 | Requirement arrangement | What comes first, and what is its state? | Requirement or defect |
-| Iteration cadence (optional) | What near-term goal fits each timebox? | Timebox referencing requirement/defect IDs |
 | Version delivery | What ships together? | Named delivery group referencing requirement/defect IDs |
-| Schedule | When, and for how long? | Requirement/defect, version or phase span; independent event marker |
+| Schedule | When, and for how long? | Requirement/defect or version span and independent milestone marker |
 
 Now / Next / Later, priority, version membership, approval and execution are
 independent dimensions. A version row is a grouping, not a task or a replacement
@@ -45,7 +44,7 @@ different choices. A dependency graph supplements these views.
 
 | Concept | Meaning | Relationship |
 | --- | --- | --- |
-| Roadmap | Evolving view of direction, sequence and timing | Presents requirements, versions, phases and events through selected views |
+| Roadmap | Evolving view of direction, sequence and timing | Presents requirements, versions and milestones through selected views |
 | Version | Delivery group of requirements/defects | May span several phases and have several milestones |
 | Iteration | Recurring timebox with a goal | Can touch multiple versions; one version can span multiple iterations |
 | Phase | Time-bearing segment of work with an exit condition | References requirements and/or versions; phases may overlap |
@@ -190,7 +189,7 @@ The zero-duration event model is a deliberate project choice; tools permitting
 nonzero-duration milestone tasks must map their event separately from the work span.
 Existing single-view Markdown and JSON 1.0 inputs remain valid. A legacy 1.0 marker
 references an entry/version directly; do not silently convert it or infer occurrence.
-New independent phase/event records use 1.1–1.6. Revision summaries use 1.2–1.6. Their registers appear only when
+Milestone and legacy phase records use 1.1–1.6. Revision summaries use 1.2–1.6. Supported registers appear only when
 records exist; no additional view or lifecycle gate is compulsory.
 
 ## 5. Body structure contract
@@ -306,17 +305,23 @@ rendering interface uses a narrower reference grammar.
 
 ### 5.1 Human-readable roadmap
 
-Required: project direction, update date, requirement arrangement, ordering basis,
-source references and declared closure criterion or an explicit unresolved notice.
-Each requirement/defect carries ID, name, source, outcome, priority, tier, separate
-approval and execution, and key conditions. Execution labels are owned by the
+The main roadmap shows the current planning result: project direction, update date,
+requirement arrangement, material unknowns and selected delivery outcomes or dates.
+A References section links the planning basis, including the ordering rationale and
+the declared closure criterion or its unresolved status, and any retained history.
+Each requirement or defect carries an ID, a title linked to its source, priority,
+tier, and separate approval and execution states. The title names
+the capability to deliver or the problem to fix. Execution labels are owned by the
 [quality rule](../rules/roadmap-quality.md#execution-status-vocabulary).
+Summarize blockers that affect current placement or delivery outside the table and
+link the relevant sources. Keep detailed prerequisites and phase exit criteria in
+supporting documents.
 
-Version, iteration and schedule views are selected when useful. Discuss delivery cadence
-and recommend appropriate delivery/schedule views at creation; no view is mandatory
-merely because a template supports it.
+Select version and schedule views when useful. Manage iteration goals, cadence,
+timeboxes and allocations in an independent iteration plan or execution board.
 Only selected views are required. Version groups carry stable ID, planning name,
-member references, core outcome, owner and target window; unknown values are explicit.
+linked member titles, core outcome, owner and target window. Use the same ID, title
+and source link as the requirement table for each member. State unknown values explicitly.
 Formal release numbers and version types are optional project facts, never invented.
 An item may remain unassigned; it is shown as such rather than silently omitted.
 
@@ -327,47 +332,26 @@ release evidence is linked rather than duplicated in the roadmap.
 
 ### Reading order and document boundaries
 
-Use this reading order rather than a separate top-level chapter per data type:
+Lead with the current plan. Use this reading order:
 
-1. Overview: direction, update date and a concise explanation of the current
-   arrangement. Summarize known near-term outcomes and material unknowns when they
-   change how the plan should be read; do not repeat the item inventory.
-2. Priority arrangement: requirements/defects and their material conditions.
-3. Delivery plan, when selected: iteration and/or version planning, with relevant
-   phases and milestone events grouped beneath it.
-4. Timeline, when selected: primary diagram, unknowns and timing exceptions;
-   a detailed timing table may be folded or linked.
-5. Latest revisions.
-6. Planning basis and sources: priority policy, closure basis, retained view/layout
-   and language evidence, and source/detail links. Use short summaries and links;
-   maintenance metadata does not take precedence over the plan.
+1. Overview: direction, update date, near-term outcomes and material unknowns.
+2. Priority arrangement: requirements and defects, with material blockers summarized below the table.
+3. Delivery outlook: versions and milestones, when selected. The timeline shows
+   delivery dates at the precision the source supports.
+4. References: links to planning basis, policies, detailed
+   delivery plans, revision history and other relevant sources.
 
-The overview is a reader summary, not a mandatory form of additional fields. Put
-unverified execution evidence before the requirement table so placement is not
-mistaken for actual progress. Summarize immediate decisions/unknowns there only
-when supported; detailed dependency chains remain in the rows and linked sources.
-The policy and closure basis remain recoverable from the main document even when
-their full definitions live elsewhere. Existing plans need no automatic rewrite.
-
-Keep completed work separate from active priorities (folded or linked archive),
-without changing its source status or tier. Do not replicate a priority table in
-several narrative sections. Definitions and author instructions belong in guides,
-not filled deliverables. Omit empty optional chapters rather than padding them.
-
-A small roadmap MAY remain one document. Split when readership, ownership, update
-cadence or volume makes separate maintenance useful, not at an invented page limit.
 The main roadmap MUST independently explain current priorities, next work, blockers,
-near-term delivery expectations and key events where known. It retains the latest
-five revision summaries. It MUST NOT become a link-only index.
+near-term delivery expectations and key events where known. Keep unverified execution
+visible before the requirement table. Keep completed work separate from active
+priorities without changing its source status or tier.
 
-Optional detail documents hold iteration plans, version scope, schedule detail or
-retained history. Separate iteration and version documents only when useful; phases
-and events normally stay with the related delivery plan. A topic-split combination
-may instead use a main roadmap plus iteration, version, milestone, planning-basis
-and revision-detail documents, with the timeline in the main. This is an optional
-reader-oriented combination, not six mandatory files. Do not split every field,
-empty section or individual object into a file without a reader/ownership need.
-Gantt is a derived view, not an additional planning authority. Every detail page links back to the main plan.
+Maintain ordering rationale, priority and closure rules, workflow
+policy, and view/layout/language decisions in supporting documents or existing sources
+outside the main roadmap. Combine supporting topics when readers and ownership align.
+Keep revision records in a separate document or directory under [§5.4](#54-revision-records).
+Existing sources, paths and links are valid. Each supporting view produced as part of
+the roadmap links back to the main. Gantt is a derived view of the timing source.
 
 For each fact, declare one editable source (requirement, iteration board, version
 plan or decision record). Main/detail summaries are linked or generated projections.
@@ -528,7 +512,7 @@ infer missing priorities, owners, dates or dependencies.
 | `revisions` | array | Required in 1.2–1.6, including an explicit empty array for an adopted baseline; not modeled in earlier schemas |
 | `selection` | object | Required in 1.4+; source-backed scenario, primary perspective, layout, rationale and context; top-level views are the only enabled-view list |
 | `flow` | object | In 1.4+, required only when flow selected; workflow policy, expectation, metrics and source/board links |
-| `revision_history` | string or null | Optional full-history reference in 1.2–1.6; required when more than five revision records are supplied |
+| `revision_history` | string or null | Optional link to retained history in 1.2–1.6 |
 
 Unmodeled keys may be retained as input metadata but do not affect generated
 views. In particular, only milestone records own the modeled event `state`;
@@ -544,13 +528,16 @@ references follow the common reference contract. Other values remain escaped pro
 Legacy 1.0–1.2 single output retains its existing presentation. No new input field,
 mandatory policy file or schema migration is introduced.
 
-Entry fields: `id`, `name`, `source`, `outcome`, `priority` (P0–P3 or unset),
-`tier` (Now/Next/Later), `approval`, `execution`, `conditions`.
+Entry fields: `id`, `name`, `source`, `priority` (P0–P3 or unset),
+`tier` (Now/Next/Later), `approval`, and `execution`. Optional `blocker` is a
+short source-backed note about an impediment that affects current placement or
+delivery. It appears outside the table for active work.
 All are nonempty strings except `execution`, which may be null for unverified
 mapping. Null is reported separately from status, never replaced by a guessed
 execution label. Entry IDs are unique ASCII letters/digits/underscores/hyphens,
 starting with a letter. Source is a relative reference, fragment, or HTTP(S) URL;
-absolute paths, protocol-relative URLs and other schemes are rejected.
+absolute paths, protocol-relative URLs and other schemes are rejected. Older input
+may carry entry `outcome` and `conditions` as unmodeled metadata.
 
 Version fields: `id`, `name`, `members` (entry IDs), `outcome`, `owner`, `window`.
 IDs are globally unique across entry/version/phase/milestone records and 1.3+ iterations. Unknown owner/window uses
@@ -578,7 +565,7 @@ Actual milestone timing requires reached state and therefore evidence.
 In 1.1–1.6, schedule kind `span` references entries, versions, phases or 1.3+ iterations; kind `milestone`
 references only milestone IDs. Each record has at most one schedule item, while
 multiple event IDs may reference the same version and share its boundary date.
-Unsupplied phase/event timing is reported as missing when schedule is selected.
+Unsupplied milestone timing is reported as missing when the schedule is selected.
 
 Schedule fields: `mode` (dates/weeks), `origin` (nonempty explanation),
 `calendar` (exactly `calendar-days`), `items` (array).
@@ -606,28 +593,26 @@ Input is capped at 1 MiB, 200 total planning objects (including 1.3+ iterations)
 200 characters per text field. Larger roadmaps must be split. Schedule horizon
 is capped at 366 calendar days or 104 weeks to preserve readable output.
 
-The original layouts are `--layout single` (default) and `--layout split`; schema 1.6
-also supports the topic layout defined in §5.8. Single mode writes
-`roadmap.md`; split mode writes that main document plus `roadmap-delivery.md` when
-selected delivery/schedule content exists and `roadmap-history.md` when revision
-records exist. Delivery detail groups iterations/versions, phases/events and the
-timeline; separate per-iteration/per-version files are not generated by this tool.
-The main document retains compact delivery/event summaries and latest-five revisions,
-with links to detail pages. History detail renders every supplied record and links
-retained source history; supplied records need not contain all historical decisions.
-Split mode does not move or edit authoritative source documents.
+Single and split layouts write `roadmap.md` and `roadmap-planning-basis.md`.
+Single keeps selected delivery results with the current plan. Split writes
+`roadmap-delivery.md` when delivery or schedule content exists and keeps a compact
+delivery outlook in the main. When iteration export is selected, both also write a standalone
+`iteration-plan.md`. Both link roadmap supporting material from References and
+generate `roadmap-history.md` when revision records are supplied. A supplied history
+link with no records can be referenced directly. Schema 1.6 also supports the topic
+layout in §5.8. Generated pages are projections of the input and linked sources.
 
 Selected schedules produce `roadmap.svg`; dated schedules also produce `roadmap.mmd`.
 Relative weeks produce SVG and a timing table, never fictitious calendar dates.
-Schema 1.3–1.6 single output uses the reading order above; legacy single outputs retain
-their established structure. Explicit split rendering may reorganize older input.
+All supported input schemas render the current plan with a References section.
 
-All five fixed sibling filenames are reserved generated views. Source references
+All seven fixed sibling filenames are reserved generated views. Source references
 are already relative to the selected output directory; sibling layouts need no
 rebasing. Files are deterministic UTF-8. Preflight every reserved path before
 writing: reject symlink/nonregular paths, existing files without `--overwrite`,
-aliases of the input (including hard links), and aliases between reserved outputs. Explicit overwrite also removes
-stale reserved views when changing layout/selection; unrelated files are untouched.
+aliases of the input (including hard links), and aliases between reserved outputs.
+All layouts record generated ownership. Explicit overwrite removes intact stale
+outputs as described in §5.8.
 Never place authoritative evidence at a reserved output path. I/O failures may leave
 partial output and must be reported; generation is not a transactional filesystem.
 
@@ -640,19 +625,16 @@ material exclusions and milestone cancellation, missed or reached states. A
 source-backed milestone event is not itself permission to change related work.
 Routine wording, formatting and link corrections may remain in Git history.
 
-Keep the latest five summaries, newest first, in the roadmap. Each contains a stable
-revision ID, calendar date, before/after change, reason, impact and details/source
-link. One coherent decision can cover several affected objects; do not log a
-separate revision for every generated view or every tool invocation. A repeated
-render or retry of the same decision reuses its ID. A correction appends a new
-revision referencing the earlier decision rather than erasing its original facts.
+Keep revision entries in a separate history document or directory. Link its
+entry point from the main roadmap's References section. Reuse existing decision
+records or archives when they provide that history. List revisions newest first,
+with a stable ID, date, before/after change, reason, impact and a details or source
+link. One decision uses one ID across affected views and retries. A correction
+appends a linked revision that preserves the original decision.
 
-Detailed evidence and complete history stay in existing decision/change records,
-source documents or linked archive snapshots. Git preserves textual differences;
-it does not replace the reader-facing reason and impact. Before shortening the
-summary table, retain older decisions and verify their history link. A history
-record can name an object removed from the current plan. History is neither a
-current-scope declaration nor implementation/release approval.
+Keep the complete history and evidence accessible from that entry point. Git
+preserves textual differences. Record the reason and impact in reader-facing
+history. A history entry may refer to an object removed from the current plan.
 
 For existing roadmaps, adopt a baseline on the actual adoption date and link known
 history. Do not reconstruct unknown decisions, dates or owners from a current
@@ -671,14 +653,18 @@ from the 200 planning-object cap. `revision_history` uses the source-reference s
 An empty revisions array states no material revisions were supplied, not that none
 ever occurred. A linked history can still be supplied with an empty summary.
 
-The generator renders only the latest five records and a full-history link; it does
-not infer changes, append decisions or edit linked source history. Calling skills
-must preserve durable history and carry the appropriate revision records forward
-when regenerating. JSON 1.0/1.1 continue to ignore these unmodeled metadata keys.
-SVG and Mermaid remain schedule views; the revision table is in roadmap Markdown,
-not another set of Gantt activities.
+The generator renders every supplied revision in the separate history document
+and links any supplied retained history source. Calling skills carry retained
+records forward when regenerating. JSON 1.0/1.1 ignore unmodeled revision metadata.
+SVG and Mermaid present schedule facts.
 
 ### 5.5 Optional iteration view (schema 1.3)
+
+Manage iterations independently. The existing `iterations` input and timeboxes
+remain supported for exporting a separate iteration plan. The roadmap, delivery
+detail and timeline exclude iteration rows and dependencies on them. Source
+validation still checks the supplied schedule. The standalone plan retains the
+iteration timeboxes and references to their sources.
 
 Iterations express delivery cadence (for example, every two to four weeks), not
 priority tiers. Record a source-backed cadence and near-term goals without forcing
@@ -705,8 +691,9 @@ validation and span exports, but phase scope/event relations retain their existi
 entry/version/phase contracts. Relate an iteration-end approval event to its actual
 work scope rather than inventing automatic lifecycle coupling.
 
-Schema 1.3 inherits 1.2 revision requirements. Iteration goal/scope/cadence/timebox
-changes are material planning changes and use the same revision mechanism. Rendering
+Track changes to iteration goals, allocations, cadence and timeboxes in the
+iteration plan. Record a roadmap revision when the decision also changes a
+material roadmap fact. Rendering
 never generates a decision. Schemas 1.0–1.2 ignore unmodeled iteration metadata and
 reject selecting the iterations view; there is no silent upgrade.
 
@@ -736,7 +723,7 @@ a focused reconsideration proposal. Do not overwrite them from a fresh default.
 A material selection/cadence/scope change uses one revision with its source decision.
 
 For 1.4+, `selection` has `scenario` (iterations/flow/staged/discovery/custom), `primary`
-(requirements/iterations/versions/phases/flow), `layout` (single/split; 1.6 also permits topic-split), `rationale`,
+(requirements/iterations/versions/milestones/flow, plus legacy phases), `layout` (single/split; 1.6 also permits topic-split), `rationale`,
 `source` and `context`. Context contains `work_mode` (iterations/flow/staged/discovery),
 `delivery` (continuous/versioned/acceptance), `audience`, `constraints`, `source`.
 Text/reference bounds are unchanged. Use explicit no-constraint statements when
@@ -745,10 +732,13 @@ appropriate. Sources must support the decision and facts, not merely link a guid
 hybrid choice can differ from its context's default recommendation with a rationale.
 Destination stays the caller's established path/tool choice, not a duplicate JSON field.
 
-In 1.4+, phases and milestones render only when independently selected in `views`;
-selected arrays must be present (empty is allowed). Unselected record metadata may
-remain for traceability but does not enable a register. A selected schedule may
-still plot supplied phase/event timing independently of its detail register.
+In 1.4+, the milestone register is rendered when selected in `views`. Supplied
+milestone timing can still appear on a selected timeline. Existing phase arrays
+and selections remain valid inputs. Preserve phase details in their source or
+planning basis and omit phase rows from the roadmap, delivery detail and timeline.
+The timeline omits dependencies on hidden phase spans. The milestone register
+shows related requirements and versions and links the event source. Source
+validation still checks the complete input, including legacy phase dependencies.
 No occurrence, approval or completion is inferred from selection. Older schemas
 retain automatic optional registers and do not gain 1.4 behavior implicitly.
 
@@ -862,10 +852,10 @@ Schema 1.6 inherits 1.5, including language evidence, and adds `topic-split` to
 passing a conflicting CLI layout still fails rather than replacing a saved choice.
 The topic layout writes exactly six Markdown roles: `roadmap.md`, `iterations.md`,
 `versions.md`, `milestones.md`, `roadmap-planning-basis.md`, `roadmap-history.md`.
-The main carries requirement arrangement, delivery summaries, timeline and latest
-five revisions. Details retain the complete supplied revisions and source links.
-Selected phase/flow records remain in planning-basis source context, not silently
-lost or expanded into additional files. A selected schedule also produces SVG and,
+The main carries requirement arrangement, delivery summaries, timeline and References.
+Planning basis holds rationale and rules, the iteration plan holds cadence, and
+the history document retains the complete supplied revisions and source links.
+Selected legacy phase and flow records remain in planning-basis source context. A selected schedule also produces SVG and,
 for calendar dates, Mermaid. Blank and populated topic output preserve the same
 second-level headings and table columns; population does not redesign the structure.
 
@@ -878,14 +868,16 @@ internal navigation; reading template files alone is insufficient. Recommendatio
 resolution modes cannot combine with blank mode.
 For populated output, language comes from the retained input rather than `--locale`.
 
-Blank and topic output use `.roadmap-outputs.json` as generated-file ownership
+All layouts use `.roadmap-outputs.json` as generated-file ownership
 metadata, not another plan. Preflight checks all reserved topic files, graphics and
 the manifest before writing; symlinks, non-files, hardlink aliases and input/output
 aliases fail. Existing reserved output requires explicit `--overwrite`. Identical
 writes preserve modification times. On reset, only intact stale files listed in
 the manifest are removed. Unrelated files are left alone; modified stale outputs
-cause failure before mutation. An invalid manifest fails closed. Without ownership metadata, legacy cleanup retains its original reserved scope;
-only manifest-proven topic files can be removed during an owned layout transition.
+cause failure before mutation. An invalid manifest fails closed. Without ownership metadata, single and split layouts clean up only the original
+five reserved paths. Existing `iteration-plan.md` and `roadmap-planning-basis.md`
+require ownership evidence before replacement or cleanup. If either file is
+hand-maintained, choose a separate output directory.
 When ownership metadata exists, transitions back to single/split use the same
 intact-owned-file rule; they do not leave stale topic detail files behind. Unowned
 reserved files outside the requested output set cause a pre-write refusal rather

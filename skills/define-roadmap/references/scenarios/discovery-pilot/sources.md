@@ -27,7 +27,7 @@ not universal defaults or real commitments. Planned work is not claimed complete
 
 | ID | Name | Outcome | Tier | Priority | Approval | Execution | Conditions |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| R1 | Validate assisted triage | Determine whether users understand triage suggestions | Now | P1 | Approved | In progress | Retain findings from five pilot participants |
+| R1 | Test whether users understand triage suggestions | Determine whether users understand triage suggestions | Now | P1 | Approved | In progress | Retain findings from five pilot participants |
 | R2 | Expand triage rollout | Extend useful assistance | Later | P2 | Draft | Not started | Sponsor decides from pilot evidence |
 
 ## R1

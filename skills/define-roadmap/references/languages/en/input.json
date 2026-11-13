@@ -10,21 +10,60 @@
     "requirements",
     "iterations",
     "versions",
-    "phases",
     "milestones",
     "schedule"
   ],
   "entries": [
     {
       "id": "R1",
-      "name": "Search requests",
-      "outcome": "Find requests by reference",
+      "name": "Find requests by reference",
       "tier": "Now",
       "priority": "P1",
       "approval": "Approved",
       "execution": "In progress",
       "conditions": "Validate search with pilot users",
       "source": "../sources.md#r1"
+    },
+    {
+      "id": "R4",
+      "name": "Filter requests by status",
+      "tier": "Now",
+      "priority": "P1",
+      "approval": "Approved",
+      "execution": "Not started",
+      "conditions": "Confirm filter scope with pilot users",
+      "source": "../sources.md#r4"
+    },
+    {
+      "id": "BUG1",
+      "name": "Prevent empty searches from clearing filters",
+      "tier": "Now",
+      "priority": "P1",
+      "approval": "Approved",
+      "execution": "Blocked",
+      "conditions": "Obtain a reproducible pilot trace",
+      "source": "../sources.md#bug1",
+      "blocker": "The team cannot isolate the filter defect without a reproducible pilot trace."
+    },
+    {
+      "id": "R2",
+      "name": "Find requests by customer name",
+      "tier": "Next",
+      "priority": "P1",
+      "approval": "Approved",
+      "execution": "Not started",
+      "conditions": "Verify reference search with pilot users",
+      "source": "../sources.md#r2"
+    },
+    {
+      "id": "R3",
+      "name": "Save frequently used search filters",
+      "tier": "Later",
+      "priority": "P2",
+      "approval": "Draft",
+      "execution": "Not started",
+      "conditions": "Confirm demand from repeated pilot use",
+      "source": "../sources.md#r3"
     }
   ],
   "revisions": [
@@ -47,7 +86,7 @@
     "scenario": "iterations",
     "primary": "iterations",
     "layout": "split",
-    "rationale": "Use iteration goals, a delivery batch and an acceptance phase.",
+    "rationale": "Show delivery through versions and milestones and keep iteration planning separate.",
     "source": "../sources.md#selection",
     "context": {
       "work_mode": "iterations",
@@ -62,11 +101,22 @@
       "id": "V1",
       "name": "Search delivery",
       "members": [
-        "R1"
+        "R1",
+        "R4"
       ],
       "outcome": "Search is usable",
       "owner": "Release coordinator",
       "window": "Target: 2026-11-02 to 2026-11-16 (end exclusive)"
+    },
+    {
+      "id": "V2",
+      "name": "Customer name search delivery",
+      "members": [
+        "R2"
+      ],
+      "outcome": "Requests are findable by customer name",
+      "owner": "Release coordinator",
+      "window": "Target: 2026-11-16 to 2026-11-30 (end exclusive)"
     }
   ],
   "iterations": [
@@ -80,28 +130,26 @@
       ],
       "source": "../sources.md#i1",
       "board": "../sources.md#board"
+    },
+    {
+      "id": "I2",
+      "name": "Validate customer name search",
+      "goal": "Verify customer name search accuracy",
+      "owner": "Product team",
+      "members": [
+        "R2"
+      ],
+      "source": "../sources.md#i2",
+      "board": "../sources.md#board"
     }
   ],
   "cadence": "Two-week iterations",
-  "phases": [
-    {
-      "id": "PH1",
-      "name": "Pilot validation",
-      "scope": [
-        "V1"
-      ],
-      "owner": "Acceptance owner",
-      "exit_condition": "Pilot acceptance is signed",
-      "source": "../sources.md#ph1"
-    }
-  ],
   "milestones": [
     {
       "id": "MS1",
       "name": "Accept pilot outcome",
       "related": [
-        "V1",
-        "PH1"
+        "V1"
       ],
       "category": "approval",
       "owner": "Acceptance owner",
@@ -109,6 +157,19 @@
       "state": "planned",
       "evidence": null,
       "source": "../sources.md#ms1"
+    },
+    {
+      "id": "MS2",
+      "name": "Accept customer name search",
+      "related": [
+        "V2"
+      ],
+      "category": "approval",
+      "owner": "Acceptance owner",
+      "criterion": "Customer name search acceptance receipt is recorded",
+      "state": "planned",
+      "evidence": null,
+      "source": "../sources.md#ms2"
     }
   ],
   "schedule": {
@@ -133,21 +194,43 @@
         "depends_on": []
       },
       {
-        "ref": "PH1",
-        "kind": "span",
-        "basis": "target",
-        "start": "2026-11-02",
-        "end": "2026-11-16",
-        "depends_on": []
-      },
-      {
         "ref": "MS1",
         "kind": "milestone",
         "basis": "target",
         "start": "2026-11-16",
         "end": "2026-11-16",
         "depends_on": [
-          "PH1"
+          "V1"
+        ]
+      },
+      {
+        "ref": "V2",
+        "kind": "span",
+        "basis": "target",
+        "start": "2026-11-16",
+        "end": "2026-11-30",
+        "depends_on": [
+          "MS1"
+        ]
+      },
+      {
+        "ref": "I2",
+        "kind": "span",
+        "basis": "target",
+        "start": "2026-11-16",
+        "end": "2026-11-30",
+        "depends_on": [
+          "MS1"
+        ]
+      },
+      {
+        "ref": "MS2",
+        "kind": "milestone",
+        "basis": "target",
+        "start": "2026-11-30",
+        "end": "2026-11-30",
+        "depends_on": [
+          "V2"
         ]
       }
     ]

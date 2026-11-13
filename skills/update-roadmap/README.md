@@ -11,7 +11,7 @@ The day-to-day maintenance entry point once a roadmap is in place: change status
 
 `define-roadmap` builds a roadmap from nothing and `promote-roadmap-items` handles promotion and demotion across tiers; between the two sits a large body of day-to-day movement — an item has started, an item is stuck, an item slips by two weeks — and this skill owns that part. Escalating a source risk or moving an item to "Blocked" writes nothing unless both the blocking reason and the mitigation are given; a date shift must compute the downstream impact and flag the items that cross a hard deadline.
 
-Execution labels, separate approval and key conditions, and source-backed closure
+Execution labels, separate approval and material blockers, and source-backed closure
 follow [roadmap-quality](../../rules/roadmap-quality.md). Risk is a source annotation,
 not an execution label; development completion does not establish acceptance or release.
 
@@ -64,7 +64,7 @@ task lists unless they change the parent outcome, status or key blocker.
 
 Phase spans and milestone events follow the [Roadmap Spec](../../specs/roadmap-modeling.md); legacy formats remain compatible.
 
-Material planning changes retain the latest five revision summaries and a durable history link under the [revision contract](../../specs/roadmap-modeling.md#54-revision-records). Regeneration and archive cleanup preserve earlier decisions.
+Material planning changes are recorded in separate history linked from the main roadmap’s References section under the [revision contract](../../specs/roadmap-modeling.md#54-revision-records). Regeneration and archive cleanup preserve earlier decisions.
 
 Optional iteration views and one-main-plus-detail layouts follow the
 [Roadmap Spec](../../specs/roadmap-modeling.md#reading-order-and-document-boundaries).

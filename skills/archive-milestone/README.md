@@ -31,7 +31,7 @@ General snapshots do not remove directories. See the
 
 [Version archive with retained events and unfinished-item destinations](../define-roadmap/references/service-desk/version-archive.md).
 
-Material planning changes retain the latest five revision summaries and a durable history link under the [revision contract](../../specs/roadmap-modeling.md#54-revision-records). Regeneration and archive cleanup preserve earlier decisions.
+Material planning changes are recorded in separate history linked from the main roadmap’s References section under the [revision contract](../../specs/roadmap-modeling.md#54-revision-records). Regeneration and archive cleanup preserve earlier decisions.
 
 Optional iteration views and one-main-plus-detail layouts follow the
 [Roadmap Spec](../../specs/roadmap-modeling.md#reading-order-and-document-boundaries).

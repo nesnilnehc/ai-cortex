@@ -27,9 +27,9 @@ not universal defaults or real commitments. Planned work is not claimed complete
 
 | ID | Name | Outcome | Tier | Priority | Approval | Execution | Conditions |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| R1 | Map source data | Map customer records correctly | Now | P1 | Approved | In progress | Customer validates representative records |
+| R1 | Map customer records from the source data | Map customer records correctly | Now | P1 | Approved | In progress | Customer validates representative records |
 | R2 | Pilot onboarding | Prove the onboarding path | Next | P1 | Approved | Not started | Mapping acceptance available |
-| R3 | Broader rollout | Extend onboarding beyond pilot | Later | P2 | Draft | Not started | Re-evaluate after pilot acceptance |
+| R3 | Extend onboarding beyond the pilot | Extend onboarding beyond pilot | Later | P2 | Draft | Not started | Re-evaluate after pilot acceptance |
 
 ## R1
 

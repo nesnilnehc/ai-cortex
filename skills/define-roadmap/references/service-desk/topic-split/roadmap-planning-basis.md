@@ -4,6 +4,8 @@
 
 [Main roadmap](roadmap.md)
 
+**Current arrangement and rationale:** Fix duplicate submission before search; export depends on accepted search. Reminders wait for demand.
+
 **Scenario / primary perspective:** iterations / iterations
 
 **Enabled and omitted views:** requirements, iterations, versions, schedule, phases, milestones · Omitted views: flow
@@ -22,17 +24,14 @@
 
 | Source | Authoritative content | Link / location | Verified on |
 | --- | --- | --- | --- |
-| BUG1 | Duplicate submission | [Source](../sources.md#bug1) | Unknown |
-| R1 | Search | [Source](../sources.md#r1) | Unknown |
-| R2 | Export | [Source](../sources.md#r2) | Unknown |
-| R3 | Reminders | [Source](../sources.md#r3) | Unknown |
+| BUG1 | Prevent duplicate requests on refresh and retry | [Source](../sources.md#bug1) | Unknown |
+| R1 | Find requests by reference | [Source](../sources.md#r1) | Unknown |
+| R2 | Export authorized search results | [Source](../sources.md#r2) | Unknown |
+| R3 | Remind users to follow up on requests | [Source](../sources.md#r3) | Unknown |
 | M0 | Project kickoff | [Source](../sources.md#m0) | Unknown |
 | M1 | Repair acceptance | [Source](../sources.md#m1) | Unknown |
 | M2 | Search acceptance | [Source](../sources.md#m2) | Unknown |
 | M3 | Search production release | [Source](../sources.md#m3) | Unknown |
-| I1 | Repair foundation | [Source](../iterations.md#i1) | Unknown |
-| I2 | Repair closure and search start | [Source](../iterations.md#i2) | Unknown |
-| I3 | Search closure | [Source](../iterations.md#i3) | Unknown |
 | PSEARCH | Search delivery phase · Scope: R1 · Owner: Search owner · Exit condition: Search accepted and released | [Source](../sources.md#psearch) | Unknown |
 
 ## Pending decisions

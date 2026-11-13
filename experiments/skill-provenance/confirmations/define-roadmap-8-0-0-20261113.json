@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicit confirmation in the roadmap closeout chat",
+  "confirmed_at": "2026-11-13",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed the current reviewed define-roadmap 8.0.0 remains an AI Cortex original.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/define-roadmap-8-0-0-20261113.json"
+    }
+  ],
+  "subject_digest": "0a76107daa0b926eb132a56afd67e09b676f7c2fdef7001a78fd2600374bf96b"
+}

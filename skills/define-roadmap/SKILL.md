@@ -1,7 +1,7 @@
 ---
 name: define-roadmap
 description: Design roadmap structure, populate source-backed content on a settled layout, or complete both stages; first-align existing plans while preserving business decisions and stable links, with optional local generation.
-version: 7.13.5
+version: 8.0.0
 license: MIT
 ---
 
@@ -24,8 +24,7 @@ and `update-roadmap` for status and timing maintenance.
 Read project norms, goals, the existing roadmap and source requirement and defect
 records. Default output is `docs/process-management/roadmap.md`; preserve a project's
 established path. The output is a living roadmap with a dated summary, a compact
-Now/Next/Later view, optional iteration/version and schedule views, ordering rationale,
-material boundaries and links to detail. Load [roadmap modeling](../../specs/roadmap-modeling.md)
+Now/Next/Later view, optional version and schedule views, material boundaries and a References section. Load [roadmap modeling](../../specs/roadmap-modeling.md)
 for view structure and generator input; the quality rule owns evaluation criteria.
 
 ## Procedure
@@ -120,7 +119,7 @@ differences whenever claiming template or example fidelity.
    Confirm a new destination only when not already explicit. Load
    [roadmap-quality](../../rules/roadmap-quality.md), the [base template](assets/roadmap-template.md),
    and the closest [complete scenario](references/scenarios/README.md).
-2. Inventory requirements and defects with IDs, source paths, outcomes, priorities,
+2. Inventory requirements and defects with IDs, titles, source paths, priorities,
    approval states, execution evidence, project closure criteria and dependencies. Extract from existing sources before asking.
    If an input is only a task or task group, resolve its parent requirement or defect.
    Merge references to the same parent into one row. An independent defect may have
@@ -129,26 +128,19 @@ differences whenever claiming template or example fidelity.
 3. Preserve established priorities, pauses and capacity decisions. Arrange eligible
    records using priority, readiness and existing user decisions. State blockers
    separately from priority; missing prerequisites do not make a P0 item low priority.
-4. Fill the template with concise outcome rows. Keep approval, execution status and
-   key conditions in separate columns. Map source evidence to exactly one execution
+4. Use a concise title that names the capability or problem. Keep additional outcome
+   detail in the linked source. Keep approval and execution status in separate columns. Map source evidence to exactly one execution
    label from the quality rule; report unresolved mappings outside the status cell
    without guessing. State or link the existing project closure criterion.
    Development completion, acceptance and production release remain distinct.
    Do not add or waive a project gate.
-   Fill conditions only with the next material condition and its source link.
-   For Now, expose completion conditions;
-   for Next, material start conditions; for Later, re-evaluation triggers. Link to
-   source acceptance criteria rather than reproducing them. Empty tiers are valid.
-5. Explain the direction and current arrangement concisely in the overview. Ordering
-   rationale applies the existing priority policy and verified conditions; it does
-   not create another policy or reassess settled priorities. Link an existing decision
-   when sufficient. Surface material unknowns, especially unverified execution, before
-   the rows. Include known near-term outcomes without repeating the inventory.
-   Put policy/closure definitions and selection/language evidence in the later
-   planning-basis section, using a useful summary plus the authority link, or a bare
-   link when enough. Follow the Spec's document-family naming advice without creating
-   mandatory children or renaming established URLs. Link exhaustive inventories, task lists
-   and evidence. Add metrics or hypotheses only when they affect a real decision;
+   Summarize blockers that affect placement or delivery outside the table. Link their
+   sources and keep prerequisites and acceptance criteria there. Empty tiers are valid.
+5. Show the direction, current arrangement, near-term outcomes and material unknowns.
+   Surface unverified execution before the rows. Keep the rationale, policy and
+   closure definitions, cadence, and selection/language evidence in supporting
+   documents linked from References. Follow the Spec's document-family naming advice
+   and preserve established URLs. Link exhaustive inventories, task lists and evidence. Add metrics or hypotheses only when they affect a real decision;
    do not fill sections or invent numbers to satisfy a template.
 6. For selected iteration views, collect cadence, goals, entry scope, owners,
    timeboxes and source/board links; derive version mapping from entry membership.
@@ -190,9 +182,9 @@ structural subset does not claim the populated-plan checks passed.
 - [ ] Priority, approval, pauses, prerequisites and authorized capacity are preserved.
 - [ ] Tier precision is appropriate and completion or start conditions are recoverable.
 - [ ] The main view explains priorities, subsequent work and blockers without task detail.
-- [ ] Arrangement rationale explains policy application; policy is linked once, and plan/unknowns precede maintenance metadata under the Spec's reading hierarchy.
+- [ ] The main shows planning results and material unknowns. References reach the supporting rationale, rules and history where applicable. Iteration plans stay separate.
 - [ ] Approval and execution columns are separate; every execution cell has one fixed label.
-- [ ] Key conditions are brief and linked; closure criteria and source-backed status mappings were checked.
+- [ ] Material blockers are brief and linked outside the table. Closure criteria and source-backed status mappings were checked.
 - [ ] Detailed progress and evidence remain in their source documents.
 - [ ] Applicable quality criteria were checked; alignment with unresolved source facts reports limitations rather than a full pass, and no unverified fact was invented.
 - [ ] The requested change is persisted with its update date and authorization scope respected.
@@ -247,7 +239,9 @@ or authorization to change the adopting project.
 
 Resolve roadmap concepts from the [Roadmap Spec](../../specs/roadmap-modeling.md).
 A version groups deliverables; a phase spans work; a milestone marks an event.
-Collect phase scope, owner and exit condition, and milestone category, related IDs,
+Keep the delivery outlook to versions and milestones. Keep phase details in their
+sources or the planning basis.
+Collect milestone category, related IDs,
 owner, occurrence criterion, state and evidence when these views are useful.
 Do not insert events as fake requirements. Use JSON 1.1 or later for independent records;
 retain 1.0 and single-view compatibility. Give version spans and approval/release
@@ -258,10 +252,9 @@ Self-check: concepts, selected views and linked evidence agree with the source r
 ## Revision history maintenance
 
 At initial creation or structural refresh, apply the [revision contract](../../specs/roadmap-modeling.md#54-revision-records).
-Resolve existing decision/history sources before writing. Keep the latest five
-summaries with before/after, reason, impact and details links; preserve older history
-at a resolving source before shortening the main view. An initial baseline may have
-no revisions. For a legacy roadmap, disclose adoption and unknown earlier history;
+Resolve existing decision/history sources before writing. Keep dated entries and
+source links in a separate history document or directory linked from References.
+An initial baseline may have no revisions. For a legacy roadmap, disclose adoption and unknown earlier history;
 do not fabricate old decisions. Use schema 1.2 or later when generating revision summaries.
 Read existing history before overwrite and carry retained records forward. The
 renderer presents supplied decisions; it does not discover or append them.
@@ -271,29 +264,22 @@ Self-check: material changes are traceable, retained links resolve, and repeated
 ## Document layout and iterations
 
 Apply the [reading and ownership contract](../../specs/roadmap-modeling.md#reading-order-and-document-boundaries).
-Keep overview and priority arrangement in the main roadmap; group selected delivery
-views, phases and events under a delivery plan, followed by timeline, revisions and
-planning basis/sources. Policy, closure, view selection and language evidence remain
-recoverable there rather than occupying the first screen.
-Fold completed rows separately without changing their tier. Remove author guidance
-and repeated inventories from filled documents.
+Show overview, priorities and selected delivery results in the main. Keep rationale,
+rules and revisions in supporting documents and link them from References.
+Keep the main independently useful, with near-term delivery, key events and blockers.
+Split delivery detail when readership, ownership or volume justifies it. Each
+supporting page links back. Keep one editable authority per fact.
 
-Default to one document for small plans. Split when readers, owners, update cadence
-or volume justify it; keep the main independently useful, with near-term delivery,
-key events/blockers and latest five revisions. Detail pages link back. Declare one
-editable authority per fact and generate/link summaries. Do not create mandatory
-iteration/version documents or a separate Gantt authority.
-
-Use schema 1.3 or later for optional iteration views. Iteration goals/timeboxes organize work;
-versions group delivery. Carry-over is valid, and iteration end proves no acceptance
-or release. Keep tasks/daily assignments on linked execution boards. Single and
-split generation use the same facts; the latter reserves roadmap-delivery.md and
-roadmap-history.md alongside existing outputs. Read source history before replacement;
+Manage iteration goals, cadence, timeboxes and allocations in an independent plan
+or execution board. Schema 1.3 or later can export that plan separately. Keep
+iteration rows out of roadmap delivery views and charts. Single and split generation
+produce a planning-basis document and a history document when revisions are supplied. Split
+can also produce delivery details. Read source history before replacement and
 verify all navigation/source links and stale-output cleanup within overwrite scope.
 For manually split iteration/version plans, respect established paths and ownership.
 
 Self-check: the main alone explains priorities, blockers and delivery; selected
-iterations and child views agree, navigation resolves, and each fact has one authority.
+delivery views agree, navigation resolves, and each fact has one authority.
 
 ## Scenario selection and generation
 
@@ -308,7 +294,7 @@ choice and prints advice/questions only. It does not inspect project files, ask 
 user interactively or apply a choice. Source discovery and tailoring remain this
 skill's work. Do not convert a proposal into approval. Legacy inputs retain their
 views without forced context backfill. Generate 1.4 only after a settled selection
-is sourced; its primary perspective and phase/event/flow views are explicit, and
+is sourced; its primary perspective and milestone/flow views are explicit, and
 its saved layout is reused. A conflicting CLI layout requires updating the source
 decision first. Revision/history and destination safeguards remain in force.
 

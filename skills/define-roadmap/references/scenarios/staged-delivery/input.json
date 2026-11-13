@@ -15,8 +15,7 @@
   "entries": [
     {
       "id": "R1",
-      "name": "Map source data",
-      "outcome": "Map customer records correctly",
+      "name": "Map customer records from the source data",
       "tier": "Now",
       "priority": "P1",
       "approval": "Approved",
@@ -27,7 +26,6 @@
     {
       "id": "R2",
       "name": "Pilot onboarding",
-      "outcome": "Prove the onboarding path",
       "tier": "Next",
       "priority": "P1",
       "approval": "Approved",
@@ -37,8 +35,7 @@
     },
     {
       "id": "R3",
-      "name": "Broader rollout",
-      "outcome": "Extend onboarding beyond pilot",
+      "name": "Extend onboarding beyond the pilot",
       "tier": "Later",
       "priority": "P2",
       "approval": "Draft",

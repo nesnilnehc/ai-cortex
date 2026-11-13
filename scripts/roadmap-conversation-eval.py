@@ -124,32 +124,42 @@ def artifact_findings(folder, stage, source):
             findings.append('discarded business facts reintroduced')
         return findings
     main = (folder / 'roadmap.md').read_text()
+    priorities = main.split('## ' + label('Priority arrangement') + '\n', 1)[-1].split('\n## ', 1)[0]
     archive = (folder / 'roadmap-history.md').read_text()
     cells = lambda line: [html.unescape(c.strip()).replace('\\|', '|') for c in re.split(r'(?<!\\)\|', line.strip('|'))]
     for entry in source['entries']:
-        target = archive if entry['execution'] == 'Completed' else main
+        target = archive if entry['execution'] == 'Completed' else priorities
         matches = [line for line in target.splitlines() if '| [' + entry['id'] + ' · ' in line]
         if len(matches) != 1:
             findings.append('missing or duplicated entry: ' + entry['id'])
             continue
         values = cells(matches[0])
         if entry['execution'] != 'Completed' and (
-                [values[0], values[3], values[4], values[5]] != [status(entry['tier']), entry['priority'], entry['approval'], status(entry['execution'])] or
-                entry['name'] not in values[1] or entry['outcome'] != values[2] or entry['source'] not in unquote(values[1]) or
-                entry['conditions'] + '](' not in values[6] or entry['source'] not in unquote(values[6])):
+                len(values) != 5 or
+                [values[0], values[2], values[3], values[4]] != [status(entry['tier']), entry['priority'], entry['approval'], status(entry['execution'])] or
+                entry['name'] not in values[1] or entry['source'] not in unquote(values[1])):
             findings.append('changed source states: ' + entry['id'])
     versions = (folder / 'versions.md').read_text()
+    entry_by_id = {entry['id']: entry for entry in source['entries']}
     for version in source['versions']:
         matches = [line for line in versions.splitlines() if line.startswith('| ' + version['id'] + ' ·')]
-        expected = [', '.join(version['members']) or label('None'), version['outcome'],
+        expected_members = ', '.join(
+            f'[{ref} · {entry_by_id[ref]["name"]}]({entry_by_id[ref]["source"]})'
+            for ref in version['members']) or label('None')
+        expected = [expected_members, version['outcome'],
                     status('Unknown') if version['owner'] == 'Unknown' else version['owner'],
                     status('Unknown') if version['window'] == 'Unknown' else version['window']]
-        if len(matches) != 1 or cells(matches[0])[1:] != expected:
+        actual = cells(matches[0])[1:] if len(matches) == 1 else []
+        if actual:
+            actual[0] = unquote(actual[0])
+        if actual != expected:
             findings.append('changed version membership: ' + version['id'])
     milestones = (folder / 'milestones.md').read_text()
+    phase_ids = {phase['id'] for phase in source.get('phases', [])}
     for event in source['milestones']:
         matches = [line for line in milestones.splitlines() if line.startswith('| ' + event['id'] + ' ·')]
-        expected = [status(event['category']), ', '.join(event['related']) or label('Global'),
+        related = ', '.join(ref for ref in event['related'] if ref not in phase_ids)
+        expected = [status(event['category']), (related or '—') if event['related'] else label('Global'),
                     status('Unknown') if event['owner'] == 'Unknown' else event['owner'], status(event['state']), event['criterion']]
         if (len(matches) != 1 or cells(matches[0])[1:6] != expected or event['source'] not in unquote(cells(matches[0])[6]) or
                 (event.get('evidence') and event['evidence'] not in unquote(cells(matches[0])[7])) or

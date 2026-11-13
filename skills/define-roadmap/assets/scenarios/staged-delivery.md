@@ -4,7 +4,7 @@ Use when: A contract, implementation or cross-organization project has distinct 
 
 ## Compose
 
-Use the [shared base](../roadmap-template.md) with [phases](../modules/phases.md), [milestones](../modules/milestones.md).
+Use the [shared base](../roadmap-template.md) with [milestones](../modules/milestones.md). Use the [phase template](../modules/phases.md) in the source plan if phase tracking is useful.
 Requirements, direction, priorities, sources and revision history remain common.
 Add the [timeline module](../modules/timeline.md) when dates/windows are known.
 

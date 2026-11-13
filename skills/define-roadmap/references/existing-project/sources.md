@@ -14,7 +14,8 @@ keeps R1 in Next. Its source link remains `../sources.md#r1` from the plan.
 
 Outcome: restore the interface needed for retrieval. P1, Now, Draft. Execution has
 not been verified; Draft is approval only. Preserve unknown execution and the
-existing placement without inferring progress or promoting R1.
+existing placement without inferring progress or promoting R1. Verify the repair
+and its acceptance before relying on the interface.
 
 ## Delivery
 

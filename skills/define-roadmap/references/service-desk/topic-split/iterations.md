@@ -2,8 +2,6 @@
 
 **Updated:** 2026-10-21
 
-[Main roadmap](roadmap.md)
-
 **Cadence and basis:** Two-week iterations
 
 | Iteration | Goal | Timebox / basis | Member requirement / defect IDs | Versions touched | Owner | Source / board |

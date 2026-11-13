@@ -1,7 +1,7 @@
 ---
 name: update-roadmap
 description: Maintain requirement-and-defect roadmap summaries — change item status, shift dates with downstream impact analysis, and retain source-backed revision history. Does not move items between Now/Next/Later tiers.
-version: 3.10.1
+version: 4.0.0
 license: MIT
 ---
 
@@ -89,7 +89,7 @@ change, retain one source/revision identity where applicable, and re-review the 
 2. **Identify the change type**: status change / date shift / existing-version scope change / existing-iteration goal, scope or cadence change / combination.
    - If what the user actually wants is a move across tiers → **stop**, explain that this falls to `promote-roadmap-items`, and hand off.
 3. **Handling a status change**:
-   - Map the project's source execution evidence to exactly one label from the quality rule. Keep approval, execution and key conditions in separate columns. Risk alone does not replace an execution label.
+   - Map the project's source execution evidence to exactly one label from the quality rule. Keep approval and execution in separate columns. Summarize any blockers that affect placement or delivery outside the table. Risk alone does not replace an execution label.
    - For a risk escalation or Blocked change, obtain the reason and mitigation from sources first; ask only for missing facts. Preserve the existing requirement to have both before writing. Keep details in the source and only the short next-step condition and link in the roadmap.
    - Verify the source basis for every transition, including pause, resume and reopening. Development complete maps to Awaiting acceptance while required acceptance is pending; passed acceptance maps to Awaiting release only if release remains required for closure. A recorded pause or blocker takes precedence while applicable.
    - Before Completed, verify the project's declared closure criterion and linked acceptance and production-release evidence where required. Do not invent or waive gates. If closure or the mapping is undefined, or sources conflict, report the limitation outside the status cell and leave the transition unresolved.
@@ -201,7 +201,7 @@ quality guarantee or changing the source system outside authorization.
 - [ ] Date shifts had their downstream impact computed; where dependency data was missing, the omission was stated explicitly
 - [ ] Hard-deadline breaches were flagged on their own
 - [ ] The requested change and downstream impact were reviewed before persistence; any unresolved decision was clarified
-- [ ] Separate approval, execution and key conditions columns follow the quality rule; each execution cell contains one fixed label, without risk labels or evidence
+- [ ] Separate approval and execution columns follow the quality rule; each execution cell contains one fixed label, without risk labels or evidence
 - [ ] Source and parent summary agree; task-only changes did not add roadmap entries or duplicate details
 - [ ] The what-changed summary was output
 - [ ] No item's tier was touched
@@ -278,28 +278,23 @@ append one source-backed decision with a stable ID, date, before/after, reason,
 impact and details link. Refresh settled priorities from their authoritative source
 without making priority decisions here. Record priority/tier handoffs, membership,
 phase, timing/commitment, exclusion and milestone-state changes where applicable.
-The conversational change summary is also retained in the project history source;
-it is not the only copy. Keep the latest five in the roadmap and verify the full
-history link before shortening it. Re-rendering or retrying the same decision
+Retain the change in the project history document or directory. Verify the history
+entry point from the main roadmap's References section and preserve older records. Re-rendering or retrying the same decision
 reuses its ID; a correction appends a linked revision. Formatting-only edits use
 the owning platform's revision history (Git for repository documents). Missing
 decision evidence stays unresolved, never invented.
 
 Self-check: material changes are traceable, retained links resolve, and repeated execution adds no duplicate revision.
 
-## Iteration and document maintenance
+## Document maintenance
 
-Read linked delivery/history pages and declared authoritative records before edits.
-Maintain existing iteration goals, scope, cadence and timeboxes only from authorized
-source decisions. Analyze affected versions, dependencies and commitments; carry-over
-alone changes no tier, closure state or release evidence. New iteration structure or
-layout routes to define-roadmap. Keep execution-board tasks in their source.
-Refresh all affected main/detail/chart summaries together, reusing the same revision
-ID. Preserve source-relative links and selected single/split layout. Report any
-projection that could not be updated; do not claim a consistent plan while it differs.
+Read the affected delivery, history and authoritative source records before edits.
+Manage iteration goals, cadence and allocations in the independent iteration plan.
+When an iteration decision also changes a roadmap commitment, verify the affected
+version, dependencies and dates. Refresh affected roadmap views and record the
+material roadmap change using one revision ID.
 
-Self-check: iteration changes have source/revision evidence; every affected main,
-detail and time view agrees, with no duplicate editable scope or dates.
+Self-check: affected delivery views agree with their sources and preserve links.
 
 ## Retained scenario selection
 

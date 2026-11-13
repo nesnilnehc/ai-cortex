@@ -73,10 +73,8 @@ after-delivery branch that records REV2.
 | REV2 | 2026-10-20 | BUG1/R1: Completed; M1/M2/M3: planned → reached; V1/V2: target → actual | Product owner and release operator record acceptance and production deployment receipts | Repair/search closure confirmed; export remains unstarted in V3 and retains its revised commitment | [Details](sources.md#delivery-observation) |
 | REV1 | 2026-10-20 | R1: V1 → V2; R2: V2 → V3; M1: W2 → W4; M2/M3: W3 → W6 | Required repair acceptance sandbox unavailable; search and export depend on accepted upstream work | Export +3 weeks; original hard deadline breached; priorities and tiers unchanged | [Details](#w1-plan-change) |
 
-The generated main view shows up to five rows. If history grows beyond five,
-keep this register complete, carry the history link forward and omit older rows
-only from the main view. A no-op render adds no row; a correction adds a linked
-new decision. Git keeps textual differences but does not replace this rationale.
+The main view links to separate history. Keep this register complete and carry
+its link forward when regenerating the plan.
 
 ## Iteration-view adoption
 

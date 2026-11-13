@@ -19,10 +19,10 @@ Elapsed whole weeks are used, with exclusive ends. No real launch date is known.
 
 | ID | Name | Priority | Depends on |
 | --- | --- | --- | --- |
-| BUG1 | Duplicate submission | P0 | None |
-| R1 | Search | P1 | BUG1 |
-| R2 | Export | P1 | R1 |
-| R3 | Reminders | P2 | None |
+| BUG1 | Prevent duplicate requests on refresh and retry | P0 | None |
+| R1 | Find requests by reference | P1 | BUG1 |
+| R2 | Export authorized search results | P1 | R1 |
+| R3 | Remind users to follow up on requests | P2 | None |
 
 ## Execution by stage
 

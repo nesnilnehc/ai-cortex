@@ -12,7 +12,7 @@ Add the [timeline module](../modules/timeline.md) when dates/windows are known.
 
 Use iteration goals as the near-term anchor. Add versions when work ships in named batches, and significant acceptance/release events for coordination.
 
-Omit phases unless work genuinely changes purpose/risk/exit conditions. If delivery is continuous, omit version batches that do not exist.
+Keep any working phases in their source plan. Use version batches when the team delivers in batches.
 
 ## Intake and review
 

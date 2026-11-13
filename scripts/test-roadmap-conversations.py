@@ -98,7 +98,7 @@ class ConversationTests(unittest.TestCase):
             self.assertFalse(report['cases'][0]['passed'])
             self.assertTrue(report['cases'][0]['turns'][0]['violations'])
 
-    def test_source_oracle_rejects_condition_outcome_and_event_criterion_drift(self):
+    def test_source_oracle_rejects_title_outcome_and_event_criterion_drift(self):
         spec = importlib.util.spec_from_file_location('conversation_eval', SCRIPT)
         evaluator = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(evaluator)
@@ -109,7 +109,7 @@ class ConversationTests(unittest.TestCase):
             source.write_text(json.dumps(data))
             subprocess.run([sys.executable, str(evaluator.RENDERER), str(source), '--output-dir', str(out)],
                            check=True, capture_output=True)
-            for name, old in [('roadmap.md', data['entries'][0]['conditions']),
+            for name, old in [('roadmap.md', data['entries'][0]['name']),
                               ('versions.md', data['versions'][0]['outcome']),
                               ('milestones.md', data['milestones'][0]['criterion'])]:
                 path = out / name
@@ -230,7 +230,10 @@ class ConversationTests(unittest.TestCase):
                 self.assertTrue(evaluator.artifact_findings(out, 'populated', evaluator.business_source()))
                 main.write_text(main.read_text().replace('| Completed |', '| Blocked |'))
                 versions = out / 'versions.md'
-                versions.write_text(versions.read_text().replace('| BUG1 |', '| BUG1, R1 |'))
+                original = versions.read_text()
+                changed = original.replace('[BUG1 · ', '[R1 · ', 1)
+                self.assertNotEqual(changed, original)
+                versions.write_text(changed)
                 self.assertTrue(evaluator.artifact_findings(out, 'populated', evaluator.business_source()))
             finally:
                 source.unlink(missing_ok=True)

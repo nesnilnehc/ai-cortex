@@ -41,10 +41,10 @@ missing cadence, WIP limit, release number or deadline from the recipe.
 
 | Scenario | Primary | Supporting views | Omit unless needed |
 | --- | --- | --- | --- |
-| Iteration product | Iteration goals and requirement arrangement | Versions for named batches; significant release/acceptance events; useful timeline | Phases without distinct purpose/risk/exit criteria |
+| Iteration product | Requirement arrangement | Versions for named batches, release or acceptance milestones and a useful timeline | Iteration goals and allocations stay in the independent plan |
 | Continuous flow | Workflow/pull policy and flow evidence | Versions for actual batches; events for external commitments | Artificial iterations, fake release groups or default numeric WIP/SLE |
-| Staged delivery | Phase deliverables and exit conditions | Significant acceptance/coordination events; timeline | Iterations absent from team practice; versions absent from delivery |
-| Discovery pilot | Learning goals, evidence and exit decisions | Evidence-review events; near-term windows | Committed long-term feature batches and speculative rollout dates |
+| Staged delivery | Significant acceptance milestones | Versions and timeline where they support delivery decisions | Working phases stay in their source plan |
+| Discovery pilot | Evidence-review milestones | Learning goals and near-term windows | Committed long-term feature batches and speculative rollout dates |
 
 Requirements, priorities, blockers, source evidence and revisions remain common.
 The generator's deterministic recommendation uses declared work/delivery modes;

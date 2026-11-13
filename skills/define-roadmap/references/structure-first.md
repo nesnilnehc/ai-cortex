@@ -55,8 +55,8 @@ the established language choice and preserve stable IDs and source links.
 During population, resolve facts from their authority, map execution to the Rule's
 single-label vocabulary, retain unknowns and distinguish business choices from
 facts. A need for a fact is not permission to change a priority or promise a date.
-The main retains the latest five revision summaries; detail retains durable
-history. Main summaries are projections, not second independently editable plans.
+The main links the revision document from References. That document retains the
+revision records and links their evidence. Main summaries are projections, not second independently editable plans.
 
 Keep field-filling instructions, enum tutorials, template directives, agent work
 orders and discussion process here or in their governing assets. Actual rationale,

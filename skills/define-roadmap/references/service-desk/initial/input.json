@@ -14,9 +14,8 @@
   "entries": [
     {
       "id": "BUG1",
-      "name": "Duplicate submission",
+      "name": "Prevent duplicate requests on refresh and retry",
       "source": "../sources.md#bug1",
-      "outcome": "Refresh and retry create one external request",
       "priority": "P0",
       "tier": "Now",
       "approval": "Approved",
@@ -25,9 +24,8 @@
     },
     {
       "id": "R1",
-      "name": "Search",
+      "name": "Find requests by reference",
       "source": "../sources.md#r1",
-      "outcome": "Find a request by reference",
       "priority": "P1",
       "tier": "Next",
       "approval": "Approved",
@@ -36,9 +34,8 @@
     },
     {
       "id": "R2",
-      "name": "Export",
+      "name": "Export authorized search results",
       "source": "../sources.md#r2",
-      "outcome": "Export authorized search results",
       "priority": "P1",
       "tier": "Next",
       "approval": "Approved",
@@ -47,9 +44,8 @@
     },
     {
       "id": "R3",
-      "name": "Reminders",
+      "name": "Remind users to follow up on requests",
       "source": "../sources.md#r3",
-      "outcome": "Remember requests needing follow-up",
       "priority": "P2",
       "tier": "Later",
       "approval": "Draft",

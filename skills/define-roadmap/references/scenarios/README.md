@@ -6,7 +6,7 @@ output. Unknowns are explicit; none claims unverified completion or framework ce
 
 | Scenario | Complete plan | Sources / selection | Layout |
 | --- | --- | --- | --- |
-| Iteration product | [Roadmap](iteration-product/roadmap.md) | [Facts](iteration-product/sources.md), [decision](iteration-product/selection.md), [input](iteration-product/input.json) | Main + [delivery detail](iteration-product/roadmap-delivery.md) |
+| Iteration product | [Roadmap](iteration-product/roadmap.md) | [Facts](iteration-product/sources.md), [decision](iteration-product/selection.md), [input](iteration-product/input.json) | Main + [delivery detail](iteration-product/roadmap-delivery.md), [independent iteration plan](iteration-product/iteration-plan.md) |
 | Continuous flow | [Roadmap](continuous-flow/roadmap.md) | [Facts](continuous-flow/sources.md), [decision](continuous-flow/selection.md), [input](continuous-flow/input.json) | Single; no fake sprint or version |
 | Staged delivery | [Roadmap](staged-delivery/roadmap.md) | [Facts](staged-delivery/sources.md), [decision](staged-delivery/selection.md), [input](staged-delivery/input.json) | Main + [delivery detail](staged-delivery/roadmap-delivery.md) |
 | Discovery pilot | [Roadmap](discovery-pilot/roadmap.md) | [Facts](discovery-pilot/sources.md), [decision](discovery-pilot/selection.md), [input](discovery-pilot/input.json) | Single; learning/evidence exit, no rollout commitment |

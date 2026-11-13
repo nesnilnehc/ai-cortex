@@ -4,7 +4,7 @@ Use when: The next decision depends on reducing uncertainty through research, ex
 
 ## Compose
 
-Use the [shared base](../roadmap-template.md) with [phases](../modules/phases.md), [milestones](../modules/milestones.md).
+Use the [shared base](../roadmap-template.md) with [milestones](../modules/milestones.md). Keep working phases in their source plan.
 Requirements, direction, priorities, sources and revision history remain common.
 Add the [timeline module](../modules/timeline.md) when dates/windows are known.
 

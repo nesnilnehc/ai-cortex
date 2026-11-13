@@ -4,7 +4,7 @@
 
 [Main roadmap](roadmap.md)
 
-| Version | Member requirement / defect IDs | Core outcome | Owner | Delivery window / basis |
+| Version | Members | Core outcome | Owner | Delivery window / basis |
 | --- | --- | --- | --- | --- |
 
 **Unassigned work:** {Pending}

@@ -110,7 +110,7 @@ def alignment_findings(before, after):
         findings.append('order/scope')
     by_id = {r['ID']: r for r in proposed}
     for row in original:
-        if any(by_id.get(row['ID'], {}).get(key) != value for key, value in row.items()):
+        if any(by_id.get(row['ID'], {}).get(key) != value for key, value in row.items() if key != 'Conditions'):
             findings.append('decision')
     for prefix in ('Delivery:', 'Closure:'):
         known = [line for line in before.splitlines() if line.startswith(prefix)]
@@ -129,8 +129,8 @@ class AlignmentExampleTests(unittest.TestCase):
         before = (ADOPTION / 'before/plan.md').read_text()
         after = (ADOPTION / 'after/plan.md').read_text()
         self.assertEqual(alignment_findings(before, after), [])
-        self.assertIn('| R1 | Request lookup | Retrieve an existing service request | P0 | Next |', after)
-        self.assertIn('| R2 | Interface repair | Restore the interface needed for retrieval | P1 | Now | Draft | — |', after)
+        self.assertIn('| R1 | Request lookup | P0 | Next |', after)
+        self.assertIn('| R2 | Interface repair | P1 | Now | Draft | — |', after)
         self.assertLess(after.index('R2 execution remains unverified'), after.index('## Priority arrangement'))
         self.assertIn('First alignment: 2026-10-21', after)
         self.assertIn('Earlier history is unknown', after)
@@ -186,7 +186,7 @@ def scenario_findings(data, folder):
     if set(expected) != {e['id'] for e in data['entries']}:
         findings.append('entry scope')
     for entry in data['entries']:
-        for field in ('name', 'outcome', 'tier', 'priority', 'approval', 'execution', 'conditions'):
+        for field in ('name', 'tier', 'priority', 'approval', 'execution', 'conditions'):
             if entry[field] != expected[entry['id']][field.title()]:
                 findings.append('entry facts')
     findings += scenario_delivery_findings(data, source)
@@ -236,7 +236,8 @@ class ExampleTests(unittest.TestCase):
                 for name, content in output.items():
                     self.assertEqual(content, (folder / name).read_text())
                 self.assertEqual(set(output), {p.name for p in folder.glob('roadmap.*')} |
-                                 {p.name for p in folder.glob('roadmap-*.md')})
+                                 {p.name for p in folder.glob('roadmap-*.md')} |
+                                 {p.name for p in folder.glob('iteration-plan.md')})
                 for name, content in output.items():
                     if not name.endswith('.md'):
                         continue
@@ -488,8 +489,12 @@ class LanguageExampleTests(unittest.TestCase):
                 self.assertEqual(result.returncode, 0, result.stderr)
                 self.assertEqual({path.name for path in out.iterdir()},
                                  {'roadmap.md', 'roadmap-delivery.md', 'roadmap-history.md',
-                                  'roadmap.svg', 'roadmap.mmd'})
-                for path in out.iterdir():
+                                  'roadmap-planning-basis.md', 'iteration-plan.md', 'roadmap.svg', 'roadmap.mmd',
+                                  '.roadmap-outputs.json'})
+                manifest = json.loads((out / '.roadmap-outputs.json').read_text())
+                self.assertEqual(set(manifest), {path.name for path in out.iterdir()} - {'.roadmap-outputs.json'})
+                for name in manifest:
+                    path = out / name
                     self.assertEqual(path.read_text(), (folder / path.name).read_text(), path.name)
 
     def test_language_editions_preserve_source_planning_facts(self):
@@ -500,12 +505,15 @@ class LanguageExampleTests(unittest.TestCase):
         for field, keys in [('entries', ['id', 'tier', 'priority', 'execution', 'source']),
                             ('versions', ['id', 'members']),
                             ('iterations', ['id', 'members', 'source', 'board']),
-                            ('phases', ['id', 'scope', 'source']),
                             ('milestones', ['id', 'related', 'category', 'state', 'evidence', 'source']),
                             ('revisions', ['id', 'date', 'source'])]:
             project = lambda data: [{key: record[key] for key in keys} for record in data[field]]
             self.assertEqual(project(english), project(chinese), field)
         source = (self.BASE / 'sources.md').read_text()
+        for kind in ('versions', 'iterations', 'milestones'):
+            self.assertGreaterEqual(len(english[kind]), 2)
+            for record in english[kind]:
+                self.assertIn('## ' + record['id'] + '\n', source)
         self.assertIn('2026-11-02 to 2026-11-16', source)
         self.assertIn('state planned, evidence absent', source)
         self.assertIn('In progress / 进行中', source)
@@ -521,7 +529,20 @@ class LanguageExampleTests(unittest.TestCase):
             main = (folder / 'roadmap.md').read_text()
             self.assertIn(heading, main)
             self.assertIn(status, main)
-            self.assertIn('../sources.md#language', main)
+            delivery = main.split('## ' + ('Delivery outlook' if locale == 'en' else '交付概览'), 1)[1]
+            for ref in ('V1', 'V2', 'MS1', 'MS2'):
+                self.assertIn('| ' + ref + ' · ', delivery)
+            overview = delivery.split('\n## ', 1)[0]
+            self.assertEqual(len(re.findall(r'^\| (?:Version / outcome|Milestone|版本／交付结果|里程碑) \|', overview, re.M)), 2)
+            self.assertEqual(len(re.findall(r'^\| --- ', overview, re.M)), 2)
+            self.assertIn('[BUG1](../sources.md#bug1)', main)
+            iteration = (folder / 'iteration-plan.md').read_text()
+            for ref in ('I1', 'I2'):
+                self.assertIn('| ' + ref + ' · ', iteration)
+                self.assertNotIn('| ' + ref + ' · ', delivery)
+            basis = (folder / 'roadmap-planning-basis.md').read_text()
+            self.assertIn('roadmap-planning-basis.md', main)
+            self.assertIn('../sources.md#language', basis)
             self.assertIn('roadmap-delivery.md', main)
             self.assertIn('roadmap-history.md', main)
             detail = (folder / 'roadmap-delivery.md').read_text()
@@ -565,7 +586,7 @@ class StructureFirstExamples(unittest.TestCase):
             self.assertEqual(re.findall(r'^## .+$', empty, re.M),
                              re.findall(r'^## .+$', filled, re.M), name)
             self.assertNotIn('{Pending}', filled)
-            if name != 'roadmap.md':
+            if name not in {'roadmap.md', 'iterations.md'}:
                 self.assertIn('[Main roadmap](roadmap.md)', filled)
         data = json.loads((CASE / 'iteration-driven/input.json').read_text())
         main_rows = rows(self.FILLED / 'roadmap.md', 'Priority arrangement')
@@ -579,10 +600,13 @@ class StructureFirstExamples(unittest.TestCase):
         detail = (self.FILLED / 'iterations.md').read_text()
         for iteration in data['iterations']:
             self.assertIn(iteration['id'], detail)
+        entry_by_id = {entry['id']: entry for entry in data['entries']}
         for version in data['versions']:
             line = next(line for line in (self.FILLED / 'versions.md').read_text().splitlines()
                         if line.startswith('| ' + version['id'] + ' ·'))
-            self.assertIn(', '.join(version['members']), line)
+            for ref in version['members']:
+                entry = entry_by_id[ref]
+                self.assertIn(f'[{ref} · {entry["name"]}]({entry["source"]})', line)
         for event in data['milestones']:
             line = next(line for line in (self.FILLED / 'milestones.md').read_text().splitlines()
                         if line.startswith('| ' + event['id'] + ' ·'))
@@ -598,12 +622,16 @@ class StructureFirstExamples(unittest.TestCase):
         for folder in [self.EMPTY, self.FILLED]:
             main = (folder / 'roadmap.md').read_text()
             main_targets = {target.split('#')[0] for target in re.findall(r'\]\(([^)]+)\)', main)}
-            self.assertTrue(self.NAMES - {'roadmap.md'} <= main_targets)
-            for name in self.NAMES - {'roadmap.md'}:
+            self.assertTrue(self.NAMES - {'roadmap.md', 'iterations.md'} <= main_targets)
+            self.assertNotIn('iterations.md', main_targets)
+            for name in self.NAMES - {'roadmap.md', 'iterations.md'}:
                 self.assertIn('[Main roadmap](roadmap.md)', (folder / name).read_text())
         populated = (self.FILLED / 'roadmap.md').read_text()
-        for claim in ['Fix duplicate submission before search', 'Restore sandbox by W3',
-                      'I1', 'I2', 'I3', 'V1', 'V2', 'V3', 'M1', 'M2', 'M3']:
+        basis = (self.FILLED / 'roadmap-planning-basis.md').read_text()
+        self.assertIn('Fix duplicate submission before search', basis)
+        self.assertNotIn('Fix duplicate submission before search', populated)
+        for claim in ['Restore sandbox by W3',
+                      'V1', 'V2', 'V3', 'M1', 'M2', 'M3']:
             self.assertIn(claim, populated)
 
 

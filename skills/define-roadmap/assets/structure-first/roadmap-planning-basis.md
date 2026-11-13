@@ -4,6 +4,8 @@
 
 [Main roadmap](roadmap.md)
 
+**Current arrangement and rationale:** {Pending}
+
 **Scenario / primary perspective:** {Pending}
 
 **Enabled and omitted views:** {Pending}

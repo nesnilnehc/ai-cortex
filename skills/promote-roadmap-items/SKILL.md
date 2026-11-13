@@ -1,7 +1,7 @@
 ---
 name: promote-roadmap-items
 description: Promote prioritized requirements and defects into Now/Next/Later using settled project priorities and dependency readiness; preserve version membership and timing commitments.
-version: 3.9.0
+version: 4.0.0
 license: MIT
 ---
 
@@ -154,7 +154,7 @@ delivery-group changes go to `define-roadmap`.
 For each confirmed decision:
 
 1. Update only the project-defined planning tier field when its contract permits it. Preserve approval/lifecycle `status` such as `draft` or `approved`. If the source has no planning field, roadmap placement alone records the decision; do not invent a new field or convert approval into execution.
-2. Update roadmap.md with a concise requirement or defect row: source link, outcome, priority, separate approval and execution status, and separate key conditions. Use one fixed execution label from the quality rule, backed by source evidence; tier movement does not itself change execution state. Keep task progress and acceptance evidence in the source.
+2. Update roadmap.md with a concise requirement or defect row: a descriptive title linked to its source, priority, and separate approval and execution status. Surface blockers that affect placement or delivery outside the table. Use one fixed execution label from the quality rule, backed by source evidence; tier movement does not itself change execution state. Keep task progress and acceptance evidence in the source.
 3. Record the update date in the roadmap; write `promoted_at` / `demoted_at` only when supported by the project source contract.
 
 ### Stage 6: emit the final report
@@ -216,7 +216,7 @@ For each confirmed decision:
 - [ ] Now-tier candidates passed the dependency check; items missing `depends_on` were told to run `map-item-dependencies` first, not waved through silently
 - [ ] Readiness distinguishes available next-step deliverables, verified parallel work with later conditions and unchecked evidence; same-level precedence follows policy decisions, not a new score
 - [ ] No default resource gate was imposed; explicit project decisions were preserved
-- [ ] Only requirement and defect rows were persisted, with separate approval, execution and key conditions; fixed execution labels agree with sources and were not advanced by tier changes
+- [ ] Only requirement and defect rows were persisted, with separate approval and execution columns; fixed execution labels agree with sources and were not advanced by tier changes
 - [ ] The demotion suggestions weigh priority changes and prerequisite readiness
 - [ ] The user confirmed item by item; nothing was auto-approved
 - [ ] roadmap.md and supported planning fields agree; approval states were not changed by placement

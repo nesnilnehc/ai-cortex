@@ -16,8 +16,7 @@
   "entries": [
     {
       "id": "R1",
-      "name": "Search requests",
-      "outcome": "Find requests by reference",
+      "name": "Find requests by reference",
       "tier": "Now",
       "priority": "P1",
       "approval": "Approved",
@@ -28,7 +27,6 @@
     {
       "id": "R2",
       "name": "Export search results",
-      "outcome": "Reuse authorized results",
       "tier": "Next",
       "priority": "P1",
       "approval": "Approved",
@@ -38,8 +36,7 @@
     },
     {
       "id": "R3",
-      "name": "Reminders",
-      "outcome": "Reduce missed follow-ups",
+      "name": "Remind users to follow up",
       "tier": "Later",
       "priority": "P2",
       "approval": "Draft",

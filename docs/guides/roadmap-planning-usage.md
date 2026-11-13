@@ -52,14 +52,14 @@ it preserves their facts and makes no content approval claim. See the
 
 Choose a [template combination](../../skills/define-roadmap/assets/scenarios/README.md)
 and inspect the [four complete scenario examples](../../skills/define-roadmap/references/scenarios/README.md).
-They share a base; optional modules provide iteration/version/phase/event/flow and
+They share a base; optional modules provide iteration/version/event/flow and
 timeline views. These are supported combinations, not mandatory lifecycle layers.
 
 | Your context | Recommended anchor | Supporting views |
 | --- | --- | --- |
 | Fixed-cycle product team | Iteration goals and requirements | Versions for real batches; significant release/acceptance events |
 | Continuous arrivals / service work | Workflow, pull policy and flow evidence | Actual release groups or external events only when useful |
-| Contract or implementation delivery | Phase deliverables and exit conditions | Significant customer acceptance points; useful timing |
+| Contract or implementation delivery | Significant customer acceptance milestones | Useful timing and version groups |
 | Exploration or pilot | Learning goals and evidence/exit decisions | Evidence-review events; near-term windows, not speculative rollout commitments |
 
 The skill first reads existing norms, roadmap, boards and release records. It asks
@@ -131,8 +131,8 @@ does not require expansion.
 | --- | --- | --- |
 | BUG1 Duplicate submission · P0 | R1 Search · P1; R2 Export · P1 | R3 Reminders · P2 |
 
-The full requirement table also carries source, outcome, approval, execution and
-key conditions. Priority and readiness explain placement; dates do not define it.
+The full requirement table carries the title, source link, priority, approval and
+execution. Summarize blockers outside the table when they affect placement or delivery.
 
 **Version delivery — what ships together?**
 
@@ -189,12 +189,9 @@ explicitly dated. Do not maintain the current priority inventory in both places.
 
 ### Read the plan before its maintenance evidence
 
-The overview highlights direction, current arrangement, known near-term delivery
-focus and material unknowns. It is not a fixed questionnaire or a second item list.
-Show unverified execution before rows; placement and draft approval do not prove
-whether work started. Requirements, selected delivery/timeline views and revisions
-follow. The later planning basis keeps priority/closure references and retained
-view/layout/language evidence inspectable without occupying the first screen.
+The overview shows direction, current arrangement, near-term delivery and material
+unknowns. Show unverified execution before the requirement rows. Link planning
+rationale, rules and revision history from References. Manage iterations independently.
 
 New supporting documents use the Spec's
 [role-based naming advice](../../specs/roadmap-modeling.md#document-family-naming):
@@ -266,7 +263,7 @@ python3 skills/define-roadmap/scripts/render-roadmap.py input.json --output-dir 
 
 Installed users substitute the resolved skill directory for the relative skill
 path above. Explicit replacement uses `--overwrite` and reserves `roadmap.md`,
-`roadmap.svg`, `roadmap.mmd`, `roadmap-delivery.md` and `roadmap-history.md`
+`roadmap.svg`, `roadmap.mmd`, `roadmap-delivery.md`, `roadmap-planning-basis.md`, `roadmap-history.md` and `iteration-plan.md`
 for generated views. Keep authoritative evidence
 elsewhere; rebase relative source links for the selected output directory.
 The input is not a new ongoing planning database. Inspect the generated SVG before
@@ -385,12 +382,10 @@ Version groups and schedule milestones are additional views, not violations of t
 granularity. Use the
 [template](../../skills/define-roadmap/assets/roadmap-template.md) and
 [completed example](../../skills/define-roadmap/references/roadmap-example.md).
-Now / Next / Later express arrangement. Keep source links, outcomes, priorities and
-separate approval and execution status columns plus a separate key conditions column
-in the main view. Use the fixed execution vocabulary in the quality rule and link
+Now / Next / Later express arrangement. Keep descriptive titles, source links, priorities and
+separate approval and execution status columns in the main view. Use the fixed execution vocabulary in the quality rule and link
 the project closure criterion; development complete, acceptance passed and production
-release remain distinct. Keep conditions short and linked; keep execution and acceptance detail in
-source records. Explicit project capacity decisions remain in force. A concise view
+release remain distinct. Keep execution detail, prerequisites and phase exit criteria in linked sources. Explicit project capacity decisions remain in force. A concise view
 need not reproduce hypotheses or metrics per tier to pass review.
 
 ## Roadmap, version, phase and milestone
@@ -403,7 +398,7 @@ The [Roadmap Spec](../../specs/roadmap-modeling.md) owns the exact model.
 | --- | --- | --- |
 | Roadmap | Restore reliability, then search, then export | Requirement arrangement plus selected views |
 | Version | V2 delivers R1 after the plan changes | Member table and delivery span |
-| Phase | PSEARCH carries search work through acceptance and release | Span with scope, owner and exit condition |
+| Phase | PSEARCH carries search work through acceptance and release | Supporting plan with scope, owner and exit condition |
 | Milestone | M0 kickoff, M2 acceptance approval, M3 production release | Separate event rows and zero-duration markers |
 
 A version can have several phases and events; an event can relate to several
@@ -412,8 +407,8 @@ V2 and PSEARCH both span W4–W5; M2 and M3 are separate target points at W6. Af
 delivery those events have reached state and linked evidence. Dates never prove
 occurrence. Work on a review takes time even though its approval is a point event.
 
-JSON 1.1 adds optional independent phase/event registers. Existing 1.0 input and
-single-view Markdown continue to work. New milestones reference their own IDs;
+JSON 1.1 accepts independent milestones and legacy phase records. The timeline
+shows delivery and milestone dates. Existing 1.0 input and single-view Markdown continue to work. New milestones reference their own IDs;
 legacy 1.0 markers still reference entries/versions without automatic conversion.
 Use Markdown tables for reviewable facts, SVG for portable local/knowledge-base
 presentation, and dated Mermaid where the destination supports it. All formats
@@ -425,14 +420,10 @@ primary-source basis and compatibility choices.
 
 ## Keep a readable revision history
 
-A roadmap changes. Readers need to see what changed, why and what it affects after
-the discussion ends. [The revision contract](../../specs/roadmap-modeling.md#54-revision-records)
-provides two linked levels:
-
-| Level | Content | Where it stays |
-| --- | --- | --- |
-| Main roadmap | Latest five dated summaries: ID, before/after, reason, impact and details link | Revision history section, newest first |
-| Durable history | Complete decisions, actors, evidence and older revisions | Existing change/decision records or retained archive snapshots |
+Keep revision entries in a separate document or directory and link it from the
+main roadmap's References section. Reuse an existing register or archive when it
+already contains the records. Each entry records its ID, date, change, reason,
+impact and source. See the [revision contract](../../specs/roadmap-modeling.md#54-revision-records).
 
 Record changes to priorities/tiers, version scope, phases, dates/commitments,
 material exclusions and milestone cancellation, missed or reached states. Routine
@@ -454,30 +445,20 @@ roadmap changes. Review checks traceability; archiving preserves decisions and
 links. One decision shared across these steps uses one ID. A correction adds a
 linked revision rather than erasing an inconvenient deadline or earlier commitment.
 
-Generator schema 1.2 renders supplied revision records. It never reconstructs
-history, appends decisions automatically or edits linked evidence. More than five
-supplied records require a full-history reference; only the main display is shortened.
-Carry retained records forward when regenerating. Schemas 1.0/1.1 and existing
-single-view roadmaps remain compatible. Adopt a legacy baseline explicitly and
-mark unknown earlier history rather than manufacturing dates or decisions.
+The generator renders supplied revision records in a separate document starting
+with schema 1.2. Carry forward the records and any retained history links when
+regenerating. For an existing roadmap, record the adoption baseline and identify
+any earlier history that could not be verified.
 
-## One main roadmap, detail when useful
-
-Start with one document. Keep it understandable on its own; split when different
-readers, owners, update rhythms or content volume justify separate maintenance.
-Splitting is not an obligation to produce more files.
+## One main roadmap, linked supporting documents
 
 | Document | Reader question | Content |
 | --- | --- | --- |
-| Main roadmap | Where are we going and what matters next? | Direction, ordering, active priorities, blockers, near-term delivery, key events, latest five revisions |
-| Optional delivery detail | How is delivery arranged? | Iteration goals/timeboxes, version membership, relevant phases/events and timeline |
-| Optional history detail | Why did the plan change? | Supplied revision records and links to complete decisions/evidence |
-| Existing execution board | What does each person do? | Tasks, daily progress, assignments and detailed results |
-
-Reading order is overview → priorities → selected delivery plan → timeline →
-revisions/sources. Completed work can be folded separately without changing its
-tier. Phases and milestones normally stay with their delivery plan; Gantt is a
-view of its timing. Author instructions and conceptual definitions stay in guides.
+| Main roadmap | What matters now and what comes next? | Direction, current priorities, blockers, delivery expectations and References |
+| Planning basis | Why is the work arranged this way? | Rationale, priority and closure rules, and links to decision sources |
+| Independent iteration plan | What work fits the next timebox? | Cadence, goals, timeboxes and allocations |
+| Delivery detail | What are the delivery scope and dates? | Version scope and milestones |
+| Revision history | What changed and why? | Dated changes and links to their decisions and evidence |
 
 Each fact has one editable source. The main may contain a generated summary of
 iteration/version dates; it does not become a second independently maintained
@@ -498,9 +479,8 @@ Keep distant work broad and unallocated until decided. Now/Next/Later express
 priority/readiness, not iteration numbers. Carry-over does not duplicate the
 requirement or change its tier, and iteration end proves no acceptance or release.
 
-The [single-document iteration example](../../skills/define-roadmap/references/service-desk/iteration-driven/roadmap.md)
-and [split main roadmap](../../skills/define-roadmap/references/service-desk/iteration-driven-split/roadmap.md)
-render the same [source iteration decisions](../../skills/define-roadmap/references/service-desk/iterations.md).
+The [independent iteration example](../../skills/define-roadmap/references/service-desk/iteration-driven/iteration-plan.md)
+renders the [source iteration decisions](../../skills/define-roadmap/references/service-desk/iterations.md).
 BUG1 contributes to I1 and I2 while staying in V1. I2 touches both V1 and V2;
 R1 contributes across I2/I3 while staying in V2. R2/R3 remain unallocated, and
 milestone acceptance/release criteria remain independent of timebox ends.
@@ -512,16 +492,11 @@ python3 skills/define-roadmap/scripts/render-roadmap.py input.json --output-dir 
 python3 skills/define-roadmap/scripts/render-roadmap.py input.json --layout split --output-dir chosen-directory --overwrite
 ```
 
-Use schema 1.3 for optional iterations and the grouped reading structure. The
-first command defaults to single output. Split mode adds delivery/history sibling
-pages only when content exists; both layouts share SVG/Mermaid schedule facts.
-The main retains delivery/event summaries and latest-five revisions. History detail
-contains supplied records and links retained sources; it does not reconstruct history.
-All five fixed filenames are reserved. Explicit overwrite removes stale generated
-children when returning to single mode and leaves unrelated source files alone.
-Source links are relative to the output folder; moving the entire bundle elsewhere
-requires rebasing or preserving its relative source layout. Schemas 1.0–1.2 keep
-legacy default output. No existing project is automatically migrated.
+Use schema 1.3 or later to export an independent iteration plan. Both layouts generate the main
+roadmap and planning basis. They also generate a history document when records
+are supplied. Split mode adds delivery detail when available. Both layouts use the
+same schedule facts. Explicit overwrite removes stale generated views. Source links
+are relative to the output folder, so preserve their relative paths when moving it.
 
 Some destinations do not preserve Markdown disclosure elements. Verify rendering;
 expand folded content or use linked detail pages when unsupported. Local preview

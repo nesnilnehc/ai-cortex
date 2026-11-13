@@ -18,7 +18,7 @@ limitations. See [SKILL.md](SKILL.md) for the procedure and Self-Check.
 
 Phase spans and milestone events follow the [Roadmap Spec](../../specs/roadmap-modeling.md); legacy formats remain compatible.
 
-Material planning changes retain the latest five revision summaries and a durable history link under the [revision contract](../../specs/roadmap-modeling.md#54-revision-records). Regeneration and archive cleanup preserve earlier decisions.
+Material planning changes are recorded in separate history linked from the main roadmap’s References section under the [revision contract](../../specs/roadmap-modeling.md#54-revision-records). Regeneration and archive cleanup preserve earlier decisions.
 
 Optional iteration views and one-main-plus-detail layouts follow the
 [Roadmap Spec](../../specs/roadmap-modeling.md#reading-order-and-document-boundaries).

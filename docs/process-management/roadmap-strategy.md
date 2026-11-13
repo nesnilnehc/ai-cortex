@@ -10,10 +10,18 @@ status: active
 
 [Main roadmap](roadmap.md) · Updated: 2026-10-21
 
-This detail page holds the existing strategic initiatives and checkpoint definitions.
-The main page is their summary. The structural move changes no scope, tier or
-business threshold; discrepancies are retained explicitly below. Detailed work and
-execution evidence remain in the [backlog](backlog.md) and linked source records.
+## Planning basis
+
+The retained strategic plan has no source-backed requirement or defect arrangement.
+The current plan puts core capability and channel readiness ahead of deeper
+composition. [Checkpoint definitions](#checkpoint-definitions) need reconciliation
+before they can establish readiness or completion.
+
+- A backlog item maps to the existing Now or Next direction before work is pulled.
+- A requirement outside the roadmap direction is not worked on by default until
+  the roadmap changes. Exclusion never means completion.
+- Placement grants no implementation or release approval. Closure evidence and
+  current measurements remain in [source work records](backlog.md).
 
 ## Initiatives and entry conditions
 
@@ -44,10 +52,8 @@ a source-backed planning decision and record the material revision before using 
 
 ## Timing and execution detail
 
-No source-backed iteration cadence, dates, phase spans or version assignments are
-supplied by this legacy plan. Keep them unknown. Adopt optional iteration or version
-views only when the team has actual decisions to present. A two-to-four-week cadence
-is supported by the library but is not a fact about this project.
+The current plan has no confirmed iteration cadence, delivery dates, phase spans
+or version assignments.
 
 ## Historical checkpoints
 
@@ -56,5 +62,8 @@ governance and channel establishment. This page retains that historical assertio
 closure evidence was not reverified during document restructuring. It grants no
 current completion or release claim.
 
-For current priorities and retained revision baseline, return to the
-[main roadmap](roadmap.md).
+## Revision tracking baseline
+
+The project adopted [revision tracking](../../specs/roadmap-modeling.md#54-revision-records)
+on 2026-10-21. Earlier planning decisions remain unverified. Consult the main
+roadmap's Git history and the linked project sources for available evidence.

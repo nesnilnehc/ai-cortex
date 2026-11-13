@@ -52,11 +52,8 @@ generated roadmaps independently of their input and source evidence.
 The former `assets/roadmap-input-example.json` path remains a relative symlink to
 `initial/input.json`; it is an alias, not an independently maintained input.
 
-The modern iteration outputs lead with the plan and place policy, closure and
-maintenance evidence after revisions. Their policy link points to the independent
-policy above. Old single-view snapshots keep their compatible presentation; the
-linked source policy anchor remains valid. Titles follow document roles without
-renaming established snapshot folders or requiring a separate planning-basis file.
+The generated roadmaps lead with the plan. References link to supporting rationale,
+policy and retained revisions where applicable.
 
 ## Phase and event interpretation
 
@@ -69,10 +66,11 @@ Revision history is introduced with schema 1.2: initial is the adopted baseline,
 ## Iteration and layout examples
 
 Read the [iteration decisions](iterations.md) first, then compare the
-[single document](iteration-driven/roadmap.md) with the
+[main with delivery results](iteration-driven/roadmap.md) with the
 [split main](iteration-driven-split/roadmap.md),
 [delivery detail](iteration-driven-split/roadmap-delivery.md) and
-[revision detail](iteration-driven-split/roadmap-history.md).
+[revision detail](iteration-driven-split/roadmap-history.md). Both layouts export an independent iteration plan
+([single](iteration-driven/iteration-plan.md) and [split](iteration-driven-split/iteration-plan.md)).
 They render the same schema 1.3 [input](iteration-driven/input.json). There is no
 second editable input in the split folder. Both output directories are siblings,
 so their relative source links resolve identically. This is an alternate view of

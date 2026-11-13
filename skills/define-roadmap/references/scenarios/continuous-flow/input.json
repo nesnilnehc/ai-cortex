@@ -14,7 +14,6 @@
     {
       "id": "BUG1",
       "name": "Retry creates duplicate requests",
-      "outcome": "Retry produces one request",
       "tier": "Now",
       "priority": "P0",
       "approval": "Approved",
@@ -25,7 +24,6 @@
     {
       "id": "R1",
       "name": "Explain request status",
-      "outcome": "Reduce support clarification",
       "tier": "Next",
       "priority": "P1",
       "approval": "Approved",

@@ -25,7 +25,7 @@ The definition and canonical source of each artifact type are fixed below. Any o
 | Artifact type | Canonical source | Strength | Rule |
 | :--- | :--- | :--- | :--- |
 | strategic-goals | `docs/project-overview/strategic-goals.md` | ★★★ | The one authoritative definition of the strategic goals; other documents cite it with a link plus a summary |
-| roadmap (views, milestones and revision summary included) | `docs/process-management/roadmap.md` | ★★★ | The active roadmap and latest revision summaries; detailed decisions and retained history are linked, not competing plans |
+| roadmap (current results and references) | `docs/process-management/roadmap.md` | ★★★ | The active roadmap with links to planning basis and retained history |
 | requirements | `docs/requirements-planning/<PROJECT>-REQ-<nn>.md` | ★★★ | The canonical source for the requirements on each topic |
 | backlog-item (index) | `docs/process-management/backlog.md` | ★★ | The index and navigation for backlog work items |
 | backlog-item (detail) | `docs/process-management/backlog/YYYY-MM-DD-*.md` | ★★ | The detailed definition of a work item |
@@ -93,12 +93,10 @@ A timestamp in a filename, in YYYY-MM-DD or YYYYMMDD form, should follow the rul
 
 ## Roadmap revision retention
 
-Apply [the Roadmap Spec](../specs/roadmap-modeling.md#54-revision-records). Keep the
-latest five material planning summaries in the canonical roadmap. Full decisions
-and older revisions stay in existing source records or archive snapshots; no new
-artifact type or mandatory parallel log is introduced. Verify retention and links
-before shortening summaries or removing legacy work-package directories. Git
-preserves textual history; it does not replace reasons and planning impacts.
+Apply [the Roadmap Spec](../specs/roadmap-modeling.md#54-revision-records).
+Keep material revision records in a separate document or directory and link the
+history from References. Reuse decision records or archive snapshots that already
+provide this history. Verify record retention and links when relocating it.
 
 ## Roadmap document family
 
@@ -108,29 +106,15 @@ Preserve established locations/anchors and business decisions; the default paths
 below do not authorize migrating a consuming project or rerunning its planning.
 
 Follow [Roadmap Modeling](../specs/roadmap-modeling.md#reading-order-and-document-boundaries).
-The established main roadmap remains the entry point. Single-document delivery is
-valid; split by reader, ownership, update cadence or volume when useful. Optional
-iteration/version plans and history are supporting views, not new artifact types.
-Keep direction, priorities, key blockers/delivery expectations/events and the latest
-five revisions in the main document. Place phases/events with the related delivery
-plan and link detailed tasks to execution boards. Detail pages link back.
+The main roadmap is the entry point for direction, current priorities, blockers,
+delivery expectations and events. Link the ordering rationale, policies, closure
+criteria and history from References. Manage iterations in their own plan or board. Use existing supporting
+documents where possible and combine related topics when they share ownership.
 
-Declare each fact's editable authority and refresh linked/generated summaries after
-changes. The bundled renderer uses same-directory roadmap-delivery.md and
-roadmap-history.md; hand-maintained projects may use their established paths.
-No automatic migration of legacy milestone work-package directories is required.
-
-Use the Spec's [document-family naming advice](../specs/roadmap-modeling.md#document-family-naming)
-when a new supporting document is useful. It distinguishes priority policy,
-planning basis, delivery and revision history without requiring a file for every
-role. Existing project paths and knowledge-base URLs remain valid; a display-title
-improvement does not require a URL change. In this repository, living canonical
-documents keep the timestamp policy above; snapshots and drafts remain explicit.
-
-The main roadmap leads with direction, current arrangement and material unknowns.
-Policy/closure definitions and view/layout/language evidence remain linked in its
-later planning basis. Reference an independent policy with a useful summary or bare
-link, never a second editable rule set or current item inventory.
+Each fact has one editable authority. Refresh linked or generated summaries after
+a change. Keep existing project paths and knowledge-base URLs and use the Spec's
+[document-family naming advice](../specs/roadmap-modeling.md#document-family-naming)
+for new supporting documents.
 
 ### Roadmap selection evidence
 

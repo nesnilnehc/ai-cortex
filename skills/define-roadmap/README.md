@@ -3,8 +3,7 @@
 Create a source-backed roadmap with requirement arrangement, optional version
 delivery, iteration and schedule views. Choose useful views and single/split
 layout from project needs; preserve established destinations.
-Each requirement row links its source and states the outcome, priority, separate approval and execution status, and separate key
-conditions. The execution cell uses one fixed label from the quality rule. Tasks and detailed acceptance evidence remain in source documents.
+Each requirement row links a descriptive title to its source and shows priority and separate approval and execution states. Material blockers appear outside the table. The execution cell uses one fixed label from the quality rule. Tasks and detailed acceptance evidence remain in source documents.
 
 Use the bundled [template](assets/roadmap-template.md) and
 [completed example](references/roadmap-example.md). Review against
@@ -35,7 +34,7 @@ for the input example, invocation and conditional platform-delivery support.
 
 Phase spans and milestone events follow the [Roadmap Spec](../../specs/roadmap-modeling.md); legacy formats remain compatible.
 
-Material planning changes retain the latest five revision summaries and a durable history link under the [revision contract](../../specs/roadmap-modeling.md#54-revision-records). Regeneration and archive cleanup preserve earlier decisions.
+Material planning changes are recorded in separate history linked from the main roadmap’s References section under the [revision contract](../../specs/roadmap-modeling.md#54-revision-records). Regeneration and archive cleanup preserve earlier decisions.
 
 Optional iteration views and one-main-plus-detail layouts follow the
 [Roadmap Spec](../../specs/roadmap-modeling.md#reading-order-and-document-boundaries).
@@ -53,7 +52,7 @@ settled combination during maintenance. Legacy and custom choices remain valid.
 Start from the [four template recipes](assets/scenarios/README.md) and
 [complete scenario outputs](references/scenarios/README.md). The read-only
 `--recommend` mode reports questions/proposals or retained choices; schema 1.4
-generation reuses saved layout and independently selects flow/phase/event views.
+generation reuses the saved layout and selected flow and milestone views. Legacy phase records stay in supporting sources.
 
 ## Deliverable language
 

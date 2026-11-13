@@ -16,9 +16,8 @@ skipped as out of scope. No default P0→Now mapping is reapplied.
 
 ## Review and repair
 
-Before: missing explicit outcomes, a buried delivery commitment, no adoption
-baseline, and an execution mapping gap for R2. Structural repair adds sourced
-outcomes, separates the overview/arrangement/delivery/basis, preserves old anchors
+The original plan buries the delivery commitment and has no adoption baseline.
+Structural repair surfaces the commitment, preserves the titles and old anchors
 and surfaces unknown execution before the table. It does not classify R2 as Not
 started from its Draft approval. The optional generator is not used: its reserved
 `roadmap.md` output would not preserve this project's `plan.md` and existing anchors.

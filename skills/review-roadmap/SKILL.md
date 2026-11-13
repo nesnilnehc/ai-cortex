@@ -1,7 +1,7 @@
 ---
 name: review-roadmap
 description: Review roadmap structure, business content or both with separate scoped conclusions; check source-backed planning and selected views without rewriting or expanding authorization.
-version: 3.13.0
+version: 4.0.0
 license: MIT
 output_schema:
   type: findings-list
@@ -44,7 +44,7 @@ links as the baseline for re-review; missing evidence cannot become a full pass.
    that cannot be evaluated. Do not downgrade the requested scope or populate files.
 3. Read linked requirement and defect records, goals, acceptance criteria, priorities
    and dependencies. Verify that every requirement-view entry is a requirement or
-   defect, not a task or task group. Version groups and schedule milestones are
+   defect, not a task or task group. Check that the title names the capability or problem. Version groups and schedule milestones are
    valid additional views. Check duplicates against stable parent IDs.
 4. Evaluate all five dimensions in the rule: completeness, executability, clarity,
    soundness and traceability. Missing four-part stage dossiers, fixed hypothesis
@@ -56,11 +56,12 @@ links as the baseline for re-review; missing evidence cannot become a full pass.
    application, not another scoring policy. A useful summary plus authority link,
    or a sufficient bare link, is valid. Do not require a separate rationale file,
    precise rank for genuine ties or migration to the Spec's suggested filenames.
-   In the revised reading hierarchy, plan/unknowns precede maintenance metadata;
-   policy, closure, selection and language evidence remain recoverable later.
+   Check that the main shows planning results and material unknowns. Follow References
+   to supporting rationale, rules, selection and language evidence. Check that iteration plans remain outside the roadmap and its timeline.
 6. Verify source agreement, approval boundaries and prerequisite readiness. Check
-   separate approval, execution and key conditions columns; one fixed execution
-   label per row; short linked next-step conditions; and no evidence in status cells.
+   separate approval and execution columns and one fixed execution label per row.
+   Check linked material blockers outside the table. Verify the delivery outlook
+   shows only versions and milestones, with phase details in supporting sources.
    Compare every claimed transition with source records and the declared closure
    criterion. Distinguish development complete, acceptance passed and production
    release; flag undefined closure or unsupported Completed claims. Risk, approval,
@@ -135,26 +136,21 @@ Self-check: concepts, selected views and linked evidence agree with the source r
 Check the [revision contract](../../specs/roadmap-modeling.md#54-revision-records)
 against available source decisions and preceding retained snapshots. Identify known
 material changes absent from history, unsupported before/after claims, dropped or
-duplicated records, unreadable history links and missing reasons/impacts. Check
-latest-five display separately from durable retention. Do not treat a removed
+duplicated records, unreadable history links and missing reasons/impacts. Verify that References leads to separate, durable history. Do not treat a removed
 historical object as an invalid current reference. Legacy adoption does not require
 fabricated backfill; report unknown prior history as a limitation, not a failure.
 
 Self-check: material changes are traceable, retained links resolve, and repeated execution adds no duplicate revision.
 
-## Layered and iteration views
+## Roadmap and supporting views
 
-Check the Rule's reading/iteration criteria. Read main plus selected children and
-source records: main alone must explain priorities, blockers and near-term delivery;
-children must link back. Check facts and dates against their declared editable source,
-not against another generated copy. Inspect selected iteration cadence/goals/scope,
-timeboxes, unallocated work, version mapping and board links. Carry-over is valid;
-iteration end is no evidence of release, completion or event occurrence. Do not demand
-iterations or child documents from a single-view plan. Structure/layout defects route
-to define-roadmap; existing goal/scope/cadence/timebox drift routes to update-roadmap.
+Check main readability and compare delivery facts against their declared source.
+Verify that supporting roadmap pages link back and that the roadmap and its
+timeline exclude iteration allocations. When an independent iteration plan is
+also in scope, review its cadence, goals, timeboxes, allocations and source links
+on their own. Iteration boundaries convey the team's working cadence.
 
-Self-check: all selected documents were examined; main readability, iteration
-semantics, ownership and link limitations are reported without mandatory expansion.
+Self-check: selected delivery views agree with their sources and navigation resolves.
 
 ## Scenario and selection review
 

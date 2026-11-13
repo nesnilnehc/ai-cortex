@@ -15,8 +15,7 @@
   "entries": [
     {
       "id": "R1",
-      "name": "Validate assisted triage",
-      "outcome": "Determine whether users understand triage suggestions",
+      "name": "Test whether users understand triage suggestions",
       "tier": "Now",
       "priority": "P1",
       "approval": "Approved",
@@ -27,7 +26,6 @@
     {
       "id": "R2",
       "name": "Expand triage rollout",
-      "outcome": "Extend useful assistance",
       "tier": "Later",
       "priority": "P2",
       "approval": "Draft",

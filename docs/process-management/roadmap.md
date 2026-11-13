@@ -13,19 +13,9 @@ status: active
 ## Overview
 
 Broaden delivery/governance intent coverage and verified adoption channels, then
-strengthen cross-project reuse and orchestration, guided by the
-[strategic goals](../project-overview/strategic-goals.md).
+strengthen cross-project reuse and orchestration.
 
-Ordering rationale: the existing plan puts core capability/channel readiness ahead
-of deeper composition. [Checkpoint definitions and conflicting thresholds](roadmap-strategy.md#checkpoint-definitions)
-need reconciliation before they can establish readiness or completion.
-
-This is the project's retained strategic view. It does not yet have a source-backed
-requirement/defect arrangement, verified current coverage, iteration cadence,
-version groups or dated delivery commitments. Those facts remain unresolved;
-this presentation cleanup does not certify progress or create missing decisions.
-Detailed work remains in the [backlog](backlog.md). The
-[Roadmap Spec](../../specs/roadmap-modeling.md) governs new requirement-based views.
+Checkpoint targets and current coverage remain unresolved. No delivery dates are confirmed.
 
 ## Priority arrangement
 
@@ -54,24 +44,8 @@ AI Cortex's capability/contract system. No dates or iteration assignments are se
 | M6 | Verified ecosystem channels | Target definitions conflict; occurrence unverified |
 | M7 | Complex orchestration and a closed workflow loop | Workflow threshold conflicts; occurrence unverified |
 
-[Delivery direction, initiatives and checkpoint definitions](roadmap-strategy.md)
-are maintained once in the detail document. It links back here. These checkpoints
-are events/outcomes, not version containers or iteration timeboxes. No dates,
-iteration cadence, phase spans or release groups are inferred.
+## References
 
-## Boundaries
-
-- A backlog item maps to the existing Now or Next direction before work is pulled.
-- A requirement outside the roadmap direction is not worked on by default until
-  the roadmap changes; exclusion never means completion.
-- Placement grants no implementation or release approval. Closure evidence and
-  current measurements remain in source work records.
-
-## Revision history
-
-Revision tracking adopted on 2026-10-21 under the
-[revision contract](../../specs/roadmap-modeling.md#54-revision-records). This is the
-adopted baseline; no material planning revision is asserted by the documentation
-change. Earlier planning decisions are not reconstructed here and remain unverified;
-consult this file's Git history and linked project sources for available evidence.
-Future material changes retain dated summaries and source-backed reasons/impacts.
+- [Strategic goals](../project-overview/strategic-goals.md)
+- [Planning basis, boundaries and checkpoint definitions](roadmap-strategy.md)
+- [Backlog and source work records](backlog.md)

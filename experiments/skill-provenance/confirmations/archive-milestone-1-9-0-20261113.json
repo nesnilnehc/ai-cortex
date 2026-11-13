@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicit confirmation in the roadmap closeout chat",
+  "confirmed_at": "2026-11-13",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed the current reviewed archive-milestone 1.9.0 remains an AI Cortex original.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/archive-milestone-1-9-0-20261113.json"
+    }
+  ],
+  "subject_digest": "c047b4213778c999965d93d34f2fed8f2847c3acc7618be582b5d4902907e2ef"
+}

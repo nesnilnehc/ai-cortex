@@ -5,7 +5,7 @@
       "classification": "native",
       "version": "1.9.0",
       "reviewed_files": {
-        "README.md": "74168553f53f6b88593813a9f23ded7df9ddffc9aed93220df008af48e18de78",
+        "README.md": "da8581faafaf36ceaa1bc34856a4abe14c6dd4e041369774639148f3ea921e5d",
         "SKILL.md": "0963f68603969baef10dfa489b482b64abfc47162ada6ca267a8e0c9dd700411"
       },
       "reviewed_evidence": {
@@ -17,7 +17,7 @@
           "path": "experiments/skill-provenance/evidence/archive-milestone.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/archive-milestone.json"
+          "path": "experiments/skill-provenance/confirmations/archive-milestone-1-9-0-20261113.json"
         }
       ],
       "creation": {
@@ -25,17 +25,17 @@
         "revision": "c80dcb2cb150c33f0ad99f07b96739abf3316771"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer, explicit confirmation in the roadmap closeout chat",
+        "confirmed_at": "2026-11-13",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "rationale": "The maintainer confirmed the current reviewed archive-milestone 1.9.0 remains an AI Cortex original.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/archive-milestone.json"
+            "path": "experiments/skill-provenance/confirmations/archive-milestone-1-9-0-20261113.json"
           }
         ],
-        "subject_digest": "a4b9000c6ffe12fc3455929cf0e0366b2572d1e2fac7dd4a90eb0cc5f5dabf6a"
+        "subject_digest": "c047b4213778c999965d93d34f2fed8f2847c3acc7618be582b5d4902907e2ef"
       }
     },
     "assess-product-opportunity": {
@@ -540,10 +540,10 @@
     },
     "define-roadmap": {
       "classification": "native",
-      "version": "7.13.5",
+      "version": "8.0.0",
       "reviewed_files": {
-        "README.md": "da3520e07b22cc3446491b1ffc0185fb7098b2ec1996dd4951c717128fc4b1bc",
-        "SKILL.md": "3bd6ee7626a4d0dee87e431e701ef5560a075b65846cdd6bad34041f3e5a10c5",
+        "README.md": "e2a2fcae06bc8f6fda95bf9af5859a6cf0c101d00adfed27be479a2486bcaaf9",
+        "SKILL.md": "8d5c993b930b7e6b1b579ac3009bfe5243328693335a3b82e2e4ebb6366147e6",
         "assets/modules/flow.md": "307a7db9731700d565e56447402975b495507d3d50919f495303bc7dc33a7c2e",
         "assets/modules/iterations.md": "1cf9c9ea00b4ed0f50ccc8285d305d798c046c8785825998053b0451c8a32aba",
         "assets/modules/milestones.md": "cbb510bb6e8d9e37fc5d1c41e0961abb34c25cce7d9865f1e1a918e518f477ac",
@@ -551,83 +551,113 @@
         "assets/modules/timeline.md": "729feba1450575fddb1fbde2e429c4ce0ac471da0dfa0676a5135814013f1999",
         "assets/modules/versions.md": "c095663982eb452931fa69edb9bfc1ec872855313a18bc156c336f5e57293fc7",
         "assets/roadmap-input-example.json": "3f408d85bc93dd992186187101fff23c47c9722f98ad5d06044c18cf1974a29a",
-        "assets/roadmap-template.md": "1f7f8f4d65d642627c232f27d3acfb1c67273ee7e4d9c2b4d21a2ee30edcb459",
-        "assets/scenarios/README.md": "dad84c988eae9e9d6b140e41afe4d9df11d74c5b68b1161aef7afd63be2da04c",
+        "assets/roadmap-template.md": "ca122dad909e3760c0eef424d8e67510d789697b02850ae5674b8d9ff4ce9f6d",
+        "assets/scenarios/README.md": "0076de68c4b96c25a326966ae850e328eca7ec2e3cb54d66950d2cf579214bcf",
         "assets/scenarios/continuous-flow.md": "412b75f5a867d5b7a90b0f83154ed3a6612eef08ffa349bc8613dd131c7472bc",
-        "assets/scenarios/discovery-pilot.md": "3fe284fab2160ab9df52504a293f699e5c912baa50861dc36172129e207c62fe",
-        "assets/scenarios/iteration-product.md": "f383a70df07f5245184971d50be2146ac491f15c95fc895e6886122fe30b8e1a",
-        "assets/scenarios/staged-delivery.md": "be55d90c361a537514d7c67aa07bc4218ead9a6ddb705b248dd19225b8d72082",
-        "assets/structure-first/iterations.md": "03fd06441d7c44e44ea2c4c8c3fd52665c6c0ce03f7a8f85eed291f7904b786d",
+        "assets/scenarios/discovery-pilot.md": "c92875c47e26225cafe0ee14657c819f5d5b62e64bd814c6c43f029983e102d3",
+        "assets/scenarios/iteration-product.md": "2654b268f6a1df7f3dfb411aa204eb1bcadab20b46865376d0abea0d0fefa92a",
+        "assets/scenarios/staged-delivery.md": "62b6c7d4d63ddfe9e6538c94fcfd380a9fec25b6ebdf7daf1aae945456117032",
+        "assets/structure-first/iterations.md": "6e3e212a712ae0932f06fe6a929b9167fef77ff1cfe86de18063325c9809a36d",
         "assets/structure-first/milestones.md": "cb3f7e4da0e92f9bf1291bbb0f56d7fd13351a7cd92608d6c2cefd7fa6a71ebb",
         "assets/structure-first/roadmap-history.md": "87c8e41e7fddd3f5a58c845291e442f578fefe8f3b76915c9095f06f3f94c383",
-        "assets/structure-first/roadmap-planning-basis.md": "fb024aa61b07557938faa9b177890729b414bce0b31859d79316b007a3d7ca63",
-        "assets/structure-first/roadmap.md": "8a36ae71ef8ea8679d521feac6dfad369009e334b68eae8489f69e6a1174970d",
-        "assets/structure-first/versions.md": "b4b8e7dae71822eb1597fdb2c0ada2d6de4c182d911de27cc6f2384bd8b5c729",
+        "assets/structure-first/roadmap-planning-basis.md": "cdcb20eefec6b41aa146909799f0cca3348ad90885d6466b50d1103ee72419f4",
+        "assets/structure-first/roadmap.md": "d73097982949112f68a93f89c72b8fce988e9851a197da58dd5f5ebec216181f",
+        "assets/structure-first/versions.md": "182588f555ef1e0531e36afa64ba7cd6928fcb21374db8267c16fabc0960a07e",
         "references/deliverable-language.md": "880b3d98057bf2826cbef60746be5d0e6a1925d546c825d9d36d176f7eeec0c0",
-        "references/existing-project/README.md": "901c5fcaa7575c32bc509d955120c3620a85acf6a7e2c0f591e1fc438619461f",
-        "references/existing-project/after/plan.md": "1e7bbfa9e629e2d50fea9f7651cb0f4fb44133b27e749d88afd0f0d5ee683dab",
+        "references/existing-project/README.md": "6d3e8b659dd03231ab0dbe10c4f0708c7cec802e7a59abac9e03d1d879ed83cc",
+        "references/existing-project/after/plan.md": "fdeeb5e49845a728f1834bd605b0f238f6c13f3010f0e0cb76249997087cabdb",
         "references/existing-project/before/plan.md": "03287598733968848712203ac81a5cce0359ecf2407d4033416648574893ac72",
-        "references/existing-project/sources.md": "64a09ff4fe7e043579d38f5ef51f7245e8da13935576ff60686bf5fafadcf58e",
-        "references/languages/README.md": "e5305acb429b255fa31e218653754608292a4e19017203d1bebee0affe0d617f",
+        "references/existing-project/sources.md": "25f35679b5652b27434b3880f9981cfaaa889d7f5183e5b61919ac9722a94af7",
+        "references/languages/README.md": "dde61ac9044c8c1c7ed61df0a27a8a31060f42f3568ed9bac42c38be5628018c",
         "references/languages/conversations-zh-CN.json": "d46c3b6d74c84b9e94c309fc351e8ee63863ed0668f79085ce80ee366841be62",
-        "references/languages/en/input.json": "02fdcc8a7b0377883e75eab9a9c792be474d5d407f1f550d90206b7b679dc906",
-        "references/languages/en/roadmap-delivery.md": "04adc73d2920b078b203a7b31a81adb195c81e13f4ffab2b80bbfe7a37b2853f",
+        "references/languages/en/.roadmap-outputs.json": "a7a9935345b4b251cfbeb75379aacdd96aa7b2a76ae29177bdc69b7021f56d0f",
+        "references/languages/en/input.json": "41b8a6fd4acb86988ad848982a203adf4f2e7df78dd6966f3c9376cc87bddd1f",
+        "references/languages/en/iteration-plan.md": "95cf22b0450cb32b2bada38ceeb6aabb505459d84983e4b7d0557bf6b924cf12",
+        "references/languages/en/roadmap-delivery.md": "4520210b5aa6c1e051a3fc53babbc05f1602a15407443fceaf2d307b99592b0b",
         "references/languages/en/roadmap-history.md": "3782674e6ec3453b0016e415fc58528530b532d8f75447e3b6fb25f6c94b4763",
-        "references/languages/en/roadmap.md": "deddbb54070ddecca8e407224858815b6f4d097d83dce869b58df70b5575074a",
-        "references/languages/en/roadmap.mmd": "0fc70fbbf5cb23f871bee14b0c0eafca0c112f38ce2c38d13afef10fbd67aa89",
-        "references/languages/en/roadmap.svg": "28da0627cdb751f3cf2cbd90aa0132848de6677b44f6f7b64078a678fa505026",
-        "references/languages/sources.md": "a63d0e2b056fac98f533efd63e0d10fd2147f88699d025662fef832650c8222e",
-        "references/languages/zh-CN/input.json": "210a0bb2a46ec8aa788dfe3c02d90a49a46f9c1ed1cce01855411c0cbe3249f8",
-        "references/languages/zh-CN/roadmap-delivery.md": "5ba067f5b3203128cdb5f2f66c5b3e3df3232d4e4bfb90877f370d1d651337fe",
+        "references/languages/en/roadmap-planning-basis.md": "2d348f319c434ffbe3c72d9878abaae53ab515a5fba2f012107f6eb6250b0c7f",
+        "references/languages/en/roadmap.md": "aa4a0ea5c8b800cd0d1730dbb27b4f02f8d633a400dc2fbf75993f2550b68a35",
+        "references/languages/en/roadmap.mmd": "04131f2fb08d01e1d512287b65b98d3b0ce5ac44c29fbdd4b3e75eeeb513ddee",
+        "references/languages/en/roadmap.svg": "17a3d3322df39ba473fba8ab7e74824769c71fc6e9046ab8ae119423d8aafb58",
+        "references/languages/sources.md": "53714873083b5a8f2b5fda5a96ba82eb9b39f58b786aedef7d92eb95ee97fbbe",
+        "references/languages/zh-CN/.roadmap-outputs.json": "8f0574b682b96233b3fb26c2f13091f75e98cda772687c8db570e40ad4b99cee",
+        "references/languages/zh-CN/input.json": "6dd09e0110ab86dc6fb67c00c55a907e4a8980107e13dcf0a4ecc8811f683d92",
+        "references/languages/zh-CN/iteration-plan.md": "54e175a4e91ac3c40f4f030d89a6dcdecf5dfd2f98bc213d41a67c5abab1f2ec",
+        "references/languages/zh-CN/roadmap-delivery.md": "845e8baa7481ca2eeb539eae553a3f8cd1c8f9941c8f020ccf8c17eebb72c14d",
         "references/languages/zh-CN/roadmap-history.md": "83816ec7da8ed9ebc48c6105383fc18d9d6852c00234fec094abcc5a24016081",
-        "references/languages/zh-CN/roadmap.md": "2cff987194240d62c747629b45a150aba6cbbfebd62659e056e05fc3d555d1d0",
-        "references/languages/zh-CN/roadmap.mmd": "3709d98db86e61638e29a694e1190a833af8486a6e9465c1a70d7678c3396e4a",
-        "references/languages/zh-CN/roadmap.svg": "e4cf41641ed92b13611de0092771ff951cb26b68759c41c89fd1de2c15a7ef9b",
+        "references/languages/zh-CN/roadmap-planning-basis.md": "4ae46151ece05fc162372173a06532aea1afc585613550bde3aa7b4c190020fb",
+        "references/languages/zh-CN/roadmap.md": "db99e3fea9f17ca5b3384e0d78475c151f12ea50c7b21fc234f722b357923a34",
+        "references/languages/zh-CN/roadmap.mmd": "81665f5bab085347ff54160a7b121b7e3d3d21c9d3d4fe256abba6a47f3c4c84",
+        "references/languages/zh-CN/roadmap.svg": "3104d8f3b3b3ac7d03e1268b0467130a1b1520771462d9b1933b532c606f68b7",
         "references/platform-delivery.md": "39e8678b4d9db156a5c4937d5b3963d6568494a7cf065a8f02196376deeb61eb",
         "references/platforms/yuque.md": "ff5fffceb87056b1ddf19f2714dc710a3c55bb40eba8550e8ed7cca5aafbf455",
         "references/roadmap-example.md": "0ea4332aec32279a4cd661727478e9e2f01edc43130a659304e117f428fe76b5",
-        "references/scenario-selection.md": "23a8190c0c49a618d4463573eccfab98dd6718cd73b44a1d5f493be339aa08d8",
-        "references/scenarios/README.md": "4e128b963e017be57894a3af9d05a022a5561a9bac1e533c97ecc99ddc0555cc",
-        "references/scenarios/continuous-flow/input.json": "22b9ffa0b382e24b653ffeccf2d2fbea24000eb2e08412e1acce618a35128ad9",
-        "references/scenarios/continuous-flow/roadmap.md": "c325a585d25f4aba45f50e1a88a1095b061d4240fe805c23b39abff8e32ccd83",
+        "references/scenario-selection.md": "302fb603f6ba8fe079da8c78e1dd80efcef6499d20a1b692a43b712b5aa2496d",
+        "references/scenarios/README.md": "db3007c5fc47e41ebc898006fb361aee352bd52253385c3fc5854d78d4e765d6",
+        "references/scenarios/continuous-flow/.roadmap-outputs.json": "c95c3cc6552ee8561919ed4d6df742f01fdb411b471a7b3f1db7e2bf15e69894",
+        "references/scenarios/continuous-flow/input.json": "ac5f607fcc0ba59af6e09010d1a1f556d9de6e11b75d715d7ad7eff97e0be30f",
+        "references/scenarios/continuous-flow/roadmap-planning-basis.md": "18300393925ee5fd71b47fb3a4ae40f69c8c008143f031cb5525bc67ed5a0e87",
+        "references/scenarios/continuous-flow/roadmap.md": "f3ff4f5a1f08eb5364e0c6da8896f6dfd61e546d2262520e82dbb357dc7447ff",
         "references/scenarios/continuous-flow/selection.md": "2346b60b2561d321f32aa601cc5d45e0773edd9dd8ce72d77dfed0d7f314ddd6",
         "references/scenarios/continuous-flow/sources.md": "93072ffcba8006210311885a40acaf8aaa38ce96f6f6040b00c2090bf2c18cbe",
-        "references/scenarios/discovery-pilot/input.json": "14d9b12a503dfca772499597bb3d3b8b3276ad8eae8e67212b262f4e45b0ca27",
-        "references/scenarios/discovery-pilot/roadmap.md": "4e13074854372e69fff923e394dfe38ef1b7c32ced464d095c49cd4af8172e97",
-        "references/scenarios/discovery-pilot/roadmap.svg": "15bd2d06efddf2d5dd56803ab94f60f78c5806e8d6793209987ea608549c1546",
+        "references/scenarios/discovery-pilot/.roadmap-outputs.json": "26c0a2bd5bf7df3180b47379bb2fe571a5c205b4d1618e497234449e2df5130e",
+        "references/scenarios/discovery-pilot/input.json": "1a592fca18cb3138e3a744bc8952ff89ec9b8dd99b9ba8c49fdd0e7ff67db509",
+        "references/scenarios/discovery-pilot/roadmap-planning-basis.md": "9c0ab182eb36c002f844f2883e6df152c3afb813bd853bb5deeda355d93188ff",
+        "references/scenarios/discovery-pilot/roadmap.md": "8a2c523c365feb17cf6458336855bd532ea79c9bdc136eec7c9267c67fbce720",
+        "references/scenarios/discovery-pilot/roadmap.svg": "b7ad7723f1a7e1c7463e6c96a6a8c36a4fc830cea34f2e790afd01ab90b229a3",
         "references/scenarios/discovery-pilot/selection.md": "89a06d10bd4bbc77e30c8339321ecfaeb9b0ab3b40283c5ca80ac2d736cf0d75",
-        "references/scenarios/discovery-pilot/sources.md": "3cbe20015a9c5ff7c800c8005148e8c6b78cb02bdb0ee477e0854d44b649388b",
-        "references/scenarios/iteration-product/input.json": "04f3282736997e6a9d907d48e4a500243211bff8fdd2eb63bca0a68453f80566",
-        "references/scenarios/iteration-product/roadmap-delivery.md": "19acb1846444bf4e88f24a487e439e7483e6be4943d1dc3aa895eaa37832aa81",
-        "references/scenarios/iteration-product/roadmap.md": "f7a9029509eb0e61df98f02e8a71da7169b3168870c11413fdb2c38997d8e868",
-        "references/scenarios/iteration-product/roadmap.svg": "4abb3a514ae86be132e12b1b060b6d67a1358a352c36b403d074e9022da60235",
+        "references/scenarios/discovery-pilot/sources.md": "0c3425f4dff24553fc645cf06934e43195c6accfb33ca69a8c17cee10c299df8",
+        "references/scenarios/iteration-product/.roadmap-outputs.json": "09b22884fdc4ca64a541433a2f7c0f3c6ec4f23d944918e177625c73af8942db",
+        "references/scenarios/iteration-product/input.json": "e7dfd8a49193681d0627b636fcf7e19b3cfbb6d81541525ca3843fc0531da8f5",
+        "references/scenarios/iteration-product/iteration-plan.md": "f404b8ebe082d37eb8cf30e0495e9247e08d1fbbb3561cecf3a4c366ebc55f88",
+        "references/scenarios/iteration-product/roadmap-delivery.md": "f5840f1f0f28b6860e44732908b8166caf235ed30f2ae731f827b00dc21dae98",
+        "references/scenarios/iteration-product/roadmap-planning-basis.md": "3b6262377e644b515a4025a73eb6043100bd51fa64ec744e8ca3195ced54bd9f",
+        "references/scenarios/iteration-product/roadmap.md": "7740fd4fca6c015a789ad742ff976819499d09e86c341261d669e36d01b919a2",
+        "references/scenarios/iteration-product/roadmap.svg": "152411c57c8b05e8004d027fc3519183078d23859fd6ca3d22de32774133d3e1",
         "references/scenarios/iteration-product/selection.md": "721e103c6706772c2ea79f0d92fca48f5fba6a51fb2d9f65339aa39da054536c",
-        "references/scenarios/iteration-product/sources.md": "3a9f0c3f043559079727e84dd240d2be9dad077f29297b4a78f4721a2473f60b",
-        "references/scenarios/staged-delivery/input.json": "d76f3c6b06d05d3099fe8d6a6db763c56c8ec167ed7d9ccd853b9fc62bb1eef3",
-        "references/scenarios/staged-delivery/roadmap-delivery.md": "14a48b0e3bd1fa1c2458c7e1ea26779f583a950266b532eab143191b9d201d63",
-        "references/scenarios/staged-delivery/roadmap.md": "15cabc66dfdf5ceda73fc15cb295361696ff74c87ef36bc1209312b096af4a9e",
-        "references/scenarios/staged-delivery/roadmap.svg": "39fdea6fa4a7d390e43bd5d900eec939d351e2d445252f8d4e727148e2231517",
+        "references/scenarios/iteration-product/sources.md": "0903fc6149628117a987cde5b5e2f2cf232334cc2f3a9594f71eb93678bc5c1b",
+        "references/scenarios/staged-delivery/.roadmap-outputs.json": "830fb78af8fd1c0032017f3663ee53988d18bbc4ec43d46f5884bc2d87050a40",
+        "references/scenarios/staged-delivery/input.json": "bbd691bd3deb8f94f3d160d73993203de10444947b77dd0f7eaa911a95a0f0d5",
+        "references/scenarios/staged-delivery/roadmap-delivery.md": "055b1dd0992b5fd3525e7ae60cd1a854aca951048fb97cb363625e22a0f3251a",
+        "references/scenarios/staged-delivery/roadmap-planning-basis.md": "d20e6ba9c1e34d7199565cdf25cd270bee54b588087c2616d5d78e7c9ea8ece1",
+        "references/scenarios/staged-delivery/roadmap.md": "0da1cff9552f9ba1e59fa66753674a99aae1b4075aae74ac1b5b1dd9b8b1c34c",
+        "references/scenarios/staged-delivery/roadmap.svg": "b4d4662a2865ee83f66306636d4a7758593e874b708197eb7b4aa14e16ed4c75",
         "references/scenarios/staged-delivery/selection.md": "335fc1a5bfbbec5b30e20afd08b2fcbd034d9e5e4e678b4b7dbf8b2164c85c56",
-        "references/scenarios/staged-delivery/sources.md": "998e8b8ccde64dfc44fec2733bbe2408d794d958bdb8615cb22c0b53dcda564d",
-        "references/service-desk/README.md": "2072b232cb8a91788b57beae322950dea04aab3242155b2cef614ba73205ffc3",
-        "references/service-desk/adjusted/input.json": "c26e6e0d527f62d8be606fb548ce99ba7d92bdc187b1f3195ca0750960642a32",
-        "references/service-desk/adjusted/roadmap.md": "3ad85d1fd5d5348cd130becb852f4e641523ab6e03e3a90579d37aec39d51fb6",
-        "references/service-desk/adjusted/roadmap.svg": "19d2d6cc8c01741b3dd81d0a7a031806713490ba62e02a25542df03d1c15ba31",
-        "references/service-desk/after-delivery/input.json": "7c9b710d86cd9451312dce592813513091cf3a5a650c251ffcaa632fa629bda9",
-        "references/service-desk/after-delivery/roadmap.md": "8aa9460b3fabce3a4f2a3ba7e2a9a9b24b7abe34233e2353df5236b6fa6264c4",
-        "references/service-desk/after-delivery/roadmap.svg": "beca6950b7193b1dd9b07ebc4c3c6b74ebe6c8b8eee4b3923700e062270dcc38",
-        "references/service-desk/change-record.md": "7a8f319c3cf9c3140cc06297ffe4c398cd09940ca21a2f8c99688d1b486d6b0d",
+        "references/scenarios/staged-delivery/sources.md": "25d21a31d7db9e9977492db9e70daa4ce970536b2949849c96aaf97715d91850",
+        "references/service-desk/README.md": "4a472679a2dd2fc8176d32e8f9777b86ae34a05ea57eeaa7442c759ef54dad01",
+        "references/service-desk/adjusted/.roadmap-outputs.json": "9661da7a22c3d9324545d8c2e6d836fc26cf7360f4e134c41d78cb07525e442d",
+        "references/service-desk/adjusted/input.json": "93fc69e9d97b2f38c2665a466a948eb568d3e449dbddf05502c99c9fd8badb50",
+        "references/service-desk/adjusted/roadmap-history.md": "e34b48aaf4e25706e9ede5f2b989d583df11cfa71b4183539e73f43ac9cce4e1",
+        "references/service-desk/adjusted/roadmap-planning-basis.md": "9e014e57bd1bb9fb07da719c70075fdca96ce83e9faae2f29b04ad300357e7e6",
+        "references/service-desk/adjusted/roadmap.md": "1e011b793f688c15fccc2a29be081603b176aac09a3d23a524aeccfeeaf2cece",
+        "references/service-desk/adjusted/roadmap.svg": "1c71cee3d61c38099ade191f7a03dc5799fe28b351e0c86f9c939aa16e4923e3",
+        "references/service-desk/after-delivery/.roadmap-outputs.json": "66cc598a293dd86b33c961810dbb94e95be30a136325223dd7d0fc127f859cda",
+        "references/service-desk/after-delivery/input.json": "40aa7cbbfe3191c9693b3711e7dc98b241ad37d2e1972d8f13891cff18baa893",
+        "references/service-desk/after-delivery/roadmap-history.md": "418a8e3a9cf786d85e6238fcb7a4050861f4415368f53e919760fa43c5bb598f",
+        "references/service-desk/after-delivery/roadmap-planning-basis.md": "9e014e57bd1bb9fb07da719c70075fdca96ce83e9faae2f29b04ad300357e7e6",
+        "references/service-desk/after-delivery/roadmap.md": "e7da8c543fb7a6fb220e590ff3dbcae9034319f23165c9562529091fb4a782d2",
+        "references/service-desk/after-delivery/roadmap.svg": "12574002e55717c8dc837dc1467e645cad16a1d2d327c62db5b3870143633511",
+        "references/service-desk/change-record.md": "21e8055d50c3a76ed8572ac4dc82683eb466ec7a20d188cccc8288cff3703251",
         "references/service-desk/dependencies.md": "0c1594a511492e1051c7101d6f580c4ba747fa4bff1786953ddd57435f0014d1",
-        "references/service-desk/initial/input.json": "978aec8bf91fb5b5fe01eff2fe5f2b740819703255b9829524be1831ae7f6688",
-        "references/service-desk/initial/roadmap.md": "16e21546fe583681eea40da3e5092cf028b85d44014360b78f985af26fdf9b1a",
-        "references/service-desk/initial/roadmap.svg": "7df95dc8abbb0616524fb500692fb0ea63d2f00185423b814e55d73165a983fb",
-        "references/service-desk/iteration-driven-split/roadmap-delivery.md": "93b9780fb2258c9fb9d60577996a8a9bb113e1e837f889d6710b17af73a395a2",
+        "references/service-desk/initial/.roadmap-outputs.json": "898f7b53ecc94866a79f650b208957ac3a052cd334b03edb8ecd8d3e74025daf",
+        "references/service-desk/initial/input.json": "df5e6b9bf17090394b27f5001220ec0b3d4f99337574410947dc3bd67998e369",
+        "references/service-desk/initial/roadmap-planning-basis.md": "9e014e57bd1bb9fb07da719c70075fdca96ce83e9faae2f29b04ad300357e7e6",
+        "references/service-desk/initial/roadmap.md": "a8dc4e128ac53cfed81fe65c995ea0877a213e65146a96e6c166937e67963b3e",
+        "references/service-desk/initial/roadmap.svg": "786faba2d3651c8717a25f57906dd035f59d4430f3a9f80f3db4eb11d678f7e0",
+        "references/service-desk/iteration-driven-split/.roadmap-outputs.json": "db9cb17f6025df06225fe040b9b54e000be266e185b1d06231e1cc5b3e50e45c",
+        "references/service-desk/iteration-driven-split/iteration-plan.md": "601fd0d6e2a9eda0b28809c0a63abff96b54f524efa217a2220913238b433d43",
+        "references/service-desk/iteration-driven-split/roadmap-delivery.md": "73dddbe881802e7b2bf4c1bfea93a99e588fbb58dbbd029d455923c823a307f0",
         "references/service-desk/iteration-driven-split/roadmap-history.md": "6ce89d9cc015628c37940d88922621cfa5a8ab4ab0da73ebf636a2a7ef45cf77",
-        "references/service-desk/iteration-driven-split/roadmap.md": "36f0ff673a1f6c75799d568e95b54095d171fa5f4ba1019d2a1548dcd682564e",
-        "references/service-desk/iteration-driven-split/roadmap.svg": "458e7bbee0454c2ef6c96cb55e5be58248602e5f996c682a9752ac7e63f41f04",
-        "references/service-desk/iteration-driven/input.json": "5ae78d01e9ddc1d46856f61709e22ad5ee8089a6471d39a2b954239024498b68",
-        "references/service-desk/iteration-driven/roadmap.md": "5a97b6dab56df1f3d24a1777d7f5b9237ebdb8e1c7feb7e4bf09e8b2245e0f5d",
-        "references/service-desk/iteration-driven/roadmap.svg": "458e7bbee0454c2ef6c96cb55e5be58248602e5f996c682a9752ac7e63f41f04",
+        "references/service-desk/iteration-driven-split/roadmap-planning-basis.md": "1a7eded4561a8eb512c0e859f7614923d926e356ff31f61aec633cbf32342c4b",
+        "references/service-desk/iteration-driven-split/roadmap.md": "d1a7929bb0964e97d87ff3941052a021995db82d501aad602bce087b3938d652",
+        "references/service-desk/iteration-driven-split/roadmap.svg": "1c71cee3d61c38099ade191f7a03dc5799fe28b351e0c86f9c939aa16e4923e3",
+        "references/service-desk/iteration-driven/.roadmap-outputs.json": "78dad8acafd0d0b8404620aa9b760fda66fed7e194fbed6f94a7af921dbf8de9",
+        "references/service-desk/iteration-driven/input.json": "aa3e1d29719c906f9341c628e4a22d397064fc6cdb742084274fc220fe17be8b",
+        "references/service-desk/iteration-driven/iteration-plan.md": "601fd0d6e2a9eda0b28809c0a63abff96b54f524efa217a2220913238b433d43",
+        "references/service-desk/iteration-driven/roadmap-history.md": "6ce89d9cc015628c37940d88922621cfa5a8ab4ab0da73ebf636a2a7ef45cf77",
+        "references/service-desk/iteration-driven/roadmap-planning-basis.md": "1a7eded4561a8eb512c0e859f7614923d926e356ff31f61aec633cbf32342c4b",
+        "references/service-desk/iteration-driven/roadmap.md": "b03f8ca59170e352c0d43eae77fd212b7053ffaa9edce98f9d5d3ef5aad805b7",
+        "references/service-desk/iteration-driven/roadmap.svg": "1c71cee3d61c38099ade191f7a03dc5799fe28b351e0c86f9c939aa16e4923e3",
         "references/service-desk/iterations.md": "b541cd1b140cfb68370dc208ebf77439399550cafa218420c73f281e821cc268",
         "references/service-desk/placement-decisions.md": "c5d0cb5a6b0e19073b810cf70e4d33313400efda1e229942613f08e1248f77cc",
         "references/service-desk/priority-decisions.md": "79ad14cb2164e6bca86b5880568f0ea972c23d328ba6435eb9783dd83fcebb99",
@@ -635,21 +665,21 @@
         "references/service-desk/problematic/input.json": "853a1175d55f27f3215ba845accd62b981243494da068392e226129ac6e92cc6",
         "references/service-desk/problematic/roadmap.md": "b6b15e4f8a1e350c2fd655dfe7b9b0f6b185790ab8481f6adcfe107408375e3b",
         "references/service-desk/review-findings.md": "b2e387a2b0113dac2d1f540557cb1e9459ee5fae25655ee0aad6c00d9d22ab53",
-        "references/service-desk/sources.md": "7bc10b43facdd04822a24e89e9830c17e349ab25aea811e5c78e5efe1b6fb3e1",
-        "references/service-desk/topic-split/.roadmap-outputs.json": "504b6b2fbc080916c1f709ef41cf910ba8ca40ee695f4ffb3c5974a06b38d641",
-        "references/service-desk/topic-split/input.json": "0d17c976f9ce38dedd1b7ef5e0b1a3b99c907caef2578106dc78148ad150a8f2",
-        "references/service-desk/topic-split/iterations.md": "dff8d8b2f49215249c4e36f5c7545611d850b87b628a1f524e6499f2c6695ac5",
-        "references/service-desk/topic-split/milestones.md": "3ee0706eeb8fc7c0e4f4bbe7d6d70ccbaba2a7a1140b267778fdafcec8e4e2d0",
+        "references/service-desk/sources.md": "a12e533b79fb5e1d8d250a12c2dd4d0c0d16d69f8fc5000e5efa0972cc65d3bf",
+        "references/service-desk/topic-split/.roadmap-outputs.json": "8992e9b55c94e50dbb2933565d8da8ebe6af81e301d13419f650b8a17f10d75e",
+        "references/service-desk/topic-split/input.json": "70c007758eb0ed1a4fcf27d833a6322a307ccc778ce76e51bdd819e97200cae2",
+        "references/service-desk/topic-split/iterations.md": "d27c984fde93aea015e81f769a9da890bc122887f89538cbfad5be3f0195523a",
+        "references/service-desk/topic-split/milestones.md": "2aa021c7226a11195797e9b1fc7b107ad380dfb95ad40a975c418584e8f2009f",
         "references/service-desk/topic-split/roadmap-history.md": "72f7c913109a42a1faf69293a46b45c2c2bc8b1d3aca3829485737b6165dd0a2",
-        "references/service-desk/topic-split/roadmap-planning-basis.md": "b82a3c531b44c7ea21afef9c7354c72742e916babaf3fcdbf4e4f31ea5db6da2",
-        "references/service-desk/topic-split/roadmap.md": "e6c9e87030b25f2c175913fc7b59f0c1a1913e82d64ae2801e72672936bf34ab",
-        "references/service-desk/topic-split/roadmap.svg": "b69f19ebbc8636ce6614398092ca57036c67b4332888559e8ad6902eaec5eebc",
-        "references/service-desk/topic-split/versions.md": "8b550291fc0a0adb86607f6bfb31a70a59899e583f2892ef2b808d78a839320a",
+        "references/service-desk/topic-split/roadmap-planning-basis.md": "3a67a1bd84fc1162c3c75691f6898df32388b58c2cac0d3b97475dcb0eae0905",
+        "references/service-desk/topic-split/roadmap.md": "188de18ba809bbf83a48cb10ac243a5189d8747c06d97743ddfb2883834b64dd",
+        "references/service-desk/topic-split/roadmap.svg": "953b52acd66f4d393ccb6e5765da0189a629579c33150ca459471e17f69d7265",
+        "references/service-desk/topic-split/versions.md": "8567323dd8aa7424199e4e9696ad2aaebb361f48eb5c3e085ef7b1b8fb2e6753",
         "references/service-desk/version-archive.md": "832f899776342ef96156d2b5ca297dd0fea2234cafbf0ee25e263047ac75a1a7",
-        "references/structure-first.md": "d2408195be8d32ad9802ad3225766cbaf6a4a49e5f849522f4599ec18d1a832c",
+        "references/structure-first.md": "de39e5973667c09ae4f9b7daf192c0f6a7ccc64769018a7ae83939b4e20c88cc",
         "scripts/check-platform-delivery.py": "8fbd8fa7119785dd2c9d4beb3b2760bdf22c3ec54d31fe30138b037f1ce96263",
-        "scripts/render-roadmap.py": "25bb37f1ef92ec3b33c4b4a6dca1184e5d1afd2665a1ef478d3a4aa058f05e4b",
-        "scripts/roadmap-zh-CN.json": "9793c0fb6199626c7300cef39fe5d55a7f6ba91246441cce0c6531f7bddd4e27"
+        "scripts/render-roadmap.py": "781b21c7086f22b7cf41708becb689bdb2a114e8bff7a251b7d0f385a9b25d55",
+        "scripts/roadmap-zh-CN.json": "19a5e8d9bbb7b9d5800a09140e1e8d13abeec18b6040cd748bf59ecaff6ceb9c"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/define-roadmap.json": "764324db2f3558723529c423b8927fb3e287d1c840f00bee4fc539ae3419029a",
@@ -664,7 +694,7 @@
           "path": "experiments/skill-provenance/evidence/milestone-calendar-svg.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/define-roadmap-7-13-5-20261106.json"
+          "path": "experiments/skill-provenance/confirmations/define-roadmap-8-0-0-20261113.json"
         }
       ],
       "reviewed_links": {
@@ -675,17 +705,17 @@
         "revision": "904a4cc530bfd4e9557885add79a5d0fc0c3b590"
       },
       "decision": {
-        "maintainer": "Repository maintainer, explicit confirmation in the milestone SVG implementation chat",
-        "confirmed_at": "2026-11-06",
+        "maintainer": "Repository maintainer, explicit confirmation in the roadmap closeout chat",
+        "confirmed_at": "2026-11-13",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer explicitly confirmed the reviewed define-roadmap 7.13.5 continues as an AI Cortex original. The SVG work reuses local AI Cortex rendering logic.",
+        "rationale": "The maintainer confirmed the current reviewed define-roadmap 8.0.0 remains an AI Cortex original.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/define-roadmap-7-13-5-20261106.json"
+            "path": "experiments/skill-provenance/confirmations/define-roadmap-8-0-0-20261113.json"
           }
         ],
-        "subject_digest": "96cbfb8791599730eaab746cfb109538cd0674c6286c76c1f7651a6fb6187400"
+        "subject_digest": "0a76107daa0b926eb132a56afd67e09b676f7c2fdef7001a78fd2600374bf96b"
       }
     },
     "define-strategic-pillars": {
@@ -1854,10 +1884,10 @@
     },
     "promote-roadmap-items": {
       "classification": "native",
-      "version": "3.9.0",
+      "version": "4.0.0",
       "reviewed_files": {
-        "README.md": "4128cfeaab397a10a62b2f96dfbf573b8ce76a8d1efc7aa3ed2a5b31b729307a",
-        "SKILL.md": "c219f651e51cf69960a6488a8ebe9aae5acdfe11009ef2afc708566490afc856"
+        "README.md": "f1d193a1baf28fc7d5c587110043738245155dd0b1d97cd093ec852ed2234b98",
+        "SKILL.md": "1a7bb76d9e37a1bad8d7ceeb9011a4b50aa31304dae77d0aedfee6d25e479e31"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/promote-roadmap-items.json": "b3951a8780ead87a606bcad8179dc8d51d672bc88cd0aeda4239eb16185db7a1"
@@ -1868,7 +1898,7 @@
           "path": "experiments/skill-provenance/evidence/promote-roadmap-items.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/promote-roadmap-items.json"
+          "path": "experiments/skill-provenance/confirmations/promote-roadmap-items-4-0-0-20261113.json"
         }
       ],
       "creation": {
@@ -1876,17 +1906,17 @@
         "revision": "369aabc6458a2f2729d47b0a522c9bafa1e7fd56"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer, explicit confirmation in the roadmap closeout chat",
+        "confirmed_at": "2026-11-13",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "rationale": "The maintainer confirmed the current reviewed promote-roadmap-items 4.0.0 remains an AI Cortex original.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/promote-roadmap-items.json"
+            "path": "experiments/skill-provenance/confirmations/promote-roadmap-items-4-0-0-20261113.json"
           }
         ],
-        "subject_digest": "d814cdc99abaf7f695c0c848df1db95c3c00de6ba9a0f23ea3a3e18172e2ee4d"
+        "subject_digest": "a95786562ebf12b026993183851e98b7f792a706d376cda82c7cf7fbabd8eb15"
       }
     },
     "publish-nats-message": {
@@ -2754,10 +2784,10 @@
     },
     "review-roadmap": {
       "classification": "native",
-      "version": "3.13.0",
+      "version": "4.0.0",
       "reviewed_files": {
-        "README.md": "238e1c542d4714bff143afdbfeddc299e6048ca92f9eefa88faaf6161deceee3",
-        "SKILL.md": "2e8c6f9a7821337fb3c731986de23ec6865cd1fd6177273ae6eb89d4c94ed28f"
+        "README.md": "6f6302ba087312e4f21b3edf6fe3509fb18403567a1afc37f15813ffbf101a51",
+        "SKILL.md": "5f0e2064b8b1d87645bcba1063e72f2d457019884e5b70bc2b2c4b35111ae178"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/review-roadmap.json": "1cd0e71a6e2f99a7308ef7b91af7aaa9c292e4dc485d6c7c0077759a20fa2682"
@@ -2768,7 +2798,7 @@
           "path": "experiments/skill-provenance/evidence/review-roadmap.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/review-roadmap.json"
+          "path": "experiments/skill-provenance/confirmations/review-roadmap-4-0-0-20261113.json"
         }
       ],
       "creation": {
@@ -2776,17 +2806,17 @@
         "revision": "63d9b12f94ef0ce8f3c3d20fe91ffb1990522b9e"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer, explicit confirmation in the roadmap closeout chat",
+        "confirmed_at": "2026-11-13",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "rationale": "The maintainer confirmed the current reviewed review-roadmap 4.0.0 remains an AI Cortex original.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/review-roadmap.json"
+            "path": "experiments/skill-provenance/confirmations/review-roadmap-4-0-0-20261113.json"
           }
         ],
-        "subject_digest": "50958b32074490c56a39fe80b6d0fd0bdfd5a383e91badddb7d147e248d29a79"
+        "subject_digest": "c9eb7399cda57a19d4c3b97670f43ac8602cc12292077017513c307ce0e2b6a5"
       }
     },
     "review-security": {
@@ -3124,10 +3154,10 @@
     },
     "update-roadmap": {
       "classification": "native",
-      "version": "3.10.1",
+      "version": "4.0.0",
       "reviewed_files": {
-        "README.md": "124ed7b360eab1ec368ac343d651c062d09f35ba98e39fac5560b6ab444ee9ae",
-        "SKILL.md": "e0305ad253d8ebc60b4e962f48b44f0e8857622e4b423d81056ddcfeee575666"
+        "README.md": "aaab69418e7a83f33df8dd612f9ac259ebe5106846f7152611d46f0f550e44f1",
+        "SKILL.md": "13e405270e18ba84ceaf506fc0861ddf9e144a481bdc22923109f5850408e630"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/update-roadmap.json": "bc936bddd7b10b79340929c5474276086c8992be54f620ea878fd0f3fb4e6b69"
@@ -3138,7 +3168,7 @@
           "path": "experiments/skill-provenance/evidence/update-roadmap.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/update-roadmap.json"
+          "path": "experiments/skill-provenance/confirmations/update-roadmap-4-0-0-20261113.json"
         }
       ],
       "creation": {
@@ -3146,17 +3176,17 @@
         "revision": "63d9b12f94ef0ce8f3c3d20fe91ffb1990522b9e"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer, explicit confirmation in the roadmap closeout chat",
+        "confirmed_at": "2026-11-13",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "rationale": "The maintainer confirmed the current reviewed update-roadmap 4.0.0 remains an AI Cortex original.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/update-roadmap.json"
+            "path": "experiments/skill-provenance/confirmations/update-roadmap-4-0-0-20261113.json"
           }
         ],
-        "subject_digest": "58e09877e414c3a85348d984ea14dc8578ebc1b3e9daf293e94686f64e3bd5b1"
+        "subject_digest": "e983071d4a51f0e3418ce6972581db3e499dcc2478e03edf6167bb2a5dd3c80c"
       }
     }
   }
