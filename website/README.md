@@ -2,7 +2,22 @@
 
 ## Current publication
 
-Sites version 23 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+Sites version 24 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+Both catalogues link to the reviewed roadmap Skills. The public provenance
+data carries their originality records. The Site source is `0eb12a79837d5453f22f68bfc4927b396789ac9d`;
+the repository source is `0e2025f4dbb7b7610de156fe88626f517a5d7379`.
+
+All 78 website tests passed. HTTPS verification matched all 49 runtime
+files. Four HTML responses included the hosting provider's challenge
+script, and the other 45 files matched byte for byte. The five pinned
+Skill sources matched their declared versions and repository bytes.
+The [deployment receipt](.openai/deployment.json) and
+[publication checks](.openai/publication-20261113-roadmap.json) record
+the published source and verification scope.
+
+## Prior publication — product requirements
+
+Sites version 23 was published at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
 The English and Chinese catalogues include `clarify-product-requirement` and
 `split-product-delivery`, both at 0.2.0. The Site source is
 `b613f2612c6f4332e2379b7f2776ca5ec7ca200a`; repository source is

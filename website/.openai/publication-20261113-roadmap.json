@@ -1,0 +1,110 @@
+{
+  "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_2eb61cb552bc8191972ec87eb4e33ded",
+  "version_number": 24,
+  "deployment_id": "appgdep_6af731fa3f288191b3eaa42ad158fd8f",
+  "source_commit": "0eb12a79837d5453f22f68bfc4927b396789ac9d",
+  "repository_source_revision": "0e2025f4dbb7b7610de156fe88626f517a5d7379",
+  "access_mode": "public",
+  "public_url": "https://ai-cortex.nesnilnehc.top/",
+  "archive_sha256": "7a776e36d0b34757b62a64d6c9ef28bc715d825ea2699555507b350cc261625c",
+  "hosted_archive_content_hash": "sha256:369e8814c6d5fb38c9ed7e8e7e59d3efe86cca45bab3e4a1395a93d975bfd771",
+  "automated_website_tests": 78,
+  "verification": {
+    "checked_at": "2026-11-13T15:52:22.616463+00:00",
+    "status": "passed",
+    "assets_revision": "70a589bc06f63e5febf5de4481f5af60d29354ce",
+    "cache_key": "roadmap-delivery-20261113",
+    "skill_sources": [
+      {
+        "skill": "archive-milestone",
+        "version": "1.9.0",
+        "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/70a589bc06f63e5febf5de4481f5af60d29354ce/skills/archive-milestone/SKILL.md",
+        "byteIdentical": true,
+        "passed": true
+      },
+      {
+        "skill": "define-roadmap",
+        "version": "8.0.0",
+        "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/70a589bc06f63e5febf5de4481f5af60d29354ce/skills/define-roadmap/SKILL.md",
+        "byteIdentical": true,
+        "passed": true
+      },
+      {
+        "skill": "promote-roadmap-items",
+        "version": "4.0.0",
+        "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/70a589bc06f63e5febf5de4481f5af60d29354ce/skills/promote-roadmap-items/SKILL.md",
+        "byteIdentical": true,
+        "passed": true
+      },
+      {
+        "skill": "review-roadmap",
+        "version": "4.0.0",
+        "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/70a589bc06f63e5febf5de4481f5af60d29354ce/skills/review-roadmap/SKILL.md",
+        "byteIdentical": true,
+        "passed": true
+      },
+      {
+        "skill": "update-roadmap",
+        "version": "4.0.0",
+        "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/70a589bc06f63e5febf5de4481f5af60d29354ce/skills/update-roadmap/SKILL.md",
+        "byteIdentical": true,
+        "passed": true
+      }
+    ],
+    "byte_identical_files": {
+      "copy.mjs": "98066e27493b23ca013c617303fb09cf44f6a1f6c056e5fa043cf6969ff54b4d",
+      "explore/assets/work-stories.png": "1d155d745670022aee28542d2f638620a29a9b3c5398237f71f065848dc090f6",
+      "explore/classification-view.mjs": "42aee5af71fce255342f2a3f17a7d4bcd84160a35943d7559d3acecb1a589740",
+      "explore/classification.json": "e7fa993649bfdb0b54dd8f96ce9f7b036e8b10b49f44710a375e15ffa7398abb",
+      "explore/dual.css": "e05daa97343318e9f2ca4930b34a0ab499bfaf7146252668ce37b0f5b4f0eb3b",
+      "explore/explorer-host.mjs": "f17c0db9b9c5658ed8755e95a9a3b4c933b359242bf5a4352527807234c59a43",
+      "explore/explorer-state.mjs": "94faebea4f1a9d1a31a7f4618e8f20d7a5740f0833b8b8e4bc9c4aa58bb881e1",
+      "explore/global-topic-graph.mjs": "961a7be3aa45eec76ece7ac6ff6a66507d5c8f0cd0be59c5e2758d7673fc962a",
+      "explore/legacy.mjs": "75911c2f37e6eceaa41fc6f5252e6cdad51fd50def5ce7db4a5d228ddc9ab7c5",
+      "explore/locale.mjs": "ca890f96193d623ff3c6247eb3a1228e20c43ede01618ac0e8f9a902832ee883",
+      "explore/locales/en.json": "2e81485ad9ef03c7032e4844c498b26de5e07460f4a9307cca871d5faa02cffa",
+      "explore/locales/zh.json": "f29c0876352d5c754b671005d8d206001dc569f78b1e06ad39493805c965b90a",
+      "explore/panel-model.mjs": "10b81f97cb6c9bc1ef0336b93ba46dd7d255543a02ff4353bb517a638c84aa56",
+      "explore/provenance.mjs": "402be927f473e395df99b224cfe9fa4c58fdcae212e1edb78da0a81a81bdcc0a",
+      "explore/relations.mjs": "b330fa2d409899a193b9338d587cdf1422e138036aea71f9556d3f53ba5c505b",
+      "explore/relationship-model.mjs": "412bf3276a0b0d24b54f029d07678f391242c9b29de7a37e146dd8cb5a08314a",
+      "explore/relationship-view.mjs": "77a4c5ef47859fee8caaedebfc9e59fcc0173b6512637ed477b8ee8a0538cb24",
+      "explore/request-state.mjs": "23f3c205ce4d62c482eb22a10780eae879ea50666f3d97aff2c4be7fe4f2e177",
+      "explore/site-contract.mjs": "0c92978764e4eed3e9daaf0cfb468a3fe300f1fec2838614145e3245013da25c",
+      "explore/skill-edges.json": "fdff61f6d57d2e816d9572e3e9487651e3f96b48f4687711800e30efe92cf2d9",
+      "explore/skill-graph.mjs": "87e639b48b53861e8a68eec5d2c78e6ab4a64bc618f3897e3c10ead4a208725e",
+      "explore/skill-guidance.mjs": "d718cec2c0588e91a76102dda57fb7e92fde55d5fd72bb94cea043452dd6bc93",
+      "explore/skill-metadata.json": "4386b0180c0f75b6c34bbb6b21cad4a1db9a4a54df00af049a8af5a1964122fd",
+      "explore/skill-provenance.json": "c2d287e9579ec22bbfac363678eadc997afe6229a4fe1ee06bc1eb99fbd9a86b",
+      "explore/source-links.mjs": "d1d8b98a249aa96d7b5cc9b62986a47e466c872bd3566bcfdf83300ea5c686cc",
+      "explore/source-manifest.json": "6d50c4ee0ef9b450bab27451f94b194fc51dc92778abf4ae882b448f3b5eee52",
+      "explore/story-model.mjs": "b2ac4279f2ac4c54914da5d6df1f9fa3c20f17f41f5772c4d01ac2bdb5aff0a0",
+      "explore/story.css": "d023cc9b8be72e3b8da7b758712be73cdb98641a70d14d34c8d35511d0252153",
+      "explore/support-scopes.json": "bf72b80e5b02e4de210337850e34668cc4db18cd984fcc77b96d3336226bbcda",
+      "explore/support-scopes.mjs": "66113ff5d551570cd3cc17654a6a2bf9745c76e955a3b3370228dc18f5c0dc5e",
+      "explore/topic-edges.json": "99b622a4fa377bddb82544aea039a5e4d92413cd8d1cb2ccfb2b3b7e98a9f538",
+      "explore/topic-map.json": "a32337621921f6ce507cca308ce8a7ce305e9627ac79c8c4f7bc780c3f273301",
+      "explore/topic-map.mjs": "9e4c9eef068d23cb9f16a4855bf277748524e7c5162b2b8a6dbba785b8df7a5e",
+      "explore/work-map.mjs": "4e99f2f13f0b54af1d8560cf9b976d9606dff60520da21c2e062abe5ed96622d",
+      "explore/workflow.mjs": "000f738114415d98bce913a0f9a249a68d7a270db0790e04e69fd68946957768",
+      "explore/workspace.css": "d4175e2a71c4707eb53ef7af08c9f86670020cc874ce4dab663556fec5ef8d2a",
+      "favicon.svg": "e3f057d1c807354a40e1c98fd390638666a8a244e4b8e81562e348efa147c02f",
+      "language.mjs": "f7bb46226f1703e103d45cc90c5c5a8c7565a359a38c4563a6fb13d0907c5102",
+      "main.mjs": "373ab655f5f8604c0fa8f6e2fda8df333601b50561dd81d459db032f18b1fa7f",
+      "robots.txt": "2c3f391f9674a75b97ddc2e2142e18fd9d17d2755c9dfa261884aea06b995cc9",
+      "site-navigation.json": "684d0c2e2dc44e4c47d070e27d60eeba9916e731e7ad7b1a4c1c963279e842a6",
+      "site-navigation.mjs": "275c76d87e888f2d67b9c6a9e7c11fdf828f850b55f0bb3c5ea1324118ad54dc",
+      "sitemap.xml": "1f0245151e10eaca6d2e888a8fdc61a150b76346b8d958e74cf01a2ca8b93038",
+      "styles.css": "78dc21fe4b5f649aacb99c812b3e2dee0a7617f9e11d8e8016d715dc447d90f3",
+      "theme.mjs": "df9b28f7c343ff4ea9f7ec83446b62692e0bd6ba47157fa78af5a7ca478f653f"
+    },
+    "html_with_provider_script": {
+      "explore/index.html": "bed575a5817a4e3aa8f23272c70d8ad020d2e6d9f4a4c834760a52435d8f2533",
+      "explore/zh.html": "e1c94c06842bcdab113c73b9abaf1e378a0edebd61cfbce64bb0915805a85bf9",
+      "index.html": "5df2b71033431fe57419076a6763841e89919e6b7f3301a2eb62ce0848b056ec",
+      "zh.html": "bdbe737667c9a9766cdc0e6925faf023eb6df688509c62c0f66defa2028785fe"
+    },
+    "scope": "Custom-domain HTTPS, HTTP status, content type, and preserved content; pinned Skill files verified against GitHub."
+  }
+}
