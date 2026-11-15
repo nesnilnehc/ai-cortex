@@ -2,7 +2,16 @@
 
 ## Current publication
 
-Sites version 24 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+Sites version 25 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+The catalogue links to `archive-milestone` 1.9.1 and its reviewed originality
+record. HTTPS checks verified all 49 runtime files, the pinned Skill, and
+its confirmation record. See the
+[deployment receipt](.openai/deployment.json) and
+[publication checks](.openai/publication-20261115-archive-milestone.json).
+
+## Prior publication — roadmap skills
+
+Sites version 24 was published at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
 Both catalogues link to the reviewed roadmap Skills. The public provenance
 data carries their originality records. The Site source is `0eb12a79837d5453f22f68bfc4927b396789ac9d`;
 the repository source is `0e2025f4dbb7b7610de156fe88626f517a5d7379`.

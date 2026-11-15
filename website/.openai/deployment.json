@@ -1,16 +1,16 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_2eb61cb552bc8191972ec87eb4e33ded",
-  "version_number": 24,
-  "deployment_id": "appgdep_6af731fa3f288191b3eaa42ad158fd8f",
-  "source_commit": "0eb12a79837d5453f22f68bfc4927b396789ac9d",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_adec154bfcb881919cdc3c10af02195c",
+  "version_number": 25,
+  "deployment_id": "appgdep_6af96f7fa2c481918a09e51fa22884d3",
+  "source_commit": "ad03d2f1097207d174b8ab07f0cabc7735f0c1d9",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.nesnilnehc.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-11-13T15:51:35.526236+00:00",
+  "updated_at": "2026-11-15T08:38:36.339182+00:00",
   "published_files": [
     "copy.mjs",
     "explore/assets/work-stories.png",
@@ -94,20 +94,20 @@
     "personal site project entry"
   ],
   "known_good_version": {
-    "version_number": 23,
-    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_831929f5ee8c819196bc6a0f43e82f96",
-    "source_commit": "b613f2612c6f4332e2379b7f2776ca5ec7ca200a"
+    "version_number": 24,
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_2eb61cb552bc8191972ec87eb4e33ded",
+    "source_commit": "0eb12a79837d5453f22f68bfc4927b396789ac9d"
   },
   "public_verification": {
     "status": "passed",
     "checked_files": 49,
     "byte_identical_files": 45,
-    "pinned_skills_verified": 5,
-    "evidence": "website/.openai/publication-20261113-roadmap.json"
+    "pinned_skills_verified": 1,
+    "evidence": "website/.openai/publication-20261115-archive-milestone.json"
   },
-  "repository_source_revision": "0e2025f4dbb7b7610de156fe88626f517a5d7379",
-  "assets_revision": "70a589bc06f63e5febf5de4481f5af60d29354ce",
-  "cache_key": "roadmap-delivery-20261113",
-  "archive_sha256": "7a776e36d0b34757b62a64d6c9ef28bc715d825ea2699555507b350cc261625c",
-  "hosted_archive_content_hash": "sha256:369e8814c6d5fb38c9ed7e8e7e59d3efe86cca45bab3e4a1395a93d975bfd771"
+  "repository_source_revision": "ab4198d3362021f28d5b3a650b455899cb1b8514",
+  "assets_revision": "4171929cc18317e8a8d81b37c8793f05ef730715",
+  "cache_key": "archive-milestone-20261115",
+  "archive_sha256": "cb41bf4686dc5efa0790ea44d872525a989fdb2b403b2c7dd3994b5bb9d88f35",
+  "hosted_archive_content_hash": "sha256:34050ca2934b310edd5986c54f5d839e80b537195dc3b3e96b55626e4a638a9d"
 }
