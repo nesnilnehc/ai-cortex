@@ -1,3 +1,3 @@
-import {dictionary} from './locale.mjs?v=roadmap-delivery-20261113';
+import {dictionary} from './locale.mjs?v=archive-milestone-20261115';
 export const getHelpLabels=()=>structuredClone(dictionary.extras.labels);
 export const getMapProjection=()=>({nodes:Object.fromEntries(Object.entries(dictionary.topics).map(([id,topic])=>[id,{...dictionary.extras.projection.nodes[id],title:topic.name}]))});

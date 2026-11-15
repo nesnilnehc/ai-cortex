@@ -1,4 +1,4 @@
-import {getSiteDestination} from '../site-navigation.mjs?v=roadmap-delivery-20261113';
+import {getSiteDestination} from '../site-navigation.mjs?v=archive-milestone-20261115';
 export const explorerLanguageRoutes=Object.freeze(Object.fromEntries(['en','zh'].map(locale=>[locale,getSiteDestination('overview',locale).href.split('?')[0]])));
 export function getExplorerRoutes(locale){
  const home=getSiteDestination('home',locale).href,other=locale==='en'?'zh':'en';

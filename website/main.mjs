@@ -1,7 +1,7 @@
-import {initializeNavigation} from './site-navigation.mjs?v=roadmap-delivery-20261113';
-import { initializeTheme } from './theme.mjs?v=roadmap-delivery-20261113';
-import { initializeLanguage } from './language.mjs?v=roadmap-delivery-20261113';
-import { bindCopyButton } from './copy.mjs?v=roadmap-delivery-20261113';
+import {initializeNavigation} from './site-navigation.mjs?v=archive-milestone-20261115';
+import { initializeTheme } from './theme.mjs?v=archive-milestone-20261115';
+import { initializeLanguage } from './language.mjs?v=archive-milestone-20261115';
+import { bindCopyButton } from './copy.mjs?v=archive-milestone-20261115';
 
 initializeLanguage(window, document.documentElement.lang === 'zh-CN' ? 'zh' : 'en');
 
@@ -17,4 +17,4 @@ bindCopyButton(
 
 initializeNavigation(window,document);
 
-import './explore/explorer-host.mjs?v=roadmap-delivery-20261113';
+import './explore/explorer-host.mjs?v=archive-milestone-20261115';
