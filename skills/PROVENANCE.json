@@ -3,10 +3,10 @@
   "skills": {
     "archive-milestone": {
       "classification": "native",
-      "version": "1.9.0",
+      "version": "1.9.1",
       "reviewed_files": {
         "README.md": "da8581faafaf36ceaa1bc34856a4abe14c6dd4e041369774639148f3ea921e5d",
-        "SKILL.md": "0963f68603969baef10dfa489b482b64abfc47162ada6ca267a8e0c9dd700411"
+        "SKILL.md": "54f157223d4f387c55fcd51d360c557329ad102daa00f6fe77d175304014c8a4"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/archive-milestone.json": "f97fe466b9a4763eec0a8ccdd7d2241656c02758b1610b92214225105ef41ba7"
@@ -17,7 +17,7 @@
           "path": "experiments/skill-provenance/evidence/archive-milestone.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/archive-milestone-1-9-0-20261113.json"
+          "path": "experiments/skill-provenance/confirmations/archive-milestone-1-9-1-20261115.json"
         }
       ],
       "creation": {
@@ -26,16 +26,16 @@
       },
       "decision": {
         "maintainer": "Repository maintainer, explicit confirmation in the roadmap closeout chat",
-        "confirmed_at": "2026-11-13",
+        "confirmed_at": "2026-11-15",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed the current reviewed archive-milestone 1.9.0 remains an AI Cortex original.",
+        "rationale": "The maintainer requested the 1.9.1 patch for the previously confirmed original package. The package differs from the reviewed 1.9.0 source only in the declared version.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/archive-milestone-1-9-0-20261113.json"
+            "path": "experiments/skill-provenance/confirmations/archive-milestone-1-9-1-20261115.json"
           }
         ],
-        "subject_digest": "c047b4213778c999965d93d34f2fed8f2847c3acc7618be582b5d4902907e2ef"
+        "subject_digest": "361e795a81b935ae3bb9b63ed28abd18b43b6f2451f681ba61f416338aac21d3"
       }
     },
     "assess-product-opportunity": {

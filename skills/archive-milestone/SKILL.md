@@ -1,7 +1,7 @@
 ---
 name: archive-milestone
 description: Archive completed roadmap work packages or iteration/phase/version/period snapshots while preserving milestone event evidence and unfinished work.
-version: 1.9.0
+version: 1.9.1
 license: MIT
 ---
 

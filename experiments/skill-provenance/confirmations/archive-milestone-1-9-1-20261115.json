@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicit confirmation in the roadmap closeout chat",
+  "confirmed_at": "2026-11-15",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer requested the 1.9.1 patch for the previously confirmed original package. The package differs from the reviewed 1.9.0 source only in the declared version.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/archive-milestone-1-9-1-20261115.json"
+    }
+  ],
+  "subject_digest": "361e795a81b935ae3bb9b63ed28abd18b43b6f2451f681ba61f416338aac21d3"
+}
