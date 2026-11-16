@@ -1,8 +1,8 @@
-import {decorateSkill} from './provenance.mjs?v=archive-milestone-20261115';
-import {getSupportScopes} from './support-scopes.mjs?v=archive-milestone-20261115';
-import {classification,getCallHierarchy,getSkillOrder,relationships} from './relationship-model.mjs?v=archive-milestone-20261115';
-import {catalog} from './workflow.mjs?v=archive-milestone-20261115';
-import {dictionary} from './locale.mjs?v=archive-milestone-20261115';
+import {decorateSkill} from './provenance.mjs?v=roadmap-grouping-20261116';
+import {getSupportScopes} from './support-scopes.mjs?v=roadmap-grouping-20261116';
+import {classification,getCallHierarchy,getSkillOrder,relationships} from './relationship-model.mjs?v=roadmap-grouping-20261116';
+import {catalog} from './workflow.mjs?v=roadmap-grouping-20261116';
+import {dictionary} from './locale.mjs?v=roadmap-grouping-20261116';
 export function mountClassification(container,{onSelectSkill,onSelectRelation,onSelectSupport,onCollapse,onViewStateChange}){
  const support=document.createElement('div');support.className='classification-support';for(const id of ['foundation','collaboration']){const scope=getSupportScopes(id)[0],button=document.createElement('button');button.type='button';button.dataset.classSupport=id;button.textContent=scope.label;button.addEventListener('click',()=>onSelectSupport(id,button));support.append(button);}container.prepend(support);
  const find=id=>container.querySelector(`[data-class-skill="${id}"]`);
