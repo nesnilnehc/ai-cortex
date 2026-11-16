@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-16",
+  "site_version": 27,
+  "deployment_id": "appgdep_6afa76a6cdfc81918769308950142f27",
+  "site_source_commit": "63a2c559fc21fb58f9fd4f186ea270f39a3906ae",
+  "repository_source_commit": "527819b83c289e721d4f167d696b0c05b6b1feee",
+  "assets_revision": "82c887763561f04cf8e74d0966d34c7ce222a924",
+  "public_url": "https://ai-cortex.nesnilnehc.top/",
+  "runtime_files_checked": 49,
+  "byte_identical": 45,
+  "html_provider_insertions": 4,
+  "html_comparison": "Each HTML response equals the source after removing one 1114-byte provider script insertion.",
+  "skill_sources": {
+    "define-roadmap": "9.0.0",
+    "review-roadmap": "5.0.0",
+    "update-roadmap": "5.0.0"
+  },
+  "skill_source_verification": "All three raw GitHub sources matched local bytes and version fields.",
+  "website_tests": {
+    "node": 59,
+    "python": 19
+  },
+  "visual_interaction_checks": "Not rerun; this publication changes source and cache references only."
+}

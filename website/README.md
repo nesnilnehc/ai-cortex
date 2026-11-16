@@ -2,7 +2,16 @@
 
 ## Current publication
 
-Sites version 25 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+Sites version 27 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+The catalogue links to the reviewed roadmap Skills and their confirmed sources.
+All 78 website tests passed; HTTPS checks covered 49 runtime files and the three
+pinned Skill sources. Four HTML responses included a provider script insertion.
+See the [deployment receipt](.openai/deployment.json) and
+[publication checks](.openai/publication-20261116-roadmap-grouping.json).
+
+## Prior publication — archive milestone
+
+Sites version 25 was published at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
 The catalogue links to `archive-milestone` 1.9.1 and its reviewed originality
 record. HTTPS checks verified all 49 runtime files, the pinned Skill, and
 its confirmation record. See the
