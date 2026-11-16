@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicit confirmation in the roadmap grouping conversation",
+  "confirmed_at": "2026-11-16",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed define-roadmap 9.0.0 remains an AI Cortex original and used no third-party creative reference.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/define-roadmap-9-0-0-20261116.json"
+    }
+  ],
+  "subject_digest": "15b6d6eda4bc6c1045934061690d0cfccce566cdddc669823a87051bd6a897a9"
+}

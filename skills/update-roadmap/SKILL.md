@@ -1,7 +1,7 @@
 ---
 name: update-roadmap
 description: Maintain requirement-and-defect roadmap summaries — change item status, shift dates with downstream impact analysis, and retain source-backed revision history. Does not move items between Now/Next/Later tiers.
-version: 4.0.0
+version: 5.0.0
 license: MIT
 ---
 
@@ -90,6 +90,7 @@ change, retain one source/revision identity where applicable, and re-review the 
    - If what the user actually wants is a move across tiers → **stop**, explain that this falls to `promote-roadmap-items`, and hand off.
 3. **Handling a status change**:
    - Map the project's source execution evidence to exactly one label from the quality rule. Keep approval and execution in separate columns. Summarize any blockers that affect placement or delivery outside the table. Risk alone does not replace an execution label.
+   - Keep the entry in its existing planning group when only review or approval status changes. If the roadmap is grouped by that status, report the structural gap and hand off authorized restructuring to `define-roadmap`; retain the source status and applicable gate.
    - For a risk escalation or Blocked change, obtain the reason and mitigation from sources first; ask only for missing facts. Preserve the existing requirement to have both before writing. Keep details in the source and only the short next-step condition and link in the roadmap.
    - Verify the source basis for every transition, including pause, resume and reopening. Development complete maps to Awaiting acceptance while required acceptance is pending; passed acceptance maps to Awaiting release only if release remains required for closure. A recorded pause or blocker takes precedence while applicable.
    - Before Completed, verify the project's declared closure criterion and linked acceptance and production-release evidence where required. Do not invent or waive gates. If closure or the mapping is undefined, or sources conflict, report the limitation outside the status cell and leave the transition unresolved.
@@ -202,6 +203,7 @@ quality guarantee or changing the source system outside authorization.
 - [ ] Hard-deadline breaches were flagged on their own
 - [ ] The requested change and downstream impact were reviewed before persistence; any unresolved decision was clarified
 - [ ] Separate approval and execution columns follow the quality rule; each execution cell contains one fixed label, without risk labels or evidence
+- [ ] A review or approval status change did not itself move an entry between planning groups; nonconforming grouping was routed for structural repair.
 - [ ] Source and parent summary agree; task-only changes did not add roadmap entries or duplicate details
 - [ ] The what-changed summary was output
 - [ ] No item's tier was touched

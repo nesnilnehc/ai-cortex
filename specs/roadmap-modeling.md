@@ -2,7 +2,7 @@
 id: ROADMAP_MODELING_SPEC_V1
 name: Roadmap Modeling Schema
 description: Roadmap views, source authority, priority vocabulary and local generation input contract.
-version: 2.0.0
+version: 3.0.0
 status: active
 lifecycle: living
 created_at: 2026-10-20
@@ -35,6 +35,13 @@ roadmaps remain valid. Optional views do not create additional planning authorit
 Now / Next / Later, priority, version membership, approval and execution are
 independent dimensions. A version row is a grouping, not a task or a replacement
 for its members' acceptance. Milestones mark events, not proof of delivery.
+
+Organize roadmap entries by a planning dimension such as tier, delivery version,
+time or business outcome, not by review or approval status. Keep that status on
+each entry as a separate attribute, including when it is unknown. A status change
+alone does not move an entry between planning groups or grant permission to proceed;
+applicable approval gates and source decisions still govern the next action. A
+separate review worklist may filter by status without becoming the roadmap layout.
 
 Presentation form (table, grouped columns, Gantt chart), encoding (Markdown,
 Mermaid, SVG, PNG) and destination (repository, local folder, knowledge base) are

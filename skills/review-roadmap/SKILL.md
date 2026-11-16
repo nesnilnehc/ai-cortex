@@ -1,7 +1,7 @@
 ---
 name: review-roadmap
 description: Review roadmap structure, business content or both with separate scoped conclusions; check source-backed planning and selected views without rewriting or expanding authorization.
-version: 4.0.0
+version: 5.0.0
 license: MIT
 output_schema:
   type: findings-list
@@ -36,6 +36,8 @@ links as the baseline for re-review; missing evidence cannot become a full pass.
    Establish the stage under the Rule's [review scope](../../rules/roadmap-quality.md#review-scope-and-structure-drafts).
    For a structure-only scope, read all selected files and check document roles,
    fields, clean content, formatting and links against the retained layout/template.
+   Check grouping against the Spec and Rule even when the existing layout groups
+   by review or approval status; report that structural finding without rewriting.
    Report business checks as not evaluated, not missing-business defects; do not
    fetch or populate business sources. State any difference between Spec conformance,
    template use and exact named-example replication. Emit findings and stop here;
@@ -108,6 +110,7 @@ structural subset does not claim the populated-plan checks passed.
 - [ ] The quality rule and project norms were loaded.
 - [ ] All five dimensions and source-dependent criteria were examined.
 - [ ] Requirement/defect granularity, parent consolidation and readability were checked.
+- [ ] Entry grouping was checked against the planning-dimension criterion, including in structure-only review.
 - [ ] Status vocabulary, column separation, source-backed transitions and closure evidence were checked.
 - [ ] No missing strategic dossier was treated as a mandatory-format failure.
 - [ ] Evidence and history limitations are explicit and not reported as passes.

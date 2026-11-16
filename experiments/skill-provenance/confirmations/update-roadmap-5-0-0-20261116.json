@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicit confirmation in the roadmap grouping conversation",
+  "confirmed_at": "2026-11-16",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed update-roadmap 5.0.0 remains an AI Cortex original and used no third-party creative reference.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/update-roadmap-5-0-0-20261116.json"
+    }
+  ],
+  "subject_digest": "c1bc59633f75110cb5ba4ee4798b53aee890e4428d5db4c72dde21026e1a84af"
+}

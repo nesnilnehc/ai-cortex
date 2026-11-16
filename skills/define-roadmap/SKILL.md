@@ -1,7 +1,7 @@
 ---
 name: define-roadmap
 description: Design roadmap structure, populate source-backed content on a settled layout, or complete both stages; first-align existing plans while preserving business decisions and stable links, with optional local generation.
-version: 8.0.0
+version: 9.0.0
 license: MIT
 ---
 
@@ -73,6 +73,11 @@ before/after protected facts and links, then re-run review. Report repaired gaps
 unchanged decisions, remaining evidence limitations and separately proposed actions.
 With no new gap, leave the plan unchanged. See the
 [complete adoption example](references/existing-project/README.md).
+
+When the authorized structural repair addresses review-status grouping, reorganize
+entries under their existing planning dimensions under the Spec; preserve each
+status, placement, source link and applicable gate. Do not infer a new tier or
+delivery decision from the status.
 
 ### Settle structure before population
 
@@ -184,6 +189,7 @@ structural subset does not claim the populated-plan checks passed.
 - [ ] The main view explains priorities, subsequent work and blockers without task detail.
 - [ ] The main shows planning results and material unknowns. References reach the supporting rationale, rules and history where applicable. Iteration plans stay separate.
 - [ ] Approval and execution columns are separate; every execution cell has one fixed label.
+- [ ] Entry organization follows the Spec's planning dimensions rather than review or approval status, while each status and gate remains visible.
 - [ ] Material blockers are brief and linked outside the table. Closure criteria and source-backed status mappings were checked.
 - [ ] Detailed progress and evidence remain in their source documents.
 - [ ] Applicable quality criteria were checked; alignment with unresolved source facts reports limitations rather than a full pass, and no unverified fact was invented.

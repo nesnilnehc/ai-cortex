@@ -540,10 +540,10 @@
     },
     "define-roadmap": {
       "classification": "native",
-      "version": "8.0.0",
+      "version": "9.0.0",
       "reviewed_files": {
         "README.md": "e2a2fcae06bc8f6fda95bf9af5859a6cf0c101d00adfed27be479a2486bcaaf9",
-        "SKILL.md": "8d5c993b930b7e6b1b579ac3009bfe5243328693335a3b82e2e4ebb6366147e6",
+        "SKILL.md": "cb33f19faf63c9b18d0e6ee17f200750a976315b57d45ff3ef30f9abb965c14f",
         "assets/modules/flow.md": "307a7db9731700d565e56447402975b495507d3d50919f495303bc7dc33a7c2e",
         "assets/modules/iterations.md": "1cf9c9ea00b4ed0f50ccc8285d305d798c046c8785825998053b0451c8a32aba",
         "assets/modules/milestones.md": "cbb510bb6e8d9e37fc5d1c41e0961abb34c25cce7d9865f1e1a918e518f477ac",
@@ -694,7 +694,7 @@
           "path": "experiments/skill-provenance/evidence/milestone-calendar-svg.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/define-roadmap-8-0-0-20261113.json"
+          "path": "experiments/skill-provenance/confirmations/define-roadmap-9-0-0-20261116.json"
         }
       ],
       "reviewed_links": {
@@ -705,17 +705,17 @@
         "revision": "904a4cc530bfd4e9557885add79a5d0fc0c3b590"
       },
       "decision": {
-        "maintainer": "Repository maintainer, explicit confirmation in the roadmap closeout chat",
-        "confirmed_at": "2026-11-13",
+        "maintainer": "Repository maintainer, explicit confirmation in the roadmap grouping conversation",
+        "confirmed_at": "2026-11-16",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed the current reviewed define-roadmap 8.0.0 remains an AI Cortex original.",
+        "rationale": "The maintainer confirmed define-roadmap 9.0.0 remains an AI Cortex original and used no third-party creative reference.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/define-roadmap-8-0-0-20261113.json"
+            "path": "experiments/skill-provenance/confirmations/define-roadmap-9-0-0-20261116.json"
           }
         ],
-        "subject_digest": "0a76107daa0b926eb132a56afd67e09b676f7c2fdef7001a78fd2600374bf96b"
+        "subject_digest": "15b6d6eda4bc6c1045934061690d0cfccce566cdddc669823a87051bd6a897a9"
       }
     },
     "define-strategic-pillars": {
@@ -2784,10 +2784,10 @@
     },
     "review-roadmap": {
       "classification": "native",
-      "version": "4.0.0",
+      "version": "5.0.0",
       "reviewed_files": {
         "README.md": "6f6302ba087312e4f21b3edf6fe3509fb18403567a1afc37f15813ffbf101a51",
-        "SKILL.md": "5f0e2064b8b1d87645bcba1063e72f2d457019884e5b70bc2b2c4b35111ae178"
+        "SKILL.md": "f7e6d8eb892affdf1103823b78c06f437935c578ebe0c7d284595eeff27a0ef8"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/review-roadmap.json": "1cd0e71a6e2f99a7308ef7b91af7aaa9c292e4dc485d6c7c0077759a20fa2682"
@@ -2798,7 +2798,7 @@
           "path": "experiments/skill-provenance/evidence/review-roadmap.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/review-roadmap-4-0-0-20261113.json"
+          "path": "experiments/skill-provenance/confirmations/review-roadmap-5-0-0-20261116.json"
         }
       ],
       "creation": {
@@ -2806,17 +2806,17 @@
         "revision": "63d9b12f94ef0ce8f3c3d20fe91ffb1990522b9e"
       },
       "decision": {
-        "maintainer": "Repository maintainer, explicit confirmation in the roadmap closeout chat",
-        "confirmed_at": "2026-11-13",
+        "maintainer": "Repository maintainer, explicit confirmation in the roadmap grouping conversation",
+        "confirmed_at": "2026-11-16",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed the current reviewed review-roadmap 4.0.0 remains an AI Cortex original.",
+        "rationale": "The maintainer confirmed review-roadmap 5.0.0 remains an AI Cortex original and used no third-party creative reference.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/review-roadmap-4-0-0-20261113.json"
+            "path": "experiments/skill-provenance/confirmations/review-roadmap-5-0-0-20261116.json"
           }
         ],
-        "subject_digest": "c9eb7399cda57a19d4c3b97670f43ac8602cc12292077017513c307ce0e2b6a5"
+        "subject_digest": "7f8d020e9c5b86936d992a06b1755e4fb96f21596aaeb312cb05810a20bd2700"
       }
     },
     "review-security": {
@@ -3154,10 +3154,10 @@
     },
     "update-roadmap": {
       "classification": "native",
-      "version": "4.0.0",
+      "version": "5.0.0",
       "reviewed_files": {
         "README.md": "aaab69418e7a83f33df8dd612f9ac259ebe5106846f7152611d46f0f550e44f1",
-        "SKILL.md": "13e405270e18ba84ceaf506fc0861ddf9e144a481bdc22923109f5850408e630"
+        "SKILL.md": "c1ba587619f69016fd2c639a6fd5772b280d1295279b4d1ee5d52a769a9b5685"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/update-roadmap.json": "bc936bddd7b10b79340929c5474276086c8992be54f620ea878fd0f3fb4e6b69"
@@ -3168,7 +3168,7 @@
           "path": "experiments/skill-provenance/evidence/update-roadmap.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/update-roadmap-4-0-0-20261113.json"
+          "path": "experiments/skill-provenance/confirmations/update-roadmap-5-0-0-20261116.json"
         }
       ],
       "creation": {
@@ -3176,17 +3176,17 @@
         "revision": "63d9b12f94ef0ce8f3c3d20fe91ffb1990522b9e"
       },
       "decision": {
-        "maintainer": "Repository maintainer, explicit confirmation in the roadmap closeout chat",
-        "confirmed_at": "2026-11-13",
+        "maintainer": "Repository maintainer, explicit confirmation in the roadmap grouping conversation",
+        "confirmed_at": "2026-11-16",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed the current reviewed update-roadmap 4.0.0 remains an AI Cortex original.",
+        "rationale": "The maintainer confirmed update-roadmap 5.0.0 remains an AI Cortex original and used no third-party creative reference.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/update-roadmap-4-0-0-20261113.json"
+            "path": "experiments/skill-provenance/confirmations/update-roadmap-5-0-0-20261116.json"
           }
         ],
-        "subject_digest": "e983071d4a51f0e3418ce6972581db3e499dcc2478e03edf6167bb2a5dd3c80c"
+        "subject_digest": "c1bc59633f75110cb5ba4ee4798b53aee890e4428d5db4c72dde21026e1a84af"
       }
     }
   }

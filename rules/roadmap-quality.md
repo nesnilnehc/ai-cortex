@@ -1,7 +1,7 @@
 ---
 artifact_type: rule
 name: roadmap-quality
-version: 5.0.0
+version: 6.0.0
 scope: reviewing or self-checking a roadmap document
 recommended_scope: user
 status: active
@@ -31,6 +31,7 @@ schedule milestones are valid presentation units. Existing project decisions tak
 
 - [ ] Every requirement-view row identifies a requirement or defect by stable ID, meaningful name and source link; no task, task group or implementation step is an independent requirement row. Version groups reference those IDs rather than duplicating their records.
 - [ ] Rows carry priority, tier, and separate approval and execution status columns.
+- [ ] Roadmap entries are organized by planning dimensions, not grouped into sections or tables by review or approval status. Status remains visible on each entry; a change of status alone does not relocate it. A separate review worklist is not a roadmap grouping.
 - [ ] Now / Next / Later are visible; an empty tier may say that no items are planned.
 - [ ] The opening states the evolution direction in one sentence; ordering rationale is recoverable without reading task lists.
 
