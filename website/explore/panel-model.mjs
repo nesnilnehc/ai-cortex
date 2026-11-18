@@ -1,6 +1,6 @@
-import {dictionary} from './locale.mjs?v=upgrade-dependencies-20261118';
-import {catalog} from './workflow.mjs?v=upgrade-dependencies-20261118';
-import metadata from './skill-metadata.json?v=upgrade-dependencies-20261118' with {type:'json'};
+import {dictionary} from './locale.mjs?v=ponytail-md060-20261118';
+import {catalog} from './workflow.mjs?v=ponytail-md060-20261118';
+import metadata from './skill-metadata.json?v=ponytail-md060-20261118' with {type:'json'};
 export function getNodeDetails(id){
  if(!Object.hasOwn(dictionary.contexts,id))throw Error('Unknown node');
  const detail=structuredClone(dictionary.contexts[id]);
