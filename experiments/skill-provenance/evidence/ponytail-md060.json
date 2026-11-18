@@ -1,0 +1,24 @@
+{
+  "skill": "ponytail",
+  "version": "1.0.1",
+  "reviewed_on": "2026-11-18",
+  "classification": "third_party_adapted",
+  "source": {
+    "revision": "09c434ab73ca43761c5d8b0c5d341926c2fba710",
+    "license": "MIT"
+  },
+  "change": {
+    "path": "skills/ponytail/SKILL.md",
+    "line": 50,
+    "previous_delimiter": "|-------|----------|",
+    "current_delimiter": "| --- | --- |",
+    "version_change": "Patch for Markdown formatting."
+  },
+  "verification": {
+    "action": "DavidAnson/markdownlint-cli2-action@v25.0.0",
+    "action_commit": "696eb3f2509270d7b882d2aa68347bc676e7af34",
+    "node": "24.11.1",
+    "original": "Four MD060 diagnostics on the delimiter row.",
+    "candidate": "470 files scanned with zero issues in an isolated checkout."
+  }
+}

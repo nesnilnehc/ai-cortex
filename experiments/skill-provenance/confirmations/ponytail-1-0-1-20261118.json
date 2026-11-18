@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicit confirmation in the ponytail formatting chat",
+  "confirmed_at": "2026-11-18",
+  "action": "confirmed",
+  "classification": "third_party_adapted",
+  "rationale": "The maintainer confirmed the v1.0.1 subject. This patch updates the Levels table delimiter to match the existing MD060 compact style and preserves the pinned MIT upstream, license notice, and Skill behavior.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/ponytail-1-0-1-20261118.json"
+    }
+  ],
+  "subject_digest": "24a3a7d48e935c96b3619d2a45e33afafcdb085674d5797974edd3e6d09bd744"
+}
