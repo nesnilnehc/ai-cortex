@@ -1,7 +1,7 @@
-import {initializeNavigation} from './site-navigation.mjs?v=roadmap-grouping-20261116';
-import { initializeTheme } from './theme.mjs?v=roadmap-grouping-20261116';
-import { initializeLanguage } from './language.mjs?v=roadmap-grouping-20261116';
-import { bindCopyButton } from './copy.mjs?v=roadmap-grouping-20261116';
+import {initializeNavigation} from './site-navigation.mjs?v=upgrade-dependencies-20261118';
+import { initializeTheme } from './theme.mjs?v=upgrade-dependencies-20261118';
+import { initializeLanguage } from './language.mjs?v=upgrade-dependencies-20261118';
+import { bindCopyButton } from './copy.mjs?v=upgrade-dependencies-20261118';
 
 initializeLanguage(window, document.documentElement.lang === 'zh-CN' ? 'zh' : 'en');
 
@@ -17,4 +17,4 @@ bindCopyButton(
 
 initializeNavigation(window,document);
 
-import './explore/explorer-host.mjs?v=roadmap-grouping-20261116';
+import './explore/explorer-host.mjs?v=upgrade-dependencies-20261118';
