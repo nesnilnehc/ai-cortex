@@ -321,6 +321,25 @@
     }
   ],
   "skill_source_verification": "The canonical ponytail Skill and confirmation match the pinned public GitHub bytes. The Skill declares version 1.0.1.",
+  "skillhub": {
+    "namespace": "mbs-pdc",
+    "slug": "ponytail",
+    "version": "1.0.1",
+    "detail_url": "https://skillhub.recloud.com.cn/space/mbs-pdc/ponytail",
+    "review": {
+      "id": 832,
+      "status": "approved",
+      "reviewed_at_display": "2026-11-18 19:40",
+      "url": "https://skillhub.recloud.com.cn/me/namespaces/mbs-pdc/reviews/832"
+    },
+    "install_verification": {
+      "status": "passed",
+      "tool": "reskills",
+      "target": "Temporary Codex project",
+      "installed_version": "1.0.1",
+      "skill_sha256": "3415711813e653439a3eece083cf9c5e18933eca801395fceb23aeb1cf568e39"
+    }
+  },
   "website_tests": {
     "node_passed": 59,
     "python_passed": 19,
