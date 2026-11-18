@@ -699,6 +699,14 @@
       "use": "通过项目现有的安全机制应用目标版本，并核对需要同步的引用。",
       "result": "经过核对的本地版本修改、无需修改的说明，或阻碍完成的问题；发布决策和发布操作另行处理。"
     },
+    "upgrade-dependencies": {
+      "name": "升级第三方依赖",
+      "purpose": "将第三方依赖升级到项目可支持的最新稳定版",
+      "when": "项目需要更新第三方依赖，包括跨主版本升级。",
+      "provide": "项目，以及需要限定的依赖范围或目标版本。",
+      "use": "使用项目现有的包管理器分批升级，迁移受影响的代码和配置并逐批验证。目标版本要求改变项目支持范围时，请用户决定。",
+      "result": "实际解析的版本、迁移内容、验证结果，以及阻碍依赖升级的具体原因。"
+    },
     "prepare-version-notes": {
       "name": "编写版本变更说明",
       "purpose": "独立编写和核对版本变更说明",
@@ -1186,6 +1194,7 @@
         "establish-delivery-workflow",
         "execute-delivery-workflow",
         "bump-version",
+        "upgrade-dependencies",
         "prepare-version-notes"
       ],
       "recommended": [
@@ -1797,6 +1806,7 @@
           "establish-delivery-workflow",
           "execute-delivery-workflow",
           "bump-version",
+          "upgrade-dependencies",
           "prepare-version-notes"
         ]
       },

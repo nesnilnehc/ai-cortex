@@ -1,7 +1,7 @@
-import records from './support-scopes.json?v=roadmap-grouping-20261116' with {type:'json'};
-import {dictionary,locale as currentLocale} from './locale.mjs?v=roadmap-grouping-20261116';
-import en from './locales/en.json?v=roadmap-grouping-20261116' with {type:'json'};
-import zh from './locales/zh.json?v=roadmap-grouping-20261116' with {type:'json'};
+import records from './support-scopes.json?v=upgrade-dependencies-20261118' with {type:'json'};
+import {dictionary,locale as currentLocale} from './locale.mjs?v=upgrade-dependencies-20261118';
+import en from './locales/en.json?v=upgrade-dependencies-20261118' with {type:'json'};
+import zh from './locales/zh.json?v=upgrade-dependencies-20261118' with {type:'json'};
 export function validateSupportScopes(items){
  if(!Array.isArray(items)||items.length!==2||new Set(items.map(i=>i.providerTopicId)).size!==2)throw Error('Missing support providers');
  const seen=new Set(),topics=new Set(Object.keys(dictionary.topics));

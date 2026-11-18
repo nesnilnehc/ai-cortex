@@ -205,3 +205,10 @@ references:
     kind: tool_documentation
     evidence:
       path: experiments/skill-provenance/evidence/plan-milestones.json
+  dependency-upgrade-workflow:
+    url: https://github.com/tobihagemann/turbo/blob/main/codex/skills/update-dependencies/SKILL.md
+    title: Turbo Update Dependencies workflow
+    accessed_at: "2026-11-18"
+    kind: skill
+    evidence:
+      path: experiments/skill-provenance/evidence/upgrade-dependencies.json

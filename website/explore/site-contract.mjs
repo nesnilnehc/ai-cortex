@@ -1,4 +1,4 @@
-import {getSiteDestination} from '../site-navigation.mjs?v=roadmap-grouping-20261116';
+import {getSiteDestination} from '../site-navigation.mjs?v=upgrade-dependencies-20261118';
 export const explorerLanguageRoutes=Object.freeze(Object.fromEntries(['en','zh'].map(locale=>[locale,getSiteDestination('overview',locale).href.split('?')[0]])));
 export function getExplorerRoutes(locale){
  const home=getSiteDestination('home',locale).href,other=locale==='en'?'zh':'en';

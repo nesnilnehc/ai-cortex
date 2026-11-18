@@ -699,6 +699,14 @@
       "use": "Use bump-version to apply the target through the existing safe project mechanism and verify required references.",
       "result": "Verified local version edits, an explained no-op, or a blocker; release decisions and publishing remain separate."
     },
+    "upgrade-dependencies": {
+      "name": "upgrade-dependencies",
+      "purpose": "Upgrade third-party dependencies to the latest supported stable releases",
+      "when": "A project needs to catch up on dependency releases, including major versions.",
+      "provide": "The project and any dependency scope or version targets that differ from the default.",
+      "use": "Use upgrade-dependencies to update through the existing package manager, migrate affected code and configuration, and verify each batch. Ask when the target requires changing a project support commitment.",
+      "result": "Resolved versions, required migrations, verification results, and specific blockers for versions that could not be upgraded."
+    },
     "prepare-version-notes": {
       "name": "prepare-version-notes",
       "purpose": "Prepare version change descriptions independently",
@@ -1186,6 +1194,7 @@
         "establish-delivery-workflow",
         "execute-delivery-workflow",
         "bump-version",
+        "upgrade-dependencies",
         "prepare-version-notes"
       ],
       "recommended": [
@@ -1797,6 +1806,7 @@
           "establish-delivery-workflow",
           "execute-delivery-workflow",
           "bump-version",
+          "upgrade-dependencies",
           "prepare-version-notes"
         ]
       },

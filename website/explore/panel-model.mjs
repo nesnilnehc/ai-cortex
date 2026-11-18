@@ -1,6 +1,6 @@
-import {dictionary} from './locale.mjs?v=roadmap-grouping-20261116';
-import {catalog} from './workflow.mjs?v=roadmap-grouping-20261116';
-import metadata from './skill-metadata.json?v=roadmap-grouping-20261116' with {type:'json'};
+import {dictionary} from './locale.mjs?v=upgrade-dependencies-20261118';
+import {catalog} from './workflow.mjs?v=upgrade-dependencies-20261118';
+import metadata from './skill-metadata.json?v=upgrade-dependencies-20261118' with {type:'json'};
 export function getNodeDetails(id){
  if(!Object.hasOwn(dictionary.contexts,id))throw Error('Unknown node');
  const detail=structuredClone(dictionary.contexts[id]);

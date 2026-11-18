@@ -82,6 +82,7 @@
         "establish-delivery-workflow",
         "execute-delivery-workflow",
         "bump-version",
+        "upgrade-dependencies",
         "prepare-version-notes"
       ]
     },

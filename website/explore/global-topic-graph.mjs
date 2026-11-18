@@ -1,7 +1,7 @@
-import sourceEdges from './topic-edges.json?v=roadmap-grouping-20261116' with {type:'json'};
-import {dictionary} from './locale.mjs?v=roadmap-grouping-20261116';
+import sourceEdges from './topic-edges.json?v=upgrade-dependencies-20261118' with {type:'json'};
+import {dictionary} from './locale.mjs?v=upgrade-dependencies-20261118';
 const edges=sourceEdges.map(edge=>({...edge,...dictionary.topicEdges[edge.id]}));
-import {getTopicMap} from './topic-map.mjs?v=roadmap-grouping-20261116';
+import {getTopicMap} from './topic-map.mjs?v=upgrade-dependencies-20261118';
 const nodes=[
  {id:'direction',row:1,column:1,hint:''},
  {id:'planning',row:1,column:2,hint:''},
