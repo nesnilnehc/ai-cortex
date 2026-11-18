@@ -900,6 +900,18 @@
       },
       "entry": "public"
     },
+    "upgrade-dependencies": {
+      "id": "upgrade-dependencies",
+      "description": "Upgrade a project's third-party dependencies to the latest stable versions it can support, including major releases. Use for a dependency refresh or a named dependency upgrade that needs package-manager updates, migration, and verification.",
+      "owner": "build",
+      "sourcePaths": [
+        "skills/upgrade-dependencies/SKILL.md"
+      ],
+      "sourceHashes": {
+        "skills/upgrade-dependencies/SKILL.md": "4cce5a3e0d195e1d97c758472e3d34794b6f50fefb81fd0b27a7dc247549775f"
+      },
+      "entry": "public"
+    },
     "prepare-version-notes": {
       "id": "prepare-version-notes",
       "description": "Prepare or revise version change descriptions for an already selected component, target version and scope, using project conventions and explicit source comparisons. Use for changelog entries, version notes or release lists; version selection, source edits and artifact delivery are separate tasks.",

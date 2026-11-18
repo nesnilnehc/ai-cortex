@@ -1,0 +1,11 @@
+{
+  "skill": "upgrade-dependencies",
+  "version": "0.1.0",
+  "reviewed_on": "2026-11-18",
+  "recommendation": "third_party_adapted",
+  "source": "https://github.com/tobihagemann/turbo/blob/main/codex/skills/update-dependencies/SKILL.md",
+  "source_role": "creative_reference",
+  "influence": "Turbo informed the workflow for researching breaking changes, checking project usage and compatibility, applying migrations, and verifying the result.",
+  "local_adaptation": "AI Cortex implements the requested latest-stable policy with major updates enabled, support-commitment decisions as the confirmation boundary, and recoverable batches with verified fallbacks. The instructions were written locally and no upstream files, scripts, or text are distributed.",
+  "status": "source evidence only"
+}
