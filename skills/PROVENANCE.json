@@ -1685,20 +1685,21 @@
     },
     "ponytail": {
       "classification": "third_party_adapted",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "reviewed_files": {
         "LICENSE.upstream": "fb1bc6909ac3ef82d5c22106e32ef682b0cff66788fa915fb9b53b15c9d2f3ab",
-        "SKILL.md": "8fcf775f1c5b5172196b7318a5df84a2f28b263405973f2a10145e60f6e026b6"
+        "SKILL.md": "3415711813e653439a3eece083cf9c5e18933eca801395fceb23aeb1cf568e39"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/ponytail.json": "eb51b8d82e5859c58272a4452428134b8139638e9305af35220107085592a61f",
-        "skills/ponytail/LICENSE.upstream": "fb1bc6909ac3ef82d5c22106e32ef682b0cff66788fa915fb9b53b15c9d2f3ab"
+        "skills/ponytail/LICENSE.upstream": "fb1bc6909ac3ef82d5c22106e32ef682b0cff66788fa915fb9b53b15c9d2f3ab",
+        "experiments/skill-provenance/evidence/ponytail-md060.json": "7cbc9c064d6444cbdbfbc1cc1b9fb5a1d3493b6d34bf5d6bba7934fb334af50a"
       },
       "sources": [
         {
           "id": "skill:ponytail",
           "role": "copied_upstream",
-          "adaptation": "Added local version metadata and retained upstream license locally; Scoped activation to explicit invocation and clarified host precedence and standalone distribution"
+          "adaptation": "Added local version metadata and retained upstream license locally; Scoped activation to explicit invocation and clarified host precedence and standalone distribution; Formatted the Levels table delimiter for MD060 compact style"
         }
       ],
       "evidence": [
@@ -1709,21 +1710,24 @@
           "path": "skills/ponytail/LICENSE.upstream"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/ponytail.json"
+          "path": "experiments/skill-provenance/evidence/ponytail-md060.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/ponytail-1-0-1-20261118.json"
         }
       ],
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer, explicit confirmation in the ponytail formatting chat",
+        "confirmed_at": "2026-11-18",
         "action": "confirmed",
         "classification": "third_party_adapted",
-        "rationale": "The maintainer confirmed the recommended adapted classification and documented local changes to the pinned third-party source.",
+        "rationale": "The maintainer confirmed the v1.0.1 subject. This patch updates the Levels table delimiter to match the existing MD060 compact style and preserves the pinned MIT upstream, license notice, and Skill behavior.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/ponytail.json"
+            "path": "experiments/skill-provenance/confirmations/ponytail-1-0-1-20261118.json"
           }
         ],
-        "subject_digest": "21aac907438fa50aab7a3952e872f26e1c365eccb3e359966d065d3063c0daa4"
+        "subject_digest": "24a3a7d48e935c96b3619d2a45e33afafcdb085674d5797974edd3e6d09bd744"
       }
     },
     "prepare-presales-response": {

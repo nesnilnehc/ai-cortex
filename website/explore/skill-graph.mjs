@@ -1,9 +1,9 @@
-import {getCallHierarchy} from './relationship-model.mjs?v=upgrade-dependencies-20261118';
-import {catalog} from './workflow.mjs?v=upgrade-dependencies-20261118';
-import {getNodeDetails,getNodeSkillSelection} from './panel-model.mjs?v=upgrade-dependencies-20261118';
-import rawEdges from './skill-edges.json?v=upgrade-dependencies-20261118' with {type:'json'};
-import metadata from './skill-metadata.json?v=upgrade-dependencies-20261118' with {type:'json'};
-import {dictionary} from './locale.mjs?v=upgrade-dependencies-20261118';
+import {getCallHierarchy} from './relationship-model.mjs?v=ponytail-md060-20261118';
+import {catalog} from './workflow.mjs?v=ponytail-md060-20261118';
+import {getNodeDetails,getNodeSkillSelection} from './panel-model.mjs?v=ponytail-md060-20261118';
+import rawEdges from './skill-edges.json?v=ponytail-md060-20261118' with {type:'json'};
+import metadata from './skill-metadata.json?v=ponytail-md060-20261118' with {type:'json'};
+import {dictionary} from './locale.mjs?v=ponytail-md060-20261118';
 const sourceEdges=rawEdges.map(edge=>({...edge,...dictionary.skillEdges[edge.id]}));
 const order=['direction','planning','research','design','quality','build','commit','foundation','collaboration'];
 const ids=new Set(catalog.map(skill=>skill.id));
