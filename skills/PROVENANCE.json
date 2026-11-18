@@ -3191,9 +3191,9 @@
     },
     "upgrade-dependencies": {
       "classification": "third_party_adapted",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "reviewed_files": {
-        "SKILL.md": "4cce5a3e0d195e1d97c758472e3d34794b6f50fefb81fd0b27a7dc247549775f"
+        "SKILL.md": "7ccec2dd838857af6b7122700beb367634081ea8ef7571a957f8e10eb80e2c31"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/upgrade-dependencies.json": "15f40eb44df5575aa7dc97230a8a6daeffa1709d3cddbdb0be8e1df165fc548c"
@@ -3210,21 +3210,21 @@
           "path": "experiments/skill-provenance/evidence/upgrade-dependencies.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/upgrade-dependencies-0-1-0-20261118.json"
+          "path": "experiments/skill-provenance/confirmations/upgrade-dependencies-0-1-1-20261118.json"
         }
       ],
       "decision": {
-        "maintainer": "Repository maintainer, explicit confirmation in the dependency upgrade skill chat",
+        "maintainer": "Repository maintainer, explicit confirmation in the dependency upgrade repair chat",
         "confirmed_at": "2026-11-18",
         "action": "confirmed",
         "classification": "third_party_adapted",
-        "rationale": "The maintainer confirmed the v0.1.0 subject and classification. Turbo informed migration research and verification. AI Cortex independently implements the latest-stable policy, recoverable batches, and a support-commitment decision boundary. The package distributes no upstream files.",
+        "rationale": "The maintainer confirmed the v0.1.1 subject and unchanged classification. The local revision binds verification to the candidate dependency graph and applies the existing recovery procedure to combined-check failures. No new external source informed the revision.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/upgrade-dependencies-0-1-0-20261118.json"
+            "path": "experiments/skill-provenance/confirmations/upgrade-dependencies-0-1-1-20261118.json"
           }
         ],
-        "subject_digest": "fe23e63650463d547d6b95c1ffe004e44ed69c6b20c07b7cc5fe0defb3738635"
+        "subject_digest": "bbc0ab29d5de3cf2b8e0ac089d1b57a4007ab99e48624b792a9819211a6f5c7d"
       }
     }
   }

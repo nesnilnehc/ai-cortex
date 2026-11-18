@@ -1,7 +1,7 @@
 ---
 name: upgrade-dependencies
 description: Upgrade a project's third-party dependencies to the latest stable versions it can support, including major releases. Use for a dependency refresh or a named dependency upgrade that needs package-manager updates, migration, and verification.
-version: 0.1.0
+version: 0.1.1
 license: MIT
 ---
 
@@ -25,7 +25,7 @@ Bring selected third-party dependencies to the latest stable releases that can b
 
 1. Update tightly coupled packages together when their versions must move in step. Keep unrelated breaking upgrades in separate batches and group compatible routine updates when failures will still be easy to isolate. Account for the team's documented dependency holds and policies. Use the project's package manager or build wrapper with its configured sources and version policy. Update authoritative declarations and let the manager generate lockfile changes. Review the resolved graph and investigate unexpected packages, registries, or unrelated changes before accepting the batch.
 2. Make the smallest migration that preserves supported behavior. Update affected source, tests, and configuration, including matching versions in CI or containers when they must move with the dependency. Apply only upstream migration steps relevant to the repository. Inspect any migration tool and its effects before running it. Follow existing project verification and lifecycle requirements.
-3. Verify each batch by resolving or installing the expected versions and running the project checks that cover affected code or behavior. Use relevant build, type, unit, and integration checks from the repository or CI. Exercise paths affected by changes to runtime behavior, data, or integrations where the existing fast checks cannot cover them. Run the relevant combined checks once all successful batches are in place.
+3. Verify each batch in an environment that uses the expected resolved versions. Use the project tooling to install them or let its normal build or test entry point resolve and load them. Check the dependency graph used by verification before marking the batch as passed. Run relevant build, type, unit, and integration checks, including affected runtime, data, or integration paths that fast checks miss. Repeat the relevant combined checks against the final graph. If they fail, isolate the interacting upgrades and apply the same recovery steps.
 4. Diagnose a failed batch against the baseline. Fix in-scope migration issues, split the batch to isolate failures, or retry with a coupled dependency if the evidence warrants it. Restore only that batch's failed edits before retrying, keeping earlier successful batches and user changes. If the latest stable release remains blocked, try the next highest viable stable candidate within the authorized range. If no candidate can be verified, retain the baseline for that dependency, report what blocked it, and continue independent work. Never bypass resolver constraints, integrity checks, or required project checks to obtain a newer version.
 
 ## Report and self-check

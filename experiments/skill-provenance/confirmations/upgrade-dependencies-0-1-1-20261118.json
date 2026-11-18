@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicit confirmation in the dependency upgrade repair chat",
+  "confirmed_at": "2026-11-18",
+  "action": "confirmed",
+  "classification": "third_party_adapted",
+  "rationale": "The maintainer confirmed the v0.1.1 subject and unchanged classification. The local revision binds verification to the candidate dependency graph and applies the existing recovery procedure to combined-check failures. No new external source informed the revision.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/upgrade-dependencies-0-1-1-20261118.json"
+    }
+  ],
+  "subject_digest": "bbc0ab29d5de3cf2b8e0ac089d1b57a4007ab99e48624b792a9819211a6f5c7d"
+}
