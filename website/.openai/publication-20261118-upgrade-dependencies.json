@@ -1,0 +1,332 @@
+{
+  "date": "2026-11-18",
+  "verified_at": "2026-11-18T10:59:24.229214+00:00",
+  "site_version": 28,
+  "deployment_id": "appgdep_6afd84ce3c0c8191b7f706f6239ad6c2",
+  "site_source_commit": "d6db5a6b3ef37ada6c046babfc4fb6f3e7d81f26",
+  "repository_source_commit": "2c4aeb36cde2978cf553fcb0c15d2622acb4c4e6",
+  "assets_revision": "11f396b01ffc3a56a49f8b32fe5edf1ca5ad4b0b",
+  "public_url": "https://ai-cortex.nesnilnehc.top/",
+  "runtime_files_checked": 49,
+  "byte_identical": 45,
+  "html_provider_insertions": 4,
+  "html_comparison": "For altered HTML responses, removing the single hosting provider script insertion yields the exact source.",
+  "runtime_checks": [
+    {
+      "path": "copy.mjs",
+      "source_sha256": "98066e27493b23ca013c617303fb09cf44f6a1f6c056e5fa043cf6969ff54b4d",
+      "served_sha256": "98066e27493b23ca013c617303fb09cf44f6a1f6c056e5fa043cf6969ff54b4d",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/assets/work-stories.png",
+      "source_sha256": "1d155d745670022aee28542d2f638620a29a9b3c5398237f71f065848dc090f6",
+      "served_sha256": "1d155d745670022aee28542d2f638620a29a9b3c5398237f71f065848dc090f6",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/classification-view.mjs",
+      "source_sha256": "9eae17ce8a15c54dddc0e49e65bcfed6ad3bd1e304195853ce795b0801f162f9",
+      "served_sha256": "9eae17ce8a15c54dddc0e49e65bcfed6ad3bd1e304195853ce795b0801f162f9",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/classification.json",
+      "source_sha256": "f08b79c2f8610fb51808303c824d654220f190052d67f7165bdc34ddb8d33e4b",
+      "served_sha256": "f08b79c2f8610fb51808303c824d654220f190052d67f7165bdc34ddb8d33e4b",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/dual.css",
+      "source_sha256": "e05daa97343318e9f2ca4930b34a0ab499bfaf7146252668ce37b0f5b4f0eb3b",
+      "served_sha256": "e05daa97343318e9f2ca4930b34a0ab499bfaf7146252668ce37b0f5b4f0eb3b",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/explorer-host.mjs",
+      "source_sha256": "81019fd35a971752069bbabe4df3800231ca3f7de3f7b46defe3a0950c8fed1f",
+      "served_sha256": "81019fd35a971752069bbabe4df3800231ca3f7de3f7b46defe3a0950c8fed1f",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/explorer-state.mjs",
+      "source_sha256": "517c0231d390fbdb4c4533ba15875bec8a7a5f5b0509e9cd2b52e3cf5ea5c094",
+      "served_sha256": "517c0231d390fbdb4c4533ba15875bec8a7a5f5b0509e9cd2b52e3cf5ea5c094",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/global-topic-graph.mjs",
+      "source_sha256": "5cd24a29a729ab0904616d47ad3d21bb118ec394768b782aba914af62c139e30",
+      "served_sha256": "5cd24a29a729ab0904616d47ad3d21bb118ec394768b782aba914af62c139e30",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/index.html",
+      "source_sha256": "5443b0eecf17a5b2e710c27293f6bd0dea485e6450e2df8dd84e4229fcf78ca8",
+      "served_sha256": "865a79ee99d0c16704eaea9017f616d26cf06857c4051c4f7bd0ed74762823e7",
+      "provider_insertion_bytes": 1114
+    },
+    {
+      "path": "explore/legacy.mjs",
+      "source_sha256": "75911c2f37e6eceaa41fc6f5252e6cdad51fd50def5ce7db4a5d228ddc9ab7c5",
+      "served_sha256": "75911c2f37e6eceaa41fc6f5252e6cdad51fd50def5ce7db4a5d228ddc9ab7c5",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/locale.mjs",
+      "source_sha256": "0be45e88856919764459412a312a7a4bfd457b7121e3dd6bec003c10055e9bbe",
+      "served_sha256": "0be45e88856919764459412a312a7a4bfd457b7121e3dd6bec003c10055e9bbe",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/locales/en.json",
+      "source_sha256": "7e6297d1838e22607b2a0777c5f9b323e09192c752f7471a700cbf537f0ab4be",
+      "served_sha256": "7e6297d1838e22607b2a0777c5f9b323e09192c752f7471a700cbf537f0ab4be",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/locales/zh.json",
+      "source_sha256": "cd4c0489343f2390dd383bee64612cc051113757a16d32b7863c07c6bac4c1e1",
+      "served_sha256": "cd4c0489343f2390dd383bee64612cc051113757a16d32b7863c07c6bac4c1e1",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/panel-model.mjs",
+      "source_sha256": "470ababa1e462897ac75cce762217b42b3561e8fba4f6afd97f04e78b897fc26",
+      "served_sha256": "470ababa1e462897ac75cce762217b42b3561e8fba4f6afd97f04e78b897fc26",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/provenance.mjs",
+      "source_sha256": "69d71d67a27957abea161afde34677011ab3455750c66c35713c4e278892783b",
+      "served_sha256": "69d71d67a27957abea161afde34677011ab3455750c66c35713c4e278892783b",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/relations.mjs",
+      "source_sha256": "c0493b14cdbc37af9f389b31c543d768de435999e645da5a3f70153e56316bdb",
+      "served_sha256": "c0493b14cdbc37af9f389b31c543d768de435999e645da5a3f70153e56316bdb",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/relationship-model.mjs",
+      "source_sha256": "ca04ca51253e63b7cf98f5e4b9df4c1afb864e24328b3940e9aea62ffe87f2c6",
+      "served_sha256": "ca04ca51253e63b7cf98f5e4b9df4c1afb864e24328b3940e9aea62ffe87f2c6",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/relationship-view.mjs",
+      "source_sha256": "674abe7eb5fea274e3ae457ae75e8f831901299c854b10c740e89c91588ba944",
+      "served_sha256": "674abe7eb5fea274e3ae457ae75e8f831901299c854b10c740e89c91588ba944",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/request-state.mjs",
+      "source_sha256": "23f3c205ce4d62c482eb22a10780eae879ea50666f3d97aff2c4be7fe4f2e177",
+      "served_sha256": "23f3c205ce4d62c482eb22a10780eae879ea50666f3d97aff2c4be7fe4f2e177",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/site-contract.mjs",
+      "source_sha256": "1270d963835beb0782bfe1d64c156d3cadba3854a26932c026798ff168977428",
+      "served_sha256": "1270d963835beb0782bfe1d64c156d3cadba3854a26932c026798ff168977428",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/skill-edges.json",
+      "source_sha256": "fdff61f6d57d2e816d9572e3e9487651e3f96b48f4687711800e30efe92cf2d9",
+      "served_sha256": "fdff61f6d57d2e816d9572e3e9487651e3f96b48f4687711800e30efe92cf2d9",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/skill-graph.mjs",
+      "source_sha256": "b52e664ba18a7111fbc01a9c6d28fe34b85297c0025d996469d22da40cb93f50",
+      "served_sha256": "b52e664ba18a7111fbc01a9c6d28fe34b85297c0025d996469d22da40cb93f50",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/skill-guidance.mjs",
+      "source_sha256": "fe2e87e3d2db2b7abba627696abc1335f4e9a9751b6eb210e91c8401b9a64c56",
+      "served_sha256": "fe2e87e3d2db2b7abba627696abc1335f4e9a9751b6eb210e91c8401b9a64c56",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/skill-metadata.json",
+      "source_sha256": "3ac5531ef4482a56a28c1e159beb05ae61b6031b25ea40aca228262851fb8305",
+      "served_sha256": "3ac5531ef4482a56a28c1e159beb05ae61b6031b25ea40aca228262851fb8305",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/skill-provenance.json",
+      "source_sha256": "a6ad24d0c38b76cdd95419cbc3f0e957762f8ff72025a0156ea95f66ce718d43",
+      "served_sha256": "a6ad24d0c38b76cdd95419cbc3f0e957762f8ff72025a0156ea95f66ce718d43",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/source-links.mjs",
+      "source_sha256": "05c152af0ce024ef3e6d7794537f8ef0dec370185724aa0961b45da568e78fa0",
+      "served_sha256": "05c152af0ce024ef3e6d7794537f8ef0dec370185724aa0961b45da568e78fa0",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/source-manifest.json",
+      "source_sha256": "077b44fe371fd8785741e424b15e3f0640b910872c520ad16ea14cae963eca5e",
+      "served_sha256": "077b44fe371fd8785741e424b15e3f0640b910872c520ad16ea14cae963eca5e",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/story-model.mjs",
+      "source_sha256": "76c4db6d5e915e8c0d67a6fdfdb93a3c9639bb592d8de765373e7ff0771e5aa3",
+      "served_sha256": "76c4db6d5e915e8c0d67a6fdfdb93a3c9639bb592d8de765373e7ff0771e5aa3",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/story.css",
+      "source_sha256": "26551bbbea0b2b5ba2362f73e7d86ac2f5db985d5231dbea94cf372db531c98b",
+      "served_sha256": "26551bbbea0b2b5ba2362f73e7d86ac2f5db985d5231dbea94cf372db531c98b",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/support-scopes.json",
+      "source_sha256": "bf72b80e5b02e4de210337850e34668cc4db18cd984fcc77b96d3336226bbcda",
+      "served_sha256": "bf72b80e5b02e4de210337850e34668cc4db18cd984fcc77b96d3336226bbcda",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/support-scopes.mjs",
+      "source_sha256": "544c1c6159700e2928f42772da826ecf33615423e49e90850e474f3989aca32d",
+      "served_sha256": "544c1c6159700e2928f42772da826ecf33615423e49e90850e474f3989aca32d",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/topic-edges.json",
+      "source_sha256": "99b622a4fa377bddb82544aea039a5e4d92413cd8d1cb2ccfb2b3b7e98a9f538",
+      "served_sha256": "99b622a4fa377bddb82544aea039a5e4d92413cd8d1cb2ccfb2b3b7e98a9f538",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/topic-map.json",
+      "source_sha256": "a32337621921f6ce507cca308ce8a7ce305e9627ac79c8c4f7bc780c3f273301",
+      "served_sha256": "a32337621921f6ce507cca308ce8a7ce305e9627ac79c8c4f7bc780c3f273301",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/topic-map.mjs",
+      "source_sha256": "6468aa06e30da61d4991a18a1c68b9a5eb59612317efbb5329a921315fede23e",
+      "served_sha256": "6468aa06e30da61d4991a18a1c68b9a5eb59612317efbb5329a921315fede23e",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/work-map.mjs",
+      "source_sha256": "63c00558347915b038824b55462d471909d410c0ca3afc8e9b83b94424b2734d",
+      "served_sha256": "63c00558347915b038824b55462d471909d410c0ca3afc8e9b83b94424b2734d",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/workflow.mjs",
+      "source_sha256": "16054e6701e414e37f4dd7afcd02fd3c3fe5806da813897ae7646de82e101aec",
+      "served_sha256": "16054e6701e414e37f4dd7afcd02fd3c3fe5806da813897ae7646de82e101aec",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/workspace.css",
+      "source_sha256": "d4175e2a71c4707eb53ef7af08c9f86670020cc874ce4dab663556fec5ef8d2a",
+      "served_sha256": "d4175e2a71c4707eb53ef7af08c9f86670020cc874ce4dab663556fec5ef8d2a",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/zh.html",
+      "source_sha256": "311f5ebd17b512ce63a7955f1d588e19dc2e8044f15d5b12dd41bc6079944d56",
+      "served_sha256": "b9d34f97ebdba586b3b50e6f82bf8c3ac3ab31da7d2ace0b8dc3399b9117caf0",
+      "provider_insertion_bytes": 1114
+    },
+    {
+      "path": "favicon.svg",
+      "source_sha256": "e3f057d1c807354a40e1c98fd390638666a8a244e4b8e81562e348efa147c02f",
+      "served_sha256": "e3f057d1c807354a40e1c98fd390638666a8a244e4b8e81562e348efa147c02f",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "index.html",
+      "source_sha256": "14db7b4179403e81a5f6a31e8aef82fe73a35e849f9a0b596ed1e87305774534",
+      "served_sha256": "b0628b88a54d497d3a883aef932bda9c7a3ddb700fbcb04fcbabef59bb74f02a",
+      "provider_insertion_bytes": 1114
+    },
+    {
+      "path": "language.mjs",
+      "source_sha256": "f7bb46226f1703e103d45cc90c5c5a8c7565a359a38c4563a6fb13d0907c5102",
+      "served_sha256": "f7bb46226f1703e103d45cc90c5c5a8c7565a359a38c4563a6fb13d0907c5102",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "main.mjs",
+      "source_sha256": "335e764c763be6bdc61744a614797512187f9c000a28db3632fb6a4cbb457fb5",
+      "served_sha256": "335e764c763be6bdc61744a614797512187f9c000a28db3632fb6a4cbb457fb5",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "robots.txt",
+      "source_sha256": "2c3f391f9674a75b97ddc2e2142e18fd9d17d2755c9dfa261884aea06b995cc9",
+      "served_sha256": "2c3f391f9674a75b97ddc2e2142e18fd9d17d2755c9dfa261884aea06b995cc9",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "site-navigation.json",
+      "source_sha256": "684d0c2e2dc44e4c47d070e27d60eeba9916e731e7ad7b1a4c1c963279e842a6",
+      "served_sha256": "684d0c2e2dc44e4c47d070e27d60eeba9916e731e7ad7b1a4c1c963279e842a6",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "site-navigation.mjs",
+      "source_sha256": "6bb5e2d8da5a6baadaaafb65000d2fe63b7e069c85b3ebfb2544eedfc930ac77",
+      "served_sha256": "6bb5e2d8da5a6baadaaafb65000d2fe63b7e069c85b3ebfb2544eedfc930ac77",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "sitemap.xml",
+      "source_sha256": "1f0245151e10eaca6d2e888a8fdc61a150b76346b8d958e74cf01a2ca8b93038",
+      "served_sha256": "1f0245151e10eaca6d2e888a8fdc61a150b76346b8d958e74cf01a2ca8b93038",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "styles.css",
+      "source_sha256": "78dc21fe4b5f649aacb99c812b3e2dee0a7617f9e11d8e8016d715dc447d90f3",
+      "served_sha256": "78dc21fe4b5f649aacb99c812b3e2dee0a7617f9e11d8e8016d715dc447d90f3",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "theme.mjs",
+      "source_sha256": "df9b28f7c343ff4ea9f7ec83446b62692e0bd6ba47157fa78af5a7ca478f653f",
+      "served_sha256": "df9b28f7c343ff4ea9f7ec83446b62692e0bd6ba47157fa78af5a7ca478f653f",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "zh.html",
+      "source_sha256": "199fc8880d8225674341a93a88b6593095e1da1631c1cd9bc771896d48f5a5a6",
+      "served_sha256": "4352d08128ce0463cc0f0a6a18386d45c64cfaf9a51d1a6b0e0ea3aad6d63d89",
+      "provider_insertion_bytes": 1114
+    }
+  ],
+  "skill_sources": [
+    {
+      "path": "skills/upgrade-dependencies/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/11f396b01ffc3a56a49f8b32fe5edf1ca5ad4b0b/skills/upgrade-dependencies/SKILL.md",
+      "sha256": "7ccec2dd838857af6b7122700beb367634081ea8ef7571a957f8e10eb80e2c31"
+    },
+    {
+      "path": "experiments/skill-provenance/confirmations/upgrade-dependencies-0-1-1-20261118.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/11f396b01ffc3a56a49f8b32fe5edf1ca5ad4b0b/experiments/skill-provenance/confirmations/upgrade-dependencies-0-1-1-20261118.json",
+      "sha256": "4ed8b1ea1badcd53f20f75f24082a2b2c5b350916b0e4eb6501112278eb06f15"
+    }
+  ],
+  "skill_source_verification": "The pinned Skill and confirmation matched the public GitHub source byte for byte. The Skill declares version 0.1.1.",
+  "website_tests": {
+    "node_passed": 59,
+    "python_passed": 19,
+    "evidence": "Previously passed on the exact website runtime bytes."
+  },
+  "visual_interaction_checks": "Prior local Chrome checks on these bytes exercised localized search and details, both source links, no-script entries, and horizontal overflow at desktop and mobile widths. Live checks verified HTTPS bytes and source links.",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_bb3facc3f0c48191a46da5f124caeef0",
+  "archive_sha256": "d32d3512b0d3260db5e6e9ea1dc2c7124d6b449e09bd4608be45afbcd77c501b",
+  "hosted_archive_content_hash": "sha256:db4be350e281ba7a4b9e6005bfd44b218402d0e133ffc42bf7aed4e61d65fa38"
+}

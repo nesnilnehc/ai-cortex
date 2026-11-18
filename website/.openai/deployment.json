@@ -1,16 +1,16 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_34896997a85c8191b762b0fd07af2fe9",
-  "version_number": 27,
-  "deployment_id": "appgdep_6afa76a6cdfc81918769308950142f27",
-  "source_commit": "63a2c559fc21fb58f9fd4f186ea270f39a3906ae",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_bb3facc3f0c48191a46da5f124caeef0",
+  "version_number": 28,
+  "deployment_id": "appgdep_6afd84ce3c0c8191b7f706f6239ad6c2",
+  "source_commit": "d6db5a6b3ef37ada6c046babfc4fb6f3e7d81f26",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.nesnilnehc.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-11-16T03:21:24.106848+00:00",
+  "updated_at": "2026-11-18T10:58:28.784664+00:00",
   "published_files": [
     "copy.mjs",
     "explore/assets/work-stories.png",
@@ -94,21 +94,21 @@
     "personal site project entry"
   ],
   "known_good_version": {
-    "version_number": 25,
-    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_adec154bfcb881919cdc3c10af02195c",
-    "source_commit": "ad03d2f1097207d174b8ab07f0cabc7735f0c1d9"
+    "version_number": 27,
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_34896997a85c8191b762b0fd07af2fe9",
+    "source_commit": "63a2c559fc21fb58f9fd4f186ea270f39a3906ae"
   },
   "public_verification": {
     "status": "passed",
     "checked_files": 49,
     "byte_identical_files": 45,
     "html_provider_insertions": 4,
-    "pinned_skills_verified": 3,
-    "evidence": "website/.openai/publication-20261116-roadmap-grouping.json"
+    "pinned_skills_verified": 1,
+    "evidence": "website/.openai/publication-20261118-upgrade-dependencies.json"
   },
-  "repository_source_revision": "527819b83c289e721d4f167d696b0c05b6b1feee",
-  "assets_revision": "82c887763561f04cf8e74d0966d34c7ce222a924",
-  "cache_key": "roadmap-grouping-20261116",
-  "archive_sha256": "a38d63932d8c487519b8b1cd99b0e087ea51d8a7248c59a2373ebd739cb705ea",
-  "hosted_archive_content_hash": "sha256:64c7ed813c52e91a32b114e103adf8255730494c099bf9f4f9d9d16f8e526f54"
+  "repository_source_revision": "2c4aeb36cde2978cf553fcb0c15d2622acb4c4e6",
+  "assets_revision": "11f396b01ffc3a56a49f8b32fe5edf1ca5ad4b0b",
+  "cache_key": "upgrade-dependencies-20261118",
+  "archive_sha256": "d32d3512b0d3260db5e6e9ea1dc2c7124d6b449e09bd4608be45afbcd77c501b",
+  "hosted_archive_content_hash": "sha256:db4be350e281ba7a4b9e6005bfd44b218402d0e133ffc42bf7aed4e61d65fa38"
 }

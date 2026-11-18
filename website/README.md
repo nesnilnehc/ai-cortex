@@ -2,12 +2,21 @@
 
 ## Current publication
 
-Sites version 27 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+Sites version 28 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+The English and Chinese catalogues link to `upgrade-dependencies` 0.1.1 and its
+reviewed sources. All 78 website tests passed. HTTPS checks matched all 49
+runtime files, allowing the provider script insertion in four HTML pages,
+and verified the pinned Skill and confirmation. See the
+[deployment receipt](.openai/deployment.json) and
+[publication checks](.openai/publication-20261118-upgrade-dependencies.json).
+
+## Prior publication — roadmap grouping
+
+Sites version 27 was published at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
 The catalogue links to the reviewed roadmap Skills and their confirmed sources.
 All 78 website tests passed; HTTPS checks covered 49 runtime files and the three
 pinned Skill sources. Four HTML responses included a provider script insertion.
-See the [deployment receipt](.openai/deployment.json) and
-[publication checks](.openai/publication-20261116-roadmap-grouping.json).
+See the [publication checks](.openai/publication-20261116-roadmap-grouping.json).
 
 ## Prior publication — archive milestone
 
