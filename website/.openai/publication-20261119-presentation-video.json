@@ -342,5 +342,13 @@
   },
   "visual_interaction_checks": "This update changes catalogue data and source references. Verification covered the integrated website suites and public content bytes.",
   "archive_sha256": "06319f152443361ee30e993c694c805bb16c1bde0b489a61a214cefe96490fd1",
-  "hosted_archive_content_hash": "sha256:7fbf1986b3b5daabe4334ce442468855155e6b807b81a4a7623d8bd50efbb8ca"
+  "hosted_archive_content_hash": "sha256:7fbf1986b3b5daabe4334ce442468855155e6b807b81a4a7623d8bd50efbb8ca",
+  "skillhub": {
+    "namespace": "mbs-pdc",
+    "slug": "produce-presentation-video",
+    "version": "0.1.0",
+    "detail_url": "https://skillhub.recloud.com.cn/space/mbs-pdc/produce-presentation-video",
+    "source_commit": "f28f2949760d66bcf7d63c798379a227a8051392",
+    "upload_succeeded": true
+  }
 }
