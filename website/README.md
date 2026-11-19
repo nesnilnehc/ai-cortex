@@ -2,12 +2,21 @@
 
 ## Current publication
 
-Sites version 29 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+Sites version 30 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+The English and Chinese catalogues include `produce-presentation-video` 0.1.0
+and link to its reviewed source. All 78 local website tests passed. HTTPS
+checks matched all 49 runtime files, allowing the provider script insertion in
+four HTML pages, and verified all three Skill files and both provenance records
+at the pinned GitHub revision. See the [deployment receipt](.openai/deployment.json)
+and [publication checks](.openai/publication-20261119-presentation-video.json).
+
+## Prior publication — Ponytail
+
+Sites version 29 was published at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
 Both catalogues link to `ponytail` 1.0.1 and its reviewed source.
 The hosted Markdown step ran v25.0.0 and reported zero issues across 470 files.
 HTTPS checks verified all 49 runtime files, with a provider script insertion
 in four HTML pages, and matched the pinned Skill and confirmation. See the
-[deployment receipt](.openai/deployment.json) and
 [publication checks](.openai/publication-20261118-ponytail-md060.json).
 
 ## Prior publication — dependency upgrades

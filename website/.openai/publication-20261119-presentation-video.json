@@ -1,0 +1,346 @@
+{
+  "date": "2026-11-19",
+  "site_version": 30,
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_d98e22ab17ec8191b757bacebcac5435",
+  "deployment_id": "appgdep_6afe529cb4d08191b34b6a1e97e3ef69",
+  "site_source_commit": "b1ead408ea99e5349dd6e6d54b5a193f5f5031ed",
+  "repository_source_commit": "20e73a29ad6f0d448af534474e700b5231fbcb34",
+  "assets_revision": "f28f2949760d66bcf7d63c798379a227a8051392",
+  "verified_at": "2026-11-19T01:37:15.663681+00:00",
+  "public_url": "https://ai-cortex.nesnilnehc.top/",
+  "runtime_files_checked": 49,
+  "byte_identical": 45,
+  "html_provider_insertions": 4,
+  "runtime_checks": [
+    {
+      "path": "copy.mjs",
+      "source_sha256": "98066e27493b23ca013c617303fb09cf44f6a1f6c056e5fa043cf6969ff54b4d",
+      "served_sha256": "98066e27493b23ca013c617303fb09cf44f6a1f6c056e5fa043cf6969ff54b4d",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/assets/work-stories.png",
+      "source_sha256": "1d155d745670022aee28542d2f638620a29a9b3c5398237f71f065848dc090f6",
+      "served_sha256": "1d155d745670022aee28542d2f638620a29a9b3c5398237f71f065848dc090f6",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/classification-view.mjs",
+      "source_sha256": "c71dcd2003e9d1f5b85403eac655a2d08f9a622c117af4a088e54a52ae14a1c1",
+      "served_sha256": "c71dcd2003e9d1f5b85403eac655a2d08f9a622c117af4a088e54a52ae14a1c1",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/classification.json",
+      "source_sha256": "20d06af7e82e5647e0d6cb9f51ef00e8fef629b8daca947393a953cedd015665",
+      "served_sha256": "20d06af7e82e5647e0d6cb9f51ef00e8fef629b8daca947393a953cedd015665",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/dual.css",
+      "source_sha256": "e05daa97343318e9f2ca4930b34a0ab499bfaf7146252668ce37b0f5b4f0eb3b",
+      "served_sha256": "e05daa97343318e9f2ca4930b34a0ab499bfaf7146252668ce37b0f5b4f0eb3b",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/explorer-host.mjs",
+      "source_sha256": "c782de8e338cb91de0fb0b517e16f735365f56c7ca6169755c8c219e77d9d7ab",
+      "served_sha256": "c782de8e338cb91de0fb0b517e16f735365f56c7ca6169755c8c219e77d9d7ab",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/explorer-state.mjs",
+      "source_sha256": "1d9f8c8e2464e951f09db65910e1daaf855698a557191a10a9e0ebdf993c1513",
+      "served_sha256": "1d9f8c8e2464e951f09db65910e1daaf855698a557191a10a9e0ebdf993c1513",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/global-topic-graph.mjs",
+      "source_sha256": "785299b784d112686cf008883e6ec9b23af0853504ba30ceb04ee726f038a979",
+      "served_sha256": "785299b784d112686cf008883e6ec9b23af0853504ba30ceb04ee726f038a979",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/index.html",
+      "source_sha256": "3d41eb7feb2d7183a984ffa4731ff55336c61c6d894725e29fdf016c4f5b9536",
+      "served_sha256": "706d7296b2ba759a68cfc6ad0058a841d9e7cd3b535ba5584a722454a3d5203a",
+      "provider_insertion_bytes": 1114
+    },
+    {
+      "path": "explore/legacy.mjs",
+      "source_sha256": "75911c2f37e6eceaa41fc6f5252e6cdad51fd50def5ce7db4a5d228ddc9ab7c5",
+      "served_sha256": "75911c2f37e6eceaa41fc6f5252e6cdad51fd50def5ce7db4a5d228ddc9ab7c5",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/locale.mjs",
+      "source_sha256": "8c2f51adc67e0ce585afe6b1e9040f1d0fd0d5adc138d644ba28d8ee4dbd405c",
+      "served_sha256": "8c2f51adc67e0ce585afe6b1e9040f1d0fd0d5adc138d644ba28d8ee4dbd405c",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/locales/en.json",
+      "source_sha256": "ac620dd8da077b237bb5895588f79342e989f019423033546fd01a3beb41c361",
+      "served_sha256": "ac620dd8da077b237bb5895588f79342e989f019423033546fd01a3beb41c361",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/locales/zh.json",
+      "source_sha256": "e2f16514a9e5f7c47592e60230ab384b8298eae663e56af5099781bcae6aa6a8",
+      "served_sha256": "e2f16514a9e5f7c47592e60230ab384b8298eae663e56af5099781bcae6aa6a8",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/panel-model.mjs",
+      "source_sha256": "f02b147147f2e7a7080c3f94d6ac5336239f18a4b83374ac8537c5e44c0959fc",
+      "served_sha256": "f02b147147f2e7a7080c3f94d6ac5336239f18a4b83374ac8537c5e44c0959fc",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/provenance.mjs",
+      "source_sha256": "b606b3e65f2696c30fe939ce483e91d23535e11910d6de5d2b33eefdf479a6dd",
+      "served_sha256": "b606b3e65f2696c30fe939ce483e91d23535e11910d6de5d2b33eefdf479a6dd",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/relations.mjs",
+      "source_sha256": "a9b6db6c1cb8731cac899f6942470361ca6cceb76c29fa871b1df8af88a8b496",
+      "served_sha256": "a9b6db6c1cb8731cac899f6942470361ca6cceb76c29fa871b1df8af88a8b496",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/relationship-model.mjs",
+      "source_sha256": "017f97b652a9f9dff3b9420dbd2b4f2354d466c957f383c94cff28e53ed5bcf1",
+      "served_sha256": "017f97b652a9f9dff3b9420dbd2b4f2354d466c957f383c94cff28e53ed5bcf1",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/relationship-view.mjs",
+      "source_sha256": "ce74f02dff6b63fff9cec629816e77f3985695142ac1ab6a39a64f2ee717e5fa",
+      "served_sha256": "ce74f02dff6b63fff9cec629816e77f3985695142ac1ab6a39a64f2ee717e5fa",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/request-state.mjs",
+      "source_sha256": "23f3c205ce4d62c482eb22a10780eae879ea50666f3d97aff2c4be7fe4f2e177",
+      "served_sha256": "23f3c205ce4d62c482eb22a10780eae879ea50666f3d97aff2c4be7fe4f2e177",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/site-contract.mjs",
+      "source_sha256": "f7b76c8b4819cbafb451a0af8554560504e839fda7dec9be396f1197785e4c64",
+      "served_sha256": "f7b76c8b4819cbafb451a0af8554560504e839fda7dec9be396f1197785e4c64",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/skill-edges.json",
+      "source_sha256": "fdff61f6d57d2e816d9572e3e9487651e3f96b48f4687711800e30efe92cf2d9",
+      "served_sha256": "fdff61f6d57d2e816d9572e3e9487651e3f96b48f4687711800e30efe92cf2d9",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/skill-graph.mjs",
+      "source_sha256": "463744ce837373179e75590a739543131563805026b57baa03857d763cb89b8d",
+      "served_sha256": "463744ce837373179e75590a739543131563805026b57baa03857d763cb89b8d",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/skill-guidance.mjs",
+      "source_sha256": "841e6bc7600995ca081e6613ef34d59a409e5593ba4a690c1472d5f6dbc48146",
+      "served_sha256": "841e6bc7600995ca081e6613ef34d59a409e5593ba4a690c1472d5f6dbc48146",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/skill-metadata.json",
+      "source_sha256": "4bca4c43e3b9e55baa26ffe0a33fa9c88fd6333fed3c2d48985871baecace728",
+      "served_sha256": "4bca4c43e3b9e55baa26ffe0a33fa9c88fd6333fed3c2d48985871baecace728",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/skill-provenance.json",
+      "source_sha256": "c76c1001c59e70076944440dfb1fcbe810d020e4ad431630d38d78895476c4e1",
+      "served_sha256": "c76c1001c59e70076944440dfb1fcbe810d020e4ad431630d38d78895476c4e1",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/source-links.mjs",
+      "source_sha256": "571b32f7e62b1970eb72f7f7a4ac40aefbc4d683d80cf01c1ebe5466ee6644f6",
+      "served_sha256": "571b32f7e62b1970eb72f7f7a4ac40aefbc4d683d80cf01c1ebe5466ee6644f6",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/source-manifest.json",
+      "source_sha256": "0e08f70843af2c5f3ad73f8f54f83b274dfc18641781836ad12948fd187b77e9",
+      "served_sha256": "0e08f70843af2c5f3ad73f8f54f83b274dfc18641781836ad12948fd187b77e9",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/story-model.mjs",
+      "source_sha256": "193b552af692aaf1f6b7bfc77c20123a69184f601369e7df01a62cbc28ce96a9",
+      "served_sha256": "193b552af692aaf1f6b7bfc77c20123a69184f601369e7df01a62cbc28ce96a9",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/story.css",
+      "source_sha256": "aed086cdbbaa4a67eae6e72dc4e1a5110d6861e14746a4e0cd062ec69b7ba99d",
+      "served_sha256": "aed086cdbbaa4a67eae6e72dc4e1a5110d6861e14746a4e0cd062ec69b7ba99d",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/support-scopes.json",
+      "source_sha256": "bf72b80e5b02e4de210337850e34668cc4db18cd984fcc77b96d3336226bbcda",
+      "served_sha256": "bf72b80e5b02e4de210337850e34668cc4db18cd984fcc77b96d3336226bbcda",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/support-scopes.mjs",
+      "source_sha256": "c125c7f7d4539f4fbf19909a3a553a021122efa37599a756d91dc5bc8f0567fb",
+      "served_sha256": "c125c7f7d4539f4fbf19909a3a553a021122efa37599a756d91dc5bc8f0567fb",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/topic-edges.json",
+      "source_sha256": "99b622a4fa377bddb82544aea039a5e4d92413cd8d1cb2ccfb2b3b7e98a9f538",
+      "served_sha256": "99b622a4fa377bddb82544aea039a5e4d92413cd8d1cb2ccfb2b3b7e98a9f538",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/topic-map.json",
+      "source_sha256": "a32337621921f6ce507cca308ce8a7ce305e9627ac79c8c4f7bc780c3f273301",
+      "served_sha256": "a32337621921f6ce507cca308ce8a7ce305e9627ac79c8c4f7bc780c3f273301",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/topic-map.mjs",
+      "source_sha256": "11da6416d41cfe831d8d51310a6394c25efa8117538ef1c2166ee14a16a1fe10",
+      "served_sha256": "11da6416d41cfe831d8d51310a6394c25efa8117538ef1c2166ee14a16a1fe10",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/work-map.mjs",
+      "source_sha256": "518b1936e945c508068aed329be70951c9a054e7ab01d5b7f92a6d2c4a18dc50",
+      "served_sha256": "518b1936e945c508068aed329be70951c9a054e7ab01d5b7f92a6d2c4a18dc50",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/workflow.mjs",
+      "source_sha256": "93824d4b115be1229df09bc75f65832727d9b9f7017c4be029740ec119218d11",
+      "served_sha256": "93824d4b115be1229df09bc75f65832727d9b9f7017c4be029740ec119218d11",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/workspace.css",
+      "source_sha256": "d4175e2a71c4707eb53ef7af08c9f86670020cc874ce4dab663556fec5ef8d2a",
+      "served_sha256": "d4175e2a71c4707eb53ef7af08c9f86670020cc874ce4dab663556fec5ef8d2a",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/zh.html",
+      "source_sha256": "593ebab070ab46de849de8f25e63c11462f12f5d0a7b680c1e465eca06fceb9d",
+      "served_sha256": "f38fc87a8089ba79e35d75c67e14afc2439ceafe2a18fa994918e5f83f73ef9e",
+      "provider_insertion_bytes": 1114
+    },
+    {
+      "path": "favicon.svg",
+      "source_sha256": "e3f057d1c807354a40e1c98fd390638666a8a244e4b8e81562e348efa147c02f",
+      "served_sha256": "e3f057d1c807354a40e1c98fd390638666a8a244e4b8e81562e348efa147c02f",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "index.html",
+      "source_sha256": "c130cd73db5638b8701d9b721e72cdd4a01d3d9a084c449dd7ca4f3089610ada",
+      "served_sha256": "1a20407035838ba024057f5660a8ae8568ae6868354354c6bb55b5ef8bf31d39",
+      "provider_insertion_bytes": 1114
+    },
+    {
+      "path": "language.mjs",
+      "source_sha256": "f7bb46226f1703e103d45cc90c5c5a8c7565a359a38c4563a6fb13d0907c5102",
+      "served_sha256": "f7bb46226f1703e103d45cc90c5c5a8c7565a359a38c4563a6fb13d0907c5102",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "main.mjs",
+      "source_sha256": "af887812fa5c8a78c57ff60cdac873c799ee4af2a2f12afdfbabff03165a5c29",
+      "served_sha256": "af887812fa5c8a78c57ff60cdac873c799ee4af2a2f12afdfbabff03165a5c29",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "robots.txt",
+      "source_sha256": "2c3f391f9674a75b97ddc2e2142e18fd9d17d2755c9dfa261884aea06b995cc9",
+      "served_sha256": "2c3f391f9674a75b97ddc2e2142e18fd9d17d2755c9dfa261884aea06b995cc9",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "site-navigation.json",
+      "source_sha256": "684d0c2e2dc44e4c47d070e27d60eeba9916e731e7ad7b1a4c1c963279e842a6",
+      "served_sha256": "684d0c2e2dc44e4c47d070e27d60eeba9916e731e7ad7b1a4c1c963279e842a6",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "site-navigation.mjs",
+      "source_sha256": "48411bec50d6c3fb1ff997b7837da3bf5325aae086e232e5494134fc8920c769",
+      "served_sha256": "48411bec50d6c3fb1ff997b7837da3bf5325aae086e232e5494134fc8920c769",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "sitemap.xml",
+      "source_sha256": "1f0245151e10eaca6d2e888a8fdc61a150b76346b8d958e74cf01a2ca8b93038",
+      "served_sha256": "1f0245151e10eaca6d2e888a8fdc61a150b76346b8d958e74cf01a2ca8b93038",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "styles.css",
+      "source_sha256": "78dc21fe4b5f649aacb99c812b3e2dee0a7617f9e11d8e8016d715dc447d90f3",
+      "served_sha256": "78dc21fe4b5f649aacb99c812b3e2dee0a7617f9e11d8e8016d715dc447d90f3",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "theme.mjs",
+      "source_sha256": "df9b28f7c343ff4ea9f7ec83446b62692e0bd6ba47157fa78af5a7ca478f653f",
+      "served_sha256": "df9b28f7c343ff4ea9f7ec83446b62692e0bd6ba47157fa78af5a7ca478f653f",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "zh.html",
+      "source_sha256": "4f912557f3dc1e208af6a549d8aa022049e35a87ce6281418d55537ebf45b460",
+      "served_sha256": "e35ef25d6eda41f190d92991fd20f34b60adb24c5164397df7e96642f53c5906",
+      "provider_insertion_bytes": 1114
+    }
+  ],
+  "skill_sources": [
+    {
+      "path": "skills/produce-presentation-video/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/f28f2949760d66bcf7d63c798379a227a8051392/skills/produce-presentation-video/SKILL.md",
+      "sha256": "ef42ad6de724c3a60640318d9b1b704b961040dbb3fa170a317bdd3ea4c31a06"
+    },
+    {
+      "path": "skills/produce-presentation-video/references/doubao.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/f28f2949760d66bcf7d63c798379a227a8051392/skills/produce-presentation-video/references/doubao.md",
+      "sha256": "8ed7fc0466cc83badc6dd1267a12a3668154292b4249c05d5a6c104d2ca9126f"
+    },
+    {
+      "path": "skills/produce-presentation-video/references/production.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/f28f2949760d66bcf7d63c798379a227a8051392/skills/produce-presentation-video/references/production.md",
+      "sha256": "ed5d1717598577aa1ed5a9d49ea98da355877b5d6c32c6ca36470f6e88d30ab3"
+    },
+    {
+      "path": "experiments/skill-provenance/evidence/produce-presentation-video-transfer.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/f28f2949760d66bcf7d63c798379a227a8051392/experiments/skill-provenance/evidence/produce-presentation-video-transfer.json",
+      "sha256": "1942fd1278740d15e8c40bc964b81f90e9e72da8fc7bcff3564724f80ae43181"
+    },
+    {
+      "path": "experiments/skill-provenance/confirmations/produce-presentation-video-transfer.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/f28f2949760d66bcf7d63c798379a227a8051392/experiments/skill-provenance/confirmations/produce-presentation-video-transfer.json",
+      "sha256": "09b3ce78678a9626c74143fcaf0c2012ae4adfcbf6bded3064e64f8cca3a6a5a"
+    }
+  ],
+  "html_comparison": "Each altered HTML response matches the source bytes after removing the hosting provider challenge script insertion.",
+  "skill_source_verification": "The three Skill files and both provenance records match the pinned public GitHub bytes. The Skill declares version 0.1.0.",
+  "website_tests": {
+    "node_passed": 59,
+    "python_passed": 19
+  },
+  "visual_interaction_checks": "This update changes catalogue data and source references. Verification covered the integrated website suites and public content bytes.",
+  "archive_sha256": "06319f152443361ee30e993c694c805bb16c1bde0b489a61a214cefe96490fd1",
+  "hosted_archive_content_hash": "sha256:7fbf1986b3b5daabe4334ce442468855155e6b807b81a4a7623d8bd50efbb8ca"
+}
