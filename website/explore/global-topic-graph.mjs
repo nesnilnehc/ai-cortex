@@ -1,7 +1,7 @@
-import sourceEdges from './topic-edges.json?v=ponytail-md060-20261118' with {type:'json'};
-import {dictionary} from './locale.mjs?v=ponytail-md060-20261118';
+import sourceEdges from './topic-edges.json?v=presentation-video-20261119' with {type:'json'};
+import {dictionary} from './locale.mjs?v=presentation-video-20261119';
 const edges=sourceEdges.map(edge=>({...edge,...dictionary.topicEdges[edge.id]}));
-import {getTopicMap} from './topic-map.mjs?v=ponytail-md060-20261118';
+import {getTopicMap} from './topic-map.mjs?v=presentation-video-20261119';
 const nodes=[
  {id:'direction',row:1,column:1,hint:''},
  {id:'planning',row:1,column:2,hint:''},
