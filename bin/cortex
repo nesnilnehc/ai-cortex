@@ -87,6 +87,12 @@ _rule_title() {
 # ---------------------------------------------------------------------------
 _has_claude() { [ -d "$HOME/.claude" ]; }
 _has_cursor() { [ -d "$HOME/.cursor" ]; }
+_has_antigravity() {
+  [ -d "$HOME/.gemini/config" ] || [ -d "$HOME/.gemini/antigravity" ] ||
+    [ -d "$HOME/.gemini/antigravity-cli" ] || [ -d "$HOME/Applications/Antigravity.app" ] ||
+    [ -d /Applications/Antigravity.app ] || command -v agy >/dev/null 2>&1 ||
+    command -v antigravity >/dev/null 2>&1
+}
 
 # ---------------------------------------------------------------------------
 # symlink helpers
@@ -215,6 +221,87 @@ _translate_rule() {
 }
 
 # ---------------------------------------------------------------------------
+# Antigravity's global skill manifest is shared with user configuration.
+# ---------------------------------------------------------------------------
+_sync_antigravity() {
+  _manifest="$HOME/.gemini/config/skills.json"
+  if ! command -v python3 >/dev/null 2>&1; then
+    _warn "Antigravity skills not configured: Python 3 is required to merge $_manifest"
+    return 0
+  fi
+
+  if _antigravity_error=$(python3 -I - "$_manifest" "$CORTEX_HOME/skills" 2>&1 <<'PY'
+import fcntl
+import json
+import os
+from pathlib import Path
+import stat
+import sys
+import tempfile
+
+
+def merge_manifest(manifest, source):
+    target = manifest.resolve(strict=manifest.is_symlink())
+    try:
+        mode = target.stat().st_mode
+    except FileNotFoundError:
+        original = None
+        config = {}
+    else:
+        if not stat.S_ISREG(mode):
+            raise ValueError("expected a regular file")
+        original = target.read_bytes()
+        config = json.loads(original)
+    if not isinstance(config, dict) or not isinstance(config.get("entries", []), list):
+        raise ValueError('expected a JSON object with an optional "entries" array')
+
+    entries = config.setdefault("entries", [])
+    for entry in entries:
+        path = entry.get("path") if isinstance(entry, dict) else None
+        if isinstance(path, str) and path and (manifest.parent / path).resolve() == source:
+            return
+    # A writable parent directory could otherwise let os.replace bypass file permissions.
+    if original is not None and (not mode & 0o222 or not os.access(target, os.W_OK)):
+        raise PermissionError("manifest is read-only")
+    entries.append({"path": str(source)})
+
+    with tempfile.NamedTemporaryFile(dir=target.parent, delete=False) as stream:
+        staged = Path(stream.name)
+    try:
+        staged.write_text(json.dumps(config, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+        if original is None:
+            os.link(staged, target)  # Do not replace a newly created manifest.
+        else:
+            staged.chmod(stat.S_IMODE(mode))
+            if manifest.resolve() != target or target.read_bytes() != original:
+                raise ValueError("manifest changed during sync; retry")
+            os.replace(staged, target)
+    finally:
+        if staged.exists():
+            staged.unlink()
+
+
+manifest = Path(sys.argv[1])
+try:
+    manifest.parent.mkdir(parents=True, exist_ok=True)
+    # Lock the directory so concurrent cortex runs merge against the latest manifest.
+    directory_fd = os.open(manifest.parent, os.O_RDONLY)
+    try:
+        fcntl.flock(directory_fd, fcntl.LOCK_EX)
+        merge_manifest(manifest, Path(sys.argv[2]).resolve(strict=True))
+    finally:
+        os.close(directory_fd)
+except (OSError, RuntimeError, ValueError) as error:
+    sys.exit(f"{manifest}: {error}")
+PY
+  ); then
+    _ok "Antigravity skills configured in $_manifest"
+  else
+    _warn "Antigravity skills not configured: $_antigravity_error. Check $_manifest and rerun cortex install."
+  fi
+}
+
+# ---------------------------------------------------------------------------
 # _sync: push skills + rules to all detected IDEs
 # ---------------------------------------------------------------------------
 _sync() {
@@ -276,6 +363,10 @@ _sync() {
 
   if ! _has_claude && ! _has_cursor; then
     _warn "No Claude Code or Cursor install detected; synced ~/.agents/skills for Codex-compatible skill discovery"
+  fi
+
+  if _has_antigravity; then
+    _sync_antigravity
   fi
 }
 

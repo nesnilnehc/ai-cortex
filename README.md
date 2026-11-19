@@ -61,6 +61,14 @@ git clone --depth 1 https://github.com/nesnilnehc/ai-cortex.git ~/.local/share/a
 
 It symlinks every skill — including reviewed local copies of externally derived ones — into `~/.agents/skills/<skill>`, where Codex and other agents reading that path discover them in a new session. It also detects installed IDEs (Claude Code, Cursor) and syncs their skill paths. User-scoped Rules are symlinked for Claude Code and converted to `.mdc` for Cursor; project-scoped engineering Rule sets stay in the canonical clone and are loaded on demand by their review Skills, avoiding permanent context inflation. `specs/` and `protocols/` need no installation — agents read them from the canonical path. Nothing is ever installed from skills.sh or GitHub at runtime.
 
+When the installer detects Antigravity or its shared Gemini configuration,
+it uses Python 3 to add the canonical skill directory to
+[`~/.gemini/config/skills.json`](https://antigravity.google/docs/customization-discovery/#discovery-manifests).
+Install and update preserve existing entries and settings, including filters
+on an existing entry for the same directory. If Python 3 is unavailable or the
+manifest cannot be edited safely, the installer reports a warning and continues
+syncing other clients.
+
 Codex Rule loading needs an explicit instruction entry; the installer does not
 edit `~/.codex/AGENTS.md` or load arbitrary Markdown from `~/.codex/rules/`.
 For cross-project ZenTao authoring, add a trigger to the existing global
@@ -87,6 +95,9 @@ cortex update
 ```
 
 Fetches `origin` and **hard-resets the canonical clone onto it**, then re-syncs, pruning orphaned links for deleted skills and rules. It refuses to run on a dirty working tree; `cortex update --force` overrides that and discards whatever was uncommitted. Local commits on the tracked branch are discarded either way, so keep your own changes on a branch or a fork rather than in the canonical clone.
+
+When updating from an installer that predates Antigravity support, run
+`cortex install` once after updating to apply the new configuration step.
 
 Upstream updates to externally derived skills are reviewed by maintainers before entering AI Cortex; they are not upgraded independently at the user's runtime.
 
@@ -143,6 +154,9 @@ cortex clean             # interactive, confirms each category
 cortex uninstall                # remove cortex-managed symlinks and .mdc files, keep CORTEX_HOME
 cortex uninstall --remove-home  # also delete the CORTEX_HOME directory
 ```
+
+Uninstall preserves Antigravity's shared manifest. To stop discovery, remove
+the entry for the canonical Cortex skill directory from `~/.gemini/config/skills.json`.
 
 Install design is recorded in [ADR 0010](docs/adr/0010-installation-strategy.md); external skill management in [ADR 0011](docs/adr/0011-vendor-external-skills.md).
 Engineering Rule profiles and review-gate responsibilities are recorded in [ADR 0012](docs/adr/0012-adopt-profiled-engineering-rules.md).

@@ -7,6 +7,7 @@ per-test homes and local Git origins. No user IDE files or network are used.
 
 from __future__ import annotations
 
+import json
 import os
 from pathlib import Path
 import shutil
@@ -106,6 +107,86 @@ class InstallerTests(unittest.TestCase):
         self.git('clone', '--bare', str(self.source), str(origin))
         self.git('remote', 'add', 'origin', str(origin))
         return old, stable
+
+    def test_install_creates_antigravity_manifest(self):
+        (self.home / '.gemini/antigravity').mkdir(parents=True)
+        manifest = self.home / '.gemini/config/skills.json'
+
+        self.cli('install')
+
+        self.assertEqual(json.loads(manifest.read_text()), {
+            'entries': [{'path': str(self.source / 'skills')}],
+        })
+
+    def test_update_adds_antigravity_skills_and_preserves_user_configuration(self):
+        self.release_origin()
+        manifest = self.home / '.gemini/config/skills.json'
+        manifest.parent.mkdir(parents=True)
+        existing = {
+            'entries': [{'path': 'team/skills', 'include_only': ['personal']}],
+            'inherits': [{'path': '/shared/skills.json', 'exclude': ['scratch']}],
+            'exclude': ['private'],
+            'future_field': {'enabled': True},
+        }
+        manifest.write_text(json.dumps(existing))
+        manifest.chmod(0o640)
+
+        self.cli('update')
+
+        self.assertEqual(json.loads(manifest.read_text()), {
+            **existing, 'entries': [*existing['entries'], {'path': str(self.source / 'skills')}],
+        })
+        self.assertEqual(manifest.stat().st_mode & 0o777, 0o640)
+
+    def test_install_leaves_existing_antigravity_entry_byte_for_byte(self):
+        manifest = self.home / '.gemini/config/skills.json'
+        manifest.parent.mkdir(parents=True)
+        relative_path = os.path.relpath(self.source / 'skills', manifest.parent)
+        contents = json.dumps({'entries': [{'path': relative_path + '/', 'exclude': ['kept']}]})
+        manifest.write_text(contents)
+
+        self.cli('install')
+        self.cli('install')
+
+        self.assertEqual(manifest.read_text(), contents)
+
+    def test_install_warns_and_preserves_invalid_antigravity_manifest(self):
+        manifest = self.home / '.gemini/config/skills.json'
+        manifest.parent.mkdir(parents=True)
+        for contents in ('{"entries":', '[]', '{"entries": null}'):
+            with self.subTest(contents=contents):
+                manifest.write_text(contents)
+                result = self.cli('install')
+                self.assertIn('skills.json', result.stdout)
+                self.assertEqual(manifest.read_text(), contents)
+        self.assert_link_target(self.home / '.agents/skills/kept', self.source / 'skills/kept')
+
+    def test_install_warns_and_preserves_read_only_antigravity_manifest(self):
+        manifest = self.home / '.gemini/config/skills.json'
+        manifest.parent.mkdir(parents=True)
+        contents = b'{"exclude": ["private"]}\n'
+        manifest.write_bytes(contents)
+        manifest.chmod(0o444)
+
+        result = self.cli('install')
+
+        self.assertEqual(manifest.read_bytes(), contents)
+        self.assertIn('read-only', result.stdout)
+        self.assert_link_target(self.home / '.agents/skills/kept', self.source / 'skills/kept')
+
+    def test_install_preserves_antigravity_manifest_symlink(self):
+        manifest = self.home / '.gemini/config/skills.json'
+        manifest.parent.mkdir(parents=True)
+        target = self.root / 'personal-skills.json'
+        target.write_text('{"exclude": ["private"]}')
+        manifest.symlink_to(target)
+
+        self.cli('install')
+
+        self.assert_link_target(manifest, target)
+        self.assertEqual(json.loads(target.read_text()), {
+            'exclude': ['private'], 'entries': [{'path': str(self.source / 'skills')}],
+        })
 
     def test_upgrade_selects_highest_remote_stable_and_resyncs(self):
         _, stable = self.release_origin()
