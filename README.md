@@ -17,14 +17,14 @@ for the four asset layers and the [website guide](website/README.md) for site ma
 
 ## 🧭 What's inside
 
-**79 skills** ([index](skills/INDEX.md)), **35 rules** ([index](rules/INDEX.md)), **21 specs** ([index](specs/INDEX.md)) and **1 protocol** ([index](protocols/INDEX.md)).
+**80 skills** ([index](skills/INDEX.md)), **35 rules** ([index](rules/INDEX.md)), **21 specs** ([index](specs/INDEX.md)) and **1 protocol** ([index](protocols/INDEX.md)).
 
 | Area | Count | Representative skills |
 | :--- | ---: | :--- |
 | **Governance & planning** | 21 | Deriving mission → vision → North Star → strategic goals → roadmap layer by layer; requirement clarification, delivery splitting, backlog scoring, dependency mapping, promotion and archival; `plan-next` diagnoses what to do next |
 | **Code review** | 28 | Pre-coding artifact reviews and requirements repair loops, post-coding implementation alignment, and `orchestrate-code-review` across 8 languages, frameworks, libraries and seven engineering concerns |
 | **Engineering operations** | 12 | Commits, worktree delivery and integration, dependency upgrades, version notes, artifact delivery and inspection, test execution, local redeployment, and minimal coding changes with `ponytail` |
-| **Docs & assets** | 7 | Generating README, AGENTS.md and GitHub Actions; refining skill design; decontextualizing text; preparing presales responses; `eli5` visual explainers |
+| **Docs & assets** | 8 | Generating README, AGENTS.md and GitHub Actions; refining skill design; decontextualizing text; preparing presales responses; [producing narrated presentation videos](skills/produce-presentation-video/SKILL.md); `eli5` visual explainers |
 | **Integration & ops** | 5 | NATS cross-team messaging, macOS Keychain credential management, agent test scaffolding and [current-session naming](skills/rename-session/SKILL.md) |
 | **Research & opportunity** | 6 | Open, policy, market and competitive research; internal opportunity assessment; product opportunity package |
 

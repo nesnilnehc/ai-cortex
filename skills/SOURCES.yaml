@@ -213,3 +213,31 @@ references:
     kind: skill
     evidence:
       path: experiments/skill-provenance/evidence/upgrade-dependencies.json
+  presentation-video-doubao-submit:
+    url: https://docs.volcengine.com/docs/doubao-voice/task-sub-mission?lang=zh
+    title: Doubao long-text synthesis task submission
+    accessed_at: "2026-11-19"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/produce-presentation-video-transfer.json
+  presentation-video-doubao-query:
+    url: https://docs.volcengine.com/docs/doubao-voice/result-query?lang=zh
+    title: Doubao synthesis task result query
+    accessed_at: "2026-11-19"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/produce-presentation-video-transfer.json
+  presentation-video-doubao-ssml:
+    url: https://docs.volcengine.com/docs/doubao-voice/ssm-lmarkuplanguage?lang=zh
+    title: Doubao SSML reference
+    accessed_at: "2026-11-19"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/produce-presentation-video-transfer.json
+  presentation-video-doubao-billing:
+    url: https://docs.volcengine.com/docs/doubao-voice/billing-overview?lang=zh
+    title: Doubao billing overview
+    accessed_at: "2026-11-19"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/produce-presentation-video-transfer.json

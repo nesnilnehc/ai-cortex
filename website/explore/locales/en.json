@@ -379,6 +379,14 @@
       "result": "Evidence-backed drafts, supporting material and reusable product knowledge. Unknown capabilities are not turned into promises.",
       "name": "prepare-presales-response"
     },
+    "produce-presentation-video": {
+      "purpose": "Turn a presentation and script into a narrated video with synchronized captions",
+      "when": "You need to create, resume, correct, re-export, or archive a presentation video.",
+      "provide": "The presentation and its speaker notes or a script. Include the requested voice, format, destination, or existing production files when applicable.",
+      "use": "Use produce-presentation-video to verify the source and align slides and captions to the final narration. For a pronunciation correction, replace the affected passage and update its timing.",
+      "result": "A video at the requested destination, with local verification and any pending listening or cloud checks reported.",
+      "name": "Produce presentation video"
+    },
     "prioritize-backlog": {
       "purpose": "Prioritize backlog items under project policy",
       "when": "A large backlog contains items whose priorities have not been settled.",
@@ -1370,6 +1378,7 @@
       "summary": "Verify product facts, prepare standalone explanations or exchange contract-compliant messages as needed.",
       "skills": [
         "prepare-presales-response",
+        "produce-presentation-video",
         "decontextualize-text",
         "publish-nats-message",
         "consume-nats-message",
@@ -1872,6 +1881,7 @@
           "consume-nats-message",
           "decontextualize-text",
           "prepare-presales-response",
+          "produce-presentation-video",
           "publish-nats-message",
           "eli5",
           "ponytail",

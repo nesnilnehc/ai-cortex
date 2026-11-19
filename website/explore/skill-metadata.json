@@ -432,6 +432,18 @@
       },
       "entry": "public"
     },
+    "produce-presentation-video": {
+      "id": "produce-presentation-video",
+      "description": "Create narrated, captioned videos from PowerPoint, Keynote, Google Slides, PDF, or other paginated presentations with speaker notes or a script. Use to start or resume production, fix pronunciation, re-export, or archive a completed presentation video.",
+      "owner": "collaboration",
+      "sourcePaths": [
+        "skills/produce-presentation-video/SKILL.md"
+      ],
+      "sourceHashes": {
+        "skills/produce-presentation-video/SKILL.md": "ef42ad6de724c3a60640318d9b1b704b961040dbb3fa170a317bdd3ea4c31a06"
+      },
+      "entry": "public"
+    },
     "product-opportunity-analysis": {
       "id": "product-opportunity-analysis",
       "description": "Coordinate relevant research lenses and deliver a traceable Opportunity Package for a product or feature decision.",

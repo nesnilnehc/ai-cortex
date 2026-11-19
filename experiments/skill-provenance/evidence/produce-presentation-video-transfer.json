@@ -1,0 +1,34 @@
+{
+  "skill": "produce-presentation-video",
+  "version": "0.1.0",
+  "intake_date": "2026-11-19",
+  "kind": "maintainer-owned-original-transfer",
+  "request": "Prepare the local narrated-video Skill for intake into AI Cortex as a general presentation-video production Skill.",
+  "source": "Local working copy named produce-narrated-video, assembled from experience producing two presentation videos. The three Markdown files are the transfer inputs.",
+  "original_files": {
+    "SKILL.md": "0d3e1b6d329092e59fd555f3225745a3519e2a4269548bb10df75b77983a835f",
+    "references/doubao.md": "c3e14635da7352c4405f317fd8c851fe692ebda29cb5c40b3230b6cfe8fd8ba0",
+    "references/production.md": "f0fdb2aa1a15e6d806e0e53a7662c1c47b77c651d017aac17b77082ad1c8b6ac"
+  },
+  "license": "MIT",
+  "intake_changes": [
+    "Rename the Skill for presentation-driven production and assign its first AI Cortex version, 0.1.0, with MIT as the proposed distribution license.",
+    "Rewrite the entry and both references in English while keeping production, recovery, correction, re-export, and archive workflows.",
+    "Clarify target-resolution rendering, separate machine checks from listening results, and update downstream cues after a timing change.",
+    "Describe tool selection through required capabilities and make example commands and optional voice configuration usable without the original production environment.",
+    "Clarify input and slide selection by task mode, recovery when a paid submission returns no receipt, and separate evidence for listening, local delivery, and cloud delivery.",
+    "Check authorization for the specific narration text or movie before sending it to an external service or an automatically synced folder.",
+    "Keep provider configuration optional and consult public product documentation for tool parameters and usage. The transfer consists of the three rewritten Markdown files."
+  ],
+  "source_review": [
+    "The production request named HyperFrames, Remotion, VideoCutSkill, and VideoUse as optional tools and described where they might help. The production record shows local availability and capability checks, including CLI help.",
+    "Production lookups covered synthesis parameters and billing, font availability, word timestamps from speech recognition, and individual pronunciations. The rewritten Skill carries forward general operating guidance and public synthesis documentation. It includes none of the production-specific fonts, models, scripts, pronunciation examples, media, or source presentations.",
+    "The reviewed drafting history shows the Skill being written from the production work and the requested generalization. No external Skill, template, workflow, or copied prose was identified in that history. Original authorship and distribution authority require a separate maintainer decision."
+  ],
+  "maintainer_confirmation_required": [
+    "Original authorship and maintainer ownership of the transferred content.",
+    "Absence of third-party creative references or copied material in its method, workflow, or expression.",
+    "Authority and permission to distribute the exact reviewed files under MIT as an original transfer."
+  ],
+  "source_preservation": "The local source files were read and hashed for intake. The source Skill, presentations, and exported videos are outside the transfer."
+}

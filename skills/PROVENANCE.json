@@ -1849,6 +1849,63 @@
         "subject_digest": "25c55610769ddd823e56e5ee4067dde668daba35413f95480177f76bd8a7a7a3"
       }
     },
+    "produce-presentation-video": {
+      "classification": "native",
+      "version": "0.1.0",
+      "creation": {
+        "kind": "requirement",
+        "evidence": {
+          "path": "experiments/skill-provenance/evidence/produce-presentation-video-transfer.json"
+        }
+      },
+      "reviewed_files": {
+        "SKILL.md": "ef42ad6de724c3a60640318d9b1b704b961040dbb3fa170a317bdd3ea4c31a06",
+        "references/doubao.md": "8ed7fc0466cc83badc6dd1267a12a3668154292b4249c05d5a6c104d2ca9126f",
+        "references/production.md": "ed5d1717598577aa1ed5a9d49ea98da355877b5d6c32c6ca36470f6e88d30ab3"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/produce-presentation-video-transfer.json": "1942fd1278740d15e8c40bc964b81f90e9e72da8fc7bcff3564724f80ae43181"
+      },
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/produce-presentation-video-transfer.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/produce-presentation-video-transfer.json"
+        }
+      ],
+      "sources": [
+        {
+          "id": "reference:presentation-video-doubao-billing",
+          "role": "tool_lookup"
+        },
+        {
+          "id": "reference:presentation-video-doubao-query",
+          "role": "tool_lookup"
+        },
+        {
+          "id": "reference:presentation-video-doubao-ssml",
+          "role": "tool_lookup"
+        },
+        {
+          "id": "reference:presentation-video-doubao-submit",
+          "role": "tool_lookup"
+        }
+      ],
+      "decision": {
+        "maintainer": "nesnilnehc",
+        "confirmed_at": "2026-11-19",
+        "action": "confirmed",
+        "classification": "native",
+        "rationale": "The maintainer confirmed the three reviewed files as a maintainer-owned original transfer with no third-party creative reference and authorized MIT distribution. The recorded provider documentation was used for tool usage and parameters.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/produce-presentation-video-transfer.json"
+          }
+        ],
+        "subject_digest": "cfb60c1f8af03fd26144912744757620d1b88ea8e1c63c49bcf826e05477d849"
+      }
+    },
     "product-opportunity-analysis": {
       "classification": "native",
       "version": "1.1.0",

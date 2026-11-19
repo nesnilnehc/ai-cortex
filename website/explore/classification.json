@@ -90,6 +90,7 @@
       "id": "map-collaboration",
       "skillIds": [
         "prepare-presales-response",
+        "produce-presentation-video",
         "publish-nats-message",
         "consume-nats-message",
         "decontextualize-text",
