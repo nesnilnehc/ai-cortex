@@ -42,7 +42,7 @@ skills:
 
   ponytail:
     local_path: skills/ponytail
-    local_version: 1.0.1
+    local_version: 1.0.2
     origin: vendored-derived
     upstream:
       repository: https://github.com/dietrichgebert/ponytail.git
@@ -55,7 +55,7 @@ skills:
     update_policy: reviewed-port
     modifications:
       - Added local version metadata and retained upstream license locally
-      - Scoped activation to explicit invocation and clarified host precedence and standalone distribution
+      - Scoped activation to explicit invocation in the description and body and clarified host precedence and standalone distribution
       - Formatted the Levels table delimiter for MD060 compact style
 
 references:

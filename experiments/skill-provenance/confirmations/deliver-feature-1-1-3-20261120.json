@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicitly confirmed in current task",
+  "confirmed_at": "2026-11-20",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed that relocating the existing worktree delivery examples preserves repository authorship.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/deliver-feature-1-1-3-20261120.json"
+    }
+  ],
+  "subject_digest": "6e2e1db34181d69c33993906a62641b1c19ddb31d9e999d3f9609f4bff0faf9f"
+}

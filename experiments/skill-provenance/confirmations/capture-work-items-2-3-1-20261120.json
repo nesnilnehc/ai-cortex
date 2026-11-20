@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicitly confirmed in current task",
+  "confirmed_at": "2026-11-20",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed that extracting the existing work-item templates preserves repository authorship.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/capture-work-items-2-3-1-20261120.json"
+    }
+  ],
+  "subject_digest": "593d42eaf1a049f0b370018729b428c942bb278f59f9c06db61d8021e1a11b5c"
+}

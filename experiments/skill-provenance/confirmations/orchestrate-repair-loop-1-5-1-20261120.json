@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicitly confirmed in current task",
+  "confirmed_at": "2026-11-20",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed that relocating the existing repair-loop examples preserves repository authorship.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/orchestrate-repair-loop-1-5-1-20261120.json"
+    }
+  ],
+  "subject_digest": "94f5c504ac437f77ad552a9409c596554ed331d1ad239af9fb456c5837568dcb"
+}

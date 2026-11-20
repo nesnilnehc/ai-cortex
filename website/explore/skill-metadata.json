@@ -32,7 +32,7 @@
         "skills/capture-work-items/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/capture-work-items/SKILL.md": "3d788097e9a8ce105763932e94152451d27beeccf90d08f8d54e9d3ef48c2918"
+        "skills/capture-work-items/SKILL.md": "f0776b3e5f68f6dfaf30fa33d5aed40435e9bdd117622473e1446e42cec0e32a"
       },
       "entry": "public"
     },
@@ -164,7 +164,7 @@
         "skills/define-roadmap/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/define-roadmap/SKILL.md": "cb33f19faf63c9b18d0e6ee17f200750a976315b57d45ff3ef30f9abb965c14f"
+        "skills/define-roadmap/SKILL.md": "3f77b4f0f8995001b832737c4e0c95864465d98be4d7ff43cefaf59c5e64f347"
       },
       "entry": "public"
     },
@@ -200,7 +200,7 @@
         "skills/deliver-feature/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/deliver-feature/SKILL.md": "e504d011753a6991ccd638bc03424cbf262f068b7c0a1c5be95e0386e0433d1f"
+        "skills/deliver-feature/SKILL.md": "1a3dbd29a25187fe4a280018de90418b18f1de848bdeea38e759848ec4f84003"
       },
       "entry": "public"
     },
@@ -308,7 +308,7 @@
         "skills/orchestrate-code-review/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/orchestrate-code-review/SKILL.md": "d6fd3eb90935b18b8d1f864167f070d49f6562294d358087283ebbdee6e278fd"
+        "skills/orchestrate-code-review/SKILL.md": "7c6551814e921423df1325c038a209343d33e8b8bc13eec57a1e03ca398e3f52"
       },
       "entry": "public"
     },
@@ -332,7 +332,7 @@
         "skills/orchestrate-repair-loop/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/orchestrate-repair-loop/SKILL.md": "24d5cc8aa356d1b6ea9ceadf33c5fd42ed738ff908899322c7bf5a7e84884b4d"
+        "skills/orchestrate-repair-loop/SKILL.md": "562d6a9058976497ed52c88153c8b8da5cb0d5b1a258fc2f27f60c23d24ae8a2"
       },
       "entry": "public"
     },
@@ -356,7 +356,7 @@
         "skills/orchestrate-roadmap-planning/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/orchestrate-roadmap-planning/SKILL.md": "ef677a9cd795be833ee4520e64c9182ef19036aae827dab4b570550887c94c9c"
+        "skills/orchestrate-roadmap-planning/SKILL.md": "e9fa1ccfb864ec76f8038e9fe5c9e2f78aba3c7769d5e66067df76e5449b007c"
       },
       "entry": "public"
     },
@@ -488,7 +488,7 @@
         "skills/refine-skill-design/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/refine-skill-design/SKILL.md": "e0d9617607d1ec33b7902a51daf3f3cbdadbbaacc0dfbb92251545f86f6f7522"
+        "skills/refine-skill-design/SKILL.md": "f6015e2a660abe5dc2f8e4e7329859a92ee6564c8283c5c189aec6e7300aa70f"
       },
       "entry": "public"
     },
@@ -548,7 +548,7 @@
         "skills/review-error-surfacing/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/review-error-surfacing/SKILL.md": "49648026a540800cb067e7806549dcaf2fbfe2a2928e8bb9574bc6078284fdd8"
+        "skills/review-error-surfacing/SKILL.md": "ed9cc3b835d4f47027d60ad37bdf4dc1d7e0cd5081a7d293fe4269202a4fe2dd"
       },
       "entry": "public"
     },
@@ -842,13 +842,13 @@
     },
     "ponytail": {
       "id": "ponytail",
-      "description": "Lazy senior dev mode: the smallest change that fully solves the task, and a reply a busy human understands in one read. Use on any coding task (writing, fixing, refactoring, reviewing, choosing dependencies) and when the user says \"ponytail\", \"be lazy\", \"simplest solution\", \"yagni\", or complains about over-engineering or bloat. Levels: lite, full (default), ultra.",
+      "description": "Apply the smallest complete change and give a concise reply. Use when the user invokes Ponytail or explicitly asks for the simplest complete coding solution or an end to over-engineering. Levels: lite, full (default), ultra.",
       "owner": "collaboration",
       "sourcePaths": [
         "skills/ponytail/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/ponytail/SKILL.md": "3415711813e653439a3eece083cf9c5e18933eca801395fceb23aeb1cf568e39"
+        "skills/ponytail/SKILL.md": "73d13c862d98055d23b4412ef398c8fb04f345db95f068c1b6150744ec56f771"
       },
       "entry": "public"
     },

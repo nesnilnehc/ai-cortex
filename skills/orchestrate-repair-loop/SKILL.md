@@ -1,7 +1,7 @@
 ---
 name: orchestrate-repair-loop
 description: Iteratively converge the sibling engineering and functional gates, apply targeted fixes, then re-review and re-verify until both pass or a stop condition is reached.
-version: 1.5.0
+version: 1.5.1
 license: MIT
 compatibility: Requires a shell and the repo's toolchains to run tests (language-dependent). May require git for diff-based review.
 ---
@@ -96,6 +96,10 @@ When the input is a defect report or support ticket, inspect the supplied descri
   - Network access: public read-only sources follow AGENTS.md; authenticated requests, remote writes and downloads that would become runtime dependencies require the user's authorization and the repository's source policy.
   - Docker/services (DB/Redis/etc.): **confirm before running** (start on demand, stop once the tests finish).
   - Large refactors: **no**, not without confirmation.
+
+Read the [repair loop examples](references/examples.md) when you need a worked
+example for a failing unit test, an environment blocker in CI, or a UI defect
+reported with a screenshot.
 
 ### 2. The iteration loop
 
@@ -267,35 +271,3 @@ By default, do not write a standalone report file. If the user explicitly asks f
 ### Acceptance test
 
 Does the final report show either (a) both sibling gates passing with traceable evidence, or (b) an explicit stop condition with remaining engineering and functional problems separated?
-
----
-
-## Examples
-
-### Example 1: fix a failing unit test in a Node repository
-
-User: "Make the tests pass. Keep fixing until it is green."
-
-Agent:
-
-1. Preflight: scope=`diff`, test mode=`fast`, max_iterations=5; installing (`npm ci`) and network access are confirmed as allowed.
-2. Iteration 1: run the engineering gate, applicable alignment review and `npm test`; select the highest-priority blocking signal.
-3. Apply the smallest fix, rerun `npm test`, then rerun every engineering/alignment dimension the fix can invalidate.
-4. Stop once the engineering gate, applicable alignment review and `npm test` all pass.
-
-### Example 2 (edge case): the integration tests need Docker and secrets
-
-User: "Mirror CI and fix the failures."
-
-Agent:
-
-1. Preflight: test mode=`ci` is suggested, but CI is detected to use `docker compose` and env secrets.
-2. A stop condition fires: environment blocker (Docker + secrets not approved/unavailable).
-3. Ask the user to choose:
-   - Run only the `fast` unit tests locally, or
-   - Allow Docker and provide a non-chat secrets workflow, or
-   - Run only the failing CI job steps that do not need secrets.
-
-### Example 3: repair a defect reported with a screenshot
-
-A ticket says a save button does nothing. Compare its screenshot, steps and logs with the expected save behavior; do not infer the cause from the title. Reproduce the defect with a failing regression test, repair it, and rerun the affected gates. Exercise saving in the running UI and inspect its resulting state under the project's acceptance plan. Return the ticket reference, root cause, repair locations and test, visual and interaction evidence. If the app cannot run locally, record the blocked interaction check and do not claim the original user path is verified.

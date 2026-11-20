@@ -124,10 +124,13 @@
     },
     "capture-work-items": {
       "classification": "native",
-      "version": "2.3.0",
+      "version": "2.3.1",
       "reviewed_files": {
         "README.md": "dce4e58c92f54436b51de94fd186dbce36a4d696e3256a0d2b853afe085884e0",
-        "SKILL.md": "3d788097e9a8ce105763932e94152451d27beeccf90d08f8d54e9d3ef48c2918"
+        "SKILL.md": "f0776b3e5f68f6dfaf30fa33d5aed40435e9bdd117622473e1446e42cec0e32a",
+        "references/bug-template.md": "19ca77d110e707e202db62dc90182970577edf494edebec1a4432f9dd11945a7",
+        "references/issue-template.md": "006710c979897fc94b7817e8525a2fe2d3d694207cadc3f49e9c9beef5ca9c7e",
+        "references/requirement-template.md": "486a8b0f4e23281810f611921839d1973b842ea055218e4c9272e4f601d8f624"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/capture-work-items.json": "7abb54340d2a4f97ce2613e018c127f21671a35fab4494a54df0b3b817620afe"
@@ -138,7 +141,7 @@
           "path": "experiments/skill-provenance/evidence/capture-work-items.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/capture-work-items.json"
+          "path": "experiments/skill-provenance/confirmations/capture-work-items-2-3-1-20261120.json"
         }
       ],
       "creation": {
@@ -146,17 +149,17 @@
         "revision": "7651b07dbb5ce0b3815ce70394915414f2af792e"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer, explicitly confirmed in current task",
+        "confirmed_at": "2026-11-20",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "rationale": "The maintainer confirmed that extracting the existing work-item templates preserves repository authorship.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/capture-work-items.json"
+            "path": "experiments/skill-provenance/confirmations/capture-work-items-2-3-1-20261120.json"
           }
         ],
-        "subject_digest": "af5bd0b58b0475715de3c3cd22ed782706cf895acd1ce68b5c8ce90828bc89d2"
+        "subject_digest": "593d42eaf1a049f0b370018729b428c942bb278f59f9c06db61d8021e1a11b5c"
       }
     },
     "clarify-product-requirement": {
@@ -503,10 +506,10 @@
     },
     "define-roadmap": {
       "classification": "native",
-      "version": "9.0.0",
+      "version": "9.0.1",
       "reviewed_files": {
         "README.md": "e2a2fcae06bc8f6fda95bf9af5859a6cf0c101d00adfed27be479a2486bcaaf9",
-        "SKILL.md": "cb33f19faf63c9b18d0e6ee17f200750a976315b57d45ff3ef30f9abb965c14f",
+        "SKILL.md": "3f77b4f0f8995001b832737c4e0c95864465d98be4d7ff43cefaf59c5e64f347",
         "assets/modules/flow.md": "307a7db9731700d565e56447402975b495507d3d50919f495303bc7dc33a7c2e",
         "assets/modules/iterations.md": "1cf9c9ea00b4ed0f50ccc8285d305d798c046c8785825998053b0451c8a32aba",
         "assets/modules/milestones.md": "cbb510bb6e8d9e37fc5d1c41e0961abb34c25cce7d9865f1e1a918e518f477ac",
@@ -531,6 +534,7 @@
         "references/existing-project/after/plan.md": "fdeeb5e49845a728f1834bd605b0f238f6c13f3010f0e0cb76249997087cabdb",
         "references/existing-project/before/plan.md": "03287598733968848712203ac81a5cce0359ecf2407d4033416648574893ac72",
         "references/existing-project/sources.md": "25f35679b5652b27434b3880f9981cfaaa889d7f5183e5b61919ac9722a94af7",
+        "references/generation-and-delivery.md": "a4ce3c25782c13bbb81138fa6b5cf793a2edf5adb917214ec5dc5cf1ff1a66fc",
         "references/languages/README.md": "dde61ac9044c8c1c7ed61df0a27a8a31060f42f3568ed9bac42c38be5628018c",
         "references/languages/conversations-zh-CN.json": "d46c3b6d74c84b9e94c309fc351e8ee63863ed0668f79085ce80ee366841be62",
         "references/languages/en/.roadmap-outputs.json": "a7a9935345b4b251cfbeb75379aacdd96aa7b2a76ae29177bdc69b7021f56d0f",
@@ -657,7 +661,7 @@
           "path": "experiments/skill-provenance/evidence/milestone-calendar-svg.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/define-roadmap-9-0-0-20261116.json"
+          "path": "experiments/skill-provenance/confirmations/define-roadmap-9-0-1-20261120.json"
         }
       ],
       "reviewed_links": {
@@ -668,17 +672,17 @@
         "revision": "904a4cc530bfd4e9557885add79a5d0fc0c3b590"
       },
       "decision": {
-        "maintainer": "Repository maintainer, explicit confirmation in the roadmap grouping conversation",
-        "confirmed_at": "2026-11-16",
+        "maintainer": "Repository maintainer, explicitly confirmed in current task",
+        "confirmed_at": "2026-11-20",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed define-roadmap 9.0.0 remains an AI Cortex original and used no third-party creative reference.",
+        "rationale": "The maintainer confirmed repository authorship after relocating the existing generation and delivery instructions.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/define-roadmap-9-0-0-20261116.json"
+            "path": "experiments/skill-provenance/confirmations/define-roadmap-9-0-1-20261120.json"
           }
         ],
-        "subject_digest": "15b6d6eda4bc6c1045934061690d0cfccce566cdddc669823a87051bd6a897a9"
+        "subject_digest": "4f3c5c206381d80df33d3e016e96006cfd636b0e9b8167c2b501924cca858e5b"
       }
     },
     "define-strategic-pillars": {
@@ -757,10 +761,11 @@
     },
     "deliver-feature": {
       "classification": "native",
-      "version": "1.1.2",
+      "version": "1.1.3",
       "reviewed_files": {
         "README.md": "7b8766e58883bc8daa079fedb2af1bc595d403d8666de8a2e9c75428871ab717",
-        "SKILL.md": "e504d011753a6991ccd638bc03424cbf262f068b7c0a1c5be95e0386e0433d1f"
+        "SKILL.md": "1a3dbd29a25187fe4a280018de90418b18f1de848bdeea38e759848ec4f84003",
+        "references/examples.md": "fdd023a49ee0f0e69c8fb0b5d2b31c26766daa137ee02d23945902e799878454"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/deliver-feature.json": "05cf43eb647397bc89aa621ef294cda186179202fe8416a88a45b70d7584c2fa"
@@ -771,7 +776,7 @@
           "path": "experiments/skill-provenance/evidence/deliver-feature.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/deliver-feature.json"
+          "path": "experiments/skill-provenance/confirmations/deliver-feature-1-1-3-20261120.json"
         }
       ],
       "creation": {
@@ -779,17 +784,17 @@
         "revision": "9f988aa0a180ce132654a680dfe39dc3b7eae94b"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer, explicitly confirmed in current task",
+        "confirmed_at": "2026-11-20",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "rationale": "The maintainer confirmed that relocating the existing worktree delivery examples preserves repository authorship.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/deliver-feature.json"
+            "path": "experiments/skill-provenance/confirmations/deliver-feature-1-1-3-20261120.json"
           }
         ],
-        "subject_digest": "a02237c6fcb3b6d3b6a9c0f5a44b6456dd9f3bef97abdb08bcf13aa91359c8ef"
+        "subject_digest": "6e2e1db34181d69c33993906a62641b1c19ddb31d9e999d3f9609f4bff0faf9f"
       }
     },
     "design-strategic-goals": {
@@ -1337,10 +1342,10 @@
     },
     "orchestrate-code-review": {
       "classification": "native",
-      "version": "1.4.2",
+      "version": "1.4.3",
       "reviewed_files": {
         "README.md": "ad8b6854550b769242ab32159bda9587e85d67bee9ffe8923cdfc1aa2e1f0cf6",
-        "SKILL.md": "d6fd3eb90935b18b8d1f864167f070d49f6562294d358087283ebbdee6e278fd"
+        "SKILL.md": "7c6551814e921423df1325c038a209343d33e8b8bc13eec57a1e03ca398e3f52"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/orchestrate-code-review.json": "172b266dd79e7605bd27ca44dfdf65109cf817573d49724cb3914bbcddc36c35"
@@ -1351,7 +1356,7 @@
           "path": "experiments/skill-provenance/evidence/orchestrate-code-review.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/orchestrate-code-review-1-4-2-20261120.json"
+          "path": "experiments/skill-provenance/confirmations/orchestrate-code-review-1-4-3-20261120.json"
         }
       ],
       "creation": {
@@ -1363,13 +1368,13 @@
         "confirmed_at": "2026-11-20",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed the code review workflow remains repository-authored after clarifying its own orchestration responsibilities.",
+        "rationale": "The maintainer confirmed repository authorship after clarifying the existing orchestration and reviewer boundaries.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/orchestrate-code-review-1-4-2-20261120.json"
+            "path": "experiments/skill-provenance/confirmations/orchestrate-code-review-1-4-3-20261120.json"
           }
         ],
-        "subject_digest": "4f85d106cc76bf28359efbe4f741e84a3413109ac84ccc1c6a1c07563a00c608"
+        "subject_digest": "9e0fe195822ac6892ae9bcac1fa0bfbf5f1b8bca8642565731fed3ddd4c174e0"
       }
     },
     "orchestrate-governance-step": {
@@ -1417,10 +1422,11 @@
     },
     "orchestrate-repair-loop": {
       "classification": "native",
-      "version": "1.5.0",
+      "version": "1.5.1",
       "reviewed_files": {
         "README.md": "45e3ae715662b659f35b404762a3cc0e305163ddcc6ac4f3d5803b22541d77f2",
-        "SKILL.md": "24d5cc8aa356d1b6ea9ceadf33c5fd42ed738ff908899322c7bf5a7e84884b4d"
+        "SKILL.md": "562d6a9058976497ed52c88153c8b8da5cb0d5b1a258fc2f27f60c23d24ae8a2",
+        "references/examples.md": "d5373f0a26a81bf02ab67042437521751cd932db715aed3cdb957f339903179d"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/orchestrate-repair-loop.json": "b29d4989a0fe54de96ca742ee7fed793dd17f5c44832757e9bf7cee803ed4eb2"
@@ -1431,7 +1437,7 @@
           "path": "experiments/skill-provenance/evidence/orchestrate-repair-loop.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/orchestrate-repair-loop.json"
+          "path": "experiments/skill-provenance/confirmations/orchestrate-repair-loop-1-5-1-20261120.json"
         }
       ],
       "creation": {
@@ -1439,17 +1445,17 @@
         "revision": "83867bc28c2639c2246155535a2da804580cb9b4"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer, explicitly confirmed in current task",
+        "confirmed_at": "2026-11-20",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "rationale": "The maintainer confirmed that relocating the existing repair-loop examples preserves repository authorship.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/orchestrate-repair-loop.json"
+            "path": "experiments/skill-provenance/confirmations/orchestrate-repair-loop-1-5-1-20261120.json"
           }
         ],
-        "subject_digest": "9a847decb7855b79683248e59ce0a018d43e3a82c20e4e02f3349b1092dadaea"
+        "subject_digest": "94f5c504ac437f77ad552a9409c596554ed331d1ad239af9fb456c5837568dcb"
       }
     },
     "orchestrate-repair-requirements-loop": {
@@ -1490,10 +1496,11 @@
     },
     "orchestrate-roadmap-planning": {
       "classification": "native",
-      "version": "2.12.1",
+      "version": "2.12.2",
       "reviewed_files": {
         "README.md": "7f4c2ca9ebfe6bece256e277969747a8c25c26ad85c873c7f80cfdde9c3d697f",
-        "SKILL.md": "ef677a9cd795be833ee4520e64c9182ef19036aae827dab4b570550887c94c9c"
+        "SKILL.md": "e9fa1ccfb864ec76f8038e9fe5c9e2f78aba3c7769d5e66067df76e5449b007c",
+        "references/examples.md": "1d92490409e583e151c5fc3c7d5f49203c05b78ac8e63af28a7b6a5bd0da7aee"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/orchestrate-roadmap-planning.json": "2ceb9090ca2b7a85f30d5aa363be6f4ab70ed365387d5b35e7acdf506cf2d135"
@@ -1504,7 +1511,7 @@
           "path": "experiments/skill-provenance/evidence/orchestrate-roadmap-planning.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/orchestrate-roadmap-planning-2-12-1-20261120.json"
+          "path": "experiments/skill-provenance/confirmations/orchestrate-roadmap-planning-2-12-2-20261120.json"
         }
       ],
       "creation": {
@@ -1516,13 +1523,13 @@
         "confirmed_at": "2026-11-20",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed the roadmap planning workflow remains repository-authored after clarifying its own orchestration responsibilities.",
+        "rationale": "The maintainer confirmed repository authorship after clarifying the existing orchestration boundary and relocating worked routes.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/orchestrate-roadmap-planning-2-12-1-20261120.json"
+            "path": "experiments/skill-provenance/confirmations/orchestrate-roadmap-planning-2-12-2-20261120.json"
           }
         ],
-        "subject_digest": "af5091525192aa058926516f205abf9ea73a9fd1fbb1e399128539ad0e14f324"
+        "subject_digest": "947d45c5ed2ed8e5fa486e7cbd895ecedec51ead5c9c7d837e5a47c5ebf57574"
       }
     },
     "plan-milestones": {
@@ -1648,10 +1655,10 @@
     },
     "ponytail": {
       "classification": "third_party_adapted",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "reviewed_files": {
         "LICENSE.upstream": "fb1bc6909ac3ef82d5c22106e32ef682b0cff66788fa915fb9b53b15c9d2f3ab",
-        "SKILL.md": "3415711813e653439a3eece083cf9c5e18933eca801395fceb23aeb1cf568e39"
+        "SKILL.md": "73d13c862d98055d23b4412ef398c8fb04f345db95f068c1b6150744ec56f771"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/ponytail.json": "eb51b8d82e5859c58272a4452428134b8139638e9305af35220107085592a61f",
@@ -1676,21 +1683,21 @@
           "path": "experiments/skill-provenance/evidence/ponytail-md060.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/ponytail-1-0-1-20261118.json"
+          "path": "experiments/skill-provenance/confirmations/ponytail-1-0-2-20261120.json"
         }
       ],
       "decision": {
-        "maintainer": "Repository maintainer, explicit confirmation in the ponytail formatting chat",
-        "confirmed_at": "2026-11-18",
+        "maintainer": "Repository maintainer, explicitly confirmed in current task",
+        "confirmed_at": "2026-11-20",
         "action": "confirmed",
         "classification": "third_party_adapted",
-        "rationale": "The maintainer confirmed the v1.0.1 subject. This patch updates the Levels table delimiter to match the existing MD060 compact style and preserves the pinned MIT upstream, license notice, and Skill behavior.",
+        "rationale": "The maintainer confirmed that aligning discovery with the existing explicit activation rule preserves the adapted third-party classification.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/ponytail-1-0-1-20261118.json"
+            "path": "experiments/skill-provenance/confirmations/ponytail-1-0-2-20261120.json"
           }
         ],
-        "subject_digest": "24a3a7d48e935c96b3619d2a45e33afafcdb085674d5797974edd3e6d09bd744"
+        "subject_digest": "f0ac897f759465906c9f08d62ce2f23ae0f1d5367ac249de5731eddd1d64a79f"
       }
     },
     "prepare-presales-response": {
@@ -2059,10 +2066,10 @@
     },
     "refine-skill-design": {
       "classification": "native",
-      "version": "1.10.0",
+      "version": "1.10.1",
       "reviewed_files": {
         "README.md": "8a192d1e48d8105fd5cd1d2e1c263787e5d2f6598e367bfa106f504bf7a6fd61",
-        "SKILL.md": "e0d9617607d1ec33b7902a51daf3f3cbdadbbaacc0dfbb92251545f86f6f7522"
+        "SKILL.md": "f6015e2a660abe5dc2f8e4e7329859a92ee6564c8283c5c189aec6e7300aa70f"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/refine-skill-design.json": "a5e1ab8a1f8a442b95ddbb21f312db727745da3fa047e134fbfabc2de7de377f"
@@ -2073,7 +2080,7 @@
           "path": "experiments/skill-provenance/evidence/refine-skill-design.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/refine-skill-design-1-10-0-20261120.json"
+          "path": "experiments/skill-provenance/confirmations/refine-skill-design-1-10-1-20261120.json"
         }
       ],
       "creation": {
@@ -2085,13 +2092,13 @@
         "confirmed_at": "2026-11-20",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that refine-skill-design 1.10.0 remains repository-authored after integrating the repository contribution guide into the existing skill boundary audit.",
+        "rationale": "The maintainer confirmed repository authorship after clarifying how the existing external format and local version and index contracts are checked.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/refine-skill-design-1-10-0-20261120.json"
+            "path": "experiments/skill-provenance/confirmations/refine-skill-design-1-10-1-20261120.json"
           }
         ],
-        "subject_digest": "77ad1854467da107339f5445a6b1368c7221765de817fd0ec79edc972d886829"
+        "subject_digest": "695c71cf709e953e4e443c19a3828ae9d62eb9c48901f2102d1538f66ada2e83"
       }
     },
     "rename-session": {
@@ -2291,10 +2298,11 @@
     },
     "review-error-surfacing": {
       "classification": "native",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "reviewed_files": {
         "README.md": "b70cd6a33db1a06ddaa728c35942a07587c762b1946daa92f20311df14d79e51",
-        "SKILL.md": "49648026a540800cb067e7806549dcaf2fbfe2a2928e8bb9574bc6078284fdd8"
+        "SKILL.md": "ed9cc3b835d4f47027d60ad37bdf4dc1d7e0cd5081a7d293fe4269202a4fe2dd",
+        "references/examples.md": "c106b4f7a3b90a85b8c195ee50f3f7face5b5335ab7dd05a41f39abff93a60cd"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/review-error-surfacing.json": "e4d57bb2f6c393d0f0b01f1b017a037e66d5c2fab9bd01f9b2cd6d752a82b791"
@@ -2305,7 +2313,7 @@
           "path": "experiments/skill-provenance/evidence/review-error-surfacing.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/review-error-surfacing.json"
+          "path": "experiments/skill-provenance/confirmations/review-error-surfacing-1-2-2-20261120.json"
         }
       ],
       "creation": {
@@ -2313,17 +2321,17 @@
         "revision": "b76445a19db84817e47f553606d9fbc21df8147c"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer, explicitly confirmed in current task",
+        "confirmed_at": "2026-11-20",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "rationale": "The maintainer confirmed repository authorship after relocating examples of the existing error-surfacing review.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/review-error-surfacing.json"
+            "path": "experiments/skill-provenance/confirmations/review-error-surfacing-1-2-2-20261120.json"
           }
         ],
-        "subject_digest": "930e9f90613f00dbab97f4bf9390bd8def75d0e4525b53542de618c0247ce1e6"
+        "subject_digest": "400e859482c15e82454beef90574600695b996cf95b6c2f9294b2eae89ae6ca4"
       }
     },
     "review-functional-design": {

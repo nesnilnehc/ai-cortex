@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicitly confirmed in current task",
+  "confirmed_at": "2026-11-20",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed repository authorship after relocating the existing generation and delivery instructions.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/define-roadmap-9-0-1-20261120.json"
+    }
+  ],
+  "subject_digest": "4f3c5c206381d80df33d3e016e96006cfd636b0e9b8167c2b501924cca858e5b"
+}

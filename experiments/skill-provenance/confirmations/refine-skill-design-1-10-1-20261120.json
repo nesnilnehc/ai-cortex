@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicitly confirmed in current task",
+  "confirmed_at": "2026-11-20",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed repository authorship after clarifying how the existing external format and local version and index contracts are checked.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/refine-skill-design-1-10-1-20261120.json"
+    }
+  ],
+  "subject_digest": "695c71cf709e953e4e443c19a3828ae9d62eb9c48901f2102d1538f66ada2e83"
+}

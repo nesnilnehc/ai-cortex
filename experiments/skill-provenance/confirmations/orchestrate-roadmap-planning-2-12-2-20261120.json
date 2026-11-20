@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicitly confirmed in current task",
+  "confirmed_at": "2026-11-20",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed repository authorship after clarifying the existing orchestration boundary and relocating worked routes.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/orchestrate-roadmap-planning-2-12-2-20261120.json"
+    }
+  ],
+  "subject_digest": "947d45c5ed2ed8e5fa486e7cbd895ecedec51ead5c9c7d837e5a47c5ebf57574"
+}

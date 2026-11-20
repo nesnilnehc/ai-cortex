@@ -1,7 +1,7 @@
 ---
 name: orchestrate-code-review
 description: Orchestrator skill — sequence atomic review-* skills into the post-coding engineering gate and aggregate their findings; functional alignment and acceptance verification remain separate.
-version: 1.4.2
+version: 1.4.3
 license: MIT
 output_schema:
   type: findings-list
@@ -91,7 +91,7 @@ One aggregated report:
 
 ### Hard boundaries
 
-- No code analysis, lint or rule matching inside this skill (it breaks the orchestrator 4-things principle)
+- Delegate code analysis, lint and Rule evaluation to the matching review Skills.
 - No change to the execution order (scope → language → framework → library → cognitive)
 - No invented findings; only what the atomic skills produced gets aggregated
 - Atomic skills are not asked to emit risk_signals; risk labels are produced in the aggregation stage alone
@@ -112,8 +112,7 @@ One aggregated report:
 
 ## Self-Check
 
-- [ ] Only the 4 things get done: detect context / chain the calls / halt-on-failure / aggregate output
-- [ ] No domain detection logic was implemented inside this skill
+- [ ] Reviewer selection used the request and project context. Code and Rule judgments came from the dispatched reviewers.
 - [ ] The scope was resolved from the request and repository state; any genuine ambiguity was clarified
 - [ ] The execution order is fixed (scope → language → framework → library → cognitive)
 - [ ] Skipped steps are noted in the report

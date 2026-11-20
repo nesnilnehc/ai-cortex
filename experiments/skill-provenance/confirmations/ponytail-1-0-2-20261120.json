@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicitly confirmed in current task",
+  "confirmed_at": "2026-11-20",
+  "action": "confirmed",
+  "classification": "third_party_adapted",
+  "rationale": "The maintainer confirmed that aligning discovery with the existing explicit activation rule preserves the adapted third-party classification.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/ponytail-1-0-2-20261120.json"
+    }
+  ],
+  "subject_digest": "f0ac897f759465906c9f08d62ce2f23ae0f1d5367ac249de5731eddd1d64a79f"
+}

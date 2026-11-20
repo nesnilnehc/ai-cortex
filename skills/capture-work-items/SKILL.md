@@ -1,7 +1,7 @@
 ---
 name: capture-work-items
 description: Capture requirements, bugs, or issues from free-form input into structured, persistent artifacts. Use when user wants to record a work item quickly without deep validation.
-version: 2.3.0
+version: 2.3.1
 license: MIT
 ---
 
@@ -121,7 +121,10 @@ Fill required fields from explicit input and reliable project evidence. Label an
 
 1. Run "resolve the project norms", then "path detection" (above)
 2. Use the project-declared path; ask only if the destination is ambiguous or would overwrite unrelated content
-3. Write the Markdown with YAML front-matter from the appropriate template (see the output templates)
+3. Read the template for the classified type and use it to write the Markdown with YAML frontmatter.
+   - [Requirement template](references/requirement-template.md)
+   - [Bug template](references/bug-template.md)
+   - [Issue template](references/issue-template.md)
 4. Set `status: captured` in the front-matter
 
 ### Phase 4: Report
@@ -148,89 +151,7 @@ At the end of a capture (single or bulk), run the following **suggest action**:
 
 ### Output
 
-A structured work-item Markdown file with YAML front-matter. The templates follow.
-
-#### Requirement template
-
-```markdown
----
-artifact_type: backlog-item
-created_by: capture-work-items
-lifecycle: living
-type: requirement
-date: YYYY-MM-DD
-status: captured
-priority: unset
-strategic_goal_id: [goal-N]
-source: [user|meeting|email]
-trace_id: optional
----
-
-# [Title]
-
-## Problem / Need
-[Who has what problem; no solution language]
-
-## Acceptance Criteria
-- [ ] [Criterion 1]
-- [ ] [Criterion 2]
-
-## Notes
-[Optional]
-```
-
-#### Bug template
-
-```markdown
----
-artifact_type: backlog-item
-created_by: capture-work-items
-lifecycle: living
-type: bug
-date: YYYY-MM-DD
-status: captured
-priority: unset
-strategic_goal_id: [goal-N]
-severity: [critical|major|minor]
----
-
-# [Title]
-
-## Description
-[What goes wrong]
-
-## Steps to Reproduce
-1. ...
-2. ...
-
-## Expected vs Actual
-- **Expected**: ...
-- **Actual**: ...
-
-## Environment
-[Optional]
-```
-
-#### Issue template
-
-```markdown
----
-artifact_type: backlog-item
-created_by: capture-work-items
-lifecycle: living
-type: issue
-subtype: [task|improvement|question]
-date: YYYY-MM-DD
-status: captured
-priority: unset
-strategic_goal_id: [goal-N]
----
-
-# [Title]
-
-## Description
-[Content]
-```
+A structured work-item Markdown file with YAML frontmatter.
 
 ### Status Lifecycle
 

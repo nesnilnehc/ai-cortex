@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicitly confirmed in current task",
+  "confirmed_at": "2026-11-20",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed repository authorship after clarifying the existing orchestration and reviewer boundaries.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/orchestrate-code-review-1-4-3-20261120.json"
+    }
+  ],
+  "subject_digest": "9e0fe195822ac6892ae9bcac1fa0bfbf5f1b8bca8642565731fed3ddd4c174e0"
+}

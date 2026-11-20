@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicitly confirmed in current task",
+  "confirmed_at": "2026-11-20",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed repository authorship after relocating examples of the existing error-surfacing review.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/review-error-surfacing-1-2-2-20261120.json"
+    }
+  ],
+  "subject_digest": "400e859482c15e82454beef90574600695b996cf95b6c2f9294b2eae89ae6ca4"
+}
