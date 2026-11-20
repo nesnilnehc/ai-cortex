@@ -1,0 +1,459 @@
+{
+  "date": "2026-11-20",
+  "site_version": 32,
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_2a87d02ce11481918c9bd9b3e21f874d",
+  "deployment_id": "appgdep_6afff00f1ef08191a57eadc69f2ef973",
+  "site_source_commit": "e148caa74cbb5bbc3e45438ec5be5bcdb708745b",
+  "repository_source_commit": "0a96c2ecba0cf8848853f42a7def6f1e57b4d1c4",
+  "assets_revision": "d2cfa45f737056f7567c8b587f62efa87b6bbf79",
+  "verified_at": "2026-11-20T07:01:42.067528+00:00",
+  "public_url": "https://ai-cortex.nesnilnehc.top/",
+  "runtime_files_checked": 49,
+  "byte_identical": 45,
+  "html_provider_insertions": 4,
+  "runtime_checks": [
+    {
+      "path": "copy.mjs",
+      "source_sha256": "98066e27493b23ca013c617303fb09cf44f6a1f6c056e5fa043cf6969ff54b4d",
+      "served_sha256": "98066e27493b23ca013c617303fb09cf44f6a1f6c056e5fa043cf6969ff54b4d",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/assets/work-stories.png",
+      "source_sha256": "1d155d745670022aee28542d2f638620a29a9b3c5398237f71f065848dc090f6",
+      "served_sha256": "1d155d745670022aee28542d2f638620a29a9b3c5398237f71f065848dc090f6",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/classification-view.mjs",
+      "source_sha256": "a9d71b3a05725cca298bb83f1661e22989ba121dc4cfb7550303029b78e74071",
+      "served_sha256": "a9d71b3a05725cca298bb83f1661e22989ba121dc4cfb7550303029b78e74071",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/classification.json",
+      "source_sha256": "6264d9898d9bf19df49bb6a24afb8537e6ab862cd747b9c469df310865d1bd9f",
+      "served_sha256": "6264d9898d9bf19df49bb6a24afb8537e6ab862cd747b9c469df310865d1bd9f",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/dual.css",
+      "source_sha256": "e05daa97343318e9f2ca4930b34a0ab499bfaf7146252668ce37b0f5b4f0eb3b",
+      "served_sha256": "e05daa97343318e9f2ca4930b34a0ab499bfaf7146252668ce37b0f5b4f0eb3b",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/explorer-host.mjs",
+      "source_sha256": "e38202b4907a3f1f4b522624d83031a1149e7d4190dea8dbc9f37a2fffc0e955",
+      "served_sha256": "e38202b4907a3f1f4b522624d83031a1149e7d4190dea8dbc9f37a2fffc0e955",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/explorer-state.mjs",
+      "source_sha256": "7c75e01e36f03eaa394fb0ce2ea6932485a05937b0fdb4126bd9f2d0d4136913",
+      "served_sha256": "7c75e01e36f03eaa394fb0ce2ea6932485a05937b0fdb4126bd9f2d0d4136913",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/global-topic-graph.mjs",
+      "source_sha256": "7414d36f4d4c57e41c8d5bcfb9d9ec87a7501aa582951d3ea6200a94baa73b2b",
+      "served_sha256": "7414d36f4d4c57e41c8d5bcfb9d9ec87a7501aa582951d3ea6200a94baa73b2b",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/index.html",
+      "source_sha256": "10dd664633880d47cb5ec1e4bb07d5ce47674ff8e319e33bc52cb01ac73d87a3",
+      "served_sha256": "e83d3a404f03be1e3e1731b49a5ed3981045f926541c8f5a7b9abd7e33167d4d",
+      "provider_insertion_bytes": 1114
+    },
+    {
+      "path": "explore/legacy.mjs",
+      "source_sha256": "75911c2f37e6eceaa41fc6f5252e6cdad51fd50def5ce7db4a5d228ddc9ab7c5",
+      "served_sha256": "75911c2f37e6eceaa41fc6f5252e6cdad51fd50def5ce7db4a5d228ddc9ab7c5",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/locale.mjs",
+      "source_sha256": "ec8f043b8692f66a77e7b3c62f80cd8d4635eaf9edd5b51d4f31187d3e472b45",
+      "served_sha256": "ec8f043b8692f66a77e7b3c62f80cd8d4635eaf9edd5b51d4f31187d3e472b45",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/locales/en.json",
+      "source_sha256": "ed0f0fadf63bb62672df70f6e5b9802f41ad39f8691de9aa67ab5cb8162602cd",
+      "served_sha256": "ed0f0fadf63bb62672df70f6e5b9802f41ad39f8691de9aa67ab5cb8162602cd",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/locales/zh.json",
+      "source_sha256": "2211f42899fb97d99484ce90bfeac9ec3e1534a7cd513f793735af409217841f",
+      "served_sha256": "2211f42899fb97d99484ce90bfeac9ec3e1534a7cd513f793735af409217841f",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/panel-model.mjs",
+      "source_sha256": "7f5fb9c7597e8999f74f1a7eba13fae2fcb1f1927c10f29bc0ffb939fd1ad369",
+      "served_sha256": "7f5fb9c7597e8999f74f1a7eba13fae2fcb1f1927c10f29bc0ffb939fd1ad369",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/provenance.mjs",
+      "source_sha256": "2e1e4035421e897b80b268de6d35658596a535b1b27d179c2c34dc2490f2158d",
+      "served_sha256": "2e1e4035421e897b80b268de6d35658596a535b1b27d179c2c34dc2490f2158d",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/relations.mjs",
+      "source_sha256": "8f368b96f16181d46cb4a8c4d9e845f96aeb481cf41ae30fea1800e19511ed7c",
+      "served_sha256": "8f368b96f16181d46cb4a8c4d9e845f96aeb481cf41ae30fea1800e19511ed7c",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/relationship-model.mjs",
+      "source_sha256": "831d763deb1f83d3c9b71687db77a87ad762e320c52412ca59797fc3603d335f",
+      "served_sha256": "831d763deb1f83d3c9b71687db77a87ad762e320c52412ca59797fc3603d335f",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/relationship-view.mjs",
+      "source_sha256": "4ad752f29581d653bb1a9c2c37e98a6586028e846a0a04ba92f3ef3fac1baf2f",
+      "served_sha256": "4ad752f29581d653bb1a9c2c37e98a6586028e846a0a04ba92f3ef3fac1baf2f",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/request-state.mjs",
+      "source_sha256": "23f3c205ce4d62c482eb22a10780eae879ea50666f3d97aff2c4be7fe4f2e177",
+      "served_sha256": "23f3c205ce4d62c482eb22a10780eae879ea50666f3d97aff2c4be7fe4f2e177",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/site-contract.mjs",
+      "source_sha256": "edcf7412489447ba2e3e2382e2df4c62b650112a4a8488907a0ac06112e020c4",
+      "served_sha256": "edcf7412489447ba2e3e2382e2df4c62b650112a4a8488907a0ac06112e020c4",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/skill-edges.json",
+      "source_sha256": "3d2461e36440cac7ee713339fc2d9e53a7f1a40acdb6e233c7278518a724a37b",
+      "served_sha256": "3d2461e36440cac7ee713339fc2d9e53a7f1a40acdb6e233c7278518a724a37b",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/skill-graph.mjs",
+      "source_sha256": "5d9b9beed12ac29939c34323e7577d8543c1aba87ec557dc24dfa782a1297050",
+      "served_sha256": "5d9b9beed12ac29939c34323e7577d8543c1aba87ec557dc24dfa782a1297050",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/skill-guidance.mjs",
+      "source_sha256": "fad7f36737243123591ca78e2842b02a6597269da2133937256a9a3e0338180d",
+      "served_sha256": "fad7f36737243123591ca78e2842b02a6597269da2133937256a9a3e0338180d",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/skill-metadata.json",
+      "source_sha256": "3c4b91f23cb9cd88230a489f82c2e08c65e0cacccc74d031279719c1a36b26c7",
+      "served_sha256": "3c4b91f23cb9cd88230a489f82c2e08c65e0cacccc74d031279719c1a36b26c7",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/skill-provenance.json",
+      "source_sha256": "c594b414116a2efa44a0384774381be36fca132044572aa2ea74c9fdd55da519",
+      "served_sha256": "c594b414116a2efa44a0384774381be36fca132044572aa2ea74c9fdd55da519",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/source-links.mjs",
+      "source_sha256": "e4f0ea997c5594906a71a5c80dec3850831f0b0bde0e2dcd5ec6c850eab99bfa",
+      "served_sha256": "e4f0ea997c5594906a71a5c80dec3850831f0b0bde0e2dcd5ec6c850eab99bfa",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/source-manifest.json",
+      "source_sha256": "1b6314494f829fdd1b66e5aed734b25dfe94359b9be371c6739357ca27d986a8",
+      "served_sha256": "1b6314494f829fdd1b66e5aed734b25dfe94359b9be371c6739357ca27d986a8",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/story-model.mjs",
+      "source_sha256": "35986bce3ebf1a38b051cd1dd7b37253110812911f538c50dfede5856165fc50",
+      "served_sha256": "35986bce3ebf1a38b051cd1dd7b37253110812911f538c50dfede5856165fc50",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/story.css",
+      "source_sha256": "9609f6129516a0ed01dc3fde30178aeac610bfad8c55f234cf1fd024d685f4e7",
+      "served_sha256": "9609f6129516a0ed01dc3fde30178aeac610bfad8c55f234cf1fd024d685f4e7",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/support-scopes.json",
+      "source_sha256": "bf72b80e5b02e4de210337850e34668cc4db18cd984fcc77b96d3336226bbcda",
+      "served_sha256": "bf72b80e5b02e4de210337850e34668cc4db18cd984fcc77b96d3336226bbcda",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/support-scopes.mjs",
+      "source_sha256": "cd568613746f85acf9a694d0e977b3bf821c021ef7f6332bceebfc9193505ad8",
+      "served_sha256": "cd568613746f85acf9a694d0e977b3bf821c021ef7f6332bceebfc9193505ad8",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/topic-edges.json",
+      "source_sha256": "99b622a4fa377bddb82544aea039a5e4d92413cd8d1cb2ccfb2b3b7e98a9f538",
+      "served_sha256": "99b622a4fa377bddb82544aea039a5e4d92413cd8d1cb2ccfb2b3b7e98a9f538",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/topic-map.json",
+      "source_sha256": "a32337621921f6ce507cca308ce8a7ce305e9627ac79c8c4f7bc780c3f273301",
+      "served_sha256": "a32337621921f6ce507cca308ce8a7ce305e9627ac79c8c4f7bc780c3f273301",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/topic-map.mjs",
+      "source_sha256": "3eec94c29b24bd3074f7089218a2941fa1b528eb22a3da376aef36270895246c",
+      "served_sha256": "3eec94c29b24bd3074f7089218a2941fa1b528eb22a3da376aef36270895246c",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/work-map.mjs",
+      "source_sha256": "77833e9a3f1df5061bb03e7253b80f824b3b001872a30cc6aee3f5243a6c71ba",
+      "served_sha256": "77833e9a3f1df5061bb03e7253b80f824b3b001872a30cc6aee3f5243a6c71ba",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/workflow.mjs",
+      "source_sha256": "95dfd771fbbcd4e0340ab86b4579aa13e4cb0db2fb02c0ba3962dc29f6f7db15",
+      "served_sha256": "95dfd771fbbcd4e0340ab86b4579aa13e4cb0db2fb02c0ba3962dc29f6f7db15",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/workspace.css",
+      "source_sha256": "d4175e2a71c4707eb53ef7af08c9f86670020cc874ce4dab663556fec5ef8d2a",
+      "served_sha256": "d4175e2a71c4707eb53ef7af08c9f86670020cc874ce4dab663556fec5ef8d2a",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "explore/zh.html",
+      "source_sha256": "ff9cdfb606e3f9508e7b257a8e7c44ba0720d4231099d539f283b375369569ea",
+      "served_sha256": "8fc6431317b17e44956e28e7a20c35ead584aaa92f79c892b334d9814298d7f3",
+      "provider_insertion_bytes": 1114
+    },
+    {
+      "path": "favicon.svg",
+      "source_sha256": "e3f057d1c807354a40e1c98fd390638666a8a244e4b8e81562e348efa147c02f",
+      "served_sha256": "e3f057d1c807354a40e1c98fd390638666a8a244e4b8e81562e348efa147c02f",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "index.html",
+      "source_sha256": "5f998a1d16a1822977439bf66e61d193341cc7e516b9cb05276727c58ea70806",
+      "served_sha256": "64a4f13e7f9b836b0f3e655d211d3b98f024062406039982c400d1ab11841b2d",
+      "provider_insertion_bytes": 1114
+    },
+    {
+      "path": "language.mjs",
+      "source_sha256": "f7bb46226f1703e103d45cc90c5c5a8c7565a359a38c4563a6fb13d0907c5102",
+      "served_sha256": "f7bb46226f1703e103d45cc90c5c5a8c7565a359a38c4563a6fb13d0907c5102",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "main.mjs",
+      "source_sha256": "a66c838dc9aef58c8994a8c2c6d008c0b7899869a1e45076ed4ba06bfe5e2b27",
+      "served_sha256": "a66c838dc9aef58c8994a8c2c6d008c0b7899869a1e45076ed4ba06bfe5e2b27",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "robots.txt",
+      "source_sha256": "2c3f391f9674a75b97ddc2e2142e18fd9d17d2755c9dfa261884aea06b995cc9",
+      "served_sha256": "2c3f391f9674a75b97ddc2e2142e18fd9d17d2755c9dfa261884aea06b995cc9",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "site-navigation.json",
+      "source_sha256": "684d0c2e2dc44e4c47d070e27d60eeba9916e731e7ad7b1a4c1c963279e842a6",
+      "served_sha256": "684d0c2e2dc44e4c47d070e27d60eeba9916e731e7ad7b1a4c1c963279e842a6",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "site-navigation.mjs",
+      "source_sha256": "7d623eaf1fd2f23f4db9d56a2e6aa681ea064fcf266546ee048f047ff15d8f91",
+      "served_sha256": "7d623eaf1fd2f23f4db9d56a2e6aa681ea064fcf266546ee048f047ff15d8f91",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "sitemap.xml",
+      "source_sha256": "1f0245151e10eaca6d2e888a8fdc61a150b76346b8d958e74cf01a2ca8b93038",
+      "served_sha256": "1f0245151e10eaca6d2e888a8fdc61a150b76346b8d958e74cf01a2ca8b93038",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "styles.css",
+      "source_sha256": "78dc21fe4b5f649aacb99c812b3e2dee0a7617f9e11d8e8016d715dc447d90f3",
+      "served_sha256": "78dc21fe4b5f649aacb99c812b3e2dee0a7617f9e11d8e8016d715dc447d90f3",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "theme.mjs",
+      "source_sha256": "df9b28f7c343ff4ea9f7ec83446b62692e0bd6ba47157fa78af5a7ca478f653f",
+      "served_sha256": "df9b28f7c343ff4ea9f7ec83446b62692e0bd6ba47157fa78af5a7ca478f653f",
+      "provider_insertion_bytes": 0
+    },
+    {
+      "path": "zh.html",
+      "source_sha256": "926e83e7d19329b99af682336bcb2a881b80b699a6d98cc4858d32ced2064e0f",
+      "served_sha256": "b0d4435615adc5abf8e2ff0a426f97df7d820b2236bfb9de2da1ffd1fcf57af6",
+      "provider_insertion_bytes": 1114
+    }
+  ],
+  "skill_sources": [
+    {
+      "path": "experiments/skill-provenance/confirmations/capture-work-items-2-3-1-20261120.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/experiments/skill-provenance/confirmations/capture-work-items-2-3-1-20261120.json",
+      "sha256": "c6e7b88daf59a5741c65939c8844aece9974d9e6d172424546892b92b7d77ae2"
+    },
+    {
+      "path": "experiments/skill-provenance/confirmations/define-roadmap-9-0-1-20261120.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/experiments/skill-provenance/confirmations/define-roadmap-9-0-1-20261120.json",
+      "sha256": "2f00d86d1c9553941789c1ca04f3cc6117572feae235204d4ec8e9736813a7bd"
+    },
+    {
+      "path": "experiments/skill-provenance/confirmations/deliver-feature-1-1-3-20261120.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/experiments/skill-provenance/confirmations/deliver-feature-1-1-3-20261120.json",
+      "sha256": "25ea43a97e0e5c33b5e1ca4fcdbf246b6de0f60fefb10de66fe06c5641fc5f48"
+    },
+    {
+      "path": "experiments/skill-provenance/confirmations/orchestrate-code-review-1-4-3-20261120.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/experiments/skill-provenance/confirmations/orchestrate-code-review-1-4-3-20261120.json",
+      "sha256": "e06f6ebe3653fa597250a6e7e7c7c630fac3511f3e63e841ff13bb048134d840"
+    },
+    {
+      "path": "experiments/skill-provenance/confirmations/orchestrate-repair-loop-1-5-1-20261120.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/experiments/skill-provenance/confirmations/orchestrate-repair-loop-1-5-1-20261120.json",
+      "sha256": "4f154c11a5b1380f6d643650f3d73605d1fd15bbaeed26114c723d437ddeeda0"
+    },
+    {
+      "path": "experiments/skill-provenance/confirmations/orchestrate-roadmap-planning-2-12-2-20261120.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/experiments/skill-provenance/confirmations/orchestrate-roadmap-planning-2-12-2-20261120.json",
+      "sha256": "5e52a683a5685ed709edeedfc041656a581dacbe4dccd6d16193122d8da231da"
+    },
+    {
+      "path": "experiments/skill-provenance/confirmations/ponytail-1-0-2-20261120.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/experiments/skill-provenance/confirmations/ponytail-1-0-2-20261120.json",
+      "sha256": "4e16dbc8ca6ac81216f4fe783a2db7fc4d128bba1f1ef083619341472e15d3e7"
+    },
+    {
+      "path": "experiments/skill-provenance/confirmations/refine-skill-design-1-10-1-20261120.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/experiments/skill-provenance/confirmations/refine-skill-design-1-10-1-20261120.json",
+      "sha256": "7e8e5902fd4c788cd28885d18f0fa998c05143c732242b4577e6eb26c551b9b9"
+    },
+    {
+      "path": "experiments/skill-provenance/confirmations/review-error-surfacing-1-2-2-20261120.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/experiments/skill-provenance/confirmations/review-error-surfacing-1-2-2-20261120.json",
+      "sha256": "4944d6f1c62066ac3ac610f0386c5bb5457bb44adb98140b5747cf56e5aaf62e"
+    },
+    {
+      "path": "skills/PROVENANCE.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/skills/PROVENANCE.json",
+      "sha256": "b66aecc291b6b69c3d2609669aee40832544dfee4f33114c583827091b000a14"
+    },
+    {
+      "path": "skills/SOURCES.yaml",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/skills/SOURCES.yaml",
+      "sha256": "92f27ffb04efbd8bc4318b5b90a7fe339c9f29f9a86a695cccd5652b8b39cdf9"
+    },
+    {
+      "path": "skills/capture-work-items/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/skills/capture-work-items/SKILL.md",
+      "sha256": "f0776b3e5f68f6dfaf30fa33d5aed40435e9bdd117622473e1446e42cec0e32a"
+    },
+    {
+      "path": "skills/capture-work-items/references/bug-template.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/skills/capture-work-items/references/bug-template.md",
+      "sha256": "19ca77d110e707e202db62dc90182970577edf494edebec1a4432f9dd11945a7"
+    },
+    {
+      "path": "skills/capture-work-items/references/issue-template.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/skills/capture-work-items/references/issue-template.md",
+      "sha256": "006710c979897fc94b7817e8525a2fe2d3d694207cadc3f49e9c9beef5ca9c7e"
+    },
+    {
+      "path": "skills/capture-work-items/references/requirement-template.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/skills/capture-work-items/references/requirement-template.md",
+      "sha256": "486a8b0f4e23281810f611921839d1973b842ea055218e4c9272e4f601d8f624"
+    },
+    {
+      "path": "skills/define-roadmap/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/skills/define-roadmap/SKILL.md",
+      "sha256": "3f77b4f0f8995001b832737c4e0c95864465d98be4d7ff43cefaf59c5e64f347"
+    },
+    {
+      "path": "skills/define-roadmap/references/generation-and-delivery.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/skills/define-roadmap/references/generation-and-delivery.md",
+      "sha256": "a4ce3c25782c13bbb81138fa6b5cf793a2edf5adb917214ec5dc5cf1ff1a66fc"
+    },
+    {
+      "path": "skills/deliver-feature/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/skills/deliver-feature/SKILL.md",
+      "sha256": "1a3dbd29a25187fe4a280018de90418b18f1de848bdeea38e759848ec4f84003"
+    },
+    {
+      "path": "skills/deliver-feature/references/examples.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/skills/deliver-feature/references/examples.md",
+      "sha256": "fdd023a49ee0f0e69c8fb0b5d2b31c26766daa137ee02d23945902e799878454"
+    },
+    {
+      "path": "skills/orchestrate-code-review/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/skills/orchestrate-code-review/SKILL.md",
+      "sha256": "7c6551814e921423df1325c038a209343d33e8b8bc13eec57a1e03ca398e3f52"
+    },
+    {
+      "path": "skills/orchestrate-repair-loop/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/skills/orchestrate-repair-loop/SKILL.md",
+      "sha256": "562d6a9058976497ed52c88153c8b8da5cb0d5b1a258fc2f27f60c23d24ae8a2"
+    },
+    {
+      "path": "skills/orchestrate-repair-loop/references/examples.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/skills/orchestrate-repair-loop/references/examples.md",
+      "sha256": "d5373f0a26a81bf02ab67042437521751cd932db715aed3cdb957f339903179d"
+    },
+    {
+      "path": "skills/orchestrate-roadmap-planning/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/skills/orchestrate-roadmap-planning/SKILL.md",
+      "sha256": "e9fa1ccfb864ec76f8038e9fe5c9e2f78aba3c7769d5e66067df76e5449b007c"
+    },
+    {
+      "path": "skills/orchestrate-roadmap-planning/references/examples.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/skills/orchestrate-roadmap-planning/references/examples.md",
+      "sha256": "1d92490409e583e151c5fc3c7d5f49203c05b78ac8e63af28a7b6a5bd0da7aee"
+    },
+    {
+      "path": "skills/ponytail/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/skills/ponytail/SKILL.md",
+      "sha256": "73d13c862d98055d23b4412ef398c8fb04f345db95f068c1b6150744ec56f771"
+    },
+    {
+      "path": "skills/refine-skill-design/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/skills/refine-skill-design/SKILL.md",
+      "sha256": "f6015e2a660abe5dc2f8e4e7329859a92ee6564c8283c5c189aec6e7300aa70f"
+    },
+    {
+      "path": "skills/review-error-surfacing/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/skills/review-error-surfacing/SKILL.md",
+      "sha256": "ed9cc3b835d4f47027d60ad37bdf4dc1d7e0cd5081a7d293fe4269202a4fe2dd"
+    },
+    {
+      "path": "skills/review-error-surfacing/references/examples.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/d2cfa45f737056f7567c8b587f62efa87b6bbf79/skills/review-error-surfacing/references/examples.md",
+      "sha256": "c106b4f7a3b90a85b8c195ee50f3f7face5b5335ab7dd05a41f39abff93a60cd"
+    }
+  ],
+  "html_comparison": "Hosted HTML matches the committed source after the known provider script insertion.",
+  "website_tests": {
+    "node_passed": 59,
+    "python_passed": 19
+  },
+  "archive_sha256": "deb8120905ff44f2dbfc7a1a724d2cb4ce3179953673f69e46ade8d3eb218e89",
+  "hosted_archive_content_hash": "sha256:4a0ac4e4d2ea84bfef9d75b563d77f94634185610925bf4abf18eec374edb730"
+}
