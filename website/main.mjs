@@ -1,7 +1,7 @@
-import {initializeNavigation} from './site-navigation.mjs?v=opportunity-assessment-20261120';
-import { initializeTheme } from './theme.mjs?v=opportunity-assessment-20261120';
-import { initializeLanguage } from './language.mjs?v=opportunity-assessment-20261120';
-import { bindCopyButton } from './copy.mjs?v=opportunity-assessment-20261120';
+import {initializeNavigation} from './site-navigation.mjs?v=skill-design-audit-20261120';
+import { initializeTheme } from './theme.mjs?v=skill-design-audit-20261120';
+import { initializeLanguage } from './language.mjs?v=skill-design-audit-20261120';
+import { bindCopyButton } from './copy.mjs?v=skill-design-audit-20261120';
 
 initializeLanguage(window, document.documentElement.lang === 'zh-CN' ? 'zh' : 'en');
 
@@ -17,4 +17,4 @@ bindCopyButton(
 
 initializeNavigation(window,document);
 
-import './explore/explorer-host.mjs?v=opportunity-assessment-20261120';
+import './explore/explorer-host.mjs?v=skill-design-audit-20261120';
