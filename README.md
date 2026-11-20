@@ -17,7 +17,7 @@ for the four asset layers and the [website guide](website/README.md) for site ma
 
 ## 🧭 What's inside
 
-**80 skills** ([index](skills/INDEX.md)), **35 rules** ([index](rules/INDEX.md)), **21 specs** ([index](specs/INDEX.md)) and **1 protocol** ([index](protocols/INDEX.md)).
+**79 skills** ([index](skills/INDEX.md)), **35 rules** ([index](rules/INDEX.md)), **21 specs** ([index](specs/INDEX.md)) and **1 protocol** ([index](protocols/INDEX.md)).
 
 | Area | Count | Representative skills |
 | :--- | ---: | :--- |
@@ -26,7 +26,7 @@ for the four asset layers and the [website guide](website/README.md) for site ma
 | **Engineering operations** | 12 | Commits, worktree delivery and integration, dependency upgrades, version notes, artifact delivery and inspection, test execution, local redeployment, and minimal coding changes with `ponytail` |
 | **Docs & assets** | 8 | Generating README, AGENTS.md and GitHub Actions; refining skill design; decontextualizing text; preparing presales responses; [producing narrated presentation videos](skills/produce-presentation-video/SKILL.md); `eli5` visual explainers |
 | **Integration & ops** | 5 | NATS cross-team messaging, macOS Keychain credential management, agent test scaffolding and [current-session naming](skills/rename-session/SKILL.md) |
-| **Research & opportunity** | 6 | Open, policy, market and competitive research; internal opportunity assessment; product opportunity package |
+| **Research & opportunity** | 5 | Open, policy, market and competitive research, and product opportunity analysis |
 
 Builds, artifact distribution, store submissions and release announcements are implemented by consuming projects. AI Cortex does not require a shared release workflow or Release Package; see the [scope decision](docs/adr/0017-project-owned-releases.md).
 
@@ -41,7 +41,7 @@ For an optional path from existing SDLC artifacts to adaptive agent execution, s
 ### How this differs from similar libraries
 
 - **Four separated asset layers** — Skill (what an agent can do) / Spec (what a thing looks like) / Protocol (how parties coordinate) / Rule (what must not happen), with explicit boundaries. See [terminology](docs/architecture/terminology.md).
-- **Orchestrators are thin** — an `orchestrate-*` skill does exactly four things: detect context, sequence calls, halt on failure, aggregate output. Domain logic stays in the atomic skills.
+- **Skills own coherent tasks** — an orchestrator owns its workflow decisions and reuses independent Skills for the tasks they own. See [choosing a skill boundary](CONTRIBUTING.md#choosing-a-skill-boundary).
 - **Review criteria live outside the skills** — evaluative skills read their criteria from `rules/*-quality.md`, so one definition serves the producing, diagnosing and reviewing sides.
 - **Vendored-only distribution** — externally derived skills are pinned to a commit and digest with their license recorded. Nothing is installed from the network at runtime. See [ADR 0011](docs/adr/0011-vendor-external-skills.md).
 

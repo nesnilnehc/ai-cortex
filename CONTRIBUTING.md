@@ -26,11 +26,55 @@ Skills follow the [agentskills.io](https://agentskills.io) standard format. Draf
 
 `description` must be English and make the skill's purpose and usage clear. It is the discovery field used by Agent Skills and this repository.
 
-Keep optional frontmatter only when a consumer uses it. `output_schema.type: findings-list` selects the shared [findings-list](specs/findings-list.md) contract; other typed handoffs may declare a schema when an actual consumer needs one. Place operational defaults and prerequisites in the instructions when no machine reads an input schema. Agent Skills recommends a main `SKILL.md` under 500 lines and instructions under about 5,000 tokens; these are review signals, not validity limits. Put optional examples and detailed references in linked local files.
+Keep optional frontmatter only when a consumer uses it. `output_schema.type: findings-list` selects the shared [findings-list](specs/findings-list.md) contract; other typed handoffs may declare a schema when an actual consumer needs one. Place operational defaults and prerequisites in the instructions when no machine reads an input schema.
 
 Research Skills use optional `metadata.ai_cortex_type` (`foundation`, `domain`, or `orchestrator`) and `metadata.ai_cortex_user_invocable` (`"true"` or `"false"`). Declare both together; the index generator validates and displays them. The flag is a repository routing contract, not a guarantee that every host hides an internal Skill. Use explicit local artifact handoffs between Skills and preserve the [Research Evidence](specs/research-evidence.md) and [Opportunity Package](specs/opportunity-package.md) contracts. The five public research names are a narrow [naming exception](docs/adr/0013-research-skill-entry-names.md).
 
 The new research Skills are original AI Cortex content. Only copy an external Skill through the vendored-source process below; a link to an external prompt is not a local implementation. The [checks](#checks) below say what to run before opening a pull request.
+
+### Choosing a skill boundary
+
+A Skill is a discoverable entry for a coherent task. For each proposed or
+re-scoped entry, identify its trigger, inputs, usable result and completion
+condition. Base the decision on a concrete standalone request or a demonstrated
+handoff that multiple distinct workflows need to invoke as a unit. Compare the
+proposed scope with existing entries before adding it. This follows the
+[Agent Skills guidance on coherent units](https://agentskills.io/skill-creation/best-practices#design-coherent-units).
+
+| Place | Use it for |
+| --- | --- |
+| Standalone Skill | Work with a distinct trigger and usable result. Make the entry discoverable through the normal catalog and distribution. |
+| An owning Skill's `SKILL.md` | Core steps, decisions and completion conditions for that Skill's task, including phases whose result serves its own workflow. |
+| An owning Skill's `references/` | Substantial detail that can be loaded at a particular stage or under a particular condition. |
+
+Once the owner is clear, assess the complexity of its `SKILL.md`. Consider how
+much detail a typical run needs, how many branches the agent must follow, and
+whether the core flow remains easy to scan. Keep short, routinely used
+instructions inline. Extract detail when reading it separately makes the flow
+easier to follow or avoids loading material for paths the agent may never take.
+Keep the decision and its conditions in the main flow, and link the supporting
+file from the step that says when to read it. Use the Agent Skills guidance of
+[under 500 lines and about 5,000 tokens](https://agentskills.io/skill-creation/best-practices#structure-large-skills-with-progressive-disclosure)
+as a prompt to review readability and loading cost.
+
+An orchestrator owns the decisions needed to complete its workflow, such as
+selecting checks, prioritizing repairs or deciding when to stop. It delegates
+independently useful tasks to the Skills that own them. Shared structural
+contracts and checkable criteria stay with their owning Specs and Rules.
+
+Use these examples when reviewing the boundary.
+
+- `automate-tests` can discover and run tests on its own and return execution
+  evidence. `orchestrate-repair-loop` reuses that result and owns the repair and
+  recheck decisions.
+- Forming a recommendation from scoped research belongs in the core flow of
+  `product-opportunity-analysis`. A short assessment rubric can stay inline.
+  If detailed conflict-handling guidance or examples interrupt the flow, link
+  them from the assessment step.
+
+Before folding an existing entry into a Skill, check its callers, installed
+paths and [compatibility obligations](docs/project-overview/stable-core.md).
+Treat that migration as a separate change with its own verification.
 
 ### Maintainer-owned original transfers
 

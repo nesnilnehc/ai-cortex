@@ -1,7 +1,7 @@
 ---
 name: orchestrate-code-review
 description: Orchestrator skill — sequence atomic review-* skills into the post-coding engineering gate and aggregate their findings; functional alignment and acceptance verification remain separate.
-version: 1.4.1
+version: 1.4.2
 license: MIT
 output_schema:
   type: findings-list
@@ -17,7 +17,7 @@ Chain the atomic review-* skills in a fixed order and aggregate their findings a
 
 ## Orchestrator Role
 
-Under the naming convention, an orchestrator skill **does exactly 4 things**:
+This workflow owns review scope, dispatch, failure handling and the combined engineering report.
 
 1. **Detect context**: determine scope (diff / codebase), language and framework from user intent and project state
 2. **Chain the calls**: run the atomic review-* skills in the fixed order scope → language → framework → library → cognitive

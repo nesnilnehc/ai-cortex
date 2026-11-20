@@ -107,14 +107,6 @@
       "result": "A source-backed archive snapshot or preview. Archiving does not mark unfinished work complete; writes stay within authorization.",
       "name": "archive-milestone"
     },
-    "assess-product-opportunity": {
-      "purpose": "Assess product opportunities from research",
-      "when": "Product opportunity analysis already has research evidence and needs an internal assessment of whether to continue.",
-      "provide": "Research reports, user signals, opportunity scope and constraints, including missing evidence.",
-      "use": "Use product-opportunity-analysis to assess this opportunity from the research. Let it coordinate assess-product-opportunity instead of invoking that internal step directly.",
-      "result": "Evidence-backed advice to proceed, explore, defer or stop. It neither grants business approval nor rewrites the research.",
-      "name": "assess-product-opportunity"
-    },
     "automate-tests": {
       "purpose": "Discover and run project tests",
       "when": "You want to run existing project tests but do not know the correct commands or environment limits.",
@@ -994,7 +986,6 @@
         "market-research",
         "competitive-research",
         "policy-research",
-        "assess-product-opportunity",
         "product-opportunity-analysis"
       ],
       "recommended": [
@@ -1516,10 +1507,6 @@
       "label": "Reuse research method",
       "condition": "Reuse investigation methods without treating research findings as product approval."
     },
-    "product-opportunity-analysis__assess-product-opportunity": {
-      "label": "Internal assessment",
-      "condition": "Pass compatible research reports to internal assessment; this is not a separate user invocation entry."
-    },
     "orchestrate-repair-loop__orchestrate-code-review": {
       "label": "Recheck repairs",
       "condition": "Engineering review, approved-intent alignment and runtime verification are separate. Perform alignment only with approved authority."
@@ -1759,7 +1746,6 @@
         "id": "research",
         "title": "Understand the question",
         "skills": [
-          "assess-product-opportunity",
           "competitive-research",
           "deep-research",
           "market-research",

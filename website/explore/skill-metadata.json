@@ -12,18 +12,6 @@
       },
       "entry": "public"
     },
-    "assess-product-opportunity": {
-      "id": "assess-product-opportunity",
-      "description": "Assess a product opportunity from existing research reports and user signals, producing a restrained, traceable decision layer.",
-      "owner": "research",
-      "entry": "internal",
-      "sourcePaths": [
-        "skills/assess-product-opportunity/SKILL.md"
-      ],
-      "sourceHashes": {
-        "skills/assess-product-opportunity/SKILL.md": "710f40a4a3fcec3da9ef6fbc37f4beebcf698ce902f4788989a109610ba3c917"
-      }
-    },
     "automate-tests": {
       "id": "automate-tests",
       "description": "Discover and execute repository test commands safely with evidence-based command selection and safety guardrails.",
@@ -320,7 +308,7 @@
         "skills/orchestrate-code-review/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/orchestrate-code-review/SKILL.md": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2"
+        "skills/orchestrate-code-review/SKILL.md": "d6fd3eb90935b18b8d1f864167f070d49f6562294d358087283ebbdee6e278fd"
       },
       "entry": "public"
     },
@@ -368,7 +356,7 @@
         "skills/orchestrate-roadmap-planning/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/orchestrate-roadmap-planning/SKILL.md": "2c37126e96b514ed11995079c8e81a5e86f9f6a26f9a41f8cce7179fc58e2c83"
+        "skills/orchestrate-roadmap-planning/SKILL.md": "ef677a9cd795be833ee4520e64c9182ef19036aae827dab4b570550887c94c9c"
       },
       "entry": "public"
     },
@@ -452,7 +440,7 @@
         "skills/product-opportunity-analysis/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/product-opportunity-analysis/SKILL.md": "2ec44b8c16d1638f35426dac8b79075685db783802033e569ae8cd3cee3310c4"
+        "skills/product-opportunity-analysis/SKILL.md": "cb71e3e08d3cb813a29631d7d8a16fb939b1afd439dc65f10b9c1a302af52880"
       },
       "entry": "public"
     },
@@ -500,7 +488,7 @@
         "skills/refine-skill-design/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/refine-skill-design/SKILL.md": "96dd19879502226e6c885e9a5052dc825fe0b2d6f0a023f6bef7fd009cdfa7bb"
+        "skills/refine-skill-design/SKILL.md": "e0d9617607d1ec33b7902a51daf3f3cbdadbbaacc0dfbb92251545f86f6f7522"
       },
       "entry": "public"
     },

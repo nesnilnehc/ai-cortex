@@ -180,16 +180,6 @@
     "from": "competitive-research"
   },
   {
-    "id": "product-opportunity-analysis__assess-product-opportunity",
-    "to": "assess-product-opportunity",
-    "kind": "call",
-    "source": "skills/product-opportunity-analysis/SKILL.md",
-    "quote": "5. Pass compatible reports, lane statuses and the scoped question to [assess-product-opportunity](../assess-product-opportunity/SKILL.md). Preserve its claim IDs and recommendation. If its judgment is inconsistent with evidence, return it for correction rather than editing a factual finding during assembly.",
-    "overview": true,
-    "from": "product-opportunity-analysis",
-    "callMode": "required"
-  },
-  {
     "id": "orchestrate-repair-loop__orchestrate-code-review",
     "to": "orchestrate-code-review",
     "kind": "call",

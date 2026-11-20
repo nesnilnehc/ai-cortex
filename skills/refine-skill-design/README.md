@@ -2,7 +2,7 @@
 
 Audit and improve an existing Skill while preserving its purpose and supported cases. Review format, executable instructions, asset ownership, tool portability, and unnecessary interaction overhead.
 
-- **Current version**: 1.9.0
+- **Current version**: 1.10.0
 - **License**: MIT
 
 ## Use

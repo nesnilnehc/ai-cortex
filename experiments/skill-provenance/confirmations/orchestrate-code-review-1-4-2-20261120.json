@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicitly confirmed in current task",
+  "confirmed_at": "2026-11-20",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed the code review workflow remains repository-authored after clarifying its own orchestration responsibilities.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/orchestrate-code-review-1-4-2-20261120.json"
+    }
+  ],
+  "subject_digest": "4f85d106cc76bf28359efbe4f741e84a3413109ac84ccc1c6a1c07563a00c608"
+}

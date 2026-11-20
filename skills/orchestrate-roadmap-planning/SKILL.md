@@ -1,7 +1,7 @@
 ---
 name: orchestrate-roadmap-planning
 description: Route roadmap structure-only, content-on-settled-structure, continuous planning or existing-project alignment through scoped atomic skills; preserve decisions, links and authorization boundaries.
-version: 2.12.0
+version: 2.12.1
 license: MIT
 ---
 
@@ -53,7 +53,7 @@ through each call. A missing local file after migration is not a bootstrap signa
 Aggregate source, read-back, rendering and cleanup results separately; unresolved
 delivery or recovery findings cannot become `healthy` or an automatic deletion.
 
-By the naming convention, an orchestrator skill **does exactly 4 things**:
+This workflow owns route selection, handoffs between planning Skills, failure handling and the combined report.
 
 1. **Detect the context**: select the requested stage entry or review-only scope before the full chain; otherwise call step 0 and derive the mode and each step's run condition mechanically from its findings
 2. **Chain the calls**: run the atomic skills in a fixed order

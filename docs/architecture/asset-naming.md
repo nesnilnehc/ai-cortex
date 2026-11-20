@@ -100,7 +100,7 @@ decontextualize-<noun>       e.g. decontextualize-text
 
 ### 4.4 Research entry exception
 
-[ADR 0013](../adr/0013-research-skill-entry-names.md) preserves five user-facing research names: `deep-research`, `policy-research`, `market-research`, `competitive-research` and `product-opportunity-analysis`. These are canonical directory and frontmatter names, not aliases. The last is a package-producing orchestrator with a separate internal assessment Skill. This exception does not generalize to other research or analysis Skills; new names follow the verb-noun and `orchestrate-` rules unless another ADR changes the convention.
+[ADR 0013](../adr/0013-research-skill-entry-names.md) preserves five user-facing research names: `deep-research`, `policy-research`, `market-research`, `competitive-research` and `product-opportunity-analysis`. These are canonical directory and frontmatter names, not aliases. The last assesses evidence and produces the Opportunity Package. This exception does not generalize to other research or analysis Skills; new names follow the verb-noun and `orchestrate-` rules unless another ADR changes the convention.
 
 ### 4.4.1 Named upstream entry exceptions
 

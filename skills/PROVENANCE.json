@@ -38,43 +38,6 @@
         "subject_digest": "361e795a81b935ae3bb9b63ed28abd18b43b6f2451f681ba61f416338aac21d3"
       }
     },
-    "assess-product-opportunity": {
-      "classification": "native",
-      "version": "1.1.0",
-      "reviewed_files": {
-        "README.md": "4a098cfb04e7252368fb61f2d1924fda0026e2e912c5f78bddb0a237fc5bf162",
-        "SKILL.md": "710f40a4a3fcec3da9ef6fbc37f4beebcf698ce902f4788989a109610ba3c917"
-      },
-      "reviewed_evidence": {
-        "experiments/skill-provenance/evidence/assess-product-opportunity.json": "d2b55e5864b2de9a77fdc8c9f5946142630cab6a7b40dfc8eed80099a78f535c"
-      },
-      "sources": [],
-      "evidence": [
-        {
-          "path": "experiments/skill-provenance/evidence/assess-product-opportunity.json"
-        },
-        {
-          "path": "experiments/skill-provenance/confirmations/assess-product-opportunity.json"
-        }
-      ],
-      "creation": {
-        "kind": "commit",
-        "revision": "f2bc2c0865c2404e972349f260ae026af8227121"
-      },
-      "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
-        "action": "confirmed",
-        "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
-        "evidence": [
-          {
-            "path": "experiments/skill-provenance/confirmations/assess-product-opportunity.json"
-          }
-        ],
-        "subject_digest": "03d6237f0160e94bf30d0902bd22f6741d0fa2684cc2f87dd433a6c6d4ba29e1"
-      }
-    },
     "automate-tests": {
       "classification": "native",
       "version": "1.1.0",
@@ -1374,10 +1337,10 @@
     },
     "orchestrate-code-review": {
       "classification": "native",
-      "version": "1.4.1",
+      "version": "1.4.2",
       "reviewed_files": {
-        "README.md": "a9e5dc29060cb3f5c34d008244edf8a04feb2ebbca9a088b7fcec4fb51095bf4",
-        "SKILL.md": "74ac6b04928d2ce655582d8d3f1d40eb39afff4130f1a1f949ae1b44a1f93af2"
+        "README.md": "ad8b6854550b769242ab32159bda9587e85d67bee9ffe8923cdfc1aa2e1f0cf6",
+        "SKILL.md": "d6fd3eb90935b18b8d1f864167f070d49f6562294d358087283ebbdee6e278fd"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/orchestrate-code-review.json": "172b266dd79e7605bd27ca44dfdf65109cf817573d49724cb3914bbcddc36c35"
@@ -1388,7 +1351,7 @@
           "path": "experiments/skill-provenance/evidence/orchestrate-code-review.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/orchestrate-code-review.json"
+          "path": "experiments/skill-provenance/confirmations/orchestrate-code-review-1-4-2-20261120.json"
         }
       ],
       "creation": {
@@ -1396,17 +1359,17 @@
         "revision": "83867bc28c2639c2246155535a2da804580cb9b4"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer, explicitly confirmed in current task",
+        "confirmed_at": "2026-11-20",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "rationale": "The maintainer confirmed the code review workflow remains repository-authored after clarifying its own orchestration responsibilities.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/orchestrate-code-review.json"
+            "path": "experiments/skill-provenance/confirmations/orchestrate-code-review-1-4-2-20261120.json"
           }
         ],
-        "subject_digest": "0ebdcdf2e6c8378d1133ab6f77971f4e943396aa5140711224575e944d631a01"
+        "subject_digest": "4f85d106cc76bf28359efbe4f741e84a3413109ac84ccc1c6a1c07563a00c608"
       }
     },
     "orchestrate-governance-step": {
@@ -1527,10 +1490,10 @@
     },
     "orchestrate-roadmap-planning": {
       "classification": "native",
-      "version": "2.12.0",
+      "version": "2.12.1",
       "reviewed_files": {
         "README.md": "7f4c2ca9ebfe6bece256e277969747a8c25c26ad85c873c7f80cfdde9c3d697f",
-        "SKILL.md": "2c37126e96b514ed11995079c8e81a5e86f9f6a26f9a41f8cce7179fc58e2c83"
+        "SKILL.md": "ef677a9cd795be833ee4520e64c9182ef19036aae827dab4b570550887c94c9c"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/orchestrate-roadmap-planning.json": "2ceb9090ca2b7a85f30d5aa363be6f4ab70ed365387d5b35e7acdf506cf2d135"
@@ -1541,7 +1504,7 @@
           "path": "experiments/skill-provenance/evidence/orchestrate-roadmap-planning.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/orchestrate-roadmap-planning.json"
+          "path": "experiments/skill-provenance/confirmations/orchestrate-roadmap-planning-2-12-1-20261120.json"
         }
       ],
       "creation": {
@@ -1549,17 +1512,17 @@
         "revision": "63d9b12f94ef0ce8f3c3d20fe91ffb1990522b9e"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer, explicitly confirmed in current task",
+        "confirmed_at": "2026-11-20",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "rationale": "The maintainer confirmed the roadmap planning workflow remains repository-authored after clarifying its own orchestration responsibilities.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/orchestrate-roadmap-planning.json"
+            "path": "experiments/skill-provenance/confirmations/orchestrate-roadmap-planning-2-12-1-20261120.json"
           }
         ],
-        "subject_digest": "01abc0a7ac141475fe3b7c19332ffc2f3afa858ac5182722f38e899ad2aa3ff5"
+        "subject_digest": "af5091525192aa058926516f205abf9ea73a9fd1fbb1e399128539ad0e14f324"
       }
     },
     "plan-milestones": {
@@ -1908,10 +1871,11 @@
     },
     "product-opportunity-analysis": {
       "classification": "native",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "reviewed_files": {
         "README.md": "e89032de744b853d3463436f60eb43dbded83da6b9b640abb545e52e860ce5fd",
-        "SKILL.md": "2ec44b8c16d1638f35426dac8b79075685db783802033e569ae8cd3cee3310c4"
+        "SKILL.md": "cb71e3e08d3cb813a29631d7d8a16fb939b1afd439dc65f10b9c1a302af52880",
+        "references/assessment-guidance.md": "e8fea1d6d5449eeeefc9991005b063da541b1edd2f15ad51a2081a03353109c7"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/product-opportunity-analysis.json": "d1c32f1c17d6459bcefc6ff66db593d66d925d94534536d0c666c90faa273de9"
@@ -1922,7 +1886,7 @@
           "path": "experiments/skill-provenance/evidence/product-opportunity-analysis.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/product-opportunity-analysis.json"
+          "path": "experiments/skill-provenance/confirmations/product-opportunity-analysis-1-2-0-20261120.json"
         }
       ],
       "creation": {
@@ -1930,17 +1894,17 @@
         "revision": "f2bc2c0865c2404e972349f260ae026af8227121"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "Repository maintainer, explicitly confirmed in current task",
+        "confirmed_at": "2026-11-20",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "rationale": "The maintainer confirmed the existing AI Cortex assessment and opportunity analysis remain repository-authored after combining them under the public entry.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/product-opportunity-analysis.json"
+            "path": "experiments/skill-provenance/confirmations/product-opportunity-analysis-1-2-0-20261120.json"
           }
         ],
-        "subject_digest": "d55eb3d98adef904d7079d7994268291f8a8e14062c468f6496539b132d2a1ab"
+        "subject_digest": "49887e0be18e417af29e16c1bf7d7a60b704c4c3bfa9aa5bf1425957756f3bc8"
       }
     },
     "promote-roadmap-items": {
@@ -2095,10 +2059,10 @@
     },
     "refine-skill-design": {
       "classification": "native",
-      "version": "1.9.0",
+      "version": "1.10.0",
       "reviewed_files": {
-        "README.md": "5aed4d6701ed25ff20d9f7ff2ab51d52976cd814ab28cd5299d17bdd722843a3",
-        "SKILL.md": "96dd19879502226e6c885e9a5052dc825fe0b2d6f0a023f6bef7fd009cdfa7bb"
+        "README.md": "8a192d1e48d8105fd5cd1d2e1c263787e5d2f6598e367bfa106f504bf7a6fd61",
+        "SKILL.md": "e0d9617607d1ec33b7902a51daf3f3cbdadbbaacc0dfbb92251545f86f6f7522"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/refine-skill-design.json": "a5e1ab8a1f8a442b95ddbb21f312db727745da3fa047e134fbfabc2de7de377f"
@@ -2109,7 +2073,7 @@
           "path": "experiments/skill-provenance/evidence/refine-skill-design.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/refine-skill-design-2026-11-01-refinement.json"
+          "path": "experiments/skill-provenance/confirmations/refine-skill-design-1-10-0-20261120.json"
         }
       ],
       "creation": {
@@ -2118,16 +2082,16 @@
       },
       "decision": {
         "maintainer": "Repository maintainer, explicitly confirmed in current task",
-        "confirmed_at": "2026-11-01",
+        "confirmed_at": "2026-11-20",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that refine-skill-design 1.9.0 remains repository-authored after the focused contract and asset acceptance clarification.",
+        "rationale": "The maintainer confirmed that refine-skill-design 1.10.0 remains repository-authored after integrating the repository contribution guide into the existing skill boundary audit.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/refine-skill-design-2026-11-01-refinement.json"
+            "path": "experiments/skill-provenance/confirmations/refine-skill-design-1-10-0-20261120.json"
           }
         ],
-        "subject_digest": "c896d9a56f969b404bccb34f6d8301646ab34b086a7a503a6296bf8c44468dac"
+        "subject_digest": "77ad1854467da107339f5445a6b1368c7221765de817fd0ec79edc972d886829"
       }
     },
     "rename-session": {

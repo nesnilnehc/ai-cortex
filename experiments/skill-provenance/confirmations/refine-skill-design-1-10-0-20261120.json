@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicitly confirmed in current task",
+  "confirmed_at": "2026-11-20",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed that refine-skill-design 1.10.0 remains repository-authored after integrating the repository contribution guide into the existing skill boundary audit.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/refine-skill-design-1-10-0-20261120.json"
+    }
+  ],
+  "subject_digest": "77ad1854467da107339f5445a6b1368c7221765de817fd0ec79edc972d886829"
+}

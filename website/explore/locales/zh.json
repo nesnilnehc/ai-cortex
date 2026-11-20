@@ -107,14 +107,6 @@
       "result": "有来源的归档快照或预览；不会因归档就把未完成工作改成完成，写入需在授权范围内。",
       "name": "归档里程碑"
     },
-    "assess-product-opportunity": {
-      "purpose": "依据研究判断产品机会",
-      "when": "产品机会分析已有研究证据，需要内部评估步骤判断是否值得继续。",
-      "provide": "相关研究报告、用户信号、机会范围和约束；缺少的证据也要说明。",
-      "use": "请用 product-opportunity-analysis 基于这些研究评估机会；assess-product-opportunity 由它协调调用，不作为单独入口。",
-      "result": "有证据依据的推进、探索、暂缓或不推进建议；不代替业务批准，也不改写原研究。",
-      "name": "评估产品机会"
-    },
     "automate-tests": {
       "purpose": "发现并运行项目测试",
       "when": "想运行项目已有测试，不确定正确命令和环境限制。",
@@ -994,7 +986,6 @@
         "market-research",
         "competitive-research",
         "policy-research",
-        "assess-product-opportunity",
         "product-opportunity-analysis"
       ],
       "recommended": [
@@ -1516,10 +1507,6 @@
       "label": "复用研究方法",
       "condition": "复用查证方法，不把研究结论直接当作产品批准。"
     },
-    "product-opportunity-analysis__assess-product-opportunity": {
-      "label": "交给内部评估",
-      "condition": "以兼容的研究报告交给内部评估，不是另一个用户调用入口。"
-    },
     "orchestrate-repair-loop__orchestrate-code-review": {
       "label": "修复后复核",
       "condition": "工程审查、符合批准意图和运行验证分别检查；有批准资料才做对应对齐。"
@@ -1759,7 +1746,6 @@
         "id": "research",
         "title": "先了解问题",
         "skills": [
-          "assess-product-opportunity",
           "competitive-research",
           "deep-research",
           "market-research",

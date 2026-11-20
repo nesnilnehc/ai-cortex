@@ -18,7 +18,9 @@ Describe the research goal in ordinary language. The agent should choose the nar
 | Compare products | `/competitive-research` | Dated comparison and Research Report; unknown cells remain Unknown |
 | Decide whether to pursue a product or feature | `/product-opportunity-analysis` | Opportunity Package with lane status, recommendation and trace |
 
-The sixth local Skill, `assess-product-opportunity`, is an internal assessment step. Its repository metadata marks it non-user-invocable. The installer copies all Skill directories; some agent interfaces may still list it because they do not interpret that metadata. Use the five entries above for direct requests.
+Use `product-opportunity-analysis` for opportunity assessment, including requests with existing reports. It assesses compatible evidence and assembles the package in the same workflow.
+
+If you previously used `assess-product-opportunity`, use `product-opportunity-analysis` for that request. Syncing an updated AI Cortex checkout prunes the old managed skill link.
 
 ## Give enough scope
 

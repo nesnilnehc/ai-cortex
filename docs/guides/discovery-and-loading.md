@@ -26,7 +26,7 @@ The root of the current repository, the root of the repository this file lives i
 2. Match a skill against the task semantically, using its `description` and scope.
 3. Pass context through explicit artifacts — a requirement, a design, a report and the like — rather than implicitly; when chaining calls, follow the Handoff Point and Scope Boundaries each skill states in its prose.
 
-Research Skills optionally declare `metadata.ai_cortex_type` (`foundation`, `domain`, or `orchestrator`) and `metadata.ai_cortex_user_invocable` (`"true"` or `"false"`). The generated index displays these fields for opted-in Skills. They guide repository routing; an agent host may still display an internal Skill if it does not support hiding by metadata. The five public research entries and their handoffs are in the [research usage guide](./research-skills-usage.md).
+Research Skills optionally declare `metadata.ai_cortex_type` (`foundation`, `domain`, or `orchestrator`) and `metadata.ai_cortex_user_invocable` (`"true"` or `"false"`). The generated index displays these fields for opted-in Skills. They guide repository routing. Each host controls its own skill picker. The five research entries and their handoffs are in the [research usage guide](./research-skills-usage.md).
 
 ---
 
@@ -39,7 +39,7 @@ Prefer the capability whose description and boundaries best fit the user's inten
 ## 4. Routing rules
 
 - The primary skill comes first: route every request to the primary skill, and call an optional skill only once the primary skill's output exposes a definite gap.
-- A request for a product opportunity selects `product-opportunity-analysis` as the primary Skill. It intentionally calls relevant policy, market and competitive Skills and passes their compatible Research Reports to the internal assessment Skill. A direct domain request ends at that domain's report.
+- A request for a product opportunity selects `product-opportunity-analysis` as the primary Skill. It calls relevant policy, market and competitive Skills as needed, assesses compatible Research Reports and user signals, and assembles the Opportunity Package. A direct domain request ends at that domain's report.
 - Escalation: when several intents are live within one cycle, escalate the orchestration to `plan-next`.
 - Artifact handoff: pass context through explicit artifacts — a requirement, a design, an alignment report, a doc-readiness report and the like — rather than implicitly.
 - Defaults: use the selected skill's stated defaults when the user supplied nothing explicit.

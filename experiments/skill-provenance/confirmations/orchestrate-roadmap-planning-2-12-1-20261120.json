@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicitly confirmed in current task",
+  "confirmed_at": "2026-11-20",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed the roadmap planning workflow remains repository-authored after clarifying its own orchestration responsibilities.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/orchestrate-roadmap-planning-2-12-1-20261120.json"
+    }
+  ],
+  "subject_digest": "af5091525192aa058926516f205abf9ea73a9fd1fbb1e399128539ad0e14f324"
+}

@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicitly confirmed in current task",
+  "confirmed_at": "2026-11-20",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed the existing AI Cortex assessment and opportunity analysis remain repository-authored after combining them under the public entry.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/product-opportunity-analysis-1-2-0-20261120.json"
+    }
+  ],
+  "subject_digest": "49887e0be18e417af29e16c1bf7d7a60b704c4c3bfa9aa5bf1425957756f3bc8"
+}

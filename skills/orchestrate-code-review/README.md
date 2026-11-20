@@ -23,7 +23,7 @@ Chains the atomic review-* skills in a fixed order (scope → language → frame
 
 ## Orchestration principles
 
-It does four things only: detect the context / chain the sub-skills / halt-on-failure / aggregate the output. All domain detection logic lives inside the atomic review-* sub-skills.
+The workflow selects review scope, dispatches the applicable reviewers, handles failures and combines the resulting findings. Each reviewer owns its review criteria.
 
 ## Full definition
 
