@@ -1,7 +1,7 @@
-import sourceEdges from './topic-edges.json?v=presentation-video-20261119' with {type:'json'};
-import {dictionary} from './locale.mjs?v=presentation-video-20261119';
+import sourceEdges from './topic-edges.json?v=opportunity-assessment-20261120' with {type:'json'};
+import {dictionary} from './locale.mjs?v=opportunity-assessment-20261120';
 const edges=sourceEdges.map(edge=>({...edge,...dictionary.topicEdges[edge.id]}));
-import {getTopicMap} from './topic-map.mjs?v=presentation-video-20261119';
+import {getTopicMap} from './topic-map.mjs?v=opportunity-assessment-20261120';
 const nodes=[
  {id:'direction',row:1,column:1,hint:''},
  {id:'planning',row:1,column:2,hint:''},
