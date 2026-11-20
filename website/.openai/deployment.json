@@ -1,16 +1,16 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_d98e22ab17ec8191b757bacebcac5435",
-  "version_number": 30,
-  "deployment_id": "appgdep_6afe529cb4d08191b34b6a1e97e3ef69",
-  "source_commit": "b1ead408ea99e5349dd6e6d54b5a193f5f5031ed",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_c6c4aad416ac81919547b31c42e21e21",
+  "version_number": 31,
+  "deployment_id": "appgdep_6affdefb8d84819197942904d590765c",
+  "source_commit": "4565676f95d5c406bd9accd9b15d8fd70bb7da1c",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.nesnilnehc.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-11-19T01:36:35.690226+00:00",
+  "updated_at": "2026-11-20T05:47:50.754957+00:00",
   "published_files": 49,
   "dns_records": [
     {
@@ -44,21 +44,21 @@
     "personal site project entry"
   ],
   "known_good_version": {
-    "version_number": 29,
-    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_1ef0a83e75d88191808e019941b8b662",
-    "source_commit": "a7797096999e79c86706e4eef15da5936eb45e8d"
+    "version_number": 30,
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_d98e22ab17ec8191b757bacebcac5435",
+    "source_commit": "b1ead408ea99e5349dd6e6d54b5a193f5f5031ed"
   },
   "public_verification": {
     "status": "passed",
     "checked_files": 49,
     "byte_identical_files": 45,
     "html_provider_insertions": 4,
-    "pinned_skills_verified": 1,
-    "evidence": "website/.openai/publication-20261119-presentation-video.json"
+    "pinned_skills_verified": 4,
+    "evidence": "website/.openai/publication-20261120-opportunity-assessment.json"
   },
-  "repository_source_revision": "20e73a29ad6f0d448af534474e700b5231fbcb34",
-  "assets_revision": "f28f2949760d66bcf7d63c798379a227a8051392",
-  "cache_key": "presentation-video-20261119",
-  "archive_sha256": "06319f152443361ee30e993c694c805bb16c1bde0b489a61a214cefe96490fd1",
-  "hosted_archive_content_hash": "sha256:7fbf1986b3b5daabe4334ce442468855155e6b807b81a4a7623d8bd50efbb8ca"
+  "repository_source_revision": "41e1a643a960d8787584b45514ff62cdaa2caf26",
+  "assets_revision": "8156df90b85031d8deae4d9643d306ae885576da",
+  "cache_key": "opportunity-assessment-20261120",
+  "archive_sha256": "784f5f59adecf50514480a95f1aa0a0f04dcfef4736c22ae0d1d59e11fd95ead",
+  "hosted_archive_content_hash": "sha256:3922f22bff473d705305f13a83c583826b911440da2f567caa3f0d1542693d2a"
 }

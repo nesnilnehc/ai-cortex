@@ -2,7 +2,17 @@
 
 ## Current publication
 
-Sites version 30 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+Sites version 31 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+The English and Chinese catalogues list 79 Skills. Product opportunity analysis
+includes the assessment workflow and links to its reviewed source.
+All 78 local website tests passed. HTTPS checks matched all 49 runtime files,
+allowing the provider script insertion in four HTML pages, and verified 14
+files at the pinned GitHub revision. See the [deployment receipt](.openai/deployment.json)
+and [publication checks](.openai/publication-20261120-opportunity-assessment.json).
+
+## Prior publication of the presentation video skill
+
+Sites version 30 was published at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
 The English and Chinese catalogues include `produce-presentation-video` 0.1.0
 and link to its reviewed source. All 78 local website tests passed. HTTPS
 checks matched all 49 runtime files, allowing the provider script insertion in
