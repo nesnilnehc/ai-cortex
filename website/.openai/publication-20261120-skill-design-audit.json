@@ -455,5 +455,104 @@
     "python_passed": 19
   },
   "archive_sha256": "deb8120905ff44f2dbfc7a1a724d2cb4ce3179953673f69e46ade8d3eb218e89",
-  "hosted_archive_content_hash": "sha256:4a0ac4e4d2ea84bfef9d75b563d77f94634185610925bf4abf18eec374edb730"
+  "hosted_archive_content_hash": "sha256:4a0ac4e4d2ea84bfef9d75b563d77f94634185610925bf4abf18eec374edb730",
+  "github_actions": {
+    "workflow": "lint",
+    "status": "success",
+    "url": "https://github.com/nesnilnehc/ai-cortex/actions/runs/44691567188"
+  },
+  "skillhub": [
+    {
+      "registry": "https://skillhub.recloud.com.cn",
+      "namespace": "mbs-pdc",
+      "slug": "capture-work-items",
+      "version": "2.3.1",
+      "detail_url": "https://skillhub.recloud.com.cn/space/mbs-pdc/capture-work-items",
+      "source_commit": "a1b83e4abbf1447663456293e3e835bdfd943491",
+      "upload_succeeded": true
+    },
+    {
+      "registry": "https://skillhub.recloud.com.cn",
+      "namespace": "mbs-pdc",
+      "slug": "define-roadmap",
+      "version": "9.0.1",
+      "detail_url": "https://skillhub.recloud.com.cn/space/mbs-pdc/define-roadmap",
+      "source_commit": "a1b83e4abbf1447663456293e3e835bdfd943491",
+      "upload_succeeded": true
+    },
+    {
+      "registry": "https://skillhub.recloud.com.cn",
+      "namespace": "mbs-pdc",
+      "slug": "deliver-feature",
+      "version": "1.1.3",
+      "detail_url": "https://skillhub.recloud.com.cn/space/mbs-pdc/deliver-feature",
+      "source_commit": "a1b83e4abbf1447663456293e3e835bdfd943491",
+      "upload_succeeded": true
+    },
+    {
+      "registry": "https://skillhub.recloud.com.cn",
+      "namespace": "mbs-pdc",
+      "slug": "orchestrate-code-review",
+      "version": "1.4.3",
+      "detail_url": "https://skillhub.recloud.com.cn/space/mbs-pdc/orchestrate-code-review",
+      "source_commit": "a1b83e4abbf1447663456293e3e835bdfd943491",
+      "upload_succeeded": true
+    },
+    {
+      "registry": "https://skillhub.recloud.com.cn",
+      "namespace": "mbs-pdc",
+      "slug": "orchestrate-repair-loop",
+      "version": "1.5.1",
+      "detail_url": "https://skillhub.recloud.com.cn/space/mbs-pdc/orchestrate-repair-loop",
+      "source_commit": "a1b83e4abbf1447663456293e3e835bdfd943491",
+      "upload_succeeded": true
+    },
+    {
+      "registry": "https://skillhub.recloud.com.cn",
+      "namespace": "mbs-pdc",
+      "slug": "orchestrate-roadmap-planning",
+      "version": "2.12.2",
+      "detail_url": "https://skillhub.recloud.com.cn/space/mbs-pdc/orchestrate-roadmap-planning",
+      "source_commit": "a1b83e4abbf1447663456293e3e835bdfd943491",
+      "upload_succeeded": true
+    },
+    {
+      "registry": "https://skillhub.recloud.com.cn",
+      "namespace": "mbs-pdc",
+      "slug": "ponytail",
+      "version": "1.0.2",
+      "detail_url": "https://skillhub.recloud.com.cn/space/mbs-pdc/ponytail",
+      "source_commit": "a1b83e4abbf1447663456293e3e835bdfd943491",
+      "upload_succeeded": true,
+      "package_license_filenames": {
+        "upstream": "LICENSE.txt",
+        "ai_cortex": "AI-CORTEX-LICENSE.txt"
+      },
+      "package_sha256_by_path": {
+        "AI-CORTEX-LICENSE.txt": "12cc7c1ea3b40575403f95dbee8a6413ce30afc98a09264dac967720cd6f8a7f",
+        "LICENSE.txt": "fb1bc6909ac3ef82d5c22106e32ef682b0cff66788fa915fb9b53b15c9d2f3ab",
+        "README.md": "1ea12147c1976f8a3ab5f82c066bd353ccb02098b36661662d335183a4e88bc5",
+        "SKILL.md": "73d13c862d98055d23b4412ef398c8fb04f345db95f068c1b6150744ec56f771",
+        "THIRD_PARTY_NOTICES.md": "1ea12147c1976f8a3ab5f82c066bd353ccb02098b36661662d335183a4e88bc5"
+      }
+    },
+    {
+      "registry": "https://skillhub.recloud.com.cn",
+      "namespace": "mbs-pdc",
+      "slug": "refine-skill-design",
+      "version": "1.10.1",
+      "detail_url": "https://skillhub.recloud.com.cn/space/mbs-pdc/refine-skill-design",
+      "source_commit": "a1b83e4abbf1447663456293e3e835bdfd943491",
+      "upload_succeeded": true
+    },
+    {
+      "registry": "https://skillhub.recloud.com.cn",
+      "namespace": "mbs-pdc",
+      "slug": "review-error-surfacing",
+      "version": "1.2.2",
+      "detail_url": "https://skillhub.recloud.com.cn/space/mbs-pdc/review-error-surfacing",
+      "source_commit": "a1b83e4abbf1447663456293e3e835bdfd943491",
+      "upload_succeeded": true
+    }
+  ]
 }
