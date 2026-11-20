@@ -387,5 +387,43 @@
   },
   "visual_interaction_checks": "Local browser verification passed in English desktop and Chinese mobile. The published catalogue includes 79 entries and removes the former assessment entry.",
   "archive_sha256": "784f5f59adecf50514480a95f1aa0a0f04dcfef4736c22ae0d1d59e11fd95ead",
-  "hosted_archive_content_hash": "sha256:3922f22bff473d705305f13a83c583826b911440da2f567caa3f0d1542693d2a"
+  "hosted_archive_content_hash": "sha256:3922f22bff473d705305f13a83c583826b911440da2f567caa3f0d1542693d2a",
+  "skillhub": [
+    {
+      "registry": "https://skillhub.recloud.com.cn",
+      "namespace": "mbs-pdc",
+      "slug": "product-opportunity-analysis",
+      "version": "1.2.0",
+      "detail_url": "https://skillhub.recloud.com.cn/space/mbs-pdc/product-opportunity-analysis",
+      "source_commit": "1e421d9f6b37f4444485d6acde6891bbf75ed621",
+      "upload_succeeded": true
+    },
+    {
+      "registry": "https://skillhub.recloud.com.cn",
+      "namespace": "mbs-pdc",
+      "slug": "orchestrate-code-review",
+      "version": "1.4.2",
+      "detail_url": "https://skillhub.recloud.com.cn/space/mbs-pdc/orchestrate-code-review",
+      "source_commit": "1e421d9f6b37f4444485d6acde6891bbf75ed621",
+      "upload_succeeded": true
+    },
+    {
+      "registry": "https://skillhub.recloud.com.cn",
+      "namespace": "mbs-pdc",
+      "slug": "orchestrate-roadmap-planning",
+      "version": "2.12.1",
+      "detail_url": "https://skillhub.recloud.com.cn/space/mbs-pdc/orchestrate-roadmap-planning",
+      "source_commit": "1e421d9f6b37f4444485d6acde6891bbf75ed621",
+      "upload_succeeded": true
+    },
+    {
+      "registry": "https://skillhub.recloud.com.cn",
+      "namespace": "mbs-pdc",
+      "slug": "refine-skill-design",
+      "version": "1.10.0",
+      "detail_url": "https://skillhub.recloud.com.cn/space/mbs-pdc/refine-skill-design",
+      "source_commit": "1e421d9f6b37f4444485d6acde6891bbf75ed621",
+      "upload_succeeded": true
+    }
+  ]
 }
