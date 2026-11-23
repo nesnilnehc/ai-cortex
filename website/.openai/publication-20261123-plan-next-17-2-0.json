@@ -515,5 +515,17 @@
     "workflow": "lint",
     "status": "success",
     "url": "https://github.com/nesnilnehc/ai-cortex/actions/runs/45131745110"
-  }
+  },
+  "skillhub": [
+    {
+      "registry": "https://skillhub.recloud.com.cn",
+      "namespace": "mbs-pdc",
+      "slug": "plan-next",
+      "version": "17.2.0",
+      "detail_url": "https://skillhub.recloud.com.cn/space/mbs-pdc/plan-next",
+      "source_commit": "6cffaed05ba706ac6e8c0024b1b1054a4b08d930",
+      "upload_status": "succeeded",
+      "visibility": "public"
+    }
+  ]
 }
