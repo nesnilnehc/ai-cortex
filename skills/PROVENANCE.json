@@ -1577,14 +1577,14 @@
     },
     "plan-next": {
       "classification": "native",
-      "version": "17.2.0",
+      "version": "17.2.1",
       "reviewed_files": {
-        "README.md": "1dae3e595d7109948d6f935645f06d705fa07d14c39be7ba679b3b058c1d5769",
-        "SKILL.md": "2fdd7229cb9f76a3886e0aa95dc2b67c5c331ed3965aa139a527cc4493978e90",
+        "README.md": "fe891e2a06cef14859874bcc8383c50437091a1480c6fc898d54bc8bdaff966e",
+        "SKILL.md": "4527ae21479bee0b0ad0bbc61e1a0fc3937ec002c212cfcc7b445555038cc8c1",
         "references/diagnosis.md": "f1ea1899bc6d103e7477941dfa07726b0dab133f730c6a6decc30cf9bcda9da0",
-        "references/examples.md": "d545cf8f0cb5d7470af329c410c5dadb0cf1df06e6cebae67b1505b66d57ad79",
-        "references/output-guidance.md": "85428d52ff32540071003ef588fa568356ed1edced1af46bd784fc1ae891a902",
-        "references/self-check.md": "8c35e4f8c6376c87db9b3a452c7990485988da1e1841dfad5e04cabc7254d757"
+        "references/examples.md": "63b5709722e241850a618d73f332e1de444c6919b3822d4bc6616220701640f7",
+        "references/output-guidance.md": "8a5fcd8e57c7d47bcd494f62dbf8b88ff1a7719b7fd0089dfe148bf366cb2564",
+        "references/self-check.md": "81ca5599ad3dee7662fb43235ea2f467b15dd2b6a836f68648fe608cd9a85f74"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/plan-next.json": "69f9af99a5bd37be757d2c5d5d12d82b29b76fd36564cb64ea5938cae5026f0e"
@@ -1595,7 +1595,7 @@
           "path": "experiments/skill-provenance/evidence/plan-next.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/plan-next-17-2-0-20261123.json"
+          "path": "experiments/skill-provenance/confirmations/plan-next-17-2-1-20261123.json"
         }
       ],
       "creation": {
@@ -1607,13 +1607,13 @@
         "confirmed_at": "2026-11-23",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed the reviewed plan-next 17.2.0 files as an AI Cortex original, with no third-party creative references in this revision. The revision adds selectable next-action options and revalidates the selected action before handoff.",
+        "rationale": "The maintainer confirmed the reviewed plan-next 17.2.1 files as an AI Cortex original, with no third-party creative references in this revision. The revision helps returning project owners regain context, choose the next action, and request the evidence behind the displayed choices.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/plan-next-17-2-0-20261123.json"
+            "path": "experiments/skill-provenance/confirmations/plan-next-17-2-1-20261123.json"
           }
         ],
-        "subject_digest": "fc449b27e503c89fb6359a9e13aa143b5e48a5d434411198e7ae75e14635253f"
+        "subject_digest": "2671bfeb125ff1ba77780ec6384eabd5443fc1a08251dfa9226081201dcd364d"
       }
     },
     "policy-research": {

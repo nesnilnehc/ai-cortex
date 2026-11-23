@@ -1,7 +1,7 @@
 ---
 name: plan-next
 description: Recommend next actions from the current problem, prior decisions and project evidence. Compare options, prepare a focused skill handoff, and inspect independent project work when the current focus has no eligible action.
-version: 17.2.0
+version: 17.2.1
 license: MIT
 ---
 
@@ -54,7 +54,7 @@ Missing documents, conflicting thresholds and unmeasured metrics become first ac
 
 ### Adjust the recommendation queue
 
-After rendering suggestions in a user-facing conversation, accept relevant follow-up replies as part of `plan-next` without requiring another invocation. Interpret commands in the user's language. On each relevant reply, resolve any selector against the last result, rescan, apply the valid adjustment, and return the updated result in the same reply. Keep the latest result, skip set, and order adjustments scoped to this project in this conversation.
+After rendering suggestions in a user-facing conversation, accept relevant follow-up replies as part of `plan-next` without requiring another invocation. Interpret commands in the user's language. For a queue adjustment or selection, resolve any selector against the last result, rescan, and return the updated result or selected handoff in the same reply. For a request to explain the evidence, use the [diagnostic basis](references/output-guidance.md#35-result-and-diagnostic-basis). Keep the latest result, skip set, and order adjustments scoped to this project in this conversation.
 
 | Reply | Effect |
 | --- | --- |
@@ -190,7 +190,7 @@ These annotations describe a finding's scope and severity. Apply the ordering ru
 
 #### 3.3 Output format selection
 
-For project-wide conversations, use two short sections with headings. Briefly connect what changed to the current goal, then summarize pending work in bullets. In **Do now**, show up to three eligible actions in order and make multiple actions selectable by number. Keep a single recommendation concise. Focused replies use only the inspected scope. Follow the [output guidance](references/output-guidance.md) for presentation, caller output and handoffs.
+Write the default conversational reply for someone returning after a long time away from the project. Give them two usable parts in the same reply: where the project stands and what to do next. The first restores their bearings; the second explains why the action follows, how to start and what result to look for. Link the key evidence near the claims it supports, and expand the evidence and reasoning when the reader asks or a material conflict needs explaining. Give up to three eligible actions under **Do now** and make multiple actions selectable by number. Keep focused replies within the inspected scope. Follow the [output guidance](references/output-guidance.md) for the conversational reply, caller output and handoffs.
 
 ---
 

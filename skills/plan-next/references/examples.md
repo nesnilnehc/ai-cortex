@@ -2,7 +2,7 @@
 
 ## Examples
 
-Examples 1-6 illustrate detailed project-wide reports. Example 14 shows the short default for a conversation, including after project-wide inspection. Examples 10-12 cover the version 16 default and its evidence boundaries.
+Examples 1-6 illustrate detailed project-wide reports. Example 14 shows the default presentation for a conversation, including after project-wide inspection. Examples 10-12 cover the version 16 default and its evidence boundaries.
 
 ### Example 1: a half-built strategy (the normal path)
 
@@ -395,7 +395,7 @@ Apply these variations to Example 13's evidence. Review the input → inspection
 
 ### Example 14: Demand review and implementation approval
 
-**Synthetic project evidence.** A cross-platform application has shipped. The roadmap pauses its only Now item, a monetization decision, during a two-week observation period ending on 2030-07-12 (UTC). The feedback will inform monetization and future feature decisions. Two requirements are in Next. The privacy explanation (P2) begins with a check of actual data flows against current disclosures. An expansion of the native workflow with record migration (P1) follows a completed read-only release and requires both the external-signal review and approval of the first-release scope before implementation.
+**Synthetic project evidence.** An app for field teams to record site inspections has shipped on multiple platforms. The roadmap pauses its only Now item, a monetization decision, during a two-week observation period ending on 2030-07-12 (UTC). The feedback will inform monetization and future feature decisions. Two requirements are in Next. The privacy explanation (P2) begins with a check of actual data flows against current disclosures. An expansion of the native workflow with record migration (P1) follows a completed read-only release and requires both the external-signal review and approval of the first-release scope before implementation.
 
 **Project-wide input.** During the observation period, the owner asks what to do next and still needs to assemble the evidence for the review. Recommend preparing the review using public feedback and storefront download figures where accessible. Its result identifies which feedback describes actual use, what the download figures show, and which gaps could change the decision. If the evidence is ready and only later signals can change the decision, recommend waiting for the review.
 
@@ -403,21 +403,26 @@ Apply these variations to Example 13's evidence. Review the input → inspection
 
 **Example project-wide reply**
 
-> **Project and pending work**
+> **Where things stand**
 >
-> The application has shipped. The owner is watching what people try before deciding where to invest.
->
-> - **Waiting for evidence or approval.** Monetization is on hold until the review. The native workflow and record migration need the review and scope approval. Testing willingness to pay needs new evidence.
-> - **Can proceed.** Compare actual data flows with the privacy disclosures.
-> - **Paused or later.** Two enhancements remain paused. Support for another platform and identifier cleanup are listed for later consideration.
+> The app helps field teams record site inspections. The first version is out, and the team is watching how people use it to decide whether to charge and what to improve next. That decision waits for the July 12 review. Start by preparing the evidence the review needs.
 >
 > **Do now**
 >
-> 1. **Prepare the July 12 review.** Start here because it informs monetization and the next feature investment. Finish with a summary of actual use, verifiable download figures, and gaps that could change the decision.
-> 2. **Check the privacy disclosures.** This can start during the observation period. Finish with a comparison of actual data flows and published disclosures, including any discrepancies.
+> 1. **Get the evidence ready for the July 12 review.** Download figures show how often people downloaded the app. Feedback about what people did after installing helps explain what they found useful. Put both in one summary and list the questions the evidence still leaves open. Start here because the review uses that evidence to decide what the project should do next.
+> 2. **Check that the privacy notice matches what the app does.** While feedback is still coming in, compare what the app actually collects or sends with what the notice tells users. Finish with a list of places where the notice and the app differ.
 >
 > Reply with **1** or **2** to get the next-step handoff.
+>
+> **What is waiting**
+>
+> - Changes to how people work in the app and moving existing records need the July 12 review and approval of what goes into the first release. We still need evidence about whether people would pay.
+> - **Paused or later.** Two enhancements remain paused. Support for another platform and identifier cleanup are listed for later consideration.
 
-In an ordinary reply, leave the candidate keys and goal table in the diagnostic basis. Include the structured state and routing evidence when an automation caller needs them.
+In a live reply, link the release record and roadmap beside the overview conclusions they support. Keep the candidate keys and goal table in the detailed basis. Include the structured state and routing evidence when an automation caller needs them.
+
+**Returning reader variants.** If the reader says they last checked before the public launch, the overview explains that the first version is now out and people are trying it, which is why the team has evidence to gather for the July 12 review. With no known checkpoint, the overview simply states the current release and review status. An immediate follow-up about the second option can start with why the privacy check is ready during the wait.
+
+**Evidence follow-up.** After that project-wide reply, the reader asks “Why option 2?” Explain that the roadmap ties the decision about charging to July 12 and that the privacy requirement begins with a comparison that can run during that wait. The privacy requirement defines what to check; the actual comparison is still open. Point to the relevant sections of both records and preserve the displayed order. If the reader first moves the privacy check to position 1, “Why option 2?” refers to preparing for the review, now at position 2. Explain its original rationale and the reader's ordering choice. A later reply of “2” still selects that action and revalidates it before handoff.
 
 **Approval variants.** Reaching the review date or receiving positive feedback does not establish that the review occurred. A completed review without scope approval still leaves implementation waiting. When both are confirmed, reassess implementation against any other applicable project prerequisites and authorization.

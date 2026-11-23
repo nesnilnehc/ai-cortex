@@ -40,8 +40,9 @@
 
 ## Output
 
-- [ ] The recommendation uses the user's language and descriptive action names. Any project ID helps locate or distinguish an item. Internal traversal terms stay in the diagnostic basis.
-- [ ] A project-wide reply uses two short, headed sections. It connects the verified background to the current goal, summarizes pending work in bullets, and presents the available choices under **Do now** or explains the remaining condition. A focused reply stays within the inspected scope. Detailed reports and automation callers retain their diagnostic evidence and structured state where applicable.
+- [ ] A reader returning after a long absence can tell from the overview what the project helps people do, which goal matters now, and what has actually happened or remains open. The reply uses the known baseline or the latest verified state and gives the main recommendation, remaining condition, or verified completion up front. A focused reply stays within the inspected scope and a follow-up carries forward relevant context.
+- [ ] The reader can explain in their own words why the suggested step follows, what to do first, and what result to look for. The reply explains which parts can start and which still need evidence, access or a decision. Necessary terms are explained in the user's language. IDs help locate or distinguish items. Internal traversal terms stay in the diagnostic basis, and automation callers retain their structured state.
+- [ ] The default reply makes the overview and next step understandable on their own and places key evidence beside the claims it supports. Any uncertainty that could change the choice is visible. A numbered evidence request uses the latest displayed positions, preserves their order, and makes the checked facts, inferences, and open checks clear.
 - [ ] Relevant numeric criteria retain their source meaning and evidence limits. Missing values were not converted to zero or filled with invented benchmarks.
 - [ ] A complex diagnostic basis uses level / node / status / inference rows and records candidate keys, blockers, exclusions and limitations.
 - [ ] Ordinary diagnosis made no writes. An explicit persistent preference touched only `.ai-cortex/plan-next.yaml`.
