@@ -1,7 +1,7 @@
 ---
 name: plan-next
 description: Recommend next actions from the current problem, prior decisions and project evidence. Compare options, prepare a focused skill handoff, and inspect independent project work when the current focus has no eligible action.
-version: 17.1.0
+version: 17.2.0
 license: MIT
 ---
 
@@ -58,6 +58,7 @@ After rendering suggestions in a user-facing conversation, accept relevant follo
 
 | Reply | Effect |
 | --- | --- |
+| “2” or “Choose 2” in response to the displayed options | Select the action at that position. Revalidate its exact route and prepare its handoff if it is still eligible. |
 | “Next recommendation” or “next” while reviewing the queue | Skip the first displayed recommendation for this conversation and return the revised queue. If none is displayed, refresh and report the result without recording a skip. |
 | “Skip 2 for this conversation” or “keep this recommendation hidden until I restore it” | Apply the existing skip rules below to the exact target and chosen duration. |
 | “Show the dashboard recommendation again” | Apply the existing restore rules and return the revised queue. |
@@ -69,7 +70,7 @@ After rendering suggestions in a user-facing conversation, accept relevant follo
 
 For a move, resolve both items, when applicable, to exact route keys before rescanning. Apply the move to the fresh queue after exclusions. Retain the order of the other entries. Record each valid move in conversation order and replay it on refresh. Drop a move whose target or reference is no longer eligible or has been excluded, and report which move was dropped. A move that already matches the requested order needs no additional entry. Ranking preferences apply only to eligible candidates and respect the existing focus and dependency rules. A new conversation starts with the default order.
 
-Use the latest **Do now** positions for unqualified numbers. When the user opens the queue, also accept a unique name from its extra entries. If a selector is ambiguous, ask only for the affected item. If the user chooses an action or ends queue review, conclude the recommendation interaction. Further scans happen in response to relevant user input or a fresh invocation.
+Use the latest **Do now** positions for unqualified numbers. When the user opens the queue, also accept a unique name from its extra entries. If a selector is ambiguous, ask only for the affected item. Resolve a selection to its exact route key before rescanning. If that route is no longer eligible, explain what changed and return the current options or remaining condition. If the route is still eligible, hand off that route even if its display position changed. Conclude the recommendation interaction after a successful selection or when the user ends queue review.
 
 Explain a reordered list as the user's conversation preference and retain each action's underlying priority rationale. If the current scope is exhausted or all eligible actions are skipped, apply the scope-expansion rule above before returning the revised result. Preserve exclusions across the expanded scan. Only an explicit scope limit requires the user to choose broader inspection. Selection produces a focused handoff naming the skill or existing project workflow, objective, target, source evidence and completion marker. Carry authorization and unresolved decisions through it; selecting a recommendation grants no additional implementation or external-write permission. Downstream execution belongs to the selected workflow or outer executor.
 
@@ -118,7 +119,7 @@ The pair `(route, target)` is the exact route key. Do not persist display titles
 2. Build the complete ordered sequence of currently eligible recommendation candidates before applying preferences or the normal display limit. Assess [prerequisites for the specific action](references/diagnosis.md#20-applicability-and-prerequisite-assessment) and assign each eligible candidate its exact `(route, target)` key.
 3. Read `.ai-cortex/plan-next.yaml` when present; combine its exact route keys with the current conversation's skip set. After resolving the displayed action and duration, re-scan before changing either scope. If that exact candidate is no longer eligible or its route key changed, do not save a stale skip; explain the change and offer the current recommendations. For a restore, validate the file and remove the selected key from every active scope before recommending again.
 4. Omit matching keys, then apply valid conversation order adjustments. Never treat an exclusion or move as a completion, a blocked node, or permission to traverse beneath it. A candidate that depends on unfinished work represented by an excluded route, an unfinished ancestor, or a global prerequisite remains ineligible.
-5. Recommend the first remaining eligible candidate and use §3.3 to decide whether to show alternatives. Explicit queue inspection may show additional eligible candidates. Report exclusions and their durations separately. If no candidate remains, apply the scope-expansion rule before assigning the final state: expand an implicit focus read-only, or retain an explicit limit and offer broader inspection. Preserve exclusions throughout.
+5. Recommend the first remaining eligible candidate and use §3.3 to show the available choices. Explicit queue inspection may show additional eligible candidates. Report exclusions and their durations separately. If no candidate remains, apply the scope-expansion rule before assigning the final state: expand an implicit focus read-only, or retain an explicit limit and offer broader inspection. Preserve exclusions throughout.
 
 **Prerequisite and dependency protection**: skipping a route never unlocks its dependents. A true global prerequisite blocks every route it governs; a route-scoped prerequisite blocks only its dependents; an uncertain relationship is not silently promoted to a global blocker—ask for clarification if it changes which action is safe. Continue evaluating independent candidates. Never invent a lower-level alternative just to fill the slot.
 
@@ -189,7 +190,7 @@ These annotations describe a finding's scope and severity. Apply the ordering ru
 
 #### 3.3 Output format selection
 
-For project-wide conversations, use two short sections with headings. Briefly connect what changed to the current goal, then summarize pending work in bullets. In the second section, name the most worthwhile action, why it comes first, and what result marks it complete. Use descriptive names for work items. Focused replies use only the inspected scope. Follow the [output guidance](references/output-guidance.md) for presentation, caller output and handoffs.
+For project-wide conversations, use two short sections with headings. Briefly connect what changed to the current goal, then summarize pending work in bullets. In **Do now**, show up to three eligible actions in order and make multiple actions selectable by number. Keep a single recommendation concise. Focused replies use only the inspected scope. Follow the [output guidance](references/output-guidance.md) for presentation, caller output and handoffs.
 
 ---
 

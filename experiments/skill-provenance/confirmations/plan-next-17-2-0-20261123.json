@@ -1,0 +1,13 @@
+{
+  "maintainer": "AI Cortex repository maintainer",
+  "confirmed_at": "2026-11-23",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed the reviewed plan-next 17.2.0 files as an AI Cortex original, with no third-party creative references in this revision. The revision adds selectable next-action options and revalidates the selected action before handoff.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/plan-next-17-2-0-20261123.json"
+    }
+  ],
+  "subject_digest": "fc449b27e503c89fb6359a9e13aa143b5e48a5d434411198e7ae75e14635253f"
+}

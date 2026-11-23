@@ -19,7 +19,7 @@
 - [ ] The recommendation advances the current decision or explains why independent work is the best next choice. Rank eligible actions that advance the decision or resolve a current blocker before continuation of active work, then use recorded project priorities. Give evidence for any departure from the recorded order.
 - [ ] Genuine ties retain their benefits, costs or waiting conditions. Stable display order was not represented as a business decision.
 - [ ] Each suggestion has an action, reason, source evidence, observable completion marker and appropriate skill or existing workflow.
-- [ ] One recommendation is enough when clear; alternatives support a real choice or independent work. Each action keeps its own evidence and completion marker.
+- [ ] The default reply shows up to three actions from the eligible queue in order. Multiple actions have selectable numbers, and the first has a stated rationale or an explicit tie. A sole action can be prose. Each action keeps its own evidence and completion marker.
 - [ ] Drift and hygiene checks match the inspected scope. Uninspected areas were not reported as clean, and secondary findings did not displace current work without an evidenced effect.
 - [ ] An exhausted implicit focus expanded inspection in the same reply, with its reason, coverage and limits stated. Only an explicit scope limit retained local exhaustion and offered broader inspection. No dependent alternative, paused/cancelled work or excluded route was made eligible.
 - [ ] Completed commit, push, synchronization and cleanup actions were not repeated to fill the queue; remaining product and delivery work was considered under recorded priorities. Future actions retain their time/timezone or readiness condition outside **Do now**.
@@ -36,12 +36,12 @@
 - [ ] Malformed preference files and failed writes were reported without pretending success or partially restoring scopes.
 - [ ] Exclusions and user-directed ordering did not change underlying priorities, statuses, dependencies or authorization. Diagnostic access and implementation permission were assessed separately; a recommendation did not imply authorization to execute it. The response names the adjustment and duration.
 - [ ] A correction of the main problem triggered reconsideration of the question and rationale before rebuilding recommendations.
-- [ ] Selecting an action produced a focused handoff with objective, target, sources, retained decisions, authorization and completion marker. Downstream execution remained with its workflow or outer executor.
+- [ ] Selecting an action revalidated the exact route from the latest displayed options and produced a focused handoff with objective, target, sources, retained decisions, authorization and completion marker when eligible. A stale route returned fresh options or the remaining condition. Downstream execution remained with its workflow or outer executor.
 
 ## Output
 
 - [ ] The recommendation uses the user's language and descriptive action names. Any project ID helps locate or distinguish an item. Internal traversal terms stay in the diagnostic basis.
-- [ ] A project-wide reply uses two short, headed sections. It connects the verified background to the current goal, summarizes pending work in bullets, and gives the single most worthwhile action its own line with a reason and completion marker. A focused reply stays within the inspected scope. Detailed reports and automation callers retain their diagnostic evidence and structured state where applicable.
+- [ ] A project-wide reply uses two short, headed sections. It connects the verified background to the current goal, summarizes pending work in bullets, and presents the available choices under **Do now** or explains the remaining condition. A focused reply stays within the inspected scope. Detailed reports and automation callers retain their diagnostic evidence and structured state where applicable.
 - [ ] Relevant numeric criteria retain their source meaning and evidence limits. Missing values were not converted to zero or filled with invented benchmarks.
 - [ ] A complex diagnostic basis uses level / node / status / inference rows and records candidate keys, blockers, exclusions and limitations.
 - [ ] Ordinary diagnosis made no writes. An explicit persistent preference touched only `.ai-cortex/plan-next.yaml`.

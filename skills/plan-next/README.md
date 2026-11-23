@@ -13,7 +13,7 @@ A missing document or metric is a first action only when it affects the current 
 
 ## What the user gets
 
-The default project-wide reply uses two short sections. It connects recent progress to the current goal and lists the main pending work in bullets. It then recommends what is most worthwhile now and names the result to aim for. Work items use descriptive names. Ask for the diagnostic basis to see the detailed evidence, or for the queue to see more eligible actions.
+The default project-wide reply connects recent progress to the current goal and lists the main pending work. It then shows up to three eligible next actions with a reason and a completion marker for each. Reply with a displayed number or action name to get the handoff. Ask for the diagnostic basis to see the detailed evidence, or for the queue to see more eligible actions.
 
 A focused result does not establish whole-project completion. An exhausted implicit focus triggers read-only inspection of other independent project work, retaining the original waiting conditions and exclusions. An explicit scope limit instead reports local exhaustion and offers broader inspection. Relevant document drift and hygiene findings remain secondary unless they block the current choice.
 

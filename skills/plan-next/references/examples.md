@@ -350,9 +350,9 @@ If the owner reports review completion but no acceptance evidence exists, retain
 
 **Input**: a result recommends resolving old roadmap thresholds. The owner replies, “That is not the main problem; I need people to find the right skill.” The skill-discovery records support both clarifying entry descriptions and revising public names, with no settled precedence between them. The request authorizes discussion only.
 
-**Expected response**: revise the question to skill discovery. Compare clearer descriptions, which preserve existing invocation names, with renaming, which also requires reference and compatibility decisions. Show genuine uncertainty rather than inventing an urgency score. A missing unrelated usage metric stays a limitation. If both choices are equally supported, source order and route key provide stable display only.
+**Expected response**: revise the question to skill discovery. Show two numbered options for the discussion, with clearer descriptions first in source order. Clearer descriptions preserve existing invocation names and lead to a wording proposal. Reviewing public names leads to a naming proposal with compatibility implications and references to update. State that the options are tied. A missing unrelated usage metric stays a limitation.
 
-When the owner selects “clarify the descriptions,” prepare a `refine-skill-design` handoff identifying the affected entries, their source paths, the discovery problem, retained names and discussion-only boundary. Its completion marker is an inspectable wording proposal distinguishing the intended use of each entry. Selection does not authorize source edits. A later explicit implementation instruction can authorize those edits through the normal workflow.
+When the owner replies “1,” resolve that position to “clarify the descriptions” before rescanning. If it remains eligible, prepare a `refine-skill-design` handoff identifying the affected entries, their source paths, the discovery problem, retained names and discussion-only boundary. Its completion marker is an inspectable wording proposal distinguishing the intended use of each entry. If that action has since been completed, explain the change and show the remaining option without selecting it. Source edits require a separate implementation instruction.
 
 ### Example 12: distinguish scope exhaustion from project completion
 
@@ -411,12 +411,12 @@ Apply these variations to Example 13's evidence. Review the input → inspection
 > - **Can proceed.** Compare actual data flows with the privacy disclosures.
 > - **Paused or later.** Two enhancements remain paused. Support for another platform and identifier cleanup are listed for later consideration.
 >
-> **Most worthwhile now**
+> **Do now**
 >
-> Prepare the July 12 review.
+> 1. **Prepare the July 12 review.** Start here because it informs monetization and the next feature investment. Finish with a summary of actual use, verifiable download figures, and gaps that could change the decision.
+> 2. **Check the privacy disclosures.** This can start during the observation period. Finish with a comparison of actual data flows and published disclosures, including any discrepancies.
 >
-> - **Why now.** The review informs monetization and the next feature investment.
-> - **Result.** A short summary of what people actually tried or asked for, verifiable download figures, and gaps that could change the decision.
+> Reply with **1** or **2** to get the next-step handoff.
 
 In an ordinary reply, leave the candidate keys and goal table in the diagnostic basis. Include the structured state and routing evidence when an automation caller needs them.
 
