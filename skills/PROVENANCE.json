@@ -1577,14 +1577,14 @@
     },
     "plan-next": {
       "classification": "native",
-      "version": "17.0.0",
+      "version": "17.1.0",
       "reviewed_files": {
-        "README.md": "a01440e2c5897f0e011cc17d631767d30469bd1bb9e86fde1d20862c0fd59ade",
-        "SKILL.md": "f36832a61b9fd50444ab13bdbbe7b36b49c034eb76090b81f41d51a64cf05aa2",
-        "references/diagnosis.md": "cb7d95aa8654d3fa3b78340735f473cc44cb5dbbee329cb2c090c755674d9edc",
-        "references/examples.md": "6f66560599e504e377851090a8c6d5dbdd779a003eb141156619b6d9e8e435fe",
-        "references/output-guidance.md": "9619011d6d93869022569c1d0bd43182e05352861f1afce3e88db4e2eac60030",
-        "references/self-check.md": "63b9d22d556b68c4eeea0c3607934c5d62b68a59cf2dbd9d3ce433c2ed0ef0ee"
+        "README.md": "717848672abecdaaf980c5816f8b3d30cee9fd5c5e09cd919bfafb2c48c61511",
+        "SKILL.md": "deffe6c6ab296d4f9453a58c907f6e9ea73b6e31c23e45e33f82316c6c2ce158",
+        "references/diagnosis.md": "f1ea1899bc6d103e7477941dfa07726b0dab133f730c6a6decc30cf9bcda9da0",
+        "references/examples.md": "fe55c85d3b34192794c06fa931026eecbbfbed27fac10910e8772ad2fc1f6fd8",
+        "references/output-guidance.md": "be33de39ed532295b0576f275b355bcab0d9a514c223ab442941052f2009e0eb",
+        "references/self-check.md": "c2c3d06a7f00cc7f13f0df9e0625a1c8e9c3ced59c9b129476559b13a660d1bd"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/plan-next.json": "69f9af99a5bd37be757d2c5d5d12d82b29b76fd36564cb64ea5938cae5026f0e"
@@ -1595,7 +1595,7 @@
           "path": "experiments/skill-provenance/evidence/plan-next.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/plan-next-17-0-0-20261109.json"
+          "path": "experiments/skill-provenance/confirmations/plan-next-17-1-0-20261123.json"
         }
       ],
       "creation": {
@@ -1603,17 +1603,17 @@
         "revision": "904a4cc530bfd4e9557885add79a5d0fc0c3b590"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming the plan-next scope repair and caller guidance",
-        "confirmed_at": "2026-11-09",
+        "maintainer": "AI Cortex repository maintainer",
+        "confirmed_at": "2026-11-23",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer explicitly confirmed that plan-next 17.0.0 remains an AI Cortex original and introduces no third-party creative reference. The changes repair implicit-focus expansion and preserve diagnostic and execution authorization boundaries.",
+        "rationale": "The maintainer confirmed the reviewed plan-next 17.1.0 files as an AI Cortex original. This revision improves action-level readiness checks, the default project-wide response, and the portability of the worked examples.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/plan-next-17-0-0-20261109.json"
+            "path": "experiments/skill-provenance/confirmations/plan-next-17-1-0-20261123.json"
           }
         ],
-        "subject_digest": "3c8d0c8d1a08bcc7cef672568db14b44d0966be7e16084100c423e6e7a3eb0ea"
+        "subject_digest": "ebce32ae905e4545ef1b1c51e3bf5f10648cc5ff4afdd831540b935e7c8d4b29"
       }
     },
     "policy-research": {

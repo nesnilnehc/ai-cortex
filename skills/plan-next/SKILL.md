@@ -1,7 +1,7 @@
 ---
 name: plan-next
 description: Recommend next actions from the current problem, prior decisions and project evidence. Compare options, prepare a focused skill handoff, and inspect independent project work when the current focus has no eligible action.
-version: 17.0.0
+version: 17.1.0
 license: MIT
 ---
 
@@ -40,7 +40,7 @@ Help the user choose and enter the next useful action. Carry forward their curre
 
 Read the request and relevant conversation before selecting sources. Identify the project, current work, intended result, settled decisions, unresolved choices and existing authorization. A bare invocation starts with identifiable current work; this is an initial focus, not a user-imposed scope limit. An explicit project-wide request overrides that default; absent usable context, diagnose the whole project. Preserve an explicit scope limit from the user or caller, including a still-effective limit from earlier conversation. Ask only when the project or an explicit boundary is genuinely ambiguous.
 
-Start the response with the question being answered and the inspected scope. Inspect the current item's records, relevant decisions, dependencies and acceptance evidence first, then trace upstream or outward where those facts affect the choice. Project-wide diagnosis still inventories all applicable goals and siblings. Report uninspected areas rather than presenting a focused result as a whole-project assessment.
+Inspect the current item's records, relevant decisions, dependencies and acceptance evidence first, then trace upstream or outward where those facts affect the choice. For a project-wide request, identify what the owner is trying to decide or achieve now from the active goal, latest decisions, and relevant evidence of delivery or user outcomes. Use that context to evaluate the work items. Project-wide diagnosis still inventories all applicable goals and siblings. State the actual scope and material limits in the result.
 
 **When the current focus has no eligible action**: after checking its evidence and preferences, if it is finished, externally waiting, blocked, or exhausted (including all eligible recommendations being excluded), continue read-only project-wide diagnosis in the same reply unless an explicit scope limit applies. Inspect the project's authoritative active-work sources, all applicable goals and siblings, and candidate source records. Look for independent work that can start now; do not ask permission merely to expand this read-only inspection. State the initial focus, why inspection expanded, actual coverage and limitations. A wait on one item is not a project-wide stop condition.
 
@@ -115,10 +115,10 @@ The pair `(route, target)` is the exact route key. Do not persist display titles
 #### Scope and continuation algorithm
 
 1. Establish the current question and scope, discover the project's declared governance conventions, and diagnose relevant evidence. The scan, priority rules, prerequisites, and dependency graph remain authoritative.
-2. Build the complete ordered sequence of currently eligible recommendation candidates before applying preferences or the normal display limit. Assign each candidate its exact `(route, target)` key. A candidate is eligible only if its evidenced prerequisites and `depends_on:` predecessors are satisfied.
+2. Build the complete ordered sequence of currently eligible recommendation candidates before applying preferences or the normal display limit. Assess [prerequisites for the specific action](references/diagnosis.md#20-applicability-and-prerequisite-assessment) and assign each eligible candidate its exact `(route, target)` key.
 3. Read `.ai-cortex/plan-next.yaml` when present; combine its exact route keys with the current conversation's skip set. After resolving the displayed action and duration, re-scan before changing either scope. If that exact candidate is no longer eligible or its route key changed, do not save a stale skip; explain the change and offer the current recommendations. For a restore, validate the file and remove the selected key from every active scope before recommending again.
 4. Omit matching keys, then apply valid conversation order adjustments. Never treat an exclusion or move as a completion, a blocked node, or permission to traverse beneath it. A candidate that depends on unfinished work represented by an excluded route, an unfinished ancestor, or a global prerequisite remains ineligible.
-5. Recommend the first remaining eligible candidate, with up to two alternatives when they help a real choice or can start independently. Explicit queue inspection may show additional eligible candidates. Report exclusions and their durations separately. If no candidate remains, apply the scope-expansion rule before assigning the final state: expand an implicit focus read-only, or retain an explicit limit and offer broader inspection. Preserve exclusions throughout.
+5. Recommend the first remaining eligible candidate and use §3.3 to decide whether to show alternatives. Explicit queue inspection may show additional eligible candidates. Report exclusions and their durations separately. If no candidate remains, apply the scope-expansion rule before assigning the final state: expand an implicit focus read-only, or retain an explicit limit and offer broader inspection. Preserve exclusions throughout.
 
 **Prerequisite and dependency protection**: skipping a route never unlocks its dependents. A true global prerequisite blocks every route it governs; a route-scoped prerequisite blocks only its dependents; an uncertain relationship is not silently promoted to a global blocker—ask for clarification if it changes which action is safe. Continue evaluating independent candidates. Never invent a lower-level alternative just to fill the slot.
 
@@ -155,7 +155,7 @@ The abstraction layers are mutually exclusive; the refinement fields are auxilia
 
 ### Step 2: Diagnose — goal-tree traversal
 
-Read the [diagnosis procedure](references/diagnosis.md) before assessing goal, roadmap, requirements, design, tasks, drift, and hygiene. Follow its prerequisite and status rules before ranking candidates; do not infer completion from an empty result.
+Read the [diagnosis procedure](references/diagnosis.md) before assessing goal, roadmap, requirements, design, tasks, drift, and hygiene. Apply its [roadmap-family checks](references/diagnosis.md#roadmap-family-diagnosis) when inspecting roadmap nodes. Use verified prerequisites and status evidence before ranking candidates or reporting completion.
 
 ### Step 3: Recommend — routing generation and tiering
 
@@ -163,12 +163,12 @@ Read the [diagnosis procedure](references/diagnosis.md) before assessing goal, r
 
 #### 3.1 Tiering decision
 
-Consume the traversal and independent drift/hygiene results into a complete ordered candidate sequence, then route the first 1-3 eligible, non-excluded entries into "Do now":
+Use the traversal and independent drift/hygiene results to build the complete ordered sequence of eligible candidates. Apply preferences before the display rules in §3.3.
 
-- Eliminate actions with unmet prerequisites or dependencies, paused or cancelled work without an explicit resume decision, and actions outside an explicit diagnostic scope limit. Inspect evidence only within existing access authorization. Lack of implementation permission does not itself prevent a recommendation: state the action's owner and required authorization in its handoff; the executor checks that permission separately. A necessary human decision may itself be recommended with its options and owner.
-- Prefer eligible actions that resolve an evidenced blocker of the current work, then continue already selected or active work, then use the project's recorded priorities and precedence for other actions. Explain why the first action deserves attention now.
+- Eliminate actions with unmet prerequisites or dependencies, paused or cancelled work without an explicit resume decision, and actions outside an explicit diagnostic scope limit. Inspect evidence only within existing access authorization. An eligible action may be recommended for its owner even when the caller lacks execution permission. State the owner and required authorization in the handoff for the executor to check separately. A necessary human decision may itself be recommended with its options and owner.
+- Prefer eligible actions that directly advance the current decision or resolve an evidenced blocker of the current work, then continue already selected or active work, then use the project's recorded priorities and precedence for other actions. During a wait, check whether an allowed action can supply evidence the next decision needs. If the evidence is already ready or can only arrive later, state that wait for the decision and keep any independent work separate. Explain why the first action deserves attention now and cite the evidence for any departure from the recorded order. A recommendation leaves the roadmap tier and priority intact.
 - For project-wide diagnosis, use the highest-priority goal's first relevant unfinished route as the starting candidate; a gap alone does not outrank a current action without an evidenced effect on progress.
-- A **parallel route** (an independent node opened up by a blocked one) also goes into "Do now" when it can start immediately
+- A parallel action enters the eligible queue when it can start independently of the blocked work.
 - When a displayed route is excluded for the session or persistently, omit it and continue through the candidate sequence. A dependent or lower-level route still cannot displace it.
 - Use default priority to build the queue and apply any conversation order adjustments before the display limit. Candidate lists are recomputed on each run. Blocked candidates are never promoted to executable candidates by ordering, exclusion, or display truncation.
 
@@ -176,15 +176,7 @@ Consume the traversal and independent drift/hygiene results into a complete orde
 
 **Sibling advance rule**: when a scan verifies that a node finished, advance to the next sibling at the same level in that reply. An unmet dependency or external wait at that gap does not stop inspection of other independent siblings or goals under the scope-expansion rule.
 
-**Multi-task, multi-card rendering rule**:
-
-When several independently startable tasks help the current choice, render separate entries rather than merging them into one. Each entry covers one task with its own evidence and completion marker. Recommend one clear first action, adding up to two independent actions or meaningful alternatives under §3.1.
-
-- ✅ Correct: 3 cards side by side, one task each (action name, TL;DR and completion marker all independent)
-- ❌ Forbidden: merging several tasks into one card subject with a comma, a plus sign, or a verb like "start in parallel" (`T51 + T-SG5-002 start in parallel`)
-- ❌ Forbidden: stacking several tasks' KPIs into one card's completion marker (`T51 dashboard reachable + T52 logs queryable + T-SG5-002 admin usable`)
-
-For tasks that become ready later, report them separately as waiting, with their readiness condition and exact time and timezone when known. Keep them out of **Do now** until ready, and continue checking independent work.
+Keep waiting actions out of the eligible queue. Record their remaining conditions and exact time and timezone when known, and continue checking independent work.
 
 #### 3.2 Governance urgency annotations
 
@@ -197,7 +189,7 @@ These annotations describe a finding's scope and severity. Apply the ordering ru
 
 #### 3.3 Output format selection
 
-Give each suggestion an action, reason, and observable completion marker. Use prose for one clear suggestion; use separate cards for parallel actions. Read [output guidance](references/output-guidance.md) when formatting a complex recommendation or checking terminology.
+For project-wide conversations, use two short sections with headings. Briefly connect what changed to the current goal, then summarize pending work in bullets. In the second section, name the most worthwhile action, why it comes first, and what result marks it complete. Use descriptive names for work items. Focused replies use only the inspected scope. Follow the [output guidance](references/output-guidance.md) for presentation, caller output and handoffs.
 
 ---
 
@@ -210,67 +202,3 @@ Before reporting completion, run the [full self-check](references/self-check.md)
 ## Examples
 
 Consult [worked examples](references/examples.md) when a routing case is ambiguous.
-
-## Phase and milestone contract
-
-Read the [Roadmap Spec](../../specs/roadmap-modeling.md) when diagnosing roadmap nodes.
-A milestone is an event, so do not recursively require requirements, design and
-tasks for that event itself. Diagnose underlying work through its related source
-records. Route pending approval through the project's existing approval process;
-a planned milestone introduces no universal gate. Treat legacy milestone task
-directories as work packages and preserve their established archive route.
-
-Self-check: concepts, selected views and linked evidence agree with the source records.
-
-## Revision history maintenance
-
-When diagnosing roadmap maintenance, inspect the [revision contract](../../specs/roadmap-modeling.md#54-revision-records)
-and existing source decisions. A known material change after adoption without a
-revision or a broken retained-history link recommends update-roadmap. Do not infer
-missing earlier decisions from the current snapshot or treat history rows as
-unfinished requirements, phases or milestone work. Dates in revision history do
-not grant execution approval or define current item status.
-
-Self-check: material changes are traceable, retained links resolve, and repeated execution adds no duplicate revision.
-
-## Roadmap document family
-
-Discover the main roadmap and linked delivery/iteration/version/history views from
-project norms. They are one plan's projections, not duplicate requirement nodes.
-Apply the Roadmap Spec and quality Rule through the diagnosis procedure. Route
-structural/layout defects to define-roadmap, existing iteration/scope/date drift to
-update-roadmap and tier decisions to promote-roadmap-items. Unselected iterations
-or absent optional child documents are not gaps. Do not infer completion from an
-iteration boundary or traverse revision history as current work.
-
-Self-check: linked planning views and their source authority were checked without
-creating duplicate work nodes or mandatory iteration artifacts.
-
-## Scenario selection diagnosis
-
-Read an existing roadmap combination and decision source as project evidence. Missing
-new selection metadata in a legacy plan is not a gap. Invalid primary/view/layout
-consistency routes to define-roadmap; changed needs suggest focused reconsideration,
-not an automatic reset. Diagnosis recommends; it does not interview the user for all
-four context dimensions, alter view choices or execute recommendation tools as approval.
-
-Self-check: source-backed custom/legacy choices remain valid and new recipe availability
-alone creates no governance work.
-
-## Deliverable language
-
-Before writing roadmap-chain deliverables, apply the [language contract](../../specs/roadmap-modeling.md#57-deliverable-language-schema-15).
-Read the user instruction, consuming-project policy and existing artifact first;
-retain a settled choice across handoffs. For a new artifact infer only from consistent
-reader/document evidence; ask only unresolved gaps or winning-level conflicts.
-Conversation language and English templates alone do not select artifact language.
-Record the choice and source in existing norms/planning decisions; no new mandatory
-configuration. Localize all new prose and display labels consistently while preserving
-IDs, machine fields, canonical enums, source links and historical originals.
-
-Diagnose language drift from source evidence without rewriting the roadmap. Preserve
-the established artifact choice in suggested handoffs; conversational suggestions
-follow the user language. Missing optional legacy metadata alone triggers no repair.
-
-Self-check: language evidence and retained choice are explicit; all new display prose
-is consistent, machine contracts are unchanged, and unavailable checks are reported.

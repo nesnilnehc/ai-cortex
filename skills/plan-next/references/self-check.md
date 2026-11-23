@@ -4,7 +4,7 @@
 
 - [ ] The current question, intended result, project, settled decisions, open choices and authorization were resolved from the request and relevant conversation.
 - [ ] A bare invocation started with current work and expanded read-only project diagnosis when that implicit focus had no eligible action; explicit user/caller limits remained effective. An explicit project-wide request or absent usable context selected project-wide diagnosis.
-- [ ] The response states the inspected scope and any uninspected areas. Project-wide diagnosis covers all applicable goals and siblings.
+- [ ] The response states the inspected scope and any material limits. Project-wide diagnosis covers all applicable goals and siblings.
 - [ ] Source locations follow project authority. Inspected assets have a path and status; optional or conventionally named artifacts were not made universal prerequisites.
 - [ ] Current user decisions, verified project state and unknown evidence are distinct. Material conflicts and their effects are visible.
 - [ ] Reported completion was verified before changing dependency readiness or asserting closure. Approval, execution, acceptance and release were assessed under the project contract.
@@ -13,10 +13,10 @@
 
 ## Diagnosis and recommendation
 
-- [ ] Prerequisites, pauses, dependencies and authorization were checked before ranking. An uncertain relationship did not silently become a global blocker.
+- [ ] Prerequisites, pauses, dependencies and authorization were checked for each proposed action before ranking. Any independently eligible preparation has a completion marker and stop point, and later actions retain their unsatisfied conditions. An uncertain relationship did not silently become a global blocker.
 - [ ] The relevant goal/work links and source records were inspected. Legacy child inference was used only where the project allows it.
 - [ ] Relevant siblings were assessed before a focus, parallel, convergence or start recommendation. Project-wide scope included all applicable siblings.
-- [ ] Eligible actions resolving current blockers precede continuation of selected or active work, then other project-prioritized actions. The recommendation explains why now.
+- [ ] The recommendation advances the current decision or explains why independent work is the best next choice. Rank eligible actions that advance the decision or resolve a current blocker before continuation of active work, then use recorded project priorities. Give evidence for any departure from the recorded order.
 - [ ] Genuine ties retain their benefits, costs or waiting conditions. Stable display order was not represented as a business decision.
 - [ ] Each suggestion has an action, reason, source evidence, observable completion marker and appropriate skill or existing workflow.
 - [ ] One recommendation is enough when clear; alternatives support a real choice or independent work. Each action keeps its own evidence and completion marker.
@@ -40,7 +40,8 @@
 
 ## Output
 
-- [ ] The recommendation uses the user's language, descriptive action names and explained project IDs, with no internal traversal jargon or empty template fields.
+- [ ] The recommendation uses the user's language and descriptive action names. Any project ID helps locate or distinguish an item. Internal traversal terms stay in the diagnostic basis.
+- [ ] A project-wide reply uses two short, headed sections. It connects the verified background to the current goal, summarizes pending work in bullets, and gives the single most worthwhile action its own line with a reason and completion marker. A focused reply stays within the inspected scope. Detailed reports and automation callers retain their diagnostic evidence and structured state where applicable.
 - [ ] Relevant numeric criteria retain their source meaning and evidence limits. Missing values were not converted to zero or filled with invented benchmarks.
 - [ ] A complex diagnostic basis uses level / node / status / inference rows and records candidate keys, blockers, exclusions and limitations.
 - [ ] Ordinary diagnosis made no writes. An explicit persistent preference touched only `.ai-cortex/plan-next.yaml`.

@@ -29,7 +29,9 @@ The G1-G4 gap types are used as sub-labels in the diagnostic-basis section. In a
 
 Do not treat the presence/absence of a conventional path (including `docs/ARTIFACT_NORMS.md` or `specs/`) as a universal prerequisite by itself. First determine whether the project's declared model requires it and which artifact types/routes it governs. A missing required norms artifact may create a high-priority candidate, but it blocks only routes whose applicability or safe evaluation genuinely depends on it. Scan and report independent routes regardless. If an applicable artifact location cannot be determined from project evidence, ask for the missing convention; do not guess a directory.
 
-For every prerequisite, record: `evidence`, `scope` (`global` / named route or artifact types), and `effect` (`satisfied` / `blocks route` / `blocks all governed routes` / `uncertain`). An excluded recommendation stays unfinished and its prerequisites retain their original effect.
+**Assess the specific action before ranking.** Name the proposed action and its observable result. From the project's authoritative records, identify which steps each prerequisite governs and when it must be met, including tier-entry conditions, observation periods, pauses and approvals. Apply the [Roadmap Spec's prerequisite readiness contract](../../../specs/roadmap-modeling.md#prerequisite-readiness): require the deliverable or decision needed for this step. A review date or favorable signal alone does not establish a completed review or granted approval. Offer bounded preparation only when evidence shows it can produce a useful result independently of the awaited decision. State where preparation stops and record the later action as waiting, with its remaining conditions.
+
+For every prerequisite, record its evidence, scope (project-wide or named actions or artifact types), when it is needed if known, and effect (satisfied, blocking or uncertain). An excluded recommendation stays unfinished and its prerequisites retain their original effect.
 
 ### 2.0.1 Decision state
 
@@ -73,21 +75,8 @@ an explicit resume decision. Cancelled work is also ineligible without an explic
 reactivation decision; neither state maps to pending merely to fill the queue. These are diagnostic mappings, not replacement roadmap
 labels or new authorization. Missing/conflicting execution evidence stays unknown;
 report a limitation rather than defaulting to pending or inferring completion.
-Apply
-this adapter before the legacy milestone-node traversal below. The legacy form is
+Apply this adapter before the legacy milestone-node traversal below. The legacy form is
 readable for existing projects; new requirement-view rows are requirements or defects.
-Load [roadmap modeling](../../../specs/roadmap-modeling.md) for selected views.
-Version groups reference entry IDs; phases reference entry/version scope; milestone
-events have their own IDs and relate to entries, versions or phases (or are global).
-Do not create duplicate governance-tree requirements for them. Event occurrence
-requires evidence, never child-status inference; do not demand design/tasks for an
-event itself. Legacy milestone directories are work-package containers. Check scope/time agreement across enabled
-views, and route version-scope/date problems to `update-roadmap`, structure problems
-to `define-roadmap`. Missing unselected views are not governance defects.
-Known post-adoption material changes without revision evidence, dropped decision
-records or broken retained-history links route to `update-roadmap`. Unknown prior
-history is disclosed rather than reconstructed. Revision rows are history, not
-new requirement nodes or evidence that current work is complete.
 Priority policy application and explicit reassessment are separate intents; stale
 assessment history may justify suggesting reassessment, never running it implicitly.
 
@@ -115,7 +104,7 @@ At any level, after scanning every sibling node at that level, decide as follows
 | All `done` | Advance the next sibling one level up |
 | All `pending`, none `in-progress` | **Start**: route to the highest-priority pending node |
 
-Where nodes carry an explicit `depends_on:` dependency → the depended-on node must finish first, and the two cannot run in parallel.
+Apply the [action prerequisite assessment](#20-applicability-and-prerequisite-assessment) to explicit `depends_on:` dependencies before treating actions as independent.
 
 #### Level definitions
 
@@ -170,13 +159,13 @@ For each relevant goal G, finite or continuing, not verified complete:
     For the current focus requirement R:
 
       [L4] Take every design under R and apply the parallelism decision rules:
-        No design → emit a "design to be produced" awaiting-execution card (the design workflow is carried by the AgentFabric runtime); stop on this requirement
+        No design → emit a "design to be produced" awaiting-execution card, then stop on this requirement
         All done → R is finished; move to the next sibling requirement
 
       For the current focus design D:
 
         [L5] Take every task under D and apply the parallelism decision rules:
-          No tasks → emit a "tasks to be broken down" awaiting-execution card (task breakdown is carried by the AgentFabric runtime); stop on this design
+          No tasks → emit a "tasks to be broken down" awaiting-execution card, then stop on this design
           All done → D is finished; move to the next sibling design
           Blocked tasks + independent pending tasks → parallel: route to start a pending one
           An in-progress task (not blocked) → focus: it is running, look for the sticking point
@@ -187,6 +176,8 @@ For each relevant goal G, finite or continuing, not verified complete:
                - label: `awaiting execution` (a new priority label, distinct from urgent/important/defer/minor)
              This card tells orchestrate-governance-step: governance is ready, waiting on outside execution (the signal emitted is blocked, not done)
 ```
+
+For design and task breakdown gaps, name the project-declared workflow when known. Retain the awaiting-execution marker when the workflow is unspecified.
 
 #### Physical scan method (L3-L5 existence detection)
 
@@ -264,14 +255,32 @@ Check for slowly accumulating governance debt and output a list of hygiene issue
 
 ### Roadmap family diagnosis
 
-Load linked delivery/iteration/version/history views under the main roadmap as
-projections, not extra goal-tree nodes. Check the Roadmap Spec reading/ownership
-contract and selected iteration view against the quality Rule. Structure/layout
-findings suggest define-roadmap; existing iteration goals/scope/cadence/timeboxes
-or source/projection disagreement suggest update-roadmap. Missing optional views
-are not defects. Iteration boundaries prove neither completion nor release.
+Load the [Roadmap Spec](../../../specs/roadmap-modeling.md) and
+[roadmap quality Rule](../../../rules/roadmap-quality.md). Use the project's norms to
+locate the main roadmap and linked delivery, iteration, version and history views.
+Treat them as views of the same plan. Check each enabled view's source, scope,
+dates and ownership. Use `define-roadmap` for structure or layout defects,
+`update-roadmap` for existing scope, date or projection drift, and
+`promote-roadmap-items` for tier changes. Apply these checks to the selected views;
+verify completion or release against their own evidence.
 
-Scenario choices are project evidence, not a checklist requiring all views. Preserve
-custom and legacy combinations; missing 1.4 metadata alone is no gap. Source/view/
-primary conflicts suggest define-roadmap; changed needs suggest reconsideration
-without replacing existing choices. Do not count recommendation output as approval.
+Use source entry IDs to connect versions and phases to their underlying work.
+Verify milestone occurrence from event evidence and assess any pending approval
+through the project's process. Diagnose required designs and tasks through the
+related work items. Treat legacy milestone directories as work packages and use
+their established archive workflow. Apply a milestone gate only where project
+sources declare it.
+
+For roadmap maintenance, check the [revision records](../../../specs/roadmap-modeling.md#54-revision-records)
+against source decisions. Recommend `update-roadmap` for material changes with
+missing revision evidence, dropped decisions or broken retained links. Keep revision
+rows as historical evidence, disclose unknown history and use current records to
+judge readiness and authorization.
+
+Use a recorded scenario selection to evaluate the roadmap and its views. Retain
+source-backed custom or legacy choices, including those without optional metadata,
+and evaluate the views the project selected.
+Recommend `define-roadmap` for a conflict between the primary view, enabled views
+or layout. Reconsider the selection when evidenced needs change and retain the
+project's approval requirements. Use existing decision evidence before asking the
+user about unresolved choices.

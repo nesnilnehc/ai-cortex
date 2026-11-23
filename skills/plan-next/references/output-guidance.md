@@ -2,26 +2,20 @@
 
 ## 3.3 Help the user choose
 
-Begin with the current question, the inspected scope and the decisions being carried forward. Distinguish user decisions, verified source state and unresolved evidence. Name any conflict that changes which action is safe or worthwhile.
+Use two short sections with headings by default in project-wide conversations. Give each distinct workstream or readiness group its own short bullet. Keep text under each heading easy to scan.
 
-Use prose for one clear recommendation. For several meaningful alternatives or independently startable actions, use separate numbered entries. Usually recommend one action with up to two alternatives. Explain a focus, parallel or convergence choice when applicable. Explicit queue inspection can show more eligible entries after the usual **Do now** list.
+- **Project and pending work.** Open with a sentence or two connecting recent progress to the current goal or decision. Use bullets to show how the main pending work fits and which waits shape the choice. Roll up related paused or deferred work in plain language. Keep the full inventory available on request.
+- **Most worthwhile now.** State one action on its own line. Briefly explain why it comes first and what result completes it. Compare it with the strongest alternative if that explains the trade-off. Name the skill or workflow when it helps the user start. If waiting or a specific decision is the most useful next step, explain the condition and who or what can resolve it.
 
-Every recommendation answers four questions:
-
-1. What action should the user take?
-2. Why is it worth doing now, based on current evidence?
-3. What benefit, cost or waiting condition distinguishes it from the other choices, when a comparison is relevant?
-4. What observable result completes this step, and which skill or existing project workflow produces it?
-
-Give each entry its own reason, evidence and completion marker. Separate actual parallel work from alternatives between which the user should choose. Do not manufacture alternatives, costs, rankings or empty fields. Genuine ties can be displayed in source order and then exact route-key order for stable browsing; describe the trade-off without implying a settled business priority.
+For a focused request, keep the summary within the inspected scope and lead with the recommendation or remaining condition. Add alternatives only when they materially help the user choose, with their own evidence and completion markers. An explicit queue request can show more eligible candidates. When the user asks what to do in the next conversation, make the recommendation ready to copy with its target, source, completion marker and any stop point.
 
 Explain only the upstream context needed to judge the action. Follow the project's declared goal and acceptance model. When a numeric criterion matters, use the threshold and evidence source under [roadmap quality](../../../rules/roadmap-quality.md); distinguish unknown from zero and identify a project-defined benchmark when no external one exists. A continuing strategic direction needs no invented completion KPI. An unrelated missing measurement does not displace an independently supported action.
 
-Use the user's language and plain action names. Introduce a project ID with its descriptive name. Keep internal traversal codes and status values in the diagnostic basis. If urgency labels help, retain `urgent`, `important`, `defer`, `minor` and `awaiting execution`; these annotations alone do not determine recommendation order. Ready implementation work uses its existing project workflow or an awaiting-execution marker, without inventing a governance skill.
+Use the user's language and describe the work in terms the reader can understand without a glossary. Include a project ID only when it helps locate or distinguish an item, and place it after the descriptive name. Keep internal traversal codes and status values in the diagnostic basis. If urgency labels help, retain `urgent`, `important`, `defer`, `minor` and `awaiting execution`; these annotations alone do not determine recommendation order. Ready implementation work uses its existing project workflow or an awaiting-execution marker, without inventing a governance skill.
 
 ## 3.4 Continuation and handoff
 
-In an initial recommendation result, explain briefly that “next” skips its first entry for this conversation. With multiple entries, “put 2 first” may illustrate reordering. Ordinary skips with unspecified duration still require the user's duration choice. Resolve selectors against the latest displayed result before rescanning.
+Explain queue controls when the user asks how to change the recommendations or is reviewing the queue. “Next” skips the first displayed entry for this conversation. Ordinary skips with unspecified duration still require the user's duration choice. Resolve selectors against the latest displayed result before rescanning.
 
 Report adjustments and their scope, then return the revised **Do now** list with fresh positions. Put active exclusions in **Skipped recommendations** before that list, including exact action names and durations. Explain reordered display as the user's conversation preference while retaining the actions' underlying rationale. Report stale moves that were dropped. An exhausted implicit focus triggers the read-only project scan in SKILL.md in the same reply. Name the original wait, blocker or exclusions separately from the resulting project recommendation, and state expanded coverage and limitations. An explicit scope limit instead retains local exhaustion and offers broader inspection. Neither path manufactures work.
 
@@ -29,40 +23,13 @@ A correction such as “that is not the main problem” revisits the question an
 
 When the user selects an action, provide a ready-to-use handoff naming the selected skill or project workflow, objective, concrete target, relevant source references, retained decisions, existing authorization and completion marker. Keep unresolved business choices explicit. Selection alone adds no permission. The selected workflow or outer executor handles subsequent execution.
 
+For a roadmap handoff, retain the established artifact language under the [Roadmap Spec](../../../specs/roadmap-modeling.md#57-deliverable-language-schema-15). Use the consuming project's evidence to identify any unresolved language choice that affects the handoff. Report actual language drift when it affects the decision and apply the user's language to the conversational reply.
+
 ## 3.5 Result and diagnostic basis
 
-Retain the existing top-level `decision_state` values for consumers. Use `actionable`, `needs_input`, `no_applicable_action` or `complete` as defined in [diagnosis](diagnosis.md#201-decision-state). A focused result states local completion separately and never emits project-wide `complete` from uninspected evidence.
+Compute `decision_state` as defined in [diagnosis](diagnosis.md#201-decision-state). For callers such as `orchestrate-governance-step`, retain the exact top-level state and the usual first one to three eligible candidates, with exact route keys, source evidence, prerequisites, blockers and authorization boundaries. Use plain language for the state in ordinary conversation. A focused result never establishes project-wide `complete`.
 
-For a simple recommendation, keep the explanation and evidence compact. For a complex result, the following outline is available; include only applicable sections. The technical basis can be brief but must identify the inspected scope, material evidence and limitations. A project-wide result records every applicable goal and its current position.
-
-```text
-Current question and inspected scope
-Decisions carried forward, source conflicts and evidence limits
-Decision state
-
-Skipped recommendations, when active
-
-Do now
-1. Action, why now, relevant comparison, evidence, skill/workflow and completion marker
-2. A meaningful alternative or independent action, when available
-
-Also worth noting, when relevant
-Findings outside the immediate choice and their evidenced effects
-
-Diagnostic basis
-Inspected source paths and status (present / placeholder / missing)
-Scope not inspected
-Exact candidate keys, exclusions and any user-directed order adjustments
-Route blockers, their scope and independent candidates
-Open decision and how its answer changes the recommendation, when needed
-
-Level | Node | Status | Inference
-Relevant decision rows only; project-wide scope covers every applicable goal
-
-Drift and hygiene findings, or not inspected when outside scope
-```
-
-Use a four-column decision table for a complex diagnosis. Do not fill uninspected rows as passed or treat known historical records as current work. Drift and hygiene remain secondary unless their evidenced effect blocks the current choice. If no action remains, explain the waiting, evidence or preference condition and the available next decision.
+Keep the inspected evidence and decision basis available even when the reply is short. Give a detailed diagnostic basis when requested, when a material conflict needs it or when the caller consumes it. Include relevant paths, inspected scope and limits, prerequisites, exact candidate keys and applicable preferences. Use level, node, status and inference rows when a detailed project-wide report needs them. Project-wide inspection still covers all applicable goals and siblings. Include drift and hygiene in the short reply only if they affect the decision.
 
 ### 3.7 Terminology dictionary lookup
 
@@ -98,15 +65,15 @@ Goal 1:
 
 | Situation | Rendering |
 | --- | --- |
-| A project code appears for the first time and the dictionary has it | Inject `code (full_name)`, for example `T51 (coverage dashboard task)` |
-| Later appearances within the same card | The bare code only |
+| A project code helps locate or distinguish the item and the dictionary has it | Use `full_name (code)`, for example `Coverage dashboard (T51)` |
+| Later appearances within the same card | Reuse the descriptive name |
 | The dictionary has no matching entry | Fall back to the source artifact's frontmatter `title:`, injecting the first ≤12 words |
 | Both the dictionary and the fallback are missing | Mark it in the diagnostic-basis section as "dictionary miss: suggest adding `<code>` to `docs/glossary.md`", and **do not show that code in the user-facing sections**; use a generic description instead ("the task awaiting execution", say) |
 
 **Constraints**:
 
 - A missing dictionary is not an error and blocks nothing — the degraded output is still usable
-- The dictionary lookup injects only into the "Do now" and "Also worth noting" sections; the diagnostic-basis section allows bare codes
+- Use expanded names in user-facing recommendations and secondary findings; the diagnostic basis allows bare codes
 - A malformed dictionary source YAML → HALT and ask the user to fix it (the same behavior as the norms resolution in §0)
 
 ---

@@ -2,7 +2,7 @@
 
 ## Examples
 
-Examples 1-6 illustrate project-wide diagnosis under the stated project conventions. Their expanded trace fields are illustrative; focused recommendations use only the context needed for the user's choice. Examples 10-12 cover the version 16 default and its evidence boundaries.
+Examples 1-6 illustrate detailed project-wide reports. Example 14 shows the short default for a conversation, including after project-wide inspection. Examples 10-12 cover the version 16 default and its evidence boundaries.
 
 ### Example 1: a half-built strategy (the normal path)
 
@@ -93,7 +93,7 @@ Examples 1-6 illustrate project-wide diagnosis under the stated project conventi
 
 **Scenario**: goal A, roadmap node N1 (in-progress). Under N1 are requirement R1 (in-progress, inferred from children) and requirement R2 (pending). Under R1 are design D1a (done) and D1b (in-progress). No tasks have been broken out under D1b yet.
 
-**Traversal path**: N1 → R1 (in-progress, inferred) → sibling scan: D1a done, D1b in-progress → enter D1b → no tasks (an L5 gap) → emit a "tasks to be broken down" awaiting-execution card (task breakdown is carried by the AgentFabric runtime).
+**Traversal path**: N1 → R1 (in-progress, inferred) → sibling scan: D1a done, D1b in-progress → enter D1b → no tasks (an L5 gap) → emit a "tasks to be broken down" awaiting-execution card for the project's task breakdown workflow.
 
 **Parallelism verdict**: D1b is the only in-progress design, R2 is pending. Suggestion: **focus** on D1b; once it finishes, R2 becomes the next focus automatically.
 
@@ -117,7 +117,7 @@ Examples 1-6 illustrate project-wide diagnosis under the stated project conventi
   - Current KPI: data missing (goal A has no quantified acceptance criteria)
   - Roadmap: roadmap node N1 (in progress)
   - Current position: design D1b is ready, the task layer has a gap
-- Recommended skill: (no governance skill; task breakdown is carried by the AgentFabric runtime, at the same granularity as designs D1b and D1a)
+- Workflow: use the project's task breakdown workflow at the same granularity as designs D1b and D1a.
 - Evidence: the D1b design file exists, the task file is missing; D1a finishing triggers the advance
 - Completion marker: the D1b task list is created and holds at least one task record
 
@@ -206,7 +206,7 @@ Examples 1-6 illustrate project-wide diagnosis under the stated project conventi
   - Current KPI: data missing (goal A has no quantified acceptance criteria)
   - Roadmap: roadmap node N1 (in progress)
   - Current position: the design layer, R1 being blocked triggers parallelism
-- Recommended skill: (no governance skill; the R2 design workflow is carried by the AgentFabric runtime, advanced in parallel while R1 is blocked)
+- Workflow: use the project's design workflow for R2 while R1 is blocked.
 - Evidence: R1 is blocked by an external dependency; R2 has no `depends_on` link
 - Completion marker: the R2 design file is created; return to plan-next for re-evaluation if blocked (R2 turns out to be implicitly coupled to R1)
 
@@ -258,7 +258,7 @@ Examples 1-6 illustrate project-wide diagnosis under the stated project conventi
   - Current KPI: citation visibility (the share of user documents recalled) data source missing / target ≥80% / project-defined (no external benchmark)
   - Roadmap: M5 (hybrid-retrieval maturity milestone, in progress)
   - Current position: strategic goal acceptance, the KPI data source is not established
-- Recommended skill: (no governance skill; citation-visibility instrumentation + the design of the monitoring query path is carried by the AgentFabric runtime, landing in docs/architecture/)
+- Workflow: use the project's design and implementation workflows for citation-visibility instrumentation and the monitoring query path. In this example the design belongs under `docs/architecture/`.
 - Evidence: the acceptance field of `strategic-goals.md` names a KPI but points at no data source
 - Completion marker: citation visibility can be read from a monitoring or query interface; the data source pointer is written into strategic-goals.md
 
@@ -294,28 +294,26 @@ Examples 1-6 illustrate project-wide diagnosis under the stated project conventi
 - **Drift sweep result**: none
 - **Hygiene sweep result**: none
 
-### Example 7: skip an initially suggested but unsubstantiated route (Wright situation)
+### Example 7: skip an initially suggested but unsubstantiated route
 
-**Scenario**: an earlier `plan-next` result recommends creating a general `specs/` directory because that conventional path is absent. Wright already has its own requirements, designs, and integration-contract directories, and its artifact norms document exists. The user says: “skip the first suggestion for this conversation and continue.”
+**Scenario**: an earlier `plan-next` result recommends creating a general `specs/` directory because that conventional path is absent. The project already has an artifact norms document that assigns locations for requirements, designs, and integration contracts. The user says “skip the first suggestion for this conversation and continue.”
 
 **Required handling**:
 
 1. Resolve “first suggestion” against the latest displayed list. “For this conversation” explicitly selects the session scope, so do not write `.ai-cortex/plan-next.yaml`.
 2. Revalidate the route against current project evidence before recording the session skip. The stated reason for creating general norms is contradicted by the existing norms document; absence of `specs/` alone does not establish a gap. Do not store a stale route key as a skip; explain that the route did not survive revalidation and leave it out of this fresh result.
 3. Re-run candidate diagnosis using the project's own declared conventions and linked artifacts. Keep dependencies and genuine prerequisites intact; surface independent eligible work, or state `needs_input` if a specific mapping cannot be established.
-4. Report that the suggestion was set aside for this conversation, explain why it did not survive revalidation, and give the next applicable recommendation. Do not modify tasks, roadmap, norms, or other governance documents.
-
-This example uses Wright only to demonstrate revalidation and session-scoped skipping. Its directory structure is project evidence, not an AI Cortex convention.
+4. Explain why revalidation withdrew the suggestion and give the next applicable recommendation. Preserve the existing tasks, roadmap, norms, and other governance records.
 
 **Output** (example):
 
 > **Decision state**: `actionable`
 >
-> **Skipped recommendation**: establish a general `specs/` directory — omitted from this fresh result at your request. No session key was stored because revalidation found that the route itself is not applicable: the project has an artifact norms document and uses its own linked requirements, designs, and integration contracts. Absence of `specs/` alone is not a gap.
+> **Withdrawn suggestion.** The project already defines where requirements, designs, and integration contracts live. Revalidation removed the suggestion to create a general `specs/` directory. No session skip was recorded.
 >
 > **Do now**: [the highest-priority independent eligible action supported by the fresh scan]. Its prerequisites and dependencies were checked normally; no governance state was changed.
 >
-> **Diagnostic basis**: the former directory-based recommendation was not retained as an unfinished prerequisite. Wright's local directory names are project evidence only, not portable rules.
+> **Diagnostic basis**: the existing artifact norms and linked records establish the locations the project uses for its requirements, designs, and integration contracts.
 
 - **Drift sweep result**: none
 - **Hygiene sweep result**: none
@@ -366,11 +364,11 @@ When the owner selects “clarify the descriptions,” prepare a `refine-skill-d
 
 ### Example 13: release waiting while independent work is ready
 
-**Reported reproduction**: after review verification, external-test notification, roadmap synchronization, commit and push for release item 327, feedback closure must wait until 2026-11-11 14:54:35 Asia/Shanghai (UTC+08:00). The next bare invocation should not stop at that release scope and ask whether to inspect the project. The timestamp is a not-before condition, not evidence that closure succeeds at that instant.
+**Synthetic scenario**: the release review, external-test notification, roadmap synchronization, commit and push are complete. The release record sets the earliest feedback closure at 2030-04-12 17:00 UTC. A bare invocation starts with the release and can expand if it finds no eligible release action. Closure still requires evidence at or after the recorded time.
 
-**Synthetic project evidence for review**: at 2026-11-08 10:00:00 Asia/Shanghai, the release source records the wait; the active roadmap also contains a higher-priority independent task A with approved prerequisites, an existing implementation workflow and a testable acceptance marker. Task B depends on feedback closure for 327. Task C is paused and task D is cancelled. The repository records the closeout operations as completed. These extra tasks are review fixtures, not claims about the actual consuming project's backlog.
+**Project evidence**: at 2030-04-09 10:00 UTC, the release record still shows the wait. The active roadmap contains a higher-priority independent task A with approved prerequisites, an existing implementation workflow and a testable acceptance marker. Task B depends on closing release feedback. Task C is paused and task D is cancelled. The repository records the closeout operations as complete.
 
-**Walkthrough**: start with 327 and verify its source closure condition. Retain its exact wait outside **Do now**. No eligible release action remains, so expand read-only diagnosis across the active roadmap and linked sources. A passes readiness and independence checks; B fails its dependency; C and D remain ineligible. Return `actionable`, recommend A with its source, workflow and acceptance marker, and explain the expanded coverage. Do not repeat commit, push or synchronization. An implementation handoff retains the existing authorization; a bare invocation performs no implementation.
+**Walkthrough**: start with the release and verify its closure condition. Retain the exact wait outside **Do now**. No eligible release action remains, so expand read-only diagnosis across the active roadmap and linked sources. A passes readiness and independence checks. B is waiting on feedback closure. C and D remain ineligible. Return `actionable`, recommend A with its source, workflow and acceptance marker, and explain the expanded coverage. Do not repeat commit, push or synchronization. An implementation handoff retains the existing authorization; a bare invocation performs no implementation.
 
 ### Scope regression review cases
 
@@ -378,19 +376,48 @@ Apply these variations to Example 13's evidence. Review the input → inspection
 
 | Case | Evidence or request variation | Expected inspection and result |
 | --- | --- | --- |
-| Waiting focus | Base fixture | Inspect independent project work in the same reply; `actionable` with A, retaining 327's exact wait. |
-| Finished focus | 327 has verified closure; A remains ready | Inspect beyond 327; `actionable` with A. No repeated closeout work. |
-| Explicit scope | “Only inspect release 327,” including an earlier unrevoked instruction | Inspect 327 only; local `no_applicable_action`, wait condition and optional offer to expand. |
-| Dependency not met | A also depends on 327 | Inspect the project, but neither A nor B is eligible; C/D remain inactive. `no_applicable_action` with dependency and wait conditions. |
+| Waiting focus | Base fixture | Inspect independent project work in the same reply; `actionable` with A, retaining the exact release wait. |
+| Finished focus | The release has verified closure and A remains ready | Inspect beyond the release; `actionable` with A. No repeated closeout work. |
+| Explicit scope | “Only inspect this release,” including an earlier unrevoked instruction | Inspect the release only; local `no_applicable_action`, wait condition and optional offer to expand. |
+| Dependency not met | A also depends on release feedback closure | Inspect the project, but neither A nor B is eligible; C/D remain inactive. `no_applicable_action` with dependency and wait conditions. |
 | Paused or cancelled | A is paused or cancelled | Do not reactivate A, C or D. B remains blocked. `no_applicable_action`. |
 | All excluded | A's exact route is session-skipped or persistently excluded | Follow the queue continuation algorithm through expansion, preserving that exclusion; `no_applicable_action` with exclusions and blockers, without a forced restore or permission request merely to inspect. |
 | Evidence missing | A's prerequisite/independence record is unavailable | Disclose unavailable sources and actual coverage; `needs_input` for the missing fact, not a claim of project-wide inactivity. |
 | Truly no action now | All unfinished routes are waiting or dependency-blocked; source inventory is sufficient | Project-wide `no_applicable_action`; name the remaining conditions. Waiting is not completion. |
 | Global gate | A verified prerequisite governs every route and is unmet | Expansion does not bypass it; recommend its evidenced resolution if eligible, otherwise report the global blocking condition. |
-| Caller execution limit | Caller permits execution only on 327, without limiting read-only diagnosis | Diagnosis may return `actionable` with A; executor retains that state but makes no unauthorized change and reports its execution boundary. |
+| Caller execution limit | Caller permits execution only on the release, without limiting read-only diagnosis | Diagnosis may return `actionable` with A; executor retains that state but makes no unauthorized change and reports its execution boundary. |
 | Closeout competes | An optional cleanup remains beside higher-priority ready A | Compare the active backlog; recommend A under recorded priorities. Cleanup wins only with an evidenced priority or prerequisite effect. |
-| Project complete | All finite goals have closure evidence and no unfinished, excluded, waiting or evidence-limited route remains | Full project diagnosis may return `complete`; mere exhaustion of 327 cannot. |
+| Project complete | All finite goals have closure evidence and no unfinished, excluded, waiting or evidence-limited route remains | Return `complete` only after verifying these conditions across the project. |
 
 **Baseline review (16.0.0)**: SKILL.md's queue rule explicitly waits for a broader-scope choice after exhaustion; diagnosis returns local `no_applicable_action`; output guidance, self-check and the old Example 12 reinforce that stop. Thus the waiting-focus and finished-focus cases fail their required inspection path even when A is independently ready. Explicit scope and dependency safeguards already hold and must be retained.
 
 **Revised contract review (17.0.0)**: the same inputs follow the expansion rule before final decision-state assignment. The waiting/finished cases reach A; explicit scope prevents expansion; dependencies, pauses, cancellations, exclusions and global gates prevent ineligible substitutions. Output and self-check distinguish original-item waiting from the inspected project's result. Caller guidance retains execution gates. This review establishes instruction consistency only; no live replay against the consuming project or model evaluation was performed.
+
+### Example 14: Demand review and implementation approval
+
+**Synthetic project evidence.** A cross-platform application has shipped. The roadmap pauses its only Now item, a monetization decision, during a two-week observation period ending on 2030-07-12 (UTC). The feedback will inform monetization and future feature decisions. Two requirements are in Next. The privacy explanation (P2) begins with a check of actual data flows against current disclosures. An expansion of the native workflow with record migration (P1) follows a completed read-only release and requires both the external-signal review and approval of the first-release scope before implementation.
+
+**Project-wide input.** During the observation period, the owner asks what to do next and still needs to assemble the evidence for the review. Recommend preparing the review using public feedback and storefront download figures where accessible. Its result identifies which feedback describes actual use, what the download figures show, and which gaps could change the decision. If the evidence is ready and only later signals can change the decision, recommend waiting for the review.
+
+**Independent-work input.** The owner asks what product work can proceed while the review waits. Here the computed state is `actionable` and the read-only privacy fact check comes first. Retain the recorded tiers and priorities. Keep both implementation conditions for the native workflow visible. Offer migration preparation separately only if it is useful to the current choice and produces an independent result. Stop short of settling the first-release scope.
+
+**Example project-wide reply**
+
+> **Project and pending work**
+>
+> The application has shipped. The owner is watching what people try before deciding where to invest.
+>
+> - **Waiting for evidence or approval.** Monetization is on hold until the review. The native workflow and record migration need the review and scope approval. Testing willingness to pay needs new evidence.
+> - **Can proceed.** Compare actual data flows with the privacy disclosures.
+> - **Paused or later.** Two enhancements remain paused. Support for another platform and identifier cleanup are listed for later consideration.
+>
+> **Most worthwhile now**
+>
+> Prepare the July 12 review.
+>
+> - **Why now.** The review informs monetization and the next feature investment.
+> - **Result.** A short summary of what people actually tried or asked for, verifiable download figures, and gaps that could change the decision.
+
+In an ordinary reply, leave the candidate keys and goal table in the diagnostic basis. Include the structured state and routing evidence when an automation caller needs them.
+
+**Approval variants.** Reaching the review date or receiving positive feedback does not establish that the review occurred. A completed review without scope approval still leaves implementation waiting. When both are confirmed, reassess implementation against any other applicable project prerequisites and authorization.
