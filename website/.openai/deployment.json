@@ -1,16 +1,16 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_7f23ffea85b0819185c7ef4f1d452c37",
-  "version_number": 34,
-  "deployment_id": "appgdep_6b03ecdf05e08191bda3301ca369626c",
-  "source_commit": "e079ab10e1c2e71f698f79018d06fe792ad90c95",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_fd61069bfd848191b3732cb5eefb933c",
+  "version_number": 35,
+  "deployment_id": "appgdep_6b0401aa2f20819189ab967097ffcfcd",
+  "source_commit": "836edc71d381a28e93b7bf0daeb9fd41c35d786b",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.nesnilnehc.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-11-23T07:36:04.366115+00:00",
+  "updated_at": "2026-11-23T09:04:52.857551+00:00",
   "published_files": 49,
   "dns_records": [
     {
@@ -44,21 +44,21 @@
     "personal site project entry"
   ],
   "known_good_version": {
-    "version_number": 33,
-    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_4b8b4e3628e481919903469c53e04025",
-    "deployment_id": "appgdep_6b03e2622a388191a11a2b4413ac04dd",
-    "source_commit": "132d3f803d335ab74252a6e141268f7c2b0ed71a"
+    "version_number": 34,
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_7f23ffea85b0819185c7ef4f1d452c37",
+    "deployment_id": "appgdep_6b03ecdf05e08191bda3301ca369626c",
+    "source_commit": "e079ab10e1c2e71f698f79018d06fe792ad90c95"
   },
   "public_verification": {
-    "status": "passed",
+    "status": "verified",
     "checked_files": 49,
     "byte_identical_files": 45,
     "html_provider_insertions": 4,
     "pinned_skills_and_evidence_files": 8
   },
-  "repository_source_revision": "579c9029495fd346becbb93eba42ff80f42aa99b",
-  "assets_revision": "a7f5b491bcbdf81b15c1a5c9e0d998ac40d77df3",
-  "cache_key": "plan-next-17-2-0-20261123",
-  "archive_sha256": "430cd4668c7f4f321c4c8bdbc9d21461821c87812c8f533077c0c0963e2d1bb0",
-  "hosted_archive_content_hash": "sha256:5cd99aa68d1aa21b23f88ed58e182272a02579127bc95548ad49f85607434a92"
+  "repository_source_revision": "99c224d1613031b5a1158c343db7c458b5614deb",
+  "assets_revision": "c03ede59476a8639f85a463b9416e67d76ed2dcd",
+  "cache_key": "plan-next-17-2-1-20261123",
+  "archive_sha256": "638373780b76ed21cf709ae4d98ce5987bb94758d58abfb979c3bfcf583b0801",
+  "hosted_archive_content_hash": "sha256:01c8f616ebc7e994e5b54ebc61b4ecf3378d6b31573bc34a2eb4f6ce7be901b4"
 }
