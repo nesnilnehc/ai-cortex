@@ -1,16 +1,16 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_2a87d02ce11481918c9bd9b3e21f874d",
-  "version_number": 32,
-  "deployment_id": "appgdep_6afff00f1ef08191a57eadc69f2ef973",
-  "source_commit": "e148caa74cbb5bbc3e45438ec5be5bcdb708745b",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_4b8b4e3628e481919903469c53e04025",
+  "version_number": 33,
+  "deployment_id": "appgdep_6b03e2622a388191a11a2b4413ac04dd",
+  "source_commit": "132d3f803d335ab74252a6e141268f7c2b0ed71a",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.nesnilnehc.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-11-20T07:00:43.362699+00:00",
+  "updated_at": "2026-11-23T06:51:19.606196+00:00",
   "published_files": 49,
   "dns_records": [
     {
@@ -44,21 +44,21 @@
     "personal site project entry"
   ],
   "known_good_version": {
-    "version_number": 31,
-    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_c6c4aad416ac81919547b31c42e21e21",
-    "deployment_id": "appgdep_6affdefb8d84819197942904d590765c",
-    "source_commit": "4565676f95d5c406bd9accd9b15d8fd70bb7da1c"
+    "version_number": 32,
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_2a87d02ce11481918c9bd9b3e21f874d",
+    "deployment_id": "appgdep_6afff00f1ef08191a57eadc69f2ef973",
+    "source_commit": "e148caa74cbb5bbc3e45438ec5be5bcdb708745b"
   },
   "public_verification": {
     "status": "passed",
     "checked_files": 49,
     "byte_identical_files": 45,
     "html_provider_insertions": 4,
-    "pinned_skills_and_evidence_files": 28
+    "pinned_skills_and_evidence_files": 8
   },
-  "repository_source_revision": "0a96c2ecba0cf8848853f42a7def6f1e57b4d1c4",
-  "assets_revision": "d2cfa45f737056f7567c8b587f62efa87b6bbf79",
-  "cache_key": "skill-design-audit-20261120",
-  "archive_sha256": "deb8120905ff44f2dbfc7a1a724d2cb4ce3179953673f69e46ade8d3eb218e89",
-  "hosted_archive_content_hash": "sha256:4a0ac4e4d2ea84bfef9d75b563d77f94634185610925bf4abf18eec374edb730"
+  "repository_source_revision": "2a4ac809300c053595e0ee30ce2110c7a2a63981",
+  "assets_revision": "e8a5372579e3a9dc85e14121add92ad2282efdf4",
+  "cache_key": "plan-next-17-1-0-20261123",
+  "archive_sha256": "31d0434e3bd9a425c4c58d981c0d0f2eb27e3a5ff9e70ad2f4b0944a43532608",
+  "hosted_archive_content_hash": "sha256:6ef8e51db991857777ac72d23a4c2bd135a6f0093d6ae642655929b77ac7ed88"
 }

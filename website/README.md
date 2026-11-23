@@ -2,13 +2,21 @@
 
 ## Current publication
 
-Sites version 32 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+Sites version 33 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+The English and Chinese catalogues link to the reviewed `plan-next` 17.1.0.
+All 78 website tests passed. Public HTTPS checks verified 49 runtime files
+and eight pinned GitHub files. Four HTML pages carried the hosting provider's
+expected script insertion. See the [deployment receipt](.openai/deployment.json)
+and [publication checks](.openai/publication-20261123-plan-next.json).
+
+## Prior publication of the Skill design audit
+
+Sites version 32 was published at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
 The English and Chinese catalogues list 79 Skills and link to the audited
 source, including nine updated Skill versions. All 78 website tests passed.
 Public HTTPS checks matched 49 runtime files and 28 pinned GitHub files.
 Four HTML pages carried the hosting provider's expected script insertion.
-See the [deployment receipt](.openai/deployment.json) and
-[publication checks](.openai/publication-20261120-skill-design-audit.json).
+See the [publication checks](.openai/publication-20261120-skill-design-audit.json).
 
 ## Prior publication of product opportunity assessment
 
