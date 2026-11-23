@@ -1,4 +1,4 @@
-import navigation from './site-navigation.json?v=skill-design-audit-20261120' with {type:'json'};
+import navigation from './site-navigation.json?v=plan-next-17-1-0-20261123' with {type:'json'};
 const languages=['en','zh'];
 // Static hosting may canonicalize .html URLs before the document executes.
 const pathAliases=new Map([['/zh','/zh.html'],['/index','/index.html'],['/explore/zh','/explore/zh.html'],['/explore/index','/explore/index.html']]);

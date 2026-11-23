@@ -1,4 +1,4 @@
-import {getSiteDestination} from '../site-navigation.mjs?v=skill-design-audit-20261120';
+import {getSiteDestination} from '../site-navigation.mjs?v=plan-next-17-1-0-20261123';
 export const explorerLanguageRoutes=Object.freeze(Object.fromEntries(['en','zh'].map(locale=>[locale,getSiteDestination('overview',locale).href.split('?')[0]])));
 export function getExplorerRoutes(locale){
  const home=getSiteDestination('home',locale).href,other=locale==='en'?'zh':'en';

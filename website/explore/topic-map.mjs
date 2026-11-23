@@ -1,6 +1,6 @@
-import loops from './topic-map.json?v=skill-design-audit-20261120' with {type:'json'};
-import {dictionary} from './locale.mjs?v=skill-design-audit-20261120';
-import metadata from './skill-metadata.json?v=skill-design-audit-20261120' with {type:'json'};
+import loops from './topic-map.json?v=plan-next-17-1-0-20261123' with {type:'json'};
+import {dictionary} from './locale.mjs?v=plan-next-17-1-0-20261123';
+import metadata from './skill-metadata.json?v=plan-next-17-1-0-20261123' with {type:'json'};
 export const getTopicMap=()=>structuredClone({...dictionary.extras.topicMap,loops:loops.map(loop=>({...loop,...dictionary.loops[loop.id]}))});
 export function createTopicState(){
  const valid=new Set(metadata.groupOrder),open=new Set();
