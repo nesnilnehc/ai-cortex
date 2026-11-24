@@ -2103,9 +2103,9 @@
     },
     "rename-session": {
       "classification": "third_party_adapted",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "reviewed_files": {
-        "SKILL.md": "457bdfd1f1ff9f32393d414cfe114929449d57f9e09820761ce256e9da548d8d"
+        "SKILL.md": "a17fc930e420ec7395852368401b448c4b1f82c5e59670674e4b867e5f64d8aa"
       },
       "reviewed_evidence": {
         "experiments/session-naming/source-review.json": "aefa00d1d6dfa20e390e77e297f8f084f6065d66755908a9cae61d9331c42984",
@@ -2119,7 +2119,7 @@
           "path": "docs/process-management/backlog/2026-11-10-agent-session-naming.md"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/rename-session-20261110.json"
+          "path": "experiments/skill-provenance/confirmations/rename-session-0-1-1-20261124.json"
         }
       ],
       "sources": [
@@ -2135,17 +2135,17 @@
         }
       ],
       "decision": {
-        "maintainer": "Repository maintainer confirming the reviewed Skill and source classification in the creation chat",
-        "confirmed_at": "2026-11-10",
+        "maintainer": "AI Cortex repository maintainer",
+        "confirmed_at": "2026-11-24",
         "action": "confirmed",
         "classification": "third_party_adapted",
-        "rationale": "The maintainer explicitly confirmed the reviewed current-session Skill and third-party-adapted classification after reviewing the two identified creative references, and authorized committing this task's source materials. No third-party code or skill files are copied.",
+        "rationale": "The maintainer confirmed the Rename Session 0.1.1 title convention and its third-party-adapted classification. When a project or domain defines the topic scope, Chinese titles use a full-width colon and English titles use a half-width colon followed by one space. The existing creative references still support the classification.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/rename-session-20261110.json"
+            "path": "experiments/skill-provenance/confirmations/rename-session-0-1-1-20261124.json"
           }
         ],
-        "subject_digest": "00f2279e82b2a20eef0008c3ef04972b3716de1bf4e1f01e733fc130cccb0094"
+        "subject_digest": "ea7d1e66d71b18326a22003d225dde38e4fe8930ecb05cdb356c23b5e798a69e"
       }
     },
     "review-architecture": {

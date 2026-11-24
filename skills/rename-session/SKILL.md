@@ -1,7 +1,7 @@
 ---
 name: rename-session
 description: Suggest or change the current AI agent session title using its actual topic and the user's preferences. Use when asked to name or rename the current conversation; do not organize other sessions.
-version: 0.1.0
+version: 0.1.1
 license: MIT
 ---
 
@@ -14,9 +14,13 @@ other sessions.
 1. Follow the user's requested title or naming preferences. Otherwise, summarize
    the main subject and concrete goal in the conversation's language. Consider
    the conversation's sustained goal and a substantive change of direction;
-   a minor late follow-up need not replace the main topic. A useful
-   default is `project or domain: subject and goal`, but omit any part that is
-   uncertain or unwanted. A working directory alone does not establish the topic.
+   a minor late follow-up need not replace the main topic. When a project or
+   domain defines the scope of the topic, put it before the subject and goal,
+   separated by a colon. For Chinese titles, use `project or domain：subject and goal`
+   with a full-width colon and no surrounding spaces. For English titles, use
+   `project or domain: subject and goal` with a half-width colon followed by one
+   space. Omit any part that is uncertain or unwanted. A working directory alone
+   does not establish the topic.
    For recurring work, include a period only when known and useful.
 2. Never place credentials or other sensitive information in the title or output.
    If the subject is unclear, say so and offer a safe, general suggestion.

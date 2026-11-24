@@ -1,0 +1,13 @@
+{
+  "maintainer": "AI Cortex repository maintainer",
+  "confirmed_at": "2026-11-24",
+  "action": "confirmed",
+  "classification": "third_party_adapted",
+  "rationale": "The maintainer confirmed the Rename Session 0.1.1 title convention and its third-party-adapted classification. When a project or domain defines the topic scope, Chinese titles use a full-width colon and English titles use a half-width colon followed by one space. The existing creative references still support the classification.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/rename-session-0-1-1-20261124.json"
+    }
+  ],
+  "subject_digest": "ea7d1e66d71b18326a22003d225dde38e4fe8930ecb05cdb356c23b5e798a69e"
+}
