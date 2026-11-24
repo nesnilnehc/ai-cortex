@@ -1,6 +1,6 @@
-import {dictionary} from './locale.mjs?v=plan-next-17-2-1-20261123';
-import {catalog} from './workflow.mjs?v=plan-next-17-2-1-20261123';
-import metadata from './skill-metadata.json?v=plan-next-17-2-1-20261123' with {type:'json'};
+import {dictionary} from './locale.mjs?v=rename-session-0-1-1-20261124';
+import {catalog} from './workflow.mjs?v=rename-session-0-1-1-20261124';
+import metadata from './skill-metadata.json?v=rename-session-0-1-1-20261124' with {type:'json'};
 export function getNodeDetails(id){
  if(!Object.hasOwn(dictionary.contexts,id))throw Error('Unknown node');
  const detail=structuredClone(dictionary.contexts[id]);
