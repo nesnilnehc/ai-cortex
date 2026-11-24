@@ -2,13 +2,23 @@
 
 ## Current publication
 
-Sites version 35 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+Sites version 36 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+The English and Chinese catalogues link to the reviewed `rename-session` 0.1.1,
+which specifies the colon format for each title language when a project or
+domain sets the topic scope. All 78 website tests passed. HTTPS checks verified
+49 runtime files and four pinned GitHub files. Four HTML pages carried the
+hosting provider's expected script insertion. See the
+[deployment receipt](.openai/deployment.json) and
+[publication checks](.openai/publication-20261124-rename-session-0-1-1.json).
+
+## Prior publication of plan-next guidance for returning project owners
+
+Sites version 35 was published at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
 The English and Chinese catalogues link to the reviewed `plan-next` 17.2.1,
 which helps returning project owners regain context, choose a next action,
 and ask for its evidence. All 78 website tests passed. HTTPS checks verified
 49 runtime files and eight pinned GitHub files. Four HTML pages carried the
 hosting provider's expected script insertion. See the
-[deployment receipt](.openai/deployment.json) and
 [publication checks](.openai/publication-20261123-plan-next-17-2-1.json).
 
 ## Prior publication of selectable plan-next actions
