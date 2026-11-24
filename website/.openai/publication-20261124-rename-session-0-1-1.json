@@ -395,5 +395,17 @@
     "python_passed": 19
   },
   "archive_sha256": "ba1b58c5def1ad1cfd41ead8727aa433980daf0f2e26f8ec39a83f5a831be6af",
-  "hosted_archive_content_hash": "sha256:f03b36f048c1e58db622d21421ca170021a7c0a4c89df62695c2f9087c5c37dd"
+  "hosted_archive_content_hash": "sha256:f03b36f048c1e58db622d21421ca170021a7c0a4c89df62695c2f9087c5c37dd",
+  "skillhub": [
+    {
+      "registry": "https://skillhub.recloud.com.cn",
+      "namespace": "mbs-pdc",
+      "slug": "rename-session",
+      "version": "0.1.1",
+      "detail_url": "https://skillhub.recloud.com.cn/space/mbs-pdc/rename-session",
+      "source_commit": "91da5a76866729158ef2300126730444d51dd7bd",
+      "upload_status": "succeeded",
+      "visibility": "public"
+    }
+  ]
 }
