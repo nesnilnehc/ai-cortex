@@ -1,6 +1,6 @@
-import metadata from './skill-metadata.json?v=redeploy-local-3-4-1-20261125' with {type:'json'};
-import {classification,relationships} from './relationship-model.mjs?v=redeploy-local-3-4-1-20261125';
-import {getGlobalTopicGraph} from './global-topic-graph.mjs?v=redeploy-local-3-4-1-20261125';
+import metadata from './skill-metadata.json?v=video-production-skills-20261125' with {type:'json'};
+import {classification,relationships} from './relationship-model.mjs?v=video-production-skills-20261125';
+import {getGlobalTopicGraph} from './global-topic-graph.mjs?v=video-production-skills-20261125';
 const relationIds=new Set([...relationships,...getGlobalTopicGraph().edges,...getGlobalTopicGraph().loops].map(e=>e.id));
 export function createExplorerState(initial={}){
  const state={view:'classification',selectedSkillId:null,selectedWorkId:null,selectedRelationId:null,detail:{open:false,target:null,mode:'usage'},lookup:{open:false,query:''},viewState:{classification:{expandedCategoryIds:[],scrollByRegion:{}},relations:{expandedTopicId:null,scrollByRegion:{},pan:{x:0,y:0}}}};
