@@ -470,13 +470,13 @@
     },
     "redeploy-local": {
       "id": "redeploy-local",
-      "description": "After code changes, auto-detect the project's build system and local deployment method for a given directory, then build the project and restart its locally-deployed environment (Docker Compose / systemd / process manager). Never assumes — asks only when detection is ambiguous. Caches detected commands per project in .cortex/redeploy-local.yaml; re-invocations on the same project skip re-scanning until signal files change, the cache expires (30 days), or the skill version bumps.",
+      "description": "Update and verify a local deployment using a source build or an existing artifact, such as a CI image, release package, or versioned binary. Use for Docker Compose, systemd, or process-manager deployments that need to run the requested code or artifact locally.",
       "owner": "build",
       "sourcePaths": [
         "skills/redeploy-local/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/redeploy-local/SKILL.md": "5ce190e6a0b7c99b9044aa88ca9cb7a852201ef80b3db160e47ec301cda51964"
+        "skills/redeploy-local/SKILL.md": "410bf51b476a6a749dc4a444f7731d080d3421c5ff0c991ce15fa54793482d58"
       },
       "entry": "public"
     },

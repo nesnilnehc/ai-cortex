@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer confirming the version 3.4.0 review packet in the originating chat",
+  "confirmed_at": "2026-11-24",
+  "action": "confirmed",
+  "classification": "native",
+  "rationale": "The maintainer confirmed that the reviewed version 3.4.0 distribution remains an original AI Cortex Skill and authorized a local index preview.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/redeploy-local-prebuilt.json"
+    }
+  ],
+  "subject_digest": "c97ce44364f411b7a3bced50d5a8bb72aa6f9fa94400c08d494c37b1cc7a3707"
+}

@@ -412,11 +412,11 @@
       "name": "publish-nats-message"
     },
     "redeploy-local": {
-      "purpose": "Detect build/deployment setup and update local runtime",
-      "when": "Code changed and the project already running on this machine needs updating.",
-      "provide": "Project directory, existing build/deployment configuration and authorization to run the services and commands.",
-      "use": "Use redeploy-local to identify build/deployment from project evidence, update the local runtime and check health.",
-      "result": "Actual build, restart and health outcomes. Ambiguity is reported before acting rather than guessing commands.",
+      "purpose": "Update a local deployment from source or an existing artifact",
+      "when": "A local environment needs to run updated source code or a specific artifact, such as a CI image or release package.",
+      "provide": "Project directory, local deployment configuration, authorization to run the commands, and an artifact or build reference if applicable.",
+      "use": "Use redeploy-local to deploy the requested source build or existing artifact and verify the running service.",
+      "result": "Deployment and health check results, plus the verified identity of any existing artifact in use.",
       "name": "redeploy-local"
     },
     "refine-skill-design": {
