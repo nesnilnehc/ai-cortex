@@ -1819,29 +1819,27 @@
         "subject_digest": "25c55610769ddd823e56e5ee4067dde668daba35413f95480177f76bd8a7a7a3"
       }
     },
-    "produce-presentation-video": {
-      "classification": "native",
-      "version": "0.1.0",
-      "creation": {
-        "kind": "requirement",
-        "evidence": {
-          "path": "experiments/skill-provenance/evidence/produce-presentation-video-transfer.json"
-        }
-      },
+    "produce-video-from-presentation": {
+      "classification": "third_party_adapted",
+      "version": "1.0.0",
       "reviewed_files": {
-        "SKILL.md": "ef42ad6de724c3a60640318d9b1b704b961040dbb3fa170a317bdd3ea4c31a06",
+        "SKILL.md": "10008d78d536ea178faf54b4be650886efc63b8ed512542d40e73d9efa4517a8",
         "references/doubao.md": "8ed7fc0466cc83badc6dd1267a12a3668154292b4249c05d5a6c104d2ca9126f",
-        "references/production.md": "ed5d1717598577aa1ed5a9d49ea98da355877b5d6c32c6ca36470f6e88d30ab3"
+        "references/production.md": "3379760ed2a7e5f7d5b26cc4bad3f95f1fec5665b3479e1824e6407541add7d6"
       },
       "reviewed_evidence": {
-        "experiments/skill-provenance/evidence/produce-presentation-video-transfer.json": "1942fd1278740d15e8c40bc964b81f90e9e72da8fc7bcff3564724f80ae43181"
+        "experiments/skill-provenance/evidence/produce-presentation-video-transfer.json": "1942fd1278740d15e8c40bc964b81f90e9e72da8fc7bcff3564724f80ae43181",
+        "experiments/skill-provenance/evidence/script-video-feishu-reference.json": "db8784dc84692c69867ec8aec69c5ed14a46a74800db40046f946c5d5a1eaf00"
       },
       "evidence": [
         {
           "path": "experiments/skill-provenance/evidence/produce-presentation-video-transfer.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/produce-presentation-video-transfer.json"
+          "path": "experiments/skill-provenance/evidence/script-video-feishu-reference.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/produce-video-from-presentation-1-0-0-20261125.json"
         }
       ],
       "sources": [
@@ -1860,20 +1858,68 @@
         {
           "id": "reference:presentation-video-doubao-submit",
           "role": "tool_lookup"
+        },
+        {
+          "id": "reference:script-video-feishu-workflow",
+          "role": "creative_reference",
+          "adaptation": "Carry forward the presentation workflow under the new entry name and add checks for uncertain speech boundaries and frame-based timing."
         }
       ],
       "decision": {
         "maintainer": "nesnilnehc",
-        "confirmed_at": "2026-11-19",
+        "confirmed_at": "2026-11-25",
         "action": "confirmed",
-        "classification": "native",
-        "rationale": "The maintainer confirmed the three reviewed files as a maintainer-owned original transfer with no third-party creative reference and authorized MIT distribution. The recorded provider documentation was used for tool usage and parameters.",
+        "classification": "third_party_adapted",
+        "rationale": "The maintainer confirmed the successor presentation-video Skill as third-party adapted. The existing workflow carries forward its original implementation and Doubao tool references, and the Feishu workflow informed the new narration-cue and frame-timing guidance.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/produce-presentation-video-transfer.json"
+            "path": "experiments/skill-provenance/confirmations/produce-video-from-presentation-1-0-0-20261125.json"
           }
         ],
-        "subject_digest": "cfb60c1f8af03fd26144912744757620d1b88ea8e1c63c49bcf826e05477d849"
+        "subject_digest": "08ddbe1de231180870441c41ad441fa9ebc546f7d20ce71c26d4c6a40b01684e"
+      }
+    },
+    "produce-video-from-script": {
+      "classification": "third_party_adapted",
+      "version": "0.1.0",
+      "reviewed_files": {
+        "SKILL.md": "28019f3237613d7d12afb7c4670dba3f526347b0c795cc237720aac1991301f0",
+        "references/editor-handoff.md": "e365e711a63fc14468a6ee889959ef8f93841b6fd998edda3e1bff9b78ee257d"
+      },
+      "reviewed_evidence": {
+        "experiments/skill-provenance/evidence/script-video-feishu-reference.json": "db8784dc84692c69867ec8aec69c5ed14a46a74800db40046f946c5d5a1eaf00"
+      },
+      "evidence": [
+        {
+          "path": "experiments/skill-provenance/evidence/script-video-feishu-reference.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/produce-video-from-script-0-1-0-20261125.json"
+        }
+      ],
+      "sources": [
+        {
+          "id": "reference:script-video-feishu-workflow",
+          "role": "creative_reference",
+          "adaptation": "Write one editor-independent workflow for narration alignment, shot planning, editable assembly, and targeted revision. Use ChatCut as an optional editor and preserve a useful intermediate handoff when the selected editor is unavailable."
+        },
+        {
+          "id": "reference:script-video-chatcut-connection",
+          "role": "tool_lookup"
+        }
+      ],
+      "decision": {
+        "maintainer": "nesnilnehc",
+        "confirmed_at": "2026-11-25",
+        "action": "confirmed",
+        "classification": "third_party_adapted",
+        "rationale": "The maintainer confirmed the script-to-video Skill as third-party adapted. The publicly shared Feishu workflow informed shot planning and editable assembly. The distributed instructions were written independently, and the ChatCut guide was used for connection details only.",
+        "evidence": [
+          {
+            "path": "experiments/skill-provenance/confirmations/produce-video-from-script-0-1-0-20261125.json"
+          }
+        ],
+        "subject_digest": "adb6b9e156eed17f571399e8bde6ab0ba16caeb743b5b50b134c6b476293dc95"
       }
     },
     "product-opportunity-analysis": {

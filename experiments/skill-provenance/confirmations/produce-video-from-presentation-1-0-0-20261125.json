@@ -1,0 +1,13 @@
+{
+  "maintainer": "nesnilnehc",
+  "confirmed_at": "2026-11-25",
+  "action": "confirmed",
+  "classification": "third_party_adapted",
+  "rationale": "The maintainer confirmed the successor presentation-video Skill as third-party adapted. The existing workflow carries forward its original implementation and Doubao tool references, and the Feishu workflow informed the new narration-cue and frame-timing guidance.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/produce-video-from-presentation-1-0-0-20261125.json"
+    }
+  ],
+  "subject_digest": "08ddbe1de231180870441c41ad441fa9ebc546f7d20ce71c26d4c6a40b01684e"
+}

@@ -371,13 +371,21 @@
       "result": "有证据的答复草稿、支撑材料和可复用产品知识；不把未知能力写成承诺。",
       "name": "准备售前答复"
     },
-    "produce-presentation-video": {
+    "produce-video-from-presentation": {
       "purpose": "将演示稿和讲稿制作成带旁白和同步字幕的视频",
       "when": "需要新制、续做、修正发音、重新导出或归档演示稿视频。",
       "provide": "演示稿及讲者备注或讲稿。按需提供音色、成片格式、交付位置或已有制作产物。",
-      "use": "请用 produce-presentation-video 核对源稿，再以最终音轨对齐切页和字幕。修正发音时，补录受影响的段落并更新相关时间点。",
+      "use": "请用 produce-video-from-presentation 核对源稿，再以最终音轨对齐切页和字幕。修正发音时，补录受影响的段落并更新相关时间点。",
       "result": "保存到指定位置的成片，以及本地核验结果、待试听位置和云端交付状态。",
-      "name": "制作演示稿视频"
+      "name": "从演示稿制作视频"
+    },
+    "produce-video-from-script": {
+      "purpose": "将定稿口播做成带时间标记的分镜和可编辑的剪辑工程",
+      "when": "需要根据口播稿设计分镜、按现有分镜剪辑，或修改已有项目的部分镜头。",
+      "provide": "定稿的口播稿。已有配音、素材、分镜或剪辑工程可一并提供。",
+      "use": "请用 produce-video-from-script 对齐口播、设计分镜，并组装或修改可编辑的时间轴。",
+      "result": "经核验的可编辑工程和制作记录。剪辑受阻时，提供已核验的素材与镜头时间。",
+      "name": "从口播稿制作视频"
     },
     "prioritize-backlog": {
       "purpose": "依据项目策略确定待办优先级",
@@ -1369,7 +1377,8 @@
       "summary": "核实产品事实，整理能独立理解的表达，或按契约交换消息。可以在有需要时调用。",
       "skills": [
         "prepare-presales-response",
-        "produce-presentation-video",
+        "produce-video-from-presentation",
+        "produce-video-from-script",
         "decontextualize-text",
         "publish-nats-message",
         "consume-nats-message",
@@ -1867,7 +1876,8 @@
           "consume-nats-message",
           "decontextualize-text",
           "prepare-presales-response",
-          "produce-presentation-video",
+          "produce-video-from-presentation",
+          "produce-video-from-script",
           "publish-nats-message",
           "eli5",
           "ponytail",

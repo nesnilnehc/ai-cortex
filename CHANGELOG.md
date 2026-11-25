@@ -4,6 +4,9 @@
 
 ### Added
 
+- Add `produce-video-from-script` 0.1.0 to turn an approved narration script
+  into timed shots and an editable video project. Reuse existing narration,
+  storyboards, and source media when available.
 - Add `prepare-version-notes` 0.1.1 for independent change-description authoring
   using selected version/scope, explicit baseline/source associations and project
   document conventions, without version edits, commits or delivery.
@@ -24,6 +27,11 @@
 
 ### Changed
 
+- Replace the experimental `produce-presentation-video` entry with
+  `produce-video-from-presentation` 1.0.0. Update saved prompts from
+  `$produce-presentation-video` to `$produce-video-from-presentation` and keep
+  supplying the presentation and its speaker notes or a separate script.
+  The replacement adds checks for narration cues and frame rounding.
 - `prepare-version-notes` 0.1.1 clarifies net source differences as the factual
   basis for notes and distinguishes description-consistency blockers from ordinary
   disclosed known issues without imposing a new delivery gate.

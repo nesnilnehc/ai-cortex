@@ -420,15 +420,27 @@
       },
       "entry": "public"
     },
-    "produce-presentation-video": {
-      "id": "produce-presentation-video",
+    "produce-video-from-presentation": {
+      "id": "produce-video-from-presentation",
       "description": "Create narrated, captioned videos from PowerPoint, Keynote, Google Slides, PDF, or other paginated presentations with speaker notes or a script. Use to start or resume production, fix pronunciation, re-export, or archive a completed presentation video.",
       "owner": "collaboration",
       "sourcePaths": [
-        "skills/produce-presentation-video/SKILL.md"
+        "skills/produce-video-from-presentation/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/produce-presentation-video/SKILL.md": "ef42ad6de724c3a60640318d9b1b704b961040dbb3fa170a317bdd3ea4c31a06"
+        "skills/produce-video-from-presentation/SKILL.md": "10008d78d536ea178faf54b4be650886efc63b8ed512542d40e73d9efa4517a8"
+      },
+      "entry": "public"
+    },
+    "produce-video-from-script": {
+      "id": "produce-video-from-script",
+      "description": "Produce a video from an approved narration script by preparing narration, planning shots, and assembling an editable timeline. Use to start from a script, continue from a storyboard, or revise selected shots.",
+      "owner": "collaboration",
+      "sourcePaths": [
+        "skills/produce-video-from-script/SKILL.md"
+      ],
+      "sourceHashes": {
+        "skills/produce-video-from-script/SKILL.md": "28019f3237613d7d12afb7c4670dba3f526347b0c795cc237720aac1991301f0"
       },
       "entry": "public"
     },

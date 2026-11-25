@@ -166,6 +166,6 @@ and [Agent Skills best practices](https://agentskills.io/skill-creation/best-pra
 | [eli5](../../skills/eli5/SKILL.md) | Retain | Produce a simple visual explanation for the selected subject and audience. |
 | [ponytail](../../skills/ponytail/SKILL.md) | Earlier patch 1.0.2 verified | Apply an explicitly requested minimal-change mode. The earlier patch aligned discovery with activation. |
 | [prepare-presales-response](../../skills/prepare-presales-response/SKILL.md) | Retain | Prepare evidence-backed responses and scoped files without taking on product or contractual authority. |
-| [produce-presentation-video](../../skills/produce-presentation-video/SKILL.md) | Retain | Deliver or repair a verified narrated video. Tool, provider and production details have their own loading points. |
+| [produce-presentation-video](https://github.com/nesnilnehc/ai-cortex/blob/705691a6ae50b33b47c72a090dfdbd52bd704593/skills/produce-presentation-video/SKILL.md) | Retain | Deliver or repair a verified narrated video. Tool, provider and production details have their own loading points. |
 | [publish-nats-message](../../skills/publish-nats-message/SKILL.md) | Retain | Send a message under the producer contract and report the outcome or acknowledgement. |
 | [rename-session](../../skills/rename-session/SKILL.md) | Retain | Rename or suggest a title for the current session, with a fallback when the host lacks the operation. |

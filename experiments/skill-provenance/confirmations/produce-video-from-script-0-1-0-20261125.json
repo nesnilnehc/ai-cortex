@@ -1,0 +1,13 @@
+{
+  "maintainer": "nesnilnehc",
+  "confirmed_at": "2026-11-25",
+  "action": "confirmed",
+  "classification": "third_party_adapted",
+  "rationale": "The maintainer confirmed the script-to-video Skill as third-party adapted. The publicly shared Feishu workflow informed shot planning and editable assembly. The distributed instructions were written independently, and the ChatCut guide was used for connection details only.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/produce-video-from-script-0-1-0-20261125.json"
+    }
+  ],
+  "subject_digest": "adb6b9e156eed17f571399e8bde6ab0ba16caeb743b5b50b134c6b476293dc95"
+}

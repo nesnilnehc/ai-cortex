@@ -371,13 +371,21 @@
       "result": "Evidence-backed drafts, supporting material and reusable product knowledge. Unknown capabilities are not turned into promises.",
       "name": "prepare-presales-response"
     },
-    "produce-presentation-video": {
+    "produce-video-from-presentation": {
       "purpose": "Turn a presentation and script into a narrated video with synchronized captions",
       "when": "You need to create, resume, correct, re-export, or archive a presentation video.",
       "provide": "The presentation and its speaker notes or a script. Include the requested voice, format, destination, or existing production files when applicable.",
-      "use": "Use produce-presentation-video to verify the source and align slides and captions to the final narration. For a pronunciation correction, replace the affected passage and update its timing.",
+      "use": "Use produce-video-from-presentation to verify the source and align slides and captions to the final narration. For a pronunciation correction, replace the affected passage and update its timing.",
       "result": "A video at the requested destination, with local verification and any pending listening or cloud checks reported.",
-      "name": "Produce presentation video"
+      "name": "Produce video from a presentation"
+    },
+    "produce-video-from-script": {
+      "purpose": "Turn an approved narration script into timed shots and an editable video project",
+      "when": "You need to storyboard a script-led video, assemble an existing storyboard, or revise shots in a saved timeline.",
+      "provide": "The approved script or storyboard, available narration and media, and any editor or format requirements.",
+      "use": "Use produce-video-from-script to align the narration, plan the shots, and assemble or revise the editable timeline.",
+      "result": "A verified editable project with its production record, or verified intermediate assets and placement timings when assembly is blocked.",
+      "name": "Produce video from a script"
     },
     "prioritize-backlog": {
       "purpose": "Prioritize backlog items under project policy",
@@ -1369,7 +1377,8 @@
       "summary": "Verify product facts, prepare standalone explanations or exchange contract-compliant messages as needed.",
       "skills": [
         "prepare-presales-response",
-        "produce-presentation-video",
+        "produce-video-from-presentation",
+        "produce-video-from-script",
         "decontextualize-text",
         "publish-nats-message",
         "consume-nats-message",
@@ -1867,7 +1876,8 @@
           "consume-nats-message",
           "decontextualize-text",
           "prepare-presales-response",
-          "produce-presentation-video",
+          "produce-video-from-presentation",
+          "produce-video-from-script",
           "publish-nats-message",
           "eli5",
           "ponytail",

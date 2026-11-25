@@ -1,0 +1,26 @@
+{
+  "reviewed_on": "2026-11-25",
+  "source": {
+    "account": "铁锤AI工坊",
+    "platform": "Douyin",
+    "distribution": "Public Feishu share provided by the requester",
+    "public_url": "https://acni49d9j9iv.feishu.cn/drive/folder/T9WWfYkDMlcFhUd9km0cGQvkn2b",
+    "attribution_basis": "The requester identified the Douyin account and supplied the Feishu share. A clean browser context opened the creator folder and the workflow folder without signing in. The three published file identifiers match the corresponding local download metadata. The distributed workflow makes no claim about the license of the source documents.",
+    "source_artifacts_sha256": {
+      "workflow_guide": "077aa522bb53685db8849619266b5715c4be3c660af450e47fd6276248234ad8",
+      "storyboard_to_edit": "8fe1ac7d446b29d1f178983fe5a9afd0d84f74b5408d1448e50fed1767dabaca",
+      "voice_to_storyboard": "913ec9c0e060f535eb139e143da5d411954e57f1352f9bc445d7fc5930d4c4a5"
+    }
+  },
+  "tool_documentation": {
+    "url": "https://chatcut.io/docs/agent-plugin",
+    "use": "Verify the distinction between a local Desktop project and a hosted Web project and their connection paths."
+  },
+  "proposed_classification": "third_party_adapted",
+  "adaptation": {
+    "produce-video-from-presentation": "Carry forward the presentation workflow under the new entry name and add checks for uncertain speech boundaries and frame-based timing.",
+    "produce-video-from-script": "Write one editor-independent workflow for narration alignment, shot planning, editable assembly, and targeted revision. Use ChatCut as an optional editor and preserve a useful intermediate handoff when the selected editor is unavailable."
+  },
+  "distributed_material": "Newly authored English instructions. The supplied documents, assets, and example prompts are outside the distributed file set.",
+  "review_scope": "The proposed classification applies to the exact distributed files in the maintainer review packet."
+}

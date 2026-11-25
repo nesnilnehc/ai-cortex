@@ -89,7 +89,8 @@
       "id": "map-collaboration",
       "skillIds": [
         "prepare-presales-response",
-        "produce-presentation-video",
+        "produce-video-from-presentation",
+        "produce-video-from-script",
         "publish-nats-message",
         "consume-nats-message",
         "decontextualize-text",

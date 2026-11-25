@@ -241,3 +241,17 @@ references:
     kind: tool_documentation
     evidence:
       path: experiments/skill-provenance/evidence/produce-presentation-video-transfer.json
+  script-video-feishu-workflow:
+    url: https://acni49d9j9iv.feishu.cn/drive/folder/T9WWfYkDMlcFhUd9km0cGQvkn2b
+    title: Codex video editing workflow by Tiechui AI Workshop
+    accessed_at: "2026-11-25"
+    kind: workflow
+    evidence:
+      path: experiments/skill-provenance/evidence/script-video-feishu-reference.json
+  script-video-chatcut-connection:
+    url: https://chatcut.io/docs/agent-plugin
+    title: ChatCut agent connection guide
+    accessed_at: "2026-11-25"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/script-video-feishu-reference.json
