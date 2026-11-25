@@ -119,9 +119,27 @@ MEMBERSHIP = [
 ]
 
 
+VERSION_DECLARATIONS = [
+    ("legacy Skill", "version: 3.4.0\n", True, "3.4.0"),
+    ("standard Skill", 'metadata:\n  version: "3.4.1"\n', True, "3.4.1"),
+    ("metadata comment", 'metadata:\n    # This comment may have its own indentation.\n  version: "3.4.1"\n', True, "3.4.1"),
+    ("another metadata field follows", "metadata:\n  version: 3.4.1\n  owner: core\n", True, "3.4.1"),
+    ("conflicting declarations", "version: 3.4.0\nmetadata:\n  version: 3.4.1\n", True, None),
+    ("unrelated nested version", "metadata:\n  owner: core\nother:\n  version: 3.4.1\n", True, None),
+    ("Rule metadata", "metadata:\n  version: 3.4.1\n", False, None),
+    ("body alone", "name: sample\n", True, None),
+]
+
+
 def main() -> int:
     checker = load_checker()
     failures: list[str] = []
+
+    for label, fields, is_skill, expected in VERSION_DECLARATIONS:
+        source = f"---\n{fields}---\n\nversion: 0.0.0\n"
+        actual = checker.declared_version(source, is_skill=is_skill)
+        if actual != expected:
+            failures.append(f"{label}: expected version {expected!r}, got {actual!r}")
 
     for path, expected in MEMBERSHIP:
         actual = checker.is_versioned_asset(path)
@@ -160,7 +178,8 @@ def main() -> int:
 
     print(
         f"Validated the asset-version decision on {len(CASES)} change shapes, "
-        f"{len(MEMBERSHIP)} membership cases and one multi-change range."
+        f"{len(MEMBERSHIP)} membership cases, {len(VERSION_DECLARATIONS)} declarations "
+        "and one multi-change range."
     )
     return 0
 

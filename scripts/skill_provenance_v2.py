@@ -12,6 +12,8 @@ from pathlib import Path, PurePosixPath
 import re
 import subprocess
 
+from asset_frontmatter import declared_version
+
 CATEGORIES = {'native', 'third_party_original', 'third_party_adapted'}
 DIGEST = re.compile(r'[0-9a-f]{64}')
 REVISION = re.compile(r'[0-9a-f]{40}')
@@ -305,10 +307,7 @@ def _validate_record(root, name, record, registry):
     require(kind != 'third_party_original' or not links, 'unchanged classification does not accept symlink distributions')
     require(record['reviewed_files'] == actual, 'reviewed file inventory does not match', skill=name)
     skill_text = (root / 'skills' / name / 'SKILL.md').read_text(encoding='utf-8')
-    frontmatter = skill_text.split('---', 2)
-    require(len(frontmatter) == 3 and frontmatter[0] == '', 'invalid Skill frontmatter')
-    match = re.search(r'^version:\s*["\']?([^\s"\']+)["\']?\s*$', frontmatter[1], re.M)
-    require(match is not None and match[1] == record['version'], 'Skill version does not match')
+    require(declared_version(skill_text, is_skill=True) == record['version'], 'Skill version does not match')
     decision = record['decision']
     shape(decision, {'maintainer', 'confirmed_at', 'action', 'classification', 'rationale', 'evidence', 'subject_digest'}, field='decision')
     require(text(decision['maintainer']) and text(decision['rationale']), 'incomplete maintainer confirmation')

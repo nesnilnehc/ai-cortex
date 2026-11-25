@@ -95,6 +95,20 @@ class ProvenanceV2Tests(unittest.TestCase):
         with self.assertRaisesRegex(provenance.ProvenanceError, 'confirmation'):
             self.validate()
 
+    def test_standard_version_metadata_is_bound_to_the_reviewed_version(self):
+        path = self.skill / 'SKILL.md'
+        with self.subTest('matching version'):
+            path.write_text(path.read_text().replace('version: 1.0.0\n', 'metadata:\n  version: "1.0.0"\n'))
+            self.record['reviewed_files']['SKILL.md'] = sha(path.read_bytes())
+            self.confirm()
+            self.assertEqual(self.validate()['version'], '1.0.0')
+        with self.subTest('conflicting versions'):
+            path.write_text(path.read_text().replace('metadata:\n', 'version: 1.0.0\nmetadata:\n').replace('"1.0.0"', '"2.0.0"'))
+            self.record['reviewed_files']['SKILL.md'] = sha(path.read_bytes())
+            self.confirm()
+            with self.assertRaisesRegex(provenance.ProvenanceError, 'version does not match'):
+                self.validate()
+
     def test_every_distributed_file_is_bound(self):
         # Covers: AIC-REQ-08#AC5.
         for action in ('change', 'add', 'remove'):

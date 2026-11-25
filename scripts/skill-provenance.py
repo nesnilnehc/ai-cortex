@@ -8,6 +8,8 @@ import json
 import pathlib
 import re
 
+from asset_frontmatter import declared_version
+
 
 class ProvenanceError(Exception):
     """A provenance claim is invalid or cannot be checked."""
@@ -138,8 +140,7 @@ def main(argv):
             # Migration candidates deliberately have no decision or invented
             # identity. A source registry proves derivation, not confirmation.
             content = (folder / 'SKILL.md').read_text(encoding='utf-8')
-            match = re.search(r'^version:\s*(.+?)\s*$', content, re.M)
-            candidate = {'version': match[1] if match else '', 'reviewed_files': files,
+            candidate = {'version': declared_version(content, is_skill=True) or '', 'reviewed_files': files,
                          'reviewed_evidence': {}, 'evidence': [], 'sources': []}
             links = reviewed.link_inventory(folder)
             if links:

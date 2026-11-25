@@ -19,7 +19,7 @@ If you are converting existing Chinese content, read §6 of that document first.
 
 Skills follow the [agentskills.io](https://agentskills.io) standard format. Draft new skills against this section and the existing directory layout; do not install an external skill generator as part of the contribution flow.
 
-1. **Draft**: write `skills/<skill-name>/SKILL.md`. Agent Skills requires `name` and `description` in YAML frontmatter. This repository also tracks `version` and `license` for maintenance.
+1. **Draft**: write `skills/<skill-name>/SKILL.md`. Agent Skills requires `name` and `description` in YAML frontmatter. Record the Skill version as a string in the `metadata.version` field and declare its `license`. The repository also reads existing top-level `version` declarations.
 2. **Optional**: add a `README.md` as a quick reference.
 3. **Register**: document verified provenance in `skills/PROVENANCE.json` under the [source contract](specs/skill-source-modeling.md#54-provenance-presentation), then run `python3 scripts/sync-skills-index.py`. The generated `skills/INDEX.md` uses Skill frontmatter and provenance records; do not edit the index by hand. Unresolved provenance blocks registration; it never defaults to original or becomes a fourth public category. Confirmed originals omit the display badge.
 4. **Open a PR.**
@@ -137,7 +137,7 @@ implemented as prose. When you modify a skill:
 - **MINOR** (1.0.0 → 1.1.0): backward-compatible optional steps, improved examples without changed obligations, compatible interaction additions
 - **MAJOR** (1.0.0 → 2.0.0): breaking structural changes, including making a previously optional output format mandatory
 
-After bumping `version` in the SKILL.md frontmatter, run `python3 scripts/sync-skills-index.py` so any description change reaches `skills/INDEX.md`.
+After bumping the Skill version in the SKILL.md frontmatter, run `python3 scripts/sync-skills-index.py` so any description change reaches `skills/INDEX.md`.
 
 ## Checks
 

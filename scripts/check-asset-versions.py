@@ -23,10 +23,11 @@ import re
 import subprocess
 import sys
 
+from asset_frontmatter import declared_version
+
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
-VERSION_LINE = re.compile(r"^version:\s*(.+?)\s*$", re.MULTILINE)
 SEMVER = re.compile(r"^(\d+)\.(\d+)\.(\d+)")
 
 # A directory holding versioned assets, and the filename that carries the
@@ -54,14 +55,6 @@ def is_versioned_asset(path: str) -> bool:
     if parts[0] == "skills":
         return len(parts) == 3 and parts[2] == "SKILL.md"
     return len(parts) == 2 and parts[1].endswith(".md")
-
-
-def declared_version(text: str | None) -> str | None:
-    """Read the version out of a file's frontmatter, or None when it has none."""
-    if not text:
-        return None
-    match = VERSION_LINE.search(text)
-    return match.group(1) if match else None
 
 
 def _semver(value: str) -> tuple[int, int, int] | None:
@@ -136,11 +129,12 @@ def changes_in_range(base: str, tip: str) -> list[dict]:
         if not is_versioned_asset(path):
             continue
         status = {"A": "added", "D": "deleted"}.get(code[0], "modified")
+        is_skill = path.startswith("skills/")
         records.append({
             "path": path,
             "status": status,
-            "before": declared_version(_file_at(base, path)),
-            "after": declared_version(_file_at(tip, path)),
+            "before": declared_version(_file_at(base, path), is_skill=is_skill),
+            "after": declared_version(_file_at(tip, path), is_skill=is_skill),
         })
     return records
 
