@@ -407,5 +407,17 @@
       "sha256": "92133fab5fe6040e26d5a410386a72cb2ba3aa3d697d2496eb31d76982d30cad",
       "verified": true
     }
+  ],
+  "skillhub": [
+    {
+      "registry": "https://skillhub.recloud.com.cn",
+      "namespace": "mbs-pdc",
+      "slug": "redeploy-local",
+      "version": "3.4.0",
+      "detail_url": "https://skillhub.recloud.com.cn/space/mbs-pdc/redeploy-local",
+      "source_commit": "aa323697e8571d5b93f5e0f7b456472c4029cffd",
+      "upload_status": "succeeded",
+      "visibility": "public"
+    }
   ]
 }
