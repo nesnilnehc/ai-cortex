@@ -1,6 +1,6 @@
-import loops from './topic-map.json?v=redeploy-local-3-4-0-20261125' with {type:'json'};
-import {dictionary} from './locale.mjs?v=redeploy-local-3-4-0-20261125';
-import metadata from './skill-metadata.json?v=redeploy-local-3-4-0-20261125' with {type:'json'};
+import loops from './topic-map.json?v=redeploy-local-3-4-1-20261125' with {type:'json'};
+import {dictionary} from './locale.mjs?v=redeploy-local-3-4-1-20261125';
+import metadata from './skill-metadata.json?v=redeploy-local-3-4-1-20261125' with {type:'json'};
 export const getTopicMap=()=>structuredClone({...dictionary.extras.topicMap,loops:loops.map(loop=>({...loop,...dictionary.loops[loop.id]}))});
 export function createTopicState(){
  const valid=new Set(metadata.groupOrder),open=new Set();

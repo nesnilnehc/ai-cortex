@@ -1,7 +1,7 @@
-import {initializeNavigation} from './site-navigation.mjs?v=redeploy-local-3-4-0-20261125';
-import { initializeTheme } from './theme.mjs?v=redeploy-local-3-4-0-20261125';
-import { initializeLanguage } from './language.mjs?v=redeploy-local-3-4-0-20261125';
-import { bindCopyButton } from './copy.mjs?v=redeploy-local-3-4-0-20261125';
+import {initializeNavigation} from './site-navigation.mjs?v=redeploy-local-3-4-1-20261125';
+import { initializeTheme } from './theme.mjs?v=redeploy-local-3-4-1-20261125';
+import { initializeLanguage } from './language.mjs?v=redeploy-local-3-4-1-20261125';
+import { bindCopyButton } from './copy.mjs?v=redeploy-local-3-4-1-20261125';
 
 initializeLanguage(window, document.documentElement.lang === 'zh-CN' ? 'zh' : 'en');
 
@@ -17,4 +17,4 @@ bindCopyButton(
 
 initializeNavigation(window,document);
 
-import './explore/explorer-host.mjs?v=redeploy-local-3-4-0-20261125';
+import './explore/explorer-host.mjs?v=redeploy-local-3-4-1-20261125';
