@@ -1,0 +1,411 @@
+{
+  "date": "2026-11-25",
+  "verified_at": "2026-11-25T01:22:14.980136+00:00",
+  "public_url": "https://ai-cortex.nesnilnehc.top/",
+  "site_version": 37,
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_a60a33e9ac48819189cd46bc4421d19d",
+  "deployment_id": "appgdep_6b06380cf61081919d2f50a6fb5a65b5",
+  "site_source_commit": "60940248e3a2d7f102acd36921d64c09c663c184",
+  "repository_source_commit": "f33161408000acf4c1ec551714a1aef681dd2b76",
+  "assets_revision": "c7a673cd28b5d9665164ef14d3a318c5ba3a6bd3",
+  "archive_sha256": "c0dac13cd1a8bb8076767767c89755733220aa4fdc4a70f2bb01b4403cf72d5b",
+  "hosted_archive_content_hash": "sha256:3f9bb34059faf9cebd96323267464ed5887eba50cfe3e1a476fef52be567e612",
+  "website_tests": {
+    "node_passed": 59,
+    "python_passed": 19
+  },
+  "runtime_files_checked": 49,
+  "byte_identical": 45,
+  "html_provider_insertions": 4,
+  "html_comparison": "Exact bytes or the verified provider script insertion.",
+  "runtime_checks": [
+    {
+      "path": "copy.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/copy.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "98066e27493b23ca013c617303fb09cf44f6a1f6c056e5fa043cf6969ff54b4d",
+      "served_sha256": "98066e27493b23ca013c617303fb09cf44f6a1f6c056e5fa043cf6969ff54b4d",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/assets/work-stories.png",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/assets/work-stories.png?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "1d155d745670022aee28542d2f638620a29a9b3c5398237f71f065848dc090f6",
+      "served_sha256": "1d155d745670022aee28542d2f638620a29a9b3c5398237f71f065848dc090f6",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/classification-view.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/classification-view.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "ba8f28f87afbb2216a371ccace70d56350305f2ef1afc5e5520b984c85e0ab5a",
+      "served_sha256": "ba8f28f87afbb2216a371ccace70d56350305f2ef1afc5e5520b984c85e0ab5a",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/classification.json",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/classification.json?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "6264d9898d9bf19df49bb6a24afb8537e6ab862cd747b9c469df310865d1bd9f",
+      "served_sha256": "6264d9898d9bf19df49bb6a24afb8537e6ab862cd747b9c469df310865d1bd9f",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/dual.css",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/dual.css?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "e05daa97343318e9f2ca4930b34a0ab499bfaf7146252668ce37b0f5b4f0eb3b",
+      "served_sha256": "e05daa97343318e9f2ca4930b34a0ab499bfaf7146252668ce37b0f5b4f0eb3b",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/explorer-host.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/explorer-host.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "71b94d60fcd646317b4029b0dfa3c159147761f601d8e5fea1a850a166950df6",
+      "served_sha256": "71b94d60fcd646317b4029b0dfa3c159147761f601d8e5fea1a850a166950df6",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/explorer-state.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/explorer-state.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "53b1774427b6221e3bab3b313bbec7dd6245d2f3237b29e9284895b1bc9ac965",
+      "served_sha256": "53b1774427b6221e3bab3b313bbec7dd6245d2f3237b29e9284895b1bc9ac965",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/global-topic-graph.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/global-topic-graph.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "602c3215c64430c8b735b5eae3261f418a6fe9b48f798b781b7589496bbe1601",
+      "served_sha256": "602c3215c64430c8b735b5eae3261f418a6fe9b48f798b781b7589496bbe1601",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/index.html",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/index.html?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "609a6acb7221f520514f84b7982ff303d0fc7b6d240f4fd04c88df3b3a49d47e",
+      "served_sha256": "9fdc59a76b25181f30b67732fc14a4be16642ad3a8cb1535391ee3192db3d7ea",
+      "status": "provider_script_insertion"
+    },
+    {
+      "path": "explore/legacy.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/legacy.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "75911c2f37e6eceaa41fc6f5252e6cdad51fd50def5ce7db4a5d228ddc9ab7c5",
+      "served_sha256": "75911c2f37e6eceaa41fc6f5252e6cdad51fd50def5ce7db4a5d228ddc9ab7c5",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/locale.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/locale.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "c2a6f5f163735ad11ae43102eee439b599914d806b68daf5e1e253e8bcff1345",
+      "served_sha256": "c2a6f5f163735ad11ae43102eee439b599914d806b68daf5e1e253e8bcff1345",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/locales/en.json",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/locales/en.json?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "3edaa97fb7101d2130f9e5fa059cd0bb40e01844d3fbecf27dae2cb452c0417e",
+      "served_sha256": "3edaa97fb7101d2130f9e5fa059cd0bb40e01844d3fbecf27dae2cb452c0417e",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/locales/zh.json",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/locales/zh.json?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "d97dc49ea1a364c221581fd18b4b9a1ffecc9a4795b7874495b362a4dedfe9b6",
+      "served_sha256": "d97dc49ea1a364c221581fd18b4b9a1ffecc9a4795b7874495b362a4dedfe9b6",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/panel-model.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/panel-model.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "002be5e32be89280efc26e6db8f7374d871c724cc5ab52cb0f5f61a62a0b200a",
+      "served_sha256": "002be5e32be89280efc26e6db8f7374d871c724cc5ab52cb0f5f61a62a0b200a",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/provenance.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/provenance.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "44f7de9201ce190d417fe2908afcd178ce0165b2f71635a44253c72215207f27",
+      "served_sha256": "44f7de9201ce190d417fe2908afcd178ce0165b2f71635a44253c72215207f27",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/relations.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/relations.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "4838036ab4b533ffac0bf070b470c46b5e12f7a67a8bedeba8f2033241d73ba5",
+      "served_sha256": "4838036ab4b533ffac0bf070b470c46b5e12f7a67a8bedeba8f2033241d73ba5",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/relationship-model.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/relationship-model.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "82a10e86b14813c640a6e264904e56410a6eccf938ed211919ca28cfec5ab061",
+      "served_sha256": "82a10e86b14813c640a6e264904e56410a6eccf938ed211919ca28cfec5ab061",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/relationship-view.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/relationship-view.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "37422c52bc505fb65fb009623b5b539c4f6ffe26dcbd4f501f495043725ebf55",
+      "served_sha256": "37422c52bc505fb65fb009623b5b539c4f6ffe26dcbd4f501f495043725ebf55",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/request-state.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/request-state.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "23f3c205ce4d62c482eb22a10780eae879ea50666f3d97aff2c4be7fe4f2e177",
+      "served_sha256": "23f3c205ce4d62c482eb22a10780eae879ea50666f3d97aff2c4be7fe4f2e177",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/site-contract.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/site-contract.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "b5d3f559b6f38a5a267e2a71205bb163930aab3eb7c86bcd39ffa5fc4c7da81d",
+      "served_sha256": "b5d3f559b6f38a5a267e2a71205bb163930aab3eb7c86bcd39ffa5fc4c7da81d",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/skill-edges.json",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/skill-edges.json?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "3d2461e36440cac7ee713339fc2d9e53a7f1a40acdb6e233c7278518a724a37b",
+      "served_sha256": "3d2461e36440cac7ee713339fc2d9e53a7f1a40acdb6e233c7278518a724a37b",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/skill-graph.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/skill-graph.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "754ff1ac0722d2745298a12c6616cefd70675d968f2127b60ce9a300759f9334",
+      "served_sha256": "754ff1ac0722d2745298a12c6616cefd70675d968f2127b60ce9a300759f9334",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/skill-guidance.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/skill-guidance.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "37cdf3f638b21d957b018fb2c9c0cb7f9f39862fc27b9635ed80f4a0e93557e0",
+      "served_sha256": "37cdf3f638b21d957b018fb2c9c0cb7f9f39862fc27b9635ed80f4a0e93557e0",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/skill-metadata.json",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/skill-metadata.json?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "aa6a72fe3036bba171f87d2a3773027f180fa10d8bba606bd5b483c212f53327",
+      "served_sha256": "aa6a72fe3036bba171f87d2a3773027f180fa10d8bba606bd5b483c212f53327",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/skill-provenance.json",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/skill-provenance.json?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "f9025f6883cd59b8827b4c0e4864b922e684e78a24e5a38718e303ce37bae8ea",
+      "served_sha256": "f9025f6883cd59b8827b4c0e4864b922e684e78a24e5a38718e303ce37bae8ea",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/source-links.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/source-links.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "bb9c7e27873696fd0846721b8d69709f4b742c71717375597f26a96a722346bb",
+      "served_sha256": "bb9c7e27873696fd0846721b8d69709f4b742c71717375597f26a96a722346bb",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/source-manifest.json",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/source-manifest.json?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "62880389f09c6467ea8cd041765f4deb7cdcac7c903b73271456e43341ba80bf",
+      "served_sha256": "62880389f09c6467ea8cd041765f4deb7cdcac7c903b73271456e43341ba80bf",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/story-model.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/story-model.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "f91b72a7ddd487b41a5839bd1c2605d9b9c92560d30ddfbf4f86d2a5a8845874",
+      "served_sha256": "f91b72a7ddd487b41a5839bd1c2605d9b9c92560d30ddfbf4f86d2a5a8845874",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/story.css",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/story.css?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "0ed7ac0763c60caf0aa3180373a4cecefdc5cb8c459660d5318672e0a51d8858",
+      "served_sha256": "0ed7ac0763c60caf0aa3180373a4cecefdc5cb8c459660d5318672e0a51d8858",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/support-scopes.json",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/support-scopes.json?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "bf72b80e5b02e4de210337850e34668cc4db18cd984fcc77b96d3336226bbcda",
+      "served_sha256": "bf72b80e5b02e4de210337850e34668cc4db18cd984fcc77b96d3336226bbcda",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/support-scopes.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/support-scopes.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "63b6cb227aec61be05e7a42691d8ca6dd4f7ab964cf254ce1ea447f80f95467d",
+      "served_sha256": "63b6cb227aec61be05e7a42691d8ca6dd4f7ab964cf254ce1ea447f80f95467d",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/topic-edges.json",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/topic-edges.json?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "99b622a4fa377bddb82544aea039a5e4d92413cd8d1cb2ccfb2b3b7e98a9f538",
+      "served_sha256": "99b622a4fa377bddb82544aea039a5e4d92413cd8d1cb2ccfb2b3b7e98a9f538",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/topic-map.json",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/topic-map.json?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "a32337621921f6ce507cca308ce8a7ce305e9627ac79c8c4f7bc780c3f273301",
+      "served_sha256": "a32337621921f6ce507cca308ce8a7ce305e9627ac79c8c4f7bc780c3f273301",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/topic-map.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/topic-map.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "43f52b91ae9f181b41104673218f6a38b44140378baed49f23ae73b20efc8d67",
+      "served_sha256": "43f52b91ae9f181b41104673218f6a38b44140378baed49f23ae73b20efc8d67",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/work-map.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/work-map.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "aea48dcfb5864e647d673c32ab78a8421b970af58322dda66e8b5c1d5f4c9168",
+      "served_sha256": "aea48dcfb5864e647d673c32ab78a8421b970af58322dda66e8b5c1d5f4c9168",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/workflow.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/workflow.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "74a3910e4ed95d443d679e8bf5e584ba8f565ba2235ba7c30c469a62b7b3a221",
+      "served_sha256": "74a3910e4ed95d443d679e8bf5e584ba8f565ba2235ba7c30c469a62b7b3a221",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/workspace.css",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/workspace.css?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "d4175e2a71c4707eb53ef7af08c9f86670020cc874ce4dab663556fec5ef8d2a",
+      "served_sha256": "d4175e2a71c4707eb53ef7af08c9f86670020cc874ce4dab663556fec5ef8d2a",
+      "status": "byte_identical"
+    },
+    {
+      "path": "explore/zh.html",
+      "url": "https://ai-cortex.nesnilnehc.top/explore/zh.html?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "cdc11ec742d6e11b6581fbba92c3a2ab0f923814d09802dfc21850f66f5f6017",
+      "served_sha256": "5cdeb5ef59b61d91dbc5ad35aca5e6a2057800f085a5e82d1012e68e6839f6fb",
+      "status": "provider_script_insertion"
+    },
+    {
+      "path": "favicon.svg",
+      "url": "https://ai-cortex.nesnilnehc.top/favicon.svg?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "e3f057d1c807354a40e1c98fd390638666a8a244e4b8e81562e348efa147c02f",
+      "served_sha256": "e3f057d1c807354a40e1c98fd390638666a8a244e4b8e81562e348efa147c02f",
+      "status": "byte_identical"
+    },
+    {
+      "path": "index.html",
+      "url": "https://ai-cortex.nesnilnehc.top/?v=redeploy-local-3-4-0-20261125&lang=en",
+      "source_sha256": "a8f0fe9ac969591f5336dd347c4f1493e14093517b9ee4e4a62ab48dd709c114",
+      "served_sha256": "24570ad4a4284e6778a0b1d163fa3967994e697c26eaabfa68d31356d8cbc6c1",
+      "status": "provider_script_insertion"
+    },
+    {
+      "path": "language.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/language.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "f7bb46226f1703e103d45cc90c5c5a8c7565a359a38c4563a6fb13d0907c5102",
+      "served_sha256": "f7bb46226f1703e103d45cc90c5c5a8c7565a359a38c4563a6fb13d0907c5102",
+      "status": "byte_identical"
+    },
+    {
+      "path": "main.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/main.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "eda2568bfcbd7093d40e76671165f76e46243e4e1c27a5a7e902b9c500ed1fb2",
+      "served_sha256": "eda2568bfcbd7093d40e76671165f76e46243e4e1c27a5a7e902b9c500ed1fb2",
+      "status": "byte_identical"
+    },
+    {
+      "path": "robots.txt",
+      "url": "https://ai-cortex.nesnilnehc.top/robots.txt?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "2c3f391f9674a75b97ddc2e2142e18fd9d17d2755c9dfa261884aea06b995cc9",
+      "served_sha256": "2c3f391f9674a75b97ddc2e2142e18fd9d17d2755c9dfa261884aea06b995cc9",
+      "status": "byte_identical"
+    },
+    {
+      "path": "site-navigation.json",
+      "url": "https://ai-cortex.nesnilnehc.top/site-navigation.json?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "684d0c2e2dc44e4c47d070e27d60eeba9916e731e7ad7b1a4c1c963279e842a6",
+      "served_sha256": "684d0c2e2dc44e4c47d070e27d60eeba9916e731e7ad7b1a4c1c963279e842a6",
+      "status": "byte_identical"
+    },
+    {
+      "path": "site-navigation.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/site-navigation.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "082366248a61cb960f14e62acf4c7987b8da2dea5f9649849ebaf68ab6f06683",
+      "served_sha256": "082366248a61cb960f14e62acf4c7987b8da2dea5f9649849ebaf68ab6f06683",
+      "status": "byte_identical"
+    },
+    {
+      "path": "sitemap.xml",
+      "url": "https://ai-cortex.nesnilnehc.top/sitemap.xml?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "1f0245151e10eaca6d2e888a8fdc61a150b76346b8d958e74cf01a2ca8b93038",
+      "served_sha256": "1f0245151e10eaca6d2e888a8fdc61a150b76346b8d958e74cf01a2ca8b93038",
+      "status": "byte_identical"
+    },
+    {
+      "path": "styles.css",
+      "url": "https://ai-cortex.nesnilnehc.top/styles.css?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "78dc21fe4b5f649aacb99c812b3e2dee0a7617f9e11d8e8016d715dc447d90f3",
+      "served_sha256": "78dc21fe4b5f649aacb99c812b3e2dee0a7617f9e11d8e8016d715dc447d90f3",
+      "status": "byte_identical"
+    },
+    {
+      "path": "theme.mjs",
+      "url": "https://ai-cortex.nesnilnehc.top/theme.mjs?v=redeploy-local-3-4-0-20261125",
+      "source_sha256": "df9b28f7c343ff4ea9f7ec83446b62692e0bd6ba47157fa78af5a7ca478f653f",
+      "served_sha256": "df9b28f7c343ff4ea9f7ec83446b62692e0bd6ba47157fa78af5a7ca478f653f",
+      "status": "byte_identical"
+    },
+    {
+      "path": "zh.html",
+      "url": "https://ai-cortex.nesnilnehc.top/zh.html?v=redeploy-local-3-4-0-20261125&lang=zh",
+      "source_sha256": "f0e6df82566e9019902854cadebea03d8728f69832c03f758aef1d310e01c368",
+      "served_sha256": "6e3420e4da3d8f84889c73f1155e817932665b13606da599b61c41d0c96936de",
+      "status": "provider_script_insertion"
+    }
+  ],
+  "homepage_without_cache_query": {
+    "path": "index.html",
+    "url": "https://ai-cortex.nesnilnehc.top/",
+    "source_sha256": "a8f0fe9ac969591f5336dd347c4f1493e14093517b9ee4e4a62ab48dd709c114",
+    "served_sha256": "72f13d666027ed89c93508ca408dddfc63967b094646efd87da6aa59d6b33494",
+    "status": "provider_script_insertion"
+  },
+  "skill_sources": [
+    {
+      "path": "skills/redeploy-local/SKILL.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/c7a673cd28b5d9665164ef14d3a318c5ba3a6bd3/skills/redeploy-local/SKILL.md",
+      "sha256": "410bf51b476a6a749dc4a444f7731d080d3421c5ff0c991ce15fa54793482d58",
+      "verified": true
+    },
+    {
+      "path": "skills/redeploy-local/references/detection.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/c7a673cd28b5d9665164ef14d3a318c5ba3a6bd3/skills/redeploy-local/references/detection.md",
+      "sha256": "b2f8255d4e4da6ac477b503c29d9ba158e68852e8fbbc4e5266aa8fa355b0919",
+      "verified": true
+    },
+    {
+      "path": "skills/redeploy-local/references/examples.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/c7a673cd28b5d9665164ef14d3a318c5ba3a6bd3/skills/redeploy-local/references/examples.md",
+      "sha256": "4d448fe60b6f8ba4a9a366143132e3e8ddd92832b491b8b5f702dc799c559901",
+      "verified": true
+    },
+    {
+      "path": "skills/redeploy-local/references/prebuilt.md",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/c7a673cd28b5d9665164ef14d3a318c5ba3a6bd3/skills/redeploy-local/references/prebuilt.md",
+      "sha256": "3d775d1da922b06cb5b2b42cb22e2782d8b910d36b6031579e5603d8aa165c78",
+      "verified": true
+    },
+    {
+      "path": "experiments/skill-provenance/evidence/redeploy-local.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/c7a673cd28b5d9665164ef14d3a318c5ba3a6bd3/experiments/skill-provenance/evidence/redeploy-local.json",
+      "sha256": "97e3c62173b27d64b91f84b52ae623b016c38d477dc7bf7412b36e91fedc4c99",
+      "verified": true
+    },
+    {
+      "path": "experiments/skill-provenance/confirmations/redeploy-local-prebuilt.json",
+      "url": "https://raw.githubusercontent.com/nesnilnehc/ai-cortex/c7a673cd28b5d9665164ef14d3a318c5ba3a6bd3/experiments/skill-provenance/confirmations/redeploy-local-prebuilt.json",
+      "sha256": "92133fab5fe6040e26d5a410386a72cb2ba3aa3d697d2496eb31d76982d30cad",
+      "verified": true
+    }
+  ]
+}

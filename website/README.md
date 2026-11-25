@@ -2,13 +2,22 @@
 
 ## Current publication
 
-Sites version 36 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+Sites version 37 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+The English and Chinese catalogues describe how `redeploy-local` 3.4.0 deploys
+from source or an existing artifact and verifies the running service. All 78
+website tests passed. HTTPS checks verified 49 runtime files and six pinned
+GitHub files. Four HTML pages carried the hosting provider's expected script
+insertion. See the [deployment receipt](.openai/deployment.json) and
+[publication checks](.openai/publication-20261125-redeploy-local-3-4-0.json).
+
+## Prior publication of rename-session title separators
+
+Sites version 36 was published at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
 The English and Chinese catalogues link to the reviewed `rename-session` 0.1.1,
 which specifies the colon format for each title language when a project or
 domain sets the topic scope. All 78 website tests passed. HTTPS checks verified
 49 runtime files and four pinned GitHub files. Four HTML pages carried the
 hosting provider's expected script insertion. See the
-[deployment receipt](.openai/deployment.json) and
 [publication checks](.openai/publication-20261124-rename-session-0-1-1.json).
 
 ## Prior publication of plan-next guidance for returning project owners

@@ -1,16 +1,16 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_4bb17ba752808191a073883e4ce8c804",
-  "version_number": 36,
-  "deployment_id": "appgdep_6b052ecaf9b48191bae8d5eff818a102",
-  "source_commit": "2d77b955b4a96b499d99e3c9b61b091c8c8a5bcd",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_a60a33e9ac48819189cd46bc4421d19d",
+  "version_number": 37,
+  "deployment_id": "appgdep_6b06380cf61081919d2f50a6fb5a65b5",
+  "source_commit": "60940248e3a2d7f102acd36921d64c09c663c184",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.nesnilnehc.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-11-24T06:29:49.207942+00:00",
+  "updated_at": "2026-11-25T01:21:34.131211+00:00",
   "published_files": 49,
   "dns_records": [
     {
@@ -44,21 +44,21 @@
     "personal site project entry"
   ],
   "known_good_version": {
-    "version_number": 35,
-    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_fd61069bfd848191b3732cb5eefb933c",
-    "deployment_id": "appgdep_6b0401aa2f20819189ab967097ffcfcd",
-    "source_commit": "836edc71d381a28e93b7bf0daeb9fd41c35d786b"
+    "version_number": 36,
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_4bb17ba752808191a073883e4ce8c804",
+    "deployment_id": "appgdep_6b052ecaf9b48191bae8d5eff818a102",
+    "source_commit": "2d77b955b4a96b499d99e3c9b61b091c8c8a5bcd"
   },
   "public_verification": {
     "status": "verified",
     "checked_files": 49,
     "byte_identical_files": 45,
     "html_provider_insertions": 4,
-    "pinned_skills_and_evidence_files": 4
+    "pinned_skills_and_evidence_files": 6
   },
-  "repository_source_revision": "4127b16d716bd2da10f83f029899b75d3667e267",
-  "assets_revision": "e1ae814e51b25399e4d49465dd3aaded2751b3e4",
-  "cache_key": "rename-session-0-1-1-20261124",
-  "archive_sha256": "ba1b58c5def1ad1cfd41ead8727aa433980daf0f2e26f8ec39a83f5a831be6af",
-  "hosted_archive_content_hash": "sha256:f03b36f048c1e58db622d21421ca170021a7c0a4c89df62695c2f9087c5c37dd"
+  "repository_source_revision": "f33161408000acf4c1ec551714a1aef681dd2b76",
+  "assets_revision": "c7a673cd28b5d9665164ef14d3a318c5ba3a6bd3",
+  "cache_key": "redeploy-local-3-4-0-20261125",
+  "archive_sha256": "c0dac13cd1a8bb8076767767c89755733220aa4fdc4a70f2bb01b4403cf72d5b",
+  "hosted_archive_content_hash": "sha256:3f9bb34059faf9cebd96323267464ed5887eba50cfe3e1a476fef52be567e612"
 }
