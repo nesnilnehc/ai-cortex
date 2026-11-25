@@ -2,12 +2,23 @@
 
 ## Current publication
 
-Sites version 37 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+Sites version 38 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+Both catalogues link to the reviewed `redeploy-local` 3.4.1. This update
+defines the services a local redeploy may change and requires evidence of
+the running artifact, readiness, and required job outcomes. All 78 website
+tests passed. HTTPS checks verified 49 runtime files and six pinned GitHub
+files. Four HTML pages carried the hosting provider's expected script
+insertion. See the [deployment receipt](.openai/deployment.json) and
+[publication checks](.openai/publication-20261125-redeploy-local-3-4-1.json).
+
+## Prior publication of existing-artifact deployment
+
+Sites version 37 was published at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
 The English and Chinese catalogues describe how `redeploy-local` 3.4.0 deploys
 from source or an existing artifact and verifies the running service. All 78
 website tests passed. HTTPS checks verified 49 runtime files and six pinned
 GitHub files. Four HTML pages carried the hosting provider's expected script
-insertion. See the [deployment receipt](.openai/deployment.json) and
+insertion. See the
 [publication checks](.openai/publication-20261125-redeploy-local-3-4-0.json).
 
 ## Prior publication of rename-session title separators
