@@ -2028,12 +2028,12 @@
     },
     "redeploy-local": {
       "classification": "native",
-      "version": "3.4.0",
+      "version": "3.4.1",
       "reviewed_files": {
-        "SKILL.md": "410bf51b476a6a749dc4a444f7731d080d3421c5ff0c991ce15fa54793482d58",
-        "references/detection.md": "b2f8255d4e4da6ac477b503c29d9ba158e68852e8fbbc4e5266aa8fa355b0919",
-        "references/examples.md": "4d448fe60b6f8ba4a9a366143132e3e8ddd92832b491b8b5f702dc799c559901",
-        "references/prebuilt.md": "3d775d1da922b06cb5b2b42cb22e2782d8b910d36b6031579e5603d8aa165c78"
+        "SKILL.md": "080201694d1320382b246ba0f88f7683a9c148a70430c4e049ed32934a0b5c66",
+        "references/detection.md": "bfc2ea9dc18229c13245e5c115dedc41820e01c1a7924ee98dc40310620d32fa",
+        "references/examples.md": "6f09a2d0c8f1c15a14eee6980dbe022f0382e46444a781db607b80c7cd5b24c4",
+        "references/prebuilt.md": "01d846a4809751b08f1efe194a8bd02b0d1235e408fdd9c46255817f3d121795"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/redeploy-local.json": "97e3c62173b27d64b91f84b52ae623b016c38d477dc7bf7412b36e91fedc4c99"
@@ -2044,7 +2044,7 @@
           "path": "experiments/skill-provenance/evidence/redeploy-local.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/redeploy-local-prebuilt.json"
+          "path": "experiments/skill-provenance/confirmations/redeploy-local-3-4-1-20261125.json"
         }
       ],
       "creation": {
@@ -2052,17 +2052,17 @@
         "revision": "1153c1ddf6e996098026889df96afafda5803cd4"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming the version 3.4.0 review packet in the originating chat",
-        "confirmed_at": "2026-11-24",
+        "maintainer": "Repository maintainer confirming the version 3.4.1 review packet in this task",
+        "confirmed_at": "2026-11-25",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that the reviewed version 3.4.0 distribution remains an original AI Cortex Skill and authorized a local index preview.",
+        "rationale": "The maintainer confirmed the reviewed distribution remains an original AI Cortex Skill and authorized a local catalogue preview. External documentation was used only to verify format and tool behavior.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/redeploy-local-prebuilt.json"
+            "path": "experiments/skill-provenance/confirmations/redeploy-local-3-4-1-20261125.json"
           }
         ],
-        "subject_digest": "c97ce44364f411b7a3bced50d5a8bb72aa6f9fa94400c08d494c37b1cc7a3707"
+        "subject_digest": "fe2430fcdc9aaa625a9b35ad90d1917669ad21f59e7efa797da02e8980750d14"
       }
     },
     "refine-skill-design": {

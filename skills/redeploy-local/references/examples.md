@@ -1,153 +1,38 @@
-# redeploy-local: worked examples
+# Local deployment examples
 
-## Examples
+## Source build after an edit
 
-### Example 1: a Node.js app + Docker Compose
+The user wants to run a working-tree change in the local API. The project also documents an optional CI image route. The working-tree request selects source. The project uses pnpm to build `dist/`, and the API Dockerfile copies it. The existing local Compose project names the API and its required database. Bind the local engine and Compose inputs. Confirm the project-supported command can update only the API while its existing database satisfies the dependency requirements.
 
-**Directory contents**: `package.json`, `pnpm-lock.yaml`, `Dockerfile`, `docker-compose.yml`, `README.md`
+Show a plan with the evidence for `pnpm run build`, the observed `dist/` output, the scoped Compose command, and the checks for the resulting container image, code mounts, and API readiness. Record the build and deployment separately because they produce different outputs. If the image build fails, the selected services must remain untouched. Report a verification failure if a stale host mount overrides the built code.
 
-**Inference**:
+## One combined source build and deployment
 
-- Read `package.json` `scripts`: found `build`, `build:prod`, `test`, `lint`
-- Read `Dockerfile`: `COPY dist/ /app/` — the image expects `dist/` to exist
-- Read `package.json` `scripts.build`: `tsc && vite build --outDir dist` — produces `dist/`, which matches
-- `scripts.build:prod` is `NODE_ENV=production npm run build` — also usable, but `build` is the default the README refers to
-- Detect the package manager: `pnpm-lock.yaml` → pnpm
+The repository defines `services.api.build` and has no separate host build. The project-supported `docker compose up -d --build api` performs the build before service changes. Use it with the same local engine and Compose arguments verified during planning. Record a single command and identify the resulting image. Confirm the selected container uses that image and passes its readiness check. Cache `build.mode: combined` after verification when detection was required.
 
-**Inference report shown to the user**:
+## Package and binary deployments with a process manager
 
-```text
-Detected build:
-  Source: package.json scripts.build (tsc && vite build --outDir dist)
-  Cross-ref: Dockerfile copies dist/, matches output path
-  Command: pnpm run build
+A Makefile builds the Go executable referenced by the live local systemd unit. Read the target body and the unit's effective settings, including drop-ins and its system or user scope. Check that the build produces the exact executable the unit consumes. Restart the identified unit through the project's entry point, then verify that the active process uses the expected executable and that the agreed readiness check passes.
 
-Detected deploy:
-  Source: docker-compose.yml (3 services: api, worker, db)
-  Command: docker compose up -d --build
-```
+For a release package, use the project's supported install or version switch, verify the package checksum and installed executable association, then restart the exact unit. If the unit still points to an earlier version after installation, stop before declaring a verified deployment. A root-owned unit file alone does not determine the credentials needed for the restart.
 
-**With unambiguous project evidence**, the run report:
+## Existing image from a CI build
 
-```text
-Step     Command                         Exit  Duration
-───────  ──────────────────────────────  ────  ────────
-Build    pnpm run build                    0   18.2s
-Deploy   docker compose up -d --build      0    6.3s
-Health   docker compose ps                 0    0.2s
-```
+The user selects a build record with an API image digest and a migration job using the same image. The local project defines both services and requires the migration to complete before the API is ready. Bind the local engine, project, configuration and expected service instances. Pin both services to the recorded digest through the project's image parameter or an image-only override. Check the effective image references and mount targets, pull the selected image, and use the project-supported scoped, build-free invocation. Preserve the migration gate.
 
-### Example 2: a Go service + a Makefile wrapper
+Verify the migration run for this deployment and the API container's image ID for the intended platform. If the migration has completed and every API replica is running but the readiness check fails, report **Failed**. Include the current image ID and migration outcome. Do not repeat the migration while diagnosing the readiness failure. An unavailable readiness check with no observed failure leaves **Verification incomplete**.
 
-**Directory contents**: `go.mod`, `Makefile`, `deploy/myapp.service`, `.github/workflows/ci.yml`
+## A failed build leaves the deployment untouched
 
-**Inference**:
+The build command exits with code 1. Stream its output and preserve that code even if the tool records elapsed time separately. Report **Failed**, include useful redacted error output, and record the deployment as skipped. If the deployment command itself fails after updating part of the stack, inspect the bound target read-only and report each observed change and any unknown outcome.
 
-- Read the `Makefile` targets: `build`, `test`, `lint`, `release`, `install`
-- Read the body of the `build` target in the `Makefile`: `go build -ldflags "-X main.Version=$(VERSION)" -o bin/myapp ./cmd/myapp` — project-specific ldflags and output path; `go build ./...` is not taken as the default
-- Cross-reference `.github/workflows/ci.yml`: the build step runs `make build` — confirmed as authoritative
-- Read `deploy/myapp.service`: file name → unit `myapp`; the file owner (`root`) against the current uid → `sudo systemctl restart myapp` may be needed
+| Step | Command | Exit | Duration |
+| --- | --- | --- | --- |
+| Build | `pnpm run build` | 1 | 4.2 s |
+| Deploy | Skipped after build failure | — | — |
 
-**Inference report**:
+## Cache reuse and overrides
 
-```text
-Detected build:
-  Source: Makefile target `build` (line 8)
-  Cross-ref: .github/workflows/ci.yml uses `make build`
-  Command: make build
+The project defines `deploy_command` in `.ai-cortex/config.yaml`; legacy `.cortex.yaml` supplies `build_command`. Use both fields because they apply to the requested local path and neither canonical field overrides the legacy build value. Neither needs caching.
 
-Detected deploy:
-  Source: deploy/myapp.service (unit name from filename)
-  Note: unit file owned by root → sudo required
-  Command: sudo systemctl restart myapp
-```
-
-### Example 3: a Compose-only project (the build step is skipped)
-
-**Directory contents**: `docker-compose.yml`, `Dockerfile` (no Makefile, package.json, or language manifest in the root)
-
-**Inference**:
-
-- No build orchestration found outside the Docker context
-- `Dockerfile` performs the build during `docker compose up --build`
-- Therefore: skip the standalone build; the deploy command subsumes it
-
-**Run report**:
-
-```text
-Step     Command                         Exit  Duration
-───────  ──────────────────────────────  ────  ────────
-Build    (skipped — subsumed by deploy)   —      —
-Deploy   docker compose up -d --build      0    9.1s
-Health   docker compose ps                 0    0.2s
-```
-
-### Example 4: a config override through .cortex.yaml
-
-**`.cortex.yaml`**:
-
-```yaml
-build_command: make release GOARCH=arm64
-deploy_command: supervisorctl restart api-worker
-```
-
-**Detection**: both commands are read from `.cortex.yaml` — no heuristics or extra confirmation prompt needed.
-
-**Run report**:
-
-```text
-Step     Command                          Exit  Duration
-───────  ───────────────────────────────  ────  ────────
-Build    make release GOARCH=arm64          0   22.7s
-Deploy   supervisorctl restart api-worker   0    0.8s
-Health   supervisorctl status api-worker    0    0.1s
-```
-
-### Example 5: build failure (edge case)
-
-**Scenario**: `pnpm run build` exits with code 1
-
-```text
-[build] FAILED — exit 1 after 4.2s
-
-Last 20 lines of output:
-  ...
-  Error: cannot find module 'express'
-
-Deployment step skipped.
-Suggested fix: run `pnpm install` to restore dependencies, then retry.
-```
-
-### Example 6: a cache hit on a previously deployed project
-
-**Directory contents**: the same as example 1 (`package.json`, `pnpm-lock.yaml`, `Dockerfile`, `docker-compose.yml`, `README.md`), plus the `.cortex/redeploy-local.yaml` written after an earlier successful run.
-
-**Detection**:
-
-- Step 0: no `.cortex.yaml` override
-- Step 0.5: read `.cortex/redeploy-local.yaml`; validation passes (same skill version, same `project_path`, 2 days old, all 4 `signal_files` mtimes unchanged)
-- Skip steps 1–3 (the full scan); go straight to step 4 with the cache annotation
-
-**Inference report shown to the user**:
-
-```text
-Detected build:
-  Source: .cortex/redeploy-local.yaml (cached 2026-05-20; 4 signal files unchanged)
-  Command: pnpm run build
-
-Detected deploy:
-  Source: .cortex/redeploy-local.yaml (cached 2026-05-20; 4 signal files unchanged)
-  Command: docker compose up -d --build
-```
-
-**With the validated cache**, the run report (the same commands as example 1, without the scan overhead):
-
-```text
-Step     Command                         Exit  Duration
-───────  ──────────────────────────────  ────  ────────
-Build    pnpm run build                    0   17.8s
-Deploy   docker compose up -d --build      0    6.1s
-Health   docker compose ps                 0    0.2s
-```
-
-The cache file is rewritten on success with a refreshed `written_at` and the current signal file mtimes.
+When one field is inferred, store that finding and its evidence after a verified deployment. On the next run, reuse it only while the scan is current, the candidate file list and recorded mtimes match, and the current override still agrees with what the inferred command produces or consumes. Adding a project build wrapper triggers fresh inference even if the previous files have unchanged mtimes.

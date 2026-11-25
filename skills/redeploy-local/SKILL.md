@@ -1,241 +1,59 @@
 ---
 name: redeploy-local
 description: Update and verify a local deployment using a source build or an existing artifact, such as a CI image, release package, or versioned binary. Use for Docker Compose, systemd, or process-manager deployments that need to run the requested code or artifact locally.
-version: 3.4.0
 license: MIT
+metadata:
+  version: "3.4.1"
 ---
 
-# Skill: Redeploy Local
+# Redeploy locally
 
-## Purpose
+Update one authorized local deployment and verify that the intended source build or artifact is running and ready. The target directory defaults to the current working directory. Confirm it exists and resolve its path before inspecting project files.
 
-Update the project's local deployment from the requested source build or existing artifact. It applies to projects deployed locally through Docker Compose, a systemd unit, or a process manager (pm2, supervisorctl). Hot-reload development servers are out of scope.
+This skill covers Docker Compose, systemd, pm2, and supervisord. Hot-reload development servers, remote deployment, publishing, credential changes, and standalone database migrations are outside its scope. Preserve startup and migration gates already part of the authorized local workflow.
 
----
+## Select the input
 
-## Core Objective
+- Use the input requested by the user. Requests to run current working-tree changes, including a redeploy after editing code in the current task to exercise those changes, select the source path. A requested image, package, or producer build selects the existing-artifact path. Ask when the request contains incompatible inputs.
+- For an otherwise unspecified redeploy, use an existing artifact only when the project explicitly defines that as the default input for the selected local entry point. A CI publication workflow or an optional image path alone is insufficient. Otherwise deploy from source.
+- Keep the chosen input when resolving configuration or recovering from a failure. If a supported local path cannot consume it, report the gap before making changes.
 
-**Primary goal**: update one local deployment and verify that it runs the requested build or artifact.
+## Bind the target and verify the plan
 
-**Success criteria** (all must be met):
+Use the selected input procedure below to resolve the commands and verification evidence. Complete these checks before running a build, pulling images, installing packages, or changing a service:
 
-1. ✅ **Directory confirmed**: the target directory is verified to exist before any command runs
-2. ✅ **Input selected.** Identify a project-backed build command or a specific existing artifact.
-3. ✅ **Input verified.** Confirm the build output or retrieve the existing artifact and verify its identity.
-4. ✅ **Deployment method determined or configured**: the deployment target is identified (Compose / systemd / pm2 / supervisord)
-5. ✅ **Deployment restarted**: the service/container has restarted and is reachable (a health check or status check passes)
-6. ✅ **Run report emitted**: a command → exit code → duration table for every step executed
+1. Use the project's declared local entry point when possible. Inspect the effective command, the local runtime it reaches, the named project and affected services or units, and any dependency starts, one-shot jobs, migrations or other side effects. Check the actual destinations of migrations and other writes. Ask when the intended target or a material side effect remains ambiguous. Execute only effects authorized for this run. Stop before commands that reach a remote deployment target.
+2. For Compose, use the [Compose procedure](references/prebuilt.md#docker-compose) to bind the engine and effective configuration on both input paths. For systemd, pm2, or supervisord, confirm the live local manager, its scope or instance, and the exact unit or process configuration. Inspect the entry point, executable or working directory that determines what will run. Derive any elevation requirement from the actual manager and its authorization rules. Obtain explicit authorization for elevation or destructive operations outside the request.
+3. Identify the expected running build or artifact, the project-defined readiness check or status criterion, and the expected terminal state of any required one-shot job. Establish how to verify each item and disclose any missing check in the plan. Record the current container, process, or job identities where they help distinguish a new run or reconcile a failure. Show the selected input, target, commands, and evidence before the first mutation. An unambiguous, authorized redeploy can proceed without a second confirmation.
 
-**Acceptance test**: after the skill finishes, the locally deployed service runs the requested build or artifact and the status check reports healthy/running.
+## Deploy from source
 
----
+1. Read the [detection and cache procedure](references/detection.md). Resolve build and deploy commands from project configuration, valid cached inference where applicable, or project evidence. An explicit configuration field overrides a cached field. Find the output path or image consumed by the resolved runtime.
+2. Execute the build from the project directory. Confirm that this run produced or resolved the expected output and record its identity before deploying. A successful compile-only command, or an unchanged output of unknown origin, is insufficient evidence. The build may be subsumed by a project-backed command, such as Compose with a verified `build:` definition, when that command stops before changing the service if its build fails. Record the resulting identity and verify it after the combined command.
+3. Execute the scoped deployment command using that output. Apply the shared verification below. Write or refresh source discovery cache entries only after verification passes.
 
-## Scope Boundaries
+## Deploy an existing artifact
 
-**This skill covers**:
+Follow the [existing-artifact procedure](references/prebuilt.md#deploy-an-existing-artifact) to resolve, retrieve, and deploy the exact input through a build-free path. Skip source-build commands and the source inference cache. Apply the same verification and failure handling.
 
-- Detecting the build system from project files (package.json, Makefile, go.mod, Cargo.toml, pom.xml, build.gradle, *.csproj, pyproject.toml)
-- Detecting the local deployment method from project files (docker-compose.yml / compose.yaml, a systemd unit, a pm2 ecosystem file, supervisord.conf)
-- Reading project-level config overrides (`.cortex.yaml` `build_command` / `deploy_command`)
-- Persisting a successful inference to `.cortex/redeploy-local.yaml` for reuse on the next run
-- Running build + restart in sequence
-- Deploying a verified existing artifact without rebuilding it
-- Reporting the result
+## Run commands and verify results
 
-**This skill does not cover**:
+- Stream build and deployment output when the execution tool supports it. Use each command's actual exit status and elapsed time from the execution tool. If timing in a shell, preserve the command's own status before any logging or cleanup. A status from an enclosing logger or a pipeline's last process is insufficient.
+- After a successful deployment command, verify the expected service or instance actually exists in the bound runtime. Compare what it is running with the intended output. For a host executable, inspect the active process and the executable or application-reported build identity. A file present on disk or a matching version label alone is insufficient when it could refer to another build or to a process still running old code.
+- Apply the project's readiness or health check with a finite deadline. When the project explicitly defines a runtime state as its readiness criterion, verify that exact state for the intended service. Otherwise report process liveness separately. For Compose, check the named services and their expected replicas, health, and required job outcomes. For systemd use the exact unit and expected active state, for pm2 inspect structured process status for the exact app, and for supervisord check the exact program and expected state.
+- Record run states as **Verified**, **Failed**, or **Verification incomplete**. Declare **Verified** only after identity, readiness, and required job outcomes match. A failed command or a demonstrated mismatch is **Failed**. Missing evidence, an unavailable check, or an unresolved timeout leaves verification incomplete or the deployment outcome unknown. Record observed failures even if another check is unavailable.
 
-- Hot-reload development servers (npm run dev, vite, next dev) — these are not a "local deployment environment"
-- Remote deployment (SSH, cloud, Kubernetes) — use a deployment skill aimed at remote infrastructure
-- Planning or executing standalone database migrations. Retain migration gates already part of the project's local deployment workflow.
-- Secret injection — environment variables / secrets must already be available in the deployment
+## Stop and report
 
-**Handoff point**: the skill is done when the run report shows exit code 0 for every step. If any step fails, the skill reports the failure and stops — it does not retry or repair build errors on its own.
+On failure or an uncertain write outcome, stop further mutations. Read-only inspection of the bound target may establish which services were changed, their current identity and readiness, and whether a migration started or completed. Preserve the selected input and evidence. Follow a project-owned recovery path only when its prerequisites and scope are established. Do not retry an uncertain migration or roll back by inference.
 
----
+Report the target, intended and observed running identities, readiness and job results, and the run state. Include the actual commands, exit codes and durations, and identify steps skipped or left unverified. Provide useful failure output with secrets and credential-bearing configuration redacted. A cache write error is a warning and does not change a verified deployment result.
 
-## Use Cases
+See [worked examples](references/examples.md) for source, existing image, failure, and cache cases.
 
-- **Rebuild after an edit**: the agent has finished changing code; the user wants the local service to reflect the change without running build + restart commands by hand
-- **Test a CI artifact locally** by running the same image or package that the existing build produced.
-- **Multi-stack project**: the project mixes a compiled language (Go, Rust) with a Docker Compose deployment; the skill detects both
-- **Scripted override**: `.cortex.yaml` gives CI-like reproducibility — the same commands on every run, with no detection drift
-- **Shared team environment**: team members have different local setups; the skill adapts to the signals it detects instead of demanding one common toolchain
+## Self-check
 
----
-
-## Detection Approach
-
-Prefer explicit `.cortex.yaml` commands, then a valid project cache. When either command is missing, read the [detection procedure](references/detection.md): inspect project files, choose a command supported by the project, and stop for a choice if evidence conflicts. Never invent a build or deployment target.
-
----
-
-## Behavior
-
-### Workflow (Checklist)
-
-1. **Confirm the target directory**
-   - Default: CWD
-   - If the user gave a path: verify it exists (`test -d <path>`)
-   - Abort with a clear error when the directory does not exist
-
-#### Choose the deployment input
-
-Check the user request and the project's declared local deployment workflow before reading the source-build cache.
-
-- Honor an explicit request to use an existing artifact or to build from source.
-- When the request leaves the input open, use a project-declared artifact workflow for this local target if one applies. Otherwise use the source-build steps below. A remote deployment workflow alone does not select an artifact for the local target.
-- For an existing artifact, follow [Deploy an existing artifact](references/prebuilt.md) and bypass source-build detection, commands, and cache.
-- If the requested input and documented local workflow conflict, look for a supported local path that consumes the requested input. Ask only if a remaining choice affects what will run. Preserve the selected input if deployment or verification fails.
-
-#### Deploy from source
-
-1. **Read the config override** (if `.cortex.yaml` exists)
-   - Parse `build_command` and/or `deploy_command`
-   - Record which fields were overridden; skip heuristic detection for those fields
-
-2. **Check the inference cache** (Detection Approach step 0.5)
-   - If it exists, read `.cortex/redeploy-local.yaml`
-   - Validate it with the 6-step pseudo-logic
-   - Cache hit: skip steps 3–4 and go to step 5 with the report annotated `(from cache, scanned YYYY-MM-DD; <N> signal files unchanged)`
-   - Cache miss / malformed / expired: continue with step 3 (do not delete the file)
-   - Fields overridden by `.cortex.yaml` (step 1) are excluded from cache reuse; the cache serves only the remaining fields, if its validation still passes
-
-3. **Infer the build command** (when it is neither overridden nor cached)
-   - Carry out Detection Approach steps 1–2: enumerate the signals, read the files, cross-reference
-   - Record the evidence source and the chosen command
-   - For a Compose-only project (no other build orchestration): mark "build skipped — subsumed by deploy"
-   - No evidence: stop and ask the user for `build_command`, or have them fill in `.cortex.yaml`
-   - Conflicting evidence: show the options to the user, do not choose silently
-
-4. **Infer the deploy command** (when it is neither overridden nor cached)
-   - Carry out Detection Approach step 3: read the deployment config files, prefer a Makefile wrapper
-   - Record the source and the chosen command, including the extracted service/unit name
-   - No evidence: stop and ask the user
-
-5. **Resolve and show the inference**
-   - Show the structured inference report (per Detection Approach step 4); annotate it when the cache was used
-   - Ask only for missing choices when the evidence supports more than one command or deployment target
-   - When the user's request already authorizes this local redeploy, continue without a second confirmation
-
-6. **Run the build** (unless it was skipped)
-   - Run the build command from the target directory
-   - Stream the output live, without silent buffering
-   - Time it with `{ start=$(date +%s); <cmd>; echo $(($(date +%s)-start))s; }`
-   - On exit code ≠ 0: show the last 20 lines, report the failure, and stop — do not run the deployment
-
-7. **Run the deployment restart**
-   - Run the restart command
-   - Time it the same way
-   - On exit code ≠ 0: show the last 20 lines, report the partial state, and stop
-
-8. **Health check**
-   - Docker Compose: `docker compose ps` — confirm that every container shows `Up`
-   - systemd: `systemctl is-active <unit>`
-   - pm2: `pm2 list | grep <name>`
-   - supervisord: `supervisorctl status <program>`
-   - Record the result; if the health-check command is unavailable, warn, but do not mark the skill run as failed
-
-9. **Emit the run report**
-
-    ```text
-    Step     Command                         Exit  Duration
-    ───────  ──────────────────────────────  ────  ────────
-    Build    pnpm run build                    0   18.2s
-    Deploy   docker compose up -d --build      0    6.3s
-    Health   docker compose ps                 0    0.2s
-    ```
-
-10. **Write the cache on success**
-    - Write only when the build exited 0 (or was skipped as subsumed), the deployment exited 0, and the health check passed
-    - If both commands came from `.cortex.yaml`, skip the write (the cache adds nothing)
-    - On partial success (deployment 0 but unhealthy), skip the write — do not cache a configuration known to be broken
-    - If `.cortex/` does not exist, create it (mode 0755), then write `.cortex/redeploy-local.yaml` with the header `# Auto-generated by redeploy-local skill; do not edit by hand`
-    - Record the current `skill_version`, the resolved absolute `project_path`, an ISO 8601 UTC `written_at`, the chosen commands with their evidence, and every signal file read during inference together with its current mtime
-    - On a write failure (permission denied, disk full, concurrent write): log `cache write skipped: <reason>` and continue — the deployment already succeeded, and the cache is only an optimization layer
-
-### Interaction policy
-
-- Ask only when detection is ambiguous or has failed
-- Do not ask when `.cortex.yaml` supplies both commands
-- If several choices remain, present them together in one question
-
----
-
-## Input & Output
-
-### Input requirements
-
-- The target directory (an explicit path, or CWD)
-- Optional: a `.cortex.yaml` carrying `build_command` and/or `deploy_command`
-- For an existing artifact: a local package, image reference, version, or build reference resolvable to the intended artifact through project evidence
-
-### Output contract
-
-Provide:
-
-- An inference report listing every chosen command and its evidence source (file + section/line + cross-reference)
-- The build output streamed live, or the "skipped" note for a Compose-only project
-- The deployment output streamed live
-- The health-check result
-- The run report table (command / exit code / duration per step)
-- After a fully successful source-build run, the inference cache written to `.cortex/redeploy-local.yaml` when applicable
-- For an existing artifact, its immutable identity, the local deployment target, and the observed running identity and health
-
----
-
-## Restrictions
-
-### Hard Boundaries
-
-- **Never** run `rm -rf` or a destructive cleanup command without explicit user configuration
-- **Never** assume a systemd, pm2, or supervisord service name — extract it from the config file, or ask
-- **Never** continue after a step fails — report and stop
-- **Never** restart a deployment before validating its input. Source deployments require a successful build, either separately or within the deployment command. Existing-artifact deployments require the exact artifact and a deployment command that cannot rebuild it.
-- **Never** edit the target deployment's environment or secrets. Pass the selected artifact through a documented artifact parameter or a temporary deployment override.
-- **Never** add `sudo` without supporting evidence, such as a systemd unit file owned by root while the current uid differs; ask the user to confirm the elevation before running
-
-### Failure modes
-
-| Failure | Behavior |
-| --- | --- |
-| Directory not found | Abort immediately; show the exact path that was checked |
-| No build evidence | Stop before the build; ask the user for `build_command`, or have them fill in `.cortex.yaml` |
-| No deploy evidence | Stop before the deployment; ask the user for `deploy_command`, or have them fill in `.cortex.yaml` |
-| Conflicting evidence, such as a Makefile that disagrees with CI | Stop; show both options and their sources to the user; let the user choose |
-| Name/unit extraction failed | Stop; ask the user to supply the name explicitly |
-| Build exit code ≠ 0 | Show the last 20 lines; stop; do not run the deployment |
-| Deployment exit code ≠ 0 | Show the last 20 lines; stop; report the partial state |
-| Health check failed | Warn; do not mark the skill run as failed; do not write the cache |
-| Cache file malformed, or missing a required key | Treat as a cache miss; fall back to a full scan; do not delete it; overwrite it after a successful run |
-| A recorded signal file was deleted, or its mtime changed | Cache miss; rescan |
-| Cached `skill_version` differs from the current one | Cache miss; rescan |
-| Cache write failed (permissions / disk full) | Log a warning; do not mark the skill run as failed — the deployment already succeeded |
-
----
-
-## Self-Check
-
-### Core success criteria
-
-- [ ] **Directory confirmed**: the target directory was verified to exist before any command ran
-- [ ] **Detection traceable**: every inferred command is attributed to concrete evidence (file + line/section, ideally with a cross-reference) — not invented
-- [ ] **Input preserved**: a combined source deployment builds once. An existing-artifact deployment skips building and verifies the running artifact identity.
-- [ ] **Commands grounded**: build and deployment commands were traced to project evidence or an explicit override; remaining ambiguity was resolved before execution
-- [ ] **Build succeeded**: exit code 0 was confirmed before the deployment ran, or the build step was legitimately skipped
-- [ ] **Deployment succeeded**: exit code 0 was confirmed before the health check
-- [ ] **Health check run**: the status was checked and recorded (warn when unavailable; do not fail)
-- [ ] **Run report emitted**: the table covers command / exit code / duration for every step
-- [ ] **Cache honored or refreshed**: source builds read `.cortex/redeploy-local.yaml` before inference and write it only after successful build, deployment, and health checks when applicable. Existing-artifact deployments bypass it.
-
-### Process quality checks
-
-- [ ] **No silent buffering**: build and deployment output stream live rather than being buffered
-- [ ] **Durations recorded**: wall-clock time was measured for every step
-- [ ] **Names/units come from the source**: pm2/supervisord/systemd names are extracted from the config file, not hard-coded
-- [ ] **Interaction kept minimal**: a clear, authorized local redeploy proceeds without a redundant confirmation
-
----
-
-## Examples
-
-Consult [worked examples](references/examples.md) when detection or recovery is ambiguous.
+- The local runtime, affected services, and authorized side effects were bound before changes.
+- All commands ran with the intended input, and their actual exit statuses were retained.
+- The outcome reflects the observed runtime identity, readiness, and required job results.
+- The report identifies partial or uncertain effects. Source inference is cached only when applicable and after verification passes.
