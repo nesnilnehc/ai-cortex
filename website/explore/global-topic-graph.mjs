@@ -1,7 +1,7 @@
-import sourceEdges from './topic-edges.json?v=video-production-skills-20261125' with {type:'json'};
-import {dictionary} from './locale.mjs?v=video-production-skills-20261125';
+import sourceEdges from './topic-edges.json?v=manage-secret-1-2-0-20261126' with {type:'json'};
+import {dictionary} from './locale.mjs?v=manage-secret-1-2-0-20261126';
 const edges=sourceEdges.map(edge=>({...edge,...dictionary.topicEdges[edge.id]}));
-import {getTopicMap} from './topic-map.mjs?v=video-production-skills-20261125';
+import {getTopicMap} from './topic-map.mjs?v=manage-secret-1-2-0-20261126';
 const nodes=[
  {id:'direction',row:1,column:1,hint:''},
  {id:'planning',row:1,column:2,hint:''},
