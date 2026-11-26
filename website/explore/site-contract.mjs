@@ -1,4 +1,4 @@
-import {getSiteDestination} from '../site-navigation.mjs?v=manage-secret-1-2-0-20261126';
+import {getSiteDestination} from '../site-navigation.mjs?v=manage-secret-1-2-1-20261126';
 export const explorerLanguageRoutes=Object.freeze(Object.fromEntries(['en','zh'].map(locale=>[locale,getSiteDestination('overview',locale).href.split('?')[0]])));
 export function getExplorerRoutes(locale){
  const home=getSiteDestination('home',locale).href,other=locale==='en'?'zh':'en';
