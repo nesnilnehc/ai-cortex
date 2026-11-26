@@ -2,15 +2,25 @@
 
 ## Current publication
 
-Sites version 39 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+Sites version 40 is live at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
+The English and Chinese catalogues link to `manage-secret` 1.2.1, whose
+bundled JavaScript for Automation helper lists websites and usernames and
+copies a selected password on explicit request on macOS.
+All 78 website tests passed. HTTPS checks verified 49 runtime files and six
+pinned GitHub files. Four HTML pages carried the hosting provider's expected
+script insertion. See the [deployment receipt](.openai/deployment.json) and
+[publication checks](.openai/publication-20261126-manage-secret-1-2-1.json).
+
+## Prior publication of website account listing and video production skills
+
+Sites version 39 was published at [AI Cortex](https://ai-cortex.nesnilnehc.top/).
 The English and Chinese catalogues link to `manage-secret` 1.2.0,
 `produce-video-from-presentation` 1.0.0, and `produce-video-from-script` 0.1.0.
 The video skills accept a finished presentation or an approved narration script,
 respectively, and supersede the old presentation video entry in the catalogue.
 All 78 website tests passed. HTTPS checks verified 49 runtime files and 15
 pinned GitHub files. Four HTML pages carried the hosting provider's expected
-script insertion. See the [deployment receipt](.openai/deployment.json) and
-[publication checks](.openai/publication-20261126-manage-secret-video.json).
+script insertion. See the [publication checks](.openai/publication-20261126-manage-secret-video.json).
 
 ## Prior publication of local deployment boundaries
 

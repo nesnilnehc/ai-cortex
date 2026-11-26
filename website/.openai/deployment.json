@@ -1,16 +1,16 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_36ce1e09594c8191b4a2185574194556",
-  "version_number": 39,
-  "deployment_id": "appgdep_6b078e788c048191a4defcf884a12f48",
-  "source_commit": "c96b2c1480d31f287bd6503ae8e292f0301b92fd",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_495e625c7378819184c2ecc508febbb9",
+  "version_number": 40,
+  "deployment_id": "appgdep_6b0799b4846c81918a66891d095497d4",
+  "source_commit": "8212cf0b9320094952cddd066d93ffd884a6c36e",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.nesnilnehc.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-11-26T01:42:33.286947+00:00",
+  "updated_at": "2026-11-26T02:30:33.975641+00:00",
   "published_files": 49,
   "dns_records": [
     {
@@ -44,21 +44,21 @@
     "personal site project entry"
   ],
   "known_good_version": {
-    "version_number": 38,
-    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_cba2a289fd7c8191be4821b5d84c1743",
-    "deployment_id": "appgdep_6b064c3ef3948191b6790677c5f1e450",
-    "source_commit": "6203cb69af0fdc5f20cef7ce4eb3af237c6b38fc"
+    "version_number": 39,
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_36ce1e09594c8191b4a2185574194556",
+    "deployment_id": "appgdep_6b078e788c048191a4defcf884a12f48",
+    "source_commit": "c96b2c1480d31f287bd6503ae8e292f0301b92fd"
   },
   "public_verification": {
     "status": "verified",
     "checked_files": 49,
     "byte_identical_files": 45,
     "html_provider_insertions": 4,
-    "pinned_skills_and_evidence_files": 15
+    "pinned_skills_and_evidence_files": 6
   },
-  "repository_source_revision": "92c13a97989fa1580892119812b068a19d933631",
-  "assets_revision": "263262bc42a09990685573e235ebbabd267ab12b",
-  "cache_key": "manage-secret-1-2-0-20261126",
-  "archive_sha256": "9ebe3b17645223ddbcce9bd21d545c8cb67e3c0fd1050abc5d91c3ff6b9fd107",
-  "hosted_archive_content_hash": "sha256:7566032221ff1cf840d451be3622839df962d3d7e7f55ec81e8e8fe0956e8117"
+  "repository_source_revision": "936cec0f4dd50b550e7f60f9f4952e78f6bc5f30",
+  "assets_revision": "ca55561d4001e26df2bb69f9df55bcf4e27a08ef",
+  "cache_key": "manage-secret-1-2-1-20261126",
+  "archive_sha256": "2b50eb029e943623e0afc9066311c05057ca9dca42489706525927ae589e21bc",
+  "hosted_archive_content_hash": "sha256:d1b393d800130a12c1215f4e4dd7499fe19cf14a24b929f0860e12e8bc1cf43c"
 }
