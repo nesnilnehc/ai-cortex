@@ -1232,15 +1232,15 @@
     },
     "manage-secret": {
       "classification": "native",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "reviewed_files": {
-        "SKILL.md": "246b3be42765812dd60ef0c45147ee815c1e5e444d1ad24611227e79eb69935e",
-        "scripts/copy-keychain-password.swift": "b9a77289c70421ba9eec39517547449f16660f824663e542a900a510b52e15f0",
-        "scripts/list-keychain-web-entries.swift": "c344f518dafc6af80c39e888073253c449f4eb537b5f7ba3452f54443804fe6b"
+        "SKILL.md": "7c7043617d0532baac09c75fc25eae0f83f8aa5a44e189835969080a468f443d",
+        "scripts/manage-keychain.js": "1be36341e1ac396c4fc4229f6ca6e7eb45a0420dc2879bd0cff521e5bd198f03"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/manage-secret.json": "84e08f6adb5a03d23dd748d9c20b44ea30186dedd020e4bff1831200da511f68",
-        "experiments/skill-provenance/evidence/manage-secret-1-2-0.json": "1c4121f6989097b3f03b07ed19bbe305cc842e4ab2ef7f2a1d623284ba75a4a6"
+        "experiments/skill-provenance/evidence/manage-secret-1-2-0.json": "1c4121f6989097b3f03b07ed19bbe305cc842e4ab2ef7f2a1d623284ba75a4a6",
+        "experiments/skill-provenance/evidence/manage-secret-1-2-1.json": "fb6a54a411e61d40d1297cc9e1b93e3b21b81231d6f9ca40801c7db80e019c07"
       },
       "sources": [
         {
@@ -1262,6 +1262,10 @@
         {
           "id": "reference:manage-secret-keychain-match-item-list",
           "role": "tool_lookup"
+        },
+        {
+          "id": "reference:manage-secret-jxa-bridge",
+          "role": "tool_lookup"
         }
       ],
       "evidence": [
@@ -1272,7 +1276,10 @@
           "path": "experiments/skill-provenance/evidence/manage-secret-1-2-0.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/manage-secret-1-2-0-20261126.json"
+          "path": "experiments/skill-provenance/evidence/manage-secret-1-2-1.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/manage-secret-1-2-1-20261126.json"
         }
       ],
       "creation": {
@@ -1284,13 +1291,13 @@
         "confirmed_at": "2026-11-26",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed the reviewed manage-secret 1.2.0 files as AI Cortex original. Website attribute listing and uniquely matched clipboard copying were implemented for this repository; Apple documentation was consulted to verify operating system APIs and command behavior.",
+        "rationale": "The maintainer confirmed manage-secret 1.2.1 as AI Cortex original. This release ports the previously reviewed local Keychain and clipboard operations to macOS JavaScript for Automation. Apple documentation was consulted for the platform APIs.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/manage-secret-1-2-0-20261126.json"
+            "path": "experiments/skill-provenance/confirmations/manage-secret-1-2-1-20261126.json"
           }
         ],
-        "subject_digest": "5584ffa7963bcea77475e9c0f7cf7b6d1d481b642a12a57113c25bca7883f3c6"
+        "subject_digest": "29ff5780b2e52bcbb0b7f7f9da6f1f7cc13fa03422b05e64a70965ec16868dd1"
       }
     },
     "map-item-dependencies": {

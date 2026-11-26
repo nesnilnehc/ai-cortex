@@ -290,3 +290,10 @@ references:
     kind: tool_documentation
     evidence:
       path: experiments/skill-provenance/evidence/manage-secret-1-2-0.json
+  manage-secret-jxa-bridge:
+    url: https://developer.apple.com/library/archive/documentation/LanguagesUtilities/Conceptual/MacAutomationScriptingGuide/HowMacScriptingWorks.html
+    title: Apple JavaScript for Automation Objective-C bridge
+    accessed_at: "2026-11-26"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/manage-secret-1-2-1.json
