@@ -1232,20 +1232,47 @@
     },
     "manage-secret": {
       "classification": "native",
-      "version": "1.1.3",
+      "version": "1.2.0",
       "reviewed_files": {
-        "SKILL.md": "419c3a63f40ee428d43a1c9171581ec3ea5ac4101b109238a3ce457820a6c02a"
+        "SKILL.md": "246b3be42765812dd60ef0c45147ee815c1e5e444d1ad24611227e79eb69935e",
+        "scripts/copy-keychain-password.swift": "b9a77289c70421ba9eec39517547449f16660f824663e542a900a510b52e15f0",
+        "scripts/list-keychain-web-entries.swift": "c344f518dafc6af80c39e888073253c449f4eb537b5f7ba3452f54443804fe6b"
       },
       "reviewed_evidence": {
-        "experiments/skill-provenance/evidence/manage-secret.json": "84e08f6adb5a03d23dd748d9c20b44ea30186dedd020e4bff1831200da511f68"
+        "experiments/skill-provenance/evidence/manage-secret.json": "84e08f6adb5a03d23dd748d9c20b44ea30186dedd020e4bff1831200da511f68",
+        "experiments/skill-provenance/evidence/manage-secret-1-2-0.json": "1c4121f6989097b3f03b07ed19bbe305cc842e4ab2ef7f2a1d623284ba75a4a6"
       },
-      "sources": [],
+      "sources": [
+        {
+          "id": "reference:manage-secret-keychain-items",
+          "role": "tool_lookup"
+        },
+        {
+          "id": "reference:manage-secret-local-pasteboard",
+          "role": "tool_lookup"
+        },
+        {
+          "id": "reference:manage-secret-security-cli-password-output",
+          "role": "tool_lookup"
+        },
+        {
+          "id": "reference:manage-secret-keychain-item-attributes",
+          "role": "tool_lookup"
+        },
+        {
+          "id": "reference:manage-secret-keychain-match-item-list",
+          "role": "tool_lookup"
+        }
+      ],
       "evidence": [
         {
           "path": "experiments/skill-provenance/evidence/manage-secret.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/manage-secret.json"
+          "path": "experiments/skill-provenance/evidence/manage-secret-1-2-0.json"
+        },
+        {
+          "path": "experiments/skill-provenance/confirmations/manage-secret-1-2-0-20261126.json"
         }
       ],
       "creation": {
@@ -1253,17 +1280,17 @@
         "revision": "f2176c2b77736f77a0397ac88b61f0e72f1d29a0"
       },
       "decision": {
-        "maintainer": "Repository maintainer confirming in task 01a181c7-9cfa-7263-bbc8-2852ce982adc",
-        "confirmed_at": "2026-10-28",
+        "maintainer": "nesnilnehc",
+        "confirmed_at": "2026-11-26",
         "action": "confirmed",
         "classification": "native",
-        "rationale": "The maintainer confirmed that this Skill was built in this repository without external creative reference; tool/API/command-use lookup alone is excluded.",
+        "rationale": "The maintainer confirmed the reviewed manage-secret 1.2.0 files as AI Cortex original. Website attribute listing and uniquely matched clipboard copying were implemented for this repository; Apple documentation was consulted to verify operating system APIs and command behavior.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/manage-secret.json"
+            "path": "experiments/skill-provenance/confirmations/manage-secret-1-2-0-20261126.json"
           }
         ],
-        "subject_digest": "004081c0f66f4fb5b3cfe6a72f589a07937554a1c86ff3d06895f21cce8f57fa"
+        "subject_digest": "5584ffa7963bcea77475e9c0f7cf7b6d1d481b642a12a57113c25bca7883f3c6"
       }
     },
     "map-item-dependencies": {

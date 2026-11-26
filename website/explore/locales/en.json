@@ -277,10 +277,10 @@
     },
     "manage-secret": {
       "purpose": "Manage personal credentials in the local Keychain",
-      "when": "A credential on your personal Mac needs storing, lookup, rotation or deletion.",
-      "provide": "Project, environment, credential type, account and operation. Never put real secrets in this page or ordinary examples; use controlled input for storage.",
-      "use": "Use manage-secret to manage the named credential in this Mac's Keychain, checking the entry first and hiding secret values in feedback.",
-      "result": "A local Keychain entry and operation result. Secrets are not echoed; team vaults and cross-machine sync are outside scope.",
+      "when": "You need to manage a credential on your Mac, list saved website services or usernames, or copy a selected password.",
+      "provide": "To list sites, provide the operation. To list usernames, provide one saved site. For a credential operation, identify the service and account and use controlled input for storage.",
+      "use": "Use manage-secret to list saved sites or usernames. To copy a password, identify the site and account and explicitly request a clipboard copy.",
+      "result": "A local Keychain operation result or a list of the requested website services or usernames. A password goes to the local clipboard on explicit request.",
       "name": "manage-secret"
     },
     "map-item-dependencies": {

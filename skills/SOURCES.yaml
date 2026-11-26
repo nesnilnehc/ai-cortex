@@ -255,3 +255,38 @@ references:
     kind: tool_documentation
     evidence:
       path: experiments/skill-provenance/evidence/script-video-feishu-reference.json
+  manage-secret-keychain-items:
+    url: https://developer.apple.com/documentation/security/secitemcopymatching(_:_:)
+    title: Apple Keychain Services item lookup
+    accessed_at: "2026-11-26"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/manage-secret-1-2-0.json
+  manage-secret-local-pasteboard:
+    url: https://developer.apple.com/documentation/appkit/nspasteboard/contentsoptions/currenthostonly
+    title: Apple AppKit current-host pasteboard option
+    accessed_at: "2026-11-26"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/manage-secret-1-2-0.json
+  manage-secret-security-cli-password-output:
+    url: https://github.com/apple-oss-distributions/Security/blob/main/SecurityTool/macOS/keychain_find.c
+    title: Apple security tool password output implementation
+    accessed_at: "2026-11-26"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/manage-secret-1-2-0.json
+  manage-secret-keychain-item-attributes:
+    url: https://developer.apple.com/documentation/security/searching-for-keychain-items
+    title: Apple Keychain Services item attributes and match limits
+    accessed_at: "2026-11-26"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/manage-secret-1-2-0.json
+  manage-secret-keychain-match-item-list:
+    url: https://developer.apple.com/documentation/security/ksecmatchitemlist
+    title: Apple Keychain Services item reference matching
+    accessed_at: "2026-11-26"
+    kind: tool_documentation
+    evidence:
+      path: experiments/skill-provenance/evidence/manage-secret-1-2-0.json

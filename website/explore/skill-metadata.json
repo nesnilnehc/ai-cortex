@@ -266,13 +266,13 @@
     },
     "manage-secret": {
       "id": "manage-secret",
-      "description": "Store, look up, rotate, or delete a personal credential — passwords, API keys, tokens, certificate passphrases — in the macOS Keychain under a project-env-kind naming scheme. Use it even when the user does not say \"Keychain\". Not for team vaults, CI secret injection, or cross-machine sync.",
+      "description": "Manage personal credentials in the macOS Keychain under a project-env-kind naming scheme. Use to store, look up, rotate, delete, or copy a credential, or to list saved website services and usernames. Personal, single-Mac use.",
       "owner": "foundation",
       "sourcePaths": [
         "skills/manage-secret/SKILL.md"
       ],
       "sourceHashes": {
-        "skills/manage-secret/SKILL.md": "419c3a63f40ee428d43a1c9171581ec3ea5ac4101b109238a3ce457820a6c02a"
+        "skills/manage-secret/SKILL.md": "246b3be42765812dd60ef0c45147ee815c1e5e444d1ad24611227e79eb69935e"
       },
       "entry": "public"
     },
