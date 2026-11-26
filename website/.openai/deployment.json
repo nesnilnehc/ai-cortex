@@ -1,16 +1,16 @@
 {
   "project_id": "appgprj_6adad0ee0f4881918acd4d3754f500af",
-  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_cba2a289fd7c8191be4821b5d84c1743",
-  "version_number": 38,
-  "deployment_id": "appgdep_6b064c3ef3948191b6790677c5f1e450",
-  "source_commit": "6203cb69af0fdc5f20cef7ce4eb3af237c6b38fc",
+  "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_36ce1e09594c8191b4a2185574194556",
+  "version_number": 39,
+  "deployment_id": "appgdep_6b078e788c048191a4defcf884a12f48",
+  "source_commit": "c96b2c1480d31f287bd6503ae8e292f0301b92fd",
   "deployment_status": "succeeded",
   "access_mode": "public",
   "origin_url": "https://ai-cortex.nesnilnehc.chatgpt.site",
   "custom_hostname": "ai-cortex.nesnilnehc.top",
   "custom_domain_id": "appgdom_6adad17692148191acdece762d855fe7",
   "domain_status": "active",
-  "updated_at": "2026-11-25T02:47:43.471601+00:00",
+  "updated_at": "2026-11-26T01:42:33.286947+00:00",
   "published_files": 49,
   "dns_records": [
     {
@@ -44,21 +44,21 @@
     "personal site project entry"
   ],
   "known_good_version": {
-    "version_number": 37,
-    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_a60a33e9ac48819189cd46bc4421d19d",
-    "deployment_id": "appgdep_6b06380cf61081919d2f50a6fb5a65b5",
-    "source_commit": "60940248e3a2d7f102acd36921d64c09c663c184"
+    "version_number": 38,
+    "version_id": "appgprj_6adad0ee0f4881918acd4d3754f500af~appgver_cba2a289fd7c8191be4821b5d84c1743",
+    "deployment_id": "appgdep_6b064c3ef3948191b6790677c5f1e450",
+    "source_commit": "6203cb69af0fdc5f20cef7ce4eb3af237c6b38fc"
   },
   "public_verification": {
     "status": "verified",
     "checked_files": 49,
     "byte_identical_files": 45,
     "html_provider_insertions": 4,
-    "pinned_skills_and_evidence_files": 6
+    "pinned_skills_and_evidence_files": 15
   },
-  "repository_source_revision": "41b9781fc9fa013ea07ba81b62619ba726b2b8c1",
-  "assets_revision": "d460cc9eef252a3a977cc9e7c7db753885dc3d6d",
-  "cache_key": "redeploy-local-3-4-1-20261125",
-  "archive_sha256": "a9f4e779d5c7b6376f5d0207f4f868fec15861f3798f3b170b2c51317f66dcd5",
-  "hosted_archive_content_hash": "sha256:076cb2edcc1a56e15baada36b11a2ba4f527f3eacf74a90b5b43ba69f7752a56"
+  "repository_source_revision": "92c13a97989fa1580892119812b068a19d933631",
+  "assets_revision": "263262bc42a09990685573e235ebbabd267ab12b",
+  "cache_key": "manage-secret-1-2-0-20261126",
+  "archive_sha256": "9ebe3b17645223ddbcce9bd21d545c8cb67e3c0fd1050abc5d91c3ff6b9fd107",
+  "hosted_archive_content_hash": "sha256:7566032221ff1cf840d451be3622839df962d3d7e7f55ec81e8e8fe0956e8117"
 }
