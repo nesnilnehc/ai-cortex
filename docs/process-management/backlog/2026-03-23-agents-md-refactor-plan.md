@@ -3,7 +3,7 @@ artifact_type: backlog-item
 created_by: capture-work-items
 lifecycle: snapshot
 created_at: 2026-03-24
-status: active
+status: completed
 ---
 
 # The AGENTS.md refactor plan

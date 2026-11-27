@@ -2190,7 +2190,7 @@
       },
       "reviewed_evidence": {
         "experiments/session-naming/source-review.json": "aefa00d1d6dfa20e390e77e297f8f084f6065d66755908a9cae61d9331c42984",
-        "docs/process-management/backlog/2026-11-10-agent-session-naming.md": "70213044ca8db038103903141ec56b53e2e0e74f82914b11da00f2c71ded83a0"
+        "docs/process-management/backlog/2026-11-10-agent-session-naming.md": "641b02cf76ce1dc504c16b76ec9f26b41b88c788c305ef040230852b39d6b4bb"
       },
       "evidence": [
         {
@@ -2226,7 +2226,7 @@
             "path": "experiments/skill-provenance/confirmations/rename-session-0-1-1-20261124.json"
           }
         ],
-        "subject_digest": "ea7d1e66d71b18326a22003d225dde38e4fe8930ecb05cdb356c23b5e798a69e"
+        "subject_digest": "ce7421fd4427bbc20cee540fccc99448f0ac2ccfba8cd934ae34b3e25e4cc8b7"
       }
     },
     "review-architecture": {

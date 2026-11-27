@@ -4,7 +4,7 @@ created_by: capture-work-items
 lifecycle: living
 type: requirement
 date: 2026-10-27
-status: in-progress
+status: done
 priority: unset
 strategic_goal_id: goal-4
 source: user
