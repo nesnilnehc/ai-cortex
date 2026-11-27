@@ -3305,9 +3305,9 @@
     },
     "upgrade-dependencies": {
       "classification": "third_party_adapted",
-      "version": "0.1.1",
+      "version": "1.0.0",
       "reviewed_files": {
-        "SKILL.md": "7ccec2dd838857af6b7122700beb367634081ea8ef7571a957f8e10eb80e2c31"
+        "SKILL.md": "286eb6c3b1ecf7897c0cd7f5df81211a85851e7176add319e7ce20fb8650ee2c"
       },
       "reviewed_evidence": {
         "experiments/skill-provenance/evidence/upgrade-dependencies.json": "15f40eb44df5575aa7dc97230a8a6daeffa1709d3cddbdb0be8e1df165fc548c"
@@ -3324,21 +3324,21 @@
           "path": "experiments/skill-provenance/evidence/upgrade-dependencies.json"
         },
         {
-          "path": "experiments/skill-provenance/confirmations/upgrade-dependencies-0-1-1-20261118.json"
+          "path": "experiments/skill-provenance/confirmations/upgrade-dependencies-1-0-0-20261127.json"
         }
       ],
       "decision": {
-        "maintainer": "Repository maintainer, explicit confirmation in the dependency upgrade repair chat",
-        "confirmed_at": "2026-11-18",
+        "maintainer": "Repository maintainer, explicit confirmation of upgrade-dependencies 1.0.0",
+        "confirmed_at": "2026-11-27",
         "action": "confirmed",
         "classification": "third_party_adapted",
-        "rationale": "The maintainer confirmed the v0.1.1 subject and unchanged classification. The local revision binds verification to the candidate dependency graph and applies the existing recovery procedure to combined-check failures. No new external source informed the revision.",
+        "rationale": "The maintainer confirmed that upgrade-dependencies 1.0.0 remains third-party adapted. This revision adds a default version difference summary and clarifies exact targets, read-only requests, and blocked verification. The existing creative reference remains applicable.",
         "evidence": [
           {
-            "path": "experiments/skill-provenance/confirmations/upgrade-dependencies-0-1-1-20261118.json"
+            "path": "experiments/skill-provenance/confirmations/upgrade-dependencies-1-0-0-20261127.json"
           }
         ],
-        "subject_digest": "bbc0ab29d5de3cf2b8e0ac089d1b57a4007ab99e48624b792a9819211a6f5c7d"
+        "subject_digest": "f7e1ccc9ad8e6327fe31832cb581f4a476afc8fc62834304a5cf9565b6c04b68"
       }
     }
   }

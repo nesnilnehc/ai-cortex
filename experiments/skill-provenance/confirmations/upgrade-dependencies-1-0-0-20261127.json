@@ -1,0 +1,13 @@
+{
+  "maintainer": "Repository maintainer, explicit confirmation of upgrade-dependencies 1.0.0",
+  "confirmed_at": "2026-11-27",
+  "action": "confirmed",
+  "classification": "third_party_adapted",
+  "rationale": "The maintainer confirmed that upgrade-dependencies 1.0.0 remains third-party adapted. This revision adds a default version difference summary and clarifies exact targets, read-only requests, and blocked verification. The existing creative reference remains applicable.",
+  "evidence": [
+    {
+      "path": "experiments/skill-provenance/confirmations/upgrade-dependencies-1-0-0-20261127.json"
+    }
+  ],
+  "subject_digest": "f7e1ccc9ad8e6327fe31832cb581f4a476afc8fc62834304a5cf9565b6c04b68"
+}
