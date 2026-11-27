@@ -1,7 +1,7 @@
-import sourceEdges from './topic-edges.json?v=manage-secret-1-2-1-20261126' with {type:'json'};
-import {dictionary} from './locale.mjs?v=manage-secret-1-2-1-20261126';
+import sourceEdges from './topic-edges.json?v=upgrade-dependencies-1-0-0-20261127' with {type:'json'};
+import {dictionary} from './locale.mjs?v=upgrade-dependencies-1-0-0-20261127';
 const edges=sourceEdges.map(edge=>({...edge,...dictionary.topicEdges[edge.id]}));
-import {getTopicMap} from './topic-map.mjs?v=manage-secret-1-2-1-20261126';
+import {getTopicMap} from './topic-map.mjs?v=upgrade-dependencies-1-0-0-20261127';
 const nodes=[
  {id:'direction',row:1,column:1,hint:''},
  {id:'planning',row:1,column:2,hint:''},

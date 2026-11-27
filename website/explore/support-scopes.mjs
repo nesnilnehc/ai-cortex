@@ -1,7 +1,7 @@
-import records from './support-scopes.json?v=manage-secret-1-2-1-20261126' with {type:'json'};
-import {dictionary,locale as currentLocale} from './locale.mjs?v=manage-secret-1-2-1-20261126';
-import en from './locales/en.json?v=manage-secret-1-2-1-20261126' with {type:'json'};
-import zh from './locales/zh.json?v=manage-secret-1-2-1-20261126' with {type:'json'};
+import records from './support-scopes.json?v=upgrade-dependencies-1-0-0-20261127' with {type:'json'};
+import {dictionary,locale as currentLocale} from './locale.mjs?v=upgrade-dependencies-1-0-0-20261127';
+import en from './locales/en.json?v=upgrade-dependencies-1-0-0-20261127' with {type:'json'};
+import zh from './locales/zh.json?v=upgrade-dependencies-1-0-0-20261127' with {type:'json'};
 export function validateSupportScopes(items){
  if(!Array.isArray(items)||items.length!==2||new Set(items.map(i=>i.providerTopicId)).size!==2)throw Error('Missing support providers');
  const seen=new Set(),topics=new Set(Object.keys(dictionary.topics));

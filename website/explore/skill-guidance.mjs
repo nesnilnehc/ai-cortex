@@ -1,3 +1,3 @@
-export {getSkillGuidance} from './locale.mjs?v=manage-secret-1-2-1-20261126';
-import metadata from './skill-metadata.json?v=manage-secret-1-2-1-20261126' with {type:'json'};
+export {getSkillGuidance} from './locale.mjs?v=upgrade-dependencies-1-0-0-20261127';
+import metadata from './skill-metadata.json?v=upgrade-dependencies-1-0-0-20261127' with {type:'json'};
 export const guidanceIds=Object.freeze(Object.keys(metadata.skills));

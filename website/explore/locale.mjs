@@ -1,6 +1,6 @@
-import en from './locales/en.json?v=manage-secret-1-2-1-20261126' with {type:'json'};
-import zh from './locales/zh.json?v=manage-secret-1-2-1-20261126' with {type:'json'};
-import metadata from './skill-metadata.json?v=manage-secret-1-2-1-20261126' with {type:'json'};
+import en from './locales/en.json?v=upgrade-dependencies-1-0-0-20261127' with {type:'json'};
+import zh from './locales/zh.json?v=upgrade-dependencies-1-0-0-20261127' with {type:'json'};
+import metadata from './skill-metadata.json?v=upgrade-dependencies-1-0-0-20261127' with {type:'json'};
 const dictionaries={en,zh};
 export const locale=globalThis.document?.documentElement.lang==='en'?'en':'zh';
 function select(language){if(!Object.hasOwn(dictionaries,language))throw Error(`Unknown locale: ${language}`);return dictionaries[language];}

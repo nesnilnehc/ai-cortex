@@ -1,7 +1,7 @@
-import {initializeNavigation} from './site-navigation.mjs?v=manage-secret-1-2-1-20261126';
-import { initializeTheme } from './theme.mjs?v=manage-secret-1-2-1-20261126';
-import { initializeLanguage } from './language.mjs?v=manage-secret-1-2-1-20261126';
-import { bindCopyButton } from './copy.mjs?v=manage-secret-1-2-1-20261126';
+import {initializeNavigation} from './site-navigation.mjs?v=upgrade-dependencies-1-0-0-20261127';
+import { initializeTheme } from './theme.mjs?v=upgrade-dependencies-1-0-0-20261127';
+import { initializeLanguage } from './language.mjs?v=upgrade-dependencies-1-0-0-20261127';
+import { bindCopyButton } from './copy.mjs?v=upgrade-dependencies-1-0-0-20261127';
 
 initializeLanguage(window, document.documentElement.lang === 'zh-CN' ? 'zh' : 'en');
 
@@ -17,4 +17,4 @@ bindCopyButton(
 
 initializeNavigation(window,document);
 
-import './explore/explorer-host.mjs?v=manage-secret-1-2-1-20261126';
+import './explore/explorer-host.mjs?v=upgrade-dependencies-1-0-0-20261127';
